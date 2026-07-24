@@ -69,6 +69,34 @@ WITHDRAWAL_FEE_USDT: dict[str, dict[str, float]] = {
         "BNB": 0.21,
         "XRP": 0.28,
     },
+    "coinbase": {
+        "BTC": 5.5,
+        "ETH": 1.8,
+        "SOL": 0.20,
+        "BNB": 0.25,
+        "XRP": 0.35,
+    },
+    "kraken": {
+        "BTC": 5.0,
+        "ETH": 1.6,
+        "SOL": 0.18,
+        "BNB": 0.24,
+        "XRP": 0.32,
+    },
+    "kucoin": {
+        "BTC": 5.2,
+        "ETH": 1.4,
+        "SOL": 0.17,
+        "BNB": 0.22,
+        "XRP": 0.30,
+    },
+    "gateio": {
+        "BTC": 4.9,
+        "ETH": 1.35,
+        "SOL": 0.17,
+        "BNB": 0.21,
+        "XRP": 0.29,
+    },
 }
 
 
@@ -445,7 +473,7 @@ def calculate_cross_exchange_arbitrage(
     market_context: dict[str, Any] | None = None,
 ) -> list[CrossExchangeOpportunity]:
     """
-    Compare the same asset across Binance, OKX, and Bybit.
+    Compare the same asset across all enabled exchanges (7 venues).
 
     Detects paths where the lowest ask on one venue is below the highest bid
     on another, then depth-walks both books to compute net-of-cost profit.
@@ -1212,6 +1240,21 @@ class ArbitrageEngine:
             logger.exception(
                 "Macro regime load failed; continuing without macro context."
             )
+
+        try:
+            from oracle_data_hub import build_hub_context_safe, merge_hub_context
+
+            hub_context = await build_hub_context_safe("BTC")
+            market_context = merge_hub_context(market_context, hub_context)
+            if hub_context.get("enabled"):
+                logger.info(
+                    "Oracle data hub loaded | pillars=%d fg=%s geo=%s",
+                    len(hub_context.get("pillars") or []),
+                    (hub_context.get("sentiment") or {}).get("fear_greed_index"),
+                    (hub_context.get("geo_news") or {}).get("geopolitical_headline_count"),
+                )
+        except Exception:
+            logger.exception("Oracle data hub load failed; continuing without hub context.")
 
         if obi_context.get("obi_warnings"):
             logger.info(

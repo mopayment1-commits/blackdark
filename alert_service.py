@@ -107,15 +107,18 @@ async def dispatch_alert(
     return results
 
 
-async def subscribe_alerts(data: dict[str, Any]) -> dict[str, Any]:
-    from database import insert_alert_subscription
+async def subscribe_alerts(data: dict[str, Any], *, user_email: str | None = None) -> dict[str, Any]:
+    from database import insert_alert_subscription, update_user_telegram_chat_id
 
-    email = (data.get("email") or "").strip().lower() or None
+    email = (data.get("email") or user_email or "").strip().lower() or None
     telegram_chat_id = (data.get("telegram_chat_id") or "").strip() or None
     whatsapp_phone = (data.get("whatsapp_phone") or "").strip() or None
 
     if not any([email, telegram_chat_id, whatsapp_phone]):
         raise ValueError("Provide at least one contact: email, telegram_chat_id, or whatsapp_phone")
+
+    if user_email and telegram_chat_id:
+        await update_user_telegram_chat_id(user_email, telegram_chat_id)
 
     sub_id = await insert_alert_subscription(
         email=email,

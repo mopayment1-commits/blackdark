@@ -78,7 +78,9 @@ def tracked_asset_list() -> list[str]:
 
 
 # Exchanges with implemented REST fetchers in aggregator.py
-INGESTION_READY_EXCHANGES: frozenset[str] = frozenset({"binance", "okx", "bybit"})
+INGESTION_READY_EXCHANGES: frozenset[str] = frozenset(
+    {"binance", "okx", "bybit", "coinbase", "kraken", "kucoin", "gateio"}
+)
 
 # ── Dynamic liquidity discovery ────────────────────────────────────────────
 LIQUIDITY_QUOTE_CURRENCIES = ("USDT", "USDC")
@@ -157,6 +159,26 @@ EXCHANGES = {
         "options": {"defaultType": "spot"},
     },
     "bybit": {
+        "enabled": True,
+        "rate_limit": True,
+        "options": {"defaultType": "spot"},
+    },
+    "coinbase": {
+        "enabled": True,
+        "rate_limit": True,
+        "options": {"defaultType": "spot"},
+    },
+    "kraken": {
+        "enabled": True,
+        "rate_limit": True,
+        "options": {"defaultType": "spot"},
+    },
+    "kucoin": {
+        "enabled": True,
+        "rate_limit": True,
+        "options": {"defaultType": "spot"},
+    },
+    "gateio": {
         "enabled": True,
         "rate_limit": True,
         "options": {"defaultType": "spot"},
@@ -365,6 +387,12 @@ CLOUD_SYNC_ALLOW_IAM_ROLE = os.getenv("CLOUD_SYNC_ALLOW_IAM_ROLE", "false").lowe
     "true",
     "yes",
 }
+CLOUD_SYNC_INTERVAL_HOURS = int(os.getenv("CLOUD_SYNC_INTERVAL_HOURS", "6"))
+ORACLE_RETRAIN_ENABLED = os.getenv("ORACLE_RETRAIN_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
 
 # ── Order Book Imbalance & Flash Crash Predictor (Point 41) ─────────────────
 OBI_DEPTH_LEVELS = int(os.getenv("OBI_DEPTH_LEVELS", "10"))
@@ -453,3 +481,44 @@ MACRO_YAHOO_DXY_SYMBOL = os.getenv("MACRO_YAHOO_DXY_SYMBOL", "DX-Y.NYB")
 MACRO_YAHOO_SPX_SYMBOL = os.getenv("MACRO_YAHOO_SPX_SYMBOL", "^GSPC")
 MACRO_YAHOO_BTC_SYMBOL = os.getenv("MACRO_YAHOO_BTC_SYMBOL", "BTC-USD")
 MACRO_YAHOO_GOLD_SYMBOL = os.getenv("MACRO_YAHOO_GOLD_SYMBOL", "GC=F")
+
+# ── Oracle Data Hub (free intelligence mesh) ────────────────────────────────
+ORACLE_DATA_HUB_ENABLED = os.getenv("ORACLE_DATA_HUB_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+ORACLE_HUB_CACHE_SECONDS = int(os.getenv("ORACLE_HUB_CACHE_SECONDS", "90"))
+ORACLE_HUB_FETCH_TIMEOUT_SECONDS = int(os.getenv("ORACLE_HUB_FETCH_TIMEOUT_SECONDS", "15"))
+ORACLE_MACRO_VIX_SYMBOL = os.getenv("ORACLE_MACRO_VIX_SYMBOL", "^VIX")
+ORACLE_MACRO_US10Y_SYMBOL = os.getenv("ORACLE_MACRO_US10Y_SYMBOL", "^TNX")
+ORACLE_MACRO_NASDAQ_SYMBOL = os.getenv("ORACLE_MACRO_NASDAQ_SYMBOL", "^IXIC")
+ORACLE_MACRO_OIL_SYMBOL = os.getenv("ORACLE_MACRO_OIL_SYMBOL", "CL=F")
+ORACLE_GEO_NEWS_RSS_FEEDS = [
+    feed.strip()
+    for feed in os.getenv(
+        "ORACLE_GEO_NEWS_RSS_FEEDS",
+        "https://feeds.bbci.co.uk/news/world/rss.xml,"
+        "https://feeds.bbci.co.uk/news/business/rss.xml,"
+        "https://www.aljazeera.com/xml/rss/all.xml,"
+        "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114,"
+        "https://feeds.marketwatch.com/marketwatch/topstories/",
+    ).split(",")
+    if feed.strip()
+]
+ORACLE_FREE_LLM_CHAIN = os.getenv("ORACLE_FREE_LLM_CHAIN", "groq,gemini,openrouter,ollama")
+
+# ── Data Ingestion Architecture (Scheduler → Lake → Oracle) ─────────────────
+INGESTION_ENABLED = os.getenv("INGESTION_ENABLED", "true").lower() in {"1", "true", "yes"}
+INGESTION_BOOTSTRAP_ON_START = os.getenv("INGESTION_BOOTSTRAP_ON_START", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+INGESTION_FETCH_TIMEOUT_SECONDS = int(os.getenv("INGESTION_FETCH_TIMEOUT_SECONDS", "20"))
+INGESTION_LAKE_MAX_AGE_SECONDS = int(os.getenv("INGESTION_LAKE_MAX_AGE_SECONDS", "600"))
+INGESTION_LAKE_MAX_ROWS = int(os.getenv("INGESTION_LAKE_MAX_ROWS", "50000"))
+INGESTION_MAINTENANCE_INTERVAL_SECONDS = int(
+    os.getenv("INGESTION_MAINTENANCE_INTERVAL_SECONDS", "3600")
+)
+BINANCE_WS_ENABLED = os.getenv("BINANCE_WS_ENABLED", "true").lower() in {"1", "true", "yes"}

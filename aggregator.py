@@ -2,7 +2,7 @@
 BLACKDARK — Live Data Ingestion Layer (Phase 1: Points 1, 2, 7, & 33).
 
 Polls spot USDT pairs, triangular cross-pairs, linear perpetual futures, and
-funding rates across Binance, OKX, and Bybit every POLL_INTERVAL_SECONDS.
+funding rates across Binance, OKX, Bybit, Coinbase, Kraken, KuCoin, and Gate.io.
 """
 
 from __future__ import annotations
@@ -18,6 +18,7 @@ import aiohttp
 from pydantic import BaseModel, Field, field_validator
 
 import config
+from exchange_adapters import SPOT_ONLY_EXCHANGES, native_symbol
 from hot_storage import (
     enqueue_funding_snapshot,
     enqueue_market_snapshot,
@@ -88,6 +89,46 @@ EXCHANGE_ENDPOINTS: dict[str, dict[str, Any]] = {
             "category": "linear",
         },
     },
+    "coinbase": {
+        "spot": {
+            "base_url": "https://api.exchange.coinbase.com",
+            "ticker_path": "/products/{product}/ticker",
+            "depth_path": "/products/{product}/book",
+        },
+    },
+    "kraken": {
+        "spot": {
+            "base_url": "https://api.kraken.com",
+            "ticker_path": "/0/public/Ticker",
+            "depth_path": "/0/public/Depth",
+        },
+    },
+    "kucoin": {
+        "spot": {
+            "base_url": "https://api.kucoin.com",
+            "ticker_path": "/api/v1/market/stats",
+            "depth_path": "/api/v1/market/orderbook/level2_20",
+        },
+        "perpetual": {
+            "base_url": "https://api-futures.kucoin.com",
+            "ticker_path": "/api/v1/ticker",
+            "depth_path": "/api/v1/level2/snapshot",
+            "funding_path": "/api/v1/funding-rate/{symbol}/current",
+        },
+    },
+    "gateio": {
+        "spot": {
+            "base_url": "https://api.gateio.ws",
+            "ticker_path": "/api/v4/spot/tickers",
+            "depth_path": "/api/v4/spot/order_book",
+        },
+        "perpetual": {
+            "base_url": "https://api.gateio.ws",
+            "ticker_path": "/api/v4/futures/usdt/tickers",
+            "depth_path": "/api/v4/futures/usdt/order_book",
+            "funding_path": "/api/v4/futures/usdt/funding_rate",
+        },
+    },
 }
 
 
@@ -134,7 +175,16 @@ def _utcnow_iso() -> str:
 def _parse_levels(raw_levels: list[Any]) -> list[list[float]]:
     parsed: list[list[float]] = []
     for level in raw_levels:
-        if not level or len(level) < 2:
+        if not level:
+            continue
+        if isinstance(level, dict):
+            price = level.get("p") or level.get("price")
+            size = level.get("s") or level.get("size") or level.get("amount")
+            if price is None or size is None:
+                continue
+            parsed.append([float(price), float(size)])
+            continue
+        if len(level) < 2:
             continue
         parsed.append([float(level[0]), float(level[1])])
     return parsed
@@ -145,15 +195,7 @@ def _to_native_symbol(
     symbol: str,
     market_type: MarketType,
 ) -> str:
-    base, quote = symbol.split("/")
-    if market_type == "perpetual":
-        if exchange_id == "okx":
-            return f"{base}-{quote}-SWAP"
-        return f"{base}{quote}"
-
-    if exchange_id == "okx":
-        return f"{base}-{quote}"
-    return f"{base}{quote}"
+    return native_symbol(exchange_id, symbol, market_type)
 
 
 def _market_type_for_symbol(
@@ -310,10 +352,203 @@ async def _fetch_bybit_market(
     )
 
 
+async def _fetch_coinbase_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    product = _to_native_symbol("coinbase", symbol, market_type)
+    endpoints = EXCHANGE_ENDPOINTS["coinbase"]["spot"]
+    ticker_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['ticker_path'].format(product=product)}",
+    )
+    depth_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['depth_path'].format(product=product)}",
+        {"level": 2},
+    )
+    return (
+        TickerSnapshot(
+            exchange="coinbase",
+            symbol=symbol,
+            price=float(ticker_payload["price"]),
+            volume=float(ticker_payload.get("volume") or 0),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="coinbase",
+            symbol=symbol,
+            bids=_parse_levels(depth_payload.get("bids", [])),
+            asks=_parse_levels(depth_payload.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
+async def _fetch_kraken_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    pair = _to_native_symbol("kraken", symbol, market_type)
+    endpoints = EXCHANGE_ENDPOINTS["kraken"]["spot"]
+    ticker_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['ticker_path']}",
+        {"pair": pair},
+    )
+    depth_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['depth_path']}",
+        {"pair": pair, "count": config.ORDER_BOOK_DEPTH},
+    )
+    ticker_row = next(iter((ticker_payload.get("result") or {}).values()))
+    depth_row = next(iter((depth_payload.get("result") or {}).values()))
+    return (
+        TickerSnapshot(
+            exchange="kraken",
+            symbol=symbol,
+            price=float(ticker_row["c"][0]),
+            volume=float(ticker_row.get("v", [0, 0])[1]),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="kraken",
+            symbol=symbol,
+            bids=_parse_levels(depth_row.get("bids", [])),
+            asks=_parse_levels(depth_row.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
+async def _fetch_kucoin_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    native = _to_native_symbol("kucoin", symbol, market_type)
+    endpoints = (
+        EXCHANGE_ENDPOINTS["kucoin"]["perpetual"]
+        if market_type == "perpetual"
+        else EXCHANGE_ENDPOINTS["kucoin"]["spot"]
+    )
+
+    if market_type == "perpetual":
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"symbol": native},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"symbol": native},
+        )
+        ticker_row = ticker_payload.get("data") or {}
+        depth_row = depth_payload.get("data") or {}
+    else:
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"symbol": native},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"symbol": native},
+        )
+        ticker_row = ticker_payload.get("data") or {}
+        depth_row = depth_payload.get("data") or {}
+
+    return (
+        TickerSnapshot(
+            exchange="kucoin",
+            symbol=symbol,
+            price=float(ticker_row.get("last") or ticker_row.get("price") or 0),
+            volume=float(ticker_row.get("vol") or ticker_row.get("volume") or 0),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="kucoin",
+            symbol=symbol,
+            bids=_parse_levels(depth_row.get("bids", [])),
+            asks=_parse_levels(depth_row.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
+async def _fetch_gateio_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    native = _to_native_symbol("gateio", symbol, market_type)
+    endpoints = (
+        EXCHANGE_ENDPOINTS["gateio"]["perpetual"]
+        if market_type == "perpetual"
+        else EXCHANGE_ENDPOINTS["gateio"]["spot"]
+    )
+
+    if market_type == "perpetual":
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"contract": native},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"contract": native, "limit": config.ORDER_BOOK_DEPTH},
+        )
+        if isinstance(ticker_payload, list):
+            ticker_row = next(
+                (row for row in ticker_payload if str(row.get("contract") or "") == native),
+                ticker_payload[0] if ticker_payload else {},
+            )
+        else:
+            ticker_row = ticker_payload or {}
+    else:
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"currency_pair": native},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"currency_pair": native, "limit": config.ORDER_BOOK_DEPTH},
+        )
+        ticker_row = (ticker_payload or [{}])[0] if isinstance(ticker_payload, list) else ticker_payload
+
+    return (
+        TickerSnapshot(
+            exchange="gateio",
+            symbol=symbol,
+            price=float(ticker_row.get("last") or 0),
+            volume=float(ticker_row.get("base_volume") or ticker_row.get("volume_24h") or 0),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="gateio",
+            symbol=symbol,
+            bids=_parse_levels(depth_payload.get("bids", [])),
+            asks=_parse_levels(depth_payload.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
 MARKET_FETCHERS = {
     "binance": _fetch_binance_market,
     "okx": _fetch_okx_market,
     "bybit": _fetch_bybit_market,
+    "coinbase": _fetch_coinbase_market,
+    "kraken": _fetch_kraken_market,
+    "kucoin": _fetch_kucoin_market,
+    "gateio": _fetch_gateio_market,
 }
 
 
@@ -377,10 +612,49 @@ async def _fetch_bybit_funding(
     )
 
 
+async def _fetch_kucoin_funding(
+    session: aiohttp.ClientSession,
+    symbol: str,
+) -> FundingSnapshot:
+    native = _to_native_symbol("kucoin", symbol, "perpetual")
+    endpoints = EXCHANGE_ENDPOINTS["kucoin"]["perpetual"]
+    path = endpoints["funding_path"].format(symbol=native)
+    payload = await _fetch_json(session, f"{endpoints['base_url']}{path}")
+    row = payload.get("data") or {}
+    return FundingSnapshot(
+        exchange="kucoin",
+        symbol=symbol,
+        funding_rate=float(row.get("value") or row.get("fundingRate") or 0),
+        next_funding_time=str(row.get("fundingTime") or row.get("timePoint") or "") or None,
+    )
+
+
+async def _fetch_gateio_funding(
+    session: aiohttp.ClientSession,
+    symbol: str,
+) -> FundingSnapshot:
+    native = _to_native_symbol("gateio", symbol, "perpetual")
+    endpoints = EXCHANGE_ENDPOINTS["gateio"]["perpetual"]
+    payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['funding_path']}",
+        {"contract": native},
+    )
+    row = (payload or [{}])[0] if isinstance(payload, list) else payload
+    return FundingSnapshot(
+        exchange="gateio",
+        symbol=symbol,
+        funding_rate=float(row.get("r") or 0),
+        next_funding_time=str(row.get("t")) if row.get("t") else None,
+    )
+
+
 FUNDING_FETCHERS = {
     "binance": _fetch_binance_funding,
     "okx": _fetch_okx_funding,
     "bybit": _fetch_bybit_funding,
+    "kucoin": _fetch_kucoin_funding,
+    "gateio": _fetch_gateio_funding,
 }
 
 
@@ -454,10 +728,13 @@ async def _poll_exchange(
         labels.append(f"{symbol}:{market_type}")
 
     for symbol in perp_symbols:
+        if exchange_id in SPOT_ONLY_EXCHANGES:
+            continue
         tasks.append(_poll_market_symbol(session, exchange_id, symbol, "perpetual"))
         labels.append(f"{symbol}:perpetual")
-        tasks.append(_poll_funding_symbol(session, exchange_id, symbol))
-        labels.append(f"{symbol}:funding")
+        if exchange_id in FUNDING_FETCHERS:
+            tasks.append(_poll_funding_symbol(session, exchange_id, symbol))
+            labels.append(f"{symbol}:funding")
 
     results = await asyncio.gather(*tasks, return_exceptions=True)
 

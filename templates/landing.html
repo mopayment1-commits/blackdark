@@ -94,6 +94,28 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 40px rgba(34, 211, 238, 0.3);
         }
+
+        .landing-stats {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 5.5rem auto 0;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            background: rgba(17, 17, 24, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .landing-stats strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
         
         .hero {
             min-height: 100vh;
@@ -543,6 +565,13 @@
             <a href="/login" class="nav-cta">Start Free Trial</a>
         </div>
     </nav>
+
+    <div class="landing-stats" id="landingStats">
+        <span>Visitors: <strong id="landingViews">—</strong></span>
+        <span>Users: <strong id="landingUsers">—</strong></span>
+        <span>Subscribers: <strong id="landingSubs">—</strong></span>
+        <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+    </div>
     
     <section class="hero">
         <div class="hero-content">
@@ -893,8 +922,33 @@
             }
         }
         
+        async function loadLandingAnalytics() {
+            try {
+                await fetch('/api/analytics/view', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ page: 'landing' })
+                });
+                const [analyticsRes, usersRes] = await Promise.all([
+                    fetch('/api/analytics/stats'),
+                    fetch('/api/platform/stats'),
+                ]);
+                const analytics = await analyticsRes.json();
+                const users = await usersRes.json();
+                document.getElementById('landingViews').textContent =
+                    (analytics.landing_views || 0).toLocaleString();
+                document.getElementById('landingUsers').textContent =
+                    (users.registered_users || 0).toLocaleString();
+                document.getElementById('landingSubs').textContent =
+                    (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString();
+                document.getElementById('landingWaitlist').textContent =
+                    (analytics.waitlist_count || 0).toLocaleString();
+            } catch (e) {}
+        }
+
         window.addEventListener('load', () => {
             updateShareLinks(null);
+            loadLandingAnalytics();
             setTimeout(consultOracle, 500);
         });
     </script>

@@ -1,12 +1,13 @@
 """
-BLACKDARK — Weekly AI Intelligence Report (Wave 6 / Excel).
+BLACKDARK — Weekly AI Intelligence Report (Priority 5).
 
-Aggregates oracle accuracy, arbitrage activity, whale flows, sentiment,
-and economic moat into a B2B-ready weekly snapshot.
+Aggregates oracle, arbitrage, whale, moat, forecast audit, and platform stats.
+Persisted to SQLite for B2B / institutional snapshots.
 """
 
 from __future__ import annotations
 
+import json
 from datetime import datetime, timezone
 from typing import Any
 
@@ -15,31 +16,43 @@ def _utcnow_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-async def build_weekly_report() -> dict[str, Any]:
+async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
     from arbitrage_catalog import scan_arbitrage_catalog
     from database import (
         fetch_arbitrage_alert_log,
+        fetch_forecast_audit_stats,
         fetch_oracle_audit_stats,
         fetch_platform_analytics,
+        fetch_platform_user_stats,
         fetch_simulation_logs,
+        insert_weekly_report,
     )
     from research_lab import compute_economic_moat
     from whale_tracker import get_latest_institutional_context
 
     moat = await compute_economic_moat()
     audit = await fetch_oracle_audit_stats(limit=100)
+    forecast_audit = await fetch_forecast_audit_stats(limit=50)
     institutional = await get_latest_institutional_context()
     catalog = await scan_arbitrage_catalog()
     alerts = await fetch_arbitrage_alert_log(limit=50)
     sims = await fetch_simulation_logs(limit=20)
     analytics = await fetch_platform_analytics()
+    users = await fetch_platform_user_stats()
 
     whale_alerts = institutional.get("whale_alerts") or []
     sectors = institutional.get("sector_flows") or []
 
-    highlights = []
+    highlights: list[str] = []
     if float(audit.get("average_accuracy_percent") or 0) >= 55:
-        highlights.append(f"Oracle accuracy at {audit.get('average_accuracy_percent')}% — above baseline.")
+        highlights.append(
+            f"Oracle accuracy at {audit.get('average_accuracy_percent')}% — above baseline."
+        )
+    if float(forecast_audit.get("average_accuracy_percent") or 0) > 0:
+        highlights.append(
+            f"Forecast engine audit: {forecast_audit.get('average_accuracy_percent')}% "
+            f"({forecast_audit.get('resolved_forecasts')} resolved)."
+        )
     if catalog.get("active_live_types", 0) > 0:
         highlights.append(
             f"{catalog['active_live_types']} live arbitrage types active from 77-type catalog."
@@ -48,15 +61,18 @@ async def build_weekly_report() -> dict[str, Any]:
         highlights.append(f"{len(whale_alerts)} CVVD whale alerts detected this cycle.")
     if moat.get("moat_score", 0) >= 60:
         highlights.append(f"Economic moat score {moat['moat_score']}/100 — strong data depth.")
+    if users.get("paid_subscribers", 0) > 0:
+        highlights.append(f"{users['paid_subscribers']} paid subscribers on platform.")
 
     narrative = (
         f"BLACKDARK Weekly Report — Moat {moat.get('moat_score')}/100, "
         f"Oracle {audit.get('average_accuracy_percent')}% accuracy, "
-        f"{catalog.get('active_live_types', 0) + catalog.get('active_proxy_types', 0)}/77 arb types active, "
-        f"{len(whale_alerts)} whale signals, {len(alerts)} arb alerts logged."
+        f"Forecast {forecast_audit.get('average_accuracy_percent')}% audit, "
+        f"{catalog.get('active_live_types', 0) + catalog.get('active_proxy_types', 0)}/77 arb types, "
+        f"{len(whale_alerts)} whale signals, {users.get('registered_users', 0)} users."
     )
 
-    return {
+    report: dict[str, Any] = {
         "report_type": "weekly_intelligence",
         "generated_at": _utcnow_iso(),
         "narrative": narrative,
@@ -72,6 +88,7 @@ async def build_weekly_report() -> dict[str, Any]:
             "average_accuracy_percent": audit.get("average_accuracy_percent"),
             "recent": (audit.get("recent") or [])[:5],
         },
+        "forecast_performance": forecast_audit,
         "arbitrage_summary": {
             "catalog_total": 77,
             "active_live": catalog.get("active_live_types"),
@@ -84,6 +101,44 @@ async def build_weekly_report() -> dict[str, Any]:
             "sector_flows": len(sectors),
             "top_sectors": [s.get("sector") for s in sectors[:3]],
         },
+        "platform": users,
         "simulations_run": len(sims),
         "platform_analytics": analytics,
+        "b2b_ready": True,
+        "export_formats": ["json", "markdown"],
     }
+
+    if persist:
+        report_id = await insert_weekly_report(narrative, report)
+        report["report_id"] = report_id
+
+    return report
+
+
+def report_to_markdown(report: dict[str, Any]) -> str:
+    lines = [
+        "# BLACKDARK Weekly Intelligence Report",
+        "",
+        f"Generated: {report.get('generated_at', '')}",
+        "",
+        report.get("narrative", ""),
+        "",
+        "## Highlights",
+    ]
+    for item in report.get("highlights") or []:
+        lines.append(f"- {item}")
+    lines.extend(
+        [
+            "",
+            "## Oracle",
+            f"- Accuracy: {report.get('oracle_performance', {}).get('average_accuracy_percent')}%",
+            f"- Predictions: {report.get('oracle_performance', {}).get('total_predictions')}",
+            "",
+            "## Economic Moat",
+            f"- Score: {report.get('economic_moat', {}).get('score')}/100",
+            "",
+            "---",
+            "BLACKDARK — Not financial advice.",
+        ]
+    )
+    return "\n".join(lines)

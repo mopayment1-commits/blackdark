@@ -673,6 +673,58 @@
         .profit-stat .label { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.25rem; }
         .profit-stat .value { font-size: 1.25rem; font-weight: 800; color: var(--accent); }
 
+        .ingest-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .ingest-stat {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        .ingest-stat .num { font-size: 1.4rem; font-weight: 800; }
+        .ingest-stat .lbl { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.2rem; }
+        .health-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+        .health-table th, .health-table td {
+            padding: 0.45rem 0.6rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .health-badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .health-ok { background: rgba(34,197,94,0.15); color: var(--success); }
+        .forecast-box {
+            margin-top: 0.85rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: 10px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+        .forecast-horizon {
+            padding: 0.65rem 0.75rem;
+            border-radius: 10px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+        }
+        .forecast-horizon .dir-up { color: var(--success); }
+        .forecast-horizon .dir-down { color: var(--danger); }
+        .forecast-horizon .dir-neutral { color: var(--text-muted); }
+        .health-key { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .health-err { background: rgba(239,68,68,0.15); color: var(--danger); }
+        .health-pending { background: rgba(113,113,122,0.15); color: var(--text-muted); }
+
         .gravity-map {
             display: flex;
             flex-wrap: wrap;
@@ -890,7 +942,7 @@
                 <a href="/" class="hide-mobile">Home</a>
                 <span id="userTier" style="font-size:0.75rem;color:var(--text-muted)"></span>
                 <a href="/login" id="authLink" class="hide-mobile">Login</a>
-                <a href="/create-checkout-session?tier=pro" class="btn-upgrade">Pro $29/mo</a>
+                <a href="#" id="upgradeBtn" class="btn-upgrade" onclick="upgradeTier('pro');return false;">Pro $29/mo</a>
             </div>
         </div>
     </nav>
@@ -1009,6 +1061,41 @@
             </div>
         </section>
 
+        <section class="section" id="ingestionHealth">
+            <div class="section-head">
+                <div>
+                    <h2>Data Ingestion Health</h2>
+                    <p class="sub">72 sources · 7 exchanges · scheduler → data lake → oracle</p>
+                </div>
+                <button class="btn-secondary" onclick="loadIngestionHealth()">Refresh</button>
+            </div>
+            <div id="ingestionHealthPanel">
+                <div class="loading">Loading ingestion status...</div>
+            </div>
+        </section>
+
+        <section class="section" id="forecastPanel">
+            <div class="section-head">
+                <div>
+                    <h2>Price Forecast Engine</h2>
+                    <p class="sub">EMA + linear trend · 1h / 4h / 24h · blended into oracle confidence</p>
+                </div>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center">
+                    <select id="forecastSymbol" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.6rem">
+                        <option value="BTC">BTC</option>
+                        <option value="ETH">ETH</option>
+                        <option value="SOL">SOL</option>
+                        <option value="BNB">BNB</option>
+                        <option value="XRP">XRP</option>
+                    </select>
+                    <button class="btn-secondary" onclick="loadForecastPanel()">Refresh</button>
+                </div>
+            </div>
+            <div id="forecastHealthPanel">
+                <div class="loading">Loading forecast...</div>
+            </div>
+        </section>
+
         <section class="section">
             <div class="section-head">
                 <div>
@@ -1044,7 +1131,7 @@
             <div class="section-head">
                 <div>
                     <h2>Arbitrage Engine</h2>
-                    <p class="sub">Cross-exchange · Triangular · Spot/Futures · Funding — net profit after fees</p>
+                    <p class="sub">7 exchanges · Cross · Triangular · Spot/Futures · Funding</p>
                 </div>
                 <button class="btn-secondary" onclick="refreshArbitrage()">Live Scan</button>
             </div>
@@ -1107,15 +1194,41 @@
             </div>
         </section>
 
+        <section class="section" id="b2bDemo">
+            <div class="section-head">
+                <div>
+                    <h2>B2B Institutional Feed</h2>
+                    <p class="sub">CVVD + SII signed JSON — demo for hedge funds & prop desks</p>
+                </div>
+                <a href="/b2b" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center">Full One-Pager</a>
+            </div>
+            <div id="b2bDemoPanel" class="tool-panel arb-meta">Loading B2B demo feed...</div>
+        </section>
+
+        <section class="section" id="dbHealth">
+            <div class="section-head">
+                <div>
+                    <h2>Database Health</h2>
+                    <p class="sub">SQLite telemetry · retention · PostgreSQL/Timescale readiness</p>
+                </div>
+                <button class="btn-secondary" onclick="runDbMaintenance()">Run Maintenance</button>
+            </div>
+            <div id="dbHealthPanel"><div class="loading">Loading database health...</div></div>
+        </section>
+
         <section class="section">
             <div class="section-head">
                 <div>
                     <h2>Weekly AI Report</h2>
-                    <p class="sub">Institutional snapshot — oracle · arbitrage · whale · moat</p>
+                    <p class="sub">Institutional snapshot — oracle · arbitrage · whale · moat · B2B export</p>
                 </div>
-                <button class="btn-secondary" onclick="loadWeeklyReport()">Generate</button>
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+                    <button class="btn-secondary" onclick="loadWeeklyReport()">Generate</button>
+                    <a href="/api/reports/weekly/markdown" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center" target="_blank">Markdown</a>
+                </div>
             </div>
             <div id="weeklyReport" class="tool-panel arb-meta">Click Generate for this week's intelligence report</div>
+            <div id="weeklyHistory" class="arb-meta" style="margin-top:0.75rem"></div>
         </section>
 
         <section class="section">
@@ -1151,6 +1264,19 @@
                     <button class="btn-primary" onclick="runSimulation()">Simulate Trade</button>
                 </div>
                 <div id="simResult" class="arb-meta">Enter amount and click Simulate — shows bull / base / bear outcomes</div>
+            </div>
+        </section>
+
+        <section class="section" id="accountBilling">
+            <div class="section-head">
+                <div>
+                    <h2>Account & Billing</h2>
+                    <p class="sub">Users · Stripe subscriptions · Telegram alerts</p>
+                </div>
+                <button class="btn-secondary" onclick="loadBillingPanel()">Refresh</button>
+            </div>
+            <div id="billingPanel">
+                <div class="loading">Loading account...</div>
             </div>
         </section>
 
@@ -1203,6 +1329,7 @@
                         <button class="btn-secondary" onclick="testAlerts()">Test All</button>
                     </div>
                     <div id="telegramStatus" class="arb-meta" style="margin-top:0.5rem">Checking Telegram...</div>
+                    <p class="arb-meta" style="margin-top:0.35rem;font-size:0.78rem">Get chat ID: message your bot <code>/start</code> (set TELEGRAM_WEBHOOK_URL → /api/telegram/webhook)</p>
                     <div id="alertMsg" class="arb-meta"></div>
                 </div>
                 <div class="tool-panel">
@@ -1214,6 +1341,12 @@
                         <button class="btn-secondary" onclick="dryRunOrder()">Dry-Run</button>
                     </div>
                     <div id="execStatus" class="arb-meta">Loading execution status...</div>
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.65rem;align-items:center">
+                        <label style="font-size:0.82rem;color:var(--text-muted)">
+                            <input type="checkbox" id="autoExecToggle" onchange="toggleAutoExec()"> Auto-execute profitable arb (dry-run unless live)
+                        </label>
+                        <button class="btn-secondary" onclick="runAutoExecCycle()">Run Cycle Now</button>
+                    </div>
                     <div id="execResult" class="arb-meta" style="margin-top:0.5rem"></div>
                 </div>
             </div>
@@ -1407,8 +1540,105 @@
                         }
                     }
                     loadJournal();
+                    loadBillingPanel();
+                    const profile = d.profile || {};
+                    const alertEmail = document.getElementById('alertEmail');
+                    const alertTelegram = document.getElementById('alertTelegram');
+                    if (alertEmail && d.user.email) alertEmail.value = d.user.email;
+                    if (alertTelegram && (profile.telegram_chat_id || d.user.telegram_chat_id)) {
+                        alertTelegram.value = profile.telegram_chat_id || d.user.telegram_chat_id;
+                    }
                 }
             } catch (e) {}
+        }
+
+        async function upgradeTier(tier) {
+            try {
+                const res = await fetch('/api/billing/checkout', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ tier: tier || 'pro' }),
+                });
+                const d = await res.json();
+                if (d.url) {
+                    window.location.href = d.url;
+                    return;
+                }
+                throw new Error(d.detail || 'Checkout unavailable');
+            } catch (e) {
+                window.location.href = '/create-checkout-session?tier=' + (tier || 'pro');
+            }
+        }
+
+        async function openBillingPortal() {
+            try {
+                const res = await fetch('/api/billing/portal', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                });
+                const d = await res.json();
+                if (d.url) window.location.href = d.url;
+                else alert(d.detail || 'Billing portal unavailable');
+            } catch (e) {
+                alert('Login and subscribe first to manage billing.');
+            }
+        }
+
+        async function saveTelegramProfile() {
+            const chatId = document.getElementById('alertTelegram')?.value?.trim();
+            if (!chatId) return;
+            try {
+                await fetch('/api/auth/profile', {
+                    method: 'PATCH',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ telegram_chat_id: chatId }),
+                });
+            } catch (e) {}
+        }
+
+        async function loadBillingPanel() {
+            const el = document.getElementById('billingPanel');
+            if (!el) return;
+            try {
+                const [billingRes, statsRes] = await Promise.all([
+                    fetch('/api/billing/status', { headers: authHeaders() }),
+                    fetch('/api/platform/stats'),
+                ]);
+                const billing = await billingRes.json();
+                const stats = await statsRes.json();
+                const sub = billing.subscription || {};
+                const tier = billing.tier || 'free';
+                el.innerHTML = billing.authenticated ? `
+                    <div class="ingest-stats">
+                        <div class="ingest-stat"><div class="num">${(tier || 'free').toUpperCase()}</div><div class="lbl">Your Plan</div></div>
+                        <div class="ingest-stat"><div class="num">${sub.status || '—'}</div><div class="lbl">Subscription</div></div>
+                        <div class="ingest-stat"><div class="num">${stats.registered_users || 0}</div><div class="lbl">Users</div></div>
+                        <div class="ingest-stat"><div class="num">${stats.paid_subscribers || 0}</div><div class="lbl">Paid</div></div>
+                        <div class="ingest-stat"><div class="num">${stats.active_trials || 0}</div><div class="lbl">Trials</div></div>
+                        <div class="ingest-stat"><div class="num">${billing.stripe_configured ? 'ON' : 'OFF'}</div><div class="lbl">Stripe</div></div>
+                    </div>
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.85rem">
+                        ${tier === 'free' || tier === 'pro' ? '<button class="btn-primary" onclick="upgradeTier(\\'pro\\')">Upgrade Pro $29</button>' : ''}
+                        ${tier !== 'whale' ? '<button class="btn-secondary" onclick="upgradeTier(\\'whale\\')">Whale $199</button>' : ''}
+                        ${billing.has_billing_portal ? '<button class="btn-secondary" onclick="openBillingPortal()">Manage Billing</button>' : ''}
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem">
+                        ${sub.trial_ends_at ? 'Trial ends: ' + new Date(sub.trial_ends_at).toLocaleString() : 'Stripe checkout activates Pro/Whale instantly via webhook.'}
+                    </p>
+                ` : `
+                    <div class="ingest-stats">
+                        <div class="ingest-stat"><div class="num">${stats.registered_users || 0}</div><div class="lbl">Users</div></div>
+                        <div class="ingest-stat"><div class="num">${stats.paid_subscribers || 0}</div><div class="lbl">Paid</div></div>
+                        <div class="ingest-stat"><div class="num">${stats.alert_subscribers || 0}</div><div class="lbl">Alert Subs</div></div>
+                    </div>
+                    <p style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted)">
+                        <a href="/login" style="color:var(--accent)">Login</a> for 7-day Pro trial ·
+                        <a href="#" onclick="upgradeTier('pro');return false;" style="color:var(--accent)">Subscribe</a>
+                    </p>
+                `;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Billing status unavailable</div>';
+            }
         }
 
         async function redeemPromo() {
@@ -1495,6 +1725,8 @@
                         <div class="metric"><div class="val">$${fmt(d.support, 0)}</div><div class="key">Support</div></div>
                         <div class="metric"><div class="val">$${fmt(d.resistance, 0)}</div><div class="key">Resistance</div></div>
                     </div>
+
+                    ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
 
                     <div style="font-size:0.8rem;color:var(--text-muted)">
                         ${d.action} · ${d.timestamp_human || ''}
@@ -1621,6 +1853,94 @@
                 `).join('')}</tbody></table>`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Open interest unavailable</div>';
+            }
+        }
+
+        async function loadIngestionHealth() {
+            const el = document.getElementById('ingestionHealthPanel');
+            try {
+                const res = await fetch('/api/ingestion/status');
+                const d = await res.json();
+                const c = d.counts || {};
+                const ws = d.websocket || {};
+                const badge = (state) => {
+                    if (state === 'ok') return '<span class="health-badge health-ok">OK</span>';
+                    if (state === 'needs_key') return '<span class="health-badge health-key">KEY</span>';
+                    if (state === 'error') return '<span class="health-badge health-err">ERR</span>';
+                    return '<span class="health-badge health-pending">—</span>';
+                };
+                const rows = (d.sources || []).slice(0, 40);
+                el.innerHTML = `
+                    <div class="ingest-stats">
+                        <div class="ingest-stat"><div class="num" style="color:var(--success)">${c.ok || 0}</div><div class="lbl">Live OK</div></div>
+                        <div class="ingest-stat"><div class="num" style="color:var(--warning)">${c.needs_key || 0}</div><div class="lbl">Need API Key</div></div>
+                        <div class="ingest-stat"><div class="num" style="color:var(--danger)">${c.error || 0}</div><div class="lbl">Errors</div></div>
+                        <div class="ingest-stat"><div class="num">${(d.registry || {}).total_sources || 72}</div><div class="lbl">Registered</div></div>
+                        <div class="ingest-stat"><div class="num">${(d.exchanges || {}).total || 7}</div><div class="lbl">Exchanges</div></div>
+                        <div class="ingest-stat"><div class="num">${ws.ticks_received || 0}</div><div class="lbl">WS Ticks</div></div>
+                        <div class="ingest-stat"><div class="num">${d.scheduler_running ? 'ON' : 'OFF'}</div><div class="lbl">Scheduler</div></div>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">
+                        ${d.architecture || ''} · Exchanges: ${((d.exchanges || {}).ingestion_ready || []).join(', ') || '7'} · WS ${ws.running ? 'connected' : 'idle'}
+                    </p>
+                    <div style="overflow-x:auto;max-height:320px;overflow-y:auto">
+                        <table class="health-table">
+                            <thead><tr><th>Source</th><th>Category</th><th>Status</th><th>Key</th></tr></thead>
+                            <tbody>${rows.map(r => `
+                                <tr>
+                                    <td>${r.name}</td>
+                                    <td>${r.category}</td>
+                                    <td>${badge(r.state)}</td>
+                                    <td style="color:var(--text-muted)">${r.env_key || '—'}</td>
+                                </tr>
+                            `).join('')}</tbody>
+                        </table>
+                    </div>
+                `;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Ingestion status unavailable — start server with INGESTION_ENABLED=true</div>';
+            }
+        }
+
+        async function loadForecastPanel() {
+            const el = document.getElementById('forecastHealthPanel');
+            const symEl = document.getElementById('forecastSymbol');
+            const symbol = (symEl && symEl.value) ? symEl.value.toUpperCase() : 'BTC';
+            try {
+                const [fcRes, auditRes] = await Promise.all([
+                    fetch('/api/forecast/' + symbol),
+                    fetch('/api/forecast/audit'),
+                ]);
+                const fcData = await fcRes.json();
+                const audit = await auditRes.json();
+                const fc = fcData.forecast || {};
+                const horizons = fc.horizons || {};
+                const dirClass = (d) => d === 'up' ? 'dir-up' : d === 'down' ? 'dir-down' : 'dir-neutral';
+                const horizonCards = ['h1', 'h4', 'h24'].map(key => {
+                    const h = horizons[key];
+                    if (!h) return '';
+                    return `<div class="forecast-horizon">
+                        <div style="font-size:0.75rem;color:var(--text-muted)">${h.horizon_hours}h horizon</div>
+                        <div style="font-size:1.05rem;font-weight:600">$${fmt(h.price_forecast, h.price_forecast < 1 ? 4 : 2)}</div>
+                        <div class="${dirClass(h.direction)}">${(h.direction || 'neutral').toUpperCase()} · ${h.change_pct >= 0 ? '+' : ''}${fmt(h.change_pct, 2)}%</div>
+                    </div>`;
+                }).join('');
+                el.innerHTML = fc.available ? `
+                    <div class="ingest-stats">
+                        <div class="ingest-stat"><div class="num">${symbol}</div><div class="lbl">Asset</div></div>
+                        <div class="ingest-stat"><div class="num">${fmt(fc.confidence_percent, 1)}%</div><div class="lbl">Model Confidence</div></div>
+                        <div class="ingest-stat"><div class="num">${fc.direction_24h || '—'}</div><div class="lbl">24h Direction</div></div>
+                        <div class="ingest-stat"><div class="num">${fmt(audit.average_accuracy_percent, 1)}%</div><div class="lbl">Audit Accuracy</div></div>
+                        <div class="ingest-stat"><div class="num">${audit.resolved_forecasts || 0}/${audit.total_forecasts || 0}</div><div class="lbl">Resolved</div></div>
+                        <div class="ingest-stat"><div class="num">${fc.data_source || '—'}</div><div class="lbl">Data Source</div></div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.65rem;margin:0.85rem 0">
+                        ${horizonCards}
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted)">${fc.disclaimer || ''} · volatility ${fmt(fc.volatility_pct, 2)}% · sample ${fc.sample_size || 0}</p>
+                ` : `<div class="empty">Forecast warming up for ${symbol} — ${fc.reason || 'need more price history'}</div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Forecast engine unavailable</div>';
             }
         }
 
@@ -1806,6 +2126,7 @@
                                 · Fees $${fmt(o.fees_usdt || 0, 2)}
                                 · ${o.execution_feasibility} execution
                                 · ${o.estimated_duration}
+                                ${o.live_duration_label ? ` · Live: <strong>${o.live_duration_label}</strong>` : ''}
                             </div>
                             <div class="arb-meta" style="margin-top:0.35rem;color:var(--text)">${(o.why || '').slice(0, 120)}...</div>
                         </div>
@@ -1817,7 +2138,7 @@
         }
 
         function refreshArbitrage() {
-            document.getElementById('arbitrage').innerHTML = '<div class="loading">Live scanning Binance + OKX + Bybit...</div>';
+            document.getElementById('arbitrage').innerHTML = '<div class="loading">Live scanning 7 exchanges...</div>';
             loadArbitrage(true);
         }
 
@@ -1887,15 +2208,91 @@
         async function loadExecStatus() {
             const el = document.getElementById('execStatus');
             const btn = document.getElementById('panicBtn');
+            const toggle = document.getElementById('autoExecToggle');
             try {
                 const res = await fetch('/api/execution/status');
                 const d = await res.json();
                 const panic = d.panic_active;
-                el.innerHTML = `Mode: ${d.live_mode_available && d.auto_execution_enabled ? 'LIVE' : 'DRY-RUN'} · Panic: ${panic ? '<strong style="color:var(--danger)">ACTIVE</strong>' : 'Off'} · API keys: ${d.has_api_keys ? 'Yes' : 'No'}`;
+                el.innerHTML = `Mode: ${d.live_mode_available && d.auto_execution_enabled ? 'LIVE' : 'DRY-RUN'} · Auto: ${d.auto_execution_enabled ? 'ON' : 'OFF'} · Panic: ${panic ? '<strong style="color:var(--danger)">ACTIVE</strong>' : 'Off'} · API keys: ${d.has_api_keys ? 'Yes' : 'No'}`;
                 btn.textContent = panic ? '✅ RESUME' : '🛑 PANIC STOP';
                 btn.classList.toggle('active', panic);
+                if (toggle) toggle.checked = !!d.auto_execution_enabled;
             } catch (e) {
                 el.textContent = 'Execution status unavailable';
+            }
+        }
+
+        async function toggleAutoExec() {
+            const enabled = document.getElementById('autoExecToggle')?.checked;
+            await fetch('/api/execution/auto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ enabled: !!enabled }),
+            });
+            loadExecStatus();
+        }
+
+        async function runAutoExecCycle() {
+            const el = document.getElementById('execResult');
+            el.textContent = 'Running auto-exec cycle...';
+            try {
+                const res = await fetch('/api/execution/cycle', { method: 'POST' });
+                const d = await res.json();
+                el.textContent = d.skipped ? ('Skipped: ' + (d.reason || '')) : (d.order?.message || JSON.stringify(d));
+            } catch (e) {
+                el.textContent = 'Auto-exec cycle failed';
+            }
+        }
+
+        async function loadB2bDemo() {
+            const el = document.getElementById('b2bDemoPanel');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/b2b/demo');
+                const d = await res.json();
+                const sample = (d.records || [])[0];
+                el.innerHTML = `
+                    <strong>${d.product || 'Institutional Feed'}</strong> v${d.feed_version || '1.0'} · ${d.record_count || 0} records (demo cap)<br>
+                    CVVD + SII · signature ${(d.signature || '').slice(0, 16)}…<br>
+                    ${sample ? `Sample: ${sample.flow_type || 'record'} · ${sample.asset || sample.sector || '—'}` : 'No records yet — run whale scan'}<br>
+                    <a href="/b2b" style="color:var(--accent)">Full B2B feed ($199/mo) →</a>
+                `;
+            } catch (e) {
+                el.textContent = 'B2B demo unavailable';
+            }
+        }
+
+        async function loadDbHealth() {
+            const el = document.getElementById('dbHealthPanel');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/database/health');
+                const d = await res.json();
+                const t = d.telemetry || {};
+                el.innerHTML = `
+                    <div class="ingest-stats">
+                        <div class="ingest-stat"><div class="num">${d.database_size_mb || 0} MB</div><div class="lbl">SQLite</div></div>
+                        <div class="ingest-stat"><div class="num">${fmt(t.pricing_count)}</div><div class="lbl">Prices</div></div>
+                        <div class="ingest-stat"><div class="num">${fmt(t.orderbook_count)}</div><div class="lbl">Books</div></div>
+                        <div class="ingest-stat"><div class="num">${d.wal_size_mb || 0} MB</div><div class="lbl">WAL</div></div>
+                        <div class="ingest-stat"><div class="num">${d.external?.postgres_configured ? 'YES' : '—'}</div><div class="lbl">Postgres</div></div>
+                        <div class="ingest-stat"><div class="num">${d.external?.timescale_configured ? 'YES' : '—'}</div><div class="lbl">Timescale</div></div>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem">${(d.recommendations || []).join(' · ')}</p>
+                `;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Database health unavailable</div>';
+            }
+        }
+
+        async function runDbMaintenance() {
+            const el = document.getElementById('dbHealthPanel');
+            el.innerHTML = '<div class="loading">Running maintenance...</div>';
+            try {
+                await fetch('/api/database/maintenance?vacuum=false', { method: 'POST' });
+                await loadDbHealth();
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Maintenance failed</div>';
             }
         }
 
@@ -2047,6 +2444,7 @@
 
         async function subscribeAlerts() {
             const msg = document.getElementById('alertMsg');
+            await saveTelegramProfile();
             try {
                 const res = await fetch('/api/alerts/subscribe', {
                     method: 'POST',
@@ -2194,18 +2592,27 @@
 
         async function loadWeeklyReport() {
             const el = document.getElementById('weeklyReport');
+            const hist = document.getElementById('weeklyHistory');
             el.textContent = 'Generating weekly report...';
             try {
-                const res = await fetch('/api/reports/weekly');
+                const res = await fetch('/api/reports/weekly?persist=true');
                 const d = await res.json();
                 const h = (d.highlights || []).map(x => `• ${x}`).join('<br>');
                 el.innerHTML = `
                     <strong>${d.narrative || 'Weekly Report'}</strong><br><br>
                     ${h}<br><br>
                     Moat: ${d.economic_moat?.score}/100 · Oracle: ${d.oracle_performance?.average_accuracy_percent}% ·
-                    Arb active: ${(d.arbitrage_summary?.active_live || 0) + (d.arbitrage_summary?.active_proxy || 0)}/77 ·
-                    Whale alerts: ${d.whale_intelligence?.alert_count || 0}
+                    Forecast: ${d.forecast_performance?.average_accuracy_percent || 0}% ·
+                    Users: ${d.platform?.registered_users || 0} · Whale: ${d.whale_intelligence?.alert_count || 0}
                 `;
+                if (hist) {
+                    const hRes = await fetch('/api/reports/weekly/history?limit=5');
+                    const hData = await hRes.json();
+                    const rows = (hData.reports || []).map(r =>
+                        `<div>${r.generated_at?.slice(0, 16)} — ${(r.narrative || '').slice(0, 80)}…</div>`
+                    ).join('');
+                    hist.innerHTML = rows ? ('<strong>History</strong><br>' + rows) : '';
+                }
             } catch (e) {
                 el.textContent = 'Weekly report unavailable';
             }
@@ -2421,7 +2828,10 @@
         }
 
         loadExecStatus();
+        loadB2bDemo();
+        loadDbHealth();
         loadAuthState();
+        loadBillingPanel();
         loadTelegramStatus();
         loadJournal();
         loadResearchLab();
@@ -2431,6 +2841,8 @@
         loadMarket();
         loadOpenInterest();
         loadProfitAnalytics();
+        loadIngestionHealth();
+        loadForecastPanel();
         loadGravityMap();
         loadSectors();
         loadSentiment();
@@ -2445,6 +2857,8 @@
         setInterval(loadMarket, 30000);
         setInterval(loadOpenInterest, 60000);
         setInterval(loadProfitAnalytics, 120000);
+        setInterval(loadIngestionHealth, 45000);
+        setInterval(loadForecastPanel, 90000);
         setInterval(loadGravityMap, 60000);
         setInterval(loadSectors, 45000);
         setInterval(loadSentiment, 60000);

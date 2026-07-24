@@ -20,8 +20,9 @@ def telegram_configured() -> bool:
 
 
 async def _monitor_cycle() -> None:
-    from alert_service import dispatch_alert, send_telegram_message
+    from alert_service import dispatch_alert
     from arbitrage_service import scan_arbitrage_opportunities
+    from database import fetch_users_with_telegram
 
     if not telegram_configured():
         return
@@ -39,6 +40,13 @@ async def _monitor_cycle() -> None:
             f"{top.get('why', '')[:180]}"
         )
         await dispatch_alert(title, body, payload=top, channels=["telegram"])
+
+        for row in await fetch_users_with_telegram():
+            chat_id = str(row.get("telegram_chat_id") or "")
+            if chat_id:
+                from alert_service import send_telegram_message
+
+                await send_telegram_message(f"{title}\n\n{body}", chat_id=chat_id)
 
 
 async def _monitor_loop(interval_seconds: int = 90) -> None:

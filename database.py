@@ -254,6 +254,23 @@ CREATE TABLE IF NOT EXISTS execution_logs (
     live_mode    INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS weekly_reports (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    generated_at TEXT    NOT NULL,
+    narrative    TEXT    NOT NULL,
+    payload_json TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_weekly_reports_ts
+    ON weekly_reports (generated_at DESC);
+
+CREATE TABLE IF NOT EXISTS maintenance_runs (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    started_at   TEXT    NOT NULL,
+    finished_at  TEXT,
+    payload_json TEXT    NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS platform_analytics (
     id                 INTEGER PRIMARY KEY CHECK (id = 1),
     page_views         INTEGER NOT NULL DEFAULT 0,
@@ -468,6 +485,110 @@ async def _apply_migrations(db: aiosqlite.Connection) -> None:
     }
     if "trial_ends_at" not in sub_cols:
         await db.execute("ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT")
+
+    user_cols = {
+        row[1] for row in await (await db.execute("PRAGMA table_info(users)")).fetchall()
+    }
+    if "stripe_customer_id" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
+    if "telegram_chat_id" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS ingestion_snapshots (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            source_id    TEXT    NOT NULL,
+            category     TEXT    NOT NULL,
+            payload_json TEXT    NOT NULL,
+            fetched_at   TEXT    NOT NULL,
+            status       TEXT    NOT NULL DEFAULT 'ok'
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_ingestion_category_ts
+            ON ingestion_snapshots (category, fetched_at DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_ingestion_source_ts
+            ON ingestion_snapshots (source_id, fetched_at DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS ingestion_source_health (
+            source_id       TEXT PRIMARY KEY,
+            category        TEXT    NOT NULL,
+            last_ok_at      TEXT,
+            last_error_at   TEXT,
+            last_error      TEXT,
+            success_count   INTEGER NOT NULL DEFAULT 0,
+            error_count     INTEGER NOT NULL DEFAULT 0,
+            updated_at      TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS forecast_logs (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp           TEXT    NOT NULL,
+            asset               TEXT    NOT NULL,
+            horizon_hours       INTEGER NOT NULL,
+            price_at            REAL    NOT NULL,
+            price_forecast      REAL    NOT NULL,
+            price_actual        REAL,
+            direction_predicted TEXT,
+            direction_actual    TEXT,
+            confidence          REAL,
+            model               TEXT,
+            resolved            INTEGER NOT NULL DEFAULT 0,
+            accuracy_score      REAL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_forecast_asset_ts
+            ON forecast_logs (asset, timestamp DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_forecast_resolved
+            ON forecast_logs (resolved, timestamp)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS weekly_reports (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            generated_at   TEXT    NOT NULL,
+            narrative      TEXT    NOT NULL,
+            payload_json   TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_weekly_reports_ts
+            ON weekly_reports (generated_at DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS maintenance_runs (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            started_at   TEXT    NOT NULL,
+            finished_at  TEXT,
+            payload_json TEXT    NOT NULL
+        )
+        """
+    )
 
 
 def compaction_cutoff_iso(hours: int | None = None) -> str:
@@ -1921,6 +2042,163 @@ async def delete_journal_entry(entry_id: int, user_email: str) -> bool:
         return cursor.rowcount > 0
 
 
+async def activate_paid_subscription(
+    email: str,
+    tier: str,
+    stripe_sub_id: str,
+    *,
+    stripe_customer_id: str | None = None,
+) -> int:
+    """Activate Stripe subscription — expires trials and prior active rows."""
+    email = email.strip().lower()
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE subscriptions
+            SET status = 'expired'
+            WHERE email = ? AND status IN ('trial', 'active', 'past_due')
+            """,
+            (email,),
+        )
+        cursor = await db.execute(
+            """
+            INSERT INTO subscriptions (email, tier, stripe_sub_id, status, created_at, trial_ends_at)
+            VALUES (?, ?, ?, 'active', ?, NULL)
+            """,
+            (email, tier.strip().lower(), stripe_sub_id, _utcnow_iso()),
+        )
+        if stripe_customer_id:
+            await db.execute(
+                "UPDATE users SET stripe_customer_id = ? WHERE email = ?",
+                (stripe_customer_id, email),
+            )
+        return int(cursor.lastrowid or 0)
+
+
+async def upsert_subscription_by_stripe_id(
+    stripe_sub_id: str,
+    *,
+    tier: str | None = None,
+    status: str | None = None,
+    email: str | None = None,
+) -> None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT id FROM subscriptions WHERE stripe_sub_id = ? ORDER BY id DESC LIMIT 1",
+                (stripe_sub_id,),
+            )
+        ).fetchone()
+        if row:
+            updates: list[str] = []
+            params: list[Any] = []
+            if tier is not None:
+                updates.append("tier = ?")
+                params.append(tier.strip().lower())
+            if status is not None:
+                updates.append("status = ?")
+                params.append(status)
+            if updates:
+                params.append(int(row[0]))
+                await db.execute(
+                    f"UPDATE subscriptions SET {', '.join(updates)} WHERE id = ?",
+                    params,
+                )
+            return
+        if email and tier and status:
+            await db.execute(
+                """
+                INSERT INTO subscriptions (email, tier, stripe_sub_id, status, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (email.strip().lower(), tier.strip().lower(), stripe_sub_id, status, _utcnow_iso()),
+            )
+
+
+async def cancel_subscription_by_stripe_id(stripe_sub_id: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE subscriptions SET status = 'expired' WHERE stripe_sub_id = ?",
+            (stripe_sub_id,),
+        )
+
+
+async def update_user_telegram_chat_id(email: str, telegram_chat_id: str | None) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET telegram_chat_id = ? WHERE email = ?",
+            (telegram_chat_id.strip() if telegram_chat_id else None, email.strip().lower()),
+        )
+
+
+async def fetch_user_stripe_customer_id(email: str) -> str | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT stripe_customer_id FROM users WHERE email = ?",
+                (email.strip().lower(),),
+            )
+        ).fetchone()
+    if row and row[0]:
+        return str(row[0])
+    return None
+
+
+async def fetch_user_profile(email: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT id, email, name, created_at, last_login_at,
+                       stripe_customer_id, telegram_chat_id
+                FROM users WHERE email = ?
+                """,
+                (email.strip().lower(),),
+            )
+        ).fetchone()
+    return dict(row) if row else None
+
+
+async def fetch_users_with_telegram() -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT email, telegram_chat_id
+                FROM users
+                WHERE telegram_chat_id IS NOT NULL AND telegram_chat_id != ''
+                """
+            )
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+async def fetch_platform_user_stats() -> dict[str, Any]:
+    async with get_connection() as db:
+        users_row = await (await db.execute("SELECT COUNT(*) FROM users")).fetchone()
+        subs_row = await (
+            await db.execute("SELECT COUNT(*) FROM subscriptions WHERE status = 'active'")
+        ).fetchone()
+        trial_row = await (
+            await db.execute(
+                """
+                SELECT COUNT(*) FROM subscriptions
+                WHERE status = 'trial' AND (trial_ends_at IS NULL OR trial_ends_at > ?)
+                """,
+                (_utcnow_iso(),),
+            )
+        ).fetchone()
+        alert_row = await (
+            await db.execute("SELECT COUNT(*) FROM alert_subscriptions WHERE enabled = 1")
+        ).fetchone()
+    return {
+        "registered_users": int(users_row[0]) if users_row else 0,
+        "paid_subscribers": int(subs_row[0]) if subs_row else 0,
+        "active_trials": int(trial_row[0]) if trial_row else 0,
+        "alert_subscribers": int(alert_row[0]) if alert_row else 0,
+    }
+
+
 async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | None:
     try:
         now = _utcnow_iso()
@@ -2063,6 +2341,384 @@ async def close_db() -> None:
     Connections are opened per operation and closed by get_connection().
     """
     logger.debug("close_db called; no persistent pool to close.")
+
+
+async def insert_ingestion_snapshot(
+    source_id: str,
+    category: str,
+    payload: dict[str, Any] | list[Any],
+    *,
+    status: str = "ok",
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO ingestion_snapshots (source_id, category, payload_json, fetched_at, status)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (source_id, category, json.dumps(payload, separators=(",", ":")), _utcnow_iso(), status),
+        )
+        await db.commit()
+        return int(cursor.lastrowid)
+
+
+async def upsert_ingestion_health(
+    source_id: str,
+    category: str,
+    *,
+    ok: bool,
+    error: str | None = None,
+) -> None:
+    now = _utcnow_iso()
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT success_count, error_count FROM ingestion_source_health WHERE source_id = ?",
+                (source_id,),
+            )
+        ).fetchone()
+        if row:
+            success_count = int(row[0]) + (1 if ok else 0)
+            error_count = int(row[1]) + (0 if ok else 1)
+            await db.execute(
+                """
+                UPDATE ingestion_source_health
+                SET last_ok_at = CASE WHEN ? THEN ? ELSE last_ok_at END,
+                    last_error_at = CASE WHEN ? THEN last_error_at ELSE ? END,
+                    last_error = CASE WHEN ? THEN last_error ELSE ? END,
+                    success_count = ?,
+                    error_count = ?,
+                    updated_at = ?
+                WHERE source_id = ?
+                """,
+                (ok, now, ok, now, ok, error or "", success_count, error_count, now, source_id),
+            )
+        else:
+            await db.execute(
+                """
+                INSERT INTO ingestion_source_health
+                    (source_id, category, last_ok_at, last_error_at, last_error,
+                     success_count, error_count, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    source_id,
+                    category,
+                    now if ok else None,
+                    None if ok else now,
+                    None if ok else (error or "unknown"),
+                    1 if ok else 0,
+                    0 if ok else 1,
+                    now,
+                ),
+            )
+        await db.commit()
+
+
+async def fetch_latest_ingestion_by_category(
+    category: str,
+    *,
+    max_age_seconds: int = 600,
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    cutoff = (datetime.now(timezone.utc) - timedelta(seconds=max_age_seconds)).isoformat()
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT source_id, category, payload_json, fetched_at, status
+                FROM ingestion_snapshots
+                WHERE category = ? AND fetched_at >= ?
+                ORDER BY fetched_at DESC
+                LIMIT ?
+                """,
+                (category, cutoff, limit),
+            )
+        ).fetchall()
+    results: list[dict[str, Any]] = []
+    for row in rows:
+        try:
+            payload = json.loads(row[2])
+        except json.JSONDecodeError:
+            payload = {}
+        results.append(
+            {
+                "source_id": row[0],
+                "category": row[1],
+                "payload": payload,
+                "fetched_at": row[3],
+                "status": row[4],
+            }
+        )
+    return results
+
+
+async def fetch_ingestion_health_summary() -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT source_id, category, last_ok_at, last_error_at, last_error,
+                       success_count, error_count, updated_at
+                FROM ingestion_source_health
+                ORDER BY category, source_id
+                """
+            )
+        ).fetchall()
+    return [
+        {
+            "source_id": row[0],
+            "category": row[1],
+            "last_ok_at": row[2],
+            "last_error_at": row[3],
+            "last_error": row[4],
+            "success_count": row[5],
+            "error_count": row[6],
+            "updated_at": row[7],
+        }
+        for row in rows
+    ]
+
+
+async def prune_ingestion_snapshots(max_rows: int = 50_000) -> int:
+    async with get_connection() as db:
+        count_row = await (await db.execute("SELECT COUNT(*) FROM ingestion_snapshots")).fetchone()
+        total = int(count_row[0]) if count_row else 0
+        if total <= max_rows:
+            return 0
+        to_delete = total - max_rows
+        await db.execute(
+            """
+            DELETE FROM ingestion_snapshots
+            WHERE id IN (
+                SELECT id FROM ingestion_snapshots ORDER BY fetched_at ASC LIMIT ?
+            )
+            """,
+            (to_delete,),
+        )
+        await db.commit()
+        return to_delete
+
+
+async def fetch_recent_pricing_for_symbol(symbol: str, limit: int = 200) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT price, timestamp, exchange
+                FROM pricing_logs
+                WHERE symbol = ?
+                ORDER BY timestamp DESC
+                LIMIT ?
+                """,
+                (symbol, limit),
+            )
+        ).fetchall()
+    return [{"price": row[0], "timestamp": row[1], "exchange": row[2]} for row in rows]
+
+
+async def insert_forecast_logs(
+    asset: str,
+    price_at: float,
+    forecast: dict[str, Any],
+) -> None:
+    ts = _utcnow_iso()
+    model = str(forecast.get("model") or "ema_linear_trend_v1")
+    confidence = float(forecast.get("confidence_percent") or 0)
+    horizons = forecast.get("horizons") or {}
+    rows: list[tuple[Any, ...]] = []
+    for row in horizons.values():
+        if not isinstance(row, dict):
+            continue
+        rows.append(
+            (
+                ts,
+                asset.upper(),
+                int(row.get("horizon_hours") or 0),
+                price_at,
+                float(row.get("price_forecast") or price_at),
+                str(row.get("direction") or "neutral"),
+                confidence,
+                model,
+            )
+        )
+    if not rows:
+        return
+    async with get_connection() as db:
+        await db.executemany(
+            """
+            INSERT INTO forecast_logs (
+                timestamp, asset, horizon_hours, price_at, price_forecast,
+                direction_predicted, confidence, model, resolved
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0)
+            """,
+            rows,
+        )
+        await db.commit()
+
+
+async def fetch_unresolved_forecast_logs(limit: int = 100) -> list[dict[str, Any]]:
+    cutoff = (datetime.now(timezone.utc) - timedelta(hours=23)).isoformat()
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT *
+                FROM forecast_logs
+                WHERE resolved = 0
+                  AND timestamp <= ?
+                  AND horizon_hours = 24
+                ORDER BY timestamp ASC
+                LIMIT ?
+                """,
+                (cutoff, limit),
+            )
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+async def resolve_forecast_log(
+    forecast_id: int,
+    price_actual: float,
+    direction_actual: str,
+    accuracy_score: float,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE forecast_logs
+            SET resolved = 1,
+                price_actual = ?,
+                direction_actual = ?,
+                accuracy_score = ?
+            WHERE id = ?
+            """,
+            (price_actual, direction_actual, accuracy_score, forecast_id),
+        )
+        await db.commit()
+
+
+async def fetch_forecast_audit_stats(limit: int = 200) -> dict[str, Any]:
+    async with get_connection() as db:
+        total_row = await (await db.execute("SELECT COUNT(*) FROM forecast_logs")).fetchone()
+        resolved_row = await (
+            await db.execute("SELECT COUNT(*) FROM forecast_logs WHERE resolved = 1")
+        ).fetchone()
+        avg_row = await (
+            await db.execute(
+                """
+                SELECT AVG(accuracy_score)
+                FROM forecast_logs
+                WHERE resolved = 1 AND accuracy_score IS NOT NULL
+                """
+            )
+        ).fetchone()
+        recent = await (
+            await db.execute(
+                """
+                SELECT asset, timestamp, price_at, price_forecast, price_actual,
+                       direction_predicted, direction_actual, accuracy_score, horizon_hours
+                FROM forecast_logs
+                WHERE resolved = 1
+                ORDER BY timestamp DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+        ).fetchall()
+    total = int(total_row[0]) if total_row else 0
+    resolved = int(resolved_row[0]) if resolved_row else 0
+    avg_acc = float(avg_row[0]) if avg_row and avg_row[0] is not None else 0.0
+    return {
+        "total_forecasts": total,
+        "resolved_forecasts": resolved,
+        "average_accuracy_percent": round(avg_acc, 2),
+        "recent": [dict(row) for row in recent],
+    }
+
+
+async def insert_weekly_report(narrative: str, payload: dict[str, Any]) -> int:
+    import json
+
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO weekly_reports (generated_at, narrative, payload_json)
+            VALUES (?, ?, ?)
+            """,
+            (_utcnow_iso(), narrative[:2000], json.dumps(payload)),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_weekly_reports(limit: int = 12) -> list[dict[str, Any]]:
+    import json
+
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, generated_at, narrative, payload_json
+                FROM weekly_reports
+                ORDER BY generated_at DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+        ).fetchall()
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        try:
+            item["payload"] = json.loads(item.pop("payload_json") or "{}")
+        except json.JSONDecodeError:
+            item["payload"] = {}
+        out.append(item)
+    return out
+
+
+async def insert_maintenance_run(payload: dict[str, Any]) -> int:
+    import json
+
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO maintenance_runs (started_at, finished_at, payload_json)
+            VALUES (?, ?, ?)
+            """,
+            (
+                payload.get("started_at") or _utcnow_iso(),
+                payload.get("finished_at"),
+                json.dumps(payload),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_maintenance_runs(limit: int = 10) -> list[dict[str, Any]]:
+    import json
+
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, started_at, finished_at, payload_json
+                FROM maintenance_runs
+                ORDER BY id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+        ).fetchall()
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        try:
+            item["payload"] = json.loads(item.pop("payload_json") or "{}")
+        except json.JSONDecodeError:
+            item["payload"] = {}
+        out.append(item)
+    return out
 
 
 if __name__ == "__main__":

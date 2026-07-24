@@ -68,8 +68,9 @@ def _top_ask(book: dict[str, Any]) -> float | None:
 
 
 async def fetch_live_market_snapshots() -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, dict[str, Any]]]]:
-    """Pull fresh order books and funding rates from Binance, OKX, and Bybit."""
+    """Pull fresh order books and funding rates from all enabled exchanges."""
     from aggregator import FUNDING_FETCHERS, MARKET_FETCHERS
+    from exchange_adapters import SPOT_ONLY_EXCHANGES
 
     books: dict[str, dict[str, dict[str, Any]]] = {}
     funding: dict[str, dict[str, dict[str, Any]]] = {}
@@ -91,6 +92,8 @@ async def fetch_live_market_snapshots() -> tuple[dict[str, dict[str, dict[str, A
                 meta.append((exchange_id, symbol, "spot"))
 
             for symbol in config.perpetual_symbols():
+                if exchange_id in SPOT_ONLY_EXCHANGES:
+                    continue
                 tasks.append(market_fetcher(session, symbol, "perpetual"))
                 meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
                 if funding_fetcher is not None:
@@ -298,6 +301,10 @@ async def scan_arbitrage_opportunities(
 
     formatted.sort(key=lambda x: x["net_profit_usdt"], reverse=True)
 
+    from opportunity_tracker import sync_scan_opportunities
+
+    formatted = sync_scan_opportunities(formatted)
+
     return {
         "opportunities": formatted,
         "top_opportunity": formatted[0] if formatted else None,
@@ -364,6 +371,10 @@ async def compare_symbol_across_exchanges(
         gross_profit = notional * (gross_spread_bps / 10_000)
         net_profit_estimate = gross_profit - fee_drag - 5.0
 
+    from feed_lag_scanner import scan_feed_lag_from_venues
+
+    feed_lag = scan_feed_lag_from_venues(venues, pair)
+
     return {
         "symbol": pair,
         "asset": asset,
@@ -374,6 +385,7 @@ async def compare_symbol_across_exchanges(
         "gross_spread_bps": round(gross_spread_bps, 2),
         "net_profit_estimate_usdt": round(net_profit_estimate, 4),
         "net_profit_estimate_percent": round((net_profit_estimate / notional) * 100, 4) if notional else 0,
+        "feed_lag": feed_lag,
         "data_source": source,
         "timestamp": _utcnow_iso(),
     }

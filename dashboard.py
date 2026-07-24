@@ -26,7 +26,7 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 STRIPE_TIERS = {
     "pro": {"amount": 2900, "name": "BLACKDARK Pro"},
     "whale": {"amount": 19900, "name": "BLACKDARK Whale"},
-}
+}  # legacy ref — billing_service.STRIPE_TIERS is canonical
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -211,7 +211,168 @@ async def lifespan(app: FastAPI):
 
     telegram_task = await start_telegram_monitor()
 
+    ingestion_task: asyncio.Task | None = None
+    if os.getenv("INGESTION_ENABLED", "true").lower() in {"1", "true", "yes"}:
+        async def _ingestion_wrapper() -> None:
+            try:
+                from ingestion_scheduler import start_ingestion_scheduler
+
+                bootstrap = os.getenv("INGESTION_BOOTSTRAP_ON_START", "true").lower() in {
+                    "1",
+                    "true",
+                    "yes",
+                }
+                await start_ingestion_scheduler(bootstrap=bootstrap)
+            except asyncio.CancelledError:
+                logger.info("Ingestion scheduler cancelled.")
+            except Exception:
+                logger.exception("Ingestion scheduler failed.")
+
+        ingestion_task = asyncio.create_task(_ingestion_wrapper())
+        logger.info("Ingestion scheduler task started (INGESTION_ENABLED=true).")
+
+    forecast_audit_task: asyncio.Task | None = None
+    if os.getenv("FORECAST_ENABLED", "true").lower() in {"1", "true", "yes"}:
+
+        async def _forecast_audit_loop() -> None:
+            interval = max(300, int(os.getenv("FORECAST_AUDIT_INTERVAL_SEC", "3600")))
+            while True:
+                try:
+                    from forecast_engine import run_forecast_audit
+
+                    audit = await run_forecast_audit()
+                    oracle_resolved = await _resolve_mature_oracle_predictions()
+                    retrain_result = None
+                    if os.getenv("ORACLE_RETRAIN_ENABLED", "true").lower() in {"1", "true", "yes"}:
+                        from oracle_retrainer import run_oracle_retrain_step
+
+                        retrain_result = await run_oracle_retrain_step()
+                    if audit.get("resolved") or oracle_resolved or (retrain_result or {}).get("adjusted"):
+                        logger.info(
+                            "Forecast/oracle audit | forecasts_resolved=%s oracle_resolved=%s retrain=%s",
+                            audit.get("resolved", 0),
+                            oracle_resolved,
+                            (retrain_result or {}).get("adjusted"),
+                        )
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    logger.exception("Forecast audit loop failed.")
+                await asyncio.sleep(interval)
+
+        forecast_audit_task = asyncio.create_task(_forecast_audit_loop())
+        logger.info("Forecast audit loop started (FORECAST_ENABLED=true).")
+
+    weekly_report_task: asyncio.Task | None = None
+    if os.getenv("WEEKLY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
+
+        async def _weekly_report_loop() -> None:
+            interval_hours = max(24, int(os.getenv("WEEKLY_REPORT_INTERVAL_HOURS", "168")))
+            while True:
+                try:
+                    from weekly_report import build_weekly_report
+
+                    report = await build_weekly_report(persist=True)
+                    logger.info("Weekly report generated | id=%s", report.get("report_id"))
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    logger.exception("Weekly report auto-generation failed.")
+                await asyncio.sleep(interval_hours * 3600)
+
+        weekly_report_task = asyncio.create_task(_weekly_report_loop())
+        logger.info("Weekly report scheduler started.")
+
+    auto_exec_task: asyncio.Task | None = None
+    if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}:
+        from execution_engine import start_auto_execution_loop
+
+        auto_exec_task = await start_auto_execution_loop()
+
+    db_maintenance_task: asyncio.Task | None = None
+    if os.getenv("DB_MAINTENANCE_AUTO", "false").lower() in {"1", "true", "yes"}:
+
+        async def _db_maintenance_loop() -> None:
+            interval_hours = max(6, int(os.getenv("DB_MAINTENANCE_INTERVAL_HOURS", "24")))
+            while True:
+                try:
+                    from db_upgrade import run_sqlite_maintenance
+
+                    await run_sqlite_maintenance(vacuum=False)
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    logger.exception("DB maintenance loop failed.")
+                await asyncio.sleep(interval_hours * 3600)
+
+        db_maintenance_task = asyncio.create_task(_db_maintenance_loop())
+        logger.info("DB maintenance scheduler started.")
+
+    cloud_sync_task: asyncio.Task | None = None
+    if os.getenv("CLOUD_SYNC_ENABLED", "false").lower() in {"1", "true", "yes"}:
+
+        async def _cloud_sync_loop() -> None:
+            interval_hours = max(1, int(os.getenv("CLOUD_SYNC_INTERVAL_HOURS", "6")))
+            while True:
+                try:
+                    from cloud_syncer import is_cloud_sync_configured, run_cloud_sync_once
+
+                    if is_cloud_sync_configured():
+                        results = await run_cloud_sync_once()
+                        logger.info("Cloud sync batch finished | files=%d", len(results))
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    logger.exception("Cloud sync loop failed.")
+                await asyncio.sleep(interval_hours * 3600)
+
+        cloud_sync_task = asyncio.create_task(_cloud_sync_loop())
+        logger.info("Cloud sync scheduler started (CLOUD_SYNC_ENABLED=true).")
+
     yield
+
+    if cloud_sync_task is not None:
+        cloud_sync_task.cancel()
+        try:
+            await cloud_sync_task
+        except asyncio.CancelledError:
+            pass
+
+    if db_maintenance_task is not None:
+        db_maintenance_task.cancel()
+        try:
+            await db_maintenance_task
+        except asyncio.CancelledError:
+            pass
+
+    if auto_exec_task is not None:
+        from execution_engine import stop_auto_execution_loop
+
+        await stop_auto_execution_loop()
+
+    if weekly_report_task is not None:
+        weekly_report_task.cancel()
+        try:
+            await weekly_report_task
+        except asyncio.CancelledError:
+            pass
+
+    if forecast_audit_task is not None:
+        forecast_audit_task.cancel()
+        try:
+            await forecast_audit_task
+        except asyncio.CancelledError:
+            pass
+
+    if ingestion_task is not None:
+        from ingestion_scheduler import stop_ingestion_scheduler
+
+        await stop_ingestion_scheduler()
+        ingestion_task.cancel()
+        try:
+            await ingestion_task
+        except asyncio.CancelledError:
+            pass
 
     if telegram_task is not None:
         from telegram_monitor import stop_telegram_monitor
@@ -845,6 +1006,7 @@ async def _build_opportunity_explanation(
     """Multi-factor explanation from live technical, CVVD whale, sentiment, and on-chain feeds."""
     from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
     from sentiment_engine import build_sentiment_context_safe
+    from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
 
     if pair:
         resolved_pair = pair
@@ -906,6 +1068,10 @@ async def _build_opportunity_explanation(
     else:
         onchain_note = "On-chain flow data unavailable for this asset"
 
+    hub_ctx = await build_hub_context_safe(asset)
+    hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub_ctx)
+    hub_score_adj = int(round(hub_delta))
+
     support = round(price * 0.97, -2)
     resistance = round(price * 1.03, -2)
     volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
@@ -927,6 +1093,7 @@ async def _build_opportunity_explanation(
             "CVVD Cross-Venue Whale Detection",
             "Rolling Compound Sentiment Index",
             "On-Chain Exchange Flow Tracker",
+            "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
         ],
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
         "technical_analysis": {
@@ -955,6 +1122,24 @@ async def _build_opportunity_explanation(
             "compound_index": round(compound, 3),
             "social_buzz_score": social_buzz,
             "social_label": "High" if social_buzz >= 70 else "Moderate" if social_buzz >= 45 else "Low",
+            "fear_greed_index": (hub_ctx.get("sentiment") or {}).get("fear_greed_index"),
+            "fear_greed_label": (hub_ctx.get("sentiment") or {}).get("fear_greed_label"),
+            "coingecko_trending": (hub_ctx.get("sentiment") or {}).get("coingecko_trending"),
+        },
+        "oracle_data_hub": {
+            "enabled": hub_ctx.get("enabled", False),
+            "score_adjustment": hub_score_adj,
+            "macro_regime": (hub_ctx.get("macro") or {}).get("macro_regime_proxy"),
+            "derivatives_bias": (hub_ctx.get("derivatives") or {}).get("derivatives_bias"),
+            "geopolitical_headlines": (hub_ctx.get("geo_news") or {}).get("geopolitical_headline_count"),
+            "top_headlines": (hub_ctx.get("geo_news") or {}).get("headlines", [])[:5],
+            "market_cap_change_24h_pct": (
+                (hub_ctx.get("aggregators") or {}).get("coingecko_global") or {}
+            ).get("market_cap_change_24h_pct"),
+            "hub_reasons": hub_reasons[:3],
+            "hub_risks": hub_risks[:3],
+            "free_llm_providers": hub_ctx.get("free_llm_providers"),
+            "pillars": hub_ctx.get("pillars"),
         },
         "risk_factors": {
             "support": support,
@@ -1010,17 +1195,104 @@ async def auth_logout(user: dict | None = Depends(optional_user)):
 @app.get("/api/auth/me")
 async def auth_me(user: dict | None = Depends(optional_user)):
     from auth_service import tier_payload
-    from database import fetch_active_subscription_for_email
+    from database import fetch_active_subscription_for_email, fetch_user_profile
 
     if user is None:
         return {"authenticated": False, "tier": tier_payload(None)}
     sub = await fetch_active_subscription_for_email(user["email"])
+    profile = await fetch_user_profile(user["email"])
     return {
         "authenticated": True,
         "user": user,
+        "profile": profile,
         "tier": tier_payload(user, sub),
         "subscription": sub,
+        "stripe_configured": bool(os.getenv("STRIPE_SECRET_KEY")),
     }
+
+
+@app.patch("/api/auth/profile")
+async def auth_profile_update(
+    data: dict = Body(...),
+    user: dict | None = Depends(optional_user),
+):
+    from database import update_user_telegram_chat_id
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    telegram_chat_id = (data.get("telegram_chat_id") or "").strip() or None
+    if telegram_chat_id is not None:
+        await update_user_telegram_chat_id(user["email"], telegram_chat_id)
+    return {"success": True, "telegram_chat_id": telegram_chat_id}
+
+
+@app.get("/api/billing/status")
+async def billing_status(user: dict | None = Depends(optional_user)):
+    from billing_service import stripe_configured
+    from database import fetch_active_subscription_for_email, fetch_user_stripe_customer_id
+
+    if not user:
+        return {"authenticated": False, "stripe_configured": stripe_configured()}
+    sub = await fetch_active_subscription_for_email(user["email"])
+    return {
+        "authenticated": True,
+        "stripe_configured": stripe_configured(),
+        "stripe_customer_id": await fetch_user_stripe_customer_id(user["email"]),
+        "subscription": sub,
+        "tier": user.get("tier"),
+        "has_billing_portal": bool(await fetch_user_stripe_customer_id(user["email"])),
+    }
+
+
+@app.post("/api/billing/checkout")
+async def billing_checkout(
+    data: dict = Body(default={}),
+    user: dict | None = Depends(optional_user),
+):
+    from billing_service import create_checkout_session, stripe_configured
+
+    if not stripe_configured():
+        raise HTTPException(status_code=503, detail="Stripe not configured")
+    tier = str(data.get("tier") or "pro")
+    email = user.get("email") if user else None
+    user_id = int(user["id"]) if user and user.get("id") else None
+    try:
+        return create_checkout_session(tier, customer_email=email, user_id=user_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except stripe.StripeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.post("/api/billing/portal")
+async def billing_portal(user: dict | None = Depends(optional_user)):
+    from billing_service import create_billing_portal_session, stripe_configured
+    from database import fetch_user_stripe_customer_id
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    if not stripe_configured():
+        raise HTTPException(status_code=503, detail="Stripe not configured")
+    customer_id = await fetch_user_stripe_customer_id(user["email"])
+    if not customer_id:
+        raise HTTPException(status_code=400, detail="No Stripe customer — subscribe first")
+    try:
+        return create_billing_portal_session(customer_id)
+    except stripe.StripeError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@app.get("/api/platform/stats")
+async def platform_stats():
+    from database import fetch_platform_user_stats
+    from billing_service import stripe_configured
+
+    stats = await fetch_platform_user_stats()
+    stats["stripe_configured"] = stripe_configured()
+    stats["telegram_configured"] = bool(
+        os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID")
+    )
+    return stats
 
 
 @app.post("/api/promo/redeem")
@@ -1155,6 +1427,19 @@ async def oracle_explain(symbol: str) -> JSONResponse:
     payload = await _build_opportunity_explanation(
         asset, price, change, quote_volume, score, verdict, pair=pair
     )
+    from forecast_engine import enrich_oracle_payload
+
+    forecast_stub = {
+        "symbol": asset,
+        "price": price,
+        "confidence": _oracle_confidence(score, change, quote_volume),
+        "verdict": verdict,
+        "next_24h_low": price * 0.97,
+        "next_24h_high": price * 1.03,
+    }
+    enriched = await enrich_oracle_payload(forecast_stub)
+    payload["forecast"] = enriched.get("forecast")
+    payload["forecast_summary"] = enriched.get("forecast_summary")
     return JSONResponse(payload)
 
 
@@ -1194,6 +1479,9 @@ async def oracle(
     payload["explanation"] = await _build_opportunity_explanation(
         asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
     )
+    from forecast_engine import enrich_oracle_payload
+
+    payload = await enrich_oracle_payload(payload)
     background_tasks.add_task(_log_oracle_prediction, payload)
     return JSONResponse(payload)
 
@@ -1388,6 +1676,131 @@ async def onchain_overview():
     }
 
 
+@app.get("/api/oracle/data-hub")
+async def oracle_data_hub_overview():
+    from oracle_data_hub import build_hub_context_safe
+
+    ctx = await build_hub_context_safe("BTC")
+    return ctx
+
+
+@app.get("/api/oracle/data-hub/{symbol}")
+async def oracle_data_hub_asset(symbol: str):
+    from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
+
+    asset = symbol.upper().replace("USDT", "").replace("/", "")
+    ctx = await build_hub_context_safe(asset)
+    delta, reasons, risks = hub_score_adjustment(asset, ctx)
+    ctx["score_adjustment"] = delta
+    ctx["hub_reasons"] = reasons
+    ctx["hub_risks"] = risks
+    return ctx
+
+
+@app.get("/api/macro/overview")
+async def macro_overview():
+    from oracle_data_hub import fetch_macro_mesh
+    import aiohttp
+
+    timeout = aiohttp.ClientTimeout(total=config.ORACLE_HUB_FETCH_TIMEOUT_SECONDS)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        macro = await fetch_macro_mesh(session)
+    return {
+        "macro": macro,
+        "data_source": "Oracle Data Hub — Yahoo Finance extended",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+@app.get("/api/ingestion/status")
+async def ingestion_status():
+    from data_lake import lake_status
+    from data_sources_registry import DATA_SOURCES, registry_summary
+    from ingestion_scheduler import scheduler_running
+    from binance_ws_ingest import ws_stats
+    import os
+
+    status = await lake_status()
+    status["scheduler_running"] = scheduler_running()
+    status["websocket"] = ws_stats()
+    status["architecture"] = "scheduler + websocket → SQLite data_lake → oracle"
+    status["exchanges"] = {
+        "ingestion_ready": sorted(config.INGESTION_READY_EXCHANGES),
+        "enabled_for_arbitrage": sorted(config.enabled_exchanges().keys()),
+        "total": len(config.INGESTION_READY_EXCHANGES),
+    }
+    status["registry"] = registry_summary()
+
+    health_map = {row["source_id"]: row for row in status.get("health") or []}
+    sources_detail = []
+    for spec in DATA_SOURCES:
+        row = health_map.get(spec.source_id) or {}
+        key_ok = not spec.env_key or bool(os.getenv(spec.env_key))
+        if row.get("last_ok_at"):
+            state = "ok"
+        elif spec.env_key and not key_ok:
+            state = "needs_key"
+        elif row.get("last_error_at"):
+            state = "error"
+        else:
+            state = "pending"
+        sources_detail.append(
+            {
+                "source_id": spec.source_id,
+                "name": spec.name,
+                "category": spec.category,
+                "state": state,
+                "env_key": spec.env_key,
+                "last_ok_at": row.get("last_ok_at"),
+                "last_error": row.get("last_error"),
+            }
+        )
+    status["sources"] = sources_detail
+    status["counts"] = {
+        "ok": sum(1 for s in sources_detail if s["state"] == "ok"),
+        "needs_key": sum(1 for s in sources_detail if s["state"] == "needs_key"),
+        "error": sum(1 for s in sources_detail if s["state"] == "error"),
+        "pending": sum(1 for s in sources_detail if s["state"] == "pending"),
+    }
+    return status
+
+
+@app.get("/api/ingestion/run")
+async def ingestion_run_once():
+    """Manual one-shot ingest (bootstrap all categories)."""
+    from ingestion_fetchers import ingest_all_categories
+
+    summary = await ingest_all_categories()
+    return {"status": "complete", "categories": summary}
+
+
+@app.get("/api/forecast/audit")
+async def forecast_audit():
+    from database import fetch_forecast_audit_stats
+    from forecast_engine import run_forecast_audit
+
+    audit_run = await run_forecast_audit()
+    stats = await fetch_forecast_audit_stats(limit=25)
+    stats["newly_resolved"] = audit_run.get("resolved", 0)
+    stats["checked"] = audit_run.get("checked", 0)
+    return stats
+
+
+@app.get("/api/forecast/{symbol}")
+async def forecast_asset(symbol: str):
+    from forecast_engine import build_asset_forecast
+
+    asset, pair = _normalize_oracle_symbol(symbol)
+    market = await _fetch_binance_ticker(pair)
+    current_price = float(market["price"]) if market else None
+    forecast = await build_asset_forecast(asset, current_price=current_price)
+    return {
+        "asset": asset,
+        "forecast": forecast,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 @app.get("/api/oracle/audit")
 async def oracle_audit():
     from database import fetch_oracle_audit_stats
@@ -1485,6 +1898,25 @@ async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
 
 
+@app.get("/api/b2b/demo/proposal")
+async def b2b_demo_proposal(client: str = "Demo Prospect"):
+    """Public demo sales proposal — limited data, no API key."""
+    from whale_tracker import InstitutionalDataExporter
+
+    exporter = InstitutionalDataExporter()
+    try:
+        payload = await exporter.generate_sales_proposal_payload(
+            provided_key=config.B2B_DEMO_API_KEY,
+            client_name=client,
+            lookback_limit=config.B2B_DEMO_EXPORT_LIMIT,
+        )
+        payload["demo"] = True
+        payload["upgrade_url"] = "/b2b"
+        return payload
+    except PermissionError:
+        raise HTTPException(status_code=503, detail="B2B demo not configured") from None
+
+
 @app.get("/api/b2b/proposal")
 async def b2b_proposal(
     client: str = "Prospect",
@@ -1541,6 +1973,46 @@ async def arbitrage_compare(symbol: str, quote_amount: float | None = None):
     return await compare_symbol_across_exchanges(symbol, quote_amount=quote_amount)
 
 
+@app.get("/api/arbitrage/feed-lag/{symbol}")
+async def arbitrage_feed_lag(symbol: str):
+    from arbitrage_service import compare_symbol_across_exchanges
+
+    compare = await compare_symbol_across_exchanges(symbol)
+    return compare.get("feed_lag") or {"opportunities": [], "symbol": symbol}
+
+
+@app.get("/api/arbitrage/durations")
+async def arbitrage_durations(limit: int = 20):
+    from opportunity_tracker import export_state
+
+    state = export_state()
+    state["active"] = state.get("active", [])[:limit]
+    return state
+
+
+@app.get("/api/oracle/weights")
+async def oracle_weights(symbol: str = "BTC"):
+    from weight_aggregator import compute_modal_breakdown, get_core_score_weights, get_dimension_weights
+
+    from whale_tracker import get_latest_institutional_context
+
+    ctx = await get_latest_institutional_context()
+    breakdown = compute_modal_breakdown(symbol.upper(), ctx)
+    return {
+        "symbol": symbol.upper(),
+        "dimension_weights": get_dimension_weights(),
+        "core_weights": get_core_score_weights(),
+        "breakdown": breakdown,
+    }
+
+
+@app.post("/api/oracle/retrain")
+async def oracle_retrain_manual():
+    from oracle_retrainer import run_oracle_retrain_step
+
+    return await run_oracle_retrain_step()
+
+
 @app.get("/api/arbitrage/alerts")
 async def arbitrage_alerts(limit: int = 20):
     from database import fetch_arbitrage_alert_log
@@ -1594,12 +2066,24 @@ async def simulate_history(limit: int = 15):
 @app.post("/api/alerts/subscribe")
 async def alerts_subscribe(
     data: dict = Body(...),
-    _user: dict | None = Depends(require_feature("alerts")),
+    user: dict | None = Depends(optional_user),
 ):
     from alert_service import subscribe_alerts
+    from auth_service import feature_allowed
 
+    if not user or not feature_allowed(user, "alerts"):
+        raise HTTPException(
+            status_code=403,
+            detail={
+                "error": "upgrade_required",
+                "feature": "alerts",
+                "upgrade_url": "/create-checkout-session?tier=pro",
+            },
+        )
     try:
-        return await subscribe_alerts(data)
+        if not data.get("email"):
+            data = {**data, "email": user.get("email")}
+        return await subscribe_alerts(data, user_email=user.get("email"))
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -1609,6 +2093,21 @@ async def alerts_test():
     from alert_service import send_test_alert
 
     return await send_test_alert()
+
+
+@app.post("/api/execution/auto")
+async def execution_auto_toggle(data: dict = Body(...)):
+    from execution_engine import set_auto_execution
+
+    enabled = bool(data.get("enabled"))
+    return await set_auto_execution(enabled)
+
+
+@app.post("/api/execution/cycle")
+async def execution_auto_cycle():
+    from execution_engine import run_auto_execution_cycle
+
+    return await run_auto_execution_cycle()
 
 
 @app.get("/api/execution/status")
@@ -1719,10 +2218,47 @@ async def voice_command(
 
 
 @app.get("/api/reports/weekly")
-async def weekly_report():
+async def weekly_report_endpoint(persist: bool = True):
     from weekly_report import build_weekly_report
 
-    return await build_weekly_report()
+    return await build_weekly_report(persist=persist)
+
+
+@app.get("/api/reports/weekly/history")
+async def weekly_report_history(limit: int = 12):
+    from database import fetch_weekly_reports
+
+    return {"reports": await fetch_weekly_reports(limit=limit)}
+
+
+@app.get("/api/reports/weekly/markdown")
+async def weekly_report_markdown():
+    from weekly_report import build_weekly_report, report_to_markdown
+
+    report = await build_weekly_report(persist=False)
+    body = report_to_markdown(report)
+    return Response(content=body, media_type="text/markdown; charset=utf-8")
+
+
+@app.get("/api/database/health")
+async def database_health():
+    from db_upgrade import database_health_report
+
+    return await database_health_report()
+
+
+@app.post("/api/database/maintenance")
+async def database_maintenance(vacuum: bool = False):
+    from db_upgrade import run_sqlite_maintenance
+
+    return await run_sqlite_maintenance(vacuum=vacuum)
+
+
+@app.get("/api/database/maintenance/history")
+async def database_maintenance_history(limit: int = 10):
+    from database import fetch_maintenance_runs
+
+    return {"runs": await fetch_maintenance_runs(limit=limit)}
 
 
 @app.get("/api/analytics/stats")
@@ -1811,68 +2347,63 @@ async def join_waitlist(data: dict):
     }
 
 
-async def _create_stripe_checkout(tier: str, customer_email: str | None = None) -> dict:
-    if not stripe.api_key:
-        raise HTTPException(status_code=503, detail="Stripe not configured")
-
-    tier = tier.lower().strip()
-    if tier not in STRIPE_TIERS:
-        raise HTTPException(status_code=400, detail=f"Invalid tier. Use: {', '.join(STRIPE_TIERS)}")
-
-    info = STRIPE_TIERS[tier]
-    success_url = os.getenv(
-        "STRIPE_SUCCESS_URL",
-        "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
-    )
-    cancel_url = os.getenv("STRIPE_CANCEL_URL", "http://localhost:8080/cancel")
+@app.post("/api/telegram/webhook")
+async def telegram_webhook(request: Request):
+    """Telegram Bot API webhook — reply with chat_id on /start."""
+    from alert_service import send_telegram_message
 
     try:
-        session_kwargs: dict = {
-            "payment_method_types": ["card"],
-            "line_items": [
-                {
-                    "price_data": {
-                        "currency": "usd",
-                        "product_data": {"name": info["name"]},
-                        "unit_amount": info["amount"],
-                        "recurring": {"interval": "month"},
-                    },
-                    "quantity": 1,
-                }
-            ],
-            "mode": "subscription",
-            "success_url": success_url,
-            "cancel_url": cancel_url,
-            "metadata": {"tier": tier},
-        }
-        if customer_email:
-            session_kwargs["customer_email"] = customer_email
-        if tier == "pro" and config.PRO_TRIAL_DAYS > 0:
-            session_kwargs["subscription_data"] = {"trial_period_days": config.PRO_TRIAL_DAYS}
-        session = stripe.checkout.Session.create(**session_kwargs)
+        data = await request.json()
+    except Exception:
+        return {"ok": True}
+
+    message = data.get("message") or data.get("edited_message") or {}
+    chat = message.get("chat") or {}
+    chat_id = chat.get("id")
+    text = str(message.get("text") or "").strip()
+
+    if chat_id and text.startswith("/start"):
+        await send_telegram_message(
+            "✅ <b>BLACKDARK connected</b>\n\n"
+            f"Your chat ID:\n<code>{chat_id}</code>\n\n"
+            "Paste this in Dashboard → Alerts → Telegram chat ID.",
+            chat_id=str(chat_id),
+        )
+    return {"ok": True}
+
+
+def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_id: int | None = None) -> dict:
+    from billing_service import create_checkout_session, stripe_configured
+
+    if not stripe_configured():
+        raise HTTPException(status_code=503, detail="Stripe not configured")
+    try:
+        return create_checkout_session(tier, customer_email=customer_email, user_id=user_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except stripe.StripeError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
-
-    return {"url": session.url, "session_id": session.id, "tier": tier}
 
 
 @app.get("/create-checkout-session")
 async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_user)):
     """Landing page links use GET — redirect straight to Stripe."""
     email = user.get("email") if user else None
-    payload = await _create_stripe_checkout(tier, customer_email=email)
+    user_id = int(user["id"]) if user and user.get("id") else None
+    payload = _create_stripe_checkout(tier, customer_email=email, user_id=user_id)
     return RedirectResponse(url=payload["url"], status_code=303)
 
 
 @app.post("/create-checkout-session")
 async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_user)):
     email = user.get("email") if user else None
-    return await _create_stripe_checkout(tier, customer_email=email)
+    user_id = int(user["id"]) if user and user.get("id") else None
+    return _create_stripe_checkout(tier, customer_email=email, user_id=user_id)
 
 
 @app.post("/webhook")
 async def stripe_webhook(request: Request):
-    from database import insert_subscription
+    from billing_service import handle_stripe_webhook_event
 
     payload = await request.body()
     sig_header = request.headers.get("stripe-signature", "")
@@ -1888,28 +2419,13 @@ async def stripe_webhook(request: Request):
     except stripe.SignatureVerificationError as exc:
         raise HTTPException(status_code=400, detail="Invalid signature") from exc
 
-    if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
-        customer_email = session.get("customer_details", {}).get("email") or session.get(
-            "customer_email", ""
-        )
-        subscription_id = session.get("subscription")
-        tier = (session.get("metadata") or {}).get("tier", "pro")
-
-        if customer_email:
-            await insert_subscription(customer_email, tier, subscription_id, status="active")
-
-        return {"success": True, "message": "Subscription activated"}
-
-    return {"received": True, "type": event["type"]}
+    result = await handle_stripe_webhook_event(event)
+    return {"received": True, **result}
 
 
 @app.get("/success", response_class=HTMLResponse)
 async def checkout_success(request: Request):
-    return templates.TemplateResponse(
-        request,
-        "landing.html",
-    )
+    return templates.TemplateResponse(request, "success.html")
 
 
 @app.get("/cancel", response_class=HTMLResponse)

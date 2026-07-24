@@ -17,11 +17,10 @@ from pydantic import BaseModel, Field
 
 import config
 from database import insert_evaluated_opportunity
-from obi_predictor import get_obi_for_asset, obi_score_adjustment_for_asset
+from obi_predictor import get_obi_for_asset
 from onchain_tracker import (
     get_onchain_status_for_asset,
     inject_oracle_onchain_analytics,
-    onchain_score_adjustment_for_asset,
 )
 from macro_correlations import apply_macro_score_weight, macro_score_weight
 from sentiment_engine import (
@@ -29,9 +28,8 @@ from sentiment_engine import (
     get_sentiment_index_for_asset,
     is_extreme_negative_sentiment,
     sentiment_panic_penalty_for_asset,
-    sentiment_score_adjustment_for_asset,
 )
-from whale_tracker import whale_score_boost_for_asset
+from oracle_data_hub import hub_score_adjustment, synthesize_with_free_llm_chain
 
 logger = logging.getLogger("BLACKDARK.AIOracle")
 
@@ -168,25 +166,24 @@ def calculate_opportunity_score(
     stability_ratio = stability_signal / slippage_denominator
     stability_score = _clamp(stability_ratio * 20)
 
+    from weight_aggregator import apply_modal_adjustments, get_core_score_weights
+
+    core = get_core_score_weights()
     final_score = (
-        profit_score * 0.40
-        + liquidity_score * 0.35
-        + stability_score * 0.25
+        profit_score * core["profit"]
+        + liquidity_score * core["liquidity"]
+        + stability_score * core["stability"]
     )
 
     if institutional_context:
-        boost = whale_score_boost_for_asset(metrics.asset, institutional_context)
-        final_score += boost
-        final_score += obi_score_adjustment_for_asset(metrics.asset, institutional_context)
-        final_score += onchain_score_adjustment_for_asset(metrics.asset, institutional_context)
         compound = get_sentiment_index_for_asset(metrics.asset, institutional_context)
         if is_extreme_negative_sentiment(compound):
             final_score -= sentiment_panic_penalty_for_asset(metrics.asset, institutional_context)
-        else:
-            final_score += sentiment_score_adjustment_for_asset(
-                metrics.asset,
-                institutional_context,
-            )
+        final_score, _breakdown = apply_modal_adjustments(
+            final_score,
+            metrics.asset,
+            institutional_context,
+        )
 
     if kind == "funding":
         convergence_delta = float(
@@ -195,6 +192,12 @@ def calculate_opportunity_score(
         final_score += convergence_delta
 
     final_score = apply_macro_score_weight(final_score, institutional_context)
+
+    if institutional_context:
+        hub = institutional_context.get("oracle_data_hub") or {}
+        if hub.get("enabled"):
+            hub_delta, _, _ = hub_score_adjustment(metrics.asset, hub)
+            final_score += hub_delta
 
     return round(_clamp(final_score), 2)
 
@@ -343,6 +346,21 @@ def explain_opportunity(
             risks.append(macro_line)
         else:
             reasons.append(macro_line)
+
+    hub = (institutional_context or {}).get("oracle_data_hub") or {}
+    if hub.get("enabled"):
+        _, hub_reasons, hub_risks = hub_score_adjustment(metrics.asset, hub)
+        reasons.extend(hub_reasons[:4])
+        risks.extend(hub_risks[:4])
+        geo = hub.get("geo_news") or {}
+        if geo.get("headlines"):
+            top_geo = next(
+                (h for h in geo["headlines"] if h.get("geopolitical")),
+                geo["headlines"][0],
+            )
+            risks.append(
+                f"Global headline watch: {top_geo.get('title', '')[:120]}"
+            )
 
     if metrics.total_slippage_bps >= config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS:
         risks.append("Slippage is elevated relative to the configured safety ceiling.")
@@ -493,6 +511,7 @@ async def get_single_sentence_oracle(
     asset: str,
     opportunity_score: float,
     explanation: OpportunityExplanation,
+    institutional_context: dict[str, Any] | None = None,
 ) -> OracleResponse:
     """
     Return a one-sentence financial oracle verdict for an asset.
@@ -500,6 +519,7 @@ async def get_single_sentence_oracle(
     Uses configured provider with graceful fallback to deterministic rules.
     """
     provider = os.getenv("AI_ORACLE_PROVIDER", config.AI_ORACLE_PROVIDER).lower()
+    hub = (institutional_context or {}).get("oracle_data_hub") or {}
 
     if provider == "openai":
         llm = await _openai_oracle(asset, opportunity_score, explanation)
@@ -509,6 +529,29 @@ async def get_single_sentence_oracle(
         llm = await _ollama_oracle(asset, opportunity_score, explanation)
         if llm is not None:
             return llm
+    elif provider == "free_chain" and hub.get("enabled"):
+        sentence = await synthesize_with_free_llm_chain(
+            asset,
+            opportunity_score,
+            explanation.summary,
+            hub,
+        )
+        if sentence:
+            verdict: OracleVerdict = (
+                "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            )
+            return OracleResponse(verdict=verdict, sentence=sentence)
+
+    if hub.get("enabled"):
+        sentence = await synthesize_with_free_llm_chain(
+            asset,
+            opportunity_score,
+            explanation.summary,
+            hub,
+        )
+        if sentence:
+            verdict = "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            return OracleResponse(verdict=verdict, sentence=sentence)
 
     return _rules_oracle(asset, opportunity_score, explanation)
 
@@ -521,7 +564,9 @@ async def evaluate_opportunity(
     """Score, explain, and oracle-wrap a single opportunity."""
     score = calculate_opportunity_score(opportunity, kind, institutional_context)
     explanation = explain_opportunity(opportunity, kind, score, institutional_context)
-    oracle = await get_single_sentence_oracle(explanation.asset, score, explanation)
+    oracle = await get_single_sentence_oracle(
+        explanation.asset, score, explanation, institutional_context
+    )
     oracle = OracleResponse(
         verdict=oracle.verdict,
         sentence=inject_oracle_onchain_analytics(
