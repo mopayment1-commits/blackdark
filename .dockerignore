@@ -1,0 +1,26 @@
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+.env
+.env.*
+*.db-wal
+*.db-shm
+.cursor
+terminals
+extracted_*.txt
+fix_*.py
+PROJECT_*.txt
+PROJECT_*.json
+project_context.md
+landing.html
+
+# Skip 300MB+ local DB — production uses Binance live API
+data/blackdark.db
+data/blackdark.db-wal
+data/blackdark.db-shm
+data/hot_spool
+data/hot_spool_archive
+data/history
+data/historical_parquet

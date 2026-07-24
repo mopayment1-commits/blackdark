@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, sans-serif;
+            background: #0a0a0f;
+            color: #e4e4e7;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .card {
+            width: min(420px, 100%);
+            background: #111118;
+            border: 1px solid #2a2a35;
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+            background: linear-gradient(135deg, #22d3ee, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p { color: #71717a; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.8rem; color: #a1a1aa; margin-bottom: 0.35rem; }
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            background: #1a1a24;
+            border: 1px solid #2a2a35;
+            border-radius: 10px;
+            color: #e4e4e7;
+        }
+        button {
+            width: 100%;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 0.75rem;
+        }
+        .btn-primary { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #0a0a0f; }
+        .btn-secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
+        .msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1.2rem; }
+        .msg.error { color: #ef4444; }
+        .msg.ok { color: #22c55e; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+        .tab {
+            flex: 1; text-align: center; padding: 0.5rem;
+            border-radius: 8px; cursor: pointer;
+            background: #1a1a24; color: #71717a; font-size: 0.85rem;
+        }
+        .tab.active { background: rgba(34,211,238,0.15); color: #22d3ee; }
+        a { color: #22d3ee; text-decoration: none; font-size: 0.85rem; }
+        .footer-links { text-align: center; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>BLACKDARK</h1>
+        <p>🎁 <strong>7-Day Pro Trial</strong> عند التسجيل — كود <strong>LAUNCHPRO</strong> = 14 يوم</p>
+
+        <div class="tabs">
+            <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
+            <div class="tab" id="tabRegister" onclick="showTab('register')">Register</div>
+        </div>
+
+        <form id="loginForm" onsubmit="doLogin(event)">
+            <label>Email</label>
+            <input type="email" id="loginEmail" required placeholder="you@email.com">
+            <label>Password</label>
+            <input type="password" id="loginPassword" required minlength="8">
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <form id="registerForm" style="display:none" onsubmit="doRegister(event)">
+            <label>Name</label>
+            <input type="text" id="regName" placeholder="Your name">
+            <label>Email</label>
+            <input type="email" id="regEmail" required>
+            <label>Password (8+ chars)</label>
+            <input type="password" id="regPassword" required minlength="8">
+            <button type="submit" class="btn-primary">Create Account</button>
+        </form>
+
+        <div class="msg" id="msg"></div>
+        <div class="footer-links">
+            <a href="/">← Home</a> · <a href="/dashboard">Dashboard</a><br>
+            <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/disclaimer">Disclaimer</a>
+        </div>
+    </div>
+    <script>
+        function showTab(which) {
+            document.getElementById('loginForm').style.display = which === 'login' ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = which === 'register' ? 'block' : 'none';
+            document.getElementById('tabLogin').classList.toggle('active', which === 'login');
+            document.getElementById('tabRegister').classList.toggle('active', which === 'register');
+            document.getElementById('msg').textContent = '';
+        }
+
+        function saveAuth(data) {
+            localStorage.setItem('bd_token', data.token);
+            localStorage.setItem('bd_user', JSON.stringify(data.user));
+            window.location.href = '/dashboard';
+        }
+
+        async function doLogin(e) {
+            e.preventDefault();
+            const msg = document.getElementById('msg');
+            msg.className = 'msg';
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('loginEmail').value,
+                        password: document.getElementById('loginPassword').value
+                    })
+                });
+                const d = await res.json();
+                if (!res.ok) throw new Error(d.detail || 'Login failed');
+                saveAuth(d);
+            } catch (err) {
+                msg.className = 'msg error';
+                msg.textContent = err.message;
+            }
+        }
+
+        async function doRegister(e) {
+            e.preventDefault();
+            const msg = document.getElementById('msg');
+            msg.className = 'msg';
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('regName').value,
+                        email: document.getElementById('regEmail').value,
+                        password: document.getElementById('regPassword').value
+                    })
+                });
+                const d = await res.json();
+                if (!res.ok) throw new Error(d.detail || 'Registration failed');
+                saveAuth(d);
+            } catch (err) {
+                msg.className = 'msg error';
+                msg.textContent = err.message;
+            }
+        }
+
+        if (localStorage.getItem('bd_token')) {
+            window.location.href = '/dashboard';
+        }
+    </script>
+</body>
+</html>

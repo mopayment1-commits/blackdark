@@ -1,0 +1,2090 @@
+"""
+BLACKDARK — Async SQLite database layer (aiosqlite).
+
+Tables
+------
+pricing_logs   — real-time price feeds (spot, cross, perpetual)
+order_books    — depth snapshots (JSON-serialised levels)
+funding_rates  — perpetual funding snapshots
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+from contextlib import asynccontextmanager
+from datetime import datetime, timedelta, timezone
+from typing import Any, AsyncIterator, Optional, Sequence
+
+import aiosqlite
+
+import config
+
+logger = logging.getLogger(__name__)
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS pricing_logs (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp         TEXT    NOT NULL,
+    exchange          TEXT    NOT NULL,
+    symbol            TEXT    NOT NULL,
+    price             REAL    NOT NULL,
+    volume            REAL,
+    opportunity_score REAL,
+    market_type       TEXT    NOT NULL DEFAULT 'spot'
+);
+
+CREATE INDEX IF NOT EXISTS idx_pricing_exchange_symbol_ts
+    ON pricing_logs (exchange, symbol, timestamp);
+
+CREATE TABLE IF NOT EXISTS order_books (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp   TEXT    NOT NULL,
+    exchange    TEXT    NOT NULL,
+    symbol      TEXT    NOT NULL,
+    bids        TEXT    NOT NULL,
+    asks        TEXT    NOT NULL,
+    market_type TEXT    NOT NULL DEFAULT 'spot'
+);
+
+CREATE INDEX IF NOT EXISTS idx_orderbook_exchange_symbol_ts
+    ON order_books (exchange, symbol, timestamp);
+
+CREATE TABLE IF NOT EXISTS funding_rates (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp         TEXT    NOT NULL,
+    exchange          TEXT    NOT NULL,
+    symbol            TEXT    NOT NULL,
+    funding_rate      REAL    NOT NULL,
+    next_funding_time TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_funding_exchange_symbol_ts
+    ON funding_rates (exchange, symbol, timestamp);
+
+CREATE TABLE IF NOT EXISTS evaluated_opportunities (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp           TEXT    NOT NULL,
+    kind                TEXT    NOT NULL,
+    asset               TEXT    NOT NULL,
+    payload_json        TEXT    NOT NULL,
+    opportunity_score   REAL    NOT NULL,
+    net_profit_usdt     REAL    NOT NULL,
+    oracle_verdict      TEXT    NOT NULL,
+    oracle_sentence     TEXT    NOT NULL,
+    explanation_json    TEXT    NOT NULL,
+    confidence_percent  REAL    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_evaluated_asset_ts
+    ON evaluated_opportunities (asset, timestamp);
+
+CREATE TABLE IF NOT EXISTS institutional_flows (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp     TEXT    NOT NULL,
+    flow_type     TEXT    NOT NULL,
+    exchange      TEXT,
+    symbol        TEXT,
+    asset         TEXT,
+    sector        TEXT,
+    side          TEXT,
+    price         REAL,
+    quantity      REAL,
+    notional_usd  REAL,
+    net_flow_usd  REAL,
+    metadata_json TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_institutional_flow_type_ts
+    ON institutional_flows (flow_type, timestamp);
+
+CREATE INDEX IF NOT EXISTS idx_institutional_sector_ts
+    ON institutional_flows (sector, timestamp);
+
+CREATE TABLE IF NOT EXISTS cloud_sync_logs (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp     TEXT    NOT NULL,
+    local_path    TEXT    NOT NULL,
+    s3_bucket     TEXT    NOT NULL,
+    s3_key        TEXT    NOT NULL,
+    etag          TEXT,
+    size_bytes    INTEGER,
+    status        TEXT    NOT NULL,
+    local_deleted INTEGER NOT NULL DEFAULT 0,
+    error         TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_cloud_sync_local_path
+    ON cloud_sync_logs (local_path, timestamp);
+
+CREATE TABLE IF NOT EXISTS market_sentiment_logs (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp         TEXT    NOT NULL,
+    asset             TEXT    NOT NULL,
+    sector            TEXT,
+    source            TEXT    NOT NULL,
+    raw_text          TEXT    NOT NULL,
+    sentiment_score   REAL    NOT NULL,
+    compound_momentum REAL    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_sentiment_asset_ts
+    ON market_sentiment_logs (asset, timestamp);
+
+CREATE INDEX IF NOT EXISTS idx_sentiment_sector_ts
+    ON market_sentiment_logs (sector, timestamp);
+
+CREATE TABLE IF NOT EXISTS macro_market_logs (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp         TEXT    NOT NULL,
+    dxy_score         REAL    NOT NULL,
+    spx_score         REAL    NOT NULL,
+    macro_regime      TEXT    NOT NULL,
+    volatility_buffer REAL    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_macro_market_ts
+    ON macro_market_logs (timestamp);
+
+CREATE TABLE IF NOT EXISTS waitlist (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    email     TEXT    NOT NULL UNIQUE,
+    name      TEXT,
+    joined_at TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_waitlist_joined_at
+    ON waitlist (joined_at);
+
+CREATE TABLE IF NOT EXISTS subscriptions (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    email         TEXT    NOT NULL,
+    tier          TEXT    NOT NULL,
+    stripe_sub_id TEXT,
+    status        TEXT    NOT NULL DEFAULT 'active',
+    created_at    TEXT    NOT NULL,
+    trial_ends_at TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_subscriptions_email
+    ON subscriptions (email);
+
+CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_sub
+    ON subscriptions (stripe_sub_id);
+
+CREATE TABLE IF NOT EXISTS oracle_predictions (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp           TEXT    NOT NULL,
+    asset               TEXT    NOT NULL,
+    price_at_prediction REAL    NOT NULL,
+    verdict             TEXT    NOT NULL,
+    opportunity_score   INTEGER NOT NULL,
+    confidence          INTEGER NOT NULL,
+    resolved            INTEGER NOT NULL DEFAULT 0,
+    price_after_24h     REAL,
+    outcome             TEXT,
+    accuracy_score      REAL
+);
+
+CREATE INDEX IF NOT EXISTS idx_oracle_predictions_asset_ts
+    ON oracle_predictions (asset, timestamp);
+
+CREATE INDEX IF NOT EXISTS idx_oracle_predictions_resolved
+    ON oracle_predictions (resolved, timestamp);
+
+CREATE TABLE IF NOT EXISTS arbitrage_alert_log (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp    TEXT    NOT NULL,
+    kind         TEXT    NOT NULL,
+    title        TEXT    NOT NULL,
+    payload_json TEXT    NOT NULL,
+    delivered    INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE INDEX IF NOT EXISTS idx_arbitrage_alert_ts
+    ON arbitrage_alert_log (timestamp);
+
+CREATE TABLE IF NOT EXISTS simulation_logs (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp    TEXT    NOT NULL,
+    kind         TEXT    NOT NULL,
+    asset        TEXT    NOT NULL,
+    payload_json TEXT    NOT NULL,
+    pnl_usd      REAL
+);
+
+CREATE INDEX IF NOT EXISTS idx_simulation_ts
+    ON simulation_logs (timestamp);
+
+CREATE TABLE IF NOT EXISTS alert_subscriptions (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    email             TEXT,
+    telegram_chat_id  TEXT,
+    whatsapp_phone    TEXT,
+    min_profit_pct    REAL    NOT NULL DEFAULT 0.05,
+    oracle_alerts     INTEGER NOT NULL DEFAULT 1,
+    arbitrage_alerts  INTEGER NOT NULL DEFAULT 1,
+    email_alerts      INTEGER NOT NULL DEFAULT 1,
+    whatsapp_alerts   INTEGER NOT NULL DEFAULT 1,
+    enabled           INTEGER NOT NULL DEFAULT 1,
+    created_at        TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS alert_delivery_log (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp    TEXT    NOT NULL,
+    title        TEXT    NOT NULL,
+    payload_json TEXT,
+    results_json TEXT
+);
+
+CREATE TABLE IF NOT EXISTS execution_state (
+    id                     INTEGER PRIMARY KEY CHECK (id = 1),
+    panic_active           INTEGER NOT NULL DEFAULT 0,
+    auto_execution_enabled INTEGER NOT NULL DEFAULT 0,
+    updated_at             TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS execution_logs (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp    TEXT    NOT NULL,
+    side         TEXT    NOT NULL,
+    asset        TEXT    NOT NULL,
+    payload_json TEXT    NOT NULL,
+    live_mode    INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS platform_analytics (
+    id                 INTEGER PRIMARY KEY CHECK (id = 1),
+    page_views         INTEGER NOT NULL DEFAULT 0,
+    dashboard_views    INTEGER NOT NULL DEFAULT 0,
+    landing_views      INTEGER NOT NULL DEFAULT 0,
+    voice_commands     INTEGER NOT NULL DEFAULT 0,
+    waitlist_count     INTEGER NOT NULL DEFAULT 0,
+    subscriber_count   INTEGER NOT NULL DEFAULT 0,
+    updated_at         TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    email         TEXT    NOT NULL UNIQUE,
+    password_hash TEXT    NOT NULL,
+    name          TEXT,
+    created_at    TEXT    NOT NULL,
+    last_login_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS user_sessions (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id    INTEGER NOT NULL,
+    token      TEXT    NOT NULL UNIQUE,
+    expires_at TEXT    NOT NULL,
+    created_at TEXT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_user_sessions_token
+    ON user_sessions (token);
+
+CREATE TABLE IF NOT EXISTS oracle_usage_daily (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    email      TEXT    NOT NULL,
+    usage_date TEXT    NOT NULL,
+    count      INTEGER NOT NULL DEFAULT 0,
+    UNIQUE(email, usage_date)
+);
+
+CREATE TABLE IF NOT EXISTS journal_entries (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_email     TEXT    NOT NULL,
+    timestamp      TEXT    NOT NULL,
+    asset          TEXT    NOT NULL,
+    action         TEXT    NOT NULL,
+    notes          TEXT,
+    oracle_verdict TEXT,
+    entry_price    REAL,
+    exit_price     REAL,
+    pnl_usd        REAL,
+    status         TEXT    NOT NULL DEFAULT 'open'
+);
+
+CREATE INDEX IF NOT EXISTS idx_journal_user_ts
+    ON journal_entries (user_email, timestamp);
+"""
+
+
+def _utcnow_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+async def _configure_connection(db: aiosqlite.Connection) -> None:
+    """Apply WAL mode and busy timeout immediately after connection setup."""
+    if config.DB_WAL_MODE:
+        await db.execute("PRAGMA journal_mode=WAL;")
+    await db.execute(f"PRAGMA busy_timeout={config.DB_BUSY_TIMEOUT_MS};")
+    await db.execute("PRAGMA foreign_keys=ON;")
+
+
+@asynccontextmanager
+async def get_connection() -> AsyncIterator[aiosqlite.Connection]:
+    """
+    Yield a configured async SQLite connection.
+
+    Commits on success, rolls back on error, and always closes the connection.
+    """
+    config.DATA_DIR.mkdir(parents=True, exist_ok=True)
+    db = await aiosqlite.connect(
+        str(config.DB_PATH),
+        timeout=config.DB_BUSY_TIMEOUT_MS / 1000.0,
+    )
+    db.row_factory = aiosqlite.Row
+
+    try:
+        await _configure_connection(db)
+        yield db
+        await db.commit()
+    except Exception:
+        await db.rollback()
+        logger.exception("Database transaction failed; rolled back.")
+        raise
+    finally:
+        await db.close()
+
+
+async def init_db() -> None:
+    """Create or connect to the SQLite database and ensure schema exists."""
+    try:
+        async with get_connection() as db:
+            await db.executescript(SCHEMA)
+            await _apply_migrations(db)
+        logger.info("Database initialised at %s", config.DB_PATH)
+    except Exception:
+        logger.exception("Failed to initialise database at %s", config.DB_PATH)
+        raise
+
+
+async def _apply_migrations(db: aiosqlite.Connection) -> None:
+    """Apply lightweight schema migrations for existing databases."""
+    for table in ("pricing_logs", "order_books"):
+        columns = {
+            row[1] for row in await (await db.execute(f"PRAGMA table_info({table})")).fetchall()
+        }
+        if "market_type" not in columns:
+            await db.execute(
+                f"ALTER TABLE {table} ADD COLUMN market_type TEXT NOT NULL DEFAULT 'spot'"
+            )
+
+    for table, index_name in (
+        ("pricing_logs", "idx_pricing_timestamp"),
+        ("order_books", "idx_orderbook_timestamp"),
+        ("market_sentiment_logs", "idx_sentiment_timestamp"),
+    ):
+        await db.execute(
+            f"CREATE INDEX IF NOT EXISTS {index_name} ON {table} (timestamp)"
+        )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS platform_analytics (
+            id                 INTEGER PRIMARY KEY CHECK (id = 1),
+            page_views         INTEGER NOT NULL DEFAULT 0,
+            dashboard_views    INTEGER NOT NULL DEFAULT 0,
+            landing_views      INTEGER NOT NULL DEFAULT 0,
+            voice_commands     INTEGER NOT NULL DEFAULT 0,
+            waitlist_count     INTEGER NOT NULL DEFAULT 0,
+            subscriber_count   INTEGER NOT NULL DEFAULT 0,
+            updated_at         TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        INSERT OR IGNORE INTO platform_analytics
+            (id, page_views, dashboard_views, landing_views, voice_commands,
+             waitlist_count, subscriber_count, updated_at)
+        VALUES (1, 0, 0, 0, 0, 0, 0, ?)
+        """,
+        (_utcnow_iso(),),
+    )
+
+    for ddl in (
+        """
+        CREATE TABLE IF NOT EXISTS users (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            email         TEXT    NOT NULL UNIQUE,
+            password_hash TEXT    NOT NULL,
+            name          TEXT,
+            created_at    TEXT    NOT NULL,
+            last_login_at TEXT
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS user_sessions (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id    INTEGER NOT NULL,
+            token      TEXT    NOT NULL UNIQUE,
+            expires_at TEXT    NOT NULL,
+            created_at TEXT    NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_user_sessions_token
+            ON user_sessions (token)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS oracle_usage_daily (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            email      TEXT    NOT NULL,
+            usage_date TEXT    NOT NULL,
+            count      INTEGER NOT NULL DEFAULT 0,
+            UNIQUE(email, usage_date)
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS journal_entries (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_email     TEXT    NOT NULL,
+            timestamp      TEXT    NOT NULL,
+            asset          TEXT    NOT NULL,
+            action         TEXT    NOT NULL,
+            notes          TEXT,
+            oracle_verdict TEXT,
+            entry_price    REAL,
+            exit_price     REAL,
+            pnl_usd        REAL,
+            status         TEXT    NOT NULL DEFAULT 'open'
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_journal_user_ts
+            ON journal_entries (user_email, timestamp)
+        """,
+    ):
+        await db.execute(ddl)
+
+    sub_cols = {
+        row[1] for row in await (await db.execute("PRAGMA table_info(subscriptions)")).fetchall()
+    }
+    if "trial_ends_at" not in sub_cols:
+        await db.execute("ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT")
+
+
+def compaction_cutoff_iso(hours: int | None = None) -> str:
+    age_hours = hours if hours is not None else config.COMPACTION_MIN_AGE_HOURS
+    return (datetime.now(timezone.utc) - timedelta(hours=age_hours)).isoformat()
+
+
+def _parse_row_timestamp(value: Any) -> datetime | None:
+    if value is None:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+async def fetch_archivable_pricing_logs(
+    cutoff_iso: str,
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM pricing_logs
+                WHERE timestamp < ?
+                ORDER BY timestamp ASC, id ASC
+                LIMIT ?
+                """,
+                (cutoff_iso, batch_limit),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to fetch archivable pricing logs")
+        return []
+
+
+async def fetch_archivable_order_books(
+    cutoff_iso: str,
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM order_books
+                WHERE timestamp < ?
+                ORDER BY timestamp ASC, id ASC
+                LIMIT ?
+                """,
+                (cutoff_iso, batch_limit),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to fetch archivable order books")
+        return []
+
+
+async def fetch_archivable_sentiment_logs(
+    cutoff_iso: str,
+    *,
+    limit: int | None = None,
+) -> list[dict[str, Any]]:
+    batch_limit = limit or config.COMPACTION_SQLITE_BATCH_SIZE
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM market_sentiment_logs
+                WHERE timestamp < ?
+                ORDER BY timestamp ASC, id ASC
+                LIMIT ?
+                """,
+                (cutoff_iso, batch_limit),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to fetch archivable sentiment logs")
+        return []
+
+
+async def delete_pricing_logs_by_ids(row_ids: Sequence[int]) -> int:
+    if not row_ids:
+        return 0
+    total = 0
+    try:
+        async with get_connection() as db:
+            for i in range(0, len(row_ids), 500):
+                batch = row_ids[i:i + 500]
+                placeholders = ",".join("?" for _ in batch)
+                cursor = await db.execute(
+                    f"DELETE FROM pricing_logs WHERE id IN ({placeholders})",
+                    tuple(int(item) for item in batch),
+                )
+                total += cursor.rowcount
+        return total
+    except Exception:
+        logger.exception("Unable to purge archived pricing logs")
+        return 0
+
+
+async def delete_order_books_by_ids(row_ids: Sequence[int]) -> int:
+    if not row_ids:
+        return 0
+    total = 0
+    try:
+        async with get_connection() as db:
+            for i in range(0, len(row_ids), 500):
+                batch = row_ids[i:i + 500]
+                placeholders = ",".join("?" for _ in batch)
+                cursor = await db.execute(
+                    f"DELETE FROM order_books WHERE id IN ({placeholders})",
+                    tuple(int(item) for item in batch),
+                )
+                total += cursor.rowcount
+        return total
+    except Exception:
+        logger.exception("Unable to purge archived order books")
+        return 0
+
+
+async def delete_sentiment_logs_by_ids(row_ids: Sequence[int]) -> int:
+    if not row_ids:
+        return 0
+    total = 0
+    try:
+        async with get_connection() as db:
+            for i in range(0, len(row_ids), 500):
+                batch = row_ids[i:i + 500]
+                placeholders = ",".join("?" for _ in batch)
+                cursor = await db.execute(
+                    f"DELETE FROM market_sentiment_logs WHERE id IN ({placeholders})",
+                    tuple(int(item) for item in batch),
+                )
+                total += cursor.rowcount
+        return total
+    except Exception:
+        logger.exception("Unable to purge archived sentiment logs")
+        return 0
+
+
+async def insert_pricing_log(
+    exchange: str,
+    symbol: str,
+    price: float,
+    volume: Optional[float] = None,
+    opportunity_score: Optional[float] = None,
+    timestamp: Optional[str] = None,
+    market_type: str = "spot",
+) -> int:
+    """Insert one pricing log row and return its autoincrement id."""
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO pricing_logs (
+                timestamp, exchange, symbol, price, volume, opportunity_score, market_type
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (ts, exchange, symbol, price, volume, opportunity_score, market_type),
+        )
+        return cursor.lastrowid
+
+
+async def insert_pricing_logs(
+    rows: Sequence[tuple[str, str, str, float, Optional[float], Optional[float], str]],
+) -> None:
+    """
+    Batch-insert pricing logs efficiently.
+
+    Each row tuple is:
+    (timestamp, exchange, symbol, price, volume, opportunity_score, market_type)
+    """
+    if not rows:
+        return
+
+    async with get_connection() as db:
+        await db.executemany(
+            """
+            INSERT INTO pricing_logs (
+                timestamp, exchange, symbol, price, volume, opportunity_score, market_type
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            rows,
+        )
+
+
+async def insert_order_book(
+    exchange: str,
+    symbol: str,
+    bids: Sequence[Sequence[float]],
+    asks: Sequence[Sequence[float]],
+    timestamp: Optional[str] = None,
+    market_type: str = "spot",
+) -> int:
+    """Insert one order book snapshot and return its autoincrement id."""
+    ts = timestamp or _utcnow_iso()
+    bids_json = json.dumps(list(bids), separators=(",", ":"))
+    asks_json = json.dumps(list(asks), separators=(",", ":"))
+
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO order_books (
+                timestamp, exchange, symbol, bids, asks, market_type
+            ) VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (ts, exchange, symbol, bids_json, asks_json, market_type),
+        )
+        return cursor.lastrowid
+
+
+async def insert_order_books(
+    rows: Sequence[tuple[str, str, str, str, str, str]],
+) -> None:
+    """
+    Batch-insert order book snapshots efficiently.
+
+    Each row tuple is:
+    (timestamp, exchange, symbol, bids_json, asks_json, market_type)
+    """
+    if not rows:
+        return
+
+    async with get_connection() as db:
+        await db.executemany(
+            """
+            INSERT INTO order_books (
+                timestamp, exchange, symbol, bids, asks, market_type
+            ) VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            rows,
+        )
+
+
+async def insert_funding_rate(
+    exchange: str,
+    symbol: str,
+    funding_rate: float,
+    next_funding_time: Optional[str] = None,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO funding_rates (
+                timestamp, exchange, symbol, funding_rate, next_funding_time
+            ) VALUES (?, ?, ?, ?, ?)
+            """,
+            (ts, exchange, symbol, funding_rate, next_funding_time),
+        )
+        return cursor.lastrowid
+
+
+def _book_storage_key(symbol: str, market_type: str) -> str:
+    if market_type == "perpetual":
+        return f"{symbol}@perpetual"
+    return symbol
+
+
+async def fetch_latest_order_books(
+    market_type: Optional[str] = None,
+) -> dict[str, dict[str, dict[str, Any]]]:
+    """
+    Return the most recent order book snapshot per exchange/symbol.
+
+    Perpetual books are keyed as `{symbol}@perpetual` to avoid spot collisions.
+    """
+    books: dict[str, dict[str, dict[str, Any]]] = {}
+    params: list[Any] = []
+    market_filter = ""
+    if market_type is not None:
+        market_filter = "WHERE o.market_type = ?"
+        params.append(market_type)
+
+    query = f"""
+        SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type
+        FROM order_books o
+        INNER JOIN (
+            SELECT exchange, symbol, market_type, MAX(timestamp) AS max_ts
+            FROM order_books
+            GROUP BY exchange, symbol, market_type
+        ) latest
+            ON o.exchange = latest.exchange
+           AND o.symbol = latest.symbol
+           AND o.market_type = latest.market_type
+           AND o.timestamp = latest.max_ts
+        {market_filter}
+    """
+
+    async with get_connection() as db:
+        rows = await db.execute(query, params)
+        result = await rows.fetchall()
+
+    for row in result:
+        exchange = str(row["exchange"])
+        symbol = str(row["symbol"])
+        row_market_type = str(row["market_type"])
+        storage_key = _book_storage_key(symbol, row_market_type)
+        books.setdefault(exchange, {})[storage_key] = {
+            "bids": json.loads(row["bids"]),
+            "asks": json.loads(row["asks"]),
+            "timestamp": str(row["timestamp"]),
+            "market_type": row_market_type,
+            "symbol": symbol,
+        }
+
+    return books
+
+
+async def fetch_latest_funding_rates() -> dict[str, dict[str, dict[str, Any]]]:
+    """
+    Return the latest funding rate per exchange/symbol.
+
+    Structure: {exchange: {symbol: {"funding_rate": float, "next_funding_time": str, "timestamp": str}}}
+    """
+    rates: dict[str, dict[str, dict[str, Any]]] = {}
+
+    async with get_connection() as db:
+        rows = await db.execute(
+            """
+            SELECT f.exchange, f.symbol, f.funding_rate, f.next_funding_time, f.timestamp
+            FROM funding_rates f
+            INNER JOIN (
+                SELECT exchange, symbol, MAX(timestamp) AS max_ts
+                FROM funding_rates
+                GROUP BY exchange, symbol
+            ) latest
+                ON f.exchange = latest.exchange
+               AND f.symbol = latest.symbol
+               AND f.timestamp = latest.max_ts
+            """
+        )
+        result = await rows.fetchall()
+
+    for row in result:
+        exchange = str(row["exchange"])
+        symbol = str(row["symbol"])
+        rates.setdefault(exchange, {})[symbol] = {
+            "funding_rate": float(row["funding_rate"]),
+            "next_funding_time": row["next_funding_time"],
+            "timestamp": str(row["timestamp"]),
+        }
+
+    return rates
+
+
+async def insert_evaluated_opportunity(
+    kind: str,
+    asset: str,
+    payload_json: str,
+    opportunity_score: float,
+    net_profit_usdt: float,
+    oracle_verdict: str,
+    oracle_sentence: str,
+    explanation_json: str,
+    confidence_percent: float,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO evaluated_opportunities (
+                timestamp, kind, asset, payload_json, opportunity_score,
+                net_profit_usdt, oracle_verdict, oracle_sentence,
+                explanation_json, confidence_percent
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                ts,
+                kind,
+                asset,
+                payload_json,
+                opportunity_score,
+                net_profit_usdt,
+                oracle_verdict,
+                oracle_sentence,
+                explanation_json,
+                confidence_percent,
+            ),
+        )
+        return cursor.lastrowid
+
+
+async def fetch_evaluated_opportunities(limit: int = 250) -> list[dict[str, Any]]:
+    """Return recent evaluated opportunities newest-first."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT
+                    id, timestamp, kind, asset, payload_json, opportunity_score,
+                    net_profit_usdt, oracle_verdict, oracle_sentence,
+                    explanation_json, confidence_percent
+                FROM evaluated_opportunities
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read evaluated_opportunities; returning empty list")
+        return []
+
+
+async def _safe_table_count(db: aiosqlite.Connection, table_name: str) -> int:
+    """Return row count for a table, or 0 if the table is unavailable."""
+    try:
+        row = await (await db.execute(f"SELECT COUNT(*) FROM {table_name}")).fetchone()
+        return int(row[0] or 0)
+    except Exception:
+        logger.debug("Unable to count rows for table=%s", table_name)
+        return 0
+
+
+async def fetch_system_telemetry() -> dict[str, Any]:
+    """Aggregate database and pipeline health metrics for the dashboard."""
+    try:
+        async with get_connection() as db:
+            evaluated_count = (
+                await (await db.execute("SELECT COUNT(*) FROM evaluated_opportunities")).fetchone()
+            )[0]
+            pricing_count = (
+                await (await db.execute("SELECT COUNT(*) FROM pricing_logs")).fetchone()
+            )[0]
+            orderbook_count = (
+                await (await db.execute("SELECT COUNT(*) FROM order_books")).fetchone()
+            )[0]
+            funding_count = (
+                await (await db.execute("SELECT COUNT(*) FROM funding_rates")).fetchone()
+            )[0]
+            latest_eval = (
+                await (
+                    await db.execute("SELECT MAX(timestamp) FROM evaluated_opportunities")
+                ).fetchone()
+            )[0]
+            latest_pricing = (
+                await (await db.execute("SELECT MAX(timestamp) FROM pricing_logs")).fetchone()
+            )[0]
+            institutional_flows_count = await _safe_table_count(db, "institutional_flows")
+            market_sentiment_count = await _safe_table_count(db, "market_sentiment_logs")
+            institutional_count = institutional_flows_count + market_sentiment_count
+    except Exception:
+        logger.exception("Unable to read telemetry tables; returning safe defaults")
+        evaluated_count = pricing_count = orderbook_count = funding_count = 0
+        institutional_count = 0
+        institutional_flows_count = 0
+        market_sentiment_count = 0
+        latest_eval = latest_pricing = None
+
+    db_exists = config.DB_PATH.exists()
+    db_size_bytes = config.DB_PATH.stat().st_size if db_exists else 0
+
+    return {
+        "evaluated_count": int(evaluated_count or 0),
+        "pricing_count": int(pricing_count or 0),
+        "orderbook_count": int(orderbook_count or 0),
+        "funding_count": int(funding_count or 0),
+        "institutional_flow_count": int(institutional_count or 0),
+        "institutional_flows_count": int(institutional_flows_count or 0),
+        "market_sentiment_log_count": int(market_sentiment_count or 0),
+        "latest_evaluated_at": latest_eval,
+        "latest_pricing_at": latest_pricing,
+        "database_path": str(config.DB_PATH),
+        "database_size_bytes": db_size_bytes,
+        "database_online": db_exists,
+        "poll_interval_seconds": config.POLL_INTERVAL_SECONDS,
+    }
+
+
+async def insert_institutional_flow(
+    flow_type: str,
+    exchange: Optional[str] = None,
+    symbol: Optional[str] = None,
+    asset: Optional[str] = None,
+    sector: Optional[str] = None,
+    side: Optional[str] = None,
+    price: Optional[float] = None,
+    quantity: Optional[float] = None,
+    notional_usd: Optional[float] = None,
+    net_flow_usd: Optional[float] = None,
+    metadata_json: Optional[str] = None,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO institutional_flows (
+                timestamp, flow_type, exchange, symbol, asset, sector, side,
+                price, quantity, notional_usd, net_flow_usd, metadata_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                ts,
+                flow_type,
+                exchange,
+                symbol,
+                asset,
+                sector,
+                side,
+                price,
+                quantity,
+                notional_usd,
+                net_flow_usd,
+                metadata_json,
+            ),
+        )
+        return cursor.lastrowid
+
+
+async def insert_institutional_flows(
+    rows: Sequence[tuple[Any, ...]],
+) -> None:
+    if not rows:
+        return
+    async with get_connection() as db:
+        await db.executemany(
+            """
+            INSERT INTO institutional_flows (
+                timestamp, flow_type, exchange, symbol, asset, sector, side,
+                price, quantity, notional_usd, net_flow_usd, metadata_json
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            rows,
+        )
+
+
+async def fetch_latest_whale_alerts(limit: int = 50) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM institutional_flows
+                WHERE flow_type IN ('manipulation_alert', 'whale_alert')
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read manipulation alerts; returning empty list")
+        return []
+
+
+async def fetch_latest_sector_flows(limit: int = 20) -> list[dict[str, Any]]:
+    """Return the latest sector inflow index snapshot per sector."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT s.*
+                FROM institutional_flows s
+                INNER JOIN (
+                    SELECT sector, MAX(timestamp) AS max_ts
+                    FROM institutional_flows
+                    WHERE flow_type IN ('sector_inflow_index', 'sector_rotation')
+                    GROUP BY sector
+                ) latest
+                    ON s.sector = latest.sector
+                   AND s.timestamp = latest.max_ts
+                ORDER BY s.timestamp DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read sector inflow index; returning empty list")
+        return []
+
+
+async def fetch_institutional_feed_rows(
+    *,
+    limit: int = 250,
+    flow_types: Sequence[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Return recent institutional flow rows for B2B export packaging."""
+    allowed = flow_types or (
+        "manipulation_alert",
+        "sector_inflow_index",
+        "whale_alert",
+        "sector_rotation",
+    )
+    placeholders = ", ".join("?" for _ in allowed)
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                f"""
+                SELECT *
+                FROM institutional_flows
+                WHERE flow_type IN ({placeholders})
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (*allowed, limit),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read institutional feed rows")
+        return []
+
+
+async def fetch_institutional_flow_count() -> int:
+    """Return combined institutional + sentiment log count for telemetry."""
+    try:
+        async with get_connection() as db:
+            flows = await _safe_table_count(db, "institutional_flows")
+            sentiment = await _safe_table_count(db, "market_sentiment_logs")
+        return flows + sentiment
+    except Exception:
+        return 0
+
+
+async def insert_cloud_sync_log(
+    *,
+    local_path: str,
+    s3_bucket: str,
+    s3_key: str,
+    status: str,
+    etag: Optional[str] = None,
+    size_bytes: Optional[int] = None,
+    local_deleted: bool = False,
+    error: Optional[str] = None,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO cloud_sync_logs (
+                timestamp, local_path, s3_bucket, s3_key, etag, size_bytes,
+                status, local_deleted, error
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                ts,
+                local_path,
+                s3_bucket,
+                s3_key,
+                etag,
+                size_bytes,
+                status,
+                1 if local_deleted else 0,
+                error,
+            ),
+        )
+        return cursor.lastrowid
+
+
+async def fetch_latest_cloud_sync_log(local_path: str) -> Optional[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM cloud_sync_logs
+                WHERE local_path = ?
+                ORDER BY timestamp DESC, id DESC
+                LIMIT 1
+                """,
+                (local_path,),
+            )
+            row = await rows.fetchone()
+        return dict(row) if row else None
+    except Exception:
+        logger.exception("Unable to read cloud sync log for %s", local_path)
+        return None
+
+
+async def insert_market_sentiment_log(
+    asset: str,
+    source: str,
+    raw_text: str,
+    sentiment_score: float,
+    compound_momentum: float,
+    *,
+    sector: Optional[str] = None,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO market_sentiment_logs (
+                timestamp, asset, sector, source, raw_text,
+                sentiment_score, compound_momentum
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                ts,
+                asset,
+                sector,
+                source,
+                raw_text,
+                sentiment_score,
+                compound_momentum,
+            ),
+        )
+        return cursor.lastrowid
+
+
+async def insert_market_sentiment_logs(
+    rows: Sequence[tuple[Any, ...]],
+) -> None:
+    if not rows:
+        return
+    async with get_connection() as db:
+        await db.executemany(
+            """
+            INSERT INTO market_sentiment_logs (
+                timestamp, asset, sector, source, raw_text,
+                sentiment_score, compound_momentum
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            rows,
+        )
+
+
+async def fetch_sentiment_logs_for_asset(
+    asset: str,
+    *,
+    window_seconds: int = 300,
+    limit: int = 500,
+) -> list[dict[str, Any]]:
+    """Return sentiment rows for an asset within the rolling window."""
+    try:
+        cutoff = (
+            datetime.now(timezone.utc).timestamp() - window_seconds
+        )
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM market_sentiment_logs
+                WHERE asset = ?
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (asset, limit),
+            )
+            result = await rows.fetchall()
+
+        filtered: list[dict[str, Any]] = []
+        for row in result:
+            item = dict(row)
+            try:
+                ts = datetime.fromisoformat(str(item["timestamp"]).replace("Z", "+00:00"))
+                if ts.timestamp() >= cutoff:
+                    filtered.append(item)
+            except ValueError:
+                filtered.append(item)
+        return filtered
+    except Exception:
+        logger.exception("Unable to read sentiment logs for asset=%s", asset)
+        return []
+
+
+async def fetch_rolling_compound_sentiment_index(
+    asset: str,
+    *,
+    window_seconds: int = 300,
+) -> float:
+    """
+    Compute the rolling compound sentiment index for one asset.
+
+    Uses time-decayed averaging of sentiment_score over the window.
+    Returns 0.0 when no data is available.
+    """
+    rows = await fetch_sentiment_logs_for_asset(
+        asset,
+        window_seconds=window_seconds,
+    )
+    if not rows:
+        return 0.0
+
+    now_ts = datetime.now(timezone.utc).timestamp()
+    weighted_sum = 0.0
+    weight_total = 0.0
+    for row in rows:
+        try:
+            ts = datetime.fromisoformat(str(row["timestamp"]).replace("Z", "+00:00")).timestamp()
+            age = max(0.0, now_ts - ts)
+            weight = max(0.05, 1.0 - (age / max(window_seconds, 1)))
+        except ValueError:
+            weight = 1.0
+        score = float(row.get("sentiment_score") or 0.0)
+        weighted_sum += score * weight
+        weight_total += weight
+
+    if weight_total <= 0:
+        return 0.0
+    return round(max(-1.0, min(1.0, weighted_sum / weight_total)), 4)
+
+
+async def fetch_all_rolling_compound_sentiment_indices(
+    assets: Sequence[str] | None = None,
+    *,
+    window_seconds: int = 300,
+) -> dict[str, float]:
+    """Return rolling compound sentiment indices keyed by asset."""
+    target_assets = list(assets or config.WHITELIST_ASSETS)
+    indices: dict[str, float] = {}
+    for asset in target_assets:
+        indices[asset] = await fetch_rolling_compound_sentiment_index(
+            asset,
+            window_seconds=window_seconds,
+        )
+    return indices
+
+
+async def insert_macro_market_log(
+    dxy_score: float,
+    spx_score: float,
+    macro_regime: str,
+    volatility_buffer: float,
+    *,
+    timestamp: Optional[str] = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO macro_market_logs (
+                timestamp, dxy_score, spx_score, macro_regime, volatility_buffer
+            ) VALUES (?, ?, ?, ?, ?)
+            """,
+            (ts, dxy_score, spx_score, macro_regime, volatility_buffer),
+        )
+        return cursor.lastrowid
+
+
+async def fetch_latest_macro_market_log() -> Optional[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM macro_market_logs
+                ORDER BY timestamp DESC, id DESC
+                LIMIT 1
+                """
+            )
+            row = await rows.fetchone()
+        return dict(row) if row else None
+    except Exception:
+        logger.exception("Unable to read latest macro market log")
+        return None
+
+
+async def insert_waitlist_signup(email: str, name: str = "") -> dict[str, Any]:
+    """Register an email on the pre-launch waitlist."""
+    normalized_email = email.strip().lower()
+    async with get_connection() as db:
+        try:
+            cursor = await db.execute(
+                """
+                INSERT INTO waitlist (email, name, joined_at)
+                VALUES (?, ?, ?)
+                """,
+                (normalized_email, name.strip(), _utcnow_iso()),
+            )
+            return {"success": True, "position": int(cursor.lastrowid or 0)}
+        except aiosqlite.IntegrityError:
+            return {"success": False, "duplicate": True}
+
+
+async def insert_subscription(
+    email: str,
+    tier: str,
+    stripe_sub_id: str | None,
+    *,
+    status: str = "active",
+    trial_ends_at: str | None = None,
+) -> int:
+    """Persist an activated Stripe subscription or trial."""
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO subscriptions (email, tier, stripe_sub_id, status, created_at, trial_ends_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                email.strip().lower(),
+                tier.strip().lower(),
+                stripe_sub_id,
+                status,
+                _utcnow_iso(),
+                trial_ends_at,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def insert_pro_trial(email: str, days: int | None = None) -> dict[str, Any]:
+    """Grant a Pro trial to a new or returning user."""
+    import config
+
+    await init_db()
+    trial_days = days if days is not None else config.PRO_TRIAL_DAYS
+    ends_at = (datetime.now(timezone.utc) + timedelta(days=trial_days)).isoformat()
+    sub_id = await insert_subscription(
+        email,
+        "pro",
+        None,
+        status="trial",
+        trial_ends_at=ends_at,
+    )
+    return {"subscription_id": sub_id, "tier": "pro", "trial_ends_at": ends_at, "days": trial_days}
+
+
+async def extend_pro_trial(email: str, extra_days: int) -> dict[str, Any]:
+    """Extend an active trial or start a new one."""
+    email = email.strip().lower()
+    sub = await fetch_active_subscription_for_email(email)
+    now = datetime.now(timezone.utc)
+    if sub and sub.get("status") == "trial" and sub.get("trial_ends_at"):
+        try:
+            current_end = datetime.fromisoformat(str(sub["trial_ends_at"]).replace("Z", "+00:00"))
+            base = current_end if current_end > now else now
+        except ValueError:
+            base = now
+    else:
+        base = now
+    ends_at = (base + timedelta(days=extra_days)).isoformat()
+    if sub and sub.get("status") == "trial":
+        async with get_connection() as db:
+            await db.execute(
+                "UPDATE subscriptions SET trial_ends_at = ? WHERE id = ?",
+                (ends_at, sub["id"]),
+            )
+        return {"tier": "pro", "trial_ends_at": ends_at, "extended": True}
+    return await insert_pro_trial(email, extra_days)
+
+
+async def expire_subscription(subscription_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE subscriptions SET status = 'expired' WHERE id = ?",
+            (subscription_id,),
+        )
+
+
+async def insert_oracle_prediction(
+    asset: str,
+    price_at_prediction: float,
+    verdict: str,
+    opportunity_score: int,
+    confidence: int,
+    *,
+    timestamp: str | None = None,
+) -> int:
+    ts = timestamp or _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO oracle_predictions (
+                timestamp, asset, price_at_prediction, verdict,
+                opportunity_score, confidence, resolved
+            ) VALUES (?, ?, ?, ?, ?, ?, 0)
+            """,
+            (
+                ts,
+                asset.upper(),
+                price_at_prediction,
+                verdict.upper(),
+                opportunity_score,
+                confidence,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_unresolved_oracle_predictions(limit: int = 100) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT *
+                FROM oracle_predictions
+                WHERE resolved = 0
+                ORDER BY timestamp ASC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read unresolved oracle predictions")
+        return []
+
+
+async def resolve_oracle_prediction(
+    prediction_id: int,
+    price_after: float,
+    outcome: str,
+    accuracy_score: float,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE oracle_predictions
+            SET resolved = 1,
+                price_after_24h = ?,
+                outcome = ?,
+                accuracy_score = ?
+            WHERE id = ?
+            """,
+            (price_after, outcome, accuracy_score, prediction_id),
+        )
+
+
+async def fetch_oracle_audit_stats(limit: int = 500) -> dict[str, Any]:
+    try:
+        async with get_connection() as db:
+            total_row = await (
+                await db.execute("SELECT COUNT(*) FROM oracle_predictions")
+            ).fetchone()
+            resolved_row = await (
+                await db.execute(
+                    "SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1"
+                )
+            ).fetchone()
+            avg_row = await (
+                await db.execute(
+                    """
+                    SELECT AVG(accuracy_score)
+                    FROM oracle_predictions
+                    WHERE resolved = 1 AND accuracy_score IS NOT NULL
+                    """
+                )
+            ).fetchone()
+            recent = await (
+                await db.execute(
+                    """
+                    SELECT *
+                    FROM oracle_predictions
+                    ORDER BY timestamp DESC, id DESC
+                    LIMIT ?
+                    """,
+                    (limit,),
+                )
+            ).fetchall()
+        total = int(total_row[0] or 0)
+        resolved = int(resolved_row[0] or 0)
+        avg_accuracy = float(avg_row[0] or 0.0)
+        return {
+            "total_predictions": total,
+            "resolved_predictions": resolved,
+            "pending_predictions": max(0, total - resolved),
+            "average_accuracy_percent": round(avg_accuracy, 2),
+            "recent": [dict(row) for row in recent],
+        }
+    except Exception:
+        logger.exception("Unable to compute oracle audit stats")
+        return {
+            "total_predictions": 0,
+            "resolved_predictions": 0,
+            "pending_predictions": 0,
+            "average_accuracy_percent": 0.0,
+            "recent": [],
+        }
+
+
+async def insert_arbitrage_alert_log(
+    kind: str,
+    title: str,
+    payload_json: str,
+    *,
+    delivered: bool = False,
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO arbitrage_alert_log (timestamp, kind, title, payload_json, delivered)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (_utcnow_iso(), kind, title, payload_json, 1 if delivered else 0),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_arbitrage_alert_log(limit: int = 30) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, timestamp, kind, title, payload_json, delivered
+                FROM arbitrage_alert_log
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read arbitrage alert log")
+        return []
+
+
+async def insert_simulation_log(kind: str, asset: str, payload_json: str, pnl_usd: float) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO simulation_logs (timestamp, kind, asset, payload_json, pnl_usd)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (_utcnow_iso(), kind, asset.upper(), payload_json, pnl_usd),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_simulation_logs(limit: int = 20) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM simulation_logs
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read simulation logs")
+        return []
+
+
+async def insert_alert_subscription(
+    *,
+    email: str | None,
+    telegram_chat_id: str | None,
+    whatsapp_phone: str | None,
+    min_profit_pct: float,
+    oracle_alerts: bool,
+    arbitrage_alerts: bool,
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO alert_subscriptions (
+                email, telegram_chat_id, whatsapp_phone,
+                min_profit_pct, oracle_alerts, arbitrage_alerts, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                email,
+                telegram_chat_id,
+                whatsapp_phone,
+                min_profit_pct,
+                1 if oracle_alerts else 0,
+                1 if arbitrage_alerts else 0,
+                _utcnow_iso(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_active_alert_subscriptions() -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM alert_subscriptions
+                WHERE enabled = 1
+                ORDER BY id DESC
+                """
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read alert subscriptions")
+        return []
+
+
+async def insert_alert_delivery_log(
+    title: str,
+    payload_json: str,
+    results_json: str,
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO alert_delivery_log (timestamp, title, payload_json, results_json)
+            VALUES (?, ?, ?, ?)
+            """,
+            (_utcnow_iso(), title, payload_json, results_json),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_execution_state() -> dict[str, Any]:
+    try:
+        async with get_connection() as db:
+            row = await (
+                await db.execute("SELECT * FROM execution_state WHERE id = 1")
+            ).fetchone()
+            if row is None:
+                ts = _utcnow_iso()
+                await db.execute(
+                    """
+                    INSERT OR IGNORE INTO execution_state (id, panic_active, auto_execution_enabled, updated_at)
+                    VALUES (1, 0, 0, ?)
+                    """,
+                    (ts,),
+                )
+                row = await (
+                    await db.execute("SELECT * FROM execution_state WHERE id = 1")
+                ).fetchone()
+        return dict(row) if row else {"panic_active": 0, "auto_execution_enabled": 0}
+    except Exception:
+        logger.exception("Unable to read execution state")
+        return {"panic_active": 0, "auto_execution_enabled": 0}
+
+
+async def set_execution_state(
+    *,
+    panic_active: bool | None = None,
+    auto_execution_enabled: bool | None = None,
+) -> None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT panic_active, auto_execution_enabled FROM execution_state WHERE id = 1"
+            )
+        ).fetchone()
+        if row is None:
+            panic = int(bool(panic_active))
+            auto_exec = int(bool(auto_execution_enabled))
+        else:
+            panic = int(
+                panic_active if panic_active is not None else bool(row["panic_active"])
+            )
+            auto_exec = int(
+                auto_execution_enabled
+                if auto_execution_enabled is not None
+                else bool(row["auto_execution_enabled"])
+            )
+        await db.execute(
+            """
+            INSERT INTO execution_state (id, panic_active, auto_execution_enabled, updated_at)
+            VALUES (1, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                panic_active = excluded.panic_active,
+                auto_execution_enabled = excluded.auto_execution_enabled,
+                updated_at = excluded.updated_at
+            """,
+            (panic, auto_exec, _utcnow_iso()),
+        )
+
+
+async def insert_execution_log(side: str, asset: str, payload_json: str, *, live: bool) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO execution_logs (timestamp, side, asset, payload_json, live_mode)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (_utcnow_iso(), side, asset.upper(), payload_json, 1 if live else 0),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_execution_logs(limit: int = 20) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM execution_logs
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            )
+            result = await rows.fetchall()
+        return [dict(row) for row in result]
+    except Exception:
+        logger.exception("Unable to read execution logs")
+        return []
+
+
+async def db_count_waitlist() -> int:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute("SELECT COUNT(*) AS c FROM waitlist")
+            row = await rows.fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def db_count_subscribers() -> int:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT COUNT(*) AS c FROM subscriptions WHERE status = 'active'"
+            )
+            row = await rows.fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def fetch_platform_analytics() -> dict[str, Any]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute("SELECT * FROM platform_analytics WHERE id = 1")
+            result = await rows.fetchone()
+        if not result:
+            return {
+                "page_views": 0,
+                "dashboard_views": 0,
+                "landing_views": 0,
+                "voice_commands": 0,
+                "waitlist_count": 0,
+                "subscriber_count": 0,
+            }
+        data = dict(result)
+        data["waitlist_count"] = await db_count_waitlist()
+        data["subscriber_count"] = await db_count_subscribers()
+        return data
+    except Exception:
+        logger.exception("Unable to read platform analytics")
+        return {}
+
+
+async def increment_platform_metric(metric: str) -> dict[str, Any]:
+    allowed = {"page_views", "dashboard_views", "landing_views", "voice_commands"}
+    if metric not in allowed:
+        raise ValueError(f"Unknown metric: {metric}")
+    try:
+        async with get_connection() as db:
+            await db.execute(
+                f"""
+                UPDATE platform_analytics
+                SET {metric} = {metric} + 1, updated_at = ?
+                WHERE id = 1
+                """,
+                (_utcnow_iso(),),
+            )
+        return await fetch_platform_analytics()
+    except Exception:
+        logger.exception("Unable to increment platform metric | metric=%s", metric)
+        return {}
+
+
+    return int(row[0]) if row else 1
+
+
+async def insert_journal_entry(
+    user_email: str,
+    asset: str,
+    action: str,
+    *,
+    notes: str = "",
+    oracle_verdict: str = "",
+    entry_price: float | None = None,
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO journal_entries
+                (user_email, timestamp, asset, action, notes, oracle_verdict, entry_price, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'open')
+            """,
+            (
+                user_email.strip().lower(),
+                _utcnow_iso(),
+                asset.upper(),
+                action.lower(),
+                notes or None,
+                oracle_verdict or None,
+                entry_price,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_journal_entries(user_email: str, limit: int = 50) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM journal_entries
+                WHERE user_email = ?
+                ORDER BY timestamp DESC, id DESC
+                LIMIT ?
+                """,
+                (user_email.strip().lower(), limit),
+            )
+            result = await rows.fetchall()
+        return [dict(r) for r in result]
+    except Exception:
+        logger.exception("Unable to read journal entries")
+        return []
+
+
+async def update_journal_entry(
+    entry_id: int,
+    user_email: str,
+    *,
+    exit_price: float | None = None,
+    pnl_usd: float | None = None,
+    notes: str | None = None,
+    status: str = "closed",
+) -> bool:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            UPDATE journal_entries
+            SET exit_price = COALESCE(?, exit_price),
+                pnl_usd = COALESCE(?, pnl_usd),
+                notes = COALESCE(?, notes),
+                status = ?
+            WHERE id = ? AND user_email = ?
+            """,
+            (exit_price, pnl_usd, notes, status, entry_id, user_email.strip().lower()),
+        )
+        return cursor.rowcount > 0
+
+
+async def delete_journal_entry(entry_id: int, user_email: str) -> bool:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM journal_entries WHERE id = ? AND user_email = ?",
+            (entry_id, user_email.strip().lower()),
+        )
+        return cursor.rowcount > 0
+
+
+async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | None:
+    try:
+        now = _utcnow_iso()
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM subscriptions
+                WHERE email = ?
+                  AND (
+                    status = 'active'
+                    OR (status = 'trial' AND (trial_ends_at IS NULL OR trial_ends_at > ?))
+                  )
+                ORDER BY CASE status WHEN 'active' THEN 0 ELSE 1 END, id DESC
+                LIMIT 1
+                """,
+                (email.strip().lower(), now),
+            )
+            result = await rows.fetchone()
+        if result is None:
+            return None
+        row = dict(result)
+        if row.get("status") == "trial" and row.get("trial_ends_at") and row["trial_ends_at"] <= now:
+            await expire_subscription(int(row["id"]))
+            return None
+        return row
+    except Exception:
+        logger.exception("Unable to fetch subscription for email")
+        return None
+
+
+async def create_user(email: str, password_hash: str, name: str = "") -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO users (email, password_hash, name, created_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT * FROM users WHERE email = ?",
+                (email.strip().lower(),),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user")
+        return None
+
+
+async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT u.* FROM users u
+                JOIN user_sessions s ON s.user_id = u.id
+                WHERE s.token = ? AND s.expires_at > ?
+                """,
+                (token, _utcnow_iso()),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by session")
+        return None
+
+
+async def insert_user_session(user_id: int, token: str, expires_at: str) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO user_sessions (user_id, token, expires_at, created_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (user_id, token, expires_at, _utcnow_iso()),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def delete_user_session(token: str) -> None:
+    async with get_connection() as db:
+        await db.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
+
+
+async def touch_user_login(user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET last_login_at = ? WHERE id = ?",
+            (_utcnow_iso(), user_id),
+        )
+
+
+async def fetch_oracle_usage_today(email: str) -> int:
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT count FROM oracle_usage_daily
+                WHERE email = ? AND usage_date = ?
+                """,
+                (email.strip().lower(), today),
+            )
+            row = await rows.fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def increment_oracle_usage(email: str) -> int:
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO oracle_usage_daily (email, usage_date, count)
+            VALUES (?, ?, 1)
+            ON CONFLICT(email, usage_date) DO UPDATE SET count = count + 1
+            """,
+            (email.strip().lower(), today),
+        )
+        rows = await db.execute(
+            "SELECT count FROM oracle_usage_daily WHERE email = ? AND usage_date = ?",
+            (email.strip().lower(), today),
+        )
+        row = await rows.fetchone()
+    return int(row[0]) if row else 1
+
+
+async def close_db() -> None:
+    """
+    Compatibility hook for graceful shutdown.
+
+    Connections are opened per operation and closed by get_connection().
+    """
+    logger.debug("close_db called; no persistent pool to close.")
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    logging.basicConfig(level=logging.INFO)
+
+    async def _main() -> None:
+        await init_db()
+        pricing_id = await insert_pricing_log(
+            exchange="binance",
+            symbol="BTC/USDT",
+            price=67_250.5,
+            volume=12.34,
+            opportunity_score=72.5,
+        )
+        order_book_id = await insert_order_book(
+            exchange="binance",
+            symbol="BTC/USDT",
+            bids=[[67250.0, 1.2], [67249.5, 0.8]],
+            asks=[[67251.0, 0.5], [67252.0, 1.1]],
+        )
+        print(f"[database] pricing_log id={pricing_id}, order_book id={order_book_id}")
+
+    asyncio.run(_main())

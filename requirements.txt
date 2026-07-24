@@ -1,0 +1,15 @@
+aiosqlite
+aiohttp
+pydantic
+fastapi
+uvicorn
+jinja2
+asyncpg
+pandas
+pyarrow
+aioboto3
+ccxt
+vaderSentiment
+textblob
+stripe
+python-dotenv

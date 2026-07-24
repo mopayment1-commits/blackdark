@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK B2B — Institutional Data Feed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: #111118; --border: #2a2a35;
+            --text: #e4e4e7; --muted: #71717a; --accent: #22d3ee; --success: #22c55e;
+        }
+        body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem; border-bottom: 1px solid var(--border);
+            background: rgba(10,10,15,0.9); position: sticky; top: 0;
+        }
+        nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; }
+        nav a:hover { color: var(--text); }
+        .logo { font-weight: 800; color: var(--accent); font-size: 1.25rem; }
+        .hero { max-width: 960px; margin: 0 auto; padding: 4rem 2rem 2rem; text-align: center; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        h1 span { color: var(--accent); }
+        .sub { color: var(--muted); font-size: 1.1rem; max-width: 640px; margin: 0 auto 2rem; }
+        .grid { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .card h3 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem; }
+        .price { font-size: 2rem; font-weight: 800; margin: 1.5rem 0 0.5rem; }
+        .price span { font-size: 1rem; color: var(--muted); font-weight: 400; }
+        pre {
+            background: #1a1a24; border: 1px solid var(--border); border-radius: 12px;
+            padding: 1rem; overflow-x: auto; font-size: 0.78rem; margin-top: 0.75rem;
+        }
+        .btn {
+            display: inline-block; padding: 0.75rem 1.5rem; border-radius: 10px;
+            font-weight: 700; text-decoration: none; margin: 0.35rem;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #0a0a0f; }
+        .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
+        .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
+        .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
+        footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">BLACKDARK B2B</div>
+        <div>
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/create-checkout-session?tier=whale">Get Whale Tier</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Institutional <span>Manipulation Feed</span></h1>
+        <p class="sub">
+            CVVD cross-venue whale detection + Sector Inflow Index (SII).
+            HMAC-signed JSON feed for hedge funds, prop desks, and acquisition due diligence.
+        </p>
+        <a href="#demo" class="btn btn-primary">Try Live Demo</a>
+        <a href="mailto:sales@blackdark.io?subject=B2B%20Feed%20Pilot" class="btn btn-secondary">Book Pilot Call</a>
+    </section>
+
+    <div class="grid">
+        <div class="card">
+            <h3>CVVD Algorithm</h3>
+            <p>Detects volume spikes, liquidity drops, and iceberg patterns across Binance, OKX, and Bybit in real time.</p>
+        </div>
+        <div class="card">
+            <h3>SII Sector Flows</h3>
+            <p>Capital acceleration scores by sector — Layer 1, DeFi, Meme, L2 — for rotation signals.</p>
+        </div>
+        <div class="card">
+            <h3>HMAC-SHA256 Signed</h3>
+            <p>Every export includes a cryptographic signature for audit trails and institutional compliance.</p>
+        </div>
+        <div class="card">
+            <h3>API Access</h3>
+            <p>REST JSON · Version {{ feed_version }} · Whale tier includes production key · Custom SLA for funds.</p>
+        </div>
+    </div>
+
+    <div class="demo-box" id="demo">
+        <div class="card">
+            <h2 style="margin-bottom:0.5rem">Live Demo</h2>
+            <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
+            <div class="price">$199<span>/month</span> <span style="font-size:0.85rem">institutional license</span></div>
+            <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
+            <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
+            <button class="btn btn-primary" onclick="runDemo()">Fetch Demo Feed</button>
+            <button class="btn btn-secondary" onclick="copyKey()">Copy Demo Key</button>
+            <div class="demo-result" id="demoResult">Click "Fetch Demo Feed" to see live CVVD records.</div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Endpoints</h3>
+            <p><code>GET /api/b2b/demo</code> — public demo (no key)</p>
+            <p style="margin-top:0.5rem"><code>GET /api/b2b/feed</code> — full feed (X-API-Key)</p>
+            <p style="margin-top:0.5rem"><code>GET /api/b2b/proposal?client=Fund</code> — sales proposal JSON</p>
+        </div>
+        <div class="card">
+            <h3>Use Cases</h3>
+            <p>Pre-trade risk · Sector rotation · Manipulation surveillance · M&amp;A data room · Algo signal enrichment</p>
+        </div>
+        <div class="card">
+            <h3>Acquisition Moat</h3>
+            <p>250+ MB historical parquet · Oracle audit trail · 77-type arb taxonomy · Replication estimate 2+ years</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 BLACKDARK · <a href="/disclaimer" style="color:var(--accent)">Risk Disclaimer</a> · <a href="/terms" style="color:var(--accent)">Terms</a></p>
+    </footer>
+
+    <script>
+        async function runDemo() {
+            const el = document.getElementById('demoResult');
+            el.textContent = 'Loading...';
+            try {
+                const res = await fetch('/api/b2b/demo');
+                const d = await res.json();
+                el.textContent = JSON.stringify({
+                    record_count: d.record_count,
+                    feed_version: d.feed_version,
+                    sample: (d.records || []).slice(0, 3)
+                }, null, 2);
+            } catch (e) {
+                el.textContent = 'Demo unavailable — restart server and try again.';
+            }
+        }
+        function copyKey() {
+            navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
+        }
+    </script>
+</body>
+</html>

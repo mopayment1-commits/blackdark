@@ -1,0 +1,150 @@
+"""
+BLACKDARK — Unified Alert Service (Wave 4B).
+
+Telegram, Email, and WhatsApp (click-to-send) delivery for oracle and arbitrage signals.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import os
+import smtplib
+from email.mime.text import MIMEText
+from typing import Any
+from urllib.parse import quote
+
+import aiohttp
+
+logger = logging.getLogger("BLACKDARK.AlertService")
+
+
+async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
+    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+    target = chat_id or os.getenv("TELEGRAM_CHAT_ID", "")
+    if not token or not target:
+        return False
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {"chat_id": target, "text": text, "parse_mode": "HTML"}
+    try:
+        timeout = aiohttp.ClientTimeout(total=12)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.post(url, json=payload) as resp:
+                return resp.status == 200
+    except (aiohttp.ClientError, TypeError, ValueError):
+        logger.exception("Telegram delivery failed")
+        return False
+
+
+async def send_email_alert(to_email: str, subject: str, body: str) -> bool:
+    host = os.getenv("SMTP_HOST", "")
+    port = int(os.getenv("SMTP_PORT", "587"))
+    user = os.getenv("SMTP_USER", "")
+    password = os.getenv("SMTP_PASSWORD", "")
+    from_addr = os.getenv("SMTP_FROM", user or "alerts@blackdark.ai")
+
+    if not host or not to_email:
+        return False
+
+    message = MIMEText(body, "plain", "utf-8")
+    message["Subject"] = subject
+    message["From"] = from_addr
+    message["To"] = to_email
+
+    try:
+        with smtplib.SMTP(host, port, timeout=15) as server:
+            server.starttls()
+            if user and password:
+                server.login(user, password)
+            server.sendmail(from_addr, [to_email], message.as_string())
+        return True
+    except (OSError, smtplib.SMTPException):
+        logger.exception("Email delivery failed | to=%s", to_email)
+        return False
+
+
+def whatsapp_alert_url(phone: str, text: str) -> str:
+    """WhatsApp has no free server API — return wa.me deep link."""
+    digits = "".join(ch for ch in phone if ch.isdigit())
+    return f"https://wa.me/{digits}?text={quote(text)}"
+
+
+async def dispatch_alert(
+    title: str,
+    body: str,
+    *,
+    payload: dict[str, Any] | None = None,
+    channels: list[str] | None = None,
+) -> dict[str, Any]:
+    """Send alert through configured channels + active subscriptions."""
+    from database import fetch_active_alert_subscriptions, insert_alert_delivery_log
+
+    results: dict[str, Any] = {"title": title, "channels": {}, "subscriptions": []}
+    full_text = f"{title}\n\n{body}"
+
+    if channels is None:
+        channels = ["telegram", "email", "whatsapp"]
+
+    if "telegram" in channels:
+        ok = await send_telegram_message(full_text)
+        results["channels"]["telegram"] = ok
+
+    subs = await fetch_active_alert_subscriptions()
+    for sub in subs:
+        sub_result: dict[str, Any] = {"id": sub.get("id")}
+        email = sub.get("email")
+        if email and sub.get("email_alerts", 1):
+            sub_result["email"] = await send_email_alert(email, title, full_text)
+        tg_chat = sub.get("telegram_chat_id")
+        if tg_chat:
+            sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)
+        wa_phone = sub.get("whatsapp_phone")
+        if wa_phone and sub.get("whatsapp_alerts", 1):
+            sub_result["whatsapp_url"] = whatsapp_alert_url(wa_phone, full_text)
+        results["subscriptions"].append(sub_result)
+
+    await insert_alert_delivery_log(title, json.dumps(payload or {}), json.dumps(results))
+    return results
+
+
+async def subscribe_alerts(data: dict[str, Any]) -> dict[str, Any]:
+    from database import insert_alert_subscription
+
+    email = (data.get("email") or "").strip().lower() or None
+    telegram_chat_id = (data.get("telegram_chat_id") or "").strip() or None
+    whatsapp_phone = (data.get("whatsapp_phone") or "").strip() or None
+
+    if not any([email, telegram_chat_id, whatsapp_phone]):
+        raise ValueError("Provide at least one contact: email, telegram_chat_id, or whatsapp_phone")
+
+    sub_id = await insert_alert_subscription(
+        email=email,
+        telegram_chat_id=telegram_chat_id,
+        whatsapp_phone=whatsapp_phone,
+        min_profit_pct=float(data.get("min_profit_pct") or 0.05),
+        oracle_alerts=bool(data.get("oracle_alerts", True)),
+        arbitrage_alerts=bool(data.get("arbitrage_alerts", True)),
+    )
+
+    welcome_sent = False
+    if telegram_chat_id:
+        welcome_sent = await send_telegram_message(
+            "✅ <b>BLACKDARK Alerts Active</b>\n"
+            "You will receive arbitrage + oracle signals here.",
+            chat_id=telegram_chat_id,
+        )
+
+    return {
+        "success": True,
+        "subscription_id": sub_id,
+        "telegram_welcome_sent": welcome_sent,
+        "message": "Alert subscription saved.",
+    }
+
+
+async def send_test_alert(email: str | None = None) -> dict[str, Any]:
+    return await dispatch_alert(
+        "BLACKDARK Test Alert",
+        "Your alert channels are configured. You will receive oracle and arbitrage signals.",
+        channels=["telegram", "email"],
+    )
