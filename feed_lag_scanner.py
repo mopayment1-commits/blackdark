@@ -12,7 +12,7 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.FeedLagScanner")
 
-FAST_EXCHANGES = {"binance", "okx", "bybit"}
+FAST_EXCHANGES = {"binance", "okx", "bybit", "bitget", "mexc"}
 SLOW_EXCHANGES = {"kraken", "kucoin", "gateio", "coinbase"}
 DEFAULT_LAG_THRESHOLD_SEC = 3.0
 DEFAULT_EDGE_BPS = 8.0

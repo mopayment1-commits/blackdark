@@ -563,6 +563,15 @@ async def evaluate_opportunity(
 ) -> EvaluatedOpportunity:
     """Score, explain, and oracle-wrap a single opportunity."""
     score = calculate_opportunity_score(opportunity, kind, institutional_context)
+    metrics = extract_metrics(opportunity, kind)
+    try:
+        from technical_analysis import build_ta_bundle
+
+        ta = await build_ta_bundle(metrics.asset)
+        if ta.get("available"):
+            score = round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
+    except Exception:
+        logger.warning("TA bundle unavailable | asset=%s", metrics.asset)
     explanation = explain_opportunity(opportunity, kind, score, institutional_context)
     oracle = await get_single_sentence_oracle(
         explanation.asset, score, explanation, institutional_context
@@ -575,7 +584,6 @@ async def evaluate_opportunity(
             institutional_context,
         ),
     )
-    metrics = extract_metrics(opportunity, kind)
 
     if hasattr(opportunity, "model_dump"):
         payload = opportunity.model_dump()

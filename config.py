@@ -26,6 +26,8 @@ WHITELIST_EXCHANGES: frozenset[str] = frozenset(
         "kraken",
         "kucoin",
         "gateio",
+        "bitget",
+        "mexc",
     }
 )
 WHITELIST_ASSETS: frozenset[str] = frozenset(
@@ -79,7 +81,7 @@ def tracked_asset_list() -> list[str]:
 
 # Exchanges with implemented REST fetchers in aggregator.py
 INGESTION_READY_EXCHANGES: frozenset[str] = frozenset(
-    {"binance", "okx", "bybit", "coinbase", "kraken", "kucoin", "gateio"}
+    {"binance", "okx", "bybit", "coinbase", "kraken", "kucoin", "gateio", "bitget", "mexc"}
 )
 
 # ── Dynamic liquidity discovery ────────────────────────────────────────────

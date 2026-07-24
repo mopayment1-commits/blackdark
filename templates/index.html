@@ -1065,7 +1065,7 @@
             <div class="section-head">
                 <div>
                     <h2>Data Ingestion Health</h2>
-                    <p class="sub">72 sources · 7 exchanges · scheduler → data lake → oracle</p>
+                    <p class="sub">72 sources · 9 exchanges · scheduler → data lake → oracle</p>
                 </div>
                 <button class="btn-secondary" onclick="loadIngestionHealth()">Refresh</button>
             </div>
@@ -1131,7 +1131,7 @@
             <div class="section-head">
                 <div>
                     <h2>Arbitrage Engine</h2>
-                    <p class="sub">7 exchanges · Cross · Triangular · Spot/Futures · Funding</p>
+                    <p class="sub">9 exchanges · Cross · Triangular · Spot/Futures · Funding · Feed Lag · Pricing Errors</p>
                 </div>
                 <button class="btn-secondary" onclick="refreshArbitrage()">Live Scan</button>
             </div>
@@ -1170,7 +1170,16 @@
                     </select>
                     <button class="btn-secondary" onclick="loadCompare()" style="padding:0.45rem 1rem">Compare Venues</button>
                 </div>
-                <div id="compareResult" class="arb-meta">Select a symbol to compare Binance · OKX · Bybit</div>
+                <div id="compareResult" class="arb-meta">Select a symbol to compare 9 venues</div>
+            </div>
+            <div class="compare-box" id="advancedSignals" style="margin-top:0.75rem">
+                <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-bottom:0.75rem">
+                    <strong>Advanced Signals</strong>
+                    <button class="btn-secondary" onclick="loadAdvancedSignals()" style="padding:0.45rem 1rem">Refresh</button>
+                </div>
+                <div id="oracleWeightsPanel" class="arb-meta">Oracle weights loading...</div>
+                <div id="feedLagPanel" class="arb-meta" style="margin-top:0.5rem">Feed lag loading...</div>
+                <div id="pricingErrorPanel" class="arb-meta" style="margin-top:0.5rem">Pricing errors loading...</div>
             </div>
             <div id="arbAlerts" style="margin-bottom:1rem"></div>
             <div class="cards-grid" id="arbitrage">
@@ -1219,15 +1228,18 @@
         <section class="section">
             <div class="section-head">
                 <div>
-                    <h2>Weekly AI Report</h2>
-                    <p class="sub">Institutional snapshot — oracle · arbitrage · whale · moat · B2B export</p>
+                    <h2>AI Reports</h2>
+                    <p class="sub">Daily + weekly intelligence — oracle · arbitrage · whale · moat</p>
                 </div>
                 <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-                    <button class="btn-secondary" onclick="loadWeeklyReport()">Generate</button>
-                    <a href="/api/reports/weekly/markdown" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center" target="_blank">Markdown</a>
+                    <button class="btn-secondary" onclick="loadDailyReport()">Daily</button>
+                    <button class="btn-secondary" onclick="loadWeeklyReport()">Weekly</button>
+                    <a href="/api/reports/daily/markdown" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center" target="_blank">Daily MD</a>
+                    <a href="/api/reports/weekly/markdown" class="btn-secondary" style="text-decoration:none;display:inline-flex;align-items:center" target="_blank">Weekly MD</a>
                 </div>
             </div>
-            <div id="weeklyReport" class="tool-panel arb-meta">Click Generate for this week's intelligence report</div>
+            <div id="dailyReport" class="tool-panel arb-meta">Click Daily for today's snapshot</div>
+            <div id="weeklyReport" class="tool-panel arb-meta" style="margin-top:0.75rem">Click Weekly for institutional report</div>
             <div id="weeklyHistory" class="arb-meta" style="margin-top:0.75rem"></div>
         </section>
 
@@ -2590,6 +2602,58 @@
             }
         }
 
+        async function loadAdvancedSignals() {
+            const sym = document.getElementById('compareSymbol')?.value || 'BTC';
+            const weightsEl = document.getElementById('oracleWeightsPanel');
+            const lagEl = document.getElementById('feedLagPanel');
+            const errEl = document.getElementById('pricingErrorPanel');
+            try {
+                const [wRes, cRes] = await Promise.all([
+                    fetch(`/api/oracle/weights?symbol=${sym}`),
+                    fetch(`/api/arbitrage/compare/${sym}`),
+                ]);
+                const weights = await wRes.json();
+                const compare = await cRes.json();
+                const dims = weights.dimension_weights || {};
+                weightsEl.innerHTML = `
+                    <strong>Oracle Weights (${sym})</strong><br>
+                    Technical ${(dims.technical * 100).toFixed(0)}% · On-chain ${(dims.onchain * 100).toFixed(0)}% ·
+                    Sentiment ${(dims.sentiment * 100).toFixed(0)}% · Macro ${(dims.macro * 100).toFixed(0)}% ·
+                    Whale ${(dims.whale * 100).toFixed(0)}% ·
+                    Modal adj: <strong>${weights.breakdown?.total_modal_adjustment ?? 0}</strong>
+                `;
+                const lagOps = compare.feed_lag?.opportunities || [];
+                lagEl.innerHTML = lagOps.length
+                    ? lagOps.slice(0, 3).map(o => `${o.slow_exchange}: ${o.edge_bps} bps · lag ${o.lag_seconds}s (${o.direction})`).join('<br>')
+                    : 'No feed-lag opportunities right now';
+                const errOps = compare.pricing_errors?.opportunities || [];
+                errEl.innerHTML = errOps.length
+                    ? errOps.slice(0, 3).map(o => `${o.exchange}: ${o.deviation_bps} bps · ${o.direction}`).join('<br>')
+                    : 'No pricing-error glitches detected';
+            } catch (e) {
+                weightsEl.textContent = 'Advanced signals unavailable';
+                lagEl.textContent = '';
+                errEl.textContent = '';
+            }
+        }
+
+        async function loadDailyReport() {
+            const el = document.getElementById('dailyReport');
+            el.textContent = 'Generating daily report...';
+            try {
+                const res = await fetch('/api/reports/daily?persist=true');
+                const d = await res.json();
+                el.innerHTML = `
+                    <strong>Daily #${d.report_id || '—'}</strong><br>
+                    ${d.narrative || ''}<br>
+                    Moat: ${d.moat_score}/100 · Oracle: ${d.oracle_accuracy_percent}% ·
+                    Arb alerts: ${d.arb_alerts_24h} (${d.profitable_arb_alerts} profitable)
+                `;
+            } catch (e) {
+                el.textContent = 'Daily report unavailable';
+            }
+        }
+
         async function loadWeeklyReport() {
             const el = document.getElementById('weeklyReport');
             const hist = document.getElementById('weeklyHistory');
@@ -2849,6 +2913,7 @@
         loadOnchain();
         loadArbitrage(false);
         loadCompare();
+        loadAdvancedSignals();
         loadWhales();
         loadAudit();
         renderAssetList();
@@ -2864,6 +2929,7 @@
         setInterval(loadSentiment, 60000);
         setInterval(loadOnchain, 60000);
         setInterval(() => loadArbitrage(false), 45000);
+        setInterval(loadAdvancedSignals, 60000);
         setInterval(() => loadWhales(false), 60000);
         setInterval(loadAudit, 120000);
     </script>

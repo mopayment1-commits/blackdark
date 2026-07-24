@@ -283,6 +283,26 @@ async def lifespan(app: FastAPI):
         weekly_report_task = asyncio.create_task(_weekly_report_loop())
         logger.info("Weekly report scheduler started.")
 
+    daily_report_task: asyncio.Task | None = None
+    if os.getenv("DAILY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
+
+        async def _daily_report_loop() -> None:
+            interval_hours = max(12, int(os.getenv("DAILY_REPORT_INTERVAL_HOURS", "24")))
+            while True:
+                try:
+                    from daily_report import build_daily_report
+
+                    report = await build_daily_report(persist=True)
+                    logger.info("Daily report generated | id=%s", report.get("report_id"))
+                except asyncio.CancelledError:
+                    raise
+                except Exception:
+                    logger.exception("Daily report auto-generation failed.")
+                await asyncio.sleep(interval_hours * 3600)
+
+        daily_report_task = asyncio.create_task(_daily_report_loop())
+        logger.info("Daily report scheduler started.")
+
     auto_exec_task: asyncio.Task | None = None
     if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}:
         from execution_engine import start_auto_execution_loop
@@ -354,6 +374,13 @@ async def lifespan(app: FastAPI):
         weekly_report_task.cancel()
         try:
             await weekly_report_task
+        except asyncio.CancelledError:
+            pass
+
+    if daily_report_task is not None:
+        daily_report_task.cancel()
+        try:
+            await daily_report_task
         except asyncio.CancelledError:
             pass
 
@@ -2238,6 +2265,36 @@ async def weekly_report_markdown():
     report = await build_weekly_report(persist=False)
     body = report_to_markdown(report)
     return Response(content=body, media_type="text/markdown; charset=utf-8")
+
+
+@app.get("/api/reports/daily")
+async def daily_report_endpoint(persist: bool = True):
+    from daily_report import build_daily_report
+
+    return await build_daily_report(persist=persist)
+
+
+@app.get("/api/reports/daily/markdown")
+async def daily_report_markdown():
+    from daily_report import build_daily_report, daily_report_markdown as to_md
+
+    report = await build_daily_report(persist=False)
+    return Response(content=to_md(report), media_type="text/markdown; charset=utf-8")
+
+
+@app.get("/api/ta/{symbol}")
+async def ta_bundle(symbol: str):
+    from technical_analysis import build_ta_bundle
+
+    return await build_ta_bundle(symbol.upper())
+
+
+@app.get("/api/arbitrage/pricing-errors/{symbol}")
+async def arbitrage_pricing_errors(symbol: str):
+    from arbitrage_service import compare_symbol_across_exchanges
+
+    compare = await compare_symbol_across_exchanges(symbol)
+    return compare.get("pricing_errors") or {"opportunities": [], "symbol": symbol}
 
 
 @app.get("/api/database/health")

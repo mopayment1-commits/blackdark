@@ -2,7 +2,8 @@
 BLACKDARK — Live Data Ingestion Layer (Phase 1: Points 1, 2, 7, & 33).
 
 Polls spot USDT pairs, triangular cross-pairs, linear perpetual futures, and
-funding rates across Binance, OKX, Bybit, Coinbase, Kraken, KuCoin, and Gate.io.
+funding rates across nine exchanges (Binance, OKX, Bybit, Coinbase, Kraken,
+KuCoin, Gate.io, Bitget, MEXC) every POLL_INTERVAL_SECONDS.
 """
 
 from __future__ import annotations
@@ -127,6 +128,27 @@ EXCHANGE_ENDPOINTS: dict[str, dict[str, Any]] = {
             "ticker_path": "/api/v4/futures/usdt/tickers",
             "depth_path": "/api/v4/futures/usdt/order_book",
             "funding_path": "/api/v4/futures/usdt/funding_rate",
+        },
+    },
+    "bitget": {
+        "spot": {
+            "base_url": "https://api.bitget.com",
+            "ticker_path": "/api/v2/spot/market/tickers",
+            "depth_path": "/api/v2/spot/market/orderbook",
+        },
+        "perpetual": {
+            "base_url": "https://api.bitget.com",
+            "ticker_path": "/api/v2/mix/market/ticker",
+            "depth_path": "/api/v2/mix/market/orderbook",
+            "funding_path": "/api/v2/mix/market/current-fund-rate",
+            "product_type": "USDT-FUTURES",
+        },
+    },
+    "mexc": {
+        "spot": {
+            "base_url": "https://api.mexc.com",
+            "ticker_path": "/api/v3/ticker/24hr",
+            "depth_path": "/api/v3/depth",
         },
     },
 }
@@ -541,6 +563,99 @@ async def _fetch_gateio_market(
     )
 
 
+async def _fetch_bitget_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    native = _to_native_symbol("bitget", symbol, market_type)
+    endpoints = (
+        EXCHANGE_ENDPOINTS["bitget"]["perpetual"]
+        if market_type == "perpetual"
+        else EXCHANGE_ENDPOINTS["bitget"]["spot"]
+    )
+
+    if market_type == "perpetual":
+        product_type = endpoints["product_type"]
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"symbol": native, "productType": product_type},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"symbol": native, "productType": product_type, "limit": config.ORDER_BOOK_DEPTH},
+        )
+        ticker_row = (ticker_payload.get("data") or [{}])[0]
+        depth_row = depth_payload.get("data") or {}
+    else:
+        ticker_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"symbol": native},
+        )
+        depth_payload = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"symbol": native, "limit": config.ORDER_BOOK_DEPTH},
+        )
+        ticker_row = (ticker_payload.get("data") or [{}])[0]
+        depth_row = depth_payload.get("data") or {}
+
+    return (
+        TickerSnapshot(
+            exchange="bitget",
+            symbol=symbol,
+            price=float(ticker_row.get("lastPr") or ticker_row.get("close") or 0),
+            volume=float(ticker_row.get("baseVolume") or ticker_row.get("volume") or 0),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="bitget",
+            symbol=symbol,
+            bids=_parse_levels(depth_row.get("bids", [])),
+            asks=_parse_levels(depth_row.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
+async def _fetch_mexc_market(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    market_type: MarketType,
+) -> tuple[TickerSnapshot, OrderBookSnapshot]:
+    native = _to_native_symbol("mexc", symbol, market_type)
+    endpoints = EXCHANGE_ENDPOINTS["mexc"]["spot"]
+    ticker_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['ticker_path']}",
+        {"symbol": native},
+    )
+    depth_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['depth_path']}",
+        {"symbol": native, "limit": config.ORDER_BOOK_DEPTH},
+    )
+    return (
+        TickerSnapshot(
+            exchange="mexc",
+            symbol=symbol,
+            price=float(ticker_payload.get("lastPrice") or 0),
+            volume=float(ticker_payload.get("volume") or 0),
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange="mexc",
+            symbol=symbol,
+            bids=_parse_levels(depth_payload.get("bids", [])),
+            asks=_parse_levels(depth_payload.get("asks", [])),
+            market_type=market_type,
+        ),
+    )
+
+
 MARKET_FETCHERS = {
     "binance": _fetch_binance_market,
     "okx": _fetch_okx_market,
@@ -549,6 +664,8 @@ MARKET_FETCHERS = {
     "kraken": _fetch_kraken_market,
     "kucoin": _fetch_kucoin_market,
     "gateio": _fetch_gateio_market,
+    "bitget": _fetch_bitget_market,
+    "mexc": _fetch_mexc_market,
 }
 
 
@@ -649,12 +766,33 @@ async def _fetch_gateio_funding(
     )
 
 
+async def _fetch_bitget_funding(
+    session: aiohttp.ClientSession,
+    symbol: str,
+) -> FundingSnapshot:
+    native = _to_native_symbol("bitget", symbol, "perpetual")
+    endpoints = EXCHANGE_ENDPOINTS["bitget"]["perpetual"]
+    payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['funding_path']}",
+        {"symbol": native, "productType": endpoints["product_type"]},
+    )
+    row = (payload.get("data") or [{}])[0]
+    return FundingSnapshot(
+        exchange="bitget",
+        symbol=symbol,
+        funding_rate=float(row.get("fundingRate") or 0),
+        next_funding_time=str(row.get("nextFundingTime") or "") or None,
+    )
+
+
 FUNDING_FETCHERS = {
     "binance": _fetch_binance_funding,
     "okx": _fetch_okx_funding,
     "bybit": _fetch_bybit_funding,
     "kucoin": _fetch_kucoin_funding,
     "gateio": _fetch_gateio_funding,
+    "bitget": _fetch_bitget_funding,
 }
 
 

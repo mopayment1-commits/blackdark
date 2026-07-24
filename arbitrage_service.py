@@ -305,6 +305,16 @@ async def scan_arbitrage_opportunities(
 
     formatted = sync_scan_opportunities(formatted)
 
+    pricing_errors: list[dict[str, Any]] = []
+    try:
+        from pricing_error_sniper import scan_pricing_errors_from_books
+
+        for symbol in config.all_spot_symbols()[:5]:
+            scan = scan_pricing_errors_from_books(books, symbol)
+            pricing_errors.extend(scan.get("opportunities") or [])
+    except Exception:
+        logger.exception("Pricing error scan failed")
+
     return {
         "opportunities": formatted,
         "top_opportunity": formatted[0] if formatted else None,
@@ -318,6 +328,7 @@ async def scan_arbitrage_opportunities(
             1 for row in formatted if row["execution_feasibility"] in {"full", "partial"}
         ),
         "profitable_count": sum(1 for row in formatted if row["net_profit_usdt"] > 0),
+        "pricing_errors": pricing_errors[:10],
         "data_source": source,
         "quote_amount": notional,
         "timestamp": _utcnow_iso(),
@@ -375,6 +386,10 @@ async def compare_symbol_across_exchanges(
 
     feed_lag = scan_feed_lag_from_venues(venues, pair)
 
+    from pricing_error_sniper import scan_pricing_errors
+
+    pricing_errors = scan_pricing_errors(venues, pair=pair)
+
     return {
         "symbol": pair,
         "asset": asset,
@@ -386,6 +401,7 @@ async def compare_symbol_across_exchanges(
         "net_profit_estimate_usdt": round(net_profit_estimate, 4),
         "net_profit_estimate_percent": round((net_profit_estimate / notional) * 100, 4) if notional else 0,
         "feed_lag": feed_lag,
+        "pricing_errors": pricing_errors,
         "data_source": source,
         "timestamp": _utcnow_iso(),
     }
