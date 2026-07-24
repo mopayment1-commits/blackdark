@@ -1777,7 +1777,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-24-launch-en",
+        "release": "2026-07-24-launch-en-v2",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),

@@ -1,4 +1,4 @@
-# Production web + core intelligence (Railway-optimized, no optional heavy backends)
+# Railway web tier — keep image small so deploy push completes
 aiosqlite
 aiohttp
 pydantic
@@ -9,8 +9,3 @@ stripe
 python-dotenv
 vaderSentiment
 textblob
-ccxt
-
-# Optional analytics / archive (lazy-imported; enable when volume attached)
-pandas
-pyarrow
