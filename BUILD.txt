@@ -1,0 +1,3 @@
+# Deploy verification — landing must show "Know your crypto move"
+RELEASE=2026-07-24-launch-en
+UI_LANGUAGE=en

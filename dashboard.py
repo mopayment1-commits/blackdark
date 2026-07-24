@@ -1764,7 +1764,25 @@ async def service_worker():
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "BLACKDARK", "version": "1.0.0"}
+    return {
+        "status": "ok",
+        "service": "BLACKDARK",
+        "version": "1.0.0",
+        "ui_language": "en",
+    }
+
+
+@app.get("/api/build-info")
+async def build_info():
+    """Verify which commit Railway is actually running."""
+    return {
+        "ui_language": "en",
+        "release": "2026-07-24-launch-en",
+        "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
+        "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
+        "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
+        "service": "blackdark",
+    }
 
 @app.post("/portfolio/analyze")
 async def portfolio_analyze(assets: list = Body(...)):
