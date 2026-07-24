@@ -946,7 +946,7 @@
 
         <div class="voice-panel" id="voice">
             <h3 style="color:var(--accent);margin-bottom:0.35rem">🎙️ AI Voice Trading</h3>
-            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">قل: «حلل BTC» · «امسح المراجحة» · «زر الطوارئ»</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">Say: «Analyze BTC» · «Scan arbitrage» · «Panic stop»</p>
             <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice command">🎤</button>
             <div class="tool-row" style="justify-content:center;margin-top:1rem">
                 <input type="text" id="voiceText" placeholder="Or type command..." style="max-width:280px">
@@ -959,14 +959,14 @@
             <div class="section-head" style="margin-bottom:1rem">
                 <div>
                     <h2 style="font-size:1.15rem">💬 AI Chat</h2>
-                    <p class="sub">اسأل: «إيه أعمل في BTC؟» — Pro+ feature</p>
+                    <p class="sub">Ask: «What should I do with BTC?» — Pro+ feature</p>
                 </div>
             </div>
             <div class="chat-messages" id="chatMessages">
-                <div class="chat-bubble bot">مرحباً! اسألني عن أي عملة — مثال: إيه أعمل في BTC؟</div>
+                <div class="chat-bubble bot">Hi! Ask about any asset — e.g. What should I do with BTC?</div>
             </div>
             <div class="tool-row">
-                <input type="text" id="chatInput" placeholder="إيه أعمل في BTC؟" style="flex:1" onkeydown="if(event.key==='Enter')sendChat()">
+                <input type="text" id="chatInput" placeholder="What should I do with BTC?" style="flex:1" onkeydown="if(event.key==='Enter')sendChat()">
                 <button class="btn-primary" onclick="sendChat()">Send</button>
             </div>
         </div>

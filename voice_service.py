@@ -106,8 +106,7 @@ async def process_voice_command(text: str) -> dict[str, Any]:
         return {
             "success": False,
             "intent": "help",
-            "speech": "قل اسم العملة أو الأمر — مثل: حلل BTC أو امسح المراجحة",
-            "speech_en": "Say a symbol or command — e.g. analyze BTC or scan arbitrage",
+            "speech": "Say a symbol or command — e.g. analyze BTC or scan arbitrage",
             "result": None,
             "timestamp": _utcnow_iso(),
         }
@@ -131,8 +130,7 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 return {
                     "success": False,
                     "intent": intent,
-                    "speech": f"لم أجد {asset} في Binance",
-                    "speech_en": f"{asset} not found on Binance",
+                    "speech": f"{asset} not found on Binance",
                     "result": None,
                     "timestamp": _utcnow_iso(),
                 }
@@ -166,17 +164,16 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             top = scan.get("top_live_opportunity")
             if top:
                 speech = (
-                    f"وجدت {active} نوع مراجحة نشط من 77. "
-                    f"أفضل فرصة: {top.get('kind_label')} على {top.get('asset')} "
-                    f"بربح صافي {top.get('net_profit_usdt')} دولار."
+                    f"Found {active} active arbitrage types out of 77. "
+                    f"Best opportunity: {top.get('kind_label')} on {top.get('asset')} "
+                    f"with net profit ${top.get('net_profit_usdt')}."
                 )
             else:
-                speech = f"مسح 77 نوع مراجحة — {active} نشط حالياً. لا توجد فرصة مربحة فورية."
+                speech = f"Scanned 77 arbitrage types — {active} active. No profitable opportunity right now."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": speech,
                 "result": scan,
                 "timestamp": _utcnow_iso(),
             }
@@ -185,12 +182,11 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             from execution_engine import trigger_panic
 
             state = await trigger_panic()
-            speech = "تم تفعيل زر الطوارئ. كل التنفيذ التلقائي متوقف."
+            speech = "Panic stop activated. All auto-execution halted."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": "Panic stop activated. All auto-execution halted.",
                 "result": state,
                 "timestamp": _utcnow_iso(),
             }
@@ -199,12 +195,11 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             from execution_engine import resume_execution
 
             state = await resume_execution()
-            speech = "تم استئناف التنفيذ في وضع المحاكاة."
+            speech = "Execution resumed in dry-run mode."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": "Execution resumed in dry-run mode.",
                 "result": state,
                 "timestamp": _utcnow_iso(),
             }
@@ -215,14 +210,13 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             report = await build_research_lab_report()
             moat = report.get("economic_moat") or {}
             speech = (
-                f"Research Lab: Moat Score {moat.get('moat_score', 0)} من 100. "
-                f"دقة Oracle {report.get('oracle_audit', {}).get('average_accuracy_percent', 0)}%."
+                f"Research Lab: Moat Score {moat.get('moat_score', 0)} out of 100. "
+                f"Oracle accuracy {report.get('oracle_audit', {}).get('average_accuracy_percent', 0)}%."
             )
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": speech,
                 "result": report,
                 "timestamp": _utcnow_iso(),
             }
@@ -232,12 +226,11 @@ async def process_voice_command(text: str) -> dict[str, Any]:
 
             context = await _fetch_cvvd_whale_context(refresh=True)
             alerts = len(context.get("whale_alerts") or [])
-            speech = f"مسح الحيتان: {alerts} تنبيه CVVD نشط."
+            speech = f"Whale scan complete: {alerts} CVVD alerts."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": f"Whale scan complete: {alerts} CVVD alerts.",
                 "result": context,
                 "timestamp": _utcnow_iso(),
             }
@@ -247,12 +240,11 @@ async def process_voice_command(text: str) -> dict[str, Any]:
 
             assets = await _fetch_binance_market_overview(limit=10)
             overview = {"assets": assets, "count": len(assets)}
-            speech = f"نظرة السوق: {len(overview.get('assets') or [])} أصل متابع."
+            speech = f"Market overview: {len(overview.get('assets') or [])} assets tracked."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": speech,
                 "result": overview,
                 "timestamp": _utcnow_iso(),
             }
@@ -263,12 +255,11 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             sym = params.get("symbol", "BTC")
             sim = await simulate_spot_trade(sym, "buy", 1000.0, hold_hours=24)
             base_pnl = (sim.get("scenarios") or {}).get("base", {}).get("pnl_usd", 0)
-            speech = f"محاكاة {sym}: الربح الأساسي {base_pnl} دولار."
+            speech = f"Simulation {sym}: base-case P&L ${base_pnl}."
             return {
                 "success": True,
                 "intent": intent,
                 "speech": speech,
-                "speech_en": speech,
                 "result": sim,
                 "timestamp": _utcnow_iso(),
             }
@@ -278,15 +269,15 @@ async def process_voice_command(text: str) -> dict[str, Any]:
         return {
             "success": False,
             "intent": intent,
-            "speech": f"حدث خطأ: {exc}",
-            "speech_en": f"Error: {exc}",
+            "speech": f"Error: {exc}",
             "result": None,
             "timestamp": _utcnow_iso(),
         }
 
     help_speech = (
-        "الأوامر: حلل BTC · امسح المراجحة · حالة المحفظة · Research Lab · "
-        "مسح الحيتان · زر الطوارئ · محاكاة ETH"
+        "Commands: analyze BTC · scan arbitrage · portfolio status · Research Lab · "
+        "whale scan · panic stop · simulate ETH"
+    )
     )
     return {
         "success": True,

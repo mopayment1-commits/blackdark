@@ -95,7 +95,6 @@ async def _gather_market_context(symbol: str | None) -> dict[str, Any]:
 def _rule_based_reply(message: str, context: dict[str, Any]) -> str:
     symbol = context.get("symbol")
     oracle = context.get("oracle") or {}
-    is_ar = bool(re.search(r"[\u0600-\u06FF]", message))
 
     if symbol and oracle:
         verdict = oracle.get("verdict", "WAIT")
@@ -105,14 +104,6 @@ def _rule_based_reply(message: str, context: dict[str, Any]) -> str:
         change = oracle.get("change_24h", 0)
         price = oracle.get("price", 0)
 
-        if is_ar:
-            return (
-                f"📊 **{symbol}** @ ${price:,.2f} ({change:+.2f}% 24h)\n\n"
-                f"**القرار:** {verdict} · Score {score}/100\n"
-                f"**الإجراء:** {action}\n"
-                f"**الحيتان:** {whale}\n\n"
-                f"💡 ثقة النظام: {oracle.get('confidence', '—')}% · المخاطرة: {oracle.get('risk_level', '—')}"
-            )
         return (
             f"📊 **{symbol}** @ ${price:,.2f} ({change:+.2f}% 24h)\n\n"
             f"**Verdict:** {verdict} · Score {score}/100\n"
@@ -128,15 +119,8 @@ def _rule_based_reply(message: str, context: dict[str, Any]) -> str:
         for a in tops[:3]
     )
 
-    if is_ar:
-        return (
-            "مرحباً! أنا مساعد BLACKDARK.\n\n"
-            f"🔥 أقوى الأصول الآن: {top_line or '—'}\n"
-            f"🐋 تنبيهات CVVD نشطة: {whales}\n\n"
-            "اسألني: «إيه أعمل في BTC؟» أو «حلل ETH»"
-        )
     return (
-        "Hi! I'm BLACKDARK AI assistant.\n\n"
+        "Hi! I'm the BLACKDARK AI assistant.\n\n"
         f"🔥 Top movers: {top_line or '—'}\n"
         f"🐋 Active CVVD alerts: {whales}\n\n"
         "Ask: «What should I do with BTC?» or «Analyze ETH»"
@@ -199,7 +183,7 @@ async def process_chat(
     text = (message or "").strip()
     if not text:
         return {
-            "reply": "اسألني عن أي عملة — مثال: إيه أعمل في BTC؟",
+            "reply": "Ask about any asset — e.g. What should I do with BTC?",
             "symbol": None,
             "source": "system",
             "timestamp": _utcnow_iso(),
