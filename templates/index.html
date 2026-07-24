@@ -1065,7 +1065,7 @@
             <div class="section-head">
                 <div>
                     <h2>Data Ingestion Health</h2>
-                    <p class="sub">72 sources · 9 exchanges · scheduler → data lake → oracle</p>
+                    <p class="sub">72 sources · 100 target exchanges · 105 assets · scheduler → data lake → oracle</p>
                 </div>
                 <button class="btn-secondary" onclick="loadIngestionHealth()">Refresh</button>
             </div>
@@ -1131,7 +1131,7 @@
             <div class="section-head">
                 <div>
                     <h2>Arbitrage Engine</h2>
-                    <p class="sub">9 exchanges · Cross · Triangular · Spot/Futures · Funding · Feed Lag · Pricing Errors</p>
+                    <p class="sub">9 native + 15 CCXT exchanges · 100 target · 105 assets</p>
                 </div>
                 <button class="btn-secondary" onclick="refreshArbitrage()">Live Scan</button>
             </div>
@@ -1882,18 +1882,22 @@
                     return '<span class="health-badge health-pending">—</span>';
                 };
                 const rows = (d.sources || []).slice(0, 40);
+                const uni = d.universe || {};
+                const assets = d.assets || {};
                 el.innerHTML = `
                     <div class="ingest-stats">
                         <div class="ingest-stat"><div class="num" style="color:var(--success)">${c.ok || 0}</div><div class="lbl">Live OK</div></div>
                         <div class="ingest-stat"><div class="num" style="color:var(--warning)">${c.needs_key || 0}</div><div class="lbl">Need API Key</div></div>
                         <div class="ingest-stat"><div class="num" style="color:var(--danger)">${c.error || 0}</div><div class="lbl">Errors</div></div>
                         <div class="ingest-stat"><div class="num">${(d.registry || {}).total_sources || 72}</div><div class="lbl">Registered</div></div>
-                        <div class="ingest-stat"><div class="num">${(d.exchanges || {}).total || 7}</div><div class="lbl">Exchanges</div></div>
+                        <div class="ingest-stat"><div class="num">${uni.ingestion_ready_exchanges || 24}/${uni.target?.exchanges || 100}</div><div class="lbl">Exchanges</div></div>
+                        <div class="ingest-stat"><div class="num">${assets.tracked || 105}/${assets.target || 105}</div><div class="lbl">Assets</div></div>
                         <div class="ingest-stat"><div class="num">${ws.ticks_received || 0}</div><div class="lbl">WS Ticks</div></div>
                         <div class="ingest-stat"><div class="num">${d.scheduler_running ? 'ON' : 'OFF'}</div><div class="lbl">Scheduler</div></div>
                     </div>
                     <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.75rem">
-                        ${d.architecture || ''} · Exchanges: ${((d.exchanges || {}).ingestion_ready || []).join(', ') || '7'} · WS ${ws.running ? 'connected' : 'idle'}
+                        ${d.architecture || ''} · Ready: ${((d.exchanges || {}).ingestion_ready || []).join(', ') || '9'} ·
+                        Coverage ${uni.coverage_percent_exchanges || 0}% exchanges · WS ${ws.running ? 'connected' : 'idle'}
                     </p>
                     <div style="overflow-x:auto;max-height:320px;overflow-y:auto">
                         <table class="health-table">

@@ -84,6 +84,13 @@ def apply_whitelist_guards(
         exchange_set.add(_normalize_exchange_id(required))
     for required in config.WHITELIST_ASSETS:
         asset_set.add(_normalize_asset(required))
+    asset_set.update(config.UNIVERSE_ASSETS)
+    try:
+        from platform_universe import universe_exchange_ids
+
+        exchange_set.update(universe_exchange_ids())
+    except Exception:
+        logger.debug("Universe exchange ids unavailable during whitelist merge.")
 
     return sorted(exchange_set), sorted(asset_set)
 
@@ -520,6 +527,12 @@ async def build_operational_inventory() -> dict[str, Any]:
             ),
         },
     }
+    try:
+        from platform_universe import build_manifest_universe_block
+
+        manifest["universe"] = build_manifest_universe_block()
+    except Exception:
+        logger.exception("Unable to attach universe block to manifest.")
     return manifest
 
 
@@ -657,8 +670,8 @@ def operational_exchanges_from_manifest(manifest: dict[str, Any] | None) -> list
 def build_whitelist_fallback_manifest() -> dict[str, Any]:
     """Minimal manifest using only immutable whitelist guards."""
     operational_exchanges, operational_assets = apply_whitelist_guards([], [])
-    operational_symbols = symbols_for_assets(operational_assets)
-    return {
+    merged_assets = sorted(set(operational_assets) | set(config.UNIVERSE_ASSETS))
+    manifest = {
         "generated_at": _utcnow_iso(),
         "status": "pending_review",
         "guards": {
@@ -687,8 +700,8 @@ def build_whitelist_fallback_manifest() -> dict[str, Any]:
         },
         "operational": {
             "exchanges": operational_exchanges,
-            "assets": operational_assets,
-            "symbols": operational_symbols,
+            "assets": merged_assets,
+            "symbols": symbols_for_assets(merged_assets),
             "ingestion_ready_exchanges": sorted(
                 set(operational_exchanges) & set(config.INGESTION_READY_EXCHANGES)
             ),
@@ -702,6 +715,13 @@ def build_whitelist_fallback_manifest() -> dict[str, Any]:
             ),
         },
     }
+    try:
+        from platform_universe import build_manifest_universe_block
+
+        manifest["universe"] = build_manifest_universe_block()
+    except Exception:
+        pass
+    return manifest
 
 
 def cross_pairs_for_assets(assets: list[str]) -> list[str]:

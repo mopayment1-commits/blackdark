@@ -1739,6 +1739,69 @@ async def macro_overview():
     }
 
 
+@app.get("/api/universe/phase-b/probe")
+async def universe_phase_b_probe(symbol: str = "BTC/USDT"):
+    from ccxt_market_fetcher import probe_phase_b_exchanges
+
+    return await probe_phase_b_exchanges(sample_symbol=symbol)
+
+
+@app.get("/api/universe/phase-b2/probe")
+async def universe_phase_b2_probe(symbol: str = "BTC/USDT"):
+    from coingecko_cex_fetcher import probe_coingecko_exchanges
+
+    return await probe_coingecko_exchanges(sample_symbol=symbol)
+
+
+@app.get("/api/universe/phase-c/probe")
+async def universe_phase_c_probe(symbol: str = "BTC/USDT"):
+    from dex_fetcher import probe_dex_venues
+
+    return await probe_dex_venues(sample_symbol=symbol)
+
+
+@app.get("/api/universe/phase-d/probe")
+async def universe_phase_d_probe(symbol: str = "BTC/USDT"):
+    from perp_dex_fetcher import probe_perp_dex_venues
+
+    return await probe_perp_dex_venues(sample_symbol=symbol)
+
+
+@app.get("/api/universe/full-probe")
+async def universe_full_probe(symbol: str = "BTC/USDT"):
+    from ccxt_market_fetcher import probe_phase_b_exchanges
+    from coingecko_cex_fetcher import probe_coingecko_exchanges
+    from dex_fetcher import probe_dex_venues
+    from perp_dex_fetcher import probe_perp_dex_venues
+    import aggregator
+
+    native_ids = sorted(
+        ex for ex in config.INGESTION_READY_EXCHANGES if ex in aggregator.MARKET_FETCHERS
+    )
+    return {
+        "symbol": symbol,
+        "fetchers_registered": len(aggregator.MARKET_FETCHERS),
+        "ingestion_ready": len(config.INGESTION_READY_EXCHANGES),
+        "native_plus_all_ids": len(native_ids),
+        "phase_b_ccxt": await probe_phase_b_exchanges(sample_symbol=symbol),
+        "phase_b2_coingecko": await probe_coingecko_exchanges(sample_symbol=symbol),
+        "phase_c_dex": await probe_dex_venues(sample_symbol=symbol),
+        "phase_d_perp": await probe_perp_dex_venues(sample_symbol=symbol),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+@app.get("/api/universe/status")
+async def universe_status():
+    from platform_universe import build_manifest_universe_block, compute_universe_coverage
+
+    return {
+        "coverage": await compute_universe_coverage(),
+        "registry": build_manifest_universe_block(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
 @app.get("/api/ingestion/status")
 async def ingestion_status():
     from data_lake import lake_status
@@ -1754,8 +1817,18 @@ async def ingestion_status():
     status["exchanges"] = {
         "ingestion_ready": sorted(config.INGESTION_READY_EXCHANGES),
         "enabled_for_arbitrage": sorted(config.enabled_exchanges().keys()),
-        "total": len(config.INGESTION_READY_EXCHANGES),
+        "total_ready": len(config.INGESTION_READY_EXCHANGES),
     }
+    try:
+        from platform_universe import compute_universe_coverage
+
+        status["universe"] = await compute_universe_coverage()
+        status["assets"] = {
+            "tracked": len(config.UNIVERSE_ASSETS),
+            "target": status["universe"].get("target", {}).get("assets", 105),
+        }
+    except Exception:
+        status["assets"] = {"tracked": len(config.UNIVERSE_ASSETS), "target": 105}
     status["registry"] = registry_summary()
 
     health_map = {row["source_id"]: row for row in status.get("health") or []}

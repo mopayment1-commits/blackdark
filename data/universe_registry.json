@@ -1,0 +1,1437 @@
+{
+  "exchanges": [
+    {
+      "id": "binance",
+      "name": "Binance",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "binance",
+      "provider": "native"
+    },
+    {
+      "id": "okx",
+      "name": "OKX",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "okx",
+      "provider": "native"
+    },
+    {
+      "id": "bybit",
+      "name": "Bybit",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "bybit",
+      "provider": "native"
+    },
+    {
+      "id": "coinbase",
+      "name": "Coinbase Exchange",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "coinbase",
+      "provider": "native"
+    },
+    {
+      "id": "kucoin",
+      "name": "KuCoin",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "kucoin",
+      "provider": "native"
+    },
+    {
+      "id": "bitget",
+      "name": "Bitget",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitget",
+      "provider": "native"
+    },
+    {
+      "id": "gateio",
+      "name": "Gate.io",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "gateio",
+      "provider": "native"
+    },
+    {
+      "id": "mexc",
+      "name": "MEXC",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "mexc",
+      "provider": "native"
+    },
+    {
+      "id": "kraken",
+      "name": "Kraken",
+      "category": "cex",
+      "tier": 1,
+      "status": "ingestion_ready",
+      "ccxt_id": "kraken",
+      "provider": "native"
+    },
+    {
+      "id": "htx",
+      "name": "HTX",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "htx",
+      "provider": "ccxt"
+    },
+    {
+      "id": "cryptocom",
+      "name": "Crypto.com",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "cryptocom",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bingx",
+      "name": "BingX",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bingx",
+      "provider": "ccxt"
+    },
+    {
+      "id": "lbank",
+      "name": "LBank",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "lbank",
+      "provider": "ccxt"
+    },
+    {
+      "id": "xt",
+      "name": "XT.COM",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "xt",
+      "provider": "ccxt"
+    },
+    {
+      "id": "coinw",
+      "name": "CoinW",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "upbit",
+      "name": "Upbit",
+      "category": "regional_cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "upbit",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bithumb",
+      "name": "Bithumb",
+      "category": "regional_cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bithumb",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitfinex",
+      "name": "Bitfinex",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitfinex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitstamp",
+      "name": "Bitstamp",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitstamp",
+      "provider": "ccxt"
+    },
+    {
+      "id": "whitebit",
+      "name": "WhiteBIT",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "whitebit",
+      "provider": "ccxt"
+    },
+    {
+      "id": "pionex",
+      "name": "Pionex",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "toobit",
+      "name": "Toobit",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitmart",
+      "name": "BitMart",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitmart",
+      "provider": "ccxt"
+    },
+    {
+      "id": "coinex",
+      "name": "CoinEx",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "coinex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "ourbit",
+      "name": "Ourbit",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "deepcoin",
+      "name": "Deepcoin",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "kcex",
+      "name": "KCEX",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "btcc",
+      "name": "BTCC",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "weex",
+      "name": "WEEX",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitunix",
+      "name": "Bitunix",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "poloniex",
+      "name": "Poloniex",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "poloniex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bigone",
+      "name": "BigONE",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "tapbit",
+      "name": "Tapbit",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "fameex",
+      "name": "FameEX",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "azbit",
+      "name": "Azbit",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "biconomy",
+      "name": "Biconomy",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "orangex",
+      "name": "OrangeX",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "hotcoin",
+      "name": "Hotcoin",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "zoomex",
+      "name": "Zoomex",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "bifinance",
+      "name": "BiFinance",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "phemex",
+      "name": "Phemex",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "phemex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "woox",
+      "name": "Woo X",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "coinstore",
+      "name": "Coinstore",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "tokocrypto",
+      "name": "Tokocrypto",
+      "category": "regional_cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "binance_tr",
+      "provider": "ccxt"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "gemini",
+      "provider": "ccxt"
+    },
+    {
+      "id": "ascendex",
+      "name": "AscendEX",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "ascendex",
+      "provider": "coingecko"
+    },
+    {
+      "id": "bkex",
+      "name": "BKEX",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "digifinex",
+      "name": "Digifinex",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "digifinex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitvavo",
+      "name": "Bitvavo",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitvavo",
+      "provider": "ccxt"
+    },
+    {
+      "id": "probit",
+      "name": "ProBit Global",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "probit",
+      "provider": "coingecko"
+    },
+    {
+      "id": "uniswap_v3",
+      "name": "Uniswap (V3)",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "pancakeswap",
+      "name": "PancakeSwap",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "raydium",
+      "name": "Raydium",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "orca",
+      "name": "Orca",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "curve",
+      "name": "Curve Finance",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "balancer",
+      "name": "Balancer",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "sushiswap",
+      "name": "SushiSwap",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "traderjoe",
+      "name": "Trader Joe",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "quickswap",
+      "name": "QuickSwap",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "spookyswap",
+      "name": "SpookySwap",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "camelot",
+      "name": "Camelot",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "aerodrome",
+      "name": "Aerodrome",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "syncswap",
+      "name": "SyncSwap",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "cetus",
+      "name": "Cetus",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "stonfi",
+      "name": "Ston.fi",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "dedust",
+      "name": "Dedust",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "vvs",
+      "name": "VVS Finance",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "osmosis",
+      "name": "Osmosis",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "thorchain",
+      "name": "THORChain",
+      "category": "dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "dex"
+    },
+    {
+      "id": "hyperliquid",
+      "name": "Hyperliquid",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "dydx",
+      "name": "dYdX",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "gmx",
+      "name": "GMX",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "apex",
+      "name": "Apex Protocol",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "gains",
+      "name": "Gains Network",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "kwenta",
+      "name": "Kwenta",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "drift",
+      "name": "Drift Protocol",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "mux",
+      "name": "MUX Protocol",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "synthetix",
+      "name": "Synthetix",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "jupiter_perps",
+      "name": "Jupiter Perps",
+      "category": "perp_dex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "perp_dex"
+    },
+    {
+      "id": "binance_tr",
+      "name": "Binance TR",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "bitflyer",
+      "name": "bitFlyer",
+      "category": "regional_cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitflyer",
+      "provider": "ccxt"
+    },
+    {
+      "id": "coincheck",
+      "name": "Coincheck",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "mercadobitcoin",
+      "name": "Mercado Bitcoin",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "coinsquare",
+      "name": "CoinSquare",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "independentreserve",
+      "name": "Independent Reserve",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "luno",
+      "name": "Luno",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "rain",
+      "name": "Rain",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "coinmena",
+      "name": "CoinMENA",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "bitoasis",
+      "name": "BitOasis",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "korbit",
+      "name": "Korbit",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "coinone",
+      "name": "Coinone",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "paribu",
+      "name": "Paribu",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "btcturk",
+      "name": "BtcTurk",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "valr",
+      "name": "VALR",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "bitso",
+      "name": "Bitso",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "buda",
+      "name": "Buda",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "cryptocom_us",
+      "name": "Crypto.com Exchange US",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "gemini_uk",
+      "name": "Gemini UK",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "coingecko"
+    },
+    {
+      "id": "bitbank",
+      "name": "Bitbank",
+      "category": "regional_cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "ccxt"
+    }
+  ],
+  "assets": [
+    {
+      "symbol": "BTC",
+      "label": "Bitcoin (BTC)",
+      "aliases": []
+    },
+    {
+      "symbol": "ETH",
+      "label": "Ethereum (ETH)",
+      "aliases": []
+    },
+    {
+      "symbol": "SOL",
+      "label": "Solana (SOL)",
+      "aliases": []
+    },
+    {
+      "symbol": "BNB",
+      "label": "Binance Coin (BNB)",
+      "aliases": []
+    },
+    {
+      "symbol": "XRP",
+      "label": "XRP (XRP)",
+      "aliases": []
+    },
+    {
+      "symbol": "HYPE",
+      "label": "Hyperliquid (HYPE)",
+      "aliases": []
+    },
+    {
+      "symbol": "TON",
+      "label": "Toncoin (TON)",
+      "aliases": []
+    },
+    {
+      "symbol": "TRX",
+      "label": "TRON (TRX)",
+      "aliases": []
+    },
+    {
+      "symbol": "ADA",
+      "label": "Cardano (ADA)",
+      "aliases": []
+    },
+    {
+      "symbol": "AVAX",
+      "label": "Avalanche (AVAX)",
+      "aliases": []
+    },
+    {
+      "symbol": "SUI",
+      "label": "Sui (SUI)",
+      "aliases": []
+    },
+    {
+      "symbol": "NEAR",
+      "label": "Near Protocol (NEAR)",
+      "aliases": []
+    },
+    {
+      "symbol": "LINK",
+      "label": "Chainlink (LINK)",
+      "aliases": []
+    },
+    {
+      "symbol": "DOT",
+      "label": "Polkadot (DOT)",
+      "aliases": []
+    },
+    {
+      "symbol": "LTC",
+      "label": "Litecoin (LTC)",
+      "aliases": []
+    },
+    {
+      "symbol": "POL",
+      "label": "Polygon (POL/MATIC)",
+      "aliases": [
+        "MATIC"
+      ]
+    },
+    {
+      "symbol": "XLM",
+      "label": "Stellar (XLM)",
+      "aliases": []
+    },
+    {
+      "symbol": "UNI",
+      "label": "Uniswap (UNI)",
+      "aliases": []
+    },
+    {
+      "symbol": "APT",
+      "label": "Aptos (APT)",
+      "aliases": []
+    },
+    {
+      "symbol": "HBAR",
+      "label": "Hedera (HBAR)",
+      "aliases": []
+    },
+    {
+      "symbol": "KAS",
+      "label": "Kaspa (KAS)",
+      "aliases": []
+    },
+    {
+      "symbol": "ATOM",
+      "label": "Cosmos (ATOM)",
+      "aliases": []
+    },
+    {
+      "symbol": "XMR",
+      "label": "Monero (XMR)",
+      "aliases": []
+    },
+    {
+      "symbol": "ICP",
+      "label": "Internet Computer (ICP)",
+      "aliases": []
+    },
+    {
+      "symbol": "ETC",
+      "label": "Ethereum Classic (ETC)",
+      "aliases": []
+    },
+    {
+      "symbol": "INJ",
+      "label": "Injective (INJ)",
+      "aliases": []
+    },
+    {
+      "symbol": "FIL",
+      "label": "Filecoin (FIL)",
+      "aliases": []
+    },
+    {
+      "symbol": "OP",
+      "label": "Optimism (OP)",
+      "aliases": []
+    },
+    {
+      "symbol": "ARB",
+      "label": "Arbitrum (ARB)",
+      "aliases": []
+    },
+    {
+      "symbol": "RENDER",
+      "label": "Render Token (RENDER)",
+      "aliases": []
+    },
+    {
+      "symbol": "FET",
+      "label": "Fetch.ai / Artificial Superintelligence Alliance (FET)",
+      "aliases": [
+        "ASI"
+      ]
+    },
+    {
+      "symbol": "TAO",
+      "label": "Bittensor (TAO)",
+      "aliases": []
+    },
+    {
+      "symbol": "MKR",
+      "label": "Maker / Sky (MKR/SKY)",
+      "aliases": [
+        "SKY"
+      ]
+    },
+    {
+      "symbol": "STX",
+      "label": "Stacks (STX)",
+      "aliases": []
+    },
+    {
+      "symbol": "IMX",
+      "label": "Immutable (IMX)",
+      "aliases": []
+    },
+    {
+      "symbol": "SEI",
+      "label": "Sei (SEI)",
+      "aliases": []
+    },
+    {
+      "symbol": "FTM",
+      "label": "Fantom (FTM)",
+      "aliases": []
+    },
+    {
+      "symbol": "TIA",
+      "label": "Celestia (TIA)",
+      "aliases": []
+    },
+    {
+      "symbol": "RUNE",
+      "label": "Thorchain (RUNE)",
+      "aliases": []
+    },
+    {
+      "symbol": "JUP",
+      "label": "Jupiter (JUP)",
+      "aliases": []
+    },
+    {
+      "symbol": "GRT",
+      "label": "Graph (GRT)",
+      "aliases": []
+    },
+    {
+      "symbol": "LDO",
+      "label": "Lido DAO (LDO)",
+      "aliases": []
+    },
+    {
+      "symbol": "MNT",
+      "label": "Mantle (MNT)",
+      "aliases": []
+    },
+    {
+      "symbol": "ONDO",
+      "label": "Ondo Finance (ONDO)",
+      "aliases": []
+    },
+    {
+      "symbol": "JASMY",
+      "label": "JasmyCoin (JASMY)",
+      "aliases": []
+    },
+    {
+      "symbol": "AR",
+      "label": "Arweave (AR)",
+      "aliases": []
+    },
+    {
+      "symbol": "CORE",
+      "label": "Core (CORE)",
+      "aliases": []
+    },
+    {
+      "symbol": "GALA",
+      "label": "Gala (GALA)",
+      "aliases": []
+    },
+    {
+      "symbol": "QNT",
+      "label": "Quant (QNT)",
+      "aliases": []
+    },
+    {
+      "symbol": "ALGO",
+      "label": "Algorand (ALGO)",
+      "aliases": []
+    },
+    {
+      "symbol": "FLOW",
+      "label": "Flow (FLOW)",
+      "aliases": []
+    },
+    {
+      "symbol": "ENA",
+      "label": "Ethena (ENA)",
+      "aliases": []
+    },
+    {
+      "symbol": "CHZ",
+      "label": "Chiliz (CHZ)",
+      "aliases": []
+    },
+    {
+      "symbol": "DYDX",
+      "label": "dYdX (DYDX)",
+      "aliases": []
+    },
+    {
+      "symbol": "AXS",
+      "label": "Axie Infinity (AXS)",
+      "aliases": []
+    },
+    {
+      "symbol": "SAND",
+      "label": "Sandbox (SAND)",
+      "aliases": []
+    },
+    {
+      "symbol": "MANA",
+      "label": "Decentraland (MANA)",
+      "aliases": []
+    },
+    {
+      "symbol": "BEAM",
+      "label": "Beam (BEAM)",
+      "aliases": []
+    },
+    {
+      "symbol": "PENDLE",
+      "label": "Pendle (PENDLE)",
+      "aliases": []
+    },
+    {
+      "symbol": "WLD",
+      "label": "Worldcoin (WLD)",
+      "aliases": []
+    },
+    {
+      "symbol": "AAVE",
+      "label": "Aave (AAVE)",
+      "aliases": []
+    },
+    {
+      "symbol": "SNX",
+      "label": "Synthetix (SNX)",
+      "aliases": []
+    },
+    {
+      "symbol": "GNO",
+      "label": "Gnosis (GNO)",
+      "aliases": []
+    },
+    {
+      "symbol": "THETA",
+      "label": "Theta Network (THETA)",
+      "aliases": []
+    },
+    {
+      "symbol": "XTZ",
+      "label": "Tezos (XTZ)",
+      "aliases": []
+    },
+    {
+      "symbol": "EOS",
+      "label": "EOS (EOS)",
+      "aliases": []
+    },
+    {
+      "symbol": "NEO",
+      "label": "NEO (NEO)",
+      "aliases": []
+    },
+    {
+      "symbol": "IOTA",
+      "label": "IOTA (IOTA)",
+      "aliases": []
+    },
+    {
+      "symbol": "MINA",
+      "label": "Mina Protocol (MINA)",
+      "aliases": []
+    },
+    {
+      "symbol": "EGLD",
+      "label": "MultiversX (EGLD)",
+      "aliases": []
+    },
+    {
+      "symbol": "RAY",
+      "label": "Raydium (RAY)",
+      "aliases": []
+    },
+    {
+      "symbol": "ARKM",
+      "label": "Arkham (ARKM)",
+      "aliases": []
+    },
+    {
+      "symbol": "PYTH",
+      "label": "Pyth Network (PYTH)",
+      "aliases": []
+    },
+    {
+      "symbol": "STRK",
+      "label": "Starknet (STRK)",
+      "aliases": []
+    },
+    {
+      "symbol": "W",
+      "label": "Wormhole (W)",
+      "aliases": []
+    },
+    {
+      "symbol": "JTO",
+      "label": "Jito (JTO)",
+      "aliases": []
+    },
+    {
+      "symbol": "SAFE",
+      "label": "Safe (SAFE)",
+      "aliases": []
+    },
+    {
+      "symbol": "ALT",
+      "label": "Altlayer (ALT)",
+      "aliases": []
+    },
+    {
+      "symbol": "DYM",
+      "label": "Dymension (DYM)",
+      "aliases": []
+    },
+    {
+      "symbol": "MANTA",
+      "label": "Manta Network (MANA/MANTA)",
+      "aliases": []
+    },
+    {
+      "symbol": "OCEAN",
+      "label": "Ocean Protocol (OCEAN)",
+      "aliases": []
+    },
+    {
+      "symbol": "AGIX",
+      "label": "SingularityNET (AGIX)",
+      "aliases": []
+    },
+    {
+      "symbol": "AKT",
+      "label": "Akash Network (AKT)",
+      "aliases": []
+    },
+    {
+      "symbol": "GLM",
+      "label": "Golem (GLM)",
+      "aliases": []
+    },
+    {
+      "symbol": "LPT",
+      "label": "Livepeer (LPT)",
+      "aliases": []
+    },
+    {
+      "symbol": "WOO",
+      "label": "Woo Network (WOO)",
+      "aliases": []
+    },
+    {
+      "symbol": "API3",
+      "label": "API3 (API3)",
+      "aliases": []
+    },
+    {
+      "symbol": "BAND",
+      "label": "Band Protocol (BAND)",
+      "aliases": []
+    },
+    {
+      "symbol": "LRC",
+      "label": "Loopring (LRC)",
+      "aliases": []
+    },
+    {
+      "symbol": "1INCH",
+      "label": "1inch (1INCH)",
+      "aliases": []
+    },
+    {
+      "symbol": "CRV",
+      "label": "Curve (CRV)",
+      "aliases": []
+    },
+    {
+      "symbol": "YFI",
+      "label": "Yearn.Finance (YFI)",
+      "aliases": []
+    },
+    {
+      "symbol": "SUSHI",
+      "label": "Sushi (SUSHI)",
+      "aliases": []
+    },
+    {
+      "symbol": "BLUR",
+      "label": "Blur (BLUR)",
+      "aliases": []
+    },
+    {
+      "symbol": "ILV",
+      "label": "Illuvium (ILV)",
+      "aliases": []
+    },
+    {
+      "symbol": "MC",
+      "label": "Merit Circle (MC)",
+      "aliases": []
+    },
+    {
+      "symbol": "ENJ",
+      "label": "Enjin Coin (ENJ)",
+      "aliases": []
+    },
+    {
+      "symbol": "PYR",
+      "label": "Vulcan Forged (PYR)",
+      "aliases": []
+    },
+    {
+      "symbol": "SUPER",
+      "label": "SuperVerse (SUPER)",
+      "aliases": []
+    },
+    {
+      "symbol": "ROSE",
+      "label": "Oasis Network (ROSE)",
+      "aliases": []
+    },
+    {
+      "symbol": "T",
+      "label": "Threshold (T)",
+      "aliases": []
+    },
+    {
+      "symbol": "MASK",
+      "label": "Mask Network (MASK)",
+      "aliases": []
+    },
+    {
+      "symbol": "CYBER",
+      "label": "CyberConnect (CYBER)",
+      "aliases": []
+    },
+    {
+      "symbol": "ID",
+      "label": "Space ID (ID)",
+      "aliases": []
+    },
+    {
+      "symbol": "GAL",
+      "label": "Galxe (GAL)",
+      "aliases": []
+    }
+  ]
+}

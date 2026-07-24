@@ -795,6 +795,33 @@ FUNDING_FETCHERS = {
     "bitget": _fetch_bitget_funding,
 }
 
+try:
+    from market_fetcher_hub import (
+        build_all_funding_fetchers,
+        build_all_market_fetchers,
+        close_all_pools,
+        is_spot_only,
+        perp_symbols_for_exchange,
+        symbols_for_exchange,
+    )
+
+    MARKET_FETCHERS = build_all_market_fetchers(MARKET_FETCHERS)
+    FUNDING_FETCHERS = build_all_funding_fetchers(FUNDING_FETCHERS)
+except ImportError:
+    logger.warning("Market fetcher hub unavailable; extended venues disabled.")
+
+    async def close_all_pools() -> None:
+        return None
+
+    def is_spot_only(exchange_id: str) -> bool:
+        return exchange_id in SPOT_ONLY_EXCHANGES
+
+    def perp_symbols_for_exchange(exchange_id: str, perp_symbols: list[str]) -> list[str]:
+        return perp_symbols
+
+    def symbols_for_exchange(exchange_id: str, spot_symbols: list[str]) -> list[str]:
+        return spot_symbols
+
 
 async def _persist_market_snapshot(
     ticker: TickerSnapshot,
@@ -852,12 +879,13 @@ async def _poll_exchange(
     perp_symbols: list[str],
 ) -> CycleStats:
     stats = CycleStats(exchange=exchange_id)
-    stable_spot_symbols = [symbol for symbol in spot_symbols if symbol not in cross_symbols]
+    limited_spot = symbols_for_exchange(exchange_id, spot_symbols)
+    stable_spot_symbols = [symbol for symbol in limited_spot if symbol not in cross_symbols]
 
     tasks: list[Any] = []
     labels: list[str] = []
 
-    for symbol in spot_symbols:
+    for symbol in limited_spot:
         market_type = _market_type_for_symbol(
             symbol,
             spot_symbol_set=set(stable_spot_symbols),
@@ -865,8 +893,8 @@ async def _poll_exchange(
         tasks.append(_poll_market_symbol(session, exchange_id, symbol, market_type))
         labels.append(f"{symbol}:{market_type}")
 
-    for symbol in perp_symbols:
-        if exchange_id in SPOT_ONLY_EXCHANGES:
+    for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
+        if is_spot_only(exchange_id):
             continue
         tasks.append(_poll_market_symbol(session, exchange_id, symbol, "perpetual"))
         labels.append(f"{symbol}:perpetual")
@@ -893,7 +921,7 @@ async def _poll_exchange(
         exchange_id,
         stats.ok,
         stats.failed,
-        len(spot_symbols),
+        len(limited_spot),
         len(perp_symbols),
     )
     return stats
@@ -990,6 +1018,7 @@ class Aggregator:
         finally:
             await self._close_session()
             await shutdown_hot_pipeline()
+            await close_all_pools()
 
     async def _run_loop(
         self,

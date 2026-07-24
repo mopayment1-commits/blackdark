@@ -16,11 +16,63 @@ MarketType = Literal["spot", "cross", "perpetual"]
 TRACKED_PRICE_ASSETS: tuple[str, ...] = tuple(config.WHITELIST_ASSETS)
 
 # Venues with spot books only (no linear perp + funding in aggregator v1).
-SPOT_ONLY_EXCHANGES: frozenset[str] = frozenset({"coinbase", "kraken", "mexc"})
+SPOT_ONLY_EXCHANGES: frozenset[str] = frozenset(
+    {
+        "coinbase",
+        "kraken",
+        "mexc",
+        "bitfinex",
+        "bitstamp",
+        "poloniex",
+        "coinex",
+        "lbank",
+        "ascendex",
+        "digifinex",
+        "probit",
+        "xt",
+        "bitvavo",
+        "gemini",
+        "upbit",
+        "bithumb",
+        "bitflyer",
+        "coincheck",
+        "coinone",
+        "bitbank",
+        "btcturk",
+        "bitso",
+        "luno",
+        "independentreserve",
+        "tokocrypto",
+        "mercadobitcoin",
+    }
+)
 
 # Venues with spot + USDT-margined perpetual + funding.
 PERP_READY_EXCHANGES: frozenset[str] = frozenset(
-    {"binance", "okx", "bybit", "kucoin", "gateio", "bitget"}
+    {
+        "binance",
+        "okx",
+        "bybit",
+        "kucoin",
+        "gateio",
+        "bitget",
+        "htx",
+        "cryptocom",
+        "bingx",
+        "phemex",
+        "whitebit",
+        "bitmart",
+        "hyperliquid",
+        "dydx",
+        "gmx",
+        "apex",
+        "gains",
+        "kwenta",
+        "drift",
+        "mux",
+        "synthetix",
+        "jupiter_perps",
+    }
 )
 
 _KRAKEN_BASE: dict[str, str] = {"BTC": "XBT"}

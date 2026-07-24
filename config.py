@@ -40,49 +40,80 @@ WHITELIST_ASSETS: frozenset[str] = frozenset(
     }
 )
 
-# Phase-1 launch universe (~25 strong/mid-cap assets, Study 1.0)
-EXTENDED_TRACKED_ASSETS: frozenset[str] = frozenset(
-    {
-        "BTC",
-        "ETH",
-        "SOL",
-        "BNB",
-        "XRP",
-        "ADA",
-        "DOGE",
-        "AVAX",
-        "DOT",
-        "LINK",
-        "MATIC",
-        "UNI",
-        "ATOM",
-        "LTC",
-        "NEAR",
-        "APT",
-        "ARB",
-        "OP",
-        "INJ",
-        "SUI",
-        "SEI",
-        "TIA",
-        "PEPE",
-        "WIF",
-        "FIL",
-    }
-)
+# Phase-1 launch universe — full client blueprint (105 assets)
+def _load_universe_symbols() -> frozenset[str]:
+    import json
 
-MARKET_RADAR_LIMIT = int(os.getenv("MARKET_RADAR_LIMIT", "25"))
+    registry_path = DATA_DIR / "universe_registry.json"
+    if registry_path.exists():
+        try:
+            payload = json.loads(registry_path.read_text(encoding="utf-8"))
+            symbols: set[str] = set()
+            for row in payload.get("assets") or []:
+                sym = str(row.get("symbol") or "").upper()
+                if sym:
+                    symbols.add(sym)
+                for alias in row.get("aliases") or []:
+                    if alias:
+                        symbols.add(str(alias).upper())
+            if symbols:
+                return frozenset(symbols)
+        except (json.JSONDecodeError, OSError):
+            pass
+    return frozenset(
+        {
+            "BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "DOGE", "AVAX", "DOT", "LINK",
+            "MATIC", "UNI", "ATOM", "LTC", "NEAR", "APT", "ARB", "OP", "INJ", "SUI",
+            "SEI", "TIA", "PEPE", "WIF", "FIL",
+        }
+    )
+
+
+UNIVERSE_ASSETS: frozenset[str] = _load_universe_symbols()
+
+# Backward-compatible alias used across modules
+EXTENDED_TRACKED_ASSETS: frozenset[str] = UNIVERSE_ASSETS
+
+MARKET_RADAR_LIMIT = int(os.getenv("MARKET_RADAR_LIMIT", "105"))
 
 
 def tracked_asset_list() -> list[str]:
-    """Sorted list of the 25 launch-tracked assets."""
-    return sorted(EXTENDED_TRACKED_ASSETS)
+    """Sorted list of the 105 blueprint assets."""
+    return sorted(UNIVERSE_ASSETS)
 
 
-# Exchanges with implemented REST fetchers in aggregator.py
-INGESTION_READY_EXCHANGES: frozenset[str] = frozenset(
-    {"binance", "okx", "bybit", "coinbase", "kraken", "kucoin", "gateio", "bitget", "mexc"}
-)
+# Exchanges with implemented REST fetchers (100-venue universe via market_fetcher_hub)
+CCXT_SYMBOL_LIMIT = int(os.getenv("CCXT_SYMBOL_LIMIT", "25"))
+COINGECKO_SYMBOL_LIMIT = int(os.getenv("COINGECKO_SYMBOL_LIMIT", "10"))
+DEX_SYMBOL_LIMIT = int(os.getenv("DEX_SYMBOL_LIMIT", "15"))
+PERP_DEX_SYMBOL_LIMIT = int(os.getenv("PERP_DEX_SYMBOL_LIMIT", "15"))
+
+
+def _load_universe_exchange_ids() -> frozenset[str]:
+    path = DATA_DIR / "universe_registry.json"
+    if path.exists():
+        import json
+
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        ids = {str(row["id"]) for row in payload.get("exchanges") or [] if row.get("id")}
+        if ids:
+            return frozenset(ids)
+    return frozenset(
+        {
+            "binance",
+            "okx",
+            "bybit",
+            "coinbase",
+            "kraken",
+            "kucoin",
+            "gateio",
+            "bitget",
+            "mexc",
+        }
+    )
+
+
+INGESTION_READY_EXCHANGES: frozenset[str] = _load_universe_exchange_ids()
 
 # ── Dynamic liquidity discovery ────────────────────────────────────────────
 LIQUIDITY_QUOTE_CURRENCIES = ("USDT", "USDC")
@@ -110,7 +141,8 @@ MANIFEST_REQUIRE_REVIEW = os.getenv("MANIFEST_REQUIRE_REVIEW", "true").lower() i
 # ── Core symbols ───────────────────────────────────────────────────────────
 CORE_COINS = sorted(WHITELIST_ASSETS)
 
-SYMBOLS = [f"{coin}/{QUOTE_BASE}" for coin in CORE_COINS]
+# All blueprint USDT pairs for scanning (105 assets)
+SYMBOLS = [f"{coin}/{QUOTE_BASE}" for coin in sorted(UNIVERSE_ASSETS)]
 
 # Cross-pair anchors used for triangular loops (e.g. ETH/BTC, SOL/BTC).
 CROSS_QUOTES = ["BTC", "ETH"]
@@ -189,12 +221,26 @@ EXCHANGES = {
 
 
 def enabled_exchanges() -> dict:
-    """Return only exchanges marked enabled in EXCHANGES."""
-    return {
+    """Return enabled exchanges — native Tier-1 + CCXT Phase-B venues."""
+    enabled = {
         exchange_id: settings
         for exchange_id, settings in EXCHANGES.items()
         if settings.get("enabled", False)
     }
+    for exchange_id in INGESTION_READY_EXCHANGES:
+        if exchange_id not in enabled:
+            try:
+                from market_fetcher_hub import provider_for_venue
+
+                provider = provider_for_venue(exchange_id)
+            except ImportError:
+                provider = "native"
+            enabled[exchange_id] = {
+                "enabled": True,
+                "rate_limit": True,
+                "provider": provider,
+            }
+    return enabled
 
 
 def is_whitelisted_exchange(exchange_id: str) -> bool:
