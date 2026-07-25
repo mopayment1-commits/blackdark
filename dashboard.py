@@ -210,6 +210,9 @@ async def lifespan(app: FastAPI):
     from telegram_monitor import start_telegram_monitor
 
     telegram_task = await start_telegram_monitor()
+    from telegram_bot_poller import start_telegram_poller
+
+    telegram_poller_task = await start_telegram_poller()
 
     ingestion_task: asyncio.Task | None = None
     if os.getenv("INGESTION_ENABLED", "true").lower() in {"1", "true", "yes"}:
@@ -241,17 +244,20 @@ async def lifespan(app: FastAPI):
                     from forecast_engine import run_forecast_audit
 
                     audit = await run_forecast_audit()
-                    oracle_resolved = await _resolve_mature_oracle_predictions()
+                    from ml.labeling_pipeline import resolve_mature_predictions
+
+                    oracle_resolved = await resolve_mature_predictions()
+                    oracle_resolved_count = (oracle_resolved or {}).get("resolved_24h", 0)
                     retrain_result = None
                     if os.getenv("ORACLE_RETRAIN_ENABLED", "true").lower() in {"1", "true", "yes"}:
                         from oracle_retrainer import run_oracle_retrain_step
 
                         retrain_result = await run_oracle_retrain_step()
-                    if audit.get("resolved") or oracle_resolved or (retrain_result or {}).get("adjusted"):
+                    if audit.get("resolved") or oracle_resolved_count or (retrain_result or {}).get("adjusted"):
                         logger.info(
                             "Forecast/oracle audit | forecasts_resolved=%s oracle_resolved=%s retrain=%s",
                             audit.get("resolved", 0),
-                            oracle_resolved,
+                            oracle_resolved_count,
                             (retrain_result or {}).get("adjusted"),
                         )
                 except asyncio.CancelledError:
@@ -262,6 +268,14 @@ async def lifespan(app: FastAPI):
 
         forecast_audit_task = asyncio.create_task(_forecast_audit_loop())
         logger.info("Forecast audit loop started (FORECAST_ENABLED=true).")
+
+    ml_flywheel_started = False
+    if config.ML_FLYWHEEL_ENABLED:
+        from ml_flywheel_scheduler import start_ml_flywheel
+
+        await start_ml_flywheel()
+        ml_flywheel_started = True
+        logger.info("ML flywheel started (ML_FLYWHEEL_ENABLED=true).")
 
     weekly_report_task: asyncio.Task | None = None
     if os.getenv("WEEKLY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
@@ -351,6 +365,11 @@ async def lifespan(app: FastAPI):
 
     yield
 
+    if ml_flywheel_started:
+        from ml_flywheel_scheduler import stop_ml_flywheel
+
+        await stop_ml_flywheel()
+
     if cloud_sync_task is not None:
         cloud_sync_task.cancel()
         try:
@@ -405,6 +424,11 @@ async def lifespan(app: FastAPI):
         from telegram_monitor import stop_telegram_monitor
 
         await stop_telegram_monitor()
+
+    if telegram_poller_task is not None:
+        from telegram_bot_poller import stop_telegram_poller
+
+        await stop_telegram_poller()
 
     if aggregator_task is not None:
         aggregator_task.cancel()
@@ -1904,11 +1928,72 @@ async def forecast_asset(symbol: str):
 @app.get("/api/oracle/audit")
 async def oracle_audit():
     from database import fetch_oracle_audit_stats
+    from ml.labeling_pipeline import resolve_mature_predictions
 
-    resolved_now = await _resolve_mature_oracle_predictions()
+    resolved_now = await resolve_mature_predictions()
     stats = await fetch_oracle_audit_stats(limit=25)
-    stats["newly_resolved"] = resolved_now
+    stats["newly_resolved"] = (resolved_now or {}).get("resolved_24h", 0)
+    stats["labeling"] = resolved_now
     return stats
+
+
+@app.get("/api/ml/status")
+async def ml_status():
+    from ml.train_baseline import model_status
+
+    return await model_status()
+
+
+@app.post("/api/ml/flywheel/run")
+async def ml_flywheel_run():
+    from ml.labeling_pipeline import run_labeling_flywheel_cycle
+
+    return await run_labeling_flywheel_cycle()
+
+
+@app.post("/api/ml/train")
+async def ml_train():
+    from ml.train_baseline import train_oracle_direction_model
+
+    return await train_oracle_direction_model()
+
+
+@app.get("/api/ml/predict/{asset}")
+async def ml_predict(asset: str, price: float | None = None):
+    from ml.inference import predict_direction
+
+    return await predict_direction(asset, price=price)
+
+
+@app.get("/api/oracle/accuracy/public")
+async def oracle_accuracy_public():
+    from ml.public_accuracy import build_public_accuracy_payload
+
+    payload = await build_public_accuracy_payload()
+    payload["timestamp"] = datetime.now(timezone.utc).isoformat()
+    return payload
+
+
+@app.get("/oracle-accuracy", response_class=HTMLResponse)
+async def oracle_accuracy_page(request: Request):
+    return templates.TemplateResponse(request, "oracle_accuracy.html")
+
+
+@app.post("/api/ml/train/ensemble")
+async def ml_train_ensemble():
+    from ml.train_ensemble import train_direction_ensemble
+
+    return await train_direction_ensemble()
+
+
+@app.get("/api/ml/experience")
+async def ml_experience():
+    from ml.experience_log import fetch_recent_experiences, load_experience_summary
+
+    return {
+        "summary": load_experience_summary(),
+        "recent": fetch_recent_experiences(limit=50),
+    }
 
 
 @app.get("/api/b2b/feed")
@@ -2479,8 +2564,9 @@ async def join_waitlist(data: dict):
 
 @app.post("/api/telegram/webhook")
 async def telegram_webhook(request: Request):
-    """Telegram Bot API webhook — reply with chat_id on /start."""
+    """Telegram Bot API webhook — /start subscribes to 3 free alerts/day."""
     from alert_service import send_telegram_message
+    from telegram_free_alerts import handle_bot_command
 
     try:
         data = await request.json()
@@ -2491,15 +2577,38 @@ async def telegram_webhook(request: Request):
     chat = message.get("chat") or {}
     chat_id = chat.get("id")
     text = str(message.get("text") or "").strip()
+    username = chat.get("username")
 
-    if chat_id and text.startswith("/start"):
-        await send_telegram_message(
-            "✅ <b>BLACKDARK connected</b>\n\n"
-            f"Your chat ID:\n<code>{chat_id}</code>\n\n"
-            "Paste this in Dashboard → Alerts → Telegram chat ID.",
-            chat_id=str(chat_id),
-        )
+    if not chat_id or not text:
+        return {"ok": True}
+
+    if text.startswith("/"):
+        reply = await handle_bot_command(str(chat_id), text, username=username)
+        if reply:
+            await send_telegram_message(reply, chat_id=str(chat_id))
     return {"ok": True}
+
+
+@app.get("/api/telegram/free/status")
+async def telegram_free_status():
+    from database import count_telegram_free_subscribers
+    from telegram_free_alerts import FREE_DAILY_ALERT_LIMIT
+
+    return {
+        "enabled": os.getenv("TELEGRAM_FREE_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"},
+        "daily_limit": FREE_DAILY_ALERT_LIMIT,
+        "active_subscribers": await count_telegram_free_subscribers(),
+        "bot_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
+        "bot_username": os.getenv("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@"),
+        "commands": ["/start", "/stop", "/status", "/accuracy"],
+    }
+
+
+@app.post("/api/telegram/free/broadcast")
+async def telegram_free_broadcast():
+    from telegram_free_alerts import dispatch_free_telegram_alerts
+
+    return await dispatch_free_telegram_alerts()
 
 
 def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_id: int | None = None) -> dict:

@@ -590,6 +590,57 @@ async def _apply_migrations(db: aiosqlite.Connection) -> None:
         """
     )
 
+    oracle_cols = {
+        row[1] for row in await (await db.execute("PRAGMA table_info(oracle_predictions)")).fetchall()
+    }
+    for column, ddl in (
+        ("price_after_1h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_1h REAL"),
+        ("price_after_4h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_4h REAL"),
+        ("label", "ALTER TABLE oracle_predictions ADD COLUMN label TEXT"),
+        ("direction_label", "ALTER TABLE oracle_predictions ADD COLUMN direction_label TEXT"),
+        ("features_json", "ALTER TABLE oracle_predictions ADD COLUMN features_json TEXT"),
+        ("resolved_at", "ALTER TABLE oracle_predictions ADD COLUMN resolved_at TEXT"),
+        ("kind", "ALTER TABLE oracle_predictions ADD COLUMN kind TEXT"),
+        ("source", "ALTER TABLE oracle_predictions ADD COLUMN source TEXT DEFAULT 'oracle'"),
+    ):
+        if column not in oracle_cols:
+            await db.execute(ddl)
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS ml_model_runs (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            started_at      TEXT    NOT NULL,
+            finished_at     TEXT,
+            model_name      TEXT    NOT NULL,
+            model_version   TEXT    NOT NULL,
+            samples_used    INTEGER NOT NULL DEFAULT 0,
+            metrics_json    TEXT    NOT NULL,
+            model_path      TEXT,
+            status          TEXT    NOT NULL DEFAULT 'completed'
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_ml_model_runs_started
+            ON ml_model_runs (started_at DESC)
+        """
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS telegram_free_subscribers (
+            chat_id       TEXT PRIMARY KEY,
+            username      TEXT,
+            subscribed_at TEXT NOT NULL,
+            enabled       INTEGER NOT NULL DEFAULT 1,
+            alerts_today  INTEGER NOT NULL DEFAULT 0,
+            usage_date    TEXT NOT NULL
+        )
+        """
+    )
+
 
 def compaction_cutoff_iso(hours: int | None = None) -> str:
     age_hours = hours if hours is not None else config.COMPACTION_MIN_AGE_HOURS
@@ -1559,6 +1610,9 @@ async def insert_oracle_prediction(
     confidence: int,
     *,
     timestamp: str | None = None,
+    kind: str | None = None,
+    features_json: str | None = None,
+    source: str = "oracle",
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1566,8 +1620,8 @@ async def insert_oracle_prediction(
             """
             INSERT INTO oracle_predictions (
                 timestamp, asset, price_at_prediction, verdict,
-                opportunity_score, confidence, resolved
-            ) VALUES (?, ?, ?, ?, ?, ?, 0)
+                opportunity_score, confidence, resolved, kind, features_json, source
+            ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?)
             """,
             (
                 ts,
@@ -1576,6 +1630,9 @@ async def insert_oracle_prediction(
                 verdict.upper(),
                 opportunity_score,
                 confidence,
+                kind,
+                features_json,
+                source,
             ),
         )
         return int(cursor.lastrowid or 0)
@@ -1601,11 +1658,35 @@ async def fetch_unresolved_oracle_predictions(limit: int = 100) -> list[dict[str
         return []
 
 
+async def update_oracle_prediction_horizons(
+    prediction_id: int,
+    *,
+    price_after_1h: float | None = None,
+    price_after_4h: float | None = None,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE oracle_predictions
+            SET price_after_1h = COALESCE(?, price_after_1h),
+                price_after_4h = COALESCE(?, price_after_4h)
+            WHERE id = ?
+            """,
+            (price_after_1h, price_after_4h, prediction_id),
+        )
+
+
 async def resolve_oracle_prediction(
     prediction_id: int,
     price_after: float,
     outcome: str,
     accuracy_score: float,
+    *,
+    price_after_1h: float | None = None,
+    price_after_4h: float | None = None,
+    label: str | None = None,
+    direction_label: str | None = None,
+    resolved_at: str | None = None,
 ) -> None:
     async with get_connection() as db:
         await db.execute(
@@ -1613,11 +1694,26 @@ async def resolve_oracle_prediction(
             UPDATE oracle_predictions
             SET resolved = 1,
                 price_after_24h = ?,
+                price_after_1h = COALESCE(?, price_after_1h),
+                price_after_4h = COALESCE(?, price_after_4h),
                 outcome = ?,
-                accuracy_score = ?
+                accuracy_score = ?,
+                label = COALESCE(?, label),
+                direction_label = COALESCE(?, direction_label),
+                resolved_at = COALESCE(?, resolved_at)
             WHERE id = ?
             """,
-            (price_after, outcome, accuracy_score, prediction_id),
+            (
+                price_after,
+                price_after_1h,
+                price_after_4h,
+                outcome,
+                accuracy_score,
+                label,
+                direction_label,
+                resolved_at or _utcnow_iso(),
+                prediction_id,
+            ),
         )
 
 
@@ -1671,6 +1767,83 @@ async def fetch_oracle_audit_stats(limit: int = 500) -> dict[str, Any]:
             "average_accuracy_percent": 0.0,
             "recent": [],
         }
+
+
+async def fetch_labeled_oracle_predictions(limit: int = 5000) -> list[dict[str, Any]]:
+    try:
+        async with get_connection() as db:
+            rows = await (
+                await db.execute(
+                    """
+                    SELECT *
+                    FROM oracle_predictions
+                    WHERE resolved = 1
+                      AND price_after_24h IS NOT NULL
+                      AND label IS NOT NULL
+                    ORDER BY timestamp DESC
+                    LIMIT ?
+                    """,
+                    (limit,),
+                )
+            ).fetchall()
+        return [dict(row) for row in rows]
+    except Exception:
+        logger.exception("Unable to fetch labeled oracle predictions")
+        return []
+
+
+async def insert_ml_model_run(
+    *,
+    model_name: str,
+    model_version: str,
+    samples_used: int,
+    metrics_json: str,
+    model_path: str | None = None,
+    status: str = "completed",
+    started_at: str | None = None,
+    finished_at: str | None = None,
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO ml_model_runs (
+                started_at, finished_at, model_name, model_version,
+                samples_used, metrics_json, model_path, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                started_at or _utcnow_iso(),
+                finished_at or _utcnow_iso(),
+                model_name,
+                model_version,
+                samples_used,
+                metrics_json,
+                model_path,
+                status,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_latest_ml_model_run(model_name: str = "oracle_direction") -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            row = await (
+                await db.execute(
+                    """
+                    SELECT *
+                    FROM ml_model_runs
+                    WHERE model_name = ?
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """,
+                    (model_name,),
+                )
+            ).fetchone()
+        return dict(row) if row else None
+    except Exception:
+        logger.exception("Unable to fetch latest ML model run")
+        return None
 
 
 async def insert_arbitrage_alert_log(
@@ -2171,6 +2344,107 @@ async def fetch_users_with_telegram() -> list[dict[str, Any]]:
             )
         ).fetchall()
     return [dict(row) for row in rows]
+
+
+async def upsert_telegram_free_subscriber(
+    chat_id: str,
+    *,
+    username: str | None = None,
+    enabled: bool = True,
+) -> dict[str, Any]:
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO telegram_free_subscribers (
+                chat_id, username, subscribed_at, enabled, alerts_today, usage_date
+            ) VALUES (?, ?, ?, ?, 0, ?)
+            ON CONFLICT(chat_id) DO UPDATE SET
+                username = excluded.username,
+                enabled = excluded.enabled,
+                subscribed_at = COALESCE(telegram_free_subscribers.subscribed_at, excluded.subscribed_at)
+            """,
+            (chat_id, username, _utcnow_iso(), 1 if enabled else 0, today),
+        )
+        row = await (
+            await db.execute(
+                "SELECT * FROM telegram_free_subscribers WHERE chat_id = ?",
+                (chat_id,),
+            )
+        ).fetchone()
+    return dict(row) if row else {"chat_id": chat_id}
+
+
+async def set_telegram_free_subscriber_enabled(chat_id: str, *, enabled: bool) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE telegram_free_subscribers SET enabled = ? WHERE chat_id = ?",
+            (1 if enabled else 0, chat_id),
+        )
+
+
+async def fetch_telegram_free_subscriber(chat_id: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT * FROM telegram_free_subscribers WHERE chat_id = ?",
+                (chat_id,),
+            )
+        ).fetchone()
+    return dict(row) if row else None
+
+
+async def fetch_enabled_telegram_free_subscribers() -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT * FROM telegram_free_subscribers
+                WHERE enabled = 1
+                ORDER BY subscribed_at DESC
+                """
+            )
+        ).fetchall()
+    return [dict(row) for row in rows]
+
+
+async def increment_telegram_free_alert_usage(
+    chat_id: str,
+    usage_date: str,
+    daily_limit: int,
+) -> None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT alerts_today, usage_date FROM telegram_free_subscribers WHERE chat_id = ?",
+                (chat_id,),
+            )
+        ).fetchone()
+        if not row:
+            return
+        current_date = str(row["usage_date"] or "")
+        count = int(row["alerts_today"] or 0)
+        if current_date != usage_date:
+            count = 0
+        count = min(daily_limit, count + 1)
+        await db.execute(
+            """
+            UPDATE telegram_free_subscribers
+            SET alerts_today = ?, usage_date = ?
+            WHERE chat_id = ?
+            """,
+            (count, usage_date, chat_id),
+        )
+
+
+async def count_telegram_free_subscribers() -> int:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT COUNT(*) FROM telegram_free_subscribers WHERE enabled = 1"
+            )
+        ).fetchone()
+    return int(row[0] or 0)
 
 
 async def fetch_platform_user_stats() -> dict[str, Any]:

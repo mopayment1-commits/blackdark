@@ -23,9 +23,19 @@ async def _monitor_cycle() -> None:
     from alert_service import dispatch_alert
     from arbitrage_service import scan_arbitrage_opportunities
     from database import fetch_users_with_telegram
+    from telegram_free_alerts import dispatch_free_telegram_alerts
 
     if not telegram_configured():
         return
+
+    free_stats = await dispatch_free_telegram_alerts()
+    if free_stats.get("sent"):
+        logger.info(
+            "Free Telegram alerts sent | sent=%s skipped=%s subscribers=%s",
+            free_stats.get("sent"),
+            free_stats.get("skipped"),
+            free_stats.get("subscribers"),
+        )
 
     scan = await scan_arbitrage_opportunities(prefer_live=True, profitable_only=True)
     top = scan.get("top_opportunity")

@@ -12,4 +12,5 @@ ccxt
 vaderSentiment
 textblob
 stripe
-python-dotenv
+scikit-learn
+joblib

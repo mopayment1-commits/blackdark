@@ -619,6 +619,25 @@ async def evaluate_and_store(
         explanation_json=evaluated.explanation.model_dump_json(),
         confidence_percent=evaluated.explanation.confidence_percent,
     )
+    try:
+        from ml.labeling_pipeline import log_oracle_signal
+
+        price_hint = float(
+            evaluated.payload.get("price")
+            or evaluated.payload.get("spot_price")
+            or evaluated.payload.get("mark_price")
+            or 0
+        )
+        await log_oracle_signal(
+            asset=evaluated.asset,
+            price=price_hint,
+            verdict=evaluated.oracle.verdict,
+            opportunity_score=evaluated.opportunity_score,
+            confidence=evaluated.explanation.confidence_percent,
+            kind=evaluated.kind,
+        )
+    except Exception:
+        logger.warning("Oracle prediction logging failed | asset=%s", evaluated.asset)
     return evaluated
 
 

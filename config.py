@@ -10,6 +10,14 @@ import os
 ROOT_DIR = Path(__file__).resolve().parent
 DATA_DIR = ROOT_DIR / "data"
 DB_PATH = DATA_DIR / "blackdark.db"
+ML_TRAINING_DIR = DATA_DIR / "training"
+ML_MODELS_DIR = DATA_DIR / "models"
+
+# ── ML flywheel (AI model training pipeline) ─────────────────────────────────
+ML_FLYWHEEL_ENABLED = os.getenv("ML_FLYWHEEL_ENABLED", "true").lower() in {"1", "true", "yes"}
+ML_FLYWHEEL_INTERVAL_SEC = int(os.getenv("ML_FLYWHEEL_INTERVAL_SEC", "3600"))
+ML_MIN_TRAIN_SAMPLES = int(os.getenv("ML_MIN_TRAIN_SAMPLES", "50"))
+ML_AUTO_TRAIN = os.getenv("ML_AUTO_TRAIN", "true").lower() in {"1", "true", "yes"}
 
 # ── Aggregator ─────────────────────────────────────────────────────────────
 POLL_INTERVAL_SECONDS = 5
