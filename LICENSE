@@ -1,0 +1,21 @@
+BLACKDARK — Proprietary Software License
+
+Copyright (c) 2024–2026 BLACKDARK. All Rights Reserved.
+
+This software and associated documentation, data schemas, algorithms, and
+derivative works (collectively, the "Software") are proprietary and confidential.
+
+Unless you have a separate written agreement with BLACKDARK:
+
+  1. You may not copy, modify, distribute, sublicense, or sell the Software.
+  2. You may not reverse engineer, decompile, or extract source algorithms
+     except as permitted by applicable law.
+  3. All intellectual property in CVVD, SII, Oracle scoring, arbitrage
+     taxonomy, ML pipelines, and institutional feed formats remains with
+     BLACKDARK.
+
+Third-party open-source components are listed in THIRD_PARTY_NOTICES.md and
+are used under their respective licenses (MIT, Apache-2.0, BSD-3-Clause, etc.).
+
+For B2B licensing, acquisition, or partnership inquiries:
+  sales@blackdark.io

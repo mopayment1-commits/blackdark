@@ -343,12 +343,15 @@ async def _configure_connection(db: aiosqlite.Connection) -> None:
 
 
 @asynccontextmanager
-async def get_connection() -> AsyncIterator[aiosqlite.Connection]:
-    """
-    Yield a configured async SQLite connection.
+async def get_connection() -> AsyncIterator[Any]:
+    """Yield PostgreSQL or SQLite connection depending on DATABASE_URL."""
+    from postgres_backend import pg_connection, use_postgres
 
-    Commits on success, rolls back on error, and always closes the connection.
-    """
+    if use_postgres():
+        async with pg_connection() as db:
+            yield db
+        return
+
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
     db = await aiosqlite.connect(
         str(config.DB_PATH),
@@ -369,19 +372,31 @@ async def get_connection() -> AsyncIterator[aiosqlite.Connection]:
 
 
 async def init_db() -> None:
-    """Create or connect to the SQLite database and ensure schema exists."""
+    """Create or connect to the database and ensure schema exists."""
     try:
+        from postgres_backend import init_postgres, use_postgres
+
+        if use_postgres():
+            await init_postgres()
+            logger.info("Database initialised | engine=postgresql")
+            return
+
         async with get_connection() as db:
             await db.executescript(SCHEMA)
             await _apply_migrations(db)
         logger.info("Database initialised at %s", config.DB_PATH)
     except Exception:
-        logger.exception("Failed to initialise database at %s", config.DB_PATH)
+        logger.exception("Failed to initialise database")
         raise
 
 
-async def _apply_migrations(db: aiosqlite.Connection) -> None:
+async def _apply_migrations(db: Any) -> None:
     """Apply lightweight schema migrations for existing databases."""
+    from postgres_backend import use_postgres
+
+    if use_postgres():
+        return
+
     for table in ("pricing_logs", "order_books"):
         columns = {
             row[1] for row in await (await db.execute(f"PRAGMA table_info({table})")).fetchall()
@@ -638,6 +653,28 @@ async def _apply_migrations(db: aiosqlite.Connection) -> None:
             alerts_today  INTEGER NOT NULL DEFAULT 0,
             usage_date    TEXT NOT NULL
         )
+        """
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS user_api_keys (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id             INTEGER NOT NULL,
+            exchange            TEXT    NOT NULL,
+            api_key_encrypted   TEXT    NOT NULL,
+            api_secret_encrypted TEXT   NOT NULL,
+            label               TEXT,
+            created_at          TEXT    NOT NULL,
+            updated_at          TEXT    NOT NULL,
+            UNIQUE(user_id, exchange)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_user_api_keys_user
+            ON user_api_keys (user_id)
         """
     )
 
@@ -1635,7 +1672,24 @@ async def insert_oracle_prediction(
                 source,
             ),
         )
-        return int(cursor.lastrowid or 0)
+        row_id = int(cursor.lastrowid or 0)
+    if row_id:
+        try:
+            from oracle_track_record import on_prediction_created
+
+            on_prediction_created(
+                row_id,
+                asset=asset,
+                price_at_prediction=price_at_prediction,
+                verdict=verdict,
+                opportunity_score=opportunity_score,
+                confidence=confidence,
+                source=source,
+                kind=kind,
+            )
+        except Exception:
+            logger.debug("Track record append skipped on insert", exc_info=True)
+    return row_id
 
 
 async def fetch_unresolved_oracle_predictions(limit: int = 100) -> list[dict[str, Any]]:
@@ -1689,6 +1743,12 @@ async def resolve_oracle_prediction(
     resolved_at: str | None = None,
 ) -> None:
     async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT asset, verdict, price_at_prediction FROM oracle_predictions WHERE id = ?",
+                (prediction_id,),
+            )
+        ).fetchone()
         await db.execute(
             """
             UPDATE oracle_predictions
@@ -1715,72 +1775,232 @@ async def resolve_oracle_prediction(
                 prediction_id,
             ),
         )
+    if row:
+        try:
+            from oracle_track_record import on_prediction_resolved
+
+            on_prediction_resolved(
+                prediction_id,
+                asset=str(row[0] or ""),
+                verdict=str(row[1] or ""),
+                price_at_prediction=float(row[2] or 0),
+                price_after=price_after,
+                outcome=outcome,
+                accuracy_score=accuracy_score,
+                label=label,
+                direction_label=direction_label,
+            )
+        except Exception:
+            logger.debug("Track record append skipped on resolve", exc_info=True)
 
 
-async def fetch_oracle_audit_stats(limit: int = 500) -> dict[str, Any]:
-    try:
-        async with get_connection() as db:
-            total_row = await (
-                await db.execute("SELECT COUNT(*) FROM oracle_predictions")
-            ).fetchone()
-            resolved_row = await (
-                await db.execute(
-                    "SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1"
-                )
-            ).fetchone()
-            avg_row = await (
-                await db.execute(
-                    """
-                    SELECT AVG(accuracy_score)
-                    FROM oracle_predictions
-                    WHERE resolved = 1 AND accuracy_score IS NOT NULL
-                    """
-                )
-            ).fetchone()
-            recent = await (
-                await db.execute(
-                    """
-                    SELECT *
-                    FROM oracle_predictions
-                    ORDER BY timestamp DESC, id DESC
-                    LIMIT ?
-                    """,
-                    (limit,),
-                )
-            ).fetchall()
-        total = int(total_row[0] or 0)
-        resolved = int(resolved_row[0] or 0)
-        avg_accuracy = float(avg_row[0] or 0.0)
-        return {
-            "total_predictions": total,
-            "resolved_predictions": resolved,
-            "pending_predictions": max(0, total - resolved),
-            "average_accuracy_percent": round(avg_accuracy, 2),
-            "recent": [dict(row) for row in recent],
-        }
-    except Exception:
-        logger.exception("Unable to compute oracle audit stats")
-        return {
+async def fetch_oracle_audit_stats(
+    limit: int = 500,
+    *,
+    include_synthetic: bool = False,
+) -> dict[str, Any]:
+    from oracle_integrity import live_source_sql
+
+    empty = {
+        "total_predictions": 0,
+        "resolved_predictions": 0,
+        "pending_predictions": 0,
+        "average_accuracy_percent": 0.0,
+        "recent": [],
+        "live": {
             "total_predictions": 0,
             "resolved_predictions": 0,
             "pending_predictions": 0,
             "average_accuracy_percent": 0.0,
-            "recent": [],
+        },
+        "synthetic": {
+            "total_predictions": 0,
+            "resolved_predictions": 0,
+            "pending_predictions": 0,
+            "average_accuracy_percent": 0.0,
+        },
+        "integrity": {
+            "synthetic_excluded_by_default": True,
+            "synthetic_source_ids": ["historical_seed"],
+        },
+    }
+    try:
+        live_clause = live_source_sql()
+        async with get_connection() as db:
+            if include_synthetic:
+                total_row = await (
+                    await db.execute("SELECT COUNT(*) FROM oracle_predictions")
+                ).fetchone()
+                resolved_row = await (
+                    await db.execute(
+                        "SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1"
+                    )
+                ).fetchone()
+                avg_row = await (
+                    await db.execute(
+                        """
+                        SELECT AVG(accuracy_score)
+                        FROM oracle_predictions
+                        WHERE resolved = 1 AND accuracy_score IS NOT NULL
+                        """
+                    )
+                ).fetchone()
+                recent_rows = await (
+                    await db.execute(
+                        """
+                        SELECT *
+                        FROM oracle_predictions
+                        ORDER BY timestamp DESC, id DESC
+                        LIMIT ?
+                        """,
+                        (limit,),
+                    )
+                ).fetchall()
+            else:
+                total_row = await (
+                    await db.execute(
+                        f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"
+                    )
+                ).fetchone()
+                resolved_row = await (
+                    await db.execute(
+                        f"""
+                        SELECT COUNT(*) FROM oracle_predictions
+                        WHERE resolved = 1 AND {live_clause}
+                        """
+                    )
+                ).fetchone()
+                avg_row = await (
+                    await db.execute(
+                        f"""
+                        SELECT AVG(accuracy_score)
+                        FROM oracle_predictions
+                        WHERE resolved = 1
+                          AND accuracy_score IS NOT NULL
+                          AND {live_clause}
+                        """
+                    )
+                ).fetchone()
+                recent_rows = await (
+                    await db.execute(
+                        f"""
+                        SELECT *
+                        FROM oracle_predictions
+                        WHERE {live_clause}
+                        ORDER BY timestamp DESC, id DESC
+                        LIMIT ?
+                        """,
+                        (limit,),
+                    )
+                ).fetchall()
+
+            synth_total_row = await (
+                await db.execute(
+                    """
+                    SELECT COUNT(*) FROM oracle_predictions
+                    WHERE source = 'historical_seed'
+                    """
+                )
+            ).fetchone()
+            synth_resolved_row = await (
+                await db.execute(
+                    """
+                    SELECT COUNT(*) FROM oracle_predictions
+                    WHERE source = 'historical_seed' AND resolved = 1
+                    """
+                )
+            ).fetchone()
+            synth_avg_row = await (
+                await db.execute(
+                    """
+                    SELECT AVG(accuracy_score)
+                    FROM oracle_predictions
+                    WHERE source = 'historical_seed'
+                      AND resolved = 1
+                      AND accuracy_score IS NOT NULL
+                    """
+                )
+            ).fetchone()
+
+        total = int(total_row[0] or 0)
+        resolved = int(resolved_row[0] or 0)
+        avg_accuracy = float(avg_row[0] or 0.0)
+        recent = [dict(row) for row in recent_rows]
+
+        synth_total = int(synth_total_row[0] or 0)
+        synth_resolved = int(synth_resolved_row[0] or 0)
+        synth_avg = float(synth_avg_row[0] or 0.0)
+
+        live_total = total if not include_synthetic else max(0, total - synth_total)
+        live_resolved = resolved if not include_synthetic else max(0, resolved - synth_resolved)
+        live_avg = avg_accuracy if not include_synthetic else 0.0
+        if include_synthetic and live_resolved > 0:
+            live_rows = [row for row in recent if not is_synthetic_prediction(row)]
+            live_correct = sum(
+                1 for row in live_rows
+                if str(row.get("label") or row.get("outcome") or "") == "correct"
+            )
+            live_resolved_recent = sum(1 for row in live_rows if row.get("resolved"))
+            if live_resolved_recent:
+                live_avg = round(
+                    sum(float(row.get("accuracy_score") or 0) for row in live_rows if row.get("resolved"))
+                    / max(live_resolved_recent, 1),
+                    2,
+                )
+
+        live_block = {
+            "total_predictions": live_total,
+            "resolved_predictions": live_resolved,
+            "pending_predictions": max(0, live_total - live_resolved),
+            "average_accuracy_percent": round(live_avg, 2) if not include_synthetic else live_avg,
         }
 
+        return {
+            "total_predictions": live_total,
+            "resolved_predictions": live_resolved,
+            "pending_predictions": max(0, live_total - live_resolved),
+            "average_accuracy_percent": round(live_avg, 2) if isinstance(live_avg, float) else live_avg,
+            "recent": recent,
+            "live": live_block,
+            "synthetic": {
+                "total_predictions": synth_total,
+                "resolved_predictions": synth_resolved,
+                "pending_predictions": max(0, synth_total - synth_resolved),
+                "average_accuracy_percent": round(synth_avg, 2),
+                "note": (
+                    "Demo/due-diligence backfill only — excluded from training and public hit rate."
+                ),
+            },
+            "integrity": {
+                "synthetic_excluded_by_default": not include_synthetic,
+                "synthetic_source_ids": ["historical_seed"],
+            },
+        }
+    except Exception:
+        logger.exception("Unable to compute oracle audit stats")
+        return empty
 
-async def fetch_labeled_oracle_predictions(limit: int = 5000) -> list[dict[str, Any]]:
+
+async def fetch_labeled_oracle_predictions(
+    limit: int = 5000,
+    *,
+    include_synthetic: bool = False,
+) -> list[dict[str, Any]]:
+    from oracle_integrity import live_source_sql
+
     try:
+        source_clause = "" if include_synthetic else f"AND {live_source_sql()}"
         async with get_connection() as db:
             rows = await (
                 await db.execute(
-                    """
+                    f"""
                     SELECT *
                     FROM oracle_predictions
                     WHERE resolved = 1
                       AND price_after_24h IS NOT NULL
                       AND label IS NOT NULL
-                    ORDER BY timestamp DESC
+                      {source_clause}
+                    ORDER BY timestamp ASC
                     LIMIT ?
                     """,
                     (limit,),
@@ -2993,6 +3213,71 @@ async def fetch_maintenance_runs(limit: int = 10) -> list[dict[str, Any]]:
             item["payload"] = {}
         out.append(item)
     return out
+
+
+async def upsert_user_api_key(
+    user_id: int,
+    exchange: str,
+    api_key_encrypted: str,
+    api_secret_encrypted: str,
+    *,
+    label: str = "",
+) -> int:
+    ts = _utcnow_iso()
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO user_api_keys
+                (user_id, exchange, api_key_encrypted, api_secret_encrypted, label, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(user_id, exchange) DO UPDATE SET
+                api_key_encrypted = excluded.api_key_encrypted,
+                api_secret_encrypted = excluded.api_secret_encrypted,
+                label = excluded.label,
+                updated_at = excluded.updated_at
+            """,
+            (user_id, exchange.lower(), api_key_encrypted, api_secret_encrypted, label or None, ts, ts),
+        )
+        row = await (await db.execute("SELECT last_insert_rowid()")).fetchone()
+        return int(row[0] or 0)
+
+
+async def fetch_user_api_keys(user_id: int) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, user_id, exchange, label, created_at, updated_at
+                FROM user_api_keys WHERE user_id = ?
+                ORDER BY exchange
+                """,
+                (user_id,),
+            )
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+async def fetch_user_api_key_secrets(user_id: int, exchange: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT * FROM user_api_keys
+                WHERE user_id = ? AND exchange = ?
+                """,
+                (user_id, exchange.lower()),
+            )
+        ).fetchone()
+    return dict(row) if row else None
+
+
+async def delete_user_api_key(user_id: int, exchange: str) -> bool:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM user_api_keys WHERE user_id = ? AND exchange = ?",
+            (user_id, exchange.lower()),
+        )
+        return int(cursor.rowcount or 0) > 0
 
 
 if __name__ == "__main__":

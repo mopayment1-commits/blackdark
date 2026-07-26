@@ -67,47 +67,74 @@ def _top_ask(book: dict[str, Any]) -> float | None:
     return float(asks[0][0]) if asks else None
 
 
-async def fetch_live_market_snapshots() -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, dict[str, Any]]]]:
-    """Pull fresh order books and funding rates from all enabled exchanges."""
+async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, dict[str, Any]]]]:
+    """Fast live refresh — native venues × whitelist assets (not 21k HTTP calls)."""
     from aggregator import FUNDING_FETCHERS, MARKET_FETCHERS
     from exchange_adapters import SPOT_ONLY_EXCHANGES
+    from market_fetcher_hub import NATIVE_EXCHANGES, perp_symbols_for_exchange, symbols_for_exchange
 
     books: dict[str, dict[str, dict[str, Any]]] = {}
     funding: dict[str, dict[str, dict[str, Any]]] = {}
-    timestamp = _utcnow_iso()
-    timeout = aiohttp.ClientTimeout(total=25)
+    timeout_sec = max(1.5, float(getattr(config, "LIVE_FETCH_TIMEOUT_SEC", 4)))
+    timeout = aiohttp.ClientTimeout(total=timeout_sec)
+    deadline = float(getattr(config, "LIVE_FETCH_FAST_DEADLINE_SEC", 2.5)) if fast else timeout_sec + 1
+
+    spot_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
+    perp_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
+    exchange_ids = sorted(
+        ex for ex in NATIVE_EXCHANGES
+        if ex in config.WHITELIST_EXCHANGES and (not fast or ex in getattr(config, "FAST_LIVE_EXCHANGES", config.WHITELIST_EXCHANGES))
+    )
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        tasks: list[Any] = []
+        tasks: list[asyncio.Task[Any]] = []
         meta: list[tuple[str, str, str]] = []
 
-        for exchange_id in config.enabled_exchanges():
+        for exchange_id in exchange_ids:
             market_fetcher = MARKET_FETCHERS.get(exchange_id)
             funding_fetcher = FUNDING_FETCHERS.get(exchange_id)
             if market_fetcher is None:
                 continue
 
-            for symbol in config.all_spot_symbols():
-                tasks.append(market_fetcher(session, symbol, "spot"))
+            for symbol in symbols_for_exchange(exchange_id, spot_symbols):
+                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "spot")))
                 meta.append((exchange_id, symbol, "spot"))
 
-            for symbol in config.perpetual_symbols():
+            for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
                 if exchange_id in SPOT_ONLY_EXCHANGES:
                     continue
-                tasks.append(market_fetcher(session, symbol, "perpetual"))
+                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "perpetual")))
                 meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
                 if funding_fetcher is not None:
-                    tasks.append(funding_fetcher(session, symbol))
+                    tasks.append(asyncio.create_task(funding_fetcher(session, symbol)))
                     meta.append((exchange_id, symbol, "funding"))
 
-        results = await asyncio.gather(*tasks, return_exceptions=True)
+        pending = set(tasks)
+        loop = asyncio.get_running_loop()
+        deadline_at = loop.time() + deadline
 
-        idx = 0
-        for exchange_id, key, kind in meta:
-            result = results[idx]
-            idx += 1
-            if isinstance(result, Exception):
-                logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, result)
+        while pending and loop.time() < deadline_at:
+            done, pending = await asyncio.wait(
+                pending,
+                timeout=max(0.05, deadline_at - loop.time()),
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+            if not done:
+                break
+
+        for task in pending:
+            task.cancel()
+        if pending:
+            await asyncio.gather(*pending, return_exceptions=True)
+
+        timestamp = _utcnow_iso()
+        for task, (exchange_id, key, kind) in zip(tasks, meta):
+            if task.cancelled():
+                continue
+            try:
+                result = task.result()
+            except Exception as exc:
+                logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
                 continue
 
             if kind == "funding":
@@ -125,30 +152,82 @@ async def fetch_live_market_snapshots() -> tuple[dict[str, dict[str, dict[str, A
                 "bids": order_book.bids,
                 "asks": order_book.asks,
                 "timestamp": timestamp,
-                "market_type": kind if kind != "spot" else ("cross" if "/" in key and not key.endswith("/USDT") else "spot"),
+                "market_type": kind if kind != "spot" else "spot",
                 "symbol": key.replace("@perpetual", ""),
             }
 
     return books, funding
 
 
-async def get_market_snapshots(*, prefer_live: bool = True) -> tuple[dict, dict, str]:
-    books = await fetch_latest_order_books()
-    funding = await fetch_latest_funding_rates()
-    source = "database"
+async def get_market_snapshots(
+    *,
+    prefer_live: bool | None = None,
+    force_rest: bool = False,
+) -> tuple[dict, dict, str, float]:
+    from market_cache import get_market_snapshots_cached, set_cached_snapshots
 
-    if prefer_live or not books:
+    low_latency = getattr(config, "LOW_LATENCY_MODE", True)
+
+    # 1) WebSocket in-memory books — always first (sub-ms) unless explicit REST forced.
+    if low_latency and not force_rest:
         try:
-            live_books, live_funding = await fetch_live_market_snapshots()
+            from live_book_hub import get_live_books_if_fresh
+
+            fresh = get_live_books_if_fresh()
+            if fresh:
+                ws_books, age_ms = fresh
+                _books, funding, _source, _age = await get_market_snapshots_cached()
+                age_sec = age_ms / 1000.0
+                set_cached_snapshots(ws_books, funding, source="websocket_live", age_sec=age_sec)
+                return ws_books, funding, "websocket_live", age_sec
+        except Exception:
+            logger.debug("WebSocket live book path unavailable", exc_info=True)
+
+    books, funding, source, age_sec = await get_market_snapshots_cached()
+
+    stale_threshold = float(getattr(config, "LIVE_FETCH_STALE_THRESHOLD_SEC", 8))
+    must_refresh = age_sec > stale_threshold or not books
+
+    # 2) REST refresh ONLY when stale/missing OR caller explicitly forces REST.
+    #    prefer_live alone must NOT trigger a 2–3s REST round-trip when cache/WS is fresh.
+    if force_rest or must_refresh:
+        try:
+            live_books, live_funding = await fetch_live_market_snapshots(fast=True)
             if live_books:
                 books = live_books
                 source = "live_api"
+                age_sec = 0.0
             if live_funding:
                 funding = live_funding
+            set_cached_snapshots(books, funding, source=source, age_sec=age_sec)
         except Exception:
-            logger.exception("Live arbitrage snapshot fetch failed; using database fallback.")
+            if must_refresh:
+                logger.warning(
+                    "Stale market data (age=%.1fs) and live refresh failed — results may be unreliable.",
+                    age_sec,
+                )
+            else:
+                logger.exception("Live arbitrage snapshot fetch failed; using cache/database fallback.")
 
-    return books, funding, source
+    return books, funding, source, age_sec
+
+
+_institutional_cache: dict[str, Any] | None = None
+_institutional_cache_at: float = 0.0
+
+
+async def get_institutional_context_cached() -> dict[str, Any]:
+    """Short TTL cache — avoids ~100–700ms DB hit on every scan pulse."""
+    global _institutional_cache, _institutional_cache_at
+
+    ttl = float(getattr(config, "INSTITUTIONAL_CONTEXT_CACHE_SEC", 2.0))
+    now = __import__("time").monotonic()
+    if _institutional_cache is not None and (now - _institutional_cache_at) < ttl:
+        return _institutional_cache
+
+    _institutional_cache = await get_latest_institutional_context()
+    _institutional_cache_at = now
+    return _institutional_cache
 
 
 def _format_cross(item: Any, institutional_context: dict | None) -> dict[str, Any]:
@@ -253,13 +332,20 @@ def _format_funding(item: Any, institutional_context: dict | None) -> dict[str, 
 async def scan_arbitrage_opportunities(
     quote_amount: float | None = None,
     *,
-    prefer_live: bool = True,
+    prefer_live: bool | None = None,
+    force_rest: bool = False,
     min_profit_usdt: float | None = None,
     profitable_only: bool = False,
 ) -> dict[str, Any]:
     """Run all four arbitrage strategies and return ranked opportunities."""
+    import time
+
+    scan_started = time.monotonic()
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
-    books, funding, source = await get_market_snapshots(prefer_live=prefer_live)
+    books, funding, source, data_age_sec = await get_market_snapshots(
+        prefer_live=prefer_live,
+        force_rest=force_rest,
+    )
     profit_floor = 0.0 if profitable_only else (min_profit_usdt if min_profit_usdt is not None else -1_000_000.0)
 
     if not books:
@@ -267,12 +353,14 @@ async def scan_arbitrage_opportunities(
             "opportunities": [],
             "counts": {"cross_exchange": 0, "triangular": 0, "spot_futures": 0, "funding": 0},
             "data_source": source,
+            "data_age_sec": data_age_sec,
+            "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
             "quote_amount": notional,
             "timestamp": _utcnow_iso(),
             "message": "No order-book data — start aggregator.py or retry live scan.",
         }
 
-    institutional_context = await get_latest_institutional_context()
+    institutional_context = await get_institutional_context_cached()
 
     cross = calculate_cross_exchange_arbitrage(books, notional, institutional_context)
     triangular = calculate_triangular_arbitrage(books, notional, institutional_context)
@@ -288,8 +376,12 @@ async def scan_arbitrage_opportunities(
             formatted.append(row)
     for item in triangular:
         row = _format_triangular(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
+        if data_age_sec <= 10 and row["net_profit_usdt"] >= profit_floor:
+            row["staleness_ok"] = True
             formatted.append(row)
+        elif row["net_profit_usdt"] >= profit_floor:
+            row["staleness_ok"] = False
+            row["risk_factors"] = (row.get("risk_factors") or []) + ["stale_data_for_triangular"]
     for item in basis:
         row = _format_basis(item, institutional_context)
         if row["net_profit_usdt"] >= profit_floor:
@@ -299,6 +391,8 @@ async def scan_arbitrage_opportunities(
         if row["net_profit_usdt"] >= profit_floor:
             formatted.append(row)
 
+    formatted = [row for row in formatted if row.get("staleness_ok", True) is not False]
+
     formatted.sort(key=lambda x: x["net_profit_usdt"], reverse=True)
 
     from opportunity_tracker import sync_scan_opportunities
@@ -306,14 +400,15 @@ async def scan_arbitrage_opportunities(
     formatted = sync_scan_opportunities(formatted)
 
     pricing_errors: list[dict[str, Any]] = []
-    try:
-        from pricing_error_sniper import scan_pricing_errors_from_books
+    if source != "websocket_live":
+        try:
+            from pricing_error_sniper import scan_pricing_errors_from_books
 
-        for symbol in config.all_spot_symbols()[:5]:
-            scan = scan_pricing_errors_from_books(books, symbol)
-            pricing_errors.extend(scan.get("opportunities") or [])
-    except Exception:
-        logger.exception("Pricing error scan failed")
+            for symbol in config.all_spot_symbols()[:5]:
+                scan = scan_pricing_errors_from_books(books, symbol)
+                pricing_errors.extend(scan.get("opportunities") or [])
+        except Exception:
+            logger.exception("Pricing error scan failed")
 
     return {
         "opportunities": formatted,
@@ -330,6 +425,11 @@ async def scan_arbitrage_opportunities(
         "profitable_count": sum(1 for row in formatted if row["net_profit_usdt"] > 0),
         "pricing_errors": pricing_errors[:10],
         "data_source": source,
+        "data_age_sec": round(data_age_sec, 2),
+        "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
+        "latency_tier": (
+            "millisecond" if source == "websocket_live" else "sub_second" if data_age_sec <= 2 else "slow"
+        ),
         "quote_amount": notional,
         "timestamp": _utcnow_iso(),
     }
@@ -348,7 +448,7 @@ async def compare_symbol_across_exchanges(
     pair = f"{asset}/USDT"
 
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
-    books, _funding, source = await get_market_snapshots(prefer_live=True)
+    books, _funding, source, data_age_sec = await get_market_snapshots(prefer_live=False)
 
     venues: list[dict[str, Any]] = []
     for exchange_id in config.enabled_exchanges():
@@ -403,6 +503,7 @@ async def compare_symbol_across_exchanges(
         "feed_lag": feed_lag,
         "pricing_errors": pricing_errors,
         "data_source": source,
+        "data_age_sec": round(data_age_sec, 2),
         "timestamp": _utcnow_iso(),
     }
 
@@ -466,5 +567,34 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
                 await dispatch_alert(title, body, payload=opp)
             except Exception:
                 logger.exception("Unified alert dispatch failed")
+
+            try:
+                from b2b_websocket_hub import publish_arbitrage_opportunity
+
+                await publish_arbitrage_opportunity(opp)
+            except Exception:
+                logger.exception("B2B WS arbitrage publish failed")
+
+            try:
+                from service_bus import publish
+
+                await publish(
+                    "blackdark.arbitrage.hot",
+                    {
+                        "asset": opp.get("asset"),
+                        "kind": opp.get("kind"),
+                        "net_profit_usdt": opp.get("net_profit_usdt"),
+                    },
+                )
+            except Exception:
+                logger.debug("Service bus arbitrage publish skipped", exc_info=True)
+
+            if os.getenv("TELEGRAM_BOT_TOKEN"):
+                try:
+                    from telegram_free_alerts import dispatch_free_telegram_alerts
+
+                    await dispatch_free_telegram_alerts(scan=scan_result)
+                except Exception:
+                    logger.exception("Free Telegram dispatch from arbitrage alert failed")
 
     return triggered

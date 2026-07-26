@@ -1056,6 +1056,22 @@ class Aggregator:
                     )
 
             elapsed = time.monotonic() - cycle_started
+            try:
+                from market_cache import refresh_from_database
+
+                await refresh_from_database(force=False)
+                try:
+                    from service_bus import publish
+
+                    await publish(
+                        "blackdark.market.updated",
+                        {"source": "aggregator", "exchanges": len(exchanges)},
+                    )
+                except Exception:
+                    logger.debug("Service bus publish skipped", exc_info=True)
+            except Exception:
+                logger.debug("Market cache refresh after aggregator cycle failed", exc_info=True)
+
             sleep_for = max(0.0, config.POLL_INTERVAL_SECONDS - elapsed)
             if sleep_for > 0 and not self._shutdown.is_set():
                 try:

@@ -41,6 +41,10 @@
         .btn-secondary { background: #1a1a24; color: var(--text); border: 1px solid var(--border); }
         .demo-box { max-width: 960px; margin: 0 auto 3rem; padding: 0 2rem; }
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
+        .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
+        .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .ws-off { background: #3f3f46; color: #a1a1aa; }
+        .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
 </head>
@@ -96,11 +100,27 @@
         </div>
     </div>
 
+    <div class="demo-box" id="websocket">
+        <div class="card">
+            <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-off" id="wsStatus">disconnected</span></h2>
+            <p style="color:var(--muted);font-size:0.9rem">
+                Tier 2 institutional push — arbitrage, oracle signals, heartbeat (~{{ feed_version }}).
+                Target latency 100–500ms.
+            </p>
+            <pre>wss://{{ request.url.netloc }}/ws/b2b/feed?api_key={{ demo_key }}</pre>
+            <button class="btn btn-primary" onclick="connectWs()">Connect WebSocket</button>
+            <button class="btn btn-secondary" onclick="disconnectWs()">Disconnect</button>
+            <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
+        </div>
+    </div>
+
     <div class="grid">
         <div class="card">
             <h3>Endpoints</h3>
             <p><code>GET /api/b2b/demo</code> — public demo (no key)</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/feed</code> — full feed (X-API-Key)</p>
+            <p style="margin-top:0.5rem"><code>WS /ws/b2b/feed?api_key=...</code> — live stream</p>
+            <p style="margin-top:0.5rem"><code>GET /api/b2b/ws/info</code> — WebSocket status</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/proposal?client=Fund</code> — sales proposal JSON</p>
         </div>
         <div class="card">
@@ -118,6 +138,52 @@
     </footer>
 
     <script>
+        let ws = null;
+        const demoKey = document.getElementById('demoKey').textContent.trim();
+        const wsScheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+
+        function setWsStatus(on) {
+            const el = document.getElementById('wsStatus');
+            el.textContent = on ? 'connected' : 'disconnected';
+            el.className = 'ws-status ' + (on ? 'ws-on' : 'ws-off');
+        }
+
+        function logWs(msg) {
+            const el = document.getElementById('wsLog');
+            const line = `[${new Date().toLocaleTimeString()}] ${msg}`;
+            el.textContent = (el.textContent === 'Events will appear here when connected.' ? '' : el.textContent + '\n') + line;
+            el.scrollTop = el.scrollHeight;
+        }
+
+        function connectWs() {
+            if (ws && ws.readyState <= 1) return;
+            const url = `${wsScheme}//${location.host}/ws/b2b/feed?api_key=${encodeURIComponent(demoKey)}`;
+            logWs('Connecting…');
+            ws = new WebSocket(url);
+            ws.onopen = () => { setWsStatus(true); logWs('OPEN'); };
+            ws.onclose = () => { setWsStatus(false); logWs('CLOSED'); ws = null; };
+            ws.onerror = () => logWs('ERROR');
+            ws.onmessage = (ev) => {
+                try {
+                    const d = JSON.parse(ev.data);
+                    const summary = d.type === 'snapshot'
+                        ? `snapshot (${d.record_count || 0} records)`
+                        : d.type === 'arbitrage_opportunity'
+                            ? `arb ${d.opportunity?.asset || '?'} $${Number(d.opportunity?.net_profit_usdt || 0).toFixed(2)}`
+                            : d.type === 'oracle_signal'
+                                ? `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`
+                                : JSON.stringify(d).slice(0, 120);
+                    logWs(summary);
+                } catch (e) {
+                    logWs(ev.data.slice(0, 120));
+                }
+            };
+        }
+
+        function disconnectWs() {
+            if (ws) ws.close();
+        }
+
         async function runDemo() {
             const el = document.getElementById('demoResult');
             el.textContent = 'Loading...';

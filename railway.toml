@@ -1,0 +1,19 @@
+# BLACKDARK — Railway multi-service deploy (1M-user scale path)
+# Create 4 Railway services from same repo, each with SERVICE_MODE set below.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/health/live"
+healthcheckTimeout = 10
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Per-service env (set in Railway dashboard):
+# web:         SERVICE_MODE=web         PORT=8080  numReplicas=2+
+# aggregator:  SERVICE_MODE=aggregator  PORT=8091  numReplicas=2+
+# arbitrage:   SERVICE_MODE=arbitrage   PORT=8092  numReplicas=3+
+# ingestion:   SERVICE_MODE=ingestion   PORT=8093  numReplicas=1
+# Shared: REDIS_URL, DATABASE_URL (Railway Redis + Postgres plugins)

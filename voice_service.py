@@ -278,7 +278,6 @@ async def process_voice_command(text: str) -> dict[str, Any]:
         "Commands: analyze BTC · scan arbitrage · portfolio status · Research Lab · "
         "whale scan · panic stop · simulate ETH"
     )
-    )
     return {
         "success": True,
         "intent": "help",

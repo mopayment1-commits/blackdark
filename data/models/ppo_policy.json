@@ -1,0 +1,19 @@
+{
+  "algorithm": "ppo_linear_policy_gradient",
+  "features": [
+    "ret_24h",
+    "volatility",
+    "obi_score",
+    "sentiment_score"
+  ],
+  "weights": {
+    "ret_24h": -0.03297374695221202,
+    "volatility": 11.842852164884569,
+    "obi_score": -76.98207814876575,
+    "sentiment_score": -32.98452966125994,
+    "bias": 132.75804680591435
+  },
+  "epochs": 5,
+  "samples": 1,
+  "final_loss": 0.0
+}

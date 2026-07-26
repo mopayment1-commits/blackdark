@@ -6,6 +6,10 @@ fastapi
 uvicorn[standard]
 jinja2
 stripe
-python-dotenv
-vaderSentiment
+redis
+asyncpg
+strawberry-graphql[fastapi]
+psutil
 textblob
+kafka-python
+hvac

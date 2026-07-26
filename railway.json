@@ -8,7 +8,8 @@
     "numReplicas": 1,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
-    "healthcheckPath": "/health",
-    "healthcheckTimeout": 120
+    "healthcheckPath": "/health/live",
+    "healthcheckTimeout": 10,
+    "multiServiceNote": "Use docker-compose.yml for web+aggregator+arbitrage+ingestion scale-out"
   }
 }

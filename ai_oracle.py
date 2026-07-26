@@ -371,9 +371,18 @@ def explain_opportunity(
         + profit_component(metrics.net_profit_percent) * 0.20
     )
 
+    try:
+        from ml.drift_monitor import calibrate_confidence
+
+        calibration = calibrate_confidence(confidence)
+        if calibration.get("calibrated"):
+            confidence = float(calibration["calibrated_hit_rate_percent"])
+    except Exception:
+        pass
+
     summary = (
         f"{metrics.asset} {kind.replace('_', ' ')} setup scores "
-        f"{opportunity_score:.1f}/100 with {confidence:.1f}% confidence."
+        f"{opportunity_score:.1f}/100 with {confidence:.1f}% confidence (rules engine)."
     )
 
     return OpportunityExplanation(
@@ -638,6 +647,23 @@ async def evaluate_and_store(
         )
     except Exception:
         logger.warning("Oracle prediction logging failed | asset=%s", evaluated.asset)
+    try:
+        from b2b_websocket_hub import publish_oracle_signal
+
+        await publish_oracle_signal(
+            {
+                "asset": evaluated.asset,
+                "kind": evaluated.kind,
+                "engine": "rules_engine",
+                "oracle_verdict": evaluated.oracle.verdict,
+                "sentence": evaluated.oracle.sentence,
+                "opportunity_score": evaluated.opportunity_score,
+                "confidence_percent": evaluated.explanation.confidence_percent,
+                "net_profit_usdt": evaluated.net_profit_usdt,
+            }
+        )
+    except Exception:
+        logger.debug("B2B oracle signal publish skipped | asset=%s", evaluated.asset)
     return evaluated
 
 

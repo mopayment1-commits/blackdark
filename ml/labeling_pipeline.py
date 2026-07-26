@@ -192,7 +192,7 @@ async def export_labeled_dataset(*, limit: int = 5000) -> dict[str, Any]:
     from database import fetch_labeled_oracle_predictions
 
     config.ML_TRAINING_DIR.mkdir(parents=True, exist_ok=True)
-    rows = await fetch_labeled_oracle_predictions(limit=limit)
+    rows = await fetch_labeled_oracle_predictions(limit=limit, include_synthetic=False)
     if not rows:
         return {"exported": 0, "path": None, "reason": "no_labeled_rows"}
 
@@ -214,6 +214,24 @@ async def run_labeling_flywheel_cycle() -> dict[str, Any]:
 
     resolve_stats = await resolve_mature_predictions()
     export_stats = await export_labeled_dataset()
+    drift_stats: dict[str, Any] = {"drift_detected": False}
+    if int(export_stats.get("exported") or 0) >= 10:
+        try:
+            from database import fetch_labeled_oracle_predictions
+            from ml.drift_monitor import drift_report
+            from ml.feature_store import build_feature_vector
+
+            labeled_rows = await fetch_labeled_oracle_predictions(limit=500, include_synthetic=False)
+            recent_features = []
+            for row in labeled_rows[-20:]:
+                asset = str(row.get("asset") or "BTC")
+                recent_features.append(await build_feature_vector(asset))
+            drift_stats = drift_report(labeled_rows, recent_features)
+            from ml.drift_monitor import enforce_drift_actions
+
+            drift_stats["enforcement"] = enforce_drift_actions(drift_stats)
+        except Exception:
+            logger.exception("Drift monitoring cycle failed")
     train_stats: dict[str, Any] = {"trained": False, "reason": "auto_train_disabled"}
     if config.ML_AUTO_TRAIN:
         labeled_count = int(export_stats.get("exported") or 0)
@@ -228,6 +246,7 @@ async def run_labeling_flywheel_cycle() -> dict[str, Any]:
     payload = {
         "labeling": resolve_stats,
         "export": export_stats,
+        "drift": drift_stats,
         "training": train_stats,
         "timestamp": _utcnow_iso(),
     }

@@ -1,0 +1,10 @@
+[
+  {"asset": "APT", "name": "Aptos", "unlock_date": "2026-08-12", "amount_usd": 52000000, "type": "investor_vesting", "source": "public_schedule"},
+  {"asset": "ARB", "name": "Arbitrum", "unlock_date": "2026-08-16", "amount_usd": 98000000, "type": "team_vesting", "source": "public_schedule"},
+  {"asset": "SUI", "name": "Sui", "unlock_date": "2026-08-01", "amount_usd": 45000000, "type": "investor_vesting", "source": "public_schedule"},
+  {"asset": "SEI", "name": "Sei", "unlock_date": "2026-08-15", "amount_usd": 22000000, "type": "ecosystem", "source": "public_schedule"},
+  {"asset": "DYDX", "name": "dYdX", "unlock_date": "2026-08-05", "amount_usd": 18000000, "type": "investor_vesting", "source": "public_schedule"},
+  {"asset": "IMX", "name": "Immutable", "unlock_date": "2026-08-20", "amount_usd": 31000000, "type": "team_vesting", "source": "public_schedule"},
+  {"asset": "OP", "name": "Optimism", "unlock_date": "2026-08-30", "amount_usd": 67000000, "type": "investor_vesting", "source": "public_schedule"},
+  {"asset": "BLUR", "name": "Blur", "unlock_date": "2026-08-14", "amount_usd": 12000000, "type": "team_vesting", "source": "public_schedule"}
+]

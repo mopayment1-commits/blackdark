@@ -9,6 +9,7 @@
     <link rel="manifest" href="/manifest.json">
     <title>BLACKDARK — Intelligence Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -940,6 +941,7 @@
             </div>
             <div class="nav-links">
                 <a href="/" class="hide-mobile">Home</a>
+                <a href="/platform" class="hide-mobile">Platform</a>
                 <span id="userTier" style="font-size:0.75rem;color:var(--text-muted)"></span>
                 <a href="/login" id="authLink" class="hide-mobile">Login</a>
                 <a href="#" id="upgradeBtn" class="btn-upgrade" onclick="upgradeTier('pro');return false;">Pro $29/mo</a>
@@ -948,6 +950,12 @@
     </nav>
 
     <main>
+        <noscript>
+            <div style="background:#7f1d1d;color:#fecaca;padding:1rem;border-radius:12px;margin-bottom:1rem">
+                JavaScript is required for the dashboard. Please enable JavaScript and reload.
+            </div>
+        </noscript>
+        <div id="bootError" style="display:none;background:#7f1d1d;color:#fecaca;padding:1rem;border-radius:12px;margin-bottom:1rem"></div>
         <div class="hero-header">
             <h1>AI Crypto Oracle</h1>
             <p>Know your move in 30 seconds — powered by CVVD whale detection</p>
@@ -1027,12 +1035,25 @@
             <div class="section-head">
                 <div>
                     <h2>Market Radar</h2>
-                    <p class="sub">25 tracked assets — live from Binance</p>
+                    <p class="sub" id="radarNarrative">25 tracked assets — live from Binance</p>
                 </div>
             </div>
             <div class="cards-grid" id="market">
                 <div class="loading">Scanning markets...</div>
             </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <div>
+                    <h2>Live Chart</h2>
+                    <p class="sub">TradingView Lightweight Charts · synced with Oracle symbol</p>
+                </div>
+                <select id="dashChartInterval" onchange="loadDashChart()" style="background:var(--bg-elevated);border:1px solid var(--border);color:var(--text);padding:0.4rem 0.6rem;border-radius:8px">
+                    <option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option>
+                </select>
+            </div>
+            <div id="dashChart" style="height:320px;border-radius:12px;overflow:hidden;border:1px solid var(--border)"></div>
         </section>
 
         <section class="section">
@@ -1353,6 +1374,7 @@
                         <button class="btn-secondary" onclick="dryRunOrder()">Dry-Run</button>
                     </div>
                     <div id="execStatus" class="arb-meta">Loading execution status...</div>
+                    <div id="execSpeed" class="arb-meta" style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">Execution speed: measuring…</div>
                     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.65rem;align-items:center">
                         <label style="font-size:0.82rem;color:var(--text-muted)">
                             <input type="checkbox" id="autoExecToggle" onchange="toggleAutoExec()"> Auto-execute profitable arb (dry-run unless live)
@@ -1440,6 +1462,37 @@
         let portfolioAssets = [];
         let lastOracleData = null;
         let explainVisible = false;
+        let dashChart, dashCandleSeries;
+
+        function initDashChart() {
+            const el = document.getElementById('dashChart');
+            if (!el || typeof LightweightCharts === 'undefined') return;
+            dashChart = LightweightCharts.createChart(el, {
+                layout: { background: { color: '#111118' }, textColor: '#a1a1aa' },
+                grid: { vertLines: { color: '#2a2a35' }, horzLines: { color: '#2a2a35' } },
+            });
+            dashCandleSeries = dashChart.addCandlestickSeries({
+                upColor: '#22c55e', downColor: '#ef4444', borderVisible: false,
+                wickUpColor: '#22c55e', wickDownColor: '#ef4444',
+            });
+            new ResizeObserver(() => dashChart.applyOptions({ width: el.clientWidth })).observe(el);
+            loadDashChart();
+        }
+
+        async function loadDashChart() {
+            if (!dashCandleSeries) return;
+            const sym = (document.getElementById('symbol')?.value || 'BTC').toUpperCase();
+            const iv = document.getElementById('dashChartInterval')?.value || '1h';
+            try {
+                const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=${iv}&limit=120`);
+                const rows = await res.json();
+                dashCandleSeries.setData(rows.map(k => ({
+                    time: Math.floor(k[0] / 1000),
+                    open: +k[1], high: +k[2], low: +k[3], close: +k[4],
+                })));
+                dashChart.timeScale().fitContent();
+            } catch (e) { console.debug('dash chart', e); }
+        }
 
         function buildSharePayload(result) {
             const url = window.location.origin + '/dashboard';
@@ -1696,6 +1749,7 @@
                 lastOracleData = d;
                 updateShareLinks(d);
                 explainBtn.style.display = 'inline-block';
+                loadDashChart();
 
                 const fgPos = Math.min(100, Math.max(0, d.fear_greed_score || 50));
                 const whalePositive = (d.whale_alert || '').toLowerCase().includes('accumulation') ||
@@ -2229,13 +2283,36 @@
                 const res = await fetch('/api/execution/status');
                 const d = await res.json();
                 const panic = d.panic_active;
-                el.innerHTML = `Mode: ${d.live_mode_available && d.auto_execution_enabled ? 'LIVE' : 'DRY-RUN'} · Auto: ${d.auto_execution_enabled ? 'ON' : 'OFF'} · Panic: ${panic ? '<strong style="color:var(--danger)">ACTIVE</strong>' : 'Off'} · API keys: ${d.has_api_keys ? 'Yes' : 'No'}`;
+                el.innerHTML = `Mode: ${d.auto_execution_live ? 'LIVE' : (d.dry_run_mode ? 'DRY-RUN' : 'OFF')} · Auto: ${d.auto_execution_enabled ? 'ON' : 'OFF'} · Panic: ${panic ? '<strong style="color:var(--danger)">ACTIVE</strong>' : 'Off'} · API keys: ${d.has_api_keys ? 'Yes' : 'No'} · Loop: ${d.auto_execution_loop ? 'ON' : 'OFF'}`;
                 btn.textContent = panic ? '✅ RESUME' : '🛑 PANIC STOP';
                 btn.classList.toggle('active', panic);
                 if (toggle) toggle.checked = !!d.auto_execution_enabled;
             } catch (e) {
                 el.textContent = 'Execution status unavailable';
             }
+            loadExecutionSpeed();
+        }
+
+        async function loadExecutionSpeed() {
+            const el = document.getElementById('execSpeed');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/execution/speed');
+                const d = await res.json();
+                el.textContent = `⚡ ${d.label || d.latency_tier} · ${d.latency_ms}ms scan · ${d.disclaimer || ''}`;
+            } catch (e) {
+                el.textContent = 'Execution speed unavailable';
+            }
+        }
+
+        async function loadRadarNarrative() {
+            const el = document.getElementById('radarNarrative');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/market/radar-narrative');
+                const d = await res.json();
+                el.textContent = d.summary || 'Market radar active';
+            } catch (e) { /* keep default */ }
         }
 
         async function toggleAutoExec() {
@@ -2702,7 +2779,9 @@
         }
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                regs.forEach(r => r.unregister());
+            }).catch(() => {});
         }
 
         async function loadMoat() {
@@ -2895,6 +2974,8 @@
             }
         }
 
+        function bootDashboard() {
+        try {
         loadExecStatus();
         loadB2bDemo();
         loadDbHealth();
@@ -2907,6 +2988,7 @@
         loadAnalytics();
         loadArbCatalog(false);
         loadMarket();
+        loadRadarNarrative();
         loadOpenInterest();
         loadProfitAnalytics();
         loadIngestionHealth();
@@ -2922,6 +3004,7 @@
         loadAudit();
         renderAssetList();
         updateShareLinks(null);
+        initDashChart();
         askOracle();
         setInterval(loadMarket, 30000);
         setInterval(loadOpenInterest, 60000);
@@ -2936,6 +3019,21 @@
         setInterval(loadAdvancedSignals, 60000);
         setInterval(() => loadWhales(false), 60000);
         setInterval(loadAudit, 120000);
+        } catch (err) {
+            console.error('Dashboard boot failed', err);
+            const box = document.getElementById('bootError');
+            if (box) {
+                box.style.display = 'block';
+                box.textContent = 'Dashboard failed to load fully. Hard refresh (Ctrl+Shift+R) or open in Chrome/Edge. ' + (err.message || err);
+            }
+        }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootDashboard);
+        } else {
+            bootDashboard();
+        }
     </script>
 </body>
 </html>

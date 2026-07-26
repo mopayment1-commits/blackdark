@@ -51,20 +51,39 @@ Copy signing secret → `STRIPE_WEBHOOK_SECRET`
 
 ## Health checks
 
-| URL | Expected |
-|-----|----------|
-| `/health` | JSON `{"status":"ok"}` |
-| `/` | Landing page |
-| `/login` | Auth |
-| `/dashboard` | Full dashboard |
-| `/b2b` | B2B one-pager |
-| `/oracle/BTC` | Live Oracle |
+| URL | Expected | Use |
+|-----|----------|-----|
+| `:8180/health/live` | JSON `{"status":"ok","sidecar":true}` | **Docker/K8s liveness** (<10ms) |
+| `/health/ready` | DB + Redis stats | Load balancer readiness |
+| `/health` | Basic JSON | Legacy |
+| `/api/services/status` | Microservices + bus | Buyer due diligence |
 
-## Notes
+Sidecar port = app port + 100 (8080 → 8180). Started automatically by `run_service.py`.
 
-- Docker build excludes local SQLite DB — fresh DB on first boot.
-- Add a **Railway Volume** mounted at `/app/data` if you want persistent users/subscriptions.
-- Aggregator runs in the same process as the web server (background task).
+Quick verify (local):
+```bash
+python scripts/verify_buyer.py http://127.0.0.1:8080
+```
+
+## Docker Compose (microservices + PostgreSQL)
+
+Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/) on Windows.
+
+```bash
+docker compose up -d --scale web=2 --scale arbitrage=2
+```
+
+- **PostgreSQL** activates when `DATABASE_URL=postgresql://...` is set (default in compose).
+- **Redis** required for cross-service pub/sub (local fallback if absent).
+- Without Docker locally: `.\scripts\start_microservices.ps1`
+
+## Railway scale-out (1M users path)
+
+1. Add **Redis** + **PostgreSQL** plugins in Railway
+2. Create 4 services from same repo with `SERVICE_MODE=web|aggregator|arbitrage|ingestion`
+3. Set `DATABASE_URL`, `REDIS_URL`, `HEALTH_PORT` per service
+4. Health probe: `/health/live` on sidecar port (see `railway.toml`)
+5. Scale replicas: web=2+, arbitrage=3+ (see `deploy/k8s/` for K8s HPA example)
 
 ## Tiers
 

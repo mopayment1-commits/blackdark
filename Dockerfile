@@ -18,6 +18,9 @@ COPY requirements-prod.txt requirements.txt
 RUN pip install --no-cache-dir --default-timeout=180 -r requirements.txt
 
 COPY *.py ./
+COPY bd_platform/ bd_platform/
+COPY ml/ ml/
+COPY microservices/ microservices/
 COPY templates/ templates/
 COPY static/ static/
 RUN mkdir -p data
@@ -26,7 +29,7 @@ COPY BUILD.txt ./
 
 EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"
+HEALTHCHECK --interval=5s --timeout=2s --start-period=20s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8180/health/live', timeout=2)"
 
-CMD ["sh", "-c", "exec uvicorn dashboard:app --host 0.0.0.0 --port ${PORT:-8080}"]
+CMD ["sh", "-c", "exec python run_service.py ${SERVICE_MODE:-all} --port ${PORT:-8080}"]

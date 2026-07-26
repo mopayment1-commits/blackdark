@@ -1,10 +1,12 @@
-﻿from fastapi import FastAPI, Request, HTTPException, Header, BackgroundTasks, Body, Depends
+﻿from fastapi import FastAPI, Request, HTTPException, Header, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from contextlib import asynccontextmanager
+import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
 import aiohttp
 import asyncio
+import hmac
 import json
 import logging
 import os
@@ -16,6 +18,15 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
 import config
+from security_models import (
+    AuthLoginBody,
+    AuthRegisterBody,
+    ExecutionAutoBody,
+    ExecutionOrderBody,
+    RiskFreezeBody,
+    UserApiKeyBody,
+)
+from security_auth import require_admin, require_admin_dev, require_authenticated, require_pro_or_above, require_whale
 
 logger = logging.getLogger("BLACKDARK.Dashboard")
 
@@ -186,6 +197,48 @@ async def lifespan(app: FastAPI):
     from database import init_db
 
     await init_db()
+
+    try:
+        from bd_platform.auto_keys import apply_keys_to_process_env
+
+        applied = apply_keys_to_process_env()
+        if applied:
+            logger.info("Platform keys loaded from keys/platform_keys.env (%s)", applied)
+    except Exception:
+        logger.debug("Platform auto-keys skip", exc_info=True)
+
+    if os.getenv("UNIVERSE_AUTO_ACTIVATE", "true").lower() in {"1", "true", "yes"}:
+        try:
+            from universe_rollout import activate_full_universe
+
+            rollout = activate_full_universe(save=True)
+            logger.info(
+                "Universe rollout | exchanges=%s assets=%s",
+                rollout.get("exchanges"),
+                rollout.get("assets"),
+            )
+        except Exception:
+            logger.exception("Universe auto-activate failed")
+
+    try:
+        from execution_keys import apply_exchange_keys_to_env
+
+        applied_exec = apply_exchange_keys_to_env()
+        if applied_exec:
+            logger.info("Exchange keys loaded from keys/exchange_keys.env (%s)", applied_exec)
+    except Exception:
+        logger.debug("Exchange keys auto-load skip", exc_info=True)
+
+    _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
+    if _ms_mode == "web":
+        from microservices.lifecycle import ServiceContext, shutdown, startup
+
+        _ms_ctx = ServiceContext()
+        await startup("web", _ms_ctx)
+        yield
+        await shutdown(_ms_ctx)
+        return
+
     stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 
     aggregator_task: asyncio.Task | None = None
@@ -213,6 +266,18 @@ async def lifespan(app: FastAPI):
     from telegram_bot_poller import start_telegram_poller
 
     telegram_poller_task = await start_telegram_poller()
+
+    from instant_alert_engine import start_instant_alert_engine
+
+    instant_alert_task = await start_instant_alert_engine()
+
+    from b2b_websocket_hub import start_b2b_websocket_hub
+
+    await start_b2b_websocket_hub()
+
+    from exchange_ws_hub import start_exchange_ws_hub
+
+    await start_exchange_ws_hub()
 
     ingestion_task: asyncio.Task | None = None
     if os.getenv("INGESTION_ENABLED", "true").lower() in {"1", "true", "yes"}:
@@ -370,6 +435,18 @@ async def lifespan(app: FastAPI):
 
         await stop_ml_flywheel()
 
+    from instant_alert_engine import stop_instant_alert_engine
+
+    await stop_instant_alert_engine()
+
+    from b2b_websocket_hub import stop_b2b_websocket_hub
+
+    await stop_b2b_websocket_hub()
+
+    from exchange_ws_hub import stop_exchange_ws_hub
+
+    await stop_exchange_ws_hub()
+
     if cloud_sync_task is not None:
         cloud_sync_task.cancel()
         try:
@@ -439,6 +516,33 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
+
+
+@app.middleware("http")
+async def utf8_response_headers(request: Request, call_next):
+    """Ensure JSON/HTML responses declare UTF-8 (Arabic text in browser)."""
+    response = await call_next(request)
+    ct = (response.headers.get("content-type") or "").lower()
+    if "charset=" not in ct:
+        if "application/json" in ct:
+            response.headers["content-type"] = "application/json; charset=utf-8"
+        elif "text/html" in ct:
+            response.headers["content-type"] = "text/html; charset=utf-8"
+    return response
+
+try:
+    from platform_api import router as platform_router
+
+    app.include_router(platform_router)
+except ImportError:
+    pass
+
+try:
+    from graphql_schema import create_graphql_router
+
+    app.include_router(create_graphql_router(), prefix="")
+except ImportError:
+    pass
 
 STATIC_DIR = BASE_DIR / "static"
 if STATIC_DIR.exists():
@@ -1208,28 +1312,21 @@ async def login_page(request: Request):
 
 
 @app.post("/api/auth/register")
-async def auth_register(data: dict = Body(...)):
+async def auth_register(body: AuthRegisterBody):
     from auth_service import register_user
 
     try:
-        return await register_user(
-            str(data.get("email") or ""),
-            str(data.get("password") or ""),
-            str(data.get("name") or ""),
-        )
+        return await register_user(body.email, body.password, body.name)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.post("/api/auth/login")
-async def auth_login(data: dict = Body(...)):
+async def auth_login(body: AuthLoginBody):
     from auth_service import login_user
 
     try:
-        return await login_user(
-            str(data.get("email") or ""),
-            str(data.get("password") or ""),
-        )
+        return await login_user(body.email, body.password)
     except ValueError as exc:
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
@@ -1458,7 +1555,18 @@ async def landing_page(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return templates.TemplateResponse(request, "index.html")
+    return templates.TemplateResponse(request, "dashboard.html")
+
+
+@app.get("/platform", response_class=HTMLResponse)
+async def platform_hub_page(request: Request):
+    return templates.TemplateResponse(request, "platform.html")
+
+
+@app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
+async def platform_coin_page(request: Request, coin_id: str):
+    return templates.TemplateResponse(request, "coin.html", {"coin_id": coin_id})
+
 
 # ========== API ENDPOINTS ==========
 @app.get("/oracle/{symbol}/explain")
@@ -1672,6 +1780,20 @@ async def market_sectors():
     }
 
 
+@app.get("/api/market/radar-narrative")
+async def market_radar_narrative_api():
+    from plan_audit import market_radar_narrative
+
+    return await market_radar_narrative()
+
+
+@app.get("/api/execution/speed")
+async def execution_speed_api():
+    from plan_audit import execution_speed_snapshot
+
+    return await execution_speed_snapshot()
+
+
 @app.get("/api/sentiment/overview")
 async def sentiment_overview():
     from sentiment_engine import build_sentiment_context_safe
@@ -1818,10 +1940,33 @@ async def universe_full_probe(symbol: str = "BTC/USDT"):
 @app.get("/api/universe/status")
 async def universe_status():
     from platform_universe import build_manifest_universe_block, compute_universe_coverage
+    from universe_rollout import live_rollout_status, rollout_summary_json
 
     return {
         "coverage": await compute_universe_coverage(),
         "registry": build_manifest_universe_block(),
+        "rollout": rollout_summary_json(),
+        "live": await live_rollout_status(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+@app.post("/api/universe/activate-full")
+async def universe_activate_full():
+    from universe_rollout import activate_full_universe, live_rollout_status
+
+    result = activate_full_universe(save=True)
+    result["live"] = await live_rollout_status()
+    return result
+
+
+@app.get("/api/universe/rollout")
+async def universe_rollout_status_api():
+    from universe_rollout import live_rollout_status, rollout_summary_json
+
+    return {
+        "summary": rollout_summary_json(),
+        "live": await live_rollout_status(),
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -1890,7 +2035,7 @@ async def ingestion_status():
 
 
 @app.get("/api/ingestion/run")
-async def ingestion_run_once():
+async def ingestion_run_once(_admin: dict = Depends(require_admin)):
     """Manual one-shot ingest (bootstrap all categories)."""
     from ingestion_fetchers import ingest_all_categories
 
@@ -1945,14 +2090,14 @@ async def ml_status():
 
 
 @app.post("/api/ml/flywheel/run")
-async def ml_flywheel_run():
+async def ml_flywheel_run(_admin: dict = Depends(require_admin)):
     from ml.labeling_pipeline import run_labeling_flywheel_cycle
 
     return await run_labeling_flywheel_cycle()
 
 
 @app.post("/api/ml/train")
-async def ml_train():
+async def ml_train(_admin: dict = Depends(require_admin)):
     from ml.train_baseline import train_oracle_direction_model
 
     return await train_oracle_direction_model()
@@ -1980,7 +2125,7 @@ async def oracle_accuracy_page(request: Request):
 
 
 @app.post("/api/ml/train/ensemble")
-async def ml_train_ensemble():
+async def ml_train_ensemble(_admin: dict = Depends(require_admin)):
     from ml.train_ensemble import train_direction_ensemble
 
     return await train_direction_ensemble()
@@ -2027,20 +2172,90 @@ async def b2b_demo_feed():
 
 @app.get("/api/b2b/info")
 async def b2b_info():
+    from b2b_websocket_hub import get_b2b_ws_hub
+
+    ws_stats = get_b2b_ws_hub().stats()
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
     return {
         "product": "BLACKDARK Institutional Manipulation Feed",
         "feed_version": config.B2B_FEED_VERSION,
-        "demo_key": config.B2B_DEMO_API_KEY,
+        "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
         "demo_endpoint": "/api/b2b/demo",
         "authenticated_endpoint": "/api/b2b/feed",
         "header": "X-API-Key",
+        "websocket_endpoint": "/ws/b2b/feed",
+        "websocket_auth": "api_key query parameter",
+        "websocket_info_endpoint": "/api/b2b/ws/info",
+        "websocket_enabled": ws_stats.get("enabled"),
+        "websocket_latency_target_ms": ws_stats.get("latency_target_ms"),
         "pricing_usd_monthly": 199,
         "one_pager_url": "/b2b",
         "methodology": {
             "cvvd": "Cross-Venue Volume Discrepancy",
             "sii": "Sector Inflow Index",
         },
+        "events": [
+            "connected",
+            "snapshot",
+            "arbitrage_opportunity",
+            "oracle_signal",
+            "heartbeat",
+        ],
     }
+
+
+@app.get("/api/b2b/ws/info")
+async def b2b_ws_info():
+    from b2b_websocket_hub import get_b2b_ws_hub
+
+    return {
+        "endpoint": "/ws/b2b/feed",
+        "auth": {"query": "api_key", "demo_key": config.B2B_DEMO_API_KEY},
+        "feed_version": config.B2B_FEED_VERSION,
+        **get_b2b_ws_hub().stats(),
+        "events": [
+            "connected",
+            "snapshot",
+            "arbitrage_opportunity",
+            "oracle_signal",
+            "heartbeat",
+        ],
+    }
+
+
+@app.websocket("/ws/b2b/feed")
+async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min_length=8)):
+    if not getattr(config, "B2B_WS_ENABLED", True):
+        await websocket.close(code=1008, reason="B2B WebSocket disabled")
+        return
+
+    from whale_tracker import InstitutionalDataExporter
+    from b2b_websocket_hub import get_b2b_ws_hub
+
+    exporter = InstitutionalDataExporter()
+    if not exporter.authorize(api_key):
+        await websocket.close(code=1008, reason="Invalid B2B API key")
+        return
+
+    await websocket.accept()
+    hub = get_b2b_ws_hub()
+    is_demo = exporter.is_demo_key(api_key)
+    client = None
+    try:
+        client = await hub.register(websocket, api_key, is_demo=is_demo)
+        while True:
+            msg = await websocket.receive_text()
+            if msg.strip().lower() == "ping":
+                await websocket.send_json({"type": "pong", "timestamp": datetime.now(timezone.utc).isoformat()})
+    except WebSocketDisconnect:
+        pass
+    except RuntimeError as exc:
+        await websocket.close(code=1008, reason=str(exc))
+    except Exception:
+        logger.exception("B2B WebSocket session error")
+    finally:
+        if client is not None:
+            await hub.unregister(client)
 
 
 @app.get("/b2b", response_class=HTMLResponse)
@@ -2122,7 +2337,7 @@ async def b2b_proposal(
 @app.get("/api/arbitrage/opportunities")
 async def arbitrage_opportunities(
     quote_amount: float | None = None,
-    live: bool = True,
+    live: bool = False,
     min_profit: float = 0.0,
 ):
     from arbitrage_service import process_arbitrage_alerts, scan_arbitrage_opportunities
@@ -2130,6 +2345,7 @@ async def arbitrage_opportunities(
     result = await scan_arbitrage_opportunities(
         quote_amount=quote_amount,
         prefer_live=live,
+        force_rest=False,
         min_profit_usdt=min_profit,
     )
     alerts = await process_arbitrage_alerts(result)
@@ -2145,7 +2361,9 @@ async def arbitrage_scan(
     """Force a live cross-venue arbitrage scan."""
     from arbitrage_service import process_arbitrage_alerts, scan_arbitrage_opportunities
 
-    result = await scan_arbitrage_opportunities(quote_amount=quote_amount, prefer_live=True)
+    result = await scan_arbitrage_opportunities(
+        quote_amount=quote_amount, prefer_live=True, force_rest=True
+    )
     alerts = await process_arbitrage_alerts(result)
     result["alerts_triggered"] = alerts
     return result
@@ -2281,58 +2499,84 @@ async def alerts_test():
 
 
 @app.post("/api/execution/auto")
-async def execution_auto_toggle(data: dict = Body(...)):
+async def execution_auto_toggle(body: ExecutionAutoBody, _user: dict = Depends(require_whale)):
     from execution_engine import set_auto_execution
 
-    enabled = bool(data.get("enabled"))
-    return await set_auto_execution(enabled)
+    return await set_auto_execution(body.enabled)
 
 
 @app.post("/api/execution/cycle")
-async def execution_auto_cycle():
+async def execution_auto_cycle(_user: dict = Depends(require_whale)):
     from execution_engine import run_auto_execution_cycle
 
     return await run_auto_execution_cycle()
 
 
 @app.get("/api/execution/status")
-async def execution_status():
+async def execution_status(_user: dict = Depends(require_pro_or_above)):
     from execution_engine import get_execution_status
 
     return await get_execution_status()
 
 
+@app.get("/api/execution/keys/status")
+async def execution_keys_status_api():
+    from execution_keys import execution_keys_status
+
+    return execution_keys_status()
+
+
+@app.post("/api/execution/keys/activate")
+async def execution_keys_activate(request: Request, live: bool = False):
+    from execution_keys import activate_live_execution
+
+    host = request.client.host if request.client else ""
+    if host not in {"127.0.0.1", "::1", "localhost"}:
+        from security_auth import verify_admin_key
+
+        if not verify_admin_key(request.headers.get("X-Admin-Key")):
+            raise HTTPException(status_code=403, detail="Localhost or admin required")
+    return await activate_live_execution(enable_live=live)
+
+
+@app.post("/api/execution/cex-dex/cycle")
+async def execution_cex_dex_cycle(quote_usd: float = 1000):
+    from bd_platform.cex_dex_executor import run_cex_dex_cycle
+
+    return await run_cex_dex_cycle(quote_usd=quote_usd)
+
+
 @app.post("/api/execution/panic")
-async def execution_panic():
+async def execution_panic(_user: dict = Depends(require_whale)):
     from execution_engine import trigger_panic
 
     return await trigger_panic()
 
 
 @app.post("/api/execution/resume")
-async def execution_resume():
+async def execution_resume(_user: dict = Depends(require_whale)):
     from execution_engine import resume_execution
 
     return await resume_execution()
 
 
 @app.post("/api/execution/order")
-async def execution_order(data: dict = Body(...)):
+async def execution_order(body: ExecutionOrderBody, _user: dict = Depends(require_whale)):
     from execution_engine import execute_order
 
     try:
         return await execute_order(
-            str(data.get("symbol") or "BTC"),
-            str(data.get("side") or "buy").lower(),  # type: ignore[arg-type]
-            float(data.get("amount_usd") or 100),
-            dry_run=bool(data.get("dry_run", True)),
+            body.symbol,
+            body.side,  # type: ignore[arg-type]
+            body.amount_usd,
+            dry_run=True,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/api/execution/logs")
-async def execution_logs(limit: int = 15):
+async def execution_logs(limit: int = 15, _user: dict = Depends(require_pro_or_above)):
     from database import fetch_execution_logs
 
     return {"logs": await fetch_execution_logs(limit=limit)}
@@ -2463,7 +2707,7 @@ async def database_health():
 
 
 @app.post("/api/database/maintenance")
-async def database_maintenance(vacuum: bool = False):
+async def database_maintenance(vacuum: bool = False, _admin: dict = Depends(require_admin)):
     from db_upgrade import run_sqlite_maintenance
 
     return await run_sqlite_maintenance(vacuum=vacuum)
@@ -2513,6 +2757,149 @@ async def service_worker():
     return Response(content="// BLACKDARK service worker unavailable", media_type="application/javascript")
 
 
+@app.get("/api/low-latency/fast-scan")
+async def api_fast_scan():
+    from fast_scan_engine import run_fast_scan
+
+    return run_fast_scan()
+
+
+@app.get("/api/security/status")
+async def api_security_status():
+    """Public security posture summary for due diligence."""
+    import secrets_vault
+    from security_auth import admin_emails
+
+    return {
+        "password_hashing": "PBKDF2-SHA256 (260k iterations)",
+        "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
+        "user_api_keys": "Fernet AES-128 encrypted vault",
+        "execution_endpoints": "whale_tier_required",
+        "admin_endpoints": "X-Admin-Key or admin email",
+        "rate_limiting": "login 10 attempts / 5 min",
+        "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
+        "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
+        "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
+        "admin_emails_configured": len(admin_emails()) > 0,
+        "docs": "/SECURITY.md",
+    }
+
+
+@app.post("/api/user/exchange-keys")
+async def store_exchange_keys(body: UserApiKeyBody, user: dict = Depends(require_whale)):
+    from user_keys_service import store_user_exchange_keys
+
+    return await store_user_exchange_keys(
+        int(user["id"]), body.exchange, body.api_key, body.api_secret, label=body.label
+    )
+
+
+@app.get("/api/user/exchange-keys")
+async def list_exchange_keys(user: dict = Depends(require_whale)):
+    from user_keys_service import list_user_exchange_keys
+
+    return {"keys": await list_user_exchange_keys(int(user["id"]))}
+
+
+@app.delete("/api/user/exchange-keys/{exchange}")
+async def delete_exchange_keys(exchange: str, user: dict = Depends(require_whale)):
+    from user_keys_service import remove_user_exchange_keys
+
+    return await remove_user_exchange_keys(int(user["id"]), exchange)
+
+
+@app.get("/api/risk/status")
+async def api_risk_status(_user: dict = Depends(require_pro_or_above)):
+    from risk_manager import risk_status
+
+    return risk_status()
+
+
+@app.post("/api/risk/freeze")
+async def api_risk_freeze(body: RiskFreezeBody, _admin: dict = Depends(require_admin)):
+    from risk_manager import freeze_trading
+
+    return freeze_trading(body.reason)
+
+
+@app.post("/api/risk/unfreeze")
+async def api_risk_unfreeze(_admin: dict = Depends(require_admin)):
+    from risk_manager import unfreeze_trading
+
+    return unfreeze_trading()
+
+
+@app.get("/api/oracle/track-record")
+async def api_oracle_track_record():
+    from oracle_track_record import public_track_record
+
+    return public_track_record()
+
+
+@app.post("/api/oracle/track-record/backfill")
+async def api_oracle_track_record_backfill():
+    from oracle_track_record import backfill_from_database
+
+    return await backfill_from_database()
+
+
+@app.get("/api/oracle/audit-chain")
+async def api_oracle_audit_chain(limit: int = 20):
+    from oracle_audit_chain import chain_summary
+
+    return chain_summary(limit=limit)
+
+
+@app.get("/api/oracle/audit-chain/verify")
+async def api_oracle_audit_chain_verify():
+    from oracle_audit_chain import verify_chain
+
+    return verify_chain()
+
+
+@app.get("/api/options/overview")
+async def api_options_overview():
+    from options_fetcher import fetch_options_overview
+
+    return await fetch_options_overview()
+
+
+@app.get("/api/infra/metrics")
+async def api_infra_metrics():
+    from infra_metrics import collect_infra_metrics
+
+    return collect_infra_metrics()
+
+
+@app.get("/api/docs/openapi.json")
+async def api_openapi_export():
+    return app.openapi()
+
+
+@app.get("/health/live")
+async def health_live():
+    """Instant liveness probe — no DB/Redis (target <50ms)."""
+    import time
+
+    return {"status": "ok", "probe": "live", "ts": time.time()}
+
+
+@app.get("/health/ready")
+async def health_ready():
+    """Readiness — DB + service bus (for load balancers)."""
+    from postgres_backend import pool_stats, use_postgres
+    from service_bus import bus_stats
+
+    engine = "postgresql" if use_postgres() else "sqlite"
+    return {
+        "status": "ok",
+        "probe": "ready",
+        "database_engine": engine,
+        "postgres_pool": pool_stats(),
+        "service_bus": bus_stats(),
+    }
+
+
 @app.get("/health")
 async def health():
     return {
@@ -2520,6 +2907,7 @@ async def health():
         "service": "BLACKDARK",
         "version": "1.0.0",
         "ui_language": "en",
+        "probes": {"live": "/health/live", "ready": "/health/ready"},
     }
 
 
@@ -2565,6 +2953,11 @@ async def join_waitlist(data: dict):
 @app.post("/api/telegram/webhook")
 async def telegram_webhook(request: Request):
     """Telegram Bot API webhook — /start subscribes to 3 free alerts/day."""
+    secret = os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()
+    if secret:
+        provided = request.headers.get("X-Telegram-Bot-Api-Secret-Token", "")
+        if not hmac.compare_digest(provided, secret):
+            raise HTTPException(status_code=403, detail="Invalid webhook secret")
     from alert_service import send_telegram_message
     from telegram_free_alerts import handle_bot_command
 
@@ -2589,6 +2982,63 @@ async def telegram_webhook(request: Request):
     return {"ok": True}
 
 
+@app.get("/api/services/status")
+async def services_status():
+    from microservices.lifecycle import current_mode, service_info
+    from service_bus import bus_stats
+
+    return {
+        **service_info(),
+        "service_mode_runtime": current_mode(),
+        "service_bus": bus_stats(),
+        "deployment": {
+            "docker_compose": "docker-compose.yml",
+            "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",
+            "scale_hint": "Increase replicas per worker service + REDIS_URL for 1M users path",
+        },
+    }
+
+
+@app.get("/api/low-latency/status")
+async def low_latency_status():
+    from exchange_ws_hub import ws_hub_stats
+    from live_book_hub import hub_stats
+    from instant_alert_engine import engine_stats
+    from scan_coordinator import coordinator_stats
+    import config
+
+    return {
+        "low_latency_mode": getattr(config, "LOW_LATENCY_MODE", True),
+        "exchange_ws": ws_hub_stats(),
+        "live_book_hub": hub_stats(),
+        "instant_alerts": engine_stats(),
+        "scan_coordinator": coordinator_stats(),
+        "targets_ms": {
+            "book_freshness": int(getattr(config, "LIVE_BOOK_MAX_AGE_MS", 500)),
+            "scan_pulse": int(float(os.getenv("INSTANT_ALERT_INTERVAL_SEC", "1")) * 1000),
+            "execution_loop": int(getattr(config, "AUTO_EXECUTION_INTERVAL_SEC", 1)) * 1000,
+        },
+        "architecture": "WS bookTicker (Binance/OKX/Bybit) → live_book_hub → arbitrage → execute",
+    }
+
+
+@app.get("/api/alerts/instant/status")
+async def instant_alert_status():
+    from instant_alert_engine import engine_stats
+    from market_cache import cache_stats
+    from scan_coordinator import coordinator_stats
+    import config
+
+    stats = engine_stats()
+    stats["poll_interval_seconds"] = config.POLL_INTERVAL_SECONDS
+    stats["market_cache"] = cache_stats()
+    stats["scan_coordinator"] = coordinator_stats()
+    stats["arbitrage_prefer_live"] = getattr(config, "ARBITRAGE_PREFER_LIVE", False)
+    stats["latency_target_ms"] = 800
+    stats["binance_ws"] = __import__("binance_ws_ingest").ws_stats()
+    return stats
+
+
 @app.get("/api/telegram/free/status")
 async def telegram_free_status():
     from database import count_telegram_free_subscribers
@@ -2605,7 +3055,7 @@ async def telegram_free_status():
 
 
 @app.post("/api/telegram/free/broadcast")
-async def telegram_free_broadcast():
+async def telegram_free_broadcast(_admin: dict = Depends(require_admin)):
     from telegram_free_alerts import dispatch_free_telegram_alerts
 
     return await dispatch_free_telegram_alerts()

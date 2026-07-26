@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackdark-web
+  labels:
+    app: blackdark
+    tier: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blackdark
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: blackdark
+        tier: web
+    spec:
+      containers:
+        - name: web
+          image: blackdark:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SERVICE_MODE
+              value: web
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: redis-url
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: database-url
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: blackdark-web-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: blackdark-web
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

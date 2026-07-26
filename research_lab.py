@@ -162,18 +162,21 @@ async def compute_economic_moat() -> dict[str, Any]:
     from database import fetch_oracle_audit_stats, fetch_system_telemetry
 
     telemetry = await fetch_system_telemetry()
-    audit = await fetch_oracle_audit_stats(limit=50)
+    audit = await fetch_oracle_audit_stats(limit=50, include_synthetic=False)
 
+    live = audit.get("live") or audit
     total_records = (
         int(telemetry.get("pricing_count") or 0)
         + int(telemetry.get("orderbook_count") or 0)
         + int(telemetry.get("funding_count") or 0)
         + int(telemetry.get("institutional_flow_count") or 0)
-        + int(audit.get("total_predictions") or 0)
+        + int(live.get("total_predictions") or audit.get("total_predictions") or 0)
     )
     db_mb = float(telemetry.get("database_size_bytes") or 0) / (1024 * 1024)
     history_mb = _history_storage_bytes() / (1024 * 1024)
-    accuracy = float(audit.get("average_accuracy_percent") or 0)
+    accuracy = float(
+        live.get("average_accuracy_percent") or audit.get("average_accuracy_percent") or 0
+    )
 
     depth_score = min(100, int(
         math.log10(max(total_records, 1)) * 18
@@ -190,8 +193,9 @@ async def compute_economic_moat() -> dict[str, Any]:
         "total_data_records": total_records,
         "database_size_mb": round(db_mb, 2),
         "parquet_history_mb": round(history_mb, 2),
-        "oracle_predictions": audit.get("total_predictions", 0),
+        "oracle_predictions": live.get("total_predictions", audit.get("total_predictions", 0)),
         "oracle_accuracy_percent": accuracy,
+        "oracle_metrics_scope": "live_only",
         "replication_estimate_years": replication_years,
         "ip_assets": [
             "CVVD Cross-Venue Whale Detection",
@@ -218,7 +222,7 @@ async def build_research_lab_report() -> dict[str, Any]:
     sentiment = await build_sentiment_context_safe(assets)
     onchain = await build_onchain_context_safe()
     macro = await fetch_latest_macro_market_log()
-    audit = await fetch_oracle_audit_stats(limit=10)
+    audit = await fetch_oracle_audit_stats(limit=10, include_synthetic=False)
 
     financial_snapshots = []
     for asset in assets[:3]:

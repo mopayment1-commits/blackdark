@@ -213,6 +213,14 @@ DATA_SOURCES: tuple[DataSourceSpec, ...] = (
                    "https://hacked.slowmist.io/feed.xml", 600),
 )
 
+# Merge extended registry (100+ sources — Buyer Requirement #8)
+try:
+    from data_sources_extra import EXTRA_DATA_SOURCES
+
+    DATA_SOURCES = DATA_SOURCES + EXTRA_DATA_SOURCES
+except ImportError:
+    pass
+
 
 def sources_by_category(category: Category) -> list[DataSourceSpec]:
     return [s for s in DATA_SOURCES if s.category == category]
@@ -229,7 +237,9 @@ def registry_summary() -> dict[str, int]:
     counts: dict[str, int] = {}
     for spec in DATA_SOURCES:
         counts[spec.category] = counts.get(spec.category, 0) + 1
+    unique_ids = {s.source_id for s in DATA_SOURCES}
     return {
-        "total_sources": len(DATA_SOURCES),
+        "total_sources": len(unique_ids),
+        "registered_entries": len(DATA_SOURCES),
         "by_category": counts,
     }

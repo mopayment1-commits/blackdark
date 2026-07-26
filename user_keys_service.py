@@ -1,0 +1,70 @@
+"""
+BLACKDARK — User exchange API key management (encrypted vault).
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+from secrets_vault import decrypt_secret, encrypt_secret, mask_secret
+
+
+async def store_user_exchange_keys(
+    user_id: int,
+    exchange: str,
+    api_key: str,
+    api_secret: str,
+    *,
+    label: str = "",
+) -> dict[str, Any]:
+    from database import upsert_user_api_key
+
+    await upsert_user_api_key(
+        user_id,
+        exchange,
+        encrypt_secret(api_key.strip()),
+        encrypt_secret(api_secret.strip()),
+        label=label,
+    )
+    return {
+        "success": True,
+        "exchange": exchange.lower(),
+        "api_key_masked": mask_secret(api_key),
+        "message": "API keys encrypted and stored securely.",
+    }
+
+
+async def list_user_exchange_keys(user_id: int) -> list[dict[str, Any]]:
+    from database import fetch_user_api_keys
+
+    rows = await fetch_user_api_keys(user_id)
+    return [
+        {
+            "id": r["id"],
+            "exchange": r["exchange"],
+            "label": r.get("label"),
+            "api_key_masked": "****",
+            "created_at": r.get("created_at"),
+            "updated_at": r.get("updated_at"),
+        }
+        for r in rows
+    ]
+
+
+async def get_user_exchange_credentials(user_id: int, exchange: str) -> tuple[str, str] | None:
+    from database import fetch_user_api_key_secrets
+
+    row = await fetch_user_api_key_secrets(user_id, exchange)
+    if not row:
+        return None
+    return (
+        decrypt_secret(str(row["api_key_encrypted"])),
+        decrypt_secret(str(row["api_secret_encrypted"])),
+    )
+
+
+async def remove_user_exchange_keys(user_id: int, exchange: str) -> dict[str, Any]:
+    from database import delete_user_api_key
+
+    deleted = await delete_user_api_key(user_id, exchange)
+    return {"success": deleted, "exchange": exchange.lower()}

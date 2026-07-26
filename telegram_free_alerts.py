@@ -147,17 +147,20 @@ async def handle_bot_command(
     return None
 
 
-async def dispatch_free_telegram_alerts() -> dict[str, Any]:
+async def dispatch_free_telegram_alerts(*, scan: dict[str, Any] | None = None) -> dict[str, Any]:
     """Send launch alerts to all free subscribers within daily quota."""
+    import asyncio
+
     from alert_service import send_telegram_message
-    from arbitrage_service import scan_arbitrage_opportunities
     from database import fetch_enabled_telegram_free_subscribers
+    from scan_coordinator import get_shared_scan
 
     subscribers = await fetch_enabled_telegram_free_subscribers()
     if not subscribers:
         return {"sent": 0, "skipped": 0, "reason": "no_subscribers"}
 
-    scan = await scan_arbitrage_opportunities(prefer_live=True, profitable_only=True)
+    if scan is None:
+        scan = await get_shared_scan(profitable_only=True, prefer_live=False)
     top = scan.get("top_opportunity")
     messages: list[str] = []
 
@@ -199,20 +202,25 @@ async def dispatch_free_telegram_alerts() -> dict[str, Any]:
 
     sent = 0
     skipped = 0
-    for subscriber in subscribers:
+    sem = asyncio.Semaphore(10)
+
+    async def _deliver(subscriber: dict[str, Any]) -> str:
         chat_id = str(subscriber.get("chat_id") or "")
         if not chat_id:
-            continue
+            return "skip"
         if not await can_send_free_alert(chat_id):
-            skipped += 1
-            continue
-        body = messages[sent % len(messages)]
-        ok = await send_telegram_message(body, chat_id=chat_id)
+            return "skip"
+        body = messages[0]
+        async with sem:
+            ok = await send_telegram_message(body, chat_id=chat_id)
         if ok:
             await record_free_alert_sent(chat_id)
-            sent += 1
-        else:
-            skipped += 1
+            return "sent"
+        return "skip"
+
+    results = await asyncio.gather(*[_deliver(subscriber) for subscriber in subscribers])
+    sent = sum(1 for result in results if result == "sent")
+    skipped = len(subscribers) - sent
 
     return {
         "sent": sent,

@@ -1,0 +1,615 @@
+{
+  "timestamp": "2026-07-25T14:14:49.801680+00:00",
+  "source_excel": "خطوات التحقيق - Copy.xlsx",
+  "source_found": false,
+  "total_items": 46,
+  "complete_count": 34,
+  "partial_count": 10,
+  "planned_count": 2,
+  "overall_percent": 88.7,
+  "categories": [
+    {
+      "category": "biz",
+      "count": 1,
+      "complete": 1,
+      "percent": 100.0
+    },
+    {
+      "category": "ai",
+      "count": 5,
+      "complete": 5,
+      "percent": 100.0
+    },
+    {
+      "category": "features",
+      "count": 10,
+      "complete": 9,
+      "percent": 96.5
+    },
+    {
+      "category": "dash",
+      "count": 5,
+      "complete": 4,
+      "percent": 93.0
+    },
+    {
+      "category": "inst",
+      "count": 6,
+      "complete": 4,
+      "percent": 88.3
+    },
+    {
+      "category": "platform",
+      "count": 3,
+      "complete": 2,
+      "percent": 88.3
+    },
+    {
+      "category": "core",
+      "count": 13,
+      "complete": 8,
+      "percent": 86.5
+    },
+    {
+      "category": "data",
+      "count": 2,
+      "complete": 1,
+      "percent": 57.5
+    },
+    {
+      "category": "mobile",
+      "count": 1,
+      "complete": 0,
+      "percent": 15.0
+    }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "category": "core",
+      "title": "جمع الأسعار لحظياً",
+      "status": "complete",
+      "module": "aggregator",
+      "endpoint": "/api/ingestion/status",
+      "note": "Binance/OKX/Bybit + WS hub",
+      "module_loaded": true
+    },
+    {
+      "id": 2,
+      "category": "core",
+      "title": "تحديث الأسعار السريع",
+      "status": "partial",
+      "module": "exchange_ws_hub",
+      "endpoint": "/api/low-latency/status",
+      "note": "WS ~100–800ms — ليس microsecond HFT",
+      "module_loaded": true
+    },
+    {
+      "id": 3,
+      "category": "core",
+      "title": "100 منصة — مرحلة أولى",
+      "status": "partial",
+      "module": "liquidity_discovery",
+      "endpoint": "/api/universe/status",
+      "note": "103 مصدر بيانات؛ تنفيذ live على Tier-1",
+      "module_loaded": true
+    },
+    {
+      "id": 4,
+      "category": "core",
+      "title": "مراجحة بين المنصات",
+      "status": "complete",
+      "module": "arbitrage_engine",
+      "endpoint": "/api/arbitrage/opportunities",
+      "note": "cross_exchange live",
+      "module_loaded": true
+    },
+    {
+      "id": 5,
+      "category": "core",
+      "title": "مراجحة داخل المنصة",
+      "status": "complete",
+      "module": "arbitrage_engine",
+      "endpoint": "/api/arbitrage/opportunities",
+      "note": "triangular live",
+      "module_loaded": true
+    },
+    {
+      "id": 6,
+      "category": "core",
+      "title": "فروق التمويل Funding",
+      "status": "complete",
+      "module": "arbitrage_engine",
+      "endpoint": "/api/arbitrage/opportunities",
+      "note": "funding harvest live",
+      "module_loaded": true
+    },
+    {
+      "id": 7,
+      "category": "core",
+      "title": "Spot vs Futures",
+      "status": "complete",
+      "module": "arbitrage_engine",
+      "endpoint": "/api/arbitrage/opportunities",
+      "note": "spot_futures live",
+      "module_loaded": true
+    },
+    {
+      "id": 8,
+      "category": "core",
+      "title": "CEX ↔ DEX",
+      "status": "partial",
+      "module": "bd_platform.cex_dex_arbitrage",
+      "endpoint": "/api/platform/arb/cex-dex",
+      "note": "scan + DexScreener",
+      "module_loaded": true
+    },
+    {
+      "id": 9,
+      "category": "core",
+      "title": "تقييم مخاطر التنفيذ %",
+      "status": "complete",
+      "module": "risk_manager",
+      "endpoint": "/api/risk/status",
+      "note": "slippage + poison price freeze",
+      "module_loaded": true
+    },
+    {
+      "id": 10,
+      "category": "core",
+      "title": "إدارة مخاطر",
+      "status": "complete",
+      "module": "risk_manager",
+      "endpoint": "/api/risk/freeze",
+      "note": "freeze/unfreeze + VaR في Research Lab",
+      "module_loaded": true
+    },
+    {
+      "id": 11,
+      "category": "core",
+      "title": "فلترة السيولة",
+      "status": "complete",
+      "module": "liquidity_discovery",
+      "endpoint": null,
+      "note": "operational manifest hybrid filter",
+      "module_loaded": true
+    },
+    {
+      "id": 12,
+      "category": "core",
+      "title": "تنفيذ تلقائي بمفاتيح API",
+      "status": "partial",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/status",
+      "note": "dry-run افتراضي + live اختياري",
+      "module_loaded": true
+    },
+    {
+      "id": 13,
+      "category": "core",
+      "title": "77 نوع مراجحة — كatalog",
+      "status": "partial",
+      "module": "arbitrage_catalog",
+      "endpoint": "/api/arbitrage/catalog",
+      "note": "18 live · 26 proxy · 33 planned",
+      "module_loaded": true
+    },
+    {
+      "id": 14,
+      "category": "dash",
+      "title": "لوحة متابعة لحظية",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/dashboard",
+      "note": "Live dashboard + heatmap",
+      "module_loaded": true
+    },
+    {
+      "id": 15,
+      "category": "dash",
+      "title": "تنبيهات Telegram/Email/WhatsApp",
+      "status": "partial",
+      "module": "alert_service",
+      "endpoint": "/api/alerts/subscribe",
+      "note": "WhatsApp = wa.me link",
+      "module_loaded": true
+    },
+    {
+      "id": 16,
+      "category": "dash",
+      "title": "مدة بقاء الفرصة",
+      "status": "complete",
+      "module": "opportunity_tracker",
+      "endpoint": "/api/arbitrage/durations",
+      "note": "duration tracking",
+      "module_loaded": true
+    },
+    {
+      "id": 17,
+      "category": "dash",
+      "title": "عرض الربح الصافي بعد الرسوم",
+      "status": "complete",
+      "module": "arbitrage_service",
+      "endpoint": "/api/arbitrage/opportunities",
+      "note": "net profit after fees",
+      "module_loaded": true
+    },
+    {
+      "id": 18,
+      "category": "dash",
+      "title": "لماذا ظهرت الفرصة؟",
+      "status": "complete",
+      "module": "ai_oracle",
+      "endpoint": "/oracle/{symbol}/explain",
+      "note": "why + reasons + confidence",
+      "module_loaded": true
+    },
+    {
+      "id": 19,
+      "category": "features",
+      "title": "Heat map",
+      "status": "complete",
+      "module": "whale_tracker",
+      "endpoint": "/api/market/sectors",
+      "note": "SII + sector heat",
+      "module_loaded": true
+    },
+    {
+      "id": 20,
+      "category": "features",
+      "title": "Trading Journal",
+      "status": "complete",
+      "module": "database",
+      "endpoint": "/api/journal",
+      "note": "auth required",
+      "module_loaded": true
+    },
+    {
+      "id": 21,
+      "category": "features",
+      "title": "AI Reports / Weekly",
+      "status": "complete",
+      "module": "weekly_report",
+      "endpoint": "/api/reports/weekly",
+      "note": "auto scheduler optional",
+      "module_loaded": true
+    },
+    {
+      "id": 22,
+      "category": "features",
+      "title": "Portfolio Analytics",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/api/portfolio/analyze",
+      "note": "risk score 1–10",
+      "module_loaded": true
+    },
+    {
+      "id": 23,
+      "category": "features",
+      "title": "Risk Score",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/api/portfolio/analyze",
+      "note": "beta-weighted risk",
+      "module_loaded": true
+    },
+    {
+      "id": 24,
+      "category": "features",
+      "title": "Profit Analytics",
+      "status": "complete",
+      "module": "market_intel",
+      "endpoint": "/api/analytics/profit",
+      "note": "P&L analytics",
+      "module_loaded": true
+    },
+    {
+      "id": 25,
+      "category": "features",
+      "title": "AI Chat",
+      "status": "complete",
+      "module": "chat_service",
+      "endpoint": "/api/chat",
+      "note": "LLM + context",
+      "module_loaded": true
+    },
+    {
+      "id": 26,
+      "category": "features",
+      "title": "AI Explanation",
+      "status": "complete",
+      "module": "ai_oracle",
+      "endpoint": "/oracle/{symbol}",
+      "note": "single-sentence oracle",
+      "module_loaded": true
+    },
+    {
+      "id": 27,
+      "category": "features",
+      "title": "Trade Simulator",
+      "status": "complete",
+      "module": "trade_simulator",
+      "endpoint": "/api/simulate/trade",
+      "note": "spot + arb sim",
+      "module_loaded": true
+    },
+    {
+      "id": 28,
+      "category": "features",
+      "title": "Execution Speed",
+      "status": "partial",
+      "module": "fast_scan_engine",
+      "endpoint": "/api/low-latency/fast-scan",
+      "note": "millisecond warm path",
+      "module_loaded": true
+    },
+    {
+      "id": 29,
+      "category": "biz",
+      "title": "3 مستويات اشتراك",
+      "status": "complete",
+      "module": "auth_service",
+      "endpoint": "/api/billing/status",
+      "note": "free/pro/whale + Stripe",
+      "module_loaded": true
+    },
+    {
+      "id": 30,
+      "category": "ai",
+      "title": "AI Trading Engine RSI/MACD/EMA",
+      "status": "complete",
+      "module": "technical_analysis",
+      "endpoint": "/api/forecast/{symbol}",
+      "note": "multi-indicator",
+      "module_loaded": true
+    },
+    {
+      "id": 31,
+      "category": "ai",
+      "title": "Whale Intelligence",
+      "status": "complete",
+      "module": "whale_tracker",
+      "endpoint": "/api/whale-activity",
+      "note": "CVVD + why narrative",
+      "module_loaded": true
+    },
+    {
+      "id": 32,
+      "category": "ai",
+      "title": "Portfolio AI",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/api/portfolio/analyze",
+      "note": "concentration + scenarios",
+      "module_loaded": true
+    },
+    {
+      "id": 33,
+      "category": "ai",
+      "title": "Market Radar — قطاعات",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/api/market/sectors",
+      "note": "Gaming/AI/RWA/Solana sectors",
+      "module_loaded": true
+    },
+    {
+      "id": 34,
+      "category": "ai",
+      "title": "Opportunity Score 0–100",
+      "status": "complete",
+      "module": "ai_oracle",
+      "endpoint": "/api/oracle/data-hub",
+      "note": "scored opportunities",
+      "module_loaded": true
+    },
+    {
+      "id": 35,
+      "category": "inst",
+      "title": "Institutional B2B",
+      "status": "partial",
+      "module": "b2b_websocket_hub",
+      "endpoint": "/b2b",
+      "note": "WS feed + proposal deck",
+      "module_loaded": true
+    },
+    {
+      "id": 36,
+      "category": "inst",
+      "title": "Research Lab",
+      "status": "complete",
+      "module": "research_lab",
+      "endpoint": "/api/research/lab",
+      "note": "VaR/NVT/MVRV/SOPR proxies",
+      "module_loaded": true
+    },
+    {
+      "id": 37,
+      "category": "inst",
+      "title": "On-chain Intelligence",
+      "status": "partial",
+      "module": "onchain_tracker",
+      "endpoint": "/api/onchain/overview",
+      "note": "flows matrix",
+      "module_loaded": true
+    },
+    {
+      "id": 38,
+      "category": "inst",
+      "title": "Whale Gravity Map",
+      "status": "complete",
+      "module": "market_intel",
+      "endpoint": "/api/whale/gravity-map",
+      "note": "visualization API",
+      "module_loaded": true
+    },
+    {
+      "id": 39,
+      "category": "inst",
+      "title": "Panic Button",
+      "status": "complete",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/panic",
+      "note": "halt + disclaimer",
+      "module_loaded": true
+    },
+    {
+      "id": 40,
+      "category": "inst",
+      "title": "Voice Trading",
+      "status": "complete",
+      "module": "voice_service",
+      "endpoint": "/api/voice/command",
+      "note": "analyze/scan/panic",
+      "module_loaded": true
+    },
+    {
+      "id": 41,
+      "category": "platform",
+      "title": "Platform Hub 40 نقطة",
+      "status": "complete",
+      "module": "bd_platform",
+      "endpoint": "/platform",
+      "note": "40/40 free tier",
+      "module_loaded": true
+    },
+    {
+      "id": 42,
+      "category": "platform",
+      "title": "GraphQL + REST API",
+      "status": "complete",
+      "module": "graphql_schema",
+      "endpoint": "/graphql",
+      "note": "API-first",
+      "module_loaded": true
+    },
+    {
+      "id": 43,
+      "category": "platform",
+      "title": "Microservices",
+      "status": "partial",
+      "module": "run_service.py",
+      "endpoint": "/api/services/status",
+      "note": "monolith + worker split",
+      "module_loaded": false
+    },
+    {
+      "id": 44,
+      "category": "mobile",
+      "title": "Web / Desktop / Mobile apps",
+      "status": "planned",
+      "module": null,
+      "endpoint": null,
+      "note": "PWA web فقط — native planned",
+      "module_loaded": false
+    },
+    {
+      "id": 45,
+      "category": "data",
+      "title": "NLP Sentiment",
+      "status": "complete",
+      "module": "sentiment_engine",
+      "endpoint": "/api/sentiment/overview",
+      "note": "Twitter/Reddit + VADER",
+      "module_loaded": true
+    },
+    {
+      "id": 46,
+      "category": "data",
+      "title": "SEC filings AI",
+      "status": "planned",
+      "module": null,
+      "endpoint": null,
+      "note": "غير منفّذ — خارج نطاق crypto core",
+      "module_loaded": false
+    }
+  ],
+  "next_priority": [
+    {
+      "id": 2,
+      "category": "core",
+      "title": "تحديث الأسعار السريع",
+      "status": "partial",
+      "module": "exchange_ws_hub",
+      "endpoint": "/api/low-latency/status",
+      "note": "WS ~100–800ms — ليس microsecond HFT",
+      "module_loaded": true
+    },
+    {
+      "id": 3,
+      "category": "core",
+      "title": "100 منصة — مرحلة أولى",
+      "status": "partial",
+      "module": "liquidity_discovery",
+      "endpoint": "/api/universe/status",
+      "note": "103 مصدر بيانات؛ تنفيذ live على Tier-1",
+      "module_loaded": true
+    },
+    {
+      "id": 8,
+      "category": "core",
+      "title": "CEX ↔ DEX",
+      "status": "partial",
+      "module": "bd_platform.cex_dex_arbitrage",
+      "endpoint": "/api/platform/arb/cex-dex",
+      "note": "scan + DexScreener",
+      "module_loaded": true
+    },
+    {
+      "id": 12,
+      "category": "core",
+      "title": "تنفيذ تلقائي بمفاتيح API",
+      "status": "partial",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/status",
+      "note": "dry-run افتراضي + live اختياري",
+      "module_loaded": true
+    },
+    {
+      "id": 13,
+      "category": "core",
+      "title": "77 نوع مراجحة — كatalog",
+      "status": "partial",
+      "module": "arbitrage_catalog",
+      "endpoint": "/api/arbitrage/catalog",
+      "note": "18 live · 26 proxy · 33 planned",
+      "module_loaded": true
+    },
+    {
+      "id": 15,
+      "category": "dash",
+      "title": "تنبيهات Telegram/Email/WhatsApp",
+      "status": "partial",
+      "module": "alert_service",
+      "endpoint": "/api/alerts/subscribe",
+      "note": "WhatsApp = wa.me link",
+      "module_loaded": true
+    },
+    {
+      "id": 28,
+      "category": "features",
+      "title": "Execution Speed",
+      "status": "partial",
+      "module": "fast_scan_engine",
+      "endpoint": "/api/low-latency/fast-scan",
+      "note": "millisecond warm path",
+      "module_loaded": true
+    },
+    {
+      "id": 35,
+      "category": "inst",
+      "title": "Institutional B2B",
+      "status": "partial",
+      "module": "b2b_websocket_hub",
+      "endpoint": "/b2b",
+      "note": "WS feed + proposal deck",
+      "module_loaded": true
+    }
+  ],
+  "arbitrage_catalog": {
+    "live": 10,
+    "proxy": 28,
+    "planned": 39
+  }
+}

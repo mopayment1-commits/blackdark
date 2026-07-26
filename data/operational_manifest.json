@@ -1,16 +1,18 @@
 {
-  "generated_at": "2026-07-24T08:49:25.849514+00:00",
+  "generated_at": "2026-07-26T10:19:04.555661+00:00",
   "status": "pending_review",
   "guards": {
     "whitelist_exchanges_locked": true,
     "whitelist_assets_locked": true,
     "whitelist_exchanges": [
       "binance",
+      "bitget",
       "bybit",
       "coinbase",
       "gateio",
       "kraken",
       "kucoin",
+      "mexc",
       "okx"
     ],
     "whitelist_assets": [
@@ -39,37 +41,7 @@
         "ccxt_id": "binance",
         "name": "Binance",
         "trust_score": 10,
-        "trade_volume_24h_btc": 103710.0109431977,
-        "verification": [
-          "coingecko"
-        ]
-      },
-      {
-        "coingecko_id": "bybit_spot",
-        "ccxt_id": "bybit",
-        "name": "Bybit",
-        "trust_score": 9,
-        "trade_volume_24h_btc": 18423.979977201656,
-        "verification": [
-          "coingecko"
-        ]
-      },
-      {
-        "coingecko_id": "gate",
-        "ccxt_id": "gateio",
-        "name": "Gate",
-        "trust_score": 10,
-        "trade_volume_24h_btc": 17775.095159670724,
-        "verification": [
-          "coingecko"
-        ]
-      },
-      {
-        "coingecko_id": "bitget",
-        "ccxt_id": "bitget",
-        "name": "Bitget",
-        "trust_score": 10,
-        "trade_volume_24h_btc": 15995.755763077457,
+        "trade_volume_24h_btc": 65325.87548646591,
         "verification": [
           "coingecko"
         ]
@@ -79,17 +51,27 @@
         "ccxt_id": "huobi",
         "name": "HTX",
         "trust_score": 7,
-        "trade_volume_24h_btc": 13670.998307434002,
+        "trade_volume_24h_btc": 9792.041150627809,
         "verification": [
           "coingecko"
         ]
       },
       {
-        "coingecko_id": "kraken",
-        "ccxt_id": "kraken",
-        "name": "Kraken",
+        "coingecko_id": "bybit_spot",
+        "ccxt_id": "bybit",
+        "name": "Bybit",
+        "trust_score": 9,
+        "trade_volume_24h_btc": 9620.082217844532,
+        "verification": [
+          "coingecko"
+        ]
+      },
+      {
+        "coingecko_id": "gate",
+        "ccxt_id": "gateio",
+        "name": "Gate",
         "trust_score": 10,
-        "trade_volume_24h_btc": 12510.898053790906,
+        "trade_volume_24h_btc": 8486.945866348386,
         "verification": [
           "coingecko"
         ]
@@ -99,7 +81,27 @@
         "ccxt_id": "kucoin",
         "name": "KuCoin",
         "trust_score": 9,
-        "trade_volume_24h_btc": 11733.336774459996,
+        "trade_volume_24h_btc": 7068.481643152199,
+        "verification": [
+          "coingecko"
+        ]
+      },
+      {
+        "coingecko_id": "kraken",
+        "ccxt_id": "kraken",
+        "name": "Kraken",
+        "trust_score": 10,
+        "trade_volume_24h_btc": 4299.687967124847,
+        "verification": [
+          "coingecko"
+        ]
+      },
+      {
+        "coingecko_id": "bitget",
+        "ccxt_id": "bitget",
+        "name": "Bitget",
+        "trust_score": 10,
+        "trade_volume_24h_btc": 3318.504312348994,
         "verification": [
           "coingecko"
         ]
@@ -109,7 +111,7 @@
         "ccxt_id": "bitstamp",
         "name": "Bitstamp by Robinhood",
         "trust_score": 9,
-        "trade_volume_24h_btc": 3723.1084836689283,
+        "trade_volume_24h_btc": 1393.9063921990796,
         "verification": [
           "coingecko"
         ]
@@ -119,7 +121,7 @@
         "ccxt_id": "bitfinex",
         "name": "Bitfinex",
         "trust_score": 7,
-        "trade_volume_24h_btc": 1858.1575587466878,
+        "trade_volume_24h_btc": 963.8040601101202,
         "verification": [
           "coingecko"
         ]
@@ -129,85 +131,92 @@
       {
         "asset": "USDT",
         "name": "Tether",
-        "volume_24h_usd": 40860799188.0,
-        "market_cap_usd": 184053161572.0,
+        "volume_24h_usd": 23059436538.0,
+        "market_cap_usd": 184041744121.0,
         "source": "coingecko"
       },
       {
         "asset": "BTC",
         "name": "Bitcoin",
-        "volume_24h_usd": 25839438118.0,
-        "market_cap_usd": 1311909707994.0,
+        "volume_24h_usd": 12271519458.0,
+        "market_cap_usd": 1293257277037.0,
         "source": "coingecko"
       },
       {
         "asset": "USDC",
         "name": "USDC",
-        "volume_24h_usd": 10820136328.0,
-        "market_cap_usd": 72922117236.0,
+        "volume_24h_usd": 6220866569.0,
+        "market_cap_usd": 72550132085.0,
         "source": "coingecko"
       },
       {
         "asset": "ETH",
         "name": "Ethereum",
-        "volume_24h_usd": 9837901549.0,
-        "market_cap_usd": 228153652727.0,
+        "volume_24h_usd": 4345793525.0,
+        "market_cap_usd": 227329403717.0,
         "source": "coingecko"
       },
       {
         "asset": "SOL",
         "name": "Solana",
-        "volume_24h_usd": 1554524060.0,
-        "market_cap_usd": 44197766121.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "XRP",
-        "name": "XRP",
-        "volume_24h_usd": 1059729776.0,
-        "market_cap_usd": 69511676085.0,
+        "volume_24h_usd": 865808249.0,
+        "market_cap_usd": 43782622261.0,
         "source": "coingecko"
       },
       {
         "asset": "DOGE",
         "name": "Dogecoin",
-        "volume_24h_usd": 842948530.0,
-        "market_cap_usd": 10856803653.0,
+        "volume_24h_usd": 765717460.0,
+        "market_cap_usd": 11379623337.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "SHIB",
+        "name": "Shiba Inu",
+        "volume_24h_usd": 613908515.0,
+        "market_cap_usd": 3172741760.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XRP",
+        "name": "XRP",
+        "volume_24h_usd": 575907954.0,
+        "market_cap_usd": 68739897878.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DEXE",
+        "name": "DeXe",
+        "volume_24h_usd": 499835910.0,
+        "market_cap_usd": 356998823.0,
         "source": "coingecko"
       },
       {
         "asset": "USD1",
         "name": "USD1",
-        "volume_24h_usd": 521296925.0,
-        "market_cap_usd": 4165850613.0,
+        "volume_24h_usd": 469161557.0,
+        "market_cap_usd": 4126450153.0,
         "source": "coingecko"
       },
       {
         "asset": "BNB",
         "name": "BNB",
-        "volume_24h_usd": 483660850.0,
-        "market_cap_usd": 75713547076.0,
+        "volume_24h_usd": 352100603.0,
+        "market_cap_usd": 76006725789.0,
         "source": "coingecko"
       },
       {
-        "asset": "QQQB",
-        "name": "Invesco QQQ Trust (bStocks Tokenized Stock)",
-        "volume_24h_usd": 421740844.0,
-        "market_cap_usd": 1287540.0,
+        "asset": "AVAX",
+        "name": "Avalanche",
+        "volume_24h_usd": 296577054.0,
+        "market_cap_usd": 2896575754.0,
         "source": "coingecko"
       },
       {
         "asset": "TRX",
         "name": "TRON",
-        "volume_24h_usd": 385557107.0,
-        "market_cap_usd": 31400450680.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HYPE",
-        "name": "Hyperliquid",
-        "volume_24h_usd": 365681693.0,
-        "market_cap_usd": 13105588452.0,
+        "volume_24h_usd": 295937951.0,
+        "market_cap_usd": 31420430321.0,
         "source": "coingecko"
       },
       {
@@ -218,66 +227,45 @@
         "source": "coingecko"
       },
       {
-        "asset": "LTC",
-        "name": "Litecoin",
-        "volume_24h_usd": 256971806.0,
-        "market_cap_usd": 3630139308.0,
+        "asset": "PEPE",
+        "name": "Pepe",
+        "volume_24h_usd": 267406304.0,
+        "market_cap_usd": 1242554327.0,
         "source": "coingecko"
       },
       {
-        "asset": "AKE",
-        "name": "Akedo",
-        "volume_24h_usd": 227103897.0,
-        "market_cap_usd": 53665282.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ADA",
-        "name": "Cardano",
-        "volume_24h_usd": 225962651.0,
-        "market_cap_usd": 6264445655.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DEXE",
-        "name": "DeXe",
-        "volume_24h_usd": 214827348.0,
-        "market_cap_usd": 219979124.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ZEC",
-        "name": "Zcash",
-        "volume_24h_usd": 214215742.0,
-        "market_cap_usd": 8547961928.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DAI",
-        "name": "Dai",
-        "volume_24h_usd": 211149689.0,
-        "market_cap_usd": 4654583318.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "AERO",
-        "name": "Aerodrome Finance",
-        "volume_24h_usd": 188547843.0,
-        "market_cap_usd": 420952852.0,
+        "asset": "FDUSD",
+        "name": "First Digital USD",
+        "volume_24h_usd": 216903772.0,
+        "market_cap_usd": 346270261.0,
         "source": "coingecko"
       },
       {
         "asset": "FIGR_HELOC",
         "name": "Figure Heloc",
-        "volume_24h_usd": 170890847.0,
-        "market_cap_usd": 21240034941.0,
+        "volume_24h_usd": 200920454.0,
+        "market_cap_usd": 21189353411.0,
         "source": "coingecko"
       },
       {
-        "asset": "BANK",
-        "name": "Lorenzo Protocol",
-        "volume_24h_usd": 169539565.0,
-        "market_cap_usd": 121806753.0,
+        "asset": "EUL",
+        "name": "Euler",
+        "volume_24h_usd": 184206268.0,
+        "market_cap_usd": 65589005.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LTC",
+        "name": "Litecoin",
+        "volume_24h_usd": 173034274.0,
+        "market_cap_usd": 3654921659.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "HYPE",
+        "name": "Hyperliquid",
+        "volume_24h_usd": 170495957.0,
+        "market_cap_usd": 13087663080.0,
         "source": "coingecko"
       },
       {
@@ -288,542 +276,556 @@
         "source": "coingecko"
       },
       {
-        "asset": "AVAX",
-        "name": "Avalanche",
-        "volume_24h_usd": 162997151.0,
-        "market_cap_usd": 2701142440.0,
-        "source": "coingecko"
-      },
-      {
         "asset": "AAVE",
         "name": "Aave",
-        "volume_24h_usd": 162810618.0,
-        "market_cap_usd": 1478570871.0,
+        "volume_24h_usd": 147838334.0,
+        "market_cap_usd": 1457030748.0,
         "source": "coingecko"
       },
       {
-        "asset": "LINK",
-        "name": "Chainlink",
-        "volume_24h_usd": 160044089.0,
-        "market_cap_usd": 6387027814.0,
+        "asset": "ADA",
+        "name": "Cardano",
+        "volume_24h_usd": 137807780.0,
+        "market_cap_usd": 6149978276.0,
         "source": "coingecko"
       },
       {
-        "asset": "XAUT",
-        "name": "Tether Gold",
-        "volume_24h_usd": 149449377.0,
-        "market_cap_usd": 2482095188.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "UNI",
-        "name": "Uniswap",
-        "volume_24h_usd": 148331775.0,
-        "market_cap_usd": 2401351887.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "XLM",
-        "name": "Stellar",
-        "volume_24h_usd": 141169608.0,
-        "market_cap_usd": 6276705627.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RE",
-        "name": "RE",
-        "volume_24h_usd": 137414070.0,
-        "market_cap_usd": 104560241.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "KITE",
-        "name": "Kite",
-        "volume_24h_usd": 133638928.0,
-        "market_cap_usd": 266277483.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PEPE",
-        "name": "Pepe",
-        "volume_24h_usd": 125319908.0,
-        "market_cap_usd": 1176516557.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ONDO",
-        "name": "Ondo",
-        "volume_24h_usd": 123904016.0,
-        "market_cap_usd": 1937117815.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "WLFI",
-        "name": "World Liberty Financial",
-        "volume_24h_usd": 115489335.0,
-        "market_cap_usd": 1787375688.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ENA",
-        "name": "Ethena",
-        "volume_24h_usd": 115127707.0,
-        "market_cap_usd": 864466329.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "NEAR",
-        "name": "NEAR Protocol",
-        "volume_24h_usd": 113002916.0,
-        "market_cap_usd": 2483731242.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "WLD",
-        "name": "Worldcoin",
-        "volume_24h_usd": 112741136.0,
-        "market_cap_usd": 1364296315.0,
+        "asset": "BANK",
+        "name": "Lorenzo Protocol",
+        "volume_24h_usd": 136291152.0,
+        "market_cap_usd": 161804969.0,
         "source": "coingecko"
       },
       {
         "asset": "VANA",
         "name": "Vana",
-        "volume_24h_usd": 110822507.0,
-        "market_cap_usd": 37868289.0,
+        "volume_24h_usd": 134621620.0,
+        "market_cap_usd": 36158977.0,
         "source": "coingecko"
       },
       {
-        "asset": "XMR",
-        "name": "Monero",
-        "volume_24h_usd": 104639550.0,
-        "market_cap_usd": 6702749040.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ZAMA",
-        "name": "Zama",
-        "volume_24h_usd": 99062298.0,
-        "market_cap_usd": 115537717.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PAXG",
-        "name": "PAX Gold",
-        "volume_24h_usd": 95506521.0,
-        "market_cap_usd": 1799567658.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "BCH",
-        "name": "Bitcoin Cash",
-        "volume_24h_usd": 92400868.0,
-        "market_cap_usd": 4252241232.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USDS",
-        "name": "USDS",
-        "volume_24h_usd": 92279199.0,
-        "market_cap_usd": 9870413027.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "OPN",
-        "name": "Opinion",
-        "volume_24h_usd": 90523840.0,
-        "market_cap_usd": 11895814.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SUI",
-        "name": "Sui",
-        "volume_24h_usd": 87086680.0,
-        "market_cap_usd": 3010329293.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "INJ",
-        "name": "Injective",
-        "volume_24h_usd": 86549587.0,
-        "market_cap_usd": 536628872.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "FDUSD",
-        "name": "First Digital USD",
-        "volume_24h_usd": 84665525.0,
-        "market_cap_usd": 346223946.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "LA",
-        "name": "Lagrange",
-        "volume_24h_usd": 78764284.0,
-        "market_cap_usd": 12900895.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "KAITO",
-        "name": "KAITO",
-        "volume_24h_usd": 75644753.0,
-        "market_cap_usd": 247879315.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USAT",
-        "name": "USAT",
-        "volume_24h_usd": 74957993.0,
-        "market_cap_usd": 185356655.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "U",
-        "name": "United Stables",
-        "volume_24h_usd": 74922081.0,
-        "market_cap_usd": 1063009145.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "TAO",
-        "name": "Bittensor",
-        "volume_24h_usd": 70538100.0,
-        "market_cap_usd": 1859916163.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DOT",
-        "name": "Polkadot",
-        "volume_24h_usd": 69340215.0,
-        "market_cap_usd": 1373183348.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "TRUMP",
-        "name": "Official Trump",
-        "volume_24h_usd": 68236841.0,
-        "market_cap_usd": 380185041.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USDCX",
-        "name": "USDCx",
-        "volume_24h_usd": 67932553.0,
-        "market_cap_usd": 150017.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "UP",
-        "name": "Unitas",
-        "volume_24h_usd": 64978799.0,
-        "market_cap_usd": 40193109.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PYUSD",
-        "name": "PayPal USD",
-        "volume_24h_usd": 62913102.0,
-        "market_cap_usd": 2685294780.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RIF",
-        "name": "Rootstock Infrastructure Framework",
-        "volume_24h_usd": 61362594.0,
-        "market_cap_usd": 107832381.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SUN",
-        "name": "Sun Token",
-        "volume_24h_usd": 60158026.0,
-        "market_cap_usd": 355397768.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ASTER",
-        "name": "Aster",
-        "volume_24h_usd": 59665787.0,
-        "market_cap_usd": 1680958544.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SHIB",
-        "name": "Shiba Inu",
-        "volume_24h_usd": 57566077.0,
-        "market_cap_usd": 2466273598.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DASH",
-        "name": "Dash",
-        "volume_24h_usd": 54563363.0,
-        "market_cap_usd": 422552039.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HBAR",
-        "name": "Hedera",
-        "volume_24h_usd": 52105637.0,
-        "market_cap_usd": 3100645844.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PUMP",
-        "name": "Pump.fun",
-        "volume_24h_usd": 50786963.0,
-        "market_cap_usd": 734716774.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RLUSD",
-        "name": "Ripple USD",
-        "volume_24h_usd": 49666294.0,
-        "market_cap_usd": 1595400157.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "BARD",
-        "name": "Lombard",
-        "volume_24h_usd": 45462057.0,
-        "market_cap_usd": 45225031.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "VIRTUAL",
-        "name": "Virtuals Protocol",
-        "volume_24h_usd": 45387327.0,
-        "market_cap_usd": 398972029.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "O",
-        "name": "o1.exchange",
-        "volume_24h_usd": 44209094.0,
-        "market_cap_usd": 84489670.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "EURC",
-        "name": "EURC",
-        "volume_24h_usd": 42053417.0,
-        "market_cap_usd": 434927251.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ETC",
-        "name": "Ethereum Classic",
-        "volume_24h_usd": 42048378.0,
-        "market_cap_usd": 1067170200.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "APT",
-        "name": "Aptos",
-        "volume_24h_usd": 40192556.0,
-        "market_cap_usd": 525798015.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "POL",
-        "name": "POL (ex-MATIC)",
-        "volume_24h_usd": 38718952.0,
-        "market_cap_usd": 839466118.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PENGU",
-        "name": "Pudgy Penguins",
-        "volume_24h_usd": 37886748.0,
-        "market_cap_usd": 382081100.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ARB",
-        "name": "Arbitrum",
-        "volume_24h_usd": 37467958.0,
-        "market_cap_usd": 568172836.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ERA",
-        "name": "Caldera",
-        "volume_24h_usd": 34850668.0,
-        "market_cap_usd": 17092903.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "JTO",
-        "name": "Jito",
-        "volume_24h_usd": 34458748.0,
-        "market_cap_usd": 310537265.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "FIL",
-        "name": "Filecoin",
-        "volume_24h_usd": 34320862.0,
-        "market_cap_usd": 592050630.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HTX",
-        "name": "HTX DAO",
-        "volume_24h_usd": 34191918.0,
-        "market_cap_usd": 1660548571.0,
+        "asset": "ZEC",
+        "name": "Zcash",
+        "volume_24h_usd": 127841431.0,
+        "market_cap_usd": 8272611148.0,
         "source": "coingecko"
       },
       {
         "asset": "USDG",
         "name": "Global Dollar",
-        "volume_24h_usd": 33924814.0,
-        "market_cap_usd": 3267353166.0,
+        "volume_24h_usd": 120028287.0,
+        "market_cap_usd": 3278568995.0,
         "source": "coingecko"
       },
       {
-        "asset": "\u5e01\u5b89\u4eba\u751f",
-        "name": "\u5e01\u5b89\u4eba\u751f (BinanceLife)",
-        "volume_24h_usd": 33529771.0,
-        "market_cap_usd": 648899839.0,
+        "asset": "WLD",
+        "name": "Worldcoin",
+        "volume_24h_usd": 118703704.0,
+        "market_cap_usd": 1255750863.0,
         "source": "coingecko"
       },
       {
-        "asset": "JIMOTHY",
-        "name": "Jimothy The Raccoon",
-        "volume_24h_usd": 33433137.0,
-        "market_cap_usd": 22783665.0,
+        "asset": "SUI",
+        "name": "Sui",
+        "volume_24h_usd": 115574311.0,
+        "market_cap_usd": 2908661915.0,
         "source": "coingecko"
       },
       {
-        "asset": "FET",
-        "name": "Artificial Superintelligence Alliance",
-        "volume_24h_usd": 32830305.0,
-        "market_cap_usd": 348473298.0,
+        "asset": "USDD",
+        "name": "USDD",
+        "volume_24h_usd": 112966078.0,
+        "market_cap_usd": 1558049793.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LINK",
+        "name": "Chainlink",
+        "volume_24h_usd": 105047121.0,
+        "market_cap_usd": 6297669290.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ALLO",
+        "name": "Allora",
+        "volume_24h_usd": 103044525.0,
+        "market_cap_usd": 81220244.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DAI",
+        "name": "Dai",
+        "volume_24h_usd": 101669383.0,
+        "market_cap_usd": 4642908802.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "UNI",
+        "name": "Uniswap",
+        "volume_24h_usd": 95925758.0,
+        "market_cap_usd": 2303172254.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WETH",
+        "name": "Robinhood Wrapped ETH (Robinhood Chain)",
+        "volume_24h_usd": 84546473.0,
+        "market_cap_usd": 41266444.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ONDO",
+        "name": "Ondo",
+        "volume_24h_usd": 83881206.0,
+        "market_cap_usd": 1879533560.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RUNE",
+        "name": "THORChain",
+        "volume_24h_usd": 78185930.0,
+        "market_cap_usd": 144451709.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XAUT",
+        "name": "Tether Gold",
+        "volume_24h_usd": 77438782.0,
+        "market_cap_usd": 2483386069.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "TAO",
+        "name": "Bittensor",
+        "volume_24h_usd": 75411912.0,
+        "market_cap_usd": 1882916590.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XLM",
+        "name": "Stellar",
+        "volume_24h_usd": 74805386.0,
+        "market_cap_usd": 6091457981.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PENGU",
+        "name": "Pudgy Penguins",
+        "volume_24h_usd": 72749370.0,
+        "market_cap_usd": 399601838.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "MNT",
+        "name": "Mantle",
+        "volume_24h_usd": 71803912.0,
+        "market_cap_usd": 1366757743.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "NEAR",
+        "name": "NEAR Protocol",
+        "volume_24h_usd": 67445464.0,
+        "market_cap_usd": 2344546343.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XMR",
+        "name": "Monero",
+        "volume_24h_usd": 66065136.0,
+        "market_cap_usd": 6801339269.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ZAMA",
+        "name": "Zama",
+        "volume_24h_usd": 64174209.0,
+        "market_cap_usd": 125559298.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ENA",
+        "name": "Ethena",
+        "volume_24h_usd": 61963756.0,
+        "market_cap_usd": 809666816.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "SUN",
+        "name": "Sun Token",
+        "volume_24h_usd": 59758606.0,
+        "market_cap_usd": 350956320.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "BCH",
+        "name": "Bitcoin Cash",
+        "volume_24h_usd": 58335886.0,
+        "market_cap_usd": 4228272275.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PIEVERSE",
+        "name": "Pieverse",
+        "volume_24h_usd": 55483357.0,
+        "market_cap_usd": 245477788.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "BOME",
+        "name": "BOOK OF MEME",
+        "volume_24h_usd": 54234017.0,
+        "market_cap_usd": 34663379.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "INJ",
+        "name": "Injective",
+        "volume_24h_usd": 52792604.0,
+        "market_cap_usd": 491504594.0,
         "source": "coingecko"
       },
       {
         "asset": "BONK",
         "name": "Bonk",
-        "volume_24h_usd": 32817104.0,
-        "market_cap_usd": 258366889.0,
+        "volume_24h_usd": 49657407.0,
+        "market_cap_usd": 273297801.0,
         "source": "coingecko"
       },
       {
-        "asset": "XPL",
-        "name": "Plasma",
-        "volume_24h_usd": 32800698.0,
-        "market_cap_usd": 221741351.0,
+        "asset": "U",
+        "name": "United Stables",
+        "volume_24h_usd": 49157733.0,
+        "market_cap_usd": 1070149854.0,
         "source": "coingecko"
       },
       {
-        "asset": "JST",
-        "name": "JUST",
-        "volume_24h_usd": 31252644.0,
-        "market_cap_usd": 833075103.0,
+        "asset": "USDCX",
+        "name": "USDCx",
+        "volume_24h_usd": 47762394.0,
+        "market_cap_usd": 150040.0,
         "source": "coingecko"
       },
       {
-        "asset": "RAIN",
-        "name": "Rain",
-        "volume_24h_usd": 31190784.0,
-        "market_cap_usd": 9668267312.0,
+        "asset": "DOT",
+        "name": "Polkadot",
+        "volume_24h_usd": 46901077.0,
+        "market_cap_usd": 1405348049.0,
         "source": "coingecko"
       },
       {
-        "asset": "ICP",
-        "name": "Internet Computer",
-        "volume_24h_usd": 30049589.0,
-        "market_cap_usd": 1202579683.0,
+        "asset": "AERO",
+        "name": "Aerodrome Finance",
+        "volume_24h_usd": 46549716.0,
+        "market_cap_usd": 403047348.0,
         "source": "coingecko"
       },
       {
-        "asset": "LDO",
-        "name": "Lido DAO",
-        "volume_24h_usd": 29698694.0,
-        "market_cap_usd": 331501985.0,
+        "asset": "RE",
+        "name": "RE",
+        "volume_24h_usd": 46474477.0,
+        "market_cap_usd": 80373771.0,
         "source": "coingecko"
       },
       {
-        "asset": "OP",
-        "name": "Optimism",
-        "volume_24h_usd": 29650665.0,
-        "market_cap_usd": 216212653.0,
+        "asset": "RLUSD",
+        "name": "Ripple USD",
+        "volume_24h_usd": 46362951.0,
+        "market_cap_usd": 1589741929.0,
         "source": "coingecko"
       },
       {
-        "asset": "GRAM",
-        "name": "Gram (prev. Toncoin)",
-        "volume_24h_usd": 29182523.0,
-        "market_cap_usd": 4007234316.0,
+        "asset": "TRUMP",
+        "name": "Official Trump",
+        "volume_24h_usd": 43384798.0,
+        "market_cap_usd": 393203491.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "NES",
+        "name": "Nesa",
+        "volume_24h_usd": 41658109.0,
+        "market_cap_usd": 33735947.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WIF",
+        "name": "dogwifhat",
+        "volume_24h_usd": 39520475.0,
+        "market_cap_usd": 156810217.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "KAITO",
+        "name": "KAITO",
+        "volume_24h_usd": 38614762.0,
+        "market_cap_usd": 256689078.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "MORPHO",
+        "name": "Morpho",
+        "volume_24h_usd": 38251212.0,
+        "market_cap_usd": 1249662448.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "FIL",
+        "name": "Filecoin",
+        "volume_24h_usd": 38233016.0,
+        "market_cap_usd": 604660054.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ASTER",
+        "name": "Aster",
+        "volume_24h_usd": 38035160.0,
+        "market_cap_usd": 1681922133.0,
         "source": "coingecko"
       },
       {
         "asset": "SYN",
         "name": "Synapse",
-        "volume_24h_usd": 29054878.0,
-        "market_cap_usd": 31969994.0,
+        "volume_24h_usd": 37976251.0,
+        "market_cap_usd": 34253352.0,
         "source": "coingecko"
       },
       {
-        "asset": "EVAA",
-        "name": "EVAA Protocol",
-        "volume_24h_usd": 29049468.0,
-        "market_cap_usd": 5544691.0,
+        "asset": "USDS",
+        "name": "USDS",
+        "volume_24h_usd": 37550566.0,
+        "market_cap_usd": 9854697894.0,
         "source": "coingecko"
       },
       {
-        "asset": "IDOL",
-        "name": "MEET48",
-        "volume_24h_usd": 28185011.0,
-        "market_cap_usd": 30349944.0,
+        "asset": "ETC",
+        "name": "Ethereum Classic",
+        "volume_24h_usd": 37003715.0,
+        "market_cap_usd": 1100471188.0,
         "source": "coingecko"
       },
       {
-        "asset": "LIT",
-        "name": "Lighter",
-        "volume_24h_usd": 27851457.0,
-        "market_cap_usd": 533343706.0,
+        "asset": "LPT",
+        "name": "Livepeer",
+        "volume_24h_usd": 36635056.0,
+        "market_cap_usd": 88842939.0,
         "source": "coingecko"
       },
       {
-        "asset": "HOME",
-        "name": "HOME",
-        "volume_24h_usd": 27260064.0,
-        "market_cap_usd": 28091485.0,
+        "asset": "FET",
+        "name": "Artificial Superintelligence Alliance",
+        "volume_24h_usd": 35791918.0,
+        "market_cap_usd": 356137191.0,
         "source": "coingecko"
       },
       {
-        "asset": "STX",
-        "name": "Stacks",
-        "volume_24h_usd": 26084806.0,
-        "market_cap_usd": 268609479.0,
+        "asset": "VVV",
+        "name": "Venice Token",
+        "volume_24h_usd": 35394824.0,
+        "market_cap_usd": 685336131.0,
         "source": "coingecko"
       },
       {
-        "asset": "PRIME",
-        "name": "Hastra PRIME",
-        "volume_24h_usd": 26059259.0,
-        "market_cap_usd": 444069688.0,
+        "asset": "FLOKI",
+        "name": "FLOKI",
+        "volume_24h_usd": 33803051.0,
+        "market_cap_usd": 216620682.0,
         "source": "coingecko"
       },
       {
-        "asset": "BILL",
-        "name": "Billions Network",
-        "volume_24h_usd": 25585332.0,
-        "market_cap_usd": 75742240.0,
+        "asset": "DIA",
+        "name": "DIA",
+        "volume_24h_usd": 31861147.0,
+        "market_cap_usd": 17017129.0,
         "source": "coingecko"
       },
       {
-        "asset": "SPCXB",
-        "name": "SpaceX (bStocks Tokenized Stock)",
-        "volume_24h_usd": 25296088.0,
-        "market_cap_usd": 94345163.0,
+        "asset": "HBAR",
+        "name": "Hedera",
+        "volume_24h_usd": 31165748.0,
+        "market_cap_usd": 3071632568.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PUMP",
+        "name": "Pump.fun",
+        "volume_24h_usd": 30700013.0,
+        "market_cap_usd": 720550459.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "APT",
+        "name": "Aptos",
+        "volume_24h_usd": 29792291.0,
+        "market_cap_usd": 530208806.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PRL",
+        "name": "Perle",
+        "volume_24h_usd": 29674628.0,
+        "market_cap_usd": 37622703.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DASH",
+        "name": "Dash",
+        "volume_24h_usd": 29666049.0,
+        "market_cap_usd": 416251137.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "VIRTUAL",
+        "name": "Virtuals Protocol",
+        "volume_24h_usd": 29650944.0,
+        "market_cap_usd": 382350096.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RIF",
+        "name": "Rootstock Infrastructure Framework",
+        "volume_24h_usd": 28555794.0,
+        "market_cap_usd": 93905278.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RAIN",
+        "name": "Rain",
+        "volume_24h_usd": 28080469.0,
+        "market_cap_usd": 9456421883.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "GWEI",
+        "name": "ETHGas",
+        "volume_24h_usd": 27232034.0,
+        "market_cap_usd": 46583571.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XPL",
+        "name": "Plasma",
+        "volume_24h_usd": 26866123.0,
+        "market_cap_usd": 222975015.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ORDI",
+        "name": "ORDI",
+        "volume_24h_usd": 26779652.0,
+        "market_cap_usd": 80402512.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ARB",
+        "name": "Arbitrum",
+        "volume_24h_usd": 25678571.0,
+        "market_cap_usd": 545289401.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "GRAM",
+        "name": "Gram (prev. Toncoin)",
+        "volume_24h_usd": 25445466.0,
+        "market_cap_usd": 4130069362.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ESPORTS",
+        "name": "Yooldo Games",
+        "volume_24h_usd": 25406322.0,
+        "market_cap_usd": 7180369.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WLFI",
+        "name": "World Liberty Financial",
+        "volume_24h_usd": 25288450.0,
+        "market_cap_usd": 1748648475.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ICP",
+        "name": "Internet Computer",
+        "volume_24h_usd": 25177937.0,
+        "market_cap_usd": 1207261120.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WBT",
+        "name": "WhiteBIT Coin",
+        "volume_24h_usd": 22519202.0,
+        "market_cap_usd": 16527981319.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PAXG",
+        "name": "PAX Gold",
+        "volume_24h_usd": 21976941.0,
+        "market_cap_usd": 1803990492.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "TWT",
+        "name": "Trust Wallet",
+        "volume_24h_usd": 20650069.0,
+        "market_cap_usd": 146740946.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "QQQB",
+        "name": "Invesco QQQ Trust (bStocks Tokenized Stock)",
+        "volume_24h_usd": 20357046.0,
+        "market_cap_usd": 1283263.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "POL",
+        "name": "POL (ex-MATIC)",
+        "volume_24h_usd": 20343388.0,
+        "market_cap_usd": 817062220.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LAB",
+        "name": "LAB",
+        "volume_24h_usd": 20186492.0,
+        "market_cap_usd": 49241124.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "JST",
+        "name": "JUST",
+        "volume_24h_usd": 20158709.0,
+        "market_cap_usd": 853891469.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "REUR",
+        "name": "Royal Euro",
+        "volume_24h_usd": 19804868.0,
+        "market_cap_usd": 62008637.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "JTO",
+        "name": "Jito",
+        "volume_24h_usd": 19470672.0,
+        "market_cap_usd": 295668655.0,
         "source": "coingecko"
       },
       {
         "asset": "ETHFI",
         "name": "Ether.fi",
-        "volume_24h_usd": 24736533.0,
-        "market_cap_usd": 441705233.0,
+        "volume_24h_usd": 19326339.0,
+        "market_cap_usd": 397155505.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ACE",
+        "name": "Fusionist",
+        "volume_24h_usd": 19139471.0,
+        "market_cap_usd": 9070355.0,
         "source": "coingecko"
       }
     ],
@@ -833,148 +835,155 @@
         "ccxt_id": "binance",
         "name": "Binance",
         "trust_score": 10,
-        "trade_volume_24h_btc": 103710.0109431977
-      },
-      {
-        "coingecko_id": "bybit_spot",
-        "ccxt_id": "bybit",
-        "name": "Bybit",
-        "trust_score": 9,
-        "trade_volume_24h_btc": 18423.979977201656
-      },
-      {
-        "coingecko_id": "gate",
-        "ccxt_id": "gateio",
-        "name": "Gate",
-        "trust_score": 10,
-        "trade_volume_24h_btc": 17775.095159670724
-      },
-      {
-        "coingecko_id": "bitget",
-        "ccxt_id": "bitget",
-        "name": "Bitget",
-        "trust_score": 10,
-        "trade_volume_24h_btc": 15995.755763077457
+        "trade_volume_24h_btc": 65325.87548646591
       },
       {
         "coingecko_id": "huobi",
         "ccxt_id": "huobi",
         "name": "HTX",
         "trust_score": 7,
-        "trade_volume_24h_btc": 13670.998307434002
+        "trade_volume_24h_btc": 9792.041150627809
       },
       {
-        "coingecko_id": "kraken",
-        "ccxt_id": "kraken",
-        "name": "Kraken",
+        "coingecko_id": "bybit_spot",
+        "ccxt_id": "bybit",
+        "name": "Bybit",
+        "trust_score": 9,
+        "trade_volume_24h_btc": 9620.082217844532
+      },
+      {
+        "coingecko_id": "gate",
+        "ccxt_id": "gateio",
+        "name": "Gate",
         "trust_score": 10,
-        "trade_volume_24h_btc": 12510.898053790906
+        "trade_volume_24h_btc": 8486.945866348386
       },
       {
         "coingecko_id": "kucoin",
         "ccxt_id": "kucoin",
         "name": "KuCoin",
         "trust_score": 9,
-        "trade_volume_24h_btc": 11733.336774459996
+        "trade_volume_24h_btc": 7068.481643152199
+      },
+      {
+        "coingecko_id": "kraken",
+        "ccxt_id": "kraken",
+        "name": "Kraken",
+        "trust_score": 10,
+        "trade_volume_24h_btc": 4299.687967124847
+      },
+      {
+        "coingecko_id": "bitget",
+        "ccxt_id": "bitget",
+        "name": "Bitget",
+        "trust_score": 10,
+        "trade_volume_24h_btc": 3318.504312348994
       },
       {
         "coingecko_id": "bitstamp",
         "ccxt_id": "bitstamp",
         "name": "Bitstamp by Robinhood",
         "trust_score": 9,
-        "trade_volume_24h_btc": 3723.1084836689283
+        "trade_volume_24h_btc": 1393.9063921990796
       },
       {
         "coingecko_id": "bitfinex",
         "ccxt_id": "bitfinex",
         "name": "Bitfinex",
         "trust_score": 7,
-        "trade_volume_24h_btc": 1858.1575587466878
+        "trade_volume_24h_btc": 963.8040601101202
       }
     ],
     "coingecko_assets": [
       {
         "asset": "USDT",
         "name": "Tether",
-        "volume_24h_usd": 40860799188.0,
-        "market_cap_usd": 184053161572.0,
+        "volume_24h_usd": 23059436538.0,
+        "market_cap_usd": 184041744121.0,
         "source": "coingecko"
       },
       {
         "asset": "BTC",
         "name": "Bitcoin",
-        "volume_24h_usd": 25839438118.0,
-        "market_cap_usd": 1311909707994.0,
+        "volume_24h_usd": 12271519458.0,
+        "market_cap_usd": 1293257277037.0,
         "source": "coingecko"
       },
       {
         "asset": "USDC",
         "name": "USDC",
-        "volume_24h_usd": 10820136328.0,
-        "market_cap_usd": 72922117236.0,
+        "volume_24h_usd": 6220866569.0,
+        "market_cap_usd": 72550132085.0,
         "source": "coingecko"
       },
       {
         "asset": "ETH",
         "name": "Ethereum",
-        "volume_24h_usd": 9837901549.0,
-        "market_cap_usd": 228153652727.0,
+        "volume_24h_usd": 4345793525.0,
+        "market_cap_usd": 227329403717.0,
         "source": "coingecko"
       },
       {
         "asset": "SOL",
         "name": "Solana",
-        "volume_24h_usd": 1554524060.0,
-        "market_cap_usd": 44197766121.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "XRP",
-        "name": "XRP",
-        "volume_24h_usd": 1059729776.0,
-        "market_cap_usd": 69511676085.0,
+        "volume_24h_usd": 865808249.0,
+        "market_cap_usd": 43782622261.0,
         "source": "coingecko"
       },
       {
         "asset": "DOGE",
         "name": "Dogecoin",
-        "volume_24h_usd": 842948530.0,
-        "market_cap_usd": 10856803653.0,
+        "volume_24h_usd": 765717460.0,
+        "market_cap_usd": 11379623337.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "SHIB",
+        "name": "Shiba Inu",
+        "volume_24h_usd": 613908515.0,
+        "market_cap_usd": 3172741760.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XRP",
+        "name": "XRP",
+        "volume_24h_usd": 575907954.0,
+        "market_cap_usd": 68739897878.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DEXE",
+        "name": "DeXe",
+        "volume_24h_usd": 499835910.0,
+        "market_cap_usd": 356998823.0,
         "source": "coingecko"
       },
       {
         "asset": "USD1",
         "name": "USD1",
-        "volume_24h_usd": 521296925.0,
-        "market_cap_usd": 4165850613.0,
+        "volume_24h_usd": 469161557.0,
+        "market_cap_usd": 4126450153.0,
         "source": "coingecko"
       },
       {
         "asset": "BNB",
         "name": "BNB",
-        "volume_24h_usd": 483660850.0,
-        "market_cap_usd": 75713547076.0,
+        "volume_24h_usd": 352100603.0,
+        "market_cap_usd": 76006725789.0,
         "source": "coingecko"
       },
       {
-        "asset": "QQQB",
-        "name": "Invesco QQQ Trust (bStocks Tokenized Stock)",
-        "volume_24h_usd": 421740844.0,
-        "market_cap_usd": 1287540.0,
+        "asset": "AVAX",
+        "name": "Avalanche",
+        "volume_24h_usd": 296577054.0,
+        "market_cap_usd": 2896575754.0,
         "source": "coingecko"
       },
       {
         "asset": "TRX",
         "name": "TRON",
-        "volume_24h_usd": 385557107.0,
-        "market_cap_usd": 31400450680.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HYPE",
-        "name": "Hyperliquid",
-        "volume_24h_usd": 365681693.0,
-        "market_cap_usd": 13105588452.0,
+        "volume_24h_usd": 295937951.0,
+        "market_cap_usd": 31420430321.0,
         "source": "coingecko"
       },
       {
@@ -985,66 +994,45 @@
         "source": "coingecko"
       },
       {
-        "asset": "LTC",
-        "name": "Litecoin",
-        "volume_24h_usd": 256971806.0,
-        "market_cap_usd": 3630139308.0,
+        "asset": "PEPE",
+        "name": "Pepe",
+        "volume_24h_usd": 267406304.0,
+        "market_cap_usd": 1242554327.0,
         "source": "coingecko"
       },
       {
-        "asset": "AKE",
-        "name": "Akedo",
-        "volume_24h_usd": 227103897.0,
-        "market_cap_usd": 53665282.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ADA",
-        "name": "Cardano",
-        "volume_24h_usd": 225962651.0,
-        "market_cap_usd": 6264445655.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DEXE",
-        "name": "DeXe",
-        "volume_24h_usd": 214827348.0,
-        "market_cap_usd": 219979124.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ZEC",
-        "name": "Zcash",
-        "volume_24h_usd": 214215742.0,
-        "market_cap_usd": 8547961928.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DAI",
-        "name": "Dai",
-        "volume_24h_usd": 211149689.0,
-        "market_cap_usd": 4654583318.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "AERO",
-        "name": "Aerodrome Finance",
-        "volume_24h_usd": 188547843.0,
-        "market_cap_usd": 420952852.0,
+        "asset": "FDUSD",
+        "name": "First Digital USD",
+        "volume_24h_usd": 216903772.0,
+        "market_cap_usd": 346270261.0,
         "source": "coingecko"
       },
       {
         "asset": "FIGR_HELOC",
         "name": "Figure Heloc",
-        "volume_24h_usd": 170890847.0,
-        "market_cap_usd": 21240034941.0,
+        "volume_24h_usd": 200920454.0,
+        "market_cap_usd": 21189353411.0,
         "source": "coingecko"
       },
       {
-        "asset": "BANK",
-        "name": "Lorenzo Protocol",
-        "volume_24h_usd": 169539565.0,
-        "market_cap_usd": 121806753.0,
+        "asset": "EUL",
+        "name": "Euler",
+        "volume_24h_usd": 184206268.0,
+        "market_cap_usd": 65589005.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LTC",
+        "name": "Litecoin",
+        "volume_24h_usd": 173034274.0,
+        "market_cap_usd": 3654921659.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "HYPE",
+        "name": "Hyperliquid",
+        "volume_24h_usd": 170495957.0,
+        "market_cap_usd": 13087663080.0,
         "source": "coingecko"
       },
       {
@@ -1055,722 +1043,945 @@
         "source": "coingecko"
       },
       {
-        "asset": "AVAX",
-        "name": "Avalanche",
-        "volume_24h_usd": 162997151.0,
-        "market_cap_usd": 2701142440.0,
-        "source": "coingecko"
-      },
-      {
         "asset": "AAVE",
         "name": "Aave",
-        "volume_24h_usd": 162810618.0,
-        "market_cap_usd": 1478570871.0,
+        "volume_24h_usd": 147838334.0,
+        "market_cap_usd": 1457030748.0,
         "source": "coingecko"
       },
       {
-        "asset": "LINK",
-        "name": "Chainlink",
-        "volume_24h_usd": 160044089.0,
-        "market_cap_usd": 6387027814.0,
+        "asset": "ADA",
+        "name": "Cardano",
+        "volume_24h_usd": 137807780.0,
+        "market_cap_usd": 6149978276.0,
         "source": "coingecko"
       },
       {
-        "asset": "XAUT",
-        "name": "Tether Gold",
-        "volume_24h_usd": 149449377.0,
-        "market_cap_usd": 2482095188.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "UNI",
-        "name": "Uniswap",
-        "volume_24h_usd": 148331775.0,
-        "market_cap_usd": 2401351887.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "XLM",
-        "name": "Stellar",
-        "volume_24h_usd": 141169608.0,
-        "market_cap_usd": 6276705627.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RE",
-        "name": "RE",
-        "volume_24h_usd": 137414070.0,
-        "market_cap_usd": 104560241.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "KITE",
-        "name": "Kite",
-        "volume_24h_usd": 133638928.0,
-        "market_cap_usd": 266277483.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PEPE",
-        "name": "Pepe",
-        "volume_24h_usd": 125319908.0,
-        "market_cap_usd": 1176516557.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ONDO",
-        "name": "Ondo",
-        "volume_24h_usd": 123904016.0,
-        "market_cap_usd": 1937117815.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "WLFI",
-        "name": "World Liberty Financial",
-        "volume_24h_usd": 115489335.0,
-        "market_cap_usd": 1787375688.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ENA",
-        "name": "Ethena",
-        "volume_24h_usd": 115127707.0,
-        "market_cap_usd": 864466329.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "NEAR",
-        "name": "NEAR Protocol",
-        "volume_24h_usd": 113002916.0,
-        "market_cap_usd": 2483731242.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "WLD",
-        "name": "Worldcoin",
-        "volume_24h_usd": 112741136.0,
-        "market_cap_usd": 1364296315.0,
+        "asset": "BANK",
+        "name": "Lorenzo Protocol",
+        "volume_24h_usd": 136291152.0,
+        "market_cap_usd": 161804969.0,
         "source": "coingecko"
       },
       {
         "asset": "VANA",
         "name": "Vana",
-        "volume_24h_usd": 110822507.0,
-        "market_cap_usd": 37868289.0,
+        "volume_24h_usd": 134621620.0,
+        "market_cap_usd": 36158977.0,
         "source": "coingecko"
       },
       {
-        "asset": "XMR",
-        "name": "Monero",
-        "volume_24h_usd": 104639550.0,
-        "market_cap_usd": 6702749040.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ZAMA",
-        "name": "Zama",
-        "volume_24h_usd": 99062298.0,
-        "market_cap_usd": 115537717.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PAXG",
-        "name": "PAX Gold",
-        "volume_24h_usd": 95506521.0,
-        "market_cap_usd": 1799567658.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "BCH",
-        "name": "Bitcoin Cash",
-        "volume_24h_usd": 92400868.0,
-        "market_cap_usd": 4252241232.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USDS",
-        "name": "USDS",
-        "volume_24h_usd": 92279199.0,
-        "market_cap_usd": 9870413027.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "OPN",
-        "name": "Opinion",
-        "volume_24h_usd": 90523840.0,
-        "market_cap_usd": 11895814.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SUI",
-        "name": "Sui",
-        "volume_24h_usd": 87086680.0,
-        "market_cap_usd": 3010329293.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "INJ",
-        "name": "Injective",
-        "volume_24h_usd": 86549587.0,
-        "market_cap_usd": 536628872.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "FDUSD",
-        "name": "First Digital USD",
-        "volume_24h_usd": 84665525.0,
-        "market_cap_usd": 346223946.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "LA",
-        "name": "Lagrange",
-        "volume_24h_usd": 78764284.0,
-        "market_cap_usd": 12900895.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "KAITO",
-        "name": "KAITO",
-        "volume_24h_usd": 75644753.0,
-        "market_cap_usd": 247879315.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USAT",
-        "name": "USAT",
-        "volume_24h_usd": 74957993.0,
-        "market_cap_usd": 185356655.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "U",
-        "name": "United Stables",
-        "volume_24h_usd": 74922081.0,
-        "market_cap_usd": 1063009145.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "TAO",
-        "name": "Bittensor",
-        "volume_24h_usd": 70538100.0,
-        "market_cap_usd": 1859916163.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DOT",
-        "name": "Polkadot",
-        "volume_24h_usd": 69340215.0,
-        "market_cap_usd": 1373183348.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "TRUMP",
-        "name": "Official Trump",
-        "volume_24h_usd": 68236841.0,
-        "market_cap_usd": 380185041.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "USDCX",
-        "name": "USDCx",
-        "volume_24h_usd": 67932553.0,
-        "market_cap_usd": 150017.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "UP",
-        "name": "Unitas",
-        "volume_24h_usd": 64978799.0,
-        "market_cap_usd": 40193109.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PYUSD",
-        "name": "PayPal USD",
-        "volume_24h_usd": 62913102.0,
-        "market_cap_usd": 2685294780.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RIF",
-        "name": "Rootstock Infrastructure Framework",
-        "volume_24h_usd": 61362594.0,
-        "market_cap_usd": 107832381.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SUN",
-        "name": "Sun Token",
-        "volume_24h_usd": 60158026.0,
-        "market_cap_usd": 355397768.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ASTER",
-        "name": "Aster",
-        "volume_24h_usd": 59665787.0,
-        "market_cap_usd": 1680958544.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "SHIB",
-        "name": "Shiba Inu",
-        "volume_24h_usd": 57566077.0,
-        "market_cap_usd": 2466273598.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "DASH",
-        "name": "Dash",
-        "volume_24h_usd": 54563363.0,
-        "market_cap_usd": 422552039.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HBAR",
-        "name": "Hedera",
-        "volume_24h_usd": 52105637.0,
-        "market_cap_usd": 3100645844.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PUMP",
-        "name": "Pump.fun",
-        "volume_24h_usd": 50786963.0,
-        "market_cap_usd": 734716774.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "RLUSD",
-        "name": "Ripple USD",
-        "volume_24h_usd": 49666294.0,
-        "market_cap_usd": 1595400157.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "BARD",
-        "name": "Lombard",
-        "volume_24h_usd": 45462057.0,
-        "market_cap_usd": 45225031.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "VIRTUAL",
-        "name": "Virtuals Protocol",
-        "volume_24h_usd": 45387327.0,
-        "market_cap_usd": 398972029.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "O",
-        "name": "o1.exchange",
-        "volume_24h_usd": 44209094.0,
-        "market_cap_usd": 84489670.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "EURC",
-        "name": "EURC",
-        "volume_24h_usd": 42053417.0,
-        "market_cap_usd": 434927251.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ETC",
-        "name": "Ethereum Classic",
-        "volume_24h_usd": 42048378.0,
-        "market_cap_usd": 1067170200.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "APT",
-        "name": "Aptos",
-        "volume_24h_usd": 40192556.0,
-        "market_cap_usd": 525798015.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "POL",
-        "name": "POL (ex-MATIC)",
-        "volume_24h_usd": 38718952.0,
-        "market_cap_usd": 839466118.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "PENGU",
-        "name": "Pudgy Penguins",
-        "volume_24h_usd": 37886748.0,
-        "market_cap_usd": 382081100.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ARB",
-        "name": "Arbitrum",
-        "volume_24h_usd": 37467958.0,
-        "market_cap_usd": 568172836.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "ERA",
-        "name": "Caldera",
-        "volume_24h_usd": 34850668.0,
-        "market_cap_usd": 17092903.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "JTO",
-        "name": "Jito",
-        "volume_24h_usd": 34458748.0,
-        "market_cap_usd": 310537265.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "FIL",
-        "name": "Filecoin",
-        "volume_24h_usd": 34320862.0,
-        "market_cap_usd": 592050630.0,
-        "source": "coingecko"
-      },
-      {
-        "asset": "HTX",
-        "name": "HTX DAO",
-        "volume_24h_usd": 34191918.0,
-        "market_cap_usd": 1660548571.0,
+        "asset": "ZEC",
+        "name": "Zcash",
+        "volume_24h_usd": 127841431.0,
+        "market_cap_usd": 8272611148.0,
         "source": "coingecko"
       },
       {
         "asset": "USDG",
         "name": "Global Dollar",
-        "volume_24h_usd": 33924814.0,
-        "market_cap_usd": 3267353166.0,
+        "volume_24h_usd": 120028287.0,
+        "market_cap_usd": 3278568995.0,
         "source": "coingecko"
       },
       {
-        "asset": "\u5e01\u5b89\u4eba\u751f",
-        "name": "\u5e01\u5b89\u4eba\u751f (BinanceLife)",
-        "volume_24h_usd": 33529771.0,
-        "market_cap_usd": 648899839.0,
+        "asset": "WLD",
+        "name": "Worldcoin",
+        "volume_24h_usd": 118703704.0,
+        "market_cap_usd": 1255750863.0,
         "source": "coingecko"
       },
       {
-        "asset": "JIMOTHY",
-        "name": "Jimothy The Raccoon",
-        "volume_24h_usd": 33433137.0,
-        "market_cap_usd": 22783665.0,
+        "asset": "SUI",
+        "name": "Sui",
+        "volume_24h_usd": 115574311.0,
+        "market_cap_usd": 2908661915.0,
         "source": "coingecko"
       },
       {
-        "asset": "FET",
-        "name": "Artificial Superintelligence Alliance",
-        "volume_24h_usd": 32830305.0,
-        "market_cap_usd": 348473298.0,
+        "asset": "USDD",
+        "name": "USDD",
+        "volume_24h_usd": 112966078.0,
+        "market_cap_usd": 1558049793.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LINK",
+        "name": "Chainlink",
+        "volume_24h_usd": 105047121.0,
+        "market_cap_usd": 6297669290.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ALLO",
+        "name": "Allora",
+        "volume_24h_usd": 103044525.0,
+        "market_cap_usd": 81220244.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DAI",
+        "name": "Dai",
+        "volume_24h_usd": 101669383.0,
+        "market_cap_usd": 4642908802.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "UNI",
+        "name": "Uniswap",
+        "volume_24h_usd": 95925758.0,
+        "market_cap_usd": 2303172254.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WETH",
+        "name": "Robinhood Wrapped ETH (Robinhood Chain)",
+        "volume_24h_usd": 84546473.0,
+        "market_cap_usd": 41266444.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ONDO",
+        "name": "Ondo",
+        "volume_24h_usd": 83881206.0,
+        "market_cap_usd": 1879533560.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RUNE",
+        "name": "THORChain",
+        "volume_24h_usd": 78185930.0,
+        "market_cap_usd": 144451709.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XAUT",
+        "name": "Tether Gold",
+        "volume_24h_usd": 77438782.0,
+        "market_cap_usd": 2483386069.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "TAO",
+        "name": "Bittensor",
+        "volume_24h_usd": 75411912.0,
+        "market_cap_usd": 1882916590.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XLM",
+        "name": "Stellar",
+        "volume_24h_usd": 74805386.0,
+        "market_cap_usd": 6091457981.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PENGU",
+        "name": "Pudgy Penguins",
+        "volume_24h_usd": 72749370.0,
+        "market_cap_usd": 399601838.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "MNT",
+        "name": "Mantle",
+        "volume_24h_usd": 71803912.0,
+        "market_cap_usd": 1366757743.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "NEAR",
+        "name": "NEAR Protocol",
+        "volume_24h_usd": 67445464.0,
+        "market_cap_usd": 2344546343.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XMR",
+        "name": "Monero",
+        "volume_24h_usd": 66065136.0,
+        "market_cap_usd": 6801339269.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ZAMA",
+        "name": "Zama",
+        "volume_24h_usd": 64174209.0,
+        "market_cap_usd": 125559298.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ENA",
+        "name": "Ethena",
+        "volume_24h_usd": 61963756.0,
+        "market_cap_usd": 809666816.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "SUN",
+        "name": "Sun Token",
+        "volume_24h_usd": 59758606.0,
+        "market_cap_usd": 350956320.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "BCH",
+        "name": "Bitcoin Cash",
+        "volume_24h_usd": 58335886.0,
+        "market_cap_usd": 4228272275.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PIEVERSE",
+        "name": "Pieverse",
+        "volume_24h_usd": 55483357.0,
+        "market_cap_usd": 245477788.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "BOME",
+        "name": "BOOK OF MEME",
+        "volume_24h_usd": 54234017.0,
+        "market_cap_usd": 34663379.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "INJ",
+        "name": "Injective",
+        "volume_24h_usd": 52792604.0,
+        "market_cap_usd": 491504594.0,
         "source": "coingecko"
       },
       {
         "asset": "BONK",
         "name": "Bonk",
-        "volume_24h_usd": 32817104.0,
-        "market_cap_usd": 258366889.0,
+        "volume_24h_usd": 49657407.0,
+        "market_cap_usd": 273297801.0,
         "source": "coingecko"
       },
       {
-        "asset": "XPL",
-        "name": "Plasma",
-        "volume_24h_usd": 32800698.0,
-        "market_cap_usd": 221741351.0,
+        "asset": "U",
+        "name": "United Stables",
+        "volume_24h_usd": 49157733.0,
+        "market_cap_usd": 1070149854.0,
         "source": "coingecko"
       },
       {
-        "asset": "JST",
-        "name": "JUST",
-        "volume_24h_usd": 31252644.0,
-        "market_cap_usd": 833075103.0,
+        "asset": "USDCX",
+        "name": "USDCx",
+        "volume_24h_usd": 47762394.0,
+        "market_cap_usd": 150040.0,
         "source": "coingecko"
       },
       {
-        "asset": "RAIN",
-        "name": "Rain",
-        "volume_24h_usd": 31190784.0,
-        "market_cap_usd": 9668267312.0,
+        "asset": "DOT",
+        "name": "Polkadot",
+        "volume_24h_usd": 46901077.0,
+        "market_cap_usd": 1405348049.0,
         "source": "coingecko"
       },
       {
-        "asset": "ICP",
-        "name": "Internet Computer",
-        "volume_24h_usd": 30049589.0,
-        "market_cap_usd": 1202579683.0,
+        "asset": "AERO",
+        "name": "Aerodrome Finance",
+        "volume_24h_usd": 46549716.0,
+        "market_cap_usd": 403047348.0,
         "source": "coingecko"
       },
       {
-        "asset": "LDO",
-        "name": "Lido DAO",
-        "volume_24h_usd": 29698694.0,
-        "market_cap_usd": 331501985.0,
+        "asset": "RE",
+        "name": "RE",
+        "volume_24h_usd": 46474477.0,
+        "market_cap_usd": 80373771.0,
         "source": "coingecko"
       },
       {
-        "asset": "OP",
-        "name": "Optimism",
-        "volume_24h_usd": 29650665.0,
-        "market_cap_usd": 216212653.0,
+        "asset": "RLUSD",
+        "name": "Ripple USD",
+        "volume_24h_usd": 46362951.0,
+        "market_cap_usd": 1589741929.0,
         "source": "coingecko"
       },
       {
-        "asset": "GRAM",
-        "name": "Gram (prev. Toncoin)",
-        "volume_24h_usd": 29182523.0,
-        "market_cap_usd": 4007234316.0,
+        "asset": "TRUMP",
+        "name": "Official Trump",
+        "volume_24h_usd": 43384798.0,
+        "market_cap_usd": 393203491.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "NES",
+        "name": "Nesa",
+        "volume_24h_usd": 41658109.0,
+        "market_cap_usd": 33735947.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WIF",
+        "name": "dogwifhat",
+        "volume_24h_usd": 39520475.0,
+        "market_cap_usd": 156810217.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "KAITO",
+        "name": "KAITO",
+        "volume_24h_usd": 38614762.0,
+        "market_cap_usd": 256689078.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "MORPHO",
+        "name": "Morpho",
+        "volume_24h_usd": 38251212.0,
+        "market_cap_usd": 1249662448.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "FIL",
+        "name": "Filecoin",
+        "volume_24h_usd": 38233016.0,
+        "market_cap_usd": 604660054.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ASTER",
+        "name": "Aster",
+        "volume_24h_usd": 38035160.0,
+        "market_cap_usd": 1681922133.0,
         "source": "coingecko"
       },
       {
         "asset": "SYN",
         "name": "Synapse",
-        "volume_24h_usd": 29054878.0,
-        "market_cap_usd": 31969994.0,
+        "volume_24h_usd": 37976251.0,
+        "market_cap_usd": 34253352.0,
         "source": "coingecko"
       },
       {
-        "asset": "EVAA",
-        "name": "EVAA Protocol",
-        "volume_24h_usd": 29049468.0,
-        "market_cap_usd": 5544691.0,
+        "asset": "USDS",
+        "name": "USDS",
+        "volume_24h_usd": 37550566.0,
+        "market_cap_usd": 9854697894.0,
         "source": "coingecko"
       },
       {
-        "asset": "IDOL",
-        "name": "MEET48",
-        "volume_24h_usd": 28185011.0,
-        "market_cap_usd": 30349944.0,
+        "asset": "ETC",
+        "name": "Ethereum Classic",
+        "volume_24h_usd": 37003715.0,
+        "market_cap_usd": 1100471188.0,
         "source": "coingecko"
       },
       {
-        "asset": "LIT",
-        "name": "Lighter",
-        "volume_24h_usd": 27851457.0,
-        "market_cap_usd": 533343706.0,
+        "asset": "LPT",
+        "name": "Livepeer",
+        "volume_24h_usd": 36635056.0,
+        "market_cap_usd": 88842939.0,
         "source": "coingecko"
       },
       {
-        "asset": "HOME",
-        "name": "HOME",
-        "volume_24h_usd": 27260064.0,
-        "market_cap_usd": 28091485.0,
+        "asset": "FET",
+        "name": "Artificial Superintelligence Alliance",
+        "volume_24h_usd": 35791918.0,
+        "market_cap_usd": 356137191.0,
         "source": "coingecko"
       },
       {
-        "asset": "STX",
-        "name": "Stacks",
-        "volume_24h_usd": 26084806.0,
-        "market_cap_usd": 268609479.0,
+        "asset": "VVV",
+        "name": "Venice Token",
+        "volume_24h_usd": 35394824.0,
+        "market_cap_usd": 685336131.0,
         "source": "coingecko"
       },
       {
-        "asset": "PRIME",
-        "name": "Hastra PRIME",
-        "volume_24h_usd": 26059259.0,
-        "market_cap_usd": 444069688.0,
+        "asset": "FLOKI",
+        "name": "FLOKI",
+        "volume_24h_usd": 33803051.0,
+        "market_cap_usd": 216620682.0,
         "source": "coingecko"
       },
       {
-        "asset": "BILL",
-        "name": "Billions Network",
-        "volume_24h_usd": 25585332.0,
-        "market_cap_usd": 75742240.0,
+        "asset": "DIA",
+        "name": "DIA",
+        "volume_24h_usd": 31861147.0,
+        "market_cap_usd": 17017129.0,
         "source": "coingecko"
       },
       {
-        "asset": "SPCXB",
-        "name": "SpaceX (bStocks Tokenized Stock)",
-        "volume_24h_usd": 25296088.0,
-        "market_cap_usd": 94345163.0,
+        "asset": "HBAR",
+        "name": "Hedera",
+        "volume_24h_usd": 31165748.0,
+        "market_cap_usd": 3071632568.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PUMP",
+        "name": "Pump.fun",
+        "volume_24h_usd": 30700013.0,
+        "market_cap_usd": 720550459.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "APT",
+        "name": "Aptos",
+        "volume_24h_usd": 29792291.0,
+        "market_cap_usd": 530208806.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PRL",
+        "name": "Perle",
+        "volume_24h_usd": 29674628.0,
+        "market_cap_usd": 37622703.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "DASH",
+        "name": "Dash",
+        "volume_24h_usd": 29666049.0,
+        "market_cap_usd": 416251137.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "VIRTUAL",
+        "name": "Virtuals Protocol",
+        "volume_24h_usd": 29650944.0,
+        "market_cap_usd": 382350096.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RIF",
+        "name": "Rootstock Infrastructure Framework",
+        "volume_24h_usd": 28555794.0,
+        "market_cap_usd": 93905278.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "RAIN",
+        "name": "Rain",
+        "volume_24h_usd": 28080469.0,
+        "market_cap_usd": 9456421883.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "GWEI",
+        "name": "ETHGas",
+        "volume_24h_usd": 27232034.0,
+        "market_cap_usd": 46583571.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "XPL",
+        "name": "Plasma",
+        "volume_24h_usd": 26866123.0,
+        "market_cap_usd": 222975015.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ORDI",
+        "name": "ORDI",
+        "volume_24h_usd": 26779652.0,
+        "market_cap_usd": 80402512.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ARB",
+        "name": "Arbitrum",
+        "volume_24h_usd": 25678571.0,
+        "market_cap_usd": 545289401.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "GRAM",
+        "name": "Gram (prev. Toncoin)",
+        "volume_24h_usd": 25445466.0,
+        "market_cap_usd": 4130069362.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ESPORTS",
+        "name": "Yooldo Games",
+        "volume_24h_usd": 25406322.0,
+        "market_cap_usd": 7180369.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WLFI",
+        "name": "World Liberty Financial",
+        "volume_24h_usd": 25288450.0,
+        "market_cap_usd": 1748648475.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ICP",
+        "name": "Internet Computer",
+        "volume_24h_usd": 25177937.0,
+        "market_cap_usd": 1207261120.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "WBT",
+        "name": "WhiteBIT Coin",
+        "volume_24h_usd": 22519202.0,
+        "market_cap_usd": 16527981319.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "PAXG",
+        "name": "PAX Gold",
+        "volume_24h_usd": 21976941.0,
+        "market_cap_usd": 1803990492.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "TWT",
+        "name": "Trust Wallet",
+        "volume_24h_usd": 20650069.0,
+        "market_cap_usd": 146740946.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "QQQB",
+        "name": "Invesco QQQ Trust (bStocks Tokenized Stock)",
+        "volume_24h_usd": 20357046.0,
+        "market_cap_usd": 1283263.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "POL",
+        "name": "POL (ex-MATIC)",
+        "volume_24h_usd": 20343388.0,
+        "market_cap_usd": 817062220.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "LAB",
+        "name": "LAB",
+        "volume_24h_usd": 20186492.0,
+        "market_cap_usd": 49241124.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "JST",
+        "name": "JUST",
+        "volume_24h_usd": 20158709.0,
+        "market_cap_usd": 853891469.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "REUR",
+        "name": "Royal Euro",
+        "volume_24h_usd": 19804868.0,
+        "market_cap_usd": 62008637.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "JTO",
+        "name": "Jito",
+        "volume_24h_usd": 19470672.0,
+        "market_cap_usd": 295668655.0,
         "source": "coingecko"
       },
       {
         "asset": "ETHFI",
         "name": "Ether.fi",
-        "volume_24h_usd": 24736533.0,
-        "market_cap_usd": 441705233.0,
+        "volume_24h_usd": 19326339.0,
+        "market_cap_usd": 397155505.0,
+        "source": "coingecko"
+      },
+      {
+        "asset": "ACE",
+        "name": "Fusionist",
+        "volume_24h_usd": 19139471.0,
+        "market_cap_usd": 9070355.0,
         "source": "coingecko"
       }
     ],
     "coinmarketcap_exchanges": [],
     "coinmarketcap_assets": [],
-    "ccxt_pairs_sample_count": 763
+    "ccxt_pairs_sample_count": 3833
   },
   "operational": {
     "exchanges": [
+      "aerodrome",
+      "apex",
+      "ascendex",
+      "azbit",
+      "balancer",
+      "biconomy",
+      "bifinance",
+      "bigone",
       "binance",
+      "binance_tr",
+      "bingx",
+      "bitbank",
       "bitfinex",
+      "bitflyer",
       "bitget",
+      "bithumb",
+      "bitmart",
+      "bitoasis",
+      "bitso",
       "bitstamp",
+      "bitunix",
+      "bitvavo",
+      "bkex",
+      "btcc",
+      "btcturk",
+      "buda",
       "bybit",
+      "camelot",
+      "cetus",
       "coinbase",
+      "coincheck",
+      "coinex",
+      "coinmena",
+      "coinone",
+      "coinsquare",
+      "coinstore",
+      "coinw",
+      "cryptocom",
+      "cryptocom_us",
+      "curve",
+      "dedust",
+      "deepcoin",
+      "digifinex",
+      "drift",
+      "dydx",
+      "fameex",
+      "gains",
       "gateio",
+      "gemini",
+      "gemini_uk",
+      "gmx",
+      "hotcoin",
+      "htx",
       "huobi",
+      "hyperliquid",
+      "independentreserve",
+      "jupiter",
+      "jupiter_perps",
+      "kcex",
+      "korbit",
       "kraken",
       "kucoin",
-      "okx"
+      "kwenta",
+      "lbank",
+      "luno",
+      "mercadobitcoin",
+      "mexc",
+      "mux",
+      "okx",
+      "orangex",
+      "orca",
+      "osmosis",
+      "ourbit",
+      "pancakeswap",
+      "paribu",
+      "phemex",
+      "pionex",
+      "poloniex",
+      "probit",
+      "quickswap",
+      "rain",
+      "raydium",
+      "spookyswap",
+      "stonfi",
+      "sushiswap",
+      "syncswap",
+      "synthetix",
+      "tapbit",
+      "thorchain",
+      "tokocrypto",
+      "toobit",
+      "traderjoe",
+      "uniswap_v3",
+      "upbit",
+      "valr",
+      "vvs",
+      "weex",
+      "whitebit",
+      "woox",
+      "xt",
+      "zoomex"
     ],
     "assets": [
+      "1INCH",
       "AAVE",
+      "ACE",
       "ADA",
       "AERO",
-      "AKE",
+      "AGIX",
+      "AKT",
+      "ALGO",
+      "ALLO",
+      "ALT",
+      "API3",
       "APT",
+      "AR",
       "ARB",
+      "ARKM",
+      "ASI",
       "ASTER",
+      "ATOM",
       "AVAX",
+      "AXS",
+      "BAND",
       "BANK",
-      "BARD",
       "BCH",
-      "BILL",
+      "BEAM",
+      "BLUR",
       "BNB",
+      "BOME",
       "BONK",
       "BTC",
       "CASHDOG",
+      "CHZ",
+      "CORE",
+      "CRV",
+      "CYBER",
       "DAI",
       "DASH",
       "DEXE",
+      "DIA",
       "DOGE",
       "DOT",
+      "DYDX",
+      "DYM",
+      "EGLD",
       "ENA",
-      "ERA",
+      "ENJ",
+      "EOS",
+      "ESPORTS",
       "ETC",
       "ETH",
       "ETHFI",
-      "EURC",
-      "EVAA",
+      "EUL",
       "FDUSD",
       "FET",
       "FIGR_HELOC",
       "FIL",
+      "FLOKI",
+      "FLOW",
+      "FTM",
+      "GAL",
+      "GALA",
+      "GLM",
+      "GNO",
       "GRAM",
+      "GRT",
+      "GWEI",
       "HBAR",
-      "HOME",
-      "HTX",
       "HYPE",
       "ICP",
-      "IDOL",
+      "ID",
+      "ILV",
+      "IMX",
       "INJ",
-      "JIMOTHY",
+      "IOTA",
+      "JASMY",
       "JOHN",
       "JST",
       "JTO",
+      "JUP",
       "KAITO",
-      "KITE",
-      "LA",
+      "KAS",
+      "LAB",
       "LDO",
       "LINK",
-      "LIT",
+      "LPT",
+      "LRC",
       "LTC",
+      "MANA",
+      "MANTA",
+      "MASK",
+      "MATIC",
+      "MC",
+      "MINA",
+      "MKR",
+      "MNT",
+      "MORPHO",
       "NEAR",
-      "O",
+      "NEO",
+      "NES",
+      "OCEAN",
       "ONDO",
       "OP",
-      "OPN",
+      "ORDI",
       "PAXG",
+      "PENDLE",
       "PENGU",
       "PEPE",
+      "PIEVERSE",
       "POL",
-      "PRIME",
+      "PRL",
       "PUMP",
-      "PYUSD",
+      "PYR",
+      "PYTH",
+      "QNT",
       "QQQB",
       "RAIN",
+      "RAY",
       "RE",
+      "RENDER",
+      "REUR",
       "RIF",
       "RLUSD",
+      "ROSE",
+      "RUNE",
+      "SAFE",
+      "SAND",
+      "SEI",
       "SHIB",
+      "SKY",
+      "SNX",
       "SOL",
-      "SPCXB",
+      "STRK",
       "STX",
       "SUI",
       "SUN",
+      "SUPER",
+      "SUSHI",
       "SYN",
+      "T",
       "TAO",
+      "THETA",
+      "TIA",
+      "TON",
       "TRUMP",
       "TRX",
+      "TWT",
       "U",
       "UNI",
-      "UP",
-      "USAT",
       "USD1",
       "USDC",
       "USDCX",
+      "USDD",
       "USDG",
       "USDS",
       "USDT",
       "VANA",
       "VIRTUAL",
+      "VVV",
+      "W",
+      "WBT",
+      "WETH",
+      "WIF",
       "WLD",
       "WLFI",
+      "WOO",
       "XAUT",
       "XLM",
       "XMR",
       "XPL",
       "XRP",
+      "XTZ",
+      "YFI",
       "ZAMA",
-      "ZEC",
-      "\u5e01\u5b89\u4eba\u751f"
+      "ZEC"
     ],
     "symbols": [
+      "1INCH/USDC",
+      "1INCH/USDT",
       "AAVE/USDC",
       "AAVE/USDT",
+      "ACE/USDC",
+      "ACE/USDT",
       "ADA/USDC",
       "ADA/USDT",
       "AERO/USDC",
       "AERO/USDT",
-      "AKE/USDC",
-      "AKE/USDT",
+      "AGIX/USDC",
+      "AGIX/USDT",
+      "AKT/USDC",
+      "AKT/USDT",
+      "ALGO/USDC",
+      "ALGO/USDT",
+      "ALLO/USDC",
+      "ALLO/USDT",
+      "ALT/USDC",
+      "ALT/USDT",
+      "API3/USDC",
+      "API3/USDT",
       "APT/USDC",
       "APT/USDT",
+      "AR/USDC",
+      "AR/USDT",
       "ARB/USDC",
       "ARB/USDT",
+      "ARKM/USDC",
+      "ARKM/USDT",
+      "ASI/USDC",
+      "ASI/USDT",
       "ASTER/USDC",
       "ASTER/USDT",
+      "ATOM/USDC",
+      "ATOM/USDT",
       "AVAX/USDC",
       "AVAX/USDT",
+      "AXS/USDC",
+      "AXS/USDT",
+      "BAND/USDC",
+      "BAND/USDT",
       "BANK/USDC",
       "BANK/USDT",
-      "BARD/USDC",
-      "BARD/USDT",
       "BCH/USDC",
       "BCH/USDT",
-      "BILL/USDC",
-      "BILL/USDT",
+      "BEAM/USDC",
+      "BEAM/USDT",
+      "BLUR/USDC",
+      "BLUR/USDT",
       "BNB/USDC",
       "BNB/USDT",
+      "BOME/USDC",
+      "BOME/USDT",
       "BONK/USDC",
       "BONK/USDT",
       "BTC/USDC",
       "BTC/USDT",
       "CASHDOG/USDC",
       "CASHDOG/USDT",
+      "CHZ/USDC",
+      "CHZ/USDT",
+      "CORE/USDC",
+      "CORE/USDT",
+      "CRV/USDC",
+      "CRV/USDT",
+      "CYBER/USDC",
+      "CYBER/USDT",
       "DAI/USDC",
       "DAI/USDT",
       "DASH/USDC",
       "DASH/USDT",
       "DEXE/USDC",
       "DEXE/USDT",
+      "DIA/USDC",
+      "DIA/USDT",
       "DOGE/USDC",
       "DOGE/USDT",
       "DOT/USDC",
       "DOT/USDT",
+      "DYDX/USDC",
+      "DYDX/USDT",
+      "DYM/USDC",
+      "DYM/USDT",
+      "EGLD/USDC",
+      "EGLD/USDT",
       "ENA/USDC",
       "ENA/USDT",
-      "ERA/USDC",
-      "ERA/USDT",
+      "ENJ/USDC",
+      "ENJ/USDT",
+      "EOS/USDC",
+      "EOS/USDT",
+      "ESPORTS/USDC",
+      "ESPORTS/USDT",
       "ETC/USDC",
       "ETC/USDT",
       "ETH/USDC",
       "ETH/USDT",
       "ETHFI/USDC",
       "ETHFI/USDT",
-      "EURC/USDC",
-      "EURC/USDT",
-      "EVAA/USDC",
-      "EVAA/USDT",
+      "EUL/USDC",
+      "EUL/USDT",
       "FDUSD/USDC",
       "FDUSD/USDT",
       "FET/USDC",
@@ -1779,111 +1990,197 @@
       "FIGR_HELOC/USDT",
       "FIL/USDC",
       "FIL/USDT",
+      "FLOKI/USDC",
+      "FLOKI/USDT",
+      "FLOW/USDC",
+      "FLOW/USDT",
+      "FTM/USDC",
+      "FTM/USDT",
+      "GAL/USDC",
+      "GAL/USDT",
+      "GALA/USDC",
+      "GALA/USDT",
+      "GLM/USDC",
+      "GLM/USDT",
+      "GNO/USDC",
+      "GNO/USDT",
       "GRAM/USDC",
       "GRAM/USDT",
+      "GRT/USDC",
+      "GRT/USDT",
+      "GWEI/USDC",
+      "GWEI/USDT",
       "HBAR/USDC",
       "HBAR/USDT",
-      "HOME/USDC",
-      "HOME/USDT",
-      "HTX/USDC",
-      "HTX/USDT",
       "HYPE/USDC",
       "HYPE/USDT",
       "ICP/USDC",
       "ICP/USDT",
-      "IDOL/USDC",
-      "IDOL/USDT",
+      "ID/USDC",
+      "ID/USDT",
+      "ILV/USDC",
+      "ILV/USDT",
+      "IMX/USDC",
+      "IMX/USDT",
       "INJ/USDC",
       "INJ/USDT",
-      "JIMOTHY/USDC",
-      "JIMOTHY/USDT",
+      "IOTA/USDC",
+      "IOTA/USDT",
+      "JASMY/USDC",
+      "JASMY/USDT",
       "JOHN/USDC",
       "JOHN/USDT",
       "JST/USDC",
       "JST/USDT",
       "JTO/USDC",
       "JTO/USDT",
+      "JUP/USDC",
+      "JUP/USDT",
       "KAITO/USDC",
       "KAITO/USDT",
-      "KITE/USDC",
-      "KITE/USDT",
-      "LA/USDC",
-      "LA/USDT",
+      "KAS/USDC",
+      "KAS/USDT",
+      "LAB/USDC",
+      "LAB/USDT",
       "LDO/USDC",
       "LDO/USDT",
       "LINK/USDC",
       "LINK/USDT",
-      "LIT/USDC",
-      "LIT/USDT",
+      "LPT/USDC",
+      "LPT/USDT",
+      "LRC/USDC",
+      "LRC/USDT",
       "LTC/USDC",
       "LTC/USDT",
+      "MANA/USDC",
+      "MANA/USDT",
+      "MANTA/USDC",
+      "MANTA/USDT",
+      "MASK/USDC",
+      "MASK/USDT",
+      "MATIC/USDC",
+      "MATIC/USDT",
+      "MC/USDC",
+      "MC/USDT",
+      "MINA/USDC",
+      "MINA/USDT",
+      "MKR/USDC",
+      "MKR/USDT",
+      "MNT/USDC",
+      "MNT/USDT",
+      "MORPHO/USDC",
+      "MORPHO/USDT",
       "NEAR/USDC",
       "NEAR/USDT",
-      "O/USDC",
-      "O/USDT",
+      "NEO/USDC",
+      "NEO/USDT",
+      "NES/USDC",
+      "NES/USDT",
+      "OCEAN/USDC",
+      "OCEAN/USDT",
       "ONDO/USDC",
       "ONDO/USDT",
       "OP/USDC",
       "OP/USDT",
-      "OPN/USDC",
-      "OPN/USDT",
+      "ORDI/USDC",
+      "ORDI/USDT",
       "PAXG/USDC",
       "PAXG/USDT",
+      "PENDLE/USDC",
+      "PENDLE/USDT",
       "PENGU/USDC",
       "PENGU/USDT",
       "PEPE/USDC",
       "PEPE/USDT",
+      "PIEVERSE/USDC",
+      "PIEVERSE/USDT",
       "POL/USDC",
       "POL/USDT",
-      "PRIME/USDC",
-      "PRIME/USDT",
+      "PRL/USDC",
+      "PRL/USDT",
       "PUMP/USDC",
       "PUMP/USDT",
-      "PYUSD/USDC",
-      "PYUSD/USDT",
+      "PYR/USDC",
+      "PYR/USDT",
+      "PYTH/USDC",
+      "PYTH/USDT",
+      "QNT/USDC",
+      "QNT/USDT",
       "QQQB/USDC",
       "QQQB/USDT",
       "RAIN/USDC",
       "RAIN/USDT",
+      "RAY/USDC",
+      "RAY/USDT",
       "RE/USDC",
       "RE/USDT",
+      "RENDER/USDC",
+      "RENDER/USDT",
+      "REUR/USDC",
+      "REUR/USDT",
       "RIF/USDC",
       "RIF/USDT",
       "RLUSD/USDC",
       "RLUSD/USDT",
+      "ROSE/USDC",
+      "ROSE/USDT",
+      "RUNE/USDC",
+      "RUNE/USDT",
+      "SAFE/USDC",
+      "SAFE/USDT",
+      "SAND/USDC",
+      "SAND/USDT",
+      "SEI/USDC",
+      "SEI/USDT",
       "SHIB/USDC",
       "SHIB/USDT",
+      "SKY/USDC",
+      "SKY/USDT",
+      "SNX/USDC",
+      "SNX/USDT",
       "SOL/USDC",
       "SOL/USDT",
-      "SPCXB/USDC",
-      "SPCXB/USDT",
+      "STRK/USDC",
+      "STRK/USDT",
       "STX/USDC",
       "STX/USDT",
       "SUI/USDC",
       "SUI/USDT",
       "SUN/USDC",
       "SUN/USDT",
+      "SUPER/USDC",
+      "SUPER/USDT",
+      "SUSHI/USDC",
+      "SUSHI/USDT",
       "SYN/USDC",
       "SYN/USDT",
+      "T/USDC",
+      "T/USDT",
       "TAO/USDC",
       "TAO/USDT",
+      "THETA/USDC",
+      "THETA/USDT",
+      "TIA/USDC",
+      "TIA/USDT",
+      "TON/USDC",
+      "TON/USDT",
       "TRUMP/USDC",
       "TRUMP/USDT",
       "TRX/USDC",
       "TRX/USDT",
+      "TWT/USDC",
+      "TWT/USDT",
       "U/USDC",
       "U/USDT",
       "UNI/USDC",
       "UNI/USDT",
-      "UP/USDC",
-      "UP/USDT",
-      "USAT/USDC",
-      "USAT/USDT",
       "USD1/USDC",
       "USD1/USDT",
       "USDC/USDT",
       "USDCX/USDC",
       "USDCX/USDT",
+      "USDD/USDC",
+      "USDD/USDT",
       "USDG/USDC",
       "USDG/USDT",
       "USDS/USDC",
@@ -1893,10 +2190,22 @@
       "VANA/USDT",
       "VIRTUAL/USDC",
       "VIRTUAL/USDT",
+      "VVV/USDC",
+      "VVV/USDT",
+      "W/USDC",
+      "W/USDT",
+      "WBT/USDC",
+      "WBT/USDT",
+      "WETH/USDC",
+      "WETH/USDT",
+      "WIF/USDC",
+      "WIF/USDT",
       "WLD/USDC",
       "WLD/USDT",
       "WLFI/USDC",
       "WLFI/USDT",
+      "WOO/USDC",
+      "WOO/USDT",
       "XAUT/USDC",
       "XAUT/USDT",
       "XLM/USDC",
@@ -1907,22 +2216,1773 @@
       "XPL/USDT",
       "XRP/USDC",
       "XRP/USDT",
+      "XTZ/USDC",
+      "XTZ/USDT",
+      "YFI/USDC",
+      "YFI/USDT",
       "ZAMA/USDC",
       "ZAMA/USDT",
       "ZEC/USDC",
-      "ZEC/USDT",
-      "\u5e01\u5b89\u4eba\u751f/USDC",
-      "\u5e01\u5b89\u4eba\u751f/USDT"
+      "ZEC/USDT"
     ],
     "ingestion_ready_exchanges": [
+      "aerodrome",
+      "apex",
+      "ascendex",
+      "azbit",
+      "balancer",
+      "biconomy",
+      "bifinance",
+      "bigone",
       "binance",
+      "binance_tr",
+      "bingx",
+      "bitbank",
+      "bitfinex",
+      "bitflyer",
+      "bitget",
+      "bithumb",
+      "bitmart",
+      "bitoasis",
+      "bitso",
+      "bitstamp",
+      "bitunix",
+      "bitvavo",
+      "bkex",
+      "btcc",
+      "btcturk",
+      "buda",
       "bybit",
-      "okx"
+      "camelot",
+      "cetus",
+      "coinbase",
+      "coincheck",
+      "coinex",
+      "coinmena",
+      "coinone",
+      "coinsquare",
+      "coinstore",
+      "coinw",
+      "cryptocom",
+      "cryptocom_us",
+      "curve",
+      "dedust",
+      "deepcoin",
+      "digifinex",
+      "drift",
+      "dydx",
+      "fameex",
+      "gains",
+      "gateio",
+      "gemini",
+      "gemini_uk",
+      "gmx",
+      "hotcoin",
+      "htx",
+      "hyperliquid",
+      "independentreserve",
+      "jupiter",
+      "jupiter_perps",
+      "kcex",
+      "korbit",
+      "kraken",
+      "kucoin",
+      "kwenta",
+      "lbank",
+      "luno",
+      "mercadobitcoin",
+      "mexc",
+      "mux",
+      "okx",
+      "orangex",
+      "orca",
+      "osmosis",
+      "ourbit",
+      "pancakeswap",
+      "paribu",
+      "phemex",
+      "pionex",
+      "poloniex",
+      "probit",
+      "quickswap",
+      "rain",
+      "raydium",
+      "spookyswap",
+      "stonfi",
+      "sushiswap",
+      "syncswap",
+      "synthetix",
+      "tapbit",
+      "thorchain",
+      "tokocrypto",
+      "toobit",
+      "traderjoe",
+      "uniswap_v3",
+      "upbit",
+      "valr",
+      "vvs",
+      "weex",
+      "whitebit",
+      "woox",
+      "xt",
+      "zoomex"
     ]
   },
   "review": {
     "approved": false,
     "approved_at": null,
     "instruction": "Review this manifest before enabling live ingestion. Whitelist entries cannot be removed by filtering errors."
+  },
+  "universe": {
+    "target_exchanges": 100,
+    "target_assets": 105,
+    "ingestion_ready_count": 100,
+    "ingestion_ready_ids": [
+      "binance",
+      "okx",
+      "bybit",
+      "coinbase",
+      "kucoin",
+      "bitget",
+      "gateio",
+      "mexc",
+      "kraken",
+      "htx",
+      "cryptocom",
+      "bingx",
+      "lbank",
+      "xt",
+      "coinw",
+      "upbit",
+      "bithumb",
+      "bitfinex",
+      "bitstamp",
+      "whitebit",
+      "pionex",
+      "toobit",
+      "bitmart",
+      "coinex",
+      "ourbit",
+      "deepcoin",
+      "kcex",
+      "btcc",
+      "weex",
+      "bitunix",
+      "poloniex",
+      "bigone",
+      "tapbit",
+      "fameex",
+      "azbit",
+      "biconomy",
+      "orangex",
+      "hotcoin",
+      "zoomex",
+      "bifinance",
+      "phemex",
+      "woox",
+      "coinstore",
+      "tokocrypto",
+      "gemini",
+      "ascendex",
+      "bkex",
+      "digifinex",
+      "bitvavo",
+      "probit",
+      "uniswap_v3",
+      "pancakeswap",
+      "raydium",
+      "jupiter",
+      "orca",
+      "curve",
+      "balancer",
+      "sushiswap",
+      "traderjoe",
+      "quickswap",
+      "spookyswap",
+      "camelot",
+      "aerodrome",
+      "syncswap",
+      "cetus",
+      "stonfi",
+      "dedust",
+      "vvs",
+      "osmosis",
+      "thorchain",
+      "hyperliquid",
+      "dydx",
+      "gmx",
+      "apex",
+      "gains",
+      "kwenta",
+      "drift",
+      "mux",
+      "synthetix",
+      "jupiter_perps",
+      "binance_tr",
+      "bitflyer",
+      "coincheck",
+      "mercadobitcoin",
+      "coinsquare",
+      "independentreserve",
+      "luno",
+      "rain",
+      "coinmena",
+      "bitoasis",
+      "korbit",
+      "coinone",
+      "paribu",
+      "btcturk",
+      "valr",
+      "bitso",
+      "buda",
+      "cryptocom_us",
+      "gemini_uk",
+      "bitbank"
+    ],
+    "ccxt_mapped_count": 0,
+    "dex_count": 20,
+    "perp_dex_count": 10,
+    "asset_symbols": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "BNB",
+      "XRP",
+      "HYPE",
+      "TON",
+      "TRX",
+      "ADA",
+      "AVAX",
+      "SUI",
+      "NEAR",
+      "LINK",
+      "DOT",
+      "LTC",
+      "POL",
+      "XLM",
+      "UNI",
+      "APT",
+      "HBAR",
+      "KAS",
+      "ATOM",
+      "XMR",
+      "ICP",
+      "ETC",
+      "INJ",
+      "FIL",
+      "OP",
+      "ARB",
+      "RENDER",
+      "FET",
+      "TAO",
+      "MKR",
+      "STX",
+      "IMX",
+      "SEI",
+      "FTM",
+      "TIA",
+      "RUNE",
+      "JUP",
+      "GRT",
+      "LDO",
+      "MNT",
+      "ONDO",
+      "JASMY",
+      "AR",
+      "CORE",
+      "GALA",
+      "QNT",
+      "ALGO",
+      "FLOW",
+      "ENA",
+      "CHZ",
+      "DYDX",
+      "AXS",
+      "SAND",
+      "MANA",
+      "BEAM",
+      "PENDLE",
+      "WLD",
+      "AAVE",
+      "SNX",
+      "GNO",
+      "THETA",
+      "XTZ",
+      "EOS",
+      "NEO",
+      "IOTA",
+      "MINA",
+      "EGLD",
+      "RAY",
+      "ARKM",
+      "PYTH",
+      "STRK",
+      "W",
+      "JTO",
+      "SAFE",
+      "ALT",
+      "DYM",
+      "MANTA",
+      "OCEAN",
+      "AGIX",
+      "AKT",
+      "GLM",
+      "LPT",
+      "WOO",
+      "API3",
+      "BAND",
+      "LRC",
+      "1INCH",
+      "CRV",
+      "YFI",
+      "SUSHI",
+      "BLUR",
+      "ILV",
+      "MC",
+      "ENJ",
+      "PYR",
+      "SUPER",
+      "ROSE",
+      "T",
+      "MASK",
+      "CYBER",
+      "ID",
+      "GAL"
+    ],
+    "exchanges": [
+      {
+        "id": "binance",
+        "name": "Binance",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "binance",
+        "provider": "native"
+      },
+      {
+        "id": "okx",
+        "name": "OKX",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "okx",
+        "provider": "native"
+      },
+      {
+        "id": "bybit",
+        "name": "Bybit",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "bybit",
+        "provider": "native"
+      },
+      {
+        "id": "coinbase",
+        "name": "Coinbase Exchange",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "coinbase",
+        "provider": "native"
+      },
+      {
+        "id": "kucoin",
+        "name": "KuCoin",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "kucoin",
+        "provider": "native"
+      },
+      {
+        "id": "bitget",
+        "name": "Bitget",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitget",
+        "provider": "native"
+      },
+      {
+        "id": "gateio",
+        "name": "Gate.io",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "gateio",
+        "provider": "native"
+      },
+      {
+        "id": "mexc",
+        "name": "MEXC",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "mexc",
+        "provider": "native"
+      },
+      {
+        "id": "kraken",
+        "name": "Kraken",
+        "category": "cex",
+        "tier": 1,
+        "status": "ingestion_ready",
+        "ccxt_id": "kraken",
+        "provider": "native"
+      },
+      {
+        "id": "htx",
+        "name": "HTX",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "htx",
+        "provider": "ccxt"
+      },
+      {
+        "id": "cryptocom",
+        "name": "Crypto.com",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "cryptocom",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bingx",
+        "name": "BingX",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bingx",
+        "provider": "ccxt"
+      },
+      {
+        "id": "lbank",
+        "name": "LBank",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "lbank",
+        "provider": "ccxt"
+      },
+      {
+        "id": "xt",
+        "name": "XT.COM",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "xt",
+        "provider": "ccxt"
+      },
+      {
+        "id": "coinw",
+        "name": "CoinW",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "upbit",
+        "name": "Upbit",
+        "category": "regional_cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "upbit",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bithumb",
+        "name": "Bithumb",
+        "category": "regional_cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bithumb",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bitfinex",
+        "name": "Bitfinex",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitfinex",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bitstamp",
+        "name": "Bitstamp",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitstamp",
+        "provider": "ccxt"
+      },
+      {
+        "id": "whitebit",
+        "name": "WhiteBIT",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "whitebit",
+        "provider": "ccxt"
+      },
+      {
+        "id": "pionex",
+        "name": "Pionex",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "toobit",
+        "name": "Toobit",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "bitmart",
+        "name": "BitMart",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitmart",
+        "provider": "ccxt"
+      },
+      {
+        "id": "coinex",
+        "name": "CoinEx",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "coinex",
+        "provider": "ccxt"
+      },
+      {
+        "id": "ourbit",
+        "name": "Ourbit",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "deepcoin",
+        "name": "Deepcoin",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "kcex",
+        "name": "KCEX",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "btcc",
+        "name": "BTCC",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "weex",
+        "name": "WEEX",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "bitunix",
+        "name": "Bitunix",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "poloniex",
+        "name": "Poloniex",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "poloniex",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bigone",
+        "name": "BigONE",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "tapbit",
+        "name": "Tapbit",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "fameex",
+        "name": "FameEX",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "azbit",
+        "name": "Azbit",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "biconomy",
+        "name": "Biconomy",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "orangex",
+        "name": "OrangeX",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "hotcoin",
+        "name": "Hotcoin",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "zoomex",
+        "name": "Zoomex",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "bifinance",
+        "name": "BiFinance",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "phemex",
+        "name": "Phemex",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "phemex",
+        "provider": "ccxt"
+      },
+      {
+        "id": "woox",
+        "name": "Woo X",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "coinstore",
+        "name": "Coinstore",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "tokocrypto",
+        "name": "Tokocrypto",
+        "category": "regional_cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "binance_tr",
+        "provider": "ccxt"
+      },
+      {
+        "id": "gemini",
+        "name": "Gemini",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "gemini",
+        "provider": "ccxt"
+      },
+      {
+        "id": "ascendex",
+        "name": "AscendEX",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "ascendex",
+        "provider": "coingecko"
+      },
+      {
+        "id": "bkex",
+        "name": "BKEX",
+        "category": "cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "digifinex",
+        "name": "Digifinex",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "digifinex",
+        "provider": "ccxt"
+      },
+      {
+        "id": "bitvavo",
+        "name": "Bitvavo",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitvavo",
+        "provider": "ccxt"
+      },
+      {
+        "id": "probit",
+        "name": "ProBit Global",
+        "category": "cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "probit",
+        "provider": "coingecko"
+      },
+      {
+        "id": "uniswap_v3",
+        "name": "Uniswap (V3)",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "pancakeswap",
+        "name": "PancakeSwap",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "raydium",
+        "name": "Raydium",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "jupiter",
+        "name": "Jupiter",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "orca",
+        "name": "Orca",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "curve",
+        "name": "Curve Finance",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "balancer",
+        "name": "Balancer",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "sushiswap",
+        "name": "SushiSwap",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "traderjoe",
+        "name": "Trader Joe",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "quickswap",
+        "name": "QuickSwap",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "spookyswap",
+        "name": "SpookySwap",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "camelot",
+        "name": "Camelot",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "aerodrome",
+        "name": "Aerodrome",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "syncswap",
+        "name": "SyncSwap",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "cetus",
+        "name": "Cetus",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "stonfi",
+        "name": "Ston.fi",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "dedust",
+        "name": "Dedust",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "vvs",
+        "name": "VVS Finance",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "osmosis",
+        "name": "Osmosis",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "thorchain",
+        "name": "THORChain",
+        "category": "dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "dex"
+      },
+      {
+        "id": "hyperliquid",
+        "name": "Hyperliquid",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "dydx",
+        "name": "dYdX",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "gmx",
+        "name": "GMX",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "apex",
+        "name": "Apex Protocol",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "gains",
+        "name": "Gains Network",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "kwenta",
+        "name": "Kwenta",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "drift",
+        "name": "Drift Protocol",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "mux",
+        "name": "MUX Protocol",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "synthetix",
+        "name": "Synthetix",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "jupiter_perps",
+        "name": "Jupiter Perps",
+        "category": "perp_dex",
+        "tier": 3,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "perp_dex"
+      },
+      {
+        "id": "binance_tr",
+        "name": "Binance TR",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "bitflyer",
+        "name": "bitFlyer",
+        "category": "regional_cex",
+        "tier": 2,
+        "status": "ingestion_ready",
+        "ccxt_id": "bitflyer",
+        "provider": "ccxt"
+      },
+      {
+        "id": "coincheck",
+        "name": "Coincheck",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "mercadobitcoin",
+        "name": "Mercado Bitcoin",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "coinsquare",
+        "name": "CoinSquare",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "independentreserve",
+        "name": "Independent Reserve",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "luno",
+        "name": "Luno",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "rain",
+        "name": "Rain",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "coinmena",
+        "name": "CoinMENA",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "bitoasis",
+        "name": "BitOasis",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "korbit",
+        "name": "Korbit",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "coinone",
+        "name": "Coinone",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "paribu",
+        "name": "Paribu",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "btcturk",
+        "name": "BtcTurk",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "valr",
+        "name": "VALR",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "bitso",
+        "name": "Bitso",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      },
+      {
+        "id": "buda",
+        "name": "Buda",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "cryptocom_us",
+        "name": "Crypto.com Exchange US",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "gemini_uk",
+        "name": "Gemini UK",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "coingecko"
+      },
+      {
+        "id": "bitbank",
+        "name": "Bitbank",
+        "category": "regional_cex",
+        "tier": 4,
+        "status": "ingestion_ready",
+        "ccxt_id": null,
+        "provider": "ccxt"
+      }
+    ],
+    "assets": [
+      {
+        "symbol": "BTC",
+        "label": "Bitcoin (BTC)",
+        "aliases": []
+      },
+      {
+        "symbol": "ETH",
+        "label": "Ethereum (ETH)",
+        "aliases": []
+      },
+      {
+        "symbol": "SOL",
+        "label": "Solana (SOL)",
+        "aliases": []
+      },
+      {
+        "symbol": "BNB",
+        "label": "Binance Coin (BNB)",
+        "aliases": []
+      },
+      {
+        "symbol": "XRP",
+        "label": "XRP (XRP)",
+        "aliases": []
+      },
+      {
+        "symbol": "HYPE",
+        "label": "Hyperliquid (HYPE)",
+        "aliases": []
+      },
+      {
+        "symbol": "TON",
+        "label": "Toncoin (TON)",
+        "aliases": []
+      },
+      {
+        "symbol": "TRX",
+        "label": "TRON (TRX)",
+        "aliases": []
+      },
+      {
+        "symbol": "ADA",
+        "label": "Cardano (ADA)",
+        "aliases": []
+      },
+      {
+        "symbol": "AVAX",
+        "label": "Avalanche (AVAX)",
+        "aliases": []
+      },
+      {
+        "symbol": "SUI",
+        "label": "Sui (SUI)",
+        "aliases": []
+      },
+      {
+        "symbol": "NEAR",
+        "label": "Near Protocol (NEAR)",
+        "aliases": []
+      },
+      {
+        "symbol": "LINK",
+        "label": "Chainlink (LINK)",
+        "aliases": []
+      },
+      {
+        "symbol": "DOT",
+        "label": "Polkadot (DOT)",
+        "aliases": []
+      },
+      {
+        "symbol": "LTC",
+        "label": "Litecoin (LTC)",
+        "aliases": []
+      },
+      {
+        "symbol": "POL",
+        "label": "Polygon (POL/MATIC)",
+        "aliases": [
+          "MATIC"
+        ]
+      },
+      {
+        "symbol": "XLM",
+        "label": "Stellar (XLM)",
+        "aliases": []
+      },
+      {
+        "symbol": "UNI",
+        "label": "Uniswap (UNI)",
+        "aliases": []
+      },
+      {
+        "symbol": "APT",
+        "label": "Aptos (APT)",
+        "aliases": []
+      },
+      {
+        "symbol": "HBAR",
+        "label": "Hedera (HBAR)",
+        "aliases": []
+      },
+      {
+        "symbol": "KAS",
+        "label": "Kaspa (KAS)",
+        "aliases": []
+      },
+      {
+        "symbol": "ATOM",
+        "label": "Cosmos (ATOM)",
+        "aliases": []
+      },
+      {
+        "symbol": "XMR",
+        "label": "Monero (XMR)",
+        "aliases": []
+      },
+      {
+        "symbol": "ICP",
+        "label": "Internet Computer (ICP)",
+        "aliases": []
+      },
+      {
+        "symbol": "ETC",
+        "label": "Ethereum Classic (ETC)",
+        "aliases": []
+      },
+      {
+        "symbol": "INJ",
+        "label": "Injective (INJ)",
+        "aliases": []
+      },
+      {
+        "symbol": "FIL",
+        "label": "Filecoin (FIL)",
+        "aliases": []
+      },
+      {
+        "symbol": "OP",
+        "label": "Optimism (OP)",
+        "aliases": []
+      },
+      {
+        "symbol": "ARB",
+        "label": "Arbitrum (ARB)",
+        "aliases": []
+      },
+      {
+        "symbol": "RENDER",
+        "label": "Render Token (RENDER)",
+        "aliases": []
+      },
+      {
+        "symbol": "FET",
+        "label": "Fetch.ai / Artificial Superintelligence Alliance (FET)",
+        "aliases": [
+          "ASI"
+        ]
+      },
+      {
+        "symbol": "TAO",
+        "label": "Bittensor (TAO)",
+        "aliases": []
+      },
+      {
+        "symbol": "MKR",
+        "label": "Maker / Sky (MKR/SKY)",
+        "aliases": [
+          "SKY"
+        ]
+      },
+      {
+        "symbol": "STX",
+        "label": "Stacks (STX)",
+        "aliases": []
+      },
+      {
+        "symbol": "IMX",
+        "label": "Immutable (IMX)",
+        "aliases": []
+      },
+      {
+        "symbol": "SEI",
+        "label": "Sei (SEI)",
+        "aliases": []
+      },
+      {
+        "symbol": "FTM",
+        "label": "Fantom (FTM)",
+        "aliases": []
+      },
+      {
+        "symbol": "TIA",
+        "label": "Celestia (TIA)",
+        "aliases": []
+      },
+      {
+        "symbol": "RUNE",
+        "label": "Thorchain (RUNE)",
+        "aliases": []
+      },
+      {
+        "symbol": "JUP",
+        "label": "Jupiter (JUP)",
+        "aliases": []
+      },
+      {
+        "symbol": "GRT",
+        "label": "Graph (GRT)",
+        "aliases": []
+      },
+      {
+        "symbol": "LDO",
+        "label": "Lido DAO (LDO)",
+        "aliases": []
+      },
+      {
+        "symbol": "MNT",
+        "label": "Mantle (MNT)",
+        "aliases": []
+      },
+      {
+        "symbol": "ONDO",
+        "label": "Ondo Finance (ONDO)",
+        "aliases": []
+      },
+      {
+        "symbol": "JASMY",
+        "label": "JasmyCoin (JASMY)",
+        "aliases": []
+      },
+      {
+        "symbol": "AR",
+        "label": "Arweave (AR)",
+        "aliases": []
+      },
+      {
+        "symbol": "CORE",
+        "label": "Core (CORE)",
+        "aliases": []
+      },
+      {
+        "symbol": "GALA",
+        "label": "Gala (GALA)",
+        "aliases": []
+      },
+      {
+        "symbol": "QNT",
+        "label": "Quant (QNT)",
+        "aliases": []
+      },
+      {
+        "symbol": "ALGO",
+        "label": "Algorand (ALGO)",
+        "aliases": []
+      },
+      {
+        "symbol": "FLOW",
+        "label": "Flow (FLOW)",
+        "aliases": []
+      },
+      {
+        "symbol": "ENA",
+        "label": "Ethena (ENA)",
+        "aliases": []
+      },
+      {
+        "symbol": "CHZ",
+        "label": "Chiliz (CHZ)",
+        "aliases": []
+      },
+      {
+        "symbol": "DYDX",
+        "label": "dYdX (DYDX)",
+        "aliases": []
+      },
+      {
+        "symbol": "AXS",
+        "label": "Axie Infinity (AXS)",
+        "aliases": []
+      },
+      {
+        "symbol": "SAND",
+        "label": "Sandbox (SAND)",
+        "aliases": []
+      },
+      {
+        "symbol": "MANA",
+        "label": "Decentraland (MANA)",
+        "aliases": []
+      },
+      {
+        "symbol": "BEAM",
+        "label": "Beam (BEAM)",
+        "aliases": []
+      },
+      {
+        "symbol": "PENDLE",
+        "label": "Pendle (PENDLE)",
+        "aliases": []
+      },
+      {
+        "symbol": "WLD",
+        "label": "Worldcoin (WLD)",
+        "aliases": []
+      },
+      {
+        "symbol": "AAVE",
+        "label": "Aave (AAVE)",
+        "aliases": []
+      },
+      {
+        "symbol": "SNX",
+        "label": "Synthetix (SNX)",
+        "aliases": []
+      },
+      {
+        "symbol": "GNO",
+        "label": "Gnosis (GNO)",
+        "aliases": []
+      },
+      {
+        "symbol": "THETA",
+        "label": "Theta Network (THETA)",
+        "aliases": []
+      },
+      {
+        "symbol": "XTZ",
+        "label": "Tezos (XTZ)",
+        "aliases": []
+      },
+      {
+        "symbol": "EOS",
+        "label": "EOS (EOS)",
+        "aliases": []
+      },
+      {
+        "symbol": "NEO",
+        "label": "NEO (NEO)",
+        "aliases": []
+      },
+      {
+        "symbol": "IOTA",
+        "label": "IOTA (IOTA)",
+        "aliases": []
+      },
+      {
+        "symbol": "MINA",
+        "label": "Mina Protocol (MINA)",
+        "aliases": []
+      },
+      {
+        "symbol": "EGLD",
+        "label": "MultiversX (EGLD)",
+        "aliases": []
+      },
+      {
+        "symbol": "RAY",
+        "label": "Raydium (RAY)",
+        "aliases": []
+      },
+      {
+        "symbol": "ARKM",
+        "label": "Arkham (ARKM)",
+        "aliases": []
+      },
+      {
+        "symbol": "PYTH",
+        "label": "Pyth Network (PYTH)",
+        "aliases": []
+      },
+      {
+        "symbol": "STRK",
+        "label": "Starknet (STRK)",
+        "aliases": []
+      },
+      {
+        "symbol": "W",
+        "label": "Wormhole (W)",
+        "aliases": []
+      },
+      {
+        "symbol": "JTO",
+        "label": "Jito (JTO)",
+        "aliases": []
+      },
+      {
+        "symbol": "SAFE",
+        "label": "Safe (SAFE)",
+        "aliases": []
+      },
+      {
+        "symbol": "ALT",
+        "label": "Altlayer (ALT)",
+        "aliases": []
+      },
+      {
+        "symbol": "DYM",
+        "label": "Dymension (DYM)",
+        "aliases": []
+      },
+      {
+        "symbol": "MANTA",
+        "label": "Manta Network (MANA/MANTA)",
+        "aliases": []
+      },
+      {
+        "symbol": "OCEAN",
+        "label": "Ocean Protocol (OCEAN)",
+        "aliases": []
+      },
+      {
+        "symbol": "AGIX",
+        "label": "SingularityNET (AGIX)",
+        "aliases": []
+      },
+      {
+        "symbol": "AKT",
+        "label": "Akash Network (AKT)",
+        "aliases": []
+      },
+      {
+        "symbol": "GLM",
+        "label": "Golem (GLM)",
+        "aliases": []
+      },
+      {
+        "symbol": "LPT",
+        "label": "Livepeer (LPT)",
+        "aliases": []
+      },
+      {
+        "symbol": "WOO",
+        "label": "Woo Network (WOO)",
+        "aliases": []
+      },
+      {
+        "symbol": "API3",
+        "label": "API3 (API3)",
+        "aliases": []
+      },
+      {
+        "symbol": "BAND",
+        "label": "Band Protocol (BAND)",
+        "aliases": []
+      },
+      {
+        "symbol": "LRC",
+        "label": "Loopring (LRC)",
+        "aliases": []
+      },
+      {
+        "symbol": "1INCH",
+        "label": "1inch (1INCH)",
+        "aliases": []
+      },
+      {
+        "symbol": "CRV",
+        "label": "Curve (CRV)",
+        "aliases": []
+      },
+      {
+        "symbol": "YFI",
+        "label": "Yearn.Finance (YFI)",
+        "aliases": []
+      },
+      {
+        "symbol": "SUSHI",
+        "label": "Sushi (SUSHI)",
+        "aliases": []
+      },
+      {
+        "symbol": "BLUR",
+        "label": "Blur (BLUR)",
+        "aliases": []
+      },
+      {
+        "symbol": "ILV",
+        "label": "Illuvium (ILV)",
+        "aliases": []
+      },
+      {
+        "symbol": "MC",
+        "label": "Merit Circle (MC)",
+        "aliases": []
+      },
+      {
+        "symbol": "ENJ",
+        "label": "Enjin Coin (ENJ)",
+        "aliases": []
+      },
+      {
+        "symbol": "PYR",
+        "label": "Vulcan Forged (PYR)",
+        "aliases": []
+      },
+      {
+        "symbol": "SUPER",
+        "label": "SuperVerse (SUPER)",
+        "aliases": []
+      },
+      {
+        "symbol": "ROSE",
+        "label": "Oasis Network (ROSE)",
+        "aliases": []
+      },
+      {
+        "symbol": "T",
+        "label": "Threshold (T)",
+        "aliases": []
+      },
+      {
+        "symbol": "MASK",
+        "label": "Mask Network (MASK)",
+        "aliases": []
+      },
+      {
+        "symbol": "CYBER",
+        "label": "CyberConnect (CYBER)",
+        "aliases": []
+      },
+      {
+        "symbol": "ID",
+        "label": "Space ID (ID)",
+        "aliases": []
+      },
+      {
+        "symbol": "GAL",
+        "label": "Galxe (GAL)",
+        "aliases": []
+      }
+    ]
   }
 }

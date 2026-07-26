@@ -1,0 +1,23 @@
+[run]
+source =
+    risk_manager
+    oracle_audit_chain
+    oracle_track_record
+    sentiment_gate
+    health_sidecar
+    infra_metrics
+    options_fetcher
+    fast_scan_engine
+    live_book_hub
+    service_bus
+    data_sources_registry
+    graphql_schema
+    secrets_vault
+    security_auth
+    user_keys_service
+omit = tests/*
+
+[report]
+fail_under = 80
+show_missing = true
+precision = 1

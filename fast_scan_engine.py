@@ -1,0 +1,86 @@
+"""
+BLACKDARK — Millisecond fast-scan path (Buyer Requirement #2).
+
+Reads ONLY from in-memory live_book_hub — target <50ms warm, <5ms book read.
+"""
+
+from __future__ import annotations
+
+import time
+from typing import Any
+
+import config
+from live_book_hub import get_best_price, hub_stats
+
+
+def _cross_exchange_spread(asset: str) -> dict[str, Any] | None:
+    symbol = f"{asset}/USDT" if not asset.endswith("/USDT") else asset
+    base = symbol.replace("/USDT", "")
+    prices: dict[str, dict[str, float]] = {}
+
+    for exchange in ("binance", "okx", "bybit", "kraken"):
+        row = get_best_price(exchange, f"{base}/USDT")
+        if row and row.get("bid") and row.get("ask"):
+            prices[exchange] = {"bid": float(row["bid"]), "ask": float(row["ask"]), "mid": float(row["mid"])}
+
+    if len(prices) < 2:
+        return None
+
+    best_bid_ex = max(prices, key=lambda e: prices[e]["bid"])
+    best_ask_ex = min(prices, key=lambda e: prices[e]["ask"])
+    if best_bid_ex == best_ask_ex:
+        return None
+
+    buy_ask = prices[best_ask_ex]["ask"]
+    sell_bid = prices[best_bid_ex]["bid"]
+    if sell_bid <= buy_ask:
+        return None
+
+    spread_bps = ((sell_bid - buy_ask) / buy_ask) * 10_000
+    fee_bps = float(getattr(config, "DEFAULT_TAKER_FEE", 0.001)) * 2 * 10_000
+    net_bps = spread_bps - fee_bps
+
+    return {
+        "asset": base,
+        "buy_exchange": best_ask_ex,
+        "sell_exchange": best_bid_ex,
+        "buy_price": buy_ask,
+        "sell_price": sell_bid,
+        "spread_bps": round(spread_bps, 2),
+        "net_spread_bps": round(net_bps, 2),
+        "profitable": net_bps > 0,
+    }
+
+
+def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
+    """Sub-second scan using in-memory books only."""
+    t0 = time.perf_counter()
+    t_book = time.perf_counter()
+
+    assets = list(getattr(config, "WHITELIST_ASSETS", ("BTC", "ETH", "SOL")))[:15]
+    opportunities: list[dict[str, Any]] = []
+
+    for asset in assets:
+        opp = _cross_exchange_spread(asset)
+        if opp and opp.get("profitable"):
+            net_usdt = quote_usd * (opp["net_spread_bps"] / 10_000)
+            opportunities.append({**opp, "net_profit_usdt": round(net_usdt, 4), "kind": "fast_cross"})
+
+    book_read_ms = (time.perf_counter() - t_book) * 1000
+    total_ms = (time.perf_counter() - t0) * 1000
+
+    return {
+        "engine": "fast_scan_in_memory",
+        "latency_ms": round(total_ms, 3),
+        "book_read_ms": round(book_read_ms, 3),
+        "latency_tier": "millisecond" if total_ms < 50 else "sub_second" if total_ms < 500 else "slow",
+        "opportunities": sorted(opportunities, key=lambda x: x.get("net_profit_usdt", 0), reverse=True),
+        "books": hub_stats(),
+        "assets_scanned": len(assets),
+        "ws_required": hub_stats().get("symbol_count", 0) == 0,
+        "note": (
+            "Start dashboard with EXCHANGE_WS_ENABLED=true for live bookTicker feeds."
+            if hub_stats().get("symbol_count", 0) == 0
+            else None
+        ),
+    }

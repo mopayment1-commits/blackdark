@@ -148,10 +148,13 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
 
 async def login_user(email: str, password: str) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
+    from security_auth import check_login_rate_limit, record_login_failure
 
     email = normalize_email(email)
+    check_login_rate_limit(email)
     user = await fetch_user_by_email(email)
     if user is None or not verify_password(password, str(user.get("password_hash") or "")):
+        record_login_failure(email)
         raise ValueError("Invalid email or password")
 
     await touch_user_login(int(user["id"]))
@@ -170,26 +173,37 @@ async def login_user(email: str, password: str) -> dict[str, Any]:
 
 
 async def create_session(user_id: int) -> dict[str, Any]:
+    from security_auth import hash_session_token
+
     from database import insert_user_session
 
     token = secrets.token_urlsafe(48)
+    token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
-    await insert_user_session(user_id, token, expires_at)
+    await insert_user_session(user_id, token_hash, expires_at)
     return {"token": token, "expires_at": expires_at}
 
 
 async def logout_user(token: str) -> None:
+    from security_auth import hash_session_token
+
     from database import delete_user_session
 
+    await delete_user_session(hash_session_token(token))
     await delete_user_session(token)
 
 
 async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
+    from security_auth import hash_session_token
+
     from database import fetch_user_by_session
 
-    row = await fetch_user_by_session(token.strip())
+    plain = token.strip()
+    row = await fetch_user_by_session(hash_session_token(plain))
+    if row is None:
+        row = await fetch_user_by_session(plain)
     if row is None:
         return None
     email = str(row.get("email") or "")

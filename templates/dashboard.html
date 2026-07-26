@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#22d3ee">
+    <title>BLACKDARK — Intelligence Dashboard</title>
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, system-ui, sans-serif; background: #0a0a0f; color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
+        a { color: #22d3ee; text-decoration: none; }
+        nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
+        .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+        .logo { font-weight: 800; font-size: 1.2rem; color: #22d3ee; }
+        .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
+        .nav-links a:hover { color: #e4e4e7; }
+        .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
+        .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
+        main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+        .hero { text-align: center; margin-bottom: 1.25rem; }
+        .hero h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .35rem; color: #fff; }
+        .hero p { color: #71717a; font-size: .95rem; }
+        .search-row { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
+        .search-row input { width: min(280px,100%); padding: .75rem 1rem; background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; color: #e4e4e7; font-size: 1rem; }
+        .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
+        .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
+        .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
+        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #71717a; font-size: .8rem; cursor: pointer; }
+        .pick:hover { border-color: #22d3ee; color: #22d3ee; }
+        section { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; margin-bottom: 1rem; }
+        section h2 { font-size: 1rem; color: #22d3ee; margin-bottom: .5rem; }
+        .sub { color: #71717a; font-size: .82rem; margin-bottom: .75rem; }
+        .loading, .empty { color: #71717a; text-align: center; padding: 1rem; font-size: .9rem; }
+        .oracle-box { display: none; }
+        .oracle-box.show { display: block; }
+        .verdict { font-size: 2rem; font-weight: 900; }
+        .verdict.BUY { color: #22c55e; } .verdict.WAIT { color: #f59e0b; }
+        .verdict.SELL, .verdict.CAUTION { color: #ef4444; }
+        .narrative { background: #1a1a24; border-left: 3px solid #22d3ee; padding: .85rem 1rem; border-radius: 0 10px 10px 0; margin: .85rem 0; font-size: .92rem; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .6rem; margin-top: .85rem; }
+        .metric { background: #1a1a24; border-radius: 10px; padding: .65rem; text-align: center; }
+        .metric strong { display: block; font-size: 1.05rem; }
+        .metric span { font-size: .68rem; color: #71717a; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .65rem; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        .card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; padding: .75rem; cursor: pointer; }
+        .card:hover { border-color: #22d3ee; }
+        .up { color: #22c55e; } .down { color: #ef4444; }
+        .arb-card, .whale-card { background: #1a1a24; border: 1px solid #2a2a35; border-left: 3px solid #22d3ee; border-radius: 10px; padding: .75rem; margin-bottom: .5rem; }
+        #chart { height: 280px; border-radius: 10px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+        th, td { padding: .45rem .35rem; border-bottom: 1px solid #2a2a35; text-align: left; }
+        th { color: #71717a; }
+        .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
+        select { background: #1a1a24; border: 1px solid #2a2a35; color: #e4e4e7; border-radius: 8px; padding: .4rem .6rem; }
+        footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="logo">BLACKDARK</a>
+            <div style="display:flex;align-items:center;flex-wrap:wrap">
+                <span class="tier" id="userTier">Guest · Free</span>
+                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/platform">Platform</a>
+                    <a href="/oracle-accuracy">Accuracy</a>
+                    <a href="/login" id="authLink">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="top">
+        <div class="hero">
+            <h1>AI Crypto Oracle</h1>
+            <p>Know your move in 30 seconds — live market + whale intelligence</p>
+        </div>
+        <div class="picks">
+            <span class="pick" onclick="setSymbol('BTC')">BTC</span>
+            <span class="pick" onclick="setSymbol('ETH')">ETH</span>
+            <span class="pick" onclick="setSymbol('SOL')">SOL</span>
+            <span class="pick" onclick="setSymbol('BNB')">BNB</span>
+            <span class="pick" onclick="setSymbol('XRP')">XRP</span>
+        </div>
+        <div class="search-row">
+            <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
+            <button class="btn" onclick="askOracle()">Get Signal</button>
+        </div>
+        <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
+
+        <section>
+            <h2>Live Chart</h2>
+            <div class="toolbar">
+                <select id="chartIv" onchange="loadChart()"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+                <button class="btn secondary" onclick="loadChart()">Refresh</button>
+            </div>
+            <div id="chart"></div>
+        </section>
+
+        <div class="grid-2">
+            <section>
+                <h2>Market Radar</h2>
+                <div class="grid" id="market"><div class="loading">Loading…</div></div>
+            </section>
+            <section>
+                <h2>Open Interest</h2>
+                <div id="oi"><div class="loading">Loading…</div></div>
+            </section>
+        </div>
+
+        <section>
+            <h2>Arbitrage Engine</h2>
+            <p class="sub" id="arbStats">Scanning…</p>
+            <button class="btn secondary" onclick="loadArbitrage(true)">Live Scan</button>
+            <div id="arbitrage" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+        </section>
+
+        <section>
+            <h2>Whale Intelligence</h2>
+            <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
+            <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+        </section>
+
+        <section>
+            <h2>Alerts</h2>
+            <p class="sub" id="tgStatus">Telegram status…</p>
+            <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
+        </section>
+    </main>
+    <footer>BLACKDARK — Not financial advice</footer>
+
+    <script>
+        const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
+        const vc = v => (v || 'WAIT').toUpperCase();
+        let chart, series;
+
+        function authHeaders() {
+            const t = localStorage.getItem('bd_token');
+            return t ? { Authorization: 'Bearer ' + t } : {};
+        }
+
+        async function loadAuth() {
+            const tierEl = document.getElementById('userTier');
+            const authLink = document.getElementById('authLink');
+            const token = localStorage.getItem('bd_token');
+            if (!token) return;
+            try {
+                const res = await fetch('/api/auth/me', { headers: authHeaders() });
+                const d = await res.json();
+                if (d.authenticated) {
+                    tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
+                    authLink.textContent = 'Logout';
+                    authLink.href = '#';
+                    authLink.onclick = async e => {
+                        e.preventDefault();
+                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders() });
+                        localStorage.removeItem('bd_token');
+                        location.reload();
+                    };
+                }
+            } catch (e) {}
+        }
+
+        async function upgradeTier(tier) {
+            try {
+                const res = await fetch('/api/billing/checkout', {
+                    method: 'POST', headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tier: tier || 'pro' }),
+                });
+                const d = await res.json();
+                if (d.url) { location.href = d.url; return; }
+            } catch (e) {}
+            location.href = '/create-checkout-session?tier=' + (tier || 'pro');
+        }
+
+        function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
+
+        async function askOracle() {
+            const sym = document.getElementById('symbol').value.trim().toUpperCase();
+            const box = document.getElementById('oracleBox');
+            const el = document.getElementById('oracleContent');
+            if (!sym) return;
+            box.classList.add('show');
+            el.innerHTML = '<div class="loading">Analyzing ' + sym + '…</div>';
+            try {
+                const res = await fetch('/oracle/' + encodeURIComponent(sym));
+                if (!res.ok) throw new Error('fail');
+                const d = await res.json();
+                el.innerHTML = `
+                    <div class="verdict ${vc(d.verdict)}">${d.verdict}</div>
+                    <div style="color:#71717a;font-size:.9rem">${d.symbol} · $${fmt(d.price,2)} ·
+                        <span class="${d.change_24h>=0?'up':'down'}">${d.change_24h>=0?'+':''}${fmt(d.change_24h,2)}%</span></div>
+                    <div class="narrative">${d.narrative||d.oracle||''}</div>
+                    <div style="font-size:.85rem;margin:.5rem 0">🐋 ${d.whale_alert||'No whale activity'}</div>
+                    <div class="metrics">
+                        <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
+                        <div class="metric"><strong>${d.confidence}%</strong><span>Confidence</span></div>
+                        <div class="metric"><strong>${d.sentiment||'—'}</strong><span>Sentiment</span></div>
+                        <div class="metric"><strong>${d.risk_level||'—'}</strong><span>Risk</span></div>
+                    </div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
+            }
+        }
+
+        function initChart() {
+            const el = document.getElementById('chart');
+            if (!el || typeof LightweightCharts === 'undefined') return;
+            chart = LightweightCharts.createChart(el, {
+                layout: { background: { color: '#111118' }, textColor: '#a1a1aa' },
+                grid: { vertLines: { color: '#2a2a35' }, horzLines: { color: '#2a2a35' } },
+            });
+            series = chart.addCandlestickSeries({ upColor: '#22c55e', downColor: '#ef4444', borderVisible: false });
+            new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
+        }
+
+        async function loadChart() {
+            if (!series) return;
+            const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
+            const iv = document.getElementById('chartIv').value;
+            try {
+                const res = await fetch('https://api.binance.com/api/v3/klines?symbol=' + sym + 'USDT&interval=' + iv + '&limit=100');
+                const rows = await res.json();
+                series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
+                chart.timeScale().fitContent();
+            } catch (e) {}
+        }
+
+        async function loadMarket() {
+            const el = document.getElementById('market');
+            try {
+                const res = await fetch('/api/market/overview');
+                const data = await res.json();
+                el.innerHTML = (data.assets||[]).slice(0,8).map(a => `
+                    <div class="card" onclick="setSymbol('${a.symbol}')">
+                        <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict}</span>
+                        <div>$${fmt(a.price,a.price<1?4:2)}</div>
+                        <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
+                    </div>`).join('');
+            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        async function loadOI() {
+            const el = document.getElementById('oi');
+            try {
+                const res = await fetch('/api/market/open-interest');
+                const data = await res.json();
+                const rows = data.assets || [];
+                if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
+                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+                    rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
+                        <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        async function loadArbitrage(refresh) {
+            const el = document.getElementById('arbitrage');
+            const stats = document.getElementById('arbStats');
+            try {
+                const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
+                const res = await fetch(url, refresh ? { method: 'POST' } : {});
+                const data = await res.json();
+                const c = data.counts || {};
+                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
+                const opps = data.opportunities || [];
+                el.innerHTML = opps.length ? opps.slice(0,6).map(o => `
+                    <div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div></div>`).join('')
+                    : '<div class="empty">No opportunities now</div>';
+            } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
+        }
+
+        async function loadWhales(refresh) {
+            const el = document.getElementById('whales');
+            if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
+            try {
+                const url = refresh ? '/api/whale-activity?refresh=true' : '/api/whale-activity';
+                const res = await fetch(url);
+                const data = await res.json();
+                const alerts = data.alerts || data.whale_alerts || [];
+                el.innerHTML = alerts.length ? alerts.slice(0,8).map(a => `
+                    <div class="whale-card"><strong>${a.asset||'—'}</strong> ${(a.side||'').toUpperCase()}
+                    ${a.notional_usd ? '$'+fmt(a.notional_usd) : ''}</div>`).join('')
+                    : '<div class="empty">No whale alerts</div>';
+            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        async function loadTgStatus() {
+            const el = document.getElementById('tgStatus');
+            try {
+                const res = await fetch('/api/alerts/telegram/status');
+                const d = await res.json();
+                el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
+            } catch (e) { el.textContent = 'Alert status unavailable'; }
+        }
+
+        async function testTelegram() {
+            try {
+                const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
+                const d = await res.json();
+                alert(d.message || (d.success ? 'Sent!' : 'Failed'));
+            } catch (e) { alert('Test failed — configure bot first'); }
+        }
+
+        function boot() {
+            loadAuth();
+            askOracle();
+            initChart();
+            loadChart();
+            loadMarket();
+            loadOI();
+            loadArbitrage(false);
+            loadWhales(false);
+            loadTgStatus();
+            setInterval(loadMarket, 60000);
+        }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+        else boot();
+        window.scrollTo(0, 0);
+    </script>
+</body>
+</html>

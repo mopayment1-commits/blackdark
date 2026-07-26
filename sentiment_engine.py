@@ -11,6 +11,7 @@ import asyncio
 import hashlib
 import json
 import logging
+import os
 import re
 import time
 import xml.etree.ElementTree as ET
@@ -397,6 +398,84 @@ def _mock_stream_headline(asset: str, source: str, salt: str) -> str:
     return templates[index]
 
 
+async def _fetch_twitter_real(
+    session: aiohttp.ClientSession,
+    assets: list[str],
+) -> list[SentimentNewsItem]:
+    """Fetch via X API v2 (token) or free Reddit/CryptoPanic fallback."""
+    token = os.getenv("TWITTER_BEARER_TOKEN", "").strip()
+    items: list[SentimentNewsItem] = []
+
+    if token and not config.SENTIMENT_TWITTER_MOCK_ENABLED:
+        headers = {"Authorization": f"Bearer {token}"}
+        for asset in assets:
+            query = f"${asset} OR #{asset} lang:en -is:retweet"
+            url = "https://api.twitter.com/2/tweets/search/recent"
+            params = {"query": query, "max_results": "10", "tweet.fields": "created_at,text"}
+            try:
+                async with session.get(url, headers=headers, params=params) as resp:
+                    if resp.status != 200:
+                        continue
+                    data = await resp.json()
+                    for tw in (data.get("data") or []):
+                        text = str(tw.get("text") or "")
+                        if text:
+                            items.append(
+                                SentimentNewsItem(
+                                    asset=asset,
+                                    sector=_sector_for_asset(asset),
+                                    source="twitter",
+                                    raw_text=text[:500],
+                                    published_at=tw.get("created_at") or _utcnow_iso(),
+                                )
+                            )
+            except (aiohttp.ClientError, TypeError, ValueError) as exc:
+                logger.warning("Twitter API failed | asset=%s err=%s", asset, exc)
+        if items:
+            return items
+
+    # Free fallback — no token required (Reddit social proxy)
+    return await _fetch_twitter_fallback_reddit(session, assets)
+
+
+async def _fetch_twitter_fallback_reddit(
+    session: aiohttp.ClientSession,
+    assets: list[str],
+) -> list[SentimentNewsItem]:
+    """Live social fallback using Reddit (no Twitter token needed)."""
+    if os.getenv("SENTIMENT_TWITTER_FALLBACK", "true").lower() not in {"1", "true", "yes"}:
+        return []
+
+    items: list[SentimentNewsItem] = []
+    sub_map = {"BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana", "BNB": "binance", "XRP": "ripple"}
+    headers = {"User-Agent": "BLACKDARK/1.0 sentiment-bot"}
+
+    for asset in assets:
+        sub = sub_map.get(asset.upper(), "cryptocurrency")
+        url = f"https://www.reddit.com/r/{sub}/hot.json?limit=5"
+        try:
+            async with session.get(url, headers=headers) as resp:
+                if resp.status != 200:
+                    continue
+                data = await resp.json()
+                for post in (data.get("data") or {}).get("children") or []:
+                    pd = post.get("data") or {}
+                    title = str(pd.get("title") or "")
+                    if title and asset.upper() in title.upper():
+                        items.append(
+                            SentimentNewsItem(
+                                asset=asset,
+                                sector=_sector_for_asset(asset),
+                                source="social_reddit_live",
+                                raw_text=title[:500],
+                                published_at=_utcnow_iso(),
+                            )
+                        )
+        except (aiohttp.ClientError, TypeError, ValueError):
+            pass
+    return items
+
+
 async def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
     items: list[SentimentNewsItem] = []
     if config.SENTIMENT_DATA_SOURCE not in {"mock", "mixed"}:
@@ -440,16 +519,18 @@ async def fetch_market_sentiment_news(
     async with aiohttp.ClientSession(timeout=timeout) as session:
         rss_task = _fetch_rss_news(session, target_assets)
         cc_task = _fetch_cryptocompare_news(session, target_assets)
+        twitter_task = _fetch_twitter_real(session, target_assets)
         mock_task = _fetch_mock_social_streams(target_assets)
-        rss_items, cc_items, mock_items = await asyncio.gather(
+        rss_items, cc_items, twitter_items, mock_items = await asyncio.gather(
             rss_task,
             cc_task,
+            twitter_task,
             mock_task,
             return_exceptions=True,
         )
 
     collected: list[SentimentNewsItem] = []
-    for batch in (rss_items, cc_items, mock_items):
+    for batch in (rss_items, cc_items, twitter_items, mock_items):
         if isinstance(batch, Exception):
             logger.warning("Sentiment source batch failed safely: %s", batch)
             continue

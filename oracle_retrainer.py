@@ -55,7 +55,7 @@ def _price_direction(row: dict[str, Any]) -> str:
 
 
 async def run_oracle_retrain_step() -> dict[str, Any]:
-    audit = await fetch_oracle_audit_stats(limit=200)
+    audit = await fetch_oracle_audit_stats(limit=200, include_synthetic=False)
     resolved_rows = [
         row for row in audit.get("recent", [])
         if row.get("resolved") in (1, True, "1")

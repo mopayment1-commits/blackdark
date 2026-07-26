@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Oracle Accuracy Live | دقة الذكاء الاصطناعي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>BLACKDARK — Oracle Accuracy Live</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0f;
@@ -19,10 +19,10 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Tajawal', 'Inter', sans-serif;
+            font-family: Inter, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.6;
         }
         nav {
             display: flex; justify-content: space-between; align-items: center;
@@ -34,8 +34,9 @@
             font-weight: 800; font-size: 1.3rem;
             background: linear-gradient(135deg, var(--accent), #a78bfa);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-decoration: none;
         }
-        nav a { color: var(--muted); text-decoration: none; margin-inline-start: 1.5rem; }
+        nav a { color: var(--muted); text-decoration: none; margin-left: 1.5rem; }
         nav a:hover { color: var(--text); }
         .hero {
             max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 1rem;
@@ -67,7 +68,7 @@
         }
         .card h2 { font-size: 1.15rem; margin-bottom: 1rem; }
         table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-        th, td { padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--border); text-align: right; }
+        th, td { padding: 0.65rem 0.5rem; border-bottom: 1px solid var(--border); text-align: left; }
         th { color: var(--muted); font-weight: 600; }
         .pill {
             display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px;
@@ -103,46 +104,47 @@
 </head>
 <body>
     <nav>
-        <div class="logo">BLACKDARK Oracle AI</div>
+        <a href="/" class="logo">BLACKDARK Oracle AI</a>
         <div>
-            <a href="/">الرئيسية</a>
+            <a href="/">Home</a>
             <a href="/dashboard">Dashboard</a>
-            <a href="/landing">Landing</a>
+            <a href="/platform">Platform</a>
         </div>
     </nav>
 
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>
-        <h1>دقة Oracle AI — شفافية كاملة</h1>
+        <h1>Oracle AI Accuracy — Full Transparency</h1>
         <p>
-            كل توقع يُسجَّل، يُقيَّم بعد 24 ساعة، ويُستخدم لتدريب النموذج.
-            هذه الصفحة إثبات علني أن BLACKDARK نموذج ذكاء صناعي حقيقي — ليس dashboard فقط.
+            Every prediction is logged, scored after 24 hours, and used to train the model.
+            Live engine: <strong id="engine-label">rules engine</strong> until 50+ ML samples are available.
         </p>
+        <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
     </section>
 
     <section class="grid" id="stats-grid">
-        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">متوسط الدقة %</div></div>
-        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">إجمالي التوقعات</div></div>
-        <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">عينات التدريب (labeled)</div></div>
-        <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">دورات التدريب</div></div>
-        <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">منصات في النموذج</div></div>
-        <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">عملات متتبعة</div></div>
+        <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div></div>
+        <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions</div></div>
+        <div class="stat"><div class="num" id="stat-labeled">—</div><div class="lbl">Training samples (labeled)</div></div>
+        <div class="stat"><div class="num" id="stat-training">—</div><div class="lbl">Training runs</div></div>
+        <div class="stat"><div class="num" id="stat-exchanges">—</div><div class="lbl">Exchanges in model</div></div>
+        <div class="stat"><div class="num" id="stat-assets">—</div><div class="lbl">Assets tracked</div></div>
     </section>
 
     <section class="panel">
         <div class="card">
-            <h2>آخر التوقعات المُقيَّمة</h2>
+            <h2>Latest scored predictions</h2>
             <div style="overflow-x:auto">
                 <table>
                     <thead>
                         <tr>
-                            <th>الوقت</th>
-                            <th>العملة</th>
-                            <th>الحكم</th>
-                            <th>السعر عند التوقع</th>
-                            <th>السعر بعد 24h</th>
-                            <th>النتيجة</th>
-                            <th>الاتجاه</th>
+                            <th>Time</th>
+                            <th>Asset</th>
+                            <th>Verdict</th>
+                            <th>Price at prediction</th>
+                            <th>Price after 24h</th>
+                            <th>Result</th>
+                            <th>Direction</th>
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
@@ -155,7 +157,7 @@
 
     <section class="panel">
         <div class="card">
-            <h2>سجل خبرات التعلم (Learning Experience)</h2>
+            <h2>Learning experience log</h2>
             <ul class="events" id="events-list">
                 <li>Loading...</li>
             </ul>
@@ -163,12 +165,12 @@
     </section>
 
     <div class="cta-row">
-        <a class="btn btn-primary" href="/dashboard">افتح Dashboard</a>
+        <a class="btn btn-primary" href="/dashboard">Open Dashboard</a>
         <a class="btn btn-secondary" href="/api/oracle/accuracy/public" target="_blank">JSON API</a>
     </div>
 
     <footer>
-        BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked · Built for acquisition-grade IP
+        BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
     </footer>
 
     <script>
@@ -187,6 +189,12 @@
                 const model = data.model || {};
                 const moat = data.data_moat || {};
                 const exp = (data.learning_experience || {}).summary || {};
+                const transparency = data.transparency || {};
+
+                document.getElementById('engine-label').textContent =
+                    transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
+                document.getElementById('transparency-note').textContent =
+                    transparency.engine_note || '';
 
                 document.getElementById('stat-accuracy').textContent =
                     (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
@@ -199,7 +207,7 @@
                 const rows = oracle.recent_predictions || [];
                 const tbody = document.getElementById('predictions-body');
                 if (!rows.length) {
-                    tbody.innerHTML = '<tr><td colspan="7">لا توجد توقعات مُقيَّمة بعد — النموذج يجمع البيانات الآن.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="7">No scored predictions yet — collecting data.</td></tr>';
                 } else {
                     tbody.innerHTML = rows.map(r => `
                         <tr>
@@ -217,7 +225,7 @@
                 const events = (data.learning_experience || {}).recent_events || [];
                 const list = document.getElementById('events-list');
                 if (!events.length) {
-                    list.innerHTML = '<li>سيبدأ سجل التعلم مع أول دورة flywheel.</li>';
+                    list.innerHTML = '<li>Learning log will start after the first flywheel cycle.</li>';
                 } else {
                     list.innerHTML = events.map(e => {
                         const h = e.highlights || {};

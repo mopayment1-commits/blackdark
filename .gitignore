@@ -16,5 +16,10 @@ excel_analysis.json
 fix_*.py
 PROJECT_MEMORY.txt
 PROJECT_STATUS.json
-.cursor/
+keys/platform_keys.env
+keys/exchange_keys.env
+keys/
+.coverage
+data/_ar_test.txt
+data/railway_variables.txt
 terminals/

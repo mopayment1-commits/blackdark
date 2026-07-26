@@ -1,0 +1,794 @@
+{
+  "timestamp": "2026-07-26T08:52:31.809244+00:00",
+  "total_items": 54,
+  "complete_count": 54,
+  "partial_count": 0,
+  "planned_count": 0,
+  "weighted_percent": 100.0,
+  "complete_percent": 100.0,
+  "categories": {
+    "ml": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "تعلم آلي"
+    },
+    "exec": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "تنفيذ ومخاطر"
+    },
+    "infra": {
+      "count": 3,
+      "complete": 3,
+      "label_ar": "بنية تحتية"
+    },
+    "api": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "واجهات API"
+    },
+    "nlp": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "NLP و sentiment"
+    },
+    "qa": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "جودة واختبارات"
+    },
+    "deriv": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "مشتقات"
+    },
+    "sec": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "أمان"
+    },
+    "arb": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "مراجحة"
+    },
+    "liq": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "تصفيات"
+    },
+    "agent": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "وكلاء AI"
+    },
+    "shield": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "حماية"
+    },
+    "proof": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "إثبات"
+    },
+    "ui": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "واجهة"
+    },
+    "onchain": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "On-chain"
+    },
+    "social": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "Social"
+    },
+    "wallet": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "محافظ"
+    },
+    "defi": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "DeFi"
+    },
+    "charts": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "رسوم بيانية"
+    },
+    "analytics": {
+      "count": 4,
+      "complete": 4,
+      "label_ar": "تحليلات"
+    },
+    "research": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "بحث"
+    },
+    "macro": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "ماكرو"
+    },
+    "news": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "أخبار"
+    },
+    "l2": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "L2"
+    },
+    "flows": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "تدفقات"
+    },
+    "bots": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "بوتات"
+    },
+    "market": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "سوق استراتيجيات"
+    },
+    "inst": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "مؤسسات"
+    },
+    "script": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "سكربت"
+    },
+    "rules": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "قواعد"
+    },
+    "portfolio": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "محفظة"
+    },
+    "tv": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "TradingView"
+    },
+    "voice": {
+      "count": 2,
+      "complete": 2,
+      "label_ar": "صوت"
+    },
+    "panic": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "طوارئ"
+    },
+    "stream": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "بث حي"
+    },
+    "bus": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "Message Bus"
+    },
+    "rl": {
+      "count": 1,
+      "complete": 1,
+      "label_ar": "RL"
+    }
+  },
+  "items": [
+    {
+      "id": 1,
+      "category": "ml",
+      "category_ar": "تعلم آلي",
+      "title": "نموذج ML حقيقي (بدون look-ahead)",
+      "status": "complete",
+      "module": "ml.training_utils",
+      "endpoint": "/api/platform/ml/explain",
+      "note": "Temporal hold-out · synthetic excluded",
+      "module_loaded": true
+    },
+    {
+      "id": 2,
+      "category": "ml",
+      "category_ar": "تعلم آلي",
+      "title": "TruLens تفسير ML",
+      "status": "complete",
+      "module": "bd_platform.trulens_eval",
+      "endpoint": "/api/platform/ml/explain",
+      "note": "TruLens optional · reason chain fallback",
+      "module_loaded": true
+    },
+    {
+      "id": 3,
+      "category": "exec",
+      "category_ar": "تنفيذ ومخاطر",
+      "title": "WebSocket + تنفيذ يدوي/آلي",
+      "status": "complete",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/status",
+      "note": "Dry-run default · optional Binance live",
+      "module_loaded": true
+    },
+    {
+      "id": 4,
+      "category": "exec",
+      "category_ar": "تنفيذ ومخاطر",
+      "title": "Risk Management + Napoleon AM drawdowns",
+      "status": "complete",
+      "module": "bd_platform.drawdown_guard",
+      "endpoint": "/api/platform/risk/drawdown",
+      "note": "Equity curve · auto freeze",
+      "module_loaded": true
+    },
+    {
+      "id": 5,
+      "category": "infra",
+      "category_ar": "بنية تحتية",
+      "title": "Microservices Architecture",
+      "status": "complete",
+      "module": "microservices.lifecycle",
+      "endpoint": "/api/services/status",
+      "note": "docker-compose web+aggregator+arbitrage+ingestion",
+      "module_loaded": true
+    },
+    {
+      "id": 6,
+      "category": "infra",
+      "category_ar": "بنية تحتية",
+      "title": "SQLite → PostgreSQL",
+      "status": "complete",
+      "module": "postgres_backend",
+      "endpoint": "/api/services/status",
+      "note": "asyncpg adapter + docker postgres + init_postgres",
+      "module_loaded": true
+    },
+    {
+      "id": 7,
+      "category": "infra",
+      "category_ar": "بنية تحتية",
+      "title": "HaasCloud-style cloud deploy",
+      "status": "complete",
+      "module": "bd_platform.haascloud_deploy",
+      "endpoint": "/api/platform/infra/status",
+      "note": "haascloud.json + Docker + Railway",
+      "module_loaded": true
+    },
+    {
+      "id": 8,
+      "category": "api",
+      "category_ar": "واجهات API",
+      "title": "API-First REST عام",
+      "status": "complete",
+      "module": "dashboard",
+      "endpoint": "/api/b2b/feed",
+      "note": "REST + GraphQL /graphql",
+      "module_loaded": true
+    },
+    {
+      "id": 9,
+      "category": "nlp",
+      "category_ar": "NLP و sentiment",
+      "title": "Social Sentiment NLP (Telegram/Reddit/X)",
+      "status": "complete",
+      "module": "sentiment_engine",
+      "endpoint": "/api/sentiment/overview",
+      "note": "VADER + RSS · FinBERT optional",
+      "module_loaded": true
+    },
+    {
+      "id": 10,
+      "category": "nlp",
+      "category_ar": "NLP و sentiment",
+      "title": "FinBERT sentiment",
+      "status": "complete",
+      "module": "bd_platform.finbert_sentiment",
+      "endpoint": "/api/platform/nlp/finbert",
+      "note": "Transformers optional · VADER fallback",
+      "module_loaded": true
+    },
+    {
+      "id": 11,
+      "category": "qa",
+      "category_ar": "جودة واختبارات",
+      "title": "قياس نسبة تغطية الاختبارات",
+      "status": "complete",
+      "module": "bd_platform.coverage_report",
+      "endpoint": "/api/platform/coverage",
+      "note": "pytest --cov gate 80%",
+      "module_loaded": true
+    },
+    {
+      "id": 12,
+      "category": "deriv",
+      "category_ar": "مشتقات",
+      "title": "Derivatives (CoinGlass / Apex)",
+      "status": "complete",
+      "module": "bd_platform.derivatives_hub",
+      "endpoint": "/api/platform/derivatives/overview",
+      "note": "Free tier proxies",
+      "module_loaded": true
+    },
+    {
+      "id": 13,
+      "category": "sec",
+      "category_ar": "أمان",
+      "title": "الأمان — فحص ثغرات + تشفير مفاتيح",
+      "status": "complete",
+      "module": "secrets_vault",
+      "endpoint": "/api/security/status",
+      "note": "Fernet vault · pip-audit hook",
+      "module_loaded": true
+    },
+    {
+      "id": 14,
+      "category": "sec",
+      "category_ar": "أمان",
+      "title": "HashiCorp Vault",
+      "status": "complete",
+      "module": "bd_platform.vault_client",
+      "endpoint": "/api/platform/vault/status",
+      "note": "Docker vault dev + local Fernet fallback",
+      "module_loaded": true
+    },
+    {
+      "id": 15,
+      "category": "arb",
+      "category_ar": "مراجحة",
+      "title": "Cross-Boundary CEX↔DEX (GMX, 1inch)",
+      "status": "complete",
+      "module": "bd_platform.cex_dex_arbitrage",
+      "endpoint": "/api/platform/arb/cex-dex",
+      "note": "DexScreener + Jupiter + GMX + 1inch",
+      "module_loaded": true
+    },
+    {
+      "id": 16,
+      "category": "arb",
+      "category_ar": "مراجحة",
+      "title": "مراجحة إحصائية Pairs Trading",
+      "status": "complete",
+      "module": "bd_platform.pairs_trading",
+      "endpoint": "/api/platform/arb/pairs",
+      "note": "Z-score spread · cointegration proxy",
+      "module_loaded": true
+    },
+    {
+      "id": 17,
+      "category": "liq",
+      "category_ar": "تصفيات",
+      "title": "Predictive Liquidation Front-Running",
+      "status": "complete",
+      "module": "bd_platform.liquidation_radar",
+      "endpoint": "/api/platform/liquidations/radar",
+      "note": "Funding + OI radar",
+      "module_loaded": true
+    },
+    {
+      "id": 18,
+      "category": "agent",
+      "category_ar": "وكلاء AI",
+      "title": "Autonomous Financial AI Agents",
+      "status": "complete",
+      "module": "bd_platform.telegram_agent",
+      "endpoint": "/api/platform/agent/telegram",
+      "note": "Telegram agent + chat_service",
+      "module_loaded": true
+    },
+    {
+      "id": 19,
+      "category": "shield",
+      "category_ar": "حماية",
+      "title": "Anti-Spoofing & Poisoning Shield",
+      "status": "complete",
+      "module": "whale_tracker",
+      "endpoint": "/api/whale/scan",
+      "note": "CVVD + poison price freeze",
+      "module_loaded": true
+    },
+    {
+      "id": 20,
+      "category": "proof",
+      "category_ar": "إثبات",
+      "title": "Zero-Knowledge Public Proof",
+      "status": "complete",
+      "module": "bd_platform.public_proof",
+      "endpoint": "/api/platform/proof/public",
+      "note": "Merkle inclusion + commitment verify",
+      "module_loaded": true
+    },
+    {
+      "id": 21,
+      "category": "ui",
+      "category_ar": "واجهة",
+      "title": "صفحة CoinMarketCap-style",
+      "status": "complete",
+      "module": "bd_platform.market_rankings",
+      "endpoint": "/platform",
+      "note": "Rankings + coin detail pages",
+      "module_loaded": true
+    },
+    {
+      "id": 22,
+      "category": "onchain",
+      "category_ar": "On-chain",
+      "title": "On-Chain موسّع (DexScreener, Gecko, Dune…)",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/onchain/pairs",
+      "note": "Free APIs · paid keys optional",
+      "module_loaded": true
+    },
+    {
+      "id": 23,
+      "category": "onchain",
+      "category_ar": "On-chain",
+      "title": "Token Unlocks Tracking",
+      "status": "complete",
+      "module": "bd_platform.token_unlocks",
+      "endpoint": "/api/platform/unlocks/calendar",
+      "note": "TokenUnlocks + CryptoRank free",
+      "module_loaded": true
+    },
+    {
+      "id": 24,
+      "category": "social",
+      "category_ar": "Social",
+      "title": "LunarCrush",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/social/lunarcrush",
+      "note": "socialtickers free fallback",
+      "module_loaded": true
+    },
+    {
+      "id": 25,
+      "category": "social",
+      "category_ar": "Social",
+      "title": "Crowdsourced Event Calendar",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/events/calendar",
+      "note": "CoinMarketCal + DeFiLlama",
+      "module_loaded": true
+    },
+    {
+      "id": 26,
+      "category": "wallet",
+      "category_ar": "محافظ",
+      "title": "Multi-EVM Wallet Dashboard",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/wallet/debank",
+      "note": "Tracely free · DeBank key optional",
+      "module_loaded": true
+    },
+    {
+      "id": 27,
+      "category": "wallet",
+      "category_ar": "محافظ",
+      "title": "Wallet Cluster Visualization",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/wallet/clusters",
+      "note": "Tracely graph clusters",
+      "module_loaded": true
+    },
+    {
+      "id": 28,
+      "category": "defi",
+      "category_ar": "DeFi",
+      "title": "GeckoTerminal",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/defi/geckoterminal",
+      "note": "Integrated with on-chain hub",
+      "module_loaded": true
+    },
+    {
+      "id": 29,
+      "category": "charts",
+      "category_ar": "رسوم بيانية",
+      "title": "TradingView Lightweight Charts",
+      "status": "complete",
+      "module": "bd_platform.tradingview_bridge",
+      "endpoint": "/api/platform/charts/config",
+      "note": "Dashboard + coin pages",
+      "module_loaded": true
+    },
+    {
+      "id": 30,
+      "category": "analytics",
+      "category_ar": "تحليلات",
+      "title": "Footprint Analytics",
+      "status": "complete",
+      "module": "bd_platform.footprint_analytics",
+      "endpoint": "/api/platform/analytics/footprint",
+      "note": "Order-flow proxy",
+      "module_loaded": true
+    },
+    {
+      "id": 31,
+      "category": "analytics",
+      "category_ar": "تحليلات",
+      "title": "0xScope / Scopescan",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/wallet/scopescan",
+      "note": "eth-labels + Tracely free",
+      "module_loaded": true
+    },
+    {
+      "id": 32,
+      "category": "analytics",
+      "category_ar": "تحليلات",
+      "title": "Whale Movement Storytelling",
+      "status": "complete",
+      "module": "bd_platform.whale_story",
+      "endpoint": "/api/platform/whale/narrative",
+      "note": "Narrative API",
+      "module_loaded": true
+    },
+    {
+      "id": 33,
+      "category": "research",
+      "category_ar": "بحث",
+      "title": "CoinDesk Research Reports",
+      "status": "complete",
+      "module": "bd_platform.news_classifier",
+      "endpoint": "/api/platform/news/coindesk",
+      "note": "RSS deep feed",
+      "module_loaded": true
+    },
+    {
+      "id": 34,
+      "category": "research",
+      "category_ar": "بحث",
+      "title": "DeFiLlama Raises",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/defi/raises",
+      "note": "Funding rounds feed",
+      "module_loaded": true
+    },
+    {
+      "id": 35,
+      "category": "macro",
+      "category_ar": "ماكرو",
+      "title": "Bitcoin Macro Cycle Indicators",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/macro/bitcoin",
+      "note": "LookIntoBitcoin proxies",
+      "module_loaded": true
+    },
+    {
+      "id": 36,
+      "category": "macro",
+      "category_ar": "ماكرو",
+      "title": "On-chain متقدم (MVRV, NUPL, SOPR, VaR…)",
+      "status": "complete",
+      "module": "bd_platform.onchain_advanced",
+      "endpoint": "/api/platform/onchain/advanced",
+      "note": "Extended metrics + Monte Carlo",
+      "module_loaded": true
+    },
+    {
+      "id": 37,
+      "category": "news",
+      "category_ar": "أخبار",
+      "title": "تحسين محرك تصنيف الأخبار",
+      "status": "complete",
+      "module": "bd_platform.news_classifier",
+      "endpoint": "/api/platform/news/classify",
+      "note": "Topic + FinBERT hook",
+      "module_loaded": true
+    },
+    {
+      "id": 38,
+      "category": "l2",
+      "category_ar": "L2",
+      "title": "L2Beat",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/l2/security",
+      "note": "L2 security metrics",
+      "module_loaded": true
+    },
+    {
+      "id": 39,
+      "category": "deriv",
+      "category_ar": "مشتقات",
+      "title": "CEX-DEX Derivatives Comparison UI",
+      "status": "complete",
+      "module": "bd_platform.derivatives_hub",
+      "endpoint": "/api/platform/derivatives/cex-dex-compare",
+      "note": "Comparison endpoint + UI",
+      "module_loaded": true
+    },
+    {
+      "id": 40,
+      "category": "flows",
+      "category_ar": "تدفقات",
+      "title": "Blockpour cross-chain flows",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/flows/cross-chain",
+      "note": "DeFiLlama bridges free",
+      "module_loaded": true
+    },
+    {
+      "id": 41,
+      "category": "analytics",
+      "category_ar": "تحليلات",
+      "title": "IntoTheBlock / Sentora",
+      "status": "complete",
+      "module": "bd_platform.onchain_hub",
+      "endpoint": "/api/platform/analytics/intotheblock",
+      "note": "CoinGecko + Binance proxy",
+      "module_loaded": true
+    },
+    {
+      "id": 42,
+      "category": "bots",
+      "category_ar": "بوتات",
+      "title": "Grid Trading Bot",
+      "status": "complete",
+      "module": "bd_platform.grid_bot",
+      "endpoint": "/api/platform/bots/grid",
+      "note": "Create/list grids",
+      "module_loaded": true
+    },
+    {
+      "id": 43,
+      "category": "market",
+      "category_ar": "سوق استراتيجيات",
+      "title": "Strategy Marketplace",
+      "status": "complete",
+      "module": "bd_platform.strategy_marketplace",
+      "endpoint": "/api/platform/marketplace/strategies",
+      "note": "Publish + browse",
+      "module_loaded": true
+    },
+    {
+      "id": 44,
+      "category": "inst",
+      "category_ar": "مؤسسات",
+      "title": "Institutional Account Linking",
+      "status": "complete",
+      "module": "user_keys_service",
+      "endpoint": "/api/user/exchange-keys",
+      "note": "Quadency/Tealstreet-style keys",
+      "module_loaded": true
+    },
+    {
+      "id": 45,
+      "category": "script",
+      "category_ar": "سكربت",
+      "title": "Custom Strategy Scripting (HaasScript)",
+      "status": "complete",
+      "module": "bd_platform.script_sandbox",
+      "endpoint": "/api/platform/scripts/run",
+      "note": "Sandboxed expressions",
+      "module_loaded": true
+    },
+    {
+      "id": 46,
+      "category": "rules",
+      "category_ar": "قواعد",
+      "title": "Simple IFTTT Rule Builder",
+      "status": "complete",
+      "module": "bd_platform.ifttt_rules",
+      "endpoint": "/api/platform/rules",
+      "note": "If/then rules CRUD",
+      "module_loaded": true
+    },
+    {
+      "id": 47,
+      "category": "portfolio",
+      "category_ar": "محفظة",
+      "title": "Portfolio Rebalancing (Shrimpy-style)",
+      "status": "complete",
+      "module": "bd_platform.portfolio_rebalancer",
+      "endpoint": "/api/platform/portfolio/rebalance",
+      "note": "Target weights",
+      "module_loaded": true
+    },
+    {
+      "id": 48,
+      "category": "tv",
+      "category_ar": "TradingView",
+      "title": "TradingView Signal Execution Bridge",
+      "status": "complete",
+      "module": "bd_platform.tradingview_bridge",
+      "endpoint": "/api/platform/tradingview/webhook",
+      "note": "Webhook + config",
+      "module_loaded": true
+    },
+    {
+      "id": 49,
+      "category": "voice",
+      "category_ar": "صوت",
+      "title": "AI Voice Trading",
+      "status": "complete",
+      "module": "voice_service",
+      "endpoint": "/api/voice/command",
+      "note": "analyze/scan/panic voice",
+      "module_loaded": true
+    },
+    {
+      "id": 50,
+      "category": "panic",
+      "category_ar": "طوارئ",
+      "title": "Panic Button",
+      "status": "complete",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/panic",
+      "note": "Halt all auto execution",
+      "module_loaded": true
+    },
+    {
+      "id": 51,
+      "category": "stream",
+      "category_ar": "بث حي",
+      "title": "SSE Server-Sent Events",
+      "status": "complete",
+      "module": "bd_platform.sse_stream",
+      "endpoint": "/api/platform/stream/sse",
+      "note": "Live opportunity feed",
+      "module_loaded": true
+    },
+    {
+      "id": 52,
+      "category": "bus",
+      "category_ar": "Message Bus",
+      "title": "Apache Kafka",
+      "status": "complete",
+      "module": "bd_platform.kafka_bridge",
+      "endpoint": "/api/platform/bus/status",
+      "note": "docker kafka + producer/consumer bridge",
+      "module_loaded": true
+    },
+    {
+      "id": 53,
+      "category": "rl",
+      "category_ar": "RL",
+      "title": "Reinforcement Learning (PPO/SAC)",
+      "status": "complete",
+      "module": "ml.rl_policy",
+      "endpoint": "/api/platform/ml/rl",
+      "note": "PPO trainable · data/models/ppo_policy.json",
+      "module_loaded": true
+    },
+    {
+      "id": 54,
+      "category": "voice",
+      "category_ar": "صوت",
+      "title": "Panic + drawdown integration",
+      "status": "complete",
+      "module": "execution_engine",
+      "endpoint": "/api/execution/panic",
+      "note": "Voice triggers panic",
+      "module_loaded": true
+    }
+  ],
+  "gaps": [],
+  "next_priorities": []
+}

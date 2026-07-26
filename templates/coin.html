@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Coin Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --success:#22c55e; --danger:#ef4444; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:Inter,sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+        nav { padding:.85rem 1.25rem; border-bottom:1px solid var(--border); }
+        nav a { color:var(--accent); text-decoration:none; margin-right:1rem; }
+        main { max-width:1100px; margin:0 auto; padding:1.5rem 1.25rem 3rem; }
+        .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; margin-bottom:1rem; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:.75rem; }
+        .stat { background:#1a1a24; border-radius:10px; padding:.75rem; }
+        .stat label { display:block; font-size:.72rem; color:var(--muted); }
+        .pos { color:var(--success); } .neg { color:var(--danger); }
+        #chart { height:380px; }
+        .loading { color:var(--muted); padding:2rem; text-align:center; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/platform">← Platform</a>
+    <a href="/dashboard">Dashboard</a>
+</nav>
+<main>
+    <div id="head" class="loading">Loading coin…</div>
+    <div class="card"><div id="chart"></div></div>
+    <div class="card"><div class="grid" id="stats"></div></div>
+    <div class="card"><p id="desc" style="font-size:.9rem;color:var(--muted);line-height:1.6"></p></div>
+</main>
+<script>
+const coinId = {{ coin_id|tojson }};
+const fmt = (n,d=2) => n==null?'—':Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+let chart, series;
+
+async function load() {
+    const res = await fetch(`/api/platform/market/coin/${coinId}`);
+    const c = await res.json();
+    if (!c.available) {
+        document.getElementById('head').innerHTML = '<div class="loading">Coin not found</div>';
+        return;
+    }
+    document.title = `BLACKDARK — ${c.name} (${c.symbol})`;
+    document.getElementById('head').innerHTML = `<h1>${c.name} <span style="color:var(--muted)">${c.symbol}</span></h1>
+        <p style="color:var(--muted);margin-top:.25rem">$${fmt(c.price_usd)} · MCap $${fmt(c.market_cap_usd,0)}</p>`;
+    document.getElementById('desc').textContent = (c.description||'').replace(/<[^>]+>/g,'').slice(0,600);
+    const ch = c.change_24h_pct||0;
+    document.getElementById('stats').innerHTML = [
+        ['24h', `${fmt(ch)}%`, ch>=0?'pos':'neg'],
+        ['7d', `${fmt(c.change_7d_pct)}%`, (c.change_7d_pct||0)>=0?'pos':'neg'],
+        ['30d', `${fmt(c.change_30d_pct)}%`, (c.change_30d_pct||0)>=0?'pos':'neg'],
+        ['Vol 24h', `$${fmt(c.volume_24h_usd,0)}`, ''],
+        ['ATH', `$${fmt(c.ath_usd)}`, ''],
+        ['Circulating', fmt(c.circulating_supply,0), ''],
+    ].map(([l,v,cls])=>`<div class="stat"><label>${l}</label><strong class="${cls}">${v}</strong></div>`).join('');
+
+    const el = document.getElementById('chart');
+    chart = LightweightCharts.createChart(el, {
+        layout:{background:{color:'#111118'},textColor:'#a1a1aa'},
+        grid:{vertLines:{color:'#2a2a35'},horzLines:{color:'#2a2a35'}},
+    });
+    series = chart.addAreaSeries({ lineColor:'#22d3ee', topColor:'rgba(34,211,238,.25)', bottomColor:'rgba(34,211,238,0)' });
+    const spark = c.sparkline_7d||[];
+    if (spark.length) {
+        const now = Math.floor(Date.now()/1000);
+        const step = 3600;
+        series.setData(spark.map((p,i)=>({time: now - (spark.length-i)*step, value:p})));
+        chart.timeScale().fitContent();
+    } else {
+        const sym = c.symbol;
+        const k = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=1h&limit=120`);
+        const rows = await k.json();
+        series.setData(rows.map(r=>({time:Math.floor(r[0]/1000), value:+r[4]})));
+        chart.timeScale().fitContent();
+    }
+}
+load();
+</script>
+</body>
+</html>

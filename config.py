@@ -19,10 +19,48 @@ ML_FLYWHEEL_INTERVAL_SEC = int(os.getenv("ML_FLYWHEEL_INTERVAL_SEC", "3600"))
 ML_MIN_TRAIN_SAMPLES = int(os.getenv("ML_MIN_TRAIN_SAMPLES", "50"))
 ML_AUTO_TRAIN = os.getenv("ML_AUTO_TRAIN", "true").lower() in {"1", "true", "yes"}
 
+# ── Instant alerts (sub-minute market pulse) ───────────────────────────────
+INSTANT_ALERTS_ENABLED = os.getenv("INSTANT_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"}
+INSTANT_ALERT_INTERVAL_SEC = float(os.getenv("INSTANT_ALERT_INTERVAL_SEC", "1"))
+INSTANT_ALERT_COOLDOWN_SEC = float(os.getenv("INSTANT_ALERT_COOLDOWN_SEC", "45"))
+INSTANT_ALERT_MIN_PROFIT_USDT = float(os.getenv("INSTANT_ALERT_MIN_PROFIT_USDT", "0.15"))
+TELEGRAM_ALERT_INTERVAL_SECONDS = float(os.getenv("TELEGRAM_ALERT_INTERVAL_SECONDS", "5"))
+
 # ── Aggregator ─────────────────────────────────────────────────────────────
-POLL_INTERVAL_SECONDS = 5
+POLL_INTERVAL_SECONDS = int(os.getenv("POLL_INTERVAL_SECONDS", "3"))
 ORDER_BOOK_DEPTH = 20
 QUOTE_BASE = "USDT"
+
+# ── Market cache / scan performance (due-diligence latency fixes) ────────────
+MARKET_CACHE_TTL_SEC = float(os.getenv("MARKET_CACHE_TTL_SEC", "2"))
+SCAN_CACHE_TTL_SEC = float(os.getenv("SCAN_CACHE_TTL_SEC", "0.5"))
+LIVE_FETCH_STALE_THRESHOLD_SEC = float(os.getenv("LIVE_FETCH_STALE_THRESHOLD_SEC", "8"))
+ARBITRAGE_PREFER_LIVE = os.getenv("ARBITRAGE_PREFER_LIVE", "false").lower() in {"1", "true", "yes"}
+LIVE_FETCH_TIMEOUT_SEC = float(os.getenv("LIVE_FETCH_TIMEOUT_SEC", "3"))
+LIVE_FETCH_FAST_DEADLINE_SEC = float(os.getenv("LIVE_FETCH_FAST_DEADLINE_SEC", "1.5"))
+INSTITUTIONAL_CONTEXT_CACHE_SEC = float(os.getenv("INSTITUTIONAL_CONTEXT_CACHE_SEC", "2"))
+FAST_LIVE_EXCHANGES: frozenset[str] = frozenset(
+    ex.strip().lower()
+    for ex in os.getenv("FAST_LIVE_EXCHANGES", "binance,okx,bybit,kraken,coinbase").split(",")
+    if ex.strip()
+)
+
+# ── Microservices architecture ───────────────────────────────────────────────
+SERVICE_MODE = os.getenv("SERVICE_MODE", "all").strip().lower()
+REDIS_URL = os.getenv("REDIS_URL", "").strip()
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+PG_POOL_MAX = int(os.getenv("PG_POOL_MAX", "20"))
+SERVICE_BUS_LOCAL = os.getenv("SERVICE_BUS_LOCAL", "true").lower() in {"1", "true", "yes"}
+
+# ── Low Latency Engine (WebSocket order books) ───────────────────────────────
+LOW_LATENCY_MODE = os.getenv("LOW_LATENCY_MODE", "true").lower() in {"1", "true", "yes"}
+EXCHANGE_WS_ENABLED = os.getenv("EXCHANGE_WS_ENABLED", "true").lower() in {"1", "true", "yes"}
+LIVE_BOOK_MAX_AGE_MS = float(os.getenv("LIVE_BOOK_MAX_AGE_MS", "500"))
+ML_DRIFT_PSI_THRESHOLD = float(os.getenv("ML_DRIFT_PSI_THRESHOLD", "0.25"))
+ML_OOD_REJECT_THRESHOLD = float(os.getenv("ML_OOD_REJECT_THRESHOLD", "0.65"))
+ML_OOD_FAIL_CLOSED = os.getenv("ML_OOD_FAIL_CLOSED", "true").lower() in {"1", "true", "yes"}
+ML_DRIFT_FREEZE_SEC = int(os.getenv("ML_DRIFT_FREEZE_SEC", "300"))
+AUTO_EXECUTION_INTERVAL_SEC = int(os.getenv("AUTO_EXECUTION_INTERVAL_SEC", "1"))
 
 # ── Immutable whitelist guards (NEVER dynamically excluded) ────────────────
 WHITELIST_EXCHANGES: frozenset[str] = frozenset(
@@ -363,6 +401,11 @@ B2B_DEMO_API_KEY = os.getenv("BLACKDARK_B2B_DEMO_KEY", "bd_demo_launch_2026")
 B2B_FEED_VERSION = "1.0.0"
 B2B_DEFAULT_EXPORT_LIMIT = 250
 B2B_DEMO_EXPORT_LIMIT = 15
+B2B_WS_ENABLED = os.getenv("B2B_WS_ENABLED", "true").lower() in {"1", "true", "yes"}
+B2B_WS_HEARTBEAT_SEC = int(os.getenv("B2B_WS_HEARTBEAT_SEC", "15"))
+B2B_WS_EVENT_COOLDOWN_SEC = float(os.getenv("B2B_WS_EVENT_COOLDOWN_SEC", "3"))
+B2B_WS_LATENCY_TARGET_MS = int(os.getenv("B2B_WS_LATENCY_TARGET_MS", "500"))
+B2B_WS_MAX_CONNECTIONS = int(os.getenv("B2B_WS_MAX_CONNECTIONS", "50"))
 
 # Launch — Pro trial on signup + Stripe checkout
 PRO_TRIAL_DAYS = int(os.getenv("PRO_TRIAL_DAYS", "7"))
@@ -491,7 +534,7 @@ SENTIMENT_RSS_FEEDS = [
     ).split(",")
     if feed.strip()
 ]
-SENTIMENT_TWITTER_MOCK_ENABLED = os.getenv("SENTIMENT_TWITTER_MOCK_ENABLED", "true").lower() in {
+SENTIMENT_TWITTER_MOCK_ENABLED = os.getenv("SENTIMENT_TWITTER_MOCK_ENABLED", "false").lower() in {
     "1",
     "true",
     "yes",
