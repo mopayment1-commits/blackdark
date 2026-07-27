@@ -19,6 +19,29 @@ ML_FLYWHEEL_INTERVAL_SEC = int(os.getenv("ML_FLYWHEEL_INTERVAL_SEC", "3600"))
 ML_MIN_TRAIN_SAMPLES = int(os.getenv("ML_MIN_TRAIN_SAMPLES", "50"))
 ML_AUTO_TRAIN = os.getenv("ML_AUTO_TRAIN", "true").lower() in {"1", "true", "yes"}
 
+# Data moat — live-only oracle dataset for acquisition defensibility
+DATA_MOAT_GUARD_ENABLED = os.getenv("DATA_MOAT_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+DATA_MOAT_LIVE_ONLY = os.getenv("DATA_MOAT_LIVE_ONLY", "true").lower() in {"1", "true", "yes"}
+DATA_MOAT_BLOCK_SYNTHETIC_SEED = os.getenv("DATA_MOAT_BLOCK_SYNTHETIC_SEED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+DATA_MOAT_REQUIRE_FEATURES_JSON = os.getenv("DATA_MOAT_REQUIRE_FEATURES_JSON", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+
+# Behavior data asset — non-code acquisition moat (usage patterns, funnel, retention)
+BEHAVIOR_DATA_ENABLED = os.getenv("BEHAVIOR_DATA_ENABLED", "true").lower() in {"1", "true", "yes"}
+BEHAVIOR_DATA_RETENTION_DAYS = int(os.getenv("BEHAVIOR_DATA_RETENTION_DAYS", "365"))
+FEATURE_FREEZE_ENABLED = os.getenv("FEATURE_FREEZE_ENABLED", "false").lower() in {"1", "true", "yes"}
+
 # ── Instant alerts (sub-minute market pulse) ───────────────────────────────
 INSTANT_ALERTS_ENABLED = os.getenv("INSTANT_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"}
 INSTANT_ALERT_INTERVAL_SEC = float(os.getenv("INSTANT_ALERT_INTERVAL_SEC", "1"))
@@ -45,9 +68,41 @@ FAST_LIVE_EXCHANGES: frozenset[str] = frozenset(
     if ex.strip()
 )
 
+# ── Price Feed Engine (WS-only strict mode) ──────────────────────────────────
+PRICE_FEED_WS_ONLY = os.getenv("PRICE_FEED_WS_ONLY", "true").lower() in {"1", "true", "yes"}
+WS_PRICE_VENUES: frozenset[str] = frozenset({"binance", "okx", "bybit"})
+# Deferred until Docker/Redis/Kafka infra is available (see DEFERRED_STEPS.md)
+REDIS_REQUIRED = os.getenv("REDIS_REQUIRED", "false").lower() in {"1", "true", "yes"}
+KAFKA_REQUIRED = os.getenv("KAFKA_REQUIRED", "false").lower() in {"1", "true", "yes"}
+
+# Local dev: skip Redis/Kafka unless explicitly required or enabled
+_redis_cache_env = os.getenv("REDIS_PRICE_CACHE_ENABLED")
+if _redis_cache_env is None:
+    REDIS_PRICE_CACHE_ENABLED = REDIS_REQUIRED
+else:
+    REDIS_PRICE_CACHE_ENABLED = _redis_cache_env.lower() in {"1", "true", "yes"}
+
+_kafka_stream_env = os.getenv("KAFKA_PRICE_STREAM_ENABLED")
+if _kafka_stream_env is None:
+    KAFKA_PRICE_STREAM_ENABLED = KAFKA_REQUIRED
+else:
+    KAFKA_PRICE_STREAM_ENABLED = _kafka_stream_env.lower() in {"1", "true", "yes"}
+REDIS_PRICE_TTL_SEC = int(os.getenv("REDIS_PRICE_TTL_SEC", "5"))
+PRICE_STREAM_TOPIC = os.getenv("PRICE_STREAM_TOPIC", "blackdark.price.ticks")
+REDIS_CLUSTER_NODES = os.getenv("REDIS_CLUSTER_NODES", "").strip()
+KAFKA_BROKERS_DEFAULT = os.getenv("KAFKA_BROKERS_DEFAULT", "localhost:9092")
+PRICE_STREAM_INLINE_PROCESS = os.getenv("PRICE_STREAM_INLINE_PROCESS", "true").lower() in {"1", "true", "yes"}
+GAS_ORACLE_REFRESH_SEC = float(os.getenv("GAS_ORACLE_REFRESH_SEC", "12"))
+FEE_MATRIX_REFRESH_SEC = int(os.getenv("FEE_MATRIX_REFRESH_SEC", "3600"))
+
 # ── Microservices architecture ───────────────────────────────────────────────
 SERVICE_MODE = os.getenv("SERVICE_MODE", "all").strip().lower()
-REDIS_URL = os.getenv("REDIS_URL", "").strip()
+if REDIS_PRICE_CACHE_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("REDIS_URL"):
+    REDIS_URL = "redis://localhost:6379/0"
+else:
+    REDIS_URL = os.getenv("REDIS_URL", "").strip()
+if KAFKA_PRICE_STREAM_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("KAFKA_BROKERS"):
+    os.environ.setdefault("KAFKA_BROKERS", KAFKA_BROKERS_DEFAULT)
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 PG_POOL_MAX = int(os.getenv("PG_POOL_MAX", "20"))
 SERVICE_BUS_LOCAL = os.getenv("SERVICE_BUS_LOCAL", "true").lower() in {"1", "true", "yes"}
@@ -55,7 +110,18 @@ SERVICE_BUS_LOCAL = os.getenv("SERVICE_BUS_LOCAL", "true").lower() in {"1", "tru
 # ── Low Latency Engine (WebSocket order books) ───────────────────────────────
 LOW_LATENCY_MODE = os.getenv("LOW_LATENCY_MODE", "true").lower() in {"1", "true", "yes"}
 EXCHANGE_WS_ENABLED = os.getenv("EXCHANGE_WS_ENABLED", "true").lower() in {"1", "true", "yes"}
-LIVE_BOOK_MAX_AGE_MS = float(os.getenv("LIVE_BOOK_MAX_AGE_MS", "500"))
+LIVE_BOOK_MAX_AGE_MS = float(os.getenv("LIVE_BOOK_MAX_AGE_MS", "300"))
+EXECUTION_MAX_QUOTE_AGE_MS = float(os.getenv("EXECUTION_MAX_QUOTE_AGE_MS", "300"))
+FAST_SCAN_MAX_QUOTE_AGE_MS = float(os.getenv("FAST_SCAN_MAX_QUOTE_AGE_MS", "300"))
+STALE_PRICE_GUARD_ENABLED = os.getenv("STALE_PRICE_GUARD_ENABLED", "true").lower() in {"1", "true", "yes"}
+
+# ── Exchange ingress (anti-DDoS / IP-ban) ────────────────────────────────────
+INGRESS_GUARD_ENABLED = os.getenv("INGRESS_GUARD_ENABLED", "true").lower() in {"1", "true", "yes"}
+MAX_CONCURRENT_EXCHANGE_POLLS = int(os.getenv("MAX_CONCURRENT_EXCHANGE_POLLS", "8"))
+MAX_CONCURRENT_SYMBOL_POLLS_PER_EXCHANGE = int(os.getenv("MAX_CONCURRENT_SYMBOL_POLLS_PER_EXCHANGE", "4"))
+EXCHANGE_POLL_STAGGER_MS = float(os.getenv("EXCHANGE_POLL_STAGGER_MS", "150"))
+EXCHANGE_BAN_COOLDOWN_SEC = float(os.getenv("EXCHANGE_BAN_COOLDOWN_SEC", "3600"))
+EXCHANGE_RATE_LIMIT_STRIKES = int(os.getenv("EXCHANGE_RATE_LIMIT_STRIKES", "3"))
 ML_DRIFT_PSI_THRESHOLD = float(os.getenv("ML_DRIFT_PSI_THRESHOLD", "0.25"))
 ML_OOD_REJECT_THRESHOLD = float(os.getenv("ML_OOD_REJECT_THRESHOLD", "0.65"))
 ML_OOD_FAIL_CLOSED = os.getenv("ML_OOD_FAIL_CLOSED", "true").lower() in {"1", "true", "yes"}
@@ -346,6 +412,23 @@ AI_ORACLE_PROFIT_REFERENCE_PCT = 2.0
 AI_ORACLE_SLIPPAGE_REFERENCE_BPS = 50.0
 AI_ORACLE_PROVIDER = "rules"
 
+# Dimension conflict guard — veto/abstain when TA vs NLP vs on-chain disagree
+DIMENSION_CONFLICT_VETO_ENABLED = os.getenv("DIMENSION_CONFLICT_VETO_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+DIMENSION_CONFLICT_SEVERE_SCORE_CAP = float(os.getenv("DIMENSION_CONFLICT_SEVERE_SCORE_CAP", "49"))
+DIMENSION_CONFLICT_MILD_SCORE_CAP = float(os.getenv("DIMENSION_CONFLICT_MILD_SCORE_CAP", "59"))
+DIMENSION_CONFLICT_BLOCK_MILD_EXECUTION = os.getenv(
+    "DIMENSION_CONFLICT_BLOCK_MILD_EXECUTION", "true"
+).lower() in {"1", "true", "yes"}
+SENTIMENT_GATE_FAIL_CLOSED = os.getenv("SENTIMENT_GATE_FAIL_CLOSED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+
 # ── Institutional Manipulation & Sector Rotation ─────────────────────────────
 SECTOR_FLOW_WINDOW_SECONDS = 60
 SII_BUCKET_COUNT = 4
@@ -431,12 +514,50 @@ HOT_STORAGE_FLUSH_BATCH_SIZE = int(os.getenv("HOT_STORAGE_FLUSH_BATCH_SIZE", "50
 HOT_STORAGE_FLUSH_INTERVAL_SECONDS = float(
     os.getenv("HOT_STORAGE_FLUSH_INTERVAL_SECONDS", "1.0")
 )
-HOT_STORAGE_MIRROR_SQLITE = os.getenv("HOT_STORAGE_MIRROR_SQLITE", "true").lower() in {
+# Production default: never mirror high-frequency ticks into SQLite (bloat risk).
+HOT_STORAGE_MIRROR_SQLITE = os.getenv("HOT_STORAGE_MIRROR_SQLITE", "false").lower() in {
     "1",
     "true",
     "yes",
 }
 HOT_STORAGE_BACKEND = os.getenv("HOT_STORAGE_BACKEND", "local")
+HOT_TIER_RETENTION_HOURS = int(os.getenv("HOT_TIER_RETENTION_HOURS", "48"))
+# Cost guard — prevent terabyte hot-tier bloat at 100-exchange scale
+STORAGE_COST_GUARD_ENABLED = os.getenv("STORAGE_COST_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_ARCHIVE_PRICING = os.getenv("HOT_STORAGE_ARCHIVE_PRICING", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_ARCHIVE_ORDER_BOOKS = os.getenv("HOT_STORAGE_ARCHIVE_ORDER_BOOKS", "false").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_ARCHIVE_TICKS = os.getenv("HOT_STORAGE_ARCHIVE_TICKS", "false").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_ARCHIVE_FUNDING = os.getenv("HOT_STORAGE_ARCHIVE_FUNDING", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_DAILY_MAX_MB = float(os.getenv("HOT_STORAGE_DAILY_MAX_MB", "2048"))
+HOT_STORAGE_ORDER_BOOK_THROTTLE_MS = int(os.getenv("HOT_STORAGE_ORDER_BOOK_THROTTLE_MS", "60000"))
+HOT_STORAGE_TICK_THROTTLE_MS = int(os.getenv("HOT_STORAGE_TICK_THROTTLE_MS", "0"))
+HOT_STORAGE_FUNDING_THROTTLE_MS = int(os.getenv("HOT_STORAGE_FUNDING_THROTTLE_MS", "60000"))
+HOT_STORAGE_ARCHIVE_WS_TICKS = os.getenv("HOT_STORAGE_ARCHIVE_WS_TICKS", "false").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+HOT_STORAGE_SYMBOL_THROTTLE_MS = int(os.getenv("HOT_STORAGE_SYMBOL_THROTTLE_MS", "1000"))
 HOT_STORAGE_CLICKHOUSE_URL = os.getenv("HOT_STORAGE_CLICKHOUSE_URL", "")
 HOT_STORAGE_CLICKHOUSE_DATABASE = os.getenv("HOT_STORAGE_CLICKHOUSE_DATABASE", "blackdark")
 HOT_STORAGE_CLICKHOUSE_USER = os.getenv("HOT_STORAGE_CLICKHOUSE_USER", "default")
@@ -447,7 +568,7 @@ HOT_STORAGE_TIMESCALE_SCHEMA = os.getenv("HOT_STORAGE_TIMESCALE_SCHEMA", "public
 # ── Parquet Compaction (Point 39) ────────────────────────────────────────────
 HISTORICAL_PARQUET_DIR = DATA_DIR / "historical_parquet"
 PARQUET_COMPACTION_ARCHIVE_DIR = DATA_DIR / "hot_spool_archive"
-PARQUET_COMPACTION_DISPOSITION = os.getenv("PARQUET_COMPACTION_DISPOSITION", "archive")
+PARQUET_COMPACTION_DISPOSITION = os.getenv("PARQUET_COMPACTION_DISPOSITION", "delete")
 PARQUET_COMPACTION_HOUR_UTC = int(os.getenv("PARQUET_COMPACTION_HOUR_UTC", "0"))
 PARQUET_COMPACTION_MINUTE_UTC = int(os.getenv("PARQUET_COMPACTION_MINUTE_UTC", "5"))
 PARQUET_COMPACTION_ENABLED = os.getenv("PARQUET_COMPACTION_ENABLED", "true").lower() in {
@@ -456,7 +577,7 @@ PARQUET_COMPACTION_ENABLED = os.getenv("PARQUET_COMPACTION_ENABLED", "true").low
     "yes",
 }
 HISTORY_PARQUET_DIR = DATA_DIR / "history"
-COMPACTION_MIN_AGE_HOURS = int(os.getenv("COMPACTION_MIN_AGE_HOURS", "24"))
+COMPACTION_MIN_AGE_HOURS = int(os.getenv("COMPACTION_MIN_AGE_HOURS", "48"))
 SQLITE_HISTORICAL_COMPACTION_ENABLED = os.getenv(
     "SQLITE_HISTORICAL_COMPACTION_ENABLED", "true"
 ).lower() in {"1", "true", "yes"}
@@ -487,6 +608,20 @@ CLOUD_SYNC_ALLOW_IAM_ROLE = os.getenv("CLOUD_SYNC_ALLOW_IAM_ROLE", "false").lowe
     "yes",
 }
 CLOUD_SYNC_INTERVAL_HOURS = int(os.getenv("CLOUD_SYNC_INTERVAL_HOURS", "6"))
+AWS_S3_STORAGE_CLASS = os.getenv("AWS_S3_STORAGE_CLASS", "STANDARD_IA")
+AWS_S3_GLACIER_TRANSITION_DAYS = int(os.getenv("AWS_S3_GLACIER_TRANSITION_DAYS", "90"))
+AWS_S3_DEEP_ARCHIVE_TRANSITION_DAYS = int(
+    os.getenv("AWS_S3_DEEP_ARCHIVE_TRANSITION_DAYS", "365")
+)
+
+# ── Multi-Tier Storage Orchestration ─────────────────────────────────────────
+STORAGE_TIER_AUTO = os.getenv("STORAGE_TIER_AUTO", "true").lower() in {"1", "true", "yes"}
+STORAGE_TIER_MAINTENANCE_INTERVAL_HOURS = int(
+    os.getenv("STORAGE_TIER_MAINTENANCE_INTERVAL_HOURS", "1")
+)
+DB_MARKET_DATA_RETENTION_DAYS = int(os.getenv("DB_MARKET_DATA_RETENTION_DAYS", "2"))
+WARM_PARQUET_LOCAL_RETENTION_DAYS = int(os.getenv("WARM_PARQUET_LOCAL_RETENTION_DAYS", "30"))
+HOT_SPOOL_ARCHIVE_RETENTION_DAYS = int(os.getenv("HOT_SPOOL_ARCHIVE_RETENTION_DAYS", "2"))
 ORACLE_RETRAIN_ENABLED = os.getenv("ORACLE_RETRAIN_ENABLED", "true").lower() in {
     "1",
     "true",
@@ -539,7 +674,7 @@ SENTIMENT_TWITTER_MOCK_ENABLED = os.getenv("SENTIMENT_TWITTER_MOCK_ENABLED", "fa
     "true",
     "yes",
 }
-SENTIMENT_TELEGRAM_MOCK_ENABLED = os.getenv("SENTIMENT_TELEGRAM_MOCK_ENABLED", "true").lower() in {
+SENTIMENT_TELEGRAM_MOCK_ENABLED = os.getenv("SENTIMENT_TELEGRAM_MOCK_ENABLED", "false").lower() in {
     "1",
     "true",
     "yes",
@@ -557,7 +692,99 @@ SENTIMENT_NEUTRAL_BAND = float(os.getenv("SENTIMENT_NEUTRAL_BAND", "0.08"))
 SENTIMENT_EXTREME_NEGATIVE_THRESHOLD = float(
     os.getenv("SENTIMENT_EXTREME_NEGATIVE_THRESHOLD", "-0.6")
 )
+SENTIMENT_EXTREME_POSITIVE_THRESHOLD = float(
+    os.getenv("SENTIMENT_EXTREME_POSITIVE_THRESHOLD", "0.75")
+)
 SENTIMENT_PANIC_SCORE_PENALTY = float(os.getenv("SENTIMENT_PANIC_SCORE_PENALTY", "25"))
+SENTIMENT_GREED_SCORE_PENALTY = float(os.getenv("SENTIMENT_GREED_SCORE_PENALTY", "20"))
+SENTIMENT_PUMP_RISK_PENALTY = float(os.getenv("SENTIMENT_PUMP_RISK_PENALTY", "15"))
+SENTIMENT_GREED_BLOCK_ENABLED = os.getenv("SENTIMENT_GREED_BLOCK_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+
+# NLP manipulation guard — pump-dump / fake social sentiment resistance
+SENTIMENT_MANIPULATION_GUARD_ENABLED = os.getenv(
+    "SENTIMENT_MANIPULATION_GUARD_ENABLED", "true"
+).lower() in {"1", "true", "yes"}
+SENTIMENT_ALLOW_MOCK_IN_SCORING = os.getenv("SENTIMENT_ALLOW_MOCK_IN_SCORING", "false").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+SENTIMENT_TRUST_WEIGHT_RSS = float(os.getenv("SENTIMENT_TRUST_WEIGHT_RSS", "1.0"))
+SENTIMENT_TRUST_WEIGHT_EDITORIAL = float(os.getenv("SENTIMENT_TRUST_WEIGHT_EDITORIAL", "1.0"))
+SENTIMENT_TRUST_WEIGHT_TWITTER = float(os.getenv("SENTIMENT_TRUST_WEIGHT_TWITTER", "0.15"))
+SENTIMENT_TRUST_WEIGHT_REDDIT = float(os.getenv("SENTIMENT_TRUST_WEIGHT_REDDIT", "0.20"))
+SENTIMENT_TRUST_WEIGHT_MOCK = float(os.getenv("SENTIMENT_TRUST_WEIGHT_MOCK", "0.0"))
+SENTIMENT_TRUST_WEIGHT_DEFAULT = float(os.getenv("SENTIMENT_TRUST_WEIGHT_DEFAULT", "0.5"))
+SENTIMENT_BURST_WINDOW_SEC = float(os.getenv("SENTIMENT_BURST_WINDOW_SEC", "120"))
+SENTIMENT_BURST_MAX_SIMILAR = int(os.getenv("SENTIMENT_BURST_MAX_SIMILAR", "3"))
+
+# ── API key security (custody / regulatory) ───────────────────────────────────
+API_KEY_SECURITY_GUARD_ENABLED = os.getenv("API_KEY_SECURITY_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+API_KEY_BLOCK_WITHDRAW_ENABLED = os.getenv("API_KEY_BLOCK_WITHDRAW_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+API_KEY_REQUIRE_USER_VAULT_LIVE = os.getenv("API_KEY_REQUIRE_USER_VAULT_LIVE", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION = os.getenv(
+    "API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION", "true"
+).lower() in {"1", "true", "yes"}
+WASH_TRADE_GUARD_ENABLED = os.getenv("WASH_TRADE_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+WASH_TRADE_WINDOW_SEC = float(os.getenv("WASH_TRADE_WINDOW_SEC", "300"))
+
+# Regulatory compliance — oracle outputs are informational analytics, not investment advice
+REGULATORY_COMPLIANCE_ENABLED = os.getenv("REGULATORY_COMPLIANCE_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+
+# Subscriber retention — bear-market churn mitigation
+RETENTION_GUARD_ENABLED = os.getenv("RETENTION_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+RETENTION_PAST_DUE_GRACE_DAYS = int(os.getenv("RETENTION_PAST_DUE_GRACE_DAYS", "7"))
+RETENTION_LOW_ARB_PROFITABLE_MAX = int(os.getenv("RETENTION_LOW_ARB_PROFITABLE_MAX", "1"))
+RETENTION_LOW_VOLATILITY_PCT = float(os.getenv("RETENTION_LOW_VOLATILITY_PCT", "3.0"))
+RETENTION_AUTO_TRIAL_EXTENSION = os.getenv("RETENTION_AUTO_TRIAL_EXTENSION", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+RETENTION_BEAR_TRIAL_EXTENSION_DAYS = int(os.getenv("RETENTION_BEAR_TRIAL_EXTENSION_DAYS", "7"))
+RETENTION_GRANT_COOLDOWN_DAYS = int(os.getenv("RETENTION_GRANT_COOLDOWN_DAYS", "30"))
+
+# Flywheel saturation — crowd liquidity depletion on mass arbitrage alerts
+FLYWHEEL_SATURATION_GUARD_ENABLED = os.getenv("FLYWHEEL_SATURATION_GUARD_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+FLYWHEEL_MAX_ALERT_RECIPIENTS = int(os.getenv("FLYWHEEL_MAX_ALERT_RECIPIENTS", "50"))
+FLYWHEEL_MAX_EXECUTION_SLOTS_PER_OPP = int(os.getenv("FLYWHEEL_MAX_EXECUTION_SLOTS_PER_OPP", "5"))
+FLYWHEEL_DEFAULT_COMPETING_NOTIONAL_USD = float(os.getenv("FLYWHEEL_DEFAULT_COMPETING_NOTIONAL_USD", "100"))
+FLYWHEEL_ESTIMATED_ACTORS_PER_ALERT = int(os.getenv("FLYWHEEL_ESTIMATED_ACTORS_PER_ALERT", "10"))
+FLYWHEEL_CROWD_STATE_TTL_SEC = float(os.getenv("FLYWHEEL_CROWD_STATE_TTL_SEC", "120"))
+FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD = float(os.getenv("FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD", "0.05"))
+FLYWHEEL_MAX_FREE_TELEGRAM_BATCH = int(os.getenv("FLYWHEEL_MAX_FREE_TELEGRAM_BATCH", "25"))
 
 # ── Macro Liquidity & Traditional Markets Correlation (Phase 4) ───────────────
 MACRO_DATA_SOURCE = os.getenv("MACRO_DATA_SOURCE", "mixed").lower()
@@ -620,4 +847,4 @@ INGESTION_LAKE_MAX_ROWS = int(os.getenv("INGESTION_LAKE_MAX_ROWS", "50000"))
 INGESTION_MAINTENANCE_INTERVAL_SECONDS = int(
     os.getenv("INGESTION_MAINTENANCE_INTERVAL_SECONDS", "3600")
 )
-BINANCE_WS_ENABLED = os.getenv("BINANCE_WS_ENABLED", "true").lower() in {"1", "true", "yes"}
+BINANCE_WS_ENABLED = os.getenv("BINANCE_WS_ENABLED", "false").lower() in {"1", "true", "yes"}
