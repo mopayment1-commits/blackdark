@@ -1,0 +1,210 @@
+"""Oracle + ML flywheel API router."""
+
+from __future__ import annotations
+
+from datetime import datetime, timezone
+
+from fastapi import APIRouter, Depends
+
+from market_context import fetch_binance_ticker, normalize_oracle_symbol
+from security_auth import require_admin
+
+router = APIRouter(tags=["oracle"])
+
+
+@router.get("/api/oracle/data-hub")
+async def oracle_data_hub_overview():
+    from oracle_data_hub import build_hub_context_safe
+
+    return await build_hub_context_safe("BTC")
+
+
+@router.get("/api/oracle/data-hub/{symbol}")
+async def oracle_data_hub_asset(symbol: str):
+    from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
+
+    asset = symbol.upper().replace("USDT", "").replace("/", "")
+    ctx = await build_hub_context_safe(asset)
+    delta, reasons, risks = hub_score_adjustment(asset, ctx)
+    ctx["score_adjustment"] = delta
+    ctx["hub_reasons"] = reasons
+    ctx["hub_risks"] = risks
+    return ctx
+
+
+@router.get("/api/forecast/audit")
+async def forecast_audit():
+    from database import fetch_forecast_audit_stats
+    from forecast_engine import run_forecast_audit
+
+    audit_run = await run_forecast_audit()
+    stats = await fetch_forecast_audit_stats(limit=25)
+    stats["newly_resolved"] = audit_run.get("resolved", 0)
+    stats["checked"] = audit_run.get("checked", 0)
+    return stats
+
+
+@router.get("/api/forecast/{symbol}")
+async def forecast_asset(symbol: str):
+    from forecast_engine import build_asset_forecast
+
+    asset, pair = normalize_oracle_symbol(symbol)
+    market = await fetch_binance_ticker(pair)
+    current_price = float(market["price"]) if market else None
+    forecast = await build_asset_forecast(asset, current_price=current_price)
+    return {
+        "asset": asset,
+        "forecast": forecast,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+@router.get("/api/oracle/audit")
+async def oracle_audit():
+    from database import fetch_oracle_audit_stats
+    from ml.labeling_pipeline import resolve_mature_predictions
+
+    resolved_now = await resolve_mature_predictions()
+    stats = await fetch_oracle_audit_stats(limit=25)
+    stats["newly_resolved"] = (resolved_now or {}).get("resolved_24h", 0)
+    stats["labeling"] = resolved_now
+    return stats
+
+
+@router.get("/api/ml/status")
+async def ml_status():
+    from ml.train_baseline import model_status
+
+    return await model_status()
+
+
+@router.post("/api/ml/flywheel/run")
+async def ml_flywheel_run(_admin: dict = Depends(require_admin)):
+    from ml.labeling_pipeline import run_labeling_flywheel_cycle
+
+    return await run_labeling_flywheel_cycle()
+
+
+@router.post("/api/ml/train")
+async def ml_train(_admin: dict = Depends(require_admin)):
+    from ml.train_baseline import train_oracle_direction_model
+
+    return await train_oracle_direction_model()
+
+
+@router.get("/api/ml/predict/{asset}")
+async def ml_predict(asset: str, price: float | None = None):
+    from ml.inference import predict_direction
+
+    return await predict_direction(asset, price=price)
+
+
+@router.get("/api/oracle/accuracy/public")
+async def oracle_accuracy_public():
+    from ml.public_accuracy import build_public_accuracy_payload
+
+    payload = await build_public_accuracy_payload()
+    payload["timestamp"] = datetime.now(timezone.utc).isoformat()
+    return payload
+
+
+@router.post("/api/ml/train/ensemble")
+async def ml_train_ensemble(_admin: dict = Depends(require_admin)):
+    from ml.train_ensemble import train_direction_ensemble
+
+    return await train_direction_ensemble()
+
+
+@router.get("/api/ml/experience")
+async def ml_experience():
+    from ml.experience_log import fetch_recent_experiences, load_experience_summary
+
+    return {
+        "summary": load_experience_summary(),
+        "recent": fetch_recent_experiences(limit=50),
+    }
+
+
+@router.get("/api/oracle/weights")
+async def oracle_weights(
+    symbol: str = "BTC",
+    change_24h: float = 0.0,
+    _admin: dict = Depends(require_admin),
+):
+    from model_weights_guard import public_weights_summary
+    from weight_aggregator import (
+        compute_modal_breakdown,
+        detect_market_regime,
+        get_core_score_weights,
+        get_dimension_weights,
+        get_regime_dimension_weights,
+    )
+    from whale_tracker import get_latest_institutional_context
+
+    ctx = await get_latest_institutional_context()
+    regime = detect_market_regime(ctx, change_24h=change_24h)
+    breakdown = compute_modal_breakdown(symbol.upper(), ctx, change_24h=change_24h)
+    return {
+        "symbol": symbol.upper(),
+        "public_summary": public_weights_summary(regime),
+        "market_regime": regime,
+        "dimension_weights": get_regime_dimension_weights(regime),
+        "stored_weights": get_dimension_weights(),
+        "core_weights": get_core_score_weights(),
+        "breakdown": breakdown,
+        "engine": "unified_multimodal_v1",
+        "access": "admin",
+    }
+
+
+@router.get("/api/oracle/weights/public")
+async def oracle_weights_public(symbol: str = "BTC", change_24h: float = 0.0):
+    from model_weights_guard import public_weights_summary
+    from weight_aggregator import detect_market_regime
+    from whale_tracker import get_latest_institutional_context
+
+    ctx = await get_latest_institutional_context()
+    regime = detect_market_regime(ctx, change_24h=change_24h)
+    return public_weights_summary(regime)
+
+
+@router.post("/api/oracle/retrain")
+async def oracle_retrain_manual(_admin: dict = Depends(require_admin)):
+    from oracle_retrainer import run_oracle_retrain_step
+
+    return await run_oracle_retrain_step()
+
+
+@router.get("/api/oracle/dimension-conflict")
+async def api_dimension_conflict_guard():
+    from dimension_conflict_guard import dimension_conflict_status
+
+    return dimension_conflict_status()
+
+
+@router.get("/api/oracle/track-record")
+async def api_oracle_track_record():
+    from oracle_track_record import public_track_record
+
+    return public_track_record()
+
+
+@router.post("/api/oracle/track-record/backfill")
+async def api_oracle_track_record_backfill():
+    from oracle_track_record import backfill_from_database
+
+    return await backfill_from_database()
+
+
+@router.get("/api/oracle/audit-chain")
+async def api_oracle_audit_chain(limit: int = 20):
+    from oracle_audit_chain import chain_summary
+
+    return chain_summary(limit=limit)
+
+
+@router.get("/api/oracle/audit-chain/verify")
+async def api_oracle_audit_chain_verify():
+    from oracle_audit_chain import verify_chain
+
+    return verify_chain()

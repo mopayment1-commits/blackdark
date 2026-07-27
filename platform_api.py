@@ -420,7 +420,7 @@ async def drawdown_status():
 
 
 @router.post("/risk/drawdown")
-async def drawdown_update(body: dict[str, Any] = Body(...)):
+async def drawdown_update(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.drawdown_guard import update_equity
 
     return update_equity(float(body.get("equity_usd") or 0))
@@ -462,7 +462,7 @@ async def vault_status():
 
 
 @router.post("/vault/store")
-async def vault_store(body: dict[str, Any] = Body(...)):
+async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret
 
     key = str(body.get("key") or "")
@@ -473,7 +473,7 @@ async def vault_store(body: dict[str, Any] = Body(...)):
 
 
 @router.get("/vault/read")
-async def vault_read(key: str = Query(...)):
+async def vault_read(key: str = Query(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import read_secret
 
     return read_secret(key)
