@@ -1,0 +1,13 @@
+[run]
+source =
+    fee_matrix
+    slippage_guard
+    fast_scan_engine
+    profit_fee_algorithms
+omit =
+    tests/*
+
+[report]
+fail_under = 90
+show_missing = true
+precision = 1

@@ -1,0 +1,32 @@
+name: CI Full Test Suite
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pytest-cov
+
+      - name: Profit/fee module tests (90% gate)
+        run: |
+          python -m pytest tests/test_slippage_guard.py tests/test_fee_matrix.py \
+            tests/test_profit_fee_algorithms.py tests/test_fast_scan_profit.py \
+            -q --tb=short --cov-config=.coveragerc-profit-fee \
+            --cov=fee_matrix --cov=slippage_guard --cov=fast_scan_engine \
+            --cov=profit_fee_algorithms --cov-fail-under=90
+
+      - name: Due diligence report smoke
+        run: python scripts/due_diligence_verify.py

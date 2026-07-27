@@ -62,8 +62,13 @@ def due_diligence_report() -> dict[str, Any]:
     uptime = uptime_stats(window_hours=24)
     ha = ha_architecture_status()
 
+    probes_total = int(uptime.get("probes_total") or 0)
+    meets_sla = uptime.get("meets_sla")
+    uptime_ok = meets_sla is True if probes_total >= 10 else False
+
     checks = {
-        "uptime_sla_99_99": uptime.get("meets_sla") is True or uptime.get("probes_total", 0) < 10,
+        "uptime_sla_99_99": uptime_ok,
+        "uptime_probes_sufficient": probes_total >= 10,
         "latency_p99_le_50ms": bool(latency.get("meets_target_p99")),
         "profit_fee_coverage_ge_90": coverage.get("passed", False),
         "ha_architecture_ready": ha.get("high_availability_ready", False),
