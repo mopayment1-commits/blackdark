@@ -18,6 +18,8 @@ COPY requirements-prod.txt requirements.txt
 RUN pip install --no-cache-dir --default-timeout=180 -r requirements.txt
 
 COPY *.py ./
+COPY api/ api/
+COPY repos/ repos/
 COPY bd_platform/ bd_platform/
 COPY ml/ ml/
 COPY microservices/ microservices/

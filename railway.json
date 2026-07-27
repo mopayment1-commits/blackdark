@@ -9,7 +9,7 @@
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
     "healthcheckPath": "/health/live",
-    "healthcheckTimeout": 10,
-    "multiServiceNote": "Use docker-compose.yml for web+aggregator+arbitrage+ingestion scale-out"
+    "healthcheckTimeout": 30,
+    "multiServiceNote": "Use docker-compose.ha.yml for nginx + web×2 + arbitrage×2 HA stack"
   }
 }
