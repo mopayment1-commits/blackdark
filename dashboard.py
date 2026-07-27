@@ -901,9 +901,9 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
     quote_volume = market["quote_volume"] or (market["volume"] * price)
     change = market["change_24h"]
 
-    from oracle_unified import compute_base_technical_score
+    from market_context import oracle_score
 
-    score = compute_base_technical_score(quote_volume, change)
+    score = oracle_score(quote_volume, change)
     if _is_stablecoin(asset):
         score = min(score, 55)
     verdict, _ = _oracle_verdict(score, asset, price)
@@ -976,23 +976,45 @@ async def oracle(
     volume = market["volume"]
     quote_volume = market["quote_volume"] or (volume * price)
     change = market["change_24h"]
-    whale_alert = await _fetch_cvvd_whale_alert(asset, pair, price)
+    whale_alert = None
+    try:
+        whale_alert = await _fetch_cvvd_whale_alert(asset, pair, price)
+    except Exception:
+        logger.exception("Whale alert fetch failed")
 
-    from oracle_unified import compute_unified_oracle
+    try:
+        from oracle_unified import compute_unified_oracle
 
-    unified = await compute_unified_oracle(asset, price, quote_volume, change)
+        unified = await compute_unified_oracle(asset, price, quote_volume, change)
+    except Exception:
+        logger.exception("Unified oracle engine unavailable — falling back to technical score")
+        from market_context import oracle_score
+
+        unified = {
+            "opportunity_score": oracle_score(quote_volume, change),
+            "verdict": None,
+            "confidence": None,
+            "engine": "technical_fallback_v1",
+        }
 
     payload = _build_full_oracle_response(
         asset, price, volume, quote_volume, change,
         whale_alert=whale_alert,
         unified=unified,
     )
-    payload["explanation"] = await _build_opportunity_explanation(
-        asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
-    )
-    from forecast_engine import enrich_oracle_payload
+    try:
+        payload["explanation"] = await _build_opportunity_explanation(
+            asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
+        )
+    except Exception:
+        logger.exception("Oracle explanation unavailable")
+        payload["explanation"] = {"summary": "Technical oracle response (extended explanation unavailable)."}
+    try:
+        from forecast_engine import enrich_oracle_payload
 
-    payload = await enrich_oracle_payload(payload)
+        payload = await enrich_oracle_payload(payload)
+    except Exception:
+        logger.exception("Oracle forecast enrichment unavailable")
     background_tasks.add_task(_log_oracle_prediction, payload)
     background_tasks.add_task(
         _record_behavior,
@@ -2131,7 +2153,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-27-oracle-focus-v5",
+        "release": "2026-07-27-oracle-focus-v6",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
