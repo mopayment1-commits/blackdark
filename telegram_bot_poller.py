@@ -49,7 +49,7 @@ async def _poll_loop() -> None:
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     if not token:
         return
-    logger.info("Telegram polling started (dev mode)")
+    logger.info("Telegram polling started (no webhook URL configured)")
     while True:
         try:
             await _poll_once(token)
@@ -60,10 +60,20 @@ async def _poll_loop() -> None:
         await asyncio.sleep(1)
 
 
+def _polling_enabled() -> bool:
+    explicit = os.getenv("TELEGRAM_POLLING_ENABLED", "").strip().lower()
+    if explicit in {"0", "false", "no"}:
+        return False
+    if explicit in {"1", "true", "yes"}:
+        return True
+    if os.getenv("TELEGRAM_WEBHOOK_URL", "").strip():
+        return False
+    return bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
+
+
 async def start_telegram_poller() -> asyncio.Task | None:
     global _poller_task
-    enabled = os.getenv("TELEGRAM_POLLING_ENABLED", "false").lower() in {"1", "true", "yes"}
-    if not enabled or not os.getenv("TELEGRAM_BOT_TOKEN"):
+    if not _polling_enabled() or not os.getenv("TELEGRAM_BOT_TOKEN"):
         return None
     if _poller_task is not None and not _poller_task.done():
         return _poller_task

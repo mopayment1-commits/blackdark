@@ -648,35 +648,52 @@ async def login_page(request: Request):
 
 @app.get("/api/platform/stats")
 async def platform_stats():
-    from database import fetch_platform_user_stats
+    from database import fetch_platform_user_stats, count_telegram_free_subscribers
     from billing_service import stripe_configured
 
     stats = await fetch_platform_user_stats()
     stats["stripe_configured"] = stripe_configured()
-    stats["telegram_configured"] = bool(
-        os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID")
-    )
+    stats["telegram_configured"] = bool(os.getenv("TELEGRAM_BOT_TOKEN"))
+    stats["telegram_free_subscribers"] = await count_telegram_free_subscribers()
     return stats
+
+
+@app.get("/api/gtm/status")
+async def gtm_status():
+    """Go-to-market tracker — Stripe, Telegram, MKT docs, 90-day targets."""
+    from gtm_service import fetch_gtm_status
+
+    return await fetch_gtm_status()
 
 
 @app.get("/api/launch/readiness")
 async def launch_readiness():
     """90-day launch tracker — Stripe, Telegram, uptime, DD score."""
     from billing_service import stripe_configured
+    from gtm_service import fetch_gtm_status
     from uptime_monitor import uptime_stats
 
     uptime = uptime_stats(window_hours=24)
     probes = int(uptime.get("probes_total") or 0)
+    gtm = await fetch_gtm_status()
     return {
         "production_url": os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app"),
         "stripe_configured": stripe_configured(),
         "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
         "uptime_probes_24h": probes,
         "uptime_meets_dd_gate": probes >= 10,
-        "uptime_external_monitor": "https://uptimerobot.com → /health/live every 5 min",
-        "setup_script": "python scripts/setup_production_launch.py",
+        "uptime_external_monitor": "https://uptimerobot.com -> /health/live every 5 min",
+        "gtm_status": "/api/gtm/status",
+        "setup_scripts": {
+            "launch": "python scripts/setup_production_launch.py",
+            "stripe": "python scripts/setup_stripe_production.py",
+            "telegram": "python scripts/setup_telegram_production.py",
+        },
+        "ninety_day_targets": gtm.get("ninety_day_targets"),
+        "blockers": gtm.get("blockers"),
         "dd_technical_report": "/api/due-diligence/technical",
-        "next_steps": [
+        "next_steps": gtm.get("next_actions")
+        or [
             "Configure UptimeRobot on /health/live",
             "Set Stripe live keys in Railway Variables",
             "Set TELEGRAM_BOT_TOKEN + webhook URL",

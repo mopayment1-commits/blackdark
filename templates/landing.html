@@ -572,6 +572,7 @@
         <span>Visitors: <strong id="landingViews">—</strong></span>
         <span>Users: <strong id="landingUsers">—</strong></span>
         <span>Subscribers: <strong id="landingSubs">—</strong></span>
+        <span>Telegram: <strong id="landingTelegram">—</strong></span>
         <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
     </div>
     
@@ -919,18 +920,22 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ page: 'landing' })
                 });
-                const [analyticsRes, usersRes] = await Promise.all([
+                const [analyticsRes, usersRes, telegramRes] = await Promise.all([
                     fetch('/api/analytics/stats'),
                     fetch('/api/platform/stats'),
+                    fetch('/api/telegram/free/status'),
                 ]);
                 const analytics = await analyticsRes.json();
                 const users = await usersRes.json();
+                const telegram = await telegramRes.json();
                 document.getElementById('landingViews').textContent =
                     (analytics.landing_views || 0).toLocaleString();
                 document.getElementById('landingUsers').textContent =
                     (users.registered_users || 0).toLocaleString();
                 document.getElementById('landingSubs').textContent =
                     (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString();
+                document.getElementById('landingTelegram').textContent =
+                    (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString();
                 document.getElementById('landingWaitlist').textContent =
                     (analytics.waitlist_count || 0).toLocaleString();
             } catch (e) {}
