@@ -29,7 +29,7 @@ def _doc_ready(path: Path) -> bool:
 
 
 def _stripe_ready() -> dict[str, Any]:
-    from billing_service import stripe_configured
+    from billing_service import billing_configured, billing_provider, lemon_squeezy_checkout_url, stripe_configured
 
     keys = {
         "secret": bool(os.getenv("STRIPE_SECRET_KEY", "").strip()),
@@ -37,10 +37,13 @@ def _stripe_ready() -> dict[str, Any]:
         "price_pro": bool(os.getenv("STRIPE_PRICE_PRO", "").strip()),
         "success_url": bool(os.getenv("STRIPE_SUCCESS_URL", "").strip()),
     }
+    ls_pro = lemon_squeezy_checkout_url("pro")
     return {
-        "configured": stripe_configured(),
+        "configured": billing_configured(),
+        "provider": billing_provider(),
         "keys": keys,
-        "checkout_url": "/create-checkout-session?tier=pro",
+        "lemon_squeezy_pro_url": bool(ls_pro),
+        "checkout_url": ls_pro or "/create-checkout-session?tier=pro",
         "setup_script": "python scripts/setup_stripe_production.py",
     }
 

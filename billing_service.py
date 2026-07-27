@@ -19,9 +19,35 @@ STRIPE_TIERS: dict[str, dict[str, Any]] = {
     "whale": {"amount": 19900, "name": "BLACKDARK Whale"},
 }
 
+LEMON_SQUEEZY_ENV_KEYS = {
+    "pro": "LEMON_SQUEEZY_CHECKOUT_PRO",
+    "whale": "LEMON_SQUEEZY_CHECKOUT_WHALE",
+}
+
 
 def stripe_configured() -> bool:
     return bool(os.getenv("STRIPE_SECRET_KEY", ""))
+
+
+def lemon_squeezy_checkout_url(tier: str) -> str | None:
+    tier = tier.lower().strip()
+    env_key = LEMON_SQUEEZY_ENV_KEYS.get(tier)
+    if not env_key:
+        return None
+    url = os.getenv(env_key, "").strip()
+    return url or None
+
+
+def billing_configured() -> bool:
+    return stripe_configured() or bool(lemon_squeezy_checkout_url("pro"))
+
+
+def billing_provider() -> str:
+    if stripe_configured():
+        return "stripe"
+    if lemon_squeezy_checkout_url("pro"):
+        return "lemon_squeezy"
+    return "none"
 
 
 def _price_id_for_tier(tier: str) -> str | None:

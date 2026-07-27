@@ -2403,10 +2403,14 @@ async def telegram_free_broadcast(_admin: dict = Depends(require_admin)):
 
 
 def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_id: int | None = None) -> dict:
-    from billing_service import create_checkout_session, stripe_configured
+    from billing_service import create_checkout_session, lemon_squeezy_checkout_url, stripe_configured
+
+    ls_url = lemon_squeezy_checkout_url(tier)
+    if ls_url:
+        return {"url": ls_url, "provider": "lemon_squeezy", "tier": tier}
 
     if not stripe_configured():
-        raise HTTPException(status_code=503, detail="Stripe not configured")
+        raise HTTPException(status_code=503, detail="Billing not configured")
     try:
         return create_checkout_session(tier, customer_email=customer_email, user_id=user_id)
     except ValueError as exc:
@@ -2417,7 +2421,7 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
 
 @app.get("/create-checkout-session")
 async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_user)):
-    """Landing page links use GET — redirect straight to Stripe."""
+    """Landing page links use GET — redirect to Lemon Squeezy or Stripe."""
     email = user.get("email") if user else None
     user_id = int(user["id"]) if user and user.get("id") else None
     payload = _create_stripe_checkout(tier, customer_email=email, user_id=user_id)
