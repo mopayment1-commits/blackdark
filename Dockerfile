@@ -5,6 +5,7 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=8080 \
+    SERVICE_MODE=web \
     RUN_AGGREGATOR=false \
     MANIFEST_AUTO_APPROVE=true \
     MANIFEST_REQUIRE_REVIEW=false
@@ -34,4 +35,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=5s --timeout=2s --start-period=20s --retries=3 \
     CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8180/health/live', timeout=2)"
 
-CMD ["sh", "-c", "exec python run_service.py ${SERVICE_MODE:-all} --port ${PORT:-8080}"]
+CMD ["sh", "-c", "exec python run_service.py ${SERVICE_MODE:-web} --port ${PORT:-8080}"]

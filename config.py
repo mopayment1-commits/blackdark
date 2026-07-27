@@ -96,7 +96,9 @@ GAS_ORACLE_REFRESH_SEC = float(os.getenv("GAS_ORACLE_REFRESH_SEC", "12"))
 FEE_MATRIX_REFRESH_SEC = int(os.getenv("FEE_MATRIX_REFRESH_SEC", "3600"))
 
 # ── Microservices architecture ───────────────────────────────────────────────
-SERVICE_MODE = os.getenv("SERVICE_MODE", "all").strip().lower()
+_on_railway = bool(os.getenv("RAILWAY_ENVIRONMENT", "").strip())
+_default_service_mode = "web" if _on_railway else "all"
+SERVICE_MODE = os.getenv("SERVICE_MODE", _default_service_mode).strip().lower()
 if REDIS_PRICE_CACHE_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("REDIS_URL"):
     REDIS_URL = "redis://localhost:6379/0"
 else:
@@ -105,7 +107,11 @@ if KAFKA_PRICE_STREAM_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("KAFKA_BR
     os.environ.setdefault("KAFKA_BROKERS", KAFKA_BROKERS_DEFAULT)
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 PG_POOL_MAX = int(os.getenv("PG_POOL_MAX", "20"))
-SERVICE_BUS_LOCAL = os.getenv("SERVICE_BUS_LOCAL", "true").lower() in {"1", "true", "yes"}
+_bus_local_env = os.getenv("SERVICE_BUS_LOCAL")
+if _bus_local_env is None:
+    SERVICE_BUS_LOCAL = not bool(REDIS_URL)
+else:
+    SERVICE_BUS_LOCAL = _bus_local_env.lower() in {"1", "true", "yes"}
 
 # ── Low Latency Engine (WebSocket order books) ───────────────────────────────
 LOW_LATENCY_MODE = os.getenv("LOW_LATENCY_MODE", "true").lower() in {"1", "true", "yes"}

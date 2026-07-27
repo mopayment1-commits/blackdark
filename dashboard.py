@@ -244,6 +244,13 @@ async def lifespan(app: FastAPI):
             logger.exception("Sentry init failed")
 
         try:
+            from production_guard import log_production_guard
+
+            log_production_guard()
+        except Exception:
+            logger.exception("Production guard check failed")
+
+        try:
             from risk_manager import load_persistent_freeze
 
             await load_persistent_freeze()
@@ -395,6 +402,20 @@ try:
     from api.routers.privacy import router as privacy_router
 
     app.include_router(privacy_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.gtm import router as gtm_router
+
+    app.include_router(gtm_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.telegram import router as telegram_router
+
+    app.include_router(telegram_router)
 except ImportError:
     pass
 
@@ -645,62 +666,8 @@ async def login_page(request: Request):
 
 
 # Auth routes → api/routers/auth.py
-
-@app.get("/api/platform/stats")
-async def platform_stats():
-    from database import fetch_platform_user_stats, count_telegram_free_subscribers
-    from billing_service import stripe_configured
-
-    stats = await fetch_platform_user_stats()
-    stats["stripe_configured"] = stripe_configured()
-    stats["telegram_configured"] = bool(os.getenv("TELEGRAM_BOT_TOKEN"))
-    stats["telegram_free_subscribers"] = await count_telegram_free_subscribers()
-    return stats
-
-
-@app.get("/api/gtm/status")
-async def gtm_status():
-    """Go-to-market tracker — Stripe, Telegram, MKT docs, 90-day targets."""
-    from gtm_service import fetch_gtm_status
-
-    return await fetch_gtm_status()
-
-
-@app.get("/api/launch/readiness")
-async def launch_readiness():
-    """90-day launch tracker — Stripe, Telegram, uptime, DD score."""
-    from billing_service import stripe_configured
-    from gtm_service import fetch_gtm_status
-    from uptime_monitor import uptime_stats
-
-    uptime = uptime_stats(window_hours=24)
-    probes = int(uptime.get("probes_total") or 0)
-    gtm = await fetch_gtm_status()
-    return {
-        "production_url": os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app"),
-        "stripe_configured": stripe_configured(),
-        "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
-        "uptime_probes_24h": probes,
-        "uptime_meets_dd_gate": probes >= 10,
-        "uptime_external_monitor": "https://uptimerobot.com -> /health/live every 5 min",
-        "gtm_status": "/api/gtm/status",
-        "setup_scripts": {
-            "launch": "python scripts/setup_production_launch.py",
-            "stripe": "python scripts/setup_stripe_production.py",
-            "telegram": "python scripts/setup_telegram_production.py",
-        },
-        "ninety_day_targets": gtm.get("ninety_day_targets"),
-        "blockers": gtm.get("blockers"),
-        "dd_technical_report": "/api/due-diligence/technical",
-        "next_steps": gtm.get("next_actions")
-        or [
-            "Configure UptimeRobot on /health/live",
-            "Set Stripe live keys in Railway Variables",
-            "Set TELEGRAM_BOT_TOKEN + webhook URL",
-            "Share landing page — target 10 paid users",
-        ],
-    }
-
+# GTM / platform stats → api/routers/gtm.py
+# Telegram → api/routers/telegram.py
 
 @app.post("/api/promo/redeem")
 async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optional_user)):
@@ -2265,38 +2232,6 @@ async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     }
 
 
-@app.post("/api/telegram/webhook")
-async def telegram_webhook(request: Request):
-    """Telegram Bot API webhook — /start subscribes to 3 free alerts/day."""
-    secret = os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()
-    if secret:
-        provided = request.headers.get("X-Telegram-Bot-Api-Secret-Token", "")
-        if not hmac.compare_digest(provided, secret):
-            raise HTTPException(status_code=403, detail="Invalid webhook secret")
-    from alert_service import send_telegram_message
-    from telegram_free_alerts import handle_bot_command
-
-    try:
-        data = await request.json()
-    except Exception:
-        return {"ok": True}
-
-    message = data.get("message") or data.get("edited_message") or {}
-    chat = message.get("chat") or {}
-    chat_id = chat.get("id")
-    text = str(message.get("text") or "").strip()
-    username = chat.get("username")
-
-    if not chat_id or not text:
-        return {"ok": True}
-
-    if text.startswith("/"):
-        reply = await handle_bot_command(str(chat_id), text, username=username)
-        if reply:
-            await send_telegram_message(reply, chat_id=str(chat_id))
-    return {"ok": True}
-
-
 @app.get("/api/services/status")
 async def services_status():
     from microservices.lifecycle import current_mode, service_info
@@ -2378,28 +2313,6 @@ async def instant_alert_status():
     stats["latency_target_ms"] = 800
     stats["binance_ws"] = __import__("binance_ws_ingest").ws_stats()
     return stats
-
-
-@app.get("/api/telegram/free/status")
-async def telegram_free_status():
-    from database import count_telegram_free_subscribers
-    from telegram_free_alerts import FREE_DAILY_ALERT_LIMIT
-
-    return {
-        "enabled": os.getenv("TELEGRAM_FREE_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"},
-        "daily_limit": FREE_DAILY_ALERT_LIMIT,
-        "active_subscribers": await count_telegram_free_subscribers(),
-        "bot_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
-        "bot_username": os.getenv("TELEGRAM_BOT_USERNAME", "").strip().lstrip("@"),
-        "commands": ["/start", "/stop", "/status", "/accuracy"],
-    }
-
-
-@app.post("/api/telegram/free/broadcast")
-async def telegram_free_broadcast(_admin: dict = Depends(require_admin)):
-    from telegram_free_alerts import dispatch_free_telegram_alerts
-
-    return await dispatch_free_telegram_alerts()
 
 
 def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_id: int | None = None) -> dict:

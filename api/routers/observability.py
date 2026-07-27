@@ -35,6 +35,13 @@ async def technical_due_diligence_api(probe_production: bool = True):
     return await build_technical_due_diligence_report(probe_production=probe_production)
 
 
+@router.get("/api/due-diligence/architecture")
+async def architecture_due_diligence_api():
+    from architecture_due_diligence import evaluate_architecture_dd
+
+    return evaluate_architecture_dd()
+
+
 @router.get("/api/diagnostics/price/{symbol}")
 async def price_source_diagnostics(symbol: str):
     from market_context import probe_price_sources

@@ -45,34 +45,46 @@ def main() -> int:
 
     print("\n--- Railway Variables (set in dashboard) ---")
     checks = [
+        ("SERVICE_MODE", "web - Oracle-only lightweight process"),
+        ("DATABASE_URL", "postgresql://... - Railway Postgres plugin"),
+        ("LEMON_SQUEEZY_CHECKOUT_PRO", "Lemon Squeezy checkout URL (Egypt-friendly)"),
+        ("REDIS_URL", "Railway Redis or Upstash (recommended)"),
+        ("SERVICE_BUS_LOCAL", "false when REDIS_URL set"),
+        ("SENTRY_DSN", "sentry.io error tracking (recommended)"),
         ("SECRETS_MASTER_KEY", "32-byte hex - required for vault"),
         ("SESSION_TOKEN_PEPPER", "random string - session security"),
-        ("STRIPE_SECRET_KEY", "sk_live_... - Pro/Whale billing"),
-        ("STRIPE_PRICE_PRO", "price_... - $29/mo Pro tier"),
-        ("STRIPE_WEBHOOK_SECRET", "whsec_... - payment events"),
-        ("STRIPE_SUCCESS_URL", f"{PROD_URL}/success?session_id={{CHECKOUT_SESSION_ID}}"),
-        ("STRIPE_CANCEL_URL", f"{PROD_URL}/cancel"),
         ("TELEGRAM_BOT_TOKEN", "from @BotFather"),
-        ("TELEGRAM_BOT_USERNAME", "auto from setup_telegram_production.py"),
         ("TELEGRAM_WEBHOOK_URL", f"{PROD_URL}/api/telegram/webhook"),
-        ("TELEGRAM_WEBHOOK_SECRET", "optional - validates webhook POSTs"),
         ("APP_BASE_URL", PROD_URL),
         ("PRICE_FEED_WS_ONLY", "false (Railway cloud)"),
+        ("UPTIME_SELF_PROBE_ENABLED", "true"),
     ]
     missing = 0
     for key, hint in checks:
         val = _env(key)
         ok = bool(val)
-        if not ok and key not in {"TELEGRAM_WEBHOOK_SECRET", "TELEGRAM_BOT_USERNAME"}:
+        required = key in {"SERVICE_MODE", "DATABASE_URL", "LEMON_SQUEEZY_CHECKOUT_PRO", "APP_BASE_URL"}
+        if not ok and required:
             missing += 1
         mark = "SET" if ok else "MISSING"
         print(f"  [{mark}] {key}")
         if not ok:
             print(f"         -> {hint}")
 
+    try:
+        from production_guard import evaluate_production_guard
+
+        guard = evaluate_production_guard()
+        print("\n--- Production Guard ---")
+        print(f"  Required pass: {guard.get('required_pass')}")
+        if guard.get("required_failures"):
+            print(f"  Failures: {', '.join(guard['required_failures'])}")
+        print(f"  API: {PROD_URL}/api/production/guard")
+    except Exception:
+        pass
+
     print("\n--- GTM setup scripts ---")
-    print("  python scripts/setup_stripe_production.py")
-    print("  python scripts/setup_telegram_production.py")
+    print("  python scripts/railway_production_checklist.py")
     print(f"  Live tracker: {PROD_URL}/api/gtm/status")
 
     print("\n--- UptimeRobot (DD #1 - do this today) ---")

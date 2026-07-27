@@ -12,15 +12,20 @@ router = APIRouter(prefix="/api/billing", tags=["billing"])
 
 @router.get("/status")
 async def billing_status(user: dict | None = Depends(optional_user)):
-    from billing_service import stripe_configured
+    from billing_service import billing_configured, billing_provider
     from database import fetch_active_subscription_for_email, fetch_user_stripe_customer_id
 
     if not user:
-        return {"authenticated": False, "stripe_configured": stripe_configured()}
+        return {
+            "authenticated": False,
+            "billing_configured": billing_configured(),
+            "billing_provider": billing_provider(),
+        }
     sub = await fetch_active_subscription_for_email(user["email"])
     return {
         "authenticated": True,
-        "stripe_configured": stripe_configured(),
+        "billing_configured": billing_configured(),
+        "billing_provider": billing_provider(),
         "stripe_customer_id": await fetch_user_stripe_customer_id(user["email"]),
         "subscription": sub,
         "tier": user.get("tier"),
@@ -33,11 +38,14 @@ async def billing_checkout(
     data: dict = Body(default={}),
     user: dict | None = Depends(optional_user),
 ):
-    from billing_service import create_checkout_session, stripe_configured
+    from billing_service import billing_configured, create_checkout_session, lemon_squeezy_checkout_url
 
-    if not stripe_configured():
-        raise HTTPException(status_code=503, detail="Stripe not configured")
     tier = str(data.get("tier") or "pro")
+    ls_url = lemon_squeezy_checkout_url(tier)
+    if ls_url:
+        return {"url": ls_url, "provider": "lemon_squeezy", "tier": tier}
+    if not billing_configured():
+        raise HTTPException(status_code=503, detail="Billing not configured")
     email = user.get("email") if user else None
     user_id = int(user["id"]) if user and user.get("id") else None
     try:
