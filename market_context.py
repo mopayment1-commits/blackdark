@@ -8,14 +8,54 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Callable, Awaitable
 
 import aiohttp
 
 import config
 
 logger = logging.getLogger("BLACKDARK.MarketContext")
+
+_HTTP_TIMEOUT = aiohttp.ClientTimeout(total=12)
+_HTTP_HEADERS = {
+    "User-Agent": "BLACKDARK/1.0 (+https://blackdark.io)",
+    "Accept": "application/json",
+}
+
+
+def _coingecko_headers() -> dict[str, str]:
+    headers = dict(_HTTP_HEADERS)
+    cg_key = os.getenv("COINGECKO_API_KEY", "").strip()
+    if cg_key:
+        headers["x-cg-demo-api-key"] = cg_key
+        headers["x-cg-pro-api-key"] = cg_key
+    return headers
+
+
+async def _rest_get(
+    url: str,
+    *,
+    params: dict[str, str] | None = None,
+    headers: dict[str, str] | None = None,
+    session: aiohttp.ClientSession | None = None,
+) -> Any | None:
+    owns_session = session is None
+    try:
+        if owns_session:
+            session = aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS)
+        assert session is not None
+        async with session.get(url, params=params, headers=headers) as resp:
+            if resp.status != 200:
+                logger.debug("REST price fetch non-200 | url=%s status=%s", url, resp.status)
+                return None
+            return await resp.json()
+    except (aiohttp.ClientError, json.JSONDecodeError, TypeError, ValueError):
+        return None
+    finally:
+        if owns_session and session is not None:
+            await session.close()
 
 
 def sector_for_asset(asset: str) -> str:
@@ -92,71 +132,254 @@ def _binance_ticker_from_json(data: dict[str, Any], *, source: str) -> dict[str,
     }
 
 
-async def _fetch_binance_host_ticker(pair: str, host: str) -> dict[str, Any] | None:
-    url = f"https://{host}/api/v3/ticker/24hr?symbol={pair}"
+# Kraken uses non-standard pair names for some assets.
+_KRAKEN_PAIRS: dict[str, str] = {
+    "BTC": "XBTUSD",
+    "DOGE": "XDGUSD",
+    "ETH": "ETHUSD",
+    "SOL": "SOLUSD",
+    "XRP": "XRPUSD",
+    "ADA": "ADAUSD",
+    "DOT": "DOTUSD",
+    "LINK": "LINKUSD",
+    "LTC": "LTCUSD",
+    "AVAX": "AVAXUSD",
+    "ATOM": "ATOMUSD",
+    "UNI": "UNIUSD",
+    "NEAR": "NEARUSD",
+    "APT": "APTUSD",
+    "ARB": "ARBUSD",
+    "OP": "OPUSD",
+    "SUI": "SUIUSD",
+    "PEPE": "PEPEUSD",
+    "SHIB": "SHIBUSD",
+}
+
+
+async def _fetch_binance_host_ticker(
+    pair: str,
+    host: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
+    url = f"https://{host}/api/v3/ticker/24hr"
+    data = await _rest_get(url, params={"symbol": pair}, session=session)
+    if not isinstance(data, dict):
+        return None
     try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                return _binance_ticker_from_json(data, source=f"binance:{host}")
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
+        return _binance_ticker_from_json(data, source=f"binance:{host}")
+    except (KeyError, TypeError, ValueError):
         return None
 
 
-async def _fetch_coingecko_ticker(asset: str) -> dict[str, Any] | None:
+async def _fetch_coingecko_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
     cg_id = _COINGECKO_IDS.get(asset.upper())
     if not cg_id:
         return None
-    url = (
-        "https://api.coingecko.com/api/v3/simple/price"
-        f"?ids={cg_id}&vs_currencies=usd&include_24hr_change=true"
+    url = "https://api.coingecko.com/api/v3/simple/price"
+    data = await _rest_get(
+        url,
+        params={
+            "ids": cg_id,
+            "vs_currencies": "usd",
+            "include_24hr_change": "true",
+        },
+        headers=_coingecko_headers(),
+        session=session,
     )
+    if not isinstance(data, dict):
+        return None
     try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                row = data.get(cg_id) or {}
-                price = float(row.get("usd") or 0)
-                if price <= 0:
-                    return None
-                return {
-                    "price": price,
-                    "change_24h": float(row.get("usd_24h_change") or 0),
-                    "volume": 0.0,
-                    "quote_volume": 0.0,
-                    "source": "coingecko",
-                }
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
+        row = data.get(cg_id) or {}
+        price = float(row.get("usd") or 0)
+        if price <= 0:
+            return None
+        return {
+            "price": price,
+            "change_24h": float(row.get("usd_24h_change") or 0),
+            "volume": 0.0,
+            "quote_volume": 0.0,
+            "source": "coingecko",
+        }
+    except (KeyError, TypeError, ValueError):
         return None
 
 
-async def _fetch_coinbase_ticker(asset: str) -> dict[str, Any] | None:
+async def _fetch_coinbase_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
     url = f"https://api.coinbase.com/v2/prices/{asset.upper()}-USD/spot"
-    try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                payload = await resp.json()
-                price = float((payload.get("data") or {}).get("amount") or 0)
-                if price <= 0:
-                    return None
-                return {
-                    "price": price,
-                    "change_24h": 0.0,
-                    "volume": 0.0,
-                    "quote_volume": 0.0,
-                    "source": "coinbase",
-                }
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
+    payload = await _rest_get(url, session=session)
+    if not isinstance(payload, dict):
         return None
+    try:
+        price = float((payload.get("data") or {}).get("amount") or 0)
+        if price <= 0:
+            return None
+        return {
+            "price": price,
+            "change_24h": 0.0,
+            "volume": 0.0,
+            "quote_volume": 0.0,
+            "source": "coinbase",
+        }
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+async def _fetch_kraken_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
+    pair = _KRAKEN_PAIRS.get(asset.upper(), f"{asset.upper()}USD")
+    payload = await _rest_get(
+        "https://api.kraken.com/0/public/Ticker",
+        params={"pair": pair},
+        session=session,
+    )
+    if not isinstance(payload, dict):
+        return None
+    try:
+        result = payload.get("result") or {}
+        if not result:
+            return None
+        row = next(iter(result.values()))
+        price = float(row["c"][0])
+        if price <= 0:
+            return None
+        open_today = float(row.get("o") or price)
+        change = ((price - open_today) / open_today * 100.0) if open_today else 0.0
+        volume = float(row.get("v", [0, 0])[1])
+        return {
+            "price": price,
+            "change_24h": change,
+            "volume": volume,
+            "quote_volume": 0.0,
+            "source": "kraken",
+        }
+    except (KeyError, TypeError, ValueError, StopIteration):
+        return None
+
+
+async def _fetch_okx_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
+    payload = await _rest_get(
+        "https://www.okx.com/api/v5/market/ticker",
+        params={"instId": f"{asset.upper()}-USDT"},
+        session=session,
+    )
+    if not isinstance(payload, dict) or str(payload.get("code")) != "0":
+        return None
+    try:
+        row = (payload.get("data") or [{}])[0]
+        price = float(row.get("last") or 0)
+        if price <= 0:
+            return None
+        open24 = float(row.get("open24h") or price)
+        change = ((price - open24) / open24 * 100.0) if open24 else 0.0
+        volume = float(row.get("vol24h") or 0)
+        quote_volume = float(row.get("volCcy24h") or 0)
+        return {
+            "price": price,
+            "change_24h": change,
+            "volume": volume,
+            "quote_volume": quote_volume,
+            "source": "okx",
+        }
+    except (KeyError, TypeError, ValueError, IndexError):
+        return None
+
+
+async def _fetch_bybit_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
+    payload = await _rest_get(
+        "https://api.bybit.com/v5/market/tickers",
+        params={"category": "spot", "symbol": f"{asset.upper()}USDT"},
+        session=session,
+    )
+    if not isinstance(payload, dict):
+        return None
+    ret_code = payload.get("retCode")
+    if ret_code is None or int(ret_code) != 0:
+        return None
+    try:
+        rows = (payload.get("result") or {}).get("list") or []
+        if not rows:
+            return None
+        row = rows[0]
+        price = float(row.get("lastPrice") or 0)
+        if price <= 0:
+            return None
+        change = float(row.get("price24hPcnt") or 0) * 100.0
+        volume = float(row.get("volume24h") or 0)
+        quote_volume = float(row.get("turnover24h") or 0)
+        return {
+            "price": price,
+            "change_24h": change,
+            "volume": volume,
+            "quote_volume": quote_volume,
+            "source": "bybit",
+        }
+    except (KeyError, TypeError, ValueError, IndexError):
+        return None
+
+
+async def _fetch_cryptocompare_ticker(
+    asset: str,
+    *,
+    session: aiohttp.ClientSession | None = None,
+) -> dict[str, Any] | None:
+    payload = await _rest_get(
+        "https://min-api.cryptocompare.com/data/pricemultifull",
+        params={"fsyms": asset.upper(), "tsyms": "USD"},
+        session=session,
+    )
+    if not isinstance(payload, dict):
+        return None
+    try:
+        raw = payload.get("RAW") or {}
+        row = (raw.get(asset.upper()) or {}).get("USD") or {}
+        price = float(row.get("PRICE") or 0)
+        if price <= 0:
+            return None
+        change = float(row.get("CHANGEPCT24HOUR") or 0)
+        volume = float(row.get("VOLUME24HOUR") or 0)
+        quote_volume = float(row.get("VOLUME24HOURTO") or 0)
+        return {
+            "price": price,
+            "change_24h": change,
+            "volume": volume,
+            "quote_volume": quote_volume,
+            "source": "cryptocompare",
+        }
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+_REST_PRICE_FALLBACKS: tuple[
+    Callable[..., Awaitable[dict[str, Any] | None]],
+    ...,
+] = (
+    _fetch_kraken_ticker,
+    _fetch_okx_ticker,
+    _fetch_bybit_ticker,
+    _fetch_coingecko_ticker,
+    _fetch_coinbase_ticker,
+    _fetch_cryptocompare_ticker,
+)
 
 
 async def fetch_binance_ticker(pair: str) -> dict | None:
@@ -175,16 +398,17 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
                 ws_row.setdefault("source", "websocket_live")
                 return ws_row
 
-    for host in ("api.binance.com", "data-api.binance.vision"):
-        row = await _fetch_binance_host_ticker(pair, host)
-        if row is not None:
-            return row
+    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+        for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
+            row = await _fetch_binance_host_ticker(pair, host, session=session)
+            if row is not None:
+                return row
 
-    for fallback in (_fetch_coingecko_ticker, _fetch_coinbase_ticker):
-        row = await fallback(asset)
-        if row is not None:
-            logger.info("Price REST fallback | asset=%s source=%s", asset, row.get("source"))
-            return row
+        for fallback in _REST_PRICE_FALLBACKS:
+            row = await fallback(asset, session=session)
+            if row is not None:
+                logger.info("Price REST fallback | asset=%s source=%s", asset, row.get("source"))
+                return row
 
     logger.warning("All price sources failed | pair=%s asset=%s", pair, asset)
     return None
@@ -194,13 +418,20 @@ async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
     """Ops diagnostic — which price APIs respond from this host (Railway DD)."""
     asset, pair = normalize_oracle_symbol(symbol)
     checks: dict[str, Any] = {}
-    for host in ("api.binance.com", "data-api.binance.vision"):
-        row = await _fetch_binance_host_ticker(pair, host)
-        checks[host] = {"ok": row is not None, "source": row.get("source") if row else None}
-    cg = await _fetch_coingecko_ticker(asset)
-    checks["coingecko"] = {"ok": cg is not None, "source": cg.get("source") if cg else None}
-    cb = await _fetch_coinbase_ticker(asset)
-    checks["coinbase"] = {"ok": cb is not None, "source": cb.get("source") if cb else None}
+    async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+        for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
+            row = await _fetch_binance_host_ticker(pair, host, session=session)
+            checks[host] = {"ok": row is not None, "source": row.get("source") if row else None}
+        for name, fetcher in (
+            ("kraken", _fetch_kraken_ticker),
+            ("okx", _fetch_okx_ticker),
+            ("bybit", _fetch_bybit_ticker),
+            ("coingecko", _fetch_coingecko_ticker),
+            ("coinbase", _fetch_coinbase_ticker),
+            ("cryptocompare", _fetch_cryptocompare_ticker),
+        ):
+            row = await fetcher(asset, session=session)
+            checks[name] = {"ok": row is not None, "source": row.get("source") if row else None}
     resolved = await fetch_binance_ticker(pair)
     return {
         "symbol": asset,
