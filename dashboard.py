@@ -1,5 +1,5 @@
 ﻿from fastapi import FastAPI, Request, HTTPException, Header, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from contextlib import asynccontextmanager
@@ -13,6 +13,7 @@ import os
 import stripe
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
@@ -26,7 +27,7 @@ from security_models import (
     RiskFreezeBody,
     UserApiKeyBody,
 )
-from security_auth import require_admin, require_admin_dev, require_authenticated, require_pro_or_above, require_whale
+from security_auth import is_admin_user, require_admin, require_admin_dev, require_authenticated, require_pro_or_above, require_whale
 
 logger = logging.getLogger("BLACKDARK.Dashboard")
 
@@ -62,7 +63,9 @@ def _score_prediction_accuracy(
     if price_at <= 0:
         return "unknown", 0.0
     change_pct = ((price_after - price_at) / price_at) * 100
-    verdict_upper = verdict.upper()
+    from regulatory_compliance_guard import to_internal_action_verdict
+
+    verdict_upper = to_internal_action_verdict(verdict).upper()
     if verdict_upper == "BUY":
         if change_pct > 1.5:
             return "correct", min(100.0, 55.0 + change_pct * 4.0)
@@ -112,16 +115,45 @@ async def _resolve_mature_oracle_predictions() -> int:
 
 
 async def _log_oracle_prediction(payload: dict) -> None:
-    from database import insert_oracle_prediction
+    from ml.labeling_pipeline import log_oracle_signal
 
     try:
-        await insert_oracle_prediction(
-            asset=str(payload.get("symbol") or ""),
-            price_at_prediction=float(payload.get("price") or 0),
+        await log_oracle_signal(
+            asset=str(payload.get("symbol") or payload.get("asset") or ""),
+            price=float(payload.get("price") or 0),
             verdict=str(payload.get("verdict") or "WAIT"),
-            opportunity_score=int(payload.get("opportunity_score") or 0),
-            confidence=int(payload.get("confidence") or 0),
+            opportunity_score=float(payload.get("opportunity_score") or 0),
+            confidence=float(payload.get("confidence") or payload.get("confidence_percent") or 0),
+            kind=str(payload.get("kind") or "oracle_api"),
         )
+    except Exception:
+        logger.exception("Oracle flywheel logging failed")
+
+
+async def _record_behavior(
+    event_type: str,
+    *,
+    user: dict | None = None,
+    asset: str | None = None,
+    payload: dict | None = None,
+) -> None:
+    from behavior_data_service import record_behavior_event
+
+    email = (user or {}).get("email")
+    tier = (user or {}).get("tier")
+    session_id = (user or {}).get("token") if not email else None
+    await record_behavior_event(
+        event_type,
+        user_email=email,
+        tier=tier,
+        asset=asset,
+        session_id=session_id,
+        payload=payload,
+    )
+    try:
+        from observability import increment_metric
+
+        increment_metric("behavior_events_total")
     except Exception:
         pass
 
@@ -198,36 +230,13 @@ async def lifespan(app: FastAPI):
 
     await init_db()
 
-    try:
-        from bd_platform.auto_keys import apply_keys_to_process_env
+    from observability import init_sentry
 
-        applied = apply_keys_to_process_env()
-        if applied:
-            logger.info("Platform keys loaded from keys/platform_keys.env (%s)", applied)
-    except Exception:
-        logger.debug("Platform auto-keys skip", exc_info=True)
+    init_sentry()
 
-    if os.getenv("UNIVERSE_AUTO_ACTIVATE", "true").lower() in {"1", "true", "yes"}:
-        try:
-            from universe_rollout import activate_full_universe
+    from risk_manager import load_persistent_freeze
 
-            rollout = activate_full_universe(save=True)
-            logger.info(
-                "Universe rollout | exchanges=%s assets=%s",
-                rollout.get("exchanges"),
-                rollout.get("assets"),
-            )
-        except Exception:
-            logger.exception("Universe auto-activate failed")
-
-    try:
-        from execution_keys import apply_exchange_keys_to_env
-
-        applied_exec = apply_exchange_keys_to_env()
-        if applied_exec:
-            logger.info("Exchange keys loaded from keys/exchange_keys.env (%s)", applied_exec)
-    except Exception:
-        logger.debug("Exchange keys auto-load skip", exc_info=True)
+    await load_persistent_freeze()
 
     _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
     if _ms_mode == "web":
@@ -239,280 +248,19 @@ async def lifespan(app: FastAPI):
         await shutdown(_ms_ctx)
         return
 
-    stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
+    from startup_orchestrator import RuntimeState, run_background_startup, shutdown_runtime
 
-    aggregator_task: asyncio.Task | None = None
-    run_agg = os.getenv("RUN_AGGREGATOR", "true").lower() in {"1", "true", "yes"}
-    if run_agg:
-        os.environ.setdefault("MANIFEST_AUTO_APPROVE", "true")
-        os.environ.setdefault("MANIFEST_REQUIRE_REVIEW", "false")
-
-        async def _aggregator_wrapper() -> None:
-            try:
-                from aggregator import run_aggregator
-
-                await run_aggregator()
-            except asyncio.CancelledError:
-                logger.info("Aggregator background task cancelled.")
-            except Exception:
-                logger.exception("Aggregator background task failed.")
-
-        aggregator_task = asyncio.create_task(_aggregator_wrapper())
-        logger.info("Aggregator background task started (RUN_AGGREGATOR=true).")
-
-    from telegram_monitor import start_telegram_monitor
-
-    telegram_task = await start_telegram_monitor()
-    from telegram_bot_poller import start_telegram_poller
-
-    telegram_poller_task = await start_telegram_poller()
-
-    from instant_alert_engine import start_instant_alert_engine
-
-    instant_alert_task = await start_instant_alert_engine()
-
-    from b2b_websocket_hub import start_b2b_websocket_hub
-
-    await start_b2b_websocket_hub()
-
-    from exchange_ws_hub import start_exchange_ws_hub
-
-    await start_exchange_ws_hub()
-
-    ingestion_task: asyncio.Task | None = None
-    if os.getenv("INGESTION_ENABLED", "true").lower() in {"1", "true", "yes"}:
-        async def _ingestion_wrapper() -> None:
-            try:
-                from ingestion_scheduler import start_ingestion_scheduler
-
-                bootstrap = os.getenv("INGESTION_BOOTSTRAP_ON_START", "true").lower() in {
-                    "1",
-                    "true",
-                    "yes",
-                }
-                await start_ingestion_scheduler(bootstrap=bootstrap)
-            except asyncio.CancelledError:
-                logger.info("Ingestion scheduler cancelled.")
-            except Exception:
-                logger.exception("Ingestion scheduler failed.")
-
-        ingestion_task = asyncio.create_task(_ingestion_wrapper())
-        logger.info("Ingestion scheduler task started (INGESTION_ENABLED=true).")
-
-    forecast_audit_task: asyncio.Task | None = None
-    if os.getenv("FORECAST_ENABLED", "true").lower() in {"1", "true", "yes"}:
-
-        async def _forecast_audit_loop() -> None:
-            interval = max(300, int(os.getenv("FORECAST_AUDIT_INTERVAL_SEC", "3600")))
-            while True:
-                try:
-                    from forecast_engine import run_forecast_audit
-
-                    audit = await run_forecast_audit()
-                    from ml.labeling_pipeline import resolve_mature_predictions
-
-                    oracle_resolved = await resolve_mature_predictions()
-                    oracle_resolved_count = (oracle_resolved or {}).get("resolved_24h", 0)
-                    retrain_result = None
-                    if os.getenv("ORACLE_RETRAIN_ENABLED", "true").lower() in {"1", "true", "yes"}:
-                        from oracle_retrainer import run_oracle_retrain_step
-
-                        retrain_result = await run_oracle_retrain_step()
-                    if audit.get("resolved") or oracle_resolved_count or (retrain_result or {}).get("adjusted"):
-                        logger.info(
-                            "Forecast/oracle audit | forecasts_resolved=%s oracle_resolved=%s retrain=%s",
-                            audit.get("resolved", 0),
-                            oracle_resolved_count,
-                            (retrain_result or {}).get("adjusted"),
-                        )
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    logger.exception("Forecast audit loop failed.")
-                await asyncio.sleep(interval)
-
-        forecast_audit_task = asyncio.create_task(_forecast_audit_loop())
-        logger.info("Forecast audit loop started (FORECAST_ENABLED=true).")
-
-    ml_flywheel_started = False
-    if config.ML_FLYWHEEL_ENABLED:
-        from ml_flywheel_scheduler import start_ml_flywheel
-
-        await start_ml_flywheel()
-        ml_flywheel_started = True
-        logger.info("ML flywheel started (ML_FLYWHEEL_ENABLED=true).")
-
-    weekly_report_task: asyncio.Task | None = None
-    if os.getenv("WEEKLY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
-
-        async def _weekly_report_loop() -> None:
-            interval_hours = max(24, int(os.getenv("WEEKLY_REPORT_INTERVAL_HOURS", "168")))
-            while True:
-                try:
-                    from weekly_report import build_weekly_report
-
-                    report = await build_weekly_report(persist=True)
-                    logger.info("Weekly report generated | id=%s", report.get("report_id"))
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    logger.exception("Weekly report auto-generation failed.")
-                await asyncio.sleep(interval_hours * 3600)
-
-        weekly_report_task = asyncio.create_task(_weekly_report_loop())
-        logger.info("Weekly report scheduler started.")
-
-    daily_report_task: asyncio.Task | None = None
-    if os.getenv("DAILY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
-
-        async def _daily_report_loop() -> None:
-            interval_hours = max(12, int(os.getenv("DAILY_REPORT_INTERVAL_HOURS", "24")))
-            while True:
-                try:
-                    from daily_report import build_daily_report
-
-                    report = await build_daily_report(persist=True)
-                    logger.info("Daily report generated | id=%s", report.get("report_id"))
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    logger.exception("Daily report auto-generation failed.")
-                await asyncio.sleep(interval_hours * 3600)
-
-        daily_report_task = asyncio.create_task(_daily_report_loop())
-        logger.info("Daily report scheduler started.")
-
-    auto_exec_task: asyncio.Task | None = None
-    if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}:
-        from execution_engine import start_auto_execution_loop
-
-        auto_exec_task = await start_auto_execution_loop()
-
-    db_maintenance_task: asyncio.Task | None = None
-    if os.getenv("DB_MAINTENANCE_AUTO", "false").lower() in {"1", "true", "yes"}:
-
-        async def _db_maintenance_loop() -> None:
-            interval_hours = max(6, int(os.getenv("DB_MAINTENANCE_INTERVAL_HOURS", "24")))
-            while True:
-                try:
-                    from db_upgrade import run_sqlite_maintenance
-
-                    await run_sqlite_maintenance(vacuum=False)
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    logger.exception("DB maintenance loop failed.")
-                await asyncio.sleep(interval_hours * 3600)
-
-        db_maintenance_task = asyncio.create_task(_db_maintenance_loop())
-        logger.info("DB maintenance scheduler started.")
-
-    cloud_sync_task: asyncio.Task | None = None
-    if os.getenv("CLOUD_SYNC_ENABLED", "false").lower() in {"1", "true", "yes"}:
-
-        async def _cloud_sync_loop() -> None:
-            interval_hours = max(1, int(os.getenv("CLOUD_SYNC_INTERVAL_HOURS", "6")))
-            while True:
-                try:
-                    from cloud_syncer import is_cloud_sync_configured, run_cloud_sync_once
-
-                    if is_cloud_sync_configured():
-                        results = await run_cloud_sync_once()
-                        logger.info("Cloud sync batch finished | files=%d", len(results))
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    logger.exception("Cloud sync loop failed.")
-                await asyncio.sleep(interval_hours * 3600)
-
-        cloud_sync_task = asyncio.create_task(_cloud_sync_loop())
-        logger.info("Cloud sync scheduler started (CLOUD_SYNC_ENABLED=true).")
-
+    runtime = RuntimeState()
+    boot_task = asyncio.create_task(run_background_startup(runtime), name="blackdark-boot")
+    logger.info("BLACKDARK API live — background services loading (no Docker needed).")
     yield
 
-    if ml_flywheel_started:
-        from ml_flywheel_scheduler import stop_ml_flywheel
-
-        await stop_ml_flywheel()
-
-    from instant_alert_engine import stop_instant_alert_engine
-
-    await stop_instant_alert_engine()
-
-    from b2b_websocket_hub import stop_b2b_websocket_hub
-
-    await stop_b2b_websocket_hub()
-
-    from exchange_ws_hub import stop_exchange_ws_hub
-
-    await stop_exchange_ws_hub()
-
-    if cloud_sync_task is not None:
-        cloud_sync_task.cancel()
-        try:
-            await cloud_sync_task
-        except asyncio.CancelledError:
-            pass
-
-    if db_maintenance_task is not None:
-        db_maintenance_task.cancel()
-        try:
-            await db_maintenance_task
-        except asyncio.CancelledError:
-            pass
-
-    if auto_exec_task is not None:
-        from execution_engine import stop_auto_execution_loop
-
-        await stop_auto_execution_loop()
-
-    if weekly_report_task is not None:
-        weekly_report_task.cancel()
-        try:
-            await weekly_report_task
-        except asyncio.CancelledError:
-            pass
-
-    if daily_report_task is not None:
-        daily_report_task.cancel()
-        try:
-            await daily_report_task
-        except asyncio.CancelledError:
-            pass
-
-    if forecast_audit_task is not None:
-        forecast_audit_task.cancel()
-        try:
-            await forecast_audit_task
-        except asyncio.CancelledError:
-            pass
-
-    if ingestion_task is not None:
-        from ingestion_scheduler import stop_ingestion_scheduler
-
-        await stop_ingestion_scheduler()
-        ingestion_task.cancel()
-        try:
-            await ingestion_task
-        except asyncio.CancelledError:
-            pass
-
-    if telegram_task is not None:
-        from telegram_monitor import stop_telegram_monitor
-
-        await stop_telegram_monitor()
-
-    if telegram_poller_task is not None:
-        from telegram_bot_poller import stop_telegram_poller
-
-        await stop_telegram_poller()
-
-    if aggregator_task is not None:
-        aggregator_task.cancel()
-        try:
-            await aggregator_task
-        except asyncio.CancelledError:
-            pass
+    boot_task.cancel()
+    try:
+        await boot_task
+    except asyncio.CancelledError:
+        pass
+    await shutdown_runtime(runtime)
 
 
 app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
@@ -530,10 +278,72 @@ async def utf8_response_headers(request: Request, call_next):
             response.headers["content-type"] = "text/html; charset=utf-8"
     return response
 
+
+@app.middleware("http")
+async def observability_metrics_middleware(request: Request, call_next):
+    from observability import increment_metric
+
+    increment_metric("http_requests_total")
+    try:
+        return await call_next(request)
+    except Exception:
+        increment_metric("errors_total")
+        raise
+
+
 try:
     from platform_api import router as platform_router
 
     app.include_router(platform_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.observability import router as observability_router
+
+    app.include_router(observability_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.auth import router as auth_router
+
+    app.include_router(auth_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.billing import router as billing_router
+
+    app.include_router(billing_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.arbitrage import router as arbitrage_router
+
+    app.include_router(arbitrage_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.oracle import router as oracle_router
+
+    app.include_router(oracle_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.market import router as market_router
+
+    app.include_router(market_router)
+except ImportError:
+    pass
+
+try:
+    from api.routers.user import router as user_router
+
+    app.include_router(user_router)
 except ImportError:
     pass
 
@@ -579,562 +389,28 @@ def require_feature(feature: str):
     return _dependency
 
 
-def _normalize_oracle_symbol(symbol: str) -> tuple[str, str]:
-    cleaned = symbol.upper().strip().replace("/", "").replace("-", "")
-    if cleaned.endswith("USDT"):
-        return cleaned[:-4], cleaned
-    return cleaned, f"{cleaned}USDT"
 
-
-async def _fetch_binance_ticker(pair: str) -> dict | None:
-    url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
-    try:
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                return {
-                    "price": float(data["lastPrice"]),
-                    "change_24h": float(data["priceChangePercent"]),
-                    "volume": float(data["volume"]),
-                    "quote_volume": float(data.get("quoteVolume") or 0),
-                }
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
-        return None
-
-
-async def _fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
-    """Tracked assets first, then top USDT pairs by 24h quote volume from Binance."""
-    if limit is None:
-        limit = config.MARKET_RADAR_LIMIT
-    url = "https://api.binance.com/api/v3/ticker/24hr"
-    try:
-        timeout = aiohttp.ClientTimeout(total=15)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
-    except (aiohttp.ClientError, TypeError, ValueError):
-        return []
-
-    by_symbol: dict[str, dict] = {}
-    all_candidates: list[dict] = []
-    for row in rows:
-        symbol = row.get("symbol", "")
-        if not symbol.endswith("USDT"):
-            continue
-        asset = symbol[:-4]
-        if _is_stablecoin(asset):
-            continue
-        try:
-            quote_volume = float(row.get("quoteVolume") or 0)
-            change = float(row.get("priceChangePercent") or 0)
-            price = float(row.get("lastPrice") or 0)
-        except (TypeError, ValueError):
-            continue
-        if quote_volume < 10_000_000:
-            continue
-        score = _oracle_score(quote_volume, change)
-        verdict, _ = _oracle_verdict(score, asset, price)
-        item = {
-            "symbol": asset,
-            "price": price,
-            "change_24h": change,
-            "volume_24h": quote_volume,
-            "score": score,
-            "verdict": verdict,
-            "sector": _sector_for_asset(asset),
-        }
-        by_symbol[asset] = item
-        all_candidates.append(item)
-
-    all_candidates.sort(key=lambda x: x["volume_24h"], reverse=True)
-    priority: list[dict] = []
-    seen: set[str] = set()
-    for asset in config.tracked_asset_list():
-        if asset in by_symbol:
-            priority.append(by_symbol[asset])
-            seen.add(asset)
-    for candidate in all_candidates:
-        if len(priority) >= limit:
-            break
-        if candidate["symbol"] not in seen:
-            priority.append(candidate)
-            seen.add(candidate["symbol"])
-    return priority[:limit]
-
-
-async def _fetch_live_whale_signal(pair: str, price: float) -> str:
-    """Detect large aggressive trades on Binance (live whale activity)."""
-    url = f"https://api.binance.com/api/v3/aggTrades?symbol={pair}&limit=200"
-    threshold_usd = 75_000
-    try:
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return "No significant whale activity"
-                trades = await resp.json()
-    except (aiohttp.ClientError, TypeError, ValueError):
-        return "No significant whale activity"
-
-    buy_blocks = 0
-    sell_blocks = 0
-    max_notional = 0.0
-    for trade in trades:
-        try:
-            qty = float(trade["q"])
-            trade_price = float(trade["p"])
-            notional = qty * trade_price
-        except (KeyError, TypeError, ValueError):
-            continue
-        if notional < threshold_usd:
-            continue
-        max_notional = max(max_notional, notional)
-        # m=true → buyer is maker → aggressive seller; m=false → aggressive buyer
-        if trade.get("m"):
-            sell_blocks += 1
-        else:
-            buy_blocks += 1
-
-    if buy_blocks >= 3 and buy_blocks > sell_blocks:
-        return f"Whale accumulation detected — {buy_blocks} large buy blocks (max ${max_notional:,.0f})"
-    if sell_blocks >= 3 and sell_blocks > buy_blocks:
-        return f"Whale distribution detected — {sell_blocks} large sell blocks (max ${max_notional:,.0f})"
-    if buy_blocks or sell_blocks:
-        return f"Mixed whale activity — {buy_blocks} buys / {sell_blocks} sells above ${threshold_usd:,.0f}"
-    return "No significant whale activity in recent trades"
-
-
-def _oracle_score(volume: float, change: float) -> int:
-    score = 50
-    if volume > 1_000_000_000:
-        score += 20
-    elif volume > 100_000_000:
-        score += 15
-    elif volume > 10_000_000:
-        score += 10
-    if 0 < change < 3:
-        score += 20
-    elif 3 <= change < 8:
-        score += 15
-    elif 8 <= change < 15:
-        score += 5
-    elif change >= 15:
-        score -= 15
-    elif -3 < change <= 0:
-        score -= 5
-    elif -8 < change <= -3:
-        score -= 15
-    elif change <= -8:
-        score -= 25
-    return max(0, min(100, score))
-
-
-_STABLECOINS = frozenset(
-    {"USDC", "USDT", "USD1", "DAI", "FDUSD", "USDE", "USDS", "TUSD", "BUSD", "EURC", "RLUSD", "USDG"}
+# --- market / oracle helpers: market_context.py (shared by chat, voice, SSE) ---
+from market_context import (
+    build_full_oracle_response as _build_full_oracle_response,
+    compute_ema as _compute_ema,
+    compute_rsi as _compute_rsi,
+    ema_position_label as _ema_position_label,
+    fetch_binance_klines as _fetch_binance_klines,
+    fetch_binance_market_overview as _fetch_binance_market_overview,
+    fetch_binance_ticker as _fetch_binance_ticker,
+    fetch_cvvd_whale_alert as _fetch_cvvd_whale_alert,
+    fetch_cvvd_whale_context as _fetch_cvvd_whale_context,
+    fetch_live_whale_signal as _fetch_live_whale_signal,
+    liquidity_label as _liquidity_label,
+    macd_trend_label as _macd_trend_label,
+    normalize_oracle_symbol as _normalize_oracle_symbol,
+    normalize_whale_alert_row as _normalize_whale_alert_row,
+    parse_alert_metadata as _parse_alert_metadata,
+    trend_direction as _trend_direction,
+    whale_alerts_for_asset as _whale_alerts_for_asset,
 )
 
-
-def _is_stablecoin(asset: str) -> bool:
-    return asset.upper() in _STABLECOINS
-
-
-def _oracle_verdict(score: int, asset: str, price: float) -> tuple[str, str]:
-    if _is_stablecoin(asset):
-        return "WAIT", f"{asset} is a stablecoin — not a trading opportunity (Score: {score}/100)"
-    if score >= 75:
-        return "BUY", f"Strong buy signal for {asset} at ${price:,.0f} (Score: {score}/100)"
-    if score >= 50:
-        return "WAIT", f"Hold {asset} and watch for breakout (Score: {score}/100)"
-    if score >= 30:
-        return "CAUTION", f"Weak momentum on {asset}, be careful (Score: {score}/100)"
-    return "SELL", f"Consider exiting {asset}, bearish trend (Score: {score}/100)"
-
-
-def _oracle_sentiment(change: float) -> str:
-    if change > 2:
-        return "Bullish"
-    if change < -2:
-        return "Bearish"
-    return "Neutral"
-
-
-def _fear_greed_index(change: float, quote_volume: float) -> tuple[int, str]:
-    fg = min(100, max(0, int(50 + change * 2 + (quote_volume / 1e9) * 10)))
-    if fg > 75:
-        label = "Extreme Greed"
-    elif fg > 55:
-        label = "Greed"
-    elif fg > 45:
-        label = "Neutral"
-    elif fg > 25:
-        label = "Fear"
-    else:
-        label = "Extreme Fear"
-    return fg, label
-
-
-def _oracle_confidence(score: int, change: float, quote_volume: float) -> int:
-    return min(100, max(50, int(score * 0.8 + abs(change) * 2 + (quote_volume / 1e9) * 5)))
-
-
-def _risk_level(score: int) -> str:
-    if score > 75:
-        return "Low"
-    if score > 55:
-        return "Medium"
-    if score > 40:
-        return "High"
-    return "Extreme"
-
-
-def _whale_alert_message(quote_volume: float, change: float) -> str:
-    if quote_volume > 50_000_000:
-        return "Whale accumulation detected — high volume inflow"
-    if quote_volume > 10_000_000:
-        return "Moderate whale interest"
-    if change < -5:
-        return "Whale distribution detected — large sell pressure"
-    return "No significant whale activity"
-
-
-def _oracle_action(score: int, price: float, support: float, resistance: float) -> str:
-    if score >= 70:
-        return f"Buy now at ${price:,.0f} with stop-loss at ${support * 0.97:,.0f}"
-    if score >= 55:
-        return f"Consider buying near ${support:,.0f}"
-    if score >= 40:
-        return f"Wait for pullback to ${support:,.0f}"
-    return f"Sell with stop-loss at ${resistance:,.0f}"
-
-
-def _oracle_narrative(
-    asset: str,
-    change: float,
-    quote_volume: float,
-    score: int,
-    sentiment: str,
-    fear_greed: str,
-    confidence: int,
-    trend_direction: str,
-    risk_level: str,
-    support: float,
-    resistance: float,
-    action: str,
-    market_summary: str,
-) -> str:
-    if _is_stablecoin(asset):
-        return f"{asset} is pegged — hold for stability, not for trading gains."
-
-    direction = "surging" if change > 2 else "rising" if change > 0 else "falling"
-    whale_phrase = (
-        "massive whale inflow"
-        if quote_volume > 50_000_000
-        else "moderate interest"
-        if quote_volume > 10_000_000
-        else "low activity"
-    )
-    signal = (
-        "strong buy signal"
-        if score >= 70
-        else "buy signal"
-        if score >= 55
-        else "hold"
-        if score >= 40
-        else "sell signal"
-    )
-    return (
-        f"ACTION: {action} — {market_summary} — "
-        f"{risk_level} Risk — {trend_direction} — {asset} is {direction} {change:+.2f}% "
-        f"with {whale_phrase} — Support: ${support:,.0f} | Resistance: ${resistance:,.0f} — "
-        f"{sentiment} sentiment — {signal} — "
-        f"Confidence: {confidence}% — {fear_greed}"
-    )
-
-
-def _timestamp_human(now: datetime | None = None) -> str:
-    ts = now or datetime.now(timezone.utc)
-    return ts.strftime("%B %d, %Y at %I:%M %p UTC")
-
-
-def _build_full_oracle_response(
-    asset: str,
-    price: float,
-    volume: float,
-    quote_volume: float,
-    change: float,
-    *,
-    whale_alert: str | None = None,
-) -> dict:
-    score = _oracle_score(quote_volume, change)
-    if _is_stablecoin(asset):
-        score = min(score, 55)
-    verdict, oracle_text = _oracle_verdict(score, asset, price)
-
-    sentiment = _oracle_sentiment(change)
-    fg_score, fear_greed = _fear_greed_index(change, quote_volume)
-    confidence = _oracle_confidence(score, change, quote_volume)
-    trend_direction = _trend_direction(change)
-    risk = _risk_level(score)
-    support = round(price * 0.97, -2)
-    resistance = round(price * 1.03, -2)
-    prediction_low = round(price * (1 + (change / 100) * 0.5), -2)
-    prediction_high = round(price * (1 + (change / 100) * 1.5), -2)
-    volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
-    liquidity, _ = _liquidity_label(quote_volume)
-    market_summary = f"Market: {sentiment} | Volatility: {volatility} | Liquidity: {liquidity}"
-    action = _oracle_action(score, price, support, resistance)
-    whale_alert = whale_alert or _whale_alert_message(quote_volume, change)
-    narrative = _oracle_narrative(
-        asset,
-        change,
-        quote_volume,
-        score,
-        sentiment,
-        fear_greed,
-        confidence,
-        trend_direction,
-        risk,
-        support,
-        resistance,
-        action,
-        market_summary,
-    )
-    now = datetime.now(timezone.utc)
-
-    return {
-        "symbol": asset,
-        "price": price,
-        "change_24h": change,
-        "volume": volume,
-        "volume_24h": quote_volume,
-        "opportunity_score": score,
-        "verdict": verdict,
-        "oracle": oracle_text,
-        "fear_greed": fear_greed,
-        "fear_greed_score": fg_score,
-        "support": support,
-        "resistance": resistance,
-        "next_24h_low": prediction_low,
-        "next_24h_high": prediction_high,
-        "trend_direction": trend_direction,
-        "confidence": confidence,
-        "action": action,
-        "market_summary": market_summary,
-        "risk_level": risk,
-        "sentiment": sentiment,
-        "narrative": narrative,
-        "whale_alert": whale_alert,
-        "data_source": "Binance Live API | Real-time",
-        "timestamp_human": _timestamp_human(now),
-        "timestamp": now.isoformat(),
-        "disclaimer": "Not financial advice. Do your own research (DYOR).",
-    }
-
-
-def _trend_direction(change: float) -> str:
-    if change > 2:
-        return "Uptrend"
-    if change < -2:
-        return "Downtrend"
-    return "Sideways"
-
-
-def _liquidity_label(quote_volume: float) -> tuple[str, int]:
-    if quote_volume > 500_000_000:
-        return "High", 92
-    if quote_volume > 50_000_000:
-        return "Medium", 68
-    return "Low", 38
-
-
-def _compute_ema(values: list[float], period: int) -> float | None:
-    if len(values) < period:
-        return None
-    multiplier = 2 / (period + 1)
-    ema = sum(values[:period]) / period
-    for value in values[period:]:
-        ema = value * multiplier + ema * (1 - multiplier)
-    return ema
-
-
-def _compute_rsi(closes: list[float], period: int = 14) -> float | None:
-    if len(closes) < period + 1:
-        return None
-    gains: list[float] = []
-    losses: list[float] = []
-    for idx in range(1, len(closes)):
-        delta = closes[idx] - closes[idx - 1]
-        gains.append(max(delta, 0.0))
-        losses.append(max(-delta, 0.0))
-    avg_gain = sum(gains[-period:]) / period
-    avg_loss = sum(losses[-period:]) / period
-    if avg_loss == 0:
-        return 100.0
-    rs = avg_gain / avg_loss
-    return round(100 - (100 / (1 + rs)), 1)
-
-
-def _rsi_signal_label(rsi: float) -> str:
-    if rsi >= 70:
-        return "Overbought"
-    if rsi >= 55:
-        return "Bullish momentum"
-    if rsi >= 45:
-        return "Neutral"
-    if rsi >= 30:
-        return "Bearish momentum"
-    return "Oversold"
-
-
-def _macd_trend_label(closes: list[float]) -> str:
-    if len(closes) < 26:
-        return "Insufficient candle data"
-    ema12 = _compute_ema(closes, 12)
-    ema26 = _compute_ema(closes, 26)
-    if ema12 is None or ema26 is None:
-        return "Insufficient candle data"
-    macd = ema12 - ema26
-    prev_closes = closes[:-1]
-    prev_ema12 = _compute_ema(prev_closes, 12)
-    prev_ema26 = _compute_ema(prev_closes, 26)
-    if prev_ema12 is None or prev_ema26 is None:
-        return "MACD consolidating"
-    prev_macd = prev_ema12 - prev_ema26
-    if macd > 0 and macd > prev_macd:
-        return "Bullish crossover — momentum rising"
-    if macd < 0 and macd < prev_macd:
-        return "Bearish crossover — momentum falling"
-    if macd > prev_macd:
-        return "MACD turning up — early bullish shift"
-    if macd < prev_macd:
-        return "MACD turning down — early bearish shift"
-    return "MACD flat — consolidation phase"
-
-
-def _ema_position_label(price: float, closes: list[float]) -> str:
-    ema50 = _compute_ema(closes, 50) if len(closes) >= 50 else None
-    ema200 = _compute_ema(closes, 200) if len(closes) >= 200 else _compute_ema(closes, min(len(closes), 100))
-    if ema50 is None:
-        return "Insufficient EMA data"
-    above50 = price >= ema50
-    if ema200 is None:
-        return "Price above 50 EMA" if above50 else "Price below 50 EMA"
-    above200 = price >= ema200
-    if above50 and above200:
-        return "Price trading above 50 & 200 EMA — bullish structure"
-    if above50 and not above200:
-        return "Price above 50 EMA, below 200 EMA — recovery attempt"
-    if not above50 and above200:
-        return "Price below 50 EMA, holding 200 EMA — pullback zone"
-    return "Price below key EMAs — downtrend structure"
-
-
-async def _fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200) -> list[float]:
-    url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
-    try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
-        return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
-    except (aiohttp.ClientError, TypeError, ValueError):
-        return []
-
-
-def _parse_alert_metadata(row: dict) -> dict:
-    raw = row.get("metadata_json")
-    if not raw:
-        return row if row.get("pattern") else {}
-    try:
-        return json.loads(raw) if isinstance(raw, str) else dict(raw)
-    except (TypeError, json.JSONDecodeError):
-        return {}
-
-
-def _normalize_whale_alert_row(alert: dict) -> dict:
-    if alert.get("metadata_json") is not None or alert.get("flow_type"):
-        return alert
-    meta = {
-        "pattern": alert.get("pattern"),
-        "liquidity_exchange": alert.get("liquidity_exchange"),
-        "manipulation_score": alert.get("manipulation_score"),
-        "volume_spike_ratio": alert.get("volume_spike_ratio"),
-        "liquidity_drop_ratio": alert.get("liquidity_drop_ratio"),
-        "iceberg_trade_count": alert.get("iceberg_trade_count"),
-    }
-    return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "flow_type": "manipulation_alert",
-        "exchange": alert.get("volume_exchange"),
-        "symbol": alert.get("symbol"),
-        "asset": alert.get("asset"),
-        "sector": alert.get("sector"),
-        "side": alert.get("side"),
-        "notional_usd": alert.get("volume_usd"),
-        "metadata_json": json.dumps({k: v for k, v in meta.items() if v is not None}),
-    }
-
-
-def _whale_alerts_for_asset(alerts: list[dict], asset: str) -> list[dict]:
-    target = asset.upper()
-    matched: list[dict] = []
-    for alert in alerts:
-        row = _normalize_whale_alert_row(alert)
-        if str(row.get("asset") or "").upper() == target:
-            matched.append(row)
-    return matched
-
-
-async def _fetch_cvvd_whale_context(refresh: bool = False) -> dict:
-    from whale_tracker import (
-        get_latest_institutional_context,
-        persist_manipulation_alerts,
-        scan_whale_trades,
-    )
-
-    context = await get_latest_institutional_context()
-    alerts = [_normalize_whale_alert_row(a) for a in context.get("whale_alerts", [])]
-    sector_flows = context.get("sector_flows", [])
-
-    if refresh or not alerts:
-        live = await scan_whale_trades()
-        if live:
-            await persist_manipulation_alerts(live)
-            alerts = [_normalize_whale_alert_row(a.model_dump()) for a in live]
-            context = await get_latest_institutional_context()
-            sector_flows = context.get("sector_flows", [])
-
-    return {
-        "whale_alerts": alerts,
-        "sector_flows": sector_flows,
-        "live_scan": refresh or not context.get("whale_alerts"),
-    }
-
-
-async def _fetch_cvvd_whale_alert(asset: str, pair: str, price: float) -> str:
-    context = await _fetch_cvvd_whale_context(refresh=False)
-    asset_alerts = _whale_alerts_for_asset(context["whale_alerts"], asset)
-    if asset_alerts:
-        top = asset_alerts[0]
-        meta = _parse_alert_metadata(top)
-        pattern = str(meta.get("pattern") or "cross_venue_manipulation").replace("_", " ")
-        score = float(meta.get("manipulation_score") or 0)
-        notional = float(top.get("notional_usd") or 0)
-        side = str(top.get("side") or "unknown")
-        exchange = str(top.get("exchange") or meta.get("volume_exchange") or "multi-venue").upper()
-        return (
-            f"CVVD {pattern} on {exchange} — {side} side — "
-            f"${notional:,.0f} volume — manipulation score {score:.0f}/100"
-        )
-
-    return await _fetch_live_whale_signal(pair, price)
 
 
 def _compound_to_score(compound: float) -> int:
@@ -1311,124 +587,7 @@ async def login_page(request: Request):
     return templates.TemplateResponse(request, "login.html")
 
 
-@app.post("/api/auth/register")
-async def auth_register(body: AuthRegisterBody):
-    from auth_service import register_user
-
-    try:
-        return await register_user(body.email, body.password, body.name)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-
-
-@app.post("/api/auth/login")
-async def auth_login(body: AuthLoginBody):
-    from auth_service import login_user
-
-    try:
-        return await login_user(body.email, body.password)
-    except ValueError as exc:
-        raise HTTPException(status_code=401, detail=str(exc)) from exc
-
-
-@app.post("/api/auth/logout")
-async def auth_logout(user: dict | None = Depends(optional_user)):
-    from auth_service import logout_user
-
-    if user and user.get("token"):
-        await logout_user(str(user["token"]))
-    return {"success": True}
-
-
-@app.get("/api/auth/me")
-async def auth_me(user: dict | None = Depends(optional_user)):
-    from auth_service import tier_payload
-    from database import fetch_active_subscription_for_email, fetch_user_profile
-
-    if user is None:
-        return {"authenticated": False, "tier": tier_payload(None)}
-    sub = await fetch_active_subscription_for_email(user["email"])
-    profile = await fetch_user_profile(user["email"])
-    return {
-        "authenticated": True,
-        "user": user,
-        "profile": profile,
-        "tier": tier_payload(user, sub),
-        "subscription": sub,
-        "stripe_configured": bool(os.getenv("STRIPE_SECRET_KEY")),
-    }
-
-
-@app.patch("/api/auth/profile")
-async def auth_profile_update(
-    data: dict = Body(...),
-    user: dict | None = Depends(optional_user),
-):
-    from database import update_user_telegram_chat_id
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Login required")
-    telegram_chat_id = (data.get("telegram_chat_id") or "").strip() or None
-    if telegram_chat_id is not None:
-        await update_user_telegram_chat_id(user["email"], telegram_chat_id)
-    return {"success": True, "telegram_chat_id": telegram_chat_id}
-
-
-@app.get("/api/billing/status")
-async def billing_status(user: dict | None = Depends(optional_user)):
-    from billing_service import stripe_configured
-    from database import fetch_active_subscription_for_email, fetch_user_stripe_customer_id
-
-    if not user:
-        return {"authenticated": False, "stripe_configured": stripe_configured()}
-    sub = await fetch_active_subscription_for_email(user["email"])
-    return {
-        "authenticated": True,
-        "stripe_configured": stripe_configured(),
-        "stripe_customer_id": await fetch_user_stripe_customer_id(user["email"]),
-        "subscription": sub,
-        "tier": user.get("tier"),
-        "has_billing_portal": bool(await fetch_user_stripe_customer_id(user["email"])),
-    }
-
-
-@app.post("/api/billing/checkout")
-async def billing_checkout(
-    data: dict = Body(default={}),
-    user: dict | None = Depends(optional_user),
-):
-    from billing_service import create_checkout_session, stripe_configured
-
-    if not stripe_configured():
-        raise HTTPException(status_code=503, detail="Stripe not configured")
-    tier = str(data.get("tier") or "pro")
-    email = user.get("email") if user else None
-    user_id = int(user["id"]) if user and user.get("id") else None
-    try:
-        return create_checkout_session(tier, customer_email=email, user_id=user_id)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except stripe.StripeError as exc:
-        raise HTTPException(status_code=502, detail=str(exc)) from exc
-
-
-@app.post("/api/billing/portal")
-async def billing_portal(user: dict | None = Depends(optional_user)):
-    from billing_service import create_billing_portal_session, stripe_configured
-    from database import fetch_user_stripe_customer_id
-
-    if not user:
-        raise HTTPException(status_code=401, detail="Login required")
-    if not stripe_configured():
-        raise HTTPException(status_code=503, detail="Stripe not configured")
-    customer_id = await fetch_user_stripe_customer_id(user["email"])
-    if not customer_id:
-        raise HTTPException(status_code=400, detail="No Stripe customer — subscribe first")
-    try:
-        return create_billing_portal_session(customer_id)
-    except stripe.StripeError as exc:
-        raise HTTPException(status_code=502, detail=str(exc)) from exc
-
+# Auth routes → api/routers/auth.py
 
 @app.get("/api/platform/stats")
 async def platform_stats():
@@ -1558,6 +717,33 @@ async def dashboard_page(request: Request):
     return templates.TemplateResponse(request, "dashboard.html")
 
 
+@app.get("/api/dashboard/stream")
+async def dashboard_live_stream():
+    from dashboard_sse import dashboard_sse_generator
+
+    return StreamingResponse(
+        dashboard_sse_generator(interval_sec=15.0),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@app.get("/admin/launch", response_class=HTMLResponse)
+async def admin_launch_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_launch.html")
+
+
+@app.get("/api/admin/launch-checklist")
+async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
+    from launch_checklist import launch_checklist
+
+    return launch_checklist()
+
+
 @app.get("/platform", response_class=HTMLResponse)
 async def platform_hub_page(request: Request):
     return templates.TemplateResponse(request, "platform.html")
@@ -1570,7 +756,11 @@ async def platform_coin_page(request: Request, coin_id: str):
 
 # ========== API ENDPOINTS ==========
 @app.get("/oracle/{symbol}/explain")
-async def oracle_explain(symbol: str) -> JSONResponse:
+async def oracle_explain(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    user: dict | None = Depends(optional_user),
+) -> JSONResponse:
     asset, pair = _normalize_oracle_symbol(symbol)
     market = await _fetch_binance_ticker(pair)
     if market is None:
@@ -1580,12 +770,24 @@ async def oracle_explain(symbol: str) -> JSONResponse:
     volume = market["volume"]
     quote_volume = market["quote_volume"] or (volume * price)
     change = market["change_24h"]
-    score = _oracle_score(quote_volume, change)
-    verdict, _ = _oracle_verdict(score, asset, price)
+
+    from oracle_unified import compute_unified_oracle
+
+    unified = await compute_unified_oracle(asset, price, quote_volume, change)
+    score = unified["opportunity_score"]
+    verdict = unified["verdict"]
 
     payload = await _build_opportunity_explanation(
         asset, price, change, quote_volume, score, verdict, pair=pair
     )
+    payload["unified_engine"] = unified.get("engine")
+    payload["market_regime"] = unified.get("market_regime")
+    if user and is_admin_user(user):
+        payload["modal_breakdown"] = unified.get("modal_breakdown")
+    else:
+        payload["weights_protected"] = True
+    payload["opportunity_score"] = score
+    payload["verdict"] = verdict
     from forecast_engine import enrich_oracle_payload
 
     forecast_stub = {
@@ -1599,7 +801,107 @@ async def oracle_explain(symbol: str) -> JSONResponse:
     enriched = await enrich_oracle_payload(forecast_stub)
     payload["forecast"] = enriched.get("forecast")
     payload["forecast_summary"] = enriched.get("forecast_summary")
+
+    from security_sanitize import sanitize_explanation_payload
+
+    if not (user and is_admin_user(user)):
+        payload = sanitize_explanation_payload(payload)
+    background_tasks.add_task(
+        _log_oracle_prediction,
+        {
+            "symbol": asset,
+            "asset": asset,
+            "price": price,
+            "verdict": verdict,
+            "opportunity_score": score,
+            "confidence": payload.get("confidence") or _oracle_confidence(score, change, quote_volume),
+            "kind": "oracle_explain",
+        },
+    )
+    background_tasks.add_task(
+        _record_behavior,
+        "oracle_explain",
+        user=user,
+        asset=asset,
+        payload={"verdict": verdict, "opportunity_score": score},
+    )
     return JSONResponse(payload)
+
+
+@app.get("/oracle/{symbol}/quick")
+async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONResponse:
+    """Instant verdict + ACTION line (target <100ms) — WS price first, no REST wait."""
+    import time
+
+    from live_book_hub import get_best_price
+
+    t0 = time.perf_counter()
+    asset, pair = _normalize_oracle_symbol(symbol)
+
+    row = get_best_price("binance", f"{asset}/USDT")
+    market = None
+    if row and row.get("mid"):
+        market = {
+            "price": float(row["mid"]),
+            "change_24h": 0.0,
+            "volume": 0.0,
+            "quote_volume": 0.0,
+            "source": "websocket_live",
+        }
+    if market is None:
+        market = await _fetch_binance_ticker(pair)
+    if market is None:
+        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+    price = market["price"]
+    quote_volume = market["quote_volume"] or (market["volume"] * price)
+    change = market["change_24h"]
+
+    from oracle_unified import compute_base_technical_score
+
+    score = compute_base_technical_score(quote_volume, change)
+    if _is_stablecoin(asset):
+        score = min(score, 55)
+    verdict, _ = _oracle_verdict(score, asset, price)
+    support = round(price * 0.97, -2)
+    resistance = round(price * 1.03, -2)
+    action = _oracle_action(score, price, support, resistance)
+    sentiment = _oracle_sentiment(change)
+    latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+
+    background_tasks.add_task(
+        _log_oracle_prediction,
+        {
+            "symbol": asset,
+            "asset": asset,
+            "price": price,
+            "verdict": verdict,
+            "opportunity_score": score,
+            "confidence": score,
+            "kind": "oracle_quick",
+        },
+    )
+    background_tasks.add_task(
+        _record_behavior,
+        "oracle_query",
+        asset=asset,
+        payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
+    )
+
+    return JSONResponse({
+        "symbol": asset,
+        "price": price,
+        "change_24h": change,
+        "verdict": verdict,
+        "opportunity_score": score,
+        "action": action,
+        "action_line": f"ACTION: {action}",
+        "sentiment": sentiment,
+        "latency_ms": latency_ms,
+        "engine": "quick_rules_v1",
+        "latency_target_ms": 100,
+        "meets_latency_target": latency_ms <= 100,
+    })
 
 
 @app.get("/oracle/{symbol}")
@@ -1632,8 +934,14 @@ async def oracle(
     change = market["change_24h"]
     whale_alert = await _fetch_cvvd_whale_alert(asset, pair, price)
 
+    from oracle_unified import compute_unified_oracle
+
+    unified = await compute_unified_oracle(asset, price, quote_volume, change)
+
     payload = _build_full_oracle_response(
-        asset, price, volume, quote_volume, change, whale_alert=whale_alert
+        asset, price, volume, quote_volume, change,
+        whale_alert=whale_alert,
+        unified=unified,
     )
     payload["explanation"] = await _build_opportunity_explanation(
         asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
@@ -1642,6 +950,31 @@ async def oracle(
 
     payload = await enrich_oracle_payload(payload)
     background_tasks.add_task(_log_oracle_prediction, payload)
+    background_tasks.add_task(
+        _record_behavior,
+        "oracle_query",
+        user=user,
+        asset=asset,
+        payload={
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+        },
+    )
+    try:
+        from observability import increment_metric
+
+        increment_metric("oracle_queries_total")
+    except Exception:
+        pass
+
+    from regulatory_compliance_guard import apply_regulatory_compliance
+    from security_sanitize import sanitize_oracle_payload
+
+    payload = apply_regulatory_compliance(payload)
+    if not (user and is_admin_user(user)):
+        payload = sanitize_oracle_payload(payload)
+    else:
+        payload.pop("oracle_internal_verdict", None)
     return JSONResponse(payload)
 
 
@@ -1681,37 +1014,7 @@ async def whale_scan() -> dict:
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
-@app.get("/api/market/overview")
-async def market_overview():
-    assets = await _fetch_binance_market_overview()
-    sectors: dict[str, list] = {}
-    for asset in assets:
-        sector = asset.get("sector") or _sector_for_asset(asset["symbol"])
-        sectors.setdefault(sector, []).append(asset)
-    return {
-        "assets": assets,
-        "sectors": sectors,
-        "tracked_count": len(config.EXTENDED_TRACKED_ASSETS),
-        "top_gainers": sorted(assets, key=lambda x: x["change_24h"], reverse=True)[:3],
-        "top_losers": sorted(assets, key=lambda x: x["change_24h"])[:3],
-        "market_status": "active",
-        "data_source": "Binance Live API",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
-
-@app.get("/api/market/open-interest")
-async def market_open_interest():
-    from market_intel import fetch_open_interest
-
-    rows = await fetch_open_interest()
-    return {
-        "assets": rows,
-        "count": len(rows),
-        "data_source": "Binance Futures API",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
+# Market API routes → api/routers/market.py
 
 @app.get("/api/analytics/profit")
 async def analytics_profit():
@@ -1732,59 +1035,6 @@ async def whale_gravity_map():
         parse_metadata=_parse_alert_metadata,
     )
 
-
-@app.get("/api/market/sectors")
-async def market_sectors():
-    """Sector radar — SII inflow scores + live asset performance per sector."""
-    assets = await _fetch_binance_market_overview()
-    whale_ctx = await _fetch_cvvd_whale_context(refresh=False)
-    sii_by_sector: dict[str, float] = {}
-    for row in whale_ctx.get("sector_flows", []):
-        meta = _parse_alert_metadata(row)
-        sector_name = str(row.get("sector") or "")
-        if sector_name:
-            sii_by_sector[sector_name] = float(meta.get("sii_score") or 0)
-
-    sector_assets: dict[str, list] = {}
-    for asset in assets:
-        sector = asset.get("sector") or _sector_for_asset(asset["symbol"])
-        sector_assets.setdefault(sector, []).append(asset)
-
-    sectors_out = []
-    for sector_name, sector_list in sector_assets.items():
-        avg_change = sum(a["change_24h"] for a in sector_list) / len(sector_list)
-        avg_score = sum(a["score"] for a in sector_list) / len(sector_list)
-        sectors_out.append(
-            {
-                "sector": sector_name,
-                "sii_score": round(sii_by_sector.get(sector_name, 0.0), 2),
-                "asset_count": len(sector_list),
-                "avg_change_24h": round(avg_change, 2),
-                "avg_opportunity_score": round(avg_score, 1),
-                "heat_label": (
-                    "Hot"
-                    if avg_change > 2 or sii_by_sector.get(sector_name, 0) > 25
-                    else "Cool"
-                    if avg_change < -2
-                    else "Neutral"
-                ),
-                "top_assets": sorted(sector_list, key=lambda x: x["score"], reverse=True)[:3],
-            }
-        )
-
-    sectors_out.sort(key=lambda x: x["sii_score"], reverse=True)
-    return {
-        "sectors": sectors_out,
-        "data_source": "CVVD SII + Binance Live",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
-
-@app.get("/api/market/radar-narrative")
-async def market_radar_narrative_api():
-    from plan_audit import market_radar_narrative
-
-    return await market_radar_narrative()
 
 
 @app.get("/api/execution/speed")
@@ -1849,26 +1099,7 @@ async def onchain_overview():
     }
 
 
-@app.get("/api/oracle/data-hub")
-async def oracle_data_hub_overview():
-    from oracle_data_hub import build_hub_context_safe
-
-    ctx = await build_hub_context_safe("BTC")
-    return ctx
-
-
-@app.get("/api/oracle/data-hub/{symbol}")
-async def oracle_data_hub_asset(symbol: str):
-    from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
-
-    asset = symbol.upper().replace("USDT", "").replace("/", "")
-    ctx = await build_hub_context_safe(asset)
-    delta, reasons, risks = hub_score_adjustment(asset, ctx)
-    ctx["score_adjustment"] = delta
-    ctx["hub_reasons"] = reasons
-    ctx["hub_risks"] = risks
-    return ctx
-
+# Oracle + ML API routes → api/routers/oracle.py
 
 @app.get("/api/macro/overview")
 async def macro_overview():
@@ -2043,103 +1274,14 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
     return {"status": "complete", "categories": summary}
 
 
-@app.get("/api/forecast/audit")
-async def forecast_audit():
-    from database import fetch_forecast_audit_stats
-    from forecast_engine import run_forecast_audit
-
-    audit_run = await run_forecast_audit()
-    stats = await fetch_forecast_audit_stats(limit=25)
-    stats["newly_resolved"] = audit_run.get("resolved", 0)
-    stats["checked"] = audit_run.get("checked", 0)
-    return stats
-
-
-@app.get("/api/forecast/{symbol}")
-async def forecast_asset(symbol: str):
-    from forecast_engine import build_asset_forecast
-
-    asset, pair = _normalize_oracle_symbol(symbol)
-    market = await _fetch_binance_ticker(pair)
-    current_price = float(market["price"]) if market else None
-    forecast = await build_asset_forecast(asset, current_price=current_price)
-    return {
-        "asset": asset,
-        "forecast": forecast,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
-
-@app.get("/api/oracle/audit")
-async def oracle_audit():
-    from database import fetch_oracle_audit_stats
-    from ml.labeling_pipeline import resolve_mature_predictions
-
-    resolved_now = await resolve_mature_predictions()
-    stats = await fetch_oracle_audit_stats(limit=25)
-    stats["newly_resolved"] = (resolved_now or {}).get("resolved_24h", 0)
-    stats["labeling"] = resolved_now
-    return stats
-
-
-@app.get("/api/ml/status")
-async def ml_status():
-    from ml.train_baseline import model_status
-
-    return await model_status()
-
-
-@app.post("/api/ml/flywheel/run")
-async def ml_flywheel_run(_admin: dict = Depends(require_admin)):
-    from ml.labeling_pipeline import run_labeling_flywheel_cycle
-
-    return await run_labeling_flywheel_cycle()
-
-
-@app.post("/api/ml/train")
-async def ml_train(_admin: dict = Depends(require_admin)):
-    from ml.train_baseline import train_oracle_direction_model
-
-    return await train_oracle_direction_model()
-
-
-@app.get("/api/ml/predict/{asset}")
-async def ml_predict(asset: str, price: float | None = None):
-    from ml.inference import predict_direction
-
-    return await predict_direction(asset, price=price)
-
-
-@app.get("/api/oracle/accuracy/public")
-async def oracle_accuracy_public():
-    from ml.public_accuracy import build_public_accuracy_payload
-
-    payload = await build_public_accuracy_payload()
-    payload["timestamp"] = datetime.now(timezone.utc).isoformat()
-    return payload
-
+# Forecast + oracle audit routes → api/routers/oracle.py
 
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     return templates.TemplateResponse(request, "oracle_accuracy.html")
 
 
-@app.post("/api/ml/train/ensemble")
-async def ml_train_ensemble(_admin: dict = Depends(require_admin)):
-    from ml.train_ensemble import train_direction_ensemble
-
-    return await train_direction_ensemble()
-
-
-@app.get("/api/ml/experience")
-async def ml_experience():
-    from ml.experience_log import fetch_recent_experiences, load_experience_summary
-
-    return {
-        "summary": load_experience_summary(),
-        "recent": fetch_recent_experiences(limit=50),
-    }
-
+# ML experience routes → api/routers/oracle.py
 
 @app.get("/api/b2b/feed")
 async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
@@ -2334,103 +1476,13 @@ async def b2b_proposal(
         raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
 
 
-@app.get("/api/arbitrage/opportunities")
-async def arbitrage_opportunities(
-    quote_amount: float | None = None,
-    live: bool = False,
-    min_profit: float = 0.0,
-):
-    from arbitrage_service import process_arbitrage_alerts, scan_arbitrage_opportunities
-
-    result = await scan_arbitrage_opportunities(
-        quote_amount=quote_amount,
-        prefer_live=live,
-        force_rest=False,
-        min_profit_usdt=min_profit,
-    )
-    alerts = await process_arbitrage_alerts(result)
-    result["alerts_triggered"] = alerts
-    return result
-
-
-@app.post("/api/arbitrage/scan")
-async def arbitrage_scan(
-    quote_amount: float | None = None,
-    _user: dict | None = Depends(require_feature("arbitrage")),
-):
-    """Force a live cross-venue arbitrage scan."""
-    from arbitrage_service import process_arbitrage_alerts, scan_arbitrage_opportunities
-
-    result = await scan_arbitrage_opportunities(
-        quote_amount=quote_amount, prefer_live=True, force_rest=True
-    )
-    alerts = await process_arbitrage_alerts(result)
-    result["alerts_triggered"] = alerts
-    return result
-
-
-@app.get("/api/arbitrage/compare/{symbol}")
-async def arbitrage_compare(symbol: str, quote_amount: float | None = None):
-    from arbitrage_service import compare_symbol_across_exchanges
-
-    return await compare_symbol_across_exchanges(symbol, quote_amount=quote_amount)
-
-
-@app.get("/api/arbitrage/feed-lag/{symbol}")
-async def arbitrage_feed_lag(symbol: str):
-    from arbitrage_service import compare_symbol_across_exchanges
-
-    compare = await compare_symbol_across_exchanges(symbol)
-    return compare.get("feed_lag") or {"opportunities": [], "symbol": symbol}
-
-
-@app.get("/api/arbitrage/durations")
-async def arbitrage_durations(limit: int = 20):
-    from opportunity_tracker import export_state
-
-    state = export_state()
-    state["active"] = state.get("active", [])[:limit]
-    return state
-
-
-@app.get("/api/oracle/weights")
-async def oracle_weights(symbol: str = "BTC"):
-    from weight_aggregator import compute_modal_breakdown, get_core_score_weights, get_dimension_weights
-
-    from whale_tracker import get_latest_institutional_context
-
-    ctx = await get_latest_institutional_context()
-    breakdown = compute_modal_breakdown(symbol.upper(), ctx)
-    return {
-        "symbol": symbol.upper(),
-        "dimension_weights": get_dimension_weights(),
-        "core_weights": get_core_score_weights(),
-        "breakdown": breakdown,
-    }
-
-
-@app.post("/api/oracle/retrain")
-async def oracle_retrain_manual():
-    from oracle_retrainer import run_oracle_retrain_step
-
-    return await run_oracle_retrain_step()
-
-
-@app.get("/api/arbitrage/alerts")
-async def arbitrage_alerts(limit: int = 20):
-    from database import fetch_arbitrage_alert_log
-
-    rows = await fetch_arbitrage_alert_log(limit=limit)
-    return {
-        "alerts": rows,
-        "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID")),
-        "email_configured": bool(os.getenv("SMTP_HOST")),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    }
-
+# Arbitrage API routes → api/routers/arbitrage.py
 
 @app.post("/api/simulate/trade")
-async def simulate_trade(data: dict = Body(...)):
+async def simulate_trade(
+    data: dict = Body(...),
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from trade_simulator import simulate_spot_trade
 
     try:
@@ -2445,7 +1497,10 @@ async def simulate_trade(data: dict = Body(...)):
 
 
 @app.post("/api/simulate/arbitrage")
-async def simulate_arbitrage(data: dict = Body(...)):
+async def simulate_arbitrage(
+    data: dict = Body(...),
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from trade_simulator import simulate_arbitrage_trade
 
     return await simulate_arbitrage_trade(
@@ -2460,7 +1515,10 @@ async def simulate_arbitrage(data: dict = Body(...)):
 
 
 @app.get("/api/simulate/history")
-async def simulate_history(limit: int = 15):
+async def simulate_history(
+    limit: int = 15,
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from database import fetch_simulation_logs
 
     return {"simulations": await fetch_simulation_logs(limit=limit)}
@@ -2520,37 +1578,47 @@ async def execution_status(_user: dict = Depends(require_pro_or_above)):
 
 
 @app.get("/api/execution/keys/status")
-async def execution_keys_status_api():
+async def execution_keys_status_api(_user: dict = Depends(require_whale)):
     from execution_keys import execution_keys_status
 
-    return execution_keys_status()
+    status = execution_keys_status()
+    status.pop("keys_file", None)
+    return status
 
 
 @app.post("/api/execution/keys/activate")
-async def execution_keys_activate(request: Request, live: bool = False):
+async def execution_keys_activate(request: Request, live: bool = False, user: dict = Depends(require_whale)):
     from execution_keys import activate_live_execution
 
-    host = request.client.host if request.client else ""
-    if host not in {"127.0.0.1", "::1", "localhost"}:
+    if live:
         from security_auth import verify_admin_key
 
         if not verify_admin_key(request.headers.get("X-Admin-Key")):
-            raise HTTPException(status_code=403, detail="Localhost or admin required")
+            raise HTTPException(
+                status_code=403,
+                detail="Live activation requires whale auth + X-Admin-Key",
+            )
+    host = request.client.host if request.client else ""
+    if host not in {"127.0.0.1", "::1", "localhost"} and not live:
+        from security_auth import verify_admin_key
+
+        if not verify_admin_key(request.headers.get("X-Admin-Key")):
+            raise HTTPException(status_code=403, detail="Admin required for remote activation")
     return await activate_live_execution(enable_live=live)
 
 
 @app.post("/api/execution/cex-dex/cycle")
-async def execution_cex_dex_cycle(quote_usd: float = 1000):
+async def execution_cex_dex_cycle(quote_usd: float = 1000, _user: dict = Depends(require_whale)):
     from bd_platform.cex_dex_executor import run_cex_dex_cycle
 
     return await run_cex_dex_cycle(quote_usd=quote_usd)
 
 
 @app.post("/api/execution/panic")
-async def execution_panic(_user: dict = Depends(require_whale)):
+async def execution_panic(user: dict = Depends(require_whale)):
     from execution_engine import trigger_panic
 
-    return await trigger_panic()
+    return await trigger_panic(user_id=int(user["id"]))
 
 
 @app.post("/api/execution/resume")
@@ -2561,7 +1629,7 @@ async def execution_resume(_user: dict = Depends(require_whale)):
 
 
 @app.post("/api/execution/order")
-async def execution_order(body: ExecutionOrderBody, _user: dict = Depends(require_whale)):
+async def execution_order(body: ExecutionOrderBody, user: dict = Depends(require_whale)):
     from execution_engine import execute_order
 
     try:
@@ -2570,6 +1638,7 @@ async def execution_order(body: ExecutionOrderBody, _user: dict = Depends(requir
             body.side,  # type: ignore[arg-type]
             body.amount_usd,
             dry_run=True,
+            user_id=int(user["id"]),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -2596,6 +1665,33 @@ async def research_moat():
     return await compute_economic_moat()
 
 
+@app.get("/api/moat/build-status")
+async def moat_build_status():
+    from data_moat_guard import build_moat_build_status, data_moat_guard_status
+
+    status = await build_moat_build_status()
+    status["guard"] = data_moat_guard_status()
+    return status
+
+
+@app.get("/api/acquisition/assets")
+async def acquisition_assets_audit():
+    from acquisition_assets_service import acquisition_assets_status, build_acquisition_asset_audit
+
+    audit = await build_acquisition_asset_audit()
+    audit["status"] = acquisition_assets_status()
+    return audit
+
+
+@app.get("/api/behavior/stats")
+async def behavior_data_stats(days: int = 30):
+    from behavior_data_service import behavior_data_status, fetch_behavior_asset_stats
+
+    stats = await fetch_behavior_asset_stats(days=days)
+    stats["status"] = behavior_data_status()
+    return stats
+
+
 @app.get("/api/research/asset/{symbol}")
 async def research_asset(symbol: str, notional: float = 10_000):
     from research_lab import compute_financial_models
@@ -2612,23 +1708,6 @@ async def research_export(x_api_key: str = Header(..., alias="X-API-Key")):
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
 
-
-@app.get("/api/arbitrage/catalog")
-async def arbitrage_catalog(category: str | None = None, status: str | None = None):
-    from arbitrage_catalog import get_catalog
-
-    return get_catalog(category=category, status=status)
-
-
-@app.get("/api/arbitrage/catalog/scan")
-async def arbitrage_catalog_scan(
-    quote_amount: float | None = None,
-    min_score: float = 0.0,
-    _user: dict | None = Depends(require_feature("arbitrage_catalog")),
-):
-    from arbitrage_catalog import scan_arbitrage_catalog
-
-    return await scan_arbitrage_catalog(quote_amount=quote_amount, min_score=min_score)
 
 
 @app.post("/api/voice/command")
@@ -2647,21 +1726,29 @@ async def voice_command(
 
 
 @app.get("/api/reports/weekly")
-async def weekly_report_endpoint(persist: bool = True):
+async def weekly_report_endpoint(
+    persist: bool = True,
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from weekly_report import build_weekly_report
 
     return await build_weekly_report(persist=persist)
 
 
 @app.get("/api/reports/weekly/history")
-async def weekly_report_history(limit: int = 12):
+async def weekly_report_history(
+    limit: int = 12,
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from database import fetch_weekly_reports
 
     return {"reports": await fetch_weekly_reports(limit=limit)}
 
 
 @app.get("/api/reports/weekly/markdown")
-async def weekly_report_markdown():
+async def weekly_report_markdown(
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from weekly_report import build_weekly_report, report_to_markdown
 
     report = await build_weekly_report(persist=False)
@@ -2670,14 +1757,19 @@ async def weekly_report_markdown():
 
 
 @app.get("/api/reports/daily")
-async def daily_report_endpoint(persist: bool = True):
+async def daily_report_endpoint(
+    persist: bool = True,
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from daily_report import build_daily_report
 
     return await build_daily_report(persist=persist)
 
 
 @app.get("/api/reports/daily/markdown")
-async def daily_report_markdown():
+async def daily_report_markdown(
+    _user: dict | None = Depends(require_feature("research_lab")),
+):
     from daily_report import build_daily_report, daily_report_markdown as to_md
 
     report = await build_daily_report(persist=False)
@@ -2691,19 +1783,105 @@ async def ta_bundle(symbol: str):
     return await build_ta_bundle(symbol.upper())
 
 
-@app.get("/api/arbitrage/pricing-errors/{symbol}")
-async def arbitrage_pricing_errors(symbol: str):
-    from arbitrage_service import compare_symbol_across_exchanges
-
-    compare = await compare_symbol_across_exchanges(symbol)
-    return compare.get("pricing_errors") or {"opportunities": [], "symbol": symbol}
-
 
 @app.get("/api/database/health")
 async def database_health():
     from db_upgrade import database_health_report
 
     return await database_health_report()
+
+
+@app.get("/api/storage/status")
+async def storage_status():
+    from storage_tier_manager import storage_architecture_status
+
+    return await storage_architecture_status()
+
+
+@app.get("/api/storage/cost-guard")
+async def storage_cost_guard_api():
+    from storage_cost_guard import storage_cost_guard_status
+
+    return storage_cost_guard_status()
+
+
+
+@app.get("/api/sentiment/manipulation-guard")
+async def api_sentiment_manipulation_guard():
+    from sentiment_manipulation_guard import sentiment_manipulation_status
+
+    return sentiment_manipulation_status()
+
+
+
+@app.get("/api/security/api-keys")
+async def api_key_security_status_api(_user: dict = Depends(require_whale)):
+    from api_key_security_guard import api_key_security_status
+    from wash_trade_guard import wash_trade_guard_status
+
+    return {
+        "api_key_security": api_key_security_status(),
+        "wash_trade_guard": wash_trade_guard_status(),
+    }
+
+
+@app.get("/api/regulatory/compliance")
+async def api_regulatory_compliance():
+    from regulatory_compliance_guard import regulatory_compliance_status
+
+    return regulatory_compliance_status()
+
+
+@app.get("/api/retention/status")
+async def api_retention_status(user: dict | None = Depends(optional_user)):
+    from retention_service import build_retention_status
+    from database import fetch_active_subscription_for_email
+
+    sub = None
+    if user:
+        sub = await fetch_active_subscription_for_email(user["email"])
+    return await build_retention_status(user, sub)
+
+
+@app.get("/api/subscriber/value")
+async def api_subscriber_value(user: dict | None = Depends(optional_user)):
+    from retention_service import build_subscriber_value_digest
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    tier = str(user.get("tier") or "free")
+    if tier == "free":
+        raise HTTPException(
+            status_code=403,
+            detail={
+                "error": "upgrade_required",
+                "message": "Subscriber value digest requires Pro or Whale.",
+                "upgrade_url": "/create-checkout-session?tier=pro",
+            },
+        )
+    return await build_subscriber_value_digest(user["email"], tier)
+
+
+@app.api_route("/api/storage/maintenance", methods=["GET", "POST"])
+async def storage_maintenance(_admin: dict = Depends(require_admin_dev)):
+    from storage_tier_manager import run_storage_maintenance_cycle
+
+    return await run_storage_maintenance_cycle()
+
+
+@app.api_route("/api/storage/legacy-purge", methods=["GET", "POST"])
+async def storage_legacy_purge(_admin: dict = Depends(require_admin_dev)):
+    """One-time: delete legacy pricing_logs from SQLite ops DB (localhost only)."""
+    from storage_tier_manager import purge_legacy_ops_market_data
+
+    return await purge_legacy_ops_market_data(vacuum=True)
+
+
+@app.get("/api/storage/hot-tier")
+async def storage_hot_tier():
+    from hot_tier_reader import hot_tier_status
+
+    return await hot_tier_status()
 
 
 @app.post("/api/database/maintenance")
@@ -2764,6 +1942,34 @@ async def api_fast_scan():
     return run_fast_scan()
 
 
+@app.get("/api/due-diligence/status")
+async def api_due_diligence_status():
+    from due_diligence import due_diligence_report
+
+    return due_diligence_report()
+
+
+@app.get("/api/due-diligence/latency")
+async def api_due_diligence_latency():
+    from latency_audit import latency_status
+
+    return latency_status()
+
+
+@app.get("/api/due-diligence/uptime")
+async def api_due_diligence_uptime():
+    from uptime_monitor import ha_architecture_status, uptime_stats
+
+    return {"uptime": uptime_stats(window_hours=24), "ha": ha_architecture_status()}
+
+
+@app.get("/api/due-diligence/coverage")
+async def api_due_diligence_coverage():
+    from due_diligence import run_profit_fee_coverage
+
+    return run_profit_fee_coverage()
+
+
 @app.get("/api/security/status")
 async def api_security_status():
     """Public security posture summary for due diligence."""
@@ -2773,40 +1979,24 @@ async def api_security_status():
     return {
         "password_hashing": "PBKDF2-SHA256 (260k iterations)",
         "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
-        "user_api_keys": "Fernet AES-128 encrypted vault",
+        "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
+        "model_weights": "Fernet + HMAC integrity (admin-gated API)",
         "execution_endpoints": "whale_tier_required",
+        "panic_button": "cancel_all_orders + stop loop + risk freeze",
+        "risk_freeze": "persistent (SQLite, survives restart)",
+        "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
         "admin_endpoints": "X-Admin-Key or admin email",
         "rate_limiting": "login 10 attempts / 5 min",
         "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
         "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
         "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
+        "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
         "admin_emails_configured": len(admin_emails()) > 0,
         "docs": "/SECURITY.md",
     }
 
 
-@app.post("/api/user/exchange-keys")
-async def store_exchange_keys(body: UserApiKeyBody, user: dict = Depends(require_whale)):
-    from user_keys_service import store_user_exchange_keys
-
-    return await store_user_exchange_keys(
-        int(user["id"]), body.exchange, body.api_key, body.api_secret, label=body.label
-    )
-
-
-@app.get("/api/user/exchange-keys")
-async def list_exchange_keys(user: dict = Depends(require_whale)):
-    from user_keys_service import list_user_exchange_keys
-
-    return {"keys": await list_user_exchange_keys(int(user["id"]))}
-
-
-@app.delete("/api/user/exchange-keys/{exchange}")
-async def delete_exchange_keys(exchange: str, user: dict = Depends(require_whale)):
-    from user_keys_service import remove_user_exchange_keys
-
-    return await remove_user_exchange_keys(int(user["id"]), exchange)
-
+# User keys/risk → api/routers/user.py
 
 @app.get("/api/risk/status")
 async def api_risk_status(_user: dict = Depends(require_pro_or_above)):
@@ -2828,33 +2018,6 @@ async def api_risk_unfreeze(_admin: dict = Depends(require_admin)):
 
     return unfreeze_trading()
 
-
-@app.get("/api/oracle/track-record")
-async def api_oracle_track_record():
-    from oracle_track_record import public_track_record
-
-    return public_track_record()
-
-
-@app.post("/api/oracle/track-record/backfill")
-async def api_oracle_track_record_backfill():
-    from oracle_track_record import backfill_from_database
-
-    return await backfill_from_database()
-
-
-@app.get("/api/oracle/audit-chain")
-async def api_oracle_audit_chain(limit: int = 20):
-    from oracle_audit_chain import chain_summary
-
-    return chain_summary(limit=limit)
-
-
-@app.get("/api/oracle/audit-chain/verify")
-async def api_oracle_audit_chain_verify():
-    from oracle_audit_chain import verify_chain
-
-    return verify_chain()
 
 
 @app.get("/api/options/overview")
@@ -2881,7 +2044,15 @@ async def health_live():
     """Instant liveness probe — no DB/Redis (target <50ms)."""
     import time
 
-    return {"status": "ok", "probe": "live", "ts": time.time()}
+    t0 = time.perf_counter()
+    payload = {"status": "ok", "probe": "live", "ts": time.time()}
+    try:
+        from uptime_monitor import record_probe
+
+        record_probe(ok=True, source="health_live", latency_ms=(time.perf_counter() - t0) * 1000)
+    except Exception:
+        pass
+    return payload
 
 
 @app.get("/health/ready")
@@ -2916,11 +2087,13 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-24-launch-en-v2",
+        "release": "2026-07-27-railway-price-fallback-v1",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
         "service": "blackdark",
+        "price_feed_ws_only": getattr(config, "PRICE_FEED_WS_ONLY", None),
+        "price_probe": "/api/diagnostics/price/BTC",
     }
 
 @app.post("/portfolio/analyze")
@@ -2930,7 +2103,7 @@ async def portfolio_analyze(assets: list = Body(...)):
     return await _analyze_portfolio_holdings(assets)
 
 @app.post("/join-waitlist")
-async def join_waitlist(data: dict):
+async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     from database import insert_waitlist_signup
 
     email = (data.get("email") or "").strip().lower()
@@ -2943,6 +2116,11 @@ async def join_waitlist(data: dict):
         raise HTTPException(status_code=409, detail="Email already registered")
 
     position = result.get("position", 0)
+    background_tasks.add_task(
+        _record_behavior,
+        "waitlist_join",
+        payload={"position": position, "name_provided": bool(name)},
+    )
     return {
         "success": True,
         "position": position,
@@ -2999,6 +2177,27 @@ async def services_status():
     }
 
 
+@app.get("/api/feed/engine/status")
+async def feed_engine_status_api():
+    from price_stream_engine import feed_engine_status
+
+    return feed_engine_status()
+
+
+@app.get("/api/feed/stale-price-guard")
+async def api_stale_price_guard():
+    from stale_price_guard import stale_guard_status
+
+    return stale_guard_status()
+
+
+@app.get("/api/feed/ingress-guard")
+async def api_ingress_guard():
+    from exchange_ingress_guard import ingress_guard_status
+
+    return ingress_guard_status()
+
+
 @app.get("/api/low-latency/status")
 async def low_latency_status():
     from exchange_ws_hub import ws_hub_stats
@@ -3014,11 +2213,16 @@ async def low_latency_status():
         "instant_alerts": engine_stats(),
         "scan_coordinator": coordinator_stats(),
         "targets_ms": {
-            "book_freshness": int(getattr(config, "LIVE_BOOK_MAX_AGE_MS", 500)),
+            "book_freshness": int(getattr(config, "LIVE_BOOK_MAX_AGE_MS", 300)),
+            "execution_max_age": int(getattr(config, "EXECUTION_MAX_QUOTE_AGE_MS", 300)),
             "scan_pulse": int(float(os.getenv("INSTANT_ALERT_INTERVAL_SEC", "1")) * 1000),
             "execution_loop": int(getattr(config, "AUTO_EXECUTION_INTERVAL_SEC", 1)) * 1000,
         },
-        "architecture": "WS bookTicker (Binance/OKX/Bybit) → live_book_hub → arbitrage → execute",
+        "architecture": (
+            "WS-only multiplexed streams (Binance/OKX/Bybit) → Redis → Kafka → live_book_hub"
+            if getattr(config, "PRICE_FEED_WS_ONLY", True)
+            else "WS bookTicker (Binance/OKX/Bybit) → live_book_hub → arbitrage → execute"
+        ),
     }
 
 
