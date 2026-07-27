@@ -732,7 +732,7 @@ def build_full_oracle_response(
     sentiment = oracle_sentiment(change)
     fg_score, fear_greed = fear_greed_index(change, quote_volume)
     confidence = int((unified or {}).get("confidence") or oracle_confidence(score, change, quote_volume))
-    trend_direction = trend_direction(change)
+    trend_dir = trend_direction(change)
     risk = risk_level(score)
     support = round(price * 0.97, -2)
     resistance = round(price * 1.03, -2)
@@ -751,7 +751,7 @@ def build_full_oracle_response(
         sentiment,
         fear_greed,
         confidence,
-        trend_direction,
+        trend_dir,
         risk,
         support,
         resistance,
@@ -775,7 +775,7 @@ def build_full_oracle_response(
         "resistance": resistance,
         "next_24h_low": prediction_low,
         "next_24h_high": prediction_high,
-        "trend_direction": trend_direction,
+        "trend_direction": trend_dir,
         "confidence": confidence,
         "action": action,
         "market_summary": market_summary,

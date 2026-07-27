@@ -440,11 +440,17 @@ from market_context import (
     fetch_cvvd_whale_alert as _fetch_cvvd_whale_alert,
     fetch_cvvd_whale_context as _fetch_cvvd_whale_context,
     fetch_live_whale_signal as _fetch_live_whale_signal,
+    is_stablecoin as _is_stablecoin,
     liquidity_label as _liquidity_label,
     macd_trend_label as _macd_trend_label,
     normalize_oracle_symbol as _normalize_oracle_symbol,
     normalize_whale_alert_row as _normalize_whale_alert_row,
+    oracle_action as _oracle_action,
+    oracle_confidence as _oracle_confidence,
+    oracle_sentiment as _oracle_sentiment,
+    oracle_verdict as _oracle_verdict,
     parse_alert_metadata as _parse_alert_metadata,
+    rsi_signal_label as _rsi_signal_label,
     trend_direction as _trend_direction,
     whale_alerts_for_asset as _whale_alerts_for_asset,
 )
@@ -2125,7 +2131,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-27-oracle-focus-v4",
+        "release": "2026-07-27-oracle-focus-v5",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
