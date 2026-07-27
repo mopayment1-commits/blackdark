@@ -13,3 +13,4 @@ psutil
 textblob
 kafka-python
 hvac
+python-dotenv

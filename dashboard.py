@@ -226,33 +226,53 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    from database import init_db
+    """Yield immediately so Railway /health/live passes, then boot in background."""
 
-    await init_db()
+    async def _background_boot() -> None:
+        try:
+            from database import init_db
 
-    from observability import init_sentry
+            await init_db()
+        except Exception:
+            logger.exception("init_db failed — API stays up for probes")
 
-    init_sentry()
+        try:
+            from observability import init_sentry
 
-    from risk_manager import load_persistent_freeze
+            init_sentry()
+        except Exception:
+            logger.exception("Sentry init failed")
 
-    await load_persistent_freeze()
+        try:
+            from risk_manager import load_persistent_freeze
 
-    _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
-    if _ms_mode == "web":
-        from microservices.lifecycle import ServiceContext, shutdown, startup
+            await load_persistent_freeze()
+        except Exception:
+            logger.exception("Risk freeze load failed")
 
-        _ms_ctx = ServiceContext()
-        await startup("web", _ms_ctx)
-        yield
-        await shutdown(_ms_ctx)
-        return
+        _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
+        if _ms_mode == "web":
+            try:
+                from microservices.lifecycle import ServiceContext, startup
 
-    from startup_orchestrator import RuntimeState, run_background_startup, shutdown_runtime
+                _ms_ctx = ServiceContext()
+                await startup("web", _ms_ctx)
+                app.state.ms_ctx = _ms_ctx
+            except Exception:
+                logger.exception("Web microservice startup failed")
+            return
 
-    runtime = RuntimeState()
-    boot_task = asyncio.create_task(run_background_startup(runtime), name="blackdark-boot")
-    logger.info("BLACKDARK API live — background services loading (no Docker needed).")
+        try:
+            from startup_orchestrator import RuntimeState, run_background_startup
+
+            runtime = RuntimeState()
+            app.state.runtime = runtime
+            await run_background_startup(runtime)
+        except Exception:
+            logger.exception("Background startup failed")
+
+    boot_task = asyncio.create_task(_background_boot(), name="blackdark-boot")
+    logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
 
     boot_task.cancel()
@@ -260,7 +280,25 @@ async def lifespan(app: FastAPI):
         await boot_task
     except asyncio.CancelledError:
         pass
-    await shutdown_runtime(runtime)
+
+    _ms_ctx = getattr(app.state, "ms_ctx", None)
+    if _ms_ctx is not None:
+        try:
+            from microservices.lifecycle import shutdown
+
+            await shutdown(_ms_ctx)
+        except Exception:
+            logger.exception("Web microservice shutdown failed")
+        return
+
+    runtime = getattr(app.state, "runtime", None)
+    if runtime is not None:
+        try:
+            from startup_orchestrator import shutdown_runtime
+
+            await shutdown_runtime(runtime)
+        except Exception:
+            logger.exception("Background shutdown failed")
 
 
 app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
@@ -2087,7 +2125,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-27-railway-price-fallback-v2",
+        "release": "2026-07-27-railway-healthcheck-v3",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),
