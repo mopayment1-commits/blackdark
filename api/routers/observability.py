@@ -28,6 +28,13 @@ async def due_diligence_bundle():
     return await build_full_due_diligence_bundle()
 
 
+@router.get("/api/due-diligence/technical")
+async def technical_due_diligence_api(probe_production: bool = True):
+    from technical_due_diligence import build_technical_due_diligence_report
+
+    return await build_technical_due_diligence_report(probe_production=probe_production)
+
+
 @router.get("/api/diagnostics/price/{symbol}")
 async def price_source_diagnostics(symbol: str):
     from market_context import probe_price_sources

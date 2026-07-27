@@ -30,3 +30,9 @@ jobs:
 
       - name: Due diligence report smoke
         run: python scripts/due_diligence_verify.py
+
+      - name: Technical DD report smoke
+        run: python scripts/technical_due_diligence_report.py --no-probe
+
+      - name: Docker build smoke
+        run: docker build -t blackdark-ci:test .

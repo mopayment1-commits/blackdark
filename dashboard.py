@@ -386,6 +386,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.privacy import router as privacy_router
+
+    app.include_router(privacy_router)
+except ImportError:
+    pass
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")
@@ -846,10 +853,23 @@ async def oracle_explain(
     payload["forecast"] = enriched.get("forecast")
     payload["forecast_summary"] = enriched.get("forecast_summary")
 
-    from security_sanitize import sanitize_explanation_payload
+    from security_sanitize import sanitize_explanation_payload, sanitize_oracle_payload
 
-    if not (user and is_admin_user(user)):
+    if user and is_admin_user(user):
         payload = sanitize_explanation_payload(payload)
+    else:
+        base = sanitize_oracle_payload(
+            {
+                "symbol": asset,
+                "verdict": payload.get("verdict"),
+                "opportunity_score": payload.get("opportunity_score"),
+                "explanation": payload,
+            }
+        )
+        payload = sanitize_explanation_payload(payload)
+        payload["regulatory_classification"] = base.get("regulatory_classification")
+        payload["disclaimer"] = base.get("disclaimer")
+        payload["is_investment_advice"] = False
     background_tasks.add_task(
         _log_oracle_prediction,
         {
@@ -932,20 +952,23 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
     )
 
-    return JSONResponse({
+    payload = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
         "verdict": verdict,
         "opportunity_score": score,
         "action": action,
-        "action_line": f"ACTION: {action}",
+        "action_line": f"Analytics summary: {action}",
         "sentiment": sentiment,
         "latency_ms": latency_ms,
         "engine": "quick_rules_v1",
         "latency_target_ms": 100,
         "meets_latency_target": latency_ms <= 100,
-    })
+    }
+    from security_sanitize import sanitize_oracle_payload
+
+    return JSONResponse(sanitize_oracle_payload(payload))
 
 
 @app.get("/oracle/{symbol}")
@@ -1036,11 +1059,10 @@ async def oracle(
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
 
-    payload = apply_regulatory_compliance(payload)
-    if not (user and is_admin_user(user)):
-        payload = sanitize_oracle_payload(payload)
+    if user and is_admin_user(user):
+        payload = apply_regulatory_compliance(payload)
     else:
-        payload.pop("oracle_internal_verdict", None)
+        payload = sanitize_oracle_payload(payload)
     return JSONResponse(payload)
 
 
@@ -2153,7 +2175,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-27-oracle-focus-v6",
+        "release": "2026-07-27-dd-remediation-v7",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),

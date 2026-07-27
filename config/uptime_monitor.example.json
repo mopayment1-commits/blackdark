@@ -1,0 +1,9 @@
+{
+  "monitor_name": "BLACKDARK Production",
+  "url": "https://blackdark-production.up.railway.app/health/live",
+  "interval_seconds": 60,
+  "timeout_seconds": 10,
+  "alert_contacts": ["your-email@example.com"],
+  "sla_target_percent": 99.99,
+  "notes": "Required for DD requirement #1. Also monitor sidecar :8180/health/live on HA deploys."
+}

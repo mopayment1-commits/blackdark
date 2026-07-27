@@ -26,10 +26,12 @@ def sanitize_oracle_payload(payload: dict[str, Any]) -> dict[str, Any]:
     cleaned = dict(payload)
     for key in _SENSITIVE_ORACLE_KEYS:
         cleaned.pop(key, None)
-    if cleaned.get("market_regime"):
-        cleaned["weights_protected"] = True
     cleaned.pop("oracle_internal_verdict", None)
-    return apply_regulatory_compliance(cleaned)
+    out = apply_regulatory_compliance(cleaned)
+    out.pop("oracle_internal_verdict", None)
+    if out.get("market_regime"):
+        out["weights_protected"] = True
+    return out
 
 
 def sanitize_explanation_payload(payload: dict[str, Any]) -> dict[str, Any]:

@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from typing import Any, AsyncIterator, Optional, Sequence
@@ -327,6 +328,23 @@ CREATE TABLE IF NOT EXISTS journal_entries (
 
 CREATE INDEX IF NOT EXISTS idx_journal_user_ts
     ON journal_entries (user_email, timestamp);
+
+CREATE TABLE IF NOT EXISTS behavior_events (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_type   TEXT    NOT NULL,
+    user_email   TEXT,
+    tier         TEXT,
+    asset        TEXT,
+    session_id   TEXT,
+    payload_json TEXT    NOT NULL DEFAULT '{}',
+    created_at   TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_behavior_type_ts
+    ON behavior_events (event_type, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_behavior_user_ts
+    ON behavior_events (user_email, created_at DESC);
 """
 
 
@@ -500,6 +518,54 @@ async def _apply_migrations(db: Any) -> None:
     }
     if "trial_ends_at" not in sub_cols:
         await db.execute("ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT")
+    if "past_due_at" not in sub_cols:
+        await db.execute("ALTER TABLE subscriptions ADD COLUMN past_due_at TEXT")
+    if "access_bonus_until" not in sub_cols:
+        await db.execute("ALTER TABLE subscriptions ADD COLUMN access_bonus_until TEXT")
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS retention_grants (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            email      TEXT    NOT NULL,
+            grant_type TEXT    NOT NULL,
+            granted_at TEXT    NOT NULL,
+            days       INTEGER NOT NULL DEFAULT 0
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_retention_grants_email_type
+            ON retention_grants (email, grant_type, granted_at DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS behavior_events (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_type   TEXT    NOT NULL,
+            user_email   TEXT,
+            tier         TEXT,
+            asset        TEXT,
+            session_id   TEXT,
+            payload_json TEXT    NOT NULL DEFAULT '{}',
+            created_at   TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_behavior_type_ts
+            ON behavior_events (event_type, created_at DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_behavior_user_ts
+            ON behavior_events (user_email, created_at DESC)
+        """
+    )
 
     user_cols = {
         row[1] for row in await (await db.execute("PRAGMA table_info(users)")).fetchall()
@@ -675,6 +741,38 @@ async def _apply_migrations(db: Any) -> None:
         """
         CREATE INDEX IF NOT EXISTS idx_user_api_keys_user
             ON user_api_keys (user_id)
+        """
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS risk_freeze_state (
+            id         INTEGER PRIMARY KEY CHECK (id = 1),
+            frozen     INTEGER NOT NULL DEFAULT 0,
+            reason     TEXT,
+            until_ts   REAL,
+            updated_at TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        INSERT OR IGNORE INTO risk_freeze_state (id, frozen, reason, until_ts, updated_at)
+        VALUES (1, 0, '', 0, ?)
+        """,
+        (_utcnow_iso(),),
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS user_risk_settings (
+            user_id              INTEGER PRIMARY KEY,
+            max_slippage_bps     REAL    NOT NULL DEFAULT 80,
+            max_risk_score       REAL    NOT NULL DEFAULT 70,
+            max_daily_loss_usd   REAL    NOT NULL DEFAULT 500,
+            updated_at           TEXT    NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
         """
     )
 
@@ -1651,6 +1749,18 @@ async def insert_oracle_prediction(
     features_json: str | None = None,
     source: str = "oracle",
 ) -> int:
+    from data_moat_guard import validate_prediction_insert
+
+    ok, reason = validate_prediction_insert(source=source, features_json=features_json)
+    if not ok:
+        logger.warning(
+            "Oracle prediction insert blocked | asset=%s source=%s reason=%s",
+            asset,
+            source,
+            reason,
+        )
+        return 0
+
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
         cursor = await db.execute(
@@ -2256,6 +2366,97 @@ async def set_execution_state(
         )
 
 
+async def fetch_risk_freeze_state() -> dict[str, Any]:
+    try:
+        async with get_connection() as db:
+            row = await (
+                await db.execute("SELECT * FROM risk_freeze_state WHERE id = 1")
+            ).fetchone()
+        return dict(row) if row else {"frozen": 0, "reason": "", "until_ts": 0.0}
+    except Exception:
+        logger.exception("Unable to read risk freeze state")
+        return {"frozen": 0, "reason": "", "until_ts": 0.0}
+
+
+async def set_risk_freeze_state(
+    *,
+    frozen: bool,
+    reason: str = "",
+    until_ts: float = 0.0,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO risk_freeze_state (id, frozen, reason, until_ts, updated_at)
+            VALUES (1, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                frozen = excluded.frozen,
+                reason = excluded.reason,
+                until_ts = excluded.until_ts,
+                updated_at = excluded.updated_at
+            """,
+            (int(frozen), reason, float(until_ts), _utcnow_iso()),
+        )
+
+
+async def fetch_user_risk_settings(user_id: int) -> dict[str, Any]:
+    defaults = {
+        "user_id": user_id,
+        "max_slippage_bps": float(os.getenv("RISK_MAX_SLIPPAGE_BPS", "80")),
+        "max_risk_score": float(os.getenv("USER_DEFAULT_MAX_RISK_SCORE", "70")),
+        "max_daily_loss_usd": float(os.getenv("USER_DEFAULT_MAX_DAILY_LOSS_USD", "500")),
+    }
+    try:
+        async with get_connection() as db:
+            row = await (
+                await db.execute(
+                    "SELECT * FROM user_risk_settings WHERE user_id = ?",
+                    (user_id,),
+                )
+            ).fetchone()
+        if row:
+            return dict(row)
+    except Exception:
+        logger.exception("Unable to read user risk settings | user_id=%s", user_id)
+    return defaults
+
+
+async def upsert_user_risk_settings(
+    user_id: int,
+    *,
+    max_slippage_bps: float | None = None,
+    max_risk_score: float | None = None,
+    max_daily_loss_usd: float | None = None,
+) -> dict[str, Any]:
+    current = await fetch_user_risk_settings(user_id)
+    payload = {
+        "max_slippage_bps": max_slippage_bps if max_slippage_bps is not None else current["max_slippage_bps"],
+        "max_risk_score": max_risk_score if max_risk_score is not None else current["max_risk_score"],
+        "max_daily_loss_usd": max_daily_loss_usd if max_daily_loss_usd is not None else current["max_daily_loss_usd"],
+    }
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO user_risk_settings
+                (user_id, max_slippage_bps, max_risk_score, max_daily_loss_usd, updated_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(user_id) DO UPDATE SET
+                max_slippage_bps = excluded.max_slippage_bps,
+                max_risk_score = excluded.max_risk_score,
+                max_daily_loss_usd = excluded.max_daily_loss_usd,
+                updated_at = excluded.updated_at
+            """,
+            (
+                user_id,
+                payload["max_slippage_bps"],
+                payload["max_risk_score"],
+                payload["max_daily_loss_usd"],
+                _utcnow_iso(),
+            ),
+        )
+    return {"user_id": user_id, **payload}
+
+
 async def insert_execution_log(side: str, asset: str, payload_json: str, *, live: bool) -> int:
     async with get_connection() as db:
         cursor = await db.execute(
@@ -2351,7 +2552,107 @@ async def increment_platform_metric(metric: str) -> dict[str, Any]:
         return {}
 
 
-    return int(row[0]) if row else 1
+async def fetch_user_count() -> int:
+    try:
+        async with get_connection() as db:
+            row = await (await db.execute("SELECT COUNT(*) FROM users")).fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def insert_behavior_event(
+    event_type: str,
+    *,
+    user_email: str | None = None,
+    tier: str | None = None,
+    asset: str | None = None,
+    session_id: str | None = None,
+    payload_json: str = "{}",
+) -> int:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO behavior_events (
+                event_type, user_email, tier, asset, session_id, payload_json, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                event_type.strip().lower(),
+                (user_email or "").strip().lower() or None,
+                tier,
+                asset.upper() if asset else None,
+                session_id,
+                payload_json or "{}",
+                _utcnow_iso(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
+async def fetch_behavior_event_stats(*, days: int = 30) -> dict[str, Any]:
+    since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+    empty = {
+        "window_days": days,
+        "total_events": 0,
+        "unique_emails": 0,
+        "unique_anonymous_sessions": 0,
+        "unique_actor_count": 0,
+        "top_event_types": [],
+    }
+    try:
+        async with get_connection() as db:
+            total_row = await (
+                await db.execute(
+                    "SELECT COUNT(*) FROM behavior_events WHERE created_at >= ?",
+                    (since,),
+                )
+            ).fetchone()
+            email_row = await (
+                await db.execute(
+                    """
+                    SELECT COUNT(DISTINCT user_email) FROM behavior_events
+                    WHERE created_at >= ? AND user_email IS NOT NULL AND user_email != ''
+                    """,
+                    (since,),
+                )
+            ).fetchone()
+            session_row = await (
+                await db.execute(
+                    """
+                    SELECT COUNT(DISTINCT session_id) FROM behavior_events
+                    WHERE created_at >= ? AND session_id IS NOT NULL AND session_id != ''
+                    """,
+                    (since,),
+                )
+            ).fetchone()
+            type_rows = await (
+                await db.execute(
+                    """
+                    SELECT event_type, COUNT(*) AS c
+                    FROM behavior_events
+                    WHERE created_at >= ?
+                    GROUP BY event_type
+                    ORDER BY c DESC
+                    LIMIT 12
+                    """,
+                    (since,),
+                )
+            ).fetchall()
+
+        unique_emails = int(email_row[0]) if email_row else 0
+        unique_sessions = int(session_row[0]) if session_row else 0
+        return {
+            "window_days": days,
+            "total_events": int(total_row[0]) if total_row else 0,
+            "unique_emails": unique_emails,
+            "unique_anonymous_sessions": unique_sessions,
+            "unique_actor_count": unique_emails + unique_sessions,
+            "top_event_types": [{"event_type": r[0], "count": int(r[1])} for r in type_rows],
+        }
+    except Exception:
+        logger.exception("Unable to read behavior event stats")
+        return empty
 
 
 async def insert_journal_entry(
@@ -2491,6 +2792,11 @@ async def upsert_subscription_by_stripe_id(
             if status is not None:
                 updates.append("status = ?")
                 params.append(status)
+                if status == "past_due":
+                    updates.append("past_due_at = COALESCE(past_due_at, ?)")
+                    params.append(_utcnow_iso())
+                elif status == "active":
+                    updates.append("past_due_at = NULL")
             if updates:
                 params.append(int(row[0]))
                 await db.execute(
@@ -2695,7 +3001,11 @@ async def fetch_platform_user_stats() -> dict[str, Any]:
 
 async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | None:
     try:
-        now = _utcnow_iso()
+        import config
+
+        now_dt = datetime.now(timezone.utc)
+        now = now_dt.isoformat()
+        grace_days = int(getattr(config, "RETENTION_PAST_DUE_GRACE_DAYS", 7))
         async with get_connection() as db:
             rows = await db.execute(
                 """
@@ -2704,11 +3014,17 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
                   AND (
                     status = 'active'
                     OR (status = 'trial' AND (trial_ends_at IS NULL OR trial_ends_at > ?))
+                    OR (
+                      status = 'past_due'
+                      AND past_due_at IS NOT NULL
+                      AND datetime(past_due_at, '+' || ? || ' days') > ?
+                    )
+                    OR (access_bonus_until IS NOT NULL AND access_bonus_until > ?)
                   )
-                ORDER BY CASE status WHEN 'active' THEN 0 ELSE 1 END, id DESC
+                ORDER BY CASE status WHEN 'active' THEN 0 WHEN 'past_due' THEN 1 ELSE 2 END, id DESC
                 LIMIT 1
                 """,
-                (email.strip().lower(), now),
+                (email.strip().lower(), now, grace_days, now, now),
             )
             result = await rows.fetchone()
         if result is None:
@@ -2717,6 +3033,15 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
         if row.get("status") == "trial" and row.get("trial_ends_at") and row["trial_ends_at"] <= now:
             await expire_subscription(int(row["id"]))
             return None
+        if row.get("status") == "past_due" and row.get("past_due_at"):
+            try:
+                past_due_at = datetime.fromisoformat(str(row["past_due_at"]).replace("Z", "+00:00"))
+                if now_dt > past_due_at + timedelta(days=grace_days):
+                    await expire_subscription(int(row["id"]))
+                    return None
+            except ValueError:
+                pass
+        row["past_due_grace_days"] = grace_days
         return row
     except Exception:
         logger.exception("Unable to fetch subscription for email")
@@ -2747,6 +3072,43 @@ async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
     except Exception:
         logger.exception("Unable to fetch user")
         return None
+
+
+async def erase_user_personal_data(email: str) -> dict[str, Any]:
+    """GDPR Art. 17 — delete user account and linked personal rows."""
+    normalized = email.strip().lower()
+    user = await fetch_user_by_email(normalized)
+    if not user:
+        return {"found": False, "rows_deleted": 0}
+
+    user_id = int(user["id"])
+    deleted = 0
+    try:
+        async with get_connection() as db:
+            for stmt, params in (
+                ("DELETE FROM journal_entries WHERE user_email = ?", (normalized,)),
+                ("DELETE FROM oracle_usage_daily WHERE email = ?", (normalized,)),
+                ("DELETE FROM user_sessions WHERE user_id = ?", (user_id,)),
+                ("DELETE FROM user_api_keys WHERE user_id = ?", (user_id,)),
+                ("DELETE FROM user_risk_settings WHERE user_id = ?", (user_id,)),
+                (
+                    """
+                    UPDATE behavior_events
+                    SET user_email = NULL, session_id = NULL, payload_json = '{}'
+                    WHERE user_email = ?
+                    """,
+                    (normalized,),
+                ),
+                ("DELETE FROM users WHERE id = ?", (user_id,)),
+            ):
+                cur = await db.execute(stmt, params)
+                deleted += int(cur.rowcount or 0)
+            await db.commit()
+    except Exception:
+        logger.exception("GDPR erasure failed | email=%s", normalized)
+        raise
+
+    return {"found": True, "rows_deleted": deleted, "user_id": user_id}
 
 
 async def fetch_user_by_session(token: str) -> dict[str, Any] | None:
@@ -2807,6 +3169,75 @@ async def fetch_oracle_usage_today(email: str) -> int:
         return int(row[0]) if row else 0
     except Exception:
         return 0
+
+
+async def fetch_oracle_usage_month(email: str) -> int:
+    """Sum Oracle calls over the rolling last 30 days."""
+    since = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%d")
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT COALESCE(SUM(count), 0)
+                FROM oracle_usage_daily
+                WHERE email = ? AND usage_date >= ?
+                """,
+                (email.strip().lower(), since),
+            )
+            row = await rows.fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def count_risk_oracle_predictions_month() -> int:
+    """Platform-wide elevated-risk oracle outputs in the last 30 days."""
+    since = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    risk_labels = ("Do Not Touch", "CAUTION", "ELEVATED_RISK", "AVOID")
+    placeholders = ",".join("?" for _ in risk_labels)
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                f"""
+                SELECT COUNT(*)
+                FROM oracle_predictions
+                WHERE timestamp >= ?
+                  AND verdict IN ({placeholders})
+                """,
+                (since, *risk_labels),
+            )
+            row = await rows.fetchone()
+        return int(row[0]) if row else 0
+    except Exception:
+        return 0
+
+
+async def record_retention_grant(email: str, grant_type: str, days: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO retention_grants (email, grant_type, granted_at, days)
+            VALUES (?, ?, ?, ?)
+            """,
+            (email.strip().lower(), grant_type, _utcnow_iso(), int(days)),
+        )
+
+
+async def retention_grant_recent(email: str, grant_type: str, *, within_days: int = 30) -> bool:
+    since = (datetime.now(timezone.utc) - timedelta(days=within_days)).isoformat()
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT COUNT(*) FROM retention_grants
+                WHERE email = ? AND grant_type = ? AND granted_at >= ?
+                """,
+                (email.strip().lower(), grant_type, since),
+            )
+            row = await rows.fetchone()
+        return bool(row and int(row[0]) > 0)
+    except Exception:
+        return False
 
 
 async def increment_oracle_usage(email: str) -> int:
