@@ -260,6 +260,12 @@ async def lifespan(app: FastAPI):
                 app.state.ms_ctx = _ms_ctx
             except Exception:
                 logger.exception("Web microservice startup failed")
+            try:
+                from uptime_probe_loop import start_uptime_probe_loop
+
+                app.state.uptime_probe_task = await start_uptime_probe_loop()
+            except Exception:
+                logger.exception("Uptime self-probe failed in web mode")
             return
 
         try:
@@ -651,6 +657,32 @@ async def platform_stats():
         os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID")
     )
     return stats
+
+
+@app.get("/api/launch/readiness")
+async def launch_readiness():
+    """90-day launch tracker — Stripe, Telegram, uptime, DD score."""
+    from billing_service import stripe_configured
+    from uptime_monitor import uptime_stats
+
+    uptime = uptime_stats(window_hours=24)
+    probes = int(uptime.get("probes_total") or 0)
+    return {
+        "production_url": os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app"),
+        "stripe_configured": stripe_configured(),
+        "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
+        "uptime_probes_24h": probes,
+        "uptime_meets_dd_gate": probes >= 10,
+        "uptime_external_monitor": "https://uptimerobot.com → /health/live every 5 min",
+        "setup_script": "python scripts/setup_production_launch.py",
+        "dd_technical_report": "/api/due-diligence/technical",
+        "next_steps": [
+            "Configure UptimeRobot on /health/live",
+            "Set Stripe live keys in Railway Variables",
+            "Set TELEGRAM_BOT_TOKEN + webhook URL",
+            "Share landing page — target 10 paid users",
+        ],
+    }
 
 
 @app.post("/api/promo/redeem")
@@ -2175,7 +2207,7 @@ async def build_info():
     """Verify which commit Railway is actually running."""
     return {
         "ui_language": "en",
-        "release": "2026-07-27-dd-remediation-v7",
+        "release": "2026-07-27-launch-phase-v8",
         "git_commit": os.getenv("RAILWAY_GIT_COMMIT_SHA") or os.getenv("GIT_COMMIT"),
         "git_branch": os.getenv("RAILWAY_GIT_BRANCH"),
         "git_message": os.getenv("RAILWAY_GIT_COMMIT_MESSAGE"),

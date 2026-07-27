@@ -33,6 +33,7 @@ class RuntimeState:
     db_maintenance_task: asyncio.Task | None = None
     cloud_sync_task: asyncio.Task | None = None
     ml_flywheel_started: bool = False
+    uptime_probe_task: asyncio.Task | None = None
     extras: dict[str, Any] = field(default_factory=dict)
 
 
@@ -286,6 +287,13 @@ async def run_background_startup(state: RuntimeState) -> None:
         state.cloud_sync_task = asyncio.create_task(_cloud_sync_loop())
         logger.info("Cloud sync scheduler started (CLOUD_SYNC_ENABLED=true).")
 
+    try:
+        from uptime_probe_loop import start_uptime_probe_loop
+
+        state.uptime_probe_task = await start_uptime_probe_loop()
+    except Exception:
+        logger.exception("Uptime self-probe loop failed to start")
+
     logger.info("BLACKDARK background startup complete.")
 
 
@@ -326,6 +334,7 @@ async def shutdown_runtime(state: RuntimeState) -> None:
             logger.exception("Storage tier manager shutdown failed.")
 
     for task in (
+        state.uptime_probe_task,
         state.cloud_sync_task,
         state.db_maintenance_task,
         state.weekly_report_task,
