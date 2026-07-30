@@ -1,0 +1,443 @@
+{
+  "run_id": "20260730_150733",
+  "started_at": "2026-07-30T15:07:33.825959+00:00",
+  "environment": {
+    "python": "3.12.10",
+    "platform": "win32",
+    "redis_url": false,
+    "price_feed_ws_only": "true"
+  },
+  "symbols": [
+    "BTC/USDT",
+    "ETH/USDT"
+  ],
+  "venues": [
+    "binance",
+    "okx",
+    "bybit"
+  ],
+  "cases": {
+    "live_exchange_data": {
+      "quotes_received": 2,
+      "quotes_expected_min": 3,
+      "samples": {
+        "binance|BTC/USDT": {
+          "bid": 64726.0,
+          "ask": 64726.01,
+          "mid": 64726.005,
+          "age_ms": 47.0,
+          "exchange_ts_ms": 1785424062443
+        },
+        "binance|ETH/USDT": {
+          "bid": 1917.94,
+          "ask": 1917.95,
+          "mid": 1917.945,
+          "age_ms": 78.0,
+          "exchange_ts_ms": 1785424062409
+        }
+      },
+      "book_age_ms": [
+        47.0,
+        78.0
+      ],
+      "pass": false
+    },
+    "timestamp_validation": {
+      "symbol": "BTC/USDT",
+      "venues_with_ts": 1,
+      "sync_window_ok": null,
+      "rows": [
+        {
+          "venue": "binance",
+          "exchange_ts_ms": 1785424123439,
+          "timestamp": "2026-07-30T15:08:43.442150+00:00"
+        }
+      ],
+      "pass": false
+    },
+    "sequence_and_gap_detection": {
+      "normal_sequence_ok": true,
+      "gap_detected": true,
+      "sequence_violation_detected": true,
+      "stats": {
+        "tick_gap_threshold_ms": 2000.0,
+        "tracked_symbols": 89,
+        "gap_events_total": 500,
+        "sequence_violations_total": 1,
+        "gap_alerts_sent": 529,
+        "recovery_actions": 530,
+        "recent_gaps": [
+          {
+            "exchange": "binance",
+            "symbol": "GLM/USDT",
+            "gap_ms": 19329,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424103154,
+            "ts_ms": 1785424122483,
+            "timestamp": "2026-07-30T15:08:42.484022+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "CHZ/USDT",
+            "gap_ms": 3119,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424119398,
+            "ts_ms": 1785424122517,
+            "timestamp": "2026-07-30T15:08:42.518927+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "GALA/USDT",
+            "gap_ms": 3669,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424118849,
+            "ts_ms": 1785424122518,
+            "timestamp": "2026-07-30T15:08:42.518927+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "ENJ/USDT",
+            "gap_ms": 23649,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424099054,
+            "ts_ms": 1785424122703,
+            "timestamp": "2026-07-30T15:08:42.703434+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "INJ/USDT",
+            "gap_ms": 2702,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424120011,
+            "ts_ms": 1785424122713,
+            "timestamp": "2026-07-30T15:08:42.713427+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "W/USDT",
+            "gap_ms": 3943,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424118898,
+            "ts_ms": 1785424122841,
+            "timestamp": "2026-07-30T15:08:42.842065+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "DYM/USDT",
+            "gap_ms": 4688,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424118313,
+            "ts_ms": 1785424123001,
+            "timestamp": "2026-07-30T15:08:43.001636+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "ETC/USDT",
+            "gap_ms": 3350,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424119815,
+            "ts_ms": 1785424123165,
+            "timestamp": "2026-07-30T15:08:43.166196+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "FET/USDT",
+            "gap_ms": 2704,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424120620,
+            "ts_ms": 1785424123324,
+            "timestamp": "2026-07-30T15:08:43.324683+00:00"
+          },
+          {
+            "exchange": "binance",
+            "symbol": "BTC/USDT",
+            "gap_ms": 4900,
+            "threshold_ms": 2000.0,
+            "prev_ts_ms": 1785424123691,
+            "ts_ms": 1785424128591,
+            "timestamp": "2026-07-30T15:08:43.591419+00:00"
+          }
+        ],
+        "recent_sequence_violations": [
+          {
+            "exchange": "binance",
+            "symbol": "BTC/USDT",
+            "prev_seq": 1002,
+            "seq": 1000,
+            "timestamp": "2026-07-30T15:08:43.591419+00:00"
+          }
+        ]
+      },
+      "pass": true
+    },
+    "duplicate_prevention": {
+      "pass": true,
+      "skipped": true,
+      "reason": "REDIS_URL not configured \u2014 local mirror mode"
+    },
+    "reconnect_behavior": {
+      "target": {
+        "exchange": "bybit",
+        "stream": "orderbook.1"
+      },
+      "force_close_ok": true,
+      "reconnects_before": 38,
+      "reconnects_after": 40,
+      "pass": true
+    },
+    "failover_rest_fallback": {
+      "failover_activations_before": 85,
+      "failover_activations_after": 106,
+      "rest_fallback_available": true,
+      "rest_source": "kraken",
+      "pass": true
+    },
+    "api_sse_dashboard_layer": {
+      "provider_count": 2,
+      "provider_latency_ms": 1.1,
+      "sse_latency_ms": 65.51,
+      "sse_asset_count": 20,
+      "health_feed_ms": 2.96,
+      "health_feed_ok": true,
+      "target_symbol_in_provider": false,
+      "pass": true
+    },
+    "cross_source_consistency": {
+      "venue_mids": [
+        64739.335
+      ],
+      "ugp_price": null,
+      "dispersion_bps": 0.0,
+      "venues_used": 0,
+      "pass": false
+    },
+    "error_handling": {
+      "zero_bid_rejected": true,
+      "pass": true
+    }
+  },
+  "pipeline_stats": {
+    "ws_hub": {
+      "running": true,
+      "enabled": true,
+      "ws_only_mode": true,
+      "messages_total": 41575,
+      "exchanges": [
+        "binance",
+        "bybit",
+        "kraken",
+        "okx"
+      ],
+      "transport": "ultra_low_latency_websocket",
+      "reconnect_max_sec": 1.0,
+      "live_book": {
+        "enabled": true,
+        "stale_guard_enabled": true,
+        "exchanges": [
+          "binance",
+          "bybit",
+          "kraken",
+          "okx"
+        ],
+        "symbol_count": 89,
+        "updates_total": 10412,
+        "max_age_ms": 300.0,
+        "execution_max_age_ms": 300.0,
+        "freshness_ms": 31.0,
+        "stalest_ms": 30593.0,
+        "stale_quotes": 78
+      },
+      "stream_health": [
+        {
+          "exchange": "okx",
+          "stream": "bbo-tbt",
+          "connected": false,
+          "reconnect_count": 38,
+          "frozen_events": 77,
+          "idle_ms": 156.0,
+          "latency_ms": 0.02
+        },
+        {
+          "exchange": "bybit",
+          "stream": "orderbook.1",
+          "connected": true,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": null,
+          "latency_ms": null
+        },
+        {
+          "exchange": "binance",
+          "stream": "bookTicker-40",
+          "connected": true,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 62.0,
+          "latency_ms": 0.13
+        },
+        {
+          "exchange": "binance",
+          "stream": "bookTicker-25",
+          "connected": true,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 31.0,
+          "latency_ms": 0.07
+        },
+        {
+          "exchange": "binance",
+          "stream": "bookTicker",
+          "connected": false,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 31.0,
+          "latency_ms": 0.08
+        },
+        {
+          "exchange": "okx",
+          "stream": "bookTicker",
+          "connected": false,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 3625.0,
+          "latency_ms": 1.16
+        },
+        {
+          "exchange": "bybit",
+          "stream": "bookTicker",
+          "connected": false,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 10640.0,
+          "latency_ms": 1.54
+        },
+        {
+          "exchange": "kraken",
+          "stream": "bookTicker",
+          "connected": false,
+          "reconnect_count": 0,
+          "frozen_events": 0,
+          "idle_ms": 8578.0,
+          "latency_ms": 1.69
+        }
+      ],
+      "resilience": {
+        "stale_heartbeat_ms": 500.0,
+        "stale_reconnects": 38,
+        "total_reconnects": 0,
+        "last_backoff_ms": null,
+        "active_connections": 3,
+        "streams_tracked": 8
+      },
+      "tick_ingress": {
+        "enabled": true,
+        "workers": 4,
+        "queue_size": 0,
+        "queue_capacity": 20000,
+        "queue_high_water_mark": 987,
+        "ticks_enqueued": 41575,
+        "ticks_processed": 11976,
+        "ticks_coalesced": 29599,
+        "backpressure_events": 0,
+        "ticks_recovered": 0,
+        "pending_recovery": 0,
+        "backpressure_active": false,
+        "avg_latency_ms": 7.82,
+        "sample_symbols": [
+          "",
+          "1INCH/USDT",
+          "AAVE/USDT",
+          "ADA/USDT",
+          "AGIX/USDT"
+        ]
+      },
+      "failover_activations": 85,
+      "rest_fallback_ticks": 85,
+      "venue_breadth": {
+        "binance": "websocket_multiplex",
+        "okx": "websocket_multiplex",
+        "bybit": "websocket_multiplex",
+        "kraken": "rest_poll_supplement",
+        "kucoin": "rest_only",
+        "gateio": "rest_only",
+        "default_extended": "rest_via_aggregator"
+      }
+    },
+    "ingress": {
+      "enabled": true,
+      "workers": 4,
+      "queue_size": 0,
+      "queue_capacity": 20000,
+      "queue_high_water_mark": 987,
+      "ticks_enqueued": 41575,
+      "ticks_processed": 11976,
+      "ticks_coalesced": 29599,
+      "backpressure_events": 0,
+      "ticks_recovered": 0,
+      "pending_recovery": 0,
+      "backpressure_active": false,
+      "avg_latency_ms": 7.82,
+      "sample_symbols": [
+        "",
+        "1INCH/USDT",
+        "AAVE/USDT",
+        "ADA/USDT",
+        "AGIX/USDT"
+      ]
+    },
+    "live_book": {
+      "enabled": true,
+      "stale_guard_enabled": true,
+      "exchanges": [
+        "binance",
+        "bybit",
+        "kraken",
+        "okx"
+      ],
+      "symbol_count": 89,
+      "updates_total": 10412,
+      "max_age_ms": 300.0,
+      "execution_max_age_ms": 300.0,
+      "freshness_ms": 31.0,
+      "stalest_ms": 30593.0,
+      "stale_quotes": 78
+    },
+    "redis": {
+      "enabled": false,
+      "connected": false,
+      "degraded": false,
+      "cluster_mode": false,
+      "redis_configured": false,
+      "cluster_nodes": [],
+      "strict_mode": false,
+      "local_symbols": 0,
+      "exchanges": [],
+      "ttl_sec": 2,
+      "writes_total": 0,
+      "writes_throttled": 0,
+      "atomic_writes": 0,
+      "stale_overwrites_prevented": 0,
+      "duplicates_prevented": 0,
+      "redis_failures": 0,
+      "local_fallback_writes": 0,
+      "redis_recoveries": 0,
+      "atomic_enabled": true,
+      "ops_per_sec": 0.0,
+      "tick_write_interval_ms": 200
+    }
+  },
+  "latency": {
+    "ingress_avg_ms": 19.55,
+    "ingress_samples": 13,
+    "book_ages_ms": [
+      47.0,
+      78.0
+    ]
+  },
+  "finished_at": "2026-07-30T15:08:55.247560+00:00",
+  "summary": {
+    "cases_passed": 6,
+    "cases_total": 9,
+    "g2_verdict": "FAIL"
+  }
+}
