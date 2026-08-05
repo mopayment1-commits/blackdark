@@ -60,27 +60,11 @@ def _btc_beta_estimate(asset: str) -> float:
 def _score_prediction_accuracy(
     verdict: str, price_at: float, price_after: float
 ) -> tuple[str, float]:
-    if price_at <= 0:
-        return "unknown", 0.0
-    change_pct = ((price_after - price_at) / price_at) * 100
-    from regulatory_compliance_guard import to_internal_action_verdict
+    """Delegate to shared labeling scorer so public/internal verdicts stay consistent."""
+    from ml.labeling_pipeline import score_verdict_accuracy
 
-    verdict_upper = to_internal_action_verdict(verdict).upper()
-    if verdict_upper == "BUY":
-        if change_pct > 1.5:
-            return "correct", min(100.0, 55.0 + change_pct * 4.0)
-        if change_pct > -2.0:
-            return "partial", max(35.0, 45.0 + change_pct * 5.0)
-        return "incorrect", max(0.0, 25.0 + change_pct * 2.0)
-    if verdict_upper == "SELL":
-        if change_pct < -1.5:
-            return "correct", min(100.0, 55.0 + abs(change_pct) * 4.0)
-        if change_pct < 2.0:
-            return "partial", max(35.0, 45.0 - change_pct * 5.0)
-        return "incorrect", max(0.0, 25.0 - change_pct * 2.0)
-    if abs(change_pct) <= 3.0:
-        return "correct", min(100.0, 70.0 - abs(change_pct) * 3.0)
-    return "partial", max(30.0, 50.0 - abs(change_pct) * 2.0)
+    outcome, accuracy, _direction = score_verdict_accuracy(verdict, price_at, price_after)
+    return outcome, accuracy
 
 
 async def _resolve_mature_oracle_predictions() -> int:

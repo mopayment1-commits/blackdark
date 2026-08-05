@@ -12,7 +12,10 @@ from typing import Any
 
 from oracle_data_hub import hub_score_adjustment
 from sentiment_engine import is_extreme_negative_sentiment, sentiment_panic_penalty_for_asset
-from sentiment_engine import is_extreme_positive_sentiment, sentiment_greed_penalty_for_asset
+from sentiment_manipulation_guard import (
+    greed_pump_penalty_for_asset as sentiment_greed_penalty_for_asset,
+    is_extreme_positive_sentiment,
+)
 from dimension_conflict_guard import apply_dimension_conflict_guard
 from weight_aggregator import apply_modal_adjustments_with_regime, build_full_market_context
 

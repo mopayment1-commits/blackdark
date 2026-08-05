@@ -50,9 +50,14 @@ def score_verdict_accuracy(
     else:
         direction = "flat"
 
-    verdict_upper = verdict.upper().replace("_", " ")
-    buy_verdict = "BUY" in verdict_upper
-    avoid_verdict = any(token in verdict_upper for token in ("AVOID", "TOUCH", "SELL", "WAIT"))
+    from regulatory_compliance_guard import classify_internal_verdict
+
+    bucket = classify_internal_verdict(verdict)
+    # bullish: Buy Now / BULLISH_ANALYTICS
+    # bearish/risk: SELL / BEARISH / Do Not Touch / ELEVATED_RISK
+    # neutral: WAIT / NEUTRAL_OBSERVE
+    buy_verdict = bucket == "bullish"
+    avoid_verdict = bucket in {"bearish", "risk"}
 
     if buy_verdict:
         if change_pct > 1.5:

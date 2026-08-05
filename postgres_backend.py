@@ -38,9 +38,27 @@ def _sqlite_schema_to_pg(sqlite_schema: str) -> str:
 
 
 class _PgResult:
-    def __init__(self, rowcount: int = 0, lastrowid: int | None = None) -> None:
-        self.rowcount = rowcount
+    """aiosqlite-compatible cursor result with fetch helpers."""
+
+    def __init__(
+        self,
+        rows: list[Any] | None = None,
+        *,
+        rowcount: int = 0,
+        lastrowid: int | None = None,
+    ) -> None:
+        self._rows = list(rows or [])
+        self.rowcount = rowcount if rows is None else len(self._rows)
         self.lastrowid = lastrowid
+
+    async def fetchall(self) -> list[Any]:
+        return list(self._rows)
+
+    async def fetchone(self) -> Any | None:
+        return self._rows[0] if self._rows else None
+
+    async def fetchmany(self, size: int = 1) -> list[Any]:
+        return self._rows[: max(0, size)]
 
 
 class PgConnectionAdapter:
@@ -66,13 +84,59 @@ class PgConnectionAdapter:
                 parts.append(ch)
         return "".join(parts)
 
+    @staticmethod
+    def _is_read_query(query: str) -> bool:
+        head = query.lstrip().upper()
+        return (
+            head.startswith("SELECT")
+            or head.startswith("WITH")
+            or head.startswith("PRAGMA")
+            or " RETURNING " in f" {head} "
+        )
+
+    @staticmethod
+    def _row_to_mapping(row: Any) -> dict[str, Any]:
+        if row is None:
+            return {}
+        try:
+            return dict(row)
+        except Exception:
+            return {"value": row}
+
     async def execute(self, query: str, params: tuple | list = ()) -> _PgResult:
         q = self._convert_query(query)
-        if q.strip().upper().startswith("INSERT") and "RETURNING" not in q.upper():
-            q = q.rstrip(";") + " RETURNING id"
-            row = await self._conn.fetchrow(q, *params)
-            self._last_id = int(row["id"]) if row and "id" in row else None
-            return _PgResult(rowcount=1, lastrowid=self._last_id)
+        upper = q.strip().upper()
+
+        # Keep INSERT OR IGNORE / SQLite idioms from crashing hard on PG reads/writes.
+        if "INSERT OR IGNORE" in upper:
+            q = re.sub(r"INSERT\s+OR\s+IGNORE", "INSERT", q, count=1, flags=re.IGNORECASE)
+            if "ON CONFLICT" not in q.upper():
+                q = q.rstrip(";") + " ON CONFLICT DO NOTHING"
+            upper = q.strip().upper()
+
+        if upper.startswith("INSERT") and "RETURNING" not in upper:
+            # Prefer returning id when present; fall back safely for tables without id.
+            try:
+                q_ret = q.rstrip(";") + " RETURNING id"
+                row = await self._conn.fetchrow(q_ret, *params)
+                self._last_id = int(row["id"]) if row and "id" in row.keys() else None
+                mapped = [self._row_to_mapping(row)] if row else []
+                return _PgResult(mapped, rowcount=1, lastrowid=self._last_id)
+            except Exception:
+                status = await self._conn.execute(q, *params)
+                count = 0
+                if status:
+                    try:
+                        count = int(str(status).split()[-1])
+                    except (TypeError, ValueError):
+                        count = 0
+                return _PgResult(rowcount=count, lastrowid=self._last_id)
+
+        if self._is_read_query(q):
+            rows = await self._conn.fetch(q, *params)
+            mapped = [self._row_to_mapping(r) for r in rows]
+            return _PgResult(mapped, lastrowid=self._last_id)
+
         status = await self._conn.execute(q, *params)
         count = 0
         if status:

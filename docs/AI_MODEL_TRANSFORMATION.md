@@ -139,7 +139,8 @@ BLACKDARK/
 | sentiment_score, sentiment_momentum | sentiment_engine |
 | obi_score, obi_imbalance | obi_predictor |
 | macro_weight | macro_correlations |
-| opportunity_score, confidence | oracle evaluation |
+
+> **Leakage guard:** `opportunity_score` و `confidence` مخرجات rules engine و**ليست** ضمن `FEATURE_COLUMNS` المستخدمة للتدريب.
 
 ---
 

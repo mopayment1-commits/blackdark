@@ -254,6 +254,7 @@ ORACLE_DATA_HUB_ENABLED=true
 |-------|---------|
 | `docs/AI_FINANCIAL_MODEL_DESIGN.md` | **هذا الملف — التصميم التقني للنموذج** |
 | `docs/AI_MODEL_TRANSFORMATION.md` | التحول الاستراتيجي والمنتج/الاستحواذ |
+| `docs/FULL_ARCHITECTURE_AUDIT.md` | مراجعة هندسية شاملة + الحاصرات المتبقية |
 | `project_context.md` | خريطة المنصة الكاملة |
 | `ml/*` | التنفيذ الفعلي |
 
