@@ -54,16 +54,19 @@ def apply_ux_mode(payload: dict[str, Any], *, mode: str = "beginner", lang: str 
     personas = persona.get("personas") or {}
     if mode_n == "beginner":
         retail = personas.get("retail") or {}
+        retail_en = {
+            "en": retail.get("en") or retail.get("text") or "",
+            "text": retail.get("en") or retail.get("text") or "",
+        }
         out["persona_clarity"] = {
             "action": persona.get("action"),
-            "personas": {"retail": retail},
+            "personas": {"retail": retail_en},
             "hooks": {"problem_solved_retail": (persona.get("hooks") or {}).get("problem_solved_retail")},
         }
         slim = {k: out[k] for k in _BEGINNER_KEYS if k in out}
         # Keep a tiny pro teaser so upgrade path is clear
         slim["upgrade_hint"] = {
-            "message_en": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
-            "message_ar": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
+            "message": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
             "mode": "pro",
         }
         return slim

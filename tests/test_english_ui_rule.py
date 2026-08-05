@@ -10,18 +10,14 @@ ARABIC_MARKERS = ("العرب", "مبتدئ", "احصل على", "قرار وا�
 
 
 def test_primary_templates_are_english_html():
-    for rel in (
-        "templates/landing.html",
-        "templates/dashboard.html",
-        "templates/oracle_accuracy.html",
-        "templates/admin_launch.html",
-        "templates/index.html",
-    ):
-        text = (ROOT / rel).read_text(encoding="utf-8")
-        assert 'lang="en"' in text or "lang='en'" in text or "<html lang=\"en\"" in text or 'lang="en"' in text[:200] or "lang=\"en\"" in text
-        assert "dir=\"rtl\"" not in text
+    templates = sorted((ROOT / "templates").glob("*.html"))
+    assert templates, "expected HTML templates"
+    for path in templates:
+        text = path.read_text(encoding="utf-8")
+        assert 'lang="en"' in text or "lang='en'" in text, path.name
+        assert 'dir="rtl"' not in text, path.name
         for marker in ARABIC_MARKERS:
-            assert marker not in text, f"{rel} still contains Arabic UI marker: {marker}"
+            assert marker not in text, f"{path.name} still contains Arabic UI marker: {marker}"
 
 
 def test_oracle_default_lang_is_english():

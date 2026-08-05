@@ -26,7 +26,7 @@
 ## Oracle & ML
 | Method | Path | Description |
 |--------|------|-------------|
-| GET | `/oracle/{symbol}?ux_mode=beginner\|pro&lang=ar\|en` | Primary Oracle + constitution enrich |
+| GET | `/oracle/{symbol}?ux_mode=beginner\|pro&lang=en` | Primary Oracle + constitution enrich (English-only UI) |
 | GET | `/oracle-accuracy` · `/oracle/accuracy` | Public accuracy page (AR) |
 | GET | `/api/oracle/accuracy/public` | Public track record + proof_chain |
 | GET | `/api/oracle/audit-chain` | Immutable hash chain |
@@ -34,7 +34,7 @@
 | GET | `/api/oracle/net-edge-truth` | Net-Edge Truth status (D3) |
 | GET | `/api/oracle/half-life` | Opportunity Half-Life stats (D4) |
 | GET | `/api/oracle/signals` | Sovereign Signal Registry (D8) |
-| GET | `/api/oracle/persona-clarity/demo` | Persona Clarity AR/EN (D7) |
+| GET | `/api/oracle/persona-clarity/demo` | Persona Clarity English-first (D7) |
 | GET | `/api/due-diligence/evidence-pack` | Full Evidence Pack (Whale/Admin) |
 | GET | `/api/due-diligence/evidence-pack/public-summary` | Redacted public teaser |
 

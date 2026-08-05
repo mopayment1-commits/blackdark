@@ -300,7 +300,7 @@ BLACKDARK يجب أن يُباع كـ **Decision Intelligence + Proven Predictiv
 **للاستحواذ مباشرة.**  
 **تنفيذ:** `acquirer_evidence_pack.py` · `GET /api/due-diligence/evidence-pack`
 
-### D7 — Arabic-first Institutional UX (MENA wedge) ✅ LIVE (API)
+### D7 — English-first Persona Clarity UX ✅ LIVE (API)
 شرح Oracle عربي فصيح + وضع مبتدئ، مع بنية بيانات عالمية.  
 **انفجار إقليمي** في سوق غير مخدوم مؤسسياً.  
 **تنفيذ:** `persona_clarity.py` · `GET /api/oracle/persona-clarity/demo`

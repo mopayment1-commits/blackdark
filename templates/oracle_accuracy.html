@@ -133,6 +133,28 @@
         </div>
     </section>
 
+    <section class="panel">
+        <div class="card">
+            <h2>D5 · Regime-Conditional Models</h2>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
+            <div style="overflow-x:auto;margin-top:1rem">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Regime</th>
+                            <th>Confidence ×</th>
+                            <th>Artifact</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="regime-body">
+                        <tr><td colspan="4">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <section class="grid" id="stats-grid">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions</div></div>
@@ -226,6 +248,27 @@
                 document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
                 document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
                 document.getElementById('stat-assets').textContent = moat.assets || 0;
+
+                const regime = data.regime_models || {};
+                document.getElementById('regime-status').textContent =
+                    (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
+                    ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
+                const regimeRows = regime.regimes || {};
+                const rbody = document.getElementById('regime-body');
+                const keys = Object.keys(regimeRows);
+                if (!keys.length) {
+                    rbody.innerHTML = '<tr><td colspan="4">Regime registry unavailable.</td></tr>';
+                } else {
+                    rbody.innerHTML = keys.map(k => {
+                        const row = regimeRows[k] || {};
+                        return `<tr>
+                            <td>${k}</td>
+                            <td>${row.confidence_multiplier ?? '—'}</td>
+                            <td>${row.artifact_present ? 'yes' : 'no'}</td>
+                            <td><span class="pill ${row.artifact_present ? 'correct' : 'partial'}">${row.status || '—'}</span></td>
+                        </tr>`;
+                    }).join('');
+                }
 
                 const rows = oracle.recent_predictions || [];
                 const tbody = document.getElementById('predictions-body');

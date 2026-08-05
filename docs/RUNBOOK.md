@@ -17,7 +17,7 @@ python scripts/verify_constitution_live.py
 2. `GET /api/launch/readiness` → `code_launch_ready` + constitution modules
 3. `GET /api/admin/launch-checklist` (admin) → review blocked items
 4. `GET /api/oracle/accuracy/public` → proof_chain.verify ok
-5. `GET /oracle/BTC?ux_mode=beginner&lang=ar` → must include `decision_sentence`, `persona_clarity`
+5. `GET /oracle/BTC?ux_mode=beginner&lang=en` → must include `decision_sentence`, `persona_clarity`
 6. `GET /oracle/BTC?ux_mode=pro&lang=en` → must include `net_edge_truth`, `opportunity_half_life`, `signal_registry`
 
 ## Required production env

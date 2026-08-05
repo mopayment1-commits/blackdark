@@ -24,7 +24,7 @@
 | D3 | Net-Edge Truth Score | `net_edge_truth.py` · `GET /api/oracle/net-edge-truth` | أقل إشارات، أعلى قابلية تنفيذ |
 | D4 | Opportunity Half-Life | `opportunity_tracker.py` · `GET /api/oracle/half-life` | زمن = مال للحيتان |
 | D6 | Acquirer Evidence Pack | `acquirer_evidence_pack.py` · `GET /api/due-diligence/evidence-pack` | زر واحد لغرفة بيانات المشتري |
-| D7 | Persona Clarity AR/EN | `persona_clarity.py` · `GET /api/oracle/persona-clarity/demo` | وتد MENA + وضوح لكل شريحة |
+| D7 | Persona Clarity English-first | `persona_clarity.py` · `GET /api/oracle/persona-clarity/demo` | وضوح قرار لكل شريحة — الموقع English-only |
 | D8 | Sovereign Signal Registry | `signal_registry.py` · `GET /api/oracle/signals` | معجم إشارات مُسمّى = Data Moat |
 
 موجود مسبقاً ويُعزَّز بالدمج: **D1 Proof-Native Oracle** · **D2 Contradiction Veto** · **D5 Regime Weights** · Flywheel.

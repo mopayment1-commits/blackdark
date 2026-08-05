@@ -9,13 +9,7 @@ from __future__ import annotations
 
 from typing import Any
 
-# Soft multipliers on calibrated confidence by regime
-_REGIME_CONF_MULT = {
-    "risk_on": 1.05,
-    "neutral": 1.0,
-    "risk_off": 0.92,
-    "panic": 0.78,
-}
+from ml.regime_models import REGIME_CONF_MULT, regime_model_registry
 
 
 async def predict_direction_regime_aware(
@@ -39,14 +33,22 @@ async def predict_direction_regime_aware(
             ctx = {}
 
     regime = detect_market_regime(ctx or {}, change_24h=change_24h)
-    mult = float(_REGIME_CONF_MULT.get(regime, 1.0))
+    mult = float(REGIME_CONF_MULT.get(regime, 1.0))
+    registry = regime_model_registry()
     out = dict(base)
     out["market_regime"] = regime
     out["regime_router"] = {
-        "status": "weights_and_confidence_live",
-        "per_regime_models": False,
+        "status": registry.get("status"),
+        "evidence_status": registry.get("evidence_status"),
+        "per_regime_models": bool(registry.get("per_regime_models")),
         "confidence_multiplier": mult,
-        "note": "Separate regime model artifacts pending; confidence gated by regime today.",
+        "active_regime": regime,
+        "note": registry.get("note"),
+        "registry": {
+            "artifacts_ready": registry.get("artifacts_ready"),
+            "artifacts_expected": registry.get("artifacts_expected"),
+            "regimes": registry.get("regimes"),
+        },
     }
 
     cal = out.get("confidence_calibrated")

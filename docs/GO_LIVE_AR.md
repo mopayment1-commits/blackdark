@@ -18,7 +18,8 @@ python scripts/verify_constitution_live.py
 1. `/health/live`  
 2. `/api/production/guard` → `required_pass: true`  
 3. `/api/launch/readiness` → `code_launch_ready: true`  
-4. `/oracle/BTC?ux_mode=beginner&lang=ar` → جملة قرار عربية  
+4. `/oracle/BTC?ux_mode=beginner&lang=en` → English decision sentence  
+
 5. `/oracle-accuracy`  
 6. `/dashboard`  
 

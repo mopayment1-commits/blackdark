@@ -109,7 +109,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
             "note": "Regime weights + confidence router live; separate per-regime ML artifacts pending",
         },
         {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
-        {"id": "D7", "name": "Persona Clarity (AR/EN)", "status": "live"},
+        {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
         {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
     ]
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"

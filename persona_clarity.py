@@ -1,8 +1,11 @@
 """
 BLACKDARK — Persona Clarity Layer (Differentiator D7 + growth wedge).
 
-Translates one institutional decision into clear Arabic/English guidance for:
+Translates one institutional decision into clear English guidance for:
   retail · pro · whale · fund · acquirer
+
+Public site rule: English-only. Optional Arabic strings may remain in the
+API payload for internal/docs use but are never the UI default.
 
 Solves the real problem: giants drown users in indicators; we give one truth
 per persona without inventing a second decision engine.

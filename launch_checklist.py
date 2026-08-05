@@ -337,7 +337,7 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "title_ar": "دستور المنتج مربوط (D1–D8 + أوضاع UX)",
             "status": "done" if _constitution_modules_ready() else "blocked",
             "action": "docs/PRODUCT_CONSTITUTION_AR.md + decision_enrichment on /oracle/{symbol}",
-            "endpoint": "/oracle/BTC?ux_mode=beginner&lang=ar",
+            "endpoint": "/oracle/BTC?ux_mode=beginner&lang=en",
         },
         {
             "day": 5,

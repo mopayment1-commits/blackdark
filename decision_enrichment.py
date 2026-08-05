@@ -103,7 +103,7 @@ def enrich_oracle_decision(
         out["persona_clarity"] = persona
         # Site is English-only; always prefer EN decision sentence for UI.
         retail = (persona.get("personas") or {}).get("retail") or {}
-        out["decision_sentence"] = retail.get("en") or retail.get("ar") or out.get("oracle")
+        out["decision_sentence"] = retail.get("en") or retail.get("text") or out.get("oracle")
         out["decision_action"] = persona.get("action")
     except Exception:
         logger.debug("persona enrich failed", exc_info=True)

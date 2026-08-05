@@ -913,7 +913,7 @@
                 }
                 if (data.upgrade_hint) {
                     upgradeEl.style.display = 'block';
-                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${data.upgrade_hint.message_en || data.upgrade_hint.message_ar || ''}</span>`;
+                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${data.upgrade_hint.message || data.upgrade_hint.message_en || ''}</span>`;
                 }
                 updateShareLinks(data);
             } catch (error) {

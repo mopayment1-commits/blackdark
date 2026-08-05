@@ -36,7 +36,7 @@ def test_product_constitution_encodes_core_and_differentiators():
         "Opportunity Half-Life",
         "Regime-Conditional Models",
         "Evidence Pack API",
-        "Arabic-first Institutional UX",
+        "English-first Persona Clarity UX",
         "Signal Registry",
     ):
         assert marker in text
