@@ -46,6 +46,7 @@ async def build_full_due_diligence_bundle() -> dict[str, Any]:
         "observability": observability_status(),
         "acquirer_evidence_pack": evidence,
         "documentation": {
+            "product_constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
             "architecture": "docs/ARCHITECTURE.md",
             "runbook": "docs/RUNBOOK.md",
             "data_room": "docs/DATA_ROOM.md",

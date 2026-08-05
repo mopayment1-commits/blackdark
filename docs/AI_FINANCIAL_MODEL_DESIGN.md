@@ -3,6 +3,7 @@
 > **الغرض:** مرجع تقني لتصميم وتشغيل نموذج AI مالي متخصص في crypto market intelligence  
 > **المنتج:** Oracle يقيّم فرص المراجحة والاتجاه، مع مسار تعلم مستمر (flywheel)  
 > **الوضع الحالي:** Rules engine + ML baseline/ensemble + RL policy خفيف + حماية drift/OOD  
+> **دستور المنتج الملزم:** [`docs/PRODUCT_CONSTITUTION_AR.md`](./PRODUCT_CONSTITUTION_AR.md) — أصل المميزات واجب التنفيذ  
 > **التفرد الشغّال:** انظر `docs/UNIQUE_DIFFERENTIATORS_AR.md` (Net-Edge Truth · Half-Life · Signal Registry · Evidence Pack · Persona Clarity)
 
 ---
