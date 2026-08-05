@@ -2,7 +2,7 @@
 BLACKDARK — Unified Oracle Scoring (single decision path).
 
 Dashboard Oracle and arbitrage scoring share the same multi-modal pipeline:
-base technical score → regime-weighted dimensions → conflict resolution → optional ML.
+base score → regime-weighted dimensions → conflict resolution → optional ML.
 """
 
 from __future__ import annotations
@@ -20,6 +20,8 @@ from dimension_conflict_guard import apply_dimension_conflict_guard
 from weight_aggregator import apply_modal_adjustments_with_regime, build_full_market_context
 
 logger = logging.getLogger("BLACKDARK.OracleUnified")
+
+ENGINE_ID = "unified_multimodal_v1"
 
 
 def compute_base_technical_score(quote_volume: float, change: float) -> int:
@@ -85,6 +87,18 @@ def unified_verdict_with_conflict(
     return _oracle_verdict_from_score(score, asset)
 
 
+def arbitrage_internal_verdict(
+    score: float,
+    confidence: float,
+    conflict_meta: dict[str, Any] | None = None,
+) -> str:
+    """Internal execution verdict used by the arbitrage oracle path."""
+    from dimension_conflict_guard import arbitrage_verdict_with_conflict
+
+    meta = conflict_meta or {}
+    return arbitrage_verdict_with_conflict(score, confidence, meta)
+
+
 def _confidence_from_score(
     score: int,
     change: float,
@@ -135,6 +149,119 @@ async def _optional_ml_nudge(asset: str, price: float, score: float) -> dict[str
     }
 
 
+def apply_unified_adjustments(
+    base_score: float,
+    asset: str,
+    institutional_context: dict[str, Any] | None = None,
+    *,
+    change_24h: float = 0.0,
+    quote_volume: float = 0.0,
+    apply_hub: bool = True,
+) -> tuple[float, dict[str, Any]]:
+    """
+    Shared multimodal post-processor (sync) used by arb + dashboard.
+
+    Applies sentiment panic/greed, regime-weighted modal adjustments, and hub delta.
+    Does NOT multiply by macro again (macro is already inside modal contribution).
+    """
+    asset = asset.upper()
+    ctx = institutional_context or {}
+    score = float(base_score)
+
+    compound = float((ctx.get("sentiment_compound_index") or {}).get(asset, 0.0))
+    if is_extreme_negative_sentiment(compound):
+        score -= sentiment_panic_penalty_for_asset(asset, ctx)
+    elif is_extreme_positive_sentiment(compound):
+        score -= sentiment_greed_penalty_for_asset(asset, ctx)
+
+    adjusted, breakdown = apply_modal_adjustments_with_regime(
+        score,
+        asset,
+        ctx,
+        change_24h=change_24h,
+        quote_volume=quote_volume,
+    )
+
+    hub_delta = 0.0
+    hub_reasons: list[str] = []
+    hub_risks: list[str] = []
+    if apply_hub:
+        hub = ctx.get("oracle_data_hub") or {}
+        if hub.get("enabled"):
+            hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub)
+            adjusted += hub_delta
+
+    breakdown = dict(breakdown)
+    breakdown["hub_adjustment"] = round(hub_delta, 2)
+    breakdown["hub_reasons"] = hub_reasons
+    breakdown["hub_risks"] = hub_risks
+    breakdown["engine"] = ENGINE_ID
+    return max(0.0, min(100.0, adjusted)), breakdown
+
+
+async def finalize_unified_score(
+    adjusted_score: float,
+    asset: str,
+    breakdown: dict[str, Any],
+    *,
+    price: float = 0.0,
+    change_24h: float = 0.0,
+    quote_volume: float = 0.0,
+    include_ml: bool = True,
+) -> dict[str, Any]:
+    """Apply optional ML nudge + dimension conflict guard and emit verdicts."""
+    asset = asset.upper()
+    adjusted = float(adjusted_score)
+    ml_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
+    if include_ml:
+        ml_meta = await _optional_ml_nudge(asset, price, adjusted)
+        adjusted += float(ml_meta.get("nudge") or 0.0)
+
+    adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
+    final_score = int(round(max(0.0, min(100.0, adjusted))))
+    public_verdict = unified_verdict_with_conflict(
+        final_score,
+        asset,
+        conflict_meta,
+        base_verdict=_oracle_verdict_from_score(final_score, asset),
+    )
+    conflict_penalty = float((breakdown.get("conflicts") or {}).get("confidence_penalty") or 0.0)
+    if conflict_meta.get("veto"):
+        conflict_penalty += 15.0
+    elif conflict_meta.get("abstain"):
+        conflict_penalty += 8.0
+    ml_conf = float(ml_meta.get("confidence_percent") or 0) if ml_meta.get("available") else None
+    confidence = _confidence_from_score(
+        final_score,
+        change_24h,
+        quote_volume,
+        conflict_penalty=conflict_penalty,
+        ml_confidence=ml_conf,
+    )
+    internal_verdict = arbitrage_internal_verdict(
+        float(final_score),
+        float(confidence),
+        conflict_meta,
+    )
+
+    return {
+        "asset": asset,
+        "opportunity_score": final_score,
+        "verdict": public_verdict,
+        "internal_verdict": internal_verdict,
+        "market_regime": breakdown.get("market_regime", "neutral"),
+        "dimension_weights": breakdown.get("dimension_weights", {}),
+        "modal_breakdown": breakdown,
+        "dimension_conflict": conflict_meta,
+        "hub_adjustment": breakdown.get("hub_adjustment", 0.0),
+        "hub_reasons": breakdown.get("hub_reasons") or [],
+        "hub_risks": breakdown.get("hub_risks") or [],
+        "ml": ml_meta,
+        "confidence": confidence,
+        "engine": ENGINE_ID,
+    }
+
+
 async def compute_unified_oracle(
     asset: str,
     price: float,
@@ -142,6 +269,7 @@ async def compute_unified_oracle(
     change: float,
     *,
     include_ml: bool = True,
+    institutional_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
     Single scoring path for all Oracle consumers.
@@ -150,69 +278,25 @@ async def compute_unified_oracle(
     """
     asset = asset.upper()
     base_score = float(compute_base_technical_score(quote_volume, change))
+    ctx = institutional_context if institutional_context is not None else await build_full_market_context(asset)
 
-    ctx = await build_full_market_context(asset)
-
-    compound = float((ctx.get("sentiment_compound_index") or {}).get(asset, 0.0))
-    if is_extreme_negative_sentiment(compound):
-        base_score -= sentiment_panic_penalty_for_asset(asset, ctx)
-    elif is_extreme_positive_sentiment(compound):
-        base_score -= sentiment_greed_penalty_for_asset(asset, ctx)
-
-    adjusted, breakdown = apply_modal_adjustments_with_regime(
+    adjusted, breakdown = apply_unified_adjustments(
         base_score,
         asset,
         ctx,
         change_24h=change,
         quote_volume=quote_volume,
+        apply_hub=True,
     )
-
-    hub = ctx.get("oracle_data_hub") or {}
-    hub_delta = 0.0
-    hub_reasons: list[str] = []
-    hub_risks: list[str] = []
-    if hub.get("enabled"):
-        hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub)
-        adjusted += hub_delta
-
-    ml_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
-    if include_ml:
-        ml_meta = await _optional_ml_nudge(asset, price, adjusted)
-        adjusted += float(ml_meta.get("nudge") or 0.0)
-
-    adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
-    final_score = int(round(max(0.0, min(100.0, adjusted))))
-    base_verdict = _oracle_verdict_from_score(final_score, asset)
-    verdict = unified_verdict_with_conflict(
-        final_score, asset, conflict_meta, base_verdict=base_verdict
+    finalized = await finalize_unified_score(
+        adjusted,
+        asset,
+        breakdown,
+        price=price,
+        change_24h=change,
+        quote_volume=quote_volume,
+        include_ml=include_ml,
     )
-    conflict_penalty = float((breakdown.get("conflicts") or {}).get("confidence_penalty") or 0.0)
-    if conflict_meta.get("veto"):
-        conflict_penalty += 15.0
-    elif conflict_meta.get("abstain"):
-        conflict_penalty += 8.0
-    ml_conf = float(ml_meta.get("confidence_percent") or 0) if ml_meta.get("available") else None
-
-    return {
-        "asset": asset,
-        "opportunity_score": final_score,
-        "base_score": int(round(base_score)),
-        "verdict": verdict,
-        "market_regime": breakdown.get("market_regime", "neutral"),
-        "dimension_weights": breakdown.get("dimension_weights", {}),
-        "modal_breakdown": breakdown,
-        "dimension_conflict": conflict_meta,
-        "hub_adjustment": round(hub_delta, 2),
-        "hub_reasons": hub_reasons,
-        "hub_risks": hub_risks,
-        "ml": ml_meta,
-        "confidence": _confidence_from_score(
-            final_score,
-            change,
-            quote_volume,
-            conflict_penalty=conflict_penalty,
-            ml_confidence=ml_conf,
-        ),
-        "institutional_context": ctx,
-        "engine": "unified_multimodal_v1",
-    }
+    finalized["base_score"] = int(round(base_score))
+    finalized["institutional_context"] = ctx
+    return finalized

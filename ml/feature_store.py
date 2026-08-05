@@ -109,6 +109,57 @@ async def _macro_weight() -> float:
         return 1.0
 
 
+async def _funding_spread_bps(asset: str) -> float:
+    try:
+        from database import fetch_latest_funding_rates
+
+        books = await fetch_latest_funding_rates()
+        rates: list[float] = []
+        target = _normalize_asset(asset)
+        for _exchange, symbols in (books or {}).items():
+            for symbol, payload in (symbols or {}).items():
+                cleaned = str(symbol).upper().replace("/", "").replace("-", "")
+                if cleaned.startswith(target):
+                    rates.append(float((payload or {}).get("funding_rate") or 0.0) * 10_000.0)
+        if len(rates) >= 2:
+            return round(max(rates) - min(rates), 4)
+        if rates:
+            return round(rates[0], 4)
+    except Exception:
+        logger.debug("Funding feature unavailable | asset=%s", asset, exc_info=True)
+    return 0.0
+
+
+async def _whale_sii(asset: str) -> float:
+    try:
+        from whale_tracker import get_latest_institutional_context, whale_score_boost_for_asset
+
+        ctx = await get_latest_institutional_context()
+        return round(float(whale_score_boost_for_asset(asset, ctx) or 0.0), 4)
+    except Exception:
+        logger.debug("Whale SII feature unavailable | asset=%s", asset, exc_info=True)
+        return 0.0
+
+
+async def _onchain_netflow(asset: str) -> float:
+    try:
+        from onchain_tracker import (
+            build_onchain_context_safe,
+            get_onchain_status_for_asset,
+            onchain_score_adjustment_for_asset,
+        )
+
+        ctx = await build_onchain_context_safe()
+        status = get_onchain_status_for_asset(asset, ctx) or {}
+        for key in ("netflow_usd", "net_flow_usd", "exchange_netflow"):
+            if status.get(key) is not None:
+                return round(float(status[key]), 4)
+        return round(float(onchain_score_adjustment_for_asset(asset, ctx) or 0.0), 4)
+    except Exception:
+        logger.debug("On-chain feature unavailable | asset=%s", asset, exc_info=True)
+        return 0.0
+
+
 async def build_feature_vector(asset: str, *, price_at: float | None = None) -> dict[str, Any]:
     asset = _normalize_asset(asset)
     closes = await _recent_closes(asset)
@@ -117,6 +168,9 @@ async def build_feature_vector(asset: str, *, price_at: float | None = None) -> 
     sentiment_score, sentiment_momentum = await _sentiment_features(asset)
     obi_score, obi_imbalance = await _obi_features(asset)
     macro_weight = await _macro_weight()
+    funding_spread_bps = await _funding_spread_bps(asset)
+    whale_sii = await _whale_sii(asset)
+    onchain_netflow = await _onchain_netflow(asset)
 
     return {
         "asset": asset,
@@ -129,4 +183,7 @@ async def build_feature_vector(asset: str, *, price_at: float | None = None) -> 
         "obi_score": round(obi_score, 4),
         "obi_imbalance": round(obi_imbalance, 4),
         "macro_weight": round(macro_weight, 4),
+        "funding_spread_bps": funding_spread_bps,
+        "whale_sii": whale_sii,
+        "onchain_netflow": onchain_netflow,
     }

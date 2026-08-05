@@ -486,7 +486,8 @@ MANIPULATION_SCORE_BOOST_MAX = 8.0
 
 # B2B data exporter
 B2B_API_KEY_ENV = "BLACKDARK_B2B_API_KEY"
-B2B_DEMO_API_KEY = os.getenv("BLACKDARK_B2B_DEMO_KEY", "bd_demo_launch_2026")
+# Empty/disabled by default — set BLACKDARK_B2B_DEMO_KEY explicitly for demo feeds.
+B2B_DEMO_API_KEY = os.getenv("BLACKDARK_B2B_DEMO_KEY", "").strip()
 B2B_FEED_VERSION = "1.0.0"
 B2B_DEFAULT_EXPORT_LIMIT = 250
 B2B_DEMO_EXPORT_LIMIT = 15

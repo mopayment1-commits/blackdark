@@ -89,23 +89,6 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
     final_accuracy = ensemble_accuracy if use_ensemble else best_solo
     final_kind = "ensemble" if use_ensemble else max(solo_metrics, key=solo_metrics.get)
 
-    config.ML_MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    version = datetime.now(timezone.utc).strftime("ens%Y%m%d_%H%M")
-    bundle = {
-        "model": final_model,
-        "feature_columns": list(FEATURE_COLUMNS),
-        "version": version,
-        "model_kind": final_kind,
-        "trained_at": _utcnow_iso(),
-        "solo_metrics": solo_metrics,
-        "ensemble_accuracy": ensemble_accuracy,
-        "validation_method": "temporal_holdout",
-    }
-    model_path = config.ML_MODELS_DIR / f"oracle_direction_{version}.joblib"
-    latest_path = config.ML_MODELS_DIR / "oracle_direction_latest.joblib"
-    joblib.dump(bundle, model_path)
-    joblib.dump(bundle, latest_path)
-
     metrics = {
         "accuracy": round(final_accuracy, 4),
         "ensemble_accuracy": round(ensemble_accuracy, 4),
@@ -118,6 +101,51 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
         "validation_method": "temporal_holdout",
         "synthetic_excluded": True,
     }
+
+    from ml.drift_monitor import validate_model_deployment
+    from ml.train_baseline import load_latest_model
+
+    incumbent = load_latest_model() or {}
+    incumbent_metrics = None
+    if incumbent:
+        incumbent_metrics = {"accuracy": float((incumbent.get("metrics") or {}).get("accuracy") or 0)}
+        # Bundles may store accuracy at top-level metrics from prior runs.
+        if not incumbent_metrics["accuracy"]:
+            try:
+                incumbent_metrics = {"accuracy": float(incumbent.get("ensemble_accuracy") or 0)}
+            except (TypeError, ValueError):
+                incumbent_metrics = None
+    validation = validate_model_deployment(metrics, incumbent_metrics=incumbent_metrics)
+    if not validation.get("approved"):
+        result = {
+            "trained": False,
+            "reason": validation.get("reason"),
+            "validation": validation,
+            "metrics": metrics,
+            "integrity_note": LEAKAGE_GUARD_NOTE,
+        }
+        append_experience("ensemble_rejected", result, notes="deployment_gate")
+        logger.warning("Ensemble rejected by deployment gate | %s", validation)
+        return result
+
+    config.ML_MODELS_DIR.mkdir(parents=True, exist_ok=True)
+    version = datetime.now(timezone.utc).strftime("ens%Y%m%d_%H%M")
+    bundle = {
+        "model": final_model,
+        "feature_columns": list(FEATURE_COLUMNS),
+        "version": version,
+        "model_kind": final_kind,
+        "trained_at": _utcnow_iso(),
+        "solo_metrics": solo_metrics,
+        "ensemble_accuracy": ensemble_accuracy,
+        "metrics": metrics,
+        "validation_method": "temporal_holdout",
+    }
+    model_path = config.ML_MODELS_DIR / f"oracle_direction_{version}.joblib"
+    latest_path = config.ML_MODELS_DIR / "oracle_direction_latest.joblib"
+    joblib.dump(bundle, model_path)
+    joblib.dump(bundle, latest_path)
+
     await insert_ml_model_run(
         model_name="oracle_direction_ensemble",
         model_version=version,
@@ -132,6 +160,7 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
         "model_version": version,
         "model_path": str(model_path),
         "metrics": metrics,
+        "validation": validation,
         "integrity_note": LEAKAGE_GUARD_NOTE,
     }
     append_experience("ensemble_trained", result, notes=f"selected={final_kind}")

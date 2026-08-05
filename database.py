@@ -183,8 +183,16 @@ CREATE TABLE IF NOT EXISTS oracle_predictions (
     confidence          INTEGER NOT NULL,
     resolved            INTEGER NOT NULL DEFAULT 0,
     price_after_24h     REAL,
+    price_after_1h      REAL,
+    price_after_4h      REAL,
     outcome             TEXT,
-    accuracy_score      REAL
+    accuracy_score      REAL,
+    label               TEXT,
+    direction_label     TEXT,
+    features_json       TEXT,
+    resolved_at         TEXT,
+    kind                TEXT,
+    source              TEXT DEFAULT 'oracle'
 );
 
 CREATE INDEX IF NOT EXISTS idx_oracle_predictions_asset_ts
@@ -396,6 +404,8 @@ async def init_db() -> None:
 
         if use_postgres():
             await init_postgres()
+            async with get_connection() as db:
+                await _apply_migrations(db)
             logger.info("Database initialised | engine=postgresql")
             return
 
@@ -408,17 +418,44 @@ async def init_db() -> None:
         raise
 
 
-async def _apply_migrations(db: Any) -> None:
-    """Apply lightweight schema migrations for existing databases."""
+async def _table_columns(db: Any, table: str) -> set[str]:
+    """Dialect-aware column listing for SQLite and Postgres."""
     from postgres_backend import use_postgres
 
     if use_postgres():
-        return
+        rows = await (
+            await db.execute(
+                """
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_schema = 'public' AND table_name = ?
+                """,
+                (table,),
+            )
+        ).fetchall()
+        names: set[str] = set()
+        for row in rows:
+            if isinstance(row, dict):
+                names.add(str(row.get("column_name") or "").lower())
+            else:
+                names.add(str(row[0]).lower())
+        return {n for n in names if n}
+
+    rows = await (await db.execute(f"PRAGMA table_info({table})")).fetchall()
+    names = set()
+    for row in rows:
+        if isinstance(row, dict):
+            names.add(str(row.get("name") or ""))
+        else:
+            names.add(str(row[1]))
+    return names
+
+
+async def _apply_migrations(db: Any) -> None:
+    """Apply lightweight schema migrations for existing databases (SQLite + Postgres)."""
 
     for table in ("pricing_logs", "order_books"):
-        columns = {
-            row[1] for row in await (await db.execute(f"PRAGMA table_info({table})")).fetchall()
-        }
+        columns = await _table_columns(db, table)
         if "market_type" not in columns:
             await db.execute(
                 f"ALTER TABLE {table} ADD COLUMN market_type TEXT NOT NULL DEFAULT 'spot'"
@@ -513,9 +550,7 @@ async def _apply_migrations(db: Any) -> None:
     ):
         await db.execute(ddl)
 
-    sub_cols = {
-        row[1] for row in await (await db.execute("PRAGMA table_info(subscriptions)")).fetchall()
-    }
+    sub_cols = await _table_columns(db, "subscriptions")
     if "trial_ends_at" not in sub_cols:
         await db.execute("ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT")
     if "past_due_at" not in sub_cols:
@@ -567,9 +602,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    user_cols = {
-        row[1] for row in await (await db.execute("PRAGMA table_info(users)")).fetchall()
-    }
+    user_cols = await _table_columns(db, "users")
     if "stripe_customer_id" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
     if "telegram_chat_id" not in user_cols:
@@ -671,9 +704,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    oracle_cols = {
-        row[1] for row in await (await db.execute("PRAGMA table_info(oracle_predictions)")).fetchall()
-    }
+    oracle_cols = await _table_columns(db, "oracle_predictions")
     for column, ddl in (
         ("price_after_1h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_1h REAL"),
         ("price_after_4h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_4h REAL"),

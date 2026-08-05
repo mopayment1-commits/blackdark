@@ -176,6 +176,7 @@ async def log_oracle_signal(
     confidence: float,
     kind: str | None = None,
     features: dict[str, Any] | None = None,
+    source: str = "oracle",
 ) -> int:
     from database import insert_oracle_prediction
     from ml.feature_store import build_feature_vector
@@ -189,7 +190,7 @@ async def log_oracle_signal(
         confidence=int(round(confidence)),
         kind=kind,
         features_json=json.dumps(feature_payload, separators=(",", ":")),
-        source="oracle",
+        source=source or "oracle",
     )
 
 

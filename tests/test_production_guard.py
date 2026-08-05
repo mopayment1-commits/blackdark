@@ -10,6 +10,9 @@ import pytest
 def test_production_guard_shape(monkeypatch):
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/checkout")
     monkeypatch.setenv("SERVICE_MODE", "web")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")
+    monkeypatch.setenv("ADMIN_API_KEY", "test-admin")
     monkeypatch.delenv("DATABASE_URL", raising=False)
 
     from production_guard import evaluate_production_guard
@@ -20,12 +23,16 @@ def test_production_guard_shape(monkeypatch):
     ids = {c["id"] for c in report["checks"]}
     assert "postgres_database" in ids
     assert "billing_checkout" in ids
+    assert "secrets_master_key" in ids
 
 
 def test_production_guard_postgres_pass(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@host/db")
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/checkout")
     monkeypatch.setenv("SERVICE_MODE", "web")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")
+    monkeypatch.setenv("ADMIN_API_KEY", "test-admin")
     import config
 
     monkeypatch.setattr(config, "DATABASE_URL", "postgresql://u:p@host/db")

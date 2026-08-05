@@ -15,7 +15,7 @@ from typing import Any, Literal
 
 LaunchStatus = Literal["done", "progress", "blocked", "pending"]
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent
 
 
 def _env(name: str) -> str:

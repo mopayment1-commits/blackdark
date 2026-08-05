@@ -24,6 +24,9 @@ FEATURE_COLUMNS: tuple[str, ...] = (
     "obi_score",
     "obi_imbalance",
     "macro_weight",
+    "funding_spread_bps",
+    "whale_sii",
+    "onchain_netflow",
 )
 
 LEAKAGE_GUARD_NOTE = (

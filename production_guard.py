@@ -11,6 +11,9 @@ import config
 
 
 def is_production() -> bool:
+    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+    if local_dev:
+        return False
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
     return env in {"production", "prod"}
 
@@ -25,12 +28,16 @@ def _check(name: str, ok: bool, *, required: bool, hint: str) -> dict[str, Any]:
     }
 
 
+def _service_mode() -> str:
+    return (os.getenv("SERVICE_MODE") or getattr(config, "SERVICE_MODE", "all") or "all").strip().lower()
+
+
 def evaluate_production_guard() -> dict[str, Any]:
     from billing_service import billing_configured
     from postgres_backend import use_postgres
 
     pg = use_postgres()
-    mode = getattr(config, "SERVICE_MODE", "all")
+    mode = _service_mode()
     redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
     billing = billing_configured()
     sentry = bool(os.getenv("SENTRY_DSN", "").strip())
@@ -38,6 +45,13 @@ def evaluate_production_guard() -> dict[str, Any]:
     lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
     stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
     telegram = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
+    secrets_ok = bool(
+        os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
+    )
+    session_pepper_ok = bool(os.getenv("SESSION_TOKEN_PEPPER", "").strip())
+    admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
+    demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
+    demo_disabled = demo_key in {"", "disabled", "off", "none"}
 
     checks = [
         _check(
@@ -57,6 +71,30 @@ def evaluate_production_guard() -> dict[str, Any]:
             billing,
             required=True,
             hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys",
+        ),
+        _check(
+            "secrets_master_key",
+            secrets_ok,
+            required=True,
+            hint="Set SECRETS_MASTER_KEY or SECRETS_VAULT_KEY (no insecure default in prod)",
+        ),
+        _check(
+            "session_token_pepper",
+            session_pepper_ok,
+            required=True,
+            hint="Set SESSION_TOKEN_PEPPER to a long random secret",
+        ),
+        _check(
+            "admin_auth_configured",
+            admin_ok,
+            required=True,
+            hint="Set ADMIN_API_KEY and/or ADMIN_EMAILS",
+        ),
+        _check(
+            "b2b_demo_key_disabled",
+            demo_disabled,
+            required=False,
+            hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in production",
         ),
         _check(
             "redis_shared_bus",
@@ -107,6 +145,25 @@ def evaluate_production_guard() -> dict[str, Any]:
     }
 
 
+def enforce_production_guard(*, raise_on_fail: bool | None = None) -> dict[str, Any]:
+    """Fail closed in production when required checks fail (opt-out via env)."""
+    report = evaluate_production_guard()
+    if not is_production():
+        return report
+    if raise_on_fail is None:
+        raise_on_fail = os.getenv("PRODUCTION_GUARD_FAIL_CLOSED", "true").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+    if raise_on_fail and report["required_failures"]:
+        raise RuntimeError(
+            "Production guard failed required checks: "
+            + ", ".join(report["required_failures"])
+        )
+    return report
+
+
 def log_production_guard() -> None:
     import logging
 
@@ -120,6 +177,11 @@ def log_production_guard() -> None:
             "Production guard REQUIRED failures: %s",
             ", ".join(report["required_failures"]),
         )
+        if os.getenv("PRODUCTION_GUARD_FAIL_CLOSED", "true").lower() in {"1", "true", "yes"}:
+            raise RuntimeError(
+                "Production guard fail-closed: "
+                + ", ".join(report["required_failures"])
+            )
     if report["warnings"]:
         logger.info("Production guard warnings: %s", ", ".join(report["warnings"]))
     if report["required_pass"]:

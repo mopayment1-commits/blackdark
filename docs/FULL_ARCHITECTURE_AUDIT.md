@@ -138,13 +138,18 @@
 
 ---
 
-## 8) أولوية العمل التالي (هندسية، بدون تقويم زمني)
+## 8) حالة P0 بعد الإصلاح الجذري (2026-08-05)
 
-### P0 — يجب قبل توسيع النموذج المالي
-1. توحيد مسار القرار (أو versioning صريح: `arb_v1` vs `unified_v1`) وكتابة عينات تدريب متسقة.
-2. إكمال migrations على Postgres (جداول ML/keys/risk).
-3. إغلاق execute API خلف auth + ربط `live_execution_allowed`.
-4. إزالة/فرض override لأسرار التطوير في production (fail-closed).
+| بند P0 | الحالة |
+|--------|--------|
+| توحيد مسار القرار arb+dashboard عبر `apply_unified_adjustments` | ✅ |
+| Auth على `/arb/cex-dex/execute` + مسارات تعديل أخرى | ✅ |
+| ربط `live_execution_allowed` + vault credentials في execution | ✅ |
+| Postgres migrations تعمل (لا early-return) + أعمدة ML في SCHEMA | ✅ |
+| أسرار الإنتاج fail-closed + production_guard موسّع | ✅ |
+| ميزات ML موسّعة + بوابة deploy للـ ensemble | ✅ |
+
+### متبقي لاحق (P1)
 
 ### P1 — جودة النموذج
 1. بوابة deploy للـ ensemble مثل baseline.

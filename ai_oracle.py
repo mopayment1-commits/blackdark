@@ -137,26 +137,17 @@ def extract_metrics(opportunity: Any, kind: OpportunityKind) -> OpportunityMetri
     )
 
 
-def calculate_opportunity_score(
-    opportunity: Any,
-    kind: OpportunityKind,
-    institutional_context: dict[str, Any] | None = None,
-) -> float:
-    """
-    Deterministic 0-100 score from net profit, liquidity depth, and stability.
-
-    Weights: profit 40%, liquidity 35%, stability 25%.
-    """
+def _economic_base_score(opportunity: Any, kind: OpportunityKind) -> tuple[float, OpportunityMetrics]:
+    """Profit / liquidity / stability base (arb-specific economics)."""
     metrics = extract_metrics(opportunity, kind)
+    from weight_aggregator import get_core_score_weights
 
     profit_score = _clamp(
         (metrics.net_profit_percent / config.AI_ORACLE_PROFIT_REFERENCE_PCT) * 100
     )
-
     liquidity_score = _clamp(
         100 - (metrics.total_slippage_bps / config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS) * 100
     )
-
     stability_signal = max(
         abs(metrics.gross_spread_bps),
         abs(metrics.basis_bps),
@@ -165,41 +156,65 @@ def calculate_opportunity_score(
     slippage_denominator = max(metrics.total_slippage_bps, 1.0)
     stability_ratio = stability_signal / slippage_denominator
     stability_score = _clamp(stability_ratio * 20)
-
-    from weight_aggregator import apply_modal_adjustments, get_core_score_weights
-
     core = get_core_score_weights()
-    final_score = (
+    base = (
         profit_score * core["profit"]
         + liquidity_score * core["liquidity"]
         + stability_score * core["stability"]
     )
-
-    if institutional_context:
-        compound = get_sentiment_index_for_asset(metrics.asset, institutional_context)
-        if is_extreme_negative_sentiment(compound):
-            final_score -= sentiment_panic_penalty_for_asset(metrics.asset, institutional_context)
-        final_score, _breakdown = apply_modal_adjustments(
-            final_score,
-            metrics.asset,
-            institutional_context,
-        )
-
     if kind == "funding":
-        convergence_delta = float(
-            getattr(opportunity, "predictive_convergence_score_delta", 0.0) or 0.0
-        )
-        final_score += convergence_delta
+        base += float(getattr(opportunity, "predictive_convergence_score_delta", 0.0) or 0.0)
+    return base, metrics
 
-    final_score = apply_macro_score_weight(final_score, institutional_context)
 
-    if institutional_context:
-        hub = institutional_context.get("oracle_data_hub") or {}
-        if hub.get("enabled"):
-            hub_delta, _, _ = hub_score_adjustment(metrics.asset, hub)
-            final_score += hub_delta
+def score_opportunity_with_breakdown(
+    opportunity: Any,
+    kind: OpportunityKind,
+    institutional_context: dict[str, Any] | None = None,
+) -> tuple[float, dict[str, Any], OpportunityMetrics]:
+    """
+    Unified arb scoring: economic base + shared multimodal post-processor.
 
-    return round(_clamp(final_score), 2)
+    Macro is applied once inside regime modal weights (no double multiply).
+    """
+    from oracle_unified import apply_unified_adjustments
+
+    base, metrics = _economic_base_score(opportunity, kind)
+    change_24h = float(
+        getattr(opportunity, "change_24h", 0.0)
+        or (institutional_context or {}).get("change_24h", 0.0)
+        or 0.0
+    )
+    quote_volume = float(
+        getattr(opportunity, "quote_volume", 0.0)
+        or getattr(opportunity, "quote_amount", 0.0)
+        or metrics.quote_amount
+        or 0.0
+    )
+    adjusted, breakdown = apply_unified_adjustments(
+        base,
+        metrics.asset,
+        institutional_context,
+        change_24h=change_24h,
+        quote_volume=quote_volume,
+        apply_hub=True,
+    )
+    return round(_clamp(adjusted), 2), breakdown, metrics
+
+
+def calculate_opportunity_score(
+    opportunity: Any,
+    kind: OpportunityKind,
+    institutional_context: dict[str, Any] | None = None,
+) -> float:
+    """
+    Deterministic 0-100 score from net profit, liquidity depth, and stability,
+    then unified multimodal adjustments (same stack as dashboard Oracle).
+    """
+    score, _breakdown, _metrics = score_opportunity_with_breakdown(
+        opportunity, kind, institutional_context
+    )
+    return score
 
 
 def explain_opportunity(
@@ -570,9 +585,12 @@ async def evaluate_opportunity(
     kind: OpportunityKind,
     institutional_context: dict[str, Any] | None = None,
 ) -> EvaluatedOpportunity:
-    """Score, explain, and oracle-wrap a single opportunity."""
-    score = calculate_opportunity_score(opportunity, kind, institutional_context)
-    metrics = extract_metrics(opportunity, kind)
+    """Score, explain, and oracle-wrap a single opportunity via unified stack."""
+    from oracle_unified import finalize_unified_score
+
+    score, breakdown, metrics = score_opportunity_with_breakdown(
+        opportunity, kind, institutional_context
+    )
     try:
         from technical_analysis import build_ta_bundle
 
@@ -581,12 +599,43 @@ async def evaluate_opportunity(
             score = round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
     except Exception:
         logger.warning("TA bundle unavailable | asset=%s", metrics.asset)
+
+    price_hint = 0.0
+    if hasattr(opportunity, "model_dump"):
+        raw_payload = opportunity.model_dump()
+    else:
+        raw_payload = dict(opportunity)
+    for key in ("price", "spot_price", "mark_price", "buy_price", "mid_price"):
+        try:
+            value = float(raw_payload.get(key) or 0)
+        except (TypeError, ValueError):
+            value = 0.0
+        if value > 0:
+            price_hint = value
+            break
+
+    finalized = await finalize_unified_score(
+        score,
+        metrics.asset,
+        breakdown,
+        price=price_hint,
+        change_24h=float(raw_payload.get("change_24h") or 0.0),
+        quote_volume=float(metrics.quote_amount or 0.0),
+        include_ml=True,
+    )
+    score = float(finalized["opportunity_score"])
     explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+    # Prefer unified conflict-aware internal verdict; keep sentence generation.
     oracle = await get_single_sentence_oracle(
         explanation.asset, score, explanation, institutional_context
     )
+    internal = str(finalized.get("internal_verdict") or oracle.verdict)
+    if finalized.get("dimension_conflict", {}).get("veto") or finalized.get(
+        "dimension_conflict", {}
+    ).get("abstain"):
+        internal = "Do Not Touch"
     oracle = OracleResponse(
-        verdict=oracle.verdict,
+        verdict=internal if internal in {"Buy Now", "Do Not Touch"} else oracle.verdict,
         sentence=inject_oracle_onchain_analytics(
             oracle.sentence,
             explanation.asset,
@@ -594,10 +643,12 @@ async def evaluate_opportunity(
         ),
     )
 
-    if hasattr(opportunity, "model_dump"):
-        payload = opportunity.model_dump()
-    else:
-        payload = dict(opportunity)
+    payload = dict(raw_payload)
+    payload["unified_engine"] = finalized.get("engine")
+    payload["public_verdict"] = finalized.get("verdict")
+    payload["dimension_conflict"] = finalized.get("dimension_conflict")
+    payload["market_regime"] = finalized.get("market_regime")
+    payload["ml"] = finalized.get("ml")
 
     return EvaluatedOpportunity(
         kind=kind,
@@ -631,19 +682,18 @@ async def evaluate_and_store(
     try:
         from ml.labeling_pipeline import log_oracle_signal
 
-        price_hint = float(
-            evaluated.payload.get("price")
-            or evaluated.payload.get("spot_price")
-            or evaluated.payload.get("mark_price")
-            or 0
+        price_hint = await _resolve_training_price(evaluated.asset, evaluated.payload)
+        public_verdict = str(
+            evaluated.payload.get("public_verdict") or evaluated.oracle.verdict
         )
         await log_oracle_signal(
             asset=evaluated.asset,
             price=price_hint,
-            verdict=evaluated.oracle.verdict,
+            verdict=public_verdict,
             opportunity_score=evaluated.opportunity_score,
             confidence=evaluated.explanation.confidence_percent,
             kind=evaluated.kind,
+            source="arb_unified_v1",
         )
     except Exception:
         logger.warning("Oracle prediction logging failed | asset=%s", evaluated.asset)
@@ -654,8 +704,9 @@ async def evaluate_and_store(
             {
                 "asset": evaluated.asset,
                 "kind": evaluated.kind,
-                "engine": "rules_engine",
+                "engine": evaluated.payload.get("unified_engine") or "unified_multimodal_v1",
                 "oracle_verdict": evaluated.oracle.verdict,
+                "public_verdict": evaluated.payload.get("public_verdict"),
                 "sentence": evaluated.oracle.sentence,
                 "opportunity_score": evaluated.opportunity_score,
                 "confidence_percent": evaluated.explanation.confidence_percent,
@@ -665,6 +716,42 @@ async def evaluate_and_store(
     except Exception:
         logger.debug("B2B oracle signal publish skipped | asset=%s", evaluated.asset)
     return evaluated
+
+
+async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
+    """Best-effort mid price so arb samples are not logged at price=0."""
+    for key in ("price", "spot_price", "mark_price", "mid_price", "buy_price", "sell_price"):
+        try:
+            value = float(payload.get(key) or 0)
+        except (TypeError, ValueError):
+            value = 0.0
+        if value > 0:
+            return value
+    try:
+        buy = float(payload.get("buy_price") or payload.get("ask") or 0)
+        sell = float(payload.get("sell_price") or payload.get("bid") or 0)
+        if buy > 0 and sell > 0:
+            return (buy + sell) / 2.0
+    except (TypeError, ValueError):
+        pass
+    try:
+        from live_book_hub import get_best_price
+
+        for exchange in ("binance", "okx", "bybit"):
+            quote = get_best_price(exchange, f"{asset}/USDT")
+            if quote and quote.get("mid"):
+                return float(quote["mid"])
+    except Exception:
+        logger.debug("Live book price lookup failed | asset=%s", asset, exc_info=True)
+    try:
+        from ml.labeling_pipeline import fetch_reference_price
+
+        ref = await fetch_reference_price(asset)
+        if ref and ref > 0:
+            return float(ref)
+    except Exception:
+        logger.debug("Reference price lookup failed | asset=%s", asset, exc_info=True)
+    return 0.0
 
 
 def log_evaluated_opportunity(evaluated: EvaluatedOpportunity) -> None:
