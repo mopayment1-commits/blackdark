@@ -155,3 +155,5 @@
 python scripts/finalize_launch.py
 ```
 ثم لصق `.env.launch.local` في Railway + `DATABASE_URL` + Lemon/Stripe → `/api/production/guard`.
+
+> **ملاحظة تشغيل:** خطوات Railway/Deploy مؤجّلة بقرار المنتج عند الحاجة — الأولوية القصوى الحالية هي مسار المستخدم (Landing Oracle + gating + In-app alerts) وفق هذا الدستور.

@@ -2159,8 +2159,16 @@
             const alertsEl = document.getElementById('arbAlerts');
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST' } : {});
+                const headers = (typeof authHeaders === 'function') ? authHeaders() : {};
+                const res = await fetch(url, refresh ? { method: 'POST', headers } : { headers });
                 const data = await res.json();
+                if (res.status === 403) {
+                    const detail = data.detail || {};
+                    statsEl.innerHTML = '';
+                    el.innerHTML = `<div class="empty">${detail.message || 'Pro required for arbitrage'}
+                        <div style="margin-top:.75rem"><a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a></div></div>`;
+                    return;
+                }
                 const counts = data.counts || {};
                 statsEl.innerHTML = `
                     <span class="arb-stat">Cross: <strong>${counts.cross_exchange || 0}</strong></span>

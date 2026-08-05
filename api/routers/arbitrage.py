@@ -132,7 +132,10 @@ async def arbitrage_durations(
 
 
 @router.get("/alerts")
-async def arbitrage_alerts(limit: int = 20):
+async def arbitrage_alerts(
+    limit: int = 20,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from database import fetch_arbitrage_alert_log
 
     rows = await fetch_arbitrage_alert_log(limit=limit)
@@ -145,7 +148,11 @@ async def arbitrage_alerts(limit: int = 20):
 
 
 @router.get("/catalog")
-async def arbitrage_catalog(category: str | None = None, status: str | None = None):
+async def arbitrage_catalog(
+    category: str | None = None,
+    status: str | None = None,
+    _user: dict | None = Depends(require_feature("arbitrage_catalog")),
+):
     from arbitrage_catalog import get_catalog
 
     return get_catalog(category=category, status=status)

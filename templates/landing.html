@@ -619,27 +619,37 @@
             
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
-                    <h3>🔮 BLACKDARK Oracle</h3>
+                    <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator">
                         <span class="live-dot"></span>
                         Live
                     </div>
                 </div>
-                <div class="oracle-input">
-                    <input type="text" id="symbolInput" placeholder="Enter symbol (BTC, ETH, SOL...)" value="BTC">
-                    <button onclick="consultOracle()">Consult Oracle</button>
+                <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
+                    <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                        <option value="beginner" selected>مبتدئ</option>
+                        <option value="pro">محترف</option>
+                    </select>
+                    <select id="landingLang" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                        <option value="ar" selected>العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
+                    <button onclick="consultOracle()">احصل على القرار</button>
                 </div>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
-                        <div class="result-score" id="resultScore">85</div>
+                        <div class="result-score" id="resultScore">—</div>
                     </div>
                     <div style="margin-bottom: 1rem;">
-                        <span class="result-verdict verdict-buy" id="resultVerdict">BUY</span>
+                        <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
                     </div>
                     <div class="result-oracle" id="resultOracle">
-                        Loading oracle wisdom...
+                        قرار واحد واضح — افعل أو انتظر
                     </div>
+                    <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
+                    <div id="landingUpgrade" style="display:none;margin-top:.75rem"></div>
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
@@ -854,33 +864,63 @@
 
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const mode = document.getElementById('landingUxMode').value || 'beginner';
+            const lang = document.getElementById('landingLang').value || 'ar';
             const resultDiv = document.getElementById('oracleResult');
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
             const verdictEl = document.getElementById('resultVerdict');
             const oracleEl = document.getElementById('resultOracle');
+            const proMeta = document.getElementById('landingProMeta');
+            const upgradeEl = document.getElementById('landingUpgrade');
             
             resultDiv.classList.add('active');
-            oracleEl.textContent = 'Consulting the oracle...';
+            localStorage.setItem('bd_ux_mode', mode);
+            localStorage.setItem('bd_lang', lang);
+            oracleEl.textContent = lang === 'ar' ? 'جاري التحليل…' : 'Consulting the oracle…';
+            proMeta.style.display = 'none';
+            upgradeEl.style.display = 'none';
             
             try {
-                const response = await fetch(`/oracle/${symbol}`);
+                const response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`);
                 const data = await response.json();
+                if (!response.ok) {
+                    const detail = data.detail || {};
+                    const msg = detail.message || (lang === 'ar' ? 'تم تجاوز الحد اليومي — رقِّ خطتك' : 'Daily quota exceeded — upgrade');
+                    oracleEl.textContent = msg;
+                    if (detail.upgrade_url || detail.error === 'quota_exceeded') {
+                        upgradeEl.style.display = 'block';
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">${lang === 'ar' ? 'ترقية إلى Pro' : 'Upgrade to Pro'}</a>`;
+                    }
+                    return;
+                }
                 
                 symbolEl.textContent = data.symbol || symbol;
-                scoreEl.textContent = data.opportunity_score || '--';
+                scoreEl.textContent = data.opportunity_score ?? '--';
                 
-                const verdict = data.verdict || 'WAIT';
-                verdictEl.textContent = verdict;
+                const action = data.decision_action || data.verdict || 'WAIT';
+                const verdict = data.verdict || action;
+                verdictEl.textContent = action;
                 verdictEl.className = 'result-verdict';
-                if (verdict === 'BUY') verdictEl.classList.add('verdict-buy');
-                else if (verdict === 'SELL') verdictEl.classList.add('verdict-sell');
+                const v = String(verdict).toUpperCase();
+                if (v.includes('BUY') || action === 'ACT') verdictEl.classList.add('verdict-buy');
+                else if (v.includes('SELL')) verdictEl.classList.add('verdict-sell');
                 else verdictEl.classList.add('verdict-wait');
                 
-                oracleEl.textContent = data.narrative || data.oracle || 'Oracle wisdom incoming...';
+                oracleEl.textContent = data.decision_sentence || data.narrative || data.oracle || '';
+                if (mode === 'pro') {
+                    const truth = data.net_edge_truth || {};
+                    const half = data.opportunity_half_life || {};
+                    proMeta.style.display = 'block';
+                    proMeta.textContent = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                }
+                if (data.upgrade_hint) {
+                    upgradeEl.style.display = 'block';
+                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${lang === 'ar' ? (data.upgrade_hint.message_ar || '') : (data.upgrade_hint.message_en || '')}</span>`;
+                }
                 updateShareLinks(data);
             } catch (error) {
-                oracleEl.textContent = 'Oracle is meditating... Try BTC, ETH, or SOL.';
+                oracleEl.textContent = lang === 'ar' ? 'تعذر الاتصال — جرّب BTC أو ETH' : 'Oracle unavailable — try BTC or ETH.';
             }
         }
         

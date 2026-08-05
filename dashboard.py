@@ -1672,6 +1672,32 @@ async def alerts_test():
     return await send_test_alert()
 
 
+@app.get("/api/alerts/inbox")
+async def alerts_inbox(
+    limit: int = 30,
+    unread_only: bool = False,
+    user: dict | None = Depends(optional_user),
+):
+    from in_app_alerts import inbox_stats, list_in_app_alerts
+
+    email = (user or {}).get("email")
+    return {
+        "stats": inbox_stats(user_email=email),
+        "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
+        "works_without_telegram": True,
+    }
+
+
+@app.post("/api/alerts/inbox/{alert_id}/read")
+async def alerts_inbox_mark_read(alert_id: str):
+    from in_app_alerts import mark_read
+
+    row = mark_read(alert_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return {"ok": True, "alert": row}
+
+
 @app.post("/api/execution/auto")
 async def execution_auto_toggle(body: ExecutionAutoBody, _user: dict = Depends(require_whale)):
     from execution_engine import set_auto_execution

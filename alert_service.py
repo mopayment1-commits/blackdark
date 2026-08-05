@@ -76,25 +76,52 @@ async def dispatch_alert(
     payload: dict[str, Any] | None = None,
     channels: list[str] | None = None,
 ) -> dict[str, Any]:
-    """Send alert through configured channels + active subscriptions."""
+    """Send alert through configured channels + always persist in-app inbox."""
     from database import fetch_active_alert_subscriptions, insert_alert_delivery_log
+    from in_app_alerts import push_in_app_alert
 
     results: dict[str, Any] = {"title": title, "channels": {}, "subscriptions": []}
     full_text = f"{title}\n\n{body}"
 
     if channels is None:
-        channels = ["telegram", "email", "whatsapp"]
+        channels = ["telegram", "email", "whatsapp", "in_app"]
+
+    # Always keep an in-app record so the product works without Telegram/SMTP
+    if "in_app" in channels or True:
+        ina = push_in_app_alert(title, body, payload=payload, level="signal")
+        results["channels"]["in_app"] = True
+        results["in_app_id"] = ina.get("id")
 
     if "telegram" in channels:
-        ok = await send_telegram_message(full_text)
-        results["channels"]["telegram"] = ok
+        token_ok = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
+        if not token_ok:
+            results["channels"]["telegram"] = False
+            results["telegram_status"] = "skipped_no_token"
+        else:
+            ok = await send_telegram_message(full_text)
+            results["channels"]["telegram"] = ok
+
+    if "email" in channels and not os.getenv("SMTP_HOST", "").strip():
+        results["channels"]["email"] = False
+        results["email_status"] = "stub_queued_no_smtp"
 
     subs = await fetch_active_alert_subscriptions()
     for sub in subs:
         sub_result: dict[str, Any] = {"id": sub.get("id")}
         email = sub.get("email")
         if email and sub.get("email_alerts", 1):
-            sub_result["email"] = await send_email_alert(email, title, full_text)
+            if not os.getenv("SMTP_HOST", "").strip():
+                sub_result["email"] = False
+                sub_result["email_status"] = "stub_queued_no_smtp"
+                push_in_app_alert(
+                    title,
+                    body,
+                    payload=payload,
+                    user_email=str(email),
+                    level="signal",
+                )
+            else:
+                sub_result["email"] = await send_email_alert(email, title, full_text)
         tg_chat = sub.get("telegram_chat_id")
         if tg_chat:
             sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)
@@ -149,5 +176,5 @@ async def send_test_alert(email: str | None = None) -> dict[str, Any]:
     return await dispatch_alert(
         "BLACKDARK Test Alert",
         "Your alert channels are configured. You will receive oracle and arbitrage signals.",
-        channels=["telegram", "email"],
+        channels=["telegram", "email", "in_app"],
     )
