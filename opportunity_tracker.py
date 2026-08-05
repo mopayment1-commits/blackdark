@@ -1,15 +1,17 @@
 """
-BLACKDARK — Live Opportunity Duration Tracker (Plan Point 25).
+BLACKDARK — Live Opportunity Duration Tracker + Predictive Half-Life (D4).
 
-Tracks how long profitable arbitrage signals persist before disappearing.
+Tracks how long profitable arbitrage signals persist before disappearing,
+and estimates remaining half-life / disappearance probability for whales.
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
 import logging
+import math
 import time
+from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any
 
@@ -18,6 +20,14 @@ logger = logging.getLogger("BLACKDARK.OpportunityTracker")
 _ACTIVE: dict[str, dict[str, Any]] = {}
 _HISTORY: list[dict[str, Any]] = []
 _MAX_HISTORY = 200
+_DEFAULT_HALF_LIFE_SEC = 18.0
+_KIND_DEFAULTS: dict[str, float] = {
+    "cross_exchange": 16.0,
+    "triangular": 8.0,
+    "spot_futures": 45.0,
+    "funding": 120.0,
+    "fast_cross": 12.0,
+}
 
 
 def _utcnow_iso() -> str:
@@ -86,8 +96,84 @@ def _format_duration(seconds: float) -> str:
     return f"{int(seconds // 3600)}h {int((seconds % 3600) // 60)}m"
 
 
+def _median(values: list[float]) -> float | None:
+    if not values:
+        return None
+    ordered = sorted(values)
+    mid = len(ordered) // 2
+    if len(ordered) % 2:
+        return float(ordered[mid])
+    return float((ordered[mid - 1] + ordered[mid]) / 2.0)
+
+
+def expected_half_life_seconds(kind: str | None = None, asset: str | None = None) -> float:
+    """Median observed lifetime for similar opportunities, with kind priors."""
+    kind_key = str(kind or "")
+    asset_key = str(asset or "").upper()
+    samples: list[float] = []
+    for row in _HISTORY:
+        dur = float(row.get("duration_seconds") or 0)
+        if dur <= 0:
+            continue
+        if kind_key and str(row.get("kind") or "") != kind_key:
+            continue
+        if asset_key and str(row.get("asset") or "").upper() not in {asset_key, f"{asset_key}/USDT"}:
+            # Prefer same asset; keep kind-level fallback below
+            continue
+        samples.append(dur)
+
+    if len(samples) < 3:
+        # Fall back to kind-level history (any asset)
+        samples = [
+            float(r.get("duration_seconds") or 0)
+            for r in _HISTORY
+            if float(r.get("duration_seconds") or 0) > 0
+            and (not kind_key or str(r.get("kind") or "") == kind_key)
+        ]
+
+    med = _median(samples)
+    if med is None or med <= 0:
+        return float(_KIND_DEFAULTS.get(kind_key, _DEFAULT_HALF_LIFE_SEC))
+    # Blend prior + observed for cold-start stability
+    prior = float(_KIND_DEFAULTS.get(kind_key, _DEFAULT_HALF_LIFE_SEC))
+    weight = min(1.0, len(samples) / 20.0)
+    return round(prior * (1 - weight) + med * weight, 2)
+
+
+def estimate_opportunity_half_life(opp: dict[str, Any], *, live_duration_seconds: float | None = None) -> dict[str, Any]:
+    """
+    Predictive half-life for an opportunity.
+
+    disappearance_probability ≈ 1 - 0.5^(t / half_life)
+    """
+    kind = str(opp.get("kind") or "")
+    asset = str(opp.get("asset") or opp.get("symbol") or "")
+    half = expected_half_life_seconds(kind, asset)
+    lived = float(
+        live_duration_seconds
+        if live_duration_seconds is not None
+        else opp.get("live_duration_seconds")
+        or 0.0
+    )
+    remaining = max(0.0, half - lived)
+    # Survival under exponential half-life model
+    if half <= 0:
+        p_disappear = 1.0
+    else:
+        p_disappear = 1.0 - math.pow(0.5, lived / half)
+    urgency = "critical" if remaining <= 5 else "high" if remaining <= 15 else "normal"
+    return {
+        "expected_half_life_seconds": half,
+        "lived_seconds": round(lived, 2),
+        "remaining_seconds": round(remaining, 2),
+        "disappearance_probability": round(min(1.0, max(0.0, p_disappear)), 4),
+        "urgency": urgency,
+        "model": "median_history_exp_half_life_v1",
+    }
+
+
 def sync_scan_opportunities(opportunities: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Annotate scan results with live duration; expire stale entries."""
+    """Annotate scan results with live duration + predictive half-life; expire stale."""
     seen: set[str] = set()
     enriched: list[dict[str, Any]] = []
 
@@ -99,6 +185,10 @@ def sync_scan_opportunities(opportunities: list[dict[str, Any]]) -> list[dict[st
         merged["live_duration_label"] = meta["duration_label"]
         merged["first_seen"] = meta["first_seen"]
         merged["sightings"] = meta["sightings"]
+        half = estimate_opportunity_half_life(merged, live_duration_seconds=meta["duration_seconds"])
+        merged["opportunity_half_life"] = half
+        merged["expected_half_life_seconds"] = half["expected_half_life_seconds"]
+        merged["disappearance_probability"] = half["disappearance_probability"]
         enriched.append(merged)
 
     _expire_missing(seen)
@@ -136,10 +226,41 @@ def get_duration_history(limit: int = 20) -> list[dict[str, Any]]:
     return _HISTORY[:limit]
 
 
+def half_life_status() -> dict[str, Any]:
+    by_kind: dict[str, list[float]] = defaultdict(list)
+    for row in _HISTORY:
+        dur = float(row.get("duration_seconds") or 0)
+        if dur <= 0:
+            continue
+        by_kind[str(row.get("kind") or "unknown")].append(dur)
+    kind_stats = {
+        kind: {
+            "samples": len(vals),
+            "median_lifetime_seconds": _median(vals),
+            "expected_half_life_seconds": expected_half_life_seconds(kind),
+        }
+        for kind, vals in by_kind.items()
+    }
+    return {
+        "history_samples": len(_HISTORY),
+        "active_count": len(_ACTIVE),
+        "by_kind": kind_stats,
+        "defaults": dict(_KIND_DEFAULTS),
+        "model": "median_history_exp_half_life_v1",
+        "timestamp": _utcnow_iso(),
+    }
+
+
 def export_state() -> dict[str, Any]:
+    active = get_active_durations(50)
+    annotated = []
+    for row in active:
+        half = estimate_opportunity_half_life(row, live_duration_seconds=float(row.get("duration_seconds") or 0))
+        annotated.append({**row, "opportunity_half_life": half})
     return {
         "active_count": len(_ACTIVE),
-        "active": get_active_durations(50),
+        "active": annotated,
         "recent_expired": get_duration_history(20),
+        "half_life": half_life_status(),
         "timestamp": _utcnow_iso(),
     }

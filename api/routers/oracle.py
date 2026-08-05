@@ -222,3 +222,57 @@ async def api_oracle_audit_chain_verify():
     from oracle_audit_chain import verify_chain
 
     return verify_chain()
+
+
+@router.get("/api/oracle/net-edge-truth")
+async def api_net_edge_truth_status():
+    from net_edge_truth import net_edge_truth_status
+
+    return net_edge_truth_status()
+
+
+@router.get("/api/oracle/half-life")
+async def api_opportunity_half_life():
+    from opportunity_tracker import half_life_status
+
+    return half_life_status()
+
+
+@router.get("/api/oracle/signals")
+async def api_signal_registry(
+    limit: int = 50,
+    signal_type: str | None = None,
+    asset: str | None = None,
+):
+    from signal_registry import list_signals, registry_stats
+
+    return {
+        "stats": registry_stats(),
+        "signals": list_signals(limit=limit, signal_type=signal_type, asset=asset),
+    }
+
+
+@router.get("/api/oracle/persona-clarity/demo")
+async def api_persona_clarity_demo(
+    asset: str = "BTC",
+    score: float = 72.0,
+    verdict: str = "Buy Now",
+    net_profit_usdt: float = 0.42,
+):
+    from persona_clarity import build_persona_clarity
+
+    return build_persona_clarity(
+        asset=asset.upper(),
+        score=score,
+        verdict=verdict,
+        payload={
+            "market_regime": "risk_on",
+            "net_edge_truth": {"truth_score": 78, "reject": False},
+            "opportunity_half_life": {
+                "expected_half_life_seconds": 16,
+                "remaining_seconds": 9,
+                "disappearance_probability": 0.41,
+            },
+        },
+        net_profit_usdt=net_profit_usdt,
+    )

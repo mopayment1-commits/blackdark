@@ -793,6 +793,22 @@ FLYWHEEL_CROWD_STATE_TTL_SEC = float(os.getenv("FLYWHEEL_CROWD_STATE_TTL_SEC", "
 FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD = float(os.getenv("FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD", "0.05"))
 FLYWHEEL_MAX_FREE_TELEGRAM_BATCH = int(os.getenv("FLYWHEEL_MAX_FREE_TELEGRAM_BATCH", "25"))
 
+# ── Unique differentiators: Net-Edge Truth + Signal Registry ──────────────────
+NET_EDGE_TRUTH_ENABLED = os.getenv("NET_EDGE_TRUTH_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+NET_EDGE_TRUTH_MIN_SCORE = float(os.getenv("NET_EDGE_TRUTH_MIN_SCORE", "55"))
+NET_EDGE_TRUTH_MIN_RESIDUAL_USD = float(os.getenv("NET_EDGE_TRUTH_MIN_RESIDUAL_USD", "0.08"))
+NET_EDGE_TRUTH_MAX_QUOTE_AGE_MS = float(os.getenv("NET_EDGE_TRUTH_MAX_QUOTE_AGE_MS", "2500"))
+NET_EDGE_TRUTH_LATENCY_COST_BPS_PER_SEC = float(
+    os.getenv("NET_EDGE_TRUTH_LATENCY_COST_BPS_PER_SEC", "1.5")
+)
+NET_EDGE_TRUTH_CROWD_DECAY_FRACTION = float(os.getenv("NET_EDGE_TRUTH_CROWD_DECAY_FRACTION", "0.35"))
+SIGNAL_REGISTRY_MAX_MEMORY = int(os.getenv("SIGNAL_REGISTRY_MAX_MEMORY", "2000"))
+SIGNAL_REGISTRY_PATH = os.getenv("SIGNAL_REGISTRY_PATH", "data/signal_registry.jsonl")
+
 # ── Macro Liquidity & Traditional Markets Correlation (Phase 4) ───────────────
 MACRO_DATA_SOURCE = os.getenv("MACRO_DATA_SOURCE", "mixed").lower()
 MACRO_POLL_INTERVAL_SECONDS = int(os.getenv("MACRO_POLL_INTERVAL_SECONDS", "300"))

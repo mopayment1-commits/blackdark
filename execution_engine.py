@@ -409,6 +409,21 @@ async def try_execute_from_opportunity(
     conflict = opportunity.get("dimension_conflict") or {}
     if conflict.get("veto") or conflict.get("abstain"):
         return {"skipped": True, "reason": "dimension_conflict", "conflict": conflict}
+    truth = opportunity.get("net_edge_truth") or {}
+    if truth.get("reject"):
+        return {"skipped": True, "reason": "net_edge_truth_reject", "net_edge_truth": truth}
+    half = opportunity.get("opportunity_half_life") or {}
+    try:
+        remain = float(half.get("remaining_seconds"))
+        p_gone = float(half.get("disappearance_probability") or 0)
+    except (TypeError, ValueError):
+        remain, p_gone = None, 0.0
+    if remain is not None and (remain <= 2.0 or p_gone >= 0.92):
+        return {
+            "skipped": True,
+            "reason": "opportunity_half_life_expired",
+            "opportunity_half_life": half,
+        }
 
     asset = str(opportunity.get("asset") or "BTC")
     side = _infer_execution_side(opportunity)

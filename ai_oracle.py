@@ -603,8 +603,16 @@ async def evaluate_opportunity(
     price_hint = 0.0
     if hasattr(opportunity, "model_dump"):
         raw_payload = opportunity.model_dump()
-    else:
+    elif isinstance(opportunity, dict):
         raw_payload = dict(opportunity)
+    elif hasattr(opportunity, "__dict__"):
+        raw_payload = {
+            key: value
+            for key, value in vars(opportunity).items()
+            if not str(key).startswith("_")
+        }
+    else:
+        raw_payload = {}
     for key in ("price", "spot_price", "mark_price", "buy_price", "mid_price"):
         try:
             value = float(raw_payload.get(key) or 0)
@@ -624,7 +632,41 @@ async def evaluate_opportunity(
         include_ml=True,
     )
     score = float(finalized["opportunity_score"])
+
+    # D3 Net-Edge Truth + D4 Half-Life — unique executable-edge gates
+    from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
+    from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
+    from persona_clarity import build_persona_clarity
+
+    truth_input = dict(raw_payload)
+    truth_input.setdefault("kind", kind)
+    truth_input.setdefault("asset", metrics.asset)
+    truth_input["net_profit_usdt"] = metrics.net_profit_usdt
+    truth_input["quote_amount"] = metrics.quote_amount
+    truth_input["total_slippage_bps"] = metrics.total_slippage_bps
+    truth = compute_net_edge_truth(truth_input)
+    score = apply_truth_gate_to_score(score, truth)
+
+    duration_meta = touch_opportunity(truth_input)
+    half_life = estimate_opportunity_half_life(
+        truth_input, live_duration_seconds=float(duration_meta.get("duration_seconds") or 0)
+    )
+
     explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+    if truth.get("reject"):
+        explanation.risk_factors = list(explanation.risk_factors) + [
+            "Net-Edge Truth rejected: residual edge fails after latency/crowd/fees."
+        ]
+        explanation.reasons = list(explanation.reasons) + [
+            f"Truth Score {truth.get('truth_score')}/100 — executable edge not proven."
+        ]
+    if half_life.get("remaining_seconds") is not None:
+        explanation.reasons = list(explanation.reasons) + [
+            f"Opportunity half-life ~{half_life.get('expected_half_life_seconds')}s; "
+            f"~{half_life.get('remaining_seconds')}s remaining "
+            f"(P(disappear)={half_life.get('disappearance_probability')})."
+        ]
+
     # Prefer unified conflict-aware internal verdict; keep sentence generation.
     oracle = await get_single_sentence_oracle(
         explanation.asset, score, explanation, institutional_context
@@ -633,6 +675,8 @@ async def evaluate_opportunity(
     if finalized.get("dimension_conflict", {}).get("veto") or finalized.get(
         "dimension_conflict", {}
     ).get("abstain"):
+        internal = "Do Not Touch"
+    if truth.get("reject"):
         internal = "Do Not Touch"
     oracle = OracleResponse(
         verdict=internal if internal in {"Buy Now", "Do Not Touch"} else oracle.verdict,
@@ -649,6 +693,37 @@ async def evaluate_opportunity(
     payload["dimension_conflict"] = finalized.get("dimension_conflict")
     payload["market_regime"] = finalized.get("market_regime")
     payload["ml"] = finalized.get("ml")
+    payload["net_edge_truth"] = truth
+    payload["opportunity_half_life"] = half_life
+    payload["persona_clarity"] = build_persona_clarity(
+        asset=metrics.asset,
+        score=score,
+        verdict=oracle.verdict,
+        payload=payload,
+        net_profit_usdt=metrics.net_profit_usdt,
+    )
+
+    # D8 Sovereign Signal Registry — labeled lexicon row per decision
+    try:
+        from signal_registry import register_from_evaluation
+
+        signal_row = register_from_evaluation(
+            {
+                "kind": kind,
+                "asset": metrics.asset,
+                "opportunity_score": score,
+                "net_profit_usdt": metrics.net_profit_usdt,
+                "oracle": {"verdict": oracle.verdict},
+                "payload": payload,
+            }
+        )
+        payload["signal_registry"] = {
+            "signal_id": signal_row.get("signal_id"),
+            "features_hash": signal_row.get("features_hash"),
+            "label": signal_row.get("label"),
+        }
+    except Exception:
+        logger.debug("signal registry write skipped", exc_info=True)
 
     return EvaluatedOpportunity(
         kind=kind,

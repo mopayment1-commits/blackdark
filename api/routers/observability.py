@@ -42,6 +42,14 @@ async def architecture_due_diligence_api():
     return evaluate_architecture_dd()
 
 
+@router.get("/api/due-diligence/evidence-pack")
+async def acquirer_evidence_pack_api():
+    """One-click Acquirer / Fund committee evidence pack (Differentiator D6)."""
+    from acquirer_evidence_pack import build_acquirer_evidence_pack
+
+    return await build_acquirer_evidence_pack()
+
+
 @router.get("/api/diagnostics/price/{symbol}")
 async def price_source_diagnostics(symbol: str):
     from market_context import probe_price_sources

@@ -280,29 +280,36 @@ BLACKDARK يجب أن يُباع كـ **Decision Intelligence + Proven Predictiv
 إذا تعارض Order Book مع Sentiment/Macro بقوة → **WAIT إجباري**.  
 **التميّز:** معظم البوتات تصرخ Buy؛ أنتم تشتهرون بـ «نرفض الإشارات المتناقضة».
 
-### D3 — Net-Edge Truth Score
+### D3 — Net-Edge Truth Score ✅ LIVE
 فرصة تُرفض إن لم تتجاوز: fees + withdraw + slippage + latency buffer + crowd decay.  
-**التميّز:** أقل إشارات… لكن أعلى نسبة «قابلة للتنفيذ».
+**التميّز:** أقل إشارات… لكن أعلى نسبة «قابلة للتنفيذ».  
+**تنفيذ:** `net_edge_truth.py` · `GET /api/oracle/net-edge-truth`
 
-### D4 — Opportunity Half-Life
+### D4 — Opportunity Half-Life ✅ LIVE
 عرض عمر الفرصة المتوقع بالثواني واحتمال اختفائها.  
-**يجذب الحيتان:** وقت = مال.
+**يجذب الحيتان:** وقت = مال.  
+**تنفيذ:** `opportunity_tracker.estimate_opportunity_half_life` · `GET /api/oracle/half-life`
 
 ### D5 — Regime-Conditional Model
 نماذج/أوزان حسب Risk-On/Off/Panic بدل نموذج واحد أعمى.  
-**DD:** يُظهر نضج كمي.
+**DD:** يُظهر نضج كمي. (أوزان نظام حيّة؛ نماذج ML منفصلة لاحقاً)
 
-### D6 — Acquirer Data Room Mode
+### D6 — Acquirer Data Room Mode ✅ LIVE
 زر واحد يصدّر: accuracy, dataset stats, uptime, sources, risk incidents, revenue.  
-**للاستحواذ مباشرة.**
+**للاستحواذ مباشرة.**  
+**تنفيذ:** `acquirer_evidence_pack.py` · `GET /api/due-diligence/evidence-pack`
 
-### D7 — Arabic-first Institutional UX (MENA wedge)
+### D7 — Arabic-first Institutional UX (MENA wedge) ✅ LIVE (API)
 شرح Oracle عربي فصيح + وضع مبتدئ، مع بنية بيانات عالمية.  
-**انفجار إقليمي** في سوق غير مخدوم مؤسسياً.
+**انفجار إقليمي** في سوق غير مخدوم مؤسسياً.  
+**تنفيذ:** `persona_clarity.py` · `GET /api/oracle/persona-clarity/demo`
 
-### D8 — Signal Registry (Sovereign)
+### D8 — Signal Registry (Sovereign) ✅ LIVE
 سجل إشارات مملوك بتعريف معياري (`signal_type`, `asof`, `features_hash`, `label`).  
-هذا ما يُشترى: **معجم إشارات + تاريخ مُسمّى**.
+هذا ما يُشترى: **معجم إشارات + تاريخ مُسمّى**.  
+**تنفيذ:** `signal_registry.py` · `GET /api/oracle/signals`
+
+> تفاصيل الشحن: `docs/UNIQUE_DIFFERENTIATORS_AR.md`
 
 ---
 

@@ -20,6 +20,14 @@ async def build_full_due_diligence_bundle() -> dict[str, Any]:
     moat = await build_moat_build_status()
     tech = due_diligence_report()
 
+    evidence = None
+    try:
+        from acquirer_evidence_pack import build_acquirer_evidence_pack
+
+        evidence = await build_acquirer_evidence_pack()
+    except Exception:
+        evidence = {"error": "evidence_pack_unavailable"}
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "summary_en": (
@@ -36,6 +44,7 @@ async def build_full_due_diligence_bundle() -> dict[str, Any]:
         "retention_guard": retention_guard_status(),
         "flywheel_saturation": flywheel_saturation_status(),
         "observability": observability_status(),
+        "acquirer_evidence_pack": evidence,
         "documentation": {
             "architecture": "docs/ARCHITECTURE.md",
             "runbook": "docs/RUNBOOK.md",
@@ -43,5 +52,6 @@ async def build_full_due_diligence_bundle() -> dict[str, Any]:
             "storage": "STORAGE_ARCHITECTURE.md",
             "microservices": "docs/MICROSERVICES_ARCHITECTURE.md",
             "deploy": "DEPLOY.md",
+            "unique_differentiators": "docs/UNIQUE_DIFFERENTIATORS_AR.md",
         },
     }
