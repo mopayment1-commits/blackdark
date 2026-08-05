@@ -35,6 +35,7 @@ def build_persona_clarity(
     verdict: str,
     payload: dict[str, Any] | None = None,
     net_profit_usdt: float = 0.0,
+    include_ar: bool = False,
 ) -> dict[str, Any]:
     p = payload or {}
     truth = _truth(p)
@@ -112,18 +113,25 @@ def build_persona_clarity(
         "Not an indicator dashboard — a sellable labeled signal lexicon."
     )
 
+    def _persona(en: str, ar: str) -> dict[str, str]:
+        row = {"en": en, "text": en}
+        if include_ar:
+            row["ar"] = ar
+        return row
+
     return {
         "action": action,
         "asset": asset,
         "score": score,
         "verdict": verdict,
         "regime": regime,
+        "lang": "en",
         "personas": {
-            "retail": {"ar": retail_ar, "en": retail_en},
-            "pro": {"ar": pro_ar, "en": pro_en},
-            "whale": {"ar": whale_ar, "en": whale_en},
-            "fund": {"ar": fund_ar, "en": fund_en},
-            "acquirer": {"ar": acquirer_ar, "en": acquirer_en},
+            "retail": _persona(retail_en, retail_ar),
+            "pro": _persona(pro_en, pro_ar),
+            "whale": _persona(whale_en, whale_ar),
+            "fund": _persona(fund_en, fund_ar),
+            "acquirer": _persona(acquirer_en, acquirer_ar),
         },
         "hooks": {
             "problem_solved_retail": "one clear act/wait instead of 200 indicators",

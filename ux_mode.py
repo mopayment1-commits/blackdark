@@ -65,15 +65,35 @@ def apply_ux_mode(payload: dict[str, Any], *, mode: str = "beginner", lang: str 
         }
         slim = {k: out[k] for k in _BEGINNER_KEYS if k in out}
         # Keep a tiny pro teaser so upgrade path is clear
+        truth = out.get("net_edge_truth") or {}
+        half = out.get("opportunity_half_life") or {}
         slim["upgrade_hint"] = {
-            "message": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
+            "message": "Switch to Pro to unlock Net-Edge Truth Score and Opportunity Half-Life.",
             "mode": "pro",
+            "teaser": {
+                "truth_score": truth.get("truth_score"),
+                "half_life_seconds": half.get("expected_half_life_seconds"),
+                "remaining_seconds": half.get("remaining_seconds"),
+                "regime": out.get("market_regime"),
+            },
         }
         return slim
 
-    # Pro: prefer pro/whale persona line as primary sentence when available
-    pro = personas.get("pro") or {}
-    out["decision_sentence_pro"] = pro.get(lang_n) or pro.get("en")
-    whale = personas.get("whale") or {}
-    out["decision_sentence_whale"] = whale.get(lang_n) or whale.get("en")
+    # Pro: English-only persona lines; strip any residual ar keys
+    cleaned_personas: dict[str, Any] = {}
+    for name, block in personas.items():
+        if not isinstance(block, dict):
+            continue
+        en = block.get("en") or block.get("text") or ""
+        cleaned_personas[name] = {"en": en, "text": en}
+    if cleaned_personas:
+        out["persona_clarity"] = {
+            **{k: v for k, v in persona.items() if k != "personas"},
+            "personas": cleaned_personas,
+            "lang": "en",
+        }
+    pro = cleaned_personas.get("pro") or personas.get("pro") or {}
+    out["decision_sentence_pro"] = pro.get(lang_n) or pro.get("en") or pro.get("text")
+    whale = cleaned_personas.get("whale") or personas.get("whale") or {}
+    out["decision_sentence_whale"] = whale.get(lang_n) or whale.get("en") or whale.get("text")
     return out

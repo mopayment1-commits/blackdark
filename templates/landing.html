@@ -912,8 +912,22 @@
                     proMeta.textContent = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
                 }
                 if (data.upgrade_hint) {
+                    const teaser = data.upgrade_hint.teaser || {};
+                    const teaserLine = [
+                        teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
+                        teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
+                        teaser.regime ? `Regime ${teaser.regime}` : null,
+                    ].filter(Boolean).join(' · ');
                     upgradeEl.style.display = 'block';
-                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${data.upgrade_hint.message || data.upgrade_hint.message_en || ''}</span>`;
+                    upgradeEl.innerHTML =
+                        `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
+                        (teaserLine ? `<br>${teaserLine}` : '') +
+                        `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
+                    document.getElementById('switchProBtn')?.addEventListener('click', () => {
+                        const sel = document.getElementById('landingUxMode');
+                        if (sel) sel.value = 'pro';
+                        consultOracle();
+                    });
                 }
                 updateShareLinks(data);
             } catch (error) {

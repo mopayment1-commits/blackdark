@@ -155,6 +155,26 @@
         </div>
     </section>
 
+    <section class="panel">
+        <div class="card">
+            <h2>D8 · Signal Registry</h2>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading signal lexicon…</p>
+            <div style="overflow-x:auto;margin-top:1rem">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registry-body">
+                        <tr><td colspan="2">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
     <section class="grid" id="stats-grid">
         <div class="stat"><div class="num" id="stat-accuracy">—</div><div class="lbl">Average accuracy %</div></div>
         <div class="stat"><div class="num" id="stat-total">—</div><div class="lbl">Total predictions</div></div>
@@ -268,6 +288,21 @@
                             <td><span class="pill ${row.artifact_present ? 'correct' : 'partial'}">${row.status || '—'}</span></td>
                         </tr>`;
                     }).join('');
+                }
+
+                const reg = data.signal_registry || {};
+                document.getElementById('registry-status').textContent =
+                    `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
+                    (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
+                const byType = reg.by_type || {};
+                const regBody = document.getElementById('registry-body');
+                const typeKeys = Object.keys(byType);
+                if (!typeKeys.length) {
+                    regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
+                } else {
+                    regBody.innerHTML = typeKeys.map(k =>
+                        `<tr><td>${k}</td><td>${byType[k]}</td></tr>`
+                    ).join('');
                 }
 
                 const rows = oracle.recent_predictions || [];

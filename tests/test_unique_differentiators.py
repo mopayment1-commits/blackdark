@@ -103,9 +103,30 @@ def test_persona_clarity_all_segments():
         net_profit_usdt=0.05,
     )
     assert card["action"] == "WAIT"
+    assert card.get("lang") == "en"
     for key in ("retail", "pro", "whale", "fund", "acquirer"):
-        assert "ar" in card["personas"][key]
         assert "en" in card["personas"][key]
+        assert "text" in card["personas"][key]
+        assert "ar" not in card["personas"][key]
+    with_ar = build_persona_clarity(
+        asset="BTC",
+        score=68,
+        verdict="Do Not Touch",
+        payload=card.get("payload")
+        or {
+            "market_regime": "panic",
+            "net_edge_truth": {"truth_score": 40, "reject": True},
+            "opportunity_half_life": {
+                "expected_half_life_seconds": 12,
+                "remaining_seconds": 3,
+                "disappearance_probability": 0.8,
+            },
+            "dimension_conflict": {"veto": False},
+        },
+        net_profit_usdt=0.05,
+        include_ar=True,
+    )
+    assert "ar" in with_ar["personas"]["retail"]
 
 
 @pytest.mark.asyncio

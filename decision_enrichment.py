@@ -90,6 +90,13 @@ def enrich_oracle_decision(
         logger.debug("half-life enrich failed", exc_info=True)
         out["opportunity_half_life"] = {"error": "unavailable"}
 
+    # Ensure contradiction meta is visible to persona + registry before labeling.
+    if not isinstance(out.get("dimension_conflict"), dict):
+        modal = out.get("modal_breakdown") or {}
+        conflicts = modal.get("conflicts") if isinstance(modal, dict) else None
+        if isinstance(conflicts, dict):
+            out["dimension_conflict"] = conflicts
+
     try:
         from persona_clarity import build_persona_clarity
 

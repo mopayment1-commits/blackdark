@@ -261,6 +261,8 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         "regime_models": _regime_models_block(),
 
+        "signal_registry": _signal_registry_block(),
+
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
 
     }
@@ -273,6 +275,27 @@ def _regime_models_block() -> dict[str, Any]:
         return regime_model_registry()
     except Exception as exc:
         return {"error": str(exc), "evidence_status": "unavailable"}
+
+
+def _signal_registry_block() -> dict[str, Any]:
+    """Public-safe D8 moat summary (no persist paths / raw feature dumps)."""
+    try:
+        from signal_registry import registry_stats
+
+        stats = registry_stats()
+        return {
+            "differentiator": "D8",
+            "total": stats.get("total_in_memory", 0),
+            "labeled": stats.get("labeled", 0),
+            "unlabeled": stats.get("unlabeled", 0),
+            "by_type": stats.get("by_type") or {},
+            "by_label": stats.get("by_label") or {},
+            "moat_claim": stats.get("moat_claim"),
+            "generated_at": stats.get("generated_at"),
+            "api": "/api/oracle/signals",
+        }
+    except Exception as exc:
+        return {"error": str(exc), "differentiator": "D8"}
 
 
 def _chain_lookup() -> dict[str, dict[str, Any]]:

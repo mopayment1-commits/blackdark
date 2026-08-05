@@ -2644,7 +2644,7 @@
                 return;
             }
             voiceRecognition = new SpeechRecognition();
-            voiceRecognition.lang = 'ar-SA';
+            voiceRecognition.lang = 'en-US';
             voiceRecognition.interimResults = false;
             voiceRecognition.onstart = () => { voiceListening = true; btn.classList.add('listening'); };
             voiceRecognition.onend = () => { voiceListening = false; btn.classList.remove('listening'); };
@@ -2709,19 +2709,35 @@
             const errEl = document.getElementById('pricingErrorPanel');
             try {
                 const [wRes, cRes] = await Promise.all([
-                    fetch(`/api/oracle/weights?symbol=${sym}`),
-                    fetch(`/api/arbitrage/compare/${sym}`),
+                    fetch(`/api/oracle/weights/public?symbol=${encodeURIComponent(sym)}`),
+                    fetch(`/api/arbitrage/compare/${encodeURIComponent(sym)}`, {
+                        headers: typeof authHeaders === 'function' ? authHeaders() : {},
+                    }),
                 ]);
-                const weights = await wRes.json();
+                if (!wRes.ok) {
+                    weightsEl.innerHTML = wRes.status === 401 || wRes.status === 403
+                        ? 'Weights locked — <a href="/login">login</a> or <a href="/create-checkout-session?tier=pro">upgrade to Pro</a>.'
+                        : 'Oracle weights unavailable';
+                } else {
+                    const weights = await wRes.json();
+                    const dims = weights.dimension_weights || {};
+                    const pct = (k) => dims[k] != null ? `${(Number(dims[k]) * 100).toFixed(0)}%` : '—';
+                    weightsEl.innerHTML = `
+                        <strong>Oracle Weights (${sym})</strong> · regime ${weights.market_regime || '—'}<br>
+                        Technical ${pct('technical')} · On-chain ${pct('onchain')} ·
+                        Sentiment ${pct('sentiment')} · Macro ${pct('macro')} ·
+                        Whale ${pct('whale')}
+                    `;
+                }
+                if (!cRes.ok) {
+                    const upgrade = cRes.status === 401 || cRes.status === 403
+                        ? 'Login or upgrade required for live feed-lag / pricing-error edges.'
+                        : 'Compare unavailable';
+                    lagEl.textContent = upgrade;
+                    errEl.textContent = '';
+                    return;
+                }
                 const compare = await cRes.json();
-                const dims = weights.dimension_weights || {};
-                weightsEl.innerHTML = `
-                    <strong>Oracle Weights (${sym})</strong><br>
-                    Technical ${(dims.technical * 100).toFixed(0)}% · On-chain ${(dims.onchain * 100).toFixed(0)}% ·
-                    Sentiment ${(dims.sentiment * 100).toFixed(0)}% · Macro ${(dims.macro * 100).toFixed(0)}% ·
-                    Whale ${(dims.whale * 100).toFixed(0)}% ·
-                    Modal adj: <strong>${weights.breakdown?.total_modal_adjustment ?? 0}</strong>
-                `;
                 const lagOps = compare.feed_lag?.opportunities || [];
                 lagEl.innerHTML = lagOps.length
                     ? lagOps.slice(0, 3).map(o => `${o.slow_exchange}: ${o.edge_bps} bps · lag ${o.lag_seconds}s (${o.direction})`).join('<br>')

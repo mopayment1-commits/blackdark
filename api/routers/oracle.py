@@ -252,6 +252,24 @@ async def api_signal_registry(
     }
 
 
+@router.get("/api/oracle/signals/summary")
+async def api_signal_registry_summary():
+    """Public D8 moat summary without full signal rows."""
+    from signal_registry import registry_stats
+
+    stats = registry_stats()
+    return {
+        "differentiator": "D8",
+        "total": stats.get("total_in_memory", 0),
+        "labeled": stats.get("labeled", 0),
+        "unlabeled": stats.get("unlabeled", 0),
+        "by_type": stats.get("by_type") or {},
+        "by_label": stats.get("by_label") or {},
+        "moat_claim": stats.get("moat_claim"),
+        "generated_at": stats.get("generated_at"),
+    }
+
+
 @router.get("/api/oracle/persona-clarity/demo")
 async def api_persona_clarity_demo(
     asset: str = "BTC",
