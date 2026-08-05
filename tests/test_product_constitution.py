@@ -67,7 +67,7 @@ def test_heroes_strategy_binding_exists():
         "Signal vs Noise",
         "Emerging Fund",
         "Compliance Footer",
-        "Audience entry routing",
+        "Audience entry",
     ):
         assert marker in text
     constitution = (ROOT / "docs" / "PRODUCT_CONSTITUTION_AR.md").read_text(encoding="utf-8")

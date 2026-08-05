@@ -970,7 +970,7 @@
                 const action = data.decision_action || data.verdict || 'WAIT';
                 disc.style.display = 'block';
                 disc.innerHTML =
-                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal?</div>` +
+                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my page</a></div>` +
                     `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
                     `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                     `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;

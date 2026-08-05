@@ -92,7 +92,60 @@ async def discipline_answer(body: dict = Body(...)):
 async def discipline_me(user_key: str = Query(...), limit: int = Query(100, ge=1, le=500)):
     from discipline_mirror import personal_mirror
 
-    return personal_mirror(user_key, limit=limit)
+    label_by_id: dict[str, str] = {}
+    try:
+        from database import fetch_labeled_oracle_predictions
+
+        labeled = await fetch_labeled_oracle_predictions(limit=500, include_synthetic=False)
+        for lab in labeled or []:
+            pid = lab.get("id") or lab.get("prediction_id")
+            if pid is not None:
+                label_by_id[str(pid)] = str(lab.get("label") or "")
+    except Exception:
+        label_by_id = {}
+    return personal_mirror(user_key, limit=limit, label_by_id=label_by_id)
+
+
+@router.get("/api/accuracy/monthly-losing-report")
+async def monthly_losing_report(limit: int = Query(25, ge=1, le=100)):
+    from monthly_losing_report import build_monthly_losing_report
+
+    return await build_monthly_losing_report(limit=limit)
+
+
+@router.get("/api/audit-challenge")
+async def audit_challenge():
+    from oracle_audit_chain import verify_chain
+
+    verify = verify_chain()
+    return {
+        "title": "Audit Challenge — Prove us wrong",
+        "invitation": (
+            "We invite any external party to find a real break in the Public Accuracy "
+            "Ledger hash chain. Symbolic recognition for a verified contradiction."
+        ),
+        "how": [
+            "Open /oracle-accuracy and /api/oracle/audit-chain/verify",
+            "Reproduce tip hash linkage across records",
+            "Report a broken_at_seq with evidence to sales@blackdark.io",
+        ],
+        "live_verify": verify,
+        "verify_endpoint": "/api/oracle/audit-chain/verify",
+        "hero_deepening": "public_accuracy_ledger",
+    }
+
+
+@router.post("/api/whale/stealth-advisor")
+async def stealth_advisor(body: dict = Body(...)):
+    from stealth_execution_advisor import advise_stealth_execution
+
+    return advise_stealth_execution(
+        asset=str(body.get("asset") or "BTC"),
+        notional_usd=float(body.get("notional_usd") or 10000),
+        side=str(body.get("side") or "buy"),
+        half_life_seconds=body.get("half_life_seconds"),
+        average_daily_volume_usd=body.get("average_daily_volume_usd"),
+    )
 
 
 @router.get("/api/whale/signal-vs-noise")

@@ -160,6 +160,27 @@
             <h2>Locked Predictions · Glass Box</h2>
             <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
             <ul class="events" id="locked-list"><li>Loading...</li></ul>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share link</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="losing">
+        <div class="card">
+            <h2>Monthly Losing Trade Report</h2>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
+            <ul class="events" id="losing-list"><li>Loading...</li></ul>
+        </div>
+    </section>
+
+    <section class="panel" id="audit-challenge">
+        <div class="card">
+            <h2>Audit Challenge — Prove us wrong</h2>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
+            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
+                Find a real break in the hash chain. We publish the full ledger — including misses.
+            </p>
         </div>
     </section>
 
@@ -388,8 +409,42 @@
             }
         }
 
+        async function loadLosing() {
+            try {
+                const res = await fetch('/api/accuracy/monthly-losing-report?limit=12');
+                const data = await res.json();
+                document.getElementById('losing-status').textContent =
+                    (data.thesis || '') + ` · misses in window: ${data.total_labeled_misses_in_window ?? 0}`;
+                const rows = data.sample || [];
+                const list = document.getElementById('losing-list');
+                list.innerHTML = rows.length
+                    ? rows.map(r => `<li><strong>${r.asset||'—'}</strong> · ${r.verdict||''} · ${r.label||''} · id ${r.prediction_id??'—'}</li>`).join('')
+                    : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
+            } catch (e) {
+                document.getElementById('losing-status').textContent = 'Losing report unavailable';
+            }
+        }
+
+        async function loadAuditChallenge() {
+            try {
+                const res = await fetch('/api/audit-challenge');
+                const data = await res.json();
+                const v = data.live_verify || {};
+                document.getElementById('audit-status').textContent =
+                    `${data.invitation || ''} Live verify: ${v.valid === true ? 'VALID' : (v.valid === false ? 'INVALID' : 'n/a')} · records=${v.records ?? '—'}`;
+            } catch (e) {
+                document.getElementById('audit-status').textContent = 'Audit challenge unavailable';
+            }
+        }
+
+        document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
+            navigator.clipboard.writeText(location.origin + '/oracle-accuracy');
+        });
+
         loadAccuracy();
         loadLocked();
+        loadLosing();
+        loadAuditChallenge();
         setInterval(loadAccuracy, 60000);
         setInterval(loadLocked, 120000);
     </script>

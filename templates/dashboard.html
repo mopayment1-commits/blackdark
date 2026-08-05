@@ -136,7 +136,7 @@
 
         <section>
             <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">Inbox works without Telegram</p>
+            <p class="sub" id="tgStatus">Inbox works without Telegram — no TradingView-style 15/3min hard cap on in-app alerts</p>
             <div class="toolbar">
                 <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
                 <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
@@ -220,6 +220,12 @@
                 const half = d.opportunity_half_life || {};
                 const sig = d.signal_registry || {};
                 let proBlock = '';
+                const factors = (d.explanation && d.explanation.top_3_factors) || [];
+                const factorBlock = factors.length ? `
+                    <div style="margin-top:.85rem">
+                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
+                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
+                    </div>` : '';
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">
@@ -227,7 +233,9 @@
                         <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
                         <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
                         <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
-                    </div>`;
+                    </div>${factorBlock}`;
+                } else {
+                    proBlock = factorBlock;
                 }
                 let upgradeBlock = '';
                 if (d.upgrade_hint) {
@@ -263,7 +271,9 @@
                     ${proBlock}
                     ${vetoBlock}
                     ${proofBlock}
-                    ${upgradeBlock}`;
+                    ${upgradeBlock}
+                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
+                    <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
             }
@@ -382,14 +392,21 @@
             const el = document.getElementById('whales');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
             try {
-                const url = refresh ? '/api/whale-activity?refresh=true' : '/api/whale-activity';
-                const res = await fetch(url);
+                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
                 const data = await res.json();
-                const alerts = data.alerts || data.whale_alerts || [];
-                el.innerHTML = alerts.length ? alerts.slice(0,8).map(a => `
-                    <div class="whale-card"><strong>${a.asset||'—'}</strong> ${(a.side||'').toUpperCase()}
-                    ${a.notional_usd ? '$'+fmt(a.notional_usd) : ''}</div>`).join('')
-                    : '<div class="empty">No whale alerts</div>';
+                const classified = data.classified || [];
+                const stories = data.stories || [];
+                if (classified.length) {
+                    el.innerHTML = classified.map(a => `
+                        <div class="whale-card">
+                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
+                        </div>`).join('');
+                } else if (stories.length) {
+                    el.innerHTML = stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                } else {
+                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                }
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 

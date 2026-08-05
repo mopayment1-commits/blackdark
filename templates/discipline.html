@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Discipline Mirror (Private)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --success:#22c55e; --danger:#ef4444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        nav { display:flex; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid var(--border); }
+        nav a { color: var(--muted); text-decoration:none; margin-left:1rem; }
+        .logo { font-weight:800; color:var(--accent); text-decoration:none; }
+        main { max-width: 720px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+        h1 { font-size: 1.75rem; margin-bottom: .5rem; }
+        .sub { color: var(--muted); margin-bottom: 1.5rem; }
+        .card { background: var(--card); border:1px solid var(--border); border-radius:14px; padding:1.25rem; margin-bottom:1rem; }
+        .metrics { display:grid; grid-template-columns: repeat(3,1fr); gap:.75rem; margin:1rem 0; }
+        .metric { background:#1a1a24; border-radius:10px; padding:.85rem; text-align:center; }
+        .metric strong { display:block; font-size:1.25rem; }
+        .metric span { color:var(--muted); font-size:.75rem; }
+        .row { padding:.65rem 0; border-bottom:1px solid var(--border); font-size:.88rem; color:var(--muted); }
+        .row strong { color:var(--text); }
+        .btn { display:inline-block; margin-top:.75rem; padding:.65rem 1.1rem; border-radius:10px; background:linear-gradient(135deg,var(--accent),#06b6d4); color:#041016; font-weight:700; border:none; cursor:pointer; text-decoration:none; }
+        .foot { margin-top:1.5rem; font-size:.75rem; color:var(--muted); }
+        input { background:#1a1a24; border:1px solid var(--border); color:var(--text); padding:.55rem .75rem; border-radius:8px; width:100%; margin:.5rem 0 1rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">BLACKDARK</a>
+        <div>
+            <a href="/">Oracle</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/oracle-accuracy">Accuracy</a>
+        </div>
+    </nav>
+    <main>
+        <h1>Discipline Mirror</h1>
+        <p class="sub">Private only — the system said Act/Wait; did you follow, or override from fear? This page never goes public.</p>
+        <div class="card">
+            <label for="userKey">Your private key (email or local id)</label>
+            <input id="userKey" placeholder="you@email.com or leave blank to use browser key">
+            <button class="btn" type="button" onclick="loadMirror()">Open my mirror</button>
+        </div>
+        <div class="card" id="mirrorBox">
+            <p class="sub" id="msg">Enter your key to load private stats.</p>
+            <div class="metrics" id="metrics" style="display:none">
+                <div class="metric"><strong id="mFollow">—</strong><span>Follow rate</span></div>
+                <div class="metric"><strong id="mSys">—</strong><span>System score</span></div>
+                <div class="metric"><strong id="mYou">—</strong><span>Your score</span></div>
+            </div>
+            <p id="delta" style="color:var(--accent);margin:.75rem 0"></p>
+            <div id="recent"></div>
+        </div>
+        <p class="foot" id="compliance">Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.</p>
+        <a class="btn" href="/">Back to Single-Sentence Oracle</a>
+    </main>
+    <script>
+        function key() {
+            const el = document.getElementById('userKey');
+            let k = (el.value || '').trim();
+            if (!k) {
+                k = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2,10));
+                localStorage.setItem('bd_user_key', k);
+                el.value = k;
+            }
+            return k;
+        }
+        async function loadMirror() {
+            const k = key();
+            document.getElementById('msg').textContent = 'Loading private mirror…';
+            try {
+                const res = await fetch('/api/discipline-mirror/me?user_key=' + encodeURIComponent(k));
+                const d = await res.json();
+                document.getElementById('metrics').style.display = 'grid';
+                document.getElementById('mFollow').textContent = (d.follow_rate_percent ?? 0) + '%';
+                document.getElementById('mSys').textContent = d.system_discipline_score ?? '—';
+                document.getElementById('mYou').textContent = d.your_behavior_score ?? '—';
+                document.getElementById('delta').textContent = d.delta_plain_english || d.message || '';
+                document.getElementById('msg').textContent = `Answers: ${d.total_answers || 0} · followed ${d.followed_count || 0} · overridden ${d.ignored_count || 0}`;
+                const rows = d.recent || [];
+                document.getElementById('recent').innerHTML = rows.length
+                    ? rows.map(r => `<div class="row"><strong>${r.asset}</strong> · system ${r.system_action} · ${r.followed ? 'followed' : 'overrode'} · ${r.outcome_label || 'pending'}</div>`).join('')
+                    : '<div class="row">No answers yet — use Yes/No after an Oracle decision on the home page.</div>';
+            } catch (e) {
+                document.getElementById('msg').textContent = 'Mirror unavailable';
+            }
+        }
+        document.getElementById('userKey').value = localStorage.getItem('bd_user_key') || '';
+        if (document.getElementById('userKey').value) loadMirror();
+    </script>
+</body>
+</html>

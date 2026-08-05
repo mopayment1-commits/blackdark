@@ -96,3 +96,27 @@ def test_constitution_gates_half_life_and_alertable():
     apply_half_life_kill(row)
     assert row["half_life_killed"] is True
     assert is_alertable(row) is False
+
+
+def test_stealth_advisor_and_discipline_delta():
+    from discipline_mirror import personal_mirror
+    from stealth_execution_advisor import advise_stealth_execution
+
+    tip = advise_stealth_execution(asset="BTC", notional_usd=2_000_000, half_life_seconds=12)
+    assert tip["recommended_slices"] >= 1
+    assert tip["status"] == "advisory_shell_v1"
+
+    mirror = personal_mirror(
+        "u1",
+        label_by_id={},
+    )
+    assert mirror["private"] is True
+    assert "delta_plain_english" in mirror
+
+
+def test_english_ui_includes_discipline_page():
+    from pathlib import Path
+
+    text = Path("templates/discipline.html").read_text(encoding="utf-8")
+    assert 'lang="en"' in text
+    assert "Discipline Mirror" in text

@@ -27,6 +27,7 @@ _BEGINNER_KEYS = {
     "proof",
     "decision_certificate",
     "compliance_footer",
+    "explanation",
     "oracle",
     "narrative",
 }

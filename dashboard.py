@@ -588,11 +588,40 @@ async def _build_opportunity_explanation(
         else "Low volatility environment"
     )
 
+    # Hero #1 — Top-3 factors for <5s understanding (with real sources).
+    top_factors = [
+        {
+            "factor": "Technical structure",
+            "detail": f"RSI {rsi} ({_rsi_signal_label(rsi)}) · {macd_trend}",
+            "source": rsi_source,
+            "weight_hint": "high" if abs(float(rsi) - 50) > 12 else "medium",
+        },
+        {
+            "factor": "Whale / institutional flow",
+            "detail": whale_alert_text,
+            "source": "CVVD whale detection",
+            "weight_hint": "high" if asset_alerts else "medium",
+        },
+        {
+            "factor": "Sentiment + on-chain",
+            "detail": f"{news_label} news · {onchain_note}",
+            "source": "sentiment index + exchange flows",
+            "weight_hint": "medium",
+        },
+    ]
+
     return {
         "symbol": asset,
         "verdict": verdict,
         "opportunity_score": score,
         "simulated": False,
+        "top_3_factors": top_factors,
+        "checklist": [
+            {"label": "Score", "value": score, "ok": score >= 55},
+            {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
+            {"label": "Whale context", "value": "present" if asset_alerts else "quiet", "ok": True},
+            {"label": "Volatility", "value": volatility, "ok": abs(change) < 8},
+        ],
         "data_sources": [
             "Binance Live API (price + 1h candles)",
             "CVVD Cross-Venue Whale Detection",
@@ -778,6 +807,12 @@ async def landing_page(request: Request):
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     return templates.TemplateResponse(request, "dashboard.html")
+
+
+@app.get("/discipline-mirror", response_class=HTMLResponse)
+async def discipline_mirror_page(request: Request):
+    """Private Discipline Mirror UI — never public ledger."""
+    return templates.TemplateResponse(request, "discipline.html")
 
 
 @app.get("/api/dashboard/stream")
