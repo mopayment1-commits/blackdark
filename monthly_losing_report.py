@@ -33,18 +33,25 @@ async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
         }
         for r in sample
     ]
+    thesis = (
+        "We publish misses, not just wins — the Glass Box posture. "
+        "Competitors show highlights; we show the full ledger."
+    )
+    share_text = (
+        f"BLACKDARK Monthly Losing Trade Report · {len(misses)} labeled misses in window · "
+        f"full public ledger at /oracle-accuracy#losing · Prove it, not trust me · Not financial advice"
+    )
     return {
         "title": "Monthly Losing Trade Report",
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "thesis": (
-            "We publish misses, not just wins — the Glass Box posture. "
-            "Competitors show highlights; we show the full ledger."
-        ),
+        "thesis": thesis,
         "total_labeled_misses_in_window": len(misses),
         "sample": public,
+        "share_text": share_text,
         "public_accuracy_page": "/oracle-accuracy",
         "hero_deepening": "public_accuracy_ledger",
         "compliance": {
-            "disclaimer": "Not financial advice. Past misses do not predict future results.",
+            "disclaimer": "Not financial advice. Past misses do not predict future results. Verify on the Public Accuracy Ledger.",
+            "trust_basis": "public_accuracy_ledger + labeled_flywheel",
         },
     }

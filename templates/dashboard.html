@@ -163,6 +163,7 @@
         <section>
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
+            <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
             <div class="toolbar">
                 <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
                 <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
@@ -299,6 +300,13 @@
                     ${proofBlock}
                     ${upgradeBlock}
                     ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
+                    ${(() => {
+                        const cert = d.decision_certificate || {};
+                        if (!(cert.certificate_hash || d.prediction_id)) return '';
+                        window._lastCertShare = cert.share_text || '';
+                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
+                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}</div>`;
+                    })()}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
@@ -508,9 +516,35 @@
             } catch (e) { alert('Test failed — configure bot first'); }
         }
 
+        async function loadAlertsGenerosity() {
+            const el = document.getElementById('alertsGenerosity');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/alerts/generosity');
+                const d = await res.json();
+                const bd = d.blackdark || {};
+                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
+                    `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+            } catch (e) { /* ignore */ }
+        }
+
+        function applyAudienceFromQuery() {
+            const params = new URLSearchParams(location.search);
+            const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
+            if (!aud) return;
+            localStorage.setItem('bd_audience', aud);
+            const mode = document.getElementById('uxMode');
+            if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
+            if (aud === 'whale') {
+                const target = document.getElementById('stealth') || document.getElementById('mev');
+                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
+            }
+        }
+
         function boot() {
             loadAuth();
             applyLang();
+            applyAudienceFromQuery();
             askOracle();
             initChart();
             loadChart();
@@ -521,6 +555,7 @@
             loadMevReport();
             runStealthAdvisor();
             loadTgStatus();
+            loadAlertsGenerosity();
             loadInbox();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);

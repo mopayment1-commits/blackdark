@@ -826,6 +826,47 @@ async def telegram_test(data: dict = Body(default={})):
 async def landing_page(request: Request):
     return templates.TemplateResponse(request, "landing.html")
 
+
+@app.get("/robots.txt")
+async def robots_txt():
+    from fastapi.responses import PlainTextResponse
+
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /admin/\n"
+        "Disallow: /api/auth/\n"
+        "Sitemap: /sitemap.xml\n"
+    )
+    return PlainTextResponse(body, media_type="text/plain")
+
+
+@app.get("/sitemap.xml")
+async def sitemap_xml(request: Request):
+    from fastapi.responses import Response
+
+    base = str(request.base_url).rstrip("/")
+    paths = [
+        "/",
+        "/dashboard",
+        "/oracle-accuracy",
+        "/b2b",
+        "/discipline-mirror",
+        "/platform",
+        "/login",
+    ]
+    urls = "\n".join(
+        f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}\n"
+        "</urlset>\n"
+    )
+    return Response(content=xml, media_type="application/xml")
+
+
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):

@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
+    <meta name="description" content="BLACKDARK — one Act/Wait Oracle decision with a public verifiable accuracy ledger. Prove it, not trust me.">
+    <meta property="og:title" content="BLACKDARK — AI Crypto Intelligence">
+    <meta property="og:description" content="Single-Sentence Oracle + Public Accuracy Ledger. Labels are not proof.">
+    <meta property="og:type" content="website">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
     <title>BLACKDARK — AI Crypto Intelligence Platform</title>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"AI crypto intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1022,8 +1029,10 @@
                 if (cta) cta.textContent = d.cta || '';
                 const mode = document.getElementById('landingUxMode');
                 if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
-                if (aud === 'fund') {
-                    window.location.href = '/b2b?audience=fund#fund-terminal';
+                if (aud === 'fund' && d.entry_path) {
+                    window.location.href = d.entry_path;
+                } else if ((aud === 'whale' || aud === 'pro') && d.entry_path) {
+                    window.location.href = d.entry_path;
                 }
             } catch (e) { /* ignore */ }
         }

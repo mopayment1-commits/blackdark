@@ -27,7 +27,7 @@
 | Method | Path | Description |
 |--------|------|-------------|
 | GET | `/oracle/{symbol}?ux_mode=beginner\|pro&lang=en` | Primary Oracle + constitution enrich (English-only UI) |
-| GET | `/oracle-accuracy` · `/oracle/accuracy` | Public accuracy page (AR) |
+| GET | `/oracle-accuracy` · `/oracle/accuracy` | Public Accuracy Ledger page (English) |
 | GET | `/api/oracle/accuracy/public` | Public track record + proof_chain |
 | GET | `/api/oracle/audit-chain` | Immutable hash chain |
 | GET | `/api/oracle/audit-chain/verify` | Chain integrity check |
@@ -37,6 +37,26 @@
 | GET | `/api/oracle/persona-clarity/demo` | Persona Clarity English-first (D7) |
 | GET | `/api/due-diligence/evidence-pack` | Full Evidence Pack (Whale/Admin) |
 | GET | `/api/due-diligence/evidence-pack/public-summary` | Redacted public teaser |
+
+## Heroes Strategy & Section Z
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/api/heroes/strategy` | Binding heroes + Section Z map |
+| GET | `/api/audience/entry?audience=` | Section H entry routing |
+| POST | `/api/oracle/decision-certificate` | Build Decision Certificate |
+| GET/POST | `/api/locked-predictions` | Glass Box sealed forecasts |
+| POST | `/api/discipline-mirror/answer` | Private follow-up Yes/No |
+| GET | `/api/discipline-mirror/me` | Private Discipline Mirror |
+| GET | `/api/accuracy/monthly-losing-report` | Public losing-trade sample |
+| GET | `/api/audit-challenge` | Hash-chain challenge pack |
+| GET | `/api/whale/signal-vs-noise` | Whale Signal vs Noise |
+| POST | `/api/whale/stealth-advisor` | Whale stealth sizing advisory |
+| GET | `/api/mev/sandwich-report` | Shareable MEV/Sandwich posture |
+| GET | `/api/glass-box/challenge` | Glass Box Challenge ready pack |
+| GET | `/api/fund/emerging-terminal` | Emerging Fund Terminal pack |
+| GET | `/api/compliance/footer` | Anti-Hype footer block |
+| GET | `/api/alerts/generosity` | Alert posture vs TV-style caps |
+| GET | `/robots.txt` · `/sitemap.xml` | Crawl / GEO surfaces |
 
 ## Data & Sentiment
 | Method | Path | Description |

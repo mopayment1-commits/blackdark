@@ -159,3 +159,26 @@ def test_report_inventory_covers_section_ten():
     assert "Glass Box Challenge" in text
     assert "UNDER_STUDY" in text
     assert "Browser Extension" in text or "Browser extension" in text
+    deferred = Path("docs/DEFERRED_HUMAN_STEPS.md").read_text(encoding="utf-8")
+    assert "H1" in deferred and "H2" in deferred and "H3" in deferred
+
+
+def test_heroes_http_endpoints():
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    assert client.get("/api/mev/sandwich-report?asset=ETH&notional_usd=10000").status_code == 200
+    assert client.get("/api/glass-box/challenge").status_code == 200
+    assert client.get("/api/alerts/generosity").status_code == 200
+    assert client.get("/api/compliance/footer?surface=oracle").status_code == 200
+    assert client.get("/api/audit-challenge").status_code == 200
+    assert client.get("/robots.txt").status_code == 200
+    assert client.get("/sitemap.xml").status_code == 200
+    stealth = client.post(
+        "/api/whale/stealth-advisor",
+        json={"asset": "ETH", "notional_usd": 100000, "side": "buy"},
+    )
+    assert stealth.status_code == 200
+    assert stealth.json()["recommended_slices"] >= 1

@@ -1356,6 +1356,7 @@
                     <button class="btn-secondary" type="button" onclick="loadInbox()">Refresh</button>
                 </div>
                 <div id="inboxStatus" class="arb-meta" style="margin-top:0.5rem">Loading inbox…</div>
+                <div id="alertsGenerosity" class="arb-meta" style="margin-top:0.5rem"></div>
                 <div id="inboxList" style="margin-top:0.75rem;display:grid;gap:0.65rem"></div>
             </div>
             <div class="intel-grid">
@@ -1511,6 +1512,10 @@
                     url,
                     text: 'BLACKDARK Oracle — AI crypto intelligence dashboard 🔮',
                 };
+            }
+            const cert = result.decision_certificate || {};
+            if (cert.share_text) {
+                return { url: window.location.origin + '/oracle-accuracy', text: cert.share_text };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
             const text = [
@@ -1845,6 +1850,13 @@
                     ${proofBlock}
                     ${upgradeBlock}
                     ${complianceBlock}
+                    ${(() => {
+                        const cert = d.decision_certificate || {};
+                        if (!(cert.certificate_hash || d.prediction_id)) return '';
+                        window._lastCertShare = cert.share_text || '';
+                        return `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Decision Certificate · <code style="color:var(--accent)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
+                        ${cert.share_text ? ` <button class="btn-secondary" style="margin-left:0.35rem;padding:0.3rem 0.65rem;font-size:0.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}</div>`;
+                    })()}
 
                     ${d.forecast_summary ? `<div class="forecast-box">${d.forecast_summary}</div>` : ''}
 
@@ -2516,8 +2528,10 @@
                 }
                 chatHistory.push({ role: 'user', content: msg });
                 chatHistory.push({ role: 'assistant', content: d.reply });
-                box.lastElementChild.textContent = d.reply;
                 box.lastElementChild.style.whiteSpace = 'pre-wrap';
+                box.lastElementChild.innerHTML =
+                    (d.reply || '').replace(/</g, '&lt;') +
+                    `<div style="margin-top:0.55rem;font-size:0.7rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.45rem"><strong>Anti-Hype</strong> · Not financial advice. Verify on the <a href="/oracle-accuracy" style="color:var(--accent)">Public Accuracy Ledger</a>.</div>`;
             } catch (e) {
                 box.lastElementChild.textContent = 'Chat unavailable';
             }
@@ -2605,6 +2619,17 @@
             } catch (e) {
                 msg.textContent = 'Telegram test failed';
             }
+        }
+
+        async function loadAlertsGenerosity() {
+            const el = document.getElementById('alertsGenerosity');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/alerts/generosity');
+                const d = await res.json();
+                const bd = d.blackdark || {};
+                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong> — ${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+            } catch (e) { /* ignore */ }
         }
 
         async function loadInbox() {
@@ -2701,7 +2726,8 @@
                     body: JSON.stringify({ text })
                 });
                 const d = await res.json();
-                el.innerHTML = `<strong>${d.intent || 'command'}</strong>: ${d.speech || d.speech_en || 'Done'}`;
+                el.innerHTML = `<strong>${d.intent || 'command'}</strong>: ${d.speech || d.speech_en || 'Done'}` +
+                    `<div style="margin-top:0.45rem;font-size:0.7rem;color:var(--text-muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify on the <a href="/oracle-accuracy" style="color:var(--accent)">Public Accuracy Ledger</a>.</div>`;
                 if (d.speech) speakText(d.speech);
                 if (d.intent === 'oracle' && d.result?.symbol) {
                     document.getElementById('symbol').value = d.result.symbol;
@@ -3143,6 +3169,7 @@
         loadAuthState();
         loadBillingPanel();
         loadTelegramStatus();
+        loadAlertsGenerosity();
         loadInbox();
         loadJournal();
         loadResearchLab();

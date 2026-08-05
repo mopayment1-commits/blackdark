@@ -79,7 +79,7 @@ Build only when deepening a hero; browser extension waits for explicit go-ahead.
 |----------|----------------|--------|
 | Retail | Single-Sentence Oracle | Oracle + Certificate |
 | Pro | Full OQS + explain | OQS, Whale/Radar |
-| Whale | Execution / risk | Portfolio AI, Half-Life, Stealth Advisor shell |
+| Whale | Execution / risk | Portfolio AI, Half-Life, Stealth Advisor UI (`/dashboard#stealth`) |
 | Fund | Emerging Fund + reports | Ledger, B2B Evidence |
 
 ---

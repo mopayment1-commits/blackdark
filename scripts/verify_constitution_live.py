@@ -55,6 +55,13 @@ def main() -> int:
             ("GET", "/oracle-accuracy", None, {200}),
             ("GET", "/oracle/accuracy", None, {200}),
             ("GET", "/dashboard", None, {200}),
+            ("GET", "/robots.txt", None, {200}),
+            ("GET", "/sitemap.xml", None, {200}),
+            ("GET", "/api/mev/sandwich-report", None, {200}),
+            ("GET", "/api/glass-box/challenge", None, {200}),
+            ("GET", "/api/alerts/generosity", None, {200}),
+            ("GET", "/api/whale/signal-vs-noise?limit=3", None, {200, 500, 502, 503}),
+            ("GET", "/api/audience/entry?audience=whale", None, {200}),
             ("GET", "/oracle/BTC?ux_mode=beginner&lang=en", None, {200, 404, 502, 503}),
             ("GET", "/oracle/BTC?ux_mode=pro&lang=en", None, {200, 404, 502, 503}),
             ("GET", "/api/due-diligence/evidence-pack", None, {401, 403}),  # must be gated

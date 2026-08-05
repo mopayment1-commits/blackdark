@@ -130,7 +130,7 @@ This file is the **full checklist** of everything in the last report — nothing
 |------|--------|
 | 60/30/10 heroes/engines/feedback | DONE (binding rule) |
 | No seventh button | DONE (enforced in docs) |
-| 60-second value test | PARTIAL (product path live; human validation pending) |
+| 60-second value test | DEFERRED → H3 (product path live; human validation) |
 | English-only UI | DONE |
 
 ---
@@ -148,8 +148,11 @@ This file is the **full checklist** of everything in the last report — nothing
 | 7 | Portfolio AI plain-language + footer | DONE |
 | 8 | Browser extension | UNDER_STUDY (blocked until explicit go) |
 
-**Remaining non-code:** W3 launch timing/channel (human) · 60-second human validation · Browser extension go/no-go.
+**Deferred on human (see [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)):**  
+H1 Browser extension · H2 Glass Box launch timing/channel · H3 60-second human validation.
+
+All other report items are product-complete. Agents must not block on H1–H3.
 
 ---
 
-*This inventory is complete relative to the last report text. Product execution against §10 is complete except UNDER_STUDY / LAUNCH_ONLY items.*
+*This inventory is complete relative to the last report text. Product execution against §10 is complete except deferred human items.*
