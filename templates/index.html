@@ -1791,7 +1791,7 @@
                         ${conflict.reason || conflict.message ? `<div style="margin-top:0.3rem;color:var(--text-muted)">${conflict.reason || conflict.message}</div>` : ''}
                        </div>` : '';
                 const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Proof · prediction_id <code style="color:var(--accent)">${d.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a></div>`
+                    ? `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Proof · prediction_id <code style="color:var(--accent)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a></div>`
                     : '';
 
                 box.innerHTML = `
@@ -2227,6 +2227,9 @@
                     const profitClass = positive ? '' : ' negative';
                     const sign = positive ? '+' : '';
                     const execClass = o.execution_feasibility || 'partial';
+                    const truth = o.net_edge_truth || {};
+                    const half = o.opportunity_half_life || {};
+                    const rejected = o.truth_rejected || truth.reject;
                     let route = '';
                     if (o.kind === 'cross_exchange') route = `Buy ${o.buy_exchange} → Sell ${o.sell_exchange}`;
                     else if (o.kind === 'triangular') route = `${o.exchange}: ${o.path}`;
@@ -2235,7 +2238,7 @@
 
                     return `
                         <div class="arb-card ${execClass}">
-                            <div class="arb-kind">${o.kind_label}</div>
+                            <div class="arb-kind">${o.kind_label}${rejected ? ' · TRUTH REJECT' : ''}</div>
                             <div class="arb-profit${profitClass}">${sign}$${fmt(Math.abs(o.net_profit_usdt), 4)} <span style="font-size:0.85rem;font-weight:600">(${sign}${fmt(o.net_profit_percent, 3)}%)</span></div>
                             <div style="font-weight:700;margin-top:0.25rem">${o.asset || o.symbol}</div>
                             <div class="arb-meta">${route}</div>
@@ -2245,6 +2248,11 @@
                                 · ${o.execution_feasibility} execution
                                 · ${o.estimated_duration}
                                 ${o.live_duration_label ? ` · Live: <strong>${o.live_duration_label}</strong>` : ''}
+                            </div>
+                            <div class="arb-meta" style="margin-top:0.25rem">
+                                Truth ${truth.truth_score ?? '—'}
+                                · Half-life ${half.remaining_seconds ?? o.expected_half_life_seconds ?? '—'}s
+                                ${rejected ? ' · not alerted' : ''}
                             </div>
                             <div class="arb-meta" style="margin-top:0.35rem;color:var(--text)">${(o.why || '').slice(0, 120)}...</div>
                         </div>

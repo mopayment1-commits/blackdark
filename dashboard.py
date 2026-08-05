@@ -1070,6 +1070,21 @@ async def oracle(
         prediction_id = await _log_oracle_prediction(payload)
         if prediction_id is not None:
             payload["prediction_id"] = prediction_id
+            try:
+                from oracle_audit_chain import chain_summary
+
+                recent = (chain_summary(limit=8) or {}).get("recent_records") or []
+                for entry in reversed(recent):
+                    if str(entry.get("prediction_id")) == str(prediction_id):
+                        payload["chain_hash"] = entry.get("chain_hash")
+                        payload["proof"] = {
+                            "prediction_id": prediction_id,
+                            "chain_hash": entry.get("chain_hash"),
+                            "public_page": "/oracle-accuracy",
+                        }
+                        break
+            except Exception:
+                logger.debug("chain_hash attach failed", exc_info=True)
     except Exception:
         logger.exception("Oracle prediction_id attach failed")
 

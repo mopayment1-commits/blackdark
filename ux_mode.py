@@ -23,6 +23,8 @@ _BEGINNER_KEYS = {
     "ux_mode",
     "lang",
     "prediction_id",
+    "chain_hash",
+    "proof",
     "oracle",
     "narrative",
 }

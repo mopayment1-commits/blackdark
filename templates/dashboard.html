@@ -247,7 +247,7 @@
                         ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
                        </div>` : '';
                 const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
+                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
                 el.innerHTML = `
                     <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
