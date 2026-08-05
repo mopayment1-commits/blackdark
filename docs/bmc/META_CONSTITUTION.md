@@ -12,7 +12,7 @@
 | Field | Value |
 |-------|-------|
 | Principle | BLACKDARK META CONSTITUTION is the only supreme governing authority for all institutional law and all derived artifacts. |
-| Verification predicate | Active governing scan detects zero authority source outside BMC corpus labeled Level 0 through Level 4. |
+| Verification predicate | Active governing scan detecting authority source outside BMC corpus labeled Level 0 through Level 4 yields FAIL. |
 | Independence | Root article; no upward delegation. |
 
 ### ART-META-002

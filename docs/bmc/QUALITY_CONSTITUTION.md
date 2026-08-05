@@ -12,7 +12,7 @@
 
 | Field | Value |
 |-------|-------|
-| Principle | Institutional evidence artifacts validate against declared schema with version field per ART-ID-007. |
+| Principle | Institutional evidence artifacts validate against declared schema with version field under evidence authority record per ART-ID-007. |
 | Verification predicate | Evidence missing schema version or failing schema rules yields FAIL. |
 | Derives from | ART-ID-007, ART-DER-007 |
 | Independence | Does not restate evidence identity schema fields. |
@@ -30,7 +30,7 @@
 
 | Field | Value |
 |-------|-------|
-| Principle | Soak assessor fails when any hourly integrity interval exceeds declared stale threshold. |
+| Principle | Soak assessor fails when any hourly integrity interval exceeds declared stale threshold under verification authority record. |
 | Verification predicate | Injected stale interval producing pass verdict yields FAIL. |
 | Derives from | ART-DER-012, ART-AUTH-003 |
 | Independence | Does not restate scope enum rules. |
@@ -48,7 +48,7 @@
 
 | Field | Value |
 |-------|-------|
-| Principle | Institutional test corpus includes blocking classes for collection, streaming end-to-end, execution concurrency, backup restore, and execution bypass negatives. |
+| Principle | Institutional test corpus includes blocking classes for collection, streaming end-to-end, execution concurrency, backup restore, and execution bypass negatives under verification authority record. |
 | Verification predicate | Absence of any declared institutional test class yields FAIL. |
 | Derives from | ART-DER-012, ART-AUTH-003 |
 | Independence | Does not enumerate test instances. |
@@ -75,7 +75,7 @@
 
 | Field | Value |
 |-------|-------|
-| Principle | Restore drill produces signed operability evidence with success flag and duration metric on declared schedule class. |
+| Principle | Restore drill produces signed operability evidence with success flag and duration metric on declared schedule class under verification authority record. |
 | Verification predicate | Missing scheduled restore evidence inside retention window yields FAIL. |
 | Derives from | ART-DER-007, ART-ID-007 |
 | Independence | Does not restate schema version policy. |
@@ -93,7 +93,7 @@
 
 | Field | Value |
 |-------|-------|
-| Principle | Topology contract validation runs as blocking gate on activation-path changes across declared profile matrix. |
+| Principle | Topology contract validation runs as blocking gate on activation-path changes across declared profile matrix under deploy authority record. |
 | Verification predicate | Activation-path change without topology validation trigger yields FAIL. |
 | Derives from | ART-DER-012, ART-AUTH-003 |
 | Independence | Does not restate concurrency trigger rules. |

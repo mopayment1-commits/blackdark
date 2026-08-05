@@ -253,6 +253,21 @@ def main() -> int:
             print(f"- {d}")
         return 1
 
+    try:
+        from adversarial_tests import run_adversarial_tests
+    except ImportError:
+        from docs.bmc.adversarial_tests import run_adversarial_tests  # type: ignore
+
+    adversarial = run_adversarial_tests()
+    failed_adv = [r for r in adversarial if not r.passed]
+    if failed_adv:
+        print("BLACKDARK META CONSTITUTION REOPENED")
+        for r in failed_adv:
+            print(f"- {r.test_id} {r.name} failed")
+            for d in r.defects:
+                print(f"  - {d}")
+        return 1
+
     print("BLACKDARK META CONSTITUTION VERIFIED")
     return 0
 
