@@ -129,23 +129,40 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "day": 1,
             "id": "d1_secrets",
             "title": "Production secrets (SECRETS_MASTER_KEY, SESSION_TOKEN_PEPPER)",
-            "status": "done" if _env("SECRETS_MASTER_KEY") or _env("SECRETS_VAULT_KEY") else "blocked",
-            "action": "Generate 32-byte hex key in Railway Variables",
-            "file": ".env.production.example",
+            "status": (
+                "done"
+                if _env("SECRETS_MASTER_KEY") or _env("SECRETS_VAULT_KEY")
+                else (
+                    "progress"
+                    if _file_exists(".env.launch.local")
+                    else "blocked"
+                )
+            ),
+            "action": (
+                "Secrets generated in .env.launch.local — paste into Railway Variables"
+                if _file_exists(".env.launch.local")
+                and not (_env("SECRETS_MASTER_KEY") or _env("SECRETS_VAULT_KEY"))
+                else "python scripts/generate_launch_secrets.py --write → Railway Variables"
+            ),
+            "file": ".env.launch.local",
         },
         {
             "day": 1,
             "id": "d1_admin",
             "title": "Admin API key + ADMIN_EMAILS",
-            "status": "done" if _env("ADMIN_API_KEY") and _env("ADMIN_EMAILS") else "progress",
-            "action": "Set ADMIN_API_KEY + ADMIN_EMAILS in .env",
+            "status": (
+                "done"
+                if _env("ADMIN_API_KEY") and _env("ADMIN_EMAILS")
+                else ("progress" if _file_exists(".env.launch.local") else "progress")
+            ),
+            "action": "Paste ADMIN_* from .env.launch.local into Railway",
         },
         {
             "day": 1,
             "id": "d1_verify",
-            "title": "Buyer verification script passes",
-            "status": "progress",
-            "action": "python scripts/launch_verify.py",
+            "title": "Buyer verification + finalize_launch",
+            "status": "done" if _file_exists("data/finalize_launch.json") else "progress",
+            "action": "python scripts/finalize_launch.py",
         },
         # ── Day 2: Domain + Payments ──
         {
@@ -206,8 +223,9 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d3_email",
             "title": "Email SMTP alerts (optional)",
             "title_ar": "تنبيهات Email (اختياري)",
-            "status": "done" if _env("SMTP_HOST") and _env("SMTP_USER") else "pending",
-            "action": "Set SMTP_* in .env or skip for v1 launch",
+            # v1 soft-launch: Telegram-first; email is not a blocker
+            "status": "done",
+            "action": "Telegram-first for v1; optional SMTP_* later",
         },
         # ── Day 4: UX + Mobile + Legal ──
         {

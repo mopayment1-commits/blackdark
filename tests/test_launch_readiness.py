@@ -72,6 +72,12 @@ def test_runbook_and_constitution_exist():
     assert (ROOT / "docs" / "PRODUCT_CONSTITUTION_AR.md").is_file()
 
 
+def test_finalize_and_secrets_scripts_exist():
+    assert (ROOT / "scripts" / "finalize_launch.py").is_file()
+    assert (ROOT / "scripts" / "generate_launch_secrets.py").is_file()
+    assert ".env.launch.local" in (ROOT / ".gitignore").read_text(encoding="utf-8")
+
+
 @pytest.mark.asyncio
 async def test_evidence_pack_marks_d5_honestly():
     from acquirer_evidence_pack import build_acquirer_evidence_pack

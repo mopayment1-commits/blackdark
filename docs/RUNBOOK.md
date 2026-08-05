@@ -2,12 +2,20 @@
 
 > Constitution: `docs/PRODUCT_CONSTITUTION_AR.md`
 
+## Finalize (code → Railway)
+```bash
+python scripts/finalize_launch.py
+# → writes .env.launch.local (gitignored) + data/finalize_launch.json
+# Paste secrets into Railway Variables, then set DATABASE_URL + Lemon/Stripe
+```
+
 ## Pre-flight
 1. `GET /api/production/guard` → `required_pass: true`
-2. `GET /api/admin/launch-checklist` (admin) → review blocked items
-3. `GET /api/oracle/accuracy/public` → proof_chain.verify ok
-4. `GET /oracle/BTC?ux_mode=beginner&lang=ar` → must include `decision_sentence`, `persona_clarity`
-5. `GET /oracle/BTC?ux_mode=pro&lang=en` → must include `net_edge_truth`, `opportunity_half_life`, `signal_registry`
+2. `GET /api/launch/readiness` → `code_launch_ready` + constitution modules
+3. `GET /api/admin/launch-checklist` (admin) → review blocked items
+4. `GET /api/oracle/accuracy/public` → proof_chain.verify ok
+5. `GET /oracle/BTC?ux_mode=beginner&lang=ar` → must include `decision_sentence`, `persona_clarity`
+6. `GET /oracle/BTC?ux_mode=pro&lang=en` → must include `net_edge_truth`, `opportunity_half_life`, `signal_registry`
 
 ## Required production env
 - `SECRETS_MASTER_KEY` or `SECRETS_VAULT_KEY`

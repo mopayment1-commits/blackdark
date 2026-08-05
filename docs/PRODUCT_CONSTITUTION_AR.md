@@ -149,3 +149,9 @@
 
 **إقرار العمل بهذا الدستور:**  
 اعتُمدت النقاط أعلاه كأصل مميزات المشروع ومرجع ملزم واجب التنفيذ.
+
+### أمر الإنهاء للإطلاق
+```bash
+python scripts/finalize_launch.py
+```
+ثم لصق `.env.launch.local` في Railway + `DATABASE_URL` + Lemon/Stripe → `/api/production/guard`.
