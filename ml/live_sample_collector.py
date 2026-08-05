@@ -67,6 +67,7 @@ async def collect_live_unified_samples(
                 confidence=float(unified.get("confidence") or 0),
                 kind="unified_live",
                 source="dashboard_unified_v1",
+                market_regime=str(unified.get("market_regime") or "neutral"),
             )
             logged += 1
             details.append(

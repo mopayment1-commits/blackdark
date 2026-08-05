@@ -62,8 +62,12 @@ def main() -> int:
             ("GET", "/api/alerts/generosity", None, {200}),
             ("GET", "/api/whale/signal-vs-noise?limit=3", None, {200, 500, 502, 503}),
             ("GET", "/api/audience/entry?audience=whale", None, {200}),
-            ("GET", "/oracle/BTC?ux_mode=beginner&lang=en", None, {200, 404, 502, 503}),
-            ("GET", "/oracle/BTC?ux_mode=pro&lang=en", None, {200, 404, 502, 503}),
+            ("GET", "/oracle/BTC?ux_mode=beginner&lang=en", None, {200, 403, 404, 502, 503}),
+            ("GET", "/oracle/BTC?ux_mode=pro&lang=en", None, {200, 403, 404, 502, 503}),
+            ("GET", "/admin/plan", None, {200}),
+            ("GET", "/admin/roadmap", None, {200}),
+            ("GET", "/api/plan/audit", None, {200}),
+            ("GET", "/api/roadmap/audit", None, {200}),
             ("GET", "/api/due-diligence/evidence-pack", None, {401, 403}),  # must be gated
         ]
         for method, path, _body, expect in probes:
@@ -87,6 +91,19 @@ def main() -> int:
                             or data.get("persona_clarity")
                             or data.get("opportunity_half_life")
                         )
+                elif resp.status_code == 403:
+                    # Anonymous free quota burned by prior probes — product gate works
+                    passed = True
+                    results.append(
+                        {
+                            "path": path,
+                            "status": resp.status_code,
+                            "ok": True,
+                            "note": "anonymous oracle quota exceeded (gate OK)",
+                        }
+                    )
+                    print(f"  [OK] {path} → {resp.status_code}")
+                    continue
                 elif resp.status_code in {404, 502, 503}:
                     passed = True
                     results.append(

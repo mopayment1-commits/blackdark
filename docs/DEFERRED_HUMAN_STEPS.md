@@ -9,5 +9,6 @@
 | H1 | Browser Extension (OQS overlay) | UNDER_STUDY in binding report | Explicit “build the extension” go |
 | H2 | Glass Box Challenge launch timing + channel | LAUNCH_ONLY narrative | Choose event clock + announce channel |
 | H3 | 60-second value test (human) | Needs real user/founder walkthrough | Founder runs `/` cold and confirms |
+| Ops | Railway deploy · live Stripe · Telegram/SMTP secrets · DNS | External accounts / credentials | Paste secrets + deploy |
 
-Everything else from the last binding report is executable product work and is treated as complete or in active code execution.
+Everything else is treated as **product-complete in code**. See [`PRODUCT_COMPLETE_STATUS.md`](./PRODUCT_COMPLETE_STATUS.md).

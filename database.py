@@ -714,6 +714,7 @@ async def _apply_migrations(db: Any) -> None:
         ("resolved_at", "ALTER TABLE oracle_predictions ADD COLUMN resolved_at TEXT"),
         ("kind", "ALTER TABLE oracle_predictions ADD COLUMN kind TEXT"),
         ("source", "ALTER TABLE oracle_predictions ADD COLUMN source TEXT DEFAULT 'oracle'"),
+        ("market_regime", "ALTER TABLE oracle_predictions ADD COLUMN market_regime TEXT"),
     ):
         if column not in oracle_cols:
             await db.execute(ddl)
@@ -1779,6 +1780,7 @@ async def insert_oracle_prediction(
     kind: str | None = None,
     features_json: str | None = None,
     source: str = "oracle",
+    market_regime: str | None = None,
 ) -> int:
     from data_moat_guard import validate_prediction_insert
 
@@ -1793,13 +1795,15 @@ async def insert_oracle_prediction(
         return 0
 
     ts = timestamp or _utcnow_iso()
+    regime = (market_regime or "neutral").strip().lower() or "neutral"
     async with get_connection() as db:
         cursor = await db.execute(
             """
             INSERT INTO oracle_predictions (
                 timestamp, asset, price_at_prediction, verdict,
-                opportunity_score, confidence, resolved, kind, features_json, source
-            ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?)
+                opportunity_score, confidence, resolved, kind, features_json, source,
+                market_regime
+            ) VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?, ?, ?)
             """,
             (
                 ts,
@@ -1811,6 +1815,7 @@ async def insert_oracle_prediction(
                 kind,
                 features_json,
                 source,
+                regime,
             ),
         )
         row_id = int(cursor.lastrowid or 0)

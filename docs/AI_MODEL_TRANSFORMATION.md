@@ -186,7 +186,7 @@ ML_AUTO_TRAIN=true
 | Commit | Content |
 |--------|---------|
 | `0b73d22` | 100-exchange universe (B2+C+D) |
-| (pending) | AI flywheel + Oracle Accuracy Live |
+| done | AI flywheel + Oracle Accuracy Live (+ D5 regime train hook + RL soft fusion) |
 
 ---
 

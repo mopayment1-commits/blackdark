@@ -29,7 +29,7 @@ _PLAN_ROWS: tuple[tuple[Any, ...], ...] = (
     ("core", "Risk management", "complete", "risk_manager", "/api/risk/freeze", "freeze/unfreeze + VaR in Research Lab"),
     ("core", "Liquidity filtering", "complete", "liquidity_discovery", None, "operational manifest hybrid filter"),
     ("core", "Auto execution via API keys", "complete", "execution_keys", "/api/execution/keys/status", "dry-run default + optional Binance live"),
-    ("core", "77 arbitrage types catalog", "partial", "arbitrage_catalog", "/api/arbitrage/catalog", "18 live · 26 proxy · 33 planned"),
+    ("core", "77 arbitrage types catalog", "partial", "arbitrage_catalog", "/api/arbitrage/catalog", "Catalog live with proxy/planned honesty — see /api/arbitrage/catalog"),
     ("dash", "Live monitoring dashboard", "complete", "dashboard", "/dashboard", "Live dashboard + heatmap"),
     ("dash", "Telegram/Email/WhatsApp alerts", "partial", "alert_service", "/api/alerts/subscribe", "WhatsApp = wa.me link"),
     ("dash", "Opportunity duration tracking", "complete", "opportunity_tracker", "/api/arbitrage/durations", "duration tracking"),

@@ -769,6 +769,11 @@ async def evaluate_and_store(
             confidence=evaluated.explanation.confidence_percent,
             kind=evaluated.kind,
             source="arb_unified_v1",
+            market_regime=str(
+                (evaluated.payload or {}).get("market_regime")
+                or ((evaluated.payload or {}).get("modal_breakdown") or {}).get("market_regime")
+                or "neutral"
+            ),
         )
     except Exception:
         logger.warning("Oracle prediction logging failed | asset=%s", evaluated.asset)

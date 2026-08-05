@@ -43,11 +43,17 @@ def regime_model_registry() -> dict[str, Any]:
         has = regime_has_artifact(regime)
         if has:
             artifacts_ready += 1
+        art = _artifact_path(regime)
+        if has:
+            try:
+                art_rel = str(art.relative_to(Path(__file__).resolve().parents[1]))
+            except ValueError:
+                art_rel = str(art)
+        else:
+            art_rel = None
         regimes[regime] = {
             "artifact_present": has,
-            "artifact_path": str(_artifact_path(regime).relative_to(Path(__file__).resolve().parents[1]))
-            if has
-            else None,
+            "artifact_path": art_rel,
             "status": "artifact_ready" if has else "pending_training",
             "confidence_multiplier": float(REGIME_CONF_MULT.get(regime, 1.0)),
         }

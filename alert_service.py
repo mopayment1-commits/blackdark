@@ -103,7 +103,7 @@ async def dispatch_alert(
 
     if "email" in channels and not os.getenv("SMTP_HOST", "").strip():
         results["channels"]["email"] = False
-        results["email_status"] = "stub_queued_no_smtp"
+        results["email_status"] = "queued_durable_outbox"
 
     subs = await fetch_active_alert_subscriptions()
     for sub in subs:
@@ -111,8 +111,12 @@ async def dispatch_alert(
         email = sub.get("email")
         if email and sub.get("email_alerts", 1):
             if not os.getenv("SMTP_HOST", "").strip():
+                from email_outbox import enqueue_email
+
+                queued = enqueue_email(str(email), title, full_text, payload=payload)
                 sub_result["email"] = False
-                sub_result["email_status"] = "stub_queued_no_smtp"
+                sub_result["email_status"] = "queued_durable_outbox"
+                sub_result["outbox_id"] = queued.get("id")
                 push_in_app_alert(
                     title,
                     body,

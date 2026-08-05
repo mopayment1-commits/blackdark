@@ -190,11 +190,15 @@ async def log_oracle_signal(
     kind: str | None = None,
     features: dict[str, Any] | None = None,
     source: str = "oracle",
+    market_regime: str | None = None,
 ) -> int:
     from database import insert_oracle_prediction
     from ml.feature_store import build_feature_vector
 
     feature_payload = features or await build_feature_vector(asset, price_at=price)
+    regime = market_regime
+    if not regime and isinstance(feature_payload, dict):
+        regime = feature_payload.get("market_regime") or feature_payload.get("regime")
     return await insert_oracle_prediction(
         asset=_normalize_asset(asset),
         price_at_prediction=price,
@@ -204,6 +208,7 @@ async def log_oracle_signal(
         kind=kind,
         features_json=json.dumps(feature_payload, separators=(",", ":")),
         source=source or "oracle",
+        market_regime=str(regime or "neutral"),
     )
 
 
@@ -307,6 +312,15 @@ async def run_labeling_flywheel_cycle(
             from ml.train_baseline import train_oracle_direction_model
 
             train_stats = await train_oracle_direction_model()
+    regime_train: dict[str, Any] = {"skipped": True}
+    try:
+        from ml.train_regime_models import train_regime_models
+
+        # Always attempt — trains only regimes with enough samples (or writes honest status)
+        regime_train = await train_regime_models(force=False)
+    except Exception:
+        logger.exception("Regime model training cycle failed")
+        regime_train = {"trained": False, "error": "regime_train_failed"}
     payload = {
         "collect": collect_stats,
         "bootstrap": bootstrap_stats,
@@ -314,6 +328,7 @@ async def run_labeling_flywheel_cycle(
         "export": export_stats,
         "drift": drift_stats,
         "training": train_stats,
+        "regime_training": regime_train,
         "timestamp": _utcnow_iso(),
     }
     append_experience("flywheel_cycle", payload)

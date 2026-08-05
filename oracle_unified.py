@@ -217,6 +217,34 @@ async def finalize_unified_score(
         ml_meta = await _optional_ml_nudge(asset, price, adjusted)
         adjusted += float(ml_meta.get("nudge") or 0.0)
 
+    # Soft RL policy fusion (size/bias hint) — never overrides veto/conflict.
+    rl_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
+    try:
+        from ml.rl_policy import predict_action
+
+        feats = {
+            "ret_24h": float(change_24h or 0.0) / 100.0,
+            "volatility": abs(float(change_24h or 0.0)) / 100.0,
+            "obi_score": float((breakdown.get("obi") or {}).get("score") or 0.0),
+            "sentiment_score": float(
+                (breakdown.get("sentiment") or {}).get("compound")
+                or (breakdown.get("hub_adjustment") or 0.0)
+            ),
+        }
+        action = predict_action(feats)
+        rl_meta = {"available": True, **action}
+        act = str(action.get("action") or "hold")
+        conf = float(action.get("confidence") or 0.0)
+        if act == "long":
+            rl_meta["nudge"] = min(3.0, 2.0 * conf)
+        elif act == "short":
+            rl_meta["nudge"] = -min(3.0, 2.0 * conf)
+        else:
+            rl_meta["nudge"] = 0.0
+        adjusted += float(rl_meta["nudge"])
+    except Exception:
+        pass
+
     adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
 
     # Core Canon §1.1 — multi-timeframe confluence before trusting score.
@@ -278,6 +306,7 @@ async def finalize_unified_score(
         "hub_reasons": breakdown.get("hub_reasons") or [],
         "hub_risks": breakdown.get("hub_risks") or [],
         "ml": ml_meta,
+        "rl_policy": rl_meta,
         "confidence": confidence,
         "engine": ENGINE_ID,
     }

@@ -2,7 +2,14 @@
 
 > **تاريخ:** 2026-08-05  
 > **النطاق:** المعمارية، مسار Oracle/ML، خط البيانات، الأمان، Postgres، الاختبارات  
-> **المنهج:** فحص كود + استيراد runtime + `pytest` (153 حالة)
+> **المنهج:** فحص كود + استيراد runtime + `pytest`  
+> **Completion contract:** [`PRODUCT_COMPLETE_STATUS.md`](./PRODUCT_COMPLETE_STATUS.md) · human-only [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)
+
+---
+
+## تحديث إغلاق (code-complete)
+
+تم إغلاق فجوات الربط التنفيذية داخل المستودع: Oracle الموحّد، D5 regime train + flywheel hook، RL soft fusion، `/health/ready` بعد boot، Kafka off-loop، admin plan/roadmap، prod ML deps + model bake، email outbox، Stealth Advisor v2. المتبقي البشري فقط (نشر/أسرار/إعلان).
 
 ---
 

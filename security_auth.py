@@ -132,8 +132,9 @@ async def require_admin_dev(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
 ) -> dict:
-    """Admin guard — localhost bypass only outside production."""
-    if _is_localhost(request) and not is_production_env():
+    """Admin guard — localhost / LOCAL_DEV bypass only outside production."""
+    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+    if not is_production_env() and (_is_localhost(request) or local_dev):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
     return await require_admin(user, x_admin_key)
 

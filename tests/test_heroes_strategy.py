@@ -107,7 +107,8 @@ def test_stealth_advisor_and_discipline_delta():
 
     tip = advise_stealth_execution(asset="BTC", notional_usd=2_000_000, half_life_seconds=12)
     assert tip["recommended_slices"] >= 1
-    assert tip["status"] == "advisory_shell_v1"
+    assert tip["status"] == "advisory_v2"
+    assert tip.get("adv_source")
 
     mirror = personal_mirror(
         "u1",

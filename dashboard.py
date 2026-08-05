@@ -113,6 +113,7 @@ async def _log_oracle_prediction(payload: dict) -> int | None:
             opportunity_score=float(payload.get("opportunity_score") or 0),
             confidence=float(payload.get("confidence") or payload.get("confidence_percent") or 0),
             kind=str(payload.get("kind") or "oracle_api"),
+            market_regime=str(payload.get("market_regime") or "neutral"),
         )
     except Exception:
         logger.exception("Oracle flywheel logging failed")
@@ -236,17 +237,26 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
 
+# Set True after init_db completes (success or soft-fail). Used by /health/ready.
+_BOOT_DB_READY = False
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
+    global _BOOT_DB_READY
 
     async def _background_boot() -> None:
+        global _BOOT_DB_READY
         try:
             from database import init_db
 
             await init_db()
+            _BOOT_DB_READY = True
         except Exception:
             logger.exception("init_db failed — API stays up for probes")
+            # Still mark ready so LB doesn't hang forever on hard DB misconfig in local/dev
+            _BOOT_DB_READY = True
 
         try:
             from observability import init_sentry
@@ -897,6 +907,31 @@ async def dashboard_live_stream():
 @app.get("/admin/launch", response_class=HTMLResponse)
 async def admin_launch_page(request: Request, _admin: dict = Depends(require_admin_dev)):
     return templates.TemplateResponse(request, "admin_launch.html")
+
+
+@app.get("/admin/plan", response_class=HTMLResponse)
+@app.get("/plan", response_class=HTMLResponse)
+async def admin_plan_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_plan.html")
+
+
+@app.get("/admin/roadmap", response_class=HTMLResponse)
+async def admin_roadmap_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_roadmap.html")
+
+
+@app.get("/api/plan/audit")
+async def api_plan_audit(_admin: dict = Depends(require_admin_dev)):
+    from plan_audit import plan_audit
+
+    return plan_audit()
+
+
+@app.get("/api/roadmap/audit")
+async def api_roadmap_audit(_admin: dict = Depends(require_admin_dev)):
+    from bd_platform.roadmap_audit import run_roadmap_audit
+
+    return run_roadmap_audit()
 
 
 @app.get("/api/admin/launch-checklist")
@@ -2363,18 +2398,24 @@ async def health_live():
 
 @app.get("/health/ready")
 async def health_ready():
-    """Readiness — DB + service bus (for load balancers)."""
+    """Readiness — DB init finished + service bus (for load balancers)."""
+    from fastapi.responses import JSONResponse
     from postgres_backend import pool_stats, use_postgres
     from service_bus import bus_stats
 
     engine = "postgresql" if use_postgres() else "sqlite"
-    return {
-        "status": "ok",
+    ready = bool(_BOOT_DB_READY)
+    payload = {
+        "status": "ok" if ready else "starting",
         "probe": "ready",
+        "database_ready": ready,
         "database_engine": engine,
         "postgres_pool": pool_stats(),
         "service_bus": bus_stats(),
     }
+    if not ready:
+        return JSONResponse(payload, status_code=503)
+    return payload
 
 
 @app.get("/health")

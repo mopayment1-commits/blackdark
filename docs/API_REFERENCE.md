@@ -57,6 +57,8 @@
 | GET | `/api/compliance/footer` | Anti-Hype footer block |
 | GET | `/api/alerts/generosity` | Alert posture vs TV-style caps |
 | GET | `/robots.txt` · `/sitemap.xml` | Crawl / GEO surfaces |
+| GET | `/admin/plan` · `/api/plan/audit` | Plan audit (admin/LOCAL_DEV) |
+| GET | `/admin/roadmap` · `/api/roadmap/audit` | Roadmap audit (admin/LOCAL_DEV) |
 
 ## Data & Sentiment
 | Method | Path | Description |
