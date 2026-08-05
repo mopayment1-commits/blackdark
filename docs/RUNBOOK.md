@@ -5,8 +5,11 @@
 ## Finalize (code → Railway)
 ```bash
 python scripts/finalize_launch.py
+python scripts/verify_constitution_live.py
 # → writes .env.launch.local (gitignored) + data/finalize_launch.json
-# Paste secrets into Railway Variables, then set DATABASE_URL + Lemon/Stripe
+# Paste secrets into Railway Variables, then set DATABASE_URL
+# After announce: python scripts/mark_golive.py --url https://YOUR-DOMAIN
+# Full pack: docs/GO_LIVE_AR.md
 ```
 
 ## Pre-flight

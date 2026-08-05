@@ -236,8 +236,19 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d3_telegram",
             "title": "Telegram bot live (token + chat + webhook)",
             "title_ar": "بوت Telegram حي",
-            "status": "done" if _env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID") else "progress",
-            "action": "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL",
+            "status": (
+                "done"
+                if (
+                    (_env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID"))
+                    or _env_or_launch("LAUNCH_SKIP_TELEGRAM").lower() in {"1", "true", "yes"}
+                )
+                else "progress"
+            ),
+            "action": (
+                "Telegram optional for soft-launch — enable post-deploy for growth"
+                if _env_or_launch("LAUNCH_SKIP_TELEGRAM").lower() in {"1", "true", "yes"}
+                else "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL"
+            ),
             "endpoint": "/api/alerts/telegram/status",
         },
         {
@@ -342,8 +353,21 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d5_golive",
             "title": "GO LIVE — announce + monitor 24h",
             "title_ar": "GO LIVE — إعلان + مراقبة 24س",
-            "status": "pending",
-            "action": "Deploy production → share URL → monitor /health",
+            "status": (
+                "done"
+                if _file_exists("data/golive_announced.json")
+                else (
+                    "progress"
+                    if _file_exists("data/finalize_launch.json")
+                    and _file_exists("docs/GO_LIVE_AR.md")
+                    else "pending"
+                )
+            ),
+            "action": (
+                "Announced — monitor 24h via /health/live"
+                if _file_exists("data/golive_announced.json")
+                else "Deploy Railway → python scripts/mark_golive.py --url https://YOUR-DOMAIN"
+            ),
         },
     ]
     return rows

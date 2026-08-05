@@ -61,6 +61,7 @@ def build_env_block(
         "UPTIME_SELF_PROBE_ENABLED": prev.get("UPTIME_SELF_PROBE_ENABLED") or "true",
         "PRODUCTION_GUARD_FAIL_CLOSED": prev.get("PRODUCTION_GUARD_FAIL_CLOSED") or "true",
         "LAUNCH_SKIP_EMAIL": prev.get("LAUNCH_SKIP_EMAIL") or "true",
+        "LAUNCH_SKIP_TELEGRAM": prev.get("LAUNCH_SKIP_TELEGRAM") or "true",
     }
 
 
@@ -76,10 +77,11 @@ def render_env(block: dict[str, str]) -> str:
     lines.extend(
         [
             "",
+            "",
             "# Still set manually on Railway:",
             "# DATABASE_URL=postgresql://...   (Postgres plugin)",
             "# REDIS_URL=redis://...           (recommended)",
-            "# TELEGRAM_BOT_TOKEN=...",
+            "# TELEGRAM_BOT_TOKEN=...          (unset LAUNCH_SKIP_TELEGRAM when ready)",
             "# TELEGRAM_CHAT_ID=...",
             "# LEMON_SQUEEZY_CHECKOUT_WHALE=... (optional)",
             "# SENTRY_DSN=...                  (optional)",

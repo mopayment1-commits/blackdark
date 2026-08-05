@@ -977,11 +977,16 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
 @app.get("/oracle/{symbol}")
 async def oracle(
     symbol: str,
+    request: Request,
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
     ux_mode: str = "beginner",
     lang: str = "ar",
-) -> JSONResponse:
+):
+    # Reserved path — must not be captured as a trading symbol
+    if symbol.strip().lower() == "accuracy":
+        return templates.TemplateResponse(request, "oracle_accuracy.html")
+
     from auth_service import check_oracle_quota
 
     allowed, message = await check_oracle_quota(user)

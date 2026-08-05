@@ -75,6 +75,9 @@ def test_runbook_and_constitution_exist():
 def test_finalize_and_secrets_scripts_exist():
     assert (ROOT / "scripts" / "finalize_launch.py").is_file()
     assert (ROOT / "scripts" / "generate_launch_secrets.py").is_file()
+    assert (ROOT / "scripts" / "verify_constitution_live.py").is_file()
+    assert (ROOT / "scripts" / "mark_golive.py").is_file()
+    assert (ROOT / "docs" / "GO_LIVE_AR.md").is_file()
     assert ".env.launch.local" in (ROOT / ".gitignore").read_text(encoding="utf-8")
 
 

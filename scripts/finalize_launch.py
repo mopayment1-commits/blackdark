@@ -80,17 +80,14 @@ def main() -> int:
         """
 1) Railway → Variables → paste keys from .env.launch.local
 2) Add DATABASE_URL (Postgres plugin)
-3) Add LEMON_SQUEEZY_CHECKOUT_PRO (or Stripe live + webhook)
+3) Confirm LEMON_SQUEEZY_CHECKOUT_PRO (already in launch file)
 4) APP_BASE_URL=https://YOUR-DOMAIN
-5) Optional: REDIS_URL, TELEGRAM_BOT_TOKEN, SENTRY_DSN
-6) Deploy → open:
-   - /api/production/guard
-   - /api/launch/readiness
-   - /admin/launch
-   - /oracle/BTC?ux_mode=beginner&lang=ar
-   - /oracle-accuracy
-7) UptimeRobot → /health/live every 5 min
-8) Monitor 24h → announce
+5) Optional later: TELEGRAM_* (LAUNCH_SKIP_TELEGRAM=true for soft launch)
+6) python scripts/verify_constitution_live.py
+7) Deploy → open /api/production/guard · /oracle/BTC?ux_mode=beginner&lang=ar
+8) UptimeRobot → /health/live
+9) Announce → python scripts/mark_golive.py --url https://YOUR-DOMAIN
+   See docs/GO_LIVE_AR.md
 """.strip()
     )
 
