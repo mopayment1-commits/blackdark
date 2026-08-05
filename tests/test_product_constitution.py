@@ -54,3 +54,21 @@ def test_related_docs_point_to_constitution():
     ):
         text = (ROOT / rel).read_text(encoding="utf-8")
         assert "PRODUCT_CONSTITUTION_AR.md" in text
+
+
+def test_heroes_strategy_binding_exists():
+    path = ROOT / "docs" / "HEROES_STRATEGY_BINDING.md"
+    assert path.is_file()
+    text = path.read_text(encoding="utf-8")
+    for marker in (
+        "Six Heroes",
+        "Locked Predictions",
+        "Discipline Mirror",
+        "Signal vs Noise",
+        "Emerging Fund",
+        "Compliance Footer",
+        "Audience entry routing",
+    ):
+        assert marker in text
+    constitution = (ROOT / "docs" / "PRODUCT_CONSTITUTION_AR.md").read_text(encoding="utf-8")
+    assert "HEROES_STRATEGY_BINDING.md" in constitution

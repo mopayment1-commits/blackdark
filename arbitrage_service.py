@@ -399,8 +399,9 @@ async def scan_arbitrage_opportunities(
 
     formatted = sync_scan_opportunities(formatted)
 
-    # D3 Net-Edge Truth gate on the live scan path (before alerts / display).
+    # Constitution stack on live scan: D3 Truth → D4 Half-Life → D2 Veto → D8 Registry
     try:
+        from constitution_gates import apply_constitution_gates_to_scan
         from net_edge_truth import compute_net_edge_truth
 
         quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
@@ -420,8 +421,14 @@ async def scan_arbitrage_opportunities(
                 if "net_edge_truth_reject" not in risks:
                     risks.append("net_edge_truth_reject")
                 row["risk_factors"] = risks
+
+        formatted = apply_constitution_gates_to_scan(
+            formatted,
+            institutional_context=institutional_context,
+            register_limit=12,
+        )
     except Exception:
-        logger.exception("Net-Edge Truth scan gate unavailable")
+        logger.exception("Constitution scan gates unavailable")
 
     pricing_errors: list[dict[str, Any]] = []
     if source != "websocket_live":
@@ -444,9 +451,23 @@ async def scan_arbitrage_opportunities(
             "funding": len(funding_opps),
         },
         "executable_count": sum(
-            1 for row in formatted if row["execution_feasibility"] in {"full", "partial"}
+            1
+            for row in formatted
+            if row.get("execution_feasibility") in {"full", "partial"}
+            and not row.get("truth_rejected")
+            and not row.get("half_life_killed")
+            and not (row.get("dimension_conflict") or {}).get("veto")
+            and not (row.get("dimension_conflict") or {}).get("abstain")
         ),
         "profitable_count": sum(1 for row in formatted if row["net_profit_usdt"] > 0),
+        "gated_out_count": sum(
+            1
+            for row in formatted
+            if row.get("truth_rejected")
+            or row.get("half_life_killed")
+            or (row.get("dimension_conflict") or {}).get("veto")
+            or (row.get("dimension_conflict") or {}).get("abstain")
+        ),
         "pricing_errors": pricing_errors[:10],
         "data_source": source,
         "data_age_sec": round(data_age_sec, 2),
@@ -455,6 +476,7 @@ async def scan_arbitrage_opportunities(
             "millisecond" if source == "websocket_live" else "sub_second" if data_age_sec <= 2 else "slow"
         ),
         "quote_amount": notional,
+        "constitution_gates": ["D3", "D4", "D2", "D8"],
         "timestamp": _utcnow_iso(),
     }
 
@@ -563,10 +585,10 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
     min_usdt = float(os.getenv("ARBITRAGE_ALERT_MIN_PROFIT_USDT", "0.10"))
     triggered: list[dict[str, Any]] = []
 
+    from constitution_gates import is_alertable
+
     for opp in scan_result.get("opportunities", [])[:5]:
-        if opp.get("execution_feasibility") == "not_executable":
-            continue
-        if opp.get("truth_rejected") or (opp.get("net_edge_truth") or {}).get("reject"):
+        if not is_alertable(opp):
             continue
         if float(opp.get("net_profit_usdt") or 0) < min_usdt:
             continue

@@ -402,6 +402,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.heroes import router as heroes_router
+
+    app.include_router(heroes_router)
+except Exception:
+    logger.exception("Heroes router unavailable")
+
+try:
     from api.routers.telegram import router as telegram_router
 
     app.include_router(telegram_router)
@@ -1087,6 +1094,18 @@ async def oracle(
                 logger.debug("chain_hash attach failed", exc_info=True)
     except Exception:
         logger.exception("Oracle prediction_id attach failed")
+
+    # Hero #6 — Decision Certificate on every primary Oracle response.
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle",
+            trust_basis="public_accuracy_ledger + decision_certificate",
+        )
+    except Exception:
+        logger.debug("Decision certificate attach failed", exc_info=True)
 
     # Durable product alert without Telegram when Oracle says ACT.
     try:

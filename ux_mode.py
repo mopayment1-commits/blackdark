@@ -25,6 +25,8 @@ _BEGINNER_KEYS = {
     "prediction_id",
     "chain_hash",
     "proof",
+    "decision_certificate",
+    "compliance_footer",
     "oracle",
     "narrative",
 }

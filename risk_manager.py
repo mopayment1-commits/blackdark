@@ -216,10 +216,12 @@ def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
 
 
 def risk_status() -> dict[str, Any]:
+    reason = _freeze_reason if is_trading_frozen() else ""
     return {
         "trading_frozen": is_trading_frozen(),
-        "freeze_reason": _freeze_reason if is_trading_frozen() else "",
+        "freeze_reason": reason,
         "freeze_until_ts": _freeze_until if is_trading_frozen() else None,
+        "drift_freeze_active": str(reason).startswith("ml_drift_high"),
         "max_slippage_bps": _max_slippage_bps(),
         "poison_threshold_pct": _poison_threshold_pct(),
         "stop_loss_pct": _stop_loss_pct(),

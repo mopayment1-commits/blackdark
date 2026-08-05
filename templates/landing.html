@@ -626,6 +626,12 @@
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
+                    <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                        <option value="retail" selected>Retail</option>
+                        <option value="pro">Pro</option>
+                        <option value="whale">Whale</option>
+                        <option value="fund">Fund</option>
+                    </select>
                     <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Pro</option>
@@ -634,6 +640,7 @@
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
                     <button onclick="consultOracle()">Get Decision</button>
                 </div>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
@@ -646,6 +653,9 @@
                         One clear decision — act or wait
                     </div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
+                    <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
+                    <div id="landingDiscipline" style="display:none;margin-top:.75rem"></div>
+                    <div id="landingCompliance" style="display:none;margin-top:.85rem;padding:.65rem .8rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-muted)"></div>
                     <div id="landingUpgrade" style="display:none;margin-top:.75rem"></div>
                 </div>
 
@@ -942,10 +952,79 @@
                         consultOracle();
                     });
                 }
+                const certEl = document.getElementById('landingCert');
+                const cert = data.decision_certificate || {};
+                if (cert.certificate_hash || data.prediction_id) {
+                    certEl.style.display = 'block';
+                    certEl.innerHTML =
+                        `Decision Certificate · <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>` +
+                        (cert.share_text ? `<div style="margin-top:.35rem"><button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button></div>` : '');
+                    document.getElementById('copyCertBtn')?.addEventListener('click', () => {
+                        navigator.clipboard.writeText(cert.share_text || '');
+                    });
+                } else {
+                    certEl.style.display = 'none';
+                }
+
+                const disc = document.getElementById('landingDiscipline');
+                const action = data.decision_action || data.verdict || 'WAIT';
+                disc.style.display = 'block';
+                disc.innerHTML =
+                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal?</div>` +
+                    `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
+                    `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
+                    `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
+                const sendFollow = async (followed) => {
+                    const key = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2, 10));
+                    localStorage.setItem('bd_user_key', key);
+                    try {
+                        await fetch('/api/discipline-mirror/answer', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                user_key: key,
+                                asset: data.symbol || symbol,
+                                system_action: action,
+                                followed,
+                                prediction_id: data.prediction_id,
+                                opportunity_score: data.opportunity_score,
+                            }),
+                        });
+                        document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
+                    } catch (e) {
+                        document.getElementById('disciplineMsg').textContent = 'Could not save answer.';
+                    }
+                };
+                document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
+                document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
+
+                const foot = data.compliance_footer || {};
+                const comp = document.getElementById('landingCompliance');
+                if (foot.disclaimer) {
+                    comp.style.display = 'block';
+                    comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+                }
+
                 updateShareLinks(data);
             } catch (error) {
                 oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.';
             }
+        }
+
+        async function applyAudience() {
+            const aud = document.getElementById('landingAudience')?.value || 'retail';
+            localStorage.setItem('bd_audience', aud);
+            try {
+                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
+                const d = await res.json();
+                const cta = document.getElementById('audienceCta');
+                if (cta) cta.textContent = d.cta || '';
+                const mode = document.getElementById('landingUxMode');
+                if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
+                if (aud === 'fund') {
+                    window.location.href = '/b2b?audience=fund#fund-terminal';
+                }
+            } catch (e) { /* ignore */ }
         }
         
         async function joinWaitlist(e) {

@@ -263,7 +263,11 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         "signal_registry": _signal_registry_block(),
 
+        "drift": _drift_status_block(),
+
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
+
+        "heroes_binding": "docs/HEROES_STRATEGY_BINDING.md",
 
     }
 
@@ -296,6 +300,33 @@ def _signal_registry_block() -> dict[str, Any]:
         }
     except Exception as exc:
         return {"error": str(exc), "differentiator": "D8"}
+
+
+def _drift_status_block() -> dict[str, Any]:
+    """Core Canon §1.3 — product-facing drift / freeze state (fail-closed visibility)."""
+    envelope_ready = False
+    try:
+        from ml.drift_monitor import load_feature_envelope
+
+        envelope_ready = load_feature_envelope() is not None
+    except Exception:
+        envelope_ready = False
+    try:
+        from risk_manager import risk_status
+
+        risk = risk_status()
+    except Exception:
+        risk = {}
+    freeze_reason = str(risk.get("freeze_reason") or "")
+    drift_freeze = freeze_reason.startswith("ml_drift_high")
+    return {
+        "drift_envelope_ready": envelope_ready,
+        "trading_frozen": bool(risk.get("trading_frozen")),
+        "freeze_reason": freeze_reason,
+        "drift_freeze_active": drift_freeze,
+        "fail_closed": drift_freeze or bool(risk.get("trading_frozen")),
+        "note": "High PSI drift freezes trading; public surface shows freeze state honestly.",
+    }
 
 
 def _chain_lookup() -> dict[str, dict[str, Any]]:

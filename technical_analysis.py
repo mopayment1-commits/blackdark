@@ -115,6 +115,66 @@ def ta_score_adjustment(rsi: float | None, macd_label: str, ema_label: str) -> f
     return adj
 
 
+def _frame_bias(closes: list[float]) -> str:
+    """Simple directional bias for confluence: bull / bear / flat."""
+    if len(closes) < 5:
+        return "flat"
+    rsi = compute_rsi(closes)
+    ema = ema_position_label(closes[-1], closes)
+    score = 0
+    if rsi is not None:
+        if rsi < 45:
+            score += 1
+        elif rsi > 55:
+            score -= 1
+    el = ema.lower()
+    if "bullish" in el:
+        score += 1
+    elif "downtrend" in el or "bear" in el:
+        score -= 1
+    if score > 0:
+        return "bull"
+    if score < 0:
+        return "bear"
+    return "flat"
+
+
+async def compute_timeframe_confluence(asset: str) -> dict[str, Any]:
+    """Core Canon §1.1 — multi-timeframe confluence before trusting TA."""
+    from forecast_engine import _fetch_binance_closes, _normalize_asset
+
+    asset_u = _normalize_asset(asset)
+    pair = f"{asset_u}USDT"
+    frames: dict[str, Any] = {}
+    for interval, limit in (("15m", 96), ("1h", 120), ("4h", 90)):
+        try:
+            closes = await _fetch_binance_closes(pair, interval=interval, limit=limit)
+        except Exception:
+            closes = []
+        bias = _frame_bias(closes) if closes else "unavailable"
+        frames[interval] = {"bias": bias, "bars": len(closes)}
+
+    biases = [f["bias"] for f in frames.values() if f["bias"] in {"bull", "bear", "flat"}]
+    aligned = False
+    score_penalty = 0.0
+    if biases:
+        actionable = [b for b in biases if b != "flat"]
+        aligned = len(set(actionable)) == 1 and len(actionable) >= 2
+        if len(set(actionable)) > 1:
+            score_penalty = 8.0  # conflicting frames — reduce trust
+        elif not actionable:
+            score_penalty = 3.0
+    else:
+        score_penalty = 5.0
+
+    return {
+        "aligned": aligned,
+        "score_penalty": score_penalty,
+        "frames": frames,
+        "note": "Multi-timeframe confluence (15m/1h/4h) — fail-soft penalty when frames disagree.",
+    }
+
+
 async def build_ta_bundle(asset: str, price: float | None = None) -> dict[str, Any]:
     from forecast_engine import load_price_series
 
@@ -126,6 +186,8 @@ async def build_ta_bundle(asset: str, price: float | None = None) -> dict[str, A
     rsi = compute_rsi(closes)
     macd_label = macd_trend_label(closes)
     ema_label = ema_position_label(current_price, closes)
+    confluence = await compute_timeframe_confluence(asset)
+    adj = ta_score_adjustment(rsi, macd_label, ema_label) - float(confluence.get("score_penalty") or 0)
     return {
         "asset": asset,
         "available": True,
@@ -135,5 +197,6 @@ async def build_ta_bundle(asset: str, price: float | None = None) -> dict[str, A
         "rsi_signal": rsi_signal_label(rsi) if rsi is not None else "N/A",
         "macd": macd_label,
         "ema": ema_label,
-        "score_adjustment": ta_score_adjustment(rsi, macd_label, ema_label),
+        "timeframe_confluence": confluence,
+        "score_adjustment": adj,
     }

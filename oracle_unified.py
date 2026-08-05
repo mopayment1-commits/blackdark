@@ -218,6 +218,24 @@ async def finalize_unified_score(
         adjusted += float(ml_meta.get("nudge") or 0.0)
 
     adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
+
+    # Core Canon §1.1 — multi-timeframe confluence before trusting score.
+    confluence: dict[str, Any] = {"aligned": None, "score_penalty": 0.0}
+    try:
+        from technical_analysis import compute_timeframe_confluence
+
+        confluence = await compute_timeframe_confluence(asset)
+        adjusted -= float(confluence.get("score_penalty") or 0.0)
+        if confluence.get("aligned") is False and float(confluence.get("score_penalty") or 0) >= 8:
+            # Frames disagree strongly — fail-soft toward WAIT presentation.
+            conflict_meta = {
+                **conflict_meta,
+                "timeframe_disagreement": True,
+                "abstain": True if not conflict_meta.get("veto") else conflict_meta.get("abstain"),
+            }
+    except Exception:
+        pass
+
     final_score = int(round(max(0.0, min(100.0, adjusted))))
     public_verdict = unified_verdict_with_conflict(
         final_score,
@@ -230,6 +248,8 @@ async def finalize_unified_score(
         conflict_penalty += 15.0
     elif conflict_meta.get("abstain"):
         conflict_penalty += 8.0
+    if confluence.get("aligned") is False:
+        conflict_penalty += 5.0
     ml_conf = float(ml_meta.get("confidence_percent") or 0) if ml_meta.get("available") else None
     confidence = _confidence_from_score(
         final_score,
@@ -253,6 +273,7 @@ async def finalize_unified_score(
         "dimension_weights": breakdown.get("dimension_weights", {}),
         "modal_breakdown": breakdown,
         "dimension_conflict": conflict_meta,
+        "timeframe_confluence": confluence,
         "hub_adjustment": breakdown.get("hub_adjustment", 0.0),
         "hub_reasons": breakdown.get("hub_reasons") or [],
         "hub_risks": breakdown.get("hub_risks") or [],

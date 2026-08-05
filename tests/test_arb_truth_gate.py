@@ -18,8 +18,8 @@ def test_alert_processor_skips_truth_rejects():
     import arbitrage_service
 
     src = inspect.getsource(arbitrage_service.process_arbitrage_alerts)
-    assert "truth_rejected" in src
-    assert "net_edge_truth" in src
+    assert "is_alertable" in src
+    assert "constitution_gates" in src
 
 
 def test_enrichment_does_not_overwrite_prediction_id():

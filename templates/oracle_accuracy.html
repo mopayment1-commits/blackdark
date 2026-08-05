@@ -155,6 +155,14 @@
         </div>
     </section>
 
+    <section class="panel" id="locked">
+        <div class="card">
+            <h2>Locked Predictions · Glass Box</h2>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
+            <ul class="events" id="locked-list"><li>Loading...</li></ul>
+        </div>
+    </section>
+
     <section class="panel">
         <div class="card">
             <h2>D8 · Signal Registry</h2>
@@ -356,8 +364,34 @@
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
 
+        async function loadLocked() {
+            try {
+                const res = await fetch('/api/locked-predictions?limit=12');
+                const data = await res.json();
+                const st = data.status || {};
+                document.getElementById('locked-status').textContent =
+                    `Sealed forecasts · locked=${st.locked ?? 0} · revealed=${st.unlocked ?? 0} · Glass Box cadence`;
+                const rows = data.predictions || [];
+                const list = document.getElementById('locked-list');
+                if (!rows.length) {
+                    list.innerHTML = '<li>No locked predictions yet — seal before the next major macro event.</li>';
+                } else {
+                    list.innerHTML = rows.map(r =>
+                        `<li><strong>${r.event_name || 'event'}</strong> · ${r.asset || ''} · ` +
+                        `${r.status} · seal ${String(r.seal_hash || '').slice(0,12)}…` +
+                        (r.revealed ? ` · ${r.direction || ''} — ${(r.rationale || '').slice(0,80)}` : ' · sealed until unlock') +
+                        `</li>`
+                    ).join('');
+                }
+            } catch (e) {
+                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
+            }
+        }
+
         loadAccuracy();
+        loadLocked();
         setInterval(loadAccuracy, 60000);
+        setInterval(loadLocked, 120000);
     </script>
 </body>
 </html>

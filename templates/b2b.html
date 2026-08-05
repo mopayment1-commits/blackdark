@@ -100,6 +100,21 @@
         </div>
     </div>
 
+    <div class="demo-box" id="fund-terminal">
+        <div class="card">
+            <h2 style="margin-bottom:0.5rem">Emerging Fund Terminal</h2>
+            <p style="color:var(--muted);font-size:0.9rem">
+                Built for the underserved 78% of crypto funds (sub-$50M AUM):
+                Public Accuracy Ledger + Decision Certificates + DD checklist —
+                priced for 10–50M desks, not billion-dollar terminals.
+            </p>
+            <button class="btn btn-primary" type="button" onclick="loadFundTerminal()">Load Fund DD Pack</button>
+            <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
+            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Whale · Full Evidence</a>
+            <pre class="demo-result" id="fundTerminalResult" style="max-height:320px">Click “Load Fund DD Pack” for allocator-ready summary.</pre>
+        </div>
+    </div>
+
     <div class="demo-box" id="evidence">
         <div class="card">
             <h2 style="margin-bottom:0.5rem">Acquirer Evidence Pack (D6)</h2>
@@ -227,6 +242,25 @@
                 if (token) headers['Authorization'] = `Bearer ${token}`;
             } catch (e) { /* ignore */ }
             return headers;
+        }
+
+        async function loadFundTerminal() {
+            const el = document.getElementById('fundTerminalResult');
+            el.textContent = 'Loading Emerging Fund Terminal…';
+            try {
+                const res = await fetch('/api/fund/emerging-terminal?fund_name=Emerging%20Fund');
+                const data = await res.json();
+                el.textContent = JSON.stringify({
+                    segment: data.segment,
+                    pricing_posture: data.pricing_posture,
+                    dd_export: data.dd_export,
+                    allocator_checklist: data.allocator_checklist,
+                    onboarding_steps: data.onboarding_steps,
+                    compliance: data.compliance,
+                }, null, 2);
+            } catch (e) {
+                el.textContent = 'Fund terminal unavailable.';
+            }
         }
 
         async function loadEvidenceSummary() {

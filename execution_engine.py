@@ -405,20 +405,41 @@ async def try_execute_from_opportunity(
     if kind == "triangular" and float(opportunity.get("data_age_sec") or 0) > 1.0:
         return {"skipped": True, "reason": "triangular_stale_for_execution"}
 
-    # Dimension conflict hard gate when available on the opportunity payload.
+    # Constitution fail-closed: recompute missing Truth / Half-Life / Veto before exec.
+    try:
+        from constitution_gates import ensure_execution_gates
+
+        opportunity = ensure_execution_gates(opportunity)
+    except Exception:
+        logger.debug("execution gate recompute failed", exc_info=True)
+
+    if opportunity.get("gates_missing"):
+        return {"skipped": True, "reason": "constitution_gates_missing", "opportunity": {
+            "net_edge_truth": opportunity.get("net_edge_truth"),
+            "opportunity_half_life": opportunity.get("opportunity_half_life"),
+        }}
+
     conflict = opportunity.get("dimension_conflict") or {}
     if conflict.get("veto") or conflict.get("abstain"):
         return {"skipped": True, "reason": "dimension_conflict", "conflict": conflict}
     truth = opportunity.get("net_edge_truth") or {}
     if truth.get("reject"):
         return {"skipped": True, "reason": "net_edge_truth_reject", "net_edge_truth": truth}
+    if opportunity.get("half_life_killed"):
+        return {
+            "skipped": True,
+            "reason": "opportunity_half_life_expired",
+            "opportunity_half_life": opportunity.get("opportunity_half_life"),
+        }
     half = opportunity.get("opportunity_half_life") or {}
     try:
         remain = float(half.get("remaining_seconds"))
         p_gone = float(half.get("disappearance_probability") or 0)
     except (TypeError, ValueError):
         remain, p_gone = None, 0.0
-    if remain is not None and (remain <= 2.0 or p_gone >= 0.92):
+    if remain is None:
+        return {"skipped": True, "reason": "opportunity_half_life_unavailable", "opportunity_half_life": half}
+    if remain <= 2.0 or p_gone >= 0.92:
         return {
             "skipped": True,
             "reason": "opportunity_half_life_expired",
