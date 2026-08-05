@@ -2238,7 +2238,7 @@
             const el = document.getElementById('compareResult');
             el.textContent = 'Comparing venues...';
             try {
-                const res = await fetch('/api/arbitrage/compare/' + sym);
+                const res = await fetch('/api/arbitrage/compare/' + sym, { headers: (typeof authHeaders === 'function') ? authHeaders() : {} });
                 const data = await res.json();
                 const venues = (data.venues || []).map(v =>
                     `${v.exchange.toUpperCase()}: bid $${fmt(v.best_bid, 2)} / ask $${fmt(v.best_ask, 2)} (${fmt(v.spread_bps, 1)} bps)`
