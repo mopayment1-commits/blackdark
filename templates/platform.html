@@ -267,6 +267,40 @@ function sparkSvg(prices) {
     return `<svg class="spark" viewBox="0 0 ${w} ${h}"><polyline fill="none" stroke="${up?'#22c55e':'#ef4444'}" stroke-width="1.5" points="${pts}"/></svg>`;
 }
 
+function authHeaders() {
+    const headers = {};
+    try {
+        const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+    } catch (e) { /* ignore */ }
+    return headers;
+}
+
+function gatedMessage(status) {
+    if (status === 401 || status === 403) {
+        return 'Login or Pro upgrade required — <a href="/login">Login</a> · <a href="/create-checkout-session?tier=pro">Upgrade</a>';
+    }
+    return null;
+}
+
+async function platformFetch(url, options = {}) {
+    const opts = { ...options, headers: { ...(options.headers || {}), ...authHeaders() } };
+    const res = await fetch(url, opts);
+    if (!res.ok) {
+        const gated = gatedMessage(res.status);
+        let detail = '';
+        try {
+            const body = await res.clone().json();
+            detail = typeof body.detail === 'string' ? body.detail : (body.detail?.message || body.reason || '');
+        } catch (e) { /* ignore */ }
+        const err = new Error(gated ? 'Login or Pro upgrade required' : (detail || `Request failed (${res.status})`));
+        err.status = res.status;
+        err.gatedHtml = gated;
+        throw err;
+    }
+    return res;
+}
+
 function initChart() {
     const el = document.getElementById('chart');
     chart = LightweightCharts.createChart(el, {
@@ -303,12 +337,12 @@ async function loadRankings() {
     const wrap = document.getElementById('rankingsWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch('/api/platform/market/rankings?limit=100');
+        const res = await platformFetch('/api/platform/market/rankings?limit=100');
         const data = await res.json();
         rankingsCache = (data.coins || []).slice(0, 100);
         filterRankings();
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Failed to load rankings</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rankings'}</div>`;
     }
 }
 
@@ -342,7 +376,7 @@ async function loadCexDex() {
     const wrap = document.getElementById('cexDexWrap');
     wrap.innerHTML = '<div class="loading">Scanning…</div>';
     try {
-        const res = await fetch('/api/platform/arb/cex-dex?quote_usd=1000');
+        const res = await platformFetch('/api/platform/arb/cex-dex?quote_usd=1000');
         const data = await res.json();
         window._lastCexDex = data;
         const opps = data.opportunities || [];
@@ -357,7 +391,7 @@ async function loadCexDex() {
                 <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Scan failed</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Scan failed'}</div>`;
     }
 }
 
@@ -367,7 +401,7 @@ async function executeCexDex() {
     msg.className = 'msg';
     msg.textContent = '⏳ Executing top CEX↔DEX (dry-run)…';
     try {
-        const res = await fetch('/api/platform/arb/cex-dex/execute', {
+        const res = await platformFetch('/api/platform/arb/cex-dex/execute', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({cycle: true, quote_usd: 1000, dry_run: true}),
@@ -390,7 +424,7 @@ async function loadDerivCompare() {
     const wrap = document.getElementById('derivWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch(`/api/platform/derivatives/cex-dex-compare?asset=${asset}`);
+        const res = await platformFetch(`/api/platform/derivatives/cex-dex-compare?asset=${asset}`);
         const data = await res.json();
         const cex = (data.cex_funding || []).slice(0, 6);
         const dex = (data.dex_perp_quotes || []).slice(0, 6);
@@ -403,7 +437,7 @@ async function loadDerivCompare() {
             </div></div>
             <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${data.comparison_note||''}</p>`;
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Compare failed</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Compare failed'}</div>`;
     }
 }
 
@@ -416,7 +450,7 @@ function showMsg(id, text, ok) {
 async function loadGrids() {
     const wrap = document.getElementById('gridWrap');
     try {
-        const res = await fetch('/api/platform/bots/grid');
+        const res = await platformFetch('/api/platform/bots/grid');
         const data = await res.json();
         const rows = data.grids || [];
         if (!rows.length) {
@@ -429,7 +463,7 @@ async function loadGrids() {
                 <span class="pill">${g.mode||'paper'}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Failed to load grids</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load grids'}</div>`;
     }
 }
 
@@ -443,11 +477,10 @@ async function createGrid() {
         quote_usd: +document.getElementById('gridQuote').value,
     };
     try {
-        const res = await fetch('/api/platform/bots/grid', {
+        const res = await platformFetch('/api/platform/bots/grid', {
             method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Create failed');
         showMsg('gridMsg', `Grid ${data.id} created (${data.levels.length} levels)`, true);
         loadGrids();
     } catch (e) {
@@ -458,7 +491,7 @@ async function createGrid() {
 async function loadRules() {
     const wrap = document.getElementById('rulesWrap');
     try {
-        const res = await fetch('/api/platform/rules');
+        const res = await platformFetch('/api/platform/rules');
         const data = await res.json();
         const rows = data.rules || [];
         if (!rows.length) {
@@ -471,7 +504,7 @@ async function loadRules() {
                 <span class="pill">${r.enabled ? 'on' : 'off'}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Failed to load rules</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rules'}</div>`;
     }
 }
 
@@ -486,11 +519,10 @@ async function createRule() {
         return;
     }
     try {
-        const res = await fetch('/api/platform/rules', {
+        const res = await platformFetch('/api/platform/rules', {
             method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.detail || 'Add failed');
         showMsg('ruleMsg', `Rule ${data.id} added`, true);
         document.getElementById('ruleIf').value = '';
         document.getElementById('ruleThen').value = '';
@@ -503,12 +535,12 @@ async function createRule() {
 async function evalRules() {
     showMsg('ruleMsg', 'Evaluating…', true);
     try {
-        const res = await fetch('/api/platform/rules/evaluate', { method: 'POST' });
+        const res = await platformFetch('/api/platform/rules/evaluate', { method: 'POST' });
         const data = await res.json();
         const n = (data.triggered || []).length;
         showMsg('ruleMsg', `Evaluated ${data.evaluated} rules · ${n} triggered (${data.scan_ms||'?'}ms scan)`, true);
     } catch (e) {
-        showMsg('ruleMsg', 'Evaluate failed', false);
+        showMsg('ruleMsg', e.message || 'Evaluate failed', false);
     }
 }
 
@@ -525,7 +557,7 @@ async function runRebalance() {
     }
     wrap.innerHTML = '<div class="loading">Calculating…</div>';
     try {
-        const res = await fetch('/api/platform/portfolio/rebalance', {
+        const res = await platformFetch('/api/platform/portfolio/rebalance', {
             method: 'POST', headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ holdings, target_weights }),
         });
@@ -548,13 +580,13 @@ async function runRebalance() {
 async function loadMarketplace() {
     const wrap = document.getElementById('marketplaceWrap');
     try {
-        const res = await fetch('/api/platform/marketplace/strategies');
+        const res = await platformFetch('/api/platform/marketplace/strategies');
         const data = await res.json();
         wrap.innerHTML = (data.strategies||[]).map(s =>
             `<div class="metric-row"><span>${s.name} <span style="color:var(--muted)">${s.kind||''}</span></span><span class="pill">${s.tier}</span></div>`
         ).join('');
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Failed</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`;
     }
 }
 
@@ -563,7 +595,7 @@ async function publishStrategy() {
     const kind = document.getElementById('stratKind').value;
     if (!name) { showMsg('marketplaceMsg', 'Enter strategy name', false); return; }
     try {
-        const res = await fetch('/api/platform/marketplace/strategies', {
+        const res = await platformFetch('/api/platform/marketplace/strategies', {
             method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({name, kind, tier:'community'}),
         });
@@ -580,19 +612,19 @@ async function loadLiquidations() {
     const wrap = document.getElementById('liqWrap');
     wrap.innerHTML = '<div class="loading">Scanning…</div>';
     try {
-        const res = await fetch(`/api/platform/liquidations/radar?asset=${asset}`);
+        const res = await platformFetch(`/api/platform/liquidations/radar?asset=${asset}`);
         const data = await res.json();
         wrap.innerHTML = (data.alerts||[]).map(a =>
             `<div class="metric-row"><span><strong>${a.type}</strong> · ${a.detail||''}</span><span class="pill">${a.severity}</span></div>`
         ).join('');
-    } catch(e) { wrap.innerHTML = '<div class="loading">Failed</div>'; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
 async function loadUnlocks() {
     const wrap = document.getElementById('unlocksWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch('/api/platform/unlocks/calendar');
+        const res = await platformFetch('/api/platform/unlocks/calendar');
         const data = await res.json();
         const sched = data.scheduled_unlocks||[];
         const press = data.supply_pressure||[];
@@ -600,7 +632,7 @@ async function loadUnlocks() {
             (sched.length ? sched.map(u=>`<div class="metric-row"><span>${u.asset} · ${u.unlock_date}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
             `<h3 style="font-size:.85rem;margin:1rem 0 .5rem">Supply pressure</h3>` +
             press.slice(0,8).map(u=>`<div class="metric-row"><span>${u.asset}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = '<div class="loading">Failed</div>'; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
 async function loadFootprint() {
@@ -608,48 +640,47 @@ async function loadFootprint() {
     const wrap = document.getElementById('fpWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch(`/api/platform/analytics/footprint?asset=${asset}`);
+        const res = await platformFetch(`/api/platform/analytics/footprint?asset=${asset}`);
         const data = await res.json();
         const depth = data.depth_levels||[];
         wrap.innerHTML = `<div class="metric-row"><span>Order-flow delta</span><span>${fmt(data.order_flow_delta,4)}</span></div>` +
             depth.map(d=>`<div class="metric-row"><span>${d.exchange}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = '<div class="loading">Failed</div>'; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
 async function loadCoindesk() {
     const wrap = document.getElementById('coindeskWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch('/api/platform/news/coindesk?limit=8');
+        const res = await platformFetch('/api/platform/news/coindesk?limit=8');
         const data = await res.json();
         wrap.innerHTML = (data.coindesk_headlines||[]).map(h=>
             `<div class="metric-row"><span><a href="${h.link}" target="_blank" style="color:var(--text);text-decoration:none">${h.title}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
         ).join('') || '<div class="loading">No headlines</div>';
-    } catch(e) { wrap.innerHTML = '<div class="loading">Failed</div>'; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
 async function loadMacro() {
     const wrap = document.getElementById('macroWrap');
     wrap.innerHTML = '<div class="loading">Loading…</div>';
     try {
-        const res = await fetch('/api/platform/macro/bitcoin');
+        const res = await platformFetch('/api/platform/macro/bitcoin');
         const data = await res.json();
         const live = data.live_metrics||{};
         wrap.innerHTML = (data.indicators||[]).map(i=>
             `<div class="metric-row"><span>${i.label}</span><span>${i.value!=null?fmt(i.value,0):`<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`}</span></div>`
         ).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
-    } catch(e) { wrap.innerHTML = '<div class="loading">Failed</div>'; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
 async function runScript() {
     const expr = document.getElementById('scriptExpr').value;
     try {
-        const res = await fetch('/api/platform/scripts/run', {
+        const res = await platformFetch('/api/platform/scripts/run', {
             method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({expression: expr, variables:{price:95000,ma_slow:94000,rsi:55}}),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.detail||'Error');
         document.getElementById('scriptOut').textContent = JSON.stringify(data, null, 2);
         showMsg('scriptMsg', `Signal: ${data.signal||'—'} · result ${data.result}`, true);
     } catch(e) { showMsg('scriptMsg', e.message, false); }
@@ -658,7 +689,7 @@ async function runScript() {
 async function loadPlatformKeys() {
     const wrap = document.getElementById('keysWrap');
     try {
-        const res = await fetch('/api/platform/keys/status');
+        const res = await platformFetch('/api/platform/keys/status');
         const data = await res.json();
         wrap.innerHTML = (data.keys || []).map(k => `
             <div class="key-row">
@@ -670,7 +701,7 @@ async function loadPlatformKeys() {
                 </div>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = '<div class="loading">Key status unavailable — start server</div>';
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Key status unavailable — start server'}</div>`;
     }
 }
 
@@ -686,13 +717,12 @@ async function savePlatformKeys() {
         return;
     }
     try {
-        const res = await fetch('/api/platform/keys/save', {
+        const res = await platformFetch('/api/platform/keys/save', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(body),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail));
         showMsg('keysMsg', `Saved ${data.saved_count || 0} key(s) — reload if needed`, true);
         ids.forEach(id => { const el = document.getElementById('key_' + id); if (el) el.value = ''; });
         await loadPlatformKeys();
@@ -705,13 +735,13 @@ async function verifyPlatformKeys() {
     const out = document.getElementById('keysVerifyOut');
     out.textContent = 'Verifying…';
     try {
-        const res = await fetch('/api/platform/keys/verify');
+        const res = await platformFetch('/api/platform/keys/verify');
         const data = await res.json();
         out.innerHTML = (data.results || []).map(r =>
             `<div>${r.service}: ${r.valid ? 'Valid' : (r.configured ? 'Invalid — ' + (r.message || r.reason) : 'Not connected')}</div>`
         ).join('');
     } catch (e) {
-        out.textContent = 'Verification failed — ' + e.message;
+        out.innerHTML = e.gatedHtml || ('Verification failed — ' + e.message);
     }
 }
 

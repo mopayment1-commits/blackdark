@@ -145,7 +145,20 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 float(market["change_24h"]),
                 whale_alert=whale_alert,
             )
-            speech = payload.get("oracle") or payload.get("narrative") or f"{symbol}: {payload.get('verdict')}"
+            try:
+                from decision_enrichment import enrich_oracle_decision
+
+                payload = enrich_oracle_decision(
+                    payload, ux_mode="beginner", lang="en", register_signal=True
+                )
+            except Exception:
+                logger.debug("voice oracle enrich failed", exc_info=True)
+            speech = (
+                payload.get("decision_sentence")
+                or payload.get("oracle")
+                or payload.get("narrative")
+                or f"{symbol}: {payload.get('verdict')}"
+            )
             return {
                 "success": True,
                 "intent": intent,
