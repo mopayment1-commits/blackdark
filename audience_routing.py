@@ -29,10 +29,10 @@ _AUDIENCES = {
     },
     "whale": {
         "audience": "whale",
-        "first_screen": "execution_risk_portfolio",
-        "heroes": ["portfolio_ai", "opportunity_half_life"],
-        "cta": "Half-Life + Portfolio risk before size hits the book.",
-        "entry_path": "/dashboard?audience=whale",
+        "first_screen": "stealth_execution_advisor",
+        "heroes": ["portfolio_ai", "opportunity_half_life", "stealth_execution_advisor"],
+        "cta": "Stealth Advisor + Half-Life + MEV report before size hits the book.",
+        "entry_path": "/dashboard?audience=whale#stealth",
         "ux_mode_default": "pro",
     },
     "fund": {

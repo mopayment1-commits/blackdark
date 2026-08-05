@@ -1267,8 +1267,8 @@
         <section class="section">
             <div class="section-head">
                 <div>
-                    <h2>Whale Intelligence</h2>
-                    <p class="sub">CVVD cross-venue manipulation detection</p>
+                    <h2>Whale Intelligence · Signal vs Noise</h2>
+                    <p class="sub">Transfers ≠ Trades — one plain sentence per flow · CVVD scan underneath</p>
                 </div>
                 <button class="btn-secondary" onclick="refreshWhales()">Scan Now</button>
             </div>
@@ -1276,9 +1276,11 @@
             <div class="gravity-map" id="gravityMap">
                 <div class="loading">Loading whale gravity map...</div>
             </div>
+            <div id="signalVsNoise" style="margin-top:1rem"></div>
             <div class="cards-grid" id="whales" style="margin-top:1rem">
                 <div class="loading">Loading whale data...</div>
             </div>
+            <p id="whaleComplianceFoot" style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted)"><strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger</p>
         </section>
 
         <section class="section">
@@ -1344,7 +1346,7 @@
             <div class="section-head">
                 <div>
                     <h2>Alerts & Execution</h2>
-                    <p class="sub">In-app inbox (works without Telegram) · Email · WhatsApp · dry-run & panic stop</p>
+                    <p class="sub">In-app inbox — no TradingView-style 15/3min hard cap · works without Telegram · Truth + Half-Life gated</p>
                 </div>
                 <button class="panic-btn" id="panicBtn" onclick="togglePanic()">🛑 PANIC STOP</button>
             </div>
@@ -1438,7 +1440,7 @@
             <div class="section-head">
                 <div>
                     <h2>Portfolio AI</h2>
-                    <p class="sub">Risk analysis for your holdings</p>
+                    <p class="sub">Risk in plain language — what happens if BTC drops</p>
                 </div>
             </div>
             <div class="portfolio-section">
@@ -1793,6 +1795,16 @@
                 const proofBlock = d.prediction_id
                     ? `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Proof · prediction_id <code style="color:var(--accent)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a></div>`
                     : '';
+                const factors = (d.explanation && d.explanation.top_3_factors) || [];
+                const factorBlock = factors.length ? `
+                    <div style="margin-top:0.85rem">
+                        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem">Why (Top 3)</div>
+                        ${factors.slice(0,3).map(f => `<div style="font-size:0.85rem;padding:0.35rem 0;border-bottom:1px solid var(--border)"><strong>${f.factor}</strong> — ${f.detail}<div style="color:var(--text-muted);font-size:0.75rem">${f.source||''}</div></div>`).join('')}
+                    </div>` : '';
+                const foot = d.compliance_footer || {};
+                const complianceBlock = foot.disclaimer
+                    ? `<div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem"><strong>Anti-Hype</strong> · ${foot.data_source||''} · ${foot.trust_basis||''}<br>${foot.disclaimer}</div>`
+                    : `<div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem"><strong>Anti-Hype</strong> · Not financial advice. Verify on the Public Accuracy Ledger.</div>`;
 
                 box.innerHTML = `
                     <div class="verdict-banner">
@@ -1810,7 +1822,8 @@
 
                     <div class="narrative-box">${sentence}</div>
 
-                    ${d.whale_alert ? `<div class="whale-alert-box ${whalePositive ? 'positive' : ''}">🐋 ${d.whale_alert}</div>` : ''}
+                    ${d.whale_alert ? `<div class="whale-alert-box ${whalePositive ? 'positive' : ''}">${d.whale_alert}</div>` : ''}
+                    <div id="oracleWhaleSvn" class="whale-alert-box" style="display:none"></div>
 
                     <div class="fg-bar-wrap">
                         <div class="fg-bar-label">
@@ -1826,12 +1839,14 @@
                         <div class="metric"><div class="val">${d.lang || lang}</div><div class="key">Lang</div></div>
                         <div class="metric"><div class="val">${d.risk_level || '—'}</div><div class="key">Risk</div></div>
                     </div>
+                    ${factorBlock}
                     ${proBlock}
                     ${vetoBlock}
                     ${proofBlock}
                     ${upgradeBlock}
+                    ${complianceBlock}
 
-                    ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
+                    ${d.forecast_summary ? `<div class="forecast-box">${d.forecast_summary}</div>` : ''}
 
                     <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem">
                         <a href="#" onclick="localStorage.setItem('bd_ux_mode','beginner');askOracle();return false">Beginner</a> ·
@@ -1840,6 +1855,7 @@
 
                     <div class="explain-panel" id="explainPanel"></div>
                 `;
+                loadOracleWhaleSentence(symbol);
             } catch (e) {
                 box.innerHTML = '<div class="empty">Could not analyze ' + symbol + '. Try BTC, ETH, or SOL.</div>';
                 explainBtn.style.display = 'none';
@@ -2600,14 +2616,14 @@
                 const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
                 const data = await res.json();
                 const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread || 0} unread · works without Telegram`;
+                status.textContent = `Inbox ${stats.unread || 0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
                 const rows = data.alerts || [];
                 list.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
                         <strong>${a.title || 'Alert'}</strong>
                         <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem">${a.body || ''}</div>
                         <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.35rem">${(a.created_at || '').slice(0, 19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — Oracle ACT and arb edges land here</div>';
+                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (e) {
                 status.textContent = 'Inbox unavailable';
                 list.innerHTML = '';
@@ -2968,10 +2984,43 @@
             }).catch(() => { el.innerHTML = '<div class="empty">Heatmap unavailable</div>'; });
         }
 
+        async function loadOracleWhaleSentence(symbol) {
+            const el = document.getElementById('oracleWhaleSvn');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
+                const data = await res.json();
+                const rows = data.classified || [];
+                const hit = rows.find(r => String(r.asset || '').toUpperCase() === String(symbol || '').toUpperCase()) || rows[0];
+                if (!hit) { el.style.display = 'none'; return; }
+                el.style.display = 'block';
+                el.className = 'whale-alert-box' + (hit.actionable ? ' positive' : '');
+                el.textContent = (hit.label || '—') + ' · ' + (hit.sentence || hit.class_id || '');
+            } catch (e) { el.style.display = 'none'; }
+        }
+
         async function loadWhales(refresh=false) {
             const el = document.getElementById('whales');
             const sectorEl = document.getElementById('sectorFlows');
+            const svn = document.getElementById('signalVsNoise');
             try {
+                try {
+                    const svnRes = await fetch('/api/whale/signal-vs-noise?limit=8');
+                    const svnData = await svnRes.json();
+                    const classified = svnData.classified || [];
+                    if (svn) {
+                        svn.innerHTML = classified.length
+                            ? classified.slice(0, 6).map(a => `
+                                <div class="whale-card" onclick="quickAsk('${a.asset || 'BTC'}')">
+                                    <div class="pattern">${a.label || '—'} · ${a.asset || ''}</div>
+                                    <div class="meta">${a.sentence || a.class_id || ''}</div>
+                                </div>`).join('')
+                            : '<div class="empty">Signal vs Noise classifier warming up…</div>';
+                    }
+                } catch (e) {
+                    if (svn) svn.innerHTML = '';
+                }
+
                 const url = refresh ? '/api/whale/scan' : '/api/whale-activity';
                 const res = await fetch(url, refresh ? { method: 'POST' } : {});
                 const data = await res.json();
@@ -3064,8 +3113,10 @@
                 const holdingsHtml = (data.holdings || []).map(h =>
                     `<div class="intel-row"><span>${h.symbol} × ${h.amount}</span><span>$${fmt(h.value_usd, 2)}</span></div>`
                 ).join('');
+                const foot = data.compliance_footer || {};
                 result.innerHTML = `
                     ${holdingsHtml ? '<div style="margin-bottom:1rem">' + holdingsHtml + '</div>' : ''}
+                    <div class="narrative-box" style="margin-bottom:1rem">${data.plain_language || data.scenario_note || ''}</div>
                     <div class="metrics-grid">
                         <div class="metric"><div class="val">${data.total_value_formatted || ('$' + fmt(data.total_value, 2))}</div><div class="key">Total Value</div></div>
                         <div class="metric"><div class="val">${data.btc_correlation}</div><div class="key">BTC Correlation</div></div>
@@ -3074,6 +3125,10 @@
                     </div>
                     <p style="margin-top:0.75rem;color:var(--text-muted);font-size:0.9rem">${data.scenario_note || ''}</p>
                     <p style="margin-top:0.5rem;color:var(--text-muted);font-size:0.85rem">${(data.recommendations || []).join(' · ')}</p>
+                    <div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem">
+                        <strong>Anti-Hype</strong> · ${foot.data_source || 'holdings beta model'} · ${foot.trust_basis || 'public_accuracy_ledger'}<br>
+                        ${foot.disclaimer || 'Not financial advice. Verify claims on the Public Accuracy Ledger.'}
+                    </div>
                 `;
             } catch (e) {
                 result.innerHTML = '<div class="empty">Analysis failed</div>';

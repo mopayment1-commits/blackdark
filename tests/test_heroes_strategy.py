@@ -12,6 +12,9 @@ def test_audience_routing():
     retail = audience_entry("retail")
     assert retail["first_screen"] == "single_sentence_oracle"
     assert "single_sentence_oracle" in retail["heroes"]
+    whale = audience_entry("whale")
+    assert whale["first_screen"] == "stealth_execution_advisor"
+    assert "#stealth" in whale["entry_path"]
 
 
 def test_decision_certificate_and_compliance_footer():
@@ -120,3 +123,39 @@ def test_english_ui_includes_discipline_page():
     text = Path("templates/discipline.html").read_text(encoding="utf-8")
     assert 'lang="en"' in text
     assert "Discipline Mirror" in text
+
+
+def test_mev_sandwich_report_shareable():
+    from mev_sandwich_report import build_mev_sandwich_report
+
+    report = build_mev_sandwich_report(asset="ETH", notional_usd=25_000)
+    assert report["estimated_sandwich_bps"] > 0
+    assert "share_text" in report
+    assert report["compliance"]["disclaimer"]
+
+
+def test_glass_box_challenge_pack():
+    from glass_box_challenge import build_glass_box_challenge_pack
+
+    pack = build_glass_box_challenge_pack()
+    assert pack["status"] == "ready_pack"
+    assert "exact_datetime" in pack["launch_only_fields"]
+    assert "Prove it" in pack["challenge_text_en"]
+    assert pack["product_surfaces"]["public_accuracy_ledger"] == "/oracle-accuracy"
+
+
+def test_alerts_generosity_and_inbox_stats():
+    from in_app_alerts import inbox_stats
+
+    stats = inbox_stats()
+    assert "15-alerts" in stats["generosity_note"] or "TradingView" in stats["generosity_note"]
+
+
+def test_report_inventory_covers_section_ten():
+    from pathlib import Path
+
+    text = Path("docs/REPORT_INVENTORY_STATUS.md").read_text(encoding="utf-8")
+    assert "MEV/Sandwich" in text
+    assert "Glass Box Challenge" in text
+    assert "UNDER_STUDY" in text
+    assert "Browser Extension" in text or "Browser extension" in text

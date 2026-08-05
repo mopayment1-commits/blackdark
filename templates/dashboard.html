@@ -129,14 +129,40 @@
         </section>
 
         <section>
-            <h2>Whale Intelligence</h2>
+            <h2>Whale Intelligence · Signal vs Noise</h2>
+            <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
             <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
             <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
+        </section>
+
+        <section id="stealth">
+            <h2>Stealth Execution Advisor</h2>
+            <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
+            <div class="toolbar">
+                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
+                <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
+            </div>
+            <div id="stealthResult" class="empty">Enter size and run advisor</div>
+        </section>
+
+        <section id="mev">
+            <h2>MEV / Sandwich Report</h2>
+            <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
+            <div class="toolbar">
+                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <button class="btn secondary" onclick="loadMevReport()">Build report</button>
+                <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
+            </div>
+            <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
         <section>
             <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">Inbox works without Telegram — no TradingView-style 15/3min hard cap on in-app alerts</p>
+            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div class="toolbar">
                 <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
                 <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
@@ -144,7 +170,7 @@
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
     </main>
-    <footer>BLACKDARK — Not financial advice</footer>
+    <footer>BLACKDARK — Not financial advice · Verify on <a href="/oracle-accuracy">Public Accuracy Ledger</a></footer>
 
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -364,14 +390,14 @@
                 const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
                 const data = await res.json();
                 const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · works without Telegram`;
+                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
                         <strong>${a.title||'Alert'}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — they appear here even without Telegram</div>';
+                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (e) {
                 el.innerHTML = '<div class="empty">Inbox unavailable</div>';
             }
@@ -390,6 +416,7 @@
 
         async function loadWhales(refresh) {
             const el = document.getElementById('whales');
+            const foot = document.getElementById('whaleCompliance');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
             try {
                 const res = await fetch('/api/whale/signal-vs-noise?limit=8');
@@ -407,7 +434,61 @@
                 } else {
                     el.innerHTML = '<div class="empty">No whale narratives</div>';
                 }
+                if (foot) {
+                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                }
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        let lastMevShare = '';
+        async function loadMevReport() {
+            const el = document.getElementById('mevResult');
+            const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
+            const notional = document.getElementById('mevNotional').value || 10000;
+            el.innerHTML = '<div class="loading">Building…</div>';
+            try {
+                const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
+                const d = await res.json();
+                lastMevShare = d.share_text || '';
+                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${m}</li>`).join('');
+                const c = d.compliance || {};
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>${d.title||'MEV Report'}</strong> · ${d.asset} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">Est. sandwich drag ~${d.estimated_sandwich_bps} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
+                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${d.note||''}</div>
+                        <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+        }
+        function copyMevShare() {
+            if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
+            navigator.clipboard.writeText(lastMevShare);
+        }
+
+        async function runStealthAdvisor() {
+            const el = document.getElementById('stealthResult');
+            el.innerHTML = '<div class="loading">Advising…</div>';
+            try {
+                const res = await fetch('/api/whale/stealth-advisor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                    body: JSON.stringify({
+                        asset: (document.getElementById('stealthAsset').value || 'ETH').trim(),
+                        notional_usd: Number(document.getElementById('stealthNotional').value || 0),
+                        side: document.getElementById('stealthSide').value || 'buy',
+                    }),
+                });
+                const d = await res.json();
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
         async function loadTgStatus() {
@@ -437,6 +518,8 @@
             loadOI();
             loadArbitrage(false);
             loadWhales(false);
+            loadMevReport();
+            runStealthAdvisor();
             loadTgStatus();
             loadInbox();
             setInterval(loadMarket, 60000);

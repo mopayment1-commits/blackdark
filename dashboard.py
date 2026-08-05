@@ -195,6 +195,26 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
     if not recommendations:
         recommendations.append("Balanced portfolio structure for current holdings")
 
+    plain = (
+        f"In plain language: your book is {risk_level.lower()} risk "
+        f"(score {risk_score}/10). Weighted BTC sensitivity is about "
+        f"{weighted_beta:.0%}. If BTC falls {btc_drop_pct:.0f}%, expect roughly "
+        f"${estimated_loss:,.0f} drawdown on current holdings. "
+        f"{recommendations[0]}"
+    )
+    try:
+        from decision_certificate import compliance_footer_block
+
+        compliance = compliance_footer_block(
+            surface="portfolio_ai",
+            trust_basis="holdings beta model + public_accuracy_ledger",
+            data_sources="live spot marks · weighted BTC beta heuristic",
+        )
+    except Exception:
+        compliance = {
+            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
+        }
+
     return {
         "holdings": holdings,
         "total_value": round(total_value, 2),
@@ -210,7 +230,10 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             f"If BTC drops {btc_drop_pct:.0f}%, estimated portfolio loss "
             f"${estimated_loss:,.0f} based on weighted beta {weighted_beta:.2f}"
         ),
+        "plain_language": plain,
         "recommendations": recommendations,
+        "compliance_footer": compliance,
+        "hero": "portfolio_ai",
     }
 
 @asynccontextmanager

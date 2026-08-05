@@ -155,6 +155,32 @@
         </div>
     </section>
 
+    <section class="panel" id="glass-box-challenge">
+        <div class="card">
+            <h2>The Glass Box Challenge</h2>
+            <p id="glass-hook" style="color:var(--muted);font-size:0.9rem">Loading ready pack…</p>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem"></p>
+            <p id="glass-story" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
+                Exact launch timing and channel remain a human decision. Product machinery is live.
+            </p>
+        </div>
+    </section>
+
+    <section class="panel" id="mev-report">
+        <div class="card">
+            <h2>Shareable MEV / Sandwich Report</h2>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
+            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
+            </div>
+        </div>
+    </section>
+
     <section class="panel" id="locked">
         <div class="card">
             <h2>Locked Predictions · Glass Box</h2>
@@ -441,7 +467,46 @@
             navigator.clipboard.writeText(location.origin + '/oracle-accuracy');
         });
 
+        let lastGlassShare = '';
+        let lastMevShare = '';
+        async function loadGlassBox() {
+            try {
+                const res = await fetch('/api/glass-box/challenge');
+                const d = await res.json();
+                lastGlassShare = d.share_text || d.challenge_text_en || '';
+                document.getElementById('glass-hook').textContent = d.hook || '';
+                document.getElementById('glass-challenge').textContent = d.challenge_text_en || '';
+                document.getElementById('glass-story').textContent =
+                    (d.story || '') + ' ' + (d.loop || '');
+            } catch (e) {
+                document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
+            }
+        }
+        document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
+            if (lastGlassShare) navigator.clipboard.writeText(lastGlassShare);
+        });
+
+        async function loadMevReport() {
+            try {
+                const res = await fetch('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
+                const d = await res.json();
+                lastMevShare = d.share_text || '';
+                document.getElementById('mev-status').textContent =
+                    `${d.asset} · notional $${Number(d.notional_usd||0).toLocaleString()} · est. sandwich ~${d.estimated_sandwich_bps} bps (~$${d.estimated_cost_usd}) · ${d.confidence||''}`;
+                const list = document.getElementById('mev-mitigations');
+                list.innerHTML = (d.mitigations || []).map(m => `<li>${m}</li>`).join('')
+                    || '<li>No mitigations listed</li>';
+            } catch (e) {
+                document.getElementById('mev-status').textContent = 'MEV report unavailable';
+            }
+        }
+        document.getElementById('copyMevBtn')?.addEventListener('click', () => {
+            if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
+        });
+
         loadAccuracy();
+        loadGlassBox();
+        loadMevReport();
         loadLocked();
         loadLosing();
         loadAuditChallenge();

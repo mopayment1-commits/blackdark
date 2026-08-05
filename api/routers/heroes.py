@@ -170,3 +170,44 @@ async def compliance_footer(surface: str = Query("oracle")):
         surface=surface,
         trust_basis="public_accuracy_ledger + decision_certificate",
     )
+
+
+@router.get("/api/mev/sandwich-report")
+async def mev_sandwich_report(
+    asset: str = Query("ETH"),
+    notional_usd: float = Query(10_000.0, ge=0, le=50_000_000),
+):
+    from mev_sandwich_report import build_mev_sandwich_report
+
+    return build_mev_sandwich_report(asset=asset, notional_usd=notional_usd)
+
+
+@router.get("/api/glass-box/challenge")
+async def glass_box_challenge():
+    from glass_box_challenge import build_glass_box_challenge_pack
+
+    return build_glass_box_challenge_pack()
+
+
+@router.get("/api/alerts/generosity")
+async def alerts_generosity_posture():
+    """Competitive posture vs TradingView-style rate caps — product messaging only."""
+    return {
+        "title": "Alert generosity — no 15-alerts-per-3-minutes hard cap",
+        "competitor_friction": (
+            "TradingView and similar charting tools throttle alerts "
+            "(commonly ~15 alerts / 3 minutes), which breaks discretionary workflows."
+        ),
+        "blackdark": {
+            "in_app_inbox": "Unlimited in-app Oracle + arb inbox (no TV-style 15/3min hard cap)",
+            "telegram_free": "Free tier: 3 Oracle alerts/day on Telegram",
+            "telegram_pro": "Pro: unlimited Oracle + chat alerts on Telegram when configured",
+            "proof_gate": "Only Net-Edge Truth + Half-Life survivors are alertable",
+        },
+        "cta": "Open the in-app inbox on /dashboard — works without Telegram",
+        "endpoints": {
+            "inbox": "/api/alerts/inbox",
+            "telegram_status": "/api/alerts/telegram/status",
+        },
+        "hero_deepening": "opportunity_score_explainability",
+    }
