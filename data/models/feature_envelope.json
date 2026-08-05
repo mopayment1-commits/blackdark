@@ -1,0 +1,111 @@
+{
+  "feature_columns": [
+    "price",
+    "ret_1h",
+    "ret_4h",
+    "ret_24h",
+    "volatility",
+    "sentiment_score",
+    "sentiment_momentum",
+    "obi_score",
+    "obi_imbalance",
+    "macro_weight",
+    "funding_spread_bps",
+    "whale_sii",
+    "onchain_netflow"
+  ],
+  "features": {
+    "price": {
+      "min": 74.04,
+      "max": 66676.54,
+      "mean": 26514.2187,
+      "std": 30913.53821874567,
+      "n": 100
+    },
+    "ret_1h": {
+      "min": -0.9628,
+      "max": 2.1142,
+      "mean": 0.103544,
+      "std": 0.4608817684222278,
+      "n": 100
+    },
+    "ret_4h": {
+      "min": -1.7067,
+      "max": 2.3094,
+      "mean": -0.023628999999999997,
+      "std": 0.7689985333269499,
+      "n": 100
+    },
+    "ret_24h": {
+      "min": -3.5012,
+      "max": 3.5825,
+      "mean": -0.16008199999999997,
+      "std": 1.5230046013311975,
+      "n": 100
+    },
+    "volatility": {
+      "min": 0.0926,
+      "max": 0.5125,
+      "mean": 0.25655300000000003,
+      "std": 0.0995489662979983,
+      "n": 100
+    },
+    "sentiment_score": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "sentiment_momentum": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "obi_score": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "obi_imbalance": {
+      "min": -0.1926,
+      "max": 0.4228,
+      "mean": 0.020706000000000002,
+      "std": 0.09217673439648423,
+      "n": 100
+    },
+    "macro_weight": {
+      "min": 1.0,
+      "max": 1.0,
+      "mean": 1.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "funding_spread_bps": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "whale_sii": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    },
+    "onchain_netflow": {
+      "min": 0.0,
+      "max": 0.0,
+      "mean": 0.0,
+      "std": 1e-06,
+      "n": 100
+    }
+  },
+  "sample_count": 100
+}

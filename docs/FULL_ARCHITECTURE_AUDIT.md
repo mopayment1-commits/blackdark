@@ -149,6 +149,15 @@
 | أسرار الإنتاج fail-closed + production_guard موسّع | ✅ |
 | ميزات ML موسّعة + بوابة deploy للـ ensemble | ✅ |
 
+### Flywheel / أول تدريب (2026-08-05)
+| بند | الحالة |
+|-----|--------|
+| جمع عينات حية `dashboard_unified_v1` | ✅ `ml/live_sample_collector.py` |
+| Bootstrap قابل للتدريب `market_replay_v1` (ليس historical_seed) | ✅ |
+| تصدير Parquet + تدريب baseline منشور | ✅ نموذج `oracle_direction_v20260805_2017` |
+| بوابة deploy cold-start + تخطي freeze أثناء bootstrap | ✅ |
+| سكربت تشغيل | `scripts/run_flywheel_bootstrap.py` |
+
 ### متبقي لاحق (P1)
 
 ### P1 — جودة النموذج

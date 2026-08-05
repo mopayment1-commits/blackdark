@@ -82,7 +82,21 @@ async def ml_status():
 async def ml_flywheel_run(_admin: dict = Depends(require_admin)):
     from ml.labeling_pipeline import run_labeling_flywheel_cycle
 
-    return await run_labeling_flywheel_cycle()
+    return await run_labeling_flywheel_cycle(bootstrap_if_needed=True, collect_live=True)
+
+
+@router.post("/api/ml/collect-live")
+async def ml_collect_live(_admin: dict = Depends(require_admin)):
+    from ml.live_sample_collector import collect_live_unified_samples
+
+    return await collect_live_unified_samples()
+
+
+@router.post("/api/ml/bootstrap-replay")
+async def ml_bootstrap_replay(_admin: dict = Depends(require_admin)):
+    from ml.market_replay_bootstrap import bootstrap_market_replay_dataset
+
+    return await bootstrap_market_replay_dataset()
 
 
 @router.post("/api/ml/train")

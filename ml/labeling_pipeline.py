@@ -80,18 +80,29 @@ def score_verdict_accuracy(
 
 async def fetch_reference_price(asset: str) -> float | None:
     pair = f"{_normalize_asset(asset)}USDT"
-    url = f"https://api.binance.com/api/v3/ticker/price?symbol={pair}"
+    hosts = (
+        "https://data-api.binance.vision",
+        "https://api.binance.us",
+        "https://api.binance.com",
+    )
+    timeout = aiohttp.ClientTimeout(total=10)
     try:
-        timeout = aiohttp.ClientTimeout(total=10)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                payload = await resp.json()
-        price = float(payload.get("price") or 0)
-        return price if price > 0 else None
+            for host in hosts:
+                url = f"{host}/api/v3/ticker/price?symbol={pair}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        payload = await resp.json()
+                    price = float(payload.get("price") or 0)
+                    if price > 0:
+                        return price
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
     except (aiohttp.ClientError, TypeError, ValueError):
         return None
+    return None
 
 
 def _prediction_age_hours(pred: dict[str, Any], now: datetime) -> float | None:
@@ -132,12 +143,14 @@ async def resolve_mature_predictions(*, limit: int = 300) -> dict[str, Any]:
         price_after_1h = float(pred.get("price_after_1h") or 0) or None
         price_after_4h = float(pred.get("price_after_4h") or 0) or None
 
-        if age_h >= 1 and price_after_1h is None:
+        # Stamp horizon prices only inside a narrow maturity window to avoid
+        # writing a late poll price as the true 1h/4h mark.
+        if age_h >= 1 and age_h < 2.5 and price_after_1h is None:
             await update_oracle_prediction_horizons(pred_id, price_after_1h=price_now)
             partial_updates += 1
             pred["price_after_1h"] = price_now
 
-        if age_h >= 4 and price_after_4h is None:
+        if age_h >= 4 and age_h < 6 and price_after_4h is None:
             await update_oracle_prediction_horizons(pred_id, price_after_4h=price_now)
             partial_updates += 1
             pred["price_after_4h"] = price_now
@@ -215,8 +228,38 @@ async def export_labeled_dataset(*, limit: int = 5000) -> dict[str, Any]:
     }
 
 
-async def run_labeling_flywheel_cycle() -> dict[str, Any]:
+async def run_labeling_flywheel_cycle(
+    *,
+    bootstrap_if_needed: bool = True,
+    collect_live: bool = True,
+) -> dict[str, Any]:
     from ml.experience_log import append_experience
+
+    collect_stats: dict[str, Any] = {"collected": 0, "skipped": True}
+    if collect_live:
+        try:
+            from ml.live_sample_collector import collect_live_unified_samples
+
+            collect_stats = await collect_live_unified_samples()
+        except Exception:
+            logger.exception("Live sample collection failed")
+            collect_stats = {"collected": 0, "error": "collect_failed"}
+
+    bootstrap_stats: dict[str, Any] = {"bootstrapped": False}
+    if bootstrap_if_needed:
+        try:
+            from database import fetch_labeled_oracle_predictions
+            from ml.market_replay_bootstrap import bootstrap_market_replay_dataset
+
+            labeled = await fetch_labeled_oracle_predictions(
+                limit=config.ML_MIN_TRAIN_SAMPLES,
+                include_synthetic=False,
+            )
+            if len(labeled) < config.ML_MIN_TRAIN_SAMPLES:
+                bootstrap_stats = await bootstrap_market_replay_dataset()
+        except Exception:
+            logger.exception("Market replay bootstrap failed")
+            bootstrap_stats = {"bootstrapped": False, "error": "bootstrap_failed"}
 
     resolve_stats = await resolve_mature_predictions()
     export_stats = await export_labeled_dataset()
@@ -224,18 +267,29 @@ async def run_labeling_flywheel_cycle() -> dict[str, Any]:
     if int(export_stats.get("exported") or 0) >= 10:
         try:
             from database import fetch_labeled_oracle_predictions
-            from ml.drift_monitor import drift_report
+            from ml.drift_monitor import drift_report, enforce_drift_actions
             from ml.feature_store import build_feature_vector
 
             labeled_rows = await fetch_labeled_oracle_predictions(limit=500, include_synthetic=False)
+            replay_share = 0.0
+            if labeled_rows:
+                replay_share = sum(
+                    1 for row in labeled_rows if str(row.get("source") or "") == "market_replay_v1"
+                ) / len(labeled_rows)
             recent_features = []
             for row in labeled_rows[-20:]:
                 asset = str(row.get("asset") or "BTC")
                 recent_features.append(await build_feature_vector(asset))
             drift_stats = drift_report(labeled_rows, recent_features)
-            from ml.drift_monitor import enforce_drift_actions
-
-            drift_stats["enforcement"] = enforce_drift_actions(drift_stats)
+            # Bootstrap replay features are intentionally sparse vs live multimodal —
+            # do not freeze trading on that expected distribution shift.
+            if replay_share >= 0.5 or bootstrap_stats.get("bootstrapped"):
+                drift_stats["enforcement"] = {
+                    "action": "skip_freeze_bootstrap_mix",
+                    "replay_share": round(replay_share, 3),
+                }
+            else:
+                drift_stats["enforcement"] = enforce_drift_actions(drift_stats)
         except Exception:
             logger.exception("Drift monitoring cycle failed")
     train_stats: dict[str, Any] = {"trained": False, "reason": "auto_train_disabled"}
@@ -245,11 +299,17 @@ async def run_labeling_flywheel_cycle() -> dict[str, Any]:
             from ml.train_ensemble import train_direction_ensemble
 
             train_stats = await train_direction_ensemble()
+            if not train_stats.get("trained"):
+                from ml.train_baseline import train_oracle_direction_model
+
+                train_stats = await train_oracle_direction_model()
         else:
             from ml.train_baseline import train_oracle_direction_model
 
             train_stats = await train_oracle_direction_model()
     payload = {
+        "collect": collect_stats,
+        "bootstrap": bootstrap_stats,
         "labeling": resolve_stats,
         "export": export_stats,
         "drift": drift_stats,
