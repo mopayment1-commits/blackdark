@@ -976,6 +976,8 @@ async def oracle(
     symbol: str,
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
+    ux_mode: str = "beginner",
+    lang: str = "ar",
 ) -> JSONResponse:
     from auth_service import check_oracle_quota
 
@@ -1038,6 +1040,21 @@ async def oracle(
         payload = await enrich_oracle_payload(payload)
     except Exception:
         logger.exception("Oracle forecast enrichment unavailable")
+
+    # Constitution differentiators on the primary user path (D3/D4/D7/D8 + UX mode)
+    try:
+        from decision_enrichment import enrich_oracle_decision
+        from ux_mode import normalize_lang, normalize_ux_mode
+
+        payload = enrich_oracle_decision(
+            payload,
+            ux_mode=normalize_ux_mode(ux_mode),
+            lang=normalize_lang(lang),
+            register_signal=True,
+        )
+    except Exception:
+        logger.exception("Constitution decision enrichment unavailable")
+
     background_tasks.add_task(_log_oracle_prediction, payload)
     background_tasks.add_task(
         _record_behavior,
@@ -1047,6 +1064,8 @@ async def oracle(
         payload={
             "verdict": payload.get("verdict"),
             "opportunity_score": payload.get("opportunity_score"),
+            "ux_mode": payload.get("ux_mode"),
+            "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
         },
     )
     try:
@@ -1365,6 +1384,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 # Forecast + oracle audit routes → api/routers/oracle.py
 
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
+@app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     return templates.TemplateResponse(request, "oracle_accuracy.html")
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Launch Checklist</title>
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Segoe UI", Tahoma, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        nav { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+        .logo { color: var(--accent); font-weight: 800; text-decoration: none; }
+        main { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+        h1 { margin-bottom: .5rem; }
+        .sub { color: var(--muted); margin-bottom: 1.25rem; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: .75rem; margin-bottom: 1.25rem; }
+        .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; }
+        .stat strong { display: block; font-size: 1.6rem; color: var(--accent); }
+        .day { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+        .day h2 { font-size: 1rem; color: var(--accent); margin-bottom: .75rem; }
+        .item { display: flex; gap: .75rem; padding: .55rem 0; border-bottom: 1px solid var(--border); font-size: .9rem; }
+        .item:last-child { border-bottom: none; }
+        .pill { font-size: .72rem; font-weight: 700; padding: .15rem .5rem; border-radius: 999px; height: fit-content; }
+        .done { background: rgba(34,197,94,.15); color: var(--ok); }
+        .progress { background: rgba(245,158,11,.15); color: var(--warn); }
+        .blocked { background: rgba(239,68,68,.15); color: var(--bad); }
+        .pending { background: rgba(113,113,122,.2); color: var(--muted); }
+        .ready { margin: 1rem 0; padding: 1rem; border-radius: 12px; border: 1px solid var(--border); }
+        .ready.yes { border-color: var(--ok); color: var(--ok); }
+        .ready.no { border-color: var(--warn); color: var(--warn); }
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="logo" href="/">BLACKDARK</a>
+        <div>
+            <a href="/dashboard">Dashboard</a> ·
+            <a href="/oracle-accuracy">Accuracy</a> ·
+            <a href="/api/admin/launch-checklist">JSON</a>
+        </div>
+    </nav>
+    <main>
+        <h1>قائمة تجهيز الإطلاق</h1>
+        <p class="sub">مرجع ملزم: <code>docs/PRODUCT_CONSTITUTION_AR.md</code></p>
+        <div id="ready" class="ready no">جاري التحميل…</div>
+        <div class="stats" id="stats"></div>
+        <div id="days"></div>
+    </main>
+    <script>
+        async function load() {
+            const res = await fetch('/api/admin/launch-checklist');
+            const d = await res.json();
+            const ready = document.getElementById('ready');
+            ready.className = 'ready ' + (d.launch_ready ? 'yes' : 'no');
+            ready.textContent = d.launch_ready
+                ? `جاهز للإطلاق · ${d.launch_percent}%`
+                : `غير جاهز بعد · ${d.launch_percent}% — blocked=${d.blocked_count}`;
+            document.getElementById('stats').innerHTML = `
+                <div class="stat"><strong>${d.done_count}</strong>منجز</div>
+                <div class="stat"><strong>${d.progress_count}</strong>جاري</div>
+                <div class="stat"><strong>${d.blocked_count}</strong>موقوف</div>
+                <div class="stat"><strong>${d.pending_count}</strong>معلّق</div>`;
+            document.getElementById('days').innerHTML = (d.days || []).map(day => `
+                <section class="day">
+                    <h2>${day.label} — ${day.percent}%</h2>
+                    ${(day.items || []).map(i => `
+                        <div class="item">
+                            <span class="pill ${i.status}">${i.status}</span>
+                            <div>
+                                <div>${i.title}</div>
+                                <div style="color:var(--muted);font-size:.8rem">${i.action || ''}${i.endpoint ? ' · ' + i.endpoint : ''}</div>
+                            </div>
+                        </div>`).join('')}
+                </section>`).join('');
+        }
+        load().catch(() => {
+            document.getElementById('ready').textContent = 'تعذر تحميل القائمة — تحقق من صلاحية Admin';
+        });
+    </script>
+</body>
+</html>

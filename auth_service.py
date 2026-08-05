@@ -31,6 +31,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": False,
+        "evidence_pack": False,
+        "ux_pro_default": False,
     },
     "pro": {
         "label": "Pro",
@@ -44,6 +47,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": False,
+        "evidence_pack": False,
+        "ux_pro_default": True,
     },
     "whale": {
         "label": "Whale",
@@ -57,6 +63,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": True,
+        "evidence_pack": True,
+        "ux_pro_default": True,
     },
 }
 

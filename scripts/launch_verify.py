@@ -58,16 +58,31 @@ def main() -> int:
         if ok:
             ok_count += 1
 
-    # Dev pages removed — must 404
+    # Admin launch page is gated (403 without admin) — must NOT be a public 200
     for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
         try:
             with urllib.request.urlopen(f"{base}{path}", timeout=8) as resp:
-                print(f"  [FAIL] {path} should 404 — got {resp.status}")
+                print(f"  [WARN] {path} publicly reachable — got {resp.status}")
         except urllib.error.HTTPError as exc:
-            if exc.code == 404:
-                print(f"  [OK] {path} removed (404)")
+            if exc.code in {401, 403, 404}:
+                print(f"  [OK] {path} gated/missing as expected ({exc.code})")
             else:
                 print(f"  [WARN] {path} → HTTP {exc.code}")
+
+    # Constitution product probes
+    constitution_apis = [
+        (f"{base}/oracle/BTC?ux_mode=beginner&lang=ar", "oracle_beginner_ar"),
+        (f"{base}/api/oracle/accuracy/public", "public_accuracy"),
+        (f"{base}/api/oracle/net-edge-truth", "net_edge_truth"),
+        (f"{base}/api/oracle/half-life", "half_life"),
+        (f"{base}/api/due-diligence/evidence-pack/public-summary", "evidence_public"),
+        (f"{base}/oracle-accuracy", "accuracy_page"),
+    ]
+    for url, label in constitution_apis:
+        ok, _ = probe(url, label)
+        if ok:
+            ok_count += 1
+        total += 1
 
     print()
     from launch_checklist import launch_checklist
@@ -82,7 +97,7 @@ def main() -> int:
 
     pass_rate = ok_count / total if total else 0
     if pass_rate < 0.85:
-        print(f"\nFAIL — HTTP checks {ok_count}/{total-1}")
+        print(f"\nFAIL — HTTP checks {ok_count}/{total}")
         return 1
     print("\nPASS — launch verification OK (fix blocked checklist items before go-live)")
     return 0 if lc["blocked_count"] <= 2 else 1

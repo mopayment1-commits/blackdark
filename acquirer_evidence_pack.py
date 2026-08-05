@@ -102,11 +102,17 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         {"id": "D2", "name": "Contradiction Veto", "status": "live"},
         {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
         {"id": "D4", "name": "Opportunity Half-Life", "status": "live"},
-        {"id": "D5", "name": "Regime-Conditional Weights", "status": "live"},
+        {
+            "id": "D5",
+            "name": "Regime-Conditional Models",
+            "status": "weights_live",
+            "note": "Regime weights + confidence router live; separate per-regime ML artifacts pending",
+        },
         {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
         {"id": "D7", "name": "Persona Clarity (AR/EN)", "status": "live"},
         {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
     ]
+    pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
     pack["committee_checklist"] = [
         "Verify audit chain integrity",

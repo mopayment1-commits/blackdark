@@ -123,6 +123,7 @@
 |-----|------|
 | `docs/PRODUCT_CONSTITUTION_AR.md` | **هذا الملف — الدستور الملزم** |
 | `docs/UNIQUE_DIFFERENTIATORS_AR.md` | تفاصيل شحن D1–D8 والمسارات التقنية |
+| `docs/RUNBOOK.md` | تشغيل الإطلاق والمراقبة والطوارئ |
 | `docs/AI_FINANCIAL_MODEL_DESIGN.md` | تصميم النموذج المالي |
 | `docs/INSTITUTIONAL_FEATURE_DD_AR.md` | فحص نافٍ للجهالة لملف المتطلبات |
 | `docs/FULL_ARCHITECTURE_AUDIT.md` | تدقيق معماري |

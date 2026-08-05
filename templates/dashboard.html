@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Intelligence Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Inter, system-ui, sans-serif; background: #0a0a0f; color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
+        body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
+        html[dir="ltr"] body { font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif; }
         a { color: #22d3ee; text-decoration: none; }
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
@@ -77,8 +79,18 @@
 
     <main id="top">
         <div class="hero">
-            <h1>AI Crypto Oracle</h1>
-            <p>Know your move in 30 seconds — live market + whale intelligence</p>
+            <h1 id="heroBrand">BLACKDARK</h1>
+            <p id="heroSub">قرار واحد واضح — افعل أو انتظر · دقة عامة قابلة للتحقق</p>
+        </div>
+        <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
+            <select id="uxMode" onchange="askOracle()">
+                <option value="beginner" selected>مبتدئ / Beginner</option>
+                <option value="pro">محترف / Pro</option>
+            </select>
+            <select id="langMode" onchange="applyLang(); askOracle()">
+                <option value="ar" selected>العربية</option>
+                <option value="en">English</option>
+            </select>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -89,7 +101,7 @@
         </div>
         <div class="search-row">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
-            <button class="btn" onclick="askOracle()">Get Signal</button>
+            <button class="btn" onclick="askOracle()" id="askBtn">احصل على القرار</button>
         </div>
         <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
 
@@ -180,31 +192,60 @@
 
         function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
 
+        function applyLang() {
+            const lang = document.getElementById('langMode').value;
+            const root = document.getElementById('htmlRoot');
+            root.lang = lang;
+            root.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('heroSub').textContent = lang === 'ar'
+                ? 'قرار واحد واضح — افعل أو انتظر · دقة عامة قابلة للتحقق'
+                : 'One clear decision — act or wait · public verifiable accuracy';
+            document.getElementById('askBtn').textContent = lang === 'ar' ? 'احصل على القرار' : 'Get Decision';
+        }
+
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
+            const mode = document.getElementById('uxMode').value;
+            const lang = document.getElementById('langMode').value;
             if (!sym) return;
             box.classList.add('show');
-            el.innerHTML = '<div class="loading">Analyzing ' + sym + '…</div>';
+            el.innerHTML = '<div class="loading">' + (lang === 'ar' ? 'جاري التحليل…' : 'Analyzing…') + '</div>';
             try {
-                const res = await fetch('/oracle/' + encodeURIComponent(sym));
+                const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
+                const res = await fetch(url, { headers: authHeaders() });
                 if (!res.ok) throw new Error('fail');
                 const d = await res.json();
+                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+                const action = d.decision_action || '';
+                const truth = d.net_edge_truth || {};
+                const half = d.opportunity_half_life || {};
+                const sig = d.signal_registry || {};
+                let proBlock = '';
+                if (mode === 'pro') {
+                    proBlock = `
+                    <div class="metrics">
+                        <div class="metric"><strong>${truth.truth_score ?? '—'}</strong><span>Truth</span></div>
+                        <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
+                        <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
+                        <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
+                    </div>`;
+                }
                 el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${d.verdict}</div>
-                    <div style="color:#71717a;font-size:.9rem">${d.symbol} · $${fmt(d.price,2)} ·
-                        <span class="${d.change_24h>=0?'up':'down'}">${d.change_24h>=0?'+':''}${fmt(d.change_24h,2)}%</span></div>
-                    <div class="narrative">${d.narrative||d.oracle||''}</div>
-                    <div style="font-size:.85rem;margin:.5rem 0">🐋 ${d.whale_alert||'No whale activity'}</div>
+                    <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
+                    <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
+                        <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
+                    <div class="narrative">${sentence}</div>
                     <div class="metrics">
                         <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${d.confidence}%</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${d.sentiment||'—'}</strong><span>Sentiment</span></div>
-                        <div class="metric"><strong>${d.risk_level||'—'}</strong><span>Risk</span></div>
-                    </div>`;
+                        <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
+                        <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
+                        <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
+                    </div>
+                    ${proBlock}`;
             } catch (e) {
-                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
+                el.innerHTML = '<div class="empty">' + (lang === 'ar' ? 'تعذر التحليل' : 'Could not analyze') + ' ' + sym + '</div>';
             }
         }
 
@@ -309,6 +350,7 @@
 
         function boot() {
             loadAuth();
+            applyLang();
             askOracle();
             initChart();
             loadChart();

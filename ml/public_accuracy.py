@@ -74,34 +74,23 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
             correct += 1
 
+        pred_id = row.get("id")
         public_recent.append(
-
             {
-
+                "prediction_id": pred_id,
                 "timestamp": row.get("timestamp"),
-
                 "asset": row.get("asset"),
-
                 "verdict": row.get("verdict"),
-
                 "price_at_prediction": row.get("price_at_prediction"),
-
                 "price_after_24h": row.get("price_after_24h"),
-
                 "label": label,
-
                 "direction_label": row.get("direction_label"),
-
                 "accuracy_score": row.get("accuracy_score"),
-
                 "opportunity_score": row.get("opportunity_score"),
-
                 "synthetic": False,
-
                 "source": row.get("source") or "oracle",
-
+                "chain_ref": f"oracle_pred:{pred_id}" if pred_id is not None else None,
             }
-
         )
 
 
@@ -260,5 +249,22 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         },
 
+        "proof_chain": _proof_chain_block(),
+
+        "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
+
     }
+
+
+def _proof_chain_block() -> dict[str, Any]:
+    try:
+        from oracle_audit_chain import chain_summary, verify_chain
+
+        return {
+            "summary": chain_summary(limit=5),
+            "verify": verify_chain(),
+            "public_page": "/oracle-accuracy",
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
 

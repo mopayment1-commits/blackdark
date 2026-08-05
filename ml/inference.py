@@ -17,7 +17,24 @@ from ml.training_utils import FEATURE_COLUMNS
 logger = logging.getLogger("BLACKDARK.MLInference")
 
 
-async def predict_direction(asset: str, *, price: float | None = None) -> dict[str, Any]:
+async def predict_direction(
+    asset: str,
+    *,
+    price: float | None = None,
+    change_24h: float = 0.0,
+    regime_aware: bool = True,
+) -> dict[str, Any]:
+    if regime_aware:
+        # Avoid recursion: regime router calls us with regime_aware=False
+        try:
+            from ml.regime_router import predict_direction_regime_aware
+
+            return await predict_direction_regime_aware(
+                asset, price=price, change_24h=change_24h
+            )
+        except Exception:
+            logger.debug("regime router unavailable — base inference", exc_info=True)
+
     bundle = load_latest_model()
     features = await build_feature_vector(asset, price_at=price)
     if not bundle:

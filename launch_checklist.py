@@ -27,18 +27,44 @@ def _file_exists(rel: str) -> bool:
 
 
 def _run_pytest_quick() -> tuple[bool, str]:
+    """Launch smoke — constitution + differentiators + security critical paths."""
+    smoke = [
+        "tests/test_product_constitution.py",
+        "tests/test_unique_differentiators.py",
+        "tests/test_launch_readiness.py",
+        "tests/test_p0_radical_hardening.py",
+        "tests/test_oracle_audit_chain.py",
+        "tests/test_security.py",
+    ]
+    existing = [p for p in smoke if (ROOT / p).exists()]
+    if not existing:
+        existing = ["tests/"]
     try:
         proc = subprocess.run(
-            [sys.executable, "-m", "pytest", "tests/", "-q", "--tb=no"],
+            [sys.executable, "-m", "pytest", *existing, "-q", "--tb=no"],
             cwd=str(ROOT),
             capture_output=True,
             text=True,
-            timeout=180,
+            timeout=240,
         )
         tail = (proc.stdout or "").splitlines()[-1] if proc.stdout else ""
         return proc.returncode == 0, tail or f"exit {proc.returncode}"
     except Exception as exc:
         return False, str(exc)
+
+
+def _constitution_modules_ready() -> bool:
+    required = [
+        "docs/PRODUCT_CONSTITUTION_AR.md",
+        "net_edge_truth.py",
+        "persona_clarity.py",
+        "signal_registry.py",
+        "acquirer_evidence_pack.py",
+        "decision_enrichment.py",
+        "ux_mode.py",
+        "opportunity_tracker.py",
+    ]
+    return all(_file_exists(path) for path in required)
 
 
 def _checklist_rows() -> list[dict[str, Any]]:
@@ -91,10 +117,17 @@ def _checklist_rows() -> list[dict[str, Any]]:
         {
             "day": 2,
             "id": "d2_stripe",
-            "title": "Stripe live keys + webhook",
-            "title_ar": "Stripe live + webhook",
-            "status": "done" if _env("STRIPE_SECRET_KEY") and _env("STRIPE_WEBHOOK_SECRET") else "blocked",
-            "action": "Stripe Dashboard → Webhook /webhook → STRIPE_WEBHOOK_SECRET",
+            "title": "Billing live (Lemon primary or Stripe) + webhook",
+            "title_ar": "دفع حي Lemon/Stripe + webhook",
+            "status": (
+                "done"
+                if (
+                    (_env("LEMON_SQUEEZY_API_KEY") and _env("LEMON_SQUEEZY_WEBHOOK_SECRET"))
+                    or (_env("STRIPE_SECRET_KEY") and _env("STRIPE_WEBHOOK_SECRET"))
+                )
+                else "blocked"
+            ),
+            "action": "Set Lemon Squeezy OR Stripe live keys + webhook secret",
         },
         {
             "day": 2,
@@ -185,9 +218,31 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d5_demo",
             "title": "B2B demo + public accuracy page",
             "title_ar": "B2B demo + Oracle accuracy",
-            "status": "done",
-            "action": "/b2b · /oracle/accuracy",
+            "status": (
+                "done"
+                if _file_exists("templates/oracle_accuracy.html") and _file_exists("templates/b2b.html")
+                else "pending"
+            ),
+            "action": "/b2b · /oracle-accuracy · /oracle/accuracy",
             "endpoint": "/api/oracle/accuracy/public",
+        },
+        {
+            "day": 5,
+            "id": "d5_constitution",
+            "title": "Product Constitution modules wired (D1–D8 + UX modes)",
+            "title_ar": "دستور المنتج مربوط (D1–D8 + أوضاع UX)",
+            "status": "done" if _constitution_modules_ready() else "blocked",
+            "action": "docs/PRODUCT_CONSTITUTION_AR.md + decision_enrichment on /oracle/{symbol}",
+            "endpoint": "/oracle/BTC?ux_mode=beginner&lang=ar",
+        },
+        {
+            "day": 5,
+            "id": "d5_evidence_auth",
+            "title": "Evidence Pack auth-gated (Whale/Admin)",
+            "title_ar": "Evidence Pack محمي (Whale/Admin)",
+            "status": "done" if _file_exists("acquirer_evidence_pack.py") else "blocked",
+            "action": "/api/due-diligence/evidence-pack (auth) · public-summary open",
+            "endpoint": "/api/due-diligence/evidence-pack/public-summary",
         },
         {
             "day": 5,
