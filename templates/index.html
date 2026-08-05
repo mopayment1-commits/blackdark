@@ -1344,9 +1344,17 @@
             <div class="section-head">
                 <div>
                     <h2>Alerts & Execution</h2>
-                    <p class="sub">Telegram · Email · WhatsApp — plus dry-run orders & panic stop</p>
+                    <p class="sub">In-app inbox (works without Telegram) · Email · WhatsApp · dry-run & panic stop</p>
                 </div>
                 <button class="panic-btn" id="panicBtn" onclick="togglePanic()">🛑 PANIC STOP</button>
+            </div>
+            <div class="tool-panel" style="margin-bottom:1rem">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+                    <h3 style="margin:0">In-App Inbox</h3>
+                    <button class="btn-secondary" type="button" onclick="loadInbox()">Refresh</button>
+                </div>
+                <div id="inboxStatus" class="arb-meta" style="margin-top:0.5rem">Loading inbox…</div>
+                <div id="inboxList" style="margin-top:0.75rem;display:grid;gap:0.65rem"></div>
             </div>
             <div class="intel-grid">
                 <div class="tool-panel">
@@ -1775,6 +1783,16 @@
                         ${(teaser.truth_score != null || teaser.remaining_seconds != null) ? `<div style="margin-top:0.35rem">Teaser · Truth ${teaser.truth_score ?? '—'} · Half-life ${teaser.remaining_seconds ?? '—'}s</div>` : ''}
                         <button class="btn-secondary" style="margin-top:0.65rem" type="button" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle()">Switch to Pro</button>
                     </div>` : '';
+                const conflict = d.dimension_conflict || {};
+                const vetoBlock = (uxMode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
+                    ? `<div style="margin-top:0.75rem;padding:0.75rem 1rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:0.85rem">
+                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
+                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:0.3rem;color:var(--text-muted)">${conflict.reason || conflict.message}</div>` : ''}
+                       </div>` : '';
+                const proofBlock = d.prediction_id
+                    ? `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Proof · prediction_id <code style="color:var(--accent)">${d.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a></div>`
+                    : '';
 
                 box.innerHTML = `
                     <div class="verdict-banner">
@@ -1809,6 +1827,8 @@
                         <div class="metric"><div class="val">${d.risk_level || '—'}</div><div class="key">Risk</div></div>
                     </div>
                     ${proBlock}
+                    ${vetoBlock}
+                    ${proofBlock}
                     ${upgradeBlock}
 
                     ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
@@ -2563,6 +2583,40 @@
             }
         }
 
+        async function loadInbox() {
+            const status = document.getElementById('inboxStatus');
+            const list = document.getElementById('inboxList');
+            if (!status || !list) return;
+            status.textContent = 'Loading inbox…';
+            try {
+                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const data = await res.json();
+                const stats = data.stats || {};
+                status.textContent = `Inbox ${stats.unread || 0} unread · works without Telegram`;
+                const rows = data.alerts || [];
+                list.innerHTML = rows.length ? rows.map(a => `
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
+                        <strong>${a.title || 'Alert'}</strong>
+                        <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem">${a.body || ''}</div>
+                        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.35rem">${(a.created_at || '').slice(0, 19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                    </div>`).join('') : '<div class="empty">No alerts yet — Oracle ACT and arb edges land here</div>';
+            } catch (e) {
+                status.textContent = 'Inbox unavailable';
+                list.innerHTML = '';
+            }
+        }
+
+        async function markInboxRead(id) {
+            if (!id) return;
+            try {
+                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                });
+                loadInbox();
+            } catch (e) { /* ignore */ }
+        }
+
         async function subscribeAlerts() {
             const msg = document.getElementById('alertMsg');
             await saveTelegramProfile();
@@ -3026,6 +3080,7 @@
         loadAuthState();
         loadBillingPanel();
         loadTelegramStatus();
+        loadInbox();
         loadJournal();
         loadResearchLab();
         loadFinancialModels();
@@ -3060,6 +3115,7 @@
         setInterval(loadSentiment, 60000);
         setInterval(loadOnchain, 60000);
         setInterval(() => loadArbitrage(false), 45000);
+        setInterval(loadInbox, 60000);
         setInterval(loadAdvancedSignals, 60000);
         setInterval(() => loadWhales(false), 60000);
         setInterval(loadAudit, 120000);

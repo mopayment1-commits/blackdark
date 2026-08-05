@@ -908,8 +908,21 @@
                 if (mode === 'pro') {
                     const truth = data.net_edge_truth || {};
                     const half = data.opportunity_half_life || {};
+                    const conflict = data.dimension_conflict || {};
+                    let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                    if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
+                        line += ` · Contradiction Veto: ${conflict.veto ? 'WAIT' : 'Abstain'}${conflict.severity ? ' (' + conflict.severity + ')' : ''}`;
+                    }
+                    if (data.prediction_id) {
+                        line += ` · Proof #${data.prediction_id}`;
+                    }
                     proMeta.style.display = 'block';
-                    proMeta.textContent = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                    proMeta.innerHTML = line + (data.prediction_id
+                        ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
+                        : '');
+                } else if (data.prediction_id) {
+                    proMeta.style.display = 'block';
+                    proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
                 }
                 if (data.upgrade_hint) {
                     const teaser = data.upgrade_hint.teaser || {};

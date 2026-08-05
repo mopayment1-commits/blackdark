@@ -100,6 +100,21 @@
         </div>
     </div>
 
+    <div class="demo-box" id="evidence">
+        <div class="card">
+            <h2 style="margin-bottom:0.5rem">Acquirer Evidence Pack (D6)</h2>
+            <p style="color:var(--muted);font-size:0.9rem">
+                One-click data-room pack for funds and M&amp;A committees.
+                Public summary is open; full pack requires Whale / Admin.
+            </p>
+            <button class="btn btn-primary" type="button" onclick="loadEvidenceSummary()">Load Public Summary</button>
+            <button class="btn btn-secondary" type="button" onclick="loadEvidenceFull()">Open Full Pack</button>
+            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Get Whale Access</a>
+            <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
+            <pre class="demo-result" id="evidenceResult" style="max-height:320px">Click “Load Public Summary” to preview the pack thesis.</pre>
+        </div>
+    </div>
+
     <div class="demo-box" id="websocket">
         <div class="card">
             <h2 style="margin-bottom:0.5rem">Live WebSocket Stream <span class="ws-status ws-off" id="wsStatus">disconnected</span></h2>
@@ -122,6 +137,8 @@
             <p style="margin-top:0.5rem"><code>WS /ws/b2b/feed?api_key=...</code> — live stream</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/ws/info</code> — WebSocket status</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/proposal?client=Fund</code> — sales proposal JSON</p>
+            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack/public-summary</code> — D6 teaser</p>
+            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack</code> — full pack (Whale)</p>
         </div>
         <div class="card">
             <h3>Use Cases</h3>
@@ -201,6 +218,50 @@
         }
         function copyKey() {
             navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
+        }
+
+        function authHeaders() {
+            const headers = {};
+            try {
+                const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+            } catch (e) { /* ignore */ }
+            return headers;
+        }
+
+        async function loadEvidenceSummary() {
+            const el = document.getElementById('evidenceResult');
+            el.textContent = 'Loading public summary…';
+            try {
+                const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
+                const data = await res.json();
+                el.textContent = JSON.stringify(data, null, 2);
+            } catch (e) {
+                el.textContent = 'Public summary unavailable.';
+            }
+        }
+
+        async function loadEvidenceFull() {
+            const el = document.getElementById('evidenceResult');
+            el.textContent = 'Loading full evidence pack…';
+            try {
+                const res = await fetch('/api/due-diligence/evidence-pack', { headers: authHeaders() });
+                const data = await res.json();
+                if (!res.ok) {
+                    el.textContent = res.status === 401 || res.status === 403
+                        ? 'Whale / Admin login required for the full pack. Use Get Whale Access, then retry.'
+                        : (JSON.stringify(data, null, 2) || 'Pack unavailable');
+                    return;
+                }
+                el.textContent = JSON.stringify({
+                    product_thesis: data.product_thesis || data.one_liner_for_ic,
+                    differentiators: data.differentiators,
+                    committee_checklist: data.committee_checklist,
+                    sections: Object.keys(data.sections || {}),
+                }, null, 2);
+            } catch (e) {
+                el.textContent = 'Full pack unavailable — login as Whale/Admin and retry.';
+            }
         }
     </script>
 </body>

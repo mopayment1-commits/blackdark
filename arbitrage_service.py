@@ -399,6 +399,30 @@ async def scan_arbitrage_opportunities(
 
     formatted = sync_scan_opportunities(formatted)
 
+    # D3 Net-Edge Truth gate on the live scan path (before alerts / display).
+    try:
+        from net_edge_truth import compute_net_edge_truth
+
+        quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
+        for row in formatted:
+            if quote_age_ms and not row.get("quote_age_ms"):
+                row["quote_age_ms"] = quote_age_ms
+            try:
+                truth = compute_net_edge_truth(row)
+            except Exception:
+                logger.debug("net-edge truth on scan row failed", exc_info=True)
+                truth = {"enabled": False, "error": "unavailable"}
+            row["net_edge_truth"] = truth
+            if truth.get("reject"):
+                row["truth_rejected"] = True
+                row["execution_feasibility"] = "not_executable"
+                risks = list(row.get("risk_factors") or [])
+                if "net_edge_truth_reject" not in risks:
+                    risks.append("net_edge_truth_reject")
+                row["risk_factors"] = risks
+    except Exception:
+        logger.exception("Net-Edge Truth scan gate unavailable")
+
     pricing_errors: list[dict[str, Any]] = []
     if source != "websocket_live":
         try:
@@ -541,6 +565,8 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
 
     for opp in scan_result.get("opportunities", [])[:5]:
         if opp.get("execution_feasibility") == "not_executable":
+            continue
+        if opp.get("truth_rejected") or (opp.get("net_edge_truth") or {}).get("reject"):
             continue
         if float(opp.get("net_profit_usdt") or 0) < min_usdt:
             continue

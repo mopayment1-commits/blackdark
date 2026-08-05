@@ -101,11 +101,12 @@ async def _resolve_mature_oracle_predictions() -> int:
     return resolved_count
 
 
-async def _log_oracle_prediction(payload: dict) -> None:
+async def _log_oracle_prediction(payload: dict) -> int | None:
+    """Persist Oracle decision and return the audit prediction_id (D1)."""
     from ml.labeling_pipeline import log_oracle_signal
 
     try:
-        await log_oracle_signal(
+        return await log_oracle_signal(
             asset=str(payload.get("symbol") or payload.get("asset") or ""),
             price=float(payload.get("price") or 0),
             verdict=str(payload.get("verdict") or "WAIT"),
@@ -115,6 +116,7 @@ async def _log_oracle_prediction(payload: dict) -> None:
         )
     except Exception:
         logger.exception("Oracle flywheel logging failed")
+        return None
 
 
 async def _record_behavior(
@@ -1063,7 +1065,35 @@ async def oracle(
     except Exception:
         logger.exception("Constitution decision enrichment unavailable")
 
-    background_tasks.add_task(_log_oracle_prediction, payload)
+    # D1: await audit log so response carries a real prediction_id (not signal_id).
+    try:
+        prediction_id = await _log_oracle_prediction(payload)
+        if prediction_id is not None:
+            payload["prediction_id"] = prediction_id
+    except Exception:
+        logger.exception("Oracle prediction_id attach failed")
+
+    # Durable product alert without Telegram when Oracle says ACT.
+    try:
+        if str(payload.get("decision_action") or "").upper() == "ACT":
+            from alert_service import dispatch_alert
+
+            sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
+            await dispatch_alert(
+                f"Oracle ACT · {asset}",
+                sentence,
+                payload={
+                    "asset": asset,
+                    "prediction_id": payload.get("prediction_id"),
+                    "opportunity_score": payload.get("opportunity_score"),
+                    "verdict": payload.get("verdict"),
+                    "source": "oracle_act",
+                },
+                channels=["in_app"],
+            )
+    except Exception:
+        logger.debug("Oracle ACT in-app alert failed", exc_info=True)
+
     background_tasks.add_task(
         _record_behavior,
         "oracle_query",
@@ -1073,6 +1103,7 @@ async def oracle(
             "verdict": payload.get("verdict"),
             "opportunity_score": payload.get("opportunity_score"),
             "ux_mode": payload.get("ux_mode"),
+            "prediction_id": payload.get("prediction_id"),
             "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
         },
     )

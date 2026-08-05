@@ -134,7 +134,9 @@ def enrich_oracle_decision(
                 "features_hash": row.get("features_hash"),
                 "label": row.get("label"),
             }
-            out["prediction_id"] = row.get("signal_id")
+            # D1 proof id must come from audit/log_oracle_signal — never overwrite a real id.
+            if out.get("prediction_id") in (None, "", 0):
+                out["prediction_id_fallback"] = row.get("signal_id")
         except Exception:
             logger.debug("signal registry enrich failed", exc_info=True)
 

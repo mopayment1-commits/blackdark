@@ -239,6 +239,16 @@
                         <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
                     </div>`;
                 }
+                const conflict = d.dimension_conflict || {};
+                const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
+                    ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
+                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
+                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
+                       </div>` : '';
+                const proofBlock = d.prediction_id
+                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
+                    : '';
                 el.innerHTML = `
                     <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
                     <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
@@ -251,6 +261,8 @@
                         <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
                     </div>
                     ${proBlock}
+                    ${vetoBlock}
+                    ${proofBlock}
                     ${upgradeBlock}`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
@@ -327,9 +339,10 @@
                 el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
+                    const rejected = o.truth_rejected || truth.reject;
                     return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
                     <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s</div></div>`;
+                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
@@ -344,14 +357,25 @@
                 status.textContent = `Inbox ${stats.unread||0} unread · works without Telegram`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card">
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
                         <strong>${a.title||'Alert'}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new'}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — they appear here even without Telegram</div>';
             } catch (e) {
                 el.innerHTML = '<div class="empty">Inbox unavailable</div>';
             }
+        }
+
+        async function markInboxRead(id) {
+            if (!id) return;
+            try {
+                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                });
+                loadInbox();
+            } catch (e) { /* ignore */ }
         }
 
         async function loadWhales(refresh) {
