@@ -229,6 +229,16 @@
                         <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
                     </div>`;
                 }
+                let upgradeBlock = '';
+                if (d.upgrade_hint) {
+                    const t = d.upgrade_hint.teaser || {};
+                    upgradeBlock = `
+                    <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
+                        ${d.upgrade_hint.message || ''}
+                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${t.truth_score ?? '—'} · Half-life ${t.remaining_seconds ?? '—'}s</div>` : ''}
+                        <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
+                    </div>`;
+                }
                 el.innerHTML = `
                     <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
                     <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
@@ -240,7 +250,8 @@
                         <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
                         <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
                     </div>
-                    ${proBlock}`;
+                    ${proBlock}
+                    ${upgradeBlock}`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
             }

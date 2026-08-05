@@ -1767,6 +1767,14 @@
                         <div class="metric"><div class="val">${d.market_regime || '—'}</div><div class="key">Regime</div></div>
                         <div class="metric"><div class="val">${(sig.signal_id || '—').toString().slice(0,10)}</div><div class="key">Signal</div></div>
                     </div>` : '';
+                const hint = d.upgrade_hint || null;
+                const teaser = (hint && hint.teaser) || {};
+                const upgradeBlock = hint ? `
+                    <div style="margin-top:0.75rem;padding:0.85rem 1rem;border:1px solid var(--border);border-radius:10px;color:var(--text-muted);font-size:0.85rem">
+                        ${hint.message || ''}
+                        ${(teaser.truth_score != null || teaser.remaining_seconds != null) ? `<div style="margin-top:0.35rem">Teaser · Truth ${teaser.truth_score ?? '—'} · Half-life ${teaser.remaining_seconds ?? '—'}s</div>` : ''}
+                        <button class="btn-secondary" style="margin-top:0.65rem" type="button" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle()">Switch to Pro</button>
+                    </div>` : '';
 
                 box.innerHTML = `
                     <div class="verdict-banner">
@@ -1801,6 +1809,7 @@
                         <div class="metric"><div class="val">${d.risk_level || '—'}</div><div class="key">Risk</div></div>
                     </div>
                     ${proBlock}
+                    ${upgradeBlock}
 
                     ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
 
