@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: "Segoe UI", Tahoma, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { font-family: "IBM Plex Sans", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
         nav { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
         .logo { color: var(--accent); font-weight: 800; text-decoration: none; }
         main { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
@@ -41,9 +41,9 @@
         </div>
     </nav>
     <main>
-        <h1>قائمة تجهيز الإطلاق</h1>
-        <p class="sub">مرجع ملزم: <code>docs/PRODUCT_CONSTITUTION_AR.md</code></p>
-        <div id="ready" class="ready no">جاري التحميل…</div>
+        <h1>Launch Checklist</h1>
+        <p class="sub">Binding reference: <code>docs/PRODUCT_CONSTITUTION_AR.md</code></p>
+        <div id="ready" class="ready no">Loading…</div>
         <div class="stats" id="stats"></div>
         <div id="days"></div>
     </main>
@@ -54,13 +54,13 @@
             const ready = document.getElementById('ready');
             ready.className = 'ready ' + (d.launch_ready ? 'yes' : 'no');
             ready.textContent = d.launch_ready
-                ? `جاهز للإطلاق · ${d.launch_percent}%`
-                : `غير جاهز بعد · ${d.launch_percent}% — blocked=${d.blocked_count}`;
+                ? `Launch-ready · ${d.launch_percent}%`
+                : `Not ready yet · ${d.launch_percent}% — blocked=${d.blocked_count}`;
             document.getElementById('stats').innerHTML = `
-                <div class="stat"><strong>${d.done_count}</strong>منجز</div>
-                <div class="stat"><strong>${d.progress_count}</strong>جاري</div>
-                <div class="stat"><strong>${d.blocked_count}</strong>موقوف</div>
-                <div class="stat"><strong>${d.pending_count}</strong>معلّق</div>`;
+                <div class="stat"><strong>${d.done_count}</strong>Done</div>
+                <div class="stat"><strong>${d.progress_count}</strong>In progress</div>
+                <div class="stat"><strong>${d.blocked_count}</strong>Blocked</div>
+                <div class="stat"><strong>${d.pending_count}</strong>Pending</div>`;
             document.getElementById('days').innerHTML = (d.days || []).map(day => `
                 <section class="day">
                     <h2>${day.label} — ${day.percent}%</h2>
@@ -75,7 +75,7 @@
                 </section>`).join('');
         }
         load().catch(() => {
-            document.getElementById('ready').textContent = 'تعذر تحميل القائمة — تحقق من صلاحية Admin';
+            document.getElementById('ready').textContent = 'Could not load checklist — check Admin access';
         });
     </script>
 </body>

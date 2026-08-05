@@ -73,7 +73,7 @@ async def launch_readiness():
         "constitution": {
             "ref": "docs/PRODUCT_CONSTITUTION_AR.md",
             "modules_ready": constitution_modules,
-            "primary_oracle": "/oracle/BTC?ux_mode=beginner&lang=ar",
+            "primary_oracle": "/oracle/BTC?ux_mode=beginner&lang=en",
             "accuracy_page": "/oracle-accuracy",
             "evidence_public": "/api/due-diligence/evidence-pack/public-summary",
             "evidence_full": "/api/due-diligence/evidence-pack",

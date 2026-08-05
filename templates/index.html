@@ -1738,10 +1738,10 @@
             const explainBtn = document.getElementById('explainBtn');
             if (!symbol) return;
             const uxMode = (localStorage.getItem('bd_ux_mode') || 'beginner');
-            const lang = (localStorage.getItem('bd_lang') || 'ar');
+            const lang = 'en'; localStorage.setItem('bd_lang','en');
 
             box.classList.add('visible');
-            box.innerHTML = '<div class="loading">' + (lang === 'ar' ? 'جاري تحليل ' : 'Oracle analyzing ') + symbol + '...</div>';
+            box.innerHTML = '<div class="loading">Oracle analyzing ' + symbol + '...</div>';
             explainVisible = false;
 
             try {
@@ -1805,10 +1805,8 @@
                     ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
 
                     <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem">
-                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','beginner');askOracle();return false">مبتدئ</a> ·
-                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle();return false">محترف</a> ·
-                        <a href="#" onclick="localStorage.setItem('bd_lang','ar');askOracle();return false">عربي</a> ·
-                        <a href="#" onclick="localStorage.setItem('bd_lang','en');askOracle();return false">EN</a>
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','beginner');askOracle();return false">Beginner</a> ·
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle();return false">Pro</a>
                     </div>
 
                     <div class="explain-panel" id="explainPanel"></div>

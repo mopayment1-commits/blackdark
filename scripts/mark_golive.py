@@ -25,7 +25,7 @@ def main() -> int:
         "checks": [
             "/health/live",
             "/api/production/guard",
-            "/oracle/BTC?ux_mode=beginner&lang=ar",
+            "/oracle/BTC?ux_mode=beginner&lang=en",
             "/oracle-accuracy",
         ],
     }

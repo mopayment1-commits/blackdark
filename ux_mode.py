@@ -34,13 +34,12 @@ def normalize_ux_mode(value: str | None) -> UxMode:
 
 
 def normalize_lang(value: str | None) -> str:
-    raw = (value or "ar").strip().lower()
-    if raw.startswith("en"):
-        return "en"
-    return "ar"
+    """English-only public site — always normalize to en for UI payloads."""
+    _ = value
+    return "en"
 
 
-def apply_ux_mode(payload: dict[str, Any], *, mode: str = "beginner", lang: str = "ar") -> dict[str, Any]:
+def apply_ux_mode(payload: dict[str, Any], *, mode: str = "beginner", lang: str = "en") -> dict[str, Any]:
     """
     Beginner: act/wait sentence + score + verdict only (plus nested persona retail).
     Pro: full constitution payload (truth, half-life, regime, registry, conflicts).
@@ -63,8 +62,8 @@ def apply_ux_mode(payload: dict[str, Any], *, mode: str = "beginner", lang: str 
         slim = {k: out[k] for k in _BEGINNER_KEYS if k in out}
         # Keep a tiny pro teaser so upgrade path is clear
         slim["upgrade_hint"] = {
-            "message_ar": "فعّل وضع المحترف لرؤية Truth Score وعمر الفرصة والتعارض.",
             "message_en": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
+            "message_ar": "Switch to Pro mode for Truth Score, half-life, and conflict details.",
             "mode": "pro",
         }
         return slim

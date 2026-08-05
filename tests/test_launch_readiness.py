@@ -22,7 +22,7 @@ def test_decision_enrichment_attaches_constitution_fields():
             "market_regime": "risk_on",
         },
         ux_mode="pro",
-        lang="ar",
+        lang="en",
         register_signal=True,
     )
     assert payload.get("net_edge_truth")
@@ -45,7 +45,7 @@ def test_beginner_ux_hides_pro_internals():
             "volume_24h": 500_000,
         },
         ux_mode="beginner",
-        lang="ar",
+        lang="en",
         register_signal=False,
     )
     assert payload["ux_mode"] == "beginner"

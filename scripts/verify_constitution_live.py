@@ -55,7 +55,7 @@ def main() -> int:
             ("GET", "/oracle-accuracy", None, {200}),
             ("GET", "/oracle/accuracy", None, {200}),
             ("GET", "/dashboard", None, {200}),
-            ("GET", "/oracle/BTC?ux_mode=beginner&lang=ar", None, {200, 404, 502, 503}),
+            ("GET", "/oracle/BTC?ux_mode=beginner&lang=en", None, {200, 404, 502, 503}),
             ("GET", "/oracle/BTC?ux_mode=pro&lang=en", None, {200, 404, 502, 503}),
             ("GET", "/api/due-diligence/evidence-pack", None, {401, 403}),  # must be gated
         ]
@@ -67,8 +67,13 @@ def main() -> int:
             if path.startswith("/oracle/BTC"):
                 if resp.status_code == 200:
                     data = resp.json()
-                    if "lang=ar" in path:
+                    if "beginner" in path:
                         passed = bool(data.get("decision_sentence") or data.get("persona_clarity"))
+                        # English-only site rule
+                        sentence = str(data.get("decision_sentence") or "")
+                        if sentence and any(ord(ch) > 1500 for ch in sentence):
+                            # Arabic script leaked into UI sentence
+                            passed = False
                     else:
                         passed = bool(
                             data.get("net_edge_truth")

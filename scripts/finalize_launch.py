@@ -84,7 +84,7 @@ def main() -> int:
 4) APP_BASE_URL=https://YOUR-DOMAIN
 5) Optional later: TELEGRAM_* (LAUNCH_SKIP_TELEGRAM=true for soft launch)
 6) python scripts/verify_constitution_live.py
-7) Deploy → open /api/production/guard · /oracle/BTC?ux_mode=beginner&lang=ar
+7) Deploy → open /api/production/guard · /oracle/BTC?ux_mode=beginner&lang=en
 8) UptimeRobot → /health/live
 9) Announce → python scripts/mark_golive.py --url https://YOUR-DOMAIN
    See docs/GO_LIVE_AR.md

@@ -71,7 +71,7 @@ def main() -> int:
 
     # Constitution product probes
     constitution_apis = [
-        (f"{base}/oracle/BTC?ux_mode=beginner&lang=ar", "oracle_beginner_ar"),
+        (f"{base}/oracle/BTC?ux_mode=beginner&lang=en", "oracle_beginner_en"),
         (f"{base}/api/oracle/accuracy/public", "public_accuracy"),
         (f"{base}/api/oracle/net-edge-truth", "net_edge_truth"),
         (f"{base}/api/oracle/half-life", "half_life"),

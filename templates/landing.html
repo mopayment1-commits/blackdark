@@ -584,10 +584,10 @@
             </div>
             <h1>
                 BLACKDARK<br>
-                <span>قرار واحد · افعل أو انتظر</span>
+                <span>One clear decision</span>
             </h1>
             <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                Oracle بجملة واحدة + دقة عامة قابلة للتحقق — للمبتدئ والمحترف والحيتان.
+                Single-sentence Oracle with public verifiable accuracy — for beginners, pros, and whales.
             </p>
             <div class="hero-stats">
                 <div class="hero-stat"><strong>30s</strong><span>Oracle verdict</span></div>
@@ -627,15 +627,12 @@
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="beginner" selected>مبتدئ</option>
-                        <option value="pro">محترف</option>
+                        <option value="beginner" selected>Beginner</option>
+                        <option value="pro">Pro</option>
                     </select>
-                    <select id="landingLang" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="ar" selected>العربية</option>
-                        <option value="en">English</option>
-                    </select>
+                    <input type="hidden" id="landingLang" value="en">
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
-                    <button onclick="consultOracle()">احصل على القرار</button>
+                    <button onclick="consultOracle()">Get Decision</button>
                 </div>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
@@ -646,7 +643,7 @@
                         <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
                     </div>
                     <div class="result-oracle" id="resultOracle">
-                        قرار واحد واضح — افعل أو انتظر
+                        One clear decision — act or wait
                     </div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
                     <div id="landingUpgrade" style="display:none;margin-top:.75rem"></div>
@@ -865,7 +862,7 @@
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
-            const lang = document.getElementById('landingLang').value || 'ar';
+            const lang = 'en';
             const resultDiv = document.getElementById('oracleResult');
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
@@ -877,7 +874,7 @@
             resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
-            oracleEl.textContent = lang === 'ar' ? 'جاري التحليل…' : 'Consulting the oracle…';
+            oracleEl.textContent = 'Consulting the oracle…';
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             
@@ -886,11 +883,11 @@
                 const data = await response.json();
                 if (!response.ok) {
                     const detail = data.detail || {};
-                    const msg = detail.message || (lang === 'ar' ? 'تم تجاوز الحد اليومي — رقِّ خطتك' : 'Daily quota exceeded — upgrade');
+                    const msg = detail.message || 'Daily quota exceeded — upgrade';
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">${lang === 'ar' ? 'ترقية إلى Pro' : 'Upgrade to Pro'}</a>`;
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
                     }
                     return;
                 }
@@ -916,11 +913,11 @@
                 }
                 if (data.upgrade_hint) {
                     upgradeEl.style.display = 'block';
-                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${lang === 'ar' ? (data.upgrade_hint.message_ar || '') : (data.upgrade_hint.message_en || '')}</span>`;
+                    upgradeEl.innerHTML = `<span style="color:var(--text-muted);font-size:.85rem">${data.upgrade_hint.message_en || data.upgrade_hint.message_ar || ''}</span>`;
                 }
                 updateShareLinks(data);
             } catch (error) {
-                oracleEl.textContent = lang === 'ar' ? 'تعذر الاتصال — جرّب BTC أو ETH' : 'Oracle unavailable — try BTC or ETH.';
+                oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.';
             }
         }
         

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="htmlRoot">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,16 +80,12 @@
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">قرار واحد واضح — افعل أو انتظر · دقة عامة قابلة للتحقق</p>
+            <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
         </div>
         <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
             <select id="uxMode" onchange="askOracle()">
-                <option value="beginner" selected>مبتدئ / Beginner</option>
-                <option value="pro">محترف / Pro</option>
-            </select>
-            <select id="langMode" onchange="applyLang(); askOracle()">
-                <option value="ar" selected>العربية</option>
-                <option value="en">English</option>
+                <option value="beginner" selected>Beginner</option>
+                <option value="pro">Pro</option>
             </select>
         </div>
         <div class="picks">
@@ -101,7 +97,7 @@
         </div>
         <div class="search-row">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
-            <button class="btn" onclick="askOracle()" id="askBtn">احصل على القرار</button>
+            <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
         </div>
         <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
 
@@ -139,10 +135,10 @@
         </section>
 
         <section>
-            <h2 id="alertsTitle">التنبيهات / Alerts</h2>
+            <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">Inbox works without Telegram</p>
             <div class="toolbar">
-                <button class="btn secondary" onclick="loadInbox()">تحديث الصندوق</button>
+                <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
                 <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
@@ -197,14 +193,11 @@
         function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
 
         function applyLang() {
-            const lang = document.getElementById('langMode').value;
             const root = document.getElementById('htmlRoot');
-            root.lang = lang;
-            root.dir = lang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('heroSub').textContent = lang === 'ar'
-                ? 'قرار واحد واضح — افعل أو انتظر · دقة عامة قابلة للتحقق'
-                : 'One clear decision — act or wait · public verifiable accuracy';
-            document.getElementById('askBtn').textContent = lang === 'ar' ? 'احصل على القرار' : 'Get Decision';
+            root.lang = 'en';
+            root.dir = 'ltr';
+            document.getElementById('heroSub').textContent = 'One clear decision — act or wait · public verifiable accuracy';
+            document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
         async function askOracle() {
@@ -212,10 +205,10 @@
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
             const mode = document.getElementById('uxMode').value;
-            const lang = document.getElementById('langMode').value;
+            const lang = 'en';
             if (!sym) return;
             box.classList.add('show');
-            el.innerHTML = '<div class="loading">' + (lang === 'ar' ? 'جاري التحليل…' : 'Analyzing…') + '</div>';
+            el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
                 const res = await fetch(url, { headers: authHeaders() });
@@ -249,7 +242,7 @@
                     </div>
                     ${proBlock}`;
             } catch (e) {
-                el.innerHTML = '<div class="empty">' + (lang === 'ar' ? 'تعذر التحليل' : 'Could not analyze') + ' ' + sym + '</div>';
+                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
             }
         }
 
@@ -313,7 +306,7 @@
                 if (res.status === 403) {
                     const detail = data.detail || {};
                     stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${detail.message || 'ترقية مطلوبة لعرض المراجحة'}
+                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
                         <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
                     return;
                 }
@@ -337,14 +330,14 @@
                 const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
                 const data = await res.json();
                 const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · يعمل بدون Telegram`;
+                status.textContent = `Inbox ${stats.unread||0} unread · works without Telegram`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
                     <div class="arb-card">
                         <strong>${a.title||'Alert'}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new'}</div>
-                    </div>`).join('') : '<div class="empty">لا تنبيهات بعد — ستظهر هنا حتى بدون Telegram</div>';
+                    </div>`).join('') : '<div class="empty">No alerts yet — they appear here even without Telegram</div>';
             } catch (e) {
                 el.innerHTML = '<div class="empty">Inbox unavailable</div>';
             }

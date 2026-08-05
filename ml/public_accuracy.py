@@ -75,6 +75,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
             correct += 1
 
         pred_id = row.get("id")
+        chain_meta = _chain_lookup().get(str(pred_id) if pred_id is not None else "")
         public_recent.append(
             {
                 "prediction_id": pred_id,
@@ -89,7 +90,14 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
                 "opportunity_score": row.get("opportunity_score"),
                 "synthetic": False,
                 "source": row.get("source") or "oracle",
-                "chain_ref": f"oracle_pred:{pred_id}" if pred_id is not None else None,
+                "chain_hash": (chain_meta or {}).get("chain_hash"),
+                "prev_hash": (chain_meta or {}).get("prev_hash"),
+                "chain_seq": (chain_meta or {}).get("seq"),
+                "chain_ref": (
+                    ((chain_meta or {}).get("chain_hash") or "")[:16]
+                    if chain_meta
+                    else (f"oracle_pred:{pred_id}" if pred_id is not None else None)
+                ),
             }
         )
 
@@ -256,14 +264,40 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
     }
 
 
+def _chain_lookup() -> dict[str, dict[str, Any]]:
+    """Map prediction_id -> latest audit-chain entry (best-effort)."""
+    index: dict[str, dict[str, Any]] = {}
+    try:
+        from oracle_audit_chain import chain_summary
+
+        recent = (chain_summary(limit=200) or {}).get("recent_records") or []
+        for entry in recent:
+            pid = entry.get("prediction_id")
+            if pid is None:
+                continue
+            index[str(pid)] = {
+                "chain_hash": entry.get("chain_hash"),
+                "prev_hash": entry.get("prev_hash"),
+                "seq": entry.get("seq"),
+            }
+    except Exception:
+        return {}
+    return index
+
+
 def _proof_chain_block() -> dict[str, Any]:
     try:
         from oracle_audit_chain import chain_summary, verify_chain
 
+        summary = chain_summary(limit=8)
+        recent = summary.get("recent_records") or []
+        tip = recent[-1] if recent else {}
         return {
-            "summary": chain_summary(limit=5),
+            "summary": summary,
             "verify": verify_chain(),
             "public_page": "/oracle-accuracy",
+            "tip_hash": tip.get("chain_hash"),
+            "total_records": summary.get("total_records"),
         }
     except Exception as exc:
         return {"error": str(exc)}

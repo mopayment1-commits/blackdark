@@ -981,7 +981,7 @@ async def oracle(
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
     ux_mode: str = "beginner",
-    lang: str = "ar",
+    lang: str = "en",
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":

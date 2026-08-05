@@ -17,7 +17,7 @@ def enrich_oracle_decision(
     payload: dict[str, Any],
     *,
     ux_mode: str = "beginner",
-    lang: str = "ar",
+    lang: str = "en",
     register_signal: bool = True,
 ) -> dict[str, Any]:
     """Mutate/return oracle payload with constitution differentiators."""
@@ -101,9 +101,9 @@ def enrich_oracle_decision(
             net_profit_usdt=net_profit,
         )
         out["persona_clarity"] = persona
-        lang_key = "ar" if lang.lower().startswith("ar") else "en"
+        # Site is English-only; always prefer EN decision sentence for UI.
         retail = (persona.get("personas") or {}).get("retail") or {}
-        out["decision_sentence"] = retail.get(lang_key) or retail.get("en") or out.get("oracle")
+        out["decision_sentence"] = retail.get("en") or retail.get("ar") or out.get("oracle")
         out["decision_action"] = persona.get("action")
     except Exception:
         logger.debug("persona enrich failed", exc_info=True)

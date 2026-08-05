@@ -156,4 +156,5 @@ python scripts/finalize_launch.py
 ```
 ثم لصق `.env.launch.local` في Railway + `DATABASE_URL` + Lemon/Stripe → `/api/production/guard`.
 
-> **ملاحظة تشغيل:** خطوات Railway/Deploy مؤجّلة بقرار المنتج عند الحاجة — الأولوية القصوى الحالية هي مسار المستخدم (Landing Oracle + gating + In-app alerts) وفق هذا الدستور.
+> **ملاحظة تشغيل:** خطوات Railway/Deploy مؤجّلة بقرار المنتج عند الحاجة — الأولوية القصوى الحالية هي مسار المستخدم (Landing Oracle + gating + In-app alerts) وفق هذا الدستور.  
+> **لغة الواجهة الملزمة:** الموقع بالكامل **English-only** (LTR). لا واجهة عربية في templates/UI؛ النصوص العربية الداخلية (إن وُجدت) للـAPI/التوثيق فقط وليست للعرض العام.
