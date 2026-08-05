@@ -1737,13 +1737,15 @@
             const box = document.getElementById('oracleResult');
             const explainBtn = document.getElementById('explainBtn');
             if (!symbol) return;
+            const uxMode = (localStorage.getItem('bd_ux_mode') || 'beginner');
+            const lang = (localStorage.getItem('bd_lang') || 'ar');
 
             box.classList.add('visible');
-            box.innerHTML = '<div class="loading">Oracle analyzing ' + symbol + '...</div>';
+            box.innerHTML = '<div class="loading">' + (lang === 'ar' ? 'جاري تحليل ' : 'Oracle analyzing ') + symbol + '...</div>';
             explainVisible = false;
 
             try {
-                const res = await fetch('/oracle/' + symbol);
+                const res = await fetch('/oracle/' + encodeURIComponent(symbol) + '?ux_mode=' + encodeURIComponent(uxMode) + '&lang=' + encodeURIComponent(lang));
                 if (!res.ok) throw new Error('Not found');
                 const d = await res.json();
                 lastOracleData = d;
@@ -1754,13 +1756,24 @@
                 const fgPos = Math.min(100, Math.max(0, d.fear_greed_score || 50));
                 const whalePositive = (d.whale_alert || '').toLowerCase().includes('accumulation') ||
                     (d.whale_alert || '').toLowerCase().includes('buy');
+                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+                const truth = d.net_edge_truth || {};
+                const half = d.opportunity_half_life || {};
+                const sig = d.signal_registry || {};
+                const proBlock = (uxMode === 'pro') ? `
+                    <div class="metrics-grid">
+                        <div class="metric"><div class="val">${truth.truth_score ?? '—'}</div><div class="key">Truth</div></div>
+                        <div class="metric"><div class="val">${half.remaining_seconds ?? '—'}s</div><div class="key">Half-Life</div></div>
+                        <div class="metric"><div class="val">${d.market_regime || '—'}</div><div class="key">Regime</div></div>
+                        <div class="metric"><div class="val">${(sig.signal_id || '—').toString().slice(0,10)}</div><div class="key">Signal</div></div>
+                    </div>` : '';
 
                 box.innerHTML = `
                     <div class="verdict-banner">
                         <div>
-                            <div class="verdict-badge ${verdictClass(d.verdict)}">${d.verdict}</div>
+                            <div class="verdict-badge ${verdictClass(d.verdict)}">${d.decision_action || d.verdict}</div>
                             <div style="color:var(--text-muted);font-size:0.9rem;margin-top:0.25rem">
-                                ${d.symbol} · $${fmt(d.price, 2)} · <span class="${d.change_24h >= 0 ? 'change-up' : 'change-down'}">${d.change_24h >= 0 ? '+' : ''}${fmt(d.change_24h, 2)}%</span>
+                                ${d.symbol} · $${fmt(d.price, 2)} · <span class="${(d.change_24h || 0) >= 0 ? 'change-up' : 'change-down'}">${(d.change_24h || 0) >= 0 ? '+' : ''}${fmt(d.change_24h || 0, 2)}%</span>
                             </div>
                         </div>
                         <div class="score-ring">
@@ -1769,11 +1782,9 @@
                         </div>
                     </div>
 
-                    <div class="narrative-box">${d.narrative || d.oracle}</div>
+                    <div class="narrative-box">${sentence}</div>
 
-                    <div class="whale-alert-box ${whalePositive ? 'positive' : ''}">
-                        🐋 ${d.whale_alert || 'No whale activity'}
-                    </div>
+                    ${d.whale_alert ? `<div class="whale-alert-box ${whalePositive ? 'positive' : ''}">🐋 ${d.whale_alert}</div>` : ''}
 
                     <div class="fg-bar-wrap">
                         <div class="fg-bar-label">
@@ -1784,18 +1795,20 @@
                     </div>
 
                     <div class="metrics-grid">
-                        <div class="metric"><div class="val">${d.confidence}%</div><div class="key">Confidence</div></div>
-                        <div class="metric"><div class="val">${d.sentiment}</div><div class="key">Sentiment</div></div>
-                        <div class="metric"><div class="val">${d.trend_direction}</div><div class="key">Trend</div></div>
-                        <div class="metric"><div class="val">${d.risk_level}</div><div class="key">Risk</div></div>
-                        <div class="metric"><div class="val">$${fmt(d.support, 0)}</div><div class="key">Support</div></div>
-                        <div class="metric"><div class="val">$${fmt(d.resistance, 0)}</div><div class="key">Resistance</div></div>
+                        <div class="metric"><div class="val">${d.confidence != null ? d.confidence + '%' : '—'}</div><div class="key">Confidence</div></div>
+                        <div class="metric"><div class="val">${d.ux_mode || uxMode}</div><div class="key">Mode</div></div>
+                        <div class="metric"><div class="val">${d.lang || lang}</div><div class="key">Lang</div></div>
+                        <div class="metric"><div class="val">${d.risk_level || '—'}</div><div class="key">Risk</div></div>
                     </div>
+                    ${proBlock}
 
                     ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
 
-                    <div style="font-size:0.8rem;color:var(--text-muted)">
-                        ${d.action} · ${d.timestamp_human || ''}
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem">
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','beginner');askOracle();return false">مبتدئ</a> ·
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle();return false">محترف</a> ·
+                        <a href="#" onclick="localStorage.setItem('bd_lang','ar');askOracle();return false">عربي</a> ·
+                        <a href="#" onclick="localStorage.setItem('bd_lang','en');askOracle();return false">EN</a>
                     </div>
 
                     <div class="explain-panel" id="explainPanel"></div>

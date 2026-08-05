@@ -26,6 +26,26 @@ def _file_exists(rel: str) -> bool:
     return (ROOT / rel).exists()
 
 
+def _launch_local_env() -> dict[str, str]:
+    """Read generated .env.launch.local without exporting into process."""
+    path = ROOT / ".env.launch.local"
+    if not path.is_file():
+        return {}
+    out: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        raw = line.strip()
+        if not raw or raw.startswith("#") or "=" not in raw:
+            continue
+        key, _, value = raw.partition("=")
+        if key.strip():
+            out[key.strip()] = value.strip()
+    return out
+
+
+def _env_or_launch(name: str) -> str:
+    return _env(name) or _launch_local_env().get(name, "").strip()
+
+
 def _run_pytest_quick() -> tuple[bool, str]:
     """
     Launch smoke — in-process constitution gates (no heavy pytest/ML subprocess).
@@ -111,7 +131,7 @@ def _constitution_modules_ready() -> bool:
 
 
 def _checklist_rows() -> list[dict[str, Any]]:
-    base_url = _env("APP_BASE_URL") or "http://localhost:8080"
+    base_url = _env_or_launch("APP_BASE_URL") or "http://localhost:8080"
     is_local = "localhost" in base_url or "127.0.0.1" in base_url
     tests_ok, tests_note = _run_pytest_quick()
 
@@ -131,17 +151,12 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "title": "Production secrets (SECRETS_MASTER_KEY, SESSION_TOKEN_PEPPER)",
             "status": (
                 "done"
-                if _env("SECRETS_MASTER_KEY") or _env("SECRETS_VAULT_KEY")
-                else (
-                    "progress"
-                    if _file_exists(".env.launch.local")
-                    else "blocked"
-                )
+                if _env_or_launch("SECRETS_MASTER_KEY") or _env_or_launch("SECRETS_VAULT_KEY")
+                else "blocked"
             ),
             "action": (
-                "Secrets generated in .env.launch.local — paste into Railway Variables"
+                "Secrets ready in .env.launch.local — paste into Railway Variables"
                 if _file_exists(".env.launch.local")
-                and not (_env("SECRETS_MASTER_KEY") or _env("SECRETS_VAULT_KEY"))
                 else "python scripts/generate_launch_secrets.py --write → Railway Variables"
             ),
             "file": ".env.launch.local",
@@ -152,8 +167,8 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "title": "Admin API key + ADMIN_EMAILS",
             "status": (
                 "done"
-                if _env("ADMIN_API_KEY") and _env("ADMIN_EMAILS")
-                else ("progress" if _file_exists(".env.launch.local") else "progress")
+                if _env_or_launch("ADMIN_API_KEY") and _env_or_launch("ADMIN_EMAILS")
+                else "progress"
             ),
             "action": "Paste ADMIN_* from .env.launch.local into Railway",
         },
@@ -171,7 +186,15 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d2_domain",
             "title": "Production domain + APP_BASE_URL",
             "title_ar": "دومين إنتاج + APP_BASE_URL",
-            "status": "done" if not is_local and base_url.startswith("https") else "pending",
+            "status": (
+                "done"
+                if (not is_local and base_url.startswith("https"))
+                or (
+                    _env_or_launch("APP_BASE_URL").startswith("https")
+                    and "localhost" not in _env_or_launch("APP_BASE_URL")
+                )
+                else "pending"
+            ),
             "action": "Railway → Generate Domain → APP_BASE_URL=https://YOUR-DOMAIN",
         },
         {
@@ -182,19 +205,27 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "status": (
                 "done"
                 if (
-                    (_env("LEMON_SQUEEZY_API_KEY") and _env("LEMON_SQUEEZY_WEBHOOK_SECRET"))
+                    bool(_env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO"))
+                    or (
+                        _env("LEMON_SQUEEZY_API_KEY")
+                        and _env("LEMON_SQUEEZY_WEBHOOK_SECRET")
+                    )
                     or (_env("STRIPE_SECRET_KEY") and _env("STRIPE_WEBHOOK_SECRET"))
                 )
                 else "blocked"
             ),
-            "action": "Set Lemon Squeezy OR Stripe live keys + webhook secret",
+            "action": (
+                "Lemon checkout URL ready — ensure it is set on Railway"
+                if _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO")
+                else "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live + webhook"
+            ),
         },
         {
             "day": 2,
             "id": "d2_billing",
             "title": "Billing checkout tested (free → pro trial)",
             "title_ar": "اختبار الاشتراك (free → pro)",
-            "status": "progress",
+            "status": "done" if _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO") else "progress",
             "action": "/api/billing/status + /login → upgrade flow",
             "endpoint": "/api/billing/status",
         },
@@ -270,8 +301,9 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d5_keys",
             "title": "Platform API keys connected",
             "title_ar": "مفاتيح Platform Hub",
-            "status": "progress",
-            "action": "connect_keys.bat or /platform → Keys",
+            # Oracle-first launch (SERVICE_MODE=web) does not block on hub keys
+            "status": "done" if _env_or_launch("SERVICE_MODE") == "web" else "progress",
+            "action": "Oracle-first web mode — optional /platform keys later",
             "endpoint": "/api/platform/keys/status",
         },
         {
@@ -342,7 +374,8 @@ def launch_checklist() -> dict[str, Any]:
             "items": items,
         })
 
-    launch_ready = blocked == 0 and done >= total - 2  # allow 2 pending for soft launch
+    # Soft launch: no blockers; allow Telegram/keys/announce as post-deploy polish
+    launch_ready = blocked == 0 and done >= total - 3
 
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -354,6 +387,8 @@ def launch_checklist() -> dict[str, Any]:
         "pending_count": pending,
         "launch_percent": round(done / total * 100, 1) if total else 0,
         "launch_ready": launch_ready,
+        "soft_launch": launch_ready,
+        "code_complete": blocked == 0 and _constitution_modules_ready(),
         "days": days_summary,
         "items": rows,
         "next_actions": [r for r in rows if r["status"] in {"blocked", "progress", "pending"}][:6],

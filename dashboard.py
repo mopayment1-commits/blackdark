@@ -16,7 +16,10 @@ from pathlib import Path
 from typing import Any
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).resolve().parent / ".env")
+_ROOT = Path(__file__).resolve().parent
+load_dotenv(_ROOT / ".env")
+# Launch secrets file (gitignored) — used for local go-live verification
+load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
 from security_models import (
