@@ -1,0 +1,49 @@
+# BLACKDARK — free Render web service (soft launch / SQLite)
+# Docs (Arabic steps): docs/RENDER_FREE_AR.md
+#
+# After first deploy, set APP_BASE_URL to the Render URL in the dashboard.
+
+services:
+  - type: web
+    name: blackdark-web
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install --upgrade pip && pip install -r requirements-prod.txt
+    startCommand: python run_service.py web --port $PORT
+    healthCheckPath: /health/live
+    envVars:
+      - key: ENV
+        value: production
+      - key: SERVICE_MODE
+        value: web
+      - key: SOFT_LAUNCH
+        value: "true"
+      - key: PRODUCTION_GUARD_FAIL_CLOSED
+        value: "true"
+      - key: PRICE_FEED_WS_ONLY
+        value: "false"
+      - key: UPTIME_SELF_PROBE_ENABLED
+        value: "true"
+      - key: LAUNCH_SKIP_EMAIL
+        value: "true"
+      - key: LAUNCH_SKIP_TELEGRAM
+        value: "true"
+      - key: BLACKDARK_B2B_DEMO_KEY
+        value: disabled
+      - key: PYTHON_VERSION
+        value: "3.12.3"
+      - key: SECRETS_MASTER_KEY
+        generateValue: true
+      - key: SESSION_TOKEN_PEPPER
+        generateValue: true
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: ADMIN_EMAILS
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
+      - key: LEMON_SQUEEZY_CHECKOUT_PRO
+        sync: false
