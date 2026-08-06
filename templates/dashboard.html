@@ -3,692 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#22d3ee">
-    <title>BLACKDARK — Intelligence Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#080B10">
+    <title>BLACKDARK — Intelligence OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/dashboard-shell.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
-        html[dir="ltr"] body { font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif; }
-        a { color: #22d3ee; text-decoration: none; }
-        nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
-        .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-        .logo { font-weight: 800; font-size: 1.2rem; color: #22d3ee; }
-        .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
-        .nav-links a:hover { color: #e4e4e7; }
-        .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
-        .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
-        main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
-        .hero { text-align: center; margin-bottom: 1.25rem; }
-        .hero h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .35rem; color: #fff; }
-        .hero p { color: #71717a; font-size: .95rem; }
-        .search-row { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
-        .search-row input { width: min(280px,100%); padding: .75rem 1rem; background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; color: #e4e4e7; font-size: 1rem; }
-        .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
-        .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
-        .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
-        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #71717a; font-size: .8rem; cursor: pointer; }
-        .pick:hover { border-color: #22d3ee; color: #22d3ee; }
-        section { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; margin-bottom: 1rem; }
-        section h2 { font-size: 1rem; color: #22d3ee; margin-bottom: .5rem; }
-        .sub { color: #71717a; font-size: .82rem; margin-bottom: .75rem; }
-        .loading, .empty { color: #71717a; text-align: center; padding: 1rem; font-size: .9rem; }
-        .oracle-box { display: none; }
-        .oracle-box.show { display: block; }
-        .verdict { font-size: 2rem; font-weight: 900; }
-        .verdict.BUY { color: #22c55e; } .verdict.WAIT { color: #f59e0b; }
-        .verdict.SELL, .verdict.CAUTION { color: #ef4444; }
-        .narrative { background: #1a1a24; border-left: 3px solid #22d3ee; padding: .85rem 1rem; border-radius: 0 10px 10px 0; margin: .85rem 0; font-size: .92rem; }
-        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .6rem; margin-top: .85rem; }
-        .metric { background: #1a1a24; border-radius: 10px; padding: .65rem; text-align: center; }
-        .metric strong { display: block; font-size: 1.05rem; }
-        .metric span { font-size: .68rem; color: #71717a; text-transform: uppercase; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .65rem; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-        .card { background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; padding: .75rem; cursor: pointer; }
-        .card:hover { border-color: #22d3ee; }
-        .up { color: #22c55e; } .down { color: #ef4444; }
-        .arb-card, .whale-card { background: #1a1a24; border: 1px solid #2a2a35; border-left: 3px solid #22d3ee; border-radius: 10px; padding: .75rem; margin-bottom: .5rem; }
-        #chart { height: 280px; border-radius: 10px; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; font-size: .8rem; }
-        th, td { padding: .45rem .35rem; border-bottom: 1px solid #2a2a35; text-align: left; }
-        th { color: #71717a; }
-        .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
-        select { background: #1a1a24; border: 1px solid #2a2a35; color: #e4e4e7; border-radius: 8px; padding: .4rem .6rem; }
-        footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
-    </style>
+    <script defer src="/static/js/dashboard-shell.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="nav-inner">
-            <a href="/" class="logo">BLACKDARK</a>
-            <div style="display:flex;align-items:center;flex-wrap:wrap">
-                <span class="tier" id="userTier">Guest · Free</span>
-                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
-                <div class="nav-links">
-                    <a href="/">Home</a>
-                    <a href="/dashboard#portfolio">Portfolio</a>
-                    <a href="/dashboard#stealth">Stealth</a>
-                    <a href="/platform">Platform</a>
-                    <a href="/oracle-accuracy">Accuracy</a>
-                    <a href="/capabilities">Capabilities</a>
-                    <a href="/login" id="authLink">Login</a>
-                </div>
-            </div>
-        </div>
+<div class="shell">
+  <header class="topbar">
+    <button type="button" class="icon-btn" id="railToggle" title="Toggle navigation">☰</button>
+    <a href="/" class="brand">BLACKDARK</a>
+    <button type="button" class="cmdk" id="cmdkOpen" title="Command">
+      Ask BLACKDARK anything…
+      <kbd>⌘K</kbd>
+    </button>
+    <div class="top-meta">
+      <span class="chip prove" id="aiAccuracyChip">AI Accuracy —</span>
+      <span class="chip live" id="dataStatusChip">LIVE</span>
+      <span class="chip" id="userTier">Guest · Free</span>
+      <button type="button" class="icon-btn" id="privacyBtn" title="Privacy Shield">Privacy</button>
+      <button type="button" class="btn-secondary" id="upgradeBtn" onclick="upgradeTier('pro')">Upgrade</button>
+      <a href="/oracle-accuracy" class="icon-btn">Ledger</a>
+      <a href="/login" class="icon-btn" id="authLink">Login</a>
+    </div>
+  </header>
+
+  <div class="body" id="shellBody">
+    <nav class="rail" aria-label="Primary">
+      <button type="button" class="rail-btn active" data-nav="today"><span class="glyph">◎</span><span class="label">Today</span></button>
+      <button type="button" class="rail-btn" data-nav="markets"><span class="glyph">▣</span><span class="label">Markets</span></button>
+      <button type="button" class="rail-btn" data-nav="radar"><span class="glyph">◉</span><span class="label">Radar</span></button>
+      <button type="button" class="rail-btn" data-nav="oracle"><span class="glyph">◇</span><span class="label">Oracle</span></button>
+      <button type="button" class="rail-btn" data-nav="signals"><span class="glyph">⚡</span><span class="label">Signals</span></button>
+      <button type="button" class="rail-btn" data-nav="portfolio"><span class="glyph">⬡</span><span class="label">Portfolio</span></button>
+      <button type="button" class="rail-btn" data-nav="research"><span class="glyph">◈</span><span class="label">Research</span></button>
+      <button type="button" class="rail-btn" data-nav="alerts"><span class="glyph">◔</span><span class="label">Alerts</span></button>
+      <button type="button" class="rail-btn" data-nav="arena"><span class="glyph">✦</span><span class="label">Arena</span></button>
+      <div class="rail-spacer"></div>
+      <p class="rail-note">Six Heroes + Arena (viral). No seventh retail product.</p>
+      <a class="rail-btn" href="/capabilities"><span class="glyph">?</span><span class="label">Help</span></a>
+      <a class="rail-btn" href="/platform"><span class="glyph">⚙</span><span class="label">Settings</span></a>
     </nav>
 
-    <main id="top">
-        <div class="hero">
-            <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
-            <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
+    <main class="command" id="top">
+      <!-- TODAY -->
+      <div class="pane active" data-pane="today">
+        <div class="greeting panel" style="border:none;background:transparent;padding:0 0 .5rem">
+          <h1 id="todayGreeting">Good day</h1>
+          <p id="todayTagline">Here&apos;s what changed since you left.</p>
+          <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
-        <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
+
+        <section class="panel">
+          <h2>Since You Left</h2>
+          <p class="sub" id="sinceCount">Detecting meaningful changes…</p>
+          <div class="change-list" id="sinceList"><div class="loading">Loading…</div></div>
+        </section>
+
+        <section class="panel">
+          <h2>Market Pulse</h2>
+          <p class="sub">Intelligence state — not a fear meter</p>
+          <div class="pulse-grid" id="pulseGrid"></div>
+          <p class="sub" id="pulseSummary"></p>
+          <div class="toolbar">
+            <button type="button" class="btn-secondary" id="explainMarketBtn">Explain Market (30s)</button>
+            <button type="button" class="btn-secondary" id="showEvidenceBtn">Show Evidence</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Needs Your Attention</h2>
+          <p class="sub">Three things worth your focus now</p>
+          <div class="attention-list" id="attentionList"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Ask BLACKDARK</h2>
+          <p class="sub">Command layer — ask what matters</p>
+          <div class="ask-row">
+            <input id="askInput" type="text" placeholder="Ask anything about the market…" onkeydown="if(event.key==='Enter')askBlackdark()">
+            <button type="button" class="btn" onclick="askBlackdark()">Ask</button>
+          </div>
+          <div class="suggestions" id="askSuggestions"></div>
+          <div class="ask-reply" id="askReply" style="display:none"></div>
+        </section>
+
+        <section class="panel" id="todayDecisionStrip" style="display:none">
+          <h2>Latest decision</h2>
+          <div id="todayDecisionBody"></div>
+        </section>
+      </div>
+
+      <!-- ORACLE -->
+      <div class="pane" data-pane="oracle">
+        <div class="panel">
+          <h2 id="heroBrand">Oracle</h2>
+          <p class="sub" id="heroSub">One clear decision — ACT or WAIT · public verifiable accuracy</p>
+          <div class="toolbar">
             <select id="uxMode" onchange="askOracle()">
-                <option value="beginner" selected>Beginner</option>
-                <option value="pro">Pro</option>
+              <option value="beginner" selected>Beginner</option>
+              <option value="pro">Pro</option>
             </select>
-            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
-            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
-        </div>
-        <div class="picks">
+          </div>
+          <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
             <span class="pick" onclick="setSymbol('ETH')">ETH</span>
             <span class="pick" onclick="setSymbol('SOL')">SOL</span>
             <span class="pick" onclick="setSymbol('BNB')">BNB</span>
             <span class="pick" onclick="setSymbol('XRP')">XRP</span>
-        </div>
-        <div class="search-row">
+          </div>
+          <div class="search-row">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
             <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
+            <button type="button" class="btn-secondary" onclick="openWhyDock()">Why?</button>
+          </div>
+          <div class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></div>
         </div>
-        <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
-
-        <section>
-            <h2>Live Chart</h2>
-            <div class="toolbar">
-                <select id="chartIv" onchange="loadChart()"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" onclick="loadChart()">Refresh</button>
-            </div>
-            <div id="chart"></div>
-        </section>
-
-        <div class="grid-2">
-            <section>
-                <h2>Market Radar</h2>
-                <div class="grid" id="market"><div class="loading">Loading…</div></div>
-            </section>
-            <section>
-                <h2>Open Interest</h2>
-                <div id="oi"><div class="loading">Loading…</div></div>
-            </section>
+        <div class="panel">
+          <h2>Live Chart</h2>
+          <div class="toolbar">
+            <select id="chartIv" onchange="loadChart()"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+            <button class="btn-secondary" onclick="loadChart()">Refresh</button>
+          </div>
+          <div id="chart"></div>
         </div>
+      </div>
 
-        <section>
-            <h2>Arbitrage Engine</h2>
-            <p class="sub" id="arbStats">Scanning…</p>
-            <button class="btn secondary" onclick="loadArbitrage(true)">Live Scan</button>
-            <div id="arbitrage" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
-        </section>
+      <!-- MARKETS -->
+      <div class="pane" data-pane="markets">
+        <div class="panel">
+          <h2>Markets</h2>
+          <p class="sub">Calm screener — open any asset into Oracle</p>
+          <div class="grid" id="market"><div class="loading">Loading…</div></div>
+        </div>
+        <div class="panel">
+          <h2>Open Interest</h2>
+          <div id="oi"><div class="loading">Loading…</div></div>
+        </div>
+      </div>
 
-        <section>
-            <h2>Whale Intelligence · Signal vs Noise</h2>
-            <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
-            <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
-            <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
-            <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
-        </section>
+      <!-- RADAR -->
+      <div class="pane" data-pane="radar">
+        <div class="panel">
+          <h2>Market Radar</h2>
+          <p class="sub">Whale Signal vs Noise · anomalies without dashboard tourism</p>
+          <button class="btn-secondary" onclick="loadWhales(true)">Refresh</button>
+          <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+          <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:var(--mute)"></div>
+        </div>
+        <div class="panel">
+          <h2>Arbitrage (Net-Edge)</h2>
+          <p class="sub" id="arbStats">Scanning…</p>
+          <button class="btn-secondary" onclick="loadArbitrage(true)">Live Scan</button>
+          <div id="arbitrage" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+        </div>
+      </div>
 
-        <section id="portfolio">
-            <h2>Portfolio AI</h2>
-            <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
-            <div class="toolbar">
-                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
-                <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
-            </div>
-            <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
-            <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
-        </section>
+      <!-- SIGNALS -->
+      <div class="pane" data-pane="signals">
+        <div class="panel">
+          <h2>Signals</h2>
+          <p class="sub">Registry-backed signals only — undefined signals are killed</p>
+          <div id="signalsPane"><div class="loading">Loading…</div></div>
+        </div>
+      </div>
 
-        <section id="stealth">
-            <h2>Stealth Execution Advisor</h2>
-            <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
-            <div class="toolbar">
-                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
-            </div>
-            <div id="stealthResult" class="empty">Enter size and run advisor</div>
-        </section>
+      <!-- PORTFOLIO (+ whale tools) -->
+      <div class="pane" data-pane="portfolio">
+        <div class="panel" id="portfolio">
+          <h2>Portfolio AI</h2>
+          <p class="sub">Risk in plain language — holdings stay in-browser · <span class="sensitive">values hide with Privacy</span></p>
+          <div class="toolbar">
+            <input id="pfSym" class="field" type="text" placeholder="BTC" style="width:90px">
+            <input id="pfAmt" class="field sensitive" type="number" placeholder="Amount" style="width:120px">
+            <button class="btn-secondary" type="button" onclick="addPortfolioAsset()">Add</button>
+            <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
+          </div>
+          <div id="portfolioList" class="sub sensitive" style="margin:.5rem 0"></div>
+          <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
+        </div>
+        <div class="panel" id="stealth">
+          <h2>Stealth Execution Advisor</h2>
+          <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
+          <div class="toolbar">
+            <input id="stealthAsset" class="field" type="text" value="ETH" style="width:90px">
+            <input id="stealthNotional" class="field sensitive" type="number" value="250000" style="width:140px">
+            <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
+            <button class="btn-secondary" onclick="runStealthAdvisor()">Advise</button>
+          </div>
+          <div id="stealthResult" class="empty">Enter size and run advisor</div>
+        </div>
+        <div class="panel" id="mev">
+          <h2>MEV / Sandwich Report</h2>
+          <p class="sub">Shareable risk posture — prove the drag</p>
+          <div class="toolbar">
+            <input id="mevAsset" class="field" type="text" value="ETH" style="width:90px">
+            <input id="mevNotional" class="field sensitive" type="number" value="10000" style="width:140px">
+            <button class="btn-secondary" onclick="loadMevReport()">Build report</button>
+            <button class="btn-secondary" onclick="copyMevShare()">Copy share text</button>
+          </div>
+          <div id="mevResult" class="empty">Generate a shareable MEV report</div>
+        </div>
+      </div>
 
-        <section id="mev">
-            <h2>MEV / Sandwich Report</h2>
-            <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
-            <div class="toolbar">
-                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <button class="btn secondary" onclick="loadMevReport()">Build report</button>
-                <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
-            </div>
-            <div id="mevResult" class="empty">Generate a shareable MEV report</div>
-        </section>
+      <!-- RESEARCH -->
+      <div class="pane" data-pane="research">
+        <div class="panel">
+          <h2>Research</h2>
+          <p class="sub">Anti-Hype explanations · model transparency · ledger</p>
+          <div class="toolbar">
+            <a class="btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
+            <a class="btn-secondary" href="/capabilities">Model Capabilities</a>
+            <a class="btn-secondary" href="/platform">Platform</a>
+            <button type="button" class="btn-secondary" onclick="BDShell.showPane('today');document.getElementById('askInput').focus()">Ask BLACKDARK</button>
+          </div>
+          <p class="sub">Deep asset thesis and scenario engine expand from Oracle → Why / Evidence.</p>
+        </div>
+      </div>
 
-        <section>
-            <h2 id="alertsTitle">Alerts</h2>
-            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
-            <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
-            <div class="toolbar">
-                <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
-                <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
-            </div>
-            <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
-        </section>
+      <!-- ALERTS -->
+      <div class="pane" data-pane="alerts">
+        <div class="panel">
+          <h2 id="alertsTitle">Alerts</h2>
+          <p class="sub" id="tgStatus">In-app inbox: only Truth + Half-Life survivors fire</p>
+          <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
+          <div class="toolbar">
+            <button class="btn-secondary" onclick="loadInbox()">Refresh Inbox</button>
+            <button class="btn-secondary" onclick="testTelegram()">Test Telegram</button>
+          </div>
+          <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
+        </div>
+      </div>
+
+      <!-- ARENA -->
+      <div class="pane" data-pane="arena">
+        <div class="panel">
+          <h2>BLACKDARK Arena</h2>
+          <p class="sub">Viral proof surface — not a seventh retail hero. Share Decision Certificates and scenario cards.</p>
+          <div class="toolbar">
+            <a class="btn" href="/oracle-accuracy">Open Ledger Challenges</a>
+            <button type="button" class="btn-secondary" onclick="BDShell.showPane('oracle')">Create a decision to share</button>
+          </div>
+          <p class="sub">Human vs AI · public verified predictions · shareable proof cards land here next.</p>
+        </div>
+      </div>
     </main>
-    <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
-        <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
-        <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
-        · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
-        · <a href="/contact" style="color:#a1a1aa">Contact</a>
-        · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
-        · <a href="/legal" style="color:#a1a1aa">Legal</a>
-    </footer>
 
-    <script>
-        const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
-        const vc = v => (v || 'WAIT').toUpperCase();
-        let chart, series;
+    <aside class="dock" id="contextDock">
+      <div class="toolbar" style="justify-content:space-between">
+        <h3 id="dockTitle">Context</h3>
+        <button type="button" class="icon-btn" id="dockClose">Close</button>
+      </div>
+      <div id="dockBody" class="mute">Open Why / Evidence from a decision.</div>
+    </aside>
+  </div>
 
-        function authHeaders() {
-            const t = localStorage.getItem('bd_token');
-            return t ? { Authorization: 'Bearer ' + t } : {};
-        }
+  <footer class="shell-footer">
+    <span id="footerDataStatus">Status: LIVE</span>
+    <strong>Anti-Hype</strong>
+    <span>Not financial advice · Verify on <a href="/oracle-accuracy">Public Accuracy Ledger</a></span>
+    <a href="/contact">Contact</a>
+    <a href="/complaints">Complaints</a>
+    <a href="/legal">Legal</a>
+    <a href="/capabilities">Model</a>
+  </footer>
+</div>
 
-        async function loadAuth() {
-            const tierEl = document.getElementById('userTier');
-            const authLink = document.getElementById('authLink');
-            const token = localStorage.getItem('bd_token');
-            if (!token) return;
-            try {
-                const res = await fetch('/api/auth/me', { headers: authHeaders() });
-                const d = await res.json();
-                if (d.authenticated) {
-                    tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
-                    authLink.textContent = 'Logout';
-                    authLink.href = '#';
-                    authLink.onclick = async e => {
-                        e.preventDefault();
-                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders() });
-                        localStorage.removeItem('bd_token');
-                        location.reload();
-                    };
-                }
-            } catch (e) {}
-        }
+<div class="cmdk-modal" id="cmdkModal">
+  <div class="cmdk-panel" id="cmdkBackdrop">
+    <form id="cmdkForm">
+      <input id="cmdkInput" placeholder="Open BTC · Explain market · Go radar…" autocomplete="off">
+    </form>
+    <div class="cmdk-list">
+      <button type="button" data-cmd="today">Go Today <span class="hint">home</span></button>
+      <button type="button" data-cmd="oracle">Open Oracle</button>
+      <button type="button" data-cmd="radar">Open Radar</button>
+      <button type="button" data-cmd="What matters most since I left?">Ask: what matters since I left?</button>
+      <button type="button" data-cmd="Explain the market in 30 seconds">Ask: explain market (30s)</button>
+    </div>
+  </div>
+</div>
 
-        async function upgradeTier(tier) {
-            try {
-                const res = await fetch('/api/billing/checkout', {
-                    method: 'POST', headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ tier: tier || 'pro' }),
-                });
-                const d = await res.json();
-                if (d.url) { location.href = d.url; return; }
-            } catch (e) {}
-            location.href = '/create-checkout-session?tier=' + (tier || 'pro');
-        }
-
-        function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
-
-        function applyLang() {
-            const root = document.getElementById('htmlRoot');
-            root.lang = 'en';
-            root.dir = 'ltr';
-            document.getElementById('heroSub').textContent = 'One clear decision — act or wait · public verifiable accuracy';
-            document.getElementById('askBtn').textContent = 'Get Decision';
-        }
-
-        async function askOracle() {
-            const sym = document.getElementById('symbol').value.trim().toUpperCase();
-            const box = document.getElementById('oracleBox');
-            const el = document.getElementById('oracleContent');
-            const mode = document.getElementById('uxMode').value;
-            const lang = 'en';
-            if (!sym) return;
-            box.classList.add('show');
-            el.innerHTML = '<div class="loading">Analyzing…</div>';
-            try {
-                const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
-                const res = await fetch(url, { headers: authHeaders() });
-                if (!res.ok) throw new Error('fail');
-                const d = await res.json();
-                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
-                const action = d.decision_action || '';
-                const truth = d.net_edge_truth || {};
-                const half = d.opportunity_half_life || {};
-                const sig = d.signal_registry || {};
-                let proBlock = '';
-                const factors = (d.explanation && d.explanation.top_3_factors) || [];
-                const factorBlock = factors.length ? `
-                    <div style="margin-top:.85rem">
-                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
-                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
-                    </div>` : '';
-                if (mode === 'pro') {
-                    proBlock = `
-                    <div class="metrics">
-                        <div class="metric"><strong>${truth.truth_score ?? '—'}</strong><span>Truth</span></div>
-                        <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
-                        <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
-                        <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
-                    </div>${factorBlock}`;
-                } else {
-                    proBlock = factorBlock;
-                }
-                let upgradeBlock = '';
-                if (d.upgrade_hint) {
-                    const t = d.upgrade_hint.teaser || {};
-                    upgradeBlock = `
-                    <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
-                        ${d.upgrade_hint.message || ''}
-                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${t.truth_score ?? '—'} · Half-life ${t.remaining_seconds ?? '—'}s</div>` : ''}
-                        <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
-                    </div>`;
-                }
-                const conflict = d.dimension_conflict || {};
-                const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
-                    ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
-                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
-                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
-                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
-                       </div>` : '';
-                const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
-                    : '';
-                el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
-                    <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
-                        <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
-                    <div class="narrative">${sentence}</div>
-                    <div class="metrics">
-                        <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
-                        <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
-                    </div>
-                    ${proBlock}
-                    ${vetoBlock}
-                    ${proofBlock}
-                    ${upgradeBlock}
-                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
-                    ${(() => {
-                        const cert = d.decision_certificate || {};
-                        if (!(cert.certificate_hash || d.prediction_id)) return '';
-                        window._lastCertShare = cert.share_text || '';
-                        window._lastCertJson = cert;
-                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
-                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
-                        ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
-                        ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
-                    })()}
-                    <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
-            }
-        }
-
-        function initChart() {
-            const el = document.getElementById('chart');
-            if (!el || typeof LightweightCharts === 'undefined') return;
-            chart = LightweightCharts.createChart(el, {
-                layout: { background: { color: '#111118' }, textColor: '#a1a1aa' },
-                grid: { vertLines: { color: '#2a2a35' }, horzLines: { color: '#2a2a35' } },
-            });
-            series = chart.addCandlestickSeries({ upColor: '#22c55e', downColor: '#ef4444', borderVisible: false });
-            new ResizeObserver(() => chart.applyOptions({ width: el.clientWidth })).observe(el);
-        }
-
-        async function loadChart() {
-            if (!series) return;
-            const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
-            const iv = document.getElementById('chartIv').value;
-            try {
-                const res = await fetch('/api/market/klines?symbol=' + encodeURIComponent(sym) + '&interval=' + encodeURIComponent(iv) + '&limit=100');
-                const payload = await res.json();
-                const rows = payload.klines || payload || [];
-                series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
-                chart.timeScale().fitContent();
-            } catch (e) {}
-        }
-
-        async function loadMarket() {
-            const el = document.getElementById('market');
-            try {
-                const res = await fetch('/api/market/overview');
-                const data = await res.json();
-                el.innerHTML = (data.assets||[]).slice(0,8).map(a => `
-                    <div class="card" onclick="setSymbol('${a.symbol}')">
-                        <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict}</span>
-                        <div>$${fmt(a.price,a.price<1?4:2)}</div>
-                        <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
-                    </div>`).join('');
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
-        }
-
-        async function loadOI() {
-            const el = document.getElementById('oi');
-            try {
-                const res = await fetch('/api/market/open-interest');
-                const data = await res.json();
-                const rows = data.assets || [];
-                if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
-                el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                        <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
-        }
-
-        async function loadArbitrage(refresh) {
-            const el = document.getElementById('arbitrage');
-            const stats = document.getElementById('arbStats');
-            try {
-                const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST', headers: authHeaders() } : { headers: authHeaders() });
-                const data = await res.json();
-                if (res.status === 403) {
-                    const detail = data.detail || {};
-                    stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
-                        <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
-                    return;
-                }
-                const c = data.counts || {};
-                stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
-                const opps = data.opportunities || [];
-                el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
-                    const half = o.opportunity_half_life || {};
-                    const truth = o.net_edge_truth || {};
-                    const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
-        }
-
-        async function loadInbox() {
-            const el = document.getElementById('inbox');
-            const status = document.getElementById('tgStatus');
-            try {
-                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
-                const data = await res.json();
-                const stats = data.stats || {};
-                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
-                const rows = data.alerts || [];
-                el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
-                        <strong>${a.title||'Alert'}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
-                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Inbox unavailable</div>';
-            }
-        }
-
-        async function markInboxRead(id) {
-            if (!id) return;
-            try {
-                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
-                    method: 'POST',
-                    headers: authHeaders(),
-                });
-                loadInbox();
-            } catch (e) { /* ignore */ }
-        }
-
-        async function loadWhales(refresh) {
-            const el = document.getElementById('whales');
-            const foot = document.getElementById('whaleCompliance');
-            if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
-            try {
-                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
-                const data = await res.json();
-                const classified = data.classified || [];
-                const stories = data.stories || [];
-                const headline = data.headline || (stories[0] || '');
-                const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${headline}</div></div>`
-                    : '';
-                if (classified.length) {
-                    el.innerHTML = headHtml + classified.map(a => `
-                        <div class="whale-card">
-                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
-                            ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
-                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
-                        </div>`).join('');
-                } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
-                } else {
-                    el.innerHTML = '<div class="empty">No whale narratives</div>';
-                }
-                if (foot) {
-                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
-                }
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
-        }
-
-        let lastMevShare = '';
-        async function loadMevReport() {
-            const el = document.getElementById('mevResult');
-            const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
-            const notional = document.getElementById('mevNotional').value || 10000;
-            el.innerHTML = '<div class="loading">Building…</div>';
-            try {
-                const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
-                const d = await res.json();
-                lastMevShare = d.share_text || '';
-                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${m}</li>`).join('');
-                const c = d.compliance || {};
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>${d.title||'MEV Report'}</strong> · ${d.asset} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">Est. sandwich drag ~${d.estimated_sandwich_bps} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
-                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${d.note||''}</div>
-                        <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
-                    </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Report unavailable</div>'; }
-        }
-        function copyMevShare() {
-            if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
-            navigator.clipboard.writeText(lastMevShare);
-        }
-
-        async function runStealthAdvisor() {
-            const el = document.getElementById('stealthResult');
-            el.innerHTML = '<div class="loading">Advising…</div>';
-            try {
-                const res = await fetch('/api/whale/stealth-advisor', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify({
-                        asset: (document.getElementById('stealthAsset').value || 'ETH').trim(),
-                        notional_usd: Number(document.getElementById('stealthNotional').value || 0),
-                        side: document.getElementById('stealthSide').value || 'buy',
-                    }),
-                });
-                const d = await res.json();
-                const slices = ((d.slice_plan || {}).slices || []);
-                const sliceTable = slices.length
-                    ? `<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">
-                        <thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>
-                        <tbody>${slices.slice(0,12).map(s => `<tr>
-                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
-                            <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
-                            <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
-                            <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
-                            <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
-                        </tr>`).join('')}</tbody></table>`
-                    : '';
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
-                        ${d.slice_plan ? `<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ${d.slice_plan.algo} · window ${d.slice_plan.window_sec}s · interval ${d.slice_plan.interval_sec}s · offset ${d.slice_plan.limit_offset_bps} bps</div>` : ''}
-                        ${sliceTable}
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
-                    </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
-        }
-
-        let portfolioAssets = [];
-        function addPortfolioAsset() {
-            const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
-            const amount = Number(document.getElementById('pfAmt').value || 0);
-            if (!symbol || !(amount > 0)) return;
-            portfolioAssets.push({ symbol, amount });
-            document.getElementById('pfSym').value = '';
-            document.getElementById('pfAmt').value = '';
-            renderPortfolioList();
-        }
-        function renderPortfolioList() {
-            const el = document.getElementById('portfolioList');
-            if (!portfolioAssets.length) { el.textContent = ''; return; }
-            el.innerHTML = portfolioAssets.map((a,i) =>
-                `${a.symbol}: ${a.amount} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
-            ).join(' · ');
-        }
-        async function analyzePortfolio() {
-            const el = document.getElementById('portfolioResult');
-            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
-            el.innerHTML = '<div class="loading">Analyzing…</div>';
-            try {
-                const res = await fetch('/portfolio/analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
-                    body: JSON.stringify(portfolioAssets),
-                });
-                const d = await res.json();
-                const foot = d.compliance_footer || {};
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>Portfolio AI</strong>
-                        <div style="margin-top:.4rem">${d.plain_language || d.summary || JSON.stringify(d).slice(0,280)}</div>
-                        ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
-                        ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
-                    </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
-        }
-
-        async function loadTgStatus() {
-            const el = document.getElementById('tgStatus');
-            try {
-                const res = await fetch('/api/alerts/telegram/status');
-                const d = await res.json();
-                el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
-            } catch (e) { el.textContent = 'Alert status unavailable'; }
-        }
-
-        async function testTelegram() {
-            try {
-                const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
-                const d = await res.json();
-                alert(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (e) { alert('Test failed — configure bot first'); }
-        }
-
-        async function loadAlertsGenerosity() {
-            const el = document.getElementById('alertsGenerosity');
-            if (!el) return;
-            try {
-                const res = await fetch('/api/alerts/generosity');
-                const d = await res.json();
-                const bd = d.blackdark || {};
-                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
-                    `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
-            } catch (e) { /* ignore */ }
-        }
-
-        function scrollToId(id) {
-            const target = document.getElementById(id);
-            if (!target) return;
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            target.style.outline = '1px solid #22d3ee';
-            setTimeout(() => { target.style.outline = ''; }, 1600);
-        }
-
-        function scrollToStealth() {
-            scrollToId('stealth');
-        }
-
-        function applyAudienceFromQuery() {
-            const params = new URLSearchParams(location.search);
-            const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
-            const hash = (location.hash || '').toLowerCase();
-            if (aud) localStorage.setItem('bd_audience', aud);
-            const mode = document.getElementById('uxMode');
-            if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
-            const banner = document.getElementById('audienceBanner');
-            if (banner) {
-                if (aud === 'whale') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
-                } else if (aud === 'fund') {
-                    banner.style.display = 'block';
-                    banner.innerHTML = 'Fund mode · <a href="/b2b#fund-terminal" style="color:#22d3ee">Emerging Fund Terminal</a> + Evidence Pack';
-                } else if (aud === 'pro') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Pro mode · Opportunity Quality Score + unlimited Oracle';
-                } else if (aud === 'retail') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Retail mode · One clear Act / Wait decision';
-                }
-            }
-            if (hash === '#stealth' || hash === '#mev' || aud === 'whale') {
-                setTimeout(scrollToStealth, 250);
-                setTimeout(scrollToStealth, 900);
-            } else if (hash === '#portfolio' || aud === 'retail' || aud === 'pro') {
-                setTimeout(() => scrollToId(hash === '#portfolio' ? 'portfolio' : (aud === 'pro' ? 'oracleBox' : 'portfolio')), 250);
-            } else if (aud === 'fund') {
-                setTimeout(() => { location.href = '/b2b#fund-terminal'; }, 200);
-            }
-        }
-
-        function boot() {
-            loadAuth();
-            applyLang();
-            applyAudienceFromQuery();
-            askOracle();
-            initChart();
-            loadChart();
-            loadMarket();
-            loadOI();
-            loadArbitrage(false);
-            loadWhales(false);
-            loadMevReport();
-            runStealthAdvisor();
-            loadTgStatus();
-            loadAlertsGenerosity();
-            loadInbox();
-            setInterval(loadMarket, 60000);
-            setInterval(loadInbox, 90000);
-        }
-        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-        else boot();
-        // Only reset scroll when no deep-link target
-        if (!location.hash && !(new URLSearchParams(location.search).get('audience') || '').toLowerCase().includes('whale')) {
-            window.scrollTo(0, 0);
-        }
-    </script>
+<script src="/static/js/dashboard-app.js"></script>
 </body>
 </html>
