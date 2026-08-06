@@ -898,17 +898,46 @@
             oracleEl.textContent = 'Getting your decision…';
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
+            const btn = document.querySelector('#oracle button, button[onclick="consultOracle()"]');
+            if (btn) btn.disabled = true;
+
+            const fetchJson = async (url, timeoutMs) => {
+                const ctrl = new AbortController();
+                const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+                try {
+                    const response = await fetch(url, {
+                        headers: { Accept: 'application/json' },
+                        signal: ctrl.signal,
+                    });
+                    const rawText = await response.text();
+                    let data = null;
+                    try {
+                        data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')
+                            ? JSON.parse(rawText)
+                            : null;
+                    } catch (e) { data = null; }
+                    return { response, data };
+                } catch (e) {
+                    return { response: null, data: null };
+                } finally {
+                    clearTimeout(timer);
+                }
+            };
             
             try {
-                let response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
-                let rawText = await response.text();
-                let data = null;
-                try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (e) { data = null; }
-                if (!data || !response.ok) {
-                    // Production fallback when full Oracle path errors
-                    response = await fetch(`/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
-                    rawText = await response.text();
-                    try { data = JSON.parse(rawText); } catch (e) { data = null; }
+                const q = encodeURIComponent(symbol);
+                const qs = `ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+                // Landing: fast /quick first so the button never hangs on slow network feeds
+                let { response, data } = await fetchJson(`/oracle/${q}/quick?${qs}`, 10000);
+                if (!data || !response || !response.ok) {
+                    ({ response, data } = await fetchJson(`/oracle/${q}?${qs}`, 12000));
+                } else if (mode === 'pro') {
+                    // Pro: try enriching with full oracle, keep quick result if full is slow
+                    const full = await fetchJson(`/oracle/${q}?${qs}`, 8000);
+                    if (full.data && full.response && full.response.ok) {
+                        response = full.response;
+                        data = full.data;
+                    }
                 }
                 if (!data) {
                     oracleEl.textContent = 'Could not get a decision right now. Try again.';
@@ -916,7 +945,7 @@
                     verdictEl.className = 'result-verdict verdict-wait';
                     return;
                 }
-                if (!response.ok) {
+                if (!response || !response.ok) {
                     const detail = data.detail || {};
                     const msg = detail.message || 'Daily quota exceeded — upgrade';
                     oracleEl.textContent = msg;
@@ -1072,6 +1101,8 @@
                 updateShareLinks(data);
             } catch (error) {
                 oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.';
+            } finally {
+                if (btn) btn.disabled = false;
             }
         }
 
