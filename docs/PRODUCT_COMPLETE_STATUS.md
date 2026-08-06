@@ -16,6 +16,12 @@
 | Net-Edge / Half-Life / Veto gates | DONE (+ fail-closed alertability hardening 2026-08-06) |
 | English-only public templates | DONE |
 
+## Design research (internal)
+
+| Doc | Purpose |
+|-----|---------|
+| [`DASHBOARD_PSYCHOLOGY_DESIGN_STUDY_AR.md`](./DASHBOARD_PSYCHOLOGY_DESIGN_STUDY_AR.md) | Habit psychology · top-20 attachment models · comfort color system · 3-pane shell · 4-tier ladder · utility rail (capabilities/contact/complaints/social) · P0–P3 backlog |
+
 ## Explicitly NOT claimed
 
 | Claim | Reality |
