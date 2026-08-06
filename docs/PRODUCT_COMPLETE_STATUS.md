@@ -1,41 +1,34 @@
 # BLACKDARK — Product Complete Status (code)
 
-> **As of:** 2026-08-05  
-> **Rule:** 100% of executable product / architecture work is done.  
+> **As of:** 2026-08-06  
+> **Rule:** Binding report heroes/Z executable work is done.  
+> **Honesty:** See [`COMPREHENSIVE_AUDIT_2026-08-06.md`](./COMPREHENSIVE_AUDIT_2026-08-06.md) — not “zero defects / LOI-ready / 10k users proven”.  
 > **Deferred human-only:** [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)
 
-## Complete (in-repo)
+## Complete (binding product surfaces)
 
 | Domain | Status |
 |--------|--------|
-| Product Constitution D1–D8 | DONE |
+| Product Constitution D1–D8 (code wiring) | DONE (D5 honest `weights_live` until full artifacts) |
 | Six Heroes + Section Z | DONE |
-| Report inventory (non-human) | DONE |
-| Public Accuracy Ledger + Glass Box pack + MEV report | DONE |
-| Audience routing + Stealth Advisor v2 | DONE |
-| Net-Edge / Half-Life / Veto gates | DONE |
-| ML flywheel + regime train hook + RL soft fusion | DONE |
-| Admin Plan / Roadmap / Launch surfaces | DONE |
-| robots.txt + sitemap GEO | DONE |
-| Email durable outbox (no SMTP) | DONE |
-| Kafka consumer off event-loop | DONE |
-| `/health/ready` waits for DB boot | DONE |
-| Prod requirements include ML stack + model bake | DONE |
-| English-only public UI | DONE |
+| Public Accuracy Ledger + Glass Box pack + MEV | DONE |
+| Audience routing + Stealth Advisor | DONE |
+| Net-Edge / Half-Life / Veto gates | DONE (+ fail-closed alertability hardening 2026-08-06) |
+| English-only public templates | DONE |
 
-## Deferred human (not code)
+## Explicitly NOT claimed
+
+| Claim | Reality |
+|-------|---------|
+| Zero security issues | False — residual HIGH/MED in comprehensive audit |
+| Proven 1k–10k concurrency | False — needs Postgres+Redis+real load tests |
+| Premium acquisition LOI | False — asset/acqui-hire until traction + HA |
+| Lemon live entitlements | Incomplete without webhook |
+| Orphan `index.html` as live app | Not routed |
+
+## Deferred human
 
 | ID | Item |
 |----|------|
-| H1 | Browser extension go/no-go |
-| H2 | Glass Box announce timing + channel |
-| H3 | Founder 60-second walkthrough |
-| Ops | Railway deploy credentials, live Stripe keys, Telegram/SMTP account secrets, domain DNS |
-
-## Intentionally not claimed live
-
-- DEX Jupiter live swap (blocked_until_jupiter without human wallet + integration)
-- Native mobile apps (planned in plan audit)
-- SEC filings NLP (out of crypto core scope)
-
-Agents must treat this file + DEFERRED_HUMAN_STEPS as the completion contract.
+| H1–H3 | Extension · Glass Box announce · 60s walkthrough |
+| Ops | Railway · Stripe/Lemon live · Telegram/SMTP · DNS |

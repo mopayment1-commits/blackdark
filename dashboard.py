@@ -237,26 +237,31 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
 
-# Set True after init_db completes (success or soft-fail). Used by /health/ready.
+# Set True only after init_db succeeds. Used by /health/ready.
 _BOOT_DB_READY = False
+_BOOT_DB_OK = False
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
-    global _BOOT_DB_READY
+    global _BOOT_DB_READY, _BOOT_DB_OK
 
     async def _background_boot() -> None:
-        global _BOOT_DB_READY
+        global _BOOT_DB_READY, _BOOT_DB_OK
         try:
             from database import init_db
 
             await init_db()
+            _BOOT_DB_OK = True
             _BOOT_DB_READY = True
         except Exception:
-            logger.exception("init_db failed — API stays up for probes")
-            # Still mark ready so LB doesn't hang forever on hard DB misconfig in local/dev
-            _BOOT_DB_READY = True
+            logger.exception("init_db failed — API stays up for live probes; ready stays closed")
+            _BOOT_DB_OK = False
+            # Local/dev: allow ready so smoke tests don't hang forever
+            local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+            env = (os.getenv("ENV") or "").strip().lower()
+            _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
 
         try:
             from observability import init_sentry
@@ -266,11 +271,19 @@ async def lifespan(app: FastAPI):
             logger.exception("Sentry init failed")
 
         try:
-            from production_guard import log_production_guard
+            from production_guard import enforce_production_guard, log_production_guard, is_production
 
-            log_production_guard()
+            if is_production():
+                # Fail closed in production — do not swallow
+                enforce_production_guard()
+            else:
+                log_production_guard()
         except Exception:
             logger.exception("Production guard check failed")
+            from production_guard import is_production
+
+            if is_production():
+                raise
 
         try:
             from risk_manager import load_persistent_freeze
@@ -2398,17 +2411,20 @@ async def health_live():
 
 @app.get("/health/ready")
 async def health_ready():
-    """Readiness — DB init finished + service bus (for load balancers)."""
+    """Readiness — DB init succeeded + service bus (for load balancers)."""
     from fastapi.responses import JSONResponse
     from postgres_backend import pool_stats, use_postgres
     from service_bus import bus_stats
 
     engine = "postgresql" if use_postgres() else "sqlite"
-    ready = bool(_BOOT_DB_READY)
+    ready = bool(_BOOT_DB_READY and _BOOT_DB_OK)
+    # Local soft-open only when explicitly allowed by lifespan
+    if _BOOT_DB_READY and not _BOOT_DB_OK:
+        ready = True  # local/dev soft path set by lifespan
     payload = {
         "status": "ok" if ready else "starting",
         "probe": "ready",
-        "database_ready": ready,
+        "database_ready": bool(_BOOT_DB_OK),
         "database_engine": engine,
         "postgres_pool": pool_stats(),
         "service_bus": bus_stats(),

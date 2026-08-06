@@ -244,7 +244,14 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 7 Data moat
-    live_labeled = int(moat.get("live_labeled") or moat.get("live_labeled_oracle") or 0)
+    dataset = moat.get("dataset") if isinstance(moat.get("dataset"), dict) else {}
+    live_labeled = int(
+        moat.get("live_labeled")
+        or moat.get("live_labeled_oracle")
+        or dataset.get("live_labeled")
+        or dataset.get("live_labeled_oracle")
+        or 0
+    )
     v7: Verdict = "PASS" if live_labeled >= 50 else "PARTIALLY PASS" if live_labeled >= 1 else "FAIL"
     requirements.append(
         RequirementAssessment(

@@ -89,7 +89,7 @@ async def _pulse_once() -> dict[str, Any]:
             _last_alert_at = time.monotonic()
             telegram_sent = sum(1 for alert in alerts if alert)
 
-            if os.getenv("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}:
+            if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}:
                 try:
                     from execution_engine import try_execute_from_opportunity
 

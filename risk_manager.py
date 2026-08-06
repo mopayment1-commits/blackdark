@@ -68,14 +68,69 @@ def freeze_trading(reason: str, *, duration_sec: int | None = None) -> dict[str,
     if len(_poison_events) > 100:
         _poison_events.pop(0)
     logger.warning("TRADING FROZEN | reason=%s duration=%ss", reason, dur)
-    return {"frozen": True, "reason": reason, "until_ts": _freeze_until}
+    try:
+        import asyncio
+
+        from database import set_risk_freeze_state
+
+        loop = asyncio.get_running_loop()
+        loop.create_task(
+            set_risk_freeze_state(
+                frozen=True,
+                reason=reason,
+                until_ts=_freeze_until,
+            )
+        )
+    except Exception:
+        logger.debug("risk freeze persist skipped", exc_info=True)
+    return {"frozen": True, "reason": reason, "until_ts": _freeze_until, "persistent": True}
 
 
 def unfreeze_trading() -> dict[str, Any]:
     global _freeze_until, _freeze_reason
     _freeze_until = 0.0
     _freeze_reason = ""
-    return {"frozen": False}
+    try:
+        import asyncio
+
+        from database import set_risk_freeze_state
+
+        loop = asyncio.get_running_loop()
+        loop.create_task(set_risk_freeze_state(frozen=False, reason="", until_ts=0.0))
+    except Exception:
+        logger.debug("risk unfreeze persist skipped", exc_info=True)
+    return {"frozen": False, "persistent": True}
+
+
+async def load_persistent_freeze() -> dict[str, Any]:
+    """Restore freeze state from SQLite/Postgres after process restart."""
+    global _freeze_until, _freeze_reason
+    try:
+        from database import fetch_risk_freeze_state
+
+        row = await fetch_risk_freeze_state()
+    except Exception:
+        logger.debug("load_persistent_freeze unavailable", exc_info=True)
+        return {"loaded": False}
+    if not row or not row.get("frozen"):
+        _freeze_until = 0.0
+        _freeze_reason = ""
+        return {"loaded": True, "frozen": False}
+    until = float(row.get("until_ts") or 0)
+    if until and until < time.time():
+        _freeze_until = 0.0
+        _freeze_reason = ""
+        try:
+            from database import set_risk_freeze_state
+
+            await set_risk_freeze_state(frozen=False, reason="", until_ts=0.0)
+        except Exception:
+            pass
+        return {"loaded": True, "frozen": False, "expired": True}
+    _freeze_until = until if until > 0 else time.time() + _freeze_duration_sec()
+    _freeze_reason = str(row.get("reason") or "persistent_freeze")
+    logger.warning("Restored persistent trading freeze | reason=%s", _freeze_reason)
+    return {"loaded": True, "frozen": True, "reason": _freeze_reason, "until_ts": _freeze_until}
 
 
 def detect_data_poisoning(

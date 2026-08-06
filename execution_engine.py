@@ -177,12 +177,17 @@ async def get_execution_status() -> dict[str, Any]:
     }
 
 
-async def trigger_panic() -> dict[str, Any]:
+async def trigger_panic(*, user_id: int | None = None) -> dict[str, Any]:
+    """Halt all auto-execution. Optional user_id is for audit only."""
     from database import set_execution_state
 
     await set_execution_state(panic_active=True)
-    logger.warning("PANIC BUTTON activated — all execution halted")
-    return {"panic_active": True, "message": "All auto-execution halted immediately."}
+    logger.warning("PANIC BUTTON activated — all execution halted | user_id=%s", user_id)
+    return {
+        "panic_active": True,
+        "message": "All auto-execution halted immediately.",
+        "triggered_by": user_id,
+    }
 
 
 async def resume_execution() -> dict[str, Any]:

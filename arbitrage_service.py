@@ -429,6 +429,21 @@ async def scan_arbitrage_opportunities(
         )
     except Exception:
         logger.exception("Constitution scan gates unavailable")
+        for row in formatted:
+            row["gates_missing"] = True
+            row["execution_feasibility"] = "not_executable"
+            row.setdefault(
+                "net_edge_truth",
+                {"enabled": False, "reject": True, "error": "gates_unavailable"},
+            )
+            row.setdefault(
+                "dimension_conflict",
+                {"severity": "unavailable", "veto": False, "abstain": True},
+            )
+            risks = list(row.get("risk_factors") or [])
+            if "constitution_gates_unavailable" not in risks:
+                risks.append("constitution_gates_unavailable")
+            row["risk_factors"] = risks
 
     pricing_errors: list[dict[str, Any]] = []
     if source != "websocket_live":

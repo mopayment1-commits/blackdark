@@ -22,11 +22,11 @@ _LOGIN_MAX_ATTEMPTS = 10
 
 
 def is_production_env() -> bool:
-    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-    if local_dev:
-        return False
+    """True when ENV/RAILWAY is production — LOCAL_DEV never overrides an explicit prod ENV."""
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
-    return env in {"production", "prod"}
+    if env in {"production", "prod"}:
+        return True
+    return False
 
 
 def hash_session_token(token: str) -> str:
@@ -132,9 +132,8 @@ async def require_admin_dev(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
 ) -> dict:
-    """Admin guard — localhost / LOCAL_DEV bypass only outside production."""
-    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-    if not is_production_env() and (_is_localhost(request) or local_dev):
+    """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
+    if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
     return await require_admin(user, x_admin_key)
 

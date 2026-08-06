@@ -81,7 +81,11 @@ def test_verdict_scoring_still_public_safe():
     assert direction == "up"
 
 
-def test_is_production_env_respects_local_dev(monkeypatch):
+def test_is_production_env_respects_explicit_prod_over_local_dev(monkeypatch):
+    """LOCAL_DEV must never downgrade an explicit production ENV (admin/vault footgun)."""
     monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("LOCAL_DEV", "true")
+    assert is_production_env() is True
+    monkeypatch.setenv("ENV", "development")
     monkeypatch.setenv("LOCAL_DEV", "true")
     assert is_production_env() is False

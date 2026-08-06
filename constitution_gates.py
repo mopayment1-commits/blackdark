@@ -69,7 +69,16 @@ def apply_contradiction_veto(
             _mark_not_executable(row, "dimension_conflict_veto")
     except Exception:
         logger.debug("contradiction veto on row failed", exc_info=True)
-        row.setdefault("dimension_conflict", {"severity": "none", "veto": False, "abstain": False})
+        # Fail closed for alerts/execution — do not silently clear veto.
+        row["dimension_conflict"] = {
+            "severity": "unavailable",
+            "veto": False,
+            "abstain": True,
+            "error": "veto_unavailable",
+        }
+        row["conflict_abstain"] = True
+        row["gates_missing"] = True
+        _mark_not_executable(row, "dimension_conflict_unavailable")
     return row
 
 
@@ -123,14 +132,22 @@ def apply_constitution_gates_to_scan(
 
 
 def is_alertable(row: dict[str, Any]) -> bool:
-    """True when constitution gates allow alerting / auto-exec consideration."""
-    if row.get("execution_feasibility") == "not_executable":
+    """True only when constitution gates explicitly allow alerting."""
+    if row.get("gates_missing") or row.get("execution_feasibility") == "not_executable":
         return False
-    if row.get("truth_rejected") or (row.get("net_edge_truth") or {}).get("reject"):
+    truth = row.get("net_edge_truth")
+    if not isinstance(truth, dict) or "reject" not in truth:
+        return False
+    if row.get("truth_rejected") or truth.get("reject"):
+        return False
+    half = row.get("opportunity_half_life")
+    if not isinstance(half, dict):
         return False
     if row.get("half_life_killed"):
         return False
-    conflict = row.get("dimension_conflict") or {}
+    conflict = row.get("dimension_conflict")
+    if not isinstance(conflict, dict):
+        return False
     if conflict.get("veto") or conflict.get("abstain"):
         return False
     return True

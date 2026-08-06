@@ -11,9 +11,7 @@ import config
 
 
 def is_production() -> bool:
-    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-    if local_dev:
-        return False
+    """True when ENV/RAILWAY is production — LOCAL_DEV never overrides explicit prod."""
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
     return env in {"production", "prod"}
 

@@ -222,7 +222,7 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         "email": email,
         "name": row.get("name") or "",
         "tier": tier,
-        "token": token,
+        # Never echo the bearer token in API payloads (XSS/log amplification).
         "telegram_chat_id": row.get("telegram_chat_id"),
         "stripe_customer_id": row.get("stripe_customer_id"),
     }
