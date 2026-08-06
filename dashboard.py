@@ -1963,9 +1963,11 @@ async def execution_keys_activate(request: Request, live: bool = False, user: di
 
 @app.post("/api/execution/cex-dex/cycle")
 async def execution_cex_dex_cycle(quote_usd: float = 1000, _user: dict = Depends(require_whale)):
+    """Whale CEX↔DEX cycle — forced dry-run unless LIVE_EXECUTION_ALLOW_API=true."""
     from bd_platform.cex_dex_executor import run_cex_dex_cycle
 
-    return await run_cex_dex_cycle(quote_usd=quote_usd)
+    allow_live = os.getenv("LIVE_EXECUTION_ALLOW_API", "false").lower() in {"1", "true", "yes"}
+    return await run_cex_dex_cycle(quote_usd=quote_usd, dry_run=not allow_live)
 
 
 @app.post("/api/execution/panic")
@@ -2627,6 +2629,20 @@ async def stripe_webhook(request: Request):
 
     result = await handle_stripe_webhook_event(event)
     return {"received": True, **result}
+
+
+@app.post("/webhook/lemon")
+async def lemon_webhook_alias(request: Request):
+    """Alias for Lemon Squeezy dashboard URL convenience (same as /api/billing/webhook/lemon)."""
+    from api.routers.billing import lemon_webhook
+
+    return await lemon_webhook(request)
+
+
+@app.get("/app", response_class=HTMLResponse)
+async def app_alias_redirect():
+    """Orphan templates/index.html is not served — route users to the live dashboard."""
+    return RedirectResponse(url="/dashboard", status_code=302)
 
 
 @app.get("/success", response_class=HTMLResponse)

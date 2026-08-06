@@ -1495,8 +1495,9 @@
             const sym = (document.getElementById('symbol')?.value || 'BTC').toUpperCase();
             const iv = document.getElementById('dashChartInterval')?.value || '1h';
             try {
-                const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=${iv}&limit=120`);
-                const rows = await res.json();
+                const res = await fetch(`/api/market/klines?symbol=${encodeURIComponent(sym)}&interval=${encodeURIComponent(iv)}&limit=120`);
+                const payload = await res.json();
+                const rows = payload.klines || [];
                 dashCandleSeries.setData(rows.map(k => ({
                     time: Math.floor(k[0] / 1000),
                     open: +k[1], high: +k[2], low: +k[3], close: +k[4],

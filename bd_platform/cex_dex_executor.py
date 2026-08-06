@@ -123,7 +123,11 @@ async def execute_cex_dex_opportunity(
     return result
 
 
-async def run_cex_dex_cycle(*, quote_usd: float = 1000) -> dict[str, Any]:
+async def run_cex_dex_cycle(
+    *,
+    quote_usd: float = 1000,
+    dry_run: bool | None = None,
+) -> dict[str, Any]:
     from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
 
     scan = await scan_cex_dex_opportunities(quote_usd=quote_usd)
@@ -135,8 +139,9 @@ async def run_cex_dex_cycle(*, quote_usd: float = 1000) -> dict[str, Any]:
     if top.get("execution_feasibility") == "below_threshold":
         return {"skipped": True, "reason": "feasibility_low", "top": top}
 
-    exec_result = await execute_cex_dex_opportunity(top)
-    return {"scan_count": scan.get("count"), "executed": exec_result}
+    # Honor caller dry_run (HTTP forces safe dry-run); None → env default.
+    exec_result = await execute_cex_dex_opportunity(top, dry_run=dry_run)
+    return {"scan_count": scan.get("count"), "executed": exec_result, "dry_run": dry_run}
 
 
 async def cex_dex_status() -> dict[str, Any]:

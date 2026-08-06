@@ -134,7 +134,10 @@ async def cex_dex_execute(
     dry_run = _force_safe_dry_run(body.get("dry_run"))
 
     if body.get("cycle"):
-        return await run_cex_dex_cycle(quote_usd=float(body.get("quote_usd") or 1000))
+        return await run_cex_dex_cycle(
+            quote_usd=float(body.get("quote_usd") or 1000),
+            dry_run=dry_run,
+        )
 
     opp = body.get("opportunity")
     if not opp:
@@ -438,14 +441,23 @@ async def tv_config(symbol: str = Query("BTCUSDT")):
 
 @router.post("/tradingview/webhook")
 async def tv_webhook(request: Request, payload: dict[str, Any] = Body(...)):
+    import hmac
+
     from bd_platform.tradingview_bridge import handle_webhook
+    from security_auth import is_production_env
 
     expected = os.getenv("TRADINGVIEW_WEBHOOK_SECRET", "").strip()
-    sig = request.headers.get("X-TradingView-Signature")
-    if expected and not (sig and sig.strip() == expected):
+    sig = (request.headers.get("X-TradingView-Signature") or "").strip()
+    if not expected:
+        if is_production_env():
+            raise HTTPException(
+                status_code=503,
+                detail="TRADINGVIEW_WEBHOOK_SECRET required in production",
+            )
+    elif not (sig and hmac.compare_digest(sig, expected)):
         raise HTTPException(status_code=401, detail="Invalid TradingView webhook signature")
     # Always dry-run unless admin live flag is on — bridge itself defaults dry-run.
-    return await handle_webhook(payload, signature=sig)
+    return await handle_webhook(payload, signature=sig or None)
 
 
 @router.get("/risk/drawdown")

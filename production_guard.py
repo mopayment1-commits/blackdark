@@ -43,6 +43,9 @@ def evaluate_production_guard() -> dict[str, Any]:
     lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
     stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
     telegram = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
+    telegram_secret = bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip())
+    lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
+    stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
     secrets_ok = bool(
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
@@ -50,6 +53,13 @@ def evaluate_production_guard() -> dict[str, Any]:
     admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
+
+    # Billing entitlement webhook: Lemon secret if Lemon checkout, else Stripe secret if Stripe.
+    billing_webhook_ok = True
+    if lemon:
+        billing_webhook_ok = lemon_webhook
+    elif stripe:
+        billing_webhook_ok = stripe_webhook
 
     checks = [
         _check(
@@ -69,6 +79,15 @@ def evaluate_production_guard() -> dict[str, Any]:
             billing,
             required=True,
             hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys",
+        ),
+        _check(
+            "billing_entitlement_webhook",
+            billing_webhook_ok,
+            required=True,
+            hint=(
+                "Set LEMON_SQUEEZY_WEBHOOK_SECRET (POST /webhook/lemon) "
+                "or STRIPE_WEBHOOK_SECRET (POST /webhook)"
+            ),
         ),
         _check(
             "secrets_master_key",
@@ -117,6 +136,12 @@ def evaluate_production_guard() -> dict[str, Any]:
             telegram,
             required=False,
             hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop",
+        ),
+        _check(
+            "telegram_webhook_secret",
+            (not telegram) or telegram_secret,
+            required=bool(telegram),
+            hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set",
         ),
         _check(
             "price_feed_railway",

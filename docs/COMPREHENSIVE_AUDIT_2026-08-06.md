@@ -30,15 +30,20 @@ Automated tech DD (offline): historically **FAIL overall** (paid=0, HA incomplet
 - Session token stripped from `get_user_from_token` payloads  
 - Instant-alert auto-exec loop default **false**
 
+### Fixed — experimental launch pass 2 (2026-08-06)
+- Lemon Squeezy entitlement webhook (`POST /webhook/lemon` + HMAC)  
+- Telegram webhook secret **required in production**  
+- Session plaintext-token fallback gated (`ALLOW_PLAINTEXT_SESSION_LOOKUP`, never prod)  
+- TradingView webhook uses `hmac.compare_digest`; secret required in prod  
+- Prod guard: `billing_entitlement_webhook` + `telegram_webhook_secret`  
+
 ### Remaining (ops / design)
 | Sev | Item |
 |-----|------|
-| HIGH | Lemon Squeezy checkout without entitlement webhook |
-| HIGH | Telegram webhook secret optional |
-| HIGH | Session plaintext-token fallback (migration residual) |
 | MED | In-process login rate limit (not multi-worker) |
 | MED | Exchange keys written to `.env` file on disk |
 | MED | Promo codes hardcoded |
+| MED | Audit chain lock is process-local (not multi-replica safe) |
 
 ---
 
@@ -58,9 +63,19 @@ Manual HTTP `/api/execution/order` stays forced dry-run.
 ### Remaining
 | Sev | Item |
 |-----|------|
-| HIGH | CEX↔DEX `cycle` can ignore forced dry-run helper — tighten further before live |
 | MED | Stop-loss monitor not wired to auto-flatten loop |
 | MED | Binance “no withdraw” permission check incomplete |
+
+### Fixed — pass 2
+- CEX↔DEX `cycle` now forwards forced dry-run  
+- Whale `/api/execution/cex-dex/cycle` forced dry-run unless `LIVE_EXECUTION_ALLOW_API`  
+- Track record hit rate = **correct only** (partial disclosed separately)  
+- Audit chain append uses process lock + fsync  
+
+### UI remediations (pass 2)
+- `/app` → `/dashboard` (orphan index no longer a dead end)  
+- `/api/market/klines` proxy; dashboard/platform/coin charts use it  
+- Legal footer links on `/platform`, `/b2b`, `/success`
 
 ---
 
@@ -71,13 +86,13 @@ Manual HTTP `/api/execution/order` stays forced dry-run.
 | `/` landing | EN · Oracle + compliance OK |
 | `/dashboard` | EN · Stealth deep-link fixed |
 | `/oracle-accuracy` | EN · Ledger / Glass Box / MEV |
-| `/b2b` | EN · missing privacy footer link |
-| `/platform` | EN · **missing legal footer** |
+| `/b2b` | EN · privacy footer link OK |
+| `/platform` | EN · legal footer added |
 | `/discipline-mirror` | EN · OK |
-| `/login` · legal · success | EN · mostly OK |
-| `templates/index.html` | **Orphan** — not routed (dead major UI) |
+| `/login` · legal · success | EN · legal links on success |
+| `templates/index.html` | Orphan file; `GET /app` redirects to `/dashboard` |
 
-Cross-cutting: browser Binance klines often CORS-fail; prefer server proxy.
+Cross-cutting: charts use `/api/market/klines` server proxy (CORS-safe).
 
 ---
 

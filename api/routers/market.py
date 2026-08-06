@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 
-from fastapi import APIRouter
+import aiohttp
+from fastapi import APIRouter, HTTPException, Query
 
 import config
 from market_context import (
@@ -14,6 +15,24 @@ from market_context import (
 )
 
 router = APIRouter(prefix="/api/market", tags=["market"])
+
+_ALLOWED_INTERVALS = {
+    "1m",
+    "3m",
+    "5m",
+    "15m",
+    "30m",
+    "1h",
+    "2h",
+    "4h",
+    "6h",
+    "8h",
+    "12h",
+    "1d",
+    "3d",
+    "1w",
+    "1M",
+}
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -103,3 +122,38 @@ async def market_radar_narrative_api():
     from plan_audit import market_radar_narrative
 
     return await market_radar_narrative()
+
+
+@router.get("/klines")
+async def market_klines(
+    symbol: str = Query("BTCUSDT", min_length=3, max_length=20),
+    interval: str = Query("1h"),
+    limit: int = Query(100, ge=1, le=500),
+):
+    """Server-side Binance klines proxy — avoids browser CORS failures."""
+    sym = "".join(ch for ch in symbol.upper() if ch.isalnum())
+    if not sym.endswith("USDT"):
+        sym = f"{sym}USDT"
+    if interval not in _ALLOWED_INTERVALS:
+        raise HTTPException(status_code=400, detail="Invalid interval")
+
+    url = f"https://api.binance.com/api/v3/klines?symbol={sym}&interval={interval}&limit={limit}"
+    try:
+        timeout = aiohttp.ClientTimeout(total=12)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.get(url) as resp:
+                if resp.status != 200:
+                    raise HTTPException(status_code=502, detail="Upstream klines unavailable")
+                rows = await resp.json()
+    except HTTPException:
+        raise
+    except (aiohttp.ClientError, TypeError, ValueError) as exc:
+        raise HTTPException(status_code=502, detail="Klines fetch failed") from exc
+
+    return {
+        "symbol": sym,
+        "interval": interval,
+        "klines": rows if isinstance(rows, list) else [],
+        "source": "binance",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+    }

@@ -1,9 +1,11 @@
 """
-BLACKDARK — Stripe billing & subscription lifecycle (Priority 4).
+BLACKDARK — Stripe / Lemon Squeezy billing & subscription lifecycle (Priority 4).
 """
 
 from __future__ import annotations
 
+import hashlib
+import hmac
 import logging
 import os
 from typing import Any
@@ -23,6 +25,12 @@ LEMON_SQUEEZY_ENV_KEYS = {
     "pro": "LEMON_SQUEEZY_CHECKOUT_PRO",
     "whale": "LEMON_SQUEEZY_CHECKOUT_WHALE",
 }
+
+# Map Lemon variant/product name hints → internal tiers.
+_LEMON_TIER_HINTS = (
+    ("whale", "whale"),
+    ("pro", "pro"),
+)
 
 
 def stripe_configured() -> bool:
@@ -199,3 +207,108 @@ def _map_stripe_status(stripe_status: str) -> str:
         "incomplete_expired": "expired",
     }
     return mapping.get(stripe_status, "active")
+
+
+def verify_lemon_webhook_signature(raw_body: bytes, signature_header: str | None) -> bool:
+    """Lemon Squeezy signs the raw body with HMAC-SHA256 (hex digest in X-Signature)."""
+    secret = os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip()
+    if not secret:
+        return False
+    provided = (signature_header or "").strip()
+    if not provided:
+        return False
+    digest = hmac.new(secret.encode("utf-8"), raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(digest, provided)
+
+
+def _lemon_infer_tier(attrs: dict[str, Any], meta: dict[str, Any] | None = None) -> str:
+    custom = (meta or {}).get("custom_data") or {}
+    if isinstance(custom, dict):
+        hinted = str(custom.get("tier") or "").strip().lower()
+        if hinted in STRIPE_TIERS:
+            return hinted
+    blob = " ".join(
+        str(attrs.get(k) or "")
+        for k in ("product_name", "variant_name", "product_id", "variant_id")
+    ).lower()
+    for needle, tier in _LEMON_TIER_HINTS:
+        if needle in blob:
+            return tier
+    return "pro"
+
+
+def _map_lemon_status(status: str) -> str:
+    mapping = {
+        "active": "active",
+        "on_trial": "trial",
+        "past_due": "past_due",
+        "unpaid": "past_due",
+        "cancelled": "expired",
+        "canceled": "expired",
+        "expired": "expired",
+        "paused": "past_due",
+    }
+    return mapping.get((status or "").strip().lower(), "active")
+
+
+async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
+    """Activate / update / cancel entitlements from Lemon Squeezy webhooks."""
+    from database import (
+        activate_paid_subscription,
+        cancel_subscription_by_stripe_id,
+        upsert_subscription_by_stripe_id,
+    )
+
+    meta = event.get("meta") or {}
+    event_name = str(meta.get("event_name") or "").strip()
+    data = event.get("data") or {}
+    attrs = data.get("attributes") or {}
+    lemon_id = str(data.get("id") or attrs.get("subscription_id") or "").strip()
+    if lemon_id and not lemon_id.startswith("lemon_"):
+        lemon_id = f"lemon_{lemon_id}"
+
+    email = (
+        str(attrs.get("user_email") or attrs.get("customer_email") or attrs.get("email") or "")
+        .strip()
+        .lower()
+    )
+    tier = _lemon_infer_tier(attrs, meta if isinstance(meta, dict) else None)
+    status = _map_lemon_status(str(attrs.get("status") or "active"))
+
+    if event_name in {
+        "subscription_created",
+        "subscription_payment_success",
+        "order_created",
+    }:
+        if email and lemon_id:
+            await activate_paid_subscription(email, tier, lemon_id)
+            logger.info("Lemon subscription activated | email=%s tier=%s id=%s", email, tier, lemon_id)
+            return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
+        return {"handled": False, "reason": "missing_email_or_id", "event": event_name}
+
+    if event_name in {"subscription_updated", "subscription_resumed", "subscription_unpaused"}:
+        if lemon_id:
+            await upsert_subscription_by_stripe_id(
+                lemon_id,
+                tier=tier,
+                status=status,
+                email=email or None,
+            )
+            return {"handled": True, "action": "subscription_updated", "provider": "lemon_squeezy"}
+        return {"handled": False, "reason": "missing_id", "event": event_name}
+
+    if event_name in {
+        "subscription_cancelled",
+        "subscription_expired",
+        "subscription_payment_failed",
+        "subscription_paused",
+    }:
+        if lemon_id:
+            if event_name in {"subscription_cancelled", "subscription_expired"}:
+                await cancel_subscription_by_stripe_id(lemon_id)
+                return {"handled": True, "action": "subscription_cancelled", "provider": "lemon_squeezy"}
+            await upsert_subscription_by_stripe_id(lemon_id, status="past_due", email=email or None)
+            return {"handled": True, "action": "payment_failed", "provider": "lemon_squeezy"}
+        return {"handled": False, "reason": "missing_id", "event": event_name}
+
+    return {"handled": False, "type": event_name, "provider": "lemon_squeezy"}

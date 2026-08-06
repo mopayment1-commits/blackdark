@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import json
+
 import stripe
-from fastapi import APIRouter, Body, Depends, HTTPException
+from fastapi import APIRouter, Body, Depends, HTTPException, Request
 
 from api.deps import optional_user
 
@@ -72,3 +74,22 @@ async def billing_portal(user: dict | None = Depends(optional_user)):
         return create_billing_portal_session(customer_id)
     except stripe.StripeError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
+
+
+@router.post("/webhook/lemon")
+async def lemon_webhook(request: Request):
+    """Lemon Squeezy entitlement webhook — HMAC-SHA256 via X-Signature."""
+    from billing_service import handle_lemon_webhook_event, verify_lemon_webhook_signature
+
+    raw = await request.body()
+    sig = request.headers.get("X-Signature") or request.headers.get("x-signature")
+    if not verify_lemon_webhook_signature(raw, sig):
+        raise HTTPException(status_code=401, detail="Invalid Lemon Squeezy webhook signature")
+    try:
+        event = json.loads(raw.decode("utf-8") or "{}")
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise HTTPException(status_code=400, detail="Invalid JSON payload") from exc
+    if not isinstance(event, dict):
+        raise HTTPException(status_code=400, detail="Invalid webhook body")
+    result = await handle_lemon_webhook_event(event)
+    return {"received": True, **result}

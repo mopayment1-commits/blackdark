@@ -9,6 +9,7 @@ import pytest
 
 def test_production_guard_shape(monkeypatch):
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/checkout")
+    monkeypatch.setenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "whsec-test")
     monkeypatch.setenv("SERVICE_MODE", "web")
     monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
     monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")
@@ -23,12 +24,14 @@ def test_production_guard_shape(monkeypatch):
     ids = {c["id"] for c in report["checks"]}
     assert "postgres_database" in ids
     assert "billing_checkout" in ids
+    assert "billing_entitlement_webhook" in ids
     assert "secrets_master_key" in ids
 
 
 def test_production_guard_postgres_pass(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@host/db")
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/checkout")
+    monkeypatch.setenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "whsec-test")
     monkeypatch.setenv("SERVICE_MODE", "web")
     monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
     monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")

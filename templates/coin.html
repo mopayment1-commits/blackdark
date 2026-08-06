@@ -73,8 +73,9 @@ async function load() {
         chart.timeScale().fitContent();
     } else {
         const sym = c.symbol;
-        const k = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=1h&limit=120`);
-        const rows = await k.json();
+        const k = await fetch(`/api/market/klines?symbol=${encodeURIComponent(sym)}&interval=1h&limit=120`);
+        const payload = await k.json();
+        const rows = payload.klines || [];
         series.setData(rows.map(r=>({time:Math.floor(r[0]/1000), value:+r[4]})));
         chart.timeScale().fitContent();
     }

@@ -59,12 +59,14 @@ def test_platform_execute_requires_admin():
 def test_production_guard_reads_service_mode_env(monkeypatch):
     monkeypatch.setenv("SERVICE_MODE", "web")
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/c")
+    monkeypatch.setenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "whsec")
     monkeypatch.delenv("DATABASE_URL", raising=False)
     report = evaluate_production_guard()
     assert report["service_mode"] == "web"
     ids = {c["id"] for c in report["checks"]}
     assert "secrets_master_key" in ids
     assert "session_token_pepper" in ids
+    assert "billing_entitlement_webhook" in ids
 
 
 def test_expanded_feature_columns():

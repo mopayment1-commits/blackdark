@@ -15,8 +15,16 @@ router = APIRouter(prefix="/api/telegram", tags=["telegram"])
 @router.post("/webhook")
 async def telegram_webhook(request: Request):
     """Telegram Bot API webhook — /start subscribes to 3 free alerts/day."""
+    from security_auth import is_production_env
+
     secret = os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()
-    if secret:
+    if not secret:
+        if is_production_env():
+            raise HTTPException(
+                status_code=503,
+                detail="TELEGRAM_WEBHOOK_SECRET required in production",
+            )
+    else:
         provided = request.headers.get("X-Telegram-Bot-Api-Secret-Token", "")
         if not hmac.compare_digest(provided, secret):
             raise HTTPException(status_code=403, detail="Invalid webhook secret")

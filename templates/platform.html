@@ -318,10 +318,11 @@ function initChart() {
 async function loadChart() {
     const sym = document.getElementById('chartSymbol').value;
     const iv = document.getElementById('chartInterval').value;
-    const url = `https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=${iv}&limit=120`;
+    const url = `/api/market/klines?symbol=${encodeURIComponent(sym)}&interval=${encodeURIComponent(iv)}&limit=120`;
     try {
         const res = await fetch(url);
-        const rows = await res.json();
+        const payload = await res.json();
+        const rows = payload.klines || [];
         const data = rows.map(k => ({
             time: Math.floor(k[0] / 1000),
             open: +k[1], high: +k[2], low: +k[3], close: +k[4],
@@ -765,5 +766,10 @@ loadFootprint();
 setInterval(loadRankings, 60000);
 setInterval(loadCexDex, 30000);
 </script>
+<footer style="text-align:center;padding:2rem 1rem 3rem;color:var(--muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:1rem">
+    © 2026 BLACKDARK · <a href="/disclaimer" style="color:var(--accent)">Risk Disclaimer</a> ·
+    <a href="/terms" style="color:var(--accent)">Terms</a> ·
+    <a href="/privacy" style="color:var(--accent)">Privacy</a>
+</footer>
 </body>
 </html>

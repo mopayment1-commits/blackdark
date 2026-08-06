@@ -20,11 +20,25 @@
 
 | Claim | Reality |
 |-------|---------|
-| Zero security issues | False — residual HIGH/MED in comprehensive audit |
+| Zero security issues | False — residual MED/ops items remain (see comprehensive audit) |
 | Proven 1k–10k concurrency | False — needs Postgres+Redis+real load tests |
 | Premium acquisition LOI | False — asset/acqui-hire until traction + HA |
-| Lemon live entitlements | Incomplete without webhook |
-| Orphan `index.html` as live app | Not routed |
+| Live Lemon entitlements (ops) | Code path ready (`POST /webhook/lemon`) — needs `LEMON_SQUEEZY_WEBHOOK_SECRET` + LS dashboard URL |
+| Orphan `index.html` as live app | Redirected: `GET /app` → `/dashboard` |
+
+## Experimental launch hardening (2026-08-06 pass 2)
+
+| Item | Status |
+|------|--------|
+| Lemon entitlement webhook + HMAC | DONE |
+| Telegram webhook secret required in prod | DONE |
+| CEX↔DEX cycle honors dry_run | DONE |
+| Session plaintext fallback gated | DONE (never prod) |
+| Track-record hit = `correct` only | DONE |
+| Binance klines server proxy | DONE `/api/market/klines` |
+| Legal footers (platform/b2b/success) | DONE |
+| Audit chain append lock | DONE (process-local) |
+| Prod guard: billing webhook + TG secret | DONE |
 
 ## Deferred human
 

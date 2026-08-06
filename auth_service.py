@@ -194,25 +194,39 @@ async def create_session(user_id: int) -> dict[str, Any]:
 
 
 async def logout_user(token: str) -> None:
-    from security_auth import hash_session_token
+    from security_auth import hash_session_token, is_production_env
 
     from database import delete_user_session
 
     await delete_user_session(hash_session_token(token))
-    await delete_user_session(token)
+    # Legacy plaintext session rows — only wipe when explicitly allowed (never prod).
+    allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if allow_plain and not is_production_env():
+        await delete_user_session(token)
 
 
 async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
-    from security_auth import hash_session_token
+    from security_auth import hash_session_token, is_production_env
 
     from database import fetch_user_by_session
 
     plain = token.strip()
     row = await fetch_user_by_session(hash_session_token(plain))
+    # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:
-        row = await fetch_user_by_session(plain)
+        allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+        if allow_plain and not is_production_env():
+            row = await fetch_user_by_session(plain)
     if row is None:
         return None
     email = str(row.get("email") or "")
