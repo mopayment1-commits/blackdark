@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
+    <meta name="description" content="BLACKDARK — one Act/Wait Oracle decision with a public verifiable accuracy ledger. Prove it, not trust me.">
+    <meta property="og:title" content="BLACKDARK — AI Crypto Intelligence">
+    <meta property="og:description" content="Single-Sentence Oracle + Public Accuracy Ledger. Labels are not proof.">
+    <meta property="og:type" content="website">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
     <title>BLACKDARK — AI Crypto Intelligence Platform</title>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"AI crypto intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -583,12 +590,11 @@
                 🚀 Launch Live — 7-Day Pro Trial FREE
             </div>
             <h1>
-                Know your crypto move<br>
-                in <span>30 seconds</span>
+                BLACKDARK<br>
+                <span>One clear decision</span>
             </h1>
             <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                <strong style="color:var(--accent)">BLACKDARK Oracle</strong> — one clear verdict:<br>
-                <strong>Buy · Wait · Stay out</strong>
+                Single-sentence Oracle with public verifiable accuracy — for beginners, pros, and whales.
             </p>
             <div class="hero-stats">
                 <div class="hero-stat"><strong>30s</strong><span>Oracle verdict</span></div>
@@ -620,27 +626,44 @@
             
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
-                    <h3>🔮 BLACKDARK Oracle</h3>
+                    <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator">
                         <span class="live-dot"></span>
                         Live
                     </div>
                 </div>
-                <div class="oracle-input">
-                    <input type="text" id="symbolInput" placeholder="Enter symbol (BTC, ETH, SOL...)" value="BTC">
-                    <button onclick="consultOracle()">Consult Oracle</button>
+                <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
+                    <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                        <option value="retail" selected>Retail</option>
+                        <option value="pro">Pro</option>
+                        <option value="whale">Whale</option>
+                        <option value="fund">Fund</option>
+                    </select>
+                    <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                        <option value="beginner" selected>Beginner</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                    <input type="hidden" id="landingLang" value="en">
+                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
+                    <button onclick="consultOracle()">Get Decision</button>
                 </div>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
-                        <div class="result-score" id="resultScore">85</div>
+                        <div class="result-score" id="resultScore">—</div>
                     </div>
                     <div style="margin-bottom: 1rem;">
-                        <span class="result-verdict verdict-buy" id="resultVerdict">BUY</span>
+                        <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
                     </div>
                     <div class="result-oracle" id="resultOracle">
-                        Loading oracle wisdom...
+                        One clear decision — act or wait
                     </div>
+                    <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
+                    <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
+                    <div id="landingDiscipline" style="display:none;margin-top:.75rem"></div>
+                    <div id="landingCompliance" style="display:none;margin-top:.85rem;padding:.65rem .8rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-muted)"></div>
+                    <div id="landingUpgrade" style="display:none;margin-top:.75rem"></div>
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
@@ -688,7 +711,7 @@
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
                 <h3>Telegram Alerts</h3>
-                <p>3 free Oracle alerts/day on Telegram. Pro adds unlimited Oracle + chat.</p>
+                <p>In-app inbox has no TradingView-style 15/3min hard cap. Free: 3 Oracle alerts/day on Telegram. Pro adds unlimited Oracle + chat.</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
@@ -711,8 +734,10 @@
                     <ul>
                         <li>Oracle 10×/day</li>
                         <li>Market Radar</li>
+                        <li>Portfolio AI (in-browser holdings)</li>
                         <li>Live accuracy page</li>
-                        <li>Telegram 3 alerts/day</li>
+                        <li>In-app inbox (no 15/3min hard cap)</li>
+                        <li>Telegram 3 Oracle alerts/day (separate free path)</li>
                     </ul>
                     <a href="/login" class="btn-secondary btn">Get Started</a>
                 </div>
@@ -725,8 +750,9 @@
                     <ul>
                         <li>Unlimited Oracle</li>
                         <li>AI Chat (Oracle-powered)</li>
-                        <li>Telegram alerts</li>
+                        <li>Unlimited Telegram / inbox alerts</li>
                         <li>Whale context + Portfolio AI</li>
+                        <li>Research Lab + Arbitrage catalog</li>
                     </ul>
                     <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-Day Trial</a>
                 </div>
@@ -736,9 +762,10 @@
                     <div class="price">$199<span>/month</span></div>
                     <ul>
                         <li>Everything in Pro</li>
-                        <li>Priority Oracle latency</li>
-                        <li>B2B JSON feed (CVVD + SII)</li>
-                        <li>API access</li>
+                        <li>Stealth Execution Advisor</li>
+                        <li>Acquirer Evidence Pack</li>
+                        <li>Emerging Fund Terminal</li>
+                        <li>B2B JSON feed (CVVD + SII) + API</li>
                     </ul>
                     <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Upgrade to Whale</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">B2B Data Feed</a>
@@ -855,34 +882,216 @@
 
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
+            const mode = document.getElementById('landingUxMode').value || 'beginner';
+            const lang = 'en';
             const resultDiv = document.getElementById('oracleResult');
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
             const verdictEl = document.getElementById('resultVerdict');
             const oracleEl = document.getElementById('resultOracle');
+            const proMeta = document.getElementById('landingProMeta');
+            const upgradeEl = document.getElementById('landingUpgrade');
             
             resultDiv.classList.add('active');
-            oracleEl.textContent = 'Consulting the oracle...';
+            localStorage.setItem('bd_ux_mode', mode);
+            localStorage.setItem('bd_lang', lang);
+            oracleEl.textContent = 'Getting your decision…';
+            proMeta.style.display = 'none';
+            upgradeEl.style.display = 'none';
             
             try {
-                const response = await fetch(`/oracle/${symbol}`);
-                const data = await response.json();
+                let response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                let rawText = await response.text();
+                let data = null;
+                try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (e) { data = null; }
+                if (!data || !response.ok) {
+                    // Production fallback when full Oracle path errors
+                    response = await fetch(`/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                    rawText = await response.text();
+                    try { data = JSON.parse(rawText); } catch (e) { data = null; }
+                }
+                if (!data) {
+                    oracleEl.textContent = 'Could not get a decision right now. Try again.';
+                    verdictEl.textContent = 'WAIT';
+                    verdictEl.className = 'result-verdict verdict-wait';
+                    return;
+                }
+                if (!response.ok) {
+                    const detail = data.detail || {};
+                    const msg = detail.message || 'Daily quota exceeded — upgrade';
+                    oracleEl.textContent = msg;
+                    if (detail.upgrade_url || detail.error === 'quota_exceeded') {
+                        upgradeEl.style.display = 'block';
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
+                    }
+                    return;
+                }
                 
                 symbolEl.textContent = data.symbol || symbol;
-                scoreEl.textContent = data.opportunity_score || '--';
+                scoreEl.textContent = data.opportunity_score ?? '--';
                 
-                const verdict = data.verdict || 'WAIT';
-                verdictEl.textContent = verdict;
+                const rawAction = String(data.decision_action || data.verdict || data.action || 'WAIT').toUpperCase();
+                const action = (rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL'))
+                    ? 'ACT'
+                    : 'WAIT';
+                const verdict = data.verdict || action;
+                verdictEl.textContent = action;
                 verdictEl.className = 'result-verdict';
-                if (verdict === 'BUY') verdictEl.classList.add('verdict-buy');
-                else if (verdict === 'SELL') verdictEl.classList.add('verdict-sell');
+                const v = String(verdict).toUpperCase();
+                if (action === 'ACT' || v.includes('BUY')) verdictEl.classList.add('verdict-buy');
+                else if (v.includes('SELL')) verdictEl.classList.add('verdict-sell');
                 else verdictEl.classList.add('verdict-wait');
                 
-                oracleEl.textContent = data.narrative || data.oracle || 'Oracle wisdom incoming...';
+                let sentence = data.decision_sentence || data.narrative || data.oracle || data.action_line || '';
+                if (!sentence || /meditat|consulting the oracle/i.test(sentence)) {
+                    sentence = typeof data.action === 'string' && data.action.length > 12
+                        ? data.action
+                        : (action === 'ACT'
+                            ? `ACT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`
+                            : `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`);
+                }
+                oracleEl.textContent = sentence;
+                if (mode === 'pro') {
+                    const truth = data.net_edge_truth || {};
+                    const half = data.opportunity_half_life || {};
+                    const conflict = data.dimension_conflict || {};
+                    let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                    if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
+                        line += ` · Contradiction Veto: ${conflict.veto ? 'WAIT' : 'Abstain'}${conflict.severity ? ' (' + conflict.severity + ')' : ''}`;
+                    }
+                    if (data.prediction_id) {
+                        line += ` · Proof #${data.prediction_id}`;
+                    }
+                    proMeta.style.display = 'block';
+                    proMeta.innerHTML = line + (data.prediction_id
+                        ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
+                        : '');
+                } else if (data.prediction_id) {
+                    proMeta.style.display = 'block';
+                    proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+                }
+                if (data.upgrade_hint) {
+                    const teaser = data.upgrade_hint.teaser || {};
+                    const teaserLine = [
+                        teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
+                        teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
+                        teaser.regime ? `Regime ${teaser.regime}` : null,
+                    ].filter(Boolean).join(' · ');
+                    upgradeEl.style.display = 'block';
+                    upgradeEl.innerHTML =
+                        `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
+                        (teaserLine ? `<br>${teaserLine}` : '') +
+                        `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
+                    document.getElementById('switchProBtn')?.addEventListener('click', () => {
+                        const sel = document.getElementById('landingUxMode');
+                        if (sel) sel.value = 'pro';
+                        consultOracle();
+                    });
+                }
+                const certEl = document.getElementById('landingCert');
+                const cert = data.decision_certificate || {};
+                if (cert.certificate_hash || data.prediction_id) {
+                    certEl.style.display = 'block';
+                    certEl.innerHTML =
+                        `Decision Certificate · <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>` +
+                        `<div style="margin-top:.35rem">` +
+                        (cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button> ` : '') +
+                        `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button></div>`;
+                    document.getElementById('copyCertBtn')?.addEventListener('click', () => {
+                        navigator.clipboard.writeText(cert.share_text || '');
+                    });
+                    document.getElementById('dlCertBtn')?.addEventListener('click', () => {
+                        const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                    });
+                } else {
+                    certEl.style.display = 'none';
+                }
+
+                const factors = (data.explanation && data.explanation.top_3_factors) || data.top_3_factors || [];
+                let whyEl = document.getElementById('landingWhy');
+                if (!whyEl) {
+                    whyEl = document.createElement('div');
+                    whyEl.id = 'landingWhy';
+                    whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
+                    oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
+                }
+                if (factors.length) {
+                    whyEl.innerHTML = '<strong style="color:var(--text)">Why (Top-3)</strong><ol style="margin:.35rem 0 0 1.1rem">' +
+                        factors.slice(0,3).map(f => {
+                            const label = f.factor || f.label || f.name || f;
+                            const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
+                            return `<li>${label}${src}</li>`;
+                        }).join('') + '</ol>';
+                } else {
+                    whyEl.innerHTML = '';
+                }
+
+                const disc = document.getElementById('landingDiscipline');
+                const action = data.decision_action || data.verdict || 'WAIT';
+                disc.style.display = 'block';
+                disc.innerHTML =
+                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my page</a></div>` +
+                    `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
+                    `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
+                    `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
+                const sendFollow = async (followed) => {
+                    const key = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2, 10));
+                    localStorage.setItem('bd_user_key', key);
+                    try {
+                        await fetch('/api/discipline-mirror/answer', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                user_key: key,
+                                asset: data.symbol || symbol,
+                                system_action: action,
+                                followed,
+                                prediction_id: data.prediction_id,
+                                opportunity_score: data.opportunity_score,
+                            }),
+                        });
+                        document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
+                    } catch (e) {
+                        document.getElementById('disciplineMsg').textContent = 'Could not save answer.';
+                    }
+                };
+                document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
+                document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
+
+                const foot = data.compliance_footer || {};
+                const comp = document.getElementById('landingCompliance');
+                if (foot.disclaimer) {
+                    comp.style.display = 'block';
+                    comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+                }
+
                 updateShareLinks(data);
             } catch (error) {
-                oracleEl.textContent = 'Oracle is meditating... Try BTC, ETH, or SOL.';
+                oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.';
             }
+        }
+
+        async function applyAudience() {
+            const aud = document.getElementById('landingAudience')?.value || 'retail';
+            localStorage.setItem('bd_audience', aud);
+            try {
+                const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
+                const d = await res.json();
+                const cta = document.getElementById('audienceCta');
+                if (cta) cta.textContent = d.cta || '';
+                const mode = document.getElementById('landingUxMode');
+                if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
+                if (aud === 'fund' && d.entry_path) {
+                    window.location.href = d.entry_path;
+                } else if ((aud === 'whale' || aud === 'pro') && d.entry_path) {
+                    window.location.href = d.entry_path;
+                }
+            } catch (e) { /* ignore */ }
         }
         
         async function joinWaitlist(e) {

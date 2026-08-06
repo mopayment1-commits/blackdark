@@ -94,6 +94,7 @@ def _build_training_frame(rows: list[dict[str, Any]]):
 
         direction = str(row.get("direction_label") or "").lower()
 
+        # Prefer directional labels; keep flat only when class balance needs it.
         if direction not in {"up", "down", "flat"}:
 
             continue

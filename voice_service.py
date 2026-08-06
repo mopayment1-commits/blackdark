@@ -102,14 +102,26 @@ def _detect_intent(text: str) -> tuple[str, dict[str, Any]]:
 
 async def process_voice_command(text: str) -> dict[str, Any]:
     """Execute a voice/text command and return speech-friendly response."""
+    def _out(payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            from decision_certificate import compliance_footer_block
+
+            payload["compliance_footer"] = compliance_footer_block(
+                surface="voice_command",
+                trust_basis="oracle_context + public_accuracy_ledger",
+            )
+        except Exception:
+            pass
+        return payload
+
     if not text or not text.strip():
-        return {
+        return _out({
             "success": False,
             "intent": "help",
             "speech": "Say a symbol or command — e.g. analyze BTC or scan arbitrage",
             "result": None,
             "timestamp": _utcnow_iso(),
-        }
+        })
 
     intent, params = _detect_intent(text)
     logger.info("Voice command | intent=%s | text=%s", intent, text[:80])
@@ -127,13 +139,13 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             asset, pair = _normalize_oracle_symbol(symbol)
             market = await _fetch_binance_ticker(pair)
             if market is None:
-                return {
+                return _out({
                     "success": False,
                     "intent": intent,
                     "speech": f"{asset} not found on Binance",
                     "result": None,
                     "timestamp": _utcnow_iso(),
-                }
+                })
             whale_alert = await _fetch_cvvd_whale_alert(
                 asset, pair, float(market["price"])
             )
@@ -145,8 +157,21 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 float(market["change_24h"]),
                 whale_alert=whale_alert,
             )
-            speech = payload.get("oracle") or payload.get("narrative") or f"{symbol}: {payload.get('verdict')}"
-            return {
+            try:
+                from decision_enrichment import enrich_oracle_decision
+
+                payload = enrich_oracle_decision(
+                    payload, ux_mode="beginner", lang="en", register_signal=True
+                )
+            except Exception:
+                logger.debug("voice oracle enrich failed", exc_info=True)
+            speech = (
+                payload.get("decision_sentence")
+                or payload.get("oracle")
+                or payload.get("narrative")
+                or f"{symbol}: {payload.get('verdict')}"
+            )
+            return _out({
                 "success": True,
                 "intent": intent,
                 "symbol": asset,
@@ -154,7 +179,7 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 "speech_en": speech,
                 "result": payload,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "arbitrage_scan":
             from arbitrage_catalog import scan_arbitrage_catalog
@@ -170,39 +195,39 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 )
             else:
                 speech = f"Scanned 77 arbitrage types — {active} active. No profitable opportunity right now."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": scan,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "panic":
             from execution_engine import trigger_panic
 
             state = await trigger_panic()
             speech = "Panic stop activated. All auto-execution halted."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": state,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "resume":
             from execution_engine import resume_execution
 
             state = await resume_execution()
             speech = "Execution resumed in dry-run mode."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": state,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "research":
             from research_lab import build_research_lab_report
@@ -213,13 +238,13 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 f"Research Lab: Moat Score {moat.get('moat_score', 0)} out of 100. "
                 f"Oracle accuracy {report.get('oracle_audit', {}).get('average_accuracy_percent', 0)}%."
             )
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": report,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "whale_scan":
             from dashboard import _fetch_cvvd_whale_context
@@ -227,13 +252,13 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             context = await _fetch_cvvd_whale_context(refresh=True)
             alerts = len(context.get("whale_alerts") or [])
             speech = f"Whale scan complete: {alerts} CVVD alerts."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": context,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "market_overview":
             from dashboard import _fetch_binance_market_overview
@@ -241,13 +266,13 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             assets = await _fetch_binance_market_overview(limit=10)
             overview = {"assets": assets, "count": len(assets)}
             speech = f"Market overview: {len(overview.get('assets') or [])} assets tracked."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": overview,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
         if intent == "simulate":
             from trade_simulator import simulate_spot_trade
@@ -256,33 +281,33 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             sim = await simulate_spot_trade(sym, "buy", 1000.0, hold_hours=24)
             base_pnl = (sim.get("scenarios") or {}).get("base", {}).get("pnl_usd", 0)
             speech = f"Simulation {sym}: base-case P&L ${base_pnl}."
-            return {
+            return _out({
                 "success": True,
                 "intent": intent,
                 "speech": speech,
                 "result": sim,
                 "timestamp": _utcnow_iso(),
-            }
+            })
 
     except Exception as exc:
         logger.exception("Voice command failed | intent=%s", intent)
-        return {
+        return _out({
             "success": False,
             "intent": intent,
             "speech": f"Error: {exc}",
             "result": None,
             "timestamp": _utcnow_iso(),
-        }
+        })
 
     help_speech = (
         "Commands: analyze BTC · scan arbitrage · portfolio status · Research Lab · "
         "whale scan · panic stop · simulate ETH"
     )
-    return {
+    return _out({
         "success": True,
         "intent": "help",
         "speech": help_speech,
         "speech_en": "Commands: analyze BTC, scan arbitrage, portfolio, research, whale scan, panic, simulate ETH",
         "result": {"commands": ["oracle BTC", "arbitrage scan", "panic", "research", "whale", "simulate SOL"]},
         "timestamp": _utcnow_iso(),
-    }
+    })

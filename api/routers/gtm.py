@@ -31,8 +31,9 @@ async def gtm_status():
 
 @router.get("/api/launch/readiness")
 async def launch_readiness():
-    from billing_service import billing_configured
+    from billing_service import billing_configured, billing_provider
     from gtm_service import fetch_gtm_status
+    from launch_checklist import launch_checklist
     from production_guard import evaluate_production_guard
     from uptime_monitor import uptime_stats
 
@@ -40,18 +41,48 @@ async def launch_readiness():
     probes = int(uptime.get("probes_total") or 0)
     gtm = await fetch_gtm_status()
     guard = evaluate_production_guard()
+    checklist = launch_checklist()
+    constitution_modules = all(
+        __import__("pathlib").Path(p).exists()
+        for p in (
+            "docs/PRODUCT_CONSTITUTION_AR.md",
+            "decision_enrichment.py",
+            "net_edge_truth.py",
+            "persona_clarity.py",
+            "signal_registry.py",
+            "acquirer_evidence_pack.py",
+            "ux_mode.py",
+        )
+    )
     return {
         "production_url": os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app"),
         "billing_configured": billing_configured(),
+        "billing_provider": billing_provider(),
         "stripe_configured": billing_configured(),
         "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
         "uptime_probes_24h": probes,
         "uptime_meets_dd_gate": probes >= 10,
         "uptime_external_monitor": "https://uptimerobot.com -> /health/live every 5 min",
         "production_guard": guard,
+        "launch_checklist": {
+            "percent": checklist.get("launch_percent"),
+            "ready": checklist.get("launch_ready"),
+            "blocked_count": checklist.get("blocked_count"),
+            "blocked_ids": [r["id"] for r in checklist.get("items", []) if r.get("status") == "blocked"],
+        },
+        "constitution": {
+            "ref": "docs/PRODUCT_CONSTITUTION_AR.md",
+            "modules_ready": constitution_modules,
+            "primary_oracle": "/oracle/BTC?ux_mode=beginner&lang=en",
+            "accuracy_page": "/oracle-accuracy",
+            "evidence_public": "/api/due-diligence/evidence-pack/public-summary",
+            "evidence_full": "/api/due-diligence/evidence-pack",
+        },
         "gtm_status": "/api/gtm/status",
         "architecture_dd": "/api/due-diligence/architecture",
         "setup_scripts": {
+            "finalize": "python scripts/finalize_launch.py",
+            "secrets": "python scripts/generate_launch_secrets.py --write",
             "launch": "python scripts/setup_production_launch.py",
             "stripe": "python scripts/setup_stripe_production.py",
             "telegram": "python scripts/setup_telegram_production.py",
@@ -59,12 +90,13 @@ async def launch_readiness():
         "ninety_day_targets": gtm.get("ninety_day_targets"),
         "blockers": list(gtm.get("blockers") or []) + list(guard.get("required_failures") or []),
         "dd_technical_report": "/api/due-diligence/technical",
-        "next_steps": gtm.get("next_actions")
-        or [
-            "Configure UptimeRobot on /health/live",
-            "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe keys in Railway",
-            "Set DATABASE_URL Postgres + SERVICE_MODE=web",
-            "Share landing page — target 10 paid users",
+        "code_launch_ready": constitution_modules and checklist.get("blocked_count", 99) <= 2,
+        "next_steps": [
+            "python scripts/finalize_launch.py",
+            "Paste .env.launch.local into Railway Variables",
+            "Set DATABASE_URL + LEMON_SQUEEZY_CHECKOUT_PRO (or Stripe)",
+            "Verify /api/production/guard → required_pass=true",
+            "UptimeRobot on /health/live → announce",
         ],
     }
 

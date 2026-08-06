@@ -486,7 +486,8 @@ MANIPULATION_SCORE_BOOST_MAX = 8.0
 
 # B2B data exporter
 B2B_API_KEY_ENV = "BLACKDARK_B2B_API_KEY"
-B2B_DEMO_API_KEY = os.getenv("BLACKDARK_B2B_DEMO_KEY", "bd_demo_launch_2026")
+# Empty/disabled by default — set BLACKDARK_B2B_DEMO_KEY explicitly for demo feeds.
+B2B_DEMO_API_KEY = os.getenv("BLACKDARK_B2B_DEMO_KEY", "").strip()
 B2B_FEED_VERSION = "1.0.0"
 B2B_DEFAULT_EXPORT_LIMIT = 250
 B2B_DEMO_EXPORT_LIMIT = 15
@@ -498,11 +499,24 @@ B2B_WS_MAX_CONNECTIONS = int(os.getenv("B2B_WS_MAX_CONNECTIONS", "50"))
 
 # Launch — Pro trial on signup + Stripe checkout
 PRO_TRIAL_DAYS = int(os.getenv("PRO_TRIAL_DAYS", "7"))
-LAUNCH_PROMO_CODES: dict[str, int] = {
-    "LAUNCHPRO": 14,
-    "DARKSIDE": 7,
-    "BLACKDARK": 7,
-}
+# Launch promo codes — override via LAUNCH_PROMO_CODES_JSON='{"CODE":days}'
+def _load_launch_promo_codes() -> dict[str, int]:
+    defaults = {"LAUNCHPRO": 14, "DARKSIDE": 7, "BLACKDARK": 7}
+    raw = os.getenv("LAUNCH_PROMO_CODES_JSON", "").strip()
+    if not raw:
+        return defaults
+    try:
+        import json
+
+        parsed = json.loads(raw)
+        if isinstance(parsed, dict) and parsed:
+            return {str(k).upper(): int(v) for k, v in parsed.items()}
+    except Exception:
+        pass
+    return defaults
+
+
+LAUNCH_PROMO_CODES: dict[str, int] = _load_launch_promo_codes()
 
 # ── Funding + Institutional Convergence ──────────────────────────────────────
 FUNDING_SII_VELOCITY_WEIGHT = 0.60
@@ -791,6 +805,22 @@ FLYWHEEL_ESTIMATED_ACTORS_PER_ALERT = int(os.getenv("FLYWHEEL_ESTIMATED_ACTORS_P
 FLYWHEEL_CROWD_STATE_TTL_SEC = float(os.getenv("FLYWHEEL_CROWD_STATE_TTL_SEC", "120"))
 FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD = float(os.getenv("FLYWHEEL_MIN_PROFIT_AFTER_CROWD_USD", "0.05"))
 FLYWHEEL_MAX_FREE_TELEGRAM_BATCH = int(os.getenv("FLYWHEEL_MAX_FREE_TELEGRAM_BATCH", "25"))
+
+# ── Unique differentiators: Net-Edge Truth + Signal Registry ──────────────────
+NET_EDGE_TRUTH_ENABLED = os.getenv("NET_EDGE_TRUTH_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+NET_EDGE_TRUTH_MIN_SCORE = float(os.getenv("NET_EDGE_TRUTH_MIN_SCORE", "55"))
+NET_EDGE_TRUTH_MIN_RESIDUAL_USD = float(os.getenv("NET_EDGE_TRUTH_MIN_RESIDUAL_USD", "0.08"))
+NET_EDGE_TRUTH_MAX_QUOTE_AGE_MS = float(os.getenv("NET_EDGE_TRUTH_MAX_QUOTE_AGE_MS", "2500"))
+NET_EDGE_TRUTH_LATENCY_COST_BPS_PER_SEC = float(
+    os.getenv("NET_EDGE_TRUTH_LATENCY_COST_BPS_PER_SEC", "1.5")
+)
+NET_EDGE_TRUTH_CROWD_DECAY_FRACTION = float(os.getenv("NET_EDGE_TRUTH_CROWD_DECAY_FRACTION", "0.35"))
+SIGNAL_REGISTRY_MAX_MEMORY = int(os.getenv("SIGNAL_REGISTRY_MAX_MEMORY", "2000"))
+SIGNAL_REGISTRY_PATH = os.getenv("SIGNAL_REGISTRY_PATH", "data/signal_registry.jsonl")
 
 # ── Macro Liquidity & Traditional Markets Correlation (Phase 4) ───────────────
 MACRO_DATA_SOURCE = os.getenv("MACRO_DATA_SOURCE", "mixed").lower()

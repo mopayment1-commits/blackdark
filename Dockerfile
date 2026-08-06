@@ -26,8 +26,10 @@ COPY ml/ ml/
 COPY microservices/ microservices/
 COPY templates/ templates/
 COPY static/ static/
-RUN mkdir -p data
+RUN mkdir -p data/models
 COPY data/operational_manifest.json data/
+# Bake trained model artifacts when present (ignore if empty in some CI contexts)
+COPY data/models/ data/models/
 COPY BUILD.txt ./
 
 EXPOSE 8080

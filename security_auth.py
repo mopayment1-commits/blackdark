@@ -21,8 +21,21 @@ _LOGIN_WINDOW_SEC = 300
 _LOGIN_MAX_ATTEMPTS = 10
 
 
+def is_production_env() -> bool:
+    """True when ENV/RAILWAY is production — LOCAL_DEV never overrides an explicit prod ENV."""
+    env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
+    if env in {"production", "prod"}:
+        return True
+    return False
+
+
 def hash_session_token(token: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-session-pepper-change-me")
+    pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
+    if not pepper:
+        if is_production_env():
+            raise RuntimeError("SESSION_TOKEN_PEPPER must be set in production")
+        pepper = "blackdark-session-pepper-change-me"
+        logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
     return hashlib.sha256(f"{pepper}:{token}".encode("utf-8")).hexdigest()
 
 
@@ -119,8 +132,8 @@ async def require_admin_dev(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
 ) -> dict:
-    """Admin guard — auto-allows localhost for solo dev; production needs admin email or API key."""
-    if _is_localhost(request):
+    """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
+    if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
     return await require_admin(user, x_admin_key)
 

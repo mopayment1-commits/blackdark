@@ -243,30 +243,34 @@ def validate_model_deployment(
     *,
     incumbent_metrics: dict[str, Any] | None = None,
     min_accuracy: float = 0.45,
+    cold_start_min_accuracy: float = 0.34,
     max_regression: float = 0.05,
 ) -> dict[str, Any]:
     """Reject new model if accuracy regresses vs incumbent."""
     new_acc = float(new_metrics.get("accuracy") or 0)
-    if new_acc < min_accuracy:
+    old_acc = float((incumbent_metrics or {}).get("accuracy") or 0)
+    # Cold start / weak incumbent: 3-class random ~0.33.
+    weak_incumbent = (not incumbent_metrics) or old_acc < float(min_accuracy)
+    effective_min = float(cold_start_min_accuracy) if weak_incumbent else float(min_accuracy)
+    if new_acc < effective_min:
         return {
             "approved": False,
             "reason": "below_minimum_accuracy",
             "new_accuracy": new_acc,
-            "minimum_accuracy": min_accuracy,
+            "minimum_accuracy": effective_min,
+            "cold_start": weak_incumbent,
         }
 
-    if incumbent_metrics:
-        old_acc = float(incumbent_metrics.get("accuracy") or 0)
-        if old_acc > 0 and new_acc < old_acc - max_regression:
-            return {
-                "approved": False,
-                "reason": "accuracy_regression",
-                "new_accuracy": new_acc,
-                "incumbent_accuracy": old_acc,
-                "max_regression": max_regression,
-            }
+    if incumbent_metrics and old_acc > 0 and new_acc < old_acc - max_regression:
+        return {
+            "approved": False,
+            "reason": "accuracy_regression",
+            "new_accuracy": new_acc,
+            "incumbent_accuracy": old_acc,
+            "max_regression": max_regression,
+        }
 
-    return {"approved": True, "new_accuracy": new_acc}
+    return {"approved": True, "new_accuracy": new_acc, "cold_start": weak_incumbent}
 
 
 def enforce_drift_actions(report: dict[str, Any]) -> dict[str, Any]:

@@ -2,7 +2,8 @@
 
 > **تاريخ التسجيل:** 2026-07-25  
 > **الهدف العام:** جذب عدد مهول من المستخدمين عند الإطلاق + بيع المنتج لشركة استحواذ (12–18 شهر)  
-> **المنتج الأساسي:** نموذج AI متخصص في crypto market intelligence — الويب = واجهة التوزيع
+> **المنتج الأساسي:** نموذج AI متخصص في crypto market intelligence — الويب = واجهة التوزيع  
+> **دستور المنتج الملزم:** [`docs/PRODUCT_CONSTITUTION_AR.md`](./PRODUCT_CONSTITUTION_AR.md)
 
 ---
 
@@ -139,7 +140,8 @@ BLACKDARK/
 | sentiment_score, sentiment_momentum | sentiment_engine |
 | obi_score, obi_imbalance | obi_predictor |
 | macro_weight | macro_correlations |
-| opportunity_score, confidence | oracle evaluation |
+
+> **Leakage guard:** `opportunity_score` و `confidence` مخرجات rules engine و**ليست** ضمن `FEATURE_COLUMNS` المستخدمة للتدريب.
 
 ---
 
@@ -184,7 +186,15 @@ ML_AUTO_TRAIN=true
 | Commit | Content |
 |--------|---------|
 | `0b73d22` | 100-exchange universe (B2+C+D) |
-| (pending) | AI flywheel + Oracle Accuracy Live |
+| done | AI flywheel + Oracle Accuracy Live (+ D5 regime train hook + RL soft fusion) |
+
+---
+
+## 10. مرجع التصميم التقني
+
+التفاصيل المعمارية للنموذج المالي (ميزات، مسار القرار، الحراس، مراحل التنفيذ الهندسي):
+
+→ [`docs/AI_FINANCIAL_MODEL_DESIGN.md`](./AI_FINANCIAL_MODEL_DESIGN.md)
 
 ---
 

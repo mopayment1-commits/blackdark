@@ -16,7 +16,10 @@ from pathlib import Path
 from typing import Any
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).resolve().parent / ".env")
+_ROOT = Path(__file__).resolve().parent
+load_dotenv(_ROOT / ".env")
+# Launch secrets file (gitignored) — used for local go-live verification
+load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
 from security_models import (
@@ -60,27 +63,11 @@ def _btc_beta_estimate(asset: str) -> float:
 def _score_prediction_accuracy(
     verdict: str, price_at: float, price_after: float
 ) -> tuple[str, float]:
-    if price_at <= 0:
-        return "unknown", 0.0
-    change_pct = ((price_after - price_at) / price_at) * 100
-    from regulatory_compliance_guard import to_internal_action_verdict
+    """Delegate to shared labeling scorer so public/internal verdicts stay consistent."""
+    from ml.labeling_pipeline import score_verdict_accuracy
 
-    verdict_upper = to_internal_action_verdict(verdict).upper()
-    if verdict_upper == "BUY":
-        if change_pct > 1.5:
-            return "correct", min(100.0, 55.0 + change_pct * 4.0)
-        if change_pct > -2.0:
-            return "partial", max(35.0, 45.0 + change_pct * 5.0)
-        return "incorrect", max(0.0, 25.0 + change_pct * 2.0)
-    if verdict_upper == "SELL":
-        if change_pct < -1.5:
-            return "correct", min(100.0, 55.0 + abs(change_pct) * 4.0)
-        if change_pct < 2.0:
-            return "partial", max(35.0, 45.0 - change_pct * 5.0)
-        return "incorrect", max(0.0, 25.0 - change_pct * 2.0)
-    if abs(change_pct) <= 3.0:
-        return "correct", min(100.0, 70.0 - abs(change_pct) * 3.0)
-    return "partial", max(30.0, 50.0 - abs(change_pct) * 2.0)
+    outcome, accuracy, _direction = score_verdict_accuracy(verdict, price_at, price_after)
+    return outcome, accuracy
 
 
 async def _resolve_mature_oracle_predictions() -> int:
@@ -114,20 +101,23 @@ async def _resolve_mature_oracle_predictions() -> int:
     return resolved_count
 
 
-async def _log_oracle_prediction(payload: dict) -> None:
+async def _log_oracle_prediction(payload: dict) -> int | None:
+    """Persist Oracle decision and return the audit prediction_id (D1)."""
     from ml.labeling_pipeline import log_oracle_signal
 
     try:
-        await log_oracle_signal(
+        return await log_oracle_signal(
             asset=str(payload.get("symbol") or payload.get("asset") or ""),
             price=float(payload.get("price") or 0),
             verdict=str(payload.get("verdict") or "WAIT"),
             opportunity_score=float(payload.get("opportunity_score") or 0),
             confidence=float(payload.get("confidence") or payload.get("confidence_percent") or 0),
             kind=str(payload.get("kind") or "oracle_api"),
+            market_regime=str(payload.get("market_regime") or "neutral"),
         )
     except Exception:
         logger.exception("Oracle flywheel logging failed")
+        return None
 
 
 async def _record_behavior(
@@ -206,6 +196,26 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
     if not recommendations:
         recommendations.append("Balanced portfolio structure for current holdings")
 
+    plain = (
+        f"In plain language: your book is {risk_level.lower()} risk "
+        f"(score {risk_score}/10). Weighted BTC sensitivity is about "
+        f"{weighted_beta:.0%}. If BTC falls {btc_drop_pct:.0f}%, expect roughly "
+        f"${estimated_loss:,.0f} drawdown on current holdings. "
+        f"{recommendations[0]}"
+    )
+    try:
+        from decision_certificate import compliance_footer_block
+
+        compliance = compliance_footer_block(
+            surface="portfolio_ai",
+            trust_basis="holdings beta model + public_accuracy_ledger",
+            data_sources="live spot marks · weighted BTC beta heuristic",
+        )
+    except Exception:
+        compliance = {
+            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
+        }
+
     return {
         "holdings": holdings,
         "total_value": round(total_value, 2),
@@ -221,20 +231,37 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             f"If BTC drops {btc_drop_pct:.0f}%, estimated portfolio loss "
             f"${estimated_loss:,.0f} based on weighted beta {weighted_beta:.2f}"
         ),
+        "plain_language": plain,
         "recommendations": recommendations,
+        "compliance_footer": compliance,
+        "hero": "portfolio_ai",
     }
+
+# Set True only after init_db succeeds. Used by /health/ready.
+_BOOT_DB_READY = False
+_BOOT_DB_OK = False
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
+    global _BOOT_DB_READY, _BOOT_DB_OK
 
     async def _background_boot() -> None:
+        global _BOOT_DB_READY, _BOOT_DB_OK
         try:
             from database import init_db
 
             await init_db()
+            _BOOT_DB_OK = True
+            _BOOT_DB_READY = True
         except Exception:
-            logger.exception("init_db failed — API stays up for probes")
+            logger.exception("init_db failed — API stays up for live probes; ready stays closed")
+            _BOOT_DB_OK = False
+            # Local/dev: allow ready so smoke tests don't hang forever
+            local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+            env = (os.getenv("ENV") or "").strip().lower()
+            _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
 
         try:
             from observability import init_sentry
@@ -244,11 +271,19 @@ async def lifespan(app: FastAPI):
             logger.exception("Sentry init failed")
 
         try:
-            from production_guard import log_production_guard
+            from production_guard import enforce_production_guard, log_production_guard, is_production
 
-            log_production_guard()
+            if is_production():
+                # Fail closed in production — do not swallow
+                enforce_production_guard()
+            else:
+                log_production_guard()
         except Exception:
             logger.exception("Production guard check failed")
+            from production_guard import is_production
+
+            if is_production():
+                raise
 
         try:
             from risk_manager import load_persistent_freeze
@@ -411,6 +446,13 @@ try:
     app.include_router(gtm_router)
 except ImportError:
     pass
+
+try:
+    from api.routers.heroes import router as heroes_router
+
+    app.include_router(heroes_router)
+except Exception:
+    logger.exception("Heroes router unavailable")
 
 try:
     from api.routers.telegram import router as telegram_router
@@ -592,11 +634,40 @@ async def _build_opportunity_explanation(
         else "Low volatility environment"
     )
 
+    # Hero #1 — Top-3 factors for <5s understanding (with real sources).
+    top_factors = [
+        {
+            "factor": "Technical structure",
+            "detail": f"RSI {rsi} ({_rsi_signal_label(rsi)}) · {macd_trend}",
+            "source": rsi_source,
+            "weight_hint": "high" if abs(float(rsi) - 50) > 12 else "medium",
+        },
+        {
+            "factor": "Whale / institutional flow",
+            "detail": whale_alert_text,
+            "source": "CVVD whale detection",
+            "weight_hint": "high" if asset_alerts else "medium",
+        },
+        {
+            "factor": "Sentiment + on-chain",
+            "detail": f"{news_label} news · {onchain_note}",
+            "source": "sentiment index + exchange flows",
+            "weight_hint": "medium",
+        },
+    ]
+
     return {
         "symbol": asset,
         "verdict": verdict,
         "opportunity_score": score,
         "simulated": False,
+        "top_3_factors": top_factors,
+        "checklist": [
+            {"label": "Score", "value": score, "ok": score >= 55},
+            {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
+            {"label": "Whale context", "value": "present" if asset_alerts else "quiet", "ok": True},
+            {"label": "Volatility", "value": volatility, "ok": abs(change) < 8},
+        ],
         "data_sources": [
             "Binance Live API (price + 1h candles)",
             "CVVD Cross-Venue Whale Detection",
@@ -778,10 +849,57 @@ async def telegram_test(data: dict = Body(default={})):
 async def landing_page(request: Request):
     return templates.TemplateResponse(request, "landing.html")
 
+
+@app.get("/robots.txt")
+async def robots_txt():
+    from fastapi.responses import PlainTextResponse
+
+    body = (
+        "User-agent: *\n"
+        "Allow: /\n"
+        "Disallow: /admin/\n"
+        "Disallow: /api/auth/\n"
+        "Sitemap: /sitemap.xml\n"
+    )
+    return PlainTextResponse(body, media_type="text/plain")
+
+
+@app.get("/sitemap.xml")
+async def sitemap_xml(request: Request):
+    from fastapi.responses import Response
+
+    base = str(request.base_url).rstrip("/")
+    paths = [
+        "/",
+        "/dashboard",
+        "/oracle-accuracy",
+        "/b2b",
+        "/discipline-mirror",
+        "/platform",
+        "/login",
+    ]
+    urls = "\n".join(
+        f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
+    )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{urls}\n"
+        "</urlset>\n"
+    )
+    return Response(content=xml, media_type="application/xml")
+
+
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     return templates.TemplateResponse(request, "dashboard.html")
+
+
+@app.get("/discipline-mirror", response_class=HTMLResponse)
+async def discipline_mirror_page(request: Request):
+    """Private Discipline Mirror UI — never public ledger."""
+    return templates.TemplateResponse(request, "discipline.html")
 
 
 @app.get("/api/dashboard/stream")
@@ -804,6 +922,31 @@ async def admin_launch_page(request: Request, _admin: dict = Depends(require_adm
     return templates.TemplateResponse(request, "admin_launch.html")
 
 
+@app.get("/admin/plan", response_class=HTMLResponse)
+@app.get("/plan", response_class=HTMLResponse)
+async def admin_plan_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_plan.html")
+
+
+@app.get("/admin/roadmap", response_class=HTMLResponse)
+async def admin_roadmap_page(request: Request, _admin: dict = Depends(require_admin_dev)):
+    return templates.TemplateResponse(request, "admin_roadmap.html")
+
+
+@app.get("/api/plan/audit")
+async def api_plan_audit(_admin: dict = Depends(require_admin_dev)):
+    from plan_audit import plan_audit
+
+    return plan_audit()
+
+
+@app.get("/api/roadmap/audit")
+async def api_roadmap_audit(_admin: dict = Depends(require_admin_dev)):
+    from bd_platform.roadmap_audit import run_roadmap_audit
+
+    return run_roadmap_audit()
+
+
 @app.get("/api/admin/launch-checklist")
 async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
     from launch_checklist import launch_checklist
@@ -814,6 +957,45 @@ async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
 @app.get("/platform", response_class=HTMLResponse)
 async def platform_hub_page(request: Request):
     return templates.TemplateResponse(request, "platform.html")
+
+
+@app.get("/capabilities", response_class=HTMLResponse)
+async def capabilities_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "capabilities",
+            "title": "Capabilities",
+            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+        },
+    )
+
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "contact",
+            "title": "Contact",
+            "lead": "Reach the team for support, partnerships, and allocator diligence.",
+        },
+    )
+
+
+@app.get("/complaints", response_class=HTMLResponse)
+async def complaints_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "complaints",
+            "title": "Complaints",
+            "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
+        },
+    )
 
 
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
@@ -990,9 +1172,16 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
 @app.get("/oracle/{symbol}")
 async def oracle(
     symbol: str,
+    request: Request,
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
-) -> JSONResponse:
+    ux_mode: str = "beginner",
+    lang: str = "en",
+):
+    # Reserved path — must not be captured as a trading symbol
+    if symbol.strip().lower() == "accuracy":
+        return templates.TemplateResponse(request, "oracle_accuracy.html")
+
     from auth_service import check_oracle_quota
 
     allowed, message = await check_oracle_quota(user)
@@ -1054,7 +1243,107 @@ async def oracle(
         payload = await enrich_oracle_payload(payload)
     except Exception:
         logger.exception("Oracle forecast enrichment unavailable")
-    background_tasks.add_task(_log_oracle_prediction, payload)
+
+    # Constitution differentiators on the primary user path (D3/D4/D7/D8 + UX mode)
+    try:
+        from decision_enrichment import enrich_oracle_decision
+        from ux_mode import normalize_lang, normalize_ux_mode
+
+        payload = enrich_oracle_decision(
+            payload,
+            ux_mode=normalize_ux_mode(ux_mode),
+            lang=normalize_lang(lang),
+            register_signal=True,
+        )
+    except Exception:
+        logger.exception("Constitution decision enrichment unavailable")
+
+    # D1: await audit log so response carries a real prediction_id (not signal_id).
+    try:
+        prediction_id = await _log_oracle_prediction(payload)
+        if prediction_id is not None:
+            payload["prediction_id"] = prediction_id
+            # D8: bind audit prediction_id onto the sovereign registry row
+            try:
+                from signal_registry import attach_prediction_id, register_from_evaluation
+
+                sig = (payload.get("signal_registry") or {}).get("signal_id")
+                linked = attach_prediction_id(str(sig), prediction_id) if sig else None
+                if not linked:
+                    linked = register_from_evaluation(
+                        {
+                            "kind": payload.get("kind") or "oracle_direction",
+                            "asset": asset,
+                            "opportunity_score": payload.get("opportunity_score"),
+                            "oracle": {"verdict": payload.get("verdict")},
+                            "prediction_id": prediction_id,
+                            "payload": payload,
+                        }
+                    )
+                if linked:
+                    payload["signal_registry"] = {
+                        "signal_id": linked.get("signal_id"),
+                        "prediction_id": linked.get("prediction_id"),
+                        "features_hash": linked.get("features_hash"),
+                        "label": linked.get("label"),
+                        "definition": linked.get("definition"),
+                        "source": linked.get("source"),
+                        "weight": linked.get("weight"),
+                        "performance": linked.get("performance"),
+                    }
+            except Exception:
+                logger.debug("signal registry prediction_id attach failed", exc_info=True)
+            try:
+                from oracle_audit_chain import chain_summary
+
+                recent = (chain_summary(limit=8) or {}).get("recent_records") or []
+                for entry in reversed(recent):
+                    if str(entry.get("prediction_id")) == str(prediction_id):
+                        payload["chain_hash"] = entry.get("chain_hash")
+                        payload["proof"] = {
+                            "prediction_id": prediction_id,
+                            "chain_hash": entry.get("chain_hash"),
+                            "public_page": "/oracle-accuracy",
+                        }
+                        break
+            except Exception:
+                logger.debug("chain_hash attach failed", exc_info=True)
+    except Exception:
+        logger.exception("Oracle prediction_id attach failed")
+
+    # Hero #6 — Decision Certificate on every primary Oracle response.
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle",
+            trust_basis="public_accuracy_ledger + decision_certificate",
+        )
+    except Exception:
+        logger.debug("Decision certificate attach failed", exc_info=True)
+
+    # Durable product alert without Telegram when Oracle says ACT.
+    try:
+        if str(payload.get("decision_action") or "").upper() == "ACT":
+            from alert_service import dispatch_alert
+
+            sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
+            await dispatch_alert(
+                f"Oracle ACT · {asset}",
+                sentence,
+                payload={
+                    "asset": asset,
+                    "prediction_id": payload.get("prediction_id"),
+                    "opportunity_score": payload.get("opportunity_score"),
+                    "verdict": payload.get("verdict"),
+                    "source": "oracle_act",
+                },
+                channels=["in_app"],
+            )
+    except Exception:
+        logger.debug("Oracle ACT in-app alert failed", exc_info=True)
+
     background_tasks.add_task(
         _record_behavior,
         "oracle_query",
@@ -1063,6 +1352,9 @@ async def oracle(
         payload={
             "verdict": payload.get("verdict"),
             "opportunity_score": payload.get("opportunity_score"),
+            "ux_mode": payload.get("ux_mode"),
+            "prediction_id": payload.get("prediction_id"),
+            "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
         },
     )
     try:
@@ -1381,6 +1673,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 # Forecast + oracle audit routes → api/routers/oracle.py
 
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
+@app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     return templates.TemplateResponse(request, "oracle_accuracy.html")
 
@@ -1660,6 +1953,32 @@ async def alerts_test():
     return await send_test_alert()
 
 
+@app.get("/api/alerts/inbox")
+async def alerts_inbox(
+    limit: int = 30,
+    unread_only: bool = False,
+    user: dict | None = Depends(optional_user),
+):
+    from in_app_alerts import inbox_stats, list_in_app_alerts
+
+    email = (user or {}).get("email")
+    return {
+        "stats": inbox_stats(user_email=email),
+        "alerts": list_in_app_alerts(limit=limit, user_email=email, unread_only=unread_only),
+        "works_without_telegram": True,
+    }
+
+
+@app.post("/api/alerts/inbox/{alert_id}/read")
+async def alerts_inbox_mark_read(alert_id: str):
+    from in_app_alerts import mark_read
+
+    row = mark_read(alert_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Alert not found")
+    return {"ok": True, "alert": row}
+
+
 @app.post("/api/execution/auto")
 async def execution_auto_toggle(body: ExecutionAutoBody, _user: dict = Depends(require_whale)):
     from execution_engine import set_auto_execution
@@ -1713,9 +2032,11 @@ async def execution_keys_activate(request: Request, live: bool = False, user: di
 
 @app.post("/api/execution/cex-dex/cycle")
 async def execution_cex_dex_cycle(quote_usd: float = 1000, _user: dict = Depends(require_whale)):
+    """Whale CEX↔DEX cycle — forced dry-run unless LIVE_EXECUTION_ALLOW_API=true."""
     from bd_platform.cex_dex_executor import run_cex_dex_cycle
 
-    return await run_cex_dex_cycle(quote_usd=quote_usd)
+    allow_live = os.getenv("LIVE_EXECUTION_ALLOW_API", "false").lower() in {"1", "true", "yes"}
+    return await run_cex_dex_cycle(quote_usd=quote_usd, dry_run=not allow_live)
 
 
 @app.post("/api/execution/panic")
@@ -2161,18 +2482,27 @@ async def health_live():
 
 @app.get("/health/ready")
 async def health_ready():
-    """Readiness — DB + service bus (for load balancers)."""
+    """Readiness — DB init succeeded + service bus (for load balancers)."""
+    from fastapi.responses import JSONResponse
     from postgres_backend import pool_stats, use_postgres
     from service_bus import bus_stats
 
     engine = "postgresql" if use_postgres() else "sqlite"
-    return {
-        "status": "ok",
+    ready = bool(_BOOT_DB_READY and _BOOT_DB_OK)
+    # Local soft-open only when explicitly allowed by lifespan
+    if _BOOT_DB_READY and not _BOOT_DB_OK:
+        ready = True  # local/dev soft path set by lifespan
+    payload = {
+        "status": "ok" if ready else "starting",
         "probe": "ready",
+        "database_ready": bool(_BOOT_DB_OK),
         "database_engine": engine,
         "postgres_pool": pool_stats(),
         "service_bus": bus_stats(),
     }
+    if not ready:
+        return JSONResponse(payload, status_code=503)
+    return payload
 
 
 @app.get("/health")
@@ -2368,6 +2698,20 @@ async def stripe_webhook(request: Request):
 
     result = await handle_stripe_webhook_event(event)
     return {"received": True, **result}
+
+
+@app.post("/webhook/lemon")
+async def lemon_webhook_alias(request: Request):
+    """Alias for Lemon Squeezy dashboard URL convenience (same as /api/billing/webhook/lemon)."""
+    from api.routers.billing import lemon_webhook
+
+    return await lemon_webhook(request)
+
+
+@app.get("/app", response_class=HTMLResponse)
+async def app_alias_redirect():
+    """Orphan templates/index.html is not served — route users to the live dashboard."""
+    return RedirectResponse(url="/dashboard", status_code=302)
 
 
 @app.get("/success", response_class=HTMLResponse)

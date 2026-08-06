@@ -17,7 +17,24 @@ async def store_user_exchange_keys(
     *,
     label: str = "",
 ) -> dict[str, Any]:
+    from api_key_security_guard import record_key_access, validate_exchange_api_key
     from database import upsert_user_api_key
+
+    validation = await validate_exchange_api_key(exchange, api_key, api_secret)
+    record_key_access(
+        user_id=user_id,
+        exchange=exchange,
+        action="store_keys",
+        allowed=validation.allowed,
+        reason=validation.reason,
+    )
+    if not validation.allowed:
+        return {
+            "success": False,
+            "exchange": exchange.lower(),
+            "reason": validation.reason,
+            "message": f"API key rejected: {validation.reason}",
+        }
 
     await upsert_user_api_key(
         user_id,
@@ -31,6 +48,7 @@ async def store_user_exchange_keys(
         "exchange": exchange.lower(),
         "api_key_masked": mask_secret(api_key),
         "message": "API keys encrypted and stored securely.",
+        "validation": validation.reason,
     }
 
 

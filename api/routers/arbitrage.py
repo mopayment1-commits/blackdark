@@ -14,14 +14,19 @@ router = APIRouter(prefix="/api/arbitrage", tags=["arbitrage"])
 
 
 @router.get("/defi/scan")
-async def arbitrage_defi_scan(quote_usd: float = 1000):
+async def arbitrage_defi_scan(
+    quote_usd: float = 1000,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from defi_arbitrage_engine import scan_all_defi_strategies
 
     return await scan_all_defi_strategies(quote_usd=quote_usd)
 
 
 @router.get("/engine/status")
-async def arbitrage_engine_status():
+async def arbitrage_engine_status(
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from defi_arbitrage_engine import defi_engine_stats
     from fee_matrix import matrix_stats
     from flywheel_saturation_guard import flywheel_saturation_status
@@ -104,7 +109,10 @@ async def arbitrage_compare(
 
 
 @router.get("/feed-lag/{symbol}")
-async def arbitrage_feed_lag(symbol: str):
+async def arbitrage_feed_lag(
+    symbol: str,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from arbitrage_service import compare_symbol_across_exchanges
 
     compare = await compare_symbol_across_exchanges(symbol)
@@ -112,7 +120,10 @@ async def arbitrage_feed_lag(symbol: str):
 
 
 @router.get("/durations")
-async def arbitrage_durations(limit: int = 20):
+async def arbitrage_durations(
+    limit: int = 20,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from opportunity_tracker import export_state
 
     state = export_state()
@@ -121,7 +132,10 @@ async def arbitrage_durations(limit: int = 20):
 
 
 @router.get("/alerts")
-async def arbitrage_alerts(limit: int = 20):
+async def arbitrage_alerts(
+    limit: int = 20,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from database import fetch_arbitrage_alert_log
 
     rows = await fetch_arbitrage_alert_log(limit=limit)
@@ -134,7 +148,11 @@ async def arbitrage_alerts(limit: int = 20):
 
 
 @router.get("/catalog")
-async def arbitrage_catalog(category: str | None = None, status: str | None = None):
+async def arbitrage_catalog(
+    category: str | None = None,
+    status: str | None = None,
+    _user: dict | None = Depends(require_feature("arbitrage_catalog")),
+):
     from arbitrage_catalog import get_catalog
 
     return get_catalog(category=category, status=status)
@@ -152,7 +170,10 @@ async def arbitrage_catalog_scan(
 
 
 @router.get("/pricing-errors/{symbol}")
-async def arbitrage_pricing_errors(symbol: str):
+async def arbitrage_pricing_errors(
+    symbol: str,
+    _user: dict | None = Depends(require_feature("arbitrage")),
+):
     from arbitrage_service import compare_symbol_across_exchanges
 
     compare = await compare_symbol_across_exchanges(symbol)

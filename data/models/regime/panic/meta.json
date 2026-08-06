@@ -1,0 +1,11 @@
+{
+  "regime": "panic",
+  "samples": 37,
+  "status": "artifact_ready",
+  "accuracy": 0.7143,
+  "holdout_eval": true,
+  "synthetic_class_balance": false,
+  "bootstrap_samples": false,
+  "updated_at": "2026-08-06T11:42:43.477524+00:00",
+  "model_path": "data/models/regime/panic/model.joblib"
+}

@@ -1,0 +1,11 @@
+{
+  "regime": "risk_off",
+  "samples": 23,
+  "status": "artifact_ready",
+  "accuracy": 1.0,
+  "holdout_eval": true,
+  "synthetic_class_balance": true,
+  "bootstrap_samples": false,
+  "updated_at": "2026-08-06T11:42:43.469665+00:00",
+  "model_path": "data/models/regime/risk_off/model.joblib"
+}

@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly losing trades, and a verifiable audit hash chain. Prove it.">
+    <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
+    <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
     <title>BLACKDARK — Oracle Accuracy Live</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #0a0a0f;
@@ -19,8 +25,8 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Inter, sans-serif;
-            background: var(--bg);
+            font-family: "IBM Plex Sans", sans-serif;
+            background: radial-gradient(1000px 500px at 10% -20%, #132018 0%, #0a0a0f 50%);
             color: var(--text);
             line-height: 1.6;
         }
@@ -114,12 +120,128 @@
 
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>
-        <h1>Oracle AI Accuracy — Full Transparency</h1>
+        <h1>BLACKDARK — Public Oracle Accuracy</h1>
         <p>
-            Every prediction is logged, scored after 24 hours, and used to train the model.
-            Live engine: <strong id="engine-label">rules engine</strong> until 50+ ML samples are available.
+            Every decision is logged, resolved after 24 hours, and feeds the learning model.
+            Live engine: <strong id="engine-label">rules engine</strong>
         </p>
         <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
+        <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
+        <div class="cta-row" style="margin-top:1rem">
+            <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="card">
+            <h2>Proof Chain</h2>
+            <p id="proof-panel" style="color:var(--muted);font-size:0.9rem">Loading chain…</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="card">
+            <h2>D5 · Regime-Conditional Models</h2>
+            <p id="regime-status" style="color:var(--muted);font-size:0.9rem">Loading regime registry…</p>
+            <div style="overflow-x:auto;margin-top:1rem">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Regime</th>
+                            <th>Confidence ×</th>
+                            <th>Artifact</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="regime-body">
+                        <tr><td colspan="4">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="glass-box-challenge">
+        <div class="card">
+            <h2>The Glass Box Challenge</h2>
+            <noscript><p>We challenge every competitor to publish their full accuracy ledger — including misses. Labels are not proof.</p></noscript>
+            <p id="glass-hook" style="color:var(--muted);font-size:0.9rem">Before the next major macro event we seal a timed Decision Certificate in public.</p>
+            <p id="glass-challenge" style="margin-top:0.75rem;font-size:0.95rem">BLACKDARK Glass Box Challenge: publish the full ledger — including misses — permanently and verifiably. Prove it.</p>
+            <p id="glass-story" style="margin-top:0.65rem;color:var(--muted);font-size:0.88rem"></p>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
+            </div>
+            <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
+                Exact launch timing and channel are deferred (human). Product machinery is live.
+            </p>
+            <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify claims on this Public Accuracy Ledger.</p>
+        </div>
+    </section>
+
+    <section class="panel" id="mev-report">
+        <div class="card">
+            <h2>Shareable MEV / Sandwich Report</h2>
+            <p id="mev-status" style="color:var(--muted);font-size:0.9rem">Loading risk posture…</p>
+            <ul class="events" id="mev-mitigations"><li>Loading...</li></ul>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyMevBtn">Copy share text</button>
+            </div>
+            <p id="mev-compliance" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"></p>
+        </div>
+    </section>
+
+    <section class="panel" id="locked">
+        <div class="card">
+            <h2>Locked Predictions · Glass Box</h2>
+            <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
+            <ul class="events" id="locked-list"><li>Loading...</li></ul>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share link</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" id="losing">
+        <div class="card">
+            <h2>Monthly Losing Trade Report</h2>
+            <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
+            <ul class="events" id="losing-list"><li>Loading...</li></ul>
+            <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
+                <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
+            </div>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
+        </div>
+    </section>
+
+    <section class="panel" id="audit-challenge">
+        <div class="card">
+            <h2>Audit Challenge — Prove us wrong</h2>
+            <p id="audit-status" style="color:var(--muted);font-size:0.9rem">Loading live verify…</p>
+            <p style="color:var(--muted);font-size:0.88rem;margin-top:.5rem">
+                Find a real break in the hash chain. We publish the full ledger — including misses.
+            </p>
+            <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify the chain yourself — trust is optional.</p>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="card">
+            <h2>D8 · Signal Registry</h2>
+            <p id="registry-status" style="color:var(--muted);font-size:0.9rem">Loading signal lexicon…</p>
+            <div style="overflow-x:auto;margin-top:1rem">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Signal type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registry-body">
+                        <tr><td colspan="2">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
 
     <section class="grid" id="stats-grid">
@@ -138,17 +260,18 @@
                 <table>
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Time</th>
                             <th>Asset</th>
                             <th>Verdict</th>
-                            <th>Price at prediction</th>
-                            <th>Price after 24h</th>
+                            <th>Price</th>
+                            <th>After 24h</th>
                             <th>Result</th>
-                            <th>Direction</th>
+                            <th>Chain</th>
                         </tr>
                     </thead>
                     <tbody id="predictions-body">
-                        <tr><td colspan="7">Loading...</td></tr>
+                        <tr><td colspan="8">Loading...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -167,6 +290,7 @@
     <div class="cta-row">
         <a class="btn btn-primary" href="/dashboard">Open Dashboard</a>
         <a class="btn btn-secondary" href="/api/oracle/accuracy/public" target="_blank">JSON API</a>
+        <a class="btn btn-secondary" href="/b2b#evidence">Evidence Pack</a>
     </div>
 
     <footer>
@@ -195,6 +319,17 @@
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
                 document.getElementById('transparency-note').textContent =
                     transparency.engine_note || '';
+                const chain = data.proof_chain || {};
+                const verify = chain.verify || {};
+                const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
+                document.getElementById('chain-status').textContent =
+                    'Audit chain: ' + (verify.valid === true ? 'VALID ✓' : (verify.valid === false ? 'INVALID' : 'n/a')) +
+                    ' · records=' + records;
+                const tip = chain.tip_hash || '—';
+                document.getElementById('proof-panel').innerHTML =
+                    `Tip hash: <code style="color:var(--accent)">${tip}</code><br>` +
+                    `Integrity: <strong style="color:${verify.valid ? 'var(--success)' : 'var(--danger)'}">${verify.valid === true ? 'VALID' : (verify.valid === false ? 'INVALID' : 'n/a')}</strong>` +
+                    ` · ${records} linked records`;
 
                 document.getElementById('stat-accuracy').textContent =
                     (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
@@ -204,20 +339,57 @@
                 document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
                 document.getElementById('stat-assets').textContent = moat.assets || 0;
 
+                const regime = data.regime_models || {};
+                document.getElementById('regime-status').textContent =
+                    (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
+                    ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
+                const regimeRows = regime.regimes || {};
+                const rbody = document.getElementById('regime-body');
+                const keys = Object.keys(regimeRows);
+                if (!keys.length) {
+                    rbody.innerHTML = '<tr><td colspan="4">Regime registry unavailable.</td></tr>';
+                } else {
+                    rbody.innerHTML = keys.map(k => {
+                        const row = regimeRows[k] || {};
+                        return `<tr>
+                            <td>${k}</td>
+                            <td>${row.confidence_multiplier ?? '—'}</td>
+                            <td>${row.artifact_present ? 'yes' : 'no'}</td>
+                            <td><span class="pill ${row.artifact_present ? 'correct' : 'partial'}">${row.status || '—'}</span></td>
+                        </tr>`;
+                    }).join('');
+                }
+
+                const reg = data.signal_registry || {};
+                document.getElementById('registry-status').textContent =
+                    `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
+                    (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
+                const byType = reg.by_type || {};
+                const regBody = document.getElementById('registry-body');
+                const typeKeys = Object.keys(byType);
+                if (!typeKeys.length) {
+                    regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
+                } else {
+                    regBody.innerHTML = typeKeys.map(k =>
+                        `<tr><td>${k}</td><td>${byType[k]}</td></tr>`
+                    ).join('');
+                }
+
                 const rows = oracle.recent_predictions || [];
                 const tbody = document.getElementById('predictions-body');
                 if (!rows.length) {
-                    tbody.innerHTML = '<tr><td colspan="7">No scored predictions yet — collecting data.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="8">No scored predictions yet — collecting data.</td></tr>';
                 } else {
                     tbody.innerHTML = rows.map(r => `
                         <tr>
+                            <td>${r.prediction_id ?? '—'}</td>
                             <td>${(r.timestamp || '').slice(0, 19)}</td>
                             <td>${r.asset || '—'}</td>
                             <td>${r.verdict || '—'}</td>
                             <td>${Number(r.price_at_prediction || 0).toLocaleString()}</td>
                             <td>${Number(r.price_after_24h || 0).toLocaleString()}</td>
                             <td><span class="pill ${pillClass(r.label)}">${r.label || '—'}</span></td>
-                            <td>${r.direction_label || '—'}</td>
+                            <td style="font-size:.75rem;color:var(--muted)">${r.chain_ref || '—'}</td>
                         </tr>
                     `).join('');
                 }
@@ -237,8 +409,133 @@
             }
         }
 
+        async function verifyChain() {
+            const panel = document.getElementById('proof-panel');
+            panel.textContent = 'Verifying…';
+            try {
+                const res = await fetch('/api/oracle/audit-chain/verify');
+                const data = await res.json();
+                panel.innerHTML =
+                    `Live verify: <strong style="color:${data.valid ? 'var(--success)' : 'var(--danger)'}">${data.valid ? 'VALID' : 'INVALID'}</strong>` +
+                    ` · records=${data.records ?? '—'}` +
+                    (data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '');
+            } catch (e) {
+                panel.textContent = 'Verify failed';
+            }
+        }
+        document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
+
+        async function loadLocked() {
+            try {
+                const res = await fetch('/api/locked-predictions?limit=12');
+                const data = await res.json();
+                const st = data.status || {};
+                document.getElementById('locked-status').textContent =
+                    `Sealed forecasts · locked=${st.locked ?? 0} · revealed=${st.unlocked ?? 0} · Glass Box cadence`;
+                const rows = data.predictions || [];
+                const list = document.getElementById('locked-list');
+                if (!rows.length) {
+                    list.innerHTML = '<li>No locked predictions yet — seal before the next major macro event.</li>';
+                } else {
+                    list.innerHTML = rows.map(r =>
+                        `<li><strong>${r.event_name || 'event'}</strong> · ${r.asset || ''} · ` +
+                        `${r.status} · seal ${String(r.seal_hash || '').slice(0,12)}…` +
+                        (r.revealed ? ` · ${r.direction || ''} — ${(r.rationale || '').slice(0,80)}` : ' · sealed until unlock') +
+                        `</li>`
+                    ).join('');
+                }
+            } catch (e) {
+                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
+            }
+        }
+
+        let lastLosingShare = '';
+        async function loadLosing() {
+            try {
+                const res = await fetch('/api/accuracy/monthly-losing-report?limit=12');
+                const data = await res.json();
+                lastLosingShare = data.share_text || '';
+                document.getElementById('losing-status').textContent =
+                    (data.thesis || '') + ` · misses in window: ${data.total_labeled_misses_in_window ?? 0}`;
+                const rows = data.sample || [];
+                const list = document.getElementById('losing-list');
+                list.innerHTML = rows.length
+                    ? rows.map(r => `<li><strong>${r.asset||'—'}</strong> · ${r.verdict||''} · ${r.label||''} · id ${r.prediction_id??'—'}</li>`).join('')
+                    : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
+            } catch (e) {
+                document.getElementById('losing-status').textContent = 'Losing report unavailable';
+            }
+        }
+        document.getElementById('copyLosingBtn')?.addEventListener('click', () => {
+            if (lastLosingShare) navigator.clipboard.writeText(lastLosingShare);
+        });
+
+        async function loadAuditChallenge() {
+            try {
+                const res = await fetch('/api/audit-challenge');
+                const data = await res.json();
+                const v = data.live_verify || {};
+                document.getElementById('audit-status').textContent =
+                    `${data.invitation || ''} Live verify: ${v.valid === true ? 'VALID' : (v.valid === false ? 'INVALID' : 'n/a')} · records=${v.records ?? '—'}`;
+            } catch (e) {
+                document.getElementById('audit-status').textContent = 'Audit challenge unavailable';
+            }
+        }
+
+        document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
+            navigator.clipboard.writeText(location.origin + '/oracle-accuracy');
+        });
+
+        let lastGlassShare = '';
+        let lastMevShare = '';
+        async function loadGlassBox() {
+            try {
+                const res = await fetch('/api/glass-box/challenge');
+                const d = await res.json();
+                lastGlassShare = d.share_text || d.challenge_text_en || '';
+                document.getElementById('glass-hook').textContent = d.hook || '';
+                document.getElementById('glass-challenge').textContent = d.challenge_text_en || '';
+                document.getElementById('glass-story').textContent =
+                    (d.story || '') + ' ' + (d.loop || '');
+            } catch (e) {
+                document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
+            }
+        }
+        document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
+            if (lastGlassShare) navigator.clipboard.writeText(lastGlassShare);
+        });
+
+        async function loadMevReport() {
+            try {
+                const res = await fetch('/api/mev/sandwich-report?asset=ETH&notional_usd=10000');
+                const d = await res.json();
+                lastMevShare = d.share_text || '';
+                document.getElementById('mev-status').textContent =
+                    `${d.asset} · notional $${Number(d.notional_usd||0).toLocaleString()} · est. sandwich ~${d.estimated_sandwich_bps} bps (~$${d.estimated_cost_usd}) · ${d.confidence||''}`;
+                const list = document.getElementById('mev-mitigations');
+                list.innerHTML = (d.mitigations || []).map(m => `<li>${m}</li>`).join('')
+                    || '<li>No mitigations listed</li>';
+                const c = d.compliance || {};
+                const foot = document.getElementById('mev-compliance');
+                if (foot) {
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${c.data_source || ''} · ${c.disclaimer || 'Not financial advice.'}`;
+                }
+            } catch (e) {
+                document.getElementById('mev-status').textContent = 'MEV report unavailable';
+            }
+        }
+        document.getElementById('copyMevBtn')?.addEventListener('click', () => {
+            if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
+        });
+
         loadAccuracy();
+        loadGlassBox();
+        loadMevReport();
+        loadLocked();
+        loadLosing();
+        loadAuditChallenge();
         setInterval(loadAccuracy, 60000);
+        setInterval(loadLocked, 120000);
     </script>
 </body>
 </html>

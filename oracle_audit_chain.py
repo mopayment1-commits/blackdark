@@ -10,6 +10,7 @@ import hashlib
 import json
 import logging
 import os
+import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -17,6 +18,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.OracleAuditChain")
 
 CHAIN_PATH = Path(os.getenv("ORACLE_AUDIT_CHAIN_PATH", "data/oracle_audit_chain.jsonl"))
+_APPEND_LOCK = threading.Lock()
 
 
 def _utcnow_iso() -> str:
@@ -45,19 +47,25 @@ def _read_last_hash() -> str:
 
 
 def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
-    """Append tamper-evident record to hash chain."""
-    CHAIN_PATH.parent.mkdir(parents=True, exist_ok=True)
-    prev = _read_last_hash()
-    entry = {
-        "seq": _count_records() + 1,
-        "timestamp": _utcnow_iso(),
-        "prev_hash": prev,
-        **record,
-    }
-    entry["chain_hash"] = _hash_record(entry, prev)
-    with CHAIN_PATH.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(entry, default=str) + "\n")
-    return entry
+    """Append tamper-evident record to hash chain (process-local lock)."""
+    with _APPEND_LOCK:
+        CHAIN_PATH.parent.mkdir(parents=True, exist_ok=True)
+        prev = _read_last_hash()
+        entry = {
+            "seq": _count_records() + 1,
+            "timestamp": _utcnow_iso(),
+            "prev_hash": prev,
+            **record,
+        }
+        entry["chain_hash"] = _hash_record(entry, prev)
+        with CHAIN_PATH.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entry, default=str) + "\n")
+            fh.flush()
+            try:
+                os.fsync(fh.fileno())
+            except OSError:
+                pass
+        return entry
 
 
 def _count_records() -> int:

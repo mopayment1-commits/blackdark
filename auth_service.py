@@ -31,6 +31,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": False,
+        "evidence_pack": False,
+        "ux_pro_default": False,
     },
     "pro": {
         "label": "Pro",
@@ -44,6 +47,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": False,
+        "evidence_pack": False,
+        "ux_pro_default": True,
     },
     "whale": {
         "label": "Whale",
@@ -57,6 +63,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "journal": True,
         "portfolio_ai": True,
         "market_radar": True,
+        "b2b_api": True,
+        "evidence_pack": True,
+        "ux_pro_default": True,
     },
 }
 
@@ -185,25 +194,39 @@ async def create_session(user_id: int) -> dict[str, Any]:
 
 
 async def logout_user(token: str) -> None:
-    from security_auth import hash_session_token
+    from security_auth import hash_session_token, is_production_env
 
     from database import delete_user_session
 
     await delete_user_session(hash_session_token(token))
-    await delete_user_session(token)
+    # Legacy plaintext session rows — only wipe when explicitly allowed (never prod).
+    allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if allow_plain and not is_production_env():
+        await delete_user_session(token)
 
 
 async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
-    from security_auth import hash_session_token
+    from security_auth import hash_session_token, is_production_env
 
     from database import fetch_user_by_session
 
     plain = token.strip()
     row = await fetch_user_by_session(hash_session_token(plain))
+    # Legacy plaintext lookup: opt-in only, never in production.
     if row is None:
-        row = await fetch_user_by_session(plain)
+        allow_plain = os.getenv("ALLOW_PLAINTEXT_SESSION_LOOKUP", "").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+        if allow_plain and not is_production_env():
+            row = await fetch_user_by_session(plain)
     if row is None:
         return None
     email = str(row.get("email") or "")
@@ -213,7 +236,7 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         "email": email,
         "name": row.get("name") or "",
         "tier": tier,
-        "token": token,
+        # Never echo the bearer token in API payloads (XSS/log amplification).
         "telegram_chat_id": row.get("telegram_chat_id"),
         "stripe_customer_id": row.get("stripe_customer_id"),
     }

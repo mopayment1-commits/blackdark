@@ -1267,8 +1267,8 @@
         <section class="section">
             <div class="section-head">
                 <div>
-                    <h2>Whale Intelligence</h2>
-                    <p class="sub">CVVD cross-venue manipulation detection</p>
+                    <h2>Whale Intelligence · Signal vs Noise</h2>
+                    <p class="sub">Transfers ≠ Trades — one plain sentence per flow · CVVD scan underneath</p>
                 </div>
                 <button class="btn-secondary" onclick="refreshWhales()">Scan Now</button>
             </div>
@@ -1276,9 +1276,11 @@
             <div class="gravity-map" id="gravityMap">
                 <div class="loading">Loading whale gravity map...</div>
             </div>
+            <div id="signalVsNoise" style="margin-top:1rem"></div>
             <div class="cards-grid" id="whales" style="margin-top:1rem">
                 <div class="loading">Loading whale data...</div>
             </div>
+            <p id="whaleComplianceFoot" style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted)"><strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger</p>
         </section>
 
         <section class="section">
@@ -1344,9 +1346,18 @@
             <div class="section-head">
                 <div>
                     <h2>Alerts & Execution</h2>
-                    <p class="sub">Telegram · Email · WhatsApp — plus dry-run orders & panic stop</p>
+                    <p class="sub">In-app inbox — no TradingView-style 15/3min hard cap · works without Telegram · Truth + Half-Life gated</p>
                 </div>
                 <button class="panic-btn" id="panicBtn" onclick="togglePanic()">🛑 PANIC STOP</button>
+            </div>
+            <div class="tool-panel" style="margin-bottom:1rem">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+                    <h3 style="margin:0">In-App Inbox</h3>
+                    <button class="btn-secondary" type="button" onclick="loadInbox()">Refresh</button>
+                </div>
+                <div id="inboxStatus" class="arb-meta" style="margin-top:0.5rem">Loading inbox…</div>
+                <div id="alertsGenerosity" class="arb-meta" style="margin-top:0.5rem"></div>
+                <div id="inboxList" style="margin-top:0.75rem;display:grid;gap:0.65rem"></div>
             </div>
             <div class="intel-grid">
                 <div class="tool-panel">
@@ -1430,7 +1441,7 @@
             <div class="section-head">
                 <div>
                     <h2>Portfolio AI</h2>
-                    <p class="sub">Risk analysis for your holdings</p>
+                    <p class="sub">Risk in plain language — what happens if BTC drops</p>
                 </div>
             </div>
             <div class="portfolio-section">
@@ -1484,8 +1495,9 @@
             const sym = (document.getElementById('symbol')?.value || 'BTC').toUpperCase();
             const iv = document.getElementById('dashChartInterval')?.value || '1h';
             try {
-                const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}USDT&interval=${iv}&limit=120`);
-                const rows = await res.json();
+                const res = await fetch(`/api/market/klines?symbol=${encodeURIComponent(sym)}&interval=${encodeURIComponent(iv)}&limit=120`);
+                const payload = await res.json();
+                const rows = payload.klines || [];
                 dashCandleSeries.setData(rows.map(k => ({
                     time: Math.floor(k[0] / 1000),
                     open: +k[1], high: +k[2], low: +k[3], close: +k[4],
@@ -1501,6 +1513,10 @@
                     url,
                     text: 'BLACKDARK Oracle — AI crypto intelligence dashboard 🔮',
                 };
+            }
+            const cert = result.decision_certificate || {};
+            if (cert.share_text) {
+                return { url: window.location.origin + '/oracle-accuracy', text: cert.share_text };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
             const text = [
@@ -1737,13 +1753,15 @@
             const box = document.getElementById('oracleResult');
             const explainBtn = document.getElementById('explainBtn');
             if (!symbol) return;
+            const uxMode = (localStorage.getItem('bd_ux_mode') || 'beginner');
+            const lang = 'en'; localStorage.setItem('bd_lang','en');
 
             box.classList.add('visible');
             box.innerHTML = '<div class="loading">Oracle analyzing ' + symbol + '...</div>';
             explainVisible = false;
 
             try {
-                const res = await fetch('/oracle/' + symbol);
+                const res = await fetch('/oracle/' + encodeURIComponent(symbol) + '?ux_mode=' + encodeURIComponent(uxMode) + '&lang=' + encodeURIComponent(lang));
                 if (!res.ok) throw new Error('Not found');
                 const d = await res.json();
                 lastOracleData = d;
@@ -1754,13 +1772,52 @@
                 const fgPos = Math.min(100, Math.max(0, d.fear_greed_score || 50));
                 const whalePositive = (d.whale_alert || '').toLowerCase().includes('accumulation') ||
                     (d.whale_alert || '').toLowerCase().includes('buy');
+                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+                const truth = d.net_edge_truth || {};
+                const half = d.opportunity_half_life || {};
+                const sig = d.signal_registry || {};
+                const proBlock = (uxMode === 'pro') ? `
+                    <div class="metrics-grid">
+                        <div class="metric"><div class="val">${truth.truth_score ?? '—'}</div><div class="key">Truth</div></div>
+                        <div class="metric"><div class="val">${half.remaining_seconds ?? '—'}s</div><div class="key">Half-Life</div></div>
+                        <div class="metric"><div class="val">${d.market_regime || '—'}</div><div class="key">Regime</div></div>
+                        <div class="metric"><div class="val">${(sig.signal_id || '—').toString().slice(0,10)}</div><div class="key">Signal</div></div>
+                    </div>` : '';
+                const hint = d.upgrade_hint || null;
+                const teaser = (hint && hint.teaser) || {};
+                const upgradeBlock = hint ? `
+                    <div style="margin-top:0.75rem;padding:0.85rem 1rem;border:1px solid var(--border);border-radius:10px;color:var(--text-muted);font-size:0.85rem">
+                        ${hint.message || ''}
+                        ${(teaser.truth_score != null || teaser.remaining_seconds != null) ? `<div style="margin-top:0.35rem">Teaser · Truth ${teaser.truth_score ?? '—'} · Half-life ${teaser.remaining_seconds ?? '—'}s</div>` : ''}
+                        <button class="btn-secondary" style="margin-top:0.65rem" type="button" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle()">Switch to Pro</button>
+                    </div>` : '';
+                const conflict = d.dimension_conflict || {};
+                const vetoBlock = (uxMode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
+                    ? `<div style="margin-top:0.75rem;padding:0.75rem 1rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:0.85rem">
+                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
+                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:0.3rem;color:var(--text-muted)">${conflict.reason || conflict.message}</div>` : ''}
+                       </div>` : '';
+                const proofBlock = d.prediction_id
+                    ? `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Proof · prediction_id <code style="color:var(--accent)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a></div>`
+                    : '';
+                const factors = (d.explanation && d.explanation.top_3_factors) || [];
+                const factorBlock = factors.length ? `
+                    <div style="margin-top:0.85rem">
+                        <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.4rem">Why (Top 3)</div>
+                        ${factors.slice(0,3).map(f => `<div style="font-size:0.85rem;padding:0.35rem 0;border-bottom:1px solid var(--border)"><strong>${f.factor}</strong> — ${f.detail}<div style="color:var(--text-muted);font-size:0.75rem">${f.source||''}</div></div>`).join('')}
+                    </div>` : '';
+                const foot = d.compliance_footer || {};
+                const complianceBlock = foot.disclaimer
+                    ? `<div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem"><strong>Anti-Hype</strong> · ${foot.data_source||''} · ${foot.trust_basis||''}<br>${foot.disclaimer}</div>`
+                    : `<div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem"><strong>Anti-Hype</strong> · Not financial advice. Verify on the Public Accuracy Ledger.</div>`;
 
                 box.innerHTML = `
                     <div class="verdict-banner">
                         <div>
-                            <div class="verdict-badge ${verdictClass(d.verdict)}">${d.verdict}</div>
+                            <div class="verdict-badge ${verdictClass(d.verdict)}">${d.decision_action || d.verdict}</div>
                             <div style="color:var(--text-muted);font-size:0.9rem;margin-top:0.25rem">
-                                ${d.symbol} · $${fmt(d.price, 2)} · <span class="${d.change_24h >= 0 ? 'change-up' : 'change-down'}">${d.change_24h >= 0 ? '+' : ''}${fmt(d.change_24h, 2)}%</span>
+                                ${d.symbol} · $${fmt(d.price, 2)} · <span class="${(d.change_24h || 0) >= 0 ? 'change-up' : 'change-down'}">${(d.change_24h || 0) >= 0 ? '+' : ''}${fmt(d.change_24h || 0, 2)}%</span>
                             </div>
                         </div>
                         <div class="score-ring">
@@ -1769,11 +1826,10 @@
                         </div>
                     </div>
 
-                    <div class="narrative-box">${d.narrative || d.oracle}</div>
+                    <div class="narrative-box">${sentence}</div>
 
-                    <div class="whale-alert-box ${whalePositive ? 'positive' : ''}">
-                        🐋 ${d.whale_alert || 'No whale activity'}
-                    </div>
+                    ${d.whale_alert ? `<div class="whale-alert-box ${whalePositive ? 'positive' : ''}">${d.whale_alert}</div>` : ''}
+                    <div id="oracleWhaleSvn" class="whale-alert-box" style="display:none"></div>
 
                     <div class="fg-bar-wrap">
                         <div class="fg-bar-label">
@@ -1784,22 +1840,35 @@
                     </div>
 
                     <div class="metrics-grid">
-                        <div class="metric"><div class="val">${d.confidence}%</div><div class="key">Confidence</div></div>
-                        <div class="metric"><div class="val">${d.sentiment}</div><div class="key">Sentiment</div></div>
-                        <div class="metric"><div class="val">${d.trend_direction}</div><div class="key">Trend</div></div>
-                        <div class="metric"><div class="val">${d.risk_level}</div><div class="key">Risk</div></div>
-                        <div class="metric"><div class="val">$${fmt(d.support, 0)}</div><div class="key">Support</div></div>
-                        <div class="metric"><div class="val">$${fmt(d.resistance, 0)}</div><div class="key">Resistance</div></div>
+                        <div class="metric"><div class="val">${d.confidence != null ? d.confidence + '%' : '—'}</div><div class="key">Confidence</div></div>
+                        <div class="metric"><div class="val">${d.ux_mode || uxMode}</div><div class="key">Mode</div></div>
+                        <div class="metric"><div class="val">${d.lang || lang}</div><div class="key">Lang</div></div>
+                        <div class="metric"><div class="val">${d.risk_level || '—'}</div><div class="key">Risk</div></div>
                     </div>
+                    ${factorBlock}
+                    ${proBlock}
+                    ${vetoBlock}
+                    ${proofBlock}
+                    ${upgradeBlock}
+                    ${complianceBlock}
+                    ${(() => {
+                        const cert = d.decision_certificate || {};
+                        if (!(cert.certificate_hash || d.prediction_id)) return '';
+                        window._lastCertShare = cert.share_text || '';
+                        return `<div style="margin-top:0.65rem;font-size:0.8rem;color:var(--text-muted)">Decision Certificate · <code style="color:var(--accent)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
+                        ${cert.share_text ? ` <button class="btn-secondary" style="margin-left:0.35rem;padding:0.3rem 0.65rem;font-size:0.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}</div>`;
+                    })()}
 
-                    ${d.forecast_summary ? `<div class="forecast-box">📈 ${d.forecast_summary}</div>` : ''}
+                    ${d.forecast_summary ? `<div class="forecast-box">${d.forecast_summary}</div>` : ''}
 
-                    <div style="font-size:0.8rem;color:var(--text-muted)">
-                        ${d.action} · ${d.timestamp_human || ''}
+                    <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem">
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','beginner');askOracle();return false">Beginner</a> ·
+                        <a href="#" onclick="localStorage.setItem('bd_ux_mode','pro');askOracle();return false">Pro</a>
                     </div>
 
                     <div class="explain-panel" id="explainPanel"></div>
                 `;
+                loadOracleWhaleSentence(symbol);
             } catch (e) {
                 box.innerHTML = '<div class="empty">Could not analyze ' + symbol + '. Try BTC, ETH, or SOL.</div>';
                 explainBtn.style.display = 'none';
@@ -2146,8 +2215,16 @@
             const alertsEl = document.getElementById('arbAlerts');
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST' } : {});
+                const headers = (typeof authHeaders === 'function') ? authHeaders() : {};
+                const res = await fetch(url, refresh ? { method: 'POST', headers } : { headers });
                 const data = await res.json();
+                if (res.status === 403) {
+                    const detail = data.detail || {};
+                    statsEl.innerHTML = '';
+                    el.innerHTML = `<div class="empty">${detail.message || 'Pro required for arbitrage'}
+                        <div style="margin-top:.75rem"><a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a></div></div>`;
+                    return;
+                }
                 const counts = data.counts || {};
                 statsEl.innerHTML = `
                     <span class="arb-stat">Cross: <strong>${counts.cross_exchange || 0}</strong></span>
@@ -2179,6 +2256,9 @@
                     const profitClass = positive ? '' : ' negative';
                     const sign = positive ? '+' : '';
                     const execClass = o.execution_feasibility || 'partial';
+                    const truth = o.net_edge_truth || {};
+                    const half = o.opportunity_half_life || {};
+                    const rejected = o.truth_rejected || truth.reject;
                     let route = '';
                     if (o.kind === 'cross_exchange') route = `Buy ${o.buy_exchange} → Sell ${o.sell_exchange}`;
                     else if (o.kind === 'triangular') route = `${o.exchange}: ${o.path}`;
@@ -2187,7 +2267,7 @@
 
                     return `
                         <div class="arb-card ${execClass}">
-                            <div class="arb-kind">${o.kind_label}</div>
+                            <div class="arb-kind">${o.kind_label}${rejected ? ' · TRUTH REJECT' : ''}</div>
                             <div class="arb-profit${profitClass}">${sign}$${fmt(Math.abs(o.net_profit_usdt), 4)} <span style="font-size:0.85rem;font-weight:600">(${sign}${fmt(o.net_profit_percent, 3)}%)</span></div>
                             <div style="font-weight:700;margin-top:0.25rem">${o.asset || o.symbol}</div>
                             <div class="arb-meta">${route}</div>
@@ -2197,6 +2277,11 @@
                                 · ${o.execution_feasibility} execution
                                 · ${o.estimated_duration}
                                 ${o.live_duration_label ? ` · Live: <strong>${o.live_duration_label}</strong>` : ''}
+                            </div>
+                            <div class="arb-meta" style="margin-top:0.25rem">
+                                Truth ${truth.truth_score ?? '—'}
+                                · Half-life ${half.remaining_seconds ?? o.expected_half_life_seconds ?? '—'}s
+                                ${rejected ? ' · not alerted' : ''}
                             </div>
                             <div class="arb-meta" style="margin-top:0.35rem;color:var(--text)">${(o.why || '').slice(0, 120)}...</div>
                         </div>
@@ -2217,7 +2302,7 @@
             const el = document.getElementById('compareResult');
             el.textContent = 'Comparing venues...';
             try {
-                const res = await fetch('/api/arbitrage/compare/' + sym);
+                const res = await fetch('/api/arbitrage/compare/' + sym, { headers: (typeof authHeaders === 'function') ? authHeaders() : {} });
                 const data = await res.json();
                 const venues = (data.venues || []).map(v =>
                     `${v.exchange.toUpperCase()}: bid $${fmt(v.best_bid, 2)} / ask $${fmt(v.best_ask, 2)} (${fmt(v.spread_bps, 1)} bps)`
@@ -2444,8 +2529,10 @@
                 }
                 chatHistory.push({ role: 'user', content: msg });
                 chatHistory.push({ role: 'assistant', content: d.reply });
-                box.lastElementChild.textContent = d.reply;
                 box.lastElementChild.style.whiteSpace = 'pre-wrap';
+                box.lastElementChild.innerHTML =
+                    (d.reply || '').replace(/</g, '&lt;') +
+                    `<div style="margin-top:0.55rem;font-size:0.7rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.45rem"><strong>Anti-Hype</strong> · Not financial advice. Verify on the <a href="/oracle-accuracy" style="color:var(--accent)">Public Accuracy Ledger</a>.</div>`;
             } catch (e) {
                 box.lastElementChild.textContent = 'Chat unavailable';
             }
@@ -2535,6 +2622,51 @@
             }
         }
 
+        async function loadAlertsGenerosity() {
+            const el = document.getElementById('alertsGenerosity');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/alerts/generosity');
+                const d = await res.json();
+                const bd = d.blackdark || {};
+                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong> — ${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+            } catch (e) { /* ignore */ }
+        }
+
+        async function loadInbox() {
+            const status = document.getElementById('inboxStatus');
+            const list = document.getElementById('inboxList');
+            if (!status || !list) return;
+            status.textContent = 'Loading inbox…';
+            try {
+                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const data = await res.json();
+                const stats = data.stats || {};
+                status.textContent = `Inbox ${stats.unread || 0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
+                const rows = data.alerts || [];
+                list.innerHTML = rows.length ? rows.map(a => `
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
+                        <strong>${a.title || 'Alert'}</strong>
+                        <div style="font-size:0.85rem;color:var(--text-muted);margin-top:0.25rem">${a.body || ''}</div>
+                        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.35rem">${(a.created_at || '').slice(0, 19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
+            } catch (e) {
+                status.textContent = 'Inbox unavailable';
+                list.innerHTML = '';
+            }
+        }
+
+        async function markInboxRead(id) {
+            if (!id) return;
+            try {
+                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                });
+                loadInbox();
+            } catch (e) { /* ignore */ }
+        }
+
         async function subscribeAlerts() {
             const msg = document.getElementById('alertMsg');
             await saveTelegramProfile();
@@ -2595,7 +2727,8 @@
                     body: JSON.stringify({ text })
                 });
                 const d = await res.json();
-                el.innerHTML = `<strong>${d.intent || 'command'}</strong>: ${d.speech || d.speech_en || 'Done'}`;
+                el.innerHTML = `<strong>${d.intent || 'command'}</strong>: ${d.speech || d.speech_en || 'Done'}` +
+                    `<div style="margin-top:0.45rem;font-size:0.7rem;color:var(--text-muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify on the <a href="/oracle-accuracy" style="color:var(--accent)">Public Accuracy Ledger</a>.</div>`;
                 if (d.speech) speakText(d.speech);
                 if (d.intent === 'oracle' && d.result?.symbol) {
                     document.getElementById('symbol').value = d.result.symbol;
@@ -2625,7 +2758,7 @@
                 return;
             }
             voiceRecognition = new SpeechRecognition();
-            voiceRecognition.lang = 'ar-SA';
+            voiceRecognition.lang = 'en-US';
             voiceRecognition.interimResults = false;
             voiceRecognition.onstart = () => { voiceListening = true; btn.classList.add('listening'); };
             voiceRecognition.onend = () => { voiceListening = false; btn.classList.remove('listening'); };
@@ -2690,19 +2823,35 @@
             const errEl = document.getElementById('pricingErrorPanel');
             try {
                 const [wRes, cRes] = await Promise.all([
-                    fetch(`/api/oracle/weights?symbol=${sym}`),
-                    fetch(`/api/arbitrage/compare/${sym}`),
+                    fetch(`/api/oracle/weights/public?symbol=${encodeURIComponent(sym)}`),
+                    fetch(`/api/arbitrage/compare/${encodeURIComponent(sym)}`, {
+                        headers: typeof authHeaders === 'function' ? authHeaders() : {},
+                    }),
                 ]);
-                const weights = await wRes.json();
+                if (!wRes.ok) {
+                    weightsEl.innerHTML = wRes.status === 401 || wRes.status === 403
+                        ? 'Weights locked — <a href="/login">login</a> or <a href="/create-checkout-session?tier=pro">upgrade to Pro</a>.'
+                        : 'Oracle weights unavailable';
+                } else {
+                    const weights = await wRes.json();
+                    const dims = weights.dimension_weights || {};
+                    const pct = (k) => dims[k] != null ? `${(Number(dims[k]) * 100).toFixed(0)}%` : '—';
+                    weightsEl.innerHTML = `
+                        <strong>Oracle Weights (${sym})</strong> · regime ${weights.market_regime || '—'}<br>
+                        Technical ${pct('technical')} · On-chain ${pct('onchain')} ·
+                        Sentiment ${pct('sentiment')} · Macro ${pct('macro')} ·
+                        Whale ${pct('whale')}
+                    `;
+                }
+                if (!cRes.ok) {
+                    const upgrade = cRes.status === 401 || cRes.status === 403
+                        ? 'Login or upgrade required for live feed-lag / pricing-error edges.'
+                        : 'Compare unavailable';
+                    lagEl.textContent = upgrade;
+                    errEl.textContent = '';
+                    return;
+                }
                 const compare = await cRes.json();
-                const dims = weights.dimension_weights || {};
-                weightsEl.innerHTML = `
-                    <strong>Oracle Weights (${sym})</strong><br>
-                    Technical ${(dims.technical * 100).toFixed(0)}% · On-chain ${(dims.onchain * 100).toFixed(0)}% ·
-                    Sentiment ${(dims.sentiment * 100).toFixed(0)}% · Macro ${(dims.macro * 100).toFixed(0)}% ·
-                    Whale ${(dims.whale * 100).toFixed(0)}% ·
-                    Modal adj: <strong>${weights.breakdown?.total_modal_adjustment ?? 0}</strong>
-                `;
                 const lagOps = compare.feed_lag?.opportunities || [];
                 lagEl.innerHTML = lagOps.length
                     ? lagOps.slice(0, 3).map(o => `${o.slow_exchange}: ${o.edge_bps} bps · lag ${o.lag_seconds}s (${o.direction})`).join('<br>')
@@ -2862,10 +3011,43 @@
             }).catch(() => { el.innerHTML = '<div class="empty">Heatmap unavailable</div>'; });
         }
 
+        async function loadOracleWhaleSentence(symbol) {
+            const el = document.getElementById('oracleWhaleSvn');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
+                const data = await res.json();
+                const rows = data.classified || [];
+                const hit = rows.find(r => String(r.asset || '').toUpperCase() === String(symbol || '').toUpperCase()) || rows[0];
+                if (!hit) { el.style.display = 'none'; return; }
+                el.style.display = 'block';
+                el.className = 'whale-alert-box' + (hit.actionable ? ' positive' : '');
+                el.textContent = (hit.label || '—') + ' · ' + (hit.sentence || hit.class_id || '');
+            } catch (e) { el.style.display = 'none'; }
+        }
+
         async function loadWhales(refresh=false) {
             const el = document.getElementById('whales');
             const sectorEl = document.getElementById('sectorFlows');
+            const svn = document.getElementById('signalVsNoise');
             try {
+                try {
+                    const svnRes = await fetch('/api/whale/signal-vs-noise?limit=8');
+                    const svnData = await svnRes.json();
+                    const classified = svnData.classified || [];
+                    if (svn) {
+                        svn.innerHTML = classified.length
+                            ? classified.slice(0, 6).map(a => `
+                                <div class="whale-card" onclick="quickAsk('${a.asset || 'BTC'}')">
+                                    <div class="pattern">${a.label || '—'} · ${a.asset || ''}</div>
+                                    <div class="meta">${a.sentence || a.class_id || ''}</div>
+                                </div>`).join('')
+                            : '<div class="empty">Signal vs Noise classifier warming up…</div>';
+                    }
+                } catch (e) {
+                    if (svn) svn.innerHTML = '';
+                }
+
                 const url = refresh ? '/api/whale/scan' : '/api/whale-activity';
                 const res = await fetch(url, refresh ? { method: 'POST' } : {});
                 const data = await res.json();
@@ -2958,8 +3140,10 @@
                 const holdingsHtml = (data.holdings || []).map(h =>
                     `<div class="intel-row"><span>${h.symbol} × ${h.amount}</span><span>$${fmt(h.value_usd, 2)}</span></div>`
                 ).join('');
+                const foot = data.compliance_footer || {};
                 result.innerHTML = `
                     ${holdingsHtml ? '<div style="margin-bottom:1rem">' + holdingsHtml + '</div>' : ''}
+                    <div class="narrative-box" style="margin-bottom:1rem">${data.plain_language || data.scenario_note || ''}</div>
                     <div class="metrics-grid">
                         <div class="metric"><div class="val">${data.total_value_formatted || ('$' + fmt(data.total_value, 2))}</div><div class="key">Total Value</div></div>
                         <div class="metric"><div class="val">${data.btc_correlation}</div><div class="key">BTC Correlation</div></div>
@@ -2968,6 +3152,10 @@
                     </div>
                     <p style="margin-top:0.75rem;color:var(--text-muted);font-size:0.9rem">${data.scenario_note || ''}</p>
                     <p style="margin-top:0.5rem;color:var(--text-muted);font-size:0.85rem">${(data.recommendations || []).join(' · ')}</p>
+                    <div style="margin-top:0.85rem;font-size:0.72rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:0.65rem">
+                        <strong>Anti-Hype</strong> · ${foot.data_source || 'holdings beta model'} · ${foot.trust_basis || 'public_accuracy_ledger'}<br>
+                        ${foot.disclaimer || 'Not financial advice. Verify claims on the Public Accuracy Ledger.'}
+                    </div>
                 `;
             } catch (e) {
                 result.innerHTML = '<div class="empty">Analysis failed</div>';
@@ -2982,6 +3170,8 @@
         loadAuthState();
         loadBillingPanel();
         loadTelegramStatus();
+        loadAlertsGenerosity();
+        loadInbox();
         loadJournal();
         loadResearchLab();
         loadFinancialModels();
@@ -3016,6 +3206,7 @@
         setInterval(loadSentiment, 60000);
         setInterval(loadOnchain, 60000);
         setInterval(() => loadArbitrage(false), 45000);
+        setInterval(loadInbox, 60000);
         setInterval(loadAdvancedSignals, 60000);
         setInterval(() => loadWhales(false), 60000);
         setInterval(loadAudit, 120000);

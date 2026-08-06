@@ -1,4 +1,4 @@
-# Railway web tier — keep image small so deploy push completes
+# Railway web tier — lean but ML-capable (D5 / inference / ccxt)
 aiosqlite
 aiohttp
 pydantic
@@ -15,3 +15,10 @@ kafka-python
 hvac
 python-dotenv
 cryptography
+# ML / market (required for regime models + oracle inference)
+scikit-learn
+joblib
+pandas
+ccxt
+pyarrow
+httpx

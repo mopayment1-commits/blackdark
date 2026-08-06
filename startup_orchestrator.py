@@ -34,6 +34,7 @@ class RuntimeState:
     cloud_sync_task: asyncio.Task | None = None
     ml_flywheel_started: bool = False
     uptime_probe_task: asyncio.Task | None = None
+    glass_box_task: asyncio.Task | None = None
     extras: dict[str, Any] = field(default_factory=dict)
 
 
@@ -205,6 +206,30 @@ async def run_background_startup(state: RuntimeState) -> None:
         await start_ml_flywheel()
         state.ml_flywheel_started = True
         logger.info("ML flywheel started (ML_FLYWHEEL_ENABLED=true).")
+
+    # Glass Box auto-seal cadence (product loop; announce timing remains human H2)
+    if os.getenv("GLASS_BOX_AUTO_SEAL", "true").lower() in {"1", "true", "yes"}:
+        async def _glass_box_seal_loop() -> None:
+            import asyncio
+
+            # First seal shortly after boot, then daily
+            await asyncio.sleep(45)
+            while True:
+                try:
+                    from locked_predictions import maybe_auto_seal_from_oracle
+
+                    result = await maybe_auto_seal_from_oracle()
+                    logger.info(
+                        "Glass Box auto-seal | sealed=%s skipped=%s",
+                        result.get("sealed"),
+                        result.get("skipped"),
+                    )
+                except Exception:
+                    logger.exception("Glass Box auto-seal failed")
+                await asyncio.sleep(float(os.getenv("GLASS_BOX_AUTO_SEAL_SEC", str(24 * 3600))))
+
+        state.glass_box_task = asyncio.create_task(_glass_box_seal_loop())
+        logger.info("Glass Box auto-seal cadence started.")
 
     if os.getenv("WEEKLY_REPORT_AUTO", "false").lower() in {"1", "true", "yes"}:
 

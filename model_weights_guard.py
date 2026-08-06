@@ -76,3 +76,16 @@ def load_weights(path: Path | None = None) -> dict[str, Any] | None:
     except (json.JSONDecodeError, ValueError, OSError) as exc:
         logger.warning("Unable to load model weights | reason=%s", exc)
     return None
+
+
+def public_weights_summary(regime: str | None = None) -> dict[str, Any]:
+    """Public-safe summary of dimension tilts (no encrypted payload exposure)."""
+    from weight_aggregator import get_core_score_weights, get_regime_dimension_weights
+
+    key = (regime or "neutral").strip().lower().replace("-", "_")
+    return {
+        "market_regime": key,
+        "dimension_weights": get_regime_dimension_weights(key),
+        "core_weights": get_core_score_weights(),
+        "note": "Informational analytics weights only — not investment advice.",
+    }

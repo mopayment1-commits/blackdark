@@ -106,8 +106,19 @@ async def start_kafka_consumer(
                 group_id=os.getenv("KAFKA_GROUP_ID", "blackdark-workers"),
             )
             logger.info("Kafka consumer started on %s", topics)
-            while True:
+
+            def _poll_batch():
+                # kafka-python is sync — never block the event loop
+                batch = []
                 for msg in consumer:
+                    batch.append(msg)
+                    if len(batch) >= 50:
+                        break
+                return batch
+
+            while True:
+                batch = await asyncio.to_thread(_poll_batch)
+                for msg in batch:
                     payload = msg.value if isinstance(msg.value, dict) else {}
                     _received.append({"topic": msg.topic, "payload": payload})
                     if len(_received) > 200:

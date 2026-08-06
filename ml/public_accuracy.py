@@ -74,34 +74,31 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
             correct += 1
 
+        pred_id = row.get("id")
+        chain_meta = _chain_lookup().get(str(pred_id) if pred_id is not None else "")
         public_recent.append(
-
             {
-
+                "prediction_id": pred_id,
                 "timestamp": row.get("timestamp"),
-
                 "asset": row.get("asset"),
-
                 "verdict": row.get("verdict"),
-
                 "price_at_prediction": row.get("price_at_prediction"),
-
                 "price_after_24h": row.get("price_after_24h"),
-
                 "label": label,
-
                 "direction_label": row.get("direction_label"),
-
                 "accuracy_score": row.get("accuracy_score"),
-
                 "opportunity_score": row.get("opportunity_score"),
-
                 "synthetic": False,
-
                 "source": row.get("source") or "oracle",
-
+                "chain_hash": (chain_meta or {}).get("chain_hash"),
+                "prev_hash": (chain_meta or {}).get("prev_hash"),
+                "chain_seq": (chain_meta or {}).get("seq"),
+                "chain_ref": (
+                    ((chain_meta or {}).get("chain_hash") or "")[:16]
+                    if chain_meta
+                    else (f"oracle_pred:{pred_id}" if pred_id is not None else None)
+                ),
             }
-
         )
 
 
@@ -260,5 +257,113 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         },
 
+        "proof_chain": _proof_chain_block(),
+
+        "regime_models": _regime_models_block(),
+
+        "signal_registry": _signal_registry_block(),
+
+        "drift": _drift_status_block(),
+
+        "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
+
+        "heroes_binding": "docs/HEROES_STRATEGY_BINDING.md",
+
     }
+
+
+def _regime_models_block() -> dict[str, Any]:
+    try:
+        from ml.regime_models import regime_model_registry
+
+        return regime_model_registry()
+    except Exception as exc:
+        return {"error": str(exc), "evidence_status": "unavailable"}
+
+
+def _signal_registry_block() -> dict[str, Any]:
+    """Public-safe D8 moat summary (no persist paths / raw feature dumps)."""
+    try:
+        from signal_registry import registry_stats
+
+        stats = registry_stats()
+        return {
+            "differentiator": "D8",
+            "total": stats.get("total_in_memory", 0),
+            "labeled": stats.get("labeled", 0),
+            "unlabeled": stats.get("unlabeled", 0),
+            "by_type": stats.get("by_type") or {},
+            "by_label": stats.get("by_label") or {},
+            "moat_claim": stats.get("moat_claim"),
+            "generated_at": stats.get("generated_at"),
+            "api": "/api/oracle/signals",
+        }
+    except Exception as exc:
+        return {"error": str(exc), "differentiator": "D8"}
+
+
+def _drift_status_block() -> dict[str, Any]:
+    """Core Canon §1.3 — product-facing drift / freeze state (fail-closed visibility)."""
+    envelope_ready = False
+    try:
+        from ml.drift_monitor import load_feature_envelope
+
+        envelope_ready = load_feature_envelope() is not None
+    except Exception:
+        envelope_ready = False
+    try:
+        from risk_manager import risk_status
+
+        risk = risk_status()
+    except Exception:
+        risk = {}
+    freeze_reason = str(risk.get("freeze_reason") or "")
+    drift_freeze = freeze_reason.startswith("ml_drift_high")
+    return {
+        "drift_envelope_ready": envelope_ready,
+        "trading_frozen": bool(risk.get("trading_frozen")),
+        "freeze_reason": freeze_reason,
+        "drift_freeze_active": drift_freeze,
+        "fail_closed": drift_freeze or bool(risk.get("trading_frozen")),
+        "note": "High PSI drift freezes trading; public surface shows freeze state honestly.",
+    }
+
+
+def _chain_lookup() -> dict[str, dict[str, Any]]:
+    """Map prediction_id -> latest audit-chain entry (best-effort)."""
+    index: dict[str, dict[str, Any]] = {}
+    try:
+        from oracle_audit_chain import chain_summary
+
+        recent = (chain_summary(limit=200) or {}).get("recent_records") or []
+        for entry in recent:
+            pid = entry.get("prediction_id")
+            if pid is None:
+                continue
+            index[str(pid)] = {
+                "chain_hash": entry.get("chain_hash"),
+                "prev_hash": entry.get("prev_hash"),
+                "seq": entry.get("seq"),
+            }
+    except Exception:
+        return {}
+    return index
+
+
+def _proof_chain_block() -> dict[str, Any]:
+    try:
+        from oracle_audit_chain import chain_summary, verify_chain
+
+        summary = chain_summary(limit=8)
+        recent = summary.get("recent_records") or []
+        tip = recent[-1] if recent else {}
+        return {
+            "summary": summary,
+            "verify": verify_chain(),
+            "public_page": "/oracle-accuracy",
+            "tip_hash": tip.get("chain_hash"),
+            "total_records": summary.get("total_records"),
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
 

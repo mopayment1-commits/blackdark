@@ -97,6 +97,28 @@ def get_best_price(exchange: str, symbol: str) -> dict[str, float] | None:
     }
 
 
+def get_quote_age_ms(exchange: str, symbol: str) -> float | None:
+    """Age of the latest top-of-book update for exchange/symbol in milliseconds."""
+    key = f"{exchange.strip().lower()}|{symbol.strip().upper()}"
+    last = _last_update_ms.get(key, 0.0)
+    if last <= 0:
+        return None
+    return max(0.0, time.monotonic() * 1000.0 - last)
+
+
+def is_quote_fresh(
+    exchange: str,
+    symbol: str,
+    *,
+    max_age_ms: float | None = None,
+) -> bool:
+    age = get_quote_age_ms(exchange, symbol)
+    if age is None:
+        return False
+    limit = max_age_ms if max_age_ms is not None else _max_age_ms()
+    return age <= limit
+
+
 def hub_stats() -> dict[str, Any]:
     now_ms = time.monotonic() * 1000.0
     ages: list[float] = []

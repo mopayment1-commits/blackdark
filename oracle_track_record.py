@@ -148,17 +148,25 @@ def public_track_record() -> dict[str, Any]:
     live_resolved = [r for r in all_resolved if not is_synthetic_prediction(r)]
     synthetic_resolved = [r for r in all_resolved if is_synthetic_prediction(r)]
 
+    def _label(row: dict) -> str:
+        return str(row.get("label") or row.get("outcome") or "").strip().lower()
+
     def _hit_rate(rows: list[dict]) -> float:
+        """Strict hit rate: only full `correct` counts (partial is disclosed separately)."""
         if not rows:
             return 0.0
-        correct = sum(
-            1 for r in rows
-            if str(r.get("label") or r.get("outcome") or "") in {"correct", "partial"}
-        )
+        correct = sum(1 for r in rows if _label(r) == "correct")
         return round(correct / len(rows) * 100, 2)
+
+    def _partial_rate(rows: list[dict]) -> float:
+        if not rows:
+            return 0.0
+        partial = sum(1 for r in rows if _label(r) == "partial")
+        return round(partial / len(rows) * 100, 2)
 
     live_hit = _hit_rate(live_resolved)
     synth_hit = _hit_rate(synthetic_resolved)
+    live_partial = _partial_rate(live_resolved)
 
     return {
         "immutable_chain": {
@@ -169,13 +177,19 @@ def public_track_record() -> dict[str, Any]:
         "cumulative": {
             "resolved_predictions": len(live_resolved),
             "hit_rate_percent": live_hit,
+            "partial_rate_percent": live_partial,
+            "hit_definition": "correct_only",
             "metrics_scope": "live_only",
             "meets_target": live_hit >= 65.0 if len(live_resolved) >= 30 else None,
-            "note": "Live predictions only — synthetic historical_seed excluded.",
+            "note": (
+                "Live predictions only — synthetic historical_seed excluded. "
+                "Hit rate counts full correct only; partial is separate."
+            ),
         },
         "synthetic_demo_data": {
             "resolved_predictions": len(synthetic_resolved),
             "hit_rate_percent": synth_hit,
+            "hit_definition": "correct_only",
             "excluded_from_primary_metrics": True,
             "note": "Due-diligence backfill — not live trading performance.",
         },

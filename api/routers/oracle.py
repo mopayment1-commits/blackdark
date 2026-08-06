@@ -82,7 +82,21 @@ async def ml_status():
 async def ml_flywheel_run(_admin: dict = Depends(require_admin)):
     from ml.labeling_pipeline import run_labeling_flywheel_cycle
 
-    return await run_labeling_flywheel_cycle()
+    return await run_labeling_flywheel_cycle(bootstrap_if_needed=True, collect_live=True)
+
+
+@router.post("/api/ml/collect-live")
+async def ml_collect_live(_admin: dict = Depends(require_admin)):
+    from ml.live_sample_collector import collect_live_unified_samples
+
+    return await collect_live_unified_samples()
+
+
+@router.post("/api/ml/bootstrap-replay")
+async def ml_bootstrap_replay(_admin: dict = Depends(require_admin)):
+    from ml.market_replay_bootstrap import bootstrap_market_replay_dataset
+
+    return await bootstrap_market_replay_dataset()
 
 
 @router.post("/api/ml/train")
@@ -208,3 +222,87 @@ async def api_oracle_audit_chain_verify():
     from oracle_audit_chain import verify_chain
 
     return verify_chain()
+
+
+@router.get("/api/oracle/net-edge-truth")
+async def api_net_edge_truth_status():
+    from net_edge_truth import net_edge_truth_status
+
+    return net_edge_truth_status()
+
+
+@router.get("/api/oracle/half-life")
+async def api_opportunity_half_life():
+    from opportunity_tracker import half_life_status
+
+    return half_life_status()
+
+
+@router.get("/api/oracle/signals")
+async def api_signal_registry(
+    limit: int = 50,
+    signal_type: str | None = None,
+    asset: str | None = None,
+):
+    from signal_registry import list_signals, registry_stats
+
+    return {
+        "stats": registry_stats(),
+        "signals": list_signals(limit=limit, signal_type=signal_type, asset=asset),
+    }
+
+
+@router.get("/api/oracle/signals/summary")
+async def api_signal_registry_summary():
+    """Public D8 moat summary without full signal rows."""
+    from signal_registry import registry_stats
+
+    stats = registry_stats()
+    return {
+        "differentiator": "D8",
+        "status": stats.get("status"),
+        "total": stats.get("total_in_memory", 0),
+        "labeled": stats.get("labeled", 0),
+        "unlabeled": stats.get("unlabeled", 0),
+        "linked_prediction_ids": stats.get("linked_prediction_ids", 0),
+        "by_type": stats.get("by_type") or {},
+        "by_label": stats.get("by_label") or {},
+        "by_type_performance": stats.get("by_type_performance") or {},
+        "lexicon": stats.get("lexicon") or {},
+        "moat_claim": stats.get("moat_claim"),
+        "generated_at": stats.get("generated_at"),
+    }
+
+
+@router.post("/api/oracle/signals/backfill")
+async def api_signal_registry_backfill(_admin: dict = Depends(require_admin)):
+    """Admin: label D8 registry rows from resolved oracle predictions."""
+    from signal_registry import backfill_labels_from_oracle
+
+    return await backfill_labels_from_oracle(limit=5000)
+
+
+@router.get("/api/oracle/persona-clarity/demo")
+async def api_persona_clarity_demo(
+    asset: str = "BTC",
+    score: float = 72.0,
+    verdict: str = "Buy Now",
+    net_profit_usdt: float = 0.42,
+):
+    from persona_clarity import build_persona_clarity
+
+    return build_persona_clarity(
+        asset=asset.upper(),
+        score=score,
+        verdict=verdict,
+        payload={
+            "market_regime": "risk_on",
+            "net_edge_truth": {"truth_score": 78, "reject": False},
+            "opportunity_half_life": {
+                "expected_half_life_seconds": 16,
+                "remaining_seconds": 9,
+                "disappearance_probability": 0.41,
+            },
+        },
+        net_profit_usdt=net_profit_usdt,
+    )

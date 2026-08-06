@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Intelligence Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Inter, system-ui, sans-serif; background: #0a0a0f; color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
+        body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
+        html[dir="ltr"] body { font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif; }
         a { color: #22d3ee; text-decoration: none; }
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
@@ -67,8 +69,11 @@
                 <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
                 <div class="nav-links">
                     <a href="/">Home</a>
+                    <a href="/dashboard#portfolio">Portfolio</a>
+                    <a href="/dashboard#stealth">Stealth</a>
                     <a href="/platform">Platform</a>
                     <a href="/oracle-accuracy">Accuracy</a>
+                    <a href="/capabilities">Capabilities</a>
                     <a href="/login" id="authLink">Login</a>
                 </div>
             </div>
@@ -77,8 +82,17 @@
 
     <main id="top">
         <div class="hero">
-            <h1>AI Crypto Oracle</h1>
-            <p>Know your move in 30 seconds — live market + whale intelligence</p>
+            <h1 id="heroBrand">BLACKDARK</h1>
+            <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
+            <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
+        </div>
+        <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
+            <select id="uxMode" onchange="askOracle()">
+                <option value="beginner" selected>Beginner</option>
+                <option value="pro">Pro</option>
+            </select>
+            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
+            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -89,7 +103,7 @@
         </div>
         <div class="search-row">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
-            <button class="btn" onclick="askOracle()">Get Signal</button>
+            <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
         </div>
         <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
 
@@ -121,18 +135,69 @@
         </section>
 
         <section>
-            <h2>Whale Intelligence</h2>
+            <h2>Whale Intelligence · Signal vs Noise</h2>
+            <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
             <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
             <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
+        </section>
+
+        <section id="portfolio">
+            <h2>Portfolio AI</h2>
+            <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
+            <div class="toolbar">
+                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
+                <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
+            </div>
+            <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
+            <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
+        </section>
+
+        <section id="stealth">
+            <h2>Stealth Execution Advisor</h2>
+            <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
+            <div class="toolbar">
+                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
+                <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
+            </div>
+            <div id="stealthResult" class="empty">Enter size and run advisor</div>
+        </section>
+
+        <section id="mev">
+            <h2>MEV / Sandwich Report</h2>
+            <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
+            <div class="toolbar">
+                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <button class="btn secondary" onclick="loadMevReport()">Build report</button>
+                <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
+            </div>
+            <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
         <section>
-            <h2>Alerts</h2>
-            <p class="sub" id="tgStatus">Telegram status…</p>
-            <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
+            <h2 id="alertsTitle">Alerts</h2>
+            <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
+            <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
+            <div class="toolbar">
+                <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
+                <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
+            </div>
+            <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
     </main>
-    <footer>BLACKDARK — Not financial advice</footer>
+    <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
+        <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
+        <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
+        · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
+        · <a href="/contact" style="color:#a1a1aa">Contact</a>
+        · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
+        · <a href="/legal" style="color:#a1a1aa">Legal</a>
+    </footer>
 
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -180,29 +245,99 @@
 
         function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
 
+        function applyLang() {
+            const root = document.getElementById('htmlRoot');
+            root.lang = 'en';
+            root.dir = 'ltr';
+            document.getElementById('heroSub').textContent = 'One clear decision — act or wait · public verifiable accuracy';
+            document.getElementById('askBtn').textContent = 'Get Decision';
+        }
+
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
+            const mode = document.getElementById('uxMode').value;
+            const lang = 'en';
             if (!sym) return;
             box.classList.add('show');
-            el.innerHTML = '<div class="loading">Analyzing ' + sym + '…</div>';
+            el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
-                const res = await fetch('/oracle/' + encodeURIComponent(sym));
+                const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
+                const res = await fetch(url, { headers: authHeaders() });
                 if (!res.ok) throw new Error('fail');
                 const d = await res.json();
+                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+                const action = d.decision_action || '';
+                const truth = d.net_edge_truth || {};
+                const half = d.opportunity_half_life || {};
+                const sig = d.signal_registry || {};
+                let proBlock = '';
+                const factors = (d.explanation && d.explanation.top_3_factors) || [];
+                const factorBlock = factors.length ? `
+                    <div style="margin-top:.85rem">
+                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
+                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
+                    </div>` : '';
+                if (mode === 'pro') {
+                    proBlock = `
+                    <div class="metrics">
+                        <div class="metric"><strong>${truth.truth_score ?? '—'}</strong><span>Truth</span></div>
+                        <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
+                        <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
+                        <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
+                    </div>${factorBlock}`;
+                } else {
+                    proBlock = factorBlock;
+                }
+                let upgradeBlock = '';
+                if (d.upgrade_hint) {
+                    const t = d.upgrade_hint.teaser || {};
+                    upgradeBlock = `
+                    <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
+                        ${d.upgrade_hint.message || ''}
+                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${t.truth_score ?? '—'} · Half-life ${t.remaining_seconds ?? '—'}s</div>` : ''}
+                        <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
+                    </div>`;
+                }
+                const conflict = d.dimension_conflict || {};
+                const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
+                    ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
+                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
+                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
+                       </div>` : '';
+                const proofBlock = d.prediction_id
+                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
+                    : '';
                 el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${d.verdict}</div>
-                    <div style="color:#71717a;font-size:.9rem">${d.symbol} · $${fmt(d.price,2)} ·
-                        <span class="${d.change_24h>=0?'up':'down'}">${d.change_24h>=0?'+':''}${fmt(d.change_24h,2)}%</span></div>
-                    <div class="narrative">${d.narrative||d.oracle||''}</div>
-                    <div style="font-size:.85rem;margin:.5rem 0">🐋 ${d.whale_alert||'No whale activity'}</div>
+                    <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
+                    <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
+                        <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
+                    <div class="narrative">${sentence}</div>
                     <div class="metrics">
                         <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${d.confidence}%</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${d.sentiment||'—'}</strong><span>Sentiment</span></div>
-                        <div class="metric"><strong>${d.risk_level||'—'}</strong><span>Risk</span></div>
-                    </div>`;
+                        <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
+                        <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
+                        <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
+                    </div>
+                    ${proBlock}
+                    ${vetoBlock}
+                    ${proofBlock}
+                    ${upgradeBlock}
+                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
+                    ${(() => {
+                        const cert = d.decision_certificate || {};
+                        if (!(cert.certificate_hash || d.prediction_id)) return '';
+                        window._lastCertShare = cert.share_text || '';
+                        window._lastCertJson = cert;
+                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
+                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
+                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
+                        ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
+                        ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
+                    })()}
+                    <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
                 el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
             }
@@ -224,8 +359,9 @@
             const sym = (document.getElementById('symbol').value || 'BTC').toUpperCase();
             const iv = document.getElementById('chartIv').value;
             try {
-                const res = await fetch('https://api.binance.com/api/v3/klines?symbol=' + sym + 'USDT&interval=' + iv + '&limit=100');
-                const rows = await res.json();
+                const res = await fetch('/api/market/klines?symbol=' + encodeURIComponent(sym) + '&interval=' + encodeURIComponent(iv) + '&limit=100');
+                const payload = await res.json();
+                const rows = payload.klines || payload || [];
                 series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
                 chart.timeScale().fitContent();
             } catch (e) {}
@@ -263,31 +399,195 @@
             const stats = document.getElementById('arbStats');
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
-                const res = await fetch(url, refresh ? { method: 'POST' } : {});
+                const res = await fetch(url, refresh ? { method: 'POST', headers: authHeaders() } : { headers: authHeaders() });
                 const data = await res.json();
+                if (res.status === 403) {
+                    const detail = data.detail || {};
+                    stats.textContent = detail.message || 'Pro required';
+                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
+                        <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    return;
+                }
                 const c = data.counts || {};
                 stats.textContent = `Cross ${c.cross_exchange||0} · Executable ${data.executable_count||0} · Profitable ${data.profitable_count||0}`;
                 const opps = data.opportunities || [];
-                el.innerHTML = opps.length ? opps.slice(0,6).map(o => `
-                    <div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div></div>`).join('')
-                    : '<div class="empty">No opportunities now</div>';
+                el.innerHTML = opps.length ? opps.slice(0,6).map(o => {
+                    const half = o.opportunity_half_life || {};
+                    const truth = o.net_edge_truth || {};
+                    const rejected = o.truth_rejected || truth.reject;
+                    return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
+        }
+
+        async function loadInbox() {
+            const el = document.getElementById('inbox');
+            const status = document.getElementById('tgStatus');
+            try {
+                const res = await fetch('/api/alerts/inbox?limit=12', { headers: authHeaders() });
+                const data = await res.json();
+                const stats = data.stats || {};
+                status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
+                const rows = data.alerts || [];
+                el.innerHTML = rows.length ? rows.map(a => `
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
+                        <strong>${a.title||'Alert'}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
+                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Inbox unavailable</div>';
+            }
+        }
+
+        async function markInboxRead(id) {
+            if (!id) return;
+            try {
+                await fetch('/api/alerts/inbox/' + encodeURIComponent(id) + '/read', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                });
+                loadInbox();
+            } catch (e) { /* ignore */ }
         }
 
         async function loadWhales(refresh) {
             const el = document.getElementById('whales');
+            const foot = document.getElementById('whaleCompliance');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
             try {
-                const url = refresh ? '/api/whale-activity?refresh=true' : '/api/whale-activity';
-                const res = await fetch(url);
+                const res = await fetch('/api/whale/signal-vs-noise?limit=8');
                 const data = await res.json();
-                const alerts = data.alerts || data.whale_alerts || [];
-                el.innerHTML = alerts.length ? alerts.slice(0,8).map(a => `
-                    <div class="whale-card"><strong>${a.asset||'—'}</strong> ${(a.side||'').toUpperCase()}
-                    ${a.notional_usd ? '$'+fmt(a.notional_usd) : ''}</div>`).join('')
-                    : '<div class="empty">No whale alerts</div>';
+                const classified = data.classified || [];
+                const stories = data.stories || [];
+                const headline = data.headline || (stories[0] || '');
+                const headHtml = headline
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${headline}</div></div>`
+                    : '';
+                if (classified.length) {
+                    el.innerHTML = headHtml + classified.map(a => `
+                        <div class="whale-card">
+                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
+                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
+                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
+                        </div>`).join('');
+                } else if (stories.length) {
+                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                } else {
+                    el.innerHTML = '<div class="empty">No whale narratives</div>';
+                }
+                if (foot) {
+                    foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
+                }
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        let lastMevShare = '';
+        async function loadMevReport() {
+            const el = document.getElementById('mevResult');
+            const asset = (document.getElementById('mevAsset').value || 'ETH').trim();
+            const notional = document.getElementById('mevNotional').value || 10000;
+            el.innerHTML = '<div class="loading">Building…</div>';
+            try {
+                const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
+                const d = await res.json();
+                lastMevShare = d.share_text || '';
+                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${m}</li>`).join('');
+                const c = d.compliance || {};
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>${d.title||'MEV Report'}</strong> · ${d.asset} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">Est. sandwich drag ~${d.estimated_sandwich_bps} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
+                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${d.note||''}</div>
+                        <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+        }
+        function copyMevShare() {
+            if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
+            navigator.clipboard.writeText(lastMevShare);
+        }
+
+        async function runStealthAdvisor() {
+            const el = document.getElementById('stealthResult');
+            el.innerHTML = '<div class="loading">Advising…</div>';
+            try {
+                const res = await fetch('/api/whale/stealth-advisor', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                    body: JSON.stringify({
+                        asset: (document.getElementById('stealthAsset').value || 'ETH').trim(),
+                        notional_usd: Number(document.getElementById('stealthNotional').value || 0),
+                        side: document.getElementById('stealthSide').value || 'buy',
+                    }),
+                });
+                const d = await res.json();
+                const slices = ((d.slice_plan || {}).slices || []);
+                const sliceTable = slices.length
+                    ? `<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">
+                        <thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>
+                        <tbody>${slices.slice(0,12).map(s => `<tr>
+                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
+                            <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
+                            <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
+                            <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
+                            <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
+                        </tr>`).join('')}</tbody></table>`
+                    : '';
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
+                        ${d.slice_plan ? `<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ${d.slice_plan.algo} · window ${d.slice_plan.window_sec}s · interval ${d.slice_plan.interval_sec}s · offset ${d.slice_plan.limit_offset_bps} bps</div>` : ''}
+                        ${sliceTable}
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+        }
+
+        let portfolioAssets = [];
+        function addPortfolioAsset() {
+            const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
+            const amount = Number(document.getElementById('pfAmt').value || 0);
+            if (!symbol || !(amount > 0)) return;
+            portfolioAssets.push({ symbol, amount });
+            document.getElementById('pfSym').value = '';
+            document.getElementById('pfAmt').value = '';
+            renderPortfolioList();
+        }
+        function renderPortfolioList() {
+            const el = document.getElementById('portfolioList');
+            if (!portfolioAssets.length) { el.textContent = ''; return; }
+            el.innerHTML = portfolioAssets.map((a,i) =>
+                `${a.symbol}: ${a.amount} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
+            ).join(' · ');
+        }
+        async function analyzePortfolio() {
+            const el = document.getElementById('portfolioResult');
+            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
+            el.innerHTML = '<div class="loading">Analyzing…</div>';
+            try {
+                const res = await fetch('/portfolio/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                    body: JSON.stringify(portfolioAssets),
+                });
+                const d = await res.json();
+                const foot = d.compliance_footer || {};
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>Portfolio AI</strong>
+                        <div style="margin-top:.4rem">${d.plain_language || d.summary || JSON.stringify(d).slice(0,280)}</div>
+                        ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+                        ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
 
         async function loadTgStatus() {
@@ -307,8 +607,67 @@
             } catch (e) { alert('Test failed — configure bot first'); }
         }
 
+        async function loadAlertsGenerosity() {
+            const el = document.getElementById('alertsGenerosity');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/alerts/generosity');
+                const d = await res.json();
+                const bd = d.blackdark || {};
+                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
+                    `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+            } catch (e) { /* ignore */ }
+        }
+
+        function scrollToId(id) {
+            const target = document.getElementById(id);
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.style.outline = '1px solid #22d3ee';
+            setTimeout(() => { target.style.outline = ''; }, 1600);
+        }
+
+        function scrollToStealth() {
+            scrollToId('stealth');
+        }
+
+        function applyAudienceFromQuery() {
+            const params = new URLSearchParams(location.search);
+            const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
+            const hash = (location.hash || '').toLowerCase();
+            if (aud) localStorage.setItem('bd_audience', aud);
+            const mode = document.getElementById('uxMode');
+            if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
+            const banner = document.getElementById('audienceBanner');
+            if (banner) {
+                if (aud === 'whale') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
+                } else if (aud === 'fund') {
+                    banner.style.display = 'block';
+                    banner.innerHTML = 'Fund mode · <a href="/b2b#fund-terminal" style="color:#22d3ee">Emerging Fund Terminal</a> + Evidence Pack';
+                } else if (aud === 'pro') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Pro mode · Opportunity Quality Score + unlimited Oracle';
+                } else if (aud === 'retail') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Retail mode · One clear Act / Wait decision';
+                }
+            }
+            if (hash === '#stealth' || hash === '#mev' || aud === 'whale') {
+                setTimeout(scrollToStealth, 250);
+                setTimeout(scrollToStealth, 900);
+            } else if (hash === '#portfolio' || aud === 'retail' || aud === 'pro') {
+                setTimeout(() => scrollToId(hash === '#portfolio' ? 'portfolio' : (aud === 'pro' ? 'oracleBox' : 'portfolio')), 250);
+            } else if (aud === 'fund') {
+                setTimeout(() => { location.href = '/b2b#fund-terminal'; }, 200);
+            }
+        }
+
         function boot() {
             loadAuth();
+            applyLang();
+            applyAudienceFromQuery();
             askOracle();
             initChart();
             loadChart();
@@ -316,12 +675,20 @@
             loadOI();
             loadArbitrage(false);
             loadWhales(false);
+            loadMevReport();
+            runStealthAdvisor();
             loadTgStatus();
+            loadAlertsGenerosity();
+            loadInbox();
             setInterval(loadMarket, 60000);
+            setInterval(loadInbox, 90000);
         }
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
-        window.scrollTo(0, 0);
+        // Only reset scroll when no deep-link target
+        if (!location.hash && !(new URLSearchParams(location.search).get('audience') || '').toLowerCase().includes('whale')) {
+            window.scrollTo(0, 0);
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,13 @@
+{
+  "buckets": {
+    "50-59": {
+      "samples": 81,
+      "hit_rate": 0.679
+    },
+    "60-69": {
+      "samples": 19,
+      "hit_rate": 0.8947
+    }
+  },
+  "sample_count": 100
+}

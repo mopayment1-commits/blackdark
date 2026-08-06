@@ -1,18 +1,18 @@
-"""Simple whale detection stub for quick API testing."""
+"""
+Deprecated stub — DO NOT USE.
+
+Real whale intelligence lives in:
+- whale_tracker.py
+- whale_signal_classifier.py
+- /api/whale/signal-vs-noise
+
+Kept only so accidental imports fail loudly instead of returning fake scores.
+"""
 
 from __future__ import annotations
 
-import asyncio
-from typing import Any
 
-
-async def detect_whale(symbol: str) -> dict[str, Any]:
-    return {
-        "symbol": symbol,
-        "whale_score": 75,
-        "alert": "Large buy detected",
-    }
-
-
-if __name__ == "__main__":
-    print("Done")
+def detect_whale(*_args, **_kwargs):
+    raise RuntimeError(
+        "whale.detect_whale is deprecated. Use whale_tracker / whale_signal_classifier."
+    )

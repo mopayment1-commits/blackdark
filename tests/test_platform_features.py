@@ -127,8 +127,10 @@ async def test_token_unlocks_free():
 
 @pytest.mark.asyncio
 async def test_footprint_async():
+    from database import init_db
     from bd_platform.footprint_analytics import footprint_snapshot
 
+    await init_db()
     r = await footprint_snapshot("BTC")
     assert r["asset"] == "BTC"
     assert "depth_levels" in r

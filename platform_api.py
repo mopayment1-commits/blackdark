@@ -2,25 +2,42 @@
 
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
 
-from security_auth import require_admin
+from security_auth import require_admin, require_authenticated
 
 router = APIRouter(prefix="/api/platform", tags=["platform"])
 
 
 def _local_or_admin(request: Request, x_admin_key: str | None = None) -> None:
-    """Allow key save from localhost or with admin credentials."""
-    from security_auth import verify_admin_key
+    """Allow key save from localhost (non-prod only) or with admin credentials."""
+    from security_auth import is_production_env, verify_admin_key
 
     if verify_admin_key(x_admin_key):
         return
     host = request.client.host if request.client else ""
-    if host in {"127.0.0.1", "::1", "localhost"}:
+    if host in {"127.0.0.1", "::1", "localhost"} and not is_production_env():
         return
-    raise HTTPException(status_code=403, detail="Admin or localhost required to save API keys")
+    raise HTTPException(status_code=403, detail="Admin authentication required to save API keys")
+
+
+def _force_safe_dry_run(requested: Any) -> bool:
+    """Live execute via HTTP only when explicitly allowed for admins."""
+    if requested is None:
+        return True
+    want_live = not bool(requested)
+    if not want_live:
+        return True
+    allow = os.getenv("LIVE_EXECUTION_ALLOW_API", "false").lower() in {"1", "true", "yes"}
+    if not allow:
+        raise HTTPException(
+            status_code=403,
+            detail="Live execution via API disabled. Set LIVE_EXECUTION_ALLOW_API=true for admin live orders.",
+        )
+    return False
 
 
 @router.get("/keys/status")
@@ -109,12 +126,18 @@ async def cex_dex_status_route():
 @router.post("/arb/cex-dex/execute")
 async def cex_dex_execute(
     body: dict[str, Any] = Body(default_factory=dict),
+    _admin: dict = Depends(require_admin),
 ):
     from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
     from bd_platform.cex_dex_executor import execute_cex_dex_opportunity, run_cex_dex_cycle
 
+    dry_run = _force_safe_dry_run(body.get("dry_run"))
+
     if body.get("cycle"):
-        return await run_cex_dex_cycle(quote_usd=float(body.get("quote_usd") or 1000))
+        return await run_cex_dex_cycle(
+            quote_usd=float(body.get("quote_usd") or 1000),
+            dry_run=dry_run,
+        )
 
     opp = body.get("opportunity")
     if not opp:
@@ -124,9 +147,6 @@ async def cex_dex_execute(
             return {"success": False, "reason": "no_profitable_opportunity", "scan": scan}
         opp = opps[0]
 
-    dry_run = body.get("dry_run")
-    if dry_run is not None:
-        dry_run = bool(dry_run)
     return await execute_cex_dex_opportunity(opp, dry_run=dry_run)
 
 
@@ -329,7 +349,10 @@ async def grid_list():
 
 
 @router.post("/bots/grid")
-async def grid_create(body: dict[str, Any] = Body(...)):
+async def grid_create(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
     from bd_platform.grid_bot import create_grid
 
     return create_grid(
@@ -349,7 +372,10 @@ async def marketplace_list():
 
 
 @router.post("/marketplace/strategies")
-async def marketplace_publish(body: dict[str, Any] = Body(...)):
+async def marketplace_publish(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
     from bd_platform.strategy_marketplace import publish_strategy
 
     return publish_strategy(
@@ -360,7 +386,10 @@ async def marketplace_publish(body: dict[str, Any] = Body(...)):
 
 
 @router.post("/scripts/run")
-async def run_script(body: dict[str, Any] = Body(...)):
+async def run_script(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
     from bd_platform.script_sandbox import run_script as _run
 
     return _run(str(body.get("expression") or "price > 0"), variables=body.get("variables"))
@@ -374,21 +403,27 @@ async def rules_list():
 
 
 @router.post("/rules")
-async def rules_create(body: dict[str, Any] = Body(...)):
+async def rules_create(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
     from bd_platform.ifttt_rules import create_rule
 
     return create_rule(if_condition=str(body["if"]), then_action=str(body["then"]))
 
 
 @router.post("/rules/evaluate")
-async def rules_evaluate():
+async def rules_evaluate(_user: dict = Depends(require_authenticated)):
     from bd_platform.ifttt_rules import evaluate_rules
 
     return await evaluate_rules()
 
 
 @router.post("/portfolio/rebalance")
-async def portfolio_rebalance(body: dict[str, Any] = Body(...)):
+async def portfolio_rebalance(
+    body: dict[str, Any] = Body(...),
+    _user: dict = Depends(require_authenticated),
+):
     from bd_platform.portfolio_rebalancer import suggest_rebalance
 
     return await suggest_rebalance(
@@ -406,10 +441,23 @@ async def tv_config(symbol: str = Query("BTCUSDT")):
 
 @router.post("/tradingview/webhook")
 async def tv_webhook(request: Request, payload: dict[str, Any] = Body(...)):
-    from bd_platform.tradingview_bridge import handle_webhook
+    import hmac
 
-    sig = request.headers.get("X-TradingView-Signature")
-    return await handle_webhook(payload, signature=sig)
+    from bd_platform.tradingview_bridge import handle_webhook
+    from security_auth import is_production_env
+
+    expected = os.getenv("TRADINGVIEW_WEBHOOK_SECRET", "").strip()
+    sig = (request.headers.get("X-TradingView-Signature") or "").strip()
+    if not expected:
+        if is_production_env():
+            raise HTTPException(
+                status_code=503,
+                detail="TRADINGVIEW_WEBHOOK_SECRET required in production",
+            )
+    elif not (sig and hmac.compare_digest(sig, expected)):
+        raise HTTPException(status_code=401, detail="Invalid TradingView webhook signature")
+    # Always dry-run unless admin live flag is on — bridge itself defaults dry-run.
+    return await handle_webhook(payload, signature=sig or None)
 
 
 @router.get("/risk/drawdown")
@@ -495,25 +543,13 @@ async def onchain_advanced(asset: str = Query("BTC")):
 
 @router.get("/ml/rl")
 async def rl_policy(features: str = Query(""), train: bool = Query(False)):
-    from ml.rl_policy import predict_action, policy_status, train_ppo_policy
+    from ml.rl_policy import predict_action, policy_status
 
     if train:
-        import random
-
-        samples = [
-            (
-                {
-                    "ret_24h": random.uniform(-0.05, 0.05),
-                    "volatility": random.uniform(0.02, 0.1),
-                    "obi_score": random.uniform(-1, 1),
-                    "sentiment_score": random.uniform(-1, 1),
-                },
-                random.uniform(-1, 1),
-            )
-            for _ in range(100)
-        ]
-        trained = train_ppo_policy(samples, epochs=30)
-        return {"status": policy_status(), "trained": trained}
+        raise HTTPException(
+            status_code=403,
+            detail="Use POST /api/platform/ml/rl/train with admin auth to train RL policy",
+        )
 
     feats: dict[str, float] = {}
     if features:
@@ -525,3 +561,25 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
                 except ValueError:
                     pass
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
+
+
+@router.post("/ml/rl/train")
+async def rl_policy_train(_admin: dict = Depends(require_admin)):
+    import random
+
+    from ml.rl_policy import policy_status, train_ppo_policy
+
+    samples = [
+        (
+            {
+                "ret_24h": random.uniform(-0.05, 0.05),
+                "volatility": random.uniform(0.02, 0.1),
+                "obi_score": random.uniform(-1, 1),
+                "sentiment_score": random.uniform(-1, 1),
+            },
+            random.uniform(-1, 1),
+        )
+        for _ in range(100)
+    ]
+    trained = train_ppo_policy(samples, epochs=30)
+    return {"status": policy_status(), "trained": trained}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} · BLACKDARK</title>
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Segoe UI", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 20% -10%, #132033 0%, var(--bg) 55%); color: var(--fg); min-height: 100vh; }
+        nav { padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+        .nav-inner { max-width: 820px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        a { color: var(--accent); text-decoration: none; }
+        .logo { font-weight: 700; letter-spacing: .04em; color: var(--fg); }
+        main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+        h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: .75rem; }
+        p, li { color: var(--muted); line-height: 1.65; margin-bottom: .85rem; }
+        ul { margin: 1rem 0 1.5rem 1.2rem; }
+        .card { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: 1.25rem; }
+        footer { max-width: 820px; margin: 0 auto; padding: 1.25rem; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--line); }
+    </style>
+</head>
+<body>
+    <nav><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a></div></div></nav>
+    <main>
+        <h1>{{ title }}</h1>
+        <p>{{ lead }}</p>
+        {% if page == 'capabilities' %}
+        <div class="card">
+            <ul>
+                <li>Proof-Native Oracle with Public Accuracy Ledger</li>
+                <li>Contradiction Veto · Net-Edge Truth · Opportunity Half-Life</li>
+                <li>Regime-conditional models (D5) + Sovereign Signal Registry (D8)</li>
+                <li>Six heroes: Single-Sentence Oracle, Whale Signal vs Noise, Glass Box, Portfolio AI, Discipline Mirror, Decision Certificate</li>
+                <li>Stealth Execution Advisor · MEV sandwich report · Emerging Fund Terminal</li>
+                <li>~250 internal engines stay quiet — no seventh retail button</li>
+            </ul>
+            <p><a href="/dashboard">Open dashboard</a> · <a href="/b2b">B2B / Fund Terminal</a></p>
+        </div>
+        {% elif page == 'contact' %}
+        <div class="card">
+            <p>Product support and partnership inquiries:</p>
+            <ul>
+                <li>Email: <a href="mailto:support@blackdark.app">support@blackdark.app</a></li>
+                <li>B2B / allocators: use the <a href="/b2b">Emerging Fund Terminal</a></li>
+                <li>Accuracy disputes: <a href="/oracle-accuracy">Public Accuracy Ledger</a></li>
+            </ul>
+            <p>Replace support@ with your live inbox when Ops secrets are configured (human step).</p>
+        </div>
+        {% elif page == 'complaints' %}
+        <div class="card">
+            <p>File a complaint about product claims, accuracy, billing, or conduct:</p>
+            <ul>
+                <li>Email <a href="mailto:complaints@blackdark.app">complaints@blackdark.app</a> with prediction_id / certificate_hash when relevant</li>
+                <li>We treat Anti-Hype seriously — prove-it, not trust-me</li>
+                <li>For billing, include your account email and checkout reference</li>
+            </ul>
+        </div>
+        {% endif %}
+        <p><strong>Anti-Hype</strong> · Not financial advice · Verify claims on the Public Accuracy Ledger.</p>
+    </main>
+    <footer>BLACKDARK · <a href="/legal">Legal</a> · <a href="/capabilities">Capabilities</a> · <a href="/contact">Contact</a></footer>
+</body>
+</html>

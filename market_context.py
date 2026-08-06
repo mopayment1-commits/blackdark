@@ -795,9 +795,18 @@ def build_full_oracle_response(
         payload["modal_breakdown"] = unified.get("modal_breakdown")
         payload["base_score"] = unified.get("base_score")
         payload["ml"] = unified.get("ml")
-        conflicts = (unified.get("modal_breakdown") or {}).get("conflicts")
-        if conflicts and conflicts.get("severity") != "none":
-            payload["dimension_conflict"] = conflicts
+        # Prefer guard meta (veto/abstain) from finalize_unified_score; fall back to modal conflicts.
+        conflict_meta = unified.get("dimension_conflict")
+        if isinstance(conflict_meta, dict) and (
+            conflict_meta.get("veto")
+            or conflict_meta.get("abstain")
+            or conflict_meta.get("severity") not in (None, "none")
+        ):
+            payload["dimension_conflict"] = conflict_meta
+        else:
+            conflicts = (unified.get("modal_breakdown") or {}).get("conflicts")
+            if conflicts and conflicts.get("severity") != "none":
+                payload["dimension_conflict"] = conflicts
     return payload
 
 

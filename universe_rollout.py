@@ -112,7 +112,9 @@ def activate_full_universe(*, save: bool = True) -> dict[str, Any]:
         "symbols": len(symbols),
         "fetchers_registered": fetcher_count,
         "approved": True,
-        "message_ar": f"تم تفعيل {len(exchange_ids)} منصة و {len(asset_symbols)} عملة — manifest معتمد",
+        "message": (
+            f"Activated {len(exchange_ids)} venues and {len(asset_symbols)} assets — manifest approved"
+        ),
     }
 
 

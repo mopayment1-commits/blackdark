@@ -16,5 +16,5 @@ def test_plan_audit_structure():
 def test_plan_audit_has_core_arbitrage():
     data = plan_audit()
     titles = {i["title"] for i in data["items"]}
-    assert "مراجحة بين المنصات" in titles
+    assert "Cross-exchange arbitrage" in titles or "مراجحة بين المنصات" in titles
     assert "Opportunity Score 0–100" in titles or any("Opportunity" in t for t in titles)

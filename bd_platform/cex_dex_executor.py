@@ -29,20 +29,33 @@ async def _dex_leg(
     *,
     dry_run: bool,
 ) -> dict[str, Any]:
-    """DEX leg — dry-run simulation (live requires SOLANA_PRIVATE_KEY — future)."""
+    """DEX leg — dry-run economics always; live swap blocked until Jupiter wallet wired."""
     has_wallet = bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip())
+    # Honest status: we never claim a live DEX fill without Jupiter integration.
+    mode = "dry_run"
+    message = f"Dry-run: would {side} ${amount_usd:.0f} {asset} on {venue}"
+    blocked_reason = None
+    if not dry_run:
+        mode = "blocked_until_jupiter"
+        blocked_reason = "dex_live_requires_jupiter_wallet_integration"
+        message = (
+            "DEX live swap not available in-code yet — economics dry-run only. "
+            "CEX leg may still execute when keys are present."
+        )
+        if not has_wallet:
+            blocked_reason = "missing_solana_private_key_and_jupiter"
     payload = {
         "leg": "dex",
         "venue": venue,
         "asset": asset,
         "side": side,
         "amount_usd": amount_usd,
-        "mode": "dry_run" if dry_run or not has_wallet else "live_pending",
+        "mode": mode,
         "executed": False,
-        "message": f"Dry-run: would {side} ${amount_usd:.0f} {asset} on {venue}",
+        "message": message,
+        "blocked_reason": blocked_reason,
+        "wallet_configured": has_wallet,
     }
-    if not dry_run and has_wallet:
-        payload["message"] = "DEX live swap requires Jupiter wallet integration — CEX leg only for now"
     return payload
 
 
@@ -98,7 +111,7 @@ async def execute_cex_dex_opportunity(
         "estimated_profit_usd": opportunity.get("estimated_profit_usd"),
         "legs": legs,
         "why": opportunity.get("why"),
-        "disclaimer_ar": "DEX leg محاكاة — CEX leg فقط live مع Binance keys",
+        "disclaimer": "DEX leg is simulated — CEX leg live only with Binance keys",
     }
 
     await insert_execution_log(
@@ -110,7 +123,11 @@ async def execute_cex_dex_opportunity(
     return result
 
 
-async def run_cex_dex_cycle(*, quote_usd: float = 1000) -> dict[str, Any]:
+async def run_cex_dex_cycle(
+    *,
+    quote_usd: float = 1000,
+    dry_run: bool | None = None,
+) -> dict[str, Any]:
     from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
 
     scan = await scan_cex_dex_opportunities(quote_usd=quote_usd)
@@ -122,8 +139,9 @@ async def run_cex_dex_cycle(*, quote_usd: float = 1000) -> dict[str, Any]:
     if top.get("execution_feasibility") == "below_threshold":
         return {"skipped": True, "reason": "feasibility_low", "top": top}
 
-    exec_result = await execute_cex_dex_opportunity(top)
-    return {"scan_count": scan.get("count"), "executed": exec_result}
+    # Honor caller dry_run (HTTP forces safe dry-run); None → env default.
+    exec_result = await execute_cex_dex_opportunity(top, dry_run=dry_run)
+    return {"scan_count": scan.get("count"), "executed": exec_result, "dry_run": dry_run}
 
 
 async def cex_dex_status() -> dict[str, Any]:

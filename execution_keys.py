@@ -106,11 +106,29 @@ def _write_env_lines(lines: list[str]) -> None:
 
 
 def save_exchange_keys_to_env(parsed: dict[str, str]) -> None:
+    """Persist execution flags to .env — refuse writing secrets in production."""
+    prod = os.getenv("ENVIRONMENT", os.getenv("APP_ENV", "")).lower() in {
+        "production",
+        "prod",
+        "live",
+    }
+    secret_keys = {
+        "BINANCE_API_KEY",
+        "BINANCE_API_SECRET",
+        "OKX_API_KEY",
+        "OKX_API_SECRET",
+        "OKX_PASSPHRASE",
+    }
     lines = _read_env_lines()
     for key, value in parsed.items():
-        if key in _EXEC_ENV_KEYS:
-            lines = _upsert_env_line(key, value, lines)
+        if key not in _EXEC_ENV_KEYS:
+            continue
+        if prod and key in secret_keys:
+            # Keep secrets in process env / vault file only — never rewrite .env in prod
             os.environ[key] = value
+            continue
+        lines = _upsert_env_line(key, value, lines)
+        os.environ[key] = value
     _write_env_lines(lines)
 
 
@@ -145,11 +163,37 @@ async def verify_binance_keys(
             async with session.get(url, params=params, headers=headers) as resp:
                 data = await resp.json()
                 if resp.status == 200:
+                    # Spot account exposes canTrade / canWithdraw / canDeposit.
+                    # Also probe API key permissions endpoint when available.
+                    can_withdraw = bool(data.get("canWithdraw"))
+                    try:
+                        perm_params = {"timestamp": int(time.time() * 1000)}
+                        perm_query = urlencode(perm_params)
+                        perm_sig = hmac.new(
+                            secret.encode(), perm_query.encode(), hashlib.sha256
+                        ).hexdigest()
+                        perm_params["signature"] = perm_sig
+                        perm_url = f"{_binance_base_url()}/sapi/v1/account/apiRestrictions"
+                        async with session.get(
+                            perm_url, params=perm_params, headers=headers
+                        ) as perm_resp:
+                            if perm_resp.status == 200:
+                                perms = await perm_resp.json()
+                                if isinstance(perms, dict):
+                                    # Explicit withdraw enable flags from Binance
+                                    if "enableWithdrawals" in perms:
+                                        can_withdraw = bool(perms.get("enableWithdrawals"))
+                                    elif "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
+                                        can_withdraw = False
+                    except Exception:
+                        pass
                     return {
                         "exchange": "binance",
                         "configured": True,
                         "valid": True,
                         "can_trade": bool(data.get("canTrade")),
+                        "can_withdraw": can_withdraw,
+                        "can_deposit": bool(data.get("canDeposit")),
                         "testnet": _binance_base_url().endswith("vision"),
                         "message": "ok",
                     }
@@ -242,18 +286,21 @@ async def activate_live_execution(
         auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
 
     mode = "live" if parsed.get("AUTO_EXECUTION_ENABLED") == "true" else "dry_run"
-    msg_ar = {
-        "live": "تم تفعيل التنفيذ LIVE — Binance حقيقي",
-        "dry_run": "تم تفعيل التنفيذ التلقائي — وضع Dry-Run (آمن، بدون أموال حقيقية)",
+    msg = {
+        "live": "Live execution enabled — real Binance orders",
+        "dry_run": "Auto-execution enabled — dry-run mode (safe, no real funds)",
     }[mode]
 
     return {
         "timestamp": _utcnow(),
         "mode": mode,
-        "message_ar": msg_ar,
+        "message": msg,
         "verify": verify_result,
         "saved_keys": list(parsed.keys()),
         "keys_file": str(KEYS_FILE),
         "auto_execution_enabled": auto_on,
-        "disclaimer_ar": "Live يعتمد على Binance API — قد يستغرق وقتاً حسب السوق. Panic Stop متاح دائماً.",
+        "disclaimer": (
+            "Live depends on Binance API latency. Panic Stop is always available. "
+            "Not financial advice."
+        ),
     }
