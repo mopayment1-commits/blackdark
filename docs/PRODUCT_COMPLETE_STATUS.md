@@ -16,6 +16,12 @@
 | Net-Edge / Half-Life / Veto gates | DONE (+ fail-closed alertability hardening 2026-08-06) |
 | English-only public templates | DONE |
 
+## Binding master inventory
+
+| Doc | Purpose |
+|-----|---------|
+| [`الملف_المرجعي_الملزم.md`](./الملف_المرجعي_الملزم.md) | Line-by-line binding reference of the user’s feature report + honest user-availability status |
+
 ## Design research (internal)
 
 | Doc | Purpose |
