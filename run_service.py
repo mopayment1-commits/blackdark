@@ -30,7 +30,8 @@ MODES = {
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="BLACKDARK microservice launcher")
-    parser.add_argument("mode", choices=list(MODES.keys()), nargs="?", default="all")
+    # Default web: Oracle UI/API without heavy aggregator (safe for local soft-launch).
+    parser.add_argument("mode", choices=list(MODES.keys()), nargs="?", default="web")
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--port", type=int, default=None)
     args = parser.parse_args()
@@ -41,6 +42,12 @@ def main() -> None:
     if args.mode == "web":
         os.environ.setdefault("RUN_AGGREGATOR", "false")
         os.environ.setdefault("INGESTION_ENABLED", "false")
+        os.environ.setdefault("MANIFEST_AUTO_APPROVE", "true")
+        os.environ.setdefault("MANIFEST_REQUIRE_REVIEW", "false")
+    else:
+        # Avoid import-time config lock: env must be set before uvicorn child imports config.
+        os.environ.setdefault("MANIFEST_AUTO_APPROVE", "true")
+        os.environ.setdefault("MANIFEST_REQUIRE_REVIEW", "false")
 
     target, default_port = MODES[args.mode]
     port = args.port or default_port

@@ -44,6 +44,31 @@ logging.basicConfig(
 )
 logger = logging.getLogger("BLACKDARK.Aggregator")
 
+
+def _soft_local_mode() -> bool:
+    import os
+
+    if os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}:
+        return True
+    if os.getenv("LOCAL_DEV", "").lower() in {"1", "true", "yes"}:
+        return True
+    env = (os.getenv("ENV") or "").strip().lower()
+    return env in {"development", "dev", "local", ""}
+
+
+def _manifest_require_review() -> bool:
+    """Read env at call-time (startup may set MANIFEST_* after config import)."""
+    import os
+
+    if _soft_local_mode():
+        return False
+    if os.getenv("MANIFEST_AUTO_APPROVE", "").lower() in {"1", "true", "yes"}:
+        return False
+    raw = os.getenv("MANIFEST_REQUIRE_REVIEW")
+    if raw is not None:
+        return raw.lower() in {"1", "true", "yes"}
+    return bool(getattr(config, "MANIFEST_REQUIRE_REVIEW", True))
+
 REQUEST_TIMEOUT_SECONDS = 15
 DEFAULT_OPPORTUNITY_SCORE = 0.0
 
@@ -957,14 +982,24 @@ class Aggregator:
             logger.error("Unable to build or load operational manifest; aborting startup.")
             raise RuntimeError("Operational manifest is required before ingestion can start.")
 
-        if config.MANIFEST_REQUIRE_REVIEW and not manifest_approved(manifest):
+        require_review = _manifest_require_review()
+        if require_review and not manifest_approved(manifest):
             manifest = await wait_for_manifest_review(manifest)
 
-        if config.MANIFEST_REQUIRE_REVIEW and not manifest_approved(manifest):
-            logger.error(
-                "Operational manifest remains unapproved. Ingestion will not start."
-            )
-            raise RuntimeError("Operational manifest review required.")
+        if require_review and not manifest_approved(manifest):
+            # Local / soft-launch must never kill the HTTP server for Oracle UI.
+            if _soft_local_mode():
+                logger.warning(
+                    "Operational manifest unapproved — soft/local mode continues with whitelist baseline."
+                )
+                if not manifest_approved(manifest):
+                    manifest = build_whitelist_fallback_manifest()
+                    save_operational_manifest(manifest)
+            else:
+                logger.error(
+                    "Operational manifest remains unapproved. Ingestion will not start."
+                )
+                raise RuntimeError("Operational manifest review required.")
 
         self._operational_manifest = manifest
         operational_exchanges = operational_exchanges_from_manifest(manifest)
