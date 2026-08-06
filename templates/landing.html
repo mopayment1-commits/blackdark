@@ -1,630 +1,94 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#22d3ee">
-    <meta name="description" content="BLACKDARK — one Act/Wait Oracle decision with a public verifiable accuracy ledger. Prove it, not trust me.">
-    <meta property="og:title" content="BLACKDARK — AI Crypto Intelligence">
-    <meta property="og:description" content="Single-Sentence Oracle + Public Accuracy Ledger. Labels are not proof.">
+    <meta name="theme-color" content="#00f0ff">
+    <meta name="description" content="BLACKDARK — sealed forecasts, public proof. One ACT/WAIT decision with a verifiable accuracy ledger.">
+    <meta property="og:title" content="BLACKDARK — We publish the miss">
+    <meta property="og:description" content="Sealed forecasts before the event. Public proof after.">
     <meta property="og:type" content="website">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
-    <title>BLACKDARK — AI Crypto Intelligence Platform</title>
+    <title>BLACKDARK — Sealed Forecasts. Public Proof.</title>
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"AI crypto intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
+    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Glass Box crypto intelligence — sealed forecasts with public proof","url":"/","applicationCategory":"FinanceApplication"}
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg: #0a0a0f;
-            --bg-card: #111118;
-            --bg-elevated: #1a1a24;
-            --border: #2a2a35;
-            --text: #e4e4e7;
-            --text-muted: #71717a;
-            --accent: #22d3ee;
-            --accent-glow: rgba(34, 211, 238, 0.15);
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .bg-glow {
-            position: fixed;
-            width: 600px; height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
-            top: -200px; right: -200px;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-30px, 30px); }
-        }
-        
-        nav {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(10, 10, 15, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 1rem 2rem;
-        }
-        
-        .nav-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none;
-            font-weight: 500; transition: color 0.3s;
-        }
-        .nav-links a:hover { color: var(--text); }
-        
-        .nav-cta {
-            background: linear-gradient(135deg, var(--accent), #06b6d4);
-            color: var(--bg); padding: 0.5rem 1.5rem;
-            border-radius: 8px; font-weight: 600;
-            text-decoration: none; transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(34, 211, 238, 0.3);
-        }
-
-        .landing-stats {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 5.5rem auto 0;
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-            background: rgba(17, 17, 24, 0.85);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .landing-stats strong {
-            color: var(--accent);
-            font-weight: 700;
-        }
-        
-        .hero {
-            min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; padding: 8rem 2rem 4rem;
-        }
-        
-        .hero-content {
-            max-width: 900px; text-align: center; position: relative; z-index: 1;
-        }
-        
-        .badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            padding: 0.5rem 1rem; border-radius: 100px;
-            font-size: 0.875rem; color: var(--accent);
-            margin-bottom: 2rem;
-        }
-        
-        .badge-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--accent); animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 900; line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--accent), #a78bfa, #f472b6);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        
-        .hero p {
-            font-size: 1.25rem; color: var(--text-muted);
-            max-width: 600px; margin: 0 auto 2.5rem;
-        }
-        
-        .hero-cta {
-            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
-        }
-
-        .hero-stats {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
-            margin: 2rem auto 0; padding: 1.25rem 2rem; max-width: 700px;
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
-        }
-        .hero-stat { text-align: center; }
-        .hero-stat strong { display: block; font-size: 1.75rem; color: var(--accent); }
-        .hero-stat span { font-size: 0.8rem; color: var(--text-muted); }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), #06b6d4);
-            color: var(--bg); padding: 1rem 2.5rem;
-            border-radius: 12px; font-weight: 700; font-size: 1.1rem;
-            text-decoration: none; border: none; cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 60px rgba(34, 211, 238, 0.4);
-        }
-        
-        .btn-secondary {
-            background: transparent; color: var(--text);
-            padding: 1rem 2.5rem; border-radius: 12px;
-            font-weight: 600; font-size: 1.1rem;
-            text-decoration: none; border: 1px solid var(--border);
-            transition: all 0.3s;
-        }
-        .btn-secondary:hover {
-            background: var(--bg-elevated); border-color: var(--accent);
-        }
-        
-        .oracle-demo {
-            margin-top: 4rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 700px; margin-left: auto; margin-right: auto;
-        }
-        
-        .oracle-demo-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .oracle-demo h3 {
-            font-size: 1rem; color: var(--text-muted);
-            font-weight: 500;
-        }
-        
-        .live-indicator {
-            display: flex; align-items: center; gap: 0.5rem;
-            font-size: 0.875rem; color: var(--success);
-        }
-        
-        .live-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--success); animation: pulse 2s infinite;
-        }
-        
-        .oracle-input {
-            display: flex; gap: 0.5rem; margin-bottom: 1.5rem;
-        }
-        
-        .oracle-input input {
-            flex: 1; background: var(--bg);
-            border: 1px solid var(--border); border-radius: 10px;
-            padding: 1rem; color: var(--text); font-size: 1rem;
-            outline: none; transition: border-color 0.3s;
-        }
-        .oracle-input input:focus { border-color: var(--accent); }
-        
-        .oracle-input button {
-            background: var(--accent); color: var(--bg);
-            border: none; border-radius: 10px;
-            padding: 1rem 1.5rem; font-weight: 600;
-            cursor: pointer; transition: all 0.3s;
-        }
-        .oracle-input button:hover {
-            background: #06b6d4; transform: translateY(-2px);
-        }
-        
-        .oracle-result {
-            background: var(--bg); border-radius: 12px;
-            padding: 1.5rem; display: none;
-        }
-        
-        .oracle-result.active { display: block; }
-        
-        .result-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .result-symbol {
-            font-size: 1.5rem; font-weight: 700;
-        }
-        
-        .result-score {
-            font-size: 2rem; font-weight: 900;
-        }
-        
-        .result-verdict {
-            display: inline-block; padding: 0.5rem 1rem;
-            border-radius: 8px; font-weight: 700; font-size: 0.875rem;
-        }
-        
-        .verdict-buy { background: rgba(34, 197, 94, 0.2); color: var(--success); }
-        .verdict-wait { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
-        .verdict-sell { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
-        
-        .result-oracle {
-            color: var(--text-muted); font-size: 0.95rem;
-            margin-top: 0.5rem; line-height: 1.8;
-        }
-        
-        .features {
-            padding: 6rem 2rem;
-            max-width: 1200px; margin: 0 auto;
-        }
-        
-        .section-header {
-            text-align: center; margin-bottom: 4rem;
-        }
-        
-        .section-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800; margin-bottom: 1rem;
-        }
-        
-        .section-header p {
-            color: var(--text-muted); font-size: 1.1rem;
-            max-width: 600px; margin: 0 auto;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-        
-        .feature-icon {
-            width: 48px; height: 48px;
-            background: var(--accent-glow);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.25rem; font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .feature-card p {
-            color: var(--text-muted); font-size: 0.95rem;
-        }
-        
-        .pricing {
-            padding: 6rem 2rem;
-            background: var(--bg-card);
-        }
-        
-        .pricing-container {
-            max-width: 1200px; margin: 0 auto;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem; margin-top: 3rem;
-        }
-        
-        .pricing-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 20px; padding: 2.5rem;
-            position: relative; transition: transform 0.3s;
-        }
-        
-        .pricing-card:hover { transform: translateY(-5px); }
-        
-        .pricing-card.popular {
-            border-color: var(--accent);
-            box-shadow: 0 0 60px rgba(34, 211, 238, 0.1);
-        }
-        
-        .popular-badge {
-            position: absolute; top: -12px; left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, var(--accent), #06b6d4);
-            color: var(--bg); padding: 0.5rem 1.5rem;
-            border-radius: 100px; font-size: 0.875rem;
-            font-weight: 700;
-        }
-        
-        .pricing-card h3 {
-            font-size: 1.5rem; font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .pricing-card .price {
-            font-size: 3rem; font-weight: 900;
-            margin: 1rem 0;
-        }
-        
-        .pricing-card .price span {
-            font-size: 1rem; color: var(--text-muted); font-weight: 400;
-        }
-        
-        .pricing-card ul {
-            list-style: none; margin: 2rem 0;
-        }
-        
-        .pricing-card ul li {
-            padding: 0.5rem 0; color: var(--text-muted);
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        
-        .pricing-card ul li::before {
-            content: "✓"; color: var(--success); font-weight: 700;
-        }
-        
-        .pricing-card .btn {
-            width: 100%; text-align: center; display: block;
-        }
-        
-        .waitlist {
-            padding: 6rem 2rem;
-            max-width: 600px; margin: 0 auto; text-align: center;
-        }
-        
-        .waitlist-form {
-            display: flex; gap: 0.5rem; margin-top: 2rem;
-        }
-        
-        .waitlist-form input {
-            flex: 1; background: var(--bg-card);
-            border: 1px solid var(--border); border-radius: 12px;
-            padding: 1rem 1.5rem; color: var(--text); font-size: 1rem;
-            outline: none;
-        }
-        
-        .waitlist-form button {
-            background: var(--accent); color: var(--bg);
-            border: none; border-radius: 12px;
-            padding: 1rem 2rem; font-weight: 700;
-            cursor: pointer; transition: all 0.3s;
-        }
-        
-        .share-section {
-            padding: 3rem 2rem; text-align: center;
-            background: var(--bg-elevated);
-        }
-        
-        .share-buttons {
-            display: flex; gap: 1rem; justify-content: center;
-            margin-top: 1.5rem; flex-wrap: wrap;
-        }
-        
-        .share-btn {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.75rem 1.5rem; border-radius: 10px;
-            font-weight: 600; text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .share-x {
-            background: #000; color: #fff;
-            border: 1px solid #333;
-        }
-        .share-x:hover { background: #111; }
-        
-        .share-facebook { background: #1877f2; color: #fff; }
-        .share-facebook:hover { background: #166fe5; }
-        
-        .share-instagram {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: #fff;
-        }
-        
-        .share-whatsapp { background: #25d366; color: #fff; }
-        .share-whatsapp:hover { background: #20bd5a; }
-        
-        .share-telegram {
-            background: #0088cc; color: #fff;
-        }
-        .share-telegram:hover { background: #0099dd; }
-        
-        .share-reddit { background: #ff4500; color: #fff; }
-        .share-reddit:hover { background: #e03d00; }
-        
-        .share-copy {
-            background: var(--bg-card); color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-        .share-copy:hover { background: rgba(34, 211, 238, 0.1); }
-        
-        .share-copy.copied { background: var(--success); color: #fff; border-color: var(--success); }
-
-        .oracle-share {
-            margin-top: 1.25rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .oracle-share h4 {
-            color: var(--accent);
-            font-size: 0.95rem;
-            margin-bottom: 0.35rem;
-        }
-
-        .oracle-share p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 0.85rem;
-        }
-        
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem; text-align: center;
-            color: var(--text-muted);
-        }
-        
-        .social-links {
-            display: flex; gap: 1rem; justify-content: center;
-            margin: 1.5rem 0;
-        }
-        
-        .social-links a {
-            width: 40px; height: 40px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); text-decoration: none;
-            transition: all 0.3s;
-        }
-        .social-links a:hover {
-            background: var(--accent); color: var(--bg);
-            border-color: var(--accent);
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero { padding-top: 6rem; }
-            body.has-launch-banner .hero { padding-top: 8rem; }
-            .hero-cta { flex-direction: column; }
-            .oracle-input { flex-direction: column; }
-            .waitlist-form { flex-direction: column; }
-        }
-
-        .launch-banner {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
-            background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(167,139,250,0.15));
-            border-bottom: 1px solid var(--border);
-            text-align: center; padding: 0.55rem 1rem; font-size: 0.85rem;
-        }
-        .launch-banner a { color: var(--accent); font-weight: 700; text-decoration: none; }
-        body.has-launch-banner nav { top: 36px; }
-        body.has-launch-banner .hero { padding-top: 9rem; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/glass-box-theme.css">
+    <link rel="stylesheet" href="/static/css/landing-glass.css">
 </head>
 <body class="has-launch-banner">
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
+    <div class="bg-vault" aria-hidden="true"></div>
 
     <div class="launch-banner">
-        🎁 <strong>Launch Offer:</strong> 7-Day Pro Trial FREE on signup — code <strong>LAUNCHPRO</strong> for 14 days ·
-        <a href="/login">Register Now</a>
+        Glass Box launch · 7-Day Pro Trial with code <strong>LAUNCHPRO</strong> ·
+        <a href="/login">Enter</a>
     </div>
     
     <nav>
         <div class="nav-container">
-            <div class="logo">BLACKDARK</div>
+            <a href="/" class="logo">BLACKDARK</a>
             <div class="nav-links">
                 <a href="#oracle">Oracle</a>
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
                 <a href="/oracle-accuracy">Accuracy</a>
+                <a href="/dashboard">Command</a>
                 <a href="/login">Login</a>
             </div>
             <a href="#oracle" class="nav-cta">Try Oracle Free</a>
         </div>
     </nav>
-
-    <div class="landing-stats" id="landingStats">
-        <span>Visitors: <strong id="landingViews">—</strong></span>
-        <span>Users: <strong id="landingUsers">—</strong></span>
-        <span>Subscribers: <strong id="landingSubs">—</strong></span>
-        <span>Telegram: <strong id="landingTelegram">—</strong></span>
-        <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
-    </div>
     
     <section class="hero">
-        <div class="hero-content">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                🚀 Launch Live — 7-Day Pro Trial FREE
-            </div>
-            <h1>
-                BLACKDARK<br>
-                <span>One clear decision</span>
-            </h1>
-            <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                Single-sentence Oracle with public verifiable accuracy — for beginners, pros, and whales.
-            </p>
-            <div class="hero-stats">
-                <div class="hero-stat"><strong>30s</strong><span>Oracle verdict</span></div>
-                <div class="hero-stat"><strong>20+</strong><span>Live data sources</span></div>
-                <div class="hero-stat"><strong>Free</strong><span>10 queries/day</span></div>
-            </div>
+        <div class="hero-copy">
+            <div class="hero-brand">BLACKDARK</div>
+            <p class="hero-line">We publish the miss.</p>
+            <p class="hero-sub">Sealed forecasts before the event. Public proof after. One ACT / WAIT decision — not dashboard tourism.</p>
             <div class="hero-cta">
-                <a href="#oracle" class="btn-primary">🔮 Try Oracle Free</a>
-                <a href="#telegram-free" class="btn-secondary">📱 Telegram — 3 Free Alerts/Day</a>
-                <a href="/oracle-accuracy" class="btn-secondary">📊 Live Accuracy</a>
+                <a href="/oracle-accuracy" class="gb-btn gb-btn-primary">Watch the Seal</a>
+                <a href="#oracle" class="gb-btn gb-btn-ghost">Try Oracle Free</a>
             </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-stage">
+                <div class="gb-seal-case" aria-hidden="true">
+                    <div class="gb-envelope"><div class="gb-wax">B</div></div>
+                    <div class="gb-pedestal-label">Sealed before the event</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
-                <div class="oracle-demo-header">
-                    <h3>📱 Telegram Free Alerts</h3>
-                    <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
-                </div>
-                <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
-                    Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
-                </p>
-                <div class="hero-cta" style="margin-bottom:0">
-                    <a id="telegramBotLink" href="https://t.me/" class="btn-primary" target="_blank" rel="noopener">Open Telegram Bot</a>
-                    <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
-                </div>
-                <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">
-                    Commands: /start · /status · /accuracy · /stop
-                </p>
+    <div class="glass-section" id="proof">
+        <div class="landing-stats" id="landingStats">
+            <span>Visitors: <strong id="landingViews">—</strong></span>
+            <span>Users: <strong id="landingUsers">—</strong></span>
+            <span>Subscribers: <strong id="landingSubs">—</strong></span>
+            <span>Telegram: <strong id="landingTelegram">—</strong></span>
+            <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+        </div>
+    </div>
+
+    <div class="glass-section" id="telegram-free">
+        <div class="oracle-demo">
+            <div class="oracle-demo-header">
+                <h3>Telegram Free Alerts</h3>
+                <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
             </div>
+            <p class="muted">Top Oracle signals in Telegram — no credit card.</p>
+            <div class="hero-cta">
+                <a id="telegramBotLink" href="https://t.me/" class="gb-btn gb-btn-neon" target="_blank" rel="noopener">Open Telegram Bot</a>
+                <a href="/oracle-accuracy" class="gb-btn gb-btn-ghost">Public Accuracy</a>
+            </div>
+        </div>
+    </div>
             
-            <div class="oracle-demo" id="oracle">
+    <div class="glass-section" id="oracle">
+            <div class="oracle-demo">
                 <div class="oracle-demo-header">
                     <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator">
@@ -632,14 +96,14 @@
                         Live
                     </div>
                 </div>
-                <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
-                    <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                <div class="oracle-input">
+                    <select id="landingAudience" onchange="applyAudience()">
                         <option value="retail" selected>Retail</option>
                         <option value="pro">Pro</option>
                         <option value="whale">Whale</option>
                         <option value="fund">Fund</option>
                     </select>
-                    <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <select id="landingUxMode">
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Pro</option>
                     </select>
@@ -647,7 +111,7 @@
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
                     <button onclick="consultOracle()">Get Decision</button>
                 </div>
-                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
+                <p id="audienceCta" class="muted small">Get one clear ACT / WAIT decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
@@ -657,32 +121,31 @@
                         <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
                     </div>
                     <div class="result-oracle" id="resultOracle">
-                        One clear decision — act or wait
+                        One clear decision — ACT or WAIT
                     </div>
-                    <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
-                    <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
+                    <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--mute);font-size:.85rem"></div>
+                    <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--mute)"></div>
                     <div id="landingDiscipline" style="display:none;margin-top:.75rem"></div>
-                    <div id="landingCompliance" style="display:none;margin-top:.85rem;padding:.65rem .8rem;border-top:1px solid var(--border);font-size:.72rem;color:var(--text-muted)"></div>
+                    <div id="landingCompliance" style="display:none;margin-top:.85rem;padding:.65rem .8rem;border-top:1px solid var(--line);font-size:.72rem;color:var(--mute)"></div>
                     <div id="landingUpgrade" style="display:none;margin-top:.75rem"></div>
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
-                    <h4>Share Your Signal</h4>
-                    <p>Spread the oracle verdict — viral growth fuels the dark side</p>
+                    <h4>Share Your Certificate</h4>
+                    <p>Share proof — not hype</p>
                     <div class="share-buttons">
-                        <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">𝕏 X</a>
+                        <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">X</a>
                         <a href="#" class="share-btn share-facebook" id="shareFacebookBtn" target="_blank" rel="noopener noreferrer">Facebook</a>
                         <a href="#" class="share-btn share-instagram" id="shareInstagramBtn">Instagram</a>
                         <a href="#" class="share-btn share-whatsapp" id="shareWhatsappBtn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                         <a href="#" class="share-btn share-telegram" id="shareTelegramBtn" target="_blank" rel="noopener noreferrer">Telegram</a>
                         <a href="#" class="share-btn share-reddit" id="shareRedditBtn" target="_blank" rel="noopener noreferrer">Reddit</a>
-                        <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">Copy Link</a>
+                        <a href="#" class="share-btn share-copy" id="shareCopyBtn">Copy Link</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
+    </div>
+
     <section class="features" id="features">
         <div class="section-header">
             <h2>Built around the <span style="color: var(--accent);">Oracle</span></h2>

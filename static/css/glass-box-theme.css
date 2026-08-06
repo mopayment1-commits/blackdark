@@ -1,0 +1,168 @@
+/* BLACKDARK — Glass Box Premiere design system (vivid) */
+:root {
+  --void: #05070c;
+  --void-2: #0a0e16;
+  --steel: #121822;
+  --steel-2: #1a2230;
+  --line: rgba(200, 220, 240, 0.14);
+  --line-hot: rgba(0, 240, 255, 0.45);
+  --ink: #f2f5fa;
+  --mute: #9aa8bd;
+  --metal: #d7dee8;
+  --neon: #00f0ff;
+  --neon-2: #2bffc0;
+  --seal: #ffd166;
+  --act: #00e676;
+  --wait: #ffb020;
+  --stop: #ff4d6d;
+  --glow-neon: rgba(0, 240, 255, 0.35);
+  --glow-seal: rgba(255, 209, 102, 0.28);
+  --radius: 14px;
+  --font-display: "Syne", "Arial Black", sans-serif;
+  --font-body: "Sora", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+a { color: var(--neon); text-decoration: none; }
+a:hover { color: var(--neon-2); }
+
+.gb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.95rem 1.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+  font-family: inherit;
+}
+.gb-btn-primary {
+  background: linear-gradient(135deg, #e8eef7 0%, #b8c4d4 45%, #f5f8fc 100%);
+  color: #0a1018;
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.18);
+}
+.gb-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px var(--glow-neon);
+}
+.gb-btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+.gb-btn-ghost:hover {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.25);
+}
+.gb-btn-neon {
+  background: linear-gradient(135deg, var(--neon), var(--neon-2));
+  color: #041016;
+  box-shadow: 0 0 28px var(--glow-neon);
+}
+
+.gb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--line-hot);
+  background: rgba(0, 240, 255, 0.06);
+  color: var(--neon);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.gb-panel {
+  background: linear-gradient(180deg, rgba(26, 34, 48, 0.92), rgba(10, 14, 22, 0.96));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.05), 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.gb-seal-case {
+  position: relative;
+  width: min(420px, 92vw);
+  aspect-ratio: 0.85;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 240, 255, 0.55);
+  background:
+    linear-gradient(160deg, rgba(0, 240, 255, 0.12), transparent 40%),
+    linear-gradient(20deg, rgba(255, 209, 102, 0.08), transparent 35%),
+    rgba(8, 12, 20, 0.85);
+  box-shadow:
+    0 0 40px rgba(0, 240, 255, 0.25),
+    inset 0 0 40px rgba(0, 240, 255, 0.08);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.gb-seal-case::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+.gb-envelope {
+  width: 58%;
+  aspect-ratio: 1.35;
+  background: linear-gradient(160deg, #151b26, #0b1018);
+  border: 1px solid rgba(215, 222, 232, 0.25);
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+.gb-wax {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffe08a, #e6a800 55%, #8a5a00);
+  box-shadow: 0 0 24px var(--glow-seal);
+  display: grid;
+  place-items: center;
+  color: #1a1200;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.gb-pedestal-label {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  color: var(--neon);
+  text-transform: uppercase;
+}
+
+@keyframes gbPulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px var(--neon)); }
+  50% { opacity: 0.65; filter: drop-shadow(0 0 18px var(--neon)); }
+}
+.gb-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--act);
+  animation: gbPulse 2s ease-in-out infinite;
+}

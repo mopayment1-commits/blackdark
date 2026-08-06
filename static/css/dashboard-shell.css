@@ -1,23 +1,28 @@
-/* BLACKDARK — Quiet Luxury dashboard shell (Master Spec) */
+/* BLACKDARK — Glass Box Premiere dashboard shell (vivid) */
+@import url("/static/css/glass-box-theme.css");
+
 :root {
-  --void: #080b10;
-  --surface: #10161f;
-  --elev: #161d28;
-  --line: #243041;
-  --ink: #e8edf5;
-  --mute: #8892a6;
-  --trust: #2dd4bf;
-  --prove: #5eead4;
-  --calm: #00c853;
-  --hold: #fdb813;
-  --stop: #ff5252;
-  --focus-ring: rgba(45, 212, 191, 0.35);
+  --void: #05070c;
+  --surface: #0f1520;
+  --elev: #171f2c;
+  --line: rgba(200, 220, 240, 0.14);
+  --ink: #f2f5fa;
+  --mute: #9aa8bd;
+  --trust: #00f0ff;
+  --prove: #2bffc0;
+  --calm: #00e676;
+  --hold: #ffb020;
+  --stop: #ff4d6d;
+  --focus-ring: rgba(0, 240, 255, 0.35);
   --rail-w: 4.25rem;
   --rail-w-open: 13.5rem;
   --top-h: 3.5rem;
   --dock-w: 22rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: "Syne", "Arial Black", sans-serif;
+  --font-body: "Sora", system-ui, sans-serif;
 }
+
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -25,7 +30,7 @@ html, body {
   height: 100%;
   background: var(--void);
   color: var(--ink);
-  font-family: "IBM Plex Sans", system-ui, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.5;
 }
 
@@ -37,8 +42,8 @@ a:hover { color: var(--prove); }
   grid-template-rows: var(--top-h) 1fr auto;
   min-height: 100vh;
   background:
-    radial-gradient(900px 480px at 85% -10%, rgba(45, 212, 191, 0.08), transparent 55%),
-    radial-gradient(700px 400px at 10% 110%, rgba(253, 184, 19, 0.04), transparent 50%),
+    radial-gradient(900px 480px at 85% -10%, rgba(0, 240, 255, 0.12), transparent 55%),
+    radial-gradient(700px 400px at 10% 110%, rgba(255, 209, 102, 0.08), transparent 50%),
     var(--void);
 }
 
@@ -49,7 +54,7 @@ a:hover { color: var(--prove); }
   gap: 0.75rem;
   padding: 0 0.85rem;
   border-bottom: 1px solid var(--line);
-  background: rgba(8, 11, 16, 0.92);
+  background: rgba(5, 7, 12, 0.92);
   backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
@@ -57,11 +62,13 @@ a:hover { color: var(--prove); }
 }
 
 .brand {
+  font-family: var(--font-display);
   font-weight: 800;
-  letter-spacing: 0.04em;
-  color: var(--trust);
+  letter-spacing: 0.06em;
+  color: #d7dee8;
   font-size: 0.95rem;
   white-space: nowrap;
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.25);
 }
 
 .cmdk {
@@ -128,11 +135,12 @@ a:hover { color: var(--prove); }
   background: var(--elev);
 }
 .btn {
-  background: linear-gradient(135deg, var(--trust), #14b8a6);
+  background: linear-gradient(135deg, var(--trust), var(--prove));
   color: #041016;
-  border-radius: 10px;
+  border-radius: 999px;
   padding: 0.65rem 1.1rem;
   font-size: 0.85rem;
+  box-shadow: 0 0 24px rgba(0, 240, 255, 0.25);
 }
 .btn:disabled { opacity: 0.55; cursor: wait; }
 .btn-secondary {
