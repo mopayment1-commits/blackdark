@@ -101,8 +101,8 @@ ARBITRAGE_CATALOG: list[dict[str, Any]] = [
     {
         "id": row[0],
         "category": row[1],
+        "name": row[2],
         "name_en": row[2],
-        "name_ar": row[3],
         "status": row[4],
         "engine_kind": row[5],
     }

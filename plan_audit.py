@@ -191,14 +191,6 @@ async def market_radar_narrative() -> dict[str, Any]:
     cool = [s for s in sectors if s["heat_label"] == "Cool"][:3]
     unusual = [s for s in sectors if s["heat_label"] == "Neutral" and abs(s["avg_change_24h"]) > 1][:2]
 
-    bullets_ar: list[str] = []
-    for s in hot:
-        bullets_ar.append(f"زيادة سيولة/نشاط في {s['sector']} (+{s['avg_change_24h']:.1f}%)")
-    for s in cool:
-        bullets_ar.append(f"ضعف في {s['sector']} ({s['avg_change_24h']:.1f}%)")
-    for s in unusual:
-        bullets_ar.append(f"نشاط غير طبيعي في {s['sector']}")
-
     bullets_en: list[str] = []
     for s in hot:
         bullets_en.append(f"Strong activity in {s['sector']} (+{s['avg_change_24h']:.1f}%)")
@@ -207,16 +199,12 @@ async def market_radar_narrative() -> dict[str, Any]:
     for s in unusual:
         bullets_en.append(f"Unusual flow in {s['sector']}")
 
-    if not bullets_ar:
-        bullets_ar.append("السوق متوازن — لا قطاعات متطرفة اليوم")
     if not bullets_en:
         bullets_en.append("Market balanced — no extreme sectors today")
 
     return {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
-        "summary_ar": "اليوم السوق فيه: " + " · ".join(bullets_ar[:5]),
         "bullets": bullets_en,
-        "bullets_ar": bullets_ar,
         "sectors": sectors,
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
@@ -243,20 +231,13 @@ async def execution_speed_snapshot() -> dict[str, Any]:
         "sub_second": "Fast (<500ms)",
         "slow": "Slow",
     }.get(tier, tier)
-    label_ar = {
-        "millisecond": "فائق السرعة (<50ms)",
-        "sub_second": "سريع (<500ms)",
-        "slow": "بطيء",
-    }.get(tier, tier)
 
     return {
         "latency_ms": ms,
         "latency_tier": tier,
         "label": label_en,
-        "label_ar": label_ar,
         "scan": scan,
         "websocket": ws,
         "live_books": books,
         "disclaimer": "Speed depends on exchange and network — not a fixed 3-second guarantee",
-        "disclaimer_ar": "السرعة تعتمد على المنصة والشبكة — ليس 3 ثوانٍ مضمونة",
     }

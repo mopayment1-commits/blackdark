@@ -260,11 +260,15 @@ async def api_signal_registry_summary():
     stats = registry_stats()
     return {
         "differentiator": "D8",
+        "status": stats.get("status"),
         "total": stats.get("total_in_memory", 0),
         "labeled": stats.get("labeled", 0),
         "unlabeled": stats.get("unlabeled", 0),
+        "linked_prediction_ids": stats.get("linked_prediction_ids", 0),
         "by_type": stats.get("by_type") or {},
         "by_label": stats.get("by_label") or {},
+        "by_type_performance": stats.get("by_type_performance") or {},
+        "lexicon": stats.get("lexicon") or {},
         "moat_claim": stats.get("moat_claim"),
         "generated_at": stats.get("generated_at"),
     }

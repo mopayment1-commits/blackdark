@@ -95,6 +95,30 @@ def advise_stealth_execution(
         note += " Half-life short — prioritize speed over stealth or stand down."
 
     slice_usd = round(notional / slices, 2) if slices else notional
+
+    # Half-life-aligned advisory window (still advisory — no live SOR)
+    window_sec = int(hl) if hl and hl > 0 else max(60, slices * 30)
+    if urgency == "edge_dying":
+        window_sec = max(15, min(window_sec, 45))
+    interval_sec = max(5, int(window_sec / max(slices, 1)))
+    limit_offset_bps = 2.0 if style == "single_clip_ok" else (5.0 if style == "standard_slice" else 8.0)
+    participation_target = min(0.02, max(0.001, participation / max(slices, 1)))
+    algo = "TWAP" if slices >= 5 else ("VWAP_lite" if slices >= 3 else "LIMIT_CLIP")
+
+    slice_plan_rows = []
+    for i in range(slices):
+        slice_plan_rows.append(
+            {
+                "slice_index": i + 1,
+                "notional_usd": slice_usd,
+                "delay_sec": i * interval_sec,
+                "limit_offset_bps": limit_offset_bps,
+                "side": side.lower(),
+                "venue_preference": ["binance", "okx"],
+                "algo": algo,
+            }
+        )
+
     return {
         "asset": asset.upper(),
         "side": side.lower(),
@@ -112,6 +136,15 @@ def advise_stealth_execution(
         "style": style,
         "urgency": urgency,
         "half_life_seconds": hl,
+        "slice_plan": {
+            "algo": algo,
+            "window_sec": window_sec,
+            "interval_sec": interval_sec,
+            "limit_offset_bps": limit_offset_bps,
+            "participation_target_per_slice": round(participation_target, 5),
+            "slices": slice_plan_rows,
+            "note": "Advisory schedule only — does not place live SOR orders.",
+        },
         "advice": note,
         "disclaimer": (
             "Advisory only — not a guarantee against front-running. "

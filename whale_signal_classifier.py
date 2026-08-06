@@ -178,9 +178,22 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
                 else base_deriv.get("open_interest_change_pct"),
             }
         c = classify_whale_alert(alert, derivatives_context=deriv_cache[asset])
+        price = alert.get("price") or alert.get("spot_price") or alert.get("last_price")
+        if price is None:
+            try:
+                from live_book_hub import get_top_of_book  # type: ignore
+
+                book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset)
+                if isinstance(book, dict):
+                    price = book.get("mid") or book.get("bid") or book.get("ask")
+            except Exception:
+                price = None
         classified.append(
             {
                 **{k: alert.get(k) for k in ("asset", "direction", "amount_usd", "value_usd")},
+                "price": price,
+                "funding_rate": deriv_cache[asset].get("funding_rate"),
+                "open_interest_change_pct": deriv_cache[asset].get("open_interest_change_pct"),
                 **c,
             }
         )

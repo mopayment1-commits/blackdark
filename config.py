@@ -499,11 +499,24 @@ B2B_WS_MAX_CONNECTIONS = int(os.getenv("B2B_WS_MAX_CONNECTIONS", "50"))
 
 # Launch — Pro trial on signup + Stripe checkout
 PRO_TRIAL_DAYS = int(os.getenv("PRO_TRIAL_DAYS", "7"))
-LAUNCH_PROMO_CODES: dict[str, int] = {
-    "LAUNCHPRO": 14,
-    "DARKSIDE": 7,
-    "BLACKDARK": 7,
-}
+# Launch promo codes — override via LAUNCH_PROMO_CODES_JSON='{"CODE":days}'
+def _load_launch_promo_codes() -> dict[str, int]:
+    defaults = {"LAUNCHPRO": 14, "DARKSIDE": 7, "BLACKDARK": 7}
+    raw = os.getenv("LAUNCH_PROMO_CODES_JSON", "").strip()
+    if not raw:
+        return defaults
+    try:
+        import json
+
+        parsed = json.loads(raw)
+        if isinstance(parsed, dict) and parsed:
+            return {str(k).upper(): int(v) for k, v in parsed.items()}
+    except Exception:
+        pass
+    return defaults
+
+
+LAUNCH_PROMO_CODES: dict[str, int] = _load_launch_promo_codes()
 
 # ── Funding + Institutional Convergence ──────────────────────────────────────
 FUNDING_SII_VELOCITY_WEIGHT = 0.60

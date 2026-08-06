@@ -170,6 +170,39 @@ async def resolve_mature_predictions(*, limit: int = 300) -> dict[str, Any]:
             direction_label=direction,
             resolved_at=_utcnow_iso(),
         )
+        # D8: close the moat loop — label the sovereign registry row
+        try:
+            from signal_registry import list_signals, resolve_signal
+
+            resolved = resolve_signal(
+                str(pred_id),
+                str(outcome),
+                meta={
+                    "accuracy": accuracy,
+                    "direction_label": direction,
+                    "price_after": price_now,
+                    "resolved_via": "labeling_pipeline",
+                },
+            )
+            # Backfill: match unlabeled rows by asset when prediction_id was missing
+            if not resolved:
+                asset_u = str(pred.get("asset") or "").upper()
+                for row in list_signals(limit=40, asset=asset_u or None, unlabeled_only=True):
+                    if str(row.get("prediction_id") or "") in {"", "None", "null"}:
+                        resolve_signal(
+                            str(row.get("signal_id")),
+                            str(outcome),
+                            meta={
+                                "accuracy": accuracy,
+                                "direction_label": direction,
+                                "price_after": price_now,
+                                "resolved_via": "labeling_backfill_asset",
+                                "matched_prediction_id": pred_id,
+                            },
+                        )
+                        break
+        except Exception:
+            pass
         resolved_count += 1
 
     return {

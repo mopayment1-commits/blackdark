@@ -43,6 +43,16 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         f"{body['decision_action']} · score {body['opportunity_score']} · "
         f"id={body['prediction_id']} · verify {body['public_accuracy']}"
     )
+    share_q = (
+        f"BLACKDARK Decision Certificate · {body['asset']} · "
+        f"{body['decision_action']} · verify https://blackdark.app{body['public_accuracy']}"
+    )
+    from urllib.parse import quote
+
+    body["share_urls"] = {
+        "x": f"https://twitter.com/intent/tweet?text={quote(share_q)}",
+        "telegram": f"https://t.me/share/url?url={quote('https://blackdark.app/oracle-accuracy')}&text={quote(share_q)}",
+    }
     body["compliance"] = compliance_footer_block(
         surface="decision_certificate",
         trust_basis="public_accuracy_ledger + audit_hash_chain",

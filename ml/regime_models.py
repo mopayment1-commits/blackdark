@@ -93,8 +93,11 @@ def predict_with_regime_artifact(
 
 def regime_model_registry() -> dict[str, Any]:
     """Public-safe registry of D5 regime-conditional model status."""
+    import json
+
     regimes: dict[str, Any] = {}
     artifacts_ready = 0
+    bootstrap_any = False
     for regime in REGIMES:
         has = regime_has_artifact(regime)
         if has:
@@ -107,23 +110,45 @@ def regime_model_registry() -> dict[str, Any]:
                 art_rel = str(art)
         else:
             art_rel = None
+        meta: dict[str, Any] = {}
+        meta_path = _REGIME_MODEL_ROOT / regime / "meta.json"
+        if meta_path.is_file():
+            try:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            except Exception:
+                meta = {}
+        if meta.get("bootstrap_samples") or meta.get("synthetic_class_balance"):
+            bootstrap_any = True
         regimes[regime] = {
             "artifact_present": has,
             "artifact_path": art_rel,
             "status": "artifact_ready" if has else "pending_training",
             "confidence_multiplier": float(REGIME_CONF_MULT.get(regime, 1.0)),
+            "bootstrap_samples": bool(meta.get("bootstrap_samples")),
+            "synthetic_class_balance": bool(meta.get("synthetic_class_balance")),
+            "samples": meta.get("samples"),
         }
 
     per_regime = artifacts_ready == len(REGIMES)
-    if per_regime:
+    if per_regime and not bootstrap_any:
         evidence = "per_regime_artifacts_live"
         status = "per_regime_models_live"
+        note = "Separate per-regime ML artifacts are live (labeled history)."
+    elif per_regime and bootstrap_any:
+        evidence = "per_regime_artifacts_bootstrapped"
+        status = "per_regime_models_live_bootstrapped"
+        note = (
+            "All four regime artifacts present; one or more used bootstrap/synthetic "
+            "class balance — replace with live labeled history as the flywheel grows."
+        )
     elif artifacts_ready > 0:
         evidence = "partial_artifacts"
         status = "partial_regime_artifacts"
+        note = "Regime confidence routing is live; dedicated per-regime model files pending training."
     else:
         evidence = "weights_live"
         status = "weights_and_confidence_live"
+        note = "Regime confidence routing is live; dedicated per-regime model files pending training."
 
     return {
         "differentiator": "D5",
@@ -132,10 +157,7 @@ def regime_model_registry() -> dict[str, Any]:
         "per_regime_models": per_regime,
         "artifacts_ready": artifacts_ready,
         "artifacts_expected": len(REGIMES),
+        "bootstrap_used": bootstrap_any,
         "regimes": regimes,
-        "note": (
-            "Separate per-regime ML artifacts are live."
-            if per_regime
-            else "Regime confidence routing is live; dedicated per-regime model files pending training."
-        ),
+        "note": note,
     }

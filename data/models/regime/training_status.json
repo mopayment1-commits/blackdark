@@ -1,0 +1,100 @@
+{
+  "started_at": "2026-08-06T11:42:42.885404+00:00",
+  "min_samples_per_regime": 40,
+  "regimes": {
+    "risk_on": {
+      "samples": 38,
+      "ready": false,
+      "artifact_written": true,
+      "trained": true,
+      "accuracy": 0.4286,
+      "holdout_eval": true,
+      "synthetic_class_balance": false,
+      "bootstrap_samples": false,
+      "model_path": "data/models/regime/risk_on/model.joblib"
+    },
+    "neutral": {
+      "samples": 62,
+      "ready": true,
+      "artifact_written": true,
+      "trained": true,
+      "accuracy": 0.0,
+      "holdout_eval": true,
+      "synthetic_class_balance": false,
+      "bootstrap_samples": false,
+      "model_path": "data/models/regime/neutral/model.joblib"
+    },
+    "risk_off": {
+      "samples": 23,
+      "ready": false,
+      "artifact_written": true,
+      "trained": true,
+      "accuracy": 1.0,
+      "holdout_eval": true,
+      "synthetic_class_balance": true,
+      "bootstrap_samples": false,
+      "model_path": "data/models/regime/risk_off/model.joblib"
+    },
+    "panic": {
+      "samples": 37,
+      "ready": false,
+      "artifact_written": true,
+      "trained": true,
+      "accuracy": 0.7143,
+      "holdout_eval": true,
+      "synthetic_class_balance": false,
+      "bootstrap_samples": false,
+      "model_path": "data/models/regime/panic/model.joblib"
+    }
+  },
+  "artifacts_written": 4,
+  "finished_at": "2026-08-06T11:42:43.477688+00:00",
+  "registry": {
+    "differentiator": "D5",
+    "status": "per_regime_models_live_bootstrapped",
+    "evidence_status": "per_regime_artifacts_bootstrapped",
+    "per_regime_models": true,
+    "artifacts_ready": 4,
+    "artifacts_expected": 4,
+    "bootstrap_used": true,
+    "regimes": {
+      "risk_on": {
+        "artifact_present": true,
+        "artifact_path": "data/models/regime/risk_on/model.joblib",
+        "status": "artifact_ready",
+        "confidence_multiplier": 1.05,
+        "bootstrap_samples": false,
+        "synthetic_class_balance": false,
+        "samples": 38
+      },
+      "neutral": {
+        "artifact_present": true,
+        "artifact_path": "data/models/regime/neutral/model.joblib",
+        "status": "artifact_ready",
+        "confidence_multiplier": 1.0,
+        "bootstrap_samples": false,
+        "synthetic_class_balance": false,
+        "samples": 62
+      },
+      "risk_off": {
+        "artifact_present": true,
+        "artifact_path": "data/models/regime/risk_off/model.joblib",
+        "status": "artifact_ready",
+        "confidence_multiplier": 0.92,
+        "bootstrap_samples": false,
+        "synthetic_class_balance": true,
+        "samples": 23
+      },
+      "panic": {
+        "artifact_present": true,
+        "artifact_path": "data/models/regime/panic/model.joblib",
+        "status": "artifact_ready",
+        "confidence_multiplier": 0.78,
+        "bootstrap_samples": false,
+        "synthetic_class_balance": false,
+        "samples": 37
+      }
+    },
+    "note": "All four regime artifacts present; one or more used bootstrap/synthetic class balance \u2014 replace with live labeled history as the flywheel grows."
+  }
+}

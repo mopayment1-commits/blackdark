@@ -102,16 +102,48 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         {"id": "D2", "name": "Contradiction Veto", "status": "live"},
         {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
         {"id": "D4", "name": "Opportunity Half-Life", "status": "live"},
-        {
-            "id": "D5",
-            "name": "Regime-Conditional Models",
-            "status": "weights_live",
-            "note": "Regime weights + confidence router live; separate per-regime ML artifacts pending",
-        },
+        {"id": "D5", "name": "Regime-Conditional Models", "status": "pending"},
         {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
         {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
         {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
     ]
+    try:
+        from ml.regime_models import regime_model_registry
+
+        d5 = regime_model_registry()
+        pack["differentiators"][4] = {
+            "id": "D5",
+            "name": "Regime-Conditional Models",
+            "status": d5.get("status") or d5.get("evidence_status") or "weights_live",
+            "evidence_status": d5.get("evidence_status"),
+            "artifacts_ready": d5.get("artifacts_ready"),
+            "artifacts_expected": d5.get("artifacts_expected"),
+            "note": d5.get("note"),
+        }
+    except Exception:
+        pack["differentiators"][4] = {
+            "id": "D5",
+            "name": "Regime-Conditional Models",
+            "status": "weights_live",
+            "note": "Regime weights + confidence router live; registry unavailable",
+        }
+    try:
+        from signal_registry import registry_stats
+
+        d8 = registry_stats()
+        pack["differentiators"][7] = {
+            "id": "D8",
+            "name": "Sovereign Signal Registry",
+            "status": d8.get("status") or ("live" if (d8.get("labeled") or 0) > 0 else "pending_labels"),
+            "labeled": d8.get("labeled"),
+            "unlabeled": d8.get("unlabeled"),
+            "linked_prediction_ids": d8.get("linked_prediction_ids"),
+            "total_in_memory": d8.get("total_in_memory"),
+            "by_label": d8.get("by_label"),
+            "by_type_performance": d8.get("by_type_performance"),
+        }
+    except Exception:
+        pass
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
     pack["committee_checklist"] = [

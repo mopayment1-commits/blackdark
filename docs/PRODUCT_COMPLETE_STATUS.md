@@ -9,12 +9,15 @@
 
 | Domain | Status |
 |--------|--------|
-| Product Constitution D1–D8 (code wiring) | DONE (D5 honest `weights_live` until full artifacts) |
+| Product Constitution D1–D8 (code wiring) | DONE (D5 = 4/4 artifacts, honesty-flagged if bootstrapped; D8 lexicon + resolve loop) |
 | Six Heroes + Section Z | DONE |
 | Public Accuracy Ledger + Glass Box pack + MEV | DONE |
-| Audience routing + Stealth Advisor | DONE |
+| Audience routing + Stealth Advisor (+ slice table) | DONE |
 | Net-Edge / Half-Life / Veto gates | DONE (+ fail-closed alertability hardening 2026-08-06) |
-| English-only public templates | DONE |
+| English-only public templates + public API strip | DONE |
+| Utility rail `/capabilities` `/contact` `/complaints` | DONE |
+| Stop-loss monitor in auto-exec cycle | DONE |
+| Binance `can_withdraw` permission check | DONE |
 
 ## Binding master inventory
 

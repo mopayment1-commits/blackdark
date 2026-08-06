@@ -959,6 +959,45 @@ async def platform_hub_page(request: Request):
     return templates.TemplateResponse(request, "platform.html")
 
 
+@app.get("/capabilities", response_class=HTMLResponse)
+async def capabilities_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "capabilities",
+            "title": "Capabilities",
+            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+        },
+    )
+
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "contact",
+            "title": "Contact",
+            "lead": "Reach the team for support, partnerships, and allocator diligence.",
+        },
+    )
+
+
+@app.get("/complaints", response_class=HTMLResponse)
+async def complaints_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "complaints",
+            "title": "Complaints",
+            "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
+        },
+    )
+
+
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
 async def platform_coin_page(request: Request, coin_id: str):
     return templates.TemplateResponse(request, "coin.html", {"coin_id": coin_id})
@@ -1224,6 +1263,36 @@ async def oracle(
         prediction_id = await _log_oracle_prediction(payload)
         if prediction_id is not None:
             payload["prediction_id"] = prediction_id
+            # D8: bind audit prediction_id onto the sovereign registry row
+            try:
+                from signal_registry import attach_prediction_id, register_from_evaluation
+
+                sig = (payload.get("signal_registry") or {}).get("signal_id")
+                linked = attach_prediction_id(str(sig), prediction_id) if sig else None
+                if not linked:
+                    linked = register_from_evaluation(
+                        {
+                            "kind": payload.get("kind") or "oracle_direction",
+                            "asset": asset,
+                            "opportunity_score": payload.get("opportunity_score"),
+                            "oracle": {"verdict": payload.get("verdict")},
+                            "prediction_id": prediction_id,
+                            "payload": payload,
+                        }
+                    )
+                if linked:
+                    payload["signal_registry"] = {
+                        "signal_id": linked.get("signal_id"),
+                        "prediction_id": linked.get("prediction_id"),
+                        "features_hash": linked.get("features_hash"),
+                        "label": linked.get("label"),
+                        "definition": linked.get("definition"),
+                        "source": linked.get("source"),
+                        "weight": linked.get("weight"),
+                        "performance": linked.get("performance"),
+                    }
+            except Exception:
+                logger.debug("signal registry prediction_id attach failed", exc_info=True)
             try:
                 from oracle_audit_chain import chain_summary
 

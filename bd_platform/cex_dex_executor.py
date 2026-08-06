@@ -111,7 +111,7 @@ async def execute_cex_dex_opportunity(
         "estimated_profit_usd": opportunity.get("estimated_profit_usd"),
         "legs": legs,
         "why": opportunity.get("why"),
-        "disclaimer_ar": "DEX leg محاكاة — CEX leg فقط live مع Binance keys",
+        "disclaimer": "DEX leg is simulated — CEX leg live only with Binance keys",
     }
 
     await insert_execution_log(

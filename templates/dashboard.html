@@ -69,9 +69,11 @@
                 <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
                 <div class="nav-links">
                     <a href="/">Home</a>
+                    <a href="/dashboard#portfolio">Portfolio</a>
                     <a href="/dashboard#stealth">Stealth</a>
                     <a href="/platform">Platform</a>
                     <a href="/oracle-accuracy">Accuracy</a>
+                    <a href="/capabilities">Capabilities</a>
                     <a href="/login" id="authLink">Login</a>
                 </div>
             </div>
@@ -90,6 +92,7 @@
                 <option value="pro">Pro</option>
             </select>
             <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
+            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -139,6 +142,19 @@
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
+        <section id="portfolio">
+            <h2>Portfolio AI</h2>
+            <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
+            <div class="toolbar">
+                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
+                <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
+            </div>
+            <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
+            <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
+        </section>
+
         <section id="stealth">
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
@@ -174,7 +190,14 @@
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
     </main>
-    <footer>BLACKDARK — Not financial advice · Verify on <a href="/oracle-accuracy">Public Accuracy Ledger</a></footer>
+    <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
+        <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
+        <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
+        · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
+        · <a href="/contact" style="color:#a1a1aa">Contact</a>
+        · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
+        · <a href="/legal" style="color:#a1a1aa">Legal</a>
+    </footer>
 
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -309,8 +332,10 @@
                         window._lastCertShare = cert.share_text || '';
                         window._lastCertJson = cert;
                         return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}
-                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">Download JSON</button></div>`;
+                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
+                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
+                        ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
+                        ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
                     })()}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
@@ -411,6 +436,7 @@
                         <strong>${a.title||'Alert'}</strong>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                        <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (e) {
                 el.innerHTML = '<div class="empty">Inbox unavailable</div>';
@@ -445,7 +471,9 @@
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
                             <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
                             <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
+                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
                         </div>`).join('');
                 } else if (stories.length) {
                     el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
@@ -499,14 +527,67 @@
                     }),
                 });
                 const d = await res.json();
+                const slices = ((d.slice_plan || {}).slices || []);
+                const sliceTable = slices.length
+                    ? `<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">
+                        <thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>
+                        <tbody>${slices.slice(0,12).map(s => `<tr>
+                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
+                            <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
+                            <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
+                            <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
+                            <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
+                        </tr>`).join('')}</tbody></table>`
+                    : '';
                 el.innerHTML = `
                     <div class="arb-card">
                         <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
                         <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
                         <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
+                        ${d.slice_plan ? `<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ${d.slice_plan.algo} · window ${d.slice_plan.window_sec}s · interval ${d.slice_plan.interval_sec}s · offset ${d.slice_plan.limit_offset_bps} bps</div>` : ''}
+                        ${sliceTable}
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
                     </div>`;
             } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+        }
+
+        let portfolioAssets = [];
+        function addPortfolioAsset() {
+            const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
+            const amount = Number(document.getElementById('pfAmt').value || 0);
+            if (!symbol || !(amount > 0)) return;
+            portfolioAssets.push({ symbol, amount });
+            document.getElementById('pfSym').value = '';
+            document.getElementById('pfAmt').value = '';
+            renderPortfolioList();
+        }
+        function renderPortfolioList() {
+            const el = document.getElementById('portfolioList');
+            if (!portfolioAssets.length) { el.textContent = ''; return; }
+            el.innerHTML = portfolioAssets.map((a,i) =>
+                `${a.symbol}: ${a.amount} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
+            ).join(' · ');
+        }
+        async function analyzePortfolio() {
+            const el = document.getElementById('portfolioResult');
+            if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
+            el.innerHTML = '<div class="loading">Analyzing…</div>';
+            try {
+                const res = await fetch('/portfolio/analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                    body: JSON.stringify(portfolioAssets),
+                });
+                const d = await res.json();
+                const foot = d.compliance_footer || {};
+                el.innerHTML = `
+                    <div class="arb-card">
+                        <strong>Portfolio AI</strong>
+                        <div style="margin-top:.4rem">${d.plain_language || d.summary || JSON.stringify(d).slice(0,280)}</div>
+                        ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+                        ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
+                    </div>`;
+            } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
 
         async function loadTgStatus() {
@@ -538,12 +619,16 @@
             } catch (e) { /* ignore */ }
         }
 
-        function scrollToStealth() {
-            const target = document.getElementById('stealth') || document.getElementById('mev');
+        function scrollToId(id) {
+            const target = document.getElementById(id);
             if (!target) return;
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             target.style.outline = '1px solid #22d3ee';
             setTimeout(() => { target.style.outline = ''; }, 1600);
+        }
+
+        function scrollToStealth() {
+            scrollToId('stealth');
         }
 
         function applyAudienceFromQuery() {
@@ -554,14 +639,28 @@
             const mode = document.getElementById('uxMode');
             if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
             const banner = document.getElementById('audienceBanner');
-            if (banner && aud === 'whale') {
-                banner.style.display = 'block';
-                banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
+            if (banner) {
+                if (aud === 'whale') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
+                } else if (aud === 'fund') {
+                    banner.style.display = 'block';
+                    banner.innerHTML = 'Fund mode · <a href="/b2b#fund-terminal" style="color:#22d3ee">Emerging Fund Terminal</a> + Evidence Pack';
+                } else if (aud === 'pro') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Pro mode · Opportunity Quality Score + unlimited Oracle';
+                } else if (aud === 'retail') {
+                    banner.style.display = 'block';
+                    banner.textContent = 'Retail mode · One clear Act / Wait decision';
+                }
             }
-            // Prefer hash / whale audience — never fight the target with scroll-to-top
             if (hash === '#stealth' || hash === '#mev' || aud === 'whale') {
                 setTimeout(scrollToStealth, 250);
                 setTimeout(scrollToStealth, 900);
+            } else if (hash === '#portfolio' || aud === 'retail' || aud === 'pro') {
+                setTimeout(() => scrollToId(hash === '#portfolio' ? 'portfolio' : (aud === 'pro' ? 'oracleBox' : 'portfolio')), 250);
+            } else if (aud === 'fund') {
+                setTimeout(() => { location.href = '/b2b#fund-terminal'; }, 200);
             }
         }
 

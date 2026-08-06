@@ -13,15 +13,18 @@
 | Discipline Mirror | DONE | نعم | Landing Yes/No · `/discipline-mirror` |
 | تنبيهات سخية vs TradingView cap | DONE | نعم | Inbox · `/api/alerts/generosity` |
 | Emerging Fund Terminal | DONE | نعم | `/b2b#fund-terminal` |
-| Funding/OI في Signal vs Noise | DONE (hub mesh wired) | نعم | Whale panel |
+| Funding/OI في Signal vs Noise | DONE (hub mesh + price on cards) | نعم | Whale panel |
 | Locked auto-seal cadence | DONE (daily product loop) | نعم | `/oracle-accuracy#locked` |
 | Certificate JSON download | DONE | نعم | Landing · Dashboard |
+| Certificate X/TG share | DONE | نعم | Dashboard share URLs |
 | Landing Top-3 Why | DONE | نعم | `/` |
 | Fund DD JSON download | DONE | نعم | `/b2b` |
 | Monthly losing by calendar month | DONE | نعم | accuracy `#losing` |
 | Compliance on chat/voice/oracle eval | DONE | نعم | APIs |
-| Stealth Execution Advisor | DONE | نعم | `/dashboard#stealth` (استشاري) |
-| Anti-Hype Compliance Footer | DONE | نعم | تحت مخرجات AI |
+| Stealth Execution Advisor | DONE | نعم | `/dashboard#stealth` (استشاري + جدول slices) |
+| Portfolio AI on live dashboard | DONE | نعم | `/dashboard#portfolio` |
+| Anti-Hype Compliance Footer | DONE | نعم | تحت مخرجات AI + footer |
+| Utility rail Capabilities/Contact/Complaints | DONE | نعم | `/capabilities` · `/contact` · `/complaints` |
 | Hook–Story–Loop / GEO posture | DONE | نعم (محتوى إثبات) | Ledger + Certificates |
 | أبطال 1–6 | DONE | نعم | انظر Heroes binding |
 | قسم ب ~250 محرك بلا واجهات | معتمد | ليس كأزرار | خلفي |
@@ -36,4 +39,4 @@
 | Core + قدرات ثماني + جدول ألم/حل | DONE* | نعم* | دستور + APIs |
 | Persona «جملة عربية» | OVERRIDE | English Act/Wait | قرار English-only |
 
-\* D5 Regime = PARTIAL تقنياً.
+\* D5 Regime = DONE 4/4 artifacts (`per_regime_models_live_bootstrapped` until unlabeled flywheel replaces bootstrap). D8 = DONE with lexicon + prediction_id link + resolve.

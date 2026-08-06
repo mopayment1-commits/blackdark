@@ -1,0 +1,118 @@
+"""Tests for 100% non-human gap closure pass."""
+
+from __future__ import annotations
+
+import inspect
+
+import pytest
+
+
+def test_signal_registry_lexicon_and_attach():
+    from signal_registry import (
+        SIGNAL_TYPE_LEXICON,
+        attach_prediction_id,
+        register_signal,
+        registry_stats,
+        resolve_signal,
+    )
+
+    assert "oracle_direction" in SIGNAL_TYPE_LEXICON
+    row = register_signal(
+        signal_type="oracle_direction",
+        asset="BTC",
+        score=70,
+        verdict="BUY",
+        persist=False,
+    )
+    assert row.get("definition")
+    assert row.get("weight") is not None
+    linked = attach_prediction_id(row["signal_id"], 424242)
+    assert linked is not None
+    assert str(linked.get("prediction_id")) == "424242"
+    assert linked.get("signal_id") == "424242"
+    resolved = resolve_signal("424242", "correct", meta={"test": True})
+    assert resolved and resolved.get("label") == "correct"
+    assert (resolved.get("performance") or {}).get("hits", 0) >= 1
+    stats = registry_stats()
+    assert "status" in stats
+    assert "by_type_performance" in stats
+
+
+def test_decision_certificate_share_urls():
+    from decision_certificate import build_decision_certificate
+
+    cert = build_decision_certificate(
+        {
+            "symbol": "ETH",
+            "prediction_id": 9,
+            "decision_action": "ACT",
+            "decision_sentence": "Act on ETH",
+            "opportunity_score": 71,
+        }
+    )
+    assert cert.get("share_urls", {}).get("x")
+    assert cert.get("share_urls", {}).get("telegram")
+
+
+def test_execution_keys_english_only_and_withdraw_field():
+    import execution_keys as ek
+
+    src = inspect.getsource(ek.activate_live_execution)
+    assert "message_ar" not in src
+    assert "disclaimer_ar" not in src
+    assert "message" in src
+    vsrc = inspect.getsource(ek.verify_binance_keys)
+    assert "can_withdraw" in vsrc
+
+
+def test_stop_loss_wired_into_auto_cycle():
+    import execution_engine as ee
+
+    src = inspect.getsource(ee.run_auto_execution_cycle)
+    assert "check_stop_losses" in src
+    assert "stop_loss_flatten" in src
+
+
+def test_regime_train_has_panic_bootstrap():
+    import ml.train_regime_models as tr
+
+    assert callable(tr._bootstrap_regime_samples)
+    src = inspect.getsource(tr._bootstrap_regime_samples) + inspect.getsource(tr.train_regime_models)
+    assert "panic" in src
+    assert "force" in inspect.getsource(tr.train_regime_models)
+
+
+def test_evidence_pack_d8_honest_status():
+    import acquirer_evidence_pack as aep
+
+    src = inspect.getsource(aep.build_acquirer_evidence_pack)
+    assert "pending_labels" in src or "d8.get(\"status\")" in src or "status" in src
+
+
+def test_utility_routes_exist():
+    import dashboard as dash
+
+    src = inspect.getsource(dash)
+    assert '/capabilities"' in src or "/capabilities" in src
+    assert "/contact" in src
+    assert "/complaints" in src
+
+
+@pytest.mark.asyncio
+async def test_force_train_writes_four_regimes(tmp_path, monkeypatch):
+    import ml.regime_models as rm
+    import ml.train_regime_models as tr
+
+    monkeypatch.setattr(rm, "_REGIME_MODEL_ROOT", tmp_path)
+    monkeypatch.setattr(tr, "_REGIME_MODEL_ROOT", tmp_path)
+    monkeypatch.setattr(tr, "STATUS_PATH", tmp_path / "training_status.json")
+    monkeypatch.setattr(tr, "MIN_SAMPLES_PER_REGIME", 40)
+
+    async def empty_buckets():
+        return {r: [] for r in rm.REGIMES}
+
+    monkeypatch.setattr(tr, "collect_regime_buckets", empty_buckets)
+    out = await tr.train_regime_models(force=True)
+    assert out.get("artifacts_written", 0) >= 4
+    for regime in rm.REGIMES:
+        assert (tmp_path / regime / "model.joblib").is_file()

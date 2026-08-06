@@ -474,6 +474,57 @@ async def try_execute_from_opportunity(
 
 async def run_auto_execution_cycle() -> dict[str, Any]:
     """Scan profitable arb and execute top signal if auto-execution is enabled."""
+    # Built-in stop-loss monitor — flatten/halt when registered stops hit
+    try:
+        from risk_manager import active_stop_loss_symbols, check_stop_losses, freeze_trading
+
+        prices: dict[str, float] = {}
+        for sym in active_stop_loss_symbols():
+            try:
+                market = await _fetch_ticker(f"{sym}USDT")
+                if market and market.get("price") is not None:
+                    prices[sym] = float(market["price"])
+            except Exception:
+                continue
+        if prices:
+            triggered = check_stop_losses(prices)
+            if triggered:
+                freeze_trading(
+                    f"stop_loss_triggered:{','.join(t.get('symbol','?') for t in triggered[:5])}",
+                    duration_sec=int(os.getenv("RISK_STOP_LOSS_FREEZE_SEC", "120")),
+                )
+                flatten_results = []
+                for hit in triggered:
+                    try:
+                        side = "sell" if hit.get("side") == "buy" else "buy"
+                        amt = float(os.getenv("AUTO_EXECUTION_QUOTE_USD", "100"))
+                        result = await execute_order(
+                            hit["symbol"],
+                            side,  # type: ignore[arg-type]
+                            amt,
+                            dry_run=None,
+                        )
+                        flatten_results.append(
+                            {
+                                "symbol": hit["symbol"],
+                                "flatten_side": side,
+                                "mode": result.get("mode"),
+                                "executed": result.get("executed"),
+                            }
+                        )
+                    except Exception as exc:
+                        flatten_results.append(
+                            {"symbol": hit.get("symbol"), "error": str(exc)[:120]}
+                        )
+                return {
+                    "executed": bool(flatten_results),
+                    "mode": "stop_loss_flatten",
+                    "triggered": triggered,
+                    "flatten": flatten_results,
+                }
+    except Exception:
+        logger.debug("stop-loss monitor skipped", exc_info=True)
+
     if os.getenv("CEX_DEX_AUTO_EXEC", "false").lower() in {"1", "true", "yes"}:
         try:
             from bd_platform.cex_dex_executor import run_cex_dex_cycle

@@ -270,6 +270,11 @@ def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
     return triggered
 
 
+def active_stop_loss_symbols() -> list[str]:
+    """Symbols with an untriggered stop-loss (for monitor loops)."""
+    return [sym for sym, sl in _active_stop_losses.items() if not sl.get("triggered")]
+
+
 def risk_status() -> dict[str, Any]:
     reason = _freeze_reason if is_trading_frozen() else ""
     return {
