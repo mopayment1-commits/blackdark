@@ -3,7 +3,8 @@
 > **Status:** Binding design research (internal) · English-only on public UI  
 > **Date:** 2026-08-06  
 > **Lens:** Marketing psychology · Commercial product design · Habit loops  
-> **Constraint:** Six Heroes + Section Z only — **no seventh retail button**  
+> **Constraint (UI):** Six Heroes + Section Z — **no seventh retail button**  
+> **Constraint (Product — أعلى):** Constitution **D1–D8** + **Eight Capabilities** — ملزمان  
 > **Goal:** لوحة «أقصى درجة سهولة» تخلق اعتماداً ذهنياً مستمراً دون تشتت
 
 ---
@@ -12,10 +13,21 @@
 
 المنافسون يبيعون **لوحات مزدحمة**. نحن نبيع **قرار واحد مثبت**.
 
+### 0.1 طبقات ملزمة — لا تُخلط (تصحيح مهم)
+
+| طبقة | العدد | المصدر | ماذا تعني للوحة |
+|------|-------|--------|------------------|
+| **D1–D8 Differentiators** | **8** | `PRODUCT_CONSTITUTION_AR.md` §2 — ما طوّره المفوض كأصل فريد | يجب أن يظهر أثرها في التجربة (إثبات، فيتو، Net-Edge، Half-Life، Regime، Evidence، Persona، Registry) — حتى لو لم يكن لكل واحدة «تاب» منفصل |
+| **Eight Capabilities** | **8** | الدستور §3 | كل زر/قسم في اللوحة يُصنَّف تحت قدرة واحدة فقط أو يُحذف |
+| **Six Heroes + Section Z** | 6 + 5 تعميقات | `HEROES_STRATEGY_BINDING.md` | **تغليف الواجهة** فقط — صقل ما يراه المستخدم؛ ليست بديلاً عن الـ 8 |
+
+> جملة «مربوط بالأبطال الستة فقط» كانت تعني: **لا نفتح زراً تجزئة سابعاً يشتت الواجهة**.  
+> **لا تعني** أن المنتج اختُزل إلى 6 أو أن D1–D8 أُلغيت. عند التعارض: الدستور يعلو.
+
 | مبدأ | المعنى التشغيلي |
 |------|------------------|
 | One Composition | أول شاشة = علامة BLACKDARK + جملة Oracle واحدة + CTA واحد + حالة الثقة (Ledger) |
-| Anti–Dashboard Tourism | لا تبويبات لا نهائية؛ عمق عبر الأبطال الستة فقط |
+| Anti–Dashboard Tourism | لا تبويبات لا نهائية؛ العمق عبر 6 أبطال تغلف D1–D8 بصمت |
 | Comfort → Habit → Dependence | راحة بصرية أولاً، ثم حلقة يومية، ثم اعتماد ذهني على النموذج |
 | Prove-it Loop | كل جلسة تنتهي بـ Certificate قابل للمشاركة → فيروس إثبات لا فيروس ضوضاء |
 | Four Tiers · One Ladder | Free → Observer → Pro → Whale (سلم واضح بلا تشتيت) |
@@ -294,23 +306,38 @@
 
 ---
 
-## 10) خريطة الميزات → الأبطال (حتى لا يتشعب المنتج)
+## 10) خريطة الميزات → D1–D8 × الأبطال × القدرات (لا اختزال)
 
-| ميزة سطح | البطل | تظهر لـ |
-|----------|-------|---------|
-| Single-Sentence Oracle | Hero 5 | الجميع |
-| Opportunity Score + Top-3 | Hero 1 | Observer+ |
-| Whale + Signal vs Noise | Hero 2 / Z3 | Pro+ |
-| Public Accuracy Ledger | Hero 3 | الجميع (عام) |
-| Portfolio AI | Hero 4 | Free ملخص / Pro كامل |
-| Decision Certificate | Hero 6 | الجميع بعد القرار |
-| Locked Predictions | Z1 | الجميع (عرض) / Pro قفل |
-| Discipline Mirror | Z2 | Observer+ |
-| Stealth Advisor | Whale path | Whale |
-| Emerging Fund Terminal | Z4 | Fund/Whale |
-| Compliance Footer | Z5 | الجميع دائماً |
+### 10.1 المميزات الثماني (D1–D8) — كيف تظهر في اللوحة دون زر سابع
 
-أي فكرة جديدة تُرفض إن لم تُعمق صفاً في هذا الجدول.
+| ID | الميزة الفريدة | أين يعيش في اللوحة (بدون تاب منفصل إجباري) | بطل / تعميق |
+|----|----------------|---------------------------------------------|-------------|
+| **D1** | Proof-Native Oracle | Certificate + رابط Ledger بعد كل قرار | Hero 3·6 |
+| **D2** | Contradiction Veto | حالة Wait / Do Not Touch عند التعارض (داخل نتيجة Oracle) | Hero 5 |
+| **D3** | Net-Edge Truth | شارة/سطر صافي الحافة في Arb وفرص Pro | Hero 1 |
+| **D4** | Opportunity Half-Life | عدّاد عمر الفرصة في Context / Stealth (Whale) | Whale path |
+| **D5** | Regime-Conditional | شريحة نظام السوق الهادئة فوق Decision Stage | Hero 1·5 |
+| **D6** | Evidence Pack | CTA للصناديق داخل Fund/Whale — ليس صفحة تجزئة سابعة | Z4 |
+| **D7** | Persona Clarity EN | وضع Beginner/Pro + جملة Act/Wait | Hero 5 |
+| **D8** | Signal Registry | مصادر/أوزان مطوية تحت Explain («Why») | Hero 1·2 |
+
+### 10.2 سطح الواجهة → بطل (تغليف فقط)
+
+| ميزة سطح | البطل | D يُعزَّز | تظهر لـ |
+|----------|-------|-----------|---------|
+| Single-Sentence Oracle | Hero 5 | D1·D2·D7 | الجميع |
+| Opportunity Score + Top-3 | Hero 1 | D3·D5·D8 | Observer+ |
+| Whale + Signal vs Noise | Hero 2 / Z3 | D8 | Pro+ |
+| Public Accuracy Ledger | Hero 3 | D1 | الجميع (عام) |
+| Portfolio AI | Hero 4 | D7 | Free ملخص / Pro كامل |
+| Decision Certificate | Hero 6 | D1 | الجميع بعد القرار |
+| Locked Predictions | Z1 | D1 | الجميع (عرض) / Pro قفل |
+| Discipline Mirror | Z2 | D7 | Observer+ |
+| Stealth Advisor | Whale | D4 | Whale |
+| Emerging Fund Terminal | Z4 | D6 | Fund/Whale |
+| Compliance Footer | Z5 | D7 | الجميع دائماً |
+
+أي فكرة جديدة تُرفض إن لم تُصنَّف تحت **قدرة من الثماني** وتعزّز **D1–D8**، ويُفضَّل ربطها ببطل/ز — لا يكفي «تاب جديد».
 
 ---
 
