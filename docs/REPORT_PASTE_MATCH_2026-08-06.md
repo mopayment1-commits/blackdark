@@ -34,7 +34,7 @@
 | هـ2 تقرير خسارة شهري | DONE | نعم | accuracy `#losing` |
 | هـ3 باب أمامي Oracle | DONE | نعم | `/` |
 | هـ4 Audit Challenge | DONE | نعم | `/api/audit-challenge` |
-| هـ5 Browser Extension | UNDER_STUDY | **لا** | يحتاج go (H1) |
+| هـ5 Browser Extension | DONE (MV3 unpacked) | نعم بعد التثبيت | `browser_extension/` |
 | قسم ح توجيه جمهور | DONE | نعم | audience routing |
 | Core + قدرات ثماني + جدول ألم/حل | DONE* | نعم* | دستور + APIs |
 | Persona «جملة عربية» | OVERRIDE | English Act/Wait | قرار English-only |
