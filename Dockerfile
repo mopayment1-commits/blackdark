@@ -35,6 +35,6 @@ COPY BUILD.txt ./
 EXPOSE 8080
 
 HEALTHCHECK --interval=5s --timeout=2s --start-period=20s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8180/health/live', timeout=2)"
+    CMD python -c "import os,urllib.request; p=os.getenv('PORT','8080'); urllib.request.urlopen(f'http://127.0.0.1:{p}/health/live', timeout=2)"
 
 CMD ["sh", "-c", "exec python run_service.py ${SERVICE_MODE:-web} --port ${PORT:-8080}"]

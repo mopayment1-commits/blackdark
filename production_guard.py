@@ -36,6 +36,7 @@ def evaluate_production_guard() -> dict[str, Any]:
 
     pg = use_postgres()
     mode = _service_mode()
+    soft_launch = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
     redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
     billing = billing_configured()
     sentry = bool(os.getenv("SENTRY_DSN", "").strip())
@@ -64,9 +65,12 @@ def evaluate_production_guard() -> dict[str, Any]:
     checks = [
         _check(
             "postgres_database",
-            pg,
+            pg or soft_launch,
             required=True,
-            hint="Set Railway Postgres plugin -> DATABASE_URL=postgresql://...",
+            hint=(
+                "Set Postgres DATABASE_URL=postgresql://... "
+                "(or SOFT_LAUNCH=true for free SQLite demo)"
+            ),
         ),
         _check(
             "service_mode_web",
@@ -76,17 +80,17 @@ def evaluate_production_guard() -> dict[str, Any]:
         ),
         _check(
             "billing_checkout",
-            billing,
+            billing or soft_launch,
             required=True,
-            hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys",
+            hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys (or SOFT_LAUNCH=true)",
         ),
         _check(
             "billing_entitlement_webhook",
-            billing_webhook_ok,
+            billing_webhook_ok or soft_launch,
             required=True,
             hint=(
                 "Set LEMON_SQUEEZY_WEBHOOK_SECRET (POST /webhook/lemon) "
-                "or STRIPE_WEBHOOK_SECRET (POST /webhook)"
+                "or STRIPE_WEBHOOK_SECRET (POST /webhook) — or SOFT_LAUNCH=true"
             ),
         ),
         _check(
@@ -149,6 +153,12 @@ def evaluate_production_guard() -> dict[str, Any]:
             required=False,
             hint="PRICE_FEED_WS_ONLY=false on Railway cloud",
         ),
+        _check(
+            "soft_launch_mode",
+            soft_launch,
+            required=False,
+            hint="SOFT_LAUNCH=true enables free SQLite demo without Postgres/billing webhooks",
+        ),
     ]
 
     required_fail = [c for c in checks if c["required"] and not c["ok"]]
@@ -156,6 +166,7 @@ def evaluate_production_guard() -> dict[str, Any]:
 
     return {
         "production": is_production(),
+        "soft_launch": soft_launch,
         "service_mode": mode,
         "database": "postgresql" if pg else "sqlite",
         "billing_provider": "lemon_squeezy" if lemon else ("stripe" if stripe else "none"),
