@@ -114,6 +114,34 @@ def classify_whale_alert(
     }
 
 
+async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
+    """Pull live Funding/OI so hedge cross-check actually fires (report Z3)."""
+    symbol = (asset or "BTC").upper().replace("USDT", "")
+    out: dict[str, Any] = {"funding_rate": None, "open_interest_change_pct": None}
+    try:
+        import aiohttp
+
+        from oracle_data_hub import fetch_onchain_derivatives_mesh
+
+        timeout = aiohttp.ClientTimeout(total=8)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            row = await fetch_onchain_derivatives_mesh(session, asset=symbol)
+        out["funding_rate"] = row.get("funding_rate")
+        # Approximate OI pressure from long/short when % change absent
+        lsr = row.get("long_short_ratio")
+        if lsr is not None:
+            try:
+                # Map crowded longs → positive "oi pressure" proxy for classifier
+                out["open_interest_change_pct"] = round((float(lsr) - 1.0) * 10.0, 3)
+            except (TypeError, ValueError):
+                pass
+        if out["funding_rate"] is None and row.get("open_interest_usd") is not None:
+            out["open_interest_usd"] = row.get("open_interest_usd")
+    except Exception:
+        pass
+    return out
+
+
 async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
     """Whale stories with Signal vs Noise classification attached."""
     from datetime import datetime, timezone
@@ -127,7 +155,7 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
     alerts = await get_latest_whale_alerts(limit=limit)
     flows = await get_latest_sector_flows(limit=min(3, limit))
     ctx = await get_latest_institutional_context()
-    deriv = {
+    base_deriv = {
         "funding_rate": (ctx or {}).get("avg_funding_rate") or (ctx or {}).get("funding_rate"),
         "open_interest_change_pct": (ctx or {}).get("oi_change_pct")
         or (ctx or {}).get("open_interest_change_pct"),
@@ -135,8 +163,21 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
 
     classified = []
     stories = []
+    deriv_cache: dict[str, dict[str, Any]] = {}
     for alert in alerts[:limit]:
-        c = classify_whale_alert(alert, derivatives_context=deriv)
+        asset = str(alert.get("asset") or "BTC").upper()
+        if asset not in deriv_cache:
+            live = await _derivatives_for_asset(asset)
+            # Prefer live hub values; fall back to institutional context
+            deriv_cache[asset] = {
+                "funding_rate": live.get("funding_rate")
+                if live.get("funding_rate") is not None
+                else base_deriv.get("funding_rate"),
+                "open_interest_change_pct": live.get("open_interest_change_pct")
+                if live.get("open_interest_change_pct") is not None
+                else base_deriv.get("open_interest_change_pct"),
+            }
+        c = classify_whale_alert(alert, derivatives_context=deriv_cache[asset])
         classified.append(
             {
                 **{k: alert.get(k) for k in ("asset", "direction", "amount_usd", "value_usd")},
@@ -153,12 +194,18 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
     if not stories:
         stories = ["No major whale narratives in the current window — market in equilibrium."]
 
+    headline = stories[0] if stories else ""
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "headline": headline,
         "stories": stories,
         "alert_count": len(alerts),
         "flow_count": len(flows),
         "classified": classified,
         "classifier": "signal_vs_noise_v1",
+        "derivatives_wired": any(
+            (d.get("funding_rate") is not None) for d in deriv_cache.values()
+        )
+        or base_deriv.get("funding_rate") is not None,
         "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
     }

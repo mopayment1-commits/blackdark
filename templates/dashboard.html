@@ -307,8 +307,10 @@
                         const cert = d.decision_certificate || {};
                         if (!(cert.certificate_hash || d.prediction_id)) return '';
                         window._lastCertShare = cert.share_text || '';
+                        window._lastCertJson = cert;
                         return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}</div>`;
+                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy certificate</button>` : ''}
+                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">Download JSON</button></div>`;
                     })()}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
@@ -435,14 +437,18 @@
                 const data = await res.json();
                 const classified = data.classified || [];
                 const stories = data.stories || [];
+                const headline = data.headline || (stories[0] || '');
+                const headHtml = headline
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${headline}</div></div>`
+                    : '';
                 if (classified.length) {
-                    el.innerHTML = classified.map(a => `
+                    el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
                             <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
                             <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
                         </div>`).join('');
                 } else if (stories.length) {
-                    el.innerHTML = stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
                 } else {
                     el.innerHTML = '<div class="empty">No whale narratives</div>';
                 }

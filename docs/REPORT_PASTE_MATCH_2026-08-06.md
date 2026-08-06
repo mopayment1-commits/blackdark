@@ -13,7 +13,13 @@
 | Discipline Mirror | DONE | نعم | Landing Yes/No · `/discipline-mirror` |
 | تنبيهات سخية vs TradingView cap | DONE | نعم | Inbox · `/api/alerts/generosity` |
 | Emerging Fund Terminal | DONE | نعم | `/b2b#fund-terminal` |
-| Signal vs Noise (+ Funding/OI) | DONE | نعم | Dashboard Whale panel |
+| Funding/OI في Signal vs Noise | DONE (hub mesh wired) | نعم | Whale panel |
+| Locked auto-seal cadence | DONE (daily product loop) | نعم | `/oracle-accuracy#locked` |
+| Certificate JSON download | DONE | نعم | Landing · Dashboard |
+| Landing Top-3 Why | DONE | نعم | `/` |
+| Fund DD JSON download | DONE | نعم | `/b2b` |
+| Monthly losing by calendar month | DONE | نعم | accuracy `#losing` |
+| Compliance on chat/voice/oracle eval | DONE | نعم | APIs |
 | Stealth Execution Advisor | DONE | نعم | `/dashboard#stealth` (استشاري) |
 | Anti-Hype Compliance Footer | DONE | نعم | تحت مخرجات AI |
 | Hook–Story–Loop / GEO posture | DONE | نعم (محتوى إثبات) | Ledger + Certificates |

@@ -966,12 +966,41 @@
                     certEl.style.display = 'block';
                     certEl.innerHTML =
                         `Decision Certificate · <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>` +
-                        (cert.share_text ? `<div style="margin-top:.35rem"><button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button></div>` : '');
+                        `<div style="margin-top:.35rem">` +
+                        (cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button> ` : '') +
+                        `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button></div>`;
                     document.getElementById('copyCertBtn')?.addEventListener('click', () => {
                         navigator.clipboard.writeText(cert.share_text || '');
                     });
+                    document.getElementById('dlCertBtn')?.addEventListener('click', () => {
+                        const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                    });
                 } else {
                     certEl.style.display = 'none';
+                }
+
+                const factors = (data.explanation && data.explanation.top_3_factors) || data.top_3_factors || [];
+                let whyEl = document.getElementById('landingWhy');
+                if (!whyEl) {
+                    whyEl = document.createElement('div');
+                    whyEl.id = 'landingWhy';
+                    whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
+                    oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
+                }
+                if (factors.length) {
+                    whyEl.innerHTML = '<strong style="color:var(--text)">Why (Top-3)</strong><ol style="margin:.35rem 0 0 1.1rem">' +
+                        factors.slice(0,3).map(f => {
+                            const label = f.factor || f.label || f.name || f;
+                            const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
+                            return `<li>${label}${src}</li>`;
+                        }).join('') + '</ol>';
+                } else {
+                    whyEl.innerHTML = '';
                 }
 
                 const disc = document.getElementById('landingDiscipline');

@@ -198,6 +198,8 @@ async def process_chat(
     if not reply:
         reply = _rule_based_reply(text, context)
 
+    from decision_certificate import compliance_footer_block
+
     return {
         "reply": reply,
         "symbol": symbol,
@@ -208,4 +210,8 @@ async def process_chat(
         },
         "source": source,
         "timestamp": _utcnow_iso(),
+        "compliance_footer": compliance_footer_block(
+            surface="ai_chat",
+            trust_basis="oracle_context + public_accuracy_ledger",
+        ),
     }

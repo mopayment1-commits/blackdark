@@ -109,6 +109,7 @@
                 priced for 10–50M desks, not billion-dollar terminals.
             </p>
             <button class="btn btn-primary" type="button" onclick="loadFundTerminal()">Load Fund DD Pack</button>
+            <button class="btn btn-secondary" type="button" onclick="downloadFundTerminal()">Download DD JSON</button>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
             <a class="btn btn-secondary" href="/oracle-accuracy#losing">Monthly Losing Report</a>
             <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Whale · Full Evidence</a>
@@ -251,6 +252,7 @@
             try {
                 const res = await fetch('/api/fund/emerging-terminal?fund_name=Emerging%20Fund');
                 const data = await res.json();
+                window._lastFundPack = data;
                 el.textContent = JSON.stringify({
                     segment: data.segment,
                     pricing_posture: data.pricing_posture,
@@ -262,6 +264,20 @@
             } catch (e) {
                 el.textContent = 'Fund terminal unavailable.';
             }
+        }
+
+        function downloadFundTerminal() {
+            const data = window._lastFundPack;
+            if (!data) {
+                loadFundTerminal().then(() => downloadFundTerminal());
+                return;
+            }
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'blackdark-emerging-fund-dd.json';
+            a.click();
+            URL.revokeObjectURL(a.href);
         }
 
         async function loadEvidenceSummary() {

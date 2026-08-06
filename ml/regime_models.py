@@ -35,6 +35,62 @@ def regime_has_artifact(regime: str) -> bool:
         return False
 
 
+def load_regime_predictor(regime: str) -> dict[str, Any] | None:
+    """Load per-regime joblib bundle when present (D5 inference deepen)."""
+    path = _artifact_path(regime)
+    if not path.is_file():
+        return None
+    try:
+        import joblib
+
+        bundle = joblib.load(path)
+        if not isinstance(bundle, dict) or "model" not in bundle:
+            return None
+        return bundle
+    except Exception:
+        return None
+
+
+def predict_with_regime_artifact(
+    regime: str,
+    features: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Run dedicated regime model if artifact exists; else None (caller falls back)."""
+    bundle = load_regime_predictor(regime)
+    if not bundle:
+        return None
+    try:
+        import pandas as pd
+
+        model = bundle["model"]
+        cols = list(bundle.get("feature_columns") or [])
+        if not cols:
+            return None
+        row = {c: float(features.get(c, 0.0) or 0.0) for c in cols}
+        frame = pd.DataFrame([row])
+        pred = str(model.predict(frame[cols])[0])
+        confidence = None
+        if hasattr(model, "predict_proba"):
+            try:
+                probs = model.predict_proba(frame[cols])[0]
+                classes = list(getattr(model, "classes_", []) or bundle.get("classes") or [])
+                if classes:
+                    idx = list(classes).index(pred) if pred in list(classes) else int(probs.argmax())
+                    confidence = round(float(probs[idx]) * 100.0, 2)
+            except Exception:
+                confidence = None
+        return {
+            "available": True,
+            "direction": pred,
+            "confidence_raw_percent": confidence,
+            "regime_model_used": True,
+            "regime": regime,
+            "source": "per_regime_artifact",
+        }
+    except Exception:
+        return None
+
+
 def regime_model_registry() -> dict[str, Any]:
     """Public-safe registry of D5 regime-conditional model status."""
     regimes: dict[str, Any] = {}

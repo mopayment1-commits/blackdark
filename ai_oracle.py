@@ -725,6 +725,16 @@ async def evaluate_opportunity(
     except Exception:
         logger.debug("signal registry write skipped", exc_info=True)
 
+    try:
+        from decision_certificate import compliance_footer_block
+
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="ai_oracle_evaluate",
+            trust_basis="public_accuracy_ledger + net_edge_truth + veto",
+        )
+    except Exception:
+        pass
+
     return EvaluatedOpportunity(
         kind=kind,
         asset=metrics.asset,
