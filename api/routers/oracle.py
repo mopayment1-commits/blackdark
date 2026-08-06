@@ -274,6 +274,14 @@ async def api_signal_registry_summary():
     }
 
 
+@router.post("/api/oracle/signals/backfill")
+async def api_signal_registry_backfill(_admin: dict = Depends(require_admin)):
+    """Admin: label D8 registry rows from resolved oracle predictions."""
+    from signal_registry import backfill_labels_from_oracle
+
+    return await backfill_labels_from_oracle(limit=5000)
+
+
 @router.get("/api/oracle/persona-clarity/demo")
 async def api_persona_clarity_demo(
     asset: str = "BTC",

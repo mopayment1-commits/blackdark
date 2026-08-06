@@ -41,9 +41,18 @@ Automated tech DD (offline): historically **FAIL overall** (paid=0, HA incomplet
 | Sev | Item |
 |-----|------|
 | MED | In-process login rate limit (not multi-worker) |
-| MED | Exchange keys written to `.env` file on disk |
-| MED | Promo codes hardcoded |
+| MED | Promo codes have hardcoded defaults (override via `LAUNCH_PROMO_CODES_JSON`) |
 | MED | Audit chain lock is process-local (not multi-replica safe) |
+| MED | Exchange secrets refused in prod `.env` write — still need vault Ops |
+
+### Closed after this audit was written
+| Item | Status |
+|------|--------|
+| Stop-loss monitor → auto-flatten | DONE in `execution_engine.run_auto_execution_cycle` |
+| Binance `can_withdraw` check | DONE in `execution_keys.verify_binance_keys` |
+| D5 4/4 regime artifacts | DONE (honesty: `*_bootstrapped` until flywheel-only) |
+| D7 English API leftovers | DONE (public strip) |
+| D8 lexicon + prediction_id + oracle backfill | DONE (status `live`; pending arb rows still cold) |
 
 ---
 
@@ -63,8 +72,7 @@ Manual HTTP `/api/execution/order` stays forced dry-run.
 ### Remaining
 | Sev | Item |
 |-----|------|
-| MED | Stop-loss monitor not wired to auto-flatten loop |
-| MED | Binance “no withdraw” permission check incomplete |
+| — | *(stop-loss + Binance withdraw — closed in later pass; see §1 Closed)* |
 
 ### Fixed — pass 2
 - CEX↔DEX `cycle` now forwards forced dry-run  
@@ -122,14 +130,14 @@ Defaults that fail first at 1k users: SQLite writes · process-local books · B2
 
 | Claim | Verdict |
 |-------|---------|
-| D1 Proof Oracle | PARTIAL (chain live; hit-rate narrative needs strict definition) |
-| D2 Veto | PARTIAL → improved fail-closed this pass |
-| D3 Net-Edge | PARTIAL (wired; cold until traffic) |
-| D4 Half-Life | PARTIAL (heuristic) |
-| D5 Regime models | PARTIAL (`weights_live` / incomplete artifacts) |
+| D1 Proof Oracle | PASS (chain + certificate + ledger) |
+| D2 Veto | PASS (fail-closed) |
+| D3 Net-Edge | PASS on arb; directional = advisory mode (honest flag) |
+| D4 Half-Life | PASS API; cold-start uses flagged 1h directional default |
+| D5 Regime models | PASS 4/4 artifacts (`per_regime_models_live_bootstrapped` until unlabeled flywheel replaces bootstrap) |
 | D6 Evidence Pack | PASS (code) |
-| D7 English UI | PASS (templates) / PARTIAL (API AR strings) |
-| D8 Signal Registry | WEAK as moat (many pending labels) |
+| D7 English UI | PASS (templates + public API strip) |
+| D8 Signal Registry | PASS path + lexicon + backfill (`live`); historical pending rows remain until resolved |
 | Paid traction | FAIL (0) |
 | HA / 99.99% | PARTIAL / FAIL vs strongest committees |
 

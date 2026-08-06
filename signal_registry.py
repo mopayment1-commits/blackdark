@@ -40,6 +40,26 @@ SIGNAL_TYPE_LEXICON: dict[str, dict[str, Any]] = {
         "source": "ai_oracle.evaluate_opportunity",
         "weight": 1.0,
     },
+    "cross_exchange": {
+        "definition": "Cross-venue spot price discrepancy surviving Net-Edge truth gates",
+        "source": "arbitrage_engine.cross_exchange",
+        "weight": 0.9,
+    },
+    "triangular": {
+        "definition": "Triangular arb cycle across three pairs on one or more venues",
+        "source": "arbitrage_engine.triangular",
+        "weight": 0.85,
+    },
+    "spot_futures": {
+        "definition": "Spot–perpetual basis / cash-and-carry style edge",
+        "source": "arbitrage_engine.spot_futures",
+        "weight": 0.8,
+    },
+    "funding": {
+        "definition": "Funding-rate differential opportunity across venues",
+        "source": "arbitrage_engine.funding",
+        "weight": 0.75,
+    },
     "arbitrage": {
         "definition": "Cross-venue or triangular arb opportunity surviving Net-Edge truth",
         "source": "scan_coordinator",
@@ -368,3 +388,67 @@ def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
         prediction_id=str(pred_id) if pred_id not in (None, "", 0) else None,
         label=label,
     )
+
+
+async def backfill_labels_from_oracle(*, limit: int = 2000) -> dict[str, Any]:
+    """Close D8 moat gap: label pending registry rows from resolved oracle predictions."""
+    try:
+        from database import fetch_labeled_oracle_predictions
+    except Exception as exc:
+        return {"ok": False, "reason": str(exc)[:160]}
+
+    rows = await fetch_labeled_oracle_predictions(limit=limit, include_synthetic=False)
+    linked = 0
+    labeled = 0
+    registered = 0
+    for pred in rows or []:
+        pred_id = pred.get("id") or pred.get("prediction_id")
+        outcome = str(pred.get("label") or pred.get("outcome") or "").lower().strip()
+        if not pred_id or outcome not in {"correct", "incorrect", "partial", "win", "loss", "miss"}:
+            continue
+        # Prefer exact prediction_id match
+        hit = resolve_signal(
+            str(pred_id),
+            outcome,
+            meta={
+                "accuracy": pred.get("accuracy_score"),
+                "direction_label": pred.get("direction_label"),
+                "resolved_via": "oracle_backfill",
+                "asset": pred.get("asset"),
+            },
+        )
+        if hit:
+            linked += 1
+            labeled += 1
+            continue
+        # No registry row yet — register a labeled historical row (moat growth)
+        register_signal(
+            signal_type=str(pred.get("kind") or "oracle_direction"),
+            asset=str(pred.get("asset") or "BTC"),
+            features={
+                "opportunity_score": pred.get("opportunity_score"),
+                "market_regime": pred.get("market_regime"),
+                "confidence": pred.get("confidence"),
+            },
+            score=float(pred.get("opportunity_score") or 0) if pred.get("opportunity_score") is not None else None,
+            verdict=str(pred.get("verdict") or ""),
+            prediction_id=str(pred_id),
+            label=outcome,
+            asof=str(pred.get("timestamp") or _utcnow()),
+            provenance={"source": "oracle_backfill", "prediction_id": pred_id},
+        )
+        registered += 1
+        labeled += 1
+    stats = registry_stats()
+    return {
+        "ok": True,
+        "scanned": len(rows or []),
+        "linked_existing": linked,
+        "registered_labeled": registered,
+        "labeled_total_touch": labeled,
+        "registry": {
+            "labeled": stats.get("labeled"),
+            "unlabeled": stats.get("unlabeled"),
+            "status": stats.get("status"),
+        },
+    }

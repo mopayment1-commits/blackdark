@@ -354,6 +354,14 @@ async def run_labeling_flywheel_cycle(
     except Exception:
         logger.exception("Regime model training cycle failed")
         regime_train = {"trained": False, "error": "regime_train_failed"}
+    d8_backfill: dict[str, Any] = {"skipped": True}
+    try:
+        from signal_registry import backfill_labels_from_oracle
+
+        d8_backfill = await backfill_labels_from_oracle(limit=5000)
+    except Exception:
+        logger.exception("D8 signal registry backfill failed")
+        d8_backfill = {"ok": False, "error": "d8_backfill_failed"}
     payload = {
         "collect": collect_stats,
         "bootstrap": bootstrap_stats,
@@ -362,6 +370,7 @@ async def run_labeling_flywheel_cycle(
         "drift": drift_stats,
         "training": train_stats,
         "regime_training": regime_train,
+        "signal_registry_backfill": d8_backfill,
         "timestamp": _utcnow_iso(),
     }
     append_experience("flywheel_cycle", payload)

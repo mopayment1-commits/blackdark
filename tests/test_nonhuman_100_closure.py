@@ -98,6 +98,41 @@ def test_utility_routes_exist():
     assert "/complaints" in src
 
 
+def test_d8_lexicon_includes_cross_exchange():
+    from signal_registry import SIGNAL_TYPE_LEXICON
+
+    assert "cross_exchange" in SIGNAL_TYPE_LEXICON
+    assert SIGNAL_TYPE_LEXICON["cross_exchange"]["weight"] >= 0.5
+
+
+@pytest.mark.asyncio
+async def test_d8_backfill_callable(monkeypatch):
+    from signal_registry import backfill_labels_from_oracle
+
+    async def fake_rows(limit=2000, include_synthetic=False):
+        return [
+            {
+                "id": 9001,
+                "asset": "BTC",
+                "label": "correct",
+                "outcome": "correct",
+                "opportunity_score": 70,
+                "verdict": "BUY",
+                "kind": "oracle_direction",
+                "timestamp": "2026-08-01T00:00:00+00:00",
+            }
+        ]
+
+    monkeypatch.setattr(
+        "database.fetch_labeled_oracle_predictions",
+        fake_rows,
+        raising=False,
+    )
+    out = await backfill_labels_from_oracle(limit=10)
+    assert out.get("ok") is True
+    assert out.get("labeled_total_touch", 0) >= 1
+
+
 @pytest.mark.asyncio
 async def test_force_train_writes_four_regimes(tmp_path, monkeypatch):
     import ml.regime_models as rm

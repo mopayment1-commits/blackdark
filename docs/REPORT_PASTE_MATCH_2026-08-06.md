@@ -39,4 +39,4 @@
 | Core + قدرات ثماني + جدول ألم/حل | DONE* | نعم* | دستور + APIs |
 | Persona «جملة عربية» | OVERRIDE | English Act/Wait | قرار English-only |
 
-\* D5 Regime = DONE 4/4 artifacts (`per_regime_models_live_bootstrapped` until unlabeled flywheel replaces bootstrap). D8 = DONE with lexicon + prediction_id link + resolve.
+\* D5 Regime = DONE 4/4 artifacts (`per_regime_models_live_bootstrapped` حتى يستبدل الـ flywheel الـ bootstrap). D8 = DONE lexicon + prediction_id + backfill (`status=live`).

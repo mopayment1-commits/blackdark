@@ -76,7 +76,7 @@ def enrich_oracle_decision(
             {"kind": "oracle_direction", "asset": asset},
             live_duration_seconds=float(meta.get("duration_seconds") or 0),
         )
-        # Directional decisions use longer horizon default if history thin
+        # Directional decisions use longer horizon default if history thin (honest flag)
         if half.get("expected_half_life_seconds", 0) < 30:
             half = {
                 **half,
@@ -84,6 +84,9 @@ def enrich_oracle_decision(
                 "remaining_seconds": max(0, 3600 - float(meta.get("duration_seconds") or 0)),
                 "model": "directional_horizon_1h_v1",
                 "urgency": "normal",
+                "cold_start": True,
+                "history_samples": int(half.get("history_samples") or half.get("sample_n") or 0),
+                "note": "Default 1h directional horizon — replace when opportunity half-life history exists",
             }
         out["opportunity_half_life"] = half
     except Exception:
