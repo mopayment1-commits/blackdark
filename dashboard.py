@@ -455,6 +455,13 @@ except Exception:
     logger.exception("Heroes router unavailable")
 
 try:
+    from api.routers.today import router as today_router
+
+    app.include_router(today_router)
+except Exception:
+    logger.exception("Today router unavailable")
+
+try:
     from api.routers.telegram import router as telegram_router
 
     app.include_router(telegram_router)
