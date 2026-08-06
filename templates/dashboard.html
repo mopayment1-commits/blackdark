@@ -69,6 +69,7 @@
                 <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
                 <div class="nav-links">
                     <a href="/">Home</a>
+                    <a href="/dashboard#stealth">Stealth</a>
                     <a href="/platform">Platform</a>
                     <a href="/oracle-accuracy">Accuracy</a>
                     <a href="/login" id="authLink">Login</a>
@@ -81,12 +82,14 @@
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
             <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
+            <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
         <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
             <select id="uxMode" onchange="askOracle()">
                 <option value="beginner" selected>Beginner</option>
                 <option value="pro">Pro</option>
             </select>
+            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -528,16 +531,30 @@
             } catch (e) { /* ignore */ }
         }
 
+        function scrollToStealth() {
+            const target = document.getElementById('stealth') || document.getElementById('mev');
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            target.style.outline = '1px solid #22d3ee';
+            setTimeout(() => { target.style.outline = ''; }, 1600);
+        }
+
         function applyAudienceFromQuery() {
             const params = new URLSearchParams(location.search);
             const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
-            if (!aud) return;
-            localStorage.setItem('bd_audience', aud);
+            const hash = (location.hash || '').toLowerCase();
+            if (aud) localStorage.setItem('bd_audience', aud);
             const mode = document.getElementById('uxMode');
             if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
-            if (aud === 'whale') {
-                const target = document.getElementById('stealth') || document.getElementById('mev');
-                if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
+            const banner = document.getElementById('audienceBanner');
+            if (banner && aud === 'whale') {
+                banner.style.display = 'block';
+                banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
+            }
+            // Prefer hash / whale audience — never fight the target with scroll-to-top
+            if (hash === '#stealth' || hash === '#mev' || aud === 'whale') {
+                setTimeout(scrollToStealth, 250);
+                setTimeout(scrollToStealth, 900);
             }
         }
 
@@ -562,7 +579,10 @@
         }
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();
-        window.scrollTo(0, 0);
+        // Only reset scroll when no deep-link target
+        if (!location.hash && !(new URLSearchParams(location.search).get('audience') || '').toLowerCase().includes('whale')) {
+            window.scrollTo(0, 0);
+        }
     </script>
 </body>
 </html>
