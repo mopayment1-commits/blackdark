@@ -81,6 +81,9 @@ async def run_background_startup(state: RuntimeState) -> None:
     if run_agg:
         os.environ.setdefault("MANIFEST_AUTO_APPROVE", "true")
         os.environ.setdefault("MANIFEST_REQUIRE_REVIEW", "false")
+        # Keep config module in sync (values were read at import time).
+        config.MANIFEST_AUTO_APPROVE = True
+        config.MANIFEST_REQUIRE_REVIEW = False
 
         async def _aggregator_wrapper() -> None:
             try:
