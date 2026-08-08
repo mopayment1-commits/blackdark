@@ -8,11 +8,12 @@ Use this log after running harnesses against a **Postgres + Redis** staging/prod
 # Buyer DD probes (app core; sidecar optional)
 python scripts/load_test.py --base http://127.0.0.1:8080 --requests 100
 
-# Concurrent diligence harness (health, trust-os, oracle quick, arb, compliance)
-python scripts/load_test_concurrent.py --base http://127.0.0.1:8080 --workers 20 --requests 100
+# Concurrent diligence harness (health, trust-os, viral, oracle quick, arb, compliance)
+python scripts/load_test_concurrent.py --base http://127.0.0.1:8080 --workers 40 --requests 200
 
-# Scale readiness JSON (codepath honesty — not a signed capacity proof)
+# Scale + viral readiness JSON (codepath honesty — not a signed capacity proof)
 curl -s http://127.0.0.1:8080/api/scale/readiness | jq .
+curl -s http://127.0.0.1:8080/api/viral/readiness | jq .
 
 # 60-second grasp machine probe
 python scripts/acceptance_60s.py --base http://127.0.0.1:8080

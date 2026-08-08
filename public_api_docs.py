@@ -25,6 +25,7 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/compliance/",
     "/api/security/status",
     "/api/scale/",
+    "/api/viral/",
     "/api/oracle/accuracy",
     "/api/oracle/audit-chain",
     "/api/due-diligence/evidence-pack/public-summary",

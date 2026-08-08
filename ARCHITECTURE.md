@@ -76,6 +76,7 @@ Storage posture:
 - Production guard: `/api/production/guard`  
 - Security posture: `/api/security/status`  
 - Scale readiness: `/api/scale/readiness`  
+- Viral capacity: `/api/viral/readiness` · [`docs/VIRAL_LAUNCH_CAPACITY.md`](docs/VIRAL_LAUNCH_CAPACITY.md)  
 - Data room index: `/data-room` · [`docs/DATA_ROOM.md`](docs/DATA_ROOM.md)  
 - Auth: TOTP MFA `/api/auth/mfa/*` · OAuth2 `/api/auth/oauth/*` (when configured)  
 

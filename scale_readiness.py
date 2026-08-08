@@ -89,6 +89,16 @@ def scale_readiness_report() -> dict[str, Any]:
                 "Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
             ),
         },
+        "viral": {
+            "readiness_api": "/api/viral/readiness",
+            "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+            "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache",
+            ],
+        },
         "k8s": {
             "web_deployment": "deploy/k8s/web-deployment.yaml",
             "worker_deployments": "deploy/k8s/workers-deployment.yaml",

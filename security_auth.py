@@ -56,24 +56,32 @@ def _memory_login_rate_limit(key: str) -> None:
     _login_attempts[key].append(now)
 
 
+_redis_sync = None
+
+
 def _redis_client_sync():
-    """Best-effort sync Redis client for login RL (shared across workers)."""
+    """Shared sync Redis client for login RL (reused across calls/workers)."""
+    global _redis_sync
+    if _redis_sync is not None:
+        return _redis_sync
     try:
         import config
 
         url = (getattr(config, "REDIS_URL", "") or os.getenv("REDIS_URL", "")).strip()
         if not url:
             return None
-        if getattr(config, "SERVICE_BUS_LOCAL", True) and os.getenv(
-            "LOGIN_RL_FORCE_REDIS", ""
-        ).lower() not in {"1", "true", "yes"}:
-            # Prefer Redis whenever REDIS_URL is set for HA login RL.
-            pass
         import redis
 
-        client = redis.from_url(url, decode_responses=True, socket_connect_timeout=0.4)
+        client = redis.from_url(
+            url,
+            decode_responses=True,
+            socket_connect_timeout=0.4,
+            socket_timeout=0.4,
+            max_connections=int(os.getenv("LOGIN_RL_REDIS_MAX_CONNECTIONS", "20")),
+        )
         client.ping()
-        return client
+        _redis_sync = client
+        return _redis_sync
     except Exception:
         return None
 

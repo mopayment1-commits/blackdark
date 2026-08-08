@@ -386,6 +386,14 @@ async def utf8_response_headers(request: Request, call_next):
 
 
 @app.middleware("http")
+async def viral_capacity_middleware(request: Request, call_next):
+    """Load shedding + shared rate limits under viral / production traffic."""
+    from viral_capacity import viral_protection_middleware
+
+    return await viral_protection_middleware(request, call_next)
+
+
+@app.middleware("http")
 async def observability_metrics_middleware(request: Request, call_next):
     from observability import increment_metric
 
@@ -1104,6 +1112,14 @@ async def api_scale_readiness():
     return scale_readiness_report()
 
 
+@app.get("/api/viral/readiness")
+async def api_viral_readiness():
+    """Viral launch capacity posture — protections + HA prerequisites."""
+    from viral_capacity import viral_readiness_report
+
+    return viral_readiness_report()
+
+
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
     return templates.TemplateResponse(
@@ -1223,55 +1239,98 @@ async def oracle_explain(
 
 
 @app.get("/oracle/{symbol}/quick")
-async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONResponse:
-    """Instant verdict + ACTION line (target <100ms) — WS price first, no REST wait."""
+async def oracle_quick(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    lang: str = "en",
+    ux_mode: str = "beginner",
+) -> JSONResponse:
+    """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
     import time
 
     from live_book_hub import get_best_price
+    from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
+    cached = quick_cache_get(asset, lang, ux_mode)
+    if cached is not None:
+        cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
+        return JSONResponse(cached)
 
-    row = get_best_price("binance", f"{asset}/USDT")
-    market = None
-    if row and row.get("mid"):
-        market = {
-            "price": float(row["mid"]),
-            "change_24h": 0.0,
-            "volume": 0.0,
-            "quote_volume": 0.0,
-            "source": "websocket_live",
+    async def _compute() -> dict:
+        row = get_best_price("binance", f"{asset}/USDT")
+        market = None
+        if row and row.get("mid"):
+            market = {
+                "price": float(row["mid"]),
+                "change_24h": 0.0,
+                "volume": 0.0,
+                "quote_volume": 0.0,
+                "source": "websocket_live",
+            }
+        if market is None:
+            market = await _fetch_binance_ticker(pair)
+        if market is None:
+            raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+        price = market["price"]
+        quote_volume = market["quote_volume"] or (market["volume"] * price)
+        change = market["change_24h"]
+
+        from market_context import oracle_score
+
+        score = oracle_score(quote_volume, change)
+        if _is_stablecoin(asset):
+            score = min(score, 55)
+        verdict, _ = _oracle_verdict(score, asset, price)
+        support = round(price * 0.97, -2)
+        resistance = round(price * 1.03, -2)
+        action = _oracle_action(score, price, support, resistance)
+        sentiment = _oracle_sentiment(change)
+        decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+        try:
+            from i18n_service import decision_sentence as _dec
+
+            decision_sentence = _dec(lang, decision_action, asset, score)
+        except Exception:
+            decision_sentence = (
+                f"{decision_action} on {asset} — score {score}. "
+                f"Analytical summary (not advice): {action}"
+            )
+        return {
+            "symbol": asset,
+            "price": price,
+            "change_24h": change,
+            "verdict": verdict,
+            "decision_action": decision_action,
+            "decision_sentence": decision_sentence,
+            "opportunity_score": score,
+            "action": action,
+            "action_line": f"Analytics summary: {action}",
+            "oracle": decision_sentence,
+            "sentiment": sentiment,
+            "engine": "quick_rules_v1",
+            "latency_target_ms": 100,
+            "ux_mode": ux_mode,
+            "lang": lang,
+            "viral_cache": "miss",
         }
-    if market is None:
-        market = await _fetch_binance_ticker(pair)
-    if market is None:
-        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
 
-    price = market["price"]
-    quote_volume = market["quote_volume"] or (market["volume"] * price)
-    change = market["change_24h"]
-
-    from market_context import oracle_score
-
-    score = oracle_score(quote_volume, change)
-    if _is_stablecoin(asset):
-        score = min(score, 55)
-    verdict, _ = _oracle_verdict(score, asset, price)
-    support = round(price * 0.97, -2)
-    resistance = round(price * 1.03, -2)
-    action = _oracle_action(score, price, support, resistance)
-    sentiment = _oracle_sentiment(change)
+    payload = await run_oracle_bounded(_compute)
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+    payload["latency_ms"] = latency_ms
+    payload["meets_latency_target"] = latency_ms <= 100
 
     background_tasks.add_task(
         _log_oracle_prediction,
         {
             "symbol": asset,
             "asset": asset,
-            "price": price,
-            "verdict": verdict,
-            "opportunity_score": score,
-            "confidence": score,
+            "price": payload.get("price"),
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "confidence": payload.get("opportunity_score"),
             "kind": "oracle_quick",
         },
     )
@@ -1279,32 +1338,13 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         _record_behavior,
         "oracle_query",
         asset=asset,
-        payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
+        payload={
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "engine": "quick_rules_v1",
+        },
     )
 
-    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
-    decision_sentence = (
-        f"{decision_action} on {asset} — score {score}. "
-        f"Analytical summary (not advice): {action}"
-    )
-    payload = {
-        "symbol": asset,
-        "price": price,
-        "change_24h": change,
-        "verdict": verdict,
-        "decision_action": decision_action,
-        "decision_sentence": decision_sentence,
-        "opportunity_score": score,
-        "action": action,
-        "action_line": f"Analytics summary: {action}",
-        "oracle": decision_sentence,
-        "sentiment": sentiment,
-        "latency_ms": latency_ms,
-        "engine": "quick_rules_v1",
-        "latency_target_ms": 100,
-        "meets_latency_target": latency_ms <= 100,
-        "ux_mode": "beginner",
-    }
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
@@ -1323,7 +1363,9 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         pass
     from security_sanitize import sanitize_oracle_payload
 
-    return JSONResponse(sanitize_oracle_payload(payload))
+    clean = sanitize_oracle_payload(payload)
+    quick_cache_set(asset, lang, ux_mode, clean)
+    return JSONResponse(clean)
 
 
 @app.get("/oracle/{symbol}")

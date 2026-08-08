@@ -65,6 +65,7 @@ def main() -> int:
         (f"{base}/health/ready", "ready"),
         (f"{base}/api/trust-os", "trust_os"),
         (f"{base}/api/scale/readiness", "scale_readiness"),
+        (f"{base}/api/viral/readiness", "viral_readiness"),
         (f"{base}/oracle/BTC/quick", "oracle_quick"),
         (f"{base}/api/arbitrage/scan", "arb_scan"),
         (f"{base}/compliance", "compliance_html"),
