@@ -5,6 +5,7 @@ BLACKDARK — GraphQL API with authentication context.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import strawberry
 from strawberry.fastapi import GraphQLRouter
@@ -135,9 +136,12 @@ schema = strawberry.Schema(query=Query)
 
 async def graphql_context(request) -> GraphContext:
     from auth_service import get_user_from_token
+    from security_middleware import cookie_to_session_bearer
 
     auth = request.headers.get("Authorization") or ""
     token = auth.removeprefix("Bearer ")
+    if not token.strip():
+        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
     user = await get_user_from_token(token.strip()) if token.strip() else None
     ctx = GraphContext()
     ctx.user = user
@@ -145,4 +149,15 @@ async def graphql_context(request) -> GraphContext:
 
 
 def create_graphql_router() -> GraphQLRouter:
-    return GraphQLRouter(schema, path="/graphql", context_getter=graphql_context)
+    # Disable legacy graphql-ws (auth bypass class of vulns); transport-ws only when supported.
+    kwargs: dict[str, Any] = {
+        "path": "/graphql",
+        "context_getter": graphql_context,
+    }
+    try:
+        from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL
+
+        kwargs["subscription_protocols"] = [GRAPHQL_TRANSPORT_WS_PROTOCOL]
+    except Exception:
+        pass
+    return GraphQLRouter(schema, **kwargs)

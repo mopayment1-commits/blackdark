@@ -295,4 +295,18 @@ def risk_status() -> dict[str, Any]:
         "active_stop_losses": len([s for s in _active_stop_losses.values() if not s.get("triggered")]),
         "recent_poison_events": _poison_events[-5:],
         "config_slippage_buffer_bps": config.SLIPPAGE_BUFFER_BPS,
+        "honest_scope": {
+            "shipped": [
+                "slippage gate",
+                "poison / freeze kill-switch",
+                "stop-loss hooks",
+                "drawdown freeze (when enabled)",
+            ],
+            "not_shipped": [
+                "institutional VaR 99% desk",
+                "Expected Shortfall / CVaR engine",
+                "formal position-limit ledger",
+            ],
+            "note": "Risk Intelligence here is execution safety — not a full buy-side risk platform.",
+        },
     }

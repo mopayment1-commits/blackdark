@@ -31,6 +31,18 @@ jobs:
             --cov=fee_matrix --cov=slippage_guard --cov=fast_scan_engine \
             --cov=profit_fee_algorithms --cov-fail-under=90
 
+      - name: DD / heroes / production guard closure
+        run: |
+          python -m pytest \
+            tests/test_production_guard.py \
+            tests/test_critical_ops_closure.py \
+            tests/test_trust_os_execution.py \
+            tests/test_heroes_strategy.py \
+            tests/test_heroes_quality_polish.py \
+            tests/test_radical_dd_scale_closure.py \
+            tests/test_security.py \
+            -q --tb=short
+
       - name: Due diligence report smoke
         run: |
           # CI has no live probe history — seed a short OK window for the SLA gate.

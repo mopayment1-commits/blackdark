@@ -82,8 +82,47 @@ def get_live_books_if_fresh(*, max_age_ms: float | None = None) -> tuple[dict[st
     return dict(_books), worst_age_ms
 
 
+def _norm_symbol(symbol: str) -> list[str]:
+    """Return lookup candidates (BTC/USDT and BTCUSDT forms)."""
+    raw = symbol.strip().upper().replace("-", "/")
+    cands = [raw]
+    compact = raw.replace("/", "")
+    if compact not in cands:
+        cands.append(compact)
+    if compact.endswith("USDT") and "/" not in raw:
+        cands.append(f"{compact[:-4]}/USDT")
+    return cands
+
+
+def get_top_of_book(
+    exchange_or_symbol: str,
+    symbol: str | None = None,
+) -> dict[str, Any] | None:
+    """Return full top-of-book row.
+
+    Supports:
+      get_top_of_book("binance", "BTC/USDT")
+      get_top_of_book("BTCUSDT")  # search all venues
+    """
+    if symbol is None:
+        for books in _books.values():
+            for cand in _norm_symbol(exchange_or_symbol):
+                row = books.get(cand)
+                if row:
+                    return dict(row)
+        return None
+
+    ex = exchange_or_symbol.strip().lower()
+    books = _books.get(ex) or {}
+    for cand in _norm_symbol(symbol):
+        row = books.get(cand)
+        if row:
+            return dict(row)
+    return None
+
+
 def get_best_price(exchange: str, symbol: str) -> dict[str, float] | None:
-    book = (_books.get(exchange.lower()) or {}).get(symbol.upper())
+    book = get_top_of_book(exchange, symbol)
     if not book:
         return None
     bids = book.get("bids") or []

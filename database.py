@@ -174,6 +174,29 @@ CREATE INDEX IF NOT EXISTS idx_subscriptions_email
 CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_sub
     ON subscriptions (stripe_sub_id);
 
+CREATE TABLE IF NOT EXISTS billing_webhook_events (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    provider     TEXT    NOT NULL,
+    event_id     TEXT    NOT NULL,
+    event_type   TEXT,
+    received_at  TEXT    NOT NULL,
+    UNIQUE(provider, event_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_billing_webhook_received
+    ON billing_webhook_events (received_at);
+
+CREATE TABLE IF NOT EXISTS institutional_inquiries (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    email        TEXT    NOT NULL,
+    name         TEXT,
+    company      TEXT,
+    message      TEXT,
+    budget_usd   TEXT,
+    created_at   TEXT    NOT NULL,
+    status       TEXT    NOT NULL DEFAULT 'new'
+);
+
 CREATE TABLE IF NOT EXISTS oracle_predictions (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp           TEXT    NOT NULL,
@@ -561,6 +584,68 @@ async def _apply_migrations(db: Any) -> None:
 
     await db.execute(
         """
+        CREATE TABLE IF NOT EXISTS billing_webhook_events (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider     TEXT    NOT NULL,
+            event_id     TEXT    NOT NULL,
+            event_type   TEXT,
+            received_at  TEXT    NOT NULL,
+            UNIQUE(provider, event_id)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_billing_webhook_received
+            ON billing_webhook_events (received_at)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS institutional_inquiries (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            email        TEXT    NOT NULL,
+            name         TEXT,
+            company      TEXT,
+            message      TEXT,
+            budget_usd   TEXT,
+            created_at   TEXT    NOT NULL,
+            status       TEXT    NOT NULL DEFAULT 'new'
+        )
+        """
+    )
+
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS auth_tokens (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id     INTEGER NOT NULL,
+            token_type  TEXT    NOT NULL,
+            token_hash  TEXT    NOT NULL UNIQUE,
+            expires_at  TEXT    NOT NULL,
+            used_at     TEXT,
+            created_at  TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        "CREATE INDEX IF NOT EXISTS idx_auth_tokens_user_type ON auth_tokens (user_id, token_type)"
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS oauth_states (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider    TEXT    NOT NULL,
+            state       TEXT    NOT NULL UNIQUE,
+            expires_at  TEXT    NOT NULL,
+            created_at  TEXT    NOT NULL
+        )
+        """
+    )
+
+    await db.execute(
+        """
         CREATE TABLE IF NOT EXISTS retention_grants (
             id         INTEGER PRIMARY KEY AUTOINCREMENT,
             email      TEXT    NOT NULL,
@@ -608,6 +693,26 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
     if "telegram_chat_id" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
+    for col, ddl in (
+        ("mfa_enabled", "ALTER TABLE users ADD COLUMN mfa_enabled INTEGER NOT NULL DEFAULT 0"),
+        ("mfa_secret_enc", "ALTER TABLE users ADD COLUMN mfa_secret_enc TEXT"),
+        ("mfa_pending_secret_enc", "ALTER TABLE users ADD COLUMN mfa_pending_secret_enc TEXT"),
+        ("mfa_recovery_hashes", "ALTER TABLE users ADD COLUMN mfa_recovery_hashes TEXT"),
+        ("oauth_provider", "ALTER TABLE users ADD COLUMN oauth_provider TEXT"),
+        ("oauth_subject", "ALTER TABLE users ADD COLUMN oauth_subject TEXT"),
+        ("username", "ALTER TABLE users ADD COLUMN username TEXT"),
+        ("email_verified_at", "ALTER TABLE users ADD COLUMN email_verified_at TEXT"),
+        ("avatar_url", "ALTER TABLE users ADD COLUMN avatar_url TEXT"),
+        ("ui_lang", "ALTER TABLE users ADD COLUMN ui_lang TEXT NOT NULL DEFAULT 'en'"),
+        ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
+        ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
+        ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
+    ):
+        if col not in user_cols:
+            await db.execute(ddl)
+    await db.execute(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
+    )
 
     await db.execute(
         """
@@ -2859,6 +2964,60 @@ async def cancel_subscription_by_stripe_id(stripe_sub_id: str) -> None:
         )
 
 
+async def claim_billing_webhook_event(
+    *,
+    provider: str,
+    event_id: str,
+    event_type: str | None = None,
+) -> bool:
+    """Return True if this event is new (claimed); False if duplicate."""
+    provider = (provider or "").strip().lower()
+    event_id = (event_id or "").strip()
+    if not provider or not event_id:
+        return True
+    async with get_connection() as db:
+        try:
+            await db.execute(
+                """
+                INSERT INTO billing_webhook_events (provider, event_id, event_type, received_at)
+                VALUES (?, ?, ?, ?)
+                """,
+                (provider, event_id, (event_type or "")[:120], _utcnow_iso()),
+            )
+            return True
+        except Exception:
+            # Unique violation → already processed
+            return False
+
+
+async def insert_institutional_inquiry(
+    *,
+    email: str,
+    name: str = "",
+    company: str = "",
+    message: str = "",
+    budget_usd: str = "",
+) -> int:
+    email = email.strip().lower()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO institutional_inquiries
+                (email, name, company, message, budget_usd, created_at, status)
+            VALUES (?, ?, ?, ?, ?, ?, 'new')
+            """,
+            (
+                email,
+                (name or "")[:120],
+                (company or "")[:160],
+                (message or "")[:4000],
+                (budget_usd or "")[:40],
+                _utcnow_iso(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
 async def update_user_telegram_chat_id(email: str, telegram_chat_id: str | None) -> None:
     async with get_connection() as db:
         await db.execute(
@@ -2885,8 +3044,10 @@ async def fetch_user_profile(email: str) -> dict[str, Any] | None:
         row = await (
             await db.execute(
                 """
-                SELECT id, email, name, created_at, last_login_at,
-                       stripe_customer_id, telegram_chat_id
+                SELECT id, email, name, username, created_at, last_login_at,
+                       stripe_customer_id, telegram_chat_id,
+                       email_verified_at, avatar_url, ui_lang, ux_mode_pref,
+                       timezone, password_is_set, oauth_provider, mfa_enabled
                 FROM users WHERE email = ?
                 """,
                 (email.strip().lower(),),
@@ -3085,12 +3246,170 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
         return None
 
 
+
+
+async def insert_auth_token(
+    *,
+    user_id: int,
+    token_type: str,
+    token_hash: str,
+    expires_at: str,
+) -> None:
+    async with get_connection() as db:
+        # Invalidate prior unused tokens of same type for this user
+        await db.execute(
+            """
+            UPDATE auth_tokens SET used_at = ?
+            WHERE user_id = ? AND token_type = ? AND used_at IS NULL
+            """,
+            (_utcnow_iso(), int(user_id), token_type),
+        )
+        await db.execute(
+            """
+            INSERT INTO auth_tokens (user_id, token_type, token_hash, expires_at, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (int(user_id), token_type, token_hash, expires_at, _utcnow_iso()),
+        )
+
+
+async def consume_auth_token_row(token_hash: str, token_type: str) -> int | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT id, user_id, expires_at, used_at
+                FROM auth_tokens
+                WHERE token_hash = ? AND token_type = ?
+                ORDER BY id DESC LIMIT 1
+                """,
+                (token_hash, token_type),
+            )
+        ).fetchone()
+        if not row:
+            return None
+        data = dict(row)
+        if data.get("used_at"):
+            return None
+        try:
+            exp = datetime.fromisoformat(str(data["expires_at"]))
+            if exp.tzinfo is None:
+                exp = exp.replace(tzinfo=UTC)
+            if datetime.now(UTC) > exp:
+                return None
+        except Exception:
+            return None
+        await db.execute(
+            "UPDATE auth_tokens SET used_at = ? WHERE id = ?",
+            (_utcnow_iso(), int(data["id"])),
+        )
+        return int(data["user_id"])
+
+
+async def insert_oauth_state(*, provider: str, state: str, expires_at: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO oauth_states (provider, state, expires_at, created_at)
+            VALUES (?, ?, ?, ?)
+            """,
+            (provider.strip().lower(), state, expires_at, _utcnow_iso()),
+        )
+
+
+async def consume_oauth_state(*, provider: str, state: str) -> bool:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT id, expires_at FROM oauth_states
+                WHERE provider = ? AND state = ?
+                ORDER BY id DESC LIMIT 1
+                """,
+                (provider.strip().lower(), state),
+            )
+        ).fetchone()
+        if not row:
+            return False
+        data = dict(row)
+        try:
+            exp = datetime.fromisoformat(str(data["expires_at"]))
+            if exp.tzinfo is None:
+                exp = exp.replace(tzinfo=UTC)
+            if datetime.now(UTC) > exp:
+                await db.execute("DELETE FROM oauth_states WHERE id = ?", (int(data["id"]),))
+                return False
+        except Exception:
+            return False
+        await db.execute("DELETE FROM oauth_states WHERE id = ?", (int(data["id"]),))
+        return True
+
+
+async def update_user_profile_fields(user_id: int, fields: dict[str, Any]) -> None:
+    allowed = {
+        "name",
+        "username",
+        "telegram_chat_id",
+        "avatar_url",
+        "ui_lang",
+        "ux_mode_pref",
+        "timezone",
+        "email_verified_at",
+        "password_hash",
+        "password_is_set",
+    }
+    updates = []
+    params: list[Any] = []
+    for key, value in fields.items():
+        if key not in allowed:
+            continue
+        updates.append(f"{key} = ?")
+        params.append(value)
+    if not updates:
+        return
+    params.append(int(user_id))
+    async with get_connection() as db:
+        await db.execute(
+            f"UPDATE users SET {', '.join(updates)} WHERE id = ?",
+            params,
+        )
+
+
+async def fetch_user_by_username(username: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT * FROM users WHERE username = ?",
+                (username.strip().lower(),),
+            )
+        ).fetchone()
+    return dict(row) if row else None
+
+
+async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute("SELECT * FROM users WHERE id = ?", (int(user_id),))
+        ).fetchone()
+    return dict(row) if row else None
+
+
+async def mark_email_verified(user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET email_verified_at = COALESCE(email_verified_at, ?) WHERE id = ?",
+            (_utcnow_iso(), int(user_id)),
+        )
+
+
 async def create_user(email: str, password_hash: str, name: str = "") -> int:
     async with get_connection() as db:
         cursor = await db.execute(
             """
-            INSERT INTO users (email, password_hash, name, created_at)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO users (
+                email, password_hash, name, created_at, password_is_set
+            )
+            VALUES (?, ?, ?, ?, 1)
             """,
             (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
         )
@@ -3183,12 +3502,175 @@ async def delete_user_session(token: str) -> None:
         await db.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
 
 
+async def delete_user_sessions_for_user(user_id: int) -> int:
+    """Revoke all sessions for a user (login fixation / stolen-token blast radius)."""
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM user_sessions WHERE user_id = ?",
+            (int(user_id),),
+        )
+        return int(cursor.rowcount or 0)
+
+
 async def touch_user_login(user_id: int) -> None:
     async with get_connection() as db:
         await db.execute(
             "UPDATE users SET last_login_at = ? WHERE id = ?",
             (_utcnow_iso(), user_id),
         )
+
+
+def _parse_recovery_hashes(raw: Any) -> list[str]:
+    if not raw:
+        return []
+    if isinstance(raw, list):
+        return [str(x) for x in raw]
+    try:
+        data = json.loads(str(raw))
+        if isinstance(data, list):
+            return [str(x) for x in data]
+    except Exception:
+        pass
+    return [x for x in str(raw).split(",") if x]
+
+
+async def fetch_user_mfa_row(user_id: int) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, mfa_enabled, mfa_secret_enc, mfa_pending_secret_enc, mfa_recovery_hashes
+                FROM users WHERE id = ?
+                """,
+                (user_id,),
+            )
+            result = await rows.fetchone()
+        if not result:
+            return None
+        row = dict(result)
+        hashes = _parse_recovery_hashes(row.get("mfa_recovery_hashes"))
+        row["mfa_recovery_hashes"] = hashes
+        row["mfa_recovery_remaining"] = len(hashes)
+        row["mfa_enabled"] = bool(int(row.get("mfa_enabled") or 0))
+        return row
+    except Exception:
+        logger.exception("Unable to fetch MFA row")
+        return None
+
+
+async def set_user_mfa_pending_secret(user_id: int, secret_enc: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET mfa_pending_secret_enc = ? WHERE id = ?",
+            (secret_enc, user_id),
+        )
+
+
+async def enable_user_mfa(user_id: int, secret_enc: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET mfa_enabled = 1,
+                mfa_secret_enc = ?,
+                mfa_pending_secret_enc = NULL
+            WHERE id = ?
+            """,
+            (secret_enc, user_id),
+        )
+
+
+async def set_user_mfa_recovery_hashes(user_id: int, hashes: list[str]) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET mfa_recovery_hashes = ? WHERE id = ?",
+            (json.dumps(hashes), user_id),
+        )
+
+
+async def consume_mfa_recovery_hash(user_id: int, matched_hash: str) -> None:
+    row = await fetch_user_mfa_row(user_id)
+    if not row:
+        return
+    remaining = [h for h in (row.get("mfa_recovery_hashes") or []) if h != matched_hash]
+    await set_user_mfa_recovery_hashes(user_id, remaining)
+
+
+async def clear_user_mfa(user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET mfa_enabled = 0,
+                mfa_secret_enc = NULL,
+                mfa_pending_secret_enc = NULL,
+                mfa_recovery_hashes = NULL
+            WHERE id = ?
+            """,
+            (user_id,),
+        )
+
+
+async def fetch_user_by_oauth(provider: str, subject: str) -> dict[str, Any] | None:
+    if not provider or not subject:
+        return None
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM users
+                WHERE oauth_provider = ? AND oauth_subject = ?
+                """,
+                (provider.strip().lower(), subject.strip()),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch OAuth user")
+        return None
+
+
+async def link_user_oauth(user_id: int, provider: str, subject: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET oauth_provider = ?, oauth_subject = ?
+            WHERE id = ?
+            """,
+            (provider.strip().lower(), subject.strip(), user_id),
+        )
+
+
+async def create_oauth_user(email: str, name: str, provider: str, subject: str) -> int:
+    """Create passwordless OAuth user with unusable password hash."""
+    import secrets as _secrets
+
+    from auth_service import hash_password
+
+    unusable = hash_password(_secrets.token_urlsafe(48))
+    now = _utcnow_iso()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO users (
+                email, password_hash, name, created_at,
+                oauth_provider, oauth_subject,
+                password_is_set, email_verified_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, 0, ?)
+            """,
+            (
+                email.strip().lower(),
+                unusable,
+                name or None,
+                now,
+                provider.strip().lower(),
+                subject.strip(),
+                now,
+            ),
+        )
+        return int(cursor.lastrowid or 0)
 
 
 async def fetch_oracle_usage_today(email: str) -> int:

@@ -19,9 +19,11 @@ Tier = Literal["free", "pro", "whale"]
 TIER_RANK: dict[str, int] = {"free": 0, "pro": 1, "whale": 2}
 
 TIER_FEATURES: dict[str, dict[str, Any]] = {
+    # Proof Pass — viral free wedge: OQS Why + shareable Decision Certificate.
+    # Conversion levers: 3/day cap, Free Proof watermark, no Portfolio AI.
     "free": {
-        "label": "Free",
-        "oracle_daily_limit": 10,
+        "label": "Proof Pass",
+        "oracle_daily_limit": 3,
         "arbitrage": False,
         "arbitrage_catalog": False,
         "voice": False,
@@ -29,14 +31,17 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "alerts": False,
         "ai_chat": False,
         "journal": True,
-        "portfolio_ai": True,
-        "market_radar": True,
+        "portfolio_ai": False,
+        "market_radar": True,  # light public radar; full depth is Pro
         "b2b_api": False,
         "evidence_pack": False,
         "ux_pro_default": False,
+        "proof_watermark": True,
+        "product_name": "Trust OS",
     },
+    # Decision Pro — daily decision habit ($29). 7-day trial stays.
     "pro": {
-        "label": "Pro",
+        "label": "Decision Pro",
         "oracle_daily_limit": None,
         "arbitrage": True,
         "arbitrage_catalog": True,
@@ -50,9 +55,12 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "b2b_api": False,
         "evidence_pack": False,
         "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": "Trust OS",
     },
+    # Whale Desk — edge + light institutional packaging ($199).
     "whale": {
-        "label": "Whale",
+        "label": "Whale Desk",
         "oracle_daily_limit": None,
         "arbitrage": True,
         "arbitrage_catalog": True,
@@ -66,6 +74,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "b2b_api": True,
         "evidence_pack": True,
         "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": "Trust OS",
     },
 }
 
@@ -127,22 +137,44 @@ async def resolve_user_tier(email: str) -> Tier:
     return "free"
 
 
-async def register_user(email: str, password: str, name: str = "") -> dict[str, Any]:
-    from database import create_user, fetch_user_by_email, insert_pro_trial
+async def register_user(
+    email: str,
+    password: str,
+    name: str = "",
+    *,
+    username: str = "",
+    accepted_terms: bool = False,
+) -> dict[str, Any]:
+    from database import create_user, fetch_user_by_email, fetch_user_by_username, insert_pro_trial
+    from identity_service import (
+        send_verification_email,
+        validate_display_name,
+        validate_email,
+        validate_password,
+        validate_username,
+    )
 
-    email = normalize_email(email)
-    if len(password) < 8:
-        raise ValueError("Password must be at least 8 characters")
-    if "@" not in email:
-        raise ValueError("Valid email required")
+    if not accepted_terms:
+        raise ValueError("You must accept Terms, Privacy, and Risk Disclaimer")
+    email = validate_email(email)
+    validate_password(password, email=email)
+    display = validate_display_name(name)
+    handle = validate_username(username) if username.strip() else ""
 
     if await fetch_user_by_email(email):
         raise ValueError("Email already registered")
+    if handle and await fetch_user_by_username(handle):
+        raise ValueError("Username already taken")
 
-    user_id = await create_user(email, hash_password(password), name.strip())
+    user_id = await create_user(email, hash_password(password), display)
+    if handle:
+        from database import update_user_profile_fields
+
+        await update_user_profile_fields(user_id, {"username": handle})
     trial = await insert_pro_trial(email)
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
+    verify = await send_verification_email(user_id, email)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
@@ -151,11 +183,28 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
             "ends_at": trial["trial_ends_at"],
             "days": trial["days"],
         },
-        "user": {"id": user_id, "email": email, "name": name.strip(), "tier": tier},
+        "email_verification": {
+            "required": True,
+            "sent": True,
+            **{k: verify[k] for k in ("debug_token", "debug_link") if k in verify},
+        },
+        "user": {
+            "id": user_id,
+            "email": email,
+            "name": display,
+            "username": handle or None,
+            "tier": tier,
+            "email_verified": False,
+        },
     }
 
 
-async def login_user(email: str, password: str) -> dict[str, Any]:
+async def login_user(
+    email: str,
+    password: str,
+    *,
+    mfa_code: str | None = None,
+) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
     from security_auth import check_login_rate_limit, record_login_failure
 
@@ -164,7 +213,40 @@ async def login_user(email: str, password: str) -> dict[str, Any]:
     user = await fetch_user_by_email(email)
     if user is None or not verify_password(password, str(user.get("password_hash") or "")):
         record_login_failure(email)
+        try:
+            from security_events import record_security_event
+
+            record_security_event(
+                "login_failure",
+                severity="warning",
+                actor=email,
+                detail={"reason": "invalid_credentials"},
+            )
+        except Exception:
+            pass
         raise ValueError("Invalid email or password")
+
+    mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
+    if mfa_enabled:
+        if not mfa_code:
+            # Do not issue a session until MFA is verified.
+            challenge = secrets.token_urlsafe(24)
+            _mfa_challenges[challenge] = {
+                "user_id": int(user["id"]),
+                "email": email,
+                "expires": (_utcnow() + timedelta(minutes=5)).timestamp(),
+            }
+            return {
+                "mfa_required": True,
+                "mfa_challenge": challenge,
+                "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
+            }
+        from mfa_service import verify_user_mfa
+
+        ok = await verify_user_mfa(int(user["id"]), mfa_code)
+        if not ok:
+            record_login_failure(email)
+            raise ValueError("Invalid MFA code")
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
@@ -172,19 +254,57 @@ async def login_user(email: str, password: str) -> dict[str, Any]:
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
+        "mfa_required": False,
         "user": {
             "id": user["id"],
             "email": email,
             "name": user.get("name") or "",
             "tier": tier,
+            "mfa_enabled": mfa_enabled,
         },
     }
 
 
-async def create_session(user_id: int) -> dict[str, Any]:
-    from database import insert_user_session
+_mfa_challenges: dict[str, dict[str, Any]] = {}
+
+
+async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
+    """Complete login after password step returned mfa_required."""
+    from database import touch_user_login
+    from mfa_service import verify_user_mfa
+    from security_auth import record_login_failure
+
+    row = _mfa_challenges.get(challenge)
+    if not row or float(row.get("expires") or 0) < _utcnow().timestamp():
+        _mfa_challenges.pop(challenge, None)
+        raise ValueError("MFA challenge expired — login again")
+    email = str(row["email"])
+    user_id = int(row["user_id"])
+    if not await verify_user_mfa(user_id, code):
+        record_login_failure(email)
+        raise ValueError("Invalid MFA code")
+    _mfa_challenges.pop(challenge, None)
+    await touch_user_login(user_id)
+    session = await create_session(user_id)
+    tier = await resolve_user_tier(email)
+    return {
+        "token": session["token"],
+        "expires_at": session["expires_at"],
+        "mfa_required": False,
+        "user": {"id": user_id, "email": email, "tier": tier, "mfa_enabled": True},
+    }
+
+
+async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
+    from database import delete_user_sessions_for_user, insert_user_session
     from security_auth import hash_session_token
 
+    # New login regenerates session and revokes prior tokens (fixation / theft radius).
+    if revoke_others:
+        try:
+            await delete_user_sessions_for_user(int(user_id))
+        except Exception:
+            pass
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
@@ -232,10 +352,18 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         "id": row["id"],
         "email": email,
         "name": row.get("name") or "",
+        "username": row.get("username") or None,
         "tier": tier,
         # Never echo the bearer token in API payloads (XSS/log amplification).
         "telegram_chat_id": row.get("telegram_chat_id"),
         "stripe_customer_id": row.get("stripe_customer_id"),
+        "email_verified": bool(row.get("email_verified_at")),
+        "avatar_url": row.get("avatar_url") or f"/api/auth/avatar/{row['id']}.svg",
+        "ui_lang": row.get("ui_lang") or "en",
+        "ux_mode_pref": row.get("ux_mode_pref") or "beginner",
+        "timezone": row.get("timezone") or "UTC",
+        "password_is_set": bool(int(row.get("password_is_set") if row.get("password_is_set") is not None else 1)),
+        "oauth_provider": row.get("oauth_provider"),
     }
 
 
@@ -254,7 +382,7 @@ async def check_oracle_quota(user: dict[str, Any] | None) -> tuple[bool, str]:
 
     used = await fetch_oracle_usage_today(email)
     if used >= daily_limit:
-        return False, f"Free limit reached ({daily_limit}/day). Upgrade to Pro for unlimited Oracle."
+        return False, f"Proof Pass limit reached ({daily_limit}/day). Start Decision Pro trial for unlimited Oracle + no Free watermark."
     await increment_oracle_usage(email)
     return True, "ok"
 

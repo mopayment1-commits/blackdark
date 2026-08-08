@@ -8,7 +8,7 @@ Cross-checks Funding / OI context when available.
 
 from __future__ import annotations
 
-from datetime import UTC
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -145,8 +145,6 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
 
 async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
     """Whale stories with Signal vs Noise classification attached."""
-    from datetime import datetime
-
     from whale_tracker import (
         get_latest_institutional_context,
         get_latest_sector_flows,
@@ -209,9 +207,14 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
         stories = ["No major whale narratives in the current window — market in equilibrium."]
 
     headline = stories[0] if stories else ""
+    # Hero #2 bar: one plain sentence (Signal vs Noise), not a wall of jargon.
+    one_sentence = " ".join(str(headline).split())
+    if len(one_sentence) > 220:
+        one_sentence = one_sentence[:217].rstrip() + "…"
     return {
         "timestamp": datetime.now(UTC).isoformat(),
-        "headline": headline,
+        "headline": one_sentence,
+        "one_sentence": one_sentence,
         "stories": stories,
         "alert_count": len(alerts),
         "flow_count": len(flows),
@@ -222,4 +225,6 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
         )
         or base_deriv.get("funding_rate") is not None,
         "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+        "hero": "whale_intelligence_radar",
+        "acceptance": "one_plain_sentence_signal_vs_noise",
     }

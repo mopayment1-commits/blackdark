@@ -47,8 +47,8 @@ def main() -> int:
     print("--- Railway Variables ---")
     checklist = [
         ("STRIPE_SECRET_KEY", secret, "sk_live_... from Stripe Dashboard"),
-        ("STRIPE_PRICE_PRO", price_pro, "price_... for $29/mo Pro"),
-        ("STRIPE_PRICE_WHALE", price_whale, "price_... for $199/mo Whale (optional)"),
+        ("STRIPE_PRICE_PRO", price_pro, "price_... for $29/mo Decision Pro USD"),
+        ("STRIPE_PRICE_WHALE", price_whale, "price_... for $199/mo Whale Desk USD (optional)"),
         ("STRIPE_WEBHOOK_SECRET", webhook, "whsec_... endpoint POST /webhook"),
         (
             "STRIPE_SUCCESS_URL",
@@ -69,11 +69,11 @@ def main() -> int:
             print(f"         -> {hint}")
 
     print("\n--- Stripe Dashboard steps ---")
-    print("  1. Products -> create 'BLACKDARK Pro' recurring $29/mo")
+    print("  1. Products -> create 'Decision Pro' recurring $29/mo")
     print("  2. Copy Price ID -> STRIPE_PRICE_PRO")
     print("  3. Developers -> Webhooks -> Add endpoint:")
     print(f"     URL: {PROD_URL}/webhook")
-    print("     Events: checkout.session.completed, customer.subscription.*")
+    print("     Events: checkout.session.completed, customer.subscription.*, invoice.paid, invoice.payment_failed, charge.refunded")
     print("  4. Copy signing secret -> STRIPE_WEBHOOK_SECRET")
     print(f"  5. Test checkout: {PROD_URL}/create-checkout-session?tier=pro")
 

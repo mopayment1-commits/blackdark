@@ -55,7 +55,12 @@ def main() -> int:
 
         report = evaluate_production_guard()
         print("\nLocal guard preview:")
-        print(json.dumps(report, indent=2))
+        print(json.dumps({
+            "ready": report.get("ready") if isinstance(report, dict) else None,
+            "soft_launch": report.get("soft_launch") if isinstance(report, dict) else None,
+            "required_failures": report.get("required_failures") if isinstance(report, dict) else None,
+            "viral_ha_enforced": report.get("viral_ha_enforced") if isinstance(report, dict) else None,
+        }, indent=2))
     except Exception as exc:
         print(f"\n(local preview skipped: {exc})")
 

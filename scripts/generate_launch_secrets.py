@@ -47,6 +47,12 @@ def build_env_block(
     existing: dict[str, str] | None = None,
 ) -> dict[str, str]:
     prev = existing or {}
+    try:
+        import pyotp
+
+        admin_totp = prev.get("ADMIN_TOTP_SECRET") or pyotp.random_base32()
+    except Exception:
+        admin_totp = prev.get("ADMIN_TOTP_SECRET") or _hex(10)
     return {
         "ENV": prev.get("ENV") or "production",
         "SERVICE_MODE": prev.get("SERVICE_MODE") or "web",
@@ -55,6 +61,13 @@ def build_env_block(
         "SESSION_TOKEN_PEPPER": prev.get("SESSION_TOKEN_PEPPER") or _hex(16),
         "ADMIN_API_KEY": prev.get("ADMIN_API_KEY") or _hex(24),
         "ADMIN_EMAILS": prev.get("ADMIN_EMAILS") or admin_email,
+        "ADMIN_MFA_REQUIRED": prev.get("ADMIN_MFA_REQUIRED") or "true",
+        "ADMIN_TOTP_SECRET": admin_totp,
+        "EXPOSE_B2B_DEMO_KEY": prev.get("EXPOSE_B2B_DEMO_KEY") or "false",
+        "VIRAL_MODE": prev.get("VIRAL_MODE") or "true",
+        "WEB_CONCURRENCY": prev.get("WEB_CONCURRENCY") or "4",
+        "WEB_REPLICAS": prev.get("WEB_REPLICAS") or "2",
+        "SERVICE_BUS_LOCAL": prev.get("SERVICE_BUS_LOCAL") or "false",
         "LEMON_SQUEEZY_CHECKOUT_PRO": prev.get("LEMON_SQUEEZY_CHECKOUT_PRO") or _lemon_from_example(),
         "BLACKDARK_B2B_DEMO_KEY": prev.get("BLACKDARK_B2B_DEMO_KEY") or "disabled",
         "PRICE_FEED_WS_ONLY": prev.get("PRICE_FEED_WS_ONLY") or "false",
@@ -117,15 +130,20 @@ def main() -> int:
         existing=existing,
     )
     text = render_env(block)
-    print(text)
+    # Never print secret values to the console (CodeQL clear-text logging).
+    print("Generated launch env keys (values not printed):")
+    for key in sorted(block):
+        print(f"  - {key}")
 
     if args.write:
         path.write_text(text, encoding="utf-8")
-        print(f"Wrote {path}")
+        print(f"Wrote {path} (gitignored) — open the file locally to copy secrets into your secret manager.")
         # Validate lemon URL shape
         lemon = block.get("LEMON_SQUEEZY_CHECKOUT_PRO", "")
         if not re.match(r"^https://.+/checkout/", lemon):
             print("WARN: Lemon checkout URL looks unexpected — verify in Lemon dashboard")
+    else:
+        print("Dry-run only. Re-run with --write to persist .env.launch.local (not printed here).")
     return 0
 
 

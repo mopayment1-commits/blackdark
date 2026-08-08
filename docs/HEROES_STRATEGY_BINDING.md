@@ -107,3 +107,14 @@ Build only when deepening a hero; browser extension waits for explicit go-ahead.
 ## Acceptance for PRs
 
 Map to: one of eight capabilities · D1–D8 · and preferably one of six heroes or Section Z.
+
+---
+
+## Strategic correction addendum (2026-08-08)
+
+Binding override for inflated strategy pastes: [`STRATEGIC_CORRECTION_BINDING.md`](./STRATEGIC_CORRECTION_BINDING.md).
+
+- **Four value layers** — never 15 renamed “engines” as products.  
+- **Six heroes** — never ARENA / Neuro-Canvas / 100-indicator Gravity Map as a seventh button.  
+- **Intent router** (“What do you want to do today?”) is a **display routing layer** onto existing heroes only.  
+- **Virality** = shareable Decision Certificate + one Glass Box event — not a community arena platform.

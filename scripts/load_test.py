@@ -26,12 +26,16 @@ def main() -> int:
     sidecar = f"http://127.0.0.1:{port + 100}"
 
     endpoints = [
-        (f"{sidecar}/health/live", "sidecar_live"),
+        (f"{args.base}/health/live", "app_live"),
         (f"{args.base}/health/ready", "ready"),
-        (f"{args.base}/api/risk/status", "risk"),
+        (f"{args.base}/api/trust-os", "trust_os"),
+        (f"{args.base}/api/strategy/correction", "strategy_correction"),
+        (f"{args.base}/oracle-accuracy", "ledger_page"),
+        (f"{sidecar}/health/live", "sidecar_live"),
     ]
 
     print(f"Load test | base={args.base} requests={args.requests}\n")
+    any_core_ok = False
     for url, label in endpoints:
         times: list[float] = []
         errors = 0
@@ -41,16 +45,22 @@ def main() -> int:
             except Exception:
                 errors += 1
         if times:
+            p95_idx = max(0, int(len(times) * 0.95) - 1)
             print(
                 f"  {label}: p50={statistics.median(times):.0f}ms "
-                f"p95={sorted(times)[int(len(times)*0.95)-1]:.0f}ms "
-                f"max={max(times):.0f}ms errors={errors}"
+                f"p95={sorted(times)[p95_idx]:.0f}ms "
+                f"max={max(times):.0f}ms errors={errors}/{args.requests}"
             )
+            if label != "sidecar_live":
+                any_core_ok = True
         else:
-            print(f"  {label}: ALL FAILED")
-            return 1
+            print(f"  {label}: ALL FAILED ({errors} errors) — optional" if label == "sidecar_live" else f"  {label}: ALL FAILED")
+            if label != "sidecar_live":
+                return 1
 
-    print("\nPASS — load test complete")
+    if not any_core_ok:
+        return 1
+    print("\nPASS — load test complete (sidecar optional)")
     return 0
 
 

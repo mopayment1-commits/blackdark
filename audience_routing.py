@@ -18,6 +18,11 @@ _AUDIENCES = {
         "cta": "Get one clear Act / Wait decision — no dashboard tourism.",
         "entry_path": "/?audience=retail",
         "ux_mode_default": "beginner",
+        "progressive_disclosure": {
+            "emphasize": ["oracle", "certificate", "ledger"],
+            "defer": ["stealth", "fund_terminal", "radar_depth", "arb_desk"],
+            "shell": "oracle_first",
+        },
     },
     "pro": {
         "audience": "pro",
@@ -26,6 +31,11 @@ _AUDIENCES = {
         "cta": "Full Opportunity Score, Truth gates, and Whale Radar.",
         "entry_path": "/dashboard?audience=pro",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["radar", "opportunity_score", "oracle", "half_life"],
+            "defer": ["fund_terminal", "stealth_deep"],
+            "shell": "radar_first",
+        },
     },
     "whale": {
         "audience": "whale",
@@ -34,6 +44,11 @@ _AUDIENCES = {
         "cta": "Stealth Advisor + Half-Life + MEV report before size hits the book.",
         "entry_path": "/dashboard?audience=whale#stealth",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["stealth", "half_life", "portfolio", "execution_risk"],
+            "defer": ["retail_tour", "fund_packaging"],
+            "shell": "stealth_first",
+        },
     },
     "fund": {
         "audience": "fund",
@@ -42,6 +57,11 @@ _AUDIENCES = {
         "cta": "Emerging Fund Terminal — DD-ready Ledger + Evidence Pack.",
         "entry_path": "/b2b?audience=fund#fund-terminal",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["ledger", "evidence_pack", "compliance", "fund_terminal"],
+            "defer": ["retail_tour", "stealth_deep"],
+            "shell": "dd_first",
+        },
     },
 }
 
@@ -59,8 +79,23 @@ def normalize_audience(value: str | None) -> Audience:
 
 def audience_entry(value: str | None = None) -> dict[str, Any]:
     key = normalize_audience(value)
-    return dict(_AUDIENCES[key])
+    row = dict(_AUDIENCES[key])
+    try:
+        from trust_os_lenses import AUDIENCE_TO_LENS, lens_by_id, primary_entries_for_lens
+
+        lens_id = AUDIENCE_TO_LENS.get(key, "prove")
+        lens = lens_by_id(lens_id)
+        row["lens"] = lens_id
+        row["lens_label"] = lens.get("label")
+        row["lens_promise"] = lens.get("promise")
+        row["primary_entries"] = primary_entries_for_lens(lens_id)
+        row["entry_path"] = lens.get("entry_path") or row.get("entry_path")
+    except Exception:
+        row["lens"] = {"retail": "prove", "pro": "operate", "whale": "desk", "fund": "room"}.get(
+            key, "prove"
+        )
+    return row
 
 
 def all_audiences() -> list[dict[str, Any]]:
-    return [dict(v) for v in _AUDIENCES.values()]
+    return [audience_entry(k) for k in _AUDIENCES]
