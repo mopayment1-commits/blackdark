@@ -3192,6 +3192,16 @@ async def delete_user_session(token: str) -> None:
         await db.execute("DELETE FROM user_sessions WHERE token = ?", (token,))
 
 
+async def delete_user_sessions_for_user(user_id: int) -> int:
+    """Revoke all sessions for a user (login fixation / stolen-token blast radius)."""
+    async with get_connection() as db:
+        cursor = await db.execute(
+            "DELETE FROM user_sessions WHERE user_id = ?",
+            (int(user_id),),
+        )
+        return int(cursor.rowcount or 0)
+
+
 async def touch_user_login(user_id: int) -> None:
     async with get_connection() as db:
         await db.execute(

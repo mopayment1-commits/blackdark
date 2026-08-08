@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI, Request, HTTPException, Header, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
+﻿from fastapi import FastAPI, Request, HTTPException, Header, Cookie, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -372,6 +372,22 @@ app = FastAPI(
 )
 
 
+# CORS allowlist (never '*' with credentials) — added before route middleware stack.
+try:
+    from security_middleware import apply_cors
+
+    apply_cors(app)
+except Exception:
+    pass
+
+try:
+    from security_middleware import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
+except Exception:
+    pass
+
+
 @app.middleware("http")
 async def utf8_response_headers(request: Request, call_next):
     """Ensure JSON/HTML responses declare UTF-8 (Arabic text in browser)."""
@@ -501,12 +517,19 @@ if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
-async def optional_user(authorization: str | None = Header(None, alias="Authorization")) -> dict | None:
+async def optional_user(
+    authorization: str | None = Header(None, alias="Authorization"),
+    bd_token: str | None = Cookie(None, alias="bd_token"),
+) -> dict | None:
     from auth_service import get_user_from_token
 
-    if not authorization:
+    token: str | None = None
+    if authorization:
+        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+    elif bd_token:
+        token = bd_token.strip()
+    if not token:
         return None
-    token = authorization[7:] if authorization.startswith("Bearer ") else authorization
     return await get_user_from_token(token.strip())
 
 
@@ -866,10 +889,30 @@ async def telegram_status():
 
 
 @app.post("/api/alerts/telegram/test")
-async def telegram_test(data: dict = Body(default={})):
+async def telegram_test(
+    data: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
+    """Authenticated only — send test to the caller's own chat_id (or admin override)."""
     from telegram_monitor import send_test_telegram
 
-    chat_id = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
+    requested = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
+    profile_chat = None
+    try:
+        from database import fetch_user_profile
+
+        profile = await fetch_user_profile(user["email"])
+        profile_chat = (profile or {}).get("telegram_chat_id")
+    except Exception:
+        pass
+    # Non-admins may only target their own stored chat id (or default bot chat).
+    if requested and not is_admin_user(user):
+        if not profile_chat or str(requested) != str(profile_chat):
+            raise HTTPException(
+                status_code=403,
+                detail="chat_id must match your profile telegram_chat_id (or omit to use default)",
+            )
+    chat_id = requested or profile_chat
     return await send_test_telegram(chat_id)
 
 
@@ -1974,9 +2017,15 @@ async def b2b_info():
 async def b2b_ws_info():
     from b2b_websocket_hub import get_b2b_ws_hub
 
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    auth: dict[str, Any] = {"query": "api_key"}
+    if expose_demo:
+        auth["demo_key"] = config.B2B_DEMO_API_KEY
+    else:
+        auth["demo_key"] = "contact-sales"
     return {
         "endpoint": "/ws/b2b/feed",
-        "auth": {"query": "api_key", "demo_key": config.B2B_DEMO_API_KEY},
+        "auth": auth,
         "feed_version": config.B2B_FEED_VERSION,
         **get_b2b_ws_hub().stats(),
         "events": [
@@ -2174,7 +2223,7 @@ async def alerts_subscribe(
 
 
 @app.post("/api/alerts/test")
-async def alerts_test():
+async def alerts_test(_admin: dict = Depends(require_admin)):
     from alert_service import send_test_alert
 
     return await send_test_alert()
@@ -2197,10 +2246,13 @@ async def alerts_inbox(
 
 
 @app.post("/api/alerts/inbox/{alert_id}/read")
-async def alerts_inbox_mark_read(alert_id: str):
+async def alerts_inbox_mark_read(
+    alert_id: str,
+    user: dict = Depends(require_authenticated),
+):
     from in_app_alerts import mark_read
 
-    row = mark_read(alert_id)
+    row = mark_read(alert_id, user_email=str(user.get("email") or ""))
     if not row:
         raise HTTPException(status_code=404, detail="Alert not found")
     return {"ok": True, "alert": row}
@@ -2624,18 +2676,16 @@ async def api_due_diligence_coverage():
 
 @app.get("/api/security/status")
 async def api_security_status():
-    """Public security posture summary for due diligence."""
-    import secrets_vault
-    from security_auth import admin_emails
+    """Public security posture summary for due diligence (not a certification)."""
+    from security_auth import login_rate_limit_backend
+    from security_posture import security_posture_report
 
     from postgres_backend import use_postgres
 
+    report = security_posture_report()
     vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
     return {
-        "password_hashing": "PBKDF2-SHA256 (260k iterations)",
-        "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
-        "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
-        "model_weights": "Fernet + HMAC integrity (admin-gated API)",
+        **report,
         "at_rest_encryption": {
             "status": "fernet_vault_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
             "user_keys": "encrypted",
@@ -2653,27 +2703,14 @@ async def api_security_status():
             "hashicorp_vault_required": False,
             "note": "Use env SECRETS_MASTER_KEY / SECRETS_VAULT_KEY — HashiCorp Vault is optional ops, not a ship claim",
         },
-        "execution_endpoints": "whale_tier_required",
-        "panic_button": "cancel_all_orders + stop loop + risk freeze",
-        "risk_freeze": "persistent (survives restart)",
-        "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
-        "admin_endpoints": "X-Admin-Key or admin email",
-        "rate_limiting": "login 10 attempts / 5 min (Redis-shared when REDIS_URL set)",
-        "login_rate_limit_backend": (
-            __import__("security_auth", fromlist=["login_rate_limit_backend"]).login_rate_limit_backend()
-        ),
-        "mfa": "TOTP enroll/verify at /api/auth/mfa/*",
-        "oauth2": "Google/GitHub scaffolding at /api/auth/oauth/* when client IDs set",
-        "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
-        "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
-        "vault_configured": vault_ok,
+        "login_rate_limit_backend": login_rate_limit_backend(),
         "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
-        "admin_emails_configured": len(admin_emails()) > 0,
         "public_developer_docs": "/docs",
         "architecture_index": "ARCHITECTURE.md",
         "data_room": "/data-room",
         "scale_readiness": "/api/scale/readiness",
-        "docs": "/SECURITY.md",
+        "viral_readiness": "/api/viral/readiness",
+        "hardening_doc": "docs/SECURITY_HARDENING.md",
     }
 
 

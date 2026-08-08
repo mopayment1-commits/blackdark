@@ -74,7 +74,7 @@ Storage posture:
 - Public OpenAPI (read/evidence only): `/api/docs/public-openapi.json`  
 - Full ops OpenAPI: `/api/docs/openapi.json`  
 - Production guard: `/api/production/guard`  
-- Security posture: `/api/security/status`  
+- Security posture: `/api/security/status` · [`docs/SECURITY_HARDENING.md`](docs/SECURITY_HARDENING.md) · [`SECURITY.md`](SECURITY.md)  
 - Scale readiness: `/api/scale/readiness`  
 - Viral capacity: `/api/viral/readiness` · `/health/viral` · [`docs/VIRAL_LAUNCH_CAPACITY.md`](docs/VIRAL_LAUNCH_CAPACITY.md)  
 - Viral HA boot: `WEB_CONCURRENCY` → uvicorn `--workers`; strict prod + `VIRAL_MODE` fail-closed on Redis + multi-instance  

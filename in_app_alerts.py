@@ -75,12 +75,18 @@ def list_in_app_alerts(
     return rows[: max(1, min(limit, 100))]
 
 
-def mark_read(alert_id: str) -> dict[str, Any] | None:
+def mark_read(alert_id: str, *, user_email: str | None = None) -> dict[str, Any] | None:
+    """Mark alert read. When user_email is set, only that user's (or broadcast) alerts."""
+    email = (user_email or "").lower().strip()
     with _LOCK:
         for row in _INBOX:
-            if row.get("id") == alert_id:
-                row["read"] = True
-                return dict(row)
+            if row.get("id") != alert_id:
+                continue
+            owner = (row.get("user_email") or "").lower().strip()
+            if email and owner and owner != email:
+                return None  # IDOR deny
+            row["read"] = True
+            return dict(row)
     return None
 
 

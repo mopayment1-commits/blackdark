@@ -20,9 +20,7 @@ def _derive_fernet_key(raw: str) -> bytes:
 
 
 def _is_production() -> bool:
-    local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-    if local_dev:
-        return False
+    """ENV=production is never overridden by LOCAL_DEV (admin/vault footgun)."""
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
     return env in {"production", "prod"}
 

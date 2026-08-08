@@ -65,6 +65,10 @@ def evaluate_production_guard() -> dict[str, Any]:
     admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    live_exec = os.getenv("LIVE_EXECUTION_ALLOW_API", "").lower() in {"1", "true", "yes"}
+    # Soft Launch must never combine with live money / public demo key exposure.
+    soft_launch_safe = (not soft_launch) or (not live_exec and not expose_demo)
 
     # Billing entitlement webhook: Lemon secret if Lemon checkout, else Stripe secret if Stripe.
     billing_webhook_ok = True
@@ -172,9 +176,21 @@ def evaluate_production_guard() -> dict[str, Any]:
         ),
         _check(
             "b2b_demo_key_disabled",
-            demo_disabled,
+            demo_disabled if strict_prod else True,
             required=False,
             hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in production",
+        ),
+        _check(
+            "demo_key_not_publicly_exposed",
+            not expose_demo if strict_prod else (not expose_demo or soft_launch),
+            required=strict_prod,
+            hint="Set EXPOSE_B2B_DEMO_KEY=false in strict production (never leak demo keys)",
+        ),
+        _check(
+            "soft_launch_no_live_money",
+            soft_launch_safe,
+            required=is_production(),
+            hint="Soft Launch forbids LIVE_EXECUTION_ALLOW_API and EXPOSE_B2B_DEMO_KEY",
         ),
         _check(
             "redis_shared_bus",
