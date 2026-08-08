@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
+        * { box-sizing:border-box; margin:0; padding:0; }
+        body { font-family:"DM Sans",system-ui,sans-serif; background:radial-gradient(900px 400px at 0% 0%, rgba(34,211,238,.1), transparent), var(--bg); color:var(--text); min-height:100vh; padding:1.5rem; }
+        .wrap { max-width:820px; margin:0 auto; }
+        h1 { font-family:"Instrument Serif",Georgia,serif; font-weight:400; font-size:2.2rem; margin-bottom:.35rem; }
+        .sub { color:var(--muted); margin-bottom:1.5rem; }
+        .grid { display:grid; gap:1rem; }
+        @media(min-width:800px){ .grid { grid-template-columns: 220px 1fr; } }
+        .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.25rem; }
+        .avatar { width:96px; height:96px; border-radius:50%; object-fit:cover; border:2px solid var(--border); display:block; margin-bottom:.75rem; }
+        label { display:block; font-size:.78rem; color:#a1a1aa; margin:.55rem 0 .3rem; }
+        input, select { width:100%; padding:.65rem .8rem; background:#1a1a24; border:1px solid var(--border); border-radius:8px; color:var(--text); }
+        button, .btn { padding:.7rem 1rem; border:none; border-radius:8px; font-weight:700; cursor:pointer; margin-top:.6rem; margin-right:.4rem; display:inline-block; text-decoration:none; }
+        .btn-primary { background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0a0a0f; }
+        .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
+        .btn-danger { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
+        .msg { margin-top:.75rem; font-size:.85rem; min-height:1.2rem; }
+        .msg.ok { color:var(--ok); } .msg.error { color:var(--danger); }
+        .pill { display:inline-block; padding:.2rem .55rem; border-radius:999px; background:rgba(34,211,238,.12); color:var(--accent); font-size:.75rem; margin-right:.35rem; }
+        .nav { margin-bottom:1.25rem; font-size:.9rem; }
+        a { color:var(--accent); text-decoration:none; }
+        h2 { font-size:1.05rem; margin-bottom:.5rem; }
+        .hint { color:var(--muted); font-size:.8rem; margin-top:.35rem; }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="nav"><a href="/dashboard">Dashboard</a> · <a href="/">Home</a> · <a href="/login?stay=1">Login</a></div>
+    <h1>Your profile</h1>
+    <p class="sub">Identity, security, and plan — not a social network. Login is always your email.</p>
+    <div id="gate" class="card">Loading…</div>
+    <div id="app" class="grid" style="display:none">
+        <aside class="card">
+            <img class="avatar" id="avatarImg" alt="Avatar">
+            <div id="planPills"></div>
+            <p class="hint" id="emailLine"></p>
+            <label>Upload avatar (JPEG/PNG/WebP ≤ 2MB)</label>
+            <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/webp">
+            <button class="btn-secondary" onclick="uploadAvatar()">Upload</button>
+            <button class="btn-secondary" onclick="resetAvatar()">Use initials</button>
+        </aside>
+        <main class="grid" style="grid-template-columns:1fr">
+            <section class="card">
+                <h2>Profile</h2>
+                <label>Display name</label>
+                <input id="name" maxlength="80">
+                <label>Public username (@handle for Proof Cards)</label>
+                <input id="username" maxlength="24" placeholder="alex_trade">
+                <label>UI language</label>
+                <input id="ui_lang" maxlength="12" placeholder="en">
+                <label>UX mode</label>
+                <select id="ux_mode_pref"><option value="beginner">Beginner</option><option value="pro">Pro</option></select>
+                <label>Timezone</label>
+                <input id="timezone" maxlength="64" placeholder="UTC">
+                <label>Telegram chat ID (alerts)</label>
+                <input id="telegram_chat_id" maxlength="64">
+                <button class="btn-primary" onclick="saveProfile()">Save profile</button>
+                <div class="msg" id="profileMsg"></div>
+            </section>
+            <section class="card">
+                <h2>Security</h2>
+                <p class="hint" id="verifyHint"></p>
+                <button class="btn-secondary" onclick="resendVerify()">Resend verification email</button>
+                <label>Current password (blank if OAuth-only / setting first password)</label>
+                <input type="password" id="current_password" autocomplete="current-password">
+                <label>New password (10+)</label>
+                <input type="password" id="new_password" minlength="10" autocomplete="new-password">
+                <button class="btn-secondary" onclick="changePassword()">Update password</button>
+                <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
+                <p class="hint" id="mfaHint"></p>
+                <button class="btn-secondary" onclick="enrollMfa()">Enable MFA (TOTP)</button>
+                <input id="mfaConfirm" placeholder="Confirm MFA code to enable" style="margin-top:.5rem">
+                <button class="btn-secondary" onclick="confirmMfa()">Confirm MFA</button>
+                <input id="mfaDisable" placeholder="Code to disable MFA" style="margin-top:.5rem">
+                <button class="btn-danger" onclick="disableMfa()">Disable MFA</button>
+                <button class="btn-danger" onclick="logoutAll()">Log out all sessions</button>
+                <div class="msg" id="secMsg"></div>
+                <pre id="mfaEnrollBox" class="hint" style="white-space:pre-wrap;margin-top:.75rem"></pre>
+            </section>
+            <section class="card">
+                <h2>Plan & billing (USD)</h2>
+                <p class="hint" id="billingHint">Card data never touches BLACKDARK — Lemon/Stripe hosted checkout.</p>
+                <a class="btn btn-primary" href="/create-checkout-session?tier=pro">Decision Pro $29</a>
+                <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Whale Desk $199</a>
+                <button class="btn-secondary" onclick="openPortal()">Manage billing</button>
+                <a class="btn btn-secondary" href="/data-room">Institutional — Talk to us</a>
+            </section>
+        </main>
+    </div>
+</div>
+<script>
+    function authHeaders() {
+        const t = localStorage.getItem('bd_token');
+        return t ? { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+    }
+    function setMsg(id, text, ok) {
+        const el = document.getElementById(id);
+        el.className = 'msg ' + (ok ? 'ok' : 'error');
+        el.textContent = text;
+    }
+    async function load() {
+        const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
+        const d = await res.json();
+        if (!d.authenticated) {
+            document.getElementById('gate').innerHTML = 'Please <a href="/login">log in</a> to manage your profile.';
+            return;
+        }
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('app').style.display = 'grid';
+        const p = d.profile || {};
+        const u = d.user || {};
+        document.getElementById('name').value = p.name || '';
+        document.getElementById('username').value = p.username || '';
+        document.getElementById('ui_lang').value = p.ui_lang || 'en';
+        document.getElementById('ux_mode_pref').value = p.ux_mode_pref || 'beginner';
+        document.getElementById('timezone').value = p.timezone || 'UTC';
+        document.getElementById('telegram_chat_id').value = p.telegram_chat_id || '';
+        document.getElementById('avatarImg').src = (p.avatar_url || ('/api/auth/avatar/' + u.id + '.svg')) + '?t=' + Date.now();
+        document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');
+        document.getElementById('verifyHint').textContent = p.email_verified ? 'Email verified.' : 'Verify your email to harden account recovery.';
+        const tier = (d.tier && d.tier.label) || u.tier || 'free';
+        document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' +
+            (d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>');
+        document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
+            ? 'Authenticator MFA is enabled. Recommended for Whale Desk.'
+            : 'Optional TOTP MFA — strongly recommended for paid tiers.';
+        document.getElementById('billingHint').textContent =
+            'Plan: ' + tier + '. Currency USD. ' + ((d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.');
+        if (new URLSearchParams(location.search).get('verified') === '1') setMsg('profileMsg', 'Email verified.', true);
+        if (new URLSearchParams(location.search).get('welcome') === '1') setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
+    }
+    async function saveProfile() {
+        const res = await fetch('/api/auth/profile', {
+            method: 'PATCH', headers: authHeaders(), credentials: 'same-origin',
+            body: JSON.stringify({
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                ui_lang: document.getElementById('ui_lang').value,
+                ux_mode_pref: document.getElementById('ux_mode_pref').value,
+                timezone: document.getElementById('timezone').value,
+                telegram_chat_id: document.getElementById('telegram_chat_id').value
+            })
+        });
+        const d = await res.json();
+        setMsg('profileMsg', res.ok ? 'Saved.' : (d.detail || 'Save failed'), res.ok);
+        if (res.ok) load();
+    }
+    async function uploadAvatar() {
+        const f = document.getElementById('avatarFile').files[0];
+        if (!f) return setMsg('profileMsg', 'Choose a file first', false);
+        const fd = new FormData(); fd.append('file', f);
+        const t = localStorage.getItem('bd_token');
+        const res = await fetch('/api/auth/avatar', { method: 'POST', headers: t ? { Authorization: 'Bearer ' + t } : {}, body: fd, credentials: 'same-origin' });
+        const d = await res.json();
+        setMsg('profileMsg', res.ok ? 'Avatar updated' : (d.detail || 'Upload failed'), res.ok);
+        if (res.ok) load();
+    }
+    async function resetAvatar() {
+        const res = await fetch('/api/auth/avatar', { method: 'DELETE', headers: authHeaders(), credentials: 'same-origin' });
+        setMsg('profileMsg', res.ok ? 'Using initials avatar' : 'Failed', res.ok);
+        if (res.ok) load();
+    }
+    async function changePassword() {
+        const res = await fetch('/api/auth/change-password', {
+            method: 'POST', headers: authHeaders(), credentials: 'same-origin',
+            body: JSON.stringify({
+                current_password: document.getElementById('current_password').value,
+                new_password: document.getElementById('new_password').value
+            })
+        });
+        const d = await res.json();
+        if (res.ok && d.token) localStorage.setItem('bd_token', d.token);
+        setMsg('secMsg', res.ok ? 'Password updated — other sessions revoked.' : (d.detail || 'Failed'), res.ok);
+    }
+    async function resendVerify() {
+        const res = await fetch('/api/auth/resend-verification', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+        const d = await res.json();
+        if (d.debug_link) console.info(d.debug_link);
+        setMsg('secMsg', d.message || d.detail || 'Sent', res.ok);
+    }
+    async function enrollMfa() {
+        const res = await fetch('/api/auth/mfa/enroll', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+        const d = await res.json();
+        document.getElementById('mfaEnrollBox').textContent = res.ok
+            ? ('Scan/provision secret: ' + (d.secret || d.otpauth_url || JSON.stringify(d, null, 2)))
+            : (d.detail || 'Enroll failed');
+    }
+    async function confirmMfa() {
+        const res = await fetch('/api/auth/mfa/confirm', {
+            method: 'POST', headers: authHeaders(), credentials: 'same-origin',
+            body: JSON.stringify({ code: document.getElementById('mfaConfirm').value.trim() })
+        });
+        const d = await res.json();
+        setMsg('secMsg', res.ok ? 'MFA enabled' : (d.detail || 'Failed'), res.ok);
+        if (res.ok) load();
+    }
+    async function disableMfa() {
+        const res = await fetch('/api/auth/mfa/disable', {
+            method: 'POST', headers: authHeaders(), credentials: 'same-origin',
+            body: JSON.stringify({ code: document.getElementById('mfaDisable').value.trim() })
+        });
+        const d = await res.json();
+        setMsg('secMsg', res.ok ? 'MFA disabled' : (d.detail || 'Failed'), res.ok);
+        if (res.ok) load();
+    }
+    async function logoutAll() {
+        await fetch('/api/auth/logout-all', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+        localStorage.removeItem('bd_token'); localStorage.removeItem('bd_user');
+        location.href = '/login';
+    }
+    async function openPortal() {
+        const res = await fetch('/api/billing/portal', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+        const d = await res.json();
+        if (d.url) location.href = d.url; else setMsg('secMsg', d.detail || 'Portal unavailable', false);
+    }
+    load();
+</script>
+</body>
+</html>

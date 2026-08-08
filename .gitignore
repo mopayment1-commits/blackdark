@@ -8,6 +8,8 @@ __pycache__/
 *.db-shm
 *.db-wal
 data/blackdark.db
+data/feedback.jsonl
+data/email_outbox.jsonl
 data/hot_spool/
 data/hot_spool_archive/
 data/history/
@@ -25,3 +27,6 @@ keys/
 data/_ar_test.txt
 data/railway_variables.txt
 terminals/
+
+.venv/
+venv/

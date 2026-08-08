@@ -1,7 +1,8 @@
 # BLACKDARK — Product Complete Status (code)
 
-> **As of:** 2026-08-06  
+> **As of:** 2026-08-08  
 > **Rule:** Binding report heroes/Z executable work is done.  
+> **Canon:** [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md) — not FalconAI 16/120 valuation.  
 > **Honesty:** See [`COMPREHENSIVE_AUDIT_2026-08-06.md`](./COMPREHENSIVE_AUDIT_2026-08-06.md) — not “zero defects / LOI-ready / 10k users proven”.  
 > **Deferred human-only:** [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)
 
@@ -11,6 +12,10 @@
 |--------|--------|
 | Product Constitution D1–D8 (code wiring) | DONE (D5 = 4/4 artifacts, honesty-flagged if bootstrapped; D8 lexicon + resolve loop) |
 | Six Heroes + Section Z | DONE |
+| Strategic correction + FalconAI 16/120 rejection | DONE |
+| Intent router (results over features) | DONE |
+| Expert execution closure APIs (`/api/execution/closure`, `/api/acceptance/60s`) | DONE |
+| Glass Box announce drafts (human posts) | DONE |
 | Public Accuracy Ledger + Glass Box pack + MEV | DONE |
 | Audience routing + Stealth Advisor (+ slice table) | DONE |
 | Net-Edge / Half-Life / Veto gates | DONE (+ fail-closed alertability hardening 2026-08-06) |
