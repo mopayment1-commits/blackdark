@@ -34,8 +34,9 @@ _PROVIDERS: dict[str, dict[str, str]] = {
     },
 }
 
-# Short-lived CSRF state store (process-local; fine for single-web replica / soft launch).
+# Short-lived CSRF state — Redis-backed when available, process-local fallback.
 _oauth_states: dict[str, dict[str, Any]] = {}
+_OAUTH_STATE_TTL_SEC = 600
 
 
 def oauth_configured(provider: str | None = None) -> bool:
@@ -80,6 +81,12 @@ def build_authorize_url(provider: str) -> dict[str, str]:
     client_id, _ = _client_creds(provider)
     state = secrets.token_urlsafe(24)
     _oauth_states[state] = {"provider": provider}
+    try:
+        from redis_coord import kv_set
+
+        kv_set(state, provider, ttl_sec=_OAUTH_STATE_TTL_SEC, namespace="oauth")
+    except Exception:
+        logger.debug("OAuth state Redis store skipped", exc_info=True)
     redirect_uri = f"{_callback_base()}/api/auth/oauth/{provider}/callback"
     params = {
         "client_id": client_id,
@@ -104,7 +111,16 @@ async def exchange_code(provider: str, code: str, state: str) -> dict[str, Any]:
     if provider not in _PROVIDERS:
         raise ValueError("Unsupported OAuth provider")
     stored = _oauth_states.pop(state, None)
-    if not stored or stored.get("provider") != provider:
+    redis_provider = None
+    try:
+        from redis_coord import kv_pop
+
+        redis_provider = kv_pop(state, namespace="oauth")
+    except Exception:
+        logger.debug("OAuth state Redis pop skipped", exc_info=True)
+    ok_local = bool(stored and stored.get("provider") == provider)
+    ok_redis = bool(redis_provider and redis_provider == provider)
+    if not (ok_local or ok_redis):
         raise ValueError("Invalid or expired OAuth state")
 
     meta = _PROVIDERS[provider]

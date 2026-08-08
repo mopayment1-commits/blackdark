@@ -135,3 +135,97 @@ def hub_stats() -> dict[str, Any]:
         "freshness_ms": round(min(ages), 1) if ages else None,
         "stalest_ms": round(max(ages), 1) if ages else None,
     }
+
+
+def _adapt_redis_row(symbol: str, row: dict[str, Any]) -> dict[str, Any] | None:
+    """Convert Redis top-of-book payload into arb engine book shape."""
+    try:
+        bid = float(row.get("bid") or 0)
+        ask = float(row.get("ask") or 0)
+        bid_qty = float(row.get("bid_qty") or 0) or 1.0
+        ask_qty = float(row.get("ask_qty") or 0) or 1.0
+    except (TypeError, ValueError):
+        return None
+    if bid <= 0 or ask <= 0:
+        return None
+    ts = row.get("ts_ms")
+    timestamp = _utcnow_iso()
+    if ts:
+        try:
+            from datetime import datetime, timezone
+
+            timestamp = datetime.fromtimestamp(float(ts) / 1000.0, tz=timezone.utc).isoformat()
+        except (TypeError, ValueError, OSError):
+            pass
+    return {
+        "bids": [[bid, bid_qty]],
+        "asks": [[ask, ask_qty]],
+        "timestamp": timestamp,
+        "market_type": "spot",
+        "symbol": symbol.upper(),
+        "source": "redis_shared",
+    }
+
+
+async def get_shared_books_if_fresh(
+    *,
+    max_age_ms: float | None = None,
+) -> tuple[dict[str, dict[str, dict[str, Any]]], float] | None:
+    """
+    Cross-replica shared books from Redis price cache.
+    Used when the local in-memory hub is cold (other worker owns the WS feed).
+    """
+    try:
+        from redis_price_cache import get_all_books
+    except Exception:
+        return None
+
+    raw = await get_all_books()
+    if not raw:
+        return None
+
+    limit = max_age_ms if max_age_ms is not None else max(_max_age_ms(), 1500.0)
+    # Redis TTL is seconds-scale; allow a slightly looser freshness window than local hub.
+    limit = max(limit, float(getattr(config, "REDIS_BOOK_MAX_AGE_MS", 2500)))
+    now_ms = time.time() * 1000.0
+    adapted: dict[str, dict[str, dict[str, Any]]] = {}
+    fresh_exchanges = 0
+    worst_age_ms = 0.0
+
+    for exchange_id, symbols in raw.items():
+        exchange_fresh = False
+        for symbol, row in (symbols or {}).items():
+            if not isinstance(row, dict):
+                continue
+            ts_ms = float(row.get("ts_ms") or 0)
+            if ts_ms <= 0:
+                continue
+            age = now_ms - ts_ms
+            if age < 0:
+                age = 0.0
+            if age > limit:
+                continue
+            book = _adapt_redis_row(str(symbol), row)
+            if book is None:
+                continue
+            adapted.setdefault(str(exchange_id).lower(), {})[str(symbol).upper()] = book
+            # Warm local hub so subsequent reads stay sub-ms on this replica.
+            try:
+                update_top_of_book(
+                    str(exchange_id),
+                    str(symbol),
+                    bid=float(book["bids"][0][0]),
+                    bid_qty=float(book["bids"][0][1]),
+                    ask=float(book["asks"][0][0]),
+                    ask_qty=float(book["asks"][0][1]),
+                )
+            except Exception:
+                pass
+            exchange_fresh = True
+            worst_age_ms = max(worst_age_ms, age)
+        if exchange_fresh:
+            fresh_exchanges += 1
+
+    if fresh_exchanges < 2 or not adapted:
+        return None
+    return adapted, worst_age_ms

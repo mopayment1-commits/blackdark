@@ -1,12 +1,50 @@
 """
 BLACKDARK — User exchange API key management (encrypted vault).
+
+App-layer Fernet encryption always. When Postgres is active, Fernet ciphertext
+is additionally wrapped with pgcrypto (pgp_sym_encrypt) for DB at-rest defense.
 """
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 from secrets_vault import decrypt_secret, encrypt_secret, mask_secret
+
+logger = logging.getLogger("BLACKDARK.UserKeys")
+
+_PGCRYPTO_PREFIX = "pgc1:"
+
+
+async def _seal_for_storage(plaintext: str) -> tuple[str, str]:
+    """Return (ciphertext, engine) — Fernet, optionally double-wrapped with pgcrypto."""
+    fernet_ct = encrypt_secret(plaintext)
+    try:
+        from postgres_backend import pgp_sym_encrypt, use_postgres
+
+        if use_postgres():
+            wrapped = await pgp_sym_encrypt(fernet_ct)
+            if wrapped:
+                return f"{_PGCRYPTO_PREFIX}{wrapped}", "fernet+pgcrypto"
+    except Exception:
+        logger.debug("pgcrypto wrap skipped — Fernet-only storage", exc_info=True)
+    return fernet_ct, "fernet"
+
+
+async def _unseal_from_storage(ciphertext: str) -> str:
+    raw = str(ciphertext or "")
+    if raw.startswith(_PGCRYPTO_PREFIX):
+        try:
+            from postgres_backend import pgp_sym_decrypt
+
+            inner = await pgp_sym_decrypt(raw[len(_PGCRYPTO_PREFIX) :])
+            if inner:
+                return decrypt_secret(inner)
+        except Exception:
+            logger.exception("pgcrypto unwrap failed")
+            raise
+    return decrypt_secret(raw)
 
 
 async def store_user_exchange_keys(
@@ -36,11 +74,13 @@ async def store_user_exchange_keys(
             "message": f"API key rejected: {validation.reason}",
         }
 
+    sealed_key, engine = await _seal_for_storage(api_key.strip())
+    sealed_secret, _ = await _seal_for_storage(api_secret.strip())
     await upsert_user_api_key(
         user_id,
         exchange,
-        encrypt_secret(api_key.strip()),
-        encrypt_secret(api_secret.strip()),
+        sealed_key,
+        sealed_secret,
         label=label,
     )
     return {
@@ -49,6 +89,7 @@ async def store_user_exchange_keys(
         "api_key_masked": mask_secret(api_key),
         "message": "API keys encrypted and stored securely.",
         "validation": validation.reason,
+        "crypto_engine": engine,
     }
 
 
@@ -76,8 +117,8 @@ async def get_user_exchange_credentials(user_id: int, exchange: str) -> tuple[st
     if not row:
         return None
     return (
-        decrypt_secret(str(row["api_key_encrypted"])),
-        decrypt_secret(str(row["api_secret_encrypted"])),
+        await _unseal_from_storage(str(row["api_key_encrypted"])),
+        await _unseal_from_storage(str(row["api_secret_encrypted"])),
     )
 
 

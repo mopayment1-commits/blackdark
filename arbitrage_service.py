@@ -183,6 +183,20 @@ async def get_market_snapshots(
         except Exception:
             logger.debug("WebSocket live book path unavailable", exc_info=True)
 
+        # 1b) Shared Redis top-of-book — cross-replica source of truth when local hub is cold.
+        try:
+            from live_book_hub import get_shared_books_if_fresh
+
+            shared = await get_shared_books_if_fresh()
+            if shared:
+                redis_books, age_ms = shared
+                _books, funding, _source, _age = await get_market_snapshots_cached()
+                age_sec = age_ms / 1000.0
+                set_cached_snapshots(redis_books, funding, source="redis_shared_books", age_sec=age_sec)
+                return redis_books, funding, "redis_shared_books", age_sec
+        except Exception:
+            logger.debug("Redis shared book path unavailable", exc_info=True)
+
     books, funding, source, age_sec = await get_market_snapshots_cached()
 
     stale_threshold = float(getattr(config, "LIVE_FETCH_STALE_THRESHOLD_SEC", 8))
@@ -252,6 +266,7 @@ def _format_cross(item: Any, institutional_context: dict | None) -> dict[str, An
         "reasons": explanation.reasons[:3],
         "risk_factors": explanation.risk_factors[:2],
         "confidence_percent": round(float(explanation.confidence_percent), 1),
+        "precision_engine": "decimal_money_v1",
     }
 
 

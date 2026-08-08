@@ -18,7 +18,7 @@ from fastapi import Cookie, Depends, Header, HTTPException, Request
 
 logger = logging.getLogger("BLACKDARK.Security")
 
-_login_attempts: dict[str, list[float]] = defaultdict(list)
+_login_attempts: dict[str, list[float]] = defaultdict(list)  # local fallback mirror
 _LOGIN_WINDOW_SEC = 300
 _LOGIN_MAX_ATTEMPTS = 10
 _AUTH_AUDIT_PATH = Path(
@@ -45,13 +45,20 @@ def hash_session_token(token: str) -> str:
 
 
 def check_login_rate_limit(key: str) -> None:
-    """Raise if too many login attempts from email/IP."""
-    now = time.time()
-    window = _login_attempts[key]
-    _login_attempts[key] = [t for t in window if now - t < _LOGIN_WINDOW_SEC]
-    if len(_login_attempts[key]) >= _LOGIN_MAX_ATTEMPTS:
-        raise HTTPException(status_code=429, detail="Too many login attempts. Try again in 5 minutes.")
-    _login_attempts[key].append(now)
+    """Raise if too many failed login attempts (Redis-backed when available). Does not increment."""
+    from redis_coord import rate_limit_check
+
+    allowed, _count = rate_limit_check(
+        key,
+        limit=_LOGIN_MAX_ATTEMPTS,
+        window_sec=_LOGIN_WINDOW_SEC,
+        namespace="login",
+    )
+    if not allowed:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many login attempts. Try again in 5 minutes.",
+        )
 
 
 def persist_auth_audit(
@@ -81,7 +88,20 @@ def persist_auth_audit(
 
 
 def record_login_failure(key: str, *, reason: str = "invalid_credentials") -> None:
-    check_login_rate_limit(key)
+    """Count one failed attempt (shared via Redis) and write audit row."""
+    from redis_coord import rate_limit_hit
+
+    rate_limit_hit(
+        key,
+        limit=_LOGIN_MAX_ATTEMPTS,
+        window_sec=_LOGIN_WINDOW_SEC,
+        namespace="login",
+    )
+    # Keep local mirror for tests / soft-launch introspection
+    now = time.time()
+    window = _login_attempts[key]
+    _login_attempts[key] = [t for t in window if now - t < _LOGIN_WINDOW_SEC]
+    _login_attempts[key].append(now)
     persist_auth_audit(event="login_failure", subject=key, reason=reason)
 
 
