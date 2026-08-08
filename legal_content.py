@@ -28,7 +28,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
         "updated": "July 24, 2026",
         "html": """
 <h2>1. Data We Collect</h2>
-<p>Email, name (optional), password hash, subscription status, usage metrics (Oracle queries, dashboard views), journal entries, and alert preferences (Telegram chat ID if provided).</p>
+<p>Email, display name, optional public username, optional avatar image, password hash, email verification status, subscription status, usage metrics (Oracle queries, dashboard views), journal entries, UI preferences (language / UX mode / timezone), OAuth provider ids when linked, MFA secrets (encrypted), and alert preferences (Telegram chat ID if provided).</p>
 <h2>2. How We Use Data</h2>
 <p>To authenticate you, deliver features, improve models, send alerts you opt into, and process payments via Stripe. We do not sell personal data.</p>
 <h2>3. Payment Data</h2>
