@@ -16,7 +16,7 @@ import re
 import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -28,7 +28,6 @@ from database import (
     fetch_rolling_compound_sentiment_index,
     fetch_sentiment_logs_for_asset,
     init_db,
-    insert_market_sentiment_log,
     insert_market_sentiment_logs,
 )
 
@@ -107,7 +106,7 @@ class SentimentAnalysisResult(BaseModel):
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _sector_for_asset(asset: str) -> str | None:
@@ -191,25 +190,24 @@ async def _llm_sentiment(text: str) -> float | None:
 
     timeout = aiohttp.ClientTimeout(total=config.SENTIMENT_FETCH_TIMEOUT_SECONDS)
     try:
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": config.SENTIMENT_OPENAI_MODEL,
-                    "temperature": 0.0,
-                    "response_format": {"type": "json_object"},
-                    "messages": [
-                        {"role": "system", "content": "You are a financial sentiment scorer."},
-                        {"role": "user", "content": prompt},
-                    ],
-                },
-            ) as response:
-                response.raise_for_status()
-                payload = await response.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": config.SENTIMENT_OPENAI_MODEL,
+                "temperature": 0.0,
+                "response_format": {"type": "json_object"},
+                "messages": [
+                    {"role": "system", "content": "You are a financial sentiment scorer."},
+                    {"role": "user", "content": prompt},
+                ],
+            },
+        ) as response:
+            response.raise_for_status()
+            payload = await response.json()
         content = payload["choices"][0]["message"]["content"]
         parsed = json.loads(content)
         score = float(parsed.get("sentiment_score", 0.0))
@@ -360,7 +358,7 @@ async def _fetch_cryptocompare_news(
             continue
         published = row.get("published_on")
         published_at = (
-            datetime.fromtimestamp(int(published), tz=timezone.utc).isoformat()
+            datetime.fromtimestamp(int(published), tz=UTC).isoformat()
             if published
             else None
         )
@@ -816,7 +814,7 @@ class SentimentEngine:
                     timeout=config.SENTIMENT_POLL_INTERVAL_SECONDS,
                 )
                 break
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 continue
 
         logger.info("Sentiment engine loop stopped.")

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.TelegramAgent")
@@ -18,7 +18,7 @@ async def handle_agent_message(text: str, *, user_id: int | None = None) -> dict
         "input": text[:500],
         "reply": reply.get("reply") or "",
         "source": reply.get("source", "blackdark"),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "capabilities": [
             "oracle_accuracy",
             "arbitrage_scan",

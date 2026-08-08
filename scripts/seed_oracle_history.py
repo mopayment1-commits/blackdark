@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import asyncio
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -83,9 +83,9 @@ async def seed_history() -> dict:
                 if label == "correct":
                     correct += 1
 
-                ts = datetime.fromtimestamp(k["ts"] / 1000, tz=timezone.utc).isoformat()
+                ts = datetime.fromtimestamp(k["ts"] / 1000, tz=UTC).isoformat()
                 resolved_ts = datetime.fromtimestamp(
-                    k_next["ts"] / 1000, tz=timezone.utc
+                    k_next["ts"] / 1000, tz=UTC
                 ).isoformat()
 
                 pred_id = await insert_oracle_prediction(

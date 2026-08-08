@@ -10,7 +10,7 @@ from __future__ import annotations
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
@@ -27,7 +27,7 @@ _MAX_RETENTION_DAYS = int(os.getenv("UPTIME_LOG_RETENTION_DAYS", "90"))
 def record_probe(*, ok: bool, source: str = "internal", latency_ms: float | None = None) -> None:
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     row = {
-        "ts": datetime.now(timezone.utc).isoformat(),
+        "ts": datetime.now(UTC).isoformat(),
         "result": "ok" if ok else "fail",
         "source": source,
         "latency_ms": round(latency_ms, 2) if latency_ms is not None else None,
@@ -41,13 +41,13 @@ def _load_recent_probes(max_age_sec: float | None = None) -> list[dict[str, Any]
         return []
     cutoff = time.time() - (max_age_sec or _MAX_RETENTION_DAYS * 86400)
     rows: list[dict[str, Any]] = []
-    for line in LOG_PATH.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
+    for raw_line in LOG_PATH.read_text(encoding="utf-8").splitlines():
+        stripped = raw_line.strip()
+        if not stripped:
             continue
         try:
-            row = json.loads(line)
-            ts = datetime.fromisoformat(str(row["ts"]).replace("Z", "+00:00"))
+            row = json.loads(stripped)
+            ts = datetime.fromisoformat(str(row["ts"]))
             if ts.timestamp() >= cutoff:
                 rows.append(row)
         except (json.JSONDecodeError, KeyError, ValueError, TypeError):

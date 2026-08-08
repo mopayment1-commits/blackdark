@@ -11,7 +11,7 @@ import json
 import logging
 import os
 import threading
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -22,7 +22,7 @@ _APPEND_LOCK = threading.Lock()
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _hash_record(payload: dict[str, Any], prev_hash: str) -> str:
@@ -115,7 +115,7 @@ def chain_summary(*, limit: int = 20) -> dict[str, Any]:
     recent: list[dict[str, Any]] = []
     if CHAIN_PATH.exists():
         with CHAIN_PATH.open("r", encoding="utf-8") as fh:
-            lines = [l for l in fh if l.strip()]
+            lines = [line for line in fh if line.strip()]
         for line in lines[-limit:]:
             recent.append(json.loads(line))
 

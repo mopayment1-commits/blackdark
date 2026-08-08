@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import math
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -17,7 +17,7 @@ DEFAULT_PAIRS: tuple[tuple[str, str], ...] = (
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _fetch_closes(session: aiohttp.ClientSession, asset: str, *, limit: int = 60) -> list[float]:

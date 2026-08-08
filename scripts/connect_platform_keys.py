@@ -21,7 +21,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import os
 import sys
 import webbrowser
 from pathlib import Path
@@ -107,7 +106,7 @@ def _open_signup_links() -> None:
         try:
             webbrowser.open(url)
         except OSError:
-            print(f"     (تعذّر فتح المتصفح — افتح الرابط يدوياً)")
+            print("     (تعذّر فتح المتصفح — افتح الرابط يدوياً)")
 
 
 def _prompt_value(spec: dict[str, str], preset: str | None) -> str | None:
@@ -118,7 +117,7 @@ def _prompt_value(spec: dict[str, str], preset: str | None) -> str | None:
     print(f"   التسجيل: {spec['signup']}")
     print(f"   {spec['note_ar']}")
     print("   Enter = تخطي")
-    value = input(f"   الصق المفتاح: ").strip()
+    value = input("   الصق المفتاح: ").strip()
     return value or None
 
 
@@ -200,7 +199,7 @@ async def run_connect(args: argparse.Namespace) -> int:
         example = ROOT / ".env.example"
         if example.exists():
             (ROOT / ".env").write_text(example.read_text(encoding="utf-8"), encoding="utf-8")
-            print(f"\n📄 تم إنشاء .env من .env.example")
+            print("\n📄 تم إنشاء .env من .env.example")
 
     _print_status()
 

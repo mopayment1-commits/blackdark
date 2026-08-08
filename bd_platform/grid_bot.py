@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -46,7 +45,7 @@ def create_grid(
     step = (upper_price - lower_price) / grids
     levels = [round(lower_price + i * step, 8) for i in range(grids + 1)]
     bot = {
-        "id": f"grid_{asset}_{int(datetime.now(timezone.utc).timestamp())}",
+        "id": f"grid_{asset}_{int(datetime.now(UTC).timestamp())}",
         "asset": asset.upper(),
         "lower_price": lower_price,
         "upper_price": upper_price,
@@ -54,7 +53,7 @@ def create_grid(
         "levels": levels,
         "quote_usd": quote_usd,
         "mode": "paper",
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
     }
     rows = _load()
     rows.append(bot)

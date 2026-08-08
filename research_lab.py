@@ -7,12 +7,9 @@ and economic moat metrics for B2B / acquisition readiness.
 
 from __future__ import annotations
 
-import json
 import logging
 import math
-import os
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -31,7 +28,7 @@ _SUPPLY_ESTIMATES: dict[str, float] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_asset(symbol: str) -> str:
@@ -45,11 +42,10 @@ async def _fetch_klines(pair: str, interval: str = "1d", limit: int = 90) -> lis
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return []
+            rows = await resp.json()
         return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
@@ -59,11 +55,10 @@ async def _fetch_ticker(pair: str) -> dict | None:
     url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
         timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return None
+            data = await resp.json()
         return {
             "price": float(data["lastPrice"]),
             "quote_volume": float(data.get("quoteVolume") or 0),

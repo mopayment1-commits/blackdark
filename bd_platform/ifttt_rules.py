@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -35,11 +35,11 @@ def list_rules() -> dict[str, Any]:
 
 def create_rule(*, if_condition: str, then_action: str, enabled: bool = True) -> dict[str, Any]:
     rule = {
-        "id": f"rule_{int(datetime.now(timezone.utc).timestamp())}",
+        "id": f"rule_{int(datetime.now(UTC).timestamp())}",
         "if": if_condition,
         "then": then_action,
         "enabled": enabled,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "created_at": datetime.now(UTC).isoformat(),
     }
     rows = _load()
     rows.append(rule)

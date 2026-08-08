@@ -13,7 +13,7 @@ def _seed_cross_books(*, wide_spread: bool = False) -> None:
 
     _books.clear()
     _last_update_ms.clear()
-    ask = 100.0 if wide_spread else 100.0
+    ask = 100.0
     bid = 102.0 if wide_spread else 100.5
     book_buy = {"asks": [[ask, 50.0]], "bids": [[ask - 0.5, 50.0]]}
     book_sell = {"asks": [[bid + 0.5, 50.0]], "bids": [[bid, 50.0]]}
@@ -69,7 +69,7 @@ async def test_validate_alert_sends_when_executable():
         "sell_exchange": "okx",
         "quote_amount": 50.0,
     }
-    send, updated = await slippage_guard.validate_alert(opp)
+    _send, updated = await slippage_guard.validate_alert(opp)
     assert isinstance(updated, dict)
     assert slippage_guard.guard_stats()["active_alerts"] >= 0
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import inspect
 
 from ml.labeling_pipeline import score_verdict_accuracy
-from oracle_unified import ENGINE_ID, apply_unified_adjustments, compute_unified_oracle
+from oracle_unified import ENGINE_ID, apply_unified_adjustments
 from production_guard import evaluate_production_guard
 from security_auth import is_production_env
 
@@ -50,7 +50,6 @@ def test_execution_engine_has_security_gates():
 def test_platform_execute_requires_admin():
     import platform_api
 
-    deps = platform_api.cex_dex_execute.__defaults__
     # FastAPI dependency is on signature annotations/defaults via Depends
     sig = inspect.signature(platform_api.cex_dex_execute)
     assert "_admin" in sig.parameters

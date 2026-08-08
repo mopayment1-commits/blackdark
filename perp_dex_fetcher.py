@@ -7,8 +7,9 @@ Dedicated APIs for on-chain perpetual venues (Hyperliquid, dYdX, GMX, …).
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any, Literal
 
 import aiohttp
 
@@ -62,7 +63,7 @@ PERP_SYMBOLS: dict[str, str] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _synthetic_book(mid: float) -> tuple[list[list[float]], list[list[float]]]:
@@ -152,7 +153,6 @@ async def _gmx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, f
 
 async def _drift_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, float]:
     # Drift mainnet API — market list
-    url = "https://mainnet-beta.api.drift.trade/stats/insuranceFundVolume"
     # Fallback: use Jupiter perp or defillama
     from dex_fetcher import _defillama_price
 

@@ -12,7 +12,7 @@ from typing import Any
 import config
 
 try:
-    from arbitrage_engine import walk_asks, walk_bids, _walk_triangle_legs
+    from arbitrage_engine import _walk_triangle_legs, walk_asks, walk_bids
 except ImportError:  # pragma: no cover
     walk_asks = walk_bids = _walk_triangle_legs = None  # type: ignore
 

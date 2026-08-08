@@ -11,7 +11,6 @@ import argparse
 import asyncio
 import json
 import statistics
-import sys
 import time
 from pathlib import Path
 
@@ -19,7 +18,7 @@ try:
     import aiohttp
 except ImportError:
     print("pip install aiohttp")
-    raise SystemExit(1)
+    raise SystemExit(1) from None
 
 
 async def _probe(session: aiohttp.ClientSession, url: str) -> tuple[bool, float]:

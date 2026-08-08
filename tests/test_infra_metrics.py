@@ -1,6 +1,6 @@
 """Tests for infra metrics."""
 
-from infra_metrics import collect_infra_metrics, _cost_rating
+from infra_metrics import _cost_rating, collect_infra_metrics
 
 
 def test_collect_infra_metrics():

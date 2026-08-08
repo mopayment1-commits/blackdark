@@ -1,6 +1,6 @@
 """Tests for postgres backend helper."""
 
-from postgres_backend import use_postgres, _sqlite_schema_to_pg
+from postgres_backend import _sqlite_schema_to_pg, use_postgres
 
 
 def test_use_postgres_false_when_empty(monkeypatch):

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import aiohttp
 from fastapi import APIRouter, HTTPException, Query
@@ -54,7 +54,7 @@ async def market_overview():
         "top_losers": sorted(assets, key=lambda x: x["change_24h"])[:3],
         "market_status": "active",
         "data_source": "Binance Live API",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -67,7 +67,7 @@ async def market_open_interest():
         "assets": rows,
         "count": len(rows),
         "data_source": "Binance Futures API",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -113,7 +113,7 @@ async def market_sectors():
     return {
         "sectors": sectors_out,
         "data_source": "CVVD SII + Binance Live",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -140,11 +140,10 @@ async def market_klines(
     url = f"https://api.binance.com/api/v3/klines?symbol={sym}&interval={interval}&limit={limit}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    raise HTTPException(status_code=502, detail="Upstream klines unavailable")
-                rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                raise HTTPException(status_code=502, detail="Upstream klines unavailable")
+            rows = await resp.json()
     except HTTPException:
         raise
     except (aiohttp.ClientError, TypeError, ValueError) as exc:
@@ -155,5 +154,5 @@ async def market_klines(
         "interval": interval,
         "klines": rows if isinstance(rows, list) else [],
         "source": "binance",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }

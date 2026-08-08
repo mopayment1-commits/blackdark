@@ -148,10 +148,7 @@ async def _bybit_orderbook_loop() -> None:
                         if not topic.startswith("orderbook.1."):
                             continue
                         raw = topic.replace("orderbook.1.", "")
-                        if raw.endswith("USDT"):
-                            symbol = f"{raw[:-4]}/USDT"
-                        else:
-                            symbol = raw
+                        symbol = f"{raw[:-4]}/USDT" if raw.endswith("USDT") else raw
                         bids = data.get("b") or []
                         asks = data.get("a") or []
                         if not bids or not asks:
@@ -186,7 +183,7 @@ async def _kraken_ticker_poll_loop() -> None:
                             continue
                         data = await resp.json()
                         result = data.get("result") or {}
-                        for key, tick in result.items():
+                        for tick in result.values():
                             bid = float((tick.get("b") or [0])[0])
                             ask = float((tick.get("a") or [0])[0])
                             if bid > 0 and ask > 0:

@@ -66,7 +66,7 @@ def test_maker_fee_and_trading_fees_maker():
 @pytest.mark.asyncio
 async def test_refresh_fee_matrix_no_network(monkeypatch):
     fee_matrix._matrix.clear()
-    monkeypatch.setattr("fee_matrix.config.enabled_exchanges", lambda: {})
+    monkeypatch.setattr("fee_matrix.config.enabled_exchanges", dict)
     result = await fee_matrix.refresh_fee_matrix()
     assert result["total"] >= 0
 

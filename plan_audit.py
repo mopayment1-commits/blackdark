@@ -6,7 +6,7 @@ Maps the founder Excel spec to live modules/endpoints with honest status.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from importlib import import_module
 from pathlib import Path
 from typing import Any, Literal
@@ -87,7 +87,6 @@ def plan_audit(*, excel_path: str | None = None) -> dict[str, Any]:
 
     for idx, row in enumerate(_PLAN_ROWS, start=1):
         category, title, status, module, endpoint, note = row
-        status = status  # type: PlanStatus
         live = _module_exists(module) if module else status != "planned"
         item = {
             "id": idx,
@@ -123,7 +122,7 @@ def plan_audit(*, excel_path: str | None = None) -> dict[str, Any]:
         excel_file = ROOT / "excel_plan_review.json"
 
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "source_excel": str(excel_path or "خطوات التحقيق - Copy.xlsx"),
         "source_found": Path(excel_path or ROOT.parent / "خطوات التحقيق - Copy.xlsx").exists(),
         "total_items": total,
@@ -153,6 +152,7 @@ def _catalog_stats() -> dict[str, Any]:
 async def market_radar_narrative() -> dict[str, Any]:
     """Excel-style sector narrative: Gaming up, AI weak, etc."""
     import aiohttp
+
     import config
 
     sector_assets: dict[str, list[float]] = {}
@@ -206,7 +206,7 @@ async def market_radar_narrative() -> dict[str, Any]:
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
         "bullets": bullets_en,
         "sectors": sectors,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 

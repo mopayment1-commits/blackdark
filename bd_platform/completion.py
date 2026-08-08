@@ -23,7 +23,7 @@ FREE_REPLACEMENTS: dict[int, str] = {
 
 
 def completion_summary() -> dict[str, Any]:
-    from bd_platform.registry import FEATURE_MATRIX, feature_summary
+    from bd_platform.registry import feature_summary
 
     base = feature_summary()
     rows: list[dict[str, Any]] = []

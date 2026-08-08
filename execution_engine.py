@@ -7,14 +7,14 @@ that pass api_key_security_guard (user vault preferred; env keys blocked in prod
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import hmac
 import json
 import logging
 import os
 import time
-import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 from urllib.parse import urlencode
 
@@ -30,7 +30,7 @@ _auto_task: Any = None
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_symbol(symbol: str) -> tuple[str, str]:
@@ -391,9 +391,8 @@ async def try_execute_from_opportunity(
 
     live = _live_enabled()
     dry_run_default = _dry_run_default()
-    if not state.get("auto_execution_enabled"):
-        if live or not dry_run_default:
-            return {"skipped": True, "reason": "auto_execution_disabled"}
+    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
+        return {"skipped": True, "reason": "auto_execution_disabled"}
 
     min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
     profit = float(opportunity.get("net_profit_usdt") or 0)
@@ -459,7 +458,7 @@ async def try_execute_from_opportunity(
         asset,
         side,
         amount,
-        dry_run=True if dry_run_default or not live else False,
+        dry_run=bool(dry_run_default or not live),
         user_id=user_id,
     )
     return {

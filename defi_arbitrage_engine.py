@@ -5,7 +5,7 @@ BLACKDARK — DeFi arbitrage engine (flash loan, DEX-DEX, bridge, MEV proxy).
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -16,7 +16,7 @@ logger = logging.getLogger("BLACKDARK.DeFiArbitrage")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
@@ -41,9 +41,8 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
         if "uniswap" in dex:
             if liq > uni_liq:
                 uni_price, uni_liq = price, liq
-        elif "sushi" in dex:
-            if liq > sushi_liq:
-                sushi_price, sushi_liq = price, liq
+        elif "sushi" in dex and liq > sushi_liq:
+            sushi_price, sushi_liq = price, liq
 
     if uni_price <= 0 or sushi_price <= 0:
         return None
@@ -102,10 +101,11 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
                 for row in data.get("pairs") or []:
                     p = float(row.get("priceUsd") or 0)
                     liq = float((row.get("liquidity") or {}).get("usd") or 0)
-                    if p > 0 and liq > 50_000:
-                        if dex_b_price == 0 or abs(p - cex_mid) > abs(dex_b_price - cex_mid):
-                            dex_b_price = p
-                            dex_b_venue = row.get("dexId") or "dex"
+                    if p > 0 and liq > 50_000 and (
+                        dex_b_price == 0 or abs(p - cex_mid) > abs(dex_b_price - cex_mid)
+                    ):
+                        dex_b_price = p
+                        dex_b_venue = row.get("dexId") or "dex"
     except aiohttp.ClientError:
         pass
 
@@ -203,7 +203,7 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
 
 async def scan_mev_slippage_proxy(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """MEV/slippage capture proxy — large CEX-DEX gap with high DEX impact potential."""
-    from bd_platform.cex_dex_arbitrage import _cex_prices, _best_dex_quote
+    from bd_platform.cex_dex_arbitrage import _best_dex_quote, _cex_prices
     from dex_slippage import constant_product_slippage_bps
 
     cex = await _cex_prices(session, asset)

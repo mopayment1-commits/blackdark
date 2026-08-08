@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -41,7 +41,7 @@ async def suggest_rebalance(
         )
 
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "portfolio_total_usd": round(total, 2),
         "target_weights": target_weights,
         "trades": trades,

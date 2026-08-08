@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import threading
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -18,7 +18,7 @@ _LOCK = threading.Lock()
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def record_follow_up(
@@ -46,9 +46,8 @@ def record_follow_up(
         "private": True,
     }
     _PATH.parent.mkdir(parents=True, exist_ok=True)
-    with _LOCK:
-        with _PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(row, default=str) + "\n")
+    with _LOCK, _PATH.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(row, default=str) + "\n")
     return {"ok": True, "id": row["id"], "private": True}
 
 

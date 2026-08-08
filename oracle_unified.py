@@ -10,13 +10,13 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from dimension_conflict_guard import apply_dimension_conflict_guard
 from oracle_data_hub import hub_score_adjustment
 from sentiment_engine import is_extreme_negative_sentiment, sentiment_panic_penalty_for_asset
 from sentiment_manipulation_guard import (
     greed_pump_penalty_for_asset as sentiment_greed_penalty_for_asset,
     is_extreme_positive_sentiment,
 )
-from dimension_conflict_guard import apply_dimension_conflict_guard
 from weight_aggregator import apply_modal_adjustments_with_regime, build_full_market_context
 
 logger = logging.getLogger("BLACKDARK.OracleUnified")
@@ -110,7 +110,7 @@ def _confidence_from_score(
     base = min(100, max(50, int(score * 0.8 + abs(change) * 2 + (quote_volume / 1e9) * 5)))
     adjusted = base - int(conflict_penalty)
     if ml_confidence is not None and ml_confidence > 0:
-        adjusted = int(round(adjusted * 0.7 + ml_confidence * 0.3))
+        adjusted = round(adjusted * 0.7 + ml_confidence * 0.3)
     return max(20, min(98, adjusted))
 
 
@@ -264,7 +264,7 @@ async def finalize_unified_score(
     except Exception:
         pass
 
-    final_score = int(round(max(0.0, min(100.0, adjusted))))
+    final_score = round(max(0.0, min(100.0, adjusted)))
     public_verdict = unified_verdict_with_conflict(
         final_score,
         asset,
@@ -347,6 +347,6 @@ async def compute_unified_oracle(
         quote_volume=quote_volume,
         include_ml=include_ml,
     )
-    finalized["base_score"] = int(round(base_score))
+    finalized["base_score"] = round(base_score)
     finalized["institutional_context"] = ctx
     return finalized

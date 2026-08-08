@@ -6,7 +6,7 @@ Maps founder requirements → modules, endpoints, honest status.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from importlib import import_module
 from pathlib import Path
 from typing import Any, Literal
@@ -95,7 +95,6 @@ def run_roadmap_audit(*, verify_modules: bool = True) -> dict[str, Any]:
 
     for idx, raw in enumerate(_ROADMAP_ROWS, start=1):
         cat, title, status, module, endpoint, note = raw
-        status = status  # type: RoadmapStatus
         mod_ok = _module_exists(module) if verify_modules and module else bool(module)
         if verify_modules and module and not mod_ok and status == "complete":
             status = "partial"
@@ -122,7 +121,7 @@ def run_roadmap_audit(*, verify_modules: bool = True) -> dict[str, Any]:
     planned = sum(1 for r in rows if r["status"] == "planned")
 
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "total_items": total,
         "complete_count": complete,
         "partial_count": partial,
@@ -188,9 +187,7 @@ def _category_ar(cat: str) -> str:
 def _next_priorities(rows: list[dict[str, Any]]) -> list[str]:
     out: list[str] = []
     for r in rows:
-        if r["status"] == "planned":
-            out.append(r["title"])
-        elif r["status"] == "partial":
+        if r["status"] == "planned" or r["status"] == "partial":
             out.append(r["title"])
     return out[:8]
 

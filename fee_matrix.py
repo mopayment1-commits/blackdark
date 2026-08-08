@@ -111,6 +111,7 @@ async def refresh_fee_matrix() -> dict[str, Any]:
 
     try:
         import ccxt.async_support as ccxt_async
+
         from ccxt_market_fetcher import CCXT_ID_MAP, ccxt_exchange_id
     except ImportError:
         _last_refresh = time.time()

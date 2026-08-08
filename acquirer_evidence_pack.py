@@ -7,13 +7,13 @@ accuracy · audit chain · signal registry · net-edge rejects · half-life · m
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
 async def build_acquirer_evidence_pack() -> dict[str, Any]:
     pack: dict[str, Any] = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "product_thesis": (
             "Decision Intelligence + Proven Predictive Accuracy + "
             "Proprietary Labeled Market Corpus"

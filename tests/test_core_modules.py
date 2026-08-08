@@ -2,8 +2,8 @@
 
 import pytest
 
+from fast_scan_engine import _cross_exchange_spread, run_fast_scan
 from live_book_hub import get_best_price, hub_stats, update_top_of_book
-from fast_scan_engine import run_fast_scan, _cross_exchange_spread
 from service_bus import bus_enabled, bus_stats, publish, subscribe
 
 

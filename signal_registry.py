@@ -14,7 +14,7 @@ import json
 import logging
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
@@ -74,7 +74,7 @@ SIGNAL_TYPE_LEXICON: dict[str, dict[str, Any]] = {
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _features_hash(features: dict[str, Any] | None) -> str:

@@ -32,18 +32,18 @@ _INTERNAL_NEUTRAL = frozenset({"WAIT", "HOLD", "NEUTRAL", PUBLIC_VERDICT_NEUTRAL
 _INTERNAL_RISK = frozenset({"CAUTION", "Do Not Touch", "AVOID", PUBLIC_VERDICT_RISK})
 
 _ADVICE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
-    (re.compile(r"\bBuy Now\b", re.I), "Analytics indicate positive momentum"),
-    (re.compile(r"\bDo Not Touch\b", re.I), "Analytics indicate elevated risk"),
-    (re.compile(r"\bStrong buy signal\b", re.I), "Strong bullish analytics signal"),
-    (re.compile(r"\bbuy signal\b", re.I), "Bullish analytics signal"),
-    (re.compile(r"\bsell signal\b", re.I), "Bearish analytics signal"),
-    (re.compile(r"\bBuy now at\b", re.I), "Observed price near"),
-    (re.compile(r"\bConsider buying\b", re.I), "Analytics suggest monitoring entry near"),
-    (re.compile(r"\bConsider exiting\b", re.I), "Analytics suggest monitoring exit levels for"),
-    (re.compile(r"\bSell with stop-loss\b", re.I), "Risk analytics reference resistance near"),
-    (re.compile(r"\bACTION:\s*", re.I), "Analytics summary:"),
-    (re.compile(r"\byou should buy\b", re.I), "metrics show positive momentum for"),
-    (re.compile(r"\byou should sell\b", re.I), "metrics show negative momentum for"),
+    (re.compile(r"\bBuy Now\b", re.IGNORECASE), "Analytics indicate positive momentum"),
+    (re.compile(r"\bDo Not Touch\b", re.IGNORECASE), "Analytics indicate elevated risk"),
+    (re.compile(r"\bStrong buy signal\b", re.IGNORECASE), "Strong bullish analytics signal"),
+    (re.compile(r"\bbuy signal\b", re.IGNORECASE), "Bullish analytics signal"),
+    (re.compile(r"\bsell signal\b", re.IGNORECASE), "Bearish analytics signal"),
+    (re.compile(r"\bBuy now at\b", re.IGNORECASE), "Observed price near"),
+    (re.compile(r"\bConsider buying\b", re.IGNORECASE), "Analytics suggest monitoring entry near"),
+    (re.compile(r"\bConsider exiting\b", re.IGNORECASE), "Analytics suggest monitoring exit levels for"),
+    (re.compile(r"\bSell with stop-loss\b", re.IGNORECASE), "Risk analytics reference resistance near"),
+    (re.compile(r"\bACTION:\s*", re.IGNORECASE), "Analytics summary:"),
+    (re.compile(r"\byou should buy\b", re.IGNORECASE), "metrics show positive momentum for"),
+    (re.compile(r"\byou should sell\b", re.IGNORECASE), "metrics show negative momentum for"),
 )
 
 

@@ -9,10 +9,8 @@ from __future__ import annotations
 
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
-
-import config
 
 logger = logging.getLogger("BLACKDARK.TelegramFree")
 
@@ -20,11 +18,11 @@ FREE_DAILY_ALERT_LIMIT = int(os.getenv("TELEGRAM_FREE_DAILY_LIMIT", "3"))
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _today_key() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return datetime.now(UTC).strftime("%Y-%m-%d")
 
 
 async def subscribe_free_chat(chat_id: str, *, username: str | None = None) -> dict[str, Any]:

@@ -131,7 +131,7 @@ async def get_market_overview(limit: int | None = None) -> list[dict[str, Any]]:
 
             books = await get_all_books()
             seen = {i["symbol"] for i in items}
-            for _venue, symbols in books.items():
+            for symbols in books.values():
                 for sym, row in symbols.items():
                     if not sym.endswith("/USDT"):
                         continue

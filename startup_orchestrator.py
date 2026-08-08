@@ -11,7 +11,6 @@ import asyncio
 import logging
 import os
 from dataclasses import dataclass, field
-from types import SimpleNamespace
 from typing import Any
 
 import config
@@ -124,8 +123,8 @@ async def run_background_startup(state: RuntimeState) -> None:
         config.KAFKA_PRICE_STREAM_ENABLED,
     )
 
-    from gas_oracle import start_gas_oracle_loop
     from fee_matrix import start_fee_matrix_scheduler
+    from gas_oracle import start_gas_oracle_loop
 
     await start_gas_oracle_loop()
     await start_fee_matrix_scheduler()
@@ -344,8 +343,8 @@ async def shutdown_runtime(state: RuntimeState) -> None:
 
     await stop_stream_processor()
 
-    from gas_oracle import stop_gas_oracle_loop
     from fee_matrix import stop_fee_matrix_scheduler
+    from gas_oracle import stop_gas_oracle_loop
 
     await stop_gas_oracle_loop()
     await stop_fee_matrix_scheduler()

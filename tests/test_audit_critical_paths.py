@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import asyncio
 
-from ml.labeling_pipeline import score_verdict_accuracy
 from live_book_hub import get_quote_age_ms, is_quote_fresh, update_top_of_book
+from ml.labeling_pipeline import score_verdict_accuracy
 from weight_aggregator import (
     apply_modal_adjustments_with_regime,
     detect_market_regime,

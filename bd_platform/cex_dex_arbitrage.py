@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -18,7 +18,7 @@ _MIN_NET_BPS = float(os.getenv("CEX_DEX_MIN_NET_BPS", "8"))
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _cex_prices(session: aiohttp.ClientSession, asset: str) -> dict[str, float]:
@@ -181,10 +181,7 @@ async def _best_dex_quote(
 def _best_cex(prices: dict[str, float], *, side: str) -> tuple[str, float]:
     if not prices:
         return "binance", 0.0
-    if side == "buy":
-        venue = min(prices, key=prices.get)
-    else:
-        venue = max(prices, key=prices.get)
+    venue = min(prices, key=prices.get) if side == "buy" else max(prices, key=prices.get)
     return venue, prices[venue]
 
 

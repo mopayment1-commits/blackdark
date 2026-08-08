@@ -16,7 +16,7 @@ import logging
 import os
 import random
 import time
-from typing import Any
+from typing import Any, Self
 
 import config
 
@@ -152,12 +152,12 @@ class exchange_poll_slot:
         self.exchange_id = exchange_id.lower()
         self._sem = _exchange_semaphore()
 
-    async def __aenter__(self) -> exchange_poll_slot:
+    async def __aenter__(self) -> Self:
         if _enabled():
             await self._sem.acquire()
         return self
 
-    async def __aexit__(self, *args: Any) -> None:
+    async def __aexit__(self, *args: object) -> None:
         if _enabled():
             self._sem.release()
 
@@ -169,12 +169,12 @@ class symbol_poll_slot:
         self.exchange_id = exchange_id.lower()
         self._sem = _symbol_semaphore(exchange_id)
 
-    async def __aenter__(self) -> symbol_poll_slot:
+    async def __aenter__(self) -> Self:
         if _enabled():
             await self._sem.acquire()
         return self
 
-    async def __aexit__(self, *args: Any) -> None:
+    async def __aexit__(self, *args: object) -> None:
         if _enabled():
             self._sem.release()
 

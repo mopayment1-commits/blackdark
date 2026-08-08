@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 
 def test_audience_routing():
@@ -40,7 +40,7 @@ def test_locked_predictions_seal_and_list(tmp_path, monkeypatch):
     import locked_predictions as lp
 
     monkeypatch.setattr(lp, "_PATH", tmp_path / "locked.jsonl")
-    unlock = (datetime.now(timezone.utc) + timedelta(hours=2)).isoformat()
+    unlock = (datetime.now(UTC) + timedelta(hours=2)).isoformat()
     row = lp.lock_prediction(
         event_name="FOMC",
         asset="BTC",

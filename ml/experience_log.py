@@ -9,8 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
@@ -31,7 +30,7 @@ SUMMARY_PATH = config.DATA_DIR / "ml_experience_summary.json"
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def append_experience(
@@ -101,12 +100,12 @@ def fetch_recent_experiences(*, limit: int = 50) -> list[dict[str, Any]]:
         return []
     lines = EXPERIENCE_LOG_PATH.read_text(encoding="utf-8").splitlines()
     records: list[dict[str, Any]] = []
-    for line in lines[-limit:]:
-        line = line.strip()
-        if not line:
+    for raw_line in lines[-limit:]:
+        stripped = raw_line.strip()
+        if not stripped:
             continue
         try:
-            records.append(json.loads(line))
+            records.append(json.loads(stripped))
         except json.JSONDecodeError:
             continue
     return list(reversed(records))

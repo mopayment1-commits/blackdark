@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, BackgroundTasks, Depends
 
 import config
-from api.deps import optional_user, record_behavior, require_feature
+from api.deps import record_behavior, require_feature
 
 router = APIRouter(prefix="/api/arbitrage", tags=["arbitrage"])
 
@@ -143,7 +143,7 @@ async def arbitrage_alerts(
         "alerts": rows,
         "telegram_configured": bool(os.getenv("TELEGRAM_BOT_TOKEN") and os.getenv("TELEGRAM_CHAT_ID")),
         "email_configured": bool(os.getenv("SMTP_HOST")),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 

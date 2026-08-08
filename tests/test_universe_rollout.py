@@ -3,10 +3,7 @@
 from __future__ import annotations
 
 import json
-
 from pathlib import Path
-
-import pytest
 
 from universe_rollout import activate_full_universe, rollout_summary_json
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -13,7 +13,7 @@ CHAIN_PATH = Path(os.getenv("ORACLE_AUDIT_CHAIN_PATH", "data/oracle_audit_chain.
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _hash_pair(left: str, right: str) -> str:
@@ -92,10 +92,7 @@ def verify_merkle_inclusion(proof_payload: dict[str, Any]) -> dict[str, Any]:
     current = leaf
     for step in proof:
         sibling = step.get("hash", "")
-        if step.get("position") == "right":
-            current = _hash_pair(current, sibling)
-        else:
-            current = _hash_pair(sibling, current)
+        current = _hash_pair(current, sibling) if step.get("position") == "right" else _hash_pair(sibling, current)
     return {"valid": current == root, "computed_root": current, "expected_root": root}
 
 

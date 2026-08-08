@@ -8,7 +8,7 @@ users see ROI beyond spread capture (Oracle, risk warnings, research, paper P&L)
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
@@ -26,7 +26,7 @@ def _enabled() -> bool:
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _utcnow_iso() -> str:
@@ -80,13 +80,12 @@ async def fetch_live_market_snapshot() -> dict[str, Any]:
         import aiohttp
 
         timeout = aiohttp.ClientTimeout(total=8)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(
-                "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT"
-            ) as resp:
-                if resp.status == 200:
-                    data = await resp.json()
-                    change_24h = float(data.get("priceChangePercent") or 0)
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(
+            "https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT"
+        ) as resp:
+            if resp.status == 200:
+                data = await resp.json()
+                change_24h = float(data.get("priceChangePercent") or 0)
     except Exception:
         logger.debug("BTC ticker fetch failed for retention snapshot", exc_info=True)
 
@@ -272,7 +271,7 @@ async def build_retention_status(
         trial_days_left: int | None = None
         if subscription and subscription.get("status") == "trial" and subscription.get("trial_ends_at"):
             try:
-                ends = datetime.fromisoformat(str(subscription["trial_ends_at"]).replace("Z", "+00:00"))
+                ends = datetime.fromisoformat(str(subscription["trial_ends_at"]))
                 trial_days_left = max(0, (ends - _utcnow()).days)
             except ValueError:
                 trial_days_left = None

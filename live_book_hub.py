@@ -7,7 +7,7 @@ Fed by exchange WebSocket bookTicker streams — arbitrage scanner reads here fi
 from __future__ import annotations
 
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -18,7 +18,7 @@ _updates_total = 0
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _max_age_ms() -> float:
@@ -122,7 +122,7 @@ def is_quote_fresh(
 def hub_stats() -> dict[str, Any]:
     now_ms = time.monotonic() * 1000.0
     ages: list[float] = []
-    for key, last in _last_update_ms.items():
+    for last in _last_update_ms.values():
         if last > 0:
             ages.append(now_ms - last)
 

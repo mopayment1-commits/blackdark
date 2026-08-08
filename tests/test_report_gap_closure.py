@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import inspect
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 
@@ -66,13 +66,13 @@ async def test_monthly_losing_groups_by_month(monkeypatch):
     monkeypatch.setattr(database, "fetch_labeled_oracle_predictions", fake_rows)
     report = await mlr.build_monthly_losing_report(limit=10)
     assert "months" in report
-    assert report["month"] == datetime.now(timezone.utc).strftime("%Y-%m")
+    assert report["month"] == datetime.now(UTC).strftime("%Y-%m")
     assert report["total_labeled_misses_in_window"] == 2
 
 
 def test_chat_and_oracle_attach_compliance():
-    import chat_service
     import ai_oracle
+    import chat_service
 
     assert "compliance_footer" in inspect.getsource(chat_service.process_chat)
     assert "compliance_footer" in inspect.getsource(ai_oracle.evaluate_opportunity)
