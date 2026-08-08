@@ -18,6 +18,7 @@ import subprocess
 import sys
 
 import encoding_bootstrap  # noqa: F401 — UTF-8 Arabic in console
+from path_safety import validate_bind_host, validate_port
 
 MODES = {
     "all": ("dashboard:app", 8080),
@@ -26,6 +27,7 @@ MODES = {
     "arbitrage": ("microservices.worker_app:app", 8092),
     "ingestion": ("microservices.worker_app:app", 8093),
 }
+_ALLOWED_TARGETS = frozenset(target for target, _ in MODES.values())
 
 
 def main() -> None:
@@ -35,6 +37,14 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=None)
     args = parser.parse_args()
 
+    if args.mode not in MODES:
+        raise SystemExit(f"Unsupported mode: {args.mode!r}")
+
+    try:
+        host = validate_bind_host(args.host)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
+
     os.environ["SERVICE_MODE"] = args.mode
     os.environ.setdefault("PYTHONUTF8", "1")
     os.environ.setdefault("PYTHONIOENCODING", "utf-8")
@@ -43,8 +53,14 @@ def main() -> None:
         os.environ.setdefault("INGESTION_ENABLED", "false")
 
     target, default_port = MODES[args.mode]
-    port = args.port or default_port
-    health_port = int(os.getenv("HEALTH_PORT", str(port + 100)))
+    if target not in _ALLOWED_TARGETS:
+        raise SystemExit(f"Unsupported uvicorn target: {target!r}")
+
+    try:
+        port = validate_port(args.port or default_port)
+        health_port = validate_port(int(os.getenv("HEALTH_PORT", str(port + 100))))
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
 
     from health_sidecar import start_health_sidecar
 
@@ -77,7 +93,7 @@ def main() -> None:
         "uvicorn",
         target,
         "--host",
-        args.host,
+        host,
         "--port",
         str(port),
     ]

@@ -1581,7 +1581,9 @@ async def fetch_sentiment_logs_for_asset(
                 filtered.append(item)
         return filtered
     except Exception:
-        logger.exception("Unable to read sentiment logs for asset=%s", asset)
+        from log_safety import sanitize_asset
+
+        logger.exception("Unable to read sentiment logs for asset=%s", sanitize_asset(asset))
         return []
 
 

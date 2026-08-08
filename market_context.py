@@ -408,10 +408,16 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
         for fallback in _REST_PRICE_FALLBACKS:
             row = await fallback(asset, session=session)
             if row is not None:
-                logger.info("Price REST fallback | asset=%s source=%s", asset, row.get("source"))
+                allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
+                asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
+                source_raw = str(row.get("source") or "unknown")
+                source_label = source_raw if source_raw.replace("_", "").isalnum() else "unknown"
+                logger.info("Price REST fallback | asset=%s source=%s", asset_label, source_label)
                 return row
 
-    logger.warning("All price sources failed | pair=%s asset=%s", pair, asset)
+    allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
+    asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
+    logger.warning("All price sources failed | asset=%s", asset_label)
     return None
 
 

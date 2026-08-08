@@ -7,6 +7,7 @@ When SMTP is later configured, flush_email_outbox() sends pending rows.
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import threading
@@ -103,7 +104,11 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
                         row["error"] = "smtp_send_failed"
                         failed += 1
                 kept.append(row)
-            with _PATH.open("w", encoding="utf-8") as fh:
-                for row in kept:
-                    fh.write(json.dumps(row, separators=(",", ":"), default=str) + "\n")
+
+            def _write() -> None:
+                with _PATH.open("w", encoding="utf-8") as fh:
+                    for row in kept:
+                        fh.write(json.dumps(row, separators=(",", ":"), default=str) + "\n")
+
+            await asyncio.to_thread(_write)
     return {"flushed": sent, "failed": failed, "pending": len(list_queued(limit=200))}

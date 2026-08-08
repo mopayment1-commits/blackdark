@@ -242,7 +242,9 @@ def test_guard_stats():
 
 def test_fingerprint_stable():
     opp = {"kind": "cross_exchange", "asset": "BTC", "buy_exchange": "binance", "sell_exchange": "okx"}
-    assert slippage_guard._fingerprint(opp) == slippage_guard._fingerprint(opp)
+    left = slippage_guard._fingerprint(opp)
+    right = slippage_guard._fingerprint(dict(opp))
+    assert left == right
 
 
 @pytest.mark.asyncio

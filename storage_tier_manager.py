@@ -445,10 +445,7 @@ async def stop_storage_tier_manager() -> None:
 
     if _scheduler_task is not None:
         _scheduler_task.cancel()
-        try:
-            await _scheduler_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_scheduler_task, return_exceptions=True)
         _scheduler_task = None
 
     if _compactor_started:

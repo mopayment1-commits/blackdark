@@ -60,10 +60,7 @@ def feature_summary() -> dict[str, Any]:
         mod_path = feat.get("module", "")
         ok = False
         try:
-            if mod_path.startswith("bd_platform."):
-                importlib.import_module(mod_path)
-            else:
-                importlib.import_module(mod_path)
+            importlib.import_module(mod_path)
             ok = True
             live += 1
         except ImportError:

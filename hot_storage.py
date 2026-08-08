@@ -704,10 +704,7 @@ class HotDataPipeline:
         self._running = False
         if self._flush_task is not None:
             self._flush_task.cancel()
-            try:
-                await self._flush_task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(self._flush_task, return_exceptions=True)
             self._flush_task = None
 
         await self.flush_now()

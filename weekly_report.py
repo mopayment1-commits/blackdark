@@ -85,7 +85,7 @@ async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
         "oracle_performance": {
             "total_predictions": audit.get("total_predictions"),
             "average_accuracy_percent": audit.get("average_accuracy_percent"),
-            "recent": (audit.get("recent") or [])[:5],
+            "recent": list(audit.get("recent") or [])[:5] if audit.get("recent") else [],
         },
         "forecast_performance": forecast_audit,
         "arbitrage_summary": {

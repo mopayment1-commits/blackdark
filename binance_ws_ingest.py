@@ -155,9 +155,6 @@ async def stop_binance_ws_ingest() -> None:
     _running = False
     if _ws_task is not None:
         _ws_task.cancel()
-        try:
-            await _ws_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_ws_task, return_exceptions=True)
         _ws_task = None
     logger.info("Binance WebSocket ingest stopped.")

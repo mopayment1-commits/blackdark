@@ -58,11 +58,13 @@
         <a class="btn" href="/">Back to Single-Sentence Oracle</a>
     </main>
     <script>
+function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
+
         function key() {
             const el = document.getElementById('userKey');
             let k = (el.value || '').trim();
             if (!k) {
-                k = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2,10));
+                k = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
                 localStorage.setItem('bd_user_key', k);
                 el.value = k;
             }

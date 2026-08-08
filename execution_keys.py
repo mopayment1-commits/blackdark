@@ -100,7 +100,8 @@ def _upsert_env_line(key: str, value: str, lines: list[str]) -> list[str]:
 
 
 def _write_env_lines(lines: list[str]) -> None:
-    _ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    env_path = ROOT / ".env"
+    env_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
 def save_exchange_keys_to_env(parsed: dict[str, str]) -> None:

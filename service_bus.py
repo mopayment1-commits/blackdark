@@ -125,10 +125,7 @@ async def stop_service_bus() -> None:
     global _listener_task, _redis_client
     if _listener_task is not None:
         _listener_task.cancel()
-        try:
-            await _listener_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_listener_task, return_exceptions=True)
         _listener_task = None
     if _redis_client is not None:
         try:

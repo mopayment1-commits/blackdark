@@ -45,7 +45,7 @@ def _row_to_feature_dict(row: dict[str, Any]) -> dict[str, float]:
         except (TypeError, ValueError):
             out[col] = 0.0
     # Fallbacks from prediction row when feature store sparse
-    if out["price"] == 0.0 and row.get("price_at_prediction") is not None:
+    if abs(out["price"]) < 1e-12 and row.get("price_at_prediction") is not None:
         try:
             out["price"] = float(row["price_at_prediction"])
         except (TypeError, ValueError):

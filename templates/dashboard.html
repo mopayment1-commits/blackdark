@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Intelligence Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
@@ -95,14 +95,14 @@
             <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
         </div>
         <div class="picks">
-            <span class="pick" onclick="setSymbol('BTC')">BTC</span>
-            <span class="pick" onclick="setSymbol('ETH')">ETH</span>
-            <span class="pick" onclick="setSymbol('SOL')">SOL</span>
-            <span class="pick" onclick="setSymbol('BNB')">BNB</span>
-            <span class="pick" onclick="setSymbol('XRP')">XRP</span>
+            <span class="pick" onclick="setSymbol('BTC')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">BTC</span>
+            <span class="pick" onclick="setSymbol('ETH')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">ETH</span>
+            <span class="pick" onclick="setSymbol('SOL')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">SOL</span>
+            <span class="pick" onclick="setSymbol('BNB')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">BNB</span>
+            <span class="pick" onclick="setSymbol('XRP')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">XRP</span>
         </div>
         <div class="search-row">
-            <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
+            <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()" aria-label="Symbol">
             <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
         </div>
         <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
@@ -146,8 +146,8 @@
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
             <div class="toolbar">
-                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="BTC">
+                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
                 <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
                 <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
             </div>
@@ -159,8 +159,8 @@
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
             <div class="toolbar">
-                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthAsset">
+                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
                 <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
                 <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
             </div>
@@ -171,8 +171,8 @@
             <h2>MEV / Sandwich Report</h2>
             <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
             <div class="toolbar">
-                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevAsset">
+                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
                 <button class="btn secondary" onclick="loadMevReport()">Build report</button>
                 <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
             </div>
