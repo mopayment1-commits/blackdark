@@ -47,25 +47,35 @@ def _read_last_hash() -> str:
 
 
 def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
-    """Append tamper-evident record to hash chain (process-local lock)."""
-    with _APPEND_LOCK:
-        CHAIN_PATH.parent.mkdir(parents=True, exist_ok=True)
-        prev = _read_last_hash()
-        entry = {
-            "seq": _count_records() + 1,
-            "timestamp": _utcnow_iso(),
-            "prev_hash": prev,
-            **record,
-        }
-        entry["chain_hash"] = _hash_record(entry, prev)
-        with CHAIN_PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(entry, default=str) + "\n")
-            fh.flush()
-            try:
-                os.fsync(fh.fileno())
-            except OSError:
-                pass
-        return entry
+    """Append tamper-evident record to hash chain (Redis distributed lock + local lock)."""
+    from redis_coord import distributed_lock
+
+    with distributed_lock("oracle_audit_chain", ttl_sec=8, wait_sec=3.0) as got_dist:
+        # Always also take process lock — nested safety for same-worker races.
+        with _APPEND_LOCK:
+            if not got_dist:
+                logger.warning(
+                    "oracle audit chain append without distributed lock — "
+                    "multi-replica integrity may race until Redis is available"
+                )
+            CHAIN_PATH.parent.mkdir(parents=True, exist_ok=True)
+            prev = _read_last_hash()
+            entry = {
+                "seq": _count_records() + 1,
+                "timestamp": _utcnow_iso(),
+                "prev_hash": prev,
+                **record,
+                "lock_mode": "redis" if got_dist else "process_local",
+            }
+            entry["chain_hash"] = _hash_record(entry, prev)
+            with CHAIN_PATH.open("a", encoding="utf-8") as fh:
+                fh.write(json.dumps(entry, default=str) + "\n")
+                fh.flush()
+                try:
+                    os.fsync(fh.fileno())
+                except OSError:
+                    pass
+            return entry
 
 
 def _count_records() -> int:

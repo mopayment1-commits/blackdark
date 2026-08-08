@@ -8,6 +8,7 @@ import stripe
 from fastapi import APIRouter, Body, Depends, HTTPException, Request
 
 from api.deps import optional_user
+from security_auth import require_admin
 
 router = APIRouter(prefix="/api/billing", tags=["billing"])
 
@@ -93,3 +94,24 @@ async def lemon_webhook(request: Request):
         raise HTTPException(status_code=400, detail="Invalid webhook body")
     result = await handle_lemon_webhook_event(event)
     return {"received": True, **result}
+
+
+@router.get("/reports/mrr")
+async def billing_reports_mrr(admin: dict = Depends(require_admin)):
+    from billing_service import generate_mrr_report
+
+    report = await generate_mrr_report()
+    report["requested_by"] = admin.get("email")
+    return report
+
+
+@router.get("/reports/churn")
+async def billing_reports_churn(
+    window_days: int = 30,
+    admin: dict = Depends(require_admin),
+):
+    from billing_service import compute_churn_rate
+
+    report = await compute_churn_rate(window_days=window_days)
+    report["requested_by"] = admin.get("email")
+    return report

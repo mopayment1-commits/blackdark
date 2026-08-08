@@ -297,7 +297,34 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT    NOT NULL,
     name          TEXT,
     created_at    TEXT    NOT NULL,
-    last_login_at TEXT
+    last_login_at TEXT,
+    oauth_provider TEXT,
+    oauth_sub      TEXT,
+    totp_secret_encrypted TEXT,
+    totp_enabled   INTEGER NOT NULL DEFAULT 0,
+    terms_accepted_at TEXT,
+    terms_version     TEXT,
+    referral_code     TEXT,
+    referred_by_code  TEXT,
+    referred_by_user_id INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS privacy_requests (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    email        TEXT    NOT NULL,
+    request_type TEXT    NOT NULL,
+    details      TEXT,
+    status       TEXT    NOT NULL DEFAULT 'received',
+    created_at   TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS referral_events (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    referrer_user_id  INTEGER NOT NULL,
+    referred_user_id  INTEGER NOT NULL,
+    referral_code     TEXT    NOT NULL,
+    event_type        TEXT    NOT NULL,
+    created_at        TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_sessions (
@@ -607,6 +634,60 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
     if "telegram_chat_id" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
+    if "oauth_provider" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN oauth_provider TEXT")
+    if "oauth_sub" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN oauth_sub TEXT")
+    if "totp_secret_encrypted" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN totp_secret_encrypted TEXT")
+    if "totp_enabled" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN totp_enabled INTEGER NOT NULL DEFAULT 0")
+    if "terms_accepted_at" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN terms_accepted_at TEXT")
+    if "terms_version" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN terms_version TEXT")
+    if "referral_code" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referral_code TEXT")
+    if "referred_by_code" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referred_by_code TEXT")
+    if "referred_by_user_id" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referred_by_user_id INTEGER")
+    await db.execute(
+        """
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oauth_provider_sub
+            ON users (oauth_provider, oauth_sub)
+        """
+    )
+    await db.execute(
+        """
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_users_referral_code
+            ON users (referral_code)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS referral_events (
+            id                INTEGER PRIMARY KEY AUTOINCREMENT,
+            referrer_user_id  INTEGER NOT NULL,
+            referred_user_id  INTEGER NOT NULL,
+            referral_code     TEXT    NOT NULL,
+            event_type        TEXT    NOT NULL,
+            created_at        TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS privacy_requests (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            email        TEXT    NOT NULL,
+            request_type TEXT    NOT NULL,
+            details      TEXT,
+            status       TEXT    NOT NULL DEFAULT 'received',
+            created_at   TEXT    NOT NULL
+        )
+        """
+    )
 
     await db.execute(
         """
@@ -3096,6 +3177,37 @@ async def create_user(email: str, password_hash: str, name: str = "") -> int:
         return int(cursor.lastrowid or 0)
 
 
+async def create_oauth_user(
+    email: str,
+    provider: str,
+    oauth_sub: str,
+    name: str = "",
+) -> int:
+    """Provision a passwordless OAuth account (unusable local password hash)."""
+    import secrets as _secrets
+
+    unusable = f"oauth$disabled${_secrets.token_hex(16)}"
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO users (
+                email, password_hash, name, created_at,
+                oauth_provider, oauth_sub, totp_enabled
+            )
+            VALUES (?, ?, ?, ?, ?, ?, 0)
+            """,
+            (
+                email.strip().lower(),
+                unusable,
+                name or None,
+                _utcnow_iso(),
+                provider.strip().lower(),
+                oauth_sub.strip(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
 async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
     try:
         async with get_connection() as db:
@@ -3108,6 +3220,216 @@ async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
     except Exception:
         logger.exception("Unable to fetch user")
         return None
+
+
+async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute("SELECT * FROM users WHERE id = ?", (int(user_id),))
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by id")
+        return None
+
+
+async def fetch_user_by_oauth(provider: str, oauth_sub: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM users
+                WHERE oauth_provider = ? AND oauth_sub = ?
+                LIMIT 1
+                """,
+                (provider.strip().lower(), oauth_sub.strip()),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by oauth")
+        return None
+
+
+async def link_user_oauth(user_id: int, provider: str, oauth_sub: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET oauth_provider = ?, oauth_sub = ?
+            WHERE id = ?
+            """,
+            (provider.strip().lower(), oauth_sub.strip(), int(user_id)),
+        )
+        await db.commit()
+
+
+async def update_user_oauth_profile(user_id: int, *, name: str | None = None) -> None:
+    if name is None:
+        return
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET name = ? WHERE id = ?",
+            (name, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_totp_secret(user_id: int, encrypted_secret: str, *, enabled: bool = False) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET totp_secret_encrypted = ?, totp_enabled = ?
+            WHERE id = ?
+            """,
+            (encrypted_secret, 1 if enabled else 0, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_totp_enabled(user_id: int, enabled: bool) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET totp_enabled = ? WHERE id = ?",
+            (1 if enabled else 0, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_terms_acceptance(user_id: int, accepted_at: str, terms_version: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET terms_accepted_at = ?, terms_version = ?
+            WHERE id = ?
+            """,
+            (accepted_at, terms_version, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_referral_code(user_id: int, code: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET referral_code = ? WHERE id = ?",
+            (code.strip().upper(), int(user_id)),
+        )
+        await db.commit()
+
+
+async def fetch_user_by_referral_code(code: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT * FROM users WHERE referral_code = ? LIMIT 1",
+                (code.strip().upper(),),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by referral code")
+        return None
+
+
+async def set_user_referred_by(user_id: int, code: str, referrer_user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET referred_by_code = ?, referred_by_user_id = ?
+            WHERE id = ?
+            """,
+            (code.strip().upper(), int(referrer_user_id), int(user_id)),
+        )
+        await db.commit()
+
+
+async def insert_referral_event(
+    *,
+    referrer_user_id: int,
+    referred_user_id: int,
+    referral_code: str,
+    event_type: str,
+) -> int:
+    async with get_connection() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO referral_events
+                (referrer_user_id, referred_user_id, referral_code, event_type, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                int(referrer_user_id),
+                int(referred_user_id),
+                referral_code.strip().upper(),
+                event_type.strip().lower()[:32],
+                _utcnow_iso(),
+            ),
+        )
+        await db.commit()
+        return int(cur.lastrowid or 0)
+
+
+async def count_referrals_for_user(user_id: int) -> int:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT COUNT(*) AS c FROM referral_events
+                WHERE referrer_user_id = ? AND event_type = 'signup'
+                """,
+                (int(user_id),),
+            )
+            result = await rows.fetchone()
+        if result is None:
+            return 0
+        return int(result[0] if not hasattr(result, "keys") else result["c"] or 0)
+    except Exception:
+        logger.exception("Unable to count referrals")
+        return 0
+
+
+async def insert_privacy_request(
+    email: str,
+    request_type: str,
+    details: str = "",
+) -> int:
+    async with get_connection() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO privacy_requests (email, request_type, details, status, created_at)
+            VALUES (?, ?, ?, 'received', ?)
+            """,
+            (
+                email.strip().lower(),
+                request_type.strip().lower()[:64],
+                (details or "")[:4000],
+                _utcnow_iso(),
+            ),
+        )
+        await db.commit()
+        return int(cur.lastrowid or 0)
+
+
+async def fetch_subscription_revenue_rows() -> list[dict[str, Any]]:
+    """All subscription rows used for MRR / churn analytics."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, email, tier, status, stripe_sub_id, created_at,
+                       trial_ends_at, past_due_at
+                FROM subscriptions
+                ORDER BY id ASC
+                """
+            )
+            result = await rows.fetchall()
+        return [dict(r) for r in result]
+    except Exception:
+        logger.exception("Unable to fetch subscription revenue rows")
+        return []
 
 
 async def erase_user_personal_data(email: str) -> dict[str, Any]:
@@ -3736,6 +4058,41 @@ async def fetch_user_api_key_secrets(user_id: int, exchange: str) -> dict[str, A
             )
         ).fetchone()
     return dict(row) if row else None
+
+
+async def fetch_all_user_api_key_secrets() -> list[dict[str, Any]]:
+    """All vault rows for key-rotation re-encryption."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, user_id, exchange, api_key_encrypted, api_secret_encrypted
+                FROM user_api_keys
+                ORDER BY id ASC
+                """
+            )
+            result = await rows.fetchall()
+        return [dict(r) for r in result]
+    except Exception:
+        logger.exception("Unable to fetch all user api key secrets")
+        return []
+
+
+async def update_user_api_key_ciphertexts(
+    row_id: int,
+    api_key_encrypted: str,
+    api_secret_encrypted: str,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE user_api_keys
+            SET api_key_encrypted = ?, api_secret_encrypted = ?, updated_at = ?
+            WHERE id = ?
+            """,
+            (api_key_encrypted, api_secret_encrypted, _utcnow_iso(), int(row_id)),
+        )
+        await db.commit()
 
 
 async def delete_user_api_key(user_id: int, exchange: str) -> bool:

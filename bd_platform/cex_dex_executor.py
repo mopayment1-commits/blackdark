@@ -29,33 +29,55 @@ async def _dex_leg(
     *,
     dry_run: bool,
 ) -> dict[str, Any]:
-    """DEX leg — dry-run economics always; live swap blocked until Jupiter wallet wired."""
-    has_wallet = bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip())
-    # Honest status: we never claim a live DEX fill without Jupiter integration.
-    mode = "dry_run"
-    message = f"Dry-run: would {side} ${amount_usd:.0f} {asset} on {venue}"
-    blocked_reason = None
-    if not dry_run:
-        mode = "blocked_until_jupiter"
-        blocked_reason = "dex_live_requires_jupiter_wallet_integration"
-        message = (
-            "DEX live swap not available in-code yet — economics dry-run only. "
-            "CEX leg may still execute when keys are present."
-        )
-        if not has_wallet:
-            blocked_reason = "missing_solana_private_key_and_jupiter"
-    payload = {
+    """DEX leg — dry-run by default; live Jupiter swap when wallet + deps + allow flag."""
+    from jupiter_swap import execute_jupiter_swap, jupiter_ready
+
+    ready = jupiter_ready()
+    has_wallet = bool(ready.get("wallet_configured"))
+    venue_l = (venue or "jupiter").lower()
+    message = f"Dry-run: would {side} ${amount_usd:.0f} {asset} on {venue_l}"
+    payload: dict[str, Any] = {
         "leg": "dex",
-        "venue": venue,
+        "venue": venue_l,
         "asset": asset,
         "side": side,
         "amount_usd": amount_usd,
-        "mode": mode,
+        "mode": "dry_run",
         "executed": False,
         "message": message,
-        "blocked_reason": blocked_reason,
+        "blocked_reason": None,
         "wallet_configured": has_wallet,
+        "jupiter": ready,
     }
+    if dry_run:
+        return payload
+
+    if venue_l not in {"jupiter", "raydium", "orca"}:
+        payload["mode"] = "blocked"
+        payload["blocked_reason"] = f"unsupported_dex_venue:{venue_l}"
+        payload["message"] = "Live DEX execution currently supports Jupiter (Solana) only."
+        return payload
+
+    result = await execute_jupiter_swap(
+        asset=asset,
+        side=side,
+        amount_usd=amount_usd,
+    )
+    payload.update({k: v for k, v in result.items() if k not in {"asset", "side", "amount_usd"}})
+    payload["venue"] = "jupiter"
+    if result.get("executed"):
+        payload["mode"] = "live"
+        payload["executed"] = True
+        payload["message"] = f"Live Jupiter {side} ${amount_usd:.0f} {asset} · sig={result.get('signature', '')[:16]}"
+        payload["blocked_reason"] = None
+    else:
+        payload["mode"] = result.get("mode") or "blocked_until_jupiter"
+        payload["executed"] = False
+        payload["blocked_reason"] = result.get("blocked_reason") or "jupiter_not_ready"
+        payload["message"] = (
+            f"DEX live swap unavailable: {payload['blocked_reason']}. "
+            "CEX leg may still execute when keys are present."
+        )
     return payload
 
 
@@ -102,16 +124,24 @@ async def execute_cex_dex_opportunity(
         legs.append(await _dex_leg(asset, "sell", quote_usd, sell_venue, dry_run=use_dry))
 
     live_any = any(leg.get("mode") == "live" and leg.get("executed") for leg in legs)
+    dex_live = any(
+        leg.get("leg") == "dex" and leg.get("mode") == "live" and leg.get("executed") for leg in legs
+    )
     result = {
         "timestamp": _utcnow(),
         "success": True,
         "asset": asset,
-        "mode": "dry_run" if use_dry else "mixed",
+        "mode": "dry_run" if use_dry else ("live" if live_any else "mixed"),
         "net_spread_bps": net_bps,
         "estimated_profit_usd": opportunity.get("estimated_profit_usd"),
         "legs": legs,
         "why": opportunity.get("why"),
-        "disclaimer": "DEX leg is simulated — CEX leg live only with Binance keys",
+        "disclaimer": (
+            "Jupiter DEX live when SOLANA_PRIVATE_KEY + solders available and dry_run=false; "
+            "CEX leg live only with exchange keys + LIVE_EXECUTION_ALLOW_API"
+            if dex_live
+            else "DEX leg requires Jupiter wallet; CEX leg live only with exchange keys"
+        ),
     }
 
     await insert_execution_log(
@@ -145,6 +175,8 @@ async def run_cex_dex_cycle(
 
 
 async def cex_dex_status() -> dict[str, Any]:
+    from jupiter_swap import jupiter_ready
+
     return {
         "timestamp": _utcnow(),
         "enabled": os.getenv("CEX_DEX_EXECUTION_ENABLED", "true").lower() in {"1", "true", "yes"},
@@ -154,4 +186,5 @@ async def cex_dex_status() -> dict[str, Any]:
         "quote_usd": float(os.getenv("CEX_DEX_QUOTE_USD", "500")),
         "scan_endpoint": "/api/platform/arb/cex-dex",
         "execute_endpoint": "/api/platform/arb/cex-dex/execute",
+        "jupiter": jupiter_ready(),
     }

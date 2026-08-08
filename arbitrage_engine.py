@@ -520,53 +520,38 @@ def calculate_cross_exchange_arbitrage(
                 if buy_top is None or sell_top is None or sell_top <= buy_top:
                     continue
 
-                buy_execution = walk_asks(buy_book, notional)
-                if buy_execution is None:
+                # Live path uses Decimal money engine (profit_fee_algorithms + money.py)
+                from profit_fee_algorithms import net_cross_exchange_profit
+
+                priced = net_cross_exchange_profit(
+                    buy_book,
+                    sell_book,
+                    buy_exchange=buy_exchange,
+                    sell_exchange=sell_exchange,
+                    symbol=symbol,
+                    notional=notional,
+                    market_context=market_context,
+                )
+                if priced is None:
                     continue
-
-                sell_execution = walk_bids(sell_book, buy_execution.base_amount)
-                if sell_execution is None:
-                    continue
-
-                buy_fee = buy_execution.quote_cost * config.DEFAULT_TAKER_FEE
-                sell_fee = sell_execution.quote_value * config.DEFAULT_TAKER_FEE
-                trading_fees = buy_fee + sell_fee
-                withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
-                total_slippage_bps = (
-                    buy_execution.slippage_bps + sell_execution.slippage_bps
-                )
-                slippage_buffer = _slippage_buffer_usdt(
-                    notional,
-                    total_slippage_bps,
-                    market_context,
-                )
-
-                total_cost = (
-                    buy_execution.quote_cost
-                    + buy_fee
-                    + withdrawal_fee
-                    + slippage_buffer
-                )
-                net_profit = sell_execution.quote_value - sell_fee - total_cost
-                net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
 
                 opportunities.append(
                     CrossExchangeOpportunity(
                         symbol=symbol,
                         buy_exchange=buy_exchange,
                         sell_exchange=sell_exchange,
-                        quote_amount=notional,
+                        quote_amount=float(priced["quote_amount"]),
                         buy_ask=buy_top,
                         sell_bid=sell_top,
-                        gross_spread_bps=_gross_spread_bps(buy_top, sell_top),
-                        buy_slippage_bps=buy_execution.slippage_bps,
-                        sell_slippage_bps=sell_execution.slippage_bps,
-                        total_slippage_bps=total_slippage_bps,
-                        trading_fees_usdt=trading_fees,
-                        withdrawal_fee_usdt=withdrawal_fee,
-                        slippage_buffer_usdt=slippage_buffer,
-                        net_profit_usdt=net_profit,
-                        net_profit_percent=net_profit_percent,
+                        gross_spread_bps=float(priced["gross_spread_bps"]),
+                        buy_slippage_bps=float(priced["buy_slippage_bps"]),
+                        sell_slippage_bps=float(priced["sell_slippage_bps"]),
+                        total_slippage_bps=float(priced["total_slippage_bps"]),
+                        trading_fees_usdt=float(priced["trading_fees_usdt"]),
+                        withdrawal_fee_usdt=float(priced["withdrawal_fee_usdt"]),
+                        slippage_buffer_usdt=float(priced["slippage_buffer_usdt"]),
+                        net_profit_usdt=float(priced["net_profit_usdt"]),
+                        net_profit_percent=float(priced["net_profit_percent"]),
                     )
                 )
 

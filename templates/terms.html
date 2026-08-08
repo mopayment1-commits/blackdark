@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Terms of Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#a1a1aa; --accent:#22d3ee; --warn:#fbbf24; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Sora, sans-serif; background: radial-gradient(1200px 600px at 10% -10%, #12202a, var(--bg)); color: var(--text); line-height: 1.7; padding: 2rem 1.25rem 4rem; }
+        .wrap { max-width: 780px; margin: 0 auto; }
+        h1 { font-family: Syne, sans-serif; font-size: 2rem; color: var(--accent); margin-bottom: .35rem; }
+        .meta { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+        nav { margin-bottom: 1.5rem; font-size: .85rem; display: flex; flex-wrap: wrap; gap: .85rem; }
+        nav a { color: var(--muted); text-decoration: none; }
+        nav a:hover, nav a.active { color: var(--accent); }
+        .content h2 { font-family: Syne, sans-serif; font-size: 1.05rem; margin: 1.4rem 0 .45rem; color: #67e8f9; }
+        .content p, .content li { color: #d4d4d8; font-size: .95rem; margin-bottom: .55rem; }
+        .content ul { padding-left: 1.2rem; margin-bottom: .75rem; }
+        .accept-box {
+            margin: 1.75rem 0; padding: 1.25rem 1.35rem; border: 1px solid rgba(34,211,238,.35);
+            border-radius: 14px; background: rgba(17,17,24,.9);
+        }
+        .accept-box h3 { font-family: Syne, sans-serif; margin-bottom: .5rem; }
+        .accept-box p { color: var(--muted); font-size: .88rem; margin-bottom: .9rem; }
+        label { display: flex; gap: .65rem; align-items: flex-start; font-size: .9rem; color: #d4d4d8; margin-bottom: 1rem; }
+        button {
+            border: none; border-radius: 10px; padding: .85rem 1.2rem; font-weight: 700; cursor: pointer;
+            background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #041016;
+        }
+        button:disabled { opacity: .45; cursor: not-allowed; }
+        .msg { margin-top: .75rem; font-size: .85rem; min-height: 1.2rem; }
+        .msg.ok { color: #4ade80; }
+        .msg.err { color: #f87171; }
+        .badge { display: inline-block; margin-top: 1rem; padding: .4rem .7rem; border-radius: 8px; border: 1px solid rgba(251,191,36,.35); color: var(--warn); font-size: .8rem; }
+        footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
+    </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <nav>
+            <a href="/">← Home</a>
+            <a href="/terms" class="active">Terms</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/disclaimer">Disclaimer</a>
+            <a href="/request-deletion">Request Deletion</a>
+        </nav>
+        <h1>{{ title }}</h1>
+        <p class="meta">Updated {{ updated }} · Version bound to Oracle access gate</p>
+        <div class="content">{{ html | safe }}</div>
+
+        <div class="accept-box" id="acceptBox">
+            <h3>Accept before using Oracle</h3>
+            <p>Oracle and AI decision surfaces require explicit acceptance of Terms + Risk Disclaimer.</p>
+            <label>
+                <input type="checkbox" id="agreeCheck">
+                <span>I acknowledge that BLACKDARK is not a financial advisor. I accept full responsibility for my trades.</span>
+            </label>
+            <button id="acceptBtn" type="button" disabled>Accept Terms &amp; Continue</button>
+            <div class="msg" id="acceptMsg"></div>
+            <div class="badge">[Probabilistic Analysis – Not Financial Advice]</div>
+        </div>
+
+        <footer>© 2026 BLACKDARK · Not financial advice · <a href="/oracle-accuracy" style="color:var(--accent)">Public Accuracy Ledger</a></footer>
+    </div>
+    <script>
+        const check = document.getElementById('agreeCheck');
+        const btn = document.getElementById('acceptBtn');
+        const msg = document.getElementById('acceptMsg');
+        check.addEventListener('change', () => { btn.disabled = !check.checked; });
+
+        async function refreshStatus() {
+            try {
+                const res = await fetch('/api/legal/terms-status', { credentials: 'same-origin' });
+                const d = await res.json();
+                if (d.accepted) {
+                    msg.className = 'msg ok';
+                    msg.textContent = 'Terms already accepted (v' + (d.terms_version || '') + '). You can use the Oracle.';
+                    btn.textContent = 'Accepted — Go to Oracle';
+                    btn.disabled = false;
+                    btn.onclick = () => { window.location.href = '/dashboard'; };
+                }
+            } catch (e) {}
+        }
+        refreshStatus();
+
+        btn.addEventListener('click', async () => {
+            if (!check.checked && btn.textContent.indexOf('Accepted') === -1) return;
+            if (btn.textContent.indexOf('Accepted') !== -1) {
+                window.location.href = '/dashboard';
+                return;
+            }
+            msg.className = 'msg';
+            msg.textContent = 'Saving acceptance…';
+            try {
+                const res = await fetch('/api/legal/accept-terms', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': localStorage.getItem('bd_token') ? ('Bearer ' + localStorage.getItem('bd_token')) : ''
+                    },
+                    body: JSON.stringify({
+                        source: 'terms_page',
+                        ack: true,
+                        ack_text: 'I acknowledge that BLACKDARK is not a financial advisor. I accept full responsibility for my trades.'
+                    })
+                });
+                const d = await res.json();
+                if (!res.ok) throw new Error((d.detail && d.detail.message) || d.detail || 'Failed');
+                localStorage.setItem('bd_terms_accepted', '1');
+                msg.className = 'msg ok';
+                msg.textContent = 'Accepted. Redirecting…';
+                const next = new URLSearchParams(location.search).get('next') || '/dashboard';
+                setTimeout(() => { window.location.href = next; }, 600);
+            } catch (err) {
+                msg.className = 'msg err';
+                msg.textContent = err.message || 'Could not save acceptance';
+            }
+        });
+    </script>
+</body>
+</html>

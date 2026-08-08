@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackdark-web
+  namespace: blackdark
+  labels:
+    app: blackdark-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blackdark-web
+  template:
+    metadata:
+      labels:
+        app: blackdark-web
+    spec:
+      containers:
+        - name: web
+          image: blackdark:latest
+          imagePullPolicy: IfNotPresent
+          args: ["python", "run_service.py", "web", "--port", "8080"]
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: health
+              containerPort: 8180
+          envFrom:
+            - configMapRef:
+                name: blackdark-config
+            - secretRef:
+                name: blackdark-secrets
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            initialDelaySeconds: 25
+            periodSeconds: 15
+            failureThreshold: 4
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 1000
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault

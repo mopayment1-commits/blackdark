@@ -64,9 +64,62 @@ async def send_email_alert(to_email: str, subject: str, body: str) -> bool:
 
 
 def whatsapp_alert_url(phone: str, text: str) -> str:
-    """WhatsApp has no free server API — return wa.me deep link."""
+    """Fallback click-to-chat deep link when Twilio WhatsApp is not configured."""
     digits = "".join(ch for ch in phone if ch.isdigit())
     return f"https://wa.me/{digits}?text={quote(text)}"
+
+
+def twilio_whatsapp_configured() -> bool:
+    return bool(
+        os.getenv("TWILIO_ACCOUNT_SID", "").strip()
+        and os.getenv("TWILIO_AUTH_TOKEN", "").strip()
+        and os.getenv("TWILIO_WHATSAPP_FROM", "").strip()
+    )
+
+
+async def send_whatsapp_twilio(phone: str, text: str) -> dict[str, Any]:
+    """
+    Send WhatsApp via Twilio Content API (WhatsApp Business).
+    Env: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM (e.g. whatsapp:+14155238886)
+    """
+    sid = os.getenv("TWILIO_ACCOUNT_SID", "").strip()
+    token = os.getenv("TWILIO_AUTH_TOKEN", "").strip()
+    from_wa = os.getenv("TWILIO_WHATSAPP_FROM", "").strip()
+    digits = "".join(ch for ch in phone if ch.isdigit())
+    if not (sid and token and from_wa and digits):
+        return {"sent": False, "reason": "twilio_not_configured", "whatsapp_url": whatsapp_alert_url(phone, text)}
+
+    to_wa = f"whatsapp:+{digits}"
+    if not from_wa.startswith("whatsapp:"):
+        from_wa = f"whatsapp:{from_wa}" if from_wa.startswith("+") else f"whatsapp:+{from_wa.lstrip('+')}"
+
+    url = f"https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json"
+    data = {
+        "From": from_wa,
+        "To": to_wa,
+        "Body": text[:1500],
+    }
+    try:
+        timeout = aiohttp.ClientTimeout(total=15)
+        auth = aiohttp.BasicAuth(sid, token)
+        async with aiohttp.ClientSession(timeout=timeout, auth=auth) as session:
+            async with session.post(url, data=data) as resp:
+                body = await resp.text()
+                if resp.status in {200, 201}:
+                    return {"sent": True, "provider": "twilio", "status": resp.status}
+                logger.warning("Twilio WhatsApp failed | status=%s body=%s", resp.status, body[:200])
+                return {
+                    "sent": False,
+                    "reason": f"twilio_http_{resp.status}",
+                    "whatsapp_url": whatsapp_alert_url(phone, text),
+                }
+    except (aiohttp.ClientError, TypeError, ValueError) as exc:
+        logger.exception("Twilio WhatsApp delivery failed")
+        return {
+            "sent": False,
+            "reason": str(exc)[:120],
+            "whatsapp_url": whatsapp_alert_url(phone, text),
+        }
 
 
 async def dispatch_alert(
@@ -131,7 +184,16 @@ async def dispatch_alert(
             sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)
         wa_phone = sub.get("whatsapp_phone")
         if wa_phone and sub.get("whatsapp_alerts", 1):
-            sub_result["whatsapp_url"] = whatsapp_alert_url(wa_phone, full_text)
+            if twilio_whatsapp_configured():
+                wa = await send_whatsapp_twilio(str(wa_phone), full_text)
+                sub_result["whatsapp"] = bool(wa.get("sent"))
+                sub_result["whatsapp_provider"] = wa.get("provider") or "twilio"
+                if wa.get("whatsapp_url"):
+                    sub_result["whatsapp_url"] = wa["whatsapp_url"]
+            else:
+                sub_result["whatsapp"] = False
+                sub_result["whatsapp_provider"] = "wa.me"
+                sub_result["whatsapp_url"] = whatsapp_alert_url(str(wa_phone), full_text)
         results["subscriptions"].append(sub_result)
 
     await insert_alert_delivery_log(title, json.dumps(payload or {}), json.dumps(results))

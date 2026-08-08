@@ -127,8 +127,15 @@ async def resolve_user_tier(email: str) -> Tier:
     return "free"
 
 
-async def register_user(email: str, password: str, name: str = "") -> dict[str, Any]:
+async def register_user(
+    email: str,
+    password: str,
+    name: str = "",
+    *,
+    referral_code: str | None = None,
+) -> dict[str, Any]:
     from database import create_user, fetch_user_by_email, insert_pro_trial
+    from referral_service import apply_referral_on_signup, ensure_user_referral_code
 
     email = normalize_email(email)
     if len(password) < 8:
@@ -141,6 +148,12 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
 
     user_id = await create_user(email, hash_password(password), name.strip())
     trial = await insert_pro_trial(email)
+    my_code = await ensure_user_referral_code(user_id, email)
+    referral = await apply_referral_on_signup(
+        new_user_id=user_id,
+        new_email=email,
+        referral_code=referral_code,
+    )
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
     return {
@@ -151,7 +164,14 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
             "ends_at": trial["trial_ends_at"],
             "days": trial["days"],
         },
-        "user": {"id": user_id, "email": email, "name": name.strip(), "tier": tier},
+        "referral": referral,
+        "user": {
+            "id": user_id,
+            "email": email,
+            "name": name.strip(),
+            "tier": tier,
+            "referral_code": my_code,
+        },
     }
 
 

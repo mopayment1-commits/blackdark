@@ -22,3 +22,5 @@ pandas
 ccxt
 pyarrow
 httpx
+authlib
+pyotp

@@ -312,3 +312,138 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
         return {"handled": False, "reason": "missing_id", "event": event_name}
 
     return {"handled": False, "type": event_name, "provider": "lemon_squeezy"}
+
+
+def _tier_mrr_usd(tier: str) -> float:
+    from money import cents_to_usd, money_float
+
+    meta = STRIPE_TIERS.get((tier or "").lower().strip())
+    if not meta:
+        return 0.0
+    return money_float(cents_to_usd(meta["amount"]))
+
+
+def _parse_iso(ts: str | None):
+    from datetime import datetime, timezone
+
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+async def generate_mrr_report() -> dict[str, Any]:
+    """
+    Investor-facing MRR snapshot from local subscriptions table.
+    Counts active + trial (converted commercial value of paid tiers only for active).
+    """
+    from datetime import datetime, timezone
+
+    from database import fetch_subscription_revenue_rows
+
+    rows = await fetch_subscription_revenue_rows()
+    now = datetime.now(timezone.utc)
+    by_tier: dict[str, dict[str, Any]] = {
+        "pro": {"active": 0, "trial": 0, "past_due": 0, "mrr_usd": 0.0},
+        "whale": {"active": 0, "trial": 0, "past_due": 0, "mrr_usd": 0.0},
+    }
+    active_paying = 0
+    trial_count = 0
+    past_due = 0
+    expired = 0
+
+    for row in rows:
+        tier = str(row.get("tier") or "pro").lower()
+        status = str(row.get("status") or "").lower()
+        if tier not in by_tier:
+            by_tier[tier] = {"active": 0, "trial": 0, "past_due": 0, "mrr_usd": 0.0}
+        if status == "active":
+            by_tier[tier]["active"] += 1
+            mrr = _tier_mrr_usd(tier)
+            by_tier[tier]["mrr_usd"] += mrr
+            active_paying += 1
+        elif status == "trial":
+            by_tier[tier]["trial"] += 1
+            trial_count += 1
+        elif status == "past_due":
+            by_tier[tier]["past_due"] += 1
+            past_due += 1
+        elif status in {"expired", "cancelled", "canceled"}:
+            expired += 1
+
+    mrr_usd = round(sum(v["mrr_usd"] for v in by_tier.values()), 2)
+    arr_usd = round(mrr_usd * 12, 2)
+    return {
+        "as_of": now.isoformat(),
+        "currency": "USD",
+        "mrr_usd": mrr_usd,
+        "arr_usd": arr_usd,
+        "active_paying_subscriptions": active_paying,
+        "trial_subscriptions": trial_count,
+        "past_due_subscriptions": past_due,
+        "expired_or_cancelled": expired,
+        "by_tier": by_tier,
+        "unit_prices_usd": {k: _tier_mrr_usd(k) for k in STRIPE_TIERS},
+        "source": "subscriptions_table",
+        "note": "MRR uses configured STRIPE_TIERS amounts; Lemon tiers map to the same catalog.",
+    }
+
+
+async def compute_churn_rate(*, window_days: int = 30) -> dict[str, Any]:
+    """
+    Logo churn over a trailing window:
+      churned / (active_at_window_start_estimate)
+    where churned = subscriptions that moved to expired/cancelled with created_at before window end.
+    """
+    from datetime import datetime, timedelta, timezone
+
+    from database import fetch_subscription_revenue_rows
+
+    window_days = max(1, min(int(window_days), 365))
+    now = datetime.now(timezone.utc)
+    start = now - timedelta(days=window_days)
+    rows = await fetch_subscription_revenue_rows()
+
+    active_now = 0
+    churned_in_window = 0
+    created_in_window = 0
+    for row in rows:
+        status = str(row.get("status") or "").lower()
+        created = _parse_iso(row.get("created_at"))
+        if status == "active":
+            active_now += 1
+        if created and start <= created <= now:
+            created_in_window += 1
+        if status in {"expired", "cancelled", "canceled"}:
+            # Without a dedicated cancelled_at column, treat updated commercial end as "created_at"
+            # for trials that expired, and count expired rows created before window end as churn events
+            # if they are not still active — conservative logo churn proxy.
+            if created is None or created <= now:
+                # Count only rows that likely left during/after window start:
+                # prefer past_due_at when present.
+                left_at = _parse_iso(row.get("past_due_at")) or created
+                if left_at and left_at >= start:
+                    churned_in_window += 1
+
+    # Starting base ≈ current active + churned in window - new creates (clamp ≥ 1 when activity exists)
+    start_base = active_now + churned_in_window - created_in_window
+    if start_base < 0:
+        start_base = active_now + churned_in_window
+    denominator = max(start_base, 1) if (active_now or churned_in_window) else 0
+    rate = (churned_in_window / denominator) if denominator else 0.0
+
+    return {
+        "as_of": now.isoformat(),
+        "window_days": window_days,
+        "window_start": start.isoformat(),
+        "active_now": active_now,
+        "churned_in_window": churned_in_window,
+        "created_in_window": created_in_window,
+        "start_base_estimate": start_base if denominator else 0,
+        "churn_rate": round(rate, 4),
+        "churn_rate_percent": round(rate * 100, 2),
+        "method": "logo_churn_proxy_from_subscriptions",
+        "note": "Add cancelled_at column later for exact cohort churn; this is diligence-grade from current schema.",
+    }

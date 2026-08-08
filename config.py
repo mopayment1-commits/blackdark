@@ -72,7 +72,14 @@ FAST_LIVE_EXCHANGES: frozenset[str] = frozenset(
 PRICE_FEED_WS_ONLY = os.getenv("PRICE_FEED_WS_ONLY", "true").lower() in {"1", "true", "yes"}
 WS_PRICE_VENUES: frozenset[str] = frozenset({"binance", "okx", "bybit"})
 # Deferred until Docker/Redis/Kafka infra is available (see DEFERRED_STEPS.md)
-REDIS_REQUIRED = os.getenv("REDIS_REQUIRED", "false").lower() in {"1", "true", "yes"}
+# In production, Redis is mandatory unless Soft Launch explicitly opts out.
+_redis_required_env = os.getenv("REDIS_REQUIRED")
+if _redis_required_env is None:
+    _env_name = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
+    _soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    REDIS_REQUIRED = _env_name in {"production", "prod"} and not _soft
+else:
+    REDIS_REQUIRED = _redis_required_env.lower() in {"1", "true", "yes"}
 KAFKA_REQUIRED = os.getenv("KAFKA_REQUIRED", "false").lower() in {"1", "true", "yes"}
 
 # Local dev: skip Redis/Kafka unless explicitly required or enabled
@@ -758,6 +765,9 @@ API_KEY_REQUIRE_USER_VAULT_LIVE = os.getenv("API_KEY_REQUIRE_USER_VAULT_LIVE", "
     "true",
     "yes",
 }
+# Vault key rotation policy (days). Set VAULT_KEY_LAST_ROTATED_AT=YYYY-MM-DD after rotating.
+VAULT_KEY_ROTATION_DAYS = int(os.getenv("VAULT_KEY_ROTATION_DAYS", "90"))
+VAULT_KEY_LAST_ROTATED_AT = os.getenv("VAULT_KEY_LAST_ROTATED_AT", "").strip()
 API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION = os.getenv(
     "API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION", "true"
 ).lower() in {"1", "true", "yes"}
@@ -774,6 +784,12 @@ REGULATORY_COMPLIANCE_ENABLED = os.getenv("REGULATORY_COMPLIANCE_ENABLED", "true
     "true",
     "yes",
 }
+
+# Layer 2 — Strict Disclaimer Architecture classification (immutable posture)
+# Source of truth mirrored in legal_shield.py
+SYSTEM_CLASSIFICATION = "analytical_tool"
+IS_FINANCIAL_ADVISOR = False
+REGULATORY_STATUS = "not_regulated"
 
 # Subscriber retention — bear-market churn mitigation
 RETENTION_GUARD_ENABLED = os.getenv("RETENTION_GUARD_ENABLED", "true").lower() in {

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/static/icon-192.png">
     <title>BLACKDARK — Intelligence Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
@@ -59,6 +64,8 @@
         select { background: #1a1a24; border: 1px solid #2a2a35; color: #e4e4e7; border-radius: 8px; padding: .4rem .6rem; }
         footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
     </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
 </head>
 <body>
     <nav>
@@ -73,6 +80,8 @@
                     <a href="/dashboard#stealth">Stealth</a>
                     <a href="/platform">Platform</a>
                     <a href="/oracle-accuracy">Accuracy</a>
+                    <a href="/terms">Terms</a>
+                    <a href="/request-deletion">Privacy</a>
                     <a href="/capabilities">Capabilities</a>
                     <a href="/login" id="authLink">Login</a>
                 </div>
@@ -189,14 +198,28 @@
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
+
+        <section id="invite">
+            <h2>Invite &amp; earn</h2>
+            <p class="sub">Share your link. When a friend signs up, you both get +3 Pro trial days.</p>
+            <div class="toolbar">
+                <input id="referral-link-input" type="text" readonly value="Login to get your invite link"
+                       style="flex:1;min-width:200px;padding:.55rem .75rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7;font-size:.8rem">
+                <button class="btn secondary" type="button" id="referral-copy-btn">Copy link</button>
+            </div>
+            <p class="sub" style="margin-top:.5rem">
+                Successful referrals: <strong id="referral-count" style="color:#e4e4e7">0</strong>
+                · Code: <code id="referral-code-label">—</code>
+            </p>
+            <p id="referral-status" class="sub" style="min-height:1.2em;margin:0"></p>
+        </section>
     </main>
     <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
-        <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
-        <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
-        · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
-        · <a href="/contact" style="color:#a1a1aa">Contact</a>
-        · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
-        · <a href="/legal" style="color:#a1a1aa">Legal</a>
+        <strong>Legal Shield</strong> · BLACKDARK is an analytical tool. Not financial advice. No guarantee of accuracy or profit.
+        · Verify on <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
+        · <a href="/compliance" style="color:#a1a1aa">Compliance</a>
+        · <a href="/terms" style="color:#a1a1aa">Terms</a>
+        · <a href="/request-deletion" style="color:#a1a1aa">Deletion</a>
     </footer>
 
     <script>
@@ -227,9 +250,45 @@
                         localStorage.removeItem('bd_token');
                         location.reload();
                     };
+                    const ref = d.referral || {};
+                    const code = ref.code || ref.referral_code || '';
+                    if (code) {
+                        try {
+                            localStorage.setItem('bd_ref', code);
+                            document.cookie = 'bd_ref=' + encodeURIComponent(code) + '; path=/; max-age=2592000; samesite=lax';
+                        } catch (_) {}
+                    }
+                    const linkInput = document.getElementById('referral-link-input');
+                    if (linkInput && code) {
+                        const share = ref.share_url && String(ref.share_url).startsWith('http')
+                            ? ref.share_url
+                            : (location.origin + (ref.invite_url_path || ('/?ref=' + code)));
+                        linkInput.value = share;
+                    }
+                    const countEl = document.getElementById('referral-count');
+                    if (countEl) countEl.textContent = String(ref.successful_referrals || ref.signups || 0);
+                    const codeEl = document.getElementById('referral-code-label');
+                    if (codeEl) codeEl.textContent = code || '—';
                 }
             } catch (e) {}
         }
+
+        document.getElementById('referral-copy-btn')?.addEventListener('click', async () => {
+            const input = document.getElementById('referral-link-input');
+            const status = document.getElementById('referral-status');
+            const text = (input && input.value) || '';
+            if (!text || text.indexOf('Login') === 0) {
+                if (status) status.textContent = 'Login required to copy your invite link.';
+                return;
+            }
+            try {
+                await navigator.clipboard.writeText(text);
+                if (status) status.textContent = 'Invite link copied.';
+            } catch (_) {
+                if (input) { input.select(); document.execCommand('copy'); }
+                if (status) status.textContent = 'Invite link copied.';
+            }
+        });
 
         async function upgradeTier(tier) {
             try {
@@ -260,11 +319,23 @@
             const mode = document.getElementById('uxMode').value;
             const lang = 'en';
             if (!sym) return;
+            if (window.bdLegalShieldRequireConsent) {
+                const ok = await window.bdLegalShieldRequireConsent();
+                if (!ok) return;
+            }
             box.classList.add('show');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
-                const res = await fetch(url, { headers: authHeaders() });
+                const res = await fetch(url, { headers: authHeaders(), credentials: 'same-origin' });
+                if (res.status === 403) {
+                    const err = await res.json().catch(() => ({}));
+                    const detail = err.detail || {};
+                    if (detail.error === 'terms_not_accepted') {
+                        window.location.href = detail.redirect_url || '/terms';
+                        return;
+                    }
+                }
                 if (!res.ok) throw new Error('fail');
                 const d = await res.json();
                 const sentence = d.decision_sentence || d.narrative || d.oracle || '';
@@ -311,6 +382,7 @@
                     ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
                 el.innerHTML = `
+                    <div style="font-size:.75rem;color:#fbbf24;margin-bottom:.45rem">${d.oracle_classification_label || '[Probabilistic Analysis – Not Financial Advice]'}</div>
                     <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
                     <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
                         <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
@@ -680,6 +752,9 @@
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
+            }
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
         }

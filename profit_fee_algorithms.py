@@ -196,16 +196,19 @@ def net_cross_exchange_profit(
         return None
 
     from fee_matrix import taker_fee
+    from money import D, FOURPLACES, money_float, money_round
 
-    buy_fee = buy_exec.quote_cost * taker_fee(buy_exchange)
-    sell_fee = sell_exec.quote_value * taker_fee(sell_exchange)
+    buy_fee = D(buy_exec.quote_cost) * D(taker_fee(buy_exchange))
+    sell_fee = D(sell_exec.quote_value) * D(taker_fee(sell_exchange))
     trading_fees = buy_fee + sell_fee
-    withdraw = withdrawal_fee_usdt(buy_exchange, symbol)
-    deposit = deposit_fee_usdt(sell_exchange, symbol)
+    withdraw = D(withdrawal_fee_usdt(buy_exchange, symbol))
+    deposit = D(deposit_fee_usdt(sell_exchange, symbol))
     total_slip = buy_exec.slippage_bps + sell_exec.slippage_bps
-    slip_buf = slippage_buffer_usdt(quote, total_slip, market_context)
-    total_cost = buy_exec.quote_cost + buy_fee + withdraw + deposit + slip_buf
-    net_profit = sell_exec.quote_value - sell_fee - total_cost
+    slip_buf = D(slippage_buffer_usdt(quote, total_slip, market_context))
+    total_cost = D(buy_exec.quote_cost) + buy_fee + withdraw + deposit + slip_buf
+    net_profit = D(sell_exec.quote_value) - sell_fee - total_cost
+    quote_d = D(quote)
+    net_pct = money_round((net_profit / quote_d) * D(100), places=FOURPLACES) if quote_d else D(0)
 
     buy_top = top_ask(buy_book) or buy_exec.best_price
     sell_top = top_bid(sell_book) or sell_exec.best_price
@@ -214,15 +217,16 @@ def net_cross_exchange_profit(
         "symbol": symbol,
         "buy_exchange": buy_exchange,
         "sell_exchange": sell_exchange,
-        "quote_amount": quote,
+        "quote_amount": float(quote),
         "gross_spread_bps": gross_spread_bps(buy_top, sell_top),
         "buy_slippage_bps": buy_exec.slippage_bps,
         "sell_slippage_bps": sell_exec.slippage_bps,
         "total_slippage_bps": total_slip,
-        "trading_fees_usdt": trading_fees,
-        "withdrawal_fee_usdt": withdraw,
-        "deposit_fee_usdt": deposit,
-        "slippage_buffer_usdt": slip_buf,
-        "net_profit_usdt": net_profit,
-        "net_profit_percent": (net_profit / quote) * 100 if quote else 0.0,
+        "trading_fees_usdt": money_float(trading_fees, places=FOURPLACES),
+        "withdrawal_fee_usdt": money_float(withdraw, places=FOURPLACES),
+        "deposit_fee_usdt": money_float(deposit, places=FOURPLACES),
+        "slippage_buffer_usdt": money_float(slip_buf, places=FOURPLACES),
+        "net_profit_usdt": money_float(net_profit, places=FOURPLACES),
+        "net_profit_percent": money_float(net_pct, places=FOURPLACES),
+        "precision_engine": "decimal_money_v1",
     }
