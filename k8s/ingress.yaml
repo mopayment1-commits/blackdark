@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blackdark-web
+  namespace: blackdark
+  annotations:
+    # Example for nginx ingress + cert-manager — adjust to your cluster
+    kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - blackdark.example.com
+      secretName: blackdark-tls
+  rules:
+    - host: blackdark.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: blackdark-web
+                port:
+                  number: 80

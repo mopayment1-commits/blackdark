@@ -65,12 +65,41 @@
         .tab.active { background: rgba(34,211,238,0.15); color: #22d3ee; }
         a { color: #22d3ee; text-decoration: none; font-size: 0.85rem; }
         .footer-links { text-align: center; margin-top: 1rem; }
+        .oauth { display: grid; gap: 0.6rem; margin: 1rem 0 1.25rem; }
+        .btn-oauth {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid #2a2a35;
+            background: #1a1a24;
+            color: #e4e4e7;
+            text-align: center;
+            text-decoration: none;
+            display: none;
+        }
+        .divider {
+            text-align: center;
+            color: #52525b;
+            font-size: 0.75rem;
+            margin: 0.25rem 0 1rem;
+            display: none;
+        }
     </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
 </head>
 <body>
     <div class="card">
         <h1>BLACKDARK</h1>
-        <p>🎁 <strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+        <p><strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+
+        <div class="oauth" id="oauthBox">
+            <a class="btn-oauth" id="oauthGoogle" href="/api/auth/oauth/google/login">Continue with Google</a>
+            <a class="btn-oauth" id="oauthGithub" href="/api/auth/oauth/github/login">Continue with GitHub</a>
+        </div>
+        <div class="divider" id="oauthDivider">or use email</div>
 
         <div class="tabs">
             <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
@@ -92,6 +121,8 @@
             <input type="email" id="regEmail" required>
             <label>Password (8+ chars)</label>
             <input type="password" id="regPassword" required minlength="8">
+            <label>Invite code (optional)</label>
+            <input type="text" id="regReferral" placeholder="From friend link" maxlength="16" autocomplete="off">
             <button type="submit" class="btn-primary">Create Account</button>
         </form>
 
@@ -99,6 +130,9 @@
         <div class="footer-links">
             <a href="/">← Home</a> · <a href="/dashboard">Dashboard</a><br>
             <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/disclaimer">Disclaimer</a>
+            <p style="margin-top:.85rem;font-size:.72rem;color:#71717a;line-height:1.5">
+                BLACKDARK is an analytical tool. Not financial advice. No guarantee of accuracy or profit.
+            </p>
         </div>
     </div>
     <script>
@@ -138,19 +172,55 @@
             }
         }
 
+        function captureReferral() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                let ref = (params.get('ref') || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (!ref) {
+                    ref = (localStorage.getItem('bd_ref') || '').trim().toUpperCase();
+                }
+                if (!ref) {
+                    const m = document.cookie.match(/(?:^|; )bd_ref=([^;]*)/);
+                    if (m) ref = decodeURIComponent(m[1]).toUpperCase();
+                }
+                if (ref && ref.length >= 4 && ref.length <= 16) {
+                    localStorage.setItem('bd_ref', ref);
+                    document.cookie = 'bd_ref=' + encodeURIComponent(ref) + '; path=/; max-age=2592000; samesite=lax';
+                    const input = document.getElementById('regReferral');
+                    if (input && !input.value) input.value = ref;
+                    showTab('register');
+                }
+            } catch (e) {}
+        }
+
+        function getReferralCode() {
+            const input = document.getElementById('regReferral');
+            const fromInput = (input && input.value || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (fromInput) return fromInput;
+            try {
+                return (localStorage.getItem('bd_ref') || '').trim().toUpperCase();
+            } catch (e) {
+                return '';
+            }
+        }
+
         async function doRegister(e) {
             e.preventDefault();
             const msg = document.getElementById('msg');
             msg.className = 'msg';
             try {
+                const payload = {
+                    name: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value,
+                };
+                const referral = getReferralCode();
+                if (referral) payload.referral_code = referral;
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: document.getElementById('regName').value,
-                        email: document.getElementById('regEmail').value,
-                        password: document.getElementById('regPassword').value
-                    })
+                    credentials: 'same-origin',
+                    body: JSON.stringify(payload)
                 });
                 const d = await res.json();
                 if (!res.ok) throw new Error(d.detail || 'Registration failed');
@@ -161,9 +231,40 @@
             }
         }
 
-        if (localStorage.getItem('bd_token')) {
-            window.location.href = '/dashboard';
-        }
+        (function bootOAuth() {
+            captureReferral();
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            if (params.get('oauth') === '1' && token) {
+                localStorage.setItem('bd_token', token);
+                window.location.replace('/dashboard');
+                return;
+            }
+            fetch('/api/auth/oauth/status', { credentials: 'same-origin' })
+                .then(r => r.json())
+                .then(s => {
+                    let any = false;
+                    const ref = getReferralCode();
+                    const q = ref ? ('?ref=' + encodeURIComponent(ref)) : '';
+                    if (s.google) {
+                        const el = document.getElementById('oauthGoogle');
+                        el.style.display = 'block';
+                        el.href = '/api/auth/oauth/google/login' + q;
+                        any = true;
+                    }
+                    if (s.github) {
+                        const el = document.getElementById('oauthGithub');
+                        el.style.display = 'block';
+                        el.href = '/api/auth/oauth/github/login' + q;
+                        any = true;
+                    }
+                    if (any) document.getElementById('oauthDivider').style.display = 'block';
+                })
+                .catch(() => {});
+            if (localStorage.getItem('bd_token')) {
+                window.location.href = '/dashboard';
+            }
+        })();
     </script>
 </body>
 </html>

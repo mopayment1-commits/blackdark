@@ -36,16 +36,22 @@ def test_production_guard_postgres_pass(monkeypatch):
     monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
     monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")
     monkeypatch.setenv("ADMIN_API_KEY", "test-admin")
+    monkeypatch.setenv("ADMIN_TOTP_SECRET", "JBSWY3DPEHPK3PXP")
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "false")
     import config
 
     monkeypatch.setattr(config, "DATABASE_URL", "postgresql://u:p@host/db")
     monkeypatch.setattr(config, "SERVICE_MODE", "web")
+    monkeypatch.setattr(config, "REDIS_URL", "redis://localhost:6379/0")
+    monkeypatch.setattr(config, "SERVICE_BUS_LOCAL", False)
 
     from production_guard import evaluate_production_guard
 
     report = evaluate_production_guard()
     assert report["database"] == "postgresql"
     assert "postgres_database" not in report["required_failures"]
+    assert "redis_shared_bus" not in report["required_failures"]
+    assert "admin_mfa_totp" not in report["required_failures"]
     assert report["required_pass"] is True
 
 

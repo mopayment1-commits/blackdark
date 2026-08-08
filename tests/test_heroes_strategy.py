@@ -33,7 +33,7 @@ def test_decision_certificate_and_compliance_footer():
     assert cert["certificate_hash"]
     assert "BTC" in cert["share_text"]
     foot = compliance_footer_block(surface="oracle", trust_basis="ledger")
-    assert "Not financial advice" in foot["disclaimer"]
+    assert "not financial advice" in foot["disclaimer"].lower()
 
 
 def test_locked_predictions_seal_and_list(tmp_path, monkeypatch):

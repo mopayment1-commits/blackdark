@@ -15,6 +15,12 @@ source =
     secrets_vault
     security_auth
     user_keys_service
+    legal_shield
+    terms_consent
+    oauth_service
+    admin_mfa
+    production_guard
+    billing_service
 omit = tests/*
 
 [report]

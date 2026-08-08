@@ -47,6 +47,8 @@
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
 </head>
 <body>
     <nav>
@@ -108,12 +110,18 @@
                 Public Accuracy Ledger + Decision Certificates + DD checklist —
                 priced for 10–50M desks, not billion-dollar terminals.
             </p>
+            <ol id="fundOnboardingChecklist" style="margin:1rem 0;padding-left:1.25rem;color:var(--muted);font-size:0.88rem;line-height:1.7">
+                <li>Review Public Accuracy Ledger (labels ≠ proof)</li>
+                <li>Load allocator DD pack + onboarding steps</li>
+                <li>Download Decision Certificate evidence JSON</li>
+                <li>Escalate to Whale for full IC evidence pack</li>
+            </ol>
             <button class="btn btn-primary" type="button" onclick="loadFundTerminal()">Load Fund DD Pack</button>
             <button class="btn btn-secondary" type="button" onclick="downloadFundTerminal()">Download DD JSON</button>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
             <a class="btn btn-secondary" href="/oracle-accuracy#losing">Monthly Losing Report</a>
             <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Whale · Full Evidence</a>
-            <pre class="demo-result" id="fundTerminalResult" style="max-height:320px">Click “Load Fund DD Pack” for allocator-ready summary.</pre>
+            <pre class="demo-result" id="fundTerminalResult" style="max-height:320px">Loading Emerging Fund Terminal…</pre>
         </div>
     </div>
 
@@ -261,9 +269,36 @@
                     onboarding_steps: data.onboarding_steps,
                     compliance: data.compliance,
                 }, null, 2);
+                const list = document.getElementById('fundOnboardingChecklist');
+                const steps = data.onboarding_steps || data.allocator_checklist || [];
+                if (list && Array.isArray(steps) && steps.length) {
+                    list.innerHTML = steps.map((s) => {
+                        const label = typeof s === 'string' ? s : (s.title || s.step || s.label || JSON.stringify(s));
+                        return '<li>' + label + '</li>';
+                    }).join('');
+                }
             } catch (e) {
                 el.textContent = 'Fund terminal unavailable.';
             }
+        }
+
+        function bootFundTerminalDeepLink() {
+            const params = new URLSearchParams(location.search);
+            const aud = (params.get('audience') || '').toLowerCase();
+            const hash = (location.hash || '').toLowerCase();
+            const shouldLoad = hash === '#fund-terminal' || aud === 'fund';
+            if (shouldLoad) {
+                const target = document.getElementById('fund-terminal');
+                if (target) {
+                    setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+                }
+            }
+            loadFundTerminal();
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', bootFundTerminalDeepLink);
+        } else {
+            bootFundTerminalDeepLink();
         }
 
         function downloadFundTerminal() {

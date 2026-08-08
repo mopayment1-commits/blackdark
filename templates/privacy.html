@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg:#0a0a0f; --border:#2a2a35; --text:#e4e4e7; --muted:#a1a1aa; --accent:#22d3ee; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Sora, sans-serif; background: radial-gradient(1200px 600px at 90% -10%, #1a1224, var(--bg)); color: var(--text); line-height: 1.7; padding: 2rem 1.25rem 4rem; }
+        .wrap { max-width: 780px; margin: 0 auto; }
+        h1 { font-family: Syne, sans-serif; font-size: 2rem; color: var(--accent); margin-bottom: .35rem; }
+        .meta { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+        nav { margin-bottom: 1.5rem; font-size: .85rem; display: flex; flex-wrap: wrap; gap: .85rem; }
+        nav a { color: var(--muted); text-decoration: none; }
+        nav a:hover, nav a.active { color: var(--accent); }
+        .content h2 { font-family: Syne, sans-serif; font-size: 1.05rem; margin: 1.4rem 0 .45rem; color: #c4b5fd; }
+        .content p, .content li { color: #d4d4d8; font-size: .95rem; margin-bottom: .55rem; }
+        .content ul { padding-left: 1.2rem; margin-bottom: .75rem; }
+        .cta { margin-top: 1.75rem; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 12px; }
+        .cta a { color: var(--accent); }
+        footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
+    </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <nav>
+            <a href="/">← Home</a>
+            <a href="/terms">Terms</a>
+            <a href="/privacy" class="active">Privacy</a>
+            <a href="/disclaimer">Disclaimer</a>
+            <a href="/request-deletion">Request Deletion</a>
+        </nav>
+        <h1>{{ title }}</h1>
+        <p class="meta">Updated {{ updated }} · GDPR / CCPA engineering controls</p>
+        <div class="content">{{ html | safe }}</div>
+        <div class="cta">
+            Need erasure or a portable export? Use <a href="/request-deletion">/request-deletion</a>
+            or email support@blackdark.io.
+        </div>
+        <footer>© 2026 BLACKDARK · We do not sell personal data.</footer>
+    </div>
+</body>
+</html>

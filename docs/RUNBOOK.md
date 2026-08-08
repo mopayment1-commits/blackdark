@@ -21,12 +21,26 @@ python scripts/verify_constitution_live.py
 6. `GET /oracle/BTC?ux_mode=pro&lang=en` → must include `net_edge_truth`, `opportunity_half_life`, `signal_registry`
 
 ## Required production env
+- `DATABASE_URL=postgresql://...` (mandatory — Soft Launch only for demos)
+- `REDIS_URL` + `SERVICE_BUS_LOCAL=false`
 - `SECRETS_MASTER_KEY` or `SECRETS_VAULT_KEY`
 - `SESSION_TOKEN_PEPPER`
-- `ADMIN_API_KEY` + `ADMIN_EMAILS`
+- `ADMIN_API_KEY` + `ADMIN_EMAILS` + `ADMIN_TOTP_SECRET`
+- `VAULT_KEY_ROTATION_DAYS` + `VAULT_KEY_LAST_ROTATED_AT`
 - `APP_BASE_URL=https://...`
 - Billing: Lemon (`LEMON_SQUEEZY_*`) **or** Stripe (`STRIPE_*` + webhook)
-- Optional: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+- Optional: OAuth (`OAUTH_GOOGLE_*` / `OAUTH_GITHUB_*`), `TELEGRAM_BOT_TOKEN`
+
+## Vault key rotation
+```bash
+export OLD_SECRETS_MASTER_KEY=$SECRETS_MASTER_KEY
+python scripts/rotate_vault_key.py --dry-run
+python scripts/rotate_vault_key.py --apply
+# set printed SECRETS_MASTER_KEY + VAULT_KEY_LAST_ROTATED_AT, restart pods
+```
+
+## Kubernetes
+See `k8s/README.md` — `kubectl apply -f k8s/` after editing secrets.
 
 ## Critical routes
 | Route | Access | Purpose |

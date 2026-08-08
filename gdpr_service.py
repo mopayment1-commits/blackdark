@@ -75,7 +75,11 @@ def gdpr_compliance_status() -> dict[str, Any]:
     return {
         "dsr_export_api": "/api/privacy/dsr/export",
         "dsr_erase_api": "/api/privacy/dsr/erase",
-        "consent_documented_in": "legal_content.py /privacy",
+        "request_deletion_page": "/request-deletion",
+        "request_deletion_api": "/api/privacy/request-deletion",
+        "report_issue_api": "/api/privacy/report-issue",
+        "terms_accept_api": "/api/legal/accept-terms",
+        "consent_documented_in": "legal_content.py /privacy + terms_consent.py",
         "data_room": "docs/DATA_ROOM.md",
         "implementation": "gdpr_service.py",
         "ready_for_dd": True,

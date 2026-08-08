@@ -15,11 +15,18 @@ import config
 
 logger = logging.getLogger("BLACKDARK.RegulatoryCompliance")
 
-REGULATORY_DISCLAIMER = (
-    "Informational analytics only — not investment, tax, or legal advice. "
-    "BLACKDARK is not a registered investment adviser or broker-dealer. "
-    "Past signal performance does not guarantee future results. Do your own research (DYOR)."
+from legal_shield import (
+    MANDATORY_DISCLAIMER_PREFIX,
+    ORACLE_CLASSIFICATION_LABEL,
+    STRICT_DISCLAIMER,
+    apply_legal_shield,
+    get_disclaimer,
+    get_mandatory_prefix,
+    prefix_disclaimer,
 )
+
+# Back-compat aliases (Layer 1 source of truth = legal_shield.py)
+REGULATORY_DISCLAIMER = STRICT_DISCLAIMER
 
 PUBLIC_VERDICT_BULLISH = "BULLISH_ANALYTICS"
 PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
@@ -200,9 +207,9 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
             out["sentence"] = out["oracle"]
 
     out["regulatory_classification"] = "informational_analytics_only"
-    out["is_investment_advice"] = False
-    out["disclaimer"] = REGULATORY_DISCLAIMER
-    out["compliance_engine"] = "regulatory_compliance_guard_v1"
+    out["compliance_engine"] = "regulatory_compliance_guard_v3+legal_shield"
+    # Layer 1+2: mandatory prefix + classification (non-removable)
+    out = apply_legal_shield(out)
     return out
 
 
@@ -210,6 +217,7 @@ def regulatory_compliance_status() -> dict[str, Any]:
     return {
         "enabled": _enabled(),
         "classification": "informational_analytics_only",
+        "classification_label": ORACLE_CLASSIFICATION_LABEL,
         "public_verdicts": {
             "bullish": PUBLIC_VERDICT_BULLISH,
             "bearish": PUBLIC_VERDICT_BEARISH,
@@ -223,10 +231,10 @@ def regulatory_compliance_status() -> dict[str, Any]:
             "you should buy",
             "you should sell",
         ],
-        "disclaimer": REGULATORY_DISCLAIMER,
+        "disclaimer": get_disclaimer(),
         "policy": (
             "Oracle outputs are analytics labels, not investment recommendations. "
-            "Users must acknowledge Terms/Disclaimer. Live execution uses separate "
-            "user-controlled API keys and risk gates."
+            "Users must acknowledge Terms/Disclaimer before Oracle use. "
+            "Live execution uses separate user-controlled API keys and risk gates."
         ),
     }

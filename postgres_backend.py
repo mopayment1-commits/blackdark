@@ -7,6 +7,7 @@ Activated when DATABASE_URL starts with postgresql:// or postgres://
 from __future__ import annotations
 
 import logging
+import os
 import re
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -192,6 +193,70 @@ async def close_pool() -> None:
         _pool = None
 
 
+async def ensure_pgcrypto(conn: Any | None = None) -> bool:
+    """Enable pgcrypto for at-rest column encryption helpers. Returns True on success."""
+    owns = conn is None
+    if owns:
+        if _pool is None:
+            await init_pool()
+        assert _pool is not None
+        conn = await _pool.acquire()
+    try:
+        await conn.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto")
+        return True
+    except Exception as exc:
+        logger.warning("pgcrypto extension unavailable: %s", exc)
+        return False
+    finally:
+        if owns and conn is not None and _pool is not None:
+            await _pool.release(conn)
+
+
+def _pgcrypto_key() -> str:
+    key = (
+        os.getenv("PGCRYPTO_KEY", "").strip()
+        or os.getenv("SECRETS_MASTER_KEY", "").strip()
+        or os.getenv("SECRETS_VAULT_KEY", "").strip()
+    )
+    if not key:
+        raise RuntimeError("PGCRYPTO_KEY or SECRETS_MASTER_KEY required for pgcrypto helpers")
+    return key
+
+
+async def pgp_sym_encrypt(plaintext: str) -> str | None:
+    """Encrypt a string with pgcrypto pgp_sym_encrypt (Postgres only)."""
+    if not use_postgres():
+        return None
+    if _pool is None:
+        await init_pool()
+    assert _pool is not None
+    async with _pool.acquire() as conn:
+        await ensure_pgcrypto(conn)
+        row = await conn.fetchval(
+            "SELECT encode(pgp_sym_encrypt($1, $2), 'base64')",
+            plaintext,
+            _pgcrypto_key(),
+        )
+        return str(row) if row is not None else None
+
+
+async def pgp_sym_decrypt(ciphertext_b64: str) -> str | None:
+    """Decrypt a pgcrypto pgp_sym_encrypt payload (base64)."""
+    if not use_postgres():
+        return None
+    if _pool is None:
+        await init_pool()
+    assert _pool is not None
+    async with _pool.acquire() as conn:
+        await ensure_pgcrypto(conn)
+        row = await conn.fetchval(
+            "SELECT pgp_sym_decrypt(decode($1, 'base64'), $2)",
+            ciphertext_b64,
+            _pgcrypto_key(),
+        )
+        return str(row) if row is not None else None
+
+
 async def init_postgres() -> None:
     from database import SCHEMA
 
@@ -199,6 +264,7 @@ async def init_postgres() -> None:
     assert _pool is not None
     ddl = _sqlite_schema_to_pg(SCHEMA)
     async with _pool.acquire() as conn:
+        await ensure_pgcrypto(conn)
         for stmt in ddl.split(";"):
             cleaned = stmt.strip()
             if cleaned:
@@ -226,7 +292,7 @@ async def init_postgres() -> None:
             """,
             ts,
         )
-    logger.info("PostgreSQL schema initialised.")
+    logger.info("PostgreSQL schema initialised (pgcrypto enabled when available).")
 
 
 @asynccontextmanager
