@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLACKDARK — Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family:"DM Sans",system-ui,sans-serif;
+            font-family: var(--bd-font-body);
             background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.12), transparent),
                         radial-gradient(900px 500px at 100% 0%, rgba(6,182,212,.08), transparent), var(--bg);
             color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
         }
-        .card { width:min(440px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; }
-        h1 { font-family:"Instrument Serif",Georgia,serif; font-size:2rem; font-weight:400; margin-bottom:.25rem; }
+        .card { width:min(440px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
+        h1 { font-family: var(--bd-font-display); font-size:2rem; font-weight:800; margin-bottom:.25rem; color:var(--accent); letter-spacing:.04em; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
         label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
         input[type=email], input[type=password], input[type=text] {

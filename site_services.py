@@ -144,6 +144,11 @@ HOW_IT_WORKS_STEPS: list[dict[str, str]] = [
 CHANGELOG: list[dict[str, str]] = [
     {
         "date": "2026-08-08",
+        "title": "Trust OS Design System v1",
+        "body": "Syne + IBM Plex, cyan trust palette, three intentional motions, hero budget, no ARENA/FOMO/Inter/purple defaults.",
+    },
+    {
+        "date": "2026-08-08",
         "title": "Trust Pulse",
         "body": "First-open live Act/Wait + Why + Ledger proof + SSE freshness — not a news digest.",
     },

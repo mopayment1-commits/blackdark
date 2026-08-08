@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Trust OS Decision Room</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
-        html[dir="ltr"] body { font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif; }
+        body { font-family: var(--bd-font-body); background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
         a { color: #22d3ee; text-decoration: none; }
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-        .logo { font-weight: 800; font-size: 1.2rem; color: #22d3ee; }
+        .logo { font-family: var(--bd-font-display); font-weight: 800; font-size: 1.2rem; color: #22d3ee; letter-spacing: .04em; }
         .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
         .nav-links a:hover { color: #e4e4e7; }
         .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
@@ -96,24 +95,22 @@
 
         /* Trust Pulse — first-open composition */
         .hero { margin-bottom: .65rem; }
-        .hero h1 { font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
+        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
         .hero p { font-size: .85rem; }
         #trust-pulse {
             position: relative; overflow: hidden;
             background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
             border: 1px solid rgba(34,211,238,.28);
             margin-bottom: 1.1rem;
-            animation: pulseIn .65s ease;
+            animation: bdPulseIn .65s var(--bd-ease-out) both;
         }
-        @keyframes pulseIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
-        @keyframes flipFlash { 0% { box-shadow:0 0 0 0 rgba(245,158,11,.45); } 100% { box-shadow:0 0 0 0 transparent; } }
-        #trust-pulse.flipped { animation: flipFlash 1.2s ease; border-color: rgba(245,158,11,.55); }
+        #trust-pulse.flipped { animation: bdFlipFlash 1.1s var(--bd-ease-out); border-color: rgba(245,158,11,.55); }
         .tp-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
         .tp-live { display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; color:#a1a1aa; }
         .tp-dot { width:.55rem; height:.55rem; border-radius:50%; background:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.55); }
         .tp-dot.stale { background:#f59e0b; box-shadow:none; }
         .tp-dot.warm { background:#22d3ee; }
-        .tp-action { font-size:clamp(2.2rem, 6vw, 3.2rem); font-weight:900; letter-spacing:.02em; line-height:1; margin:.15rem 0 .35rem; }
+        .tp-action { font-family: var(--bd-font-display); font-size:clamp(2.2rem, 6vw, 3.2rem); font-weight:800; letter-spacing:-.02em; line-height:1; margin:.15rem 0 .35rem; }
         .tp-action.ACT { color:#22c55e; } .tp-action.WAIT { color:#f59e0b; } .tp-action.CAUTION { color:#ef4444; }
         .tp-sym { color:#a1a1aa; font-size:.95rem; margin-bottom:.55rem; }
         .tp-sentence { font-size:1.02rem; color:#e4e4e7; margin-bottom:.85rem; max-width:36rem; }
@@ -569,6 +566,12 @@
         }
 
         function shareTrustPulse() {
+            const btn = document.getElementById('tpShareBtn');
+            if (btn) {
+                btn.classList.remove('bd-motion-share');
+                void btn.offsetWidth;
+                btn.classList.add('bd-motion-share');
+            }
             const p = lastPulse || {};
             const proof = p.proof || {};
             const text = proof.share_text || (`BLACKDARK Trust Pulse · ${p.symbol||'BTC'} · ${p.action||'WAIT'} · verify /oracle-accuracy`);
