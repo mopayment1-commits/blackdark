@@ -50,3 +50,14 @@ def test_fast_scan_same_exchange_best_bid_and_ask():
     update_top_of_book("okx", "SOL/USDT", bid=149.0, bid_qty=2, ask=149.5, ask_qty=2)
     result = run_fast_scan()
     assert result["engine"] == "fast_scan_in_memory"
+
+
+def test_fast_scan_skips_when_single_venue_dominates_bid_and_ask():
+    """best_bid_ex == best_ask_ex → no cross-exchange opportunity."""
+    from live_book_hub import _books, _last_update_ms
+
+    _books.clear()
+    _last_update_ms.clear()
+    update_top_of_book("binance", "ETH/USDT", bid=3000, bid_qty=1, ask=3001, ask_qty=1)
+    result = run_fast_scan()
+    assert result["opportunities"] == []
