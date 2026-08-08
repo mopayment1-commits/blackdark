@@ -159,7 +159,11 @@ async def exchange_code(provider: str, code: str, state: str) -> dict[str, Any]:
     }
 
 
-async def login_or_register_oauth(profile: dict[str, Any]) -> dict[str, Any]:
+async def login_or_register_oauth(
+    profile: dict[str, Any],
+    *,
+    referral_code: str | None = None,
+) -> dict[str, Any]:
     """Create session for OAuth identity; provision user + trial on first login."""
     from auth_service import create_session, resolve_user_tier
     from database import (
@@ -171,11 +175,13 @@ async def login_or_register_oauth(profile: dict[str, Any]) -> dict[str, Any]:
         touch_user_login,
         update_user_oauth_profile,
     )
+    from referral_service import apply_referral_on_signup, ensure_user_referral_code
 
     email = str(profile["email"]).strip().lower()
     provider = str(profile["provider"])
     sub = str(profile["oauth_sub"])
     name = str(profile.get("name") or "")
+    is_new = False
 
     user = await fetch_user_by_oauth(provider, sub)
     if user is None:
@@ -184,10 +190,20 @@ async def login_or_register_oauth(profile: dict[str, Any]) -> dict[str, Any]:
             user_id = await create_oauth_user(email, provider, sub, name)
             await insert_pro_trial(email)
             user = {"id": user_id, "email": email, "name": name}
+            is_new = True
         else:
             await link_user_oauth(int(user["id"]), provider, sub)
             if name and not user.get("name"):
                 await update_user_oauth_profile(int(user["id"]), name=name)
+
+    my_code = await ensure_user_referral_code(int(user["id"]), email)
+    referral: dict[str, Any] = {"applied": False}
+    if is_new:
+        referral = await apply_referral_on_signup(
+            new_user_id=int(user["id"]),
+            new_email=email,
+            referral_code=referral_code,
+        )
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
@@ -195,12 +211,14 @@ async def login_or_register_oauth(profile: dict[str, Any]) -> dict[str, Any]:
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
+        "referral": referral,
         "user": {
             "id": user["id"],
             "email": email,
             "name": user.get("name") or name,
             "tier": tier,
             "oauth_provider": provider,
+            "referral_code": my_code,
         },
         "auth_method": "oauth2",
         "provider": provider,

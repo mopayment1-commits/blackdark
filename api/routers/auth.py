@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, Response
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, Request, Response
 from fastapi.responses import RedirectResponse
 
 from api.deps import optional_user, record_behavior
@@ -33,7 +33,12 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
     from auth_service import register_user
 
     try:
-        result = await register_user(body.email, body.password, body.name)
+        result = await register_user(
+            body.email,
+            body.password,
+            body.name,
+            referral_code=body.referral_code or None,
+        )
         if result.get("token"):
             _set_session_cookie(response, str(result["token"]), result.get("expires_at"))
         background_tasks.add_task(
@@ -104,6 +109,13 @@ async def auth_me(user: dict | None = Depends(optional_user)):
             }
     except Exception:
         pass
+    referral = None
+    try:
+        from referral_service import referral_stats
+
+        referral = await referral_stats(int(user["id"]))
+    except Exception:
+        referral = None
     return {
         "authenticated": True,
         "user": user,
@@ -114,7 +126,15 @@ async def auth_me(user: dict | None = Depends(optional_user)):
         "retention_hint": retention_hint,
         "oauth": oauth_status(),
         "is_admin": is_admin_user(user),
+        "referral": referral,
     }
+
+
+@router.get("/referral")
+async def auth_referral(user: dict = Depends(require_authenticated)):
+    from referral_service import referral_stats
+
+    return await referral_stats(int(user["id"]))
 
 
 @router.patch("/profile")
@@ -154,6 +174,7 @@ async def auth_oauth_login(provider: str):
 async def auth_oauth_callback(
     provider: str,
     background_tasks: BackgroundTasks,
+    request: Request,
     code: str | None = None,
     state: str | None = None,
     error: str | None = None,
@@ -166,7 +187,8 @@ async def auth_oauth_callback(
         raise HTTPException(status_code=400, detail="Missing OAuth code/state")
     try:
         profile = await exchange_code(provider, code, state)
-        result = await login_or_register_oauth(profile)
+        ref = request.cookies.get("bd_ref") or request.query_params.get("ref")
+        result = await login_or_register_oauth(profile, referral_code=ref)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except Exception as exc:

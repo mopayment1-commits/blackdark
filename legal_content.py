@@ -82,6 +82,40 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>If you access the Platform from the EEA/UK, processing may occur on cloud infrastructure outside your country with contractual and technical safeguards appropriate to an analytics SaaS.</p>
 """,
     },
+    "compliance": {
+        "title": "Anti-Hype Compliance Position",
+        "title_ar": "موقف الامتثال ضد الـ AI Washing",
+        "updated": "March 28, 2026",
+        "html": """
+<h2>What we are</h2>
+<p>BLACKDARK is classified as an <strong>analytical / decision-intelligence tool</strong>
+(<code>SYSTEM_CLASSIFICATION=analytical_tool</code>). We are <strong>not</strong> a registered
+investment adviser, broker-dealer, or MiCA CASP in the product UI.</p>
+
+<h2>Anti-Hype controls (engineering)</h2>
+<ul>
+    <li><strong>Public Accuracy Ledger</strong> at <a href="/oracle-accuracy">/oracle-accuracy</a> — hits and misses published.</li>
+    <li><strong>Mandatory disclaimer prefix</strong> on every Oracle narrative (<code>legal_shield.py</code>).</li>
+    <li><strong>Classification label</strong>: [Probabilistic Analysis – Not Financial Advice].</li>
+    <li><strong>Explicit consent gate</strong> before Oracle use.</li>
+    <li><strong>Dimension Conflict Guard</strong> abstains when signals conflict (no forced “buy” noise).</li>
+    <li><strong>Glass Box Challenge</strong> pack for prove-it distribution.</li>
+</ul>
+
+<h2>AI Washing posture</h2>
+<p>We do not claim guaranteed returns, secret alpha, or licensed advisory status in product surfaces.
+Regulatory metadata is exposed at <code>/api/status</code> and <code>/system/info</code>.</p>
+
+<h2>What this page is not</h2>
+<p>This is an <strong>engineering compliance posture</strong> pack — not a substitute for entity licensing
+or external counsel opinions under SEC/MiCA. Formal authorization depends on packaging and jurisdiction.</p>
+
+<h2>Related</h2>
+<p><a href="/disclaimer">Risk Disclaimer</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> ·
+<a href="/oracle-accuracy#glass-box-challenge">Glass Box Challenge</a> ·
+<a href="/b2b#fund-terminal">Emerging Fund Terminal</a></p>
+""",
+    },
     "disclaimer": {
         "title": "Risk Disclaimer",
         "title_ar": "إخلاء المسؤولية",

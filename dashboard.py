@@ -1863,9 +1863,20 @@ async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
 
 
+@app.get("/compliance", response_class=HTMLResponse)
+async def compliance_page(request: Request):
+    """Public Anti-Hype / AI-Washing engineering posture page."""
+    return _legal_page(request, "compliance")
+
+
 @app.get("/request-deletion", response_class=HTMLResponse)
 async def request_deletion_page(request: Request):
     return templates.TemplateResponse(request, "request_deletion.html")
+
+
+@app.get("/offline", response_class=HTMLResponse)
+async def offline_page(request: Request):
+    return templates.TemplateResponse(request, "offline.html")
 
 
 @app.get("/api/b2b/demo/proposal")
@@ -2386,9 +2397,18 @@ async def pwa_manifest():
 @app.get("/sw.js")
 async def service_worker():
     sw_path = STATIC_DIR / "sw.js"
+    headers = {"Service-Worker-Allowed": "/"}
     if sw_path.exists():
-        return FileResponse(sw_path, media_type="application/javascript")
-    return Response(content="// BLACKDARK service worker unavailable", media_type="application/javascript")
+        return FileResponse(
+            sw_path,
+            media_type="application/javascript",
+            headers=headers,
+        )
+    return Response(
+        content="// BLACKDARK service worker unavailable",
+        media_type="application/javascript",
+        headers=headers,
+    )
 
 
 @app.get("/api/low-latency/fast-scan")

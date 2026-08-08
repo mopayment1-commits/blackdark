@@ -121,6 +121,8 @@
             <input type="email" id="regEmail" required>
             <label>Password (8+ chars)</label>
             <input type="password" id="regPassword" required minlength="8">
+            <label>Invite code (optional)</label>
+            <input type="text" id="regReferral" placeholder="From friend link" maxlength="16" autocomplete="off">
             <button type="submit" class="btn-primary">Create Account</button>
         </form>
 
@@ -170,19 +172,55 @@
             }
         }
 
+        function captureReferral() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                let ref = (params.get('ref') || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (!ref) {
+                    ref = (localStorage.getItem('bd_ref') || '').trim().toUpperCase();
+                }
+                if (!ref) {
+                    const m = document.cookie.match(/(?:^|; )bd_ref=([^;]*)/);
+                    if (m) ref = decodeURIComponent(m[1]).toUpperCase();
+                }
+                if (ref && ref.length >= 4 && ref.length <= 16) {
+                    localStorage.setItem('bd_ref', ref);
+                    document.cookie = 'bd_ref=' + encodeURIComponent(ref) + '; path=/; max-age=2592000; samesite=lax';
+                    const input = document.getElementById('regReferral');
+                    if (input && !input.value) input.value = ref;
+                    showTab('register');
+                }
+            } catch (e) {}
+        }
+
+        function getReferralCode() {
+            const input = document.getElementById('regReferral');
+            const fromInput = (input && input.value || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (fromInput) return fromInput;
+            try {
+                return (localStorage.getItem('bd_ref') || '').trim().toUpperCase();
+            } catch (e) {
+                return '';
+            }
+        }
+
         async function doRegister(e) {
             e.preventDefault();
             const msg = document.getElementById('msg');
             msg.className = 'msg';
             try {
+                const payload = {
+                    name: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value,
+                };
+                const referral = getReferralCode();
+                if (referral) payload.referral_code = referral;
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: document.getElementById('regName').value,
-                        email: document.getElementById('regEmail').value,
-                        password: document.getElementById('regPassword').value
-                    })
+                    credentials: 'same-origin',
+                    body: JSON.stringify(payload)
                 });
                 const d = await res.json();
                 if (!res.ok) throw new Error(d.detail || 'Registration failed');
@@ -194,6 +232,7 @@
         }
 
         (function bootOAuth() {
+            captureReferral();
             const params = new URLSearchParams(window.location.search);
             const token = params.get('token');
             if (params.get('oauth') === '1' && token) {
@@ -205,12 +244,18 @@
                 .then(r => r.json())
                 .then(s => {
                     let any = false;
+                    const ref = getReferralCode();
+                    const q = ref ? ('?ref=' + encodeURIComponent(ref)) : '';
                     if (s.google) {
-                        document.getElementById('oauthGoogle').style.display = 'block';
+                        const el = document.getElementById('oauthGoogle');
+                        el.style.display = 'block';
+                        el.href = '/api/auth/oauth/google/login' + q;
                         any = true;
                     }
                     if (s.github) {
-                        document.getElementById('oauthGithub').style.display = 'block';
+                        const el = document.getElementById('oauthGithub');
+                        el.style.display = 'block';
+                        el.href = '/api/auth/oauth/github/login' + q;
                         any = true;
                     }
                     if (any) document.getElementById('oauthDivider').style.display = 'block';

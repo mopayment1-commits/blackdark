@@ -604,10 +604,15 @@
                 <div class="hero-stat"><strong>Free</strong><span>10 queries/day</span></div>
             </div>
             <div class="hero-cta">
-                <a href="#oracle" class="btn-primary">🔮 Try Oracle Free</a>
-                <a href="#telegram-free" class="btn-secondary">📱 Telegram — 3 Free Alerts/Day</a>
-                <a href="/oracle-accuracy" class="btn-secondary">📊 Live Accuracy</a>
+                <a href="/oracle-accuracy" class="btn-primary">Public Accuracy Ledger</a>
+                <a href="/oracle-accuracy#glass-box-challenge" class="btn-secondary">Glass Box Challenge</a>
+                <a href="#oracle" class="btn-secondary">Try Oracle</a>
             </div>
+            <p style="margin-top:.75rem;font-size:.85rem;color:var(--text-muted)">
+                Prove-it, not trust-me ·
+                <a href="/compliance" style="color:var(--accent)">Anti-Hype Compliance</a> ·
+                <a href="/b2b#fund-terminal" style="color:var(--accent)">Emerging Fund Terminal</a>
+            </p>
 
             <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
@@ -813,6 +818,7 @@
             <a href="/terms" style="color:var(--text-muted);margin:0 0.5rem">Terms</a>
             <a href="/privacy" style="color:var(--text-muted);margin:0 0.5rem">Privacy</a>
             <a href="/disclaimer" style="color:var(--text-muted);margin:0 0.5rem">Disclaimer</a>
+            <a href="/compliance" style="color:var(--text-muted);margin:0 0.5rem">Compliance</a>
             <a href="/request-deletion" style="color:var(--text-muted);margin:0 0.5rem">Request Deletion</a>
         </p>
         <p style="font-size: 0.875rem; margin-top: 0.5rem;">
@@ -823,8 +829,37 @@
     <script>
         window.lastOracleResult = null;
 
+        function captureReferralFromUrl() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const ref = (params.get('ref') || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+                if (ref && ref.length >= 4 && ref.length <= 16) {
+                    localStorage.setItem('bd_ref', ref);
+                    document.cookie = 'bd_ref=' + encodeURIComponent(ref) + '; path=/; max-age=2592000; samesite=lax';
+                }
+            } catch (e) {}
+        }
+
+        function getStoredReferral() {
+            try {
+                const fromLs = (localStorage.getItem('bd_ref') || '').trim().toUpperCase();
+                if (fromLs) return fromLs;
+                const m = document.cookie.match(/(?:^|; )bd_ref=([^;]*)/);
+                return m ? decodeURIComponent(m[1]).toUpperCase() : '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function referralShareUrl() {
+            const ref = getStoredReferral();
+            // Prefer authenticated user's own code when sharing from landing after login is rare —
+            // share links append stored invite code only when present so viral loops preserve attribution.
+            return window.location.origin + '/' + (ref ? ('?ref=' + encodeURIComponent(ref)) : '');
+        }
+
         function buildSharePayload(result) {
-            const url = window.location.origin + '/';
+            const url = referralShareUrl();
             if (!result) {
                 return {
                     url,
@@ -1183,12 +1218,13 @@
         }
 
         window.addEventListener('load', () => {
+            captureReferralFromUrl();
             updateShareLinks(null);
             loadLandingAnalytics();
             loadTelegramBotLink();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
+                navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
             }
         });
     </script>

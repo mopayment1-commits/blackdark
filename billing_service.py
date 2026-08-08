@@ -315,10 +315,12 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
 
 
 def _tier_mrr_usd(tier: str) -> float:
+    from money import cents_to_usd, money_float
+
     meta = STRIPE_TIERS.get((tier or "").lower().strip())
     if not meta:
         return 0.0
-    return float(meta["amount"]) / 100.0
+    return money_float(cents_to_usd(meta["amount"]))
 
 
 def _parse_iso(ts: str | None):

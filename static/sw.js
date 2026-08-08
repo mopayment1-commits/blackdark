@@ -1,10 +1,18 @@
-const CACHE = 'blackdark-v3';
-const STATIC_ASSETS = ['/static/manifest.json', '/static/icon-192.png', '/static/icon-512.png'];
+/* BLACKDARK PWA service worker — offline shell for installability */
+const CACHE = 'blackdark-v4';
+const OFFLINE_SHELL = [
+  '/static/manifest.json',
+  '/static/icon-192.png',
+  '/static/icon-512.png',
+  '/static/css/legal-shield.css',
+  '/static/js/legal-shield.js',
+  '/offline',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE)
-      .then((cache) => cache.addAll(STATIC_ASSETS))
+      .then((cache) => cache.addAll(OFFLINE_SHELL))
       .then(() => self.skipWaiting())
   );
 });
@@ -23,27 +31,31 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/oracle/')) return;
 
-  // HTML pages: always network-first (never serve stale blank dashboard)
   const isHtml = event.request.mode === 'navigate'
     || (event.request.headers.get('accept') || '').includes('text/html');
   if (isHtml) {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
+      fetch(event.request)
+        .then((resp) => {
+          const copy = resp.clone();
+          if (resp.ok && (url.pathname === '/' || url.pathname === '/dashboard' || url.pathname === '/offline')) {
+            caches.open(CACHE).then((c) => c.put(event.request, copy)).catch(() => {});
+          }
+          return resp;
+        })
+        .catch(() => caches.match(event.request).then((c) => c || caches.match('/offline')))
     );
     return;
   }
 
-  // Static assets: cache-first
   if (url.pathname.startsWith('/static/')) {
     event.respondWith(
       caches.match(event.request).then((cached) => {
         if (cached) return cached;
-        return fetch(event.request).then((res) => {
-          if (res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(event.request, copy));
-          }
-          return res;
+        return fetch(event.request).then((resp) => {
+          const copy = resp.clone();
+          caches.open(CACHE).then((c) => c.put(event.request, copy)).catch(() => {});
+          return resp;
         });
       })
     );

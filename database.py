@@ -303,7 +303,10 @@ CREATE TABLE IF NOT EXISTS users (
     totp_secret_encrypted TEXT,
     totp_enabled   INTEGER NOT NULL DEFAULT 0,
     terms_accepted_at TEXT,
-    terms_version     TEXT
+    terms_version     TEXT,
+    referral_code     TEXT,
+    referred_by_code  TEXT,
+    referred_by_user_id INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS privacy_requests (
@@ -313,6 +316,15 @@ CREATE TABLE IF NOT EXISTS privacy_requests (
     details      TEXT,
     status       TEXT    NOT NULL DEFAULT 'received',
     created_at   TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS referral_events (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    referrer_user_id  INTEGER NOT NULL,
+    referred_user_id  INTEGER NOT NULL,
+    referral_code     TEXT    NOT NULL,
+    event_type        TEXT    NOT NULL,
+    created_at        TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_sessions (
@@ -634,10 +646,34 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN terms_accepted_at TEXT")
     if "terms_version" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN terms_version TEXT")
+    if "referral_code" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referral_code TEXT")
+    if "referred_by_code" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referred_by_code TEXT")
+    if "referred_by_user_id" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN referred_by_user_id INTEGER")
     await db.execute(
         """
         CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oauth_provider_sub
             ON users (oauth_provider, oauth_sub)
+        """
+    )
+    await db.execute(
+        """
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_users_referral_code
+            ON users (referral_code)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS referral_events (
+            id                INTEGER PRIMARY KEY AUTOINCREMENT,
+            referrer_user_id  INTEGER NOT NULL,
+            referred_user_id  INTEGER NOT NULL,
+            referral_code     TEXT    NOT NULL,
+            event_type        TEXT    NOT NULL,
+            created_at        TEXT    NOT NULL
+        )
         """
     )
     await db.execute(
@@ -3272,6 +3308,87 @@ async def set_user_terms_acceptance(user_id: int, accepted_at: str, terms_versio
             (accepted_at, terms_version, int(user_id)),
         )
         await db.commit()
+
+
+async def set_user_referral_code(user_id: int, code: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET referral_code = ? WHERE id = ?",
+            (code.strip().upper(), int(user_id)),
+        )
+        await db.commit()
+
+
+async def fetch_user_by_referral_code(code: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                "SELECT * FROM users WHERE referral_code = ? LIMIT 1",
+                (code.strip().upper(),),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by referral code")
+        return None
+
+
+async def set_user_referred_by(user_id: int, code: str, referrer_user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET referred_by_code = ?, referred_by_user_id = ?
+            WHERE id = ?
+            """,
+            (code.strip().upper(), int(referrer_user_id), int(user_id)),
+        )
+        await db.commit()
+
+
+async def insert_referral_event(
+    *,
+    referrer_user_id: int,
+    referred_user_id: int,
+    referral_code: str,
+    event_type: str,
+) -> int:
+    async with get_connection() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO referral_events
+                (referrer_user_id, referred_user_id, referral_code, event_type, created_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (
+                int(referrer_user_id),
+                int(referred_user_id),
+                referral_code.strip().upper(),
+                event_type.strip().lower()[:32],
+                _utcnow_iso(),
+            ),
+        )
+        await db.commit()
+        return int(cur.lastrowid or 0)
+
+
+async def count_referrals_for_user(user_id: int) -> int:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT COUNT(*) AS c FROM referral_events
+                WHERE referrer_user_id = ? AND event_type = 'signup'
+                """,
+                (int(user_id),),
+            )
+            result = await rows.fetchone()
+        if result is None:
+            return 0
+        return int(result[0] if not hasattr(result, "keys") else result["c"] or 0)
+    except Exception:
+        logger.exception("Unable to count referrals")
+        return 0
 
 
 async def insert_privacy_request(
