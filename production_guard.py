@@ -62,6 +62,10 @@ def evaluate_production_guard() -> dict[str, Any]:
     elif stripe:
         billing_webhook_ok = stripe_webhook
 
+    # Strict production (no Soft Launch): SQLite is an acquisition landmine.
+    strict_prod = is_production() and not soft_launch
+    sqlite_forbidden_ok = pg if strict_prod else (pg or soft_launch or not is_production())
+
     checks = [
         _check(
             "postgres_database",
@@ -70,6 +74,24 @@ def evaluate_production_guard() -> dict[str, Any]:
             hint=(
                 "Set Postgres DATABASE_URL=postgresql://... "
                 "(or SOFT_LAUNCH=true for free SQLite demo)"
+            ),
+        ),
+        _check(
+            "sqlite_forbidden_in_strict_production",
+            sqlite_forbidden_ok,
+            required=strict_prod,
+            hint=(
+                "Strict production forbids SQLite. Set DATABASE_URL=postgresql://... "
+                "and unset SOFT_LAUNCH before any institutional pitch."
+            ),
+        ),
+        _check(
+            "at_rest_encryption_posture",
+            secrets_ok,
+            required=True,
+            hint=(
+                "Set SECRETS_MASTER_KEY or SECRETS_VAULT_KEY for Fernet at-rest encryption "
+                "of user API keys / sensitive vault material (engineering posture ≠ ISO 27001 cert)"
             ),
         ),
         _check(
@@ -167,6 +189,7 @@ def evaluate_production_guard() -> dict[str, Any]:
     return {
         "production": is_production(),
         "soft_launch": soft_launch,
+        "strict_production": strict_prod,
         "service_mode": mode,
         "database": "postgresql" if pg else "sqlite",
         "billing_provider": "lemon_squeezy" if lemon else ("stripe" if stripe else "none"),
@@ -174,6 +197,15 @@ def evaluate_production_guard() -> dict[str, Any]:
         "required_pass": len(required_fail) == 0,
         "required_failures": [c["id"] for c in required_fail],
         "warnings": [c["id"] for c in warn],
+        "acquisition_honesty": {
+            "sqlite_ok_for_pitch": bool(pg),
+            "soft_launch_is_not_ha": soft_launch,
+            "iso_certificates_claimed": False,
+            "note": (
+                "PostgreSQL required for institutional pitch. Soft Launch SQLite is demo-only. "
+                "Fernet vault = engineering posture, not an ISO 27001 certificate."
+            ),
+        },
         "railway_replicas_hint": "Set numReplicas=2 in railway.json or Railway dashboard",
         "uptimerobot_url": f"{os.getenv('APP_BASE_URL', 'https://blackdark-production.up.railway.app')}/health/live",
     }
