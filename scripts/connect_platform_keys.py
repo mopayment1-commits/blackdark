@@ -21,7 +21,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import os
 import sys
 import webbrowser
 from pathlib import Path
@@ -29,6 +28,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from path_safety import assert_safe_http_url
 
 try:
     from dotenv import load_dotenv
@@ -107,7 +108,7 @@ def _open_signup_links() -> None:
         try:
             webbrowser.open(url)
         except OSError:
-            print(f"     (تعذّر فتح المتصفح — افتح الرابط يدوياً)")
+            print("     (تعذّر فتح المتصفح — افتح الرابط يدوياً)")
 
 
 def _prompt_value(spec: dict[str, str], preset: str | None) -> str | None:
@@ -118,7 +119,7 @@ def _prompt_value(spec: dict[str, str], preset: str | None) -> str | None:
     print(f"   التسجيل: {spec['signup']}")
     print(f"   {spec['note_ar']}")
     print("   Enter = تخطي")
-    value = input(f"   الصق المفتاح: ").strip()
+    value = input("   الصق المفتاح: ").strip()
     return value or None
 
 
@@ -171,13 +172,18 @@ def _print_verify_report(data: dict) -> None:
 async def _test_local_server(base_url: str) -> None:
     import aiohttp
 
-    base = base_url.rstrip("/")
+    try:
+        base = assert_safe_http_url(base_url.rstrip("/"))
+    except ValueError as exc:
+        print(f"\n⚠️  رفض عنوان السيرفر: {exc}")
+        return
+
     print(f"\n🖥️  اختبار السيرفر المحلي: {base}")
     timeout = aiohttp.ClientTimeout(total=8)
     try:
         async with aiohttp.ClientSession(timeout=timeout) as session:
             for path in ("/api/platform/keys/status", "/api/platform/keys/verify"):
-                url = f"{base}{path}"
+                url = assert_safe_http_url(f"{base}{path}")
                 try:
                     async with session.get(url) as resp:
                         ok = resp.status == 200
@@ -200,7 +206,7 @@ async def run_connect(args: argparse.Namespace) -> int:
         example = ROOT / ".env.example"
         if example.exists():
             (ROOT / ".env").write_text(example.read_text(encoding="utf-8"), encoding="utf-8")
-            print(f"\n📄 تم إنشاء .env من .env.example")
+            print("\n📄 تم إنشاء .env من .env.example")
 
     _print_status()
 

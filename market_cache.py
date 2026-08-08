@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -32,8 +32,8 @@ def _estimate_age_sec(books: dict[str, Any]) -> float:
             if not ts:
                 continue
             try:
-                dt = datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
-                age = (datetime.now(timezone.utc) - dt).total_seconds()
+                dt = datetime.fromisoformat(str(ts))
+                age = (datetime.now(UTC) - dt).total_seconds()
                 if newest is None or age < newest:
                     newest = age
             except (TypeError, ValueError):
@@ -64,16 +64,20 @@ def set_cached_snapshots(
         "funding": funding,
         "source": source,
         "age_sec": age_sec if age_sec is not None else _estimate_age_sec(books),
-        "cached_at": datetime.now(timezone.utc).isoformat(),
+        "cached_at": datetime.now(UTC).isoformat(),
     }
     _cache_at = time.monotonic()
 
 
 async def refresh_from_database(*, force: bool = False) -> dict[str, Any]:
     cached = get_cached_snapshots()
-    if not force and cached and str(cached.get("source")) == "live_api":
-        if float(cached.get("age_sec") or 0) <= float(getattr(config, "LIVE_FETCH_STALE_THRESHOLD_SEC", 8)):
-            return cached
+    if (
+        not force
+        and cached
+        and str(cached.get("source")) == "live_api"
+        and float(cached.get("age_sec") or 0) <= float(getattr(config, "LIVE_FETCH_STALE_THRESHOLD_SEC", 8))
+    ):
+        return cached
 
     from database import fetch_latest_funding_rates, fetch_latest_order_books
 
@@ -82,9 +86,13 @@ async def refresh_from_database(*, force: bool = False) -> dict[str, Any]:
         fetch_latest_funding_rates(),
     )
     age_sec = _estimate_age_sec(books)
-    if not force and _cache and str(_cache.get("source")) == "live_api":
-        if age_sec > float(_cache.get("age_sec") or 999):
-            return _cache
+    if (
+        not force
+        and _cache
+        and str(_cache.get("source")) == "live_api"
+        and age_sec > float(_cache.get("age_sec") or 999)
+    ):
+        return _cache
 
     set_cached_snapshots(books, funding, source="database", age_sec=age_sec)
     return _cache or {}

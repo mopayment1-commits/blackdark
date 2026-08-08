@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 import random
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -13,19 +13,18 @@ _SUPPLY = {"BTC": 19_800_000, "ETH": 120_000_000}
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _klines(asset: str, *, interval: str = "1d", limit: int = 365) -> list[float]:
     pair = f"{asset}USDT"
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     timeout = aiohttp.ClientTimeout(total=15)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url) as resp:
-            if resp.status != 200:
-                return []
-            rows = await resp.json()
-            return [float(r[4]) for r in rows if len(r) > 4]
+    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+        if resp.status != 200:
+            return []
+        rows = await resp.json()
+        return [float(r[4]) for r in rows if len(r) > 4]
 
 
 def _sma(values: list[float], period: int) -> float | None:
@@ -92,7 +91,7 @@ async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_0
         return {"asset": asset, "error": "market_data_unavailable", "timestamp": _utcnow()}
 
     price = closes[-1]
-    sma200 = _sma(closes, 200)
+    _sma(closes, 200)
     sma30 = _sma(closes, 30)
     realized = _sma(closes, min(200, len(closes)))
 

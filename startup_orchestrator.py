@@ -11,7 +11,6 @@ import asyncio
 import logging
 import os
 from dataclasses import dataclass, field
-from types import SimpleNamespace
 from typing import Any
 
 import config
@@ -89,6 +88,7 @@ async def run_background_startup(state: RuntimeState) -> None:
                 await run_aggregator()
             except asyncio.CancelledError:
                 logger.info("Aggregator background task cancelled.")
+                raise
             except Exception:
                 logger.exception("Aggregator background task failed.")
 
@@ -124,8 +124,8 @@ async def run_background_startup(state: RuntimeState) -> None:
         config.KAFKA_PRICE_STREAM_ENABLED,
     )
 
-    from gas_oracle import start_gas_oracle_loop
     from fee_matrix import start_fee_matrix_scheduler
+    from gas_oracle import start_gas_oracle_loop
 
     await start_gas_oracle_loop()
     await start_fee_matrix_scheduler()
@@ -160,6 +160,7 @@ async def run_background_startup(state: RuntimeState) -> None:
                 await start_ingestion_scheduler(bootstrap=bootstrap)
             except asyncio.CancelledError:
                 logger.info("Ingestion scheduler cancelled.")
+                raise
             except Exception:
                 logger.exception("Ingestion scheduler failed.")
 
@@ -344,8 +345,8 @@ async def shutdown_runtime(state: RuntimeState) -> None:
 
     await stop_stream_processor()
 
-    from gas_oracle import stop_gas_oracle_loop
     from fee_matrix import stop_fee_matrix_scheduler
+    from gas_oracle import stop_gas_oracle_loop
 
     await stop_gas_oracle_loop()
     await stop_fee_matrix_scheduler()
@@ -368,10 +369,7 @@ async def shutdown_runtime(state: RuntimeState) -> None:
     ):
         if task is not None:
             task.cancel()
-            try:
-                await task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(task, return_exceptions=True)
 
     if state.auto_exec_task is not None:
         from execution_engine import stop_auto_execution_loop
@@ -383,10 +381,7 @@ async def shutdown_runtime(state: RuntimeState) -> None:
 
         await stop_ingestion_scheduler()
         state.ingestion_task.cancel()
-        try:
-            await state.ingestion_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(state.ingestion_task, return_exceptions=True)
 
     if state.telegram_task is not None:
         from telegram_monitor import stop_telegram_monitor
@@ -400,7 +395,4 @@ async def shutdown_runtime(state: RuntimeState) -> None:
 
     if state.aggregator_task is not None:
         state.aggregator_task.cancel()
-        try:
-            await state.aggregator_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(state.aggregator_task, return_exceptions=True)

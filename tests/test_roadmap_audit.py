@@ -35,7 +35,7 @@ def test_pairs_trading_structure():
 
 
 def test_rl_policy_heuristic():
-    from ml.rl_policy import predict_action, policy_status, train_ppo_policy
+    from ml.rl_policy import policy_status, predict_action, train_ppo_policy
 
     st = policy_status()
     pred = predict_action({"ret_24h": 0.2, "volatility": 0.1, "obi_score": 0.3})
@@ -56,7 +56,7 @@ def test_kafka_bus_status():
 
 
 def test_vault_status():
-    from bd_platform.vault_client import store_secret, read_secret, vault_status
+    from bd_platform.vault_client import read_secret, store_secret, vault_status
 
     st = vault_status()
     assert "local_fernet_available" in st

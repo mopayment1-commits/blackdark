@@ -15,11 +15,17 @@ import sys
 import time
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from path_safety import ensure_under
+
 try:
     import aiohttp
 except ImportError:
     print("pip install aiohttp")
-    raise SystemExit(1)
+    raise SystemExit(1) from None
 
 
 async def _probe(session: aiohttp.ClientSession, url: str) -> tuple[bool, float]:
@@ -106,7 +112,10 @@ async def main() -> int:
     print(f"1M-user simulation | users={args.users} req/user={args.requests}")
     report = await simulate_users(args.base, concurrent_users=args.users, requests_per_user=args.requests)
 
-    out = Path(args.output)
+    candidate = Path(args.output)
+    if not candidate.is_absolute():
+        candidate = ROOT / candidate
+    out = ensure_under(candidate, ROOT)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2), encoding="utf-8")
 

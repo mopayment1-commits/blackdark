@@ -214,7 +214,7 @@ async def get_ohlc_closes(symbol: str, *, interval: str = "1h", limit: int = 200
         try:
             rows = await client.hgetall(key)
             if rows:
-                buckets = sorted(int(k) for k in rows.keys())
+                buckets = sorted(int(k) for k in rows)
                 closes = [float(json.loads(rows[str(b)])["c"]) for b in buckets[-limit:]]
                 if closes:
                     return closes

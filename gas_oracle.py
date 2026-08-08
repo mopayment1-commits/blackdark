@@ -230,8 +230,5 @@ async def stop_gas_oracle_loop() -> None:
     global _REFRESH_TASK
     if _REFRESH_TASK is not None:
         _REFRESH_TASK.cancel()
-        try:
-            await _REFRESH_TASK
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_REFRESH_TASK, return_exceptions=True)
         _REFRESH_TASK = None

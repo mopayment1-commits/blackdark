@@ -2,21 +2,22 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
+
+from path_safety import assert_url_path_safe, safe_url_segment
 
 
 async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
     url = "https://api.coingecko.com/api/v3/coins/markets"
     params = {"vs_currency": "usd", "order": "market_cap_desc", "per_page": min(limit, 250), "page": 1, "sparkline": "true"}
     timeout = aiohttp.ClientTimeout(total=15)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url, params=params) as resp:
-            if resp.status != 200:
-                return {"available": False, "coins": []}
-            rows = await resp.json()
+    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+        if resp.status != 200:
+            return {"available": False, "coins": []}
+        rows = await resp.json()
 
     coins = []
     for i, row in enumerate(rows, start=1):
@@ -35,7 +36,7 @@ async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
         )
     return {
         "style": "coinmarketcap",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "count": len(coins),
         "coins": coins,
     }
@@ -43,7 +44,8 @@ async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
 
 async def coin_detail(coin_id: str) -> dict[str, Any]:
     """Single coin detail page data from CoinGecko (free)."""
-    url = f"https://api.coingecko.com/api/v3/coins/{coin_id.lower()}"
+    safe_id = safe_url_segment(coin_id.lower())
+    url = assert_url_path_safe(f"https://api.coingecko.com/api/v3/coins/{safe_id}")
     params = {
         "localization": "false",
         "tickers": "false",
@@ -52,11 +54,10 @@ async def coin_detail(coin_id: str) -> dict[str, Any]:
         "sparkline": "true",
     }
     timeout = aiohttp.ClientTimeout(total=15)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url, params=params) as resp:
-            if resp.status != 200:
-                return {"available": False, "coin_id": coin_id}
-            row = await resp.json()
+    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+        if resp.status != 200:
+            return {"available": False, "coin_id": coin_id}
+        row = await resp.json()
 
     md = row.get("market_data") or {}
     return {
@@ -78,5 +79,5 @@ async def coin_detail(coin_id: str) -> dict[str, Any]:
         "max_supply": md.get("max_supply"),
         "sparkline_7d": (md.get("sparkline_7d") or {}).get("price"),
         "links": row.get("links") or {},
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }

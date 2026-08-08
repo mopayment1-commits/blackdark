@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -26,7 +26,7 @@ SOURCE = "market_replay_v1"
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _returns_from_closes(closes: list[float]) -> dict[str, float]:
@@ -184,9 +184,9 @@ async def bootstrap_market_replay_dataset(
                 outcome, accuracy, direction = score_verdict_accuracy(
                     verdict, price_at, price_after
                 )
-                ts = datetime.fromtimestamp(klines[i]["ts"] / 1000, tz=timezone.utc).isoformat()
+                ts = datetime.fromtimestamp(klines[i]["ts"] / 1000, tz=UTC).isoformat()
                 resolved_ts = datetime.fromtimestamp(
-                    klines[i + 24]["ts"] / 1000, tz=timezone.utc
+                    klines[i + 24]["ts"] / 1000, tz=UTC
                 ).isoformat()
                 score = min(95.0, max(35.0, 55.0 + features["ret_24h"]))
                 conf = min(90.0, max(40.0, 60.0 - features["volatility"] * 3))
@@ -195,8 +195,8 @@ async def bootstrap_market_replay_dataset(
                     asset=asset,
                     price_at_prediction=price_at,
                     verdict=verdict,
-                    opportunity_score=int(round(score)),
-                    confidence=int(round(conf)),
+                    opportunity_score=round(score),
+                    confidence=round(conf),
                     timestamp=ts,
                     kind="market_replay",
                     features_json=json.dumps(features, separators=(",", ":")),

@@ -105,10 +105,7 @@ async def shutdown(ctx: ServiceContext) -> None:
             task.cancel()
         else:
             task.cancel()
-        try:
-            await task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(task, return_exceptions=True)
 
     if ctx.flags.get("b2b_ws"):
         from b2b_websocket_hub import stop_b2b_websocket_hub
@@ -137,9 +134,9 @@ async def _boot_web(ctx: ServiceContext) -> None:
 
     stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "")
 
-    from telegram_monitor import start_telegram_monitor
-    from telegram_bot_poller import start_telegram_poller
     from b2b_websocket_hub import start_b2b_websocket_hub
+    from telegram_bot_poller import start_telegram_poller
+    from telegram_monitor import start_telegram_monitor
 
     ctx.tasks["telegram"] = await start_telegram_monitor()
     ctx.tasks["telegram_poller"] = await start_telegram_poller()
@@ -175,9 +172,9 @@ async def _boot_aggregator(ctx: ServiceContext) -> None:
 
 
 async def _boot_arbitrage(ctx: ServiceContext) -> None:
-    from instant_alert_engine import start_instant_alert_engine
     from exchange_ws_hub import start_exchange_ws_hub
     from execution_engine import start_auto_execution_loop
+    from instant_alert_engine import start_instant_alert_engine
 
     ctx.tasks["instant_alerts"] = await start_instant_alert_engine()
     await start_exchange_ws_hub()
@@ -216,7 +213,7 @@ def service_info(ctx: ServiceContext | None = None) -> dict[str, Any]:
         "architecture": "microservices",
         "valid_modes": sorted(VALID_MODES),
         "tasks": list((ctx.tasks if ctx else {}).keys()),
-        "flags": dict((ctx.flags if ctx else {})),
+        "flags": dict(ctx.flags if ctx else {}),
         "service_bus": bus_stats(),
         "scale_ready": bool(os.getenv("REDIS_URL")),
         "infra": infra,

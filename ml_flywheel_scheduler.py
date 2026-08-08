@@ -51,10 +51,7 @@ async def stop_ml_flywheel() -> None:
     _running = False
     if _flywheel_task is not None:
         _flywheel_task.cancel()
-        try:
-            await _flywheel_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_flywheel_task, return_exceptions=True)
         _flywheel_task = None
     logger.info("ML flywheel scheduler stopped.")
 

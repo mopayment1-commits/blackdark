@@ -10,7 +10,6 @@ import logging
 import os
 import time
 from collections import defaultdict
-from typing import Any
 
 from fastapi import Cookie, Depends, Header, HTTPException, Request
 
@@ -26,9 +25,7 @@ _rate_limit_backend = "memory"
 def is_production_env() -> bool:
     """True when ENV/RAILWAY is production — LOCAL_DEV never overrides an explicit prod ENV."""
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
-    if env in {"production", "prod"}:
-        return True
-    return False
+    return env in {"production", "prod"}
 
 
 def login_rate_limit_backend() -> str:
@@ -42,7 +39,7 @@ def hash_session_token(token: str) -> str:
             raise RuntimeError("SESSION_TOKEN_PEPPER must be set in production")
         pepper = "blackdark-session-pepper-change-me"
         logger.warning("SESSION_TOKEN_PEPPER unset — using insecure dev default")
-    return hashlib.sha256(f"{pepper}:{token}".encode("utf-8")).hexdigest()
+    return hashlib.sha256(f"{pepper}:{token}".encode()).hexdigest()
 
 
 def _memory_login_rate_limit(key: str) -> None:
@@ -130,9 +127,7 @@ def is_admin_user(user: dict | None) -> bool:
     if not user:
         return False
     email = str(user.get("email") or "").lower()
-    if email in admin_emails():
-        return True
-    return False
+    return email in admin_emails()
 
 
 async def optional_user_from_request(
@@ -143,7 +138,7 @@ async def optional_user_from_request(
 
     token: str | None = None
     if authorization:
-        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+        token = authorization.removeprefix("Bearer ")
     elif bd_token:
         token = bd_token.strip()
     if not token:

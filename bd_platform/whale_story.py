@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -13,7 +13,7 @@ async def whale_narrative(limit: int = 5) -> dict[str, Any]:
 
         return await enrich_whale_narratives(limit=limit)
     except Exception:
-        from whale_tracker import get_latest_whale_alerts, get_latest_sector_flows
+        from whale_tracker import get_latest_sector_flows, get_latest_whale_alerts
 
         alerts = await get_latest_whale_alerts(limit=limit)
         flows = await get_latest_sector_flows(limit=limit)
@@ -37,7 +37,7 @@ async def whale_narrative(limit: int = 5) -> dict[str, Any]:
             stories.append("No major whale narratives in the current window — market in equilibrium.")
 
         return {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "stories": stories,
             "alert_count": len(alerts),
             "flow_count": len(flows),

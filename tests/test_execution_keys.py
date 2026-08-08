@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from execution_keys import ensure_keys_file, execution_keys_status, parse_exchange_keys_file
+from execution_keys import execution_keys_status, parse_exchange_keys_file
 
 
 def test_parse_exchange_keys_file(tmp_path: Path):

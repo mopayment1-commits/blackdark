@@ -8,12 +8,12 @@ Reuses weekly_reports table with report_type=daily_intelligence.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def build_daily_report(*, persist: bool = True) -> dict[str, Any]:
@@ -97,8 +97,8 @@ def daily_report_markdown(report: dict[str, Any]) -> str:
             f"- Forecast audit: {report.get('forecast_accuracy_percent')}%",
             f"- Moat score: {report.get('moat_score')}/100",
             f"- Whale alerts (cycle): {report.get('whale_alerts_24h')}",
-            f"- Arb alerts (24h): {report.get('arb_alerts_24h')} "
-            f"({report.get('profitable_arb_alerts')} profitable)",
+            (f"- Arb alerts (24h): {report.get('arb_alerts_24h')} "
+            f"({report.get('profitable_arb_alerts')} profitable)"),
             f"- Registered users: {report.get('platform', {}).get('registered_users', 0)}",
             f"- Paid subscribers: {report.get('platform', {}).get('paid_subscribers', 0)}",
             "",

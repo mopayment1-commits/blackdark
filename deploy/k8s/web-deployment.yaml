@@ -17,6 +17,7 @@ spec:
         app: blackdark
         tier: web
     spec:
+      automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
         runAsUser: 10001

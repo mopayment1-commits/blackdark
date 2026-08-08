@@ -5,14 +5,13 @@ from __future__ import annotations
 import hashlib
 import hmac
 import inspect
-import json
 
 import pytest
 
 
 def test_cex_dex_cycle_forwards_dry_run():
-    from bd_platform.cex_dex_executor import run_cex_dex_cycle
     import platform_api
+    from bd_platform.cex_dex_executor import run_cex_dex_cycle
 
     assert "dry_run" in inspect.signature(run_cex_dex_cycle).parameters
     src = inspect.getsource(platform_api.cex_dex_execute)
@@ -21,7 +20,7 @@ def test_cex_dex_cycle_forwards_dry_run():
 
 
 def test_lemon_webhook_signature_and_handler(monkeypatch):
-    from billing_service import handle_lemon_webhook_event, verify_lemon_webhook_signature
+    from billing_service import verify_lemon_webhook_signature
 
     secret = "test-lemon-secret"
     monkeypatch.setenv("LEMON_SQUEEZY_WEBHOOK_SECRET", secret)

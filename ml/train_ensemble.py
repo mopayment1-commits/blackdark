@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -40,13 +40,13 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
         return result
 
     try:
+        import joblib
         from sklearn.ensemble import (
             GradientBoostingClassifier,
             RandomForestClassifier,
             VotingClassifier,
         )
         from sklearn.metrics import accuracy_score
-        import joblib
     except ImportError:
         return {"trained": False, "reason": "scikit_learn_missing"}
 
@@ -129,7 +129,7 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
         return result
 
     config.ML_MODELS_DIR.mkdir(parents=True, exist_ok=True)
-    version = datetime.now(timezone.utc).strftime("ens%Y%m%d_%H%M")
+    version = datetime.now(UTC).strftime("ens%Y%m%d_%H%M")
     bundle = {
         "model": final_model,
         "feature_columns": list(FEATURE_COLUMNS),

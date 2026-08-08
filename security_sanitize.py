@@ -6,7 +6,6 @@ from __future__ import annotations
 
 from typing import Any
 
-
 _SENSITIVE_ORACLE_KEYS = frozenset({
     "modal_breakdown",
     "dimension_weights",

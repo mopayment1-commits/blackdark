@@ -8,12 +8,13 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timezone
-from typing import Any, AsyncIterator
+from collections.abc import AsyncIterator
+from datetime import UTC, datetime
+from typing import Any
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _dashboard_snapshot() -> dict[str, Any]:
@@ -64,7 +65,7 @@ async def dashboard_sse_generator(*, interval_sec: float = 15.0) -> AsyncIterato
             snap = await _dashboard_snapshot()
             yield f"data: {json.dumps(snap, default=str)}\n\n"
         except asyncio.CancelledError:
-            break
+            raise
         except Exception as exc:
             err = {"type": "error", "message": str(exc), "timestamp": _utcnow()}
             yield f"data: {json.dumps(err)}\n\n"

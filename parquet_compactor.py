@@ -12,11 +12,12 @@ import asyncio
 import json
 import logging
 import shutil
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from datetime import date, datetime, timedelta, timezone
-from enum import Enum
+from datetime import UTC, date, datetime, timedelta
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 import config
 
@@ -26,7 +27,7 @@ SPOOL_DATE_FORMAT = "%Y-%m-%d"
 SUPPORTED_RECORD_TYPES = ("pricing", "order_book", "funding", "tick")
 
 
-class CompactionDisposition(str, Enum):
+class CompactionDisposition(StrEnum):
     ARCHIVE = "archive"
     DELETE = "delete"
 
@@ -76,7 +77,7 @@ class CompactionReport:
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _utcnow_iso() -> str:
@@ -99,7 +100,7 @@ def _load_parquet_dependencies() -> tuple[Any, Any, Any]:
 def _parse_spool_date(filename: str) -> date | None:
     stem = Path(filename).stem
     try:
-        return datetime.strptime(stem, SPOOL_DATE_FORMAT).date()
+        return date.fromisoformat(stem)
     except ValueError:
         return None
 
@@ -591,7 +592,7 @@ class MidnightParquetCompactor:
             try:
                 await asyncio.wait_for(self._shutdown.wait(), timeout=sleep_seconds)
                 break
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 pass
 
             if self._shutdown.is_set():
@@ -614,10 +615,7 @@ class MidnightParquetCompactor:
         self.request_shutdown()
         if self._task is not None:
             self._task.cancel()
-            try:
-                await self._task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(self._task, return_exceptions=True)
             self._task = None
 
 
@@ -718,7 +716,7 @@ def _parse_db_timestamp(value: Any) -> datetime | None:
     if value is None:
         return None
     try:
-        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        return datetime.fromisoformat(str(value))
     except ValueError:
         return None
 
@@ -729,7 +727,7 @@ def _group_rows_by_partition_date(rows: list[dict[str, Any]]) -> dict[date, list
         parsed = _parse_db_timestamp(row.get("timestamp"))
         if parsed is None:
             continue
-        partition_date = parsed.astimezone(timezone.utc).date()
+        partition_date = parsed.astimezone(UTC).date()
         grouped.setdefault(partition_date, []).append(row)
     return grouped
 

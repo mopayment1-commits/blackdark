@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 import urllib.request
 from pathlib import Path
 
@@ -93,7 +92,7 @@ def main() -> int:
     print(f"  3. URL: {PROD_URL}/health/live")
     print("  4. Interval: 5 minutes")
     print("  5. Save -> after 24h re-check /api/due-diligence/technical")
-    print(f"\n  Template: config/uptime_monitor.example.json")
+    print("\n  Template: config/uptime_monitor.example.json")
 
     print("\n--- Next metrics (90-day LOI) ---")
     print("  - 50+ live oracle labels")

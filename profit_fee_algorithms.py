@@ -6,11 +6,12 @@ Pure functions for depth walk, spread, and fee-adjusted profit — no I/O, no en
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
+
+from pydantic import BaseModel, Field
 
 import config
 from macro_correlations import macro_slippage_multiplier, macro_volatility_buffer_bps
-from pydantic import BaseModel, Field
 
 
 class BuyExecution(BaseModel):
@@ -37,12 +38,12 @@ def normalize_book(order_book: dict[str, Any]) -> dict[str, list[list[float]]]:
     return {"bids": bids, "asks": asks}
 
 
-def top_ask(order_book: dict[str, Any]) -> Optional[float]:
+def top_ask(order_book: dict[str, Any]) -> float | None:
     asks = normalize_book(order_book)["asks"]
     return asks[0][0] if asks else None
 
 
-def top_bid(order_book: dict[str, Any]) -> Optional[float]:
+def top_bid(order_book: dict[str, Any]) -> float | None:
     bids = normalize_book(order_book)["bids"]
     return bids[0][0] if bids else None
 
@@ -90,7 +91,7 @@ def funding_open_leg_fees_usdt(notional: float, exchange_id: str = "binance") ->
     return trading_fees_usdt(exchange_id, notional, market="perpetual") * 2
 
 
-def walk_asks(order_book: dict[str, Any], quote_amount: float) -> Optional[BuyExecution]:
+def walk_asks(order_book: dict[str, Any], quote_amount: float) -> BuyExecution | None:
     if quote_amount <= 0:
         return None
     book = normalize_book(order_book)
@@ -134,7 +135,7 @@ def walk_asks(order_book: dict[str, Any], quote_amount: float) -> Optional[BuyEx
     )
 
 
-def walk_bids(order_book: dict[str, Any], base_amount: float) -> Optional[SellExecution]:
+def walk_bids(order_book: dict[str, Any], base_amount: float) -> SellExecution | None:
     if base_amount <= 0:
         return None
     book = normalize_book(order_book)

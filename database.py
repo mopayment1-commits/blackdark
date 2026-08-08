@@ -13,9 +13,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+from collections.abc import AsyncIterator, Sequence
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta, timezone
-from typing import Any, AsyncIterator, Optional, Sequence
+from datetime import UTC, datetime, timedelta
+from typing import Any
 
 import aiosqlite
 
@@ -380,7 +381,7 @@ CREATE INDEX IF NOT EXISTS idx_behavior_user_ts
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _configure_connection(db: aiosqlite.Connection) -> None:
@@ -916,14 +917,14 @@ async def _apply_migrations(db: Any) -> None:
 
 def compaction_cutoff_iso(hours: int | None = None) -> str:
     age_hours = hours if hours is not None else config.COMPACTION_MIN_AGE_HOURS
-    return (datetime.now(timezone.utc) - timedelta(hours=age_hours)).isoformat()
+    return (datetime.now(UTC) - timedelta(hours=age_hours)).isoformat()
 
 
 def _parse_row_timestamp(value: Any) -> datetime | None:
     if value is None:
         return None
     try:
-        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        return datetime.fromisoformat(str(value))
     except ValueError:
         return None
 
@@ -1067,9 +1068,9 @@ async def insert_pricing_log(
     exchange: str,
     symbol: str,
     price: float,
-    volume: Optional[float] = None,
-    opportunity_score: Optional[float] = None,
-    timestamp: Optional[str] = None,
+    volume: float | None = None,
+    opportunity_score: float | None = None,
+    timestamp: str | None = None,
     market_type: str = "spot",
 ) -> int:
     """Insert one pricing log row and return its autoincrement id."""
@@ -1087,7 +1088,7 @@ async def insert_pricing_log(
 
 
 async def insert_pricing_logs(
-    rows: Sequence[tuple[str, str, str, float, Optional[float], Optional[float], str]],
+    rows: Sequence[tuple[str, str, str, float, float | None, float | None, str]],
 ) -> None:
     """
     Batch-insert pricing logs efficiently.
@@ -1114,7 +1115,7 @@ async def insert_order_book(
     symbol: str,
     bids: Sequence[Sequence[float]],
     asks: Sequence[Sequence[float]],
-    timestamp: Optional[str] = None,
+    timestamp: str | None = None,
     market_type: str = "spot",
 ) -> int:
     """Insert one order book snapshot and return its autoincrement id."""
@@ -1161,8 +1162,8 @@ async def insert_funding_rate(
     exchange: str,
     symbol: str,
     funding_rate: float,
-    next_funding_time: Optional[str] = None,
-    timestamp: Optional[str] = None,
+    next_funding_time: str | None = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1184,7 +1185,7 @@ def _book_storage_key(symbol: str, market_type: str) -> str:
 
 
 async def fetch_latest_order_books(
-    market_type: Optional[str] = None,
+    market_type: str | None = None,
 ) -> dict[str, dict[str, dict[str, Any]]]:
     """
     Return the most recent order book snapshot per exchange/symbol.
@@ -1280,7 +1281,7 @@ async def insert_evaluated_opportunity(
     oracle_sentence: str,
     explanation_json: str,
     confidence_percent: float,
-    timestamp: Optional[str] = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1398,17 +1399,17 @@ async def fetch_system_telemetry() -> dict[str, Any]:
 
 async def insert_institutional_flow(
     flow_type: str,
-    exchange: Optional[str] = None,
-    symbol: Optional[str] = None,
-    asset: Optional[str] = None,
-    sector: Optional[str] = None,
-    side: Optional[str] = None,
-    price: Optional[float] = None,
-    quantity: Optional[float] = None,
-    notional_usd: Optional[float] = None,
-    net_flow_usd: Optional[float] = None,
-    metadata_json: Optional[str] = None,
-    timestamp: Optional[str] = None,
+    exchange: str | None = None,
+    symbol: str | None = None,
+    asset: str | None = None,
+    sector: str | None = None,
+    side: str | None = None,
+    price: float | None = None,
+    quantity: float | None = None,
+    notional_usd: float | None = None,
+    net_flow_usd: float | None = None,
+    metadata_json: str | None = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1551,11 +1552,11 @@ async def insert_cloud_sync_log(
     s3_bucket: str,
     s3_key: str,
     status: str,
-    etag: Optional[str] = None,
-    size_bytes: Optional[int] = None,
+    etag: str | None = None,
+    size_bytes: int | None = None,
     local_deleted: bool = False,
-    error: Optional[str] = None,
-    timestamp: Optional[str] = None,
+    error: str | None = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1581,7 +1582,7 @@ async def insert_cloud_sync_log(
         return cursor.lastrowid
 
 
-async def fetch_latest_cloud_sync_log(local_path: str) -> Optional[dict[str, Any]]:
+async def fetch_latest_cloud_sync_log(local_path: str) -> dict[str, Any] | None:
     try:
         async with get_connection() as db:
             rows = await db.execute(
@@ -1608,8 +1609,8 @@ async def insert_market_sentiment_log(
     sentiment_score: float,
     compound_momentum: float,
     *,
-    sector: Optional[str] = None,
-    timestamp: Optional[str] = None,
+    sector: str | None = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1659,7 +1660,7 @@ async def fetch_sentiment_logs_for_asset(
     """Return sentiment rows for an asset within the rolling window."""
     try:
         cutoff = (
-            datetime.now(timezone.utc).timestamp() - window_seconds
+            datetime.now(UTC).timestamp() - window_seconds
         )
         async with get_connection() as db:
             rows = await db.execute(
@@ -1678,14 +1679,16 @@ async def fetch_sentiment_logs_for_asset(
         for row in result:
             item = dict(row)
             try:
-                ts = datetime.fromisoformat(str(item["timestamp"]).replace("Z", "+00:00"))
+                ts = datetime.fromisoformat(str(item["timestamp"]))
                 if ts.timestamp() >= cutoff:
                     filtered.append(item)
             except ValueError:
                 filtered.append(item)
         return filtered
     except Exception:
-        logger.exception("Unable to read sentiment logs for asset=%s", asset)
+        from log_safety import sanitize_asset
+
+        logger.exception("Unable to read sentiment logs for asset=%s", sanitize_asset(asset))
         return []
 
 
@@ -1707,12 +1710,12 @@ async def fetch_rolling_compound_sentiment_index(
     if not rows:
         return 0.0
 
-    now_ts = datetime.now(timezone.utc).timestamp()
+    now_ts = datetime.now(UTC).timestamp()
     weighted_sum = 0.0
     weight_total = 0.0
     for row in rows:
         try:
-            ts = datetime.fromisoformat(str(row["timestamp"]).replace("Z", "+00:00")).timestamp()
+            ts = datetime.fromisoformat(str(row["timestamp"])).timestamp()
             age = max(0.0, now_ts - ts)
             weight = max(0.05, 1.0 - (age / max(window_seconds, 1)))
         except ValueError:
@@ -1748,7 +1751,7 @@ async def insert_macro_market_log(
     macro_regime: str,
     volatility_buffer: float,
     *,
-    timestamp: Optional[str] = None,
+    timestamp: str | None = None,
 ) -> int:
     ts = timestamp or _utcnow_iso()
     async with get_connection() as db:
@@ -1763,7 +1766,7 @@ async def insert_macro_market_log(
         return cursor.lastrowid
 
 
-async def fetch_latest_macro_market_log() -> Optional[dict[str, Any]]:
+async def fetch_latest_macro_market_log() -> dict[str, Any] | None:
     try:
         async with get_connection() as db:
             rows = await db.execute(
@@ -1831,7 +1834,7 @@ async def insert_pro_trial(email: str, days: int | None = None) -> dict[str, Any
 
     await init_db()
     trial_days = days if days is not None else config.PRO_TRIAL_DAYS
-    ends_at = (datetime.now(timezone.utc) + timedelta(days=trial_days)).isoformat()
+    ends_at = (datetime.now(UTC) + timedelta(days=trial_days)).isoformat()
     sub_id = await insert_subscription(
         email,
         "pro",
@@ -1846,11 +1849,11 @@ async def extend_pro_trial(email: str, extra_days: int) -> dict[str, Any]:
     """Extend an active trial or start a new one."""
     email = email.strip().lower()
     sub = await fetch_active_subscription_for_email(email)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     if sub and sub.get("status") == "trial" and sub.get("trial_ends_at"):
         try:
-            current_end = datetime.fromisoformat(str(sub["trial_ends_at"]).replace("Z", "+00:00"))
-            base = current_end if current_end > now else now
+            current_end = datetime.fromisoformat(str(sub["trial_ends_at"]))
+            base = max(now, current_end)
         except ValueError:
             base = now
     else:
@@ -2186,11 +2189,9 @@ async def fetch_oracle_audit_stats(
         live_resolved = resolved if not include_synthetic else max(0, resolved - synth_resolved)
         live_avg = avg_accuracy if not include_synthetic else 0.0
         if include_synthetic and live_resolved > 0:
+            from oracle_integrity import is_synthetic_prediction
+
             live_rows = [row for row in recent if not is_synthetic_prediction(row)]
-            live_correct = sum(
-                1 for row in live_rows
-                if str(row.get("label") or row.get("outcome") or "") == "correct"
-            )
             live_resolved_recent = sum(1 for row in live_rows if row.get("resolved"))
             if live_resolved_recent:
                 live_avg = round(
@@ -2732,7 +2733,7 @@ async def insert_behavior_event(
 
 
 async def fetch_behavior_event_stats(*, days: int = 30) -> dict[str, Any]:
-    since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+    since = (datetime.now(UTC) - timedelta(days=days)).isoformat()
     empty = {
         "window_days": days,
         "total_events": 0,
@@ -3075,7 +3076,7 @@ async def upsert_telegram_free_subscriber(
     username: str | None = None,
     enabled: bool = True,
 ) -> dict[str, Any]:
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
     async with get_connection() as db:
         await db.execute(
             """
@@ -3200,7 +3201,7 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
     try:
         import config
 
-        now_dt = datetime.now(timezone.utc)
+        now_dt = datetime.now(UTC)
         now = now_dt.isoformat()
         grace_days = int(getattr(config, "RETENTION_PAST_DUE_GRACE_DAYS", 7))
         async with get_connection() as db:
@@ -3232,7 +3233,7 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
             return None
         if row.get("status") == "past_due" and row.get("past_due_at"):
             try:
-                past_due_at = datetime.fromisoformat(str(row["past_due_at"]).replace("Z", "+00:00"))
+                past_due_at = datetime.fromisoformat(str(row["past_due_at"]))
                 if now_dt > past_due_at + timedelta(days=grace_days):
                     await expire_subscription(int(row["id"]))
                     return None
@@ -3673,7 +3674,7 @@ async def create_oauth_user(email: str, name: str, provider: str, subject: str) 
 
 
 async def fetch_oracle_usage_today(email: str) -> int:
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
     try:
         async with get_connection() as db:
             rows = await db.execute(
@@ -3691,7 +3692,7 @@ async def fetch_oracle_usage_today(email: str) -> int:
 
 async def fetch_oracle_usage_month(email: str) -> int:
     """Sum Oracle calls over the rolling last 30 days."""
-    since = (datetime.now(timezone.utc) - timedelta(days=30)).strftime("%Y-%m-%d")
+    since = (datetime.now(UTC) - timedelta(days=30)).strftime("%Y-%m-%d")
     try:
         async with get_connection() as db:
             rows = await db.execute(
@@ -3710,7 +3711,7 @@ async def fetch_oracle_usage_month(email: str) -> int:
 
 async def count_risk_oracle_predictions_month() -> int:
     """Platform-wide elevated-risk oracle outputs in the last 30 days."""
-    since = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    since = (datetime.now(UTC) - timedelta(days=30)).isoformat()
     risk_labels = ("Do Not Touch", "CAUTION", "ELEVATED_RISK", "AVOID")
     placeholders = ",".join("?" for _ in risk_labels)
     try:
@@ -3742,7 +3743,7 @@ async def record_retention_grant(email: str, grant_type: str, days: int) -> None
 
 
 async def retention_grant_recent(email: str, grant_type: str, *, within_days: int = 30) -> bool:
-    since = (datetime.now(timezone.utc) - timedelta(days=within_days)).isoformat()
+    since = (datetime.now(UTC) - timedelta(days=within_days)).isoformat()
     try:
         async with get_connection() as db:
             rows = await db.execute(
@@ -3759,7 +3760,7 @@ async def retention_grant_recent(email: str, grant_type: str, *, within_days: in
 
 
 async def increment_oracle_usage(email: str) -> int:
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
     async with get_connection() as db:
         await db.execute(
             """
@@ -3864,7 +3865,7 @@ async def fetch_latest_ingestion_by_category(
     max_age_seconds: int = 600,
     limit: int = 50,
 ) -> list[dict[str, Any]]:
-    cutoff = (datetime.now(timezone.utc) - timedelta(seconds=max_age_seconds)).isoformat()
+    cutoff = (datetime.now(UTC) - timedelta(seconds=max_age_seconds)).isoformat()
     async with get_connection() as db:
         rows = await (
             await db.execute(
@@ -4001,7 +4002,7 @@ async def insert_forecast_logs(
 
 
 async def fetch_unresolved_forecast_logs(limit: int = 100) -> list[dict[str, Any]]:
-    cutoff = (datetime.now(timezone.utc) - timedelta(hours=23)).isoformat()
+    cutoff = (datetime.now(UTC) - timedelta(hours=23)).isoformat()
     async with get_connection() as db:
         rows = await (
             await db.execute(

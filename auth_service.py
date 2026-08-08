@@ -9,7 +9,7 @@ import hmac
 import logging
 import os
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 
 logger = logging.getLogger("BLACKDARK.Auth")
@@ -84,7 +84,7 @@ PBKDF2_ITERATIONS = 260_000
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _utcnow_iso() -> str:
@@ -314,9 +314,8 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
 
 
 async def logout_user(token: str) -> None:
-    from security_auth import hash_session_token, is_production_env
-
     from database import delete_user_session
+    from security_auth import hash_session_token, is_production_env
 
     await delete_user_session(hash_session_token(token))
     # Legacy plaintext session rows — only wipe when explicitly allowed (never prod).
@@ -332,9 +331,8 @@ async def logout_user(token: str) -> None:
 async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
     if not token:
         return None
-    from security_auth import hash_session_token, is_production_env
-
     from database import fetch_user_by_session
+    from security_auth import hash_session_token, is_production_env
 
     plain = token.strip()
     row = await fetch_user_by_session(hash_session_token(plain))
@@ -372,7 +370,7 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
 
 async def check_oracle_quota(user: dict[str, Any] | None) -> tuple[bool, str]:
     """Return (allowed, message). Anonymous users share a generous free pool."""
-    from database import increment_oracle_usage, fetch_oracle_usage_today
+    from database import fetch_oracle_usage_today, increment_oracle_usage
 
     tier: Tier = (user or {}).get("tier") or "free"
     email = (user or {}).get("email") or "_anonymous_"

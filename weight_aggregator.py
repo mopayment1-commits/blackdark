@@ -8,7 +8,7 @@ a unified weight profile that feeds the Opportunity Score engine.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from macro_correlations import macro_score_weight
@@ -62,7 +62,7 @@ _REGIME_DIMENSIONS: dict[str, dict[str, float]] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize(weights: dict[str, float]) -> dict[str, float]:

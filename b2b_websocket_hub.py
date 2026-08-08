@@ -8,11 +8,10 @@ Low-latency push channel for hedge funds / prop desks:
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -23,7 +22,7 @@ _dedupe_cache: dict[str, float] = {}
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _cooldown_sec() -> float:
@@ -68,10 +67,7 @@ class B2BWebSocketHub:
         self._running = False
         if self._heartbeat_task is not None:
             self._heartbeat_task.cancel()
-            try:
-                await self._heartbeat_task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(self._heartbeat_task, return_exceptions=True)
             self._heartbeat_task = None
         async with self._lock:
             clients = list(self._clients)
@@ -115,11 +111,8 @@ class B2BWebSocketHub:
         logger.info("B2B WS client disconnected | total=%d", len(self._clients))
 
     async def _send(self, client: B2BClient, payload: dict[str, Any]) -> None:
-        try:
-            await client.websocket.send_json(payload)
-            client.events_sent += 1
-        except Exception:
-            raise
+        await client.websocket.send_json(payload)
+        client.events_sent += 1
 
     async def _send_snapshot(self, client: B2BClient) -> None:
         from whale_tracker import InstitutionalDataExporter

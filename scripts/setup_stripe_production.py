@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -78,7 +77,7 @@ def main() -> int:
     print("  4. Copy signing secret -> STRIPE_WEBHOOK_SECRET")
     print(f"  5. Test checkout: {PROD_URL}/create-checkout-session?tier=pro")
 
-    if secret.startswith("sk_live_") or secret.startswith("sk_test_"):
+    if secret.startswith(("sk_live_", "sk_test_")):
         print("\n--- Validating secret key ---")
         acct = _stripe_get("/account", secret)
         if acct:

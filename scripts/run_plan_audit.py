@@ -31,7 +31,7 @@ def main() -> int:
     out.parent.mkdir(exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nSaved: {out}")
-    print(f"UI: http://127.0.0.1:8080/plan\n")
+    print("UI: http://127.0.0.1:8080/plan\n")
     return 0
 
 

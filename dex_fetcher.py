@@ -8,8 +8,9 @@ Uses venue-native public APIs where available, DeFiLlama as fallback.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any, Literal
 
 import aiohttp
 
@@ -79,7 +80,7 @@ ASSET_COINGECKO: dict[str, str] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _synthetic_book(mid: float) -> tuple[list[list[float]], list[list[float]]]:

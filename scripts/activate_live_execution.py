@@ -33,7 +33,7 @@ async def main() -> int:
     parser.add_argument("--no-verify", action="store_true")
     args = parser.parse_args()
 
-    from execution_keys import KEYS_FILE, activate_live_execution, ensure_keys_file, execution_keys_status
+    from execution_keys import KEYS_FILE, activate_live_execution, ensure_keys_file
 
     ensure_keys_file()
     print("=" * 58)

@@ -275,8 +275,8 @@
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
             <div class="toolbar">
-                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="BTC">
+                <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
                 <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
                 <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
             </div>
@@ -288,8 +288,8 @@
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
             <div class="toolbar">
-                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthAsset">
+                <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
                 <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
                 <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
             </div>
@@ -300,8 +300,8 @@
             <h2>MEV / Sandwich Report</h2>
             <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
             <div class="toolbar">
-                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
-                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
+                <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevAsset">
+                <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
                 <button class="btn secondary" onclick="loadMevReport()">Build report</button>
                 <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
             </div>

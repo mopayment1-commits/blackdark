@@ -42,8 +42,14 @@ async def main() -> int:
 
     scan = await scan_cex_dex_opportunities(quote_usd=args.quote)
     print(f"\n📡 Scan: {scan['count']} opportunities · {scan['profitable_count']} profitable")
-    for o in (scan.get("opportunities") or [])[:5]:
-        print(f"   {o['asset']}: {o['buy_venue']}→{o['sell_venue']} · {o['net_spread_bps']} bps · ${o.get('estimated_profit_usd', 0)}")
+    opps = list(scan.get("opportunities") or [])[:5]
+    for o in opps:
+        asset = o.get("asset", "?")
+        buy = o.get("buy_venue", "?")
+        sell = o.get("sell_venue", "?")
+        bps = o.get("net_spread_bps", 0)
+        profit = o.get("estimated_profit_usd", 0)
+        print(f"   {asset}: {buy}→{sell} · {bps} bps · ${profit}")
 
     if args.execute:
         print("\n⏳ Dry-run execute top…")

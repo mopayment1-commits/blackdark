@@ -5,10 +5,12 @@ from __future__ import annotations
 import base64
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
+
+from path_safety import assert_url_path_safe, safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.FreeIntegrations")
 
@@ -17,7 +19,7 @@ _BLOCKPOUR_BASE = "https://services.blockpour.com/api"
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _get_json(
@@ -29,8 +31,9 @@ async def _get_json(
     merged = {**_HEADERS, **(headers or {})}
     timeout = aiohttp.ClientTimeout(total=15)
     try:
+        safe_url = assert_url_path_safe(url)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url, headers=merged, params=params) as resp:
+            async with session.get(safe_url, headers=merged, params=params) as resp:
                 if resp.status != 200:
                     return None
                 return await resp.json()
@@ -40,7 +43,7 @@ async def _get_json(
 
 
 async def socialtickers_asset(symbol: str) -> dict[str, Any] | None:
-    sym = symbol.upper().replace("USDT", "")
+    sym = safe_url_segment(symbol.upper().replace("USDT", ""))
     data = await _get_json(f"https://socialtickers.com/api/v1/asset/{sym}")
     if not isinstance(data, dict):
         return None
@@ -68,13 +71,13 @@ async def socialtickers_leaderboard(*, limit: int = 20) -> list[dict[str, Any]]:
 
 async def lunarcrush_social(symbol: str = "BTC") -> dict[str, Any]:
     """LunarCrush optional key + socialtickers free fallback."""
-    sym = symbol.upper().replace("USDT", "")
+    sym = safe_url_segment(symbol.upper().replace("USDT", ""))
     key = os.getenv("LUNARCRUSH_API_KEY", "").strip()
     lc_data = None
     lc_source = None
     if key:
         lc_data = await _get_json(
-            f"https://lunarcrush.com/api4/public/coins/{sym.lower()}/v1",
+            f"https://lunarcrush.com/api4/public/coins/{safe_url_segment(sym.lower())}/v1",
             headers={"Authorization": f"Bearer {key}"},
         )
         lc_source = "lunarcrush_api4"
@@ -156,29 +159,33 @@ async def coinmarketcal_events(*, limit: int = 20) -> dict[str, Any]:
 
 
 async def tracely_address(address: str) -> dict[str, Any] | None:
-    data = await _get_json(f"https://tracely.live/api/address/{address}")
+    addr = safe_url_segment(address)
+    data = await _get_json(f"https://tracely.live/api/address/{addr}")
     if not isinstance(data, dict):
         return None
     return data
 
 
 async def tracely_graph(address: str) -> dict[str, Any] | None:
-    data = await _get_json(f"https://tracely.live/api/graph/{address}")
+    addr = safe_url_segment(address)
+    data = await _get_json(f"https://tracely.live/api/graph/{addr}")
     if not isinstance(data, dict):
         return None
     return data
 
 
 async def tracely_portfolio(address: str) -> dict[str, Any] | None:
-    data = await _get_json(f"https://tracely.live/api/portfolio/{address}")
+    addr = safe_url_segment(address)
+    data = await _get_json(f"https://tracely.live/api/portfolio/{addr}")
     if not isinstance(data, dict):
         return None
     return data
 
 
 async def eth_labels(address: str, *, chain_id: int = 1) -> list[dict[str, Any]]:
+    addr = safe_url_segment(address)
     data = await _get_json(
-        f"https://eth-labels.com/labels/{address}",
+        f"https://eth-labels.com/labels/{addr}",
         params={"chainId": chain_id},
     )
     if isinstance(data, list):
@@ -191,8 +198,9 @@ async def zerion_wallet(address: str) -> dict[str, Any] | None:
     if not key:
         return None
     token = base64.b64encode(f"{key}:".encode()).decode()
+    addr = safe_url_segment(address)
     data = await _get_json(
-        f"https://api.zerion.io/v1/wallets/{address}/portfolio/",
+        f"https://api.zerion.io/v1/wallets/{addr}/portfolio/",
         headers={"Authorization": f"Basic {token}"},
     )
     if not isinstance(data, dict):
@@ -367,13 +375,13 @@ async def holder_analytics(asset: str = "BTC") -> dict[str, Any]:
     """IntoTheBlock replacement — ITB API sunset Aug 2025; use CoinGecko + Binance free."""
     from bd_platform.free_market_data import binance_futures_snapshot
 
-    sym = asset.upper().replace("USDT", "")
+    sym = safe_url_segment(asset.upper().replace("USDT", ""))
     coin_id_map = {
         "BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana", "BNB": "binancecoin",
         "XRP": "ripple", "ADA": "cardano", "AVAX": "avalanche-2", "DOT": "polkadot",
         "LINK": "chainlink", "DOGE": "dogecoin",
     }
-    coin_id = coin_id_map.get(sym, sym.lower())
+    coin_id = safe_url_segment(coin_id_map.get(sym, sym.lower()))
     cg = await _get_json(f"https://api.coingecko.com/api/v3/coins/{coin_id}")
     futures = await binance_futures_snapshot(sym)
 

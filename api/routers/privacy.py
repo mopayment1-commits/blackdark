@@ -38,5 +38,5 @@ async def dsr_erase(
     email = str(user.get("email") or "")
     if not email:
         raise HTTPException(status_code=400, detail="No email on account")
-    confirm = body.get("confirm") in {True, "true", 1, "1"}
+    confirm = body.get("confirm") in {True, "true", "1"}
     return await erase_user_data(email, confirmed=confirm)

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -14,7 +14,7 @@ logger = logging.getLogger("BLACKDARK.TokenUnlocks")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _load_known() -> list[dict[str, Any]]:
@@ -39,11 +39,10 @@ async def _coingecko_supply_pressure(limit: int = 20) -> list[dict[str, Any]]:
     timeout = aiohttp.ClientTimeout(total=15)
     rows: list[dict[str, Any]] = []
     try:
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url, params=params) as resp:
-                if resp.status != 200:
-                    return rows
-                data = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+            if resp.status != 200:
+                return rows
+            data = await resp.json()
         for coin in data:
             mcap = float(coin.get("market_cap") or 0)
             circ = float(coin.get("circulating_supply") or 0)

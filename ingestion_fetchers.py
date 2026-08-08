@@ -10,7 +10,8 @@ import asyncio
 import logging
 import os
 import xml.etree.ElementTree as ET
-from typing import Any, Callable, Awaitable
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 import aiohttp
 
@@ -19,6 +20,14 @@ from data_lake import store_snapshot
 from data_sources_registry import Category, DataSourceSpec, sources_by_category
 from database import upsert_ingestion_health
 from exchange_adapters import TRACKED_PRICE_ASSETS, gateio_currency_pairs, kraken_ticker_pairs, native_symbol
+
+
+def _take(items, n: int):
+    """Safe head slice (never IndexError)."""
+    if not items:
+        return []
+    return list(items)[: max(0, int(n))]
+
 
 logger = logging.getLogger("BLACKDARK.IngestionFetchers")
 
@@ -32,9 +41,7 @@ def _rate_limit_ok(source_id: str, min_interval: int) -> bool:
     import time
 
     last = _last_fetch_at.get(source_id, 0.0)
-    if time.time() - last < max(min_interval, 1):
-        return False
-    return True
+    return not time.time() - last < max(min_interval, 1)
 
 
 def _mark_fetched(source_id: str) -> None:
@@ -163,7 +170,7 @@ async def _h_kucoin(session: aiohttp.ClientSession, spec: DataSourceSpec) -> Fet
 async def _h_bybit_spot(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"category": "spot"})
     rows = (data.get("result") or {}).get("list") or []
-    return {"tickers": rows[:5]}
+    return {"tickers": _take(rows, 5)}
 
 
 async def _h_bybit_linear(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -175,7 +182,7 @@ async def _h_bybit_linear(session: aiohttp.ClientSession, spec: DataSourceSpec) 
 
 async def _h_okx(session: aiohttp.ClientSession, spec: DataSourceSpec, inst_type: str) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"instType": inst_type})
-    rows = (data.get("data") or [])[:5]
+    rows = _take(data.get("data") or [], 5)
     return {"instType": inst_type, "tickers": rows}
 
 
@@ -298,7 +305,7 @@ async def _h_defillama_yields(session: aiohttp.ClientSession, spec: DataSourceSp
 
 async def _h_dexscreener(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"q": "BTC"})
-    return {"pairs": (data.get("pairs") or [])[:5]}
+    return {"pairs": _take(data.get("pairs") or [], 5)}
 
 
 async def _h_geckoterminal(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -345,7 +352,7 @@ async def _h_coingecko_trending(session: aiohttp.ClientSession, spec: DataSource
 
 async def _h_stocktwits(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url)
-    messages = (data.get("messages") or [])[:8]
+    messages = _take(data.get("messages") or [], 8)
     return {"messages": [m.get("body", "")[:160] for m in messages]}
 
 
@@ -413,7 +420,7 @@ async def _h_fred(session: aiohttp.ClientSession, spec: DataSourceSpec) -> Fetch
             "sort_order": "desc",
         },
     )
-    return {"observations": (data.get("observations") or [])[:2]}
+    return {"observations": _take(data.get("observations") or [], 2)}
 
 
 async def _h_open_exchange_rates(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -455,8 +462,8 @@ async def _h_internal_cvvd(session: aiohttp.ClientSession, spec: DataSourceSpec)
     tracker = WhaleTracker()
     cycle = await tracker.run_cycle()
     return {
-        "whale_alerts": (cycle.get("whale_alerts") or [])[:10],
-        "sector_flows": (cycle.get("sector_flows") or [])[:5],
+        "whale_alerts": _take(cycle.get("whale_alerts") or [], 10),
+        "sector_flows": _take(cycle.get("sector_flows") or [], 5),
     }
 
 
@@ -555,10 +562,14 @@ async def ingest_category(session: aiohttp.ClientSession, category: Category) ->
         if spec.fetch_kind == "websocket":
             skip += 1
             continue
-        if spec.env_key and not os.getenv(spec.env_key) and spec.source_id not in HANDLERS:
-            if spec.fetch_kind != "rss":
-                skip += 1
-                continue
+        if (
+            spec.env_key
+            and not os.getenv(spec.env_key)
+            and spec.source_id not in HANDLERS
+            and spec.fetch_kind != "rss"
+        ):
+            skip += 1
+            continue
         success = await fetch_single_source(session, spec)
         if success:
             ok += 1

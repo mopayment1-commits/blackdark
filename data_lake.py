@@ -10,11 +10,11 @@ Oracle and AI modules read from here — never direct API at request time.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
-from data_sources_registry import Category, registry_summary, sources_by_category
+from data_sources_registry import Category, registry_summary
 from database import (
     fetch_ingestion_health_summary,
     fetch_latest_ingestion_by_category,
@@ -121,7 +121,7 @@ async def build_lake_context_for_oracle(asset: str = "BTC") -> dict[str, Any]:
         "enabled": bool(bundles),
         "architecture": "scheduler → data_lake (SQLite) → oracle",
         "asset": asset.upper(),
-        "timestamp": latest_ts or datetime.now(timezone.utc).isoformat(),
+        "timestamp": latest_ts or datetime.now(UTC).isoformat(),
         "registry": registry_summary(),
         "lake_categories_loaded": list(bundles.keys()),
         "sentiment": {

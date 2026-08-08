@@ -22,7 +22,8 @@
   --bd-text: #f4f4f5;
   --bd-text-secondary: #e4e4e7;
   --bd-muted: #a1a1aa;
-  --bd-muted-dim: #71717a;
+  /* Keep dim at AA-safe floor on dark surfaces (was #71717a ~3.9:1). */
+  --bd-muted-dim: #a1a1aa;
   --bd-accent: #22d3ee;
   --bd-accent-deep: #06b6d4;
   --bd-accent-glow: rgba(34, 211, 238, 0.14);

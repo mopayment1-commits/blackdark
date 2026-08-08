@@ -12,8 +12,8 @@ import asyncio
 import logging
 import signal
 import time
-from datetime import datetime, timezone
-from typing import Any, Literal, Optional
+from datetime import UTC, datetime
+from typing import Any, Literal
 
 import aiohttp
 from pydantic import BaseModel, Field, field_validator
@@ -158,7 +158,7 @@ class TickerSnapshot(BaseModel):
     exchange: str
     symbol: str
     price: float = Field(gt=0)
-    volume: Optional[float] = Field(default=None, ge=0)
+    volume: float | None = Field(default=None, ge=0)
     market_type: MarketType
 
 
@@ -181,7 +181,7 @@ class FundingSnapshot(BaseModel):
     exchange: str
     symbol: str
     funding_rate: float
-    next_funding_time: Optional[str] = None
+    next_funding_time: str | None = None
 
 
 class CycleStats(BaseModel):
@@ -191,7 +191,7 @@ class CycleStats(BaseModel):
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _parse_levels(raw_levels: list[Any]) -> list[list[float]]:
@@ -237,7 +237,7 @@ def _market_type_for_symbol(
 async def _fetch_json(
     session: aiohttp.ClientSession,
     url: str,
-    params: Optional[dict[str, Any]] = None,
+    params: dict[str, Any] | None = None,
 ) -> Any:
     async with session.get(url, params=params) as response:
         response.raise_for_status()
@@ -932,7 +932,7 @@ class Aggregator:
 
     def __init__(self) -> None:
         self._shutdown = asyncio.Event()
-        self._session: Optional[aiohttp.ClientSession] = None
+        self._session: aiohttp.ClientSession | None = None
         self._operational_manifest: dict[str, Any] | None = None
 
     async def _initialize_operational_inventory(self) -> None:
@@ -1076,7 +1076,7 @@ class Aggregator:
             if sleep_for > 0 and not self._shutdown.is_set():
                 try:
                     await asyncio.wait_for(self._shutdown.wait(), timeout=sleep_for)
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     pass
 
         logger.info("Aggregator shutdown complete.")

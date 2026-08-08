@@ -8,6 +8,7 @@ Cross-checks Funding / OI context when available.
 
 from __future__ import annotations
 
+from datetime import UTC
 from typing import Any
 
 
@@ -144,7 +145,7 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
 
 async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
     """Whale stories with Signal vs Noise classification attached."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from whale_tracker import (
         get_latest_institutional_context,

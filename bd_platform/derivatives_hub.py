@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -13,7 +13,7 @@ logger = logging.getLogger("BLACKDARK.DerivativesHub")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _coinglass_get(path: str, params: dict | None = None) -> dict[str, Any]:

@@ -28,9 +28,8 @@ async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
     payload = {"chat_id": target, "text": text, "parse_mode": "HTML"}
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(url, json=payload) as resp:
-                return resp.status == 200
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(url, json=payload) as resp:
+            return resp.status == 200
     except (aiohttp.ClientError, TypeError, ValueError):
         logger.exception("Telegram delivery failed")
         return False
@@ -87,7 +86,7 @@ async def dispatch_alert(
         channels = ["telegram", "email", "whatsapp", "in_app"]
 
     # Always keep an in-app record so the product works without Telegram/SMTP
-    if "in_app" in channels or True:
+    if True:
         ina = push_in_app_alert(title, body, payload=payload, level="signal")
         results["channels"]["in_app"] = True
         results["in_app_id"] = ina.get("id")

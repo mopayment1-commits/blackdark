@@ -1,20 +1,32 @@
-﻿from fastapi import FastAPI, Request, HTTPException, Header, Cookie, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response, StreamingResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
-from contextlib import asynccontextmanager
-import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
-import aiohttp
-import asyncio
-import hmac
-import json
+﻿import asyncio
 import logging
 import os
-import stripe
-from datetime import datetime, timezone
+from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+
+import aiohttp
+import stripe
 from dotenv import load_dotenv
+from fastapi import (
+    BackgroundTasks,
+    Body,
+    Cookie,
+    Depends,
+    FastAPI,
+    Header,
+    HTTPException,
+    Query,
+    Request,
+    WebSocket,
+    WebSocketDisconnect,
+)
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response, StreamingResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from starlette.middleware.gzip import GZipMiddleware
+
+import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
 
 _ROOT = Path(__file__).resolve().parent
 load_dotenv(_ROOT / ".env")
@@ -22,15 +34,18 @@ load_dotenv(_ROOT / ".env")
 load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
+from security_auth import (
+    is_admin_user,
+    require_admin,
+    require_admin_dev,
+    require_pro_or_above,
+    require_whale,
+)
 from security_models import (
-    AuthLoginBody,
-    AuthRegisterBody,
     ExecutionAutoBody,
     ExecutionOrderBody,
     RiskFreezeBody,
-    UserApiKeyBody,
 )
-from security_auth import is_admin_user, require_admin, require_admin_dev, require_authenticated, require_pro_or_above, require_whale
 
 logger = logging.getLogger("BLACKDARK.Dashboard")
 
@@ -71,16 +86,17 @@ def _score_prediction_accuracy(
 
 
 async def _resolve_mature_oracle_predictions() -> int:
-    from database import fetch_unresolved_oracle_predictions, resolve_oracle_prediction
     from datetime import timedelta
+
+    from database import fetch_unresolved_oracle_predictions, resolve_oracle_prediction
 
     unresolved = await fetch_unresolved_oracle_predictions(limit=200)
     resolved_count = 0
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for pred in unresolved:
         raw_ts = str(pred.get("timestamp") or "")
         try:
-            ts = datetime.fromisoformat(raw_ts.replace("Z", "+00:00"))
+            ts = datetime.fromisoformat(raw_ts)
         except ValueError:
             continue
         if now - ts < timedelta(hours=24):
@@ -180,7 +196,7 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
 
     btc_drop_pct = 15.0
     estimated_loss = total_value * weighted_beta * (btc_drop_pct / 100.0)
-    risk_score = min(10, max(1, int(round(weighted_beta * 10))))
+    risk_score = min(10, max(1, round(weighted_beta * 10)))
     if risk_score >= 8:
         risk_level = "HIGH"
     elif risk_score >= 5:
@@ -282,7 +298,7 @@ async def lifespan(app: FastAPI):
             logger.exception("Sentry init failed")
 
         try:
-            from production_guard import enforce_production_guard, log_production_guard, is_production
+            from production_guard import enforce_production_guard, is_production, log_production_guard
 
             if is_production():
                 # Fail closed in production — do not swallow
@@ -335,10 +351,7 @@ async def lifespan(app: FastAPI):
     yield
 
     boot_task.cancel()
-    try:
-        await boot_task
-    except asyncio.CancelledError:
-        pass
+    await asyncio.gather(boot_task, return_exceptions=True)
 
     _ms_ctx = getattr(app.state, "ms_ctx", None)
     if _ms_ctx is not None:
@@ -371,6 +384,27 @@ app = FastAPI(
     openapi_url="/openapi.json",
 )
 
+# Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
+app.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
+
+
+def _public_base_url(request: Request | None = None) -> str:
+    """Absolute public origin for robots/sitemap (never trust arbitrary Host alone)."""
+    from urllib.parse import urlparse
+
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    if request is None:
+        return "https://blackdark.io"
+    parsed = urlparse(str(request.base_url))
+    host = (parsed.hostname or "localhost").lower()
+    if host not in {"localhost", "127.0.0.1", "::1"} and not host.endswith(".localhost"):
+        host = "localhost"
+    scheme = "https" if parsed.scheme == "https" else "http"
+    netloc = host if not parsed.port else f"{host}:{parsed.port}"
+    return f"{scheme}://{netloc}"
+
 
 # CORS allowlist (never '*' with credentials) — added before route middleware stack.
 try:
@@ -398,6 +432,15 @@ async def utf8_response_headers(request: Request, call_next):
             response.headers["content-type"] = "application/json; charset=utf-8"
         elif "text/html" in ct:
             response.headers["content-type"] = "text/html; charset=utf-8"
+    path = request.url.path or ""
+    if (
+        path.startswith("/static/")
+        and response.status_code == 200
+        and path.endswith((".woff2", ".css", ".js", ".png", ".webp", ".svg"))
+    ):
+        response.headers.setdefault(
+            "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400"
+        )
     return response
 
 
@@ -558,7 +601,6 @@ def require_feature(feature: str):
 # --- market / oracle helpers: market_context.py (shared by chat, voice, SSE) ---
 from market_context import (
     build_full_oracle_response as _build_full_oracle_response,
-    compute_ema as _compute_ema,
     compute_rsi as _compute_rsi,
     ema_position_label as _ema_position_label,
     fetch_binance_klines as _fetch_binance_klines,
@@ -571,7 +613,6 @@ from market_context import (
     liquidity_label as _liquidity_label,
     macd_trend_label as _macd_trend_label,
     normalize_oracle_symbol as _normalize_oracle_symbol,
-    normalize_whale_alert_row as _normalize_whale_alert_row,
     oracle_action as _oracle_action,
     oracle_confidence as _oracle_confidence,
     oracle_sentiment as _oracle_sentiment,
@@ -581,7 +622,6 @@ from market_context import (
     trend_direction as _trend_direction,
     whale_alerts_for_asset as _whale_alerts_for_asset,
 )
-
 
 
 def _compound_to_score(compound: float) -> int:
@@ -607,8 +647,8 @@ async def _build_opportunity_explanation(
 ) -> dict:
     """Multi-factor explanation from live technical, CVVD whale, sentiment, and on-chain feeds."""
     from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
-    from sentiment_engine import build_sentiment_context_safe
     from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
+    from sentiment_engine import build_sentiment_context_safe
 
     if pair:
         resolved_pair = pair
@@ -635,7 +675,7 @@ async def _build_opportunity_explanation(
         top = asset_alerts[0]
         meta = _parse_alert_metadata(top)
         pattern = str(meta.get("pattern") or "manipulation").replace("_", " ")
-        whale_flow = f"CVVD {pattern} — {str(top.get('side') or 'mixed')} — ${float(top.get('notional_usd') or 0):,.0f}"
+        whale_flow = f"CVVD {pattern} — {top.get('side') or 'mixed'!s} — ${float(top.get('notional_usd') or 0):,.0f}"
         spike = float(meta.get("volume_spike_ratio") or 0)
         volume_anomaly = (
             f"Cross-venue spike {spike:.1f}x vs baseline"
@@ -672,7 +712,7 @@ async def _build_opportunity_explanation(
 
     hub_ctx = await build_hub_context_safe(asset)
     hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub_ctx)
-    hub_score_adj = int(round(hub_delta))
+    hub_score_adj = round(hub_delta)
 
     support = round(price * 0.97, -2)
     resistance = round(price * 1.03, -2)
@@ -778,7 +818,7 @@ async def _build_opportunity_explanation(
             "volatility": volatility,
             "volatility_warning": vol_warning,
         },
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 # ========== LANDING PAGE (ROOT) ==========
@@ -956,25 +996,38 @@ async def landing_page(request: Request):
     return templates.TemplateResponse(request, "landing.html", _footer_ctx())
 
 
+@app.get("/favicon.ico")
+async def favicon():
+    """Browsers probe /favicon.ico — serve the PWA icon to avoid console 404 noise."""
+    icon = STATIC_DIR / "icon-192.png"
+    if not icon.is_file():
+        raise HTTPException(status_code=404, detail="favicon missing")
+    return FileResponse(icon, media_type="image/png")
+
+
 @app.get("/robots.txt")
-async def robots_txt():
+async def robots_txt(request: Request):
     from fastapi.responses import PlainTextResponse
 
+    base = _public_base_url(request)
     body = (
         "User-agent: *\n"
         "Allow: /\n"
         "Disallow: /admin/\n"
         "Disallow: /api/auth/\n"
-        "Sitemap: /sitemap.xml\n"
+        f"Sitemap: {base}/sitemap.xml\n"
     )
     return PlainTextResponse(body, media_type="text/plain")
 
 
 @app.get("/sitemap.xml")
 async def sitemap_xml(request: Request):
+    from html import escape
+
     from fastapi.responses import Response
 
-    base = str(request.base_url).rstrip("/")
+    # Prefer configured public origin; never reflect arbitrary Host headers into XML.
+    base = _public_base_url(request)
     paths = [
         "/",
         "/dashboard",
@@ -998,7 +1051,8 @@ async def sitemap_xml(request: Request):
         "/compliance",
     ]
     urls = "\n".join(
-        f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
+        f"  <url><loc>{escape(base + p, quote=True)}</loc><changefreq>daily</changefreq></url>"
+        for p in paths
     )
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -1936,10 +1990,7 @@ async def oracle(
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
 
-    if user and is_admin_user(user):
-        payload = apply_regulatory_compliance(payload)
-    else:
-        payload = sanitize_oracle_payload(payload)
+    payload = apply_regulatory_compliance(payload) if user and is_admin_user(user) else sanitize_oracle_payload(payload)
     return JSONResponse(payload)
 
 
@@ -1965,7 +2016,7 @@ async def whale_activity(refresh: bool = False) -> dict:
         "sector_flows": sector_rows,
         "data_source": "CVVD Cross-Venue Detection | Binance + OKX + Bybit",
         "live_scan": context.get("live_scan", False),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -1976,7 +2027,7 @@ async def whale_scan() -> dict:
     return {
         "alerts_found": len(context.get("whale_alerts", [])),
         "whale_alerts": context.get("whale_alerts", [])[:20],
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 # Market API routes → api/routers/market.py
@@ -2033,7 +2084,7 @@ async def sentiment_overview():
     return {
         "assets": rows,
         "data_source": "Rolling Compound Sentiment Index",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -2060,7 +2111,7 @@ async def onchain_overview():
     return {
         "assets": rows,
         "data_source": "On-Chain Exchange Flow Tracker",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -2069,7 +2120,6 @@ async def onchain_overview():
 @app.get("/api/macro/overview")
 async def macro_overview():
     from oracle_data_hub import fetch_macro_mesh
-    import aiohttp
 
     timeout = aiohttp.ClientTimeout(total=config.ORACLE_HUB_FETCH_TIMEOUT_SECONDS)
     async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -2077,7 +2127,7 @@ async def macro_overview():
     return {
         "macro": macro,
         "data_source": "Oracle Data Hub — Yahoo Finance extended",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -2111,11 +2161,11 @@ async def universe_phase_d_probe(symbol: str = "BTC/USDT"):
 
 @app.get("/api/universe/full-probe")
 async def universe_full_probe(symbol: str = "BTC/USDT"):
+    import aggregator
     from ccxt_market_fetcher import probe_phase_b_exchanges
     from coingecko_cex_fetcher import probe_coingecko_exchanges
     from dex_fetcher import probe_dex_venues
     from perp_dex_fetcher import probe_perp_dex_venues
-    import aggregator
 
     native_ids = sorted(
         ex for ex in config.INGESTION_READY_EXCHANGES if ex in aggregator.MARKET_FETCHERS
@@ -2129,7 +2179,7 @@ async def universe_full_probe(symbol: str = "BTC/USDT"):
         "phase_b2_coingecko": await probe_coingecko_exchanges(sample_symbol=symbol),
         "phase_c_dex": await probe_dex_venues(sample_symbol=symbol),
         "phase_d_perp": await probe_perp_dex_venues(sample_symbol=symbol),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -2143,7 +2193,7 @@ async def universe_status():
         "registry": build_manifest_universe_block(),
         "rollout": rollout_summary_json(),
         "live": await live_rollout_status(),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -2163,17 +2213,18 @@ async def universe_rollout_status_api():
     return {
         "summary": rollout_summary_json(),
         "live": await live_rollout_status(),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
 @app.get("/api/ingestion/status")
 async def ingestion_status():
+    import os
+
+    from binance_ws_ingest import ws_stats
     from data_lake import lake_status
     from data_sources_registry import DATA_SOURCES, registry_summary
     from ingestion_scheduler import scheduler_running
-    from binance_ws_ingest import ws_stats
-    import os
 
     status = await lake_status()
     status["scheduler_running"] = scheduler_running()
@@ -2343,8 +2394,8 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
         await websocket.close(code=1008, reason="B2B WebSocket disabled")
         return
 
-    from whale_tracker import InstitutionalDataExporter
     from b2b_websocket_hub import get_b2b_ws_hub
+    from whale_tracker import InstitutionalDataExporter
 
     exporter = InstitutionalDataExporter()
     if not exporter.authorize(api_key):
@@ -2360,7 +2411,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
         while True:
             msg = await websocket.receive_text()
             if msg.strip().lower() == "ping":
-                await websocket.send_json({"type": "pong", "timestamp": datetime.now(timezone.utc).isoformat()})
+                await websocket.send_json({"type": "pong", "timestamp": datetime.now(UTC).isoformat()})
     except WebSocketDisconnect:
         pass
     except RuntimeError as exc:
@@ -2848,8 +2899,8 @@ async def api_regulatory_compliance():
 
 @app.get("/api/retention/status")
 async def api_retention_status(user: dict | None = Depends(optional_user)):
-    from retention_service import build_retention_status
     from database import fetch_active_subscription_for_email
+    from retention_service import build_retention_status
 
     sub = None
     if user:
@@ -3124,6 +3175,7 @@ async def health_live():
 async def health_ready():
     """Readiness — DB init succeeded + service bus (for load balancers)."""
     from fastapi.responses import JSONResponse
+
     from postgres_backend import pool_stats, use_postgres
     from service_bus import bus_stats
 
@@ -3280,11 +3332,11 @@ async def api_ingress_guard():
 
 @app.get("/api/low-latency/status")
 async def low_latency_status():
-    from exchange_ws_hub import ws_hub_stats
-    from live_book_hub import hub_stats
-    from instant_alert_engine import engine_stats
-    from scan_coordinator import coordinator_stats
     import config
+    from exchange_ws_hub import ws_hub_stats
+    from instant_alert_engine import engine_stats
+    from live_book_hub import hub_stats
+    from scan_coordinator import coordinator_stats
 
     return {
         "low_latency_mode": getattr(config, "LOW_LATENCY_MODE", True),
@@ -3308,10 +3360,10 @@ async def low_latency_status():
 
 @app.get("/api/alerts/instant/status")
 async def instant_alert_status():
+    import config
     from instant_alert_engine import engine_stats
     from market_cache import cache_stats
     from scan_coordinator import coordinator_stats
-    import config
 
     stats = engine_stats()
     stats["poll_interval_seconds"] = config.POLL_INTERVAL_SECONDS
@@ -3426,5 +3478,7 @@ if __name__ == "__main__":
     import uvicorn
 
     port = int(os.environ.get("PORT", "8080"))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Container platforms set HOST=0.0.0.0; local default stays loopback-only.
+    host = os.environ.get("HOST", "127.0.0.1")
+    uvicorn.run(app, host=host, port=port)
 

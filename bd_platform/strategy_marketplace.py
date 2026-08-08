@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -34,7 +34,7 @@ def _default_strategies() -> list[dict[str, Any]]:
 
 def list_strategies() -> dict[str, Any]:
     rows = _load()
-    return {"strategies": rows, "count": len(rows), "timestamp": datetime.now(timezone.utc).isoformat()}
+    return {"strategies": rows, "count": len(rows), "timestamp": datetime.now(UTC).isoformat()}
 
 
 def publish_strategy(name: str, kind: str, *, tier: str = "community") -> dict[str, Any]:
@@ -45,7 +45,7 @@ def publish_strategy(name: str, kind: str, *, tier: str = "community") -> dict[s
         "kind": kind,
         "tier": tier,
         "author": "community",
-        "published_at": datetime.now(timezone.utc).isoformat(),
+        "published_at": datetime.now(UTC).isoformat(),
     }
     rows.append(item)
     _path().parent.mkdir(parents=True, exist_ok=True)

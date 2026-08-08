@@ -9,8 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -69,12 +68,12 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
     for spool_file in files:
         try:
             with spool_file.open("r", encoding="utf-8") as handle:
-                for line in handle:
-                    line = line.strip()
-                    if not line:
+                for raw_line in handle:
+                    stripped = raw_line.strip()
+                    if not stripped:
                         continue
                     try:
-                        row = json.loads(line)
+                        row = json.loads(stripped)
                     except json.JSONDecodeError:
                         continue
                     if str(row.get("symbol", "")).upper() != sym:
@@ -135,5 +134,5 @@ async def hot_tier_status() -> dict[str, Any]:
         "clickhouse_configured": bool(config.HOT_STORAGE_CLICKHOUSE_URL),
         "ndjson_files": spool_files,
         "ndjson_mb": round(spool_bytes / (1024 * 1024), 2),
-        "last_checked": datetime.now(timezone.utc).isoformat(),
+        "last_checked": datetime.now(UTC).isoformat(),
     }

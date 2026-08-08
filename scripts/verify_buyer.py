@@ -7,16 +7,23 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 import encoding_bootstrap  # noqa: F401
+from path_safety import assert_safe_http_url
 
 
 def probe(url: str, label: str) -> tuple[bool, float]:
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(url, timeout=10) as resp:
+        safe_url = assert_safe_http_url(url)
+        with urllib.request.urlopen(safe_url, timeout=10) as resp:
             ok = resp.status == 200
-    except (urllib.error.URLError, TimeoutError, OSError):
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
         ok = False
     elapsed_ms = (time.perf_counter() - t0) * 1000
     status = "OK" if ok else "FAIL"
@@ -25,10 +32,10 @@ def probe(url: str, label: str) -> tuple[bool, float]:
 
 
 def main() -> int:
-    base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8080"
+    base = assert_safe_http_url(sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8080")
     try:
         port = int(base.rsplit(":", 1)[-1])
-        sidecar = f"http://127.0.0.1:{port + 100}"
+        sidecar = assert_safe_http_url(f"http://127.0.0.1:{port + 100}")
     except ValueError:
         sidecar = base
 
@@ -45,7 +52,7 @@ def main() -> int:
     ]
     total_ms = (time.perf_counter() - t_start) * 1000
 
-    live_ok, live_ms = checks[0]
+    _live_ok, live_ms = checks[0]
     all_ok = all(c[0] for c in checks)
     print(f"\nTotal: {total_ms:.0f}ms | live probe: {live_ms:.0f}ms")
     if live_ms > 100:

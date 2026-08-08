@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -23,7 +23,7 @@ HORIZON_HOURS = {"1h": 1, "4h": 4, "24h": 24}
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_asset(asset: str) -> str:
@@ -108,7 +108,7 @@ async def fetch_reference_price(asset: str) -> float | None:
 def _prediction_age_hours(pred: dict[str, Any], now: datetime) -> float | None:
     raw_ts = str(pred.get("timestamp") or "")
     try:
-        ts = datetime.fromisoformat(raw_ts.replace("Z", "+00:00"))
+        ts = datetime.fromisoformat(raw_ts)
     except ValueError:
         return None
     return (now - ts).total_seconds() / 3600.0
@@ -122,7 +122,7 @@ async def resolve_mature_predictions(*, limit: int = 300) -> dict[str, Any]:
     )
 
     unresolved = await fetch_unresolved_oracle_predictions(limit=limit)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     resolved_count = 0
     partial_updates = 0
 
@@ -236,8 +236,8 @@ async def log_oracle_signal(
         asset=_normalize_asset(asset),
         price_at_prediction=price,
         verdict=verdict,
-        opportunity_score=int(round(opportunity_score)),
-        confidence=int(round(confidence)),
+        opportunity_score=round(opportunity_score),
+        confidence=round(confidence),
         kind=kind,
         features_json=json.dumps(feature_payload, separators=(",", ":")),
         source=source or "oracle",

@@ -59,7 +59,7 @@ async def test_get_market_snapshots_ws_first_skips_rest(monkeypatch):
 
     monkeypatch.setattr("arbitrage_service.fetch_live_market_snapshots", should_not_call)
 
-    books, funding, source, age = await get_market_snapshots(prefer_live=True, force_rest=False)
+    books, _funding, source, age = await get_market_snapshots(prefer_live=True, force_rest=False)
     assert source == "websocket_live"
     assert books == ws_books
     assert age == 0.05

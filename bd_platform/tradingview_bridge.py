@@ -7,7 +7,7 @@ import hmac
 import json
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.TradingViewBridge")
@@ -48,5 +48,5 @@ async def handle_webhook(payload: dict[str, Any], *, signature: str | None = Non
         "executed": result.get("success", False),
         "dry_run": True,
         "order": result,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }

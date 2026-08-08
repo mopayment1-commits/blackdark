@@ -12,6 +12,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="/static/img/blackdark-sealed-hero.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/static/icon-192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
     <title>BLACKDARK — We publish the miss. · Decide. Prove it. Share it.</title>
     <script type="application/ld+json">
@@ -567,24 +568,25 @@
         }
         .share-x:hover { background: #111; }
         
-        .share-facebook { background: #1877f2; color: #fff; }
-        .share-facebook:hover { background: #166fe5; }
+        .share-facebook { background: #0b4ea2; color: #fff; }
+        .share-facebook:hover { background: #093f86; }
         
         .share-instagram {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            background: #8a1538;
             color: #fff;
         }
+        .share-instagram:hover { background: #6f1130; }
         
-        .share-whatsapp { background: #25d366; color: #fff; }
-        .share-whatsapp:hover { background: #20bd5a; }
+        .share-whatsapp { background: #0f7a43; color: #fff; }
+        .share-whatsapp:hover { background: #0c6337; }
         
         .share-telegram {
-            background: #0088cc; color: #fff;
+            background: #005f8f; color: #fff;
         }
-        .share-telegram:hover { background: #0099dd; }
+        .share-telegram:hover { background: #004c73; }
         
-        .share-reddit { background: #ff4500; color: #fff; }
-        .share-reddit:hover { background: #e03d00; }
+        .share-reddit { background: #b33000; color: #fff; }
+        .share-reddit:hover { background: #912700; }
         
         .share-copy {
             background: var(--bg-card); color: var(--accent);
@@ -694,6 +696,7 @@
         </div>
     </nav>
 
+    <main id="main">
     <section class="hero" id="top" aria-label="BLACKDARK sealed hero">
         <div class="hero-bleed" aria-hidden="true">
             <img
@@ -790,18 +793,22 @@
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
-                    <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Audience
+                    <select id="landingAudience" name="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="retail" selected>Prove</option>
                         <option value="pro">Operate</option>
                         <option value="whale">Desk</option>
                         <option value="fund">Room</option>
                     </select>
-                    <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    </label>
+                    <label class="field-label" for="landingUxMode" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Experience
+                    <select id="landingUxMode" name="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Decision Pro</option>
                     </select>
-                    <input type="hidden" id="landingLang" value="en">
-                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
+                    </label>
+                    <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
+                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
                     <button onclick="consultOracle()">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
@@ -961,15 +968,18 @@
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
         <form class="waitlist-form" onsubmit="joinWaitlist(event)">
-            <input type="email" id="waitlistEmail" placeholder="Enter your email" required>
+            <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
     </section>
+    </main>
     
     {% include "partials/site_footer.html" %}
     
     <script>
+function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
+
         window.lastOracleResult = null;
 
         function buildSharePayload(result) {
@@ -1246,7 +1256,7 @@
                     `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                     `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
                 const sendFollow = async (followed) => {
-                    const key = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2, 10));
+                    const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
                     localStorage.setItem('bd_user_key', key);
                     try {
                         await fetch('/api/discipline-mirror/answer', {

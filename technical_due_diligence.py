@@ -7,10 +7,8 @@ Strict acquisition-committee evaluation: PASS | FAIL | PARTIALLY PASS | NOT APPL
 from __future__ import annotations
 
 import os
-import subprocess
-import sys
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
@@ -49,28 +47,27 @@ async def _probe_production_oracle() -> dict[str, Any]:
     ).strip()
     try:
         timeout = aiohttp.ClientTimeout(total=20)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                body = await resp.json(content_type=None)
-                return {
-                    "url": url,
-                    "http_status": resp.status,
-                    "ok": resp.status == 200 and isinstance(body, dict) and body.get("symbol"),
-                    "release_hint": body.get("verdict") if isinstance(body, dict) else None,
-                }
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            body = await resp.json(content_type=None)
+            return {
+                "url": url,
+                "http_status": resp.status,
+                "ok": resp.status == 200 and isinstance(body, dict) and body.get("symbol"),
+                "release_hint": body.get("verdict") if isinstance(body, dict) else None,
+            }
     except Exception as exc:
         return {"url": url, "http_status": None, "ok": False, "error": str(exc)[:200]}
 
 
 async def build_technical_due_diligence_report(*, probe_production: bool = True) -> dict[str, Any]:
-    from due_diligence import due_diligence_report, run_profit_fee_coverage
+    from due_diligence import due_diligence_report
 
     tech = due_diligence_report()
     checks = tech.get("checks") or {}
     coverage = tech.get("coverage") or {}
     uptime = tech.get("uptime") or {}
     latency = tech.get("latency") or {}
-    ha = tech.get("ha") or {}
+    tech.get("ha") or {}
 
     prod_oracle: dict[str, Any] = {}
     if probe_production:
@@ -417,7 +414,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 16 Observability
-    v16: Verdict = "PARTIALLY PASS" if sentry_configured else "PARTIALLY PASS"
+    v16: Verdict = "PARTIALLY PASS"
     requirements.append(
         RequirementAssessment(
             16,
@@ -524,7 +521,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         overall = "fail"
 
     return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "overall_verdict": overall,
         "committee_statement": (
             "Salvageable engineering with honest documentation. "

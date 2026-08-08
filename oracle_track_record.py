@@ -203,8 +203,9 @@ def public_track_record() -> dict[str, Any]:
 
 
 def _read_all_records() -> list[dict]:
-    from oracle_audit_chain import CHAIN_PATH
     import json
+
+    from oracle_audit_chain import CHAIN_PATH
 
     if not CHAIN_PATH.exists():
         return []

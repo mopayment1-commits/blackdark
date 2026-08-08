@@ -67,7 +67,7 @@ async def auto_import_keys(*, verify: bool = True, silent: bool = False) -> dict
     from bd_platform.key_manager import keys_status, save_platform_keys, verify_all_keys
 
     ensure_keys_file()
-    parsed = parse_keys_file()
+    parse_keys_file()
     payload = payload_from_env_file()
 
     if not payload:

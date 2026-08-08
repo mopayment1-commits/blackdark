@@ -14,12 +14,13 @@ import logging
 import os
 from abc import ABC, abstractmethod
 from collections import deque
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, AsyncIterator, Optional
+from typing import Any
 
 import aiohttp
 from pydantic import BaseModel, Field
@@ -29,7 +30,7 @@ import config
 logger = logging.getLogger("BLACKDARK.HotStorage")
 
 
-class HotRecordType(str, Enum):
+class HotRecordType(StrEnum):
     PRICING = "pricing"
     ORDER_BOOK = "order_book"
     FUNDING = "funding"
@@ -51,7 +52,7 @@ class HotStorageStats(BaseModel):
     flushed: int = 0
     flush_errors: int = 0
     buffer_depth: int = 0
-    last_flush_at: Optional[str] = None
+    last_flush_at: str | None = None
     active_backends: list[str] = Field(default_factory=list)
 
 
@@ -703,10 +704,7 @@ class HotDataPipeline:
         self._running = False
         if self._flush_task is not None:
             self._flush_task.cancel()
-            try:
-                await self._flush_task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(self._flush_task, return_exceptions=True)
             self._flush_task = None
 
         await self.flush_now()
@@ -755,22 +753,19 @@ class HotDataPipeline:
                 logger.exception("Hot storage flush failed | backend=%s", backend.name)
 
         self._stats.flushed += len(batch)
-        self._stats.last_flush_at = datetime.now(timezone.utc).isoformat()
+        self._stats.last_flush_at = datetime.now(UTC).isoformat()
         return flushed
 
     async def _flush_loop(self) -> None:
-        try:
-            while self._running:
-                await asyncio.sleep(self.flush_interval_seconds)
-                try:
-                    batch = await self._drain_batch(self.batch_size)
-                    if batch:
-                        await self._flush_batch(batch)
-                except Exception:
-                    self._stats.flush_errors += 1
-                    logger.exception("Hot storage flush loop iteration failed.")
-        except asyncio.CancelledError:
-            raise
+        while self._running:
+            await asyncio.sleep(self.flush_interval_seconds)
+            try:
+                batch = await self._drain_batch(self.batch_size)
+                if batch:
+                    await self._flush_batch(batch)
+            except Exception:
+                self._stats.flush_errors += 1
+                logger.exception("Hot storage flush loop iteration failed.")
 
 
 _pipeline: HotDataPipeline | None = None

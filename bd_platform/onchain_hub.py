@@ -3,38 +3,49 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
+
+from path_safety import assert_url_path_safe, safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.OnchainHub")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _get_json(url: str, *, headers: dict | None = None, params: dict | None = None) -> Any:
     timeout = aiohttp.ClientTimeout(total=12)
+    safe_url = assert_url_path_safe(url)
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url, headers=headers, params=params) as resp:
+        async with session.get(safe_url, headers=headers, params=params) as resp:
             if resp.status != 200:
                 return None
             return await resp.json()
 
 
 async def dexscreener_pairs(query: str = "BTC") -> dict[str, Any]:
-    url = f"https://api.dexscreener.com/latest/dex/search?q={query}"
-    data = await _get_json(url)
+    q = safe_url_segment(query)
+    data = await _get_json(
+        "https://api.dexscreener.com/latest/dex/search",
+        params={"q": q},
+    )
     pairs = (data or {}).get("pairs") or []
-    return {"source": "dexscreener", "query": query, "pairs": pairs[:25], "count": len(pairs)}
+    return {"source": "dexscreener", "query": q, "pairs": pairs[:25], "count": len(pairs)}
 
 
-async def geckoterminal_pairs(network: str = "eth", token: str = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2") -> dict[str, Any]:
-    url = f"https://api.geckoterminal.com/api/v2/networks/{network}/tokens/{token}/pools"
+async def geckoterminal_pairs(
+    network: str = "eth",
+    contract_address: str = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+) -> dict[str, Any]:
+    net = safe_url_segment(network)
+    address = safe_url_segment(contract_address)
+    url = f"https://api.geckoterminal.com/api/v2/networks/{net}/tokens/{address}/pools"
     data = await _get_json(url)
-    return {"source": "geckoterminal", "network": network, "pools": (data or {}).get("data") or []}
+    return {"source": "geckoterminal", "network": net, "pools": (data or {}).get("data") or []}
 
 
 async def debank_wallet(address: str) -> dict[str, Any]:

@@ -10,7 +10,7 @@ from __future__ import annotations
 import hashlib
 import json
 import threading
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +19,7 @@ _LOCK = threading.Lock()
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _seal_hash(payload: dict[str, Any]) -> str:
@@ -61,9 +61,8 @@ def lock_prediction(
         "_sealed": sealed_body,
     }
     _PATH.parent.mkdir(parents=True, exist_ok=True)
-    with _LOCK:
-        with _PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(row, default=str) + "\n")
+    with _LOCK, _PATH.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(row, default=str) + "\n")
     return public_view(row)
 
 
@@ -95,10 +94,10 @@ def _is_past(iso_ts: str | None) -> bool:
     if not iso_ts:
         return False
     try:
-        ts = datetime.fromisoformat(str(iso_ts).replace("Z", "+00:00"))
+        ts = datetime.fromisoformat(str(iso_ts))
         if ts.tzinfo is None:
-            ts = ts.replace(tzinfo=timezone.utc)
-        return datetime.now(timezone.utc) >= ts
+            ts = ts.replace(tzinfo=UTC)
+        return datetime.now(UTC) >= ts
     except Exception:
         return False
 
@@ -136,10 +135,9 @@ def _read_all() -> list[dict[str, Any]]:
 
 def _rewrite(rows: list[dict[str, Any]]) -> None:
     _PATH.parent.mkdir(parents=True, exist_ok=True)
-    with _LOCK:
-        with _PATH.open("w", encoding="utf-8") as fh:
-            for row in rows:
-                fh.write(json.dumps(row, default=str) + "\n")
+    with _LOCK, _PATH.open("w", encoding="utf-8") as fh:
+        for row in rows:
+            fh.write(json.dumps(row, default=str) + "\n")
 
 
 def glass_box_status() -> dict[str, Any]:
@@ -160,9 +158,13 @@ def glass_box_status() -> dict[str, Any]:
 def _has_open_lock_for(asset: str, event_name: str) -> bool:
     asset_u = asset.upper()
     for row in _read_all():
-        if row.get("asset") == asset_u and str(row.get("event_name") or "") == event_name:
-            if not row.get("revealed") and not _is_past(row.get("unlock_at")):
-                return True
+        if (
+            row.get("asset") == asset_u
+            and str(row.get("event_name") or "") == event_name
+            and not row.get("revealed")
+            and not _is_past(row.get("unlock_at"))
+        ):
+            return True
     return False
 
 
@@ -181,8 +183,8 @@ async def maybe_auto_seal_from_oracle(
     created: list[dict[str, Any]] = []
     skipped: list[str] = []
 
-    unlock_at = (datetime.now(timezone.utc) + timedelta(hours=unlock_hours)).isoformat()
-    event_name = f"Auto Glass Box · {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
+    unlock_at = (datetime.now(UTC) + timedelta(hours=unlock_hours)).isoformat()
+    event_name = f"Auto Glass Box · {datetime.now(UTC).strftime('%Y-%m-%d')}"
 
     for asset in assets:
         asset_u = asset.upper()

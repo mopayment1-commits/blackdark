@@ -6,9 +6,8 @@ Implements technical DSR workflow for acquisition due diligence requirement #19.
 
 from __future__ import annotations
 
-import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.GDPR")
@@ -31,7 +30,7 @@ async def export_user_data(email: str) -> dict[str, Any]:
         journal = await fetch_journal_entries(user["email"])
 
     return {
-        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "exported_at": datetime.now(UTC).isoformat(),
         "subject_email": normalized,
         "found": user is not None,
         "profile": profile,
@@ -66,7 +65,7 @@ async def erase_user_data(email: str, *, confirmed: bool = False) -> dict[str, A
     return {
         "status": "erased",
         "subject_email": normalized,
-        "erased_at": datetime.now(timezone.utc).isoformat(),
+        "erased_at": datetime.now(UTC).isoformat(),
         **result,
     }
 

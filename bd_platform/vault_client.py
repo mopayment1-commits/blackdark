@@ -75,10 +75,11 @@ def read_secret(key: str) -> dict[str, Any]:
             return {"source": "hashicorp", "error": str(exc)}
 
     try:
-        from secrets_vault import decrypt_secret
         from pathlib import Path
 
-        store = Path("keys/vault_store.json")
+        from secrets_vault import decrypt_secret
+
+        store = Path(__file__).resolve().parent.parent / "keys" / "vault_store.json"
         if store.exists():
             import json
 
@@ -107,11 +108,12 @@ def store_secret(key: str, value: str) -> dict[str, Any]:
             logger.warning("Vault store failed: %s", exc)
             return {"source": "hashicorp", "error": str(exc), "stored": False}
 
-    from secrets_vault import encrypt_secret
-    from pathlib import Path
     import json
+    from pathlib import Path
 
-    store_path = Path("keys/vault_store.json")
+    from secrets_vault import encrypt_secret
+
+    store_path = Path(__file__).resolve().parent.parent / "keys" / "vault_store.json"
     store_path.parent.mkdir(parents=True, exist_ok=True)
     blob: dict[str, str] = {}
     if store_path.exists():

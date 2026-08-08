@@ -9,12 +9,10 @@ from __future__ import annotations
 
 import logging
 import statistics
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
-
-import config
 
 logger = logging.getLogger("BLACKDARK.ForecastEngine")
 
@@ -22,7 +20,7 @@ HORIZONS_HOURS = (1, 4, 24)
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_asset(symbol: str) -> str:
@@ -39,11 +37,10 @@ async def _fetch_binance_closes(pair: str, interval: str = "1h", limit: int = 16
     )
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return []
+            rows = await resp.json()
         return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
@@ -76,7 +73,9 @@ async def load_price_series(asset: str, *, limit: int = 200) -> tuple[list[float
         if len(lake_prices) >= 5:
             return lake_prices[-limit:], "data_lake_snapshots"
     except Exception:
-        logger.warning("Data lake price load failed | asset=%s", asset)
+        from log_safety import sanitize_asset
+
+        logger.warning("Data lake price load failed | asset=%s", sanitize_asset(asset))
 
     closes = await _fetch_binance_closes(pair, interval="1h", limit=min(limit, 168))
     if closes:
@@ -186,7 +185,9 @@ async def build_asset_forecast(asset: str, *, current_price: float | None = None
 
             await insert_forecast_logs(asset, float(forecast["current_price"]), forecast)
         except Exception:
-            logger.exception("Failed to persist forecast logs | asset=%s", asset)
+            from log_safety import sanitize_asset
+
+            logger.exception("Failed to persist forecast logs | asset=%s", sanitize_asset(asset))
 
     return forecast
 
@@ -205,7 +206,7 @@ def blend_oracle_confidence(base_confidence: int, forecast: dict[str, Any], verd
         or (verdict_upper == "WAIT" and direction == "neutral")
     )
     penalty = 8 if not aligned and direction != "neutral" else 0
-    blended = int(round(base_confidence * 0.55 + fc * 0.45)) - penalty
+    blended = round(base_confidence * 0.55 + fc * 0.45) - penalty
     return max(20, min(98, blended))
 
 
@@ -253,11 +254,10 @@ async def run_forecast_audit() -> dict[str, Any]:
         ticker_url = f"https://api.binance.com/api/v3/ticker/price?symbol={pair}"
         try:
             timeout = aiohttp.ClientTimeout(total=8)
-            async with aiohttp.ClientSession(timeout=timeout) as session:
-                async with session.get(ticker_url) as resp:
-                    if resp.status != 200:
-                        continue
-                    data = await resp.json()
+            async with aiohttp.ClientSession(timeout=timeout) as session, session.get(ticker_url) as resp:
+                if resp.status != 200:
+                    continue
+                data = await resp.json()
             actual = float(data.get("price") or 0)
         except (aiohttp.ClientError, TypeError, ValueError):
             continue

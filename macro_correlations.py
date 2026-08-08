@@ -12,7 +12,7 @@ import hashlib
 import logging
 import time
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -50,7 +50,7 @@ class MacroRegimeSnapshot(BaseModel):
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _stable_noise(label: str, salt: str) -> float:
@@ -410,7 +410,7 @@ class MacroCorrelationsEngine:
                     timeout=config.MACRO_POLL_INTERVAL_SECONDS,
                 )
                 break
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 continue
 
         logger.info("Macro correlations loop stopped.")

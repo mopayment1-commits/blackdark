@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Body, Depends
 
-import config
 from security_auth import require_whale
 from security_models import UserApiKeyBody
 

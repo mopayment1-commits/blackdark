@@ -7,14 +7,14 @@ that pass api_key_security_guard (user vault preferred; env keys blocked in prod
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import hmac
 import json
 import logging
 import os
 import time
-import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 from urllib.parse import urlencode
 
@@ -30,7 +30,7 @@ _auto_task: Any = None
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_symbol(symbol: str) -> tuple[str, str]:
@@ -329,18 +329,26 @@ async def execute_order(
                 "executedQty": order.get("executedQty"),
             }
             payload["message"] = f"Live {side} {asset} submitted to Binance."
+            from log_safety import sanitize_asset, sanitize_log_value
+
             logger.info(
                 "Live order placed | %s %s $%.2f order_id=%s source=%s",
-                side,
-                asset,
+                sanitize_log_value(side, max_len=8),
+                sanitize_asset(asset),
                 amount_usd,
-                order.get("orderId"),
-                credential_source,
+                sanitize_log_value(order.get("orderId"), max_len=32),
+                sanitize_log_value(credential_source, max_len=24),
             )
         except Exception as exc:
             payload["executed"] = False
             payload["message"] = f"Live order failed: {exc}"
-            logger.exception("Live order failed | %s %s", side, asset)
+            from log_safety import sanitize_asset, sanitize_log_value
+
+            logger.exception(
+                "Live order failed | %s %s",
+                sanitize_log_value(side, max_len=8),
+                sanitize_asset(asset),
+            )
     else:
         payload["message"] = f"Dry-run: would {side} {quantity:.6f} {asset} @ ${price:,.2f}"
         payload["executed"] = False
@@ -391,9 +399,8 @@ async def try_execute_from_opportunity(
 
     live = _live_enabled()
     dry_run_default = _dry_run_default()
-    if not state.get("auto_execution_enabled"):
-        if live or not dry_run_default:
-            return {"skipped": True, "reason": "auto_execution_disabled"}
+    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
+        return {"skipped": True, "reason": "auto_execution_disabled"}
 
     min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
     profit = float(opportunity.get("net_profit_usdt") or 0)
@@ -459,7 +466,7 @@ async def try_execute_from_opportunity(
         asset,
         side,
         amount,
-        dry_run=True if dry_run_default or not live else False,
+        dry_run=bool(dry_run_default or not live),
         user_id=user_id,
     )
     return {
@@ -599,8 +606,5 @@ async def stop_auto_execution_loop() -> None:
     global _auto_task
     if _auto_task is not None:
         _auto_task.cancel()
-        try:
-            await _auto_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_auto_task, return_exceptions=True)
         _auto_task = None

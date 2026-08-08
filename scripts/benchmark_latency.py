@@ -41,7 +41,7 @@ async def main() -> int:
 
     for label, prefer in [("low_latency_path", None), ("prefer_live_true", True)]:
         t0 = time.perf_counter()
-        books, funding, source, age = await get_market_snapshots(prefer_live=prefer)
+        books, _funding, source, age = await get_market_snapshots(prefer_live=prefer)
         wall = (time.perf_counter() - t0) * 1000
         venues = len(books)
         symbols = sum(len(v) for v in books.values())

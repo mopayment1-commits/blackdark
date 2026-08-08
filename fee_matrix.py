@@ -111,6 +111,7 @@ async def refresh_fee_matrix() -> dict[str, Any]:
 
     try:
         import ccxt.async_support as ccxt_async
+
         from ccxt_market_fetcher import CCXT_ID_MAP, ccxt_exchange_id
     except ImportError:
         _last_refresh = time.time()
@@ -186,10 +187,7 @@ async def stop_fee_matrix_scheduler() -> None:  # pragma: no cover
     global _refresh_task
     if _refresh_task is not None:
         _refresh_task.cancel()
-        try:
-            await _refresh_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_refresh_task, return_exceptions=True)
         _refresh_task = None
 
 

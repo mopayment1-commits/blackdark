@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -12,16 +12,15 @@ logger = logging.getLogger("BLACKDARK.FreeMarketData")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _get_json(url: str, *, params: dict | None = None) -> Any:
     timeout = aiohttp.ClientTimeout(total=12)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url, params=params) as resp:
-            if resp.status != 200:
-                return None
-            return await resp.json()
+    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+        if resp.status != 200:
+            return None
+        return await resp.json()
 
 
 async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:
@@ -139,11 +138,10 @@ async def coindesk_rss(limit: int = 15) -> list[dict[str, Any]]:
     url = "https://www.coindesk.com/arc/outboundfeeds/rss/"
     timeout = aiohttp.ClientTimeout(total=12)
     try:
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                text = await resp.text()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return []
+            text = await resp.text()
     except aiohttp.ClientError:
         return []
 

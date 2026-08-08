@@ -11,7 +11,7 @@ from __future__ import annotations
 import logging
 import os
 import time
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 import config
@@ -22,6 +22,7 @@ _freeze_until: float = 0.0
 _freeze_reason: str = ""
 _poison_events: list[dict[str, Any]] = []
 _active_stop_losses: dict[str, dict[str, Any]] = {}
+_bg_tasks: set[Any] = set()
 
 
 @dataclass
@@ -74,13 +75,15 @@ def freeze_trading(reason: str, *, duration_sec: int | None = None) -> dict[str,
         from database import set_risk_freeze_state
 
         loop = asyncio.get_running_loop()
-        loop.create_task(
+        task = loop.create_task(
             set_risk_freeze_state(
                 frozen=True,
                 reason=reason,
                 until_ts=_freeze_until,
             )
         )
+        _bg_tasks.add(task)
+        task.add_done_callback(_bg_tasks.discard)
     except Exception:
         logger.debug("risk freeze persist skipped", exc_info=True)
     return {"frozen": True, "reason": reason, "until_ts": _freeze_until, "persistent": True}
@@ -96,7 +99,9 @@ def unfreeze_trading() -> dict[str, Any]:
         from database import set_risk_freeze_state
 
         loop = asyncio.get_running_loop()
-        loop.create_task(set_risk_freeze_state(frozen=False, reason="", until_ts=0.0))
+        task = loop.create_task(set_risk_freeze_state(frozen=False, reason="", until_ts=0.0))
+        _bg_tasks.add(task)
+        task.add_done_callback(_bg_tasks.discard)
     except Exception:
         logger.debug("risk unfreeze persist skipped", exc_info=True)
     return {"frozen": False, "persistent": True}
@@ -228,10 +233,7 @@ def register_stop_loss(
     stop_pct: float | None = None,
 ) -> dict[str, Any]:
     pct = stop_pct if stop_pct is not None else _stop_loss_pct()
-    if side == "buy":
-        stop_price = entry_price * (1 - pct / 100)
-    else:
-        stop_price = entry_price * (1 + pct / 100)
+    stop_price = entry_price * (1 - pct / 100) if side == "buy" else entry_price * (1 + pct / 100)
 
     record = {
         "symbol": symbol.upper(),
@@ -243,7 +245,14 @@ def register_stop_loss(
         "triggered": False,
     }
     _active_stop_losses[symbol.upper()] = record
-    logger.info("Stop-loss registered | %s entry=%.4f stop=%.4f", symbol, entry_price, stop_price)
+    from log_safety import sanitize_asset
+
+    logger.info(
+        "Stop-loss registered | %s entry=%.4f stop=%.4f",
+        sanitize_asset(symbol),
+        entry_price,
+        stop_price,
+    )
     return record
 
 
@@ -257,9 +266,7 @@ def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
         if px is None:
             continue
         hit = False
-        if sl["side"] == "buy" and px <= sl["stop_price"]:
-            hit = True
-        elif sl["side"] == "sell" and px >= sl["stop_price"]:
+        if (sl["side"] == "buy" and px <= sl["stop_price"]) or (sl["side"] == "sell" and px >= sl["stop_price"]):
             hit = True
         if hit:
             sl["triggered"] = True

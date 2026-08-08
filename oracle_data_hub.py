@@ -15,10 +15,9 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
-import re
 import time
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -57,7 +56,7 @@ RiskTone = Literal["risk_on", "risk_off", "neutral"]
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _clamp(value: float, lower: float = -1.0, upper: float = 1.0) -> float:
@@ -415,13 +414,12 @@ async def _ollama_sentence(prompt: str) -> str | None:
     model = os.getenv("OLLAMA_MODEL", "llama3.2")
     try:
         timeout = aiohttp.ClientTimeout(total=18)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                f"{base_url}/api/generate",
-                json={"model": model, "prompt": prompt, "stream": False},
-            ) as response:
-                response.raise_for_status()
-                data = await response.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            f"{base_url}/api/generate",
+            json={"model": model, "prompt": prompt, "stream": False},
+        ) as response:
+            response.raise_for_status()
+            data = await response.json()
         text = str(data.get("response") or "").strip().split("\n")[0]
         return text or None
     except Exception:
@@ -445,14 +443,13 @@ async def _groq_sentence(prompt: str) -> str | None:
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     try:
         timeout = aiohttp.ClientTimeout(total=18)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers=headers,
-                json=payload,
-            ) as response:
-                response.raise_for_status()
-                data = await response.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers=headers,
+            json=payload,
+        ) as response:
+            response.raise_for_status()
+            data = await response.json()
         return str(data["choices"][0]["message"]["content"]).strip() or None
     except Exception:
         return None
@@ -466,14 +463,13 @@ async def _gemini_sentence(prompt: str) -> str | None:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     try:
         timeout = aiohttp.ClientTimeout(total=18)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                url,
-                params={"key": api_key},
-                json={"contents": [{"parts": [{"text": prompt}]}]},
-            ) as response:
-                response.raise_for_status()
-                data = await response.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            url,
+            params={"key": api_key},
+            json={"contents": [{"parts": [{"text": prompt}]}]},
+        ) as response:
+            response.raise_for_status()
+            data = await response.json()
         parts = (
             ((data.get("candidates") or [{}])[0].get("content") or {}).get("parts") or [{}]
         )
@@ -503,14 +499,13 @@ async def _openrouter_sentence(prompt: str) -> str | None:
     }
     try:
         timeout = aiohttp.ClientTimeout(total=18)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                "https://openrouter.ai/api/v1/chat/completions",
-                headers=headers,
-                json=payload,
-            ) as response:
-                response.raise_for_status()
-                data = await response.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers=headers,
+            json=payload,
+        ) as response:
+            response.raise_for_status()
+            data = await response.json()
         return str(data["choices"][0]["message"]["content"]).strip() or None
     except Exception:
         return None
@@ -647,7 +642,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             ).split(",")
             if name.strip()
         ]
-        lake_ctx["pillars"] = loaded + ["free_llm_chain"]
+        lake_ctx["pillars"] = [*loaded, "free_llm_chain"]
         return lake_ctx
 
     timeout = aiohttp.ClientTimeout(total=config.ORACLE_HUB_FETCH_TIMEOUT_SECONDS)

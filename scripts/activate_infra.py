@@ -45,8 +45,9 @@ def main() -> None:
         return
 
     if args.train_rl:
-        from ml.rl_policy import train_ppo_policy
         import random
+
+        from ml.rl_policy import train_ppo_policy
 
         samples = [
             (

@@ -16,7 +16,6 @@ from __future__ import annotations
 import json
 import logging
 from functools import lru_cache
-from pathlib import Path
 from typing import Any, Literal
 
 import config
@@ -59,8 +58,8 @@ def universe_asset_symbols() -> tuple[str, ...]:
         if sym and sym not in seen:
             seen.add(sym)
             symbols.append(sym)
-        for alias in row.get("aliases") or []:
-            alias = str(alias).upper()
+        for raw_alias in row.get("aliases") or []:
+            alias = str(raw_alias).upper()
             if alias and alias not in seen:
                 seen.add(alias)
                 symbols.append(alias)

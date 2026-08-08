@@ -11,7 +11,7 @@ import asyncio
 import json
 import logging
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -24,7 +24,6 @@ from arbitrage_engine import (
     calculate_spot_futures_premium,
     calculate_triangular_arbitrage,
 )
-from database import fetch_latest_funding_rates, fetch_latest_order_books
 from whale_tracker import get_latest_institutional_context
 
 logger = logging.getLogger("BLACKDARK.ArbitrageService")
@@ -40,7 +39,7 @@ _DURATION_LABELS: dict[str, str] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _asset_from_symbol(symbol: str) -> str:
@@ -147,7 +146,7 @@ async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, d
                 continue
 
             _ticker, order_book = result
-            symbol_key = key if kind == "perpetual" else key
+            symbol_key = key
             books.setdefault(exchange_id, {})[symbol_key] = {
                 "bids": order_book.bids,
                 "asks": order_book.asks,
@@ -518,10 +517,7 @@ async def compare_symbol_across_exchanges(
 ) -> dict[str, Any]:
     """Comparison engine — best bid/ask per venue with net cross-exchange edge."""
     cleaned = symbol.upper().replace("/", "").replace("-", "")
-    if cleaned.endswith("USDT"):
-        asset = cleaned[:-4]
-    else:
-        asset = cleaned
+    asset = cleaned.removesuffix("USDT")
     pair = f"{asset}/USDT"
 
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
@@ -600,9 +596,8 @@ async def send_telegram_alert(message: str) -> bool:
     payload = {"chat_id": chat_id, "text": message, "parse_mode": "HTML"}
     try:
         timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(url, json=payload) as resp:
-                return resp.status == 200
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(url, json=payload) as resp:
+            return resp.status == 200
     except (aiohttp.ClientError, TypeError, ValueError):
         logger.exception("Telegram alert delivery failed")
         return False

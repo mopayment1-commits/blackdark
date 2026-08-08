@@ -5,7 +5,6 @@ BLACKDARK — GraphQL API with authentication context.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 import strawberry
 from strawberry.fastapi import GraphQLRouter
@@ -121,6 +120,7 @@ class Query:
     @strawberry.field
     def data_sources(self) -> DataSourceSummary:
         import json
+
         from data_sources_registry import registry_summary
 
         summary = registry_summary()

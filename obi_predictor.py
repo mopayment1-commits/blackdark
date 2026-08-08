@@ -7,7 +7,6 @@ change dynamics, and emits institutional flash crash / liquidity drought flags.
 
 from __future__ import annotations
 
-import asyncio
 import logging
 import statistics
 from collections import defaultdict, deque

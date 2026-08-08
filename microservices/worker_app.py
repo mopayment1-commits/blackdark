@@ -7,7 +7,6 @@ Usage:
 
 from __future__ import annotations
 
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -16,7 +15,6 @@ from fastapi import FastAPI
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
-import config
 from microservices.lifecycle import ServiceContext, current_mode, service_info, shutdown, startup
 
 _ctx: ServiceContext | None = None

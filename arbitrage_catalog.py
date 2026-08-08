@@ -9,7 +9,7 @@ are catalogued for B2B / acquisition decks.
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 logger = logging.getLogger("BLACKDARK.ArbitrageCatalog")
@@ -111,7 +111,7 @@ ARBITRAGE_CATALOG: list[dict[str, Any]] = [
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def get_catalog(*, category: str | None = None, status: str | None = None) -> dict[str, Any]:
@@ -193,12 +193,11 @@ async def scan_arbitrage_catalog(
     min_score: float = 0.0,
 ) -> dict[str, Any]:
     """Match live engine output + proxy scores to the 77-type catalog."""
+    import config
     from arbitrage_service import scan_arbitrage_opportunities
     from database import fetch_latest_macro_market_log, fetch_oracle_audit_stats
     from sentiment_engine import build_sentiment_context_safe
     from whale_tracker import get_latest_institutional_context
-
-    import config
 
     live_scan = await scan_arbitrage_opportunities(quote_amount=quote_amount, prefer_live=True)
     institutional = await get_latest_institutional_context()

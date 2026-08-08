@@ -8,7 +8,7 @@ No heavy ML — deterministic error-driven adjustment with encrypted persistence
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from database import fetch_oracle_audit_stats
@@ -21,7 +21,7 @@ _MIN_SAMPLES = 5
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _verdict_bucket(row: dict[str, Any]) -> str:

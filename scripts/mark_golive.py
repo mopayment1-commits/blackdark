@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,7 +18,7 @@ def main() -> int:
     args = parser.parse_args()
 
     payload = {
-        "announced_at": datetime.now(timezone.utc).isoformat(),
+        "announced_at": datetime.now(UTC).isoformat(),
         "url": args.url.rstrip("/"),
         "note": args.note,
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",

@@ -14,33 +14,17 @@ Uses chronological hold-out (no random shuffle) to prevent temporal leakage.
 
 from __future__ import annotations
 
-
-
 import json
-
 import logging
-
-from datetime import datetime, timezone
-
-from pathlib import Path
-
+from datetime import UTC, datetime
 from typing import Any
 
-
-
 import config
-
 from ml.training_utils import (
-
     FEATURE_COLUMNS,
-
     LEAKAGE_GUARD_NOTE,
-
     temporal_train_test_split,
-
 )
-
-
 
 logger = logging.getLogger("BLACKDARK.MLTrain")
 
@@ -50,7 +34,7 @@ logger = logging.getLogger("BLACKDARK.MLTrain")
 
 def _utcnow_iso() -> str:
 
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 
@@ -130,7 +114,6 @@ def _build_training_frame(rows: list[dict[str, Any]]):
 async def train_oracle_direction_model(*, min_samples: int | None = None) -> dict[str, Any]:
 
     from database import fetch_labeled_oracle_predictions, fetch_latest_ml_model_run, insert_ml_model_run
-
     from ml.experience_log import append_experience
 
 
@@ -167,11 +150,9 @@ async def train_oracle_direction_model(*, min_samples: int | None = None) -> dic
 
     try:
 
-        from sklearn.ensemble import GradientBoostingClassifier
-
-        from sklearn.metrics import accuracy_score
-
         import joblib
+        from sklearn.ensemble import GradientBoostingClassifier
+        from sklearn.metrics import accuracy_score
 
     except ImportError:
 
@@ -240,15 +221,10 @@ async def train_oracle_direction_model(*, min_samples: int | None = None) -> dic
 
 
     from ml.drift_monitor import (
-
         build_confidence_calibration,
-
         build_feature_envelope,
-
         save_feature_envelope,
-
         validate_model_deployment,
-
     )
 
 
@@ -301,7 +277,7 @@ async def train_oracle_direction_model(*, min_samples: int | None = None) -> dic
 
     config.ML_MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
-    version = datetime.now(timezone.utc).strftime("v%Y%m%d_%H%M")
+    version = datetime.now(UTC).strftime("v%Y%m%d_%H%M")
 
     model_path = config.ML_MODELS_DIR / f"oracle_direction_{version}.joblib"
 
