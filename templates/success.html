@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLACKDARK — Subscription Active</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         body {
-            font-family: Inter, sans-serif;
-            background: #0a0a0f;
+            font-family: var(--bd-font-body);
+            background:
+                radial-gradient(900px 480px at 20% -10%, rgba(34,211,238,.12), transparent),
+                #0a0a0f;
             color: #e4e4e7;
             min-height: 100vh;
             display: flex;
@@ -23,13 +25,14 @@
             border: 1px solid #2a2a35;
             border-radius: 16px;
             padding: 2.5rem 2rem;
+            animation: bdPulseIn .5s var(--bd-ease-out) both;
         }
         h1 {
+            font-family: var(--bd-font-display);
             font-size: 1.75rem;
             margin-bottom: 0.75rem;
-            background: linear-gradient(135deg, #22d3ee, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #22d3ee;
+            letter-spacing: -.02em;
         }
         p { color: #a1a1aa; line-height: 1.6; margin-bottom: 1.25rem; }
         a {
@@ -47,13 +50,13 @@
 </head>
 <body>
     <div class="card">
-        <h1>Decision Pro / Whale Desk</h1>
+        <h1>You're in</h1>
         <p>Your <strong>USD</strong> subscription is confirming. Unlimited Oracle, Portfolio AI, and alerts unlock once the payment webhook syncs. Card details stayed with our processor — never on BLACKDARK.</p>
         <p style="font-size:0.9rem">If you started a 7-day Decision Pro trial, you will not be charged until the trial ends — cancel anytime from Manage Billing.</p>
-        <a href="/dashboard" class="primary">Open Dashboard</a>
+        <a href="/dashboard?lens=operate#trust-pulse" class="primary">Open Trust Pulse</a>
         <a href="/login" class="secondary">Login / Refresh</a>
         <div id="status">Syncing subscription...</div>
-        <p style="margin-top:1.5rem;font-size:0.75rem;color:#71717a">
+        <p class="bd-anti-hype" style="margin-top:1.5rem">
             <a href="/disclaimer" style="color:#a1a1aa">Risk Disclaimer</a> ·
             <a href="/refund" style="color:#a1a1aa">Refunds (USD)</a> ·
             <a href="/terms" style="color:#a1a1aa">Terms</a> ·
@@ -75,13 +78,14 @@
                 const d = await res.json();
                 if (d.authenticated) {
                     localStorage.setItem('bd_user', JSON.stringify(d.user));
-                    el.textContent = 'Plan: ' + (d.tier?.label || d.user.tier) + ' — ready on dashboard.';
+                    el.textContent = 'Plan: ' + (d.tier?.label || d.user.tier) + ' — ready on Trust Pulse.';
                 }
             } catch (e) {
-                el.textContent = 'Subscription active — open dashboard to continue.';
+                el.textContent = 'Subscription active — open Trust Pulse to continue.';
             }
         }
         refreshTier();
     </script>
+    {% include "partials/site_footer.html" %}
 </body>
 </html>

@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Trust OS Decision Room</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", sans-serif; background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
-        html[dir="ltr"] body { font-family: "IBM Plex Sans", "IBM Plex Sans Arabic", sans-serif; }
+        body { font-family: var(--bd-font-body); background: radial-gradient(1200px 600px at 80% -10%, #12202a 0%, #0a0a0f 55%); color: #e4e4e7; line-height: 1.5; min-height: 100vh; }
         a { color: #22d3ee; text-decoration: none; }
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-        .logo { font-weight: 800; font-size: 1.2rem; color: #22d3ee; }
+        .logo { font-family: var(--bd-font-display); font-weight: 800; font-size: 1.2rem; color: #22d3ee; letter-spacing: .04em; }
         .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
         .nav-links a:hover { color: #e4e4e7; }
         .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
@@ -96,24 +95,22 @@
 
         /* Trust Pulse — first-open composition */
         .hero { margin-bottom: .65rem; }
-        .hero h1 { font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
+        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
         .hero p { font-size: .85rem; }
         #trust-pulse {
             position: relative; overflow: hidden;
             background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
             border: 1px solid rgba(34,211,238,.28);
             margin-bottom: 1.1rem;
-            animation: pulseIn .65s ease;
+            animation: bdPulseIn .65s var(--bd-ease-out) both;
         }
-        @keyframes pulseIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
-        @keyframes flipFlash { 0% { box-shadow:0 0 0 0 rgba(245,158,11,.45); } 100% { box-shadow:0 0 0 0 transparent; } }
-        #trust-pulse.flipped { animation: flipFlash 1.2s ease; border-color: rgba(245,158,11,.55); }
+        #trust-pulse.flipped { animation: bdFlipFlash 1.1s var(--bd-ease-out); border-color: rgba(245,158,11,.55); }
         .tp-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
         .tp-live { display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; color:#a1a1aa; }
         .tp-dot { width:.55rem; height:.55rem; border-radius:50%; background:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.55); }
         .tp-dot.stale { background:#f59e0b; box-shadow:none; }
         .tp-dot.warm { background:#22d3ee; }
-        .tp-action { font-size:clamp(2.2rem, 6vw, 3.2rem); font-weight:900; letter-spacing:.02em; line-height:1; margin:.15rem 0 .35rem; }
+        .tp-action { font-family: var(--bd-font-display); font-size:clamp(2.2rem, 6vw, 3.2rem); font-weight:800; letter-spacing:-.02em; line-height:1; margin:.15rem 0 .35rem; }
         .tp-action.ACT { color:#22c55e; } .tp-action.WAIT { color:#f59e0b; } .tp-action.CAUTION { color:#ef4444; }
         .tp-sym { color:#a1a1aa; font-size:.95rem; margin-bottom:.55rem; }
         .tp-sentence { font-size:1.02rem; color:#e4e4e7; margin-bottom:.85rem; max-width:36rem; }
@@ -262,6 +259,18 @@
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
+        <section id="operate-digest" class="section-operate-plus hide-in-room">
+            <h2>Operate digest</h2>
+            <p class="sub">Daily research brief + subscriber value — Decision Pro / Whale Desk</p>
+            <div class="toolbar" style="margin-bottom:.65rem">
+                <button class="btn secondary" type="button" onclick="loadDailyReport()">Refresh daily report</button>
+                <button class="btn secondary" type="button" onclick="loadSubscriberValue()">Refresh value</button>
+                <a class="btn secondary" href="/api/reports/daily/markdown" style="text-decoration:none;display:inline-flex;align-items:center">Markdown</a>
+            </div>
+            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
+            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
+        </section>
+
         <section id="portfolio" class="section-operate-plus hide-in-room">
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
@@ -349,7 +358,7 @@
             const gate = document.getElementById('chatGate');
             const panel = document.getElementById('chatPanel');
             if (!gate || !panel) return;
-            const allowed = userTierId === 'pro' || userTierId === 'whale' || userTierId === 'institutional';
+            const allowed = userTierId === 'pro' || userTierId === 'whale';
             gate.style.display = allowed ? 'none' : 'block';
             panel.style.display = allowed ? 'block' : 'none';
         }
@@ -455,7 +464,11 @@
                     symbol: p.symbol,
                     action: p.action,
                     seen_at: new Date().toISOString(),
-                    factors: (p.why && p.why.factors) || [],
+                    factors: ((p.why && p.why.factors) || []).map(f => ({
+                        factor: f.factor || f,
+                        detail: f.detail || '',
+                        source: f.source || '',
+                    })),
                     certificate_hash: (p.proof && p.proof.certificate_hash) || null,
                 }));
             } catch (e) {}
@@ -528,10 +541,14 @@
                 ux_mode: mode,
                 lang: 'en',
             });
+            // force refreshes cache only — never spam prediction_id on every boot
             if (force) qs.set('force', 'true');
             if (prev && prev.action) {
                 qs.set('previous_action', prev.action);
                 if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
+            }
+            if (prev && prev.factors && prev.factors.length) {
+                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (e) {}
             }
             try {
                 const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
@@ -569,6 +586,12 @@
         }
 
         function shareTrustPulse() {
+            const btn = document.getElementById('tpShareBtn');
+            if (btn) {
+                btn.classList.remove('bd-motion-share');
+                void btn.offsetWidth;
+                btn.classList.add('bd-motion-share');
+            }
             const p = lastPulse || {};
             const proof = p.proof || {};
             const text = proof.share_text || (`BLACKDARK Trust Pulse · ${p.symbol||'BTC'} · ${p.action||'WAIT'} · verify /oracle-accuracy`);
@@ -735,18 +758,135 @@
             } catch (e) {}
         }
 
+        function renderMarketAssets(assets) {
+            const el = document.getElementById('market');
+            if (!el) return;
+            const rows = assets || [];
+            el.innerHTML = rows.length ? rows.slice(0,8).map(a => `
+                <div class="card" onclick="setSymbol('${a.symbol}')">
+                    <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
+                    <div>$${fmt(a.price,a.price<1?4:2)}</div>
+                    <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
+                </div>`).join('') : '<div class="empty">No market rows</div>';
+        }
+
         async function loadMarket() {
             const el = document.getElementById('market');
             try {
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
-                el.innerHTML = (data.assets||[]).slice(0,8).map(a => `
-                    <div class="card" onclick="setSymbol('${a.symbol}')">
-                        <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict}</span>
-                        <div>$${fmt(a.price,a.price<1?4:2)}</div>
-                        <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
-                    </div>`).join('');
+                renderMarketAssets(data.assets || []);
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        async function loadDailyReport() {
+            const el = document.getElementById('dailyReportBox');
+            if (!el) return;
+            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            try {
+                const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
+                const d = await res.json();
+                if (res.status === 401 || res.status === 403) {
+                    const detail = d.detail || {};
+                    el.innerHTML = `<div class="empty">${detail.message || 'Decision Pro required for daily report'}
+                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    return;
+                }
+                if (!res.ok) throw new Error('fail');
+                const title = d.title || d.headline || 'Daily research brief';
+                const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
+                const bullets = [
+                    d.oracle_accuracy_percent != null ? `Oracle accuracy ${d.oracle_accuracy_percent}%` : null,
+                    d.moat_score != null ? `Moat ${d.moat_score}/100` : null,
+                    d.whale_alerts_24h != null ? `Whale alerts ${d.whale_alerts_24h}` : null,
+                    d.arb_alerts_24h != null ? `Arb alerts ${d.arb_alerts_24h}` : null,
+                ].filter(Boolean).slice(0, 4);
+                el.innerHTML = `<strong>${title}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${summary || 'Brief ready — open Markdown for full detail.'}</div>
+                    ${bullets.length ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' +
+                        bullets.map(b => `<li>${b}</li>`).join('') +
+                        '</ul>' : ''}
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Daily report unavailable</div>';
+            }
+        }
+
+        async function loadSubscriberValue() {
+            const el = document.getElementById('subscriberValueBox');
+            if (!el) return;
+            el.innerHTML = '<div class="loading">Loading value…</div>';
+            try {
+                const res = await fetch('/api/subscriber/value', { headers: authHeaders() });
+                const d = await res.json();
+                if (res.status === 401 || res.status === 403) {
+                    const detail = d.detail || {};
+                    el.innerHTML = `<div class="empty">${detail.message || 'Pro/Whale required for subscriber value'}
+                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    return;
+                }
+                if (!res.ok) throw new Error('fail');
+                const v = d.value || {};
+                const u = d.usage || {};
+                el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
+                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
+                    ${v.covers_subscription != null ? ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet') : ''}</div>
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Value digest unavailable</div>';
+            }
+        }
+
+        let dashEs = null;
+        let lastWhaleStreamAt = 0;
+        function applyDashboardSnapshot(d) {
+            if (!d || d.type === 'error') return;
+            if (d.market && Array.isArray(d.market.assets)) renderMarketAssets(d.market.assets);
+            if (d.open_interest && Array.isArray(d.open_interest.assets)) {
+                const el = document.getElementById('oi');
+                const rows = d.open_interest.assets;
+                if (el && rows.length) {
+                    el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+                        rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
+                            <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                }
+            }
+            if (d.arbitrage) {
+                const el = document.getElementById('arbList');
+                const stats = document.getElementById('arbStats');
+                const c = d.arbitrage.counts || {};
+                if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${d.arbitrage.executable_count||0} · Profitable ${d.arbitrage.profitable_count||0}`;
+                const opps = d.arbitrage.opportunities || [];
+                if (el && opps.length) {
+                    el.innerHTML = opps.slice(0,6).map(o => {
+                        const half = o.opportunity_half_life || {};
+                        const truth = o.net_edge_truth || {};
+                        const rejected = o.truth_rejected || truth.reject;
+                        return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                        <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                        <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                    }).join('');
+                }
+            }
+            const now = Date.now();
+            if (d.whales && (now - lastWhaleStreamAt) > 45000) {
+                lastWhaleStreamAt = now;
+                loadWhales(false);
+            }
+        }
+        function startDashboardStream() {
+            if (dashEs) { try { dashEs.close(); } catch (e) {} }
+            try {
+                dashEs = new EventSource('/api/dashboard/stream');
+                dashEs.onmessage = (ev) => {
+                    try {
+                        const d = JSON.parse(ev.data);
+                        if (d.type === 'connected') return;
+                        applyDashboardSnapshot(d);
+                    } catch (e) {}
+                };
+            } catch (e) {}
         }
 
         async function loadOI() {
@@ -1181,6 +1321,7 @@
             loadIntentRouter();
             loadTrustPulse(true);
             startTrustPulseStream();
+            startDashboardStream();
             askOracle();
             initChart();
             loadChart();
@@ -1188,6 +1329,8 @@
             loadOI();
             loadArbitrage(false);
             loadWhales(false);
+            loadDailyReport();
+            loadSubscriberValue();
             loadMevReport();
             runStealthAdvisor();
             loadTgStatus();

@@ -89,11 +89,13 @@ def test_routes_and_templates_wire():
     src = Path("dashboard.py").read_text(encoding="utf-8")
     assert '"/api/trust-pulse"' in src
     assert '"/api/trust-pulse/stream"' in src
+    assert "previous_factors" in src
     dash = Path("templates/dashboard.html").read_text(encoding="utf-8")
     land = Path("templates/landing.html").read_text(encoding="utf-8")
     assert 'id="trust-pulse"' in dash
     assert "loadTrustPulse" in dash
     assert "startTrustPulseStream" in dash
+    assert "previous_factors" in dash
     assert 'id="trust-pulse"' in land
     assert "loadLandingTrustPulse" in land
     assert Path("docs/TRUST_PULSE.md").is_file()

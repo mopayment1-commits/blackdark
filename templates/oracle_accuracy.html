@@ -10,7 +10,7 @@
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         :root {
             --bg: #0a0a0f;
@@ -25,7 +25,7 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: "IBM Plex Sans", sans-serif;
+            font-family: var(--bd-font-body);
             background: radial-gradient(1000px 500px at 10% -20%, #132018 0%, #0a0a0f 50%);
             color: var(--text);
             line-height: 1.6;
@@ -37,9 +37,10 @@
             position: sticky; top: 0; z-index: 10;
         }
         .logo {
+            font-family: var(--bd-font-display);
             font-weight: 800; font-size: 1.3rem;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            color: var(--accent);
+            letter-spacing: .04em;
             text-decoration: none;
         }
         nav a { color: var(--muted); text-decoration: none; margin-left: 1.5rem; }
@@ -621,5 +622,6 @@
         setInterval(loadAccuracy, 60000);
         setInterval(loadLocked, 120000);
     </script>
+    {% include "partials/site_footer.html" %}
 </body>
 </html>

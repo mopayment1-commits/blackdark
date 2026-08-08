@@ -4,37 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <meta name="description" content="BLACKDARK — one Act/Wait Oracle decision with a public verifiable accuracy ledger. Prove it, not trust me.">
-    <meta property="og:title" content="BLACKDARK — AI Crypto Intelligence">
-    <meta property="og:description" content="Single-Sentence Oracle + Public Accuracy Ledger. Labels are not proof.">
+    <meta name="description" content="BLACKDARK — We publish the miss. Sealed forecasts before the event. Public proof after. Decide. Prove it. Share it.">
+    <meta property="og:title" content="BLACKDARK — We publish the miss.">
+    <meta property="og:description" content="Sealed forecasts before the event. Public proof after. Trust Pulse + Public Accuracy Ledger.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="/static/img/blackdark-sealed-hero.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="/static/img/blackdark-sealed-hero.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
-    <title>BLACKDARK — AI Crypto Intelligence Platform</title>
+    <title>BLACKDARK — We publish the miss. · Decide. Prove it. Share it.</title>
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"AI crypto intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
+    {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        :root {
-            --bg: #0a0a0f;
-            --bg-card: #111118;
-            --bg-elevated: #1a1a24;
-            --border: #2a2a35;
-            --text: #e4e4e7;
-            --text-muted: #71717a;
-            --accent: #22d3ee;
-            --accent-glow: rgba(34, 211, 238, 0.15);
-            --success: #22c55e;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-        }
-        
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
+            font-family: var(--bd-font-body);
+            background:
+                radial-gradient(1100px 560px at 18% -12%, rgba(34, 211, 238, 0.1), transparent 55%),
+                radial-gradient(900px 480px at 92% 0%, rgba(6, 182, 212, 0.07), transparent 50%),
+                linear-gradient(180deg, #0c1018 0%, var(--bd-bg) 42%, #07070b 100%);
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
@@ -82,9 +74,11 @@
         }
         
         .logo {
-            font-size: 1.5rem; font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: var(--bd-font-display);
+            font-size: 1.45rem; font-weight: 800;
+            letter-spacing: .04em;
+            color: var(--accent);
+            text-decoration: none;
         }
         
         .nav-links { display: flex; gap: 2rem; }
@@ -109,17 +103,16 @@
             position: relative;
             z-index: 1;
             max-width: 900px;
-            margin: 5.5rem auto 0;
+            margin: 2rem auto 0;
             padding: 0.75rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
             justify-content: center;
-            background: rgba(17, 17, 24, 0.85);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: transparent;
         }
 
         .landing-stats strong {
@@ -128,52 +121,164 @@
         }
         
         .hero {
+            position: relative;
             min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; padding: 8rem 2rem 4rem;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 6.5rem 1.25rem 2rem;
+            overflow: hidden;
         }
-        
-        .hero-content {
-            max-width: 900px; text-align: center; position: relative; z-index: 1;
+
+        .hero-bleed {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
         }
-        
-        .badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: var(--bg-elevated); border: 1px solid var(--border);
-            padding: 0.5rem 1rem; border-radius: 100px;
-            font-size: 0.875rem; color: var(--accent);
-            margin-bottom: 2rem;
+
+        .hero-bleed-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 58% 42%;
+            display: block;
+            filter: saturate(0.92) contrast(1.05);
+            animation: bdSealDrift 18s ease-in-out infinite alternate;
         }
-        
-        .badge-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--accent); animation: pulse 2s infinite;
+
+        @keyframes bdSealDrift {
+            from { transform: scale(1.02) translate3d(0, 0, 0); }
+            to { transform: scale(1.07) translate3d(-1.2%, 1%, 0); }
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+
+        .hero-bleed-veil {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(7, 8, 12, 0.72) 0%, rgba(7, 8, 12, 0.45) 38%, rgba(7, 8, 12, 0.78) 72%, #07070b 100%),
+                radial-gradient(70% 55% at 70% 42%, rgba(34, 211, 238, 0.12), transparent 62%),
+                radial-gradient(50% 40% at 20% 80%, rgba(6, 182, 212, 0.08), transparent 70%);
         }
-        
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 900; line-height: 1.1;
-            margin-bottom: 1.5rem;
+
+        .hero-composition {
+            position: relative;
+            z-index: 1;
+            width: min(820px, 100%);
+            text-align: center;
+            animation: bdPulseIn 0.65s var(--bd-ease-out) both;
         }
-        
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--accent), #a78bfa, #f472b6);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+
+        .hero-brand {
+            font-family: var(--bd-font-display);
+            font-size: clamp(3.1rem, 9vw, 5.4rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: 0.02em;
+            margin: 0 0 0.85rem;
+            color: #e8eaee;
+            text-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.18),
+                0 10px 40px rgba(0, 0, 0, 0.55),
+                0 0 48px rgba(34, 211, 238, 0.12);
+            background: linear-gradient(180deg, #f8fafc 10%, #a1a1aa 55%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        .hero p {
-            font-size: 1.25rem; color: var(--text-muted);
-            max-width: 600px; margin: 0 auto 2.5rem;
+
+        .hero-headline {
+            font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+            font-size: clamp(1.45rem, 3.4vw, 2.05rem);
+            font-weight: 500;
+            font-style: italic;
+            color: #d4d4d8;
+            letter-spacing: -0.01em;
+            margin: 0 0 0.75rem;
+            text-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
         }
-        
+
+        .hero-support {
+            font-size: 1.02rem;
+            color: #a1a1aa;
+            max-width: 34rem;
+            margin: 0 auto 1.35rem;
+            line-height: 1.55;
+        }
+
         .hero-cta {
-            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 1.35rem;
         }
+
+        .btn-seal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: linear-gradient(180deg, #e7e7ea 0%, #b8bcc4 100%);
+            color: #0a0a0f;
+            padding: 0.95rem 1.65rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.02rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s var(--bd-ease-out), box-shadow 0.25s;
+        }
+        .btn-seal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 48px rgba(34, 211, 238, 0.22);
+        }
+        .btn-seal-play {
+            width: 1.15rem; height: 1.15rem; border-radius: 999px;
+            border: 1.5px solid currentColor; display: inline-grid; place-items: center;
+            font-size: 0.55rem; line-height: 1;
+        }
+
+        .seal-myth {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2.5rem 1.25rem 1rem;
+            text-align: center;
+        }
+        .seal-myth h2 {
+            font-family: var(--bd-font-display);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--text);
+            margin-bottom: 0.65rem;
+            letter-spacing: -0.02em;
+        }
+        .seal-myth > p {
+            color: var(--text-muted);
+            max-width: 36rem;
+            margin: 0 auto 1.25rem;
+            line-height: 1.65;
+        }
+        .seal-steps {
+            display: grid;
+            gap: 0.85rem;
+            text-align: left;
+            margin: 1.25rem 0 1.5rem;
+        }
+        .seal-step {
+            padding: 0.95rem 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .seal-step strong {
+            display: block;
+            color: var(--accent);
+            font-family: var(--bd-font-display);
+            font-size: 0.82rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+        .seal-step span { color: var(--text-muted); font-size: 0.95rem; line-height: 1.55; }
 
         .hero-stats {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;
@@ -510,69 +615,70 @@
         
         /* Site footer styles live in partials/site_footer.html */
 
+        .hero .trust-pulse-mini {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            width: min(640px, 100%);
+        }
+        .hero .tp-mini-inner {
+            backdrop-filter: blur(14px);
+            background: rgba(10, 10, 15, 0.78);
+            border-color: rgba(34, 211, 238, 0.28);
+            padding: 1.15rem 1.2rem 1.05rem;
+            animation: bdPulseIn 0.75s var(--bd-ease-out) 0.12s both;
+        }
+        .hero .tp-mini-cta .btn-primary,
+        .hero .tp-mini-cta .btn-secondary {
+            padding: 0.55rem 1rem;
+            font-size: 0.88rem;
+        }
+        .hero .tp-mini-foot {
+            font-size: 0.72rem;
+            line-height: 1.45;
+            color: var(--text-muted);
+        }
         .trust-pulse-mini {
-            max-width: 720px; margin: -1rem auto 1.5rem; padding: 0 1.25rem;
+            max-width: 720px; margin: 0 auto 1.75rem; padding: 0 1.25rem;
             position: relative; z-index: 2;
         }
-        .tp-mini-inner {
-            background: linear-gradient(165deg, rgba(18,32,42,.96), rgba(17,17,24,.98));
-            border: 1px solid rgba(34,211,238,.3);
-            border-radius: 16px; padding: 1.25rem 1.35rem 1.1rem;
-            animation: tpMiniIn .7s ease;
-        }
-        @keyframes tpMiniIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+        .tp-mini-inner { /* styles from .bd-trust-pulse */ }
         .tp-mini-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.55rem; }
-        .tp-mini-label { color:var(--accent); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
+        .tp-mini-label { color:var(--accent); font-family:var(--bd-font-display); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
         .tp-mini-live { display:inline-flex; align-items:center; gap:.35rem; font-size:.75rem; color:var(--text-muted); }
         .tp-mini-dot { width:.5rem; height:.5rem; border-radius:50%; background:var(--success); box-shadow:0 0 8px rgba(34,197,94,.5); }
         .tp-mini-dot.stale { background:var(--warning); box-shadow:none; }
-        .tp-mini-action { font-size:clamp(2rem,5vw,2.8rem); font-weight:900; line-height:1; margin:.2rem 0; }
-        .tp-mini-action.ACT { color:var(--success); }
-        .tp-mini-action.WAIT { color:var(--warning); }
-        .tp-mini-action.CAUTION { color:var(--danger); }
+        .tp-mini-action { margin:.2rem 0; }
         .tp-mini-sym { color:var(--text-muted); font-size:.9rem; margin-bottom:.4rem; }
         .tp-mini-sentence { color:var(--text); font-size:1rem; margin-bottom:.75rem; }
         .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
         .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
         .tp-mini-why div:last-child { border-bottom:none; }
         .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; }
-        .tp-mini-proof span, .tp-mini-proof a {
-            padding:.3rem .55rem; border-radius:999px; border:1px solid var(--border);
-            background:var(--bg-elevated); color:var(--text-muted); text-decoration:none;
-        }
+        .tp-mini-proof span, .tp-mini-proof a { /* use .bd-chip via JS when possible */ }
         .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
-        .tp-mini-foot { font-size:.72rem; color:var(--text-muted); margin:0; }
+        .tp-mini-foot { margin:0; }
         
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero { padding-top: 6rem; }
-            body.has-launch-banner .hero { padding-top: 8rem; }
-            .hero-cta { flex-direction: column; }
+            .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }
+            .hero-bleed-img { object-position: 62% 38%; }
+            .hero-cta { flex-direction: column; align-items: stretch; }
+            .btn-seal, .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
             .oracle-input { flex-direction: column; }
             .waitlist-form { flex-direction: column; }
         }
 
-        .launch-banner {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
-            background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(167,139,250,0.15));
-            border-bottom: 1px solid var(--border);
-            text-align: center; padding: 0.55rem 1rem; font-size: 0.85rem;
+        @media (prefers-reduced-motion: reduce) {
+            .hero-bleed-img { animation: none; }
         }
-        .launch-banner a { color: var(--accent); font-weight: 700; text-decoration: none; }
-        body.has-launch-banner nav { top: 36px; }
-        body.has-launch-banner .hero { padding-top: 9rem; }
     </style>
 </head>
-<body class="has-launch-banner">
-    <a href="#oracle" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Oracle</a>
+<body>
+    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Trust Pulse</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
-    <div class="launch-banner">
-        🎁 <strong>Launch Offer:</strong> 7-Day Pro Trial FREE on signup — code <strong>LAUNCHPRO</strong> for 14 days ·
-        <a href="/login">Register Now</a>
-    </div>
-    
     <nav aria-label="Primary">
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
@@ -584,56 +690,75 @@
                 <a href="/oracle-accuracy">Verify</a>
                 <a href="/login">Login</a>
             </div>
-            <a href="/dashboard?lens=prove#decide" class="nav-cta">Open Proof</a>
+            <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">Open Proof</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                Don't trust us. Verify us.
-            </div>
-            <h1>
-                BLACKDARK<br>
-                <span>Decide. Prove it. Share it.</span>
-            </h1>
-            <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                One Trust OS — Prove → Operate → Desk → Room. Reviewable decisions, not mystery scores.
-            </p>
+    <section class="hero" id="top" aria-label="BLACKDARK sealed hero">
+        <div class="hero-bleed" aria-hidden="true">
+            <img
+                class="hero-bleed-img"
+                src="/static/img/blackdark-sealed-hero.png"
+                alt=""
+                width="1536"
+                height="1024"
+                decoding="async"
+                fetchpriority="high"
+            >
+            <div class="hero-bleed-veil"></div>
+        </div>
+        <div class="hero-composition">
+            <h1 class="hero-brand">BLACKDARK</h1>
+            <p class="hero-headline">We publish the miss.</p>
+            <p class="hero-support">Sealed forecasts before the event. Public proof after.</p>
             <div class="hero-cta">
-                <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary">Open Proof</a>
-                <a href="/oracle-accuracy" class="btn-secondary">Verify Ledger</a>
+                <a href="#try-oracle" class="btn-primary">Try Oracle Free</a>
+                <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> Watch the Seal</a>
             </div>
+            <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
+                <div class="tp-mini-inner bd-trust-pulse">
+                    <div class="tp-mini-top">
+                        <span class="tp-mini-label">TRUST PULSE</span>
+                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">Live</span></span>
+                    </div>
+                    <div class="tp-mini-action bd-tp-action WAIT" id="lpAction">—</div>
+                    <div class="tp-mini-sym" id="lpSym">Loading today’s decision…</div>
+                    <p class="tp-mini-sentence" id="lpSentence">One clear Act / Wait — reviewable, not a mystery score.</p>
+                    <div class="tp-mini-why" id="lpWhy"></div>
+                    <div class="tp-mini-proof" id="lpProof"></div>
+                    <div class="tp-mini-cta">
+                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">Open full proof</a>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">Share Proof</button>
+                    </div>
+                    <p class="tp-mini-foot bd-anti-hype">Decide. Prove it. Share it. · Not financial advice · Hits and misses published</p>
+                </div>
+            </section>
         </div>
     </section>
 
-    <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
-        <div class="tp-mini-inner">
-            <div class="tp-mini-top">
-                <span class="tp-mini-label">TRUST PULSE</span>
-                <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">Live</span></span>
+    <section class="seal-myth" id="seal" aria-label="The Seal">
+        <h2>The Seal</h2>
+        <p>Before the move, the forecast is sealed. After the event, hits and misses go public on the Ledger. No mystery score. No fake scarcity.</p>
+        <div class="seal-steps">
+            <div class="seal-step">
+                <strong>01 · Seal</strong>
+                <span>A decision is committed with a certificate hash you can share — sealed before the outcome.</span>
             </div>
-            <div class="tp-mini-action WAIT" id="lpAction">—</div>
-            <div class="tp-mini-sym" id="lpSym">Loading today’s decision…</div>
-            <p class="tp-mini-sentence" id="lpSentence">One clear Act / Wait — reviewable, not a mystery score.</p>
-            <div class="tp-mini-why" id="lpWhy"></div>
-            <div class="tp-mini-proof" id="lpProof"></div>
-            <div class="tp-mini-cta">
-                <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">Open full proof</a>
-                <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;border:none;cursor:pointer" id="lpShareBtn">Share Proof</button>
+            <div class="seal-step">
+                <strong>02 · Prove</strong>
+                <span>Trust Pulse shows one live Act / Wait with Why under five seconds — research only, not advice.</span>
             </div>
-            <p class="tp-mini-foot">Not financial advice · Verify on the Public Accuracy Ledger</p>
+            <div class="seal-step">
+                <strong>03 · Publish the miss</strong>
+                <span>The Public Accuracy Ledger posts outcomes, including misses. Don't trust us. Verify us.</span>
+            </div>
+        </div>
+        <div class="hero-cta">
+            <a href="/oracle-accuracy" class="btn-primary">Verify Ledger</a>
+            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">Open live proof</a>
         </div>
     </section>
 
-    <div class="landing-stats" id="landingStats" style="margin-top:0">
-        <span>Visitors: <strong id="landingViews">—</strong></span>
-        <span>Users: <strong id="landingUsers">—</strong></span>
-        <span>Subscribers: <strong id="landingSubs">—</strong></span>
-        <span>Telegram: <strong id="landingTelegram">—</strong></span>
-        <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
-    </div>
     <section class="features" id="try-oracle" style="padding-top:2rem">
         <div class="section-header">
             <h2>Prove · <span style="color:var(--accent)">Decide</span></h2>
@@ -641,7 +766,7 @@
         </div>
 <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
-                    <h3>📱 Telegram Free Alerts</h3>
+                    <h3>Telegram Free Alerts</h3>
                     <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
                 </div>
                 <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
@@ -724,27 +849,23 @@
         
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🔮</div>
-                <h3>AI Oracle</h3>
-                <p>Buy · Wait · Stay out — 0–100 score, narrative, support/resistance, and forecast context.</p>
+                <h3>Trust Pulse</h3>
+                <p>One live Act / Wait with Why under five seconds — the first thing you see, every time.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🐋</div>
-                <h3>Whale &amp; CVVD</h3>
-                <p>Cross-venue volume signals folded into the Oracle verdict — not a separate product.</p>
+                <h3>Decision Certificate</h3>
+                <p>Shareable Proof Card with verify link. Dual-coded: text + visual state — not a mystery score.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📡</div>
-                <h3>Market Radar</h3>
-                <p>Top movers by volume — pick a symbol, send it to Oracle in one click.</p>
+                <h3>Public Accuracy Ledger</h3>
+                <p>Hits and misses published. Don't trust us — verify us.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Telegram Alerts</h3>
-                <p>Proof Pass: shareable Decision Certificates (3/day). Decision Pro adds unlimited Oracle, Portfolio AI, and alerts without free caps.</p>
+                <h3>Operate depth</h3>
+                <p>Decision Pro unlocks daily habit, Portfolio AI, alerts, and AI Chat — without Free watermark.</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
@@ -760,66 +881,59 @@
                 <p>Proof → daily habit → desk packaging → institutional trust room. We sell a reviewable decision + shareable proof — not charts or mystery scores.</p>
             </div>
             
-            <div class="pricing-grid">
-                <div class="pricing-card">
+            <div class="pricing-grid bd-pricing-grid">
+                <div class="pricing-card bd-price-tier">
                     <h3>Proof Pass</h3>
                     <div class="price">$0<span>/month</span></div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Take a clear decision… and prove it publicly.</p>
                     <ul>
-                        <li>OQS Why — understandable bull / bear / neutral</li>
-                        <li>Shareable Decision Certificate (Proof Card)</li>
+                        <li>Trust Pulse + OQS Why</li>
+                        <li>Shareable Decision Certificate</li>
                         <li>3 certified decisions / day</li>
-                        <li>Unlimited sharing of your Proof Cards</li>
-                        <li>Live Public Accuracy Ledger</li>
-                        <li>Free Proof watermark on cards</li>
+                        <li>Public Accuracy Ledger</li>
+                        <li>Free Proof watermark</li>
                     </ul>
-                    <a href="/login" class="btn-secondary btn">Get Started</a>
+                    <a href="/login" class="btn-secondary btn">Start free</a>
                 </div>
                 
-                <div class="pricing-card popular">
-                    <div class="popular-badge">Most Popular</div>
+                <div class="pricing-card bd-price-tier popular">
+                    <div class="popular-badge bd-popular-badge">Most chosen depth</div>
                     <h3>Decision Pro</h3>
-                    <div class="price">$29<span>/month</span></div>
-                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">✓ 7-day free trial · Promo: LAUNCHPRO</p>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">From one-off proof → a daily decision system.</p>
+                    <div class="price">$29<span>/month USD</span></div>
+                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">7-day trial · cancel anytime before charge</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">From one-off proof → a daily decision habit.</p>
                     <ul>
-                        <li>Unlimited certified Oracle decisions</li>
-                        <li>Portfolio AI + full Market Radar</li>
-                        <li>Oracle alerts without free caps</li>
-                        <li>Personal decision history + accuracy</li>
-                        <li>No Free Proof watermark</li>
-                        <li>Research Lab + Arbitrage + AI Chat</li>
+                        <li>Unlimited certified Oracle</li>
+                        <li>Since-you-left continuity</li>
+                        <li>Portfolio AI + alerts</li>
+                        <li>AI Chat · no Free watermark</li>
+                        <li>Research Lab + Arbitrage</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-Day Trial</a>
+                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-day trial</a>
                 </div>
                 
-                <div class="pricing-card">
+                <div class="pricing-card bd-price-tier">
                     <h3>Whale Desk</h3>
-                    <div class="price">$199<span>/month</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Market edge + light institutional packaging.</p>
+                    <div class="price">$199<span>/month USD</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Edge + packaging to convince someone else.</p>
                     <ul>
                         <li>Everything in Decision Pro</li>
-                        <li>Whale Signal-to-Noise filtering</li>
-                        <li>Stealth / fund-facing views</li>
-                        <li>B2B feed / API key</li>
-                        <li>Acquirer Evidence Pack export</li>
-                        <li>Higher rate-limit priority</li>
+                        <li>Whale Signal vs Noise</li>
+                        <li>Stealth advisory views</li>
+                        <li>Evidence Pack + API priority</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Upgrade to Whale Desk</a>
+                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Get Whale Desk</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">B2B Data Feed</a>
                 </div>
 
-                <div class="pricing-card">
-                    <h3>Trust OS Institutional</h3>
-                    <div class="price" style="font-size:2rem">From $3,000<span>/mo</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Trust system inside the official decision room. Not self-serve.</p>
+                <div class="pricing-card bd-price-tier">
+                    <h3>Institutional</h3>
+                    <div class="price" style="font-size:2rem">Talk to us</div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">From $3,000/mo USD · Room lens · not self-serve checkout.</p>
                     <ul>
-                        <li>Everything in Whale Desk</li>
                         <li>Data Room + Compliance pack</li>
-                        <li>SSO / enforced MFA for teams</li>
-                        <li>SLA + optional private deploy</li>
-                        <li>Roles: Analyst / PM / Compliance</li>
-                        <li>Integration Addendum (API, licensing, DD)</li>
+                        <li>SSO / enforced MFA</li>
+                        <li>SLA · Integration Addendum</li>
                     </ul>
                     <a href="/data-room" class="btn-primary btn">Talk to us</a>
                 </div>
@@ -833,12 +947,19 @@
     </section>
     
     <section class="waitlist" id="waitlist">
-        <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">
-            Join the <span style="color: var(--accent);">Dark Side</span>
+        <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
+            Get early access to <span style="color: var(--accent);">Trust OS</span>
         </h2>
-        <p style="color: var(--text-muted); font-size: 1.1rem;">
-            10,000+ traders are already using BLACKDARK. Don't get left behind.
+        <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
+            Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
         </p>
+        <div class="landing-stats" id="landingStats" aria-label="Platform activity" style="margin:1.25rem auto 0;border:none">
+            <span>Visitors: <strong id="landingViews">—</strong></span>
+            <span>Users: <strong id="landingUsers">—</strong></span>
+            <span>Subscribers: <strong id="landingSubs">—</strong></span>
+            <span>Telegram: <strong id="landingTelegram">—</strong></span>
+            <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+        </div>
         <form class="waitlist-form" onsubmit="joinWaitlist(event)">
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required>
             <button type="submit">Join Waitlist</button>
@@ -856,7 +977,7 @@
             if (!result) {
                 return {
                     url,
-                    text: 'BLACKDARK Oracle — AI crypto signals in 30 seconds 🔮',
+                    text: 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
                 };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
@@ -1227,16 +1348,16 @@
                 const analytics = await analyticsRes.json();
                 const users = await usersRes.json();
                 const telegram = await telegramRes.json();
-                document.getElementById('landingViews').textContent =
-                    (analytics.landing_views || 0).toLocaleString();
-                document.getElementById('landingUsers').textContent =
-                    (users.registered_users || 0).toLocaleString();
-                document.getElementById('landingSubs').textContent =
-                    (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString();
-                document.getElementById('landingTelegram').textContent =
-                    (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString();
-                document.getElementById('landingWaitlist').textContent =
-                    (analytics.waitlist_count || 0).toLocaleString();
+                // Stats intentionally below first-viewport budget — only fill if strip exists
+                const set = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val;
+                };
+                set('landingViews', (analytics.landing_views || 0).toLocaleString());
+                set('landingUsers', (users.registered_users || 0).toLocaleString());
+                set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
+                set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
+                set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
             } catch (e) {}
         }
 
@@ -1290,11 +1411,15 @@
             const box = document.getElementById('lpProof');
             if (box) {
                 const bits = [
-                    `<a href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
+                    `<a class="bd-chip ok" href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
                 ];
-                if (proof.watermark) bits.push(`<span>${proof.watermark}</span>`);
-                if (proof.certificate_hash) bits.push(`<span>cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
+                if (proof.watermark) bits.push(`<span class="bd-chip">${proof.watermark}</span>`);
+                if (proof.certificate_hash) bits.push(`<span class="bd-chip">cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
                 box.innerHTML = bits.join('');
+            }
+            const actionEl2 = document.getElementById('lpAction');
+            if (actionEl2) {
+                actionEl2.className = 'tp-mini-action bd-tp-action ' + act;
             }
         }
 
@@ -1319,7 +1444,11 @@
             } catch (e) {}
         }
 
-        document.getElementById('lpShareBtn')?.addEventListener('click', () => {
+        document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
+            const btn = e.currentTarget;
+            btn.classList.remove('bd-motion-share');
+            void btn.offsetWidth;
+            btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
             if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
