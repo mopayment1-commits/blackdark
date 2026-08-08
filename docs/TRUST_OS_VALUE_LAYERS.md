@@ -46,3 +46,13 @@ Record results in `docs/LOAD_TEST_RUN_LOG.md` after a live Postgres+Redis run (o
 
 **Fit:** Decision-trust layer / acqui-hire / bolt-on to a larger data or OMS stack.  
 **Not a fit claim:** Sixteen institutional OS products with separate P&Ls.
+
+## Strategic correction (binding)
+
+Inflated pastes that propose **15 sections**, **100 retail indicators**, **ARENA / Neuro-Design platforms**, or **Kafka/Rust/100-CEX as shipped valuation** are **rejected**.
+
+See [`STRATEGIC_CORRECTION_BINDING.md`](./STRATEGIC_CORRECTION_BINDING.md) and `GET /api/strategy/correction`.
+
+**Keep from those pastes:** Prove-it posture, Dashboard Tourism diagnosis, 78% emerging-funds gap, AI-washing shield, results-over-features, acquisition landmines.
+
+**Success bar:** 60-second grasp — Act/Wait + where to verify — without a tour.

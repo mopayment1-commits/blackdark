@@ -58,6 +58,29 @@
                 <li>Six heroes + Emerging Fund Terminal + Anti-Hype Compliance</li>
             </ul>
             {% endif %}
+            <h2>Five outcomes (results, not features)</h2>
+            <ul>
+                {% if trust_os and trust_os.five_outcomes %}
+                {% for o in trust_os.five_outcomes %}
+                <li>{{ o }}</li>
+                {% endfor %}
+                {% else %}
+                <li>Discover opportunities · Make a decision · Reduce risk · Save time · Improve execution quality</li>
+                {% endif %}
+            </ul>
+            {% if trust_os and trust_os.success_metric %}
+            <p><strong style="color:var(--fg)">Success bar:</strong> {{ trust_os.success_metric.definition }}</p>
+            {% endif %}
+            <h2>Strategic correction — rejected inflation</h2>
+            <ul class="deny">
+                {% if trust_os and trust_os.report_corrections %}
+                {% for row in trust_os.report_corrections %}
+                <li><strong style="color:var(--fg)">Reject:</strong> {{ row.reject }} · <strong style="color:var(--fg)">Keep:</strong> {{ row.keep }}</li>
+                {% endfor %}
+                {% else %}
+                <li>Reject 15 sections / ARENA / Neuro-Design / 100-indicator retail UI — keep four layers + six heroes</li>
+                {% endif %}
+            </ul>
             <h2>Not claimed as shipped</h2>
             <ul class="deny">
                 {% if trust_os and trust_os.overclaim_denylist %}
@@ -72,7 +95,8 @@
                 <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
                 <a href="/b2b#fund-terminal">Emerging Fund Terminal</a> ·
                 <a href="/compliance">Compliance</a> ·
-                <a href="/api/trust-os">JSON manifest</a>
+                <a href="/api/trust-os">JSON manifest</a> ·
+                <a href="/api/strategy/correction">Strategy correction</a>
             </p>
         </div>
         {% elif page == 'contact' %}

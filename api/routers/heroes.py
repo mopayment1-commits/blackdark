@@ -240,6 +240,29 @@ async def heroes_quality():
     return heroes_quality_manifest()
 
 
+@router.get("/api/strategy/correction")
+async def strategy_correction():
+    """Expert correction of inflated strategy pastes — four layers, six heroes."""
+    from trust_os import strategy_correction_manifest
+
+    return strategy_correction_manifest()
+
+
+@router.get("/api/intent/router")
+async def intent_router_api():
+    """Results-over-features intent map (display layer only)."""
+    from intent_router import intent_router_manifest
+
+    return intent_router_manifest()
+
+
+@router.get("/api/intent/resolve")
+async def intent_resolve(intent_id: str = Query(...)):
+    from intent_router import resolve_intent
+
+    return resolve_intent(intent_id)
+
+
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
     """Competitive posture vs TradingView-style rate caps — honest tier policy."""

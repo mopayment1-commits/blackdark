@@ -983,7 +983,7 @@ async def capabilities_page(request: Request):
             "title": "Capabilities — Trust OS",
             "lead": (
                 "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
-                "Not 16 separately valued platforms. Don't trust us. Verify us."
+                "Not 15/16 platforms. Six heroes. No ARENA. Don't trust us. Verify us."
             ),
             "trust_os": manifest,
         },

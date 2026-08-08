@@ -31,6 +31,11 @@ Acceptance bars: Why &lt;5s · Whale one sentence · shareable Ledger · plain P
 APIs: `GET /api/heroes/quality`, `GET /api/ledger/share-kit`, `GET /api/glass-box/operator`.  
 Operator pack: [`docs/GLASS_BOX_OPERATOR_RUNBOOK.md`](docs/GLASS_BOX_OPERATOR_RUNBOOK.md).
 
+## Strategic correction (binding)
+
+Inflated “15 sections / 100 indicators / ARENA / Neuro-Design / Rust&lt;50ms shipped” pastes are rejected.  
+Binding: [`docs/STRATEGIC_CORRECTION_BINDING.md`](docs/STRATEGIC_CORRECTION_BINDING.md) · `GET /api/strategy/correction` · `GET /api/intent/router`.
+
 ## Load / HA proof
 
 Harnesses: `scripts/load_test.py`, `scripts/load_test_1m_simulation.py`  

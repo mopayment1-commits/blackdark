@@ -2,6 +2,7 @@
 BLACKDARK — Trust OS valuation layers (honest acquisition framing).
 
 Do NOT present 16/21 independent P&Ls. Present four value layers over one product.
+Strategic correction binding rejects inflated 15-section / 100-indicator pastes.
 """
 
 from __future__ import annotations
@@ -24,6 +25,7 @@ VALUE_LAYERS: list[dict[str, Any]] = [
             "Dimension Conflict Guard",
             "Discipline Mirror",
             "Net-Edge Truth + Opportunity Half-Life",
+            "Intent router (results over features)",
         ],
         "status": "shipped",
     },
@@ -96,10 +98,47 @@ OVERCLAIM_DENYLIST: list[dict[str, str]] = [
     {"claim": "TWAP / VWAP execution algorithms", "truth": "Not shipped"},
     {"claim": "Institutional TCA (Transaction Cost Analysis)", "truth": "Not shipped"},
     {"claim": "IFRS 13 certification", "truth": "Decimal money helpers ≠ IFRS 13 certification"},
+    {"claim": "Triple-Entry Ledger Reconciliation (live sat/wei)", "truth": "Not shipped as institutional reconciliation suite"},
     {"claim": "SOC 2 / ISO 27001 certificate", "truth": "Engineering controls exist; no external certificate"},
     {"claim": "16 or 21 independently valued platforms", "truth": "One product, four value layers"},
-    {"claim": "Expected Shortfall / full VaR risk desk", "truth": "Kill-switch + drawdown + simple proxies only"},
-    {"claim": "Knowledge Graph / semantic search platform", "truth": "Not shipped"},
+    {"claim": "15 separately marketed product sections", "truth": "Rejected — four value layers + six heroes only"},
+    {"claim": "Expected Shortfall / full VaR 99% risk desk", "truth": "Kill-switch + drawdown + simple proxies only"},
+    {"claim": "Knowledge Graph / semantic ontology platform", "truth": "Not shipped"},
+    {"claim": "BLACKDARK ARENA / Viral Community Engine", "truth": "Not building — virality via Certificate share + Glass Box event"},
+    {"claim": "Neuro-Design / Parametric Canvas OS", "truth": "Not a product surface — quiet UX depth only"},
+    {"claim": "100 retail indicator product / Whale Gravity Map as 100-metric UI", "truth": "Engines stay quiet behind six heroes"},
+    {"claim": "Kafka + Rust <50ms + 100 CEX WebSockets as shipped", "truth": "Future infra option — not a current ship claim"},
+    {"claim": "Panic Button closes 100 venues in 100ms", "truth": "Not shipped"},
+    {"claim": "Guaranteed 65–70% predictive accuracy", "truth": "Only live labeled Public Accuracy Ledger stats — never a guarantee"},
+    {"claim": "Net profit <15% auto-cancel as CAO law", "truth": "Invalid arb threshold — use net-edge truth gates instead"},
+    {"claim": "HashiCorp Vault + Trail of Bits + Big Four as completed", "truth": "Human / procurement steps — not claimed shipped"},
+]
+
+FIVE_OUTCOMES: list[str] = [
+    "Discover opportunities",
+    "Make a decision",
+    "Reduce risk",
+    "Save time",
+    "Improve execution quality",
+]
+
+REPORT_CORRECTIONS: list[dict[str, str]] = [
+    {
+        "reject": "Expand to 15 sections / rename parade (Market Eye, Truth Vault…)",
+        "keep": "Four value layers with English institutional names",
+    },
+    {
+        "reject": "Viral ARENA / Neuro-Design as acquisition pillars",
+        "keep": "Shareable Decision Certificates + one Glass Box public event",
+    },
+    {
+        "reject": "100 indicators as the sellable surface",
+        "keep": "Six heroes; engines quiet; Signal Registry kills unnamed signals",
+    },
+    {
+        "reject": "HFT / Lambda Architecture as current valuation claim",
+        "keep": "Prove-it ledger + decision trust as the acquirable asset",
+    },
 ]
 
 
@@ -108,8 +147,22 @@ def trust_os_manifest() -> dict[str, Any]:
         "product": "BLACKDARK",
         "framing": "Decision Intelligence / Trust OS — not a feature dump",
         "thesis": "Don't trust us. Verify us.",
+        "slogan": "The project is engineered for Institutional Trust before Institutional Scale.",
         "value_layers": VALUE_LAYERS,
         "overclaim_denylist": OVERCLAIM_DENYLIST,
+        "five_outcomes": FIVE_OUTCOMES,
+        "report_corrections": REPORT_CORRECTIONS,
+        "success_metric": {
+            "bar": "60_second_grasp",
+            "definition": (
+                "A new user understands Act/Wait and where to verify on the "
+                "Public Accuracy Ledger without a guided tour."
+            ),
+        },
+        "quiet_engines_policy": (
+            "Microstructure, sentiment, macro, on-chain, storage, and stream kernels "
+            "may deepen heroes silently — they are not retail platforms."
+        ),
         "acquisition_posture": {
             "honest_fit": "decision-trust layer / acqui-hire / bolt-on to larger data or OMS stack",
             "not_a_fit_claim": "16 independent institutional platforms with separate P&Ls",
@@ -119,6 +172,38 @@ def trust_os_manifest() -> dict[str, Any]:
             "decision": "/dashboard",
             "funds": "/b2b#fund-terminal",
             "compliance": "/compliance",
+            "strategy_correction": "/api/strategy/correction",
         },
+        "binding_docs": [
+            "docs/TRUST_OS_VALUE_LAYERS.md",
+            "docs/HEROES_STRATEGY_BINDING.md",
+            "docs/STRATEGIC_CORRECTION_BINDING.md",
+            "docs/PRODUCT_CONSTITUTION_AR.md",
+        ],
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+    }
+
+
+def strategy_correction_manifest() -> dict[str, Any]:
+    """Expert correction of inflated strategy pastes — machine-readable."""
+    from intent_router import intent_router_manifest
+
+    return {
+        "doc": "docs/STRATEGIC_CORRECTION_BINDING.md",
+        "thesis": "Prove it. Four layers. Six heroes. No seventh button.",
+        "value_layers_count": 4,
+        "heroes_count": 6,
+        "five_outcomes": FIVE_OUTCOMES,
+        "report_corrections": REPORT_CORRECTIONS,
+        "overclaim_denylist": OVERCLAIM_DENYLIST,
+        "intent_router": intent_router_manifest(),
+        "not_building": [
+            "viral_arena",
+            "neuro_design_canvas",
+            "browser_extension_platform",
+            "100_indicator_retail_surface",
+            "fifteen_section_platform_map",
+            "sor_twap_tca_ifrs_soc2_as_shipped",
+        ],
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
