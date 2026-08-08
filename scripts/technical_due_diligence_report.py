@@ -13,9 +13,17 @@ def main() -> int:
     from technical_due_diligence import run_sync_report
 
     probe = "--no-probe" not in sys.argv
+    smoke = "--smoke" in sys.argv
     report = run_sync_report(probe_production=probe)
     print(json.dumps(report, indent=2, ensure_ascii=True))
+    if smoke:
+        # CI smoke: report generation is the gate; buyer-strict pass is --strict.
+        return 0 if isinstance(report, dict) and "overall_verdict" in report else 1
     overall = report.get("overall_verdict")
+    if "--strict" in sys.argv:
+        return 0 if overall == "pass" else 1
+    # Default (buyer script): pass or partial with no hard FAIL budget breach still exits 1
+    # unless explicitly passing — keep historical fail-closed for acquisition use.
     return 0 if overall == "pass" else 1
 
 

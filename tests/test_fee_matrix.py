@@ -72,6 +72,24 @@ async def test_refresh_fee_matrix_no_network(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_refresh_fee_matrix_seed_only_on_import_error(monkeypatch):
+    fee_matrix._matrix.clear()
+    fee_matrix._ensure_seeded()
+    real_import = __import__
+
+    def _block_ccxt(name, *args, **kwargs):
+        if name.startswith("ccxt"):
+            raise ImportError("blocked for coverage")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr("builtins.__import__", _block_ccxt)
+    result = await fee_matrix.refresh_fee_matrix()
+    assert result["source"] == "seed_only"
+    assert result["updated"] == 0
+    assert result["total"] >= 1
+
+
+@pytest.mark.asyncio
 async def test_refresh_fee_matrix_ccxt_mock(monkeypatch):
     fee_matrix._matrix.clear()
 
