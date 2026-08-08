@@ -176,11 +176,19 @@
             </ol>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyGlassBtn">Copy challenge text</button>
+                <a class="btn btn-secondary" id="glassShareX" href="#" target="_blank" rel="noopener">Share X</a>
+                <a class="btn btn-secondary" id="glassShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
                 <a class="btn btn-secondary" href="/b2b#fund-terminal">Emerging Fund Terminal</a>
                 <a class="btn btn-secondary" href="/capabilities">Trust OS layers</a>
             </div>
+            <details style="margin-top:1rem">
+                <summary style="cursor:pointer;color:var(--accent);font-weight:600">Operator runbook (launch packaging)</summary>
+                <p id="glass-operator-status" style="margin-top:.65rem;color:var(--muted);font-size:0.85rem">Loading operator gates…</p>
+                <ul id="glass-operator-gates" class="events" style="margin-top:.5rem"></ul>
+                <ol id="glass-tminus" style="margin:.75rem 0 0 1.2rem;color:var(--muted);font-size:0.85rem;line-height:1.7"></ol>
+            </details>
             <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)">
-                Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code>.
+                Exact launch timing and channel are human. Product machinery + event template are live via <code>/api/glass-box/challenge</code> · operator pack <code>/api/glass-box/operator</code>.
             </p>
             <p class="anti-hype" style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Verify claims on this Public Accuracy Ledger.</p>
         </div>
@@ -204,8 +212,12 @@
             <p id="locked-status" style="color:var(--muted);font-size:0.9rem">Loading sealed forecasts…</p>
             <ul class="events" id="locked-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
-                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share link</button>
+                <button class="btn btn-secondary" type="button" id="shareLedgerBtn">Copy share text</button>
+                <a class="btn btn-secondary" id="ledgerShareX" href="#" target="_blank" rel="noopener">Share X</a>
+                <a class="btn btn-secondary" id="ledgerShareTg" href="#" target="_blank" rel="noopener">Share TG</a>
+                <button class="btn btn-secondary" type="button" id="nativeShareLedgerBtn">Share…</button>
             </div>
+            <p id="ledger-share-preview" style="margin-top:.65rem;font-size:.8rem;color:var(--muted)"></p>
         </div>
     </section>
 
@@ -490,8 +502,31 @@
             }
         }
 
+        let lastLedgerShare = location.origin + '/oracle-accuracy';
+        async function loadLedgerShareKit() {
+            try {
+                const res = await fetch('/api/ledger/share-kit');
+                const d = await res.json();
+                lastLedgerShare = d.share_text || lastLedgerShare;
+                const preview = document.getElementById('ledger-share-preview');
+                if (preview) preview.textContent = lastLedgerShare;
+                const x = document.getElementById('ledgerShareX');
+                const tg = document.getElementById('ledgerShareTg');
+                if (x && d.share_urls && d.share_urls.x) x.href = d.share_urls.x;
+                if (tg && d.share_urls && d.share_urls.telegram) tg.href = d.share_urls.telegram;
+            } catch (e) { /* keep fallback link */ }
+        }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
-            navigator.clipboard.writeText(location.origin + '/oracle-accuracy');
+            navigator.clipboard.writeText(lastLedgerShare);
+        });
+        document.getElementById('nativeShareLedgerBtn')?.addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: 'BLACKDARK Public Accuracy Ledger', text: lastLedgerShare, url: location.origin + '/oracle-accuracy' });
+                } catch (e) { /* user cancelled */ }
+            } else {
+                navigator.clipboard.writeText(lastLedgerShare);
+            }
         });
 
         let lastGlassShare = '';
@@ -509,6 +544,29 @@
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
                     ol.innerHTML = steps.map(s => '<li>' + s + '</li>').join('');
+                }
+                const gx = document.getElementById('glassShareX');
+                const gt = document.getElementById('glassShareTg');
+                const q = encodeURIComponent(lastGlassShare);
+                if (gx) gx.href = 'https://twitter.com/intent/tweet?text=' + q;
+                if (gt) gt.href = 'https://t.me/share/url?url=' + encodeURIComponent(location.origin + '/oracle-accuracy#glass-box-challenge') + '&text=' + q;
+                const rb = d.operator_runbook || {};
+                const st = document.getElementById('glass-operator-status');
+                if (st) {
+                    st.textContent = (rb.title || 'Operator runbook') +
+                        (rb.machine_ready ? ' · machine ready' : '') +
+                        ' · human fields remain for timing/channel';
+                }
+                const gates = document.getElementById('glass-operator-gates');
+                if (gates && Array.isArray(rb.gates)) {
+                    gates.innerHTML = rb.gates.map(g =>
+                        `<li><strong>${g.label || g.id}</strong> · ${g.status || '—'}` +
+                        (g.check ? ` · <code>${g.check}</code>` : '') + '</li>'
+                    ).join('');
+                }
+                const tm = document.getElementById('glass-tminus');
+                if (tm && Array.isArray(rb.t_minus_checklist)) {
+                    tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + s + '</li>').join('');
                 }
             } catch (e) {
                 document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
@@ -542,6 +600,7 @@
         });
 
         loadAccuracy();
+        loadLedgerShareKit();
         loadGlassBox();
         loadMevReport();
         loadLocked();

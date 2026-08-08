@@ -41,3 +41,18 @@ python scripts/load_test_1m_simulation.py
 - [ ] Results attached to acquirer evidence pack discussion  
 
 Until a row is filled, do **not** claim proven 1k–10k concurrent production capacity.
+
+## Local dry-run note (dev VM)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-08 |
+| Environment | local / not prod-like |
+| Workers / replicas | 1 |
+| Postgres | no (unless env set) |
+| Redis | no (unless env set) |
+| Script | `scripts/load_test.py` (buyer DD probes) |
+| Notes | Scaffold only — **not** an HA capacity claim. Re-run against Postgres+Redis staging and fill the template above. |
+| Operator | cloud-agent quality polish |
+
+This dry-run row exists so operators know the log format; it does **not** unlock production concurrency claims.

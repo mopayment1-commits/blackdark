@@ -189,6 +189,57 @@ async def glass_box_challenge():
     return build_glass_box_challenge_pack()
 
 
+@router.get("/api/glass-box/operator")
+async def glass_box_operator():
+    from glass_box_challenge import build_glass_box_operator_pack
+
+    return build_glass_box_operator_pack()
+
+
+@router.get("/api/ledger/share-kit")
+async def ledger_share_kit():
+    """Hero #3 — shareable Public Accuracy Ledger kit (no login)."""
+    from heroes_quality import build_ledger_share_kit
+
+    accuracy_pct = None
+    total = None
+    try:
+        from ml.public_accuracy import build_public_accuracy_payload
+
+        summary = await build_public_accuracy_payload(recent_limit=5)
+        if isinstance(summary, dict):
+            oracle = summary.get("oracle") or {}
+            accuracy_pct = (
+                oracle.get("average_accuracy_percent")
+                or oracle.get("recent_hit_rate_percent")
+                or summary.get("average_accuracy_percent")
+            )
+            total = (
+                oracle.get("resolved_predictions")
+                or oracle.get("total_predictions")
+                or summary.get("total_predictions")
+            )
+            try:
+                accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
+            except (TypeError, ValueError):
+                accuracy_pct = None
+            try:
+                total = int(total) if total is not None else None
+            except (TypeError, ValueError):
+                total = None
+    except Exception:
+        pass
+    return build_ledger_share_kit(accuracy_pct=accuracy_pct, total_predictions=total)
+
+
+@router.get("/api/heroes/quality")
+async def heroes_quality():
+    """Six-hero quality gates — polish depth, not a seventh button."""
+    from heroes_quality import heroes_quality_manifest
+
+    return heroes_quality_manifest()
+
+
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
     """Competitive posture vs TradingView-style rate caps — honest tier policy."""

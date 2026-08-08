@@ -904,18 +904,27 @@
             oracleEl.textContent = 'Getting your decision…';
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
+            const t0 = performance.now();
             
             try {
-                let response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                // Retail/beginner: prefer /quick for speed; Pro gets full evidence path.
+                const preferQuick = mode !== 'pro';
+                const primary = preferQuick
+                    ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                    : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+                const fallback = preferQuick
+                    ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                    : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+                let response = await fetch(primary, { headers: { Accept: 'application/json' } });
                 let rawText = await response.text();
                 let data = null;
                 try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (e) { data = null; }
                 if (!data || !response.ok) {
-                    // Production fallback when full Oracle path errors
-                    response = await fetch(`/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                    response = await fetch(fallback, { headers: { Accept: 'application/json' } });
                     rawText = await response.text();
                     try { data = JSON.parse(rawText); } catch (e) { data = null; }
                 }
+                const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = 'Could not get a decision right now. Try again.';
                     verdictEl.textContent = 'WAIT';
@@ -1000,9 +1009,13 @@
                     certEl.style.display = 'block';
                     certEl.innerHTML =
                         `Decision Certificate · <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>` +
-                        `<div style="margin-top:.35rem">` +
-                        (cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button> ` : '') +
-                        `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button></div>`;
+                        `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
+                        (cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '') +
+                        `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
+                        (cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '') +
+                        (cert.share_urls && cert.share_urls.x ? `<a class="btn-secondary" id="certShareX" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>` : '') +
+                        (cert.share_urls && cert.share_urls.telegram ? `<a class="btn-secondary" id="certShareTg" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>` : '') +
+                        `</div>`;
                     document.getElementById('copyCertBtn')?.addEventListener('click', () => {
                         navigator.clipboard.writeText(cert.share_text || '');
                     });
@@ -1014,11 +1027,23 @@
                         a.click();
                         URL.revokeObjectURL(a.href);
                     });
+                    document.getElementById('dlCertTxtBtn')?.addEventListener('click', () => {
+                        const blob = new Blob([cert.export_text || ''], {type:'text/plain'});
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(blob);
+                        a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.txt`;
+                        a.click();
+                        URL.revokeObjectURL(a.href);
+                    });
                 } else {
                     certEl.style.display = 'none';
                 }
 
-                const factors = (data.explanation && data.explanation.top_3_factors) || data.top_3_factors || [];
+                const whyBlock = data.oqs_why || {};
+                const factors = whyBlock.top_3_factors
+                    || (data.explanation && data.explanation.top_3_factors)
+                    || data.top_3_factors
+                    || [];
                 const scen = (data.scenarios && data.scenarios.scenarios) || {};
                 let whyEl = document.getElementById('landingWhy');
                 if (!whyEl) {
@@ -1036,16 +1061,19 @@
                         }).join(' · ') +
                         `<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${(data.scenarios && data.scenarios.disclaimer) || ''}</div></div>`;
                 }
+                const whyList = factors.length
+                    ? '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
+                        const label = f.factor || f.label || f.name || f;
+                        const detail = f.detail ? ` — ${f.detail}` : '';
+                        const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
+                        return `<li>${label}${detail}${src}</li>`;
+                    }).join('') + '</ol>'
+                    : '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
                 whyEl.innerHTML =
-                    '<details open style="border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
-                    '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Why + Certificate</summary>' +
-                    (factors.length
-                        ? '<ol style="margin:.5rem 0 0 1.1rem">' + factors.slice(0,3).map(f => {
-                            const label = f.factor || f.label || f.name || f;
-                            const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
-                            return `<li>${label}${src}</li>`;
-                        }).join('') + '</ol>'
-                        : '<p style="margin-top:.5rem">No factor breakdown on this response.</p>') +
+                    `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'} · ${latencyMs}ms</div>` +
+                    whyList +
+                    '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
+                    '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
                     scenHtml +
                     (cert.certificate_hash || data.prediction_id
                         ? `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`
@@ -1053,7 +1081,7 @@
                     '</details>';
 
                 const disc = document.getElementById('landingDiscipline');
-                const action = data.decision_action || data.verdict || 'WAIT';
+                const followAction = data.decision_action || data.verdict || action || 'WAIT';
                 disc.style.display = 'block';
                 disc.innerHTML =
                     `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my page</a></div>` +
@@ -1070,7 +1098,7 @@
                             body: JSON.stringify({
                                 user_key: key,
                                 asset: data.symbol || symbol,
-                                system_action: action,
+                                system_action: followAction,
                                 followed,
                                 prediction_id: data.prediction_id,
                                 opportunity_score: data.opportunity_score,

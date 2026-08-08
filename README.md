@@ -25,6 +25,12 @@ See [`docs/TRUST_OS_VALUE_LAYERS.md`](docs/TRUST_OS_VALUE_LAYERS.md) and `GET /a
 | Compliance posture | `/compliance` |
 | Trust OS JSON | `/api/trust-os` |
 
+## Six Heroes quality
+
+Acceptance bars: Why &lt;5s · Whale one sentence · shareable Ledger · plain Portfolio AI · Single-Sentence Oracle · exportable Certificate.  
+APIs: `GET /api/heroes/quality`, `GET /api/ledger/share-kit`, `GET /api/glass-box/operator`.  
+Operator pack: [`docs/GLASS_BOX_OPERATOR_RUNBOOK.md`](docs/GLASS_BOX_OPERATOR_RUNBOOK.md).
+
 ## Load / HA proof
 
 Harnesses: `scripts/load_test.py`, `scripts/load_test_1m_simulation.py`  
