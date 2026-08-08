@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackdark-arbitrage
+  labels:
+    app: blackdark
+    tier: arbitrage
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: blackdark
+      tier: arbitrage
+  template:
+    metadata:
+      labels:
+        app: blackdark
+        tier: arbitrage
+    spec:
+      containers:
+        - name: arbitrage
+          image: blackdark:latest
+          env:
+            - name: SERVICE_MODE
+              value: arbitrage
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: redis-url
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: database-url
+            - name: SERVICE_BUS_LOCAL
+              value: "false"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            periodSeconds: 15
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1500m"
+              memory: "2Gi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackdark-aggregator
+  labels:
+    app: blackdark
+    tier: aggregator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blackdark
+      tier: aggregator
+  template:
+    metadata:
+      labels:
+        app: blackdark
+        tier: aggregator
+    spec:
+      containers:
+        - name: aggregator
+          image: blackdark:latest
+          env:
+            - name: SERVICE_MODE
+              value: aggregator
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: redis-url
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: blackdark-secrets
+                  key: database-url
+            - name: SERVICE_BUS_LOCAL
+              value: "false"
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: 8080
+            periodSeconds: 15
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"

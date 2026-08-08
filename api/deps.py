@@ -4,16 +4,36 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import Depends, Header, HTTPException
+from fastapi import Cookie, Depends, Header, HTTPException
 
 
-async def optional_user(authorization: str | None = Header(None, alias="Authorization")) -> dict | None:
+async def optional_user(
+    authorization: str | None = Header(None, alias="Authorization"),
+    bd_token: str | None = Cookie(None, alias="bd_token"),
+) -> dict | None:
+    """Resolve user from Bearer token or HttpOnly bd_token cookie."""
     from auth_service import get_user_from_token
 
-    if not authorization:
+    token: str | None = None
+    if authorization:
+        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+    elif bd_token:
+        token = bd_token.strip()
+    if not token:
         return None
-    token = authorization[7:] if authorization.startswith("Bearer ") else authorization
     return await get_user_from_token(token.strip())
+
+
+def raw_bearer_or_cookie(
+    authorization: str | None = Header(None, alias="Authorization"),
+    bd_token: str | None = Cookie(None, alias="bd_token"),
+) -> str | None:
+    """Return the raw session token (for logout / revoke)."""
+    if authorization:
+        return (authorization[7:] if authorization.startswith("Bearer ") else authorization).strip()
+    if bd_token:
+        return bd_token.strip()
+    return None
 
 
 def require_feature(feature: str):
@@ -48,7 +68,7 @@ async def record_behavior(
 
     email = (user or {}).get("email")
     tier = (user or {}).get("tier")
-    session_id = (user or {}).get("token") if not email else None
+    session_id = None
     await record_behavior_event(
         event_type,
         user_email=email,

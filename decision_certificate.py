@@ -38,21 +38,48 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
     }
     raw = json.dumps(body, sort_keys=True, default=str).encode("utf-8")
     body["certificate_hash"] = hashlib.sha256(raw).hexdigest()
+    verify_url = f"https://blackdark.app{body['public_accuracy']}#audit-challenge"
+    body["verify_url"] = verify_url
+    body["permalink"] = (
+        f"https://blackdark.app/oracle-accuracy"
+        f"?cert={body['certificate_hash'][:16]}"
+        f"&pid={body['prediction_id'] or ''}"
+    )
     body["share_text"] = (
         f"BLACKDARK Decision Certificate · {body['asset']} · "
         f"{body['decision_action']} · score {body['opportunity_score']} · "
-        f"id={body['prediction_id']} · verify {body['public_accuracy']}"
+        f"id={body['prediction_id']} · hash={str(body['certificate_hash'])[:16]}… · "
+        f"verify {body['public_accuracy']}"
     )
     share_q = (
         f"BLACKDARK Decision Certificate · {body['asset']} · "
-        f"{body['decision_action']} · verify https://blackdark.app{body['public_accuracy']}"
+        f"{body['decision_action']} · verify {verify_url}"
     )
     from urllib.parse import quote
 
     body["share_urls"] = {
         "x": f"https://twitter.com/intent/tweet?text={quote(share_q)}",
-        "telegram": f"https://t.me/share/url?url={quote('https://blackdark.app/oracle-accuracy')}&text={quote(share_q)}",
+        "telegram": (
+            f"https://t.me/share/url?url={quote(verify_url)}&text={quote(share_q)}"
+        ),
+        "whatsapp": f"https://wa.me/?text={quote(share_q)}",
     }
+    body["export_text"] = (
+        "BLACKDARK Decision Certificate\n"
+        f"Asset: {body['asset']}\n"
+        f"Action: {body['decision_action']}\n"
+        f"Sentence: {body['decision_sentence']}\n"
+        f"Opportunity score: {body['opportunity_score']}\n"
+        f"Truth score: {body['truth_score']}\n"
+        f"Half-life (s): {body['half_life_seconds']}\n"
+        f"Regime: {body['market_regime']}\n"
+        f"Prediction id: {body['prediction_id']}\n"
+        f"Chain hash: {body['chain_hash']}\n"
+        f"Certificate hash: {body['certificate_hash']}\n"
+        f"Issued at (UTC): {body['issued_at']}\n"
+        f"Verify: {verify_url}\n"
+        "Not financial advice. Labels are not proof — verify the Public Accuracy Ledger.\n"
+    )
     body["compliance"] = compliance_footer_block(
         surface="decision_certificate",
         trust_basis="public_accuracy_ledger + audit_hash_chain",

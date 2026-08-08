@@ -155,7 +155,12 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
     }
 
 
-async def login_user(email: str, password: str) -> dict[str, Any]:
+async def login_user(
+    email: str,
+    password: str,
+    *,
+    mfa_code: str | None = None,
+) -> dict[str, Any]:
     from database import fetch_user_by_email, touch_user_login
     from security_auth import check_login_rate_limit, record_login_failure
 
@@ -164,7 +169,40 @@ async def login_user(email: str, password: str) -> dict[str, Any]:
     user = await fetch_user_by_email(email)
     if user is None or not verify_password(password, str(user.get("password_hash") or "")):
         record_login_failure(email)
+        try:
+            from security_events import record_security_event
+
+            record_security_event(
+                "login_failure",
+                severity="warning",
+                actor=email,
+                detail={"reason": "invalid_credentials"},
+            )
+        except Exception:
+            pass
         raise ValueError("Invalid email or password")
+
+    mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
+    if mfa_enabled:
+        if not mfa_code:
+            # Do not issue a session until MFA is verified.
+            challenge = secrets.token_urlsafe(24)
+            _mfa_challenges[challenge] = {
+                "user_id": int(user["id"]),
+                "email": email,
+                "expires": (_utcnow() + timedelta(minutes=5)).timestamp(),
+            }
+            return {
+                "mfa_required": True,
+                "mfa_challenge": challenge,
+                "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
+            }
+        from mfa_service import verify_user_mfa
+
+        ok = await verify_user_mfa(int(user["id"]), mfa_code)
+        if not ok:
+            record_login_failure(email)
+            raise ValueError("Invalid MFA code")
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
@@ -172,20 +210,58 @@ async def login_user(email: str, password: str) -> dict[str, Any]:
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
+        "mfa_required": False,
         "user": {
             "id": user["id"],
             "email": email,
             "name": user.get("name") or "",
             "tier": tier,
+            "mfa_enabled": mfa_enabled,
         },
     }
 
 
-async def create_session(user_id: int) -> dict[str, Any]:
+_mfa_challenges: dict[str, dict[str, Any]] = {}
+
+
+async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
+    """Complete login after password step returned mfa_required."""
+    from database import touch_user_login
+    from mfa_service import verify_user_mfa
+    from security_auth import record_login_failure
+
+    row = _mfa_challenges.get(challenge)
+    if not row or float(row.get("expires") or 0) < _utcnow().timestamp():
+        _mfa_challenges.pop(challenge, None)
+        raise ValueError("MFA challenge expired — login again")
+    email = str(row["email"])
+    user_id = int(row["user_id"])
+    if not await verify_user_mfa(user_id, code):
+        record_login_failure(email)
+        raise ValueError("Invalid MFA code")
+    _mfa_challenges.pop(challenge, None)
+    await touch_user_login(user_id)
+    session = await create_session(user_id)
+    tier = await resolve_user_tier(email)
+    return {
+        "token": session["token"],
+        "expires_at": session["expires_at"],
+        "mfa_required": False,
+        "user": {"id": user_id, "email": email, "tier": tier, "mfa_enabled": True},
+    }
+
+
+async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
     from security_auth import hash_session_token
 
-    from database import insert_user_session
+    from database import delete_user_sessions_for_user, insert_user_session
 
+    # New login regenerates session and revokes prior tokens (fixation / theft radius).
+    if revoke_others:
+        try:
+            await delete_user_sessions_for_user(int(user_id))
+        except Exception:
+            pass
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()
