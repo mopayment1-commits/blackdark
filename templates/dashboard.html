@@ -346,7 +346,7 @@
             const gate = document.getElementById('chatGate');
             const panel = document.getElementById('chatPanel');
             if (!gate || !panel) return;
-            const allowed = userTierId === 'pro' || userTierId === 'whale' || userTierId === 'institutional';
+            const allowed = userTierId === 'pro' || userTierId === 'whale';
             gate.style.display = allowed ? 'none' : 'block';
             panel.style.display = allowed ? 'block' : 'none';
         }
@@ -452,7 +452,11 @@
                     symbol: p.symbol,
                     action: p.action,
                     seen_at: new Date().toISOString(),
-                    factors: (p.why && p.why.factors) || [],
+                    factors: ((p.why && p.why.factors) || []).map(f => ({
+                        factor: f.factor || f,
+                        detail: f.detail || '',
+                        source: f.source || '',
+                    })),
                     certificate_hash: (p.proof && p.proof.certificate_hash) || null,
                 }));
             } catch (e) {}
@@ -525,6 +529,7 @@
                 ux_mode: mode,
                 lang: 'en',
             });
+            // force refreshes cache only — never spam prediction_id on every boot
             if (force) qs.set('force', 'true');
             if (prev && prev.action) {
                 qs.set('previous_action', prev.action);
@@ -534,6 +539,16 @@
                 const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
                 if (!res.ok) throw new Error('pulse_fail');
                 const p = await res.json();
+                // Attach previous factors client-side for Pro continuity detail
+                if (prev && prev.factors && p.continuity && !p.continuity.locked) {
+                    const prevNames = new Set((prev.factors || []).map(f => (f.factor || f || '').toString()));
+                    const nowNames = ((p.why && p.why.factors) || []).map(f => f.factor || f);
+                    const neu = nowNames.filter(n => n && !prevNames.has(n)).slice(0, 3);
+                    if (neu.length) {
+                        p.continuity.new_factors = neu;
+                        p.continuity.summary = (p.continuity.summary || '') + (p.continuity.summary ? '' : '');
+                    }
+                }
                 renderTrustPulse(p);
             } catch (e) {
                 document.getElementById('tpFresh').textContent = 'Unavailable';

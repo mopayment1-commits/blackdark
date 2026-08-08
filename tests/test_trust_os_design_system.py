@@ -33,6 +33,10 @@ def test_templates_link_design_system():
         "templates/oracle_accuracy.html",
         "templates/profile.html",
         "templates/reset_password.html",
+        "templates/b2b.html",
+        "templates/platform.html",
+        "templates/discipline.html",
+        "templates/coin.html",
     ]
     for path in pages:
         src = (ROOT / path).read_text(encoding="utf-8")
@@ -49,7 +53,14 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert "Talk to us" in land
     assert 'id="trust-pulse"' in land
     assert "fake seat" in land.lower() or "No fake seat" in land
-    # Brand is hero-level
+    assert "🎁" not in land
+    assert 'class="launch-banner"' not in land
+    assert 'has-launch-banner' not in land
+    assert 'id="landingStats"' in land
+    # Stats must sit after Trust Pulse (not in first composition)
+    pulse_i = land.find('id="trust-pulse"')
+    stats_i = land.find('id="landingStats"')
+    assert 0 <= pulse_i < stats_i
     assert "BLACKDARK" in land
     assert "Decide. Prove it. Share it." in land
 

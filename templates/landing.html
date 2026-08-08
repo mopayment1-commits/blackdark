@@ -524,33 +524,17 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero { padding-top: 6rem; }
-            body.has-launch-banner .hero { padding-top: 8rem; }
             .hero-cta { flex-direction: column; }
             .oracle-input { flex-direction: column; }
             .waitlist-form { flex-direction: column; }
         }
-
-        .launch-banner {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1001;
-            background: linear-gradient(90deg, rgba(34,211,238,0.15), rgba(167,139,250,0.15));
-            border-bottom: 1px solid var(--border);
-            text-align: center; padding: 0.55rem 1rem; font-size: 0.85rem;
-        }
-        .launch-banner a { color: var(--accent); font-weight: 700; text-decoration: none; }
-        body.has-launch-banner nav { top: 36px; }
-        body.has-launch-banner .hero { padding-top: 9rem; }
     </style>
 </head>
-<body class="has-launch-banner">
-    <a href="#oracle" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Oracle</a>
+<body>
+    <a href="#trust-pulse" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Trust Pulse</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
-    <div class="launch-banner">
-        🎁 <strong>Launch Offer:</strong> 7-Day Pro Trial FREE on signup — code <strong>LAUNCHPRO</strong> for 14 days ·
-        <a href="/login">Register Now</a>
-    </div>
-    
     <nav aria-label="Primary">
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
@@ -604,13 +588,6 @@
         </div>
     </section>
 
-    <div class="landing-stats" id="landingStats" aria-label="Platform activity">
-        <span>Visitors: <strong id="landingViews">—</strong></span>
-        <span>Users: <strong id="landingUsers">—</strong></span>
-        <span>Subscribers: <strong id="landingSubs">—</strong></span>
-        <span>Telegram: <strong id="landingTelegram">—</strong></span>
-        <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
-    </div>
     <section class="features" id="try-oracle" style="padding-top:2rem">
         <div class="section-header">
             <h2>Prove · <span style="color:var(--accent)">Decide</span></h2>
@@ -701,27 +678,23 @@
         
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🔮</div>
-                <h3>AI Oracle</h3>
-                <p>Buy · Wait · Stay out — 0–100 score, narrative, support/resistance, and forecast context.</p>
+                <h3>Trust Pulse</h3>
+                <p>One live Act / Wait with Why under five seconds — the first thing you see, every time.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🐋</div>
-                <h3>Whale &amp; CVVD</h3>
-                <p>Cross-venue volume signals folded into the Oracle verdict — not a separate product.</p>
+                <h3>Decision Certificate</h3>
+                <p>Shareable Proof Card with verify link. Dual-coded: text + visual state — not a mystery score.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📡</div>
-                <h3>Market Radar</h3>
-                <p>Top movers by volume — pick a symbol, send it to Oracle in one click.</p>
+                <h3>Public Accuracy Ledger</h3>
+                <p>Hits and misses published. Don't trust us — verify us.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Telegram Alerts</h3>
-                <p>Proof Pass: shareable Decision Certificates (3/day). Decision Pro adds unlimited Oracle, Portfolio AI, and alerts without free caps.</p>
+                <h3>Operate depth</h3>
+                <p>Decision Pro unlocks daily habit, Portfolio AI, alerts, and AI Chat — without Free watermark.</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
@@ -809,6 +782,13 @@
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
             Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
         </p>
+        <div class="landing-stats" id="landingStats" aria-label="Platform activity" style="margin:1.25rem auto 0;border:none">
+            <span>Visitors: <strong id="landingViews">—</strong></span>
+            <span>Users: <strong id="landingUsers">—</strong></span>
+            <span>Subscribers: <strong id="landingSubs">—</strong></span>
+            <span>Telegram: <strong id="landingTelegram">—</strong></span>
+            <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+        </div>
         <form class="waitlist-form" onsubmit="joinWaitlist(event)">
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required>
             <button type="submit">Join Waitlist</button>
@@ -826,7 +806,7 @@
             if (!result) {
                 return {
                     url,
-                    text: 'BLACKDARK Oracle — AI crypto signals in 30 seconds 🔮',
+                    text: 'BLACKDARK Trust Pulse — one Act/Wait decision you can verify',
                 };
             }
             const price = result.price != null ? `$${Number(result.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}` : '';
@@ -1197,16 +1177,16 @@
                 const analytics = await analyticsRes.json();
                 const users = await usersRes.json();
                 const telegram = await telegramRes.json();
-                document.getElementById('landingViews').textContent =
-                    (analytics.landing_views || 0).toLocaleString();
-                document.getElementById('landingUsers').textContent =
-                    (users.registered_users || 0).toLocaleString();
-                document.getElementById('landingSubs').textContent =
-                    (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString();
-                document.getElementById('landingTelegram').textContent =
-                    (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString();
-                document.getElementById('landingWaitlist').textContent =
-                    (analytics.waitlist_count || 0).toLocaleString();
+                // Stats intentionally below first-viewport budget — only fill if strip exists
+                const set = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val;
+                };
+                set('landingViews', (analytics.landing_views || 0).toLocaleString());
+                set('landingUsers', (users.registered_users || 0).toLocaleString());
+                set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
+                set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
+                set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
             } catch (e) {}
         }
 

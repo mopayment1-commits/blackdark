@@ -979,7 +979,6 @@ async def sitemap_xml(request: Request):
         "/",
         "/dashboard",
         "/oracle-accuracy",
-        "/errors",
         "/docs",
         "/b2b",
         "/discipline-mirror",
@@ -995,8 +994,8 @@ async def sitemap_xml(request: Request):
         "/contact",
         "/legal",
         "/cookies",
-        "/pricing",
-        "/dashboard",
+        "/data-room",
+        "/compliance",
     ]
     urls = "\n".join(
         f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
@@ -1100,7 +1099,8 @@ async def api_trust_pulse(
             previous_action=previous_action,
             previous_seen_at=previous_seen_at,
             force_refresh=force,
-            persist=True if force else None,
+            # Soft cache miss may persist once; force only refreshes identity — no spam
+            persist=None,
         )
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc

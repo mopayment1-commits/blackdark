@@ -183,7 +183,6 @@ def footer_manifest() -> dict[str, Any]:
             {"label": "Dashboard", "href": "/dashboard"},
             {"label": "Pricing", "href": "/#pricing"},
             {"label": "AI Chat", "href": "/dashboard?lens=operate#ai-chat"},
-            {"label": "How it works", "href": "/how-it-works"},
         ],
         "trust": [
             {"label": "How it works", "href": "/how-it-works"},
