@@ -17,8 +17,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pip-audit
+      # Fail closed on known vulnerable deps — fix or pin before merge.
       - run: pip-audit -r requirements.txt --desc
-        continue-on-error: true
 
   pytest-security:
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt cryptography
-      - run: python -m pytest tests/test_security.py tests/test_risk_manager.py -q
+      - run: python -m pytest tests/test_security.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py -q

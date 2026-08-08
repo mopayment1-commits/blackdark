@@ -25,6 +25,32 @@ spec:
           env:
             - name: SERVICE_MODE
               value: web
+            - name: ENV
+              value: production
+            - name: VIRAL_MODE
+              value: "true"
+            - name: SERVICE_BUS_LOCAL
+              value: "false"
+            - name: WEB_CONCURRENCY
+              value: "4"
+            - name: WEB_REPLICAS
+              value: "2"
+            - name: PG_POOL_MAX
+              value: "40"
+            - name: PG_POOL_MIN
+              value: "4"
+            - name: VIRAL_MAX_INFLIGHT
+              value: "200"
+            - name: VIRAL_ORACLE_CONCURRENCY
+              value: "32"
+            - name: VIRAL_ORACLE_RL_PER_MIN
+              value: "60"
+            - name: VIRAL_AUTH_RL_PER_MIN
+              value: "30"
+            - name: VIRAL_API_RL_PER_MIN
+              value: "120"
+            - name: PRODUCTION_GUARD_FAIL_CLOSED
+              value: "true"
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

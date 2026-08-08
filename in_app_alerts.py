@@ -92,8 +92,8 @@ def inbox_stats(*, user_email: str | None = None) -> dict[str, Any]:
         "unread": unread,
         "channels_note": "In-app inbox works without Telegram or SMTP",
         "generosity_note": (
-            "No TradingView-style 15-alerts-per-3-minutes hard cap on the in-app inbox. "
-            "Only Truth + Half-Life survivors are alertable."
+            "No TradingView-style 15-alerts-per-3-minutes hard cap on the in-app inbox "
+            "(not an infinite infra SLA). Only Truth + Half-Life survivors are alertable."
         ),
         "timestamp": _utcnow(),
     }

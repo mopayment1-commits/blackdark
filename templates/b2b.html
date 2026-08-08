@@ -53,19 +53,24 @@
         <div class="logo">BLACKDARK B2B</div>
         <div>
             <a href="/">Home</a>
+            <a href="/oracle-accuracy">Accuracy</a>
+            <a href="#fund-terminal">Fund Terminal</a>
             <a href="/dashboard">Dashboard</a>
             <a href="/create-checkout-session?tier=whale">Get Whale Tier</a>
         </div>
     </nav>
 
     <section class="hero">
-        <h1>Institutional <span>Manipulation Feed</span></h1>
+        <h1>Emerging Fund <span>Terminal</span></h1>
         <p class="sub">
-            CVVD cross-venue whale detection + Sector Inflow Index (SII).
-            HMAC-signed JSON feed for hedge funds, prop desks, and acquisition due diligence.
+            Built for the underserved 78% of crypto funds (sub-$50M AUM):
+            Public Accuracy Ledger + Decision Certificates + DD pack —
+            institutional intelligence without billion-dollar terminal pricing.
         </p>
-        <a href="#demo" class="btn btn-primary">Try Live Demo</a>
-        <a href="mailto:sales@blackdark.io?subject=B2B%20Feed%20Pilot" class="btn btn-secondary">Book Pilot Call</a>
+        <a href="#fund-terminal" class="btn btn-primary">Open Fund Terminal</a>
+        <a href="/oracle-accuracy" class="btn btn-secondary">Public Accuracy Ledger</a>
+        <a href="#demo" class="btn btn-secondary">Live Feed Demo</a>
+        <a href="mailto:sales@blackdark.io?subject=Emerging%20Fund%20Terminal" class="btn btn-secondary">Book Pilot Call</a>
     </section>
 
     <div class="grid">
@@ -126,8 +131,10 @@
             </p>
             <button class="btn btn-primary" type="button" onclick="loadEvidenceSummary()">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" onclick="loadEvidenceFull()">Open Full Pack</button>
+            <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
             <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Get Whale Access</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
+            <div id="evidenceCards" style="display:none;margin-top:1rem"></div>
             <pre class="demo-result" id="evidenceResult" style="max-height:320px">Click “Load Public Summary” to preview the pack thesis.</pre>
         </div>
     </div>
@@ -280,12 +287,45 @@
             URL.revokeObjectURL(a.href);
         }
 
+        function renderEvidenceCards(data) {
+            const cards = document.getElementById('evidenceCards');
+            if (!cards) return;
+            const thesis = data.product_thesis || data.one_liner_for_ic || data.thesis || 'BLACKDARK Prove-it Trust OS';
+            const diffs = (data.differentiators || data.proof_surfaces || []).slice(0, 6);
+            const checks = (data.committee_checklist || data.checklist || []).slice(0, 8);
+            cards.style.display = 'grid';
+            cards.style.gap = '0.75rem';
+            cards.innerHTML = `
+                <div class="card" style="padding:1rem">
+                    <h3 style="margin:0 0 .4rem">Thesis</h3>
+                    <p style="color:var(--muted);margin:0">${typeof thesis === 'string' ? thesis : JSON.stringify(thesis)}</p>
+                </div>
+                <div class="card" style="padding:1rem">
+                    <h3 style="margin:0 0 .4rem">Differentiators</h3>
+                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
+                        ${diffs.map(d => `<li>${typeof d === 'string' ? d : (d.title || d.name || JSON.stringify(d))}</li>`).join('') || '<li>See JSON below</li>'}
+                    </ul>
+                </div>
+                <div class="card" style="padding:1rem">
+                    <h3 style="margin:0 0 .4rem">Committee checklist</h3>
+                    <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
+                        ${checks.map(c => `<li>${typeof c === 'string' ? c : (c.item || c.label || JSON.stringify(c))}</li>`).join('') || '<li>See JSON below</li>'}
+                    </ul>
+                </div>
+                <p style="font-size:.8rem;color:var(--muted);margin:0">
+                    Also: <a href="/compliance">/compliance</a> ·
+                    <a href="/api/scale/readiness">/api/scale/readiness</a> ·
+                    <a href="/api/execution/closure">/api/execution/closure</a>
+                </p>`;
+        }
+
         async function loadEvidenceSummary() {
             const el = document.getElementById('evidenceResult');
             el.textContent = 'Loading public summary…';
             try {
                 const res = await fetch('/api/due-diligence/evidence-pack/public-summary');
                 const data = await res.json();
+                renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
             } catch (e) {
                 el.textContent = 'Public summary unavailable.';
