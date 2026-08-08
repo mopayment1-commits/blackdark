@@ -5,7 +5,6 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=8080 \
-    HOST=0.0.0.0 \
     SERVICE_MODE=web \
     RUN_AGGREGATOR=false \
     MANIFEST_AUTO_APPROVE=true \
@@ -14,14 +13,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Minimal OS deps for wheels; keep image lean for Railway trial builds
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --system app \
-    && useradd --system --gid app --create-home --home-dir /home/app app
+    && rm -rf /var/lib/apt/lists/*
 
 COPY requirements-prod.txt requirements.txt
-# --only-binary :all: avoids executing untrusted setup scripts from sdists (Sonar S8541).
-RUN pip install --no-cache-dir --default-timeout=180 --upgrade "pip==25.2" \
-    && pip install --no-cache-dir --default-timeout=180 --only-binary :all: -r requirements.txt
+RUN pip install --no-cache-dir --default-timeout=180 -r requirements.txt
 
 COPY *.py ./
 COPY api/ api/
@@ -31,12 +26,11 @@ COPY ml/ ml/
 COPY microservices/ microservices/
 COPY templates/ templates/
 COPY static/ static/
+RUN mkdir -p data/models
 COPY data/operational_manifest.json data/
+# Bake trained model artifacts when present (ignore if empty in some CI contexts)
 COPY data/models/ data/models/
 COPY BUILD.txt ./
-RUN mkdir -p data/models && chown -R app:app /app
-
-USER app
 
 EXPOSE 8080
 
