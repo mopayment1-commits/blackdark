@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import encoding_bootstrap  # noqa: F401
+from path_safety import assert_safe_http_url
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -22,9 +23,10 @@ if hasattr(sys.stdout, "reconfigure"):
 def probe(url: str, label: str) -> tuple[bool, float]:
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(url, timeout=12) as resp:
+        safe_url = assert_safe_http_url(url)
+        with urllib.request.urlopen(safe_url, timeout=12) as resp:
             ok = resp.status == 200
-    except (urllib.error.URLError, TimeoutError, OSError):
+    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
         ok = False
     ms = (time.perf_counter() - t0) * 1000
     print(f"  [{'OK' if ok else 'FAIL'}] {label}: {ms:.0f}ms — {url}")
@@ -32,7 +34,7 @@ def probe(url: str, label: str) -> tuple[bool, float]:
 
 
 def main() -> int:
-    base = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8080"
+    base = assert_safe_http_url(sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8080")
 
     print(f"BLACKDARK LAUNCH VERIFY | {base}\n")
 
@@ -61,8 +63,10 @@ def main() -> int:
     # Admin launch page is gated (403 without admin) — must NOT be a public 200
     for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
         try:
-            with urllib.request.urlopen(f"{base}{path}", timeout=8) as resp:
+            with urllib.request.urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
                 print(f"  [WARN] {path} publicly reachable — got {resp.status}")
+        except ValueError as exc:
+            print(f"  [FAIL] {path} blocked by URL allowlist: {exc}")
         except urllib.error.HTTPError as exc:
             if exc.code in {401, 403, 404}:
                 print(f"  [OK] {path} gated/missing as expected ({exc.code})")

@@ -9,7 +9,7 @@
     <link rel="manifest" href="/manifest.json">
     <title>BLACKDARK — Intelligence Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -962,15 +962,15 @@
         </div>
 
         <div class="quick-picks">
-            <span class="quick-pick" onclick="quickAsk('BTC')">BTC</span>
-            <span class="quick-pick" onclick="quickAsk('ETH')">ETH</span>
-            <span class="quick-pick" onclick="quickAsk('SOL')">SOL</span>
-            <span class="quick-pick" onclick="quickAsk('BNB')">BNB</span>
-            <span class="quick-pick" onclick="quickAsk('XRP')">XRP</span>
+            <span class="quick-pick" onclick="quickAsk('BTC')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">BTC</span>
+            <span class="quick-pick" onclick="quickAsk('ETH')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">ETH</span>
+            <span class="quick-pick" onclick="quickAsk('SOL')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">SOL</span>
+            <span class="quick-pick" onclick="quickAsk('BNB')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">BNB</span>
+            <span class="quick-pick" onclick="quickAsk('XRP')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();event.preventDefault();}">XRP</span>
         </div>
 
         <div class="oracle-search">
-            <input type="text" id="symbol" placeholder="Enter symbol (BTC, ETH, SOL...)" value="BTC" onkeydown="if(event.key==='Enter')askOracle()">
+            <input type="text" id="symbol" placeholder="Enter symbol (BTC, ETH, SOL...)" value="BTC" onkeydown="if(event.key==='Enter')askOracle()" aria-label="Enter symbol (BTC, ETH, SOL...)">
             <button class="btn-primary" onclick="askOracle()">Get Signal</button>
             <button class="btn-secondary" onclick="toggleExplain()" id="explainBtn" style="display:none">Deep Analysis</button>
         </div>
@@ -1000,7 +1000,7 @@
 
         <div class="trial-banner" id="trialBanner" style="display:none">
             <span id="trialText">Pro Trial active</span>
-            <input type="text" class="promo-input" id="promoCode" placeholder="LAUNCHPRO">
+            <input type="text" class="promo-input" id="promoCode" placeholder="LAUNCHPRO" aria-label="LAUNCHPRO">
             <button class="btn-secondary" style="padding:0.35rem 0.75rem" onclick="redeemPromo()">Redeem</button>
         </div>
 
@@ -1009,7 +1009,7 @@
             <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">Say: «Analyze BTC» · «Scan arbitrage» · «Panic stop»</p>
             <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice command">🎤</button>
             <div class="tool-row" style="justify-content:center;margin-top:1rem">
-                <input type="text" id="voiceText" placeholder="Or type command..." style="max-width:280px">
+                <input type="text" id="voiceText" placeholder="Or type command..." style="max-width:280px" aria-label="Or type command...">
                 <button class="btn-secondary" onclick="sendVoiceText()">Send</button>
             </div>
             <div class="voice-result" id="voiceResult">Voice ready — tap mic or type a command</div>
@@ -1026,7 +1026,7 @@
                 <div class="chat-bubble bot">Hi! Ask about any asset — e.g. What should I do with BTC?</div>
             </div>
             <div class="tool-row">
-                <input type="text" id="chatInput" placeholder="What should I do with BTC?" style="flex:1" onkeydown="if(event.key==='Enter')sendChat()">
+                <input type="text" id="chatInput" placeholder="What should I do with BTC?" style="flex:1" onkeydown="if(event.key==='Enter')sendChat()" aria-label="What should I do with BTC?">
                 <button class="btn-primary" onclick="sendChat()">Send</button>
             </div>
         </div>
@@ -1292,10 +1292,10 @@
             </div>
             <div class="tool-panel">
                 <div class="tool-row">
-                    <input type="text" id="simSymbol" value="BTC" placeholder="Symbol">
+                    <input type="text" id="simSymbol" value="BTC" placeholder="Symbol" aria-label="Symbol">
                     <select id="simSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                    <input type="number" id="simAmount" value="1000" placeholder="USD amount" style="width:120px">
-                    <input type="number" id="simHours" value="24" placeholder="Hours" style="width:80px">
+                    <input type="number" id="simAmount" value="1000" placeholder="USD amount" style="width:120px" aria-label="USD amount">
+                    <input type="number" id="simHours" value="24" placeholder="Hours" style="width:80px" aria-label="Hours">
                     <button class="btn-primary" onclick="runSimulation()">Simulate Trade</button>
                 </div>
                 <div id="simResult" class="arb-meta">Enter amount and click Simulate — shows bull / base / bear outcomes</div>
@@ -1325,15 +1325,15 @@
             </div>
             <div class="tool-panel">
                 <div class="tool-row">
-                    <input type="text" id="journalAsset" value="BTC" placeholder="Asset" style="width:80px">
+                    <input type="text" id="journalAsset" value="BTC" placeholder="Asset" style="width:80px" aria-label="Asset">
                     <select id="journalAction">
                         <option value="buy">Buy</option>
                         <option value="sell">Sell</option>
                         <option value="wait">Wait</option>
                         <option value="note">Note</option>
                     </select>
-                    <input type="number" id="journalPrice" placeholder="Entry price" style="width:120px">
-                    <input type="text" id="journalNotes" placeholder="Notes..." style="flex:1">
+                    <input type="number" id="journalPrice" placeholder="Entry price" style="width:120px" aria-label="Entry price">
+                    <input type="text" id="journalNotes" placeholder="Notes..." style="flex:1" aria-label="Notes...">
                     <button class="btn-primary" onclick="addJournalEntry()">Log Trade</button>
                 </div>
                 <div id="journalList" style="margin-top:1rem;overflow-x:auto">
@@ -1363,9 +1363,9 @@
                 <div class="tool-panel">
                     <h3>Subscribe to Alerts</h3>
                     <div class="tool-row">
-                        <input type="email" id="alertEmail" placeholder="Email">
-                        <input type="text" id="alertTelegram" placeholder="Telegram chat ID">
-                        <input type="text" id="alertWhatsapp" placeholder="WhatsApp +20...">
+                        <input type="email" id="alertEmail" placeholder="Email" aria-label="Email">
+                        <input type="text" id="alertTelegram" placeholder="Telegram chat ID" aria-label="Telegram chat ID">
+                        <input type="text" id="alertWhatsapp" placeholder="WhatsApp +20..." aria-label="WhatsApp +20...">
                     </div>
                     <div class="tool-row">
                         <button class="btn-secondary" onclick="subscribeAlerts()">Save Alerts</button>
@@ -1379,16 +1379,16 @@
                 <div class="tool-panel">
                     <h3>Dry-Run Order</h3>
                     <div class="tool-row">
-                        <input type="text" id="execSymbol" value="BTC">
+                        <input type="text" id="execSymbol" value="BTC" aria-label="execSymbol">
                         <select id="execSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                        <input type="number" id="execAmount" value="100" style="width:100px">
+                        <input type="number" id="execAmount" value="100" style="width:100px" aria-label="execAmount">
                         <button class="btn-secondary" onclick="dryRunOrder()">Dry-Run</button>
                     </div>
                     <div id="execStatus" class="arb-meta">Loading execution status...</div>
                     <div id="execSpeed" class="arb-meta" style="margin-top:0.35rem;font-size:0.78rem;color:var(--text-muted)">Execution speed: measuring…</div>
                     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.65rem;align-items:center">
                         <label style="font-size:0.82rem;color:var(--text-muted)">
-                            <input type="checkbox" id="autoExecToggle" onchange="toggleAutoExec()"> Auto-execute profitable arb (dry-run unless live)
+                            <input type="checkbox" id="autoExecToggle" onchange="toggleAutoExec()" aria-label="autoExecToggle"> Auto-execute profitable arb (dry-run unless live)
                         </label>
                         <button class="btn-secondary" onclick="runAutoExecCycle()">Run Cycle Now</button>
                     </div>
@@ -1419,7 +1419,7 @@
                             <option value="BNB">BNB</option>
                             <option value="XRP">XRP</option>
                         </select>
-                        <input type="number" id="researchNotional" value="10000" style="width:110px">
+                        <input type="number" id="researchNotional" value="10000" style="width:110px" aria-label="researchNotional">
                         <button class="btn-secondary" onclick="loadFinancialModels()">Analyze</button>
                     </div>
                     <div id="financialModels" class="arb-meta">VaR · NVT · MVRV · SOPR proxies</div>
@@ -1446,8 +1446,8 @@
             </div>
             <div class="portfolio-section">
                 <div class="portfolio-inputs">
-                    <input type="text" id="pfSymbol" placeholder="Symbol (BTC)">
-                    <input type="number" id="pfAmount" placeholder="Amount">
+                    <input type="text" id="pfSymbol" placeholder="Symbol (BTC)" aria-label="Symbol (BTC)">
+                    <input type="number" id="pfAmount" placeholder="Amount" aria-label="Amount">
                     <button class="btn-primary" onclick="addAsset()">Add</button>
                 </div>
                 <div class="asset-tags" id="assetList"></div>

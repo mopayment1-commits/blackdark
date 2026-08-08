@@ -51,10 +51,14 @@ def _run_pytest_quick() -> tuple[bool, str]:
     """
     errors: list[str] = []
     try:
-        assert _file_exists("docs/PRODUCT_CONSTITUTION_AR.md")
-        assert _file_exists("docs/RUNBOOK.md")
-        assert _file_exists("templates/admin_launch.html")
-        assert _constitution_modules_ready()
+        def _require(cond: bool, msg: str) -> None:
+            if not cond:
+                raise RuntimeError(msg)
+
+        _require(_file_exists("docs/PRODUCT_CONSTITUTION_AR.md"), "missing PRODUCT_CONSTITUTION_AR")
+        _require(_file_exists("docs/RUNBOOK.md"), "missing RUNBOOK")
+        _require(_file_exists("templates/admin_launch.html"), "missing admin_launch")
+        _require(_constitution_modules_ready(), "constitution modules not ready")
 
         from auth_service import TIER_FEATURES
         from net_edge_truth import compute_net_edge_truth
@@ -62,9 +66,9 @@ def _run_pytest_quick() -> tuple[bool, str]:
         from persona_clarity import build_persona_clarity
         from ux_mode import apply_ux_mode, normalize_ux_mode
 
-        assert TIER_FEATURES["whale"]["b2b_api"] is True
-        assert TIER_FEATURES["whale"]["evidence_pack"] is True
-        assert normalize_ux_mode("pro") == "pro"
+        _require(TIER_FEATURES["whale"]["b2b_api"] is True, "whale b2b_api flag")
+        _require(TIER_FEATURES["whale"]["evidence_pack"] is True, "whale evidence_pack flag")
+        _require(normalize_ux_mode("pro") == "pro", "ux mode normalize")
 
         truth_bad = compute_net_edge_truth(
             {
@@ -76,13 +80,13 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 "estimated_recipients": 40,
             }
         )
-        assert truth_bad.get("reject") is True
+        _require(truth_bad.get("reject") is True, "net edge truth should reject")
 
         half = estimate_opportunity_half_life(
             {"kind": "cross_exchange", "asset": "BTC"},
             live_duration_seconds=5,
         )
-        assert half.get("expected_half_life_seconds", 0) > 0
+        _require(half.get("expected_half_life_seconds", 0) > 0, "half-life missing")
 
         persona = build_persona_clarity(
             asset="BTC",
@@ -98,15 +102,15 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 },
             },
         )
-        assert "retail" in persona.get("personas", {})
+        _require("retail" in persona.get("personas", {}), "persona retail missing")
 
         slim = apply_ux_mode({"opportunity_score": 70, "verdict": "BUY", "persona_clarity": persona}, mode="beginner")
-        assert slim.get("ux_mode") == "beginner"
+        _require(slim.get("ux_mode") == "beginner", "ux beginner mode")
 
         from oracle_audit_chain import verify_chain
 
         chain = verify_chain()
-        assert "valid" in chain or "ok" in chain or isinstance(chain, dict)
+        _require("valid" in chain or "ok" in chain or isinstance(chain, dict), "audit chain shape")
 
     except Exception as exc:
         errors.append(str(exc))

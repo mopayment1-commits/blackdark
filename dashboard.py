@@ -338,10 +338,7 @@ async def lifespan(app: FastAPI):
     yield
 
     boot_task.cancel()
-    try:
-        await boot_task
-    except asyncio.CancelledError:
-        pass
+    await asyncio.gather(boot_task, return_exceptions=True)
 
     _ms_ctx = getattr(app.state, "ms_ctx", None)
     if _ms_ctx is not None:
@@ -877,9 +874,23 @@ async def robots_txt():
 
 @app.get("/sitemap.xml")
 async def sitemap_xml(request: Request):
+    from html import escape
+    from urllib.parse import urlparse
+
     from fastapi.responses import Response
 
-    base = str(request.base_url).rstrip("/")
+    # Prefer configured public origin; never reflect arbitrary Host headers into XML.
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        base = configured
+    else:
+        parsed = urlparse(str(request.base_url))
+        host = (parsed.hostname or "localhost").lower()
+        if host not in {"localhost", "127.0.0.1", "::1"} and not host.endswith(".localhost"):
+            host = "localhost"
+        scheme = "https" if parsed.scheme == "https" else "http"
+        netloc = host if not parsed.port else f"{host}:{parsed.port}"
+        base = f"{scheme}://{netloc}"
     paths = [
         "/",
         "/dashboard",
@@ -890,7 +901,8 @@ async def sitemap_xml(request: Request):
         "/login",
     ]
     urls = "\n".join(
-        f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
+        f"  <url><loc>{escape(base + p, quote=True)}</loc><changefreq>daily</changefreq></url>"
+        for p in paths
     )
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -2409,7 +2421,7 @@ async def api_security_status():
     from security_auth import admin_emails
 
     return {
-        "password_hashing": "PBKDF2-SHA256 (260k iterations)",
+        "credential_hashing": "PBKDF2-SHA256 (260k iterations)",
         "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
         "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
         "model_weights": "Fernet + HMAC integrity (admin-gated API)",
@@ -2419,7 +2431,7 @@ async def api_security_status():
         "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
         "admin_endpoints": "X-Admin-Key or admin email",
         "rate_limiting": "login 10 attempts / 5 min",
-        "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
+        "telegram_webhook": "secret verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
         "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
         "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
         "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
@@ -2745,5 +2757,7 @@ if __name__ == "__main__":
     import uvicorn
 
     port = int(os.environ.get("PORT", "8080"))
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    # Container platforms set HOST=0.0.0.0; local default stays loopback-only.
+    host = os.environ.get("HOST", "127.0.0.1")
+    uvicorn.run(app, host=host, port=port)
 

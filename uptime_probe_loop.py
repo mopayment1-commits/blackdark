@@ -34,6 +34,8 @@ async def _loop() -> None:
                 source="self_probe",
                 latency_ms=(time.perf_counter() - t0) * 1000,
             )
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Self uptime probe record failed", exc_info=True)
         await asyncio.sleep(interval)
@@ -55,8 +57,5 @@ async def stop_uptime_probe_loop() -> None:
     if _task is None:
         return
     _task.cancel()
-    try:
-        await _task
-    except asyncio.CancelledError:
-        pass
+    await asyncio.gather(_task, return_exceptions=True)
     _task = None

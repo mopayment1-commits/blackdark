@@ -643,8 +643,8 @@
                         <option value="beginner" selected>Beginner</option>
                         <option value="pro">Pro</option>
                     </select>
-                    <input type="hidden" id="landingLang" value="en">
-                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
+                    <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
+                    <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
                     <button onclick="consultOracle()">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
@@ -792,7 +792,7 @@
             10,000+ traders are already using BLACKDARK. Don't get left behind.
         </p>
         <form class="waitlist-form" onsubmit="joinWaitlist(event)">
-            <input type="email" id="waitlistEmail" placeholder="Enter your email" required>
+            <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
@@ -817,6 +817,8 @@
     </footer>
     
     <script>
+function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
+
         window.lastOracleResult = null;
 
         function buildSharePayload(result) {
@@ -1040,7 +1042,7 @@
                     `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                     `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
                 const sendFollow = async (followed) => {
-                    const key = localStorage.getItem('bd_user_key') || ('anon_' + Math.random().toString(36).slice(2, 10));
+                    const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
                     localStorage.setItem('bd_user_key', key);
                     try {
                         await fetch('/api/discipline-mirror/answer', {

@@ -67,10 +67,7 @@ class B2BWebSocketHub:
         self._running = False
         if self._heartbeat_task is not None:
             self._heartbeat_task.cancel()
-            try:
-                await self._heartbeat_task
-            except asyncio.CancelledError:
-                pass
+            await asyncio.gather(self._heartbeat_task, return_exceptions=True)
             self._heartbeat_task = None
         async with self._lock:
             clients = list(self._clients)

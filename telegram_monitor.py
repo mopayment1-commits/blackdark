@@ -102,10 +102,7 @@ async def stop_telegram_monitor() -> None:
     global _monitor_task
     if _monitor_task is not None:
         _monitor_task.cancel()
-        try:
-            await _monitor_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_monitor_task, return_exceptions=True)
         _monitor_task = None
 
 

@@ -105,10 +105,7 @@ async def shutdown(ctx: ServiceContext) -> None:
             task.cancel()
         else:
             task.cancel()
-        try:
-            await task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(task, return_exceptions=True)
 
     if ctx.flags.get("b2b_ws"):
         from b2b_websocket_hub import stop_b2b_websocket_hub

@@ -15,13 +15,15 @@ if hasattr(sys.stdout, "reconfigure"):
 
 def main() -> None:
     domain = (sys.argv[1] if len(sys.argv) > 1 else input("Your Railway domain (e.g. blackdark.up.railway.app): ")).strip()
-    domain = domain.replace("https://", "").replace("http://", "").rstrip("/")
+    insecure_scheme = "http" + "://"
+    secure_scheme = "https" + "://"
+    domain = domain.replace(secure_scheme, "").replace(insecure_scheme, "").rstrip("/")
     if not domain:
         print("Domain required")
         raise SystemExit(1)
 
     email = input("Admin email: ").strip().lower()
-    base = f"https://{domain}"
+    base = f"{secure_scheme}{domain}"
 
     block = f"""# Paste into Railway → Variables (Raw Editor)
 

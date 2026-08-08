@@ -8,24 +8,29 @@ from datetime import UTC, datetime
 from typing import Any
 
 import config
+from path_safety import resolve_under
 
 logger = logging.getLogger("BLACKDARK.GridBot")
 
-_STORE = config.DATA_DIR / "grid_bots.json"
+
+def _store_path():
+    return resolve_under(config.DATA_DIR, "grid_bots.json")
 
 
 def _load() -> list[dict[str, Any]]:
-    if not _STORE.exists():
+    store = _store_path()
+    if not store.exists():
         return []
     try:
-        return json.loads(_STORE.read_text(encoding="utf-8"))
+        return json.loads(store.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return []
 
 
 def _save(rows: list[dict[str, Any]]) -> None:
-    _STORE.parent.mkdir(parents=True, exist_ok=True)
-    _STORE.write_text(json.dumps(rows, indent=2), encoding="utf-8")
+    store = _store_path()
+    store.parent.mkdir(parents=True, exist_ok=True)
+    store.write_text(json.dumps(rows, indent=2), encoding="utf-8")
 
 
 def list_grids() -> dict[str, Any]:

@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#22d3ee">
     <title>BLACKDARK — Platform Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+    <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
         :root {
             --bg: #0a0a0f; --card: #111118; --elev: #1a1a24; --border: #2a2a35;
@@ -119,7 +119,7 @@
         <section>
             <h2>🏆 Market Rankings (CMC-style)</h2>
             <div class="toolbar">
-                <input id="rankSearch" placeholder="Search symbol or name…" oninput="filterRankings()" style="min-width:10rem">
+                <input id="rankSearch" placeholder="Search symbol or name…" oninput="filterRankings()" style="min-width:10rem" aria-label="Search symbol or name…">
                 <select id="rankSort" onchange="filterRankings()">
                     <option value="rank">Sort: Rank</option>
                     <option value="change">Sort: 24h %</option>
@@ -152,7 +152,7 @@
         <section>
             <h2>🛒 Strategy Marketplace</h2>
             <div class="form-row">
-                <input id="stratName" placeholder="Strategy name" style="flex:1">
+                <input id="stratName" placeholder="Strategy name" style="flex:1" aria-label="Strategy name">
                 <select id="stratKind"><option>arbitrage</option><option>grid</option><option>oracle</option><option>custom</option></select>
                 <button onclick="publishStrategy()">Publish</button>
             </div>
@@ -209,11 +209,11 @@
         <section>
             <h2>🤖 Grid Bot (Paper)</h2>
             <div class="form-row">
-                <label>Asset</label><input id="gridAsset" value="BTC" style="width:4rem">
-                <label>Low $</label><input id="gridLow" type="number" value="90000" style="width:6rem">
-                <label>High $</label><input id="gridHigh" type="number" value="100000" style="width:6rem">
-                <label>Grids</label><input id="gridCount" type="number" value="10" style="width:3.5rem">
-                <label>Quote $</label><input id="gridQuote" type="number" value="1000" style="width:5rem">
+                <label>Asset</label><input id="gridAsset" value="BTC" style="width:4rem" aria-label="gridAsset">
+                <label>Low $</label><input id="gridLow" type="number" value="90000" style="width:6rem" aria-label="gridLow">
+                <label>High $</label><input id="gridHigh" type="number" value="100000" style="width:6rem" aria-label="gridHigh">
+                <label>Grids</label><input id="gridCount" type="number" value="10" style="width:3.5rem" aria-label="gridCount">
+                <label>Quote $</label><input id="gridQuote" type="number" value="1000" style="width:5rem" aria-label="gridQuote">
                 <button onclick="createGrid()">Create</button>
             </div>
             <div id="gridMsg"></div>
@@ -223,8 +223,8 @@
         <section>
             <h2>⚙️ IFTTT Rules</h2>
             <div class="form-row">
-                <label>If</label><input id="ruleIf" placeholder="profit > 0.25" style="flex:1;min-width:8rem">
-                <label>Then</label><input id="ruleThen" placeholder="alert telegram" style="flex:1;min-width:8rem">
+                <label>If</label><input id="ruleIf" placeholder="profit  aria-label="ruleIf"> 0.25" style="flex:1;min-width:8rem">
+                <label>Then</label><input id="ruleThen" placeholder="alert telegram" style="flex:1;min-width:8rem" aria-label="alert telegram">
                 <button onclick="createRule()">Add</button>
                 <button class="secondary" onclick="evalRules()">Evaluate</button>
             </div>
@@ -698,7 +698,7 @@ async function loadPlatformKeys() {
                     <strong>${k.label || k.id}</strong>
                     <span class="badge ${k.configured ? 'ok' : 'miss'}">${k.configured ? 'Saved ' + (k.masked || '') : 'Not connected'}</span>
                     <div class="key-meta">${k.tier} · <a href="${k.signup}" target="_blank" rel="noopener">Sign up / API</a></div>
-                    <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off">
+                    <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off" aria-label="${k.env}">
                 </div>
             </div>`).join('');
     } catch (e) {

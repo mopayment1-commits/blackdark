@@ -84,8 +84,5 @@ async def stop_telegram_poller() -> None:
     global _poller_task
     if _poller_task is not None:
         _poller_task.cancel()
-        try:
-            await _poller_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_poller_task, return_exceptions=True)
         _poller_task = None

@@ -159,10 +159,7 @@ async def stop_instant_alert_engine() -> None:
     _running = False
     if _engine_task is not None:
         _engine_task.cancel()
-        try:
-            await _engine_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_engine_task, return_exceptions=True)
         _engine_task = None
     logger.info("Instant alert engine stopped.")
 

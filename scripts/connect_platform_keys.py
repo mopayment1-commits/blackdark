@@ -29,6 +29,8 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from path_safety import assert_safe_http_url
+
 try:
     from dotenv import load_dotenv
 except ImportError:
@@ -170,13 +172,18 @@ def _print_verify_report(data: dict) -> None:
 async def _test_local_server(base_url: str) -> None:
     import aiohttp
 
-    base = base_url.rstrip("/")
+    try:
+        base = assert_safe_http_url(base_url.rstrip("/"))
+    except ValueError as exc:
+        print(f"\n⚠️  رفض عنوان السيرفر: {exc}")
+        return
+
     print(f"\n🖥️  اختبار السيرفر المحلي: {base}")
     timeout = aiohttp.ClientTimeout(total=8)
     try:
         async with aiohttp.ClientSession(timeout=timeout) as session:
             for path in ("/api/platform/keys/status", "/api/platform/keys/verify"):
-                url = f"{base}{path}"
+                url = assert_safe_http_url(f"{base}{path}")
                 try:
                     async with session.get(url) as resp:
                         ok = resp.status == 200

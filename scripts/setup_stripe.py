@@ -7,6 +7,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from path_safety import resolve_under
+
 ENV = ROOT / ".env"
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -52,8 +57,9 @@ def main() -> None:
     if whale:
         lines = _upsert(lines, "STRIPE_PRICE_WHALE", whale)
 
-    ENV.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
-    print(f"\nSaved to {ENV}")
+    env_path = resolve_under(ROOT, ".env")
+    env_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    print(f"\nSaved to {env_path}")
     print("Restart server, then test: /login → Upgrade Pro")
 
 

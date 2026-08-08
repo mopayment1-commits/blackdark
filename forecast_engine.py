@@ -73,7 +73,9 @@ async def load_price_series(asset: str, *, limit: int = 200) -> tuple[list[float
         if len(lake_prices) >= 5:
             return lake_prices[-limit:], "data_lake_snapshots"
     except Exception:
-        logger.warning("Data lake price load failed | asset=%s", asset)
+        from log_safety import sanitize_asset
+
+        logger.warning("Data lake price load failed | asset=%s", sanitize_asset(asset))
 
     closes = await _fetch_binance_closes(pair, interval="1h", limit=min(limit, 168))
     if closes:
@@ -183,7 +185,9 @@ async def build_asset_forecast(asset: str, *, current_price: float | None = None
 
             await insert_forecast_logs(asset, float(forecast["current_price"]), forecast)
         except Exception:
-            logger.exception("Failed to persist forecast logs | asset=%s", asset)
+            from log_safety import sanitize_asset
+
+            logger.exception("Failed to persist forecast logs | asset=%s", sanitize_asset(asset))
 
     return forecast
 

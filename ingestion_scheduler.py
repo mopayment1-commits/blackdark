@@ -110,20 +110,16 @@ async def stop_ingestion_scheduler() -> None:
 
     await stop_binance_ws_ingest()
 
-    for task in list(_category_tasks.values()):
+    category_tasks = list(_category_tasks.values())
+    for task in category_tasks:
         task.cancel()
-        try:
-            await task
-        except asyncio.CancelledError:
-            pass
+    if category_tasks:
+        await asyncio.gather(*category_tasks, return_exceptions=True)
     _category_tasks.clear()
 
     if _scheduler_task is not None:
         _scheduler_task.cancel()
-        try:
-            await _scheduler_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_scheduler_task, return_exceptions=True)
         _scheduler_task = None
 
     logger.info("Ingestion scheduler stopped.")

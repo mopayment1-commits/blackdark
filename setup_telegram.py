@@ -13,6 +13,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from path_safety import resolve_under
+
 ROOT = Path(__file__).resolve().parent
 ENV_PATH = ROOT / ".env"
 
@@ -26,7 +28,8 @@ def _read_env() -> list[str]:
 
 
 def _write_env(lines: list[str]) -> None:
-    ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    path = resolve_under(ROOT, ".env")
+    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
 def _upsert_env(key: str, value: str, lines: list[str]) -> list[str]:

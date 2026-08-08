@@ -329,18 +329,26 @@ async def execute_order(
                 "executedQty": order.get("executedQty"),
             }
             payload["message"] = f"Live {side} {asset} submitted to Binance."
+            from log_safety import sanitize_asset, sanitize_log_value
+
             logger.info(
                 "Live order placed | %s %s $%.2f order_id=%s source=%s",
-                side,
-                asset,
+                sanitize_log_value(side, max_len=8),
+                sanitize_asset(asset),
                 amount_usd,
-                order.get("orderId"),
-                credential_source,
+                sanitize_log_value(order.get("orderId"), max_len=32),
+                sanitize_log_value(credential_source, max_len=24),
             )
         except Exception as exc:
             payload["executed"] = False
             payload["message"] = f"Live order failed: {exc}"
-            logger.exception("Live order failed | %s %s", side, asset)
+            from log_safety import sanitize_asset, sanitize_log_value
+
+            logger.exception(
+                "Live order failed | %s %s",
+                sanitize_log_value(side, max_len=8),
+                sanitize_asset(asset),
+            )
     else:
         payload["message"] = f"Dry-run: would {side} {quantity:.6f} {asset} @ ${price:,.2f}"
         payload["executed"] = False
@@ -598,8 +606,5 @@ async def stop_auto_execution_loop() -> None:
     global _auto_task
     if _auto_task is not None:
         _auto_task.cancel()
-        try:
-            await _auto_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_auto_task, return_exceptions=True)
         _auto_task = None

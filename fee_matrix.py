@@ -187,10 +187,7 @@ async def stop_fee_matrix_scheduler() -> None:  # pragma: no cover
     global _refresh_task
     if _refresh_task is not None:
         _refresh_task.cancel()
-        try:
-            await _refresh_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_refresh_task, return_exceptions=True)
         _refresh_task = None
 
 

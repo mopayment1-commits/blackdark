@@ -8,6 +8,11 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from path_safety import resolve_under
+
 ENV = ROOT / ".env"
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -31,7 +36,7 @@ def main() -> None:
     lines = ENV.read_text(encoding="utf-8").splitlines() if ENV.exists() else []
     lines = _upsert(lines, "ADMIN_EMAILS", email)
     lines = _upsert(lines, "ADMIN_API_KEY", api_key)
-    ENV.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    resolve_under(ROOT, ".env").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
     print("Admin configured in .env")
     print(f"  ADMIN_EMAILS={email}")

@@ -245,7 +245,14 @@ def register_stop_loss(
         "triggered": False,
     }
     _active_stop_losses[symbol.upper()] = record
-    logger.info("Stop-loss registered | %s entry=%.4f stop=%.4f", symbol, entry_price, stop_price)
+    from log_safety import sanitize_asset
+
+    logger.info(
+        "Stop-loss registered | %s entry=%.4f stop=%.4f",
+        sanitize_asset(symbol),
+        entry_price,
+        stop_price,
+    )
     return record
 
 

@@ -7,6 +7,8 @@ from typing import Any
 
 import aiohttp
 
+from path_safety import assert_url_path_safe, safe_url_segment
+
 
 async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
     url = "https://api.coingecko.com/api/v3/coins/markets"
@@ -42,7 +44,8 @@ async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
 
 async def coin_detail(coin_id: str) -> dict[str, Any]:
     """Single coin detail page data from CoinGecko (free)."""
-    url = f"https://api.coingecko.com/api/v3/coins/{coin_id.lower()}"
+    safe_id = safe_url_segment(coin_id.lower())
+    url = assert_url_path_safe(f"https://api.coingecko.com/api/v3/coins/{safe_id}")
     params = {
         "localization": "false",
         "tickers": "false",

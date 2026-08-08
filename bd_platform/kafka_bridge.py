@@ -140,10 +140,7 @@ async def stop_kafka_consumer() -> None:
     global _consumer_task
     if _consumer_task is not None:
         _consumer_task.cancel()
-        try:
-            await _consumer_task
-        except asyncio.CancelledError:
-            pass
+        await asyncio.gather(_consumer_task, return_exceptions=True)
         _consumer_task = None
 
 

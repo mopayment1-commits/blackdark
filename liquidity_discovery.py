@@ -16,6 +16,7 @@ from typing import Any
 import aiohttp
 
 import config
+from path_safety import ensure_under
 
 logger = logging.getLogger("BLACKDARK.LiquidityDiscovery")
 
@@ -341,7 +342,8 @@ async def _discover_ccxt_exchange_pairs(
         exchange = exchange_class({"enableRateLimit": True, "timeout": 15000})
 
         async def _load_and_scan() -> list[dict[str, Any]]:
-            assert exchange is not None
+            if exchange is None:
+                raise RuntimeError("exchange client not initialized")
             await exchange.load_markets()
             rows: list[dict[str, Any]] = []
             for symbol, market in exchange.markets.items():
@@ -538,7 +540,7 @@ async def build_operational_inventory() -> dict[str, Any]:
 
 def save_operational_manifest(manifest: dict[str, Any]) -> str:
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
-    path = config.OPERATIONAL_MANIFEST_PATH
+    path = ensure_under(config.OPERATIONAL_MANIFEST_PATH, config.DATA_DIR)
     path.write_text(json.dumps(manifest, indent=2, sort_keys=False), encoding="utf-8")
     return str(path)
 
