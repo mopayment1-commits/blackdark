@@ -23,6 +23,7 @@ from fastapi import (
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.middleware.gzip import GZipMiddleware
 
 import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
 
@@ -362,6 +363,27 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
 
+# Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
+app.add_middleware(GZipMiddleware, minimum_size=500, compresslevel=6)
+
+
+def _public_base_url(request: Request | None = None) -> str:
+    """Absolute public origin for robots/sitemap (never trust arbitrary Host alone)."""
+    from urllib.parse import urlparse
+
+    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if configured:
+        return configured
+    if request is None:
+        return "https://blackdark.io"
+    parsed = urlparse(str(request.base_url))
+    host = (parsed.hostname or "localhost").lower()
+    if host not in {"localhost", "127.0.0.1", "::1"} and not host.endswith(".localhost"):
+        host = "localhost"
+    scheme = "https" if parsed.scheme == "https" else "http"
+    netloc = host if not parsed.port else f"{host}:{parsed.port}"
+    return f"{scheme}://{netloc}"
+
 
 @app.middleware("http")
 async def utf8_response_headers(request: Request, call_next):
@@ -373,6 +395,16 @@ async def utf8_response_headers(request: Request, call_next):
             response.headers["content-type"] = "application/json; charset=utf-8"
         elif "text/html" in ct:
             response.headers["content-type"] = "text/html; charset=utf-8"
+    # Long-cache static assets (fonts/css/js under /static).
+    path = request.url.path or ""
+    if (
+        path.startswith("/static/")
+        and response.status_code == 200
+        and path.endswith((".woff2", ".css", ".js", ".png", ".webp", ".svg"))
+    ):
+        response.headers.setdefault(
+            "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400"
+        )
     return response
 
 
@@ -859,15 +891,16 @@ async def landing_page(request: Request):
 
 
 @app.get("/robots.txt")
-async def robots_txt():
+async def robots_txt(request: Request):
     from fastapi.responses import PlainTextResponse
 
+    base = _public_base_url(request)
     body = (
         "User-agent: *\n"
         "Allow: /\n"
         "Disallow: /admin/\n"
         "Disallow: /api/auth/\n"
-        "Sitemap: /sitemap.xml\n"
+        f"Sitemap: {base}/sitemap.xml\n"
     )
     return PlainTextResponse(body, media_type="text/plain")
 
@@ -875,22 +908,11 @@ async def robots_txt():
 @app.get("/sitemap.xml")
 async def sitemap_xml(request: Request):
     from html import escape
-    from urllib.parse import urlparse
 
     from fastapi.responses import Response
 
     # Prefer configured public origin; never reflect arbitrary Host headers into XML.
-    configured = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
-    if configured:
-        base = configured
-    else:
-        parsed = urlparse(str(request.base_url))
-        host = (parsed.hostname or "localhost").lower()
-        if host not in {"localhost", "127.0.0.1", "::1"} and not host.endswith(".localhost"):
-            host = "localhost"
-        scheme = "https" if parsed.scheme == "https" else "http"
-        netloc = host if not parsed.port else f"{host}:{parsed.port}"
-        base = f"{scheme}://{netloc}"
+    base = _public_base_url(request)
     paths = [
         "/",
         "/dashboard",
