@@ -110,15 +110,15 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="/" class="logo">BLACKDARK Oracle AI</a>
-        <div>
+    <nav style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding:1rem 1.25rem">
+        <a href="/" class="logo">BLACKDARK</a>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
             <a href="/">Home</a>
             <a href="/dashboard">Dashboard</a>
-            <a href="/platform">Platform</a>
+            <a href="/#pricing">Pricing</a>
         </div>
-    {% include "partials/lang_switcher.html" %}
-</nav>
+        {% include "partials/top_utility.html" %}
+    </nav>
 
     <section class="hero">
         <div class="badge">LIVE · PUBLIC AUDIT</div>

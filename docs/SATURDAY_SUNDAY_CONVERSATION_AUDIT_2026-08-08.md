@@ -167,3 +167,7 @@ git pull origin main
 ---
 
 *Binding companions:* `docs/MORNING_SESSION_FINAL_BINDING.md` · `docs/DEFERRED_HUMAN_STEPS.md` · `docs/PRICING_TRUST_OS.md`
+
+## 10) Third-pass addendum (visible chrome)
+
+See [`THIRD_PASS_VISIBLE_SURFACES_AUDIT.md`](./THIRD_PASS_VISIBLE_SURFACES_AUDIT.md) — Language / Login / Sign up / Pricing forced into always-visible top-right utility chrome (mobile-safe).

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
         .msg { margin-top:.75rem; font-size:.85rem; min-height:1.2rem; }
         .msg.ok { color:var(--ok); } .msg.error { color:var(--danger); }
         .pill { display:inline-block; padding:.2rem .55rem; border-radius:999px; background:rgba(34,211,238,.12); color:var(--accent); font-size:.75rem; margin-right:.35rem; }
-        .nav { margin-bottom:1.25rem; font-size:.9rem; }
+        .nav { margin-bottom:1.25rem; font-size:.9rem; display:flex; justify-content:space-between; align-items:center; gap:.75rem; flex-wrap:wrap; }
         a { color:var(--accent); text-decoration:none; }
         h2 { font-size:1.05rem; margin-bottom:.5rem; }
         .hint { color:var(--muted); font-size:.8rem; margin-top:.35rem; }
@@ -33,9 +33,12 @@
 </head>
 <body>
 <div class="wrap">
-    <div class="nav"><a href="/dashboard">Dashboard</a> · <a href="/">Home</a> · <a href="/login?stay=1">Login</a></div>
+    <div class="nav">
+        <div><a href="/dashboard">Dashboard</a> · <a href="/">Home</a> · <a href="/#pricing">Pricing</a></div>
+        {% include 'partials/top_utility.html' %}
+    </div>
     <h1>Your profile</h1>
-    <p class="sub">Identity, security, and plan — not a social network. Login is always your email.</p>
+    <p class="sub">Identity, security, and USD plan — not a social network. Login is always your email. Hosted Lemon/Stripe checkout — card data never touches BLACKDARK.</p>
     <div id="gate" class="card">Loading…</div>
     <div id="app" class="grid" style="display:none">
         <aside class="card">
@@ -90,8 +93,10 @@
             <section class="card">
                 <h2>Plan & billing (USD)</h2>
                 <p class="hint" id="billingHint">Card data never touches BLACKDARK — Lemon/Stripe hosted checkout.</p>
-                <a class="btn btn-primary" href="/create-checkout-session?tier=pro">Decision Pro $29</a>
-                <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Decision Desk $49</a>
+                <p class="hint" id="billingReady">Checking payment readiness…</p>
+                <div class="msg" id="billingMsg"></div>
+                <a class="btn btn-primary" id="btnProCheckout" href="/create-checkout-session?tier=pro">Decision Pro $29</a>
+                <a class="btn btn-secondary" id="btnDeskCheckout" href="/create-checkout-session?tier=whale">Decision Desk $49</a>
                 <button class="btn-secondary" onclick="openPortal()">Manage billing</button>
                 <a class="btn btn-secondary" href="/data-room">Institutional — Talk to us</a>
             </section>
@@ -117,7 +122,7 @@
         const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
         const d = await res.json();
         if (!d.authenticated) {
-            document.getElementById('gate').innerHTML = 'Please <a href="/login">log in</a> to manage your profile.';
+            document.getElementById('gate').innerHTML = 'Please <a href="/login">log in</a> or <a href="/login?tab=register">create an account</a> to manage profile &amp; billing.';
             return;
         }
         document.getElementById('gate').style.display = 'none';
@@ -257,9 +262,29 @@
     async function openPortal() {
         const res = await fetch('/api/billing/portal', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
         const d = await res.json();
-        if (d.url) location.href = d.url; else setMsg('secMsg', d.detail || 'Portal unavailable', false);
+        if (d.url) location.href = d.url; else setMsg('billingMsg', d.detail || 'Portal unavailable — complete Lemon/Stripe setup', false);
+    }
+    async function loadBillingReady() {
+        const el = document.getElementById('billingReady');
+        if (!el) return;
+        try {
+            const res = await fetch('/api/billing/payments');
+            const d = await res.json();
+            const ops = d.ops_readiness || {};
+            const provider = d.active_provider || 'none';
+            if (ops.launch_ready || d.billing_configured) {
+                el.textContent = 'Payments ready · USD · provider: ' + provider + ' · hosted checkout (PCI SAQ A).';
+                el.style.color = 'var(--ok)';
+            } else {
+                el.textContent = 'Payments architecture live · provider keys not fully configured yet (Lemon checkout URL / Stripe price IDs). Free Proof Pass still works. Contact ops to finish KYC.';
+                el.style.color = 'var(--muted)';
+            }
+        } catch (e) {
+            el.textContent = 'Could not load payment readiness — try /api/billing/payments';
+        }
     }
     load();
+    loadBillingReady();
 </script>
 {% include "partials/site_footer.html" %}
 </body>

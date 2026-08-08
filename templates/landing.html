@@ -72,6 +72,7 @@
         .nav-container {
             max-width: 1200px; margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
+            gap: .75rem; flex-wrap: wrap;
         }
         
         .logo {
@@ -82,18 +83,27 @@
             text-decoration: none;
         }
         
-        .nav-links { display: flex; gap: 2rem; }
+        .nav-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
         .nav-links a {
             color: var(--text-muted); text-decoration: none;
             font-weight: 500; transition: color 0.3s;
         }
         .nav-links a:hover { color: var(--text); }
+
+        .nav-right {
+            display: inline-flex;
+            align-items: center;
+            gap: .65rem;
+            flex-wrap: wrap;
+            margin-inline-start: auto;
+        }
         
         .nav-cta {
             background: linear-gradient(135deg, var(--accent), #06b6d4);
             color: var(--bg); padding: 0.5rem 1.5rem;
             border-radius: 8px; font-weight: 600;
             text-decoration: none; transition: transform 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
         }
         .nav-cta:hover {
             transform: translateY(-2px);
@@ -663,7 +673,10 @@
         .tp-mini-foot { margin:0; }
         
         @media (max-width: 768px) {
+            /* Hide lens marketing links only — NEVER hide Language / Login / Sign up / Pricing */
             .nav-links { display: none; }
+            .nav-right { width: 100%; justify-content: flex-end; }
+            .nav-cta { display: none; }
             .hero { padding: 5.5rem 1rem 1.5rem; min-height: auto; }
             .hero-bleed-img { object-position: 62% 38%; }
             .hero-cta { flex-direction: column; align-items: stretch; }
@@ -684,17 +697,18 @@
 
     <nav aria-label="Primary">
         <div class="nav-container">
-            <div class="logo">BLACKDARK</div>
+            <a class="logo" href="/">BLACKDARK</a>
             <div class="nav-links">
                 <a href="/dashboard?lens=prove">Prove</a>
                 <a href="/dashboard?lens=operate">Operate</a>
                 <a href="/dashboard?lens=desk">Desk</a>
                 <a href="/data-room?lens=room">Room</a>
                 <a href="/oracle-accuracy">Verify</a>
-                <a href="/login">{{ t('nav.login') if t is defined else 'Login' }}</a>
-                {% include 'partials/lang_switcher.html' %}
             </div>
-            <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">Open Proof</a>
+            <div class="nav-right">
+                {% include 'partials/top_utility.html' %}
+                <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">Open Proof</a>
+            </div>
         </div>
     </nav>
 
@@ -902,7 +916,7 @@
                         <li>Public Accuracy Ledger</li>
                         <li>Free Proof watermark</li>
                     </ul>
-                    <a href="/login" class="btn-secondary btn">Start free</a>
+                    <a href="/login?tab=register" class="btn-secondary btn">Start free — Sign up</a>
                 </div>
                 
                 <div class="pricing-card bd-price-tier popular">
@@ -947,8 +961,12 @@
                     <a href="/data-room" class="btn-primary btn">Talk to us</a>
                 </div>
             </div>
-            <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
+            <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
+                Checking payment readiness…
+            </p>
+            <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
                 Prices in <strong>USD</strong>. Card data is processed by Lemon Squeezy / Stripe hosted checkout — never stored on BLACKDARK.
+                Manage plan anytime from <a href="/profile" style="color:var(--accent)">Profile &amp; Billing</a>.
                 Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
                 Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
             </p>
@@ -1467,9 +1485,30 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             if (proof.share_urls && proof.share_urls.x) window.open(proof.share_urls.x, '_blank', 'noopener');
         });
 
+
+        async function loadBillingReadyLine() {
+            const el = document.getElementById('billingReadyLine');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/billing/payments');
+                const d = await res.json();
+                const ops = d.ops_readiness || {};
+                const provider = d.active_provider || 'none';
+                if (ops.launch_ready || d.billing_configured) {
+                    el.textContent = 'USD payments ready · ' + provider + ' hosted checkout · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open';
+                } else {
+                    el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
+                    el.style.color = 'var(--text-muted)';
+                }
+            } catch (e) {
+                el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';
+                el.style.color = 'var(--text-muted)';
+            }
+        }
         window.addEventListener('load', () => {
             updateShareLinks(null);
             loadLandingAnalytics();
+            loadBillingReadyLine();
             loadTelegramBotLink();
             loadLandingTrustPulse();
             startLandingPulseStream();

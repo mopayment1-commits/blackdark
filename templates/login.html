@@ -14,6 +14,14 @@
                         radial-gradient(900px 500px at 100% 0%, rgba(6,182,212,.08), transparent), var(--bg);
             color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
         }
+        .login-chrome {
+            position: fixed; top: 0; inset-inline: 0; z-index: 40;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: .75rem; padding: .65rem 1rem;
+            background: rgba(10,10,15,.88); border-bottom: 1px solid #2a2a35;
+            backdrop-filter: blur(8px);
+        }
+        .login-chrome .brand { font-family: var(--bd-font-display); font-weight: 800; color: #22d3ee; text-decoration: none; letter-spacing: .04em; }
         .card { width:min(440px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
         h1 { font-family: var(--bd-font-display); font-size:2rem; font-weight:800; margin-bottom:.25rem; color:var(--accent); letter-spacing:.04em; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
@@ -46,9 +54,13 @@
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="login-chrome">
+        <a class="brand" href="/">BLACKDARK</a>
+        {% include 'partials/top_utility.html' %}
+    </div>
+    <div class="card" style="margin-top:3.5rem">
         <h1>BLACKDARK</h1>
-        <p class="lead">7-day Decision Pro trial on signup. Login with email — or continue with Google when configured.</p>
+        <p class="lead">Login or create an account. Email + password (Google when configured). 7-day Decision Pro trial on signup. USD billing via hosted Lemon/Stripe — card data never touches us.</p>
 
         <div class="tabs" role="tablist">
             <button type="button" class="tab active" id="tabLogin" role="tab" onclick="showTab('login')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('login')">Login</button>
@@ -112,9 +124,8 @@
         </form>
 
         <div class="msg" id="msg"></div>
-        {% include "partials/lang_switcher.html" %}
         <div class="footer-links">
-            <a href="/">Home</a> · <a href="/profile">Profile</a> · <a href="/dashboard">Dashboard</a><br>
+            <a href="/">Home</a> · <a href="/profile">Profile &amp; Billing</a> · <a href="/dashboard">Dashboard</a> · <a href="/#pricing">Pricing</a><br>
             <a href="/refund">Refunds</a> · <a href="/api/auth/identity">Identity standards</a>
         </div>
     </div>

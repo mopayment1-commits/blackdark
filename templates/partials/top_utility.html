@@ -1,0 +1,59 @@
+{# Always-visible top-right utility chrome: Language · Login · Sign up · Pricing
+   Must NOT live inside collapsible .nav-links (mobile was hiding auth+i18n). #}
+<style>
+  .bd-top-utility {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .45rem .55rem;
+    margin-inline-start: auto;
+    z-index: 50;
+  }
+  .bd-top-utility a.bd-util-link {
+    color: var(--text-muted, #a1a1aa);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .82rem;
+    padding: .35rem .55rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .bd-top-utility a.bd-util-link:hover {
+    color: var(--text, #e4e4e7);
+    border-color: var(--border, #2a2a35);
+    background: rgba(34, 211, 238, .06);
+  }
+  .bd-top-utility a.bd-util-signup {
+    color: #0a0a0f;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    border: none;
+    font-weight: 700;
+  }
+  .bd-top-utility a.bd-util-signup:hover {
+    color: #0a0a0f;
+    filter: brightness(1.05);
+    border-color: transparent;
+  }
+  .bd-top-utility a.bd-util-pricing {
+    border-color: rgba(34, 211, 238, .35);
+    color: #22d3ee;
+  }
+  @media (max-width: 768px) {
+    .bd-top-utility {
+      gap: .3rem .4rem;
+      max-width: min(100%, 18rem);
+      justify-content: flex-end;
+    }
+    .bd-top-utility a.bd-util-link {
+      font-size: .72rem;
+      padding: .3rem .45rem;
+    }
+  }
+</style>
+<div class="bd-top-utility" data-chrome="auth-lang-pay" aria-label="Account, language, and pricing">
+  {% include 'partials/lang_switcher.html' %}
+  <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
+  <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
+  <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+</div>

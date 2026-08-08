@@ -97,6 +97,7 @@ EN: dict[str, str] = {
     "nav.pricing": "Pricing",
     "nav.accuracy": "Accuracy",
     "nav.login": "Login",
+    "nav.signup": "Sign up",
     "nav.logout": "Logout",
     "nav.dashboard": "Dashboard",
     "nav.platform": "Platform",

@@ -144,7 +144,7 @@
     <nav>
         <div class="nav-inner">
             <a href="/" class="logo">BLACKDARK</a>
-            <div style="display:flex;align-items:center;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
                 <span class="tier" id="userTier">Guest · Proof Pass</span>
                 <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Decision Pro $29</button>
                 <div class="nav-links">
@@ -153,10 +153,9 @@
                     <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
                     <a class="lens-nav" href="/data-room?lens=room">Room</a>
                     <a href="/oracle-accuracy">Verify</a>
-                    <a href="/profile">Profile</a>
-                    <a href="/login" id="authLink">Login</a>
-                    {% include 'partials/lang_switcher.html' %}
+                    <a href="/profile">Profile &amp; Billing</a>
                 </div>
+                {% include 'partials/top_utility.html' %}
             </div>
         </div>
     </nav>
