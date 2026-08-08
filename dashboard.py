@@ -216,7 +216,7 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
         }
 
-    return {
+    result = {
         "holdings": holdings,
         "total_value": round(total_value, 2),
         "total_value_formatted": f"${total_value:,.2f}",
@@ -236,6 +236,17 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "compliance_footer": compliance,
         "hero": "portfolio_ai",
     }
+    try:
+        from heroes_quality import build_portfolio_clarity
+
+        clarity = build_portfolio_clarity(result)
+        result["one_sentence"] = clarity["one_sentence"]
+        result["clarity"] = clarity
+    except Exception:
+        result["one_sentence"] = (
+            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
+        )
+    return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
 _BOOT_DB_READY = False
@@ -961,15 +972,30 @@ async def platform_hub_page(request: Request):
 
 @app.get("/capabilities", response_class=HTMLResponse)
 async def capabilities_page(request: Request):
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
         "utility.html",
         {
             "page": "capabilities",
-            "title": "Capabilities",
-            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+            "title": "Capabilities — Trust OS",
+            "lead": (
+                "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
+                "Not 15/16 platforms. Six heroes. No ARENA. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
         },
     )
+
+
+@app.get("/api/trust-os")
+async def api_trust_os():
+    """Honest acquisition framing — four value layers + overclaim denylist."""
+    from trust_os import trust_os_manifest
+
+    return trust_os_manifest()
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -1322,6 +1348,27 @@ async def oracle(
         )
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
+
+    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
+    try:
+        from oracle_scenarios import build_oracle_scenarios
+
+        payload["scenarios"] = build_oracle_scenarios(payload)
+    except Exception:
+        logger.debug("Oracle scenarios attach failed", exc_info=True)
+
+    # Hero #1 — Why in <5s (normalized Top-3 for UI)
+    try:
+        from heroes_quality import build_oqs_why_block
+
+        payload["oqs_why"] = build_oqs_why_block(payload)
+        if payload["oqs_why"].get("top_3_factors"):
+            expl = payload.get("explanation") or {}
+            if isinstance(expl, dict) and not expl.get("top_3_factors"):
+                expl = {**expl, "top_3_factors": payload["oqs_why"]["top_3_factors"]}
+                payload["explanation"] = expl
+    except Exception:
+        logger.debug("OQS why block attach failed", exc_info=True)
 
     # Durable product alert without Telegram when Oracle says ACT.
     try:

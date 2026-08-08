@@ -189,9 +189,83 @@ async def glass_box_challenge():
     return build_glass_box_challenge_pack()
 
 
+@router.get("/api/glass-box/operator")
+async def glass_box_operator():
+    from glass_box_challenge import build_glass_box_operator_pack
+
+    return build_glass_box_operator_pack()
+
+
+@router.get("/api/ledger/share-kit")
+async def ledger_share_kit():
+    """Hero #3 — shareable Public Accuracy Ledger kit (no login)."""
+    from heroes_quality import build_ledger_share_kit
+
+    accuracy_pct = None
+    total = None
+    try:
+        from ml.public_accuracy import build_public_accuracy_payload
+
+        summary = await build_public_accuracy_payload(recent_limit=5)
+        if isinstance(summary, dict):
+            oracle = summary.get("oracle") or {}
+            accuracy_pct = (
+                oracle.get("average_accuracy_percent")
+                or oracle.get("recent_hit_rate_percent")
+                or summary.get("average_accuracy_percent")
+            )
+            total = (
+                oracle.get("resolved_predictions")
+                or oracle.get("total_predictions")
+                or summary.get("total_predictions")
+            )
+            try:
+                accuracy_pct = float(accuracy_pct) if accuracy_pct is not None else None
+            except (TypeError, ValueError):
+                accuracy_pct = None
+            try:
+                total = int(total) if total is not None else None
+            except (TypeError, ValueError):
+                total = None
+    except Exception:
+        pass
+    return build_ledger_share_kit(accuracy_pct=accuracy_pct, total_predictions=total)
+
+
+@router.get("/api/heroes/quality")
+async def heroes_quality():
+    """Six-hero quality gates — polish depth, not a seventh button."""
+    from heroes_quality import heroes_quality_manifest
+
+    return heroes_quality_manifest()
+
+
+@router.get("/api/strategy/correction")
+async def strategy_correction():
+    """Expert correction of inflated strategy pastes — four layers, six heroes."""
+    from trust_os import strategy_correction_manifest
+
+    return strategy_correction_manifest()
+
+
+@router.get("/api/intent/router")
+async def intent_router_api():
+    """Results-over-features intent map (display layer only)."""
+    from intent_router import intent_router_manifest
+
+    return intent_router_manifest()
+
+
+@router.get("/api/intent/resolve")
+async def intent_resolve(intent_id: str = Query(...)):
+    from intent_router import resolve_intent
+
+    return resolve_intent(intent_id)
+
+
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
-    """Competitive posture vs TradingView-style rate caps — product messaging only."""
+    """Competitive posture vs TradingView-style rate caps — honest tier policy."""
     return {
         "title": "Alert generosity — no 15-alerts-per-3-minutes hard cap",
         "competitor_friction": (
@@ -199,10 +273,19 @@ async def alerts_generosity_posture():
             "(commonly ~15 alerts / 3 minutes), which breaks discretionary workflows."
         ),
         "blackdark": {
-            "in_app_inbox": "Unlimited in-app Oracle + arb inbox (no TV-style 15/3min hard cap)",
+            "in_app_inbox": (
+                "In-app Oracle + arb inbox has no TV-style 15/3min hard cap "
+                "(practical retention limit applies for storage)"
+            ),
             "telegram_free": "Free tier: 3 Oracle alerts/day on Telegram",
-            "telegram_pro": "Pro: unlimited Oracle + chat alerts on Telegram when configured",
+            "telegram_pro": (
+                "Pro/Whale: no per-3-minute hard cap on Oracle/chat Telegram alerts when bot is configured"
+            ),
             "proof_gate": "Only Net-Edge Truth + Half-Life survivors are alertable",
+            "honest_policy": (
+                "'Unlimited' means no TradingView-style 15/3min throttle — "
+                "not an infinite infra SLA. Abuse/rate guards and proof gates still apply."
+            ),
         },
         "cta": "Open the in-app inbox on /dashboard — works without Telegram",
         "endpoints": {

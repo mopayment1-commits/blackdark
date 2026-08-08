@@ -14,35 +14,97 @@
         .logo { font-weight: 700; letter-spacing: .04em; color: var(--fg); }
         main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
         h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: .75rem; }
+        h2 { font-size: 1.05rem; color: var(--accent); margin: 1.25rem 0 .5rem; }
         p, li { color: var(--muted); line-height: 1.65; margin-bottom: .85rem; }
         ul { margin: 1rem 0 1.5rem 1.2rem; }
         .card { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: 1.25rem; }
+        .layer { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; margin: .75rem 0; background: rgba(17,17,24,.65); }
+        .layer h3 { color: var(--fg); font-size: .95rem; margin-bottom: .35rem; }
+        .deny { font-size: .82rem; }
         footer { max-width: 820px; margin: 0 auto; padding: 1.25rem; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--line); }
     </style>
 </head>
 <body>
-    <nav><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a></div></div></nav>
+    <nav><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/b2b#fund-terminal">Funds</a></div></div></nav>
     <main>
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
         {% if page == 'capabilities' %}
         <div class="card">
+            <p><strong style="color:var(--fg)">Don't trust us. Verify us.</strong> One product · four value layers.</p>
+            {% if trust_os and trust_os.value_layers %}
+            {% for layer in trust_os.value_layers %}
+            <div class="layer">
+                <h3>{{ loop.index }}. {{ layer.name }} <span style="color:var(--muted);font-weight:400">· {{ layer.status }}</span></h3>
+                <ul>
+                {% for c in layer.capabilities %}
+                    <li>{{ c }}</li>
+                {% endfor %}
+                </ul>
+                {% if layer.honest_limits %}
+                <p class="deny">Limits:
+                    {% for lim in layer.honest_limits %}{{ lim }}{% if not loop.last %} · {% endif %}{% endfor %}
+                </p>
+                {% endif %}
+                <p style="font-size:.8rem;margin:0">
+                    {% for s in layer.surfaces %}<a href="{{ s if not '{' in s else '/dashboard' }}">{{ s }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+                </p>
+            </div>
+            {% endfor %}
+            {% else %}
             <ul>
                 <li>Proof-Native Oracle with Public Accuracy Ledger</li>
                 <li>Contradiction Veto · Net-Edge Truth · Opportunity Half-Life</li>
-                <li>Regime-conditional models (D5) + Sovereign Signal Registry (D8)</li>
-                <li>Six heroes: Single-Sentence Oracle, Whale Signal vs Noise, Glass Box, Portfolio AI, Discipline Mirror, Decision Certificate</li>
-                <li>Stealth Execution Advisor · MEV sandwich report · Emerging Fund Terminal</li>
-                <li>~250 internal engines stay quiet — no seventh retail button</li>
+                <li>Six heroes + Emerging Fund Terminal + Anti-Hype Compliance</li>
             </ul>
-            <p><a href="/dashboard">Open dashboard</a> · <a href="/b2b">B2B / Fund Terminal</a></p>
+            {% endif %}
+            <h2>Five outcomes (results, not features)</h2>
+            <ul>
+                {% if trust_os and trust_os.five_outcomes %}
+                {% for o in trust_os.five_outcomes %}
+                <li>{{ o }}</li>
+                {% endfor %}
+                {% else %}
+                <li>Discover opportunities · Make a decision · Reduce risk · Save time · Improve execution quality</li>
+                {% endif %}
+            </ul>
+            {% if trust_os and trust_os.success_metric %}
+            <p><strong style="color:var(--fg)">Success bar:</strong> {{ trust_os.success_metric.definition }}</p>
+            {% endif %}
+            <h2>Strategic correction — rejected inflation</h2>
+            <ul class="deny">
+                {% if trust_os and trust_os.report_corrections %}
+                {% for row in trust_os.report_corrections %}
+                <li><strong style="color:var(--fg)">Reject:</strong> {{ row.reject }} · <strong style="color:var(--fg)">Keep:</strong> {{ row.keep }}</li>
+                {% endfor %}
+                {% else %}
+                <li>Reject 15 sections / ARENA / Neuro-Design / 100-indicator retail UI — keep four layers + six heroes</li>
+                {% endif %}
+            </ul>
+            <h2>Not claimed as shipped</h2>
+            <ul class="deny">
+                {% if trust_os and trust_os.overclaim_denylist %}
+                {% for row in trust_os.overclaim_denylist %}
+                <li><strong style="color:var(--fg)">{{ row.claim }}</strong> — {{ row.truth }}</li>
+                {% endfor %}
+                {% else %}
+                <li>SOR / TWAP / VWAP / TCA / SOC2 / IFRS 13 certification — not shipped</li>
+                {% endif %}
+            </ul>
+            <p>
+                <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
+                <a href="/b2b#fund-terminal">Emerging Fund Terminal</a> ·
+                <a href="/compliance">Compliance</a> ·
+                <a href="/api/trust-os">JSON manifest</a> ·
+                <a href="/api/strategy/correction">Strategy correction</a>
+            </p>
         </div>
         {% elif page == 'contact' %}
         <div class="card">
             <p>Product support and partnership inquiries:</p>
             <ul>
                 <li>Email: <a href="mailto:support@blackdark.app">support@blackdark.app</a></li>
-                <li>B2B / allocators: use the <a href="/b2b">Emerging Fund Terminal</a></li>
+                <li>B2B / allocators: use the <a href="/b2b#fund-terminal">Emerging Fund Terminal</a></li>
                 <li>Accuracy disputes: <a href="/oracle-accuracy">Public Accuracy Ledger</a></li>
             </ul>
             <p>Replace support@ with your live inbox when Ops secrets are configured (human step).</p>
