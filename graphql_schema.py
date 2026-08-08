@@ -136,11 +136,12 @@ schema = strawberry.Schema(query=Query)
 
 async def graphql_context(request) -> GraphContext:
     from auth_service import get_user_from_token
+    from security_middleware import cookie_to_session_bearer
 
     auth = request.headers.get("Authorization") or ""
     token = auth.removeprefix("Bearer ")
     if not token.strip():
-        token = (request.cookies.get("bd_token") or "").strip()
+        token = cookie_to_session_bearer(request.cookies.get("bd_token"))
     user = await get_user_from_token(token.strip()) if token.strip() else None
     ctx = GraphContext()
     ctx.user = user

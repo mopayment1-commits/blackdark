@@ -572,7 +572,9 @@ async def optional_user(
     if authorization:
         token = authorization.removeprefix("Bearer ")
     elif bd_token:
-        token = bd_token.strip()
+        from security_middleware import cookie_to_session_bearer
+
+        token = cookie_to_session_bearer(bd_token)
     if not token:
         return None
     return await get_user_from_token(token.strip())

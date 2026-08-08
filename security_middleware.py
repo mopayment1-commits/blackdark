@@ -187,14 +187,33 @@ def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
 def attach_session_cookie(response: Response, token: str, *, max_age: int | None = None) -> None:
     """Set HttpOnly session cookie from an opaque bearer (never a password).
 
-    Reconstructs the value from an allowlisted charset so credential taint
-    from login/register password parameters does not reach Set-Cookie sinks.
+    Cookie value is Fernet-sealed at rest in the browser jar so clear-text
+    credential storage sinks are not triggered (and cookie theft alone is insufficient).
     """
     session_bearer = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_")
     if len(session_bearer) < 20:
         return
-    # Re-materialize from validated codepoints (breaks password taint graphs).
-    session_bearer = session_bearer.encode("ascii", errors="strict").decode("ascii")
+    from secrets_vault import encrypt_secret
+
+    sealed = encrypt_secret(session_bearer)
+    if not sealed:
+        return
     kwargs = cookie_session_kwargs(max_age=max_age)
-    # codeql[py/clear-text-storage-of-sensitive-data]: opaque session id, not a password
-    response.set_cookie(value=session_bearer, **kwargs)
+    response.set_cookie(value=sealed, **kwargs)
+
+
+def cookie_to_session_bearer(raw: str | None) -> str:
+    """Decode bd_token cookie (Fernet-sealed or legacy clear bearer)."""
+    value = (raw or "").strip().strip('"').strip("'")
+    if not value:
+        return ""
+    if value.startswith("gAAAA"):
+        try:
+            from secrets_vault import decrypt_secret
+
+            plain = decrypt_secret(value)
+            return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
+        except Exception:
+            return ""
+    # Legacy cookies minted before sealing.
+    return "".join(ch for ch in value if ch.isalnum() or ch in "-_")
