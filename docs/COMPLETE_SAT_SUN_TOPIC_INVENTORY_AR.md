@@ -8,7 +8,7 @@
 
 - لا يصح الادعاء أن جهاز المؤسس أو `localhost` على `main` يعرض PR #33 قبل checkout/merge للفرع `cursor/morning-final-recs-literal-eef3`.
 - البنود البشرية ليست منسية: مفاتيح Lemon/Stripe/Telegram، KYC، توقيت Glass Box، اختبار 60 ثانية، دمج امتداد المتصفح، وHA load test موقع كلها `HUMAN_OPS`.
-- `origin/main` عند الفحص = `9d3a554`، وفرع العمل الحالي = `51c0cab`، والفرع متقدم 5 commits. فجوات `origin/main` الأساسية: i18n 15 لغة، شريط Language/Login/Sign up الثابت، سلم $49 Decision Desk، تعميق Legal Shield، وواجهات/اختبارات الدفع USD على PR #33.
+- عند فحص فجوات التنفيذ قبل إضافة هذا الجرد: `origin/main` = `9d3a554`، وفرع PR #33 = `51c0cab` وكان متقدما 5 commits. بعد إضافة هذا الملف صار الفرع متقدما أكثر، لكن فجوات `origin/main` الأساسية نفسها: i18n 15 لغة، شريط Language/Login/Sign up الثابت، سلم $49 Decision Desk، تعميق Legal Shield، وواجهات/اختبارات الدفع USD على PR #33.
 - `/tmp/audit_orders.json` موجود ويغطي 51 أمرا/موافقة مصنفة + اعتراضات حرجة. هذا الجرد أوسع منه لأنه يشمل أيضا أسئلة وتصورات وتشغيل محلي وموضوعات بشرية غير مصنفة كأوامر.
 
 ## إجابة مباشرة: أين تقسيم المميزات؟ أين تسجيل الدخول؟ أين طرق الدفع؟
@@ -42,7 +42,7 @@
 | 2 | فرق `main` عن PR #33 | `11058`, `11639`, `11656`, `11680`, `12061` | لا ادعاء بأن ما على PR #33 ظاهر على `main` أو جهاز المؤسس حتى يتم checkout/merge وإعادة التشغيل. | `PARTIAL` | `docs/THIRD_PASS_VISIBLE_SURFACES_AUDIT.md`, `docs/START_HERE_SEE_LANG_LOGIN_PAY_AR.md` |
 | 3 | تأجيل البشري لا يعني نسيان | `2365`, `2494`, `3522`, `9252` | كل ما يحتاج قرار/حساب خارجي يبقى مؤجلا ومسمى، ولا يوقف إغلاق الكود. | `HUMAN_OPS` | `docs/DEFERRED_HUMAN_STEPS.md`, `docs/PRODUCT_COMPLETE_STATUS.md` |
 
-### 2) افتتاح السبت: feature set / heroes / strengths-weaknesses / Prove-it vs Labels
+### 2) افتتاح السبت: Feature set / heroes / strengths-weaknesses / Prove-it vs Labels
 
 | # | الموضوع | مراجع رسائل المؤسس | القرار النهائي المتفق | الحالة | الأدلة |
 |---:|---|---|---|---|---|
@@ -133,13 +133,13 @@
 |---:|---|---|---|---|---|
 | 44 | Windows/local setup/git pull/server/landing button | `4116`-`4353`, `10402`-`10440`, `11186`, `11193` | توفير خطوات copy/paste وتشخيص: السيرفر/الفرع/إعادة التشغيل/زر Oracle. يبقى معتمدا على بيئة المستخدم. | `PARTIAL` | `docs/START_HERE_SEE_LANG_LOGIN_PAY_AR.md`, `docs/RENDER_FREE_AR.md`, `run_service.py` |
 | 45 | Railway/Stripe/Telegram secrets/deploy | `4039`, `4116`, `4163`, `4242` | الأسرار والحسابات الخارجية عند المؤسس؛ الكود جاهز، والتفعيل الحي ليس داخل repo. | `HUMAN_OPS` | `DEPLOY.md`, `docs/DEFERRED_HUMAN_STEPS.md`, `production_guard.py` |
-| 46 | Render free path بعد انتهاء Railway | `4163`, `4166`, `4242` | مسار مجاني موثق، لكنه يتطلب تنفيذ المستخدم على حساب الاستضافة. | `HUMAN_OPS` | `docs/RENDER_FREE_AR.md`, `render.yaml` إن وجد |
+| 46 | Render free path بعد انتهاء Railway | `4163`, `4166`, `4242` | مسار مجاني موثق، لكنه يتطلب تنفيذ المستخدم على حساب الاستضافة. | `HUMAN_OPS` | `docs/RENDER_FREE_AR.md`, `render.yaml` |
 
 ### 12) موضوعات منتجية أخرى ظهرت في الرسائل
 
 | # | الموضوع | مراجع رسائل المؤسس | القرار النهائي المتفق | الحالة | الأدلة |
 |---:|---|---|---|---|---|
-| 47 | AI Chat، تواصل، شكاوى، social share | `3208`, `8549`, `8556` | AI chat داخل Operate/Desk، مشاركة Proof، تواصل وشكاوى وفوتر اجتماعي. | `DONE_ON_MAIN` | `chat_service.py`, `site_services.py`, `templates/partials/site_footer.html` |
+| 47 | Companion services / AI Chat، تواصل، شكاوى، social share | `3208`, `8549`, `8556` | AI chat داخل Operate/Desk، مشاركة Proof، تواصل وشكاوى وفوتر اجتماعي. | `DONE_ON_MAIN` | `chat_service.py`, `site_services.py`, `templates/partials/site_footer.html` |
 | 48 | OpenAPI/developer platform | `6546`, `6557`, `6681` | OpenAPI عام كتوثيق، لا فتح كل الأسرار أو بناء platform مفتوحة قبل النضج. | `DONE_ON_MAIN` | `public_api_docs.py`, `docs/API_REFERENCE.md`, `dashboard.py` |
 | 49 | Public errors/misses/losing report/Discipline Mirror | `1977`, `2104`, `6546`, `6557` | الاعتراف بالأخطاء داخل Ledger/Accuracy وليس صفحة ضوضاء منفصلة؛ Discipline Mirror يعالج السلوك. | `DONE_ON_MAIN` | `templates/oracle_accuracy.html`, `monthly_losing_report.py`, `discipline_mirror.py` |
 | 50 | Stealth Advisor / Whale / MEV / arb execution quality | `2750`, `3943`, `6295`, `8438` | أدوات Desk موجودة كاستشارة/إثبات؛ لا ادعاء SOR حي أو تنفيذ آلي مضمون. | `DONE_ON_MAIN` | `stealth_execution_advisor.py`, `mev_sandwich_report.py`, `arbitrage_service.py`, `docs/TRUST_OS_LENSES_UX.md` |
