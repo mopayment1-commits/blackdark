@@ -68,6 +68,8 @@ def test_static_landing_assets_served():
         "/static/landing.js",
         "/static/fonts.css",
         "/static/fonts/inter-latin.woff2",
+        "/favicon.ico",
+        "/static/icon-192.png",
     ):
         res = client.get(path)
         assert res.status_code == 200, path

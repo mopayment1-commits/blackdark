@@ -890,6 +890,15 @@ async def landing_page(request: Request):
     return templates.TemplateResponse(request, "landing.html")
 
 
+@app.get("/favicon.ico")
+async def favicon():
+    """Browsers probe /favicon.ico — serve the PWA icon to avoid console 404 noise."""
+    icon = STATIC_DIR / "icon-192.png"
+    if not icon.is_file():
+        raise HTTPException(status_code=404, detail="favicon missing")
+    return FileResponse(icon, media_type="image/png")
+
+
 @app.get("/robots.txt")
 async def robots_txt(request: Request):
     from fastapi.responses import PlainTextResponse
