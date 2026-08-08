@@ -110,8 +110,8 @@ def _run_pytest_quick() -> tuple[bool, str]:
         chain = verify_chain()
         assert "valid" in chain or "ok" in chain or isinstance(chain, dict)
 
-    except Exception as exc:
-        errors.append(str(exc))
+    except Exception:
+        errors.append("constitution_smoke_failed")
         return False, "; ".join(errors)[:240]
     return True, "in_process_constitution_smoke_ok"
 

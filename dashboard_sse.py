@@ -65,7 +65,7 @@ async def dashboard_sse_generator(*, interval_sec: float = 15.0) -> AsyncIterato
             yield f"data: {json.dumps(snap, default=str)}\n\n"
         except asyncio.CancelledError:
             break
-        except Exception as exc:
-            err = {"type": "error", "message": str(exc), "timestamp": _utcnow()}
+        except Exception:
+            err = {"type": "error", "message": "stream_unavailable", "timestamp": _utcnow()}
             yield f"data: {json.dumps(err)}\n\n"
         await asyncio.sleep(interval_sec)

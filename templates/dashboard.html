@@ -202,6 +202,15 @@
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
         const vc = v => (v || 'WAIT').toUpperCase();
+        /** HTML-escape untrusted API / user strings before innerHTML (CodeQL DOM XSS). */
+        function esc(s) {
+            return String(s ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
         let chart, series;
 
         function authHeaders() {
@@ -277,15 +286,15 @@
                 const factorBlock = factors.length ? `
                     <div style="margin-top:.85rem">
                         <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
-                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
+                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${esc(f.factor)}</strong> — ${esc(f.detail)}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`).join('')}
                     </div>` : '';
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">
-                        <div class="metric"><strong>${truth.truth_score ?? '—'}</strong><span>Truth</span></div>
-                        <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
-                        <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
-                        <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
+                        <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
+                        <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
+                        <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
+                        <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
                     </div>${factorBlock}`;
                 } else {
                     proBlock = factorBlock;
@@ -295,8 +304,8 @@
                     const t = d.upgrade_hint.teaser || {};
                     upgradeBlock = `
                     <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
-                        ${d.upgrade_hint.message || ''}
-                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${t.truth_score ?? '—'} · Half-life ${t.remaining_seconds ?? '—'}s</div>` : ''}
+                        ${esc(d.upgrade_hint.message || '')}
+                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${esc(t.truth_score ?? '—')} · Half-life ${esc(t.remaining_seconds ?? '—')}s</div>` : ''}
                         <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
                     </div>`;
                 }
@@ -304,42 +313,49 @@
                 const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
                     ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
                         Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
-                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
-                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
+                        ${conflict.severity ? ` · ${esc(conflict.severity)}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(conflict.reason || conflict.message)}</div>` : ''}
                        </div>` : '';
                 const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
+                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
+                const verdictClass = vc(d.verdict).replace(/[^A-Z_]/g, '') || 'WAIT';
                 el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
-                    <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
+                    <div class="verdict ${verdictClass}">${esc(action || d.verdict)}</div>
+                    <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
                         <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
-                    <div class="narrative">${sentence}</div>
+                    <div class="narrative">${esc(sentence)}</div>
                     <div class="metrics">
-                        <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
-                        <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
+                        <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
+                        <div class="metric"><strong>${d.confidence != null ? esc(d.confidence) + '%' : '—'}</strong><span>Confidence</span></div>
+                        <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
+                        <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
                     </div>
                     ${proBlock}
                     ${vetoBlock}
                     ${proofBlock}
                     ${upgradeBlock}
-                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
+                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(d.compliance_footer.data_source||'')} · ${esc(d.compliance_footer.trust_basis||'')}<br>${esc(d.compliance_footer.disclaimer)}</div>` : ''}
                     ${(() => {
                         const cert = d.decision_certificate || {};
                         if (!(cert.certificate_hash || d.prediction_id)) return '';
                         window._lastCertShare = cert.share_text || '';
                         window._lastCertJson = cert;
-                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
+                        const xUrl = (cert.share_urls && typeof cert.share_urls.x === 'string' && cert.share_urls.x.startsWith('https://')) ? cert.share_urls.x : '';
+                        const tgUrl = (cert.share_urls && typeof cert.share_urls.telegram === 'string' && cert.share_urls.telegram.startsWith('https://')) ? cert.share_urls.telegram : '';
+                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? esc(String(cert.certificate_hash).slice(0,16))+'…' : 'pending'}</code>
                         ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
                         <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
-                        ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
-                        ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
+                        ${xUrl?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">Share X</a>`:''}
+                        ${tgUrl?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
                     })()}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
-                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
+                el.textContent = '';
+                const empty = document.createElement('div');
+                empty.className = 'empty';
+                empty.textContent = 'Could not analyze ' + String(sym || '').replace(/[^\w.-]/g, '').slice(0, 16);
+                el.appendChild(empty);
             }
         }
 
@@ -372,12 +388,15 @@
             try {
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
-                el.innerHTML = (data.assets||[]).slice(0,8).map(a => `
-                    <div class="card" onclick="setSymbol('${a.symbol}')">
-                        <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict}</span>
+                el.innerHTML = (data.assets||[]).slice(0,8).map(a => {
+                    const sym = String(a.symbol || '').replace(/[^\w.-]/g, '').slice(0, 16);
+                    return `
+                    <div class="card" onclick="setSymbol('${sym}')">
+                        <strong>${esc(sym)}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${esc(a.verdict)}</span>
                         <div>$${fmt(a.price,a.price<1?4:2)}</div>
                         <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
-                    </div>`).join('');
+                    </div>`;
+                }).join('');
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
@@ -404,7 +423,7 @@
                 if (res.status === 403) {
                     const detail = data.detail || {};
                     stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
                         <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
                     return;
                 }
@@ -415,9 +434,9 @@
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
                     const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                    return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                     <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
@@ -431,13 +450,16 @@
                 const stats = data.stats || {};
                 status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
                 const rows = data.alerts || [];
-                el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
-                        <strong>${a.title||'Alert'}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                el.innerHTML = rows.length ? rows.map(a => {
+                    const id = String(a.id || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 64);
+                    return `
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${id}')">
+                        <strong>${esc(a.title||'Alert')}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
-                    </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
+                    </div>`;
+                }).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (e) {
                 el.innerHTML = '<div class="empty">Inbox unavailable</div>';
             }
@@ -465,18 +487,18 @@
                 const stories = data.stories || [];
                 const headline = data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${headline}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${esc(headline)}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
-                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            <strong>${esc(a.label||'—')}</strong> · ${esc(a.asset||'—')}
                             ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
-                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
+                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${esc(a.sentence||a.class_id||'')}</div>
+                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + esc(a.funding_rate) : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
                         </div>`).join('');
                 } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
                 } else {
                     el.innerHTML = '<div class="empty">No whale narratives</div>';
                 }
