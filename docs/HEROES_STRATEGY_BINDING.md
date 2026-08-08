@@ -2,7 +2,7 @@
 
 > **Status:** Binding · must-execute  
 > **Parent constitution:** [`PRODUCT_CONSTITUTION_AR.md`](./PRODUCT_CONSTITUTION_AR.md)  
-> **UI language:** English-only (LTR) on all public surfaces  
+> **UI language:** English default (source of truth) · 15-locale switcher on public surfaces (Arabic RTL)  
 > **Adopted:** 2026-08-05
 
 ---

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACKDARK — Login</title>
+    <title>{{ t('meta.title.login') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -65,104 +65,103 @@
         .tab.active { background: rgba(34,211,238,0.15); color: #22d3ee; }
         a { color: #22d3ee; text-decoration: none; font-size: 0.85rem; }
         .footer-links { text-align: center; margin-top: 1rem; }
+        .lang-row { display:flex; justify-content:flex-end; margin-bottom:1rem; }
     </style>
 </head>
 <body>
     <div class="card">
+        <div class="lang-row">{% include 'partials/lang_switcher.html' %}</div>
         <h1>BLACKDARK</h1>
-        <p>🎁 <strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+        <p>🎁 <strong>{{ t('login.trial') }}</strong></p>
 
         <div class="tabs">
-            <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
-            <div class="tab" id="tabRegister" onclick="showTab('register')">Register</div>
+            <div class="tab active" id="tabLogin" onclick="showTab('login')">{{ t('login.tab.login') }}</div>
+            <div class="tab" id="tabRegister" onclick="showTab('register')">{{ t('login.tab.register') }}</div>
         </div>
 
         <form id="loginForm" onsubmit="doLogin(event)">
-            <label>Email</label>
+            <label>{{ t('login.email') }}</label>
             <input type="email" id="loginEmail" required placeholder="you@email.com">
-            <label>Password</label>
+            <label>{{ t('login.password') }}</label>
             <input type="password" id="loginPassword" required minlength="8">
-            <button type="submit" class="btn-primary">Login</button>
+            <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
         </form>
 
         <form id="registerForm" style="display:none" onsubmit="doRegister(event)">
-            <label>Name</label>
-            <input type="text" id="regName" placeholder="Your name">
-            <label>Email</label>
+            <label>{{ t('login.name') }}</label>
+            <input type="text" id="regName" placeholder="{{ t('login.name') }}">
+            <label>{{ t('login.email') }}</label>
             <input type="email" id="regEmail" required>
-            <label>Password (8+ chars)</label>
+            <label>{{ t('login.password_hint') }}</label>
             <input type="password" id="regPassword" required minlength="8">
-            <button type="submit" class="btn-primary">Create Account</button>
+            <button type="submit" class="btn-primary">{{ t('login.create') }}</button>
         </form>
 
         <div class="msg" id="msg"></div>
         <div class="footer-links">
-            <a href="/">← Home</a> · <a href="/dashboard">Dashboard</a><br>
-            <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/disclaimer">Disclaimer</a>
+            <a href="/?lang={{ lang }}">{{ t('login.home') }}</a> · <a href="/dashboard?lang={{ lang }}">{{ t('nav.dashboard') }}</a><br>
+            <span style="color:#71717a;font-size:.75rem">{{ t('common.not_advice') }}</span>
         </div>
     </div>
     <script>
         function showTab(which) {
-            document.getElementById('loginForm').style.display = which === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = which === 'register' ? 'block' : 'none';
-            document.getElementById('tabLogin').classList.toggle('active', which === 'login');
-            document.getElementById('tabRegister').classList.toggle('active', which === 'register');
+            const login = which === 'login';
+            document.getElementById('loginForm').style.display = login ? 'block' : 'none';
+            document.getElementById('registerForm').style.display = login ? 'none' : 'block';
+            document.getElementById('tabLogin').classList.toggle('active', login);
+            document.getElementById('tabRegister').classList.toggle('active', !login);
             document.getElementById('msg').textContent = '';
         }
-
-        function saveAuth(data) {
-            localStorage.setItem('bd_token', data.token);
-            localStorage.setItem('bd_user', JSON.stringify(data.user));
-            window.location.href = '/dashboard';
-        }
-
         async function doLogin(e) {
             e.preventDefault();
             const msg = document.getElementById('msg');
             msg.className = 'msg';
+            msg.textContent = '…';
             try {
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         email: document.getElementById('loginEmail').value,
-                        password: document.getElementById('loginPassword').value
-                    })
+                        password: document.getElementById('loginPassword').value,
+                    }),
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'Login failed');
-                saveAuth(d);
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Login failed');
+                if (data.token) localStorage.setItem('bd_token', data.token);
+                msg.className = 'msg ok';
+                msg.textContent = 'OK';
+                location.href = '/dashboard?lang={{ lang }}';
             } catch (err) {
                 msg.className = 'msg error';
-                msg.textContent = err.message;
+                msg.textContent = err.message || 'Error';
             }
         }
-
         async function doRegister(e) {
             e.preventDefault();
             const msg = document.getElementById('msg');
             msg.className = 'msg';
+            msg.textContent = '…';
             try {
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         name: document.getElementById('regName').value,
                         email: document.getElementById('regEmail').value,
-                        password: document.getElementById('regPassword').value
-                    })
+                        password: document.getElementById('regPassword').value,
+                    }),
                 });
-                const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'Registration failed');
-                saveAuth(d);
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Register failed');
+                if (data.token) localStorage.setItem('bd_token', data.token);
+                msg.className = 'msg ok';
+                msg.textContent = 'OK';
+                location.href = '/dashboard?lang={{ lang }}';
             } catch (err) {
                 msg.className = 'msg error';
-                msg.textContent = err.message;
+                msg.textContent = err.message || 'Error';
             }
-        }
-
-        if (localStorage.getItem('bd_token')) {
-            window.location.href = '/dashboard';
         }
     </script>
 </body>

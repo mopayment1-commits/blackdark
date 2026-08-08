@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BLACKDARK Public Accuracy Ledger — sealed Glass Box forecasts, monthly losing trades, and a verifiable audit hash chain. Prove it.">
-    <meta property="og:title" content="BLACKDARK — Public Oracle Accuracy Ledger">
-    <meta property="og:description" content="Full public ledger including misses. Glass Box Challenge ready. Labels are not proof.">
-    <title>BLACKDARK — Oracle Accuracy Live</title>
+    <meta name="description" content="{{ t('accuracy.sub') if t is defined else 'BLACKDARK Public Accuracy Ledger — prove it.' }}">
+    <meta property="og:title" content="{{ t('meta.title.accuracy') if t is defined else 'BLACKDARK — Public Oracle Accuracy Ledger' }}">
+    <meta property="og:description" content="{{ t('accuracy.sub') if t is defined else 'Full public ledger including misses.' }}">
+    <title>{{ t('meta.title.accuracy') if t is defined else 'BLACKDARK — Oracle Accuracy Live' }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebPage","name":"BLACKDARK Public Accuracy Ledger","description":"Public verifiable Oracle accuracy including misses, Glass Box locked forecasts, and audit challenge","url":"/oracle-accuracy"}
     </script>
@@ -110,7 +110,10 @@
 </head>
 <body>
     <nav>
-        <a href="/" class="logo">BLACKDARK Oracle AI</a>
+        <a href="/?lang={{ lang|default('en') }}" class="logo">BLACKDARK</a>
+        <div style="display:inline-flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-left:auto">
+            {% include 'partials/lang_switcher.html' %}
+        </div>
         <div>
             <a href="/">Home</a>
             <a href="/dashboard">Dashboard</a>
@@ -119,11 +122,11 @@
     </nav>
 
     <section class="hero">
-        <div class="badge">LIVE · PUBLIC AUDIT</div>
-        <h1>BLACKDARK — Public Oracle Accuracy</h1>
+        <div class="badge">{{ t('oracle.live') if t is defined else 'LIVE' }} · {{ t('accuracy.prove') if t is defined else 'PROVE IT' }}</div>
+        <h1>{{ t('accuracy.title') if t is defined else 'Public Accuracy Ledger' }}</h1>
         <p>
-            Every decision is logged, resolved after 24 hours, and feeds the learning model.
-            Live engine: <strong id="engine-label">rules engine</strong>
+            {{ t('accuracy.sub') if t is defined else 'Every decision is logged, resolved after 24 hours, and feeds the learning model.' }}
+            <strong id="engine-label">rules engine</strong>
         </p>
         <p id="transparency-note" style="color:var(--warning);font-size:0.9rem;max-width:760px;margin:0.75rem auto 0;"></p>
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
