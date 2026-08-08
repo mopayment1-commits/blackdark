@@ -21,8 +21,11 @@
 
 | Control | Location |
 |---------|----------|
-| Regulatory disclaimer engine | `regulatory_compliance_guard.py` |
-| Public risk pages | `/disclaimer`, `/terms`, `/privacy` (`legal_content.py`) |
+| Strict AI disclaimer on every Oracle payload | `get_disclaimer()` / `apply_regulatory_compliance` |
+| Classification badge | `[Probabilistic Analysis – Not Financial Advice]` |
+| Explicit Terms gate before Oracle | `terms_consent.py` + `/api/legal/accept-terms` |
+| Public risk pages | `/terms`, `/privacy`, `/disclaimer` (dedicated templates) |
+| GDPR deletion / issue forms | `/request-deletion` + `/api/privacy/request-deletion` + `/report-issue` |
 | GDPR DSR export/erase | `/api/privacy/dsr/*` (`gdpr_service.py`) |
 | Password hashing | PBKDF2-SHA256 (`auth_service.py`) |
 | Admin MFA (TOTP) | `admin_mfa.py` + `X-Admin-TOTP` |
@@ -30,7 +33,7 @@
 | Secrets at rest (app) | Fernet vault (`secrets_vault.py`) |
 | Secrets at rest (DB) | `pgcrypto` via `postgres_backend.ensure_pgcrypto` |
 | Production fail-closed | `production_guard.py` (Postgres + Redis + admin MFA) |
-| Auth failure audit | `data/auth_audit.jsonl` |
+| Auth / consent audit | `data/auth_audit.jsonl` |
 
 ---
 

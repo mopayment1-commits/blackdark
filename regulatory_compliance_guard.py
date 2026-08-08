@@ -15,11 +15,21 @@ import config
 
 logger = logging.getLogger("BLACKDARK.RegulatoryCompliance")
 
+ORACLE_CLASSIFICATION_LABEL = "[Probabilistic Analysis – Not Financial Advice]"
+
 REGULATORY_DISCLAIMER = (
-    "Informational analytics only — not investment, tax, or legal advice. "
-    "BLACKDARK is not a registered investment adviser or broker-dealer. "
-    "Past signal performance does not guarantee future results. Do your own research (DYOR)."
+    "DISCLAIMER: This is not financial advice. BLACKDARK is a probabilistic analysis tool. "
+    "All outputs are based on historical data and market patterns. "
+    "Past performance does NOT guarantee future results. "
+    "You are 100% responsible for your own investment decisions. "
+    "Always do your own research (DYOR) before making any trade. "
+    "BLACKDARK is not a registered investment adviser, broker-dealer, or MiCA CASP."
 )
+
+
+def get_disclaimer() -> str:
+    """Strict disclaimer attached to every AI / Oracle output."""
+    return REGULATORY_DISCLAIMER
 
 PUBLIC_VERDICT_BULLISH = "BULLISH_ANALYTICS"
 PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
@@ -200,9 +210,24 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
             out["sentence"] = out["oracle"]
 
     out["regulatory_classification"] = "informational_analytics_only"
+    out["oracle_classification_label"] = ORACLE_CLASSIFICATION_LABEL
     out["is_investment_advice"] = False
-    out["disclaimer"] = REGULATORY_DISCLAIMER
-    out["compliance_engine"] = "regulatory_compliance_guard_v1"
+    out["disclaimer"] = get_disclaimer()
+    out["compliance_engine"] = "regulatory_compliance_guard_v2"
+    footer = out.get("compliance_footer")
+    if isinstance(footer, dict):
+        foot = dict(footer)
+        foot["disclaimer"] = get_disclaimer()
+        foot["classification_label"] = ORACLE_CLASSIFICATION_LABEL
+        out["compliance_footer"] = foot
+    else:
+        out["compliance_footer"] = {
+            "surface": "oracle",
+            "disclaimer": get_disclaimer(),
+            "classification_label": ORACLE_CLASSIFICATION_LABEL,
+            "data_source": "live market + labeled flywheel",
+            "trust_basis": "public_accuracy_ledger",
+        }
     return out
 
 
@@ -210,6 +235,7 @@ def regulatory_compliance_status() -> dict[str, Any]:
     return {
         "enabled": _enabled(),
         "classification": "informational_analytics_only",
+        "classification_label": ORACLE_CLASSIFICATION_LABEL,
         "public_verdicts": {
             "bullish": PUBLIC_VERDICT_BULLISH,
             "bearish": PUBLIC_VERDICT_BEARISH,
@@ -223,10 +249,10 @@ def regulatory_compliance_status() -> dict[str, Any]:
             "you should buy",
             "you should sell",
         ],
-        "disclaimer": REGULATORY_DISCLAIMER,
+        "disclaimer": get_disclaimer(),
         "policy": (
             "Oracle outputs are analytics labels, not investment recommendations. "
-            "Users must acknowledge Terms/Disclaimer. Live execution uses separate "
-            "user-controlled API keys and risk gates."
+            "Users must acknowledge Terms/Disclaimer before Oracle use. "
+            "Live execution uses separate user-controlled API keys and risk gates."
         ),
     }

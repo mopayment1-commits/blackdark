@@ -648,6 +648,7 @@
                     <button onclick="consultOracle()">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
+                <div id="oracleClassBadge" style="margin-top:.55rem;font-size:.75rem;color:#fbbf24;letter-spacing:.01em">[Probabilistic Analysis – Not Financial Advice]</div>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
@@ -810,6 +811,7 @@
             <a href="/terms" style="color:var(--text-muted);margin:0 0.5rem">Terms</a>
             <a href="/privacy" style="color:var(--text-muted);margin:0 0.5rem">Privacy</a>
             <a href="/disclaimer" style="color:var(--text-muted);margin:0 0.5rem">Disclaimer</a>
+            <a href="/request-deletion" style="color:var(--text-muted);margin:0 0.5rem">Request Deletion</a>
         </p>
         <p style="font-size: 0.875rem; margin-top: 0.5rem;">
             © 2026 BLACKDARK. All rights reserved. Not financial advice.
@@ -880,6 +882,17 @@
             }
         }
 
+        async function ensureTermsAccepted() {
+            try {
+                const res = await fetch('/api/legal/terms-status', { credentials: 'same-origin' });
+                const d = await res.json();
+                if (d.accepted) return true;
+            } catch (e) {}
+            const next = encodeURIComponent(location.pathname + location.search);
+            window.location.href = '/terms?next=' + next;
+            return false;
+        }
+
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
@@ -891,6 +904,9 @@
             const oracleEl = document.getElementById('resultOracle');
             const proMeta = document.getElementById('landingProMeta');
             const upgradeEl = document.getElementById('landingUpgrade');
+            const classBadge = document.getElementById('oracleClassBadge');
+
+            if (!(await ensureTermsAccepted())) return;
             
             resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);
@@ -900,13 +916,13 @@
             upgradeEl.style.display = 'none';
             
             try {
-                let response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                let response = await fetch(`/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' }, credentials: 'same-origin' });
                 let rawText = await response.text();
                 let data = null;
                 try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (e) { data = null; }
-                if (!data || !response.ok) {
+                if (!data || (!response.ok && !(data.detail && data.detail.error === 'terms_not_accepted'))) {
                     // Production fallback when full Oracle path errors
-                    response = await fetch(`/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' } });
+                    response = await fetch(`/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`, { headers: { Accept: 'application/json' }, credentials: 'same-origin' });
                     rawText = await response.text();
                     try { data = JSON.parse(rawText); } catch (e) { data = null; }
                 }
@@ -918,6 +934,10 @@
                 }
                 if (!response.ok) {
                     const detail = data.detail || {};
+                    if (detail.error === 'terms_not_accepted') {
+                        window.location.href = detail.redirect_url || '/terms';
+                        return;
+                    }
                     const msg = detail.message || 'Daily quota exceeded — upgrade';
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
@@ -925,6 +945,9 @@
                         upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
                     }
                     return;
+                }
+                if (classBadge) {
+                    classBadge.textContent = data.oracle_classification_label || '[Probabilistic Analysis – Not Financial Advice]';
                 }
                 
                 symbolEl.textContent = data.symbol || symbol;
@@ -1065,9 +1088,10 @@
 
                 const foot = data.compliance_footer || {};
                 const comp = document.getElementById('landingCompliance');
-                if (foot.disclaimer) {
+                if (foot.disclaimer || data.disclaimer || data.oracle_classification_label) {
                     comp.style.display = 'block';
-                    comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+                    const label = data.oracle_classification_label || foot.classification_label || '[Probabilistic Analysis – Not Financial Advice]';
+                    comp.innerHTML = `<div style="color:#fbbf24;margin-bottom:.35rem">${label}</div><strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer || data.disclaimer || ''}`;
                 }
 
                 updateShareLinks(data);

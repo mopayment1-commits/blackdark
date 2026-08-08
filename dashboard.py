@@ -441,6 +441,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.legal import router as legal_router
+
+    app.include_router(legal_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.gtm import router as gtm_router
 
     app.include_router(gtm_router)
@@ -1007,9 +1014,13 @@ async def platform_coin_page(request: Request, coin_id: str):
 @app.get("/oracle/{symbol}/explain")
 async def oracle_explain(
     symbol: str,
+    request: Request,
     background_tasks: BackgroundTasks,
     user: dict | None = Depends(optional_user),
 ) -> JSONResponse:
+    from terms_consent import enforce_terms_acceptance
+
+    await enforce_terms_acceptance(request, user)
     asset, pair = _normalize_oracle_symbol(symbol)
     market = await _fetch_binance_ticker(pair)
     if market is None:
@@ -1091,11 +1102,19 @@ async def oracle_explain(
 
 
 @app.get("/oracle/{symbol}/quick")
-async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONResponse:
+async def oracle_quick(
+    symbol: str,
+    request: Request,
+    background_tasks: BackgroundTasks,
+    user: dict | None = Depends(optional_user),
+) -> JSONResponse:
     """Instant verdict + ACTION line (target <100ms) — WS price first, no REST wait."""
     import time
 
     from live_book_hub import get_best_price
+    from terms_consent import enforce_terms_acceptance
+
+    await enforce_terms_acceptance(request, user)
 
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
@@ -1183,6 +1202,9 @@ async def oracle(
         return templates.TemplateResponse(request, "oracle_accuracy.html")
 
     from auth_service import check_oracle_quota
+    from terms_consent import enforce_terms_acceptance
+
+    await enforce_terms_acceptance(request, user)
 
     allowed, message = await check_oracle_quota(user)
     if not allowed:
@@ -1815,9 +1837,13 @@ def _legal_page(request: Request, page: str):
     content = LEGAL_PAGES.get(page)
     if not content:
         raise HTTPException(status_code=404, detail="Legal page not found")
+    template_name = {
+        "terms": "terms.html",
+        "privacy": "privacy.html",
+    }.get(page, "legal.html")
     return templates.TemplateResponse(
         request,
-        "legal.html",
+        template_name,
         {"page": page, **content},
     )
 
@@ -1835,6 +1861,11 @@ async def privacy_page(request: Request):
 @app.get("/disclaimer", response_class=HTMLResponse)
 async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
+
+
+@app.get("/request-deletion", response_class=HTMLResponse)
+async def request_deletion_page(request: Request):
+    return templates.TemplateResponse(request, "request_deletion.html")
 
 
 @app.get("/api/b2b/demo/proposal")

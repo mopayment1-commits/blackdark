@@ -67,13 +67,16 @@ def compliance_footer_block(
     data_sources: str = "live market + institutional context + labeled flywheel",
 ) -> dict[str, str]:
     """Anti-Hype Compliance Footer (Section Z #5) — shared under AI outputs."""
+    from regulatory_compliance_guard import ORACLE_CLASSIFICATION_LABEL, get_disclaimer
+
     return {
         "surface": surface,
         "data_source": data_sources,
         "trust_basis": trust_basis,
-        "disclaimer": (
-            "Not financial advice. AI cannot guarantee future returns. "
-            "Verify claims on the Public Accuracy Ledger. No secret alpha promises."
+        "classification_label": ORACLE_CLASSIFICATION_LABEL,
+        "disclaimer": get_disclaimer(),
+        "regulator_note": (
+            "Built for auditability against AI-washing enforcement patterns "
+            "(prove-it, not trust-me). Not a registered adviser / MiCA CASP claim."
         ),
-        "regulator_note": "Built for auditability against AI-washing enforcement patterns (prove-it, not trust-me).",
     }

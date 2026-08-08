@@ -301,7 +301,18 @@ CREATE TABLE IF NOT EXISTS users (
     oauth_provider TEXT,
     oauth_sub      TEXT,
     totp_secret_encrypted TEXT,
-    totp_enabled   INTEGER NOT NULL DEFAULT 0
+    totp_enabled   INTEGER NOT NULL DEFAULT 0,
+    terms_accepted_at TEXT,
+    terms_version     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS privacy_requests (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    email        TEXT    NOT NULL,
+    request_type TEXT    NOT NULL,
+    details      TEXT,
+    status       TEXT    NOT NULL DEFAULT 'received',
+    created_at   TEXT    NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_sessions (
@@ -619,10 +630,26 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN totp_secret_encrypted TEXT")
     if "totp_enabled" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN totp_enabled INTEGER NOT NULL DEFAULT 0")
+    if "terms_accepted_at" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN terms_accepted_at TEXT")
+    if "terms_version" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN terms_version TEXT")
     await db.execute(
         """
         CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oauth_provider_sub
             ON users (oauth_provider, oauth_sub)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS privacy_requests (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            email        TEXT    NOT NULL,
+            request_type TEXT    NOT NULL,
+            details      TEXT,
+            status       TEXT    NOT NULL DEFAULT 'received',
+            created_at   TEXT    NOT NULL
+        )
         """
     )
 
@@ -3232,6 +3259,41 @@ async def set_user_totp_enabled(user_id: int, enabled: bool) -> None:
             (1 if enabled else 0, int(user_id)),
         )
         await db.commit()
+
+
+async def set_user_terms_acceptance(user_id: int, accepted_at: str, terms_version: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET terms_accepted_at = ?, terms_version = ?
+            WHERE id = ?
+            """,
+            (accepted_at, terms_version, int(user_id)),
+        )
+        await db.commit()
+
+
+async def insert_privacy_request(
+    email: str,
+    request_type: str,
+    details: str = "",
+) -> int:
+    async with get_connection() as db:
+        cur = await db.execute(
+            """
+            INSERT INTO privacy_requests (email, request_type, details, status, created_at)
+            VALUES (?, ?, ?, 'received', ?)
+            """,
+            (
+                email.strip().lower(),
+                request_type.strip().lower()[:64],
+                (details or "")[:4000],
+                _utcnow_iso(),
+            ),
+        )
+        await db.commit()
+        return int(cur.lastrowid or 0)
 
 
 async def fetch_subscription_revenue_rows() -> list[dict[str, Any]]:

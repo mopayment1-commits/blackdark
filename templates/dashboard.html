@@ -73,6 +73,8 @@
                     <a href="/dashboard#stealth">Stealth</a>
                     <a href="/platform">Platform</a>
                     <a href="/oracle-accuracy">Accuracy</a>
+                    <a href="/terms">Terms</a>
+                    <a href="/request-deletion">Privacy</a>
                     <a href="/capabilities">Capabilities</a>
                     <a href="/login" id="authLink">Login</a>
                 </div>
@@ -253,6 +255,16 @@
             document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
+        async function ensureTermsAccepted() {
+            try {
+                const res = await fetch('/api/legal/terms-status', { credentials: 'same-origin', headers: authHeaders() });
+                const d = await res.json();
+                if (d.accepted) return true;
+            } catch (e) {}
+            window.location.href = '/terms?next=' + encodeURIComponent('/dashboard');
+            return false;
+        }
+
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
@@ -260,11 +272,20 @@
             const mode = document.getElementById('uxMode').value;
             const lang = 'en';
             if (!sym) return;
+            if (!(await ensureTermsAccepted())) return;
             box.classList.add('show');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
-                const res = await fetch(url, { headers: authHeaders() });
+                const res = await fetch(url, { headers: authHeaders(), credentials: 'same-origin' });
+                if (res.status === 403) {
+                    const err = await res.json().catch(() => ({}));
+                    const detail = err.detail || {};
+                    if (detail.error === 'terms_not_accepted') {
+                        window.location.href = detail.redirect_url || '/terms';
+                        return;
+                    }
+                }
                 if (!res.ok) throw new Error('fail');
                 const d = await res.json();
                 const sentence = d.decision_sentence || d.narrative || d.oracle || '';
@@ -311,6 +332,7 @@
                     ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
                 el.innerHTML = `
+                    <div style="font-size:.75rem;color:#fbbf24;margin-bottom:.45rem">${d.oracle_classification_label || '[Probabilistic Analysis – Not Financial Advice]'}</div>
                     <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
                     <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
                         <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
