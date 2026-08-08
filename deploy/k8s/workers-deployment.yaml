@@ -17,6 +17,7 @@ spec:
         app: blackdark
         tier: arbitrage
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: arbitrage
           image: blackdark:latest
@@ -75,6 +76,7 @@ spec:
         app: blackdark
         tier: aggregator
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: aggregator
           image: blackdark:latest

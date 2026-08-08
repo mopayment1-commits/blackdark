@@ -35,7 +35,7 @@
         .msg.error { color:var(--danger); }
         .msg.ok { color:var(--ok); }
         .tabs { display:flex; gap:.5rem; margin-bottom:1.1rem; }
-        .tab { flex:1; text-align:center; padding:.5rem; border-radius:8px; cursor:pointer; background:#1a1a24; color:var(--muted); font-size:.85rem; }
+        .tab { flex:1; text-align:center; padding:.5rem; border-radius:8px; cursor:pointer; background:#1a1a24; color:var(--muted); font-size:.85rem; border:none; font:inherit; }
         .tab.active { background:rgba(34,211,238,.15); color:var(--accent); }
         .footer-links { text-align:center; margin-top:1rem; font-size:.85rem; }
         a { color:var(--accent); text-decoration:none; }
@@ -50,9 +50,9 @@
         <h1>BLACKDARK</h1>
         <p class="lead">7-day Decision Pro trial on signup. Login with email — or continue with Google when configured.</p>
 
-        <div class="tabs">
-            <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
-            <div class="tab" id="tabRegister" onclick="showTab('register')">Sign up</div>
+        <div class="tabs" role="tablist">
+            <button type="button" class="tab active" id="tabLogin" role="tab" onclick="showTab('login')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('login')">Login</button>
+            <button type="button" class="tab" id="tabRegister" role="tab" onclick="showTab('register')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('register')">Sign up</button>
         </div>
 
         <div id="oauthBox" class="hidden">
@@ -62,9 +62,9 @@
         </div>
 
         <form id="loginForm" onsubmit="doLogin(event)">
-            <label>Email</label>
+            <label for="loginEmail">Email</label>
             <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
-            <label>Password</label>
+            <label for="loginPassword">Password</label>
             <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
             <div class="row-links">
                 <a href="#" onclick="showForgot();return false;">Forgot password?</a>
@@ -74,20 +74,20 @@
         </form>
 
         <form id="mfaForm" class="hidden" onsubmit="doMfa(event)">
-            <label>Authenticator code</label>
+            <label for="mfaCode">Authenticator code</label>
             <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
             <button type="submit" class="btn-primary">Verify MFA</button>
             <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>
         </form>
 
         <form id="registerForm" class="hidden" onsubmit="doRegister(event)">
-            <label>Display name</label>
+            <label for="regName">Display name</label>
             <input type="text" id="regName" maxlength="80" placeholder="How we greet you" autocomplete="name">
-            <label>Public username (optional)</label>
+            <label for="regUsername">Public username (optional)</label>
             <input type="text" id="regUsername" maxlength="24" placeholder="e.g. alex_trade" autocomplete="nickname">
-            <label>Email</label>
+            <label for="regEmail">Email</label>
             <input type="email" id="regEmail" required autocomplete="email">
-            <label>Password (10+ chars)</label>
+            <label for="regPassword">Password (10+ chars)</label>
             <input type="password" id="regPassword" required minlength="10" autocomplete="new-password">
             <label class="check">
                 <input type="checkbox" id="regTerms" required>
@@ -97,7 +97,7 @@
         </form>
 
         <form id="forgotForm" class="hidden" onsubmit="doForgot(event)">
-            <label>Account email</label>
+            <label for="forgotEmail">Account email</label>
             <input type="email" id="forgotEmail" required>
             <button type="submit" class="btn-primary">Send reset link</button>
             <button type="button" class="btn-secondary" onclick="showTab('login')">Back to login</button>
@@ -105,7 +105,7 @@
 
         <form id="forgotUserForm" class="hidden" onsubmit="doForgotUsername(event)">
             <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder (and your optional @username).</p>
-            <label>Email</label>
+            <label for="forgotUserEmail">Email</label>
             <input type="email" id="forgotUserEmail" required>
             <button type="submit" class="btn-primary">Send reminder</button>
             <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>

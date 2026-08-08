@@ -42,7 +42,7 @@
             <img class="avatar" id="avatarImg" alt="Avatar">
             <div id="planPills"></div>
             <p class="hint" id="emailLine"></p>
-            <label>Upload avatar (JPEG/PNG/WebP ≤ 2MB)</label>
+            <label for="avatarFile">Upload avatar (JPEG/PNG/WebP ≤ 2MB)</label>
             <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/webp">
             <button class="btn-secondary" onclick="uploadAvatar()">Upload</button>
             <button class="btn-secondary" onclick="resetAvatar()">Use initials</button>
@@ -50,17 +50,17 @@
         <main class="grid" style="grid-template-columns:1fr">
             <section class="card">
                 <h2>Profile</h2>
-                <label>Display name</label>
+                <label for="name">Display name</label>
                 <input id="name" maxlength="80">
-                <label>Public username (@handle for Proof Cards)</label>
+                <label for="username">Public username (@handle for Proof Cards)</label>
                 <input id="username" maxlength="24" placeholder="alex_trade">
-                <label>UI language</label>
+                <label for="ui_lang">UI language</label>
                 <input id="ui_lang" maxlength="12" placeholder="en">
-                <label>UX mode</label>
+                <label for="ux_mode_pref">UX mode</label>
                 <select id="ux_mode_pref"><option value="beginner">Beginner</option><option value="pro">Pro</option></select>
-                <label>Timezone</label>
+                <label for="timezone">Timezone</label>
                 <input id="timezone" maxlength="64" placeholder="UTC">
-                <label>Telegram chat ID (alerts)</label>
+                <label for="telegram_chat_id">Telegram chat ID (alerts)</label>
                 <input id="telegram_chat_id" maxlength="64">
                 <button class="btn-primary" onclick="saveProfile()">Save profile</button>
                 <div class="msg" id="profileMsg"></div>
@@ -69,16 +69,18 @@
                 <h2>Security</h2>
                 <p class="hint" id="verifyHint"></p>
                 <button class="btn-secondary" onclick="resendVerify()">Resend verification email</button>
-                <label>Current password (blank if OAuth-only / setting first password)</label>
+                <label for="current_password">Current password (blank if OAuth-only / setting first password)</label>
                 <input type="password" id="current_password" autocomplete="current-password">
-                <label>New password (10+)</label>
+                <label for="new_password">New password (10+)</label>
                 <input type="password" id="new_password" minlength="10" autocomplete="new-password">
                 <button class="btn-secondary" onclick="changePassword()">Update password</button>
                 <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
                 <p class="hint" id="mfaHint"></p>
                 <button class="btn-secondary" onclick="enrollMfa()">Enable MFA (TOTP)</button>
+                <label for="mfaConfirm">Confirm MFA code</label>
                 <input id="mfaConfirm" placeholder="Confirm MFA code to enable" style="margin-top:.5rem">
                 <button class="btn-secondary" onclick="confirmMfa()">Confirm MFA</button>
+                <label for="mfaDisable">Disable MFA code</label>
                 <input id="mfaDisable" placeholder="Code to disable MFA" style="margin-top:.5rem">
                 <button class="btn-danger" onclick="disableMfa()">Disable MFA</button>
                 <button class="btn-danger" onclick="logoutAll()">Log out all sessions</button>

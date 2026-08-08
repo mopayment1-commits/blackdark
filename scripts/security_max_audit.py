@@ -120,10 +120,11 @@ def main() -> int:
             "It does NOT mean infinite invulnerability or completed external audit."
         ),
     }
+    # Never print check detail blobs (may include secret-adjacent posture strings).
     public = {
-        "engineering_complete": report.get("engineering_complete"),
-        "checks": report.get("checks"),
-        "gaps": report.get("gaps"),
+        "engineering_complete": bool(report.get("engineering_complete")),
+        "checks": [{"id": c.get("id"), "ok": bool(c.get("ok"))} for c in checks],
+        "required_failures": list(report.get("required_failures") or []),
         "note": report.get("note"),
     }
     print(json.dumps(public, indent=2, ensure_ascii=False))

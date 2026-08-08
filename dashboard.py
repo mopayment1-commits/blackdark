@@ -841,7 +841,9 @@ async def reset_password_page(request: Request):
 
 @app.get("/verify-email", response_class=HTMLResponse)
 async def verify_email_page(request: Request, token: str = ""):
-    """Browser entry — delegates to API verify then redirects to profile."""
+    """Browser entry — verify server-side, then redirect to a fixed profile URL."""
+    from fastapi.responses import RedirectResponse
+
     if not token:
         return templates.TemplateResponse(
             request,
@@ -852,19 +854,35 @@ async def verify_email_page(request: Request, token: str = ""):
                 "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
             },
         )
-    # Prefer API redirect path for cookie/session consistency.
-    from urllib.parse import quote
-
-    from fastapi.responses import RedirectResponse
-
-    # Allowlist token charset — blocks open-redirect / injection via query token.
+    # Allowlist token charset; consume here so Location never embeds user input.
     safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
     if len(safe) < 16:
-        raise HTTPException(status_code=400, detail="Invalid verification token")
-    return RedirectResponse(
-        url=f"/api/auth/verify-email?token={quote(safe, safe='')}",
-        status_code=302,
-    )
+        return templates.TemplateResponse(
+            request,
+            "utility.html",
+            {
+                "page": "verify_email",
+                "title": "Verify email",
+                "lead": "Invalid or expired verification link. Resend from Profile.",
+            },
+        )
+    try:
+        from database import mark_email_verified
+        from identity_service import consume_auth_token
+
+        user_id = await consume_auth_token(safe, "email_verify")
+        await mark_email_verified(user_id)
+    except ValueError:
+        return templates.TemplateResponse(
+            request,
+            "utility.html",
+            {
+                "page": "verify_email",
+                "title": "Verify email",
+                "lead": "Invalid or expired verification link. Resend from Profile.",
+            },
+        )
+    return RedirectResponse(url="/profile?verified=1", status_code=302)
 
 
 # Auth routes → api/routers/auth.py

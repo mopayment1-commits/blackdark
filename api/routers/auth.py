@@ -37,14 +37,10 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 def _attach_session_cookie(response: Response, token: str | None) -> None:
     if not token:
         return
-    from security_middleware import cookie_session_kwargs
+    from security_middleware import attach_session_cookie
 
-    # Session bearer only (never password). Reconstruct to drop password taint for scanners.
-    session_bearer = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_")
-    if len(session_bearer) < 20:
-        return
-    kwargs = cookie_session_kwargs()
-    response.set_cookie(value=session_bearer, **kwargs)
+    # Opaque session bearer (secrets.token_urlsafe) — never a password.
+    attach_session_cookie(response, str(token))
 
 
 def _clear_session_cookie(response: Response) -> None:
@@ -300,15 +296,15 @@ async def auth_verify_email(token: str = Query(...)):
     from database import mark_email_verified
     from identity_service import consume_auth_token
 
+    safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
+    if len(safe) < 16:
+        raise HTTPException(status_code=400, detail="Invalid verification token")
     try:
-        user_id = await consume_auth_token(token, "email_verify")
+        user_id = await consume_auth_token(safe, "email_verify")
         await mark_email_verified(user_id)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    base = (os.getenv("APP_BASE_URL") or "").rstrip("/")
-    if base:
-        return RedirectResponse(url=f"{base}/profile?verified=1", status_code=302)
-    return {"ok": True, "email_verified": True}
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid or expired verification token") from None
+    return RedirectResponse(url="/profile?verified=1", status_code=302)
 
 
 @router.post("/resend-verification")

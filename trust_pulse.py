@@ -553,11 +553,12 @@ async def trust_pulse_sse_generator(
             }
             yield f"data: {json.dumps(envelope, default=str)}\n\n"
         except asyncio.CancelledError:
-            break
-        except Exception as exc:
+            raise
+        except Exception:
+            logger.exception("trust_pulse_sse_error symbol=%s", sym)
             err = {
                 "type": "error",
-                "message": str(exc)[:200],
+                "message": "Trust Pulse stream temporarily unavailable",
                 "timestamp": _utcnow(),
             }
             yield f"data: {json.dumps(err)}\n\n"

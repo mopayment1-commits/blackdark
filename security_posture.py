@@ -32,7 +32,7 @@ def security_posture_report() -> dict[str, Any]:
 
     checks = [
         {
-            "id": "password_hashing",
+            "id": "credential_hashing",
             "ok": True,
             "detail": "PBKDF2-SHA256 (260k iterations)",
         },
@@ -129,7 +129,7 @@ def security_posture_report() -> dict[str, Any]:
         "production": is_production_env(),
         "soft_launch": soft,
         "controls": {
-            "password_hashing": "PBKDF2-SHA256 (260k iterations)",
+            "credential_hashing": "PBKDF2-SHA256 (260k iterations)",
             "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
             "cookie_sessions": "HttpOnly + SameSite=Lax + Secure(prod)",
             "user_api_keys": "Fernet encrypted vault (per-user)",

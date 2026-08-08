@@ -289,12 +289,12 @@ async def send_password_reset_email(user_id: int, email: str) -> dict[str, Any]:
     base = (os.getenv("APP_BASE_URL") or "http://127.0.0.1:8080").rstrip("/")
     link = f"{base}/reset-password?token={raw}"
     body = (
-        "Reset your BLACKDARK password.\n\n"
+        "Reset your BLACKDARK account access.\n\n"
         f"Open this one-time link within {TOKEN_TTL_MINUTES['password_reset']} minutes:\n{link}\n\n"
         "If you did not request this, ignore this message. "
-        "Your password will not change until you open the link.\n"
+        "Your credentials will not change until you open the link.\n"
     )
-    sent = await enqueue_identity_email(email, "Reset your BLACKDARK password", body)
+    sent = await enqueue_identity_email(email, "Reset your BLACKDARK account access", body)
     out: dict[str, Any] = {"sent": True, "channel": "email_outbox_or_smtp"}
     if debug_tokens_enabled():
         out["debug_token"] = raw

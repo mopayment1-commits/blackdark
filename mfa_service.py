@@ -86,12 +86,13 @@ def hash_recovery_code(code: str) -> str:
 
 
 def verify_recovery_code(code: str, stored_hashes: list[str]) -> str | None:
-    """Return the matching hash if valid, else None."""
+    """Return the matching hash if valid, else None.
+
+    Only PBKDF2 digests are accepted (no single-pass SHA-256 legacy path).
+    """
     digest = hash_recovery_code(code)
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-mfa-recovery").strip()
-    legacy = hashlib.sha256(f"{pepper}:mfa-recovery:{code.strip().lower()}".encode()).hexdigest()
     for h in stored_hashes:
-        if hmac.compare_digest(digest, h) or hmac.compare_digest(legacy, h):
+        if hmac.compare_digest(digest, h):
             return h
     return None
 

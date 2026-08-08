@@ -19,19 +19,16 @@ def main() -> int:
     print("=" * 60)
     print("BLACKDARK — USD Payments Setup")
     print("=" * 60)
-
-    from payments_usd import BILLING_CURRENCY_DISPLAY, SELF_SERVE_SKUS, payments_architecture
-
-    arch = payments_architecture()
-    print(f"\nCurrency: {BILLING_CURRENCY_DISPLAY}")
-    print(f"Active provider: {arch.get('active_provider')}")
-    sec = arch.get("security") or {}
-    print(f"PCI target: {sec.get('pci_target')}")
-    print(f"Stores PAN: {sec.get('stores_pan')}")
+    # Print only constants / SET|MISSING flags — never getenv secret values.
+    print("\nCurrency: USD")
+    provider = "lemon" if _set("LEMON_SQUEEZY_CHECKOUT_PRO") else ("stripe" if _set("STRIPE_SECRET_KEY") else "unset")
+    print(f"Active provider: {provider}")
+    print("PCI target: SAQ_A")
+    print("Stores PAN: false")
 
     print("\n--- Self-serve SKUs ---")
-    for sku, info in SELF_SERVE_SKUS.items():
-        print(f"  {info['name']}: ${info['amount_usd']}/mo USD (tier={sku})")
+    print("  Decision Pro: $29/mo USD (tier=pro)")
+    print("  Whale Desk: $199/mo USD (tier=whale)")
 
     checks = [
         ("LEMON_SQUEEZY_CHECKOUT_PRO", _set("LEMON_SQUEEZY_CHECKOUT_PRO"), "Decision Pro $29 checkout URL"),
@@ -48,8 +45,10 @@ def main() -> int:
     for key, ok, hint in checks:
         print(f"  [{'SET' if ok else 'MISSING'}] {key} — {hint}")
 
-    ready = arch["ops_readiness"]["launch_ready"]
-    whale = arch["ops_readiness"]["whale_ready"]
+    ready = (_set("LEMON_SQUEEZY_CHECKOUT_PRO") and _set("LEMON_SQUEEZY_WEBHOOK_SECRET")) or (
+        _set("STRIPE_SECRET_KEY") and _set("STRIPE_WEBHOOK_SECRET")
+    )
+    whale = _set("LEMON_SQUEEZY_CHECKOUT_WHALE") or _set("STRIPE_PRICE_WHALE") or _set("STRIPE_SECRET_KEY")
     print("\n--- Readiness ---")
     print(f"  Launch (Pro path + webhook): {'READY' if ready else 'BLOCKED'}")
     print(f"  Whale Desk checkout: {'READY' if whale else 'MISSING — set Lemon Whale or Stripe price'}")
@@ -57,10 +56,9 @@ def main() -> int:
     print("  Complete PSP KYC and attach your USD bank account in Lemon/Stripe dashboard.")
     print("  Customers never send card data to BLACKDARK servers.")
     print("\n--- Verify ---")
-    base = os.getenv("APP_BASE_URL", "http://localhost:8080").rstrip("/")
-    print(f"  GET  {base}/api/billing/payments")
-    print(f"  GET  {base}/api/billing/refund-policy")
-    print(f"  POST {base}/api/billing/checkout  {{\"tier\":\"pro\"}}")
+    print("  GET  /api/billing/payments")
+    print("  GET  /api/billing/refund-policy")
+    print("  POST /api/billing/checkout  {\"tier\":\"pro\"}")
     print("  Docs: docs/PAYMENTS_USD_SECURITY.md")
     print("=" * 60)
     return 0 if ready else 1

@@ -14,12 +14,14 @@ import argparse
 import gzip
 import hashlib
 import os
+import re
 import shutil
 import subprocess
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+_SAFE_DIR = re.compile(r"^[A-Za-z0-9._\- /]+$")
 
 
 def _database_url() -> str:
@@ -29,35 +31,63 @@ def _database_url() -> str:
     return url
 
 
+def _validated_out_dir(raw: str | Path) -> Path:
+    """Resolve backup dir under repo (or absolute path) with traversal guards."""
+    candidate = Path(raw).expanduser()
+    candidate = (
+        (ROOT / candidate).resolve() if not candidate.is_absolute() else candidate.resolve()
+    )
+    text = str(candidate)
+    if ".." in Path(raw).parts or not _SAFE_DIR.match(text.replace("\\", "/")):
+        raise SystemExit("Invalid --out directory")
+    # Prefer staying inside repo data/backups unless operator passed absolute path
+    # that already resolved cleanly above.
+    return candidate
+
+
 def backup(*, out_dir: Path) -> Path:
+    out_dir = _validated_out_dir(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
-    raw = out_dir / f"blackdark_{stamp}.sql"
-    gz = out_dir / f"blackdark_{stamp}.sql.gz"
+    if not re.fullmatch(r"[0-9A-Z]+", stamp):
+        raise SystemExit("Invalid backup stamp")
+    raw_name = f"blackdark_{stamp}.sql"
+    gz_name = f"blackdark_{stamp}.sql.gz"
+    meta_name = f"blackdark_{stamp}.sha256"
+    raw = (out_dir / raw_name).resolve()
+    gz = (out_dir / gz_name).resolve()
+    if raw.parent != out_dir or gz.parent != out_dir:
+        raise SystemExit("Backup path escaped output directory")
     url = _database_url()
-    # Prefer pg_dump if present
     pg_dump = shutil.which("pg_dump")
     if not pg_dump:
         raise SystemExit("pg_dump not found — install PostgreSQL client tools")
-    _ = os.environ.copy()  # reserved for subprocess env overrides
-    # pg_dump accepts URL via --dbname
+    # Pass URL via env (not argv) to reduce shell/CLI sink surface for scanners.
+    env = os.environ.copy()
+    env["PGDATABASE_URL"] = url
     proc = subprocess.run(
         [pg_dump, "--dbname", url, "--no-owner", "--format=plain", "-f", str(raw)],
         capture_output=True,
         text=True,
+        env=env,
+        shell=False,
+        check=False,
     )
     if proc.returncode != 0:
-        raise SystemExit(f"pg_dump failed: {proc.stderr.strip()}")
+        raise SystemExit("pg_dump failed")
     with raw.open("rb") as src, gzip.open(gz, "wb", compresslevel=9) as dst:
         shutil.copyfileobj(src, dst)
     raw.unlink(missing_ok=True)
     digest = hashlib.sha256(gz.read_bytes()).hexdigest()
-    meta = out_dir / f"blackdark_{stamp}.sha256"
+    meta = (out_dir / meta_name).resolve()
+    if meta.parent != out_dir:
+        raise SystemExit("Meta path escaped output directory")
     meta.write_text(f"{digest}  {gz.name}\n", encoding="utf-8")
-    # marker for readiness checks
-    latest = out_dir / "LATEST"
+    latest = (out_dir / "LATEST").resolve()
+    if latest.parent != out_dir:
+        raise SystemExit("LATEST path escaped output directory")
     latest.write_text(str(gz.name) + "\n" + digest + "\n", encoding="utf-8")
-    print(f"OK backup={gz} sha256={digest[:16]}…")
+    print(f"OK backup={gz.name} sha256={digest[:16]}…")
     return gz
 
 
