@@ -1,59 +1,75 @@
-{# Always-visible top-right utility chrome: Language · Login · Sign up · Pricing
-   Must NOT live inside collapsible .nav-links (mobile was hiding auth+i18n). #}
+{# FIXED top-right chrome — Language · Login · Sign up · Pricing
+   position:fixed so it cannot be scrolled away or collapsed with nav-links. #}
 <style>
+  .bd-fixed-chrome {
+    position: fixed;
+    top: 0.65rem;
+    inset-inline-end: 0.65rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    max-width: min(96vw, 22rem);
+    pointer-events: none;
+  }
+  .bd-fixed-chrome > * { pointer-events: auto; }
   .bd-top-utility {
     display: inline-flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: .45rem .55rem;
-    margin-inline-start: auto;
-    z-index: 50;
+    justify-content: flex-end;
+    gap: .4rem .45rem;
+    padding: .4rem .5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(34, 211, 238, .45);
+    background: rgba(10, 10, 15, .92);
+    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    backdrop-filter: blur(8px);
   }
   .bd-top-utility a.bd-util-link {
-    color: var(--text-muted, #a1a1aa);
+    color: #e4e4e7;
     text-decoration: none;
-    font-weight: 600;
-    font-size: .82rem;
-    padding: .35rem .55rem;
+    font-weight: 700;
+    font-size: .78rem;
+    padding: .4rem .55rem;
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 1px solid #2a2a35;
     white-space: nowrap;
+    background: #14141c;
   }
   .bd-top-utility a.bd-util-link:hover {
-    color: var(--text, #e4e4e7);
-    border-color: var(--border, #2a2a35);
-    background: rgba(34, 211, 238, .06);
-  }
-  .bd-top-utility a.bd-util-signup {
-    color: #0a0a0f;
-    background: linear-gradient(135deg, #22d3ee, #06b6d4);
-    border: none;
-    font-weight: 700;
-  }
-  .bd-top-utility a.bd-util-signup:hover {
-    color: #0a0a0f;
-    filter: brightness(1.05);
-    border-color: transparent;
-  }
-  .bd-top-utility a.bd-util-pricing {
-    border-color: rgba(34, 211, 238, .35);
+    border-color: #22d3ee;
     color: #22d3ee;
   }
+  .bd-top-utility a.bd-util-signup {
+    color: #0a0a0f !important;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4) !important;
+    border: none !important;
+  }
+  .bd-top-utility a.bd-util-pricing {
+    border-color: rgba(34, 211, 238, .55);
+    color: #22d3ee;
+  }
+  .bd-chrome-hint {
+    font-size: .68rem;
+    color: #a1a1aa;
+    background: rgba(10,10,15,.85);
+    padding: .2rem .45rem;
+    border-radius: 6px;
+  }
   @media (max-width: 768px) {
-    .bd-top-utility {
-      gap: .3rem .4rem;
-      max-width: min(100%, 18rem);
-      justify-content: flex-end;
-    }
-    .bd-top-utility a.bd-util-link {
-      font-size: .72rem;
-      padding: .3rem .45rem;
-    }
+    .bd-fixed-chrome { top: 0.4rem; inset-inline-end: 0.4rem; }
+    .bd-top-utility a.bd-util-link { font-size: .7rem; padding: .32rem .42rem; }
+    .bd-chrome-hint { display: none; }
   }
 </style>
-<div class="bd-top-utility" data-chrome="auth-lang-pay" aria-label="Account, language, and pricing">
-  {% include 'partials/lang_switcher.html' %}
-  <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
-  <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
-  <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+<div class="bd-fixed-chrome" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
+  <div class="bd-top-utility">
+    {% include 'partials/lang_switcher.html' %}
+    <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
+    <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
+    <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+  </div>
+  <div class="bd-chrome-hint">Language · Login · Pay</div>
 </div>

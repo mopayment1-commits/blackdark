@@ -72,9 +72,7 @@ def _legal_terms_ack_ok(request: Request) -> bool:
     if auth.lower().startswith("bearer ") and len(auth) > 20:
         return True
     token = (request.cookies.get("bd_token") or "").strip()
-    if token:
-        return True
-    return False
+    return bool(token)
 
 
 def _require_terms_ack_or_403(request: Request):
@@ -2412,7 +2410,7 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     try:
         return await exporter.export_institutional_feed(provided_key=x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=public_error(exc, fallback="Invalid B2B API key")) from exc
 
 
 @app.get("/api/b2b/demo")

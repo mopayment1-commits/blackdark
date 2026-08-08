@@ -171,3 +171,8 @@ git pull origin main
 ## 10) Third-pass addendum (visible chrome)
 
 See [`THIRD_PASS_VISIBLE_SURFACES_AUDIT.md`](./THIRD_PASS_VISIBLE_SURFACES_AUDIT.md) — Language / Login / Sign up / Pricing forced into always-visible top-right utility chrome (mobile-safe).
+
+## 11) التقرير النهائي الصارم
+
+→ [`FINAL_STRICT_CONFIRMATION_SAT_SUN_AR.md`](./FINAL_STRICT_CONFIRMATION_SAT_SUN_AR.md)
+→ [`START_HERE_SEE_LANG_LOGIN_PAY_AR.md`](./START_HERE_SEE_LANG_LOGIN_PAY_AR.md)

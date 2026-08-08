@@ -11,7 +11,7 @@ logger = logging.getLogger("BLACKDARK.SafeErrors")
 _SENSITIVE = re.compile(
     r"(traceback|file\s*/|secret|token|password|api[_-]?key|pepper|master[_-]?key|"
     r"postgres|redis://|sqlite|/home/|/workspace/|\\\\)",
-    re.I,
+    re.IGNORECASE,
 )
 
 

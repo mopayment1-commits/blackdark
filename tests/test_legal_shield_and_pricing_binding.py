@@ -61,7 +61,9 @@ def test_safe_errors_no_leak():
 
 
 def test_dashboard_exposes_terms_ack_and_system_info():
-    src = open("dashboard.py", encoding="utf-8").read()
+    from pathlib import Path
+
+    src = Path("dashboard.py").read_text(encoding="utf-8")
     assert "/api/legal/ack-terms" in src
     assert "/system/info" in src
     assert "_legal_terms_ack_ok" in src
