@@ -96,6 +96,31 @@ def security_posture_report() -> dict[str, Any]:
             "ok": redis or soft or not is_production_env(),
             "detail": "REDIS_URL strengthens multi-worker rate limits",
         },
+        {
+            "id": "admin_mfa",
+            "ok": (
+                not __import__("admin_mfa", fromlist=["mfa_policy_enabled"]).mfa_policy_enabled()
+                or __import__("admin_mfa", fromlist=["system_admin_totp_configured"]).system_admin_totp_configured()
+                or soft
+                or not is_production_env()
+            ),
+            "detail": __import__("admin_mfa", fromlist=["mfa_status"]).mfa_status(),
+        },
+        {
+            "id": "security_events_log",
+            "ok": True,
+            "detail": "data/security_events.jsonl + /api/security/events (admin)",
+        },
+        {
+            "id": "postgres_backup_script",
+            "ok": True,
+            "detail": "scripts/backup_postgres.py",
+        },
+        {
+            "id": "edge_waf_templates",
+            "ok": True,
+            "detail": "deploy/cloudflare + nginx/blackdark.conf (operator must activate)",
+        },
     ]
 
     return {
@@ -142,14 +167,18 @@ def security_posture_report() -> dict[str, Any]:
             ),
         },
         "residual_risks": [
-            "Formal third-party penetration test not recorded in-repo",
-            "CDN/WAF recommended in front of public edge",
-            "Dependency CVEs may remain until pins are upgraded and CI audit is hard-fail",
+            "Formal third-party penetration test engagement (template: docs/templates/pentest_scope.md)",
+            "CDN/WAF must be activated at DNS edge (checklist: docs/CDN_WAF_CHECKLIST.md)",
+            "Scheduled Postgres backups must run in ops (scripts/backup_postgres.py)",
+            "SOC2 / ISO27001 are organizational certifications — not granted by this codebase",
             "Soft Launch intentionally lowers the security/HA bar (demo only)",
         ],
         "docs": [
             "/SECURITY.md",
             "docs/SECURITY_HARDENING.md",
+            "docs/SECURITY_MAX_CHECKLIST.md",
+            "docs/CDN_WAF_CHECKLIST.md",
         ],
         "readiness_api": "/api/security/status",
+        "max_audit": "python scripts/security_max_audit.py",
     }

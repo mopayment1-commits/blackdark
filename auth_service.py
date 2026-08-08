@@ -169,6 +169,17 @@ async def login_user(
     user = await fetch_user_by_email(email)
     if user is None or not verify_password(password, str(user.get("password_hash") or "")):
         record_login_failure(email)
+        try:
+            from security_events import record_security_event
+
+            record_security_event(
+                "login_failure",
+                severity="warning",
+                actor=email,
+                detail={"reason": "invalid_credentials"},
+            )
+        except Exception:
+            pass
         raise ValueError("Invalid email or password")
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))

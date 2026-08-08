@@ -71,4 +71,6 @@ Security issues: contact repository owner privately before public disclosure.
 ## Due Diligence Endpoints
 
 - `GET /api/security/status` — live posture summary (includes honesty + residual risks)
-- Playbook: `docs/SECURITY_HARDENING.md`
+- `GET /api/security/events` — admin security event log (requires admin + MFA when enforced)
+- Max engineering gate: `python scripts/security_max_audit.py`
+- Playbooks: `docs/SECURITY_HARDENING.md` · `docs/SECURITY_MAX_CHECKLIST.md` · `docs/CDN_WAF_CHECKLIST.md`

@@ -17,12 +17,29 @@ spec:
         app: blackdark
         tier: web
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: web
           image: blackdark:latest
           ports:
             - containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop: ["ALL"]
           env:
+            - name: ADMIN_MFA_REQUIRED
+              value: "true"
+            - name: EXPOSE_B2B_DEMO_KEY
+              value: "false"
+            - name: PRODUCTION_GUARD_FAIL_CLOSED
+              value: "true"
             - name: SERVICE_MODE
               value: web
             - name: ENV
@@ -49,8 +66,6 @@ spec:
               value: "30"
             - name: VIRAL_API_RL_PER_MIN
               value: "120"
-            - name: PRODUCTION_GUARD_FAIL_CLOSED
-              value: "true"
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

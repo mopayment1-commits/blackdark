@@ -174,12 +174,30 @@ async def require_whale(
 async def require_admin(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
+    from admin_mfa import assert_admin_mfa
+
     if verify_admin_key(x_admin_key):
-        return {"email": "admin@system", "tier": "whale", "is_admin": True}
+        admin = {"email": "admin@system", "tier": "whale", "is_admin": True}
+        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin)
+        try:
+            from security_events import record_security_event
+
+            record_security_event("admin_key_access", severity="warning", actor="admin@system")
+        except Exception:
+            pass
+        return admin
     if user and is_admin_user(user):
         user["is_admin"] = True
+        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=user)
         return user
+    try:
+        from security_events import record_security_event
+
+        record_security_event("admin_denied", severity="warning", actor=(user or {}).get("email"))
+    except Exception:
+        pass
     raise HTTPException(status_code=403, detail="Admin authentication required (X-Admin-Key or admin email)")
 
 
@@ -192,11 +210,12 @@ async def require_admin_dev(
     request: Request,
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key)
+    return await require_admin(user, x_admin_key, x_admin_totp)
 
 
 async def require_pro_or_above(

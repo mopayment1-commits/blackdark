@@ -193,6 +193,21 @@ def evaluate_production_guard() -> dict[str, Any]:
             hint="Soft Launch forbids LIVE_EXECUTION_ALLOW_API and EXPOSE_B2B_DEMO_KEY",
         ),
         _check(
+            "admin_mfa_configured",
+            (
+                (not __import__("admin_mfa", fromlist=["mfa_policy_enabled"]).mfa_policy_enabled())
+                or __import__("admin_mfa", fromlist=["system_admin_totp_configured"]).system_admin_totp_configured()
+            ),
+            required=strict_prod,
+            hint="Set ADMIN_TOTP_SECRET (+ ADMIN_MFA_REQUIRED=true) for privileged admin MFA",
+        ),
+        _check(
+            "expose_demo_key_off",
+            not expose_demo,
+            required=strict_prod,
+            hint="EXPOSE_B2B_DEMO_KEY must be false in strict production",
+        ),
+        _check(
             "redis_shared_bus",
             redis_shared_ok,
             required=viral_ha,

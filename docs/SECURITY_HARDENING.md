@@ -49,9 +49,12 @@ EXPOSE_B2B_DEMO_KEY=false
 CORS_ALLOWED_ORIGINS=https://your.domain
 ```
 
-## Residual (operator)
+## Residual (operator / external)
 
-1. Put CDN/WAF in front of public edge  
-2. Keep `pip-audit` green after dependency bumps  
-3. Record a third-party pentest when seeking institutional security claims  
-4. Soft Launch remains **demo-only** — not the production security bar  
+1. Activate CDN/WAF — `docs/CDN_WAF_CHECKLIST.md` + `deploy/cloudflare/waf-rules.json`  
+2. Schedule Postgres backups — `scripts/backup_postgres.py`  
+3. Set `ADMIN_TOTP_SECRET` and send `X-Admin-TOTP` on admin routes  
+4. Third-party pentest — `docs/templates/pentest_scope.md`  
+5. Soft Launch remains **demo-only** — not the production security bar  
+
+**Max engineering gate:** `python scripts/security_max_audit.py` · Checklist: `docs/SECURITY_MAX_CHECKLIST.md`

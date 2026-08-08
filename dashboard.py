@@ -2674,6 +2674,28 @@ async def api_due_diligence_coverage():
     return run_profit_fee_coverage()
 
 
+@app.get("/api/security/admin-mfa")
+async def api_security_admin_mfa(_admin: dict = Depends(require_admin_dev)):
+    """Admin MFA policy status (does not reveal ADMIN_TOTP_SECRET)."""
+    from admin_mfa import mfa_status
+
+    return mfa_status()
+
+
+@app.get("/api/security/events")
+async def api_security_events(
+    limit: int = 50,
+    kind: str | None = None,
+    _admin: dict = Depends(require_admin),
+):
+    from security_events import recent_security_events, security_events_stats
+
+    return {
+        "stats": security_events_stats(),
+        "events": recent_security_events(limit=min(limit, 200), kind=kind),
+    }
+
+
 @app.get("/api/security/status")
 async def api_security_status():
     """Public security posture summary for due diligence (not a certification)."""
