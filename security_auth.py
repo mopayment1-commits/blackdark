@@ -58,8 +58,27 @@ def admin_emails() -> set[str]:
     return {e.strip().lower() for e in raw.split(",") if e.strip()}
 
 
-def verify_admin_key(provided: str | None) -> bool:
+def _admin_api_key_expected() -> str:
+    """Load admin API key from env or ADMIN_API_KEY_FILE (mode-0600 secret file)."""
     expected = os.getenv("ADMIN_API_KEY", "").strip()
+    if expected:
+        return expected
+    path = os.getenv("ADMIN_API_KEY_FILE", "").strip()
+    if not path:
+        return ""
+    try:
+        from pathlib import Path
+
+        p = Path(path)
+        if not p.is_file():
+            return ""
+        return p.read_text(encoding="utf-8").strip().splitlines()[0].strip()
+    except Exception:
+        return ""
+
+
+def verify_admin_key(provided: str | None) -> bool:
+    expected = _admin_api_key_expected()
     if not expected or not provided:
         return False
     return hmac.compare_digest(provided.strip(), expected)

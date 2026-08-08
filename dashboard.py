@@ -749,7 +749,9 @@ async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optio
     try:
         return await redeem_promo_code(user["email"], str(data.get("code") or ""))
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        from safe_errors import public_error
+
+        raise HTTPException(status_code=400, detail=public_error(exc, fallback="Invalid promo code")) from None
 
 
 @app.post("/api/chat")
@@ -1788,8 +1790,8 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
                 await websocket.send_json({"type": "pong", "timestamp": datetime.now(timezone.utc).isoformat()})
     except WebSocketDisconnect:
         pass
-    except RuntimeError as exc:
-        await websocket.close(code=1008, reason=str(exc))
+    except RuntimeError:
+        await websocket.close(code=1008, reason="unauthorized")
     except Exception:
         logger.exception("B2B WebSocket session error")
     finally:
@@ -1890,7 +1892,9 @@ async def simulate_trade(
             hold_hours=int(data.get("hold_hours") or 24),
         )
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        from safe_errors import public_error
+
+        raise HTTPException(status_code=400, detail=public_error(exc, fallback="Invalid simulation")) from None
 
 
 @app.post("/api/simulate/arbitrage")
@@ -1943,7 +1947,9 @@ async def alerts_subscribe(
             data = {**data, "email": user.get("email")}
         return await subscribe_alerts(data, user_email=user.get("email"))
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        from safe_errors import public_error
+
+        raise HTTPException(status_code=400, detail=public_error(exc, fallback="Invalid alert request")) from None
 
 
 @app.post("/api/alerts/test")
@@ -2066,7 +2072,9 @@ async def execution_order(body: ExecutionOrderBody, user: dict = Depends(require
             user_id=int(user["id"]),
         )
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        from safe_errors import public_error
+
+        raise HTTPException(status_code=400, detail=public_error(exc, fallback="Invalid order")) from None
 
 
 @app.get("/api/execution/logs")
@@ -2657,9 +2665,11 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
     try:
         return create_checkout_session(tier, customer_email=customer_email, user_id=user_id)
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-    except stripe.StripeError as exc:
-        raise HTTPException(status_code=502, detail=str(exc)) from exc
+        from safe_errors import public_error
+
+        raise HTTPException(status_code=400, detail=public_error(exc, fallback="Invalid checkout")) from None
+    except stripe.StripeError:
+        raise HTTPException(status_code=502, detail="Billing provider error") from None
 
 
 @app.get("/create-checkout-session")

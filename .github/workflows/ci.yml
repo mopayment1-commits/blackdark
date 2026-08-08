@@ -5,6 +5,9 @@ on:
     branches: [main, master, develop]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -27,6 +30,18 @@ jobs:
             -q --tb=short --cov-config=.coveragerc-profit-fee \
             --cov=fee_matrix --cov=slippage_guard --cov=fast_scan_engine \
             --cov=profit_fee_algorithms --cov-fail-under=90
+
+      - name: DD / heroes / production guard closure
+        run: |
+          python -m pytest \
+            tests/test_production_guard.py \
+            tests/test_critical_ops_closure.py \
+            tests/test_trust_os_execution.py \
+            tests/test_heroes_strategy.py \
+            tests/test_heroes_quality_polish.py \
+            tests/test_radical_dd_scale_closure.py \
+            tests/test_security.py \
+            -q --tb=short
 
       - name: Due diligence report smoke
         run: python scripts/due_diligence_verify.py

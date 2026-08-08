@@ -27,6 +27,9 @@ BLACKDARK implements defense-in-depth for crypto trading intelligence platforms 
 SECRETS_MASTER_KEY=<random-64-chars>
 SESSION_TOKEN_PEPPER=<random-32-chars>
 ADMIN_API_KEY=<random-admin-key>
+# Or prefer file-based admin key (mode 0600, never commit):
+# ADMIN_API_KEY_FILE=keys/admin_api_key.secret
+# python scripts/setup_admin.py you@example.com
 ADMIN_EMAILS=admin@yourcompany.com
 TELEGRAM_WEBHOOK_SECRET=<telegram-secret>
 POSTGRES_PASSWORD=<strong-password>

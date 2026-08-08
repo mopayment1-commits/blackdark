@@ -35,5 +35,9 @@ def coverage_report() -> dict[str, Any]:
             "passed": proc.returncode == 0,
             "summary_tail": lines[-15:],
         }
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        return {"coverage_percent": 0, "error": str(exc), "note": "Run pytest --cov locally"}
+    except (subprocess.TimeoutExpired, OSError):
+        return {
+            "coverage_percent": 0,
+            "error": "coverage_unavailable",
+            "note": "Run pytest --cov locally",
+        }

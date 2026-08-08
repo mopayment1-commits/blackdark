@@ -72,7 +72,7 @@ def read_secret(key: str) -> dict[str, Any]:
             return {"source": "hashicorp", "path": path, "data": data}
         except Exception as exc:
             logger.warning("Vault read failed: %s", exc)
-            return {"source": "hashicorp", "error": str(exc)}
+            return {"source": "hashicorp", "error": "vault_read_failed", "stored": False}
 
     try:
         from secrets_vault import decrypt_secret
@@ -86,7 +86,8 @@ def read_secret(key: str) -> dict[str, Any]:
             if key in blob:
                 return {"source": "local_fernet", "path": key, "data": {"value": decrypt_secret(blob[key])}}
     except Exception as exc:
-        return {"source": "local_fernet", "error": str(exc)}
+        logger.warning("Local vault read failed: %s", exc)
+        return {"source": "local_fernet", "error": "local_vault_read_failed"}
 
     return {"source": "none", "note": "Secret not found — use store_secret first."}
 
@@ -105,7 +106,7 @@ def store_secret(key: str, value: str) -> dict[str, Any]:
             return {"source": "hashicorp", "path": path, "stored": True}
         except Exception as exc:
             logger.warning("Vault store failed: %s", exc)
-            return {"source": "hashicorp", "error": str(exc), "stored": False}
+            return {"source": "hashicorp", "error": "vault_store_failed", "stored": False}
 
     from secrets_vault import encrypt_secret
     from pathlib import Path

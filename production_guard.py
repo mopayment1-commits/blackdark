@@ -51,7 +51,11 @@ def evaluate_production_guard() -> dict[str, Any]:
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
     session_pepper_ok = bool(os.getenv("SESSION_TOKEN_PEPPER", "").strip())
-    admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
+    admin_ok = bool(
+        os.getenv("ADMIN_API_KEY", "").strip()
+        or os.getenv("ADMIN_API_KEY_FILE", "").strip()
+        or os.getenv("ADMIN_EMAILS", "").strip()
+    )
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
 
