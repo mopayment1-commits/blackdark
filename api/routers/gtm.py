@@ -94,7 +94,8 @@ async def launch_readiness():
         "next_steps": [
             "python scripts/finalize_launch.py",
             "Paste .env.launch.local into Railway Variables",
-            "Set DATABASE_URL + LEMON_SQUEEZY_CHECKOUT_PRO (or Stripe)",
+            "python scripts/setup_payments_usd.py — Lemon Pro/Whale USD + webhook (or Stripe)",
+            "Verify /api/billing/payments launch_ready=true",
             "Verify /api/production/guard → required_pass=true",
             "UptimeRobot on /health/live → announce",
         ],

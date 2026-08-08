@@ -20,14 +20,29 @@ import config
 logger = logging.getLogger("BLACKDARK.Billing")
 
 STRIPE_TIERS: dict[str, dict[str, Any]] = {
-    "pro": {"amount": 2900, "name": "Decision Pro", "sku": "decision_pro"},
-    "whale": {"amount": 19900, "name": "Whale Desk", "sku": "whale_desk"},
+    "pro": {
+        "amount": 2900,
+        "currency": "usd",
+        "name": "Decision Pro",
+        "sku": "decision_pro",
+    },
+    "whale": {
+        "amount": 19900,
+        "currency": "usd",
+        "name": "Whale Desk",
+        "sku": "whale_desk",
+    },
 }
+
+BILLING_CURRENCY = "usd"
 
 LEMON_SQUEEZY_ENV_KEYS = {
     "pro": "LEMON_SQUEEZY_CHECKOUT_PRO",
     "whale": "LEMON_SQUEEZY_CHECKOUT_WHALE",
 }
+
+# Optional customer portal / billing manage URL (Lemon dashboard).
+LEMON_SQUEEZY_PORTAL_ENV = "LEMON_SQUEEZY_CUSTOMER_PORTAL_URL"
 
 # Map Lemon variant/product name hints → internal tiers.
 _LEMON_TIER_HINTS = (
@@ -46,6 +61,11 @@ def lemon_squeezy_checkout_url(tier: str) -> str | None:
     if not env_key:
         return None
     url = os.getenv(env_key, "").strip()
+    return url or None
+
+
+def lemon_squeezy_portal_url() -> str | None:
+    url = os.getenv(LEMON_SQUEEZY_PORTAL_ENV, "").strip()
     return url or None
 
 
@@ -100,7 +120,7 @@ def create_checkout_session(
         line_items = [
             {
                 "price_data": {
-                    "currency": "usd",
+                    "currency": BILLING_CURRENCY,
                     "product_data": {"name": info["name"]},
                     "unit_amount": info["amount"],
                     "recurring": {"interval": "month"},
@@ -109,24 +129,45 @@ def create_checkout_session(
             }
         ]
 
+    # Hosted Checkout: card + wallets (Apple Pay / Google Pay when enabled on Stripe).
+    # PAN/CVV never touch our servers (PCI SAQ A target).
+    trial_days = int(config.PRO_TRIAL_DAYS) if tier == "pro" and config.PRO_TRIAL_DAYS > 0 else 0
+    meta = {
+        "tier": tier,
+        "currency": BILLING_CURRENCY,
+        "sku": STRIPE_TIERS[tier]["sku"],
+        "product": "trust_os",
+    }
     session_kwargs: dict[str, Any] = {
-        "payment_method_types": ["card"],
-        "line_items": line_items,
         "mode": "subscription",
+        "line_items": line_items,
         "success_url": success_url,
         "cancel_url": cancel_url,
-        "metadata": {"tier": tier},
+        "metadata": meta,
         "allow_promotion_codes": True,
+        "billing_address_collection": "auto",
+        # Card + wallets (Apple Pay / Google Pay) via Stripe Checkout when domain verified.
+        "payment_method_types": ["card"],
     }
     if customer_email:
         session_kwargs["customer_email"] = customer_email
     if user_id is not None:
         session_kwargs["client_reference_id"] = str(user_id)
-    if tier == "pro" and config.PRO_TRIAL_DAYS > 0 and not price_id:
-        session_kwargs["subscription_data"] = {"trial_period_days": config.PRO_TRIAL_DAYS}
+    sub_data: dict[str, Any] = {"metadata": meta}
+    if trial_days:
+        sub_data["trial_period_days"] = trial_days
+    session_kwargs["subscription_data"] = sub_data
 
     session = stripe.checkout.Session.create(**session_kwargs)
-    return {"url": session.url, "session_id": session.id, "tier": tier}
+    return {
+        "url": session.url,
+        "session_id": session.id,
+        "tier": tier,
+        "currency": BILLING_CURRENCY.upper(),
+        "provider": "stripe",
+        "trial_days": trial_days,
+        "pci_note": "Card data collected only on Stripe-hosted Checkout.",
+    }
 
 
 def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
@@ -144,9 +185,20 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     from database import (
         activate_paid_subscription,
         cancel_subscription_by_stripe_id,
+        claim_billing_webhook_event,
     )
 
+    event_id = str(event.get("id") or "").strip()
     event_type = event.get("type", "")
+    if event_id:
+        claimed = await claim_billing_webhook_event(
+            provider="stripe",
+            event_id=event_id,
+            event_type=str(event_type),
+        )
+        if not claimed:
+            return {"handled": True, "action": "duplicate_ignored", "event_id": event_id}
+
     data_object = (event.get("data") or {}).get("object") or {}
 
     if event_type == "checkout.session.completed":
@@ -165,8 +217,8 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
                 str(stripe_sub_id),
                 stripe_customer_id=str(stripe_customer_id) if stripe_customer_id else None,
             )
-            logger.info("Subscription activated | email=%s tier=%s", email, tier)
-        return {"handled": True, "action": "checkout_completed"}
+            logger.info("Subscription activated | email=%s tier=%s currency=USD", email, tier)
+        return {"handled": True, "action": "checkout_completed", "currency": "USD"}
 
     if event_type in {"customer.subscription.updated", "customer.subscription.created"}:
         stripe_sub_id = str(data_object.get("id") or "")
@@ -188,13 +240,27 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
             await cancel_subscription_by_stripe_id(stripe_sub_id)
         return {"handled": True, "action": "subscription_cancelled"}
 
-    if event_type == "invoice.payment_failed":
+    if event_type in {"invoice.payment_failed", "invoice.payment_action_required"}:
         stripe_sub_id = str(data_object.get("subscription") or "")
         if stripe_sub_id:
             from database import upsert_subscription_by_stripe_id
 
             await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
-        return {"handled": True, "action": "payment_failed"}
+            logger.warning("Stripe dunning | sub=%s event=%s", stripe_sub_id, event_type)
+        return {"handled": True, "action": "payment_failed", "dunning": True}
+
+    if event_type == "invoice.paid":
+        stripe_sub_id = str(data_object.get("subscription") or "")
+        if stripe_sub_id:
+            from database import upsert_subscription_by_stripe_id
+
+            await upsert_subscription_by_stripe_id(stripe_sub_id, status="active")
+        return {"handled": True, "action": "invoice_paid", "currency": "USD"}
+
+    if event_type in {"charge.refunded", "charge.dispute.created"}:
+        # Entitlement stays until subscription cancels unless ops force-expire.
+        logger.info("Stripe refund/dispute recorded | type=%s id=%s", event_type, data_object.get("id"))
+        return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
 
     return {"handled": False, "type": event_type}
 
@@ -259,6 +325,7 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     from database import (
         activate_paid_subscription,
         cancel_subscription_by_stripe_id,
+        claim_billing_webhook_event,
         upsert_subscription_by_stripe_id,
     )
 
@@ -266,7 +333,22 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     event_name = str(meta.get("event_name") or "").strip()
     data = event.get("data") or {}
     attrs = data.get("attributes") or {}
+    webhook_id = str(meta.get("webhook_id") or event.get("webhook_id") or "").strip()
     lemon_id = str(data.get("id") or attrs.get("subscription_id") or "").strip()
+    dedupe_key = webhook_id or f"{event_name}:{lemon_id}:{attrs.get('updated_at') or attrs.get('created_at') or ''}"
+    if dedupe_key.strip(":"):
+        claimed = await claim_billing_webhook_event(
+            provider="lemon_squeezy",
+            event_id=dedupe_key[:240],
+            event_type=event_name or "unknown",
+        )
+        if not claimed:
+            return {
+                "handled": True,
+                "action": "duplicate_ignored",
+                "provider": "lemon_squeezy",
+                "event_id": dedupe_key[:240],
+            }
     if lemon_id and not lemon_id.startswith("lemon_"):
         lemon_id = f"lemon_{lemon_id}"
 

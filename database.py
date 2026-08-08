@@ -173,6 +173,29 @@ CREATE INDEX IF NOT EXISTS idx_subscriptions_email
 CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_sub
     ON subscriptions (stripe_sub_id);
 
+CREATE TABLE IF NOT EXISTS billing_webhook_events (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    provider     TEXT    NOT NULL,
+    event_id     TEXT    NOT NULL,
+    event_type   TEXT,
+    received_at  TEXT    NOT NULL,
+    UNIQUE(provider, event_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_billing_webhook_received
+    ON billing_webhook_events (received_at);
+
+CREATE TABLE IF NOT EXISTS institutional_inquiries (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    email        TEXT    NOT NULL,
+    name         TEXT,
+    company      TEXT,
+    message      TEXT,
+    budget_usd   TEXT,
+    created_at   TEXT    NOT NULL,
+    status       TEXT    NOT NULL DEFAULT 'new'
+);
+
 CREATE TABLE IF NOT EXISTS oracle_predictions (
     id                  INTEGER PRIMARY KEY AUTOINCREMENT,
     timestamp           TEXT    NOT NULL,
@@ -557,6 +580,39 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE subscriptions ADD COLUMN past_due_at TEXT")
     if "access_bonus_until" not in sub_cols:
         await db.execute("ALTER TABLE subscriptions ADD COLUMN access_bonus_until TEXT")
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_webhook_events (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            provider     TEXT    NOT NULL,
+            event_id     TEXT    NOT NULL,
+            event_type   TEXT,
+            received_at  TEXT    NOT NULL,
+            UNIQUE(provider, event_id)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_billing_webhook_received
+            ON billing_webhook_events (received_at)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS institutional_inquiries (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            email        TEXT    NOT NULL,
+            name         TEXT,
+            company      TEXT,
+            message      TEXT,
+            budget_usd   TEXT,
+            created_at   TEXT    NOT NULL,
+            status       TEXT    NOT NULL DEFAULT 'new'
+        )
+        """
+    )
 
     await db.execute(
         """
@@ -2866,6 +2922,60 @@ async def cancel_subscription_by_stripe_id(stripe_sub_id: str) -> None:
             "UPDATE subscriptions SET status = 'expired' WHERE stripe_sub_id = ?",
             (stripe_sub_id,),
         )
+
+
+async def claim_billing_webhook_event(
+    *,
+    provider: str,
+    event_id: str,
+    event_type: str | None = None,
+) -> bool:
+    """Return True if this event is new (claimed); False if duplicate."""
+    provider = (provider or "").strip().lower()
+    event_id = (event_id or "").strip()
+    if not provider or not event_id:
+        return True
+    async with get_connection() as db:
+        try:
+            await db.execute(
+                """
+                INSERT INTO billing_webhook_events (provider, event_id, event_type, received_at)
+                VALUES (?, ?, ?, ?)
+                """,
+                (provider, event_id, (event_type or "")[:120], _utcnow_iso()),
+            )
+            return True
+        except Exception:
+            # Unique violation → already processed
+            return False
+
+
+async def insert_institutional_inquiry(
+    *,
+    email: str,
+    name: str = "",
+    company: str = "",
+    message: str = "",
+    budget_usd: str = "",
+) -> int:
+    email = email.strip().lower()
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO institutional_inquiries
+                (email, name, company, message, budget_usd, created_at, status)
+            VALUES (?, ?, ?, ?, ?, ?, 'new')
+            """,
+            (
+                email,
+                (name or "")[:120],
+                (company or "")[:160],
+                (message or "")[:4000],
+                (budget_usd or "")[:40],
+                _utcnow_iso(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
 
 
 async def update_user_telegram_chat_id(email: str, telegram_chat_id: str | None) -> None:

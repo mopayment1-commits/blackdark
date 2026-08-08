@@ -44,9 +44,11 @@ Competitors sell data, charts, alerts, or opaque scores. Trust OS sells a **revi
 
 - `pricing_catalog.py` — canonical catalog + Integration Addendum  
 - `auth_service.TIER_FEATURES` — gates + labels  
-- `billing_service.STRIPE_TIERS` — $29 / $199 self-serve  
+- `billing_service.STRIPE_TIERS` — $29 / $199 self-serve **USD**  
+- `payments_usd.py` + `docs/PAYMENTS_USD_SECURITY.md` — PSP architecture / PCI SAQ A  
 - `decision_certificate.py` — Free Proof watermark  
 - `GET /api/pricing` — public catalog JSON  
+- `GET /api/billing/payments` — payment readiness (no secrets)  
 - Landing `#pricing` — four-card story  
 
 ## Integration Addendum (Institutional)

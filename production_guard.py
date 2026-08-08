@@ -42,11 +42,14 @@ def evaluate_production_guard() -> dict[str, Any]:
     sentry = bool(os.getenv("SENTRY_DSN", "").strip())
     uptime_probe = os.getenv("UPTIME_SELF_PROBE_ENABLED", "true").lower() in {"1", "true", "yes"}
     lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
+    lemon_whale = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_WHALE", "").strip())
     stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
+    stripe_price_whale = bool(os.getenv("STRIPE_PRICE_WHALE", "").strip())
     telegram = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
     telegram_secret = bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip())
     lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
     stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
+    whale_checkout_ok = lemon_whale or stripe_price_whale or (stripe and not lemon)
     secrets_raw = (
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
@@ -146,6 +149,21 @@ def evaluate_production_guard() -> dict[str, Any]:
                 "Set LEMON_SQUEEZY_WEBHOOK_SECRET (POST /webhook/lemon) "
                 "or STRIPE_WEBHOOK_SECRET (POST /webhook) — or SOFT_LAUNCH=true"
             ),
+        ),
+        _check(
+            "billing_whale_checkout_usd",
+            whale_checkout_ok or soft_launch,
+            required=False,
+            hint=(
+                "Set LEMON_SQUEEZY_CHECKOUT_WHALE or STRIPE_PRICE_WHALE "
+                "before promoting Whale Desk ($199 USD)"
+            ),
+        ),
+        _check(
+            "billing_currency_usd",
+            True,
+            required=False,
+            hint="Self-serve Trust OS SKUs are USD-only (see docs/PAYMENTS_USD_SECURITY.md)",
         ),
         _check(
             "secrets_master_key",

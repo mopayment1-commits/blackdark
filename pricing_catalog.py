@@ -124,6 +124,7 @@ def pricing_catalog() -> dict[str, Any]:
     return {
         "product": "BLACKDARK",
         "surface": "trust_os_pricing",
+        "currency": "USD",
         "canon": "1 product · 4 value layers · 6 heroes — depth ladder, not multi-platform SKUs",
         "story": PRICING_STORY,
         "tiers": TIERS,

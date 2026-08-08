@@ -2115,6 +2115,11 @@ async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
 
 
+@app.get("/refund", response_class=HTMLResponse)
+async def refund_page(request: Request):
+    return _legal_page(request, "refund")
+
+
 @app.get("/api/b2b/demo/proposal")
 async def b2b_demo_proposal(client: str = "Demo Prospect"):
     """Public demo sales proposal — limited data, no API key."""
@@ -3020,7 +3025,13 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
 
     ls_url = lemon_squeezy_checkout_url(tier)
     if ls_url:
-        return {"url": ls_url, "provider": "lemon_squeezy", "tier": tier}
+        return {
+            "url": ls_url,
+            "provider": "lemon_squeezy",
+            "tier": tier,
+            "currency": "USD",
+            "pci_note": "Card data collected only on Lemon Squeezy-hosted Checkout.",
+        }
 
     if not stripe_configured():
         raise HTTPException(status_code=503, detail="Billing not configured")

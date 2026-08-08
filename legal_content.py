@@ -11,7 +11,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <h2>2. Service Description</h2>
 <p>BLACKDARK provides AI-assisted crypto market intelligence, analytics, and alerts. We do not execute trades on your behalf unless you explicitly enable live execution with your own exchange API keys.</p>
 <h2>3. Accounts & Subscriptions</h2>
-<p>Free, Pro, and Whale tiers are described on our pricing page. Trials convert to paid subscriptions unless cancelled. Refunds follow Stripe policy and applicable law.</p>
+<p>Proof Pass (Free), Decision Pro, Whale Desk, and Institutional are described on our pricing page. Prices for self-serve plans are in <strong>USD</strong>. Decision Pro trials convert to paid USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
 <h2>4. Acceptable Use</h2>
 <p>You may not scrape, resell, or redistribute our proprietary feeds without a B2B agreement. Automated abuse, credential sharing, or reverse engineering is prohibited.</p>
 <h2>5. Intellectual Property</h2>
@@ -32,7 +32,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <h2>2. How We Use Data</h2>
 <p>To authenticate you, deliver features, improve models, send alerts you opt into, and process payments via Stripe. We do not sell personal data.</p>
 <h2>3. Payment Data</h2>
-<p>Card details are handled entirely by Stripe. We store subscription tier and Stripe customer/subscription IDs only.</p>
+<p>Card numbers, CVV, and full bank account details for retail checkout are handled entirely by Lemon Squeezy and/or Stripe (PCI DSS Level 1 processors). BLACKDARK stores only subscription tier, status, and provider customer/subscription IDs. We do not store PAN, CVV, or full retail IBAN. Currency for self-serve billing is USD.</p>
 <h2>4. Cookies & Local Storage</h2>
 <p>Session tokens are stored in your browser localStorage for dashboard auth. Analytics counters are aggregated server-side.</p>
 <h2>5. Data Retention</h2>
@@ -60,6 +60,25 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>Consult a licensed financial advisor before making investment decisions. You alone are responsible for your trades and compliance with local regulations.</p>
 <h2>B2B Clients</h2>
 <p>Institutional feeds are licensed data products. Redistribution without authorization violates our Terms and may breach exchange ToS.</p>
+""",
+    },
+    "refund": {
+        "title": "Refund Policy",
+        "title_ar": "سياسة الاسترداد",
+        "updated": "August 8, 2026",
+        "html": """
+<h2>Currency</h2>
+<p>Self-serve subscriptions (Decision Pro, Whale Desk) are priced and charged in <strong>USD</strong>.</p>
+<h2>Trials</h2>
+<p>Decision Pro may include a 7-day trial. Cancel before the trial ends to avoid the first USD charge. Manage billing via the customer portal provided by Stripe or Lemon Squeezy.</p>
+<h2>Paid periods</h2>
+<p>Monthly USD fees are generally non-refundable once a paid billing period has started, except where required by law or in the case of a clear billing error (duplicate charge, wrong plan).</p>
+<h2>How to request</h2>
+<p>Email support with your account email and checkout/order reference. Do <strong>not</strong> send card numbers. Refunds are executed by the payment processor.</p>
+<h2>Institutional</h2>
+<p>Custom contracts (from $3,000/mo USD) use invoice and wire terms in the signed agreement — not this self-serve policy.</p>
+<h2>Not investment returns</h2>
+<p>Subscription fees pay for software access and decision intelligence tools. We do not guarantee trading profits. See the Risk Disclaimer.</p>
 """,
     },
 }
