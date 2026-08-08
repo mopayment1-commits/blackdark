@@ -8,6 +8,8 @@ __pycache__/
 *.db-shm
 *.db-wal
 data/blackdark.db
+data/feedback.jsonl
+data/email_outbox.jsonl
 data/hot_spool/
 data/hot_spool_archive/
 data/history/
