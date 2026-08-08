@@ -21,7 +21,7 @@ RUN apt-get update \
 COPY requirements-prod.txt requirements.txt
 # --only-binary :all: avoids executing untrusted setup scripts from sdists (Sonar S8541).
 RUN pip install --no-cache-dir --default-timeout=180 --upgrade "pip==25.2" \
-    && pip install --no-cache-dir --default-timeout=180 --only-binary=:all: -r requirements.txt
+    && pip install --no-cache-dir --default-timeout=180 --only-binary :all: -r requirements.txt
 
 COPY *.py ./
 COPY api/ api/

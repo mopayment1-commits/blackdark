@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Set ADMIN_EMAILS + ADMIN_API_KEY in .env for production admin access."""
+"""Set ADMIN_EMAILS in .env; emit ADMIN_API_KEY once for secret-manager storage."""
 
 from __future__ import annotations
 
@@ -8,11 +8,6 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-if str(ROOT) not in sys.path:
-    sys.path.insert(0, str(ROOT))
-
-from path_safety import resolve_under
-
 ENV = ROOT / ".env"
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -35,13 +30,16 @@ def main() -> None:
     api_key = secrets.token_hex(24)
     lines = ENV.read_text(encoding="utf-8").splitlines() if ENV.exists() else []
     lines = _upsert(lines, "ADMIN_EMAILS", email)
-    lines = _upsert(lines, "ADMIN_API_KEY", api_key)
-    resolve_under(ROOT, ".env").write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    # Never persist ADMIN_API_KEY in clear text on disk (CodeQL / Sonar).
+    lines = [ln for ln in lines if not ln.startswith("ADMIN_API_KEY=")]
+    ENV.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
-    print("Admin configured in .env")
+    print("Admin email saved to .env")
     print(f"  ADMIN_EMAILS={email}")
+    print()
+    print("Store this secret in your host secret manager / Railway Variables (not in git):")
     print(f"  ADMIN_API_KEY={api_key}")
-    print("\nRestart server: start_blackdark.bat")
+    print("\nRestart server after setting ADMIN_API_KEY in the secret store.")
 
 
 if __name__ == "__main__":

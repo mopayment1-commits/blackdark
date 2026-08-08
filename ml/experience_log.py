@@ -13,7 +13,6 @@ from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
-from path_safety import resolve_under
 
 logger = logging.getLogger("BLACKDARK.MLExperience")
 
@@ -75,8 +74,7 @@ def _refresh_summary(latest: dict[str, Any]) -> None:
         labeled = (latest.get("payload") or {}).get("export", {}).get("exported")
         if labeled is not None:
             stats["last_labeled_export_count"] = labeled
-    path = resolve_under(config.DATA_DIR, "ml_experience_summary.json")
-    path.write_text(
+    SUMMARY_PATH.write_text(
         json.dumps(stats, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )

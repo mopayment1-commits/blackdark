@@ -5,16 +5,18 @@ from __future__ import annotations
 import json
 import logging
 from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 import config
-from path_safety import resolve_under
 
 logger = logging.getLogger("BLACKDARK.GridBot")
 
+_STORE_PATH = Path(config.DATA_DIR) / "grid_bots.json"
+
 
 def _store_path():
-    return resolve_under(config.DATA_DIR, "grid_bots.json")
+    return _STORE_PATH
 
 
 def _load() -> list[dict[str, Any]]:

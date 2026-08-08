@@ -21,9 +21,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade "pip==25.2"
-          # Sonar S8541/S8544: prefer wheels only; fall back if a dep lacks a wheel.
-          python -m pip install --only-binary=:all: -r requirements.txt "pytest-cov==6.2.1" || \
-            python -m pip install --prefer-binary -r requirements.txt "pytest-cov==6.2.1"
+          # Prefer wheels only (no sdist setup-script execution).
+          python -m pip install --only-binary :all: -r requirements.txt "pytest-cov==6.2.1"
 
       - name: Ruff lint (fail-closed)
         run: python -m ruff check .

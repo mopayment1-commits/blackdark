@@ -9,8 +9,6 @@ from typing import Any
 
 import aiohttp
 
-from path_safety import resolve_under
-
 _PLATFORM_KEYS: tuple[dict[str, str], ...] = (
     {
         "id": "lunarcrush",
@@ -187,8 +185,7 @@ def _upsert_env_line(key: str, value: str, lines: list[str]) -> list[str]:
 
 
 def _write_env_lines(lines: list[str]) -> None:
-    path = resolve_under(_ENV_PATH.parent, _ENV_PATH.name)
-    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    _ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
 async def save_platform_keys(payload: dict[str, str], *, verify: bool = True) -> dict[str, Any]:
