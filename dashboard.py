@@ -787,6 +787,35 @@ async def login_page(request: Request):
     return templates.TemplateResponse(request, "login.html")
 
 
+@app.get("/profile", response_class=HTMLResponse)
+async def profile_page(request: Request):
+    return templates.TemplateResponse(request, "profile.html")
+
+
+@app.get("/reset-password", response_class=HTMLResponse)
+async def reset_password_page(request: Request):
+    return templates.TemplateResponse(request, "reset_password.html")
+
+
+@app.get("/verify-email", response_class=HTMLResponse)
+async def verify_email_page(request: Request, token: str = ""):
+    """Browser entry — delegates to API verify then redirects to profile."""
+    if not token:
+        return templates.TemplateResponse(
+            request,
+            "utility.html",
+            {
+                "page": "verify_email",
+                "title": "Verify email",
+                "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
+            },
+        )
+    # Prefer API redirect path for cookie/session consistency.
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url=f"/api/auth/verify-email?token={token}", status_code=302)
+
+
 # Auth routes → api/routers/auth.py
 # GTM / platform stats → api/routers/gtm.py
 # Telegram → api/routers/telegram.py

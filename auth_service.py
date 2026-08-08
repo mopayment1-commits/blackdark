@@ -137,22 +137,44 @@ async def resolve_user_tier(email: str) -> Tier:
     return "free"
 
 
-async def register_user(email: str, password: str, name: str = "") -> dict[str, Any]:
-    from database import create_user, fetch_user_by_email, insert_pro_trial
+async def register_user(
+    email: str,
+    password: str,
+    name: str = "",
+    *,
+    username: str = "",
+    accepted_terms: bool = False,
+) -> dict[str, Any]:
+    from database import create_user, fetch_user_by_email, fetch_user_by_username, insert_pro_trial
+    from identity_service import (
+        send_verification_email,
+        validate_display_name,
+        validate_email,
+        validate_password,
+        validate_username,
+    )
 
-    email = normalize_email(email)
-    if len(password) < 8:
-        raise ValueError("Password must be at least 8 characters")
-    if "@" not in email:
-        raise ValueError("Valid email required")
+    if not accepted_terms:
+        raise ValueError("You must accept Terms, Privacy, and Risk Disclaimer")
+    email = validate_email(email)
+    validate_password(password, email=email)
+    display = validate_display_name(name)
+    handle = validate_username(username) if username.strip() else ""
 
     if await fetch_user_by_email(email):
         raise ValueError("Email already registered")
+    if handle and await fetch_user_by_username(handle):
+        raise ValueError("Username already taken")
 
-    user_id = await create_user(email, hash_password(password), name.strip())
+    user_id = await create_user(email, hash_password(password), display)
+    if handle:
+        from database import update_user_profile_fields
+
+        await update_user_profile_fields(user_id, {"username": handle})
     trial = await insert_pro_trial(email)
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
+    verify = await send_verification_email(user_id, email)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
@@ -161,7 +183,19 @@ async def register_user(email: str, password: str, name: str = "") -> dict[str, 
             "ends_at": trial["trial_ends_at"],
             "days": trial["days"],
         },
-        "user": {"id": user_id, "email": email, "name": name.strip(), "tier": tier},
+        "email_verification": {
+            "required": True,
+            "sent": True,
+            **{k: verify[k] for k in ("debug_token", "debug_link") if k in verify},
+        },
+        "user": {
+            "id": user_id,
+            "email": email,
+            "name": display,
+            "username": handle or None,
+            "tier": tier,
+            "email_verified": False,
+        },
     }
 
 
@@ -321,10 +355,18 @@ async def get_user_from_token(token: str | None) -> dict[str, Any] | None:
         "id": row["id"],
         "email": email,
         "name": row.get("name") or "",
+        "username": row.get("username") or None,
         "tier": tier,
         # Never echo the bearer token in API payloads (XSS/log amplification).
         "telegram_chat_id": row.get("telegram_chat_id"),
         "stripe_customer_id": row.get("stripe_customer_id"),
+        "email_verified": bool(row.get("email_verified_at")),
+        "avatar_url": row.get("avatar_url") or f"/api/auth/avatar/{row['id']}.svg",
+        "ui_lang": row.get("ui_lang") or "en",
+        "ux_mode_pref": row.get("ux_mode_pref") or "beginner",
+        "timezone": row.get("timezone") or "UTC",
+        "password_is_set": bool(int(row.get("password_is_set") if row.get("password_is_set") is not None else 1)),
+        "oauth_provider": row.get("oauth_provider"),
     }
 
 
