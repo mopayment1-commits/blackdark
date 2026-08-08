@@ -9,11 +9,13 @@ Use this log after running harnesses against a **Postgres + Redis** staging/prod
 python scripts/load_test.py --base http://127.0.0.1:8080 --requests 100
 
 # Concurrent diligence harness (health, trust-os, viral, oracle quick, arb, compliance)
-python scripts/load_test_concurrent.py --base http://127.0.0.1:8080 --workers 40 --requests 200
+# 429/503 = controlled degradation (OK) unless --strict-2xx
+python scripts/load_test_concurrent.py --base http://127.0.0.1:8080 --workers 40 --requests 200 --require-viral-approved
 
 # Scale + viral readiness JSON (codepath honesty — not a signed capacity proof)
 curl -s http://127.0.0.1:8080/api/scale/readiness | jq .
 curl -s http://127.0.0.1:8080/api/viral/readiness | jq .
+curl -s http://127.0.0.1:8080/health/viral | jq .
 
 # 60-second grasp machine probe
 python scripts/acceptance_60s.py --base http://127.0.0.1:8080
@@ -27,7 +29,9 @@ python scripts/load_test_1m_simulation.py
 - `ENV=production` or Soft Launch documented explicitly  
 - `DATABASE_URL=postgresql://…`  
 - `REDIS_URL=redis://…`  
-- At least 2 web workers / replicas if claiming multi-worker safety  
+- `WEB_CONCURRENCY` × `WEB_REPLICAS` ≥ 2 (uvicorn workers × deploy replicas)  
+- `VIRAL_MODE=true` and Soft Launch unset for viral approval  
+
 
 ## Run template (fill after each run)
 

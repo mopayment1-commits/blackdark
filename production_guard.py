@@ -75,6 +75,21 @@ def evaluate_production_guard() -> dict[str, Any]:
 
     # Strict production (no Soft Launch): SQLite is an acquisition landmine.
     strict_prod = is_production() and not soft_launch
+    viral_mode = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
+    # Viral HA fail-closed: strict prod + VIRAL_MODE requires shared Redis + multi-instance.
+    viral_ha = strict_prod and viral_mode
+    try:
+        from viral_capacity import effective_parallelism
+
+        parallel = effective_parallelism()
+    except Exception:
+        parallel = {
+            "workers": int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1),
+            "replicas": int(os.getenv("WEB_REPLICAS", "1") or 1),
+            "parallelism": 1,
+        }
+    redis_shared_ok = bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True)
+    multi_instance_ok = int(parallel.get("parallelism") or 1) >= 2
     sqlite_forbidden_ok = pg if strict_prod else (pg or soft_launch or not is_production())
     # Soft Launch in production still must not ship known-insecure secret strings.
     prod_secrets_hygiene = (not is_production()) or (no_insecure_secrets and no_insecure_pepper)
@@ -163,9 +178,24 @@ def evaluate_production_guard() -> dict[str, Any]:
         ),
         _check(
             "redis_shared_bus",
-            bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True),
-            required=False,
-            hint="Add Railway/Upstash Redis -> REDIS_URL + SERVICE_BUS_LOCAL=false",
+            redis_shared_ok,
+            required=viral_ha,
+            hint="Add Railway/Upstash Redis -> REDIS_URL + SERVICE_BUS_LOCAL=false (required for VIRAL_MODE HA)",
+        ),
+        _check(
+            "viral_multi_instance",
+            multi_instance_ok if viral_ha else True,
+            required=viral_ha,
+            hint=(
+                "Set WEB_CONCURRENCY≥2 and/or WEB_REPLICAS≥2 (or Railway numReplicas≥2). "
+                "run_service.py honors WEB_CONCURRENCY via uvicorn --workers."
+            ),
+        ),
+        _check(
+            "viral_soft_launch_unset",
+            not soft_launch if viral_ha else True,
+            required=viral_ha,
+            hint="Unset SOFT_LAUNCH for viral/HA production (Soft Launch SQLite is demo-only)",
         ),
         _check(
             "sentry_observability",
@@ -212,6 +242,9 @@ def evaluate_production_guard() -> dict[str, Any]:
         "production": is_production(),
         "soft_launch": soft_launch,
         "strict_production": strict_prod,
+        "viral_mode": viral_mode,
+        "viral_ha_enforced": viral_ha,
+        "parallelism": parallel,
         "service_mode": mode,
         "database": "postgresql" if pg else "sqlite",
         "billing_provider": "lemon_squeezy" if lemon else ("stripe" if stripe else "none"),
@@ -225,10 +258,12 @@ def evaluate_production_guard() -> dict[str, Any]:
             "iso_certificates_claimed": False,
             "note": (
                 "PostgreSQL required for institutional pitch. Soft Launch SQLite is demo-only. "
-                "Fernet vault = engineering posture, not an ISO 27001 certificate."
+                "Fernet vault = engineering posture, not an ISO 27001 certificate. "
+                "Viral HA requires Postgres + Redis + multi-instance + SOFT_LAUNCH unset."
             ),
         },
-        "railway_replicas_hint": "Set numReplicas=2 in railway.json or Railway dashboard",
+        "railway_replicas_hint": "Set numReplicas=2 in railway.json + WEB_CONCURRENCY≥2 + WEB_REPLICAS=2",
+        "viral_playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
         "uptimerobot_url": f"{os.getenv('APP_BASE_URL', 'https://blackdark-production.up.railway.app')}/health/live",
     }
 

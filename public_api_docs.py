@@ -44,6 +44,8 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/api/audit-challenge",
         "/api/security/status",
         "/api/scale/readiness",
+        "/api/viral/readiness",
+        "/health/viral",
         "/api/docs/public-openapi.json",
         "/capabilities",
         "/compliance",

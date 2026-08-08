@@ -3,9 +3,9 @@ BLACKDARK — Viral launch capacity controls.
 
 Protects the process under sudden concurrent traffic:
   · shared Redis (or memory) rate limits for Oracle / auth / API bursts
-  · in-flight concurrency ceiling + load shedding (503)
+  · shared Redis in-flight ceiling + load shedding (503) — falls back local
   · Oracle compute semaphore (prevents stampedes on heavy path)
-  · short-TTL cache for identical Oracle /quick bursts
+  · shared Redis short-TTL cache for identical Oracle /quick bursts
   · honest readiness report (codepath ≠ signed HA proof)
 
 English product surfaces remain Prove-it honest: Soft Launch SQLite is not viral HA.
@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
+import json
 import logging
 import os
 import threading
@@ -23,12 +24,11 @@ from collections import defaultdict
 from typing import Any, Callable
 
 from fastapi import HTTPException, Request
-from starlette.responses import JSONResponse, Response
+from starlette.responses import JSONResponse
 
 logger = logging.getLogger("BLACKDARK.ViralCapacity")
 
 # Tunables (env-overridable)
-VIRAL_MODE = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
 MAX_INFLIGHT = int(os.getenv("VIRAL_MAX_INFLIGHT", "200"))
 ORACLE_CONCURRENCY = int(os.getenv("VIRAL_ORACLE_CONCURRENCY", "32"))
 ORACLE_RL_PER_MIN = int(os.getenv("VIRAL_ORACLE_RL_PER_MIN", "60"))
@@ -46,10 +46,24 @@ _quick_lock = threading.Lock()
 _redis = None
 _redis_lock = threading.Lock()
 _rl_backend = "memory"
+_inflight_backend = "memory"
+_cache_backend = "memory"
+
+
+def viral_mode_enabled() -> bool:
+    return os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
 
 
 def rate_limit_backend() -> str:
     return _rl_backend
+
+
+def inflight_backend() -> str:
+    return _inflight_backend
+
+
+def cache_backend() -> str:
+    return _cache_backend
 
 
 def _env_int(name: str, default: int) -> int:
@@ -57,6 +71,21 @@ def _env_int(name: str, default: int) -> int:
         return int(os.getenv(name, str(default)))
     except Exception:
         return default
+
+
+def effective_parallelism() -> dict[str, int]:
+    """Workers × replicas — honest multi-instance signal for viral/HA gates."""
+    workers = max(1, _env_int("WEB_CONCURRENCY", _env_int("UVICORN_WORKERS", 1)))
+    replicas = max(
+        1,
+        _env_int(
+            "WEB_REPLICAS",
+            _env_int("K8S_REPLICAS", _env_int("RAILWAY_REPLICA_COUNT", 1)),
+        ),
+    )
+    # railway.json numReplicas is deploy-time; expose WEB_REPLICAS in templates when known.
+    total = workers * replicas
+    return {"workers": workers, "replicas": replicas, "parallelism": total}
 
 
 def get_oracle_semaphore() -> asyncio.Semaphore:
@@ -97,6 +126,16 @@ def _redis_client():
         except Exception:
             logger.debug("Viral Redis unavailable — memory fallback", exc_info=True)
             return None
+
+
+def redis_live() -> bool:
+    client = _redis_client()
+    if client is None:
+        return False
+    try:
+        return bool(client.ping())
+    except Exception:
+        return False
 
 
 def _client_key(request: Request) -> str:
@@ -177,30 +216,84 @@ def _limits_for(kind: str) -> tuple[int, int]:
     return _env_int("VIRAL_WEB_RL_PER_MIN", 240), 60
 
 
-def begin_inflight() -> bool:
-    """Reserve an in-flight slot. False => shed load."""
-    global _inflight
+def begin_inflight() -> tuple[bool, str]:
+    """Reserve an in-flight slot. Returns (accepted, backend_token). backend_token for end_inflight."""
+    global _inflight, _inflight_backend
     ceiling = _env_int("VIRAL_MAX_INFLIGHT", MAX_INFLIGHT)
+    client = _redis_client()
+    if client is not None:
+        try:
+            key = "bd:viral:inflight"
+            n = int(client.incr(key))
+            if n == 1:
+                client.expire(key, 180)
+            if n > ceiling:
+                client.decr(key)
+                _inflight_backend = "redis"
+                return False, ""
+            _inflight_backend = "redis"
+            return True, "redis"
+        except Exception:
+            logger.debug("Redis inflight failed — local fallback", exc_info=True)
     with _inflight_lock:
         if _inflight >= ceiling:
-            return False
+            _inflight_backend = "memory"
+            return False, ""
         _inflight += 1
-        return True
+        _inflight_backend = "memory"
+        return True, "memory"
 
 
-def end_inflight() -> None:
+def end_inflight(backend: str = "memory") -> None:
     global _inflight
-    with _inflight_lock:
-        _inflight = max(0, _inflight - 1)
+    if backend == "redis":
+        client = _redis_client()
+        if client is not None:
+            try:
+                key = "bd:viral:inflight"
+                n = int(client.decr(key))
+                if n < 0:
+                    client.set(key, 0, ex=180)
+                return
+            except Exception:
+                logger.debug("Redis inflight decr failed", exc_info=True)
+                return
+    if backend == "memory":
+        with _inflight_lock:
+            _inflight = max(0, _inflight - 1)
 
 
 def inflight_count() -> int:
+    client = _redis_client()
+    if client is not None:
+        try:
+            return max(0, int(client.get("bd:viral:inflight") or 0))
+        except Exception:
+            pass
     with _inflight_lock:
         return _inflight
 
 
+def _cache_key(symbol: str, lang: str, mode: str) -> str:
+    return f"{symbol.upper()}:{lang}:{mode}"
+
+
 def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
-    key = f"{symbol.upper()}:{lang}:{mode}"
+    global _cache_backend
+    key = _cache_key(symbol, lang, mode)
+    client = _redis_client()
+    if client is not None:
+        try:
+            raw = client.get(f"bd:viral:qcache:{key}")
+            if raw:
+                payload = json.loads(raw)
+                if isinstance(payload, dict):
+                    out = dict(payload)
+                    out["viral_cache"] = "hit"
+                    _cache_backend = "redis"
+                    return out
+        except Exception:
+            logger.debug("Redis quick cache get failed", exc_info=True)
     with _quick_lock:
         row = _quick_cache.get(key)
         if not row:
@@ -211,17 +304,32 @@ def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
             return None
         out = dict(payload)
         out["viral_cache"] = "hit"
+        _cache_backend = "memory"
         return out
 
 
 def quick_cache_set(symbol: str, lang: str, mode: str, payload: dict[str, Any]) -> None:
+    global _cache_backend
     ttl = float(os.getenv("VIRAL_QUICK_CACHE_TTL_SEC", str(QUICK_CACHE_TTL_SEC)))
-    key = f"{symbol.upper()}:{lang}:{mode}"
+    key = _cache_key(symbol, lang, mode)
+    body = {k: v for k, v in dict(payload).items() if k != "viral_cache"}
+    client = _redis_client()
+    if client is not None:
+        try:
+            client.setex(
+                f"bd:viral:qcache:{key}",
+                max(1, int(ttl + 0.999)),
+                json.dumps(body, default=str),
+            )
+            _cache_backend = "redis"
+            return
+        except Exception:
+            logger.debug("Redis quick cache set failed", exc_info=True)
     with _quick_lock:
-        # Bound memory under stampede
         if len(_quick_cache) > 5000:
             _quick_cache.clear()
-        _quick_cache[key] = (time.time() + max(0.2, ttl), dict(payload))
+        _quick_cache[key] = (time.time() + max(0.2, ttl), body)
+        _cache_backend = "memory"
 
 
 async def run_oracle_bounded(coro_factory: Callable[[], Any]) -> Any:
@@ -232,7 +340,7 @@ async def run_oracle_bounded(coro_factory: Callable[[], Any]) -> Any:
 
 
 def viral_middleware_enabled() -> bool:
-    return VIRAL_MODE or os.getenv("ENV", "").lower() in {"production", "prod"}
+    return viral_mode_enabled() or os.getenv("ENV", "").lower() in {"production", "prod"}
 
 
 async def viral_protection_middleware(request: Request, call_next):
@@ -245,7 +353,8 @@ async def viral_protection_middleware(request: Request, call_next):
     if kind is None:
         return await call_next(request)
 
-    if not begin_inflight():
+    accepted, inflight_token = begin_inflight()
+    if not accepted:
         return JSONResponse(
             {
                 "status": "overloaded",
@@ -262,13 +371,13 @@ async def viral_protection_middleware(request: Request, call_next):
         client = _client_key(request)
         check_rate_limit(f"{kind}:{client}", limit=limit, window_sec=window, prefix=kind)
         response = await call_next(request)
-        # Cache-Control for static-ish HTML under viral load (short)
         if path in {"/", "/dashboard", "/oracle-accuracy", "/compliance", "/capabilities"}:
             response.headers.setdefault("Cache-Control", "public, max-age=15")
         elif path.startswith("/static"):
             response.headers.setdefault("Cache-Control", "public, max-age=86400, immutable")
         response.headers.setdefault("X-Viral-Capacity", "1")
         response.headers.setdefault("X-Viral-Inflight", str(inflight_count()))
+        response.headers.setdefault("X-Viral-RL-Backend", rate_limit_backend())
         return response
     except HTTPException as exc:
         return JSONResponse(
@@ -277,7 +386,35 @@ async def viral_protection_middleware(request: Request, call_next):
             headers=dict(exc.headers or {}),
         )
     finally:
-        end_inflight()
+        end_inflight(inflight_token)
+
+
+def viral_health_payload() -> dict[str, Any]:
+    """Lightweight probe for LB / ops — Redis + middleware + parallelism."""
+    soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    parallel = effective_parallelism()
+    redis_ok = redis_live()
+    ok = (
+        viral_middleware_enabled()
+        and not soft
+        and redis_ok
+        and parallel["parallelism"] >= 2
+    )
+    return {
+        "status": "ok" if ok else "degraded",
+        "probe": "viral",
+        "ok": ok,
+        "soft_launch": soft,
+        "redis_live": redis_ok,
+        "middleware": viral_middleware_enabled(),
+        "parallelism": parallel,
+        "inflight": inflight_count(),
+        "backends": {
+            "rate_limit": rate_limit_backend(),
+            "inflight": inflight_backend(),
+            "quick_cache": cache_backend(),
+        },
+    }
 
 
 def viral_readiness_report() -> dict[str, Any]:
@@ -285,10 +422,8 @@ def viral_readiness_report() -> dict[str, Any]:
 
     scale = scale_readiness_report()
     soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
-    redis_ok = rate_limit_backend() == "redis" or bool(
-        (os.getenv("REDIS_URL") or "").strip()
-    )
-    workers = int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1)
+    parallel = effective_parallelism()
+    redis_ok = redis_live()
     viral_codepath = bool(scale.get("ha_ready_codepath")) and viral_middleware_enabled()
 
     checks = list(scale.get("checks") or [])
@@ -298,13 +433,17 @@ def viral_readiness_report() -> dict[str, Any]:
                 "id": "viral_middleware",
                 "ok": viral_middleware_enabled(),
                 "required_for_viral": True,
-                "detail": {"VIRAL_MODE": VIRAL_MODE},
+                "detail": {"VIRAL_MODE": viral_mode_enabled()},
             },
             {
                 "id": "inflight_ceiling",
                 "ok": _env_int("VIRAL_MAX_INFLIGHT", MAX_INFLIGHT) >= 50,
                 "required_for_viral": True,
-                "detail": {"max_inflight": _env_int("VIRAL_MAX_INFLIGHT", MAX_INFLIGHT), "current": inflight_count()},
+                "detail": {
+                    "max_inflight": _env_int("VIRAL_MAX_INFLIGHT", MAX_INFLIGHT),
+                    "current": inflight_count(),
+                    "backend": inflight_backend(),
+                },
             },
             {
                 "id": "oracle_semaphore",
@@ -314,9 +453,22 @@ def viral_readiness_report() -> dict[str, Any]:
             },
             {
                 "id": "shared_rate_limits",
-                "ok": rate_limit_backend() == "redis" or not soft,
+                "ok": redis_ok and rate_limit_backend() == "redis",
                 "required_for_viral": True,
-                "detail": rate_limit_backend(),
+                "detail": {
+                    "backend": rate_limit_backend(),
+                    "redis_live": redis_ok,
+                    "note": "Viral approval requires live Redis (not memory fallback)",
+                },
+            },
+            {
+                "id": "shared_inflight_and_cache",
+                "ok": redis_ok,
+                "required_for_viral": True,
+                "detail": {
+                    "inflight_backend": inflight_backend(),
+                    "cache_backend": cache_backend(),
+                },
             },
             {
                 "id": "soft_launch_not_viral",
@@ -326,9 +478,9 @@ def viral_readiness_report() -> dict[str, Any]:
             },
             {
                 "id": "multi_worker_viral",
-                "ok": workers >= 2,
+                "ok": parallel["parallelism"] >= 2,
                 "required_for_viral": True,
-                "detail": {"web_concurrency": workers},
+                "detail": parallel,
             },
         ]
     )
@@ -336,10 +488,13 @@ def viral_readiness_report() -> dict[str, Any]:
     return {
         "product": "BLACKDARK",
         "surface": "viral_launch_capacity",
-        "viral_codepath_ready": viral_codepath and not soft and workers >= 2,
-        "viral_production_approved": required_ok and bool(scale.get("ha_ready_codepath")),
+        "viral_codepath_ready": viral_codepath and not soft and parallel["parallelism"] >= 2 and redis_ok,
+        "viral_production_approved": required_ok and bool(scale.get("ha_ready_codepath")) and redis_ok,
         "inflight": inflight_count(),
         "rate_limit_backend": rate_limit_backend(),
+        "inflight_backend": inflight_backend(),
+        "cache_backend": cache_backend(),
+        "parallelism": parallel,
         "limits": {
             "max_inflight": _env_int("VIRAL_MAX_INFLIGHT", MAX_INFLIGHT),
             "oracle_concurrency": _env_int("VIRAL_ORACLE_CONCURRENCY", ORACLE_CONCURRENCY),
@@ -356,6 +511,7 @@ def viral_readiness_report() -> dict[str, Any]:
             "VIRAL_MAX_INFLIGHT": "200",
             "VIRAL_ORACLE_CONCURRENCY": "32",
             "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
             "PG_POOL_MAX": "40",
             "SOFT_LAUNCH": "unset",
         },

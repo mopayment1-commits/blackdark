@@ -2763,6 +2763,23 @@ async def health_ready():
     # Local soft-open only when explicitly allowed by lifespan
     if _BOOT_DB_READY and not _BOOT_DB_OK:
         ready = True  # local/dev soft path set by lifespan
+    soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    viral_mode = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
+    viral_gate = False
+    viral_redis = None
+    # Strict viral prod: refuse ready traffic if Redis is down (Soft Launch exempt).
+    if ready and viral_mode and not soft and os.getenv("ENV", "").lower() in {"production", "prod"}:
+        try:
+            from viral_capacity import redis_live
+
+            viral_redis = redis_live()
+            viral_gate = True
+            if not viral_redis:
+                ready = False
+        except Exception:
+            viral_gate = True
+            viral_redis = False
+            ready = False
     payload = {
         "status": "ok" if ready else "starting",
         "probe": "ready",
@@ -2770,8 +2787,22 @@ async def health_ready():
         "database_engine": engine,
         "postgres_pool": pool_stats(),
         "service_bus": bus_stats(),
+        "viral_redis_gate": viral_gate,
+        "viral_redis_live": viral_redis,
     }
     if not ready:
+        return JSONResponse(payload, status_code=503)
+    return payload
+
+
+@app.get("/health/viral")
+async def health_viral():
+    """Viral/HA admission probe — Redis + multi-instance + middleware (not Soft Launch)."""
+    from fastapi.responses import JSONResponse
+    from viral_capacity import viral_health_payload
+
+    payload = viral_health_payload()
+    if not payload.get("ok"):
         return JSONResponse(payload, status_code=503)
     return payload
 
@@ -2783,7 +2814,11 @@ async def health():
         "service": "BLACKDARK",
         "version": "1.0.0",
         "ui_language": "en",
-        "probes": {"live": "/health/live", "ready": "/health/ready"},
+        "probes": {
+            "live": "/health/live",
+            "ready": "/health/ready",
+            "viral": "/health/viral",
+        },
     }
 
 

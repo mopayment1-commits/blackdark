@@ -17,12 +17,14 @@ def scale_readiness_report() -> dict[str, Any]:
     from postgres_backend import pool_stats, use_postgres
     from security_auth import login_rate_limit_backend
 
+    from viral_capacity import effective_parallelism
+
     soft_launch = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
     redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
     redis_ok = bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True)
     pg = use_postgres()
     pool = pool_stats() if pg else {"active": False}
-    workers_hint = int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1)
+    parallel = effective_parallelism()
     rl_backend = login_rate_limit_backend()
 
     checks = [
@@ -52,9 +54,9 @@ def scale_readiness_report() -> dict[str, Any]:
         },
         {
             "id": "multi_worker",
-            "ok": workers_hint >= 2 and pg and redis_ok,
+            "ok": parallel["parallelism"] >= 2 and pg and redis_ok,
             "required_for_ha": True,
-            "detail": {"web_concurrency": workers_hint},
+            "detail": parallel,
         },
         {
             "id": "soft_launch_honesty",
@@ -71,13 +73,16 @@ def scale_readiness_report() -> dict[str, Any]:
         "database": "postgresql" if pg else "sqlite",
         "login_rate_limit_backend": rl_backend,
         "postgres_pool": pool,
+        "parallelism": parallel,
         "recommended_env": {
             "DATABASE_URL": "postgresql://...",
             "REDIS_URL": "redis://...",
             "SERVICE_BUS_LOCAL": "false",
             "WEB_CONCURRENCY": "4+",
+            "WEB_REPLICAS": "2+",
             "PG_POOL_MAX": str(getattr(config, "PG_POOL_MAX", 20)),
             "SOFT_LAUNCH": "unset for institutional pitch",
+            "VIRAL_MODE": "true",
         },
         "checks": checks,
         "capacity_claim": {
