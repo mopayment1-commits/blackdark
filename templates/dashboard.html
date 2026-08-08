@@ -239,15 +239,28 @@
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
+
+        <section id="ai-chat" class="section-operate-plus hide-in-room">
+            <h2>AI Chat</h2>
+            <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
+            <div id="chatGate" class="empty" style="display:none">
+                AI Chat is on Decision Pro and Whale Desk.
+                <button class="btn" style="margin-top:.65rem" type="button" onclick="upgradeTier('pro')">Start Decision Pro</button>
+                <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
+            </div>
+            <div id="chatPanel" style="display:none">
+                <div id="chatLog" style="max-height:280px;overflow:auto;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;padding:.75rem;margin-bottom:.65rem;font-size:.88rem">
+                    <div class="empty" style="padding:.35rem">Ask about BTC, ETH, or the latest Oracle context…</div>
+                </div>
+                <div class="toolbar">
+                    <input id="chatInput" type="text" placeholder="What should I do with BTC?" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" onkeydown="if(event.key==='Enter')sendChat()">
+                    <button class="btn" type="button" onclick="sendChat()">Send</button>
+                </div>
+                <div id="chatFoot" style="margin-top:.55rem;font-size:.72rem;color:#71717a"></div>
+            </div>
+        </section>
     </main>
-    <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
-        <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
-        <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
-        · <a href="/api/lenses" style="color:#a1a1aa">Lenses</a> · <a href="/data-room" style="color:#a1a1aa">Room</a> · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
-        · <a href="/contact" style="color:#a1a1aa">Contact</a>
-        · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
-        · <a href="/legal" style="color:#a1a1aa">Legal</a>
-    </footer>
+    {% include "partials/site_footer.html" %}
 
     <script>
         const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, { maximumFractionDigits: d });
@@ -259,15 +272,79 @@
             return t ? { Authorization: 'Bearer ' + t } : {};
         }
 
+        let chatHistory = [];
+        let userTierId = 'free';
+
+        function syncChatGate() {
+            const gate = document.getElementById('chatGate');
+            const panel = document.getElementById('chatPanel');
+            if (!gate || !panel) return;
+            const allowed = userTierId === 'pro' || userTierId === 'whale' || userTierId === 'institutional';
+            gate.style.display = allowed ? 'none' : 'block';
+            panel.style.display = allowed ? 'block' : 'none';
+        }
+
+        function appendChat(role, text) {
+            const log = document.getElementById('chatLog');
+            if (!log) return;
+            if (log.querySelector('.empty')) log.innerHTML = '';
+            const row = document.createElement('div');
+            row.style.margin = '.45rem 0';
+            row.innerHTML = role === 'user'
+                ? `<div style="color:#a1a1aa"><strong>You</strong> · ${text}</div>`
+                : `<div style="color:#e4e4e7"><strong style="color:#22d3ee">AI</strong> · ${text}</div>`;
+            log.appendChild(row);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        async function sendChat() {
+            const input = document.getElementById('chatInput');
+            const foot = document.getElementById('chatFoot');
+            const message = (input?.value || '').trim();
+            if (!message) return;
+            input.value = '';
+            appendChat('user', message);
+            chatHistory.push({ role: 'user', content: message });
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+                    body: JSON.stringify({ message, history: chatHistory.slice(-8) }),
+                });
+                const d = await res.json();
+                if (res.status === 403) {
+                    syncChatGate();
+                    const detail = d.detail || {};
+                    appendChat('assistant', detail.message || 'Upgrade to Decision Pro for AI Chat.');
+                    if (foot) foot.textContent = 'Operate+ required';
+                    return;
+                }
+                if (!res.ok) throw new Error('chat_failed');
+                const reply = d.reply || 'No reply';
+                appendChat('assistant', reply);
+                chatHistory.push({ role: 'assistant', content: reply });
+                const cf = d.compliance_footer || {};
+                if (foot) {
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.'}`
+                        + (d.symbol ? ` · context ${d.symbol}` : '')
+                        + (d.source ? ` · ${d.source}` : '');
+                }
+            } catch (e) {
+                appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.');
+            }
+        }
+
         async function loadAuth() {
             const tierEl = document.getElementById('userTier');
             const authLink = document.getElementById('authLink');
             const token = localStorage.getItem('bd_token');
+            syncChatGate();
             if (!token) return;
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders() });
                 const d = await res.json();
                 if (d.authenticated) {
+                    userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
                     tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
                     authLink.textContent = 'Logout';
                     authLink.href = '#';
@@ -277,6 +354,7 @@
                         localStorage.removeItem('bd_token');
                         location.reload();
                     };
+                    syncChatGate();
                 }
             } catch (e) {}
         }

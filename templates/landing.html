@@ -508,29 +508,7 @@
             margin-bottom: 0.85rem;
         }
         
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem; text-align: center;
-            color: var(--text-muted);
-        }
-        
-        .social-links {
-            display: flex; gap: 1rem; justify-content: center;
-            margin: 1.5rem 0;
-        }
-        
-        .social-links a {
-            width: 40px; height: 40px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-muted); text-decoration: none;
-            transition: all 0.3s;
-        }
-        .social-links a:hover {
-            background: var(--accent); color: var(--bg);
-            border-color: var(--accent);
-        }
+        /* Site footer styles live in partials/site_footer.html */
         
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -820,23 +798,7 @@
         <p id="waitlistMessage" style="margin-top: 1rem; color: var(--success); display: none;"></p>
     </section>
     
-    <footer>
-        <div class="logo" style="margin-bottom: 1rem;">BLACKDARK</div>
-        <p>AI Crypto Intelligence Platform</p>
-        <div class="social-links">
-            <a href="https://twitter.com/intent/tweet?text=BLACKDARK%20%E2%80%94%20AI%20crypto%20signals%20in%2030%20seconds%20%F0%9F%94%AE" target="_blank">𝕏</a>
-            <a href="https://t.me/share/url?url=https://blackdark.io&text=BLACKDARK%20Oracle" target="_blank">TG</a>
-            <a href="/b2b">B2B</a>
-        </div>
-        <p style="font-size: 0.875rem; margin-top: 1rem;">
-            <a href="/terms" style="color:var(--text-muted);margin:0 0.5rem">Terms</a>
-            <a href="/privacy" style="color:var(--text-muted);margin:0 0.5rem">Privacy</a>
-            <a href="/disclaimer" style="color:var(--text-muted);margin:0 0.5rem">Disclaimer</a>
-        </p>
-        <p style="font-size: 0.875rem; margin-top: 0.5rem;">
-            © 2026 BLACKDARK. All rights reserved. Not financial advice.
-        </p>
-    </footer>
+    {% include "partials/site_footer.html" %}
     
     <script>
         window.lastOracleResult = null;

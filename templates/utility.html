@@ -12,21 +12,48 @@
         .nav-inner { max-width: 820px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         a { color: var(--accent); text-decoration: none; }
         .logo { font-weight: 700; letter-spacing: .04em; color: var(--fg); }
-        main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+        main { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.25rem 2rem; }
         h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: .75rem; }
         h2 { font-size: 1.05rem; color: var(--accent); margin: 1.25rem 0 .5rem; }
+        h3 { font-size: .95rem; color: var(--fg); margin: 0 0 .35rem; }
         p, li { color: var(--muted); line-height: 1.65; margin-bottom: .85rem; }
         ul { margin: 1rem 0 1.5rem 1.2rem; }
         .card { border-top: 1px solid var(--line); padding-top: 1.25rem; margin-top: 1.25rem; }
         .layer { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; margin: .75rem 0; background: rgba(17,17,24,.65); }
         .layer h3 { color: var(--fg); font-size: .95rem; margin-bottom: .35rem; }
         .deny { font-size: .82rem; }
-        footer { max-width: 820px; margin: 0 auto; padding: 1.25rem; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--line); }
+        .faq-item { border-bottom: 1px solid var(--line); padding: 1rem 0; }
+        .faq-item strong { color: var(--fg); display: block; margin-bottom: .35rem; }
+        .step { display: grid; grid-template-columns: 2.5rem 1fr; gap: .75rem; margin: 1rem 0; align-items: start; }
+        .step-n { width: 2.2rem; height: 2.2rem; border-radius: 10px; background: rgba(34,211,238,.12); color: var(--accent); display:flex; align-items:center; justify-content:center; font-weight:700; }
+        .status-pill { display:inline-block; padding:.2rem .55rem; border-radius:8px; border:1px solid var(--line); font-size:.75rem; text-transform:uppercase; letter-spacing:.04em; }
+        .status-ok { color:#22c55e; border-color:rgba(34,197,94,.35); }
+        .status-deg { color:#f59e0b; border-color:rgba(245,158,11,.35); }
+        .status-bad { color:#ef4444; border-color:rgba(239,68,68,.35); }
+        form.feedback label { display:block; font-size:.82rem; color:var(--muted); margin:.75rem 0 .3rem; }
+        form.feedback input, form.feedback select, form.feedback textarea {
+            width:100%; padding:.65rem .75rem; border-radius:10px; border:1px solid var(--line);
+            background:#111118; color:var(--fg); font:inherit;
+        }
+        form.feedback button {
+            margin-top:1rem; padding:.7rem 1.2rem; border:none; border-radius:10px; cursor:pointer;
+            background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#041016; font-weight:700;
+        }
+        .channel-list { list-style:none; margin-left:0; }
+        .channel-list li { margin-bottom:.65rem; }
+        .legal-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:.75rem; margin-top:1rem; }
+        .legal-grid a {
+            display:block; padding:.85rem 1rem; border:1px solid var(--line); border-radius:12px;
+            background:rgba(17,17,24,.65); color:var(--fg);
+        }
+        .legal-grid a:hover { border-color:var(--accent); color:var(--accent); }
+        .changelog-row { border-bottom:1px solid var(--line); padding:1rem 0; }
+        .changelog-row .date { font-size:.75rem; color:var(--accent); }
     </style>
 </head>
 <body>
     <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
-    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/b2b#fund-terminal">Funds</a></div></div></nav>
+    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/faq">FAQ</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/contact">Contact</a></div></div></nav>
     <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
@@ -168,26 +195,204 @@
         </div>
         {% elif page == 'contact' %}
         <div class="card">
-            <p>Product support and partnership inquiries:</p>
-            <ul>
-                <li>Email: <a href="mailto:support@blackdark.app">support@blackdark.app</a></li>
-                <li>B2B / allocators: use the <a href="/b2b#fund-terminal">Emerging Fund Terminal</a></li>
+            <p>Product support, suggestions, and partnership inquiries — never send card numbers or passwords.</p>
+            <ul class="channel-list">
+                <li><strong style="color:var(--fg)">Support:</strong>
+                    <a href="mailto:{{ contact.support_email if contact else 'support@blackdark.app' }}">{{ contact.support_email if contact else 'support@blackdark.app' }}</a>
+                </li>
+                <li><strong style="color:var(--fg)">Sales / Room:</strong>
+                    <a href="mailto:{{ contact.sales_email if contact else 'sales@blackdark.io' }}">{{ contact.sales_email if contact else 'sales@blackdark.io' }}</a>
+                </li>
+                <li><strong style="color:var(--fg)">Complaints:</strong>
+                    <a href="mailto:{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}">{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}</a>
+                    · <a href="/complaints">Complaints process</a>
+                </li>
+                {% if contact and contact.whatsapp_url %}
+                <li><strong style="color:var(--fg)">WhatsApp Business:</strong>
+                    <a href="{{ contact.whatsapp_url }}" target="_blank" rel="noopener">Chat on WhatsApp</a>
+                </li>
+                {% else %}
+                <li class="deny"><strong style="color:var(--fg)">WhatsApp Business:</strong> configure <code>WHATSAPP_BUSINESS_E164</code> to enable.</li>
+                {% endif %}
+                {% if contact and contact.institutional_phone %}
+                <li><strong style="color:var(--fg)">Institutional phone (Room):</strong> {{ contact.institutional_phone }}</li>
+                {% endif %}
+                <li>B2B / allocators: <a href="/b2b#fund-terminal">Emerging Fund Terminal</a> · <a href="/data-room">Data Room</a></li>
                 <li>Accuracy disputes: <a href="/oracle-accuracy">Public Accuracy Ledger</a></li>
+                <li>Product ideas: <a href="/feedback">Feedback / Suggestions</a></li>
             </ul>
-            <p>Replace support@ with your live inbox when Ops secrets are configured (human step).</p>
+            {% if contact and contact.sla_note %}
+            <p class="deny">{{ contact.sla_note }}</p>
+            {% endif %}
+            <h2>Follow us</h2>
+            <p>
+                {% for s in (footer.follow if footer else []) %}
+                <a href="{{ s.href }}" target="_blank" rel="noopener" style="margin-right:.75rem">{{ s.label }}</a>
+                {% endfor %}
+            </p>
         </div>
         {% elif page == 'complaints' %}
         <div class="card">
             <p>File a complaint about product claims, accuracy, billing, or conduct:</p>
             <ul>
-                <li>Email <a href="mailto:complaints@blackdark.app">complaints@blackdark.app</a> with prediction_id / certificate_hash when relevant</li>
+                <li>Email <a href="mailto:{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}">{{ contact.complaints_email if contact else 'complaints@blackdark.app' }}</a> with prediction_id / certificate_hash when relevant</li>
                 <li>We treat Anti-Hype seriously — prove-it, not trust-me</li>
-                <li>For billing, include your account email and checkout reference</li>
+                <li>For billing, include your account email and checkout reference — never card PAN/CVV</li>
+                <li>Product suggestions that are not complaints: <a href="/feedback">/feedback</a></li>
             </ul>
+        </div>
+        {% elif page == 'faq' %}
+        <div class="card">
+            {% for item in faq or [] %}
+            <div class="faq-item">
+                <strong>{{ item.q }}</strong>
+                <p style="margin:0">{{ item.a }}</p>
+            </div>
+            {% endfor %}
+            <p style="margin-top:1.25rem">
+                <a href="/how-it-works">How it works</a> ·
+                <a href="/contact">Contact</a> ·
+                <a href="/dashboard?lens=operate#ai-chat">AI Chat (Pro+)</a>
+            </p>
+        </div>
+        {% elif page == 'how_it_works' %}
+        <div class="card">
+            <p><strong style="color:var(--fg)">Three moves.</strong> Decide → Prove → Verify. Depth unlocks as Operate → Desk → Room.</p>
+            {% for step in steps or [] %}
+            <div class="step">
+                <div class="step-n">{{ loop.index }}</div>
+                <div>
+                    <h3>{{ step.title }}</h3>
+                    <p style="margin:0">{{ step.body }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <p style="margin-top:1.25rem">
+                <a href="/dashboard?lens=prove#decide">Open Decide</a> ·
+                <a href="/oracle-accuracy">Verify Ledger</a> ·
+                <a href="/#pricing">Pricing</a>
+            </p>
+        </div>
+        {% elif page == 'about' %}
+        <div class="card">
+            {% if about %}
+            <p><strong style="color:var(--fg)">{{ about.lead }}</strong></p>
+            <h2>What makes us different</h2>
+            <p>{{ about.difference }}</p>
+            <h2>Story</h2>
+            <p>{{ about.lenses }}</p>
+            {% endif %}
+            <h2>Follow us</h2>
+            <p>
+                {% for s in (about.follow if about else []) %}
+                <a href="{{ s.href }}" target="_blank" rel="noopener" style="margin-right:.75rem">{{ s.label }}</a>
+                {% endfor %}
+            </p>
+            <p><a href="/capabilities">Capabilities</a> · <a href="/data-room">Data Room</a> · <a href="/changelog">Changelog</a></p>
+        </div>
+        {% elif page == 'status' %}
+        <div class="card">
+            {% set st = status or {} %}
+            {% set overall = (st.overall or 'unknown') %}
+            <p>
+                Overall:
+                <span class="status-pill {% if overall == 'operational' %}status-ok{% elif overall == 'degraded' %}status-deg{% else %}status-bad{% endif %}">
+                    {{ overall }}
+                </span>
+                <span class="deny"> · updated {{ st.updated_at or '—' }}</span>
+            </p>
+            <h2>Components</h2>
+            <ul class="channel-list">
+                {% for c in st.components or [] %}
+                <li>
+                    <strong style="color:var(--fg)">{{ c.label }}</strong>
+                    · <span class="status-pill">{{ c.status }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% if st.billing %}
+            <h2>Billing</h2>
+            <p class="deny">Currency {{ st.billing.currency or 'USD' }} · PCI {{ st.billing.pci_posture or 'SAQ_A' }} · {{ st.billing.status }}</p>
+            {% endif %}
+            {% if st.honesty %}
+            <p class="deny">{{ st.honesty.note }}</p>
+            {% endif %}
+            <p>
+                Probes:
+                <a href="/health/live">live</a> ·
+                <a href="/health/ready">ready</a> ·
+                <a href="/health/viral">viral</a> ·
+                <a href="/api/status">JSON</a>
+            </p>
+        </div>
+        {% elif page == 'changelog' %}
+        <div class="card">
+            {% for row in changelog or [] %}
+            <div class="changelog-row">
+                <div class="date">{{ row.date }}</div>
+                <h3>{{ row.title }}</h3>
+                <p style="margin:0">{{ row.body }}</p>
+            </div>
+            {% endfor %}
+            <p style="margin-top:1rem"><a href="/api/changelog">JSON</a></p>
+        </div>
+        {% elif page == 'feedback' %}
+        <div class="card">
+            <p>Suggestions, UX friction, and feature ideas. For billing disputes use <a href="/complaints">Complaints</a>.</p>
+            <form class="feedback" id="feedbackForm">
+                <label for="fbCategory">Category</label>
+                <select id="fbCategory" name="category">
+                    <option value="suggestion">Suggestion</option>
+                    <option value="ux">UX friction</option>
+                    <option value="bug">Bug report</option>
+                    <option value="praise">Praise</option>
+                    <option value="other">Other</option>
+                </select>
+                <label for="fbEmail">Email (optional)</label>
+                <input id="fbEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email">
+                <label for="fbMessage">Message</label>
+                <textarea id="fbMessage" name="message" rows="5" required minlength="8" placeholder="What should we improve?"></textarea>
+                <button type="submit">Send feedback</button>
+                <p id="fbResult" class="deny" style="margin-top:.75rem"></p>
+            </form>
+            <script>
+                document.getElementById('feedbackForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const out = document.getElementById('fbResult');
+                    out.textContent = 'Sending…';
+                    try {
+                        const res = await fetch('/api/feedback', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                category: document.getElementById('fbCategory').value,
+                                email: document.getElementById('fbEmail').value,
+                                message: document.getElementById('fbMessage').value,
+                                page: location.pathname,
+                            }),
+                        });
+                        const d = await res.json();
+                        if (!res.ok) throw new Error((d.detail && (d.detail.message || d.detail)) || 'Failed');
+                        out.textContent = d.message || ('Received · ' + (d.id || ''));
+                        document.getElementById('fbMessage').value = '';
+                    } catch (err) {
+                        out.textContent = String(err.message || err);
+                    }
+                });
+            </script>
+        </div>
+        {% elif page == 'legal_hub' %}
+        <div class="card">
+            <div class="legal-grid">
+                {% for p in legal_pages or [] %}
+                <a href="{{ p.href }}">{{ p.label }}</a>
+                {% endfor %}
+            </div>
+            <p style="margin-top:1.25rem" class="deny">Not financial advice. AI cannot guarantee returns. Verify on the <a href="/oracle-accuracy">Public Accuracy Ledger</a>.</p>
         </div>
         {% endif %}
         <p><strong>Anti-Hype</strong> · Not financial advice · Verify claims on the Public Accuracy Ledger.</p>
     </main>
-    <footer>BLACKDARK · <a href="/legal">Legal</a> · <a href="/capabilities">Capabilities</a> · <a href="/compliance">Compliance</a> · <a href="/contact">Contact</a></footer>
+    {% include "partials/site_footer.html" %}
 </body>
 </html>

@@ -945,9 +945,15 @@ async def telegram_test(
     return await send_test_telegram(chat_id)
 
 
+def _footer_ctx() -> dict:
+    from site_services import footer_manifest
+
+    return {"footer": footer_manifest()}
+
+
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
-    return templates.TemplateResponse(request, "landing.html")
+    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
 
 
 @app.get("/robots.txt")
@@ -980,6 +986,16 @@ async def sitemap_xml(request: Request):
         "/capabilities",
         "/platform",
         "/login",
+        "/faq",
+        "/how-it-works",
+        "/about",
+        "/status",
+        "/changelog",
+        "/feedback",
+        "/contact",
+        "/legal",
+        "/cookies",
+        "/pricing",
     ]
     urls = "\n".join(
         f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
@@ -996,7 +1012,7 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html")
+    return templates.TemplateResponse(request, "dashboard.html", _footer_ctx())
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
@@ -1119,6 +1135,7 @@ async def capabilities_page(request: Request):
                 "Don't trust us. Verify us. API: /api/lenses"
             ),
             "trust_os": manifest,
+            **_footer_ctx(),
         },
     )
 
@@ -1148,6 +1165,7 @@ async def compliance_page(request: Request):
             ),
             "trust_os": manifest,
             "regulatory": regulatory,
+            **_footer_ctx(),
         },
     )
 
@@ -1165,6 +1183,7 @@ async def data_room_page(request: Request):
                 "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
                 "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
             ),
+            **_footer_ctx(),
         },
     )
 
@@ -1195,6 +1214,8 @@ async def api_viral_readiness():
 
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
+    from site_services import contact_channels
+
     return templates.TemplateResponse(
         request,
         "utility.html",
@@ -1202,12 +1223,16 @@ async def contact_page(request: Request):
             "page": "contact",
             "title": "Contact",
             "lead": "Reach the team for support, partnerships, and allocator diligence.",
+            "contact": contact_channels(),
+            **_footer_ctx(),
         },
     )
 
 
 @app.get("/complaints", response_class=HTMLResponse)
 async def complaints_page(request: Request):
+    from site_services import contact_channels
+
     return templates.TemplateResponse(
         request,
         "utility.html",
@@ -1215,8 +1240,172 @@ async def complaints_page(request: Request):
             "page": "complaints",
             "title": "Complaints",
             "lead": "Escalation path for claim disputes, accuracy, and billing issues.",
+            "contact": contact_channels(),
+            **_footer_ctx(),
         },
     )
+
+
+@app.get("/faq", response_class=HTMLResponse)
+async def faq_page(request: Request):
+    from site_services import FAQ_ITEMS
+
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "faq",
+            "title": "FAQ",
+            "lead": "Straight answers on Proof Pass, Decision Pro, Whale Desk, sharing, and AI Chat.",
+            "faq": FAQ_ITEMS,
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/how-it-works", response_class=HTMLResponse)
+async def how_it_works_page(request: Request):
+    from site_services import HOW_IT_WORKS_STEPS
+
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "how_it_works",
+            "title": "How it works",
+            "lead": "Decide. Prove it. Verify on the Public Accuracy Ledger.",
+            "steps": HOW_IT_WORKS_STEPS,
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/about", response_class=HTMLResponse)
+async def about_page(request: Request):
+    from site_services import about_blurb
+
+    about = about_blurb()
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "about",
+            "title": about["title"],
+            "lead": "Trust OS for crypto decision intelligence — one product, four lenses.",
+            "about": about,
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/status", response_class=HTMLResponse)
+async def status_page(request: Request):
+    from site_services import public_status_report
+
+    status = public_status_report()
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "status",
+            "title": "System status",
+            "lead": "Public engineering posture — no secrets, no contractual SLA unless contracted.",
+            "status": status,
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/changelog", response_class=HTMLResponse)
+async def changelog_page(request: Request):
+    from site_services import CHANGELOG
+
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "changelog",
+            "title": "Changelog",
+            "lead": "What shipped on the Trust OS trust rail.",
+            "changelog": CHANGELOG,
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/feedback", response_class=HTMLResponse)
+async def feedback_page(request: Request):
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "feedback",
+            "title": "Feedback & suggestions",
+            "lead": "Tell us what to improve. Never include card numbers or passwords.",
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/legal", response_class=HTMLResponse)
+async def legal_hub_page(request: Request):
+    from site_services import legal_hub_manifest
+
+    hub = legal_hub_manifest()
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "legal_hub",
+            "title": hub["title"],
+            "lead": hub["lead"],
+            "legal_pages": hub["pages"],
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/api/site-services")
+async def api_site_services():
+    from site_services import site_services_manifest
+
+    return site_services_manifest()
+
+
+@app.get("/api/status")
+async def api_public_status():
+    from site_services import public_status_report
+
+    return public_status_report()
+
+
+@app.get("/api/changelog")
+async def api_changelog():
+    from site_services import CHANGELOG
+
+    return {"entries": CHANGELOG}
+
+
+@app.get("/api/faq")
+async def api_faq():
+    from site_services import FAQ_ITEMS
+
+    return {"items": FAQ_ITEMS}
+
+
+@app.post("/api/feedback")
+async def api_feedback(data: dict = Body(...)):
+    from site_services import submit_feedback
+
+    try:
+        return submit_feedback(
+            category=str(data.get("category") or "suggestion"),
+            message=str(data.get("message") or ""),
+            email=str(data.get("email") or ""),
+            page=str(data.get("page") or ""),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
@@ -2126,7 +2315,7 @@ def _legal_page(request: Request, page: str):
     return templates.TemplateResponse(
         request,
         "legal.html",
-        {"page": page, **content},
+        {"page": page, **content, **_footer_ctx()},
     )
 
 
@@ -2148,6 +2337,11 @@ async def disclaimer_page(request: Request):
 @app.get("/refund", response_class=HTMLResponse)
 async def refund_page(request: Request):
     return _legal_page(request, "refund")
+
+
+@app.get("/cookies", response_class=HTMLResponse)
+async def cookies_page(request: Request):
+    return _legal_page(request, "cookies")
 
 
 @app.get("/api/b2b/demo/proposal")
@@ -3141,7 +3335,7 @@ async def checkout_cancel(request: Request):
 
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
-    return templates.TemplateResponse(request, "landing.html")
+    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
 
 
 if __name__ == "__main__":

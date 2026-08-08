@@ -81,4 +81,24 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>Subscription fees pay for software access and decision intelligence tools. We do not guarantee trading profits. See the Risk Disclaimer.</p>
 """,
     },
+    "cookies": {
+        "title": "Cookies & Local Storage",
+        "title_ar": "ملفات تعريف الارتباط",
+        "updated": "August 8, 2026",
+        "html": """
+<h2>1. What we use</h2>
+<p>BLACKDARK uses browser <strong>localStorage</strong> for session tokens (dashboard auth), UI preferences (language / UX mode), and optional in-browser portfolio drafts. We do not run invasive third-party ad trackers on core Trust OS surfaces.</p>
+<h2>2. Essential vs optional</h2>
+<p><strong>Essential:</strong> auth token storage so you stay signed in; CSRF/OAuth state during login flows; security-related cookies if your browser session uses HTTP-only session cookies in future deployments.</p>
+<p><strong>Optional / product:</strong> local draft holdings for Portfolio AI (stay on-device until you analyze); theme or lens preference if saved client-side.</p>
+<h2>3. Analytics</h2>
+<p>Aggregated counters (e.g. Oracle usage) may be recorded server-side for product integrity and rate limits. They are not sold as advertising profiles.</p>
+<h2>4. Payments</h2>
+<p>Checkout is hosted by Lemon Squeezy or Stripe. Those processors may set their own cookies on their domains during payment — see their policies. BLACKDARK never stores card PAN/CVV.</p>
+<h2>5. Your controls</h2>
+<p>Clear site data in your browser to remove localStorage tokens (you will need to log in again). For account deletion requests, email support. Full privacy details: <a href="/privacy">Privacy Policy</a>.</p>
+<h2>6. Contact</h2>
+<p>Questions about cookies or storage: <a href="/contact">Contact</a> · Legal hub: <a href="/legal">/legal</a>.</p>
+""",
+    },
 }

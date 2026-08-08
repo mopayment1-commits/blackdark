@@ -1,0 +1,77 @@
+{# Unified Trust OS footer — expects `footer` from site_services.footer_manifest() #}
+<style>
+    .bd-site-footer {
+        max-width: 1100px; margin: 2.5rem auto 0; padding: 2rem 1.25rem 2.5rem;
+        border-top: 1px solid #2a2a35; color: #71717a; font-size: .78rem; line-height: 1.65;
+    }
+    .bd-site-footer .bd-foot-brand { font-size: 1.05rem; font-weight: 800; color: #22d3ee; letter-spacing: .04em; }
+    .bd-site-footer .bd-foot-tag { color: #a1a1aa; margin: .35rem 0 1.1rem; }
+    .bd-site-footer .bd-foot-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1.25rem 1.5rem; text-align: left; margin-bottom: 1.25rem;
+    }
+    .bd-site-footer h4 { color: #e4e4e7; font-size: .78rem; margin-bottom: .45rem; text-transform: uppercase; letter-spacing: .06em; }
+    .bd-site-footer ul { list-style: none; padding: 0; margin: 0; }
+    .bd-site-footer li { margin: .28rem 0; }
+    .bd-site-footer a { color: #a1a1aa; text-decoration: none; }
+    .bd-site-footer a:hover { color: #22d3ee; }
+    .bd-site-footer .bd-follow { display: flex; flex-wrap: wrap; gap: .55rem; margin: .75rem 0 1rem; }
+    .bd-site-footer .bd-follow a {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 2.4rem; padding: .4rem .7rem; border: 1px solid #2a2a35; border-radius: 10px;
+        background: rgba(17,17,24,.75); color: #e4e4e7; font-weight: 600; font-size: .78rem;
+    }
+    .bd-site-footer .bd-follow a:hover { border-color: #22d3ee; color: #22d3ee; }
+    .bd-site-footer .bd-foot-bottom { border-top: 1px solid #2a2a35; padding-top: 1rem; margin-top: .5rem; }
+</style>
+<footer class="bd-site-footer" role="contentinfo">
+    {% set f = footer if footer is defined and footer else {} %}
+    <div class="bd-foot-brand">{{ f.brand or 'BLACKDARK' }}</div>
+    <p class="bd-foot-tag">{{ f.tagline or 'Trust OS — Decide. Prove it. Share it.' }} · {{ f.story or 'Prove → Operate → Desk → Room' }}</p>
+    <div class="bd-foot-grid">
+        <div>
+            <h4>Product</h4>
+            <ul>
+                {% for item in f.product or [] %}
+                <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h4>Trust</h4>
+            <ul>
+                {% for item in f.trust or [] %}
+                <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h4>Company</h4>
+            <ul>
+                {% for item in f.company or [] %}
+                <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h4>Legal</h4>
+            <ul>
+                {% for item in f.legal or [] %}
+                <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <h4>Follow us</h4>
+    <div class="bd-follow" aria-label="Follow BLACKDARK">
+        {% for s in f.follow or [] %}
+        <a href="{{ s.href }}" target="_blank" rel="noopener noreferrer">{{ s.label }}</a>
+        {% endfor %}
+    </div>
+    <div class="bd-foot-bottom">
+        <strong style="color:#a1a1aa">Anti-Hype</strong> · {{ f.disclaimer_line or 'Not financial advice. Verify on the Public Accuracy Ledger.' }}
+        · <a href="/oracle-accuracy">Ledger</a>
+        · <a href="/status">Status</a>
+        · © 2026 BLACKDARK
+    </div>
+</footer>
