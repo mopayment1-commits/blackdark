@@ -138,6 +138,8 @@ async def graphql_context(request) -> GraphContext:
 
     auth = request.headers.get("Authorization") or ""
     token = auth[7:] if auth.startswith("Bearer ") else auth
+    if not token.strip():
+        token = (request.cookies.get("bd_token") or "").strip()
     user = await get_user_from_token(token.strip()) if token.strip() else None
     ctx = GraphContext()
     ctx.user = user
@@ -145,4 +147,15 @@ async def graphql_context(request) -> GraphContext:
 
 
 def create_graphql_router() -> GraphQLRouter:
-    return GraphQLRouter(schema, path="/graphql", context_getter=graphql_context)
+    # Disable legacy graphql-ws (auth bypass class of vulns); transport-ws only when supported.
+    kwargs: dict[str, Any] = {
+        "path": "/graphql",
+        "context_getter": graphql_context,
+    }
+    try:
+        from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL
+
+        kwargs["subscription_protocols"] = [GRAPHQL_TRANSPORT_WS_PROTOCOL]
+    except Exception:
+        pass
+    return GraphQLRouter(schema, **kwargs)

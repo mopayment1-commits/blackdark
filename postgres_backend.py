@@ -173,16 +173,24 @@ async def init_pool() -> None:
     global _pool
     if _pool is not None or not use_postgres():
         return
+    import os
+
     import asyncpg
 
     url = config.DATABASE_URL.strip()
+    viral = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
+    default_max = 40 if viral else 20
+    max_size = int(os.getenv("PG_POOL_MAX", str(getattr(config, "PG_POOL_MAX", default_max))))
+    min_size = int(os.getenv("PG_POOL_MIN", "4" if viral else "2"))
+    min_size = max(1, min(min_size, max_size))
     _pool = await asyncpg.create_pool(
         url,
-        min_size=2,
-        max_size=int(getattr(config, "PG_POOL_MAX", 20)),
-        command_timeout=30,
+        min_size=min_size,
+        max_size=max_size,
+        command_timeout=float(os.getenv("PG_COMMAND_TIMEOUT_SEC", "20")),
+        max_inactive_connection_lifetime=float(os.getenv("PG_MAX_INACTIVE_CONN_LIFETIME", "300")),
     )
-    logger.info("PostgreSQL pool ready.")
+    logger.info("PostgreSQL pool ready (min=%s max=%s viral=%s).", min_size, max_size, viral)
 
 
 async def close_pool() -> None:

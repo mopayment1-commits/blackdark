@@ -1,0 +1,38 @@
+{
+  "product": "BLACKDARK",
+  "note": "Import-equivalent Cloudflare WAF / rate-limit ideas. Activate in Cloudflare dashboard — templates are not auto-applied.",
+  "tls": {
+    "mode": "Full (strict)",
+    "min_tls": "1.2",
+    "always_https": true,
+    "hsts": true
+  },
+  "rate_limits": [
+    {
+      "path": "/api/auth/*",
+      "requests_per_minute": 20,
+      "action": "block"
+    },
+    {
+      "path": "/oracle/*",
+      "requests_per_minute": 120,
+      "action": "challenge"
+    },
+    {
+      "path": "/api/*",
+      "requests_per_minute": 300,
+      "action": "challenge"
+    }
+  ],
+  "waf": [
+    "Managed OWASP ruleset — enable",
+    "Block countries only if product geography requires it",
+    "Bot Fight Mode / Super Bot Fight — enable for public marketing pages",
+    "Challenge requests with high threat score"
+  ],
+  "origin": {
+    "authenticated_origin_pulls": "recommended",
+    "hide_origin_ip": true,
+    "allowlist_cloudflare_ips_on_nginx": true
+  }
+}

@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI, Request, HTTPException, Header, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
+﻿from fastapi import FastAPI, Request, HTTPException, Header, Cookie, BackgroundTasks, Body, Depends, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -39,8 +39,8 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 STRIPE_TIERS = {
-    "pro": {"amount": 2900, "name": "BLACKDARK Pro"},
-    "whale": {"amount": 19900, "name": "BLACKDARK Whale"},
+    "pro": {"amount": 2900, "name": "Decision Pro"},
+    "whale": {"amount": 19900, "name": "Whale Desk"},
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
 
 
@@ -216,7 +216,7 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
         }
 
-    return {
+    result = {
         "holdings": holdings,
         "total_value": round(total_value, 2),
         "total_value_formatted": f"${total_value:,.2f}",
@@ -236,6 +236,17 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "compliance_footer": compliance,
         "hero": "portfolio_ai",
     }
+    try:
+        from heroes_quality import build_portfolio_clarity
+
+        clarity = build_portfolio_clarity(result)
+        result["one_sentence"] = clarity["one_sentence"]
+        result["clarity"] = clarity
+    except Exception:
+        result["one_sentence"] = (
+            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
+        )
+    return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
 _BOOT_DB_READY = False
@@ -349,7 +360,32 @@ async def lifespan(app: FastAPI):
             logger.exception("Background shutdown failed")
 
 
-app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
+# Public /docs is our evidence/read developer page (not full Swagger dump).
+# Full schema remains at /api/docs/openapi.json; filtered at /api/docs/public-openapi.json.
+app = FastAPI(
+    title="BLACKDARK",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url="/openapi.json",
+)
+
+
+# CORS allowlist (never '*' with credentials) — added before route middleware stack.
+try:
+    from security_middleware import apply_cors
+
+    apply_cors(app)
+except Exception:
+    pass
+
+try:
+    from security_middleware import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
+except Exception:
+    pass
 
 
 @app.middleware("http")
@@ -363,6 +399,14 @@ async def utf8_response_headers(request: Request, call_next):
         elif "text/html" in ct:
             response.headers["content-type"] = "text/html; charset=utf-8"
     return response
+
+
+@app.middleware("http")
+async def viral_capacity_middleware(request: Request, call_next):
+    """Load shedding + shared rate limits under viral / production traffic."""
+    from viral_capacity import viral_protection_middleware
+
+    return await viral_protection_middleware(request, call_next)
 
 
 @app.middleware("http")
@@ -473,12 +517,19 @@ if STATIC_DIR.exists():
     app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
-async def optional_user(authorization: str | None = Header(None, alias="Authorization")) -> dict | None:
+async def optional_user(
+    authorization: str | None = Header(None, alias="Authorization"),
+    bd_token: str | None = Cookie(None, alias="bd_token"),
+) -> dict | None:
     from auth_service import get_user_from_token
 
-    if not authorization:
+    token: str | None = None
+    if authorization:
+        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+    elif bd_token:
+        token = bd_token.strip()
+    if not token:
         return None
-    token = authorization[7:] if authorization.startswith("Bearer ") else authorization
     return await get_user_from_token(token.strip())
 
 
@@ -838,10 +889,30 @@ async def telegram_status():
 
 
 @app.post("/api/alerts/telegram/test")
-async def telegram_test(data: dict = Body(default={})):
+async def telegram_test(
+    data: dict = Body(default={}),
+    user: dict = Depends(require_authenticated),
+):
+    """Authenticated only — send test to the caller's own chat_id (or admin override)."""
     from telegram_monitor import send_test_telegram
 
-    chat_id = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
+    requested = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
+    profile_chat = None
+    try:
+        from database import fetch_user_profile
+
+        profile = await fetch_user_profile(user["email"])
+        profile_chat = (profile or {}).get("telegram_chat_id")
+    except Exception:
+        pass
+    # Non-admins may only target their own stored chat id (or default bot chat).
+    if requested and not is_admin_user(user):
+        if not profile_chat or str(requested) != str(profile_chat):
+            raise HTTPException(
+                status_code=403,
+                detail="chat_id must match your profile telegram_chat_id (or omit to use default)",
+            )
+    chat_id = requested or profile_chat
     return await send_test_telegram(chat_id)
 
 
@@ -873,8 +944,11 @@ async def sitemap_xml(request: Request):
         "/",
         "/dashboard",
         "/oracle-accuracy",
+        "/errors",
+        "/docs",
         "/b2b",
         "/discipline-mirror",
+        "/capabilities",
         "/platform",
         "/login",
     ]
@@ -900,6 +974,46 @@ async def dashboard_page(request: Request):
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return templates.TemplateResponse(request, "discipline.html")
+
+
+@app.get("/my/discipline-mirror")
+async def discipline_mirror_alias():
+    """Critical-report alias — same private mirror, no seventh product."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/discipline-mirror", status_code=307)
+
+
+@app.get("/errors")
+async def public_errors_alias():
+    """Public admission of misses — alias into the Accuracy Ledger losing section."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+
+
+@app.get("/public/accuracy-ledger")
+async def public_accuracy_ledger_alias():
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy", status_code=307)
+
+
+@app.get("/docs", response_class=HTMLResponse)
+async def public_developer_docs_page(request: Request):
+    """Limited public developer docs (evidence/read APIs) — not full execution surface."""
+    from public_api_docs import public_docs_manifest
+
+    return templates.TemplateResponse(
+        request,
+        "docs_public.html",
+        {"title": "Developer Docs", "manifest": public_docs_manifest()},
+    )
+
+
+@app.get("/docs/public", response_class=HTMLResponse)
+async def public_developer_docs_alias(request: Request):
+    return await public_developer_docs_page(request)
 
 
 @app.get("/api/dashboard/stream")
@@ -961,15 +1075,92 @@ async def platform_hub_page(request: Request):
 
 @app.get("/capabilities", response_class=HTMLResponse)
 async def capabilities_page(request: Request):
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
         "utility.html",
         {
             "page": "capabilities",
-            "title": "Capabilities",
-            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+            "title": "Capabilities — Trust OS",
+            "lead": (
+                "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
+                "Not 15/16 platforms. Six heroes. No ARENA. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
         },
     )
+
+
+@app.get("/compliance", response_class=HTMLResponse)
+async def compliance_page(request: Request):
+    """Anti-Hype / Legal Shield public page — engineering posture, not a license."""
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
+    regulatory = {}
+    try:
+        from regulatory_compliance_guard import regulatory_compliance_status
+
+        regulatory = regulatory_compliance_status()
+    except Exception:
+        regulatory = {"status": "engineering_posture_only"}
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "compliance",
+            "title": "Anti-Hype Compliance",
+            "lead": (
+                "Engineering posture and overclaim denylist — not SEC/MiCA licensing, "
+                "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
+            "regulatory": regulatory,
+        },
+    )
+
+
+@app.get("/data-room", response_class=HTMLResponse)
+async def data_room_page(request: Request):
+    """Committee-facing data room index (HTML)."""
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "data_room",
+            "title": "Data Room",
+            "lead": (
+                "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
+                "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
+            ),
+        },
+    )
+
+
+@app.get("/api/trust-os")
+async def api_trust_os():
+    """Honest acquisition framing — four value layers + overclaim denylist."""
+    from trust_os import trust_os_manifest
+
+    return trust_os_manifest()
+
+
+@app.get("/api/scale/readiness")
+async def api_scale_readiness():
+    """Honest concurrent-scale posture for ops and diligence."""
+    from scale_readiness import scale_readiness_report
+
+    return scale_readiness_report()
+
+
+@app.get("/api/viral/readiness")
+async def api_viral_readiness():
+    """Viral launch capacity posture — protections + HA prerequisites."""
+    from viral_capacity import viral_readiness_report
+
+    return viral_readiness_report()
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -1091,55 +1282,98 @@ async def oracle_explain(
 
 
 @app.get("/oracle/{symbol}/quick")
-async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONResponse:
-    """Instant verdict + ACTION line (target <100ms) — WS price first, no REST wait."""
+async def oracle_quick(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    lang: str = "en",
+    ux_mode: str = "beginner",
+) -> JSONResponse:
+    """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
     import time
 
     from live_book_hub import get_best_price
+    from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
+    cached = quick_cache_get(asset, lang, ux_mode)
+    if cached is not None:
+        cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
+        return JSONResponse(cached)
 
-    row = get_best_price("binance", f"{asset}/USDT")
-    market = None
-    if row and row.get("mid"):
-        market = {
-            "price": float(row["mid"]),
-            "change_24h": 0.0,
-            "volume": 0.0,
-            "quote_volume": 0.0,
-            "source": "websocket_live",
+    async def _compute() -> dict:
+        row = get_best_price("binance", f"{asset}/USDT")
+        market = None
+        if row and row.get("mid"):
+            market = {
+                "price": float(row["mid"]),
+                "change_24h": 0.0,
+                "volume": 0.0,
+                "quote_volume": 0.0,
+                "source": "websocket_live",
+            }
+        if market is None:
+            market = await _fetch_binance_ticker(pair)
+        if market is None:
+            raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+        price = market["price"]
+        quote_volume = market["quote_volume"] or (market["volume"] * price)
+        change = market["change_24h"]
+
+        from market_context import oracle_score
+
+        score = oracle_score(quote_volume, change)
+        if _is_stablecoin(asset):
+            score = min(score, 55)
+        verdict, _ = _oracle_verdict(score, asset, price)
+        support = round(price * 0.97, -2)
+        resistance = round(price * 1.03, -2)
+        action = _oracle_action(score, price, support, resistance)
+        sentiment = _oracle_sentiment(change)
+        decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+        try:
+            from i18n_service import decision_sentence as _dec
+
+            decision_sentence = _dec(lang, decision_action, asset, score)
+        except Exception:
+            decision_sentence = (
+                f"{decision_action} on {asset} — score {score}. "
+                f"Analytical summary (not advice): {action}"
+            )
+        return {
+            "symbol": asset,
+            "price": price,
+            "change_24h": change,
+            "verdict": verdict,
+            "decision_action": decision_action,
+            "decision_sentence": decision_sentence,
+            "opportunity_score": score,
+            "action": action,
+            "action_line": f"Analytics summary: {action}",
+            "oracle": decision_sentence,
+            "sentiment": sentiment,
+            "engine": "quick_rules_v1",
+            "latency_target_ms": 100,
+            "ux_mode": ux_mode,
+            "lang": lang,
+            "viral_cache": "miss",
         }
-    if market is None:
-        market = await _fetch_binance_ticker(pair)
-    if market is None:
-        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
 
-    price = market["price"]
-    quote_volume = market["quote_volume"] or (market["volume"] * price)
-    change = market["change_24h"]
-
-    from market_context import oracle_score
-
-    score = oracle_score(quote_volume, change)
-    if _is_stablecoin(asset):
-        score = min(score, 55)
-    verdict, _ = _oracle_verdict(score, asset, price)
-    support = round(price * 0.97, -2)
-    resistance = round(price * 1.03, -2)
-    action = _oracle_action(score, price, support, resistance)
-    sentiment = _oracle_sentiment(change)
+    payload = await run_oracle_bounded(_compute)
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+    payload["latency_ms"] = latency_ms
+    payload["meets_latency_target"] = latency_ms <= 100
 
     background_tasks.add_task(
         _log_oracle_prediction,
         {
             "symbol": asset,
             "asset": asset,
-            "price": price,
-            "verdict": verdict,
-            "opportunity_score": score,
-            "confidence": score,
+            "price": payload.get("price"),
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "confidence": payload.get("opportunity_score"),
             "kind": "oracle_quick",
         },
     )
@@ -1147,26 +1381,35 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         _record_behavior,
         "oracle_query",
         asset=asset,
-        payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
+        payload={
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "engine": "quick_rules_v1",
+        },
     )
 
-    payload = {
-        "symbol": asset,
-        "price": price,
-        "change_24h": change,
-        "verdict": verdict,
-        "opportunity_score": score,
-        "action": action,
-        "action_line": f"Analytics summary: {action}",
-        "sentiment": sentiment,
-        "latency_ms": latency_ms,
-        "engine": "quick_rules_v1",
-        "latency_target_ms": 100,
-        "meets_latency_target": latency_ms <= 100,
-    }
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload.setdefault("tier", "free")
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle_quick",
+            trust_basis="public_accuracy_ledger + quick_rules_engine",
+        )
+    except Exception:
+        pass
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        pass
     from security_sanitize import sanitize_oracle_payload
 
-    return JSONResponse(sanitize_oracle_payload(payload))
+    clean = sanitize_oracle_payload(payload)
+    quick_cache_set(asset, lang, ux_mode, clean)
+    return JSONResponse(clean)
 
 
 @app.get("/oracle/{symbol}")
@@ -1315,6 +1558,7 @@ async def oracle(
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
+        payload["tier"] = (user or {}).get("tier") or "free"
         payload["decision_certificate"] = build_decision_certificate(payload)
         payload["compliance_footer"] = compliance_footer_block(
             surface="single_sentence_oracle",
@@ -1322,6 +1566,27 @@ async def oracle(
         )
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
+
+    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
+    try:
+        from oracle_scenarios import build_oracle_scenarios
+
+        payload["scenarios"] = build_oracle_scenarios(payload)
+    except Exception:
+        logger.debug("Oracle scenarios attach failed", exc_info=True)
+
+    # Hero #1 — Why in <5s (normalized Top-3 for UI)
+    try:
+        from heroes_quality import build_oqs_why_block
+
+        payload["oqs_why"] = build_oqs_why_block(payload)
+        if payload["oqs_why"].get("top_3_factors"):
+            expl = payload.get("explanation") or {}
+            if isinstance(expl, dict) and not expl.get("top_3_factors"):
+                expl = {**expl, "top_3_factors": payload["oqs_why"]["top_3_factors"]}
+                payload["explanation"] = expl
+    except Exception:
+        logger.debug("OQS why block attach failed", exc_info=True)
 
     # Durable product alert without Telegram when Oracle says ACT.
     try:
@@ -1363,6 +1628,13 @@ async def oracle(
         increment_metric("oracle_queries_total")
     except Exception:
         pass
+
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        logger.debug("Oracle freshness attach failed", exc_info=True)
 
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
@@ -1747,9 +2019,15 @@ async def b2b_info():
 async def b2b_ws_info():
     from b2b_websocket_hub import get_b2b_ws_hub
 
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
+    auth: dict[str, Any] = {"query": "api_key"}
+    if expose_demo:
+        auth["demo_key"] = config.B2B_DEMO_API_KEY
+    else:
+        auth["demo_key"] = "contact-sales"
     return {
         "endpoint": "/ws/b2b/feed",
-        "auth": {"query": "api_key", "demo_key": config.B2B_DEMO_API_KEY},
+        "auth": auth,
         "feed_version": config.B2B_FEED_VERSION,
         **get_b2b_ws_hub().stats(),
         "events": [
@@ -1835,6 +2113,11 @@ async def privacy_page(request: Request):
 @app.get("/disclaimer", response_class=HTMLResponse)
 async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
+
+
+@app.get("/refund", response_class=HTMLResponse)
+async def refund_page(request: Request):
+    return _legal_page(request, "refund")
 
 
 @app.get("/api/b2b/demo/proposal")
@@ -1947,7 +2230,7 @@ async def alerts_subscribe(
 
 
 @app.post("/api/alerts/test")
-async def alerts_test():
+async def alerts_test(_admin: dict = Depends(require_admin)):
     from alert_service import send_test_alert
 
     return await send_test_alert()
@@ -1970,10 +2253,13 @@ async def alerts_inbox(
 
 
 @app.post("/api/alerts/inbox/{alert_id}/read")
-async def alerts_inbox_mark_read(alert_id: str):
+async def alerts_inbox_mark_read(
+    alert_id: str,
+    user: dict = Depends(require_authenticated),
+):
     from in_app_alerts import mark_read
 
-    row = mark_read(alert_id)
+    row = mark_read(alert_id, user_email=str(user.get("email") or ""))
     if not row:
         raise HTTPException(status_code=404, detail="Alert not found")
     return {"ok": True, "alert": row}
@@ -2395,29 +2681,65 @@ async def api_due_diligence_coverage():
     return run_profit_fee_coverage()
 
 
-@app.get("/api/security/status")
-async def api_security_status():
-    """Public security posture summary for due diligence."""
-    import secrets_vault
-    from security_auth import admin_emails
+@app.get("/api/security/admin-mfa")
+async def api_security_admin_mfa(_admin: dict = Depends(require_admin_dev)):
+    """Admin MFA policy status (does not reveal ADMIN_TOTP_SECRET)."""
+    from admin_mfa import mfa_status
+
+    return mfa_status()
+
+
+@app.get("/api/security/events")
+async def api_security_events(
+    limit: int = 50,
+    kind: str | None = None,
+    _admin: dict = Depends(require_admin),
+):
+    from security_events import recent_security_events, security_events_stats
 
     return {
-        "password_hashing": "PBKDF2-SHA256 (260k iterations)",
-        "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
-        "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
-        "model_weights": "Fernet + HMAC integrity (admin-gated API)",
-        "execution_endpoints": "whale_tier_required",
-        "panic_button": "cancel_all_orders + stop loop + risk freeze",
-        "risk_freeze": "persistent (SQLite, survives restart)",
-        "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
-        "admin_endpoints": "X-Admin-Key or admin email",
-        "rate_limiting": "login 10 attempts / 5 min",
-        "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
-        "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
-        "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
+        "stats": security_events_stats(),
+        "events": recent_security_events(limit=min(limit, 200), kind=kind),
+    }
+
+
+@app.get("/api/security/status")
+async def api_security_status():
+    """Public security posture summary for due diligence (not a certification)."""
+    from security_auth import login_rate_limit_backend
+    from security_posture import security_posture_report
+
+    from postgres_backend import use_postgres
+
+    report = security_posture_report()
+    vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
+    return {
+        **report,
+        "at_rest_encryption": {
+            "status": "fernet_vault_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
+            "user_keys": "encrypted",
+            "iso_27001_certificate": False,
+            "note": "Engineering posture with Fernet at-rest encryption ≠ ISO 27001 certification",
+        },
+        "database_posture": {
+            "engine": "postgresql" if use_postgres() else "sqlite",
+            "institutional_pitch_requires_postgres": True,
+            "soft_launch_sqlite_ok": True,
+        },
+        "secrets_policy": {
+            "hardcoded_keys_forbidden": True,
+            "env_vault_required": True,
+            "hashicorp_vault_required": False,
+            "note": "Use env SECRETS_MASTER_KEY / SECRETS_VAULT_KEY — HashiCorp Vault is optional ops, not a ship claim",
+        },
+        "login_rate_limit_backend": login_rate_limit_backend(),
         "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
-        "admin_emails_configured": len(admin_emails()) > 0,
-        "docs": "/SECURITY.md",
+        "public_developer_docs": "/docs",
+        "architecture_index": "ARCHITECTURE.md",
+        "data_room": "/data-room",
+        "scale_readiness": "/api/scale/readiness",
+        "viral_readiness": "/api/viral/readiness",
+        "hardening_doc": "docs/SECURITY_HARDENING.md",
     }
 
 
@@ -2464,6 +2786,21 @@ async def api_openapi_export():
     return app.openapi()
 
 
+@app.get("/api/docs/public-openapi.json")
+async def api_public_openapi_export():
+    """Evidence/read OpenAPI only — omits admin/billing/execution write surfaces."""
+    from public_api_docs import filter_openapi_for_public
+
+    return filter_openapi_for_public(app.openapi())
+
+
+@app.get("/api/docs/public-manifest")
+async def api_public_docs_manifest():
+    from public_api_docs import public_docs_manifest
+
+    return public_docs_manifest()
+
+
 @app.get("/health/live")
 async def health_live():
     """Instant liveness probe — no DB/Redis (target <50ms)."""
@@ -2492,6 +2829,23 @@ async def health_ready():
     # Local soft-open only when explicitly allowed by lifespan
     if _BOOT_DB_READY and not _BOOT_DB_OK:
         ready = True  # local/dev soft path set by lifespan
+    soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    viral_mode = os.getenv("VIRAL_MODE", "true").lower() in {"1", "true", "yes"}
+    viral_gate = False
+    viral_redis = None
+    # Strict viral prod: refuse ready traffic if Redis is down (Soft Launch exempt).
+    if ready and viral_mode and not soft and os.getenv("ENV", "").lower() in {"production", "prod"}:
+        try:
+            from viral_capacity import redis_live
+
+            viral_redis = redis_live()
+            viral_gate = True
+            if not viral_redis:
+                ready = False
+        except Exception:
+            viral_gate = True
+            viral_redis = False
+            ready = False
     payload = {
         "status": "ok" if ready else "starting",
         "probe": "ready",
@@ -2499,8 +2853,22 @@ async def health_ready():
         "database_engine": engine,
         "postgres_pool": pool_stats(),
         "service_bus": bus_stats(),
+        "viral_redis_gate": viral_gate,
+        "viral_redis_live": viral_redis,
     }
     if not ready:
+        return JSONResponse(payload, status_code=503)
+    return payload
+
+
+@app.get("/health/viral")
+async def health_viral():
+    """Viral/HA admission probe — Redis + multi-instance + middleware (not Soft Launch)."""
+    from fastapi.responses import JSONResponse
+    from viral_capacity import viral_health_payload
+
+    payload = viral_health_payload()
+    if not payload.get("ok"):
         return JSONResponse(payload, status_code=503)
     return payload
 
@@ -2512,7 +2880,11 @@ async def health():
         "service": "BLACKDARK",
         "version": "1.0.0",
         "ui_language": "en",
-        "probes": {"live": "/health/live", "ready": "/health/ready"},
+        "probes": {
+            "live": "/health/live",
+            "ready": "/health/ready",
+            "viral": "/health/viral",
+        },
     }
 
 
@@ -2531,7 +2903,10 @@ async def build_info():
     }
 
 @app.post("/portfolio/analyze")
-async def portfolio_analyze(assets: list = Body(...)):
+async def portfolio_analyze(
+    assets: list = Body(...),
+    _user: dict | None = Depends(require_feature("portfolio_ai")),
+):
     if not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
@@ -2650,7 +3025,13 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
 
     ls_url = lemon_squeezy_checkout_url(tier)
     if ls_url:
-        return {"url": ls_url, "provider": "lemon_squeezy", "tier": tier}
+        return {
+            "url": ls_url,
+            "provider": "lemon_squeezy",
+            "tier": tier,
+            "currency": "USD",
+            "pci_note": "Card data collected only on Lemon Squeezy-hosted Checkout.",
+        }
 
     if not stripe_configured():
         raise HTTPException(status_code=503, detail="Billing not configured")
