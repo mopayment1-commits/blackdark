@@ -60,29 +60,29 @@
     </div>
     <div class="card" style="margin-top:3.5rem">
         <h1>BLACKDARK</h1>
-        <p class="lead">Login or create an account. Email + password (Google when configured). 7-day Decision Pro trial on signup. USD billing via hosted Lemon/Stripe — card data never touches us.</p>
+        <p class="lead">{{ t('login.lead') }}</p>
 
         <div class="tabs" role="tablist">
-            <button type="button" class="tab active" id="tabLogin" role="tab" onclick="showTab('login')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('login')">Login</button>
-            <button type="button" class="tab" id="tabRegister" role="tab" onclick="showTab('register')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('register')">Sign up</button>
+            <button type="button" class="tab active" id="tabLogin" role="tab" onclick="showTab('login')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('login')">{{ t('login.tab.login') }}</button>
+            <button type="button" class="tab" id="tabRegister" role="tab" onclick="showTab('register')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('register')">{{ t('login.tab.signup') }}</button>
         </div>
 
         <div id="oauthBox" class="hidden">
-            <button type="button" class="btn btn-oauth" id="googleBtn" onclick="startOAuth('google')">Continue with Google</button>
-            <button type="button" class="btn btn-secondary hidden" id="githubBtn" onclick="startOAuth('github')">Continue with GitHub</button>
-            <div class="divider">or email</div>
+            <button type="button" class="btn btn-oauth" id="googleBtn" onclick="startOAuth('google')">{{ t('auth.google') }}</button>
+            <button type="button" class="btn btn-secondary hidden" id="githubBtn" onclick="startOAuth('github')">{{ t('auth.github') }}</button>
+            <div class="divider">{{ t('auth.or_email') }}</div>
         </div>
 
         <form id="loginForm" onsubmit="doLogin(event)">
-            <label for="loginEmail">Email</label>
+            <label for="loginEmail">{{ t('login.email') }}</label>
             <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
-            <label for="loginPassword">Password</label>
+            <label for="loginPassword">{{ t('login.password') }}</label>
             <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
             <div class="row-links">
-                <a href="#" onclick="showForgot();return false;">Forgot password?</a>
-                <a href="#" onclick="showForgotUsername();return false;">Forgot username?</a>
+                <a href="#" onclick="showForgot();return false;">{{ t('auth.forgot_password') }}</a>
+                <a href="#" onclick="showForgotUsername();return false;">{{ t('auth.forgot_username') }}</a>
             </div>
-            <button type="submit" class="btn-primary">Login</button>
+            <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
         </form>
 
         <form id="mfaForm" class="hidden" onsubmit="doMfa(event)">
@@ -103,9 +103,9 @@
             <input type="password" id="regPassword" required minlength="10" autocomplete="new-password">
             <label class="check">
                 <input type="checkbox" id="regTerms" required>
-                <span>I accept the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Risk Disclaimer</a>. Not financial advice.</span>
+                <span>{{ t('auth.accept_terms') }} (<a href="/terms" target="_blank">Terms</a> · <a href="/privacy" target="_blank">Privacy</a> · <a href="/disclaimer" target="_blank">Disclaimer</a>)</span>
             </label>
-            <button type="submit" class="btn-primary">Create account</button>
+            <button type="submit" class="btn-primary">{{ t('auth.create') }}</button>
         </form>
 
         <form id="forgotForm" class="hidden" onsubmit="doForgot(event)">

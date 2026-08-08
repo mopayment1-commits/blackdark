@@ -699,15 +699,15 @@
         <div class="nav-container">
             <a class="logo" href="/">BLACKDARK</a>
             <div class="nav-links">
-                <a href="/dashboard?lens=prove">Prove</a>
-                <a href="/dashboard?lens=operate">Operate</a>
-                <a href="/dashboard?lens=desk">Desk</a>
-                <a href="/data-room?lens=room">Room</a>
-                <a href="/oracle-accuracy">Verify</a>
+                <a href="/dashboard?lens=prove">{{ t('nav.prove') }}</a>
+                <a href="/dashboard?lens=operate">{{ t('nav.operate') }}</a>
+                <a href="/dashboard?lens=desk">{{ t('nav.desk') }}</a>
+                <a href="/data-room?lens=room">{{ t('nav.room') }}</a>
+                <a href="/oracle-accuracy">{{ t('nav.verify') }}</a>
             </div>
             <div class="nav-right">
                 {% include 'partials/top_utility.html' %}
-                <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">Open Proof</a>
+                <a href="/dashboard?lens=prove#trust-pulse" class="nav-cta">{{ t('nav.open_proof') }}</a>
             </div>
         </div>
     </nav>
@@ -728,60 +728,90 @@
         </div>
         <div class="hero-composition">
             <h1 class="hero-brand">BLACKDARK</h1>
-            <p class="hero-headline">We publish the miss.</p>
-            <p class="hero-support">Sealed forecasts before the event. Public proof after.</p>
+            <p class="hero-headline">{{ t('hero.headline') }}</p>
+            <p class="hero-support">{{ t('hero.support') }}</p>
             <div class="hero-cta">
-                <a href="#try-oracle" class="btn-primary">Try Oracle Free</a>
-                <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> Watch the Seal</a>
+                <a href="#try-oracle" class="btn-primary">{{ t('hero.cta.try') }}</a>
+                <a href="#seal" class="btn-seal"><span class="btn-seal-play" aria-hidden="true">▶</span> {{ t('hero.cta.seal') }}</a>
             </div>
             <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
                 <div class="tp-mini-inner bd-trust-pulse">
                     <div class="tp-mini-top">
-                        <span class="tp-mini-label">TRUST PULSE</span>
-                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">Live</span></span>
+                        <span class="tp-mini-label">{{ t('pulse.label') }}</span>
+                        <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">{{ t('pulse.live') }}</span></span>
                     </div>
                     <div class="tp-mini-action bd-tp-action WAIT" id="lpAction">—</div>
-                    <div class="tp-mini-sym" id="lpSym">Loading today’s decision…</div>
-                    <p class="tp-mini-sentence" id="lpSentence">One clear Act / Wait — reviewable, not a mystery score.</p>
+                    <div class="tp-mini-sym" id="lpSym">{{ t('pulse.loading') }}</div>
+                    <p class="tp-mini-sentence" id="lpSentence">{{ t('pulse.sentence') }}</p>
                     <div class="tp-mini-why" id="lpWhy"></div>
                     <div class="tp-mini-proof" id="lpProof"></div>
                     <div class="tp-mini-cta">
-                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">Open full proof</a>
-                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">Share Proof</button>
+                        <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">{{ t('pulse.open_full') }}</a>
+                        <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;cursor:pointer" id="lpShareBtn">{{ t('pulse.share') }}</button>
                     </div>
-                    <p class="tp-mini-foot bd-anti-hype">Decide. Prove it. Share it. · Four-layer legal shield · Not financial advice · Hits and misses published</p>
+                    <p class="tp-mini-foot bd-anti-hype">{{ t('pulse.foot') }}</p>
                 </div>
             </section>
         </div>
     </section>
 
     <section class="seal-myth" id="seal" aria-label="The Seal">
-        <h2>The Seal</h2>
-        <p>Before the move, the forecast is sealed. After the event, hits and misses go public on the Ledger. No mystery score. No fake scarcity.</p>
+        <h2>{{ t('seal.title') }}</h2>
+        <p>{{ t('seal.body') }}</p>
         <div class="seal-steps">
             <div class="seal-step">
-                <strong>01 · Seal</strong>
-                <span>A decision is committed with a certificate hash you can share — sealed before the outcome.</span>
+                <strong>{{ t('seal.s1.title') }}</strong>
+                <span>{{ t('seal.s1.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>02 · Prove</strong>
-                <span>Trust Pulse shows one live Act / Wait with Why under five seconds — research only, not advice.</span>
+                <strong>{{ t('seal.s2.title') }}</strong>
+                <span>{{ t('seal.s2.body') }}</span>
             </div>
             <div class="seal-step">
-                <strong>03 · Publish the miss</strong>
-                <span>The Public Accuracy Ledger posts outcomes, including misses. Don't trust us. Verify us.</span>
+                <strong>{{ t('seal.s3.title') }}</strong>
+                <span>{{ t('seal.s3.body') }}</span>
             </div>
         </div>
         <div class="hero-cta">
-            <a href="/oracle-accuracy" class="btn-primary">Verify Ledger</a>
-            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">Open live proof</a>
+            <a href="/oracle-accuracy" class="btn-primary">{{ t('seal.cta.ledger') }}</a>
+            <a href="/dashboard?lens=prove#trust-pulse" class="btn-secondary">{{ t('seal.cta.proof') }}</a>
         </div>
+    </section>
+
+    <section class="features" id="lenses" aria-label="Feature division">
+        <div class="section-header">
+            <h2>{{ t('lenses.title') }}</h2>
+            <p>{{ t('lenses.sub') }}</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>{{ t('lenses.prove.title') }}</h3>
+                <p>{{ t('lenses.prove.body') }}</p>
+            </div>
+            <div class="feature-card">
+                <h3>{{ t('lenses.operate.title') }}</h3>
+                <p>{{ t('lenses.operate.body') }}</p>
+            </div>
+            <div class="feature-card">
+                <h3>{{ t('lenses.desk.title') }}</h3>
+                <p>{{ t('lenses.desk.body') }}</p>
+            </div>
+            <div class="feature-card">
+                <h3>{{ t('lenses.room.title') }}</h3>
+                <p>{{ t('lenses.room.body') }}</p>
+            </div>
+        </div>
+        <p style="text-align:center;margin-top:1.5rem">
+            <a href="/dashboard?lens=prove" class="btn-primary">{{ t('lenses.cta') }}</a>
+            <a href="/login?tab=register" class="btn-secondary" style="margin-inline-start:.5rem">{{ t('nav.signup') }}</a>
+            <a href="/#pricing" class="btn-secondary" style="margin-inline-start:.5rem">{{ t('nav.pricing') }}</a>
+        </p>
     </section>
 
     <section class="features" id="try-oracle" style="padding-top:2rem">
         <div class="section-header">
-            <h2>Prove · <span style="color:var(--accent)">Decide</span></h2>
-            <p>One clear Act/Wait + Why + shareable Proof Card. Four lenses: Prove → Operate → Desk → Room.</p>
+            <h2>{{ t('prove.title') }}</h2>
+            <p>{{ t('prove.sub') }}</p>
         </div>
 <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
@@ -866,49 +896,49 @@
     
     <section class="features" id="features">
         <div class="section-header">
-            <h2>Built around the <span style="color: var(--accent);">Oracle</span></h2>
-            <p>Everything supports one job: a clear crypto decision in under 30 seconds.</p>
+            <h2>{{ t('features.title') }}</h2>
+            <p>{{ t('features.sub') }}</p>
         </div>
         
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Trust Pulse</h3>
-                <p>One live Act / Wait with Why under five seconds — the first thing you see, every time.</p>
+                <h3>{{ t('feat.pulse.title') }}</h3>
+                <p>{{ t('feat.pulse.body') }}</p>
             </div>
             
             <div class="feature-card">
-                <h3>Decision Certificate</h3>
-                <p>Shareable Proof Card with verify link. Dual-coded: text + visual state — not a mystery score.</p>
+                <h3>{{ t('feat.cert.title') }}</h3>
+                <p>{{ t('feat.cert.body') }}</p>
             </div>
             
             <div class="feature-card">
-                <h3>Public Accuracy Ledger</h3>
-                <p>Hits and misses published. Don't trust us — verify us.</p>
+                <h3>{{ t('feat.ledger.title') }}</h3>
+                <p>{{ t('feat.ledger.body') }}</p>
             </div>
             
             <div class="feature-card">
-                <h3>Operate depth</h3>
-                <p>Decision Pro unlocks daily habit, Portfolio AI, alerts, and AI Chat — without Free watermark.</p>
+                <h3>{{ t('feat.operate.title') }}</h3>
+                <p>{{ t('feat.operate.body') }}</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            Decision Pro unlocks the daily habit. Decision Desk / Institutional package proof for others.
-            <a href="/data-room" style="color:var(--accent)">Institutional Data Room →</a>
+            {{ t('feat.note') }}
+            <a href="/data-room" style="color:var(--accent)">{{ t('lenses.room.title') }} →</a>
         </p>
     </section>
     
     <section class="pricing" id="pricing">
         <div class="pricing-container">
             <div class="section-header">
-                <h2>One Trust OS. <span style="color: var(--accent);">Four depths.</span></h2>
-                <p>Proof → daily habit → desk packaging → institutional trust room. We sell a reviewable decision + shareable proof — not charts or mystery scores.</p>
+                <h2>{{ t('pricing.title_os') }}</h2>
+                <p>{{ t('pricing.sub_os') }}</p>
             </div>
             
             <div class="pricing-grid bd-pricing-grid">
                 <div class="pricing-card bd-price-tier">
-                    <h3>Proof Pass</h3>
+                    <h3>{{ t('pricing.proof_pass') }}</h3>
                     <div class="price">$0<span>/month</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Take a clear decision… and prove it publicly.</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
                     <ul>
                         <li>Trust Pulse + OQS Why</li>
                         <li>Shareable Decision Certificate</li>
@@ -916,15 +946,15 @@
                         <li>Public Accuracy Ledger</li>
                         <li>Free Proof watermark</li>
                     </ul>
-                    <a href="/login?tab=register" class="btn-secondary btn">Start free — Sign up</a>
+                    <a href="/login?tab=register" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
                 </div>
                 
                 <div class="pricing-card bd-price-tier popular">
-                    <div class="bd-popular-badge">Most chosen depth</div>
-                    <h3>Decision Pro</h3>
+                    <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
+                    <h3>{{ t('pricing.decision_pro') }}</h3>
                     <div class="price">$29<span>/month USD</span></div>
-                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">7-day trial · cancel anytime before charge</p>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">From one-off proof → a daily decision habit.</p>
+                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
                     <ul>
                         <li>Unlimited certified Oracle</li>
                         <li>Since-you-left continuity</li>
@@ -932,41 +962,41 @@
                         <li>AI Chat · no Free watermark</li>
                         <li>Research Lab + Arbitrage</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-day trial</a>
+                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
                 </div>
                 
                 <div class="pricing-card bd-price-tier">
-                    <h3>Decision Desk</h3>
+                    <h3>{{ t('pricing.decision_desk') }}</h3>
                     <div class="price">$49<span>/month USD</span></div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Edge + packaging to convince someone else.</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
                     <ul>
                         <li>Everything in Decision Pro</li>
                         <li>Whale Signal vs Noise</li>
                         <li>Stealth advisory views</li>
                         <li>Evidence Pack + API priority</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Get Decision Desk</a>
-                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">B2B Data Feed</a>
+                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
+                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
                 </div>
 
                 <div class="pricing-card bd-price-tier">
-                    <h3>Trust OS Institutional</h3>
-                    <div class="price" style="font-size:1.55rem">From $3,000 → open</div>
-                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">USD · Room lens · Talk to us · not self-serve checkout.</p>
+                    <h3>{{ t('pricing.institutional') }}</h3>
+                    <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
                     <ul>
                         <li>Data Room + Compliance pack</li>
                         <li>SSO / enforced MFA</li>
                         <li>SLA · Integration Addendum</li>
                     </ul>
-                    <a href="/data-room" class="btn-primary btn">Talk to us</a>
+                    <a href="/data-room" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
                 </div>
             </div>
             <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
                 Checking payment readiness…
             </p>
             <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
-                Prices in <strong>USD</strong>. Card data is processed by Lemon Squeezy / Stripe hosted checkout — never stored on BLACKDARK.
-                Manage plan anytime from <a href="/profile" style="color:var(--accent)">Profile &amp; Billing</a>.
+                {{ t('pricing.pay_note') }}
+                {{ t('pricing.manage') }} <a href="/profile" style="color:var(--accent)">Profile</a>.
                 Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
                 Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
             </p>
