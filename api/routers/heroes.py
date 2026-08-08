@@ -41,6 +41,28 @@ async def audience_entry_api(audience: str = Query("retail")):
     return audience_entry(audience)
 
 
+@router.get("/api/lenses")
+async def lenses_api():
+    """Trust OS UX lenses — Prove / Operate / Desk / Room."""
+    from trust_os_lenses import lenses_manifest
+
+    return lenses_manifest()
+
+
+@router.get("/api/lenses/{lens_id}")
+async def lens_detail_api(lens_id: str, audience: str | None = Query(None)):
+    from trust_os_lenses import lens_payload
+
+    return lens_payload(lens_id, audience=audience)
+
+
+@router.get("/api/lenses/{lens_id}/entries")
+async def lens_entries_api(lens_id: str):
+    from trust_os_lenses import primary_entries_for_lens
+
+    return {"lens": lens_id, "entries": primary_entries_for_lens(lens_id)}
+
+
 @router.post("/api/oracle/decision-certificate")
 async def decision_certificate_api(payload: dict = Body(...)):
     from decision_certificate import build_decision_certificate

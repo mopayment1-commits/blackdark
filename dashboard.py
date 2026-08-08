@@ -1114,8 +1114,9 @@ async def capabilities_page(request: Request):
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
             "lead": (
-                "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
-                "Not 15/16 platforms. Six heroes. No ARENA. Don't trust us. Verify us."
+                "Four UX lenses — Prove → Operate → Desk → Room — over one Trust OS. "
+                "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
+                "Don't trust us. Verify us. API: /api/lenses"
             ),
             "trust_os": manifest,
         },

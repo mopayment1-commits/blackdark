@@ -66,9 +66,10 @@ def test_docs_and_ui_wire_trust_os():
     assert (root / "docs" / "TRUST_OS_VALUE_LAYERS.md").is_file()
     assert (root / "docs" / "LOAD_TEST_RUN_LOG.md").is_file()
     landing = (root / "templates" / "landing.html").read_text(encoding="utf-8")
-    assert "Public Accuracy Ledger" in landing
     assert "Don't trust us. Verify us." in landing
-    assert "Emerging Fund Terminal" in landing
+    assert "Prove" in landing and "Operate" in landing
+    assert "lens=prove" in landing or "Open Proof" in landing
+    assert "Room for funds" in landing or "data-room" in landing
     caps = (root / "templates" / "utility.html").read_text(encoding="utf-8")
     assert "four value layers" in caps.lower() or "Four value layers" in caps
     b2b = (root / "templates" / "b2b.html").read_text(encoding="utf-8")
@@ -76,6 +77,7 @@ def test_docs_and_ui_wire_trust_os():
     dash = (root / "templates" / "dashboard.html").read_text(encoding="utf-8")
     assert "Evidence drawer" in dash
     assert "scenarios" in dash
+    assert "Prove → Operate → Desk → Room" in dash
 
 
 def test_alerts_generosity_honesty():

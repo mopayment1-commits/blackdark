@@ -79,8 +79,23 @@ def normalize_audience(value: str | None) -> Audience:
 
 def audience_entry(value: str | None = None) -> dict[str, Any]:
     key = normalize_audience(value)
-    return dict(_AUDIENCES[key])
+    row = dict(_AUDIENCES[key])
+    try:
+        from trust_os_lenses import AUDIENCE_TO_LENS, lens_by_id, primary_entries_for_lens
+
+        lens_id = AUDIENCE_TO_LENS.get(key, "prove")
+        lens = lens_by_id(lens_id)
+        row["lens"] = lens_id
+        row["lens_label"] = lens.get("label")
+        row["lens_promise"] = lens.get("promise")
+        row["primary_entries"] = primary_entries_for_lens(lens_id)
+        row["entry_path"] = lens.get("entry_path") or row.get("entry_path")
+    except Exception:
+        row["lens"] = {"retail": "prove", "pro": "operate", "whale": "desk", "fund": "room"}.get(
+            key, "prove"
+        )
+    return row
 
 
 def all_audiences() -> list[dict[str, Any]]:
-    return [dict(v) for v in _AUDIENCES.values()]
+    return [audience_entry(k) for k in _AUDIENCES]

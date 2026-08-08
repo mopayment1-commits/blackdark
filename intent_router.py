@@ -38,61 +38,84 @@ OUTCOMES: list[dict[str, str]] = [
     },
 ]
 
-# Honest intents → existing surfaces only.
+# Primary four entries (memorable) + secondary desk intents.
 INTENTS: list[dict[str, Any]] = [
     {
-        "id": "get_decision",
-        "label": "Get a clear Act / Wait decision",
+        "id": "decide",
+        "label": "Decide",
         "outcome": "make_decision",
         "hero": "single_sentence_oracle",
-        "path": "/dashboard#oracle",
+        "path": "/dashboard#decide",
         "action": "oracle",
-        "hint": "One symbol → one sentence. Analytical tool — not advice.",
+        "hint": "One symbol → Act/Wait + Why + Proof Card.",
+        "primary": True,
+        "entry": "decide",
     },
     {
-        "id": "verify_accuracy",
-        "label": "Verify public accuracy (including misses)",
+        "id": "verify",
+        "label": "Verify",
         "outcome": "make_decision",
         "hero": "public_accuracy_ledger",
         "path": "/oracle-accuracy",
         "action": "navigate",
-        "hint": "Don't trust us. Verify the ledger.",
+        "hint": "Public Accuracy Ledger — hits and misses.",
+        "primary": True,
+        "entry": "verify",
     },
     {
-        "id": "track_whale",
-        "label": "Track whale Signal vs Noise",
-        "outcome": "reduce_risk",
-        "hero": "whale_intelligence_radar",
-        "path": "/dashboard#whales",
-        "action": "whales",
-        "hint": "Transfers ≠ trades. One plain sentence.",
-    },
-    {
-        "id": "portfolio_risk",
-        "label": "Check portfolio risk in plain language",
+        "id": "my_book",
+        "label": "My book",
         "outcome": "reduce_risk",
         "hero": "portfolio_ai",
         "path": "/dashboard#portfolio",
         "action": "portfolio",
-        "hint": "Risk level + BTC-drop scenario — private holdings stay local.",
+        "hint": "Portfolio risk in plain language — Operate+.",
+        "primary": True,
+        "entry": "my_book",
+    },
+    {
+        "id": "alerts",
+        "label": "Alerts",
+        "outcome": "save_time",
+        "hero": "single_sentence_oracle",
+        "path": "/dashboard#alerts",
+        "action": "alerts",
+        "hint": "Inbox after Truth + Half-Life gates.",
+        "primary": True,
+        "entry": "alerts",
+    },
+    {
+        "id": "track_whale",
+        "label": "Whale Signal vs Noise",
+        "outcome": "reduce_risk",
+        "hero": "whale_intelligence_radar",
+        "path": "/dashboard#whales",
+        "action": "whales",
+        "hint": "Transfers ≠ trades. Desk lens.",
+        "primary": False,
+        "lens": "desk",
     },
     {
         "id": "find_arb",
-        "label": "Scan net-edge arbitrage (after fees)",
+        "label": "Net-edge arbitrage",
         "outcome": "discover_opportunities",
         "hero": "opportunity_score_explainability",
         "path": "/dashboard#arbitrage",
         "action": "arbitrage",
-        "hint": "Net edge only — not gross spread theater.",
+        "hint": "Net edge only — Operate/Desk.",
+        "primary": False,
+        "lens": "operate",
     },
     {
         "id": "fund_terminal",
-        "label": "Open Emerging Fund Terminal",
+        "label": "Fund Room",
         "outcome": "save_time",
         "hero": "public_accuracy_ledger",
         "path": "/b2b#fund-terminal",
         "action": "navigate",
-        "hint": "Sub-$50M fund packaging — not Kaiko-class theater.",
+        "hint": "Institutional Room — Talk to us / Data Room.",
+        "primary": False,
+        "lens": "room",
     },
 ]
 
@@ -106,14 +129,20 @@ REJECTED_INTENTS: list[dict[str, str]] = [
 
 
 def intent_router_manifest() -> dict[str, Any]:
+    primary = [i for i in INTENTS if i.get("primary")]
+    secondary = [i for i in INTENTS if not i.get("primary")]
     return {
-        "question": "What do you want to do today?",
-        "principle": "Results over features — route to six heroes only",
+        "question": "What do you need?",
+        "principle": "Four doors — Decide · Verify · My book · Alerts — over six heroes",
+        "memory_line": "Prove → Operate → Desk → Room",
         "outcomes": OUTCOMES,
         "intents": INTENTS,
+        "primary_entries": primary,
+        "secondary_intents": secondary,
         "rejected_intents": REJECTED_INTENTS,
         "ui_language": "en",
-        "note": "Display routing layer. Engines stay quiet behind heroes.",
+        "note": "Lens UX routing. Engines stay quiet behind heroes.",
+        "lenses_api": "/api/lenses",
     }
 
 

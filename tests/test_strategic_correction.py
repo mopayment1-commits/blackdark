@@ -31,13 +31,14 @@ def test_intent_router_maps_to_heroes_only():
     from intent_router import INTENTS, REJECTED_INTENTS, intent_router_manifest, resolve_intent
 
     man = intent_router_manifest()
-    assert man["question"] == "What do you want to do today?"
+    assert man["question"] == "What do you need?"
+    assert "Decide" in man["principle"]
     assert len(INTENTS) >= 5
     paths = " ".join(i["path"] for i in INTENTS)
     assert "/oracle-accuracy" in paths
     assert "/dashboard" in paths
     assert "arena" not in paths.lower()
-    assert resolve_intent("get_decision")["ok"] is True
+    assert resolve_intent("decide")["ok"] is True
     assert resolve_intent("blackdark_arena")["rejected"] is True
     assert any(r["id"] == "predict_guaranteed" for r in REJECTED_INTENTS)
 
@@ -49,7 +50,8 @@ def test_binding_doc_and_ui_wire():
     assert "Four value layers" in text or "four value layers" in text.lower()
     assert "ARENA" in text
     dash = (root / "templates" / "dashboard.html").read_text(encoding="utf-8")
-    assert "What do you want to do today?" in dash
+    assert "What do you need?" in dash
+    assert "applyLens" in dash
     assert "intent/router" in dash or "loadIntentRouter" in dash
     util = (root / "templates" / "utility.html").read_text(encoding="utf-8")
     assert "Strategic correction" in util or "five_outcomes" in util

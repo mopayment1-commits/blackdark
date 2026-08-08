@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <title>BLACKDARK — Intelligence Dashboard</title>
+    <title>BLACKDARK — Trust OS Decision Room</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
@@ -67,6 +67,32 @@
         .toolbar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
         select { background: #1a1a24; border: 1px solid #2a2a35; color: #e4e4e7; border-radius: 8px; padding: .4rem .6rem; }
         footer { text-align: center; color: #71717a; font-size: .78rem; padding: 1.5rem; }
+
+        .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
+        .lens-btn {
+            padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
+            background:#111118; color:#71717a; font-size:.82rem; font-weight:700; cursor:pointer;
+        }
+        .lens-btn.active { border-color:#22d3ee; color:#041016; background:linear-gradient(135deg,#22d3ee,#06b6d4); }
+        .lens-btn.room { border-style:dashed; }
+        .entry-rail { display:flex; gap:.45rem; justify-content:center; flex-wrap:wrap; margin-bottom:1rem; }
+        .entry-btn {
+            min-width:5.5rem; padding:.65rem .85rem; border-radius:12px; border:1px solid #2a2a35;
+            background:rgba(17,17,24,.9); color:#e4e4e7; font-size:.85rem; font-weight:600; cursor:pointer; text-align:center;
+        }
+        .entry-btn:hover { border-color:#22d3ee; color:#22d3ee; }
+        .entry-btn.locked { opacity:.45; }
+        .entry-btn small { display:block; font-size:.65rem; color:#71717a; font-weight:400; margin-top:.15rem; }
+        .lens-promise { color:#a1a1aa; font-size:.9rem; max-width:560px; margin:.25rem auto .75rem; }
+        .section-desk-only, .section-operate-plus { transition: opacity .25s ease; }
+        body.lens-prove .section-desk-only { display:none; }
+        body.lens-prove .hide-on-prove { display:none; }
+        body.lens-prove .section-operate-plus { opacity:.55; }
+        body.lens-operate .section-desk-only { display:none; }
+        body.lens-room .hide-in-room { display:none; }
+        .proof-pulse { animation: proofIn .55s ease; }
+        @keyframes proofIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+        .nav-links a.lens-nav { color:#a1a1aa; font-weight:600; }
     </style>
 </head>
 <body>
@@ -74,15 +100,15 @@
         <div class="nav-inner">
             <a href="/" class="logo">BLACKDARK</a>
             <div style="display:flex;align-items:center;flex-wrap:wrap">
-                <span class="tier" id="userTier">Guest · Free</span>
-                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
+                <span class="tier" id="userTier">Guest · Proof Pass</span>
+                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Decision Pro $29</button>
                 <div class="nav-links">
-                    <a href="/">Home</a>
-                    <a href="/dashboard#portfolio">Portfolio</a>
-                    <a href="/dashboard#stealth">Stealth</a>
-                    <a href="/platform">Platform</a>
-                    <a href="/oracle-accuracy">Accuracy</a>
-                    <a href="/capabilities">Capabilities</a>
+                    <a class="lens-nav" href="/dashboard?lens=prove">Prove</a>
+                    <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
+                    <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
+                    <a class="lens-nav" href="/data-room?lens=room">Room</a>
+                    <a href="/oracle-accuracy">Verify</a>
+                    <a href="/profile">Profile</a>
                     <a href="/login" id="authLink">Login</a>
                 </div>
             </div>
@@ -92,35 +118,44 @@
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
+            <p id="heroSub">Prove → Operate → Desk → Room · one Trust OS decision room</p>
+            <p class="lens-promise" id="lensPromise">Decide… and prove it.</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
-        <div class="intent-wrap" id="intentWrap">
-            <div class="intent-q" id="intentQuestion">What do you want to do today?</div>
-            <div class="intent-grid" id="intentGrid"></div>
-            <div class="intent-hint" id="intentHint">Results over features — routes to six heroes only. Analytical tool, not advice.</div>
+        <div class="lens-bar" id="lensBar" aria-label="Trust OS lenses">
+            <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
+            <button type="button" class="lens-btn" data-lens="operate">Operate</button>
+            <button type="button" class="lens-btn" data-lens="desk">Desk</button>
+            <button type="button" class="lens-btn room" data-lens="room">Room</button>
         </div>
-        <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
+        <div class="entry-rail" id="entryRail" aria-label="Primary entries"></div>
+        <div class="intent-wrap" id="intentWrap">
+            <div class="intent-q" id="intentQuestion">What do you need?</div>
+            <div class="intent-grid" id="intentGrid"></div>
+            <div class="intent-hint" id="intentHint">Four doors — Decide · Verify · My book · Alerts. Analytical tool, not advice.</div>
+        </div>
+        <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
             <select id="uxMode" onchange="askOracle()">
                 <option value="beginner" selected>Beginner</option>
                 <option value="pro">Pro</option>
             </select>
-            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
-            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
             <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
+            <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
+            <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
         </div>
-        <div class="picks">
+        <div class="picks hide-in-room">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
             <span class="pick" onclick="setSymbol('ETH')">ETH</span>
             <span class="pick" onclick="setSymbol('SOL')">SOL</span>
             <span class="pick" onclick="setSymbol('BNB')">BNB</span>
             <span class="pick" onclick="setSymbol('XRP')">XRP</span>
         </div>
-        <div class="search-row" id="oracle">
+        <div class="search-row hide-in-room" id="decide">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
             <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
         </div>
-        <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
+        <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
+        <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
 
         <section>
             <h2>Live Chart</h2>
@@ -131,7 +166,7 @@
             <div id="chart"></div>
         </section>
 
-        <div class="grid-2">
+        <div class="grid-2 section-operate-plus hide-in-room" id="radar">
             <section>
                 <h2>Market Radar</h2>
                 <div class="grid" id="market"><div class="loading">Loading…</div></div>
@@ -142,14 +177,14 @@
             </section>
         </div>
 
-        <section id="arbitrage">
+        <section id="arbitrage" class="hide-on-prove hide-in-room">
             <h2>Arbitrage Engine</h2>
             <p class="sub" id="arbStats">Scanning…</p>
             <button class="btn secondary" onclick="loadArbitrage(true)">Live Scan</button>
             <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
         </section>
 
-        <section id="whales">
+        <section id="whales" class="section-desk-only hide-in-room">
             <h2>Whale Intelligence · Signal vs Noise</h2>
             <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
             <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
@@ -157,7 +192,7 @@
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
-        <section id="portfolio">
+        <section id="portfolio" class="section-operate-plus hide-in-room">
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
             <div class="toolbar">
@@ -170,7 +205,7 @@
             <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
         </section>
 
-        <section id="stealth">
+        <section id="stealth" class="section-desk-only hide-in-room">
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
             <div class="toolbar">
@@ -182,7 +217,7 @@
             <div id="stealthResult" class="empty">Enter size and run advisor</div>
         </section>
 
-        <section id="mev">
+        <section id="mev" class="section-desk-only hide-in-room">
             <h2>MEV / Sandwich Report</h2>
             <p class="sub">Shareable risk posture — prove the drag, don’t hype private mempool alpha</p>
             <div class="toolbar">
@@ -194,7 +229,7 @@
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
 
-        <section>
+        <section id="alerts" class="section-operate-plus hide-in-room">
             <h2 id="alertsTitle">Alerts</h2>
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
@@ -208,7 +243,7 @@
     <footer style="max-width:1100px;margin:2rem auto;padding:1.25rem;border-top:1px solid #2a2a35;font-size:.75rem;color:#71717a;line-height:1.6">
         <strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns · Verify on
         <a href="/oracle-accuracy" style="color:#22d3ee">Public Accuracy Ledger</a>
-        · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
+        · <a href="/api/lenses" style="color:#a1a1aa">Lenses</a> · <a href="/data-room" style="color:#a1a1aa">Room</a> · <a href="/capabilities" style="color:#a1a1aa">Capabilities</a>
         · <a href="/contact" style="color:#a1a1aa">Contact</a>
         · <a href="/complaints" style="color:#a1a1aa">Complaints</a>
         · <a href="/legal" style="color:#a1a1aa">Legal</a>
@@ -264,7 +299,7 @@
             const root = document.getElementById('htmlRoot');
             root.lang = 'en';
             root.dir = 'ltr';
-            document.getElementById('heroSub').textContent = 'One clear decision — act or wait · public verifiable accuracy';
+            document.getElementById('heroSub').textContent = 'Prove → Operate → Desk → Room · one Trust OS decision room';
             document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
@@ -276,6 +311,9 @@
             const lang = 'en';
             if (!sym) return;
             box.classList.add('show');
+            box.classList.remove('proof-pulse');
+            void box.offsetWidth;
+            box.classList.add('proof-pulse');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
@@ -671,37 +709,104 @@
             scrollToId('stealth');
         }
 
+        let currentLens = 'prove';
+        let lensManifest = null;
+
+        function audienceToLens(aud) {
+            return ({ retail:'prove', pro:'operate', whale:'desk', fund:'room' })[aud] || 'prove';
+        }
+
+        async function applyLens(lensId, { persist=true, scroll=true } = {}) {
+            currentLens = (lensId || 'prove').toLowerCase();
+            if (persist) {
+                localStorage.setItem('bd_lens', currentLens);
+                const aud = ({ prove:'retail', operate:'pro', desk:'whale', room:'fund' })[currentLens];
+                if (aud) localStorage.setItem('bd_audience', aud);
+            }
+            document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
+            document.body.classList.add('lens-' + currentLens);
+            document.querySelectorAll('.lens-btn').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-lens') === currentLens);
+            });
+            const mode = document.getElementById('uxMode');
+            if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
+            try {
+                const res = await fetch('/api/lenses/' + currentLens);
+                const d = await res.json();
+                lensManifest = d;
+                const lens = d.lens || {};
+                const promise = document.getElementById('lensPromise');
+                if (promise) promise.textContent = (lens.promise || '') + (lens.support ? ' — ' + lens.support : '');
+                const banner = document.getElementById('audienceBanner');
+                if (banner) {
+                    banner.style.display = 'block';
+                    banner.textContent = (lens.label || currentLens) + ' lens · ' + (lens.viral_role || '');
+                }
+                renderEntries(d.entries || []);
+                if (currentLens === 'room' && scroll) {
+                    // Room is prestige / Talk to us — leave decision room for Data Room
+                    setTimeout(() => { location.href = lens.cta_primary?.href || '/data-room'; }, 180);
+                    return;
+                }
+                if (scroll) {
+                    const hash = (location.hash || '').replace('#','');
+                    if (hash) setTimeout(() => scrollToId(hash === 'oracle' ? 'decide' : hash), 200);
+                    else if (currentLens === 'desk') setTimeout(scrollToStealth, 250);
+                    else if (currentLens === 'operate') setTimeout(() => scrollToId('decide'), 200);
+                    else setTimeout(() => scrollToId('decide'), 200);
+                }
+            } catch (e) {
+                renderEntries([
+                    {id:'decide',label:'Decide',available:true,hint:'Act/Wait + Proof'},
+                    {id:'verify',label:'Verify',available:true,path:'/oracle-accuracy'},
+                    {id:'my_book',label:'My book',available:currentLens!=='prove'},
+                    {id:'alerts',label:'Alerts',available:currentLens!=='prove'},
+                ]);
+            }
+        }
+
+        function renderEntries(entries) {
+            const rail = document.getElementById('entryRail');
+            if (!rail) return;
+            rail.innerHTML = entries.map(e => {
+                const locked = e.available === false;
+                return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${e.id}" data-path="${e.path||''}" data-action="${e.action||''}" title="${e.hint||''}">
+                    ${e.label}<small>${locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || '')}</small></button>`;
+            }).join('');
+            rail.querySelectorAll('.entry-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.classList.contains('locked')) {
+                        applyLens('operate');
+                        upgradeTier('pro');
+                        return;
+                    }
+                    const id = btn.getAttribute('data-entry');
+                    const action = btn.getAttribute('data-action');
+                    const path = btn.getAttribute('data-path') || '';
+                    if (id === 'verify' || (action === 'navigate' && path.includes('oracle-accuracy'))) {
+                        location.href = '/oracle-accuracy';
+                        return;
+                    }
+                    if (id === 'decide' || action === 'oracle') { scrollToId('decide'); askOracle(); return; }
+                    if (id === 'my_book' || action === 'portfolio') { scrollToId('portfolio'); return; }
+                    if (id === 'alerts' || action === 'alerts') { scrollToId('alerts'); loadInbox(); return; }
+                    if (path.includes('#')) scrollToId(path.split('#')[1]);
+                });
+            });
+        }
+
+        function bindLensBar() {
+            document.querySelectorAll('.lens-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyLens(btn.getAttribute('data-lens')));
+            });
+        }
+
         function applyAudienceFromQuery() {
             const params = new URLSearchParams(location.search);
+            const lensParam = (params.get('lens') || '').toLowerCase();
             const aud = (params.get('audience') || localStorage.getItem('bd_audience') || '').toLowerCase();
-            const hash = (location.hash || '').toLowerCase();
-            if (aud) localStorage.setItem('bd_audience', aud);
-            const mode = document.getElementById('uxMode');
-            if (mode && (aud === 'pro' || aud === 'whale' || aud === 'fund')) mode.value = 'pro';
-            const banner = document.getElementById('audienceBanner');
-            if (banner) {
-                if (aud === 'whale') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Whale mode · Stealth Execution Advisor + MEV report';
-                } else if (aud === 'fund') {
-                    banner.style.display = 'block';
-                    banner.innerHTML = 'Fund mode · <a href="/b2b#fund-terminal" style="color:#22d3ee">Emerging Fund Terminal</a> + Evidence Pack';
-                } else if (aud === 'pro') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Pro mode · Opportunity Quality Score + unlimited Oracle';
-                } else if (aud === 'retail') {
-                    banner.style.display = 'block';
-                    banner.textContent = 'Retail mode · One clear Act / Wait decision';
-                }
-            }
-            if (hash === '#stealth' || hash === '#mev' || aud === 'whale') {
-                setTimeout(scrollToStealth, 250);
-                setTimeout(scrollToStealth, 900);
-            } else if (hash === '#portfolio' || aud === 'retail' || aud === 'pro') {
-                setTimeout(() => scrollToId(hash === '#portfolio' ? 'portfolio' : (aud === 'pro' ? 'oracleBox' : 'portfolio')), 250);
-            } else if (aud === 'fund') {
-                setTimeout(() => { location.href = '/b2b#fund-terminal'; }, 200);
-            }
+            const lens = lensParam || localStorage.getItem('bd_lens') || audienceToLens(aud) || 'prove';
+            applyLens(lens, { persist:true, scroll:true });
         }
 
         async function loadIntentRouter() {
@@ -713,7 +818,10 @@
                 const res = await fetch('/api/intent/router');
                 const d = await res.json();
                 if (q && d.question) q.textContent = d.question;
-                const intents = d.intents || [];
+                if (q && d.memory_line) {
+                    /* keep question; memory lives in lens promise */
+                }
+                const intents = d.primary_entries || d.intents || [];
                 grid.innerHTML = intents.map(it =>
                     `<button type="button" class="intent-btn" data-id="${it.id}" data-action="${it.action||''}" data-path="${it.path||''}">${it.label}</button>`
                 ).join('');
@@ -753,6 +861,11 @@
                             loadArbitrage(true);
                             return;
                         }
+                        if (action === 'alerts') {
+                            scrollToId('alerts');
+                            loadInbox();
+                            return;
+                        }
                         if (path.includes('#')) {
                             const hid = path.split('#')[1];
                             scrollToId(hid);
@@ -767,6 +880,7 @@
         function boot() {
             loadAuth();
             applyLang();
+            bindLensBar();
             applyAudienceFromQuery();
             loadIntentRouter();
             askOracle();

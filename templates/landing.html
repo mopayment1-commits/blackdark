@@ -566,13 +566,14 @@
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
             <div class="nav-links">
-                <a href="/oracle-accuracy">Accuracy</a>
-                <a href="#oracle">Oracle</a>
-                <a href="/b2b#fund-terminal">Funds</a>
-                <a href="/capabilities">Trust OS</a>
+                <a href="/dashboard?lens=prove">Prove</a>
+                <a href="/dashboard?lens=operate">Operate</a>
+                <a href="/dashboard?lens=desk">Desk</a>
+                <a href="/data-room?lens=room">Room</a>
+                <a href="/oracle-accuracy">Verify</a>
                 <a href="/login">Login</a>
             </div>
-            <a href="/oracle-accuracy" class="nav-cta">Verify Accuracy</a>
+            <a href="/dashboard?lens=prove#decide" class="nav-cta">Open Proof</a>
         </div>
     </nav>
 
@@ -584,21 +585,19 @@
             </div>
             <h1>
                 BLACKDARK<br>
-                <span>Prove-it decision intelligence</span>
+                <span>Decide. Prove it. Share it.</span>
             </h1>
             <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                Public Accuracy Ledger first — then one clear ACT / WAIT decision.
+                One Trust OS — Prove → Operate → Desk → Room. Reviewable decisions, not mystery scores.
             </p>
             <div class="hero-cta">
-                <a href="/oracle-accuracy" class="btn-primary">Public Accuracy Ledger</a>
-                <a href="/errors" class="btn-secondary">Public misses</a>
-                <a href="/oracle-accuracy#glass-box-challenge" class="btn-secondary">Glass Box Challenge</a>
-                <a href="/b2b#fund-terminal" class="btn-secondary">Emerging Fund Terminal</a>
+                <a href="/dashboard?lens=prove#decide" class="btn-primary">Open Proof</a>
+                <a href="/oracle-accuracy" class="btn-secondary">Verify Ledger</a>
             </div>
             <p style="margin-top:.75rem;font-size:.85rem;color:var(--text-muted)">
-                <a href="#oracle" style="color:var(--accent)">Try Oracle</a> ·
-                <a href="/compliance" style="color:var(--accent)">Anti-Hype Compliance</a> ·
-                <a href="/capabilities" style="color:var(--accent)">Trust OS layers</a>
+                <a href="#oracle" style="color:var(--accent)">Try Decide</a> ·
+                <a href="/api/lenses" style="color:var(--accent)">Four lenses</a> ·
+                <a href="/data-room" style="color:var(--accent)">Room for funds</a>
             </p>
         </div>
     </section>
@@ -611,8 +610,8 @@
     </div>
     <section class="features" id="try-oracle" style="padding-top:2rem">
         <div class="section-header">
-            <h2>Try the <span style="color:var(--accent)">Oracle</span></h2>
-            <p>One clear decision after you verify the Public Accuracy Ledger.</p>
+            <h2>Prove · <span style="color:var(--accent)">Decide</span></h2>
+            <p>One clear Act/Wait + Why + shareable Proof Card. Four lenses: Prove → Operate → Desk → Room.</p>
         </div>
 <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
@@ -641,10 +640,10 @@
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="retail" selected>Retail</option>
-                        <option value="pro">Decision Pro</option>
-                        <option value="whale">Whale Desk</option>
-                        <option value="fund">Fund</option>
+                        <option value="retail" selected>Prove</option>
+                        <option value="pro">Operate</option>
+                        <option value="whale">Desk</option>
+                        <option value="fund">Room</option>
                     </select>
                     <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
@@ -1154,12 +1153,17 @@
 
         async function applyAudience() {
             const aud = document.getElementById('landingAudience')?.value || 'retail';
+            const lensMap = { retail:'prove', pro:'operate', whale:'desk', fund:'room' };
             localStorage.setItem('bd_audience', aud);
+            localStorage.setItem('bd_lens', lensMap[aud] || 'prove');
             try {
                 const res = await fetch('/api/audience/entry?audience=' + encodeURIComponent(aud));
                 const d = await res.json();
                 const cta = document.getElementById('audienceCta');
-                if (cta) cta.textContent = d.cta || '';
+                if (cta) {
+                    const promise = d.lens_promise || d.cta || '';
+                    cta.textContent = (d.lens_label ? (d.lens_label + ' — ') : '') + promise;
+                }
                 const mode = document.getElementById('landingUxMode');
                 if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
                 if (aud === 'fund' && d.entry_path) {
