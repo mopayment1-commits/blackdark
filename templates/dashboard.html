@@ -93,6 +93,52 @@
         .proof-pulse { animation: proofIn .55s ease; }
         @keyframes proofIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
         .nav-links a.lens-nav { color:#a1a1aa; font-weight:600; }
+
+        /* Trust Pulse — first-open composition */
+        .hero { margin-bottom: .65rem; }
+        .hero h1 { font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
+        .hero p { font-size: .85rem; }
+        #trust-pulse {
+            position: relative; overflow: hidden;
+            background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
+            border: 1px solid rgba(34,211,238,.28);
+            margin-bottom: 1.1rem;
+            animation: pulseIn .65s ease;
+        }
+        @keyframes pulseIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform:none; } }
+        @keyframes flipFlash { 0% { box-shadow:0 0 0 0 rgba(245,158,11,.45); } 100% { box-shadow:0 0 0 0 transparent; } }
+        #trust-pulse.flipped { animation: flipFlash 1.2s ease; border-color: rgba(245,158,11,.55); }
+        .tp-top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; margin-bottom:.75rem; }
+        .tp-live { display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; color:#a1a1aa; }
+        .tp-dot { width:.55rem; height:.55rem; border-radius:50%; background:#22c55e; box-shadow:0 0 8px rgba(34,197,94,.55); }
+        .tp-dot.stale { background:#f59e0b; box-shadow:none; }
+        .tp-dot.warm { background:#22d3ee; }
+        .tp-action { font-size:clamp(2.2rem, 6vw, 3.2rem); font-weight:900; letter-spacing:.02em; line-height:1; margin:.15rem 0 .35rem; }
+        .tp-action.ACT { color:#22c55e; } .tp-action.WAIT { color:#f59e0b; } .tp-action.CAUTION { color:#ef4444; }
+        .tp-sym { color:#a1a1aa; font-size:.95rem; margin-bottom:.55rem; }
+        .tp-sentence { font-size:1.02rem; color:#e4e4e7; margin-bottom:.85rem; max-width:36rem; }
+        .tp-why { border:1px solid rgba(34,211,238,.22); border-radius:12px; padding:.75rem .9rem; background:rgba(26,26,36,.75); margin-bottom:.85rem; }
+        .tp-why h3 { font-size:.78rem; color:#22d3ee; margin-bottom:.45rem; font-weight:600; }
+        .tp-factor { font-size:.88rem; padding:.35rem 0; border-bottom:1px solid #2a2a35; color:#e4e4e7; }
+        .tp-factor:last-child { border-bottom:none; }
+        .tp-factor small { display:block; color:#71717a; font-size:.75rem; }
+        .tp-proof { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem; font-size:.8rem; }
+        .tp-chip {
+            display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .65rem;
+            border-radius:999px; border:1px solid #2a2a35; background:#1a1a24; color:#a1a1aa;
+        }
+        .tp-chip.ok { border-color:rgba(34,197,94,.35); color:#86efac; }
+        .tp-chip.warn { border-color:rgba(245,158,11,.4); color:#fcd34d; }
+        .tp-wm { font-size:.72rem; color:#71717a; border:1px dashed #3f3f46; padding:.2rem .45rem; border-radius:6px; }
+        .tp-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.35rem; }
+        .tp-flip {
+            display:none; margin-bottom:.75rem; padding:.65rem .85rem; border-radius:10px;
+            border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.08); color:#fcd34d; font-size:.88rem;
+        }
+        .tp-flip.show { display:block; animation: pulseIn .45s ease; }
+        .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
+        .tp-foot { margin-top:.85rem; font-size:.72rem; color:#71717a; border-top:1px solid #2a2a35; padding-top:.65rem; }
+        body.lens-room #trust-pulse { opacity:.92; }
     </style>
 </head>
 <body>
@@ -103,7 +149,7 @@
                 <span class="tier" id="userTier">Guest · Proof Pass</span>
                 <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Decision Pro $29</button>
                 <div class="nav-links">
-                    <a class="lens-nav" href="/dashboard?lens=prove">Prove</a>
+                    <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
                     <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
                     <a class="lens-nav" href="/dashboard?lens=desk">Desk</a>
                     <a class="lens-nav" href="/data-room?lens=room">Room</a>
@@ -118,24 +164,48 @@
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">Prove → Operate → Desk → Room · one Trust OS decision room</p>
+            <p id="heroSub">Trust Pulse · one live decision you can verify</p>
             <p class="lens-promise" id="lensPromise">Decide… and prove it.</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
-        <div class="lens-bar" id="lensBar" aria-label="Trust OS lenses">
+
+        <section id="trust-pulse" aria-live="polite" aria-label="Trust Pulse">
+            <div class="tp-top">
+                <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
+                <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
+            </div>
+            <div id="tpFlip" class="tp-flip" role="status"></div>
+            <div class="tp-action WAIT" id="tpAction">—</div>
+            <div class="tp-sym" id="tpSym">Loading decision…</div>
+            <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
+            <div class="tp-why">
+                <h3 id="tpWhyTitle">Why (under 5 seconds)</h3>
+                <div id="tpFactors"><div class="empty" style="padding:.25rem 0">Loading factors…</div></div>
+            </div>
+            <div class="tp-proof" id="tpProof"></div>
+            <div class="tp-cont" id="tpContinuity"></div>
+            <div class="tp-cta">
+                <button class="btn" type="button" onclick="scrollToId('decide');askOracle()">Open full proof</button>
+                <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
+                <button class="btn secondary" type="button" id="tpShareBtn" onclick="shareTrustPulse()">Share Proof</button>
+            </div>
+            <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
+        </section>
+
+        <div class="lens-bar hide-in-room" id="lensBar" aria-label="Trust OS lenses">
             <button type="button" class="lens-btn active" data-lens="prove">Prove</button>
             <button type="button" class="lens-btn" data-lens="operate">Operate</button>
             <button type="button" class="lens-btn" data-lens="desk">Desk</button>
             <button type="button" class="lens-btn room" data-lens="room">Room</button>
         </div>
-        <div class="entry-rail" id="entryRail" aria-label="Primary entries"></div>
-        <div class="intent-wrap" id="intentWrap">
+        <div class="entry-rail hide-in-room" id="entryRail" aria-label="Primary entries"></div>
+        <div class="intent-wrap hide-in-room" id="intentWrap">
             <div class="intent-q" id="intentQuestion">What do you need?</div>
             <div class="intent-grid" id="intentGrid"></div>
             <div class="intent-hint" id="intentHint">Four doors — Decide · Verify · My book · Alerts. Analytical tool, not advice.</div>
         </div>
         <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
-            <select id="uxMode" onchange="askOracle()">
+            <select id="uxMode" onchange="askOracle(); loadTrustPulse(true)">
                 <option value="beginner" selected>Beginner</option>
                 <option value="pro">Pro</option>
             </select>
@@ -371,13 +441,160 @@
             location.href = '/create-checkout-session?tier=' + (tier || 'pro');
         }
 
-        function setSymbol(s) { document.getElementById('symbol').value = s; askOracle(); loadChart(); }
+        let lastPulse = null;
+        let pulseEs = null;
+        const TP_STORE = 'bd_trust_pulse_last';
+
+        function readLastPulseVisit() {
+            try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (e) { return null; }
+        }
+        function savePulseVisit(p) {
+            if (!p) return;
+            try {
+                localStorage.setItem(TP_STORE, JSON.stringify({
+                    symbol: p.symbol,
+                    action: p.action,
+                    seen_at: new Date().toISOString(),
+                    factors: (p.why && p.why.factors) || [],
+                    certificate_hash: (p.proof && p.proof.certificate_hash) || null,
+                }));
+            } catch (e) {}
+        }
+
+        function renderTrustPulse(p, { fromStream } = {}) {
+            if (!p) return;
+            lastPulse = p;
+            const actionEl = document.getElementById('tpAction');
+            const act = (p.action || 'WAIT').toUpperCase();
+            actionEl.textContent = act;
+            actionEl.className = 'tp-action ' + act;
+            const price = p.price != null ? '$' + fmt(p.price, p.price < 1 ? 4 : 2) : '';
+            const ch = p.change_24h;
+            const chS = ch == null ? '' : ` · <span class="${ch>=0?'up':'down'}">${ch>=0?'+':''}${fmt(ch,2)}%</span>`;
+            document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
+            document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
+            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
+            const factors = (p.why && p.why.factors) || [];
+            document.getElementById('tpFactors').innerHTML = factors.length
+                ? factors.map((f,i) => `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${f.detail? ' — '+f.detail:''}${f.source?`<small>${f.source}</small>`:''}</div>`).join('')
+                : '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            const fresh = p.freshness || {};
+            const dot = document.getElementById('tpDot');
+            dot.className = 'tp-dot' + (fresh.stale ? ' stale' : (fresh.status === 'warm' ? ' warm' : ''));
+            document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
+            const proof = p.proof || {};
+            const ledger = p.ledger || {};
+            const chips = [];
+            chips.push(`<a class="tp-chip ok" href="${ledger.href||'/oracle-accuracy'}">${ledger.label||'Verified on Ledger'}</a>`);
+            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${String(proof.certificate_hash).slice(0,12)}…</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
+            if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
+            if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
+            document.getElementById('tpProof').innerHTML = chips.join('');
+            const flip = document.getElementById('tpFlip');
+            const root = document.getElementById('trust-pulse');
+            if (p.flip && p.flip.message) {
+                flip.textContent = p.flip.message;
+                flip.classList.add('show');
+                root.classList.add('flipped');
+                setTimeout(() => root.classList.remove('flipped'), 1200);
+            } else if (!fromStream) {
+                flip.classList.remove('show');
+            }
+            const cont = p.continuity || {};
+            const contEl = document.getElementById('tpContinuity');
+            if (cont.locked) {
+                contEl.innerHTML = cont.flipped && cont.summary
+                    ? `${cont.summary} · <a href="#" onclick="upgradeTier('pro');return false">${cont.upgrade_hint||'Decision Pro'}</a>`
+                    : (cont.upgrade_hint || '');
+            } else if (cont.summary) {
+                contEl.textContent = cont.summary + ((cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '');
+            } else {
+                contEl.textContent = '';
+            }
+            if (ledger.honesty_line) {
+                const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
+                document.getElementById('tpFoot').innerHTML = `<strong>Anti-Hype</strong> · ${ledger.honesty_line}${foot ? '<br>'+foot : ''}`;
+            }
+            savePulseVisit(p);
+        }
+
+        async function loadTrustPulse(force) {
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const prev = readLastPulseVisit();
+            const mode = document.getElementById('uxMode')?.value || 'beginner';
+            const qs = new URLSearchParams({
+                symbol: sym,
+                ux_mode: mode,
+                lang: 'en',
+            });
+            if (force) qs.set('force', 'true');
+            if (prev && prev.action) {
+                qs.set('previous_action', prev.action);
+                if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
+            }
+            try {
+                const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
+                if (!res.ok) throw new Error('pulse_fail');
+                const p = await res.json();
+                renderTrustPulse(p);
+            } catch (e) {
+                document.getElementById('tpFresh').textContent = 'Unavailable';
+                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.';
+            }
+        }
+
+        function startTrustPulseStream() {
+            if (pulseEs) { try { pulseEs.close(); } catch (e) {} }
+            const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
+            const url = '/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym);
+            try {
+                pulseEs = new EventSource(url);
+                pulseEs.onmessage = (ev) => {
+                    try {
+                        const d = JSON.parse(ev.data);
+                        if (d.pulse) renderTrustPulse(d.pulse, { fromStream: true });
+                        else if (d.type === 'connected') {
+                            document.getElementById('tpFresh').textContent = 'Live stream on';
+                        }
+                    } catch (e) {}
+                };
+                pulseEs.onerror = () => {
+                    const fresh = document.getElementById('tpFresh');
+                    if (fresh && !String(fresh.textContent||'').includes('ago')) {
+                        fresh.textContent = 'Reconnecting…';
+                    }
+                };
+            } catch (e) {}
+        }
+
+        function shareTrustPulse() {
+            const p = lastPulse || {};
+            const proof = p.proof || {};
+            const text = proof.share_text || (`BLACKDARK Trust Pulse · ${p.symbol||'BTC'} · ${p.action||'WAIT'} · verify /oracle-accuracy`);
+            const url = (proof.share_urls && proof.share_urls.x) || null;
+            if (navigator.share) {
+                navigator.share({ title: 'BLACKDARK Trust Pulse', text }).catch(() => {});
+                return;
+            }
+            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+            if (url) window.open(url, '_blank', 'noopener');
+            else alert('Proof text copied');
+        }
+
+        function setSymbol(s) {
+            document.getElementById('symbol').value = s;
+            askOracle();
+            loadChart();
+            loadTrustPulse(true);
+            startTrustPulseStream();
+        }
 
         function applyLang() {
             const root = document.getElementById('htmlRoot');
             root.lang = 'en';
             root.dir = 'ltr';
-            document.getElementById('heroSub').textContent = 'Prove → Operate → Desk → Room · one Trust OS decision room';
+            document.getElementById('heroSub').textContent = 'Trust Pulse · one live decision you can verify';
             document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
@@ -921,7 +1138,8 @@
                             return;
                         }
                         if (action === 'oracle') {
-                            scrollToId('oracle');
+                            scrollToId('trust-pulse');
+                            loadTrustPulse(true);
                             askOracle();
                             return;
                         }
@@ -961,6 +1179,8 @@
             bindLensBar();
             applyAudienceFromQuery();
             loadIntentRouter();
+            loadTrustPulse(true);
+            startTrustPulseStream();
             askOracle();
             initChart();
             loadChart();
@@ -975,6 +1195,9 @@
             loadInbox();
             setInterval(loadMarket, 60000);
             setInterval(loadInbox, 90000);
+            if (location.hash === '#trust-pulse') {
+                setTimeout(() => scrollToId('trust-pulse'), 80);
+            }
         }
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
         else boot();

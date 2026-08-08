@@ -509,6 +509,39 @@
         }
         
         /* Site footer styles live in partials/site_footer.html */
+
+        .trust-pulse-mini {
+            max-width: 720px; margin: -1rem auto 1.5rem; padding: 0 1.25rem;
+            position: relative; z-index: 2;
+        }
+        .tp-mini-inner {
+            background: linear-gradient(165deg, rgba(18,32,42,.96), rgba(17,17,24,.98));
+            border: 1px solid rgba(34,211,238,.3);
+            border-radius: 16px; padding: 1.25rem 1.35rem 1.1rem;
+            animation: tpMiniIn .7s ease;
+        }
+        @keyframes tpMiniIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+        .tp-mini-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.55rem; }
+        .tp-mini-label { color:var(--accent); font-weight:700; font-size:.78rem; letter-spacing:.06em; }
+        .tp-mini-live { display:inline-flex; align-items:center; gap:.35rem; font-size:.75rem; color:var(--text-muted); }
+        .tp-mini-dot { width:.5rem; height:.5rem; border-radius:50%; background:var(--success); box-shadow:0 0 8px rgba(34,197,94,.5); }
+        .tp-mini-dot.stale { background:var(--warning); box-shadow:none; }
+        .tp-mini-action { font-size:clamp(2rem,5vw,2.8rem); font-weight:900; line-height:1; margin:.2rem 0; }
+        .tp-mini-action.ACT { color:var(--success); }
+        .tp-mini-action.WAIT { color:var(--warning); }
+        .tp-mini-action.CAUTION { color:var(--danger); }
+        .tp-mini-sym { color:var(--text-muted); font-size:.9rem; margin-bottom:.4rem; }
+        .tp-mini-sentence { color:var(--text); font-size:1rem; margin-bottom:.75rem; }
+        .tp-mini-why { font-size:.85rem; color:var(--text-muted); margin-bottom:.75rem; }
+        .tp-mini-why div { padding:.25rem 0; border-bottom:1px solid var(--border); color:var(--text); }
+        .tp-mini-why div:last-child { border-bottom:none; }
+        .tp-mini-proof { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; font-size:.75rem; }
+        .tp-mini-proof span, .tp-mini-proof a {
+            padding:.3rem .55rem; border-radius:999px; border:1px solid var(--border);
+            background:var(--bg-elevated); color:var(--text-muted); text-decoration:none;
+        }
+        .tp-mini-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+        .tp-mini-foot { font-size:.72rem; color:var(--text-muted); margin:0; }
         
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -569,16 +602,31 @@
                 One Trust OS — Prove → Operate → Desk → Room. Reviewable decisions, not mystery scores.
             </p>
             <div class="hero-cta">
-                <a href="/dashboard?lens=prove#decide" class="btn-primary">Open Proof</a>
+                <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary">Open Proof</a>
                 <a href="/oracle-accuracy" class="btn-secondary">Verify Ledger</a>
             </div>
-            <p style="margin-top:.75rem;font-size:.85rem;color:var(--text-muted)">
-                <a href="#oracle" style="color:var(--accent)">Try Decide</a> ·
-                <a href="/api/lenses" style="color:var(--accent)">Four lenses</a> ·
-                <a href="/data-room" style="color:var(--accent)">Room for funds</a>
-            </p>
         </div>
     </section>
+
+    <section id="trust-pulse" class="trust-pulse-mini" aria-live="polite" aria-label="Trust Pulse">
+        <div class="tp-mini-inner">
+            <div class="tp-mini-top">
+                <span class="tp-mini-label">TRUST PULSE</span>
+                <span class="tp-mini-live"><span class="tp-mini-dot" id="lpDot"></span><span id="lpFresh">Live</span></span>
+            </div>
+            <div class="tp-mini-action WAIT" id="lpAction">—</div>
+            <div class="tp-mini-sym" id="lpSym">Loading today’s decision…</div>
+            <p class="tp-mini-sentence" id="lpSentence">One clear Act / Wait — reviewable, not a mystery score.</p>
+            <div class="tp-mini-why" id="lpWhy"></div>
+            <div class="tp-mini-proof" id="lpProof"></div>
+            <div class="tp-mini-cta">
+                <a href="/dashboard?lens=prove#trust-pulse" class="btn-primary" style="padding:.55rem 1.1rem;font-size:.9rem">Open full proof</a>
+                <button type="button" class="btn-secondary" style="padding:.55rem 1.1rem;font-size:.9rem;border:none;cursor:pointer" id="lpShareBtn">Share Proof</button>
+            </div>
+            <p class="tp-mini-foot">Not financial advice · Verify on the Public Accuracy Ledger</p>
+        </div>
+    </section>
+
     <div class="landing-stats" id="landingStats" style="margin-top:0">
         <span>Visitors: <strong id="landingViews">—</strong></span>
         <span>Users: <strong id="landingUsers">—</strong></span>
@@ -1206,10 +1254,84 @@
             } catch (e) {}
         }
 
+        let landingPulse = null;
+        let landingPulseEs = null;
+
+        function renderLandingPulse(p) {
+            if (!p) return;
+            landingPulse = p;
+            const act = (p.action || 'WAIT').toUpperCase();
+            const actionEl = document.getElementById('lpAction');
+            if (actionEl) {
+                actionEl.textContent = act;
+                actionEl.className = 'tp-mini-action ' + act;
+            }
+            const price = p.price != null ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 })) : '';
+            const ch = p.change_24h;
+            const chBit = ch == null ? '' : ` · ${ch >= 0 ? '+' : ''}${Number(ch).toFixed(2)}%`;
+            const sym = document.getElementById('lpSym');
+            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${price}${chBit}`;
+            const sent = document.getElementById('lpSentence');
+            if (sent) sent.textContent = p.sentence || 'One clear Act / Wait — reviewable.';
+            const factors = (p.why && p.why.factors) || [];
+            const why = document.getElementById('lpWhy');
+            if (why) {
+                why.innerHTML = factors.slice(0, 3).map((f, i) =>
+                    `<div><strong>${i + 1}. ${f.factor || f}</strong>${f.detail ? ' — ' + f.detail : ''}</div>`
+                ).join('') || '';
+            }
+            const fresh = p.freshness || {};
+            const dot = document.getElementById('lpDot');
+            if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
+            const fl = document.getElementById('lpFresh');
+            if (fl) fl.textContent = fresh.label || 'Live';
+            const proof = p.proof || {};
+            const ledger = p.ledger || {};
+            const box = document.getElementById('lpProof');
+            if (box) {
+                const bits = [
+                    `<a href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
+                ];
+                if (proof.watermark) bits.push(`<span>${proof.watermark}</span>`);
+                if (proof.certificate_hash) bits.push(`<span>cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
+                box.innerHTML = bits.join('');
+            }
+        }
+
+        async function loadLandingTrustPulse() {
+            try {
+                const res = await fetch('/api/trust-pulse?symbol=BTC&ux_mode=beginner&lang=en');
+                if (!res.ok) return;
+                renderLandingPulse(await res.json());
+            } catch (e) {}
+        }
+
+        function startLandingPulseStream() {
+            try {
+                if (landingPulseEs) landingPulseEs.close();
+                landingPulseEs = new EventSource('/api/trust-pulse/stream?symbol=BTC');
+                landingPulseEs.onmessage = (ev) => {
+                    try {
+                        const d = JSON.parse(ev.data);
+                        if (d.pulse) renderLandingPulse(d.pulse);
+                    } catch (e) {}
+                };
+            } catch (e) {}
+        }
+
+        document.getElementById('lpShareBtn')?.addEventListener('click', () => {
+            const proof = (landingPulse && landingPulse.proof) || {};
+            const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
+            if (navigator.clipboard) navigator.clipboard.writeText(text).catch(() => {});
+            if (proof.share_urls && proof.share_urls.x) window.open(proof.share_urls.x, '_blank', 'noopener');
+        });
+
         window.addEventListener('load', () => {
             updateShareLinks(null);
             loadLandingAnalytics();
             loadTelegramBotLink();
+            loadLandingTrustPulse();
+            startLandingPulseStream();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/sw.js').catch(() => {});
