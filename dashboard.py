@@ -1176,20 +1176,39 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
     )
 
+    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_sentence = (
+        f"{decision_action} on {asset} — score {score}. "
+        f"Analytical summary (not advice): {action}"
+    )
     payload = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
         "verdict": verdict,
+        "decision_action": decision_action,
+        "decision_sentence": decision_sentence,
         "opportunity_score": score,
         "action": action,
         "action_line": f"Analytics summary: {action}",
+        "oracle": decision_sentence,
         "sentiment": sentiment,
         "latency_ms": latency_ms,
         "engine": "quick_rules_v1",
         "latency_target_ms": 100,
         "meets_latency_target": latency_ms <= 100,
+        "ux_mode": "beginner",
     }
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle_quick",
+            trust_basis="public_accuracy_ledger + quick_rules_engine",
+        )
+    except Exception:
+        pass
     from security_sanitize import sanitize_oracle_payload
 
     return JSONResponse(sanitize_oracle_payload(payload))

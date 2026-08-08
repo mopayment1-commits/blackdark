@@ -35,6 +35,9 @@
 | Net profit &lt;15% auto-cancel as CAO law | Invalid for crypto arb economics — use net-edge truth gates |
 | Guaranteed 65–70% predictive accuracy | Only live labeled ledger stats — never a marketing guarantee |
 | “Ask first” with Predict / Build Strategy theater | Intent router maps to **existing heroes only** |
+| FalconAI “16 platforms + 120 capabilities” as valuation | **Rejected** — see [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md) |
+| FalconAI BD-DEC-0031 as sole product map | **Superseded** — engines inventory only, under 4 layers |
+| BLACKDARK v9 “25 sections” + ARENA + Neuro-Design | **Rejected** |
 
 ---
 

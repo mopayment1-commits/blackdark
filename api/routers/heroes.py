@@ -263,6 +263,29 @@ async def intent_resolve(intent_id: str = Query(...)):
     return resolve_intent(intent_id)
 
 
+@router.get("/api/execution/closure")
+async def execution_closure(base_url: str | None = Query(None)):
+    """Expert execution closure — canonical binding + remaining human-only gates."""
+    from expert_execution import execution_closure_manifest
+
+    return execution_closure_manifest(base_url=base_url)
+
+
+@router.get("/api/acceptance/60s")
+async def acceptance_60s(base_url: str = Query("http://127.0.0.1:8080")):
+    """Machine probe for 60-second grasp (founder confirm still required)."""
+    from expert_execution import run_acceptance_60s
+
+    return run_acceptance_60s(base_url)
+
+
+@router.get("/api/glass-box/announce-drafts")
+async def glass_box_announce_drafts_api():
+    from expert_execution import glass_box_announce_drafts
+
+    return glass_box_announce_drafts()
+
+
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
     """Competitive posture vs TradingView-style rate caps — honest tier policy."""

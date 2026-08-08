@@ -40,5 +40,11 @@
 
 ```bash
 curl -s "$BASE/api/glass-box/operator" | jq .
+curl -s "$BASE/api/glass-box/announce-drafts" | jq .
 curl -s "$BASE/api/ledger/share-kit" | jq .
 ```
+
+## Announce drafts
+
+Product copy is ready via `GET /api/glass-box/announce-drafts`.  
+**Human only:** pick `exact_datetime` + `timezone` + channel, then post. Do not auto-schedule from code.

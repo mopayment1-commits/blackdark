@@ -31,10 +31,12 @@ Acceptance bars: Why &lt;5s · Whale one sentence · shareable Ledger · plain P
 APIs: `GET /api/heroes/quality`, `GET /api/ledger/share-kit`, `GET /api/glass-box/operator`.  
 Operator pack: [`docs/GLASS_BOX_OPERATOR_RUNBOOK.md`](docs/GLASS_BOX_OPERATOR_RUNBOOK.md).
 
-## Strategic correction (binding)
+## Canonical binding (single hierarchy)
 
-Inflated “15 sections / 100 indicators / ARENA / Neuro-Design / Rust&lt;50ms shipped” pastes are rejected.  
-Binding: [`docs/STRATEGIC_CORRECTION_BINDING.md`](docs/STRATEGIC_CORRECTION_BINDING.md) · `GET /api/strategy/correction` · `GET /api/intent/router`.
+Authority: Constitution → [`docs/CANONICAL_BINDING.md`](docs/CANONICAL_BINDING.md) → Trust OS 4 layers → 6 Heroes → Strategic Correction.  
+**Rejected as valuation:** FalconAI “16 platforms + 120 capabilities”, v9 “25 sections / ARENA / Neuro-Design”.
+
+APIs: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/intent/router` · `GET /api/execution/closure` · `GET /api/acceptance/60s` · `GET /api/glass-box/announce-drafts`.
 
 ## Load / HA proof
 

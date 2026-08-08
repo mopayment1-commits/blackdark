@@ -112,6 +112,14 @@ OVERCLAIM_DENYLIST: list[dict[str, str]] = [
     {"claim": "Guaranteed 65–70% predictive accuracy", "truth": "Only live labeled Public Accuracy Ledger stats — never a guarantee"},
     {"claim": "Net profit <15% auto-cancel as CAO law", "truth": "Invalid arb threshold — use net-edge truth gates instead"},
     {"claim": "HashiCorp Vault + Trail of Bits + Big Four as completed", "truth": "Human / procurement steps — not claimed shipped"},
+    {
+        "claim": "FalconAI 16 institutional platforms + 120 capabilities valuation",
+        "truth": "Rejected — one product, four value layers, six heroes (docs/CANONICAL_BINDING.md)",
+    },
+    {
+        "claim": "FalconAI BD-DEC-0031 sole canonical product map",
+        "truth": "Superseded by CANONICAL_BINDING hierarchy — Falcon inventories are engine appendices only",
+    },
 ]
 
 FIVE_OUTCOMES: list[str] = [
@@ -175,10 +183,11 @@ def trust_os_manifest() -> dict[str, Any]:
             "strategy_correction": "/api/strategy/correction",
         },
         "binding_docs": [
+            "docs/PRODUCT_CONSTITUTION_AR.md",
+            "docs/CANONICAL_BINDING.md",
             "docs/TRUST_OS_VALUE_LAYERS.md",
             "docs/HEROES_STRATEGY_BINDING.md",
             "docs/STRATEGIC_CORRECTION_BINDING.md",
-            "docs/PRODUCT_CONSTITUTION_AR.md",
         ],
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -203,7 +212,9 @@ def strategy_correction_manifest() -> dict[str, Any]:
             "browser_extension_platform",
             "100_indicator_retail_surface",
             "fifteen_section_platform_map",
+            "falconai_16_120_valuation",
             "sor_twap_tca_ifrs_soc2_as_shipped",
         ],
+        "canonical_binding": "docs/CANONICAL_BINDING.md",
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
