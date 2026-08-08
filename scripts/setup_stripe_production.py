@@ -48,7 +48,7 @@ def main() -> int:
     checklist = [
         ("STRIPE_SECRET_KEY", secret, "sk_live_... from Stripe Dashboard"),
         ("STRIPE_PRICE_PRO", price_pro, "price_... for $29/mo Decision Pro USD"),
-        ("STRIPE_PRICE_WHALE", price_whale, "price_... for $199/mo Whale Desk USD (optional)"),
+        ("STRIPE_PRICE_WHALE", price_whale, "price_... for $49/mo Decision Desk USD (optional)"),
         ("STRIPE_WEBHOOK_SECRET", webhook, "whsec_... endpoint POST /webhook"),
         (
             "STRIPE_SUCCESS_URL",

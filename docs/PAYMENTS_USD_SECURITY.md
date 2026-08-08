@@ -22,7 +22,7 @@ Browser → Hosted Checkout (Lemon Squeezy MoR or Stripe)
 | SKU | Tier | Price | Trial |
 |-----|------|-------|-------|
 | Decision Pro | `pro` | $29/mo | 7 days |
-| Whale Desk | `whale` | $199/mo | — |
+| Decision Desk | `whale` | $49/mo | — |
 
 Institutional (from $3,000/mo USD): invoice + wire — `POST /api/billing/institutional-inquiry` / Data Room. Not a Checkout SKU.
 

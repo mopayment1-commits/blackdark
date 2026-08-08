@@ -96,7 +96,7 @@
         <div class="card">
             <h2 style="margin-bottom:0.5rem">Live Demo</h2>
             <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
-            <div class="price">$199<span>/month</span> <span style="font-size:0.85rem">institutional license</span></div>
+            <div class="price">Custom<span style="font-size:0.85rem"> / from Decision Desk $49</span></div>
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
             <button class="btn btn-primary" onclick="runDemo()">Fetch Demo Feed</button>

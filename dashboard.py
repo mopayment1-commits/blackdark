@@ -57,8 +57,24 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 STRIPE_TIERS = {
     "pro": {"amount": 2900, "name": "Decision Pro"},
-    "whale": {"amount": 19900, "name": "Whale Desk"},
+    "whale": {"amount": 4900, "name": "Decision Desk"},
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
+
+
+def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
+    """Render a Jinja template with full i18n context (lang switcher + t())."""
+    from i18n_service import template_context
+
+    ctx = template_context(request, context)
+    response = templates.TemplateResponse(request, name, ctx)
+    response.set_cookie(
+        "bd_lang",
+        str(ctx.get("lang") or "en"),
+        max_age=60 * 60 * 24 * 365,
+        httponly=False,
+        samesite="lax",
+    )
+    return response
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -828,12 +844,12 @@ async def _build_opportunity_explanation(
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse(request, "login.html", _footer_ctx())
+    return render_page(request, "login.html", _footer_ctx())
 
 
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
-    return templates.TemplateResponse(request, "profile.html", _footer_ctx())
+    return render_page(request, "profile.html", _footer_ctx())
 
 
 @app.get("/reset-password", response_class=HTMLResponse)
@@ -1027,7 +1043,22 @@ def _footer_ctx() -> dict:
 
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
-    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
+    return render_page(request, "landing.html", _footer_ctx())
+
+
+@app.get("/api/i18n/locales")
+async def api_i18n_locales():
+    from i18n_service import i18n_manifest
+
+    return i18n_manifest()
+
+
+@app.get("/api/i18n/catalog")
+async def api_i18n_catalog(lang: str = "en"):
+    from i18n_service import catalog_for, locale_meta, normalize_lang
+
+    code = normalize_lang(lang)
+    return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
 @app.get("/favicon.ico")
@@ -1100,7 +1131,7 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html", _footer_ctx())
+    return render_page(request, "dashboard.html", _footer_ctx())
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
@@ -2384,7 +2415,7 @@ async def b2b_info():
         "websocket_info_endpoint": "/api/b2b/ws/info",
         "websocket_enabled": ws_stats.get("enabled"),
         "websocket_latency_target_ms": ws_stats.get("latency_target_ms"),
-        "pricing_usd_monthly": 199,
+        "pricing_usd_monthly": 49,
         "one_pager_url": "/b2b",
         "methodology": {
             "cvvd": "Cross-Venue Volume Discrepancy",
@@ -3508,7 +3539,7 @@ async def checkout_cancel(request: Request):
 
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
-    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
+    return render_page(request, "landing.html", _footer_ctx())
 
 
 if __name__ == "__main__":

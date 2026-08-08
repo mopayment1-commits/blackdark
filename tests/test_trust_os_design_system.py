@@ -18,7 +18,7 @@ def test_design_system_css_and_doc():
     assert "Inter" not in css.split("REJECTED")[0] or "REJECTED" in css
     assert "ARENA" in doc or "arena" in doc.lower()
     assert "Fake scarcity" in doc or "fake scarcity" in doc.lower()
-    assert "$29" in doc and "$199" in doc
+    assert "$29" in doc and "$49" in doc
 
 
 def test_templates_link_design_system():
@@ -48,8 +48,9 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert "#a78bfa" not in land
     assert "#f472b6" not in land
     assert "Decision Pro" in land and "$29" in land
-    assert "Whale Desk" in land and "$199" in land
-    assert "Talk to us" in land
+    assert "Decision Desk" in land and "$49" in land
+    assert "$199" not in land
+    assert "Talk to us" in land or "From $3,000" in land
     assert 'id="trust-pulse"' in land
     assert "fake seat" in land.lower() or "No fake seat" in land
     assert "🎁" not in land

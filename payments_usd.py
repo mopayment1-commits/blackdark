@@ -30,9 +30,9 @@ SELF_SERVE_SKUS: dict[str, dict[str, Any]] = {
     },
     "whale": {
         "tier": "whale",
-        "name": "Whale Desk",
-        "amount_cents": 19900,
-        "amount_usd": 199,
+        "name": "Decision Desk",
+        "amount_cents": 4900,
+        "amount_usd": 49,
         "interval": "month",
         "trial_days": 0,
         "checkout_env": "LEMON_SQUEEZY_CHECKOUT_WHALE",

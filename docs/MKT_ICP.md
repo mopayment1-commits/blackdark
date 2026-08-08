@@ -13,7 +13,7 @@
 ## Secondary ICP: Pro Power User
 
 - Uses Oracle 10+ times/day, wants unlimited queries + AI chat
-- Willing to pay **$29/mo** for Pro or **$199/mo** for Whale API feed
+- Willing to pay **$29/mo** for Decision Pro or **$49/mo** for Decision Desk
 - Converts from Free → Telegram alerts → Pro trial (`LAUNCHPRO`)
 
 ## Anti-ICP (out of scope for launch)

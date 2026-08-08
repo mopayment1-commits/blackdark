@@ -1,0 +1,64 @@
+{# Language switcher — English default; full UI reload on change #}
+{% if locales is defined and t is defined %}
+<style>
+  .bd-lang-wrap { position: relative; display: inline-flex; align-items: center; gap: .35rem; }
+  .bd-lang-wrap label { font-size: .72rem; color: var(--text-muted, #71717a); white-space: nowrap; }
+  .bd-lang-select {
+    background: var(--bg-elevated, #1a1a24);
+    color: var(--text, #e4e4e7);
+    border: 1px solid var(--border, #2a2a35);
+    border-radius: 8px;
+    padding: .35rem .55rem;
+    font-size: .78rem;
+    max-width: 11rem;
+    cursor: pointer;
+  }
+  .bd-lang-select:focus { outline: 2px solid var(--accent, #22d3ee); outline-offset: 1px; }
+</style>
+<div class="bd-lang-wrap" data-i18n-skip>
+  <label for="bdLangSelect">{{ t('lang.label') }}</label>
+  <select id="bdLangSelect" class="bd-lang-select" aria-label="{{ t('lang.choose') }}" onchange="window.BD_I18N && BD_I18N.setLang(this.value)">
+    {% for loc in locales %}
+    <option value="{{ loc.code }}" {% if loc.code == lang %}selected{% endif %}>{{ loc.native }}</option>
+    {% endfor %}
+  </select>
+</div>
+<script>
+window.BD_I18N = window.BD_I18N || {
+  lang: {{ lang|tojson }},
+  catalog: {{ i18n_json|safe }},
+  t: function(key, vars) {
+    var s = (this.catalog && this.catalog[key]) || key;
+    if (vars) {
+      Object.keys(vars).forEach(function(k) {
+        s = s.replace(new RegExp('\\{' + k + '\\}', 'g'), String(vars[k]));
+      });
+    }
+    return s;
+  },
+  setLang: function(code) {
+    try { localStorage.setItem('bd_lang', code); } catch (e) {}
+    document.cookie = 'bd_lang=' + encodeURIComponent(code) + ';path=/;max-age=31536000;SameSite=Lax';
+    var url = new URL(window.location.href);
+    url.searchParams.set('lang', code);
+    window.location.href = url.toString();
+  },
+  syncSelect: function() {
+    var el = document.getElementById('bdLangSelect');
+    if (el) el.value = this.lang;
+  }
+};
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var stored = localStorage.getItem('bd_lang');
+    var url = new URL(window.location.href);
+    if (stored && !url.searchParams.get('lang') && stored !== {{ lang|tojson }}) {
+      url.searchParams.set('lang', stored);
+      window.location.replace(url.toString());
+      return;
+    }
+  } catch (e) {}
+  if (window.BD_I18N) BD_I18N.syncSelect();
+});
+</script>
+{% endif %}

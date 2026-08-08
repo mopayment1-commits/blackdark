@@ -15,7 +15,7 @@ def test_payments_architecture_usd_no_pan():
     assert arch["security"]["stores_cvv"] is False
     assert arch["security"]["pci_target"] == "SAQ_A"
     assert arch["self_serve_skus"]["pro"]["amount_usd"] == 29
-    assert arch["self_serve_skus"]["whale"]["amount_usd"] == 199
+    assert arch["self_serve_skus"]["whale"]["amount_usd"] == 49
     assert arch["institutional"]["self_serve"] is False
     assert "card" in {m["id"] for m in arch["payment_methods_launch"]}
     refund = refund_policy_public()
@@ -28,7 +28,7 @@ def test_billing_tiers_currency_usd():
 
     assert BILLING_CURRENCY == "usd"
     assert STRIPE_TIERS["pro"]["currency"] == "usd"
-    assert STRIPE_TIERS["whale"]["amount"] == 19900
+    assert STRIPE_TIERS["whale"]["amount"] == 4900
 
 
 def test_pricing_catalog_currency():

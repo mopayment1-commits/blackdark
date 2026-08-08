@@ -15,8 +15,8 @@ Competitors sell data, charts, alerts, or opaque scores. Trust OS sells a **revi
 |-------|------|-------|-----------|------|
 | 1 | Proof Pass | $0 | `free` | Viral Free: OQS Why + Decision Certificate; **3 certified decisions/day**; Free Proof watermark |
 | 2 | Decision Pro | $29/mo | `pro` | Daily habit; unlimited Oracle; Portfolio AI; alerts; no watermark; **7-day trial** |
-| 3 | Whale Desk | $199/mo | `whale` | Edge + light institutional packaging (S/N, Stealth views, B2B/API, Evidence pack) |
-| 4 | Trust OS Institutional | From $3,000/mo → custom | sales-led | Data Room, SSO/MFA, SLA, roles, Integration Addendum — **Talk to us** |
+| 3 | Decision Desk | $49/mo | `whale` | Edge + serious desk tools (S/N, Stealth views, B2B/API, Evidence pack) |
+| 4 | Trust OS Institutional | From $3,000/mo → **open** | sales-led | Data Room, SSO/MFA, SLA, roles, Integration Addendum — **Talk to us** |
 
 ## Conversion levers (Free → Pro)
 
@@ -38,18 +38,18 @@ Competitors sell data, charts, alerts, or opaque scores. Trust OS sells a **revi
 1. Proof Card shares  
 2. Free → Pro trial  
 3. Trial → $29 paid  
-4. Only then measure $199 Whale Desk
+4. Only then measure $49 Decision Desk conversion
 
 ## Code surfaces
 
 - `pricing_catalog.py` — canonical catalog + Integration Addendum  
 - `auth_service.TIER_FEATURES` — gates + labels  
-- `billing_service.STRIPE_TIERS` — $29 / $199 self-serve **USD**  
+- `billing_service.STRIPE_TIERS` — $29 / $49 self-serve **USD**  
 - `payments_usd.py` + `docs/PAYMENTS_USD_SECURITY.md` — PSP architecture / PCI SAQ A  
 - `decision_certificate.py` — Free Proof watermark  
 - `GET /api/pricing` — public catalog JSON  
 - `GET /api/billing/payments` — payment readiness (no secrets)  
-- Landing `#pricing` — four-card story  
+- Landing `#pricing` — four-depth story · binding `docs/MORNING_SESSION_FINAL_BINDING.md`  
 
 ## Integration Addendum (Institutional)
 

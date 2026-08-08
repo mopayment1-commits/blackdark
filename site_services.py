@@ -90,8 +90,8 @@ FAQ_ITEMS: list[dict[str, str]] = [
         "a": "Operate lens: daily habit depth — unlimited Oracle (no tight Free ceiling), Portfolio AI, alerts, no Free watermark, plus AI Chat. 7-day trial available.",
     },
     {
-        "q": "What is Whale Desk?",
-        "a": "Desk lens ($199 USD): packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
+        "q": "What is Decision Desk?",
+        "a": "Desk lens ($49 USD): packaging to convince someone else — Signal-to-Noise, Stealth views, Evidence pack, API priority.",
     },
     {
         "q": "How do funds engage?",
@@ -103,7 +103,7 @@ FAQ_ITEMS: list[dict[str, str]] = [
     },
     {
         "q": "Where is AI Chat and who can use it?",
-        "a": "Inside the dashboard Operate/Desk experience. Available on Decision Pro and Whale Desk. It explains the current decision context — it does not replace the Oracle or guarantee outcomes.",
+        "a": "Inside the dashboard Operate/Desk experience. Available on Decision Pro and Decision Desk. It explains the current decision context — it does not replace the Oracle or guarantee outcomes.",
     },
     {
         "q": "How do I reset my password?",
