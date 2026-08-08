@@ -60,6 +60,7 @@ def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
     monkeypatch.delenv("LEMON_SQUEEZY_CHECKOUT_PRO", raising=False)
     monkeypatch.delenv("STRIPE_SECRET_KEY", raising=False)
     monkeypatch.delenv("LEMON_SQUEEZY_WEBHOOK_SECRET", raising=False)
+    monkeypatch.delenv("IDENTITY_DEBUG_TOKENS", raising=False)
 
     from production_guard import evaluate_production_guard
 
@@ -67,3 +68,19 @@ def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
     assert report["soft_launch"] is True
     assert report["required_pass"] is True
     assert "postgres_database" not in report["required_failures"]
+
+
+def test_identity_debug_tokens_fail_in_production(monkeypatch):
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SERVICE_MODE", "web")
+    monkeypatch.setenv("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "x" * 32)
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "y" * 16)
+    monkeypatch.setenv("ADMIN_API_KEY", "z" * 24)
+    monkeypatch.setenv("IDENTITY_DEBUG_TOKENS", "true")
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+
+    from production_guard import evaluate_production_guard
+
+    report = evaluate_production_guard()
+    assert "identity_debug_tokens_off" in report["required_failures"]

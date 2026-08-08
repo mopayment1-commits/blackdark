@@ -93,6 +93,11 @@
                 <button class="btn-secondary" onclick="openPortal()">Manage billing</button>
                 <a class="btn btn-secondary" href="/data-room">Institutional — Talk to us</a>
             </section>
+            <section class="card" id="valueDigestCard">
+                <h2>Subscriber value</h2>
+                <p class="hint">Pro/Whale digest — usage vs plan, not a performance guarantee.</p>
+                <div id="valueDigest" class="hint">Sign in on Decision Pro or Whale Desk to load your digest.</div>
+            </section>
         </main>
     </div>
 </div>
@@ -136,6 +141,37 @@
             'Plan: ' + tier + '. Currency USD. ' + ((d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.');
         if (new URLSearchParams(location.search).get('verified') === '1') setMsg('profileMsg', 'Email verified.', true);
         if (new URLSearchParams(location.search).get('welcome') === '1') setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
+        loadSubscriberValue(u.tier || 'free');
+    }
+    async function loadSubscriberValue(tier) {
+        const el = document.getElementById('valueDigest');
+        if (!el) return;
+        const t = String(tier || 'free').toLowerCase();
+        if (t === 'free') {
+            el.innerHTML = 'Proof Pass has Trust Pulse + Ledger. <a href="/create-checkout-session?tier=pro">Decision Pro $29</a> unlocks the value digest.';
+            return;
+        }
+        el.textContent = 'Loading value digest…';
+        try {
+            const res = await fetch('/api/subscriber/value', { headers: authHeaders(), credentials: 'same-origin' });
+            const d = await res.json();
+            if (!res.ok) {
+                el.textContent = (d.detail && (d.detail.message || d.detail)) || 'Value digest unavailable';
+                return;
+            }
+            const v = d.value || {};
+            const u = d.usage || {};
+            el.innerHTML =
+                `Oracle calls (30d): <strong style="color:var(--text)">${u.oracle_calls_30d ?? 0}</strong>` +
+                ` · Risk warnings: <strong style="color:var(--text)">${u.risk_warnings_30d ?? 0}</strong><br>` +
+                `Estimated research value: <strong style="color:var(--accent)">$${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}</strong>` +
+                (v.covers_subscription != null
+                    ? ` · Covers plan: <strong style="color:var(--text)">${v.covers_subscription ? 'yes' : 'not yet'}</strong>`
+                    : '') +
+                `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
+        } catch (e) {
+            el.textContent = 'Value digest unavailable';
+        }
     }
     async function saveProfile() {
         const res = await fetch('/api/auth/profile', {
@@ -223,5 +259,6 @@
     }
     load();
 </script>
+{% include "partials/site_footer.html" %}
 </body>
 </html>

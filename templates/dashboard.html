@@ -259,6 +259,18 @@
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
+        <section id="operate-digest" class="section-operate-plus hide-in-room">
+            <h2>Operate digest</h2>
+            <p class="sub">Daily research brief + subscriber value — Decision Pro / Whale Desk</p>
+            <div class="toolbar" style="margin-bottom:.65rem">
+                <button class="btn secondary" type="button" onclick="loadDailyReport()">Refresh daily report</button>
+                <button class="btn secondary" type="button" onclick="loadSubscriberValue()">Refresh value</button>
+                <a class="btn secondary" href="/api/reports/daily/markdown" style="text-decoration:none;display:inline-flex;align-items:center">Markdown</a>
+            </div>
+            <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
+            <div id="subscriberValueBox" class="arb-card" style="margin-top:.65rem"><div class="empty" style="padding:.25rem 0">Pro/Whale — subscriber value</div></div>
+        </section>
+
         <section id="portfolio" class="section-operate-plus hide-in-room">
             <h2>Portfolio AI</h2>
             <p class="sub">Risk in plain language — Hero #4 · private holdings stay in-browser</p>
@@ -535,20 +547,13 @@
                 qs.set('previous_action', prev.action);
                 if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
             }
+            if (prev && prev.factors && prev.factors.length) {
+                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (e) {}
+            }
             try {
                 const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
                 if (!res.ok) throw new Error('pulse_fail');
                 const p = await res.json();
-                // Attach previous factors client-side for Pro continuity detail
-                if (prev && prev.factors && p.continuity && !p.continuity.locked) {
-                    const prevNames = new Set((prev.factors || []).map(f => (f.factor || f || '').toString()));
-                    const nowNames = ((p.why && p.why.factors) || []).map(f => f.factor || f);
-                    const neu = nowNames.filter(n => n && !prevNames.has(n)).slice(0, 3);
-                    if (neu.length) {
-                        p.continuity.new_factors = neu;
-                        p.continuity.summary = (p.continuity.summary || '') + (p.continuity.summary ? '' : '');
-                    }
-                }
                 renderTrustPulse(p);
             } catch (e) {
                 document.getElementById('tpFresh').textContent = 'Unavailable';
@@ -753,18 +758,135 @@
             } catch (e) {}
         }
 
+        function renderMarketAssets(assets) {
+            const el = document.getElementById('market');
+            if (!el) return;
+            const rows = assets || [];
+            el.innerHTML = rows.length ? rows.slice(0,8).map(a => `
+                <div class="card" onclick="setSymbol('${a.symbol}')">
+                    <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
+                    <div>$${fmt(a.price,a.price<1?4:2)}</div>
+                    <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
+                </div>`).join('') : '<div class="empty">No market rows</div>';
+        }
+
         async function loadMarket() {
             const el = document.getElementById('market');
             try {
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
-                el.innerHTML = (data.assets||[]).slice(0,8).map(a => `
-                    <div class="card" onclick="setSymbol('${a.symbol}')">
-                        <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict}</span>
-                        <div>$${fmt(a.price,a.price<1?4:2)}</div>
-                        <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
-                    </div>`).join('');
+                renderMarketAssets(data.assets || []);
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+        }
+
+        async function loadDailyReport() {
+            const el = document.getElementById('dailyReportBox');
+            if (!el) return;
+            el.innerHTML = '<div class="loading">Loading daily report…</div>';
+            try {
+                const res = await fetch('/api/reports/daily?persist=false', { headers: authHeaders() });
+                const d = await res.json();
+                if (res.status === 401 || res.status === 403) {
+                    const detail = d.detail || {};
+                    el.innerHTML = `<div class="empty">${detail.message || 'Decision Pro required for daily report'}
+                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    return;
+                }
+                if (!res.ok) throw new Error('fail');
+                const title = d.title || d.headline || 'Daily research brief';
+                const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
+                const bullets = [
+                    d.oracle_accuracy_percent != null ? `Oracle accuracy ${d.oracle_accuracy_percent}%` : null,
+                    d.moat_score != null ? `Moat ${d.moat_score}/100` : null,
+                    d.whale_alerts_24h != null ? `Whale alerts ${d.whale_alerts_24h}` : null,
+                    d.arb_alerts_24h != null ? `Arb alerts ${d.arb_alerts_24h}` : null,
+                ].filter(Boolean).slice(0, 4);
+                el.innerHTML = `<strong>${title}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${summary || 'Brief ready — open Markdown for full detail.'}</div>
+                    ${bullets.length ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' +
+                        bullets.map(b => `<li>${b}</li>`).join('') +
+                        '</ul>' : ''}
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Daily report unavailable</div>';
+            }
+        }
+
+        async function loadSubscriberValue() {
+            const el = document.getElementById('subscriberValueBox');
+            if (!el) return;
+            el.innerHTML = '<div class="loading">Loading value…</div>';
+            try {
+                const res = await fetch('/api/subscriber/value', { headers: authHeaders() });
+                const d = await res.json();
+                if (res.status === 401 || res.status === 403) {
+                    const detail = d.detail || {};
+                    el.innerHTML = `<div class="empty">${detail.message || 'Pro/Whale required for subscriber value'}
+                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    return;
+                }
+                if (!res.ok) throw new Error('fail');
+                const v = d.value || {};
+                const u = d.usage || {};
+                el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
+                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
+                    ${v.covers_subscription != null ? ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet') : ''}</div>
+                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Value digest unavailable</div>';
+            }
+        }
+
+        let dashEs = null;
+        let lastWhaleStreamAt = 0;
+        function applyDashboardSnapshot(d) {
+            if (!d || d.type === 'error') return;
+            if (d.market && Array.isArray(d.market.assets)) renderMarketAssets(d.market.assets);
+            if (d.open_interest && Array.isArray(d.open_interest.assets)) {
+                const el = document.getElementById('oi');
+                const rows = d.open_interest.assets;
+                if (el && rows.length) {
+                    el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+                        rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
+                            <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                }
+            }
+            if (d.arbitrage) {
+                const el = document.getElementById('arbList');
+                const stats = document.getElementById('arbStats');
+                const c = d.arbitrage.counts || {};
+                if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${d.arbitrage.executable_count||0} · Profitable ${d.arbitrage.profitable_count||0}`;
+                const opps = d.arbitrage.opportunities || [];
+                if (el && opps.length) {
+                    el.innerHTML = opps.slice(0,6).map(o => {
+                        const half = o.opportunity_half_life || {};
+                        const truth = o.net_edge_truth || {};
+                        const rejected = o.truth_rejected || truth.reject;
+                        return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                        <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                        <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                    }).join('');
+                }
+            }
+            const now = Date.now();
+            if (d.whales && (now - lastWhaleStreamAt) > 45000) {
+                lastWhaleStreamAt = now;
+                loadWhales(false);
+            }
+        }
+        function startDashboardStream() {
+            if (dashEs) { try { dashEs.close(); } catch (e) {} }
+            try {
+                dashEs = new EventSource('/api/dashboard/stream');
+                dashEs.onmessage = (ev) => {
+                    try {
+                        const d = JSON.parse(ev.data);
+                        if (d.type === 'connected') return;
+                        applyDashboardSnapshot(d);
+                    } catch (e) {}
+                };
+            } catch (e) {}
         }
 
         async function loadOI() {
@@ -1199,6 +1321,7 @@
             loadIntentRouter();
             loadTrustPulse(true);
             startTrustPulseStream();
+            startDashboardStream();
             askOracle();
             initChart();
             loadChart();
@@ -1206,6 +1329,8 @@
             loadOI();
             loadArbitrage(false);
             loadWhales(false);
+            loadDailyReport();
+            loadSubscriberValue();
             loadMevReport();
             runStealthAdvisor();
             loadTgStatus();

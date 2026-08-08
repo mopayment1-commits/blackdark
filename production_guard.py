@@ -282,6 +282,20 @@ def evaluate_production_guard() -> dict[str, Any]:
             required=False,
             hint="SOFT_LAUNCH=true enables free SQLite demo without Postgres/billing webhooks",
         ),
+        _check(
+            "identity_debug_tokens_off",
+            (
+                os.getenv("IDENTITY_DEBUG_TOKENS", "").lower()
+                not in {"1", "true", "yes"}
+            )
+            if is_production()
+            else True,
+            required=is_production(),
+            hint=(
+                "Unset IDENTITY_DEBUG_TOKENS in production "
+                "(runtime hard-off exists; env must stay false for hygiene)"
+            ),
+        ),
     ]
 
     required_fail = [c for c in checks if c["required"] and not c["ok"]]

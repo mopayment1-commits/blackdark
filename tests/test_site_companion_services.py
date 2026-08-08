@@ -85,6 +85,7 @@ def test_templates_wire_companion_surfaces():
     assert "page == 'faq'" in util
     assert "page == 'legal_hub'" in util
     assert "page == 'status'" in util
+    assert "page == 'cancel'" in util
     assert Path("docs/SITE_COMPANION_SERVICES.md").is_file()
 
 

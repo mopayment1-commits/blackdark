@@ -63,6 +63,10 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert 0 <= pulse_i < stats_i
     assert "BLACKDARK" in land
     assert "Decide. Prove it. Share it." in land
+    orphan = (ROOT / "templates/index.html").read_text(encoding="utf-8")
+    assert "fonts.googleapis.com/css2?family=Inter" not in orphan
+    assert "#a78bfa" not in orphan
+    assert "Inter" not in orphan
 
 
 def test_trust_os_manifest_includes_design_system():

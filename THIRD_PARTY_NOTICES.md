@@ -65,7 +65,7 @@ dependencies — safe for commercial acquisition.
 
 | Asset | License | Usage |
 |-------|---------|-------|
-| Google Fonts (Inter, Tajawal) | SIL Open Font License 1.1 | Web UI typography |
+| Google Fonts (Syne, IBM Plex Sans) | SIL Open Font License 1.1 | Trust OS web UI typography (Inter/Tajawal retired) |
 | Service worker (`static/sw.js`) | **BLACKDARK proprietary** | PWA cache |
 
 No vendored jQuery, React, or third-party JS bundles in `static/`.

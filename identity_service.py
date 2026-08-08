@@ -237,6 +237,12 @@ async def consume_auth_token(raw: str, token_type: str) -> int:
 
 
 def debug_tokens_enabled() -> bool:
+    """Dev-only. Hard-off in production/prod even if env is mistakenly set."""
+    env = (
+        os.getenv("ENV") or os.getenv("APP_ENV") or os.getenv("RAILWAY_ENVIRONMENT") or ""
+    ).strip().lower()
+    if env in {"production", "prod"}:
+        return False
     return os.getenv("IDENTITY_DEBUG_TOKENS", "").lower() in {"1", "true", "yes"}
 
 

@@ -784,17 +784,17 @@ async def _build_opportunity_explanation(
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse(request, "login.html")
+    return templates.TemplateResponse(request, "login.html", _footer_ctx())
 
 
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
-    return templates.TemplateResponse(request, "profile.html")
+    return templates.TemplateResponse(request, "profile.html", _footer_ctx())
 
 
 @app.get("/reset-password", response_class=HTMLResponse)
 async def reset_password_page(request: Request):
-    return templates.TemplateResponse(request, "reset_password.html")
+    return templates.TemplateResponse(request, "reset_password.html", _footer_ctx())
 
 
 @app.get("/verify-email", response_class=HTMLResponse)
@@ -1018,7 +1018,7 @@ async def dashboard_page(request: Request):
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
-    return templates.TemplateResponse(request, "discipline.html")
+    return templates.TemplateResponse(request, "discipline.html", _footer_ctx())
 
 
 @app.get("/my/discipline-mirror")
@@ -1052,7 +1052,7 @@ async def public_developer_docs_page(request: Request):
     return templates.TemplateResponse(
         request,
         "docs_public.html",
-        {"title": "Developer Docs", "manifest": public_docs_manifest()},
+        {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
     )
 
 
@@ -1081,15 +1081,33 @@ async def api_trust_pulse(
     symbol: str = "BTC",
     previous_action: str | None = None,
     previous_seen_at: str | None = None,
+    previous_factors: str | None = None,
     force: bool = False,
     ux_mode: str = "beginner",
     lang: str = "en",
     user: dict | None = Depends(optional_user),
 ):
     """First-open Trust Pulse — one live decision + Why + proof + freshness."""
+    import json as _json
+
     from trust_pulse import build_trust_pulse
 
     tier = (user or {}).get("tier") or "free"
+    factors_prev = None
+    if previous_factors:
+        try:
+            parsed = _json.loads(previous_factors)
+            if isinstance(parsed, list):
+                factors_prev = [
+                    {
+                        "factor": str(f.get("factor") if isinstance(f, dict) else f)[:120],
+                        "detail": str((f.get("detail") if isinstance(f, dict) else "") or "")[:200],
+                        "source": str((f.get("source") if isinstance(f, dict) else "") or "")[:80],
+                    }
+                    for f in parsed[:5]
+                ]
+        except Exception:
+            factors_prev = None
     try:
         return await build_trust_pulse(
             symbol,
@@ -1098,6 +1116,7 @@ async def api_trust_pulse(
             lang=lang,
             previous_action=previous_action,
             previous_seen_at=previous_seen_at,
+            previous_factors=factors_prev,
             force_refresh=force,
             # Soft cache miss may persist once; force only refreshes identity — no spam
             persist=None,
@@ -1172,7 +1191,7 @@ async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
 
 @app.get("/platform", response_class=HTMLResponse)
 async def platform_hub_page(request: Request):
-    return templates.TemplateResponse(request, "platform.html")
+    return templates.TemplateResponse(request, "platform.html", _footer_ctx())
 
 
 @app.get("/capabilities", response_class=HTMLResponse)
@@ -1467,7 +1486,9 @@ async def api_feedback(data: dict = Body(...)):
 
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
 async def platform_coin_page(request: Request, coin_id: str):
-    return templates.TemplateResponse(request, "coin.html", {"coin_id": coin_id})
+    return templates.TemplateResponse(
+        request, "coin.html", {"coin_id": coin_id, **_footer_ctx()}
+    )
 
 
 # ========== API ENDPOINTS ==========
@@ -1699,7 +1720,7 @@ async def oracle(
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":
-        return templates.TemplateResponse(request, "oracle_accuracy.html")
+        return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
 
     from auth_service import check_oracle_quota
 
@@ -2223,7 +2244,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
-    return templates.TemplateResponse(request, "oracle_accuracy.html")
+    return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
 
 
 # ML experience routes → api/routers/oracle.py
@@ -2359,6 +2380,7 @@ async def b2b_page(request: Request):
         {
             "demo_key": config.B2B_DEMO_API_KEY,
             "feed_version": config.B2B_FEED_VERSION,
+            **_footer_ctx(),
         },
     )
 
@@ -3378,15 +3400,20 @@ async def app_alias_redirect():
 
 @app.get("/success", response_class=HTMLResponse)
 async def checkout_success(request: Request):
-    return templates.TemplateResponse(request, "success.html")
+    return templates.TemplateResponse(request, "success.html", _footer_ctx())
 
 
 @app.get("/cancel", response_class=HTMLResponse)
 async def checkout_cancel(request: Request):
-    return HTMLResponse(
-        "<html><body style='background:#0a0a0f;color:#e4e4e7;font-family:sans-serif;"
-        "text-align:center;padding:4rem'><h1>Checkout cancelled</h1>"
-        "<p><a href='/' style='color:#22d3ee'>Back to BLACKDARK</a></p></body></html>"
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "cancel",
+            "title": "Checkout cancelled",
+            "lead": "No charge was made. You can restart Decision Pro anytime — or stay on Proof Pass.",
+            **_footer_ctx(),
+        },
     )
 
 
