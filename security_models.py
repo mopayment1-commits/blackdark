@@ -14,6 +14,16 @@ class AuthRegisterBody(BaseModel):
 class AuthLoginBody(BaseModel):
     email: str = Field(min_length=5, max_length=254)
     password: str = Field(min_length=1, max_length=128)
+    mfa_code: str | None = Field(default=None, max_length=64)
+
+
+class AuthMfaConfirmBody(BaseModel):
+    code: str = Field(min_length=4, max_length=64)
+
+
+class AuthMfaChallengeBody(BaseModel):
+    challenge: str = Field(min_length=8, max_length=128)
+    code: str = Field(min_length=4, max_length=64)
 
 
 class ExecutionAutoBody(BaseModel):

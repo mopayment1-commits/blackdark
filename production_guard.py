@@ -47,10 +47,21 @@ def evaluate_production_guard() -> dict[str, Any]:
     telegram_secret = bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip())
     lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
     stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
-    secrets_ok = bool(
+    secrets_raw = (
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
-    session_pepper_ok = bool(os.getenv("SESSION_TOKEN_PEPPER", "").strip())
+    secrets_ok = bool(secrets_raw)
+    session_pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
+    session_pepper_ok = bool(session_pepper)
+    insecure_defaults = {
+        "blackdark-dev-change-me-in-production",
+        "blackdark-session-pepper-change-me",
+        "change-me",
+        "changeme",
+        "secret",
+    }
+    no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
+    no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
     admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
@@ -62,6 +73,12 @@ def evaluate_production_guard() -> dict[str, Any]:
     elif stripe:
         billing_webhook_ok = stripe_webhook
 
+    # Strict production (no Soft Launch): SQLite is an acquisition landmine.
+    strict_prod = is_production() and not soft_launch
+    sqlite_forbidden_ok = pg if strict_prod else (pg or soft_launch or not is_production())
+    # Soft Launch in production still must not ship known-insecure secret strings.
+    prod_secrets_hygiene = (not is_production()) or (no_insecure_secrets and no_insecure_pepper)
+
     checks = [
         _check(
             "postgres_database",
@@ -70,6 +87,24 @@ def evaluate_production_guard() -> dict[str, Any]:
             hint=(
                 "Set Postgres DATABASE_URL=postgresql://... "
                 "(or SOFT_LAUNCH=true for free SQLite demo)"
+            ),
+        ),
+        _check(
+            "sqlite_forbidden_in_strict_production",
+            sqlite_forbidden_ok,
+            required=strict_prod,
+            hint=(
+                "Strict production forbids SQLite. Set DATABASE_URL=postgresql://... "
+                "and unset SOFT_LAUNCH before any institutional pitch."
+            ),
+        ),
+        _check(
+            "at_rest_encryption_posture",
+            secrets_ok,
+            required=True,
+            hint=(
+                "Set SECRETS_MASTER_KEY or SECRETS_VAULT_KEY for Fernet at-rest encryption "
+                "of user API keys / sensitive vault material (engineering posture ≠ ISO 27001 cert)"
             ),
         ),
         _check(
@@ -104,6 +139,15 @@ def evaluate_production_guard() -> dict[str, Any]:
             session_pepper_ok,
             required=True,
             hint="Set SESSION_TOKEN_PEPPER to a long random secret",
+        ),
+        _check(
+            "no_insecure_prod_secret_defaults",
+            prod_secrets_hygiene,
+            required=is_production(),
+            hint=(
+                "Replace known-insecure SECRETS_MASTER_KEY / SESSION_TOKEN_PEPPER "
+                "dev defaults before any production deploy (including Soft Launch)"
+            ),
         ),
         _check(
             "admin_auth_configured",
@@ -167,6 +211,7 @@ def evaluate_production_guard() -> dict[str, Any]:
     return {
         "production": is_production(),
         "soft_launch": soft_launch,
+        "strict_production": strict_prod,
         "service_mode": mode,
         "database": "postgresql" if pg else "sqlite",
         "billing_provider": "lemon_squeezy" if lemon else ("stripe" if stripe else "none"),
@@ -174,6 +219,15 @@ def evaluate_production_guard() -> dict[str, Any]:
         "required_pass": len(required_fail) == 0,
         "required_failures": [c["id"] for c in required_fail],
         "warnings": [c["id"] for c in warn],
+        "acquisition_honesty": {
+            "sqlite_ok_for_pitch": bool(pg),
+            "soft_launch_is_not_ha": soft_launch,
+            "iso_certificates_claimed": False,
+            "note": (
+                "PostgreSQL required for institutional pitch. Soft Launch SQLite is demo-only. "
+                "Fernet vault = engineering posture, not an ISO 27001 certificate."
+            ),
+        },
         "railway_replicas_hint": "Set numReplicas=2 in railway.json or Railway dashboard",
         "uptimerobot_url": f"{os.getenv('APP_BASE_URL', 'https://blackdark-production.up.railway.app')}/health/live",
     }

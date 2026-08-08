@@ -216,7 +216,7 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
             "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
         }
 
-    return {
+    result = {
         "holdings": holdings,
         "total_value": round(total_value, 2),
         "total_value_formatted": f"${total_value:,.2f}",
@@ -236,6 +236,17 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "compliance_footer": compliance,
         "hero": "portfolio_ai",
     }
+    try:
+        from heroes_quality import build_portfolio_clarity
+
+        clarity = build_portfolio_clarity(result)
+        result["one_sentence"] = clarity["one_sentence"]
+        result["clarity"] = clarity
+    except Exception:
+        result["one_sentence"] = (
+            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
+        )
+    return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
 _BOOT_DB_READY = False
@@ -349,7 +360,16 @@ async def lifespan(app: FastAPI):
             logger.exception("Background shutdown failed")
 
 
-app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
+# Public /docs is our evidence/read developer page (not full Swagger dump).
+# Full schema remains at /api/docs/openapi.json; filtered at /api/docs/public-openapi.json.
+app = FastAPI(
+    title="BLACKDARK",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url="/openapi.json",
+)
 
 
 @app.middleware("http")
@@ -873,8 +893,11 @@ async def sitemap_xml(request: Request):
         "/",
         "/dashboard",
         "/oracle-accuracy",
+        "/errors",
+        "/docs",
         "/b2b",
         "/discipline-mirror",
+        "/capabilities",
         "/platform",
         "/login",
     ]
@@ -900,6 +923,46 @@ async def dashboard_page(request: Request):
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return templates.TemplateResponse(request, "discipline.html")
+
+
+@app.get("/my/discipline-mirror")
+async def discipline_mirror_alias():
+    """Critical-report alias — same private mirror, no seventh product."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/discipline-mirror", status_code=307)
+
+
+@app.get("/errors")
+async def public_errors_alias():
+    """Public admission of misses — alias into the Accuracy Ledger losing section."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+
+
+@app.get("/public/accuracy-ledger")
+async def public_accuracy_ledger_alias():
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy", status_code=307)
+
+
+@app.get("/docs", response_class=HTMLResponse)
+async def public_developer_docs_page(request: Request):
+    """Limited public developer docs (evidence/read APIs) — not full execution surface."""
+    from public_api_docs import public_docs_manifest
+
+    return templates.TemplateResponse(
+        request,
+        "docs_public.html",
+        {"title": "Developer Docs", "manifest": public_docs_manifest()},
+    )
+
+
+@app.get("/docs/public", response_class=HTMLResponse)
+async def public_developer_docs_alias(request: Request):
+    return await public_developer_docs_page(request)
 
 
 @app.get("/api/dashboard/stream")
@@ -961,15 +1024,84 @@ async def platform_hub_page(request: Request):
 
 @app.get("/capabilities", response_class=HTMLResponse)
 async def capabilities_page(request: Request):
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
         "utility.html",
         {
             "page": "capabilities",
-            "title": "Capabilities",
-            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+            "title": "Capabilities — Trust OS",
+            "lead": (
+                "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
+                "Not 15/16 platforms. Six heroes. No ARENA. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
         },
     )
+
+
+@app.get("/compliance", response_class=HTMLResponse)
+async def compliance_page(request: Request):
+    """Anti-Hype / Legal Shield public page — engineering posture, not a license."""
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
+    regulatory = {}
+    try:
+        from regulatory_compliance_guard import regulatory_compliance_status
+
+        regulatory = regulatory_compliance_status()
+    except Exception:
+        regulatory = {"status": "engineering_posture_only"}
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "compliance",
+            "title": "Anti-Hype Compliance",
+            "lead": (
+                "Engineering posture and overclaim denylist — not SEC/MiCA licensing, "
+                "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
+            "regulatory": regulatory,
+        },
+    )
+
+
+@app.get("/data-room", response_class=HTMLResponse)
+async def data_room_page(request: Request):
+    """Committee-facing data room index (HTML)."""
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "data_room",
+            "title": "Data Room",
+            "lead": (
+                "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
+                "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
+            ),
+        },
+    )
+
+
+@app.get("/api/trust-os")
+async def api_trust_os():
+    """Honest acquisition framing — four value layers + overclaim denylist."""
+    from trust_os import trust_os_manifest
+
+    return trust_os_manifest()
+
+
+@app.get("/api/scale/readiness")
+async def api_scale_readiness():
+    """Honest concurrent-scale posture for ops and diligence."""
+    from scale_readiness import scale_readiness_report
+
+    return scale_readiness_report()
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -1150,20 +1282,45 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
     )
 
+    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_sentence = (
+        f"{decision_action} on {asset} — score {score}. "
+        f"Analytical summary (not advice): {action}"
+    )
     payload = {
         "symbol": asset,
         "price": price,
         "change_24h": change,
         "verdict": verdict,
+        "decision_action": decision_action,
+        "decision_sentence": decision_sentence,
         "opportunity_score": score,
         "action": action,
         "action_line": f"Analytics summary: {action}",
+        "oracle": decision_sentence,
         "sentiment": sentiment,
         "latency_ms": latency_ms,
         "engine": "quick_rules_v1",
         "latency_target_ms": 100,
         "meets_latency_target": latency_ms <= 100,
+        "ux_mode": "beginner",
     }
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle_quick",
+            trust_basis="public_accuracy_ledger + quick_rules_engine",
+        )
+    except Exception:
+        pass
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        pass
     from security_sanitize import sanitize_oracle_payload
 
     return JSONResponse(sanitize_oracle_payload(payload))
@@ -1323,6 +1480,27 @@ async def oracle(
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
 
+    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
+    try:
+        from oracle_scenarios import build_oracle_scenarios
+
+        payload["scenarios"] = build_oracle_scenarios(payload)
+    except Exception:
+        logger.debug("Oracle scenarios attach failed", exc_info=True)
+
+    # Hero #1 — Why in <5s (normalized Top-3 for UI)
+    try:
+        from heroes_quality import build_oqs_why_block
+
+        payload["oqs_why"] = build_oqs_why_block(payload)
+        if payload["oqs_why"].get("top_3_factors"):
+            expl = payload.get("explanation") or {}
+            if isinstance(expl, dict) and not expl.get("top_3_factors"):
+                expl = {**expl, "top_3_factors": payload["oqs_why"]["top_3_factors"]}
+                payload["explanation"] = expl
+    except Exception:
+        logger.debug("OQS why block attach failed", exc_info=True)
+
     # Durable product alert without Telegram when Oracle says ACT.
     try:
         if str(payload.get("decision_action") or "").upper() == "ACT":
@@ -1363,6 +1541,13 @@ async def oracle(
         increment_metric("oracle_queries_total")
     except Exception:
         pass
+
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        logger.debug("Oracle freshness attach failed", exc_info=True)
 
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
@@ -2401,22 +2586,51 @@ async def api_security_status():
     import secrets_vault
     from security_auth import admin_emails
 
+    from postgres_backend import use_postgres
+
+    vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
     return {
         "password_hashing": "PBKDF2-SHA256 (260k iterations)",
         "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
         "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
         "model_weights": "Fernet + HMAC integrity (admin-gated API)",
+        "at_rest_encryption": {
+            "status": "fernet_vault_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
+            "user_keys": "encrypted",
+            "iso_27001_certificate": False,
+            "note": "Engineering posture with Fernet at-rest encryption ≠ ISO 27001 certification",
+        },
+        "database_posture": {
+            "engine": "postgresql" if use_postgres() else "sqlite",
+            "institutional_pitch_requires_postgres": True,
+            "soft_launch_sqlite_ok": True,
+        },
+        "secrets_policy": {
+            "hardcoded_keys_forbidden": True,
+            "env_vault_required": True,
+            "hashicorp_vault_required": False,
+            "note": "Use env SECRETS_MASTER_KEY / SECRETS_VAULT_KEY — HashiCorp Vault is optional ops, not a ship claim",
+        },
         "execution_endpoints": "whale_tier_required",
         "panic_button": "cancel_all_orders + stop loop + risk freeze",
-        "risk_freeze": "persistent (SQLite, survives restart)",
+        "risk_freeze": "persistent (survives restart)",
         "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
         "admin_endpoints": "X-Admin-Key or admin email",
-        "rate_limiting": "login 10 attempts / 5 min",
+        "rate_limiting": "login 10 attempts / 5 min (Redis-shared when REDIS_URL set)",
+        "login_rate_limit_backend": (
+            __import__("security_auth", fromlist=["login_rate_limit_backend"]).login_rate_limit_backend()
+        ),
+        "mfa": "TOTP enroll/verify at /api/auth/mfa/*",
+        "oauth2": "Google/GitHub scaffolding at /api/auth/oauth/* when client IDs set",
         "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
         "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
-        "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
+        "vault_configured": vault_ok,
         "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
         "admin_emails_configured": len(admin_emails()) > 0,
+        "public_developer_docs": "/docs",
+        "architecture_index": "ARCHITECTURE.md",
+        "data_room": "/data-room",
+        "scale_readiness": "/api/scale/readiness",
         "docs": "/SECURITY.md",
     }
 
@@ -2462,6 +2676,21 @@ async def api_infra_metrics():
 @app.get("/api/docs/openapi.json")
 async def api_openapi_export():
     return app.openapi()
+
+
+@app.get("/api/docs/public-openapi.json")
+async def api_public_openapi_export():
+    """Evidence/read OpenAPI only — omits admin/billing/execution write surfaces."""
+    from public_api_docs import filter_openapi_for_public
+
+    return filter_openapi_for_public(app.openapi())
+
+
+@app.get("/api/docs/public-manifest")
+async def api_public_docs_manifest():
+    from public_api_docs import public_docs_manifest
+
+    return public_docs_manifest()
 
 
 @app.get("/health/live")
