@@ -110,6 +110,10 @@ Secrets: Fernet vault (`SECRETS_MASTER_KEY`) — fail-closed in production.
 
 ## 7) Deploy notes
 
+- Local setup: [`README.md`](README.md)
 - Compose (local/scale-out): `docker-compose.yml`
 - Production compose template: `docker-compose.prod.yml`
+- Kubernetes templates: [`k8s/`](k8s/) (`deployment`, `service`, `hpa`, `ingress`, `pdb`)
+- Vault rotation: `python scripts/rotate_vault_key.py --apply`
+- Coverage: `python scripts/run_coverage.py`
 - Free soft launch: `SOFT_LAUNCH=true` + `SERVICE_MODE=web` (SQLite demo — not an acquisition-grade HA claim)

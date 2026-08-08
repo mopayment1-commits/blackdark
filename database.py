@@ -3943,6 +3943,41 @@ async def fetch_user_api_key_secrets(user_id: int, exchange: str) -> dict[str, A
     return dict(row) if row else None
 
 
+async def fetch_all_user_api_key_secrets() -> list[dict[str, Any]]:
+    """All vault rows for key-rotation re-encryption."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, user_id, exchange, api_key_encrypted, api_secret_encrypted
+                FROM user_api_keys
+                ORDER BY id ASC
+                """
+            )
+            result = await rows.fetchall()
+        return [dict(r) for r in result]
+    except Exception:
+        logger.exception("Unable to fetch all user api key secrets")
+        return []
+
+
+async def update_user_api_key_ciphertexts(
+    row_id: int,
+    api_key_encrypted: str,
+    api_secret_encrypted: str,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE user_api_keys
+            SET api_key_encrypted = ?, api_secret_encrypted = ?, updated_at = ?
+            WHERE id = ?
+            """,
+            (api_key_encrypted, api_secret_encrypted, _utcnow_iso(), int(row_id)),
+        )
+        await db.commit()
+
+
 async def delete_user_api_key(user_id: int, exchange: str) -> bool:
     async with get_connection() as db:
         cursor = await db.execute(

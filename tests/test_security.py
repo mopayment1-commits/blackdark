@@ -84,3 +84,15 @@ def test_vault_key_rotation_overdue(monkeypatch):
     status = check_vault_key_rotation_policy()
     assert status["status"] == "overdue"
     assert status["ok"] is False
+
+
+def test_reencrypt_ciphertext_roundtrip(monkeypatch):
+    from secrets_vault import fernet_from_master, reencrypt_ciphertext
+
+    old = "old-master-key-aaaaaaaa"
+    new = "new-master-key-bbbbbbbb"
+    original = "exchange-secret-xyz"
+    old_ct = fernet_from_master(old).encrypt(original.encode()).decode()
+    new_ct = reencrypt_ciphertext(old_ct, old_master=old, new_master=new)
+    assert new_ct != old_ct
+    assert fernet_from_master(new).decrypt(new_ct.encode()).decode() == original

@@ -129,6 +129,28 @@ def decrypt_secret(ciphertext: str) -> str:
     return _fernet_instance().decrypt(ciphertext.encode("utf-8")).decode("utf-8")
 
 
+def fernet_from_master(master_key: str):
+    """Build a Fernet instance from arbitrary master material (rotation helper)."""
+    from cryptography.fernet import Fernet
+
+    return Fernet(_derive_fernet_key(master_key))
+
+
+def reencrypt_ciphertext(ciphertext: str, *, old_master: str, new_master: str) -> str:
+    """Decrypt with old master and encrypt with new master (vault key rotation)."""
+    if not ciphertext:
+        return ""
+    plain = fernet_from_master(old_master).decrypt(ciphertext.encode("utf-8")).decode("utf-8")
+    return fernet_from_master(new_master).encrypt(plain.encode("utf-8")).decode("utf-8")
+
+
+def reset_fernet_cache() -> None:
+    """Clear cached Fernet after env key rotation in-process."""
+    global _fernet, _rotation_checked
+    _fernet = None
+    _rotation_checked = False
+
+
 def mask_secret(value: str, *, visible: int = 4) -> str:
     if len(value) <= visible * 2:
         return "****"

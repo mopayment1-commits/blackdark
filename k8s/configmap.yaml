@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackdark-config
+  namespace: blackdark
+data:
+  ENV: "production"
+  SERVICE_MODE: "web"
+  SOFT_LAUNCH: "false"
+  REDIS_REQUIRED: "true"
+  SERVICE_BUS_LOCAL: "false"
+  PRODUCTION_GUARD_FAIL_CLOSED: "true"
+  ADMIN_MFA_REQUIRED: "true"
+  VAULT_KEY_ROTATION_DAYS: "90"
+  REGULATORY_COMPLIANCE_ENABLED: "true"
+  TERMS_ACCEPTANCE_REQUIRED: "true"
+  PORT: "8080"
+  HEALTH_PORT: "8180"
