@@ -7,7 +7,7 @@ of competitor highlight reels. Deepens Public Accuracy Ledger.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -28,7 +28,7 @@ async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
         month = ts[:7] if len(ts) >= 7 else "unknown"
         by_month.setdefault(month, []).append(r)
 
-    current_month = datetime.now(timezone.utc).strftime("%Y-%m")
+    current_month = datetime.now(UTC).strftime("%Y-%m")
     months_out = []
     for month in sorted(by_month.keys(), reverse=True):
         rows_m = by_month[month]
@@ -75,7 +75,7 @@ async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
     return {
         "title": "Monthly Losing Trade Report",
         "month": current_month,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "thesis": thesis,
         "total_labeled_misses_in_window": len(misses),
         "current_month_misses": len(by_month.get(current_month) or []),

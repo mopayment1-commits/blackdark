@@ -32,9 +32,9 @@ def run_profit_fee_coverage() -> dict[str, Any]:
         "--cov-report=term-missing",
         "--cov-fail-under=90",
     ]
-    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300)
+    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)
     lines = (proc.stdout or "").splitlines()
-    total_line = next((l for l in lines if "TOTAL" in l), "")
+    total_line = next((line for line in lines if "TOTAL" in line), "")
     pct = 0.0
     if total_line:
         for part in total_line.split():

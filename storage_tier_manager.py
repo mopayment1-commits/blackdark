@@ -14,8 +14,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import shutil
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -24,12 +23,13 @@ import config
 logger = logging.getLogger("BLACKDARK.StorageTier")
 
 _scheduler_task: asyncio.Task | None = None
+_legacy_cleanup_task: asyncio.Task | None = None
 _compactor_started = False
 _running = False
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _utcnow_iso() -> str:
@@ -101,7 +101,7 @@ def prune_stale_hot_spool_files(*, retention_hours: int | None = None) -> dict[s
         for spool_file in type_dir.glob("*.ndjson"):
             try:
                 day_str = spool_file.stem
-                file_day = datetime.strptime(day_str, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+                file_day = datetime.strptime(day_str, "%Y-%m-%d").replace(tzinfo=UTC)
                 file_end = file_day + timedelta(days=1)
                 if file_end >= cutoff:
                     continue
@@ -132,7 +132,7 @@ def prune_stale_warm_parquet(*, retention_days: int | None = None) -> dict[str, 
             continue
         for parquet_file in root.rglob("*.parquet"):
             try:
-                mtime = datetime.fromtimestamp(parquet_file.stat().st_mtime, tz=timezone.utc)
+                mtime = datetime.fromtimestamp(parquet_file.stat().st_mtime, tz=UTC)
                 if mtime >= cutoff:
                     continue
                 size = parquet_file.stat().st_size
@@ -188,7 +188,7 @@ def prune_stale_hot_spool_archive(*, retention_days: int | None = None) -> dict[
 
     for archive_file in root.rglob("*.ndjson"):
         try:
-            mtime = datetime.fromtimestamp(archive_file.stat().st_mtime, tz=timezone.utc)
+            mtime = datetime.fromtimestamp(archive_file.stat().st_mtime, tz=UTC)
             if mtime >= cutoff:
                 continue
             size = archive_file.stat().st_size
@@ -389,7 +389,7 @@ async def _maybe_legacy_db_cleanup() -> None:
 
 async def start_storage_tier_manager() -> None:
     """Bootstrap hot pipeline, compaction scheduler, and maintenance loop."""
-    global _scheduler_task, _running
+    global _scheduler_task, _legacy_cleanup_task, _running
     if _running:
         return
     _running = True
@@ -398,7 +398,7 @@ async def start_storage_tier_manager() -> None:
     await ensure_compaction_scheduler()
 
     if config.STORAGE_TIER_AUTO:
-        asyncio.create_task(_maybe_legacy_db_cleanup(), name="legacy-db-cleanup")
+        _legacy_cleanup_task = asyncio.create_task(_maybe_legacy_db_cleanup(), name="legacy-db-cleanup")
         _scheduler_task = asyncio.create_task(
             _maintenance_loop(),
             name="storage-tier-maintenance",

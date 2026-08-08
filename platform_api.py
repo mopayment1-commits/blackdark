@@ -543,7 +543,7 @@ async def onchain_advanced(asset: str = Query("BTC")):
 
 @router.get("/ml/rl")
 async def rl_policy(features: str = Query(""), train: bool = Query(False)):
-    from ml.rl_policy import predict_action, policy_status
+    from ml.rl_policy import policy_status, predict_action
 
     if train:
         raise HTTPException(

@@ -148,9 +148,7 @@ def is_alertable(row: dict[str, Any]) -> bool:
     conflict = row.get("dimension_conflict")
     if not isinstance(conflict, dict):
         return False
-    if conflict.get("veto") or conflict.get("abstain"):
-        return False
-    return True
+    return not (conflict.get("veto") or conflict.get("abstain"))
 
 
 def ensure_execution_gates(opportunity: dict[str, Any]) -> dict[str, Any]:

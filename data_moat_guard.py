@@ -51,13 +51,11 @@ def validate_prediction_insert(
         return True, "ok"
 
     src = (source or "oracle").strip().lower()
-    if _block_synthetic_seed() and src in SYNTHETIC_SOURCES:
-        if _is_production() or _live_only():
-            return False, f"synthetic_source_blocked:{src}"
+    if _block_synthetic_seed() and src in SYNTHETIC_SOURCES and (_is_production() or _live_only()):
+        return False, f"synthetic_source_blocked:{src}"
 
-    if _require_features() and src == "oracle" and not (features_json or "").strip():
-        if _is_production():
-            return False, "features_json_required_for_live_oracle"
+    if _require_features() and src == "oracle" and not (features_json or "").strip() and _is_production():
+        return False, "features_json_required_for_live_oracle"
 
     return True, "ok"
 
@@ -77,10 +75,7 @@ def _model_artifact_present() -> bool:
     model_dir = getattr(config, "ML_MODELS_DIR", Path("data/models"))
     if not model_dir.exists():
         return False
-    for pattern in ("*.joblib", "*.pkl", "*.onnx"):
-        if any(model_dir.glob(pattern)):
-            return True
-    return False
+    return any(any(model_dir.glob(pattern)) for pattern in ("*.joblib", "*.pkl", "*.onnx"))
 
 
 async def fetch_dataset_stats() -> dict[str, Any]:

@@ -7,7 +7,7 @@ Not a seventh product surface: packaging for Locked Predictions + Public Ledger
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -51,6 +51,6 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "locked_predictions_status": locked,
         "recent_locked": recent,
         "share_text": challenge_en,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "note": "Product machinery is live. Press the challenge when you choose the event clock.",
     }

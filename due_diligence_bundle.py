@@ -4,7 +4,7 @@ BLACKDARK — Full due diligence bundle (questions ①–⑳).
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -29,7 +29,7 @@ async def build_full_due_diligence_bundle() -> dict[str, Any]:
         evidence = {"error": "evidence_pack_unavailable"}
 
     return {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "summary_en": (
             "Conditional acquisition: salvageable architecture, emerging data moat, "
             "rules-first AI with ML flywheel. Not a rewrite-trigger."

@@ -9,8 +9,7 @@ from __future__ import annotations
 import json
 import logging
 import os
-import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -26,7 +25,7 @@ _ASSET_ALIASES: dict[str, str] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _extract_symbol(text: str) -> str | None:
@@ -159,15 +158,14 @@ async def _openai_reply(message: str, context: dict[str, Any], history: list[dic
     }
     try:
         timeout = aiohttp.ClientTimeout(total=25)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.post(
-                "https://api.openai.com/v1/chat/completions",
-                headers={"Authorization": f"Bearer {api_key}"},
-                json=payload,
-            ) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}"},
+            json=payload,
+        ) as resp:
+            if resp.status != 200:
+                return None
+            data = await resp.json()
         return data["choices"][0]["message"]["content"].strip()
     except (aiohttp.ClientError, KeyError, TypeError, ValueError):
         logger.exception("OpenAI chat failed")

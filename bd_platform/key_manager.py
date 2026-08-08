@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 import aiohttp
-from pathlib import Path
 
 _PLATFORM_KEYS: tuple[dict[str, str], ...] = (
     {
@@ -40,7 +40,7 @@ _ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _mask(value: str) -> str:
@@ -175,7 +175,7 @@ def _read_env_lines() -> list[str]:
 def _upsert_env_line(key: str, value: str, lines: list[str]) -> list[str]:
     prefix = f"{key}="
     for idx, line in enumerate(lines):
-        if line.startswith(prefix) or line.startswith(f"{key} ="):
+        if line.startswith((prefix, f"{key} =")):
             lines[idx] = f"{prefix}{value}"
             return lines
     if lines and lines[-1].strip():

@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 from fastapi import Depends, Header, HTTPException
 
 
@@ -12,7 +10,7 @@ async def optional_user(authorization: str | None = Header(None, alias="Authoriz
 
     if not authorization:
         return None
-    token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+    token = authorization.removeprefix("Bearer ")
     return await get_user_from_token(token.strip())
 
 

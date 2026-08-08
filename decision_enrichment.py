@@ -31,7 +31,7 @@ def enrich_oracle_decision(
     truth_input = {
         "kind": out.get("kind") or "oracle_direction",
         "asset": asset,
-        "net_profit_usdt": net_profit if net_profit else max(0.0, (score - 50.0) / 50.0),
+        "net_profit_usdt": net_profit or max(0.0, (score - 50.0) / 50.0),
         "quote_amount": float(out.get("quote_amount") or out.get("volume_24h") or 1000),
         "total_slippage_bps": float(out.get("total_slippage_bps") or 8.0),
         "withdrawal_fee_usdt": float(out.get("withdrawal_fee_usdt") or 0.0),
@@ -46,7 +46,7 @@ def enrich_oracle_decision(
         if out.get("kind") in {"cross_exchange", "triangular", "spot_futures", "funding"} or net_profit > 0:
             truth = compute_net_edge_truth(truth_input)
             score = apply_truth_gate_to_score(score, truth)
-            out["opportunity_score"] = int(round(score))
+            out["opportunity_score"] = round(score)
             if truth.get("reject"):
                 from regulatory_compliance_guard import to_public_verdict
 

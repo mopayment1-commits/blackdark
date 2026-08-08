@@ -26,11 +26,10 @@ async def _poll_once(token: str) -> None:
     url = f"https://api.telegram.org/bot{token}/getUpdates"
     params = {"timeout": 20, "offset": _offset + 1}
     timeout = aiohttp.ClientTimeout(total=30)
-    async with aiohttp.ClientSession(timeout=timeout) as session:
-        async with session.get(url, params=params) as resp:
-            if resp.status != 200:
-                return
-            payload = await resp.json()
+    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+        if resp.status != 200:
+            return
+        payload = await resp.json()
 
     for update in payload.get("result") or []:
         _offset = max(_offset, int(update.get("update_id") or 0))

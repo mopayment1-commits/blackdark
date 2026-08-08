@@ -7,15 +7,13 @@ accumulation regimes, and exposes multi-modal scoring hooks for the engine.
 
 from __future__ import annotations
 
-import asyncio
 import hashlib
-import json
 import logging
 import statistics
 import time
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -68,7 +66,7 @@ _net_flow_history: dict[str, _NetFlowHistory] = defaultdict(_NetFlowHistory)
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _stable_noise(asset: str, salt: str) -> float:

@@ -3,8 +3,8 @@ BLACKDARK — Central configuration.
 All runtime parameters live here to prevent context drift across modules.
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 ROOT_DIR = Path(__file__).resolve().parent
@@ -108,10 +108,7 @@ if KAFKA_PRICE_STREAM_ENABLED and PRICE_FEED_WS_ONLY and not os.getenv("KAFKA_BR
 DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
 PG_POOL_MAX = int(os.getenv("PG_POOL_MAX", "20"))
 _bus_local_env = os.getenv("SERVICE_BUS_LOCAL")
-if _bus_local_env is None:
-    SERVICE_BUS_LOCAL = not bool(REDIS_URL)
-else:
-    SERVICE_BUS_LOCAL = _bus_local_env.lower() in {"1", "true", "yes"}
+SERVICE_BUS_LOCAL = not bool(REDIS_URL) if _bus_local_env is None else _bus_local_env.lower() in {"1", "true", "yes"}
 
 # ── Low Latency Engine (WebSocket order books) ───────────────────────────────
 LOW_LATENCY_MODE = os.getenv("LOW_LATENCY_MODE", "true").lower() in {"1", "true", "yes"}

@@ -12,28 +12,17 @@ Live-only hit rate is the primary metric; synthetic seeded data is labeled separ
 
 from __future__ import annotations
 
-
-
 from typing import Any
 
-
-
 import config
-
 from oracle_integrity import is_synthetic_prediction
-
-
-
 
 
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
 
     from database import fetch_labeled_oracle_predictions, fetch_oracle_audit_stats
-
     from ml.experience_log import public_experience_block
-
     from ml.train_baseline import model_status
-
     from ml.training_utils import LEAKAGE_GUARD_NOTE
 
 

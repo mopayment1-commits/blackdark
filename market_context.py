@@ -9,8 +9,9 @@ from __future__ import annotations
 import json
 import logging
 import os
-from datetime import datetime, timezone
-from typing import Any, Callable, Awaitable
+from collections.abc import Awaitable, Callable
+from datetime import UTC, datetime
+from typing import Any
 
 import aiohttp
 
@@ -441,7 +442,7 @@ async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
         "resolved": resolved is not None,
         "resolved_source": (resolved or {}).get("source"),
         "resolved_price": (resolved or {}).get("price"),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -456,11 +457,10 @@ async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
     url = "https://api.binance.com/api/v3/ticker/24hr"
     try:
         timeout = aiohttp.ClientTimeout(total=15)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return []
+            rows = await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
 
@@ -522,11 +522,10 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
     threshold_usd = 75_000
     try:
         timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return "No significant whale activity"
-                trades = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return "No significant whale activity"
+            trades = await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
         return "No significant whale activity"
 
@@ -705,7 +704,7 @@ def oracle_narrative(
 
 
 def timestamp_human(now: datetime | None = None) -> str:
-    ts = now or datetime.now(timezone.utc)
+    ts = now or datetime.now(UTC)
     return ts.strftime("%B %d, %Y at %I:%M %p UTC")
 
 
@@ -758,7 +757,7 @@ def build_full_oracle_response(
         action,
         market_summary,
     )
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     payload = {
         "symbol": asset,
@@ -917,11 +916,10 @@ async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return []
-                rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return []
+            rows = await resp.json()
         return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
@@ -949,7 +947,7 @@ def normalize_whale_alert_row(alert: dict) -> dict:
         "iceberg_trade_count": alert.get("iceberg_trade_count"),
     }
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "flow_type": "manipulation_alert",
         "exchange": alert.get("volume_exchange"),
         "symbol": alert.get("symbol"),

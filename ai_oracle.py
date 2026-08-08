@@ -10,26 +10,24 @@ from __future__ import annotations
 import json
 import logging
 import os
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 import aiohttp
 from pydantic import BaseModel, Field
 
 import config
 from database import insert_evaluated_opportunity
+from macro_correlations import macro_score_weight
 from obi_predictor import get_obi_for_asset
 from onchain_tracker import (
     get_onchain_status_for_asset,
     inject_oracle_onchain_analytics,
 )
-from macro_correlations import apply_macro_score_weight, macro_score_weight
+from oracle_data_hub import hub_score_adjustment, synthesize_with_free_llm_chain
 from sentiment_engine import (
     build_sentiment_panic_warning,
-    get_sentiment_index_for_asset,
     is_extreme_negative_sentiment,
-    sentiment_panic_penalty_for_asset,
 )
-from oracle_data_hub import hub_score_adjustment, synthesize_with_free_llm_chain
 
 logger = logging.getLogger("BLACKDARK.AIOracle")
 
@@ -445,7 +443,7 @@ async def _openai_oracle(
     asset: str,
     opportunity_score: float,
     explanation: OpportunityExplanation,
-) -> Optional[OracleResponse]:
+) -> OracleResponse | None:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return None
@@ -500,7 +498,7 @@ async def _ollama_oracle(
     asset: str,
     opportunity_score: float,
     explanation: OpportunityExplanation,
-) -> Optional[OracleResponse]:
+) -> OracleResponse | None:
     base_url = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
     model = os.getenv("OLLAMA_MODEL", "llama3.2")
 
@@ -654,18 +652,10 @@ async def evaluate_opportunity(
 
     explanation = explain_opportunity(opportunity, kind, score, institutional_context)
     if truth.get("reject"):
-        explanation.risk_factors = list(explanation.risk_factors) + [
-            "Net-Edge Truth rejected: residual edge fails after latency/crowd/fees."
-        ]
-        explanation.reasons = list(explanation.reasons) + [
-            f"Truth Score {truth.get('truth_score')}/100 — executable edge not proven."
-        ]
+        explanation.risk_factors = [*list(explanation.risk_factors), "Net-Edge Truth rejected: residual edge fails after latency/crowd/fees."]
+        explanation.reasons = [*list(explanation.reasons), f"Truth Score {truth.get('truth_score')}/100 — executable edge not proven."]
     if half_life.get("remaining_seconds") is not None:
-        explanation.reasons = list(explanation.reasons) + [
-            f"Opportunity half-life ~{half_life.get('expected_half_life_seconds')}s; "
-            f"~{half_life.get('remaining_seconds')}s remaining "
-            f"(P(disappear)={half_life.get('disappearance_probability')})."
-        ]
+        explanation.reasons = [*list(explanation.reasons), f"Opportunity half-life ~{half_life.get('expected_half_life_seconds')}s; ~{half_life.get('remaining_seconds')}s remaining (P(disappear)={half_life.get('disappearance_probability')})."]
 
     # Prefer unified conflict-aware internal verdict; keep sentence generation.
     oracle = await get_single_sentence_oracle(

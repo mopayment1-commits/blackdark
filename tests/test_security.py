@@ -1,10 +1,8 @@
 """Security module tests."""
 
-import pytest
 
 from secrets_vault import decrypt_secret, encrypt_secret, mask_secret
 from security_auth import (
-    admin_emails,
     hash_session_token,
     is_admin_user,
     verify_admin_key,

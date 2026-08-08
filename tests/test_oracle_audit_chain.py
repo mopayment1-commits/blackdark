@@ -1,7 +1,6 @@
 """Tests for oracle_audit_chain — immutable track record."""
 
 import json
-from pathlib import Path
 
 import oracle_audit_chain as chain
 

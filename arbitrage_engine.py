@@ -12,7 +12,7 @@ import json
 import logging
 import math
 import signal
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -215,12 +215,12 @@ def _normalize_book(order_book: dict[str, Any]) -> dict[str, list[list[float]]]:
     return {"bids": bids, "asks": asks}
 
 
-def _top_ask(order_book: dict[str, Any]) -> Optional[float]:
+def _top_ask(order_book: dict[str, Any]) -> float | None:
     book = _normalize_book(order_book)
     return book["asks"][0][0] if book["asks"] else None
 
 
-def _top_bid(order_book: dict[str, Any]) -> Optional[float]:
+def _top_bid(order_book: dict[str, Any]) -> float | None:
     book = _normalize_book(order_book)
     return book["bids"][0][0] if book["bids"] else None
 
@@ -279,7 +279,7 @@ def _funding_open_leg_fees_usdt(notional: float) -> float:
     return notional * config.DEFAULT_FUTURES_TAKER_FEE * 2
 
 
-def walk_asks(order_book: dict[str, Any], quote_amount: float) -> Optional[BuyExecution]:
+def walk_asks(order_book: dict[str, Any], quote_amount: float) -> BuyExecution | None:
     """Walk the ask side to simulate buying base with a target quote notional."""
     if quote_amount <= 0:
         return None
@@ -328,7 +328,7 @@ def walk_asks(order_book: dict[str, Any], quote_amount: float) -> Optional[BuyEx
     )
 
 
-def walk_bids(order_book: dict[str, Any], base_amount: float) -> Optional[SellExecution]:
+def walk_bids(order_book: dict[str, Any], base_amount: float) -> SellExecution | None:
     """Walk the bid side to simulate selling a target base amount."""
     if base_amount <= 0:
         return None
@@ -379,7 +379,7 @@ def _resolve_cross_leg(
     hold_coin: str,
     target_coin: str,
     available: set[str],
-) -> Optional[tuple[str, Side]]:
+) -> tuple[str, Side] | None:
     forward = f"{target_coin}/{hold_coin}"
     reverse = f"{hold_coin}/{target_coin}"
     if forward in available:
@@ -429,7 +429,7 @@ def _walk_triangle_legs(
     start_amount: float,
     taker_fee: float,
     apply_fees: bool,
-) -> tuple[Optional[float], float]:
+) -> tuple[float | None, float]:
     holding_coin = config.TRIANGLE_ANCHOR
     holding_amount = start_amount
     fee_mult = (1.0 - taker_fee) if apply_fees else 1.0
@@ -1315,7 +1315,7 @@ class ArbitrageEngine:
                         self._shutdown.wait(),
                         timeout=config.POLL_INTERVAL_SECONDS,
                     )
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     continue
         finally:
             if config.PARQUET_COMPACTION_ENABLED:

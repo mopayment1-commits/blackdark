@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from ml.regime_models import REGIMES, _REGIME_MODEL_ROOT, regime_model_registry
+from ml.regime_models import _REGIME_MODEL_ROOT, REGIMES, regime_model_registry
 from ml.training_utils import FEATURE_COLUMNS, prepare_live_training_rows, temporal_train_test_split
 
 logger = logging.getLogger("BLACKDARK.RegimeTrain")
@@ -23,7 +23,7 @@ STATUS_PATH = Path(__file__).resolve().parents[1] / "data" / "models" / "regime"
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _row_to_feature_dict(row: dict[str, Any]) -> dict[str, float]:
@@ -135,9 +135,9 @@ async def collect_regime_buckets() -> dict[str, list[dict[str, Any]]]:
     except Exception:
         return buckets
 
-    for row in rows or []:
-        regime = _infer_regime_from_row(row)
-        row = dict(row)
+    for raw_row in rows or []:
+        regime = _infer_regime_from_row(raw_row)
+        row = dict(raw_row)
         row["market_regime"] = regime
         buckets[regime].append(row)
     return buckets

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -21,7 +21,7 @@ Side = Literal["buy", "sell"]
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_symbol(symbol: str) -> tuple[str, str]:
@@ -35,15 +35,14 @@ async def _fetch_ticker(pair: str) -> dict | None:
     url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
         timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                return {
-                    "price": float(data["lastPrice"]),
-                    "change_24h": float(data["priceChangePercent"]),
-                }
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+            if resp.status != 200:
+                return None
+            data = await resp.json()
+            return {
+                "price": float(data["lastPrice"]),
+                "change_24h": float(data["priceChangePercent"]),
+            }
     except (aiohttp.ClientError, KeyError, TypeError, ValueError):
         return None
 

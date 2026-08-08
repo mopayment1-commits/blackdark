@@ -116,7 +116,7 @@ async def _funding_spread_bps(asset: str) -> float:
         books = await fetch_latest_funding_rates()
         rates: list[float] = []
         target = _normalize_asset(asset)
-        for _exchange, symbols in (books or {}).items():
+        for symbols in (books or {}).values():
             for symbol, payload in (symbols or {}).items():
                 cleaned = str(symbol).upper().replace("/", "").replace("-", "")
                 if cleaned.startswith(target):

@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.Voice")
@@ -33,13 +33,12 @@ _ASSET_ALIASES: dict[str, str] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _normalize_symbol(text: str) -> str | None:
     cleaned = text.upper().strip()
-    if cleaned.endswith("USDT"):
-        cleaned = cleaned[:-4]
+    cleaned = cleaned.removesuffix("USDT")
     if cleaned in {"BTC", "ETH", "SOL", "BNB", "XRP"}:
         return cleaned
     lower = text.lower().strip()

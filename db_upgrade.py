@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 import os
 import shutil
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +19,7 @@ logger = logging.getLogger("BLACKDARK.DBUpgrade")
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def external_database_status() -> dict[str, Any]:
@@ -41,7 +41,7 @@ def external_database_status() -> dict[str, Any]:
 
 
 async def database_health_report() -> dict[str, Any]:
-    from database import fetch_system_telemetry, fetch_platform_user_stats
+    from database import fetch_platform_user_stats, fetch_system_telemetry
 
     telemetry = await fetch_system_telemetry()
     users = await fetch_platform_user_stats()
@@ -75,7 +75,7 @@ async def prune_old_market_rows(retention_days: int | None = None) -> dict[str, 
     from database import get_connection
 
     days = retention_days or int(os.getenv("DB_RETENTION_DAYS", "30"))
-    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+    cutoff = (datetime.now(UTC) - timedelta(days=days)).isoformat()
     deleted: dict[str, int] = {}
 
     async with get_connection() as db:
@@ -125,7 +125,7 @@ async def run_sqlite_maintenance(*, vacuum: bool = True, analyze: bool = True) -
     if backup_enabled and config.DB_PATH.exists():
         backup_dir = config.DATA_DIR / "backups"
         backup_dir.mkdir(parents=True, exist_ok=True)
-        stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        stamp = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
         dest = backup_dir / f"blackdark_{stamp}.db"
         shutil.copy2(config.DB_PATH, dest)
         results["actions"].append({"backup": str(dest)})

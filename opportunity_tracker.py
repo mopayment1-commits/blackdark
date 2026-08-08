@@ -12,7 +12,7 @@ import logging
 import math
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.OpportunityTracker")
@@ -31,7 +31,7 @@ _KIND_DEFAULTS: dict[str, float] = {
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _fingerprint(opp: dict[str, Any]) -> str:
@@ -51,7 +51,7 @@ def _parse_ts(value: str | None) -> float | None:
     if not value:
         return None
     try:
-        return datetime.fromisoformat(value.replace("Z", "+00:00")).timestamp()
+        return datetime.fromisoformat(value).timestamp()
     except ValueError:
         return None
 
@@ -157,10 +157,7 @@ def estimate_opportunity_half_life(opp: dict[str, Any], *, live_duration_seconds
     )
     remaining = max(0.0, half - lived)
     # Survival under exponential half-life model
-    if half <= 0:
-        p_disappear = 1.0
-    else:
-        p_disappear = 1.0 - math.pow(0.5, lived / half)
+    p_disappear = 1.0 if half <= 0 else 1.0 - math.pow(0.5, lived / half)
     urgency = "critical" if remaining <= 5 else "high" if remaining <= 15 else "normal"
     return {
         "expected_half_life_seconds": half,

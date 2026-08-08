@@ -29,7 +29,7 @@ def _doc_ready(path: Path) -> bool:
 
 
 def _stripe_ready() -> dict[str, Any]:
-    from billing_service import billing_configured, billing_provider, lemon_squeezy_checkout_url, stripe_configured
+    from billing_service import billing_configured, billing_provider, lemon_squeezy_checkout_url
 
     keys = {
         "secret": bool(os.getenv("STRIPE_SECRET_KEY", "").strip()),
@@ -89,9 +89,9 @@ def _mkt_verdicts(metrics: dict[str, Any], docs: dict[str, bool]) -> dict[str, s
 async def fetch_gtm_status() -> dict[str, Any]:
     from database import (
         count_telegram_free_subscribers,
+        db_count_waitlist,
         fetch_behavior_event_stats,
         fetch_platform_user_stats,
-        db_count_waitlist,
     )
 
     users = await fetch_platform_user_stats()

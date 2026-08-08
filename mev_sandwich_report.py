@@ -7,7 +7,7 @@ Deepens Public Accuracy Ledger / Anti-Hype (prove risks, don't hype alpha).
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -52,7 +52,7 @@ def build_mev_sandwich_report(
             "half_life": "/api/oracle/half-life",
         },
         "share_text": share_text,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "compliance": compliance_footer_block(
             surface="mev_sandwich_report",
             trust_basis="public_risk_posture + accuracy_ledger",

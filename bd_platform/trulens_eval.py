@@ -10,7 +10,7 @@ logger = logging.getLogger("BLACKDARK.TruLensEval")
 
 async def explain_prediction(asset: str, *, price: float | None = None) -> dict[str, Any]:
     from ml.inference import predict_direction
-    from ml.training_utils import FEATURE_COLUMNS, LEAKAGE_GUARD_NOTE
+    from ml.training_utils import LEAKAGE_GUARD_NOTE
 
     pred = await predict_direction(asset, price=price)
     features = pred.get("features") or {}

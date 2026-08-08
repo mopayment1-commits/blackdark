@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import aiohttp
@@ -12,7 +12,7 @@ logger = logging.getLogger("BLACKDARK.OnchainHub")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def _get_json(url: str, *, headers: dict | None = None, params: dict | None = None) -> Any:

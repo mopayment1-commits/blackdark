@@ -32,6 +32,7 @@ def test_verdict_from_past_is_public_taxonomy():
 
 def test_flywheel_cycle_signature_supports_bootstrap_flags():
     import inspect
+
     from ml.labeling_pipeline import run_labeling_flywheel_cycle
 
     sig = inspect.signature(run_labeling_flywheel_cycle)

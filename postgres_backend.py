@@ -8,9 +8,10 @@ from __future__ import annotations
 
 import logging
 import re
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
-from typing import Any, AsyncIterator
+from datetime import UTC, datetime
+from typing import Any
 
 import config
 
@@ -21,7 +22,7 @@ _pool: Any = None
 
 def use_postgres() -> bool:
     url = (getattr(config, "DATABASE_URL", None) or "").strip()
-    return url.startswith("postgresql://") or url.startswith("postgres://")
+    return url.startswith(("postgresql://", "postgres://"))
 
 
 def _sqlite_schema_to_pg(sqlite_schema: str) -> str:
@@ -88,10 +89,7 @@ class PgConnectionAdapter:
     def _is_read_query(query: str) -> bool:
         head = query.lstrip().upper()
         return (
-            head.startswith("SELECT")
-            or head.startswith("WITH")
-            or head.startswith("PRAGMA")
-            or " RETURNING " in f" {head} "
+            head.startswith(("SELECT", "WITH", "PRAGMA")) or " RETURNING " in f" {head} "
         )
 
     @staticmethod
@@ -119,7 +117,7 @@ class PgConnectionAdapter:
             try:
                 q_ret = q.rstrip(";") + " RETURNING id"
                 row = await self._conn.fetchrow(q_ret, *params)
-                self._last_id = int(row["id"]) if row and "id" in row.keys() else None
+                self._last_id = int(row["id"]) if row and "id" in row else None
                 mapped = [self._row_to_mapping(row)] if row else []
                 return _PgResult(mapped, rowcount=1, lastrowid=self._last_id)
             except Exception:
@@ -207,7 +205,7 @@ async def init_postgres() -> None:
                 except Exception as exc:
                     if "already exists" not in str(exc).lower():
                         logger.debug("PG DDL skip: %s", exc)
-        ts = datetime.now(timezone.utc).isoformat()
+        ts = datetime.now(UTC).isoformat()
         await conn.execute(
             """
             INSERT INTO platform_analytics

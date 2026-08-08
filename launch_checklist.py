@@ -7,9 +7,7 @@ Tracks production readiness with auto-detection + manual gates.
 from __future__ import annotations
 
 import os
-import subprocess
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
@@ -402,7 +400,7 @@ def launch_checklist() -> dict[str, Any]:
     launch_ready = blocked == 0 and done >= total - 3
 
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "launch_target": "5 business days",
         "total_tasks": total,
         "done_count": done,

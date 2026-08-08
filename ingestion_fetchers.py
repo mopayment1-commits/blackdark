@@ -10,7 +10,8 @@ import asyncio
 import logging
 import os
 import xml.etree.ElementTree as ET
-from typing import Any, Callable, Awaitable
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 import aiohttp
 
@@ -32,9 +33,7 @@ def _rate_limit_ok(source_id: str, min_interval: int) -> bool:
     import time
 
     last = _last_fetch_at.get(source_id, 0.0)
-    if time.time() - last < max(min_interval, 1):
-        return False
-    return True
+    return not time.time() - last < max(min_interval, 1)
 
 
 def _mark_fetched(source_id: str) -> None:
@@ -555,10 +554,14 @@ async def ingest_category(session: aiohttp.ClientSession, category: Category) ->
         if spec.fetch_kind == "websocket":
             skip += 1
             continue
-        if spec.env_key and not os.getenv(spec.env_key) and spec.source_id not in HANDLERS:
-            if spec.fetch_kind != "rss":
-                skip += 1
-                continue
+        if (
+            spec.env_key
+            and not os.getenv(spec.env_key)
+            and spec.source_id not in HANDLERS
+            and spec.fetch_kind != "rss"
+        ):
+            skip += 1
+            continue
         success = await fetch_single_source(session, spec)
         if success:
             ok += 1

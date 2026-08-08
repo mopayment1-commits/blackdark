@@ -1,0 +1,101 @@
+[project]
+name = "blackdark"
+version = "0.0.0"
+description = "BLACKDARK Trust OS / Decision Intelligence"
+requires-python = ">=3.11"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = [
+  ".venv",
+  "venv",
+  "data",
+  "node_modules",
+  "dist",
+  "build",
+  "__pycache__",
+]
+
+[tool.ruff.lint]
+# Surface aligned to the Windows Ruff audit (~1.5k findings): hygiene + correctness.
+# Intentional policy ignores are documented below — not silent suppressions.
+select = [
+  "F",      # pyflakes
+  "E",      # pycodestyle errors
+  "W",      # pycodestyle warnings
+  "I",      # isort
+  "UP",     # pyupgrade
+  "B",      # bugbear
+  "SIM",    # simplify
+  "PIE",    # flake8-pie
+  "PERF",   # perflint
+  "RUF",    # ruff
+  "FURB",   # refurb
+  "BLE001", # blind except (ignored below — selected for inventory parity with audit)
+  "PLW",    # pylint warnings
+  "PYI",    # stub files / typing
+  "DTZ",    # datetime timezone
+  "ISC",    # implicit string concat
+  "TRY203", # useless try/except
+  "PLR1730",# if-stmt min/max
+  "ASYNC",  # async anti-patterns
+  "PT",     # pytest style
+]
+
+ignore = [
+  # Framework: FastAPI Depends()/Header()/Query() in defaults is the documented pattern.
+  "B008",
+  # Line length noise — prefer readable financial/trading expressions over forced wraps.
+  "E501",
+  # Shebang bit on Windows/CI checkouts is environment metadata, not code quality.
+  "EXE001",
+  # Architectural fail-soft boundaries (market feeds, optional engines, CLI probes).
+  # Narrowing Exception / mandatory logging at every soft boundary is a separate hardening epic.
+  "BLE001",
+  "S110",
+  "S112",
+  # Global mutables are used for process-local caches/engines throughout the hot path.
+  "PLW0603",
+  "PLW0602",  # read-only global declarations for cache accessors
+  # Arabic / bilingual product copy intentionally uses non-ASCII.
+  "RUF001",
+  "RUF002",
+  "RUF003",
+  # Optional-engine import order / lazy imports are required for startup cost control.
+  "E402",
+  # Non-cryptographic RNG in sims/benchmarks is intentional.
+  "S311",
+  # Path.exists in async helpers is acceptable for config/file probes at this stage.
+  "ASYNC240",
+  # Blocking open in rare async helpers (email outbox) — deferred I/O hardening.
+  "ASYNC230",
+  # try/except in hot loops is often required for per-item isolation.
+  "PERF203",
+  # List append loops kept for readability in scoring pipelines.
+  "PERF401",
+  # contextlib.suppress vs try/except preference — keep explicit for debuggability.
+  "SIM105",
+  # Nested async with ClientSession/response kept for readability in fetchers.
+  "SIM117",
+  # zip(strict=) not universally adopted yet across runtime targets.
+  "B905",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests: broader exception handling and fixture patterns are acceptable.
+"tests/**" = ["S110", "S112", "PLW0602", "RUF012", "PT011", "PT018", "SIM117"]
+"scripts/**" = ["S110", "S112", "DTZ001", "DTZ007", "PLW1510", "S104", "S310", "S603"]
+# Security scanners / hash helpers may use MD5 for non-security fingerprints.
+"security_verification.py" = ["S324"]
+"immutable_audit.py" = ["S324"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["bd_platform", "api", "ml", "repos", "microservices", "config"]
+combine-as-imports = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

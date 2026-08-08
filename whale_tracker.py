@@ -17,8 +17,8 @@ import math
 import os
 import statistics
 import time
-from collections import defaultdict, deque
-from datetime import datetime, timezone
+from collections import defaultdict
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 import aiohttp
@@ -27,9 +27,9 @@ from pydantic import BaseModel, Field
 import config
 from database import (
     fetch_institutional_feed_rows,
+    fetch_latest_order_books,
     fetch_latest_sector_flows,
     fetch_latest_whale_alerts,
-    fetch_latest_order_books,
     init_db,
     insert_institutional_flows,
 )
@@ -111,7 +111,7 @@ SectorFlowSnapshot = SectorInflowIndex
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _asset_from_symbol(symbol: str) -> str:

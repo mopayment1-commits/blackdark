@@ -12,7 +12,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -151,7 +151,7 @@ async def _archive_top_of_book_to_hot_tier(
         if get_hot_pipeline() is None:
             await start_hot_pipeline()
         mid = (bid + ask) / 2.0 if bid and ask else bid or ask
-        ts_iso = datetime.fromtimestamp(ts_ms / 1000, tz=timezone.utc).isoformat()
+        ts_iso = datetime.fromtimestamp(ts_ms / 1000, tz=UTC).isoformat()
         if enqueue_pricing_snapshot(
             exchange=exchange,
             symbol=symbol,

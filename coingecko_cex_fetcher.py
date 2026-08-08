@@ -7,12 +7,11 @@ For regional / small CEX venues without CCXT support — public exchange tickers
 from __future__ import annotations
 
 import logging
-from datetime import datetime, timezone
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any, Literal
 
 import aiohttp
-
-import config
 
 logger = logging.getLogger("BLACKDARK.CoinGeckoCEX")
 
@@ -99,7 +98,7 @@ PHASE_B2_COINGECKO_EXCHANGES: frozenset[str] = frozenset(COINGECKO_EXCHANGE_MAP.
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _synthetic_book(mid: float, *, depth: float = 1.0) -> tuple[list[list[float]], list[list[float]]]:

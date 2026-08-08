@@ -8,8 +8,7 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import datetime, timezone
-from pathlib import Path
+from datetime import UTC, datetime
 from typing import Any
 
 import config
@@ -18,7 +17,7 @@ logger = logging.getLogger("BLACKDARK.UniverseRollout")
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _registry_exchange_ids() -> list[str]:

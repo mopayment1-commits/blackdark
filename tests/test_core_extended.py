@@ -1,13 +1,14 @@
 """Extended tests to reach 80% on buyer-critical core modules."""
 
-import pytest
-from unittest.mock import patch, AsyncMock
+from unittest.mock import AsyncMock, patch
 
+import pytest
+
+import oracle_track_record as tr
 from live_book_hub import get_live_books_if_fresh, update_top_of_book
 from market_cache import cache_stats, get_cached_snapshots, set_cached_snapshots
-from sentiment_gate import fetch_asset_sentiment, sentiment_allows_execution, sentiment_execution_context
 from risk_manager import detect_data_poisoning, evaluate_execution_risk, unfreeze_trading
-import oracle_track_record as tr
+from sentiment_gate import sentiment_allows_execution, sentiment_execution_context
 
 
 def test_live_book_freshness():
@@ -18,7 +19,6 @@ def test_live_book_freshness():
 
 
 def test_market_cache_roundtrip():
-    from market_cache import set_cached_snapshots
 
     set_cached_snapshots({"binance": {}}, {}, source="test")
     cached = get_cached_snapshots(max_age_sec=60)

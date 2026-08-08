@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends
 
@@ -55,7 +55,7 @@ async def forecast_asset(symbol: str):
     return {
         "asset": asset,
         "forecast": forecast,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
     }
 
 
@@ -118,7 +118,7 @@ async def oracle_accuracy_public():
     from ml.public_accuracy import build_public_accuracy_payload
 
     payload = await build_public_accuracy_payload()
-    payload["timestamp"] = datetime.now(timezone.utc).isoformat()
+    payload["timestamp"] = datetime.now(UTC).isoformat()
     return payload
 
 

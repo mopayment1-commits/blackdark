@@ -45,7 +45,7 @@ def main() -> int:
     ]
     total_ms = (time.perf_counter() - t_start) * 1000
 
-    live_ok, live_ms = checks[0]
+    _live_ok, live_ms = checks[0]
     all_ok = all(c[0] for c in checks)
     print(f"\nTotal: {total_ms:.0f}ms | live probe: {live_ms:.0f}ms")
     if live_ms > 100:

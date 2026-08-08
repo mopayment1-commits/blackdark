@@ -2,12 +2,12 @@
 
 from risk_manager import (
     check_slippage,
+    check_stop_losses,
     detect_data_poisoning,
     evaluate_execution_risk,
     freeze_trading,
     is_trading_frozen,
     register_stop_loss,
-    check_stop_losses,
     unfreeze_trading,
 )
 

@@ -14,11 +14,11 @@ def test_signal_registry_public_block_has_no_persist_path():
 
 
 def test_market_context_prefers_guard_conflict_meta():
-    from market_context import build_full_oracle_response
-
     # Minimal call path: if helper needs many args, unit-test the merge logic via source contract.
     import inspect
     from pathlib import Path
+
+    from market_context import build_full_oracle_response
 
     src = Path("market_context.py").read_text(encoding="utf-8")
     assert 'unified.get("dimension_conflict")' in src

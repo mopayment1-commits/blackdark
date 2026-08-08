@@ -10,7 +10,7 @@ from __future__ import annotations
 import asyncio
 import logging
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -35,7 +35,7 @@ class CloudSyncResult:
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _load_aioboto3() -> Any:
@@ -154,9 +154,7 @@ class CloudSyncer:
             return False
         if str(latest.get("status") or "") != "verified":
             return False
-        if int(latest.get("size_bytes") or 0) != size_bytes:
-            return False
-        return True
+        return int(latest.get("size_bytes") or 0) == size_bytes
 
     async def _apply_retention(self, local_path: Path) -> bool:
         if not config.CLOUD_SYNC_DELETE_LOCAL_AFTER_VERIFY:

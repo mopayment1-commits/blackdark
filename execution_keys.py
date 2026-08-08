@@ -11,14 +11,12 @@ import hmac
 import os
 import shutil
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
 
 import aiohttp
-
-import config
 
 ROOT = Path(__file__).resolve().parent
 KEYS_DIR = ROOT / "keys"
@@ -40,7 +38,7 @@ _EXEC_ENV_KEYS = (
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def ensure_keys_file() -> Path:
@@ -92,7 +90,7 @@ def _read_env_lines() -> list[str]:
 def _upsert_env_line(key: str, value: str, lines: list[str]) -> list[str]:
     prefix = f"{key}="
     for idx, line in enumerate(lines):
-        if line.startswith(prefix) or line.startswith(f"{key} ="):
+        if line.startswith((prefix, f"{key} =")):
             lines[idx] = f"{prefix}{value}"
             return lines
     if lines and lines[-1].strip():

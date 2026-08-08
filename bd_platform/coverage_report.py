@@ -17,9 +17,10 @@ def coverage_report() -> dict[str, Any]:
             capture_output=True,
             text=True,
             timeout=120,
+            check=False,
         )
         lines = (proc.stdout or "").splitlines()
-        total_line = next((l for l in lines if "TOTAL" in l), "")
+        total_line = next((line for line in lines if "TOTAL" in line), "")
         pct = 0.0
         if total_line:
             parts = total_line.split()

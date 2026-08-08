@@ -21,8 +21,7 @@ def _max_drawdown_pct() -> float:
 def update_equity(equity_usd: float) -> dict[str, Any]:
     global _peak_equity, _current_equity
     _current_equity = max(0.0, float(equity_usd))
-    if _current_equity > _peak_equity:
-        _peak_equity = _current_equity
+    _peak_equity = max(_peak_equity, _current_equity)
     drawdown_pct = 0.0
     if _peak_equity > 0:
         drawdown_pct = ((_peak_equity - _current_equity) / _peak_equity) * 100.0

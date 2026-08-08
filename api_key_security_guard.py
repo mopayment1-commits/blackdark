@@ -16,6 +16,7 @@ import os
 import time
 from collections import deque
 from dataclasses import dataclass, field
+from datetime import UTC
 from pathlib import Path
 from typing import Any
 
@@ -82,9 +83,9 @@ def record_key_access(
         audit_path = Path(__file__).resolve().parent / "data" / "api_key_access_audit.jsonl"
         audit_path.parent.mkdir(parents=True, exist_ok=True)
         import json
-        from datetime import datetime, timezone
+        from datetime import datetime
 
-        row = {**entry, "ts": datetime.now(timezone.utc).isoformat()}
+        row = {**entry, "ts": datetime.now(UTC).isoformat()}
         with audit_path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
     except Exception:

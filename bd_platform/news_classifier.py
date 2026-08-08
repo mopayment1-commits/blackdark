@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 
@@ -24,7 +24,7 @@ async def classify_headlines(limit: int = 20) -> dict[str, Any]:
             "topic": _topic_bucket(text),
         })
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "count": len(classified),
         "headlines": classified,
         "reference": "CryptoPanic-style classifier",
@@ -47,7 +47,7 @@ async def coindesk_feed(limit: int = 10) -> dict[str, Any]:
             "topic": _topic_bucket(text),
         })
     return {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "source": "coindesk_rss",
         "count": len(headlines),
         "coindesk_count": len(headlines),

@@ -1,7 +1,7 @@
 """Service bus extended tests."""
 
+
 import pytest
-from unittest.mock import patch, AsyncMock
 
 from service_bus import (
     bus_stats,
