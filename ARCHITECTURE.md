@@ -75,16 +75,18 @@ Secrets: Fernet vault (`SECRETS_MASTER_KEY`) — fail-closed in production.
 ## 5) Security surfaces (as implemented)
 
 - Password hashing: PBKDF2-SHA256 (high iterations)
-- Session tokens hashed + pepper
-- Admin: `ADMIN_API_KEY` / `ADMIN_EMAILS` (no TOTP MFA yet)
-- Rate limits on auth
+- Session tokens hashed + pepper + HttpOnly `bd_token` cookie
+- OAuth2: Google / GitHub (`oauth_service.py`, authlib)
+- Admin: `ADMIN_API_KEY` / `ADMIN_EMAILS` + **TOTP MFA** (`ADMIN_TOTP_SECRET` / per-user enroll)
+- Rate limits + durable auth audit JSONL
+- Postgres `pgcrypto` enabled on init; Fernet app vault for exchange keys
+- Production guard requires Postgres + Redis + admin TOTP (unless Soft Launch)
 - Compliance footer on primary AI surfaces (Anti-Hype)
+- Investor reports: `/api/billing/reports/mrr` + `/churn`
 
-**Still open for institutional buyers:** OAuth2/OIDC, admin MFA, formal SEC/MiCA legal pack, multi-tenant org isolation (intentional single-tenant today).
+**Human/ops remaining (not code gaps):** provider OAuth client secrets, run `scripts/load_test_10k.py` on prod-like stack, external SEC/MiCA counsel letter. Multi-tenant org isolation remains intentionally out of scope.
 
-**Policy knobs added:** `VAULT_KEY_ROTATION_DAYS` + `VAULT_KEY_LAST_ROTATED_AT`; failed-login JSONL audit via `AuditLogModel` → `data/auth_audit.jsonl`.
-
-**M&A claim correction:** [`docs/ACQUISITION_READINESS_CORRECTION_AR.md`](docs/ACQUISITION_READINESS_CORRECTION_AR.md) — do not treat the v2.0 readiness PDF/memo as source of truth.
+**Docs:** [`docs/ACQUISITION_READINESS_CORRECTION_AR.md`](docs/ACQUISITION_READINESS_CORRECTION_AR.md) · [`docs/SEC_MICA_COMPLIANCE_PACK.md`](docs/SEC_MICA_COMPLIANCE_PACK.md)
 
 ---
 

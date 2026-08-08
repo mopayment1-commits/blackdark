@@ -52,8 +52,20 @@ def evaluate_production_guard() -> dict[str, Any]:
     )
     session_pepper_ok = bool(os.getenv("SESSION_TOKEN_PEPPER", "").strip())
     admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
+    admin_mfa_ok = bool(os.getenv("ADMIN_TOTP_SECRET", "").strip()) or soft_launch
+    oauth_ok = bool(
+        (
+            os.getenv("OAUTH_GOOGLE_CLIENT_ID", "").strip()
+            and os.getenv("OAUTH_GOOGLE_CLIENT_SECRET", "").strip()
+        )
+        or (
+            os.getenv("OAUTH_GITHUB_CLIENT_ID", "").strip()
+            and os.getenv("OAUTH_GITHUB_CLIENT_SECRET", "").strip()
+        )
+    )
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
+    redis_ok = bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True)
 
     # Billing entitlement webhook: Lemon secret if Lemon checkout, else Stripe secret if Stripe.
     billing_webhook_ok = True
@@ -112,6 +124,12 @@ def evaluate_production_guard() -> dict[str, Any]:
             hint="Set ADMIN_API_KEY and/or ADMIN_EMAILS",
         ),
         _check(
+            "admin_mfa_totp",
+            admin_mfa_ok,
+            required=True,
+            hint="Set ADMIN_TOTP_SECRET (base32) for admin API-key MFA (or SOFT_LAUNCH=true)",
+        ),
+        _check(
             "b2b_demo_key_disabled",
             demo_disabled,
             required=False,
@@ -119,9 +137,15 @@ def evaluate_production_guard() -> dict[str, Any]:
         ),
         _check(
             "redis_shared_bus",
-            bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True),
+            redis_ok or soft_launch,
+            required=True,
+            hint="Add Redis REDIS_URL + SERVICE_BUS_LOCAL=false (or SOFT_LAUNCH=true)",
+        ),
+        _check(
+            "oauth2_social_login",
+            oauth_ok or soft_launch,
             required=False,
-            hint="Add Railway/Upstash Redis -> REDIS_URL + SERVICE_BUS_LOCAL=false",
+            hint="Set OAUTH_GOOGLE_* and/or OAUTH_GITHUB_* client credentials",
         ),
         _check(
             "sentry_observability",

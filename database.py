@@ -297,7 +297,11 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash TEXT    NOT NULL,
     name          TEXT,
     created_at    TEXT    NOT NULL,
-    last_login_at TEXT
+    last_login_at TEXT,
+    oauth_provider TEXT,
+    oauth_sub      TEXT,
+    totp_secret_encrypted TEXT,
+    totp_enabled   INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS user_sessions (
@@ -607,6 +611,20 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
     if "telegram_chat_id" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
+    if "oauth_provider" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN oauth_provider TEXT")
+    if "oauth_sub" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN oauth_sub TEXT")
+    if "totp_secret_encrypted" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN totp_secret_encrypted TEXT")
+    if "totp_enabled" not in user_cols:
+        await db.execute("ALTER TABLE users ADD COLUMN totp_enabled INTEGER NOT NULL DEFAULT 0")
+    await db.execute(
+        """
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_users_oauth_provider_sub
+            ON users (oauth_provider, oauth_sub)
+        """
+    )
 
     await db.execute(
         """
@@ -3096,6 +3114,37 @@ async def create_user(email: str, password_hash: str, name: str = "") -> int:
         return int(cursor.lastrowid or 0)
 
 
+async def create_oauth_user(
+    email: str,
+    provider: str,
+    oauth_sub: str,
+    name: str = "",
+) -> int:
+    """Provision a passwordless OAuth account (unusable local password hash)."""
+    import secrets as _secrets
+
+    unusable = f"oauth$disabled${_secrets.token_hex(16)}"
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO users (
+                email, password_hash, name, created_at,
+                oauth_provider, oauth_sub, totp_enabled
+            )
+            VALUES (?, ?, ?, ?, ?, ?, 0)
+            """,
+            (
+                email.strip().lower(),
+                unusable,
+                name or None,
+                _utcnow_iso(),
+                provider.strip().lower(),
+                oauth_sub.strip(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
+
+
 async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
     try:
         async with get_connection() as db:
@@ -3108,6 +3157,100 @@ async def fetch_user_by_email(email: str) -> dict[str, Any] | None:
     except Exception:
         logger.exception("Unable to fetch user")
         return None
+
+
+async def fetch_user_by_id(user_id: int) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute("SELECT * FROM users WHERE id = ?", (int(user_id),))
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by id")
+        return None
+
+
+async def fetch_user_by_oauth(provider: str, oauth_sub: str) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM users
+                WHERE oauth_provider = ? AND oauth_sub = ?
+                LIMIT 1
+                """,
+                (provider.strip().lower(), oauth_sub.strip()),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch user by oauth")
+        return None
+
+
+async def link_user_oauth(user_id: int, provider: str, oauth_sub: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET oauth_provider = ?, oauth_sub = ?
+            WHERE id = ?
+            """,
+            (provider.strip().lower(), oauth_sub.strip(), int(user_id)),
+        )
+        await db.commit()
+
+
+async def update_user_oauth_profile(user_id: int, *, name: str | None = None) -> None:
+    if name is None:
+        return
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET name = ? WHERE id = ?",
+            (name, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_totp_secret(user_id: int, encrypted_secret: str, *, enabled: bool = False) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET totp_secret_encrypted = ?, totp_enabled = ?
+            WHERE id = ?
+            """,
+            (encrypted_secret, 1 if enabled else 0, int(user_id)),
+        )
+        await db.commit()
+
+
+async def set_user_totp_enabled(user_id: int, enabled: bool) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET totp_enabled = ? WHERE id = ?",
+            (1 if enabled else 0, int(user_id)),
+        )
+        await db.commit()
+
+
+async def fetch_subscription_revenue_rows() -> list[dict[str, Any]]:
+    """All subscription rows used for MRR / churn analytics."""
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, email, tier, status, stripe_sub_id, created_at,
+                       trial_ends_at, past_due_at
+                FROM subscriptions
+                ORDER BY id ASC
+                """
+            )
+            result = await rows.fetchall()
+        return [dict(r) for r in result]
+    except Exception:
+        logger.exception("Unable to fetch subscription revenue rows")
+        return []
 
 
 async def erase_user_personal_data(email: str) -> dict[str, Any]:

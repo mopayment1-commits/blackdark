@@ -65,12 +65,39 @@
         .tab.active { background: rgba(34,211,238,0.15); color: #22d3ee; }
         a { color: #22d3ee; text-decoration: none; font-size: 0.85rem; }
         .footer-links { text-align: center; margin-top: 1rem; }
+        .oauth { display: grid; gap: 0.6rem; margin: 1rem 0 1.25rem; }
+        .btn-oauth {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid #2a2a35;
+            background: #1a1a24;
+            color: #e4e4e7;
+            text-align: center;
+            text-decoration: none;
+            display: none;
+        }
+        .divider {
+            text-align: center;
+            color: #52525b;
+            font-size: 0.75rem;
+            margin: 0.25rem 0 1rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>BLACKDARK</h1>
-        <p>🎁 <strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+        <p><strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+
+        <div class="oauth" id="oauthBox">
+            <a class="btn-oauth" id="oauthGoogle" href="/api/auth/oauth/google/login">Continue with Google</a>
+            <a class="btn-oauth" id="oauthGithub" href="/api/auth/oauth/github/login">Continue with GitHub</a>
+        </div>
+        <div class="divider" id="oauthDivider">or use email</div>
 
         <div class="tabs">
             <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
@@ -161,9 +188,33 @@
             }
         }
 
-        if (localStorage.getItem('bd_token')) {
-            window.location.href = '/dashboard';
-        }
+        (function bootOAuth() {
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get('token');
+            if (params.get('oauth') === '1' && token) {
+                localStorage.setItem('bd_token', token);
+                window.location.replace('/dashboard');
+                return;
+            }
+            fetch('/api/auth/oauth/status', { credentials: 'same-origin' })
+                .then(r => r.json())
+                .then(s => {
+                    let any = false;
+                    if (s.google) {
+                        document.getElementById('oauthGoogle').style.display = 'block';
+                        any = true;
+                    }
+                    if (s.github) {
+                        document.getElementById('oauthGithub').style.display = 'block';
+                        any = true;
+                    }
+                    if (any) document.getElementById('oauthDivider').style.display = 'block';
+                })
+                .catch(() => {});
+            if (localStorage.getItem('bd_token')) {
+                window.location.href = '/dashboard';
+            }
+        })();
     </script>
 </body>
 </html>

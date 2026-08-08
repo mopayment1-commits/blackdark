@@ -19,6 +19,10 @@ class AuthLoginBody(BaseModel):
     password: str = Field(min_length=1, max_length=128)
 
 
+class TotpCodeBody(BaseModel):
+    code: str = Field(min_length=6, max_length=12)
+
+
 class AuditLogModel(BaseModel):
     """Durable auth/security audit event (failed login, admin denials, etc.)."""
 

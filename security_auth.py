@@ -145,11 +145,63 @@ async def require_whale(
 async def require_admin(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
+    from admin_mfa import (
+        mfa_policy_enabled,
+        system_admin_totp_configured,
+        verify_system_admin_totp,
+        verify_user_totp,
+    )
+
+    soft_launch = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    require_mfa = mfa_policy_enabled() and not soft_launch and is_production_env()
+
     if verify_admin_key(x_admin_key):
-        return {"email": "admin@system", "tier": "whale", "is_admin": True}
+        if require_mfa:
+            if not system_admin_totp_configured():
+                raise HTTPException(
+                    status_code=403,
+                    detail="Admin MFA required — set ADMIN_TOTP_SECRET",
+                )
+            if not verify_system_admin_totp(x_admin_totp):
+                persist_auth_audit(
+                    event="admin_mfa_failure",
+                    subject="admin@system",
+                    reason="invalid_system_totp",
+                )
+                raise HTTPException(status_code=403, detail="Invalid admin TOTP (X-Admin-TOTP)")
+        return {"email": "admin@system", "tier": "whale", "is_admin": True, "mfa_ok": True}
+
     if user and is_admin_user(user):
+        if require_mfa:
+            # Prefer per-user TOTP when enrolled; otherwise system ADMIN_TOTP_SECRET.
+            from database import fetch_user_by_email
+
+            db_user = await fetch_user_by_email(str(user.get("email") or ""))
+            if db_user and db_user.get("totp_enabled"):
+                if not await verify_user_totp(db_user, x_admin_totp):
+                    persist_auth_audit(
+                        event="admin_mfa_failure",
+                        subject=str(user.get("email") or ""),
+                        reason="invalid_user_totp",
+                    )
+                    raise HTTPException(status_code=403, detail="Invalid admin TOTP (X-Admin-TOTP)")
+            elif system_admin_totp_configured():
+                if not verify_system_admin_totp(x_admin_totp):
+                    persist_auth_audit(
+                        event="admin_mfa_failure",
+                        subject=str(user.get("email") or ""),
+                        reason="invalid_system_totp",
+                    )
+                    raise HTTPException(status_code=403, detail="Invalid admin TOTP (X-Admin-TOTP)")
+            else:
+                raise HTTPException(
+                    status_code=403,
+                    detail="Admin MFA required — enroll TOTP or set ADMIN_TOTP_SECRET",
+                )
         user["is_admin"] = True
+        user["mfa_ok"] = True
         return user
     raise HTTPException(status_code=403, detail="Admin authentication required (X-Admin-Key or admin email)")
 
@@ -163,11 +215,12 @@ async def require_admin_dev(
     request: Request,
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
-        return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key)
+        return {"email": "localhost-dev", "tier": "whale", "is_admin": True, "mfa_ok": True}
+    return await require_admin(user, x_admin_key, x_admin_totp)
 
 
 async def require_pro_or_above(

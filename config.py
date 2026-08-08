@@ -72,7 +72,14 @@ FAST_LIVE_EXCHANGES: frozenset[str] = frozenset(
 PRICE_FEED_WS_ONLY = os.getenv("PRICE_FEED_WS_ONLY", "true").lower() in {"1", "true", "yes"}
 WS_PRICE_VENUES: frozenset[str] = frozenset({"binance", "okx", "bybit"})
 # Deferred until Docker/Redis/Kafka infra is available (see DEFERRED_STEPS.md)
-REDIS_REQUIRED = os.getenv("REDIS_REQUIRED", "false").lower() in {"1", "true", "yes"}
+# In production, Redis is mandatory unless Soft Launch explicitly opts out.
+_redis_required_env = os.getenv("REDIS_REQUIRED")
+if _redis_required_env is None:
+    _env_name = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
+    _soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    REDIS_REQUIRED = _env_name in {"production", "prod"} and not _soft
+else:
+    REDIS_REQUIRED = _redis_required_env.lower() in {"1", "true", "yes"}
 KAFKA_REQUIRED = os.getenv("KAFKA_REQUIRED", "false").lower() in {"1", "true", "yes"}
 
 # Local dev: skip Redis/Kafka unless explicitly required or enabled
