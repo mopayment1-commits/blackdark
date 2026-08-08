@@ -996,6 +996,7 @@ async def sitemap_xml(request: Request):
         "/legal",
         "/cookies",
         "/pricing",
+        "/dashboard",
     ]
     urls = "\n".join(
         f"  <url><loc>{base}{p}</loc><changefreq>daily</changefreq></url>" for p in paths
@@ -1074,6 +1075,62 @@ async def dashboard_live_stream():
             "X-Accel-Buffering": "no",
         },
     )
+
+
+@app.get("/api/trust-pulse")
+async def api_trust_pulse(
+    symbol: str = "BTC",
+    previous_action: str | None = None,
+    previous_seen_at: str | None = None,
+    force: bool = False,
+    ux_mode: str = "beginner",
+    lang: str = "en",
+    user: dict | None = Depends(optional_user),
+):
+    """First-open Trust Pulse — one live decision + Why + proof + freshness."""
+    from trust_pulse import build_trust_pulse
+
+    tier = (user or {}).get("tier") or "free"
+    try:
+        return await build_trust_pulse(
+            symbol,
+            tier=str(tier),
+            ux_mode=ux_mode,
+            lang=lang,
+            previous_action=previous_action,
+            previous_seen_at=previous_seen_at,
+            force_refresh=force,
+            persist=True if force else None,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/trust-pulse/stream")
+async def api_trust_pulse_stream(
+    symbol: str = "BTC",
+    user: dict | None = Depends(optional_user),
+):
+    """SSE heartbeat + decision_changed for Trust Pulse (no prediction spam)."""
+    from trust_pulse import trust_pulse_sse_generator
+
+    tier = (user or {}).get("tier") or "free"
+    return StreamingResponse(
+        trust_pulse_sse_generator(symbol, tier=str(tier)),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+@app.get("/api/trust-pulse/manifest")
+async def api_trust_pulse_manifest():
+    from trust_pulse import trust_pulse_manifest
+
+    return trust_pulse_manifest()
 
 
 @app.get("/admin/launch", response_class=HTMLResponse)

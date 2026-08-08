@@ -144,6 +144,11 @@ HOW_IT_WORKS_STEPS: list[dict[str, str]] = [
 CHANGELOG: list[dict[str, str]] = [
     {
         "date": "2026-08-08",
+        "title": "Trust Pulse",
+        "body": "First-open live Act/Wait + Why + Ledger proof + SSE freshness — not a news digest.",
+    },
+    {
+        "date": "2026-08-08",
         "title": "Companion trust rail",
         "body": "Unified footer, Follow us, FAQ, How it works, About, Status, Feedback, Legal hub, Operate AI Chat panel.",
     },
@@ -167,6 +172,7 @@ def footer_manifest() -> dict[str, Any]:
         "tagline": "Trust OS — Decide. Prove it. Share it.",
         "story": "Prove → Operate → Desk → Room",
         "product": [
+            {"label": "Trust Pulse", "href": "/dashboard?lens=prove#trust-pulse"},
             {"label": "Decide", "href": "/dashboard?lens=prove#decide"},
             {"label": "Verify", "href": "/oracle-accuracy"},
             {"label": "Dashboard", "href": "/dashboard"},
