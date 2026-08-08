@@ -1689,6 +1689,7 @@
                 const stats = await statsRes.json();
                 const sub = billing.subscription || {};
                 const tier = billing.tier || 'free';
+                const currency = billing.currency || 'USD';
                 el.innerHTML = billing.authenticated ? `
                     <div class="ingest-stats">
                         <div class="ingest-stat"><div class="num">${(tier || 'free').toUpperCase()}</div><div class="lbl">Your Plan</div></div>
@@ -1699,12 +1700,13 @@
                         <div class="ingest-stat"><div class="num">${billing.stripe_configured ? 'ON' : 'OFF'}</div><div class="lbl">Stripe</div></div>
                     </div>
                     <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.85rem">
-                        ${tier === 'free' || tier === 'pro' ? '<button class="btn-primary" onclick="upgradeTier(\\'pro\\')">Upgrade Pro $29</button>' : ''}
-                        ${tier !== 'whale' ? '<button class="btn-secondary" onclick="upgradeTier(\\'whale\\')">Whale $199</button>' : ''}
+                        ${tier === 'free' || tier === 'pro' ? '<button class="btn-primary" onclick="upgradeTier(\\'pro\\')">Decision Pro $29 USD</button>' : ''}
+                        ${tier !== 'whale' ? '<button class="btn-secondary" onclick="upgradeTier(\\'whale\\')">Whale Desk $199 USD</button>' : ''}
+                        Currency: ${currency} · Cards via hosted PSP (never stored here)<br/>
                         ${billing.has_billing_portal ? '<button class="btn-secondary" onclick="openBillingPortal()">Manage Billing</button>' : ''}
                     </div>
                     <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.75rem">
-                        ${sub.trial_ends_at ? 'Trial ends: ' + new Date(sub.trial_ends_at).toLocaleString() : 'Stripe checkout activates Pro/Whale instantly via webhook.'}
+                        ${sub.trial_ends_at ? 'Trial ends: ' + new Date(sub.trial_ends_at).toLocaleString() : 'USD checkout via Lemon/Stripe — webhook activates Decision Pro / Whale Desk.'}
                     </p>
                 ` : `
                     <div class="ingest-stats">

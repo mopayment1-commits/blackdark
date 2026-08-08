@@ -4,165 +4,298 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLACKDARK — Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --danger:#ef4444; --ok:#22c55e; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: Inter, sans-serif;
-            background: #0a0a0f;
-            color: #e4e4e7;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
+            font-family:"DM Sans",system-ui,sans-serif;
+            background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.12), transparent),
+                        radial-gradient(900px 500px at 100% 0%, rgba(6,182,212,.08), transparent), var(--bg);
+            color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
         }
-        .card {
-            width: min(420px, 100%);
-            background: #111118;
-            border: 1px solid #2a2a35;
-            border-radius: 16px;
-            padding: 2rem;
+        .card { width:min(440px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; }
+        h1 { font-family:"Instrument Serif",Georgia,serif; font-size:2rem; font-weight:400; margin-bottom:.25rem; }
+        .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
+        label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
+        input[type=email], input[type=password], input[type=text] {
+            width:100%; padding:.75rem 1rem; margin-bottom:.9rem; background:#1a1a24;
+            border:1px solid var(--border); border-radius:10px; color:var(--text);
         }
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.35rem;
-            background: linear-gradient(135deg, #22d3ee, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .check { display:flex; gap:.55rem; align-items:flex-start; font-size:.78rem; color:#a1a1aa; margin:0 0 1rem; }
+        .check input { margin-top:.2rem; }
+        button, .btn {
+            width:100%; padding:.85rem; border:none; border-radius:10px; font-weight:700; cursor:pointer;
+            margin-bottom:.65rem; display:inline-block; text-align:center; text-decoration:none;
         }
-        p { color: #71717a; font-size: 0.9rem; margin-bottom: 1.5rem; }
-        label { display: block; font-size: 0.8rem; color: #a1a1aa; margin-bottom: 0.35rem; }
-        input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            margin-bottom: 1rem;
-            background: #1a1a24;
-            border: 1px solid #2a2a35;
-            border-radius: 10px;
-            color: #e4e4e7;
-        }
-        button {
-            width: 100%;
-            padding: 0.85rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-bottom: 0.75rem;
-        }
-        .btn-primary { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #0a0a0f; }
-        .btn-secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
-        .msg { font-size: 0.85rem; margin-top: 0.75rem; min-height: 1.2rem; }
-        .msg.error { color: #ef4444; }
-        .msg.ok { color: #22c55e; }
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
-        .tab {
-            flex: 1; text-align: center; padding: 0.5rem;
-            border-radius: 8px; cursor: pointer;
-            background: #1a1a24; color: #71717a; font-size: 0.85rem;
-        }
-        .tab.active { background: rgba(34,211,238,0.15); color: #22d3ee; }
-        a { color: #22d3ee; text-decoration: none; font-size: 0.85rem; }
-        .footer-links { text-align: center; margin-top: 1rem; }
+        .btn-primary { background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0a0a0f; }
+        .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
+        .btn-oauth { background:#fff; color:#111; border:1px solid #ddd; }
+        .msg { font-size:.85rem; min-height:1.2rem; margin-top:.35rem; }
+        .msg.error { color:var(--danger); }
+        .msg.ok { color:var(--ok); }
+        .tabs { display:flex; gap:.5rem; margin-bottom:1.1rem; }
+        .tab { flex:1; text-align:center; padding:.5rem; border-radius:8px; cursor:pointer; background:#1a1a24; color:var(--muted); font-size:.85rem; }
+        .tab.active { background:rgba(34,211,238,.15); color:var(--accent); }
+        .footer-links { text-align:center; margin-top:1rem; font-size:.85rem; }
+        a { color:var(--accent); text-decoration:none; }
+        .divider { display:flex; align-items:center; gap:.75rem; color:var(--muted); font-size:.75rem; margin:1rem 0; }
+        .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--border); }
+        .hidden { display:none !important; }
+        .row-links { display:flex; justify-content:space-between; margin:-.35rem 0 .9rem; font-size:.8rem; }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>BLACKDARK</h1>
-        <p>🎁 <strong>7-Day Pro Trial</strong> on signup — code <strong>LAUNCHPRO</strong> = 14 days</p>
+        <p class="lead">7-day Decision Pro trial on signup. Login with email — or continue with Google when configured.</p>
 
         <div class="tabs">
             <div class="tab active" id="tabLogin" onclick="showTab('login')">Login</div>
-            <div class="tab" id="tabRegister" onclick="showTab('register')">Register</div>
+            <div class="tab" id="tabRegister" onclick="showTab('register')">Sign up</div>
+        </div>
+
+        <div id="oauthBox" class="hidden">
+            <button type="button" class="btn btn-oauth" id="googleBtn" onclick="startOAuth('google')">Continue with Google</button>
+            <button type="button" class="btn btn-secondary hidden" id="githubBtn" onclick="startOAuth('github')">Continue with GitHub</button>
+            <div class="divider">or email</div>
         </div>
 
         <form id="loginForm" onsubmit="doLogin(event)">
             <label>Email</label>
-            <input type="email" id="loginEmail" required placeholder="you@email.com">
+            <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
             <label>Password</label>
-            <input type="password" id="loginPassword" required minlength="8">
+            <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
+            <div class="row-links">
+                <a href="#" onclick="showForgot();return false;">Forgot password?</a>
+                <a href="#" onclick="showForgotUsername();return false;">Forgot username?</a>
+            </div>
             <button type="submit" class="btn-primary">Login</button>
         </form>
 
-        <form id="registerForm" style="display:none" onsubmit="doRegister(event)">
-            <label>Name</label>
-            <input type="text" id="regName" placeholder="Your name">
+        <form id="mfaForm" class="hidden" onsubmit="doMfa(event)">
+            <label>Authenticator code</label>
+            <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
+            <button type="submit" class="btn-primary">Verify MFA</button>
+            <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>
+        </form>
+
+        <form id="registerForm" class="hidden" onsubmit="doRegister(event)">
+            <label>Display name</label>
+            <input type="text" id="regName" maxlength="80" placeholder="How we greet you" autocomplete="name">
+            <label>Public username (optional)</label>
+            <input type="text" id="regUsername" maxlength="24" placeholder="e.g. alex_trade" autocomplete="nickname">
             <label>Email</label>
-            <input type="email" id="regEmail" required>
-            <label>Password (8+ chars)</label>
-            <input type="password" id="regPassword" required minlength="8">
-            <button type="submit" class="btn-primary">Create Account</button>
+            <input type="email" id="regEmail" required autocomplete="email">
+            <label>Password (10+ chars)</label>
+            <input type="password" id="regPassword" required minlength="10" autocomplete="new-password">
+            <label class="check">
+                <input type="checkbox" id="regTerms" required>
+                <span>I accept the <a href="/terms" target="_blank">Terms</a>, <a href="/privacy" target="_blank">Privacy</a>, and <a href="/disclaimer" target="_blank">Risk Disclaimer</a>. Not financial advice.</span>
+            </label>
+            <button type="submit" class="btn-primary">Create account</button>
+        </form>
+
+        <form id="forgotForm" class="hidden" onsubmit="doForgot(event)">
+            <label>Account email</label>
+            <input type="email" id="forgotEmail" required>
+            <button type="submit" class="btn-primary">Send reset link</button>
+            <button type="button" class="btn-secondary" onclick="showTab('login')">Back to login</button>
+        </form>
+
+        <form id="forgotUserForm" class="hidden" onsubmit="doForgotUsername(event)">
+            <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder (and your optional @username).</p>
+            <label>Email</label>
+            <input type="email" id="forgotUserEmail" required>
+            <button type="submit" class="btn-primary">Send reminder</button>
+            <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>
         </form>
 
         <div class="msg" id="msg"></div>
         <div class="footer-links">
-            <a href="/">← Home</a> · <a href="/dashboard">Dashboard</a><br>
-            <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/disclaimer">Disclaimer</a>
+            <a href="/">Home</a> · <a href="/profile">Profile</a> · <a href="/dashboard">Dashboard</a><br>
+            <a href="/refund">Refunds</a> · <a href="/api/auth/identity">Identity standards</a>
         </div>
     </div>
     <script>
+        let mfaChallenge = null;
+
+        function hideAll() {
+            ['loginForm','registerForm','mfaForm','forgotForm','forgotUserForm'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+        }
         function showTab(which) {
-            document.getElementById('loginForm').style.display = which === 'login' ? 'block' : 'none';
-            document.getElementById('registerForm').style.display = which === 'register' ? 'block' : 'none';
+            hideAll();
+            document.getElementById(which === 'register' ? 'registerForm' : 'loginForm').classList.remove('hidden');
             document.getElementById('tabLogin').classList.toggle('active', which === 'login');
             document.getElementById('tabRegister').classList.toggle('active', which === 'register');
             document.getElementById('msg').textContent = '';
+            mfaChallenge = null;
         }
-
+        function showForgot() {
+            hideAll();
+            document.getElementById('forgotForm').classList.remove('hidden');
+            document.getElementById('msg').textContent = '';
+        }
+        function showForgotUsername() {
+            hideAll();
+            document.getElementById('forgotUserForm').classList.remove('hidden');
+            document.getElementById('msg').textContent = '';
+        }
+        function setMsg(text, ok) {
+            const msg = document.getElementById('msg');
+            msg.className = 'msg ' + (ok ? 'ok' : 'error');
+            msg.textContent = text;
+        }
         function saveAuth(data) {
-            localStorage.setItem('bd_token', data.token);
-            localStorage.setItem('bd_user', JSON.stringify(data.user));
-            window.location.href = '/dashboard';
+            if (data.token) localStorage.setItem('bd_token', data.token);
+            if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
+            window.location.href = '/profile?welcome=1';
         }
-
+        async function detail(res) {
+            const d = await res.json().catch(() => ({}));
+            const err = d.detail;
+            if (typeof err === 'string') return err;
+            if (Array.isArray(err)) return err.map(x => x.msg || JSON.stringify(x)).join('; ');
+            return d.message || 'Request failed';
+        }
         async function doLogin(e) {
             e.preventDefault();
-            const msg = document.getElementById('msg');
-            msg.className = 'msg';
             try {
                 const res = await fetch('/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
                     body: JSON.stringify({
                         email: document.getElementById('loginEmail').value,
                         password: document.getElementById('loginPassword').value
                     })
                 });
                 const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'Login failed');
+                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'Login failed');
+                if (d.mfa_required) {
+                    mfaChallenge = d.mfa_challenge;
+                    hideAll();
+                    document.getElementById('mfaForm').classList.remove('hidden');
+                    setMsg('Enter your authenticator code to finish login.', true);
+                    return;
+                }
                 saveAuth(d);
             } catch (err) {
-                msg.className = 'msg error';
-                msg.textContent = err.message;
+                setMsg(err.message, false);
             }
         }
-
+        async function doMfa(e) {
+            e.preventDefault();
+            try {
+                const res = await fetch('/api/auth/mfa/complete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        challenge: mfaChallenge,
+                        code: document.getElementById('mfaCode').value.trim()
+                    })
+                });
+                const d = await res.json();
+                if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'MFA failed');
+                saveAuth(d);
+            } catch (err) {
+                setMsg(err.message, false);
+            }
+        }
         async function doRegister(e) {
             e.preventDefault();
-            const msg = document.getElementById('msg');
-            msg.className = 'msg';
             try {
                 const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
                     body: JSON.stringify({
                         name: document.getElementById('regName').value,
+                        username: document.getElementById('regUsername').value,
                         email: document.getElementById('regEmail').value,
-                        password: document.getElementById('regPassword').value
+                        password: document.getElementById('regPassword').value,
+                        accepted_terms: document.getElementById('regTerms').checked
                     })
                 });
                 const d = await res.json();
-                if (!res.ok) throw new Error(d.detail || 'Registration failed');
+                if (!res.ok) {
+                    const err = d.detail;
+                    const text = typeof err === 'string' ? err
+                        : (Array.isArray(err) ? err.map(x => x.msg || JSON.stringify(x)).join('; ') : 'Registration failed');
+                    throw new Error(text);
+                }
+                if (d.email_verification && d.email_verification.debug_link) {
+                    console.info('Verify email:', d.email_verification.debug_link);
+                }
                 saveAuth(d);
             } catch (err) {
-                msg.className = 'msg error';
-                msg.textContent = err.message;
+                setMsg(err.message, false);
             }
         }
-
-        if (localStorage.getItem('bd_token')) {
-            window.location.href = '/dashboard';
+        async function doForgot(e) {
+            e.preventDefault();
+            try {
+                const res = await fetch('/api/auth/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: document.getElementById('forgotEmail').value })
+                });
+                const d = await res.json();
+                if (!res.ok) throw new Error(d.detail || 'Request failed');
+                let text = d.message || 'Check your email.';
+                if (d.debug_link) text += ' (dev link logged to console)';
+                if (d.debug_link) console.info('Reset link:', d.debug_link);
+                setMsg(text, true);
+            } catch (err) {
+                setMsg(err.message, false);
+            }
+        }
+        async function doForgotUsername(e) {
+            e.preventDefault();
+            try {
+                const res = await fetch('/api/auth/forgot-username', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: document.getElementById('forgotUserEmail').value })
+                });
+                const d = await res.json();
+                setMsg(d.message || 'If an account exists, a reminder was sent.', true);
+            } catch (err) {
+                setMsg(err.message, false);
+            }
+        }
+        async function startOAuth(provider) {
+            try {
+                const res = await fetch('/api/auth/oauth/' + provider + '/start');
+                const d = await res.json();
+                if (!res.ok) throw new Error(d.detail || 'OAuth not configured');
+                window.location.href = d.authorize_url;
+            } catch (err) {
+                setMsg(err.message, false);
+            }
+        }
+        async function loadOAuth() {
+            try {
+                const res = await fetch('/api/auth/oauth/status');
+                const d = await res.json();
+                if (d.enabled) {
+                    document.getElementById('oauthBox').classList.remove('hidden');
+                    if (d.providers && d.providers.google) document.getElementById('googleBtn').classList.remove('hidden');
+                    else document.getElementById('googleBtn').classList.add('hidden');
+                    if (d.providers && d.providers.github) document.getElementById('githubBtn').classList.remove('hidden');
+                }
+            } catch (e) {}
+        }
+        if (localStorage.getItem('bd_token') && !location.search.includes('stay=1')) {
+            window.location.href = '/profile';
+        } else {
+            loadOAuth();
+            const params = new URLSearchParams(location.search);
+            if (params.get('tab') === 'register') showTab('register');
+            if (params.get('reset') === '1') setMsg('Password updated — you can log in.', true);
         }
     </script>
 </body>

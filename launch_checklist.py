@@ -179,6 +179,35 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "status": "done" if _file_exists("data/finalize_launch.json") else "progress",
             "action": "python scripts/finalize_launch.py",
         },
+        {
+            "day": 1,
+            "id": "d1_viral_capacity",
+            "title": "Viral HA env (Postgres+Redis+multi-instance, Soft Launch unset)",
+            "status": (
+                "done"
+                if (
+                    _file_exists("docs/VIRAL_LAUNCH_CAPACITY.md")
+                    and _file_exists("viral_capacity.py")
+                    and bool(_env_or_launch("REDIS_URL") or _env("REDIS_URL"))
+                    and (
+                        int(_env_or_launch("WEB_CONCURRENCY") or _env("WEB_CONCURRENCY") or "1") >= 2
+                        or int(_env_or_launch("WEB_REPLICAS") or _env("WEB_REPLICAS") or "1") >= 2
+                    )
+                    and not (
+                        (_env_or_launch("SOFT_LAUNCH") or _env("SOFT_LAUNCH") or "")
+                        .lower()
+                        in {"1", "true", "yes"}
+                    )
+                )
+                else "progress"
+            ),
+            "action": (
+                "Set REDIS_URL, SERVICE_BUS_LOCAL=false, WEB_CONCURRENCY≥2, WEB_REPLICAS≥2, "
+                "VIRAL_MODE=true, unset SOFT_LAUNCH → GET /api/viral/readiness + /health/viral"
+            ),
+            "endpoint": "/api/viral/readiness",
+            "file": "docs/VIRAL_LAUNCH_CAPACITY.md",
+        },
         # ── Day 2: Domain + Payments ──
         {
             "day": 2,
