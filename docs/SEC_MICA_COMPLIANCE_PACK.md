@@ -19,21 +19,21 @@
 
 ## 2) Control map (implemented in code)
 
-| Control | Location |
-|---------|----------|
-| Strict AI disclaimer on every Oracle payload | `get_disclaimer()` / `apply_regulatory_compliance` |
-| Classification badge | `[Probabilistic Analysis – Not Financial Advice]` |
-| Explicit Terms gate before Oracle | `terms_consent.py` + `/api/legal/accept-terms` |
-| Public risk pages | `/terms`, `/privacy`, `/disclaimer` (dedicated templates) |
-| GDPR deletion / issue forms | `/request-deletion` + `/api/privacy/request-deletion` + `/report-issue` |
-| GDPR DSR export/erase | `/api/privacy/dsr/*` (`gdpr_service.py`) |
-| Password hashing | PBKDF2-SHA256 (`auth_service.py`) |
-| Admin MFA (TOTP) | `admin_mfa.py` + `X-Admin-TOTP` |
-| OAuth2 social login | `oauth_service.py` (Google/GitHub) |
-| Secrets at rest (app) | Fernet vault (`secrets_vault.py`) |
-| Secrets at rest (DB) | `pgcrypto` via `postgres_backend.ensure_pgcrypto` |
-| Production fail-closed | `production_guard.py` (Postgres + Redis + admin MFA) |
-| Auth / consent audit | `data/auth_audit.jsonl` |
+### Strict Disclaimer Architecture (`legal_shield.py`) — 4 layers
+
+| Layer | Control | Location |
+|-------|---------|----------|
+| 1 | Mandatory disclaimer **prefix** on every Oracle narrative | `legal_shield.apply_legal_shield` via `sanitize_oracle_payload` |
+| 2 | `SYSTEM_CLASSIFICATION=analytical_tool`, `IS_FINANCIAL_ADVISOR=False`, `REGULATORY_STATUS=not_regulated` | `config.py` + `/api/status` + `/system/info` + UI banner |
+| 3 | Explicit consent modal + DB/cookie gate | `terms_consent.py` + `static/js/legal-shield.js` |
+| 4 | Permanent footer on all pages | `static/js/legal-shield.js` + templates |
+
+| Other controls | Location |
+|----------------|----------|
+| Public risk pages | `/terms`, `/privacy`, `/disclaimer` |
+| GDPR deletion / issue forms | `/request-deletion` |
+| GDPR DSR export/erase | `/api/privacy/dsr/*` |
+| Admin MFA / OAuth / pgcrypto / prod guard | prior acquisition readiness work |
 
 ---
 

@@ -67,14 +67,21 @@ def compliance_footer_block(
     data_sources: str = "live market + institutional context + labeled flywheel",
 ) -> dict[str, str]:
     """Anti-Hype Compliance Footer (Section Z #5) — shared under AI outputs."""
-    from regulatory_compliance_guard import ORACLE_CLASSIFICATION_LABEL, get_disclaimer
+    from legal_shield import (
+        ORACLE_CLASSIFICATION_LABEL,
+        PERMANENT_FOOTER_TEXT,
+        SYSTEM_CLASSIFICATION,
+        get_disclaimer,
+    )
 
     return {
         "surface": surface,
         "data_source": data_sources,
         "trust_basis": trust_basis,
         "classification_label": ORACLE_CLASSIFICATION_LABEL,
+        "system_classification": SYSTEM_CLASSIFICATION,
         "disclaimer": get_disclaimer(),
+        "permanent_footer": PERMANENT_FOOTER_TEXT,
         "regulator_note": (
             "Built for auditability against AI-washing enforcement patterns "
             "(prove-it, not trust-me). Not a registered adviser / MiCA CASP claim."

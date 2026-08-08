@@ -15,21 +15,18 @@ import config
 
 logger = logging.getLogger("BLACKDARK.RegulatoryCompliance")
 
-ORACLE_CLASSIFICATION_LABEL = "[Probabilistic Analysis – Not Financial Advice]"
-
-REGULATORY_DISCLAIMER = (
-    "DISCLAIMER: This is not financial advice. BLACKDARK is a probabilistic analysis tool. "
-    "All outputs are based on historical data and market patterns. "
-    "Past performance does NOT guarantee future results. "
-    "You are 100% responsible for your own investment decisions. "
-    "Always do your own research (DYOR) before making any trade. "
-    "BLACKDARK is not a registered investment adviser, broker-dealer, or MiCA CASP."
+from legal_shield import (
+    MANDATORY_DISCLAIMER_PREFIX,
+    ORACLE_CLASSIFICATION_LABEL,
+    STRICT_DISCLAIMER,
+    apply_legal_shield,
+    get_disclaimer,
+    get_mandatory_prefix,
+    prefix_disclaimer,
 )
 
-
-def get_disclaimer() -> str:
-    """Strict disclaimer attached to every AI / Oracle output."""
-    return REGULATORY_DISCLAIMER
+# Back-compat aliases (Layer 1 source of truth = legal_shield.py)
+REGULATORY_DISCLAIMER = STRICT_DISCLAIMER
 
 PUBLIC_VERDICT_BULLISH = "BULLISH_ANALYTICS"
 PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
@@ -210,24 +207,9 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
             out["sentence"] = out["oracle"]
 
     out["regulatory_classification"] = "informational_analytics_only"
-    out["oracle_classification_label"] = ORACLE_CLASSIFICATION_LABEL
-    out["is_investment_advice"] = False
-    out["disclaimer"] = get_disclaimer()
-    out["compliance_engine"] = "regulatory_compliance_guard_v2"
-    footer = out.get("compliance_footer")
-    if isinstance(footer, dict):
-        foot = dict(footer)
-        foot["disclaimer"] = get_disclaimer()
-        foot["classification_label"] = ORACLE_CLASSIFICATION_LABEL
-        out["compliance_footer"] = foot
-    else:
-        out["compliance_footer"] = {
-            "surface": "oracle",
-            "disclaimer": get_disclaimer(),
-            "classification_label": ORACLE_CLASSIFICATION_LABEL,
-            "data_source": "live market + labeled flywheel",
-            "trust_basis": "public_accuracy_ledger",
-        }
+    out["compliance_engine"] = "regulatory_compliance_guard_v3+legal_shield"
+    # Layer 1+2: mandatory prefix + classification (non-removable)
+    out = apply_legal_shield(out)
     return out
 
 

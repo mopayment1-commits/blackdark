@@ -36,6 +36,8 @@
         .badge { display: inline-block; margin-top: 1rem; padding: .4rem .7rem; border-radius: 8px; border: 1px solid rgba(251,191,36,.35); color: var(--warn); font-size: .8rem; }
         footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .8rem; }
     </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
 </head>
 <body>
     <div class="wrap">
@@ -55,7 +57,7 @@
             <p>Oracle and AI decision surfaces require explicit acceptance of Terms + Risk Disclaimer.</p>
             <label>
                 <input type="checkbox" id="agreeCheck">
-                <span>I understand BLACKDARK is probabilistic analysis only — not financial advice — and I accept the Terms of Service and Risk Disclaimer.</span>
+                <span>I acknowledge that BLACKDARK is not a financial advisor. I accept full responsibility for my trades.</span>
             </label>
             <button id="acceptBtn" type="button" disabled>Accept Terms &amp; Continue</button>
             <div class="msg" id="acceptMsg"></div>
@@ -101,11 +103,15 @@
                         'Content-Type': 'application/json',
                         'Authorization': localStorage.getItem('bd_token') ? ('Bearer ' + localStorage.getItem('bd_token')) : ''
                     },
-                    body: JSON.stringify({ source: 'terms_page' })
+                    body: JSON.stringify({
+                        source: 'terms_page',
+                        ack: true,
+                        ack_text: 'I acknowledge that BLACKDARK is not a financial advisor. I accept full responsibility for my trades.'
+                    })
                 });
                 const d = await res.json();
                 if (!res.ok) throw new Error((d.detail && d.detail.message) || d.detail || 'Failed');
-                localStorage.setItem('bd_terms_accepted', d.terms_version || '1');
+                localStorage.setItem('bd_terms_accepted', '1');
                 msg.className = 'msg ok';
                 msg.textContent = 'Accepted. Redirecting…';
                 const next = new URLSearchParams(location.search).get('next') || '/dashboard';

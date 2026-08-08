@@ -13,7 +13,11 @@ from fastapi import HTTPException, Request
 
 logger = logging.getLogger("BLACKDARK.TermsConsent")
 
-TERMS_VERSION = os.getenv("TERMS_VERSION", "2026-03-28-v2").strip() or "2026-03-28-v2"
+from legal_shield import CONSENT_ACK_TEXT, CONSENT_VERSION
+
+TERMS_VERSION = (
+    os.getenv("TERMS_VERSION", CONSENT_VERSION).strip() or CONSENT_VERSION
+)
 TERMS_COOKIE = "bd_terms_v"
 ACCEPTANCE_REQUIRED = os.getenv("TERMS_ACCEPTANCE_REQUIRED", "true").lower() in {
     "1",
@@ -94,7 +98,11 @@ async def enforce_terms_acceptance(request: Request, user: dict | None = None) -
         status_code=403,
         detail={
             "error": "terms_not_accepted",
-            "message": "You must accept the Terms of Service and Risk Disclaimer before using the Oracle.",
+            "message": (
+                "Oracle blocked until explicit consent: "
+                + CONSENT_ACK_TEXT
+            ),
+            "ack_text": CONSENT_ACK_TEXT,
             "redirect_url": "/terms",
             "terms_version": TERMS_VERSION,
             "accept_api": "POST /api/legal/accept-terms",
@@ -108,6 +116,7 @@ def terms_status_payload(accepted: bool) -> dict[str, Any]:
         "accepted": accepted,
         "terms_version": TERMS_VERSION,
         "cookie_name": TERMS_COOKIE,
+        "ack_text": CONSENT_ACK_TEXT,
         "terms_url": "/terms",
         "privacy_url": "/privacy",
         "disclaimer_url": "/disclaimer",

@@ -551,6 +551,8 @@
         body.has-launch-banner nav { top: 36px; }
         body.has-launch-banner .hero { padding-top: 9rem; }
     </style>
+    <link rel="stylesheet" href="/static/css/legal-shield.css">
+    <script defer src="/static/js/legal-shield.js"></script>
 </head>
 <body class="has-launch-banner">
     <div class="bg-grid"></div>
@@ -814,7 +816,7 @@
             <a href="/request-deletion" style="color:var(--text-muted);margin:0 0.5rem">Request Deletion</a>
         </p>
         <p style="font-size: 0.875rem; margin-top: 0.5rem;">
-            © 2026 BLACKDARK. All rights reserved. Not financial advice.
+            BLACKDARK is an analytical tool. Not financial advice. No guarantee of accuracy or profit. © 2026 BLACKDARK.
         </p>
     </footer>
     
@@ -882,17 +884,6 @@
             }
         }
 
-        async function ensureTermsAccepted() {
-            try {
-                const res = await fetch('/api/legal/terms-status', { credentials: 'same-origin' });
-                const d = await res.json();
-                if (d.accepted) return true;
-            } catch (e) {}
-            const next = encodeURIComponent(location.pathname + location.search);
-            window.location.href = '/terms?next=' + next;
-            return false;
-        }
-
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
@@ -906,7 +897,10 @@
             const upgradeEl = document.getElementById('landingUpgrade');
             const classBadge = document.getElementById('oracleClassBadge');
 
-            if (!(await ensureTermsAccepted())) return;
+            if (window.bdLegalShieldRequireConsent) {
+                const ok = await window.bdLegalShieldRequireConsent();
+                if (!ok) return;
+            }
             
             resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);

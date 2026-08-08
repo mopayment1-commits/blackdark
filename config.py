@@ -785,6 +785,12 @@ REGULATORY_COMPLIANCE_ENABLED = os.getenv("REGULATORY_COMPLIANCE_ENABLED", "true
     "yes",
 }
 
+# Layer 2 — Strict Disclaimer Architecture classification (immutable posture)
+# Source of truth mirrored in legal_shield.py
+SYSTEM_CLASSIFICATION = "analytical_tool"
+IS_FINANCIAL_ADVISOR = False
+REGULATORY_STATUS = "not_regulated"
+
 # Subscriber retention — bear-market churn mitigation
 RETENTION_GUARD_ENABLED = os.getenv("RETENTION_GUARD_ENABLED", "true").lower() in {
     "1",
