@@ -24,6 +24,7 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/accuracy/",
     "/api/compliance/",
     "/api/security/status",
+    "/api/scale/",
     "/api/oracle/accuracy",
     "/api/oracle/audit-chain",
     "/api/due-diligence/evidence-pack/public-summary",
@@ -32,6 +33,7 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/alerts/generosity",
     "/api/mev/sandwich-report",
     "/api/fund/emerging-terminal",
+    "/api/auth/oauth/status",
     "/oracle/",
 )
 
@@ -40,8 +42,11 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/api/trust-os",
         "/api/audit-challenge",
         "/api/security/status",
+        "/api/scale/readiness",
         "/api/docs/public-openapi.json",
         "/capabilities",
+        "/compliance",
+        "/data-room",
         "/oracle-accuracy",
         "/discipline-mirror",
         "/docs",

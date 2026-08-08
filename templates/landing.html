@@ -553,6 +553,7 @@
     </style>
 </head>
 <body class="has-launch-banner">
+    <a href="#oracle" class="skip-link" style="position:absolute;left:-9999px" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.zIndex='100';this.style.background='var(--accent)';this.style.color='#0a0a0f';this.style.padding='.5rem .75rem'">Skip to Oracle</a>
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
@@ -561,7 +562,7 @@
         <a href="/login">Register Now</a>
     </div>
     
-    <nav>
+    <nav aria-label="Primary">
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
             <div class="nav-links">
@@ -633,9 +634,9 @@
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
                     <h3>BLACKDARK Oracle</h3>
-                    <div class="live-indicator">
+                    <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
                         <span class="live-dot"></span>
-                        Live
+                        <span id="oracleFreshnessLabel">Live</span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
@@ -967,6 +968,16 @@
                             : `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`);
                 }
                 oracleEl.textContent = sentence;
+                const freshChip = document.getElementById('oracleFreshnessLabel');
+                const fresh = data.data_freshness || {};
+                if (freshChip) {
+                    freshChip.textContent = fresh.label || 'Live';
+                    const wrap = document.getElementById('oracleFreshnessChip');
+                    if (wrap) {
+                        wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
+                        wrap.style.opacity = fresh.state === 'stale' ? '0.65' : '1';
+                    }
+                }
                 if (mode === 'pro') {
                     const truth = data.net_edge_truth || {};
                     const half = data.opportunity_half_life || {};

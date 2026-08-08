@@ -47,10 +47,21 @@ def evaluate_production_guard() -> dict[str, Any]:
     telegram_secret = bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip())
     lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
     stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
-    secrets_ok = bool(
+    secrets_raw = (
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
-    session_pepper_ok = bool(os.getenv("SESSION_TOKEN_PEPPER", "").strip())
+    secrets_ok = bool(secrets_raw)
+    session_pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
+    session_pepper_ok = bool(session_pepper)
+    insecure_defaults = {
+        "blackdark-dev-change-me-in-production",
+        "blackdark-session-pepper-change-me",
+        "change-me",
+        "changeme",
+        "secret",
+    }
+    no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
+    no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
     admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
@@ -65,6 +76,8 @@ def evaluate_production_guard() -> dict[str, Any]:
     # Strict production (no Soft Launch): SQLite is an acquisition landmine.
     strict_prod = is_production() and not soft_launch
     sqlite_forbidden_ok = pg if strict_prod else (pg or soft_launch or not is_production())
+    # Soft Launch in production still must not ship known-insecure secret strings.
+    prod_secrets_hygiene = (not is_production()) or (no_insecure_secrets and no_insecure_pepper)
 
     checks = [
         _check(
@@ -126,6 +139,15 @@ def evaluate_production_guard() -> dict[str, Any]:
             session_pepper_ok,
             required=True,
             hint="Set SESSION_TOKEN_PEPPER to a long random secret",
+        ),
+        _check(
+            "no_insecure_prod_secret_defaults",
+            prod_secrets_hygiene,
+            required=is_production(),
+            hint=(
+                "Replace known-insecure SECRETS_MASTER_KEY / SESSION_TOKEN_PEPPER "
+                "dev defaults before any production deploy (including Soft Launch)"
+            ),
         ),
         _check(
             "admin_auth_configured",

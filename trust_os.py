@@ -82,12 +82,14 @@ VALUE_LAYERS: list[dict[str, Any]] = [
             "Emerging Fund Terminal (sub-$50M packaging)",
             "Anti-Hype / Legal Shield engineering posture",
             "B2B signed feed + WebSocket",
-            "Secrets vault + admin MFA + Postgres/Redis production guard",
+            "Secrets vault + admin TOTP MFA + OAuth2 scaffolding + Postgres/Redis production guard",
         ],
         "status": "shipped_with_limits",
         "honest_limits": [
             "Engineering compliance posture ≠ SEC/MiCA license or SOC2/ISO certificate",
             "Counsel letter and entity packaging remain human steps",
+            "MFA/OAuth are engineering controls when configured — not a compliance certificate",
+            "High concurrency requires Postgres+Redis multi-worker; Soft Launch SQLite is demo-only",
         ],
     },
 ]

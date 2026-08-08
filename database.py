@@ -607,6 +607,16 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
     if "telegram_chat_id" not in user_cols:
         await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
+    for col, ddl in (
+        ("mfa_enabled", "ALTER TABLE users ADD COLUMN mfa_enabled INTEGER NOT NULL DEFAULT 0"),
+        ("mfa_secret_enc", "ALTER TABLE users ADD COLUMN mfa_secret_enc TEXT"),
+        ("mfa_pending_secret_enc", "ALTER TABLE users ADD COLUMN mfa_pending_secret_enc TEXT"),
+        ("mfa_recovery_hashes", "ALTER TABLE users ADD COLUMN mfa_recovery_hashes TEXT"),
+        ("oauth_provider", "ALTER TABLE users ADD COLUMN oauth_provider TEXT"),
+        ("oauth_subject", "ALTER TABLE users ADD COLUMN oauth_subject TEXT"),
+    ):
+        if col not in user_cols:
+            await db.execute(ddl)
 
     await db.execute(
         """
@@ -3188,6 +3198,156 @@ async def touch_user_login(user_id: int) -> None:
             "UPDATE users SET last_login_at = ? WHERE id = ?",
             (_utcnow_iso(), user_id),
         )
+
+
+def _parse_recovery_hashes(raw: Any) -> list[str]:
+    if not raw:
+        return []
+    if isinstance(raw, list):
+        return [str(x) for x in raw]
+    try:
+        data = json.loads(str(raw))
+        if isinstance(data, list):
+            return [str(x) for x in data]
+    except Exception:
+        pass
+    return [x for x in str(raw).split(",") if x]
+
+
+async def fetch_user_mfa_row(user_id: int) -> dict[str, Any] | None:
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT id, mfa_enabled, mfa_secret_enc, mfa_pending_secret_enc, mfa_recovery_hashes
+                FROM users WHERE id = ?
+                """,
+                (user_id,),
+            )
+            result = await rows.fetchone()
+        if not result:
+            return None
+        row = dict(result)
+        hashes = _parse_recovery_hashes(row.get("mfa_recovery_hashes"))
+        row["mfa_recovery_hashes"] = hashes
+        row["mfa_recovery_remaining"] = len(hashes)
+        row["mfa_enabled"] = bool(int(row.get("mfa_enabled") or 0))
+        return row
+    except Exception:
+        logger.exception("Unable to fetch MFA row")
+        return None
+
+
+async def set_user_mfa_pending_secret(user_id: int, secret_enc: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET mfa_pending_secret_enc = ? WHERE id = ?",
+            (secret_enc, user_id),
+        )
+
+
+async def enable_user_mfa(user_id: int, secret_enc: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET mfa_enabled = 1,
+                mfa_secret_enc = ?,
+                mfa_pending_secret_enc = NULL
+            WHERE id = ?
+            """,
+            (secret_enc, user_id),
+        )
+
+
+async def set_user_mfa_recovery_hashes(user_id: int, hashes: list[str]) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE users SET mfa_recovery_hashes = ? WHERE id = ?",
+            (json.dumps(hashes), user_id),
+        )
+
+
+async def consume_mfa_recovery_hash(user_id: int, matched_hash: str) -> None:
+    row = await fetch_user_mfa_row(user_id)
+    if not row:
+        return
+    remaining = [h for h in (row.get("mfa_recovery_hashes") or []) if h != matched_hash]
+    await set_user_mfa_recovery_hashes(user_id, remaining)
+
+
+async def clear_user_mfa(user_id: int) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET mfa_enabled = 0,
+                mfa_secret_enc = NULL,
+                mfa_pending_secret_enc = NULL,
+                mfa_recovery_hashes = NULL
+            WHERE id = ?
+            """,
+            (user_id,),
+        )
+
+
+async def fetch_user_by_oauth(provider: str, subject: str) -> dict[str, Any] | None:
+    if not provider or not subject:
+        return None
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT * FROM users
+                WHERE oauth_provider = ? AND oauth_subject = ?
+                """,
+                (provider.strip().lower(), subject.strip()),
+            )
+            result = await rows.fetchone()
+        return dict(result) if result else None
+    except Exception:
+        logger.exception("Unable to fetch OAuth user")
+        return None
+
+
+async def link_user_oauth(user_id: int, provider: str, subject: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE users
+            SET oauth_provider = ?, oauth_subject = ?
+            WHERE id = ?
+            """,
+            (provider.strip().lower(), subject.strip(), user_id),
+        )
+
+
+async def create_oauth_user(email: str, name: str, provider: str, subject: str) -> int:
+    """Create passwordless OAuth user with unusable password hash."""
+    import secrets as _secrets
+
+    from auth_service import hash_password
+
+    unusable = hash_password(_secrets.token_urlsafe(48))
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            INSERT INTO users (
+                email, password_hash, name, created_at,
+                oauth_provider, oauth_subject
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                email.strip().lower(),
+                unusable,
+                name or None,
+                _utcnow_iso(),
+                provider.strip().lower(),
+                subject.strip(),
+            ),
+        )
+        return int(cursor.lastrowid or 0)
 
 
 async def fetch_oracle_usage_today(email: str) -> int:

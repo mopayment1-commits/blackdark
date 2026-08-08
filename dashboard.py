@@ -1042,12 +1042,66 @@ async def capabilities_page(request: Request):
     )
 
 
+@app.get("/compliance", response_class=HTMLResponse)
+async def compliance_page(request: Request):
+    """Anti-Hype / Legal Shield public page — engineering posture, not a license."""
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
+    regulatory = {}
+    try:
+        from regulatory_compliance_guard import regulatory_compliance_status
+
+        regulatory = regulatory_compliance_status()
+    except Exception:
+        regulatory = {"status": "engineering_posture_only"}
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "compliance",
+            "title": "Anti-Hype Compliance",
+            "lead": (
+                "Engineering posture and overclaim denylist — not SEC/MiCA licensing, "
+                "not SOC 2 / ISO 27001 certification. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
+            "regulatory": regulatory,
+        },
+    )
+
+
+@app.get("/data-room", response_class=HTMLResponse)
+async def data_room_page(request: Request):
+    """Committee-facing data room index (HTML)."""
+    return templates.TemplateResponse(
+        request,
+        "utility.html",
+        {
+            "page": "data_room",
+            "title": "Data Room",
+            "lead": (
+                "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
+                "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
+            ),
+        },
+    )
+
+
 @app.get("/api/trust-os")
 async def api_trust_os():
     """Honest acquisition framing — four value layers + overclaim denylist."""
     from trust_os import trust_os_manifest
 
     return trust_os_manifest()
+
+
+@app.get("/api/scale/readiness")
+async def api_scale_readiness():
+    """Honest concurrent-scale posture for ops and diligence."""
+    from scale_readiness import scale_readiness_report
+
+    return scale_readiness_report()
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -1259,6 +1313,12 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
             surface="single_sentence_oracle_quick",
             trust_basis="public_accuracy_ledger + quick_rules_engine",
         )
+    except Exception:
+        pass
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
     except Exception:
         pass
     from security_sanitize import sanitize_oracle_payload
@@ -1481,6 +1541,13 @@ async def oracle(
         increment_metric("oracle_queries_total")
     except Exception:
         pass
+
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        payload = attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        logger.debug("Oracle freshness attach failed", exc_info=True)
 
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
@@ -2549,7 +2616,12 @@ async def api_security_status():
         "risk_freeze": "persistent (survives restart)",
         "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
         "admin_endpoints": "X-Admin-Key or admin email",
-        "rate_limiting": "login 10 attempts / 5 min",
+        "rate_limiting": "login 10 attempts / 5 min (Redis-shared when REDIS_URL set)",
+        "login_rate_limit_backend": (
+            __import__("security_auth", fromlist=["login_rate_limit_backend"]).login_rate_limit_backend()
+        ),
+        "mfa": "TOTP enroll/verify at /api/auth/mfa/*",
+        "oauth2": "Google/GitHub scaffolding at /api/auth/oauth/* when client IDs set",
         "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
         "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
         "vault_configured": vault_ok,
@@ -2557,6 +2629,8 @@ async def api_security_status():
         "admin_emails_configured": len(admin_emails()) > 0,
         "public_developer_docs": "/docs",
         "architecture_index": "ARCHITECTURE.md",
+        "data_room": "/data-room",
+        "scale_readiness": "/api/scale/readiness",
         "docs": "/SECURITY.md",
     }
 

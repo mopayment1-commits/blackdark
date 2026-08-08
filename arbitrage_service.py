@@ -445,6 +445,22 @@ async def scan_arbitrage_opportunities(
                 risks.append("constitution_gates_unavailable")
             row["risk_factors"] = risks
 
+    # Execution Risk % (advisory) on every scan row
+    try:
+        from execution_risk_score import attach_execution_risk
+
+        formatted = [
+            attach_execution_risk(
+                {
+                    **row,
+                    "data_age_sec": float(data_age_sec or row.get("data_age_sec") or 0),
+                }
+            )
+            for row in formatted
+        ]
+    except Exception:
+        logger.debug("execution risk scoring unavailable", exc_info=True)
+
     pricing_errors: list[dict[str, Any]] = []
     if source != "websocket_live":
         try:

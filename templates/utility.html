@@ -25,8 +25,9 @@
     </style>
 </head>
 <body>
-    <nav><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/b2b#fund-terminal">Funds</a></div></div></nav>
-    <main>
+    <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" class="skip-link" onfocus="this.style.left='1rem';this.style.top='1rem';this.style.width='auto';this.style.height='auto';this.style.padding='.5rem';this.style.background='#22d3ee';this.style.color='#0a0a0f';this.style.zIndex='99'">Skip to content</a>
+    <nav aria-label="Primary"><div class="nav-inner"><a class="logo" href="/">BLACKDARK</a><div><a href="/dashboard">Dashboard</a> · <a href="/oracle-accuracy">Accuracy</a> · <a href="/b2b#fund-terminal">Funds</a></div></div></nav>
+    <main id="main" role="main" tabindex="-1">
         <h1>{{ title }}</h1>
         <p>{{ lead }}</p>
         {% if page == 'capabilities' %}
@@ -100,6 +101,71 @@
                 <a href="/api/strategy/correction">Strategy correction</a>
             </p>
         </div>
+        {% elif page == 'compliance' %}
+        <div class="card">
+            <p><strong style="color:var(--fg)">Anti-Hype / Legal Shield</strong> — marketing must match shipped proof surfaces.</p>
+            <h2>What this page is</h2>
+            <ul>
+                <li>Engineering compliance posture and overclaim denylist</li>
+                <li>Links to Prove-it surfaces (Ledger, certificates, Glass Box, Fund Terminal)</li>
+                <li>Honest limits on MFA, vault encryption, and Soft Launch vs HA</li>
+            </ul>
+            <h2>What this page is not</h2>
+            <ul class="deny">
+                <li>Not an SEC / MiCA / CFTC license</li>
+                <li>Not a SOC 2 or ISO 27001 certificate</li>
+                <li>Not investment advice or a performance guarantee</li>
+            </ul>
+            <h2>Overclaim denylist</h2>
+            <ul class="deny">
+                {% if trust_os and trust_os.overclaim_denylist %}
+                {% for row in trust_os.overclaim_denylist %}
+                <li><strong style="color:var(--fg)">{{ row.claim }}</strong> — {{ row.truth }}</li>
+                {% endfor %}
+                {% else %}
+                <li>SOR / TWAP / VWAP / TCA / SOC2 / IFRS — not shipped as certificates or live algos</li>
+                {% endif %}
+            </ul>
+            {% if regulatory %}
+            <h2>Regulatory guard snapshot</h2>
+            <p class="deny">Status fields are engineering signals only —
+                <a href="/api/regulatory/compliance">/api/regulatory/compliance</a>
+            </p>
+            {% endif %}
+            <p>
+                <a href="/oracle-accuracy">Public Accuracy Ledger</a> ·
+                <a href="/b2b#fund-terminal">Fund Terminal</a> ·
+                <a href="/data-room">Data Room</a> ·
+                <a href="/api/security/status">Security status</a> ·
+                <a href="/api/scale/readiness">Scale readiness</a>
+            </p>
+        </div>
+        {% elif page == 'data_room' %}
+        <div class="card">
+            <p>Committee index for diligence. Full markdown: <code>docs/DATA_ROOM.md</code>.</p>
+            <h2>Prove-it</h2>
+            <ul>
+                <li><a href="/oracle-accuracy">Public Accuracy Ledger</a></li>
+                <li><a href="/b2b#fund-terminal">Emerging Fund Terminal</a></li>
+                <li><a href="/b2b#evidence">Evidence Pack</a></li>
+                <li><a href="/compliance">Anti-Hype Compliance</a></li>
+                <li><a href="/docs">Public developer docs</a></li>
+            </ul>
+            <h2>JSON for committees</h2>
+            <ul>
+                <li><a href="/api/trust-os">Trust OS manifest</a></li>
+                <li><a href="/api/execution/closure">Execution closure</a></li>
+                <li><a href="/api/acceptance/60s">60s acceptance</a></li>
+                <li><a href="/api/scale/readiness">Scale readiness</a></li>
+                <li><a href="/api/due-diligence/evidence-pack/public-summary">Evidence pack public summary</a></li>
+            </ul>
+            <h2>Capacity honesty</h2>
+            <p class="deny">
+                Code enables high concurrency (Postgres pool, Redis-shared login RL, multi-worker k8s).
+                Proven HA still requires a signed Postgres+Redis multi-worker row in
+                <code>docs/LOAD_TEST_RUN_LOG.md</code>. Soft Launch SQLite is demo-only.
+            </p>
+        </div>
         {% elif page == 'contact' %}
         <div class="card">
             <p>Product support and partnership inquiries:</p>
@@ -122,6 +188,6 @@
         {% endif %}
         <p><strong>Anti-Hype</strong> · Not financial advice · Verify claims on the Public Accuracy Ledger.</p>
     </main>
-    <footer>BLACKDARK · <a href="/legal">Legal</a> · <a href="/capabilities">Capabilities</a> · <a href="/contact">Contact</a></footer>
+    <footer>BLACKDARK · <a href="/legal">Legal</a> · <a href="/capabilities">Capabilities</a> · <a href="/compliance">Compliance</a> · <a href="/contact">Contact</a></footer>
 </body>
 </html>

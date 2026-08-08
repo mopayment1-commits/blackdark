@@ -19,6 +19,8 @@ logger = logging.getLogger("BLACKDARK.Security")
 _login_attempts: dict[str, list[float]] = defaultdict(list)
 _LOGIN_WINDOW_SEC = 300
 _LOGIN_MAX_ATTEMPTS = 10
+_LOGIN_RL_PREFIX = "bd:login_rl:"
+_rate_limit_backend = "memory"
 
 
 def is_production_env() -> bool:
@@ -27,6 +29,10 @@ def is_production_env() -> bool:
     if env in {"production", "prod"}:
         return True
     return False
+
+
+def login_rate_limit_backend() -> str:
+    return _rate_limit_backend
 
 
 def hash_session_token(token: str) -> str:
@@ -39,14 +45,61 @@ def hash_session_token(token: str) -> str:
     return hashlib.sha256(f"{pepper}:{token}".encode("utf-8")).hexdigest()
 
 
-def check_login_rate_limit(key: str) -> None:
-    """Raise if too many login attempts from email/IP."""
+def _memory_login_rate_limit(key: str) -> None:
+    global _rate_limit_backend
+    _rate_limit_backend = "memory"
     now = time.time()
     window = _login_attempts[key]
     _login_attempts[key] = [t for t in window if now - t < _LOGIN_WINDOW_SEC]
     if len(_login_attempts[key]) >= _LOGIN_MAX_ATTEMPTS:
         raise HTTPException(status_code=429, detail="Too many login attempts. Try again in 5 minutes.")
     _login_attempts[key].append(now)
+
+
+def _redis_client_sync():
+    """Best-effort sync Redis client for login RL (shared across workers)."""
+    try:
+        import config
+
+        url = (getattr(config, "REDIS_URL", "") or os.getenv("REDIS_URL", "")).strip()
+        if not url:
+            return None
+        if getattr(config, "SERVICE_BUS_LOCAL", True) and os.getenv(
+            "LOGIN_RL_FORCE_REDIS", ""
+        ).lower() not in {"1", "true", "yes"}:
+            # Prefer Redis whenever REDIS_URL is set for HA login RL.
+            pass
+        import redis
+
+        client = redis.from_url(url, decode_responses=True, socket_connect_timeout=0.4)
+        client.ping()
+        return client
+    except Exception:
+        return None
+
+
+def check_login_rate_limit(key: str) -> None:
+    """Raise if too many login attempts from email/IP. Uses Redis when available."""
+    global _rate_limit_backend
+    redis_key = f"{_LOGIN_RL_PREFIX}{key.strip().lower()}"
+    client = _redis_client_sync()
+    if client is not None:
+        try:
+            count = int(client.incr(redis_key))
+            if count == 1:
+                client.expire(redis_key, _LOGIN_WINDOW_SEC)
+            _rate_limit_backend = "redis"
+            if count > _LOGIN_MAX_ATTEMPTS:
+                raise HTTPException(
+                    status_code=429,
+                    detail="Too many login attempts. Try again in 5 minutes.",
+                )
+            return
+        except HTTPException:
+            raise
+        except Exception:
+            logger.warning("Redis login rate limit failed — falling back to memory", exc_info=True)
+    _memory_login_rate_limit(key)
 
 
 def record_login_failure(key: str) -> None:

@@ -13,7 +13,7 @@ BLACKDARK is **one product** with **four value layers**. Presenting sixteen sepa
 | 1 | **Decision Intelligence** | Single-Sentence Oracle, Conflict Guard, Discipline Mirror | Analytical tool — not advice |
 | 2 | **Transparency & Evidence** | Public Accuracy Ledger, Glass Box pack, Decision Certificates, DD pack | Glass Box *media event* is operator-run |
 | 3 | **Market / Execution Edge** | Arb scanner, Whale S/N, Stealth Advisor, slippage/net-edge gates | **Not** SOR / TWAP / VWAP / TCA |
-| 4 | **Institutional Packaging** | Emerging Fund Terminal, Anti-Hype `/compliance`, B2B feed, vault/MFA | Posture ≠ SEC/MiCA/SOC2 certificate |
+| 4 | **Institutional Packaging** | Emerging Fund Terminal, Anti-Hype `/compliance`, `/data-room`, B2B feed, vault + TOTP MFA + OAuth2 scaffolding | Posture ≠ SEC/MiCA/SOC2 certificate; MFA/OAuth = engineering controls |
 
 Machine-readable: `GET /api/trust-os` · module `trust_os.py`.
 
@@ -39,8 +39,9 @@ Machine-readable: `GET /api/trust-os` · module `trust_os.py`.
 
 ## Load / HA proof
 
-Harness: `scripts/load_test.py`, `scripts/load_test_1m_simulation.py`.  
-Record results in `docs/LOAD_TEST_RUN_LOG.md` after a live Postgres+Redis run (operator step).
+Harness: `scripts/load_test.py`, `scripts/load_test_concurrent.py`, `scripts/load_test_1m_simulation.py`.  
+JSON posture: `GET /api/scale/readiness`.  
+Record results in `docs/LOAD_TEST_RUN_LOG.md` after a live Postgres+Redis multi-worker run (operator step).
 
 ## Honest acquisition fit
 

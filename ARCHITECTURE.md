@@ -21,7 +21,7 @@ User intent (dashboard) → Six Heroes → Quiet engines (~Signal Registry)
 | Decision Intelligence | `/dashboard`, `/oracle/{symbol}`, `/discipline-mirror` |
 | Transparency & Evidence | `/oracle-accuracy`, `/errors` → `#losing`, Glass Box APIs |
 | Market / Execution Edge | Arb scanner, Whale S/N, Stealth Advisor (advisory) |
-| Institutional Packaging | `/b2b#fund-terminal`, `/compliance`, B2B feed |
+| Institutional Packaging | `/b2b#fund-terminal`, `/compliance`, `/data-room`, B2B feed |
 
 ---
 
@@ -75,5 +75,19 @@ Storage posture:
 - Full ops OpenAPI: `/api/docs/openapi.json`  
 - Production guard: `/api/production/guard`  
 - Security posture: `/api/security/status`  
+- Scale readiness: `/api/scale/readiness`  
+- Data room index: `/data-room` · [`docs/DATA_ROOM.md`](docs/DATA_ROOM.md)  
+- Auth: TOTP MFA `/api/auth/mfa/*` · OAuth2 `/api/auth/oauth/*` (when configured)  
 
-**Not claimed:** ISO 27001/25010 certificates · HashiCorp Vault as shipped · HA without Postgres+Redis load log.
+## Scale path (honest)
+
+| Piece | Path |
+|-------|------|
+| Postgres pool | `postgres_backend.py` (`PG_POOL_MAX`) |
+| Redis-shared login RL | `security_auth.check_login_rate_limit` |
+| k8s web + workers | `deploy/k8s/web-deployment.yaml`, `workers-deployment.yaml`, `workers-hpa.yaml` |
+| Concurrent harness | `scripts/load_test_concurrent.py` |
+| Signed HA evidence | `docs/LOAD_TEST_RUN_LOG.md` (Postgres+Redis multi-worker row required) |
+| Schema migrations | Alembic `alembic/` (+ lightweight SQLite `_apply_migrations`) |
+
+**Not claimed:** ISO 27001/25010 certificates · HashiCorp Vault as shipped · proven HA concurrent capacity without a signed Postgres+Redis multi-worker load-log row.
