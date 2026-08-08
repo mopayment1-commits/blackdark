@@ -38,6 +38,7 @@ from security_auth import (
     is_admin_user,
     require_admin,
     require_admin_dev,
+    require_authenticated,
     require_pro_or_above,
     require_whale,
 )
