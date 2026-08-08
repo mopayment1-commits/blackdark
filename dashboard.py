@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -1872,8 +1872,7 @@ async def oracle(
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":
-        if not _legal_terms_ack_ok(request):
-            return RedirectResponse(url="/terms?need_ack=1&next=/oracle-accuracy", status_code=303)
+        # Public Accuracy Ledger stays open (Prove-it); decision Oracle below is gated.
         return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
     blocked = _require_terms_ack_or_403(request)
@@ -2399,9 +2398,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
-    if not _legal_terms_ack_ok(request):
-        # Soft HTML gate — public ledger remains reachable after one-click ack on /terms
-        return RedirectResponse(url="/terms?need_ack=1&next=/oracle-accuracy", status_code=303)
+    # Public ledger must stay visible without an ack wall (hits + misses).
     return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
