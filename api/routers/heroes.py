@@ -45,6 +45,8 @@ async def audience_entry_api(audience: str = Query("retail")):
 async def decision_certificate_api(payload: dict = Body(...)):
     from decision_certificate import build_decision_certificate
 
+    payload = dict(payload or {})
+    payload.setdefault("tier", "free")
     return build_decision_certificate(payload)
 
 

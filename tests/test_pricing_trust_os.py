@@ -1,0 +1,110 @@
+"""Trust OS pricing ladder — Proof Pass / Decision Pro / Whale Desk / Institutional."""
+
+from __future__ import annotations
+
+
+def test_pricing_catalog_four_depths():
+    from pricing_catalog import pricing_catalog
+
+    cat = pricing_catalog()
+    assert cat["honesty"]["guaranteed_accuracy_claimed"] is False
+    ids = [t["id"] for t in cat["tiers"]]
+    assert ids == ["free", "pro", "whale", "institutional"]
+    by_id = {t["id"]: t for t in cat["tiers"]}
+    assert by_id["free"]["price_usd_month"] == 0
+    assert by_id["free"]["name"] == "Proof Pass"
+    assert by_id["free"]["limits"]["oracle_daily_limit"] == 3
+    assert by_id["pro"]["price_usd_month"] == 29
+    assert by_id["pro"]["name"] == "Decision Pro"
+    assert by_id["pro"]["trial_days"] == 7
+    assert by_id["whale"]["price_usd_month"] == 199
+    assert by_id["whale"]["name"] == "Whale Desk"
+    assert by_id["institutional"]["self_serve"] is False
+    assert by_id["institutional"]["price_usd_month_from"] == 3000
+    assert cat["integration_addendum"]
+
+
+def test_tier_features_proof_pass_limits():
+    from auth_service import TIER_FEATURES
+
+    free = TIER_FEATURES["free"]
+    pro = TIER_FEATURES["pro"]
+    whale = TIER_FEATURES["whale"]
+
+    assert free["label"] == "Proof Pass"
+    assert free["oracle_daily_limit"] == 3
+    assert free["portfolio_ai"] is False
+    assert free["proof_watermark"] is True
+    assert free["b2b_api"] is False
+
+    assert pro["label"] == "Decision Pro"
+    assert pro["oracle_daily_limit"] is None
+    assert pro["portfolio_ai"] is True
+    assert pro["proof_watermark"] is False
+
+    assert whale["label"] == "Whale Desk"
+    assert whale["b2b_api"] is True
+    assert whale["evidence_pack"] is True
+
+
+def test_billing_self_serve_amounts():
+    from billing_service import STRIPE_TIERS
+
+    assert STRIPE_TIERS["pro"]["amount"] == 2900
+    assert STRIPE_TIERS["pro"]["name"] == "Decision Pro"
+    assert STRIPE_TIERS["whale"]["amount"] == 19900
+    assert STRIPE_TIERS["whale"]["name"] == "Whale Desk"
+    assert "essential" not in STRIPE_TIERS
+    assert "institutional" not in STRIPE_TIERS
+
+
+def test_free_certificate_has_watermark():
+    from decision_certificate import build_decision_certificate
+
+    free = build_decision_certificate(
+        {
+            "symbol": "BTC",
+            "prediction_id": 7,
+            "chain_hash": "abc",
+            "decision_action": "ACT",
+            "decision_sentence": "ACT on BTC.",
+            "opportunity_score": 72,
+            "tier": "free",
+        }
+    )
+    assert free["watermark"] == "Free Proof"
+    assert free["upgrade_cta"]
+    assert "Free Proof" in free["share_text"]
+
+    pro = build_decision_certificate(
+        {
+            "symbol": "BTC",
+            "prediction_id": 7,
+            "chain_hash": "abc",
+            "decision_action": "ACT",
+            "decision_sentence": "ACT on BTC.",
+            "opportunity_score": 72,
+            "tier": "pro",
+        }
+    )
+    assert pro["watermark"] is None
+    assert pro["upgrade_cta"] is None
+    assert "Free Proof" not in pro["share_text"]
+    assert free["certificate_hash"]
+    assert pro["certificate_hash"]
+
+
+def test_landing_pricing_copy():
+    from pathlib import Path
+
+    html = Path("templates/landing.html").read_text(encoding="utf-8")
+    start = html.index('id="pricing"')
+    pricing = html[start : start + 4500]
+    assert "Proof Pass" in pricing
+    assert "Decision Pro" in pricing
+    assert "Whale Desk" in pricing
+    assert "Trust OS Institutional" in pricing
+    assert "From $3,000" in pricing
+    assert "Essential" not in pricing
+    assert "$15" not in pricing
+    assert "Oracle 10×/day" not in pricing

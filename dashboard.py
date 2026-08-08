@@ -39,8 +39,8 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 STRIPE_TIERS = {
-    "pro": {"amount": 2900, "name": "BLACKDARK Pro"},
-    "whale": {"amount": 19900, "name": "BLACKDARK Whale"},
+    "pro": {"amount": 2900, "name": "Decision Pro"},
+    "whale": {"amount": 19900, "name": "Whale Desk"},
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
 
 
@@ -1391,6 +1391,7 @@ async def oracle_quick(
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
+        payload.setdefault("tier", "free")
         payload["decision_certificate"] = build_decision_certificate(payload)
         payload["compliance_footer"] = compliance_footer_block(
             surface="single_sentence_oracle_quick",
@@ -1557,6 +1558,7 @@ async def oracle(
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
+        payload["tier"] = (user or {}).get("tier") or "free"
         payload["decision_certificate"] = build_decision_certificate(payload)
         payload["compliance_footer"] = compliance_footer_block(
             surface="single_sentence_oracle",
@@ -2896,7 +2898,10 @@ async def build_info():
     }
 
 @app.post("/portfolio/analyze")
-async def portfolio_analyze(assets: list = Body(...)):
+async def portfolio_analyze(
+    assets: list = Body(...),
+    _user: dict | None = Depends(require_feature("portfolio_ai")),
+):
     if not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)

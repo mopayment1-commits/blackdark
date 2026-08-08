@@ -1,5 +1,8 @@
 """
-BLACKDARK — Stripe / Lemon Squeezy billing & subscription lifecycle (Priority 4).
+BLACKDARK — Stripe / Lemon Squeezy billing & subscription lifecycle.
+
+Self-serve: Decision Pro ($29) and Whale Desk ($199).
+Free = Proof Pass ($0). Institutional = Talk to us (not a Stripe SKU).
 """
 
 from __future__ import annotations
@@ -17,8 +20,8 @@ import config
 logger = logging.getLogger("BLACKDARK.Billing")
 
 STRIPE_TIERS: dict[str, dict[str, Any]] = {
-    "pro": {"amount": 2900, "name": "BLACKDARK Pro"},
-    "whale": {"amount": 19900, "name": "BLACKDARK Whale"},
+    "pro": {"amount": 2900, "name": "Decision Pro", "sku": "decision_pro"},
+    "whale": {"amount": 19900, "name": "Whale Desk", "sku": "whale_desk"},
 }
 
 LEMON_SQUEEZY_ENV_KEYS = {

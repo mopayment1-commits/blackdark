@@ -3,6 +3,10 @@ BLACKDARK — Decision Certificate (Hero #6).
 
 Exportable, shareable proof for a single Oracle decision:
 prediction_id + chain_hash + sentence + timestamp.
+
+Viral wedge for Proof Pass (free): public shareable card with removable
+"Free Proof" watermark. Competitors sell data/scores; Trust OS sells a
+reviewable decision + certificate.
 """
 
 from __future__ import annotations
@@ -18,7 +22,15 @@ def _utcnow() -> str:
 
 
 def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
-    """Build a public-safe Decision Certificate from an Oracle response."""
+    """Build a public-safe Decision Certificate from an Oracle response.
+
+    Proof Pass (free) cards carry a removable "Free Proof" watermark.
+    Decision Pro / Whale Desk strip it — that is a primary Free→Pro lever.
+    """
+    tier = str(payload.get("tier") or "free").strip().lower()
+    is_free = tier in ("", "free")
+    watermark = "Free Proof" if is_free else None
+
     body = {
         "asset": str(payload.get("symbol") or payload.get("asset") or "").upper(),
         "prediction_id": payload.get("prediction_id"),
@@ -32,11 +44,24 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "market_regime": payload.get("market_regime"),
         "ux_mode": payload.get("ux_mode"),
+        "tier": "free" if is_free else tier,
+        "watermark": watermark,
+        "upgrade_cta": (
+            "Open Decision Pro — remove Free watermark, unlock daily habit depth."
+            if is_free
+            else None
+        ),
         "issued_at": _utcnow(),
         "public_accuracy": "/oracle-accuracy",
         "engine": payload.get("unified_engine") or "unified_multimodal_v1",
     }
-    raw = json.dumps(body, sort_keys=True, default=str).encode("utf-8")
+    # Hash excludes watermark/CTA so upgrade does not rewrite proof identity.
+    hash_body = {
+        k: v
+        for k, v in body.items()
+        if k not in {"watermark", "upgrade_cta", "tier"}
+    }
+    raw = json.dumps(hash_body, sort_keys=True, default=str).encode("utf-8")
     body["certificate_hash"] = hashlib.sha256(raw).hexdigest()
     verify_url = f"https://blackdark.app{body['public_accuracy']}#audit-challenge"
     body["verify_url"] = verify_url
@@ -45,15 +70,16 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         f"?cert={body['certificate_hash'][:16]}"
         f"&pid={body['prediction_id'] or ''}"
     )
+    wm_suffix = " · Free Proof" if is_free else ""
     body["share_text"] = (
         f"BLACKDARK Decision Certificate · {body['asset']} · "
         f"{body['decision_action']} · score {body['opportunity_score']} · "
         f"id={body['prediction_id']} · hash={str(body['certificate_hash'])[:16]}… · "
-        f"verify {body['public_accuracy']}"
+        f"verify {body['public_accuracy']}{wm_suffix}"
     )
     share_q = (
         f"BLACKDARK Decision Certificate · {body['asset']} · "
-        f"{body['decision_action']} · verify {verify_url}"
+        f"{body['decision_action']} · verify {verify_url}{wm_suffix}"
     )
     from urllib.parse import quote
 
@@ -64,6 +90,7 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "whatsapp": f"https://wa.me/?text={quote(share_q)}",
     }
+    wm_line = f"Watermark: {watermark}\n" if watermark else ""
     body["export_text"] = (
         "BLACKDARK Decision Certificate\n"
         f"Asset: {body['asset']}\n"
@@ -73,6 +100,8 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         f"Truth score: {body['truth_score']}\n"
         f"Half-life (s): {body['half_life_seconds']}\n"
         f"Regime: {body['market_regime']}\n"
+        f"Tier: {body['tier']}\n"
+        f"{wm_line}"
         f"Prediction id: {body['prediction_id']}\n"
         f"Chain hash: {body['chain_hash']}\n"
         f"Certificate hash: {body['certificate_hash']}\n"

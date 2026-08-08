@@ -19,9 +19,11 @@ Tier = Literal["free", "pro", "whale"]
 TIER_RANK: dict[str, int] = {"free": 0, "pro": 1, "whale": 2}
 
 TIER_FEATURES: dict[str, dict[str, Any]] = {
+    # Proof Pass — viral free wedge: OQS Why + shareable Decision Certificate.
+    # Conversion levers: 3/day cap, Free Proof watermark, no Portfolio AI.
     "free": {
-        "label": "Free",
-        "oracle_daily_limit": 10,
+        "label": "Proof Pass",
+        "oracle_daily_limit": 3,
         "arbitrage": False,
         "arbitrage_catalog": False,
         "voice": False,
@@ -29,14 +31,17 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "alerts": False,
         "ai_chat": False,
         "journal": True,
-        "portfolio_ai": True,
-        "market_radar": True,
+        "portfolio_ai": False,
+        "market_radar": True,  # light public radar; full depth is Pro
         "b2b_api": False,
         "evidence_pack": False,
         "ux_pro_default": False,
+        "proof_watermark": True,
+        "product_name": "Trust OS",
     },
+    # Decision Pro — daily decision habit ($29). 7-day trial stays.
     "pro": {
-        "label": "Pro",
+        "label": "Decision Pro",
         "oracle_daily_limit": None,
         "arbitrage": True,
         "arbitrage_catalog": True,
@@ -50,9 +55,12 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "b2b_api": False,
         "evidence_pack": False,
         "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": "Trust OS",
     },
+    # Whale Desk — edge + light institutional packaging ($199).
     "whale": {
-        "label": "Whale",
+        "label": "Whale Desk",
         "oracle_daily_limit": None,
         "arbitrage": True,
         "arbitrage_catalog": True,
@@ -66,6 +74,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "b2b_api": True,
         "evidence_pack": True,
         "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": "Trust OS",
     },
 }
 
@@ -333,7 +343,7 @@ async def check_oracle_quota(user: dict[str, Any] | None) -> tuple[bool, str]:
 
     used = await fetch_oracle_usage_today(email)
     if used >= daily_limit:
-        return False, f"Free limit reached ({daily_limit}/day). Upgrade to Pro for unlimited Oracle."
+        return False, f"Proof Pass limit reached ({daily_limit}/day). Start Decision Pro trial for unlimited Oracle + no Free watermark."
     await increment_oracle_usage(email)
     return True, "ok"
 

@@ -358,8 +358,8 @@
         
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem; margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem; margin-top: 3rem;
         }
         
         .pricing-card {
@@ -642,13 +642,13 @@
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="retail" selected>Retail</option>
-                        <option value="pro">Pro</option>
-                        <option value="whale">Whale</option>
+                        <option value="pro">Decision Pro</option>
+                        <option value="whale">Whale Desk</option>
                         <option value="fund">Fund</option>
                     </select>
                     <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="beginner" selected>Beginner</option>
-                        <option value="pro">Pro</option>
+                        <option value="pro">Decision Pro</option>
                     </select>
                     <input type="hidden" id="landingLang" value="en">
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
@@ -719,76 +719,90 @@
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
                 <h3>Telegram Alerts</h3>
-                <p>In-app inbox has no TradingView-style 15/3min hard cap. Free: 3 Oracle alerts/day on Telegram. Pro adds unlimited Oracle + chat.</p>
+                <p>Proof Pass: shareable Decision Certificates (3/day). Decision Pro adds unlimited Oracle, Portfolio AI, and alerts without free caps.</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            Pro also includes AI Chat, Portfolio AI, and advanced tools.
-            <a href="/b2b" style="color:var(--accent)">Institutional feed →</a>
+            Decision Pro unlocks the daily habit. Whale Desk / Institutional package proof for others.
+            <a href="/data-room" style="color:var(--accent)">Institutional Data Room →</a>
         </p>
     </section>
     
     <section class="pricing" id="pricing">
         <div class="pricing-container">
             <div class="section-header">
-                <h2>Choose Your <span style="color: var(--accent);">Edge</span></h2>
-                <p>Start free. Upgrade when you're ready to dominate.</p>
+                <h2>One Trust OS. <span style="color: var(--accent);">Four depths.</span></h2>
+                <p>Proof → daily habit → desk packaging → institutional trust room. We sell a reviewable decision + shareable proof — not charts or mystery scores.</p>
             </div>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Free</h3>
+                    <h3>Proof Pass</h3>
                     <div class="price">$0<span>/month</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Take a clear decision… and prove it publicly.</p>
                     <ul>
-                        <li>Oracle 10×/day</li>
-                        <li>Market Radar</li>
-                        <li>Portfolio AI (in-browser holdings)</li>
-                        <li>Live accuracy page</li>
-                        <li>In-app inbox (no 15/3min hard cap)</li>
-                        <li>Telegram 3 Oracle alerts/day (separate free path)</li>
+                        <li>OQS Why — understandable bull / bear / neutral</li>
+                        <li>Shareable Decision Certificate (Proof Card)</li>
+                        <li>3 certified decisions / day</li>
+                        <li>Unlimited sharing of your Proof Cards</li>
+                        <li>Live Public Accuracy Ledger</li>
+                        <li>Free Proof watermark on cards</li>
                     </ul>
                     <a href="/login" class="btn-secondary btn">Get Started</a>
                 </div>
                 
                 <div class="pricing-card popular">
                     <div class="popular-badge">Most Popular</div>
-                    <h3>Pro</h3>
+                    <h3>Decision Pro</h3>
                     <div class="price">$29<span>/month</span></div>
                     <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">✓ 7-day free trial · Promo: LAUNCHPRO</p>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">From one-off proof → a daily decision system.</p>
                     <ul>
-                        <li>Unlimited Oracle</li>
-                        <li>AI Chat (Oracle-powered)</li>
-                        <li>Unlimited Telegram / inbox alerts</li>
-                        <li>Whale context + Portfolio AI</li>
-                        <li>Research Lab + Arbitrage catalog</li>
+                        <li>Unlimited certified Oracle decisions</li>
+                        <li>Portfolio AI + full Market Radar</li>
+                        <li>Oracle alerts without free caps</li>
+                        <li>Personal decision history + accuracy</li>
+                        <li>No Free Proof watermark</li>
+                        <li>Research Lab + Arbitrage + AI Chat</li>
                     </ul>
                     <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-Day Trial</a>
                 </div>
                 
                 <div class="pricing-card">
-                    <h3>Whale</h3>
+                    <h3>Whale Desk</h3>
                     <div class="price">$199<span>/month</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Market edge + light institutional packaging.</p>
                     <ul>
-                        <li>Everything in Pro</li>
-                        <li>Stealth Execution Advisor</li>
-                        <li>Acquirer Evidence Pack</li>
-                        <li>Emerging Fund Terminal</li>
-                        <li>B2B JSON feed (CVVD + SII) + API</li>
+                        <li>Everything in Decision Pro</li>
+                        <li>Whale Signal-to-Noise filtering</li>
+                        <li>Stealth / fund-facing views</li>
+                        <li>B2B feed / API key</li>
+                        <li>Acquirer Evidence Pack export</li>
+                        <li>Higher rate-limit priority</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Upgrade to Whale</a>
+                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Upgrade to Whale Desk</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">B2B Data Feed</a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="features" style="padding-top:0">
-        <div class="features-grid" style="max-width:900px;margin:0 auto">
-            <div class="feature-card" style="grid-column:1/-1;text-align:center">
-                <div class="feature-icon">🏦</div>
-                <h3>B2B Institutional Feed</h3>
-                <p>CVVD + SII signed JSON feed for hedge funds and prop desks. <a href="/b2b" style="color:var(--accent)">View one-pager &amp; live demo →</a></p>
+                <div class="pricing-card">
+                    <h3>Trust OS Institutional</h3>
+                    <div class="price" style="font-size:2rem">From $3,000<span>/mo</span></div>
+                    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">Trust system inside the official decision room. Not self-serve.</p>
+                    <ul>
+                        <li>Everything in Whale Desk</li>
+                        <li>Data Room + Compliance pack</li>
+                        <li>SSO / enforced MFA for teams</li>
+                        <li>SLA + optional private deploy</li>
+                        <li>Roles: Analyst / PM / Compliance</li>
+                        <li>Integration Addendum (API, licensing, DD)</li>
+                    </ul>
+                    <a href="/data-room" class="btn-primary btn">Talk to us</a>
+                </div>
             </div>
+            <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
+                Not financial advice. We do not guarantee accuracy at any tier — we sell transparency and reviewable proof.
+                Full catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a>
+            </p>
         </div>
     </section>
     
