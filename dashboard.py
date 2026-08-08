@@ -961,15 +961,30 @@ async def platform_hub_page(request: Request):
 
 @app.get("/capabilities", response_class=HTMLResponse)
 async def capabilities_page(request: Request):
+    from trust_os import trust_os_manifest
+
+    manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
         "utility.html",
         {
             "page": "capabilities",
-            "title": "Capabilities",
-            "lead": "What BLACKDARK ships to users — decision intelligence with proof, not indicator spam.",
+            "title": "Capabilities — Trust OS",
+            "lead": (
+                "Four value layers — Decision, Transparency, Market Edge, Institutional Packaging. "
+                "Not 16 separately valued platforms. Don't trust us. Verify us."
+            ),
+            "trust_os": manifest,
         },
     )
+
+
+@app.get("/api/trust-os")
+async def api_trust_os():
+    """Honest acquisition framing — four value layers + overclaim denylist."""
+    from trust_os import trust_os_manifest
+
+    return trust_os_manifest()
 
 
 @app.get("/contact", response_class=HTMLResponse)
@@ -1322,6 +1337,14 @@ async def oracle(
         )
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
+
+    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
+    try:
+        from oracle_scenarios import build_oracle_scenarios
+
+        payload["scenarios"] = build_oracle_scenarios(payload)
+    except Exception:
+        logger.debug("Oracle scenarios attach failed", exc_info=True)
 
     # Durable product alert without Telegram when Oracle says ACT.
     try:

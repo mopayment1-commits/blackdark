@@ -274,11 +274,27 @@
                 const sig = d.signal_registry || {};
                 let proBlock = '';
                 const factors = (d.explanation && d.explanation.top_3_factors) || [];
-                const factorBlock = factors.length ? `
+                const scen = (d.scenarios && d.scenarios.scenarios) || {};
+                const scenBlock = (scen.bull || scen.base || scen.bear) ? `
                     <div style="margin-top:.85rem">
-                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
-                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
+                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div>
+                        <div class="metrics">
+                            ${['bull','base','bear'].map(k => {
+                                const s = scen[k] || {};
+                                return `<div class="metric"><strong>${s.probability_pct != null ? s.probability_pct+'%' : '—'}</strong><span>${(s.label||k)}</span></div>`;
+                            }).join('')}
+                        </div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(d.scenarios && d.scenarios.disclaimer) || ''}</div>
                     </div>` : '';
+                const factorBlock = `
+                    <details style="margin-top:.85rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
+                        <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Why + Certificate</summary>
+                        <div style="margin-top:.65rem">
+                            <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
+                            ${factors.length ? factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail||''}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
+                            ${scenBlock}
+                        </div>
+                    </details>`;
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">

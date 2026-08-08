@@ -25,3 +25,6 @@ keys/
 data/_ar_test.txt
 data/railway_variables.txt
 terminals/
+
+.venv/
+venv/

@@ -33,6 +33,26 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "Every Decision Certificate is shareable and timestamp-sealed. "
         "Every share is proof-first distribution (Hook–Story–Loop)."
     )
+    event_template = {
+        "title": "Glass Box Public Event (operator-scheduled)",
+        "steps": [
+            "Pick one macro/crypto event window (date + timezone).",
+            "Seal ≥3 timed Decision Certificates on /oracle-accuracy#locked before the event.",
+            "Publish challenge text + ledger link on X/Telegram (human channel choice).",
+            "After resolution, unlock results live — wins and losses — on the Public Accuracy Ledger.",
+            "Invite competitors to publish their full ledgers (including misses).",
+        ],
+        "share_kit": {
+            "primary_url": "/oracle-accuracy#glass-box-challenge",
+            "challenge_text_en": challenge_en,
+            "hashtags": ["#GlassBoxChallenge", "#ProveIt", "#BLACKDARK"],
+        },
+        "human_only": [
+            "exact_datetime",
+            "announcement_channel",
+            "press_outreach",
+        ],
+    }
     return {
         "name": "The Glass Box Challenge",
         "status": "ready_pack",
@@ -41,6 +61,7 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "story": story,
         "loop": loop,
         "challenge_text_en": challenge_en,
+        "event_template": event_template,
         "product_surfaces": {
             "locked_predictions": "/oracle-accuracy#locked",
             "public_accuracy_ledger": "/oracle-accuracy",
@@ -52,5 +73,8 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "recent_locked": recent,
         "share_text": challenge_en,
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "note": "Product machinery is live. Press the challenge when you choose the event clock.",
+        "note": (
+            "Product machinery is live. Use event_template to run one public challenge — "
+            "scheduling and press remain human."
+        ),
     }

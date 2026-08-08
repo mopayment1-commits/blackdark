@@ -565,49 +565,54 @@
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
             <div class="nav-links">
-                <a href="#oracle">Oracle</a>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
                 <a href="/oracle-accuracy">Accuracy</a>
+                <a href="#oracle">Oracle</a>
+                <a href="/b2b#fund-terminal">Funds</a>
+                <a href="/capabilities">Trust OS</a>
                 <a href="/login">Login</a>
             </div>
-            <a href="#oracle" class="nav-cta">Try Oracle Free</a>
+            <a href="/oracle-accuracy" class="nav-cta">Verify Accuracy</a>
         </div>
     </nav>
 
-    <div class="landing-stats" id="landingStats">
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Don't trust us. Verify us.
+            </div>
+            <h1>
+                BLACKDARK<br>
+                <span>Prove-it decision intelligence</span>
+            </h1>
+            <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
+                Public Accuracy Ledger first — then one clear ACT / WAIT decision.
+            </p>
+            <div class="hero-cta">
+                <a href="/oracle-accuracy" class="btn-primary">Public Accuracy Ledger</a>
+                <a href="/oracle-accuracy#glass-box-challenge" class="btn-secondary">Glass Box Challenge</a>
+                <a href="/b2b#fund-terminal" class="btn-secondary">Emerging Fund Terminal</a>
+            </div>
+            <p style="margin-top:.75rem;font-size:.85rem;color:var(--text-muted)">
+                <a href="#oracle" style="color:var(--accent)">Try Oracle</a> ·
+                <a href="/compliance" style="color:var(--accent)">Anti-Hype Compliance</a> ·
+                <a href="/capabilities" style="color:var(--accent)">Trust OS layers</a>
+            </p>
+        </div>
+    </section>
+    <div class="landing-stats" id="landingStats" style="margin-top:0">
         <span>Visitors: <strong id="landingViews">—</strong></span>
         <span>Users: <strong id="landingUsers">—</strong></span>
         <span>Subscribers: <strong id="landingSubs">—</strong></span>
         <span>Telegram: <strong id="landingTelegram">—</strong></span>
         <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
     </div>
-    
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badge">
-                <span class="badge-dot"></span>
-                🚀 Launch Live — 7-Day Pro Trial FREE
-            </div>
-            <h1>
-                BLACKDARK<br>
-                <span>One clear decision</span>
-            </h1>
-            <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                Single-sentence Oracle with public verifiable accuracy — for beginners, pros, and whales.
-            </p>
-            <div class="hero-stats">
-                <div class="hero-stat"><strong>30s</strong><span>Oracle verdict</span></div>
-                <div class="hero-stat"><strong>20+</strong><span>Live data sources</span></div>
-                <div class="hero-stat"><strong>Free</strong><span>10 queries/day</span></div>
-            </div>
-            <div class="hero-cta">
-                <a href="#oracle" class="btn-primary">🔮 Try Oracle Free</a>
-                <a href="#telegram-free" class="btn-secondary">📱 Telegram — 3 Free Alerts/Day</a>
-                <a href="/oracle-accuracy" class="btn-secondary">📊 Live Accuracy</a>
-            </div>
-
-            <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
+    <section class="features" id="try-oracle" style="padding-top:2rem">
+        <div class="section-header">
+            <h2>Try the <span style="color:var(--accent)">Oracle</span></h2>
+            <p>One clear decision after you verify the Public Accuracy Ledger.</p>
+        </div>
+<div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
                     <h3>📱 Telegram Free Alerts</h3>
                     <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
@@ -680,8 +685,9 @@
                     </div>
                 </div>
             </div>
-        </div>
     </section>
+
+
     
     <section class="features" id="features">
         <div class="section-header">
@@ -1013,6 +1019,7 @@
                 }
 
                 const factors = (data.explanation && data.explanation.top_3_factors) || data.top_3_factors || [];
+                const scen = (data.scenarios && data.scenarios.scenarios) || {};
                 let whyEl = document.getElementById('landingWhy');
                 if (!whyEl) {
                     whyEl = document.createElement('div');
@@ -1020,16 +1027,30 @@
                     whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
                     oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
                 }
-                if (factors.length) {
-                    whyEl.innerHTML = '<strong style="color:var(--text)">Why (Top-3)</strong><ol style="margin:.35rem 0 0 1.1rem">' +
-                        factors.slice(0,3).map(f => {
+                let scenHtml = '';
+                if (scen.bull || scen.base || scen.bear) {
+                    scenHtml = '<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ' +
+                        ['bull','base','bear'].map(k => {
+                            const s = scen[k] || {};
+                            return `${s.label||k} ${s.probability_pct != null ? s.probability_pct+'%' : '—'}`;
+                        }).join(' · ') +
+                        `<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${(data.scenarios && data.scenarios.disclaimer) || ''}</div></div>`;
+                }
+                whyEl.innerHTML =
+                    '<details open style="border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
+                    '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Why + Certificate</summary>' +
+                    (factors.length
+                        ? '<ol style="margin:.5rem 0 0 1.1rem">' + factors.slice(0,3).map(f => {
                             const label = f.factor || f.label || f.name || f;
                             const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
                             return `<li>${label}${src}</li>`;
-                        }).join('') + '</ol>';
-                } else {
-                    whyEl.innerHTML = '';
-                }
+                        }).join('') + '</ol>'
+                        : '<p style="margin-top:.5rem">No factor breakdown on this response.</p>') +
+                    scenHtml +
+                    (cert.certificate_hash || data.prediction_id
+                        ? `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`
+                        : '') +
+                    '</details>';
 
                 const disc = document.getElementById('landingDiscipline');
                 const action = data.decision_action || data.verdict || 'WAIT';

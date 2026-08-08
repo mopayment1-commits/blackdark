@@ -191,7 +191,7 @@ async def glass_box_challenge():
 
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
-    """Competitive posture vs TradingView-style rate caps — product messaging only."""
+    """Competitive posture vs TradingView-style rate caps — honest tier policy."""
     return {
         "title": "Alert generosity — no 15-alerts-per-3-minutes hard cap",
         "competitor_friction": (
@@ -199,10 +199,19 @@ async def alerts_generosity_posture():
             "(commonly ~15 alerts / 3 minutes), which breaks discretionary workflows."
         ),
         "blackdark": {
-            "in_app_inbox": "Unlimited in-app Oracle + arb inbox (no TV-style 15/3min hard cap)",
+            "in_app_inbox": (
+                "In-app Oracle + arb inbox has no TV-style 15/3min hard cap "
+                "(practical retention limit applies for storage)"
+            ),
             "telegram_free": "Free tier: 3 Oracle alerts/day on Telegram",
-            "telegram_pro": "Pro: unlimited Oracle + chat alerts on Telegram when configured",
+            "telegram_pro": (
+                "Pro/Whale: no per-3-minute hard cap on Oracle/chat Telegram alerts when bot is configured"
+            ),
             "proof_gate": "Only Net-Edge Truth + Half-Life survivors are alertable",
+            "honest_policy": (
+                "'Unlimited' means no TradingView-style 15/3min throttle — "
+                "not an infinite infra SLA. Abuse/rate guards and proof gates still apply."
+            ),
         },
         "cta": "Open the in-app inbox on /dashboard — works without Telegram",
         "endpoints": {
