@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <meta name="description" content="BLACKDARK — one Act/Wait Oracle decision with a public verifiable accuracy ledger. Prove it, not trust me.">
-    <meta property="og:title" content="BLACKDARK — AI Crypto Intelligence">
-    <meta property="og:description" content="Single-Sentence Oracle + Public Accuracy Ledger. Labels are not proof.">
+    <meta name="description" content="{{ t('meta.description') }}">
+    <meta property="og:title" content="{{ t('meta.title.home') }}">
+    <meta property="og:description" content="{{ t('meta.description') }}">
     <meta property="og:type" content="website">
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
-    <title>BLACKDARK — AI Crypto Intelligence Platform</title>
+    <title>{{ t('meta.title.home') }}</title>
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"AI crypto intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
@@ -550,6 +550,9 @@
         .launch-banner a { color: var(--accent); font-weight: 700; text-decoration: none; }
         body.has-launch-banner nav { top: 36px; }
         body.has-launch-banner .hero { padding-top: 9rem; }
+        html[dir="rtl"] .nav-container { flex-direction: row-reverse; }
+        html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+        html[dir="rtl"] .hero-cta { flex-direction: row-reverse; flex-wrap: wrap; }
     </style>
 </head>
 <body class="has-launch-banner">
@@ -557,107 +560,108 @@
     <div class="bg-glow"></div>
 
     <div class="launch-banner">
-        🎁 <strong>Launch Offer:</strong> 7-Day Pro Trial FREE on signup — code <strong>LAUNCHPRO</strong> for 14 days ·
-        <a href="/login">Register Now</a>
+        🎁 <strong>{{ t('launch.banner') }}</strong>
+        <a href="/login?lang={{ lang }}">{{ t('launch.register') }}</a>
     </div>
     
-    <nav>
+    <nav aria-label="Primary">
         <div class="nav-container">
             <div class="logo">BLACKDARK</div>
             <div class="nav-links">
-                <a href="#oracle">Oracle</a>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="/oracle-accuracy">Accuracy</a>
-                <a href="/login">Login</a>
+                <a href="#oracle">{{ t('nav.oracle') }}</a>
+                <a href="#features">{{ t('nav.features') }}</a>
+                <a href="#pricing">{{ t('nav.pricing') }}</a>
+                <a href="/oracle-accuracy?lang={{ lang }}">{{ t('nav.accuracy') }}</a>
+                <a href="/login?lang={{ lang }}">{{ t('nav.login') }}</a>
+                {% include 'partials/lang_switcher.html' %}
             </div>
-            <a href="#oracle" class="nav-cta">Try Oracle Free</a>
+            <a href="#oracle" class="nav-cta">{{ t('nav.try_oracle') }}</a>
         </div>
     </nav>
 
     <div class="landing-stats" id="landingStats">
-        <span>Visitors: <strong id="landingViews">—</strong></span>
-        <span>Users: <strong id="landingUsers">—</strong></span>
-        <span>Subscribers: <strong id="landingSubs">—</strong></span>
-        <span>Telegram: <strong id="landingTelegram">—</strong></span>
-        <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
+        <span>{{ t('stats.visitors') }}: <strong id="landingViews">—</strong></span>
+        <span>{{ t('stats.users') }}: <strong id="landingUsers">—</strong></span>
+        <span>{{ t('stats.subscribers') }}: <strong id="landingSubs">—</strong></span>
+        <span>{{ t('stats.telegram') }}: <strong id="landingTelegram">—</strong></span>
+        <span>{{ t('stats.waitlist') }}: <strong id="landingWaitlist">—</strong></span>
     </div>
     
     <section class="hero">
         <div class="hero-content">
             <div class="badge">
                 <span class="badge-dot"></span>
-                🚀 Launch Live — 7-Day Pro Trial FREE
+                🚀 {{ t('hero.badge') }}
             </div>
             <h1>
                 BLACKDARK<br>
-                <span>One clear decision</span>
+                <span>{{ t('hero.tagline') }}</span>
             </h1>
             <p style="font-size:1.15rem;max-width:560px;margin:0 auto 1rem">
-                Single-sentence Oracle with public verifiable accuracy — for beginners, pros, and whales.
+                {{ t('hero.sub') }}
             </p>
             <div class="hero-stats">
-                <div class="hero-stat"><strong>30s</strong><span>Oracle verdict</span></div>
-                <div class="hero-stat"><strong>20+</strong><span>Live data sources</span></div>
-                <div class="hero-stat"><strong>Free</strong><span>10 queries/day</span></div>
+                <div class="hero-stat"><strong>30s</strong><span>{{ t('hero.stat.verdict') }}</span></div>
+                <div class="hero-stat"><strong>20+</strong><span>{{ t('hero.stat.sources') }}</span></div>
+                <div class="hero-stat"><strong>Free</strong><span>{{ t('hero.stat.free') }}</span></div>
             </div>
             <div class="hero-cta">
-                <a href="#oracle" class="btn-primary">🔮 Try Oracle Free</a>
-                <a href="#telegram-free" class="btn-secondary">📱 Telegram — 3 Free Alerts/Day</a>
-                <a href="/oracle-accuracy" class="btn-secondary">📊 Live Accuracy</a>
+                <a href="#oracle" class="btn-primary">🔮 {{ t('hero.cta.oracle') }}</a>
+                <a href="#telegram-free" class="btn-secondary">📱 {{ t('hero.cta.telegram') }}</a>
+                <a href="/oracle-accuracy?lang={{ lang }}" class="btn-secondary">📊 {{ t('hero.cta.accuracy') }}</a>
             </div>
 
             <div class="oracle-demo" id="telegram-free" style="margin-top:2rem">
                 <div class="oracle-demo-header">
-                    <h3>📱 Telegram Free Alerts</h3>
-                    <div class="live-indicator"><span class="live-dot"></span>3/day free</div>
+                    <h3>📱 {{ t('tg.title') }}</h3>
+                    <div class="live-indicator"><span class="live-dot"></span>{{ t('tg.badge') }}</div>
                 </div>
                 <p style="color:var(--text-muted);margin-bottom:1rem;font-size:0.95rem">
-                    Subscribe in Telegram — get top arbitrage + Oracle signals. No credit card.
+                    {{ t('tg.body') }}
                 </p>
                 <div class="hero-cta" style="margin-bottom:0">
-                    <a id="telegramBotLink" href="https://t.me/" class="btn-primary" target="_blank" rel="noopener">Open Telegram Bot</a>
-                    <a href="/oracle-accuracy" class="btn-secondary">See AI Accuracy</a>
+                    <a id="telegramBotLink" href="https://t.me/" class="btn-primary" target="_blank" rel="noopener">{{ t('tg.open') }}</a>
+                    <a href="/oracle-accuracy?lang={{ lang }}" class="btn-secondary">{{ t('tg.accuracy') }}</a>
                 </div>
                 <p style="color:var(--text-muted);margin-top:1rem;font-size:0.82rem">
-                    Commands: /start · /status · /accuracy · /stop
+                    {{ t('tg.commands') }}
                 </p>
             </div>
             
             <div class="oracle-demo" id="oracle">
                 <div class="oracle-demo-header">
-                    <h3>BLACKDARK Oracle</h3>
+                    <h3>{{ t('oracle.title') }}</h3>
                     <div class="live-indicator">
                         <span class="live-dot"></span>
-                        Live
+                        {{ t('oracle.live') }}
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <select id="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="retail" selected>Retail</option>
-                        <option value="pro">Pro</option>
-                        <option value="whale">Whale</option>
-                        <option value="fund">Fund</option>
+                        <option value="retail" selected>{{ t('oracle.audience.retail') }}</option>
+                        <option value="pro">{{ t('oracle.audience.pro') }}</option>
+                        <option value="whale">{{ t('oracle.audience.whale') }}</option>
+                        <option value="fund">{{ t('oracle.audience.fund') }}</option>
                     </select>
                     <select id="landingUxMode" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
-                        <option value="beginner" selected>Beginner</option>
-                        <option value="pro">Pro</option>
+                        <option value="beginner" selected>{{ t('oracle.mode.beginner') }}</option>
+                        <option value="pro">{{ t('oracle.mode.pro') }}</option>
                     </select>
-                    <input type="hidden" id="landingLang" value="en">
+                    <input type="hidden" id="landingLang" value="{{ lang|default('en') }}">
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC">
-                    <button onclick="consultOracle()">Get Decision</button>
+                    <button onclick="consultOracle()">{{ t('oracle.get_decision') }}</button>
                 </div>
-                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
+                <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">{{ t('oracle.cta.retail') }}</p>
                 <div class="oracle-result" id="oracleResult">
                     <div class="result-header">
                         <div class="result-symbol" id="resultSymbol">BTC</div>
                         <div class="result-score" id="resultScore">—</div>
                     </div>
                     <div style="margin-bottom: 1rem;">
-                        <span class="result-verdict verdict-wait" id="resultVerdict">WAIT</span>
+                        <span class="result-verdict verdict-wait" id="resultVerdict">{{ t('action.WAIT') }}</span>
                     </div>
                     <div class="result-oracle" id="resultOracle">
-                        One clear decision — act or wait
+                        {{ t('oracle.placeholder') }}
                     </div>
                     <div id="landingProMeta" style="display:none;margin-top:.75rem;color:var(--text-muted);font-size:.85rem"></div>
                     <div id="landingCert" style="display:none;margin-top:.75rem;font-size:.82rem;color:var(--text-muted)"></div>
@@ -667,8 +671,8 @@
                 </div>
 
                 <div class="oracle-share" id="oracleShare">
-                    <h4>Share Your Signal</h4>
-                    <p>Spread the oracle verdict — viral growth fuels the dark side</p>
+                    <h4>{{ t('oracle.share.title') }}</h4>
+                    <p>{{ t('oracle.share.sub') }}</p>
                     <div class="share-buttons">
                         <a href="#" class="share-btn share-x" id="shareXBtn" target="_blank" rel="noopener noreferrer">𝕏 X</a>
                         <a href="#" class="share-btn share-facebook" id="shareFacebookBtn" target="_blank" rel="noopener noreferrer">Facebook</a>
@@ -676,7 +680,7 @@
                         <a href="#" class="share-btn share-whatsapp" id="shareWhatsappBtn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
                         <a href="#" class="share-btn share-telegram" id="shareTelegramBtn" target="_blank" rel="noopener noreferrer">Telegram</a>
                         <a href="#" class="share-btn share-reddit" id="shareRedditBtn" target="_blank" rel="noopener noreferrer">Reddit</a>
-                        <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">Copy Link</a>
+                        <a href="#" class="share-btn share-copy" id="shareCopyBtn" href="#">{{ t('oracle.share.copy') }}</a>
                     </div>
                 </div>
             </div>
@@ -685,90 +689,86 @@
     
     <section class="features" id="features">
         <div class="section-header">
-            <h2>Built around the <span style="color: var(--accent);">Oracle</span></h2>
-            <p>Everything supports one job: a clear crypto decision in under 30 seconds.</p>
+            <h2>{{ t('features.title') }}</h2>
+            <p>{{ t('features.sub') }}</p>
         </div>
         
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">🔮</div>
-                <h3>AI Oracle</h3>
-                <p>Buy · Wait · Stay out — 0–100 score, narrative, support/resistance, and forecast context.</p>
+                <h3>{{ t('features.oracle.title') }}</h3>
+                <p>{{ t('features.oracle.body') }}</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">🐋</div>
-                <h3>Whale &amp; CVVD</h3>
-                <p>Cross-venue volume signals folded into the Oracle verdict — not a separate product.</p>
+                <h3>{{ t('features.whale.title') }}</h3>
+                <p>{{ t('features.whale.body') }}</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📡</div>
-                <h3>Market Radar</h3>
-                <p>Top movers by volume — pick a symbol, send it to Oracle in one click.</p>
+                <h3>{{ t('features.radar.title') }}</h3>
+                <p>{{ t('features.radar.body') }}</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
-                <h3>Telegram Alerts</h3>
-                <p>In-app inbox has no TradingView-style 15/3min hard cap. Free: 3 Oracle alerts/day on Telegram. Pro adds unlimited Oracle + chat.</p>
+                <h3>{{ t('features.tg.title') }}</h3>
+                <p>{{ t('features.tg.body') }}</p>
             </div>
         </div>
         <p style="text-align:center;color:var(--text-muted);margin-top:2rem;font-size:0.9rem">
-            Pro also includes AI Chat, Portfolio AI, and advanced tools.
-            <a href="/b2b" style="color:var(--accent)">Institutional feed →</a>
+            {{ t('features.pro_note') }}
+            <a href="/b2b?lang={{ lang }}" style="color:var(--accent)">{{ t('features.b2b') }}</a>
         </p>
     </section>
     
     <section class="pricing" id="pricing">
         <div class="pricing-container">
             <div class="section-header">
-                <h2>Choose Your <span style="color: var(--accent);">Edge</span></h2>
-                <p>Start free. Upgrade when you're ready to dominate.</p>
+                <h2>{{ t('pricing.title') }}</h2>
+                <p>{{ t('pricing.sub') }}</p>
             </div>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
-                    <h3>Free</h3>
-                    <div class="price">$0<span>/month</span></div>
+                    <h3>{{ t('pricing.free') }}</h3>
+                    <div class="price">$0<span>{{ t('pricing.month') }}</span></div>
                     <ul>
-                        <li>Oracle 10×/day</li>
-                        <li>Market Radar</li>
-                        <li>Portfolio AI (in-browser holdings)</li>
-                        <li>Live accuracy page</li>
-                        <li>In-app inbox (no 15/3min hard cap)</li>
-                        <li>Telegram 3 Oracle alerts/day (separate free path)</li>
+                        <li>{{ t('pricing.free.f1') }}</li>
+                        <li>{{ t('pricing.free.f2') }}</li>
+                        <li>{{ t('pricing.free.f3') }}</li>
+                        <li>{{ t('dash.radar') }}</li>
+                        <li>{{ t('features.tg.body') }}</li>
                     </ul>
-                    <a href="/login" class="btn-secondary btn">Get Started</a>
+                    <a href="/login?lang={{ lang }}" class="btn-secondary btn">{{ t('pricing.cta.free') }}</a>
                 </div>
                 
                 <div class="pricing-card popular">
-                    <div class="popular-badge">Most Popular</div>
-                    <h3>Pro</h3>
-                    <div class="price">$29<span>/month</span></div>
-                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">✓ 7-day free trial · Promo: LAUNCHPRO</p>
+                    <div class="popular-badge">{{ t('pricing.pro') }}</div>
+                    <h3>{{ t('pricing.pro') }}</h3>
+                    <div class="price">$29<span>{{ t('pricing.month') }}</span></div>
+                    <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">✓ {{ t('login.trial') }}</p>
                     <ul>
-                        <li>Unlimited Oracle</li>
-                        <li>AI Chat (Oracle-powered)</li>
-                        <li>Unlimited Telegram / inbox alerts</li>
-                        <li>Whale context + Portfolio AI</li>
-                        <li>Research Lab + Arbitrage catalog</li>
+                        <li>{{ t('pricing.pro.f1') }}</li>
+                        <li>{{ t('pricing.pro.f2') }}</li>
+                        <li>{{ t('pricing.pro.f3') }}</li>
+                        <li>{{ t('dash.portfolio') }}</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">Start 7-Day Trial</a>
+                    <a href="/create-checkout-session?tier=pro" class="btn-primary btn">{{ t('pricing.cta.pro') }}</a>
                 </div>
                 
                 <div class="pricing-card">
-                    <h3>Whale</h3>
-                    <div class="price">$199<span>/month</span></div>
+                    <h3>{{ t('pricing.whale') }}</h3>
+                    <div class="price">$199<span>{{ t('pricing.month') }}</span></div>
                     <ul>
-                        <li>Everything in Pro</li>
-                        <li>Stealth Execution Advisor</li>
-                        <li>Acquirer Evidence Pack</li>
-                        <li>Emerging Fund Terminal</li>
-                        <li>B2B JSON feed (CVVD + SII) + API</li>
+                        <li>{{ t('pricing.whale.f1') }}</li>
+                        <li>{{ t('pricing.whale.f2') }}</li>
+                        <li>{{ t('pricing.whale.f3') }}</li>
                     </ul>
-                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">Upgrade to Whale</a>
-                    <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">B2B Data Feed</a>
+                    <a href="/create-checkout-session?tier=whale" class="btn-primary btn">{{ t('pricing.cta.whale') }}</a>
+                    <a href="/b2b?lang={{ lang }}" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('features.b2b') }}</a>
                 </div>
             </div>
         </div>
@@ -883,7 +883,8 @@
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
-            const lang = 'en';
+            const lang = (document.getElementById('landingLang')?.value || (window.BD_I18N && BD_I18N.lang) || 'en');
+            const tt = (k) => (window.BD_I18N && BD_I18N.t(k)) || k;
             const resultDiv = document.getElementById('oracleResult');
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
@@ -895,7 +896,7 @@
             resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
-            oracleEl.textContent = 'Getting your decision…';
+            oracleEl.textContent = tt('oracle.loading');
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             
@@ -911,8 +912,8 @@
                     try { data = JSON.parse(rawText); } catch (e) { data = null; }
                 }
                 if (!data) {
-                    oracleEl.textContent = 'Could not get a decision right now. Try again.';
-                    verdictEl.textContent = 'WAIT';
+                    oracleEl.textContent = tt('oracle.error');
+                    verdictEl.textContent = tt('action.WAIT');
                     verdictEl.className = 'result-verdict verdict-wait';
                     return;
                 }
@@ -935,7 +936,7 @@
                     ? 'ACT'
                     : 'WAIT';
                 const verdict = data.verdict || action;
-                verdictEl.textContent = action;
+                verdictEl.textContent = action === 'ACT' ? tt('action.ACT') : tt('action.WAIT');
                 verdictEl.className = 'result-verdict';
                 const v = String(verdict).toUpperCase();
                 if (action === 'ACT' || v.includes('BUY')) verdictEl.classList.add('verdict-buy');

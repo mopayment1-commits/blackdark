@@ -44,6 +44,23 @@ STRIPE_TIERS = {
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
 
 
+def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
+    """Render a Jinja template with full i18n context (lang switcher + t())."""
+    from i18n_service import template_context
+
+    ctx = template_context(request, context)
+    response = templates.TemplateResponse(request, name, ctx)
+    # Persist chosen language for subsequent navigations.
+    response.set_cookie(
+        "bd_lang",
+        str(ctx.get("lang") or "en"),
+        max_age=60 * 60 * 24 * 365,
+        httponly=False,
+        samesite="lax",
+    )
+    return response
+
+
 def _sector_for_asset(asset: str) -> str:
     return config.SECTOR_MAP.get(asset.upper(), "Other")
 
@@ -733,7 +750,22 @@ async def _build_opportunity_explanation(
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse(request, "login.html")
+    return render_page(request, "login.html")
+
+
+@app.get("/api/i18n/locales")
+async def api_i18n_locales():
+    from i18n_service import i18n_manifest
+
+    return i18n_manifest()
+
+
+@app.get("/api/i18n/catalog")
+async def api_i18n_catalog(lang: str = "en"):
+    from i18n_service import catalog_for, locale_meta, normalize_lang
+
+    code = normalize_lang(lang)
+    return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
 # Auth routes → api/routers/auth.py
@@ -847,7 +879,7 @@ async def telegram_test(data: dict = Body(default={})):
 
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
-    return templates.TemplateResponse(request, "landing.html")
+    return render_page(request, "landing.html")
 
 
 @app.get("/robots.txt")
@@ -893,13 +925,13 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html")
+    return render_page(request, "dashboard.html")
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
-    return templates.TemplateResponse(request, "discipline.html")
+    return render_page(request, "discipline.html")
 
 
 @app.get("/api/dashboard/stream")
@@ -956,12 +988,12 @@ async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
 
 @app.get("/platform", response_class=HTMLResponse)
 async def platform_hub_page(request: Request):
-    return templates.TemplateResponse(request, "platform.html")
+    return render_page(request, "platform.html")
 
 
 @app.get("/capabilities", response_class=HTMLResponse)
 async def capabilities_page(request: Request):
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "utility.html",
         {
@@ -974,7 +1006,7 @@ async def capabilities_page(request: Request):
 
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "utility.html",
         {
@@ -987,7 +1019,7 @@ async def contact_page(request: Request):
 
 @app.get("/complaints", response_class=HTMLResponse)
 async def complaints_page(request: Request):
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "utility.html",
         {
@@ -1000,7 +1032,7 @@ async def complaints_page(request: Request):
 
 @app.get("/platform/coin/{coin_id}", response_class=HTMLResponse)
 async def platform_coin_page(request: Request, coin_id: str):
-    return templates.TemplateResponse(request, "coin.html", {"coin_id": coin_id})
+    return render_page(request, "coin.html", {"coin_id": coin_id})
 
 
 # ========== API ENDPOINTS ==========
@@ -1091,14 +1123,22 @@ async def oracle_explain(
 
 
 @app.get("/oracle/{symbol}/quick")
-async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONResponse:
+async def oracle_quick(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    lang: str = "en",
+    ux_mode: str = "beginner",
+) -> JSONResponse:
     """Instant verdict + ACTION line (target <100ms) — WS price first, no REST wait."""
     import time
 
+    from i18n_service import decision_sentence, normalize_lang, t
     from live_book_hub import get_best_price
+    from ux_mode import apply_ux_mode, normalize_ux_mode
 
     t0 = time.perf_counter()
     asset, pair = _normalize_oracle_symbol(symbol)
+    lang_n = normalize_lang(lang)
 
     row = get_best_price("binance", f"{asset}/USDT")
     market = None
@@ -1130,6 +1170,8 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    sentence = decision_sentence(lang_n, decision_action, asset, score)
 
     background_tasks.add_task(
         _log_oracle_prediction,
@@ -1147,7 +1189,7 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         _record_behavior,
         "oracle_query",
         asset=asset,
-        payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1"},
+        payload={"verdict": verdict, "opportunity_score": score, "engine": "quick_rules_v1", "lang": lang_n},
     )
 
     payload = {
@@ -1155,15 +1197,25 @@ async def oracle_quick(symbol: str, background_tasks: BackgroundTasks) -> JSONRe
         "price": price,
         "change_24h": change,
         "verdict": verdict,
+        "decision_action": decision_action,
+        "decision_sentence": sentence,
         "opportunity_score": score,
         "action": action,
-        "action_line": f"Analytics summary: {action}",
+        "action_line": sentence,
+        "oracle": sentence,
         "sentiment": sentiment,
         "latency_ms": latency_ms,
         "engine": "quick_rules_v1",
         "latency_target_ms": 100,
         "meets_latency_target": latency_ms <= 100,
+        "lang": lang_n,
+        "ui_labels": {
+            "act": t("action.ACT", lang_n),
+            "wait": t("action.WAIT", lang_n),
+            "live": t("oracle.live", lang_n),
+        },
     }
+    payload = apply_ux_mode(payload, mode=normalize_ux_mode(ux_mode), lang=lang_n)
     from security_sanitize import sanitize_oracle_payload
 
     return JSONResponse(sanitize_oracle_payload(payload))
@@ -1180,7 +1232,7 @@ async def oracle(
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":
-        return templates.TemplateResponse(request, "oracle_accuracy.html")
+        return render_page(request, "oracle_accuracy.html")
 
     from auth_service import check_oracle_quota
 
@@ -1675,7 +1727,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
-    return templates.TemplateResponse(request, "oracle_accuracy.html")
+    return render_page(request, "oracle_accuracy.html")
 
 
 # ML experience routes → api/routers/oracle.py
@@ -1799,7 +1851,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "b2b.html",
         {
@@ -1815,7 +1867,7 @@ def _legal_page(request: Request, page: str):
     content = LEGAL_PAGES.get(page)
     if not content:
         raise HTTPException(status_code=404, detail="Legal page not found")
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "legal.html",
         {"page": page, **content},
@@ -2716,7 +2768,7 @@ async def app_alias_redirect():
 
 @app.get("/success", response_class=HTMLResponse)
 async def checkout_success(request: Request):
-    return templates.TemplateResponse(request, "success.html")
+    return render_page(request, "success.html")
 
 
 @app.get("/cancel", response_class=HTMLResponse)
@@ -2730,7 +2782,7 @@ async def checkout_cancel(request: Request):
 
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
-    return templates.TemplateResponse(request, "landing.html")
+    return render_page(request, "landing.html")
 
 
 if __name__ == "__main__":

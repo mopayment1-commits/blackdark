@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" id="htmlRoot">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}" id="htmlRoot">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <title>BLACKDARK — Intelligence Dashboard</title>
+    <title>{{ t('meta.title.dashboard') }}</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
@@ -61,20 +61,21 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav aria-label="Primary">
         <div class="nav-inner">
-            <a href="/" class="logo">BLACKDARK</a>
-            <div style="display:flex;align-items:center;flex-wrap:wrap">
-                <span class="tier" id="userTier">Guest · Free</span>
-                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Pro $29/mo</button>
+            <a href="/?lang={{ lang }}" class="logo">BLACKDARK</a>
+            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem">
+                <span class="tier" id="userTier">{{ t('dash.guest') }}</span>
+                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">{{ t('dash.upgrade') }}</button>
+                {% include 'partials/lang_switcher.html' %}
                 <div class="nav-links">
-                    <a href="/">Home</a>
-                    <a href="/dashboard#portfolio">Portfolio</a>
-                    <a href="/dashboard#stealth">Stealth</a>
-                    <a href="/platform">Platform</a>
-                    <a href="/oracle-accuracy">Accuracy</a>
-                    <a href="/capabilities">Capabilities</a>
-                    <a href="/login" id="authLink">Login</a>
+                    <a href="/?lang={{ lang }}">{{ t('nav.home') }}</a>
+                    <a href="/dashboard?lang={{ lang }}#portfolio">{{ t('nav.portfolio') }}</a>
+                    <a href="/dashboard?lang={{ lang }}#stealth">{{ t('nav.stealth') }}</a>
+                    <a href="/platform?lang={{ lang }}">{{ t('nav.platform') }}</a>
+                    <a href="/oracle-accuracy?lang={{ lang }}">{{ t('nav.accuracy') }}</a>
+                    <a href="/capabilities?lang={{ lang }}">{{ t('nav.capabilities') }}</a>
+                    <a href="/login?lang={{ lang }}" id="authLink">{{ t('nav.login') }}</a>
                 </div>
             </div>
         </div>
@@ -83,16 +84,17 @@
     <main id="top">
         <div class="hero">
             <h1 id="heroBrand">BLACKDARK</h1>
-            <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
+            <p id="heroSub">{{ t('dash.hero.sub') }}</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
         <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
             <select id="uxMode" onchange="askOracle()">
-                <option value="beginner" selected>Beginner</option>
-                <option value="pro">Pro</option>
+                <option value="beginner" selected>{{ t('oracle.mode.beginner') }}</option>
+                <option value="pro">{{ t('oracle.mode.pro') }}</option>
             </select>
-            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
-            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
+            <input type="hidden" id="dashLang" value="{{ lang|default('en') }}">
+            <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.stealth') }}</a>
+            <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">{{ t('dash.portfolio') }}</a>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -102,16 +104,16 @@
             <span class="pick" onclick="setSymbol('XRP')">XRP</span>
         </div>
         <div class="search-row">
-            <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
-            <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
+            <input id="symbol" type="text" value="BTC" placeholder="{{ t('dash.symbol') }}" onkeydown="if(event.key==='Enter')askOracle()">
+            <button class="btn" onclick="askOracle()" id="askBtn">{{ t('oracle.get_decision') }}</button>
         </div>
-        <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
+        <section class="oracle-box" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
         <section>
-            <h2>Live Chart</h2>
+            <h2>{{ t('dash.chart') }}</h2>
             <div class="toolbar">
                 <select id="chartIv" onchange="loadChart()"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" onclick="loadChart()">Refresh</button>
+                <button class="btn secondary" onclick="loadChart()">{{ t('dash.refresh') }}</button>
             </div>
             <div id="chart"></div>
         </section>
@@ -247,10 +249,14 @@
 
         function applyLang() {
             const root = document.getElementById('htmlRoot');
-            root.lang = 'en';
-            root.dir = 'ltr';
-            document.getElementById('heroSub').textContent = 'One clear decision — act or wait · public verifiable accuracy';
-            document.getElementById('askBtn').textContent = 'Get Decision';
+            const lang = document.getElementById('dashLang')?.value || (window.BD_I18N && BD_I18N.lang) || 'en';
+            const dir = (window.BD_I18N && lang === 'ar') ? 'rtl' : (document.documentElement.dir || 'ltr');
+            root.lang = lang;
+            root.dir = dir;
+            if (window.BD_I18N) {
+                document.getElementById('heroSub').textContent = BD_I18N.t('dash.hero.sub');
+                document.getElementById('askBtn').textContent = BD_I18N.t('oracle.get_decision');
+            }
         }
 
         async function askOracle() {
@@ -258,10 +264,11 @@
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
             const mode = document.getElementById('uxMode').value;
-            const lang = 'en';
+            const lang = document.getElementById('dashLang')?.value || (window.BD_I18N && BD_I18N.lang) || 'en';
+            const tt = (k) => (window.BD_I18N && BD_I18N.t(k)) || k;
             if (!sym) return;
             box.classList.add('show');
-            el.innerHTML = '<div class="loading">Analyzing…</div>';
+            el.innerHTML = '<div class="loading">' + tt('oracle.analyzing') + '</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
                 const res = await fetch(url, { headers: authHeaders() });
