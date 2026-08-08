@@ -7,7 +7,7 @@ Strategic correction binding rejects inflated 15-section / 100-indicator pastes.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 VALUE_LAYERS: list[dict[str, Any]] = [
@@ -228,7 +228,7 @@ def trust_os_manifest() -> dict[str, Any]:
                 "live_surface": "trust_pulse",
             },
         },
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }
 
 
@@ -255,5 +255,5 @@ def strategy_correction_manifest() -> dict[str, Any]:
             "sor_twap_tca_ifrs_soc2_as_shipped",
         ],
         "canonical_binding": "docs/CANONICAL_BINDING.md",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }

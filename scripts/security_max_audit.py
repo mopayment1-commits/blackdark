@@ -20,10 +20,10 @@ sys.path.insert(0, str(ROOT))
 
 def main() -> int:
     os.chdir(ROOT)
-    from security_posture import security_posture_report
-    from production_guard import evaluate_production_guard
     from admin_mfa import mfa_policy_enabled, system_admin_totp_configured
+    from production_guard import evaluate_production_guard
     from security_events import security_events_stats
+    from security_posture import security_posture_report
 
     files_required = [
         "security_middleware.py",
@@ -120,7 +120,13 @@ def main() -> int:
             "It does NOT mean infinite invulnerability or completed external audit."
         ),
     }
-    print(json.dumps(report, indent=2, ensure_ascii=False))
+    public = {
+        "engineering_complete": report.get("engineering_complete"),
+        "checks": report.get("checks"),
+        "gaps": report.get("gaps"),
+        "note": report.get("note"),
+    }
+    print(json.dumps(public, indent=2, ensure_ascii=False))
     return 0 if report["engineering_complete"] else 1
 
 

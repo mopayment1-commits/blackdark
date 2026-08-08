@@ -195,11 +195,8 @@ def _checklist_rows() -> list[dict[str, Any]]:
                         int(_env_or_launch("WEB_CONCURRENCY") or _env("WEB_CONCURRENCY") or "1") >= 2
                         or int(_env_or_launch("WEB_REPLICAS") or _env("WEB_REPLICAS") or "1") >= 2
                     )
-                    and not (
-                        (_env_or_launch("SOFT_LAUNCH") or _env("SOFT_LAUNCH") or "")
-                        .lower()
-                        in {"1", "true", "yes"}
-                    )
+                    and (_env_or_launch("SOFT_LAUNCH") or _env("SOFT_LAUNCH") or "")
+                        .lower() not in {"1", "true", "yes"}
                 )
                 else "progress"
             ),

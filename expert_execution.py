@@ -8,11 +8,10 @@ Glass Box announce drafts (human fills timing/channel).
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
-from urllib.error import URLError, HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
-
 
 CANONICAL_DOCS: list[str] = [
     "docs/PRODUCT_CONSTITUTION_AR.md",
@@ -46,12 +45,12 @@ SUPERSEDED_FRAMES: list[dict[str, str]] = [
 
 
 def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
-    t0 = datetime.now(timezone.utc)
+    t0 = datetime.now(UTC)
     try:
         req = Request(url, headers={"Accept": "application/json,text/html,*/*"})
         with urlopen(req, timeout=timeout) as resp:
             body = resp.read(4000)
-            ms = (datetime.now(timezone.utc) - t0).total_seconds() * 1000
+            ms = (datetime.now(UTC) - t0).total_seconds() * 1000
             return {
                 "url": url,
                 "ok": 200 <= resp.status < 400,
@@ -60,10 +59,10 @@ def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
                 "bytes": len(body),
             }
     except HTTPError as exc:
-        ms = (datetime.now(timezone.utc) - t0).total_seconds() * 1000
+        ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": exc.code, "latency_ms": round(ms, 1), "error": str(exc)}
     except (URLError, TimeoutError, OSError) as exc:
-        ms = (datetime.now(timezone.utc) - t0).total_seconds() * 1000
+        ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": str(exc)}
 
 
@@ -154,7 +153,7 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
         "machine_pass": passed,
         "human_confirm_required": True,
         "human_step": "H3 — founder cold open of live URL",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }
 
 
@@ -208,5 +207,5 @@ def execution_closure_manifest(*, base_url: str | None = None) -> dict[str, Any]
             "25_section_expansion",
             "live_money_auto_execution_as_acquisition_priority",
         ],
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }

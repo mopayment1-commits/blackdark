@@ -3,16 +3,34 @@
 from __future__ import annotations
 
 import json
-import re
 
 import stripe
 from fastapi import APIRouter, Body, Depends, HTTPException, Request
 
 from api.deps import optional_user
 
+
+def _is_valid_email(email: str) -> bool:
+    """Strict structural email check without backtracking-prone regex."""
+    if not email or len(email) > 254 or " " in email or "\n" in email or "\r" in email:
+        return False
+    if email.count("@") != 1:
+        return False
+    local, domain = email.split("@", 1)
+    if not local or not domain or "." not in domain:
+        return False
+    if domain.startswith(".") or domain.endswith(".") or ".." in domain:
+        return False
+    # ASCII-ish local/domain only (product emails)
+    allowed = set("abcdefghijklmnopqrstuvwxyz0123456789._+-")
+    if any(c not in allowed for c in local):
+        return False
+    allowed_d = set("abcdefghijklmnopqrstuvwxyz0123456789.-")
+    return all(c in allowed_d for c in domain)
+
+
 router = APIRouter(prefix="/api/billing", tags=["billing"])
 
-_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 @router.get("/status")
@@ -155,7 +173,7 @@ async def institutional_inquiry(data: dict = Body(default={})):
     from payments_usd import INSTITUTIONAL_WIRE
 
     email = str(data.get("email") or "").strip().lower()
-    if not email or not _EMAIL_RE.match(email):
+    if not email or not _is_valid_email(email):
         raise HTTPException(status_code=400, detail="Valid email required")
     inquiry_id = await insert_institutional_inquiry(
         email=email,

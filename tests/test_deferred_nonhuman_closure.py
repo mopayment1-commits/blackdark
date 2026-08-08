@@ -4,9 +4,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
-
-
 ROOT = Path(".")
 
 
@@ -118,8 +115,9 @@ def test_sitemap_has_no_dead_pricing_path():
 
 
 def test_shape_pulse_uses_previous_factors():
-    from trust_pulse import _shape_pulse
     import time
+
+    from trust_pulse import _shape_pulse
 
     payload = {
         "symbol": "BTC",

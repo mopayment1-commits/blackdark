@@ -130,15 +130,20 @@ def main() -> int:
         existing=existing,
     )
     text = render_env(block)
-    print(text)
+    # Never print secret values to the console (CodeQL clear-text logging).
+    print("Generated launch env keys (values not printed):")
+    for key in sorted(block):
+        print(f"  - {key}")
 
     if args.write:
         path.write_text(text, encoding="utf-8")
-        print(f"Wrote {path}")
+        print(f"Wrote {path} (gitignored) — open the file locally to copy secrets into your secret manager.")
         # Validate lemon URL shape
         lemon = block.get("LEMON_SQUEEZY_CHECKOUT_PRO", "")
         if not re.match(r"^https://.+/checkout/", lemon):
             print("WARN: Lemon checkout URL looks unexpected — verify in Lemon dashboard")
+    else:
+        print("Dry-run only. Re-run with --write to persist .env.launch.local (not printed here).")
     return 0
 
 

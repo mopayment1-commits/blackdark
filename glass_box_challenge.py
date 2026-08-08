@@ -134,7 +134,7 @@ def build_glass_box_challenge_pack() -> dict[str, Any]:
         "locked_predictions_status": locked,
         "recent_locked": recent,
         "share_text": challenge_en,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "note": (
             "Product machinery is live. Use event_template + operator_runbook to run one "
             "public challenge — scheduling and press remain human."

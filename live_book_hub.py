@@ -105,7 +105,7 @@ def get_top_of_book(
       get_top_of_book("BTCUSDT")  # search all venues
     """
     if symbol is None:
-        for _ex, books in _books.items():
+        for books in _books.values():
             for cand in _norm_symbol(exchange_or_symbol):
                 row = books.get(cand)
                 if row:

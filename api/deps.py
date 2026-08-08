@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any
-
 from fastapi import Cookie, Depends, Header, HTTPException
 
 
@@ -16,7 +14,7 @@ async def optional_user(
 
     token: str | None = None
     if authorization:
-        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+        token = authorization.removeprefix("Bearer ")
     elif bd_token:
         token = bd_token.strip()
     if not token:
@@ -30,7 +28,7 @@ def raw_bearer_or_cookie(
 ) -> str | None:
     """Return the raw session token (for logout / revoke)."""
     if authorization:
-        return (authorization[7:] if authorization.startswith("Bearer ") else authorization).strip()
+        return (authorization.removeprefix("Bearer ")).strip()
     if bd_token:
         return bd_token.strip()
     return None

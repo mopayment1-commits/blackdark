@@ -10,7 +10,7 @@ No seventh product surface. Quiet engines stay quiet.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from urllib.parse import quote
 
@@ -101,7 +101,7 @@ def build_ledger_share_kit(
             "description": "Full public ledger including misses. Glass Box ready. Prove it.",
             "url": url,
         },
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }
 
 
@@ -192,5 +192,5 @@ def heroes_quality_manifest() -> dict[str, Any]:
         ],
         "success_metric": "60_second_grasp",
         "binding_doc": "docs/STRATEGIC_CORRECTION_BINDING.md",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
     }

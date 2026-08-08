@@ -7,13 +7,11 @@ Honest scope: application-layer hardening. Not a WAF, SOC2 cert, or pentest repo
 from __future__ import annotations
 
 import os
-from typing import Iterable
 from urllib.parse import urlparse
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
-
 
 SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
 
@@ -134,15 +132,14 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         if request.method not in SAFE_METHODS:
             cookie = request.cookies.get("bd_token")
             auth = request.headers.get("authorization") or ""
-            if cookie and not auth.startswith("Bearer "):
-                if not _request_origin_ok(request):
-                    return JSONResponse(
-                        {
-                            "error": "csrf_rejected",
-                            "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
-                        },
-                        status_code=403,
-                    )
+            if cookie and not auth.startswith("Bearer ") and not _request_origin_ok(request):
+                return JSONResponse(
+                    {
+                        "error": "csrf_rejected",
+                        "message": "Cross-site request blocked. Send a same-origin Origin or use Bearer token.",
+                    },
+                    status_code=403,
+                )
 
         response = await call_next(request)
         for key, value in security_headers_for(request).items():

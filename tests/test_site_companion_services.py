@@ -1,6 +1,9 @@
+from __future__ import annotations
+
+import pytest
+
 """Companion site services — footer, legal hub, FAQ, status, feedback, AI Chat UI."""
 
-from __future__ import annotations
 
 from pathlib import Path
 
@@ -58,11 +61,8 @@ def test_feedback_submit(tmp_path, monkeypatch):
     assert out["id"].startswith("fb_")
     assert (tmp_path / "feedback.jsonl").is_file()
 
-    try:
+    with pytest.raises(ValueError):
         ss.submit_feedback(category="x", message="short")
-        assert False, "expected ValueError"
-    except ValueError:
-        pass
 
 
 def test_cookies_legal_page():

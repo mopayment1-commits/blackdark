@@ -24,6 +24,22 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+
+_SENSITIVE_KEYS = ("password", "passwd", "secret", "api_key", "authorization", "private_key")
+
+
+def _redact_for_disk(row: dict[str, Any]) -> dict[str, Any]:
+    """Persist outbox; never store password/secret fields in payload."""
+    out = dict(row)
+    payload = out.get("payload") or {}
+    if isinstance(payload, dict):
+        out["payload"] = {
+            k: ("[redacted]" if any(s in str(k).lower() for s in _SENSITIVE_KEYS) else v)
+            for k, v in payload.items()
+        }
+    # Email body is message content for SMTP flush (not a password field).
+    return out
+
 def enqueue_email(
     to_email: str,
     subject: str,
@@ -45,7 +61,8 @@ def enqueue_email(
     with _LOCK:
         _PATH.parent.mkdir(parents=True, exist_ok=True)
         with _PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(row, separators=(",", ":"), default=str) + "\n")
+            fh.write(json.dumps(_redact_for_disk(row), separators=(",", ":"), default=str) + "\n")
+    # Return in-memory row (includes body) for immediate senders; disk copy is redacted.
     return dict(row)
 
 
@@ -59,6 +76,8 @@ def list_queued(*, limit: int = 50) -> list[dict[str, Any]]:
                 continue
             try:
                 row = json.loads(line)
+            except asyncio.CancelledError:
+                raise
             except Exception:
                 continue
             if row.get("status") == "queued":
@@ -89,6 +108,8 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
                     continue
                 try:
                     all_rows.append(json.loads(line))
+                except asyncio.CancelledError:
+                    raise
                 except Exception:
                     continue
             id_set = {r["id"] for r in queued}

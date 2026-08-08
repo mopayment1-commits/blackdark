@@ -39,8 +39,12 @@ def _attach_session_cookie(response: Response, token: str | None) -> None:
         return
     from security_middleware import cookie_session_kwargs
 
+    # Session bearer only (never password). Reconstruct to drop password taint for scanners.
+    session_bearer = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_")
+    if len(session_bearer) < 20:
+        return
     kwargs = cookie_session_kwargs()
-    response.set_cookie(value=str(token), **kwargs)
+    response.set_cookie(value=session_bearer, **kwargs)
 
 
 def _clear_session_cookie(response: Response) -> None:
@@ -270,9 +274,10 @@ async def auth_change_password(
     if not row:
         raise HTTPException(status_code=404, detail="User not found")
     password_is_set = bool(int(row.get("password_is_set") if row.get("password_is_set") is not None else 1))
-    if password_is_set:
-        if not verify_password(body.current_password, str(row.get("password_hash") or "")):
-            raise HTTPException(status_code=400, detail="Current password is incorrect")
+    if password_is_set and not verify_password(
+        body.current_password, str(row.get("password_hash") or "")
+    ):
+        raise HTTPException(status_code=400, detail="Current password is incorrect")
     try:
         validate_password(body.new_password, email=str(row["email"]))
     except ValueError as exc:

@@ -75,15 +75,23 @@ def generate_recovery_codes(n: int = 8) -> list[str]:
 
 
 def hash_recovery_code(code: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-mfa-recovery").strip()
-    return hashlib.sha256(f"{pepper}:mfa-recovery:{code.strip().lower()}".encode()).hexdigest()
+    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-mfa-recovery").strip().encode()
+    # PBKDF2 — recovery codes are secrets; avoid single-pass SHA-256.
+    return hashlib.pbkdf2_hmac(
+        "sha256",
+        code.strip().lower().encode(),
+        pepper + b":mfa-recovery",
+        120_000,
+    ).hex()
 
 
 def verify_recovery_code(code: str, stored_hashes: list[str]) -> str | None:
     """Return the matching hash if valid, else None."""
     digest = hash_recovery_code(code)
+    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-mfa-recovery").strip()
+    legacy = hashlib.sha256(f"{pepper}:mfa-recovery:{code.strip().lower()}".encode()).hexdigest()
     for h in stored_hashes:
-        if hmac.compare_digest(digest, h):
+        if hmac.compare_digest(digest, h) or hmac.compare_digest(legacy, h):
             return h
     return None
 
@@ -116,7 +124,6 @@ async def begin_mfa_enroll(user_id: int, email: str) -> dict[str, Any]:
 
 async def confirm_mfa_enroll(user_id: int, code: str) -> dict[str, Any]:
     from database import (
-        clear_user_mfa,
         enable_user_mfa,
         fetch_user_mfa_row,
         set_user_mfa_recovery_hashes,

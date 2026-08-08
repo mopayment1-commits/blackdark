@@ -16,8 +16,9 @@ import json
 import logging
 import threading
 import time
-from datetime import datetime, timezone
-from typing import Any, AsyncIterator
+from collections.abc import AsyncIterator
+from datetime import UTC, datetime
+from typing import Any
 
 logger = logging.getLogger("BLACKDARK.TrustPulse")
 
@@ -32,7 +33,7 @@ DEFAULT_SYMBOL = "BTC"
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _norm_action(raw: str | None) -> str:
@@ -378,7 +379,7 @@ def _shape_pulse(
         or half.get("expected_half_life_seconds"),
         "veto": bool(conflict.get("veto") or conflict.get("abstain")),
         "veto_reason": conflict.get("reason") or conflict.get("message"),
-        "tier": tier if tier else "free",
+        "tier": tier or "free",
         "cta": {
             "primary": {"label": "Open full proof", "href": "/dashboard?lens=prove#decide"},
             "verify": {"label": "Verify Ledger", "href": "/oracle-accuracy"},

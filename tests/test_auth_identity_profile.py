@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+from pathlib import Path
+
+import pytest
 
 
 def test_identity_architecture():
@@ -14,11 +17,8 @@ def test_identity_architecture():
     assert arch["email_verification"] is True
     assert arch["password_reset"] is True
     validate_username("alex_trade")
-    try:
+    with pytest.raises(ValueError):
         validate_password("12345678")
-        assert False, "short/common should fail"
-    except ValueError:
-        pass
     validate_password("correct-horse-battery-99", email="user@example.com")
 
 
@@ -40,16 +40,14 @@ def test_password_reset_flow(tmp_path, monkeypatch):
 
     async def _run():
         await database.init_db()
-        uid = await database.create_user("resetme@example.com", hash_password("old-password-99"), "Reset Me")
+        uid = await database.create_user(
+            "resetme@example.com", hash_password("old-password-99"), "Reset Me"
+        )
         raw = await issue_auth_token(uid, "password_reset")
         user_id = await consume_auth_token(raw, "password_reset")
         assert user_id == uid
-        # second consume fails
-        try:
+        with pytest.raises(ValueError):
             await consume_auth_token(raw, "password_reset")
-            assert False
-        except ValueError:
-            pass
         validate_password("new-secure-pass-42", email="resetme@example.com")
         await database.update_user_profile_fields(
             uid, {"password_hash": hash_password("new-secure-pass-42"), "password_is_set": 1}
@@ -69,11 +67,8 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
 
     async def _run():
         await database.init_db()
-        try:
+        with pytest.raises(ValueError, match="Terms"):
             await register_user("a@b.co", "strong-pass-12345", "A", accepted_terms=False)
-            assert False
-        except ValueError as exc:
-            assert "Terms" in str(exc)
         result = await register_user(
             "trader@example.com",
             "strong-pass-12345",
@@ -91,8 +86,6 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
 
 
 def test_login_template_has_mfa_and_oauth_and_forgot():
-    from pathlib import Path
-
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert "mfaForm" in html
     assert "Continue with Google" in html
@@ -113,10 +106,7 @@ def test_oauth_state_roundtrip(tmp_path, monkeypatch):
         await database.init_db()
         await store_oauth_state_async("google", "state123abc")
         await validate_oauth_state_async("google", "state123abc")
-        try:
+        with pytest.raises(ValueError):
             await validate_oauth_state_async("google", "state123abc")
-            assert False
-        except ValueError:
-            pass
 
     asyncio.run(_run())

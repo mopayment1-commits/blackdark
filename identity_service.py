@@ -11,19 +11,19 @@ Standards posture:
 
 from __future__ import annotations
 
+import asyncio
+
 import hashlib
-import hmac
 import os
 import re
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 BILLING_NOTE = "USD self-serve via hosted PSP — card data never stored here."
 
 USERNAME_RE = re.compile(r"^[a-z][a-z0-9_]{2,23}$")
-EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 # Compact blocklist — extend via IDENTITY_BLOCKED_PASSWORDS env (comma-separated).
 _COMMON_PASSWORDS = {
@@ -54,7 +54,7 @@ ALLOWED_AVATAR_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp":
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _utcnow_iso() -> str:
@@ -66,9 +66,28 @@ def hash_token(raw: str) -> str:
     return hashlib.sha256(pepper + raw.encode("utf-8")).hexdigest()
 
 
+def _is_valid_email(email: str) -> bool:
+    """Strict structural email check without backtracking-prone regex."""
+    if not email or len(email) > 254 or " " in email or "\n" in email or "\r" in email:
+        return False
+    if email.count("@") != 1:
+        return False
+    local, domain = email.split("@", 1)
+    if not local or not domain or "." not in domain:
+        return False
+    if domain.startswith(".") or domain.endswith(".") or ".." in domain:
+        return False
+    # ASCII-ish local/domain only (product emails)
+    allowed = set("abcdefghijklmnopqrstuvwxyz0123456789._+-")
+    if any(c not in allowed for c in local):
+        return False
+    allowed_d = set("abcdefghijklmnopqrstuvwxyz0123456789.-")
+    return all(c in allowed_d for c in domain)
+
+
 def validate_email(email: str) -> str:
     email = (email or "").strip().lower()
-    if not EMAIL_RE.match(email) or len(email) > 254:
+    if not _is_valid_email(email):
         raise ValueError("Valid email required")
     return email
 
@@ -205,6 +224,8 @@ async def enqueue_identity_email(to_email: str, subject: str, body: str) -> dict
     row = enqueue_email(to_email, subject, body, payload={"kind": "identity"})
     try:
         flush = await flush_email_outbox(limit=20)
+    except asyncio.CancelledError:
+        raise
     except Exception:
         flush = {"status": "flush_error"}
     return {"queued": row, "flush": flush}

@@ -91,8 +91,9 @@ def test_production_guard_rejects_insecure_defaults(monkeypatch):
 
 def test_mfa_totp_roundtrip(monkeypatch):
     monkeypatch.setenv("SECRETS_MASTER_KEY", "unit-test-mfa-key-not-for-prod-32b!")
-    from mfa_service import generate_totp_secret, verify_totp
     import pyotp
+
+    from mfa_service import generate_totp_secret, verify_totp
 
     secret = generate_totp_secret()
     code = pyotp.TOTP(secret).now()
@@ -113,7 +114,7 @@ def test_trust_os_mfa_claim_not_naked():
     from trust_os import trust_os_manifest
 
     manifest = trust_os_manifest()
-    inst = next(l for l in manifest["value_layers"] if l["id"] == "institutional_packaging")
+    inst = next(layer for layer in manifest["value_layers"] if layer["id"] == "institutional_packaging")
     joined = " ".join(inst["capabilities"] + inst.get("honest_limits", []))
     assert "MFA" in joined
     assert "not a compliance certificate" in " ".join(inst.get("honest_limits", [])).lower() or \

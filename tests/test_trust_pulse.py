@@ -64,8 +64,9 @@ def test_shape_pulse_includes_proof_and_ledger():
 
 
 def test_continuity_pro_vs_free():
-    from trust_pulse import _shape_pulse
     import time
+
+    from trust_pulse import _shape_pulse
 
     base = {
         "symbol": "ETH",
@@ -103,6 +104,7 @@ def test_routes_and_templates_wire():
 
 def test_sse_generator_emits_connected():
     import asyncio
+
     from trust_pulse import trust_pulse_sse_generator
 
     async def _first():

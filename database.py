@@ -3292,10 +3292,10 @@ async def consume_auth_token_row(token_hash: str, token_type: str) -> int | None
         if data.get("used_at"):
             return None
         try:
-            exp = datetime.fromisoformat(str(data["expires_at"]).replace("Z", "+00:00"))
+            exp = datetime.fromisoformat(str(data["expires_at"]))
             if exp.tzinfo is None:
-                exp = exp.replace(tzinfo=timezone.utc)
-            if datetime.now(timezone.utc) > exp:
+                exp = exp.replace(tzinfo=UTC)
+            if datetime.now(UTC) > exp:
                 return None
         except Exception:
             return None
@@ -3333,10 +3333,10 @@ async def consume_oauth_state(*, provider: str, state: str) -> bool:
             return False
         data = dict(row)
         try:
-            exp = datetime.fromisoformat(str(data["expires_at"]).replace("Z", "+00:00"))
+            exp = datetime.fromisoformat(str(data["expires_at"]))
             if exp.tzinfo is None:
-                exp = exp.replace(tzinfo=timezone.utc)
-            if datetime.now(timezone.utc) > exp:
+                exp = exp.replace(tzinfo=UTC)
+            if datetime.now(UTC) > exp:
                 await db.execute("DELETE FROM oauth_states WHERE id = ?", (int(data["id"]),))
                 return False
         except Exception:

@@ -10,8 +10,8 @@ from typing import Any
 
 def freshness_chip(
     *,
-    freshness_ms: float | int | None = None,
-    age_sec: float | int | None = None,
+    freshness_ms: float | None = None,
+    age_sec: float | None = None,
     max_fresh_ms: float = 2000.0,
     max_ok_ms: float = 15000.0,
 ) -> dict[str, Any]:

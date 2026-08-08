@@ -296,9 +296,8 @@ async def complete_mfa_login(challenge: str, code: str) -> dict[str, Any]:
 
 
 async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[str, Any]:
-    from security_auth import hash_session_token
-
     from database import delete_user_sessions_for_user, insert_user_session
+    from security_auth import hash_session_token
 
     # New login regenerates session and revokes prior tokens (fixation / theft radius).
     if revoke_others:

@@ -21,7 +21,8 @@ import os
 import threading
 import time
 from collections import defaultdict
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from fastapi import HTTPException, Request
 from starlette.responses import JSONResponse
@@ -69,6 +70,8 @@ def cache_backend() -> str:
 def _env_int(name: str, default: int) -> int:
     try:
         return int(os.getenv(name, str(default)))
+    except asyncio.CancelledError:
+        raise
     except Exception:
         return default
 
@@ -123,6 +126,8 @@ def _redis_client():
             _rl_backend = "redis"
             logger.info("Viral capacity Redis client ready")
             return _redis
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Viral Redis unavailable — memory fallback", exc_info=True)
             return None
@@ -134,6 +139,8 @@ def redis_live() -> bool:
         return False
     try:
         return bool(client.ping())
+    except asyncio.CancelledError:
+        raise
     except Exception:
         return False
 
@@ -179,6 +186,8 @@ def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str 
             return
         except HTTPException:
             raise
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Redis RL failed — memory fallback", exc_info=True)
     _rl_backend = "memory"
@@ -195,13 +204,13 @@ def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str 
 
 
 def _path_class(path: str) -> str | None:
-    if path.startswith("/health") or path.startswith("/static") or path == "/favicon.ico":
+    if path.startswith(("/health", "/static")) or path == "/favicon.ico":
         return None  # never rate-limit probes/static
-    if path.startswith("/oracle/") or path.startswith("/api/oracle"):
+    if path.startswith(("/oracle/", "/api/oracle")):
         return "oracle"
-    if path.startswith("/api/auth/login") or path.startswith("/api/auth/register"):
+    if path.startswith(("/api/auth/login", "/api/auth/register")):
         return "auth"
-    if path.startswith("/api/") or path.startswith("/oracle"):
+    if path.startswith(("/api/", "/oracle")):
         return "api"
     return "web"
 
@@ -233,6 +242,8 @@ def begin_inflight() -> tuple[bool, str]:
                 return False, ""
             _inflight_backend = "redis"
             return True, "redis"
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Redis inflight failed — local fallback", exc_info=True)
     with _inflight_lock:
@@ -255,6 +266,8 @@ def end_inflight(backend: str = "memory") -> None:
                 if n < 0:
                     client.set(key, 0, ex=180)
                 return
+            except asyncio.CancelledError:
+                raise
             except Exception:
                 logger.debug("Redis inflight decr failed", exc_info=True)
                 return
@@ -268,6 +281,8 @@ def inflight_count() -> int:
     if client is not None:
         try:
             return max(0, int(client.get("bd:viral:inflight") or 0))
+        except asyncio.CancelledError:
+            raise
         except Exception:
             pass
     with _inflight_lock:
@@ -292,6 +307,8 @@ def quick_cache_get(symbol: str, lang: str, mode: str) -> dict[str, Any] | None:
                     out["viral_cache"] = "hit"
                     _cache_backend = "redis"
                     return out
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Redis quick cache get failed", exc_info=True)
     with _quick_lock:
@@ -323,6 +340,8 @@ def quick_cache_set(symbol: str, lang: str, mode: str, payload: dict[str, Any]) 
             )
             _cache_backend = "redis"
             return
+        except asyncio.CancelledError:
+            raise
         except Exception:
             logger.debug("Redis quick cache set failed", exc_info=True)
     with _quick_lock:

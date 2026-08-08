@@ -363,15 +363,25 @@
             panel.style.display = allowed ? 'block' : 'none';
         }
 
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
             if (!log) return;
             if (log.querySelector('.empty')) log.innerHTML = '';
             const row = document.createElement('div');
             row.style.margin = '.45rem 0';
+            const safe = escapeHtml(text);
             row.innerHTML = role === 'user'
-                ? `<div style="color:#a1a1aa"><strong>You</strong> · ${text}</div>`
-                : `<div style="color:#e4e4e7"><strong style="color:#22d3ee">AI</strong> · ${text}</div>`;
+                ? `<div style="color:#a1a1aa"><strong>You</strong> · ${safe}</div>`
+                : `<div style="color:#e4e4e7"><strong style="color:#22d3ee">AI</strong> · ${safe}</div>`;
             log.appendChild(row);
             log.scrollTop = log.scrollHeight;
         }
@@ -1269,12 +1279,8 @@
                         const path = btn.getAttribute('data-path') || '';
                         const row = intents.find(x => x.id === id) || {};
                         if (hint) hint.textContent = row.hint || '';
-                        if (action === 'navigate' && path.startsWith('/b2b')) {
-                            location.href = path;
-                            return;
-                        }
-                        if (action === 'navigate' && path.startsWith('/oracle-accuracy')) {
-                            location.href = path;
+                        if (action === 'navigate' && (path === '/b2b' || path === '/oracle-accuracy')) {
+                            location.assign(path);
                             return;
                         }
                         if (action === 'oracle') {

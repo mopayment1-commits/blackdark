@@ -7,8 +7,9 @@ from httpx import ASGITransport, AsyncClient
 
 
 def test_security_headers_helper():
-    from security_middleware import security_headers_for
     from starlette.requests import Request
+
+    from security_middleware import security_headers_for
 
     scope = {
         "type": "http",
@@ -130,8 +131,9 @@ async def test_telegram_test_requires_auth():
 @pytest.mark.asyncio
 async def test_logout_clears_without_user_token_field():
     """Logout must not depend on user['token'] (never echoed)."""
-    from api.routers import auth as auth_router
     import inspect
+
+    from api.routers import auth as auth_router
 
     src = inspect.getsource(auth_router.auth_logout)
     assert "raw_bearer_or_cookie" in src or "token" in src

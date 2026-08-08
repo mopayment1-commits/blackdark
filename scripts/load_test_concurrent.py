@@ -108,13 +108,11 @@ def main() -> int:
     viral = fetch_json(f"{base}/api/viral/readiness")
     if viral is not None:
         print(
-            "Viral readiness: approved=%s codepath=%s redis=%s parallelism=%s"
-            % (
-                viral.get("viral_production_approved"),
-                viral.get("viral_codepath_ready"),
-                viral.get("rate_limit_backend"),
-                viral.get("parallelism"),
-            )
+            "Viral readiness: approved="
+            f"{viral.get('viral_production_approved')} "
+            f"codepath={viral.get('viral_codepath_ready')} "
+            f"redis={viral.get('rate_limit_backend')} "
+            f"parallelism={viral.get('parallelism')}"
         )
         if args.require_viral_approved and not viral.get("viral_production_approved"):
             print("FAIL: viral_production_approved is false — refuse load claim")

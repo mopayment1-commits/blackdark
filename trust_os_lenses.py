@@ -243,10 +243,7 @@ def lenses_manifest() -> dict[str, Any]:
 
 
 def lens_payload(lens_id: str | None = None, *, audience: str | None = None) -> dict[str, Any]:
-    if audience and not lens_id:
-        lens = lens_from_audience(audience)
-    else:
-        lens = lens_by_id(lens_id)
+    lens = lens_from_audience(audience) if audience and not lens_id else lens_by_id(lens_id)
     return {
         "lens": lens,
         "entries": primary_entries_for_lens(lens["id"]),

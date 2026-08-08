@@ -16,7 +16,6 @@ import hashlib
 import os
 import shutil
 import subprocess
-import sys
 import time
 from pathlib import Path
 
@@ -40,7 +39,7 @@ def backup(*, out_dir: Path) -> Path:
     pg_dump = shutil.which("pg_dump")
     if not pg_dump:
         raise SystemExit("pg_dump not found — install PostgreSQL client tools")
-    env = os.environ.copy()
+    _ = os.environ.copy()  # reserved for subprocess env overrides
     # pg_dump accepts URL via --dbname
     proc = subprocess.run(
         [pg_dump, "--dbname", url, "--no-owner", "--format=plain", "-f", str(raw)],

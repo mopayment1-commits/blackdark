@@ -4,6 +4,7 @@ import os
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import aiohttp
 import stripe
@@ -569,7 +570,7 @@ async def optional_user(
 
     token: str | None = None
     if authorization:
-        token = authorization[7:] if authorization.startswith("Bearer ") else authorization
+        token = authorization.removeprefix("Bearer ")
     elif bd_token:
         token = bd_token.strip()
     if not token:
@@ -852,9 +853,18 @@ async def verify_email_page(request: Request, token: str = ""):
             },
         )
     # Prefer API redirect path for cookie/session consistency.
+    from urllib.parse import quote
+
     from fastapi.responses import RedirectResponse
 
-    return RedirectResponse(url=f"/api/auth/verify-email?token={token}", status_code=302)
+    # Allowlist token charset — blocks open-redirect / injection via query token.
+    safe = "".join(ch for ch in str(token) if ch.isalnum() or ch in "-_.")
+    if len(safe) < 16:
+        raise HTTPException(status_code=400, detail="Invalid verification token")
+    return RedirectResponse(
+        url=f"/api/auth/verify-email?token={quote(safe, safe='')}",
+        status_code=302,
+    )
 
 
 # Auth routes → api/routers/auth.py
@@ -976,12 +986,15 @@ async def telegram_test(
     except Exception:
         pass
     # Non-admins may only target their own stored chat id (or default bot chat).
-    if requested and not is_admin_user(user):
-        if not profile_chat or str(requested) != str(profile_chat):
-            raise HTTPException(
-                status_code=403,
-                detail="chat_id must match your profile telegram_chat_id (or omit to use default)",
-            )
+    if (
+        requested
+        and not is_admin_user(user)
+        and (not profile_chat or str(requested) != str(profile_chat))
+    ):
+        raise HTTPException(
+            status_code=403,
+            detail="chat_id must match your profile telegram_chat_id (or omit to use default)",
+        )
     chat_id = requested or profile_chat
     return await send_test_telegram(chat_id)
 
@@ -1177,7 +1190,10 @@ async def api_trust_pulse(
             persist=None,
         )
     except ValueError as exc:
-        raise HTTPException(status_code=404, detail=str(exc)) from exc
+        # Do not echo exception text to clients (CodeQL information exposure).
+        raise HTTPException(
+            status_code=404, detail="Trust Pulse unavailable for this symbol"
+        ) from exc
 
 
 @app.get("/api/trust-pulse/stream")
@@ -3061,10 +3077,9 @@ async def api_security_events(
 @app.get("/api/security/status")
 async def api_security_status():
     """Public security posture summary for due diligence (not a certification)."""
+    from postgres_backend import use_postgres
     from security_auth import login_rate_limit_backend
     from security_posture import security_posture_report
-
-    from postgres_backend import use_postgres
 
     report = security_posture_report()
     vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
@@ -3221,6 +3236,7 @@ async def health_ready():
 async def health_viral():
     """Viral/HA admission probe — Redis + multi-instance + middleware (not Soft Launch)."""
     from fastapi.responses import JSONResponse
+
     from viral_capacity import viral_health_payload
 
     payload = viral_health_payload()

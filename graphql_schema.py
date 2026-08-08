@@ -5,6 +5,7 @@ BLACKDARK — GraphQL API with authentication context.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 import strawberry
 from strawberry.fastapi import GraphQLRouter
@@ -137,7 +138,7 @@ async def graphql_context(request) -> GraphContext:
     from auth_service import get_user_from_token
 
     auth = request.headers.get("Authorization") or ""
-    token = auth[7:] if auth.startswith("Bearer ") else auth
+    token = auth.removeprefix("Bearer ")
     if not token.strip():
         token = (request.cookies.get("bd_token") or "").strip()
     user = await get_user_from_token(token.strip()) if token.strip() else None

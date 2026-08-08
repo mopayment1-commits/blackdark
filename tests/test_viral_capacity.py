@@ -1,8 +1,8 @@
-"""Viral launch capacity protections."""
-
 from __future__ import annotations
 
-import os
+"""Viral launch capacity protections."""
+
+from pathlib import Path
 
 import pytest
 from fastapi import HTTPException
@@ -106,7 +106,7 @@ def test_production_guard_viral_ha_requires_redis(monkeypatch):
 
 
 def test_run_service_honors_web_concurrency():
-    src = open("run_service.py", encoding="utf-8").read()
+    src = Path("run_service.py").read_text(encoding="utf-8")
     assert "WEB_CONCURRENCY" in src
     assert "--workers" in src
 

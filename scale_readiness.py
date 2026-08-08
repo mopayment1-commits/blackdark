@@ -16,7 +16,6 @@ import config
 def scale_readiness_report() -> dict[str, Any]:
     from postgres_backend import pool_stats, use_postgres
     from security_auth import login_rate_limit_backend
-
     from viral_capacity import effective_parallelism
 
     soft_launch = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}

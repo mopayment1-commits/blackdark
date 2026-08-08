@@ -6,7 +6,6 @@ from pathlib import Path
 
 import pytest
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -35,8 +34,9 @@ def test_max_artifacts_present():
 async def test_admin_mfa_blocks_without_totp(monkeypatch):
     monkeypatch.setenv("ADMIN_MFA_REQUIRED", "true")
     monkeypatch.setenv("ADMIN_TOTP_SECRET", "JBSWY3DPEHPK3PXP")
-    from admin_mfa import assert_admin_mfa
     from fastapi import HTTPException
+
+    from admin_mfa import assert_admin_mfa
 
     with pytest.raises(HTTPException) as exc:
         await assert_admin_mfa(x_admin_totp="000000", user={"is_admin": True})
@@ -49,6 +49,7 @@ async def test_admin_mfa_accepts_valid_totp(monkeypatch):
     secret = "JBSWY3DPEHPK3PXP"
     monkeypatch.setenv("ADMIN_TOTP_SECRET", secret)
     import pyotp
+
     from admin_mfa import assert_admin_mfa
 
     code = pyotp.TOTP(secret).now()
@@ -57,7 +58,7 @@ async def test_admin_mfa_accepts_valid_totp(monkeypatch):
 
 def test_security_event_persist(tmp_path, monkeypatch):
     monkeypatch.setenv("DATA_DIR", str(tmp_path))
-    from security_events import record_security_event, recent_security_events
+    from security_events import recent_security_events, record_security_event
 
     record_security_event("login_failure", severity="warning", actor="a@b.com")
     rows = recent_security_events(limit=5, kind="login_failure")
@@ -75,6 +76,7 @@ def test_security_max_audit_script_runs():
         cwd=str(ROOT),
         capture_output=True,
         text=True,
+        check=False,
     )
     # Non-production env should pass engineering file gates
     assert proc.returncode == 0, proc.stdout + proc.stderr

@@ -24,9 +24,10 @@ def main() -> int:
 
     arch = payments_architecture()
     print(f"\nCurrency: {BILLING_CURRENCY_DISPLAY}")
-    print(f"Active provider: {arch['active_provider']}")
-    print(f"PCI target: {arch['security']['pci_target']}")
-    print(f"Stores PAN: {arch['security']['stores_pan']}")
+    print(f"Active provider: {arch.get('active_provider')}")
+    sec = arch.get("security") or {}
+    print(f"PCI target: {sec.get('pci_target')}")
+    print(f"Stores PAN: {sec.get('stores_pan')}")
 
     print("\n--- Self-serve SKUs ---")
     for sku, info in SELF_SERVE_SKUS.items():
@@ -60,7 +61,7 @@ def main() -> int:
     print(f"  GET  {base}/api/billing/payments")
     print(f"  GET  {base}/api/billing/refund-policy")
     print(f"  POST {base}/api/billing/checkout  {{\"tier\":\"pro\"}}")
-    print(f"  Docs: docs/PAYMENTS_USD_SECURITY.md")
+    print("  Docs: docs/PAYMENTS_USD_SECURITY.md")
     print("=" * 60)
     return 0 if ready else 1
 
