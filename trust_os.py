@@ -220,6 +220,13 @@ def trust_os_manifest() -> dict[str, Any]:
             "body_font": "IBM Plex Sans",
             "motions": ["pulseIn", "flipFlash", "sharePop"],
             "rejected": ["arena", "inter_font", "purple_gold_ai_defaults", "fake_scarcity_counters"],
+            "landing_myth": {
+                "asset": "/static/img/blackdark-sealed-hero.png",
+                "line": "We publish the miss.",
+                "support": "Sealed forecasts before the event. Public proof after.",
+                "ctas": ["Try Oracle Free", "Watch the Seal"],
+                "live_surface": "trust_pulse",
+            },
         },
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }

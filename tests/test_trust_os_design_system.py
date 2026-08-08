@@ -63,10 +63,28 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert 0 <= pulse_i < stats_i
     assert "BLACKDARK" in land
     assert "Decide. Prove it. Share it." in land
+    assert "We publish the miss." in land
+    assert "Sealed forecasts before the event" in land
+    assert "blackdark-sealed-hero.png" in land
+    assert "hero-bleed" in land
+    assert "Try Oracle Free" in land
+    assert "Watch the Seal" in land
+    assert 'id="seal"' in land
+    # Sealed myth + Trust Pulse share one first composition
+    hero_i = land.find('id="top"')
+    comp_i = land.find('class="hero-composition"')
+    pulse_i = land.find('id="trust-pulse"')
+    seal_i = land.find('id="seal"')
+    assert 0 <= hero_i < comp_i < pulse_i < seal_i
+    composition = land[comp_i:seal_i]
+    assert 'id="trust-pulse"' in composition
+    assert "Try Oracle Free" in composition
+    assert "Watch the Seal" in composition
     orphan = (ROOT / "templates/index.html").read_text(encoding="utf-8")
     assert "fonts.googleapis.com/css2?family=Inter" not in orphan
     assert "#a78bfa" not in orphan
     assert "Inter" not in orphan
+    assert (ROOT / "static/img/blackdark-sealed-hero.png").is_file()
 
 
 def test_trust_os_manifest_includes_design_system():

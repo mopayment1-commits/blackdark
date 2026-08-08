@@ -55,6 +55,19 @@ No continuous aura spam. No breathing background entrainment.
 Only: **Brand · one headline · one supporting line · one CTA group · Trust Pulse (or dominant proof visual).**  
 No stats, schedules, Telegram blocks, or secondary marketing in the first composition.
 
+## Sealed myth layer (landing)
+
+Full-bleed cinematic vault/seal visual (`/static/img/blackdark-sealed-hero.png`) is the **brand myth plane**, not a product substitute.
+
+| Layer | Job |
+|-------|-----|
+| Bleed image | Global dazzle / acquisition story (“sealed before the event”) |
+| Brand + line | `BLACKDARK` · *We publish the miss.* · sealed/public proof sentence |
+| CTA group | `Try Oracle Free` (conversion) + `Watch the Seal` (myth → `#seal`) |
+| Trust Pulse | Live Act/Wait habit + Share Proof (viral) |
+
+Do **not** ship the seal scene as a UI shell without Trust Pulse. Do **not** use inset glass cards or FOMO counters on the hero.
+
 ## Page jobs
 
 | Page | One job |
