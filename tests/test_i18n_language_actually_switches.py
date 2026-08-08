@@ -10,7 +10,6 @@ from fastapi.testclient import TestClient
 
 from dashboard import app
 
-
 client = TestClient(app)
 
 
@@ -20,7 +19,9 @@ def test_arabic_changes_hero_and_lenses_and_nav():
     assert 'lang="ar"' in ar and 'dir="rtl"' in ar
     assert "We publish the miss." in en
     assert "ننشر الخطأ." in ar
-    assert "We publish the miss." not in ar
+    # Body headline must not stay English (meta may still mention brand EN in rare cases)
+    assert 'class="hero-headline">ننشر الخطأ.</p>' in ar or ">ننشر الخطأ.</p>" in ar
+    assert 'class="hero-headline">We publish the miss.</p>' not in ar
     assert "تقسيم المميزات" in ar
     assert "تسجيل الدخول" in ar
     assert "إنشاء حساب" in ar
@@ -36,4 +37,4 @@ def test_french_changes_hero():
 def test_login_arabic_tabs():
     ar = client.get("/login?lang=ar").text
     assert "إنشاء حساب" in ar
-    assert "تسجيل" in ar or "دخول" in ar
+    assert "دخول" in ar

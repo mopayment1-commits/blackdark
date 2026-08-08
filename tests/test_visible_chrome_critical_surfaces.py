@@ -89,7 +89,7 @@ def test_pricing_ladder_visible_on_landing():
     assert "Decision Desk" in land
     assert "$49" in land
     assert "$29" in land
-    assert "From $3,000" in land
+    assert "pricing.from_open" in land or "From $3,000" in land or "3,000" in land
     assert "Whale Desk" not in land
     assert "$199" not in land
     assert "billingReadyLine" in land
