@@ -758,6 +758,9 @@ API_KEY_REQUIRE_USER_VAULT_LIVE = os.getenv("API_KEY_REQUIRE_USER_VAULT_LIVE", "
     "true",
     "yes",
 }
+# Vault key rotation policy (days). Set VAULT_KEY_LAST_ROTATED_AT=YYYY-MM-DD after rotating.
+VAULT_KEY_ROTATION_DAYS = int(os.getenv("VAULT_KEY_ROTATION_DAYS", "90"))
+VAULT_KEY_LAST_ROTATED_AT = os.getenv("VAULT_KEY_LAST_ROTATED_AT", "").strip()
 API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION = os.getenv(
     "API_KEY_BLOCK_ENV_KEYS_IN_PRODUCTION", "true"
 ).lower() in {"1", "true", "yes"}

@@ -8,10 +8,12 @@ import base64
 import hashlib
 import logging
 import os
+from datetime import date, datetime, timezone
 
 logger = logging.getLogger("BLACKDARK.SecretsVault")
 
 _fernet = None
+_rotation_checked = False
 
 
 def _derive_fernet_key(raw: str) -> bytes:
@@ -27,7 +29,66 @@ def _is_production() -> bool:
     return env in {"production", "prod"}
 
 
+def check_vault_key_rotation_policy() -> dict:
+    """
+    Evaluate VAULT_KEY_ROTATION_DAYS against VAULT_KEY_LAST_ROTATED_AT.
+    Returns status dict; logs a warning when overdue (does not fail-closed).
+    """
+    try:
+        import config as cfg
+
+        days = int(getattr(cfg, "VAULT_KEY_ROTATION_DAYS", 90) or 90)
+        last_raw = str(getattr(cfg, "VAULT_KEY_LAST_ROTATED_AT", "") or "").strip()
+    except Exception:
+        days = int(os.getenv("VAULT_KEY_ROTATION_DAYS", "90") or "90")
+        last_raw = os.getenv("VAULT_KEY_LAST_ROTATED_AT", "").strip()
+
+    if days <= 0:
+        return {"ok": True, "policy_days": days, "status": "disabled"}
+    if not last_raw:
+        status = {
+            "ok": False,
+            "policy_days": days,
+            "status": "unknown_last_rotation",
+            "hint": "Set VAULT_KEY_LAST_ROTATED_AT=YYYY-MM-DD after rotating SECRETS_MASTER_KEY",
+        }
+        if _is_production():
+            logger.warning("Vault key rotation date unset (policy=%sd): %s", days, status["hint"])
+        return status
+
+    try:
+        last = date.fromisoformat(last_raw[:10])
+    except ValueError:
+        return {"ok": False, "policy_days": days, "status": "invalid_last_rotation", "raw": last_raw}
+
+    age = (datetime.now(timezone.utc).date() - last).days
+    overdue = age > days
+    result = {
+        "ok": not overdue,
+        "policy_days": days,
+        "age_days": age,
+        "last_rotated_at": last.isoformat(),
+        "status": "overdue" if overdue else "current",
+    }
+    if overdue:
+        logger.warning(
+            "Vault key rotation overdue: age=%sd policy=%sd last=%s — rotate SECRETS_MASTER_KEY",
+            age,
+            days,
+            last.isoformat(),
+        )
+    return result
+
+
 def get_vault_key() -> bytes:
+    global _rotation_checked
+    if not _rotation_checked:
+        _rotation_checked = True
+        try:
+            check_vault_key_rotation_policy()
+        except Exception as exc:  # noqa: BLE001
+            logger.debug("vault rotation check skipped: %s", exc)
+
     explicit = os.getenv("SECRETS_VAULT_KEY", "").strip()
     if explicit:
         # Accept either raw Fernet key or derive from arbitrary secret material.

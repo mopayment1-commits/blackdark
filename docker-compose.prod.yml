@@ -1,0 +1,84 @@
+# BLACKDARK — Production compose (hardened template)
+#
+# Usage:
+#   export POSTGRES_PASSWORD=... SECRETS_MASTER_KEY=... SESSION_TOKEN_PEPPER=...
+#   export ENV=production SERVICE_MODE=web
+#   docker compose -f docker-compose.prod.yml up -d --build
+#
+# Notes:
+# - Postgres is mandatory (no SQLite soft-launch in this file).
+# - Do not publish Postgres/Redis ports publicly in real cloud — use private network.
+# - Put TLS termination at the edge (Caddy/Nginx/Cloud LB).
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:?Set REDIS_PASSWORD}"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+    networks: [internal]
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-blackdark}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-blackdark}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-blackdark}"]
+      interval: 5s
+      timeout: 3s
+      retries: 8
+    networks: [internal]
+
+  web:
+    build: .
+    restart: unless-stopped
+    command: ["python", "run_service.py", "web", "--port", "8080"]
+    ports:
+      - "${WEB_PORT:-8080}:8080"
+    environment:
+      ENV: production
+      SERVICE_MODE: web
+      SOFT_LAUNCH: "false"
+      DATABASE_URL: postgresql://${POSTGRES_USER:-blackdark}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-blackdark}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
+      SECRETS_MASTER_KEY: ${SECRETS_MASTER_KEY:?Set SECRETS_MASTER_KEY}
+      SESSION_TOKEN_PEPPER: ${SESSION_TOKEN_PEPPER:?Set SESSION_TOKEN_PEPPER}
+      ADMIN_API_KEY: ${ADMIN_API_KEY:-}
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      PRODUCTION_GUARD_FAIL_CLOSED: "true"
+      RUN_AGGREGATOR: "false"
+      INGESTION_ENABLED: "false"
+      PORT: "8080"
+      HEALTH_PORT: "8180"
+      VAULT_KEY_ROTATION_DAYS: ${VAULT_KEY_ROTATION_DAYS:-90}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8180/health/live', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+    networks: [internal]
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  pgdata:
+  redisdata:

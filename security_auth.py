@@ -6,10 +6,12 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import logging
 import os
 import time
 from collections import defaultdict
+from pathlib import Path
 from typing import Any
 
 from fastapi import Cookie, Depends, Header, HTTPException, Request
@@ -19,6 +21,9 @@ logger = logging.getLogger("BLACKDARK.Security")
 _login_attempts: dict[str, list[float]] = defaultdict(list)
 _LOGIN_WINDOW_SEC = 300
 _LOGIN_MAX_ATTEMPTS = 10
+_AUTH_AUDIT_PATH = Path(
+    os.getenv("AUTH_AUDIT_LOG_PATH", "data/auth_audit.jsonl")
+)
 
 
 def is_production_env() -> bool:
@@ -49,8 +54,35 @@ def check_login_rate_limit(key: str) -> None:
     _login_attempts[key].append(now)
 
 
-def record_login_failure(key: str) -> None:
+def persist_auth_audit(
+    *,
+    event: str,
+    subject: str = "",
+    reason: str = "",
+    ip: str = "",
+    meta: dict[str, Any] | None = None,
+) -> None:
+    """Append a durable auth audit event (JSONL). Best-effort; never raises to callers."""
+    try:
+        from security_models import AuditLogModel
+
+        row = AuditLogModel(
+            event=event,
+            subject=subject,
+            reason=reason,
+            ip=ip,
+            meta=meta or {},
+        )
+        _AUTH_AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with _AUTH_AUDIT_PATH.open("a", encoding="utf-8") as fh:
+            fh.write(row.model_dump_json() + "\n")
+    except Exception as exc:  # noqa: BLE001 — audit must not break login flow
+        logger.warning("auth audit persist failed: %s", exc)
+
+
+def record_login_failure(key: str, *, reason: str = "invalid_credentials") -> None:
     check_login_rate_limit(key)
+    persist_auth_audit(event="login_failure", subject=key, reason=reason)
 
 
 def admin_emails() -> set[str]:
