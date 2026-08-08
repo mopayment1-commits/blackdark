@@ -103,7 +103,12 @@ def advise_stealth_execution(
     interval_sec = max(5, int(window_sec / max(slices, 1)))
     limit_offset_bps = 2.0 if style == "single_clip_ok" else (5.0 if style == "standard_slice" else 8.0)
     participation_target = min(0.02, max(0.001, participation / max(slices, 1)))
-    algo = "TWAP" if slices >= 5 else ("VWAP_lite" if slices >= 3 else "LIMIT_CLIP")
+    # Advisory slice labels only — NOT live TWAP/VWAP algo execution.
+    algo = (
+        "SLICE_TWAP_STYLE"
+        if slices >= 5
+        else ("SLICE_VWAP_STYLE" if slices >= 3 else "LIMIT_CLIP_ADVISORY")
+    )
 
     slice_plan_rows = []
     for i in range(slices):

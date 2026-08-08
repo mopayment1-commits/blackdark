@@ -18,6 +18,11 @@ _AUDIENCES = {
         "cta": "Get one clear Act / Wait decision — no dashboard tourism.",
         "entry_path": "/?audience=retail",
         "ux_mode_default": "beginner",
+        "progressive_disclosure": {
+            "emphasize": ["oracle", "certificate", "ledger"],
+            "defer": ["stealth", "fund_terminal", "radar_depth", "arb_desk"],
+            "shell": "oracle_first",
+        },
     },
     "pro": {
         "audience": "pro",
@@ -26,6 +31,11 @@ _AUDIENCES = {
         "cta": "Full Opportunity Score, Truth gates, and Whale Radar.",
         "entry_path": "/dashboard?audience=pro",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["radar", "opportunity_score", "oracle", "half_life"],
+            "defer": ["fund_terminal", "stealth_deep"],
+            "shell": "radar_first",
+        },
     },
     "whale": {
         "audience": "whale",
@@ -34,6 +44,11 @@ _AUDIENCES = {
         "cta": "Stealth Advisor + Half-Life + MEV report before size hits the book.",
         "entry_path": "/dashboard?audience=whale#stealth",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["stealth", "half_life", "portfolio", "execution_risk"],
+            "defer": ["retail_tour", "fund_packaging"],
+            "shell": "stealth_first",
+        },
     },
     "fund": {
         "audience": "fund",
@@ -42,6 +57,11 @@ _AUDIENCES = {
         "cta": "Emerging Fund Terminal — DD-ready Ledger + Evidence Pack.",
         "entry_path": "/b2b?audience=fund#fund-terminal",
         "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["ledger", "evidence_pack", "compliance", "fund_terminal"],
+            "defer": ["retail_tour", "stealth_deep"],
+            "shell": "dd_first",
+        },
     },
 }
 

@@ -81,7 +81,21 @@ def main() -> None:
         "--port",
         str(port),
     ]
-    print(f"Starting BLACKDARK | mode={args.mode} port={port}")
+    # Viral / HA: honor WEB_CONCURRENCY (or UVICORN_WORKERS) for web/monolith.
+    workers = 1
+    if args.mode in {"web", "all"}:
+        try:
+            workers = max(
+                1,
+                int(os.getenv("WEB_CONCURRENCY") or os.getenv("UVICORN_WORKERS") or "1"),
+            )
+        except ValueError:
+            workers = 1
+    if workers > 1:
+        cmd.extend(["--workers", str(workers)])
+    print(
+        f"Starting BLACKDARK | mode={args.mode} port={port} workers={workers}"
+    )
     raise SystemExit(subprocess.call(cmd))
 
 

@@ -23,6 +23,15 @@
         .hero { text-align: center; margin-bottom: 1.25rem; }
         .hero h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .35rem; color: #fff; }
         .hero p { color: #71717a; font-size: .95rem; }
+        .intent-wrap { max-width: 720px; margin: 0 auto 1.25rem; text-align: center; }
+        .intent-q { font-size: 1.05rem; color: #e4e4e7; font-weight: 600; margin-bottom: .65rem; }
+        .intent-grid { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
+        .intent-btn {
+            padding: .55rem .9rem; border-radius: 10px; border: 1px solid #2a2a35;
+            background: rgba(17,17,24,.85); color: #a1a1aa; font-size: .82rem; cursor: pointer;
+        }
+        .intent-btn:hover, .intent-btn.active { border-color: #22d3ee; color: #22d3ee; }
+        .intent-hint { margin-top: .55rem; font-size: .78rem; color: #71717a; min-height: 1.2em; }
         .search-row { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0; }
         .search-row input { width: min(280px,100%); padding: .75rem 1rem; background: #1a1a24; border: 1px solid #2a2a35; border-radius: 10px; color: #e4e4e7; font-size: 1rem; }
         .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
@@ -86,6 +95,11 @@
             <p id="heroSub">One clear decision — act or wait · public verifiable accuracy</p>
             <p id="audienceBanner" class="sub" style="display:none;margin-top:.35rem"></p>
         </div>
+        <div class="intent-wrap" id="intentWrap">
+            <div class="intent-q" id="intentQuestion">What do you want to do today?</div>
+            <div class="intent-grid" id="intentGrid"></div>
+            <div class="intent-hint" id="intentHint">Results over features — routes to six heroes only. Analytical tool, not advice.</div>
+        </div>
         <div class="toolbar" style="justify-content:center;margin-bottom:.75rem">
             <select id="uxMode" onchange="askOracle()">
                 <option value="beginner" selected>Beginner</option>
@@ -93,6 +107,7 @@
             </select>
             <a class="btn secondary" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Stealth Advisor</a>
             <a class="btn secondary" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">Portfolio AI</a>
+            <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
         </div>
         <div class="picks">
             <span class="pick" onclick="setSymbol('BTC')">BTC</span>
@@ -101,7 +116,7 @@
             <span class="pick" onclick="setSymbol('BNB')">BNB</span>
             <span class="pick" onclick="setSymbol('XRP')">XRP</span>
         </div>
-        <div class="search-row">
+        <div class="search-row" id="oracle">
             <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
             <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
         </div>
@@ -127,18 +142,18 @@
             </section>
         </div>
 
-        <section>
+        <section id="arbitrage">
             <h2>Arbitrage Engine</h2>
             <p class="sub" id="arbStats">Scanning…</p>
             <button class="btn secondary" onclick="loadArbitrage(true)">Live Scan</button>
-            <div id="arbitrage" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
         </section>
 
-        <section>
+        <section id="whales">
             <h2>Whale Intelligence · Signal vs Noise</h2>
             <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
             <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
-            <div id="whales" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
+            <div id="whaleList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
 
@@ -157,7 +172,7 @@
 
         <section id="stealth">
             <h2>Stealth Execution Advisor</h2>
-            <p class="sub">Whale audience · advisory slice sizing — not a stealth-routing guarantee</p>
+            <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
             <div class="toolbar">
                 <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7">
@@ -273,12 +288,30 @@
                 const half = d.opportunity_half_life || {};
                 const sig = d.signal_registry || {};
                 let proBlock = '';
-                const factors = (d.explanation && d.explanation.top_3_factors) || [];
-                const factorBlock = factors.length ? `
+                const whyBlock = d.oqs_why || {};
+                const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
+                const scen = (d.scenarios && d.scenarios.scenarios) || {};
+                const scenBlock = (scen.bull || scen.base || scen.bear) ? `
                     <div style="margin-top:.85rem">
-                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Why (Top 3)</div>
-                        ${factors.slice(0,3).map(f => `<div style="font-size:.85rem;padding:.35rem 0;border-bottom:1px solid #2a2a35"><strong>${f.factor}</strong> — ${f.detail}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('')}
+                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div>
+                        <div class="metrics">
+                            ${['bull','base','bear'].map(k => {
+                                const s = scen[k] || {};
+                                return `<div class="metric"><strong>${s.probability_pct != null ? s.probability_pct+'%' : '—'}</strong><span>${(s.label||k)}</span></div>`;
+                            }).join('')}
+                        </div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(d.scenarios && d.scenarios.disclaimer) || ''}</div>
                     </div>` : '';
+                const whyVisible = `
+                    <div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">
+                        <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'}</div>
+                        ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${f.factor||f}</strong>${f.detail ? ' — '+f.detail : ''}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
+                    </div>`;
+                const factorBlock = whyVisible + `
+                    <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
+                        <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
+                        <div style="margin-top:.65rem">${scenBlock}</div>
+                    </details>`;
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">
@@ -331,9 +364,11 @@
                         if (!(cert.certificate_hash || d.prediction_id)) return '';
                         window._lastCertShare = cert.share_text || '';
                         window._lastCertJson = cert;
+                        window._lastCertTxt = cert.export_text || '';
                         return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
                         ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
                         <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
+                        ${cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : ''}
                         ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
                         ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
                     })()}
@@ -395,7 +430,7 @@
         }
 
         async function loadArbitrage(refresh) {
-            const el = document.getElementById('arbitrage');
+            const el = document.getElementById('arbList');
             const stats = document.getElementById('arbStats');
             try {
                 const url = refresh ? '/api/arbitrage/scan' : '/api/arbitrage/opportunities?live=true';
@@ -455,7 +490,7 @@
         }
 
         async function loadWhales(refresh) {
-            const el = document.getElementById('whales');
+            const el = document.getElementById('whaleList');
             const foot = document.getElementById('whaleCompliance');
             if (refresh) el.innerHTML = '<div class="loading">Scanning…</div>';
             try {
@@ -463,9 +498,9 @@
                 const data = await res.json();
                 const classified = data.classified || [];
                 const stories = data.stories || [];
-                const headline = data.headline || (stories[0] || '');
+                const headline = data.one_sentence || data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>Plain sentence</strong><div style="margin-top:.35rem;font-size:.9rem">${headline}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${headline}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
@@ -580,10 +615,15 @@
                 });
                 const d = await res.json();
                 const foot = d.compliance_footer || {};
+                const risk = (d.risk_level || '').toUpperCase();
+                const riskColor = risk === 'HIGH' ? '#ef4444' : (risk === 'LOW' ? '#22c55e' : '#f59e0b');
                 el.innerHTML = `
                     <div class="arb-card">
                         <strong>Portfolio AI</strong>
-                        <div style="margin-top:.4rem">${d.plain_language || d.summary || JSON.stringify(d).slice(0,280)}</div>
+                        ${risk ? ` · <span style="color:${riskColor};font-weight:700">${risk}</span> risk (${d.risk_score ?? '—'}/10)` : ''}
+                        <div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">${d.one_sentence || d.plain_language || d.summary || ''}</div>
+                        ${d.scenario_note ? `<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">${d.scenario_note}</div>` : ''}
+                        ${d.total_value_formatted ? `<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ${d.total_value_formatted} · BTC corr ${d.btc_correlation || '—'}</div>` : ''}
                         ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
                         ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
                     </div>`;
@@ -664,10 +704,71 @@
             }
         }
 
+        async function loadIntentRouter() {
+            const grid = document.getElementById('intentGrid');
+            const q = document.getElementById('intentQuestion');
+            const hint = document.getElementById('intentHint');
+            if (!grid) return;
+            try {
+                const res = await fetch('/api/intent/router');
+                const d = await res.json();
+                if (q && d.question) q.textContent = d.question;
+                const intents = d.intents || [];
+                grid.innerHTML = intents.map(it =>
+                    `<button type="button" class="intent-btn" data-id="${it.id}" data-action="${it.action||''}" data-path="${it.path||''}">${it.label}</button>`
+                ).join('');
+                grid.querySelectorAll('.intent-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const id = btn.getAttribute('data-id');
+                        const action = btn.getAttribute('data-action');
+                        const path = btn.getAttribute('data-path') || '';
+                        const row = intents.find(x => x.id === id) || {};
+                        if (hint) hint.textContent = row.hint || '';
+                        if (action === 'navigate' && path.startsWith('/b2b')) {
+                            location.href = path;
+                            return;
+                        }
+                        if (action === 'navigate' && path.startsWith('/oracle-accuracy')) {
+                            location.href = path;
+                            return;
+                        }
+                        if (action === 'oracle') {
+                            scrollToId('oracle');
+                            askOracle();
+                            return;
+                        }
+                        if (action === 'whales') {
+                            scrollToId('whales');
+                            loadWhales(true);
+                            return;
+                        }
+                        if (action === 'portfolio') {
+                            scrollToId('portfolio');
+                            return;
+                        }
+                        if (action === 'arbitrage') {
+                            scrollToId('arbitrage');
+                            loadArbitrage(true);
+                            return;
+                        }
+                        if (path.includes('#')) {
+                            const hid = path.split('#')[1];
+                            scrollToId(hid);
+                        }
+                    });
+                });
+            } catch (e) {
+                if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.';
+            }
+        }
+
         function boot() {
             loadAuth();
             applyLang();
             applyAudienceFromQuery();
+            loadIntentRouter();
             askOracle();
             initChart();
             loadChart();

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} · BLACKDARK</title>
+    <style>
+        :root { --bg:#0a0a0f; --fg:#e4e4e7; --muted:#71717a; --line:#2a2a35; --accent:#22d3ee; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "IBM Plex Sans", "Segoe UI", sans-serif; background: radial-gradient(1000px 500px at 10% -10%, #132033 0%, var(--bg) 55%); color: var(--fg); min-height: 100vh; }
+        nav { padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+        .nav-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        a { color: var(--accent); text-decoration: none; }
+        .logo { font-weight: 700; color: var(--fg); }
+        main { max-width: 860px; margin: 0 auto; padding: 2.25rem 1.25rem 4rem; }
+        h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); margin-bottom: .65rem; }
+        h2 { font-size: 1.05rem; color: var(--accent); margin: 1.35rem 0 .55rem; }
+        p, li { color: var(--muted); line-height: 1.65; margin-bottom: .75rem; }
+        ul { margin: .5rem 0 1rem 1.15rem; }
+        .card { border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; margin: .85rem 0; background: rgba(17,17,24,.65); }
+        code { color: #a5f3fc; font-size: .85rem; }
+        .btn { display: inline-block; margin: .25rem .35rem .25rem 0; padding: .55rem .9rem; border-radius: 10px; border: 1px solid var(--line); background: #111118; color: var(--fg); font-weight: 600; font-size: .85rem; }
+        .btn.primary { background: linear-gradient(135deg, var(--accent), #06b6d4); color: #041016; border: none; }
+        footer { max-width: 860px; margin: 0 auto; padding: 1.25rem; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--line); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a class="logo" href="/">BLACKDARK</a>
+            <div>
+                <a href="/oracle-accuracy">Accuracy</a> ·
+                <a href="/capabilities">Capabilities</a> ·
+                <a href="/dashboard">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <h1>Public Developer Docs</h1>
+        <p>Evidence and read APIs only. Analytical tool — not financial advice. Secrets and live execution writes are not exposed here.</p>
+        <div class="card">
+            <a class="btn primary" href="/api/docs/public-openapi.json" target="_blank" rel="noopener">Public OpenAPI JSON</a>
+            <a class="btn" href="/api/docs/openapi.json" target="_blank" rel="noopener">Full ops OpenAPI</a>
+            <a class="btn" href="/oracle-accuracy">Public Accuracy Ledger</a>
+            <a class="btn" href="/errors">Public misses (/errors)</a>
+            <a class="btn" href="/api/trust-os">Trust OS JSON</a>
+        </div>
+
+        <h2>Primary prove-it surfaces</h2>
+        <ul>
+            {% for row in manifest.primary_surfaces %}
+            <li><code>{{ row.path }}</code> — {{ row.role }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Allowed public prefixes</h2>
+        <div class="card">
+            <ul>
+                {% for p in manifest.allowed_prefixes %}
+                <li><code>{{ p }}</code></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h2>Policy</h2>
+        <p>{{ manifest.disclaimer }}</p>
+        <p>Architecture index: <code>ARCHITECTURE.md</code> · Canon: four value layers · six heroes · no FalconAI 16-platform valuation.</p>
+        <p><strong>Anti-Hype</strong> · Not financial advice · Verify claims on the Public Accuracy Ledger.</p>
+    </main>
+    <footer>BLACKDARK · <a href="/legal">Legal</a> · <a href="/capabilities">Capabilities</a> · <a href="/contact">Contact</a></footer>
+</body>
+</html>

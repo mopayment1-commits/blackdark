@@ -208,9 +208,14 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
         stories = ["No major whale narratives in the current window — market in equilibrium."]
 
     headline = stories[0] if stories else ""
+    # Hero #2 bar: one plain sentence (Signal vs Noise), not a wall of jargon.
+    one_sentence = " ".join(str(headline).split())
+    if len(one_sentence) > 220:
+        one_sentence = one_sentence[:217].rstrip() + "…"
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "headline": headline,
+        "headline": one_sentence,
+        "one_sentence": one_sentence,
         "stories": stories,
         "alert_count": len(alerts),
         "flow_count": len(flows),
@@ -221,4 +226,6 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
         )
         or base_deriv.get("funding_rate") is not None,
         "note": "Transfers ≠ trades. Funding/OI hedge check applied when available.",
+        "hero": "whale_intelligence_radar",
+        "acceptance": "one_plain_sentence_signal_vs_noise",
     }

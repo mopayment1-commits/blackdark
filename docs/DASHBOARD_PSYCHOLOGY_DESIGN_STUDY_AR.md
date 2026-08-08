@@ -164,11 +164,10 @@
 
 | Audience | أول ما يراه | ما يُخفى حتى الطلب |
 |----------|-------------|---------------------|
-| Free | Oracle 10/day + Radar ملخص + Ledger رابط | Arb / Chat / Stealth |
-| Observer | Oracle موسّع + Inbox + Mirror خفيف | Arb كامل / Evidence |
-| Pro | OQS + Explain + Whale S/N + Portfolio | B2B Evidence |
-| Whale | Stealth Advisor + Half-Life + MEV + Evidence | — |
-| Fund | Emerging Terminal entry + Ledger | أدوات التجزئة |
+| Proof Pass (Free) | 3 قرارات مثبتة/يوم + شهادة + Why + Ledger | Portfolio AI / Arb / Chat / Stealth |
+| Decision Pro | OQS + Explain + Portfolio AI + Radar كامل | B2B Evidence |
+| Whale Desk | Stealth Advisor + Half-Life + Evidence + API | — |
+| Institutional | Emerging Terminal + Data Room | أدوات التجزئة |
 
 ---
 
@@ -181,7 +180,7 @@
 | يوم 0 | Telegram / Share Certificate | أول Oracle | Act/Wait واضح | حساب مجاني |
 | يوم 1–3 | تنبيه صباحي ناعم | نفس الرمز يومياً | مقارنة مع Ledger | Streak انضباط |
 | يوم 4–7 | Glass Box / Locked | قفل توقع | ترقب عام | مشاركة اجتماعية |
-| أسبوع 2 | Discipline Mirror | مراجعة سلوك | «كنت منضبطاً» | ترقية Observer/Pro |
+| أسبوع 2 | Discipline Mirror | مراجعة سلوك | «كنت منضبطاً» | ترقية Decision Pro |
 | مستمر | Inbox + Certificate | جلسة قصيرة يومياً | ثقة متراكمة | Whale عند الحاجة التنفيذية |
 
 **حارس أخلاقي (Binding):** Discipline Mirror يعاقب المبالغة في التداول — لا يكافئ عدد الصفقات.
@@ -192,14 +191,14 @@
 
 ### 6.1 السلم المقترح
 
-| Tier | سعر إرشادي | وعد عاطفي | حدود واضحة |
-|------|------------|-----------|------------|
-| **Free** | $0 | «جرّب القرار» | 10 Oracle/day · Radar · Ledger عام · TG 3/day |
-| **Observer** | $9–12/mo | «تابع بلا ضوضاء» | Oracle 50/day · Inbox كامل · Discipline Mirror · Alerts خفيفة |
-| **Pro** | $29/mo | «حافة يومية» | Unlimited Oracle · AI Chat · Arb · Whale S/N · Portfolio AI · Trial 7d |
-| **Whale** | $199/mo | «تنفيذ حذر» | + Stealth · Voice · B2B API · Evidence Pack · Priority |
+| Tier | سعر | وعد عاطفي | حدود واضحة |
+|------|-----|-----------|------------|
+| **Proof Pass** | $0 | «خذ قراراً… وأثبتّه علناً» | 3 شهادات/يوم · Why · Proof Card · Free watermark · Ledger |
+| **Decision Pro** | $29/mo | «من إثبات → عادة يومية» | Unlimited · Portfolio AI · Alerts · بلا watermark · Trial 7d |
+| **Whale Desk** | $199/mo | «حافة + تغليف للغير» | + Stealth · B2B API · Evidence Pack · Priority |
+| **Institutional** | من $3,000/mo | «غرفة قرار رسمية» | Data Room · SSO/MFA · SLA · Integration Addendum · Talk to us |
 
-> الكود الحالي: Free / Pro / Whale. **Observer** = طبقة تحويل مفقودة يجب إضافتها في المنتج + الفوترة حتى يكتمل السلم النفسي (تقليل قفزة $0→$29).
+> Binding: `docs/PRICING_TRUST_OS.md` + `pricing_catalog.py`. **لا Observer/$9 ولا Essential/$15** — أربعة مستويات كافية. التحويل من Free يعتمد على سقف 3/يوم + watermark + Portfolio AI على Pro.
 
 ### 6.2 قواعد عرض Pricing (ثوري وبسيط)
 

@@ -10,6 +10,6 @@
     "restartPolicyMaxRetries": 10,
     "healthcheckPath": "/health/live",
     "healthcheckTimeout": 120,
-    "multiServiceNote": "Set SERVICE_MODE=web, DATABASE_URL, REDIS_URL, LEMON_SQUEEZY_CHECKOUT_PRO in Railway Variables"
+    "multiServiceNote": "Viral HA: SERVICE_MODE=web, DATABASE_URL, REDIS_URL, SERVICE_BUS_LOCAL=false, WEB_CONCURRENCY≥2, WEB_REPLICAS=2, VIRAL_MODE=true, unset SOFT_LAUNCH, LEMON_SQUEEZY_CHECKOUT_PRO. See docs/VIRAL_LAUNCH_CAPACITY.md"
   }
 }
