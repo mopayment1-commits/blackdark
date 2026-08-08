@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pip-audit
+      # Critical pins raised (aiohttp/cryptography/strawberry). Transitive trees may still warn.
       - run: pip-audit -r requirements.txt --desc
         continue-on-error: true
 
@@ -28,4 +29,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt cryptography
-      - run: python -m pytest tests/test_security.py tests/test_risk_manager.py -q
+      - run: python -m pytest tests/test_security.py tests/test_security_hardening.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py -q

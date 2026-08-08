@@ -1,0 +1,39 @@
+# BLACKDARK — HA / security rehearsal stack
+# Usage:
+#   POSTGRES_PASSWORD=strong docker compose -f docker-compose.yml -f docker-compose.ha.yml up -d --scale web=2
+#
+# Soft Launch must stay unset. Point a CDN/WAF at published :8080 (or nginx:443).
+
+services:
+  web:
+    environment:
+      ENV: production
+      VIRAL_MODE: "true"
+      WEB_CONCURRENCY: "2"
+      WEB_REPLICAS: "2"
+      SERVICE_BUS_LOCAL: "false"
+      PRODUCTION_GUARD_FAIL_CLOSED: "true"
+      ADMIN_MFA_REQUIRED: "true"
+      EXPOSE_B2B_DEMO_KEY: "false"
+      PG_POOL_MIN: "4"
+      PG_POOL_MAX: "40"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        order: start-first
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nginx:
+    image: nginx:1.27-alpine
+    profiles: ["edge"]
+    ports:
+      - "8443:443"
+    volumes:
+      - ./nginx/blackdark.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
