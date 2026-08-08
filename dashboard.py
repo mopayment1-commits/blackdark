@@ -360,7 +360,16 @@ async def lifespan(app: FastAPI):
             logger.exception("Background shutdown failed")
 
 
-app = FastAPI(title="BLACKDARK", version="1.0.0", lifespan=lifespan)
+# Public /docs is our evidence/read developer page (not full Swagger dump).
+# Full schema remains at /api/docs/openapi.json; filtered at /api/docs/public-openapi.json.
+app = FastAPI(
+    title="BLACKDARK",
+    version="1.0.0",
+    lifespan=lifespan,
+    docs_url=None,
+    redoc_url=None,
+    openapi_url="/openapi.json",
+)
 
 
 @app.middleware("http")
@@ -884,8 +893,11 @@ async def sitemap_xml(request: Request):
         "/",
         "/dashboard",
         "/oracle-accuracy",
+        "/errors",
+        "/docs",
         "/b2b",
         "/discipline-mirror",
+        "/capabilities",
         "/platform",
         "/login",
     ]
@@ -911,6 +923,46 @@ async def dashboard_page(request: Request):
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return templates.TemplateResponse(request, "discipline.html")
+
+
+@app.get("/my/discipline-mirror")
+async def discipline_mirror_alias():
+    """Critical-report alias — same private mirror, no seventh product."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/discipline-mirror", status_code=307)
+
+
+@app.get("/errors")
+async def public_errors_alias():
+    """Public admission of misses — alias into the Accuracy Ledger losing section."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy#losing", status_code=307)
+
+
+@app.get("/public/accuracy-ledger")
+async def public_accuracy_ledger_alias():
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/oracle-accuracy", status_code=307)
+
+
+@app.get("/docs", response_class=HTMLResponse)
+async def public_developer_docs_page(request: Request):
+    """Limited public developer docs (evidence/read APIs) — not full execution surface."""
+    from public_api_docs import public_docs_manifest
+
+    return templates.TemplateResponse(
+        request,
+        "docs_public.html",
+        {"title": "Developer Docs", "manifest": public_docs_manifest()},
+    )
+
+
+@app.get("/docs/public", response_class=HTMLResponse)
+async def public_developer_docs_alias(request: Request):
+    return await public_developer_docs_page(request)
 
 
 @app.get("/api/dashboard/stream")
@@ -2467,22 +2519,44 @@ async def api_security_status():
     import secrets_vault
     from security_auth import admin_emails
 
+    from postgres_backend import use_postgres
+
+    vault_ok = bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY"))
     return {
         "password_hashing": "PBKDF2-SHA256 (260k iterations)",
         "session_tokens": "hashed_at_rest (SHA-256 + pepper)",
         "user_api_keys": "Fernet encrypted vault (per-user, whale tier)",
         "model_weights": "Fernet + HMAC integrity (admin-gated API)",
+        "at_rest_encryption": {
+            "status": "fernet_vault_when_configured" if vault_ok else "configure_SECRETS_MASTER_KEY",
+            "user_keys": "encrypted",
+            "iso_27001_certificate": False,
+            "note": "Engineering posture with Fernet at-rest encryption ≠ ISO 27001 certification",
+        },
+        "database_posture": {
+            "engine": "postgresql" if use_postgres() else "sqlite",
+            "institutional_pitch_requires_postgres": True,
+            "soft_launch_sqlite_ok": True,
+        },
+        "secrets_policy": {
+            "hardcoded_keys_forbidden": True,
+            "env_vault_required": True,
+            "hashicorp_vault_required": False,
+            "note": "Use env SECRETS_MASTER_KEY / SECRETS_VAULT_KEY — HashiCorp Vault is optional ops, not a ship claim",
+        },
         "execution_endpoints": "whale_tier_required",
         "panic_button": "cancel_all_orders + stop loop + risk freeze",
-        "risk_freeze": "persistent (SQLite, survives restart)",
+        "risk_freeze": "persistent (survives restart)",
         "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
         "admin_endpoints": "X-Admin-Key or admin email",
         "rate_limiting": "login 10 attempts / 5 min",
         "telegram_webhook": "secret token verified" if os.getenv("TELEGRAM_WEBHOOK_SECRET") else "set TELEGRAM_WEBHOOK_SECRET",
         "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
-        "vault_configured": bool(os.getenv("SECRETS_MASTER_KEY") or os.getenv("SECRETS_VAULT_KEY")),
+        "vault_configured": vault_ok,
         "model_weights_key_configured": bool(os.getenv("MODEL_WEIGHTS_KEY")),
         "admin_emails_configured": len(admin_emails()) > 0,
+        "public_developer_docs": "/docs",
+        "architecture_index": "ARCHITECTURE.md",
         "docs": "/SECURITY.md",
     }
 
@@ -2528,6 +2602,21 @@ async def api_infra_metrics():
 @app.get("/api/docs/openapi.json")
 async def api_openapi_export():
     return app.openapi()
+
+
+@app.get("/api/docs/public-openapi.json")
+async def api_public_openapi_export():
+    """Evidence/read OpenAPI only — omits admin/billing/execution write surfaces."""
+    from public_api_docs import filter_openapi_for_public
+
+    return filter_openapi_for_public(app.openapi())
+
+
+@app.get("/api/docs/public-manifest")
+async def api_public_docs_manifest():
+    from public_api_docs import public_docs_manifest
+
+    return public_docs_manifest()
 
 
 @app.get("/health/live")

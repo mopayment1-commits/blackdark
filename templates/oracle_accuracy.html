@@ -129,7 +129,14 @@
         <p id="chain-status" style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem"></p>
         <div class="cta-row" style="margin-top:1rem">
             <button class="btn btn-secondary" id="verifyChainBtn" type="button">Verify Audit Chain</button>
+            <a class="btn btn-secondary" href="#losing">Public misses / errors</a>
+            <a class="btn btn-secondary" href="#glass-box-challenge">Competitor challenge</a>
+            <a class="btn btn-secondary" href="/discipline-mirror">Discipline Mirror</a>
+            <a class="btn btn-secondary" href="/docs">Developer docs</a>
         </div>
+        <p style="margin-top:.75rem;color:var(--muted);font-size:.85rem;max-width:760px;margin-left:auto;margin-right:auto">
+            We publish hits <strong style="color:var(--text)">and misses</strong>. Alias: <a href="/errors" style="color:var(--accent)">/errors</a> → this ledger’s losing section.
+        </p>
     </section>
 
     <section class="panel">
@@ -223,11 +230,16 @@
 
     <section class="panel" id="losing">
         <div class="card">
-            <h2>Monthly Losing Trade Report</h2>
+            <h2>Public Misses · Errors We Own</h2>
+            <p style="color:var(--muted);font-size:0.88rem;margin-bottom:.65rem">
+                Public admission of labeled misses — not a separate product. Same Public Accuracy Ledger.
+                Competitors hide losses; we publish them. Alias route: <code>/errors</code>.
+            </p>
             <p id="losing-status" style="color:var(--muted);font-size:0.9rem">Loading honest misses…</p>
             <ul class="events" id="losing-list"><li>Loading...</li></ul>
             <div class="cta-row" style="margin-top:1rem;justify-content:flex-start">
                 <button class="btn btn-secondary" type="button" id="copyLosingBtn">Copy share text</button>
+                <a class="btn btn-secondary" href="#glass-box-challenge">Issue the competitor challenge</a>
             </div>
             <p style="margin-top:0.65rem;font-size:0.72rem;color:var(--muted)"><strong>Anti-Hype</strong> · Not financial advice. Past misses do not predict future results.</p>
         </div>

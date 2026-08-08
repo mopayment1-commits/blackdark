@@ -590,6 +590,7 @@
             </p>
             <div class="hero-cta">
                 <a href="/oracle-accuracy" class="btn-primary">Public Accuracy Ledger</a>
+                <a href="/errors" class="btn-secondary">Public misses</a>
                 <a href="/oracle-accuracy#glass-box-challenge" class="btn-secondary">Glass Box Challenge</a>
                 <a href="/b2b#fund-terminal" class="btn-secondary">Emerging Fund Terminal</a>
             </div>
@@ -1084,7 +1085,7 @@
                 const followAction = data.decision_action || data.verdict || action || 'WAIT';
                 disc.style.display = 'block';
                 disc.innerHTML =
-                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem">Discipline Mirror (private) — did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my page</a></div>` +
+                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
                     `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
                     `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
                     `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;

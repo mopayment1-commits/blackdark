@@ -7,7 +7,8 @@
 | ID | Item | Why deferred | Unblock condition |
 |----|------|--------------|-------------------|
 | H1 | Browser Extension (OQS overlay) | Built in PR #4 (`browser_extension/`) | Merge PR #4 + Load unpacked |
-| H2 | Glass Box Challenge launch timing + channel | LAUNCH_ONLY narrative | Choose event clock + post drafts from `GET /api/glass-box/announce-drafts` |
+| H2 | Glass Box Challenge launch timing + channel | LAUNCH_ONLY narrative | Choose event clock + post drafts from `GET /api/glass-box/announce-drafts` (competitor challenge is product-ready) |
+| Prod | Strict production Postgres | Soft Launch may use SQLite | Before institutional pitch: `DATABASE_URL=postgresql://…` and unset `SOFT_LAUNCH` — guard enforces `sqlite_forbidden_in_strict_production` |
 | H3 | 60-second value confirm (human) | Needs founder cold walkthrough | Founder opens live URL cold; machine probe is `GET /api/acceptance/60s` |
 | HA | Signed HA capacity claim | Needs Postgres+Redis multi-worker staging | Fill a real row in [`LOAD_TEST_RUN_LOG.md`](./LOAD_TEST_RUN_LOG.md) |
 | Ops | Railway trial ended · Stripe/Telegram optional | Railway cannot redeploy free | **Free path:** merge Render Blueprint — [`RENDER_FREE_AR.md`](./RENDER_FREE_AR.md) |

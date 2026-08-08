@@ -20,8 +20,12 @@ See [`docs/TRUST_OS_VALUE_LAYERS.md`](docs/TRUST_OS_VALUE_LAYERS.md) and `GET /a
 | Audience | URL |
 |----------|-----|
 | Proof | `/oracle-accuracy` |
+| Public misses | `/errors` → ledger `#losing` |
 | Decision | `/dashboard` |
+| Discipline Mirror | `/discipline-mirror` |
 | Emerging funds | `/b2b#fund-terminal` |
+| Public developer docs | `/docs` (evidence/read OpenAPI) |
+| Architecture index | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | Compliance posture | `/compliance` |
 | Trust OS JSON | `/api/trust-os` |
 
