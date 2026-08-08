@@ -151,7 +151,7 @@ def payments_architecture() -> dict[str, Any]:
         "product": "BLACKDARK Trust OS",
         "currency": BILLING_CURRENCY_DISPLAY,
         "currency_code": BILLING_CURRENCY,
-        "story": "USD depth ladder — Proof Pass free; Decision Pro / Whale Desk self-serve; Institutional wire.",
+        "story": "USD depth ladder — Proof Pass free; Decision Pro / Decision Desk self-serve; Institutional wire.",
         "provider_preference": [
             "lemon_squeezy_merchant_of_record (launch default)",
             "stripe_billing (institutional-grade control when entity ready)",

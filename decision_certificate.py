@@ -11,6 +11,12 @@ reviewable decision + certificate.
 
 from __future__ import annotations
 
+LEGAL_SHIELD_PREFIX = (
+    "BLACKDARK Trust OS — decision evidence only. "
+    "Not financial advice. Not a regulated investment service. "
+    "Four-layer legal shield applies. "
+)
+
 import hashlib
 import json
 from datetime import UTC, datetime
@@ -25,7 +31,7 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
     """Build a public-safe Decision Certificate from an Oracle response.
 
     Proof Pass (free) cards carry a removable "Free Proof" watermark.
-    Decision Pro / Whale Desk strip it — that is a primary Free→Pro lever.
+    Decision Pro / Decision Desk strip it — that is a primary Free→Pro lever.
     """
     tier = str(payload.get("tier") or "free").strip().lower()
     is_free = tier in ("", "free")
@@ -107,7 +113,7 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         f"Certificate hash: {body['certificate_hash']}\n"
         f"Issued at (UTC): {body['issued_at']}\n"
         f"Verify: {verify_url}\n"
-        "Not financial advice. Labels are not proof — verify the Public Accuracy Ledger.\n"
+        "Not financial advice. Four-layer legal shield applies. Labels are not proof — verify the Public Accuracy Ledger.\n"
     )
     body["compliance"] = compliance_footer_block(
         surface="decision_certificate",

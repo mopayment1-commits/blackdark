@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -35,6 +35,7 @@ load_dotenv(_ROOT / ".env")
 load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
+from safe_errors import public_error
 from security_auth import (
     is_admin_user,
     require_admin,
@@ -60,6 +61,35 @@ STRIPE_TIERS = {
     "whale": {"amount": 4900, "name": "Decision Desk"},
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
 
+
+
+def _legal_terms_ack_ok(request: Request) -> bool:
+    """Layer-4 gate: visitor acknowledged Terms (cookie) or is an authenticated session."""
+    if (request.cookies.get("bd_terms_ack") or "").strip() == "1":
+        return True
+    # Registered users already accepted Terms at signup (auth_service.register_user).
+    auth = (request.headers.get("Authorization") or "").strip()
+    if auth.lower().startswith("bearer ") and len(auth) > 20:
+        return True
+    token = (request.cookies.get("bd_token") or "").strip()
+    if token:
+        return True
+    return False
+
+
+def _require_terms_ack_or_403(request: Request):
+    if _legal_terms_ack_ok(request):
+        return None
+    return JSONResponse(
+        {
+            "ok": False,
+            "error": "terms_ack_required",
+            "message": "Acknowledge Terms before using decision surfaces.",
+            "ack_path": "/api/legal/ack-terms",
+            "terms_path": "/terms",
+        },
+        status_code=403,
+    )
 
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
     """Render a Jinja template with full i18n context (lang switcher + t())."""
@@ -854,7 +884,7 @@ async def profile_page(request: Request):
 
 @app.get("/reset-password", response_class=HTMLResponse)
 async def reset_password_page(request: Request):
-    return templates.TemplateResponse(request, "reset_password.html", _footer_ctx())
+    return render_page(request, "reset_password.html", _footer_ctx())
 
 
 @app.get("/verify-email", response_class=HTMLResponse)
@@ -1454,7 +1484,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Whale Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -1842,7 +1872,13 @@ async def oracle(
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":
-        return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
+        if not _legal_terms_ack_ok(request):
+            return RedirectResponse(url="/terms?need_ack=1&next=/oracle-accuracy", status_code=303)
+        return render_page(request, "oracle_accuracy.html", _footer_ctx())
+
+    blocked = _require_terms_ack_or_403(request)
+    if blocked is not None:
+        return blocked
 
     from auth_service import check_oracle_quota
 
@@ -2363,7 +2399,10 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
-    return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
+    if not _legal_terms_ack_ok(request):
+        # Soft HTML gate — public ledger remains reachable after one-click ack on /terms
+        return RedirectResponse(url="/terms?need_ack=1&next=/oracle-accuracy", status_code=303)
+    return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
 # ML experience routes → api/routers/oracle.py
@@ -2502,6 +2541,40 @@ async def b2b_page(request: Request):
             **_footer_ctx(),
         },
     )
+
+
+
+@app.post("/api/legal/ack-terms")
+async def api_legal_ack_terms():
+    """Record Terms acknowledgement (Layer-4 legal shield) for anonymous visitors."""
+    resp = JSONResponse({"ok": True, "acked": True})
+    resp.set_cookie(
+        "bd_terms_ack",
+        "1",
+        max_age=60 * 60 * 24 * 365,
+        httponly=False,
+        samesite="lax",
+        secure=os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"},
+    )
+    return resp
+
+
+@app.get("/system/info")
+async def system_info(request: Request, user: dict | None = Depends(optional_user)):
+    """Classified system surface — requires Terms ack; auth required for payload."""
+    blocked = _require_terms_ack_or_403(request)
+    if blocked is not None:
+        return blocked
+    if not user:
+        return JSONResponse({"ok": False, "error": "auth_required"}, status_code=401)
+    return {
+        "ok": True,
+        "classification": "internal",
+        "product": "BLACKDARK Trust OS",
+        "disclaimer": "Not financial advice. Decision evidence only. Four-layer legal shield applies.",
+        "user_id": user.get("id"),
+        "tier": user.get("tier"),
+    }
 
 
 def _legal_page(request: Request, page: str):

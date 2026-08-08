@@ -166,7 +166,7 @@
 |----------|-------------|---------------------|
 | Proof Pass (Free) | 3 قرارات مثبتة/يوم + شهادة + Why + Ledger | Portfolio AI / Arb / Chat / Stealth |
 | Decision Pro | OQS + Explain + Portfolio AI + Radar كامل | B2B Evidence |
-| Whale Desk | Stealth Advisor + Half-Life + Evidence + API | — |
+| Decision Desk | Stealth Advisor + Half-Life + Evidence + API | — |
 | Institutional | Emerging Terminal + Data Room | أدوات التجزئة |
 
 ---

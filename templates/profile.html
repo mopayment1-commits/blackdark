@@ -98,7 +98,7 @@
             <section class="card" id="valueDigestCard">
                 <h2>Subscriber value</h2>
                 <p class="hint">Pro/Whale digest — usage vs plan, not a performance guarantee.</p>
-                <div id="valueDigest" class="hint">Sign in on Decision Pro or Whale Desk to load your digest.</div>
+                <div id="valueDigest" class="hint">Sign in on Decision Pro or Decision Desk to load your digest.</div>
             </section>
         </main>
     </div>
@@ -137,7 +137,7 @@
         document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' +
             (d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>');
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
-            ? 'Authenticator MFA is enabled. Recommended for Whale Desk.'
+            ? 'Authenticator MFA is enabled. Recommended for Decision Desk.'
             : 'Optional TOTP MFA — strongly recommended for paid tiers.';
         document.getElementById('billingHint').textContent =
             'Plan: ' + tier + '. Currency USD. ' + ((d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.');

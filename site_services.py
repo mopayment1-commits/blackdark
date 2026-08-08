@@ -209,7 +209,7 @@ def footer_manifest() -> dict[str, Any]:
         ],
         "follow": brand_social(),
         "contact": contact,
-        "disclaimer_line": "Not financial advice. AI cannot guarantee returns. Verify on the Public Accuracy Ledger.",
+        "disclaimer_line": "Four-layer legal shield active. Not financial advice. AI cannot guarantee returns. Verify on the Public Accuracy Ledger.",
     }
 
 
