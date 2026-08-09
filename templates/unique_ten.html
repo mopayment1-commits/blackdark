@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Unique Ten (F1–F10)</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(160deg,#070a0f,#122018 40%,#0b1016);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:880px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.9rem,4vw,3rem)}
+.sub{color:var(--muted);line-height:1.55;max-width:40rem}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:1.4rem 0}
+a.card{border:1px solid var(--line);padding:1rem;color:inherit;text-decoration:none;background:rgba(255,255,255,.02)}
+a.card strong{display:block;font-family:Syne,sans-serif;margin-bottom:.35rem;color:var(--ok)}
+.flag{font-size:1.6rem;font-weight:800;color:var(--ok);margin:1rem 0}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div><a href="/miss-feed">F1</a><a href="/coverage-honesty">Coverage</a></div></nav>
+<main>
+<h1>Unique Ten</h1>
+<p class="sub">Competitor-gap features unavailable as a honest bundle at Nansen / TV / Glassnode / Kaiko — shipped as Trust OS surfaces.</p>
+<div class="flag" id="flag">—</div>
+<div class="grid" id="grid"></div>
+</main>
+<script>
+fetch('/api/public/f1-f10-closure').then(r=>r.json()).then(d=>{
+  document.getElementById('flag').textContent = d.all_done ? 'F1–F10 complete 100%' : 'In progress';
+  (d.checklist||[]).forEach(c=>{
+    const a=document.createElement('a'); a.className='card'; a.href=c.href;
+    a.innerHTML=`<strong>${c.id} · ${c.name}</strong><span class="sub">${c.proof||''}</span>`;
+    document.getElementById('grid').appendChild(a);
+  });
+});
+</script>
+</body>
+</html>

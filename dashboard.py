@@ -1194,6 +1194,15 @@ async def sitemap_xml(request: Request):
         "/miss-feed",
         "/coverage-honesty",
         "/emotion-tax",
+        "/allocator-receipt",
+        "/transfer-intent",
+        "/silence-index",
+        "/alert-passport",
+        "/visibility-cost",
+        "/validity-decay",
+        "/desk-duel",
+        "/trust-debt",
+        "/unique-ten",
         "/institutional",
         "/model-card",
         "/d5-honesty",
@@ -1289,6 +1298,51 @@ async def coverage_honesty_page(request: Request):
 @app.get("/emotion-tax", response_class=HTMLResponse)
 async def emotion_tax_page(request: Request):
     return templates.TemplateResponse(request, "emotion_tax.html", _footer_ctx())
+
+
+@app.get("/allocator-receipt", response_class=HTMLResponse)
+async def allocator_receipt_page(request: Request):
+    return templates.TemplateResponse(request, "allocator_receipt.html", _footer_ctx())
+
+
+@app.get("/transfer-intent", response_class=HTMLResponse)
+async def transfer_intent_page(request: Request):
+    return templates.TemplateResponse(request, "transfer_intent.html", _footer_ctx())
+
+
+@app.get("/silence-index", response_class=HTMLResponse)
+async def silence_index_page(request: Request):
+    return templates.TemplateResponse(request, "silence_index.html", _footer_ctx())
+
+
+@app.get("/alert-passport", response_class=HTMLResponse)
+async def alert_passport_page(request: Request):
+    return templates.TemplateResponse(request, "alert_passport.html", _footer_ctx())
+
+
+@app.get("/visibility-cost", response_class=HTMLResponse)
+async def visibility_cost_page(request: Request):
+    return templates.TemplateResponse(request, "visibility_cost.html", _footer_ctx())
+
+
+@app.get("/validity-decay", response_class=HTMLResponse)
+async def validity_decay_page(request: Request):
+    return templates.TemplateResponse(request, "validity_decay.html", _footer_ctx())
+
+
+@app.get("/desk-duel", response_class=HTMLResponse)
+async def desk_duel_page(request: Request):
+    return templates.TemplateResponse(request, "desk_duel.html", _footer_ctx())
+
+
+@app.get("/trust-debt", response_class=HTMLResponse)
+async def trust_debt_page(request: Request):
+    return templates.TemplateResponse(request, "trust_debt.html", _footer_ctx())
+
+
+@app.get("/unique-ten", response_class=HTMLResponse)
+async def unique_ten_page(request: Request):
+    return templates.TemplateResponse(request, "unique_ten.html", _footer_ctx())
 
 
 @app.get("/institutional", response_class=HTMLResponse)

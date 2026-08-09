@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Allocator Decision Receipt</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399;--accent:#38bdf8;--warn:#fbbf24}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:radial-gradient(900px 500px at 80% -10%,#1a2a22 0%,transparent 50%),linear-gradient(165deg,#070a0f,#101820);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:.85rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:760px;margin:0 auto;padding:2.1rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.7rem,4vw,2.6rem);margin:0}
+.sub{color:var(--muted);line-height:1.55;margin:.55rem 0 1.2rem}
+.hero{font-size:clamp(1.8rem,5vw,2.8rem);color:var(--accent);font-weight:800;margin:1rem 0}
+.box{border:1px solid var(--line);padding:1.1rem;margin:.75rem 0;background:rgba(255,255,255,.02)}
+input,button{font:inherit} input{width:100%;background:#0e141c;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;margin:.35rem 0 .8rem}
+button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:.65rem 1rem;cursor:pointer;text-decoration:none;display:inline-block}
+.muted{color:var(--muted)} code{color:var(--ok)}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/unique-ten">F1–F10</a><a href="/miss-feed">Miss Feed</a><a href="/b2b/committee-one-pager">Committee</a>
+</div></nav>
+<main>
+<h1>Allocator Decision Receipt</h1>
+<p class="sub">F3 — Sealed LP-ready receipt of recent decisions, accuracy, and kill-rate.</p>
+<label class="sub">Fund name</label><input id="fund" value="Emerging Desk"><button type="button" onclick="load()">Build receipt</button> <a class="btn" href="/api/allocator-receipt/pdf" id="pdf">PDF</a>
+<div class="hero" id="hero">—</div>
+<div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
+<a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>
+</main>
+<script>
+async function load(){const f=document.getElementById('fund').value||'Emerging Desk';const d=await(await fetch('/api/allocator-receipt?fund_name='+encodeURIComponent(f))).json();document.getElementById('hero').textContent=d.headline||('Seal '+((d.seal_hash||'').slice(0,16)));document.getElementById('line').textContent=`Decisions ${d.decision_count} · kill-rate ${d.kill_rate_percent??'—'}% · seal ${(d.seal_hash||'').slice(0,24)}…`;document.getElementById('disc').textContent=d.disclaimer||'';document.getElementById('share').href=d.share_urls?.x||'#';document.getElementById('pdf').href='/api/allocator-receipt/pdf?fund_name='+encodeURIComponent(f);}load();
+</script>
+</body>
+</html>

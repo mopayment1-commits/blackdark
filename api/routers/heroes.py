@@ -355,6 +355,207 @@ async def brand_coverage_closure_api():
     return await build_brand_coverage_radical_closure()
 
 
+@router.get("/api/public/f1-f10-closure")
+async def f1_f10_closure_api():
+    from f1_f10_unique_closure import build_f1_f10_unique_closure
+
+    return await build_f1_f10_unique_closure()
+
+
+@router.get("/api/allocator-receipt")
+async def allocator_receipt_api(
+    limit: int = Query(12, ge=1, le=50),
+    fund_name: str = Query("Emerging Desk"),
+):
+    from allocator_decision_receipt import build_allocator_decision_receipt
+
+    return await build_allocator_decision_receipt(limit=limit, fund_name=fund_name)
+
+
+@router.get("/api/allocator-receipt/pdf")
+async def allocator_receipt_pdf_api(
+    limit: int = Query(12, ge=1, le=50),
+    fund_name: str = Query("Emerging Desk"),
+):
+    from fastapi.responses import Response
+
+    from allocator_decision_receipt import (
+        build_allocator_decision_receipt,
+        render_allocator_receipt_pdf,
+    )
+
+    receipt = await build_allocator_decision_receipt(limit=limit, fund_name=fund_name)
+    pdf = render_allocator_receipt_pdf(receipt)
+    return Response(
+        content=pdf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'inline; filename="allocator-receipt.pdf"'},
+    )
+
+
+@router.get("/api/transfer-intent")
+async def transfer_intent_api(asset: str = Query("BTC")):
+    from transfer_intent_probability import build_transfer_intent_board
+
+    return await build_transfer_intent_board(asset=asset)
+
+
+@router.post("/api/transfer-intent")
+async def transfer_intent_compute(payload: dict = Body(default={})):
+    from transfer_intent_probability import compute_transfer_intent
+
+    body = payload or {}
+    return compute_transfer_intent(
+        asset=str(body.get("asset") or "BTC"),
+        amount_usd=float(body.get("amount_usd") or 5_000_000),
+        from_label=str(body.get("from_label") or "unknown"),
+        to_label=str(body.get("to_label") or "unknown"),
+        funding_z=body.get("funding_z"),
+        oi_change_percent=body.get("oi_change_percent"),
+    )
+
+
+@router.get("/api/silence-index")
+async def silence_index_api():
+    from industry_silence_index import build_industry_silence_index
+
+    return build_industry_silence_index()
+
+
+@router.post("/api/silence-index/event")
+async def silence_index_event(payload: dict = Body(default={})):
+    from datetime import UTC, datetime
+
+    from industry_silence_index import register_event
+
+    body = payload or {}
+    return register_event(
+        event_name=str(body.get("event_name") or "Untitled event"),
+        event_at=str(body.get("event_at") or datetime.now(UTC).isoformat()),
+        category=str(body.get("category") or "macro"),
+        sealed_by_blackdark=bool(body.get("sealed_by_blackdark", True)),
+        peer_seals=body.get("peer_seals"),
+    )
+
+
+@router.get("/api/alert-passport")
+async def alert_passport_api(user_key: str = Query("anon")):
+    from proof_gated_alert_passport import build_alert_passport
+
+    return build_alert_passport(user_key=user_key)
+
+
+@router.post("/api/alert-passport/evaluate")
+async def alert_passport_evaluate(payload: dict = Body(default={})):
+    from proof_gated_alert_passport import evaluate_alert_gate
+
+    body = payload or {}
+    return evaluate_alert_gate(
+        user_key=str(body.get("user_key") or "anon"),
+        asset=str(body.get("asset") or "BTC"),
+        net_edge_pass=body.get("net_edge_pass"),
+        veto_clear=body.get("veto_clear"),
+        freshness_ok=body.get("freshness_ok"),
+        truth_score=body.get("truth_score"),
+        freshness_ms=body.get("freshness_ms"),
+    )
+
+
+@router.get("/api/visibility-cost")
+async def visibility_cost_api(
+    asset: str = Query("ETH"),
+    notional_usd: float = Query(250_000.0, ge=100, le=50_000_000),
+    venue: str = Query("public_memepool"),
+):
+    from whale_visibility_cost import build_visibility_cost_meter
+
+    return build_visibility_cost_meter(asset=asset, notional_usd=notional_usd, venue=venue)
+
+
+@router.get("/api/validity-decay")
+async def validity_decay_api(
+    limit: int = Query(40, ge=1, le=200),
+    asset: str | None = Query(None),
+):
+    from decision_validity_decay import build_validity_decay_map
+
+    return await build_validity_decay_map(limit=limit, asset=asset)
+
+
+@router.get("/api/desk-duel")
+async def desk_duel_board_api(limit: int = Query(20, ge=1, le=100)):
+    from sealed_desk_duel import build_duel_board
+
+    return build_duel_board(limit=limit)
+
+
+@router.post("/api/desk-duel")
+async def desk_duel_create(payload: dict = Body(default={})):
+    from sealed_desk_duel import create_duel
+
+    body = payload or {}
+    return create_duel(
+        asset=str(body.get("asset") or "BTC"),
+        window_minutes=int(body.get("window_minutes") or 60),
+        host_desk=str(body.get("host_desk") or "Desk A"),
+        host_verdict=str(body.get("host_verdict") or "WAIT"),
+        invitee_desk=str(body.get("invitee_desk") or "Desk B"),
+    )
+
+
+@router.post("/api/desk-duel/accept")
+async def desk_duel_accept(payload: dict = Body(default={})):
+    from sealed_desk_duel import accept_duel
+
+    body = payload or {}
+    try:
+        return accept_duel(
+            str(body.get("duel_id") or ""),
+            desk=str(body.get("desk") or "Challenger"),
+            verdict=str(body.get("verdict") or "WAIT"),
+        )
+    except ValueError as exc:
+        from fastapi import HTTPException
+
+        raise HTTPException(400, str(exc)) from exc
+
+
+@router.post("/api/desk-duel/reveal")
+async def desk_duel_reveal(payload: dict = Body(default={})):
+    from sealed_desk_duel import reveal_duel
+
+    body = payload or {}
+    try:
+        return reveal_duel(str(body.get("duel_id") or ""), force=bool(body.get("force", True)))
+    except ValueError as exc:
+        from fastapi import HTTPException
+
+        raise HTTPException(400, str(exc)) from exc
+
+
+@router.get("/api/trust-debt")
+async def trust_debt_api(
+    user_key: str = Query("anon"),
+    window_days: int = Query(7, ge=1, le=90),
+):
+    from trust_debt_score import build_trust_debt_score
+
+    return build_trust_debt_score(user_key=user_key, window_days=window_days)
+
+
+@router.post("/api/trust-debt/event")
+async def trust_debt_event(payload: dict = Body(default={})):
+    from trust_debt_score import record_trust_event
+
+    body = payload or {}
+    return record_trust_event(
+        user_key=str(body.get("user_key") or "anon"),
+        kind=str(body.get("kind") or "ledger_decision"),
+        weight=float(body.get("weight") or 1.0),
+        note=str(body.get("note") or ""),
+    )
+
+
 @router.get("/api/contradiction-replay")
 async def contradiction_replay_api(
     symbol: str = Query("BTC"),
@@ -511,6 +712,20 @@ async def wow_surfaces_manifest():
             "emotion_tax": "/emotion-tax",
             "provenance_score": "/api/oracle/provenance-score",
             "status_api": "/api/public/brand-coverage-closure",
+            "product_complete": True,
+        },
+        "f1_f10_unique_full_ship": {
+            "F1": "/miss-feed",
+            "F2": "/emotion-tax",
+            "F3": "/allocator-receipt",
+            "F4": "/transfer-intent",
+            "F5": "/silence-index",
+            "F6": "/alert-passport",
+            "F7": "/visibility-cost",
+            "F8": "/validity-decay",
+            "F9": "/desk-duel",
+            "F10": "/trust-debt",
+            "status_api": "/api/public/f1-f10-closure",
             "product_complete": True,
         },
     }
