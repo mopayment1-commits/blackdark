@@ -18,22 +18,28 @@ def test_setup_admin_never_prints_or_stores_clear_key_in_env():
     src = (ROOT / "scripts/setup_admin.py").read_text(encoding="utf-8")
     assert "ADMIN_API_KEY_FILE" in src
     assert "write_private_text" in src
-    assert "mask_secret" in src
+    # Stronger than masking: raw key material never reaches stdout.
+    assert "fingerprint" not in src
+    assert "mask_secret" not in src
+    assert "print(api_key)" not in src
     assert 'print(f"  ADMIN_API_KEY={api_key}")' not in src
     assert 'lines = _upsert(lines, "ADMIN_API_KEY", api_key)' not in src
+    assert "Raw key is not printed" in src
 
 
 def test_launch_secrets_never_print_cleartext():
     src = (ROOT / "scripts/generate_launch_secrets.py").read_text(encoding="utf-8")
-    assert "mask_secret" in src
     assert "write_private_text" in src
     assert "print(text)" not in src
+    assert "<written-to-private-file>" in src
+    assert "mask_secret(value)" not in src
 
 
 def test_telegram_setup_masks_secrets():
     src = (ROOT / "scripts/setup_telegram_production.py").read_text(encoding="utf-8")
-    assert "mask_secret" in src
     assert 'print(f"  {key}={val or hint}")' not in src
+    assert 'return "<set>"' in src or '"<set>"' in src
+    assert "mask_secret(val)" not in src
 
 
 def test_railway_checklist_no_secret_json_dump():
@@ -46,6 +52,8 @@ def test_exception_sinks_do_not_echo_str_exc():
     vault = (ROOT / "bd_platform/vault_client.py").read_text(encoding="utf-8")
     assert '"error": str(exc)' not in vault
     assert "vault_read_failed" in vault
+    assert "_safe_secret_key" in vault
+    assert "invalid_vault_secret_key" in vault
     sse = (ROOT / "bd_platform/sse_stream.py").read_text(encoding="utf-8")
     assert "str(exc)" not in sse
     assert "stream_unavailable" in sse
