@@ -958,11 +958,11 @@
                     <div class="price">$0<span>/month</span></div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.proof_promise') }}</p>
                     <ul>
-                        <li>Trust Pulse + OQS Why</li>
-                        <li>Shareable Decision Certificate</li>
-                        <li>3 certified decisions / day</li>
-                        <li>Public Accuracy Ledger</li>
-                        <li>Free Proof watermark</li>
+                        <li>{{ t('pricing.free.b1') }}</li>
+                        <li>{{ t('pricing.free.b2') }}</li>
+                        <li>{{ t('pricing.free.b3') }}</li>
+                        <li>{{ t('pricing.free.b4') }}</li>
+                        <li>{{ t('pricing.free.b5') }}</li>
                     </ul>
                     <a href="/login?tab=register" class="btn-secondary btn">{{ t('pricing.cta.free_signup') }}</a>
                 </div>
@@ -970,28 +970,28 @@
                 <div class="pricing-card bd-price-tier popular">
                     <div class="bd-popular-badge">{{ t('pricing.popular') }}</div>
                     <h3>{{ t('pricing.decision_pro') }}</h3>
-                    <div class="price">$29<span>/month USD</span></div>
+                    <div class="price">$29<span>{{ t('pricing.mo_usd') }}</span></div>
                     <p style="color:var(--success);font-size:0.85rem;margin-bottom:0.75rem">{{ t('pricing.trial_note') }}</p>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.pro_promise') }}</p>
                     <ul>
-                        <li>Unlimited certified Oracle</li>
-                        <li>Since-you-left continuity</li>
-                        <li>Portfolio AI + alerts</li>
-                        <li>AI Chat · no Free watermark</li>
-                        <li>Research Lab + Arbitrage</li>
+                        <li>{{ t('pricing.pro.b1') }}</li>
+                        <li>{{ t('pricing.pro.b2') }}</li>
+                        <li>{{ t('pricing.pro.b3') }}</li>
+                        <li>{{ t('pricing.pro.b4') }}</li>
+                        <li>{{ t('pricing.pro.b5') }}</li>
                     </ul>
                     <a href="/create-checkout-session?tier=pro" class="btn-primary btn">{{ t('pricing.cta.trial') }}</a>
                 </div>
                 
                 <div class="pricing-card bd-price-tier">
                     <h3>{{ t('pricing.decision_desk') }}</h3>
-                    <div class="price">$49<span>/month USD</span></div>
+                    <div class="price">$49<span>{{ t('pricing.mo_usd') }}</span></div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.desk_promise') }}</p>
                     <ul>
-                        <li>Everything in Decision Pro</li>
-                        <li>Whale Signal vs Noise</li>
-                        <li>Stealth advisory views</li>
-                        <li>Evidence Pack + API priority</li>
+                        <li>{{ t('pricing.desk.b1') }}</li>
+                        <li>{{ t('pricing.desk.b2') }}</li>
+                        <li>{{ t('pricing.desk.b3') }}</li>
+                        <li>{{ t('pricing.desk.b4') }}</li>
                     </ul>
                     <a href="/create-checkout-session?tier=whale" class="btn-primary btn">{{ t('pricing.cta.desk') }}</a>
                     <a href="/b2b" class="btn-secondary btn" style="margin-top:0.5rem">{{ t('pricing.cta.b2b') }}</a>
@@ -1002,37 +1002,37 @@
                     <div class="price" style="font-size:1.55rem">{{ t('pricing.from_open') }}</div>
                     <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.5rem">{{ t('pricing.inst_promise') }}</p>
                     <ul>
-                        <li>Data Room + Compliance pack</li>
-                        <li>SSO / enforced MFA</li>
-                        <li>SLA · Integration Addendum</li>
+                        <li>{{ t('pricing.inst.b1') }}</li>
+                        <li>{{ t('pricing.inst.b2') }}</li>
+                        <li>{{ t('pricing.inst.b3') }}</li>
                     </ul>
                     <a href="/data-room" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
                 </div>
             </div>
             
             <form id="institutionalInquiryForm" style="max-width:520px;margin:1.5rem auto 0;display:grid;gap:.55rem;text-align:left">
-                <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">Institutional inquiry (USD wire / invoice)</h3>
-                <label for="instEmail" style="color:var(--text-muted);font-size:.85rem">Work email</label>
-                <input id="instEmail" required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instName" style="color:var(--text-muted);font-size:.85rem">Name</label>
-                <input id="instName" type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
-                <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
-                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
-                <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
+                <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">{{ t('inst.form.title') }}</h3>
+                <label for="instEmail" style="color:var(--text-muted);font-size:.85rem">{{ t('inst.form.email') }}</label>
+                <input id="instEmail" required type="email" name="email" placeholder="{{ t('inst.form.email_ph') }}" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instName" style="color:var(--text-muted);font-size:.85rem">{{ t('inst.form.name') }}</label>
+                <input id="instName" type="text" name="name" placeholder="{{ t('inst.form.name') }}" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">{{ t('inst.form.firm') }}</label>
+                <input id="instCompany" type="text" name="company" placeholder="{{ t('inst.form.firm') }}" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">{{ t('inst.form.budget') }}</label>
+                <input id="instBudget" type="text" name="budget_usd" placeholder="{{ t('inst.form.budget_ph') }}" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">{{ t('inst.form.usecase') }}</label>
+                <textarea id="instMessage" name="message" rows="3" placeholder="{{ t('inst.form.usecase_ph') }}" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
                 <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
                 <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
             </form>
 
             <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
-                Checking payment readiness…
+                {{ t('pricing.billing_checking') }}
             </p>
             <p style="text-align:center;color:var(--text-muted);margin-top:1rem;font-size:0.85rem;max-width:720px;margin-left:auto;margin-right:auto">
                 {{ t('pricing.pay_note') }}
-                {{ t('pricing.manage') }} <a href="/profile" style="color:var(--accent)">Profile</a>.
-                Not financial advice; we do not guarantee accuracy. Read the <a href="/refund" style="color:var(--accent)">Refund Policy</a>.
+                {{ t('pricing.manage') }} <a href="/profile" style="color:var(--accent)">{{ t('pricing.profile') }}</a>.
+                {{ t('pricing.not_advice') }} <a href="/refund" style="color:var(--accent)">{{ t('pricing.refund') }}</a>.
                 Catalog: <a href="/api/pricing" style="color:var(--accent)">/api/pricing</a> · Payments: <a href="/api/billing/payments" style="color:var(--accent)">/api/billing/payments</a>
             </p>
         </div>
@@ -1040,10 +1040,10 @@
     
     <section class="waitlist" id="waitlist">
         <h2 style="font-family:var(--bd-font-display);font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; margin-bottom: 1rem;">
-            Get early access to <span style="color: var(--accent);">Trust OS</span>
+            {{ t('waitlist.title') }}
         </h2>
         <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto;">
-            Join the waitlist for launch updates. No fake seat counters — just a clear path to Prove.
+            {{ t('waitlist.sub') }}
         </p>
         <div class="landing-stats" id="landingStats" aria-label="Platform activity" style="margin:1.25rem auto 0;border:none">
             <span>Visitors: <strong id="landingViews">—</strong></span>

@@ -39,3 +39,11 @@ def test_login_arabic_tabs():
     ar = client.get("/login?lang=ar").text
     assert "إنشاء حساب" in ar
     assert "دخول" in ar
+
+
+def test_arabic_pricing_bullets_and_institutional_form_switch():
+    ar = client.get("/?lang=ar").text
+    assert "شهادة قرار قابلة للمشاركة" in ar
+    assert "استفسار مؤسسي" in ar
+    assert "Trust Pulse + OQS Why" not in ar
+    assert "Institutional inquiry (USD wire / invoice)" not in ar
