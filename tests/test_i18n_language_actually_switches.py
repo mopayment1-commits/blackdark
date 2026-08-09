@@ -30,7 +30,8 @@ def test_arabic_changes_hero_and_lenses_and_nav():
 
 def test_french_changes_hero():
     fr = client.get("/?lang=fr").text
-    assert "Nous publions l'échec." in fr
+    # Apostrophe may be HTML-escaped in attributes/body depending on Jinja autoescape.
+    assert ("Nous publions l'échec." in fr) or ("Nous publions l&#39;échec." in fr)
     assert 'lang="fr"' in fr
 
 

@@ -4,12 +4,22 @@ from __future__ import annotations
 
 import logging
 import os
+import re
 from typing import Any
 
 logger = logging.getLogger("BLACKDARK.VaultClient")
 
 MOUNT = os.getenv("VAULT_KV_MOUNT", "secret")
 PATH_PREFIX = os.getenv("VAULT_SECRET_PATH", "blackdark")
+_SAFE_KEY = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$")
+
+
+def _safe_secret_key(key: str) -> str:
+    """Reject path traversal / absolute segments in vault key names."""
+    raw = (key or "").strip()
+    if not raw or ".." in raw or "/" in raw or "\\" in raw or not _SAFE_KEY.match(raw):
+        raise ValueError("invalid_vault_secret_key")
+    return raw
 
 
 def vault_addr() -> str:
@@ -63,7 +73,11 @@ def _hvac_client() -> Any:
 
 def read_secret(key: str) -> dict[str, Any]:
     """Read secret from Vault KV v2 or local encrypted store."""
-    path = f"{PATH_PREFIX}/{key}"
+    try:
+        safe_key = _safe_secret_key(key)
+    except ValueError:
+        return {"source": "none", "error": "invalid_vault_secret_key"}
+    path = f"{PATH_PREFIX}/{safe_key}"
     if vault_configured():
         try:
             client = _hvac_client()
@@ -84,8 +98,12 @@ def read_secret(key: str) -> dict[str, Any]:
             import json
 
             blob = json.loads(store.read_text(encoding="utf-8"))
-            if key in blob:
-                return {"source": "local_fernet", "path": key, "data": {"value": decrypt_secret(blob[key])}}
+            if safe_key in blob:
+                return {
+                    "source": "local_fernet",
+                    "path": safe_key,
+                    "data": {"value": decrypt_secret(blob[safe_key])},
+                }
     except Exception as exc:
         logger.warning("Local vault read failed: %s", exc)
         return {"source": "local_fernet", "error": "local_vault_read_failed"}
@@ -95,7 +113,11 @@ def read_secret(key: str) -> dict[str, Any]:
 
 def store_secret(key: str, value: str) -> dict[str, Any]:
     """Store secret in Vault or local encrypted JSON."""
-    path = f"{PATH_PREFIX}/{key}"
+    try:
+        safe_key = _safe_secret_key(key)
+    except ValueError:
+        return {"source": "none", "error": "invalid_vault_secret_key", "stored": False}
+    path = f"{PATH_PREFIX}/{safe_key}"
     if vault_configured():
         try:
             client = _hvac_client()
@@ -119,6 +141,6 @@ def store_secret(key: str, value: str) -> dict[str, Any]:
     blob: dict[str, str] = {}
     if store_path.exists():
         blob = json.loads(store_path.read_text(encoding="utf-8"))
-    blob[key] = encrypt_secret(value)
+    blob[safe_key] = encrypt_secret(value)
     store_path.write_text(json.dumps(blob, indent=2), encoding="utf-8")
-    return {"source": "local_fernet", "path": key, "stored": True}
+    return {"source": "local_fernet", "path": safe_key, "stored": True}

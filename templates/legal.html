@@ -53,8 +53,10 @@
   document.body.prepend(box);
   document.getElementById('bdAckTerms').onclick = async () => {
     await fetch('/api/legal/ack-terms', { method: 'POST', credentials: 'same-origin' });
-    const next = params.get('next') || '/';
-    location.href = next;
+    // Same-origin relative path only — never open redirects / XSS via ?next=
+    const raw = params.get('next') || '/';
+    const next = (raw.charAt(0) === '/' && raw.charAt(1) !== '/') ? raw : '/';
+    location.assign(next);
   };
 })();
 </script>

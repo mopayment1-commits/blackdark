@@ -89,6 +89,14 @@ def _require_terms_ack_or_403(request: Request):
         status_code=403,
     )
 
+def _cookie_secure(request: Request | None = None) -> bool:
+    if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
+        return True
+    if request is not None and (request.url.scheme or "").lower() == "https":
+        return True
+    return False
+
+
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
     """Render a Jinja template with full i18n context (lang switcher + t())."""
     from i18n_service import template_context
@@ -99,8 +107,9 @@ def render_page(request: Request, name: str, context: dict[str, Any] | None = No
         "bd_lang",
         str(ctx.get("lang") or "en"),
         max_age=60 * 60 * 24 * 365,
-        httponly=False,
+        httponly=True,
         samesite="lax",
+        secure=_cookie_secure(request),
     )
     return response
 
@@ -1090,8 +1099,9 @@ async def landing_page(request: Request):
             "bd_lang",
             lang,
             max_age=60 * 60 * 24 * 365,
-            httponly=False,
+            httponly=True,
             samesite="lax",
+            secure=_cookie_secure(request),
         )
         response.headers["X-Landing-Cache"] = "HIT"
         return response
@@ -1109,8 +1119,9 @@ async def landing_page(request: Request):
         "bd_lang",
         lang,
         max_age=60 * 60 * 24 * 365,
-        httponly=False,
+        httponly=True,
         samesite="lax",
+        secure=_cookie_secure(request),
     )
     response.headers["X-Landing-Cache"] = "MISS"
     return response
@@ -2589,9 +2600,9 @@ async def api_legal_ack_terms():
         "bd_terms_ack",
         "1",
         max_age=60 * 60 * 24 * 365,
-        httponly=False,
+        httponly=True,
         samesite="lax",
-        secure=os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"},
+        secure=_cookie_secure(),
     )
     return resp
 

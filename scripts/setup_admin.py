@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ENV = ROOT / ".env"
 SECRET_FILE = ROOT / "keys" / "admin_api_key.secret"
 sys.path.insert(0, str(ROOT / "scripts"))
-from _secret_io import mask_secret, write_private_text
+from _secret_io import write_private_text
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -48,8 +48,7 @@ def main() -> None:
     print("Admin configured")
     print(f"  ADMIN_EMAILS={email}")
     print(f"  ADMIN_API_KEY_FILE={SECRET_FILE.relative_to(ROOT)} (mode 0600)")
-    print(f"  key fingerprint={mask_secret(api_key)}")
-    print("  Raw key is not printed and not stored in .env")
+    print("  Raw key is not printed and not stored in .env — open the secret file locally.")
     print("\nRestart server: start_blackdark.bat")
 
 

@@ -51,10 +51,14 @@ def _run_pytest_quick() -> tuple[bool, str]:
     """
     errors: list[str] = []
     try:
-        assert _file_exists("docs/PRODUCT_CONSTITUTION_AR.md")
-        assert _file_exists("docs/RUNBOOK.md")
-        assert _file_exists("templates/admin_launch.html")
-        assert _constitution_modules_ready()
+        if not _file_exists("docs/PRODUCT_CONSTITUTION_AR.md"):
+            raise RuntimeError("missing_constitution_doc")
+        if not _file_exists("docs/RUNBOOK.md"):
+            raise RuntimeError("missing_runbook")
+        if not _file_exists("templates/admin_launch.html"):
+            raise RuntimeError("missing_admin_launch")
+        if not _constitution_modules_ready():
+            raise RuntimeError("constitution_modules_not_ready")
 
         from auth_service import TIER_FEATURES
         from net_edge_truth import compute_net_edge_truth
@@ -62,9 +66,12 @@ def _run_pytest_quick() -> tuple[bool, str]:
         from persona_clarity import build_persona_clarity
         from ux_mode import apply_ux_mode, normalize_ux_mode
 
-        assert TIER_FEATURES["whale"]["b2b_api"] is True
-        assert TIER_FEATURES["whale"]["evidence_pack"] is True
-        assert normalize_ux_mode("pro") == "pro"
+        if TIER_FEATURES["whale"]["b2b_api"] is not True:
+            raise RuntimeError("whale_b2b_api")
+        if TIER_FEATURES["whale"]["evidence_pack"] is not True:
+            raise RuntimeError("whale_evidence_pack")
+        if normalize_ux_mode("pro") != "pro":
+            raise RuntimeError("ux_mode_normalize")
 
         truth_bad = compute_net_edge_truth(
             {
@@ -76,13 +83,15 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 "estimated_recipients": 40,
             }
         )
-        assert truth_bad.get("reject") is True
+        if truth_bad.get("reject") is not True:
+            raise RuntimeError("net_edge_truth_reject")
 
         half = estimate_opportunity_half_life(
             {"kind": "cross_exchange", "asset": "BTC"},
             live_duration_seconds=5,
         )
-        assert half.get("expected_half_life_seconds", 0) > 0
+        if not (half.get("expected_half_life_seconds", 0) > 0):
+            raise RuntimeError("half_life")
 
         persona = build_persona_clarity(
             asset="BTC",
@@ -98,15 +107,18 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 },
             },
         )
-        assert "retail" in persona.get("personas", {})
+        if "retail" not in persona.get("personas", {}):
+            raise RuntimeError("persona_retail")
 
         slim = apply_ux_mode({"opportunity_score": 70, "verdict": "BUY", "persona_clarity": persona}, mode="beginner")
-        assert slim.get("ux_mode") == "beginner"
+        if slim.get("ux_mode") != "beginner":
+            raise RuntimeError("ux_mode_beginner")
 
         from oracle_audit_chain import verify_chain
 
         chain = verify_chain()
-        assert "valid" in chain or "ok" in chain or isinstance(chain, dict)
+        if not ("valid" in chain or "ok" in chain or isinstance(chain, dict)):
+            raise RuntimeError("oracle_chain")
 
     except Exception:
         errors.append("constitution_smoke_failed")

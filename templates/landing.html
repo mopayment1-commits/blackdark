@@ -1012,11 +1012,16 @@
             
             <form id="institutionalInquiryForm" style="max-width:520px;margin:1.5rem auto 0;display:grid;gap:.55rem;text-align:left">
                 <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">Institutional inquiry (USD wire / invoice)</h3>
-                <input required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <input type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <input type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <input type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
-                <textarea name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
+                <label for="instEmail" style="color:var(--text-muted);font-size:.85rem">Work email</label>
+                <input id="instEmail" required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instName" style="color:var(--text-muted);font-size:.85rem">Name</label>
+                <input id="instName" type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instCompany" style="color:var(--text-muted);font-size:.85rem">Firm</label>
+                <input id="instCompany" type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instBudget" style="color:var(--text-muted);font-size:.85rem">Budget band USD</label>
+                <input id="instBudget" type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <label for="instMessage" style="color:var(--text-muted);font-size:.85rem">Use case</label>
+                <textarea id="instMessage" name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
                 <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
                 <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
             </form>

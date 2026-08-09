@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from _secret_io import is_secret_env_key, mask_secret
+from _secret_io import is_secret_env_key
 
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
 
@@ -30,10 +30,11 @@ def _tg(method: str, token: str, payload: dict | None = None) -> dict:
 
 
 def _display_val(key: str, val: str, hint: str) -> str:
+    """Never return secret material — CodeQL treats masked secrets as clear-text sinks."""
+    if is_secret_env_key(key):
+        return "<set>" if val else f"<missing — {hint}>"
     if not val:
         return hint
-    if is_secret_env_key(key):
-        return mask_secret(val)
     return val
 
 

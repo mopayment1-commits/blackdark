@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from _secret_io import is_secret_env_key, mask_secret, write_private_text
+from _secret_io import is_secret_env_key, write_private_text
 
 DEFAULT_LEMON = (
     "https://blackdark.lemonsqueezy.com/checkout/buy/d044fb7a-5722-498a-885b-dfd04fb7ed05"
@@ -131,11 +131,13 @@ def main() -> int:
     )
     text = render_env(block)
 
-    # Never print clear-text secrets to stdout (CodeQL + ops hygiene)
-    print("BLACKDARK launch secrets — summary (values masked)")
+    # Never print secret material (even masked) — CodeQL taint tracks through maskers.
+    print("BLACKDARK launch secrets — summary (secret values not printed)")
     for key, value in block.items():
-        shown = mask_secret(value) if is_secret_env_key(key) else value
-        print(f"  {key}={shown}")
+        if is_secret_env_key(key):
+            print(f"  {key}=<written-to-private-file>" if value else f"  {key}=<empty>")
+        else:
+            print(f"  {key}={value}")
 
     if args.no_write:
         print("\nDry-run: not written. Re-run without --no-write to create .env.launch.local")

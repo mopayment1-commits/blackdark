@@ -58,7 +58,7 @@
 <script>
 window.BD_I18N = window.BD_I18N || {
   lang: {{ _lang|tojson }},
-  catalog: {% if i18n_json is defined %}{{ i18n_json|safe }}{% else %}{}{% endif %},
+  catalog: {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %},
   t: function(key, vars) {
     var s = (this.catalog && this.catalog[key]) || key;
     if (vars) {

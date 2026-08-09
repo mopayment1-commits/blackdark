@@ -44,7 +44,7 @@ jobs:
             -q --tb=short
 
       - name: Due diligence report smoke
-        run: python scripts/due_diligence_verify.py
+        run: python scripts/due_diligence_verify.py --ci
 
       - name: Technical DD report smoke
         run: python scripts/technical_due_diligence_report.py --no-probe
