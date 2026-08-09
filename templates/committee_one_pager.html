@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLACKDARK — Committee One-Pager</title>
+<style>
+@page{margin:14mm}
+body{font-family:Georgia,'Times New Roman',serif;color:#111;max-width:740px;margin:28px auto;padding:0 16px;background:#f7f4ee}
+h1{font-size:26px;margin:0 0 8px}
+.kicker{color:#555;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.metric{font-size:40px;font-weight:700;margin:14px 0 6px;color:#b91c1c}
+ul{line-height:1.55}
+.foot{margin-top:28px;font-size:11px;color:#666}
+.btn{display:inline-block;margin:8px 8px 0 0;padding:10px 14px;background:#111;color:#fff;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px}
+@media print{.noprint{display:none} body{background:#fff}}
+</style></head>
+<body>
+<p class="kicker">BLACKDARK Trust OS · Fund / M&A Committee</p>
+<h1>Committee One-Pager</h1>
+<p id="thesis"></p>
+<p class="metric" id="kill">—%</p>
+<p>Public kill-rate — we refuse weak edges in the open.</p>
+<ul id="bullets"></ul>
+<h2>Checklist</h2>
+<ul id="checks"></ul>
+<p class="foot">Not financial advice. Evidence packet for diligence only.</p>
+<p class="noprint">
+  <button class="btn" onclick="window.print()">Print / Save PDF</button>
+  <a class="btn" href="/api/due-diligence/committee-one-pager.pdf">Download PDF</a>
+  <a class="btn" href="/b2b">Back to B2B</a>
+</p>
+<script>
+async function load(){
+  // Public printable shell; full JSON may require Desk session — fall back to kill-rate + public summary
+  let pack=null;
+  try{
+    const r=await fetch('/api/due-diligence/committee-one-pager');
+    if(r.ok) pack=await r.json();
+  }catch(e){}
+  if(!pack){
+    const [k,s]=await Promise.all([
+      fetch('/api/public/kill-rate').then(r=>r.json()),
+      fetch('/api/due-diligence/evidence-pack/public-summary').then(r=>r.json()),
+    ]);
+    pack={
+      title:'BLACKDARK Committee One-Pager',
+      bullets:[
+        s.product_thesis,
+        'Kill-rate '+k.metrics.kill_rate_percent+'%',
+        'Differentiators: '+(s.differentiators||[]).join(', '),
+        'Full pack requires Decision Desk / Institutional session',
+      ],
+      checklist:['Open Evidence Pack','Verify public ledger','Review kill-rate board'],
+      kill_rate:k.metrics,
+    };
+  }
+  document.getElementById('thesis').textContent=pack.bullets?.[0]||'';
+  document.getElementById('kill').textContent=(pack.kill_rate?.kill_rate_percent??0)+'%';
+  document.getElementById('bullets').innerHTML=(pack.bullets||[]).map(b=>`<li>${b}</li>`).join('');
+  document.getElementById('checks').innerHTML=(pack.checklist||[]).map(b=>`<li>${typeof b==='string'?b:JSON.stringify(b)}</li>`).join('');
+}
+load();
+</script>
+</body></html>

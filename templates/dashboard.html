@@ -289,6 +289,20 @@
             <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
         </section>
 
+        <section id="half-life-clock" class="section-desk-only hide-in-room">
+            <h2>Half-Life Heat Clock</h2>
+            <p class="sub">Decision Desk · seconds = money · urgency bands from Opportunity Half-Life</p>
+            <div class="toolbar">
+                <button class="btn secondary" type="button" onclick="loadHalfLifeClock()">Refresh clock</button>
+                <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
+                <a class="btn secondary" href="/b2b/committee-one-pager">Committee One-Pager</a>
+            </div>
+            <div id="halfLifeClockBox" class="empty" style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap">
+                <div id="halfLifeSvg"></div>
+                <div id="halfLifeLine">Open Desk lens and refresh.</div>
+            </div>
+        </section>
+
         <section id="stealth" class="section-desk-only hide-in-room">
             <h2>Stealth Execution Advisor</h2>
             <p class="sub">Whale audience · advisory slice labels (SLICE_* / LIMIT_CLIP_ADVISORY) — not live TWAP/VWAP/SOR</p>
@@ -1011,6 +1025,20 @@
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
+        async function loadHalfLifeClock() {
+            const svg = document.getElementById('halfLifeSvg');
+            const line = document.getElementById('halfLifeLine');
+            if (!svg || !line) return;
+            try {
+                const res = await fetch('/api/oracle/half-life/heat');
+                const d = await res.json();
+                svg.innerHTML = d.svg || '';
+                line.innerHTML = `<strong style="color:${d.band?.color||'#22d3ee'}">${d.band?.label||'—'}</strong><div style="margin-top:.35rem">${d.desk_line||''}</div>`;
+            } catch (e) {
+                line.textContent = 'Half-Life clock unavailable';
+            }
+        }
+
         let lastMevShare = '';
         async function loadMevReport() {
             const el = document.getElementById('mevResult');
@@ -1346,6 +1374,7 @@
             loadSubscriberValue();
             loadMevReport();
             runStealthAdvisor();
+            loadHalfLifeClock();
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();

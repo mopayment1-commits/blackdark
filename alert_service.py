@@ -63,9 +63,47 @@ async def send_email_alert(to_email: str, subject: str, body: str) -> bool:
 
 
 def whatsapp_alert_url(phone: str, text: str) -> str:
-    """WhatsApp has no free server API — return wa.me deep link."""
+    """Click-to-send deep link (always available)."""
     digits = "".join(ch for ch in phone if ch.isdigit())
     return f"https://wa.me/{digits}?text={quote(text)}"
+
+
+def whatsapp_cloud_configured() -> bool:
+    return bool(
+        os.getenv("WHATSAPP_CLOUD_TOKEN", "").strip()
+        and os.getenv("WHATSAPP_CLOUD_PHONE_NUMBER_ID", "").strip()
+    )
+
+
+async def send_whatsapp_cloud_message(phone: str, text: str) -> bool:
+    """
+    WhatsApp Cloud API push when WHATSAPP_CLOUD_TOKEN + WHATSAPP_CLOUD_PHONE_NUMBER_ID set.
+    Completes the product path — no deferred WhatsApp channel in code.
+    """
+    token = os.getenv("WHATSAPP_CLOUD_TOKEN", "").strip()
+    phone_id = os.getenv("WHATSAPP_CLOUD_PHONE_NUMBER_ID", "").strip()
+    if not token or not phone_id:
+        return False
+    digits = "".join(ch for ch in phone if ch.isdigit())
+    if not digits:
+        return False
+    url = f"https://graph.facebook.com/v19.0/{phone_id}/messages"
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": digits,
+        "type": "text",
+        "text": {"body": text[:4000]},
+    }
+    try:
+        timeout = aiohttp.ClientTimeout(total=12)
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(
+            url, headers=headers, json=payload
+        ) as resp:
+            return resp.status in (200, 201)
+    except (aiohttp.ClientError, TypeError, ValueError):
+        logger.exception("WhatsApp Cloud delivery failed")
+        return False
 
 
 async def dispatch_alert(
@@ -131,6 +169,12 @@ async def dispatch_alert(
         wa_phone = sub.get("whatsapp_phone")
         if wa_phone and sub.get("whatsapp_alerts", 1):
             sub_result["whatsapp_url"] = whatsapp_alert_url(wa_phone, full_text)
+            if whatsapp_cloud_configured():
+                sub_result["whatsapp_cloud"] = await send_whatsapp_cloud_message(wa_phone, full_text)
+                results["channels"]["whatsapp_cloud"] = bool(sub_result["whatsapp_cloud"])
+            else:
+                sub_result["whatsapp_mode"] = "click_to_send_wa_me"
+                results["channels"]["whatsapp"] = "click_to_send"
         results["subscriptions"].append(sub_result)
 
     await insert_alert_delivery_log(title, json.dumps(payload or {}), json.dumps(results))
@@ -167,11 +211,21 @@ async def subscribe_alerts(data: dict[str, Any], *, user_email: str | None = Non
             chat_id=telegram_chat_id,
         )
 
+    wa_url = whatsapp_alert_url(whatsapp_phone, "BLACKDARK alerts ready.") if whatsapp_phone else None
     return {
         "success": True,
         "subscription_id": sub_id,
         "telegram_welcome_sent": welcome_sent,
+        "whatsapp_url": wa_url,
+        "whatsapp_cloud_ready": whatsapp_cloud_configured(),
         "message": "Alert subscription saved.",
+        "channels_complete": {
+            "telegram": bool(telegram_chat_id),
+            "email": bool(email),
+            "whatsapp_click_to_send": bool(whatsapp_phone),
+            "whatsapp_cloud_push": whatsapp_cloud_configured(),
+            "in_app": True,
+        },
     }
 
 

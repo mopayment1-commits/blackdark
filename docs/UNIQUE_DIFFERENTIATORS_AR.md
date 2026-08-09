@@ -29,6 +29,16 @@
 
 موجود مسبقاً ويُعزَّز بالدمج: **D1 Proof-Native Oracle** · **D2 Contradiction Veto** · **D5 Regime Weights** · Flywheel.
 
+### طبقة الإبهار U1–U5 (مشحونة)
+
+| ID | الميزة | المسار |
+|----|--------|--------|
+| U1 | Contradiction Replay Clip | `/contradiction-replay` · `/api/contradiction-replay` |
+| U2 | Public Kill-Rate Board | `/kill-rate` · `/api/public/kill-rate` |
+| U3 | Half-Life Heat Clock | `/dashboard#half-life-clock` · `/api/oracle/half-life/heat` |
+| U4 | Proof Arena Lite | `/proof-arena` · `/api/proof-arena/week` |
+| U6 | Committee One-Pager PDF | `/b2b/committee-one-pager` · `/api/due-diligence/committee-one-pager.pdf` |
+
 ---
 
 ## أين تُحقن في المحرك؟

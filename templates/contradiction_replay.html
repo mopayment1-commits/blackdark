@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKDARK — Contradiction Replay Clip</title>
+    <link rel="stylesheet" href="/static/css/trust-os.css">
+    <style>
+        :root { --bg:#05060a; --fg:#f7f3ea; --muted:#9b968d; --line:#262633; --wait:#f59e0b; --accent:#67e8f9; }
+        body { margin:0; color:var(--fg); font-family:"IBM Plex Sans",sans-serif; background:
+            linear-gradient(145deg,#05060a,#14121c 50%,#0c1824); min-height:100vh; }
+        nav { display:flex; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid var(--line); }
+        nav a { color:var(--muted); text-decoration:none; margin-left:1rem; }
+        .logo { font-family:Syne,sans-serif; font-weight:800; color:var(--accent); text-decoration:none; }
+        main { max-width:720px; margin:0 auto; padding:2.25rem 1.2rem 4rem; }
+        h1 { font-family:Syne,sans-serif; font-size:clamp(1.8rem,4vw,2.8rem); margin:0 0 .5rem; }
+        .sub { color:var(--muted); margin-bottom:1.25rem; }
+        .stage { border:1px solid var(--line); min-height:220px; padding:1.5rem; background:rgba(0,0,0,.35);
+            position:relative; overflow:hidden; }
+        .stage::before { content:""; position:absolute; inset:0; background:
+            radial-gradient(500px 200px at 80% 0%, rgba(245,158,11,.18), transparent 60%); pointer-events:none; }
+        .badge { display:inline-block; padding:.25rem .6rem; background:var(--wait); color:#111; font-weight:800; font-size:.75rem; }
+        .frame { margin-top:1rem; font-size:1.15rem; min-height:3.5rem; }
+        .meta { margin-top:1rem; color:var(--muted); font-size:.85rem; }
+        .btn { display:inline-block; margin:.4rem .4rem 0 0; padding:.65rem 1rem; background:var(--wait); color:#111; font-weight:700; text-decoration:none; border:0; cursor:pointer; }
+        .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--fg); }
+        input,select { background:#12121a; border:1px solid var(--line); color:var(--fg); padding:.55rem .7rem; width:100%; margin:.4rem 0 1rem; }
+    </style>
+</head>
+<body>
+<nav>
+    <a class="logo" href="/">BLACKDARK</a>
+    <div>
+        <a href="/kill-rate">Kill-Rate</a>
+        <a href="/proof-arena">Arena</a>
+        <a href="/oracle-accuracy">Ledger</a>
+    </div>
+</nav>
+<main>
+    <h1>Contradiction Replay</h1>
+    <p class="sub">A 15-second survival card — why the system WAITED when dimensions fought.</p>
+    <label>Symbol</label>
+    <input id="sym" value="BTC">
+    <button class="btn" type="button" onclick="play()">Play 15s clip</button>
+    <div class="stage" id="stage">
+        <span class="badge" id="badge">WAIT</span>
+        <div class="frame" id="frame">Press play to reconstruct the refusal.</div>
+        <div class="meta" id="meta"></div>
+    </div>
+    <div style="margin-top:1rem">
+        <a class="btn" id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn ghost" id="x" href="#" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+</main>
+<script>
+let frames=[], timer=null, idx=0, card=null;
+async function play(){
+  clearInterval(timer); idx=0;
+  const sym = document.getElementById('sym').value || 'BTC';
+  const r = await fetch('/api/contradiction-replay?symbol=' + encodeURIComponent(sym));
+  const d = await r.json();
+  card = d.card || d;
+  frames = card.frames || [];
+  document.getElementById('badge').textContent = card.action || 'WAIT';
+  document.getElementById('meta').textContent = (card.bullish||[]).join(', ') + ' vs ' + (card.bearish||[]).join(', ');
+  document.getElementById('wa').href = card.share_urls?.whatsapp || '#';
+  document.getElementById('x').href = card.share_urls?.x || '#';
+  const el = document.getElementById('frame');
+  el.textContent = frames[0]?.text || card.message;
+  timer = setInterval(()=>{
+    idx++;
+    if(idx>=frames.length){ clearInterval(timer); el.textContent = card.headline + ' — ' + (card.message||''); return; }
+    el.textContent = frames[idx].label + ': ' + frames[idx].text;
+  }, 3500);
+}
+const q = new URLSearchParams(location.search); if(q.get('id')){ /* load specific via API list */ }
+</script>
+</body>
+</html>

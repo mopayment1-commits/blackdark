@@ -310,6 +310,124 @@ async def glass_box_announce_drafts_api():
     return glass_box_announce_drafts()
 
 
+@router.get("/api/public/kill-rate")
+async def public_kill_rate_board():
+    from kill_rate_board import build_kill_rate_board
+
+    return build_kill_rate_board()
+
+
+@router.get("/api/contradiction-replay")
+async def contradiction_replay_api(
+    symbol: str = Query("BTC"),
+    clip_id: str | None = Query(None),
+):
+    from contradiction_replay import build_contradiction_replay, get_replay, list_recent_replays
+
+    if clip_id:
+        found = get_replay(clip_id)
+        if found:
+            return found
+    card = build_contradiction_replay(symbol=symbol)
+    return {"card": card, "recent": list_recent_replays(12)}
+
+
+@router.post("/api/contradiction-replay")
+async def contradiction_replay_create(payload: dict = Body(default={})):
+    from contradiction_replay import build_contradiction_replay
+
+    body = payload or {}
+    return build_contradiction_replay(
+        symbol=str(body.get("symbol") or "BTC"),
+        conflict=body.get("conflict"),
+        score=body.get("score"),
+        persist=True,
+    )
+
+
+@router.get("/api/oracle/half-life/heat")
+async def half_life_heat_clock_api(board: bool = Query(False)):
+    from half_life_heat_clock import build_heat_clock, build_heat_clock_board
+
+    if board:
+        return build_heat_clock_board()
+    return build_heat_clock()
+
+
+@router.get("/api/proof-arena/week")
+async def proof_arena_week(week_id: str | None = Query(None)):
+    from proof_arena import build_week_board
+
+    return build_week_board(week_id)
+
+
+@router.post("/api/proof-arena/pick")
+async def proof_arena_pick(payload: dict = Body(...)):
+    from proof_arena import submit_pick
+
+    return submit_pick(
+        user_key=str(payload.get("user_key") or "anon"),
+        symbol=str(payload.get("symbol") or "BTC"),
+        direction=str(payload.get("direction") or "wait"),
+        note=str(payload.get("note") or ""),
+    )
+
+
+@router.get("/api/glass-box/announce-schedule")
+async def glass_box_announce_schedule_get():
+    from glass_box_announce_schedule import schedule_status
+
+    return schedule_status()
+
+
+@router.post("/api/glass-box/announce-schedule")
+async def glass_box_announce_schedule_set(payload: dict = Body(...)):
+    from glass_box_announce_schedule import set_schedule
+
+    return set_schedule(
+        announce_at=str(payload.get("announce_at") or ""),
+        channel=str(payload.get("channel") or "x_linkedin_telegram"),
+        note=str(payload.get("note") or ""),
+    )
+
+
+@router.get("/api/wow/surfaces")
+async def wow_surfaces_manifest():
+    """Unique wow surfaces by tier — product-complete registry."""
+    return {
+        "proof_pass": [
+            {"id": "kill_rate", "href": "/kill-rate"},
+            {"id": "contradiction_replay", "href": "/contradiction-replay"},
+            {"id": "proof_arena", "href": "/proof-arena"},
+            {"id": "oracle", "href": "/"},
+            {"id": "ledger", "href": "/oracle-accuracy"},
+        ],
+        "decision_pro": [
+            {"id": "net_edge", "href": "/api/oracle/net-edge-truth"},
+            {"id": "radar", "href": "/dashboard?lens=operate"},
+            {"id": "alerts", "href": "/dashboard#alerts"},
+        ],
+        "decision_desk": [
+            {"id": "half_life_heat_clock", "href": "/dashboard?lens=desk#half-life-clock"},
+            {"id": "stealth", "href": "/dashboard?lens=desk#stealth"},
+            {"id": "evidence", "href": "/b2b#evidence"},
+            {"id": "committee_one_pager", "href": "/b2b/committee-one-pager"},
+        ],
+        "institutional": [
+            {"id": "data_room", "href": "/data-room"},
+            {"id": "committee_pdf", "href": "/api/due-diligence/committee-one-pager.pdf"},
+            {"id": "evidence_pack", "href": "/api/due-diligence/evidence-pack"},
+        ],
+        "proposed_shipped": [
+            "kill_rate_board",
+            "contradiction_replay_clip",
+            "committee_one_pager",
+            "half_life_heat_clock",
+            "proof_arena_lite",
+        ],
+    }
+
+
 @router.get("/api/alerts/generosity")
 async def alerts_generosity_posture():
     """Competitive posture vs TradingView-style rate caps — honest tier policy."""

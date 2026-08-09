@@ -220,6 +220,16 @@ def compute_net_edge_truth(
         _STATS["rejected"] += 1
         for reason in reasons:
             _bump_reason(reason)
+        try:
+            from kill_rate_board import record_kill
+
+            record_kill(
+                "net_edge_truth",
+                reasons[0] if reasons else "rejected",
+                meta={"truth_score": truth_score, "asset": opp.get("asset") or opp.get("symbol")},
+            )
+        except Exception:
+            logger.debug("kill_rate record failed", exc_info=True)
     else:
         _STATS["passed"] += 1
 

@@ -44,6 +44,20 @@ def apply_half_life_kill(row: dict[str, Any]) -> dict[str, Any]:
     if killed:
         row["half_life_killed"] = True
         _mark_not_executable(row, "half_life_kill")
+        try:
+            from kill_rate_board import record_kill
+
+            record_kill(
+                "half_life",
+                "half_life_kill",
+                meta={
+                    "asset": row.get("asset") or row.get("symbol"),
+                    "remaining_seconds": remain,
+                    "disappearance_probability": p_gone,
+                },
+            )
+        except Exception:
+            logger.debug("kill_rate half_life record failed", exc_info=True)
     return row
 
 
@@ -67,6 +81,16 @@ def apply_contradiction_veto(
             row["conflict_vetoed"] = bool(conflict_meta.get("veto"))
             row["conflict_abstain"] = bool(conflict_meta.get("abstain"))
             _mark_not_executable(row, "dimension_conflict_veto")
+            try:
+                from kill_rate_board import record_kill
+
+                record_kill(
+                    "contradiction_veto",
+                    str(conflict_meta.get("severity") or "conflict"),
+                    meta={"asset": asset, "action": conflict_meta.get("action")},
+                )
+            except Exception:
+                logger.debug("kill_rate veto record failed", exc_info=True)
     except Exception:
         logger.debug("contradiction veto on row failed", exc_info=True)
         # Fail closed for alerts/execution — do not silently clear veto.

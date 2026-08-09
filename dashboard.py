@@ -1178,6 +1178,10 @@ async def sitemap_xml(request: Request):
         "/",
         "/dashboard",
         "/oracle-accuracy",
+        "/kill-rate",
+        "/contradiction-replay",
+        "/proof-arena",
+        "/b2b/committee-one-pager",
         "/docs",
         "/b2b",
         "/discipline-mirror",
@@ -1219,6 +1223,26 @@ async def dashboard_page(request: Request):
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
     return templates.TemplateResponse(request, "discipline.html", _footer_ctx())
+
+
+@app.get("/kill-rate", response_class=HTMLResponse)
+async def kill_rate_page(request: Request):
+    return templates.TemplateResponse(request, "kill_rate.html", _footer_ctx())
+
+
+@app.get("/contradiction-replay", response_class=HTMLResponse)
+async def contradiction_replay_page(request: Request):
+    return templates.TemplateResponse(request, "contradiction_replay.html", _footer_ctx())
+
+
+@app.get("/proof-arena", response_class=HTMLResponse)
+async def proof_arena_page(request: Request):
+    return templates.TemplateResponse(request, "proof_arena.html", _footer_ctx())
+
+
+@app.get("/b2b/committee-one-pager", response_class=HTMLResponse)
+async def committee_one_pager_page(request: Request):
+    return templates.TemplateResponse(request, "committee_one_pager.html", _footer_ctx())
 
 
 @app.get("/my/discipline-mirror")

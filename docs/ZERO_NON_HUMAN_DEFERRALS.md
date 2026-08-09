@@ -21,9 +21,11 @@ Code-complete to the highest practical engineering bar:
 | CodeQL hygiene | Ported vault/sse/coverage/secret scripts + dashboard `esc()` |
 | Viral/HA / security absolute claims | Code paths + guards present; live staging/signed load/WAF remain HUMAN_OPS by nature |
 
-## Still HUMAN_OPS only (allowed)
+## Still runtime-operator only (not missing product)
 
-H1 Browser extension merge/load · H2 Glass Box announce clock · H3 founder 60s · HA signed load row · PSP/KYC/webhook secrets · legal counsel · deploy account actions · paid traction evidence.
+Browser extension **package is in-repo** (Load unpacked on your machine) · Glass Box **announce-schedule API shipped** (you post when due) · founder 60s cold open · HA signed load row · PSP/KYC/webhook secrets · WhatsApp Cloud tokens · legal counsel · deploy account actions.
+
+Wow surfaces shipped: Kill-Rate · Replay · Committee PDF · Half-Life Clock · Arena — see [`WOW_UNIQUE_FULL_SHIP_AR.md`](./WOW_UNIQUE_FULL_SHIP_AR.md).
 
 ## Reviewer checklist
 

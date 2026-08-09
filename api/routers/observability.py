@@ -70,11 +70,34 @@ async def acquirer_evidence_public_summary():
             "persona_demo": "/api/oracle/persona-clarity/demo",
             "half_life": "/api/oracle/half-life",
             "net_edge": "/api/oracle/net-edge-truth",
+            "kill_rate": "/api/public/kill-rate",
+            "committee_teaser": "/b2b/committee-one-pager",
         },
         "full_pack": "/api/due-diligence/evidence-pack",
         "access": "whale_or_admin",
         "constitution": "docs/PRODUCT_CONSTITUTION_AR.md",
     }
+
+
+@router.get("/api/due-diligence/committee-one-pager")
+async def committee_one_pager_api(_whale: dict = Depends(require_whale)):
+    from committee_one_pager import build_committee_one_pager
+
+    return await build_committee_one_pager()
+
+
+@router.get("/api/due-diligence/committee-one-pager.pdf")
+async def committee_one_pager_pdf(_whale: dict = Depends(require_whale)):
+    from fastapi.responses import Response
+
+    from committee_one_pager import build_committee_one_pager, render_committee_pdf
+
+    pack = await build_committee_one_pager()
+    return Response(
+        content=render_committee_pdf(pack),
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="blackdark-committee-one-pager.pdf"'},
+    )
 
 
 @router.get("/api/diagnostics/price/{symbol}")

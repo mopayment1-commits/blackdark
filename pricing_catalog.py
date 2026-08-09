@@ -34,6 +34,7 @@ TIERS: list[dict[str, Any]] = [
             "3 certified decisions / day",
             "Unlimited public sharing of your Proof Cards",
             "Live Public Accuracy Ledger",
+            "Public Kill-Rate Board + Contradiction Replay + Proof Arena",
         ],
         "limits": {"oracle_daily_limit": 3, "certificate_watermark": "Free Proof"},
         "viral_role": "Each Proof Card is an invite: see why this decision was made.",
@@ -75,9 +76,10 @@ TIERS: list[dict[str, Any]] = [
         "highlights": [
             "Everything in Decision Pro",
             "Whale Signal-to-Noise filtering",
+            "Half-Life Heat Clock on Desk",
             "Stealth / fund-facing views (prove-it honest)",
             "B2B feed / API key",
-            "Acquirer Evidence Pack export",
+            "Acquirer Evidence Pack + Committee One-Pager PDF",
             "Higher rate-limit priority under viral load",
         ],
         "conversion_from_pro": "When you need to convince someone else — partner, client, or committee.",
@@ -96,6 +98,7 @@ TIERS: list[dict[str, Any]] = [
         "highlights": [
             "Everything in Decision Desk",
             "Data Room + Compliance pack",
+            "Committee One-Pager Auto PDF for M&A",
             "SSO / enforced MFA for teams",
             "SLA + optional private deploy",
             "Roles: Analyst / PM / Compliance",

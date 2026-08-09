@@ -1,0 +1,83 @@
+#blackdark-oqs-overlay {
+  position: fixed;
+  z-index: 2147483646;
+  top: 72px;
+  right: 16px;
+  width: min(320px, calc(100vw - 24px));
+  background: rgba(10, 10, 15, 0.94);
+  color: #e4e4e7;
+  border: 1px solid #2a2a35;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+#blackdark-oqs-overlay .bd-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #2a2a35;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+#blackdark-oqs-overlay .bd-head strong {
+  flex: 1;
+}
+
+#blackdark-oqs-overlay button {
+  background: transparent;
+  border: 1px solid #2a2a35;
+  color: #a1a1aa;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+#blackdark-oqs-overlay .bd-body {
+  padding: 12px;
+}
+
+#blackdark-oqs-overlay .bd-action {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+#blackdark-oqs-overlay .bd-action.ACT,
+#blackdark-oqs-overlay .bd-action.BUY {
+  color: #22c55e;
+}
+
+#blackdark-oqs-overlay .bd-action.WAIT,
+#blackdark-oqs-overlay .bd-action.SELL,
+#blackdark-oqs-overlay .bd-action.HOLD {
+  color: #f59e0b;
+}
+
+#blackdark-oqs-overlay .bd-sentence {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #e4e4e7;
+}
+
+#blackdark-oqs-overlay .bd-meta,
+#blackdark-oqs-overlay .bd-foot {
+  font-size: 11px;
+  color: #71717a;
+  margin-top: 8px;
+}
+
+#blackdark-oqs-overlay .bd-foot {
+  padding: 8px 12px 10px;
+  border-top: 1px solid #2a2a35;
+}
+
+#blackdark-oqs-overlay .bd-err {
+  color: #f87171;
+  font-size: 12px;
+}
