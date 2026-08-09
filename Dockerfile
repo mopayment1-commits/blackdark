@@ -10,17 +10,16 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     MANIFEST_AUTO_APPROVE=true \
     MANIFEST_REQUIRE_REVIEW=false
 
-# Minimal OS deps for wheels; keep image lean for Railway trial builds
-# hadolint ignore=DL3008
+# Minimal OS deps for wheels; keep image lean for Railway trial builds.
+# hadolint ignore=DL3008 -- ca-certificates follows Debian security updates
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
-    # hadolint: ca-certificates tracks Debian security updates; pin optional
     && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser
 
-# Locked == pins + wheels-only (Sonar docker:S8541 / S8544).
-COPY requirements-prod.lock.txt requirements.txt
-RUN pip install --no-cache-dir --default-timeout=180 --only-binary=:all: -r requirements.txt
+# Hash-locked + wheels-only (Sonar docker:S8541 / S8544).
+COPY requirements-prod.hashes.txt requirements.txt
+RUN pip install --no-cache-dir --default-timeout=180 --require-hashes --only-binary=:all: -r requirements.txt
 
 COPY *.py ./
 COPY api/ api/

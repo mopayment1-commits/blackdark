@@ -24,7 +24,7 @@
 |--------|----------|
 | Reliability على #39 | **A** (0 bugs) — مُصلح |
 | Security على #39 قبل أقفال التبعيات | تحسّن من E→C بعد إزالة S2083؛ المتبقي كان S8541/S8544 على CI/Docker |
-| الحل النهائي Security | `requirements.lock.txt` + `requirements-prod.lock.txt` + `pip install --only-binary=:all:` بدون fallback غير مقفول |
+| الحل النهائي Security | ``requirements.hashes.txt` / `requirements-prod.hashes.txt` مع `pip install --require-hashes --only-binary=:all:` |
 
 ### 1.B Closed without Merge
 | الحقيقة | التفاصيل |
@@ -94,7 +94,7 @@
 | Sonar #39 Reliability | **A** (0 bugs) |
 | Sonar #39 Security | الهدف **A** بعد إعادة التحليل على أقفال CI/Docker (كانت C بسبب S8541/S8544) |
 | CodeQL (actions/js/python) | **SUCCESS** |
-| pip-audit على `requirements.lock.txt` | **PASS** بعد ترقية `authlib==1.6.12` |
+| pip-audit على `requirements.hashes.txt` | **PASS** بعد ترقية `authlib==1.6.12` |
 | Bandit (≥ medium) | **PASS** |
 | detect-secrets | **PASS** |
 | Ruff (نطاق الإصلاح) | **PASS** |

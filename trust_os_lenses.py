@@ -12,6 +12,8 @@ from typing import Any, Literal
 
 Lens = Literal["prove", "operate", "desk", "room"]
 
+_DESK_STEALTH_PATH = "/dashboard?lens=desk#stealth"
+
 LENSES: list[dict[str, Any]] = [
     {
         "id": "prove",
@@ -65,7 +67,7 @@ LENSES: list[dict[str, Any]] = [
         "tier_hint": "whale",
         "promise": "Convince someone else.",
         "support": "Signal-to-Noise, Stealth views, Evidence pack, API — a decision desk, not more charts.",
-        "cta_primary": {"label": "Open Decision Desk", "href": "/dashboard?lens=desk#stealth"},
+        "cta_primary": {"label": "Open Decision Desk", "href": _DESK_STEALTH_PATH},
         "cta_secondary": {"label": "Upgrade Decision Desk", "href": "/create-checkout-session?tier=whale"},
         "shell": "desk_first",
         "ux_mode_default": "pro",
@@ -84,8 +86,8 @@ LENSES: list[dict[str, Any]] = [
         "hide_sections": [],
         "soft_sections": [],
         "viral_role": "Packaging for partners/clients — not a second product.",
-        "desk_surfaces": ["/dashboard?lens=desk#stealth", "/dashboard?lens=desk#half-life-clock", "/b2b/committee-one-pager", "/kill-rate"],
-        "entry_path": "/dashboard?lens=desk#stealth",
+        "desk_surfaces": [_DESK_STEALTH_PATH, "/dashboard?lens=desk#half-life-clock", "/b2b/committee-one-pager", "/kill-rate"],
+        "entry_path": _DESK_STEALTH_PATH,
         "landing_path": "/dashboard?lens=desk",
     },
     {
