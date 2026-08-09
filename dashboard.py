@@ -1623,7 +1623,8 @@ async def data_room_page(request: Request):
             "title": "Data Room",
             "lead": (
                 "Allocator / acquirer diligence index — Prove-it surfaces, evidence pack, "
-                "and honest capacity posture. Canonical docs live under /docs/DATA_ROOM.md."
+                "honest capacity posture, and Soft Launch quality honesty "
+                "(/api/public/quality-honesty-closure). Canonical docs: /docs/DATA_ROOM.md."
             ),
             **_footer_ctx(),
         },
