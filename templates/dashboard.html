@@ -210,8 +210,11 @@
                 <option value="pro">Pro</option>
             </select>
             <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
+            <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
+            <button class="btn secondary" type="button" id="antiHypeBtn" onclick="toggleAntiHype()">Anti-Hype</button>
             <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
+            <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
             <button type="button" class="pick" onclick="setSymbol('BTC')">BTC</button>
@@ -227,6 +230,13 @@
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
         <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
+
+        <section id="since-you-left" class="hide-in-room" data-evidence>
+            <h2>Since You Left — Top 3</h2>
+            <p class="sub">What changed since your last visit</p>
+            <div id="sinceYouLeftBox" class="empty">Loading continuity…</div>
+            <a class="btn secondary" href="/since-you-left" style="margin-top:.65rem;display:inline-flex;text-decoration:none">Open full page</a>
+        </section>
 
         <section>
             <h2>Live Chart</h2>
@@ -1025,6 +1035,50 @@
             } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
+        function antiHypeOn() {
+            return localStorage.getItem('bd_anti_hype') === '1' || /(?:^|; )bd_anti_hype=1(?:;|$)/.test(document.cookie);
+        }
+        function applyAntiHypeClass() {
+            const on = antiHypeOn();
+            document.body.classList.toggle('anti-hype-on', on);
+            const btn = document.getElementById('antiHypeBtn');
+            if (btn) btn.textContent = on ? 'Anti-Hype ON' : 'Anti-Hype';
+        }
+        async function toggleAntiHype() {
+            const next = !antiHypeOn();
+            localStorage.setItem('bd_anti_hype', next ? '1' : '0');
+            document.cookie = 'bd_anti_hype=' + (next ? '1' : '0') + '; path=/; max-age=31536000; SameSite=Lax';
+            try {
+                const k = localStorage.getItem('bd_user_key') || 'anon';
+                await fetch('/api/anti-hype/mode', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({enabled: next, user_key: k}),
+                });
+            } catch (e) {}
+            applyAntiHypeClass();
+        }
+        async function loadSinceYouLeft() {
+            const el = document.getElementById('sinceYouLeftBox');
+            if (!el) return;
+            try {
+                let k = localStorage.getItem('bd_user_key');
+                if (!k) {
+                    const a = new Uint8Array(8); crypto.getRandomValues(a);
+                    k = 'anon_' + Array.from(a, b => b.toString(16).padStart(2, '0')).join('');
+                    localStorage.setItem('bd_user_key', k);
+                }
+                const res = await fetch('/api/since-you-left?user_key=' + encodeURIComponent(k) + '&touch=true');
+                const d = await res.json();
+                el.innerHTML = (d.top3 || []).map((x, i) =>
+                    `<div class="arb-card"><strong>${i + 1}. ${x.title}</strong><div style="margin-top:.3rem;color:#a1a1aa">${x.detail}</div>
+                     <a href="${x.href || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
+                ).join('') || '<div class="empty">No deltas yet</div>';
+            } catch (e) {
+                el.innerHTML = '<div class="empty">Continuity unavailable</div>';
+            }
+        }
+
         async function loadHalfLifeClock() {
             const svg = document.getElementById('halfLifeSvg');
             const line = document.getElementById('halfLifeLine');
@@ -1375,6 +1429,8 @@
             loadMevReport();
             runStealthAdvisor();
             loadHalfLifeClock();
+            applyAntiHypeClass();
+            loadSinceYouLeft();
             loadTgStatus();
             loadAlertsGenerosity();
             loadInbox();

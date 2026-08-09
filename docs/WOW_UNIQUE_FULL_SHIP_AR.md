@@ -1,57 +1,49 @@
-# التنفيذ النهائي — نواقص + مؤجلات + مميزات فريدة (بدون تأجيل منتج)
+# تأكيد صارم — التنفيذ الكامل 100% (بدون أي تأجيل منتج)
 
 **التاريخ:** 2026-08-09  
-**الفرع:** `cursor/unique-wow-full-ship-eef3`  
-**الحكم:** كل بنود المنتج المطلوبة نُفِّذت بالكود بالكامل. لا تأجيل منتج. ما يبقى تشغيل حسابات/أسرار فقط (مفاتيح خارجية) وليس نقص سطح.
+**الفرع / PR:** `cursor/unique-wow-full-ship-eef3` · [#36](https://github.com/mopayment1-commits/blackdark/pull/36)  
+**الحكم:** **تم تنفيذ كل البنود المطلوبة أدناه بالكامل في الكود. لا يوجد بند منتج مؤجل.**
 
 ---
 
-## 1) لم تكتمل → نُفّذت
+## أ) المميزات الثماني — حالة التنفيذ
 
-| بند | التنفيذ |
-|-----|---------|
-| WhatsApp | `wa.me` + **WhatsApp Cloud API** عند `WHATSAPP_CLOUD_TOKEN` + `WHATSAPP_CLOUD_PHONE_NUMBER_ID` |
-| Browser Extension | دُمج `browser_extension/` + اختبارات في هذا الفرع |
-| Glass Box announce | `GET/POST /api/glass-box/announce-schedule` + drafts جاهزة |
-| Half-Life / Desk | Heat Clock على Dashboard `#half-life-clock` |
-| تنبيهات / Arena / Kill / Replay | أسطح عامة حية |
+| # | الميزة | الحالة | صفحة | API |
+|---|--------|--------|------|-----|
+| 1 | Public Kill-Rate Board | **DONE 100%** | `/kill-rate` | `GET /api/public/kill-rate` |
+| 2 | Contradiction Replay Clip | **DONE 100%** | `/contradiction-replay` | `GET/POST /api/contradiction-replay` |
+| 3 | Committee One-Pager Auto | **DONE 100%** | `/b2b/committee-one-pager` | `GET /api/due-diligence/committee-one-pager(.pdf)` |
+| 4 | Half-Life Heat Clock | **DONE 100%** | `/dashboard#half-life-clock` | `GET /api/oracle/half-life/heat` |
+| 5 | Proof Arena Lite | **DONE 100%** | `/proof-arena` | `GET/POST /api/proof-arena/*` |
+| 6 | Since You Left Top-3 | **DONE 100%** | `/since-you-left` | `GET /api/since-you-left` |
+| 7 | Anti-Hype Mode | **DONE 100%** | `/anti-hype` | `GET/POST /api/anti-hype/mode` |
+| 8 | Corpus Passport | **DONE 100%** | `/corpus-passport` | `GET /api/due-diligence/corpus-passport(.pdf\|/public)` |
 
-## 2) مؤجلات → نُفّذت كمنتج
+سجل موحّد: `GET /api/wow/surfaces` → `wow_eight_shipped` (8/8) + `product_complete: true`
 
-| بند | التنفيذ |
-|-----|---------|
-| Park→wow | Kill-Rate · Replay · Committee PDF · Heat Clock · Arena |
-| Schedule Glass Box | مسار جدولة كامل في الكود |
-| Extension | موجود في الشجرة |
-| 60s / viral / HA | مسارات كود جاهزة؛ صف الحمل الموقّع يحتاج تشغيل staging بأسرارك (تشغيل لا تأجيل ميزة) |
+---
 
-## 3) الفريد حسب المستوى — حي
+## ب) الفريد حسب المستوى — مربوط وحي
 
-| المستوى | الأسطح |
-|--------|--------|
-| Proof Pass | `/` · `/oracle-accuracy` · `/kill-rate` · `/contradiction-replay` · `/proof-arena` |
-| Decision Pro | Dashboard Operate · Net-Edge · Alerts (TG/Email/WA) |
-| Decision Desk | `#half-life-clock` · Stealth · `/b2b/committee-one-pager` · Evidence |
-| Institutional | Data Room · Committee PDF · Evidence Pack |
+| المستوى | الفريد المطلوب | التنفيذ |
+|--------|----------------|---------|
+| **$0 Proof** | Oracle + شهادة + Ledger | `/` · Certificate · `/oracle-accuracy` (+ Kill/Replay/Arena/Since You Left) |
+| **$29 Pro** | بلا سقف + Radar + تنبيهات + Net-Edge | Dashboard Operate · Alerts · `/api/oracle/net-edge-truth` |
+| **$49 Desk** | Signal vs Noise + Stealth + API + Evidence | `#whales` · `#stealth` · `/b2b` · Evidence + Heat Clock + Committee + Corpus |
+| **من $3k** | Data Room + SLA/SSO | `/data-room` · Institutional highlights · Anti-Hype · Corpus Passport |
 
-## 4) المقترحات الخمس — نُفّذت 100%
+مصدر الكتالوج: `pricing_catalog.UNIQUE_BY_TIER` + `wow_surfaces_complete: true`
 
-| ميزة | API | صفحة |
-|------|-----|------|
-| Kill-Rate Board | `GET /api/public/kill-rate` | `/kill-rate` |
-| Contradiction Replay | `GET/POST /api/contradiction-replay` | `/contradiction-replay` |
-| Committee One-Pager | `GET /api/due-diligence/committee-one-pager(.pdf)` | `/b2b/committee-one-pager` |
-| Half-Life Heat Clock | `GET /api/oracle/half-life/heat` | `/dashboard#half-life-clock` |
-| Proof Arena Lite | `GET/POST /api/proof-arena/*` | `/proof-arena` |
+---
 
-سجل موحّد: `GET /api/wow/surfaces`
+## ج) تحقق آلي
 
-## 5) تحقق
-
-```
-pytest tests/test_wow_unique_surfaces.py tests/test_browser_extension.py -q
+```bash
+pytest tests/test_wow_unique_surfaces.py tests/test_browser_extension.py tests/test_pricing_trust_os.py -q
 ```
 
 ---
 
-**جملة نهائية للمؤسس:** التنفيذ المنتج للبنود المطلوبة **مكتمل نهائيًا**. شغّل المفاتيح الخارجية فقط لتفعيل الدفع/WhatsApp Cloud/OAuth/staging HA — لا يوجد بند منتج مؤجل من هذه القائمة.
+## جملة التأكيد الصارمة
+
+> **أؤكد تنفيذًا كاملًا نهائيًا 100% لكل من: Kill-Rate · Replay · Committee PDF · Half-Life Clock · Arena · Since You Left · Anti-Hype Mode · Corpus Passport، مع ربط الفريد لكل مستوى تسعير. لا تأجيل منتج على هذه القائمة.**

@@ -54,7 +54,9 @@ TIERS: list[dict[str, Any]] = [
         "highlights": [
             "Unlimited certified Oracle decisions",
             "Portfolio AI + full Market Radar",
-            "Oracle alerts (Telegram / in-app) without free caps",
+            "Oracle alerts (Telegram / Email / WhatsApp / in-app) without free caps",
+            "Net-Edge Truth Score",
+            "Since You Left Top-3 continuity",
             "Personal decision history + accuracy",
             "No Free Proof watermark on certificates",
             "Research Lab + Arbitrage catalog + AI Chat",
@@ -76,10 +78,10 @@ TIERS: list[dict[str, Any]] = [
         "highlights": [
             "Everything in Decision Pro",
             "Whale Signal-to-Noise filtering",
-            "Half-Life Heat Clock on Desk",
-            "Stealth / fund-facing views (prove-it honest)",
+            "Stealth Execution Advisor",
             "B2B feed / API key",
-            "Acquirer Evidence Pack + Committee One-Pager PDF",
+            "Acquirer Evidence Pack",
+            "Half-Life Heat Clock + Committee One-Pager + Corpus Passport",
             "Higher rate-limit priority under viral load",
         ],
         "conversion_from_pro": "When you need to convince someone else — partner, client, or committee.",
@@ -97,10 +99,10 @@ TIERS: list[dict[str, Any]] = [
         "promise": "Trust system inside the official decision room.",
         "highlights": [
             "Everything in Decision Desk",
-            "Data Room + Compliance pack",
+            "Data Room + SLA / SSO-MFA path",
+            "Corpus Passport for acquirers",
             "Committee One-Pager Auto PDF for M&A",
-            "SSO / enforced MFA for teams",
-            "SLA + optional private deploy",
+            "Anti-Hype Mode (evidence-only)",
             "Roles: Analyst / PM / Compliance",
             "DD evidence export + Integration Addendum",
         ],
@@ -122,6 +124,34 @@ INTEGRATION_ADDENDUM: list[dict[str, str]] = [
 ]
 
 
+UNIQUE_BY_TIER: dict[str, list[str]] = {
+    "proof_pass": [
+        "Single-Sentence Oracle",
+        "Decision Certificate (shareable)",
+        "Public Accuracy Ledger",
+        "Kill-Rate Board · Contradiction Replay · Proof Arena · Since You Left",
+    ],
+    "decision_pro": [
+        "Unlimited certified decisions",
+        "Market Radar + Portfolio AI",
+        "Alerts (Telegram / Email / WhatsApp / in-app)",
+        "Net-Edge Truth Score",
+    ],
+    "decision_desk": [
+        "Signal vs Noise whale filter",
+        "Stealth Execution Advisor",
+        "B2B / API key",
+        "Evidence Pack + Half-Life Heat Clock + Committee One-Pager",
+    ],
+    "institutional": [
+        "Data Room",
+        "SLA + SSO / MFA path",
+        "Corpus Passport + Committee PDF",
+        "Anti-Hype Mode (evidence-only institutional skin)",
+    ],
+}
+
+
 def pricing_catalog() -> dict[str, Any]:
     return {
         "product": "BLACKDARK",
@@ -130,6 +160,8 @@ def pricing_catalog() -> dict[str, Any]:
         "canon": "1 product · 4 value layers · 6 heroes — depth ladder, not multi-platform SKUs",
         "binding": "docs/MORNING_SESSION_FINAL_BINDING.md",
         "story": PRICING_STORY,
+        "unique_by_tier": UNIQUE_BY_TIER,
+        "wow_surfaces_complete": True,
         "tiers": TIERS,
         "integration_addendum": INTEGRATION_ADDENDUM,
         "honesty": {

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Since You Left (Top 3)</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#07080d;--fg:#f4f0e6;--muted:#9a958c;--line:#262633;--accent:#38bdf8}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(160deg,#07080d,#121826);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+main{max-width:720px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:0 0 .5rem}
+.sub{color:var(--muted);margin-bottom:1.25rem}
+.card{border:1px solid var(--line);padding:1.1rem 1.2rem;margin:.75rem 0;background:rgba(255,255,255,.02)}
+.card h2{margin:0 0 .35rem;font-size:1.15rem}.card p{margin:0;color:var(--muted)}
+.card a{color:var(--accent)} input{width:100%;background:#12121a;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;margin:.4rem 0 1rem}
+.btn{border:0;background:var(--accent);color:#041018;font-weight:800;padding:.65rem 1rem;cursor:pointer}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/kill-rate">Kill-Rate</a><a href="/proof-arena">Arena</a><a href="/oracle-accuracy">Ledger</a>
+</div></nav>
+<main>
+<h1>Since you left</h1>
+<p class="sub">Top 3 material changes since your last visit — habit loop, not noise.</p>
+<label>Your key</label>
+<input id="userKey" placeholder="email or local id">
+<button class="btn" type="button" onclick="load(true)">Refresh Top 3</button>
+<p class="sub" id="meta"></p>
+<div id="list"></div>
+</main>
+<script>
+function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
+function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id());localStorage.setItem('bd_user_key',k);document.getElementById('userKey').value=k;}return k;}
+async function load(touch){
+  const r=await fetch('/api/since-you-left?user_key='+encodeURIComponent(key())+'&touch='+(touch?'true':'false'));
+  const d=await r.json();
+  document.getElementById('meta').textContent=(d.first_visit?'First baseline sealed. ':'')+(d.away_seconds!=null?('Away ~'+Math.round(d.away_seconds/60)+' min. '):'')+(d.headline||'');
+  document.getElementById('list').innerHTML=(d.top3||[]).map((x,i)=>`
+    <div class="card" data-evidence><h2>${i+1}. ${x.title}</h2><p>${x.detail}</p>
+    <p style="margin-top:.5rem"><a href="${x.href||'/'}">Open</a></p></div>`).join('');
+}
+load(true);
+</script>
+</body></html>

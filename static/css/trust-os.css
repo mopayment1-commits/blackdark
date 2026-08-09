@@ -350,3 +350,13 @@ a:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* ——— Anti-Hype Mode (U7) ——— */
+body.anti-hype-on .promo-cta,
+body.anti-hype-on [data-hype],
+body.anti-hype-on .pricing-card.popular .badge {
+  display: none !important;
+}
+body.anti-hype-on {
+  --bd-accent: #34d399;
+}

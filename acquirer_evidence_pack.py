@@ -146,11 +146,19 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         pass
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
+    try:
+        from corpus_passport import build_corpus_passport
+
+        pack["sections"]["corpus_passport"] = await build_corpus_passport()
+    except Exception as exc:
+        pack["sections"]["corpus_passport"] = {"error": str(exc)}
+
     pack["committee_checklist"] = [
         "Verify audit chain integrity",
         "Inspect public accuracy sample size and hit-rate",
         "Confirm Net-Edge reject rate (quality over quantity)",
         "Review labeled Signal Registry growth (moat)",
+        "Open Corpus Passport (/corpus-passport)",
         "Confirm contradiction veto is fail-closed on severe conflict",
         "Confirm half-life stats exist (time-edge product)",
         "Review data moat / acquisition asset audit",

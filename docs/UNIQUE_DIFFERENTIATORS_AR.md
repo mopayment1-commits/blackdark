@@ -37,7 +37,10 @@
 | U2 | Public Kill-Rate Board | `/kill-rate` · `/api/public/kill-rate` |
 | U3 | Half-Life Heat Clock | `/dashboard#half-life-clock` · `/api/oracle/half-life/heat` |
 | U4 | Proof Arena Lite | `/proof-arena` · `/api/proof-arena/week` |
+| U5 | Since You Left Top-3 | `/since-you-left` · `/api/since-you-left` |
 | U6 | Committee One-Pager PDF | `/b2b/committee-one-pager` · `/api/due-diligence/committee-one-pager.pdf` |
+| U7 | Anti-Hype Mode | `/anti-hype` · `/api/anti-hype/mode` |
+| U8 | Corpus Passport | `/corpus-passport` · `/api/due-diligence/corpus-passport` |
 
 ---
 

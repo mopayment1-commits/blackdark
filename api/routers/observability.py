@@ -100,6 +100,34 @@ async def committee_one_pager_pdf(_whale: dict = Depends(require_whale)):
     )
 
 
+@router.get("/api/due-diligence/corpus-passport")
+async def corpus_passport_api(_whale: dict = Depends(require_whale)):
+    from corpus_passport import build_corpus_passport
+
+    return await build_corpus_passport()
+
+
+@router.get("/api/due-diligence/corpus-passport/public")
+async def corpus_passport_public_api():
+    from corpus_passport import build_corpus_passport_public
+
+    return build_corpus_passport_public()
+
+
+@router.get("/api/due-diligence/corpus-passport.pdf")
+async def corpus_passport_pdf(_whale: dict = Depends(require_whale)):
+    from fastapi.responses import Response
+
+    from corpus_passport import build_corpus_passport, render_corpus_passport_pdf
+
+    pack = await build_corpus_passport()
+    return Response(
+        content=render_corpus_passport_pdf(pack),
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="blackdark-corpus-passport.pdf"'},
+    )
+
+
 @router.get("/api/diagnostics/price/{symbol}")
 async def price_source_diagnostics(symbol: str):
     from market_context import probe_price_sources

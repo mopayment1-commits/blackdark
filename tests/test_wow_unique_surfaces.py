@@ -115,3 +115,72 @@ def test_whatsapp_cloud_helpers():
     url = whatsapp_alert_url("+15551234567", "hello")
     assert url.startswith("https://wa.me/")
     assert isinstance(whatsapp_cloud_configured(), bool)
+
+
+def test_since_you_left_top3():
+    from since_you_left import build_since_you_left
+
+    first = build_since_you_left("wow_tester_1", touch=True)
+    assert first["surface"] == "since_you_left_top3"
+    assert len(first["top3"]) == 3
+    second = build_since_you_left("wow_tester_1", touch=True)
+    assert second["first_visit"] is False
+    assert len(second["top3"]) == 3
+
+
+def test_anti_hype_mode():
+    from anti_hype_mode import build_anti_hype_mode, set_mode, strip_hype
+
+    assert "removed" in strip_hype("guaranteed secret alpha returns").lower() or "claim" in strip_hype(
+        "guaranteed returns"
+    ).lower()
+    on = set_mode(True, user_key="hype_tester")
+    assert on["enabled"] is True
+    assert on["when_on"]["body_class"] == "anti-hype-on"
+    off = set_mode(False, user_key="hype_tester")
+    assert off["enabled"] is False
+    assert build_anti_hype_mode(user_key="hype_tester")["page"] == "/anti-hype"
+
+
+def test_corpus_passport():
+    import asyncio
+
+    from corpus_passport import (
+        build_corpus_passport,
+        build_corpus_passport_public,
+        render_corpus_passport_pdf,
+    )
+
+    pub = build_corpus_passport_public()
+    assert pub["surface"] == "corpus_passport_public"
+    assert "metrics" in pub
+    pack = asyncio.run(build_corpus_passport())
+    assert pack["surface"] == "corpus_passport"
+    assert "labeled" in pack["metrics"]
+    assert render_corpus_passport_pdf(pack).startswith(b"%PDF")
+
+
+def test_tier_unique_and_wow_eight():
+    from pathlib import Path
+
+    from pricing_catalog import UNIQUE_BY_TIER, pricing_catalog
+
+    cat = pricing_catalog()
+    assert cat["wow_surfaces_complete"] is True
+    assert "proof_pass" in UNIQUE_BY_TIER
+    assert "decision_pro" in UNIQUE_BY_TIER
+    assert "decision_desk" in UNIQUE_BY_TIER
+    assert "institutional" in UNIQUE_BY_TIER
+    heroes = Path("api/routers/heroes.py").read_text(encoding="utf-8")
+    assert "since_you_left_top3" in heroes or "/api/since-you-left" in heroes
+    assert "anti_hype_mode" in heroes or "/api/anti-hype/mode" in heroes
+    assert "corpus_passport" in heroes or "wow_eight_shipped" in heroes
+    for name in (
+        "templates/since_you_left.html",
+        "templates/anti_hype.html",
+        "templates/corpus_passport.html",
+        "since_you_left.py",
+        "anti_hype_mode.py",
+        "corpus_passport.py",
+    ):
+        assert Path(name).exists()

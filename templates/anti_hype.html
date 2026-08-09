@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Anti-Hype Mode</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#0b0b0f;--fg:#ece7dc;--muted:#8f8a82;--line:#2a2a33;--ok:#34d399}
+body{margin:0;color:var(--fg);font-family:Georgia,'Times New Roman',serif;background:#0b0b0f;min-height:100vh}
+body.anti-hype-on{background:#0b0b0f}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line);font-family:"IBM Plex Sans",sans-serif}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:700px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 .5rem}
+.sub{color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
+.panel{border:1px solid var(--line);padding:1.25rem;margin:1rem 0}
+.btn{font-family:"IBM Plex Sans",sans-serif;border:1px solid var(--ok);background:transparent;color:var(--ok);padding:.65rem 1rem;cursor:pointer;font-weight:700;margin-right:.5rem}
+.btn.on{background:var(--ok);color:#042015}
+ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
+.promo-cta{display:none} /* always hidden on this page */
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/oracle-accuracy">Ledger</a><a href="/kill-rate">Kill-Rate</a><a href="/corpus-passport">Corpus</a>
+</div></nav>
+<main>
+<h1>Anti-Hype Mode</h1>
+<p class="sub">Institutional skin: evidence only. Promo CTAs and guaranteed-return language stay off.</p>
+<div class="panel">
+  <p id="state">Loading…</p>
+  <button class="btn" id="onBtn" type="button" onclick="setMode(true)">Enable</button>
+  <button class="btn" id="offBtn" type="button" onclick="setMode(false)">Disable</button>
+</div>
+<div class="panel" data-evidence>
+  <h2>When enabled</h2>
+  <ul id="show"></ul>
+  <p class="sub" id="disc"></p>
+</div>
+<p class="promo-cta" data-hype>This promo must never show in Anti-Hype Mode.</p>
+</main>
+<script>
+function key(){return localStorage.getItem('bd_user_key')||'anon';}
+function apply(on){
+  document.cookie='bd_anti_hype='+(on?'1':'0')+'; path=/; max-age=31536000; SameSite=Lax';
+  localStorage.setItem('bd_anti_hype', on?'1':'0');
+  document.body.classList.toggle('anti-hype-on', !!on);
+  document.getElementById('onBtn').classList.toggle('on', !!on);
+  document.getElementById('offBtn').classList.toggle('on', !on);
+}
+async function load(){
+  const r=await fetch('/api/anti-hype/mode?user_key='+encodeURIComponent(key()));
+  const d=await r.json();
+  apply(!!d.enabled);
+  document.getElementById('state').textContent=d.enabled?'Anti-Hype Mode is ON — evidence only.':'Anti-Hype Mode is OFF.';
+  document.getElementById('show').innerHTML=(d.when_on?.show||[]).map(x=>`<li><b>${x}</b></li>`).join('');
+  document.getElementById('disc').textContent=d.disclaimer||'';
+}
+async function setMode(on){
+  await fetch('/api/anti-hype/mode',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({enabled:on,user_key:key()})});
+  load();
+}
+load();
+</script>
+</body></html>

@@ -1181,6 +1181,9 @@ async def sitemap_xml(request: Request):
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
+        "/since-you-left",
+        "/anti-hype",
+        "/corpus-passport",
         "/b2b/committee-one-pager",
         "/docs",
         "/b2b",
@@ -1243,6 +1246,21 @@ async def proof_arena_page(request: Request):
 @app.get("/b2b/committee-one-pager", response_class=HTMLResponse)
 async def committee_one_pager_page(request: Request):
     return templates.TemplateResponse(request, "committee_one_pager.html", _footer_ctx())
+
+
+@app.get("/since-you-left", response_class=HTMLResponse)
+async def since_you_left_page(request: Request):
+    return templates.TemplateResponse(request, "since_you_left.html", _footer_ctx())
+
+
+@app.get("/anti-hype", response_class=HTMLResponse)
+async def anti_hype_page(request: Request):
+    return templates.TemplateResponse(request, "anti_hype.html", _footer_ctx())
+
+
+@app.get("/corpus-passport", response_class=HTMLResponse)
+async def corpus_passport_page(request: Request):
+    return templates.TemplateResponse(request, "corpus_passport.html", _footer_ctx())
 
 
 @app.get("/my/discipline-mirror")

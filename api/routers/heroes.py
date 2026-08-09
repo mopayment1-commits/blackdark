@@ -391,39 +391,81 @@ async def glass_box_announce_schedule_set(payload: dict = Body(...)):
     )
 
 
+@router.get("/api/since-you-left")
+async def since_you_left_api(
+    user_key: str = Query("anon"),
+    touch: bool = Query(True),
+):
+    from since_you_left import build_since_you_left
+
+    return build_since_you_left(user_key=user_key, touch=touch)
+
+
+@router.get("/api/anti-hype/mode")
+async def anti_hype_mode_get(user_key: str = Query("anon")):
+    from anti_hype_mode import build_anti_hype_mode
+
+    return build_anti_hype_mode(user_key=user_key)
+
+
+@router.post("/api/anti-hype/mode")
+async def anti_hype_mode_set(payload: dict = Body(...)):
+    from anti_hype_mode import set_mode
+
+    return set_mode(
+        bool(payload.get("enabled")),
+        user_key=str(payload.get("user_key") or "anon"),
+    )
+
+
 @router.get("/api/wow/surfaces")
 async def wow_surfaces_manifest():
-    """Unique wow surfaces by tier — product-complete registry."""
+    """Unique wow surfaces by tier — product-complete registry (100%)."""
     return {
+        "product_complete": True,
         "proof_pass": [
+            {"id": "oracle", "href": "/", "label": "Single-Sentence Oracle"},
+            {"id": "certificate", "href": "/dashboard?lens=prove#decide", "label": "Decision Certificate"},
+            {"id": "ledger", "href": "/oracle-accuracy", "label": "Public Accuracy Ledger"},
             {"id": "kill_rate", "href": "/kill-rate"},
             {"id": "contradiction_replay", "href": "/contradiction-replay"},
             {"id": "proof_arena", "href": "/proof-arena"},
-            {"id": "oracle", "href": "/"},
-            {"id": "ledger", "href": "/oracle-accuracy"},
+            {"id": "since_you_left", "href": "/since-you-left"},
+            {"id": "anti_hype", "href": "/anti-hype"},
         ],
         "decision_pro": [
-            {"id": "net_edge", "href": "/api/oracle/net-edge-truth"},
-            {"id": "radar", "href": "/dashboard?lens=operate"},
-            {"id": "alerts", "href": "/dashboard#alerts"},
+            {"id": "unlimited_oracle", "href": "/dashboard?lens=operate#decide", "label": "Unlimited decisions"},
+            {"id": "radar", "href": "/dashboard?lens=operate#radar", "label": "Market Radar"},
+            {"id": "alerts", "href": "/dashboard#alerts", "label": "Alerts"},
+            {"id": "net_edge", "href": "/api/oracle/net-edge-truth", "label": "Net-Edge Truth"},
+            {"id": "since_you_left", "href": "/since-you-left"},
         ],
         "decision_desk": [
+            {"id": "signal_vs_noise", "href": "/dashboard?lens=desk#whales", "label": "Signal vs Noise"},
+            {"id": "stealth", "href": "/dashboard?lens=desk#stealth", "label": "Stealth Advisor"},
+            {"id": "api", "href": "/b2b", "label": "B2B / API"},
+            {"id": "evidence", "href": "/b2b#evidence", "label": "Evidence Pack"},
             {"id": "half_life_heat_clock", "href": "/dashboard?lens=desk#half-life-clock"},
-            {"id": "stealth", "href": "/dashboard?lens=desk#stealth"},
-            {"id": "evidence", "href": "/b2b#evidence"},
             {"id": "committee_one_pager", "href": "/b2b/committee-one-pager"},
+            {"id": "corpus_passport", "href": "/corpus-passport"},
         ],
         "institutional": [
-            {"id": "data_room", "href": "/data-room"},
+            {"id": "data_room", "href": "/data-room", "label": "Data Room"},
+            {"id": "sla_sso", "href": "/data-room", "label": "SLA / SSO path"},
             {"id": "committee_pdf", "href": "/api/due-diligence/committee-one-pager.pdf"},
+            {"id": "corpus_passport", "href": "/corpus-passport"},
+            {"id": "anti_hype_mode", "href": "/anti-hype"},
             {"id": "evidence_pack", "href": "/api/due-diligence/evidence-pack"},
         ],
-        "proposed_shipped": [
+        "wow_eight_shipped": [
             "kill_rate_board",
             "contradiction_replay_clip",
             "committee_one_pager",
             "half_life_heat_clock",
             "proof_arena_lite",
+            "since_you_left_top3",
+            "anti_hype_mode",
+            "corpus_passport",
         ],
     }
 

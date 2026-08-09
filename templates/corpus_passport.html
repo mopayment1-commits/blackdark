@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BLACKDARK — Corpus Passport</title>
+<style>
+body{font-family:Georgia,'Times New Roman',serif;color:#111;max-width:740px;margin:28px auto;padding:0 16px;background:#f4f1ea}
+.passport{border:2px solid #111;padding:28px;background:#fff;box-shadow:8px 8px 0 #111}
+.kicker{text-transform:uppercase;letter-spacing:.1em;font-size:12px;color:#555}
+h1{margin:.4rem 0 0;font-size:28px}
+.stamp{font-size:42px;font-weight:700;color:#0f766e;margin:18px 0 8px}
+ul{line-height:1.55}.foot{font-size:11px;color:#666;margin-top:22px}
+.btn{display:inline-block;margin:10px 8px 0 0;padding:10px 14px;background:#111;color:#fff;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px}
+@media print{.noprint{display:none}}
+</style></head>
+<body>
+<div class="passport" data-evidence id="box">
+<p class="kicker">Acquirer · Data Room · Corpus Passport</p>
+<h1>BLACKDARK Corpus Passport</h1>
+<p class="stamp" id="stamp">—</p>
+<p id="headline"></p>
+<ul id="stamps"></ul>
+<p class="foot" id="disc"></p>
+</div>
+<p class="noprint">
+<a class="btn" href="/api/due-diligence/corpus-passport.pdf">Download PDF</a>
+<a class="btn" href="/b2b/committee-one-pager">Committee One-Pager</a>
+<a class="btn" href="/data-room">Data Room</a>
+<a class="btn" href="/kill-rate">Kill-Rate</a>
+</p>
+<script>
+async function load(){
+  let d=null;
+  try{const r=await fetch('/api/due-diligence/corpus-passport'); if(r.ok) d=await r.json();}catch(e){}
+  if(!d){const r=await fetch('/api/due-diligence/corpus-passport/public'); d=await r.json();
+    d.stamps=[`Labeled (teaser): ${d.metrics?.labeled??0}`,`Kill-rate %: ${d.metrics?.kill_rate_percent??0}`,`Status: ${d.metrics?.registry_status||'—'}`,`Full passport requires Desk / Institutional session`];
+    d.headline=d.headline; d.disclaimer=d.disclaimer;
+  }
+  document.getElementById('stamp').textContent=(d.metrics?.labeled??0)+' labeled';
+  document.getElementById('headline').textContent=d.headline||d.one_liner_for_ic||'';
+  document.getElementById('stamps').innerHTML=(d.stamps||[]).map(s=>`<li>${s}</li>`).join('');
+  document.getElementById('disc').textContent=d.disclaimer||'';
+}
+load();
+</script>
+</body></html>
