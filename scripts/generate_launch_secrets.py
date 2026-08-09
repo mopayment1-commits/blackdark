@@ -131,13 +131,12 @@ def main() -> int:
     )
     text = render_env(block)
 
-    # Never print secret material (even masked) — CodeQL taint tracks through maskers.
-    print("BLACKDARK launch secrets — summary (secret values not printed)")
+    # Never print any env values — CodeQL taints checkout/token-like fields too.
+    print("BLACKDARK launch secrets — keys only (values never printed)")
     for key, value in block.items():
-        if is_secret_env_key(key):
-            print(f"  {key}=<written-to-private-file>" if value else f"  {key}=<empty>")
-        else:
-            print(f"  {key}={value}")
+        state = "present" if value else "empty"
+        kind = "secret" if is_secret_env_key(key) else "config"
+        print(f"  {key}: {kind}/{state}")
 
     if args.no_write:
         print("\nDry-run: not written. Re-run without --no-write to create .env.launch.local")

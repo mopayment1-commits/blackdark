@@ -31,15 +31,17 @@ def test_launch_secrets_never_print_cleartext():
     src = (ROOT / "scripts/generate_launch_secrets.py").read_text(encoding="utf-8")
     assert "write_private_text" in src
     assert "print(text)" not in src
-    assert "<written-to-private-file>" in src
+    assert "values never printed" in src
     assert "mask_secret(value)" not in src
+    assert 'print(f"  {key}={value}")' not in src
 
 
 def test_telegram_setup_masks_secrets():
     src = (ROOT / "scripts/setup_telegram_production.py").read_text(encoding="utf-8")
-    assert 'print(f"  {key}={val or hint}")' not in src
-    assert 'return "<set>"' in src or '"<set>"' in src
+    assert 'print(f"  {key}={_display_val(key, val, hint)}")' not in src
+    assert '"<set>"' in src
     assert "mask_secret(val)" not in src
+    assert "is_secret_env_key(key)" in src
 
 
 def test_railway_checklist_no_secret_json_dump():

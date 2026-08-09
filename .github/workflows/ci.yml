@@ -47,7 +47,9 @@ jobs:
         run: python scripts/due_diligence_verify.py --ci
 
       - name: Technical DD report smoke
-        run: python scripts/technical_due_diligence_report.py --no-probe
+        # --smoke: generate report without requiring buyer-strict overall=pass
+        # (fresh CI runners have no seeded SQLite tables / uptime history).
+        run: python scripts/technical_due_diligence_report.py --no-probe --smoke
 
       - name: Docker build smoke
         run: docker build -t blackdark-ci:test .

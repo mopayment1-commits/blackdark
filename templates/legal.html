@@ -53,10 +53,16 @@
   document.body.prepend(box);
   document.getElementById('bdAckTerms').onclick = async () => {
     await fetch('/api/legal/ack-terms', { method: 'POST', credentials: 'same-origin' });
-    // Same-origin relative path only — never open redirects / XSS via ?next=
-    const raw = params.get('next') || '/';
-    const next = (raw.charAt(0) === '/' && raw.charAt(1) !== '/') ? raw : '/';
-    location.assign(next);
+    // Hard allowlist only — never assign user-controlled ?next= (CodeQL XSS/redirect).
+    const destKey = params.get('next_key') || 'home';
+    const ALLOWED = {
+      home: '/',
+      dashboard: '/dashboard',
+      accuracy: '/oracle-accuracy',
+      pricing: '/#pricing',
+      login: '/login'
+    };
+    location.assign(ALLOWED[destKey] || '/');
   };
 })();
 </script>

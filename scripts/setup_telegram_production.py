@@ -84,7 +84,11 @@ def main() -> int:
         ("TELEGRAM_POLLING_ENABLED", "false" if not use_polling else "true", "use webhook on Railway"),
     ]
     for key, val, hint in vars_:
-        print(f"  {key}={_display_val(key, val, hint)}")
+        # Keep secret values out of the print call entirely (CodeQL taint).
+        if is_secret_env_key(key):
+            print(f"  {key}=<set>" if val else f"  {key}=<missing — {hint}>")
+        else:
+            print(f"  {key}={val or hint}")
 
     if use_polling:
         print("\n--- Mode: long polling (dev/single-instance) ---")
