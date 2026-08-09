@@ -66,4 +66,10 @@ def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
     chip = freshness_chip(freshness_ms=ms, age_sec=age)
     out["data_freshness"] = chip
     out["freshness_ms"] = chip.get("freshness_ms")
+    try:
+        from data_provenance_score import attach_provenance
+
+        out = attach_provenance(out)
+    except Exception:
+        pass
     return out

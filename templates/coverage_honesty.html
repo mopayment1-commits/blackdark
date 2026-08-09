@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Coverage Honesty</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399;--warn:#f59e0b}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(165deg,#070a0f,#101820);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:800px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem)}
+.sub{color:var(--muted);line-height:1.55;margin:.5rem 0 1.25rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1rem 0 1.5rem}
+.metric{border:1px solid var(--line);padding:1rem}.metric strong{display:block;font-size:1.6rem}
+.metric span{color:var(--muted);font-size:.75rem}
+.box{border:1px solid var(--line);padding:1.1rem;margin:.75rem 0}
+code{color:var(--ok)} @media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/miss-feed">Miss Feed</a><a href="/corpus-passport">Corpus</a><a href="/data-room">Data Room</a>
+</div></nav>
+<main>
+<h1>Coverage Honesty</h1>
+<p class="sub" id="doctrine">Depth of LIVE venues beats vanity of 100 planned names.</p>
+<div class="grid">
+  <div class="metric"><strong id="live">—</strong><span>Live decision venues</span></div>
+  <div class="metric"><strong id="next">—</strong><span>Next-wave (not live)</span></div>
+  <div class="metric"><strong id="prov">—</strong><span>BTC provenance score</span></div>
+</div>
+<div class="box" data-evidence>
+  <h2>Live (used in decisions)</h2>
+  <p id="liveIds" class="sub"></p>
+</div>
+<div class="box">
+  <h2>Radical fix</h2>
+  <p id="fix" class="sub"></p>
+</div>
+<p class="sub" id="disc"></p>
+</main>
+<script>
+async function load(){
+  const d=await (await fetch('/api/public/coverage-honesty')).json();
+  document.getElementById('doctrine').textContent=d.doctrine||'';
+  document.getElementById('live').textContent=d.live?.count??0;
+  document.getElementById('next').textContent=d.next_wave?.count??0;
+  document.getElementById('prov').textContent=d.metrics?.btc_provenance_score??'—';
+  document.getElementById('liveIds').innerHTML=(d.live?.ids||[]).map(x=>`<code>${x}</code>`).join(' · ')||'—';
+  document.getElementById('fix').textContent=d.radical_fix?.solution||'';
+  document.getElementById('disc').textContent=d.disclaimer||'';
+}
+load();
+</script>
+</body></html>

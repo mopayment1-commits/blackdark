@@ -118,12 +118,16 @@ def test_whatsapp_cloud_helpers():
 
 
 def test_since_you_left_top3():
+    import time
+
     from since_you_left import build_since_you_left
 
-    first = build_since_you_left("wow_tester_1", touch=True)
+    uk = f"wow_tester_{int(time.time() * 1000)}"
+    first = build_since_you_left(uk, touch=True)
     assert first["surface"] == "since_you_left_top3"
+    assert first["first_visit"] is True
     assert len(first["top3"]) == 3
-    second = build_since_you_left("wow_tester_1", touch=True)
+    second = build_since_you_left(uk, touch=True)
     assert second["first_visit"] is False
     assert len(second["top3"]) == 3
 

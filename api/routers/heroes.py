@@ -317,6 +317,44 @@ async def public_kill_rate_board():
     return build_kill_rate_board()
 
 
+@router.get("/api/public/miss-feed")
+async def public_miss_feed_api(limit: int = Query(40, ge=1, le=100)):
+    from public_miss_feed import build_public_miss_feed
+
+    return await build_public_miss_feed(limit=limit)
+
+
+@router.get("/api/public/coverage-honesty")
+async def coverage_honesty_api():
+    from coverage_honesty import build_coverage_honesty_board
+
+    return await build_coverage_honesty_board()
+
+
+@router.get("/api/oracle/provenance-score")
+async def provenance_score_api(symbol: str = Query("BTC")):
+    from data_provenance_score import compute_data_provenance_score
+
+    return compute_data_provenance_score(symbol=symbol)
+
+
+@router.get("/api/emotion-tax/receipt")
+async def emotion_tax_receipt_api(
+    user_key: str = Query("anon"),
+    notional_usd: float = Query(1000.0, ge=10, le=10_000_000),
+):
+    from emotion_tax_receipt import build_emotion_tax_receipt
+
+    return build_emotion_tax_receipt(user_key=user_key, notional_usd=notional_usd)
+
+
+@router.get("/api/public/brand-coverage-closure")
+async def brand_coverage_closure_api():
+    from brand_proof_engine import build_brand_coverage_radical_closure
+
+    return await build_brand_coverage_radical_closure()
+
+
 @router.get("/api/contradiction-replay")
 async def contradiction_replay_api(
     symbol: str = Query("BTC"),
@@ -467,6 +505,14 @@ async def wow_surfaces_manifest():
             "anti_hype_mode",
             "corpus_passport",
         ],
+        "brand_coverage_radical_closure": {
+            "miss_feed": "/miss-feed",
+            "coverage_honesty": "/coverage-honesty",
+            "emotion_tax": "/emotion-tax",
+            "provenance_score": "/api/oracle/provenance-score",
+            "status_api": "/api/public/brand-coverage-closure",
+            "product_complete": True,
+        },
     }
 
 

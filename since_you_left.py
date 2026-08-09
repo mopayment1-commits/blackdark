@@ -221,7 +221,37 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
         ]
 
     items.sort(key=lambda x: float(x.get("rank_score") or 0), reverse=True)
-    return items[:3]
+    # Always return exactly Top-3 (pad with stable continuity cards)
+    pads = [
+        {
+            "id": "kill_board",
+            "rank_score": 20,
+            "title": "Kill-Rate board live",
+            "detail": "Public refusal rate — verify honesty anytime",
+            "href": "/kill-rate",
+        },
+        {
+            "id": "miss_feed",
+            "rank_score": 15,
+            "title": "Miss Feed open",
+            "detail": "We publish misses first — brand by courage",
+            "href": "/miss-feed",
+        },
+        {
+            "id": "coverage",
+            "rank_score": 10,
+            "title": "Coverage Honesty",
+            "detail": "Live venues only — planned never sold as live",
+            "href": "/coverage-honesty",
+        },
+    ]
+    out = items[:3]
+    for p in pads:
+        if len(out) >= 3:
+            break
+        if p["id"] not in {x.get("id") for x in out}:
+            out.append(p)
+    return out[:3]
 
 
 def build_since_you_left(user_key: str = "anon", *, touch: bool = True) -> dict[str, Any]:

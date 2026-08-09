@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Emotion Tax Receipt</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#0a080c;--fg:#f4efe6;--muted:#9a948c;--line:#2c2430;--tax:#fb7185;--accent:#22d3ee}
+body{margin:0;color:var(--fg);font-family:Georgia,'Times New Roman',serif;background:#0a080c;min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line);font-family:"IBM Plex Sans",sans-serif}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-weight:800;color:var(--accent);text-decoration:none}
+main{max-width:640px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-size:clamp(1.8rem,4vw,2.6rem)}.sub{color:var(--muted);line-height:1.5}
+.receipt{border:2px dashed var(--line);padding:1.5rem;margin:1.25rem 0;background:rgba(255,255,255,.02)}
+.big{font-size:2.8rem;color:var(--tax);font-weight:800;font-family:"IBM Plex Sans",sans-serif}
+input{width:100%;background:#141018;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;margin:.4rem 0 1rem;font-family:inherit}
+.btn{border:0;background:var(--tax);color:#111;font-weight:800;padding:.7rem 1.1rem;cursor:pointer;font-family:"IBM Plex Sans",sans-serif}
+a.btn{display:inline-block;text-decoration:none;margin-right:.5rem}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/discipline-mirror">Mirror</a><a href="/miss-feed">Miss Feed</a><a href="/anti-hype">Anti-Hype</a>
+</div></nav>
+<main>
+<h1>Emotion Tax Receipt</h1>
+<p class="sub">Educational estimate of what overrides may have cost — private by default, share anonymized.</p>
+<label class="sub">Your key</label>
+<input id="userKey" placeholder="email or local id">
+<label class="sub">Assumed notional (USD)</label>
+<input id="notional" type="number" value="1000">
+<button class="btn" type="button" onclick="load()">Build receipt</button>
+<div class="receipt" data-evidence>
+  <div class="big" id="tax">$—</div>
+  <p class="sub" id="line"></p>
+  <p class="sub" id="disc"></p>
+</div>
+<a class="btn" id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn" id="x" href="#" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--line);color:var(--fg)">X</a>
+</main>
+<script>
+function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
+function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id());localStorage.setItem('bd_user_key',k);document.getElementById('userKey').value=k;}return k;}
+async function load(){
+  const n=document.getElementById('notional').value||1000;
+  const d=await (await fetch('/api/emotion-tax/receipt?user_key='+encodeURIComponent(key())+'&notional_usd='+encodeURIComponent(n))).json();
+  document.getElementById('tax').textContent='$'+(d.estimated_emotion_tax_usd??0);
+  document.getElementById('line').textContent=`Overrides ${d.overrides} · follow ${d.follow_rate_percent}% · anon ${d.user_key_hash}`;
+  document.getElementById('disc').textContent=d.disclaimer||'';
+  document.getElementById('wa').href=d.share_urls?.whatsapp||'#';
+  document.getElementById('x').href=d.share_urls?.x||'#';
+}
+load();
+</script>
+</body></html>

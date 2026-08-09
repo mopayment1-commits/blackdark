@@ -1184,6 +1184,9 @@ async def sitemap_xml(request: Request):
         "/since-you-left",
         "/anti-hype",
         "/corpus-passport",
+        "/miss-feed",
+        "/coverage-honesty",
+        "/emotion-tax",
         "/b2b/committee-one-pager",
         "/docs",
         "/b2b",
@@ -1261,6 +1264,21 @@ async def anti_hype_page(request: Request):
 @app.get("/corpus-passport", response_class=HTMLResponse)
 async def corpus_passport_page(request: Request):
     return templates.TemplateResponse(request, "corpus_passport.html", _footer_ctx())
+
+
+@app.get("/miss-feed", response_class=HTMLResponse)
+async def miss_feed_page(request: Request):
+    return templates.TemplateResponse(request, "miss_feed.html", _footer_ctx())
+
+
+@app.get("/coverage-honesty", response_class=HTMLResponse)
+async def coverage_honesty_page(request: Request):
+    return templates.TemplateResponse(request, "coverage_honesty.html", _footer_ctx())
+
+
+@app.get("/emotion-tax", response_class=HTMLResponse)
+async def emotion_tax_page(request: Request):
+    return templates.TemplateResponse(request, "emotion_tax.html", _footer_ctx())
 
 
 @app.get("/my/discipline-mirror")
