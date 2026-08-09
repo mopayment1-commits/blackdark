@@ -5,9 +5,9 @@
 
 | ID | Action | Why runtime |
 |----|--------|-------------|
-| Ops-Pay | Set Lemon/Stripe + webhook secrets; one test purchase | Your PSP account |
-| Ops-WA | Set `WHATSAPP_CLOUD_TOKEN` + `WHATSAPP_CLOUD_PHONE_NUMBER_ID` for server push (click-to-send already works) | Meta Cloud credentials |
-| Ops-DB | Postgres + Redis + `WEB_CONCURRENCY≥2` for viral claim | Your hosting |
+| H1 / Ops-Pay | Set Lemon/Stripe + webhook secrets; one test purchase | Your PSP account |
+| H2 / Ops-WA | Set `WHATSAPP_CLOUD_TOKEN` + `WHATSAPP_CLOUD_PHONE_NUMBER_ID` for server push (click-to-send already works) | Meta Cloud credentials |
+| H3 / Ops-DB | Postgres + Redis + `WEB_CONCURRENCY≥2` for viral claim | Your hosting |
 | Ops-HA | Sign a real row in [`LOAD_TEST_RUN_LOG.md`](./LOAD_TEST_RUN_LOG.md) after staging load | Needs live staging |
 | Ops-OAuth | Google/GitHub OAuth client secrets | Developer console |
 | Ops-Ext | Chrome → Load unpacked `browser_extension/` | Local browser install (package shipped) |

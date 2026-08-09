@@ -84,8 +84,8 @@ LENSES: list[dict[str, Any]] = [
         "hide_sections": [],
         "soft_sections": [],
         "viral_role": "Packaging for partners/clients — not a second product.",
-        "desk_surfaces": ["/dashboard?lens=desk#half-life-clock", "/b2b/committee-one-pager", "/kill-rate"],
-        "entry_path": "/dashboard?lens=desk#half-life-clock",
+        "desk_surfaces": ["/dashboard?lens=desk#stealth", "/dashboard?lens=desk#half-life-clock", "/b2b/committee-one-pager", "/kill-rate"],
+        "entry_path": "/dashboard?lens=desk#stealth",
         "landing_path": "/dashboard?lens=desk",
     },
     {

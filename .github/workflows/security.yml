@@ -20,9 +20,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install --only-binary=:all: "pip-audit==2.9.0"
-      # Critical pins raised (aiohttp/cryptography/strawberry). Transitive trees may still warn.
-      - run: pip-audit -r requirements.txt --desc
-        continue-on-error: true
+      # Audit the locked tree used by CI (Sonar S8541 / S8544).
+      - run: pip-audit -r requirements.lock.txt --desc
 
   pytest-security:
     runs-on: ubuntu-latest
@@ -31,5 +30,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt cryptography
+      - run: pip install --only-binary=:all: -r requirements.lock.txt
       - run: python -m pytest tests/test_security.py tests/test_security_hardening.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py -q

@@ -11,15 +11,16 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     MANIFEST_REQUIRE_REVIEW=false
 
 # Minimal OS deps for wheels; keep image lean for Railway trial builds
+# hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
+    # hadolint: ca-certificates tracks Debian security updates; pin optional
     && rm -rf /var/lib/apt/lists/* \
     && useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser
 
-COPY requirements-prod.txt requirements.txt
-# Prefer locked wheels (Sonar docker:S8541 / S8544); fall back if a package lacks a wheel.
-RUN pip install --no-cache-dir --default-timeout=180 --only-binary=:all: -r requirements.txt \
-    || pip install --no-cache-dir --default-timeout=180 -r requirements.txt
+# Locked == pins + wheels-only (Sonar docker:S8541 / S8544).
+COPY requirements-prod.lock.txt requirements.txt
+RUN pip install --no-cache-dir --default-timeout=180 --only-binary=:all: -r requirements.txt
 
 COPY *.py ./
 COPY api/ api/
