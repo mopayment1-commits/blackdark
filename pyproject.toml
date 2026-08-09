@@ -89,6 +89,8 @@ ignore = [
 # Security scanners / hash helpers may use MD5 for non-security fingerprints.
 "security_verification.py" = ["S324"]
 "immutable_audit.py" = ["S324"]
+# Locale overlays intentionally restate keys when layers are merged; last/first wins in runtime merge.
+"i18n_locales.py" = ["F601"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["bd_platform", "api", "ml", "repos", "microservices", "config"]

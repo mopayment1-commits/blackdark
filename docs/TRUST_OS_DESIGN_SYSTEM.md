@@ -5,7 +5,7 @@
 ## Canon
 
 - 1 product · 4 lenses · 6 heroes · Trust Pulse first-open
-- Pricing: Proof Pass $0 · Decision Pro $29 · Whale Desk $199 · Institutional Talk-to-us
+- Pricing: Proof Pass $0 · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open
 - Share = Proof Cards · Verify = Public Accuracy Ledger
 - Anti-Hype: prove it, don’t manipulate
 
@@ -18,7 +18,7 @@
 | Soft Gold `#FFD700` as system accent | Crypto-bro / cheap signal |
 | ARENA / prediction leaderboards | Outside Trust OS canon |
 | FOMO seat counters / fake scarcity | Conflicts with Anti-Hype |
-| Explorer / Plus $19 / Pro $49 ladder | Superseded by Trust OS pricing |
+| Explorer / Plus $19 / TradingView-copy 5-tier ladder | Superseded by Trust OS $0/$29/$49/$3000→open |
 | First-viewport stats strips | Breaks hero budget |
 
 ## Palette
@@ -57,7 +57,7 @@ No stats, schedules, Telegram blocks, or secondary marketing in the first compos
 
 ## Sealed myth layer (landing)
 
-Full-bleed cinematic vault/seal visual (`/static/img/blackdark-sealed-hero.png`) is the **brand myth plane**, not a product substitute.
+Full-bleed cinematic vault/seal visual (`/static/img/blackdark-sealed-hero.webp`, JPEG fallback) is the **brand myth plane**, not a product substitute.
 
 | Layer | Job |
 |-------|-----|

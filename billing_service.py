@@ -1,8 +1,8 @@
 """
 BLACKDARK — Stripe / Lemon Squeezy billing & subscription lifecycle.
 
-Self-serve: Decision Pro ($29) and Whale Desk ($199).
-Free = Proof Pass ($0). Institutional = Talk to us (not a Stripe SKU).
+Self-serve: Decision Pro ($29) and Decision Desk ($49).
+Free = Proof Pass ($0). Institutional = Talk to us from $3,000 → open (not a Stripe SKU).
 """
 
 from __future__ import annotations
@@ -27,10 +27,10 @@ STRIPE_TIERS: dict[str, dict[str, Any]] = {
         "sku": "decision_pro",
     },
     "whale": {
-        "amount": 19900,
+        "amount": 4900,
         "currency": "usd",
-        "name": "Whale Desk",
-        "sku": "whale_desk",
+        "name": "Decision Desk",
+        "sku": "decision_desk",
     },
 }
 

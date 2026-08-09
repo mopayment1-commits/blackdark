@@ -11,7 +11,7 @@
 |------|----------|------|---------|
 | **Prove** | Retail / Free | Proof Pass | Decide… and prove it |
 | **Operate** | Daily pro | Decision Pro | Make proof a daily habit |
-| **Desk** | Whales / small offices | Whale Desk | Convince someone else |
+| **Desk** | Whales / small offices | Decision Desk ($49) | Convince someone else |
 | **Room** | Funds | Institutional | Official decision room — Talk to us |
 
 ## Primary entries
@@ -47,4 +47,4 @@
 1. Proof Card shares  
 2. Free → Operate trial  
 3. Trial → $29  
-4. Only then Desk $199  
+4. Only then Desk $49  

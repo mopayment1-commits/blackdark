@@ -91,6 +91,6 @@ docker compose up -d --scale web=2 --scale arbitrage=2
 |------|-------|----------|
 | Free | $0 | Oracle 10/day, Market Radar, Journal |
 | Pro | $29/mo | Unlimited Oracle, Arbitrage, Chat, Alerts, Research |
-| Whale | $199/mo | + Voice, B2B API |
+| Decision Desk | $49/mo | + Voice, B2B API |
 
 New signups get **7-day Pro trial** automatically. Promo codes: `LAUNCHPRO`, `DARKSIDE`, `BLACKDARK`.

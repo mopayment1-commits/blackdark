@@ -52,7 +52,7 @@ async def sse_event_generator(*, interval_sec: float = 5.0) -> AsyncIterator[str
             yield f"data: {json.dumps(snap, default=str)}\n\n"
         except asyncio.CancelledError:
             raise
-        except Exception as exc:
-            err = {"type": "error", "message": str(exc), "timestamp": _utcnow()}
+        except Exception:
+            err = {"type": "error", "message": "stream_unavailable", "timestamp": _utcnow()}
             yield f"data: {json.dumps(err)}\n\n"
         await asyncio.sleep(interval_sec)

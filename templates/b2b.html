@@ -56,7 +56,7 @@
             <a href="/oracle-accuracy">Accuracy</a>
             <a href="#fund-terminal">Fund Terminal</a>
             <a href="/dashboard">Dashboard</a>
-            <a href="/create-checkout-session?tier=whale">Get Whale Tier</a>
+            <a href="/create-checkout-session?tier=whale">Get Decision Desk</a>
         </div>
     </nav>
 
@@ -88,7 +88,7 @@
         </div>
         <div class="card">
             <h3>API Access</h3>
-            <p>REST JSON · Version {{ feed_version }} · Whale tier includes production key · Custom SLA for funds.</p>
+            <p>REST JSON · Version {{ feed_version }} · Decision Desk includes production key · Custom SLA for funds.</p>
         </div>
     </div>
 
@@ -96,7 +96,7 @@
         <div class="card">
             <h2 style="margin-bottom:0.5rem">Live Demo</h2>
             <p style="color:var(--muted);font-size:0.9rem">No signup required — limited to 15 records.</p>
-            <div class="price">$199<span>/month</span> <span style="font-size:0.85rem">institutional license</span></div>
+            <div class="price">Custom<span style="font-size:0.85rem"> / from Decision Desk $49</span></div>
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
             <button class="btn btn-primary" onclick="runDemo()">Fetch Demo Feed</button>
@@ -117,7 +117,7 @@
             <button class="btn btn-secondary" type="button" onclick="downloadFundTerminal()">Download DD JSON</button>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
             <a class="btn btn-secondary" href="/oracle-accuracy#losing">Monthly Losing Report</a>
-            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Whale · Full Evidence</a>
+            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Decision Desk · Full Evidence</a>
             <pre class="demo-result" id="fundTerminalResult" style="max-height:320px">Click “Load Fund DD Pack” for allocator-ready summary.</pre>
         </div>
     </div>
@@ -127,12 +127,12 @@
             <h2 style="margin-bottom:0.5rem">Acquirer Evidence Pack (D6)</h2>
             <p style="color:var(--muted);font-size:0.9rem">
                 One-click data-room pack for funds and M&amp;A committees.
-                Public summary is open; full pack requires Whale / Admin.
+                Public summary is open; full pack requires Decision Desk / Admin.
             </p>
             <button class="btn btn-primary" type="button" onclick="loadEvidenceSummary()">Load Public Summary</button>
             <button class="btn btn-secondary" type="button" onclick="loadEvidenceFull()">Open Full Pack</button>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
-            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Get Whale Access</a>
+            <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Get Decision Desk Access</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
             <div id="evidenceCards" style="display:none;margin-top:1rem"></div>
             <pre class="demo-result" id="evidenceResult" style="max-height:320px">Click “Load Public Summary” to preview the pack thesis.</pre>
@@ -162,7 +162,7 @@
             <p style="margin-top:0.5rem"><code>GET /api/b2b/ws/info</code> — WebSocket status</p>
             <p style="margin-top:0.5rem"><code>GET /api/b2b/proposal?client=Fund</code> — sales proposal JSON</p>
             <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack/public-summary</code> — D6 teaser</p>
-            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack</code> — full pack (Whale)</p>
+            <p style="margin-top:0.5rem"><code>GET /api/due-diligence/evidence-pack</code> — full pack (Decision Desk)</p>
         </div>
         <div class="card">
             <h3>Use Cases</h3>
@@ -340,7 +340,7 @@
                 const data = await res.json();
                 if (!res.ok) {
                     el.textContent = res.status === 401 || res.status === 403
-                        ? 'Whale / Admin login required for the full pack. Use Get Whale Access, then retry.'
+                        ? 'Decision Desk / Admin login required for the full pack. Upgrade, then retry.'
                         : (JSON.stringify(data, null, 2) || 'Pack unavailable');
                     return;
                 }
@@ -351,7 +351,7 @@
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
             } catch (e) {
-                el.textContent = 'Full pack unavailable — login as Whale/Admin and retry.';
+                el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.';
             }
         }
     </script>

@@ -9,7 +9,7 @@
     <style>
         :root { --bg:#0a0a0f; --card:#111118; --border:#2a2a35; --text:#e4e4e7; --muted:#71717a; --accent:#22d3ee; --success:#22c55e; --danger:#ef4444; }
         * { box-sizing:border-box; margin:0; padding:0; }
-        body { font-family:var(--bd-font-body); background:var(--bg); color:var(--text); min-height:100vh; }
+        body { font-family:var(--bd-font-body, "IBM Plex Sans", sans-serif); background:var(--bg); color:var(--text); min-height:100vh; }
         nav { padding:.85rem 1.25rem; border-bottom:1px solid var(--border); }
         nav a { color:var(--accent); text-decoration:none; margin-right:1rem; }
         main { max-width:1100px; margin:0 auto; padding:1.5rem 1.25rem 3rem; }
@@ -36,19 +36,53 @@
 <script>
 const coinId = {{ coin_id|tojson }};
 const fmt = (n,d=2) => n==null?'—':Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
+function esc(s) {
+    return String(s ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+/** Plain text only via textContent — never regex strip / never assign untrusted HTML. */
+function plainText(s, maxLen) {
+    const d = document.createElement('div');
+    d.textContent = String(s ?? '');
+    const t = d.textContent || '';
+    return maxLen ? t.slice(0, maxLen) : t;
+}
 let chart, series;
 
 async function load() {
-    const res = await fetch(`/api/platform/market/coin/${coinId}`);
+    const res = await fetch(`/api/platform/market/coin/${encodeURIComponent(coinId)}`);
     const c = await res.json();
     if (!c.available) {
-        document.getElementById('head').innerHTML = '<div class="loading">Coin not found</div>';
+        const head = document.getElementById('head');
+        head.textContent = '';
+        const miss = document.createElement('div');
+        miss.className = 'loading';
+        miss.textContent = 'Coin not found';
+        head.appendChild(miss);
         return;
     }
-    document.title = `BLACKDARK — ${c.name} (${c.symbol})`;
-    document.getElementById('head').innerHTML = `<h1>${c.name} <span style="color:var(--muted)">${c.symbol}</span></h1>
-        <p style="color:var(--muted);margin-top:.25rem">$${fmt(c.price_usd)} · MCap $${fmt(c.market_cap_usd,0)}</p>`;
-    document.getElementById('desc').textContent = (c.description||'').replace(/<[^>]+>/g,'').slice(0,600);
+    const name = plainText(c.name, 80);
+    const symbol = plainText(c.symbol, 24);
+    document.title = `BLACKDARK — ${name} (${symbol})`;
+    const head = document.getElementById('head');
+    head.textContent = '';
+    const h1 = document.createElement('h1');
+    h1.appendChild(document.createTextNode(name + ' '));
+    const symSpan = document.createElement('span');
+    symSpan.style.color = 'var(--muted)';
+    symSpan.textContent = symbol;
+    h1.appendChild(symSpan);
+    const p = document.createElement('p');
+    p.style.color = 'var(--muted)';
+    p.style.marginTop = '.25rem';
+    p.textContent = `$${fmt(c.price_usd)} · MCap $${fmt(c.market_cap_usd,0)}`;
+    head.appendChild(h1);
+    head.appendChild(p);
+    document.getElementById('desc').textContent = plainText(c.description, 600);
     const ch = c.change_24h_pct||0;
     document.getElementById('stats').innerHTML = [
         ['24h', `${fmt(ch)}%`, ch>=0?'pos':'neg'],
@@ -57,7 +91,7 @@ async function load() {
         ['Vol 24h', `$${fmt(c.volume_24h_usd,0)}`, ''],
         ['ATH', `$${fmt(c.ath_usd)}`, ''],
         ['Circulating', fmt(c.circulating_supply,0), ''],
-    ].map(([l,v,cls])=>`<div class="stat"><label>${l}</label><strong class="${cls}">${v}</strong></div>`).join('');
+    ].map(([l,v,cls])=>`<div class="stat"><label>${esc(l)}</label><strong class="${esc(cls)}">${esc(v)}</strong></div>`).join('');
 
     const el = document.getElementById('chart');
     chart = LightweightCharts.createChart(el, {
@@ -82,6 +116,5 @@ async function load() {
 }
 load();
 </script>
-{% include "partials/site_footer.html" %}
 </body>
 </html>

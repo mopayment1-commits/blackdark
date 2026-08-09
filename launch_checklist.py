@@ -51,14 +51,14 @@ def _run_pytest_quick() -> tuple[bool, str]:
     """
     errors: list[str] = []
     try:
-        def _require(cond: bool, msg: str) -> None:
-            if not cond:
-                raise RuntimeError(msg)
-
-        _require(_file_exists("docs/PRODUCT_CONSTITUTION_AR.md"), "missing PRODUCT_CONSTITUTION_AR")
-        _require(_file_exists("docs/RUNBOOK.md"), "missing RUNBOOK")
-        _require(_file_exists("templates/admin_launch.html"), "missing admin_launch")
-        _require(_constitution_modules_ready(), "constitution modules not ready")
+        if not _file_exists("docs/PRODUCT_CONSTITUTION_AR.md"):
+            raise RuntimeError("missing_constitution_doc")
+        if not _file_exists("docs/RUNBOOK.md"):
+            raise RuntimeError("missing_runbook")
+        if not _file_exists("templates/admin_launch.html"):
+            raise RuntimeError("missing_admin_launch")
+        if not _constitution_modules_ready():
+            raise RuntimeError("constitution_modules_not_ready")
 
         from auth_service import TIER_FEATURES
         from net_edge_truth import compute_net_edge_truth
@@ -66,9 +66,12 @@ def _run_pytest_quick() -> tuple[bool, str]:
         from persona_clarity import build_persona_clarity
         from ux_mode import apply_ux_mode, normalize_ux_mode
 
-        _require(TIER_FEATURES["whale"]["b2b_api"] is True, "whale b2b_api flag")
-        _require(TIER_FEATURES["whale"]["evidence_pack"] is True, "whale evidence_pack flag")
-        _require(normalize_ux_mode("pro") == "pro", "ux mode normalize")
+        if TIER_FEATURES["whale"]["b2b_api"] is not True:
+            raise RuntimeError("whale_b2b_api")
+        if TIER_FEATURES["whale"]["evidence_pack"] is not True:
+            raise RuntimeError("whale_evidence_pack")
+        if normalize_ux_mode("pro") != "pro":
+            raise RuntimeError("ux_mode_normalize")
 
         truth_bad = compute_net_edge_truth(
             {
@@ -80,13 +83,15 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 "estimated_recipients": 40,
             }
         )
-        _require(truth_bad.get("reject") is True, "net edge truth should reject")
+        if truth_bad.get("reject") is not True:
+            raise RuntimeError("net_edge_truth_reject")
 
         half = estimate_opportunity_half_life(
             {"kind": "cross_exchange", "asset": "BTC"},
             live_duration_seconds=5,
         )
-        _require(half.get("expected_half_life_seconds", 0) > 0, "half-life missing")
+        if not (half.get("expected_half_life_seconds", 0) > 0):
+            raise RuntimeError("half_life")
 
         persona = build_persona_clarity(
             asset="BTC",
@@ -102,18 +107,21 @@ def _run_pytest_quick() -> tuple[bool, str]:
                 },
             },
         )
-        _require("retail" in persona.get("personas", {}), "persona retail missing")
+        if "retail" not in persona.get("personas", {}):
+            raise RuntimeError("persona_retail")
 
         slim = apply_ux_mode({"opportunity_score": 70, "verdict": "BUY", "persona_clarity": persona}, mode="beginner")
-        _require(slim.get("ux_mode") == "beginner", "ux beginner mode")
+        if slim.get("ux_mode") != "beginner":
+            raise RuntimeError("ux_mode_beginner")
 
         from oracle_audit_chain import verify_chain
 
         chain = verify_chain()
-        _require("valid" in chain or "ok" in chain or isinstance(chain, dict), "audit chain shape")
+        if not ("valid" in chain or "ok" in chain or isinstance(chain, dict)):
+            raise RuntimeError("oracle_chain")
 
-    except Exception as exc:
-        errors.append(str(exc))
+    except Exception:
+        errors.append("constitution_smoke_failed")
         return False, "; ".join(errors)[:240]
     return True, "in_process_constitution_smoke_ok"
 
@@ -180,32 +188,6 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "title": "Buyer verification + finalize_launch",
             "status": "done" if _file_exists("data/finalize_launch.json") else "progress",
             "action": "python scripts/finalize_launch.py",
-        },
-        {
-            "day": 1,
-            "id": "d1_viral_capacity",
-            "title": "Viral HA env (Postgres+Redis+multi-instance, Soft Launch unset)",
-            "status": (
-                "done"
-                if (
-                    _file_exists("docs/VIRAL_LAUNCH_CAPACITY.md")
-                    and _file_exists("viral_capacity.py")
-                    and bool(_env_or_launch("REDIS_URL") or _env("REDIS_URL"))
-                    and (
-                        int(_env_or_launch("WEB_CONCURRENCY") or _env("WEB_CONCURRENCY") or "1") >= 2
-                        or int(_env_or_launch("WEB_REPLICAS") or _env("WEB_REPLICAS") or "1") >= 2
-                    )
-                    and (_env_or_launch("SOFT_LAUNCH") or _env("SOFT_LAUNCH") or "")
-                        .lower() not in {"1", "true", "yes"}
-                )
-                else "progress"
-            ),
-            "action": (
-                "Set REDIS_URL, SERVICE_BUS_LOCAL=false, WEB_CONCURRENCY≥2, WEB_REPLICAS≥2, "
-                "VIRAL_MODE=true, unset SOFT_LAUNCH → GET /api/viral/readiness + /health/viral"
-            ),
-            "endpoint": "/api/viral/readiness",
-            "file": "docs/VIRAL_LAUNCH_CAPACITY.md",
         },
         # ── Day 2: Domain + Payments ──
         {

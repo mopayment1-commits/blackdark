@@ -18,7 +18,7 @@ logger = logging.getLogger("BLACKDARK.Retention")
 ChurnRisk = Literal["low", "moderate", "high", "critical"]
 
 BEAR_REGIMES = frozenset({"panic", "risk_off"})
-SUBSCRIPTION_COST_USD = {"pro": 29.0, "whale": 199.0}
+SUBSCRIPTION_COST_USD = {"pro": 29.0, "whale": 49.0}
 
 
 def _enabled() -> bool:

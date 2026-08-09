@@ -8,7 +8,7 @@ Binding catalog for the **trust rail around Trust OS** — not a second product.
 - **Share** = Proof Cards / Ledger snapshots (user content)
 - **Follow us** = brand social profiles (footer / About / Contact) — never hero clutter
 - **Phone** = institutional / optional (`INSTITUTIONAL_PHONE`) — not viral-launch hero auth
-- **AI Chat** = Operate+ (Decision Pro / Whale Desk) on `/dashboard#ai-chat`
+- **AI Chat** = Operate+ (Decision Pro / Decision Desk) on `/dashboard#ai-chat`
 
 ## Surfaces (HTML)
 

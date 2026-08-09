@@ -28,17 +28,17 @@ def main() -> int:
 
     print("\n--- Self-serve SKUs ---")
     print("  Decision Pro: $29/mo USD (tier=pro)")
-    print("  Whale Desk: $199/mo USD (tier=whale)")
+    print("  Decision Desk: $49/mo USD (tier=whale)")
 
     checks = [
         ("LEMON_SQUEEZY_CHECKOUT_PRO", _set("LEMON_SQUEEZY_CHECKOUT_PRO"), "Decision Pro $29 checkout URL"),
-        ("LEMON_SQUEEZY_CHECKOUT_WHALE", _set("LEMON_SQUEEZY_CHECKOUT_WHALE"), "Whale Desk $199 checkout URL"),
+        ("LEMON_SQUEEZY_CHECKOUT_WHALE", _set("LEMON_SQUEEZY_CHECKOUT_WHALE"), "Decision Desk $49 checkout URL"),
         ("LEMON_SQUEEZY_WEBHOOK_SECRET", _set("LEMON_SQUEEZY_WEBHOOK_SECRET"), "POST /webhook/lemon"),
         ("LEMON_SQUEEZY_CUSTOMER_PORTAL_URL", _set("LEMON_SQUEEZY_CUSTOMER_PORTAL_URL"), "optional portal"),
         ("STRIPE_SECRET_KEY", _set("STRIPE_SECRET_KEY"), "optional if Lemon complete"),
         ("STRIPE_WEBHOOK_SECRET", _set("STRIPE_WEBHOOK_SECRET"), "POST /webhook"),
         ("STRIPE_PRICE_PRO", _set("STRIPE_PRICE_PRO"), "USD price id $29"),
-        ("STRIPE_PRICE_WHALE", _set("STRIPE_PRICE_WHALE"), "USD price id $199"),
+        ("STRIPE_PRICE_WHALE", _set("STRIPE_PRICE_WHALE"), "USD price id $49"),
         ("APP_BASE_URL", _set("APP_BASE_URL"), "public HTTPS origin"),
     ]
     print("\n--- Environment ---")
@@ -51,7 +51,7 @@ def main() -> int:
     whale = _set("LEMON_SQUEEZY_CHECKOUT_WHALE") or _set("STRIPE_PRICE_WHALE") or _set("STRIPE_SECRET_KEY")
     print("\n--- Readiness ---")
     print(f"  Launch (Pro path + webhook): {'READY' if ready else 'BLOCKED'}")
-    print(f"  Whale Desk checkout: {'READY' if whale else 'MISSING — set Lemon Whale or Stripe price'}")
+    print(f"  Decision Desk checkout: {'READY' if whale else 'MISSING — set Lemon Whale or Stripe price'}")
     print("\n--- Bank payout ---")
     print("  Complete PSP KYC and attach your USD bank account in Lemon/Stripe dashboard.")
     print("  Customers never send card data to BLACKDARK servers.")

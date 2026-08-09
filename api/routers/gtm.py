@@ -110,7 +110,7 @@ async def production_guard_api():
 
 @router.get("/api/pricing")
 async def api_pricing():
-    """Trust OS depth ladder — Proof Pass / Decision Pro / Whale Desk / Institutional."""
+    """Trust OS depth ladder — Proof Pass / Decision Pro / Decision Desk / Institutional."""
     from pricing_catalog import pricing_catalog
 
     return pricing_catalog()

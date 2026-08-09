@@ -58,9 +58,9 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "proof_watermark": False,
         "product_name": "Trust OS",
     },
-    # Whale Desk — edge + light institutional packaging ($199).
+    # Decision Desk — edge + serious tools ($49).
     "whale": {
-        "label": "Whale Desk",
+        "label": "Decision Desk",
         "oracle_daily_limit": None,
         "arbitrage": True,
         "arbitrage_catalog": True,

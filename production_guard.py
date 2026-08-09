@@ -156,7 +156,7 @@ def evaluate_production_guard() -> dict[str, Any]:
             required=False,
             hint=(
                 "Set LEMON_SQUEEZY_CHECKOUT_WHALE or STRIPE_PRICE_WHALE "
-                "before promoting Whale Desk ($199 USD)"
+                "before promoting Decision Desk ($49 USD)"
             ),
         ),
         _check(

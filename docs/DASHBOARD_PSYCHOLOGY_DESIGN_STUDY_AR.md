@@ -166,7 +166,7 @@
 |----------|-------------|---------------------|
 | Proof Pass (Free) | 3 قرارات مثبتة/يوم + شهادة + Why + Ledger | Portfolio AI / Arb / Chat / Stealth |
 | Decision Pro | OQS + Explain + Portfolio AI + Radar كامل | B2B Evidence |
-| Whale Desk | Stealth Advisor + Half-Life + Evidence + API | — |
+| Decision Desk | Stealth Advisor + Half-Life + Evidence + API | — |
 | Institutional | Emerging Terminal + Data Room | أدوات التجزئة |
 
 ---
@@ -195,7 +195,7 @@
 |------|-----|-----------|------------|
 | **Proof Pass** | $0 | «خذ قراراً… وأثبتّه علناً» | 3 شهادات/يوم · Why · Proof Card · Free watermark · Ledger |
 | **Decision Pro** | $29/mo | «من إثبات → عادة يومية» | Unlimited · Portfolio AI · Alerts · بلا watermark · Trial 7d |
-| **Whale Desk** | $199/mo | «حافة + تغليف للغير» | + Stealth · B2B API · Evidence Pack · Priority |
+| **Decision Desk** | $49/mo | «حافة + تغليف للغير» | + Stealth · B2B API · Evidence Pack · Priority |
 | **Institutional** | من $3,000/mo | «غرفة قرار رسمية» | Data Room · SSO/MFA · SLA · Integration Addendum · Talk to us |
 
 > Binding: `docs/PRICING_TRUST_OS.md` + `pricing_catalog.py`. **لا Observer/$9 ولا Essential/$15** — أربعة مستويات كافية. التحويل من Free يعتمد على سقف 3/يوم + watermark + Portfolio AI على Pro.

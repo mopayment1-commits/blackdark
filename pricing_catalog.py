@@ -1,16 +1,15 @@
 """
 BLACKDARK Trust OS — Pricing catalog (single product, depth ladder).
 
-Canon: 1 product · 4 value layers · 6 heroes.
-Viral wedge: shareable Decision Certificate (Proof Pass).
-Not a separate platform per tier.
+Canon (morning session final binding):
+Proof Pass $0 · Decision Pro $29 · Decision Desk $49 · Institutional from $3,000 → open.
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-# Self-serve SKUs map to auth tiers free/pro/whale.
+# Self-serve SKUs map to auth tiers free/pro/whale (whale = Decision Desk @ $49).
 # Institutional is sales-led (not a Stripe SKU).
 
 PRICING_STORY = (
@@ -64,15 +63,15 @@ TIERS: list[dict[str, Any]] = [
     },
     {
         "id": "whale",
-        "sku": "whale_desk",
-        "name": "Whale Desk",
-        "price_usd_month": 199,
-        "price_cents": 19900,
-        "price_display": "$199",
-        "cta": "Upgrade to Whale Desk",
+        "sku": "decision_desk",
+        "name": "Decision Desk",
+        "price_usd_month": 49,
+        "price_cents": 4900,
+        "price_display": "$49",
+        "cta": "Upgrade to Decision Desk",
         "cta_href": "/create-checkout-session?tier=whale",
         "self_serve": True,
-        "promise": "Market edge + light institutional packaging.",
+        "promise": "Market edge + serious desk tools — easy step up from $29.",
         "highlights": [
             "Everything in Decision Pro",
             "Whale Signal-to-Noise filtering",
@@ -88,14 +87,14 @@ TIERS: list[dict[str, Any]] = [
         "sku": "trust_os_institutional",
         "name": "Trust OS Institutional",
         "price_usd_month_from": 3000,
-        "price_display": "From $3,000/mo",
-        "price_note": "Custom annual contracts available. Not self-serve.",
+        "price_display": "From $3,000/mo → open",
+        "price_note": "Custom annual contracts. Not self-serve checkout.",
         "cta": "Talk to us",
         "cta_href": "/data-room",
         "self_serve": False,
         "promise": "Trust system inside the official decision room.",
         "highlights": [
-            "Everything in Whale Desk",
+            "Everything in Decision Desk",
             "Data Room + Compliance pack",
             "SSO / enforced MFA for teams",
             "SLA + optional private deploy",
@@ -126,6 +125,7 @@ def pricing_catalog() -> dict[str, Any]:
         "surface": "trust_os_pricing",
         "currency": "USD",
         "canon": "1 product · 4 value layers · 6 heroes — depth ladder, not multi-platform SKUs",
+        "binding": "docs/MORNING_SESSION_FINAL_BINDING.md",
         "story": PRICING_STORY,
         "tiers": TIERS,
         "integration_addendum": INTEGRATION_ADDENDUM,

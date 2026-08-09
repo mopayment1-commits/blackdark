@@ -35,6 +35,7 @@ load_dotenv(_ROOT / ".env")
 load_dotenv(_ROOT / ".env.launch.local", override=False)
 
 import config
+from safe_errors import public_error
 from security_auth import (
     is_admin_user,
     require_admin,
@@ -57,8 +58,60 @@ templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
 STRIPE_TIERS = {
     "pro": {"amount": 2900, "name": "Decision Pro"},
-    "whale": {"amount": 19900, "name": "Whale Desk"},
+    "whale": {"amount": 4900, "name": "Decision Desk"},
 }  # legacy ref — billing_service.STRIPE_TIERS is canonical
+
+
+
+def _legal_terms_ack_ok(request: Request) -> bool:
+    """Layer-4 gate: visitor acknowledged Terms (cookie) or is an authenticated session."""
+    if (request.cookies.get("bd_terms_ack") or "").strip() == "1":
+        return True
+    # Registered users already accepted Terms at signup (auth_service.register_user).
+    auth = (request.headers.get("Authorization") or "").strip()
+    if auth.lower().startswith("bearer ") and len(auth) > 20:
+        return True
+    token = (request.cookies.get("bd_token") or "").strip()
+    return bool(token)
+
+
+def _require_terms_ack_or_403(request: Request):
+    if _legal_terms_ack_ok(request):
+        return None
+    return JSONResponse(
+        {
+            "ok": False,
+            "error": "terms_ack_required",
+            "message": "Acknowledge Terms before using decision surfaces.",
+            "ack_path": "/api/legal/ack-terms",
+            "terms_path": "/terms",
+        },
+        status_code=403,
+    )
+
+def _cookie_secure(request: Request | None = None) -> bool:
+    if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
+        return True
+    if request is not None and (request.url.scheme or "").lower() == "https":
+        return True
+    return False
+
+
+def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
+    """Render a Jinja template with full i18n context (lang switcher + t())."""
+    from i18n_service import template_context
+
+    ctx = template_context(request, context)
+    response = templates.TemplateResponse(request, name, ctx)
+    response.set_cookie(
+        "bd_lang",
+        str(ctx.get("lang") or "en"),
+        max_age=60 * 60 * 24 * 365,
+        httponly=True,
+        samesite="lax",
+        secure=_cookie_secure(request),
+    )
+    return response
 
 
 def _sector_for_asset(asset: str) -> str:
@@ -438,7 +491,7 @@ async def utf8_response_headers(request: Request, call_next):
     if (
         path.startswith("/static/")
         and response.status_code == 200
-        and path.endswith((".woff2", ".css", ".js", ".png", ".webp", ".svg"))
+        and path.endswith((".woff2", ".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg"))
     ):
         response.headers.setdefault(
             "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400"
@@ -828,17 +881,17 @@ async def _build_opportunity_explanation(
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse(request, "login.html", _footer_ctx())
+    return render_page(request, "login.html", _footer_ctx())
 
 
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
-    return templates.TemplateResponse(request, "profile.html", _footer_ctx())
+    return render_page(request, "profile.html", _footer_ctx())
 
 
 @app.get("/reset-password", response_class=HTMLResponse)
 async def reset_password_page(request: Request):
-    return templates.TemplateResponse(request, "reset_password.html", _footer_ctx())
+    return render_page(request, "reset_password.html", _footer_ctx())
 
 
 @app.get("/verify-email", response_class=HTMLResponse)
@@ -1025,9 +1078,68 @@ def _footer_ctx() -> dict:
     return {"footer": footer_manifest()}
 
 
+# Short in-process cache for the public landing shell (per locale).
+# Cuts repeat Jinja work under local Soft Launch / burst refresh.
+_landing_html_cache: dict[str, tuple[float, str]] = {}
+_LANDING_HTML_CACHE_TTL = float(os.getenv("LANDING_HTML_CACHE_TTL_SEC", "45"))
+
+
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
-    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
+    import time
+
+    from i18n_service import resolve_request_lang, template_context
+
+    lang = resolve_request_lang(request)
+    now = time.time()
+    hit = _landing_html_cache.get(lang)
+    if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
+        response = HTMLResponse(hit[1])
+        response.set_cookie(
+            "bd_lang",
+            lang,
+            max_age=60 * 60 * 24 * 365,
+            httponly=True,
+            samesite="lax",
+            secure=_cookie_secure(request),
+        )
+        response.headers["X-Landing-Cache"] = "HIT"
+        return response
+
+    ctx = template_context(request, _footer_ctx())
+    html = templates.get_template("landing.html").render({"request": request, **ctx})
+    _landing_html_cache[lang] = (now, html)
+    # Bound memory if many locales are probed.
+    if len(_landing_html_cache) > 32:
+        oldest = sorted(_landing_html_cache.items(), key=lambda kv: kv[1][0])[:8]
+        for key, _ in oldest:
+            _landing_html_cache.pop(key, None)
+    response = HTMLResponse(html)
+    response.set_cookie(
+        "bd_lang",
+        lang,
+        max_age=60 * 60 * 24 * 365,
+        httponly=True,
+        samesite="lax",
+        secure=_cookie_secure(request),
+    )
+    response.headers["X-Landing-Cache"] = "MISS"
+    return response
+
+
+@app.get("/api/i18n/locales")
+async def api_i18n_locales():
+    from i18n_service import i18n_manifest
+
+    return i18n_manifest()
+
+
+@app.get("/api/i18n/catalog")
+async def api_i18n_catalog(lang: str = "en"):
+    from i18n_service import catalog_for, locale_meta, normalize_lang
+
+    code = normalize_lang(lang)
+    return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
 @app.get("/favicon.ico")
@@ -1100,7 +1212,7 @@ async def sitemap_xml(request: Request):
 # ========== DASHBOARD ==========
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
-    return templates.TemplateResponse(request, "dashboard.html", _footer_ctx())
+    return render_page(request, "dashboard.html", _footer_ctx())
 
 
 @app.get("/discipline-mirror", response_class=HTMLResponse)
@@ -1423,7 +1535,7 @@ async def faq_page(request: Request):
         {
             "page": "faq",
             "title": "FAQ",
-            "lead": "Straight answers on Proof Pass, Decision Pro, Whale Desk, sharing, and AI Chat.",
+            "lead": "Straight answers on Proof Pass, Decision Pro, Decision Desk, sharing, and AI Chat.",
             "faq": FAQ_ITEMS,
             **_footer_ctx(),
         },
@@ -1811,7 +1923,12 @@ async def oracle(
 ):
     # Reserved path — must not be captured as a trading symbol
     if symbol.strip().lower() == "accuracy":
-        return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
+        # Public Accuracy Ledger stays open (Prove-it); decision Oracle below is gated.
+        return render_page(request, "oracle_accuracy.html", _footer_ctx())
+
+    blocked = _require_terms_ack_or_403(request)
+    if blocked is not None:
+        return blocked
 
     from auth_service import check_oracle_quota
 
@@ -2332,7 +2449,8 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 @app.get("/oracle-accuracy", response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
-    return templates.TemplateResponse(request, "oracle_accuracy.html", _footer_ctx())
+    # Public ledger must stay visible without an ack wall (hits + misses).
+    return render_page(request, "oracle_accuracy.html", _footer_ctx())
 
 
 # ML experience routes → api/routers/oracle.py
@@ -2345,7 +2463,7 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     try:
         return await exporter.export_institutional_feed(provided_key=x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=public_error(exc, fallback="Invalid B2B API key")) from exc
 
 
 @app.get("/api/b2b/demo")
@@ -2384,7 +2502,7 @@ async def b2b_info():
         "websocket_info_endpoint": "/api/b2b/ws/info",
         "websocket_enabled": ws_stats.get("enabled"),
         "websocket_latency_target_ms": ws_stats.get("latency_target_ms"),
-        "pricing_usd_monthly": 199,
+        "pricing_usd_monthly": 49,
         "one_pager_url": "/b2b",
         "methodology": {
             "cvvd": "Cross-Venue Volume Discrepancy",
@@ -2471,6 +2589,40 @@ async def b2b_page(request: Request):
             **_footer_ctx(),
         },
     )
+
+
+
+@app.post("/api/legal/ack-terms")
+async def api_legal_ack_terms():
+    """Record Terms acknowledgement (Layer-4 legal shield) for anonymous visitors."""
+    resp = JSONResponse({"ok": True, "acked": True})
+    resp.set_cookie(
+        "bd_terms_ack",
+        "1",
+        max_age=60 * 60 * 24 * 365,
+        httponly=True,
+        samesite="lax",
+        secure=_cookie_secure(),
+    )
+    return resp
+
+
+@app.get("/system/info")
+async def system_info(request: Request, user: dict | None = Depends(optional_user)):
+    """Classified system surface — requires Terms ack; auth required for payload."""
+    blocked = _require_terms_ack_or_403(request)
+    if blocked is not None:
+        return blocked
+    if not user:
+        return JSONResponse({"ok": False, "error": "auth_required"}, status_code=401)
+    return {
+        "ok": True,
+        "classification": "internal",
+        "product": "BLACKDARK Trust OS",
+        "disclaimer": "Not financial advice. Decision evidence only. Four-layer legal shield applies.",
+        "user_id": user.get("id"),
+        "tier": user.get("tier"),
+    }
 
 
 def _legal_page(request: Request, page: str):
@@ -3508,7 +3660,7 @@ async def checkout_cancel(request: Request):
 
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
-    return templates.TemplateResponse(request, "landing.html", _footer_ctx())
+    return await landing_page(request)
 
 
 if __name__ == "__main__":

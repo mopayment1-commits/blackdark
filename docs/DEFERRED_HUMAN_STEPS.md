@@ -29,4 +29,4 @@ python scripts/acceptance_60s.py --base http://127.0.0.1:8080
 Old Railway URL may be stale: `https://blackdark-production.up.railway.app/`  
 Free Render steps: [`RENDER_FREE_AR.md`](./RENDER_FREE_AR.md)
 
-Everything else is treated as **product-complete in code** under the canonical hierarchy. See [`PRODUCT_COMPLETE_STATUS.md`](./PRODUCT_COMPLETE_STATUS.md) · [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md).
+**Non-human product work from Sat/Sun is closed on PR #33** — see [`ZERO_NON_HUMAN_DEFERRALS.md`](./ZERO_NON_HUMAN_DEFERRALS.md). Everything else is treated as **product-complete in code** under the canonical hierarchy. The sole remaining code-delivery gate is **human merge of PR #33** into `main`. See [`PRODUCT_COMPLETE_STATUS.md`](./PRODUCT_COMPLETE_STATUS.md) · [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md).

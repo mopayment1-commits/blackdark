@@ -46,9 +46,15 @@ _quick_cache: dict[str, tuple[float, dict[str, Any]]] = {}
 _quick_lock = threading.Lock()
 _redis = None
 _redis_lock = threading.Lock()
+_redis_fail_until = 0.0
 _rl_backend = "memory"
 _inflight_backend = "memory"
 _cache_backend = "memory"
+# Fail-fast when REDIS_URL is set but unreachable (Windows dead localhost often
+# costs full socket timeouts per call — enough to push k6 past 500ms).
+_REDIS_CONNECT_TIMEOUT = float(os.getenv("VIRAL_REDIS_CONNECT_TIMEOUT_SEC", "0.08"))
+_REDIS_SOCKET_TIMEOUT = float(os.getenv("VIRAL_REDIS_SOCKET_TIMEOUT_SEC", "0.08"))
+_REDIS_NEG_TTL_SEC = float(os.getenv("VIRAL_REDIS_NEG_TTL_SEC", "30"))
 
 
 def viral_mode_enabled() -> bool:
@@ -99,13 +105,22 @@ def get_oracle_semaphore() -> asyncio.Semaphore:
 
 
 def _redis_client():
-    """Shared sync Redis client (lazy). Prefer REDIS_URL when set."""
-    global _redis, _rl_backend
+    """Shared sync Redis client (lazy). Prefer REDIS_URL when set.
+
+    Negative-caches failed connects so a dead REDIS_URL cannot add tens/hundreds
+    of ms on every HTML/API request (begin_inflight + rate limit each probe).
+    """
+    global _redis, _rl_backend, _redis_fail_until
     if _redis is not None:
         return _redis
+    now = time.time()
+    if now < _redis_fail_until:
+        return None
     with _redis_lock:
         if _redis is not None:
             return _redis
+        if time.time() < _redis_fail_until:
+            return None
         try:
             import config
 
@@ -117,19 +132,26 @@ def _redis_client():
             client = redis.from_url(
                 url,
                 decode_responses=True,
-                socket_connect_timeout=0.35,
-                socket_timeout=0.35,
+                socket_connect_timeout=_REDIS_CONNECT_TIMEOUT,
+                socket_timeout=_REDIS_SOCKET_TIMEOUT,
                 max_connections=int(os.getenv("VIRAL_REDIS_MAX_CONNECTIONS", "50")),
             )
             client.ping()
             _redis = client
+            _redis_fail_until = 0.0
             _rl_backend = "redis"
             logger.info("Viral capacity Redis client ready")
             return _redis
         except asyncio.CancelledError:
             raise
         except Exception:
-            logger.debug("Viral Redis unavailable — memory fallback", exc_info=True)
+            _redis_fail_until = time.time() + max(1.0, _REDIS_NEG_TTL_SEC)
+            _rl_backend = "memory"
+            logger.debug(
+                "Viral Redis unavailable — memory fallback for %.0fs",
+                _REDIS_NEG_TTL_SEC,
+                exc_info=True,
+            )
             return None
 
 
@@ -391,7 +413,12 @@ async def viral_protection_middleware(request: Request, call_next):
         check_rate_limit(f"{kind}:{client}", limit=limit, window_sec=window, prefix=kind)
         response = await call_next(request)
         if path in {"/", "/dashboard", "/oracle-accuracy", "/compliance", "/capabilities"}:
-            response.headers.setdefault("Cache-Control", "public, max-age=15")
+            # Landing shell is mostly static per locale; 15s forced re-render
+            # and re-download on every navigation. Prefer short CDN-friendly TTL.
+            response.headers.setdefault(
+                "Cache-Control",
+                "public, max-age=120, stale-while-revalidate=600",
+            )
         elif path.startswith("/static"):
             response.headers.setdefault("Cache-Control", "public, max-age=86400, immutable")
         response.headers.setdefault("X-Viral-Capacity", "1")

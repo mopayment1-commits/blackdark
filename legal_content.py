@@ -6,12 +6,20 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
         "title_ar": "شروط الاستخدام",
         "updated": "July 24, 2026",
         "html": """
+<h2>0. Four-layer legal shield (binding)</h2>
+<p>BLACKDARK publishes a four-layer protective shield on every decision surface:</p>
+<ol>
+<li><strong>Product classification</strong> — Decision-support / Trust OS evidence tooling. Not a bank, broker, exchange, custodian, or investment adviser.</li>
+<li><strong>Not financial advice</strong> — Outputs are probabilistic and evidence-bound. They are not recommendations to buy, sell, hold, or transfer any asset.</li>
+<li><strong>No liability for market outcomes</strong> — You alone decide and you alone bear market, operational, and regulatory risk. BLACKDARK is not liable for trading losses or opportunity cost.</li>
+<li><strong>Terms acknowledgement gate</strong> — Registration requires Terms/Privacy/Risk acceptance; continued use of oracle/system surfaces may require <code>bd_terms_ack</code>.</li>
+</ol>
 <h2>1. Acceptance</h2>
 <p>By accessing BLACKDARK ("the Platform"), you agree to these Terms. If you disagree, do not use the Platform.</p>
 <h2>2. Service Description</h2>
 <p>BLACKDARK provides AI-assisted crypto market intelligence, analytics, and alerts. We do not execute trades on your behalf unless you explicitly enable live execution with your own exchange API keys.</p>
 <h2>3. Accounts & Subscriptions</h2>
-<p>Proof Pass (Free), Decision Pro, Whale Desk, and Institutional are described on our pricing page. Prices for self-serve plans are in <strong>USD</strong>. Decision Pro trials convert to paid USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
+<p>Proof Pass (Free), Decision Pro, Decision Desk, and Institutional are described on our pricing page. Prices for self-serve plans are in <strong>USD</strong>. Decision Pro trials convert to paid USD subscriptions unless cancelled before trial end. Refunds follow our <a href="/refund">Refund Policy</a> and applicable law. Card data is processed by Lemon Squeezy or Stripe — never stored on BLACKDARK servers.</p>
 <h2>4. Acceptable Use</h2>
 <p>You may not scrape, resell, or redistribute our proprietary feeds without a B2B agreement. Automated abuse, credential sharing, or reverse engineering is prohibited.</p>
 <h2>5. Intellectual Property</h2>
@@ -68,7 +76,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
         "updated": "August 8, 2026",
         "html": """
 <h2>Currency</h2>
-<p>Self-serve subscriptions (Decision Pro, Whale Desk) are priced and charged in <strong>USD</strong>.</p>
+<p>Self-serve subscriptions (Decision Pro, Decision Desk) are priced and charged in <strong>USD</strong>.</p>
 <h2>Trials</h2>
 <p>Decision Pro may include a 7-day trial. Cancel before the trial ends to avoid the first USD charge. Manage billing via the customer portal provided by Stripe or Lemon Squeezy.</p>
 <h2>Paid periods</h2>
@@ -102,3 +110,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 """,
     },
 }
+
+
+# Convenience alias for binding tests / external importers
+TERMS_OF_SERVICE = LEGAL_PAGES["terms"]["html"]

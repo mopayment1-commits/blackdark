@@ -64,8 +64,8 @@ LENSES: list[dict[str, Any]] = [
         "tier_hint": "whale",
         "promise": "Convince someone else.",
         "support": "Signal-to-Noise, Stealth views, Evidence pack, API — a decision desk, not more charts.",
-        "cta_primary": {"label": "Open Whale Desk", "href": "/dashboard?lens=desk#stealth"},
-        "cta_secondary": {"label": "Upgrade Whale Desk", "href": "/create-checkout-session?tier=whale"},
+        "cta_primary": {"label": "Open Decision Desk", "href": "/dashboard?lens=desk#stealth"},
+        "cta_secondary": {"label": "Upgrade Decision Desk", "href": "/create-checkout-session?tier=whale"},
         "shell": "desk_first",
         "ux_mode_default": "pro",
         "show_sections": [

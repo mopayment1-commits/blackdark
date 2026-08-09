@@ -1,0 +1,75 @@
+{# FIXED top-right chrome — Language · Login · Sign up · Pricing
+   position:fixed so it cannot be scrolled away or collapsed with nav-links. #}
+<style>
+  .bd-fixed-chrome {
+    position: fixed;
+    top: 0.65rem;
+    inset-inline-end: 0.65rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.35rem;
+    max-width: min(96vw, 22rem);
+    pointer-events: none;
+  }
+  .bd-fixed-chrome > * { pointer-events: auto; }
+  .bd-top-utility {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .4rem .45rem;
+    padding: .4rem .5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(34, 211, 238, .45);
+    background: rgba(10, 10, 15, .92);
+    box-shadow: 0 8px 28px rgba(0,0,0,.45);
+    backdrop-filter: blur(8px);
+  }
+  .bd-top-utility a.bd-util-link {
+    color: #e4e4e7;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .78rem;
+    padding: .4rem .55rem;
+    border-radius: 8px;
+    border: 1px solid #2a2a35;
+    white-space: nowrap;
+    background: #14141c;
+  }
+  .bd-top-utility a.bd-util-link:hover {
+    border-color: #22d3ee;
+    color: #22d3ee;
+  }
+  .bd-top-utility a.bd-util-signup {
+    color: #0a0a0f !important;
+    background: linear-gradient(135deg, #22d3ee, #06b6d4) !important;
+    border: none !important;
+  }
+  .bd-top-utility a.bd-util-pricing {
+    border-color: rgba(34, 211, 238, .55);
+    color: #22d3ee;
+  }
+  .bd-chrome-hint {
+    font-size: .68rem;
+    color: #a1a1aa;
+    background: rgba(10,10,15,.85);
+    padding: .2rem .45rem;
+    border-radius: 6px;
+  }
+  @media (max-width: 768px) {
+    .bd-fixed-chrome { top: 0.4rem; inset-inline-end: 0.4rem; }
+    .bd-top-utility a.bd-util-link { font-size: .7rem; padding: .32rem .42rem; }
+    .bd-chrome-hint { display: none; }
+  }
+</style>
+<div class="bd-fixed-chrome" data-chrome="auth-lang-pay" aria-label="Language, account, and pricing">
+  <div class="bd-top-utility">
+    {% include 'partials/lang_switcher.html' %}
+    <a class="bd-util-link bd-util-pricing" href="/#pricing">{{ t('nav.pricing') if t is defined else 'Pricing' }}</a>
+    <a class="bd-util-link" href="/login" id="bdUtilLogin">{{ t('nav.login') if t is defined else 'Login' }}</a>
+    <a class="bd-util-link bd-util-signup" href="/login?tab=register" id="bdUtilSignup">{{ t('nav.signup') if t is defined else 'Sign up' }}</a>
+  </div>
+  <div class="bd-chrome-hint">Language · Login · Pay</div>
+</div>
