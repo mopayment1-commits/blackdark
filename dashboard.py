@@ -317,6 +317,23 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         result["one_sentence"] = (
             f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
         )
+    try:
+        from quality_honesty_closure import provenance_block
+
+        result.update(
+            provenance_block(
+                surface="portfolio_ai",
+                mode="heuristic",
+                live_legs=["spot_marks"],
+                proxy_or_mock_legs=["btc_beta_heuristic", "scenario_drawdown_estimate"],
+                claim_boundary=(
+                    "Plain-language portfolio risk helper — not a full allocator OMS "
+                    "or institutional VaR desk."
+                ),
+            )
+        )
+    except Exception:
+        logger.debug("portfolio quality provenance attach failed", exc_info=True)
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
@@ -2362,6 +2379,7 @@ async def execution_speed_api():
 
 @app.get("/api/sentiment/overview")
 async def sentiment_overview():
+    from quality_honesty_closure import provenance_block
     from sentiment_engine import build_sentiment_context_safe
 
     assets = [item.upper() for item in config.WHITELIST_ASSETS]
@@ -2381,16 +2399,25 @@ async def sentiment_overview():
             }
         )
     rows.sort(key=lambda x: x["sentiment_score"], reverse=True)
+    mode = str(getattr(config, "SENTIMENT_DATA_SOURCE", "mixed") or "mixed")
     return {
         "assets": rows,
         "data_source": "Rolling Compound Sentiment Index",
         "timestamp": datetime.now(UTC).isoformat(),
+        **provenance_block(
+            surface="sentiment_overview",
+            mode=mode,
+            live_legs=["rss", "cryptocompare", "optional_twitter_or_reddit"],
+            proxy_or_mock_legs=["twitter_mock", "telegram_mock"] if mode in {"mock", "mixed"} else [],
+            claim_boundary="Mixed/live sentiment aids decisions — not a full social firehose desk.",
+        ),
     }
 
 
 @app.get("/api/onchain/overview")
 async def onchain_overview():
     from onchain_tracker import build_onchain_context_safe
+    from quality_honesty_closure import provenance_block
 
     ctx = await build_onchain_context_safe()
     statuses = ctx.get("onchain_by_asset") or {}
@@ -2405,13 +2432,22 @@ async def onchain_overview():
                     "inflow_usd": status.get("inflow_usd"),
                     "outflow_usd": status.get("outflow_usd"),
                     "signals": status.get("signals") or [],
+                    "source": status.get("source"),
                 }
             )
     rows.sort(key=lambda x: abs(float(x.get("net_flow_usd") or 0)), reverse=True)
+    mode = str(getattr(config, "ONCHAIN_DATA_SOURCE", "simulated") or "simulated")
     return {
         "assets": rows,
         "data_source": "On-Chain Exchange Flow Tracker",
         "timestamp": datetime.now(UTC).isoformat(),
+        **provenance_block(
+            surface="onchain_overview",
+            mode=mode,
+            live_legs=["exchange_flow_api"] if mode == "api" else [],
+            proxy_or_mock_legs=["simulated_flows"] if mode != "api" else [],
+            claim_boundary="On-chain flow helper for decisions — not Nansen-scale entity intelligence.",
+        ),
     }
 
 
@@ -2420,6 +2456,7 @@ async def onchain_overview():
 @app.get("/api/macro/overview")
 async def macro_overview():
     from oracle_data_hub import fetch_macro_mesh
+    from quality_honesty_closure import provenance_block
 
     timeout = aiohttp.ClientTimeout(total=config.ORACLE_HUB_FETCH_TIMEOUT_SECONDS)
     async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -2428,6 +2465,13 @@ async def macro_overview():
         "macro": macro,
         "data_source": "Oracle Data Hub — Yahoo Finance extended",
         "timestamp": datetime.now(UTC).isoformat(),
+        **provenance_block(
+            surface="macro_overview",
+            mode="mixed",
+            live_legs=["yahoo_finance_extended"],
+            proxy_or_mock_legs=["safe_fallback_defaults"],
+            claim_boundary="Macro mesh for decision context — not a Bloomberg macro terminal.",
+        ),
     }
 
 
@@ -3053,9 +3097,21 @@ async def execution_logs(limit: int = 15, _user: dict = Depends(require_pro_or_a
 
 @app.get("/api/research/lab")
 async def research_lab_report(_user: dict | None = Depends(require_feature("research_lab"))):
+    from quality_honesty_closure import provenance_block
     from research_lab import build_research_lab_report
 
-    return await build_research_lab_report()
+    report = await build_research_lab_report()
+    if isinstance(report, dict):
+        report.update(
+            provenance_block(
+                surface="research_lab",
+                mode="proxy",
+                live_legs=["moat_metrics", "internal_audits"],
+                proxy_or_mock_legs=["research_lab_proxy_models"],
+                claim_boundary="Decision-support research aids — not a full sell-side research terminal.",
+            )
+        )
+    return report
 
 
 @app.get("/api/research/moat")
@@ -3428,6 +3484,15 @@ async def api_security_status():
         "scale_readiness": "/api/scale/readiness",
         "viral_readiness": "/api/viral/readiness",
         "hardening_doc": "docs/SECURITY_HARDENING.md",
+        "quality_honesty": {
+            "api": "/api/public/quality-honesty-closure",
+            "doc": "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
+            "soft_launch_ok": True,
+            "world_class_100": False,
+            "claim_boundary": (
+                "Engineering security posture + tests — not SOC2/ISO/pentest certification."
+            ),
+        },
     }
 
 
@@ -3435,9 +3500,23 @@ async def api_security_status():
 
 @app.get("/api/risk/status")
 async def api_risk_status(_user: dict = Depends(require_pro_or_above)):
+    from quality_honesty_closure import provenance_block
     from risk_manager import risk_status
 
-    return risk_status()
+    status = risk_status()
+    status.update(
+        provenance_block(
+            surface="risk_engine",
+            mode="execution_safety",
+            live_legs=["slippage_gate", "poison_freeze", "stop_loss_hooks"],
+            proxy_or_mock_legs=[],
+            claim_boundary=(
+                "Execution safety gates — not institutional VaR/CVaR or a full buy-side risk desk."
+            ),
+        )
+    )
+    status["quality_honesty_api"] = "/api/public/quality-honesty-closure"
+    return status
 
 
 @app.post("/api/risk/freeze")

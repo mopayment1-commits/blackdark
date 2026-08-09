@@ -362,6 +362,14 @@ async def f1_f10_closure_api():
     return await build_f1_f10_unique_closure()
 
 
+@router.get("/api/public/quality-honesty-closure")
+async def quality_honesty_closure_api():
+    """Soft Launch quality matrix — forbids world-class-100 myth claims."""
+    from quality_honesty_closure import build_quality_honesty_closure
+
+    return await build_quality_honesty_closure()
+
+
 @router.get("/api/allocator-receipt")
 async def allocator_receipt_api(
     limit: int = Query(12, ge=1, le=50),
@@ -713,6 +721,14 @@ async def wow_surfaces_manifest():
             "provenance_score": "/api/oracle/provenance-score",
             "status_api": "/api/public/brand-coverage-closure",
             "product_complete": True,
+        },
+        "quality_honesty_soft_launch": {
+            "status_api": "/api/public/quality-honesty-closure",
+            "doc": "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
+            "data_room": "/data-room",
+            "product_complete_for_soft_launch_honesty": True,
+            "world_class_100_complete": False,
+            "white_label": "parked",
         },
         "f1_f10_unique_full_ship": {
             "F1": "/miss-feed",
