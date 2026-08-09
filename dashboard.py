@@ -482,7 +482,7 @@ async def utf8_response_headers(request: Request, call_next):
     if (
         path.startswith("/static/")
         and response.status_code == 200
-        and path.endswith((".woff2", ".css", ".js", ".png", ".webp", ".svg"))
+        and path.endswith((".woff2", ".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg"))
     ):
         response.headers.setdefault(
             "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400"
@@ -1069,9 +1069,51 @@ def _footer_ctx() -> dict:
     return {"footer": footer_manifest()}
 
 
+# Short in-process cache for the public landing shell (per locale).
+# Cuts repeat Jinja work under local Soft Launch / burst refresh.
+_landing_html_cache: dict[str, tuple[float, str]] = {}
+_LANDING_HTML_CACHE_TTL = float(os.getenv("LANDING_HTML_CACHE_TTL_SEC", "45"))
+
+
 @app.get("/", response_class=HTMLResponse)
 async def landing_page(request: Request):
-    return render_page(request, "landing.html", _footer_ctx())
+    import time
+
+    from i18n_service import resolve_request_lang, template_context
+
+    lang = resolve_request_lang(request)
+    now = time.time()
+    hit = _landing_html_cache.get(lang)
+    if hit and (now - hit[0]) < _LANDING_HTML_CACHE_TTL:
+        response = HTMLResponse(hit[1])
+        response.set_cookie(
+            "bd_lang",
+            lang,
+            max_age=60 * 60 * 24 * 365,
+            httponly=False,
+            samesite="lax",
+        )
+        response.headers["X-Landing-Cache"] = "HIT"
+        return response
+
+    ctx = template_context(request, _footer_ctx())
+    html = templates.get_template("landing.html").render({"request": request, **ctx})
+    _landing_html_cache[lang] = (now, html)
+    # Bound memory if many locales are probed.
+    if len(_landing_html_cache) > 32:
+        oldest = sorted(_landing_html_cache.items(), key=lambda kv: kv[1][0])[:8]
+        for key, _ in oldest:
+            _landing_html_cache.pop(key, None)
+    response = HTMLResponse(html)
+    response.set_cookie(
+        "bd_lang",
+        lang,
+        max_age=60 * 60 * 24 * 365,
+        httponly=False,
+        samesite="lax",
+    )
+    response.headers["X-Landing-Cache"] = "MISS"
+    return response
 
 
 @app.get("/api/i18n/locales")
@@ -3607,7 +3649,7 @@ async def checkout_cancel(request: Request):
 
 @app.get("/landing", response_class=HTMLResponse)
 async def landing_alias(request: Request):
-    return render_page(request, "landing.html", _footer_ctx())
+    return await landing_page(request)
 
 
 if __name__ == "__main__":

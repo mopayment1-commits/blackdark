@@ -154,3 +154,28 @@ async def test_health_not_rate_limited_under_burst():
             r = await client.get("/health/live")
             codes.append(r.status_code)
         assert all(c == 200 for c in codes)
+
+
+def test_redis_negative_cache_avoids_repeat_connect_penalty(monkeypatch):
+    """Dead REDIS_URL must not re-pay connect timeout on every request."""
+    import time
+
+    import viral_capacity as vc
+
+    monkeypatch.setenv("REDIS_URL", "redis://127.0.0.1:1/0")
+    monkeypatch.setattr(vc, "_REDIS_CONNECT_TIMEOUT", 0.05)
+    monkeypatch.setattr(vc, "_REDIS_SOCKET_TIMEOUT", 0.05)
+    monkeypatch.setattr(vc, "_REDIS_NEG_TTL_SEC", 30.0)
+    vc._redis = None
+    vc._redis_fail_until = 0.0
+
+    t0 = time.perf_counter()
+    assert vc._redis_client() is None
+    first_ms = (time.perf_counter() - t0) * 1000
+    assert vc._redis_fail_until > time.time()
+
+    t0 = time.perf_counter()
+    assert vc._redis_client() is None
+    second_ms = (time.perf_counter() - t0) * 1000
+    # Second call must be near-instant (negative cache), not another socket wait.
+    assert second_ms < 5.0, f"second={second_ms:.2f}ms first={first_ms:.2f}ms"

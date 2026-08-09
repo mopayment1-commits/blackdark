@@ -57,7 +57,7 @@ No stats, schedules, Telegram blocks, or secondary marketing in the first compos
 
 ## Sealed myth layer (landing)
 
-Full-bleed cinematic vault/seal visual (`/static/img/blackdark-sealed-hero.png`) is the **brand myth plane**, not a product substitute.
+Full-bleed cinematic vault/seal visual (`/static/img/blackdark-sealed-hero.webp`, JPEG fallback) is the **brand myth plane**, not a product substitute.
 
 | Layer | Job |
 |-------|-----|

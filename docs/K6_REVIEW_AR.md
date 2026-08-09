@@ -1,49 +1,62 @@
-# مراجعة تشغيل k6 (2026-08-09)
+# مراجعة تشغيل k6 + هدف أقل من 200ms (2026-08-09)
 
-## ما الذي نجح عندك؟
+## تشخيص الـ521ms
+
+تشغيلك السابق:
 
 ```text
 ✓ status is 200
-http_req_failed: 0.00%
 http_req_duration avg ≈ 521ms
 1 VU · 1 iteration
 ```
 
-**الحكم:** Smoke ناجح — السيرفر على `:8080` يرد 200، والشبكة المحلية تعمل.
+**الحكم السابق:** Smoke ناجح وظيفيًا، لكن **الوقت سيئ** ولا يمرّ شريط المنتج (<200ms بكثير).
 
-## ما الذي *لا* يثبته هذا التشغيل؟
+### الأسباب التي أصلحناها في الكود
 
-| الادعاء | هل أثبته تشغيلك؟ |
-|---------|------------------|
-| الموقع يفتح محليًا | نعم |
-| تحمل إطلاق فيروسي | **لا** (1 مستخدم وهمي فقط) |
-| Postgres + Redis HA | **لا** |
-| Oracle تحت ضغط | **لا** (غالبًا طلب واحد لمسار واحد في `test.js`) |
-| جاهزية للاستحواذ كرقم capacity | **لا** — يحتاج صفًا في `LOAD_TEST_RUN_LOG.md` |
+| السبب | الأثر | الإصلاح |
+|--------|--------|---------|
+| صورة Hero PNG ≈ **1.8MB** | بطء التحميل البصري بشدة | WebP ≈ **43–60KB** + JPEG fallback |
+| `REDIS_URL` ميت (localhost بدون Redis) | مهلة socket على كل طلب — غالبًا **+80–700ms** على Windows | Negative-cache + timeout قصير (80ms) |
+| كاش HTML للـlanding = 15s فقط | إعادة تصيير Jinja بلا داع | `max-age=120` + كاش in-process لكل لغة |
+| سكربت k6 يخلط Oracle الثقيل مع المسارات السريعة | متوسط مضلّل | `MODE=fast` بعتبة `p(95)<200` |
 
-تشغيل `1 VU / 1 iter` = فحص حياة، ليس اختبار حمل.
+على السيرفر نفسه بعد الإصلاح: `GET /` (دافئ) ≈ **5ms**؛ Hero WebP ≈ **43KB**.
 
-## الخطوة التالية الموصى بها (محلي Soft Launch)
+## التشغيل المطلوب عندك (بعد `git pull` وإعادة تشغيل السيرفر)
 
-من مجلد المشروع (والسيرفر شغال):
+```bat
+cd C:\Users\o\Desktop\BLACKDARK
+git fetch origin cursor/morning-final-recs-literal-eef3
+git checkout cursor/morning-final-recs-literal-eef3
+git pull origin cursor/morning-final-recs-literal-eef3
+
+REM أعد تشغيل السيرفر ثم:
+k6 run -e MODE=fast scripts\k6_trust_os_smoke.js
+```
+
+المتوقع:
+
+- `fast_http_duration` → **p(95) < 200ms** و **avg < 150ms**
+- المسارات: `/health/live`, `/`, `/?lang=ar`, `/login`, `/api/pricing`, WebP hero
+
+Smoke أشمل (يشمل Oracle — قد يتجاوز 200ms وهذا متوقع):
 
 ```bat
 k6 run scripts\k6_trust_os_smoke.js
-k6 run -e BASE=http://127.0.0.1:8080 -e VUS=10 -e DURATION=30s scripts\k6_trust_os_smoke.js
 ```
 
-أو هارنس المشروع:
+## ما الذي *لا* يثبته هذا التشغيل؟
 
-```bat
-python scripts\load_test.py --base http://127.0.0.1:8080 --requests 100
-python scripts\load_test_concurrent.py --base http://127.0.0.1:8080 --workers 20 --requests 100
-```
+| الادعاء | هل أثبته؟ |
+|---------|-----------|
+| الموقع يفتح محليًا بسرعة | نعم (مع `MODE=fast`) |
+| تحمل إطلاق فيروسي | **لا** (يحتاج VUs أعلى + Postgres/Redis) |
+| إثبات HA موقّع | **لا** — صف في `LOAD_TEST_RUN_LOG.md` |
 
 ## معيار إثبات HA الصادق
 
-لا تُكتب أرقام تحمل تسويقية إلا بعد:
-
-1. `DATABASE_URL=postgresql://…` + `REDIS_URL=redis://…`
+1. `DATABASE_URL=postgresql://…` + `REDIS_URL=redis://…` (Redis حي)
 2. `WEB_CONCURRENCY` ≥ 2 وبدون Soft Launch للوضع الفيروسي
 3. تعبئة صف حقيقي في [`LOAD_TEST_RUN_LOG.md`](./LOAD_TEST_RUN_LOG.md)
 

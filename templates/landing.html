@@ -8,9 +8,9 @@
     <meta property="og:title" content="BLACKDARK — {{ t('hero.headline') }}">
     <meta property="og:description" content="{{ t('hero.support') }}">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="/static/img/blackdark-sealed-hero.png">
+    <meta property="og:image" content="/static/img/blackdark-sealed-hero.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="/static/img/blackdark-sealed-hero.png">
+    <meta name="twitter:image" content="/static/img/blackdark-sealed-hero.jpg">
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/static/icon-192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="/static/icon-192.png">
@@ -18,6 +18,7 @@
     <script type="application/ld+json">
     {"@context":"https://schema.org","@type":"WebApplication","name":"BLACKDARK","description":"Trust OS decision intelligence with public accuracy ledger and Decision Certificates","url":"/","applicationCategory":"FinanceApplication"}
     </script>
+    <link rel="preload" as="image" href="/static/img/blackdark-sealed-hero-1280.webp" type="image/webp" fetchpriority="high">
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -148,6 +149,12 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
+        }
+
+        .hero-bleed picture {
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
         .hero-bleed-img {
@@ -715,15 +722,26 @@
     <main id="main">
     <section class="hero" id="top" aria-label="BLACKDARK sealed hero">
         <div class="hero-bleed" aria-hidden="true">
-            <img
-                class="hero-bleed-img"
-                src="/static/img/blackdark-sealed-hero.png"
-                alt=""
-                width="1536"
-                height="1024"
-                decoding="async"
-                fetchpriority="high"
-            >
+            <picture>
+                <source
+                    type="image/webp"
+                    media="(min-width: 1200px)"
+                    srcset="/static/img/blackdark-sealed-hero.webp"
+                >
+                <source
+                    type="image/webp"
+                    srcset="/static/img/blackdark-sealed-hero-1280.webp"
+                >
+                <img
+                    class="hero-bleed-img"
+                    src="/static/img/blackdark-sealed-hero.jpg"
+                    alt=""
+                    width="1280"
+                    height="853"
+                    decoding="async"
+                    fetchpriority="high"
+                >
+            </picture>
             <div class="hero-bleed-veil"></div>
         </div>
         <div class="hero-composition">
