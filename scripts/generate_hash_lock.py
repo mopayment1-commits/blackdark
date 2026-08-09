@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+import tempfile
 import urllib.request
 from pathlib import Path
 
@@ -13,22 +14,31 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def _resolve(lock_file: Path) -> list[tuple[str, str]]:
-    report = Path("/tmp") / f"{lock_file.stem}_pip_report.json"
-    cmd = [
-        sys.executable,
-        "-m",
-        "pip",
-        "install",
-        "--dry-run",
-        "--ignore-installed",
-        "--only-binary=:all:",
-        "-r",
-        str(lock_file),
-        "--report",
-        str(report),
-    ]
-    subprocess.check_call(cmd)
-    data = json.loads(report.read_text(encoding="utf-8"))
+    # Private temp file (not a shared world-writable path) — Sonar python:S5443.
+    with tempfile.NamedTemporaryFile(
+        prefix=f"bd-{lock_file.stem}-",
+        suffix=".json",
+        delete=False,
+    ) as handle:
+        report = Path(handle.name)
+    try:
+        cmd = [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "--dry-run",
+            "--ignore-installed",
+            "--only-binary=:all:",
+            "-r",
+            str(lock_file),
+            "--report",
+            str(report),
+        ]
+        subprocess.check_call(cmd)
+        data = json.loads(report.read_text(encoding="utf-8"))
+    finally:
+        report.unlink(missing_ok=True)
     pkgs: list[tuple[str, str]] = []
     for item in data.get("install", []):
         meta = item.get("metadata") or {}
