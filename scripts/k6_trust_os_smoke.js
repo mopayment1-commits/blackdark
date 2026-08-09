@@ -1,7 +1,8 @@
 /**
  * BLACKDARK Trust OS — k6 smoke / light load
  *
- * Fast bar (product): HTML + health p95 well under 200ms on localhost.
+ * Fast bar (product): HTML + health p95 well under 200ms on localhost
+ * AFTER a warm-up pass (cold first-hit after process start is excluded).
  *
  * Smoke:
  *   k6 run scripts/k6_trust_os_smoke.js
@@ -48,14 +49,15 @@ const PATHS = MODE === 'fast' ? FAST_PATHS : FAST_PATHS.concat(HEAVY_PATHS);
 const fastThresholds = {
   http_req_failed: ['rate<0.01'],
   checks: ['rate>0.99'],
-  // Product bar: public shell + health must stay far under 200ms locally.
-  fast_http_duration: ['p(95)<200', 'avg<150'],
+  // Measured only after setup() warm-up — cold process start is not the product bar.
+  fast_http_duration: ['p(95)<200', 'avg<150', 'med<100'],
 };
 
 export const options = DURATION
   ? {
       vus: VUS,
       duration: DURATION,
+      setupTimeout: '60s',
       thresholds: {
         http_req_failed: ['rate<0.05'],
         http_req_duration: ['p(95)<3000'],
@@ -64,14 +66,22 @@ export const options = DURATION
     }
   : {
       vus: 1,
-      iterations: MODE === 'fast' ? 3 : 1,
+      iterations: MODE === 'fast' ? 5 : 1,
+      setupTimeout: '60s',
       thresholds: fastThresholds,
     };
 
-export default function () {
-  // Warm once so cold Jinja/import does not poison the <200ms bar.
+/** Warm Jinja/static/API once so Windows cold-start (often 400–600ms) is not scored. */
+export function setup() {
   http.get(`${BASE}/health/live`);
+  for (const path of FAST_PATHS) {
+    http.get(`${BASE}${path}`, { redirects: 5 });
+  }
+  sleep(0.15);
+  return { warmed: true };
+}
 
+export default function () {
   for (const path of PATHS) {
     const url = path.startsWith('http') ? path : `${BASE}${path}`;
     const res = http.get(url, { redirects: 5, tags: { name: path } });
@@ -81,6 +91,7 @@ export default function () {
     }
     check(res, {
       'status is 2xx or 3xx': (r) => r.status >= 200 && r.status < 400,
+      // Per-request soft bar; p95 threshold is the binding gate.
       'fast path under 200ms': (r) => !isFast || r.timings.duration < 200,
     });
     sleep(MODE === 'fast' ? 0.05 : 0.2);

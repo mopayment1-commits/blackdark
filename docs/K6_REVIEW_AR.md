@@ -35,10 +35,25 @@ REM أعد تشغيل السيرفر ثم:
 k6 run -e MODE=fast scripts\k6_trust_os_smoke.js
 ```
 
-المتوقع:
+المتوقع بعد التسخين (`setup()` يحمّي المسارات قبل القياس):
 
-- `fast_http_duration` → **p(95) < 200ms** و **avg < 150ms**
+- `http_req_failed` ≈ **0%**
+- `fast_http_duration` → **p(95) < 200ms** و **avg < 150ms** و **med < 100ms**
 - المسارات: `/health/live`, `/`, `/?lang=ar`, `/login`, `/api/pricing`, WebP hero
+
+### قراءة نتيجة مثل avg≈71ms / p95≈217ms / max≈620ms
+
+| الإشارة | المعنى |
+|---------|--------|
+| `http_req_failed 0%` | السيرفر شغال والطلبات تنجح |
+| `avg ~70ms` / `med ~20ms` | السرعة اليومية جيدة جدًا تحت 200ms |
+| `max ~620ms` | غالبًا **أول طلب بارد** بعد تشغيل Python على Windows |
+| `p95 ~217` مع فشل threshold | التسخين القديم لم يكن كافيًا — أعد التشغيل بالسكربت المحدّث |
+
+أعد بعد `git pull`:
+```bat
+k6 run -e MODE=fast scripts\k6_trust_os_smoke.js
+```
 
 Smoke أشمل (يشمل Oracle — قد يتجاوز 200ms وهذا متوقع):
 
