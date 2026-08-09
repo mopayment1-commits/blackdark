@@ -1,10 +1,13 @@
 # BLACKDARK — Product Complete Status (code)
 
-> **As of:** 2026-08-08  
-> **Rule:** Binding report heroes/Z executable work is done.  
+> **As of:** 2026-08-09  
+> **DESIGN PHASE: CLOSED** on `main` (launch merge #38 / commit family through `6009dbf`).  
+> **Next phase:** domain · hosting · live Soft Launch beta — see [`LAUNCH_DESIGN_COMPLETION_PLAN_AR.md`](./LAUNCH_DESIGN_COMPLETION_PLAN_AR.md) · [`DESIGN_CLOSED_AND_ACQUIRER_DD_AUDIT_AR.md`](./DESIGN_CLOSED_AND_ACQUIRER_DD_AUDIT_AR.md).  
+> **Rule:** Binding report heroes/Z + wow + F1–F10 + institutional product surfaces are done.  
 > **Canon:** [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md) — not FalconAI 16/120 valuation.  
 > **Honesty:** See [`COMPREHENSIVE_AUDIT_2026-08-06.md`](./COMPREHENSIVE_AUDIT_2026-08-06.md) — not “zero defects / LOI-ready / 10k users proven”.  
-> **Deferred human-only:** [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)
+> **Deferred human-only:** [`DEFERRED_HUMAN_STEPS.md`](./DEFERRED_HUMAN_STEPS.md)  
+> **Scope freeze:** no new feature work until first live beta unless a critical break blocks use.
 
 ## Complete (binding product surfaces)
 
