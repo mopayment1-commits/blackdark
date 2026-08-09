@@ -14,8 +14,11 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
+from path_safety import ensure_under, safe_data_file
+
 _LOCK = threading.Lock()
-_PATH = Path("data/industry_silence_events.jsonl")
+_PATH = safe_data_file("industry_silence_events.jsonl")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 
 DEFAULT_PEERS = [
     "nansen",
@@ -32,9 +35,10 @@ def _utcnow() -> datetime:
 
 
 def _append(row: dict[str, Any]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
     with _LOCK:
-        with _PATH.open("a", encoding="utf-8") as fh:
+        with path.open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 

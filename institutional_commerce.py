@@ -18,10 +18,13 @@ import threading
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+from path_safety import ensure_under, project_data_dir
 from uuid import uuid4
 
 _LOCK = threading.Lock()
-_ROOT = Path("data/institutional_commerce")
+_DATA_BASE = project_data_dir()
+_ROOT = _DATA_BASE / "institutional_commerce"
 _INVOICES = _ROOT / "invoices.jsonl"
 _KYC = _ROOT / "kyc_cases.jsonl"
 _PAID = _ROOT / "paid_ledger.jsonl"
@@ -32,15 +35,16 @@ def _utcnow() -> str:
 
 
 def _ensure() -> None:
-    _ROOT.mkdir(parents=True, exist_ok=True)
+    ensure_under(_ROOT, _DATA_BASE).mkdir(parents=True, exist_ok=True)
     for p in (_INVOICES, _KYC, _PAID):
-        if not p.exists():
-            p.write_text("", encoding="utf-8")
+        safe = ensure_under(p, _DATA_BASE)
+        if not safe.exists():
+            safe.write_text("", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def _append(path: Path, row: dict[str, Any]) -> None:
     _ensure()
-    with path.open("a", encoding="utf-8") as fh:
+    with ensure_under(path, _DATA_BASE).open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
         fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
@@ -117,7 +121,7 @@ def mark_invoice_paid(
         if not target:
             raise ValueError("invoice_not_found")
         # rewrite invoices
-        _INVOICES.write_text(
+        ensure_under(_INVOICES, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
             "".join(json.dumps(i, ensure_ascii=False) + "\n" for i in invoices),
             encoding="utf-8",
         )
@@ -179,7 +183,7 @@ def decide_kyc(case_id: str, *, decision: str, notes: str = "") -> dict[str, Any
             break
     if not target:
         raise ValueError("case_not_found")
-    _KYC.write_text(
+    ensure_under(_KYC, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
         "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases),
         encoding="utf-8",
     )

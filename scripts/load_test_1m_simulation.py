@@ -117,7 +117,7 @@ async def main() -> int:
         candidate = ROOT / candidate
     out = ensure_under(candidate, ROOT)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    out.write_text(json.dumps(report, indent=2), encoding="utf-8")  # NOSONAR pythonsecurity:S8707,pythonsecurity:S2083
 
     print(json.dumps(report, indent=2))
     print(f"\nReport saved: {out}")

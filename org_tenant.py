@@ -16,10 +16,13 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
+from path_safety import ensure_under, safe_data_file
+
 _LOCK = threading.Lock()
-_ROOT = Path("data/orgs")
-_ORGS = _ROOT / "organizations.json"
-_MEMBERS = _ROOT / "memberships.jsonl"
+_DATA_BASE = Path(__file__).resolve().parent / "data"
+_ROOT = _DATA_BASE / "orgs"
+_ORGS = safe_data_file("orgs", "organizations.json")
+_MEMBERS = safe_data_file("orgs", "memberships.jsonl")
 
 
 def _utcnow() -> str:
@@ -27,11 +30,14 @@ def _utcnow() -> str:
 
 
 def _ensure() -> None:
-    _ROOT.mkdir(parents=True, exist_ok=True)
-    if not _ORGS.exists():
-        _ORGS.write_text("{}", encoding="utf-8")
-    if not _MEMBERS.exists():
-        _MEMBERS.write_text("", encoding="utf-8")
+    root = ensure_under(_ROOT, _DATA_BASE)
+    root.mkdir(parents=True, exist_ok=True)
+    orgs = ensure_under(_ORGS, _DATA_BASE)
+    members = ensure_under(_MEMBERS, _DATA_BASE)
+    if not orgs.exists():
+        orgs.write_text("{}", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
+    if not members.exists():
+        members.write_text("", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def _load_orgs() -> dict[str, Any]:
@@ -44,18 +50,20 @@ def _load_orgs() -> dict[str, Any]:
 
 def _save_orgs(data: dict[str, Any]) -> None:
     _ensure()
-    _ORGS.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    ensure_under(_ORGS, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
+        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 def _iter_members() -> list[dict[str, Any]]:
     _ensure()
     rows: list[dict[str, Any]] = []
-    for line in _MEMBERS.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
+    for raw in _MEMBERS.read_text(encoding="utf-8").splitlines():
+        cleaned = raw.strip()
+        if not cleaned:
             continue
         try:
-            rows.append(json.loads(line))
+            rows.append(json.loads(cleaned))
         except json.JSONDecodeError:
             continue
     return rows
@@ -63,13 +71,13 @@ def _iter_members() -> list[dict[str, Any]]:
 
 def _append_member(row: dict[str, Any]) -> None:
     _ensure()
-    with _MEMBERS.open("a", encoding="utf-8") as fh:
+    with ensure_under(_MEMBERS, _DATA_BASE).open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
         fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
 def _rewrite_members(rows: list[dict[str, Any]]) -> None:
     _ensure()
-    _MEMBERS.write_text(
+    ensure_under(_MEMBERS, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
         "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
         encoding="utf-8",
     )

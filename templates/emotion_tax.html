@@ -25,9 +25,9 @@ a.btn{display:inline-block;text-decoration:none;margin-right:.5rem}
 <main>
 <h1>Emotion Tax Receipt</h1>
 <p class="sub">Educational estimate of what overrides may have cost — private by default, share anonymized.</p>
-<label class="sub">Your key</label>
+<label class="sub" for="userKey">Your key</label>
 <input id="userKey" placeholder="email or local id">
-<label class="sub">Assumed notional (USD)</label>
+<label class="sub" for="notional">Assumed notional (USD)</label>
 <input id="notional" type="number" value="1000">
 <button class="btn" type="button" onclick="load()">Build receipt</button>
 <div class="receipt" data-evidence>

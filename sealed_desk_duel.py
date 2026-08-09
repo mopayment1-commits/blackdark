@@ -14,10 +14,13 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+
+from path_safety import ensure_under, safe_data_file
 from urllib.parse import quote
 
 _LOCK = threading.Lock()
-_PATH = Path("data/sealed_desk_duels.jsonl")
+_PATH = safe_data_file("sealed_desk_duels.jsonl")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> datetime:
@@ -25,9 +28,10 @@ def _utcnow() -> datetime:
 
 
 def _append(row: dict[str, Any]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
     with _LOCK:
-        with _PATH.open("a", encoding="utf-8") as fh:
+        with path.open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
@@ -46,8 +50,9 @@ def _read_all() -> list[dict[str, Any]]:
 
 
 def _rewrite(rows: list[dict[str, Any]]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
-    _PATH.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def _commitment(desk: str, verdict: str, nonce: str) -> str:

@@ -104,10 +104,12 @@
         <section style="grid-column: 1 / -1">
             <h2>📊 TradingView Chart</h2>
             <div class="toolbar">
-                <select id="chartSymbol">
+                <label for="chartSymbol" class="sub">Symbol</label>
+                <select id="chartSymbol" aria-label="chartSymbol">
                     <option>BTC</option><option>ETH</option><option>SOL</option><option>BNB</option><option>XRP</option>
                 </select>
-                <select id="chartInterval">
+                <label for="chartInterval" class="sub">Interval</label>
+                <select id="chartInterval" aria-label="chartInterval">
                     <option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option><option value="1d">1d</option>
                 </select>
                 <button class="secondary" onclick="loadChart()">Refresh</button>
@@ -120,7 +122,8 @@
             <h2>🏆 Market Rankings (CMC-style)</h2>
             <div class="toolbar">
                 <input id="rankSearch" placeholder="Search symbol or name…" oninput="filterRankings()" style="min-width:10rem" aria-label="Search symbol or name…">
-                <select id="rankSort" onchange="filterRankings()">
+                <label for="rankSort" class="sub">Sort</label>
+                <select id="rankSort" aria-label="rankSort" onchange="filterRankings()">
                     <option value="rank">Sort: Rank</option>
                     <option value="change">Sort: 24h %</option>
                     <option value="mcap">Sort: Market Cap</option>
@@ -143,7 +146,8 @@
         <section style="grid-column: 1 / -1">
             <h2>📈 CEX vs DEX Derivatives</h2>
             <div class="toolbar">
-                <select id="derivAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
+                <label for="derivAsset" class="sub">Asset</label>
+                <select id="derivAsset" aria-label="derivAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
                 <button class="secondary" onclick="loadDerivCompare()">Compare</button>
             </div>
             <div id="derivWrap"><div class="loading">Select asset and compare</div></div>
@@ -153,7 +157,8 @@
             <h2>🛒 Strategy Marketplace</h2>
             <div class="form-row">
                 <input id="stratName" placeholder="Strategy name" style="flex:1" aria-label="Strategy name">
-                <select id="stratKind"><option>arbitrage</option><option>grid</option><option>oracle</option><option>custom</option></select>
+                <label for="stratKind" class="sub">Kind</label>
+                <select id="stratKind" aria-label="stratKind"><option>arbitrage</option><option>grid</option><option>oracle</option><option>custom</option></select>
                 <button onclick="publishStrategy()">Publish</button>
             </div>
             <div id="marketplaceMsg"></div>
@@ -163,7 +168,8 @@
         <section>
             <h2>🔥 Liquidation Radar</h2>
             <div class="toolbar">
-                <select id="liqAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
+                <label for="liqAsset" class="sub">Asset</label>
+                <select id="liqAsset" aria-label="liqAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
                 <button class="secondary" onclick="loadLiquidations()">Scan</button>
             </div>
             <div id="liqWrap"><div class="loading">Click Scan</div></div>
@@ -178,7 +184,8 @@
         <section>
             <h2>👣 Footprint Analytics</h2>
             <div class="toolbar">
-                <select id="fpAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
+                <label for="fpAsset" class="sub">Asset</label>
+                <select id="fpAsset" aria-label="fpAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
                 <button class="secondary" onclick="loadFootprint()">Load</button>
             </div>
             <div id="fpWrap"><div class="loading">Click load</div></div>
@@ -198,7 +205,8 @@
 
         <section style="grid-column: 1 / -1">
             <h2>📜 Strategy Script Sandbox</h2>
-            <textarea id="scriptExpr" style="min-height:56px">price > ma_slow and rsi &lt; 70</textarea>
+            <label for="scriptExpr" class="sub">Expression</label>
+            <textarea id="scriptExpr" aria-label="scriptExpr" style="min-height:56px">price > ma_slow and rsi &lt; 70</textarea>
             <div class="toolbar" style="margin-top:.5rem">
                 <button onclick="runScript()">Run</button>
             </div>
@@ -209,11 +217,11 @@
         <section>
             <h2>🤖 Grid Bot (Paper)</h2>
             <div class="form-row">
-                <label>Asset</label><input id="gridAsset" value="BTC" style="width:4rem" aria-label="gridAsset">
-                <label>Low $</label><input id="gridLow" type="number" value="90000" style="width:6rem" aria-label="gridLow">
-                <label>High $</label><input id="gridHigh" type="number" value="100000" style="width:6rem" aria-label="gridHigh">
-                <label>Grids</label><input id="gridCount" type="number" value="10" style="width:3.5rem" aria-label="gridCount">
-                <label>Quote $</label><input id="gridQuote" type="number" value="1000" style="width:5rem" aria-label="gridQuote">
+                <label for="gridAsset">Asset</label><input id="gridAsset" value="BTC" style="width:4rem" aria-label="gridAsset">
+                <label for="gridLow">Low $</label><input id="gridLow" type="number" value="90000" style="width:6rem" aria-label="gridLow">
+                <label for="gridHigh">High $</label><input id="gridHigh" type="number" value="100000" style="width:6rem" aria-label="gridHigh">
+                <label for="gridCount">Grids</label><input id="gridCount" type="number" value="10" style="width:3.5rem" aria-label="gridCount">
+                <label for="gridQuote">Quote $</label><input id="gridQuote" type="number" value="1000" style="width:5rem" aria-label="gridQuote">
                 <button onclick="createGrid()">Create</button>
             </div>
             <div id="gridMsg"></div>
@@ -223,8 +231,8 @@
         <section>
             <h2>⚙️ IFTTT Rules</h2>
             <div class="form-row">
-                <label>If</label><input id="ruleIf" placeholder="profit  aria-label="ruleIf"> 0.25" style="flex:1;min-width:8rem">
-                <label>Then</label><input id="ruleThen" placeholder="alert telegram" style="flex:1;min-width:8rem" aria-label="alert telegram">
+                <label for="ruleIf">If</label><input id="ruleIf" placeholder="profit > 0.25" aria-label="ruleIf" style="flex:1;min-width:8rem">
+                <label for="ruleThen">Then</label><input id="ruleThen" placeholder="alert telegram" style="flex:1;min-width:8rem" aria-label="alert telegram">
                 <button onclick="createRule()">Add</button>
                 <button class="secondary" onclick="evalRules()">Evaluate</button>
             </div>
@@ -237,12 +245,12 @@
             <p style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">Holdings and target weights as JSON (USD values / fractions summing to 1)</p>
             <div class="grid-2">
                 <div>
-                    <label style="font-size:.75rem;color:var(--muted)">Holdings</label>
-                    <textarea id="rebalHoldings">{"BTC": 5000, "ETH": 3000, "SOL": 2000}</textarea>
+                    <label for="rebalHoldings" style="font-size:.75rem;color:var(--muted)">Holdings</label>
+                    <textarea id="rebalHoldings" aria-label="rebalHoldings">{"BTC": 5000, "ETH": 3000, "SOL": 2000}</textarea>
                 </div>
                 <div>
-                    <label style="font-size:.75rem;color:var(--muted)">Target weights</label>
-                    <textarea id="rebalTargets">{"BTC": 0.5, "ETH": 0.3, "SOL": 0.2}</textarea>
+                    <label for="rebalTargets" style="font-size:.75rem;color:var(--muted)">Target weights</label>
+                    <textarea id="rebalTargets" aria-label="rebalTargets">{"BTC": 0.5, "ETH": 0.3, "SOL": 0.2}</textarea>
                 </div>
             </div>
             <div class="toolbar" style="margin-top:.5rem">

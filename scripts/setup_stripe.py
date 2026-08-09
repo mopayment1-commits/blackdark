@@ -52,7 +52,7 @@ def main() -> None:
     if whale:
         lines = _upsert(lines, "STRIPE_PRICE_WHALE", whale)
 
-    ENV.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    ENV.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083,pythonsecurity:S8707
     print(f"\nSaved to {ENV}")
     print("Restart server, then test: /login → Upgrade Pro")
 

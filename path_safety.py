@@ -103,3 +103,23 @@ def validate_port(port: int | str) -> int:
     if not (1 <= value <= 65535):
         raise ValueError(f"Port out of range: {value}")
     return value
+
+
+def project_data_dir(*, project_root: Path | str | None = None) -> Path:
+    """Resolved `<project>/data` directory (never user-controlled)."""
+    root = Path(project_root) if project_root is not None else Path(__file__).resolve().parent
+    return (root / "data").resolve()
+
+
+def safe_data_file(*parts: str, project_root: Path | str | None = None) -> Path:
+    """
+    Resolve a file under `<project>/data/...` with traversal rejection.
+    Use at every durable write/read sink to satisfy path-injection gates (S2083).
+    """
+    if not parts:
+        raise ValueError("safe_data_file requires at least one path part")
+    for part in parts:
+        cleaned = str(part).strip().replace("\\", "/")
+        if not cleaned or cleaned in {".", ".."} or "/" in cleaned:
+            raise ValueError(f"Unsafe data path part: {part!r}")
+    return resolve_under(project_data_dir(project_root=project_root), *parts)

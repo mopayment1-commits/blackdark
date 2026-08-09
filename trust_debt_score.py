@@ -12,10 +12,13 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+
+from path_safety import ensure_under, safe_data_file
 from urllib.parse import quote
 
 _LOCK = threading.Lock()
-_PATH = Path("data/trust_debt.json")
+_PATH = safe_data_file("trust_debt.json")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> datetime:
@@ -32,8 +35,9 @@ def _load() -> dict[str, Any]:
 
 
 def _save(data: dict[str, Any]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
-    _PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def record_trust_event(

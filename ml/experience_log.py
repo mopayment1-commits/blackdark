@@ -13,6 +13,7 @@ from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
+from path_safety import ensure_under
 
 logger = logging.getLogger("BLACKDARK.MLExperience")
 
@@ -46,7 +47,8 @@ def append_experience(
         "notes": notes,
     }
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with EXPERIENCE_LOG_PATH.open("a", encoding="utf-8") as handle:
+    log_path = ensure_under(EXPERIENCE_LOG_PATH, config.DATA_DIR)
+    with log_path.open("a", encoding="utf-8") as handle:  # NOSONAR pythonsecurity:S2083
         handle.write(json.dumps(entry, ensure_ascii=False) + "\n")
     _refresh_summary(entry)
     logger.info("ML experience logged | type=%s", event_type)
@@ -74,7 +76,7 @@ def _refresh_summary(latest: dict[str, Any]) -> None:
         labeled = (latest.get("payload") or {}).get("export", {}).get("exported")
         if labeled is not None:
             stats["last_labeled_export_count"] = labeled
-    SUMMARY_PATH.write_text(
+    ensure_under(SUMMARY_PATH, config.DATA_DIR).write_text(  # NOSONAR pythonsecurity:S2083
         json.dumps(stats, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )

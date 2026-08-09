@@ -321,7 +321,8 @@
             <div class="toolbar">
                 <input id="stealthAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthAsset">
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
-                <select id="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
+                <label for="stealthSide" class="sub" style="margin:0">Side</label>
+                <select id="stealthSide" aria-label="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
                 <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
             </div>
             <div id="stealthResult" class="empty">Enter size and run advisor</div>

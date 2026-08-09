@@ -157,7 +157,7 @@ def half_life_sample_count(kind: str | None = None, asset: str | None = None) ->
 
 def seed_directional_half_life_priors(*, n: int = 12) -> int:
     """Warm-start directional half-life history (H3 cure) with calibrated priors."""
-    import random
+    import secrets
 
     added = 0
     for i in range(n):
@@ -166,7 +166,7 @@ def seed_directional_half_life_priors(*, n: int = 12) -> int:
                 "fingerprint": f"seed_dir_{i}",
                 "kind": "oracle_direction",
                 "asset": "BTC" if i % 2 == 0 else "ETH",
-                "duration_seconds": float(2800 + random.randint(0, 1600)),
+                "duration_seconds": float(2800 + secrets.randbelow(1601)),
                 "peak_profit_usdt": 0.0,
                 "expired_at": _utcnow_iso(),
                 "seeded_prior": True,

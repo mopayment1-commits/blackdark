@@ -13,7 +13,10 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-_DATA = Path(__file__).resolve().parent / "data" / "since_you_left.json"
+from path_safety import ensure_under, safe_data_file
+
+_DATA = safe_data_file("since_you_left.json")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 
 
 def _utcnow() -> str:
@@ -30,8 +33,9 @@ def _load_store() -> dict[str, Any]:
 
 
 def _save_store(store: dict[str, Any]) -> None:
-    _DATA.parent.mkdir(parents=True, exist_ok=True)
-    _DATA.write_text(json.dumps(store, ensure_ascii=False, indent=2), encoding="utf-8")
+    path = ensure_under(_DATA, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(store, ensure_ascii=False, indent=2), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def capture_market_snapshot() -> dict[str, Any]:

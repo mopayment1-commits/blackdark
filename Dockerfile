@@ -13,10 +13,13 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Minimal OS deps for wheels; keep image lean for Railway trial builds
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 10001 --shell /usr/sbin/nologin appuser
 
 COPY requirements-prod.txt requirements.txt
-RUN pip install --no-cache-dir --default-timeout=180 -r requirements.txt
+# Prefer locked wheels (Sonar docker:S8541 / S8544); fall back if a package lacks a wheel.
+RUN pip install --no-cache-dir --default-timeout=180 --only-binary=:all: -r requirements.txt \
+    || pip install --no-cache-dir --default-timeout=180 -r requirements.txt
 
 COPY *.py ./
 COPY api/ api/
@@ -31,6 +34,9 @@ COPY data/operational_manifest.json data/
 # Bake trained model artifacts when present (ignore if empty in some CI contexts)
 COPY data/models/ data/models/
 COPY BUILD.txt ./
+
+RUN chown -R appuser:appuser /app
+USER appuser
 
 EXPOSE 8080
 

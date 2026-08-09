@@ -457,32 +457,19 @@ async def _fetch_kucoin_market(
         else EXCHANGE_ENDPOINTS["kucoin"]["spot"]
     )
 
-    if market_type == "perpetual":
-        ticker_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['ticker_path']}",
-            {"symbol": native},
-        )
-        depth_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['depth_path']}",
-            {"symbol": native},
-        )
-        ticker_row = ticker_payload.get("data") or {}
-        depth_row = depth_payload.get("data") or {}
-    else:
-        ticker_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['ticker_path']}",
-            {"symbol": native},
-        )
-        depth_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['depth_path']}",
-            {"symbol": native},
-        )
-        ticker_row = ticker_payload.get("data") or {}
-        depth_row = depth_payload.get("data") or {}
+    # Spot and perpetual share KuCoin payload shape for ticker/depth here.
+    ticker_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['ticker_path']}",
+        {"symbol": native},
+    )
+    depth_payload = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['depth_path']}",
+        {"symbol": native},
+    )
+    ticker_row = ticker_payload.get("data") or {}
+    depth_row = depth_payload.get("data") or {}
 
     return (
         TickerSnapshot(

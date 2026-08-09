@@ -541,7 +541,7 @@ async def build_operational_inventory() -> dict[str, Any]:
 def save_operational_manifest(manifest: dict[str, Any]) -> str:
     config.DATA_DIR.mkdir(parents=True, exist_ok=True)
     path = ensure_under(config.OPERATIONAL_MANIFEST_PATH, config.DATA_DIR)
-    path.write_text(json.dumps(manifest, indent=2, sort_keys=False), encoding="utf-8")
+    path.write_text(json.dumps(manifest, indent=2, sort_keys=False), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
     return str(path)
 
 

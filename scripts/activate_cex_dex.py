@@ -42,7 +42,8 @@ async def main() -> int:
 
     scan = await scan_cex_dex_opportunities(quote_usd=args.quote)
     print(f"\n📡 Scan: {scan['count']} opportunities · {scan['profitable_count']} profitable")
-    opps = list(scan.get("opportunities") or [])[:5]
+    raw_opps = scan.get("opportunities")
+    opps = list(raw_opps)[:5] if isinstance(raw_opps, (list, tuple)) else []
     for o in opps:
         asset = o.get("asset", "?")
         buy = o.get("buy_venue", "?")

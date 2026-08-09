@@ -32,7 +32,7 @@ async function load(){
   try{const r=await fetch('/api/due-diligence/corpus-passport'); if(r.ok) d=await r.json();}catch(e){}
   if(!d){const r=await fetch('/api/due-diligence/corpus-passport/public'); d=await r.json();
     d.stamps=[`Labeled (teaser): ${d.metrics?.labeled??0}`,`Kill-rate %: ${d.metrics?.kill_rate_percent??0}`,`Status: ${d.metrics?.registry_status||'—'}`,`Full passport requires Desk / Institutional session`];
-    d.headline=d.headline; d.disclaimer=d.disclaimer;
+    /* teaser passport already carries headline/disclaimer */
   }
   document.getElementById('stamp').textContent=(d.metrics?.labeled??0)+' labeled';
   document.getElementById('headline').textContent=d.headline||d.one_liner_for_ic||'';

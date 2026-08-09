@@ -13,15 +13,18 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-_DATA = Path(__file__).resolve().parent / "data" / "anti_hype_mode.json"
+from path_safety import ensure_under, safe_data_file
+
+_DATA = safe_data_file("anti_hype_mode.json")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 
 _HYPE_PATTERNS = [
-    re.compile(r"\bguaranteed?\b", re.I),
-    re.compile(r"\bsecret alpha\b", re.I),
-    re.compile(r"\bto the moon\b", re.I),
-    re.compile(r"\b100%\s*win\b", re.I),
-    re.compile(r"\brisk[- ]free\b", re.I),
-    re.compile(r"\bget rich\b", re.I),
+    re.compile(r"\bguaranteed?\b", re.IGNORECASE),
+    re.compile(r"\bsecret alpha\b", re.IGNORECASE),
+    re.compile(r"\bto the moon\b", re.IGNORECASE),
+    re.compile(r"\b100%\s*win\b", re.IGNORECASE),
+    re.compile(r"\brisk[- ]free\b", re.IGNORECASE),
+    re.compile(r"\bget rich\b", re.IGNORECASE),
 ]
 
 
@@ -39,8 +42,9 @@ def _load() -> dict[str, Any]:
 
 
 def _save(store: dict[str, Any]) -> None:
-    _DATA.parent.mkdir(parents=True, exist_ok=True)
-    _DATA.write_text(json.dumps(store, ensure_ascii=False, indent=2), encoding="utf-8")
+    path = ensure_under(_DATA, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(store, ensure_ascii=False, indent=2), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def is_enabled(user_key: str | None = None, *, cookie_flag: bool | None = None) -> bool:

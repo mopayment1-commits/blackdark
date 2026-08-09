@@ -185,7 +185,8 @@ def _upsert_env_line(key: str, value: str, lines: list[str]) -> list[str]:
 
 
 def _write_env_lines(lines: list[str]) -> None:
-    _ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    # Constant project .env path — not user-controlled.
+    _ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 async def save_platform_keys(payload: dict[str, str], *, verify: bool = True) -> dict[str, Any]:

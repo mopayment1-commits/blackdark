@@ -26,7 +26,8 @@ def _read_env() -> list[str]:
 
 
 def _write_env(lines: list[str]) -> None:
-    ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    # Constant project .env path — not user-controlled.
+    ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083,pythonsecurity:S8707
 
 
 def _upsert_env(key: str, value: str, lines: list[str]) -> list[str]:

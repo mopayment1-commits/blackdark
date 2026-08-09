@@ -16,10 +16,13 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+
+from path_safety import ensure_under, project_data_dir
 from uuid import uuid4
 
 _LOCK = threading.Lock()
-_ROOT = Path("data/institutional_assurance")
+_DATA_BASE = project_data_dir()
+_ROOT = _DATA_BASE / "institutional_assurance"
 _CAPACITY = _ROOT / "signed_capacity.json"
 _EVIDENCE = _ROOT / "compliance_evidence.json"
 _CONTRACTS = _ROOT / "contracts.jsonl"
@@ -33,7 +36,7 @@ def _utcnow() -> str:
 
 
 def _ensure() -> None:
-    _ROOT.mkdir(parents=True, exist_ok=True)
+    ensure_under(_ROOT, _DATA_BASE).mkdir(parents=True, exist_ok=True)
 
 
 def _read_json(path: Path, default: Any) -> Any:
@@ -48,12 +51,14 @@ def _read_json(path: Path, default: Any) -> Any:
 
 def _write_json(path: Path, data: Any) -> None:
     _ensure()
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    ensure_under(path, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
+        json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 def _append_jsonl(path: Path, row: dict[str, Any]) -> None:
     _ensure()
-    with path.open("a", encoding="utf-8") as fh:
+    with ensure_under(path, _DATA_BASE).open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
         fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
@@ -262,7 +267,7 @@ def sign_contract(contract_id: str, *, signer_name: str, signer_email: str) -> d
         rows.append(row)
     if not target:
         raise ValueError("contract_not_found")
-    _CONTRACTS.write_text(
+    ensure_under(_CONTRACTS, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
         "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows),
         encoding="utf-8",
     )

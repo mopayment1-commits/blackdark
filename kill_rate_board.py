@@ -8,13 +8,14 @@ Public board of how often we REJECT signals (Net-Edge Truth + Contradiction Veto
 from __future__ import annotations
 
 import json
-import os
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-_DATA = Path(__file__).resolve().parent / "data" / "kill_rate_events.jsonl"
+from path_safety import ensure_under, safe_data_file
+
+_DATA = safe_data_file("kill_rate_events.jsonl")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 _MAX_LINES = 5000
 
 
@@ -31,13 +32,14 @@ def record_kill(source: str, reason: str, *, meta: dict[str, Any] | None = None)
         "meta": meta or {},
     }
     try:
-        _DATA.parent.mkdir(parents=True, exist_ok=True)
-        with _DATA.open("a", encoding="utf-8") as fh:
+        path = ensure_under(_DATA, _DATA_BASE)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("a", encoding="utf-8") as fh:  # NOSONAR pythonsecurity:S2083
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
         # trim
-        if _DATA.stat().st_size > 2_000_000:
-            lines = _DATA.read_text(encoding="utf-8").splitlines()[-_MAX_LINES:]
-            _DATA.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        if path.stat().st_size > 2_000_000:
+            lines = path.read_text(encoding="utf-8").splitlines()[-_MAX_LINES:]
+            path.write_text("\n".join(lines) + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
     except OSError:
         pass
 

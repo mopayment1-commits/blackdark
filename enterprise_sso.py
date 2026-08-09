@@ -16,11 +16,14 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+from path_safety import ensure_under, safe_data_file
 from urllib.parse import urlencode
 from uuid import uuid4
 
 _LOCK = threading.Lock()
-_PATH = Path("data/enterprise_sso.json")
+_PATH = safe_data_file("enterprise_sso.json")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
 _STATES: dict[str, dict[str, Any]] = {}
 
 
@@ -38,8 +41,9 @@ def _load() -> dict[str, Any]:
 
 
 def _save(data: dict[str, Any]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
-    _PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
 def configure_provider(

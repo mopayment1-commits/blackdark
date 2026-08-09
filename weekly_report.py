@@ -71,6 +71,10 @@ async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
         f"{len(whale_alerts)} whale signals, {users.get('registered_users', 0)} users."
     )
 
+    recent_raw = audit.get("recent")
+    recent_slice = list(recent_raw)[:5] if isinstance(recent_raw, (list, tuple)) else []
+    sector_rows = sectors if isinstance(sectors, list) else []
+
     report: dict[str, Any] = {
         "report_type": "weekly_intelligence",
         "generated_at": _utcnow_iso(),
@@ -85,7 +89,7 @@ async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
         "oracle_performance": {
             "total_predictions": audit.get("total_predictions"),
             "average_accuracy_percent": audit.get("average_accuracy_percent"),
-            "recent": list(audit.get("recent") or [])[:5] if audit.get("recent") else [],
+            "recent": recent_slice,
         },
         "forecast_performance": forecast_audit,
         "arbitrage_summary": {
@@ -97,8 +101,8 @@ async def build_weekly_report(*, persist: bool = True) -> dict[str, Any]:
         },
         "whale_intelligence": {
             "alert_count": len(whale_alerts),
-            "sector_flows": len(sectors),
-            "top_sectors": [s.get("sector") for s in sectors[:3]],
+            "sector_flows": len(sector_rows),
+            "top_sectors": [s.get("sector") for s in sector_rows[:3]],
         },
         "platform": users,
         "simulations_run": len(sims),
