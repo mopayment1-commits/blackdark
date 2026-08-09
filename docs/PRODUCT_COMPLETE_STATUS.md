@@ -1,7 +1,8 @@
 # BLACKDARK — Product Complete Status (code)
 
 > **As of:** 2026-08-09  
-> **DESIGN PHASE: CLOSED** on `main` (launch merge #38 / commit family through `6009dbf`).  
+> **DESIGN PHASE: CLOSED** on `main` (launch merge #38 + Sonar launch-gate #39 @ `8abc661`).  
+> **Code launch-gate:** Sonar Security A / Reliability A merged to `main`.  
 > **Next phase:** domain · hosting · live Soft Launch beta — see [`LAUNCH_DESIGN_COMPLETION_PLAN_AR.md`](./LAUNCH_DESIGN_COMPLETION_PLAN_AR.md) · [`DESIGN_CLOSED_AND_ACQUIRER_DD_AUDIT_AR.md`](./DESIGN_CLOSED_AND_ACQUIRER_DD_AUDIT_AR.md).  
 > **Rule:** Binding report heroes/Z + wow + F1–F10 + institutional product surfaces are done.  
 > **Canon:** [`CANONICAL_BINDING.md`](./CANONICAL_BINDING.md) — not FalconAI 16/120 valuation.  

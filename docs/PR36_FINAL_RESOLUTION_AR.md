@@ -54,5 +54,5 @@ origin/cursor/unique-wow-full-ship-eef3  ⊆  ancestor of  origin/main
 
 1. اخضرار Sonar Quality Gate على #39  
 2. اخضرار CI على #39  
-3. دمج #39 إلى `main`  
+3. دمج #39 إلى `main` — **تم 2026-08-09** (`main` @ `8abc661`, fast-forward)  
 4. الانتقال إلى الدومين → الاستضافة → Beta + جلسة مستخدم عادي  
