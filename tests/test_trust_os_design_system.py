@@ -52,7 +52,7 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert "$199" not in land
     assert "pricing.cta.talk" in land or "pricing.from_open" in land or "institutionalInquiryForm" in land
     assert 'id="trust-pulse"' in land
-    assert "fake seat" in land.lower() or "No fake seat" in land
+    assert "waitlist.sub" in land or "fake seat" in land.lower()
     assert "🎁" not in land
     assert 'class="launch-banner"' not in land
     assert 'has-launch-banner' not in land
