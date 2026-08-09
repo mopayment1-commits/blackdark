@@ -23,7 +23,7 @@
 3. قفل تبعيات CI/Docker بـ `requirements.lock.txt` / `requirements-prod.lock.txt` + `--only-binary=:all:` (يزيل Security C المتبقي من githubactions/docker)  
 4. إصلاح اختبارات heroes التي كسرت CI بعد تحديث عدسات Trust OS  
 
-**معيار الإغلاق:** Sonar على #39 = Reliability A (تحقق) + Security A بعد إعادة التحليل على أقفال التبعيات.
+**معيار الإغلاق (تحقق 2026-08-09):** Sonar على #39 = Quality Gate **OK** · Reliability **A** · Security **A** · 0 vulns · 0 bugs · CI/CodeQL خضر.
 
 ---
 

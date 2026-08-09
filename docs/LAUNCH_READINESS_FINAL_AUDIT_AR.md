@@ -91,8 +91,9 @@
 
 | فحص | نتيجة |
 |-----|--------|
-| Sonar #39 Reliability | **A** (0 bugs) |
-| Sonar #39 Security | الهدف **A** بعد إعادة التحليل على أقفال CI/Docker (كانت C بسبب S8541/S8544) |
+| Sonar #39 Reliability | **A** (actual=1) |
+| Sonar #39 Security | **A** (actual=1) — Quality Gate **OK** |
+| Sonar #39 Overall | **PASSED** · 0 vulns · 0 bugs |
 | CodeQL (actions/js/python) | **SUCCESS** |
 | pip-audit على `requirements.hashes.txt` | **PASS** بعد ترقية `authlib==1.6.12` |
 | Bandit (≥ medium) | **PASS** |
