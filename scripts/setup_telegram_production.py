@@ -11,7 +11,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
-from _secret_io import is_secret_env_key
 
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
 
@@ -27,15 +26,6 @@ def _tg(method: str, token: str, payload: dict | None = None) -> dict:
     req = urllib.request.Request(url, data=data, headers=headers, method="POST" if data else "GET")
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.loads(resp.read().decode())
-
-
-def _display_val(key: str, val: str, hint: str) -> str:
-    """Never return secret material — CodeQL treats masked secrets as clear-text sinks."""
-    if is_secret_env_key(key):
-        return "<set>" if val else f"<missing — {hint}>"
-    if not val:
-        return hint
-    return val
 
 
 def main() -> int:
@@ -83,12 +73,9 @@ def main() -> int:
         ("TELEGRAM_WEBHOOK_SECRET", webhook_secret or "", "random string (recommended)"),
         ("TELEGRAM_POLLING_ENABLED", "false" if not use_polling else "true", "use webhook on Railway"),
     ]
-    for key, val, hint in vars_:
-        # Keep secret values out of the print call entirely (CodeQL taint).
-        if is_secret_env_key(key):
-            print(f"  {key}=<set>" if val else f"  {key}=<missing — {hint}>")
-        else:
-            print(f"  {key}={val or hint}")
+    for key, val, _hint in vars_:
+        # Never interpolate env values into prints (CodeQL clear-text logging).
+        print(f"  {key}: {'present' if bool(val) else 'missing'}")
 
     if use_polling:
         print("\n--- Mode: long polling (dev/single-instance) ---")
@@ -107,17 +94,17 @@ def main() -> int:
         try:
             wh = _tg("setWebhook", token, payload)
             if wh.get("ok"):
-                print(f"  Webhook set: {webhook_url}")
+                print("  Webhook set successfully (URL not printed)")
             else:
-                print("  setWebhook failed — check bot token and webhook URL")
+                print("  setWebhook failed — check bot token and webhook URL in secret store")
         except Exception:
             print("  Could not set webhook (run from machine with network)")
             print("  Manual: use BotFather/API with token from your secret store (do not paste tokens into logs)")
 
     print("\n--- Test ---")
-    print(f"  1. Open https://t.me/{username} -> send /start")
-    print(f"  2. Check {PROD_URL}/api/telegram/free/status")
-    print(f"  3. GTM status: {PROD_URL}/api/gtm/status")
+    print("  1. Open the bot in Telegram -> send /start")
+    print("  2. Check /api/telegram/free/status on your APP_BASE_URL")
+    print("  3. Check /api/gtm/status on your APP_BASE_URL")
     print("=" * 60)
     return 0
 
