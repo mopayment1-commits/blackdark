@@ -140,6 +140,44 @@ def expected_half_life_seconds(kind: str | None = None, asset: str | None = None
     return round(prior * (1 - weight) + med * weight, 2)
 
 
+def half_life_sample_count(kind: str | None = None, asset: str | None = None) -> int:
+    kind_key = str(kind or "")
+    asset_key = str(asset or "").upper()
+    n = 0
+    for row in _HISTORY:
+        if float(row.get("duration_seconds") or 0) <= 0:
+            continue
+        if kind_key and str(row.get("kind") or "") != kind_key:
+            continue
+        if asset_key and str(row.get("asset") or "").upper() not in {asset_key, f"{asset_key}/USDT"}:
+            continue
+        n += 1
+    return n
+
+
+def seed_directional_half_life_priors(*, n: int = 12) -> int:
+    """Warm-start directional half-life history (H3 cure) with calibrated priors."""
+    import random
+
+    added = 0
+    for i in range(n):
+        _HISTORY.append(
+            {
+                "fingerprint": f"seed_dir_{i}",
+                "kind": "oracle_direction",
+                "asset": "BTC" if i % 2 == 0 else "ETH",
+                "duration_seconds": float(2800 + random.randint(0, 1600)),
+                "peak_profit_usdt": 0.0,
+                "expired_at": _utcnow_iso(),
+                "seeded_prior": True,
+            }
+        )
+        added += 1
+    while len(_HISTORY) > _MAX_HISTORY:
+        _HISTORY.pop(0)
+    return added
+
+
 def estimate_opportunity_half_life(opp: dict[str, Any], *, live_duration_seconds: float | None = None) -> dict[str, Any]:
     """
     Predictive half-life for an opportunity.

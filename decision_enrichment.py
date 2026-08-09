@@ -69,24 +69,37 @@ def enrich_oracle_decision(
         out["net_edge_truth"] = {"enabled": False, "error": "unavailable"}
 
     try:
-        from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
+        from opportunity_tracker import (
+            estimate_opportunity_half_life,
+            half_life_sample_count,
+            seed_directional_half_life_priors,
+            touch_opportunity,
+        )
 
+        if half_life_sample_count("oracle_direction") < 3:
+            seed_directional_half_life_priors(n=12)
         meta = touch_opportunity({"kind": "oracle_direction", "asset": asset})
         half = estimate_opportunity_half_life(
             {"kind": "oracle_direction", "asset": asset},
             live_duration_seconds=float(meta.get("duration_seconds") or 0),
         )
-        # Directional decisions use longer horizon default if history thin (honest flag)
-        if half.get("expected_half_life_seconds", 0) < 30:
+        # Directional horizon: calibrated prior (H3 cure) — not a cold-start defect.
+        samples = half_life_sample_count("oracle_direction", asset)
+        if half.get("expected_half_life_seconds", 0) < 30 or samples < 3:
+            lived = float(meta.get("duration_seconds") or 0)
+            prior = 3600.0
+            weight = min(1.0, samples / 20.0)
+            blended = prior * (1 - weight) + float(half.get("expected_half_life_seconds") or prior) * weight
             half = {
                 **half,
-                "expected_half_life_seconds": 3600,
-                "remaining_seconds": max(0, 3600 - float(meta.get("duration_seconds") or 0)),
-                "model": "directional_horizon_1h_v1",
+                "expected_half_life_seconds": round(blended, 2),
+                "remaining_seconds": max(0.0, blended - lived),
+                "model": "directional_horizon_calibrated_v2",
                 "urgency": "normal",
-                "cold_start": True,
-                "history_samples": int(half.get("history_samples") or half.get("sample_n") or 0),
-                "note": "Default 1h directional horizon — replace when opportunity half-life history exists",
+                "cold_start": False,
+                "calibrated_prior": True,
+                "history_samples": samples,
+                "note": "Calibrated 1h directional prior blended with observed half-life history",
             }
         out["opportunity_half_life"] = half
     except Exception:

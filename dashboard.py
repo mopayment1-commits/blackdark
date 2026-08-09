@@ -604,6 +604,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.institutional import router as institutional_router
+
+    app.include_router(institutional_router)
+except Exception:
+    logger.exception("Institutional router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")
@@ -1187,6 +1194,9 @@ async def sitemap_xml(request: Request):
         "/miss-feed",
         "/coverage-honesty",
         "/emotion-tax",
+        "/institutional",
+        "/model-card",
+        "/d5-honesty",
         "/b2b/committee-one-pager",
         "/docs",
         "/b2b",
@@ -1279,6 +1289,28 @@ async def coverage_honesty_page(request: Request):
 @app.get("/emotion-tax", response_class=HTMLResponse)
 async def emotion_tax_page(request: Request):
     return templates.TemplateResponse(request, "emotion_tax.html", _footer_ctx())
+
+
+@app.get("/institutional", response_class=HTMLResponse)
+async def institutional_hub_page(request: Request):
+    return templates.TemplateResponse(request, "institutional.html", _footer_ctx())
+
+
+@app.get("/model-card", response_class=HTMLResponse)
+async def model_card_page(request: Request):
+    return templates.TemplateResponse(request, "model_card.html", _footer_ctx())
+
+
+@app.get("/d5-honesty", response_class=HTMLResponse)
+async def d5_honesty_page(request: Request):
+    return templates.TemplateResponse(request, "d5_honesty.html", _footer_ctx())
+
+
+@app.get("/api/public/d5-honesty")
+async def api_public_d5_honesty():
+    from d5_regime_honesty import build_d5_honesty_board
+
+    return build_d5_honesty_board()
 
 
 @app.get("/my/discipline-mirror")

@@ -29,34 +29,16 @@ async def _dex_leg(
     *,
     dry_run: bool,
 ) -> dict[str, Any]:
-    """DEX leg — dry-run economics always; live swap blocked until Jupiter wallet wired."""
-    has_wallet = bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip())
-    # Honest status: we never claim a live DEX fill without Jupiter integration.
-    mode = "dry_run"
-    message = f"Dry-run: would {side} ${amount_usd:.0f} {asset} on {venue}"
-    blocked_reason = None
-    if not dry_run:
-        mode = "blocked_until_jupiter"
-        blocked_reason = "dex_live_requires_jupiter_wallet_integration"
-        message = (
-            "DEX live swap not available in-code yet — economics dry-run only. "
-            "CEX leg may still execute when keys are present."
-        )
-        if not has_wallet:
-            blocked_reason = "missing_solana_private_key_and_jupiter"
-    payload = {
-        "leg": "dex",
-        "venue": venue,
-        "asset": asset,
-        "side": side,
-        "amount_usd": amount_usd,
-        "mode": mode,
-        "executed": False,
-        "message": message,
-        "blocked_reason": blocked_reason,
-        "wallet_configured": has_wallet,
-    }
-    return payload
+    """DEX leg via Jupiter product adapter (C4 cure) — dry-run default; live when wallet+flag."""
+    from jupiter_dex_adapter import execute_swap
+
+    return await execute_swap(
+        asset=asset,
+        side=side,
+        amount_usd=amount_usd,
+        venue=venue,
+        dry_run=dry_run,
+    )
 
 
 async def _cex_leg(asset: str, side: str, amount_usd: float, *, dry_run: bool) -> dict[str, Any]:

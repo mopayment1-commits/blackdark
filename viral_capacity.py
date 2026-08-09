@@ -561,16 +561,34 @@ def viral_readiness_report() -> dict[str, Any]:
             "PG_POOL_MAX": "40",
             "SOFT_LAUNCH": "unset",
         },
-        "honesty": {
-            "code_protects_under_spike": True,
-            "proven_signed_load_test": False,
-            "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": (
-                "Protections reduce collapse risk under viral spikes. "
-                "Do not claim infinite capacity; run signed Postgres+Redis multi-worker load before marketing HA numbers."
-            ),
-        },
+        "honesty": _signed_capacity_honesty(),
         "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+    }
+
+
+def _signed_capacity_honesty() -> dict[str, Any]:
+    """C1 cure: proven_signed_load_test flips when verified signed capacity is deposited."""
+    proven = False
+    capacity = None
+    try:
+        from institutional_assurance import get_signed_capacity, verify_signed_capacity
+
+        capacity = get_signed_capacity()
+        proven = bool(capacity and verify_signed_capacity(capacity) and capacity.get("ha_claim_eligible"))
+    except Exception:
+        proven = False
+    return {
+        "code_protects_under_spike": True,
+        "proven_signed_load_test": proven,
+        "signed_capacity": capacity,
+        "proof_path": "data/institutional_assurance/signed_capacity.json",
+        "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+        "note": (
+            "Protections reduce collapse risk under viral spikes. "
+            "HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            if not proven
+            else "Verified signed capacity row present and HA-eligible."
+        ),
     }
 
 

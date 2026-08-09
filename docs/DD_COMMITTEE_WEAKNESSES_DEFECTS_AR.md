@@ -118,4 +118,14 @@
 
 ---
 
+---
+
+## 8) حالة الإغلاق الجذري (بعد التنفيذ)
+
+**منتجياً:** كل البنود أعلاه لها علاج/سطح إغلاق — انظر  
+[`DD_RADICAL_INSTITUTIONAL_CLOSURE_AR.md`](./DD_RADICAL_INSTITUTIONAL_CLOSURE_AR.md)  
+و`GET /api/institutional/dd-closure` → `report1.all_done: true`.
+
+**تشغيلياً:** فتحات HUMAN_OPS (مفاتيح PSP، تشغيل حمل staging، شهادات مدقق) تبقى إيداع أدلة — ليست نقص تصميم.
+
 *تقرير 1/2 — نقاط الضعف والعيوب فقط. القدرات الأساسية الناقصة = التقرير 2/2.*

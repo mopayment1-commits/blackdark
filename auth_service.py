@@ -227,7 +227,25 @@ async def login_user(
         raise ValueError("Invalid email or password")
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
-    if mfa_enabled:
+    # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
+    try:
+        from org_mfa_policy import assert_login_mfa_policy
+
+        org_mfa = await assert_login_mfa_policy(
+            email,
+            mfa_enabled=mfa_enabled,
+            mfa_code_present=bool(mfa_code),
+        )
+        if org_mfa.get("mfa_required") and not mfa_enabled:
+            raise ValueError(
+                "Organization MFA is required. Enroll TOTP at /settings/security before login."
+            )
+    except ValueError:
+        raise
+    except Exception:
+        org_mfa = {"org_mfa_enforced": False}
+
+    if mfa_enabled or (org_mfa.get("org_mfa_enforced") and mfa_enabled):
         if not mfa_code:
             # Do not issue a session until MFA is verified.
             challenge = secrets.token_urlsafe(24)
@@ -239,6 +257,7 @@ async def login_user(
             return {
                 "mfa_required": True,
                 "mfa_challenge": challenge,
+                "org_mfa_enforced": bool(org_mfa.get("org_mfa_enforced")),
                 "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
             }
         from mfa_service import verify_user_mfa

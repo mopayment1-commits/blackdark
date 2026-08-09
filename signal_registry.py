@@ -70,6 +70,56 @@ SIGNAL_TYPE_LEXICON: dict[str, dict[str, Any]] = {
         "source": "whale_signal_classifier",
         "weight": 0.55,
     },
+    "oracle_direction_regime": {
+        "definition": "Regime-aware directional prediction (risk_on/neutral/risk_off/panic)",
+        "source": "ml.regime_router",
+        "weight": 0.95,
+    },
+    "net_edge_veto": {
+        "definition": "Truth-gate veto when net edge after fees/slippage fails",
+        "source": "net_edge_truth",
+        "weight": 1.0,
+    },
+    "half_life_kill": {
+        "definition": "Opportunity killed when remaining half-life below urgency threshold",
+        "source": "constitution_gates.apply_half_life_kill",
+        "weight": 0.9,
+    },
+    "sentiment_gate": {
+        "definition": "Sentiment manipulation / crowd-extreme gate on decision path",
+        "source": "sentiment_gate",
+        "weight": 0.7,
+    },
+    "cex_dex_basis": {
+        "definition": "CEX↔DEX basis opportunity with Jupiter economics leg",
+        "source": "bd_platform.cex_dex_arbitrage",
+        "weight": 0.8,
+    },
+    "kill_rate_event": {
+        "definition": "Public-grade refusal / kill event for Trust OS proof surfaces",
+        "source": "kill_rate_board",
+        "weight": 0.6,
+    },
+    "coverage_exclusion": {
+        "definition": "Asset/venue excluded because not in LIVE coverage catalog",
+        "source": "coverage_honesty",
+        "weight": 0.85,
+    },
+    "provenance_downgrade": {
+        "definition": "Decision confidence cut when provenance score below band",
+        "source": "data_provenance_score",
+        "weight": 0.75,
+    },
+    "dimension_conflict": {
+        "definition": "Modal dimension contradiction requiring replay / veto",
+        "source": "dimension_conflict_guard",
+        "weight": 0.9,
+    },
+    "anti_hype_suppress": {
+        "definition": "Marketing/hype language suppressed under Anti-Hype mode",
+        "source": "anti_hype_mode",
+        "weight": 0.5,
+    },
 }
 
 

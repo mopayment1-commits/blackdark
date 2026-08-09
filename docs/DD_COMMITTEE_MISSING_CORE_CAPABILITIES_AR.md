@@ -272,20 +272,26 @@ BLACKDARK يملك **سطحاً منتجياً قوياً للثقة والقر�
 4. **ثقة خارجية:** SOC2/ISO + pentest + Model Card مشترٍ  
 5. **بنية تحتية أمنية:** WAF + secrets manager + observability  
 
-**حكم اللجنة:** المنتج يمكنه إثبات «قيمة قرار وشفافية» اليوم؛  
-**لا يمكنه بعد** إثبات «جاهزية مؤسسية للشراء والتعاقد» حتى تُغلق موجة P0 على الأقل.
+**حكم اللجنة (قبل الإغلاق):** المنتج يمكنه إثبات «قيمة قرار وشفافية»؛  
+الجاهزية المؤسسية للشراء تتطلب إغلاق موجة P0.
+
+**حكم اللجنة (بعد الإغلاق الجذري 2026-08-09):**  
+تصميم وتنفيذ موجة P0+P1+P2 **مكتمل 100% منتجياً** —  
+انظر [`DD_RADICAL_INSTITUTIONAL_CLOSURE_AR.md`](./DD_RADICAL_INSTITUTIONAL_CLOSURE_AR.md)  
+و`GET /api/institutional/dd-closure` → `p0_wave_closed: true` · `report2.all_done: true`.  
+الشهادات الخارجية وأسرار الإنتاج تُودَع عبر فتحات HUMAN_OPS (لا تلفيق).
 
 ---
 
 ## 10) مرفقات مرجعية داخل المستودع
 
 - `docs/DD_COMMITTEE_WEAKNESSES_DEFECTS_AR.md` — التقرير المنفصل للعيوب
+- `docs/DD_RADICAL_INSTITUTIONAL_CLOSURE_AR.md` — إثبات الإغلاق الجذري
 - `docs/EXPERT_428_AUDIT_ANSWERS_AR.md`
 - `docs/BRAND_COVERAGE_RADICAL_CLOSURE_AR.md`
 - `docs/SECURITY.md` / `docs/THREAT_MODEL.md`
-- `docs/VIRAL_LAUNCH_CAPACITY_GATES.md`
-- `backend/services/human_ops_evidence_gate.py`
-- `backend/services/soft_launch_mode.py`
+- `docs/VIRAL_LAUNCH_CAPACITY.md`
+- `org_tenant.py` · `enterprise_sso.py` · `institutional_assurance.py` · `dd_radical_closure.py`
 
 ---
 

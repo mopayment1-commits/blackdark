@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Institutional Readiness</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399;--warn:#f59e0b}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:radial-gradient(1200px 600px at 10% -10%,#163028 0%,transparent 55%),linear-gradient(165deg,#070a0f,#101820);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:920px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.9rem,4vw,3rem);margin:0}
+.sub{color:var(--muted);line-height:1.55;margin:.6rem 0 1.4rem;max-width:38rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1rem 0 1.5rem}
+.metric{border:1px solid var(--line);padding:1rem;background:rgba(255,255,255,.02)}.metric strong{display:block;font-size:1.5rem}
+.metric span{color:var(--muted);font-size:.75rem}
+.box{border:1px solid var(--line);padding:1.1rem;margin:.75rem 0;background:rgba(0,0,0,.18)}
+.ok{color:var(--ok)}.list{margin:.4rem 0 0;padding-left:1.1rem;color:var(--muted);line-height:1.5}
+code{color:var(--ok)} @media(max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/model-card">Model Card</a><a href="/d5-honesty">D5 Honesty</a><a href="/coverage-honesty">Coverage</a>
+</div></nav>
+<main>
+<h1>Institutional Readiness</h1>
+<p class="sub">Product-complete table-stakes for purchase diligence — SSO, org MFA, multi-tenant, paid rail, SLA, compliance slots, contracts, IR, HA, observability.</p>
+<div class="grid">
+  <div class="metric"><strong id="all">—</strong><span>All product items closed</span></div>
+  <div class="metric"><strong id="p0">—</strong><span>P0 wave closed</span></div>
+  <div class="metric"><strong id="r2">—</strong><span>Report-2 capabilities</span></div>
+</div>
+<div class="box">
+  <h2>Strict confirmation</h2>
+  <p id="note" class="sub"></p>
+  <ul class="list" id="slots"></ul>
+</div>
+<div class="box">
+  <h2>APIs</h2>
+  <p class="sub"><code>GET /api/institutional/dd-closure</code> · <code>/model-card</code> · <code>/commerce/status</code> · <code>/sso/status</code></p>
+</div>
+</main>
+<script>
+fetch('/api/institutional/dd-closure').then(r=>r.json()).then(d=>{
+  document.getElementById('all').textContent = d.all_done ? 'YES' : 'NO';
+  document.getElementById('p0').textContent = d.p0_wave_closed ? 'YES' : 'NO';
+  document.getElementById('r2').textContent = (d.report2&&d.report2.closed_count||0)+'/'+(d.report2&&d.report2.total||0);
+  document.getElementById('note').textContent = (d.institutional_purchase_readiness||{}).note || '';
+  const ul = document.getElementById('slots');
+  (d.institutional_purchase_readiness.external_attestation_slots||[]).forEach(s=>{
+    const li=document.createElement('li'); li.textContent=s.id+': '+s.what; ul.appendChild(li);
+  });
+}).catch(()=>{document.getElementById('note').textContent='Closure API unavailable';});
+</script>
+</body>
+</html>
