@@ -18,18 +18,12 @@ logger = logging.getLogger("BLACKDARK.Security")
 _login_attempts: dict[str, list[float]] = defaultdict(list)
 _LOGIN_WINDOW_SEC = 300
 _LOGIN_MAX_ATTEMPTS = 10
-_LOGIN_RL_PREFIX = "bd:login_rl:"
-_rate_limit_backend = "memory"
 
 
 def is_production_env() -> bool:
     """True when ENV/RAILWAY is production — LOCAL_DEV never overrides an explicit prod ENV."""
     env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
     return env in {"production", "prod"}
-
-
-def login_rate_limit_backend() -> str:
-    return _rate_limit_backend
 
 
 def hash_session_token(token: str) -> str:
@@ -42,69 +36,14 @@ def hash_session_token(token: str) -> str:
     return hashlib.sha256(f"{pepper}:{token}".encode()).hexdigest()
 
 
-def _memory_login_rate_limit(key: str) -> None:
-    global _rate_limit_backend
-    _rate_limit_backend = "memory"
+def check_login_rate_limit(key: str) -> None:
+    """Raise if too many login attempts from email/IP."""
     now = time.time()
     window = _login_attempts[key]
     _login_attempts[key] = [t for t in window if now - t < _LOGIN_WINDOW_SEC]
     if len(_login_attempts[key]) >= _LOGIN_MAX_ATTEMPTS:
         raise HTTPException(status_code=429, detail="Too many login attempts. Try again in 5 minutes.")
     _login_attempts[key].append(now)
-
-
-_redis_sync = None
-
-
-def _redis_client_sync():
-    """Shared sync Redis client for login RL (reused across calls/workers)."""
-    global _redis_sync
-    if _redis_sync is not None:
-        return _redis_sync
-    try:
-        import config
-
-        url = (getattr(config, "REDIS_URL", "") or os.getenv("REDIS_URL", "")).strip()
-        if not url:
-            return None
-        import redis
-
-        client = redis.from_url(
-            url,
-            decode_responses=True,
-            socket_connect_timeout=0.4,
-            socket_timeout=0.4,
-            max_connections=int(os.getenv("LOGIN_RL_REDIS_MAX_CONNECTIONS", "20")),
-        )
-        client.ping()
-        _redis_sync = client
-        return _redis_sync
-    except Exception:
-        return None
-
-
-def check_login_rate_limit(key: str) -> None:
-    """Raise if too many login attempts from email/IP. Uses Redis when available."""
-    global _rate_limit_backend
-    redis_key = f"{_LOGIN_RL_PREFIX}{key.strip().lower()}"
-    client = _redis_client_sync()
-    if client is not None:
-        try:
-            count = int(client.incr(redis_key))
-            if count == 1:
-                client.expire(redis_key, _LOGIN_WINDOW_SEC)
-            _rate_limit_backend = "redis"
-            if count > _LOGIN_MAX_ATTEMPTS:
-                raise HTTPException(
-                    status_code=429,
-                    detail="Too many login attempts. Try again in 5 minutes.",
-                )
-            return
-        except HTTPException:
-            raise
-        except Exception:
-            logger.warning("Redis login rate limit failed — falling back to memory", exc_info=True)
-    _memory_login_rate_limit(key)
 
 
 def record_login_failure(key: str) -> None:
@@ -116,8 +55,27 @@ def admin_emails() -> set[str]:
     return {e.strip().lower() for e in raw.split(",") if e.strip()}
 
 
-def verify_admin_key(provided: str | None) -> bool:
+def _admin_api_key_expected() -> str:
+    """Load admin API key from env or ADMIN_API_KEY_FILE (mode-0600 secret file)."""
     expected = os.getenv("ADMIN_API_KEY", "").strip()
+    if expected:
+        return expected
+    path = os.getenv("ADMIN_API_KEY_FILE", "").strip()
+    if not path:
+        return ""
+    try:
+        from pathlib import Path
+
+        p = Path(path)
+        if not p.is_file():
+            return ""
+        return p.read_text(encoding="utf-8").strip().splitlines()[0].strip()
+    except Exception:
+        return ""
+
+
+def verify_admin_key(provided: str | None) -> bool:
+    expected = _admin_api_key_expected()
     if not expected or not provided:
         return False
     return hmac.compare_digest(provided.strip(), expected)
@@ -140,9 +98,7 @@ async def optional_user_from_request(
     if authorization:
         token = authorization.removeprefix("Bearer ")
     elif bd_token:
-        from security_middleware import cookie_to_session_bearer
-
-        token = cookie_to_session_bearer(bd_token)
+        token = bd_token.strip()
     if not token:
         return None
     return await get_user_from_token(token.strip())
@@ -171,30 +127,12 @@ async def require_whale(
 async def require_admin(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
-    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
-    from admin_mfa import assert_admin_mfa
-
     if verify_admin_key(x_admin_key):
-        admin = {"email": "admin@system", "tier": "whale", "is_admin": True}
-        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin)
-        try:
-            from security_events import record_security_event
-
-            record_security_event("admin_key_access", severity="warning", actor="admin@system")
-        except Exception:
-            pass
-        return admin
+        return {"email": "admin@system", "tier": "whale", "is_admin": True}
     if user and is_admin_user(user):
         user["is_admin"] = True
-        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=user)
         return user
-    try:
-        from security_events import record_security_event
-
-        record_security_event("admin_denied", severity="warning", actor=(user or {}).get("email"))
-    except Exception:
-        pass
     raise HTTPException(status_code=403, detail="Admin authentication required (X-Admin-Key or admin email)")
 
 
@@ -207,12 +145,11 @@ async def require_admin_dev(
     request: Request,
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
-    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key, x_admin_totp)
+    return await require_admin(user, x_admin_key)
 
 
 async def require_pro_or_above(

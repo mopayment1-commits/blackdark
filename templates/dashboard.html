@@ -377,6 +377,7 @@
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#39;');
         }
+        function esc(s) { return escapeHtml(s); }
 
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
@@ -677,7 +678,7 @@
                 const whyVisible = `
                     <div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">
                         <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'}</div>
-                        ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${f.factor||f}</strong>${f.detail ? ' — '+f.detail : ''}<div style="color:#71717a;font-size:.75rem">${f.source||''}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
+                        ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${f.detail ? ' — '+esc(f.detail) : ''}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
                     </div>`;
                 const factorBlock = whyVisible + `
                     <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
@@ -716,10 +717,10 @@
                     ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
                 el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${action || d.verdict}</div>
-                    <div style="color:#71717a;font-size:.9rem">${d.symbol || sym} · $${fmt(d.price,2)} ·
+                    <div class="verdict ${vc(d.verdict)}">${esc(action || d.verdict)}</div>
+                    <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
                         <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
-                    <div class="narrative">${sentence}</div>
+                    <div class="narrative">${esc(sentence)}</div>
                     <div class="metrics">
                         <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
                         <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
@@ -746,7 +747,7 @@
                     })()}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
-                el.innerHTML = '<div class="empty">Could not analyze ' + sym + '</div>';
+                const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty);
             }
         }
 

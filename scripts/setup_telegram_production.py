@@ -4,11 +4,15 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+from _secret_io import is_secret_env_key, mask_secret
+
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
 
 
@@ -23,6 +27,14 @@ def _tg(method: str, token: str, payload: dict | None = None) -> dict:
     req = urllib.request.Request(url, data=data, headers=headers, method="POST" if data else "GET")
     with urllib.request.urlopen(req, timeout=20) as resp:
         return json.loads(resp.read().decode())
+
+
+def _display_val(key: str, val: str, hint: str) -> str:
+    if not val:
+        return hint
+    if is_secret_env_key(key):
+        return mask_secret(val)
+    return val
 
 
 def main() -> int:
@@ -49,29 +61,29 @@ def main() -> int:
     except urllib.error.HTTPError as exc:
         print(f"  Invalid token (HTTP {exc.code})")
         return 1
-    except Exception as exc:
-        print(f"  Telegram unreachable: {exc}")
+    except Exception:
+        print("  Telegram unreachable")
         return 1
 
     if not me.get("ok"):
-        print(f"  Error: {me.get('description')}")
+        print("  Error: bot validation failed")
         return 1
 
     bot = me["result"]
     username = bot.get("username", "")
     print(f"  OK — @{username} ({bot.get('first_name')})")
 
-    print("\n--- Railway Variables ---")
+    print("\n--- Railway Variables (secrets masked) ---")
     vars_ = [
         ("TELEGRAM_BOT_TOKEN", token, "from @BotFather"),
         ("TELEGRAM_BOT_USERNAME", username, "auto"),
         ("TELEGRAM_FREE_ALERTS_ENABLED", "true", "3 free alerts/day"),
         ("TELEGRAM_WEBHOOK_URL", webhook_url, "production webhook"),
-        ("TELEGRAM_WEBHOOK_SECRET", webhook_secret or "(recommended)", "random string"),
+        ("TELEGRAM_WEBHOOK_SECRET", webhook_secret or "", "random string (recommended)"),
         ("TELEGRAM_POLLING_ENABLED", "false" if not use_polling else "true", "use webhook on Railway"),
     ]
     for key, val, hint in vars_:
-        print(f"  {key}={val or hint}")
+        print(f"  {key}={_display_val(key, val, hint)}")
 
     if use_polling:
         print("\n--- Mode: long polling (dev/single-instance) ---")
@@ -92,10 +104,10 @@ def main() -> int:
             if wh.get("ok"):
                 print(f"  Webhook set: {webhook_url}")
             else:
-                print(f"  setWebhook failed: {wh.get('description')}")
-        except Exception as exc:
-            print(f"  Could not set webhook (run from machine with network): {exc}")
-            print(f"  Manual: curl 'https://api.telegram.org/bot<TOKEN>/setWebhook' -d 'url={webhook_url}'")
+                print("  setWebhook failed — check bot token and webhook URL")
+        except Exception:
+            print("  Could not set webhook (run from machine with network)")
+            print("  Manual: use BotFather/API with token from your secret store (do not paste tokens into logs)")
 
     print("\n--- Test ---")
     print(f"  1. Open https://t.me/{username} -> send /start")

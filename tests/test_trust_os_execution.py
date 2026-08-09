@@ -66,10 +66,16 @@ def test_docs_and_ui_wire_trust_os():
     assert (root / "docs" / "TRUST_OS_VALUE_LAYERS.md").is_file()
     assert (root / "docs" / "LOAD_TEST_RUN_LOG.md").is_file()
     landing = (root / "templates" / "landing.html").read_text(encoding="utf-8")
-    assert "Don't trust us. Verify us." in landing
-    assert "Prove" in landing and "Operate" in landing
-    assert "lens=prove" in landing or "Open Proof" in landing
-    assert "Room for funds" in landing or "data-room" in landing
+    i18n = (root / "i18n_service.py").read_text(encoding="utf-8")
+    # Phrase may live in i18n catalog after localization wiring
+    assert (
+        "Don't trust us. Verify us." in landing
+        or "Don't trust us. Verify us." in i18n
+        or "seal.s3.body" in landing
+    )
+    assert ("Prove" in landing and "Operate" in landing) or ("nav.prove" in landing and "nav.operate" in landing)
+    assert "lens=prove" in landing or "Open Proof" in landing or "nav.open_proof" in landing
+    assert "Room for funds" in landing or "data-room" in landing or "lenses.room" in landing
     caps = (root / "templates" / "utility.html").read_text(encoding="utf-8")
     assert "four value layers" in caps.lower() or "Four value layers" in caps
     b2b = (root / "templates" / "b2b.html").read_text(encoding="utf-8")

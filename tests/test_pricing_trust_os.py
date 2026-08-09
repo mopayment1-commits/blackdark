@@ -100,17 +100,21 @@ def test_landing_pricing_copy():
 
     html = Path("templates/landing.html").read_text(encoding="utf-8")
     start = html.index('id="pricing"')
-    pricing = html[start : start + 4500]
-    assert "Proof Pass" in pricing
-    assert "Decision Pro" in pricing
-    assert "Decision Desk" in pricing
+    pricing = html[start : start + 6500]
+    # Names may be i18n keys after localization wiring; EN catalog still holds literals.
+    from i18n_service import EN
+
+    assert ("Proof Pass" in pricing) or ("pricing.proof_pass" in pricing)
+    assert ("Decision Pro" in pricing) or ("pricing.decision_pro" in pricing)
+    assert ("Decision Desk" in pricing) or ("pricing.decision_desk" in pricing)
     assert "$49" in pricing
     assert "$199" not in pricing
-    assert "Trust OS Institutional" in pricing
-    assert "From $3,000" in pricing
+    assert ("Trust OS Institutional" in pricing) or ("pricing.institutional" in pricing)
+    assert ("From $3,000" in pricing) or ("pricing.from_open" in pricing) or ("3,000" in EN.get("pricing.from_open", ""))
     assert "Essential" not in pricing
     assert "$15" not in pricing
     assert "Oracle 10×/day" not in pricing
+    assert "institutionalInquiryForm" in pricing
 
 
 def test_morning_binding_doc_locks_49():

@@ -991,6 +991,18 @@
                     <a href="/data-room" class="btn-primary btn">{{ t('pricing.cta.talk') }}</a>
                 </div>
             </div>
+            
+            <form id="institutionalInquiryForm" style="max-width:520px;margin:1.5rem auto 0;display:grid;gap:.55rem;text-align:left">
+                <h3 style="margin:0;color:var(--accent);font-family:var(--bd-font-display)">Institutional inquiry (USD wire / invoice)</h3>
+                <input required type="email" name="email" placeholder="work@fund.com" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <input type="text" name="name" placeholder="Name" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <input type="text" name="company" placeholder="Firm" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <input type="text" name="budget_usd" placeholder="Budget band USD (e.g. from 3000)" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)">
+                <textarea name="message" rows="3" placeholder="Use case / seats / SLA needs" style="padding:.7rem .85rem;border-radius:8px;border:1px solid var(--border);background:#1a1a24;color:var(--text)"></textarea>
+                <button type="submit" class="btn-primary btn">{{ t('pricing.cta.talk') }}</button>
+                <p id="institutionalInquiryMsg" style="color:var(--text-muted);font-size:.85rem;min-height:1.2rem;margin:0"></p>
+            </form>
+
             <p id="billingReadyLine" style="text-align:center;color:var(--accent);margin-top:1.25rem;font-size:0.9rem;max-width:720px;margin-left:auto;margin-right:auto">
                 Checking payment readiness…
             </p>
@@ -1535,10 +1547,35 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 el.style.color = 'var(--text-muted)';
             }
         }
+
+        async function wireInstitutionalInquiry() {
+            const form = document.getElementById('institutionalInquiryForm');
+            if (!form) return;
+            form.addEventListener('submit', async (ev) => {
+                ev.preventDefault();
+                const fd = new FormData(form);
+                const payload = Object.fromEntries(fd.entries());
+                const msg = document.getElementById('institutionalInquiryMsg');
+                try {
+                    const res = await fetch('/api/billing/institutional-inquiry', {
+                        method: 'POST', headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify(payload)
+                    });
+                    const d = await res.json();
+                    msg.textContent = res.ok ? (d.message || 'Received') : (d.detail || 'Failed');
+                    msg.style.color = res.ok ? 'var(--success)' : 'var(--danger)';
+                    if (res.ok) form.reset();
+                } catch (e) {
+                    msg.textContent = 'Inquiry unavailable right now';
+                    msg.style.color = 'var(--danger)';
+                }
+            });
+        }
         window.addEventListener('load', () => {
             updateShareLinks(null);
             loadLandingAnalytics();
             loadBillingReadyLine();
+            wireInstitutionalInquiry();
             loadTelegramBotLink();
             loadLandingTrustPulse();
             startLandingPulseStream();

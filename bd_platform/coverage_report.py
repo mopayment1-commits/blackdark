@@ -14,10 +14,10 @@ def coverage_report() -> dict[str, Any]:
         proc = subprocess.run(
             [sys.executable, "-m", "pytest", "tests/", "-q", "--cov=.", "--cov-report=term-missing", "--cov-config=.coveragerc"],
             cwd=str(root),
+            check=False,
             capture_output=True,
             text=True,
             timeout=120,
-            check=False,
         )
         lines = (proc.stdout or "").splitlines()
         total_line = next((line for line in lines if "TOTAL" in line), "")
@@ -36,5 +36,9 @@ def coverage_report() -> dict[str, Any]:
             "passed": proc.returncode == 0,
             "summary_tail": lines[-15:],
         }
-    except (subprocess.TimeoutExpired, OSError) as exc:
-        return {"coverage_percent": 0, "error": str(exc), "note": "Run pytest --cov locally"}
+    except (subprocess.TimeoutExpired, OSError):
+        return {
+            "coverage_percent": 0,
+            "error": "coverage_unavailable",
+            "note": "Run pytest --cov locally",
+        }
