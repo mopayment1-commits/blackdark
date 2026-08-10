@@ -201,7 +201,19 @@ def trust_os_manifest() -> dict[str, Any]:
             "funds": "/data-room?lens=room",
             "compliance": "/compliance",
             "strategy_correction": "/api/strategy/correction",
+            "priority_chain": "/api/strategy/priority-chain",
+            "priority_chain_page": "/priority-chain",
             "lenses": "/api/lenses",
+        },
+        "cso_priority_chain": {
+            "api": "/api/strategy/priority-chain",
+            "closure": "/api/public/cso-priority-closure",
+            "page": "/priority-chain",
+            "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "binding_rule": (
+                "No new feature unless it raises decision habit, distribution, revenue, "
+                "or live data flywheel."
+            ),
         },
         "binding_docs": [
             "docs/PRODUCT_CONSTITUTION_AR.md",
@@ -212,6 +224,7 @@ def trust_os_manifest() -> dict[str, Any]:
             "docs/TRUST_OS_DESIGN_SYSTEM.md",
             "docs/HEROES_STRATEGY_BINDING.md",
             "docs/STRATEGIC_CORRECTION_BINDING.md",
+            "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
         ],
         "design_system": {
             "css": "/static/css/trust-os.css",
@@ -255,5 +268,10 @@ def strategy_correction_manifest() -> dict[str, Any]:
             "sor_twap_tca_ifrs_soc2_as_shipped",
         ],
         "canonical_binding": "docs/CANONICAL_BINDING.md",
+        "cso_priority_chain": {
+            "api": "/api/strategy/priority-chain",
+            "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "rejects": "features_first_launch_users_acquisition",
+        },
         "generated_at": datetime.now(UTC).isoformat(),
     }

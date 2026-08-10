@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — CSO Priority Chain</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399;--warn:#f59e0b;--bad:#f87171}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(165deg,#070a0f,#12181f);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:860px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.7rem);margin:0}
+.sub{color:var(--muted);line-height:1.55;margin:.55rem 0 1.25rem}
+.box{border:1px solid var(--line);padding:1.1rem;margin:.75rem 0}
+.stage{border-top:1px solid var(--line);padding:.75rem 0}.stage:first-child{border-top:0}
+.stage h3{margin:0 0 .3rem;font-size:1.02rem}.stage p{margin:0;color:var(--muted);font-size:.84rem;line-height:1.45}
+.num{color:var(--ok);font-family:Syne,sans-serif;margin-right:.4rem}
+.rule{color:var(--warn)} code{color:var(--ok)}
+.reject{color:var(--bad);text-decoration:line-through}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/dashboard?lens=prove#trust-pulse">Decide</a><a href="/kill-rate">Kill-Rate</a><a href="/data-room">Data Room</a>
+</div></nav>
+<main>
+<h1>CSO Priority Chain</h1>
+<p class="sub" id="thesis">Strategy law over feature inflation.</p>
+<div class="box">
+  <h2>Binding rule</h2>
+  <p class="sub rule" id="rule"></p>
+  <p class="sub">Rejected: <span class="reject" id="old"></span></p>
+</div>
+<div class="box">
+  <h2>Adopted sequence</h2>
+  <div id="stages"></div>
+</div>
+<div class="box">
+  <h2>Gate smoke</h2>
+  <p class="sub" id="smoke"></p>
+  <p class="sub">API: <code>/api/strategy/priority-chain</code> · Evaluate: <code>/api/strategy/priority-chain/evaluate</code></p>
+</div>
+</main>
+<script>
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
+async function load(){
+  const d=await (await fetch('/api/public/cso-priority-closure')).json();
+  document.getElementById('thesis').textContent=d.thesis||'';
+  document.getElementById('rule').textContent=d.binding_rule||'';
+  document.getElementById('old').textContent=(d.rejected_old_chain||[]).join(' → ');
+  document.getElementById('stages').innerHTML=(d.stages||[]).map(s=>`
+    <div class="stage"><h3><span class="num">${esc(s.order)}</span>${esc(s.name)}</h3>
+    <p>${esc(s.definition)}<br><strong>Signal:</strong> ${esc(s.success_signal)}</p></div>`).join('');
+  const g=d.gate_smoke||{};
+  document.getElementById('smoke').textContent=
+    `vanity_rejected=${g.vanity_rejected} · habit_loop_allowed=${g.habit_loop_allowed} · deferred_code_count=${d.deferred_code_count}`;
+}
+load();
+</script>
+</body></html>

@@ -1193,6 +1193,7 @@ async def sitemap_xml(request: Request):
         "/corpus-passport",
         "/miss-feed",
         "/coverage-honesty",
+        "/priority-chain",
         "/emotion-tax",
         "/allocator-receipt",
         "/transfer-intent",
@@ -1293,6 +1294,11 @@ async def miss_feed_page(request: Request):
 @app.get("/coverage-honesty", response_class=HTMLResponse)
 async def coverage_honesty_page(request: Request):
     return templates.TemplateResponse(request, "coverage_honesty.html", _footer_ctx())
+
+
+@app.get("/priority-chain", response_class=HTMLResponse)
+async def priority_chain_page(request: Request):
+    return templates.TemplateResponse(request, "priority_chain.html", _footer_ctx())
 
 
 @app.get("/emotion-tax", response_class=HTMLResponse)

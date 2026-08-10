@@ -48,6 +48,7 @@
 3. **Four value layers** — never 15/16/21 independent platforms.  
 4. **Evidence before approval** — no capability claimed without a public surface or API proof.  
 5. **Overclaim denylist enforced** — `GET /api/trust-os` is the machine-readable source of truth.  
+6. **CSO priority chain** — Product Excellence → Unique Intelligence → Distribution+Habit → Data Flywheel → Early Revenue → Institutional Proof → Strategic Moat → Acquisition Leverage. Features-first is rejected. Gate: `GET /api/strategy/priority-chain` · doc: [`CSO_PRIORITY_CHAIN_BINDING_AR.md`](./CSO_PRIORITY_CHAIN_BINDING_AR.md).  
 6. **Human-only** — Glass Box announce timing/channel; counsel letter; SOC2/ISO procurement.
 
 ---

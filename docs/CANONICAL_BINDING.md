@@ -13,10 +13,11 @@
 3. [`TRUST_OS_VALUE_LAYERS.md`](./TRUST_OS_VALUE_LAYERS.md) — four value layers  
 4. [`HEROES_STRATEGY_BINDING.md`](./HEROES_STRATEGY_BINDING.md) — six heroes + Section Z  
 5. [`STRATEGIC_CORRECTION_BINDING.md`](./STRATEGIC_CORRECTION_BINDING.md) — reject inflated pastes  
-6. [`GLASS_BOX_OPERATOR_RUNBOOK.md`](./GLASS_BOX_OPERATOR_RUNBOOK.md) — one public prove-it event  
-7. Engine docs / audits / FalconAI inventories — **appendices only**, never separate P&Ls  
+6. [`CSO_PRIORITY_CHAIN_BINDING_AR.md`](./CSO_PRIORITY_CHAIN_BINDING_AR.md) — Product Excellence → … → Acquisition Leverage (not Features-first)  
+7. [`GLASS_BOX_OPERATOR_RUNBOOK.md`](./GLASS_BOX_OPERATOR_RUNBOOK.md) — one public prove-it event  
+8. Engine docs / audits / FalconAI inventories — **appendices only**, never separate P&Ls  
 
-Machine-readable: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/execution/closure`
+Machine-readable: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/strategy/priority-chain` · `GET /api/execution/closure`
 
 ---
 
@@ -54,11 +55,12 @@ Keep from FalconAI pastes: decision-before-data, no-duplication, single-owner, d
 | 1 | Four layers + six heroes live in UI/API | Code | `GET /api/trust-os` |
 | 2 | Overclaim denylist published | Code | `/capabilities` + API |
 | 3 | Intent router → heroes only | Code | `/dashboard` + `/api/intent/router` |
-| 4 | 60-second acceptance probe | Code + founder confirm | `GET /api/acceptance/60s` + human H3 |
-| 5 | Glass Box operator pack | Code | `/api/glass-box/operator` |
-| 6 | Glass Box announce timing/channel | **Human** | H2 |
-| 7 | Load test log (honest) | Ops | `docs/LOAD_TEST_RUN_LOG.md` |
-| 8 | HA claim on Postgres+Redis multi-worker | **Ops/staging** | only after signed row |
+| 4 | CSO priority chain binding + feature gate | Code | `GET /api/strategy/priority-chain` · `/priority-chain` |
+| 5 | 60-second acceptance probe | Code + founder confirm | `GET /api/acceptance/60s` + human H3 |
+| 6 | Glass Box operator pack | Code | `/api/glass-box/operator` |
+| 7 | Glass Box announce timing/channel | **Human** | H2 |
+| 8 | Load test log (honest) | Ops | `docs/LOAD_TEST_RUN_LOG.md` |
+| 9 | HA claim on Postgres+Redis multi-worker | **Ops/staging** | only after signed row |
 
 ---
 

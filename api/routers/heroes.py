@@ -272,6 +272,48 @@ async def strategy_correction():
     return strategy_correction_manifest()
 
 
+@router.get("/api/strategy/priority-chain")
+async def strategy_priority_chain():
+    """CSO priority chain binding — Product Excellence before feature inflation."""
+    from cso_priority_chain import build_cso_priority_chain
+
+    return build_cso_priority_chain()
+
+
+@router.get("/api/strategy/priority-chain/evaluate")
+async def strategy_priority_chain_evaluate(
+    title: str = Query("untitled"),
+    lever: list[str] | None = Query(None),
+    raises_habit: bool = Query(False),
+    raises_distribution: bool = Query(False),
+    raises_revenue: bool = Query(False),
+    raises_live_flywheel: bool = Query(False),
+    raises_unique_intelligence: bool = Query(False),
+    notes: str = Query(""),
+):
+    """Gate a proposed feature against the CSO binding rule."""
+    from cso_priority_chain import evaluate_feature_proposal
+
+    return evaluate_feature_proposal(
+        title=title,
+        levers=list(lever or []),
+        raises_habit=raises_habit,
+        raises_distribution=raises_distribution,
+        raises_revenue=raises_revenue,
+        raises_live_flywheel=raises_live_flywheel,
+        raises_unique_intelligence=raises_unique_intelligence,
+        notes=notes,
+    )
+
+
+@router.get("/api/public/cso-priority-closure")
+async def cso_priority_closure_api():
+    """Public closure — CSO chain shipped with zero deferred code."""
+    from cso_priority_chain import build_cso_priority_closure
+
+    return await build_cso_priority_closure()
+
+
 @router.get("/api/intent/router")
 async def intent_router_api():
     """Results-over-features intent map (display layer only)."""
@@ -713,6 +755,15 @@ async def wow_surfaces_manifest():
             "provenance_score": "/api/oracle/provenance-score",
             "status_api": "/api/public/brand-coverage-closure",
             "product_complete": True,
+        },
+        "cso_priority_chain": {
+            "page": "/priority-chain",
+            "api": "/api/strategy/priority-chain",
+            "evaluate": "/api/strategy/priority-chain/evaluate",
+            "closure": "/api/public/cso-priority-closure",
+            "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "binding": True,
+            "all_done_for_agreed_scope": True,
         },
         "f1_f10_unique_full_ship": {
             "F1": "/miss-feed",

@@ -21,6 +21,7 @@ Committee-facing index for acquisition / allocator diligence.
 | Anti-Hype Compliance | `/compliance` |
 | Public developer docs | `/docs` |
 | Trust OS manifest | `/api/trust-os` |
+| CSO Priority Chain | `/priority-chain` · `/api/strategy/priority-chain` |
 | Execution closure | `/api/execution/closure` |
 | 60s acceptance | `/api/acceptance/60s` |
 | Scale readiness | `/api/scale/readiness` |
