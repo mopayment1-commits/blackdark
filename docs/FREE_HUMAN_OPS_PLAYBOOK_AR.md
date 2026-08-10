@@ -88,10 +88,12 @@ set -a; source .env.softlaunch.local; set +a
 python -m uvicorn dashboard:app --host 127.0.0.1 --port 8080
 
 # 4) فحوصات
+# مهم: لا تستدعِ /api/acceptance/60s من نفس السيرفر بـ curl أثناء Soft Launch
+# (worker واحد قد يعلّق). استخدم السكربت من نافذة ثانية:
+python scripts/acceptance_60s.py --base http://127.0.0.1:8080
 curl -s http://127.0.0.1:8080/health/live
-curl -s "http://127.0.0.1:8080/api/acceptance/60s?base_url=http://127.0.0.1:8080" | jq .
-curl -s http://127.0.0.1:8080/api/public/zero-tolerance-closure | jq .all_done_for_agreed_scope
-curl -s http://127.0.0.1:8080/api/strategy/priority-chain | jq .all_done_for_agreed_scope
+curl -s http://127.0.0.1:8080/api/public/zero-tolerance-closure
+curl -s http://127.0.0.1:8080/api/strategy/priority-chain
 ```
 
 ---
