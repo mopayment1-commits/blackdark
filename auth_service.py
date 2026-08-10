@@ -144,6 +144,7 @@ async def register_user(
     *,
     username: str = "",
     accepted_terms: bool = False,
+    plan: str = "free",
 ) -> dict[str, Any]:
     from database import create_user, fetch_user_by_email, fetch_user_by_username, insert_pro_trial
     from identity_service import (
@@ -153,6 +154,7 @@ async def register_user(
         validate_password,
         validate_username,
     )
+    from pricing_catalog import normalize_signup_plan, signup_next_after_register
 
     if not accepted_terms:
         raise ValueError("You must accept Terms, Privacy, and Risk Disclaimer")
@@ -160,6 +162,8 @@ async def register_user(
     validate_password(password, email=email)
     display = validate_display_name(name)
     handle = validate_username(username) if username.strip() else ""
+    selected_plan = normalize_signup_plan(plan)
+    next_step = signup_next_after_register(selected_plan)
 
     if await fetch_user_by_email(email):
         raise ValueError("Email already registered")
@@ -171,18 +175,25 @@ async def register_user(
         from database import update_user_profile_fields
 
         await update_user_profile_fields(user_id, {"username": handle})
-    trial = await insert_pro_trial(email)
+
+    trial_payload: dict[str, Any] | None = None
+    if next_step.get("start_pro_trial"):
+        trial = await insert_pro_trial(email)
+        trial_payload = {
+            "active": True,
+            "ends_at": trial["trial_ends_at"],
+            "days": trial["days"],
+        }
+
     session = await create_session(user_id)
     tier = await resolve_user_tier(email)
     verify = await send_verification_email(user_id, email)
     return {
         "token": session["token"],
         "expires_at": session["expires_at"],
-        "trial": {
-            "active": True,
-            "ends_at": trial["trial_ends_at"],
-            "days": trial["days"],
-        },
+        "selected_plan": selected_plan,
+        "next": next_step,
+        "trial": trial_payload,
         "email_verification": {
             "required": True,
             "sent": True,
@@ -195,6 +206,7 @@ async def register_user(
             "username": handle or None,
             "tier": tier,
             "email_verified": False,
+            "selected_plan": selected_plan,
         },
     }
 

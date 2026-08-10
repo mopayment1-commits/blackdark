@@ -457,12 +457,33 @@
             }
         }
 
+        let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
+
+        function applyUpgradeButton() {
+            const btn = document.getElementById('upgradeBtn');
+            if (!btn) return;
+            if (!nextUpgrade || !nextUpgrade.has_upgrade) {
+                btn.style.display = 'none';
+                return;
+            }
+            btn.style.display = '';
+            btn.textContent = nextUpgrade.cta || nextUpgrade.label || 'Upgrade';
+            btn.onclick = () => {
+                if (nextUpgrade.checkout_tier) upgradeTier(nextUpgrade.checkout_tier);
+                else location.href = nextUpgrade.href || '/data-room';
+            };
+        }
+
         async function loadAuth() {
             const tierEl = document.getElementById('userTier');
             const authLink = document.getElementById('authLink');
             const token = localStorage.getItem('bd_token');
             syncChatGate();
-            if (!token) return;
+            if (!token) {
+                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                applyUpgradeButton();
+                return;
+            }
             try {
                 const res = await fetch('/api/auth/me', { headers: authHeaders() });
                 const d = await res.json();
@@ -477,21 +498,33 @@
                         localStorage.removeItem('bd_token');
                         location.reload();
                     };
+                    try {
+                        const up = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(userTierId));
+                        nextUpgrade = await up.json();
+                    } catch (e2) {
+                        nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: userTierId === 'pro' ? 'whale' : 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
+                    }
+                    applyUpgradeButton();
                     syncChatGate();
                 }
             } catch (e) {}
         }
 
         async function upgradeTier(tier) {
+            const target = tier || (nextUpgrade && nextUpgrade.checkout_tier) || 'pro';
+            if (!target) {
+                location.href = (nextUpgrade && nextUpgrade.href) || '/data-room';
+                return;
+            }
             try {
                 const res = await fetch('/api/billing/checkout', {
                     method: 'POST', headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ tier: tier || 'pro' }),
+                    body: JSON.stringify({ tier: target }),
                 });
                 const d = await res.json();
                 if (d.url) { location.href = d.url; return; }
             } catch (e) {}
-            location.href = '/create-checkout-session?tier=' + (tier || 'pro');
+            location.href = '/create-checkout-session?tier=' + target;
         }
 
         let lastPulse = null;

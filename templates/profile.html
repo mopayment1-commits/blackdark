@@ -95,10 +95,10 @@
                 <p class="hint" id="billingHint">Card data never touches BLACKDARK — Lemon/Stripe hosted checkout.</p>
                 <p class="hint" id="billingReady">Checking payment readiness…</p>
                 <div class="msg" id="billingMsg"></div>
-                <a class="btn btn-primary" id="btnProCheckout" href="/create-checkout-session?tier=pro">Decision Pro $29</a>
-                <a class="btn btn-secondary" id="btnDeskCheckout" href="/create-checkout-session?tier=whale">Decision Desk $49</a>
+                <a class="btn btn-primary" id="btnNextUpgrade" href="/create-checkout-session?tier=pro">Start 7-Day Trial · Decision Pro $29</a>
+                <p class="hint" id="upgradeReason">Next step only — depth ladder, not a wall of SKUs.</p>
                 <button class="btn-secondary" onclick="openPortal()">Manage billing</button>
-                <a class="btn btn-secondary" href="/data-room">Institutional — Talk to us</a>
+                <a class="btn btn-secondary" id="btnAllPlans" href="/#pricing">Compare all plans</a>
             </section>
             <section class="card" id="valueDigestCard">
                 <h2>Subscriber value</h2>
@@ -139,6 +139,7 @@
         document.getElementById('emailLine').textContent = u.email + (p.email_verified ? ' · verified' : ' · verification pending');
         document.getElementById('verifyHint').textContent = p.email_verified ? 'Email verified.' : 'Verify your email to harden account recovery.';
         const tier = (d.tier && d.tier.label) || u.tier || 'free';
+        const tierId = String((d.tier && d.tier.id) || u.tier || 'free').toLowerCase();
         document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' +
             (d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>');
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
@@ -146,16 +147,44 @@
             : 'Optional TOTP MFA — strongly recommended for paid tiers.';
         document.getElementById('billingHint').textContent =
             'Plan: ' + tier + '. Currency USD. ' + ((d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.');
+        await syncNextUpgrade(tierId);
         if (new URLSearchParams(location.search).get('verified') === '1') setMsg('profileMsg', 'Email verified.', true);
-        if (new URLSearchParams(location.search).get('welcome') === '1') setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
-        loadSubscriberValue(u.tier || 'free');
+        const welcome = new URLSearchParams(location.search).get('welcome');
+        const planQ = new URLSearchParams(location.search).get('plan');
+        if (welcome === '1') {
+            if (planQ === 'pro') setMsg('profileMsg', 'Welcome — Decision Pro 7-day trial is active. Open unlimited Proof Cards.', true);
+            else if (planQ === 'free') setMsg('profileMsg', 'Welcome to Proof Pass — open your first Proof Card before any upgrade.', true);
+            else setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
+        }
+        loadSubscriberValue(tierId);
+    }
+    async function syncNextUpgrade(tierId) {
+        const btn = document.getElementById('btnNextUpgrade');
+        const reason = document.getElementById('upgradeReason');
+        if (!btn) return;
+        try {
+            const res = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(tierId || 'free'));
+            const up = await res.json();
+            if (!up.has_upgrade) {
+                btn.style.display = 'none';
+                if (reason) reason.textContent = 'You are on the top self-serve depth. Institutional continues via Talk to us only if needed.';
+                return;
+            }
+            btn.style.display = '';
+            btn.textContent = up.cta || up.label || 'Upgrade';
+            btn.href = up.href || '/#pricing';
+            if (reason) reason.textContent = up.reason || 'Next depth on the Option A ladder.';
+        } catch (e) {
+            btn.href = '/create-checkout-session?tier=pro';
+            btn.textContent = 'Start 7-Day Trial · Decision Pro $29';
+        }
     }
     async function loadSubscriberValue(tier) {
         const el = document.getElementById('valueDigest');
         if (!el) return;
         const t = String(tier || 'free').toLowerCase();
         if (t === 'free') {
-            el.innerHTML = 'Proof Pass has Trust Pulse + Ledger. <a href="/create-checkout-session?tier=pro">Decision Pro $29</a> unlocks the value digest.';
+            el.innerHTML = 'Proof Pass has Trust Pulse + Ledger. Next depth: <a href="/create-checkout-session?tier=pro">Decision Pro $29</a> (7-day trial) removes the 3/day ceiling.';
             return;
         }
         el.textContent = 'Loading value digest…';
