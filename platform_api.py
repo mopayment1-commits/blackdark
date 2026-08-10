@@ -25,19 +25,10 @@ def _local_or_admin(request: Request, x_admin_key: str | None = None) -> None:
 
 
 def _force_safe_dry_run(requested: Any) -> bool:
-    """Live execute via HTTP only when explicitly allowed for admins."""
-    if requested is None:
-        return True
-    want_live = not bool(requested)
-    if not want_live:
-        return True
-    allow = os.getenv("LIVE_EXECUTION_ALLOW_API", "false").lower() in {"1", "true", "yes"}
-    if not allow:
-        raise HTTPException(
-            status_code=403,
-            detail="Live execution via API disabled. Set LIVE_EXECUTION_ALLOW_API=true for admin live orders.",
-        )
-    return False
+    """Live execute via HTTP only when Soft Launch is off and explicitly allowed."""
+    from live_execution_gate import force_safe_dry_run
+
+    return force_safe_dry_run(requested)
 
 
 @router.get("/keys/status")

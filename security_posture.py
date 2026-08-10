@@ -168,17 +168,20 @@ def security_posture_report() -> dict[str, Any]:
         },
         "residual_risks": [
             "Formal third-party penetration test engagement (template: docs/templates/pentest_scope.md)",
-            "CDN/WAF must be activated at DNS edge (checklist: docs/CDN_WAF_CHECKLIST.md)",
-            "Scheduled Postgres backups must run in ops (scripts/backup_postgres.py)",
+            "CDN/WAF must be activated at DNS edge then declare CDN_WAF_ACTIVE or CLOUDFLARE_ZONE_ID",
+            "Scheduled Postgres backups must run in ops — set BACKUP_SCHEDULE_CONFIGURED=true after cron",
             "SOC2 / ISO27001 are organizational certifications — not granted by this codebase",
             "Soft Launch intentionally lowers the security/HA bar (demo only)",
+            "Strict production requires SENTRY_DSN and/or EXTERNAL_UPTIME_CONFIGURED=true",
         ],
         "docs": [
             "/SECURITY.md",
             "docs/SECURITY_HARDENING.md",
             "docs/SECURITY_MAX_CHECKLIST.md",
             "docs/CDN_WAF_CHECKLIST.md",
+            "docs/SECURITY_CATASTROPHE_P0_AR.md",
         ],
         "readiness_api": "/api/security/status",
+        "catastrophe_p0_api": "/api/security/catastrophe-p0",
         "max_audit": "python scripts/security_max_audit.py",
     }

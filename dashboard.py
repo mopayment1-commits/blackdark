@@ -2726,11 +2726,12 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
 @app.get("/b2b", response_class=HTMLResponse)
 async def b2b_page(request: Request):
+    expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
     return templates.TemplateResponse(
         request,
         "b2b.html",
         {
-            "demo_key": config.B2B_DEMO_API_KEY,
+            "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
             "feed_version": config.B2B_FEED_VERSION,
             **_footer_ctx(),
         },
@@ -2989,8 +2990,17 @@ async def execution_keys_activate(request: Request, live: bool = False, user: di
     from execution_keys import activate_live_execution
 
     if live:
+        from live_execution_gate import soft_launch_active
         from security_auth import verify_admin_key
 
+        if soft_launch_active():
+            raise HTTPException(
+                status_code=403,
+                detail={
+                    "error": "soft_launch_forbids_live_execution",
+                    "message": "Soft Launch forbids live activation",
+                },
+            )
         if not verify_admin_key(request.headers.get("X-Admin-Key")):
             raise HTTPException(
                 status_code=403,
@@ -3007,10 +3017,22 @@ async def execution_keys_activate(request: Request, live: bool = False, user: di
 
 @app.post("/api/execution/cex-dex/cycle")
 async def execution_cex_dex_cycle(quote_usd: float = 1000, _user: dict = Depends(require_whale)):
-    """Whale CEX↔DEX cycle — forced dry-run unless LIVE_EXECUTION_ALLOW_API=true."""
+    """Whale CEX↔DEX cycle — Soft Launch always dry-run; live needs explicit allow flag."""
     from bd_platform.cex_dex_executor import run_cex_dex_cycle
+    from live_execution_gate import live_execution_flag_enabled, soft_launch_active
 
-    allow_live = os.getenv("LIVE_EXECUTION_ALLOW_API", "false").lower() in {"1", "true", "yes"}
+    allow_live = (not soft_launch_active()) and live_execution_flag_enabled()
+    if soft_launch_active() and live_execution_flag_enabled():
+        try:
+            from security_events import record_security_event
+
+            record_security_event(
+                "live_execution_blocked_soft_launch",
+                severity="critical",
+                detail={"route": "/api/execution/cex-dex/cycle"},
+            )
+        except Exception:
+            logger.debug("soft launch live block event failed", exc_info=True)
     return await run_cex_dex_cycle(quote_usd=quote_usd, dry_run=not allow_live)
 
 
@@ -3428,7 +3450,17 @@ async def api_security_status():
         "scale_readiness": "/api/scale/readiness",
         "viral_readiness": "/api/viral/readiness",
         "hardening_doc": "docs/SECURITY_HARDENING.md",
+        "catastrophe_p0": "/api/security/catastrophe-p0",
+        "catastrophe_p0_doc": "docs/SECURITY_CATASTROPHE_P0_AR.md",
     }
+
+
+@app.get("/api/security/catastrophe-p0")
+async def api_security_catastrophe_p0():
+    """Financial-platform catastrophe P0 checklist (fail-closed engineering + ops gates)."""
+    from security_catastrophe_closure import build_security_catastrophe_closure
+
+    return await build_security_catastrophe_closure()
 
 
 # User keys/risk → api/routers/user.py

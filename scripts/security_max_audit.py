@@ -30,12 +30,15 @@ def main() -> int:
         "security_posture.py",
         "admin_mfa.py",
         "security_events.py",
+        "live_execution_gate.py",
+        "security_catastrophe_closure.py",
         "viral_capacity.py",
         "mfa_service.py",
         "secrets_vault.py",
         "docs/SECURITY_HARDENING.md",
         "docs/SECURITY_MAX_CHECKLIST.md",
         "docs/CDN_WAF_CHECKLIST.md",
+        "docs/SECURITY_CATASTROPHE_P0_AR.md",
         "nginx/blackdark.conf",
         "docker-compose.ha.yml",
         "deploy/k8s/network-policy.yaml",
@@ -81,6 +84,14 @@ def main() -> int:
         {
             "id": "honesty_no_fake_certs",
             "ok": posture.get("honesty", {}).get("soc2_claimed") is False,
+        },
+        {
+            "id": "admin_mfa_wired_into_require_admin",
+            "ok": "assert_admin_mfa" in Path("security_auth.py").read_text(encoding="utf-8"),
+        },
+        {
+            "id": "live_execution_gate_module",
+            "ok": Path("live_execution_gate.py").is_file(),
         },
     ]
     # In production, require guard pass + redis + vault
