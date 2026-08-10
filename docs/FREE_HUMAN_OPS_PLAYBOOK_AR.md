@@ -10,7 +10,7 @@
 
 | # | الخطوة | من؟ | حالة |
 |---|--------|-----|------|
-| F1 | توليد أسرار Soft Launch + Admin TOTP | سكربت | `python scripts/bootstrap_free_human_ops.py` |
+| F1 | فتح ملف الأسرار في Notepad (أسهل طريقة) | أنت | انقر مرتين `scripts/open_softlaunch_env.bat` أو الأمر بالأسفل |
 | F2 | توليد حزمة إطلاق عامة (اختياري) | سكربت | `python scripts/generate_launch_secrets.py --write --admin-email YOU@email` |
 | F3 | تشغيل `security_max_audit` محليًا | سكربت | يجب `engineering_complete` في بيئة غير strict |
 | F4 | إضافة Admin TOTP لتطبيق Authenticator | أنت | امسح URI من تعليق الملف المحلي |
@@ -34,11 +34,40 @@
 
 ---
 
+## الخطوة 1 — أسهل طريقة (ويندوز / Notepad)
+
+**الطريقة الأسهل:** من مجلد المشروع انقر مرتين على:
+
+`scripts/open_softlaunch_env.bat`
+
+أو من Command Prompt / PowerShell داخل مجلد المشروع:
+
+```bat
+python scripts\open_softlaunch_env.py
+```
+
+أو مباشرة:
+
+```bat
+notepad .env.softlaunch.local
+```
+
+إذا قال إن الملف غير موجود:
+
+```bat
+python scripts\bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com
+notepad .env.softlaunch.local
+```
+
+---
+
 ## أوامر فورية
 
 ```bash
 # 1) أسرار Soft Launch (لا تُطبع الأسرار)
 python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com
+# فتح الملف (ويندوز = Notepad)
+python scripts/open_softlaunch_env.py
 
 # 2) تدقيق هندسي
 python scripts/security_max_audit.py
