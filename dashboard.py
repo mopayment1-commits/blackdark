@@ -1194,6 +1194,7 @@ async def sitemap_xml(request: Request):
         "/miss-feed",
         "/coverage-honesty",
         "/priority-chain",
+        "/zero-tolerance",
         "/emotion-tax",
         "/allocator-receipt",
         "/transfer-intent",
@@ -1299,6 +1300,11 @@ async def coverage_honesty_page(request: Request):
 @app.get("/priority-chain", response_class=HTMLResponse)
 async def priority_chain_page(request: Request):
     return templates.TemplateResponse(request, "priority_chain.html", _footer_ctx())
+
+
+@app.get("/zero-tolerance", response_class=HTMLResponse)
+async def zero_tolerance_page(request: Request):
+    return templates.TemplateResponse(request, "zero_tolerance.html", _footer_ctx())
 
 
 @app.get("/emotion-tax", response_class=HTMLResponse)
@@ -2292,6 +2298,13 @@ async def oracle(
         payload = attach_oracle_freshness({**payload, "asset": asset})
     except Exception:
         logger.debug("Oracle freshness attach failed", exc_info=True)
+
+    try:
+        from zero_tolerance import apply_zero_tolerance
+
+        payload = apply_zero_tolerance(payload)
+    except Exception:
+        logger.debug("Zero-tolerance attach failed", exc_info=True)
 
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload

@@ -203,6 +203,8 @@ def trust_os_manifest() -> dict[str, Any]:
             "strategy_correction": "/api/strategy/correction",
             "priority_chain": "/api/strategy/priority-chain",
             "priority_chain_page": "/priority-chain",
+            "zero_tolerance": "/api/strategy/zero-tolerance",
+            "zero_tolerance_page": "/zero-tolerance",
             "lenses": "/api/lenses",
         },
         "cso_priority_chain": {
@@ -215,6 +217,13 @@ def trust_os_manifest() -> dict[str, Any]:
                 "or live data flywheel."
             ),
         },
+        "zero_tolerance": {
+            "api": "/api/strategy/zero-tolerance",
+            "closure": "/api/public/zero-tolerance-closure",
+            "page": "/zero-tolerance",
+            "doc": "docs/ZERO_TOLERANCE_BINDING_AR.md",
+            "defect_count": 7,
+        },
         "binding_docs": [
             "docs/PRODUCT_CONSTITUTION_AR.md",
             "docs/CANONICAL_BINDING.md",
@@ -225,6 +234,7 @@ def trust_os_manifest() -> dict[str, Any]:
             "docs/HEROES_STRATEGY_BINDING.md",
             "docs/STRATEGIC_CORRECTION_BINDING.md",
             "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "docs/ZERO_TOLERANCE_BINDING_AR.md",
         ],
         "design_system": {
             "css": "/static/css/trust-os.css",

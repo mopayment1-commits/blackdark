@@ -22,6 +22,7 @@ Committee-facing index for acquisition / allocator diligence.
 | Public developer docs | `/docs` |
 | Trust OS manifest | `/api/trust-os` |
 | CSO Priority Chain | `/priority-chain` · `/api/strategy/priority-chain` |
+| Zero-Tolerance defects | `/zero-tolerance` · `/api/strategy/zero-tolerance` |
 | Execution closure | `/api/execution/closure` |
 | 60s acceptance | `/api/acceptance/60s` |
 | Scale readiness | `/api/scale/readiness` |

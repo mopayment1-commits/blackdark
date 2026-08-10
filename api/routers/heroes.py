@@ -314,6 +314,22 @@ async def cso_priority_closure_api():
     return await build_cso_priority_closure()
 
 
+@router.get("/api/strategy/zero-tolerance")
+async def strategy_zero_tolerance():
+    """Zero-Tolerance defect binding — trust-destroying failure modes."""
+    from zero_tolerance import build_zero_tolerance_manifest
+
+    return build_zero_tolerance_manifest()
+
+
+@router.get("/api/public/zero-tolerance-closure")
+async def zero_tolerance_closure_api():
+    """Public closure — Zero-Tolerance helpers wired with zero deferred code."""
+    from zero_tolerance import build_zero_tolerance_closure
+
+    return await build_zero_tolerance_closure()
+
+
 @router.get("/api/intent/router")
 async def intent_router_api():
     """Results-over-features intent map (display layer only)."""
@@ -764,6 +780,14 @@ async def wow_surfaces_manifest():
             "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
             "binding": True,
             "all_done_for_agreed_scope": True,
+        },
+        "zero_tolerance": {
+            "page": "/zero-tolerance",
+            "api": "/api/strategy/zero-tolerance",
+            "closure": "/api/public/zero-tolerance-closure",
+            "doc": "docs/ZERO_TOLERANCE_BINDING_AR.md",
+            "binding": True,
+            "defect_count": 7,
         },
         "f1_f10_unique_full_ship": {
             "F1": "/miss-feed",

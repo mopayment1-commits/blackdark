@@ -335,7 +335,8 @@ def _shape_pulse(
         or ""
     )
 
-    return {
+    freshness = _freshness(age, stale=stale)
+    result = {
         "product": "BLACKDARK Trust OS",
         "surface": "trust_pulse",
         "event": event,
@@ -351,7 +352,7 @@ def _shape_pulse(
         "score": payload.get("opportunity_score"),
         "price": payload.get("price"),
         "change_24h": payload.get("change_24h"),
-        "freshness": _freshness(age, stale=stale),
+        "freshness": freshness,
         "proof": {
             "label": "Verified on Ledger",
             "prediction_id": payload.get("prediction_id"),
@@ -395,6 +396,40 @@ def _shape_pulse(
         "updated_at": _utcnow(),
         "cache_ttl_sec": CACHE_TTL_SEC,
     }
+    try:
+        from zero_tolerance import apply_zero_tolerance
+
+        audited = apply_zero_tolerance(
+            {
+                "opportunity_score": result.get("score"),
+                "one_sentence": result.get("sentence"),
+                "oqs_why": {
+                    "why_text": why.get("grasp_line") or why.get("why_text"),
+                    "top_3_factors": factors,
+                    "invalidation": payload.get("invalidation") or result.get("veto_reason"),
+                },
+                "data_freshness": {
+                    "state": freshness.get("status"),
+                    "stale": freshness.get("stale"),
+                    "age_sec": freshness.get("age_seconds"),
+                },
+                "data_sources": ["trust_pulse", "oracle", "live_book"],
+            }
+        )
+        result["zero_tolerance"] = audited.get("zero_tolerance")
+        result["live_claim_allowed"] = audited.get("live_claim_allowed")
+        if not result.get("live_claim_allowed") and freshness.get("status") == "live":
+            # Never market LIVE when gate forbids it.
+            result["freshness"] = {
+                **freshness,
+                "status": "unknown" if freshness.get("age_seconds") is None else freshness.get("status"),
+                "label": freshness.get("label")
+                if freshness.get("status") != "live"
+                else f"Updated {int(freshness.get('age_seconds') or 0)}s ago",
+            }
+    except Exception:
+        logger.debug("zero tolerance on trust pulse failed", exc_info=True)
+    return result
 
 
 async def build_trust_pulse(
