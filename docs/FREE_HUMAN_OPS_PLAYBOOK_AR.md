@@ -36,27 +36,38 @@
 
 ## الخطوة 1 — أسهل طريقة (ويندوز / Notepad)
 
-**الطريقة الأسهل:** من مجلد المشروع انقر مرتين على:
+### Git Bash (موصى به إذا ظهر الخطأ السابق)
 
-`scripts/open_softlaunch_env.bat`
+في Git Bash استخدم **شرطات أمامية** `/` وليس `\`:
 
-أو من Command Prompt / PowerShell داخل مجلد المشروع:
+```bash
+cd ~/Desktop/BLACKDARK
+git pull origin main
+rm -f .env.softlaunch.local
+python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
+# يجب أن يطبع: "ok": true و "bytes": رقم أكبر من 100 — بدون ModuleNotFoundError
+python scripts/open_softlaunch_env.py
+```
+
+نجاح = Notepad فيه أسطر كثيرة مثل `SOFT_LAUNCH=true` و `ADMIN_TOTP_SECRET=...`  
+فشل = صفحة بيضاء (أعد الأوامر أعلاه بعد `git pull`).
+
+### Command Prompt / PowerShell / نقرة مزدوجة
+
+من مجلد المشروع انقر مرتين على `scripts/open_softlaunch_env.bat`
+
+أو:
 
 ```bat
 python scripts\open_softlaunch_env.py
 ```
 
-أو مباشرة:
+إذا كان الملف فارغًا أو غير موجود:
 
 ```bat
-notepad .env.softlaunch.local
-```
-
-إذا قال إن الملف غير موجود:
-
-```bat
-python scripts\bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com
-notepad .env.softlaunch.local
+del .env.softlaunch.local
+python scripts\bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
+python scripts\open_softlaunch_env.py
 ```
 
 ---
@@ -64,8 +75,8 @@ notepad .env.softlaunch.local
 ## أوامر فورية
 
 ```bash
-# 1) أسرار Soft Launch (لا تُطبع الأسرار)
-python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com
+# 1) أسرار Soft Launch (لا تُطبع الأسرار؛ لا يحتاج pyotp)
+python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
 # فتح الملف (ويندوز = Notepad)
 python scripts/open_softlaunch_env.py
 
