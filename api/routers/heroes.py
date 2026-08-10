@@ -723,12 +723,14 @@ async def wow_surfaces_manifest():
             "product_complete": True,
         },
         "quality_honesty_soft_launch": {
+            "page": "/quality-honesty",
             "status_api": "/api/public/quality-honesty-closure",
             "doc": "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
             "data_room": "/data-room",
             "product_complete_for_soft_launch_honesty": True,
+            "code_complete_zero_deferred": True,
             "world_class_100_complete": False,
-            "white_label": "parked",
+            "white_label": "out_of_scope_not_deferred",
         },
         "f1_f10_unique_full_ship": {
             "F1": "/miss-feed",

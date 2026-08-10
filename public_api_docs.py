@@ -75,6 +75,7 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/corpus-passport",
         "/miss-feed",
         "/coverage-honesty",
+        "/quality-honesty",
         "/emotion-tax",
         "/b2b/committee-one-pager",
         "/docs",

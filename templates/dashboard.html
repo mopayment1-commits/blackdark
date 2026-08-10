@@ -1192,6 +1192,8 @@
                 const foot = d.compliance_footer || {};
                 const risk = (d.risk_level || '').toUpperCase();
                 const riskColor = risk === 'HIGH' ? '#ef4444' : (risk === 'LOW' ? '#22c55e' : '#f59e0b');
+                const qp = d.quality_provenance || {};
+                const proxyLegs = (qp.proxy_or_mock_legs || []).join(', ');
                 el.innerHTML = `
                     <div class="arb-card">
                         <strong>Portfolio AI</strong>
@@ -1200,6 +1202,7 @@
                         ${d.scenario_note ? `<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">${d.scenario_note}</div>` : ''}
                         ${d.total_value_formatted ? `<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ${d.total_value_formatted} · BTC corr ${d.btc_correlation || '—'}</div>` : ''}
                         ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+                        ${qp.claim_boundary ? `<div style="margin-top:.55rem;font-size:.72rem;color:#a1a1aa"><strong>Quality provenance</strong> · mode ${qp.mode || 'heuristic'}${proxyLegs ? ` · proxy: ${proxyLegs}` : ''}<br>${qp.claim_boundary} · <a href="/quality-honesty" style="color:#34d399">Quality Honesty</a></div>` : ''}
                         ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
                     </div>`;
             } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }

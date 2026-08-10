@@ -1,28 +1,34 @@
-# صدق الجودة — Soft Launch (إغلاق صارم)
+# صدق الجودة — Soft Launch (إغلاق نهائي · صفر مؤجّل كود)
 
-**التاريخ:** 2026-08-09  
+**التاريخ:** 2026-08-10  
 **البرنامج:** Quality Honesty + Soft-Launch Hardening  
-**API الحالة:** `GET /api/public/quality-honesty-closure`  
-**الحكم المتفق عليه:** اكتمال **100% للنطاق المتفق عليه** · **ليس** world-class 100 عبر الـ16 قدرة.
+**صفحة:** `/quality-honesty`  
+**API:** `GET /api/public/quality-honesty-closure`  
+**الحكم:** `all_done_for_agreed_scope: true` · `code_complete_zero_deferred: true` · `deferred_code_count: 0` · `world_class_100_complete: false`
 
 ---
 
-## ماذا أُغلق (نهائي صارم)
+## لا يوجد مؤجّل داخل نطاق الكود
 
-رفع صدق Soft Launch لـ:
+| الحالة | المعنى |
+|--------|--------|
+| **كود Soft Launch honesty** | مكتمل 100% — قائمة `deferred_code_items` فارغة |
+| **خارج النطاق (ليس تأجيلًا)** | White-label · أسطورة world-class 100 |
+| **HUMAN_OPS خارجي** | نطاق/DNS/PSP/OAuth/HA موقّع — حسابات وأسرار المشغّل، **ليست** ميزات ناقصة |
+
+انظر أيضًا: `docs/DEFERRED_HUMAN_STEPS.md` (خطوات تشغيل حساب، لا تأجيل منتج).
+
+---
+
+## ماذا شُحن
 
 | المنطقة | الحكم |
 |---------|--------|
-| Architecture | Soft Launch قوي — HA موقّع فقط بعد Postgres+Redis+load log |
-| AI Financial Intelligence | قرار + أعلام D5 — ليس مزرعة نماذج مؤسسية مكتملة |
-| Market Radar | رادار تشغيلي — ليس تغطية Glassnode |
-| Opportunity Score | فرصة مفسَّرة لـ Act/Wait — ليس ضمان ألفا |
-| Portfolio AI | مساعد مخاطر بلغة بسيطة + provenance |
-| On-chain / Sentiment / Macro / Research | أرجل live/proxy/mock معلنة على overview |
-| Risk engine | بوابات تنفيذ — ليس مكتب VaR |
-| Institutional APIs + B2B | أسطح Soft Launch جاهزة — بدون SOC2 مزيف |
-| White-label | **موقوف عمدًا** |
-| Security + Docs + Acquisition DD | صدق هندسي / غرفة بيانات — بدون شهادات فارغة |
+| Architecture → Acquisition DD (16) | كل منطقة `code_complete: true` |
+| Provenance على الأرجل | Sentiment · On-chain · Macro · Research lab/moat · Portfolio · Risk |
+| UI | `/quality-honesty` + كشف provenance في Portfolio AI + روابط Data Room |
+| Security / Launch readiness | مؤشرات `quality_honesty` |
+| White-label | **خارج النطاق** — ليس مؤجّل Soft Launch |
 
 ---
 
@@ -36,46 +42,35 @@
 - `loi_ready_without_traction`
 - `viral_ha_proven_on_soft_launch_sqlite`
 
-تحقق:
-
 ```bash
 curl -s localhost:8080/api/public/quality-honesty-closure \
-  | jq '.world_class_100_complete,.all_done_for_agreed_scope,.forbidden_claims'
+  | jq '.code_complete_zero_deferred,.deferred_code_count,.world_class_100_complete,.all_done_for_agreed_scope'
+# expected: true · 0 · false · true
 ```
-
-المتوقع: `false` · `true` · قائمة الممنوعات أعلاه.
 
 ---
 
-## أسطح provenance (أرجل proxy)
+## أسطح provenance
 
-| Endpoint | الحقل |
-|----------|--------|
+| Endpoint / Surface | الحقل |
+|--------------------|--------|
+| `/quality-honesty` | صفحة إغلاق + عينات provenance |
 | `GET /api/sentiment/overview` | `quality_provenance` |
 | `GET /api/onchain/overview` | `quality_provenance` |
 | `GET /api/macro/overview` | `quality_provenance` |
 | `GET /api/research/lab` | `quality_provenance` |
-| `POST /portfolio/analyze` | `quality_provenance` |
+| `GET /api/research/moat` | `quality_provenance` |
+| `POST /portfolio/analyze` | `quality_provenance` (+ UI) |
 | `GET /api/risk/status` | `quality_provenance` + `honest_scope` |
 | `GET /api/security/status` | `quality_honesty` |
 | `GET /api/launch/readiness` | `quality_honesty` |
 
 ---
 
-## ما يبقى خارج النطاق (HUMAN_OPS — ليس فشل كود)
-
-- نطاق/DNS/استضافة Soft Launch حية
-- PSP / WhatsApp Cloud / OAuth إنتاج
-- Postgres+Redis HA موقّع في `LOAD_TEST_RUN_LOG.md`
-- جولة مؤسس كمستخدم عادي على URL حي
-- SOC2 / اختراق طرف ثالث / white-label
-
----
-
-## تحقق اختبارات
+## تحقق
 
 ```bash
 pytest tests/test_quality_honesty_closure.py -q
 ```
 
-**جملة التأكيد:** Soft Launch قوي وصادق عبر الـ16 منطقة ضمن النطاق المتفق عليه — **بدون** اختلاق world-class 100.
+**جملة التأكيد:** داخل نطاق Soft Launch quality honesty — **لا مؤجّل كود** · HUMAN_OPS خارجي فقط · بدون اختلاق world-class 100.

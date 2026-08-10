@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Quality Honesty Soft Launch</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--fg:#f2efe6;--muted:#959188;--line:#243040;--ok:#34d399;--warn:#f59e0b;--bad:#f87171}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:linear-gradient(165deg,#070a0f,#101820);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:900px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:0}
+.sub{color:var(--muted);line-height:1.55;margin:.5rem 0 1.25rem}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1rem 0 1.5rem}
+.metric{border:1px solid var(--line);padding:1rem}.metric strong{display:block;font-size:1.35rem}
+.metric span{color:var(--muted);font-size:.72rem}
+.box{border:1px solid var(--line);padding:1.1rem;margin:.75rem 0}
+.area{border-top:1px solid var(--line);padding:.7rem 0}.area:first-child{border-top:0}
+.area h3{margin:0 0 .25rem;font-size:1rem}.area p{margin:0;color:var(--muted);font-size:.82rem;line-height:1.45}
+.tag{display:inline-block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-right:.4rem}
+.tag.warn{color:var(--warn)}.tag.bad{color:var(--bad)}
+code{color:var(--ok)} @media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/coverage-honesty">Coverage</a><a href="/d5-honesty">D5</a><a href="/data-room">Data Room</a>
+</div></nav>
+<main>
+<h1>Quality Honesty</h1>
+<p class="sub" id="bar">Highest truthful Soft Launch bar — not fabricated institutional perfection.</p>
+<div class="grid">
+  <div class="metric"><strong id="agreed">—</strong><span>Agreed scope %</span></div>
+  <div class="metric"><strong id="deferred">—</strong><span>Deferred code items</span></div>
+  <div class="metric"><strong id="world">—</strong><span>World-class 100 myth</span></div>
+  <div class="metric"><strong id="areas">—</strong><span>Capability areas</span></div>
+</div>
+<div class="box">
+  <h2>Closure verdict</h2>
+  <p class="sub" id="verdict"></p>
+  <p class="sub">API: <code>/api/public/quality-honesty-closure</code> · Doc: <code>docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md</code></p>
+</div>
+<div class="box">
+  <h2>Sixteen areas (code-complete)</h2>
+  <div id="areaList"></div>
+</div>
+<div class="box">
+  <h2>Live provenance samples</h2>
+  <p class="sub">Proxy/mock legs must stay labeled — Soft Launch OK ≠ full desk.</p>
+  <div id="provList"></div>
+</div>
+<div class="box">
+  <h2>Forbidden claims</h2>
+  <p class="sub" id="forbidden"></p>
+</div>
+<p class="sub" id="ops"></p>
+</main>
+<script>
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
+async function loadClosure(){
+  const d=await (await fetch('/api/public/quality-honesty-closure')).json();
+  document.getElementById('bar').textContent=d.quality_bar||'';
+  document.getElementById('agreed').textContent=String(d.strict_confirmation?.percent_complete_agreed_scope??'—');
+  document.getElementById('deferred').textContent=String(d.deferred_code_count??0);
+  document.getElementById('world').textContent=d.world_class_100_complete?'claimed':'false';
+  document.getElementById('areas').textContent=String(d.total_areas??16);
+  document.getElementById('verdict').textContent=
+    `all_done_for_agreed_scope=${d.all_done_for_agreed_scope} · code_complete_zero_deferred=${d.code_complete_zero_deferred} · world_class_100_complete=${d.world_class_100_complete}`;
+  document.getElementById('areaList').innerHTML=(d.areas||[]).map(a=>{
+    const tier=a.tier||'';
+    const cls=tier.includes('parked')||tier.includes('out_of_scope')?'warn':(a.world_class_100?'bad':'');
+    return `<div class="area"><h3><span class="tag ${cls}">${esc(tier)}</span>${esc(a.name)}</h3>
+      <p>${esc(a.claim_boundary)}</p></div>`;
+  }).join('');
+  document.getElementById('forbidden').textContent=(d.forbidden_claims||[]).join(' · ');
+  const ops=(d.human_ops_external_only||[]).join(' · ');
+  document.getElementById('ops').textContent=ops
+    ? `External operator actions (not product deferrals): ${ops}`
+    : 'No product code deferrals remain in this Soft Launch honesty package.';
+}
+async function loadProv(path,label){
+  try{
+    const d=await (await fetch(path)).json();
+    const p=d.quality_provenance||{};
+    return `<div class="area"><h3>${esc(label)}</h3>
+      <p>mode=<code>${esc(p.mode)}</code> · proxy=${esc(p.proxy_or_simulated)} ·
+      live=[${(p.live_legs||[]).map(esc).join(', ')}] ·
+      proxy/mock=[${(p.proxy_or_mock_legs||[]).map(esc).join(', ')}]<br>${esc(p.claim_boundary)}</p></div>`;
+  }catch(e){
+    return `<div class="area"><h3>${esc(label)}</h3><p class="sub">unavailable</p></div>`;
+  }
+}
+async function load(){
+  await loadClosure();
+  const chunks=await Promise.all([
+    loadProv('/api/sentiment/overview','Sentiment overview'),
+    loadProv('/api/onchain/overview','On-chain overview'),
+    loadProv('/api/macro/overview','Macro overview'),
+  ]);
+  document.getElementById('provList').innerHTML=chunks.join('');
+}
+load();
+</script>
+</body></html>

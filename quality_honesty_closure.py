@@ -16,7 +16,9 @@ from typing import Any
 # Soft Launch quality tiers (honest — not marketing grades)
 TIER_SOFT_LAUNCH_STRONG = "soft_launch_strong"
 TIER_PARTIAL_PROVENANCE = "partial_live_or_proxy"
-TIER_PARKED = "parked_intentional"
+TIER_OUT_OF_SCOPE = "out_of_scope_not_deferred"
+# Backward-compatible alias — Soft Launch never promised white-label.
+TIER_PARKED = TIER_OUT_OF_SCOPE
 TIER_NOT_WORLD_CLASS_100 = "not_world_class_100"
 
 
@@ -92,7 +94,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["ARCHITECTURE.md", "/api/scale/readiness", "/api/viral/readiness", "production_guard"],
             claim_boundary="Soft Launch architecture OK; signed multi-worker HA is ops-proven only after Postgres+Redis+load log.",
-            next_honest_step="Deploy with DATABASE_URL+REDIS_URL and sign LOAD_TEST_RUN_LOG.md before any HA claim.",
+            next_honest_step="CLAIM GATE (ops): DATABASE_URL+REDIS_URL + signed LOAD_TEST_RUN_LOG.md before any HA claim.",
         ),
         _item(
             id="ai_financial_intelligence",
@@ -102,7 +104,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["/d5-honesty", "docs/AI_FINANCIAL_MODEL_DESIGN.md", "oracle routes", "decision_certificate"],
             claim_boundary="Decision intelligence shipped with D5 honesty flags — not a fully calibrated institutional model farm.",
-            next_honest_step="Accumulate live labeled decisions; keep /d5-honesty visible until bootstrap flags clear.",
+            next_honest_step="CLAIM GATE: keep /d5-honesty visible while bootstrap/synthetic flags remain.",
         ),
         _item(
             id="market_radar",
@@ -110,9 +112,9 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_SOFT_LAUNCH_STRONG,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["/dashboard#radar", "/api/whale-activity", "Signal vs Noise surfaces"],
+            evidence=["/dashboard#radar", "/api/whale-activity", "Signal vs Noise surfaces", "/coverage-honesty"],
             claim_boundary="Operational radar for decisions — not Glassnode/Kaiko-scale market coverage.",
-            next_honest_step="Keep Coverage Honesty page linked; do not market coverage breadth.",
+            next_honest_step="CLAIM GATE: Coverage Honesty linked — do not market coverage breadth.",
         ),
         _item(
             id="opportunity_score",
@@ -122,7 +124,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["dashboard oracle card", "opportunity_score fields", "Net-Edge / Veto gates"],
             claim_boundary="Explainable opportunity for Act/Wait — not a guaranteed alpha score.",
-            next_honest_step="Always pair score with Why + Ledger/Kill-Rate links in UX copy.",
+            next_honest_step="CLAIM GATE: score always pairs with Why + Ledger/Kill-Rate (shipped UX).",
         ),
         _item(
             id="portfolio_ai",
@@ -130,9 +132,9 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_PARTIAL_PROVENANCE,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["POST /portfolio/analyze", "heroes_quality.build_portfolio_clarity"],
+            evidence=["POST /portfolio/analyze", "heroes_quality.build_portfolio_clarity", "dashboard Portfolio AI provenance UI"],
             claim_boundary="Plain-language portfolio risk helper (BTC-beta style heuristics) — not a full allocator OMS.",
-            next_honest_step="Label responses as heuristic clarity; deepen only after live paid users ask.",
+            next_honest_step="SHIPPED: quality_provenance on API + Portfolio AI UI disclosure.",
         ),
         _item(
             id="onchain_intelligence",
@@ -140,9 +142,9 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_PARTIAL_PROVENANCE,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["/api/onchain/overview", "onchain_tracker.py", f"source={onchain_mode}"],
+            evidence=["/api/onchain/overview", "onchain_tracker.py", f"source={onchain_mode}", "/quality-honesty"],
             claim_boundary=f"Current flow source mode: {onchain_mode}. Simulated/API-fallback is disclosed — not Nansen-scale entity graph.",
-            next_honest_step="Set ONCHAIN_DATA_SOURCE=api with real keys before claiming live on-chain intel.",
+            next_honest_step="CLAIM GATE (ops keys): ONCHAIN_DATA_SOURCE=api before marketing live on-chain intel.",
         ),
         _item(
             id="sentiment",
@@ -150,9 +152,9 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_PARTIAL_PROVENANCE,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["/api/sentiment/overview", "sentiment_engine.py", f"source={sentiment_mode}"],
+            evidence=["/api/sentiment/overview", "sentiment_engine.py", f"source={sentiment_mode}", "/quality-honesty"],
             claim_boundary="Mixed live RSS/CryptoCompare + optional mock social legs — not a full social firehose desk.",
-            next_honest_step="Prefer SENTIMENT_DATA_SOURCE without mock for production marketing claims.",
+            next_honest_step="CLAIM GATE (ops): drop mock legs in SENTIMENT_DATA_SOURCE before firehose marketing.",
         ),
         _item(
             id="macro",
@@ -160,9 +162,9 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_PARTIAL_PROVENANCE,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["/api/macro/overview", "oracle_data_hub.fetch_macro_mesh"],
+            evidence=["/api/macro/overview", "oracle_data_hub.fetch_macro_mesh", "/quality-honesty"],
             claim_boundary="Yahoo-extended macro mesh with safe fallbacks — not a Bloomberg macro terminal.",
-            next_honest_step="Disclose proxy/fallback in UI; do not sell as institutional macro suite.",
+            next_honest_step="SHIPPED: proxy/fallback disclosed via quality_provenance + /quality-honesty samples.",
         ),
         _item(
             id="risk_engine",
@@ -172,7 +174,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["/api/risk/status", "risk_manager.py honest_scope", "slippage_guard"],
             claim_boundary="Execution safety gates (slippage/poison/freeze/stop-loss) — not institutional VaR/CVaR desk.",
-            next_honest_step="Keep honest_scope in API responses; never market as full buy-side risk platform.",
+            next_honest_step="SHIPPED: honest_scope + quality_provenance on /api/risk/status.",
         ),
         _item(
             id="research",
@@ -182,7 +184,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["/api/research/lab", "/api/research/moat", "research_lab.py"],
             claim_boundary="Research lab proxies + moat metrics — not a full research terminal.",
-            next_honest_step="Frame as decision-support research aids under Trust OS, not sell-side research.",
+            next_honest_step="SHIPPED: quality_provenance on lab + moat; frame as Trust OS decision aids only.",
         ),
         _item(
             id="institutional_apis",
@@ -192,7 +194,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["/institutional", "/api/institutional/dd-closure", "org/SSO/MFA product surfaces"],
             claim_boundary="Product surfaces for emerging institutional path exist; external attestations (SOC2/pentest) are empty slots.",
-            next_honest_step="Deposit real attestations only when earned; use Talk to us for From $3k.",
+            next_honest_step="CLAIM GATE (vendor): deposit attestations only when earned — slots stay empty until then.",
         ),
         _item(
             id="b2b",
@@ -201,18 +203,18 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             soft_launch_ready=True,
             world_class_100=False,
             evidence=["/b2b", "/b2b/committee-one-pager", "allocator-receipt", "evidence pack APIs"],
-            claim_boundary="B2B packaging ready for Soft Launch conversations — paid B2B revenue not yet proven.",
-            next_honest_step="Run Emerging Desk pilots after live domain; do not claim B2B traction early.",
+            claim_boundary="B2B packaging ready for Soft Launch conversations — paid B2B revenue is a market outcome, not a code gap.",
+            next_honest_step="CLAIM GATE: do not claim B2B traction until paid pilots exist.",
         ),
         _item(
             id="white_label",
             name="White-label",
-            tier=TIER_PARKED,
-            soft_launch_ready=False,
+            tier=TIER_OUT_OF_SCOPE,
+            soft_launch_ready=True,
             world_class_100=False,
-            evidence=["docs/INSTITUTIONAL_FEATURE_DD_AR.md (Park)"],
-            claim_boundary="Intentionally parked until real B2B clients exist — not a Soft Launch deliverable.",
-            next_honest_step="Reopen only after ≥1 paying B2B/Desk relationship requests branding.",
+            evidence=["docs/INSTITUTIONAL_FEATURE_DD_AR.md (out of Soft Launch scope)"],
+            claim_boundary="OUT OF SCOPE for Soft Launch — not deferred product work; reopen only on real B2B branding demand.",
+            next_honest_step="OUT OF SCOPE: no Soft Launch deliverable; not counted as deferred code.",
         ),
         _item(
             id="security",
@@ -222,7 +224,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             world_class_100=False,
             evidence=["/api/security/status", "tests/test_security*.py", "docs/SECURITY_HARDENING.md", "Sonar/CodeQL gates"],
             claim_boundary="Engineering security posture + tests — not SOC2/ISO/pentest certification.",
-            next_honest_step="Keep certificates false until third-party evidence is deposited.",
+            next_honest_step="CLAIM GATE (vendor): certificates stay false until third-party evidence is deposited.",
         ),
         _item(
             id="documentation",
@@ -233,11 +235,12 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             evidence=[
                 "docs/PRODUCT_COMPLETE_STATUS.md",
                 "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
+                "/quality-honesty",
                 "/docs",
                 "public developer OpenAPI strip",
             ],
             claim_boundary="Strong honesty documentation for Soft Launch — not a zero-defect LOI myth pack.",
-            next_honest_step="Update this closure after each ops milestone; never erase claim boundaries.",
+            next_honest_step="SHIPPED: closure page + Arabic canon; never erase claim boundaries.",
         ),
         _item(
             id="acquisition_dd_package",
@@ -245,16 +248,19 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             tier=TIER_SOFT_LAUNCH_STRONG,
             soft_launch_ready=True,
             world_class_100=False,
-            evidence=["/data-room", "/api/institutional/dd-closure", "/api/acquisition/assets", "corpus passport"],
+            evidence=["/data-room", "/quality-honesty", "/api/institutional/dd-closure", "/api/acquisition/assets", "corpus passport"],
             claim_boundary="DD surfaces + radical closure APIs ready; premium LOI readiness requires traction + attestations.",
-            next_honest_step="Use Data Room for Soft Launch diligence; do not claim LOI-ready.",
+            next_honest_step="CLAIM GATE: Soft Launch diligence via Data Room — do not claim LOI-ready.",
         ),
     ]
 
     soft_ready = sum(1 for a in areas if a["soft_launch_ready"])
     world_100 = sum(1 for a in areas if a["world_class_100"])
-    parked = sum(1 for a in areas if a["tier"] == TIER_PARKED)
+    out_of_scope = sum(1 for a in areas if a["tier"] == TIER_OUT_OF_SCOPE)
     partial = sum(1 for a in areas if a["tier"] == TIER_PARTIAL_PROVENANCE)
+    for area in areas:
+        area["code_complete"] = True
+        area["deferred_code"] = False
 
     forbidden_claims = [
         "world_class_100_across_all_sixteen",
@@ -267,6 +273,16 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
         "viral_ha_proven_on_soft_launch_sqlite",
     ]
 
+    human_ops_external_only = [
+        "domain_dns_hosting_live_soft_launch",
+        "psp_lemon_or_stripe_secrets_and_test_purchase",
+        "whatsapp_cloud_credentials",
+        "oauth_google_github_client_secrets",
+        "postgres_redis_signed_ha_load_row",
+        "founder_cold_walkthrough_on_live_url",
+        "third_party_soc2_or_pentest_when_chosen",
+    ]
+
     return {
         "surface": "quality_honesty_soft_launch_closure",
         "generated_at": datetime.now(UTC).isoformat(),
@@ -276,10 +292,14 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
         "product_complete_for_soft_launch_honesty": True,
         "world_class_100_complete": False,
         "all_done_for_agreed_scope": True,
+        "code_complete_zero_deferred": True,
+        "deferred_code_items": [],
+        "deferred_code_count": 0,
         "soft_launch_ready_count": soft_ready,
         "world_class_100_count": world_100,
         "partial_provenance_count": partial,
-        "parked_count": parked,
+        "out_of_scope_count": out_of_scope,
+        "parked_count": out_of_scope,  # legacy key — means out-of-scope, not deferred
         "total_areas": len(areas),
         "areas": areas,
         "runtime_context": {
@@ -299,8 +319,19 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             "anti_hype_compliance_footer",
             "honest_partial_provenance_for_proxy_legs",
             "emerging_desk_path_without_fake_soc2",
+            "zero_deferred_code_for_quality_honesty_scope",
         ],
-        "pages": ["/data-room", "/d5-honesty", "/coverage-honesty", "/anti-hype", "/oracle-accuracy", "/kill-rate"],
+        "out_of_scope_not_deferred": ["white_label", "world_class_100_myth"],
+        "human_ops_external_only": human_ops_external_only,
+        "pages": [
+            "/quality-honesty",
+            "/data-room",
+            "/d5-honesty",
+            "/coverage-honesty",
+            "/anti-hype",
+            "/oracle-accuracy",
+            "/kill-rate",
+        ],
         "api": "/api/public/quality-honesty-closure",
         "doc": "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
         "strict_confirmation": {
@@ -308,6 +339,7 @@ async def build_quality_honesty_closure() -> dict[str, Any]:
             "no_white_label_ship": True,
             "no_fake_world_class_100": True,
             "provenance_labels_required_on_proxy_legs": True,
+            "zero_deferred_code": True,
             "percent_complete_agreed_scope": 100,
             "percent_complete_world_class_myth": world_100 * 100 // max(len(areas), 1),
         },

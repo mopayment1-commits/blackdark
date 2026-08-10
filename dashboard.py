@@ -1210,6 +1210,7 @@ async def sitemap_xml(request: Request):
         "/corpus-passport",
         "/miss-feed",
         "/coverage-honesty",
+        "/quality-honesty",
         "/emotion-tax",
         "/allocator-receipt",
         "/transfer-intent",
@@ -1310,6 +1311,11 @@ async def miss_feed_page(request: Request):
 @app.get("/coverage-honesty", response_class=HTMLResponse)
 async def coverage_honesty_page(request: Request):
     return templates.TemplateResponse(request, "coverage_honesty.html", _footer_ctx())
+
+
+@app.get("/quality-honesty", response_class=HTMLResponse)
+async def quality_honesty_page(request: Request):
+    return templates.TemplateResponse(request, "quality_honesty.html", _footer_ctx())
 
 
 @app.get("/emotion-tax", response_class=HTMLResponse)
@@ -3117,9 +3123,21 @@ async def research_lab_report(_user: dict | None = Depends(require_feature("rese
 
 @app.get("/api/research/moat")
 async def research_moat():
+    from quality_honesty_closure import provenance_block
     from research_lab import compute_economic_moat
 
-    return await compute_economic_moat()
+    report = await compute_economic_moat()
+    if isinstance(report, dict):
+        report.update(
+            provenance_block(
+                surface="research_moat",
+                mode="proxy",
+                live_legs=["internal_moat_metrics"],
+                proxy_or_mock_legs=["economic_moat_proxy_model"],
+                claim_boundary="Moat metrics for Soft Launch diligence — not a sell-side research terminal.",
+            )
+        )
+    return report
 
 
 @app.get("/api/moat/build-status")

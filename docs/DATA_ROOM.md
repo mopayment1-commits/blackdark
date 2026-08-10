@@ -25,6 +25,7 @@ Committee-facing index for acquisition / allocator diligence.
 | 60s acceptance | `/api/acceptance/60s` |
 | Scale readiness | `/api/scale/readiness` |
 | Security posture | `/api/security/status` |
+| Quality Honesty Soft Launch page | `/quality-honesty` |
 | Quality Honesty Soft Launch closure | `/api/public/quality-honesty-closure` |
 | Quality Honesty doc (AR) | `docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md` |
 | Evidence pack (public summary) | `/api/b2b/evidence-pack/public-summary` |
