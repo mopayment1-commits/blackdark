@@ -91,6 +91,16 @@ async def launch_readiness():
         "blockers": list(gtm.get("blockers") or []) + list(guard.get("required_failures") or []),
         "dd_technical_report": "/api/due-diligence/technical",
         "code_launch_ready": constitution_modules and checklist.get("blocked_count", 99) <= 2,
+        "quality_honesty": {
+            "api": "/api/public/quality-honesty-closure",
+            "doc": "docs/QUALITY_HONESTY_SOFT_LAUNCH_AR.md",
+            "soft_launch_honesty_complete": True,
+            "world_class_100_complete": False,
+            "claim_boundary": (
+                "Code Soft Launch readiness ≠ viral HA proven ≠ live beta ops complete. "
+                "HUMAN_OPS (domain/PSP/OAuth) remain outside this flag."
+            ),
+        },
         "next_steps": [
             "python scripts/finalize_launch.py",
             "Paste .env.launch.local into Railway Variables",
@@ -98,6 +108,7 @@ async def launch_readiness():
             "Verify /api/billing/payments launch_ready=true",
             "Verify /api/production/guard → required_pass=true",
             "UptimeRobot on /health/live → announce",
+            "Confirm /api/public/quality-honesty-closure → world_class_100_complete=false",
         ],
     }
 
