@@ -3,6 +3,9 @@
 > Product code for Sat/Sun + wow surfaces is **complete**.  
 > Rows below are **account/secret/runtime** actions on your machine — not missing features.
 
+**Start here if you want FREE steps only (no card/purchase):**  
+[`FREE_HUMAN_OPS_PLAYBOOK_AR.md`](./FREE_HUMAN_OPS_PLAYBOOK_AR.md) · `python scripts/bootstrap_free_human_ops.py`
+
 | ID | Action | Why runtime |
 |----|--------|-------------|
 | H1 / Ops-Pay | Set Lemon/Stripe + webhook secrets; one test purchase | Your PSP account |
