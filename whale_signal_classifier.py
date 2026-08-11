@@ -138,75 +138,14 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
     return out
 
 
-def _merge_deriv(live: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
-    return {
-        "funding_rate": live.get("funding_rate")
-        if live.get("funding_rate") is not None
-        else base.get("funding_rate"),
-        "open_interest_change_pct": live.get("open_interest_change_pct")
-        if live.get("open_interest_change_pct") is not None
-        else base.get("open_interest_change_pct"),
-    }
 
 
-def _resolve_alert_price(alert: dict[str, Any], asset: str) -> Any:
-    price = alert.get("price") or alert.get("spot_price") or alert.get("last_price")
-    if price is not None:
-        return price
-    try:
-        from live_book_hub import get_top_of_book  # type: ignore
-
-        book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset)
-        if isinstance(book, dict):
-            return book.get("mid") or book.get("bid") or book.get("ask")
-    except Exception:
-        return None
-    return None
 
 
-async def _classify_alerts(
-    alerts: list[dict[str, Any]],
-    *,
-    limit: int,
-    base_deriv: dict[str, Any],
-) -> tuple[list[dict[str, Any]], list[str], dict[str, dict[str, Any]]]:
-    classified: list[dict[str, Any]] = []
-    stories: list[str] = []
-    deriv_cache: dict[str, dict[str, Any]] = {}
-    for alert in alerts[:limit]:
-        asset = str(alert.get("asset") or "BTC").upper()
-        if asset not in deriv_cache:
-            live = await _derivatives_for_asset(asset)
-            deriv_cache[asset] = _merge_deriv(live, base_deriv)
-        c = classify_whale_alert(alert, derivatives_context=deriv_cache[asset])
-        classified.append(
-            {
-                **{k: alert.get(k) for k in ("asset", "direction", "amount_usd", "value_usd")},
-                "price": _resolve_alert_price(alert, asset),
-                "funding_rate": deriv_cache[asset].get("funding_rate"),
-                "open_interest_change_pct": deriv_cache[asset].get("open_interest_change_pct"),
-                **c,
-            }
-        )
-        stories.append(c["sentence"])
-    return classified, stories, deriv_cache
 
 
-def _append_flow_stories(stories: list[str], flows: list[dict[str, Any]]) -> list[str]:
-    for flow in flows[:3]:
-        sector = flow.get("sector") or "market"
-        net = float(flow.get("net_flow_usd") or 0)
-        stories.append(f"Sector {sector} net flow ${net:,.0f} in the last window.")
-    if not stories:
-        stories = ["No major whale narratives in the current window — market in equilibrium."]
-    return stories
 
 
-def _one_sentence(headline: str) -> str:
-    one_sentence = " ".join(str(headline).split())
-    if len(one_sentence) > 220:
-        return one_sentence[:217].rstrip() + "…"
-    return one_sentence
 
 
 def _base_derivatives_context(ctx: dict[str, Any] | None) -> dict[str, Any]:

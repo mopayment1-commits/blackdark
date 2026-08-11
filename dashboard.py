@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -2295,6 +2295,338 @@ async def oracle_quick(
     clean = sanitize_oracle_payload(payload)
     quick_cache_set(asset, lang, ux_mode, clean)
     return JSONResponse(clean)
+
+
+def _reserved_oracle_response(symbol: str, request: Request) -> Any | None:
+    if symbol.strip().lower() == "accuracy":
+        return render_page(request, "oracle_accuracy.html", _footer_ctx())
+    blocked = _require_terms_ack_or_403(request)
+    if blocked is not None:
+        return blocked
+    return None
+
+
+async def _enforce_oracle_quota(user: dict | None) -> None:
+    from auth_service import check_oracle_quota
+
+    allowed, message = await check_oracle_quota(user)
+    if allowed:
+        return
+    raise HTTPException(
+        status_code=403,
+        detail={
+            "error": "quota_exceeded",
+            "message": message,
+            "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
+        },
+    )
+
+
+async def _oracle_market_inputs(symbol: str) -> tuple[str, str, dict[str, Any], float, float, float, float]:
+    asset, pair = _normalize_oracle_symbol(symbol)
+    market = await _fetch_binance_ticker(pair)
+    if market is None:
+        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+    price = market["price"]
+    volume = market["volume"]
+    quote_volume = market["quote_volume"] or (volume * price)
+    change = market["change_24h"]
+    return asset, pair, market, price, volume, quote_volume, change
+
+
+async def _fetch_whale_alert_safe(asset: str, pair: str, price: float) -> Any | None:
+    try:
+        return await _fetch_cvvd_whale_alert(asset, pair, price)
+    except Exception:
+        logger.exception("Whale alert fetch failed")
+        return None
+
+
+async def _compute_unified_oracle_safe(
+    asset: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
+    try:
+        from oracle_unified import compute_unified_oracle
+
+        return await compute_unified_oracle(asset, price, quote_volume, change)
+    except Exception:
+        logger.exception("Unified oracle engine unavailable — falling back to technical score")
+        from market_context import oracle_score
+
+        return {
+            "opportunity_score": oracle_score(quote_volume, change),
+            "verdict": None,
+            "confidence": None,
+            "engine": "technical_fallback_v1",
+        }
+
+
+async def _build_primary_oracle_payload(
+    asset: str,
+    pair: str,
+    price: float,
+    volume: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
+    whale_alert = await _fetch_whale_alert_safe(asset, pair, price)
+    unified = await _compute_unified_oracle_safe(asset, price, quote_volume, change)
+    payload = _build_full_oracle_response(
+        asset,
+        price,
+        volume,
+        quote_volume,
+        change,
+        whale_alert=whale_alert,
+        unified=unified,
+    )
+    payload = await _attach_oracle_explanation_safe(payload, asset, pair, price, quote_volume, change)
+    return await _enrich_oracle_forecast_safe(payload)
+
+
+async def _attach_oracle_explanation_safe(
+    payload: dict[str, Any],
+    asset: str,
+    pair: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
+    try:
+        payload["explanation"] = await _build_opportunity_explanation(
+            asset,
+            price,
+            change,
+            quote_volume,
+            payload["opportunity_score"],
+            payload["verdict"],
+            pair=pair,
+        )
+    except Exception:
+        logger.exception("Oracle explanation unavailable")
+        payload["explanation"] = {"summary": "Technical oracle response (extended explanation unavailable)."}
+    return payload
+
+
+async def _enrich_oracle_forecast_safe(payload: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from forecast_engine import enrich_oracle_payload
+
+        return await enrich_oracle_payload(payload)
+    except Exception:
+        logger.exception("Oracle forecast enrichment unavailable")
+        return payload
+
+
+def _enrich_oracle_decision_safe(payload: dict[str, Any], ux_mode: str, lang: str) -> dict[str, Any]:
+    try:
+        from decision_enrichment import enrich_oracle_decision
+        from ux_mode import normalize_lang, normalize_ux_mode
+
+        return enrich_oracle_decision(
+            payload,
+            ux_mode=normalize_ux_mode(ux_mode),
+            lang=normalize_lang(lang),
+            register_signal=True,
+        )
+    except Exception:
+        logger.exception("Constitution decision enrichment unavailable")
+        return payload
+
+
+async def _attach_oracle_prediction_proof(payload: dict[str, Any], asset: str) -> dict[str, Any]:
+    try:
+        prediction_id = await _log_oracle_prediction(payload)
+    except Exception:
+        logger.exception("Oracle prediction_id attach failed")
+        return payload
+    if prediction_id is None:
+        return payload
+    payload["prediction_id"] = prediction_id
+    _attach_signal_registry_prediction(payload, asset, prediction_id)
+    _attach_chain_hash_proof(payload, prediction_id)
+    return payload
+
+
+def _attach_signal_registry_prediction(payload: dict[str, Any], asset: str, prediction_id: Any) -> None:
+    try:
+        from signal_registry import attach_prediction_id, register_from_evaluation
+
+        sig = (payload.get("signal_registry") or {}).get("signal_id")
+        linked = attach_prediction_id(str(sig), prediction_id) if sig else None
+        if not linked:
+            linked = register_from_evaluation(
+                {
+                    "kind": payload.get("kind") or "oracle_direction",
+                    "asset": asset,
+                    "opportunity_score": payload.get("opportunity_score"),
+                    "oracle": {"verdict": payload.get("verdict")},
+                    "prediction_id": prediction_id,
+                    "payload": payload,
+                }
+            )
+        if linked:
+            payload["signal_registry"] = _signal_registry_payload(linked)
+    except Exception:
+        logger.debug("signal registry prediction_id attach failed", exc_info=True)
+
+
+def _signal_registry_payload(linked: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "signal_id": linked.get("signal_id"),
+        "prediction_id": linked.get("prediction_id"),
+        "features_hash": linked.get("features_hash"),
+        "label": linked.get("label"),
+        "definition": linked.get("definition"),
+        "source": linked.get("source"),
+        "weight": linked.get("weight"),
+        "performance": linked.get("performance"),
+    }
+
+
+def _attach_chain_hash_proof(payload: dict[str, Any], prediction_id: Any) -> None:
+    try:
+        from oracle_audit_chain import chain_summary
+
+        recent = (chain_summary(limit=8) or {}).get("recent_records") or []
+        for entry in reversed(recent):
+            if str(entry.get("prediction_id")) == str(prediction_id):
+                payload["chain_hash"] = entry.get("chain_hash")
+                payload["proof"] = {
+                    "prediction_id": prediction_id,
+                    "chain_hash": entry.get("chain_hash"),
+                    "public_page": PATH_ORACLE_ACCURACY,
+                }
+                break
+    except Exception:
+        logger.debug("chain_hash attach failed", exc_info=True)
+
+
+def _attach_oracle_certificate(payload: dict[str, Any], user: dict | None) -> None:
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload["tier"] = (user or {}).get("tier") or "free"
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle",
+            trust_basis="public_accuracy_ledger + decision_certificate",
+        )
+    except Exception:
+        logger.debug("Decision certificate attach failed", exc_info=True)
+
+
+def _attach_oracle_scenarios_safe(payload: dict[str, Any]) -> None:
+    try:
+        from oracle_scenarios import build_oracle_scenarios
+
+        payload["scenarios"] = build_oracle_scenarios(payload)
+    except Exception:
+        logger.debug("Oracle scenarios attach failed", exc_info=True)
+
+
+def _attach_oqs_why_safe(payload: dict[str, Any]) -> None:
+    try:
+        from heroes_quality import build_oqs_why_block
+
+        payload["oqs_why"] = build_oqs_why_block(payload)
+        _copy_oqs_factors_to_explanation(payload)
+    except Exception:
+        logger.debug("OQS why block attach failed", exc_info=True)
+
+
+def _copy_oqs_factors_to_explanation(payload: dict[str, Any]) -> None:
+    top_factors = (payload.get("oqs_why") or {}).get("top_3_factors")
+    if not top_factors:
+        return
+    expl = payload.get("explanation") or {}
+    if isinstance(expl, dict) and not expl.get("top_3_factors"):
+        payload["explanation"] = {**expl, "top_3_factors": top_factors}
+
+
+async def _dispatch_oracle_act_alert_safe(payload: dict[str, Any], asset: str) -> None:
+    if str(payload.get("decision_action") or "").upper() != "ACT":
+        return
+    try:
+        from alert_service import dispatch_alert
+
+        sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
+        await dispatch_alert(
+            f"Oracle ACT · {asset}",
+            sentence,
+            payload={
+                "asset": asset,
+                "prediction_id": payload.get("prediction_id"),
+                "opportunity_score": payload.get("opportunity_score"),
+                "verdict": payload.get("verdict"),
+                "source": "oracle_act",
+            },
+            channels=["in_app"],
+        )
+    except Exception:
+        logger.debug("Oracle ACT in-app alert failed", exc_info=True)
+
+
+def _queue_oracle_behavior_task(
+    background_tasks: BackgroundTasks,
+    user: dict | None,
+    asset: str,
+    payload: dict[str, Any],
+) -> None:
+    background_tasks.add_task(
+        _record_behavior,
+        "oracle_query",
+        user=user,
+        asset=asset,
+        payload={
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "ux_mode": payload.get("ux_mode"),
+            "prediction_id": payload.get("prediction_id"),
+            "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
+        },
+    )
+
+
+def _increment_oracle_queries_metric() -> None:
+    try:
+        from observability import increment_metric
+
+        increment_metric("oracle_queries_total")
+    except Exception:
+        pass
+
+
+def _attach_oracle_freshness_safe(payload: dict[str, Any], asset: str) -> dict[str, Any]:
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        return attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        logger.debug("Oracle freshness attach failed", exc_info=True)
+        return payload
+
+
+def _apply_zero_tolerance_safe(payload: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from zero_tolerance import apply_zero_tolerance
+
+        return apply_zero_tolerance(payload)
+    except Exception:
+        logger.debug("Zero-tolerance attach failed", exc_info=True)
+        return payload
+
+
+def _sanitize_oracle_response(payload: dict[str, Any], user: dict | None) -> dict[str, Any]:
+    from regulatory_compliance_guard import apply_regulatory_compliance
+    from security_sanitize import sanitize_oracle_payload
+
+    if user and is_admin_user(user):
+        return apply_regulatory_compliance(payload)
+    return sanitize_oracle_payload(payload)
 
 
 @app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
