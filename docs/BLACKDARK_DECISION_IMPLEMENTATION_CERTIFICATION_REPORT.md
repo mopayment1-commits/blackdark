@@ -1,7 +1,8 @@
 # BLACKDARK DECISION IMPLEMENTATION CERTIFICATION REPORT
 
 **Audit type:** Complete decision-to-implementation traceability  
-**Canonical HEAD:** `c846d379f6e07cd555e4538cd01140b237ee5436`  
+**Canonical HEAD:** `39704c2337f2f2eeb8e63d1046216c516fc82660`  
+
 **Branch:** `cursor/institutional-hardening-120d`  
 **Date:** 2026-08-11  
 **Companion register:** `docs/BLACKDARK_MASTER_DECISION_REGISTER.md`
@@ -82,12 +83,12 @@
 | Master register | `docs/BLACKDARK_MASTER_DECISION_REGISTER.md` |
 | Readiness report | `docs/BLACKDARK_FINAL_INSTITUTIONAL_READINESS_REPORT.md` |
 | Load log (Soft Launch) | `docs/LOAD_TEST_RUN_LOG.md` (`2026-08-11T23:00:29Z`) |
-| Critical CI | run `31547534067` SUCCESS on tip |
-| Security Scan | run `31547534076` SUCCESS |
-| CodeQL | run `31547531520` SUCCESS (python/js/actions) |
+| Critical CI | run `31547884577` SUCCESS on tip |
+| Security Scan | run `31547884656` SUCCESS |
+| CodeQL | run `31547882144` SUCCESS (python/js/actions) |
 | Broader unit suite | **578 passed / 0 failed** locally on tip |
-| Sonar CI Scanner | run `31547534063` — ANALYSIS SUCCESSFUL / EXECUTION SUCCESS |
-| Sonar analysis time | `2026-08-11T23:44:51+0000` on commit `c846d37` |
+| Sonar CI Scanner | run `31547884573` — CI Scanner SUCCESS; Cobertura coverage.xml imported |
+| Sonar analysis time | `2026-08-11T23:50:11+0000` on commit `39704c2` |
 | Sonar QG | **OK** — new_coverage **87.9%**, bugs 0, vulns 0, hotspots 0, duplications 0.4% |
 | Coverage import | Cobertura Sensor parsed `coverage.xml` (log evidenced) |
 | XSS tests | `tests/test_xss_sink_hardening.py` |

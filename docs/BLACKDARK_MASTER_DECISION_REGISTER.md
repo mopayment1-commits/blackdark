@@ -1,9 +1,10 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `c846d379f6e07cd555e4538cd01140b237ee5436`  
+**Canonical HEAD audited:** `39704c2337f2f2eeb8e63d1046216c516fc82660`  
 **Branch:** `cursor/institutional-hardening-120d`  
 **Audit date:** 2026-08-11  
-**Sonar PR analysis:** run `31547534063` @ `2026-08-11T23:44:51+0000` (QG OK, new_coverage 87.9%)  
+**Sonar PR analysis:** run `31547884573` @ `2026-08-11T23:50:11+0000` on tip SHA (QG OK, new_coverage 87.9%)  
+
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
 
 Status key:
@@ -136,8 +137,8 @@ Status key:
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
 | DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **578 passed / 0 failed** (`-m 'not load and not network'`) on tip |
 | DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy; AA disabled (`sonar.autoscan.enabled=false`) |
-| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | CI Coverage XML + SonarCloud CI Scanner on tip `c846d37`; `new_coverage=87.9%` imported; run `31547534063` |
-| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | VERIFIED_IMPLEMENTED | Tip `c846d37`: CodeQL + Security Scan + critical CI + SonarCloud Code Analysis (QG OK) all green on PR #58 |
+| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | CI Coverage XML + SonarCloud CI Scanner on tip `39704c2`; `new_coverage=87.9%` imported; run `31547884573` |
+| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | VERIFIED_IMPLEMENTED | Tip `39704c2`: CodeQL + Security Scan + critical CI + SonarCloud Code Analysis (QG OK) all green on PR #58 |
 | DEC-0413 | Microservices optional via Redis bus; monolith OK for soft launch | ARCHITECTURE | MICROSERVICES_ARCHITECTURE | VERIFIED_IMPLEMENTED | service_bus + SERVICE_MODE |
 
 ---
