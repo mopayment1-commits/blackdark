@@ -2,11 +2,11 @@
 
 **Generated:** 2026-08-11  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Report commit:** see git tip at publication time  
+**Report commit:** `58a5b42d03adc9ef0fc097576c5f4b633ceea7b1`
 
 ## A. Final commit SHA
 
-Recorded at publish via `git rev-parse HEAD` on the remediation branch.
+`58a5b42d03adc9ef0fc097576c5f4b633ceea7b1`
 
 ## B. Final branch
 
