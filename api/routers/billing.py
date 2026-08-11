@@ -29,7 +29,9 @@ def _is_valid_email(email: str) -> bool:
     return all(c in allowed_d for c in domain)
 
 
-router = APIRouter(prefix="/api/billing", tags=["billing"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/billing", tags=["billing"], responses=COMMON_ERROR_RESPONSES)
 
 
 

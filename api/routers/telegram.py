@@ -9,7 +9,9 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 
 from security_auth import require_admin
 
-router = APIRouter(prefix="/api/telegram", tags=["telegram"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/telegram", tags=["telegram"], responses=COMMON_ERROR_RESPONSES)
 
 
 @router.post("/webhook")

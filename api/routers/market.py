@@ -14,7 +14,9 @@ from market_context import (
     parse_alert_metadata,
 )
 
-router = APIRouter(prefix="/api/market", tags=["market"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/market", tags=["market"], responses=COMMON_ERROR_RESPONSES)
 
 _ALLOWED_INTERVALS = {
     "1m",

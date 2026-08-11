@@ -9,7 +9,9 @@ from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Requ
 
 from security_auth import require_admin, require_authenticated
 
-router = APIRouter(prefix="/api/platform", tags=["platform"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/platform", tags=["platform"], responses=COMMON_ERROR_RESPONSES)
 
 
 def _local_or_admin(request: Request, x_admin_key: str | None = None) -> None:

@@ -6,7 +6,9 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 
 from security_auth import require_authenticated
 
-router = APIRouter(prefix="/api/privacy", tags=["privacy"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/privacy", tags=["privacy"], responses=COMMON_ERROR_RESPONSES)
 
 
 @router.get("/status")

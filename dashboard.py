@@ -25,9 +25,20 @@ from fastapi import (
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
+from api.openapi_responses import COMMON_ERROR_RESPONSES
 from starlette.middleware.gzip import GZipMiddleware
 
 import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
+
+# Sonar S1192: duplicated string literals
+KEY_UTILITY_HTML = 'utility.html'
+PATH_CREATE_CHECKOUT_SESSION_TIER_PRO = '/create-checkout-session?tier=pro'
+PATH_ORACLE_ACCURACY = '/oracle-accuracy'
+STR_BTC_USDT = 'BTC/USDT'
+STR_INVALID_B2B_API_KEY = 'Invalid B2B API key'
+STR_LOGIN_REQUIRED = 'Login required'
+STR_VERIFY_EMAIL = 'Verify email'
 
 _ROOT = Path(__file__).resolve().parent
 load_dotenv(_ROOT / ".env")
@@ -437,6 +448,7 @@ app = FastAPI(
     docs_url=None,
     redoc_url=None,
     openapi_url="/openapi.json",
+    responses=COMMON_ERROR_RESPONSES,
 )
 
 # Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
@@ -653,7 +665,7 @@ def require_feature(feature: str):
                     "feature": feature,
                     "current_tier": tier,
                     "message": f"This feature requires an upgrade. Current plan: {tier}.",
-                    "upgrade_url": "/create-checkout-session?tier=pro",
+                    "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
                 },
             )
         return user
@@ -909,10 +921,10 @@ async def verify_email_page(request: Request, token: str = ""):
     if not token:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            KEY_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
             },
         )
@@ -921,10 +933,10 @@ async def verify_email_page(request: Request, token: str = ""):
     if len(safe) < 16:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            KEY_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
             },
         )
@@ -937,10 +949,10 @@ async def verify_email_page(request: Request, token: str = ""):
     except ValueError:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            KEY_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
             },
         )
@@ -991,7 +1003,7 @@ async def journal_create(data: dict = Body(...), user: dict | None = Depends(opt
     from database import insert_journal_entry
 
     if not user or not feature_allowed(user, "journal"):
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     asset = str(data.get("asset") or "BTC").upper()
     action = str(data.get("action") or "note").lower()
     entry_id = await insert_journal_entry(
@@ -1010,7 +1022,7 @@ async def journal_update(entry_id: int, data: dict = Body(...), user: dict | Non
     from database import update_journal_entry
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     ok = await update_journal_entry(
         entry_id,
         user["email"],
@@ -1029,7 +1041,7 @@ async def journal_delete(entry_id: int, user: dict | None = Depends(optional_use
     from database import delete_journal_entry
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     if not await delete_journal_entry(entry_id, user["email"]):
         raise HTTPException(status_code=404, detail="Entry not found")
     return {"success": True}
@@ -1184,7 +1196,7 @@ async def sitemap_xml(request: Request):
     paths = [
         "/",
         "/dashboard",
-        "/oracle-accuracy",
+        PATH_ORACLE_ACCURACY,
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
@@ -1399,7 +1411,7 @@ async def public_errors_alias():
 async def public_accuracy_ledger_alias():
     from fastapi.responses import RedirectResponse
 
-    return RedirectResponse(url="/oracle-accuracy", status_code=307)
+    return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=307)
 
 
 @app.get("/docs", response_class=HTMLResponse)
@@ -1562,7 +1574,7 @@ async def capabilities_page(request: Request):
     manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
@@ -1592,7 +1604,7 @@ async def compliance_page(request: Request):
         regulatory = {"status": "engineering_posture_only"}
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "compliance",
             "title": "Anti-Hype Compliance",
@@ -1612,7 +1624,7 @@ async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "data_room",
             "title": "Data Room",
@@ -1655,7 +1667,7 @@ async def contact_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "contact",
             "title": "Contact",
@@ -1672,7 +1684,7 @@ async def complaints_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "complaints",
             "title": "Complaints",
@@ -1689,7 +1701,7 @@ async def faq_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "faq",
             "title": "FAQ",
@@ -1706,7 +1718,7 @@ async def how_it_works_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "how_it_works",
             "title": "How it works",
@@ -1724,7 +1736,7 @@ async def about_page(request: Request):
     about = about_blurb()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "about",
             "title": about["title"],
@@ -1742,7 +1754,7 @@ async def status_page(request: Request):
     status = public_status_report()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
@@ -1759,7 +1771,7 @@ async def changelog_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "changelog",
             "title": "Changelog",
@@ -1774,7 +1786,7 @@ async def changelog_page(request: Request):
 async def feedback_page(request: Request):
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "feedback",
             "title": "Feedback & suggestions",
@@ -1791,7 +1803,7 @@ async def legal_hub_page(request: Request):
     hub = legal_hub_manifest()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "legal_hub",
             "title": hub["title"],
@@ -2097,7 +2109,7 @@ async def oracle(
             detail={
                 "error": "quota_exceeded",
                 "message": message,
-                "upgrade_url": "/create-checkout-session?tier=pro",
+                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
             },
         )
 
@@ -2209,7 +2221,7 @@ async def oracle(
                         payload["proof"] = {
                             "prediction_id": prediction_id,
                             "chain_hash": entry.get("chain_hash"),
-                            "public_page": "/oracle-accuracy",
+                            "public_page": PATH_ORACLE_ACCURACY,
                         }
                         break
             except Exception:
@@ -2451,35 +2463,35 @@ async def macro_overview():
 
 
 @app.get("/api/universe/phase-b/probe")
-async def universe_phase_b_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_b_probe(symbol: str = STR_BTC_USDT):
     from ccxt_market_fetcher import probe_phase_b_exchanges
 
     return await probe_phase_b_exchanges(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-b2/probe")
-async def universe_phase_b2_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_b2_probe(symbol: str = STR_BTC_USDT):
     from coingecko_cex_fetcher import probe_coingecko_exchanges
 
     return await probe_coingecko_exchanges(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-c/probe")
-async def universe_phase_c_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_c_probe(symbol: str = STR_BTC_USDT):
     from dex_fetcher import probe_dex_venues
 
     return await probe_dex_venues(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-d/probe")
-async def universe_phase_d_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_d_probe(symbol: str = STR_BTC_USDT):
     from perp_dex_fetcher import probe_perp_dex_venues
 
     return await probe_perp_dex_venues(sample_symbol=symbol)
 
 
 @app.get("/api/universe/full-probe")
-async def universe_full_probe(symbol: str = "BTC/USDT"):
+async def universe_full_probe(symbol: str = STR_BTC_USDT):
     import aggregator
     from ccxt_market_fetcher import probe_phase_b_exchanges
     from coingecko_cex_fetcher import probe_coingecko_exchanges
@@ -2611,7 +2623,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 
 # Forecast + oracle audit routes → api/routers/oracle.py
 
-@app.get("/oracle-accuracy", response_class=HTMLResponse)
+@app.get(PATH_ORACLE_ACCURACY, response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     # Public ledger must stay visible without an ack wall (hits + misses).
@@ -2628,7 +2640,7 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     try:
         return await exporter.export_institutional_feed(provided_key=x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail=public_error(exc, fallback="Invalid B2B API key")) from exc
+        raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
 
 @app.get("/api/b2b/demo")
@@ -2719,7 +2731,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
     exporter = InstitutionalDataExporter()
     if not exporter.authorize(api_key):
-        await websocket.close(code=1008, reason="Invalid B2B API key")
+        await websocket.close(code=1008, reason=STR_INVALID_B2B_API_KEY)
         return
 
     await websocket.accept()
@@ -2861,7 +2873,7 @@ async def b2b_proposal(
             client_name=client,
         )
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=STR_INVALID_B2B_API_KEY) from exc
 
 
 # Arbitrage API routes → api/routers/arbitrage.py
@@ -2926,7 +2938,7 @@ async def alerts_subscribe(
             detail={
                 "error": "upgrade_required",
                 "feature": "alerts",
-                "upgrade_url": "/create-checkout-session?tier=pro",
+                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
             },
         )
     try:
@@ -3125,7 +3137,7 @@ async def research_export(x_api_key: str = Header(..., alias="X-API-Key")):
     try:
         return await export_signed_research(x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=STR_INVALID_B2B_API_KEY) from exc
 
 
 
@@ -3267,7 +3279,7 @@ async def api_subscriber_value(user: dict | None = Depends(optional_user)):
     from retention_service import build_subscriber_value_digest
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     tier = str(user.get("tier") or "free")
     if tier == "free":
         raise HTTPException(
@@ -3275,7 +3287,7 @@ async def api_subscriber_value(user: dict | None = Depends(optional_user)):
             detail={
                 "error": "upgrade_required",
                 "message": "Subscriber value digest requires Pro or Whale.",
-                "upgrade_url": "/create-checkout-session?tier=pro",
+                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
             },
         )
     return await build_subscriber_value_digest(user["email"], tier)
@@ -3813,7 +3825,7 @@ async def checkout_success(request: Request):
 async def checkout_cancel(request: Request):
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        KEY_UTILITY_HTML,
         {
             "page": "cancel",
             "title": "Checkout cancelled",

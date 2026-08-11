@@ -7,7 +7,9 @@ from typing import Any
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
-router = APIRouter(prefix="/api/institutional", tags=["institutional"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/institutional", tags=["institutional"], responses=COMMON_ERROR_RESPONSES)
 
 
 class OrgCreate(BaseModel):

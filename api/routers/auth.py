@@ -31,6 +31,9 @@ from security_models import (
     AuthResetPasswordBody,
 )
 
+# Sonar S1192: duplicated string literals
+STR_LOGIN_REQUIRED = 'Login required'
+
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
@@ -136,7 +139,7 @@ async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: Backgr
 @router.get("/mfa/status")
 async def auth_mfa_status(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import mfa_status_for_user
 
     return await mfa_status_for_user(int(user["id"]))
@@ -145,7 +148,7 @@ async def auth_mfa_status(user: dict | None = Depends(optional_user)):
 @router.post("/mfa/enroll")
 async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import begin_mfa_enroll
 
     return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
@@ -157,7 +160,7 @@ async def auth_mfa_confirm(
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import confirm_mfa_enroll
 
     try:
@@ -172,7 +175,7 @@ async def auth_mfa_disable(
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import disable_mfa
 
     try:
@@ -261,7 +264,7 @@ async def auth_change_password(
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from auth_service import hash_password, verify_password
     from database import (
         delete_user_sessions_for_user,
@@ -314,7 +317,7 @@ async def auth_verify_email(token: str = Query(...)):
 @router.post("/resend-verification")
 async def auth_resend_verification(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     if user.get("email_verified"):
         return {"ok": True, "message": "Email already verified"}
     from identity_service import send_verification_email
@@ -426,7 +429,7 @@ async def auth_logout(
 @router.post("/logout-all")
 async def auth_logout_all(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import delete_user_sessions_for_user
 
     await delete_user_sessions_for_user(int(user["id"]))
@@ -492,7 +495,7 @@ async def auth_profile_update(
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import fetch_user_by_username, update_user_profile_fields
     from identity_service import validate_display_name, validate_username
 
@@ -530,7 +533,7 @@ async def auth_avatar_upload(
     file: UploadFile = File(...),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import update_user_profile_fields
     from identity_service import save_avatar_bytes
 
@@ -547,7 +550,7 @@ async def auth_avatar_upload(
 @router.delete("/avatar")
 async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import update_user_profile_fields
     from identity_service import AVATAR_DIR
 

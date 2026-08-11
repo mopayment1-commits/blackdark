@@ -7,7 +7,9 @@ import logging
 
 from fastapi import APIRouter, Body, HTTPException, Query
 
-router = APIRouter(tags=["heroes"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(tags=["heroes"], responses=COMMON_ERROR_RESPONSES)
 logger = logging.getLogger("BLACKDARK.HeroesAPI")
 
 
