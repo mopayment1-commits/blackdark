@@ -244,16 +244,7 @@ def _admin_mfa_ready() -> bool:
     )
 
 
-def _production_guard_state() -> dict[str, Any]:
-    from billing_service import billing_configured
-    from postgres_backend import use_postgres
-
-    pg = use_postgres()
-    production = is_production()
-    soft_launch = _env_flag("SOFT_LAUNCH")
-    redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
-    lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
-    stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
+def _secret_hygiene_flags() -> tuple[bool, bool, bool]:
     secrets_raw = (
         os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
     )
@@ -267,12 +258,35 @@ def _production_guard_state() -> dict[str, Any]:
     }
     no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
     no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
+    production = is_production()
+    hygiene = (not production) or (no_insecure_secrets and no_insecure_pepper)
+    return bool(secrets_raw), bool(session_pepper), hygiene
+
+
+def _demo_key_disabled() -> bool:
+    demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
+    return demo_key in {"", "disabled", "off", "none"}
+
+
+def _production_guard_state() -> dict[str, Any]:
+    from billing_service import billing_configured
+    from postgres_backend import use_postgres
+
+    pg = use_postgres()
+    production = is_production()
+    soft_launch = _env_flag("SOFT_LAUNCH")
+    redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
+    lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
+    stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
+    secrets_ok, session_pepper_ok, prod_secrets_hygiene = _secret_hygiene_flags()
     expose_demo = _env_flag("EXPOSE_B2B_DEMO_KEY")
     live_exec = _env_flag("LIVE_EXECUTION_ALLOW_API")
     strict_prod = production and not soft_launch
     viral_mode = _env_flag("VIRAL_MODE", "true")
     viral_ha = strict_prod and viral_mode
     parallel = _effective_parallelism()
+    lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
+    stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
     return {
         "pg": pg,
         "mode": _service_mode(),
@@ -291,25 +305,19 @@ def _production_guard_state() -> dict[str, Any]:
         "stripe_price_whale": bool(os.getenv("STRIPE_PRICE_WHALE", "").strip()),
         "telegram": bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip()),
         "telegram_secret": bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()),
-        "lemon_webhook": bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip()),
-        "stripe_webhook": bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()),
-        "secrets_ok": bool(secrets_raw),
-        "session_pepper_ok": bool(session_pepper),
+        "lemon_webhook": lemon_webhook,
+        "stripe_webhook": stripe_webhook,
+        "secrets_ok": secrets_ok,
+        "session_pepper_ok": session_pepper_ok,
         "admin_ok": bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip()),
-        "demo_disabled": (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
-        in {"", "disabled", "off", "none"},
+        "demo_disabled": _demo_key_disabled(),
         "expose_demo": expose_demo,
         "soft_launch_safe": (not soft_launch) or (not live_exec and not expose_demo),
-        "billing_webhook_ok": _billing_webhook_ready(
-            lemon,
-            stripe,
-            bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip()),
-            bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()),
-        ),
+        "billing_webhook_ok": _billing_webhook_ready(lemon, stripe, lemon_webhook, stripe_webhook),
         "redis_shared_ok": bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True),
         "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
         "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not production),
-        "prod_secrets_hygiene": (not production) or (no_insecure_secrets and no_insecure_pepper),
+        "prod_secrets_hygiene": prod_secrets_hygiene,
     }
 
 
