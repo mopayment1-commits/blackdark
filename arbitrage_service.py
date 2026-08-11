@@ -224,18 +224,12 @@ async def get_market_snapshots(
 
     # 1) WebSocket in-memory books — always first (sub-ms) unless explicit REST forced.
     if low_latency and not force_rest:
-        try:
-            from live_book_hub import get_live_books_if_fresh
-
-            fresh = get_live_books_if_fresh()
-            if fresh:
-                ws_books, age_ms = fresh
-                _books, funding, _source, _age = await get_market_snapshots_cached()
-                age_sec = age_ms / 1000.0
-                set_cached_snapshots(ws_books, funding, source="websocket_live", age_sec=age_sec)
-                return ws_books, funding, "websocket_live", age_sec
-        except Exception:
-            logger.debug("WebSocket live book path unavailable", exc_info=True)
+        websocket_snapshot = await _fresh_websocket_snapshot(
+            get_market_snapshots_cached,
+            set_cached_snapshots,
+        )
+        if websocket_snapshot is not None:
+            return websocket_snapshot
 
     books, funding, source, age_sec = await get_market_snapshots_cached()
 
@@ -245,24 +239,60 @@ async def get_market_snapshots(
     # 2) REST refresh ONLY when stale/missing OR caller explicitly forces REST.
     #    prefer_live alone must NOT trigger a 2–3s REST round-trip when cache/WS is fresh.
     if force_rest or must_refresh:
-        try:
-            live_books, live_funding = await fetch_live_market_snapshots(fast=True)
-            if live_books:
-                books = live_books
-                source = "live_api"
-                age_sec = 0.0
-            if live_funding:
-                funding = live_funding
-            set_cached_snapshots(books, funding, source=source, age_sec=age_sec)
-        except Exception:
-            if must_refresh:
-                logger.warning(
-                    "Stale market data (age=%.1fs) and live refresh failed — results may be unreliable.",
-                    age_sec,
-                )
-            else:
-                logger.exception("Live arbitrage snapshot fetch failed; using cache/database fallback.")
+        books, funding, source, age_sec = await _refresh_rest_snapshots(
+            books,
+            funding,
+            source,
+            age_sec,
+            must_refresh,
+            set_cached_snapshots,
+        )
 
+    return books, funding, source, age_sec
+
+
+async def _fresh_websocket_snapshot(get_cached: Any, set_cached: Any) -> tuple[dict, dict, str, float] | None:
+    try:
+        from live_book_hub import get_live_books_if_fresh
+
+        fresh = get_live_books_if_fresh()
+        if not fresh:
+            return None
+        ws_books, age_ms = fresh
+        _books, funding, _source, _age = await get_cached()
+        age_sec = age_ms / 1000.0
+        set_cached(ws_books, funding, source="websocket_live", age_sec=age_sec)
+        return ws_books, funding, "websocket_live", age_sec
+    except Exception:
+        logger.debug("WebSocket live book path unavailable", exc_info=True)
+        return None
+
+
+async def _refresh_rest_snapshots(
+    books: dict,
+    funding: dict,
+    source: str,
+    age_sec: float,
+    must_refresh: bool,
+    set_cached: Any,
+) -> tuple[dict, dict, str, float]:
+    try:
+        live_books, live_funding = await fetch_live_market_snapshots(fast=True)
+        if live_books:
+            books = live_books
+            source = "live_api"
+            age_sec = 0.0
+        if live_funding:
+            funding = live_funding
+        set_cached(books, funding, source=source, age_sec=age_sec)
+    except Exception:
+        if must_refresh:
+            logger.warning(
+                "Stale market data (age=%.1fs) and live refresh failed — results may be unreliable.",
+                age_sec,
+            )
+        else:
+            logger.exception("Live arbitrage snapshot fetch failed; using cache/database fallback.")
     return books, funding, source, age_sec
 
 
