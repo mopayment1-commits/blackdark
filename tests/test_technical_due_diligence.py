@@ -39,7 +39,8 @@ async def test_technical_dd_report_structure():
     assert len(report["requirements"]) == 20
     for req in report["requirements"]:
         assert req["verdict"] in {"PASS", "FAIL", "PARTIALLY PASS", "NOT APPLICABLE"}
-        assert req["id"] >= 1 and req["id"] <= 20
+        assert req["id"] >= 1
+        assert req["id"] <= 20
 
 
 def test_sanitize_oracle_strips_internal_verdict():

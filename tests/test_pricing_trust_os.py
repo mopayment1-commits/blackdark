@@ -145,5 +145,7 @@ def test_morning_binding_doc_locks_49():
     from pathlib import Path
 
     doc = Path("docs/MORNING_SESSION_FINAL_BINDING.md").read_text(encoding="utf-8")
-    assert "$29" in doc and "$49" in doc and "$3,000" in doc
+    assert "$29" in doc
+    assert "$49" in doc
+    assert "$3,000" in doc
     assert "$199" not in doc

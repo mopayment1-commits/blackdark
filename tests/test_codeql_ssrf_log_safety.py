@@ -13,7 +13,8 @@ def test_log_safety_strips_crlf_explicitly():
     assert '.replace("\\n"' in src or ".replace('\\n'" in src
     dirty = "btc\r\nALERT forged"
     clean = sanitize_log_value(dirty)
-    assert "\r" not in clean and "\n" not in clean
+    assert "\r" not in clean
+    assert "\n" not in clean
     assert sanitize_asset("BTC/USDT") == "BTC/USDT" or sanitize_asset("BTC") == "BTC"
     assert sanitize_asset("evil\ninject") == "invalid_asset"
 

@@ -50,4 +50,5 @@ async def test_publish_no_redis_uses_local(monkeypatch):
 
     subscribe("local.only", h)
     ok = await publish("local.only", {"ok": True})
-    assert ok and received
+    assert ok
+    assert received

@@ -34,7 +34,8 @@ def test_landing_html_a11y_and_perf_hooks():
     assert "We publish the miss" in html
     assert "/static/img/blackdark-sealed-hero-1280.webp" in html
     assert "/static/img/blackdark-sealed-hero.jpg" in html
-    assert 'rel="preload"' in html and "blackdark-sealed-hero-1280.webp" in html
+    assert 'rel="preload"' in html
+    assert "blackdark-sealed-hero-1280.webp" in html
 
 
 def test_landing_assets_exist_and_design_tokens():
@@ -43,8 +44,10 @@ def test_landing_assets_exist_and_design_tokens():
     hero_webp = root / "static" / "img" / "blackdark-sealed-hero-1280.webp"
     hero_jpg = root / "static" / "img" / "blackdark-sealed-hero.jpg"
     landing = (root / "templates" / "landing.html").read_text(encoding="utf-8")
-    assert hero_webp.is_file() and hero_webp.stat().st_size < 120_000
-    assert hero_jpg.is_file() and hero_jpg.stat().st_size < 200_000
+    assert hero_webp.is_file()
+    assert hero_webp.stat().st_size < 120_000
+    assert hero_jpg.is_file()
+    assert hero_jpg.stat().st_size < 200_000
     assert "--bd-muted-dim: #a1a1aa" in css or "--bd-muted: #a1a1aa" in css
     assert landing.count("const action =") <= 1
     assert 'for="landingAudience"' in landing
