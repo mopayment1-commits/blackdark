@@ -176,3 +176,23 @@ def test_fee_rates_empty_fees_fallback():
     taker, maker = _fee_rates("binance", Ex(), {})
     assert taker == 0.0015
     assert maker == 0.0007
+
+
+def test_finite_rate_rejects_nan_and_negative():
+    assert fee_matrix._finite_rate(float("nan")) is None
+    assert fee_matrix._finite_rate(-0.1) is None
+    assert fee_matrix._finite_rate("nope") is None
+    assert fee_matrix._finite_rate(0.001) == 0.001
+
+
+def test_known_venue_seed_row_without_enabled_list(monkeypatch):
+    fee_matrix._matrix.clear()
+    monkeypatch.setattr(fee_matrix.config, "enabled_exchanges", dict)
+    # binance is in WITHDRAWAL seed even if not enabled
+    assert fee_matrix.taker_fee("binance") is not None
+    assert fee_matrix.maker_fee("binance", market="perpetual") is not None
+
+
+def test_deposit_fee_unknown_base_none():
+    fee_matrix._matrix.clear()
+    assert fee_matrix.deposit_fee_usdt("binance", "ZZZ/USDT") is None

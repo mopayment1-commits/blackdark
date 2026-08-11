@@ -184,3 +184,15 @@ def test_fee_matrix_unknown_venue_none():
     import fee_matrix
     fee_matrix._matrix.clear()
     assert fee_matrix.taker_fee("totally_unknown_xyz") is None
+
+
+def test_net_edge_rejects_missing_net_and_slip():
+    from net_edge_truth import compute_net_edge_truth
+
+    missing_net = compute_net_edge_truth({"quote_amount": 100, "total_slippage_bps": 1, "trading_fees_usdt": 0.1, "withdrawal_fee_usdt": 0.0})
+    assert missing_net["reject"] is True
+    assert "missing_net_profit" in missing_net["reasons"]
+
+    missing_slip = compute_net_edge_truth({"net_profit_usdt": 1.0, "quote_amount": 100, "trading_fees_usdt": 0.1, "withdrawal_fee_usdt": 0.0})
+    assert missing_slip["reject"] is True
+    assert "missing_slippage_bps" in missing_slip["reasons"]

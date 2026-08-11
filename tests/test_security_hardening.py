@@ -138,3 +138,19 @@ async def test_logout_clears_without_user_token_field():
     src = inspect.getsource(auth_router.auth_logout)
     assert "raw_bearer_or_cookie" in src or "token" in src
     assert 'user.get("token")' not in src
+
+
+def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
+    import os
+    from types import SimpleNamespace
+    from security_middleware import security_headers_for
+
+    monkeypatch.setenv("CSP_NONCE_MODE", "true")
+    monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
+    req = SimpleNamespace(state=SimpleNamespace(), url=SimpleNamespace(scheme="http"))
+    headers = security_headers_for(req)
+    csp = headers["Content-Security-Policy"]
+    assert "strict-dynamic" in csp
+    assert "nonce-" in csp
+    assert "'unsafe-inline'" not in csp.split("script-src")[1].split(";")[0]
+    assert getattr(req.state, "csp_nonce", None)

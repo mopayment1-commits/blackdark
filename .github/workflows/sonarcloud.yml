@@ -51,6 +51,12 @@ jobs:
             tests/test_service_bus_distributed.py \
             tests/test_production_guard.py \
             tests/test_xss_sink_hardening.py \
+            tests/test_unique_differentiators.py \
+            tests/test_codeql_secret_logging_closure.py \
+            tests/test_codeql_18_closure.py \
+            tests/test_softlaunch_no_shell_taint.py \
+            tests/test_path_safety.py \
+            tests/test_arb_truth_gate.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

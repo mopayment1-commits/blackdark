@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import math
 import time
 from typing import Any
 
@@ -99,7 +100,7 @@ def _finite_rate(raw: Any) -> float | None:
         val = float(raw)
     except (TypeError, ValueError):
         return None
-    if val < 0 or val != val:  # NaN
+    if val < 0 or math.isnan(val):
         return None
     return val
 
