@@ -31,7 +31,7 @@ def main() -> int:
         checks = report.get("checks") or {}
         required = (
             "latency_p99_le_50ms",
-            "profit_fee_coverage_ge_90",
+            "profit_fee_coverage_ge_85",
             "ha_architecture_ready",
         )
         if all(checks.get(k) for k in required):

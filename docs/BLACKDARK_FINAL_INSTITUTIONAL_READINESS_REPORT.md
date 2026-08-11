@@ -2,11 +2,11 @@
 
 **Generated:** 2026-08-11  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Report commit:** `58a5b42d03adc9ef0fc097576c5f4b633ceea7b1`
+**Report commit:** `ed5ef55e91dd69a05c3068d9a8300b55544cab11`
 
 ## A. Final commit SHA
 
-`58a5b42d03adc9ef0fc097576c5f4b633ceea7b1`
+`ed5ef55e91dd69a05c3068d9a8300b55544cab11`
 
 ## B. Final branch
 

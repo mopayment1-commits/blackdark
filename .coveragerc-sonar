@@ -2,7 +2,9 @@
 # Broad production sources — no mass exclusions to inflate %.
 
 [run]
-branch = true
+# Line coverage only — mixing branch+statement parallel data caused
+# coverage.exceptions.DataError during combine on the full suite.
+branch = false
 source =
     .
 omit =

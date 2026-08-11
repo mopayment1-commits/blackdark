@@ -147,6 +147,26 @@ async def test_rewalk_triangular_missing_legs():
 
 
 @pytest.mark.asyncio
+async def test_rewalk_triangular_depth_fail(monkeypatch):
+    _seed_cross_books(wide_spread=True)
+
+    def _fail_walk(*_a, **_k):
+        return None, 0.0
+
+    monkeypatch.setattr(slippage_guard, "_walk_triangle_legs", _fail_walk)
+    out = await slippage_guard.rewalk_opportunity_slippage(
+        {
+            "kind": "triangular",
+            "exchange": "binance",
+            "quote_amount": 50.0,
+            "legs": [("BTC/USDT", "buy"), ("ETH/BTC", "buy"), ("ETH/USDT", "sell")],
+        }
+    )
+    assert out.get("executable") is False
+    assert out.get("rewalk") == "triangle_depth_fail"
+
+
+@pytest.mark.asyncio
 async def test_rewalk_triangular_with_books():
     slippage_guard._active_alerts.clear()
     _seed_cross_books(wide_spread=True)
