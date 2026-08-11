@@ -1,7 +1,7 @@
 # BLACKDARK DECISION IMPLEMENTATION CERTIFICATION REPORT
 
 **Audit type:** Complete decision-to-implementation traceability  
-**Canonical HEAD:** `b8698ea0d5031f9f44d48f41d806b5d720da8d8a` (remediation evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
+**Canonical HEAD:** `adcb26fea92598476e0be2e5170207ae15e0ccad` (remediation evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
 **Branch:** `cursor/institutional-hardening-120d`  
 **Date:** 2026-08-11  
 **Companion register:** `docs/BLACKDARK_MASTER_DECISION_REGISTER.md`
