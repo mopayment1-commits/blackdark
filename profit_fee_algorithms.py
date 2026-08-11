@@ -54,7 +54,7 @@ def gross_spread_bps(buy_ask: float, sell_bid: float) -> float:
     return (sell_bid - buy_ask) / buy_ask * 10_000
 
 
-def withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float:
+def withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float | None:
     from fee_matrix import withdrawal_fee_usdt as _w
 
     return _w(exchange_id, symbol)
@@ -202,10 +202,13 @@ def net_cross_exchange_profit(
     sell_fee = sell_exec.quote_value * taker_fee(sell_exchange)
     trading_fees = buy_fee + sell_fee
     withdraw = withdrawal_fee_usdt(buy_exchange, symbol)
+    if withdraw is None:
+        # Unknown transfer cost must not invent a zero-fee false profit.
+        return None
     deposit = deposit_fee_usdt(sell_exchange, symbol)
     total_slip = buy_exec.slippage_bps + sell_exec.slippage_bps
     slip_buf = slippage_buffer_usdt(quote, total_slip, market_context)
-    total_cost = buy_exec.quote_cost + buy_fee + withdraw + deposit + slip_buf
+    total_cost = buy_exec.quote_cost + buy_fee + float(withdraw) + float(deposit) + slip_buf
     net_profit = sell_exec.quote_value - sell_fee - total_cost
 
     buy_top = top_ask(buy_book) or buy_exec.best_price

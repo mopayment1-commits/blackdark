@@ -40,16 +40,23 @@ def _cross_exchange_spread(asset: str) -> dict[str, Any] | None:
     fee_bps = float(getattr(config, "DEFAULT_TAKER_FEE", 0.001)) * 2 * 10_000
     net_bps = spread_bps - fee_bps
 
-    return {
-        "asset": base,
-        "buy_exchange": best_ask_ex,
-        "sell_exchange": best_bid_ex,
-        "buy_price": buy_ask,
-        "sell_price": sell_bid,
-        "spread_bps": round(spread_bps, 2),
-        "net_spread_bps": round(net_bps, 2),
-        "profitable": net_bps > 0,
-    }
+    # Top-of-book only — NEVER claim profitable/executable without depth rewalk.
+    from executable_edge_truth import mark_indicative_only
+
+    return mark_indicative_only(
+        {
+            "asset": base,
+            "buy_exchange": best_ask_ex,
+            "sell_exchange": best_bid_ex,
+            "buy_price": buy_ask,
+            "sell_price": sell_bid,
+            "spread_bps": round(spread_bps, 2),
+            "net_spread_bps": round(net_bps, 2),
+            "topline_positive": net_bps > 0,
+            "kind": "fast_cross",
+        },
+        reason="top_of_book_only_no_depth",
+    )
 
 
 def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
@@ -62,9 +69,16 @@ def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
 
     for asset in assets:
         opp = _cross_exchange_spread(asset)
-        if opp and opp.get("profitable"):
-            net_usdt = quote_usd * (opp["net_spread_bps"] / 10_000)
-            opportunities.append({**opp, "net_profit_usdt": round(net_usdt, 4), "kind": "fast_cross"})
+        if opp and opp.get("topline_positive"):
+            net_usdt = quote_usd * (float(opp.get("net_spread_bps") or 0) / 10_000)
+            opportunities.append(
+                {
+                    **opp,
+                    "indicative_net_profit_usdt": round(net_usdt, 4),
+                    "net_profit_usdt": None,
+                    "kind": "fast_cross",
+                }
+            )
 
     book_read_ms = (time.perf_counter() - t_book) * 1000
     total_ms = (time.perf_counter() - t0) * 1000

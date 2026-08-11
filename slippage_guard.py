@@ -57,19 +57,24 @@ def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str
         return {**opportunity, "rewalk": "triangle_depth_fail", "executable": False, "cancel_reason": "liquidity"}
 
     from risk_manager import check_slippage
+    from executable_edge_truth import apply_net_executable_profit
 
     verdict = check_slippage(slip)
+    net_profit = float(net_final) - float(notional)
     updated = {
         **opportunity,
         "total_slippage_bps": round(slip, 2),
         "rewalk_age_ms": round(age_ms, 1),
-        "executable": verdict.allowed and net_final > notional,
+        "executable": bool(verdict.allowed),
         "rewalk": "triangle_ok",
-        "net_after_walk_usdt": round(net_final - notional, 4),
+        "net_after_walk_usdt": round(net_profit, 4),
     }
-    if not updated["executable"]:
-        updated["cancel_reason"] = verdict.reason or "unprofitable_after_walk"
-    return updated
+    if not verdict.allowed:
+        updated["cancel_reason"] = verdict.reason or "slippage_blocked"
+        updated["executable"] = False
+        updated["profitable"] = False
+        return updated
+    return apply_net_executable_profit(updated, net_profit_usdt=net_profit)
 
 
 def _rewalk_cex_dex(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:
@@ -127,6 +132,32 @@ def _rewalk_cross_exchange(
     }
     if not verdict.allowed:
         updated["cancel_reason"] = verdict.reason
+        updated["executable"] = False
+        return updated
+    # Recompute NET EXECUTABLE PROFIT — do not inherit optimistic topline.
+    try:
+        from profit_fee_algorithms import net_cross_exchange_profit
+        from executable_edge_truth import apply_net_executable_profit
+
+        symbol = f"{asset}/USDT"
+        net = net_cross_exchange_profit(
+            buy_book,
+            sell_book,
+            buy_exchange=buy_ex,
+            sell_exchange=sell_ex,
+            symbol=symbol,
+            notional=notional,
+        )
+        if net is None:
+            return {**updated, "executable": False, "cancel_reason": "net_recompute_failed", "profitable": False}
+        updated = apply_net_executable_profit(updated, net_profit_usdt=float(net["net_profit_usdt"]))
+        updated["trading_fees_usdt"] = net.get("trading_fees_usdt")
+        updated["withdrawal_fee_usdt"] = net.get("withdrawal_fee_usdt")
+        updated["deposit_fee_usdt"] = net.get("deposit_fee_usdt")
+    except Exception:
+        updated["executable"] = False
+        updated["profitable"] = False
+        updated["cancel_reason"] = "net_recompute_error"
     return updated
 
 
@@ -156,7 +187,7 @@ async def rewalk_opportunity_slippage(
     if kind in {"cross_exchange", "fast_cross", "stream_cross_exchange"}:
         return _rewalk_cross_exchange(opportunity, books=books, age_ms=age_ms, notional=notional)
 
-    return {**opportunity, "rewalk": "skipped", "executable": True}
+    return {**opportunity, "rewalk": "skipped", "executable": False, "profitable": False, "cancel_reason": "kind_not_rewalkable"}
 
 
 async def validate_alert(opportunity: dict[str, Any]) -> tuple[bool, dict[str, Any]]:

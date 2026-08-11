@@ -29,8 +29,14 @@ def test_withdrawal_and_deposit_fees():
     fee_matrix._matrix.clear()
     w = fee_matrix.withdrawal_fee_usdt("binance", "BTC/USDT")
     d = fee_matrix.deposit_fee_usdt("binance", "BTC/USDT")
-    assert w >= 0
+    assert w is not None and w >= 0
     assert d >= 0
+
+
+def test_unknown_withdrawal_fee_is_none_not_zero():
+    fee_matrix._matrix.clear()
+    assert fee_matrix.withdrawal_fee_usdt("binance", "ZZZCOIN/USDT") is None
+    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") is None
 
 
 def test_trading_fees_usdt_scales_with_notional():
@@ -52,7 +58,8 @@ def test_matrix_stats_after_seed():
 def test_unknown_exchange_uses_defaults():
     fee_matrix._matrix.clear()
     assert fee_matrix.taker_fee("unknown_venue_xyz") > 0
-    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") >= 0
+    # Unknown venue/asset withdrawal must not invent a zero fee.
+    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") is None
 
 
 def test_maker_fee_and_trading_fees_maker():

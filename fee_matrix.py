@@ -75,12 +75,18 @@ def maker_fee(exchange_id: str, *, market: str = "spot") -> float:
     return float(row.get("maker") or config.DEFAULT_MAKER_FEE)
 
 
-def withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float:
+def withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float | None:
+    """Return known USDT withdrawal fee, or None when unknown (never invent 0)."""
     _ensure_seeded()
     base = symbol.split("/")[0].upper()
     row = _matrix.get(exchange_id.lower()) or _default_row(exchange_id.lower())
     w = row.get("withdrawal") or {}
-    return float(w.get(base) or WITHDRAWAL_FEE_USDT.get(exchange_id.lower(), {}).get(base, 0.0))
+    if base in w and w[base] is not None:
+        return float(w[base])
+    seed = WITHDRAWAL_FEE_USDT.get(exchange_id.lower(), {}).get(base)
+    if seed is not None:
+        return float(seed)
+    return None
 
 
 def deposit_fee_usdt(exchange_id: str, symbol: str) -> float:

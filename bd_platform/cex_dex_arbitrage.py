@@ -315,7 +315,7 @@ def _cex_dex_row(
         "net_spread_bps": round(net_bps, 2),
         "estimated_profit_usd": round(est_profit, 2),
         "quote_usd": quote_usd,
-        "profitable": net_bps > 0,
+        "topline_positive": net_bps > 0, "profitable": False, "executable": False, "indicative": True, "indicative_reason": "cex_dex_mid_price_no_depth",
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (
             f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "

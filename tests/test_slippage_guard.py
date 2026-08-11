@@ -216,9 +216,19 @@ async def test_validate_alert_cancels_on_crowd_guard(monkeypatch):
     slippage_guard._active_alerts.clear()
     _seed_cross_books(wide_spread=True)
 
+    async def _fake_rewalk(opportunity, *, quote_amount=None):
+        return {
+            **opportunity,
+            "executable": True,
+            "profitable": True,
+            "net_executable_profit_usdt": 5.0,
+            "rewalk": "ok",
+        }
+
     async def _fake_crowd(opp):
         return False, {**opp, "cancel_reason": "crowd_saturation", "executable": False}
 
+    monkeypatch.setattr(slippage_guard, "rewalk_opportunity_slippage", _fake_rewalk)
     monkeypatch.setattr("flywheel_saturation_guard.apply_crowd_guard_to_alert", _fake_crowd)
     send, updated = await slippage_guard.validate_alert(
         {
@@ -252,4 +262,6 @@ async def test_rewalk_skipped_kind():
     _seed_cross_books(wide_spread=True)
     out = await slippage_guard.rewalk_opportunity_slippage({"kind": "unknown_kind"})
     assert out.get("rewalk") == "skipped"
-    assert out.get("executable") is True
+    # Unknown kinds must fail closed — never inherit optimistic executable.
+    assert out.get("executable") is False
+    assert out.get("cancel_reason") == "kind_not_rewalkable"
