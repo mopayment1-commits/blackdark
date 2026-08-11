@@ -1,7 +1,9 @@
-"""Alembic environment — baseline for Postgres migrations.
+"""Alembic environment — optional tooling only (NOT runtime authority).
 
-Runtime still applies lightweight `_apply_migrations` for SQLite Soft Launch.
-Production Postgres should prefer Alembic revisions going forward.
+Canonical schema authority is database.SCHEMA + database._apply_migrations
+applied via init_db() for both SQLite and PostgreSQL. See
+docs/DATABASE_MIGRATIONS.md. Do not enable a second competing Alembic path
+until a full revision set replaces _apply_migrations explicitly.
 """
 
 from __future__ import annotations
