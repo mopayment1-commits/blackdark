@@ -33,6 +33,12 @@ Remediation evidence commit: `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`
 
 ## D. Security verification
 
+- CodeQL Alerts API: **403** for agent — cannot certify open=0 on GitHub UI without human paste
+- Remediation landed on PR #58 for remaining main clear-text logging (Stripe/Vault) + coin/chat DOM sinks
+- See `docs/BLACKDARK_SECURITY_CERTIFICATION.md`
+
+## D2. Security verification (prior)
+
 - CodeQL (python/js/actions): PASS on PR #58 tip checks
 - pip-audit + pytest-security: PASS
 - Authz/session adversarial tests: PASS

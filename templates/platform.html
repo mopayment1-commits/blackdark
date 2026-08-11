@@ -756,7 +756,10 @@ async function verifyPlatformKeys() {
         out.innerHTML = (data.results || []).map(r =>
             `<div>${esc(r.service)}: ${esc(formatKeyVerify(r))}</div>`
         ).join('');
-    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || esc('Verification failed — ' + (error.message || '')); }
+    } catch (error) {
+        console.debug(error);
+        out.textContent = 'Verification failed — ' + String(error?.message || 'unknown');
+    }
 }
 
 document.getElementById('chartSymbol').addEventListener('change', loadChart);

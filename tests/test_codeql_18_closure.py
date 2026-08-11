@@ -83,6 +83,8 @@ def test_coin_no_incomplete_regex_sanitizer():
     assert ".replace(/<[^>]+>/g" not in coin
     assert "plainText" in coin
     assert "textContent" in coin
+    # Stats grid must not rebuild via escaped HTML strings.
+    assert "stats.innerHTML" not in coin
 
 
 def test_admin_key_file_loader():

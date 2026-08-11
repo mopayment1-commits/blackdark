@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stripe production setup — validate keys and print Railway checklist."""
+"""Stripe production setup — validate keys and print Railway checklist (no secret values)."""
 from __future__ import annotations
 
 import json
@@ -16,6 +16,10 @@ def _env(name: str) -> str:
     return os.getenv(name, "").strip()
 
 
+def _is_set(name: str) -> bool:
+    return bool(_env(name))
+
+
 def _stripe_get(path: str, secret: str) -> dict | None:
     req = urllib.request.Request(
         f"https://api.stripe.com/v1{path}",
@@ -25,18 +29,17 @@ def _stripe_get(path: str, secret: str) -> dict | None:
         with urllib.request.urlopen(req, timeout=20) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as exc:
-        body = exc.read().decode(errors="replace")
-        print(f"  Stripe API error {exc.code}: {body[:200]}")
+        # Never print response bodies (may include account/secret-adjacent payloads).
+        print(f"  Stripe API error HTTP {exc.code}")
         return None
-    except Exception as exc:
-        print(f"  Stripe API unreachable: {exc}")
+    except Exception:
+        print("  Stripe API unreachable")
         return None
 
 
-def _print_checklist(checklist: list[tuple[str, str, str]]) -> int:
+def _print_checklist(keys: list[tuple[str, bool, str]]) -> int:
     missing = 0
-    for key, val, hint in checklist:
-        ok = bool(val)
+    for key, ok, hint in keys:
         if key.startswith("STRIPE_") and key != "STRIPE_PRICE_WHALE" and not ok:
             missing += 1
         mark = "SET" if ok else "MISSING"
@@ -46,19 +49,33 @@ def _print_checklist(checklist: list[tuple[str, str, str]]) -> int:
     return missing
 
 
-def _validate_stripe(secret: str, price_pro: str) -> None:
-    if not secret.startswith(("sk_live_", "sk_test_")):
+def _validate_stripe() -> None:
+    secret = _env("STRIPE_SECRET_KEY")
+    price_pro = _env("STRIPE_PRICE_PRO")
+    if not secret:
         return
+    # Derive livemode WITHOUT embedding the secret variable in a print expression.
+    is_test = secret.startswith("sk_test_")
+    is_live = secret.startswith("sk_live_")
+    live_label = "yes" if is_live else "no"
     print("\n--- Validating secret key ---")
+    if not (is_test or is_live):
+        print("  Invalid STRIPE_SECRET_KEY prefix (expected sk_live_ or sk_test_)")
+        return
+    print(f"  Livemode: {live_label}")
     acct = _stripe_get("/account", secret)
     if acct:
-        print(f"  Account: {acct.get('settings', {}).get('dashboard', {}).get('display_name') or acct.get('id')}")
-        print(f"  Livemode: {not secret.startswith('sk_test_')}")
+        dash = (acct.get("settings") or {}).get("dashboard") or {}
+        name = dash.get("display_name") or acct.get("id") or "ok"
+        # Account display name / id only — never dump the full account object.
+        print(f"  Account: {name}")
     if price_pro:
         price = _stripe_get(f"/prices/{price_pro}", secret)
         if price:
             amt = (price.get("unit_amount") or 0) / 100
-            print(f"  Pro price: ${amt:.2f} {price.get('currency', '').upper()} active={price.get('active')}")
+            cur = str(price.get("currency") or "").upper()
+            active = bool(price.get("active"))
+            print(f"  Pro price: ${amt:.2f} {cur} active={active}")
 
 
 def main() -> int:
@@ -67,24 +84,15 @@ def main() -> int:
     print("=" * 60)
     print(f"\nProduction URL: {PROD_URL}\n")
 
-    secret = _env("STRIPE_SECRET_KEY")
-    webhook = _env("STRIPE_WEBHOOK_SECRET")
-    price_pro = _env("STRIPE_PRICE_PRO")
-    price_whale = _env("STRIPE_PRICE_WHALE")
-
     print("--- Railway Variables ---")
     checklist = [
-        ("STRIPE_SECRET_KEY", secret, "sk_live_... from Stripe Dashboard"),
-        ("STRIPE_PRICE_PRO", price_pro, "price_... for $29/mo Decision Pro USD"),
-        ("STRIPE_PRICE_WHALE", price_whale, "price_... for $49/mo Decision Desk USD (optional)"),
-        ("STRIPE_WEBHOOK_SECRET", webhook, "whsec_... endpoint POST /webhook"),
-        (
-            "STRIPE_SUCCESS_URL",
-            _env("STRIPE_SUCCESS_URL") or f"{PROD_URL}/success?session_id={{CHECKOUT_SESSION_ID}}",
-            "Redirect after payment",
-        ),
-        ("STRIPE_CANCEL_URL", _env("STRIPE_CANCEL_URL") or f"{PROD_URL}/cancel", "Checkout cancel"),
-        ("APP_BASE_URL", _env("APP_BASE_URL") or PROD_URL, "Must match Railway domain"),
+        ("STRIPE_SECRET_KEY", _is_set("STRIPE_SECRET_KEY"), "sk_live_... from Stripe Dashboard"),
+        ("STRIPE_PRICE_PRO", _is_set("STRIPE_PRICE_PRO"), "price_... for $29/mo Decision Pro USD"),
+        ("STRIPE_PRICE_WHALE", _is_set("STRIPE_PRICE_WHALE"), "price_... for $49/mo Decision Desk USD (optional)"),
+        ("STRIPE_WEBHOOK_SECRET", _is_set("STRIPE_WEBHOOK_SECRET"), "whsec_... endpoint POST /webhook"),
+        ("STRIPE_SUCCESS_URL", _is_set("STRIPE_SUCCESS_URL"), "Redirect after payment"),
+        ("STRIPE_CANCEL_URL", _is_set("STRIPE_CANCEL_URL"), "Checkout cancel"),
+        ("APP_BASE_URL", _is_set("APP_BASE_URL"), "Must match Railway domain"),
     ]
     missing = _print_checklist(checklist)
 
@@ -93,11 +101,14 @@ def main() -> int:
     print("  2. Copy Price ID -> STRIPE_PRICE_PRO")
     print("  3. Developers -> Webhooks -> Add endpoint:")
     print(f"     URL: {PROD_URL}/webhook")
-    print("     Events: checkout.session.completed, customer.subscription.*, invoice.paid, invoice.payment_failed, charge.refunded")
+    print(
+        "     Events: checkout.session.completed, customer.subscription.*, "
+        "invoice.paid, invoice.payment_failed, charge.refunded"
+    )
     print("  4. Copy signing secret -> STRIPE_WEBHOOK_SECRET")
     print(f"  5. Test checkout: {PROD_URL}/create-checkout-session?tier=pro")
 
-    _validate_stripe(secret, price_pro)
+    _validate_stripe()
 
     print("\n--- After Railway deploy ---")
     print("  curl", f"{PROD_URL}/api/gtm/status")

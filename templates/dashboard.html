@@ -407,13 +407,19 @@
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
             if (!log) return;
-            if (log.querySelector('.empty')) log.innerHTML = '';
+            const empty = log.querySelector('.empty');
+            if (empty) empty.remove();
+            // DOM-only construction — never assign HTML strings (CodeQL XSS / bad sanitization).
             const row = document.createElement('div');
             row.style.margin = '.45rem 0';
-            const safe = escapeHtml(text);
-            row.innerHTML = role === 'user'
-                ? `<div style="color:#a1a1aa"><strong>You</strong> · ${safe}</div>`
-                : `<div style="color:#e4e4e7"><strong style="color:#22d3ee">AI</strong> · ${safe}</div>`;
+            const wrap = document.createElement('div');
+            wrap.style.color = role === 'user' ? '#a1a1aa' : '#e4e4e7';
+            const strong = document.createElement('strong');
+            if (role !== 'user') strong.style.color = '#22d3ee';
+            strong.textContent = role === 'user' ? 'You' : 'AI';
+            wrap.appendChild(strong);
+            wrap.appendChild(document.createTextNode(' · ' + String(text ?? '')));
+            row.appendChild(wrap);
             log.appendChild(row);
             log.scrollTop = log.scrollHeight;
         }
