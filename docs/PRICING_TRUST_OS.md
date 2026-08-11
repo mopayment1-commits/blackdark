@@ -1,8 +1,9 @@
 # Trust OS Pricing — Depth Ladder (Binding · Option A)
 
 **Canon:** 1 product · 4 value layers · 6 heroes.  
-**Option A (final):** Proof Pass $0 · Decision Pro $29 (7-day trial) · Decision Desk $49 · Institutional From $3,000/mo → open.  
-**Not:** multi-platform SKUs, Essential ($15), Observer ($9), or guaranteed accuracy.
+**Option A (final · merged to `main`):** Proof Pass $0 · Decision Pro $29 (7-day trial) · Decision Desk $49 · Institutional From $3,000/mo → open.  
+**Not:** multi-platform SKUs, Essential ($15), Observer ($9), or guaranteed accuracy.  
+**Closure:** Signup plan picker + sequential upgrades shipped; no open pricing deferral for Option A.
 
 ## Story
 
