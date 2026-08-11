@@ -148,6 +148,7 @@ def main() -> int:
     lemon = block.get("LEMON_SQUEEZY_CHECKOUT_PRO", "")
     if not re.match(r"^https://.+/checkout/", lemon):
         print("WARN: Lemon checkout URL looks unexpected — verify in Lemon dashboard")
+        return 1
     return 0
 
 
