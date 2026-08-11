@@ -39,7 +39,9 @@ ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
 </div>
 <p class="promo-cta" data-hype>This promo must never show in Anti-Hype Mode.</p>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 function key(){return localStorage.getItem('bd_user_key')||'anon';}
 function apply(on){
   document.cookie='bd_anti_hype='+(on?'1':'0')+'; path=/; max-age=31536000; SameSite=Lax';
@@ -53,7 +55,7 @@ async function load(){
   const d=await r.json();
   apply(!!d.enabled);
   document.getElementById('state').textContent=d.enabled?'Anti-Hype Mode is ON — evidence only.':'Anti-Hype Mode is OFF.';
-  document.getElementById('show').innerHTML=(d.when_on?.show||[]).map(x=>`<li><b>${x}</b></li>`).join('');
+  document.getElementById('show').innerHTML=(d.when_on?.show||[]).map(x=>`<li><b>${esc(x)}</b></li>`).join('');
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
 async function setMode(on){

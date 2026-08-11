@@ -27,7 +27,9 @@ ul{line-height:1.55}
   <a class="btn" href="/api/due-diligence/committee-one-pager.pdf">Download PDF</a>
   <a class="btn" href="/b2b">Back to B2B</a>
 </p>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 async function load(){
   // Public printable shell; full JSON may require Desk session — fall back to kill-rate + public summary
   let pack=null;
@@ -56,8 +58,8 @@ async function load(){
   }
   document.getElementById('thesis').textContent=pack.bullets?.[0]||'';
   document.getElementById('kill').textContent=(pack.kill_rate?.kill_rate_percent??0)+'%';
-  document.getElementById('bullets').innerHTML=(pack.bullets||[]).map(b=>`<li>${b}</li>`).join('');
-  document.getElementById('checks').innerHTML=(pack.checklist||[]).map(b=>`<li>${typeof b==='string'?b:JSON.stringify(b)}</li>`).join('');
+  document.getElementById('bullets').innerHTML=(pack.bullets||[]).map(b=>`<li>${esc(b)}</li>`).join('');
+  document.getElementById('checks').innerHTML=(pack.checklist||[]).map(b=>`<li>${esc(typeof b==='string'?b:JSON.stringify(b))}</li>`).join('');
 }
 await load();</script>
 </body></html>

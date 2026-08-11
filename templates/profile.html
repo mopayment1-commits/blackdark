@@ -109,7 +109,9 @@
         </main>
     </div>
 </div>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+    const { esc } = window.BDDomSafe;
     function authHeaders() {
         // HttpOnly cookie session — do not attach Bearer from localStorage.
         return { 'Content-Type': 'application/json' };
@@ -135,7 +137,7 @@
         const tier = (d.tier && d.tier.label) || u.tier || 'free';
         const tierId = String((d.tier && d.tier.id) || u.tier || 'free').toLowerCase();
         const mfaPill = d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>';
-        document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' + mfaPill;
+        document.getElementById('planPills').innerHTML = '<span class="pill">' + esc(tier) + '</span>' + mfaPill;
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
             ? 'Authenticator MFA is enabled. Recommended for Decision Desk.'
             : 'Optional TOTP MFA — strongly recommended for paid tiers.';
@@ -204,13 +206,13 @@
             const v = d.value || {};
             const u = d.usage || {};
             el.innerHTML =
-                `Oracle calls (30d): <strong style="color:var(--text)">${u.oracle_calls_30d ?? 0}</strong>` +
-                ` · Risk warnings: <strong style="color:var(--text)">${u.risk_warnings_30d ?? 0}</strong><br>` +
-                `Estimated research value: <strong style="color:var(--accent)">$${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}</strong>` +
+                `Oracle calls (30d): <strong style="color:var(--text)">${esc(u.oracle_calls_30d ?? 0)}</strong>` +
+                ` · Risk warnings: <strong style="color:var(--text)">${esc(u.risk_warnings_30d ?? 0)}</strong><br>` +
+                `Estimated research value: <strong style="color:var(--accent)">$${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}</strong>` +
                 (() => {
                     if (v.covers_subscription == null) return '';
                     const cover = v.covers_subscription ? 'yes' : 'not yet';
-                    return ` · Covers plan: <strong style="color:var(--text)">${cover}</strong>`;
+                    return ` · Covers plan: <strong style="color:var(--text)">${esc(cover)}</strong>`;
                 })() +
                 `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
         } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
@@ -235,8 +237,7 @@
         const f = document.getElementById('avatarFile').files[0];
         if (!f) return setMsg('profileMsg', 'Choose a file first', false);
         const fd = new FormData(); fd.append('file', f);
-        const t = localStorage.getItem('bd_token');
-        const res = await fetch('/api/auth/avatar', { method: 'POST', headers: t ? { Authorization: 'Bearer ' + t } : {}, body: fd, credentials: 'same-origin' });
+        const res = await fetch('/api/auth/avatar', { method: 'POST', body: fd, credentials: 'same-origin' });
         const d = await res.json();
         setMsg('profileMsg', res.ok ? 'Avatar updated' : (d.detail || 'Upload failed'), res.ok);
         if (res.ok) load();

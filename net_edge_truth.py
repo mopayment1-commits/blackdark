@@ -124,12 +124,25 @@ def _crowd_residual_profit(opportunity: dict[str, Any], net_profit: float) -> tu
     }
 
 
+def _parse_withdrawal_fee_usdt(opportunity: dict[str, Any]) -> float | None:
+    """Return known withdrawal fee, or None when missing/unknown (never invent 0)."""
+    if "withdrawal_fee_usdt" not in opportunity:
+        return None
+    raw = opportunity.get("withdrawal_fee_usdt")
+    if raw is None:
+        return None
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return None
+
+
 def _truth_inputs(
     opportunity: dict[str, Any],
     net_profit_usdt: float | None,
     quote_amount: float | None,
     total_slippage_bps: float | None,
-) -> tuple[float, float, float, float, float]:
+) -> tuple[float, float, float, float | None, float]:
     net = float(net_profit_usdt if net_profit_usdt is not None else opportunity.get("net_profit_usdt") or 0.0)
     notional = float(
         quote_amount
@@ -144,7 +157,8 @@ def _truth_inputs(
         else opportunity.get("total_slippage_bps")
         or 0.0
     )
-    withdrawal = float(opportunity.get("withdrawal_fee_usdt") or 0.0)
+    # Align with fee_matrix.withdrawal_fee_usdt: unknown → None (fail closed).
+    withdrawal = _parse_withdrawal_fee_usdt(opportunity)
     trading_fees = float(opportunity.get("trading_fees_usdt") or opportunity.get("fees_usdt") or 0.0)
     return net, notional, slippage_bps, withdrawal, trading_fees
 
@@ -252,6 +266,43 @@ def _record_truth_stats(reject: bool, reasons: list[str], truth_score: float, op
         logger.debug("kill_rate record failed", exc_info=True)
 
 
+def _missing_withdrawal_reject(opportunity: dict[str, Any], *, net: float, notional: float) -> dict[str, Any]:
+    """Fail closed: unknown withdrawal must not inflate net-edge / Truth Score."""
+    reasons = ["missing_withdrawal_fee"]
+    _record_truth_stats(True, reasons, 0.0, opportunity)
+    return {
+        "enabled": True,
+        "truth_score": 0.0,
+        "reject": True,
+        "pass": False,
+        "reasons": reasons,
+        "components": {
+            "edge_score": 0.0,
+            "latency_score": 0.0,
+            "slippage_score": 0.0,
+            "fee_score": 0.0,
+        },
+        "economics": {
+            "net_profit_usdt": round(net, 6),
+            "residual_after_crowd_usd": None,
+            "latency_buffer_usd": None,
+            "truth_edge_usd": None,
+            "min_residual_usd": _min_residual_usd(),
+            "quote_age_ms": None,
+            "total_slippage_bps": None,
+            "withdrawal_fee_usdt": None,
+            "trading_fees_usdt": None,
+            "notional_usd": round(notional, 4),
+        },
+        "crowd": {},
+        "thresholds": {
+            "min_truth_score": _min_truth_score(),
+            "min_residual_usd": _min_residual_usd(),
+            "max_quote_age_ms": _max_quote_age_ms(),
+        },
+    }
+
+
 def _truth_result(pack: dict[str, Any]) -> dict[str, Any]:
     age_ms = pack["age_ms"]
     return {
@@ -307,6 +358,9 @@ def compute_net_edge_truth(
         quote_amount,
         total_slippage_bps,
     )
+    if withdrawal is None:
+        # Executable / net-edge claims must not invent a zero withdrawal fee.
+        return _missing_withdrawal_reject(opp, net=net, notional=notional)
     residual, crowd_meta = _crowd_residual_profit(opp, net)
     age_ms = _quote_age_ms(opp)
     latency_buffer_usd = _latency_buffer_usd(age_ms, notional)

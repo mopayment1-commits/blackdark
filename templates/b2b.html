@@ -222,9 +222,18 @@
             };
         }
 
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
+        }
+        function esc(s) { return escapeHtml(s); }
         function listItemLabel(item) {
-            if (typeof item === 'string') return item;
-            return item.title || item.name || item.item || item.label || JSON.stringify(item);
+            if (typeof item === 'string') return esc(item);
+            return esc(item.title || item.name || item.item || item.label || JSON.stringify(item));
         }
         function disconnectWs() {
             if (ws) ws.close();
@@ -299,7 +308,7 @@
             cards.innerHTML = `
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Thesis</h3>
-                    <p style="color:var(--muted);margin:0">${typeof thesis === 'string' ? thesis : JSON.stringify(thesis)}</p>
+                    <p style="color:var(--muted);margin:0">${esc(typeof thesis === 'string' ? thesis : JSON.stringify(thesis))}</p>
                 </div>
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Differentiators</h3>

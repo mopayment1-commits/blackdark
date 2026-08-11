@@ -30,8 +30,9 @@ code{color:var(--ok)}
 <div class="box"><h2>Seven defects</h2><div id="list"></div></div>
 <p class="sub">API <code>/api/public/zero-tolerance-closure</code></p>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
+const { esc } = window.BDDomSafe;
 async function load(){
   const d=await (await fetch('/api/public/zero-tolerance-closure')).json();
   document.getElementById('thesis').textContent=d.thesis||'';

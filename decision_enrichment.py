@@ -13,6 +13,19 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.DecisionEnrichment")
 
 
+def _truth_withdrawal_fee_usdt(out: dict[str, Any]) -> float | None:
+    """Preserve unknown withdrawal as None — never invent 0.0 for Truth Score inputs."""
+    if "withdrawal_fee_usdt" not in out:
+        return None
+    raw = out.get("withdrawal_fee_usdt")
+    if raw is None:
+        return None
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return None
+
+
 def _truth_input(out: dict[str, Any], asset: str, score: float, net_profit: float) -> dict[str, Any]:
     # Synthetic edge proxy for directional oracle (non-arb): use score as confidence of edge
     return {
@@ -21,7 +34,7 @@ def _truth_input(out: dict[str, Any], asset: str, score: float, net_profit: floa
         "net_profit_usdt": net_profit or max(0.0, (score - 50.0) / 50.0),
         "quote_amount": float(out.get("quote_amount") or out.get("volume_24h") or 1000),
         "total_slippage_bps": float(out.get("total_slippage_bps") or 8.0),
-        "withdrawal_fee_usdt": float(out.get("withdrawal_fee_usdt") or 0.0),
+        "withdrawal_fee_usdt": _truth_withdrawal_fee_usdt(out),
         "quote_age_ms": out.get("quote_age_ms"),
         "estimated_recipients": int(out.get("estimated_recipients") or 5),
     }

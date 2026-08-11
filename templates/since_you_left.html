@@ -31,7 +31,9 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:0 0 .5r
 <p class="sub" id="meta"></p>
 <div id="list"></div>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc, safeUrl } = window.BDDomSafe;
 function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
 function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id());localStorage.setItem('bd_user_key',k);document.getElementById('userKey').value=k;}return k;}
 async function load(touch){
@@ -43,8 +45,8 @@ async function load(touch){
   meta += (d.headline || '');
   document.getElementById('meta').textContent = meta;
   document.getElementById('list').innerHTML=(d.top3||[]).map((x,i)=>`
-    <div class="card" data-evidence><h2>${i+1}. ${x.title}</h2><p>${x.detail}</p>
-    <p style="margin-top:.5rem"><a href="${x.href||'/'}">Open</a></p></div>`).join('');
+    <div class="card" data-evidence><h2>${i+1}. ${esc(x.title)}</h2><p>${esc(x.detail)}</p>
+    <p style="margin-top:.5rem"><a href="${safeUrl(x.href)||'/'}">Open</a></p></div>`).join('');
 }
 Object.assign(window, { load });
 await load(true);</script>

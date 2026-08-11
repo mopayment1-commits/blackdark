@@ -59,7 +59,9 @@
     <div id="board"></div>
     <p class="sub" style="margin-top:1.5rem;font-size:.75rem" id="disc"></p>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
 function key(){let k=(document.getElementById('userKey').value||'').trim(); if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id()); localStorage.setItem('bd_user_key',k); document.getElementById('userKey').value=k;} return k;}
 async function load(){
@@ -71,7 +73,7 @@ async function load(){
   document.getElementById('oMeta').textContent=`${d.oracle?.samples||0} resolved samples`;
   document.getElementById('disc').textContent=d.disclaimer||'';
   document.getElementById('board').innerHTML=(d.leaderboard||[]).map(x=>
-    `<div class="row"><b style="color:var(--fg)">${x.user}</b> · ${x.picks} picks · hit ${x.hit_rate_percent??'—'}%</div>`
+    `<div class="row"><b style="color:var(--fg)">${esc(x.user)}</b> · ${esc(x.picks)} picks · hit ${esc(x.hit_rate_percent??'—')}%</div>`
   ).join('') || '<div class="row">Be first this week.</div>';
 }
 async function pick(){

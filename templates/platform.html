@@ -262,7 +262,9 @@
     </div>
 </main>
 
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { escapeHtml, esc, safeUrl, setText } = window.BDDomSafe;
 const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, {maximumFractionDigits: d});
 let chart, candleSeries;
 let rankingsCache = [];
@@ -346,7 +348,7 @@ async function loadRankings() {
         rankingsCache = (data.coins || []).slice(0, 100);
         filterRankings();
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rankings'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load rankings')}</div>`;
     }
 }
 
@@ -359,9 +361,10 @@ function filterRankings() {
     if (sort === 'mcap') rows.sort((a,b)=>(b.market_cap_usd||0)-(a.market_cap_usd||0));
     const body = rows.slice(0,50).map(c => {
         const cls = (c.change_24h_pct||0)>=0 ? 'pos' : 'neg';
-        return `<tr onclick="location.href='/platform/coin/${c.id}'">
-            <td>${c.rank}</td>
-            <td><strong>${c.symbol}</strong><br><span style="color:var(--muted)">${c.name||''}</span></td>
+        const coinPath = '/platform/coin/' + encodeURIComponent(String(c.id || ''));
+        return `<tr onclick="location.href='${esc(coinPath)}'">
+            <td>${esc(c.rank)}</td>
+            <td><strong>${esc(c.symbol)}</strong><br><span style="color:var(--muted)">${esc(c.name||'')}</span></td>
             <td>${sparkSvg(c.sparkline_7d)}</td>
             <td>$${fmt(c.price_usd)}</td>
             <td class="${cls}">${fmt(c.change_24h_pct)}%</td>
@@ -394,12 +397,12 @@ async function loadCexDex() {
         }
         wrap.innerHTML = opps.slice(0, 8).map(o => `
             <div class="metric-row">
-                <span><strong>${o.asset}</strong> ${o.buy_venue} → ${o.sell_venue}
-                <span style="color:var(--muted);font-size:.72rem"> · ${o.execution_feasibility||''}</span></span>
-                <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)}</span>
+                <span><strong>${esc(o.asset)}</strong> ${esc(o.buy_venue)} → ${esc(o.sell_venue)}
+                <span style="color:var(--muted);font-size:.72rem"> · ${esc(o.execution_feasibility||'indicative')}</span></span>
+                <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)} <span style="color:var(--muted);font-size:.68rem">indicative</span></span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Scan failed'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Scan failed')}</div>`;
     }
 }
 
@@ -435,10 +438,10 @@ async function loadDerivCompare() {
         const cex = (data.cex_funding || []).slice(0, 6);
         const dex = (data.dex_perp_quotes || []).slice(0, 6);
         const cexHtml = cex.length
-            ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
+            ? cex.map(r => `<div class="metric-row"><span>${esc(r.exchange||'?')}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
             : '<div class="loading">No CEX funding</div>';
         const dexHtml = dex.length
-            ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
+            ? dex.map(r => `<div class="metric-row"><span>${esc(r.exchange||r.venue||'?')}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
             : '<div class="loading">No DEX perp data</div>';
         wrap.innerHTML = `<div class="grid-2">
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">CEX Funding</h3>
@@ -447,16 +450,16 @@ async function loadDerivCompare() {
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">DEX Perp</h3>
             ${dexHtml}
             </div></div>
-            <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${data.comparison_note||''}</p>`;
+            <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${esc(data.comparison_note||'')}</p>`;
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Compare failed'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Compare failed')}</div>`;
     }
 }
 
 function showMsg(id, text, ok) {
     const el = document.getElementById(id);
     if (!text) { el.innerHTML = ''; return; }
-    el.innerHTML = `<div class="msg ${ok ? 'ok' : 'err'}">${text}</div>`;
+    el.innerHTML = `<div class="msg ${ok ? 'ok' : 'err'}">${esc(text)}</div>`;
 }
 
 async function loadGrids() {
@@ -471,11 +474,11 @@ async function loadGrids() {
         }
         wrap.innerHTML = rows.slice(-5).reverse().map(g => `
             <div class="metric-row">
-                <span><strong>${g.asset}</strong> $${fmt(g.lower_price,0)}–$${fmt(g.upper_price,0)} · ${g.grids} grids</span>
-                <span class="pill">${g.mode||'paper'}</span>
+                <span><strong>${esc(g.asset)}</strong> $${fmt(g.lower_price,0)}–$${fmt(g.upper_price,0)} · ${esc(g.grids)} grids</span>
+                <span class="pill">${esc(g.mode||'paper')}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load grids'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load grids')}</div>`;
     }
 }
 
@@ -510,11 +513,11 @@ async function loadRules() {
         }
         wrap.innerHTML = rows.slice(-6).reverse().map(r => `
             <div class="metric-row">
-                <span><code style="font-size:.75rem">IF ${r.if} → ${r.then}</code></span>
+                <span><code style="font-size:.75rem">IF ${esc(r.if)} → ${esc(r.then)}</code></span>
                 <span class="pill">${r.enabled ? 'on' : 'off'}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rules'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load rules')}</div>`;
     }
 }
 
@@ -570,7 +573,7 @@ async function runRebalance() {
         const trades = data.trades || [];
         wrap.innerHTML = trades.length
             ? trades.map(t => `<div class="metric-row">
-                <span><strong>${t.asset}</strong> ${t.side.toUpperCase()} $${fmt(t.amount_usd)}</span>
+                <span><strong>${esc(t.asset)}</strong> ${esc(String(t.side||'').toUpperCase())} $${fmt(t.amount_usd)}</span>
                 <span>${fmt(t.current_weight_pct)}% → ${fmt(t.target_weight_pct)}%</span>
             </div>`).join('')
             : '<div class="loading">Portfolio already balanced</div>';
@@ -585,10 +588,10 @@ async function loadMarketplace() {
         const res = await platformFetch('/api/platform/marketplace/strategies');
         const data = await res.json();
         wrap.innerHTML = (data.strategies||[]).map(s =>
-            `<div class="metric-row"><span>${s.name} <span style="color:var(--muted)">${s.kind||''}</span></span><span class="pill">${s.tier}</span></div>`
+            `<div class="metric-row"><span>${esc(s.name)} <span style="color:var(--muted)">${esc(s.kind||'')}</span></span><span class="pill">${esc(s.tier)}</span></div>`
         ).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`;
     }
 }
 
@@ -617,9 +620,9 @@ async function loadLiquidations() {
         const res = await platformFetch(`/api/platform/liquidations/radar?asset=${asset}`);
         const data = await res.json();
         wrap.innerHTML = (data.alerts||[]).map(a =>
-            `<div class="metric-row"><span><strong>${a.type}</strong> · ${a.detail||''}</span><span class="pill">${a.severity}</span></div>`
+            `<div class="metric-row"><span><strong>${esc(a.type)}</strong> · ${esc(a.detail||'')}</span><span class="pill">${esc(a.severity)}</span></div>`
         ).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
 }
 
 async function loadUnlocks() {
@@ -631,10 +634,10 @@ async function loadUnlocks() {
         const sched = data.scheduled_unlocks||[];
         const press = data.supply_pressure||[];
         wrap.innerHTML = `<h3 style="font-size:.85rem;margin-bottom:.5rem">Scheduled</h3>` +
-            (sched.length ? sched.map(u=>`<div class="metric-row"><span>${u.asset} · ${u.unlock_date}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
+            (sched.length ? sched.map(u=>`<div class="metric-row"><span>${esc(u.asset)} · ${esc(u.unlock_date)}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
             `<h3 style="font-size:.85rem;margin:1rem 0 .5rem">Supply pressure</h3>` +
-            press.slice(0,8).map(u=>`<div class="metric-row"><span>${u.asset}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+            press.slice(0,8).map(u=>`<div class="metric-row"><span>${esc(u.asset)}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
 }
 
 async function loadFootprint() {
@@ -646,8 +649,8 @@ async function loadFootprint() {
         const data = await res.json();
         const depth = data.depth_levels||[];
         wrap.innerHTML = `<div class="metric-row"><span>Order-flow delta</span><span>${fmt(data.order_flow_delta,4)}</span></div>` +
-            depth.map(d=>`<div class="metric-row"><span>${d.exchange}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+            depth.map(d=>`<div class="metric-row"><span>${esc(d.exchange)}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
 }
 
 async function loadCoindesk() {
@@ -657,9 +660,9 @@ async function loadCoindesk() {
         const res = await platformFetch('/api/platform/news/coindesk?limit=8');
         const data = await res.json();
         wrap.innerHTML = (data.coindesk_headlines||[]).map(h=>
-            `<div class="metric-row"><span><a href="${h.link}" target="_blank" style="color:var(--text);text-decoration:none">${h.title}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
+            `<div class="metric-row"><span><a href="${safeUrl(h.link)}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none">${esc(h.title)}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
         ).join('') || '<div class="loading">No headlines</div>';
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
 }
 
 async function loadMacro() {
@@ -672,10 +675,10 @@ async function loadMacro() {
         wrap.innerHTML = (data.indicators||[]).map(i => {
             const val = i.value != null
                 ? fmt(i.value, 0)
-                : `<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`;
-            return `<div class="metric-row"><span>${i.label}</span><span>${val}</span></div>`;
-        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+                : `<a href="${safeUrl(i.url)}" target="_blank" rel="noopener" style="color:var(--accent)">Open</a>`;
+            return `<div class="metric-row"><span>${esc(i.label)}</span><span>${val}</span></div>`;
+        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${esc(live.fee_fastest_sat_vb||'—')} sat/vB</p>`;
+    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
 }
 
 async function runScript() {
@@ -703,14 +706,14 @@ async function loadPlatformKeys() {
         wrap.innerHTML = (data.keys || []).map(k => `
             <div class="key-row">
                 <div>
-                    <strong>${k.label || k.id}</strong>
-                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${keyStatusLabel(k)}</span>
-                    <div class="key-meta">${k.tier} · <a href="${k.signup}" target="_blank" rel="noopener">Sign up / API</a></div>
-                    <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off" aria-label="${k.env}">
+                    <strong>${esc(k.label || k.id)}</strong>
+                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${esc(keyStatusLabel(k))}</span>
+                    <div class="key-meta">${esc(k.tier)} · <a href="${safeUrl(k.signup)}" target="_blank" rel="noopener">Sign up / API</a></div>
+                    <input class="key-input" id="key_${esc(k.id)}" type="password" placeholder="${esc(k.env)}" autocomplete="off" aria-label="${esc(k.env)}">
                 </div>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Key status unavailable — start server'}</div>`;
+        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Key status unavailable — start server')}</div>`;
     }
 }
 
@@ -751,9 +754,9 @@ async function verifyPlatformKeys() {
         const res = await platformFetch('/api/platform/keys/verify');
         const data = await res.json();
         out.innerHTML = (data.results || []).map(r =>
-            `<div>${r.service}: ${formatKeyVerify(r)}</div>`
+            `<div>${esc(r.service)}: ${esc(formatKeyVerify(r))}</div>`
         ).join('');
-    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || ('Verification failed — ' + error.message); }
+    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || esc('Verification failed — ' + (error.message || '')); }
 }
 
 document.getElementById('chartSymbol').addEventListener('change', loadChart);

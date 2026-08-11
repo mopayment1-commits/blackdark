@@ -1059,7 +1059,10 @@
     
     {% include "partials/site_footer.html" %}
     
+    <script src="/static/js/dom_escape.js"></script>
     <script>
+        const { escapeHtml, esc, safeUrl } = window.BDDomSafe;
+
 function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
 
         window.lastOracleResult = null;
@@ -1169,10 +1172,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
             const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
             const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
-            const xBtn = (cert.share_urls && cert.share_urls.x) ? `<a class="btn-secondary" id="certShareX" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = (cert.share_urls && cert.share_urls.telegram) ? `<a class="btn-secondary" id="certShareTg" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>` : '';
+            const xHref = safeUrl(cert.share_urls && cert.share_urls.x);
+            const tgHref = safeUrl(cert.share_urls && cert.share_urls.telegram);
+            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">Share TG</a>` : '';
             certEl.innerHTML =
-                `Decision Certificate · <code>${hashLabel}</code>` +
+                `Decision Certificate · <code>${esc(hashLabel)}</code>` +
                 `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
                 copyBtn +
                 `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
@@ -1216,18 +1221,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const bits = ['bull','base','bear'].map(k => {
                     const s = scen[k] || {};
                     const pct = s.probability_pct != null ? s.probability_pct+'%' : '—';
-                    return `${s.label||k} ${pct}`;
+                    return `${esc(s.label||k)} ${esc(pct)}`;
                 }).join(' · ');
                 const disc = (data.scenarios && data.scenarios.disclaimer) || '';
-                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${disc}</div></div>`;
+                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
             }
             let whyList = '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
             if (factors.length) {
                 whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
                     const label = f.factor || f.label || f.name || f;
-                    const detail = f.detail ? ` — ${f.detail}` : '';
-                    const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
-                    return `<li>${label}${detail}${src}</li>`;
+                    const detail = f.detail ? ` — ${esc(f.detail)}` : '';
+                    const src = f.source ? ` <span style="opacity:.7">· ${esc(f.source)}</span>` : '';
+                    return `<li>${esc(label)}${detail}${src}</li>`;
                 }).join('') + '</ol>';
             }
             let certLine = '';
@@ -1235,10 +1240,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const hashShort = cert.certificate_hash
                     ? String(cert.certificate_hash).slice(0, 16) + '…'
                     : 'pending';
-                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${hashShort}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`;
+                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
             }
             whyEl.innerHTML =
-                `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'} · ${latencyMs}ms</div>` +
+                `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')} · ${esc(latencyMs)}ms</div>` +
                 whyList +
                 '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
                 '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
@@ -1270,13 +1275,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const truth = data.net_edge_truth || {};
                 const half = data.opportunity_half_life || {};
                 const conflict = data.dimension_conflict || {};
-                let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                let line = `Truth ${esc(truth.truth_score ?? '—')} · Half-life ${esc(half.remaining_seconds ?? '—')}s · Regime ${esc(data.market_regime || '—')}`;
                 if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
                     const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
-                    const sevBit = conflict.severity ? ' (' + conflict.severity + ')' : '';
+                    const sevBit = conflict.severity ? ' (' + esc(conflict.severity) + ')' : '';
                     line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
                 }
-                if (data.prediction_id) line += ` · Proof #${data.prediction_id}`;
+                if (data.prediction_id) line += ` · Proof #${esc(data.prediction_id)}`;
                 proMeta.style.display = 'block';
                 proMeta.innerHTML = line + (data.prediction_id
                     ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
@@ -1285,20 +1290,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             if (data.prediction_id) {
                 proMeta.style.display = 'block';
-                proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
             }
         }
         function paintLandingUpgrade(upgradeEl, data) {
             if (!data.upgrade_hint) return;
             const teaser = data.upgrade_hint.teaser || {};
             const teaserLine = [
-                teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
-                teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
-                teaser.regime ? `Regime ${teaser.regime}` : null,
+                teaser.truth_score != null ? `Truth teaser ${esc(teaser.truth_score)}` : null,
+                teaser.remaining_seconds != null ? `Half-life ~${esc(teaser.remaining_seconds)}s` : null,
+                teaser.regime ? `Regime ${esc(teaser.regime)}` : null,
             ].filter(Boolean).join(' · ');
             upgradeEl.style.display = 'block';
             upgradeEl.innerHTML =
-                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
+                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${esc(data.upgrade_hint.message || '')}` +
                 (teaserLine ? `<br>${teaserLine}` : '') +
                 `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
             document.getElementById('switchProBtn')?.addEventListener('click', () => {
@@ -1341,7 +1346,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const comp = document.getElementById('landingCompliance');
             if (!foot.disclaimer || !comp) return;
             comp.style.display = 'block';
-            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${esc(foot.data_source || '—')} · Trust: ${esc(foot.trust_basis || '—')}<br>${esc(foot.disclaimer)}`;
         }
 
         async function consultOracle() {
@@ -1379,7 +1384,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
                     }
                     return;
                 }
@@ -1509,8 +1514,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const why = document.getElementById('lpWhy');
             if (!why) return;
             why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
-                const detail = f.detail ? (' — ' + f.detail) : '';
-                return '<div><strong>' + (i + 1) + '. ' + (f.factor || f) + '</strong>' + detail + '</div>';
+                const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + '</div>';
             }).join('') || '';
         }
 
@@ -1520,11 +1525,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const box = document.getElementById('lpProof');
             if (!box) return;
             const bits = [
-                `<a class="bd-chip ok" href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
+                `<a class="bd-chip ok" href="${safeUrl(ledger.href) || '/oracle-accuracy'}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
             ];
-            if (proof.watermark) bits.push(`<span class="bd-chip">${proof.watermark}</span>`);
+            if (proof.watermark) bits.push(`<span class="bd-chip">${esc(proof.watermark)}</span>`);
             if (proof.certificate_hash) {
-                bits.push(`<span class="bd-chip">cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
+                bits.push(`<span class="bd-chip">cert ${esc(String(proof.certificate_hash).slice(0, 10))}…</span>`);
             }
             box.innerHTML = bits.join('');
         }

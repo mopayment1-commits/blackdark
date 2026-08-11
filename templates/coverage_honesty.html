@@ -41,14 +41,16 @@ code{color:var(--ok)} @media(max-width:700px){.grid{grid-template-columns:1fr}}
 </div>
 <p class="sub" id="disc"></p>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 async function load(){
   const d=await (await fetch('/api/public/coverage-honesty')).json();
   document.getElementById('doctrine').textContent=d.doctrine||'';
   document.getElementById('live').textContent=d.live?.count??0;
   document.getElementById('next').textContent=d.next_wave?.count??0;
   document.getElementById('prov').textContent=d.metrics?.btc_provenance_score??'—';
-  document.getElementById('liveIds').innerHTML=(d.live?.ids||[]).map(x=>`<code>${x}</code>`).join(' · ')||'—';
+  document.getElementById('liveIds').innerHTML=(d.live?.ids||[]).map(x=>`<code>${esc(x)}</code>`).join(' · ')||'—';
   document.getElementById('fix').textContent=d.radical_fix?.solution||'';
   document.getElementById('disc').textContent=d.disclaimer||'';
 }

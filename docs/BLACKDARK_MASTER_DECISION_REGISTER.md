@@ -35,7 +35,7 @@ Status key:
 | DEC-0009 | Zero-Tolerance 7 defects binding | PRODUCT/SECURITY | ZERO_TOLERANCE_BINDING | VERIFIED_IMPLEMENTED | `zero_tolerance.py`, tests, pages/API |
 | DEC-0010 | D1 Proof-Native Oracle | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | certificates / prediction_id / accuracy ledger surfaces + tests |
 | DEC-0011 | D2 Contradiction Veto | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | conflict/veto paths in oracle/dashboard |
-| DEC-0012 | D3 Net-Edge Truth (no false gross profit) | FINANCIAL | PRODUCT_CONSTITUTION | PARTIALLY_IMPLEMENTED | Hardened in fast_scan/exec/rewalk; `net_edge_truth.py` still `withdrawal or 0.0` |
+| DEC-0012 | D3 Net-Edge Truth (no false gross profit) | FINANCIAL | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | `net_edge_truth` + `decision_enrichment` fail-closed on unknown withdrawal; execution/rewalk hardened; tests `test_p0_financial_executability` / XSS fee assertions |
 | DEC-0013 | D4 Opportunity Half-Life | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | half-life fields + execution half-life gates |
 | DEC-0014 | D5 Regime-Conditional Models | AI/ML | PRODUCT_CONSTITUTION | PARTIALLY_IMPLEMENTED | regime modules/tests exist; not all paths proven |
 | DEC-0015 | D6 Evidence Pack API | ACQUISITION | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | evidence/data-room APIs + pages |
@@ -48,7 +48,7 @@ Status key:
 | DEC-0022 | Trust Pulse = live Act/Wait + Why + ledger honesty (not news) | UX | MORNING_SESSION, TRUST_PULSE | VERIFIED_IMPLEMENTED | `trust_pulse.py`, dashboard Trust Pulse, tests |
 | DEC-0023 | Sealed landing: brand + “We publish the miss.” + full-bleed + Trust Pulse | UX | DESIGN_SYSTEM, MORNING | PARTIALLY_IMPLEMENTED | Landing exists with Trust Pulse; first-viewport purity not fully certified |
 | DEC-0024 | Design: Syne + IBM Plex; cyan `#22D3EE`; reject Inter/purple/gold defaults | UX | DESIGN_SYSTEM | VERIFIED_IMPLEMENTED | `static/css/trust-os.css` imports Syne + IBM Plex; cyan accent used |
-| DEC-0025 | Exactly three intentional motions (pulseIn / flipFlash / sharePop) | UX | DESIGN_SYSTEM | IMPLEMENTED_BUT_UNVERIFIED | CSS/JS present in surfaces; no dedicated motion-count gate test |
+| DEC-0025 | Exactly three intentional motions (pulseIn / flipFlash / sharePop) | UX | DESIGN_SYSTEM | VERIFIED_IMPLEMENTED | `tests/test_dec_motion_and_oqs_weights.py` asserts pulseIn/flipFlash/sharePop + keyframes |
 | DEC-0026 | Anti-Hype footer on every AI surface | UX | HEROES_STRATEGY | PARTIALLY_IMPLEMENTED | Dashboard/Trust Pulse/anti_hype_mode; not proven on every AI surface |
 | DEC-0027 | Companion rail: share/follow/contact/FAQ/how-it-works/status/legal | UX | MORNING_SESSION | PARTIALLY_IMPLEMENTED | Site companion services exist; completeness vs binding list not fully verified |
 | DEC-0028 | Glass Box = launch narrative (not 7th product); announce HUMAN_OPS | LAUNCH | HEROES / DEFERRED_HUMAN | NEEDS_EXTERNAL_VERIFICATION | Code/operator APIs exist; announce timing human-deferred |
@@ -95,8 +95,8 @@ Status key:
 | DEC-0215 | Login rate limit 10/5min; Redis when available | SECURITY | SECURITY_REMEDIATION | VERIFIED_IMPLEMENTED | `check_login_rate_limit` |
 | DEC-0216 | Webhook signatures fail closed when configured | SECURITY | Remediation / payments | VERIFIED_IMPLEMENTED | Stripe/Lemon verify paths + tests |
 | DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | PARTIALLY_IMPLEMENTED | Headers present; `script-src 'unsafe-inline'` weakens XSS posture |
-| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | Dashboard escapes improved; **~151 innerHTML sinks** remain across templates |
-| DEC-0219 | Softlaunch CLI must not OS-command-taint admin email | SECURITY | PR #54 | NOT_IMPLEMENTED | Fix on `cursor/sonar-softlaunch-shell-eef3` — **not ancestor of this HEAD** |
+| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | `dom_escape.js`/`dom_safe.js` + priority template escapes + `test_xss_sink_hardening`; **~151 innerHTML sinks** remain; CSP still `unsafe-inline` |
+| DEC-0219 | Softlaunch CLI must not OS-command-taint admin email | SECURITY | PR #54 / tip | VERIFIED_IMPLEMENTED | `scripts/open_softlaunch_env.py` in-process + email metachar reject; `tests/test_softlaunch_no_shell_taint.py` |
 | DEC-0220 | Bandit zero HIGH/MEDIUM/LOW on production scan | QUALITY | PR #50 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
 | DEC-0221 | Ruff report 22 findings cleared | QUALITY | PR #51 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
 
@@ -106,16 +106,16 @@ Status key:
 
 | ID | Decision | Category | Source | Status | Evidence / Gap |
 |---|---|---|---|---|---|
-| DEC-0300 | Net profit after fees + withdrawal + slippage before “profitable/executable” | FINANCIAL | Constitution D3 + remediation | PARTIALLY_IMPLEMENTED | Canonical path hardened; ghost `or 0.0` in `net_edge_truth.py` |
+| DEC-0300 | Net profit after fees + withdrawal + slippage before “profitable/executable” | FINANCIAL | Constitution D3 + remediation | VERIFIED_IMPLEMENTED | Canonical + `net_edge_truth` + enrichment preserve unknown withdrawal as None/reject |
 | DEC-0301 | ToB/mid scans are indicative only | FINANCIAL | Remediation Batch 2 | VERIFIED_IMPLEMENTED | `mark_indicative_only` + tests |
 | DEC-0302 | Execution fail-closed on stale quotes | EXECUTION | Remediation Batch 2 | VERIFIED_IMPLEMENTED | `enforce_execution_quote_truth` |
 | DEC-0303 | Rewalk must recompute NET EXECUTABLE PROFIT | EXECUTION | Remediation Batch 2 | VERIFIED_IMPLEMENTED | slippage_guard + profit_fee |
-| DEC-0304 | Unknown withdrawal fee must not invent 0 | FINANCIAL | Remediation Batch 2/5 | PARTIALLY_IMPLEMENTED | `fee_matrix` returns None; **net_edge_truth still coerces missing to 0.0** |
-| DEC-0305 | fee_matrix is single fee authority | FINANCIAL | Remediation | PARTIALLY_IMPLEMENTED | Arb/exec/net use it; `cex_dex_arbitrage` still uses `DEFAULT_TAKER_FEE` for mid path |
+| DEC-0304 | Unknown withdrawal fee must not invent 0 | FINANCIAL | Remediation Batch 2/5 | VERIFIED_IMPLEMENTED | `fee_matrix` None; `net_edge_truth._parse_withdrawal_fee_usdt`; `decision_enrichment._truth_withdrawal_fee_usdt` |
+| DEC-0305 | fee_matrix is single fee authority | FINANCIAL | Remediation | PARTIALLY_IMPLEMENTED | `cex_dex_arbitrage` mid path uses fee_matrix; residual `DEFAULT_TAKER_FEE` remains in `arbitrage_engine`/`fast_scan`/`trade_simulator` as defaults/fallbacks |
 | DEC-0306 | Decimal half-even at net decision boundary | FINANCIAL | Remediation Batch 5 | VERIFIED_IMPLEMENTED | `money_decimal.py` + `money_model` field + tests |
 | DEC-0307 | Risk gate + panic stop before orders | EXECUTION | Constitution / risk_manager | VERIFIED_IMPLEMENTED | risk + execution freeze paths |
 | DEC-0308 | Live execution off by default / guarded | EXECUTION | production_guard / LIVE flags | VERIFIED_IMPLEMENTED | flags + soft-launch forbid |
-| DEC-0309 | OQS weights 40/35/25 (net/liquidity/slip) | FINANCIAL | AI_FINANCIAL_MODEL | IMPLEMENTED_BUT_UNVERIFIED | Documented in design; independent expected-value tests not catalogued here |
+| DEC-0309 | OQS weights 40/35/25 (net/liquidity/slip) | FINANCIAL | AI_FINANCIAL_MODEL | VERIFIED_IMPLEMENTED | `tests/test_dec_motion_and_oqs_weights.py` asserts `_CORE_WEIGHTS` 40/35/25 |
 | DEC-0310 | Stale data must never show as LIVE | MARKET DATA | ZERO_TOLERANCE #2 | PARTIALLY_IMPLEMENTED | stale guards exist; freshness UX not universally proven |
 
 ---
@@ -125,15 +125,15 @@ Status key:
 | ID | Decision | Category | Source | Status | Evidence / Gap |
 |---|---|---|---|---|---|
 | DEC-0400 | Runtime schema authority = `database.SCHEMA` + `_apply_migrations` | DATABASE | DATABASE_MIGRATIONS | VERIFIED_IMPLEMENTED | `init_db`; Alembic non-runtime |
-| DEC-0401 | Do not run competing Alembic path in prod | DATABASE | DATABASE_MIGRATIONS | PARTIALLY_IMPLEMENTED | Code path correct; **ARCHITECTURE.md still says Alembic (+ SQLite migrations)** — doc conflict |
+| DEC-0401 | Do not run competing Alembic path in prod | DATABASE | DATABASE_MIGRATIONS | VERIFIED_IMPLEMENTED | Code + `ARCHITECTURE.md` + `DATABASE_MIGRATIONS.md` agree: runtime = `database.SCHEMA` + `_apply_migrations` |
 | DEC-0402 | PG commit/rollback must be real | DATABASE | Remediation Batch 3 | VERIFIED_IMPLEMENTED | adapter + clean PG test |
 | DEC-0403 | Strict production requires PostgreSQL | DATABASE | ARCHITECTURE / production_guard | VERIFIED_IMPLEMENTED | guard checks |
 | DEC-0404 | Viral HA requires Postgres + Redis + multi-instance + VIRAL_MODE | CLOUD | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | production_guard viral_ha checks |
 | DEC-0405 | SERVICE_BUS_LOCAL must not silently become prod multi-replica bus | DEVOPS | Remediation Batch 5 | VERIFIED_IMPLEMENTED | `service_bus` fail-closed + tests |
 | DEC-0406 | Controlled degradation (429/503), not infinite capacity claims | PERFORMANCE | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | honesty flags; capacity claims gated |
-| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | NOT_IMPLEMENTED | Log template exists; no signed HA row |
+| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | PARTIALLY_IMPLEMENTED | Soft Launch Postgres+Redis measured row in `LOAD_TEST_RUN_LOG.md` (1 worker); **not** signed HA multi-worker proof |
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
-| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | NOT_IMPLEMENTED | ~20 failures remain |
+| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **530 passed / 0 failed** (4 load/network deselected) on tip |
 | DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy |
 | DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | NOT_IMPLEMENTED / NEEDS_EXTERNAL | coverage.xml artifact exists; import blocked (AA + user skip) |
 | DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | PARTIALLY_IMPLEMENTED | CodeQL+security green on tip; Sonar tip QG with coverage import not evidenced |
@@ -175,10 +175,10 @@ Status key:
 | Conflict ID | Earlier | Later / Canonical | Class |
 |---|---|---|---|
 | CF-01 | English-only public UI (Heroes/SOURCE) | English default + 15 locales (Sat/Sun / Morning) | **RESOLVED** → DEC-0017 canonical |
-| CF-02 | ARCHITECTURE.md “Alembic (+ _apply_migrations)” | DATABASE_MIGRATIONS.md single runtime authority | **UNRESOLVED doc conflict** — code follows DATABASE_MIGRATIONS |
-| CF-03 | net_edge_truth `withdrawal or 0.0` | fee_matrix unknown→None fail-closed | **UNRESOLVED code conflict** — competing financial semantics |
+| CF-02 | ARCHITECTURE.md “Alembic (+ _apply_migrations)” | DATABASE_MIGRATIONS.md single runtime authority | **RESOLVED** — ARCHITECTURE.md updated to single runtime authority |
+| CF-03 | net_edge_truth `withdrawal or 0.0` | fee_matrix unknown→None fail-closed | **RESOLVED** — net_edge_truth + decision_enrichment preserve None / reject |
 | CF-04 | Sonar AA-only policy (PR #53) vs institutional coverage-import requirement | Both “final” in different eras | **NEEDS USER DECISION** (user skipped AA disable) |
-| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Hardening includes #57 tip commits; not #50/#51/#54 | **UNRESOLVED branch reconciliation** |
+| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch (#54 intent) on tip; Ruff cherry-picks partial; Bandit #50 not merged | **PARTIALLY RECONCILED** — #54 intent landed; #50/#51 still open |
 
 ---
 
@@ -186,11 +186,12 @@ Status key:
 
 | Bucket | Count |
 |---|---|
-| FINAL obligations catalogued (DEC-0001–0504 material set) | **74** |
+| FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
-| VERIFIED_IMPLEMENTED | **48** |
+| VERIFIED_IMPLEMENTED | **69** |
 | PARTIALLY_IMPLEMENTED | **14** |
-| IMPLEMENTED_BUT_UNVERIFIED | **2** |
-| NOT_IMPLEMENTED | **5** |
-| NEEDS_EXTERNAL_VERIFICATION | **5** |
-| CONFLICTED (open) | **0 IDs** (conflicts tracked in CF-*; affected DECs marked PARTIAL/NEEDS) |
+| IMPLEMENTED_BUT_UNVERIFIED | **0** |
+| NOT_IMPLEMENTED | **2** |
+| NEEDS_EXTERNAL_VERIFICATION | **6** (includes DEC-0411 dual tag) |
+| CONFLICTED (open DEC rows) | **1** (DEC-0016 → see DEC-0017) |
+| Unresolved CF-* needing user | **CF-04** (Sonar AA/token); CF-05 Bandit #50 still open |

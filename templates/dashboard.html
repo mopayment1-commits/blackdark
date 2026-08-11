@@ -446,9 +446,9 @@
                 chatHistory.push({ role: 'assistant', content: reply });
                 const cf = d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.'}`
-                        + (d.symbol ? ` · context ${d.symbol}` : '')
-                        + (d.source ? ` · ${d.source}` : '');
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
+                        + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
+                        + (d.source ? ` · ${esc(d.source)}` : '');
                 }
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
@@ -571,19 +571,19 @@
             return '#f59e0b';
         }
         function formatFactorLine(f, i) {
-            const detail = f.detail ? (' — ' + f.detail) : '';
-            const source = f.source ? ('<small>' + f.source + '</small>') : '';
-            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + (f.factor||f) + '</strong>' + detail + source + '</div>';
+            const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+            const source = f.source ? ('<small>' + esc(f.source) + '</small>') : '';
+            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail + source + '</div>';
         }
 
         function buildPulseChips(p) {
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
-            chips.push(`<a class="tp-chip ok" href="${ledger.href||'/oracle-accuracy'}">${ledger.label||'Verified on Ledger'}</a>`);
-            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${String(proof.certificate_hash).slice(0,12)}…</span>`);
-            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
-            if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
+            chips.push(`<a class="tp-chip ok" href="${safeShareUrl(ledger.href)||'/oracle-accuracy'}">${esc(ledger.label||'Verified on Ledger')}</a>`);
+            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
+            if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
             if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
             return chips.join('');
         }
@@ -604,7 +604,7 @@
             const contEl = document.getElementById('tpContinuity');
             if (cont.locked) {
                 if (cont.flipped && cont.summary) {
-                    contEl.innerHTML = cont.summary + ' · <a href="#" onclick="upgradeTier(\'pro\');return false">' + (cont.upgrade_hint||'Decision Pro') + '</a>';
+                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" onclick="upgradeTier(\'pro\');return false">' + esc(cont.upgrade_hint||'Decision Pro') + '</a>';
                 } else {
                     contEl.textContent = cont.upgrade_hint || '';
                 }
@@ -796,7 +796,12 @@
             return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button></div>`;
         }
         function safeShareUrl(u) {
-            const s = String(u || '');
+            const s = String(u || '').trim();
+            if (!s) return '';
+            if (s.startsWith('/') && !s.startsWith('//')) {
+                if (s.toLowerCase().includes('javascript:')) return '';
+                return esc(s);
+            }
             return (/^https?:\/\//i.test(s)) ? esc(s) : '';
         }
         function buildFactorDrawer(d) {
@@ -914,8 +919,8 @@
             if (!el) return;
             const rows = assets || [];
             el.innerHTML = rows.length ? rows.slice(0,8).map(a => `
-                <div class="card" onclick="setSymbol('${a.symbol}')">
-                    <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
+                <div class="card" onclick="setSymbol('${esc(a.symbol)}')">
+                    <strong>${esc(a.symbol)}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${esc(a.verdict||'')}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
                     <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
                 </div>`).join('') : '<div class="empty">No market rows</div>';
@@ -939,7 +944,7 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${detail.message || 'Decision Pro required for daily report'}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
                         <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
                     return;
                 }
@@ -954,12 +959,12 @@
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
-                        + bullets.map(b => '<li>' + b + '</li>').join('')
+                        + bullets.map(b => '<li>' + esc(b) + '</li>').join('')
                         + '</ul>')
                     : '';
-                el.innerHTML = '<strong>' + title + '</strong>'
+                el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + (summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
                     + bulletHtml
                     + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
@@ -974,17 +979,17 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${detail.message || 'Pro/Whale required for subscriber value'}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Pro/Whale required for subscriber value')}
                         <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
                 const v = d.value || {};
                 const u = d.usage || {};
-                el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
-                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
-                    ${coversPlanBit(v)}</div>
+                el.innerHTML = `<strong>Subscriber value · ${esc(d.tier || '')}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${esc(u.oracle_calls_30d ?? 0)} · Risk warnings: ${esc(u.risk_warnings_30d ?? 0)}</div>
+                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
+                    ${esc(coversPlanBit(v))}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
         }
@@ -996,8 +1001,8 @@
             const el = document.getElementById('oi');
             if (!el || !assets.length) return;
             el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                assets.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                    <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                assets.slice(0,6).map(r => `<tr onclick="setSymbol('${esc(r.asset)}')" style="cursor:pointer">
+                    <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
         }
         function renderSnapshotArb(arbitrage) {
             const el = document.getElementById('arbList');
@@ -1011,9 +1016,9 @@
                 const truth = o.net_edge_truth || {};
                 const rejected = o.truth_rejected || truth.reject;
                 const rej = rejected ? ' · REJECTED' : '';
-                return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                 <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rej}</div></div>`;
+                <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rej}</div></div>`;
             }).join('');
         }
         function applyDashboardSnapshot(d) {
@@ -1049,8 +1054,8 @@
                 const rows = data.assets || [];
                 if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
                 el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                        <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                    rows.slice(0,6).map(r => `<tr onclick="setSymbol('${esc(r.asset)}')" style="cursor:pointer">
+                        <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
@@ -1064,7 +1069,7 @@
                 if (res.status === 403) {
                     const detail = data.detail || {};
                     stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
                         <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
                     return;
                 }
@@ -1075,9 +1080,9 @@
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
                     const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                    return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                     <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
@@ -1092,10 +1097,10 @@
                 status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
-                        <strong>${a.title||'Alert'}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${esc(a.id)}')">
+                        <strong>${esc(a.title||'Alert')}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
@@ -1123,18 +1128,18 @@
                 const stories = data.stories || [];
                 const headline = data.one_sentence || data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${headline}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
-                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            <strong>${esc(a.label||'—')}</strong> · ${esc(a.asset||'—')}
                             ${whalePriceBit(a)}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
+                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${esc(a.sentence||a.class_id||'')}</div>
                             ${whaleFundingBit(a)}
                         </div>`).join('');
                 } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
                 } else {
                     el.innerHTML = '<div class="empty">No whale narratives</div>';
                 }
@@ -1198,8 +1203,8 @@
                 const res = await fetch('/api/since-you-left?user_key=' + encodeURIComponent(k) + '&touch=true');
                 const d = await res.json();
                 el.innerHTML = (d.top3 || []).map((x, i) =>
-                    `<div class="arb-card"><strong>${i + 1}. ${x.title}</strong><div style="margin-top:.3rem;color:#a1a1aa">${x.detail}</div>
-                     <a href="${x.href || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
+                    `<div class="arb-card"><strong>${i + 1}. ${esc(x.title)}</strong><div style="margin-top:.3rem;color:#a1a1aa">${esc(x.detail)}</div>
+                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
                 ).join('') || '<div class="empty">No deltas yet</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
@@ -1211,8 +1216,11 @@
             try {
                 const res = await fetch('/api/oracle/half-life/heat');
                 const d = await res.json();
-                svg.innerHTML = d.svg || '';
-                line.innerHTML = `<strong style="color:${d.band?.color||'#22d3ee'}">${d.band?.label||'—'}</strong><div style="margin-top:.35rem">${d.desk_line||''}</div>`;
+                // SVG is generated server-side; only accept path/shape markup without scripts.
+                const rawSvg = String(d.svg || '');
+                svg.innerHTML = /<script/i.test(rawSvg) ? '' : rawSvg;
+                const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
+                line.innerHTML = `<strong style="color:${bandColor}">${esc(d.band?.label||'—')}</strong><div style="margin-top:.35rem">${esc(d.desk_line||'')}</div>`;
             } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
         }
 
@@ -1226,15 +1234,15 @@
                 const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
                 const d = await res.json();
                 lastMevShare = d.share_text || '';
-                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${m}</li>`).join('');
+                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${esc(m)}</li>`).join('');
                 const c = d.compliance || {};
                 el.innerHTML = `
                     <div class="arb-card">
-                        <strong>${d.title||'MEV Report'}</strong> · ${d.asset} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">Est. sandwich drag ~${d.estimated_sandwich_bps} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
-                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${d.note||''}</div>
+                        <strong>${esc(d.title||'MEV Report')}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">Est. sandwich drag ~${esc(d.estimated_sandwich_bps)} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
+                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${esc(d.note||'')}</div>
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
         }
@@ -1259,11 +1267,11 @@
                 const d = await res.json();
                 const slices = ((d.slice_plan || {}).slices || []);
                 const sliceRows = slices.slice(0,12).map(s => `<tr>
-                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
+                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${esc(s.slice_index||'')}</td>
                             <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
-                            <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
-                            <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
-                            <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.delay_sec||0)}s</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.limit_offset_bps||0)} bps</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.algo||'')}</td>
                         </tr>`).join('');
                 const sliceTable = slices.length
                     ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
@@ -1272,19 +1280,19 @@
                     : '';
                 let planBit = '';
                 if (d.slice_plan) {
-                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + d.slice_plan.algo
-                        + ' · window ' + d.slice_plan.window_sec + 's · interval ' + d.slice_plan.interval_sec
-                        + 's · offset ' + d.slice_plan.limit_offset_bps + ' bps</div>';
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + esc(d.slice_plan.algo)
+                        + ' · window ' + esc(d.slice_plan.window_sec) + 's · interval ' + esc(d.slice_plan.interval_sec)
+                        + 's · offset ' + esc(d.slice_plan.limit_offset_bps) + ' bps</div>';
                 }
                 el.innerHTML =
-                    '<div class="arb-card"><strong>' + (d.style||'advisory') + '</strong> · ' + d.asset + ' ' + d.side
+                    '<div class="arb-card"><strong>' + esc(d.style||'advisory') + '</strong> · ' + esc(d.asset) + ' ' + esc(d.side)
                     + ' · $' + fmt(d.notional_usd,0)
-                    + '<div style="margin-top:.4rem">' + d.recommended_slices + ' slices × $' + fmt(d.slice_usd,2)
-                    + ' · urgency ' + d.urgency + '</div>'
-                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + (d.advice||'') + '</div>'
+                    + '<div style="margin-top:.4rem">' + esc(d.recommended_slices) + ' slices × $' + fmt(d.slice_usd,2)
+                    + ' · urgency ' + esc(d.urgency) + '</div>'
+                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + esc(d.advice||'') + '</div>'
                     + planBit + sliceTable
                     + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
-                    + (d.disclaimer||'') + '</div></div>';
+                    + esc(d.disclaimer||'') + '</div></div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
@@ -1302,7 +1310,7 @@
             const el = document.getElementById('portfolioList');
             if (!portfolioAssets.length) { el.textContent = ''; return; }
             el.innerHTML = portfolioAssets.map((a,i) =>
-                `${a.symbol}: ${a.amount} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
+                `${esc(a.symbol)}: ${esc(a.amount)} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
             ).join(' · ');
         }
         async function analyzePortfolio() {
@@ -1321,23 +1329,23 @@
                 const riskColor = riskColorFor(risk);
                 const recs = d.recommendations || [];
                 const recHtml = recs.length
-                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${r}</li>`).join('') + '</ul>'
+                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${esc(r)}</li>`).join('') + '</ul>'
                     : '';
                 const riskBit = risk
-                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + risk + '</span> risk (' + (d.risk_score ?? '—') + '/10)')
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(risk) + '</span> risk (' + esc(d.risk_score ?? '—') + '/10)')
                     : '';
                 const scenarioBit = d.scenario_note
-                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + d.scenario_note + '</div>')
+                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + esc(d.scenario_note) + '</div>')
                     : '';
                 const valueBit = d.total_value_formatted
-                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + d.total_value_formatted + ' · BTC corr ' + (d.btc_correlation || '—') + '</div>')
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + esc(d.total_value_formatted) + ' · BTC corr ' + esc(d.btc_correlation || '—') + '</div>')
                     : '';
                 const footBit = foot.disclaimer
-                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + foot.disclaimer + '</div>')
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + esc(foot.disclaimer) + '</div>')
                     : '';
                 el.innerHTML =
                     '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
-                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + (d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
+                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + esc(d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
                     scenarioBit + valueBit + recHtml + footBit + '</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
@@ -1366,8 +1374,8 @@
                 const res = await fetch('/api/alerts/generosity');
                 const d = await res.json();
                 const bd = d.blackdark || {};
-                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
-                    `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+                el.innerHTML = `<strong>${esc(d.title || 'Alert generosity')}</strong><br>${esc(d.competitor_friction || '')}<br>` +
+                    `${esc(bd.in_app_inbox || '')} · ${esc(bd.proof_gate || '')}`;
             } catch (error) { console.debug(error); }
         }
 
@@ -1454,8 +1462,8 @@
             if (!rail) return;
             rail.innerHTML = entries.map(e => {
                 const locked = e.available === false;
-                return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${e.id}" data-path="${e.path||''}" data-action="${e.action||''}" title="${e.hint||''}">
-                    ${e.label}<small>${locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || '')}</small></button>`;
+                return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${esc(e.id)}" data-path="${esc(e.path||'')}" data-action="${esc(e.action||'')}" title="${esc(e.hint||'')}">
+                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || ''))}</small></button>`;
             }).join('');
             rail.querySelectorAll('.entry-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -1507,7 +1515,7 @@
                 }
                 const intents = d.primary_entries || d.intents || [];
                 grid.innerHTML = intents.map(it =>
-                    `<button type="button" class="intent-btn" data-id="${it.id}" data-action="${it.action||''}" data-path="${it.path||''}">${it.label}</button>`
+                    `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
                 ).join('');
                 grid.querySelectorAll('.intent-btn').forEach(btn => {
                     btn.addEventListener('click', () => {

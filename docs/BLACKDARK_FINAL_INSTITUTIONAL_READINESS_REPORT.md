@@ -2,145 +2,109 @@
 
 **Generated:** 2026-08-11  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Report commit / tip:** `8a84fd900320dc89d87e3cd1b6f286cca49ae4ed`  
+**Report commit / tip:** `TIP_SHA_PLACEHOLDER`  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58
 
 ## A. Final commit SHA
 
-`8a84fd900320dc89d87e3cd1b6f286cca49ae4ed`
+`TIP_SHA_PLACEHOLDER`
 
 ## B. Final branch
 
 `cursor/institutional-hardening-120d`
 
-## C. Remediation ledger
-
-Source: `docs/REMEDIATION_LEDGER.md`
+## C. Remediation ledger (tip)
 
 | ID | Sev | Status | Exact fix | Tests / evidence |
 |---|---|---|---|---|
-| P0-SEC-01 | P0 | VERIFIED | Removed loopback admin trust | `test_p0_authz_hardening` |
-| P0-SEC-02 | P0 | VERIFIED | Institutional principal + admin mutators | same |
-| P0-SEC-03 | P0 | VERIFIED | Universe activate admin-only | same |
-| P0-FIN-01 | P0 | VERIFIED | `enforce_execution_quote_truth` | `test_p0_financial_executability` |
-| P0-FIN-02 | P0 | VERIFIED | ToB/mid → indicative | same + fast_scan |
-| P0-FIN-03 | P0 | VERIFIED | Rewalk net recompute | slippage + profit_fee |
-| P0-DATA-01 | P0 | VERIFIED | Single runtime authority + PG dialect | `test_postgres_migration_integrity` on Postgres 16 |
-| P1-DATA-02 | P1 | VERIFIED | Real commit/rollback | same |
-| P1-SEC-04 | P1 | VERIFIED | Admin MFA in `require_admin` | authz tests |
-| P1-SEC-05 | P1 | VERIFIED | `EXPOSE_B2B_DEMO_KEY` gate | authz tests |
-| P1-SEC-07 | P1 | VERIFIED | Prod rejects unsealed cookies | `test_p1_session_hardening` |
-| P1-SEC-06 | P1 | FIXED | Cookie-only session; residual XSS elsewhere | session tests; templates remain |
-| P1-FIN-04/05 | P1 | FIXED | fee_matrix authority; unknown withdraw=None | fee + financial tests |
-| P0-DEVOPS-01 | P0 | BLOCKED | AA still on; CI scanner skipped | Sonar CI Scanner skipped on PR |
-| P1-TEST-01 | P1 | PARTIAL | Critical CI green; ~20 broader failures | CI run 31534257207 success |
-| P1-COV-01 | P1 | BLOCKED | coverage.xml artifact exists; not imported to Sonar under AA | Coverage XML job success; scanner skipped |
+| P0-SEC-01…03 | P0 | VERIFIED | Authz: no loopback admin; institutional; universe admin | `test_p0_authz_hardening` |
+| P0-FIN-01…03 | P0 | VERIFIED | Execution truth; indicative ToB; rewalk net | `test_p0_financial_executability` |
+| P0-DATA-01 | P0 | VERIFIED | Single runtime authority + PG dialect | `test_postgres_migration_integrity` |
+| P1-SEC-04…07 | P1 | VERIFIED | Admin MFA; demo key; sealed cookies; CSRF | session/authz tests |
+| P1-FIN-04/05 | P1 | VERIFIED | fee_matrix; unknown withdraw=None on Truth path | fee + net_edge + enrichment |
+| P1-SEC-06 XSS | P1 | PARTIAL | `dom_escape`/`dom_safe` + priority templates | `test_xss_sink_hardening`; ~151 sinks remain |
+| Softlaunch taint | P1 | VERIFIED | In-process env + email metachar reject | `test_softlaunch_no_shell_taint` |
+| Broader suite | P1 | VERIFIED | Unit tree green | **530 passed / 0 failed** (4 deselected) |
+| P0-DEVOPS-01 Sonar | P0 | BLOCKED | AA still on; CI scanner skipped | user skip AA/token/`SONAR_CI_ANALYSIS` |
+| P1-COV-01 | P1 | BLOCKED | coverage.xml exists; not imported under AA | Coverage XML job success; scanner skipped |
+| Load / HA | P1 | PARTIAL | Soft Launch Postgres+Redis measured | `LOAD_TEST_RUN_LOG.md` — **not** signed HA multi-worker |
 
-## D. New findings during remediation
+## D. Security verification
 
-1. PG `INSERT OR IGNORE` stripped to bare `INSERT` poisoned migration txns → fixed ON CONFLICT + savepoints.
-2. CSRF allowed cookie mutations with no Origin/Referer → fail-closed.
-3. Redis→local bus silent fallback under multi-instance → fail-closed when distributed required.
-4. Broader unit suite: ~20 pre-existing failures remain outside critical gate.
-
-## E. Security verification
-
-- CodeQL (python/js/actions): PASS on tip PR checks
+- CodeQL (python/js/actions): PASS on PR #58 tip checks
 - pip-audit + pytest-security: PASS
-- Authz/session adversarial tests: PASS locally + in CI critical
-- Residual: non-dashboard XSS sinks; Sonar issue zero-clearance not re-proven on tip under CI scanner
+- Authz/session adversarial tests: PASS
+- XSS: hardened helpers + priority surfaces tested; residual sinks + CSP `unsafe-inline` remain
+- Softlaunch OS-command taint: PASS on tip
 
-## F. Financial correctness verification
-
-Executed locally + CI:
+## E. Financial correctness verification
 
 - Fees erase apparent topline profit
-- Unknown withdrawal blocks net
-- Insufficient depth → None
-- Fast scan never claims executable
-- Stale quotes block execution path
-- Decimal half-even at net decision boundary (`money_model=decimal_half_even`)
+- Unknown withdrawal blocks net / Truth reject (no invented `0.0` on Truth path)
+- Insufficient depth → None; stale quotes block execution
+- Decimal half-even at net decision boundary
+- Residual: `DEFAULT_TAKER_FEE` still referenced outside fee_matrix in some engines
 
-## G. Database integrity verification
+## F. Database integrity verification
 
-Clean Postgres 16:
+Clean Postgres 16: EMPTY → MIGRATE → CRUD → rollback → restart  
+Evidence: `tests/test_postgres_migration_integrity.py`
 
-EMPTY → MIGRATE (`init_db`) → CRUD → explicit rollback → restart → schema consistent  
-Evidence: `tests/test_postgres_migration_integrity.py` (CI Postgres service)
+## G. Test report
 
-## H. Test report
+| Suite | Result |
+|---|---|
+| Critical CI gate (PR #58) | SUCCESS (incl. Postgres service jobs) |
+| Broader `tests/` unit (local tip) | **530 passed / 0 failed** (4 load/network deselected) |
+| New tip tests | XSS / softlaunch / motion+OQS — PASS |
 
-Critical gate suite: PASS (GitHub Actions run `31534257207`)  
-Broader `tests/`: ~499 pass / ~20 fail (not claimed green)
+## H. Coverage / SonarCloud
 
-## I. Coverage report
+- Risk-weighted financial modules: gate met in prior DD/CI (≥85%)
+- `coverage.xml` artifact: produced by Coverage XML job
+- Sonar CI Scanner: **SKIPPED** — Automatic Analysis owns QG; `SONAR_CI_ANALYSIS` not true
+- Coverage **not imported** into SonarCloud on this tip
+- Institutional Sonar QG with coverage import: **NOT VERIFIED**
 
-Risk-weighted financial modules: **89.9%** (gate 85%) via DD + CI critical.  
-`coverage.xml` artifact generated from critical suite (Coverage XML job PASS).  
-**Not imported into SonarCloud** while Automatic Analysis remains active.
+## I. Load / performance evidence
 
-## J. SonarCloud fresh result
+Soft Launch local row `2026-08-11T21:39:09Z` in `docs/LOAD_TEST_RUN_LOG.md`:
 
-- CI Scanner: **SKIPPED** (`SONAR_CI_ANALYSIS` not true / AA still active)
-- AA notice job: succeeds by policy statement only — **not** institutional QG evidence for this tip
-- User previously skipped disabling AA and providing scanner token path
+- Postgres + Redis live; **1 worker / 1 replica**
+- Sequential core harness PASS; concurrent controlled 429 capacity_ok
+- Explicitly **NOT** signed HA multi-worker / viral-approved capacity proof
 
-## K. CodeQL / security tools
+## J. Remaining blockers (institutional / launch / acquisition)
 
-CodeQL PASS; pip-audit PASS; Bandit not freshly asserted as standalone gate this pass.
+1. Disable Sonar Automatic Analysis + set `SONAR_CI_ANALYSIS=true` + provide `SONAR_TOKEN`
+2. Fresh Sonar QG PASS on exact tip with imported coverage
+3. Finish residual XSS sinks + CSP `unsafe-inline` removal (or accept PARTIAL)
+4. Signed HA load: Postgres+Redis, Soft Launch off, `WEB_CONCURRENCY`×`WEB_REPLICAS`≥2, viral-approved
+5. Clear residual fee_matrix authority gaps (`DEFAULT_TAKER_FEE` leftovers)
+6. Human ops deferred items (Glass Box announce, etc.) — external by design
 
-## L. CI/CD result
+## K. Acquisition due diligence
 
-Critical CI: **SUCCESS** on `8a84fd9`  
-Security Scan: SUCCESS  
-Coverage XML: SUCCESS  
-Sonar CI Scanner: SKIPPED
+Adversarial Tier-1 buyer still rejects: Sonar/coverage import blocked, XSS/CSP incomplete, HA capacity not signed.
 
-## M–O. Performance / reliability / architecture
-
-- Performance/load: not measured end-to-end this pass (latency microbench in DD only)
-- Redis distributed publish fail-closed: tested
-- Architecture: fee authority consolidation; migration authority documented; no cosmetic SCC break
-
-## P. Documentation
-
-Updated: ledger, migrations, env matrix, this report. Historical audits not rewritten.
-
-## Q. Remaining blockers
-
-1. Disable Sonar Automatic Analysis + enable CI scanner with `SONAR_TOKEN` / `SONAR_CI_ANALYSIS=true`
-2. Close ~20 broader unit-suite failures
-3. Finish XSS sink remediation across remaining templates
-4. Measured load / fanout / pool evidence for launch claims
-5. Fresh Sonar QG PASS on exact tip with imported coverage
-6. Universal Decimal adoption beyond net decision boundary (optional but incomplete)
-
-## R. Acquisition due diligence
-
-Adversarial Tier-1 buyer still finds rejectable gaps: Sonar/coverage import blocked, incomplete XSS surface, incomplete full-suite CI, missing load evidence.
-
-## FINAL SCORECARD (evidence-only, tip `8a84fd9`)
+## FINAL SCORECARD (evidence-only)
 
 | Dimension | Score (0–5) | Note |
 |---|---|---|
-| Architecture | 3 | Fee/migration authorities clearer; engines still heavy |
-| Security | 3.5 | P0 authz closed; residual XSS / Sonar AA gap |
-| Reliability | 3 | Redis fail-closed; broader HA matrix incomplete |
-| Financial Correctness | 4 | Executable honesty + Decimal boundary verified |
+| Architecture | 4 | Runtime DB authority documented; fee authority mostly consolidated |
+| Security | 3.5 | P0 authz/session closed; XSS/CSP residual |
+| Reliability | 3.5 | Redis/Postgres paths tested; HA not signed |
+| Financial Correctness | 4.5 | Truth-path fail-closed verified |
 | Data Integrity | 4 | Clean PG migrate/rollback verified |
-| Maintainability | 3 | Docs improved; god-modules remain |
-| Testing | 3.5 | Critical gate real; full tree not green |
-| Coverage | 2.5 | Real critical coverage; Sonar import blocked |
-| Performance | 2 | Microbench only |
-| Scalability | 2.5 | Guardrails exist; not load-proven |
+| Testing | 4.5 | Critical + broader unit green |
+| Coverage | 2.5 | Artifact exists; Sonar import blocked |
+| Performance | 3 | Soft Launch measured; not HA |
 | DevOps | 3 | Critical CI truthful; Sonar path blocked |
-| Observability | 3 | Existing; not re-certified |
-| Documentation | 3.5 | Reality-aligned remediation docs |
-| Launch Readiness | 2.5 | Blockers remain |
-| Institutional Readiness | 2.5 | Blockers remain |
-| Acquisition Readiness | 2 | Buyer would still say NO |
+| Launch / Institutional / Acquisition | 2.5 / 2.5 / 2 | Blockers remain |
 
 ## FINAL VERDICT
 
 BLACKDARK FINAL STATUS:  
 **NOT COMPLETE**
+
+Not **INSTITUTIONAL / LAUNCH / ACQUISITION READY — VERIFIED COMPLETE**.

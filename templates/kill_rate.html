@@ -51,7 +51,9 @@
     <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share the refusal</a>
     <p class="sub" style="margin-top:1.5rem;font-size:.75rem" id="disc"></p>
 </main>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 async function load(){
   const r = await fetch('/api/public/kill-rate');
   const d = await r.json();
@@ -64,7 +66,7 @@ async function load(){
   document.getElementById('disc').textContent = d.disclaimer || '';
   const box = document.getElementById('recent');
   box.innerHTML = (d.recent_kills||[]).slice(0,12).map(k =>
-    `<div class="row"><b>${k.source}</b> · ${k.reason} <span style="float:right">${(k.ts||'').slice(0,19)}</span></div>`
+    `<div class="row"><b>${esc(k.source)}</b> · ${esc(k.reason)} <span style="float:right">${esc((k.ts||'').slice(0,19))}</span></div>`
   ).join('') || '<div class="row">Board armed — kills appear as the engine refuses edges.</div>';
   document.getElementById('share').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(d.share_line||'BLACKDARK Kill-Rate');
 }
