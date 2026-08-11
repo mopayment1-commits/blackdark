@@ -572,9 +572,9 @@
             return '#f59e0b';
         }
         function formatFactorLine(f, i) {
-            const detail = f.detail ? ' — ' + f.detail : '';
-            const source = f.source ? `<small>${f.source}</small>` : '';
-            return `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${detail}${source}</div>`;
+            const detail = f.detail ? (' — ' + f.detail) : '';
+            const source = f.source ? ('<small>' + f.source + '</small>') : '';
+            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + (f.factor||f) + '</strong>' + detail + source + '</div>';
         }
 
         function buildPulseChips(p) {
@@ -632,9 +632,9 @@
             document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
             document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
             const factors = (p.why && p.why.factors) || [];
-            document.getElementById('tpFactors').innerHTML = factors.length
-                ? factors.map((f,i) => formatFactorLine(f, i)).join('')
-                : '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            let factorHtml = '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            if (factors.length) factorHtml = factors.map((f,i) => formatFactorLine(f, i)).join('');
+            document.getElementById('tpFactors').innerHTML = factorHtml;
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
@@ -751,13 +751,18 @@
             return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
         }
         function buildWhyFactorsHtml(factors, whyBlock) {
-            const lines = factors.length
-                ? factors.slice(0,3).map((f,i) => {
-                    const detail = f.detail ? ' — ' + esc(f.detail) : '';
-                    return `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${detail}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`;
-                }).join('')
-                : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>';
-            return `<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24"><div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')}</div>${lines}</div>`;
+            let lines = '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>';
+            if (factors.length) {
+                lines = factors.slice(0,3).map((f,i) => {
+                    const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                    return '<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>'
+                        + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail
+                        + '<div style="color:#71717a;font-size:.75rem">' + esc(f.source||'') + '</div></div>';
+                }).join('');
+            }
+            const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
+            return '<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">'
+                + '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>' + lines + '</div>';
         }
         function buildVetoBlock(mode, conflict) {
             const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
