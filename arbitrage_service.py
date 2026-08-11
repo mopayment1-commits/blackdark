@@ -74,6 +74,103 @@ def _top_ask(book: dict[str, Any]) -> float | None:
     return float(asks[0][0]) if asks else None
 
 
+def _live_exchange_ids(native_exchanges: set[str], fast: bool) -> list[str]:
+    fast_exchanges = getattr(config, "FAST_LIVE_EXCHANGES", config.WHITELIST_EXCHANGES)
+    return sorted(
+        ex
+        for ex in native_exchanges
+        if ex in config.WHITELIST_EXCHANGES and (not fast or ex in fast_exchanges)
+    )
+
+
+def _queue_live_fetches(
+    *,
+    session: aiohttp.ClientSession,
+    exchange_ids: list[str],
+    spot_symbols: list[str],
+    perp_symbols: list[str],
+    market_fetchers: dict[str, Any],
+    funding_fetchers: dict[str, Any],
+    spot_only_exchanges: set[str],
+    symbols_for_exchange,
+    perp_symbols_for_exchange,
+) -> tuple[list[asyncio.Task[Any]], list[tuple[str, str, str]]]:
+    tasks: list[asyncio.Task[Any]] = []
+    meta: list[tuple[str, str, str]] = []
+    for exchange_id in exchange_ids:
+        market_fetcher = market_fetchers.get(exchange_id)
+        funding_fetcher = funding_fetchers.get(exchange_id)
+        if market_fetcher is None:
+            continue
+
+        for symbol in symbols_for_exchange(exchange_id, spot_symbols):
+            tasks.append(asyncio.create_task(market_fetcher(session, symbol, "spot")))
+            meta.append((exchange_id, symbol, "spot"))
+
+        for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
+            if exchange_id in spot_only_exchanges:
+                continue
+            tasks.append(asyncio.create_task(market_fetcher(session, symbol, "perpetual")))
+            meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
+            if funding_fetcher is not None:
+                tasks.append(asyncio.create_task(funding_fetcher(session, symbol)))
+                meta.append((exchange_id, symbol, "funding"))
+    return tasks, meta
+
+
+async def _wait_for_live_fetches(tasks: list[asyncio.Task[Any]], deadline: float) -> None:
+    pending = set(tasks)
+    loop = asyncio.get_running_loop()
+    deadline_at = loop.time() + deadline
+    while pending and loop.time() < deadline_at:
+        done, pending = await asyncio.wait(
+            pending,
+            timeout=max(0.05, deadline_at - loop.time()),
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+        if not done:
+            break
+    for task in pending:
+        task.cancel()
+    if pending:
+        await asyncio.gather(*pending, return_exceptions=True)
+
+
+def _record_live_fetch_result(
+    *,
+    books: dict[str, dict[str, dict[str, Any]]],
+    funding: dict[str, dict[str, dict[str, Any]]],
+    task: asyncio.Task[Any],
+    meta: tuple[str, str, str],
+    timestamp: str,
+) -> None:
+    exchange_id, key, kind = meta
+    if task.cancelled():
+        return
+    try:
+        result = task.result()
+    except Exception as exc:
+        logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
+        return
+
+    if kind == "funding":
+        funding.setdefault(exchange_id, {})[key.replace("@perpetual", "")] = {
+            "funding_rate": float(result.funding_rate),
+            "next_funding_time": result.next_funding_time,
+            "timestamp": timestamp,
+        }
+        return
+
+    _ticker, order_book = result
+    books.setdefault(exchange_id, {})[key] = {
+        "bids": order_book.bids,
+        "asks": order_book.asks,
+        "timestamp": timestamp,
+        "market_type": kind if kind != "spot" else "spot",
+        "symbol": key.replace("@perpetual", ""),
+    }
+
+
 async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, dict[str, Any]]]]:
     """Fast live refresh — native venues × whitelist assets (not 21k HTTP calls)."""
     from aggregator import FUNDING_FETCHERS, MARKET_FETCHERS
@@ -88,80 +185,30 @@ async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, d
 
     spot_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
     perp_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
-    exchange_ids = sorted(
-        ex for ex in NATIVE_EXCHANGES
-        if ex in config.WHITELIST_EXCHANGES and (not fast or ex in getattr(config, "FAST_LIVE_EXCHANGES", config.WHITELIST_EXCHANGES))
-    )
+    exchange_ids = _live_exchange_ids(NATIVE_EXCHANGES, fast)
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        tasks: list[asyncio.Task[Any]] = []
-        meta: list[tuple[str, str, str]] = []
-
-        for exchange_id in exchange_ids:
-            market_fetcher = MARKET_FETCHERS.get(exchange_id)
-            funding_fetcher = FUNDING_FETCHERS.get(exchange_id)
-            if market_fetcher is None:
-                continue
-
-            for symbol in symbols_for_exchange(exchange_id, spot_symbols):
-                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "spot")))
-                meta.append((exchange_id, symbol, "spot"))
-
-            for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
-                if exchange_id in SPOT_ONLY_EXCHANGES:
-                    continue
-                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "perpetual")))
-                meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
-                if funding_fetcher is not None:
-                    tasks.append(asyncio.create_task(funding_fetcher(session, symbol)))
-                    meta.append((exchange_id, symbol, "funding"))
-
-        pending = set(tasks)
-        loop = asyncio.get_running_loop()
-        deadline_at = loop.time() + deadline
-
-        while pending and loop.time() < deadline_at:
-            done, pending = await asyncio.wait(
-                pending,
-                timeout=max(0.05, deadline_at - loop.time()),
-                return_when=asyncio.FIRST_COMPLETED,
-            )
-            if not done:
-                break
-
-        for task in pending:
-            task.cancel()
-        if pending:
-            await asyncio.gather(*pending, return_exceptions=True)
-
+        tasks, meta = _queue_live_fetches(
+            session=session,
+            exchange_ids=exchange_ids,
+            spot_symbols=spot_symbols,
+            perp_symbols=perp_symbols,
+            market_fetchers=MARKET_FETCHERS,
+            funding_fetchers=FUNDING_FETCHERS,
+            spot_only_exchanges=SPOT_ONLY_EXCHANGES,
+            symbols_for_exchange=symbols_for_exchange,
+            perp_symbols_for_exchange=perp_symbols_for_exchange,
+        )
+        await _wait_for_live_fetches(tasks, deadline)
         timestamp = _utcnow_iso()
-        for task, (exchange_id, key, kind) in zip(tasks, meta):
-            if task.cancelled():
-                continue
-            try:
-                result = task.result()
-            except Exception as exc:
-                logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
-                continue
-
-            if kind == "funding":
-                snap = result
-                funding.setdefault(exchange_id, {})[key.replace("@perpetual", "")] = {
-                    "funding_rate": float(snap.funding_rate),
-                    "next_funding_time": snap.next_funding_time,
-                    "timestamp": timestamp,
-                }
-                continue
-
-            _ticker, order_book = result
-            symbol_key = key
-            books.setdefault(exchange_id, {})[symbol_key] = {
-                "bids": order_book.bids,
-                "asks": order_book.asks,
-                "timestamp": timestamp,
-                "market_type": kind if kind != "spot" else "spot",
-                "symbol": key.replace("@perpetual", ""),
-            }
+        for task, row_meta in zip(tasks, meta):
+            _record_live_fetch_result(
+                books=books,
+                funding=funding,
+                task=task,
+                meta=row_meta,
+                timestamp=timestamp,
+            )
 
     return books, funding
 

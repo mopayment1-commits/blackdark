@@ -12,6 +12,74 @@ from datetime import UTC, datetime
 from typing import Any
 
 
+def _base_class_from_text(direction: str, detail: str) -> tuple[str, list[str], bool, float]:
+    if any(k in detail for k in ("custody", "cold wallet", "internal", "omnibus", "rebalance")):
+        return "internal_custody_move", ["noise"], False, 0.72
+    if any(k in detail for k in ("collateral", "margin", "deposit to futures", "futures deposit")):
+        return "collateral_or_margin", ["noise"], False, 0.68
+    if "bridge" in detail or "wrapped" in detail:
+        return "bridge_or_wrap", ["noise"], False, 0.6
+    if "in" in direction or "buy" in direction or "accum" in direction:
+        return "possible_accumulation", ["candidate_signal"], True, 0.55
+    if "out" in direction or "sell" in direction or "distrib" in direction:
+        return "possible_distribution", ["candidate_signal"], True, 0.55
+    return "unclassified_transfer", ["noise_until_proven"], False, 0.4
+
+
+def _apply_funding_hedge(
+    class_id: str,
+    actionable: bool,
+    tags: list[str],
+    confidence: float,
+    funding: Any,
+) -> tuple[str, bool, list[str], float, str | None]:
+    if not actionable or funding is None:
+        return class_id, actionable, tags, confidence, None
+    try:
+        fr = float(funding)
+    except (TypeError, ValueError):
+        return class_id, actionable, tags, confidence, None
+    if class_id == "possible_accumulation" and fr < -0.0001:
+        tags.append("possible_hedge")
+        return (
+            "hedged_or_basis_trade",
+            False,
+            tags,
+            0.7,
+            "Funding negative while spot inflow — do not treat as naive buy.",
+        )
+    if class_id == "possible_distribution" and fr > 0.0003:
+        tags.append("possible_hedge")
+        return (
+            "hedged_or_basis_trade",
+            False,
+            tags,
+            0.65,
+            "Funding elevated while spot outflow — may be hedge unwind, not pure dump.",
+        )
+    return class_id, actionable, tags, confidence, None
+
+
+def _apply_oi_filter(
+    actionable: bool,
+    tags: list[str],
+    confidence: float,
+    hedge_note: str | None,
+    oi_change: Any,
+) -> tuple[list[str], float, str | None]:
+    if oi_change is None or not actionable:
+        return tags, confidence, hedge_note
+    try:
+        oi = float(oi_change)
+    except (TypeError, ValueError):
+        return tags, confidence, hedge_note
+    if abs(oi) < 0.5:
+        tags.append("flat_oi")
+        hedge_note = (hedge_note or "") + " OI flat — transfer may be wallet reshuffle."
+        confidence = min(confidence, 0.5)
+    return tags, confidence, hedge_note
+
+
 def classify_whale_alert(
     alert: dict[str, Any],
     *,
@@ -24,71 +92,15 @@ def classify_whale_alert(
     exchange = str(alert.get("exchange") or alert.get("venue") or "").lower()
     usd = float(alert.get("amount_usd") or alert.get("value_usd") or alert.get("notional_usd") or 0)
 
-    tags: list[str] = []
-    class_id = "unknown_transfer"
-    actionable = False
-    confidence = 0.45
-
-    # Noise heuristics (documented market failure: transfers ≠ trades)
-    if any(k in detail for k in ("custody", "cold wallet", "internal", "omnibus", "rebalance")):
-        class_id = "internal_custody_move"
-        tags.append("noise")
-        confidence = 0.72
-    elif any(k in detail for k in ("collateral", "margin", "deposit to futures", "futures deposit")):
-        class_id = "collateral_or_margin"
-        tags.append("noise")
-        confidence = 0.68
-    elif "bridge" in detail or "wrapped" in detail:
-        class_id = "bridge_or_wrap"
-        tags.append("noise")
-        confidence = 0.6
-    elif "in" in direction or "buy" in direction or "accum" in direction:
-        class_id = "possible_accumulation"
-        tags.append("candidate_signal")
-        actionable = True
-        confidence = 0.55
-    elif "out" in direction or "sell" in direction or "distrib" in direction:
-        class_id = "possible_distribution"
-        tags.append("candidate_signal")
-        actionable = True
-        confidence = 0.55
-    else:
-        class_id = "unclassified_transfer"
-        tags.append("noise_until_proven")
-        confidence = 0.4
-
-    # Hedge cross-check via funding / OI
+    class_id, tags, actionable, confidence = _base_class_from_text(direction, detail)
     funding = ctx.get("funding_rate")
     oi_change = ctx.get("open_interest_change_pct")
-    hedge_note = None
-    if actionable and funding is not None:
-        try:
-            fr = float(funding)
-            if class_id == "possible_accumulation" and fr < -0.0001:
-                # Spot buy while funding very negative often = basis trade / hedge
-                tags.append("possible_hedge")
-                actionable = False
-                class_id = "hedged_or_basis_trade"
-                hedge_note = "Funding negative while spot inflow — do not treat as naive buy."
-                confidence = 0.7
-            elif class_id == "possible_distribution" and fr > 0.0003:
-                tags.append("possible_hedge")
-                actionable = False
-                class_id = "hedged_or_basis_trade"
-                hedge_note = "Funding elevated while spot outflow — may be hedge unwind, not pure dump."
-                confidence = 0.65
-        except (TypeError, ValueError):
-            pass
-
-    if oi_change is not None and actionable:
-        try:
-            oi = float(oi_change)
-            if abs(oi) < 0.5:
-                tags.append("flat_oi")
-                hedge_note = (hedge_note or "") + " OI flat — transfer may be wallet reshuffle."
-                confidence = min(confidence, 0.5)
-        except (TypeError, ValueError):
-            pass
+    class_id, actionable, tags, confidence, hedge_note = _apply_funding_hedge(
+        class_id, actionable, tags, confidence, funding
+    )
+    tags, confidence, hedge_note = _apply_oi_filter(
+        actionable, tags, confidence, hedge_note, oi_change
+    )
 
     label = "SIGNAL" if actionable else "NOISE"
     sentence = (
@@ -98,7 +110,6 @@ def classify_whale_alert(
         + "). "
         + (hedge_note or "Transfers are not trades — classified before direction bias.")
     )
-
     return {
         "label": label,
         "class_id": class_id,
@@ -128,11 +139,9 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
         async with aiohttp.ClientSession(timeout=timeout) as session:
             row = await fetch_onchain_derivatives_mesh(session, asset=symbol)
         out["funding_rate"] = row.get("funding_rate")
-        # Approximate OI pressure from long/short when % change absent
         lsr = row.get("long_short_ratio")
         if lsr is not None:
             try:
-                # Map crowded longs → positive "oi pressure" proxy for classifier
                 out["open_interest_change_pct"] = round((float(lsr) - 1.0) * 10.0, 3)
             except (TypeError, ValueError):
                 pass
@@ -141,6 +150,77 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
     except Exception:
         pass
     return out
+
+
+def _merge_deriv(live: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "funding_rate": live.get("funding_rate")
+        if live.get("funding_rate") is not None
+        else base.get("funding_rate"),
+        "open_interest_change_pct": live.get("open_interest_change_pct")
+        if live.get("open_interest_change_pct") is not None
+        else base.get("open_interest_change_pct"),
+    }
+
+
+def _resolve_alert_price(alert: dict[str, Any], asset: str) -> Any:
+    price = alert.get("price") or alert.get("spot_price") or alert.get("last_price")
+    if price is not None:
+        return price
+    try:
+        from live_book_hub import get_top_of_book  # type: ignore
+
+        book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset)
+        if isinstance(book, dict):
+            return book.get("mid") or book.get("bid") or book.get("ask")
+    except Exception:
+        return None
+    return None
+
+
+async def _classify_alerts(
+    alerts: list[dict[str, Any]],
+    *,
+    limit: int,
+    base_deriv: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[str], dict[str, dict[str, Any]]]:
+    classified: list[dict[str, Any]] = []
+    stories: list[str] = []
+    deriv_cache: dict[str, dict[str, Any]] = {}
+    for alert in alerts[:limit]:
+        asset = str(alert.get("asset") or "BTC").upper()
+        if asset not in deriv_cache:
+            live = await _derivatives_for_asset(asset)
+            deriv_cache[asset] = _merge_deriv(live, base_deriv)
+        c = classify_whale_alert(alert, derivatives_context=deriv_cache[asset])
+        classified.append(
+            {
+                **{k: alert.get(k) for k in ("asset", "direction", "amount_usd", "value_usd")},
+                "price": _resolve_alert_price(alert, asset),
+                "funding_rate": deriv_cache[asset].get("funding_rate"),
+                "open_interest_change_pct": deriv_cache[asset].get("open_interest_change_pct"),
+                **c,
+            }
+        )
+        stories.append(c["sentence"])
+    return classified, stories, deriv_cache
+
+
+def _append_flow_stories(stories: list[str], flows: list[dict[str, Any]]) -> list[str]:
+    for flow in flows[:3]:
+        sector = flow.get("sector") or "market"
+        net = float(flow.get("net_flow_usd") or 0)
+        stories.append(f"Sector {sector} net flow ${net:,.0f} in the last window.")
+    if not stories:
+        stories = ["No major whale narratives in the current window — market in equilibrium."]
+    return stories
+
+
+def _one_sentence(headline: str) -> str:
+    one_sentence = " ".join(str(headline).split())
+    if len(one_sentence) > 220:
+        return one_sentence[:217].rstrip() + "…"
+    return one_sentence
 
 
 async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
@@ -159,58 +239,11 @@ async def enrich_whale_narratives(limit: int = 5) -> dict[str, Any]:
         "open_interest_change_pct": (ctx or {}).get("oi_change_pct")
         or (ctx or {}).get("open_interest_change_pct"),
     }
-
-    classified = []
-    stories = []
-    deriv_cache: dict[str, dict[str, Any]] = {}
-    for alert in alerts[:limit]:
-        asset = str(alert.get("asset") or "BTC").upper()
-        if asset not in deriv_cache:
-            live = await _derivatives_for_asset(asset)
-            # Prefer live hub values; fall back to institutional context
-            deriv_cache[asset] = {
-                "funding_rate": live.get("funding_rate")
-                if live.get("funding_rate") is not None
-                else base_deriv.get("funding_rate"),
-                "open_interest_change_pct": live.get("open_interest_change_pct")
-                if live.get("open_interest_change_pct") is not None
-                else base_deriv.get("open_interest_change_pct"),
-            }
-        c = classify_whale_alert(alert, derivatives_context=deriv_cache[asset])
-        price = alert.get("price") or alert.get("spot_price") or alert.get("last_price")
-        if price is None:
-            try:
-                from live_book_hub import get_top_of_book  # type: ignore
-
-                book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset)
-                if isinstance(book, dict):
-                    price = book.get("mid") or book.get("bid") or book.get("ask")
-            except Exception:
-                price = None
-        classified.append(
-            {
-                **{k: alert.get(k) for k in ("asset", "direction", "amount_usd", "value_usd")},
-                "price": price,
-                "funding_rate": deriv_cache[asset].get("funding_rate"),
-                "open_interest_change_pct": deriv_cache[asset].get("open_interest_change_pct"),
-                **c,
-            }
-        )
-        stories.append(c["sentence"])
-
-    for flow in flows[:3]:
-        sector = flow.get("sector") or "market"
-        net = float(flow.get("net_flow_usd") or 0)
-        stories.append(f"Sector {sector} net flow ${net:,.0f} in the last window.")
-
-    if not stories:
-        stories = ["No major whale narratives in the current window — market in equilibrium."]
-
-    headline = stories[0] if stories else ""
-    # Hero #2 bar: one plain sentence (Signal vs Noise), not a wall of jargon.
-    one_sentence = " ".join(str(headline).split())
-    if len(one_sentence) > 220:
-        one_sentence = one_sentence[:217].rstrip() + "…"
+    classified, stories, deriv_cache = await _classify_alerts(
+        alerts, limit=limit, base_deriv=base_deriv
+    )
+    stories = _append_flow_stories(stories, flows)
+    one_sentence = _one_sentence(stories[0] if stories else "")
     return {
         "timestamp": datetime.now(UTC).isoformat(),
         "headline": one_sentence,
