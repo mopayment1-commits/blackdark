@@ -1,7 +1,7 @@
 # BLACKDARK DECISION IMPLEMENTATION CERTIFICATION REPORT
 
 **Audit type:** Complete decision-to-implementation traceability  
-**Canonical HEAD:** `TIP_SHA_PLACEHOLDER` (filled at commit)  
+**Canonical HEAD:** `f1a4815c7f87db6526619c8fcd3406ea1d2c2403` (filled at commit)  
 **Branch:** `cursor/institutional-hardening-120d`  
 **Date:** 2026-08-11  
 **Companion register:** `docs/BLACKDARK_MASTER_DECISION_REGISTER.md`

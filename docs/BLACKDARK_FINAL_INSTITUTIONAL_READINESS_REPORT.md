@@ -2,12 +2,12 @@
 
 **Generated:** 2026-08-11  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Report commit / tip:** `TIP_SHA_PLACEHOLDER`  
+**Report commit / tip:** `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58
 
 ## A. Final commit SHA
 
-`TIP_SHA_PLACEHOLDER`
+`f1a4815c7f87db6526619c8fcd3406ea1d2c2403`
 
 ## B. Final branch
 

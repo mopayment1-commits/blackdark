@@ -56,7 +56,7 @@ python scripts/load_test_1m_simulation.py
 | Field | Value |
 |-------|--------|
 | Date (UTC) | 2026-08-11T21:39:09Z |
-| Commit intent | _(parent fills)_ |
+| Commit intent | `f1a4815c7f87db6526619c8fcd3406ea1d2c2403` |
 | Environment | local Soft Launch (`SOFT_LAUNCH=true`, `ENV=development`, single uvicorn worker via `run_service.py web`) |
 | Workers / replicas | 1 × 1 (`WEB_CONCURRENCY=1`, parallelism=1) |
 | Postgres | yes (`postgresql://…@127.0.0.1:5432/blackdark`, pool active) |
