@@ -51,6 +51,25 @@ python scripts/load_test_1m_simulation.py
 
 ## Recorded runs
 
+### 2026-08-11T23:48:40Z — Soft Launch tip concurrent burst @ `31a492e` (NOT signed HA)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-11T23:48:40Z |
+| Commit | `31a492e105d37c3c391a990a1789670804580914` (`cursor/institutional-hardening-120d`) |
+| Environment | local Soft Launch / single uvicorn worker on `127.0.0.1:8080` |
+| Workers / replicas | 1 × 1 (`parallelism=1`; viral approved=False) |
+| Postgres | yes (accepting on `127.0.0.1:5432`) |
+| Redis | yes (`used_memory` 1.09M → 1.12M during burst) |
+| Script | `scripts/load_test_concurrent.py --workers 40 --requests 120` |
+| HTTP concurrency | 40 workers |
+| Results | live p50/p95=53.6/56.4ms ok_rate=1.0 · ready 52.3/53.4 · trust_os 74.8/139.8 · compliance 68.3/70.8 · oracle_quick 142.3/1401.6 ok_rate=0.5 · viral/scale/arb capacity_ok via controlled 429 |
+| Error rate | hard errors=0; controlled 429 on capacity-gated routes |
+| Process | uvicorn RSS≈160MB, ~0.1% CPU at idle after burst |
+| Notes | **NEEDS_EXTERNAL_VERIFICATION for DEC-0407 signed HA.** Not multi-worker / multi-replica. |
+| Operator | cloud-agent one-shot closure |
+
+
 ### 2026-08-11T23:00:29Z — Soft Launch Postgres+Redis concurrent burst (NOT signed HA)
 
 | Field | Value |
