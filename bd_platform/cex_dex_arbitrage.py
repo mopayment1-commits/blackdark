@@ -74,30 +74,41 @@ async def _dexscreener_best(
     best: dict[str, Any] | None = None
     asset_u = asset.upper()
     for row in pairs:
-        base_sym = str((row.get("baseToken") or {}).get("symbol") or "").upper()
-        quote_sym = str((row.get("quoteToken") or {}).get("symbol") or "").upper()
-        if base_sym != asset_u and not base_sym.startswith(asset_u):
+        candidate = _dexscreener_candidate(row, asset_u, cex_ref, min_liquidity=50_000)
+        if candidate is None:
             continue
-        if quote_sym not in {"USDT", "USDC", "USD"}:
-            continue
-        liq = float((row.get("liquidity") or {}).get("usd") or 0)
-        price = float(row.get("priceUsd") or 0)
-        if price <= 0 or liq < 50_000:
-            continue
-        if cex_ref > 0:
-            deviation = abs(price - cex_ref) / cex_ref
-            if deviation > 0.15:
-                continue
-        if best is None or liq > float((best.get("liquidity") or {}).get("usd") or 0):
-            best = {
-                "venue": row.get("dexId") or "dex",
-                "pair": row.get("pairAddress"),
-                "chain": row.get("chainId"),
-                "price": price,
-                "liquidity_usd": liq,
-                "url": row.get("url"),
-            }
+        if best is None or candidate["liquidity_usd"] > float(best.get("liquidity_usd") or 0):
+            best = candidate
     return best or {}
+
+
+def _dexscreener_candidate(
+    row: dict[str, Any],
+    asset_u: str,
+    cex_ref: float,
+    *,
+    min_liquidity: float,
+) -> dict[str, Any] | None:
+    base_sym = str((row.get("baseToken") or {}).get("symbol") or "").upper()
+    quote_sym = str((row.get("quoteToken") or {}).get("symbol") or "").upper()
+    if base_sym != asset_u and not base_sym.startswith(asset_u):
+        return None
+    if quote_sym not in {"USDT", "USDC", "USD"}:
+        return None
+    price = float(row.get("priceUsd") or 0)
+    liq = float((row.get("liquidity") or {}).get("usd") or 0)
+    if price <= 0 or liq < min_liquidity:
+        return None
+    if cex_ref > 0 and abs(price - cex_ref) / cex_ref > 0.15:
+        return None
+    return {
+        "venue": row.get("dexId") or "dex",
+        "pair": row.get("pairAddress"),
+        "chain": row.get("chainId"),
+        "price": price,
+        "liquidity_usd": liq,
+        "url": row.get("url"),
+    }
 
 
 async def _jupiter_quote(session: aiohttp.ClientSession, asset: str) -> dict[str, Any]:
@@ -142,23 +153,29 @@ async def _oneinch_spot(session: aiohttp.ClientSession, asset: str, cex_ref: flo
     except aiohttp.ClientError:
         return {}
     for row in data.get("pairs") or []:
-        dex_id = str(row.get("dexId") or "").lower()
-        if "1inch" not in dex_id and dex_id not in {"uniswap", "sushiswap"}:
-            continue
-        price = float(row.get("priceUsd") or 0)
-        liq = float((row.get("liquidity") or {}).get("usd") or 0)
-        if price <= 0 or liq < 30_000:
-            continue
-        if cex_ref > 0 and abs(price - cex_ref) / cex_ref > 0.15:
-            continue
-        return {
-            "venue": "1inch",
-            "price": price,
-            "liquidity_usd": liq,
-            "source": "dexscreener_1inch",
-            "url": row.get("url"),
-        }
+        candidate = _oneinch_candidate(row, cex_ref)
+        if candidate is not None:
+            return candidate
     return {}
+
+
+def _oneinch_candidate(row: dict[str, Any], cex_ref: float) -> dict[str, Any] | None:
+    dex_id = str(row.get("dexId") or "").lower()
+    if "1inch" not in dex_id and dex_id not in {"uniswap", "sushiswap"}:
+        return None
+    price = float(row.get("priceUsd") or 0)
+    liq = float((row.get("liquidity") or {}).get("usd") or 0)
+    if price <= 0 or liq < 30_000:
+        return None
+    if cex_ref > 0 and abs(price - cex_ref) / cex_ref > 0.15:
+        return None
+    return {
+        "venue": "1inch",
+        "price": price,
+        "liquidity_usd": liq,
+        "source": "dexscreener_1inch",
+        "url": row.get("url"),
+    }
 
 
 async def _best_dex_quote(
@@ -205,6 +222,109 @@ def _execution_feasibility(net_bps: float, liq_usd: float, quote_usd: float) -> 
     return "partial"
 
 
+async def _cex_dex_opportunity_for_asset(
+    session: aiohttp.ClientSession,
+    asset: str,
+    quote_usd: float,
+) -> dict[str, Any] | None:
+    cex_map = await _cex_prices(session, asset)
+    if not cex_map:
+        return None
+    cex_mid = sum(cex_map.values()) / len(cex_map)
+    dex_row = await _best_dex_quote(session, asset, cex_mid)
+    dex_price = float(dex_row.get("price") or 0)
+    if dex_price <= 0:
+        return None
+
+    cex_low_v, cex_low = _best_cex(cex_map, side="buy")
+    cex_high_v, cex_high = _best_cex(cex_map, side="sell")
+    buy_venue, buy_price, sell_venue, sell_price = _cex_dex_route(
+        cex_mid,
+        dex_price,
+        dex_row,
+        cex_low_v,
+        cex_low,
+        cex_high_v,
+        cex_high,
+    )
+    spread_bps = ((sell_price - buy_price) / buy_price) * 10_000 if buy_price else 0
+    if abs(spread_bps) > 500:
+        return None
+    fee_bps = float(config.DEFAULT_TAKER_FEE) * 2 * 10_000 + _GAS_BPS_EST
+    net_bps = spread_bps - fee_bps
+    if abs(net_bps) < _MIN_NET_BPS:
+        return None
+    return _cex_dex_row(
+        asset,
+        cex_map,
+        cex_mid,
+        dex_row,
+        buy_venue,
+        buy_price,
+        sell_venue,
+        sell_price,
+        spread_bps,
+        net_bps,
+        quote_usd,
+    )
+
+
+def _cex_dex_route(
+    cex_mid: float,
+    dex_price: float,
+    dex_row: dict[str, Any],
+    cex_low_v: str,
+    cex_low: float,
+    cex_high_v: str,
+    cex_high: float,
+) -> tuple[str, float, str, float]:
+    if cex_mid > dex_price:
+        return dex_row.get("venue", "dex"), dex_price, cex_high_v, cex_high
+    return cex_low_v, cex_low, dex_row.get("venue", "dex"), dex_price
+
+
+def _cex_dex_row(
+    asset: str,
+    cex_map: dict[str, float],
+    cex_mid: float,
+    dex_row: dict[str, Any],
+    buy_venue: str,
+    buy_price: float,
+    sell_venue: str,
+    sell_price: float,
+    spread_bps: float,
+    net_bps: float,
+    quote_usd: float,
+) -> dict[str, Any]:
+    dex_price = float(dex_row.get("price") or 0)
+    liq = float(dex_row.get("liquidity_usd") or 0)
+    est_profit = quote_usd * (net_bps / 10_000) if net_bps > 0 else 0
+    return {
+        "asset": asset,
+        "cex_prices": {k: round(v, 6) for k, v in cex_map.items()},
+        "cex_price": round(cex_mid, 6),
+        "dex_price": round(dex_price, 6),
+        "dex_venue": dex_row.get("venue"),
+        "dex_liquidity_usd": round(liq, 0),
+        "dex_pair_url": dex_row.get("url"),
+        "buy_venue": buy_venue,
+        "sell_venue": sell_venue,
+        "buy_price": round(buy_price, 6),
+        "sell_price": round(sell_price, 6),
+        "spread_bps": round(spread_bps, 2),
+        "net_spread_bps": round(net_bps, 2),
+        "estimated_profit_usd": round(est_profit, 2),
+        "quote_usd": quote_usd,
+        "profitable": net_bps > 0,
+        "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
+        "why": (
+            f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "
+            f"sell on {sell_venue} @ ${sell_price:,.2f} — net {net_bps:.1f} bps after fees/gas"
+        ),
+        "kind": "cex_dex",
+    }
+
+
 async def scan_cex_dex_opportunities(*, quote_usd: float = 1000) -> dict[str, Any]:
     assets = list(config.WHITELIST_ASSETS)[:12]
     opportunities: list[dict[str, Any]] = []
@@ -212,64 +332,9 @@ async def scan_cex_dex_opportunities(*, quote_usd: float = 1000) -> dict[str, An
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in assets:
-            cex_map = await _cex_prices(session, asset)
-            if not cex_map:
-                continue
-            cex_mid = sum(cex_map.values()) / len(cex_map)
-            dex_row = await _best_dex_quote(session, asset, cex_mid)
-            if not dex_row.get("price"):
-                continue
-            dex_price = float(dex_row.get("price") or 0)
-            if dex_price <= 0:
-                continue
-
-            cex_low_v, cex_low = _best_cex(cex_map, side="buy")
-            cex_high_v, cex_high = _best_cex(cex_map, side="sell")
-
-            if cex_mid > dex_price:
-                buy_venue, buy_price = dex_row.get("venue", "dex"), dex_price
-                sell_venue, sell_price = cex_high_v, cex_high
-            else:
-                buy_venue, buy_price = cex_low_v, cex_low
-                sell_venue, sell_price = dex_row.get("venue", "dex"), dex_price
-
-            spread_bps = ((sell_price - buy_price) / buy_price) * 10_000 if buy_price else 0
-            if abs(spread_bps) > 500:
-                continue
-            fee_bps = float(config.DEFAULT_TAKER_FEE) * 2 * 10_000 + _GAS_BPS_EST
-            net_bps = spread_bps - fee_bps
-            liq = float(dex_row.get("liquidity_usd") or 0)
-            est_profit = quote_usd * (net_bps / 10_000) if net_bps > 0 else 0
-
-            if abs(net_bps) < _MIN_NET_BPS:
-                continue
-
-            opportunities.append(
-                {
-                    "asset": asset,
-                    "cex_prices": {k: round(v, 6) for k, v in cex_map.items()},
-                    "cex_price": round(cex_mid, 6),
-                    "dex_price": round(dex_price, 6),
-                    "dex_venue": dex_row.get("venue"),
-                    "dex_liquidity_usd": round(liq, 0),
-                    "dex_pair_url": dex_row.get("url"),
-                    "buy_venue": buy_venue,
-                    "sell_venue": sell_venue,
-                    "buy_price": round(buy_price, 6),
-                    "sell_price": round(sell_price, 6),
-                    "spread_bps": round(spread_bps, 2),
-                    "net_spread_bps": round(net_bps, 2),
-                    "estimated_profit_usd": round(est_profit, 2),
-                    "quote_usd": quote_usd,
-                    "profitable": net_bps > 0,
-                    "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
-                    "why": (
-                        f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "
-                        f"sell on {sell_venue} @ ${sell_price:,.2f} — net {net_bps:.1f} bps after fees/gas"
-                    ),
-                    "kind": "cex_dex",
-                }
-            )
+            opportunity = await _cex_dex_opportunity_for_asset(session, asset, quote_usd)
+            if opportunity is not None:
+                opportunities.append(opportunity)
 
     opportunities.sort(key=lambda x: x["net_spread_bps"], reverse=True)
     return {
