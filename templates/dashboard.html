@@ -791,6 +791,69 @@
             }
             return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button></div>`;
         }
+        function safeShareUrl(u) {
+            const s = String(u || '');
+            return (/^https?:\/\//i.test(s)) ? esc(s) : '';
+        }
+        function buildFactorDrawer(d) {
+            const whyBlock = d.oqs_why || {};
+            const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
+            const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
+            return whyVisible + `
+                <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
+                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
+                    <div style="margin-top:.65rem">${buildScenarioBlock(d)}</div>
+                </details>`;
+        }
+        function buildProMetrics(d, factorBlock) {
+            const truth = d.net_edge_truth || {};
+            const half = d.opportunity_half_life || {};
+            const sig = d.signal_registry || {};
+            return `
+                <div class="metrics">
+                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
+                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
+                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
+                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
+                </div>${factorBlock}`;
+        }
+        function buildProofBlock(d) {
+            if (!d.prediction_id) return '';
+            const hashBit = d.chain_hash
+                ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
+                : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
+        }
+        function buildComplianceBlock(d) {
+            const cf = d.compliance_footer || {};
+            if (!cf.disclaimer) return '';
+            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
+        }
+        function renderOracleDecision(el, d, { sym, mode, lang }) {
+            const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+            const action = d.decision_action || '';
+            const factorBlock = buildFactorDrawer(d);
+            const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : factorBlock;
+            const conf = d.confidence != null ? d.confidence + '%' : '—';
+            el.innerHTML = `
+                <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
+                <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
+                    <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
+                <div class="narrative">${esc(sentence)}</div>
+                <div class="metrics">
+                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
+                    <div class="metric"><strong>${esc(conf)}</strong><span>Confidence</span></div>
+                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
+                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
+                </div>
+                ${proBlock}
+                ${buildVetoBlock(mode, d.dimension_conflict || {})}
+                ${buildProofBlock(d)}
+                ${buildUpgradeBlock(d)}
+                ${buildComplianceBlock(d)}
+                ${buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl)}
+                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
+        }
 
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
@@ -808,69 +871,14 @@
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
                 const res = await fetch(url, { headers: authHeaders() });
                 if (!res.ok) throw new Error('fail');
-                const d = await res.json();
-                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
-                const action = d.decision_action || '';
-                const safeUrl = (u) => {
-                    const s = String(u || '');
-                    return (/^https?:\/\//i.test(s)) ? esc(s) : '';
-                };
-                const whyBlock = d.oqs_why || {};
-                const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
-                const scenBlock = buildScenarioBlock(d);
-                const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
-                const factorBlock = whyVisible + `
-                    <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
-                        <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
-                        <div style="margin-top:.65rem">${scenBlock}</div>
-                    </details>`;
-                const truth = d.net_edge_truth || {};
-                const half = d.opportunity_half_life || {};
-                const sig = d.signal_registry || {};
-                let proBlock = factorBlock;
-                if (mode === 'pro') {
-                    proBlock = `
-                    <div class="metrics">
-                        <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
-                        <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
-                        <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
-                        <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
-                    </div>${factorBlock}`;
-                }
-                const upgradeBlock = buildUpgradeBlock(d);
-                const conflict = d.dimension_conflict || {};
-                const vetoBlock = buildVetoBlock(mode, conflict);
-                let proofBlock = '';
-                if (d.prediction_id) {
-                    const hashBit = d.chain_hash
-                        ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
-                        : '';
-                    proofBlock = `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
-                }
-                const cf = d.compliance_footer || {};
-                const complianceBlock = cf.disclaimer
-                    ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`
-                    : '';
-                const certBlock = buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeUrl);
-                el.innerHTML = `
-                    <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
-                    <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
-                        <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
-                    <div class="narrative">${esc(sentence)}</div>
-                    <div class="metrics">
-                        <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${esc(d.confidence != null ? d.confidence + '%' : '—')}</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
-                        <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
-                    </div>
-                    ${proBlock}
-                    ${vetoBlock}
-                    ${proofBlock}
-                    ${upgradeBlock}
-                    ${complianceBlock}
-                    ${certBlock}
-                    <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
-            } catch (error) { console.debug(error); const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty); }
+                renderOracleDecision(el, await res.json(), { sym, mode, lang });
+            } catch (error) {
+                console.debug(error);
+                const empty = document.createElement('div');
+                empty.className = 'empty';
+                empty.textContent = 'Could not analyze ' + sym;
+                el.replaceChildren(empty);
+            }
         }
 
         function initChart() {
