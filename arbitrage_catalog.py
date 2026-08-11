@@ -187,6 +187,58 @@ def _proxy_score_for_type(
     return scores.get(type_id)
 
 
+def _opportunities_by_kind(live_scan: dict[str, Any]) -> dict[str, list[dict]]:
+    grouped: dict[str, list[dict]] = {}
+    for opp in live_scan.get("opportunities") or []:
+        kind = opp.get("kind") or "unknown"
+        grouped.setdefault(kind, []).append(opp)
+    return grouped
+
+
+def _live_catalog_row(row: dict[str, Any], matches: list[dict]) -> bool:
+    if not matches:
+        return False
+    best = max(matches, key=lambda item: float(item.get("net_profit_usdt") or 0))
+    row["active"] = True
+    row["score"] = min(
+        100.0,
+        max(0.0, 50.0 + float(best.get("net_profit_percent") or 0) * 10),
+    )
+    row["matches"] = [best]
+    return True
+
+
+def _proxy_catalog_row(
+    row: dict[str, Any],
+    entry: dict[str, Any],
+    *,
+    institutional: dict[str, Any],
+    macro: dict[str, Any],
+    sentiment: dict[str, Any],
+    oracle_accuracy: float,
+) -> bool:
+    score = _proxy_score_for_type(
+        entry["id"],
+        institutional=institutional,
+        macro=macro,
+        sentiment=sentiment,
+        oracle_accuracy=oracle_accuracy,
+    )
+    if score is None or score < 40:
+        return False
+    row["active"] = True
+    row["score"] = round(score, 1)
+    return True
+
+
+def _catalog_base_row(entry: dict[str, Any]) -> dict[str, Any]:
+    row = dict(entry)
+    row["active"] = False
+    row["score"] = 0.0
+    row["matches"] = []
+    return row
+
+
 async def scan_arbitrage_catalog(
     quote_amount: float | None = None,
     *,
@@ -205,44 +257,27 @@ async def scan_arbitrage_catalog(
     macro = await fetch_latest_macro_market_log()
     audit = await fetch_oracle_audit_stats(limit=20)
     oracle_accuracy = float(audit.get("average_accuracy_percent") or 0)
-
-    opps_by_kind: dict[str, list[dict]] = {}
-    for opp in live_scan.get("opportunities") or []:
-        kind = opp.get("kind") or "unknown"
-        opps_by_kind.setdefault(kind, []).append(opp)
+    opps_by_kind = _opportunities_by_kind(live_scan)
 
     results: list[dict[str, Any]] = []
     active_live = 0
     active_proxy = 0
 
     for entry in ARBITRAGE_CATALOG:
-        row = dict(entry)
-        row["active"] = False
-        row["score"] = 0.0
-        row["matches"] = []
+        row = _catalog_base_row(entry)
 
         if entry["status"] == "live" and entry.get("engine_kind"):
-            matches = opps_by_kind.get(entry["engine_kind"]) or []
-            if matches:
-                best = max(matches, key=lambda x: float(x.get("net_profit_usdt") or 0))
-                row["active"] = True
-                row["score"] = min(
-                    100.0,
-                    max(0.0, 50.0 + float(best.get("net_profit_percent") or 0) * 10),
-                )
-                row["matches"] = [best]
+            if _live_catalog_row(row, opps_by_kind.get(entry["engine_kind"]) or []):
                 active_live += 1
         elif entry["status"] == "proxy":
-            score = _proxy_score_for_type(
-                entry["id"],
+            if _proxy_catalog_row(
+                row,
+                entry,
                 institutional=institutional,
                 macro=macro,
                 sentiment=sentiment,
                 oracle_accuracy=oracle_accuracy,
-            )
-            if score is not None and score >= 40:
-                row["active"] = True
-                row["score"] = round(score, 1)
+            ):
                 active_proxy += 1
 
         if row["score"] >= min_score:
