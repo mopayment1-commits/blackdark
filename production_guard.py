@@ -335,7 +335,8 @@ def enforce_production_guard(*, raise_on_fail: bool | None = None) -> dict[str, 
     """Fail closed in production when required checks fail (opt-out via env)."""
     report = evaluate_production_guard()
     if not is_production():
-        return report
+        # Distinct return shape so callers can tell "not enforced" from "enforced OK".
+        return {**report, "enforced": False}
     if raise_on_fail is None:
         raise_on_fail = os.getenv("PRODUCTION_GUARD_FAIL_CLOSED", "true").lower() in {
             "1",
@@ -347,7 +348,7 @@ def enforce_production_guard(*, raise_on_fail: bool | None = None) -> dict[str, 
             "Production guard failed required checks: "
             + ", ".join(report["required_failures"])
         )
-    return report
+    return {**report, "enforced": True}
 
 
 def log_production_guard() -> None:
