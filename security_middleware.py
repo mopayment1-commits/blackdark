@@ -17,7 +17,13 @@ SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
 
 
 def _is_production() -> bool:
-    env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
+    env = (
+        os.getenv("ENV")
+        or os.getenv("APP_ENV")
+        or os.getenv("ENVIRONMENT")
+        or os.getenv("RAILWAY_ENVIRONMENT")
+        or ""
+    ).strip().lower()
     return env in {"production", "prod"}
 
 
@@ -108,8 +114,9 @@ def _request_origin_ok(request: Request) -> bool:
         return _match(origin)
     if referer:
         return _match(referer)
-    # No Origin/Referer: allow Bearer-only clients (non-browser) — cookie-only blocked below
-    return True
+    # Fail closed for cookie-authenticated browsers that omit both headers.
+    # Bearer-only clients bypass this check in the middleware (no cookie path).
+    return False
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
@@ -173,7 +180,8 @@ def apply_cors(app) -> None:
 def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     """HttpOnly Secure SameSite cookie flags for bd_token."""
     base = (os.getenv("APP_BASE_URL") or "").strip().lower()
-    secure = base.startswith("https") or _is_production()
+    env_secure = os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}
+    secure = env_secure or base.startswith("https") or _is_production()
     return {
         "key": "bd_token",
         "httponly": True,
@@ -203,7 +211,12 @@ def attach_session_cookie(response: Response, token: str, *, max_age: int | None
 
 
 def cookie_to_session_bearer(raw: str | None) -> str:
-    """Decode bd_token cookie (Fernet-sealed or legacy clear bearer)."""
+    """Decode bd_token cookie via the canonical Fernet-sealed path.
+
+    Legacy clear-text cookies are rejected in production (fail closed).
+    Non-production may accept legacy cookies only when
+    ALLOW_LEGACY_SESSION_COOKIE=true for migration.
+    """
     value = (raw or "").strip().strip('"').strip("'")
     if not value:
         return ""
@@ -215,5 +228,11 @@ def cookie_to_session_bearer(raw: str | None) -> str:
             return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
         except Exception:
             return ""
-    # Legacy cookies minted before sealing.
+    # Production rejects unsealed cookies unless explicitly opted in for migration.
+    legacy_flag = os.getenv("ALLOW_LEGACY_SESSION_COOKIE", "").strip().lower()
+    allow_legacy = legacy_flag in {"1", "true", "yes"} or (
+        not _is_production() and legacy_flag not in {"0", "false", "no"}
+    )
+    if not allow_legacy:
+        return ""
     return "".join(ch for ch in value if ch.isalnum() or ch in "-_")

@@ -276,12 +276,8 @@ function sparkSvg(prices) {
 }
 
 function authHeaders() {
-    const headers = {};
-    try {
-        const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-    } catch (error) { console.debug(error); }
-    return headers;
+    // Cookie session authoritative — never promote localStorage bearer (XSS).
+    return {};
 }
 
 function gatedMessage(status) {

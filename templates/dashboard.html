@@ -377,8 +377,16 @@
         let chart, series;
 
         function authHeaders() {
-            const t = localStorage.getItem('bd_token');
-            return t ? { Authorization: 'Bearer ' + t } : {};
+            // Cookie session is authoritative (HttpOnly). Avoid Bearer-from-localStorage (XSS theft).
+            return {};
+        }
+        function escapeHtml(value) {
+            return String(value == null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
         }
 
         let chatHistory = [];
@@ -473,16 +481,15 @@
         async function loadAuth() {
             const tierEl = document.getElementById('userTier');
             const authLink = document.getElementById('authLink');
-            const token = localStorage.getItem('bd_token');
             syncChatGate();
-            if (!token) {
-                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
-                applyUpgradeButton();
-                return;
-            }
             try {
-                const res = await fetch('/api/auth/me', { headers: authHeaders() });
+                const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
+                if (!d.authenticated) {
+                    nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                    applyUpgradeButton();
+                    return;
+                }
                 if (d.authenticated) {
                     userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
                     tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
@@ -490,8 +497,8 @@
                     authLink.href = '#';
                     authLink.onclick = async e => {
                         e.preventDefault();
-                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders() });
-                        localStorage.removeItem('bd_token');
+                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+                        try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
                         location.reload();
                     };
                     try {
@@ -628,7 +635,7 @@
             const price = fmtPrice(p.price);
             const ch = p.change_24h;
             const chS = changeSpan(ch);
-            document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
+            document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')} ${price}${chS}`;
             document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
             document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
             const factors = (p.why && p.why.factors) || [];
@@ -645,8 +652,8 @@
             const ledger = p.ledger || {};
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
-                const footBit = foot ? '<br>' + foot : '';
-                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + ledger.honesty_line + footBit;
+                const footBit = foot ? '<br>' + escapeHtml(foot) : '';
+                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
             }
             savePulseVisit(p);
         }

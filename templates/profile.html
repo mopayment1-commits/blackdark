@@ -110,8 +110,8 @@
 </div>
 <script type="module">
     function authHeaders() {
-        const t = localStorage.getItem('bd_token');
-        return t ? { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+        // HttpOnly cookie session — do not attach Bearer from localStorage.
+        return { 'Content-Type': 'application/json' };
     }
     function setMsg(id, text, ok) {
         const el = document.getElementById(id);
@@ -254,7 +254,7 @@
             })
         });
         const d = await res.json();
-        if (res.ok && d.token) localStorage.setItem('bd_token', d.token);
+        if (res.ok) { try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {} }
         setMsg('secMsg', res.ok ? 'Password updated — other sessions revoked.' : (d.detail || 'Failed'), res.ok);
     }
     async function resendVerify() {

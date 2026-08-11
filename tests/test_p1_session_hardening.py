@@ -1,0 +1,79 @@
+"""P1 session / CSRF / cookie hardening regression tests."""
+
+from __future__ import annotations
+
+from fastapi import Request
+from starlette.datastructures import Headers
+
+import security_middleware as sm
+
+
+def _request(headers: dict[str, str], method: str = "POST") -> Request:
+    scope = {
+        "type": "http",
+        "asgi": {"version": "3.0"},
+        "http_version": "1.1",
+        "method": method,
+        "scheme": "https",
+        "path": "/api/auth/logout",
+        "raw_path": b"/api/auth/logout",
+        "query_string": b"",
+        "headers": Headers(headers).raw,
+        "client": ("203.0.113.10", 443),
+        "server": ("example.com", 443),
+    }
+    return Request(scope)
+
+
+def test_csrf_rejects_cookie_mutation_without_origin(monkeypatch):
+    monkeypatch.setenv("APP_BASE_URL", "https://example.com")
+    req = _request({"cookie": "bd_token=abc", "host": "example.com"})
+    assert sm._request_origin_ok(req) is False
+
+
+def test_csrf_allows_matching_origin(monkeypatch):
+    monkeypatch.setenv("APP_BASE_URL", "https://example.com")
+    req = _request(
+        {
+            "cookie": "bd_token=abc",
+            "host": "example.com",
+            "origin": "https://example.com",
+        }
+    )
+    assert sm._request_origin_ok(req) is True
+
+
+def test_production_rejects_legacy_clear_cookie(monkeypatch):
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("ALLOW_LEGACY_SESSION_COOKIE", raising=False)
+    assert sm.cookie_to_session_bearer("plainBearerTokenValue1234567890") == ""
+
+
+def test_sealed_cookie_roundtrip(monkeypatch):
+    monkeypatch.setenv("APP_ENV", "production")
+    from secrets_vault import encrypt_secret
+
+    plain = "sessionBearerTokenValueABCDEFG123"
+    sealed = encrypt_secret(plain)
+    assert sealed.startswith("gAAAA")
+    assert sm.cookie_to_session_bearer(sealed) == plain
+
+
+def test_auth_body_omits_token_in_production(monkeypatch):
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("AUTH_TOKEN_IN_BODY", raising=False)
+    from api.routers.auth import _session_response_body
+
+    body = _session_response_body({"token": "abc", "user": {"id": 1}})
+    assert "token" not in body
+    assert body.get("session") == "cookie"
+
+
+def test_cookie_secure_in_production(monkeypatch):
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("COOKIE_SECURE", raising=False)
+    monkeypatch.delenv("APP_BASE_URL", raising=False)
+    kwargs = sm.cookie_session_kwargs()
+    assert kwargs["httponly"] is True
+    assert kwargs["secure"] is True
+    assert kwargs["samesite"] == "lax"

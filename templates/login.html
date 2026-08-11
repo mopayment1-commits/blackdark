@@ -218,7 +218,8 @@
             else btn.textContent = 'Create free Proof Pass account';
         }
         function saveAuth(data) {
-            if (data.token) localStorage.setItem('bd_token', data.token);
+            // Prefer HttpOnly cookie session — do not store reusable bearer in localStorage (XSS).
+            try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
             const next = (data.next && data.next.href) || '/profile?welcome=1';
             window.location.href = next;
