@@ -16,8 +16,15 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+_ALLOWED_INTERVALS = {"1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M"}
+
+
 async def _klines(asset: str, *, interval: str = "1d", limit: int = 365) -> list[float]:
     pair = f"{asset}USDT"
+    if not pair.isalnum():
+        return []
+    if interval not in _ALLOWED_INTERVALS:
+        interval = "1d"
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     timeout = aiohttp.ClientTimeout(total=15)
     async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:

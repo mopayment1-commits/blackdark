@@ -1,4 +1,4 @@
-"""Sanitize untrusted values before logging (Sonar S5145)."""
+"""Sanitize untrusted values before logging (Sonar S5145 / CodeQL py/log-injection)."""
 
 from __future__ import annotations
 
@@ -17,7 +17,9 @@ def sanitize_log_value(value: Any, *, max_len: int = 64) -> str:
         return "true" if value else "false"
     if isinstance(value, (int, float)):
         return str(value)
-    text = _CONTROL.sub("", str(value)).strip()
+    # Explicit CR/LF replace is required for CodeQL py/log-injection recognition.
+    text = str(value).replace("\r", " ").replace("\n", " ")
+    text = _CONTROL.sub("", text).strip()
     if len(text) > max_len:
         text = text[: max_len - 1] + "…"
     return text or "-"

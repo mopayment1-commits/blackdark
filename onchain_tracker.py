@@ -20,6 +20,7 @@ import aiohttp
 from pydantic import BaseModel, Field
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.OnChainTracker")
 
@@ -144,7 +145,10 @@ async def _fetch_onchain_flows_api(session: aiohttp.ClientSession) -> list[Excha
                 )
             )
         except (TypeError, ValueError):
-            logger.warning("Skipping malformed on-chain flow row: %s", row)
+            logger.warning(
+                "Skipping malformed on-chain flow row: %s",
+                sanitize_log_value(row, max_len=120),
+            )
             continue
     return flows
 
@@ -245,7 +249,10 @@ def classify_onchain_signal(
             message=message,
         )
     except Exception:
-        logger.exception("On-chain signal classification failed | asset=%s", flow.asset)
+        logger.exception(
+            "On-chain signal classification failed | asset=%s",
+            sanitize_asset(flow.asset),
+        )
         return None
 
 
@@ -280,7 +287,10 @@ async def analyze_onchain_flows(
                 signals=asset_signals,
             )
         except Exception:
-            logger.exception("On-chain flow analysis failed | asset=%s", flow.asset)
+            logger.exception(
+                "On-chain flow analysis failed | asset=%s",
+                sanitize_asset(flow.asset),
+            )
             continue
 
     return signals, statuses
@@ -333,7 +343,7 @@ def onchain_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> f
             2,
         )
     except Exception:
-        logger.exception("On-chain score adjustment failed | asset=%s", asset)
+        logger.exception("On-chain score adjustment failed | asset=%s", sanitize_asset(asset))
         return 0.0
 
 

@@ -21,6 +21,7 @@ from urllib.parse import urlencode
 import aiohttp
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.ExecutionEngine")
 
@@ -48,6 +49,8 @@ async def _fetch_ticker(pair: str, *, exchange: str = "binance") -> dict | None:
     if live:
         return {"price": live["mid"], "bid": live["bid"], "ask": live["ask"], "source": "websocket_live"}
 
+    if not pair.isalnum():
+        return None
     url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
         timeout = aiohttp.ClientTimeout(total=10)
@@ -182,7 +185,10 @@ async def trigger_panic(*, user_id: int | None = None) -> dict[str, Any]:
     from database import set_execution_state
 
     await set_execution_state(panic_active=True)
-    logger.warning("PANIC BUTTON activated — all execution halted | user_id=%s", user_id)
+    logger.warning(
+        "PANIC BUTTON activated — all execution halted | user_id=%s",
+        sanitize_log_value(user_id),
+    )
     return {
         "panic_active": True,
         "message": "All auto-execution halted immediately.",
@@ -329,8 +335,6 @@ async def execute_order(
                 "executedQty": order.get("executedQty"),
             }
             payload["message"] = f"Live {side} {asset} submitted to Binance."
-            from log_safety import sanitize_asset, sanitize_log_value
-
             logger.info(
                 "Live order placed | %s %s $%.2f order_id=%s source=%s",
                 sanitize_log_value(side, max_len=8),
@@ -342,8 +346,6 @@ async def execute_order(
         except Exception as exc:
             payload["executed"] = False
             payload["message"] = f"Live order failed: {exc}"
-            from log_safety import sanitize_asset, sanitize_log_value
-
             logger.exception(
                 "Live order failed | %s %s",
                 sanitize_log_value(side, max_len=8),
@@ -588,8 +590,8 @@ async def start_auto_execution_loop() -> Any:
                 if outcome.get("executed"):
                     logger.info(
                         "Auto-execution cycle | mode=%s asset=%s",
-                        outcome.get("mode"),
-                        outcome.get("order", {}).get("symbol"),
+                        sanitize_log_value(outcome.get("mode"), max_len=24),
+                        sanitize_asset(outcome.get("order", {}).get("symbol")),
                     )
             except asyncio.CancelledError:
                 raise

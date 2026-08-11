@@ -9,6 +9,8 @@ from typing import Any
 
 import aiohttp
 
+from log_safety import sanitize_asset, sanitize_log_value
+
 logger = logging.getLogger("BLACKDARK.DerivativesHub")
 
 
@@ -80,7 +82,12 @@ async def cex_dex_derivatives_compare(asset: str = "BTC") -> dict[str, Any]:
                 "price": ticker.price,
             }
         except Exception as exc:
-            logger.debug("DEX quote failed %s %s: %s", venue_id, symbol, exc)
+            logger.debug(
+                "DEX quote failed %s %s: %s",
+                sanitize_log_value(venue_id, max_len=32),
+                sanitize_asset(symbol),
+                sanitize_log_value(exc, max_len=120),
+            )
             return None
 
     dex_rows = await asyncio.gather(*[_dex_quote(v) for v in sorted(PERP_DEX_VENUES)])

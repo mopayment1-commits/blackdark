@@ -24,6 +24,8 @@ def _utcnow() -> str:
 async def _cex_prices(session: aiohttp.ClientSession, asset: str) -> dict[str, float]:
     pair = f"{asset}USDT"
     out: dict[str, float] = {}
+    if not pair.isalnum():
+        return out
     urls = {
         "binance": f"https://api.binance.com/api/v3/ticker/price?symbol={pair}",
         "okx": f"https://www.okx.com/api/v5/market/ticker?instId={asset}-USDT",

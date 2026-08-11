@@ -14,6 +14,8 @@ from typing import Any
 
 import aiohttp
 
+from log_safety import sanitize_asset
+
 logger = logging.getLogger("BLACKDARK.ForecastEngine")
 
 HORIZONS_HOURS = (1, 4, 24)
@@ -30,7 +32,14 @@ def _normalize_asset(symbol: str) -> str:
     return cleaned
 
 
+_ALLOWED_INTERVALS = {"1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M"}
+
+
 async def _fetch_binance_closes(pair: str, interval: str = "1h", limit: int = 168) -> list[float]:
+    if not pair.isalnum():
+        return []
+    if interval not in _ALLOWED_INTERVALS:
+        interval = "1h"
     url = (
         f"https://api.binance.com/api/v3/klines"
         f"?symbol={pair}&interval={interval}&limit={limit}"
@@ -73,8 +82,6 @@ async def load_price_series(asset: str, *, limit: int = 200) -> tuple[list[float
         if len(lake_prices) >= 5:
             return lake_prices[-limit:], "data_lake_snapshots"
     except Exception:
-        from log_safety import sanitize_asset
-
         logger.warning("Data lake price load failed | asset=%s", sanitize_asset(asset))
 
     closes = await _fetch_binance_closes(pair, interval="1h", limit=min(limit, 168))
@@ -185,8 +192,6 @@ async def build_asset_forecast(asset: str, *, current_price: float | None = None
 
             await insert_forecast_logs(asset, float(forecast["current_price"]), forecast)
         except Exception:
-            from log_safety import sanitize_asset
-
             logger.exception("Failed to persist forecast logs | asset=%s", sanitize_asset(asset))
 
     return forecast
@@ -251,6 +256,8 @@ async def run_forecast_audit() -> dict[str, Any]:
     for row in unresolved:
         asset = str(row.get("asset") or "")
         pair = f"{_normalize_asset(asset)}USDT"
+        if not pair.isalnum():
+            continue
         ticker_url = f"https://api.binance.com/api/v3/ticker/price?symbol={pair}"
         try:
             timeout = aiohttp.ClientTimeout(total=8)

@@ -16,6 +16,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.OBIPredictor")
 
@@ -147,8 +148,8 @@ async def calculate_order_book_imbalance(
     except Exception:
         logger.exception(
             "OBI calculation failed | exchange=%s symbol=%s",
-            exchange,
-            symbol,
+            sanitize_log_value(exchange, max_len=32),
+            sanitize_asset(symbol),
         )
         return None
 
@@ -226,9 +227,9 @@ def forecast_flash_crash(
     except Exception:
         logger.exception(
             "Flash crash forecast failed | asset=%s exchange=%s symbol=%s",
-            asset,
-            exchange,
-            symbol,
+            sanitize_asset(asset),
+            sanitize_log_value(exchange, max_len=32),
+            sanitize_asset(symbol),
         )
         return None
 
@@ -265,8 +266,8 @@ async def analyze_order_book_snapshot(
             except Exception:
                 logger.exception(
                     "OBI snapshot analysis failed | exchange=%s key=%s",
-                    exchange_id,
-                    storage_key,
+                    sanitize_log_value(exchange_id, max_len=32),
+                    sanitize_log_value(storage_key, max_len=64),
                 )
                 continue
 
@@ -339,7 +340,7 @@ def obi_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> float
             2,
         )
     except Exception:
-        logger.exception("OBI score adjustment failed | asset=%s", asset)
+        logger.exception("OBI score adjustment failed | asset=%s", sanitize_asset(asset))
         return 0.0
 
 

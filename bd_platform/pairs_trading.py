@@ -22,6 +22,8 @@ def _utcnow() -> str:
 
 async def _fetch_closes(session: aiohttp.ClientSession, asset: str, *, limit: int = 60) -> list[float]:
     pair = f"{asset}USDT"
+    if not pair.isalnum():
+        return []
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval=1h&limit={limit}"
     try:
         async with session.get(url) as resp:

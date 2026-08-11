@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 import config
+from log_safety import sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.ApiKeySecurityGuard")
 
@@ -90,11 +91,11 @@ def record_key_access(
         logger.debug("API key audit persist failed", exc_info=True)
     logger.info(
         "Key access audit | user_id=%s exchange=%s action=%s allowed=%s reason=%s",
-        user_id,
-        exchange,
-        action,
-        allowed,
-        reason or "ok",
+        sanitize_log_value(user_id),
+        sanitize_log_value(exchange, max_len=32),
+        sanitize_log_value(action, max_len=32),
+        sanitize_log_value(allowed),
+        sanitize_log_value(reason or "ok", max_len=64),
     )
 
 
@@ -135,7 +136,7 @@ async def validate_exchange_api_key(
             result.reason = "withdraw_enabled_rejected"
             logger.warning(
                 "API key rejected — withdraw enabled | exchange=%s (trade-only required)",
-                ex,
+                sanitize_log_value(ex, max_len=32),
             )
             return result
         result.allowed = True

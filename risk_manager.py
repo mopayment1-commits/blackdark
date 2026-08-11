@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from typing import Any
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.RiskManager")
 
@@ -68,7 +69,7 @@ def freeze_trading(reason: str, *, duration_sec: int | None = None) -> dict[str,
     _poison_events.append(event)
     if len(_poison_events) > 100:
         _poison_events.pop(0)
-    logger.warning("TRADING FROZEN | reason=%s duration=%ss", reason, dur)
+    logger.warning("TRADING FROZEN | reason=%s duration=%ss", sanitize_log_value(reason), dur)
     try:
         import asyncio
 
@@ -134,7 +135,10 @@ async def load_persistent_freeze() -> dict[str, Any]:
         return {"loaded": True, "frozen": False, "expired": True}
     _freeze_until = until if until > 0 else time.time() + _freeze_duration_sec()
     _freeze_reason = str(row.get("reason") or "persistent_freeze")
-    logger.warning("Restored persistent trading freeze | reason=%s", _freeze_reason)
+    logger.warning(
+        "Restored persistent trading freeze | reason=%s",
+        sanitize_log_value(_freeze_reason),
+    )
     return {"loaded": True, "frozen": True, "reason": _freeze_reason, "until_ts": _freeze_until}
 
 
@@ -245,8 +249,6 @@ def register_stop_loss(
         "triggered": False,
     }
     _active_stop_losses[symbol.upper()] = record
-    from log_safety import sanitize_asset
-
     logger.info(
         "Stop-loss registered | %s entry=%.4f stop=%.4f",
         sanitize_asset(symbol),
@@ -273,7 +275,12 @@ def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
             sl["trigger_price"] = px
             sl["triggered_ts"] = time.time()
             triggered.append(dict(sl))
-            logger.warning("STOP-LOSS TRIGGERED | %s price=%.4f stop=%.4f", sym, px, sl["stop_price"])
+            logger.warning(
+                "STOP-LOSS TRIGGERED | %s price=%.4f stop=%.4f",
+                sanitize_asset(sym),
+                px,
+                sl["stop_price"],
+            )
     return triggered
 
 

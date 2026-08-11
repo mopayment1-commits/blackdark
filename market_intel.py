@@ -35,6 +35,8 @@ async def fetch_open_interest(symbols: list[str] | None = None) -> list[dict[str
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in assets:
             pair = f"{asset}USDT"
+            if not pair.isalnum():
+                continue
             oi_url = f"https://fapi.binance.com/fapi/v1/openInterest?symbol={pair}"
             ticker_url = f"https://fapi.binance.com/fapi/v1/ticker/24hr?symbol={pair}"
             try:
