@@ -16,7 +16,6 @@ jobs:
     # Gate via env — secrets.* is invalid in job-level if conditions.
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SONAR_ORGANIZATION: blackdark
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,10 +46,9 @@ jobs:
             --cov-config=.coveragerc-profit-fee || true
           test -f coverage.xml
 
-      # Prefer current action (sonarcloud-github-action is deprecated).
       - name: SonarCloud Scan
         if: env.SONAR_TOKEN != ''
-        uses: SonarSource/sonarqube-scan-action@fd88ac5a3b0326a100327ff31095a3551bbc01b2 # v5.0.0
+        uses: SonarSource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
