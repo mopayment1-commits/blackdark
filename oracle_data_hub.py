@@ -365,12 +365,8 @@ async def fetch_onchain_derivatives_mesh(
     return result
 
 
-async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
-    cached = _CACHE.get("macro_mesh")
-    if cached is not None:
-        return cached
-
-    symbols = {
+def _macro_symbols() -> dict[str, str]:
+    return {
         "dxy": config.MACRO_YAHOO_DXY_SYMBOL,
         "spx": config.MACRO_YAHOO_SPX_SYMBOL,
         "vix": config.ORACLE_MACRO_VIX_SYMBOL,
@@ -380,39 +376,53 @@ async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
         "oil": config.ORACLE_MACRO_OIL_SYMBOL,
     }
 
-    async def _yahoo_change(sym: str) -> float | None:
-        try:
-            payload = await _fetch_json(
-                session,
-                f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
-                params={"interval": "1d", "range": "5d"},
-            )
-            result = (payload.get("chart") or {}).get("result") or []
-            if not result:
-                return None
-            closes = (
-                ((result[0].get("indicators") or {}).get("quote") or [{}])[0].get("close") or []
-            )
-            valid = [float(v) for v in closes if v is not None]
-            if len(valid) < 2 or valid[-2] == 0:
-                return None
-            return round((valid[-1] - valid[-2]) / valid[-2], 4)
-        except Exception:
+
+async def _yahoo_change(session: aiohttp.ClientSession, sym: str) -> float | None:
+    try:
+        payload = await _fetch_json(
+            session,
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
+            params={"interval": "1d", "range": "5d"},
+        )
+        result = (payload.get("chart") or {}).get("result") or []
+        if not result:
             return None
+        closes = (
+            ((result[0].get("indicators") or {}).get("quote") or [{}])[0].get("close") or []
+        )
+        valid = [float(v) for v in closes if v is not None]
+        if len(valid) < 2 or valid[-2] == 0:
+            return None
+        return round((valid[-1] - valid[-2]) / valid[-2], 4)
+    except Exception:
+        return None
 
+
+async def _macro_changes(session: aiohttp.ClientSession) -> dict[str, float | None]:
     changes: dict[str, float | None] = {}
-    for label, sym in symbols.items():
-        changes[label] = await _yahoo_change(sym)
+    for label, sym in _macro_symbols().items():
+        changes[label] = await _yahoo_change(session, sym)
+    return changes
 
+
+def _macro_regime(changes: dict[str, float | None]) -> RiskTone:
     vix = changes.get("vix") or 0.0
     dxy = changes.get("dxy") or 0.0
     spx = changes.get("spx") or 0.0
-
-    regime: RiskTone = "neutral"
     if vix > 0.08 or dxy > 0.002 or spx < -0.01:
-        regime = "risk_off"
-    elif vix < -0.03 and spx > 0.005 and dxy < 0:
-        regime = "risk_on"
+        return "risk_off"
+    if vix < -0.03 and spx > 0.005 and dxy < 0:
+        return "risk_on"
+    return "neutral"
+
+
+async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
+    cached = _CACHE.get("macro_mesh")
+    if cached is not None:
+        return cached
+
+    changes = await _macro_changes(session)
+    regime = _macro_regime(changes)
 
     result = {
         "changes_1d_pct": changes,
@@ -625,67 +635,90 @@ async def synthesize_with_free_llm_chain(
     return None
 
 
-def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
-    """Return score delta, reasons, risks from hub context."""
-    delta = 0.0
-    reasons: list[str] = []
-    risks: list[str] = []
-
+def _sentiment_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     sentiment = hub_context.get("sentiment") or {}
     fg = int(sentiment.get("fear_greed_index") or 50)
     if fg >= 75:
-        delta += 2.0
-        reasons.append(f"Market greed index elevated ({fg}) — momentum tailwind.")
-    elif fg <= 25:
-        delta -= 3.0
-        risks.append(f"Extreme fear index ({fg}) — capitulation risk.")
+        return 2.0, [f"Market greed index elevated ({fg}) — momentum tailwind."], []
+    if fg <= 25:
+        return -3.0, [], [f"Extreme fear index ({fg}) — capitulation risk."]
+    return 0.0, [], []
 
+
+def _geo_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     geo = hub_context.get("geo_news") or {}
     geo_count = int(geo.get("geopolitical_headline_count") or 0)
     if geo_count >= 3:
-        delta -= 4.0
-        risks.append(
-            f"{geo_count} geopolitical/macro headlines — war/peace/policy shock risk."
-        )
-    elif geo.get("macro_news_tone") == "risk_on":
-        delta += 1.5
-        reasons.append("Global headline tone supportive — reduced macro shock risk.")
+        return -4.0, [], [f"{geo_count} geopolitical/macro headlines — war/peace/policy shock risk."]
+    if geo.get("macro_news_tone") == "risk_on":
+        return 1.5, ["Global headline tone supportive — reduced macro shock risk."], []
+    return 0.0, [], []
 
+
+def _macro_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     macro = hub_context.get("macro") or {}
     if macro.get("macro_regime_proxy") == "risk_off":
-        delta -= 3.0
-        risks.append("Macro mesh risk-off (VIX/DXY/SPX stress).")
-    elif macro.get("macro_regime_proxy") == "risk_on":
-        delta += 2.0
-        reasons.append("Macro mesh risk-on — traditional markets supportive.")
+        return -3.0, [], ["Macro mesh risk-off (VIX/DXY/SPX stress)."]
+    if macro.get("macro_regime_proxy") == "risk_on":
+        return 2.0, ["Macro mesh risk-on — traditional markets supportive."], []
+    return 0.0, [], []
 
+
+def _derivatives_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     deriv = hub_context.get("derivatives") or {}
     bias = str(deriv.get("derivatives_bias") or "neutral")
     if bias == "overheated_longs":
-        delta -= 2.0
-        risks.append("Derivatives overheated — crowded long funding.")
-    elif bias == "short_crowded":
-        delta += 1.5
-        reasons.append("Derivatives short-crowded — squeeze potential.")
+        return -2.0, [], ["Derivatives overheated — crowded long funding."]
+    if bias == "short_crowded":
+        return 1.5, ["Derivatives short-crowded — squeeze potential."], []
+    return 0.0, [], []
 
+
+def _market_cap_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     agg = hub_context.get("aggregators") or {}
     mc_change = (agg.get("coingecko_global") or {}).get("market_cap_change_24h_pct")
-    if mc_change is not None:
-        try:
-            mc_val = float(mc_change)
-            if mc_val >= 2.0:
-                delta += 1.0
-                reasons.append(f"Total crypto market cap +{mc_val:.1f}% 24h.")
-            elif mc_val <= -2.0:
-                delta -= 2.0
-                risks.append(f"Total crypto market cap {mc_val:.1f}% 24h — broad risk-off.")
-        except (TypeError, ValueError):
-            pass
+    if mc_change is None:
+        return 0.0, [], []
+    try:
+        mc_val = float(mc_change)
+    except (TypeError, ValueError):
+        return 0.0, [], []
+    if mc_val >= 2.0:
+        return 1.0, [f"Total crypto market cap +{mc_val:.1f}% 24h."], []
+    if mc_val <= -2.0:
+        return -2.0, [], [f"Total crypto market cap {mc_val:.1f}% 24h — broad risk-off."]
+    return 0.0, [], []
 
+
+def _trending_asset_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
+    sentiment = hub_context.get("sentiment") or {}
     if asset.upper() in (sentiment.get("coingecko_trending") or []):
-        delta += 1.0
-        reasons.append(f"{asset.upper()} trending on CoinGecko — social attention.")
+        return 1.0, [f"{asset.upper()} trending on CoinGecko — social attention."], []
+    return 0.0, [], []
 
+
+def _merge_adjustment(
+    total: tuple[float, list[str], list[str]],
+    update: tuple[float, list[str], list[str]],
+) -> tuple[float, list[str], list[str]]:
+    delta, reasons, risks = total
+    next_delta, next_reasons, next_risks = update
+    return delta + next_delta, [*reasons, *next_reasons], [*risks, *next_risks]
+
+
+def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
+    """Return score delta, reasons, risks from hub context."""
+    total: tuple[float, list[str], list[str]] = (0.0, [], [])
+    for adjustment in (
+        _sentiment_score_adjustment(hub_context),
+        _geo_score_adjustment(hub_context),
+        _macro_score_adjustment(hub_context),
+        _derivatives_score_adjustment(hub_context),
+        _market_cap_score_adjustment(hub_context),
+        _trending_asset_adjustment(asset, hub_context),
+    ):
+        total = _merge_adjustment(total, adjustment)
+    delta, reasons, risks = total
     delta = max(-12.0, min(12.0, delta))
     return round(delta, 2), reasons, risks
 
