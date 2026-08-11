@@ -106,6 +106,22 @@ def test_dec_0026_all_ai_surface_templates_use_shared_anti_hype_footer():
     assert "Not financial advice" in footer
     assert "/oracle-accuracy" in footer
 
+    from dashboard import app
+
+    client = TestClient(app)
+    for route in (
+        "/",
+        "/dashboard",
+        "/oracle-accuracy",
+        "/platform",
+        "/model-card",
+        "/d5-honesty",
+        "/anti-hype",
+    ):
+        response = client.get(route)
+        assert response.status_code == 200, route
+        assert "Anti-Hype" in response.text, route
+
 
 def test_dec_0027_companion_rail_manifest_is_complete():
     from site_services import site_services_manifest
