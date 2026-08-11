@@ -474,9 +474,7 @@ async def _table_columns(db: Any, table: str) -> set[str]:
     return names
 
 
-async def _apply_migrations(db: Any) -> None:
-    """Apply lightweight schema migrations for existing databases (SQLite + Postgres)."""
-
+async def _ensure_market_type_columns(db: Any) -> None:
     for table in ("pricing_logs", "order_books"):
         columns = await _table_columns(db, table)
         if "market_type" not in columns:
@@ -484,6 +482,8 @@ async def _apply_migrations(db: Any) -> None:
                 f"ALTER TABLE {table} ADD COLUMN market_type TEXT NOT NULL DEFAULT 'spot'"
             )
 
+
+async def _ensure_timestamp_indexes(db: Any) -> None:
     for table, index_name in (
         ("pricing_logs", "idx_pricing_timestamp"),
         ("order_books", "idx_orderbook_timestamp"),
@@ -492,6 +492,78 @@ async def _apply_migrations(db: Any) -> None:
         await db.execute(
             f"CREATE INDEX IF NOT EXISTS {index_name} ON {table} (timestamp)"
         )
+
+
+async def _ensure_missing_columns(
+    db: Any,
+    table: str,
+    columns: tuple[tuple[str, str], ...],
+) -> None:
+    existing = await _table_columns(db, table)
+    for column, ddl in columns:
+        if column not in existing:
+            await db.execute(ddl)
+
+
+async def _ensure_subscription_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "subscriptions",
+        (
+            ("trial_ends_at", "ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT"),
+            ("past_due_at", "ALTER TABLE subscriptions ADD COLUMN past_due_at TEXT"),
+            ("access_bonus_until", "ALTER TABLE subscriptions ADD COLUMN access_bonus_until TEXT"),
+        ),
+    )
+
+
+async def _ensure_user_profile_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "users",
+        (
+            ("stripe_customer_id", "ALTER TABLE users ADD COLUMN stripe_customer_id TEXT"),
+            ("telegram_chat_id", "ALTER TABLE users ADD COLUMN telegram_chat_id TEXT"),
+            ("mfa_enabled", "ALTER TABLE users ADD COLUMN mfa_enabled INTEGER NOT NULL DEFAULT 0"),
+            ("mfa_secret_enc", "ALTER TABLE users ADD COLUMN mfa_secret_enc TEXT"),
+            ("mfa_pending_secret_enc", "ALTER TABLE users ADD COLUMN mfa_pending_secret_enc TEXT"),
+            ("mfa_recovery_hashes", "ALTER TABLE users ADD COLUMN mfa_recovery_hashes TEXT"),
+            ("oauth_provider", "ALTER TABLE users ADD COLUMN oauth_provider TEXT"),
+            ("oauth_subject", "ALTER TABLE users ADD COLUMN oauth_subject TEXT"),
+            ("username", "ALTER TABLE users ADD COLUMN username TEXT"),
+            ("email_verified_at", "ALTER TABLE users ADD COLUMN email_verified_at TEXT"),
+            ("avatar_url", "ALTER TABLE users ADD COLUMN avatar_url TEXT"),
+            ("ui_lang", "ALTER TABLE users ADD COLUMN ui_lang TEXT NOT NULL DEFAULT 'en'"),
+            ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
+            ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
+            ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
+        ),
+    )
+
+
+async def _ensure_oracle_prediction_columns(db: Any) -> None:
+    await _ensure_missing_columns(
+        db,
+        "oracle_predictions",
+        (
+            ("price_after_1h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_1h REAL"),
+            ("price_after_4h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_4h REAL"),
+            ("label", "ALTER TABLE oracle_predictions ADD COLUMN label TEXT"),
+            ("direction_label", "ALTER TABLE oracle_predictions ADD COLUMN direction_label TEXT"),
+            ("features_json", "ALTER TABLE oracle_predictions ADD COLUMN features_json TEXT"),
+            ("resolved_at", "ALTER TABLE oracle_predictions ADD COLUMN resolved_at TEXT"),
+            ("kind", "ALTER TABLE oracle_predictions ADD COLUMN kind TEXT"),
+            ("source", "ALTER TABLE oracle_predictions ADD COLUMN source TEXT DEFAULT 'oracle'"),
+            ("market_regime", "ALTER TABLE oracle_predictions ADD COLUMN market_regime TEXT"),
+        ),
+    )
+
+
+async def _apply_migrations(db: Any) -> None:
+    """Apply lightweight schema migrations for existing databases (SQLite + Postgres)."""
+
+    await _ensure_market_type_columns(db)
+    await _ensure_timestamp_indexes(db)
 
     await db.execute(
         """
@@ -573,13 +645,7 @@ async def _apply_migrations(db: Any) -> None:
     ):
         await db.execute(ddl)
 
-    sub_cols = await _table_columns(db, "subscriptions")
-    if "trial_ends_at" not in sub_cols:
-        await db.execute("ALTER TABLE subscriptions ADD COLUMN trial_ends_at TEXT")
-    if "past_due_at" not in sub_cols:
-        await db.execute("ALTER TABLE subscriptions ADD COLUMN past_due_at TEXT")
-    if "access_bonus_until" not in sub_cols:
-        await db.execute("ALTER TABLE subscriptions ADD COLUMN access_bonus_until TEXT")
+    await _ensure_subscription_columns(db)
 
     await db.execute(
         """
@@ -687,28 +753,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    user_cols = await _table_columns(db, "users")
-    if "stripe_customer_id" not in user_cols:
-        await db.execute("ALTER TABLE users ADD COLUMN stripe_customer_id TEXT")
-    if "telegram_chat_id" not in user_cols:
-        await db.execute("ALTER TABLE users ADD COLUMN telegram_chat_id TEXT")
-    for col, ddl in (
-        ("mfa_enabled", "ALTER TABLE users ADD COLUMN mfa_enabled INTEGER NOT NULL DEFAULT 0"),
-        ("mfa_secret_enc", "ALTER TABLE users ADD COLUMN mfa_secret_enc TEXT"),
-        ("mfa_pending_secret_enc", "ALTER TABLE users ADD COLUMN mfa_pending_secret_enc TEXT"),
-        ("mfa_recovery_hashes", "ALTER TABLE users ADD COLUMN mfa_recovery_hashes TEXT"),
-        ("oauth_provider", "ALTER TABLE users ADD COLUMN oauth_provider TEXT"),
-        ("oauth_subject", "ALTER TABLE users ADD COLUMN oauth_subject TEXT"),
-        ("username", "ALTER TABLE users ADD COLUMN username TEXT"),
-        ("email_verified_at", "ALTER TABLE users ADD COLUMN email_verified_at TEXT"),
-        ("avatar_url", "ALTER TABLE users ADD COLUMN avatar_url TEXT"),
-        ("ui_lang", "ALTER TABLE users ADD COLUMN ui_lang TEXT NOT NULL DEFAULT 'en'"),
-        ("ux_mode_pref", "ALTER TABLE users ADD COLUMN ux_mode_pref TEXT NOT NULL DEFAULT 'beginner'"),
-        ("timezone", "ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'UTC'"),
-        ("password_is_set", "ALTER TABLE users ADD COLUMN password_is_set INTEGER NOT NULL DEFAULT 1"),
-    ):
-        if col not in user_cols:
-            await db.execute(ddl)
+    await _ensure_user_profile_columns(db)
     await db.execute(
         "CREATE UNIQUE INDEX IF NOT EXISTS idx_users_username ON users (username) WHERE username IS NOT NULL AND username != ''"
     )
@@ -809,20 +854,7 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
-    oracle_cols = await _table_columns(db, "oracle_predictions")
-    for column, ddl in (
-        ("price_after_1h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_1h REAL"),
-        ("price_after_4h", "ALTER TABLE oracle_predictions ADD COLUMN price_after_4h REAL"),
-        ("label", "ALTER TABLE oracle_predictions ADD COLUMN label TEXT"),
-        ("direction_label", "ALTER TABLE oracle_predictions ADD COLUMN direction_label TEXT"),
-        ("features_json", "ALTER TABLE oracle_predictions ADD COLUMN features_json TEXT"),
-        ("resolved_at", "ALTER TABLE oracle_predictions ADD COLUMN resolved_at TEXT"),
-        ("kind", "ALTER TABLE oracle_predictions ADD COLUMN kind TEXT"),
-        ("source", "ALTER TABLE oracle_predictions ADD COLUMN source TEXT DEFAULT 'oracle'"),
-        ("market_regime", "ALTER TABLE oracle_predictions ADD COLUMN market_regime TEXT"),
-    ):
-        if column not in oracle_cols:
-            await db.execute(ddl)
+    await _ensure_oracle_prediction_columns(db)
 
     await db.execute(
         """
@@ -2048,14 +2080,8 @@ async def resolve_oracle_prediction(
             logger.debug("Track record append skipped on resolve", exc_info=True)
 
 
-async def fetch_oracle_audit_stats(
-    limit: int = 500,
-    *,
-    include_synthetic: bool = False,
-) -> dict[str, Any]:
-    from oracle_integrity import live_source_sql
-
-    empty = {
+def _empty_oracle_audit_stats() -> dict[str, Any]:
+    return {
         "total_predictions": 0,
         "resolved_predictions": 0,
         "pending_predictions": 0,
@@ -2078,103 +2104,167 @@ async def fetch_oracle_audit_stats(
             "synthetic_source_ids": ["historical_seed"],
         },
     }
+
+
+async def _fetch_audit_core_rows(
+    db: Any,
+    limit: int,
+    live_clause: str,
+    include_synthetic: bool,
+) -> tuple[Any, Any, Any, Any]:
+    if include_synthetic:
+        total_sql = "SELECT COUNT(*) FROM oracle_predictions"
+        resolved_sql = "SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1"
+        avg_sql = """
+            SELECT AVG(accuracy_score)
+            FROM oracle_predictions
+            WHERE resolved = 1 AND accuracy_score IS NOT NULL
+        """
+        recent_sql = """
+            SELECT *
+            FROM oracle_predictions
+            ORDER BY timestamp DESC, id DESC
+            LIMIT ?
+        """
+    else:
+        total_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"
+        resolved_sql = f"SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1 AND {live_clause}"
+        avg_sql = f"""
+            SELECT AVG(accuracy_score)
+            FROM oracle_predictions
+            WHERE resolved = 1
+              AND accuracy_score IS NOT NULL
+              AND {live_clause}
+        """
+        recent_sql = f"""
+            SELECT *
+            FROM oracle_predictions
+            WHERE {live_clause}
+            ORDER BY timestamp DESC, id DESC
+            LIMIT ?
+        """
+    total_row = await (await db.execute(total_sql)).fetchone()
+    resolved_row = await (await db.execute(resolved_sql)).fetchone()
+    avg_row = await (await db.execute(avg_sql)).fetchone()
+    recent_rows = await (await db.execute(recent_sql, (limit,))).fetchall()
+    return total_row, resolved_row, avg_row, recent_rows
+
+
+async def _fetch_synthetic_audit_rows(db: Any) -> tuple[Any, Any, Any]:
+    synth_total_row = await (
+        await db.execute(
+            """
+            SELECT COUNT(*) FROM oracle_predictions
+            WHERE source = 'historical_seed'
+            """
+        )
+    ).fetchone()
+    synth_resolved_row = await (
+        await db.execute(
+            """
+            SELECT COUNT(*) FROM oracle_predictions
+            WHERE source = 'historical_seed' AND resolved = 1
+            """
+        )
+    ).fetchone()
+    synth_avg_row = await (
+        await db.execute(
+            """
+            SELECT AVG(accuracy_score)
+            FROM oracle_predictions
+            WHERE source = 'historical_seed'
+              AND resolved = 1
+              AND accuracy_score IS NOT NULL
+            """
+        )
+    ).fetchone()
+    return synth_total_row, synth_resolved_row, synth_avg_row
+
+
+def _live_audit_average(
+    recent: list[dict[str, Any]],
+    include_synthetic: bool,
+    live_resolved: int,
+    avg_accuracy: float,
+) -> float:
+    if not include_synthetic:
+        return avg_accuracy
+    if live_resolved <= 0:
+        return 0.0
+    from oracle_integrity import is_synthetic_prediction
+
+    live_rows = [row for row in recent if not is_synthetic_prediction(row)]
+    live_resolved_recent = sum(1 for row in live_rows if row.get("resolved"))
+    if not live_resolved_recent:
+        return 0.0
+    return round(
+        sum(float(row.get("accuracy_score") or 0) for row in live_rows if row.get("resolved"))
+        / max(live_resolved_recent, 1),
+        2,
+    )
+
+
+def _oracle_audit_payload(
+    *,
+    total: int,
+    resolved: int,
+    avg_accuracy: float,
+    recent: list[dict[str, Any]],
+    synth_total: int,
+    synth_resolved: int,
+    synth_avg: float,
+    include_synthetic: bool,
+) -> dict[str, Any]:
+    live_total = total if not include_synthetic else max(0, total - synth_total)
+    live_resolved = resolved if not include_synthetic else max(0, resolved - synth_resolved)
+    live_avg = _live_audit_average(recent, include_synthetic, live_resolved, avg_accuracy)
+    live_block = {
+        "total_predictions": live_total,
+        "resolved_predictions": live_resolved,
+        "pending_predictions": max(0, live_total - live_resolved),
+        "average_accuracy_percent": round(live_avg, 2) if not include_synthetic else live_avg,
+    }
+    return {
+        "total_predictions": live_total,
+        "resolved_predictions": live_resolved,
+        "pending_predictions": max(0, live_total - live_resolved),
+        "average_accuracy_percent": round(live_avg, 2) if isinstance(live_avg, float) else live_avg,
+        "recent": recent,
+        "live": live_block,
+        "synthetic": {
+            "total_predictions": synth_total,
+            "resolved_predictions": synth_resolved,
+            "pending_predictions": max(0, synth_total - synth_resolved),
+            "average_accuracy_percent": round(synth_avg, 2),
+            "note": (
+                "Demo/due-diligence backfill only — excluded from training and public hit rate."
+            ),
+        },
+        "integrity": {
+            "synthetic_excluded_by_default": not include_synthetic,
+            "synthetic_source_ids": ["historical_seed"],
+        },
+    }
+
+
+async def fetch_oracle_audit_stats(
+    limit: int = 500,
+    *,
+    include_synthetic: bool = False,
+) -> dict[str, Any]:
+    from oracle_integrity import live_source_sql
+
+    empty = _empty_oracle_audit_stats()
     try:
         live_clause = live_source_sql()
         async with get_connection() as db:
-            if include_synthetic:
-                total_row = await (
-                    await db.execute("SELECT COUNT(*) FROM oracle_predictions")
-                ).fetchone()
-                resolved_row = await (
-                    await db.execute(
-                        "SELECT COUNT(*) FROM oracle_predictions WHERE resolved = 1"
-                    )
-                ).fetchone()
-                avg_row = await (
-                    await db.execute(
-                        """
-                        SELECT AVG(accuracy_score)
-                        FROM oracle_predictions
-                        WHERE resolved = 1 AND accuracy_score IS NOT NULL
-                        """
-                    )
-                ).fetchone()
-                recent_rows = await (
-                    await db.execute(
-                        """
-                        SELECT *
-                        FROM oracle_predictions
-                        ORDER BY timestamp DESC, id DESC
-                        LIMIT ?
-                        """,
-                        (limit,),
-                    )
-                ).fetchall()
-            else:
-                total_row = await (
-                    await db.execute(
-                        f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"
-                    )
-                ).fetchone()
-                resolved_row = await (
-                    await db.execute(
-                        f"""
-                        SELECT COUNT(*) FROM oracle_predictions
-                        WHERE resolved = 1 AND {live_clause}
-                        """
-                    )
-                ).fetchone()
-                avg_row = await (
-                    await db.execute(
-                        f"""
-                        SELECT AVG(accuracy_score)
-                        FROM oracle_predictions
-                        WHERE resolved = 1
-                          AND accuracy_score IS NOT NULL
-                          AND {live_clause}
-                        """
-                    )
-                ).fetchone()
-                recent_rows = await (
-                    await db.execute(
-                        f"""
-                        SELECT *
-                        FROM oracle_predictions
-                        WHERE {live_clause}
-                        ORDER BY timestamp DESC, id DESC
-                        LIMIT ?
-                        """,
-                        (limit,),
-                    )
-                ).fetchall()
-
-            synth_total_row = await (
-                await db.execute(
-                    """
-                    SELECT COUNT(*) FROM oracle_predictions
-                    WHERE source = 'historical_seed'
-                    """
-                )
-            ).fetchone()
-            synth_resolved_row = await (
-                await db.execute(
-                    """
-                    SELECT COUNT(*) FROM oracle_predictions
-                    WHERE source = 'historical_seed' AND resolved = 1
-                    """
-                )
-            ).fetchone()
-            synth_avg_row = await (
-                await db.execute(
-                    """
-                    SELECT AVG(accuracy_score)
-                    FROM oracle_predictions
-                    WHERE source = 'historical_seed'
-                      AND resolved = 1
-                      AND accuracy_score IS NOT NULL
-                    """
-                )
-            ).fetchone()
+            total_row, resolved_row, avg_row, recent_rows = await _fetch_audit_core_rows(
+                db,
+                limit,
+                live_clause,
+                include_synthetic,
+            )
+            synth_total_row, synth_resolved_row, synth_avg_row = await _fetch_synthetic_audit_rows(db)
 
         total = int(total_row[0] or 0)
         resolved = int(resolved_row[0] or 0)
@@ -2185,49 +2275,16 @@ async def fetch_oracle_audit_stats(
         synth_resolved = int(synth_resolved_row[0] or 0)
         synth_avg = float(synth_avg_row[0] or 0.0)
 
-        live_total = total if not include_synthetic else max(0, total - synth_total)
-        live_resolved = resolved if not include_synthetic else max(0, resolved - synth_resolved)
-        live_avg = avg_accuracy if not include_synthetic else 0.0
-        if include_synthetic and live_resolved > 0:
-            from oracle_integrity import is_synthetic_prediction
-
-            live_rows = [row for row in recent if not is_synthetic_prediction(row)]
-            live_resolved_recent = sum(1 for row in live_rows if row.get("resolved"))
-            if live_resolved_recent:
-                live_avg = round(
-                    sum(float(row.get("accuracy_score") or 0) for row in live_rows if row.get("resolved"))
-                    / max(live_resolved_recent, 1),
-                    2,
-                )
-
-        live_block = {
-            "total_predictions": live_total,
-            "resolved_predictions": live_resolved,
-            "pending_predictions": max(0, live_total - live_resolved),
-            "average_accuracy_percent": round(live_avg, 2) if not include_synthetic else live_avg,
-        }
-
-        return {
-            "total_predictions": live_total,
-            "resolved_predictions": live_resolved,
-            "pending_predictions": max(0, live_total - live_resolved),
-            "average_accuracy_percent": round(live_avg, 2) if isinstance(live_avg, float) else live_avg,
-            "recent": recent,
-            "live": live_block,
-            "synthetic": {
-                "total_predictions": synth_total,
-                "resolved_predictions": synth_resolved,
-                "pending_predictions": max(0, synth_total - synth_resolved),
-                "average_accuracy_percent": round(synth_avg, 2),
-                "note": (
-                    "Demo/due-diligence backfill only — excluded from training and public hit rate."
-                ),
-            },
-            "integrity": {
-                "synthetic_excluded_by_default": not include_synthetic,
-                "synthetic_source_ids": ["historical_seed"],
-            },
-        }
+        return _oracle_audit_payload(
+            total=total,
+            resolved=resolved,
+            avg_accuracy=avg_accuracy,
+            recent=recent,
+            synth_total=synth_total,
+            synth_resolved=synth_resolved,
+            synth_avg=synth_avg,
+            include_synthetic=include_synthetic,
+        )
     except Exception:
         logger.exception("Unable to compute oracle audit stats")
         return empty

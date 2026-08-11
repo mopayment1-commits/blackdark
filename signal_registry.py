@@ -469,10 +469,8 @@ except Exception:
     pass
 
 
-def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
-    """Convenience: persist Oracle/arb evaluation as a registry row."""
-    payload = evaluated.get("payload") or {}
-    features = {
+def _evaluation_features(evaluated: dict[str, Any], payload: dict[str, Any]) -> dict[str, Any]:
+    return {
         "opportunity_score": evaluated.get("opportunity_score"),
         "net_profit_usdt": evaluated.get("net_profit_usdt"),
         "market_regime": payload.get("market_regime"),
@@ -480,28 +478,75 @@ def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
         "half_life_seconds": (payload.get("opportunity_half_life") or {}).get("expected_half_life_seconds"),
         "dimension_conflict": bool((payload.get("dimension_conflict") or {}).get("veto")),
     }
-    label = "pending"
+
+
+def _evaluation_label(payload: dict[str, Any]) -> str:
     if (payload.get("dimension_conflict") or {}).get("veto"):
-        label = "vetoed"
-    elif (payload.get("net_edge_truth") or {}).get("reject"):
-        label = "rejected_net_edge"
+        return "vetoed"
+    if (payload.get("net_edge_truth") or {}).get("reject"):
+        return "rejected_net_edge"
+    return "pending"
+
+
+def _evaluation_provenance(payload: dict[str, Any], pred_id: Any) -> dict[str, Any]:
+    return {
+        "engine": payload.get("unified_engine") or "unified_multimodal_v1",
+        "public_verdict": payload.get("public_verdict"),
+        "proof_hint": "oracle_audit_chain",
+        "prediction_id": pred_id,
+    }
+
+
+def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
+    """Convenience: persist Oracle/arb evaluation as a registry row."""
+    payload = evaluated.get("payload") or {}
     pred_id = evaluated.get("prediction_id") or payload.get("prediction_id")
     stype = str(evaluated.get("kind") or payload.get("kind") or "oracle_decision")
     return register_signal(
         signal_type=stype,
         asset=str(evaluated.get("asset") or "BTC"),
-        features=features,
+        features=_evaluation_features(evaluated, payload),
         score=float(evaluated.get("opportunity_score") or 0),
         verdict=str((evaluated.get("oracle") or {}).get("verdict") or evaluated.get("verdict") or ""),
         horizon_seconds=int((payload.get("opportunity_half_life") or {}).get("expected_half_life_seconds") or 45),
-        provenance={
-            "engine": payload.get("unified_engine") or "unified_multimodal_v1",
-            "public_verdict": payload.get("public_verdict"),
-            "proof_hint": "oracle_audit_chain",
-            "prediction_id": pred_id,
-        },
+        provenance=_evaluation_provenance(payload, pred_id),
         prediction_id=str(pred_id) if pred_id not in (None, "", 0) else None,
-        label=label,
+        label=_evaluation_label(payload),
+    )
+
+
+def _backfill_outcome(pred: dict[str, Any]) -> tuple[Any, str] | None:
+    pred_id = pred.get("id") or pred.get("prediction_id")
+    outcome = str(pred.get("label") or pred.get("outcome") or "").lower().strip()
+    if not pred_id or outcome not in {"correct", "incorrect", "partial", "win", "loss", "miss"}:
+        return None
+    return pred_id, outcome
+
+
+def _oracle_backfill_meta(pred: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "accuracy": pred.get("accuracy_score"),
+        "direction_label": pred.get("direction_label"),
+        "resolved_via": "oracle_backfill",
+        "asset": pred.get("asset"),
+    }
+
+
+def _register_labeled_backfill(pred: dict[str, Any], pred_id: Any, outcome: str) -> None:
+    register_signal(
+        signal_type=str(pred.get("kind") or "oracle_direction"),
+        asset=str(pred.get("asset") or "BTC"),
+        features={
+            "opportunity_score": pred.get("opportunity_score"),
+            "market_regime": pred.get("market_regime"),
+            "confidence": pred.get("confidence"),
+        },
+        score=float(pred.get("opportunity_score") or 0) if pred.get("opportunity_score") is not None else None,
+        verdict=str(pred.get("verdict") or ""),
+        prediction_id=str(pred_id),
+        label=outcome,
+        asof=str(pred.get("timestamp") or _utcnow()),
+        provenance={"source": "oracle_backfill", "prediction_id": pred_id},
     )
 
 
@@ -517,41 +562,22 @@ async def backfill_labels_from_oracle(*, limit: int = 2000) -> dict[str, Any]:
     labeled = 0
     registered = 0
     for pred in rows or []:
-        pred_id = pred.get("id") or pred.get("prediction_id")
-        outcome = str(pred.get("label") or pred.get("outcome") or "").lower().strip()
-        if not pred_id or outcome not in {"correct", "incorrect", "partial", "win", "loss", "miss"}:
+        backfill = _backfill_outcome(pred)
+        if backfill is None:
             continue
+        pred_id, outcome = backfill
         # Prefer exact prediction_id match
         hit = resolve_signal(
             str(pred_id),
             outcome,
-            meta={
-                "accuracy": pred.get("accuracy_score"),
-                "direction_label": pred.get("direction_label"),
-                "resolved_via": "oracle_backfill",
-                "asset": pred.get("asset"),
-            },
+            meta=_oracle_backfill_meta(pred),
         )
         if hit:
             linked += 1
             labeled += 1
             continue
         # No registry row yet — register a labeled historical row (moat growth)
-        register_signal(
-            signal_type=str(pred.get("kind") or "oracle_direction"),
-            asset=str(pred.get("asset") or "BTC"),
-            features={
-                "opportunity_score": pred.get("opportunity_score"),
-                "market_regime": pred.get("market_regime"),
-                "confidence": pred.get("confidence"),
-            },
-            score=float(pred.get("opportunity_score") or 0) if pred.get("opportunity_score") is not None else None,
-            verdict=str(pred.get("verdict") or ""),
-            prediction_id=str(pred_id),
-            label=outcome,
-            asof=str(pred.get("timestamp") or _utcnow()),
-            provenance={"source": "oracle_backfill", "prediction_id": pred_id},
-        )
+        _register_labeled_backfill(pred, pred_id, outcome)
         registered += 1
         labeled += 1
     stats = registry_stats()

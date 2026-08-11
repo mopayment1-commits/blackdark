@@ -128,56 +128,67 @@ async def dispatch_alert(
     results["channels"]["in_app"] = True
     results["in_app_id"] = ina.get("id")
 
+    await _dispatch_global_channels(channels, full_text, results)
+
+    subs = await fetch_active_alert_subscriptions()
+    for sub in subs:
+        sub_result = await _dispatch_subscription_alert(sub, title, body, full_text, payload, results)
+        results["subscriptions"].append(sub_result)
+
+    await insert_alert_delivery_log(title, json.dumps(payload or {}), json.dumps(results))
+    return results
+
+
+async def _dispatch_global_channels(channels: list[str], full_text: str, results: dict[str, Any]) -> None:
     if "telegram" in channels:
         token_ok = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
         if not token_ok:
             results["channels"]["telegram"] = False
             results["telegram_status"] = "skipped_no_token"
         else:
-            ok = await send_telegram_message(full_text)
-            results["channels"]["telegram"] = ok
+            results["channels"]["telegram"] = await send_telegram_message(full_text)
 
     if "email" in channels and not os.getenv("SMTP_HOST", "").strip():
         results["channels"]["email"] = False
         results["email_status"] = "queued_durable_outbox"
 
-    subs = await fetch_active_alert_subscriptions()
-    for sub in subs:
-        sub_result: dict[str, Any] = {"id": sub.get("id")}
-        email = sub.get("email")
-        if email and sub.get("email_alerts", 1):
-            if not os.getenv("SMTP_HOST", "").strip():
-                from email_outbox import enqueue_email
 
-                queued = enqueue_email(str(email), title, full_text, payload=payload)
-                sub_result["email"] = False
-                sub_result["email_status"] = "queued_durable_outbox"
-                sub_result["outbox_id"] = queued.get("id")
-                push_in_app_alert(
-                    title,
-                    body,
-                    payload=payload,
-                    user_email=str(email),
-                    level="signal",
-                )
-            else:
-                sub_result["email"] = send_email_alert(email, title, full_text)
-        tg_chat = sub.get("telegram_chat_id")
-        if tg_chat:
-            sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)
-        wa_phone = sub.get("whatsapp_phone")
-        if wa_phone and sub.get("whatsapp_alerts", 1):
-            sub_result["whatsapp_url"] = whatsapp_alert_url(wa_phone, full_text)
-            if whatsapp_cloud_configured():
-                sub_result["whatsapp_cloud"] = await send_whatsapp_cloud_message(wa_phone, full_text)
-                results["channels"]["whatsapp_cloud"] = bool(sub_result["whatsapp_cloud"])
-            else:
-                sub_result["whatsapp_mode"] = "click_to_send_wa_me"
-                results["channels"]["whatsapp"] = "click_to_send"
-        results["subscriptions"].append(sub_result)
+async def _dispatch_subscription_alert(
+    sub: dict[str, Any],
+    title: str,
+    body: str,
+    full_text: str,
+    payload: dict[str, Any] | None,
+    results: dict[str, Any],
+) -> dict[str, Any]:
+    from in_app_alerts import push_in_app_alert
 
-    await insert_alert_delivery_log(title, json.dumps(payload or {}), json.dumps(results))
-    return results
+    sub_result: dict[str, Any] = {"id": sub.get("id")}
+    email = sub.get("email")
+    if email and sub.get("email_alerts", 1):
+        if not os.getenv("SMTP_HOST", "").strip():
+            from email_outbox import enqueue_email
+
+            queued = enqueue_email(str(email), title, full_text, payload=payload)
+            sub_result["email"] = False
+            sub_result["email_status"] = "queued_durable_outbox"
+            sub_result["outbox_id"] = queued.get("id")
+            push_in_app_alert(title, body, payload=payload, user_email=str(email), level="signal")
+        else:
+            sub_result["email"] = send_email_alert(email, title, full_text)
+    tg_chat = sub.get("telegram_chat_id")
+    if tg_chat:
+        sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)
+    wa_phone = sub.get("whatsapp_phone")
+    if wa_phone and sub.get("whatsapp_alerts", 1):
+        sub_result["whatsapp_url"] = whatsapp_alert_url(wa_phone, full_text)
+        if whatsapp_cloud_configured():
+            sub_result["whatsapp_cloud"] = await send_whatsapp_cloud_message(wa_phone, full_text)
+            results["channels"]["whatsapp_cloud"] = bool(sub_result["whatsapp_cloud"])
+        else:
+            sub_result["whatsapp_mode"] = "click_to_send_wa_me"
+            results["channels"]["whatsapp"] = "click_to_send"
+    return sub_result
 
 
 async def subscribe_alerts(data: dict[str, Any], *, user_email: str | None = None) -> dict[str, Any]:

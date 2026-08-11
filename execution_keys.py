@@ -136,6 +136,38 @@ def _binance_base_url() -> str:
     return "https://testnet.binance.vision" if testnet else "https://api.binance.com"
 
 
+def _sign_params(secret: str, params: dict[str, Any]) -> dict[str, Any]:
+    query = urlencode(params)
+    signed = dict(params)
+    signed["signature"] = hmac.new(secret.encode(), query.encode(), hashlib.sha256).hexdigest()
+    return signed
+
+
+async def _binance_withdraw_permission(
+    session: aiohttp.ClientSession,
+    secret: str,
+    headers: dict[str, str],
+    current: bool,
+) -> bool:
+    try:
+        perm_params = _sign_params(secret, {"timestamp": int(time.time() * 1000)})
+        perm_url = f"{_binance_base_url()}/sapi/v1/account/apiRestrictions"
+        async with session.get(perm_url, params=perm_params, headers=headers) as perm_resp:
+            if perm_resp.status != 200:
+                return current
+            perms = await perm_resp.json()
+            if not isinstance(perms, dict):
+                return current
+            # Explicit withdraw enable flags from Binance
+            if "enableWithdrawals" in perms:
+                return bool(perms.get("enableWithdrawals"))
+            if "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
+                return False
+    except Exception:
+        pass
+    return current
+
+
 async def verify_binance_keys(
     api_key: str | None = None,
     api_secret: str | None = None,
@@ -150,10 +182,7 @@ async def verify_binance_keys(
             "reason": "BINANCE_API_KEY / BINANCE_API_SECRET not set",
         }
 
-    params = {"timestamp": int(time.time() * 1000)}
-    query = urlencode(params)
-    signature = hmac.new(secret.encode(), query.encode(), hashlib.sha256).hexdigest()
-    params["signature"] = signature
+    params = _sign_params(secret, {"timestamp": int(time.time() * 1000)})
     url = f"{_binance_base_url()}/api/v3/account"
     headers = {"X-MBX-APIKEY": key}
     timeout = aiohttp.ClientTimeout(total=15)
@@ -165,27 +194,7 @@ async def verify_binance_keys(
                     # Spot account exposes canTrade / canWithdraw / canDeposit.
                     # Also probe API key permissions endpoint when available.
                     can_withdraw = bool(data.get("canWithdraw"))
-                    try:
-                        perm_params = {"timestamp": int(time.time() * 1000)}
-                        perm_query = urlencode(perm_params)
-                        perm_sig = hmac.new(
-                            secret.encode(), perm_query.encode(), hashlib.sha256
-                        ).hexdigest()
-                        perm_params["signature"] = perm_sig
-                        perm_url = f"{_binance_base_url()}/sapi/v1/account/apiRestrictions"
-                        async with session.get(
-                            perm_url, params=perm_params, headers=headers
-                        ) as perm_resp:
-                            if perm_resp.status == 200:
-                                perms = await perm_resp.json()
-                                if isinstance(perms, dict):
-                                    # Explicit withdraw enable flags from Binance
-                                    if "enableWithdrawals" in perms:
-                                        can_withdraw = bool(perms.get("enableWithdrawals"))
-                                    elif "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
-                                        can_withdraw = False
-                    except Exception:
-                        pass
+                    can_withdraw = await _binance_withdraw_permission(session, secret, headers, can_withdraw)
                     return {
                         "exchange": "binance",
                         "configured": True,
