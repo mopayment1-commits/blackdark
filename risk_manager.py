@@ -140,6 +140,47 @@ async def load_persistent_freeze() -> dict[str, Any]:
     return {"loaded": True, "frozen": True, "reason": _freeze_reason, "until_ts": _freeze_until}
 
 
+def _reference_deviations(
+    prices: dict[str, float],
+    reference_prices: dict[str, float],
+    threshold: float,
+) -> list[tuple[str, float]]:
+    deviations: list[tuple[str, float]] = []
+    for sym, px in prices.items():
+        ref_px = reference_prices.get(sym)
+        if ref_px and ref_px > 0:
+            dev = abs(px - ref_px) / ref_px * 100
+            if dev > threshold:
+                deviations.append((sym, dev))
+    return deviations
+
+
+def _median_deviations(prices: dict[str, float], threshold: float) -> list[tuple[str, float]]:
+    vals = [v for v in prices.values() if v > 0]
+    if len(vals) < 2:
+        return []
+    median = sorted(vals)[len(vals) // 2]
+    if median <= 0:
+        return []
+    return [
+        (sym, abs(px - median) / median * 100)
+        for sym, px in prices.items()
+        if abs(px - median) / median * 100 > threshold
+    ]
+
+
+def _poison_verdict(deviations: list[tuple[str, float]]) -> RiskVerdict:
+    worst = max(deviations, key=lambda x: x[1])
+    freeze_trading(
+        f"data_poisoning:{worst[0]}:{worst[1]:.1f}pct_deviation"
+    )
+    return RiskVerdict(
+        allowed=False,
+        reason=f"data_poisoning ({worst[0]} {worst[1]:.1f}% deviation)",
+        poison_detected=True,
+    )
+
+
 def detect_data_poisoning(
     prices: dict[str, float],
     *,
@@ -151,35 +192,10 @@ def detect_data_poisoning(
 
     ref = reference_prices or {}
     threshold = _poison_threshold_pct()
-    deviations: list[tuple[str, float]] = []
-
-    if ref:
-        for sym, px in prices.items():
-            ref_px = ref.get(sym)
-            if ref_px and ref_px > 0:
-                dev = abs(px - ref_px) / ref_px * 100
-                if dev > threshold:
-                    deviations.append((sym, dev))
-    else:
-        vals = [v for v in prices.values() if v > 0]
-        if len(vals) >= 2:
-            median = sorted(vals)[len(vals) // 2]
-            for sym, px in prices.items():
-                if median > 0:
-                    dev = abs(px - median) / median * 100
-                    if dev > threshold:
-                        deviations.append((sym, dev))
+    deviations = _reference_deviations(prices, ref, threshold) if ref else _median_deviations(prices, threshold)
 
     if deviations:
-        worst = max(deviations, key=lambda x: x[1])
-        freeze_trading(
-            f"data_poisoning:{worst[0]}:{worst[1]:.1f}pct_deviation"
-        )
-        return RiskVerdict(
-            allowed=False,
-            reason=f"data_poisoning ({worst[0]} {worst[1]:.1f}% deviation)",
-            poison_detected=True,
-        )
+        return _poison_verdict(deviations)
     return RiskVerdict(allowed=True)
 
 

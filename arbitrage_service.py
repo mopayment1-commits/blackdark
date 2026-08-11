@@ -336,6 +336,228 @@ def _format_funding(item: Any, institutional_context: dict | None) -> dict[str, 
     }
 
 
+def _profit_floor(min_profit_usdt: float | None, profitable_only: bool) -> float:
+    if profitable_only:
+        return 0.0
+    if min_profit_usdt is not None:
+        return min_profit_usdt
+    return -1_000_000.0
+
+
+def _empty_scan_response(
+    *,
+    source: str,
+    data_age_sec: float,
+    scan_ms: float,
+    quote_amount: float,
+) -> dict[str, Any]:
+    return {
+        "opportunities": [],
+        "counts": {"cross_exchange": 0, "triangular": 0, "spot_futures": 0, "funding": 0},
+        "data_source": source,
+        "data_age_sec": data_age_sec,
+        "scan_ms": scan_ms,
+        "quote_amount": quote_amount,
+        "timestamp": _utcnow_iso(),
+        "message": "No order-book data — start aggregator.py or retry live scan.",
+    }
+
+
+def _strategy_opportunities(
+    books: dict[str, dict[str, Any]],
+    funding: list[dict[str, Any]],
+    notional: float,
+    institutional_context: dict[str, Any],
+) -> tuple[list[Any], list[Any], list[Any], list[Any]]:
+    cross = calculate_cross_exchange_arbitrage(books, notional, institutional_context)
+    triangular = calculate_triangular_arbitrage(books, notional, institutional_context)
+    basis = calculate_spot_futures_premium(books, notional, institutional_context)
+    funding_opps = calculate_funding_arbitrage_with_institutional_context(
+        funding,
+        notional,
+        institutional_context,
+        institutional_context,
+    )
+    return cross, triangular, basis, funding_opps
+
+
+def _append_profitable(rows: list[dict[str, Any]], row: dict[str, Any], profit_floor: float) -> None:
+    if row["net_profit_usdt"] >= profit_floor:
+        rows.append(row)
+
+
+def _append_triangular_row(
+    rows: list[dict[str, Any]],
+    row: dict[str, Any],
+    *,
+    data_age_sec: float,
+    profit_floor: float,
+) -> None:
+    if row["net_profit_usdt"] < profit_floor:
+        return
+    if data_age_sec <= 10:
+        row["staleness_ok"] = True
+        rows.append(row)
+        return
+    row["staleness_ok"] = False
+    row["risk_factors"] = (row.get("risk_factors") or []) + ["stale_data_for_triangular"]
+
+
+def _formatted_opportunities(
+    *,
+    cross: list[Any],
+    triangular: list[Any],
+    basis: list[Any],
+    funding_opps: list[Any],
+    institutional_context: dict[str, Any],
+    data_age_sec: float,
+    profit_floor: float,
+) -> list[dict[str, Any]]:
+    formatted: list[dict[str, Any]] = []
+    for item in cross:
+        _append_profitable(formatted, _format_cross(item, institutional_context), profit_floor)
+    for item in triangular:
+        _append_triangular_row(
+            formatted,
+            _format_triangular(item, institutional_context),
+            data_age_sec=data_age_sec,
+            profit_floor=profit_floor,
+        )
+    for item in basis:
+        _append_profitable(formatted, _format_basis(item, institutional_context), profit_floor)
+    for item in funding_opps:
+        _append_profitable(formatted, _format_funding(item, institutional_context), profit_floor)
+    return [row for row in formatted if row.get("staleness_ok", True) is not False]
+
+
+def _apply_truth_to_row(row: dict[str, Any], quote_age_ms: float) -> None:
+    from net_edge_truth import compute_net_edge_truth
+
+    if quote_age_ms and not row.get("quote_age_ms"):
+        row["quote_age_ms"] = quote_age_ms
+    try:
+        truth = compute_net_edge_truth(row)
+    except Exception:
+        logger.debug("net-edge truth on scan row failed", exc_info=True)
+        truth = {"enabled": False, "error": "unavailable"}
+    row["net_edge_truth"] = truth
+    if not truth.get("reject"):
+        return
+    row["truth_rejected"] = True
+    row["execution_feasibility"] = "not_executable"
+    risks = list(row.get("risk_factors") or [])
+    if "net_edge_truth_reject" not in risks:
+        risks.append("net_edge_truth_reject")
+    row["risk_factors"] = risks
+
+
+def _mark_constitution_gates_unavailable(rows: list[dict[str, Any]]) -> None:
+    for row in rows:
+        row["gates_missing"] = True
+        row["execution_feasibility"] = "not_executable"
+        row.setdefault("net_edge_truth", {"enabled": False, "reject": True, "error": "gates_unavailable"})
+        row.setdefault("dimension_conflict", {"severity": "unavailable", "veto": False, "abstain": True})
+        risks = list(row.get("risk_factors") or [])
+        if "constitution_gates_unavailable" not in risks:
+            risks.append("constitution_gates_unavailable")
+        row["risk_factors"] = risks
+
+
+def _apply_constitution_scan_gates(
+    formatted: list[dict[str, Any]],
+    *,
+    institutional_context: dict[str, Any],
+    data_age_sec: float,
+) -> list[dict[str, Any]]:
+    try:
+        from constitution_gates import apply_constitution_gates_to_scan
+
+        quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
+        for row in formatted:
+            _apply_truth_to_row(row, quote_age_ms)
+        return apply_constitution_gates_to_scan(
+            formatted,
+            institutional_context=institutional_context,
+            register_limit=12,
+        )
+    except Exception:
+        logger.exception("Constitution scan gates unavailable")
+        _mark_constitution_gates_unavailable(formatted)
+        return formatted
+
+
+def _attach_execution_risk_rows(
+    formatted: list[dict[str, Any]],
+    data_age_sec: float,
+) -> list[dict[str, Any]]:
+    try:
+        from execution_risk_score import attach_execution_risk
+
+        return [
+            attach_execution_risk(
+                {
+                    **row,
+                    "data_age_sec": float(data_age_sec or row.get("data_age_sec") or 0),
+                }
+            )
+            for row in formatted
+        ]
+    except Exception:
+        logger.debug("execution risk scoring unavailable", exc_info=True)
+        return formatted
+
+
+def _scan_pricing_errors(
+    books: dict[str, dict[str, Any]],
+    source: str,
+) -> list[dict[str, Any]]:
+    pricing_errors: list[dict[str, Any]] = []
+    if source == "websocket_live":
+        return pricing_errors
+    try:
+        from pricing_error_sniper import scan_pricing_errors_from_books
+
+        for symbol in config.all_spot_symbols()[:5]:
+            scan = scan_pricing_errors_from_books(books, symbol)
+            pricing_errors.extend(scan.get("opportunities") or [])
+    except Exception:
+        logger.exception("Pricing error scan failed")
+    return pricing_errors
+
+
+def _scan_counts(
+    cross: list[Any],
+    triangular: list[Any],
+    basis: list[Any],
+    funding_opps: list[Any],
+) -> dict[str, int]:
+    return {
+        "cross_exchange": len(cross),
+        "triangular": len(triangular),
+        "spot_futures": len(basis),
+        "funding": len(funding_opps),
+    }
+
+
+def _is_executable_row(row: dict[str, Any]) -> bool:
+    return (
+        row.get("execution_feasibility") in {"full", "partial"}
+        and not row.get("truth_rejected")
+        and not row.get("half_life_killed")
+        and not (row.get("dimension_conflict") or {}).get("veto")
+        and not (row.get("dimension_conflict") or {}).get("abstain")
+    )
+
+
+def _is_gated_out_row(row: dict[str, Any]) -> bool:
+    return (
+        row.get("truth_rejected")
+        or row.get("half_life_killed")
+        or (row.get("dimension_conflict") or {}).get("veto")
+        or (row.get("dimension_conflict") or {}).get("abstain")
+    )
+
+
 async def scan_arbitrage_opportunities(
     quote_amount: float | None = None,
     *,

@@ -1288,7 +1288,7 @@ class ArbitrageEngine:
         except Exception:
             logger.exception("Whale tracker cycle failed; continuing without institutional context.")
 
-        obi_context = await build_obi_context_safe(order_books)
+        obi_context = build_obi_context_safe(order_books)
         onchain_context = await build_onchain_context_safe()
         market_context = merge_onchain_context(
             merge_market_context(institutional_context, obi_context),

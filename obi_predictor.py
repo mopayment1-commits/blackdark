@@ -383,7 +383,7 @@ def build_obi_context(
     }
 
 
-async def build_obi_context_safe(
+def build_obi_context_safe(
     order_books: dict[str, dict[str, dict[str, Any]]] | None,
 ) -> dict[str, Any]:
     """Build OBI context without ever raising to protect engine loops."""
@@ -416,8 +416,8 @@ def merge_market_context(
     return merged
 
 
-async def get_current_obi_context_for_books(
+def get_current_obi_context_for_books(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> dict[str, Any]:
     """Convenience helper for engine/oracle consumers."""
-    return await build_obi_context_safe(order_books)
+    return build_obi_context_safe(order_books)

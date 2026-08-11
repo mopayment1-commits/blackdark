@@ -277,7 +277,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         from obi_predictor import build_obi_context_safe, merge_market_context
 
         books = await fetch_latest_order_books()
-        obi_context = await build_obi_context_safe(books)
+        obi_context = build_obi_context_safe(books)
         ctx = merge_market_context(ctx, obi_context)
     except Exception:
         logger.debug("OBI context unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)

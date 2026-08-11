@@ -106,31 +106,25 @@ def _median(values: list[float]) -> float | None:
     return float((ordered[mid - 1] + ordered[mid]) / 2.0)
 
 
-def expected_half_life_seconds(kind: str | None = None, asset: str | None = None) -> float:
-    """Median observed lifetime for similar opportunities, with kind priors."""
-    kind_key = str(kind or "")
-    asset_key = str(asset or "").upper()
+def _matches_half_life_filter(row: dict[str, Any], kind_key: str, asset_key: str) -> bool:
+    if kind_key and str(row.get("kind") or "") != kind_key:
+        return False
+    if asset_key and str(row.get("asset") or "").upper() not in {asset_key, f"{asset_key}/USDT"}:
+        return False
+    return True
+
+
+def _history_durations(kind_key: str, asset_key: str = "") -> list[float]:
     samples: list[float] = []
     for row in _HISTORY:
         dur = float(row.get("duration_seconds") or 0)
-        if dur <= 0:
-            continue
-        if kind_key and str(row.get("kind") or "") != kind_key:
-            continue
-        if asset_key and str(row.get("asset") or "").upper() not in {asset_key, f"{asset_key}/USDT"}:
-            # Prefer same asset; keep kind-level fallback below
+        if dur <= 0 or not _matches_half_life_filter(row, kind_key, asset_key):
             continue
         samples.append(dur)
+    return samples
 
-    if len(samples) < 3:
-        # Fall back to kind-level history (any asset)
-        samples = [
-            float(r.get("duration_seconds") or 0)
-            for r in _HISTORY
-            if float(r.get("duration_seconds") or 0) > 0
-            and (not kind_key or str(r.get("kind") or "") == kind_key)
-        ]
 
+def _blended_half_life(kind_key: str, samples: list[float]) -> float:
     med = _median(samples)
     if med is None or med <= 0:
         return float(_KIND_DEFAULTS.get(kind_key, _DEFAULT_HALF_LIFE_SEC))
@@ -138,6 +132,19 @@ def expected_half_life_seconds(kind: str | None = None, asset: str | None = None
     prior = float(_KIND_DEFAULTS.get(kind_key, _DEFAULT_HALF_LIFE_SEC))
     weight = min(1.0, len(samples) / 20.0)
     return round(prior * (1 - weight) + med * weight, 2)
+
+
+def expected_half_life_seconds(kind: str | None = None, asset: str | None = None) -> float:
+    """Median observed lifetime for similar opportunities, with kind priors."""
+    kind_key = str(kind or "")
+    asset_key = str(asset or "").upper()
+    samples = _history_durations(kind_key, asset_key)
+
+    if len(samples) < 3:
+        # Fall back to kind-level history (any asset)
+        samples = _history_durations(kind_key)
+
+    return _blended_half_life(kind_key, samples)
 
 
 def half_life_sample_count(kind: str | None = None, asset: str | None = None) -> int:

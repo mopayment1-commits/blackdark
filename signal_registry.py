@@ -195,41 +195,86 @@ def register_signal(
     return dict(record)
 
 
+def _find_signal_unlocked(signal_id: str) -> tuple[str, dict[str, Any] | None]:
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    _hydrate_unlocked()
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    for sid, candidate in _SIGNALS.items():
+        if str(candidate.get("prediction_id") or "") == str(signal_id):
+            return sid, candidate
+    return str(signal_id), None
+
+
+def _performance_after_label(row: dict[str, Any], label: str) -> dict[str, Any]:
+    perf = dict(row.get("performance") or {})
+    lab = str(label).lower()
+    if lab in {"correct", "win", "hit"}:
+        perf["hits"] = int(perf.get("hits") or 0) + 1
+        perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
+    elif lab in {"incorrect", "loss", "miss", "partial"}:
+        perf["misses"] = int(perf.get("misses") or 0) + 1
+        perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
+    decided = int(perf.get("hits") or 0) + int(perf.get("misses") or 0)
+    perf["hit_rate"] = round(int(perf.get("hits") or 0) / decided, 4) if decided else None
+    return perf
+
+
+def _resolved_signal_row(
+    row: dict[str, Any],
+    label: str,
+    meta: dict[str, Any] | None,
+) -> dict[str, Any]:
+    updated = dict(row)
+    updated["label"] = label
+    updated["updated_at"] = _utcnow()
+    if meta:
+        updated["resolution"] = meta
+    updated["performance"] = _performance_after_label(updated, label)
+    return updated
+
+
 def resolve_signal(signal_id: str, label: str, *, meta: dict[str, Any] | None = None) -> dict[str, Any] | None:
     with _LOCK:
-        row = _SIGNALS.get(str(signal_id))
-        if not row:
-            # Try hydrate lookup by prediction_id / signal_id from disk once
-            _hydrate_unlocked()
-            row = _SIGNALS.get(str(signal_id))
-        if not row:
-            # Secondary key: prediction_id field match
-            for sid, candidate in _SIGNALS.items():
-                if str(candidate.get("prediction_id") or "") == str(signal_id):
-                    row = candidate
-                    signal_id = sid
-                    break
+        signal_id, row = _find_signal_unlocked(str(signal_id))
         if not row:
             return None
-        row = dict(row)
-        row["label"] = label
-        row["updated_at"] = _utcnow()
-        if meta:
-            row["resolution"] = meta
-        perf = dict(row.get("performance") or {})
-        lab = str(label).lower()
-        if lab in {"correct", "win", "hit"}:
-            perf["hits"] = int(perf.get("hits") or 0) + 1
-            perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
-        elif lab in {"incorrect", "loss", "miss", "partial"}:
-            perf["misses"] = int(perf.get("misses") or 0) + 1
-            perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
-        decided = int(perf.get("hits") or 0) + int(perf.get("misses") or 0)
-        perf["hit_rate"] = round(int(perf.get("hits") or 0) / decided, 4) if decided else None
-        row["performance"] = perf
+        row = _resolved_signal_row(row, label, meta)
         _SIGNALS[str(signal_id)] = row
         _rewrite_jsonl_unlocked()
         return dict(row)
+
+
+def _find_signal_identity_unlocked(signal_id: str) -> tuple[str, dict[str, Any] | None]:
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    for sid, candidate in _SIGNALS.items():
+        if str(candidate.get("signal_id") or "") == str(signal_id):
+            return sid, candidate
+    return str(signal_id), None
+
+
+def _attach_prediction_id_unlocked(
+    signal_id: str,
+    row: dict[str, Any],
+    pid: str,
+) -> dict[str, Any]:
+    updated = dict(row)
+    old_sid = str(updated.get("signal_id") or signal_id)
+    updated["prediction_id"] = pid
+    updated["signal_id"] = pid
+    updated["updated_at"] = _utcnow()
+    prov = dict(updated.get("provenance") or {})
+    prov["prediction_id"] = pid
+    updated["provenance"] = prov
+    if old_sid != pid and old_sid in _SIGNALS:
+        _SIGNALS.pop(old_sid, None)
+    _SIGNALS[pid] = updated
+    return updated
 
 
 def attach_prediction_id(signal_id: str, prediction_id: str | int) -> dict[str, Any] | None:
@@ -238,29 +283,39 @@ def attach_prediction_id(signal_id: str, prediction_id: str | int) -> dict[str, 
     with _LOCK:
         if not _SIGNALS:
             _hydrate_unlocked()
-        row = _SIGNALS.get(str(signal_id))
-        if not row:
-            for sid, candidate in _SIGNALS.items():
-                if str(candidate.get("signal_id") or "") == str(signal_id):
-                    row = candidate
-                    signal_id = sid
-                    break
+        signal_id, row = _find_signal_identity_unlocked(str(signal_id))
         if not row:
             return None
-        row = dict(row)
-        old_sid = str(row.get("signal_id") or signal_id)
-        row["prediction_id"] = pid
-        # Prefer prediction_id as canonical key when available
-        row["signal_id"] = pid
-        row["updated_at"] = _utcnow()
-        prov = dict(row.get("provenance") or {})
-        prov["prediction_id"] = pid
-        row["provenance"] = prov
-        if old_sid != pid and old_sid in _SIGNALS:
-            _SIGNALS.pop(old_sid, None)
-        _SIGNALS[pid] = row
+        row = _attach_prediction_id_unlocked(signal_id, row, pid)
         _rewrite_jsonl_unlocked()
         return dict(row)
+
+
+def _signal_rows_from_disk() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for line in _PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if str(row.get("signal_id") or ""):
+            rows.append(row)
+    return rows
+
+
+def _should_replace_signal(sid: str, row: dict[str, Any]) -> bool:
+    existing = _SIGNALS.get(sid)
+    if not existing:
+        return True
+    return str(existing.get("updated_at") or "") < str(row.get("updated_at") or "")
+
+
+def _trim_registry_unlocked() -> None:
+    while len(_SIGNALS) > _MAX_MEMORY:
+        oldest = next(iter(_SIGNALS))
+        _SIGNALS.pop(oldest, None)
 
 
 def _hydrate_unlocked() -> int:
@@ -269,25 +324,14 @@ def _hydrate_unlocked() -> int:
         return 0
     loaded = 0
     try:
-        for line in _PATH.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            try:
-                row = json.loads(line)
-            except json.JSONDecodeError:
-                continue
+        for row in _signal_rows_from_disk():
             sid = str(row.get("signal_id") or "")
-            if not sid:
-                continue
             # Prefer newer updated_at if duplicate
-            existing = _SIGNALS.get(sid)
-            if existing and str(existing.get("updated_at") or "") >= str(row.get("updated_at") or ""):
+            if not _should_replace_signal(sid, row):
                 continue
             _SIGNALS[sid] = row
             loaded += 1
-        while len(_SIGNALS) > _MAX_MEMORY:
-            oldest = next(iter(_SIGNALS))
-            _SIGNALS.pop(oldest, None)
+        _trim_registry_unlocked()
     except Exception:
         logger.debug("signal registry hydrate failed", exc_info=True)
     return loaded
@@ -342,22 +386,26 @@ def list_signals(
     return rows[: max(1, min(limit, 500))]
 
 
-def registry_stats() -> dict[str, Any]:
-    with _LOCK:
-        if not _SIGNALS:
-            _hydrate_unlocked()
-        rows = list(_SIGNALS.values())
+def _registry_aggregates(rows: list[dict[str, Any]]) -> tuple[dict[str, int], dict[str, int], int, int]:
     by_type: dict[str, int] = {}
     by_label: dict[str, int] = {}
-    by_type_perf: dict[str, dict[str, Any]] = {}
     linked = 0
+    labeled = 0
     for row in rows:
         st = str(row.get("signal_type") or "unknown")
-        by_type[st] = by_type.get(st, 0) + 1
         lab = str(row.get("label") or "pending")
+        by_type[st] = by_type.get(st, 0) + 1
         by_label[lab] = by_label.get(lab, 0) + 1
-        if row.get("prediction_id"):
-            linked += 1
+        linked += 1 if row.get("prediction_id") else 0
+        labeled += 1 if row.get("label") and row.get("label") not in {"pending", None, ""} else 0
+    return by_type, by_label, linked, labeled
+
+
+def _registry_type_performance(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    by_type_perf: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        st = str(row.get("signal_type") or "unknown")
+        lab = str(row.get("label") or "pending")
         bucket = by_type_perf.setdefault(st, {"hits": 0, "misses": 0, "pending": 0, "hit_rate": None})
         if lab in {"correct", "win", "hit"}:
             bucket["hits"] += 1
@@ -365,6 +413,11 @@ def registry_stats() -> dict[str, Any]:
             bucket["misses"] += 1
         else:
             bucket["pending"] += 1
+    _attach_type_performance_meta(by_type_perf)
+    return by_type_perf
+
+
+def _attach_type_performance_meta(by_type_perf: dict[str, dict[str, Any]]) -> None:
     for st, bucket in by_type_perf.items():
         decided = bucket["hits"] + bucket["misses"]
         bucket["hit_rate"] = round(bucket["hits"] / decided, 4) if decided else None
@@ -372,13 +425,24 @@ def registry_stats() -> dict[str, Any]:
         bucket["definition"] = lex.get("definition")
         bucket["weight"] = lex.get("weight")
         bucket["source"] = lex.get("source")
-    labeled = sum(1 for r in rows if r.get("label") and r.get("label") not in {"pending", None, ""})
+
+
+def _registry_status(rows: list[dict[str, Any]], labeled: int, linked: int) -> str:
     if labeled > 0 and linked > 0:
-        status = "live"
-    elif len(rows) > 0:
-        status = "pending_labels" if labeled == 0 else "partial"
-    else:
-        status = "empty"
+        return "live"
+    if len(rows) > 0:
+        return "pending_labels" if labeled == 0 else "partial"
+    return "empty"
+
+
+def registry_stats() -> dict[str, Any]:
+    with _LOCK:
+        if not _SIGNALS:
+            _hydrate_unlocked()
+        rows = list(_SIGNALS.values())
+    by_type, by_label, linked, labeled = _registry_aggregates(rows)
+    by_type_perf = _registry_type_performance(rows)
+    status = _registry_status(rows, labeled, linked)
     return {
         "total_in_memory": len(rows),
         "labeled": labeled,
