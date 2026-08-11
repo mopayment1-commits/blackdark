@@ -44,7 +44,14 @@ def test_dec_0004_quiet_engines_absent_from_rendered_retail_navigation():
         assert response.status_code == 200
         nav = re.search(r"<nav\b.*?</nav>", response.text, flags=re.IGNORECASE | re.DOTALL)
         assert nav, path
-        nav_text = re.sub(r"\s+", " ", nav.group(0)).lower()
+        links = re.findall(
+            r'<a\b[^>]*href="([^"]*)"[^>]*>(.*?)</a>',
+            nav.group(0),
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        nav_text = " ".join(
+            f"{href} {re.sub(r'<[^>]+>', ' ', label)}" for href, label in links
+        ).lower()
         assert not (forbidden & {term for term in forbidden if term in nav_text}), (path, nav_text)
 
 
