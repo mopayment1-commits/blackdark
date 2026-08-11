@@ -243,7 +243,7 @@ async def finalize_unified_score(
             rl_meta["nudge"] = 0.0
         adjusted += float(rl_meta["nudge"])
     except Exception:
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
 
     adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
 
@@ -262,7 +262,7 @@ async def finalize_unified_score(
                 "abstain": True if not conflict_meta.get("veto") else conflict_meta.get("abstain"),
             }
     except Exception:
-        pass
+        logger.debug("timeframe disagreement guard skipped", exc_info=True)
 
     final_score = round(max(0.0, min(100.0, adjusted)))
     public_verdict = unified_verdict_with_conflict(

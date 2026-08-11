@@ -6,6 +6,9 @@ import json
 import os
 import urllib.request
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
@@ -80,7 +83,7 @@ def main() -> int:
             print(f"  Failures: {', '.join(guard['required_failures'])}")
         print(f"  API: {PROD_URL}/api/production/guard")
     except Exception:
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
 
     print("\n--- GTM setup scripts ---")
     print("  python scripts/railway_production_checklist.py")

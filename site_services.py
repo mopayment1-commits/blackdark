@@ -14,6 +14,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
+import logging
+
+logger = logging.getLogger(__name__)
 
 _FEEDBACK_LOCK = threading.Lock()
 _FEEDBACK_PATH = Path("data/feedback.jsonl")
@@ -336,7 +339,7 @@ def public_status_report() -> dict[str, Any]:
 
         db_engine = "postgresql" if use_postgres() else "sqlite"
     except Exception:
-        pass
+        logger.debug("postgres backend detect skipped", exc_info=True)
 
     try:
         from viral_capacity import viral_readiness_report

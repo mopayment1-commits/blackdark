@@ -14,6 +14,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
+import logging
+
+logger = logging.getLogger(__name__)
 
 _DATA = Path(__file__).resolve().parent / "data" / "contradiction_replays.jsonl"
 
@@ -129,13 +132,13 @@ def build_contradiction_replay(
                 meta={"clip_id": cid, "bullish": bullish, "bearish": bearish},
             )
         except Exception:
-            pass
+            logger.debug("kill switch record skipped", exc_info=True)
         try:
             _DATA.parent.mkdir(parents=True, exist_ok=True)
             with _DATA.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(card, ensure_ascii=False) + "\n")
         except OSError:
-            pass
+            logger.debug("persist skipped", exc_info=True)
 
     return card
 
@@ -148,6 +151,7 @@ def get_replay(clip_id: str) -> dict[str, Any] | None:
             try:
                 row = json.loads(line)
             except json.JSONDecodeError:
+                logger.debug("json parse skipped", exc_info=True)
                 continue
             if row.get("clip_id") == clip_id:
                 return row
@@ -165,6 +169,7 @@ def list_recent_replays(limit: int = 20) -> list[dict[str, Any]]:
             try:
                 rows.append(json.loads(line))
             except json.JSONDecodeError:
+                logger.debug("json parse skipped", exc_info=True)
                 continue
             if len(rows) >= limit:
                 break

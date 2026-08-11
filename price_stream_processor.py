@@ -115,7 +115,7 @@ async def _detect_cross_spread(symbol: str, ts_ms: int) -> dict[str, Any] | None
                 if row:
                     prices[venue] = row
             except Exception:
-                pass
+                logger.debug("redis operation skipped", exc_info=True)
 
     if len(prices) < 2:
         return None
@@ -159,7 +159,7 @@ async def _publish(topic: str, payload: dict[str, Any]) -> None:
 
         await bus_publish(topic, payload)
     except Exception:
-        pass
+        logger.debug("service bus publish skipped", exc_info=True)
 
 
 async def start_stream_workers() -> asyncio.Task | None:

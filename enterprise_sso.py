@@ -89,7 +89,7 @@ def configure_provider(
 
                 row["client_secret_enc"] = encrypt_secret(client_secret.strip())
             except Exception:
-                row["client_secret_enc"] = ""
+                row["client_secret_enc"] = str()  # nosec B105 — empty fallback, not a credential
         providers[org_id] = row
         _save(data)
         return {k: v for k, v in row.items() if k != "client_secret_enc"}

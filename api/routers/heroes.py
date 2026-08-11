@@ -256,7 +256,7 @@ async def ledger_share_kit():
             except (TypeError, ValueError):
                 total = None
     except Exception:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return build_ledger_share_kit(accuracy_pct=accuracy_pct, total_predictions=total)
 
 

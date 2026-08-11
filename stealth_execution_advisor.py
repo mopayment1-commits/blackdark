@@ -8,6 +8,9 @@ depth / ADV heuristics when available. Not a live stealth-routing guarantee.
 from __future__ import annotations
 
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def _estimate_adv_usd(asset: str, provided: float | None) -> tuple[float, str]:
@@ -40,7 +43,7 @@ def _book_depth_usd(asset: str) -> tuple[float | None, str]:
         depth = (bid + ask) * mid
         return (depth if depth > 0 else None), "live_book_hub"
     except Exception:
-        pass
+        logger.debug("book freshness lookup skipped", exc_info=True)
     try:
         from live_book_hub import book_snapshot  # type: ignore
 
@@ -50,7 +53,7 @@ def _book_depth_usd(asset: str) -> tuple[float | None, str]:
             if depth > 0:
                 return depth, "live_book_snapshot"
     except Exception:
-        pass
+        logger.debug("book depth lookup skipped", exc_info=True)
     return None, "book_unavailable"
 
 

@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 import tempfile
 import urllib.request
@@ -35,7 +35,7 @@ def _resolve(lock_file: Path) -> list[tuple[str, str]]:
             "--report",
             str(report),
         ]
-        subprocess.check_call(cmd)
+        subprocess.check_call(cmd)  # nosec B603 — fixed argv, shell=False, no user input
         data = json.loads(report.read_text(encoding="utf-8"))
     finally:
         report.unlink(missing_ok=True)

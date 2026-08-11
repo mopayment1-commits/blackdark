@@ -6,6 +6,9 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -15,7 +18,7 @@ if sys.platform == "win32":
     try:
         sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
     except (AttributeError, OSError, ValueError):
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
 
 from plan_audit import plan_audit
 

@@ -16,7 +16,7 @@ import hashlib
 import os
 import re
 import shutil
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import time
 from pathlib import Path
 
@@ -65,7 +65,7 @@ def backup(*, out_dir: Path) -> Path:
     # Pass URL via env (not argv) to reduce shell/CLI sink surface for scanners.
     env = os.environ.copy()
     env["PGDATABASE_URL"] = url
-    proc = subprocess.run(
+    proc = subprocess.run(  # nosec B603 — fixed argv, shell=False, no user input
         [pg_dump, "--dbname", url, "--no-owner", "--format=plain", "-f", str(raw)],
         capture_output=True,
         text=True,

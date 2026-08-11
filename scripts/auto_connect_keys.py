@@ -13,6 +13,9 @@ from __future__ import annotations
 import asyncio
 import sys
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -25,7 +28,7 @@ def _configure_stdio() -> None:
             sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
             sys.stderr.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
         except (AttributeError, OSError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
 
 
 async def main() -> int:

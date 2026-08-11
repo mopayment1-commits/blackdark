@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -153,6 +153,7 @@ async def _resolve_mature_oracle_predictions() -> int:
         try:
             ts = datetime.fromisoformat(raw_ts)
         except ValueError:
+            logger.debug("optional operation skipped", exc_info=True)
             continue
         if now - ts < timedelta(hours=24):
             continue
@@ -216,7 +217,7 @@ async def _record_behavior(
 
         increment_metric("behavior_events_total")
     except Exception:
-        pass
+        logger.debug("metric increment skipped", exc_info=True)
 
 
 async def _analyze_portfolio_holdings(assets: list) -> dict:
@@ -467,14 +468,14 @@ try:
 
     apply_cors(app)
 except Exception:
-    pass
+    logger.debug("cors middleware apply skipped", exc_info=True)
 
 try:
     from security_middleware import SecurityHeadersMiddleware
 
     app.add_middleware(SecurityHeadersMiddleware)
 except Exception:
-    pass
+    logger.debug("cors middleware apply skipped", exc_info=True)
 
 
 @app.middleware("http")
@@ -524,70 +525,70 @@ try:
 
     app.include_router(platform_router)
 except ImportError:
-    pass
+    logger.debug("metric increment skipped", exc_info=True)
 
 try:
     from api.routers.observability import router as observability_router
 
     app.include_router(observability_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.auth import router as auth_router
 
     app.include_router(auth_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.billing import router as billing_router
 
     app.include_router(billing_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.arbitrage import router as arbitrage_router
 
     app.include_router(arbitrage_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.oracle import router as oracle_router
 
     app.include_router(oracle_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.market import router as market_router
 
     app.include_router(market_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.user import router as user_router
 
     app.include_router(user_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.privacy import router as privacy_router
 
     app.include_router(privacy_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.gtm import router as gtm_router
 
     app.include_router(gtm_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.heroes import router as heroes_router
@@ -601,7 +602,7 @@ try:
 
     app.include_router(telegram_router)
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 try:
     from api.routers.institutional import router as institutional_router
@@ -615,7 +616,7 @@ try:
 
     app.include_router(create_graphql_router(), prefix="")
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 STATIC_DIR = BASE_DIR / "static"
 if STATIC_DIR.exists():
@@ -1064,7 +1065,7 @@ async def telegram_test(
         profile = await fetch_user_profile(user["email"])
         profile_chat = (profile or {}).get("telegram_chat_id")
     except Exception:
-        pass
+        logger.debug("profile lookup skipped", exc_info=True)
     # Non-admins may only target their own stored chat id (or default bot chat).
     if (
         requested
@@ -2056,13 +2057,13 @@ async def oracle_quick(
             trust_basis="public_accuracy_ledger + quick_rules_engine",
         )
     except Exception:
-        pass
+        logger.debug("compliance footer attach skipped", exc_info=True)
     try:
         from data_freshness import attach_oracle_freshness
 
         payload = attach_oracle_freshness({**payload, "asset": asset})
     except Exception:
-        pass
+        logger.debug("compliance footer attach skipped", exc_info=True)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)
@@ -2290,7 +2291,7 @@ async def oracle(
 
         increment_metric("oracle_queries_total")
     except Exception:
-        pass
+        logger.debug("metric increment skipped", exc_info=True)
 
     try:
         from data_freshness import attach_oracle_freshness
@@ -2733,7 +2734,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
             if msg.strip().lower() == "ping":
                 await websocket.send_json({"type": "pong", "timestamp": datetime.now(UTC).isoformat()})
     except WebSocketDisconnect:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     except RuntimeError as exc:
         await websocket.close(code=1008, reason=str(exc))
     except Exception:
@@ -3520,7 +3521,7 @@ async def health_live():
 
         record_probe(ok=True, source="health_live", latency_ms=(time.perf_counter() - t0) * 1000)
     except Exception:
-        pass
+        logger.debug("uptime probe record skipped", exc_info=True)
     return payload
 
 

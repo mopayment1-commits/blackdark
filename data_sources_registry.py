@@ -9,6 +9,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Literal
+import logging
+
+logger = logging.getLogger(__name__)
 
 FetchKind = Literal["rest", "rss", "websocket", "subgraph", "internal"]
 
@@ -219,7 +222,7 @@ try:
 
     DATA_SOURCES = DATA_SOURCES + EXTRA_DATA_SOURCES
 except ImportError:
-    pass
+    logger.debug("optional operation skipped", exc_info=True)
 
 
 def sources_by_category(category: Category) -> list[DataSourceSpec]:

@@ -306,7 +306,7 @@ def inflight_count() -> int:
         except asyncio.CancelledError:
             raise
         except Exception:
-            pass
+            logger.debug("redis operation skipped", exc_info=True)
     with _inflight_lock:
         return _inflight
 

@@ -8,6 +8,9 @@ from typing import Any
 from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
 
 from security_auth import require_admin, require_authenticated
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/platform", tags=["platform"])
 
@@ -559,7 +562,7 @@ async def rl_policy(features: str = Query(""), train: bool = Query(False)):
                 try:
                     feats[k.strip()] = float(v.strip())
                 except ValueError:
-                    pass
+                    logger.debug("rl nudge skipped", exc_info=True)
     return {"status": policy_status(), "prediction": predict_action(feats or None)}
 
 
@@ -572,12 +575,12 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     samples = [
         (
             {
-                "ret_24h": random.uniform(-0.05, 0.05),
-                "volatility": random.uniform(0.02, 0.1),
-                "obi_score": random.uniform(-1, 1),
-                "sentiment_score": random.uniform(-1, 1),
+                "ret_24h": random.uniform(-0.05, 0.05),  # nosec B311 — synthetic ML training data
+                "volatility": random.uniform(0.02, 0.1),  # nosec B311 — synthetic ML training data
+                "obi_score": random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
+                "sentiment_score": random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
             },
-            random.uniform(-1, 1),
+            random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
         )
         for _ in range(100)
     ]

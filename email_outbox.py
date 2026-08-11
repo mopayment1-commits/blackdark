@@ -18,6 +18,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
+import logging
+
+logger = logging.getLogger(__name__)
 
 _LOCK = threading.Lock()
 _PATH = Path("data/email_outbox.jsonl")
@@ -103,6 +106,7 @@ def list_queued(*, limit: int = 50) -> list[dict[str, Any]]:
             except asyncio.CancelledError:
                 raise
             except Exception:
+                logger.debug("json parse skipped", exc_info=True)
                 continue
             if row.get("status") == "queued":
                 row = dict(row)
@@ -136,6 +140,7 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
                 except asyncio.CancelledError:
                     raise
                 except Exception:
+                    logger.debug("json parse skipped", exc_info=True)
                     continue
             id_set = {r["id"] for r in queued}
             for row in all_rows:

@@ -64,7 +64,7 @@ def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
             try:
                 os.fsync(fh.fileno())
             except OSError:
-                pass
+                logger.debug("persist skipped", exc_info=True)
         return entry
 
 

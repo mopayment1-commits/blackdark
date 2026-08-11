@@ -14,11 +14,14 @@ from __future__ import annotations
 
 import argparse
 import os
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 
 import encoding_bootstrap  # noqa: F401 — UTF-8 Arabic in console
 from path_safety import validate_bind_host, validate_port
+import logging
+
+logger = logging.getLogger(__name__)
 
 MODES = {
     "all": ("dashboard:app", 8080),
@@ -75,7 +78,7 @@ def main() -> None:
         if applied:
             print(f"Platform keys loaded from keys/platform_keys.env ({applied})")
     except Exception:
-        pass
+        logger.debug("platform keys load skipped", exc_info=True)
 
     try:
         from execution_keys import apply_exchange_keys_to_env, ensure_keys_file as ensure_exec_keys
@@ -85,7 +88,7 @@ def main() -> None:
         if applied_exec:
             print(f"Exchange keys loaded from keys/exchange_keys.env ({applied_exec})")
     except Exception:
-        pass
+        logger.debug("exchange keys load skipped", exc_info=True)
 
     cmd = [
         sys.executable,
@@ -112,7 +115,7 @@ def main() -> None:
     print(
         f"Starting BLACKDARK | mode={args.mode} port={port} workers={workers}"
     )
-    raise SystemExit(subprocess.call(cmd))
+    raise SystemExit(subprocess.call(cmd))  # nosec B603 — fixed argv, shell=False, no user input
 
 
 if __name__ == "__main__":

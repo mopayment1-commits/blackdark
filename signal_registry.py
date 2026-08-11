@@ -274,6 +274,7 @@ def _hydrate_unlocked() -> int:
             try:
                 row = json.loads(line)
             except json.JSONDecodeError:
+                logger.debug("json parse skipped", exc_info=True)
                 continue
             sid = str(row.get("signal_id") or "")
             if not sid:
@@ -401,7 +402,7 @@ _BOOT = time.time()
 try:
     hydrate_signal_registry()
 except Exception:
-    pass
+    logger.debug("signal registry hydrate skipped", exc_info=True)
 
 
 def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:

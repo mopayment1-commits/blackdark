@@ -76,7 +76,7 @@ class B2BWebSocketHub:
             try:
                 await client.websocket.close()
             except Exception:
-                pass
+                logger.debug("websocket close skipped", exc_info=True)
         logger.info("B2B WebSocket hub stopped")
 
     async def register(self, websocket: Any, api_key: str, *, is_demo: bool) -> B2BClient:
@@ -107,7 +107,7 @@ class B2BWebSocketHub:
             try:
                 self._clients.remove(client)
             except ValueError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
         logger.info("B2B WS client disconnected | total=%d", len(self._clients))
 
     async def _send(self, client: B2BClient, payload: dict[str, Any]) -> None:

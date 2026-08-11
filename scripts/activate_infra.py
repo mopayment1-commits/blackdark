@@ -52,12 +52,12 @@ def main() -> None:
         samples = [
             (
                 {
-                    "ret_24h": random.uniform(-0.08, 0.08),
-                    "volatility": random.uniform(0.01, 0.15),
-                    "obi_score": random.uniform(-1, 1),
-                    "sentiment_score": random.uniform(-1, 1),
+                    "ret_24h": random.uniform(-0.08, 0.08),  # nosec B311 — synthetic ML training data
+                    "volatility": random.uniform(0.01, 0.15),  # nosec B311 — synthetic ML training data
+                    "obi_score": random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
+                    "sentiment_score": random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
                 },
-                random.uniform(-1, 1),
+                random.uniform(-1, 1),  # nosec B311 — synthetic ML training data
             )
             for _ in range(300)
         ]

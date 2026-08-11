@@ -8,6 +8,9 @@ import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -85,7 +88,7 @@ def main() -> int:
             _tg("deleteWebhook", token, {"drop_pending_updates": False})
             print("  Cleared any existing webhook.")
         except Exception:
-            pass
+            logger.debug("telegram webhook clear skipped", exc_info=True)
     else:
         print("\n--- Setting webhook (recommended for Railway) ---")
         payload: dict = {"url": webhook_url, "allowed_updates": ["message", "edited_message"]}

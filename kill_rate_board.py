@@ -13,6 +13,9 @@ from pathlib import Path
 from typing import Any
 
 from path_safety import ensure_under, safe_data_file
+import logging
+
+logger = logging.getLogger(__name__)
 
 _DATA = safe_data_file("kill_rate_events.jsonl")
 _DATA_BASE = Path(__file__).resolve().parent / "data"
@@ -41,7 +44,7 @@ def record_kill(source: str, reason: str, *, meta: dict[str, Any] | None = None)
             lines = path.read_text(encoding="utf-8").splitlines()[-_MAX_LINES:]
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083
     except OSError:
-        pass
+        logger.debug("persist skipped", exc_info=True)
 
 
 def _load_events(limit: int = 2000) -> list[dict[str, Any]]:
@@ -56,6 +59,7 @@ def _load_events(limit: int = 2000) -> list[dict[str, Any]]:
         try:
             out.append(json.loads(line))
         except json.JSONDecodeError:
+            logger.debug("json parse skipped", exc_info=True)
             continue
     return out
 

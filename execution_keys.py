@@ -17,6 +17,9 @@ from typing import Any
 from urllib.parse import urlencode
 
 import aiohttp
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent
 KEYS_DIR = ROOT / "keys"
@@ -185,7 +188,7 @@ async def verify_binance_keys(
                                     elif "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
                                         can_withdraw = False
                     except Exception:
-                        pass
+                        logger.debug("binance permission parse skipped", exc_info=True)
                     return {
                         "exchange": "binance",
                         "configured": True,

@@ -75,6 +75,7 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
                     try:
                         row = json.loads(stripped)
                     except json.JSONDecodeError:
+                        logger.debug("json parse skipped", exc_info=True)
                         continue
                     if str(row.get("symbol", "")).upper() != sym:
                         continue
@@ -85,6 +86,7 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
                     if len(closes) >= limit:
                         return closes[-limit:]
         except OSError:
+            logger.debug("optional operation skipped", exc_info=True)
             continue
     return closes[-limit:]
 
@@ -125,7 +127,7 @@ async def hot_tier_status() -> dict[str, Any]:
             try:
                 spool_bytes += path.stat().st_size
             except OSError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
     return {
         "backend": config.HOT_STORAGE_BACKEND,
         "retention_hours": config.HOT_TIER_RETENTION_HOURS,

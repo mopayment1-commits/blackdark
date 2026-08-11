@@ -197,7 +197,7 @@ async def _kraken_ticker_poll_loop() -> None:
                                 )
                                 _inc_messages()
                 except (aiohttp.ClientError, TypeError, ValueError):
-                    pass
+                    logger.debug("optional operation skipped", exc_info=True)
             await asyncio.sleep(1)
 
 

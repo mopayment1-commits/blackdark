@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 import os
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 from pathlib import Path
 
@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT))
 
 def _run(cmd: list[str]) -> int:
     print("$", " ".join(cmd))
-    return subprocess.call(cmd, cwd=str(ROOT))
+    return subprocess.call(cmd, cwd=str(ROOT))  # nosec B603 — fixed argv, shell=False, no user input
 
 
 def main() -> int:

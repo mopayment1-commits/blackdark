@@ -391,7 +391,7 @@ def explain_opportunity(
         if calibration.get("calibrated"):
             confidence = float(calibration["calibrated_hit_rate_percent"])
     except Exception:
-        pass
+        logger.debug("confidence calibration skipped", exc_info=True)
 
     summary = (
         f"{metrics.asset} {kind.replace('_', ' ')} setup scores "
@@ -723,7 +723,7 @@ async def evaluate_opportunity(
             trust_basis="public_accuracy_ledger + net_edge_truth + veto",
         )
     except Exception:
-        pass
+        logger.debug("compliance footer attach skipped", exc_info=True)
 
     return EvaluatedOpportunity(
         kind=kind,
@@ -813,7 +813,7 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
         if buy > 0 and sell > 0:
             return (buy + sell) / 2.0
     except (TypeError, ValueError):
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from live_book_hub import get_best_price
 

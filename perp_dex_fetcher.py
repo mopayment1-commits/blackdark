@@ -114,7 +114,7 @@ async def _hyperliquid_mid(session: aiohttp.ClientSession, asset: str) -> tuple[
         idx = next(i for i, u in enumerate(universe) if u.get("name") == sym)
         funding_rate = float(contexts[idx].get("funding") or 0)
     except (StopIteration, IndexError, TypeError, ValueError):
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
     return price, funding_rate
 
 
@@ -147,6 +147,7 @@ async def _gmx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, f
                     if price > 0:
                         return price, 0.0
         except (aiohttp.ClientError, TypeError, ValueError):
+            logger.debug("optional operation skipped", exc_info=True)
             continue
     raise ValueError(f"GMX price missing for {asset}")
 

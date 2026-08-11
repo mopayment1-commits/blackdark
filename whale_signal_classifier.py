@@ -10,6 +10,9 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def classify_whale_alert(
@@ -78,7 +81,7 @@ def classify_whale_alert(
                 hedge_note = "Funding elevated while spot outflow — may be hedge unwind, not pure dump."
                 confidence = 0.65
         except (TypeError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
 
     if oi_change is not None and actionable:
         try:
@@ -88,7 +91,7 @@ def classify_whale_alert(
                 hedge_note = (hedge_note or "") + " OI flat — transfer may be wallet reshuffle."
                 confidence = min(confidence, 0.5)
         except (TypeError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
 
     label = "SIGNAL" if actionable else "NOISE"
     sentence = (
@@ -135,11 +138,11 @@ async def _derivatives_for_asset(asset: str) -> dict[str, Any]:
                 # Map crowded longs → positive "oi pressure" proxy for classifier
                 out["open_interest_change_pct"] = round((float(lsr) - 1.0) * 10.0, 3)
             except (TypeError, ValueError):
-                pass
+                logger.debug("whale feature enrich skipped", exc_info=True)
         if out["funding_rate"] is None and row.get("open_interest_usd") is not None:
             out["open_interest_usd"] = row.get("open_interest_usd")
     except Exception:
-        pass
+        logger.debug("whale feature enrich skipped", exc_info=True)
     return out
 
 

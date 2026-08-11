@@ -493,6 +493,7 @@ async def run_auto_execution_cycle() -> dict[str, Any]:
                 if market and market.get("price") is not None:
                     prices[sym] = float(market["price"])
             except Exception:
+                logger.debug("stop-loss ticker fetch skipped", exc_info=True)
                 continue
         if prices:
             triggered = check_stop_losses(prices)

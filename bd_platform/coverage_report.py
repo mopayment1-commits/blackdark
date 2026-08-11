@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 from pathlib import Path
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def coverage_report() -> dict[str, Any]:
     root = Path(__file__).resolve().parent.parent
     try:
-        proc = subprocess.run(
+        proc = subprocess.run(  # nosec B603 — fixed argv, shell=False, no user input
             [sys.executable, "-m", "pytest", "tests/", "-q", "--cov=.", "--cov-report=term-missing", "--cov-config=.coveragerc"],
             cwd=str(root),
             check=False,
@@ -29,7 +32,7 @@ def coverage_report() -> dict[str, Any]:
                     try:
                         pct = float(p.strip("%"))
                     except ValueError:
-                        pass
+                        logger.debug("optional operation skipped", exc_info=True)
         return {
             "coverage_percent": pct,
             "gate_percent": 80,

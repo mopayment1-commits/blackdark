@@ -50,6 +50,7 @@ async def fetch_open_interest(symbols: list[str] | None = None) -> list[dict[str
                 async with session.get(funding_url) as f_resp:
                     f_data = await f_resp.json() if f_resp.status == 200 else {}
             except (aiohttp.ClientError, TypeError, ValueError):
+                logger.debug("rl nudge skipped", exc_info=True)
                 continue
 
             oi_contracts = float(oi_data.get("openInterest") or 0)
@@ -105,7 +106,7 @@ async def build_profit_analytics() -> dict[str, Any]:
             if float(payload.get("net_profit_usdt") or 0) > 0:
                 profitable_alerts += 1
         except (json.JSONDecodeError, TypeError, ValueError):
-            pass
+            logger.debug("json parse skipped", exc_info=True)
 
     sim_pnl = sum(float(s.get("pnl_usd") or 0) for s in sims)
 

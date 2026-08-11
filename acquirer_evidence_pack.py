@@ -9,6 +9,9 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 async def build_acquirer_evidence_pack() -> dict[str, Any]:
@@ -143,7 +146,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
             "by_type_performance": d8.get("by_type_performance"),
         }
     except Exception:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
     try:

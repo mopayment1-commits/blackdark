@@ -3244,7 +3244,7 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
                     await expire_subscription(int(row["id"]))
                     return None
             except ValueError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
         row["past_due_grace_days"] = grace_days
         return row
     except Exception:
@@ -3536,7 +3536,7 @@ def _parse_recovery_hashes(raw: Any) -> list[str]:
         if isinstance(data, list):
             return [str(x) for x in data]
     except Exception:
-        pass
+        logger.debug("json parse skipped", exc_info=True)
     return [x for x in str(raw).split(",") if x]
 
 

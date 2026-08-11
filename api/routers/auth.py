@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import os
 from pathlib import Path
 from typing import Any
@@ -30,6 +31,8 @@ from security_models import (
     AuthRegisterBody,
     AuthResetPasswordBody,
 )
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -203,7 +206,7 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
         try:
             debug = await send_password_reset_email(int(user["id"]), email)
         except Exception:
-            pass
+            logger.debug("password reset email send skipped", exc_info=True)
     payload = {
         "ok": True,
         "message": "If an account exists for that email, a reset link was sent.",
@@ -464,7 +467,7 @@ async def auth_me(user: dict | None = Depends(optional_user)):
                 "headline_en": market.get("headline_en"),
             }
     except Exception:
-        pass
+        logger.debug("retention hint attach skipped", exc_info=True)
     mfa = await mfa_status_for_user(int(user["id"]))
     profile_out = dict(profile)
     profile_out["initials"] = avatar_initials(

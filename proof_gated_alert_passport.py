@@ -14,6 +14,9 @@ from typing import Any
 from urllib.parse import quote
 
 from path_safety import ensure_under, safe_data_file
+import logging
+
+logger = logging.getLogger(__name__)
 
 _LOCK = threading.Lock()
 _PATH = safe_data_file("alert_passport.jsonl")
@@ -43,6 +46,7 @@ def _today_rows(user_key: str) -> list[dict[str, Any]]:
         try:
             row = json.loads(line)
         except json.JSONDecodeError:
+            logger.debug("json parse skipped", exc_info=True)
             continue
         if row.get("user_key") == user_key and str(row.get("at") or "").startswith(day):
             out.append(row)

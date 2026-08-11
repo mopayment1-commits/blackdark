@@ -16,7 +16,7 @@ import asyncio
 import logging
 import os
 import time
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 from datetime import UTC, datetime
 from typing import Any, Literal
 
@@ -618,7 +618,7 @@ def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float
                 delta -= 2.0
                 risks.append(f"Total crypto market cap {mc_val:.1f}% 24h — broad risk-off.")
         except (TypeError, ValueError):
-            pass
+            logger.debug("change_24h parse skipped", exc_info=True)
 
     if asset.upper() in (sentiment.get("coingecko_trending") or []):
         delta += 1.0

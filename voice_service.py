@@ -110,7 +110,7 @@ async def process_voice_command(text: str) -> dict[str, Any]:
                 trust_basis="oracle_context + public_accuracy_ledger",
             )
         except Exception:
-            pass
+            logger.debug("compliance footer attach skipped", exc_info=True)
         return payload
 
     if not text or not text.strip():

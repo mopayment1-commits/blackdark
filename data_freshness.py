@@ -6,6 +6,9 @@ from __future__ import annotations
 
 import time
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def freshness_chip(
@@ -62,7 +65,7 @@ def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
                 if ms is None and book.get("ts"):
                     age = max(0.0, time.time() - float(book["ts"]))
         except Exception:
-            pass
+            logger.debug("book freshness lookup skipped", exc_info=True)
     chip = freshness_chip(freshness_ms=ms, age_sec=age)
     out["data_freshness"] = chip
     out["freshness_ms"] = chip.get("freshness_ms")
@@ -71,5 +74,5 @@ def attach_oracle_freshness(payload: dict[str, Any]) -> dict[str, Any]:
 
         out = attach_provenance(out)
     except Exception:
-        pass
+        logger.debug("provenance attach skipped", exc_info=True)
     return out
