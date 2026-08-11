@@ -100,3 +100,18 @@ def test_dashboard_lens_allowlist_csrf():
     html = Path("templates/dashboard.html").read_text(encoding="utf-8")
     assert "ALLOWED_LENSES" in html
     assert "encodeURIComponent(currentLens)" in html
+
+
+def test_market_klines_uses_fixed_path_and_params():
+    src = Path("api/routers/market.py").read_text(encoding="utf-8")
+    assert '"https://api.binance.com/api/v3/klines"' in src
+    assert "params=" in src
+    assert "if not sym.isalnum()" in src
+
+
+def test_execution_live_order_log_avoids_upstream_payload():
+    src = Path("execution_engine.py").read_text(encoding="utf-8")
+    assert "Live order placed | side=%s asset=%s amount_usd=%.2f source=%s" in src
+    assert 'payload["message"] = "Live order failed"' in src
+    # Do not interpolate exception objects into user-visible live-order failure messages.
+    assert "Live order failed: {exc}" not in src
