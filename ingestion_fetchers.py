@@ -236,18 +236,23 @@ async def _h_coinbase(session: aiohttp.ClientSession, spec: DataSourceSpec) -> F
     return {"exchange": "coinbase", "tracked_quotes": tracked}
 
 
+def _kraken_row(result: dict[str, Any], pair: str) -> Any:
+    row = result.get(pair)
+    if row:
+        return row
+    # Kraken may return canonical alt key — match by prefix
+    for key, val in result.items():
+        if key.upper().startswith(pair[:3]):
+            return val
+    return None
+
+
 async def _h_kraken(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"pair": kraken_ticker_pairs()})
     tracked: list[dict[str, Any]] = []
     for asset in TRACKED_PRICE_ASSETS:
         pair = native_symbol("kraken", f"{asset}/{config.QUOTE_BASE}", "spot")
-        row = (data.get("result") or {}).get(pair)
-        if not row:
-            # Kraken may return canonical alt key — match by prefix
-            for key, val in (data.get("result") or {}).items():
-                if key.upper().startswith(pair[:3]):
-                    row = val
-                    break
+        row = _kraken_row(data.get("result") or {}, pair)
         if not row:
             continue
         price = float(row.get("c", ["0"])[0])
