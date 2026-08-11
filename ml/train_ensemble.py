@@ -63,9 +63,13 @@ async def train_direction_ensemble(*, min_samples: int | None = None) -> dict[st
         return {"trained": False, "reason": "single_class_labels", "samples": len(frame)}
 
     candidates = {
-        "gradient_boosting": GradientBoostingClassifier(random_state=42),
+        "gradient_boosting": GradientBoostingClassifier(random_state=42, learning_rate=0.1),
         "random_forest": RandomForestClassifier(
-            n_estimators=120, random_state=42, max_depth=8
+            n_estimators=120,
+            random_state=42,
+            max_depth=8,
+            min_samples_leaf=1,
+            max_features="sqrt",
         ),
     }
     solo_metrics: dict[str, float] = {}

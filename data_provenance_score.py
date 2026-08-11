@@ -12,6 +12,51 @@ from datetime import UTC, datetime
 from typing import Any
 
 
+def _load_live_venues() -> tuple[list[dict[str, Any]], int]:
+    try:
+        from platform_universe import exchanges_by_status
+
+        live_venues = exchanges_by_status("ingestion_ready")
+        return live_venues, len(live_venues)
+    except Exception:
+        return [], 0
+
+
+def _book_freshness_ms(symbol: str) -> float | None:
+    try:
+        from live_book_hub import get_top_of_book
+
+        asset = symbol.upper().replace("USDT", "").replace("/", "")
+        book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset) or {}
+    except Exception:
+        return None
+
+    if not isinstance(book, dict):
+        return None
+    ms = book.get("freshness_ms") or book.get("stalest_ms")
+    if ms is None and book.get("ts"):
+        ms = max(0.0, (time.time() - float(book["ts"])) * 1000.0)
+    return ms
+
+
+def _freshness_component(ms: float | None) -> tuple[float, str]:
+    if ms is None:
+        return 18.0, "unknown"
+    if ms <= 2000:
+        return 40.0, "fresh"
+    if ms <= 15000:
+        return 28.0, "ok"
+    return 8.0, "stale"
+
+
+def _score_band(total: float) -> tuple[str, str]:
+    if total >= 80:
+        return "decision_grade", "Decide — live provenance sufficient for Act/Wait honesty"
+    if total >= 55:
+        return "caution", "Decide with caution — some inputs soft or thin"
+    return "insufficient", "Prefer WAIT — provenance below decision-grade bar"
+
+
 def compute_data_provenance_score(
     *,
     symbol: str = "BTC",
@@ -22,14 +67,7 @@ def compute_data_provenance_score(
 ) -> dict[str, Any]:
     """0–100 provenance score with explicit components and honesty band."""
     cats = list(source_categories or [])
-    try:
-        from platform_universe import exchanges_by_status
-
-        live_venues = exchanges_by_status("ingestion_ready")
-        live_n = len(live_venues)
-    except Exception:
-        live_venues = []
-        live_n = 0
+    live_venues, live_n = _load_live_venues()
 
     if venue_count is None:
         venue_count = live_n
@@ -37,29 +75,8 @@ def compute_data_provenance_score(
     # Freshness component (0–40)
     ms = freshness_ms
     if ms is None:
-        try:
-            from live_book_hub import get_top_of_book
-
-            asset = symbol.upper().replace("USDT", "").replace("/", "")
-            book = get_top_of_book(f"{asset}USDT") or get_top_of_book(asset) or {}
-            if isinstance(book, dict):
-                ms = book.get("freshness_ms") or book.get("stalest_ms")
-                if ms is None and book.get("ts"):
-                    ms = max(0.0, (time.time() - float(book["ts"])) * 1000.0)
-        except Exception:
-            ms = None
-    if ms is None:
-        fresh_score = 18.0
-        fresh_state = "unknown"
-    elif ms <= 2000:
-        fresh_score = 40.0
-        fresh_state = "fresh"
-    elif ms <= 15000:
-        fresh_score = 28.0
-        fresh_state = "ok"
-    else:
-        fresh_score = 8.0
-        fresh_state = "stale"
+        ms = _book_freshness_ms(symbol)
+    fresh_score, fresh_state = _freshness_component(ms)
 
     # Venue depth component (0–35) — depth of LIVE venues, not planned catalog
     # Cap honesty: reward live ready venues, not target-100 vanity
@@ -76,15 +93,7 @@ def compute_data_provenance_score(
     exec_score = 10.0 if executable else 2.0
 
     total = round(min(100.0, fresh_score + depth + diversity + exec_score), 1)
-    if total >= 80:
-        band = "decision_grade"
-        posture = "Decide — live provenance sufficient for Act/Wait honesty"
-    elif total >= 55:
-        band = "caution"
-        posture = "Decide with caution — some inputs soft or thin"
-    else:
-        band = "insufficient"
-        posture = "Prefer WAIT — provenance below decision-grade bar"
+    band, posture = _score_band(total)
 
     return {
         "surface": "data_provenance_score",

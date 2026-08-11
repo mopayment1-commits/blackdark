@@ -9,9 +9,9 @@ import pytest
 import fee_matrix
 
 
-def test_taker_and_maker_fees_seeded():
+def test_taker_and_maker_fees_seeded(monkeypatch):
     fee_matrix._matrix.clear()
-    fee_matrix._last_refresh = 0.0
+    monkeypatch.setattr(fee_matrix, "_last_refresh", 0.0)
     assert fee_matrix.taker_fee("binance") > 0
     assert fee_matrix.maker_fee("binance") > 0
     assert fee_matrix.maker_fee("binance") <= fee_matrix.taker_fee("binance")

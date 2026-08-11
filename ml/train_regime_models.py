@@ -271,7 +271,8 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
                         "clf",
                         LogisticRegression(max_iter=400, class_weight="balanced", solver="lbfgs"),
                     ),
-                ]
+                ],
+                memory=None,
             )
             pipe.fit(x, y)
             acc = float(accuracy_score(y, pipe.predict(x)))
@@ -285,7 +286,8 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
                         "clf",
                         LogisticRegression(max_iter=400, class_weight="balanced", solver="lbfgs"),
                     ),
-                ]
+                ],
+                memory=None,
             )
             pipe.fit(x_train, y_train)
             acc = float(accuracy_score(y_test, pipe.predict(x_test)))

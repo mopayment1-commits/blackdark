@@ -153,12 +153,13 @@ def register_signal(
     label: str | None = None,
     asof: str | None = None,
     persist: bool = True,
-    definition: str | None = None,
-    source: str | None = None,
-    weight: float | None = None,
+    lexicon_override: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Register a sovereign signal record and optionally append to JSONL."""
-    lex = _lexicon_for(signal_type)
+    """Register a sovereign signal record and optionally append to JSONL.
+
+    lexicon_override may include definition, source, and/or weight.
+    """
+    lex = {**_lexicon_for(signal_type), **(lexicon_override or {})}
     sid = str(prediction_id) if prediction_id not in (None, "", 0) else f"sig_{uuid4().hex[:16]}"
     record = {
         "signal_id": sid,
@@ -171,9 +172,9 @@ def register_signal(
         "verdict": verdict,
         "horizon_seconds": horizon_seconds,
         "label": label or "pending",  # pending | correct | incorrect | expired | vetoed
-        "definition": definition or lex.get("definition"),
-        "source": source or lex.get("source"),
-        "weight": float(weight if weight is not None else lex.get("weight") or 0.5),
+        "definition": lex.get("definition"),
+        "source": lex.get("source"),
+        "weight": float(lex.get("weight") or 0.5),
         "performance": {"hits": 0, "misses": 0, "pending": 1, "hit_rate": None},
         "provenance": provenance or {},
         "created_at": _utcnow(),

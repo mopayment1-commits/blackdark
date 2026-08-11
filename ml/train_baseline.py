@@ -194,7 +194,7 @@ async def train_oracle_direction_model(*, min_samples: int | None = None) -> dic
 
 
 
-    model = GradientBoostingClassifier(random_state=42)
+    model = GradientBoostingClassifier(random_state=42, learning_rate=0.1)
 
     model.fit(x_train, y_train)
 
