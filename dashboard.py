@@ -2028,15 +2028,7 @@ async def _compute_oracle_quick_payload(
     from live_book_hub import get_best_price
 
     row = get_best_price("binance", f"{asset}/USDT")
-    market = None
-    if row and row.get("mid"):
-        market = {
-            "price": float(row["mid"]),
-            "change_24h": 0.0,
-            "volume": 0.0,
-            "quote_volume": 0.0,
-            "source": "websocket_live",
-        }
+    market = _quick_ws_market(row)
     if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
@@ -2057,15 +2049,65 @@ async def _compute_oracle_quick_payload(
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
     decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
+    return _quick_payload(
+        asset,
+        price,
+        change,
+        verdict,
+        decision_action,
+        decision_sentence,
+        score,
+        action,
+        sentiment,
+        ux_mode,
+        lang,
+    )
+
+
+def _quick_ws_market(row: dict | None) -> dict | None:
+    if not row or not row.get("mid"):
+        return None
+    return {
+        "price": float(row["mid"]),
+        "change_24h": 0.0,
+        "volume": 0.0,
+        "quote_volume": 0.0,
+        "source": "websocket_live",
+    }
+
+
+def _quick_decision_sentence(
+    lang: str,
+    decision_action: str,
+    asset: str,
+    score: int,
+    action: str,
+) -> str:
     try:
         from i18n_service import decision_sentence as _dec
 
-        decision_sentence = _dec(lang, decision_action, asset, score)
+        return _dec(lang, decision_action, asset, score)
     except Exception:
-        decision_sentence = (
+        return (
             f"{decision_action} on {asset} — score {score}. "
             f"Analytical summary (not advice): {action}"
         )
+
+
+def _quick_payload(
+    asset: str,
+    price: float,
+    change: float,
+    verdict: str,
+    decision_action: str,
+    decision_sentence: str,
+    score: int,
+    action: str,
+    sentiment: str,
+    ux_mode: str,
+    lang: str,
+) -> dict:
     return {
         "symbol": asset,
         "price": price,
@@ -2084,6 +2126,54 @@ async def _compute_oracle_quick_payload(
         "lang": lang,
         "viral_cache": "miss",
     }
+
+
+def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, payload: dict) -> None:
+    background_tasks.add_task(
+        _log_oracle_prediction,
+        {
+            "symbol": asset,
+            "asset": asset,
+            "price": payload.get("price"),
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "confidence": payload.get("opportunity_score"),
+            "kind": "oracle_quick",
+        },
+    )
+    background_tasks.add_task(
+        _record_behavior,
+        "oracle_query",
+        asset=asset,
+        payload={
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "engine": "quick_rules_v1",
+        },
+    )
+
+
+def _attach_quick_certificate(payload: dict) -> None:
+    try:
+        from decision_certificate import build_decision_certificate, compliance_footer_block
+
+        payload.setdefault("tier", "free")
+        payload["decision_certificate"] = build_decision_certificate(payload)
+        payload["compliance_footer"] = compliance_footer_block(
+            surface="single_sentence_oracle_quick",
+            trust_basis="public_accuracy_ledger + quick_rules_engine",
+        )
+    except Exception:
+        pass
+
+
+def _attach_quick_freshness(payload: dict, asset: str) -> dict:
+    try:
+        from data_freshness import attach_oracle_freshness
+
+        return attach_oracle_freshness({**payload, "asset": asset})
+    except Exception:
+        return payload
 
 
 @app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
@@ -2112,46 +2202,9 @@ async def oracle_quick(
     payload["latency_ms"] = latency_ms
     payload["meets_latency_target"] = latency_ms <= 100
 
-    background_tasks.add_task(
-        _log_oracle_prediction,
-        {
-            "symbol": asset,
-            "asset": asset,
-            "price": payload.get("price"),
-            "verdict": payload.get("verdict"),
-            "opportunity_score": payload.get("opportunity_score"),
-            "confidence": payload.get("opportunity_score"),
-            "kind": "oracle_quick",
-        },
-    )
-    background_tasks.add_task(
-        _record_behavior,
-        "oracle_query",
-        asset=asset,
-        payload={
-            "verdict": payload.get("verdict"),
-            "opportunity_score": payload.get("opportunity_score"),
-            "engine": "quick_rules_v1",
-        },
-    )
-
-    try:
-        from decision_certificate import build_decision_certificate, compliance_footer_block
-
-        payload.setdefault("tier", "free")
-        payload["decision_certificate"] = build_decision_certificate(payload)
-        payload["compliance_footer"] = compliance_footer_block(
-            surface="single_sentence_oracle_quick",
-            trust_basis="public_accuracy_ledger + quick_rules_engine",
-        )
-    except Exception:
-        pass
-    try:
-        from data_freshness import attach_oracle_freshness
-
-        payload = attach_oracle_freshness({**payload, "asset": asset})
-    except Exception:
-        pass
+    _queue_oracle_quick_tasks(background_tasks, asset, payload)
+    _attach_quick_certificate(payload)
+    payload = _attach_quick_freshness(payload, asset)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)

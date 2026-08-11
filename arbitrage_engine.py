@@ -590,6 +590,39 @@ def _build_cross_exchange_opportunity(
     )
 
 
+def _cross_exchange_symbol_opportunities(
+    order_books: dict[str, dict[str, dict[str, Any]]],
+    exchange_ids: list[str],
+    symbol: str,
+    notional: float,
+    market_context: dict[str, Any] | None,
+) -> list[CrossExchangeOpportunity]:
+    venue_asks, venue_bids = _collect_cross_exchange_quotes(
+        order_books,
+        exchange_ids,
+        symbol,
+    )
+    if not _has_cross_exchange_spread(venue_asks, venue_bids):
+        return []
+    opportunities: list[CrossExchangeOpportunity] = []
+    for buy_exchange, _, buy_book in venue_asks:
+        for sell_exchange, _, sell_book in venue_bids:
+            if buy_exchange == sell_exchange:
+                continue
+            opportunity = _build_cross_exchange_opportunity(
+                symbol,
+                buy_exchange,
+                sell_exchange,
+                buy_book,
+                sell_book,
+                notional,
+                market_context,
+            )
+            if opportunity is not None:
+                opportunities.append(opportunity)
+    return opportunities
+
+
 def calculate_cross_exchange_arbitrage(
     order_books: dict[str, dict[str, dict[str, Any]]],
     quote_amount: float | None = None,
@@ -606,29 +639,15 @@ def calculate_cross_exchange_arbitrage(
     opportunities: list[CrossExchangeOpportunity] = []
 
     for symbol in config.SYMBOLS:
-        venue_asks, venue_bids = _collect_cross_exchange_quotes(
-            order_books,
-            exchange_ids,
-            symbol,
+        opportunities.extend(
+            _cross_exchange_symbol_opportunities(
+                order_books,
+                exchange_ids,
+                symbol,
+                notional,
+                market_context,
+            )
         )
-        if not _has_cross_exchange_spread(venue_asks, venue_bids):
-            continue
-
-        for buy_exchange, _, buy_book in venue_asks:
-            for sell_exchange, _, sell_book in venue_bids:
-                if buy_exchange == sell_exchange:
-                    continue
-                opportunity = _build_cross_exchange_opportunity(
-                    symbol,
-                    buy_exchange,
-                    sell_exchange,
-                    buy_book,
-                    sell_book,
-                    notional,
-                    market_context,
-                )
-                if opportunity is not None:
-                    opportunities.append(opportunity)
 
     opportunities.sort(key=lambda item: item.net_profit_usdt, reverse=True)
     return opportunities
