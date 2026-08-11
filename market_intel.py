@@ -104,7 +104,7 @@ async def build_profit_analytics() -> dict[str, Any]:
             payload = json.loads(row.get("payload_json") or "{}")
             if float(payload.get("net_profit_usdt") or 0) > 0:
                 profitable_alerts += 1
-        except (json.JSONDecodeError, TypeError, ValueError):
+        except (TypeError, ValueError):
             pass
 
     sim_pnl = sum(float(s.get("pnl_usd") or 0) for s in sims)

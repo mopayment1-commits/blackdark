@@ -41,7 +41,7 @@ def _rate_limit_ok(source_id: str, min_interval: int) -> bool:
     import time
 
     last = _last_fetch_at.get(source_id, 0.0)
-    return not time.time() - last < max(min_interval, 1)
+    return time.time() - last >= max(min_interval, 1)
 
 
 def _mark_fetched(source_id: str) -> None:

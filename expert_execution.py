@@ -77,7 +77,7 @@ def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
     except TimeoutError:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "timed out"}
-    except (URLError, OSError):
+    except OSError:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "network_error"}
 

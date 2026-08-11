@@ -124,10 +124,9 @@ async def dispatch_alert(
         channels = ["telegram", "email", "whatsapp", "in_app"]
 
     # Always keep an in-app record so the product works without Telegram/SMTP
-    if True:
-        ina = push_in_app_alert(title, body, payload=payload, level="signal")
-        results["channels"]["in_app"] = True
-        results["in_app_id"] = ina.get("id")
+    ina = push_in_app_alert(title, body, payload=payload, level="signal")
+    results["channels"]["in_app"] = True
+    results["in_app_id"] = ina.get("id")
 
     if "telegram" in channels:
         token_ok = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())

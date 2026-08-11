@@ -801,7 +801,7 @@ def _safe_parse_metadata(raw: Any) -> dict[str, Any]:
         if isinstance(raw, dict):
             return raw
         return json.loads(str(raw))
-    except (TypeError, ValueError, json.JSONDecodeError):
+    except (TypeError, ValueError):
         return {}
 
 

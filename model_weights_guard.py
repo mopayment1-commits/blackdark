@@ -73,7 +73,7 @@ def load_weights(path: Path | None = None) -> dict[str, Any] | None:
             return decrypt_weights_payload(str(wrapper["payload"]))
         if isinstance(wrapper, dict) and "dimensions" in wrapper:
             return wrapper
-    except (json.JSONDecodeError, ValueError, OSError) as exc:
+    except (ValueError, OSError) as exc:
         logger.warning("Unable to load model weights | reason=%s", exc)
     return None
 

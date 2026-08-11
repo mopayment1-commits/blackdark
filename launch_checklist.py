@@ -11,6 +11,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+STR_ENV_LAUNCH_LOCAL = '.env.launch.local'
+
 LaunchStatus = Literal["done", "progress", "blocked", "pending"]
 
 ROOT = Path(__file__).resolve().parent
@@ -26,7 +29,7 @@ def _file_exists(rel: str) -> bool:
 
 def _launch_local_env() -> dict[str, str]:
     """Read generated .env.launch.local without exporting into process."""
-    path = ROOT / ".env.launch.local"
+    path = ROOT / STR_ENV_LAUNCH_LOCAL
     if not path.is_file():
         return {}
     out: dict[str, str] = {}
@@ -90,7 +93,7 @@ def _run_pytest_quick() -> tuple[bool, str]:
             {"kind": "cross_exchange", "asset": "BTC"},
             live_duration_seconds=5,
         )
-        if not (half.get("expected_half_life_seconds", 0) > 0):
+        if half.get("expected_half_life_seconds", 0) <= 0:
             raise RuntimeError("half_life")
 
         persona = build_persona_clarity(
@@ -166,10 +169,10 @@ def _checklist_rows() -> list[dict[str, Any]]:
             ),
             "action": (
                 "Secrets ready in .env.launch.local — paste into Railway Variables"
-                if _file_exists(".env.launch.local")
+                if _file_exists(STR_ENV_LAUNCH_LOCAL)
                 else "python scripts/generate_launch_secrets.py --write → Railway Variables"
             ),
-            "file": ".env.launch.local",
+            "file": STR_ENV_LAUNCH_LOCAL,
         },
         {
             "day": 1,
