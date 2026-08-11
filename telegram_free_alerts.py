@@ -231,17 +231,15 @@ async def dispatch_free_telegram_alerts(*, scan: dict[str, Any] | None = None) -
         scan = await get_shared_scan(profitable_only=True, prefer_live=False)
     messages = await _free_alert_messages(scan)
     sem = asyncio.Semaphore(10)
-    results = await asyncio.gather(
-        *[
-            _deliver_free_alert(
-                subscriber,
-                body=messages[0],
-                sem=sem,
-                send_telegram_message=send_telegram_message,
-            )
-            for subscriber in subscribers
-        ]
-    )
+    results = await asyncio.gather(*[
+        _deliver_free_alert(
+            subscriber,
+            body=messages[0],
+            sem=sem,
+            send_telegram_message=send_telegram_message,
+        )
+        for subscriber in subscribers
+    ])
     sent = sum(1 for result in results if result == "sent")
     skipped = len(subscribers) - sent
 

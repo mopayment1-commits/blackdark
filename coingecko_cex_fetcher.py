@@ -116,6 +116,68 @@ async def _fetch_json(session: aiohttp.ClientSession, url: str, **kwargs: Any) -
         return await resp.json()
 
 
+def _coingecko_exchange_id(exchange_id: str) -> str:
+    mapped_ex = COINGECKO_EXCHANGE_MAP.get(exchange_id)
+    if mapped_ex is not None:
+        return mapped_ex  # constant allowlist entry
+    cg_exchange = str(exchange_id)
+    if not cg_exchange.isalnum():
+        raise ValueError(f"Unsafe CoinGecko exchange id | exchange={exchange_id}")
+    return cg_exchange
+
+
+def _ticker_price_volume(tickers: list[Any], asset: str) -> tuple[float | None, float]:
+    for row in tickers:
+        base = str(row.get("base") or "").upper()
+        target = str(row.get("target") or "").upper()
+        if base == asset and target in {"USDT", "USD", "USDC"}:
+            return float(row.get("last") or 0), float(row.get("volume") or 0)
+    return None, 0.0
+
+
+async def _global_price_volume(
+    session: aiohttp.ClientSession,
+    coin_id: str,
+) -> tuple[float, float]:
+    global_url = "https://api.coingecko.com/api/v3/simple/price"
+    payload = await _fetch_json(
+        session,
+        global_url,
+        params={"ids": coin_id, "vs_currencies": "usd", "include_24hr_vol": "true"},
+    )
+    coin = payload.get(coin_id) or {}
+    return float(coin.get("usd") or 0), float(coin.get("usd_24h_vol") or 0)
+
+
+def _market_snapshots(
+    *,
+    exchange_id: str,
+    symbol: str,
+    price: float,
+    volume: float,
+    market_type: MarketType,
+) -> tuple[Any, Any]:
+    from aggregator import OrderBookSnapshot, TickerSnapshot
+
+    bids, asks = _synthetic_book(price)
+    return (
+        TickerSnapshot(
+            exchange=exchange_id,
+            symbol=symbol,
+            price=price,
+            volume=volume,
+            market_type=market_type,
+        ),
+        OrderBookSnapshot(
+            exchange=exchange_id,
+            symbol=symbol,
+            bids=bids,
+            asks=asks,
+            market_type=market_type,
+        ),
+    )
+
+
 async def fetch_coingecko_cex_market(
     session: aiohttp.ClientSession | None,
     symbol: str,
@@ -123,20 +185,12 @@ async def fetch_coingecko_cex_market(
     *,
     exchange_id: str,
 ) -> tuple[Any, Any]:
-    from aggregator import OrderBookSnapshot, TickerSnapshot
-
     if market_type == "perpetual":
         raise ValueError(f"CoinGecko proxy is spot-only | exchange={exchange_id}")
 
     asset = symbol.split("/")[0].upper()
     coin_id = ASSET_TO_COINGECKO.get(asset, asset.lower())
-    mapped_ex = COINGECKO_EXCHANGE_MAP.get(exchange_id)
-    if mapped_ex is not None:
-        cg_exchange = mapped_ex  # constant allowlist entry
-    else:
-        cg_exchange = str(exchange_id)
-        if not cg_exchange.isalnum():
-            raise ValueError(f"Unsafe CoinGecko exchange id | exchange={exchange_id}")
+    cg_exchange = _coingecko_exchange_id(exchange_id)
 
     timeout = aiohttp.ClientTimeout(total=20)
     close_session = session is None
@@ -151,44 +205,19 @@ async def fetch_coingecko_cex_market(
             params={"coin_ids": coin_id, "include_exchange_logo": "false"},
         )
         tickers = payload.get("tickers") or []
-        price = None
-        volume = 0.0
-        for row in tickers:
-            base = str(row.get("base") or "").upper()
-            target = str(row.get("target") or "").upper()
-            if base == asset and target in {"USDT", "USD", "USDC"}:
-                price = float(row.get("last") or 0)
-                volume = float(row.get("volume") or 0)
-                break
+        price, volume = _ticker_price_volume(tickers, asset)
         if not price or price <= 0:
             # Fallback: global USD price so venue stays connected
-            global_url = "https://api.coingecko.com/api/v3/simple/price"
-            g = await _fetch_json(
-                session,
-                global_url,
-                params={"ids": coin_id, "vs_currencies": "usd", "include_24hr_vol": "true"},
-            )
-            price = float((g.get(coin_id) or {}).get("usd") or 0)
-            volume = float((g.get(coin_id) or {}).get("usd_24h_vol") or 0)
+            price, volume = await _global_price_volume(session, coin_id)
         if price <= 0:
             raise ValueError(f"No price for {asset} on {exchange_id}")
 
-        bids, asks = _synthetic_book(price)
-        return (
-            TickerSnapshot(
-                exchange=exchange_id,
-                symbol=symbol,
-                price=price,
-                volume=volume,
-                market_type=market_type,
-            ),
-            OrderBookSnapshot(
-                exchange=exchange_id,
-                symbol=symbol,
-                bids=bids,
-                asks=asks,
-                market_type=market_type,
-            ),
+        return _market_snapshots(
+            exchange_id=exchange_id,
+            symbol=symbol,
+            price=price,
+            volume=volume,
+            market_type=market_type,
         )
     finally:
         if close_session:

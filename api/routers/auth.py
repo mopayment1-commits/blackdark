@@ -497,35 +497,54 @@ async def auth_profile_update(
 ):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
-    from database import fetch_user_by_username, update_user_profile_fields
-    from identity_service import validate_display_name, validate_username
-
-    fields: dict[str, Any] = {}
     try:
-        if body.name is not None:
-            fields["name"] = validate_display_name(body.name)
-        if body.username is not None:
-            if body.username.strip() == "":
-                fields["username"] = None
-            else:
-                handle = validate_username(body.username)
-                existing = await fetch_user_by_username(handle)
-                if existing and int(existing["id"]) != int(user["id"]):
-                    raise ValueError("Username already taken")
-                fields["username"] = handle
-        if body.telegram_chat_id is not None:
-            fields["telegram_chat_id"] = body.telegram_chat_id.strip() or None
-        if body.ui_lang is not None:
-            fields["ui_lang"] = body.ui_lang.strip().lower()[:12] or "en"
-        if body.ux_mode_pref is not None:
-            fields["ux_mode_pref"] = body.ux_mode_pref
-        if body.timezone is not None:
-            fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+        fields = await _profile_update_fields(body, user)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
+    from database import update_user_profile_fields
+
     await update_user_profile_fields(int(user["id"]), fields)
     return {"success": True, "updated": list(fields.keys())}
+
+
+async def _profile_update_fields(
+    body: AuthProfileUpdateBody,
+    user: dict,
+) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    await _set_profile_name_and_username(fields, body, user)
+    if body.telegram_chat_id is not None:
+        fields["telegram_chat_id"] = body.telegram_chat_id.strip() or None
+    if body.ui_lang is not None:
+        fields["ui_lang"] = body.ui_lang.strip().lower()[:12] or "en"
+    if body.ux_mode_pref is not None:
+        fields["ux_mode_pref"] = body.ux_mode_pref
+    if body.timezone is not None:
+        fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+    return fields
+
+
+async def _set_profile_name_and_username(
+    fields: dict[str, Any],
+    body: AuthProfileUpdateBody,
+    user: dict,
+) -> None:
+    from database import fetch_user_by_username
+    from identity_service import validate_display_name, validate_username
+
+    if body.name is not None:
+        fields["name"] = validate_display_name(body.name)
+    if body.username is None:
+        return
+    if body.username.strip() == "":
+        fields["username"] = None
+        return
+    handle = validate_username(body.username)
+    existing = await fetch_user_by_username(handle)
+    if existing and int(existing["id"]) != int(user["id"]):
+        raise ValueError("Username already taken")
+    fields["username"] = handle
 
 
 @router.post("/avatar", responses=COMMON_ERROR_RESPONSES)

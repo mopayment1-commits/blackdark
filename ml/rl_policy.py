@@ -118,6 +118,37 @@ def predict_action(features: dict[str, float] | None = None) -> dict[str, Any]:
     return _heuristic_action(feats)
 
 
+def _policy_score(weights: dict[str, float], feats: dict[str, float]) -> float:
+    score = float(weights.get("bias", 0))
+    for feat in DEFAULT_FEATURES:
+        score += float(weights.get(feat, 0)) * float(feats.get(feat) or 0)
+    return score
+
+
+def _reward_target(reward: float) -> float:
+    if reward > 0:
+        return 1.0
+    if reward == 0:
+        return 0.0
+    return -1.0
+
+
+def _update_policy_sample(weights: dict[str, float], feats: dict[str, float], reward: float, lr: float) -> float:
+    prob = _sigmoid(_policy_score(weights, feats))
+    grad_scale = (prob - (0.5 + _reward_target(reward) * 0.5)) * reward
+    weights["bias"] = float(weights.get("bias", 0)) - lr * grad_scale
+    for feat in DEFAULT_FEATURES:
+        weights[feat] = float(weights.get(feat, 0)) - lr * grad_scale * float(feats.get(feat) or 0)
+    return abs(grad_scale)
+
+
+def _train_policy_epoch(weights: dict[str, float], samples: list[tuple[dict[str, float], float]], lr: float) -> float:
+    epoch_loss = 0.0
+    for feats, reward in samples:
+        epoch_loss += _update_policy_sample(weights, feats, reward, lr)
+    return epoch_loss / max(1, len(samples))
+
+
 def train_ppo_policy(
     samples: list[tuple[dict[str, float], float]],
     *,
@@ -129,24 +160,7 @@ def train_ppo_policy(
     losses: list[float] = []
 
     for _ in range(epochs):
-        epoch_loss = 0.0
-        for feats, reward in samples:
-            score = float(w.get("bias", 0))
-            for feat in DEFAULT_FEATURES:
-                score += float(w.get(feat, 0)) * float(feats.get(feat) or 0)
-            prob = _sigmoid(score)
-            if reward > 0:
-                target = 1.0
-            elif reward == 0:
-                target = 0.0
-            else:
-                target = -1.0
-            grad_scale = (prob - (0.5 + target * 0.5)) * reward
-            w["bias"] = float(w.get("bias", 0)) - lr * grad_scale
-            for feat in DEFAULT_FEATURES:
-                w[feat] = float(w.get(feat, 0)) - lr * grad_scale * float(feats.get(feat) or 0)
-            epoch_loss += abs(grad_scale)
-        losses.append(epoch_loss / max(1, len(samples)))
+        losses.append(_train_policy_epoch(w, samples, lr))
 
     MODEL_DIR.mkdir(parents=True, exist_ok=True)
     payload = {

@@ -154,6 +154,61 @@ def _catalog_stats() -> dict[str, Any]:
         return {"live": 0, "proxy": 0, "planned": 0}
 
 
+async def _fetch_sector_change(session: Any, asset: str) -> tuple[str, float] | None:
+    import aiohttp
+
+    import config
+
+    pair = f"{asset}USDT"
+    if not pair.isalnum():
+        return None
+    try:
+        async with session.get(
+            f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
+        ) as resp:
+            if resp.status != 200:
+                return None
+            row = await resp.json()
+            sector = config.SECTOR_MAP.get(asset, "Other")
+            return sector, float(row.get("priceChangePercent") or 0)
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return None
+
+
+def _sector_heat(avg: float) -> str:
+    if avg > 2:
+        return "Hot"
+    if avg < -2:
+        return "Cool"
+    return "Neutral"
+
+
+def _sector_rows(sector_assets: dict[str, list[float]]) -> list[dict[str, Any]]:
+    sectors: list[dict[str, Any]] = []
+    for name, changes in sector_assets.items():
+        if not changes:
+            continue
+        avg = sum(changes) / len(changes)
+        sectors.append({
+            "sector": name,
+            "avg_change_24h": round(avg, 2),
+            "asset_count": len(changes),
+            "heat_label": _sector_heat(avg),
+        })
+    sectors.sort(key=lambda x: abs(x["avg_change_24h"]), reverse=True)
+    return sectors
+
+
+def _market_radar_bullets(sectors: list[dict[str, Any]]) -> list[str]:
+    hot = [s for s in sectors if s["heat_label"] == "Hot"][:3]
+    cool = [s for s in sectors if s["heat_label"] == "Cool"][:3]
+    unusual = [s for s in sectors if s["heat_label"] == "Neutral" and abs(s["avg_change_24h"]) > 1][:2]
+    bullets_en = [f"Strong activity in {s['sector']} (+{s['avg_change_24h']:.1f}%)" for s in hot]
+    bullets_en.extend(f"Weakness in {s['sector']} ({s['avg_change_24h']:.1f}%)" for s in cool)
+    bullets_en.extend(f"Unusual flow in {s['sector']}" for s in unusual)
+    return bullets_en or ["Market balanced — no extreme sectors today"]
+
+
 async def market_radar_narrative() -> dict[str, Any]:
     """Excel-style sector narrative: Gaming up, AI weak, etc."""
     import aiohttp
@@ -164,55 +219,13 @@ async def market_radar_narrative() -> dict[str, Any]:
     timeout = aiohttp.ClientTimeout(total=12)
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in config.tracked_asset_list()[:24]:
-            pair = f"{asset}USDT"
-            if not pair.isalnum():
-                continue
-            sector = config.SECTOR_MAP.get(asset, "Other")
-            try:
-                async with session.get(
-                    f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
-                ) as resp:
-                    if resp.status != 200:
-                        continue
-                    row = await resp.json()
-                    change = float(row.get("priceChangePercent") or 0)
-                    sector_assets.setdefault(sector, []).append(change)
-            except (aiohttp.ClientError, TypeError, ValueError):
-                continue
+            result = await _fetch_sector_change(session, asset)
+            if result is not None:
+                sector, change = result
+                sector_assets.setdefault(sector, []).append(change)
 
-    sectors: list[dict[str, Any]] = []
-    for name, changes in sector_assets.items():
-        if not changes:
-            continue
-        avg = sum(changes) / len(changes)
-        if avg > 2:
-            heat = "Hot"
-        elif avg < -2:
-            heat = "Cool"
-        else:
-            heat = "Neutral"
-        sectors.append({
-            "sector": name,
-            "avg_change_24h": round(avg, 2),
-            "asset_count": len(changes),
-            "heat_label": heat,
-        })
-    sectors.sort(key=lambda x: abs(x["avg_change_24h"]), reverse=True)
-
-    hot = [s for s in sectors if s["heat_label"] == "Hot"][:3]
-    cool = [s for s in sectors if s["heat_label"] == "Cool"][:3]
-    unusual = [s for s in sectors if s["heat_label"] == "Neutral" and abs(s["avg_change_24h"]) > 1][:2]
-
-    bullets_en: list[str] = []
-    for s in hot:
-        bullets_en.append(f"Strong activity in {s['sector']} (+{s['avg_change_24h']:.1f}%)")
-    for s in cool:
-        bullets_en.append(f"Weakness in {s['sector']} ({s['avg_change_24h']:.1f}%)")
-    for s in unusual:
-        bullets_en.append(f"Unusual flow in {s['sector']}")
-
-    if not bullets_en:
-        bullets_en.append("Market balanced — no extreme sectors today")
+    sectors = _sector_rows(sector_assets)
+    bullets_en = _market_radar_bullets(sectors)
 
     return {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),

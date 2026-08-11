@@ -15,6 +15,30 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def _empty_binance_futures_snapshot(asset: str, symbol: str) -> dict[str, Any]:
+    return {
+        "source": "binance_futures_public",
+        "asset": asset.upper(),
+        "symbol": symbol,
+        "timestamp": _utcnow(),
+        "mark_price": 0.0,
+        "funding_rate": 0.0,
+        "funding_rate_pct": 0.0,
+        "open_interest_contracts": 0.0,
+        "open_interest_usd": 0.0,
+        "change_24h_pct": 0.0,
+        "long_short_ratio": 0.0,
+        "long_account_pct": 0.0,
+        "short_account_pct": 0.0,
+        "taker_buy_sell_ratio": 0.0,
+        "available": False,
+    }
+
+
+def _first_public_row(payload: Any) -> dict[str, Any]:
+    return payload[0] if isinstance(payload, list) and payload else {}
+
+
 async def _get_json(url: str, *, params: dict | None = None) -> Any:
     timeout = aiohttp.ClientTimeout(total=12)
     async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
@@ -27,23 +51,7 @@ async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:
     """Funding, mark price, OI, long/short ratio from Binance public REST."""
     symbol = f"{asset.upper()}USDT"
     if not symbol.isalnum():
-        return {
-            "source": "binance_futures_public",
-            "asset": asset.upper(),
-            "symbol": symbol,
-            "timestamp": _utcnow(),
-            "mark_price": 0.0,
-            "funding_rate": 0.0,
-            "funding_rate_pct": 0.0,
-            "open_interest_contracts": 0.0,
-            "open_interest_usd": 0.0,
-            "change_24h_pct": 0.0,
-            "long_short_ratio": 0.0,
-            "long_account_pct": 0.0,
-            "short_account_pct": 0.0,
-            "taker_buy_sell_ratio": 0.0,
-            "available": False,
-        }
+        return _empty_binance_futures_snapshot(asset, symbol)
     premium = await _get_json("https://fapi.binance.com/fapi/v1/premiumIndex", params={"symbol": symbol})
     oi = await _get_json("https://fapi.binance.com/fapi/v1/openInterest", params={"symbol": symbol})
     ticker = await _get_json("https://fapi.binance.com/fapi/v1/ticker/24hr", params={"symbol": symbol})
@@ -61,8 +69,8 @@ async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:
     oi_contracts = float((oi or {}).get("openInterest") or 0)
     oi_usd = oi_contracts * mark_price if mark_price else 0
     change_24h = float((ticker or {}).get("priceChangePercent") or 0)
-    ls_row = (ls_ratio or [{}])[0] if isinstance(ls_ratio, list) and ls_ratio else {}
-    taker_row = (taker or [{}])[0] if isinstance(taker, list) and taker else {}
+    ls_row = _first_public_row(ls_ratio)
+    taker_row = _first_public_row(taker)
 
     return {
         "source": "binance_futures_public",

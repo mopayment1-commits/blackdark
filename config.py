@@ -159,6 +159,18 @@ WHITELIST_ASSETS: frozenset[str] = frozenset(
 )
 
 # Phase-1 launch universe — full client blueprint (105 assets)
+def _symbols_from_registry_payload(payload: dict) -> set[str]:
+    symbols: set[str] = set()
+    for row in payload.get("assets") or []:
+        sym = str(row.get("symbol") or "").upper()
+        if sym:
+            symbols.add(sym)
+        for alias in row.get("aliases") or []:
+            if alias:
+                symbols.add(str(alias).upper())
+    return symbols
+
+
 def _load_universe_symbols() -> frozenset[str]:
     import json
 
@@ -166,14 +178,7 @@ def _load_universe_symbols() -> frozenset[str]:
     if registry_path.exists():
         try:
             payload = json.loads(registry_path.read_text(encoding="utf-8"))
-            symbols: set[str] = set()
-            for row in payload.get("assets") or []:
-                sym = str(row.get("symbol") or "").upper()
-                if sym:
-                    symbols.add(sym)
-                for alias in row.get("aliases") or []:
-                    if alias:
-                        symbols.add(str(alias).upper())
+            symbols = _symbols_from_registry_payload(payload)
             if symbols:
                 return frozenset(symbols)
         except (json.JSONDecodeError, OSError):

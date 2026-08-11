@@ -81,60 +81,69 @@ def on_prediction_resolved(
     return entry
 
 
+def _record_created_prediction(pred: dict[str, Any], prediction_id: int | None = None) -> None:
+    on_prediction_created(
+        int(prediction_id if prediction_id is not None else pred["id"]),
+        asset=str(pred.get("asset") or ""),
+        price_at_prediction=float(pred.get("price_at_prediction") or 0),
+        verdict=str(pred.get("verdict") or "WAIT"),
+        opportunity_score=int(pred.get("opportunity_score") or 0),
+        confidence=int(pred.get("confidence") or 0),
+        source=str(pred.get("source") or "oracle"),
+        kind=pred.get("kind"),
+    )
+
+
+def _record_resolved_prediction(pred: dict[str, Any], prediction_id: int) -> None:
+    on_prediction_resolved(
+        prediction_id,
+        asset=str(pred.get("asset") or ""),
+        verdict=str(pred.get("verdict") or "WAIT"),
+        price_at_prediction=float(pred.get("price_at_prediction") or 0),
+        price_after=float(pred.get("price_after_24h") or pred.get("price_at_prediction") or 0),
+        outcome=str(pred.get("outcome") or pred.get("label") or "unknown"),
+        accuracy_score=float(pred.get("accuracy_score") or 0),
+        label=pred.get("label"),
+        direction_label=pred.get("direction_label"),
+    )
+
+
+def _record_unresolved_predictions(unresolved: list[dict[str, Any]]) -> int:
+    for pred in unresolved:
+        _record_created_prediction(pred)
+    return len(unresolved)
+
+
+def _record_labeled_predictions(
+    labeled: list[dict[str, Any]],
+    seen_ids: set[int],
+) -> tuple[int, int]:
+    created = 0
+    resolved = 0
+    for pred in labeled:
+        pid = int(pred["id"])
+        if pid not in seen_ids:
+            _record_created_prediction(pred, pid)
+            created += 1
+        if pred.get("resolved"):
+            _record_resolved_prediction(pred, pid)
+            resolved += 1
+    return created, resolved
+
+
 async def backfill_from_database(*, limit: int = 5000) -> dict[str, Any]:
     """One-time sync: export existing oracle_predictions into hash chain."""
     from database import fetch_labeled_oracle_predictions, fetch_unresolved_oracle_predictions
 
-    created = 0
-    resolved = 0
-
     unresolved = await fetch_unresolved_oracle_predictions(limit=limit)
-    for pred in unresolved:
-        on_prediction_created(
-            int(pred["id"]),
-            asset=str(pred.get("asset") or ""),
-            price_at_prediction=float(pred.get("price_at_prediction") or 0),
-            verdict=str(pred.get("verdict") or "WAIT"),
-            opportunity_score=int(pred.get("opportunity_score") or 0),
-            confidence=int(pred.get("confidence") or 0),
-            source=str(pred.get("source") or "oracle"),
-            kind=pred.get("kind"),
-        )
-        created += 1
-
     labeled = await fetch_labeled_oracle_predictions(limit=limit, include_synthetic=True)
     seen_ids = {int(p["id"]) for p in unresolved}
-    for pred in labeled:
-        pid = int(pred["id"])
-        if pid not in seen_ids:
-            on_prediction_created(
-                pid,
-                asset=str(pred.get("asset") or ""),
-                price_at_prediction=float(pred.get("price_at_prediction") or 0),
-                verdict=str(pred.get("verdict") or "WAIT"),
-                opportunity_score=int(pred.get("opportunity_score") or 0),
-                confidence=int(pred.get("confidence") or 0),
-                source=str(pred.get("source") or "oracle"),
-                kind=pred.get("kind"),
-            )
-            created += 1
-        if pred.get("resolved"):
-            on_prediction_resolved(
-                pid,
-                asset=str(pred.get("asset") or ""),
-                verdict=str(pred.get("verdict") or "WAIT"),
-                price_at_prediction=float(pred.get("price_at_prediction") or 0),
-                price_after=float(pred.get("price_after_24h") or pred.get("price_at_prediction") or 0),
-                outcome=str(pred.get("outcome") or pred.get("label") or "unknown"),
-                accuracy_score=float(pred.get("accuracy_score") or 0),
-                label=pred.get("label"),
-                direction_label=pred.get("direction_label"),
-            )
-            resolved += 1
+    created = _record_unresolved_predictions(unresolved)
+    labeled_created, resolved = _record_labeled_predictions(labeled, seen_ids)
 
     summary = chain_summary()
     return {
-        "backfilled_created": created,
+        "backfilled_created": created + labeled_created,
         "backfilled_resolved": resolved,
         "chain_records": summary["total_records"],
         "integrity_valid": summary["integrity"]["valid"],

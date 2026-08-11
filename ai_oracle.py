@@ -593,6 +593,47 @@ async def _ollama_oracle(
         return None
 
 
+def _oracle_response_from_sentence(sentence: str) -> OracleResponse | None:
+    sentence = sentence.strip()
+    if not sentence:
+        return None
+    verdict: OracleVerdict = STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
+    return OracleResponse(verdict=verdict, sentence=sentence)
+
+
+async def _free_chain_oracle_response(
+    asset: str,
+    opportunity_score: float,
+    explanation: OpportunityExplanation,
+    hub: dict[str, Any],
+) -> OracleResponse | None:
+    if not hub.get("enabled"):
+        return None
+    sentence = await synthesize_with_free_llm_chain(
+        asset,
+        opportunity_score,
+        explanation.summary,
+        hub,
+    )
+    return _oracle_response_from_sentence(sentence or "")
+
+
+async def _provider_oracle_response(
+    provider: str,
+    asset: str,
+    opportunity_score: float,
+    explanation: OpportunityExplanation,
+    hub: dict[str, Any],
+) -> OracleResponse | None:
+    if provider == "openai":
+        return await _openai_oracle(asset, opportunity_score, explanation)
+    if provider == "ollama":
+        return await _ollama_oracle(asset, opportunity_score, explanation)
+    if provider == "free_chain":
+        return await _free_chain_oracle_response(asset, opportunity_score, explanation, hub)
+    return None
+
+
 async def get_single_sentence_oracle(
     asset: str,
     opportunity_score: float,
@@ -607,132 +648,90 @@ async def get_single_sentence_oracle(
     provider = os.getenv("AI_ORACLE_PROVIDER", config.AI_ORACLE_PROVIDER).lower()
     hub = (institutional_context or {}).get("oracle_data_hub") or {}
 
-    if provider == "openai":
-        llm = await _openai_oracle(asset, opportunity_score, explanation)
-        if llm is not None:
-            return llm
-    elif provider == "ollama":
-        llm = await _ollama_oracle(asset, opportunity_score, explanation)
-        if llm is not None:
-            return llm
-    elif provider == "free_chain" and hub.get("enabled"):
-        sentence = await synthesize_with_free_llm_chain(
-            asset,
-            opportunity_score,
-            explanation.summary,
-            hub,
-        )
-        if sentence:
-            verdict: OracleVerdict = (
-                STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
-            )
-            return OracleResponse(verdict=verdict, sentence=sentence)
-
-    if hub.get("enabled"):
-        sentence = await synthesize_with_free_llm_chain(
-            asset,
-            opportunity_score,
-            explanation.summary,
-            hub,
-        )
-        if sentence:
-            verdict = STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
-            return OracleResponse(verdict=verdict, sentence=sentence)
+    llm = await _provider_oracle_response(provider, asset, opportunity_score, explanation, hub)
+    if llm is not None:
+        return llm
+    fallback = await _free_chain_oracle_response(asset, opportunity_score, explanation, hub)
+    if fallback is not None:
+        return fallback
 
     return _rules_oracle(asset, opportunity_score, explanation)
 
 
-async def evaluate_opportunity(
-    opportunity: Any,
-    kind: OpportunityKind,
-    institutional_context: dict[str, Any] | None = None,
-) -> EvaluatedOpportunity:
-    """Score, explain, and oracle-wrap a single opportunity via unified stack."""
-    from oracle_unified import finalize_unified_score
-
-    score, breakdown, metrics = score_opportunity_with_breakdown(
-        opportunity, kind, institutional_context
-    )
+async def _apply_ta_score_adjustment(score: float, asset: str) -> float:
     try:
         from technical_analysis import build_ta_bundle
 
-        ta = await build_ta_bundle(metrics.asset)
+        ta = await build_ta_bundle(asset)
         if ta.get("available"):
-            score = round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
+            return round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
     except Exception:
-        logger.warning("TA bundle unavailable | asset=%s", metrics.asset)
+        logger.warning("TA bundle unavailable | asset=%s", asset)
+    return score
 
-    price_hint = 0.0
+
+def _raw_opportunity_payload(opportunity: Any) -> dict[str, Any]:
     if hasattr(opportunity, "model_dump"):
-        raw_payload = opportunity.model_dump()
-    elif isinstance(opportunity, dict):
-        raw_payload = dict(opportunity)
-    elif hasattr(opportunity, "__dict__"):
-        raw_payload = {
+        return opportunity.model_dump()
+    if isinstance(opportunity, dict):
+        return dict(opportunity)
+    if hasattr(opportunity, "__dict__"):
+        return {
             key: value
             for key, value in vars(opportunity).items()
             if not str(key).startswith("_")
         }
-    else:
-        raw_payload = {}
+    return {}
+
+
+def _price_hint_from_payload(payload: dict[str, Any]) -> float:
     for key in ("price", "spot_price", "mark_price", "buy_price", "mid_price"):
         try:
-            value = float(raw_payload.get(key) or 0)
+            value = float(payload.get(key) or 0)
         except (TypeError, ValueError):
             value = 0.0
         if value > 0:
-            price_hint = value
-            break
+            return value
+    return 0.0
 
-    finalized = await finalize_unified_score(
-        score,
-        metrics.asset,
-        breakdown,
-        price=price_hint,
-        change_24h=float(raw_payload.get("change_24h") or 0.0),
-        quote_volume=float(metrics.quote_amount or 0.0),
-        include_ml=True,
-    )
-    score = float(finalized["opportunity_score"])
 
-    # D3 Net-Edge Truth + D4 Half-Life — unique executable-edge gates
-    from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
-    from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
-    from persona_clarity import build_persona_clarity
-
+def _truth_input(kind: OpportunityKind, metrics: OpportunityMetrics, raw_payload: dict[str, Any]) -> dict[str, Any]:
     truth_input = dict(raw_payload)
     truth_input.setdefault("kind", kind)
     truth_input.setdefault("asset", metrics.asset)
     truth_input["net_profit_usdt"] = metrics.net_profit_usdt
     truth_input["quote_amount"] = metrics.quote_amount
     truth_input["total_slippage_bps"] = metrics.total_slippage_bps
-    truth = compute_net_edge_truth(truth_input)
-    score = apply_truth_gate_to_score(score, truth)
+    return truth_input
 
-    duration_meta = touch_opportunity(truth_input)
-    half_life = estimate_opportunity_half_life(
-        truth_input, live_duration_seconds=float(duration_meta.get("duration_seconds") or 0)
-    )
 
-    explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+def _annotate_explanation(
+    explanation: OpportunityExplanation,
+    truth: dict[str, Any],
+    half_life: dict[str, Any],
+) -> None:
     if truth.get("reject"):
         explanation.risk_factors = [*list(explanation.risk_factors), "Net-Edge Truth rejected: residual edge fails after latency/crowd/fees."]
         explanation.reasons = [*list(explanation.reasons), f"Truth Score {truth.get('truth_score')}/100 — executable edge not proven."]
     if half_life.get("remaining_seconds") is not None:
         explanation.reasons = [*list(explanation.reasons), f"Opportunity half-life ~{half_life.get('expected_half_life_seconds')}s; ~{half_life.get('remaining_seconds')}s remaining (P(disappear)={half_life.get('disappearance_probability')})."]
 
-    # Prefer unified conflict-aware internal verdict; keep sentence generation.
+
+async def _oracle_with_internal_verdict(
+    explanation: OpportunityExplanation,
+    score: float,
+    institutional_context: dict[str, Any] | None,
+    finalized: dict[str, Any],
+    truth: dict[str, Any],
+) -> OracleResponse:
     oracle = await get_single_sentence_oracle(
         explanation.asset, score, explanation, institutional_context
     )
     internal = str(finalized.get("internal_verdict") or oracle.verdict)
-    if finalized.get("dimension_conflict", {}).get("veto") or finalized.get(
-        "dimension_conflict", {}
-    ).get("abstain"):
+    conflict = finalized.get("dimension_conflict", {})
+    if conflict.get("veto") or conflict.get("abstain") or truth.get("reject"):
         internal = STR_DO_NOT_TOUCH
-    if truth.get("reject"):
-        internal = STR_DO_NOT_TOUCH
-    oracle = OracleResponse(
+    return OracleResponse(
         verdict=internal if internal in {STR_BUY_NOW, STR_DO_NOT_TOUCH} else oracle.verdict,
         sentence=inject_oracle_onchain_analytics(
             oracle.sentence,
@@ -741,6 +740,13 @@ async def evaluate_opportunity(
         ),
     )
 
+
+def _evaluation_payload(
+    raw_payload: dict[str, Any],
+    finalized: dict[str, Any],
+    truth: dict[str, Any],
+    half_life: dict[str, Any],
+) -> dict[str, Any]:
     payload = dict(raw_payload)
     payload["unified_engine"] = finalized.get("engine")
     payload["public_verdict"] = finalized.get("verdict")
@@ -749,15 +755,17 @@ async def evaluate_opportunity(
     payload["ml"] = finalized.get("ml")
     payload["net_edge_truth"] = truth
     payload["opportunity_half_life"] = half_life
-    payload["persona_clarity"] = build_persona_clarity(
-        asset=metrics.asset,
-        score=score,
-        verdict=oracle.verdict,
-        payload=payload,
-        net_profit_usdt=metrics.net_profit_usdt,
-    )
+    return payload
 
-    # D8 Sovereign Signal Registry — labeled lexicon row per decision
+
+def _register_evaluation_signal(
+    payload: dict[str, Any],
+    *,
+    kind: OpportunityKind,
+    metrics: OpportunityMetrics,
+    score: float,
+    oracle: OracleResponse,
+) -> None:
     try:
         from signal_registry import register_from_evaluation
 
@@ -779,6 +787,8 @@ async def evaluate_opportunity(
     except Exception:
         logger.debug("signal registry write skipped", exc_info=True)
 
+
+def _attach_evaluation_compliance(payload: dict[str, Any]) -> None:
     try:
         from decision_certificate import compliance_footer_block
 
@@ -788,6 +798,66 @@ async def evaluate_opportunity(
         )
     except Exception:
         pass
+
+
+async def evaluate_opportunity(
+    opportunity: Any,
+    kind: OpportunityKind,
+    institutional_context: dict[str, Any] | None = None,
+) -> EvaluatedOpportunity:
+    """Score, explain, and oracle-wrap a single opportunity via unified stack."""
+    from oracle_unified import finalize_unified_score
+
+    score, breakdown, metrics = score_opportunity_with_breakdown(
+        opportunity, kind, institutional_context
+    )
+    score = await _apply_ta_score_adjustment(score, metrics.asset)
+    raw_payload = _raw_opportunity_payload(opportunity)
+
+    finalized = await finalize_unified_score(
+        score,
+        metrics.asset,
+        breakdown,
+        price=_price_hint_from_payload(raw_payload),
+        change_24h=float(raw_payload.get("change_24h") or 0.0),
+        quote_volume=float(metrics.quote_amount or 0.0),
+        include_ml=True,
+    )
+    score = float(finalized["opportunity_score"])
+
+    # D3 Net-Edge Truth + D4 Half-Life — unique executable-edge gates
+    from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
+    from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
+    from persona_clarity import build_persona_clarity
+
+    truth_input = _truth_input(kind, metrics, raw_payload)
+    truth = compute_net_edge_truth(truth_input)
+    score = apply_truth_gate_to_score(score, truth)
+
+    duration_meta = touch_opportunity(truth_input)
+    half_life = estimate_opportunity_half_life(
+        truth_input, live_duration_seconds=float(duration_meta.get("duration_seconds") or 0)
+    )
+
+    explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+    _annotate_explanation(explanation, truth, half_life)
+
+    # Prefer unified conflict-aware internal verdict; keep sentence generation.
+    oracle = await _oracle_with_internal_verdict(
+        explanation, score, institutional_context, finalized, truth
+    )
+    payload = _evaluation_payload(raw_payload, finalized, truth, half_life)
+    payload["persona_clarity"] = build_persona_clarity(
+        asset=metrics.asset,
+        score=score,
+        verdict=oracle.verdict,
+        payload=payload,
+        net_profit_usdt=metrics.net_profit_usdt,
+    )
+
+    # D8 Sovereign Signal Registry — labeled lexicon row per decision
+    _register_evaluation_signal(payload, kind=kind, metrics=metrics, score=score, oracle=oracle)
+    _attach_evaluation_compliance(payload)
 
     return EvaluatedOpportunity(
         kind=kind,
@@ -864,6 +934,19 @@ async def evaluate_and_store(
 
 async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
     """Best-effort mid price so arb samples are not logged at price=0."""
+    payload_price = _training_payload_price(payload)
+    if payload_price > 0:
+        return payload_price
+    mid_price = _training_mid_price(payload)
+    if mid_price > 0:
+        return mid_price
+    live_price = _training_live_book_price(asset)
+    if live_price > 0:
+        return live_price
+    return await _training_reference_price(asset)
+
+
+def _training_payload_price(payload: dict[str, Any]) -> float:
     for key in ("price", "spot_price", "mark_price", "mid_price", "buy_price", "sell_price"):
         try:
             value = float(payload.get(key) or 0)
@@ -871,6 +954,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
             value = 0.0
         if value > 0:
             return value
+    return 0.0
+
+
+def _training_mid_price(payload: dict[str, Any]) -> float:
     try:
         buy = float(payload.get("buy_price") or payload.get("ask") or 0)
         sell = float(payload.get("sell_price") or payload.get("bid") or 0)
@@ -878,6 +965,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
             return (buy + sell) / 2.0
     except (TypeError, ValueError):
         pass
+    return 0.0
+
+
+def _training_live_book_price(asset: str) -> float:
     try:
         from live_book_hub import get_best_price
 
@@ -887,6 +978,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
                 return float(quote["mid"])
     except Exception:
         logger.debug("Live book price lookup failed | asset=%s", asset, exc_info=True)
+    return 0.0
+
+
+async def _training_reference_price(asset: str) -> float:
     try:
         from ml.labeling_pipeline import fetch_reference_price
 

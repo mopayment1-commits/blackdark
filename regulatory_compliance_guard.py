@@ -173,6 +173,40 @@ def llm_oracle_system_prompt() -> str:
     )
 
 
+def _apply_public_verdict_fields(out: dict[str, Any], raw_verdict: str) -> None:
+    if not raw_verdict:
+        return
+    out.setdefault("oracle_internal_verdict", to_internal_action_verdict(raw_verdict))
+    out["verdict"] = to_public_verdict(raw_verdict)
+    if "oracle_verdict" in out:
+        out["oracle_verdict"] = out["verdict"]
+
+
+def _sanitize_string_fields(out: dict[str, Any]) -> None:
+    for field in ("oracle", "narrative", "action", "explanation"):
+        if isinstance(out.get(field), str):
+            out[field] = sanitize_advice_text(str(out[field]))
+
+
+def _sanitize_explanation_dict(out: dict[str, Any]) -> None:
+    if not isinstance(out.get("explanation"), dict):
+        return
+    exp = dict(out["explanation"])
+    for key in ("summary", "narrative", "text"):
+        if isinstance(exp.get(key), str):
+            exp[key] = sanitize_advice_text(str(exp[key]))
+    out["explanation"] = exp
+
+
+def _sanitize_oracle_sentence(out: dict[str, Any], raw_verdict: str) -> None:
+    sentence = out.get("sentence") or out.get("oracle")
+    if not isinstance(sentence, str) or not raw_verdict:
+        return
+    out["oracle"] = sanitize_advice_text(sentence)
+    if "sentence" in out:
+        out["sentence"] = out["oracle"]
+
+
 def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
     """Transform oracle API payload to compliant public form."""
     if not _enabled():
@@ -180,28 +214,10 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
 
     out = dict(payload)
     raw_verdict = str(out.get("verdict") or out.get("oracle_verdict") or "")
-    if raw_verdict:
-        out.setdefault("oracle_internal_verdict", to_internal_action_verdict(raw_verdict))
-        out["verdict"] = to_public_verdict(raw_verdict)
-        if "oracle_verdict" in out:
-            out["oracle_verdict"] = out["verdict"]
-
-    for field in ("oracle", "narrative", "action", "explanation"):
-        if isinstance(out.get(field), str):
-            out[field] = sanitize_advice_text(str(out[field]))
-
-    if isinstance(out.get("explanation"), dict):
-        exp = dict(out["explanation"])
-        for key in ("summary", "narrative", "text"):
-            if isinstance(exp.get(key), str):
-                exp[key] = sanitize_advice_text(str(exp[key]))
-        out["explanation"] = exp
-
-    sentence = out.get("sentence") or out.get("oracle")
-    if isinstance(sentence, str) and raw_verdict:
-        out["oracle"] = sanitize_advice_text(sentence)
-        if "sentence" in out:
-            out["sentence"] = out["oracle"]
+    _apply_public_verdict_fields(out, raw_verdict)
+    _sanitize_string_fields(out)
+    _sanitize_explanation_dict(out)
+    _sanitize_oracle_sentence(out, raw_verdict)
 
     out["regulatory_classification"] = "informational_analytics_only"
     out["is_investment_advice"] = False

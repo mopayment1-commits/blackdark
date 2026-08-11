@@ -131,6 +131,79 @@ async def _fetch_hourly_klines(
     return rows
 
 
+async def _insert_replay_sample(
+    *,
+    asset: str,
+    klines: list[dict[str, Any]],
+    index: int,
+    insert_oracle_prediction: Any,
+    resolve_oracle_prediction: Any,
+) -> str:
+    window = [row["close"] for row in klines[: index + 1]]
+    price_at = float(klines[index]["close"])
+    price_after = float(klines[index + 24]["close"])
+    verdict = _verdict_from_past(window)
+    features = _feature_vector_from_closes(asset, window)
+    outcome, accuracy, direction = score_verdict_accuracy(verdict, price_at, price_after)
+    score = min(95.0, max(35.0, 55.0 + features["ret_24h"]))
+    conf = min(90.0, max(40.0, 60.0 - features["volatility"] * 3))
+    pred_id = await insert_oracle_prediction(
+        asset=asset,
+        price_at_prediction=price_at,
+        verdict=verdict,
+        opportunity_score=round(score),
+        confidence=round(conf),
+        timestamp=datetime.fromtimestamp(klines[index]["ts"] / 1000, tz=UTC).isoformat(),
+        kind="market_replay",
+        features_json=json.dumps(features, separators=(",", ":")),
+        source=SOURCE,
+    )
+    await resolve_oracle_prediction(
+        pred_id,
+        price_after,
+        outcome,
+        accuracy,
+        price_after_1h=float(klines[index + 1]["close"]),
+        price_after_4h=float(klines[index + 4]["close"]),
+        label=outcome,
+        direction_label=direction,
+        resolved_at=datetime.fromtimestamp(klines[index + 24]["ts"] / 1000, tz=UTC).isoformat(),
+    )
+    return outcome
+
+
+async def _bootstrap_asset_samples(
+    session: aiohttp.ClientSession,
+    asset: str,
+    *,
+    lookback_hours: int,
+    remaining: int,
+    insert_oracle_prediction: Any,
+    resolve_oracle_prediction: Any,
+) -> tuple[int, int, int]:
+    klines = await _fetch_hourly_klines(session, asset, limit=min(1000, lookback_hours + 48))
+    if len(klines) < 48:
+        logger.warning("Insufficient klines for bootstrap | asset=%s", asset)
+        return 0, 0, 0
+    max_i = len(klines) - 25
+    step = max(1, max_i // 40)
+    inserted = resolved = correct = 0
+    for index in range(30, max_i, step):
+        outcome = await _insert_replay_sample(
+            asset=asset,
+            klines=klines,
+            index=index,
+            insert_oracle_prediction=insert_oracle_prediction,
+            resolve_oracle_prediction=resolve_oracle_prediction,
+        )
+        inserted += 1
+        resolved += 1
+        correct += 1 if outcome == "correct" else 0
+        if resolved >= remaining:
+            break
+    return inserted, resolved, correct
+
+
 async def bootstrap_market_replay_dataset(
     *,
     assets: list[str] | None = None,
@@ -167,59 +240,17 @@ async def bootstrap_market_replay_dataset(
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in target_assets:
-            klines = await _fetch_hourly_klines(session, asset, limit=min(1000, lookback_hours + 48))
-            if len(klines) < 48:
-                logger.warning("Insufficient klines for bootstrap | asset=%s", asset)
-                continue
-
-            # Need 24h forward window for resolution.
-            max_i = len(klines) - 25
-            step = max(1, max_i // 40)
-            for i in range(30, max_i, step):
-                window = [row["close"] for row in klines[: i + 1]]
-                price_at = float(klines[i]["close"])
-                price_after = float(klines[i + 24]["close"])
-                verdict = _verdict_from_past(window)
-                features = _feature_vector_from_closes(asset, window)
-                outcome, accuracy, direction = score_verdict_accuracy(
-                    verdict, price_at, price_after
-                )
-                ts = datetime.fromtimestamp(klines[i]["ts"] / 1000, tz=UTC).isoformat()
-                resolved_ts = datetime.fromtimestamp(
-                    klines[i + 24]["ts"] / 1000, tz=UTC
-                ).isoformat()
-                score = min(95.0, max(35.0, 55.0 + features["ret_24h"]))
-                conf = min(90.0, max(40.0, 60.0 - features["volatility"] * 3))
-
-                pred_id = await insert_oracle_prediction(
-                    asset=asset,
-                    price_at_prediction=price_at,
-                    verdict=verdict,
-                    opportunity_score=round(score),
-                    confidence=round(conf),
-                    timestamp=ts,
-                    kind="market_replay",
-                    features_json=json.dumps(features, separators=(",", ":")),
-                    source=SOURCE,
-                )
-                inserted += 1
-                await resolve_oracle_prediction(
-                    pred_id,
-                    price_after,
-                    outcome,
-                    accuracy,
-                    price_after_1h=float(klines[i + 1]["close"]),
-                    price_after_4h=float(klines[i + 4]["close"]),
-                    label=outcome,
-                    direction_label=direction,
-                    resolved_at=resolved_ts,
-                )
-                resolved += 1
-                if outcome == "correct":
-                    correct += 1
-
-                if resolved >= threshold * 2:
-                    break
+            add_inserted, add_resolved, add_correct = await _bootstrap_asset_samples(
+                session,
+                asset,
+                lookback_hours=lookback_hours,
+                remaining=threshold * 2 - resolved,
+                insert_oracle_prediction=insert_oracle_prediction,
+                resolve_oracle_prediction=resolve_oracle_prediction,
+            )
+            inserted += add_inserted
+            resolved += add_resolved
+            correct += add_correct
             if resolved >= threshold * 2:
                 break
 

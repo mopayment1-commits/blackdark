@@ -298,6 +298,23 @@ def _aggregate_asset_snapshots(
     return snapshots
 
 
+def _snapshot_obi_and_warnings(snapshot: Any) -> tuple[float, list[Any]]:
+    if isinstance(snapshot, dict):
+        return float(snapshot.get("average_obi") or 0.0), snapshot.get("warnings") or []
+    return float(getattr(snapshot, "average_obi", 0.0)), getattr(snapshot, "warnings", [])
+
+
+def _obi_warning_penalty(warning: Any) -> float:
+    if isinstance(warning, dict):
+        severity = float(warning.get("severity") or 0.0)
+        warning_type = str(warning.get("warning_type") or "")
+    else:
+        severity = float(getattr(warning, "severity", 0.0))
+        warning_type = str(getattr(warning, "warning_type", ""))
+    weight = 1.0 if warning_type == "flash_crash_warning" else 0.75
+    return (severity / 100.0) * config.OBI_FLASH_PENALTY_MAX * weight
+
+
 def obi_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> float:
     """
     Convert OBI posture into an Opportunity Score boost or penalty.
@@ -314,24 +331,12 @@ def obi_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> float
         if not snapshot:
             return 0.0
 
-        if isinstance(snapshot, dict):
-            average_obi = float(snapshot.get("average_obi") or 0.0)
-            warnings = snapshot.get("warnings") or []
-        else:
-            average_obi = float(getattr(snapshot, "average_obi", 0.0))
-            warnings = getattr(snapshot, "warnings", [])
+        average_obi, warnings = _snapshot_obi_and_warnings(snapshot)
 
         boost = max(0.0, average_obi) * config.OBI_SCORE_BOOST_MAX
         penalty = 0.0
         for warning in warnings:
-            if isinstance(warning, dict):
-                severity = float(warning.get("severity") or 0.0)
-                warning_type = str(warning.get("warning_type") or "")
-            else:
-                severity = float(getattr(warning, "severity", 0.0))
-                warning_type = str(getattr(warning, "warning_type", ""))
-            weight = 1.0 if warning_type == "flash_crash_warning" else 0.75
-            penalty += (severity / 100.0) * config.OBI_FLASH_PENALTY_MAX * weight
+            penalty += _obi_warning_penalty(warning)
 
         return round(
             max(-config.OBI_FLASH_PENALTY_MAX, min(config.OBI_SCORE_BOOST_MAX, boost - penalty)),

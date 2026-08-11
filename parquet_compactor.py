@@ -336,6 +336,30 @@ def _dispose_spool_file(
     _archive_spool_file(spool_path, record_type=record_type, archive_root=archive_root)
 
 
+def _eligible_spool_file(spool_path: Path, cutoff: date) -> date | None:
+    spool_date = _parse_spool_date(spool_path.name)
+    if spool_date is None:
+        logger.warning("Skipping spool file with invalid date name: %s", spool_path)
+        return None
+    if spool_date >= cutoff:
+        return None
+    if not spool_path.is_file() or spool_path.stat().st_size == 0:
+        return None
+    return spool_date
+
+
+def _discover_record_type_spools(root: Path, record_type: str, cutoff: date) -> list[tuple[str, Path, date]]:
+    type_dir = root / record_type
+    if not type_dir.is_dir():
+        return []
+    discovered: list[tuple[str, Path, date]] = []
+    for spool_path in sorted(type_dir.glob("*.ndjson")):
+        spool_date = _eligible_spool_file(spool_path, cutoff)
+        if spool_date is not None:
+            discovered.append((record_type, spool_path, spool_date))
+    return discovered
+
+
 def discover_completed_spool_files(
     spool_root: Path | None = None,
     *,
@@ -354,20 +378,7 @@ def discover_completed_spool_files(
         return discovered
 
     for record_type in SUPPORTED_RECORD_TYPES:
-        type_dir = root / record_type
-        if not type_dir.is_dir():
-            continue
-
-        for spool_path in sorted(type_dir.glob("*.ndjson")):
-            spool_date = _parse_spool_date(spool_path.name)
-            if spool_date is None:
-                logger.warning("Skipping spool file with invalid date name: %s", spool_path)
-                continue
-            if spool_date >= cutoff:
-                continue
-            if not spool_path.is_file() or spool_path.stat().st_size == 0:
-                continue
-            discovered.append((record_type, spool_path, spool_date))
+        discovered.extend(_discover_record_type_spools(root, record_type, cutoff))
 
     return discovered
 
