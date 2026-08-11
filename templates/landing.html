@@ -1246,6 +1246,105 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 scenHtml + certLine + '</details>';
         }
 
+
+        function paintLandingVerdict(verdictEl, data, action) {
+            const verdict = data.verdict || action;
+            verdictEl.textContent = action;
+            verdictEl.className = 'result-verdict';
+            const v = String(verdict).toUpperCase();
+            if (action === 'ACT' || v.includes('BUY')) verdictEl.classList.add('verdict-buy');
+            else if (v.includes('SELL')) verdictEl.classList.add('verdict-sell');
+            else verdictEl.classList.add('verdict-wait');
+        }
+        function paintLandingFreshness(data) {
+            const freshChip = document.getElementById('oracleFreshnessLabel');
+            const fresh = data.data_freshness || {};
+            if (!freshChip) return;
+            freshChip.textContent = fresh.label || 'Live';
+            const wrap = document.getElementById('oracleFreshnessChip');
+            if (!wrap) return;
+            wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
+            wrap.style.opacity = fresh.state === 'stale' ? '0.65' : '1';
+        }
+        function paintLandingProMeta(proMeta, data, mode) {
+            if (mode === 'pro') {
+                const truth = data.net_edge_truth || {};
+                const half = data.opportunity_half_life || {};
+                const conflict = data.dimension_conflict || {};
+                let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
+                    const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
+                    const sevBit = conflict.severity ? ' (' + conflict.severity + ')' : '';
+                    line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
+                }
+                if (data.prediction_id) line += ` · Proof #${data.prediction_id}`;
+                proMeta.style.display = 'block';
+                proMeta.innerHTML = line + (data.prediction_id
+                    ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
+                    : '');
+                return;
+            }
+            if (data.prediction_id) {
+                proMeta.style.display = 'block';
+                proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+            }
+        }
+        function paintLandingUpgrade(upgradeEl, data) {
+            if (!data.upgrade_hint) return;
+            const teaser = data.upgrade_hint.teaser || {};
+            const teaserLine = [
+                teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
+                teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
+                teaser.regime ? `Regime ${teaser.regime}` : null,
+            ].filter(Boolean).join(' · ');
+            upgradeEl.style.display = 'block';
+            upgradeEl.innerHTML =
+                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
+                (teaserLine ? `<br>${teaserLine}` : '') +
+                `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
+            document.getElementById('switchProBtn')?.addEventListener('click', () => {
+                const sel = document.getElementById('landingUxMode');
+                if (sel) sel.value = 'pro';
+                consultOracle();
+            });
+        }
+        function wireDisciplineMirror(disc, data, symbol, followAction) {
+            disc.style.display = 'block';
+            disc.innerHTML =
+                `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
+                `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
+                `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
+                `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
+            const sendFollow = async (followed) => {
+                const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
+                localStorage.setItem('bd_user_key', key);
+                try {
+                    await fetch('/api/discipline-mirror/answer', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            user_key: key,
+                            asset: data.symbol || symbol,
+                            system_action: followAction,
+                            followed,
+                            prediction_id: data.prediction_id,
+                            opportunity_score: data.opportunity_score,
+                        }),
+                    });
+                    document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
+                } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
+            };
+            document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
+            document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
+        }
+        function paintLandingCompliance(data) {
+            const foot = data.compliance_footer || {};
+            const comp = document.getElementById('landingCompliance');
+            if (!foot.disclaimer || !comp) return;
+            comp.style.display = 'block';
+            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+        }
+
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
@@ -1288,108 +1387,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 
                 symbolEl.textContent = data.symbol || symbol;
                 scoreEl.textContent = data.opportunity_score ?? '--';
-                
                 const action = decideLandingAction(data);
-                const verdict = data.verdict || action;
-                verdictEl.textContent = action;
-                verdictEl.className = 'result-verdict';
-                const v = String(verdict).toUpperCase();
-                if (action === 'ACT' || v.includes('BUY')) verdictEl.classList.add('verdict-buy');
-                else if (v.includes('SELL')) verdictEl.classList.add('verdict-sell');
-                else verdictEl.classList.add('verdict-wait');
+                paintLandingVerdict(verdictEl, data, action);
                 oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
-                const freshChip = document.getElementById('oracleFreshnessLabel');
-                const fresh = data.data_freshness || {};
-                if (freshChip) {
-                    freshChip.textContent = fresh.label || 'Live';
-                    const wrap = document.getElementById('oracleFreshnessChip');
-                    if (wrap) {
-                        wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
-                        wrap.style.opacity = fresh.state === 'stale' ? '0.65' : '1';
-                    }
-                }
-                if (mode === 'pro') {
-                    const truth = data.net_edge_truth || {};
-                    const half = data.opportunity_half_life || {};
-                    const conflict = data.dimension_conflict || {};
-                    let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
-                    if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
-                        const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
-                const sevBit = conflict.severity ? ' (' + conflict.severity + ')' : '';
-                line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
-                    }
-                    if (data.prediction_id) {
-                        line += ` · Proof #${data.prediction_id}`;
-                    }
-                    proMeta.style.display = 'block';
-                    proMeta.innerHTML = line + (data.prediction_id
-                        ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
-                        : '');
-                } else if (data.prediction_id) {
-                    proMeta.style.display = 'block';
-                    proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
-                }
-                if (data.upgrade_hint) {
-                    const teaser = data.upgrade_hint.teaser || {};
-                    const teaserLine = [
-                        teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
-                        teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
-                        teaser.regime ? `Regime ${teaser.regime}` : null,
-                    ].filter(Boolean).join(' · ');
-                    upgradeEl.style.display = 'block';
-                    upgradeEl.innerHTML =
-                        `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
-                        (teaserLine ? `<br>${teaserLine}` : '') +
-                        `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
-                    document.getElementById('switchProBtn')?.addEventListener('click', () => {
-                        const sel = document.getElementById('landingUxMode');
-                        if (sel) sel.value = 'pro';
-                        consultOracle();
-                    });
-                }
+                paintLandingFreshness(data);
+                paintLandingProMeta(proMeta, data, mode);
+                paintLandingUpgrade(upgradeEl, data);
                 const certEl = document.getElementById('landingCert');
                 const cert = data.decision_certificate || {};
                 renderLandingCertificate(certEl, cert, data);
-
                 renderLandingWhy(oracleEl, data, cert, latencyMs);
-
-                const disc = document.getElementById('landingDiscipline');
                 const followAction = data.decision_action || data.verdict || action || 'WAIT';
-                disc.style.display = 'block';
-                disc.innerHTML =
-                    `<div style="font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem"><strong style="color:var(--text)">Discipline Mirror</strong> (private) — cure for Dashboard Tourism. Did you follow this signal? <a href="/discipline-mirror" style="color:var(--accent)">Open my mirror</a> · <a href="/errors" style="color:var(--accent)">See public misses</a></div>` +
-                    `<button type="button" class="btn-secondary" id="followedYes">Yes, I followed</button> ` +
-                    `<button type="button" class="btn-secondary" id="followedNo">No, I overrode</button>` +
-                    `<div id="disciplineMsg" style="margin-top:.4rem;font-size:.78rem;color:var(--text-muted)"></div>`;
-                const sendFollow = async (followed) => {
-                    const key = localStorage.getItem('bd_user_key') || ('anon_' + _secureRandomId(8));
-                    localStorage.setItem('bd_user_key', key);
-                    try {
-                        await fetch('/api/discipline-mirror/answer', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({
-                                user_key: key,
-                                asset: data.symbol || symbol,
-                                system_action: followAction,
-                                followed,
-                                prediction_id: data.prediction_id,
-                                opportunity_score: data.opportunity_score,
-                            }),
-                        });
-                        document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
-                    } catch (error) { console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
-                };
-                document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
-                document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
-
-                const foot = data.compliance_footer || {};
-                const comp = document.getElementById('landingCompliance');
-                if (foot.disclaimer) {
-                    comp.style.display = 'block';
-                    comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
-                }
-
+                wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
+                paintLandingCompliance(data);
                 updateShareLinks(data);
             } catch (error) { console.debug(error); oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.'; }
         }
