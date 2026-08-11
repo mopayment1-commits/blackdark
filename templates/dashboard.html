@@ -948,17 +948,21 @@
                 const title = d.title || d.headline || 'Daily research brief';
                 const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? `Oracle accuracy ${d.oracle_accuracy_percent}%` : null,
-                    d.moat_score != null ? `Moat ${d.moat_score}/100` : null,
-                    d.whale_alerts_24h != null ? `Whale alerts ${d.whale_alerts_24h}` : null,
-                    d.arb_alerts_24h != null ? `Arb alerts ${d.arb_alerts_24h}` : null,
+                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
+                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
+                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
+                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
                 ].filter(Boolean).slice(0, 4);
-                el.innerHTML = `<strong>${title}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${summary || 'Brief ready — open Markdown for full detail.'}</div>
-                    ${bullets.length ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' +
-                        bullets.map(b => `<li>${b}</li>`).join('') +
-                        '</ul>' : ''}
-                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>`;
+                const bulletHtml = bullets.length
+                    ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
+                        + bullets.map(b => '<li>' + b + '</li>').join('')
+                        + '</ul>')
+                    : '';
+                el.innerHTML = '<strong>' + title + '</strong>'
+                    + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
+                    + (summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + bulletHtml
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
         }
 
