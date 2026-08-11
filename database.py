@@ -3869,6 +3869,66 @@ async def insert_ingestion_snapshot(
         return int(cursor.lastrowid)
 
 
+def _next_ingestion_counts(row: Any, ok: bool) -> tuple[int, int]:
+    success_count = int(row[0]) + (1 if ok else 0)
+    error_count = int(row[1]) + (0 if ok else 1)
+    return success_count, error_count
+
+
+async def _update_ingestion_health_row(
+    db: Any,
+    source_id: str,
+    *,
+    ok: bool,
+    error: str | None,
+    now: str,
+    row: Any,
+) -> None:
+    success_count, error_count = _next_ingestion_counts(row, ok)
+    await db.execute(
+        """
+        UPDATE ingestion_source_health
+        SET last_ok_at = CASE WHEN ? THEN ? ELSE last_ok_at END,
+            last_error_at = CASE WHEN ? THEN last_error_at ELSE ? END,
+            last_error = CASE WHEN ? THEN last_error ELSE ? END,
+            success_count = ?,
+            error_count = ?,
+            updated_at = ?
+        WHERE source_id = ?
+        """,
+        (ok, now, ok, now, ok, error or "", success_count, error_count, now, source_id),
+    )
+
+
+async def _insert_ingestion_health_row(
+    db: Any,
+    source_id: str,
+    category: str,
+    *,
+    ok: bool,
+    error: str | None,
+    now: str,
+) -> None:
+    await db.execute(
+        """
+        INSERT INTO ingestion_source_health
+            (source_id, category, last_ok_at, last_error_at, last_error,
+             success_count, error_count, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            source_id,
+            category,
+            now if ok else None,
+            None if ok else now,
+            None if ok else (error or "unknown"),
+            1 if ok else 0,
+            0 if ok else 1,
+            now,
+        ),
+    )
+
+
 async def upsert_ingestion_health(
     source_id: str,
     category: str,
@@ -3885,39 +3945,22 @@ async def upsert_ingestion_health(
             )
         ).fetchone()
         if row:
-            success_count = int(row[0]) + (1 if ok else 0)
-            error_count = int(row[1]) + (0 if ok else 1)
-            await db.execute(
-                """
-                UPDATE ingestion_source_health
-                SET last_ok_at = CASE WHEN ? THEN ? ELSE last_ok_at END,
-                    last_error_at = CASE WHEN ? THEN last_error_at ELSE ? END,
-                    last_error = CASE WHEN ? THEN last_error ELSE ? END,
-                    success_count = ?,
-                    error_count = ?,
-                    updated_at = ?
-                WHERE source_id = ?
-                """,
-                (ok, now, ok, now, ok, error or "", success_count, error_count, now, source_id),
+            await _update_ingestion_health_row(
+                db,
+                source_id,
+                ok=ok,
+                error=error,
+                now=now,
+                row=row,
             )
         else:
-            await db.execute(
-                """
-                INSERT INTO ingestion_source_health
-                    (source_id, category, last_ok_at, last_error_at, last_error,
-                     success_count, error_count, updated_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                (
-                    source_id,
-                    category,
-                    now if ok else None,
-                    None if ok else now,
-                    None if ok else (error or "unknown"),
-                    1 if ok else 0,
-                    0 if ok else 1,
-                    now,
-                ),
+            await _insert_ingestion_health_row(
+                db,
+                source_id,
+                category,
+                ok=ok,
+                error=error,
+                now=now,
             )
         await db.commit()
 
