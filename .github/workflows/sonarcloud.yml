@@ -34,30 +34,12 @@ jobs:
 
       - name: Generate Cobertura coverage.xml
         run: |
-          # Critical remediation modules — real coverage.xml for Sonar import.
-          python -m pytest \
-            tests/test_slippage_guard.py \
-            tests/test_fee_matrix.py \
-            tests/test_profit_fee_algorithms.py \
-            tests/test_fast_scan_profit.py \
-            tests/test_p0_financial_executability.py \
-            tests/test_money_decimal.py \
-            tests/test_p0_authz_hardening.py \
-            tests/test_p1_session_hardening.py \
-            tests/test_security.py \
-            tests/test_security_hardening.py \
-            tests/test_postgres_backend.py \
-            tests/test_postgres_migration_integrity.py \
-            tests/test_service_bus_distributed.py \
-            tests/test_production_guard.py \
-            tests/test_xss_sink_hardening.py \
-            tests/test_unique_differentiators.py \
-            tests/test_codeql_secret_logging_closure.py \
-            tests/test_codeql_18_closure.py \
-            tests/test_softlaunch_no_shell_taint.py \
-            tests/test_path_safety.py \
-            tests/test_arb_truth_gate.py \
-            -q --tb=line \
+          # Full green local matrix (load/network deselected) — real coverage for Sonar.
+          python -m pytest tests/ -q --tb=line \
+            --deselect tests/test_load_concurrent.py \
+            --deselect tests/test_load_ha.py \
+            --deselect tests/test_network_integration.py \
+            --deselect tests/test_external_providers.py \
             --cov-config=.coveragerc-sonar \
             --cov \
             --cov-report=xml:coverage.xml \
@@ -69,7 +51,7 @@ jobs:
           root = ET.parse("coverage.xml").getroot()
           line_rate = float(root.attrib.get("line-rate") or 0)
           print(f"coverage line-rate={line_rate:.4f} ({line_rate*100:.1f}%)")
-          print("NOTE: XML covers critical remediation modules, not the entire repo.")
+          print("NOTE: XML from full green unit/integration matrix (load/network deselected).")
           PY
 
       - name: Upload coverage.xml
