@@ -33,6 +33,42 @@ def probe(url: str, label: str) -> tuple[bool, float]:
     return ok, ms
 
 
+def _probe_group(items: list[tuple[str, str]]) -> int:
+    ok_count = 0
+    for url, label in items:
+        ok, _ = probe(url, label)
+        if ok:
+            ok_count += 1
+    return ok_count
+
+
+def _probe_admin_gates(base: str) -> None:
+    for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
+        try:
+            with urllib.request.urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
+                print(f"  [WARN] {path} publicly reachable — got {resp.status}")
+        except ValueError as exc:
+            print(f"  [FAIL] {path} blocked by URL allowlist: {exc}")
+        except urllib.error.HTTPError as exc:
+            if exc.code in {401, 403, 404}:
+                print(f"  [OK] {path} gated/missing as expected ({exc.code})")
+            else:
+                print(f"  [WARN] {path} → HTTP {exc.code}")
+
+
+def _print_launch_checklist() -> dict:
+    from launch_checklist import launch_checklist
+
+    lc = launch_checklist()
+    print(f"Launch checklist: {lc['done_count']}/{lc['total_tasks']} ({lc['launch_percent']}%)")
+    print(f"Blocked: {lc['blocked_count']} · Ready: {'YES' if lc['launch_ready'] else 'NOT YET'}")
+    if lc.get("next_actions"):
+        print("\nNext actions:")
+        for action in lc["next_actions"][:6]:
+            print(f"  • [{action['status']}] {action.get('title', action.get('id', ''))}: {action['action']}")
+    return lc
+
+
 def main() -> int:
     base = assert_safe_http_url(sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8080")
 
@@ -53,25 +89,11 @@ def main() -> int:
         (f"{base}/api/billing/status", "billing"),
         (f"{base}/api/arbitrage/opportunities", "arbitrage"),
     ]
-    ok_count = 0
     total = len(pages) + len(apis)
-    for url, label in pages + apis:
-        ok, _ = probe(url, label)
-        if ok:
-            ok_count += 1
+    ok_count = _probe_group(pages + apis)
 
     # Admin launch page is gated (403 without admin) — must NOT be a public 200
-    for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
-        try:
-            with urllib.request.urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
-                print(f"  [WARN] {path} publicly reachable — got {resp.status}")
-        except ValueError as exc:
-            print(f"  [FAIL] {path} blocked by URL allowlist: {exc}")
-        except urllib.error.HTTPError as exc:
-            if exc.code in {401, 403, 404}:
-                print(f"  [OK] {path} gated/missing as expected ({exc.code})")
-            else:
-                print(f"  [WARN] {path} → HTTP {exc.code}")
+    _probe_admin_gates(base)
 
     # Constitution product probes
     constitution_apis = [
@@ -82,22 +104,11 @@ def main() -> int:
         (f"{base}/api/due-diligence/evidence-pack/public-summary", "evidence_public"),
         (f"{base}/oracle-accuracy", "accuracy_page"),
     ]
-    for url, label in constitution_apis:
-        ok, _ = probe(url, label)
-        if ok:
-            ok_count += 1
-        total += 1
+    ok_count += _probe_group(constitution_apis)
+    total += len(constitution_apis)
 
     print()
-    from launch_checklist import launch_checklist
-
-    lc = launch_checklist()
-    print(f"Launch checklist: {lc['done_count']}/{lc['total_tasks']} ({lc['launch_percent']}%)")
-    print(f"Blocked: {lc['blocked_count']} · Ready: {'YES' if lc['launch_ready'] else 'NOT YET'}")
-    if lc.get("next_actions"):
-        print("\nNext actions:")
-        for a in lc["next_actions"][:6]:
-            print(f"  • [{a['status']}] {a.get('title', a.get('id', ''))}: {a['action']}")
+    lc = _print_launch_checklist()
 
     pass_rate = ok_count / total if total else 0
     if pass_rate < 0.85:

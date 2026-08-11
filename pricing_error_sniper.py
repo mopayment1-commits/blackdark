@@ -22,6 +22,43 @@ def _utcnow_iso() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def _clean_venue(venue: dict[str, Any]) -> tuple[float, dict[str, Any]] | None:
+    bid = venue.get("best_bid")
+    ask = venue.get("best_ask")
+    if bid is None or ask is None:
+        return None
+    try:
+        bid_f = float(bid)
+        ask_f = float(ask)
+    except (TypeError, ValueError):
+        return None
+    if bid_f <= 0 or ask_f <= 0 or ask_f < bid_f:
+        return None
+    mid = (bid_f + ask_f) / 2
+    return mid, {**venue, "mid": mid, "best_bid": bid_f, "best_ask": ask_f}
+
+
+def _pricing_opportunity(venue: dict[str, Any], median_mid: float, deviation_bps_actual: float) -> dict[str, Any]:
+    mid = float(venue["mid"])
+    direction = "underpriced" if mid < median_mid else "overpriced"
+    return {
+        "kind": "pricing_error",
+        "exchange": venue.get("exchange"),
+        "direction": direction,
+        "venue_mid": round(mid, 6),
+        "reference_mid": round(median_mid, 6),
+        "deviation_bps": round(deviation_bps_actual, 2),
+        "edge_bps": round(deviation_bps_actual, 2),
+        "best_bid": round(float(venue["best_bid"]), 6),
+        "best_ask": round(float(venue["best_ask"]), 6),
+        "timestamp": venue.get("timestamp"),
+        "note": (
+            f"{venue.get('exchange')} {direction} vs median — "
+            "possible stale tick during venue refresh"
+        ),
+    }
+
+
 def scan_pricing_errors(
     venues: list[dict[str, Any]],
     *,
@@ -32,20 +69,12 @@ def scan_pricing_errors(
     clean: list[dict[str, Any]] = []
 
     for venue in venues:
-        bid = venue.get("best_bid")
-        ask = venue.get("best_ask")
-        if bid is None or ask is None:
+        clean_venue = _clean_venue(venue)
+        if clean_venue is None:
             continue
-        try:
-            bid_f = float(bid)
-            ask_f = float(ask)
-        except (TypeError, ValueError):
-            continue
-        if bid_f <= 0 or ask_f <= 0 or ask_f < bid_f:
-            continue
-        mid = (bid_f + ask_f) / 2
+        mid, row = clean_venue
         mids.append(mid)
-        clean.append({**venue, "mid": mid, "best_bid": bid_f, "best_ask": ask_f})
+        clean.append(row)
 
     if len(mids) < MIN_VENUES:
         return {
@@ -66,26 +95,7 @@ def scan_pricing_errors(
         if deviation_bps_actual < deviation_bps:
             continue
 
-        direction = "underpriced" if mid < median_mid else "overpriced"
-        edge_bps = deviation_bps_actual
-        opportunities.append(
-            {
-                "kind": "pricing_error",
-                "exchange": venue.get("exchange"),
-                "direction": direction,
-                "venue_mid": round(mid, 6),
-                "reference_mid": round(median_mid, 6),
-                "deviation_bps": round(deviation_bps_actual, 2),
-                "edge_bps": round(edge_bps, 2),
-                "best_bid": round(float(venue["best_bid"]), 6),
-                "best_ask": round(float(venue["best_ask"]), 6),
-                "timestamp": venue.get("timestamp"),
-                "note": (
-                    f"{venue.get('exchange')} {direction} vs median — "
-                    "possible stale tick during venue refresh"
-                ),
-            }
-        )
+        opportunities.append(_pricing_opportunity(venue, median_mid, deviation_bps_actual))
 
     opportunities.sort(key=lambda x: float(x.get("deviation_bps") or 0), reverse=True)
     return {

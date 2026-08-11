@@ -179,6 +179,6 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
         # Never rewrite clear-text bodies onto disk.
         kept.append(_clear_plain_body(row))
 
-    if kept:
+    if _PATH.is_file():
         await asyncio.to_thread(_rewrite_outbox_rows, kept)
     return {"flushed": sent, "failed": failed, "pending": len(list_queued(limit=200))}

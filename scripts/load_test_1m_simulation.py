@@ -39,6 +39,22 @@ async def _probe(session: aiohttp.ClientSession, url: str) -> tuple[bool, float]
     return ok, (time.perf_counter() - t0) * 1000
 
 
+async def _user_loop(
+    session: aiohttp.ClientSession,
+    urls: list[str],
+    requests_per_user: int,
+) -> tuple[list[float], int]:
+    latencies: list[float] = []
+    errors = 0
+    for _ in range(requests_per_user):
+        for url in urls:
+            ok, ms = await _probe(session, url)
+            latencies.append(ms)
+            if not ok:
+                errors += 1
+    return latencies, errors
+
+
 async def simulate_users(
     base: str,
     *,
@@ -54,26 +70,17 @@ async def simulate_users(
         f"{base}/api/infra/metrics",
     ]
 
-    latencies: list[float] = []
-    errors = 0
     total = concurrent_users * requests_per_user * len(urls)
-
-    async def user_loop(session: aiohttp.ClientSession) -> None:
-        nonlocal errors
-        for _ in range(requests_per_user):
-            for url in urls:
-                ok, ms = await _probe(session, url)
-                latencies.append(ms)
-                if not ok:
-                    errors += 1
 
     t0 = time.perf_counter()
     connector = aiohttp.TCPConnector(limit=concurrent_users * 2)
     async with aiohttp.ClientSession(connector=connector) as session:
-        await asyncio.gather(*[user_loop(session) for _ in range(concurrent_users)])
+        results = await asyncio.gather(*[_user_loop(session, urls, requests_per_user) for _ in range(concurrent_users)])
 
     elapsed = time.perf_counter() - t0
     rps = total / elapsed if elapsed > 0 else 0
+    latencies = [ms for user_latencies, _errors in results for ms in user_latencies]
+    errors = sum(user_errors for _user_latencies, user_errors in results)
     sorted_lat = sorted(latencies) if latencies else [0]
 
     return {
