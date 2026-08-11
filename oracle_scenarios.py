@@ -72,23 +72,28 @@ def _price_ranges(price: float, band: float) -> dict[str, Any]:
     }
 
 
-def _scenario_drivers(payload: dict[str, Any], score: float, regime: str, verdict: str) -> list[str]:
-    drivers: list[str] = []
+def _factor_driver_label(factor: Any) -> str:
+    if not isinstance(factor, dict):
+        return str(factor)
+    label = factor.get("factor")
+    if label is None:
+        label = factor.get("label")
+    return str(label or "")
+
+
+def _drivers_from_explanation(payload: dict[str, Any]) -> list[str]:
     explanation = payload.get("explanation")
-    if isinstance(explanation, dict):
-        factors = explanation.get("top_3_factors")
-        if isinstance(factors, list):
-            for factor in list(factors)[:3]:
-                if isinstance(factor, dict):
-                    label = factor.get("factor")
-                    if label is None:
-                        label = factor.get("label")
-                    drivers.append(str(label or ""))
-                else:
-                    drivers.append(str(factor))
-    drivers = [driver for driver in drivers if driver]
-    if len(drivers) > 3:
-        drivers = drivers[:3]
+    if not isinstance(explanation, dict):
+        return []
+    factors = explanation.get("top_3_factors")
+    if not isinstance(factors, list):
+        return []
+    labels = [_factor_driver_label(factor) for factor in list(factors)[:3]]
+    return [label for label in labels if label][:3]
+
+
+def _scenario_drivers(payload: dict[str, Any], score: float, regime: str, verdict: str) -> list[str]:
+    drivers = _drivers_from_explanation(payload)
     if drivers:
         return drivers
     return [f"Opportunity score {score:.0f}", f"Regime {regime}", f"Verdict {verdict}"]

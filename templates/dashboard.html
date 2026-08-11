@@ -706,7 +706,7 @@
             const btn = document.getElementById('tpShareBtn');
             if (btn) {
                 btn.classList.remove('bd-motion-share');
-                btn.setAttribute('data-reflow', String(btn.offsetWidth));
+                btn.dataset.reflow = String(btn.offsetWidth);
                 btn.classList.add('bd-motion-share');
             }
             const p = lastPulse || {};
@@ -869,7 +869,7 @@
             if (!sym) return;
             box.classList.add('show');
             box.classList.remove('proof-pulse');
-            box.setAttribute('data-reflow', String(box.offsetWidth));
+            box.dataset.reflow = String(box.offsetWidth);
             box.classList.add('proof-pulse');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {

@@ -1569,7 +1569,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
             const btn = e.currentTarget;
             btn.classList.remove('bd-motion-share');
-            btn.setAttribute('data-reflow', String(btn.offsetWidth));
+            btn.dataset.reflow = String(btn.offsetWidth);
             btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';
