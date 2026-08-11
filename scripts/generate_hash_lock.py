@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import json
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 import tempfile
 import urllib.request
@@ -35,7 +35,7 @@ def _resolve(lock_file: Path) -> list[tuple[str, str]]:
             "--report",
             str(report),
         ]
-        subprocess.check_call(cmd)
+        subprocess.check_call(cmd)  # nosec B603 — fixed argv, shell=False, no user input
         data = json.loads(report.read_text(encoding="utf-8"))
     finally:
         report.unlink(missing_ok=True)
@@ -50,8 +50,14 @@ def _resolve(lock_file: Path) -> list[tuple[str, str]]:
 
 
 def _hashes(name: str, version: str) -> list[str]:
+    import sys
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from path_safety import open_http_url
     url = f"https://pypi.org/pypi/{name}/{version}/json"
-    with urllib.request.urlopen(url, timeout=30) as resp:
+    with open_http_url(url, timeout=30, allowed_hosts={"pypi.org"}) as resp:
         data = json.load(resp)
     seen: set[str] = set()
     out: list[str] = []

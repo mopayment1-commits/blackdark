@@ -17,12 +17,16 @@ def _env(name: str) -> str:
 
 
 def _stripe_get(path: str, secret: str) -> dict | None:
-    req = urllib.request.Request(
-        f"https://api.stripe.com/v1{path}",
-        headers={"Authorization": f"Bearer {secret}"},
-    )
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from path_safety import open_http_url
     try:
-        with urllib.request.urlopen(req, timeout=20) as resp:
+        with open_http_url(
+            f"https://api.stripe.com/v1{path}",
+            timeout=20,
+            headers={"Authorization": f"Bearer {secret}"},
+            allowed_hosts={"api.stripe.com"},
+        ) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as exc:
         body = exc.read().decode(errors="replace")

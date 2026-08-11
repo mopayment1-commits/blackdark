@@ -13,6 +13,9 @@ import threading
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 _PATH = Path("data/locked_predictions.jsonl")
 _LOCK = threading.Lock()
@@ -129,6 +132,7 @@ def _read_all() -> list[dict[str, Any]]:
             try:
                 out.append(json.loads(line))
             except json.JSONDecodeError:
+                logger.debug("json parse skipped", exc_info=True)
                 continue
     return out
 

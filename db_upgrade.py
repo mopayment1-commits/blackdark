@@ -78,10 +78,12 @@ async def prune_old_market_rows(retention_days: int | None = None) -> dict[str, 
     cutoff = (datetime.now(UTC) - timedelta(days=days)).isoformat()
     deleted: dict[str, int] = {}
 
+    from sql_safety import delete_before_sql
+
     async with get_connection() as db:
         for table in ("pricing_logs", "order_books"):
             cursor = await db.execute(
-                f"DELETE FROM {table} WHERE timestamp < ?",
+                delete_before_sql(table),
                 (cutoff,),
             )
             deleted[table] = cursor.rowcount

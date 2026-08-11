@@ -49,7 +49,7 @@ def _row_to_feature_dict(row: dict[str, Any]) -> dict[str, float]:
         try:
             out["price"] = float(row["price_at_prediction"])
         except (TypeError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
     return out
 
 
@@ -79,7 +79,7 @@ def _infer_regime_from_row(row: dict[str, Any]) -> str:
                 change = float(row[key])
                 break
             except (TypeError, ValueError):
-                pass
+                logger.debug("change_24h parse skipped", exc_info=True)
     feats = row.get("features_json")
     if change is None and isinstance(feats, str) and feats.strip():
         try:
@@ -87,12 +87,12 @@ def _infer_regime_from_row(row: dict[str, Any]) -> str:
             if isinstance(parsed, dict) and parsed.get("change_24h") is not None:
                 change = float(parsed["change_24h"])
         except Exception:
-            pass
+            logger.debug("json parse skipped", exc_info=True)
     elif change is None and isinstance(feats, dict) and feats.get("change_24h") is not None:
         try:
             change = float(feats["change_24h"])
         except (TypeError, ValueError):
-            pass
+            logger.debug("json parse skipped", exc_info=True)
     if change is None:
         try:
             p0 = float(row.get("price_at_prediction") or 0)

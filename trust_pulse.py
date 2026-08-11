@@ -500,7 +500,7 @@ async def build_trust_pulse(
                     sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True
                 )
             except Exception:
-                pass
+                logger.debug("pulse persist recompute skipped", exc_info=True)
 
     with _LOCK:
         _PULSE_CACHE[sym] = {

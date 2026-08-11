@@ -7,6 +7,9 @@ from __future__ import annotations
 import os
 from pathlib import Path
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -107,7 +110,7 @@ async def fetch_gtm_status() -> dict[str, Any]:
         live = (acc or {}).get("live") or {}
         labeled = int(live.get("resolved_predictions") or 0)
     except Exception:
-        pass
+        logger.debug("oracle audit stats skipped", exc_info=True)
 
     metrics = {
         **users,

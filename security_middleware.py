@@ -12,6 +12,9 @@ from urllib.parse import urlparse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
+import logging
+
+logger = logging.getLogger(__name__)
 
 SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
 
@@ -33,7 +36,7 @@ def _allowed_hosts() -> set[str]:
             if netloc:
                 hosts.add(netloc.lower())
         except Exception:
-            pass
+            logger.debug("base url host parse skipped", exc_info=True)
     # Local / health always allowed
     hosts.update({"localhost", "127.0.0.1", "test", "testserver"})
     return hosts

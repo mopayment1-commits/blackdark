@@ -593,7 +593,7 @@ class MidnightParquetCompactor:
                 await asyncio.wait_for(self._shutdown.wait(), timeout=sleep_seconds)
                 break
             except TimeoutError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
 
             if self._shutdown.is_set():
                 break

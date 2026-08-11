@@ -129,7 +129,7 @@ async def load_persistent_freeze() -> dict[str, Any]:
 
             await set_risk_freeze_state(frozen=False, reason="", until_ts=0.0)
         except Exception:
-            pass
+            logger.debug("risk freeze persist skipped", exc_info=True)
         return {"loaded": True, "frozen": False, "expired": True}
     _freeze_until = until if until > 0 else time.time() + _freeze_duration_sec()
     _freeze_reason = str(row.get("reason") or "persistent_freeze")

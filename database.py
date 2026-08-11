@@ -21,6 +21,23 @@ from typing import Any
 import aiosqlite
 
 import config
+from sql_safety import (
+    ALL_ORACLE_LABELED_SQL,
+    INSTITUTIONAL_FLOW_BY_TYPE_SQL,
+    INSTITUTIONAL_FLOW_TYPES_DEFAULT,
+    LIVE_ORACLE_AVG_ACCURACY_SQL,
+    LIVE_ORACLE_COUNT_SQL,
+    LIVE_ORACLE_LABELED_SQL,
+    LIVE_ORACLE_RECENT_SQL,
+    LIVE_ORACLE_RESOLVED_COUNT_SQL,
+    ORDER_BOOKS_LATEST_BY_MARKET_SQL,
+    ORDER_BOOKS_LATEST_SQL,
+    RISK_ORACLE_COUNT_SQL,
+    RISK_ORACLE_VERDICTS,
+    USER_PROFILE_UPDATE_SQL,
+    platform_metric_increment_sql,
+    table_count_sql,
+)
 logger = logging.getLogger(__name__)
 
 SCHEMA = """
@@ -1009,12 +1026,10 @@ async def delete_pricing_logs_by_ids(row_ids: Sequence[int]) -> int:
     total = 0
     try:
         async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
+            for item in row_ids:
                 cursor = await db.execute(
-                    f"DELETE FROM pricing_logs WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
+                    "DELETE FROM pricing_logs WHERE id = ?",
+                    (int(item),),
                 )
                 total += cursor.rowcount
         return total
@@ -1029,12 +1044,10 @@ async def delete_order_books_by_ids(row_ids: Sequence[int]) -> int:
     total = 0
     try:
         async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
+            for item in row_ids:
                 cursor = await db.execute(
-                    f"DELETE FROM order_books WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
+                    "DELETE FROM order_books WHERE id = ?",
+                    (int(item),),
                 )
                 total += cursor.rowcount
         return total
@@ -1049,12 +1062,10 @@ async def delete_sentiment_logs_by_ids(row_ids: Sequence[int]) -> int:
     total = 0
     try:
         async with get_connection() as db:
-            for i in range(0, len(row_ids), 500):
-                batch = row_ids[i:i + 500]
-                placeholders = ",".join("?" for _ in batch)
+            for item in row_ids:
                 cursor = await db.execute(
-                    f"DELETE FROM market_sentiment_logs WHERE id IN ({placeholders})",
-                    tuple(int(item) for item in batch),
+                    "DELETE FROM market_sentiment_logs WHERE id = ?",
+                    (int(item),),
                 )
                 total += cursor.rowcount
         return total
@@ -1192,26 +1203,12 @@ async def fetch_latest_order_books(
     Perpetual books are keyed as `{symbol}@perpetual` to avoid spot collisions.
     """
     books: dict[str, dict[str, dict[str, Any]]] = {}
-    params: list[Any] = []
-    market_filter = ""
     if market_type is not None:
-        market_filter = "WHERE o.market_type = ?"
-        params.append(market_type)
-
-    query = f"""
-        SELECT o.exchange, o.symbol, o.bids, o.asks, o.timestamp, o.market_type
-        FROM order_books o
-        INNER JOIN (
-            SELECT exchange, symbol, market_type, MAX(timestamp) AS max_ts
-            FROM order_books
-            GROUP BY exchange, symbol, market_type
-        ) latest
-            ON o.exchange = latest.exchange
-           AND o.symbol = latest.symbol
-           AND o.market_type = latest.market_type
-           AND o.timestamp = latest.max_ts
-        {market_filter}
-    """
+        query = ORDER_BOOKS_LATEST_BY_MARKET_SQL
+        params: list[Any] = [market_type]
+    else:
+        query = ORDER_BOOKS_LATEST_SQL
+        params = []
 
     async with get_connection() as db:
         rows = await db.execute(query, params)
@@ -1334,7 +1331,7 @@ async def fetch_evaluated_opportunities(limit: int = 250) -> list[dict[str, Any]
 async def _safe_table_count(db: aiosqlite.Connection, table_name: str) -> int:
     """Return row count for a table, or 0 if the table is unavailable."""
     try:
-        row = await (await db.execute(f"SELECT COUNT(*) FROM {table_name}")).fetchone()
+        row = await (await db.execute(table_count_sql(table_name))).fetchone()
         return int(row[0] or 0)
     except Exception:
         logger.debug("Unable to count rows for table=%s", str(table_name).replace("\r", " ").replace("\n", " "))
@@ -1508,24 +1505,15 @@ async def fetch_institutional_feed_rows(
     flow_types: Sequence[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Return recent institutional flow rows for B2B export packaging."""
-    allowed = flow_types or (
-        "manipulation_alert",
-        "sector_inflow_index",
-        "whale_alert",
-        "sector_rotation",
-    )
-    placeholders = ", ".join("?" for _ in allowed)
+    allowed = tuple(flow_types) if flow_types else INSTITUTIONAL_FLOW_TYPES_DEFAULT
+    # Static 4-slot query; pad/truncate to fixed allowlisted size.
+    slots = list(allowed[:4]) + ["__none__"] * max(0, 4 - len(allowed))
+    slots = slots[:4]
     try:
         async with get_connection() as db:
             rows = await db.execute(
-                f"""
-                SELECT *
-                FROM institutional_flows
-                WHERE flow_type IN ({placeholders})
-                ORDER BY timestamp DESC, id DESC
-                LIMIT ?
-                """,
-                (*allowed, limit),
+                INSTITUTIONAL_FLOW_BY_TYPE_SQL,
+                (*slots, limit),
             )
             result = await rows.fetchall()
         return [dict(row) for row in result]
@@ -2053,8 +2041,6 @@ async def fetch_oracle_audit_stats(
     *,
     include_synthetic: bool = False,
 ) -> dict[str, Any]:
-    from oracle_integrity import live_source_sql
-
     empty = {
         "total_predictions": 0,
         "resolved_predictions": 0,
@@ -2079,7 +2065,6 @@ async def fetch_oracle_audit_stats(
         },
     }
     try:
-        live_clause = live_source_sql()
         async with get_connection() as db:
             if include_synthetic:
                 total_row = await (
@@ -2112,40 +2097,16 @@ async def fetch_oracle_audit_stats(
                 ).fetchall()
             else:
                 total_row = await (
-                    await db.execute(
-                        f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}"
-                    )
+                    await db.execute(LIVE_ORACLE_COUNT_SQL)
                 ).fetchone()
                 resolved_row = await (
-                    await db.execute(
-                        f"""
-                        SELECT COUNT(*) FROM oracle_predictions
-                        WHERE resolved = 1 AND {live_clause}
-                        """
-                    )
+                    await db.execute(LIVE_ORACLE_RESOLVED_COUNT_SQL)
                 ).fetchone()
                 avg_row = await (
-                    await db.execute(
-                        f"""
-                        SELECT AVG(accuracy_score)
-                        FROM oracle_predictions
-                        WHERE resolved = 1
-                          AND accuracy_score IS NOT NULL
-                          AND {live_clause}
-                        """
-                    )
+                    await db.execute(LIVE_ORACLE_AVG_ACCURACY_SQL)
                 ).fetchone()
                 recent_rows = await (
-                    await db.execute(
-                        f"""
-                        SELECT *
-                        FROM oracle_predictions
-                        WHERE {live_clause}
-                        ORDER BY timestamp DESC, id DESC
-                        LIMIT ?
-                        """,
-                        (limit,),
-                    )
+                    await db.execute(LIVE_ORACLE_RECENT_SQL, (limit,))
                 ).fetchall()
 
             synth_total_row = await (
@@ -2238,25 +2199,11 @@ async def fetch_labeled_oracle_predictions(
     *,
     include_synthetic: bool = False,
 ) -> list[dict[str, Any]]:
-    from oracle_integrity import live_source_sql
-
     try:
-        source_clause = "" if include_synthetic else f"AND {live_source_sql()}"
+        query = ALL_ORACLE_LABELED_SQL if include_synthetic else LIVE_ORACLE_LABELED_SQL
         async with get_connection() as db:
             rows = await (
-                await db.execute(
-                    f"""
-                    SELECT *
-                    FROM oracle_predictions
-                    WHERE resolved = 1
-                      AND price_after_24h IS NOT NULL
-                      AND label IS NOT NULL
-                      {source_clause}
-                    ORDER BY timestamp ASC
-                    LIMIT ?
-                    """,
-                    (limit,),
-                )
+                await db.execute(query, (limit,))
             ).fetchall()
         return [dict(row) for row in rows]
     except Exception:
@@ -2678,19 +2625,10 @@ async def fetch_platform_analytics() -> dict[str, Any]:
 
 
 async def increment_platform_metric(metric: str) -> dict[str, Any]:
-    allowed = {"page_views", "dashboard_views", "landing_views", "voice_commands"}
-    if metric not in allowed:
-        raise ValueError(f"Unknown metric: {metric}")
+    sql = platform_metric_increment_sql(metric)
     try:
         async with get_connection() as db:
-            await db.execute(
-                f"""
-                UPDATE platform_analytics
-                SET {metric} = {metric} + 1, updated_at = ?
-                WHERE id = 1
-                """,
-                (_utcnow_iso(),),
-            )
+            await db.execute(sql, (_utcnow_iso(),))
         return await fetch_platform_analytics()
     except Exception:
         logger.exception(
@@ -2932,25 +2870,29 @@ async def upsert_subscription_by_stripe_id(
             )
         ).fetchone()
         if row:
-            updates: list[str] = []
-            params: list[Any] = []
+            sub_id = int(row[0])
             if tier is not None:
-                updates.append("tier = ?")
-                params.append(tier.strip().lower())
-            if status is not None:
-                updates.append("status = ?")
-                params.append(status)
-                if status == "past_due":
-                    updates.append("past_due_at = COALESCE(past_due_at, ?)")
-                    params.append(_utcnow_iso())
-                elif status == "active":
-                    updates.append("past_due_at = NULL")
-            if updates:
-                params.append(int(row[0]))
                 await db.execute(
-                    f"UPDATE subscriptions SET {', '.join(updates)} WHERE id = ?",
-                    params,
+                    "UPDATE subscriptions SET tier = ? WHERE id = ?",
+                    (tier.strip().lower(), sub_id),
                 )
+            if status is not None:
+                if status == "past_due":
+                    await db.execute(
+                        "UPDATE subscriptions SET status = ?, "
+                        "past_due_at = COALESCE(past_due_at, ?) WHERE id = ?",
+                        (status, _utcnow_iso(), sub_id),
+                    )
+                elif status == "active":
+                    await db.execute(
+                        "UPDATE subscriptions SET status = ?, past_due_at = NULL WHERE id = ?",
+                        (status, sub_id),
+                    )
+                else:
+                    await db.execute(
+                        "UPDATE subscriptions SET status = ? WHERE id = ?",
+                        (status, sub_id),
+                    )
             return
         if email and tier and status:
             await db.execute(
@@ -3244,7 +3186,7 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
                     await expire_subscription(int(row["id"]))
                     return None
             except ValueError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
         row["past_due_grace_days"] = grace_days
         return row
     except Exception:
@@ -3364,21 +3306,15 @@ async def update_user_profile_fields(user_id: int, fields: dict[str, Any]) -> No
         "password_hash",
         "password_is_set",
     }
-    updates = []
-    params: list[Any] = []
-    for key, value in fields.items():
-        if key not in allowed:
-            continue
-        updates.append(f"{key} = ?")
-        params.append(value)
-    if not updates:
-        return
-    params.append(int(user_id))
+    uid = int(user_id)
     async with get_connection() as db:
-        await db.execute(
-            f"UPDATE users SET {', '.join(updates)} WHERE id = ?",
-            params,
-        )
+        for key, value in fields.items():
+            if key not in allowed:
+                continue
+            sql = USER_PROFILE_UPDATE_SQL.get(key)
+            if sql is None:
+                continue
+            await db.execute(sql, (value, uid))
 
 
 async def fetch_user_by_username(username: str) -> dict[str, Any] | None:
@@ -3536,7 +3472,7 @@ def _parse_recovery_hashes(raw: Any) -> list[str]:
         if isinstance(data, list):
             return [str(x) for x in data]
     except Exception:
-        pass
+        logger.debug("json parse skipped", exc_info=True)
     return [x for x in str(raw).split(",") if x]
 
 
@@ -3718,18 +3654,11 @@ async def fetch_oracle_usage_month(email: str) -> int:
 async def count_risk_oracle_predictions_month() -> int:
     """Platform-wide elevated-risk oracle outputs in the last 30 days."""
     since = (datetime.now(UTC) - timedelta(days=30)).isoformat()
-    risk_labels = ("Do Not Touch", "CAUTION", "ELEVATED_RISK", "AVOID")
-    placeholders = ",".join("?" for _ in risk_labels)
     try:
         async with get_connection() as db:
             rows = await db.execute(
-                f"""
-                SELECT COUNT(*)
-                FROM oracle_predictions
-                WHERE timestamp >= ?
-                  AND verdict IN ({placeholders})
-                """,
-                (since, *risk_labels),
+                RISK_ORACLE_COUNT_SQL,
+                (since, *RISK_ORACLE_VERDICTS),
             )
             row = await rows.fetchone()
         return int(row[0]) if row else 0

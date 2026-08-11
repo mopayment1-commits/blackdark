@@ -14,6 +14,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
+import logging
+
+logger = logging.getLogger(__name__)
 
 _LOCK = threading.Lock()
 _INBOX: list[dict[str, Any]] = []
@@ -52,7 +55,7 @@ def push_in_app_alert(
             with _PATH.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(row, separators=(",", ":"), default=str) + "\n")
         except Exception:
-            pass
+            logger.debug("persist skipped", exc_info=True)
     return dict(row)
 
 

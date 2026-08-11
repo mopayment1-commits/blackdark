@@ -6,6 +6,9 @@ import asyncio
 import json
 from collections.abc import AsyncIterator
 from datetime import UTC, datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def _utcnow() -> str:
@@ -37,7 +40,7 @@ async def _snapshot_event() -> dict:
 
         payload["drawdown"] = drawdown_status()
     except Exception:
-        pass
+        logger.debug("drawdown status attach skipped", exc_info=True)
 
     payload["type"] = "snapshot"
     return payload

@@ -235,7 +235,7 @@ async def login_user(
                 detail={"reason": "invalid_credentials"},
             )
         except Exception:
-            pass
+            logger.debug("login failure audit emit skipped", exc_info=True)
         raise ValueError("Invalid email or password")
 
     mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
@@ -335,7 +335,7 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
         try:
             await delete_user_sessions_for_user(int(user_id))
         except Exception:
-            pass
+            logger.debug("prior session revoke skipped", exc_info=True)
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()

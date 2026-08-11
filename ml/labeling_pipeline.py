@@ -99,6 +99,7 @@ async def fetch_reference_price(asset: str) -> float | None:
                     if price > 0:
                         return price
                 except (aiohttp.ClientError, TypeError, ValueError):
+                    logger.debug("rl nudge skipped", exc_info=True)
                     continue
     except (aiohttp.ClientError, TypeError, ValueError):
         return None
@@ -202,7 +203,7 @@ async def resolve_mature_predictions(*, limit: int = 300) -> dict[str, Any]:
                         )
                         break
         except Exception:
-            pass
+            logger.debug("labeling backfill row skipped", exc_info=True)
         resolved_count += 1
 
     return {

@@ -122,7 +122,7 @@ async def shutdown(ctx: ServiceContext) -> None:
 
         await stop_kafka_consumer()
     except Exception:
-        pass
+        logger.debug("kafka consumer stop skipped", exc_info=True)
     from postgres_backend import close_pool
 
     await close_pool()
@@ -207,7 +207,7 @@ def service_info(ctx: ServiceContext | None = None) -> dict[str, Any]:
 
         infra = infra_matrix()
     except Exception:
-        pass
+        logger.debug("infra matrix skipped", exc_info=True)
     return {
         "service_mode": mode,
         "architecture": "microservices",

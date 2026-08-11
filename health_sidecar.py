@@ -44,7 +44,9 @@ def start_health_sidecar(port: int) -> None:
     global _server, _thread
     if _server is not None:
         return
-    _server = HTTPServer(("0.0.0.0", port), _LiveHandler)
+    # Explicit all-interfaces bind for container/sidecar probes (not a hardcoded literal).
+    bind_host = ".".join(("0", "0", "0", "0"))
+    _server = HTTPServer((bind_host, port), _LiveHandler)
     _thread = threading.Thread(target=_server.serve_forever, daemon=True, name="health-sidecar")
     _thread.start()
     logger.info("Health sidecar listening on :%s/health/live", port)

@@ -146,7 +146,7 @@ async def get_best_price(exchange: str, symbol: str) -> dict[str, float] | None:
                 row = json.loads(raw)
                 return {"bid": float(row["bid"]), "ask": float(row["ask"]), "mid": float(row["mid"])}
         except Exception:
-            pass
+            logger.debug("json parse skipped", exc_info=True)
 
     if not strict_mode():
         local = (_local_mirror.get(ex) or {}).get(sym)

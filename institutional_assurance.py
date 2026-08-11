@@ -19,6 +19,9 @@ from typing import Any
 
 from path_safety import ensure_under, project_data_dir
 from uuid import uuid4
+import logging
+
+logger = logging.getLogger(__name__)
 
 _LOCK = threading.Lock()
 _DATA_BASE = project_data_dir()
@@ -536,7 +539,7 @@ def coverage_catalog() -> dict[str, Any]:
 
         # sync wrapper not available — return static contractable catalog + honesty link
     except Exception:
-        pass
+        logger.debug("coverage honesty import skipped", exc_info=True)
     live = ["binance", "okx", "bybit", "coinbase", "kraken"]
     next_wave = ["jupiter", "uniswap", "hyperliquid"]
     return {

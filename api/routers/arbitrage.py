@@ -9,6 +9,9 @@ from fastapi import APIRouter, BackgroundTasks, Depends
 
 import config
 from api.deps import record_behavior, require_feature
+import logging
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/arbitrage", tags=["arbitrage"])
 
@@ -93,7 +96,7 @@ async def arbitrage_scan(
 
         increment_metric("arbitrage_scans_total")
     except Exception:
-        pass
+        logger.debug("metric increment skipped", exc_info=True)
     return result
 
 

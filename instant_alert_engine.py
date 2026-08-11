@@ -48,7 +48,7 @@ def _fingerprint(opp: dict[str, Any]) -> str:
             str(opp.get("sell_exchange") or opp.get("sell_venue") or ""),
         ]
     )
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
 def _cooldown_ok(key: str) -> bool:

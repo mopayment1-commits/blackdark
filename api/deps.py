@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 from fastapi import Cookie, Depends, Header, HTTPException
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 async def optional_user(
@@ -84,4 +87,4 @@ async def record_behavior(
 
         increment_metric("behavior_events_total")
     except Exception:
-        pass
+        logger.debug("metric increment skipped", exc_info=True)

@@ -10,6 +10,9 @@ from typing import Any
 import strawberry
 from strawberry.fastapi import GraphQLRouter
 from strawberry.types import Info
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -159,5 +162,5 @@ def create_graphql_router() -> GraphQLRouter:
 
         kwargs["subscription_protocols"] = [GRAPHQL_TRANSPORT_WS_PROTOCOL]
     except Exception:
-        pass
+        logger.debug("graphql ws protocol attach skipped", exc_info=True)
     return GraphQLRouter(schema, **kwargs)

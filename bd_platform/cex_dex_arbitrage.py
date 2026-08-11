@@ -40,7 +40,7 @@ async def _cex_prices(session: aiohttp.ClientSession, asset: str) -> dict[str, f
                 if p > 0:
                     out["binance"] = p
     except (aiohttp.ClientError, TypeError, ValueError):
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
     try:
         async with session.get(urls["okx"]) as resp:
             if resp.status == 200:
@@ -50,7 +50,7 @@ async def _cex_prices(session: aiohttp.ClientSession, asset: str) -> dict[str, f
                 if p > 0:
                     out["okx"] = p
     except (aiohttp.ClientError, TypeError, ValueError):
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
     return out
 
 
@@ -125,7 +125,7 @@ async def _gmx_price(session: aiohttp.ClientSession, asset: str, cex_ref: float)
                         continue
                     return {"venue": "gmx", "price": price, "liquidity_usd": 1_000_000, "source": "gmx_arbitrum"}
     except (aiohttp.ClientError, TypeError, ValueError):
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return {}
 
 
@@ -180,6 +180,7 @@ async def _best_dex_quote(
             if row.get("price"):
                 candidates.append(row)
         except TypeError:
+            logger.debug("optional operation skipped", exc_info=True)
             continue
     if not candidates:
         return {}

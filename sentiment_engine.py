@@ -14,7 +14,7 @@ import logging
 import os
 import re
 import time
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from typing import Any, Literal
@@ -473,7 +473,7 @@ async def _fetch_twitter_fallback_reddit(
                             )
                         )
         except (aiohttp.ClientError, TypeError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
     return items
 
 
@@ -821,6 +821,7 @@ class SentimentEngine:
                 )
                 break
             except TimeoutError:
+                logger.debug("optional operation skipped", exc_info=True)
                 continue
 
         logger.info("Sentiment engine loop stopped.")

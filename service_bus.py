@@ -100,6 +100,7 @@ async def _redis_listener_loop() -> None:
         try:
             payload = json.loads(raw.get("data") or "{}")
         except json.JSONDecodeError:
+            logger.debug("json parse skipped", exc_info=True)
             continue
         channel = str(raw.get("channel") or payload.get("channel") or "")
         handlers = _subscribers.get(channel, [])
@@ -131,7 +132,7 @@ async def stop_service_bus() -> None:
         try:
             await _redis_client.close()
         except Exception:
-            pass
+            logger.debug("redis operation skipped", exc_info=True)
         _redis_client = None
 
 

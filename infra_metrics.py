@@ -8,6 +8,9 @@ import os
 import sys
 import time
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def collect_infra_metrics() -> dict[str, Any]:
@@ -54,7 +57,7 @@ def collect_infra_metrics() -> dict[str, Any]:
 
         metrics["data_sources"] = registry_summary()
     except Exception:
-        pass
+        logger.debug("data sources registry skipped", exc_info=True)
 
     metrics["cost_rating"] = _cost_rating(metrics)
     return metrics

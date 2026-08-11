@@ -6,6 +6,9 @@ import json
 import os
 import urllib.request
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
@@ -16,8 +19,11 @@ def _env(name: str) -> str:
 
 
 def _probe(url: str) -> tuple[bool, int | None]:
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from path_safety import open_http_url
     try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
+        with open_http_url(url, timeout=15) as resp:
             return resp.status == 200, resp.status
     except Exception:
         return False, None
@@ -36,7 +42,8 @@ def main() -> int:
     print(f"  [{'OK' if oracle_ok else 'FAIL'}] /oracle/BTC    HTTP {oracle_code}")
 
     try:
-        with urllib.request.urlopen(f"{PROD_URL}/api/build-info", timeout=15) as resp:
+        from path_safety import open_http_url
+        with open_http_url(f"{PROD_URL}/api/build-info", timeout=15) as resp:
             info = json.loads(resp.read().decode())
         print(f"  Build: {info.get('release')} ({str(info.get('git_commit') or '')[:8]})")
     except Exception:
@@ -80,7 +87,7 @@ def main() -> int:
             print(f"  Failures: {', '.join(guard['required_failures'])}")
         print(f"  API: {PROD_URL}/api/production/guard")
     except Exception:
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
 
     print("\n--- GTM setup scripts ---")
     print("  python scripts/railway_production_checklist.py")

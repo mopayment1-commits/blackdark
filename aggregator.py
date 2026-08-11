@@ -1064,7 +1064,7 @@ class Aggregator:
                 try:
                     await asyncio.wait_for(self._shutdown.wait(), timeout=sleep_for)
                 except TimeoutError:
-                    pass
+                    logger.debug("optional operation skipped", exc_info=True)
 
         logger.info("Aggregator shutdown complete.")
 

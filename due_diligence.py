@@ -4,10 +4,13 @@ BLACKDARK — Due diligence bundle (uptime + latency + test coverage).
 
 from __future__ import annotations
 
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 from pathlib import Path
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent
 
@@ -32,7 +35,7 @@ def run_profit_fee_coverage() -> dict[str, Any]:
         "--cov-report=term-missing",
         "--cov-fail-under=90",
     ]
-    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)
+    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=300, check=False)  # nosec B603 — fixed argv, shell=False, no user input
     lines = (proc.stdout or "").splitlines()
     total_line = next((line for line in lines if "TOTAL" in line), "")
     pct = 0.0
@@ -42,7 +45,7 @@ def run_profit_fee_coverage() -> dict[str, Any]:
                 try:
                     pct = float(part.strip("%"))
                 except ValueError:
-                    pass
+                    logger.debug("optional operation skipped", exc_info=True)
     return {
         "gate_percent": 90,
         "coverage_percent": pct,

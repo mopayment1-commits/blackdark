@@ -189,7 +189,7 @@ async def dispatch_free_telegram_alerts(*, scan: dict[str, Any] | None = None) -
                 f"{str(row.get('oracle_sentence') or '')[:160]}"
             )
     except Exception:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
 
     if not messages:
         messages.append(

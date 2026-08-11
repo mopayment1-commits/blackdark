@@ -12,6 +12,9 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -23,7 +26,7 @@ def _configure_stdio() -> None:
         try:
             sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
         except (AttributeError, OSError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
 
 
 async def _probe(symbol: str) -> None:

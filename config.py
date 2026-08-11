@@ -5,6 +5,9 @@ All runtime parameters live here to prevent context drift across modules.
 
 import os
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 # ── Paths ──────────────────────────────────────────────────────────────────
 ROOT_DIR = Path(__file__).resolve().parent
@@ -174,7 +177,7 @@ def _load_universe_symbols() -> frozenset[str]:
             if symbols:
                 return frozenset(symbols)
         except (json.JSONDecodeError, OSError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
     return frozenset(
         {
             "BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "DOGE", "AVAX", "DOT", "LINK",
@@ -509,7 +512,7 @@ def _load_launch_promo_codes() -> dict[str, int]:
         if isinstance(parsed, dict) and parsed:
             return {str(k).upper(): int(v) for k, v in parsed.items()}
     except Exception:
-        pass
+        logger.debug("json parse skipped", exc_info=True)
     return defaults
 
 

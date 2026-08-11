@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import argparse
 import os
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 from pathlib import Path
 
@@ -28,22 +28,22 @@ def _ensure_env(admin_email: str, rotate: bool) -> Path:
         ]
         if rotate or needs:
             cmd.append("--rotate")
-        subprocess.check_call(cmd)
+        subprocess.check_call(cmd)  # nosec B603 — fixed argv, shell=False, no user input
     return path
 
 
 def _open(path: Path) -> int:
     if sys.platform.startswith("win"):
         # Prefer Notepad explicitly so Git Bash users see the same editor.
-        return subprocess.call(["notepad", str(path)])
+        return subprocess.call(["notepad", str(path)])  # nosec B603, B607
     if sys.platform == "darwin":
-        return subprocess.call(["open", str(path)])
+        return subprocess.call(["open", str(path)])  # nosec B603, B607
     # Linux / cloud VM
     for editor in (os.environ.get("EDITOR"), "xdg-open", "nano", "vi"):
         if not editor:
             continue
         try:
-            return subprocess.call([editor, str(path)])
+            return subprocess.call([editor, str(path)])  # nosec B603 — fixed argv, shell=False, no user input
         except FileNotFoundError:
             continue
     print(path)

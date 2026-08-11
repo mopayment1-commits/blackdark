@@ -95,7 +95,7 @@ def _crowd_residual_profit(opportunity: dict[str, Any], net_profit: float) -> tu
                 "residual_usd": residual,
             }
         except (TypeError, ValueError):
-            pass
+            logger.debug("optional operation skipped", exc_info=True)
 
     recipients = int(
         opportunity.get("estimated_recipients")

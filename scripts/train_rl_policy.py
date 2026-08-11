@@ -18,10 +18,10 @@ if hasattr(sys.stdout, "reconfigure"):
 def _synthetic_samples(n: int = 200) -> list[tuple[dict[str, float], float]]:
     samples: list[tuple[dict[str, float], float]] = []
     for _ in range(n):
-        ret = random.uniform(-0.08, 0.08)
-        vol = random.uniform(0.01, 0.15)
-        obi = random.uniform(-1, 1)
-        sent = random.uniform(-1, 1)
+        ret = random.uniform(-0.08, 0.08)  # nosec B311 — synthetic ML training data
+        vol = random.uniform(0.01, 0.15)  # nosec B311 — synthetic ML training data
+        obi = random.uniform(-1, 1)  # nosec B311 — synthetic ML training data
+        sent = random.uniform(-1, 1)  # nosec B311 — synthetic ML training data
         reward = ret * 2 + obi * 0.4 + sent * 0.2 - vol * 0.5
         samples.append(
             (

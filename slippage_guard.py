@@ -31,7 +31,7 @@ def _fingerprint(opp: dict[str, Any]) -> str:
             str(opp.get("sell_exchange") or opp.get("sell_venue") or ""),
         ]
     )
-    return hashlib.sha1(raw.encode()).hexdigest()[:16]
+    return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
 async def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:

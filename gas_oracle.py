@@ -114,7 +114,7 @@ async def _native_usd(session: aiohttp.ClientSession, chain: str) -> float:
         if row and row.get("mid"):
             return float(row["mid"])
     except Exception:
-        pass
+        logger.debug("book depth lookup skipped", exc_info=True)
     return NATIVE_USD_FALLBACK.get(chain, 100.0)
 
 

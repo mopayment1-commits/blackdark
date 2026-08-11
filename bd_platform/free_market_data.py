@@ -151,7 +151,7 @@ async def binance_liquidation_risk(asset: str = "BTC") -> dict[str, Any]:
 
 async def coindesk_rss(limit: int = 15) -> list[dict[str, Any]]:
     """Parse CoinDesk public RSS feed."""
-    import xml.etree.ElementTree as ET
+    import defusedxml.ElementTree as ET
 
     url = "https://www.coindesk.com/arc/outboundfeeds/rss/"
     timeout = aiohttp.ClientTimeout(total=12)

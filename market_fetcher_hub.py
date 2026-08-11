@@ -7,6 +7,9 @@ Routes each venue id to native REST, CCXT, CoinGecko proxy, DEX, or Perp DEX fet
 from __future__ import annotations
 
 import config
+import logging
+
+logger = logging.getLogger(__name__)
 
 NATIVE_EXCHANGES: frozenset[str] = frozenset(
     {"binance", "okx", "bybit", "coinbase", "kraken", "kucoin", "gateio", "bitget", "mexc"}
@@ -20,25 +23,25 @@ def build_all_market_fetchers(native_fetchers: dict) -> dict:
 
         fetchers.update(build_ccxt_market_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from coingecko_cex_fetcher import build_coingecko_market_fetchers
 
         fetchers.update(build_coingecko_market_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from dex_fetcher import build_dex_market_fetchers
 
         fetchers.update(build_dex_market_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from perp_dex_fetcher import build_perp_market_fetchers
 
         fetchers.update(build_perp_market_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return fetchers
 
 
@@ -49,13 +52,13 @@ def build_all_funding_fetchers(native_funding: dict) -> dict:
 
         funding.update(build_ccxt_funding_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from perp_dex_fetcher import build_perp_funding_fetchers
 
         funding.update(build_perp_funding_fetchers())
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return funding
 
 
@@ -69,21 +72,21 @@ def venue_kind(exchange_id: str) -> str:
         if ex in DEX_VENUES:
             return "dex"
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from perp_dex_fetcher import PERP_DEX_VENUES
 
         if ex in PERP_DEX_VENUES:
             return "perp_dex"
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     try:
         from coingecko_cex_fetcher import PHASE_B2_COINGECKO_EXCHANGES
 
         if ex in PHASE_B2_COINGECKO_EXCHANGES:
             return "coingecko"
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return "ccxt"
 
 
@@ -185,4 +188,4 @@ async def close_all_pools() -> None:
 
         await close_ccxt_pool()
     except ImportError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)

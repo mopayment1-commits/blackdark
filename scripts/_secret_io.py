@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def mask_secret(value: str, *, keep: int = 4) -> str:
@@ -29,13 +32,13 @@ def write_private_text(path: Path, text: str) -> None:
         try:
             tmp.unlink(missing_ok=True)
         except OSError:
-            pass
+            logger.debug("persist skipped", exc_info=True)
         raise
     os.replace(tmp, path)
     try:
         os.chmod(path, 0o600)
     except OSError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
 
 
 def is_secret_env_key(key: str) -> bool:

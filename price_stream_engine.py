@@ -202,7 +202,7 @@ def feed_engine_status() -> dict[str, Any]:
 
         redis_stats = cache_stats()
     except ImportError:
-        pass
+        logger.debug("book depth lookup skipped", exc_info=True)
 
     kafka_stats: dict[str, Any] = {}
     try:
@@ -210,7 +210,7 @@ def feed_engine_status() -> dict[str, Any]:
 
         kafka_stats = bus_status()
     except ImportError:
-        pass
+        logger.debug("redis operation skipped", exc_info=True)
 
     return {
         "architecture": "ws_only" if ws_only_mode() else "hybrid",

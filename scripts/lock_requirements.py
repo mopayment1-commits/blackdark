@@ -4,7 +4,7 @@
 from __future__ import annotations
 
 import re
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 from pathlib import Path
 
@@ -24,7 +24,7 @@ def _parse_names(path: Path) -> list[tuple[str, str]]:
 
 
 def _freeze_map() -> dict[str, str]:
-    raw = subprocess.check_output([sys.executable, "-m", "pip", "freeze"], text=True)
+    raw = subprocess.check_output([sys.executable, "-m", "pip", "freeze"], text=True)  # nosec B603 — fixed argv, shell=False, no user input
     fmap: dict[str, str] = {}
     for line in raw.splitlines():
         if "==" not in line or line.startswith("-e"):

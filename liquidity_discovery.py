@@ -722,7 +722,7 @@ def build_whitelist_fallback_manifest() -> dict[str, Any]:
 
         manifest["universe"] = build_manifest_universe_block()
     except Exception:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
     return manifest
 
 

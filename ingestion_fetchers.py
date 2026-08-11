@@ -9,7 +9,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 from collections.abc import Awaitable, Callable
 from typing import Any
 

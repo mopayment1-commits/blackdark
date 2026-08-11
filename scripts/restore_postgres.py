@@ -10,7 +10,7 @@ import argparse
 import gzip
 import os
 import shutil
-import subprocess
+import subprocess  # nosec B404 — intentional admin tooling
 import sys
 import tempfile
 from pathlib import Path
@@ -40,7 +40,7 @@ def main() -> int:
         shutil.copyfileobj(src, tmp)
         tmp_path = tmp.name
     try:
-        proc = subprocess.run(
+        proc = subprocess.run(  # nosec B603 — fixed argv, shell=False, no user input
             [psql, url, "-v", "ON_ERROR_STOP=1", "-f", tmp_path],
             capture_output=True,
             text=True,

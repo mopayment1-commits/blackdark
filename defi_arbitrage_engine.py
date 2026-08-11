@@ -111,7 +111,7 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
                         dex_b_price = p
                         dex_b_venue = row.get("dexId") or "dex"
     except aiohttp.ClientError:
-        pass
+        logger.debug("optional operation skipped", exc_info=True)
 
     if dex_b_price <= 0:
         return None
@@ -173,6 +173,7 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
                 if best_p > 0:
                     prices[chain] = best_p
         except aiohttp.ClientError:
+            logger.debug("optional operation skipped", exc_info=True)
             continue
 
     if len(prices) < 2:

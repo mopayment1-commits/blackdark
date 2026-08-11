@@ -14,7 +14,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
-import random
+import secrets
 import time
 from typing import Any, Self
 
@@ -140,7 +140,7 @@ async def stagger_before_poll(exchange_id: str) -> None:
     if not _enabled():
         return
     base = stagger_ms() / 1000.0
-    jitter = random.uniform(0, base * 2)
+    jitter = secrets.SystemRandom().uniform(0, base * 2)
     slot = (hash(exchange_id) % 17) * (base / 17)
     await asyncio.sleep(jitter + slot)
 

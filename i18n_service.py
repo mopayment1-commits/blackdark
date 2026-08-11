@@ -10,6 +10,9 @@ from __future__ import annotations
 import json
 from collections.abc import Callable
 from typing import Any
+import logging
+
+logger = logging.getLogger(__name__)
 
 # code -> metadata
 LOCALES: dict[str, dict[str, str]] = {
@@ -464,13 +467,13 @@ def resolve_request_lang(request: Any) -> str:
         if q:
             return normalize_lang(q)
     except Exception:
-        pass
+        logger.debug("lang resolve skipped", exc_info=True)
     try:
         cookie = request.cookies.get("bd_lang")
         if cookie:
             return normalize_lang(cookie)
     except Exception:
-        pass
+        logger.debug("lang resolve skipped", exc_info=True)
     try:
         header = request.headers.get("accept-language") or ""
         if header:
@@ -479,7 +482,7 @@ def resolve_request_lang(request: Any) -> str:
             if cand in LOCALES:
                 return cand
     except Exception:
-        pass
+        logger.debug("lang resolve skipped", exc_info=True)
     return DEFAULT_LANG
 
 

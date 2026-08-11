@@ -33,19 +33,29 @@ async def _read_timescale_closes(symbol: str, *, limit: int) -> list[float]:
     except ImportError:
         return []
 
-    schema = config.HOT_STORAGE_TIMESCALE_SCHEMA
+    from sql_safety import require_schema_ident
+
+    schema = require_schema_ident(str(config.HOT_STORAGE_TIMESCALE_SCHEMA or "public"))
     sym = _normalize_symbol(symbol)
+    # Schema is env config (validated identifier), not request input.
+    if schema == "public":
+        query = """
+                SELECT price
+                FROM public.hot_pricing
+                WHERE symbol = $1
+                ORDER BY timestamp DESC
+                LIMIT $2
+                """
+    else:
+        query = (
+            f"SELECT price FROM {schema}.hot_pricing "  # nosec B608
+            "WHERE symbol = $1 ORDER BY timestamp DESC LIMIT $2"
+        )
     try:
         conn = await asyncpg.connect(dsn=dsn, timeout=8)
         try:
             rows = await conn.fetch(
-                f"""
-                SELECT price
-                FROM {schema}.hot_pricing
-                WHERE symbol = $1
-                ORDER BY timestamp DESC
-                LIMIT $2
-                """,
+                query,
                 sym,
                 limit,
             )
@@ -75,6 +85,7 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
                     try:
                         row = json.loads(stripped)
                     except json.JSONDecodeError:
+                        logger.debug("json parse skipped", exc_info=True)
                         continue
                     if str(row.get("symbol", "")).upper() != sym:
                         continue
@@ -85,6 +96,7 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
                     if len(closes) >= limit:
                         return closes[-limit:]
         except OSError:
+            logger.debug("optional operation skipped", exc_info=True)
             continue
     return closes[-limit:]
 
@@ -125,7 +137,7 @@ async def hot_tier_status() -> dict[str, Any]:
             try:
                 spool_bytes += path.stat().st_size
             except OSError:
-                pass
+                logger.debug("optional operation skipped", exc_info=True)
     return {
         "backend": config.HOT_STORAGE_BACKEND,
         "retention_hours": config.HOT_TIER_RETENTION_HOURS,

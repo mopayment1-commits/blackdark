@@ -135,6 +135,7 @@ async def _jupiter_price(session: aiohttp.ClientSession, asset: str) -> float:
                 if price > 0:
                     return price
         except (aiohttp.ClientError, TypeError, ValueError):
+            logger.debug("optional operation skipped", exc_info=True)
             continue
     return await _defillama_price(session, asset)
 
@@ -172,7 +173,7 @@ async def _thorchain_price(session: aiohttp.ClientSession, asset: str) -> float:
                     if price_rune > 0:
                         return await _defillama_price(session, asset)
     except (aiohttp.ClientError, TypeError, ValueError, OSError):
-        pass
+        logger.debug("rl nudge skipped", exc_info=True)
     return await _defillama_price(session, asset)
 
 
