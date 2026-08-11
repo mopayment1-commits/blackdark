@@ -67,12 +67,16 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
             body.name,
             username=body.username,
             accepted_terms=body.accepted_terms,
+            plan=body.plan,
         )
         background_tasks.add_task(
             record_behavior,
             "auth_register",
             user=result.get("user"),
-            payload={"email_domain": body.email.split("@")[-1] if "@" in body.email else ""},
+            payload={
+                "email_domain": body.email.split("@")[-1] if "@" in body.email else "",
+                "selected_plan": result.get("selected_plan"),
+            },
         )
         from observability import increment_metric
 

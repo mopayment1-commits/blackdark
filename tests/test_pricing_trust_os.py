@@ -7,7 +7,9 @@ def test_pricing_catalog_four_depths():
     from pricing_catalog import pricing_catalog
 
     cat = pricing_catalog()
+    assert cat["option"] == "A"
     assert cat["honesty"]["guaranteed_accuracy_claimed"] is False
+    assert cat["honesty"]["no_fifteen_dollar_tier"] is True
     ids = [t["id"] for t in cat["tiers"]]
     assert ids == ["free", "pro", "whale", "institutional"]
     by_id = {t["id"]: t for t in cat["tiers"]}
@@ -23,6 +25,28 @@ def test_pricing_catalog_four_depths():
     assert by_id["institutional"]["price_usd_month_from"] == 3000
     assert "open" in by_id["institutional"]["price_display"].lower()
     assert cat["integration_addendum"]
+    assert len(cat["signup_plans"]) == 4
+    assert "why_29_is_fair" in cat["value_equation"]
+
+
+def test_option_a_upgrade_ladder_and_signup_next():
+    from pricing_catalog import next_upgrade, normalize_signup_plan, signup_next_after_register
+
+    free_up = next_upgrade("free")
+    assert free_up["next_id"] == "pro"
+    assert free_up["checkout_tier"] == "pro"
+    pro_up = next_upgrade("pro")
+    assert pro_up["next_id"] == "whale"
+    whale_up = next_upgrade("whale")
+    assert whale_up["next_id"] == "institutional"
+    assert whale_up["checkout_tier"] is None
+    assert next_upgrade("institutional")["has_upgrade"] is False
+
+    assert normalize_signup_plan("decision_pro") == "pro"
+    assert signup_next_after_register("free")["start_pro_trial"] is False
+    assert signup_next_after_register("pro")["start_pro_trial"] is True
+    assert signup_next_after_register("whale")["action"] == "checkout"
+    assert signup_next_after_register("institutional")["action"] == "data_room"
 
 
 def test_tier_features_proof_pass_limits():

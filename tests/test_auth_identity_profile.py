@@ -75,12 +75,27 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
             "Trader One",
             username="trader_one",
             accepted_terms=True,
+            plan="free",
         )
         assert result["user"]["username"] == "trader_one"
+        assert result["selected_plan"] == "free"
+        assert result["trial"] is None
+        assert result["next"]["start_pro_trial"] is False
         assert result["email_verification"]["required"] is True
         assert result["token"]
         prof = await database.fetch_user_profile("trader@example.com")
         assert prof["username"] == "trader_one"
+
+        pro = await register_user(
+            "prouser@example.com",
+            "strong-pass-12345",
+            "Pro User",
+            accepted_terms=True,
+            plan="pro",
+        )
+        assert pro["selected_plan"] == "pro"
+        assert pro["trial"] and pro["trial"]["active"] is True
+        assert pro["user"]["tier"] == "pro"
 
     asyncio.run(_run())
 
@@ -88,9 +103,12 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
 def test_login_template_has_mfa_and_oauth_and_forgot():
     html = Path("templates/login.html").read_text(encoding="utf-8")
     assert "mfaForm" in html
-    assert "Continue with Google" in html
-    assert "Forgot password" in html
+    assert ("Continue with Google" in html) or ("auth.google" in html)
+    assert ("Forgot password" in html) or ("auth.forgot_pass" in html)
     assert "accepted_terms" in html or "regTerms" in html
+    assert 'name="regPlan"' in html
+    assert 'data-plan="pro"' in html
+    assert 'data-plan="institutional"' in html
     assert Path("templates/profile.html").is_file()
     assert Path("templates/reset_password.html").is_file()
     assert Path("docs/AUTH_IDENTITY_PROFILE.md").is_file()

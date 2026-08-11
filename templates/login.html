@@ -22,7 +22,20 @@
             backdrop-filter: blur(8px);
         }
         .login-chrome .brand { font-family: var(--bd-font-display); font-weight: 800; color: #22d3ee; text-decoration: none; letter-spacing: .04em; }
-        .card { width:min(440px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
+        .card { width:min(520px,100%); background:var(--card); border:1px solid var(--border); border-radius:18px; padding:2rem; animation: bdPulseIn .45s var(--bd-ease-out) both; }
+        .plan-grid { display:grid; gap:.55rem; margin:0 0 1rem; }
+        .plan-card {
+            display:block; border:1px solid var(--border); border-radius:12px; padding:.7rem .8rem;
+            background:#14141c; cursor:pointer; transition: border-color .15s ease, background .15s ease;
+        }
+        .plan-card:hover { border-color:#3f3f4a; }
+        .plan-card.active { border-color:var(--accent); background:rgba(34,211,238,.08); }
+        .plan-card input { position:absolute; opacity:0; pointer-events:none; }
+        .plan-top { display:flex; justify-content:space-between; gap:.5rem; align-items:baseline; }
+        .plan-name { font-weight:700; font-size:.92rem; }
+        .plan-price { color:var(--accent); font-weight:800; font-size:.92rem; white-space:nowrap; }
+        .plan-promise { color:var(--muted); font-size:.75rem; margin-top:.25rem; line-height:1.35; }
+        .plan-badge { display:inline-block; font-size:.65rem; font-weight:700; color:#0a0a0f; background:var(--accent); border-radius:999px; padding:.1rem .45rem; margin-inline-start:.35rem; }
         h1 { font-family: var(--bd-font-display); font-size:2rem; font-weight:800; margin-bottom:.25rem; color:var(--accent); letter-spacing:.04em; }
         .lead { color:var(--muted); font-size:.9rem; margin-bottom:1.25rem; line-height:1.45; }
         label { display:block; font-size:.78rem; color:#a1a1aa; margin-bottom:.35rem; }
@@ -93,6 +106,29 @@
         </form>
 
         <form id="registerForm" class="hidden" onsubmit="doRegister(event)">
+            <label>Choose your plan</label>
+            <div class="plan-grid" id="planGrid" role="radiogroup" aria-label="Pricing plan">
+                <label class="plan-card active" data-plan="free">
+                    <input type="radio" name="regPlan" value="free" checked>
+                    <div class="plan-top"><span class="plan-name">Proof Pass</span><span class="plan-price">$0</span></div>
+                    <div class="plan-promise">Act/Wait + Why + shareable Proof Card — 3 certified decisions/day.</div>
+                </label>
+                <label class="plan-card" data-plan="pro">
+                    <input type="radio" name="regPlan" value="pro">
+                    <div class="plan-top"><span class="plan-name">Decision Pro <span class="plan-badge">Recommended</span></span><span class="plan-price">$29</span></div>
+                    <div class="plan-promise">7-day trial · unlimited decisions · Portfolio AI · no Free Proof watermark.</div>
+                </label>
+                <label class="plan-card" data-plan="whale">
+                    <input type="radio" name="regPlan" value="whale">
+                    <div class="plan-top"><span class="plan-name">Decision Desk</span><span class="plan-price">$49</span></div>
+                    <div class="plan-promise">Everything in Pro + whale filter, Stealth Advisor, B2B/API, Evidence Pack.</div>
+                </label>
+                <label class="plan-card" data-plan="institutional">
+                    <input type="radio" name="regPlan" value="institutional">
+                    <div class="plan-top"><span class="plan-name">Institutional</span><span class="plan-price">From $3,000→open</span></div>
+                    <div class="plan-promise">Data Room / SLA / roles — Talk to us (not self-serve checkout).</div>
+                </label>
+            </div>
             <label for="regName">Display name</label>
             <input type="text" id="regName" maxlength="80" placeholder="How we greet you" autocomplete="name">
             <label for="regUsername">Public username (optional)</label>
@@ -105,7 +141,7 @@
                 <input type="checkbox" id="regTerms" required>
                 <span>{{ t('auth.accept_terms') }} (<a href="/terms" target="_blank">Terms</a> · <a href="/privacy" target="_blank">Privacy</a> · <a href="/disclaimer" target="_blank">Disclaimer</a>)</span>
             </label>
-            <button type="submit" class="btn-primary">{{ t('auth.create') }}</button>
+            <button type="submit" class="btn-primary" id="regSubmit">{{ t('auth.create') }}</button>
         </form>
 
         <form id="forgotForm" class="hidden" onsubmit="doForgot(event)">
@@ -160,10 +196,27 @@
             msg.className = 'msg ' + (ok ? 'ok' : 'error');
             msg.textContent = text;
         }
+        function selectedPlan() {
+            const el = document.querySelector('input[name="regPlan"]:checked');
+            return (el && el.value) || 'free';
+        }
+        function syncPlanCards() {
+            const plan = selectedPlan();
+            document.querySelectorAll('.plan-card').forEach(card => {
+                card.classList.toggle('active', card.getAttribute('data-plan') === plan);
+            });
+            const btn = document.getElementById('regSubmit');
+            if (!btn) return;
+            if (plan === 'pro') btn.textContent = 'Create account · start 7-day Pro trial';
+            else if (plan === 'whale') btn.textContent = 'Create account · continue to Desk $49';
+            else if (plan === 'institutional') btn.textContent = 'Create account · Talk to us';
+            else btn.textContent = 'Create free Proof Pass account';
+        }
         function saveAuth(data) {
             if (data.token) localStorage.setItem('bd_token', data.token);
             if (data.user) localStorage.setItem('bd_user', JSON.stringify(data.user));
-            window.location.href = '/profile?welcome=1';
+            const next = (data.next && data.next.href) || '/profile?welcome=1';
+            window.location.href = next;
         }
         async function detail(res) {
             const d = await res.json().catch(() => ({}));
@@ -229,7 +282,8 @@
                         username: document.getElementById('regUsername').value,
                         email: document.getElementById('regEmail').value,
                         password: document.getElementById('regPassword').value,
-                        accepted_terms: document.getElementById('regTerms').checked
+                        accepted_terms: document.getElementById('regTerms').checked,
+                        plan: selectedPlan()
                     })
                 });
                 const d = await res.json();
@@ -242,6 +296,7 @@
                 if (d.email_verification && d.email_verification.debug_link) {
                     console.info('Verify email:', d.email_verification.debug_link);
                 }
+                if (d.next && d.next.message) setMsg(d.next.message, true);
                 saveAuth(d);
             } catch (err) {
                 setMsg(err.message, false);
@@ -301,12 +356,25 @@
                 }
             } catch (e) {}
         }
+        document.querySelectorAll('input[name="regPlan"]').forEach(el => {
+            el.addEventListener('change', syncPlanCards);
+        });
+        document.querySelectorAll('.plan-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const input = card.querySelector('input[name="regPlan"]');
+                if (input) { input.checked = true; syncPlanCards(); }
+            });
+        });
         if (localStorage.getItem('bd_token') && !location.search.includes('stay=1')) {
             window.location.href = '/profile';
         } else {
             loadOAuth();
             const params = new URLSearchParams(location.search);
             if (params.get('tab') === 'register') showTab('register');
+            const plan = (params.get('plan') || 'free').toLowerCase();
+            const planInput = document.querySelector('input[name="regPlan"][value="' + plan + '"]');
+            if (planInput) planInput.checked = true;
+            syncPlanCards();
             if (params.get('reset') === '1') setMsg('Password updated — you can log in.', true);
         }
     </script>

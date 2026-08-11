@@ -115,3 +115,25 @@ async def api_pricing():
 
     return pricing_catalog()
 
+
+@router.get("/api/pricing/upgrade-path")
+async def api_pricing_upgrade_path(tier: str = "free"):
+    """Single next upgrade step for the current tier (Option A ladder)."""
+    from pricing_catalog import next_upgrade
+
+    return next_upgrade(tier)
+
+
+@router.get("/api/pricing/signup-plans")
+async def api_pricing_signup_plans():
+    """Four Option A plans for the signup picker."""
+    from pricing_catalog import PRICING_OPTION, signup_plan_cards, VALUE_EQUATION
+
+    return {
+        "option": PRICING_OPTION,
+        "plans": signup_plan_cards(),
+        "value_equation": VALUE_EQUATION,
+        "default_plan": "free",
+        "recommended_plan": "pro",
+    }
+
