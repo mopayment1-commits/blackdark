@@ -35,6 +35,17 @@ def evaluate_architecture_dd() -> dict[str, Any]:
     sentry = bool(os.getenv("SENTRY_DSN", "").strip())
     replicas = int(os.getenv("RAILWAY_REPLICA_COUNT", "1") or "1")
 
+    if guard.get("required_pass") and replicas >= 2:
+        spof_score = 0.7
+    elif guard.get("required_pass"):
+        spof_score = 0.45
+    else:
+        spof_score = 0.25
+    if guard.get("required_pass"):
+        spof_evidence = guard.get("required_failures") or ["postgres+billing ok"]
+    else:
+        spof_evidence = guard.get("required_failures")
+
     items: dict[str, dict[str, Any]] = {
         "ARC-001": {
             "question": "Is the architecture modular?",
@@ -58,8 +69,8 @@ def evaluate_architecture_dd() -> dict[str, Any]:
         },
         "ARC-005": {
             "question": "Is there any single point of failure?",
-            "score": 0.7 if guard.get("required_pass") and replicas >= 2 else (0.45 if guard.get("required_pass") else 0.25),
-            "evidence": guard.get("required_failures") or ["postgres+billing ok"] if guard.get("required_pass") else guard.get("required_failures"),
+            "score": spof_score,
+            "evidence": spof_evidence,
         },
         "ARC-006": {
             "question": "Can modules be replaced independently?",

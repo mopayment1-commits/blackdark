@@ -17,11 +17,17 @@ def is_production() -> bool:
 
 
 def _check(name: str, ok: bool, *, required: bool, hint: str) -> dict[str, Any]:
+    if ok:
+        status = "pass"
+    elif required:
+        status = "fail"
+    else:
+        status = "warn"
     return {
         "id": name,
         "ok": ok,
         "required": required,
-        "status": "pass" if ok else ("fail" if required else "warn"),
+        "status": status,
         "hint": hint,
     }
 
@@ -301,6 +307,13 @@ def evaluate_production_guard() -> dict[str, Any]:
     required_fail = [c for c in checks if c["required"] and not c["ok"]]
     warn = [c for c in checks if not c["required"] and not c["ok"]]
 
+    if lemon:
+        billing_provider = "lemon_squeezy"
+    elif stripe:
+        billing_provider = "stripe"
+    else:
+        billing_provider = "none"
+
     return {
         "production": is_production(),
         "soft_launch": soft_launch,
@@ -310,7 +323,7 @@ def evaluate_production_guard() -> dict[str, Any]:
         "parallelism": parallel,
         "service_mode": mode,
         "database": "postgresql" if pg else "sqlite",
-        "billing_provider": "lemon_squeezy" if lemon else ("stripe" if stripe else "none"),
+        "billing_provider": billing_provider,
         "checks": checks,
         "required_pass": len(required_fail) == 0,
         "required_failures": [c["id"] for c in required_fail],

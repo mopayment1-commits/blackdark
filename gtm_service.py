@@ -52,7 +52,12 @@ def _telegram_ready() -> dict[str, Any]:
     token = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
     webhook = os.getenv("TELEGRAM_WEBHOOK_URL", "").strip()
     polling = os.getenv("TELEGRAM_POLLING_ENABLED", "").strip().lower() in {"1", "true", "yes"}
-    mode = "webhook" if webhook else ("polling" if polling or token else "none")
+    if webhook:
+        mode = "webhook"
+    elif polling or token:
+        mode = "polling"
+    else:
+        mode = "none"
     if token and not webhook and not polling:
         mode = "polling_auto"
     return {
@@ -71,7 +76,12 @@ def _mkt_verdicts(metrics: dict[str, Any], docs: dict[str, bool]) -> dict[str, s
     trials = int(metrics.get("active_trials") or 0)
     telegram_subs = int(metrics.get("telegram_free_subscribers") or 0)
 
-    demand = "pass" if paid >= 3 else ("partial" if paid >= 1 or trials >= 5 else "fail")
+    if paid >= 3:
+        demand = "pass"
+    elif paid >= 1 or trials >= 5:
+        demand = "partial"
+    else:
+        demand = "fail"
     positioning = "pass" if docs.get("icp") and docs.get("competitive_matrix") else "partial"
     barriers = "pass" if docs.get("market_barriers") else "partial"
 

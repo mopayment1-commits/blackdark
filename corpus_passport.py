@@ -16,62 +16,72 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-async def build_corpus_passport() -> dict[str, Any]:
-    registry: dict[str, Any] = {}
+def _registry_stats() -> dict[str, Any]:
     try:
         from signal_registry import registry_stats
 
-        registry = registry_stats()
+        return registry_stats()
     except Exception as exc:
-        registry = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    accuracy: dict[str, Any] = {}
+
+def _public_accuracy() -> dict[str, Any]:
     try:
         from oracle_track_record import public_track_record
 
-        accuracy = public_track_record() or {}
+        return public_track_record() or {}
     except Exception as exc:
-        accuracy = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    kills: dict[str, Any] = {}
+
+def _kill_metrics() -> dict[str, Any]:
     try:
         from kill_rate_board import build_kill_rate_board
 
-        kills = build_kill_rate_board().get("metrics") or {}
+        return build_kill_rate_board().get("metrics") or {}
     except Exception as exc:
-        kills = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    truth: dict[str, Any] = {}
+
+def _net_edge_truth() -> dict[str, Any]:
     try:
         from net_edge_truth import net_edge_truth_status
 
-        truth = net_edge_truth_status()
+        return net_edge_truth_status()
     except Exception as exc:
-        truth = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    flywheel: dict[str, Any] = {}
+
+def _flywheel_status() -> dict[str, Any]:
     try:
         from flywheel_saturation_guard import flywheel_saturation_status
 
-        flywheel = flywheel_saturation_status()
+        return flywheel_saturation_status()
     except Exception as exc:
-        flywheel = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    moat: dict[str, Any] = {}
+
+async def _data_moat_status() -> dict[str, Any]:
     try:
         from data_moat_guard import build_moat_build_status
 
-        moat = await build_moat_build_status()
+        return await build_moat_build_status()
     except Exception as exc:
-        moat = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    labeled = int(registry.get("labeled") or 0)
-    unlabeled = int(registry.get("unlabeled") or 0)
-    total = int(registry.get("total_in_memory") or (labeled + unlabeled) or 0)
-    linked = int(registry.get("linked_prediction_ids") or 0)
-    status = str(registry.get("status") or ("live" if labeled else "bootstrapping"))
 
-    stamps = [
+def _passport_stamps(
+    *,
+    labeled: int,
+    unlabeled: int,
+    linked: int,
+    status: str,
+    registry: dict[str, Any],
+    accuracy: dict[str, Any],
+    kills: dict[str, Any],
+    truth: dict[str, Any],
+) -> list[str]:
+    return [
         f"Labeled signals: {labeled}",
         f"Unlabeled / pending: {unlabeled}",
         f"Linked prediction_ids: {linked}",
@@ -84,6 +94,32 @@ async def build_corpus_passport() -> dict[str, Any]:
         "Anti-leakage: temporal validation + labeled flywheel path",
         "Not selling: raw model weights / indicator spam",
     ]
+
+
+async def build_corpus_passport() -> dict[str, Any]:
+    registry = _registry_stats()
+    accuracy = _public_accuracy()
+    kills = _kill_metrics()
+    truth = _net_edge_truth()
+    flywheel = _flywheel_status()
+    moat = await _data_moat_status()
+
+    labeled = int(registry.get("labeled") or 0)
+    unlabeled = int(registry.get("unlabeled") or 0)
+    total = int(registry.get("total_in_memory") or (labeled + unlabeled) or 0)
+    linked = int(registry.get("linked_prediction_ids") or 0)
+    status = str(registry.get("status") or ("live" if labeled else "bootstrapping"))
+
+    stamps = _passport_stamps(
+        labeled=labeled,
+        unlabeled=unlabeled,
+        linked=linked,
+        status=status,
+        registry=registry,
+        accuracy=accuracy,
+        kills=kills,
+        truth=truth,
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>BLACKDARK Corpus Passport</title>
