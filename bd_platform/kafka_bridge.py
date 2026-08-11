@@ -91,6 +91,55 @@ async def publish(channel: str, payload: dict[str, Any]) -> dict[str, Any]:
     return {"transport": "service_bus", "channel": channel, "ok": True}
 
 
+def _poll_kafka_batch(consumer: Any) -> list[Any]:
+    # kafka-python is sync — never block the event loop
+    batch = []
+    for msg in consumer:
+        batch.append(msg)
+        if len(batch) >= 50:
+            break
+    return batch
+
+
+async def _dispatch_kafka_batch(
+    batch: list[Any],
+    handler: Callable[[str, dict[str, Any]], Awaitable[None]] | None,
+) -> None:
+    for msg in batch:
+        payload = msg.value if isinstance(msg.value, dict) else {}
+        _received.append({"topic": msg.topic, "payload": payload})
+        if len(_received) > 200:
+            _received.pop(0)
+        if handler:
+            await handler(msg.topic, payload)
+
+
+async def _kafka_consumer_loop(
+    handler: Callable[[str, dict[str, Any]], Awaitable[None]] | None,
+    topics: tuple[str, ...],
+) -> None:
+    try:
+        from kafka import KafkaConsumer
+
+        consumer = KafkaConsumer(
+            *topics,
+            bootstrap_servers=kafka_brokers().split(","),
+            value_deserializer=lambda m: json.loads(m.decode("utf-8")),
+            auto_offset_reset="latest",
+            consumer_timeout_ms=1000,
+            group_id=os.getenv("KAFKA_GROUP_ID", "blackdark-workers"),
+        )
+        logger.info("Kafka consumer started on %s", topics)
+        while True:
+            batch = await asyncio.to_thread(_poll_kafka_batch, consumer)
+            await _dispatch_kafka_batch(batch, handler)
+            await asyncio.sleep(0.5)
+    except asyncio.CancelledError:
+        raise
+    except Exception as exc:
+        logger.warning("Kafka consumer stopped: %s", exc)
+
+
 async def start_kafka_consumer(
     handler: Callable[[str, dict[str, Any]], Awaitable[None]] | None = None,
     *,
@@ -102,45 +151,10 @@ async def start_kafka_consumer(
     if not kafka_enabled() or _consumer_task is not None:
         return _consumer_task
 
-    async def _loop() -> None:
-        try:
-            from kafka import KafkaConsumer
-
-            consumer = KafkaConsumer(
-                *topics,
-                bootstrap_servers=kafka_brokers().split(","),
-                value_deserializer=lambda m: json.loads(m.decode("utf-8")),
-                auto_offset_reset="latest",
-                consumer_timeout_ms=1000,
-                group_id=os.getenv("KAFKA_GROUP_ID", "blackdark-workers"),
-            )
-            logger.info("Kafka consumer started on %s", topics)
-
-            def _poll_batch():
-                # kafka-python is sync — never block the event loop
-                batch = []
-                for msg in consumer:
-                    batch.append(msg)
-                    if len(batch) >= 50:
-                        break
-                return batch
-
-            while True:
-                batch = await asyncio.to_thread(_poll_batch)
-                for msg in batch:
-                    payload = msg.value if isinstance(msg.value, dict) else {}
-                    _received.append({"topic": msg.topic, "payload": payload})
-                    if len(_received) > 200:
-                        _received.pop(0)
-                    if handler:
-                        await handler(msg.topic, payload)
-                await asyncio.sleep(0.5)
-        except asyncio.CancelledError:
-            raise
-        except Exception as exc:
-            logger.warning("Kafka consumer stopped: %s", exc)
-
-    _consumer_task = asyncio.create_task(_loop(), name="kafka-consumer")
+    _consumer_task = asyncio.create_task(
+        _kafka_consumer_loop(handler, topics),
+        name="kafka-consumer",
+    )
     return _consumer_task
 
 
