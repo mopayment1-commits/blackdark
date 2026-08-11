@@ -10,7 +10,6 @@ from typing import Any
 
 import aiohttp
 
-from log_safety import sanitize_log_value
 from path_safety import assert_url_path_safe, safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.FreeIntegrations")
@@ -39,7 +38,7 @@ async def _get_json(
                     return None
                 return await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
-        logger.debug("GET failed: %s", sanitize_log_value(url, max_len=120))
+        logger.debug("GET failed: %s", str(url).replace("\r", " ").replace("\n", " "))
         return None
 
 
@@ -382,7 +381,13 @@ async def holder_analytics(asset: str = "BTC") -> dict[str, Any]:
         "XRP": "ripple", "ADA": "cardano", "AVAX": "avalanche-2", "DOT": "polkadot",
         "LINK": "chainlink", "DOGE": "dogecoin",
     }
-    coin_id = safe_url_segment(coin_id_map.get(sym, sym.lower()))
+    mapped = coin_id_map.get(sym)
+    if mapped is not None:
+        coin_id = mapped  # constant allowlist entry
+    else:
+        coin_id = sym.lower()
+        if not coin_id.isalnum():
+            return {"available": False, "asset": sym, "error": "invalid_coin_id"}
     cg = await _get_json(f"https://api.coingecko.com/api/v3/coins/{coin_id}")
     futures = await binance_futures_snapshot(sym)
 

@@ -12,8 +12,6 @@ from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
-from log_safety import sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.Retention")
 
 ChurnRisk = Literal["low", "moderate", "high", "critical"]
@@ -247,8 +245,8 @@ async def maybe_grant_bear_trial_extension(email: str, subscription: dict[str, A
     await record_retention_grant(email, "bear_trial_extension", days)
     logger.info(
         "Bear trial extension granted | email=%s days=%s",
-        sanitize_log_value(email),
-        sanitize_log_value(days),
+        str(email).replace("\r", " ").replace("\n", " "),
+        str(days).replace("\r", " ").replace("\n", " "),
     )
     return {"granted": True, "days": days, "trial_ends_at": result.get("trial_ends_at")}
 

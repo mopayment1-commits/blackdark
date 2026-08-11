@@ -21,6 +21,8 @@ def _utcnow() -> str:
 
 async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """Compare Uniswap vs SushiSwap prices for same asset via DexScreener."""
+    if not asset.isalnum():
+        return None
     url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT"
     try:
         async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:
@@ -91,6 +93,8 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
         return None
 
     # Second venue search
+    if not asset.isalnum():
+        return None
     url = f"https://api.dexscreener.com/latest/dex/tokens/{asset}"
     dex_b_price = 0.0
     dex_b_venue = ""
@@ -145,9 +149,13 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
 
 async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """Cross-chain bridge spread: ETH mainnet vs BSC vs Arbitrum DEX prices."""
+    if not asset.isalnum():
+        return None
     chains = ["ethereum", "bsc", "arbitrum"]
     prices: dict[str, float] = {}
     for chain in chains:
+        if not chain.isalnum():
+            continue
         url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT%20{chain}"
         try:
             async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:

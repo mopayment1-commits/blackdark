@@ -30,8 +30,6 @@ from database import (
     init_db,
     insert_market_sentiment_logs,
 )
-from log_safety import sanitize_asset, sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.SentimentEngine")
 
 NewsSource = Literal[
@@ -282,7 +280,7 @@ def _parse_rss_items(payload: str, source_label: str) -> list[SentimentNewsItem]
     try:
         root = ET.fromstring(payload)
     except ET.ParseError:
-        logger.warning("RSS parse failed | source=%s", sanitize_log_value(source_label))
+        logger.warning("RSS parse failed | source=%s", str(source_label).replace("\r", " ").replace("\n", " "))
         return items
 
     for item in root.findall(".//item"):
@@ -323,7 +321,7 @@ async def _fetch_rss_news(
                 if item.asset in assets or not assets:
                     collected.append(item)
         except Exception:
-            logger.warning("RSS fetch failed safely | feed=%s", sanitize_log_value(feed_url, max_len=120))
+            logger.warning("RSS fetch failed safely | feed=%s", str(feed_url).replace("\r", " ").replace("\n", " "))
     return collected
 
 
@@ -431,8 +429,8 @@ async def _fetch_twitter_real(
             except (aiohttp.ClientError, TypeError, ValueError) as exc:
                 logger.warning(
                     "Twitter API failed | asset=%s err=%s",
-                    sanitize_asset(asset),
-                    sanitize_log_value(exc, max_len=120),
+                    str(asset).replace("\r", " ").replace("\n", " "),
+                    str(exc).replace("\r", " ").replace("\n", " "),
                 )
         if items:
             return items
@@ -537,7 +535,7 @@ async def fetch_market_sentiment_news(
         if isinstance(batch, Exception):
             logger.warning(
                 "Sentiment source batch failed safely: %s",
-                sanitize_log_value(batch, max_len=120),
+                str(batch).replace("\r", " ").replace("\n", " "),
             )
             continue
         collected.extend(batch)
@@ -585,8 +583,8 @@ async def persist_sentiment_items(items: list[SentimentNewsItem]) -> int:
         except Exception:
             logger.exception(
                 "Sentiment persistence skipped for item | asset=%s source=%s",
-                sanitize_asset(item.asset),
-                sanitize_log_value(item.source, max_len=32),
+                str(item.asset).replace("\r", " ").replace("\n", " "),
+                str(item.source).replace("\r", " ").replace("\n", " "),
             )
 
     if rows:
@@ -637,7 +635,7 @@ def sentiment_score_adjustment_for_asset(
             return round(min(config.SENTIMENT_SCORE_BOOST_MAX, compound * config.SENTIMENT_SCORE_BOOST_MAX), 2)
         return round(max(-config.SENTIMENT_SCORE_PENALTY_MAX, compound * config.SENTIMENT_SCORE_PENALTY_MAX), 2)
     except Exception:
-        logger.exception("Sentiment score adjustment failed | asset=%s", sanitize_asset(asset))
+        logger.exception("Sentiment score adjustment failed | asset=%s", str(asset).replace("\r", " ").replace("\n", " "))
         return 0.0
 
 
@@ -665,7 +663,7 @@ def sentiment_panic_penalty_for_asset(
             return config.SENTIMENT_PANIC_SCORE_PENALTY
         return 0.0
     except Exception:
-        logger.exception("Sentiment panic penalty lookup failed | asset=%s", sanitize_asset(asset))
+        logger.exception("Sentiment panic penalty lookup failed | asset=%s", str(asset).replace("\r", " ").replace("\n", " "))
         return 0.0
 
 
@@ -702,7 +700,7 @@ async def load_active_sentiment_indices_for_valuation(
         except Exception:
             logger.warning(
                 "Rolling sentiment index unavailable | asset=%s",
-                sanitize_asset(asset),
+                str(asset).replace("\r", " ").replace("\n", " "),
                 exc_info=True,
             )
             indices[asset] = 0.0

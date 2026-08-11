@@ -130,7 +130,13 @@ async def fetch_coingecko_cex_market(
 
     asset = symbol.split("/")[0].upper()
     coin_id = ASSET_TO_COINGECKO.get(asset, asset.lower())
-    cg_exchange = COINGECKO_EXCHANGE_MAP.get(exchange_id, exchange_id)
+    mapped_ex = COINGECKO_EXCHANGE_MAP.get(exchange_id)
+    if mapped_ex is not None:
+        cg_exchange = mapped_ex  # constant allowlist entry
+    else:
+        cg_exchange = str(exchange_id)
+        if not cg_exchange.isalnum():
+            raise ValueError(f"Unsafe CoinGecko exchange id | exchange={exchange_id}")
 
     timeout = aiohttp.ClientTimeout(total=20)
     close_session = session is None

@@ -15,8 +15,6 @@ from dataclasses import dataclass
 from typing import Any
 
 import config
-from log_safety import sanitize_asset, sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.RiskManager")
 
 _freeze_until: float = 0.0
@@ -69,7 +67,7 @@ def freeze_trading(reason: str, *, duration_sec: int | None = None) -> dict[str,
     _poison_events.append(event)
     if len(_poison_events) > 100:
         _poison_events.pop(0)
-    logger.warning("TRADING FROZEN | reason=%s duration=%ss", sanitize_log_value(reason), dur)
+    logger.warning("TRADING FROZEN | reason=%s duration=%ss", str(reason).replace("\r", " ").replace("\n", " "), dur)
     try:
         import asyncio
 
@@ -137,7 +135,7 @@ async def load_persistent_freeze() -> dict[str, Any]:
     _freeze_reason = str(row.get("reason") or "persistent_freeze")
     logger.warning(
         "Restored persistent trading freeze | reason=%s",
-        sanitize_log_value(_freeze_reason),
+        str(_freeze_reason).replace("\r", " ").replace("\n", " "),
     )
     return {"loaded": True, "frozen": True, "reason": _freeze_reason, "until_ts": _freeze_until}
 
@@ -251,7 +249,7 @@ def register_stop_loss(
     _active_stop_losses[symbol.upper()] = record
     logger.info(
         "Stop-loss registered | %s entry=%.4f stop=%.4f",
-        sanitize_asset(symbol),
+        str(symbol).replace("\r", " ").replace("\n", " "),
         entry_price,
         stop_price,
     )
@@ -277,7 +275,7 @@ def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
             triggered.append(dict(sl))
             logger.warning(
                 "STOP-LOSS TRIGGERED | %s price=%.4f stop=%.4f",
-                sanitize_asset(sym),
+                str(sym).replace("\r", " ").replace("\n", " "),
                 px,
                 sl["stop_price"],
             )

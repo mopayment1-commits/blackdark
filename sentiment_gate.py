@@ -65,9 +65,7 @@ def sentiment_allows_execution(asset: str, *, compound_score: float | None = Non
             return True
 
     if score <= _fear_threshold():
-        from log_safety import sanitize_asset
-
-        logger.info("Sentiment gate BLOCKED | asset=%s score=%.3f", sanitize_asset(asset), score)
+        logger.info("Sentiment gate BLOCKED | asset=%s score=%.3f", str(asset).replace("\r", " ").replace("\n", " "), score)
         return False
     return True
 

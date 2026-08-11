@@ -18,6 +18,48 @@ def test_log_safety_strips_crlf_explicitly():
     assert sanitize_asset("evil\ninject") == "invalid_asset"
 
 
+def test_weight_aggregator_logger_uses_inline_crlf_scrub():
+    src = Path("weight_aggregator.py").read_text(encoding="utf-8")
+    assert "sanitize_asset(" not in src
+    assert "sanitize_log_value(" not in src
+    assert '.replace("\\r"' in src
+    assert '.replace("\\n"' in src
+    # Every logger line that interpolates asset must scrub CRLF inline at the sink.
+    for line in src.splitlines():
+        if "logger." in line and "asset=" in line:
+            assert '.replace("\\r"' in line, line
+
+
+def test_listed_modules_inline_log_scrub_not_helper_only():
+    files = [
+        "voice_service.py",
+        "trust_pulse.py",
+        "sentiment_engine.py",
+        "sentiment_gate.py",
+        "risk_manager.py",
+        "retention_service.py",
+        "billing_service.py",
+        "execution_engine.py",
+        "database.py",
+        "oracle_unified.py",
+        "oracle_track_record.py",
+        "oracle_data_hub.py",
+        "onchain_tracker.py",
+        "obi_predictor.py",
+        "market_context.py",
+        "forecast_engine.py",
+        "ml/feature_store.py",
+        "api_key_security_guard.py",
+        "bd_platform/free_integrations.py",
+        "bd_platform/derivatives_hub.py",
+    ]
+    for path in files:
+        text = Path(path).read_text(encoding="utf-8")
+        assert "sanitize_asset(" not in text, path
+        assert "sanitize_log_value(" not in text, path
+        assert '.replace("\\r"' in text, path
+
+
 def test_binance_fetchers_guard_isalnum():
     files = [
         "trade_simulator.py",
@@ -33,10 +75,25 @@ def test_binance_fetchers_guard_isalnum():
         "plan_audit.py",
         "bd_platform/free_market_data.py",
         "oracle_data_hub.py",
+        "defi_arbitrage_engine.py",
+        "bd_platform/free_integrations.py",
+        "coingecko_cex_fetcher.py",
     ]
     for path in files:
         text = Path(path).read_text(encoding="utf-8")
         assert "isalnum()" in text, path
+
+
+def test_expert_execution_base_url_allowlisted():
+    src = Path("expert_execution.py").read_text(encoding="utf-8")
+    assert "assert_safe_http_url" in src
+    assert "from path_safety import assert_safe_http_url" in src
+
+    from expert_execution import run_acceptance_60s
+    import pytest
+
+    with pytest.raises(ValueError):
+        run_acceptance_60s("https://evil.example/ssrf")
 
 
 def test_dashboard_lens_allowlist_csrf():

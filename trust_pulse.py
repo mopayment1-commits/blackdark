@@ -20,8 +20,6 @@ from collections.abc import AsyncIterator
 from datetime import UTC, datetime
 from typing import Any
 
-from log_safety import sanitize_asset
-
 logger = logging.getLogger("BLACKDARK.TrustPulse")
 
 # Soft cache — identity of the pulse for a symbol (avoids spam + flicker).
@@ -592,7 +590,7 @@ async def trust_pulse_sse_generator(
         except asyncio.CancelledError:
             raise
         except Exception:
-            logger.exception("trust_pulse_sse_error symbol=%s", sanitize_asset(sym))
+            logger.exception("trust_pulse_sse_error symbol=%s", str(sym).replace("\r", " ").replace("\n", " "))
             err = {
                 "type": "error",
                 "message": "Trust Pulse stream temporarily unavailable",
