@@ -247,9 +247,7 @@
                     return;
                 }
                 saveAuth(d);
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function doMfa(e) {
             e.preventDefault();
@@ -266,9 +264,7 @@
                 const d = await res.json();
                 if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'MFA failed');
                 saveAuth(d);
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function doRegister(e) {
             e.preventDefault();
@@ -298,9 +294,7 @@
                 }
                 if (d.next && d.next.message) setMsg(d.next.message, true);
                 saveAuth(d);
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function doForgot(e) {
             e.preventDefault();
@@ -316,9 +310,7 @@
                 if (d.debug_link) text += ' (dev link logged to console)';
                 if (d.debug_link) console.info('Reset link:', d.debug_link);
                 setMsg(text, true);
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function doForgotUsername(e) {
             e.preventDefault();
@@ -330,9 +322,7 @@
                 });
                 const d = await res.json();
                 setMsg(d.message || 'If an account exists, a reminder was sent.', true);
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function startOAuth(provider) {
             try {
@@ -340,9 +330,7 @@
                 const d = await res.json();
                 if (!res.ok) throw new Error(d.detail || 'OAuth not configured');
                 window.location.href = d.authorize_url;
-            } catch (err) {
-                setMsg(err.message, false);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); setMsg(err.message, false); }
         }
         async function loadOAuth() {
             try {
@@ -354,7 +342,7 @@
                     else document.getElementById('googleBtn').classList.add('hidden');
                     if (d.providers && d.providers.github) document.getElementById('githubBtn').classList.remove('hidden');
                 }
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
         document.querySelectorAll('input[name="regPlan"]').forEach(el => {
             el.addEventListener('change', syncPlanCards);

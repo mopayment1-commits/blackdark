@@ -29,7 +29,7 @@ ul{line-height:1.55}.foot{font-size:11px;color:#666;margin-top:22px}
 <script>
 async function load(){
   let d=null;
-  try{const r=await fetch('/api/due-diligence/corpus-passport'); if(r.ok) d=await r.json();}catch(e){}
+  try{const r=await fetch('/api/due-diligence/corpus-passport'); if(r.ok) d=await r.json();}catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
   if(!d){const r=await fetch('/api/due-diligence/corpus-passport/public'); d=await r.json();
     d.stamps=[`Labeled (teaser): ${d.metrics?.labeled??0}`,`Kill-rate %: ${d.metrics?.kill_rate_percent??0}`,`Status: ${d.metrics?.registry_status||'—'}`,`Full passport requires Desk / Institutional session`];
     /* teaser passport already carries headline/disclaimer */

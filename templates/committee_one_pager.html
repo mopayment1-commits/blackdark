@@ -34,7 +34,7 @@ async function load(){
   try{
     const r=await fetch('/api/due-diligence/committee-one-pager');
     if(r.ok) pack=await r.json();
-  }catch(e){}
+  }catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
   if(!pack){
     const [k,s]=await Promise.all([
       fetch('/api/public/kill-rate').then(r=>r.json()),

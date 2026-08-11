@@ -1160,11 +1160,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 let response = await fetch(primary, { headers: { Accept: 'application/json' } });
                 let rawText = await response.text();
                 let data = null;
-                try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (e) { data = null; }
+                try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (error) { console.debug(error); console.debug(error); console.debug(error); data = null; }
                 if (!data || !response.ok) {
                     response = await fetch(fallback, { headers: { Accept: 'application/json' } });
                     rawText = await response.text();
-                    try { data = JSON.parse(rawText); } catch (e) { data = null; }
+                    try { data = JSON.parse(rawText); } catch (error) { console.debug(error); console.debug(error); console.debug(error); data = null; }
                 }
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
@@ -1357,9 +1357,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                             }),
                         });
                         document.getElementById('disciplineMsg').textContent = 'Saved privately — only you can see your Discipline Mirror.';
-                    } catch (e) {
-                        document.getElementById('disciplineMsg').textContent = 'Could not save answer.';
-                    }
+                    } catch (error) { console.debug(error); console.debug(error); console.debug(error); document.getElementById('disciplineMsg').textContent = 'Could not save answer.'; }
                 };
                 document.getElementById('followedYes')?.addEventListener('click', () => sendFollow(true));
                 document.getElementById('followedNo')?.addEventListener('click', () => sendFollow(false));
@@ -1372,9 +1370,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 }
 
                 updateShareLinks(data);
-            } catch (error) {
-                oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.'; }
         }
 
         async function applyAudience() {
@@ -1397,7 +1393,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 } else if ((aud === 'whale' || aud === 'pro') && d.entry_path) {
                     window.location.href = d.entry_path;
                 }
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
         
         async function joinWaitlist(e) {
@@ -1421,11 +1417,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     document.getElementById('waitlistEmail').value = '';
                 }
                 msg.style.display = 'block';
-            } catch (error) {
-                msg.textContent = 'Something went wrong. Try again.';
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); msg.textContent = 'Something went wrong. Try again.';
                 msg.style.color = 'var(--danger)';
-                msg.style.display = 'block';
-            }
+                msg.style.display = 'block'; }
         }
         
         async function loadLandingAnalytics() {
@@ -1453,7 +1447,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 set('landingSubs', (users.paid_subscribers || analytics.subscriber_count || 0).toLocaleString());
                 set('landingTelegram', (telegram.active_subscribers || users.telegram_free_subscribers || 0).toLocaleString());
                 set('landingWaitlist', (analytics.waitlist_count || 0).toLocaleString());
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         async function loadTelegramBotLink() {
@@ -1467,7 +1461,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     link.href = `https://t.me/${username}`;
                     link.textContent = `@${username} — Start Free`;
                 }
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         let landingPulse = null;
@@ -1523,7 +1517,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const res = await fetch('/api/trust-pulse?symbol=BTC&ux_mode=beginner&lang=en');
                 if (!res.ok) return;
                 renderLandingPulse(await res.json());
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         function startLandingPulseStream() {
@@ -1534,9 +1528,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     try {
                         const d = JSON.parse(ev.data);
                         if (d.pulse) renderLandingPulse(d.pulse);
-                    } catch (e) {}
+                    } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
                 };
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
@@ -1565,10 +1559,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     el.textContent = 'USD payment rails live in product · finish Lemon/Stripe KYC + checkout URLs for live charges. Proof Pass ($0) and Sign up work now. Profile → Plan & billing.';
                     el.style.color = 'var(--text-muted)';
                 }
-            } catch (e) {
-                el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';
-                el.style.color = 'var(--text-muted)';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Payment status: see /api/billing/payments · Profile & Billing for checkout.';
+                el.style.color = 'var(--text-muted)'; }
         }
 
         async function wireInstitutionalInquiry() {
@@ -1588,10 +1580,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     msg.textContent = res.ok ? (d.message || 'Received') : (d.detail || 'Failed');
                     msg.style.color = res.ok ? 'var(--success)' : 'var(--danger)';
                     if (res.ok) form.reset();
-                } catch (e) {
-                    msg.textContent = 'Inquiry unavailable right now';
-                    msg.style.color = 'var(--danger)';
-                }
+                } catch (error) { console.debug(error); console.debug(error); console.debug(error); msg.textContent = 'Inquiry unavailable right now';
+                    msg.style.color = 'var(--danger)'; }
             });
         }
         window.addEventListener('load', () => {

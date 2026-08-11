@@ -215,9 +215,7 @@
                                 ? `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`
                                 : JSON.stringify(d).slice(0, 120);
                     logWs(summary);
-                } catch (e) {
-                    logWs(ev.data.slice(0, 120));
-                }
+                } catch (error) { console.debug(error); console.debug(error); console.debug(error); logWs(ev.data.slice(0, 120)); }
             };
         }
 
@@ -236,9 +234,7 @@
                     feed_version: d.feed_version,
                     sample: (d.records || []).slice(0, 3)
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Demo unavailable — restart server and try again.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Demo unavailable — restart server and try again.'; }
         }
         function copyKey() {
             navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
@@ -249,7 +245,7 @@
             try {
                 const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
                 if (token) headers['Authorization'] = `Bearer ${token}`;
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
             return headers;
         }
 
@@ -268,9 +264,7 @@
                     onboarding_steps: data.onboarding_steps,
                     compliance: data.compliance,
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Fund terminal unavailable.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Fund terminal unavailable.'; }
         }
 
         function downloadFundTerminal() {
@@ -327,9 +321,7 @@
                 const data = await res.json();
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
-            } catch (e) {
-                el.textContent = 'Public summary unavailable.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Public summary unavailable.'; }
         }
 
         async function loadEvidenceFull() {
@@ -350,9 +342,7 @@
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
         }
     </script>
     {% include "partials/site_footer.html" %}

@@ -452,9 +452,7 @@
                         + (d.symbol ? ` · context ${d.symbol}` : '')
                         + (d.source ? ` · ${d.source}` : '');
                 }
-            } catch (e) {
-                appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.');
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
@@ -501,13 +499,14 @@
                     try {
                         const up = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(userTierId));
                         nextUpgrade = await up.json();
-                    } catch (e2) {
+                    } catch (error) {
+                        console.debug(error);
                         nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: userTierId === 'pro' ? 'whale' : 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
                     }
                     applyUpgradeButton();
                     syncChatGate();
                 }
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         async function upgradeTier(tier) {
@@ -523,7 +522,7 @@
                 });
                 const d = await res.json();
                 if (d.url) { location.href = d.url; return; }
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
             location.href = '/create-checkout-session?tier=' + target;
         }
 
@@ -532,7 +531,7 @@
         const TP_STORE = 'bd_trust_pulse_last';
 
         function readLastPulseVisit() {
-            try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (e) { return null; }
+            try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); console.debug(error); console.debug(error); return null; }
         }
         function savePulseVisit(p) {
             if (!p) return;
@@ -548,7 +547,7 @@
                     })),
                     certificate_hash: (p.proof && p.proof.certificate_hash) || null,
                 }));
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         function renderTrustPulse(p, { fromStream } = {}) {
@@ -625,21 +624,19 @@
                 if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
             }
             if (prev && prev.factors && prev.factors.length) {
-                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (e) {}
+                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
             }
             try {
                 const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
                 if (!res.ok) throw new Error('pulse_fail');
                 const p = await res.json();
                 renderTrustPulse(p);
-            } catch (e) {
-                document.getElementById('tpFresh').textContent = 'Unavailable';
-                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.';
-            }
+            } catch (error) { console.debug(error); document.getElementById('tpFresh').textContent = 'Unavailable';
+                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.'; }
         }
 
         function startTrustPulseStream() {
-            if (pulseEs) { try { pulseEs.close(); } catch (e) {} }
+            if (pulseEs) { try { pulseEs.close(); } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); } }
             const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const url = '/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym);
             try {
@@ -651,7 +648,7 @@
                         else if (d.type === 'connected') {
                             document.getElementById('tpFresh').textContent = 'Live stream on';
                         }
-                    } catch (e) {}
+                    } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
                 };
                 pulseEs.onerror = () => {
                     const fresh = document.getElementById('tpFresh');
@@ -659,7 +656,7 @@
                         fresh.textContent = 'Reconnecting…';
                     }
                 };
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         function shareTrustPulse() {
@@ -817,9 +814,7 @@
                     ${complianceBlock}
                     ${certBlock}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
-            } catch (e) {
-                const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty);
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty); }
         }
 
         function initChart() {
@@ -843,7 +838,7 @@
                 const rows = payload.klines || payload || [];
                 series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
                 chart.timeScale().fitContent();
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         function renderMarketAssets(assets) {
@@ -864,7 +859,7 @@
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
                 renderMarketAssets(data.assets || []);
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
         async function loadDailyReport() {
@@ -895,9 +890,7 @@
                         bullets.map(b => `<li>${b}</li>`).join('') +
                         '</ul>' : ''}
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>`;
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Daily report unavailable</div>';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
         }
 
         async function loadSubscriberValue() {
@@ -921,9 +914,7 @@
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
                     ${v.covers_subscription != null ? ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet') : ''}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Value digest unavailable</div>';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
         }
 
         let dashEs = null;
@@ -964,7 +955,7 @@
             }
         }
         function startDashboardStream() {
-            if (dashEs) { try { dashEs.close(); } catch (e) {} }
+            if (dashEs) { try { dashEs.close(); } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); } }
             try {
                 dashEs = new EventSource('/api/dashboard/stream');
                 dashEs.onmessage = (ev) => {
@@ -972,9 +963,9 @@
                         const d = JSON.parse(ev.data);
                         if (d.type === 'connected') return;
                         applyDashboardSnapshot(d);
-                    } catch (e) {}
+                    } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
                 };
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         async function loadOI() {
@@ -987,7 +978,7 @@
                 el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
                     rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
                         <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
         async function loadArbitrage(refresh) {
@@ -1015,7 +1006,7 @@
                     <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
                     <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
 
         async function loadInbox() {
@@ -1034,9 +1025,7 @@
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Inbox unavailable</div>';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
         }
 
         async function markInboxRead(id) {
@@ -1047,7 +1036,7 @@
                     headers: authHeaders(),
                 });
                 loadInbox();
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         async function loadWhales(refresh) {
@@ -1079,7 +1068,7 @@
                 if (foot) {
                     foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
         function antiHypeOn() {
@@ -1102,7 +1091,7 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({enabled: next, user_key: k}),
                 });
-            } catch (e) {}
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
             applyAntiHypeClass();
         }
         async function loadSinceYouLeft() {
@@ -1121,9 +1110,7 @@
                     `<div class="arb-card"><strong>${i + 1}. ${x.title}</strong><div style="margin-top:.3rem;color:#a1a1aa">${x.detail}</div>
                      <a href="${x.href || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
                 ).join('') || '<div class="empty">No deltas yet</div>';
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Continuity unavailable</div>';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
         async function loadHalfLifeClock() {
@@ -1135,9 +1122,7 @@
                 const d = await res.json();
                 svg.innerHTML = d.svg || '';
                 line.innerHTML = `<strong style="color:${d.band?.color||'#22d3ee'}">${d.band?.label||'—'}</strong><div style="margin-top:.35rem">${d.desk_line||''}</div>`;
-            } catch (e) {
-                line.textContent = 'Half-Life clock unavailable';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
         }
 
         let lastMevShare = '';
@@ -1160,7 +1145,7 @@
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
                     </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
         }
         function copyMevShare() {
             if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
@@ -1202,7 +1187,7 @@
                         ${sliceTable}
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
                     </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
         let portfolioAssets = [];
@@ -1246,7 +1231,7 @@
                         ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
                         ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
                     </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
 
         async function loadTgStatus() {
@@ -1255,7 +1240,7 @@
                 const res = await fetch('/api/alerts/telegram/status');
                 const d = await res.json();
                 el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
-            } catch (e) { el.textContent = 'Alert status unavailable'; }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Alert status unavailable'; }
         }
 
         async function testTelegram() {
@@ -1263,7 +1248,7 @@
                 const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
                 const d = await res.json();
                 alert(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (e) { alert('Test failed — configure bot first'); }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); alert('Test failed — configure bot first'); }
         }
 
         async function loadAlertsGenerosity() {
@@ -1275,7 +1260,7 @@
                 const bd = d.blackdark || {};
                 el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
                     `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); console.debug(error); }
         }
 
         function scrollToId(id) {
@@ -1338,7 +1323,8 @@
                     else if (currentLens === 'operate') setTimeout(() => scrollToId('decide'), 200);
                     else setTimeout(() => scrollToId('decide'), 200);
                 }
-            } catch (e) {
+            } catch (error) {
+                console.debug(error);
                 renderEntries([
                     {id:'decide',label:'Decide',available:true,hint:'Act/Wait + Proof'},
                     {id:'verify',label:'Verify',available:true,path:'/oracle-accuracy'},
@@ -1452,9 +1438,7 @@
                         }
                     });
                 });
-            } catch (e) {
-                if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.';
-            }
+            } catch (error) { console.debug(error); console.debug(error); console.debug(error); if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.'; }
         }
 
         function boot() {
