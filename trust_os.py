@@ -11,7 +11,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 # Sonar S1192: duplicated string literals
-DOC_DOCS_CSO_PRIORITY_CHAIN_BINDING_AR_MD = 'docs/CSO_PRIORITY_CHAIN_BINDING_AR.md'
+DOC_CSO_PRIORITY_CHAIN_BINDING_AR = 'docs/CSO_PRIORITY_CHAIN_BINDING_AR.md'
 PATH_API_STRATEGY_PRIORITY_CHAIN = '/api/strategy/priority-chain'
 STR_NOT_SHIPPED = 'Not shipped'
 
@@ -216,7 +216,7 @@ def trust_os_manifest() -> dict[str, Any]:
             "api": PATH_API_STRATEGY_PRIORITY_CHAIN,
             "closure": "/api/public/cso-priority-closure",
             "page": "/priority-chain",
-            "doc": DOC_DOCS_CSO_PRIORITY_CHAIN_BINDING_AR_MD,
+            "doc": DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "binding_rule": (
                 "No new feature unless it raises decision habit, distribution, revenue, "
                 "or live data flywheel."
@@ -238,7 +238,7 @@ def trust_os_manifest() -> dict[str, Any]:
             "docs/TRUST_OS_DESIGN_SYSTEM.md",
             "docs/HEROES_STRATEGY_BINDING.md",
             "docs/STRATEGIC_CORRECTION_BINDING.md",
-            DOC_DOCS_CSO_PRIORITY_CHAIN_BINDING_AR_MD,
+            DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "docs/ZERO_TOLERANCE_BINDING_AR.md",
         ],
         "design_system": {
@@ -285,7 +285,7 @@ def strategy_correction_manifest() -> dict[str, Any]:
         "canonical_binding": "docs/CANONICAL_BINDING.md",
         "cso_priority_chain": {
             "api": PATH_API_STRATEGY_PRIORITY_CHAIN,
-            "doc": DOC_DOCS_CSO_PRIORITY_CHAIN_BINDING_AR_MD,
+            "doc": DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "rejects": "features_first_launch_users_acquisition",
         },
         "generated_at": datetime.now(UTC).isoformat(),

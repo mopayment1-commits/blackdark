@@ -32,7 +32,7 @@ from starlette.middleware.gzip import GZipMiddleware
 import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
 
 # Sonar S1192: duplicated string literals
-KEY_UTILITY_HTML = 'utility.html'
+STR_UTILITY_HTML = 'utility.html'
 PATH_CREATE_CHECKOUT_SESSION_TIER_PRO = '/create-checkout-session?tier=pro'
 PATH_ORACLE_ACCURACY = '/oracle-accuracy'
 STR_BTC_USDT = 'BTC/USDT'
@@ -921,7 +921,7 @@ async def verify_email_page(request: Request, token: str = ""):
     if not token:
         return templates.TemplateResponse(
             request,
-            KEY_UTILITY_HTML,
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
@@ -933,7 +933,7 @@ async def verify_email_page(request: Request, token: str = ""):
     if len(safe) < 16:
         return templates.TemplateResponse(
             request,
-            KEY_UTILITY_HTML,
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
@@ -949,7 +949,7 @@ async def verify_email_page(request: Request, token: str = ""):
     except ValueError:
         return templates.TemplateResponse(
             request,
-            KEY_UTILITY_HTML,
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
                 "title": STR_VERIFY_EMAIL,
@@ -1574,7 +1574,7 @@ async def capabilities_page(request: Request):
     manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
@@ -1604,7 +1604,7 @@ async def compliance_page(request: Request):
         regulatory = {"status": "engineering_posture_only"}
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "compliance",
             "title": "Anti-Hype Compliance",
@@ -1624,7 +1624,7 @@ async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "data_room",
             "title": "Data Room",
@@ -1667,7 +1667,7 @@ async def contact_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "contact",
             "title": "Contact",
@@ -1684,7 +1684,7 @@ async def complaints_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "complaints",
             "title": "Complaints",
@@ -1701,7 +1701,7 @@ async def faq_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "faq",
             "title": "FAQ",
@@ -1718,7 +1718,7 @@ async def how_it_works_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "how_it_works",
             "title": "How it works",
@@ -1736,7 +1736,7 @@ async def about_page(request: Request):
     about = about_blurb()
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "about",
             "title": about["title"],
@@ -1754,7 +1754,7 @@ async def status_page(request: Request):
     status = public_status_report()
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
@@ -1771,7 +1771,7 @@ async def changelog_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "changelog",
             "title": "Changelog",
@@ -1786,7 +1786,7 @@ async def changelog_page(request: Request):
 async def feedback_page(request: Request):
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "feedback",
             "title": "Feedback & suggestions",
@@ -1803,7 +1803,7 @@ async def legal_hub_page(request: Request):
     hub = legal_hub_manifest()
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "legal_hub",
             "title": hub["title"],
@@ -3825,7 +3825,7 @@ async def checkout_success(request: Request):
 async def checkout_cancel(request: Request):
     return templates.TemplateResponse(
         request,
-        KEY_UTILITY_HTML,
+        STR_UTILITY_HTML,
         {
             "page": "cancel",
             "title": "Checkout cancelled",
