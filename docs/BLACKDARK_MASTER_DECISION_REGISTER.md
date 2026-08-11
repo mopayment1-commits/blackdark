@@ -1,6 +1,6 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `adcb26fea92598476e0be2e5170207ae15e0ccad` (evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`) (evidence commit `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
+**Canonical HEAD audited:** `adcb26fea92598476e0be2e5170207ae15e0ccad` (remediation evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
 **Branch:** `cursor/institutional-hardening-120d`  
 **Audit date:** 2026-08-11  
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
