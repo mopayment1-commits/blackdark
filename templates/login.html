@@ -64,7 +64,12 @@
         .divider::before, .divider::after { content:""; flex:1; height:1px; background:var(--border); }
         .hidden { display:none !important; }
         .row-links { display:flex; justify-content:space-between; margin:-.35rem 0 .9rem; font-size:.8rem; }
-    </style>
+            .row-links .linkish {
+            background: none; border: none; color: #22d3ee; cursor: pointer;
+            font: inherit; padding: 0; text-decoration: underline;
+        }
+        .plan-grid-label { display:block; margin-bottom:.5rem; font-weight:600; }
+</style>
 </head>
 <body>
     <div class="login-chrome">
@@ -92,8 +97,8 @@
             <label for="loginPassword">{{ t('login.pass_label') }}</label>
             <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
             <div class="row-links">
-                <a href="#" onclick="showForgot();return false;">{{ t('auth.forgot_pass') }}</a>
-                <a href="#" onclick="showForgotUsername();return false;">{{ t('auth.forgot_username') }}</a>
+                <button type="button" class="linkish" onclick="showForgot()">{{ t('auth.forgot_pass') }}</button>
+                <button type="button" class="linkish" onclick="showForgotUsername()">{{ t('auth.forgot_username') }}</button>
             </div>
             <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
         </form>
@@ -106,8 +111,8 @@
         </form>
 
         <form id="registerForm" class="hidden" onsubmit="doRegister(event)">
-            <label>Choose your plan</label>
-            <div class="plan-grid" id="planGrid" role="radiogroup" aria-label="Pricing plan">
+            <div class="plan-grid" id="planGrid" role="radiogroup" aria-labelledby="planGridLabel">
+            <div id="planGridLabel" class="plan-grid-label">Choose your plan</div>
                 <label class="plan-card active" data-plan="free">
                     <input type="radio" name="regPlan" value="free" checked>
                     <div class="plan-top"><span class="plan-name">Proof Pass</span><span class="plan-price">$0</span></div>
@@ -203,7 +208,7 @@
         function syncPlanCards() {
             const plan = selectedPlan();
             document.querySelectorAll('.plan-card').forEach(card => {
-                card.classList.toggle('active', card.getAttribute('data-plan') === plan);
+                card.classList.toggle('active', card.dataset.plan === plan);
             });
             const btn = document.getElementById('regSubmit');
             if (!btn) return;

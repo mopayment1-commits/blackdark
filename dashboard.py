@@ -1036,7 +1036,7 @@ async def journal_update(entry_id: int, data: dict = Body(...), user: dict | Non
     return {"success": True}
 
 
-@app.delete("/api/journal/{entry_id}")
+@app.delete("/api/journal/{entry_id}", responses=COMMON_ERROR_RESPONSES)
 async def journal_delete(entry_id: int, user: dict | None = Depends(optional_user)):
     from database import delete_journal_entry
 
@@ -1161,7 +1161,7 @@ async def api_i18n_catalog(lang: str = "en"):
     return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
-@app.get("/favicon.ico")
+@app.get("/favicon.ico", responses=COMMON_ERROR_RESPONSES)
 async def favicon():
     """Browsers probe /favicon.ico — serve the PWA icon to avoid console 404 noise."""
     icon = STATIC_DIR / "icon-192.png"
@@ -1865,7 +1865,7 @@ async def platform_coin_page(request: Request, coin_id: str):
 
 
 # ========== API ENDPOINTS ==========
-@app.get("/oracle/{symbol}/explain")
+@app.get("/oracle/{symbol}/explain", responses=COMMON_ERROR_RESPONSES)
 async def oracle_explain(
     symbol: str,
     background_tasks: BackgroundTasks,
@@ -1951,7 +1951,7 @@ async def oracle_explain(
     return JSONResponse(payload)
 
 
-@app.get("/oracle/{symbol}/quick")
+@app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
 async def oracle_quick(
     symbol: str,
     background_tasks: BackgroundTasks,
@@ -2815,27 +2815,27 @@ def _legal_page(request: Request, page: str):
     )
 
 
-@app.get("/terms", response_class=HTMLResponse)
+@app.get("/terms", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def terms_page(request: Request):
     return _legal_page(request, "terms")
 
 
-@app.get("/privacy", response_class=HTMLResponse)
+@app.get("/privacy", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def privacy_page(request: Request):
     return _legal_page(request, "privacy")
 
 
-@app.get("/disclaimer", response_class=HTMLResponse)
+@app.get("/disclaimer", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
 
 
-@app.get("/refund", response_class=HTMLResponse)
+@app.get("/refund", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def refund_page(request: Request):
     return _legal_page(request, "refund")
 
 
-@app.get("/cookies", response_class=HTMLResponse)
+@app.get("/cookies", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def cookies_page(request: Request):
     return _legal_page(request, "cookies")
 
@@ -2972,7 +2972,7 @@ async def alerts_inbox(
     }
 
 
-@app.post("/api/alerts/inbox/{alert_id}/read")
+@app.post("/api/alerts/inbox/{alert_id}/read", responses=COMMON_ERROR_RESPONSES)
 async def alerts_inbox_mark_read(
     alert_id: str,
     user: dict = Depends(require_authenticated),
@@ -3141,7 +3141,7 @@ async def research_export(x_api_key: str = Header(..., alias="X-API-Key")):
 
 
 
-@app.post("/api/voice/command")
+@app.post("/api/voice/command", responses=COMMON_ERROR_RESPONSES)
 async def voice_command(
     data: dict = Body(...),
     _user: dict | None = Depends(require_feature("voice")),
@@ -3274,7 +3274,7 @@ async def api_retention_status(user: dict | None = Depends(optional_user)):
     return await build_retention_status(user, sub)
 
 
-@app.get("/api/subscriber/value")
+@app.get("/api/subscriber/value", responses=COMMON_ERROR_RESPONSES)
 async def api_subscriber_value(user: dict | None = Depends(optional_user)):
     from retention_service import build_subscriber_value_digest
 
@@ -3632,7 +3632,7 @@ async def portfolio_analyze(
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
 
-@app.post("/join-waitlist")
+@app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     from database import insert_waitlist_signup
 

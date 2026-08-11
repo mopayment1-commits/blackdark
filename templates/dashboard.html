@@ -21,9 +21,9 @@
         .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
         .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
         main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
-        .hero { text-align: center; margin-bottom: 1.25rem; }
-        .hero h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .35rem; color: #fff; }
-        .hero p { color: #71717a; font-size: .95rem; }
+        .hero { text-align: center; margin-bottom: .65rem; }
+        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; margin-bottom: .35rem; color: #fff; }
+        .hero p { color: #71717a; font-size: .85rem; }
         .intent-wrap { max-width: 720px; margin: 0 auto 1.25rem; text-align: center; }
         .intent-q { font-size: 1.05rem; color: #e4e4e7; font-weight: 600; margin-bottom: .65rem; }
         .intent-grid { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
@@ -38,7 +38,7 @@
         .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
         .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
         .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
-        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #71717a; font-size: .8rem; cursor: pointer; }
+        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #a1a1aa; font-size: .8rem; cursor: pointer; }
         .pick:hover { border-color: #22d3ee; color: #22d3ee; }
         section { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; margin-bottom: 1rem; }
         section h2 { font-size: 1rem; color: #22d3ee; margin-bottom: .5rem; }
@@ -72,7 +72,7 @@
         .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
         .lens-btn {
             padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
-            background:#111118; color:#71717a; font-size:.82rem; font-weight:700; cursor:pointer;
+            background:#111118; color:#a1a1aa; font-size:.82rem; font-weight:700; cursor:pointer;
         }
         .lens-btn.active { border-color:#22d3ee; color:#041016; background:linear-gradient(135deg,#22d3ee,#06b6d4); }
         .lens-btn.room { border-style:dashed; }
@@ -96,9 +96,6 @@
         .nav-links a.lens-nav { color:#a1a1aa; font-weight:600; }
 
         /* Trust Pulse — first-open composition */
-        .hero { margin-bottom: .65rem; }
-        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
-        .hero p { font-size: .85rem; }
         #trust-pulse {
             position: relative; overflow: hidden;
             background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
@@ -127,12 +124,12 @@
             border-radius:999px; border:1px solid #2a2a35; background:#1a1a24; color:#a1a1aa;
         }
         .tp-chip.ok { border-color:rgba(34,197,94,.35); color:#86efac; }
-        .tp-chip.warn { border-color:rgba(245,158,11,.4); color:#fcd34d; }
+        .tp-chip.warn { border-color:rgba(245,158,11,.4); color:#fde68a; }
         .tp-wm { font-size:.72rem; color:#71717a; border:1px dashed #3f3f46; padding:.2rem .45rem; border-radius:6px; }
         .tp-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.35rem; }
         .tp-flip {
             display:none; margin-bottom:.75rem; padding:.65rem .85rem; border-radius:10px;
-            border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.08); color:#fcd34d; font-size:.88rem;
+            border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.18); color:#fef3c7; font-size:.88rem;
         }
         .tp-flip.show { display:block; animation: pulseIn .45s ease; }
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
@@ -173,7 +170,7 @@
                 <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
-            <div id="tpFlip" class="tp-flip" role="status"></div>
+            <output id="tpFlip" class="tp-flip"></output>
             <div class="tp-action WAIT" id="tpAction">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
@@ -663,7 +660,7 @@
             const btn = document.getElementById('tpShareBtn');
             if (btn) {
                 btn.classList.remove('bd-motion-share');
-                void btn.offsetWidth;
+                btn.offsetWidth;
                 btn.classList.add('bd-motion-share');
             }
             const p = lastPulse || {};
@@ -704,7 +701,7 @@
             if (!sym) return;
             box.classList.add('show');
             box.classList.remove('proof-pulse');
-            void box.offsetWidth;
+            box.offsetWidth;
             box.classList.add('proof-pulse');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
@@ -1194,7 +1191,7 @@
         function addPortfolioAsset() {
             const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
             const amount = Number(document.getElementById('pfAmt').value || 0);
-            if (!symbol || !(amount > 0)) return;
+            if (!symbol || amount <= 0) return;
             portfolioAssets.push({ symbol, amount });
             document.getElementById('pfSym').value = '';
             document.getElementById('pfAmt').value = '';
@@ -1292,7 +1289,7 @@
             document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
             document.body.classList.add('lens-' + currentLens);
             document.querySelectorAll('.lens-btn').forEach(b => {
-                b.classList.toggle('active', b.getAttribute('data-lens') === currentLens);
+                b.classList.toggle('active', b.dataset.lens === currentLens);
             });
             const mode = document.getElementById('uxMode');
             if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
@@ -1349,9 +1346,9 @@
                         upgradeTier('pro');
                         return;
                     }
-                    const id = btn.getAttribute('data-entry');
-                    const action = btn.getAttribute('data-action');
-                    const path = btn.getAttribute('data-path') || '';
+                    const id = btn.dataset.entry;
+                    const action = btn.dataset.action;
+                    const path = btn.dataset.path || '';
                     if (id === 'verify' || (action === 'navigate' && path.includes('oracle-accuracy'))) {
                         location.href = '/oracle-accuracy';
                         return;
@@ -1366,7 +1363,7 @@
 
         function bindLensBar() {
             document.querySelectorAll('.lens-btn').forEach(btn => {
-                btn.addEventListener('click', () => applyLens(btn.getAttribute('data-lens')));
+                btn.addEventListener('click', () => applyLens(btn.dataset.lens));
             });
         }
 
@@ -1398,9 +1395,9 @@
                     btn.addEventListener('click', () => {
                         grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        const id = btn.getAttribute('data-id');
-                        const action = btn.getAttribute('data-action');
-                        const path = btn.getAttribute('data-path') || '';
+                        const id = btn.dataset.id;
+                        const action = btn.dataset.action;
+                        const path = btn.dataset.path || '';
                         const row = intents.find(x => x.id === id) || {};
                         if (hint) hint.textContent = row.hint || '';
                         if (action === 'navigate' && (path === '/b2b' || path === '/oracle-accuracy')) {

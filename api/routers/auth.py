@@ -58,7 +58,7 @@ async def auth_identity_architecture():
     return identity_architecture()
 
 
-@router.post("/register")
+@router.post("/register", responses=COMMON_ERROR_RESPONSES)
 async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTasks):
     from auth_service import register_user
     from security_auth import check_login_rate_limit
@@ -92,7 +92,7 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.post("/login")
+@router.post("/login", responses=COMMON_ERROR_RESPONSES)
 async def auth_login(
     body: AuthLoginBody,
     request: Request,
@@ -120,7 +120,7 @@ async def auth_login(
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
-@router.post("/mfa/complete")
+@router.post("/mfa/complete", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: BackgroundTasks):
     from auth_service import complete_mfa_login
 
@@ -137,7 +137,7 @@ async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: Backgr
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
-@router.get("/mfa/status")
+@router.get("/mfa/status", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_status(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
@@ -146,7 +146,7 @@ async def auth_mfa_status(user: dict | None = Depends(optional_user)):
     return await mfa_status_for_user(int(user["id"]))
 
 
-@router.post("/mfa/enroll")
+@router.post("/mfa/enroll", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
@@ -155,7 +155,7 @@ async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
     return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
 
 
-@router.post("/mfa/confirm")
+@router.post("/mfa/confirm", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_confirm(
     body: AuthMfaConfirmBody,
     user: dict | None = Depends(optional_user),
@@ -170,7 +170,7 @@ async def auth_mfa_confirm(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.post("/mfa/disable")
+@router.post("/mfa/disable", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_disable(
     body: AuthMfaConfirmBody,
     user: dict | None = Depends(optional_user),
@@ -218,7 +218,7 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     return payload
 
 
-@router.post("/reset-password")
+@router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_reset_password(body: AuthResetPasswordBody):
     from auth_service import create_session, hash_password
     from database import (
@@ -259,7 +259,7 @@ async def auth_reset_password(body: AuthResetPasswordBody):
     return resp
 
 
-@router.post("/change-password")
+@router.post("/change-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_change_password(
     body: AuthChangePasswordBody,
     user: dict | None = Depends(optional_user),
@@ -299,7 +299,7 @@ async def auth_change_password(
     return resp
 
 
-@router.get("/verify-email")
+@router.get("/verify-email", responses=COMMON_ERROR_RESPONSES)
 async def auth_verify_email(token: str = Query(...)):
     from database import mark_email_verified
     from identity_service import consume_auth_token
@@ -315,7 +315,7 @@ async def auth_verify_email(token: str = Query(...)):
     return RedirectResponse(url="/profile?verified=1", status_code=302)
 
 
-@router.post("/resend-verification")
+@router.post("/resend-verification", responses=COMMON_ERROR_RESPONSES)
 async def auth_resend_verification(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
@@ -367,7 +367,7 @@ async def auth_oauth_status():
     return oauth_status()
 
 
-@router.get("/oauth/{provider}/start")
+@router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_start(provider: str):
     from identity_service import store_oauth_state_async
     from oauth_service import build_authorize_url
@@ -380,7 +380,7 @@ async def auth_oauth_start(provider: str):
     return payload
 
 
-@router.get("/oauth/{provider}/callback")
+@router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_callback(
     provider: str,
     code: str | None = Query(None),
@@ -427,7 +427,7 @@ async def auth_logout(
     return resp
 
 
-@router.post("/logout-all")
+@router.post("/logout-all", responses=COMMON_ERROR_RESPONSES)
 async def auth_logout_all(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
@@ -490,7 +490,7 @@ async def auth_me(user: dict | None = Depends(optional_user)):
     }
 
 
-@router.patch("/profile")
+@router.patch("/profile", responses=COMMON_ERROR_RESPONSES)
 async def auth_profile_update(
     body: AuthProfileUpdateBody,
     user: dict | None = Depends(optional_user),
@@ -528,7 +528,7 @@ async def auth_profile_update(
     return {"success": True, "updated": list(fields.keys())}
 
 
-@router.post("/avatar")
+@router.post("/avatar", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_upload(
     user: dict | None = Depends(optional_user),
     file: UploadFile = File(...),
@@ -548,7 +548,7 @@ async def auth_avatar_upload(
     return {"ok": True, "avatar_url": url}
 
 
-@router.delete("/avatar")
+@router.delete("/avatar", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     if not user:
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
@@ -565,7 +565,7 @@ async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     return {"ok": True, "avatar_url": url}
 
 
-@router.get("/avatar/{filename}")
+@router.get("/avatar/{filename}", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_get(filename: str):
     from identity_service import default_avatar_svg, resolve_avatar_file
 

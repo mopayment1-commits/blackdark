@@ -50,7 +50,6 @@
         async function load() {
             const res = await fetch('/api/roadmap/audit');
             const d = await res.json();
-            const s = d.summary || {};
             document.getElementById('summary').innerHTML =
                 `<span class="stat">${d.weighted_percent ?? d.complete_percent ?? '—'}%</span>` +
                 `complete=${d.complete_count ?? '—'} · partial=${d.partial_count ?? '—'} · planned=${d.planned_count ?? '—'}`;

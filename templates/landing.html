@@ -201,7 +201,7 @@
                 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 10px 40px rgba(0, 0, 0, 0.55),
                 0 0 48px rgba(34, 211, 238, 0.12);
-            background: linear-gradient(180deg, #f8fafc 10%, #a1a1aa 55%, #e2e8f0 100%);
+            background: linear-gradient(180deg, #f8fafc 10%, #d4d4d8 55%, #e2e8f0 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1388,9 +1388,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 }
                 const mode = document.getElementById('landingUxMode');
                 if (mode && d.ux_mode_default) mode.value = d.ux_mode_default;
-                if (aud === 'fund' && d.entry_path) {
-                    window.location.href = d.entry_path;
-                } else if ((aud === 'whale' || aud === 'pro') && d.entry_path) {
+                if ((aud === 'fund' || aud === 'whale' || aud === 'pro') && d.entry_path) {
                     window.location.href = d.entry_path;
                 }
             } catch (error) { console.debug(error); }
@@ -1536,7 +1534,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
             const btn = e.currentTarget;
             btn.classList.remove('bd-motion-share');
-            void btn.offsetWidth;
+            btn.offsetWidth;
             btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';

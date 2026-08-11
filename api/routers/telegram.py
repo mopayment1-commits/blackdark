@@ -1,10 +1,10 @@
-from typing import Annotated, Any
 """Telegram bot webhook and free alerts API."""
 
 from __future__ import annotations
 
 import hmac
 import os
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 
