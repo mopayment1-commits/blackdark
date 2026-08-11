@@ -201,6 +201,62 @@ def _crowd_rewalk_success(
     return updated
 
 
+def _crowd_cross_exchange_rewalk(
+    opportunity: dict[str, Any],
+    *,
+    books: dict[str, Any],
+    age_ms: float,
+    buy_exchange: str,
+    sell_exchange: str,
+    symbol: str,
+    notional: float,
+    crowd_notional_usd: float,
+) -> dict[str, Any] | None:
+    try:
+        from arbitrage_engine import walk_asks, walk_bids
+    except ImportError:
+        return None
+
+    crowd_books = _crowd_books(books, buy_exchange=buy_exchange, sell_exchange=sell_exchange, symbol=symbol)
+    if crowd_books is None:
+        return None
+
+    buy_book, sell_book = crowd_books
+    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd)
+    crowd_buy = walk_asks(buy_book, crowd_notional_usd)
+    if crowd_buy is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_buy")
+
+    sell_book["bids"] = deplete_bids_levels(sell_book.get("bids") or [], crowd_buy.base_amount)
+    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd + notional)
+    user_buy = walk_asks(buy_book, notional)
+    if user_buy is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_buy")
+
+    user_sell = walk_bids(sell_book, user_buy.base_amount)
+    if user_sell is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_sell")
+
+    total_slip = user_buy.slippage_bps + user_sell.slippage_bps
+    from risk_manager import check_slippage
+
+    verdict = check_slippage(total_slip)
+    gross = user_sell.quote_value - user_buy.quote_cost
+    from fee_matrix import trading_fees_usdt
+
+    fees = trading_fees_usdt(buy_exchange, notional) + trading_fees_usdt(sell_exchange, user_sell.quote_value)
+    return _crowd_rewalk_success(
+        opportunity,
+        age_ms=age_ms,
+        crowd_notional_usd=crowd_notional_usd,
+        total_slip=total_slip,
+        user_buy=user_buy,
+        user_sell=user_sell,
+        net_profit=gross - fees,
+        verdict=verdict,
+    )
+
+
 async def crowd_adjusted_rewalk(
     opportunity: dict[str, Any],
     *,
@@ -230,53 +286,19 @@ async def crowd_adjusted_rewalk(
         updated["flywheel_crowd_notional_usd"] = round(crowd_notional_usd, 2)
         return updated
 
-    try:
-        from arbitrage_engine import walk_asks, walk_bids
-    except ImportError:
-        return await _fallback_rewalk(opportunity, notional)
-
-    crowd_books = _crowd_books(books, buy_exchange=buy_ex, sell_exchange=sell_ex, symbol=symbol)
-    if crowd_books is None:
-        return await _fallback_rewalk(opportunity, notional)
-
-    buy_book, sell_book = crowd_books
-    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd)
-
-    crowd_buy = walk_asks(buy_book, crowd_notional_usd)
-    if crowd_buy is None:
-        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_buy")
-
-    sell_book["bids"] = deplete_bids_levels(sell_book.get("bids") or [], crowd_buy.base_amount)
-    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd + notional)
-
-    user_buy = walk_asks(buy_book, notional)
-    if user_buy is None:
-        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_buy")
-
-    user_sell = walk_bids(sell_book, user_buy.base_amount)
-    if user_sell is None:
-        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_sell")
-
-    total_slip = user_buy.slippage_bps + user_sell.slippage_bps
-    from risk_manager import check_slippage
-
-    verdict = check_slippage(total_slip)
-    gross = user_sell.quote_value - user_buy.quote_cost
-    from fee_matrix import trading_fees_usdt
-
-    fees = trading_fees_usdt(buy_ex, notional) + trading_fees_usdt(sell_ex, user_sell.quote_value)
-    net_profit = gross - fees
-
-    return _crowd_rewalk_success(
+    adjusted = _crowd_cross_exchange_rewalk(
         opportunity,
+        books=books,
         age_ms=age_ms,
+        buy_exchange=buy_ex,
+        sell_exchange=sell_ex,
+        symbol=symbol,
+        notional=notional,
         crowd_notional_usd=crowd_notional_usd,
-        total_slip=total_slip,
-        user_buy=user_buy,
-        user_sell=user_sell,
-        net_profit=net_profit,
-        verdict=verdict,
     )
+    if adjusted is not None:
+        return adjusted
+    return await _fallback_rewalk(opportunity, notional)
 
 
 async def apply_crowd_guard_to_alert(opportunity: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
