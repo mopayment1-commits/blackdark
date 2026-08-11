@@ -2,7 +2,8 @@
 
 **Generated:** 2026-08-11T21:57:27Z  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Tip SHA:** `4079329ae9c68cfa8e7e6d8e16c2e4e4b693ac66`  
+**Tip SHA:** `6a975bd2b4745b82cfcde524f0dfd713fb5e8a1a`  
+**Remediation evidence:** `4079329ae9c68cfa8e7e6d8e16c2e4e4b693ac66`  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58  
 
 ## Access limitation
