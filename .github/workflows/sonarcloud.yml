@@ -1,18 +1,13 @@
 name: SonarCloud Analysis
 
-# FINAL POLICY
-# ------------
-# This project uses SonarCloud Automatic Analysis (GitHub App).
-# Running SonarSource/sonarcloud-github-action / sonarqube-scan-action here
-# fails hard with:
-#   "You are running CI analysis while Automatic Analysis is enabled"
-# So this workflow MUST NOT invoke the scanner. It exists only to:
-#   1) replace the old broken workflow definition (secrets-in-if / wrong org)
-#   2) keep the Actions tab green instead of replaying stale scanner failures
-#
-# Real analysis + Quality Gate = check named "SonarCloud Code Analysis".
-# Organization key = blackdark (not GitHub login).
-# Automatic Analysis reads .sonarcloud.properties (NOT sonar-project.properties).
+# Analysis modes
+# -------------
+# Default: Automatic Analysis (GitHub App) owns Quality Gate + issues.
+#   - This workflow generates real coverage.xml (artifact) but does NOT
+#     invoke the CI scanner (AA rejects it with exit 3).
+# CI scanner mode (coverage import): set repo variable SONAR_CI_ANALYSIS=true
+#   AFTER disabling Automatic Analysis in SonarCloud Administration →
+#   Analysis Method. Requires secret SONAR_TOKEN. Organization key: blackdark.
 
 on:
   push:
@@ -23,13 +18,79 @@ permissions:
   contents: read
 
 jobs:
-  sonarcloud:
-    name: SonarCloud
+  coverage-report:
+    name: Coverage XML
     runs-on: ubuntu-latest
     steps:
-      - name: Confirm Automatic Analysis policy
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
         run: |
-          echo "SonarCloud CI scanner is intentionally disabled."
-          echo "Reason: Automatic Analysis is enabled on organization 'blackdark'."
-          echo "Quality Gate comes from the GitHub App check: SonarCloud Code Analysis."
-          echo "Do not re-add SonarSource/*-scan-action while Automatic Analysis stays on."
+          python -m pip install --upgrade "pip==25.2"
+          pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
+
+      - name: Generate Cobertura coverage.xml
+        run: |
+          python -m pytest tests/ \
+            -q --tb=line \
+            --cov-config=.coveragerc-sonar \
+            --cov \
+            --cov-report=xml:coverage.xml \
+            --cov-report=term-missing:skip-covered \
+            --cov-fail-under=0
+          test -s coverage.xml
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          root = ET.parse("coverage.xml").getroot()
+          line_rate = float(root.attrib.get("line-rate") or 0)
+          print(f"coverage line-rate={line_rate:.4f} ({line_rate*100:.1f}%)")
+          PY
+
+      - name: Upload coverage.xml
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+          if-no-files-found: error
+
+  sonarcloud-ci:
+    name: SonarCloud CI Scanner
+    needs: coverage-report
+    if: ${{ vars.SONAR_CI_ANALYSIS == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download coverage.xml
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-xml
+
+      - name: SonarCloud Scan (requires AA disabled)
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.organization=blackdark
+            -Dsonar.projectKey=mopayment1-commits_blackdark
+
+  sonarcloud-aa-notice:
+    name: SonarCloud
+    if: ${{ vars.SONAR_CI_ANALYSIS != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatic Analysis policy
+        run: |
+          echo "Automatic Analysis is active — GitHub App owns Quality Gate."
+          echo "coverage.xml is produced by the Coverage XML job as an artifact."
+          echo "To import coverage into SonarCloud: disable AA, set SONAR_CI_ANALYSIS=true,"
+          echo "ensure SONAR_TOKEN secret exists, then re-run this workflow."

@@ -48,15 +48,28 @@ _SAFE_FUNCS = {
 }
 
 
+def _validate_script_node(node: ast.AST) -> None:
+    if isinstance(node, ast.Call):
+        if not isinstance(node.func, ast.Name) or node.func.id not in _SAFE_FUNCS:
+            raise ValueError(f"Disallowed call: {getattr(node.func, 'id', '?')}")
+        return
+    if not isinstance(node, _ALLOWED_NODES):
+        raise ValueError(f"Disallowed syntax: {type(node).__name__}")
+
+
+def _signal_from_result(result: Any) -> str | None:
+    if isinstance(result, bool):
+        return "buy" if result else "hold"
+    if isinstance(result, (int, float)) and result != 0:
+        return "buy" if result > 0 else "sell"
+    return None
+
+
 def run_script(expression: str, *, variables: dict[str, float] | None = None) -> dict[str, Any]:
     """Evaluate safe numeric expression — no imports/attribute access."""
     tree = ast.parse(expression, mode="eval")
     for node in ast.walk(tree):
-        if isinstance(node, ast.Call):
-            if not isinstance(node.func, ast.Name) or node.func.id not in _SAFE_FUNCS:
-                raise ValueError(f"Disallowed call: {getattr(node.func, 'id', '?')}")
-        elif not isinstance(node, _ALLOWED_NODES):
-            raise ValueError(f"Disallowed syntax: {type(node).__name__}")
+        _validate_script_node(node)
     safe_vars = {
         "price": 0.0,
         "rsi": 50.0,
@@ -73,15 +86,10 @@ def run_script(expression: str, *, variables: dict[str, float] | None = None) ->
         {"__builtins__": {}},
         {**_SAFE_FUNCS, **safe_vars},
     )
-    signal = None
-    if isinstance(result, bool):
-        signal = "buy" if result else "hold"
-    elif isinstance(result, (int, float)) and result != 0:
-        signal = "buy" if result > 0 else "sell"
     return {
         "expression": expression,
         "result": result,
-        "signal": signal,
+        "signal": _signal_from_result(result),
         "variables": safe_vars,
         "allowed_functions": list(_SAFE_FUNCS.keys()),
     }

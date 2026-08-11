@@ -83,7 +83,7 @@ def _module_exists(dotted: str | None) -> bool:
     try:
         import_module(dotted)
         return True
-    except (ImportError, SyntaxError, ModuleNotFoundError):
+    except (ImportError, SyntaxError):
         return False
 
 

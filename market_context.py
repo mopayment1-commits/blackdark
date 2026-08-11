@@ -58,7 +58,7 @@ async def _rest_get(
                 )
                 return None
             return await resp.json()
-    except (aiohttp.ClientError, json.JSONDecodeError, TypeError, ValueError):
+    except (aiohttp.ClientError, TypeError, ValueError):
         return None
     finally:
         if owns_session and session is not None:

@@ -1495,6 +1495,40 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         let landingPulse = null;
         let landingPulseEs = null;
 
+        function _lpPriceBit(p) {
+            const price = p.price != null
+                ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                : '';
+            const ch = p.change_24h;
+            if (ch == null) return price;
+            const sign = ch >= 0 ? '+' : '';
+            return `${price} · ${sign}${Number(ch).toFixed(2)}%`;
+        }
+
+        function _lpRenderWhy(factors) {
+            const why = document.getElementById('lpWhy');
+            if (!why) return;
+            why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
+                const detail = f.detail ? (' — ' + f.detail) : '';
+                return '<div><strong>' + (i + 1) + '. ' + (f.factor || f) + '</strong>' + detail + '</div>';
+            }).join('') || '';
+        }
+
+        function _lpRenderProof(p) {
+            const proof = p.proof || {};
+            const ledger = p.ledger || {};
+            const box = document.getElementById('lpProof');
+            if (!box) return;
+            const bits = [
+                `<a class="bd-chip ok" href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
+            ];
+            if (proof.watermark) bits.push(`<span class="bd-chip">${proof.watermark}</span>`);
+            if (proof.certificate_hash) {
+                bits.push(`<span class="bd-chip">cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
+            }
+            box.innerHTML = bits.join('');
+        }
+
         function renderLandingPulse(p) {
             if (!p) return;
             landingPulse = p;
@@ -1502,47 +1536,19 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const actionEl = document.getElementById('lpAction');
             if (actionEl) {
                 actionEl.textContent = act;
-                actionEl.className = 'tp-mini-action ' + act;
-            }
-            const price = p.price != null ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 })) : '';
-            const ch = p.change_24h;
-            let chBit = '';
-            if (ch != null) {
-                const sign = ch >= 0 ? '+' : '';
-                chBit = ` · ${sign}${Number(ch).toFixed(2)}%`;
+                actionEl.className = 'tp-mini-action bd-tp-action ' + act;
             }
             const sym = document.getElementById('lpSym');
-            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${price}${chBit}`;
+            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;
             const sent = document.getElementById('lpSentence');
             if (sent) sent.textContent = p.sentence || 'One clear Act / Wait — reviewable.';
-            const factors = (p.why && p.why.factors) || [];
-            const why = document.getElementById('lpWhy');
-            if (why) {
-                why.innerHTML = factors.slice(0, 3).map((f, i) => {
-                    const detail = f.detail ? (' — ' + f.detail) : '';
-                    return '<div><strong>' + (i + 1) + '. ' + (f.factor || f) + '</strong>' + detail + '</div>';
-                }).join('') || '';
-            }
+            _lpRenderWhy((p.why && p.why.factors) || []);
             const fresh = p.freshness || {};
             const dot = document.getElementById('lpDot');
             if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
             const fl = document.getElementById('lpFresh');
             if (fl) fl.textContent = fresh.label || 'Live';
-            const proof = p.proof || {};
-            const ledger = p.ledger || {};
-            const box = document.getElementById('lpProof');
-            if (box) {
-                const bits = [
-                    `<a class="bd-chip ok" href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
-                ];
-                if (proof.watermark) bits.push(`<span class="bd-chip">${proof.watermark}</span>`);
-                if (proof.certificate_hash) bits.push(`<span class="bd-chip">cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
-                box.innerHTML = bits.join('');
-            }
-            const actionEl2 = document.getElementById('lpAction');
-            if (actionEl2) {
-                actionEl2.className = 'tp-mini-action bd-tp-action ' + act;
-            }
+            _lpRenderProof(p);
         }
 
         async function loadLandingTrustPulse() {
