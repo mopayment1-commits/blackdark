@@ -102,6 +102,55 @@ def trading_fees_usdt(
     return notional * rate
 
 
+def _load_ccxt_modules() -> tuple[Any, Any, Any] | None:
+    try:
+        import ccxt.async_support as ccxt_async
+
+        from ccxt_market_fetcher import CCXT_ID_MAP, ccxt_exchange_id
+    except ImportError:
+        return None
+    return ccxt_async, CCXT_ID_MAP, ccxt_exchange_id
+
+
+async def _fetch_trading_fees(ex: Any) -> dict[str, Any]:
+    if not hasattr(ex, "fetchTradingFees"):
+        return {}
+    try:
+        return await ex.fetchTradingFees()
+    except Exception:
+        return {}
+
+
+def _fee_rates(exchange_id: str, ex: Any, fees: dict[str, Any]) -> tuple[float, float]:
+    taker = float(getattr(ex, "fees", {}).get("trading", {}).get("taker") or 0) or taker_fee(exchange_id)
+    maker = float(getattr(ex, "fees", {}).get("trading", {}).get("maker") or 0) or maker_fee(exchange_id)
+    if not fees:
+        return taker, maker
+    for _sym, row in list(fees.items())[:1]:
+        if isinstance(row, dict):
+            return float(row.get("taker") or taker), float(row.get("maker") or maker)
+    return taker, maker
+
+
+async def _refresh_exchange_fee(exchange_id: str, ccxt_async: Any, ccxt_id_map: Any, ccxt_exchange_id: Any) -> bool:
+    ccxt_id = ccxt_exchange_id(exchange_id) if exchange_id in ccxt_id_map else exchange_id
+    if ccxt_id not in ccxt_async.exchanges:
+        return False
+    exchange_class = getattr(ccxt_async, ccxt_id)
+    ex = exchange_class({"enableRateLimit": True})
+    await ex.load_markets()
+    taker, maker = _fee_rates(exchange_id, ex, await _fetch_trading_fees(ex))
+    _matrix[exchange_id] = {
+        **_matrix.get(exchange_id, _default_row(exchange_id)),
+        "taker": taker,
+        "maker": maker,
+        "source": "ccxt",
+        "updated_ms": int(time.time() * 1000),
+    }
+    await ex.close()
+    return True
+
+
 async def refresh_fee_matrix() -> dict[str, Any]:
     """Pull trading fees from CCXT where supported."""
     global _matrix, _last_refresh
@@ -109,46 +158,17 @@ async def refresh_fee_matrix() -> dict[str, Any]:
     updated = 0
     errors = 0
 
-    try:
-        import ccxt.async_support as ccxt_async
-
-        from ccxt_market_fetcher import CCXT_ID_MAP, ccxt_exchange_id
-    except ImportError:
+    ccxt_modules = _load_ccxt_modules()
+    if ccxt_modules is None:
         _last_refresh = time.time()
         return {"updated": 0, "total": len(_matrix), "source": "seed_only"}
+    ccxt_async, ccxt_id_map, ccxt_exchange_id = ccxt_modules
 
     exchanges = list(config.enabled_exchanges().keys())
     for exchange_id in exchanges:
-        ccxt_id = ccxt_exchange_id(exchange_id) if exchange_id in CCXT_ID_MAP else exchange_id
-        if ccxt_id not in ccxt_async.exchanges:
-            continue
         try:
-            exchange_class = getattr(ccxt_async, ccxt_id)
-            ex = exchange_class({"enableRateLimit": True})
-            await ex.load_markets()
-            fees = {}
-            if hasattr(ex, "fetchTradingFees"):
-                try:
-                    fees = await ex.fetchTradingFees()
-                except Exception:
-                    fees = {}
-            taker = float(getattr(ex, "fees", {}).get("trading", {}).get("taker") or 0) or taker_fee(exchange_id)
-            maker = float(getattr(ex, "fees", {}).get("trading", {}).get("maker") or 0) or maker_fee(exchange_id)
-            if fees:
-                for _sym, row in list(fees.items())[:1]:
-                    if isinstance(row, dict):
-                        taker = float(row.get("taker") or taker)
-                        maker = float(row.get("maker") or maker)
-                        break
-            _matrix[exchange_id] = {
-                **_matrix.get(exchange_id, _default_row(exchange_id)),
-                "taker": taker,
-                "maker": maker,
-                "source": "ccxt",
-                "updated_ms": int(time.time() * 1000),
-            }
-            updated += 1
-            await ex.close()
+            if await _refresh_exchange_fee(exchange_id, ccxt_async, ccxt_id_map, ccxt_exchange_id):
+                updated += 1
         except Exception:
             errors += 1
             logger.debug("Fee matrix CCXT refresh failed | exchange=%s", exchange_id, exc_info=True)

@@ -775,6 +775,83 @@ async def send_telegram_alert(message: str) -> bool:
         return False
 
 
+def _alert_thresholds_met(opp: dict[str, Any], min_usdt: float, min_pct: float, is_alertable: Any) -> bool:
+    if not is_alertable(opp):
+        return False
+    if float(opp.get("net_profit_usdt") or 0) < min_usdt:
+        return False
+    return float(opp.get("net_profit_percent") or 0) >= min_pct
+
+
+def _alert_title(opp: dict[str, Any]) -> str:
+    return (
+        f"{opp.get('kind_label')} · {opp.get('asset')} · "
+        f"+${float(opp.get('net_profit_usdt') or 0):.2f} "
+        f"({float(opp.get('net_profit_percent') or 0):.3f}%)"
+    )
+
+
+async def _dispatch_primary_arbitrage_alert(
+    title: str,
+    opp: dict[str, Any],
+    scan_result: dict[str, Any],
+) -> None:
+    await _dispatch_unified_alert(title, opp)
+    await _publish_b2b_arbitrage_alert(opp)
+    await _publish_service_bus_arbitrage_alert(opp)
+    await _dispatch_free_telegram_if_configured(scan_result)
+
+
+async def _dispatch_unified_alert(title: str, opp: dict[str, Any]) -> None:
+    try:
+        from alert_service import dispatch_alert
+
+        body = (
+            f"Feasibility: {opp.get('execution_feasibility')}\n"
+            f"Duration: {opp.get('estimated_duration')}\n"
+            f"{opp.get('why', '')[:200]}"
+        )
+        await dispatch_alert(title, body, payload=opp)
+    except Exception:
+        logger.exception("Unified alert dispatch failed")
+
+
+async def _publish_b2b_arbitrage_alert(opp: dict[str, Any]) -> None:
+    try:
+        from b2b_websocket_hub import publish_arbitrage_opportunity
+
+        await publish_arbitrage_opportunity(opp)
+    except Exception:
+        logger.exception("B2B WS arbitrage publish failed")
+
+
+async def _publish_service_bus_arbitrage_alert(opp: dict[str, Any]) -> None:
+    try:
+        from service_bus import publish
+
+        await publish(
+            "blackdark.arbitrage.hot",
+            {
+                "asset": opp.get("asset"),
+                "kind": opp.get("kind"),
+                "net_profit_usdt": opp.get("net_profit_usdt"),
+            },
+        )
+    except Exception:
+        logger.debug("Service bus arbitrage publish skipped", exc_info=True)
+
+
+async def _dispatch_free_telegram_if_configured(scan_result: dict[str, Any]) -> None:
+    if not os.getenv("TELEGRAM_BOT_TOKEN"):
+        return
+    try:
+        from telegram_free_alerts import dispatch_free_telegram_alerts
+
+        await dispatch_free_telegram_alerts(scan=scan_result)
+    except Exception:
+        logger.exception("Free Telegram dispatch from arbitrage alert failed")
+
+
 async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str, Any]]:
     """Create in-app alerts and dispatch via Telegram/Email/WhatsApp."""
     from database import insert_arbitrage_alert_log
@@ -786,61 +863,14 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
     from constitution_gates import is_alertable
 
     for opp in scan_result.get("opportunities", [])[:5]:
-        if not is_alertable(opp):
-            continue
-        if float(opp.get("net_profit_usdt") or 0) < min_usdt:
-            continue
-        if float(opp.get("net_profit_percent") or 0) < min_pct:
+        if not _alert_thresholds_met(opp, min_usdt, min_pct, is_alertable):
             continue
 
-        title = (
-            f"{opp.get('kind_label')} · {opp.get('asset')} · "
-            f"+${float(opp.get('net_profit_usdt') or 0):.2f} "
-            f"({float(opp.get('net_profit_percent') or 0):.3f}%)"
-        )
+        title = _alert_title(opp)
         await insert_arbitrage_alert_log(opp.get("kind", "unknown"), title, json.dumps(opp))
         triggered.append({"title": title, "opportunity": opp})
 
         if len(triggered) == 1:
-            try:
-                from alert_service import dispatch_alert
-
-                body = (
-                    f"Feasibility: {opp.get('execution_feasibility')}\n"
-                    f"Duration: {opp.get('estimated_duration')}\n"
-                    f"{opp.get('why', '')[:200]}"
-                )
-                await dispatch_alert(title, body, payload=opp)
-            except Exception:
-                logger.exception("Unified alert dispatch failed")
-
-            try:
-                from b2b_websocket_hub import publish_arbitrage_opportunity
-
-                await publish_arbitrage_opportunity(opp)
-            except Exception:
-                logger.exception("B2B WS arbitrage publish failed")
-
-            try:
-                from service_bus import publish
-
-                await publish(
-                    "blackdark.arbitrage.hot",
-                    {
-                        "asset": opp.get("asset"),
-                        "kind": opp.get("kind"),
-                        "net_profit_usdt": opp.get("net_profit_usdt"),
-                    },
-                )
-            except Exception:
-                logger.debug("Service bus arbitrage publish skipped", exc_info=True)
-
-            if os.getenv("TELEGRAM_BOT_TOKEN"):
-                try:
-                    from telegram_free_alerts import dispatch_free_telegram_alerts
-
-                    await dispatch_free_telegram_alerts(scan=scan_result)
-                except Exception:
-                    logger.exception("Free Telegram dispatch from arbitrage alert failed")
+            await _dispatch_primary_arbitrage_alert(title, opp, scan_result)
 
     return triggered

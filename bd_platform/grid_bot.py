@@ -28,6 +28,40 @@ def _safe_asset(asset: str) -> str:
     return cleaned
 
 
+def _validated_row(row: dict[str, Any]) -> dict[str, Any] | None:
+    try:
+        asset = _safe_asset(str(row.get("asset") or ""))
+        rid = str(row.get("id") or "")
+        if not _ID_RE.fullmatch(rid):
+            rid = f"grid_{asset}_{int(datetime.now(UTC).timestamp())}"
+        return {
+            "id": rid,
+            "asset": asset,
+            "lower_price": float(row["lower_price"]),
+            "upper_price": float(row["upper_price"]),
+            "grids": int(row["grids"]),
+            "levels": [float(x) for x in (row.get("levels") or [])],
+            "quote_usd": float(row.get("quote_usd") or 0),
+            "mode": "paper",
+            "created_at": str(row.get("created_at") or datetime.now(UTC).isoformat()),
+        }
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def _clean_rows(raw: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw, list):
+        return []
+    clean: list[dict[str, Any]] = []
+    for row in raw:
+        if not isinstance(row, dict):
+            continue
+        clean_row = _validated_row(row)
+        if clean_row is not None:
+            clean.append(clean_row)
+    return clean
+
+
 def _hydrate() -> None:
     """Load disk snapshot once into memory (best-effort)."""
     global _LOADED, _ROWS
@@ -42,32 +76,7 @@ def _hydrate() -> None:
     except (OSError, json.JSONDecodeError):
         _ROWS = []
         return
-    clean: list[dict[str, Any]] = []
-    if isinstance(raw, list):
-        for row in raw:
-            if not isinstance(row, dict):
-                continue
-            try:
-                asset = _safe_asset(str(row.get("asset") or ""))
-                rid = str(row.get("id") or "")
-                if not _ID_RE.fullmatch(rid):
-                    rid = f"grid_{asset}_{int(datetime.now(UTC).timestamp())}"
-                clean.append(
-                    {
-                        "id": rid,
-                        "asset": asset,
-                        "lower_price": float(row["lower_price"]),
-                        "upper_price": float(row["upper_price"]),
-                        "grids": int(row["grids"]),
-                        "levels": [float(x) for x in (row.get("levels") or [])],
-                        "quote_usd": float(row.get("quote_usd") or 0),
-                        "mode": "paper",
-                        "created_at": str(row.get("created_at") or datetime.now(UTC).isoformat()),
-                    }
-                )
-            except (KeyError, TypeError, ValueError):
-                continue
-    _ROWS = clean
+    _ROWS = _clean_rows(raw)
 
 
 def _persist() -> None:

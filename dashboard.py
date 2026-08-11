@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -1897,39 +1897,15 @@ async def platform_coin_page(request: Request, coin_id: str):
 
 
 # ========== API ENDPOINTS ==========
-@app.get("/oracle/{symbol}/explain", responses=COMMON_ERROR_RESPONSES)
-async def oracle_explain(
-    symbol: str,
-    background_tasks: BackgroundTasks,
-    user: dict | None = Depends(optional_user),
-) -> JSONResponse:
+async def _oracle_explain_market(symbol: str) -> tuple[str, str, dict]:
     asset, pair = _normalize_oracle_symbol(symbol)
     market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+    return asset, pair, market
 
-    price = market["price"]
-    volume = market["volume"]
-    quote_volume = market["quote_volume"] or (volume * price)
-    change = market["change_24h"]
 
-    from oracle_unified import compute_unified_oracle
-
-    unified = await compute_unified_oracle(asset, price, quote_volume, change)
-    score = unified["opportunity_score"]
-    verdict = unified["verdict"]
-
-    payload = await _build_opportunity_explanation(
-        asset, price, change, quote_volume, score, verdict, pair=pair
-    )
-    payload["unified_engine"] = unified.get("engine")
-    payload["market_regime"] = unified.get("market_regime")
-    if user and is_admin_user(user):
-        payload["modal_breakdown"] = unified.get("modal_breakdown")
-    else:
-        payload["weights_protected"] = True
-    payload["opportunity_score"] = score
-    payload["verdict"] = verdict
+async def _attach_explain_forecast(payload: dict, asset: str, price: float, score: int, verdict: str, change: float, quote_volume: float) -> None:
     from forecast_engine import enrich_oracle_payload
 
     forecast_stub = {
@@ -1944,23 +1920,46 @@ async def oracle_explain(
     payload["forecast"] = enriched.get("forecast")
     payload["forecast_summary"] = enriched.get("forecast_summary")
 
+
+def _attach_explain_admin_fields(payload: dict, unified: dict, user: dict | None) -> None:
+    payload["unified_engine"] = unified.get("engine")
+    payload["market_regime"] = unified.get("market_regime")
+    if user and is_admin_user(user):
+        payload["modal_breakdown"] = unified.get("modal_breakdown")
+    else:
+        payload["weights_protected"] = True
+
+
+def _sanitize_explain_payload(payload: dict, asset: str, user: dict | None) -> dict:
     from security_sanitize import sanitize_explanation_payload, sanitize_oracle_payload
 
     if user and is_admin_user(user):
-        payload = sanitize_explanation_payload(payload)
-    else:
-        base = sanitize_oracle_payload(
-            {
-                "symbol": asset,
-                "verdict": payload.get("verdict"),
-                "opportunity_score": payload.get("opportunity_score"),
-                "explanation": payload,
-            }
-        )
-        payload = sanitize_explanation_payload(payload)
-        payload["regulatory_classification"] = base.get("regulatory_classification")
-        payload["disclaimer"] = base.get("disclaimer")
-        payload["is_investment_advice"] = False
+        return sanitize_explanation_payload(payload)
+    base = sanitize_oracle_payload(
+        {
+            "symbol": asset,
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "explanation": payload,
+        }
+    )
+    payload = sanitize_explanation_payload(payload)
+    payload["regulatory_classification"] = base.get("regulatory_classification")
+    payload["disclaimer"] = base.get("disclaimer")
+    payload["is_investment_advice"] = False
+    return payload
+
+
+def _queue_oracle_explain_tasks(
+    background_tasks: BackgroundTasks,
+    *,
+    asset: str,
+    price: float,
+    verdict: str,
+    score: int,
+    confidence: float,
+    user: dict | None,
+) -> None:
     background_tasks.add_task(
         _log_oracle_prediction,
         {
@@ -1969,7 +1968,7 @@ async def oracle_explain(
             "price": price,
             "verdict": verdict,
             "opportunity_score": score,
-            "confidence": payload.get("confidence") or _oracle_confidence(score, change, quote_volume),
+            "confidence": confidence,
             "kind": "oracle_explain",
         },
     )
@@ -1979,6 +1978,43 @@ async def oracle_explain(
         user=user,
         asset=asset,
         payload={"verdict": verdict, "opportunity_score": score},
+    )
+
+
+@app.get("/oracle/{symbol}/explain", responses=COMMON_ERROR_RESPONSES)
+async def oracle_explain(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    user: dict | None = Depends(optional_user),
+) -> JSONResponse:
+    asset, pair, market = await _oracle_explain_market(symbol)
+    price = market["price"]
+    volume = market["volume"]
+    quote_volume = market["quote_volume"] or (volume * price)
+    change = market["change_24h"]
+
+    from oracle_unified import compute_unified_oracle
+
+    unified = await compute_unified_oracle(asset, price, quote_volume, change)
+    score = unified["opportunity_score"]
+    verdict = unified["verdict"]
+
+    payload = await _build_opportunity_explanation(
+        asset, price, change, quote_volume, score, verdict, pair=pair
+    )
+    _attach_explain_admin_fields(payload, unified, user)
+    payload["opportunity_score"] = score
+    payload["verdict"] = verdict
+    await _attach_explain_forecast(payload, asset, price, score, verdict, change, quote_volume)
+    payload = _sanitize_explain_payload(payload, asset, user)
+    _queue_oracle_explain_tasks(
+        background_tasks,
+        asset=asset,
+        price=price,
+        verdict=verdict,
+        score=score,
+        confidence=payload.get("confidence") or _oracle_confidence(score, change, quote_volume),
+        user=user,
     )
     return JSONResponse(payload)
 
