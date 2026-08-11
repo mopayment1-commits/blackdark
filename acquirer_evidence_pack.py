@@ -14,93 +14,110 @@ from typing import Any
 STR_REGIME_CONDITIONAL_MODELS = 'Regime-Conditional Models'
 
 
-async def build_acquirer_evidence_pack() -> dict[str, Any]:
-    pack: dict[str, Any] = {
-        "generated_at": datetime.now(UTC).isoformat(),
-        "product_thesis": (
-            "Decision Intelligence + Proven Predictive Accuracy + "
-            "Proprietary Labeled Market Corpus"
-        ),
-        "not_selling": "500-indicator dashboard / HFT theater",
-        "sections": {},
-        "committee_checklist": [],
-    }
-
-    # Public accuracy / track record
+async def _public_accuracy_section() -> dict[str, Any]:
     try:
         from ml.public_accuracy import build_public_accuracy_payload
 
-        pack["sections"]["public_accuracy"] = await build_public_accuracy_payload()
+        return await build_public_accuracy_payload()
     except Exception as exc:
-        pack["sections"]["public_accuracy"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _track_record_section() -> dict[str, Any]:
     try:
         from oracle_track_record import public_track_record
 
-        pack["sections"]["track_record"] = public_track_record()
+        return public_track_record()
     except Exception as exc:
-        pack["sections"]["track_record"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _audit_chain_section() -> dict[str, Any]:
     try:
         from oracle_audit_chain import chain_summary, verify_chain
 
-        pack["sections"]["audit_chain"] = {
+        return {
             "summary": chain_summary(limit=10),
             "verify": verify_chain(),
         }
     except Exception as exc:
-        pack["sections"]["audit_chain"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _registry_section() -> dict[str, Any]:
     try:
         from signal_registry import registry_stats
 
-        pack["sections"]["signal_registry"] = registry_stats()
+        return registry_stats()
     except Exception as exc:
-        pack["sections"]["signal_registry"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _net_edge_section() -> dict[str, Any]:
     try:
         from net_edge_truth import net_edge_truth_status
 
-        pack["sections"]["net_edge_truth"] = net_edge_truth_status()
+        return net_edge_truth_status()
     except Exception as exc:
-        pack["sections"]["net_edge_truth"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _half_life_section() -> dict[str, Any]:
     try:
         from opportunity_tracker import half_life_status
 
-        pack["sections"]["opportunity_half_life"] = half_life_status()
+        return half_life_status()
     except Exception as exc:
-        pack["sections"]["opportunity_half_life"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _conflict_section() -> dict[str, Any]:
     try:
         from dimension_conflict_guard import dimension_conflict_status
 
-        pack["sections"]["contradiction_veto"] = dimension_conflict_status()
+        return dimension_conflict_status()
     except Exception as exc:
-        pack["sections"]["contradiction_veto"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+async def _data_moat_section() -> dict[str, Any]:
     try:
         from data_moat_guard import build_moat_build_status
 
-        pack["sections"]["data_moat"] = await build_moat_build_status()
+        return await build_moat_build_status()
     except Exception as exc:
-        pack["sections"]["data_moat"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+async def _acquisition_assets_section() -> dict[str, Any]:
     try:
         from acquisition_assets_service import build_acquisition_asset_audit
 
-        pack["sections"]["acquisition_assets"] = await build_acquisition_asset_audit()
+        return await build_acquisition_asset_audit()
     except Exception as exc:
-        pack["sections"]["acquisition_assets"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
+
+def _flywheel_section() -> dict[str, Any]:
     try:
         from flywheel_saturation_guard import flywheel_saturation_status
 
-        pack["sections"]["flywheel_saturation"] = flywheel_saturation_status()
+        return flywheel_saturation_status()
     except Exception as exc:
-        pack["sections"]["flywheel_saturation"] = {"error": str(exc)}
+        return {"error": str(exc)}
 
-    pack["differentiators"] = [
+
+async def _corpus_passport_section() -> dict[str, Any]:
+    try:
+        from corpus_passport import build_corpus_passport
+
+        return await build_corpus_passport()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _base_differentiators() -> list[dict[str, Any]]:
+    return [
         {"id": "D1", "name": "Proof-Native Oracle", "status": "live"},
         {"id": "D2", "name": "Contradiction Veto", "status": "live"},
         {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
@@ -110,11 +127,14 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
         {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
     ]
+
+
+def _refresh_regime_differentiator(differentiators: list[dict[str, Any]]) -> None:
     try:
         from ml.regime_models import regime_model_registry
 
         d5 = regime_model_registry()
-        pack["differentiators"][4] = {
+        differentiators[4] = {
             "id": "D5",
             "name": STR_REGIME_CONDITIONAL_MODELS,
             "status": d5.get("status") or d5.get("evidence_status") or "weights_live",
@@ -124,17 +144,20 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
             "note": d5.get("note"),
         }
     except Exception:
-        pack["differentiators"][4] = {
+        differentiators[4] = {
             "id": "D5",
             "name": STR_REGIME_CONDITIONAL_MODELS,
             "status": "weights_live",
             "note": "Regime weights + confidence router live; registry unavailable",
         }
+
+
+def _refresh_registry_differentiator(differentiators: list[dict[str, Any]]) -> None:
     try:
         from signal_registry import registry_stats
 
         d8 = registry_stats()
-        pack["differentiators"][7] = {
+        differentiators[7] = {
             "id": "D8",
             "name": "Sovereign Signal Registry",
             "status": d8.get("status") or ("live" if (d8.get("labeled") or 0) > 0 else "pending_labels"),
@@ -147,14 +170,38 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         }
     except Exception:
         pass
+
+
+async def build_acquirer_evidence_pack() -> dict[str, Any]:
+    pack: dict[str, Any] = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "product_thesis": (
+            "Decision Intelligence + Proven Predictive Accuracy + "
+            "Proprietary Labeled Market Corpus"
+        ),
+        "not_selling": "500-indicator dashboard / HFT theater",
+        "sections": {},
+        "committee_checklist": [],
+    }
+
+    sections = pack["sections"]
+    sections["public_accuracy"] = await _public_accuracy_section()
+    sections["track_record"] = _track_record_section()
+    sections["audit_chain"] = _audit_chain_section()
+    sections["signal_registry"] = _registry_section()
+    sections["net_edge_truth"] = _net_edge_section()
+    sections["opportunity_half_life"] = _half_life_section()
+    sections["contradiction_veto"] = _conflict_section()
+    sections["data_moat"] = await _data_moat_section()
+    sections["acquisition_assets"] = await _acquisition_assets_section()
+    sections["flywheel_saturation"] = _flywheel_section()
+
+    pack["differentiators"] = _base_differentiators()
+    _refresh_regime_differentiator(pack["differentiators"])
+    _refresh_registry_differentiator(pack["differentiators"])
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
-    try:
-        from corpus_passport import build_corpus_passport
-
-        pack["sections"]["corpus_passport"] = await build_corpus_passport()
-    except Exception as exc:
-        pack["sections"]["corpus_passport"] = {"error": str(exc)}
+    pack["sections"]["corpus_passport"] = await _corpus_passport_section()
 
     pack["committee_checklist"] = [
         "Verify audit chain integrity",

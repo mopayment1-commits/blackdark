@@ -219,26 +219,10 @@ def calculate_opportunity_score(
     return score
 
 
-def explain_opportunity(
-    opportunity: Any,
-    kind: OpportunityKind,
-    opportunity_score: float,
-    institutional_context: dict[str, Any] | None = None,
-) -> OpportunityExplanation:
-    """Break down technical drivers and produce a confidence percentage."""
-    metrics = extract_metrics(opportunity, kind)
+
+def _explain_kind_reasons(opportunity: Any, kind: OpportunityKind, metrics: OpportunityMetrics) -> tuple[list[str], list[str]]:
     reasons: list[str] = []
     risks: list[str] = []
-
-    reasons.append(
-        f"Net edge after costs: ${metrics.net_profit_usdt:.4f} "
-        f"({metrics.net_profit_percent:.4f}%) on ${metrics.quote_amount:.2f} notional."
-    )
-    reasons.append(
-        f"Depth-walk slippage: {metrics.total_slippage_bps:.2f} bps "
-        f"(lower is better for executable size)."
-    )
-
     if kind == "cross_exchange":
         reasons.append(
             f"Cross-venue spread: buy {opportunity.buy_exchange} / "
@@ -248,19 +232,22 @@ def explain_opportunity(
         risks.append(
             f"Withdrawal fee drag: ${float(opportunity.withdrawal_fee_usdt):.4f}."
         )
-    elif kind == "triangular":
+        return reasons, risks
+    if kind == "triangular":
         reasons.append(
             f"Triangular loop {opportunity.path} on {opportunity.exchange} "
             f"at {opportunity.gross_spread_bps:.2f} bps gross."
         )
         risks.append("Three-leg execution risk: one stale leg collapses the loop.")
-    elif kind == "spot_futures":
+        return reasons, risks
+    if kind == "spot_futures":
         reasons.append(
             f"Spot-perp basis on {opportunity.exchange}: "
             f"{metrics.basis_bps:.2f} bps ({opportunity.direction})."
         )
         risks.append("Basis can mean-revert before both legs fill.")
-    elif kind == "funding":
+        return reasons, risks
+    if kind == "funding":
         reasons.append(
             f"Funding spread: long {opportunity.long_exchange} / "
             f"short {opportunity.short_exchange} at "
@@ -279,115 +266,153 @@ def explain_opportunity(
                 f"CVVD risk buffer applied (${cvvd_buffer:.4f}) due to "
                 f"{', '.join(cvvd_patterns)}."
             )
+    return reasons, risks
 
-    if institutional_context:
-        alert_count = len(institutional_context.get("manipulation_alerts", [])) or len(
-            institutional_context.get("whale_alerts", [])
+
+def _explain_institutional_context(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    alert_count = len(institutional_context.get("manipulation_alerts", [])) or len(
+        institutional_context.get("whale_alerts", [])
+    )
+    if alert_count:
+        reasons.append(
+            f"CVVD radar: {alert_count} cross-venue manipulation signal(s) in latest sweep."
         )
-        if alert_count:
-            reasons.append(
-                f"CVVD radar: {alert_count} cross-venue manipulation signal(s) in latest sweep."
-            )
-        sector_flows = institutional_context.get("sector_inflow_index") or institutional_context.get(
-            "sector_flows", []
-        )
-        asset_sector = config.SECTOR_MAP.get(metrics.asset)
-        for flow in sector_flows:
-            if flow.get("sector") == asset_sector:
-                meta_raw = flow.get("metadata_json")
+    sector_flows = institutional_context.get("sector_inflow_index") or institutional_context.get(
+        "sector_flows", []
+    )
+    asset_sector = config.SECTOR_MAP.get(metrics.asset)
+    for flow in sector_flows:
+        if flow.get("sector") != asset_sector:
+            continue
+        meta_raw = flow.get("metadata_json")
+        meta: dict[str, Any] = {}
+        if isinstance(meta_raw, str):
+            try:
+                meta = json.loads(meta_raw)
+            except json.JSONDecodeError:
                 meta = {}
-                if isinstance(meta_raw, str):
-                    try:
-                        meta = json.loads(meta_raw)
-                    except json.JSONDecodeError:
-                        meta = {}
-                sii = float(meta.get("sii_score") or flow.get("net_flow_usd") or 0.0)
-                reasons.append(
-                    f"Sector Inflow Index ({asset_sector}): SII {sii:.1f} "
-                    f"(capital acceleration, not raw volume)."
-                )
-                break
+        sii = float(meta.get("sii_score") or flow.get("net_flow_usd") or 0.0)
+        reasons.append(
+            f"Sector Inflow Index ({asset_sector}): SII {sii:.1f} "
+            f"(capital acceleration, not raw volume)."
+        )
+        break
+    return reasons, risks
 
-    asset_obi = get_obi_for_asset(metrics.asset, institutional_context or {})
+
+def _explain_obi(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    asset_obi = get_obi_for_asset(metrics.asset, institutional_context)
     if asset_obi is not None:
         reasons.append(f"Order book imbalance (OBI): {asset_obi:+.3f} across watched venues.")
-    obi_warnings = (institutional_context or {}).get("obi_warnings") or []
-    for warning in obi_warnings:
+    for warning in institutional_context.get("obi_warnings") or []:
         if str(warning.get("asset") or "") != metrics.asset:
             continue
         risks.append(str(warning.get("message") or warning.get("warning_type") or "OBI warning"))
         break
+    return reasons, risks
 
-    onchain_status = get_onchain_status_for_asset(metrics.asset, institutional_context or {})
-    if onchain_status:
-        bias = str(onchain_status.get("bias") or "neutral")
-        net_flow = float(onchain_status.get("net_flow_usd") or 0.0)
-        if bias == "accumulation":
-            reasons.append(
-                f"On-chain matrix: accumulation bias (${net_flow:+,.0f} net exchange outflow)."
-            )
-        elif bias == "distribution":
-            risks.append(
-                f"On-chain matrix: distribution risk (${net_flow:+,.0f} net exchange inflow)."
-            )
-        for signal in onchain_status.get("signals") or []:
-            text = str(signal.get("message") or signal.get("signal_type") or "")
-            if signal.get("signal_type") == "accumulation_signal":
-                reasons.append(text)
-            else:
-                risks.append(text)
-            break
 
+def _explain_onchain(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    onchain_status = get_onchain_status_for_asset(metrics.asset, institutional_context)
+    if not onchain_status:
+        return reasons, risks
+    bias = str(onchain_status.get("bias") or "neutral")
+    net_flow = float(onchain_status.get("net_flow_usd") or 0.0)
+    if bias == "accumulation":
+        reasons.append(
+            f"On-chain matrix: accumulation bias (${net_flow:+,.0f} net exchange outflow)."
+        )
+    elif bias == "distribution":
+        risks.append(
+            f"On-chain matrix: distribution risk (${net_flow:+,.0f} net exchange inflow)."
+        )
+    for signal in onchain_status.get("signals") or []:
+        text = str(signal.get("message") or signal.get("signal_type") or "")
+        if signal.get("signal_type") == "accumulation_signal":
+            reasons.append(text)
+        else:
+            risks.append(text)
+        break
+    return reasons, risks
+
+
+def _explain_sentiment(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
     sentiment_index = float(
-        (institutional_context or {}).get("sentiment_compound_index", {}).get(metrics.asset, 0.0)
+        institutional_context.get("sentiment_compound_index", {}).get(metrics.asset, 0.0)
     )
     if is_extreme_negative_sentiment(sentiment_index):
         risks.append(build_sentiment_panic_warning(metrics.asset, sentiment_index))
-    elif abs(sentiment_index) > config.SENTIMENT_NEUTRAL_BAND:
+        return reasons, risks
+    if abs(sentiment_index) > config.SENTIMENT_NEUTRAL_BAND:
         tone = "greed/FOMO" if sentiment_index > 0 else "fear/panic"
         reasons.append(
             f"5-minute news sentiment for {metrics.asset}: {sentiment_index:+.2f} ({tone})."
         )
+    return reasons, risks
 
-    macro_regime = str((institutional_context or {}).get("macro_regime") or "")
-    if macro_regime:
-        macro_weight = macro_score_weight(institutional_context)
-        dxy = float((institutional_context or {}).get("macro_dxy_score", 0.0))
-        spx = float((institutional_context or {}).get("macro_spx_score", 0.0))
-        buffer = float((institutional_context or {}).get("macro_volatility_buffer", 0.0))
-        macro_line = (
-            f"Macro regime: {macro_regime} | DXY {dxy:+.2f}% | SPX {spx:+.2f}% | "
-            f"volatility buffer {buffer:.1f} bps | score weight x{macro_weight:.2f}."
-        )
-        if macro_regime == "Risk-Off":
-            risks.append(macro_line)
-        else:
-            reasons.append(macro_line)
 
-    hub = (institutional_context or {}).get("oracle_data_hub") or {}
-    if hub.get("enabled"):
-        _, hub_reasons, hub_risks = hub_score_adjustment(metrics.asset, hub)
-        reasons.extend(hub_reasons[:4])
-        risks.extend(hub_risks[:4])
-        geo = hub.get("geo_news") or {}
-        if geo.get("headlines"):
-            top_geo = next(
-                (h for h in geo["headlines"] if h.get("geopolitical")),
-                geo["headlines"][0],
-            )
-            risks.append(
-                f"Global headline watch: {top_geo.get('title', '')[:120]}"
-            )
+def _explain_macro(institutional_context: dict[str, Any]) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    macro_regime = str(institutional_context.get("macro_regime") or "")
+    if not macro_regime:
+        return reasons, risks
+    macro_weight = macro_score_weight(institutional_context)
+    dxy = float(institutional_context.get("macro_dxy_score", 0.0))
+    spx = float(institutional_context.get("macro_spx_score", 0.0))
+    buffer = float(institutional_context.get("macro_volatility_buffer", 0.0))
+    macro_line = (
+        f"Macro regime: {macro_regime} | DXY {dxy:+.2f}% | SPX {spx:+.2f}% | "
+        f"volatility buffer {buffer:.1f} bps | score weight x{macro_weight:.2f}."
+    )
+    if macro_regime == "Risk-Off":
+        risks.append(macro_line)
+    else:
+        reasons.append(macro_line)
+    return reasons, risks
 
-    if metrics.total_slippage_bps >= config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS:
-        risks.append("Slippage is elevated relative to the configured safety ceiling.")
 
+def _explain_hub(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    hub = institutional_context.get("oracle_data_hub") or {}
+    if not hub.get("enabled"):
+        return reasons, risks
+    _, hub_reasons, hub_risks = hub_score_adjustment(metrics.asset, hub)
+    reasons.extend(hub_reasons[:4])
+    risks.extend(hub_risks[:4])
+    geo = hub.get("geo_news") or {}
+    headlines = geo.get("headlines") or []
+    if headlines:
+        top_geo = next((h for h in headlines if h.get("geopolitical")), headlines[0])
+        risks.append(f"Global headline watch: {top_geo.get('title', '')[:120]}")
+    return reasons, risks
+
+
+def _calibrate_explanation_confidence(opportunity_score: float, metrics: OpportunityMetrics) -> float:
     confidence = _clamp(
         opportunity_score * 0.55
         + liquidity_component(metrics.total_slippage_bps) * 0.25
         + profit_component(metrics.net_profit_percent) * 0.20
     )
-
     try:
         from ml.drift_monitor import calibrate_confidence
 
@@ -396,12 +421,46 @@ def explain_opportunity(
             confidence = float(calibration["calibrated_hit_rate_percent"])
     except Exception:
         pass
+    return confidence
 
+
+def explain_opportunity(
+    opportunity: Any,
+    kind: OpportunityKind,
+    opportunity_score: float,
+    institutional_context: dict[str, Any] | None = None,
+) -> OpportunityExplanation:
+    """Break down technical drivers and produce a confidence percentage."""
+    metrics = extract_metrics(opportunity, kind)
+    ctx = institutional_context or {}
+    reasons: list[str] = [
+        f"Net edge after costs: ${metrics.net_profit_usdt:.4f} "
+        f"({metrics.net_profit_percent:.4f}%) on ${metrics.quote_amount:.2f} notional.",
+        f"Depth-walk slippage: {metrics.total_slippage_bps:.2f} bps "
+        f"(lower is better for executable size).",
+    ]
+    risks: list[str] = []
+
+    for extra_r, extra_k in (
+        _explain_kind_reasons(opportunity, kind, metrics),
+        _explain_institutional_context(metrics, ctx) if ctx else ([], []),
+        _explain_obi(metrics, ctx),
+        _explain_onchain(metrics, ctx),
+        _explain_sentiment(metrics, ctx),
+        _explain_macro(ctx),
+        _explain_hub(metrics, ctx),
+    ):
+        reasons.extend(extra_r)
+        risks.extend(extra_k)
+
+    if metrics.total_slippage_bps >= config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS:
+        risks.append("Slippage is elevated relative to the configured safety ceiling.")
+
+    confidence = _calibrate_explanation_confidence(opportunity_score, metrics)
     summary = (
         f"{metrics.asset} {kind.replace('_', ' ')} setup scores "
         f"{opportunity_score:.1f}/100 with {confidence:.1f}% confidence (rules engine)."
     )
-
     return OpportunityExplanation(
         kind=kind,
         asset=metrics.asset,
@@ -410,6 +469,7 @@ def explain_opportunity(
         risk_factors=risks,
         confidence_percent=round(confidence, 2),
     )
+
 
 
 def liquidity_component(slippage_bps: float) -> float:

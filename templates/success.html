@@ -63,7 +63,7 @@
             <a href="/privacy" style="color:#a1a1aa">Privacy</a>
         </p>
     </div>
-    <script>
+    <script type="module">
         async function refreshTier() {
             const token = localStorage.getItem('bd_token');
             const el = document.getElementById('status');
@@ -82,8 +82,8 @@
                 }
             } catch (error) { console.debug(error); el.textContent = 'Subscription active — open Trust Pulse to continue.'; }
         }
-        refreshTier();
-    </script>
+        await refreshTier();
+</script>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

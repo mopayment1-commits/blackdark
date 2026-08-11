@@ -41,7 +41,7 @@ code{color:var(--ok)} @media(max-width:700px){.grid{grid-template-columns:1fr}}
 </div>
 <p class="sub" id="disc"></p>
 </main>
-<script>
+<script type="module">
 async function load(){
   const d=await (await fetch('/api/public/coverage-honesty')).json();
   document.getElementById('doctrine').textContent=d.doctrine||'';
@@ -52,6 +52,5 @@ async function load(){
   document.getElementById('fix').textContent=d.radical_fix?.solution||'';
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
-load();
-</script>
+await load();</script>
 </body></html>

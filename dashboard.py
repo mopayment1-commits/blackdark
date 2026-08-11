@@ -398,7 +398,7 @@ async def lifespan(app: FastAPI):
             try:
                 from uptime_probe_loop import start_uptime_probe_loop
 
-                app.state.uptime_probe_task = await start_uptime_probe_loop()
+                app.state.uptime_probe_task = start_uptime_probe_loop()
             except Exception:
                 logger.exception("Uptime self-probe failed in web mode")
             return
@@ -776,6 +776,12 @@ async def _build_opportunity_explanation(
     news_sentiment = _compound_to_score(compound)
     news_label = _compound_label(compound)
     social_buzz = int(max(15, min(95, round(48 + score * 0.35 + abs(compound) * 40))))
+    if social_buzz >= 70:
+        social_label = "High"
+    elif social_buzz >= 45:
+        social_label = "Moderate"
+    else:
+        social_label = "Low"
 
     onchain_ctx = await build_onchain_context_safe()
     onchain_status = get_onchain_status_for_asset(asset, onchain_ctx)
@@ -792,7 +798,12 @@ async def _build_opportunity_explanation(
 
     support = round(price * 0.97, -2)
     resistance = round(price * 1.03, -2)
-    volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
+    if abs(change) < 2:
+        volatility = "Low"
+    elif abs(change) < 5:
+        volatility = "Medium"
+    else:
+        volatility = "High"
     vol_warning = (
         "Elevated volatility — widen stops"
         if abs(change) >= 5
@@ -868,7 +879,7 @@ async def _build_opportunity_explanation(
             "news_label": news_label,
             "compound_index": round(compound, 3),
             "social_buzz_score": social_buzz,
-            "social_label": "High" if social_buzz >= 70 else "Moderate" if social_buzz >= 45 else "Low",
+            "social_label": social_label,
             "fear_greed_index": (hub_ctx.get("sentiment") or {}).get("fear_greed_index"),
             "fear_greed_label": (hub_ctx.get("sentiment") or {}).get("fear_greed_label"),
             "coingecko_trending": (hub_ctx.get("sentiment") or {}).get("coingecko_trending"),
@@ -3312,7 +3323,7 @@ async def storage_legacy_purge(_admin: dict = Depends(require_admin_dev)):
 async def storage_hot_tier():
     from hot_tier_reader import hot_tier_status
 
-    return await hot_tier_status()
+    return hot_tier_status()
 
 
 @app.post("/api/database/maintenance")

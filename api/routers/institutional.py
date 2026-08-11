@@ -153,7 +153,7 @@ async def dd_closure() -> dict[str, Any]:
 async def dd_report1() -> dict[str, Any]:
     from dd_radical_closure import build_report1_weaknesses_closure
 
-    return await build_report1_weaknesses_closure()
+    return build_report1_weaknesses_closure()
 
 
 @router.get("/dd-closure/report2")

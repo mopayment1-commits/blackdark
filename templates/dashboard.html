@@ -403,6 +403,37 @@
         }
         function esc(s) { return escapeHtml(s); }
 
+        function priceDecimals(price) {
+            return price < 1 ? 4 : 2;
+        }
+        function changeClass(n) {
+            return (n || 0) >= 0 ? 'up' : 'down';
+        }
+        function signedPct(n, digits = 2) {
+            const v = n || 0;
+            return (v >= 0 ? '+' : '') + fmt(v, digits);
+        }
+        function freshDotClass(fresh) {
+            if (fresh.stale) return 'tp-dot stale';
+            if (fresh.status === 'warm') return 'tp-dot warm';
+            return 'tp-dot';
+        }
+        function riskColorFor(risk) {
+            if (risk === 'HIGH') return '#ef4444';
+            if (risk === 'LOW') return '#22c55e';
+            return '#f59e0b';
+        }
+        function coversPlanBit(v) {
+            if (v.covers_subscription == null) return '';
+            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
+        }
+        function formatTpFactor(f, i) {
+            const detail = f.detail ? ' — ' + f.detail : '';
+            const source = f.source ? `<small>${f.source}</small>` : '';
+            return `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${detail}${source}</div>`;
+        }
+
+
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
             if (!log) return;
@@ -498,7 +529,7 @@
                         nextUpgrade = await up.json();
                     } catch (error) {
                         console.debug(error);
-                        nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: userTierId === 'pro' ? 'whale' : 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
+                        nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: (userTierId === 'pro' ? 'whale' : 'pro'), href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
                     }
                     applyUpgradeButton();
                     syncChatGate();
@@ -547,6 +578,33 @@
             } catch (error) { console.debug(error); }
         }
 
+        function changeClass(ch) { return (ch || 0) >= 0 ? 'up' : 'down'; }
+        function changePrefix(ch) { return (ch || 0) >= 0 ? '+' : ''; }
+        function fmtPrice(price) {
+            if (price == null) return '';
+            return '$' + fmt(price, price < 1 ? 4 : 2);
+        }
+        function changeSpan(ch) {
+            if (ch == null) return '';
+            const cls = ch >= 0 ? 'up' : 'down';
+            const sign = ch >= 0 ? '+' : '';
+            return ` · <span class="${cls}">${sign}${fmt(ch,2)}%</span>`;
+        }
+        function freshnessDotClass(fresh) {
+            if (fresh.stale) return 'tp-dot stale';
+            if (fresh.status === 'warm') return 'tp-dot warm';
+            return 'tp-dot';
+        }
+        function riskColorFor(risk) {
+            if (risk === 'HIGH') return '#ef4444';
+            if (risk === 'LOW') return '#22c55e';
+            return '#f59e0b';
+        }
+        function formatFactorLine(f, i) {
+            const detail = f.detail ? ' — ' + f.detail : '';
+            const source = f.source ? `<small>${f.source}</small>` : '';
+            return `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${detail}${source}</div>`;
+        }
         function renderTrustPulse(p, { fromStream } = {}) {
             if (!p) return;
             lastPulse = p;
@@ -554,19 +612,19 @@
             const act = (p.action || 'WAIT').toUpperCase();
             actionEl.textContent = act;
             actionEl.className = 'tp-action ' + act;
-            const price = p.price != null ? '$' + fmt(p.price, p.price < 1 ? 4 : 2) : '';
+            const price = fmtPrice(p.price);
             const ch = p.change_24h;
-            const chS = ch == null ? '' : ` · <span class="${ch>=0?'up':'down'}">${ch>=0?'+':''}${fmt(ch,2)}%</span>`;
+            const chS = changeSpan(ch);
             document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
             document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
             document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
             const factors = (p.why && p.why.factors) || [];
             document.getElementById('tpFactors').innerHTML = factors.length
-                ? factors.map((f,i) => `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${f.detail? ' — '+f.detail:''}${f.source?`<small>${f.source}</small>`:''}</div>`).join('')
+                ? factors.map((f,i) => formatFactorLine(f, i)).join('')
                 : '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
-            dot.className = 'tp-dot' + (fresh.stale ? ' stale' : (fresh.status === 'warm' ? ' warm' : ''));
+            dot.className = freshnessDotClass(fresh);
             document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
             const proof = p.proof || {};
             const ledger = p.ledger || {};
@@ -692,6 +750,60 @@
             document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
+
+        function buildScenarioBlock(d) {
+            const scen = (d.scenarios && d.scenarios.scenarios) || {};
+            if (!(scen.bull || scen.base || scen.bear)) return '';
+            const metrics = ['bull','base','bear'].map(k => {
+                const s = scen[k] || {};
+                const pct = s.probability_pct != null ? s.probability_pct + '%' : '—';
+                return `<div class="metric"><strong>${esc(pct)}</strong><span>${esc(s.label||k)}</span></div>`;
+            }).join('');
+            const disc = esc((d.scenarios && d.scenarios.disclaimer) || '');
+            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
+        }
+        function buildWhyFactorsHtml(factors, whyBlock) {
+            const lines = factors.length
+                ? factors.slice(0,3).map((f,i) => {
+                    const detail = f.detail ? ' — ' + esc(f.detail) : '';
+                    return `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${detail}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`;
+                }).join('')
+                : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>';
+            return `<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24"><div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')}</div>${lines}</div>`;
+        }
+        function buildVetoBlock(mode, conflict) {
+            const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
+            if (!(mode === 'pro' && hot)) return '';
+            const title = conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain';
+            const sev = conflict.severity ? ` · ${esc(conflict.severity)}` : '';
+            const reason = conflict.reason || conflict.message;
+            const reasonHtml = reason ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(reason)}</div>` : '';
+            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">Contradiction Veto — ${title}${sev}${reasonHtml}</div>`;
+        }
+        function buildCertBlock(cert, predictionId, safeUrl) {
+            if (!(cert.certificate_hash || predictionId)) return '';
+            window._lastCertShare = cert.share_text || '';
+            window._lastCertJson = cert;
+            window._lastCertTxt = cert.export_text || '';
+            const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
+            const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
+            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : '';
+            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : '';
+            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
+        }
+        function buildUpgradeBlock(d) {
+            if (!d.upgrade_hint) return '';
+            const teaser = d.upgrade_hint.teaser || {};
+            let teaserHtml = '';
+            if (teaser.truth_score != null || teaser.remaining_seconds != null) {
+                teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
+            }
+            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button></div>`;
+        }
+
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
@@ -711,38 +823,23 @@
                 const d = await res.json();
                 const sentence = d.decision_sentence || d.narrative || d.oracle || '';
                 const action = d.decision_action || '';
-                const truth = d.net_edge_truth || {};
-                const half = d.opportunity_half_life || {};
-                const sig = d.signal_registry || {};
                 const safeUrl = (u) => {
                     const s = String(u || '');
                     return (/^https?:\/\//i.test(s)) ? esc(s) : '';
                 };
-                let proBlock = '';
                 const whyBlock = d.oqs_why || {};
                 const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
-                const scen = (d.scenarios && d.scenarios.scenarios) || {};
-                const scenBlock = (scen.bull || scen.base || scen.bear) ? `
-                    <div style="margin-top:.85rem">
-                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div>
-                        <div class="metrics">
-                            ${['bull','base','bear'].map(k => {
-                                const s = scen[k] || {};
-                                return `<div class="metric"><strong>${esc(s.probability_pct != null ? s.probability_pct+'%' : '—')}</strong><span>${esc(s.label||k)}</span></div>`;
-                            }).join('')}
-                        </div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((d.scenarios && d.scenarios.disclaimer) || '')}</div>
-                    </div>` : '';
-                const whyVisible = `
-                    <div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">
-                        <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')}</div>
-                        ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${f.detail ? ' — '+esc(f.detail) : ''}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
-                    </div>`;
+                const scenBlock = buildScenarioBlock(d);
+                const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
                 const factorBlock = whyVisible + `
                     <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
                         <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
                         <div style="margin-top:.65rem">${scenBlock}</div>
                     </details>`;
+                const truth = d.net_edge_truth || {};
+                const half = d.opportunity_half_life || {};
+                const sig = d.signal_registry || {};
+                let proBlock = factorBlock;
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">
@@ -751,52 +848,26 @@
                         <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
                         <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
                     </div>${factorBlock}`;
-                } else {
-                    proBlock = factorBlock;
                 }
-                let upgradeBlock = '';
-                if (d.upgrade_hint) {
-                    const t = d.upgrade_hint.teaser || {};
-                    upgradeBlock = `
-                    <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
-                        ${esc(d.upgrade_hint.message || '')}
-                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${esc(t.truth_score ?? '—')} · Half-life ${esc(t.remaining_seconds ?? '—')}s</div>` : ''}
-                        <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
-                    </div>`;
-                }
+                const upgradeBlock = buildUpgradeBlock(d);
                 const conflict = d.dimension_conflict || {};
-                const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
-                    ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
-                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
-                        ${conflict.severity ? ` · ${esc(conflict.severity)}` : ''}
-                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(conflict.reason || conflict.message)}</div>` : ''}
-                       </div>` : '';
-                const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
-                    : '';
+                const vetoBlock = buildVetoBlock(mode, conflict);
+                let proofBlock = '';
+                if (d.prediction_id) {
+                    const hashBit = d.chain_hash
+                        ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
+                        : '';
+                    proofBlock = `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
+                }
                 const cf = d.compliance_footer || {};
                 const complianceBlock = cf.disclaimer
                     ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`
                     : '';
-                const cert = d.decision_certificate || {};
-                let certBlock = '';
-                if (cert.certificate_hash || d.prediction_id) {
-                    window._lastCertShare = cert.share_text || '';
-                    window._lastCertJson = cert;
-                    window._lastCertTxt = cert.export_text || '';
-                    const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
-                    const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
-                    certBlock = `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending')}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
-                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
-                        ${cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : ''}
-                        ${xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : ''}
-                        ${tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : ''}</div>`;
-                }
+                const certBlock = buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeUrl);
                 el.innerHTML = `
                     <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
                     <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
-                        <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
+                        <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
                     <div class="narrative">${esc(sentence)}</div>
                     <div class="metrics">
                         <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
@@ -846,7 +917,7 @@
                 <div class="card" onclick="setSymbol('${a.symbol}')">
                     <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
-                    <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
+                    <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
                 </div>`).join('') : '<div class="empty">No market rows</div>';
         }
 
@@ -909,7 +980,7 @@
                 el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
                     <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
-                    ${v.covers_subscription != null ? ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet') : ''}</div>
+                    ${coversPlanBit(v)}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
         }
@@ -940,7 +1011,7 @@
                         const truth = o.net_edge_truth || {};
                         const rejected = o.truth_rejected || truth.reject;
                         return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                        <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                        <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
                         <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                     }).join('');
                 }
@@ -1000,7 +1071,7 @@
                     const truth = o.net_edge_truth || {};
                     const rejected = o.truth_rejected || truth.reject;
                     return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
                     <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
@@ -1053,9 +1124,9 @@
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
                             <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
-                            ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
+                            ${whalePriceBit(a)}
                             <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
-                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
+                            ${whaleFundingBit(a)}
                         </div>`).join('');
                 } else if (stories.length) {
                     el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
@@ -1068,6 +1139,21 @@
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
+        function coversPlanBit(v) {
+            if (v.covers_subscription == null) return '';
+            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
+        }
+        function whaleFundingBit(a) {
+            if (a.funding_rate == null && a.open_interest == null) return '';
+            const fr = a.funding_rate != null ? 'Funding ' + a.funding_rate : '';
+            const oi = a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : '';
+            return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
+        }
+        function whalePriceBit(a) {
+            if (a.price != null) return ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}`;
+            if (a.spot_price != null) return ` · $${fmt(a.spot_price, 2)}`;
+            return '';
+        }
         function antiHypeOn() {
             return localStorage.getItem('bd_anti_hype') === '1' || /(?:^|; )bd_anti_hype=1(?:;|$)/.test(document.cookie);
         }
@@ -1217,7 +1303,7 @@
                 const d = await res.json();
                 const foot = d.compliance_footer || {};
                 const risk = (d.risk_level || '').toUpperCase();
-                const riskColor = risk === 'HIGH' ? '#ef4444' : (risk === 'LOW' ? '#22c55e' : '#f59e0b');
+                const riskColor = riskColorFor(risk);
                 el.innerHTML = `
                     <div class="arb-card">
                         <strong>Portfolio AI</strong>

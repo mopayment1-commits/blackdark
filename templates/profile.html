@@ -108,7 +108,7 @@
         </main>
     </div>
 </div>
-<script>
+<script type="module">
     function authHeaders() {
         const t = localStorage.getItem('bd_token');
         return t ? { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
@@ -199,9 +199,11 @@
                 `Oracle calls (30d): <strong style="color:var(--text)">${u.oracle_calls_30d ?? 0}</strong>` +
                 ` · Risk warnings: <strong style="color:var(--text)">${u.risk_warnings_30d ?? 0}</strong><br>` +
                 `Estimated research value: <strong style="color:var(--accent)">$${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}</strong>` +
-                (v.covers_subscription != null
-                    ? ` · Covers plan: <strong style="color:var(--text)">${v.covers_subscription ? 'yes' : 'not yet'}</strong>`
-                    : '') +
+                (() => {
+                    if (v.covers_subscription == null) return '';
+                    const cover = v.covers_subscription ? 'yes' : 'not yet';
+                    return ` · Covers plan: <strong style="color:var(--text)">${cover}</strong>`;
+                })() +
                 `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
         } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
     }
@@ -306,8 +308,9 @@
             }
         } catch (error) { console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
     }
-    load();
-    loadBillingReady();
+    Object.assign(window, { uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa, logoutAll, openPortal, load, loadBillingReady });
+    await load();
+    await loadBillingReady();
 </script>
 {% include "partials/site_footer.html" %}
 </body>

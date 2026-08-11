@@ -170,7 +170,7 @@
             <a href="/refund">Refunds</a> · <a href="/api/auth/identity">Identity standards</a>
         </div>
     </div>
-    <script>
+    <script type="module">
         let mfaChallenge = null;
 
         function hideAll() {
@@ -252,7 +252,7 @@
                     return;
                 }
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
         async function doMfa(e) {
             e.preventDefault();
@@ -269,7 +269,7 @@
                 const d = await res.json();
                 if (!res.ok) throw new Error(typeof d.detail === 'string' ? d.detail : 'MFA failed');
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
         async function doRegister(e) {
             e.preventDefault();
@@ -290,8 +290,9 @@
                 const d = await res.json();
                 if (!res.ok) {
                     const err = d.detail;
-                    const text = typeof err === 'string' ? err
-                        : (Array.isArray(err) ? err.map(x => x.msg || JSON.stringify(x)).join('; ') : 'Registration failed');
+                    let text = 'Registration failed';
+                    if (typeof err === 'string') text = err;
+                    else if (Array.isArray(err)) text = err.map(x => x.msg || JSON.stringify(x)).join('; ');
                     throw new Error(text);
                 }
                 if (d.email_verification && d.email_verification.debug_link) {
@@ -299,7 +300,7 @@
                 }
                 if (d.next && d.next.message) setMsg(d.next.message, true);
                 saveAuth(d);
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
         async function doForgot(e) {
             e.preventDefault();
@@ -315,7 +316,7 @@
                 if (d.debug_link) text += ' (dev link logged to console)';
                 if (d.debug_link) console.info('Reset link:', d.debug_link);
                 setMsg(text, true);
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
         async function doForgotUsername(e) {
             e.preventDefault();
@@ -327,7 +328,7 @@
                 });
                 const d = await res.json();
                 setMsg(d.message || 'If an account exists, a reminder was sent.', true);
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
         async function startOAuth(provider) {
             try {
@@ -335,8 +336,11 @@
                 const d = await res.json();
                 if (!res.ok) throw new Error(d.detail || 'OAuth not configured');
                 window.location.href = d.authorize_url;
-            } catch (error) { console.debug(error); setMsg(err.message, false); }
+            } catch (error) { console.debug(error); setMsg(error.message, false); }
         }
+        Object.assign(window, {
+            showTab, showForgot, showForgotUsername, startOAuth, doLogin, doMfa, doRegister, doForgot, doForgotUsername, syncPlanCards
+        });
         async function loadOAuth() {
             try {
                 const res = await fetch('/api/auth/oauth/status');
@@ -361,7 +365,7 @@
         if (localStorage.getItem('bd_token') && !location.search.includes('stay=1')) {
             window.location.href = '/profile';
         } else {
-            loadOAuth();
+            await loadOAuth();
             const params = new URLSearchParams(location.search);
             if (params.get('tab') === 'register') showTab('register');
             const plan = (params.get('plan') || 'free').toLowerCase();

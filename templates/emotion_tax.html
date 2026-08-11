@@ -38,7 +38,7 @@ a.btn{display:inline-block;text-decoration:none;margin-right:.5rem}
 <a class="btn" id="wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
 <a class="btn" id="x" href="#" target="_blank" rel="noopener" style="background:transparent;border:1px solid var(--line);color:var(--fg)">X</a>
 </main>
-<script>
+<script type="module">
 function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
 function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id());localStorage.setItem('bd_user_key',k);document.getElementById('userKey').value=k;}return k;}
 async function load(){
@@ -50,6 +50,6 @@ async function load(){
   document.getElementById('wa').href=d.share_urls?.whatsapp||'#';
   document.getElementById('x').href=d.share_urls?.x||'#';
 }
-load();
-</script>
+Object.assign(window, { load });
+await load();</script>
 </body></html>

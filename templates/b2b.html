@@ -207,13 +207,16 @@
             ws.onmessage = (ev) => {
                 try {
                     const d = JSON.parse(ev.data);
-                    const summary = d.type === 'snapshot'
-                        ? `snapshot (${d.record_count || 0} records)`
-                        : d.type === 'arbitrage_opportunity'
-                            ? `arb ${d.opportunity?.asset || '?'} $${Number(d.opportunity?.net_profit_usdt || 0).toFixed(2)}`
-                            : d.type === 'oracle_signal'
-                                ? `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`
-                                : JSON.stringify(d).slice(0, 120);
+                    let summary;
+                    if (d.type === 'snapshot') {
+                        summary = `snapshot (${d.record_count || 0} records)`;
+                    } else if (d.type === 'arbitrage_opportunity') {
+                        summary = `arb ${d.opportunity?.asset || '?'} $${Number(d.opportunity?.net_profit_usdt || 0).toFixed(2)}`;
+                    } else if (d.type === 'oracle_signal') {
+                        summary = `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`;
+                    } else {
+                        summary = JSON.stringify(d).slice(0, 120);
+                    }
                     logWs(summary);
                 } catch (error) { console.debug(error); logWs(ev.data.slice(0, 120)); }
             };

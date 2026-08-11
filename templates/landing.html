@@ -1201,11 +1201,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 
                 let sentence = data.decision_sentence || data.narrative || data.oracle || data.action_line || '';
                 if (!sentence || /meditat|consulting the oracle/i.test(sentence)) {
-                    sentence = typeof data.action === 'string' && data.action.length > 12
-                        ? data.action
-                        : (action === 'ACT'
-                            ? `ACT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`
-                            : `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`);
+                    if (typeof data.action === 'string' && data.action.length > 12) {
+                        sentence = data.action;
+                    } else if (action === 'ACT') {
+                        sentence = `ACT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
+                    } else {
+                        sentence = `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
+                    }
                 }
                 oracleEl.textContent = sentence;
                 const freshChip = document.getElementById('oracleFreshnessLabel');
@@ -1327,9 +1329,13 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
                     '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
                     scenHtml +
-                    (cert.certificate_hash || data.prediction_id
-                        ? `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`
-                        : '') +
+                    (() => {
+                        if (!(cert.certificate_hash || data.prediction_id)) return '';
+                        const hashShort = cert.certificate_hash
+                            ? String(cert.certificate_hash).slice(0, 16) + '…'
+                            : 'pending';
+                        return `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${hashShort}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`;
+                    })() +
                     '</details>';
 
                 const disc = document.getElementById('landingDiscipline');
@@ -1476,7 +1482,11 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             const price = p.price != null ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 })) : '';
             const ch = p.change_24h;
-            const chBit = ch == null ? '' : ` · ${ch >= 0 ? '+' : ''}${Number(ch).toFixed(2)}%`;
+            let chBit = '';
+            if (ch != null) {
+                const sign = ch >= 0 ? '+' : '';
+                chBit = ` · ${sign}${Number(ch).toFixed(2)}%`;
+            }
             const sym = document.getElementById('lpSym');
             if (sym) sym.textContent = `${p.symbol || 'BTC'} ${price}${chBit}`;
             const sent = document.getElementById('lpSentence');

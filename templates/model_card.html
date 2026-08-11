@@ -26,14 +26,16 @@ ul{color:var(--muted);line-height:1.55}
 <div class="box"><h2>Failure modes</h2><ul id="fail"></ul></div>
 <div class="box"><h2>Bootstrap honesty</h2><p class="sub" id="boot"></p></div>
 </main>
-<script>
-fetch('/api/institutional/model-card').then(r=>r.json()).then(d=>{
+<script type="module">
+const __r = await fetch('/api/institutional/model-card');
+const d = await __r.json();
+{
   document.getElementById('name').textContent = d.model_name || 'Model Card';
   document.getElementById('use').textContent = d.intended_use || '';
   (d.out_of_scope||[]).forEach(x=>{const li=document.createElement('li');li.textContent=x;document.getElementById('oos').appendChild(li);});
   (d.failure_modes||[]).forEach(x=>{const li=document.createElement('li');li.textContent=x;document.getElementById('fail').appendChild(li);});
   document.getElementById('boot').textContent = 'bootstrap_honesty=' + ((d.performance_limits||{}).bootstrap_honesty);
-});
+}
 </script>
 </body>
 </html>

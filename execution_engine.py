@@ -562,7 +562,7 @@ async def run_auto_execution_cycle() -> dict[str, Any]:
     return await try_execute_from_opportunity(top_exec)
 
 
-async def start_auto_execution_loop() -> Any:
+def start_auto_execution_loop() -> Any:
     global _auto_task
     # Safer default: loop off unless explicitly enabled.
     enabled = os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}

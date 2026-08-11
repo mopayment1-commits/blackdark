@@ -22,6 +22,33 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def _dex_row_price_liquidity(row: dict[str, Any]) -> tuple[float, float]:
+    price = float(row.get("priceUsd") or 0)
+    liquidity = float((row.get("liquidity") or {}).get("usd") or 0)
+    return price, liquidity
+
+
+def _best_venue_prices(pairs: list[dict[str, Any]]) -> tuple[float, float, float, float]:
+    uni_price = sushi_price = 0.0
+    uni_liq = sushi_liq = 0.0
+    for row in pairs:
+        dex = str(row.get("dexId") or "").lower()
+        price, liquidity = _dex_row_price_liquidity(row)
+        if price <= 0 or liquidity < 30_000:
+            continue
+        if "uniswap" in dex and liquidity > uni_liq:
+            uni_price, uni_liq = price, liquidity
+        elif "sushi" in dex and liquidity > sushi_liq:
+            sushi_price, sushi_liq = price, liquidity
+    return uni_price, uni_liq, sushi_price, sushi_liq
+
+
+def _dex_dex_venues(uni_price: float, sushi_price: float) -> tuple[str, str, float, float]:
+    buy_venue = "uniswap" if uni_price < sushi_price else "sushiswap"
+    sell_venue = "sushiswap" if buy_venue == "uniswap" else "uniswap"
+    return buy_venue, sell_venue, min(uni_price, sushi_price), max(uni_price, sushi_price)
+
+
 async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """Compare Uniswap vs SushiSwap prices for same asset via DexScreener."""
     if not asset.isalnum():
@@ -35,28 +62,13 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
     except aiohttp.ClientError:
         return None
 
-    uni_price = sushi_price = 0.0
-    uni_liq = sushi_liq = 0.0
-    for row in data.get("pairs") or []:
-        dex = str(row.get("dexId") or "").lower()
-        price = float(row.get("priceUsd") or 0)
-        liq = float((row.get("liquidity") or {}).get("usd") or 0)
-        if price <= 0 or liq < 30_000:
-            continue
-        if "uniswap" in dex:
-            if liq > uni_liq:
-                uni_price, uni_liq = price, liq
-        elif "sushi" in dex and liq > sushi_liq:
-            sushi_price, sushi_liq = price, liq
+    uni_price, _, sushi_price, _ = _best_venue_prices(data.get("pairs") or [])
 
     if uni_price <= 0 or sushi_price <= 0:
         return None
 
     spread_bps = abs(uni_price - sushi_price) / min(uni_price, sushi_price) * 10_000
-    buy_venue = "uniswap" if uni_price < sushi_price else "sushiswap"
-    sell_venue = "sushiswap" if buy_venue == "uniswap" else "uniswap"
-    buy_p = min(uni_price, sushi_price)
-    sell_p = max(uni_price, sushi_price)
+    buy_venue, sell_venue, buy_p, sell_p = _dex_dex_venues(uni_price, sushi_price)
 
     from gas_oracle import gas_cost_bps
 
@@ -80,6 +92,34 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
     }
 
 
+async def _find_second_dex_quote(
+    session: aiohttp.ClientSession,
+    asset: str,
+    cex_mid: float,
+) -> tuple[float, str]:
+    if not asset.isalnum():
+        return 0.0, ""
+    url = f"https://api.dexscreener.com/latest/dex/tokens/{asset}"
+    dex_b_price = 0.0
+    dex_b_venue = ""
+    try:
+        async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
+            if resp.status != 200:
+                return dex_b_price, dex_b_venue
+            data = await resp.json()
+    except aiohttp.ClientError:
+        return dex_b_price, dex_b_venue
+
+    for row in data.get("pairs") or []:
+        price, liquidity = _dex_row_price_liquidity(row)
+        if price <= 0 or liquidity <= 50_000:
+            continue
+        if dex_b_price == 0 or abs(price - cex_mid) > abs(dex_b_price - cex_mid):
+            dex_b_price = price
+            dex_b_venue = row.get("dexId") or "dex"
+    return dex_b_price, dex_b_venue
+
+
 async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """
     Flash-loan arb proxy: detect same-asset price gap across DEX venues
@@ -96,26 +136,7 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
         return None
 
     # Second venue search
-    if not asset.isalnum():
-        return None
-    url = f"https://api.dexscreener.com/latest/dex/tokens/{asset}"
-    dex_b_price = 0.0
-    dex_b_venue = ""
-    try:
-        async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
-            if resp.status == 200:
-                data = await resp.json()
-                for row in data.get("pairs") or []:
-                    p = float(row.get("priceUsd") or 0)
-                    liq = float((row.get("liquidity") or {}).get("usd") or 0)
-                    if p > 0 and liq > 50_000 and (
-                        dex_b_price == 0 or abs(p - cex_mid) > abs(dex_b_price - cex_mid)
-                    ):
-                        dex_b_price = p
-                        dex_b_venue = row.get("dexId") or "dex"
-    except aiohttp.ClientError:
-        pass
-
+    dex_b_price, dex_b_venue = await _find_second_dex_quote(session, asset, cex_mid)
     if dex_b_price <= 0:
         return None
 
@@ -150,6 +171,33 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
     }
 
 
+async def _chain_dex_price(
+    session: aiohttp.ClientSession,
+    asset: str,
+    chain: str,
+) -> float:
+    if not chain.isalnum():
+        return 0.0
+    url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT%20{chain}"
+    try:
+        async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
+            if resp.status != 200:
+                return 0.0
+            data = await resp.json()
+    except aiohttp.ClientError:
+        return 0.0
+
+    best_p = best_liq = 0.0
+    for row in data.get("pairs") or []:
+        chain_id = str(row.get("chainId") or "").lower()
+        if chain_id != chain and chain not in chain_id:
+            continue
+        price, liquidity = _dex_row_price_liquidity(row)
+        if price > 0 and liquidity > best_liq:
+            best_p, best_liq = price, liquidity
+    return best_p
+
+
 async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """Cross-chain bridge spread: ETH mainnet vs BSC vs Arbitrum DEX prices."""
     if not asset.isalnum():
@@ -157,26 +205,9 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
     chains = ["ethereum", "bsc", "arbitrum"]
     prices: dict[str, float] = {}
     for chain in chains:
-        if not chain.isalnum():
-            continue
-        url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT%20{chain}"
-        try:
-            async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
-                if resp.status != 200:
-                    continue
-                data = await resp.json()
-                best_p = best_liq = 0.0
-                for row in data.get("pairs") or []:
-                    if str(row.get("chainId") or "").lower() != chain and chain not in str(row.get("chainId") or "").lower():
-                        continue
-                    p = float(row.get("priceUsd") or 0)
-                    liq = float((row.get("liquidity") or {}).get("usd") or 0)
-                    if p > 0 and liq > best_liq:
-                        best_p, best_liq = p, liq
-                if best_p > 0:
-                    prices[chain] = best_p
-        except aiohttp.ClientError:
-            continue
+        best_p = await _chain_dex_price(session, asset, chain)
+        if best_p > 0:
+            prices[chain] = best_p
 
     if len(prices) < 2:
         return None
@@ -212,6 +243,10 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
     }
 
 
+def _mev_spread_viable(spread_bps: float, slip_bps: float) -> bool:
+    return spread_bps >= 15 and slip_bps <= spread_bps * 0.5
+
+
 async def scan_mev_slippage_proxy(session: aiohttp.ClientSession, asset: str) -> dict[str, Any] | None:
     """MEV/slippage capture proxy — large CEX-DEX gap with high DEX impact potential."""
     from bd_platform.cex_dex_arbitrage import _best_dex_quote, _cex_prices
@@ -230,7 +265,7 @@ async def scan_mev_slippage_proxy(session: aiohttp.ClientSession, asset: str) ->
     quote = float(getattr(config, "DEFAULT_QUOTE_AMOUNT", 100))
     slip_bps = constant_product_slippage_bps(amount_usd=quote, liquidity_usd=liq)
 
-    if spread_bps < 15 or slip_bps > spread_bps * 0.5:
+    if not _mev_spread_viable(spread_bps, slip_bps):
         return None
 
     return {

@@ -865,7 +865,7 @@ class WhaleTracker:
         self._session: aiohttp.ClientSession | None = None
         self._prior_liquidity: dict[str, dict[str, float]] = {}
 
-    async def _ensure_session(self) -> aiohttp.ClientSession:
+    def _ensure_session(self) -> aiohttp.ClientSession:
         if self._session is None or self._session.closed:
             timeout = aiohttp.ClientTimeout(total=REQUEST_TIMEOUT_SECONDS)
             self._session = aiohttp.ClientSession(timeout=timeout)
@@ -877,7 +877,7 @@ class WhaleTracker:
 
     async def run_cycle(self) -> dict[str, Any]:
         await init_db()
-        session = await self._ensure_session()
+        session = self._ensure_session()
         trades = await fetch_all_recent_trades(session)
         order_books = await fetch_latest_order_books()
 

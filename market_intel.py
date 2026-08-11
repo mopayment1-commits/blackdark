@@ -192,6 +192,12 @@ def build_whale_gravity_map(
     for asset, node in nodes.items():
         mkt = price_by_asset.get(asset, {})
         gravity = min(100, round(node["gravity_score"], 1))
+        if gravity >= 55:
+            label = "High gravity"
+        elif gravity >= 28:
+            label = "Moderate"
+        else:
+            label = "Low"
         bubbles.append(
             {
                 **node,
@@ -199,9 +205,7 @@ def build_whale_gravity_map(
                 "price": mkt.get("price"),
                 "change_24h": mkt.get("change_24h"),
                 "size": max(24, min(100, gravity + node["alert_count"] * 10)),
-                "label": (
-                    "High gravity" if gravity >= 55 else "Moderate" if gravity >= 28 else "Low"
-                ),
+                "label": label,
             }
         )
 

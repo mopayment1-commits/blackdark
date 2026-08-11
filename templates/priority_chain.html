@@ -42,7 +42,7 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.7rem);margin:0}
   <p class="sub">API: <code>/api/strategy/priority-chain</code> · Evaluate: <code>/api/strategy/priority-chain/evaluate</code></p>
 </div>
 </main>
-<script>
+<script type="module">
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
 async function load(){
   const d=await (await fetch('/api/public/cso-priority-closure')).json();
@@ -56,6 +56,5 @@ async function load(){
   document.getElementById('smoke').textContent=
     `vanity_rejected=${g.vanity_rejected} · habit_loop_allowed=${g.habit_loop_allowed} · deferred_code_count=${d.deferred_code_count}`;
 }
-load();
-</script>
+await load();</script>
 </body></html>

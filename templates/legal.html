@@ -43,8 +43,7 @@
     </main>
     {% include "partials/site_footer.html" %}
 
-<script>
-(async function () {
+<script type="module">
   const params = new URLSearchParams(location.search);
   if (params.get('need_ack') !== '1') return;
   const box = document.createElement('div');
@@ -64,7 +63,6 @@
     };
     location.assign(ALLOWED[destKey] || '/');
   };
-})();
 </script>
 
 </body>

@@ -39,7 +39,7 @@ ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
 </div>
 <p class="promo-cta" data-hype>This promo must never show in Anti-Hype Mode.</p>
 </main>
-<script>
+<script type="module">
 function key(){return localStorage.getItem('bd_user_key')||'anon';}
 function apply(on){
   document.cookie='bd_anti_hype='+(on?'1':'0')+'; path=/; max-age=31536000; SameSite=Lax';
@@ -58,8 +58,8 @@ async function load(){
 }
 async function setMode(on){
   await fetch('/api/anti-hype/mode',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({enabled:on,user_key:key()})});
-  load();
+  await load();
 }
-load();
-</script>
+Object.assign(window, { setMode });
+await load();</script>
 </body></html>

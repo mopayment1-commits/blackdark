@@ -436,35 +436,158 @@ def _walk_triangle_legs(
     total_slippage_bps = 0.0
 
     for symbol, side in legs:
-        raw_book = books.get(symbol)
-        if raw_book is None:
+        walked = _walk_triangle_leg(
+            symbol,
+            side,
+            books,
+            holding_coin,
+            holding_amount,
+            fee_mult,
+        )
+        if walked is None:
             return None, total_slippage_bps
-
-        base_coin, quote_coin = _parse_symbol(symbol)
-
-        if side == "buy":
-            if holding_coin != quote_coin:
-                return None, total_slippage_bps
-            execution = walk_asks(raw_book, holding_amount)
-            if execution is None:
-                return None, total_slippage_bps
-            total_slippage_bps += execution.slippage_bps
-            holding_coin = base_coin
-            holding_amount = execution.base_amount * fee_mult
-        else:
-            if holding_coin != base_coin:
-                return None, total_slippage_bps
-            execution = walk_bids(raw_book, holding_amount)
-            if execution is None:
-                return None, total_slippage_bps
-            total_slippage_bps += execution.slippage_bps
-            holding_coin = quote_coin
-            holding_amount = execution.quote_value * fee_mult
+        holding_coin, holding_amount, slippage_bps = walked
+        total_slippage_bps += slippage_bps
 
     if holding_coin != config.TRIANGLE_ANCHOR:
         return None, total_slippage_bps
 
     return holding_amount, total_slippage_bps
+
+
+def _walk_triangle_leg(
+    symbol: str,
+    side: Side,
+    books: dict[str, dict[str, Any]],
+    holding_coin: str,
+    holding_amount: float,
+    fee_mult: float,
+) -> tuple[str, float, float] | None:
+    raw_book = books.get(symbol)
+    if raw_book is None:
+        return None
+
+    base_coin, quote_coin = _parse_symbol(symbol)
+    if side == "buy":
+        return _walk_triangle_buy_leg(
+            raw_book, base_coin, quote_coin, holding_coin, holding_amount, fee_mult
+        )
+    return _walk_triangle_sell_leg(
+        raw_book, base_coin, quote_coin, holding_coin, holding_amount, fee_mult
+    )
+
+
+def _walk_triangle_buy_leg(
+    raw_book: dict[str, Any],
+    base_coin: str,
+    quote_coin: str,
+    holding_coin: str,
+    holding_amount: float,
+    fee_mult: float,
+) -> tuple[str, float, float] | None:
+    if holding_coin != quote_coin:
+        return None
+    execution = walk_asks(raw_book, holding_amount)
+    if execution is None:
+        return None
+    return base_coin, execution.base_amount * fee_mult, execution.slippage_bps
+
+
+def _walk_triangle_sell_leg(
+    raw_book: dict[str, Any],
+    base_coin: str,
+    quote_coin: str,
+    holding_coin: str,
+    holding_amount: float,
+    fee_mult: float,
+) -> tuple[str, float, float] | None:
+    if holding_coin != base_coin:
+        return None
+    execution = walk_bids(raw_book, holding_amount)
+    if execution is None:
+        return None
+    return quote_coin, execution.quote_value * fee_mult, execution.slippage_bps
+
+
+def _collect_cross_exchange_quotes(
+    order_books: dict[str, dict[str, dict[str, Any]]],
+    exchange_ids: list[str],
+    symbol: str,
+) -> tuple[list[tuple[str, float, dict[str, Any]]], list[tuple[str, float, dict[str, Any]]]]:
+    venue_asks: list[tuple[str, float, dict[str, Any]]] = []
+    venue_bids: list[tuple[str, float, dict[str, Any]]] = []
+    for exchange_id in exchange_ids:
+        book = order_books.get(exchange_id, {}).get(symbol)
+        if book is None:
+            continue
+        ask = _top_ask(book)
+        bid = _top_bid(book)
+        if ask is None or bid is None:
+            continue
+        venue_asks.append((exchange_id, ask, book))
+        venue_bids.append((exchange_id, bid, book))
+    return venue_asks, venue_bids
+
+
+def _has_cross_exchange_spread(
+    venue_asks: list[tuple[str, float, dict[str, Any]]],
+    venue_bids: list[tuple[str, float, dict[str, Any]]],
+) -> bool:
+    if not venue_asks or not venue_bids:
+        return False
+    lowest_ask_exchange, lowest_ask, _ = min(venue_asks, key=lambda row: row[1])
+    highest_bid_exchange, highest_bid, _ = max(venue_bids, key=lambda row: row[1])
+    return lowest_ask_exchange != highest_bid_exchange and highest_bid > lowest_ask
+
+
+def _build_cross_exchange_opportunity(
+    symbol: str,
+    buy_exchange: str,
+    sell_exchange: str,
+    buy_book: dict[str, Any],
+    sell_book: dict[str, Any],
+    notional: float,
+    market_context: dict[str, Any] | None,
+) -> CrossExchangeOpportunity | None:
+    buy_top = _top_ask(buy_book)
+    sell_top = _top_bid(sell_book)
+    if buy_top is None or sell_top is None or sell_top <= buy_top:
+        return None
+
+    buy_execution = walk_asks(buy_book, notional)
+    if buy_execution is None:
+        return None
+    sell_execution = walk_bids(sell_book, buy_execution.base_amount)
+    if sell_execution is None:
+        return None
+
+    buy_fee = buy_execution.quote_cost * config.DEFAULT_TAKER_FEE
+    sell_fee = sell_execution.quote_value * config.DEFAULT_TAKER_FEE
+    trading_fees = buy_fee + sell_fee
+    withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
+    total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
+    slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
+    total_cost = buy_execution.quote_cost + buy_fee + withdrawal_fee + slippage_buffer
+    net_profit = sell_execution.quote_value - sell_fee - total_cost
+    net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
+
+    return CrossExchangeOpportunity(
+        symbol=symbol,
+        buy_exchange=buy_exchange,
+        sell_exchange=sell_exchange,
+        quote_amount=notional,
+        buy_ask=buy_top,
+        sell_bid=sell_top,
+        gross_spread_bps=_gross_spread_bps(buy_top, sell_top),
+        buy_slippage_bps=buy_execution.slippage_bps,
+        sell_slippage_bps=sell_execution.slippage_bps,
+        total_slippage_bps=total_slippage_bps,
+        trading_fees_usdt=trading_fees,
+        withdrawal_fee_usdt=withdrawal_fee,
+        slippage_buffer_usdt=slippage_buffer,
+        net_profit_usdt=net_profit,
+        net_profit_percent=net_profit_percent,
+    )
 
 
 def calculate_cross_exchange_arbitrage(
@@ -483,92 +606,29 @@ def calculate_cross_exchange_arbitrage(
     opportunities: list[CrossExchangeOpportunity] = []
 
     for symbol in config.SYMBOLS:
-        venue_asks: list[tuple[str, float, dict[str, Any]]] = []
-        venue_bids: list[tuple[str, float, dict[str, Any]]] = []
-
-        for exchange_id in exchange_ids:
-            book = order_books.get(exchange_id, {}).get(symbol)
-            if book is None:
-                continue
-
-            ask = _top_ask(book)
-            bid = _top_bid(book)
-            if ask is None or bid is None:
-                continue
-
-            venue_asks.append((exchange_id, ask, book))
-            venue_bids.append((exchange_id, bid, book))
-
-        if len(venue_asks) < 1 or len(venue_bids) < 1:
-            continue
-
-        lowest_ask_exchange, lowest_ask, _ = min(venue_asks, key=lambda row: row[1])
-        highest_bid_exchange, highest_bid, _ = max(venue_bids, key=lambda row: row[1])
-
-        if lowest_ask_exchange == highest_bid_exchange:
-            continue
-        if highest_bid <= lowest_ask:
+        venue_asks, venue_bids = _collect_cross_exchange_quotes(
+            order_books,
+            exchange_ids,
+            symbol,
+        )
+        if not _has_cross_exchange_spread(venue_asks, venue_bids):
             continue
 
         for buy_exchange, _, buy_book in venue_asks:
             for sell_exchange, _, sell_book in venue_bids:
                 if buy_exchange == sell_exchange:
                     continue
-
-                buy_top = _top_ask(buy_book)
-                sell_top = _top_bid(sell_book)
-                if buy_top is None or sell_top is None or sell_top <= buy_top:
-                    continue
-
-                buy_execution = walk_asks(buy_book, notional)
-                if buy_execution is None:
-                    continue
-
-                sell_execution = walk_bids(sell_book, buy_execution.base_amount)
-                if sell_execution is None:
-                    continue
-
-                buy_fee = buy_execution.quote_cost * config.DEFAULT_TAKER_FEE
-                sell_fee = sell_execution.quote_value * config.DEFAULT_TAKER_FEE
-                trading_fees = buy_fee + sell_fee
-                withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
-                total_slippage_bps = (
-                    buy_execution.slippage_bps + sell_execution.slippage_bps
-                )
-                slippage_buffer = _slippage_buffer_usdt(
+                opportunity = _build_cross_exchange_opportunity(
+                    symbol,
+                    buy_exchange,
+                    sell_exchange,
+                    buy_book,
+                    sell_book,
                     notional,
-                    total_slippage_bps,
                     market_context,
                 )
-
-                total_cost = (
-                    buy_execution.quote_cost
-                    + buy_fee
-                    + withdrawal_fee
-                    + slippage_buffer
-                )
-                net_profit = sell_execution.quote_value - sell_fee - total_cost
-                net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
-
-                opportunities.append(
-                    CrossExchangeOpportunity(
-                        symbol=symbol,
-                        buy_exchange=buy_exchange,
-                        sell_exchange=sell_exchange,
-                        quote_amount=notional,
-                        buy_ask=buy_top,
-                        sell_bid=sell_top,
-                        gross_spread_bps=_gross_spread_bps(buy_top, sell_top),
-                        buy_slippage_bps=buy_execution.slippage_bps,
-                        sell_slippage_bps=sell_execution.slippage_bps,
-                        total_slippage_bps=total_slippage_bps,
-                        trading_fees_usdt=trading_fees,
-                        withdrawal_fee_usdt=withdrawal_fee,
-                        slippage_buffer_usdt=slippage_buffer,
-                        net_profit_usdt=net_profit,
-                        net_profit_percent=net_profit_percent,
-                    )
-                )
+                if opportunity is not None:
+                    opportunities.append(opportunity)
 
     opportunities.sort(key=lambda item: item.net_profit_usdt, reverse=True)
     return opportunities
@@ -639,6 +699,90 @@ def calculate_triangular_arbitrage(
     return opportunities
 
 
+def _spot_futures_books(
+    books: dict[str, dict[str, Any]],
+    symbol: str,
+) -> tuple[dict[str, Any], dict[str, Any], float, float, float, float] | None:
+    spot_book = books.get(symbol)
+    perp_book = books.get(_perpetual_book_key(symbol))
+    if spot_book is None or perp_book is None:
+        return None
+    if spot_book.get("market_type", "spot") != "spot":
+        return None
+    spot_ask = _top_ask(spot_book)
+    spot_bid = _top_bid(spot_book)
+    perp_ask = _top_ask(perp_book)
+    perp_bid = _top_bid(perp_book)
+    if None in (spot_ask, spot_bid, perp_ask, perp_bid):
+        return None
+    return spot_book, perp_book, spot_ask, spot_bid, perp_ask, perp_bid
+
+
+def _spot_futures_executions(
+    spot_book: dict[str, Any],
+    perp_book: dict[str, Any],
+    basis_bps: float,
+    notional: float,
+) -> tuple[Literal["long_spot_short_perp", "short_spot_long_perp"], Any, Any] | None:
+    if basis_bps >= 0:
+        direction: Literal["long_spot_short_perp", "short_spot_long_perp"] = (
+            "long_spot_short_perp"
+        )
+        buy_execution = walk_asks(spot_book, notional)
+        sell_book = perp_book
+    else:
+        direction = "short_spot_long_perp"
+        buy_execution = walk_asks(perp_book, notional)
+        sell_book = spot_book
+    if buy_execution is None:
+        return None
+    sell_execution = walk_bids(sell_book, buy_execution.base_amount)
+    if sell_execution is None:
+        return None
+    return direction, buy_execution, sell_execution
+
+
+def _build_spot_futures_opportunity(
+    exchange_id: str,
+    symbol: str,
+    spot_book: dict[str, Any],
+    perp_book: dict[str, Any],
+    prices: tuple[float, float, float, float],
+    notional: float,
+    market_context: dict[str, Any] | None,
+) -> SpotFuturesPremiumOpportunity | None:
+    spot_ask, spot_bid, perp_ask, perp_bid = prices
+    spot_mid = (spot_ask + spot_bid) / 2
+    perp_mid = (perp_ask + perp_bid) / 2
+    basis_bps = ((perp_mid - spot_mid) / spot_mid) * 10_000
+    executions = _spot_futures_executions(spot_book, perp_book, basis_bps, notional)
+    if executions is None:
+        return None
+    direction, buy_execution, sell_execution = executions
+
+    total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
+    trading_fees = _open_leg_fees_usdt(notional)
+    slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
+    gross_edge = sell_execution.quote_value - buy_execution.quote_cost
+    net_profit = gross_edge - trading_fees - slippage_buffer
+    net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
+
+    return SpotFuturesPremiumOpportunity(
+        exchange=exchange_id,
+        symbol=symbol,
+        quote_amount=notional,
+        spot_price=spot_mid,
+        futures_price=perp_mid,
+        basis_bps=basis_bps,
+        total_slippage_bps=total_slippage_bps,
+        trading_fees_usdt=trading_fees,
+        slippage_buffer_usdt=slippage_buffer,
+        net_profit_usdt=net_profit,
+        net_profit_percent=net_profit_percent,
+        direction=direction,
+    )
+
+
 def calculate_spot_futures_premium(
     order_books: dict[str, dict[str, dict[str, Any]]],
     quote_amount: float | None = None,
@@ -656,69 +800,21 @@ def calculate_spot_futures_premium(
     for exchange_id in config.enabled_exchanges():
         books = order_books.get(exchange_id, {})
         for symbol in config.SYMBOLS:
-            spot_book = books.get(symbol)
-            perp_book = books.get(_perpetual_book_key(symbol))
-            if spot_book is None or perp_book is None:
+            books_and_prices = _spot_futures_books(books, symbol)
+            if books_and_prices is None:
                 continue
-            if spot_book.get("market_type", "spot") != "spot":
-                continue
-
-            spot_ask = _top_ask(spot_book)
-            spot_bid = _top_bid(spot_book)
-            perp_ask = _top_ask(perp_book)
-            perp_bid = _top_bid(perp_book)
-            if None in (spot_ask, spot_bid, perp_ask, perp_bid):
-                continue
-
-            spot_mid = (spot_ask + spot_bid) / 2
-            perp_mid = (perp_ask + perp_bid) / 2
-            basis_bps = ((perp_mid - spot_mid) / spot_mid) * 10_000
-
-            if basis_bps >= 0:
-                direction: Literal["long_spot_short_perp", "short_spot_long_perp"] = (
-                    "long_spot_short_perp"
-                )
-                buy_execution = walk_asks(spot_book, notional)
-                if buy_execution is None:
-                    continue
-                sell_execution = walk_bids(perp_book, buy_execution.base_amount)
-            else:
-                direction = "short_spot_long_perp"
-                buy_execution = walk_asks(perp_book, notional)
-                if buy_execution is None:
-                    continue
-                sell_execution = walk_bids(spot_book, buy_execution.base_amount)
-
-            if sell_execution is None:
-                continue
-
-            total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
-            trading_fees = _open_leg_fees_usdt(notional)
-            slippage_buffer = _slippage_buffer_usdt(
+            spot_book, perp_book, *prices = books_and_prices
+            opportunity = _build_spot_futures_opportunity(
+                exchange_id,
+                symbol,
+                spot_book,
+                perp_book,
+                tuple(prices),  # type: ignore[arg-type]
                 notional,
-                total_slippage_bps,
                 market_context,
             )
-            gross_edge = sell_execution.quote_value - buy_execution.quote_cost
-            net_profit = gross_edge - trading_fees - slippage_buffer
-            net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
-
-            opportunities.append(
-                SpotFuturesPremiumOpportunity(
-                    exchange=exchange_id,
-                    symbol=symbol,
-                    quote_amount=notional,
-                    spot_price=spot_mid,
-                    futures_price=perp_mid,
-                    basis_bps=basis_bps,
-                    total_slippage_bps=total_slippage_bps,
-                    trading_fees_usdt=trading_fees,
-                    slippage_buffer_usdt=slippage_buffer,
-                    net_profit_usdt=net_profit,
-                    net_profit_percent=net_profit_percent,
-                    direction=direction,
-                )
-            )
+            if opportunity is not None:
+                opportunities.append(opportunity)
 
     opportunities.sort(key=lambda item: item.net_profit_usdt, reverse=True)
     return opportunities
@@ -1276,18 +1372,7 @@ class ArbitrageEngine:
     async def run_loop(self) -> None:
         await init_db()
         self._register_signal_handlers()
-
-        if config.PARQUET_COMPACTION_ENABLED:
-            try:
-                await start_midnight_compaction_scheduler()
-                logger.info(
-                    "Midnight parquet compaction scheduler enabled | output=%s",
-                    config.HISTORICAL_PARQUET_DIR,
-                )
-            except Exception:
-                logger.exception(
-                    "Failed to start parquet compaction scheduler; engine loop continues."
-                )
+        await self._start_optional_schedulers()
 
         logger.info(
             "Arbitrage engine started | quote_amount=$%.2f interval=%ss",
@@ -1296,36 +1381,65 @@ class ArbitrageEngine:
         )
 
         try:
-            while not self._shutdown.is_set():
-                try:
-                    await self.run_once()
-                except Exception:
-                    logger.exception("Arbitrage cycle failed; continuing.")
-
-                if config.SQLITE_HISTORICAL_COMPACTION_ENABLED:
-                    try:
-                        trigger_historical_compaction_background()
-                    except Exception:
-                        logger.exception(
-                            "Background historical compaction trigger failed; continuing."
-                        )
-
-                try:
-                    await asyncio.wait_for(
-                        self._shutdown.wait(),
-                        timeout=config.POLL_INTERVAL_SECONDS,
-                    )
-                except TimeoutError:
-                    continue
+            await self._run_until_shutdown()
         finally:
-            if config.PARQUET_COMPACTION_ENABLED:
-                try:
-                    await stop_midnight_compaction_scheduler()
-                except Exception:
-                    logger.exception("Failed to stop parquet compaction scheduler.")
+            await self._stop_optional_schedulers()
 
         logger.info("Arbitrage engine shutdown complete.")
         await self.close()
+
+    async def _start_optional_schedulers(self) -> None:
+        if not config.PARQUET_COMPACTION_ENABLED:
+            return
+        try:
+            start_midnight_compaction_scheduler()
+            logger.info(
+                "Midnight parquet compaction scheduler enabled | output=%s",
+                config.HISTORICAL_PARQUET_DIR,
+            )
+        except Exception:
+            logger.exception(
+                "Failed to start parquet compaction scheduler; engine loop continues."
+            )
+
+    async def _run_until_shutdown(self) -> None:
+        while not self._shutdown.is_set():
+            await self._run_cycle_safely()
+            self._trigger_sqlite_compaction()
+            await self._wait_for_next_cycle()
+
+    async def _run_cycle_safely(self) -> None:
+        try:
+            await self.run_once()
+        except Exception:
+            logger.exception("Arbitrage cycle failed; continuing.")
+
+    def _trigger_sqlite_compaction(self) -> None:
+        if not config.SQLITE_HISTORICAL_COMPACTION_ENABLED:
+            return
+        try:
+            trigger_historical_compaction_background()
+        except Exception:
+            logger.exception(
+                "Background historical compaction trigger failed; continuing."
+            )
+
+    async def _wait_for_next_cycle(self) -> None:
+        try:
+            await asyncio.wait_for(
+                self._shutdown.wait(),
+                timeout=config.POLL_INTERVAL_SECONDS,
+            )
+        except TimeoutError:
+            return
+
+    async def _stop_optional_schedulers(self) -> None:
+        if not config.PARQUET_COMPACTION_ENABLED:
+            return
+        try:
+            await stop_midnight_compaction_scheduler()
+        except Exception:
+            logger.exception("Failed to stop parquet compaction scheduler.")
 
     def _register_signal_handlers(self) -> None:
         loop = asyncio.get_running_loop()

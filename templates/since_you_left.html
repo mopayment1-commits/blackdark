@@ -31,7 +31,7 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:0 0 .5r
 <p class="sub" id="meta"></p>
 <div id="list"></div>
 </main>
-<script>
+<script type="module">
 function _id(){const a=new Uint8Array(8);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('');}
 function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k){k=localStorage.getItem('bd_user_key')||('anon_'+_id());localStorage.setItem('bd_user_key',k);document.getElementById('userKey').value=k;}return k;}
 async function load(touch){
@@ -42,6 +42,6 @@ async function load(touch){
     <div class="card" data-evidence><h2>${i+1}. ${x.title}</h2><p>${x.detail}</p>
     <p style="margin-top:.5rem"><a href="${x.href||'/'}">Open</a></p></div>`).join('');
 }
-load(true);
-</script>
+Object.assign(window, { load });
+await load(true);</script>
 </body></html>

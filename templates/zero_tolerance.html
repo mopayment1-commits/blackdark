@@ -30,7 +30,7 @@ code{color:var(--ok)}
 <div class="box"><h2>Seven defects</h2><div id="list"></div></div>
 <p class="sub">API <code>/api/public/zero-tolerance-closure</code></p>
 </main>
-<script>
+<script type="module">
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));}
 async function load(){
   const d=await (await fetch('/api/public/zero-tolerance-closure')).json();
@@ -41,6 +41,5 @@ async function load(){
     <div class="row"><h3><span class="tag">${esc(x.severity)}</span>${esc(x.name)}</h3>
     <p>${esc(x.rule)}</p></div>`).join('');
 }
-load();
-</script>
+await load();</script>
 </body></html>

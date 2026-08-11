@@ -130,6 +130,7 @@ def _continuity(
         for name in now_names - prev_names:
             if name:
                 changed_factors.append(name)
+
     return {
         "previous_action": prev,
         "current_action": current_action,
@@ -370,16 +371,7 @@ def _shape_pulse(
         },
         "ledger": _ledger_honesty(),
         "flip": flip_now,
-        "continuity": continuity if tier not in ("", "free") else (
-            {
-                "locked": True,
-                "upgrade_hint": "Decision Pro unlocks “since your last visit” continuity.",
-                "summary": continuity.get("summary") if continuity and continuity.get("flipped") else None,
-                "flipped": bool(continuity and continuity.get("flipped")),
-            }
-            if continuity
-            else {"locked": True, "upgrade_hint": "Decision Pro unlocks “since your last visit”."}
-        ),
+        "continuity": continuity_out,
         "half_life_seconds": half.get("remaining_seconds")
         or half.get("expected_half_life_seconds"),
         "veto": bool(conflict.get("veto") or conflict.get("abstain")),

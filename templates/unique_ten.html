@@ -27,15 +27,15 @@ a.card strong{display:block;font-family:Syne,sans-serif;margin-bottom:.35rem;col
 <div class="flag" id="flag">—</div>
 <div class="grid" id="grid"></div>
 </main>
-<script>
-fetch('/api/public/f1-f10-closure').then(r=>r.json()).then(d=>{
+<script type="module">
+const r = await fetch('/api/public/f1-f10-closure');
+const d = await r.json();
   document.getElementById('flag').textContent = d.all_done ? 'F1–F10 complete 100%' : 'In progress';
   (d.checklist||[]).forEach(c=>{
     const a=document.createElement('a'); a.className='card'; a.href=c.href;
     a.innerHTML=`<strong>${c.id} · ${c.name}</strong><span class="sub">${c.proof||''}</span>`;
     document.getElementById('grid').appendChild(a);
   });
-});
 </script>
 </body>
 </html>

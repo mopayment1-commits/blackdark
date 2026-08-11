@@ -118,18 +118,30 @@ async def compute_financial_models(asset: str, *, notional: float = 10_000) -> d
     var_metrics = _compute_var(closes, notional)
 
     nvt = market_cap / quote_volume if quote_volume > 0 else 0.0
-    nvt_signal = (
-        "Overheated (high NVT)"
-        if nvt > 120
-        else "Fair range"
-        if nvt > 40
-        else "Undervalued zone"
-    )
+    if nvt > 120:
+        nvt_signal = "Overheated (high NVT)"
+    elif nvt > 40:
+        nvt_signal = "Fair range"
+    else:
+        nvt_signal = "Undervalued zone"
 
     sma200 = _sma(closes, min(200, len(closes)))
     sma30 = _sma(closes, min(30, len(closes)))
     mvrv_proxy = price / sma200 if sma200 and sma200 > 0 else 1.0
     sopr_proxy = price / sma30 if sma30 and sma30 > 0 else 1.0
+
+    if mvrv_proxy > 1.4:
+        mvrv_signal = "Overbought"
+    elif mvrv_proxy < 0.9:
+        mvrv_signal = "Accumulation"
+    else:
+        mvrv_signal = "Neutral"
+    if sopr_proxy > 1.05:
+        sopr_signal = "Profit taking"
+    elif sopr_proxy < 0.95:
+        sopr_signal = "Capitulation"
+    else:
+        sopr_signal = "Neutral"
 
     return {
         "asset": asset,
@@ -145,12 +157,12 @@ async def compute_financial_models(asset: str, *, notional: float = 10_000) -> d
         },
         "mvrv_proxy": {
             "ratio": round(mvrv_proxy, 3),
-            "signal": "Overbought" if mvrv_proxy > 1.4 else "Accumulation" if mvrv_proxy < 0.9 else "Neutral",
+            "signal": mvrv_signal,
             "method": "price / SMA(200) proxy",
         },
         "sopr_proxy": {
             "ratio": round(sopr_proxy, 3),
-            "signal": "Profit taking" if sopr_proxy > 1.05 else "Capitulation" if sopr_proxy < 0.95 else "Neutral",
+            "signal": sopr_signal,
             "method": "price / SMA(30) proxy",
         },
         "disclaimer": "MVRV/SOPR are SMA-based proxies unless on-chain API is configured.",
@@ -195,9 +207,16 @@ async def compute_economic_moat() -> dict[str, Any]:
 
     replication_years = round(max(1.0, math.log10(max(total_records, 10)) * 1.2), 1)
 
+    if depth_score >= 70:
+        moat_label = "Strong"
+    elif depth_score >= 45:
+        moat_label = "Growing"
+    else:
+        moat_label = "Emerging"
+
     return {
         "moat_score": depth_score,
-        "moat_label": "Strong" if depth_score >= 70 else "Growing" if depth_score >= 45 else "Emerging",
+        "moat_label": moat_label,
         "total_data_records": total_records,
         "database_size_mb": round(db_mb, 2),
         "parquet_history_mb": round(history_mb, 2),

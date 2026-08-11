@@ -195,14 +195,14 @@ def _derivatives_from_prices(price_items: list[dict[str, Any]], asset: str) -> d
         payload = row.get("payload") or {}
         if row.get("source_id") == "binance_futures" and payload.get("asset") == symbol:
             funding = payload.get("funding_rate")
-        if funding and funding > 0.0003:
+    if funding and funding > 0.0003:
         derivatives_bias = "overheated_longs"
     elif funding and funding < -0.0001:
         derivatives_bias = "short_crowded"
     else:
         derivatives_bias = "neutral"
 
-return {
+    return {
         "asset": symbol,
         "funding_rate": funding,
         "derivatives_bias": derivatives_bias,

@@ -262,7 +262,7 @@
     </div>
 </main>
 
-<script>
+<script type="module">
 const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, {maximumFractionDigits: d});
 let chart, candleSeries;
 let rankingsCache = [];
@@ -291,8 +291,9 @@ function gatedMessage(status) {
     return null;
 }
 
-async function platformFetch(url, options = {}) {
-    const opts = { ...options, headers: { ...(options.headers || {}), ...authHeaders() } };
+async function platformFetch(url, options) {
+    const base = options ?? {};
+    const opts = { ...base, headers: { ...authHeaders(), ...base.headers } };
     const res = await fetch(url, opts);
     if (!res.ok) {
         const gated = gatedMessage(res.status);
@@ -724,6 +725,12 @@ async function savePlatformKeys() {
     } catch (error) { console.debug(error); showMsg('keysMsg', e.message, false); }
 }
 
+function formatKeyVerify(r) {
+    if (r.valid) return 'Valid';
+    if (r.configured) return 'Invalid — ' + (r.message || r.reason || '');
+    return 'Not connected';
+}
+
 async function verifyPlatformKeys() {
     const out = document.getElementById('keysVerifyOut');
     out.textContent = 'Verifying…';
@@ -731,7 +738,7 @@ async function verifyPlatformKeys() {
         const res = await platformFetch('/api/platform/keys/verify');
         const data = await res.json();
         out.innerHTML = (data.results || []).map(r =>
-            `<div>${r.service}: ${r.valid ? 'Valid' : (r.configured ? 'Invalid — ' + (r.message || r.reason) : 'Not connected')}</div>`
+            `<div>${r.service}: ${formatKeyVerify(r)}</div>`
         ).join('');
     } catch (error) { console.debug(error); out.innerHTML = e.gatedHtml || ('Verification failed — ' + e.message); }
 }
@@ -739,20 +746,17 @@ async function verifyPlatformKeys() {
 document.getElementById('chartSymbol').addEventListener('change', loadChart);
 document.getElementById('chartInterval').addEventListener('change', loadChart);
 
+Object.assign(window, {
+    verifyPlatformKeys, savePlatformKeys, loadChart, loadRankings, loadCexDex, executeCexDex,
+    loadDerivCompare, publishStrategy, loadLiquidations, loadUnlocks, loadFootprint,
+    loadCoindesk, loadMacro, runScript, createGrid, createRule, evalRules, runRebalance,
+});
 initChart();
-loadChart();
-loadRankings();
-loadCexDex();
-loadDerivCompare();
-loadMarketplace();
-loadGrids();
-loadRules();
-loadPlatformKeys();
-loadCoindesk();
-loadMacro();
-loadUnlocks();
-loadLiquidations();
-loadFootprint();
+await Promise.all([
+    loadChart(), loadRankings(), loadCexDex(), loadDerivCompare(), loadMarketplace(),
+    loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
+    loadUnlocks(), loadLiquidations(), loadFootprint(),
+]);
 setInterval(loadRankings, 60000);
 setInterval(loadCexDex, 30000);
 </script>

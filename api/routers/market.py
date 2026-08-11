@@ -93,6 +93,12 @@ async def market_sectors():
     for sector_name, sector_list in sector_assets.items():
         avg_change = sum(a["change_24h"] for a in sector_list) / len(sector_list)
         avg_score = sum(a["score"] for a in sector_list) / len(sector_list)
+        if avg_change > 2 or sii_by_sector.get(sector_name, 0) > 25:
+            heat_label = "Hot"
+        elif avg_change < -2:
+            heat_label = "Cool"
+        else:
+            heat_label = "Neutral"
         sectors_out.append(
             {
                 "sector": sector_name,
@@ -100,13 +106,7 @@ async def market_sectors():
                 "asset_count": len(sector_list),
                 "avg_change_24h": round(avg_change, 2),
                 "avg_opportunity_score": round(avg_score, 1),
-                "heat_label": (
-                    "Hot"
-                    if avg_change > 2 or sii_by_sector.get(sector_name, 0) > 25
-                    else "Cool"
-                    if avg_change < -2
-                    else "Neutral"
-                ),
+                "heat_label": heat_label,
                 "top_assets": sorted(sector_list, key=lambda x: x["score"], reverse=True)[:3],
             }
         )

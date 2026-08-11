@@ -69,7 +69,7 @@ window.BD_I18N = window.BD_I18N || {
     return s;
   },
   setLang: function(code) {
-    try { localStorage.setItem('bd_lang', code); } catch (e) {}
+    try { localStorage.setItem('bd_lang', code); } catch (error) { console.debug(error); }
     document.cookie = 'bd_lang=' + encodeURIComponent(code) + ';path=/;max-age=31536000;SameSite=Lax';
     var url = new URL(window.location.href);
     url.searchParams.set('lang', code);
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.replace(url.toString());
       return;
     }
-  } catch (e) {}
+  } catch (error) { console.debug(error); }
   if (window.BD_I18N) BD_I18N.syncSelect();
 });
 </script>

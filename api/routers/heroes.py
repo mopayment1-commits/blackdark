@@ -317,7 +317,7 @@ async def cso_priority_closure_api():
     """Public closure — CSO chain shipped with zero deferred code."""
     from cso_priority_chain import build_cso_priority_closure
 
-    return await build_cso_priority_closure()
+    return build_cso_priority_closure()
 
 
 @router.get("/api/strategy/zero-tolerance")
@@ -333,7 +333,7 @@ async def zero_tolerance_closure_api():
     """Public closure — Zero-Tolerance helpers wired with zero deferred code."""
     from zero_tolerance import build_zero_tolerance_closure
 
-    return await build_zero_tolerance_closure()
+    return build_zero_tolerance_closure()
 
 
 @router.get("/api/intent/router")

@@ -331,12 +331,23 @@
         BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
     </footer>
 
-    <script>
+    <script type="module">
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
             if (label === 'incorrect') return 'incorrect';
             return 'partial';
+        }
+
+        function verifyLabel(valid) {
+            if (valid === true) return 'VALID ✓';
+            if (valid === false) return 'INVALID';
+            return 'n/a';
+        }
+        function verifyLabelShort(valid) {
+            if (valid === true) return 'VALID';
+            if (valid === false) return 'INVALID';
+            return 'n/a';
         }
 
         async function loadAccuracy() {
@@ -357,12 +368,12 @@
                 const verify = chain.verify || {};
                 const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
                 document.getElementById('chain-status').textContent =
-                    'Audit chain: ' + (verify.valid === true ? 'VALID ✓' : (verify.valid === false ? 'INVALID' : 'n/a')) +
+                    'Audit chain: ' + verifyLabel(verify.valid) +
                     ' · records=' + records;
                 const tip = chain.tip_hash || '—';
                 document.getElementById('proof-panel').innerHTML =
                     `Tip hash: <code style="color:var(--accent)">${tip}</code><br>` +
-                    `Integrity: <strong style="color:${verify.valid ? 'var(--success)' : 'var(--danger)'}">${verify.valid === true ? 'VALID' : (verify.valid === false ? 'INVALID' : 'n/a')}</strong>` +
+                    `Integrity: <strong style="color:${verify.valid ? 'var(--success)' : 'var(--danger)'}">${verifyLabelShort(verify.valid)}</strong>` +
                     ` · ${records} linked records`;
 
                 document.getElementById('stat-accuracy').textContent =
@@ -502,7 +513,7 @@
                 const data = await res.json();
                 const v = data.live_verify || {};
                 document.getElementById('audit-status').textContent =
-                    `${data.invitation || ''} Live verify: ${v.valid === true ? 'VALID' : (v.valid === false ? 'INVALID' : 'n/a')} · records=${v.records ?? '—'}`;
+                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}`;
             } catch (error) { console.debug(error); document.getElementById('audit-status').textContent = 'Audit challenge unavailable'; }
         }
 
@@ -599,13 +610,15 @@
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        loadAccuracy();
-        loadLedgerShareKit();
-        loadGlassBox();
-        loadMevReport();
-        loadLocked();
-        loadLosing();
-        loadAuditChallenge();
+        await Promise.all([
+            loadAccuracy(),
+            loadLedgerShareKit(),
+            loadGlassBox(),
+            loadMevReport(),
+            loadLocked(),
+            loadLosing(),
+            loadAuditChallenge(),
+        ]);
         setInterval(loadAccuracy, 60000);
         setInterval(loadLocked, 120000);
     </script>

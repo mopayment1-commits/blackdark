@@ -185,7 +185,12 @@ async def market_radar_narrative() -> dict[str, Any]:
         if not changes:
             continue
         avg = sum(changes) / len(changes)
-        heat = "Hot" if avg > 2 else "Cool" if avg < -2 else "Neutral"
+        if avg > 2:
+            heat = "Hot"
+        elif avg < -2:
+            heat = "Cool"
+        else:
+            heat = "Neutral"
         sectors.append({
             "sector": name,
             "avg_change_24h": round(avg, 2),
