@@ -1,6 +1,6 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `adcb26fea92598476e0be2e5170207ae15e0ccad` (remediation evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
+**Canonical HEAD audited:** `c0221e1ae8464b05e3a84e91f5953b09b1061013`
 **Branch:** `cursor/institutional-hardening-120d`  
 **Audit date:** 2026-08-11  
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
@@ -27,7 +27,7 @@ Status key:
 | DEC-0001 | One product: BLACKDARK Trust OS (not 16 platforms) | PRODUCT | CANONICAL_BINDING, STRATEGIC_CORRECTION | VERIFIED_IMPLEMENTED | `pricing_catalog.py`, `/api/trust-os`, overclaim denylist APIs |
 | DEC-0002 | Four value layers only | PRODUCT | CANONICAL_BINDING, TRUST_OS_VALUE_LAYERS | VERIFIED_IMPLEMENTED | trust-os API + docs; tests in heroes/trust suites |
 | DEC-0003 | Six heroes only; no 7th product button | PRODUCT | HEROES_STRATEGY_BINDING | VERIFIED_IMPLEMENTED | `api/routers/heroes.py`, heroes tests |
-| DEC-0004 | Quiet engines never retail nav | PRODUCT | STRATEGIC_CORRECTION | PARTIALLY_IMPLEMENTED | Intent/strategy APIs exist; full nav audit not exhaustively proven |
+| DEC-0004 | Quiet engines never retail nav | PRODUCT | STRATEGIC_CORRECTION | VERIFIED_IMPLEMENTED | Rendered `/` + `/dashboard?lens=prove` anchor audit rejects microstructure/sentiment/macro/on-chain/storage/stream/arbitrage/whale engine nav (`test_dec_autonomous_closure.py`) |
 | DEC-0005 | Reject FalconAI 16 platforms / 120 caps as product shape | PRODUCT | STRATEGIC_CORRECTION | VERIFIED_IMPLEMENTED | Binding docs + correction API; not marketed as 16 platforms in catalog |
 | DEC-0006 | Reject ARENA / FOMO seat counters / Neuro-Design product surface | PRODUCT/UX | STRATEGIC_CORRECTION, DESIGN_SYSTEM | VERIFIED_IMPLEMENTED | Rejected in bindings; no ARENA SKU in `pricing_catalog.py` |
 | DEC-0007 | Reject guaranteed 65–70% accuracy marketing | PRODUCT | STRATEGIC_CORRECTION, ZERO_TOLERANCE | VERIFIED_IMPLEMENTED | Anti-hype / overclaim surfaces; ledger stats only |
@@ -43,14 +43,14 @@ Status key:
 | DEC-0017 | i18n: English default + 15 locales must ship | UX | MORNING_SESSION / Sat-Sun FINAL | VERIFIED_IMPLEMENTED | `i18n_service` 15 locales + switcher tests; **supersedes pure English-only** for locale support while keeping English default |
 | DEC-0018 | D8 Signal Registry (unnamed signals die) | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | signal registry modules + tests |
 | DEC-0019 | Unified decision engine `unified_multimodal_v1` — no parallel oracle | ARCHITECTURE | PRODUCT_CONSTITUTION, AI_FINANCIAL_MODEL | VERIFIED_IMPLEMENTED | unified oracle path present (architecture audit closed unify) |
-| DEC-0020 | Fail-closed on Truth reject / Drift / OOD / sharp conflict | FINANCIAL/AI | PRODUCT_CONSTITUTION, AI model design | PARTIALLY_IMPLEMENTED | gates exist; not every surface proven fail-closed |
+| DEC-0020 | Fail-closed on Truth reject / Drift / OOD / sharp conflict | FINANCIAL/AI | PRODUCT_CONSTITUTION, AI model design | VERIFIED_IMPLEMENTED | Runtime matrix proves Truth reject/missing gates/veto/abstain non-alertable, dependency failure rejects, missing OOD envelope rejects, and high PSI drift freezes (`test_dec_autonomous_closure.py`) |
 | DEC-0021 | Lenses: Prove → Operate → Desk → Room | UX | MORNING_SESSION, TRUST_OS_LENSES | VERIFIED_IMPLEMENTED | lens UX docs + tests (`test_trust_os_lenses_ux` partial failures elsewhere) |
 | DEC-0022 | Trust Pulse = live Act/Wait + Why + ledger honesty (not news) | UX | MORNING_SESSION, TRUST_PULSE | VERIFIED_IMPLEMENTED | `trust_pulse.py`, dashboard Trust Pulse, tests |
-| DEC-0023 | Sealed landing: brand + “We publish the miss.” + full-bleed + Trust Pulse | UX | DESIGN_SYSTEM, MORNING | PARTIALLY_IMPLEMENTED | Landing exists with Trust Pulse; first-viewport purity not fully certified |
+| DEC-0023 | Sealed landing: brand + “We publish the miss.” + full-bleed + Trust Pulse | UX | DESIGN_SYSTEM, MORNING | VERIFIED_IMPLEMENTED | Rendered first-viewport boundary asserts brand, miss sentence, full-bleed, CTAs, Trust Pulse and excludes pricing/stats/waitlist/features/Telegram clutter |
 | DEC-0024 | Design: Syne + IBM Plex; cyan `#22D3EE`; reject Inter/purple/gold defaults | UX | DESIGN_SYSTEM | VERIFIED_IMPLEMENTED | `static/css/trust-os.css` imports Syne + IBM Plex; cyan accent used |
 | DEC-0025 | Exactly three intentional motions (pulseIn / flipFlash / sharePop) | UX | DESIGN_SYSTEM | VERIFIED_IMPLEMENTED | `tests/test_dec_motion_and_oqs_weights.py` asserts pulseIn/flipFlash/sharePop + keyframes |
-| DEC-0026 | Anti-Hype footer on every AI surface | UX | HEROES_STRATEGY | PARTIALLY_IMPLEMENTED | Dashboard/Trust Pulse/anti_hype_mode; not proven on every AI surface |
-| DEC-0027 | Companion rail: share/follow/contact/FAQ/how-it-works/status/legal | UX | MORNING_SESSION | PARTIALLY_IMPLEMENTED | Site companion services exist; completeness vs binding list not fully verified |
+| DEC-0026 | Anti-Hype footer on every AI surface | UX | HEROES_STRATEGY | VERIFIED_IMPLEMENTED | Explicit AI-surface template inventory uses shared footer; seven public routes render Anti-Hype; missing Model Card/D5/Anti-Hype template bindings fixed |
+| DEC-0027 | Companion rail: share/follow/contact/FAQ/how-it-works/status/legal | UX | MORNING_SESSION | VERIFIED_IMPLEMENTED | Manifest assertion proves proof sharing, configured follow links, contact/feedback, FAQ, how-it-works, status and legal destinations |
 | DEC-0028 | Glass Box = launch narrative (not 7th product); announce HUMAN_OPS | LAUNCH | HEROES / DEFERRED_HUMAN | NEEDS_EXTERNAL_VERIFICATION | Code/operator APIs exist; announce timing human-deferred |
 | DEC-0029 | 60s acceptance grasp bar | LAUNCH | CANONICAL_BINDING | PARTIALLY_IMPLEMENTED | `/api/acceptance/60s` + script; founder H3 confirm deferred |
 | DEC-0030 | Time split 60/30/10 heroes/engines/feedback | PRODUCT | HEROES_STRATEGY | NEEDS_EXTERNAL_VERIFICATION | Process rule — not enforceable in code |
@@ -69,7 +69,7 @@ Status key:
 | DEC-0105 | Institutional Talk-to-us / invoice-wire — not self-serve checkout | PAYMENTS | PRICING_TRUST_OS | VERIFIED_IMPLEMENTED | Catalog institutional CTA Talk to us |
 | DEC-0106 | Signup chooses plan; Pro trial only when plan=pro | PAYMENTS/AUTH | PRICING_TRUST_OS | VERIFIED_IMPLEMENTED | Register plan picker + auth register plan field |
 | DEC-0107 | Free: 3 certified decisions/day + watermark | PRODUCT | PRICING_TRUST_OS | VERIFIED_IMPLEMENTED | Tier entitlements / oracle usage limits (tests in pricing/trust suites) |
-| DEC-0108 | No guaranteed returns language | PRODUCT | PAYMENTS / Anti-Hype | PARTIALLY_IMPLEMENTED | Policy present; residual hype surfaces OPEN (ledger P1-FIN-07) |
+| DEC-0108 | No guaranteed returns language | PRODUCT | PAYMENTS / Anti-Hype | VERIFIED_IMPLEMENTED | User-visible template + pricing/site manifest scanner requires explicit denial around every returns/profit/ROI/outcomes guarantee phrase; Model Card scopes returns out |
 
 ---
 
@@ -116,7 +116,7 @@ Status key:
 | DEC-0307 | Risk gate + panic stop before orders | EXECUTION | Constitution / risk_manager | VERIFIED_IMPLEMENTED | risk + execution freeze paths |
 | DEC-0308 | Live execution off by default / guarded | EXECUTION | production_guard / LIVE flags | VERIFIED_IMPLEMENTED | flags + soft-launch forbid |
 | DEC-0309 | OQS weights 40/35/25 (net/liquidity/slip) | FINANCIAL | AI_FINANCIAL_MODEL | VERIFIED_IMPLEMENTED | `tests/test_dec_motion_and_oqs_weights.py` asserts `_CORE_WEIGHTS` 40/35/25 |
-| DEC-0310 | Stale data must never show as LIVE | MARKET DATA | ZERO_TOLERANCE #2 | PARTIALLY_IMPLEMENTED | stale guards exist; freshness UX not universally proven |
+| DEC-0310 | Stale data must never show as LIVE | MARKET DATA | ZERO_TOLERANCE #2 | VERIFIED_IMPLEMENTED | Landing/dashboard no longer default missing freshness to Live; stale/unknown payload test downgrades `LIVE` to `STALE_OR_UNKNOWN` |
 
 ---
 
@@ -188,8 +188,8 @@ Status key:
 |---|---|
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
-| VERIFIED_IMPLEMENTED | **69** |
-| PARTIALLY_IMPLEMENTED | **13** |
+| VERIFIED_IMPLEMENTED | **78** |
+| PARTIALLY_IMPLEMENTED | **6** |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
 | NOT_IMPLEMENTED | **2** |
 | NEEDS_EXTERNAL_VERIFICATION | **5** (DEC-0411 dual; Bandit #50 still external-ish) | (includes DEC-0411 dual tag) |

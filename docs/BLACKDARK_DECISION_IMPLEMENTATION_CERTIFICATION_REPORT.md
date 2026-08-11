@@ -1,7 +1,7 @@
 # BLACKDARK DECISION IMPLEMENTATION CERTIFICATION REPORT
 
 **Audit type:** Complete decision-to-implementation traceability  
-**Canonical HEAD:** `adcb26fea92598476e0be2e5170207ae15e0ccad` (remediation evidence `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`)  
+**Canonical HEAD:** `c0221e1ae8464b05e3a84e91f5953b09b1061013`
 **Branch:** `cursor/institutional-hardening-120d`  
 **Date:** 2026-08-11  
 **Companion register:** `docs/BLACKDARK_MASTER_DECISION_REGISTER.md`
@@ -30,11 +30,11 @@
 
 | Bucket | Count |
 |---|---|
-| VERIFIED_IMPLEMENTED | **69** |
-| PARTIALLY_IMPLEMENTED | **14** |
+| VERIFIED_IMPLEMENTED | **78** |
+| PARTIALLY_IMPLEMENTED | **6** |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
 | NOT_IMPLEMENTED | **2** (`DEC-0411`, `DEC-0501`) |
-| NEEDS_EXTERNAL_VERIFICATION | **6** (includes `DEC-0411` dual tag) |
+| NEEDS_EXTERNAL_VERIFICATION | **5** (includes `DEC-0411` dual tag) |
 | CONFLICTED (open DEC row) | **1** (`DEC-0016` → resolved via `DEC-0017`) |
 | Unresolved CF-* needing user | **CF-04** (Sonar AA/token); CF-05 Bandit #50 still open |
 
@@ -49,17 +49,25 @@
 | DEC-0409 | Broader unit suite **530 passed / 0 failed** (4 load/network deselected) |
 | CF-03 | Competing `or 0.0` withdrawal coercion removed on Truth path |
 | DEC-0407 | Soft Launch Postgres+Redis measured log row (still not HA multi-worker) |
+| DEC-0004 | Rendered retail anchor audit proves quiet engines absent from navigation |
+| DEC-0020 | Truth/conflict/OOD/drift runtime matrix proves fail-closed behavior |
+| DEC-0023 | Rendered sealed first-viewport boundary proves required composition and excludes clutter |
+| DEC-0026 | Shared Anti-Hype footer inventory + seven HTTP AI surfaces; three missing template bindings fixed |
+| DEC-0027 | Companion manifest proves share/follow/contact/FAQ/how-it-works/status/legal completeness |
+| DEC-0108 | User-visible copy/manifest scan permits guarantee phrases only in explicit denials |
+| DEC-0310 | Missing/stale freshness can no longer fall back to a LIVE label |
 
 ## 8. Remaining material gaps
 
 | ID | Gap |
 |---|---|
+| DEC-0014 | Per-regime routing is live, but all four trained per-regime artifacts are absent |
+| DEC-0029 | Founder H3 60-second acceptance confirmation remains external |
 | DEC-0218 | ~151 `innerHTML` sinks remain; helpers + priority escapes only |
 | DEC-0217 | CSP still allows `'unsafe-inline'` |
-| DEC-0305 | Residual `DEFAULT_TAKER_FEE` outside fee_matrix callers |
 | DEC-0407 | No signed HA multi-worker (`WEB_CONCURRENCY`×`REPLICAS`≥2, Soft Launch off) |
 | DEC-0411 / CF-04 | Sonar coverage import blocked (AA + token / `SONAR_CI_ANALYSIS`) |
-| DEC-0412 | Tip Sonar QG with imported coverage incomplete |
+| DEC-0412 | No fresh Sonar Quality Gate OK evidence on `c0221e1` |
 | DEC-0501 | Acquisition READY blocked |
 | DEC-0220 | Bandit zero on tip not proven (#50 unmerged) |
 | DEC-0028 / 0030 / 0504 | Human/process ops — external by design |
@@ -83,6 +91,8 @@
 | Load log (Soft Launch) | `docs/LOAD_TEST_RUN_LOG.md` (`2026-08-11T21:39:09Z`) |
 | Critical CI | GitHub Actions success on PR #58 |
 | Broader unit suite | **530 passed / 0 failed** locally on tip |
+| Autonomous DEC closure suite | **31 passed / 0 failed** on `c0221e1` |
+| Autonomous DEC assertions | `tests/test_dec_autonomous_closure.py` |
 | XSS tests | `tests/test_xss_sink_hardening.py` |
 | Softlaunch tests | `tests/test_softlaunch_no_shell_taint.py` |
 | Motion/OQS tests | `tests/test_dec_motion_and_oqs_weights.py` |
@@ -97,7 +107,7 @@
 | 100% FINAL decisions catalogued (register scope) | YES |
 | 100% have disposition | YES |
 | Zero material NOT_IMPLEMENTED | **NO** (`DEC-0411`, `DEC-0501`) |
-| Zero material PARTIALLY_IMPLEMENTED | **NO** (14 remain) |
+| Zero material PARTIALLY_IMPLEMENTED | **NO** (6 remain) |
 | Zero unexplained conflicts | **NO** (CF-04 user; CF-05 Bandit) |
 | Zero required tests missing | **NO** (HA signed load; Bandit tip) |
 | Zero security weak sinks | **NO** (XSS/CSP) |
@@ -109,8 +119,8 @@
 
 **BLACKDARK DECISION TRACEABILITY: NOT COMPLETE**
 
-Not **100% VERIFIED — NO KNOWN DECISION OMITTED** while `DEC-0411` / `DEC-0501` remain NOT_IMPLEMENTED and 14 PARTIAL + external ops remain.
+Not **100% VERIFIED — NO KNOWN DECISION OMITTED** while `DEC-0411` / `DEC-0501` remain NOT_IMPLEMENTED and 6 PARTIAL + external ops remain.
 
 ## Closure run note
 
-Tip `1651c71` on PR #58: DEC-0305 fee fail-closed + DEC-0221 Ruff landed; DEC-0217/0218 still PARTIAL; DEC-0411/0501 still blocked on Sonar AA + acquisition evidence. Track 1/2 remain NOT COMPLETE.
+Tip `c0221e1`: DEC-0004/0020/0023/0026/0027/0108/0310 closed with 31 focused tests green. DEC-0014 remains honest partial without trained per-regime artifacts; DEC-0217/0218 remain PARTIAL; DEC-0411/0412 are not verified without fresh tip Sonar QG evidence; DEC-0501 remains blocked. Track 1/2 remain NOT COMPLETE.
