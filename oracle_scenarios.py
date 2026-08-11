@@ -13,6 +13,12 @@ def _clamp(x: float, lo: float = 0.0, hi: float = 100.0) -> float:
     return max(lo, min(hi, x))
 
 
+def _safe_head(items: list[Any], n: int) -> list[Any]:
+    if n <= 0 or not items:
+        return []
+    return items[: min(n, len(items))]
+
+
 def _float_payload(payload: dict[str, Any], key: str, default: float) -> float:
     try:
         value = payload.get(key)
@@ -70,14 +76,19 @@ def _scenario_drivers(payload: dict[str, Any], score: float, regime: str, verdic
     drivers: list[str] = []
     explanation = payload.get("explanation")
     if isinstance(explanation, dict):
-        factors = explanation.get("top_3_factors") or []
+        factors = explanation.get("top_3_factors")
         if isinstance(factors, list):
-            for factor in factors[:3]:
+            for factor in list(factors)[:3]:
                 if isinstance(factor, dict):
-                    drivers.append(str(factor.get("factor") or factor.get("label") or ""))
+                    label = factor.get("factor")
+                    if label is None:
+                        label = factor.get("label")
+                    drivers.append(str(label or ""))
                 else:
                     drivers.append(str(factor))
-    drivers = [driver for driver in drivers if driver][:3]
+    drivers = [driver for driver in drivers if driver]
+    if len(drivers) > 3:
+        drivers = drivers[:3]
     if drivers:
         return drivers
     return [f"Opportunity score {score:.0f}", f"Regime {regime}", f"Verdict {verdict}"]
@@ -132,8 +143,8 @@ def build_oracle_scenarios(payload: dict[str, Any]) -> dict[str, Any]:
                 "probability_pct": round(bull_p, 1),
                 "expected_range": ranges["bull"],
                 "label": "Bull",
-                "drivers": drivers[:2],
-                "risks": risks[:2],
+                "drivers": _safe_head(drivers, 2),
+                "risks": _safe_head(risks, 2),
             },
             "base": {
                 "probability_pct": round(base_p, 1),
@@ -146,8 +157,8 @@ def build_oracle_scenarios(payload: dict[str, Any]) -> dict[str, Any]:
                 "probability_pct": round(bear_p, 1),
                 "expected_range": ranges["bear"],
                 "label": "Bear",
-                "drivers": drivers[:2],
-                "risks": risks[:2],
+                "drivers": _safe_head(drivers, 2),
+                "risks": _safe_head(risks, 2),
             },
         },
         "confidence_pct": round(conf, 1),

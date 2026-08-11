@@ -272,16 +272,15 @@ async def scan_arbitrage_catalog(
             and _live_catalog_row(row, opps_by_kind.get(entry["engine_kind"]) or [])
         ):
             active_live += 1
-        elif entry["status"] == "proxy":
-            if _proxy_catalog_row(
-                row,
-                entry,
-                institutional=institutional,
-                macro=macro,
-                sentiment=sentiment,
-                oracle_accuracy=oracle_accuracy,
-            ):
-                active_proxy += 1
+        elif entry["status"] == "proxy" and _proxy_catalog_row(
+            row,
+            entry,
+            institutional=institutional,
+            macro=macro,
+            sentiment=sentiment,
+            oracle_accuracy=oracle_accuracy,
+        ):
+            active_proxy += 1
 
         if row["score"] >= min_score:
             results.append(row)
