@@ -764,6 +764,153 @@ def _compound_label(compound: float) -> str:
     return "Neutral"
 
 
+async def _technical_explanation_context(
+    resolved_pair: str,
+    price: float,
+    change: float,
+) -> dict[str, Any]:
+    closes = await _fetch_binance_klines(resolved_pair)
+    rsi = _compute_rsi(closes)
+    rsi_source = "binance_1h_candles"
+    if rsi is None:
+        rsi = round(max(18.0, min(82.0, 50.0 + change * 4.5)), 1)
+        rsi_source = "estimated_from_24h_change"
+    return {
+        "closes": closes,
+        "rsi": rsi,
+        "rsi_source": rsi_source,
+        "macd_trend": _macd_trend_label(closes) if closes else "Insufficient candle data",
+        "ema_position": _ema_position_label(price, closes) if closes else _ema_position_label(price, [price]),
+    }
+
+
+async def _whale_explanation_context(
+    asset: str,
+    resolved_pair: str,
+    price: float,
+    quote_volume: float,
+) -> dict[str, Any]:
+    whale_context = await _fetch_cvvd_whale_context(refresh=False)
+    asset_alerts = _whale_alerts_for_asset(whale_context["whale_alerts"], asset)
+    if asset_alerts:
+        return _whale_alert_explanation(asset_alerts)
+    live_phrase = await _fetch_live_whale_signal(resolved_pair, price)
+    return {
+        "asset_alerts": asset_alerts,
+        "whale_flow": live_phrase,
+        "volume_anomaly": (
+            "High 24h quote volume vs typical range"
+            if quote_volume > 50_000_000
+            else "Normal institutional range"
+        ),
+        "whale_alert_text": live_phrase,
+    }
+
+
+def _whale_alert_explanation(asset_alerts: list[dict[str, Any]]) -> dict[str, Any]:
+    top = asset_alerts[0]
+    meta = _parse_alert_metadata(top)
+    pattern = str(meta.get("pattern") or "manipulation").replace("_", " ")
+    spike = float(meta.get("volume_spike_ratio") or 0)
+    return {
+        "asset_alerts": asset_alerts,
+        "whale_flow": (
+            f"CVVD {pattern} — {top.get('side') or 'mixed'!s} — "
+            f"${float(top.get('notional_usd') or 0):,.0f}"
+        ),
+        "volume_anomaly": (
+            f"Cross-venue spike {spike:.1f}x vs baseline"
+            if spike > 1.2
+            else "Elevated institutional footprint"
+        ),
+        "whale_alert_text": (
+            f"{pattern} detected — score {float(meta.get('manipulation_score') or 0):.0f}/100"
+        ),
+    }
+
+
+async def _sentiment_explanation_context(asset: str, score: int) -> dict[str, Any]:
+    from sentiment_engine import build_sentiment_context_safe
+
+    sentiment_ctx = await build_sentiment_context_safe([asset])
+    compound = float((sentiment_ctx.get("sentiment_compound_index") or {}).get(asset.upper(), 0.0))
+    social_buzz = int(max(15, min(95, round(48 + score * 0.35 + abs(compound) * 40))))
+    return {
+        "compound": compound,
+        "news_sentiment": _compound_to_score(compound),
+        "news_label": _compound_label(compound),
+        "social_buzz": social_buzz,
+        "social_label": _social_buzz_label(social_buzz),
+    }
+
+
+def _social_buzz_label(social_buzz: int) -> str:
+    if social_buzz >= 70:
+        return "High"
+    if social_buzz >= 45:
+        return "Moderate"
+    return "Low"
+
+
+async def _onchain_explanation_note(asset: str) -> str:
+    from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
+
+    onchain_ctx = await build_onchain_context_safe()
+    onchain_status = get_onchain_status_for_asset(asset, onchain_ctx)
+    if not onchain_status:
+        return "On-chain flow data unavailable for this asset"
+    bias = str(onchain_status.get("bias") or "neutral")
+    net_flow = float(onchain_status.get("net_flow_usd") or 0)
+    return f"Exchange flow {bias} (${net_flow:+,.0f} net)"
+
+
+def _volatility_context(price: float, change: float) -> dict[str, Any]:
+    abs_change = abs(change)
+    if abs_change < 2:
+        volatility = "Low"
+        vol_warning = "Low volatility environment"
+    elif abs_change < 5:
+        volatility = "Medium"
+        vol_warning = "Moderate swings expected"
+    else:
+        volatility = "High"
+        vol_warning = "Elevated volatility — widen stops"
+    return {
+        "support": round(price * 0.97, -2),
+        "resistance": round(price * 1.03, -2),
+        "volatility": volatility,
+        "vol_warning": vol_warning,
+    }
+
+
+def _top_opportunity_factors(
+    tech: dict[str, Any],
+    whale: dict[str, Any],
+    sentiment: dict[str, Any],
+    onchain_note: str,
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "factor": "Technical structure",
+            "detail": f"RSI {tech['rsi']} ({_rsi_signal_label(tech['rsi'])}) · {tech['macd_trend']}",
+            "source": tech["rsi_source"],
+            "weight_hint": "high" if abs(float(tech["rsi"]) - 50) > 12 else "medium",
+        },
+        {
+            "factor": "Whale / institutional flow",
+            "detail": whale["whale_alert_text"],
+            "source": "CVVD whale detection",
+            "weight_hint": "high" if whale["asset_alerts"] else "medium",
+        },
+        {
+            "factor": "Sentiment + on-chain",
+            "detail": f"{sentiment['news_label']} news · {onchain_note}",
+            "source": "sentiment index + exchange flows",
+            "weight_hint": "medium",
+        },
+    ]
+
+
 async def _build_opportunity_explanation(
     asset: str,
     price: float,
@@ -774,113 +921,24 @@ async def _build_opportunity_explanation(
     pair: str | None = None,
 ) -> dict:
     """Multi-factor explanation from live technical, CVVD whale, sentiment, and on-chain feeds."""
-    from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
     from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
-    from sentiment_engine import build_sentiment_context_safe
 
-    if pair:
-        resolved_pair = pair
-    else:
-        _, resolved_pair = _normalize_oracle_symbol(asset)
-
-    closes = await _fetch_binance_klines(resolved_pair)
-    rsi = _compute_rsi(closes)
-    if rsi is None:
-        rsi = round(max(18.0, min(82.0, 50.0 + change * 4.5)), 1)
-        rsi_source = "estimated_from_24h_change"
-    else:
-        rsi_source = "binance_1h_candles"
-
-    macd_trend = _macd_trend_label(closes) if closes else "Insufficient candle data"
-    ema_position = _ema_position_label(price, closes) if closes else _ema_position_label(price, [price])
-
+    resolved_pair = pair or _normalize_oracle_symbol(asset)[1]
+    tech = await _technical_explanation_context(resolved_pair, price, change)
     liquidity, liquidity_score = _liquidity_label(quote_volume)
     trend = _trend_direction(change)
-
-    whale_context = await _fetch_cvvd_whale_context(refresh=False)
-    asset_alerts = _whale_alerts_for_asset(whale_context["whale_alerts"], asset)
-    if asset_alerts:
-        top = asset_alerts[0]
-        meta = _parse_alert_metadata(top)
-        pattern = str(meta.get("pattern") or "manipulation").replace("_", " ")
-        whale_flow = f"CVVD {pattern} — {top.get('side') or 'mixed'!s} — ${float(top.get('notional_usd') or 0):,.0f}"
-        spike = float(meta.get("volume_spike_ratio") or 0)
-        volume_anomaly = (
-            f"Cross-venue spike {spike:.1f}x vs baseline"
-            if spike > 1.2
-            else "Elevated institutional footprint"
-        )
-        whale_alert_text = (
-            f"{pattern} detected — score {float(meta.get('manipulation_score') or 0):.0f}/100"
-        )
-    else:
-        live_phrase = await _fetch_live_whale_signal(resolved_pair, price)
-        whale_flow = live_phrase
-        volume_anomaly = (
-            "High 24h quote volume vs typical range"
-            if quote_volume > 50_000_000
-            else "Normal institutional range"
-        )
-        whale_alert_text = live_phrase
-
-    sentiment_ctx = await build_sentiment_context_safe([asset])
-    compound = float((sentiment_ctx.get("sentiment_compound_index") or {}).get(asset.upper(), 0.0))
-    news_sentiment = _compound_to_score(compound)
-    news_label = _compound_label(compound)
-    social_buzz = int(max(15, min(95, round(48 + score * 0.35 + abs(compound) * 40))))
-    if social_buzz >= 70:
-        social_label = "High"
-    elif social_buzz >= 45:
-        social_label = "Moderate"
-    else:
-        social_label = "Low"
-
-    onchain_ctx = await build_onchain_context_safe()
-    onchain_status = get_onchain_status_for_asset(asset, onchain_ctx)
-    if onchain_status:
-        bias = str(onchain_status.get("bias") or "neutral")
-        net_flow = float(onchain_status.get("net_flow_usd") or 0)
-        onchain_note = f"Exchange flow {bias} (${net_flow:+,.0f} net)"
-    else:
-        onchain_note = "On-chain flow data unavailable for this asset"
+    whale = await _whale_explanation_context(asset, resolved_pair, price, quote_volume)
+    sentiment = await _sentiment_explanation_context(asset, score)
+    onchain_note = await _onchain_explanation_note(asset)
 
     hub_ctx = await build_hub_context_safe(asset)
     hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub_ctx)
     hub_score_adj = round(hub_delta)
 
-    support = round(price * 0.97, -2)
-    resistance = round(price * 1.03, -2)
-    if abs(change) < 2:
-        volatility = "Low"
-        vol_warning = "Low volatility environment"
-    elif abs(change) < 5:
-        volatility = "Medium"
-        vol_warning = "Moderate swings expected"
-    else:
-        volatility = "High"
-        vol_warning = "Elevated volatility — widen stops"
+    risk = _volatility_context(price, change)
 
     # Hero #1 — Top-3 factors for <5s understanding (with real sources).
-    top_factors = [
-        {
-            "factor": "Technical structure",
-            "detail": f"RSI {rsi} ({_rsi_signal_label(rsi)}) · {macd_trend}",
-            "source": rsi_source,
-            "weight_hint": "high" if abs(float(rsi) - 50) > 12 else "medium",
-        },
-        {
-            "factor": "Whale / institutional flow",
-            "detail": whale_alert_text,
-            "source": "CVVD whale detection",
-            "weight_hint": "high" if asset_alerts else "medium",
-        },
-        {
-            "factor": "Sentiment + on-chain",
-            "detail": f"{news_label} news · {onchain_note}",
-            "source": "sentiment index + exchange flows",
-            "weight_hint": "medium",
-        },
-    ]
+    top_factors = _top_opportunity_factors(tech, whale, sentiment, onchain_note)
 
     return {
         "symbol": asset,
@@ -891,8 +949,8 @@ async def _build_opportunity_explanation(
         "checklist": [
             {"label": "Score", "value": score, "ok": score >= 55},
             {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
-            {"label": "Whale context", "value": "present" if asset_alerts else "quiet", "ok": True},
-            {"label": "Volatility", "value": volatility, "ok": abs(change) < 8},
+            {"label": "Whale context", "value": "present" if whale["asset_alerts"] else "quiet", "ok": True},
+            {"label": "Volatility", "value": risk["volatility"], "ok": abs(change) < 8},
         ],
         "data_sources": [
             "Binance Live API (price + 1h candles)",
@@ -903,11 +961,11 @@ async def _build_opportunity_explanation(
         ],
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
         "technical_analysis": {
-            "rsi": rsi,
-            "rsi_signal": _rsi_signal_label(rsi),
-            "rsi_source": rsi_source,
-            "macd_trend": macd_trend,
-            "ema_position": ema_position,
+            "rsi": tech["rsi"],
+            "rsi_signal": _rsi_signal_label(tech["rsi"]),
+            "rsi_source": tech["rsi_source"],
+            "macd_trend": tech["macd_trend"],
+            "ema_position": tech["ema_position"],
         },
         "market_context": {
             "volume_analysis": f"24h quote volume ${quote_volume:,.0f}",
@@ -917,17 +975,17 @@ async def _build_opportunity_explanation(
             "onchain_flow": onchain_note,
         },
         "whale_activity": {
-            "flow": whale_flow,
-            "volume_anomaly": volume_anomaly,
-            "alert": whale_alert_text,
-            "cvvd_alerts_count": len(asset_alerts),
+            "flow": whale["whale_flow"],
+            "volume_anomaly": whale["volume_anomaly"],
+            "alert": whale["whale_alert_text"],
+            "cvvd_alerts_count": len(whale["asset_alerts"]),
         },
         "sentiment": {
-            "news_sentiment_score": news_sentiment,
-            "news_label": news_label,
-            "compound_index": round(compound, 3),
-            "social_buzz_score": social_buzz,
-            "social_label": social_label,
+            "news_sentiment_score": sentiment["news_sentiment"],
+            "news_label": sentiment["news_label"],
+            "compound_index": round(sentiment["compound"], 3),
+            "social_buzz_score": sentiment["social_buzz"],
+            "social_label": sentiment["social_label"],
             "fear_greed_index": (hub_ctx.get("sentiment") or {}).get("fear_greed_index"),
             "fear_greed_label": (hub_ctx.get("sentiment") or {}).get("fear_greed_label"),
             "coingecko_trending": (hub_ctx.get("sentiment") or {}).get("coingecko_trending"),
@@ -948,10 +1006,10 @@ async def _build_opportunity_explanation(
             "pillars": hub_ctx.get("pillars"),
         },
         "risk_factors": {
-            "support": support,
-            "resistance": resistance,
-            "volatility": volatility,
-            "volatility_warning": vol_warning,
+            "support": risk["support"],
+            "resistance": risk["resistance"],
+            "volatility": risk["volatility"],
+            "volatility_warning": risk["vol_warning"],
         },
         "timestamp": datetime.now(UTC).isoformat(),
     }

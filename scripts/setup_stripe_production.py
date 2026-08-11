@@ -33,6 +33,34 @@ def _stripe_get(path: str, secret: str) -> dict | None:
         return None
 
 
+def _print_checklist(checklist: list[tuple[str, str, str]]) -> int:
+    missing = 0
+    for key, val, hint in checklist:
+        ok = bool(val)
+        if key.startswith("STRIPE_") and key != "STRIPE_PRICE_WHALE" and not ok:
+            missing += 1
+        mark = "SET" if ok else "MISSING"
+        print(f"  [{mark}] {key}")
+        if not ok and key != "STRIPE_PRICE_WHALE":
+            print(f"         -> {hint}")
+    return missing
+
+
+def _validate_stripe(secret: str, price_pro: str) -> None:
+    if not secret.startswith(("sk_live_", "sk_test_")):
+        return
+    print("\n--- Validating secret key ---")
+    acct = _stripe_get("/account", secret)
+    if acct:
+        print(f"  Account: {acct.get('settings', {}).get('dashboard', {}).get('display_name') or acct.get('id')}")
+        print(f"  Livemode: {not secret.startswith('sk_test_')}")
+    if price_pro:
+        price = _stripe_get(f"/prices/{price_pro}", secret)
+        if price:
+            amt = (price.get("unit_amount") or 0) / 100
+            print(f"  Pro price: ${amt:.2f} {price.get('currency', '').upper()} active={price.get('active')}")
+
+
 def main() -> int:
     print("=" * 60)
     print("BLACKDARK — Stripe Production Setup")
@@ -58,15 +86,7 @@ def main() -> int:
         ("STRIPE_CANCEL_URL", _env("STRIPE_CANCEL_URL") or f"{PROD_URL}/cancel", "Checkout cancel"),
         ("APP_BASE_URL", _env("APP_BASE_URL") or PROD_URL, "Must match Railway domain"),
     ]
-    missing = 0
-    for key, val, hint in checklist:
-        ok = bool(val)
-        if key.startswith("STRIPE_") and key != "STRIPE_PRICE_WHALE" and not ok:
-            missing += 1
-        mark = "SET" if ok else "MISSING"
-        print(f"  [{mark}] {key}")
-        if not ok and key != "STRIPE_PRICE_WHALE":
-            print(f"         -> {hint}")
+    missing = _print_checklist(checklist)
 
     print("\n--- Stripe Dashboard steps ---")
     print("  1. Products -> create 'Decision Pro' recurring $29/mo")
@@ -77,17 +97,7 @@ def main() -> int:
     print("  4. Copy signing secret -> STRIPE_WEBHOOK_SECRET")
     print(f"  5. Test checkout: {PROD_URL}/create-checkout-session?tier=pro")
 
-    if secret.startswith(("sk_live_", "sk_test_")):
-        print("\n--- Validating secret key ---")
-        acct = _stripe_get("/account", secret)
-        if acct:
-            print(f"  Account: {acct.get('settings', {}).get('dashboard', {}).get('display_name') or acct.get('id')}")
-            print(f"  Livemode: {not secret.startswith('sk_test_')}")
-        if price_pro:
-            price = _stripe_get(f"/prices/{price_pro}", secret)
-            if price:
-                amt = (price.get("unit_amount") or 0) / 100
-                print(f"  Pro price: ${amt:.2f} {price.get('currency', '').upper()} active={price.get('active')}")
+    _validate_stripe(secret, price_pro)
 
     print("\n--- After Railway deploy ---")
     print("  curl", f"{PROD_URL}/api/gtm/status")
