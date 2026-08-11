@@ -263,9 +263,7 @@ def _apply_live_mode(parsed: dict[str, str], *, enable_live: bool, has_keys: boo
         parsed["AUTO_EXECUTION_DRY_RUN"] = "false"
         return True
     parsed["AUTO_EXECUTION_ENABLED"] = "false"
-    if enable_live and has_keys:
-        parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
-    elif "AUTO_EXECUTION_DRY_RUN" not in parsed:
+    if (enable_live and has_keys) or ("AUTO_EXECUTION_DRY_RUN" not in parsed):
         parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
     return False
 

@@ -120,3 +120,49 @@ async def test_refresh_fee_matrix_ccxt_mock(monkeypatch):
     # Updated may be 0 if CCXT id map rejects the fake; seed path must still report total.
     assert result["updated"] >= 0
     assert "binance" in fee_matrix._matrix or result["total"] >= 1
+
+
+import pytest
+
+
+@pytest.mark.asyncio
+async def test_fetch_trading_fees_missing_method():
+    from fee_matrix import _fetch_trading_fees
+
+    class Ex:
+        pass
+
+    assert await _fetch_trading_fees(Ex()) == {}
+
+
+@pytest.mark.asyncio
+async def test_fetch_trading_fees_exception():
+    from fee_matrix import _fetch_trading_fees
+
+    class Ex:
+        async def fetchTradingFees(self):
+            raise RuntimeError("boom")
+
+    assert await _fetch_trading_fees(Ex()) == {}
+
+
+def test_fee_rates_from_fees_dict():
+    from fee_matrix import _fee_rates
+
+    class Ex:
+        fees = {"trading": {"taker": 0.001, "maker": 0.0005}}
+
+    taker, maker = _fee_rates("binance", Ex(), {"BTC/USDT": {"taker": 0.002, "maker": 0.001}})
+    assert taker == 0.002
+    assert maker == 0.001
+
+
+def test_fee_rates_empty_fees_fallback():
+    from fee_matrix import _fee_rates
+
+    class Ex:
+        fees = {"trading": {"taker": 0.0015, "maker": 0.0007}}
+
+    taker, maker = _fee_rates("binance", Ex(), {})
+    assert taker == 0.0015
+    assert maker == 0.0007

@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -1008,34 +1008,21 @@ def _risk_factors_block(risk: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _opportunity_explanation_payload(
-    *,
-    asset: str,
-    verdict: str,
-    score: int,
-    top_factors: list[dict[str, Any]],
-    liquidity: str,
-    liquidity_score: int,
-    whale: dict[str, Any],
-    risk: dict[str, Any],
-    change: float,
-    tech: dict[str, Any],
-    quote_volume: float,
-    trend: str,
-    onchain_note: str,
-    sentiment: dict[str, Any],
-    hub_ctx: dict[str, Any],
-    hub_score_adj: int,
-    hub_reasons: list[str],
-    hub_risks: list[str],
-) -> dict[str, Any]:
+def _opportunity_explanation_payload(pack: dict[str, Any]) -> dict[str, Any]:
     return {
-        "symbol": asset,
-        "verdict": verdict,
-        "opportunity_score": score,
+        "symbol": pack["asset"],
+        "verdict": pack["verdict"],
+        "opportunity_score": pack["score"],
         "simulated": False,
-        "top_3_factors": top_factors,
-        "checklist": _explanation_checklist(score, liquidity, liquidity_score, whale, risk, change),
+        "top_3_factors": pack["top_factors"],
+        "checklist": _explanation_checklist(
+            pack["score"],
+            pack["liquidity"],
+            pack["liquidity_score"],
+            pack["whale"],
+            pack["risk"],
+            pack["change"],
+        ),
         "data_sources": [
             "Binance Live API (price + 1h candles)",
             "CVVD Cross-Venue Whale Detection",
@@ -1044,12 +1031,23 @@ def _opportunity_explanation_payload(
             "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
         ],
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
-        "technical_analysis": _technical_analysis_block(tech),
-        "market_context": _market_context_block(quote_volume, liquidity_score, liquidity, trend, onchain_note),
-        "whale_activity": _whale_activity_block(whale),
-        "sentiment": _sentiment_block(sentiment, hub_ctx),
-        "oracle_data_hub": _oracle_data_hub_block(hub_ctx, hub_score_adj, hub_reasons, hub_risks),
-        "risk_factors": _risk_factors_block(risk),
+        "technical_analysis": _technical_analysis_block(pack["tech"]),
+        "market_context": _market_context_block(
+            pack["quote_volume"],
+            pack["liquidity_score"],
+            pack["liquidity"],
+            pack["trend"],
+            pack["onchain_note"],
+        ),
+        "whale_activity": _whale_activity_block(pack["whale"]),
+        "sentiment": _sentiment_block(pack["sentiment"], pack["hub_ctx"]),
+        "oracle_data_hub": _oracle_data_hub_block(
+            pack["hub_ctx"],
+            pack["hub_score_adj"],
+            pack["hub_reasons"],
+            pack["hub_risks"],
+        ),
+        "risk_factors": _risk_factors_block(pack["risk"]),
         "timestamp": datetime.now(UTC).isoformat(),
     }
 
@@ -1084,24 +1082,26 @@ async def _build_opportunity_explanation(
     top_factors = _top_opportunity_factors(tech, whale, sentiment, onchain_note)
 
     return _opportunity_explanation_payload(
-        asset=asset,
-        verdict=verdict,
-        score=score,
-        top_factors=top_factors,
-        liquidity=liquidity,
-        liquidity_score=liquidity_score,
-        whale=whale,
-        risk=risk,
-        change=change,
-        tech=tech,
-        quote_volume=quote_volume,
-        trend=trend,
-        onchain_note=onchain_note,
-        sentiment=sentiment,
-        hub_ctx=hub_ctx,
-        hub_score_adj=hub_score_adj,
-        hub_reasons=hub_reasons,
-        hub_risks=hub_risks,
+        {
+            "asset": asset,
+            "verdict": verdict,
+            "score": score,
+            "top_factors": top_factors,
+            "liquidity": liquidity,
+            "liquidity_score": liquidity_score,
+            "whale": whale,
+            "risk": risk,
+            "change": change,
+            "tech": tech,
+            "quote_volume": quote_volume,
+            "trend": trend,
+            "onchain_note": onchain_note,
+            "sentiment": sentiment,
+            "hub_ctx": hub_ctx,
+            "hub_score_adj": hub_score_adj,
+            "hub_reasons": hub_reasons,
+            "hub_risks": hub_risks,
+        }
     )
 
 # ========== LANDING PAGE (ROOT) ==========

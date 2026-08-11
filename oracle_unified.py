@@ -7,6 +7,8 @@ base score → regime-weighted dimensions → conflict resolution → optional M
 
 from __future__ import annotations
 
+import asyncio
+
 import logging
 from typing import Any
 
@@ -200,6 +202,7 @@ def apply_unified_adjustments(
 
 
 async def _rl_policy_adjustment(change_24h: float, breakdown: dict[str, Any]) -> dict[str, Any]:
+    await asyncio.sleep(0)
     rl_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
     try:
         from ml.rl_policy import predict_action

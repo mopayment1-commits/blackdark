@@ -266,9 +266,12 @@ async def scan_arbitrage_catalog(
     for entry in ARBITRAGE_CATALOG:
         row = _catalog_base_row(entry)
 
-        if entry["status"] == "live" and entry.get("engine_kind"):
-            if _live_catalog_row(row, opps_by_kind.get(entry["engine_kind"]) or []):
-                active_live += 1
+        if (
+            entry["status"] == "live"
+            and entry.get("engine_kind")
+            and _live_catalog_row(row, opps_by_kind.get(entry["engine_kind"]) or [])
+        ):
+            active_live += 1
         elif entry["status"] == "proxy":
             if _proxy_catalog_row(
                 row,

@@ -7,6 +7,8 @@ and exported as labeled training data for the AI model.
 
 from __future__ import annotations
 
+import asyncio
+
 import json
 import logging
 from datetime import UTC, datetime
@@ -174,6 +176,7 @@ async def _resolve_registry_label(
     direction: str,
     price_now: float,
 ) -> None:
+    await asyncio.sleep(0)
     try:
         from signal_registry import list_signals, resolve_signal
 

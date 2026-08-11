@@ -27,6 +27,23 @@ except ImportError:
     print("pip install aiohttp")
     raise SystemExit(1) from None
 
+from urllib.parse import urlparse
+
+
+def _validate_base(base: str) -> str:
+    """Allow only local/private load-test targets (blocks SSRF to arbitrary hosts)."""
+    raw = (base or "").strip().rstrip("/")
+    parsed = urlparse(raw)
+    if parsed.scheme not in {"http", "https"}:
+        raise ValueError(f"Unsupported URL scheme: {parsed.scheme!r}")
+    host = (parsed.hostname or "").lower()
+    allowed = {"127.0.0.1", "localhost", "::1"}
+    if host not in allowed and not host.endswith(".localhost"):
+        raise ValueError(f"Load-test base host not allowlisted: {host!r}")
+    if parsed.username or parsed.password:
+        raise ValueError("Credentials in load-test URL are not allowed")
+    return raw
+
 
 async def _probe(session: aiohttp.ClientSession, url: str) -> tuple[bool, float]:
     t0 = time.perf_counter()
@@ -61,7 +78,8 @@ async def simulate_users(
     concurrent_users: int,
     requests_per_user: int,
 ) -> dict:
-    port = int(base.rsplit(":", 1)[-1])
+    base = _validate_base(base)
+    port = int(urlparse(base).port or (443 if urlparse(base).scheme == "https" else 80))
     sidecar = f"http://127.0.0.1:{port + 100}"
     urls = [
         f"{sidecar}/health/live",

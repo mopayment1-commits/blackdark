@@ -72,17 +72,17 @@ class HotStorageBackend(ABC):
     @abstractmethod
     async def connect(self) -> None:
         await asyncio.sleep(0)
-        raise NotImplementedError
+        raise NotImplementedError("HotStorageBackend.connect")
 
     @abstractmethod
     async def close(self) -> None:
         await asyncio.sleep(0)
-        raise NotImplementedError
+        raise NotImplementedError("HotStorageBackend.close")
 
     @abstractmethod
     async def insert_batch(self, records: list[HotRecord]) -> int:
         await asyncio.sleep(0)
-        raise NotImplementedError
+        raise NotImplementedError("HotStorageBackend.insert_batch")
 
     def health_check(self) -> bool:
         return True

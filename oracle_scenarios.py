@@ -34,11 +34,17 @@ def _scenario_probabilities(verdict: str, score: float, abstain: bool) -> tuple[
 
 
 def _normalize_probabilities(bull_p: float, base_p: float, bear_p: float) -> tuple[float, float, float]:
-    bull_p = _clamp(bull_p)
-    bear_p = _clamp(bear_p)
-    base_p = _clamp(100.0 - bull_p - bear_p)
-    total = bull_p + base_p + bear_p or 1.0
-    return 100.0 * bull_p / total, 100.0 * base_p / total, 100.0 * bear_p / total
+    bull_c = _clamp(bull_p)
+    bear_c = _clamp(bear_p)
+    # Derive base from residual so the parameter is not overwritten (S1226).
+    base_c = _clamp(base_p if base_p > 0 else (100.0 - bull_c - bear_c))
+    # Keep probabilities summing to ~100 when caller passes a residual base.
+    if abs((bull_c + base_c + bear_c) - 100.0) > 1.0:
+        base_c = _clamp(100.0 - bull_c - bear_c)
+    total = bull_c + base_c + bear_c
+    if total <= 0:
+        total = 1.0
+    return 100.0 * bull_c / total, 100.0 * base_c / total, 100.0 * bear_c / total
 
 
 def _price_ranges(price: float, band: float) -> dict[str, Any]:
@@ -61,16 +67,20 @@ def _price_ranges(price: float, band: float) -> dict[str, Any]:
 
 
 def _scenario_drivers(payload: dict[str, Any], score: float, regime: str, verdict: str) -> list[str]:
-    drivers = []
-    if payload.get("explanation"):
-        factors = (payload.get("explanation") or {}).get("top_3_factors") or []
-        for factor in factors[:3]:
-            if isinstance(factor, dict):
-                drivers.append(str(factor.get("factor") or factor.get("label") or ""))
-            else:
-                drivers.append(str(factor))
+    drivers: list[str] = []
+    explanation = payload.get("explanation")
+    if isinstance(explanation, dict):
+        factors = explanation.get("top_3_factors") or []
+        if isinstance(factors, list):
+            for factor in factors[:3]:
+                if isinstance(factor, dict):
+                    drivers.append(str(factor.get("factor") or factor.get("label") or ""))
+                else:
+                    drivers.append(str(factor))
     drivers = [driver for driver in drivers if driver][:3]
-    return drivers or [f"Opportunity score {score:.0f}", f"Regime {regime}", f"Verdict {verdict}"]
+    if drivers:
+        return drivers
+    return [f"Opportunity score {score:.0f}", f"Regime {regime}", f"Verdict {verdict}"]
 
 
 def _scenario_risks(*, abstain: bool, conf: float) -> list[str]:

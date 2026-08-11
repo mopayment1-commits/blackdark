@@ -76,6 +76,7 @@ async def ensure_hot_pipeline_started() -> bool:
 
 
 async def ensure_compaction_scheduler() -> bool:
+    await asyncio.sleep(0)
     global _compactor_started
     if _compactor_started or not config.PARQUET_COMPACTION_ENABLED:
         return _compactor_started

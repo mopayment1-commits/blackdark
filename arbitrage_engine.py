@@ -1408,6 +1408,7 @@ class ArbitrageEngine:
         await self.close()
 
     async def _start_optional_schedulers(self) -> None:
+        await asyncio.sleep(0)
         if not config.PARQUET_COMPACTION_ENABLED:
             return
         try:

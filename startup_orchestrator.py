@@ -143,6 +143,7 @@ async def _start_core_streams(state: RuntimeState) -> None:
 
 
 async def _start_fee_and_gas() -> None:
+    await asyncio.sleep(0)
     from fee_matrix import start_fee_matrix_scheduler
     from gas_oracle import start_gas_oracle_loop
 
@@ -237,6 +238,7 @@ def _start_forecast_audit(state: RuntimeState) -> None:
 
 
 async def _start_ml_flywheel(state: RuntimeState) -> None:
+    await asyncio.sleep(0)
     if not config.ML_FLYWHEEL_ENABLED:
         return
     from ml_flywheel_scheduler import start_ml_flywheel
@@ -315,6 +317,7 @@ def _start_daily_report(state: RuntimeState) -> None:
 
 
 async def _start_auto_execution(state: RuntimeState) -> None:
+    await asyncio.sleep(0)
     if not _env_flag("AUTO_EXECUTION_LOOP", "false"):
         return
     from execution_engine import start_auto_execution_loop
@@ -367,6 +370,7 @@ def _start_cloud_sync(state: RuntimeState) -> None:
 
 
 async def _start_uptime_probe(state: RuntimeState) -> None:
+    await asyncio.sleep(0)
     try:
         from uptime_probe_loop import start_uptime_probe_loop
 

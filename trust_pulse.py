@@ -514,7 +514,7 @@ def _shape_pulse(
 
 
 def _cached_pulse_if_fresh(
-    sym: str,
+    _sym: str,
     cached: dict[str, Any],
     *,
     now: float,

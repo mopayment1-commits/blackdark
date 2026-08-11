@@ -609,52 +609,6 @@ def _acquisition_metrics(acquisition: dict[str, Any]) -> tuple[int, int, str, st
     return paid, behavior_events, model_verdict, deal_verdict
 
 
-def _build_requirements(
-    *,
-    probes_total: int,
-    checks: dict[str, Any],
-    uptime: dict[str, Any],
-    latency: dict[str, Any],
-    coverage: dict[str, Any],
-    coverage_pct: float,
-    prod_ok: bool,
-    prod_oracle: dict[str, Any],
-    moat: dict[str, Any],
-    model_verdict: str,
-    behavior_events: int,
-    paid: int,
-    has_cryptography: bool,
-    dashboard_lines: int,
-    sentry_configured: bool,
-    ci_has_cov_gate: bool,
-    ci_has_dd_verify: bool,
-    ci_has_docker: bool,
-    gdpr_module: bool,
-    deal_verdict: str,
-) -> list[RequirementAssessment]:
-    return [
-        _req_uptime(probes_total, checks, uptime),
-        _req_latency(checks, latency),
-        _req_coverage(checks, coverage, coverage_pct),
-        _req_ha(checks, prod_ok),
-        _req_prod(prod_ok, prod_oracle),
-        _req_oracle_ingest(prod_ok, prod_oracle),
-        _req_moat(moat),
-        _req_ml(model_verdict),
-        _req_behavior(behavior_events),
-        _req_paid(paid),
-        _req_api_keys(),
-        _req_secrets(has_cryptography),
-        _req_regulatory(),
-        _req_auth(),
-        _req_architecture(dashboard_lines),
-        _req_observability(sentry_configured),
-        _req_cicd(ci_has_cov_gate, ci_has_dd_verify, ci_has_docker),
-        _req_docs(),
-        _req_gdpr(gdpr_module),
-        _req_ma(deal_verdict, prod_ok),
-    ]
-
 
 async def build_technical_due_diligence_report(*, probe_production: bool = True) -> dict[str, Any]:
     data = await _technical_report_inputs(probe_production)

@@ -196,7 +196,6 @@
             line-height: 0.95;
             letter-spacing: 0.02em;
             margin: 0 0 0.85rem;
-            color: #e8eaee;
             text-shadow:
                 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 10px 40px rgba(0, 0, 0, 0.55),
@@ -1570,7 +1569,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         document.getElementById('lpShareBtn')?.addEventListener('click', (e) => {
             const btn = e.currentTarget;
             btn.classList.remove('bd-motion-share');
-            btn.offsetWidth;
+            const __reflowBtn = btn.offsetWidth;
             btn.classList.add('bd-motion-share');
             const proof = (landingPulse && landingPulse.proof) || {};
             const text = proof.share_text || 'BLACKDARK Trust Pulse — verify /oracle-accuracy';

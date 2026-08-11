@@ -28,8 +28,8 @@ def _track_record_block() -> dict[str, Any]:
 
 
 def _chain_ref(pred_id: Any, chain_meta: dict[str, Any] | None) -> str | None:
-    if chain_meta:
-        return ((chain_meta or {}).get("chain_hash") or "")[:16]
+    if chain_meta is not None:
+        return (chain_meta.get("chain_hash") or "")[:16]
     if pred_id is not None:
         return f"oracle_pred:{pred_id}"
     return None
