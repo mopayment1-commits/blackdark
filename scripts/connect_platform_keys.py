@@ -198,27 +198,54 @@ async def _test_local_server(base_url: str) -> None:
         print("     شغّل: python run_service.py all --port 8080")
 
 
+def _ensure_env_file() -> None:
+    if (ROOT / ".env").exists():
+        return
+    example = ROOT / ".env.example"
+    if example.exists():
+        (ROOT / ".env").write_text(example.read_text(encoding="utf-8"), encoding="utf-8")
+        print("\n📄 تم إنشاء .env من .env.example")
+
+
+async def _verify_only(args: argparse.Namespace) -> int:
+    report = await _verify_report()
+    _print_verify_report(report)
+    if args.test_server:
+        await _test_local_server(args.test_server)
+    return 0 if report.get("valid_count", 0) > 0 else 1
+
+
+def _print_save_results(result: dict[str, Any]) -> None:
+    print(f"\n💾 تم حفظ {result['saved_count']} مفتاح في {result['env_file']}")
+    for row in result.get("results", []):
+        env = row.get("env", row.get("service", "?"))
+        if row.get("saved"):
+            print(f"  ✅ {env}")
+        elif row.get("configured") is not False:
+            print(f"  ❌ {env}: {row.get('message') or row.get('reason')}")
+
+
+def _print_restart_footer() -> None:
+    print("\n" + "─" * 62)
+    print("✅ انتهت العملية")
+    print("   أعد تشغيل السيرفر إن كان يعمل:")
+    print("   python run_service.py all --port 8080")
+    print("   أو افتح: http://127.0.0.1:8080/platform")
+    print("─" * 62)
+
+
 async def run_connect(args: argparse.Namespace) -> int:
     _load_env()
     _print_header("BLACKDARK — ربط مفاتيح Platform (عملية كاملة)")
 
-    if not (ROOT / ".env").exists():
-        example = ROOT / ".env.example"
-        if example.exists():
-            (ROOT / ".env").write_text(example.read_text(encoding="utf-8"), encoding="utf-8")
-            print("\n📄 تم إنشاء .env من .env.example")
-
+    _ensure_env_file()
     _print_status()
 
     if args.open_links:
         _open_signup_links()
 
     if args.verify_only:
-        report = await _verify_report()
-        _print_verify_report(report)
-        if args.test_server:
-            await _test_local_server(args.test_server)
-        return 0 if report.get("valid_count", 0) > 0 else 1
+        return await _verify_only(args)
 
     payload = _collect_keys(args)
     if not payload:
@@ -232,14 +259,7 @@ async def run_connect(args: argparse.Namespace) -> int:
     print("\n⏳ جاري التحقق والحفظ...")
     result = await save_platform_keys(payload, verify=not args.no_verify)
 
-    print(f"\n💾 تم حفظ {result['saved_count']} مفتاح في {result['env_file']}")
-    for row in result.get("results", []):
-        env = row.get("env", row.get("service", "?"))
-        if row.get("saved"):
-            print(f"  ✅ {env}")
-        elif row.get("configured") is not False:
-            print(f"  ❌ {env}: {row.get('message') or row.get('reason')}")
-
+    _print_save_results(result)
     _load_env()
     report = await _verify_report()
     _print_verify_report(report)
@@ -247,13 +267,7 @@ async def run_connect(args: argparse.Namespace) -> int:
     if args.test_server:
         await _test_local_server(args.test_server)
 
-    print("\n" + "─" * 62)
-    print("✅ انتهت العملية")
-    print("   أعد تشغيل السيرفر إن كان يعمل:")
-    print("   python run_service.py all --port 8080")
-    print("   أو افتح: http://127.0.0.1:8080/platform")
-    print("─" * 62)
-
+    _print_restart_footer()
     failed = [r for r in result.get("results", []) if not r.get("saved") and r.get("message")]
     return 0 if result.get("saved_count") or not failed else 1
 
