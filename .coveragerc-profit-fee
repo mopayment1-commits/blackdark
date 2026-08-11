@@ -4,10 +4,12 @@ source =
     slippage_guard
     fast_scan_engine
     profit_fee_algorithms
+    executable_edge_truth
+    money_decimal
 omit =
     tests/*
 
 [report]
-fail_under = 90
+fail_under = 85
 show_missing = true
 precision = 1

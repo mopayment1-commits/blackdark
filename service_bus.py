@@ -30,8 +30,35 @@ def redis_url() -> str:
     return os.getenv("REDIS_URL", "").strip()
 
 
+def _local_bus_allowed() -> bool:
+    """In-process bus is for single-process/dev only — never silent prod HA fallback."""
+    flag = os.getenv("SERVICE_BUS_LOCAL", "").strip().lower()
+    if flag in {"0", "false", "no"}:
+        return False
+    if flag in {"1", "true", "yes"}:
+        return True
+    # Default: local bus only when Redis is not configured.
+    return not bool(redis_url())
+
+
 def bus_enabled() -> bool:
-    return bool(redis_url()) or os.getenv("SERVICE_BUS_LOCAL", "true").lower() in {"1", "true", "yes"}
+    return bool(redis_url()) or _local_bus_allowed()
+
+
+def require_distributed_bus() -> bool:
+    """True when multi-replica / production HA must not use process-local bus."""
+    env = (
+        os.getenv("ENV")
+        or os.getenv("APP_ENV")
+        or os.getenv("ENVIRONMENT")
+        or os.getenv("RAILWAY_ENVIRONMENT")
+        or ""
+    ).strip().lower()
+    prod = env in {"production", "prod"}
+    soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+    workers = int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1)
+    replicas = int(os.getenv("WEB_REPLICAS", "1") or 1)
+    return (prod and not soft) or workers > 1 or replicas > 1
 
 
 async def _get_redis() -> Any | None:
@@ -49,7 +76,7 @@ async def _get_redis() -> Any | None:
         logger.info("Service bus connected to Redis.")
         return _redis_client
     except Exception:
-        logger.exception("Redis unavailable — using in-process service bus fallback.")
+        logger.exception("Redis unavailable for service bus.")
         _redis_client = None
         return None
 
@@ -68,6 +95,16 @@ async def publish(channel: str, payload: dict[str, Any]) -> bool:
             return True
         except Exception:
             logger.exception("Redis publish failed | channel=%s", channel)
+            if require_distributed_bus() and not _local_bus_allowed():
+                return False
+
+    if require_distributed_bus() and not _local_bus_allowed():
+        # Fail closed: do not silently diverge multi-instance state.
+        logger.error(
+            "Service bus publish blocked — Redis required for distributed mode | channel=%s",
+            channel,
+        )
+        return False
 
     queue = _local_queues[channel]
     await queue.put(payload)
