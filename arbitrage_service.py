@@ -622,166 +622,56 @@ async def scan_arbitrage_opportunities(
         prefer_live=prefer_live,
         force_rest=force_rest,
     )
-    if profitable_only:
-        profit_floor = 0.0
-    elif min_profit_usdt is not None:
-        profit_floor = min_profit_usdt
-    else:
-        profit_floor = -1_000_000.0
+    profit_floor = _profit_floor(min_profit_usdt, profitable_only)
 
     if not books:
-        return {
-            "opportunities": [],
-            "counts": {"cross_exchange": 0, "triangular": 0, "spot_futures": 0, "funding": 0},
-            "data_source": source,
-            "data_age_sec": data_age_sec,
-            "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
-            "quote_amount": notional,
-            "timestamp": _utcnow_iso(),
-            "message": "No order-book data — start aggregator.py or retry live scan.",
-        }
+        return _empty_scan_response(
+            source=source,
+            data_age_sec=data_age_sec,
+            scan_ms=round((time.monotonic() - scan_started) * 1000, 1),
+            quote_amount=notional,
+        )
 
     institutional_context = await get_institutional_context_cached()
 
-    cross = calculate_cross_exchange_arbitrage(books, notional, institutional_context)
-    triangular = calculate_triangular_arbitrage(books, notional, institutional_context)
-    basis = calculate_spot_futures_premium(books, notional, institutional_context)
-    funding_opps = calculate_funding_arbitrage_with_institutional_context(
-        funding, notional, institutional_context, institutional_context
+    cross, triangular, basis, funding_opps = _strategy_opportunities(
+        books,
+        funding,
+        notional,
+        institutional_context,
     )
 
-    formatted: list[dict[str, Any]] = []
-    for item in cross:
-        row = _format_cross(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-    for item in triangular:
-        row = _format_triangular(item, institutional_context)
-        if data_age_sec <= 10 and row["net_profit_usdt"] >= profit_floor:
-            row["staleness_ok"] = True
-            formatted.append(row)
-        elif row["net_profit_usdt"] >= profit_floor:
-            row["staleness_ok"] = False
-            row["risk_factors"] = (row.get("risk_factors") or []) + ["stale_data_for_triangular"]
-    for item in basis:
-        row = _format_basis(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-    for item in funding_opps:
-        row = _format_funding(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-
-    formatted = [row for row in formatted if row.get("staleness_ok", True) is not False]
-
+    formatted = _formatted_opportunities(
+        cross=cross,
+        triangular=triangular,
+        basis=basis,
+        funding_opps=funding_opps,
+        institutional_context=institutional_context,
+        data_age_sec=data_age_sec,
+        profit_floor=profit_floor,
+    )
     formatted.sort(key=lambda x: x["net_profit_usdt"], reverse=True)
 
     from opportunity_tracker import sync_scan_opportunities
 
     formatted = sync_scan_opportunities(formatted)
-
-    # Constitution stack on live scan: D3 Truth → D4 Half-Life → D2 Veto → D8 Registry
-    try:
-        from constitution_gates import apply_constitution_gates_to_scan
-        from net_edge_truth import compute_net_edge_truth
-
-        quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
-        for row in formatted:
-            if quote_age_ms and not row.get("quote_age_ms"):
-                row["quote_age_ms"] = quote_age_ms
-            try:
-                truth = compute_net_edge_truth(row)
-            except Exception:
-                logger.debug("net-edge truth on scan row failed", exc_info=True)
-                truth = {"enabled": False, "error": "unavailable"}
-            row["net_edge_truth"] = truth
-            if truth.get("reject"):
-                row["truth_rejected"] = True
-                row["execution_feasibility"] = "not_executable"
-                risks = list(row.get("risk_factors") or [])
-                if "net_edge_truth_reject" not in risks:
-                    risks.append("net_edge_truth_reject")
-                row["risk_factors"] = risks
-
-        formatted = apply_constitution_gates_to_scan(
-            formatted,
-            institutional_context=institutional_context,
-            register_limit=12,
-        )
-    except Exception:
-        logger.exception("Constitution scan gates unavailable")
-        for row in formatted:
-            row["gates_missing"] = True
-            row["execution_feasibility"] = "not_executable"
-            row.setdefault(
-                "net_edge_truth",
-                {"enabled": False, "reject": True, "error": "gates_unavailable"},
-            )
-            row.setdefault(
-                "dimension_conflict",
-                {"severity": "unavailable", "veto": False, "abstain": True},
-            )
-            risks = list(row.get("risk_factors") or [])
-            if "constitution_gates_unavailable" not in risks:
-                risks.append("constitution_gates_unavailable")
-            row["risk_factors"] = risks
-
-    # Execution Risk % (advisory) on every scan row
-    try:
-        from execution_risk_score import attach_execution_risk
-
-        formatted = [
-            attach_execution_risk(
-                {
-                    **row,
-                    "data_age_sec": float(data_age_sec or row.get("data_age_sec") or 0),
-                }
-            )
-            for row in formatted
-        ]
-    except Exception:
-        logger.debug("execution risk scoring unavailable", exc_info=True)
-
-    pricing_errors: list[dict[str, Any]] = []
-    if source != "websocket_live":
-        try:
-            from pricing_error_sniper import scan_pricing_errors_from_books
-
-            for symbol in config.all_spot_symbols()[:5]:
-                scan = scan_pricing_errors_from_books(books, symbol)
-                pricing_errors.extend(scan.get("opportunities") or [])
-        except Exception:
-            logger.exception("Pricing error scan failed")
+    formatted = _apply_constitution_scan_gates(
+        formatted,
+        institutional_context=institutional_context,
+        data_age_sec=data_age_sec,
+    )
+    formatted = _attach_execution_risk_rows(formatted, data_age_sec)
+    pricing_errors = _scan_pricing_errors(books, source)
 
     latency_tier = _latency_tier(source, data_age_sec)
 
     return {
         "opportunities": formatted,
         "top_opportunity": formatted[0] if formatted else None,
-        "counts": {
-            "cross_exchange": len(cross),
-            "triangular": len(triangular),
-            "spot_futures": len(basis),
-            "funding": len(funding_opps),
-        },
-        "executable_count": sum(
-            1
-            for row in formatted
-            if row.get("execution_feasibility") in {"full", "partial"}
-            and not row.get("truth_rejected")
-            and not row.get("half_life_killed")
-            and not (row.get("dimension_conflict") or {}).get("veto")
-            and not (row.get("dimension_conflict") or {}).get("abstain")
-        ),
+        "counts": _scan_counts(cross, triangular, basis, funding_opps),
+        "executable_count": sum(1 for row in formatted if _is_executable_row(row)),
         "profitable_count": sum(1 for row in formatted if row["net_profit_usdt"] > 0),
-        "gated_out_count": sum(
-            1
-            for row in formatted
-            if row.get("truth_rejected")
-            or row.get("half_life_killed")
-            or (row.get("dimension_conflict") or {}).get("veto")
-            or (row.get("dimension_conflict") or {}).get("abstain")
-        ),
+        "gated_out_count": sum(1 for row in formatted if _is_gated_out_row(row)),
         "pricing_errors": pricing_errors[:10],
         "data_source": source,
         "data_age_sec": round(data_age_sec, 2),
