@@ -157,8 +157,8 @@ def is_admin_user(user: dict | None) -> bool:
 
 
 async def optional_user_from_request(
-    authorization: str | None = Header(None, alias="Authorization"),
-    bd_token: str | None = Cookie(None, alias="bd_token"),
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    bd_token: Annotated[str | None, Cookie(alias="bd_token")] = None,
 ) -> dict | None:
     from auth_service import get_user_from_token
 
