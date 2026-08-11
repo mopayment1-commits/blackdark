@@ -105,51 +105,64 @@ def _parse_spool_date(filename: str) -> date | None:
         return None
 
 
+def _base_flat_record(raw: dict[str, Any], record_type: str) -> dict[str, Any]:
+    return {
+        "timestamp": str(raw.get("timestamp") or ""),
+        "exchange": str(raw.get("exchange") or ""),
+        "symbol": str(raw.get("symbol") or ""),
+        "record_type": str(raw.get("record_type") or record_type),
+    }
+
+
+def _flatten_pricing_record(raw: dict[str, Any], payload: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **base,
+        "market_type": str(raw.get("market_type") or "spot"),
+        "price": float(payload.get("price") or 0.0),
+        "volume": float(payload["volume"]) if payload.get("volume") is not None else None,
+        "opportunity_score": float(payload.get("opportunity_score") or 0.0),
+    }
+
+
+def _flatten_order_book_record(raw: dict[str, Any], payload: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **base,
+        "market_type": str(raw.get("market_type") or "spot"),
+        "bids_json": json.dumps(payload.get("bids", []), separators=(",", ":")),
+        "asks_json": json.dumps(payload.get("asks", []), separators=(",", ":")),
+    }
+
+
+def _flatten_funding_record(_raw: dict[str, Any], payload: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **base,
+        "funding_rate": float(payload.get("funding_rate") or 0.0),
+        "next_funding_time": str(payload.get("next_funding_time") or ""),
+    }
+
+
+def _flatten_tick_record(_raw: dict[str, Any], payload: dict[str, Any], base: dict[str, Any]) -> dict[str, Any]:
+    return {
+        **base,
+        "side": str(payload.get("side") or ""),
+        "price": float(payload.get("price") or 0.0),
+        "quantity": float(payload.get("quantity") or 0.0),
+        "notional_usd": float(payload.get("notional_usd") or 0.0),
+        "trade_time_ms": int(payload.get("trade_time_ms") or 0),
+    }
+
+
 def _flatten_record(raw: dict[str, Any], record_type: str) -> dict[str, Any] | None:
     try:
         payload = raw.get("payload") or {}
-        base = {
-            "timestamp": str(raw.get("timestamp") or ""),
-            "exchange": str(raw.get("exchange") or ""),
-            "symbol": str(raw.get("symbol") or ""),
-            "record_type": str(raw.get("record_type") or record_type),
+        flatteners = {
+            "pricing": _flatten_pricing_record,
+            "order_book": _flatten_order_book_record,
+            "funding": _flatten_funding_record,
+            "tick": _flatten_tick_record,
         }
-
-        if record_type == "pricing":
-            return {
-                **base,
-                "market_type": str(raw.get("market_type") or "spot"),
-                "price": float(payload.get("price") or 0.0),
-                "volume": float(payload["volume"]) if payload.get("volume") is not None else None,
-                "opportunity_score": float(payload.get("opportunity_score") or 0.0),
-            }
-
-        if record_type == "order_book":
-            return {
-                **base,
-                "market_type": str(raw.get("market_type") or "spot"),
-                "bids_json": json.dumps(payload.get("bids", []), separators=(",", ":")),
-                "asks_json": json.dumps(payload.get("asks", []), separators=(",", ":")),
-            }
-
-        if record_type == "funding":
-            return {
-                **base,
-                "funding_rate": float(payload.get("funding_rate") or 0.0),
-                "next_funding_time": str(payload.get("next_funding_time") or ""),
-            }
-
-        if record_type == "tick":
-            return {
-                **base,
-                "side": str(payload.get("side") or ""),
-                "price": float(payload.get("price") or 0.0),
-                "quantity": float(payload.get("quantity") or 0.0),
-                "notional_usd": float(payload.get("notional_usd") or 0.0),
-                "trade_time_ms": int(payload.get("trade_time_ms") or 0),
-            }
-
-        return None
+        flattener = flatteners.get(record_type)
+        return flattener(raw, payload, _base_flat_record(raw, record_type)) if flattener else None
     except (TypeError, ValueError):
         return None
 
@@ -866,6 +879,65 @@ async def _compact_sqlite_dataset_once(
     return results
 
 
+async def _record_sqlite_compaction_result(
+    report: HistoricalCompactionReport,
+    dataset: str,
+    item: HistoricalDatasetResult,
+) -> bool:
+    report.dataset_results.append(item)
+    if not item.success:
+        report.partitions_failed += 1
+        return False
+
+    report.partitions_written += 1
+    report.rows_written += item.rows_written
+    report.rows_purged += item.rows_purged
+    if item.parquet_path is not None:
+        await _trigger_cloud_sync_safe(
+            FileCompactionResult(
+                record_type=dataset,
+                spool_path=item.parquet_path,
+                parquet_path=item.parquet_path,
+                rows_written=item.rows_written,
+                success=True,
+            )
+        )
+    return True
+
+
+async def _compact_sqlite_dataset_until_drained(
+    report: HistoricalCompactionReport,
+    dataset: str,
+    *,
+    output_root: Path | None,
+) -> None:
+    while True:
+        chunk_results = await _compact_sqlite_dataset_once(
+            dataset,
+            cutoff_iso=report.cutoff_iso,
+            output_root=output_root,
+        )
+        if not chunk_results:
+            return
+        for item in chunk_results:
+            if not await _record_sqlite_compaction_result(report, dataset, item):
+                return
+
+
+async def _compact_sqlite_dataset_safe(
+    report: HistoricalCompactionReport,
+    dataset: str,
+    *,
+    output_root: Path | None,
+) -> None:
+    report.datasets_processed += 1
+    try:
+        await _compact_sqlite_dataset_until_drained(report, dataset, output_root=output_root)
+    except Exception:
+        logger.exception("SQLite historical compaction failed | dataset=%s", dataset)
+        report.partitions_failed += 1
+
+
 async def compact_sqlite_historical_data(
     *,
     min_age_hours: int | None = None,
@@ -885,40 +957,7 @@ async def compact_sqlite_historical_data(
 
     datasets = ("pricing_logs", "order_books", "market_sentiment_logs")
     for dataset in datasets:
-        report.datasets_processed += 1
-        try:
-            while True:
-                chunk_results = await _compact_sqlite_dataset_once(
-                    dataset,
-                    cutoff_iso=report.cutoff_iso,
-                    output_root=output_root,
-                )
-                if not chunk_results:
-                    break
-                for item in chunk_results:
-                    report.dataset_results.append(item)
-                    if item.success:
-                        report.partitions_written += 1
-                        report.rows_written += item.rows_written
-                        report.rows_purged += item.rows_purged
-                        if item.parquet_path is not None:
-                            await _trigger_cloud_sync_safe(
-                                FileCompactionResult(
-                                    record_type=dataset,
-                                    spool_path=item.parquet_path,
-                                    parquet_path=item.parquet_path,
-                                    rows_written=item.rows_written,
-                                    success=True,
-                                )
-                            )
-                    else:
-                        report.partitions_failed += 1
-                        break
-                if any(not item.success for item in chunk_results):
-                    break
-        except Exception:
-            logger.exception("SQLite historical compaction failed | dataset=%s", dataset)
-            report.partitions_failed += 1
+        await _compact_sqlite_dataset_safe(report, dataset, output_root=output_root)
 
     report.finished_at = _utcnow_iso()
     logger.info(

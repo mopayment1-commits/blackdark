@@ -157,7 +157,6 @@ async def _compute_oracle_payload(
     from market_context import (
         build_full_oracle_response,
         fetch_binance_ticker,
-        fetch_cvvd_whale_alert,
         normalize_oracle_symbol,
     )
 
@@ -173,34 +172,53 @@ async def _compute_oracle_payload(
     price_ts = market.get("timestamp") or market.get("close_time")
     fetched_at = time.time()
 
-    whale = None
-    try:
-        whale = await fetch_cvvd_whale_alert(asset, pair, price)
-    except Exception:
-        whale = None
-
-    unified = None
-    try:
-        from oracle_unified import compute_unified_oracle
-
-        unified = await compute_unified_oracle(asset, price, quote_volume, change)
-    except Exception:
-        logger.debug("unified oracle unavailable for trust pulse", exc_info=True)
-
     payload = build_full_oracle_response(
         asset,
         price,
         volume,
         quote_volume,
         change,
-        whale_alert=whale,
-        unified=unified,
+        whale_alert=await _fetch_trust_pulse_whale(asset, pair, price),
+        unified=await _fetch_trust_pulse_unified(asset, price, quote_volume, change),
     )
+    payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
+    _attach_trust_pulse_why(payload)
+    await _persist_trust_pulse_payload(payload, persist=persist)
+    _attach_trust_pulse_certificate(payload, tier=tier)
+    payload["_pulse_meta"] = {"fetched_at": fetched_at, "price_ts": price_ts, "asset": asset}
+    return payload
+
+
+async def _fetch_trust_pulse_whale(asset: str, pair: str, price: float) -> Any | None:
+    try:
+        from market_context import fetch_cvvd_whale_alert
+
+        return await fetch_cvvd_whale_alert(asset, pair, price)
+    except Exception:
+        return None
+
+
+async def _fetch_trust_pulse_unified(
+    asset: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> Any | None:
+    try:
+        from oracle_unified import compute_unified_oracle
+
+        return await compute_unified_oracle(asset, price, quote_volume, change)
+    except Exception:
+        logger.debug("unified oracle unavailable for trust pulse", exc_info=True)
+        return None
+
+
+def _enrich_trust_pulse_payload(payload: dict[str, Any], *, ux_mode: str, lang: str) -> dict[str, Any]:
     try:
         from decision_enrichment import enrich_oracle_decision
         from ux_mode import normalize_lang, normalize_ux_mode
 
-        payload = enrich_oracle_decision(
+        return enrich_oracle_decision(
             payload,
             ux_mode=normalize_ux_mode(ux_mode),
             lang=normalize_lang(lang),
@@ -208,7 +226,34 @@ async def _compute_oracle_payload(
         )
     except Exception:
         logger.debug("enrichment skipped", exc_info=True)
+        return payload
 
+
+def _trust_pulse_synth_factors(payload: dict[str, Any]) -> list[dict[str, str]]:
+    change = float(payload.get("change_24h") or 0)
+    score = payload.get("opportunity_score")
+    regime = payload.get("market_regime") or "unknown"
+    whale = payload.get("whale_alert")
+    return [
+        {
+            "factor": f"Opportunity score {score}" if score is not None else "Score pending",
+            "detail": "Composite Trust OS score from live market context",
+            "source": "oracle",
+        },
+        {
+            "factor": f"24h move {change:+.2f}%",
+            "detail": "Short-horizon price change on the watched pair",
+            "source": "live market",
+        },
+        {
+            "factor": f"Regime {regime}",
+            "detail": str(whale)[:120] if whale else "Regime label from unified context",
+            "source": "context",
+        },
+    ]
+
+
+def _attach_trust_pulse_why(payload: dict[str, Any]) -> None:
     try:
         from heroes_quality import build_oqs_why_block
 
@@ -219,27 +264,7 @@ async def _compute_oracle_payload(
     # Guarantee a readable Why on first open even if explanation pipeline is thin.
     factors = (payload.get("oqs_why") or {}).get("top_3_factors") or []
     if not factors:
-        change = float(payload.get("change_24h") or 0)
-        score = payload.get("opportunity_score")
-        regime = payload.get("market_regime") or "unknown"
-        whale = payload.get("whale_alert")
-        synth = [
-            {
-                "factor": f"Opportunity score {score}" if score is not None else "Score pending",
-                "detail": "Composite Trust OS score from live market context",
-                "source": "oracle",
-            },
-            {
-                "factor": f"24h move {change:+.2f}%",
-                "detail": "Short-horizon price change on the watched pair",
-                "source": "live market",
-            },
-            {
-                "factor": f"Regime {regime}",
-                "detail": str(whale)[:120] if whale else "Regime label from unified context",
-                "source": "context",
-            },
-        ]
+        synth = _trust_pulse_synth_factors(payload)
         payload["oqs_why"] = {
             "grasp_line": "Top reasons — under five seconds",
             "top_3_factors": synth,
@@ -250,16 +275,21 @@ async def _compute_oracle_payload(
         expl["top_3_factors"] = synth
         payload["explanation"] = expl
 
-    if persist:
-        try:
-            from dashboard import _log_oracle_prediction
 
-            pid = await _log_oracle_prediction(payload)
-            if pid is not None:
-                payload["prediction_id"] = pid
-        except Exception:
-            logger.debug("trust pulse prediction log skipped", exc_info=True)
+async def _persist_trust_pulse_payload(payload: dict[str, Any], *, persist: bool) -> None:
+    if not persist:
+        return
+    try:
+        from dashboard import _log_oracle_prediction
 
+        pid = await _log_oracle_prediction(payload)
+        if pid is not None:
+            payload["prediction_id"] = pid
+    except Exception:
+        logger.debug("trust pulse prediction log skipped", exc_info=True)
+
+
+def _attach_trust_pulse_certificate(payload: dict[str, Any], *, tier: str) -> None:
     payload["tier"] = tier or "free"
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
@@ -271,13 +301,6 @@ async def _compute_oracle_payload(
         )
     except Exception:
         logger.debug("certificate skipped", exc_info=True)
-
-    payload["_pulse_meta"] = {
-        "fetched_at": fetched_at,
-        "price_ts": price_ts,
-        "asset": asset,
-    }
-    return payload
 
 
 def _pulse_factors(payload: dict[str, Any], why: dict[str, Any]) -> list[dict[str, str]]:
@@ -490,6 +513,77 @@ def _shape_pulse(
     return result
 
 
+def _cached_pulse_if_fresh(
+    sym: str,
+    cached: dict[str, Any],
+    *,
+    now: float,
+    previous_action: str | None,
+    previous_seen_at: str | None,
+    previous_factors: list[dict[str, Any]] | None,
+    force_refresh: bool,
+) -> dict[str, Any] | None:
+    if force_refresh or not cached or (now - float(cached.get("fetched_at") or 0)) >= CACHE_TTL_SEC:
+        return None
+    payload = cached.get("payload") or {}
+    meta = dict(payload.get("_pulse_meta") or {})
+    meta["fetched_at"] = float(cached.get("fetched_at") or now)
+    pulse = _shape_pulse(
+        {**payload, "_pulse_meta": meta},
+        previous_action=previous_action or cached.get("action"),
+        previous_seen_at=previous_seen_at,
+        previous_factors=previous_factors,
+        event="pulse",
+        from_cache=True,
+    )
+    if previous_action and _norm_action(previous_action) != pulse["action"]:
+        pulse["event"] = "decision_changed"
+        pulse["flip"] = {
+            "from": _norm_action(previous_action),
+            "to": pulse["action"],
+            "message": f"Decision flipped {_norm_action(previous_action)} → {pulse['action']}",
+        }
+    return pulse
+
+
+def _should_persist_pulse(persist: bool | None, cached: dict[str, Any]) -> bool:
+    if persist is not None:
+        return bool(persist)
+    return not bool(cached)
+
+
+async def _payload_after_flip_persistence(
+    sym: str,
+    *,
+    tier: str,
+    ux_mode: str,
+    lang: str,
+    payload: dict[str, Any],
+    do_persist: bool,
+    prev_cached_action: Any,
+) -> tuple[dict[str, Any], str]:
+    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
+    if not prev_cached_action or _norm_action(str(prev_cached_action)) == action:
+        return payload, "pulse"
+    if do_persist:
+        return payload, "decision_changed"
+    try:
+        payload = await _compute_oracle_payload(sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True)
+    except Exception:
+        pass
+    return payload, "decision_changed"
+
+
+def _store_pulse_cache(sym: str, payload: dict[str, Any]) -> None:
+    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
+    with _LOCK:
+        _PULSE_CACHE[sym] = {
+            "fetched_at": time.time(),
+            "action": action,
+            "payload": payload,
+        }
+
+
 async def build_trust_pulse(
     symbol: str = DEFAULT_SYMBOL,
     *,
@@ -508,65 +602,33 @@ async def build_trust_pulse(
     with _LOCK:
         cached = dict(_PULSE_CACHE.get(sym) or {})
 
-    if (
-        not force_refresh
-        and cached
-        and (now - float(cached.get("fetched_at") or 0)) < CACHE_TTL_SEC
-    ):
-        payload = cached.get("payload") or {}
-        # Refresh age only
-        meta = dict(payload.get("_pulse_meta") or {})
-        meta["fetched_at"] = float(cached.get("fetched_at") or now)
-        payload = {**payload, "_pulse_meta": meta}
-        pulse = _shape_pulse(
-            payload,
-            previous_action=previous_action or cached.get("action"),
-            previous_seen_at=previous_seen_at,
-            previous_factors=previous_factors,
-            event="pulse",
-            from_cache=True,
-        )
-        # Detect flip vs caller's previous even on cache hit
-        if previous_action and _norm_action(previous_action) != pulse["action"]:
-            pulse["event"] = "decision_changed"
-            pulse["flip"] = {
-                "from": _norm_action(previous_action),
-                "to": pulse["action"],
-                "message": f"Decision flipped {_norm_action(previous_action)} → {pulse['action']}",
-            }
+    pulse = _cached_pulse_if_fresh(
+        sym,
+        cached,
+        now=now,
+        previous_action=previous_action,
+        previous_seen_at=previous_seen_at,
+        previous_factors=previous_factors,
+        force_refresh=force_refresh,
+    )
+    if pulse is not None:
         return pulse
 
-    do_persist = bool(persist) if persist is not None else True
-    # On soft refresh after cache expiry: persist only if action flips vs cache
-    if persist is None and cached:
-        do_persist = False
-
+    do_persist = _should_persist_pulse(persist, cached)
     payload = await _compute_oracle_payload(
         sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=do_persist
     )
-    action = _norm_action(
-        payload.get("decision_action") or payload.get("verdict") or payload.get("action")
+    payload, event = await _payload_after_flip_persistence(
+        sym,
+        tier=tier,
+        ux_mode=ux_mode,
+        lang=lang,
+        payload=payload,
+        do_persist=do_persist,
+        prev_cached_action=cached.get("action"),
     )
     prev_cached_action = cached.get("action")
-    event = "pulse"
-    if prev_cached_action and _norm_action(str(prev_cached_action)) != action:
-        event = "decision_changed"
-        # Persist flip as a real logged decision
-        if not do_persist:
-            try:
-                payload = await _compute_oracle_payload(
-                    sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True
-                )
-            except Exception:
-                pass
-
-    with _LOCK:
-        _PULSE_CACHE[sym] = {
-            "fetched_at": time.time(),
-            "action": action,
-            "payload": payload,
-        }
-
+    _store_pulse_cache(sym, payload)
     return _shape_pulse(
         payload,
         previous_action=previous_action or prev_cached_action,
