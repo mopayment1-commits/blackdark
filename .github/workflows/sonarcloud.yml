@@ -1,13 +1,12 @@
 name: SonarCloud Analysis
 
-# Analysis modes
-# -------------
-# Default: Automatic Analysis (GitHub App) owns Quality Gate + issues.
-#   - This workflow generates real coverage.xml (artifact) but does NOT
-#     invoke the CI scanner (AA rejects it with exit 3).
-# CI scanner mode (coverage import): set repo variable SONAR_CI_ANALYSIS=true
-#   AFTER disabling Automatic Analysis in SonarCloud Administration →
-#   Analysis Method. Requires secret SONAR_TOKEN. Organization key: blackdark.
+# CI-based analysis (coverage import)
+# ----------------------------------
+# Automatic Analysis must stay DISABLED in SonarCloud → Administration →
+# Analysis Method. This workflow always generates coverage.xml and runs the
+# CI scanner (requires secret SONAR_TOKEN). Set repo variable
+# SONAR_CI_ANALYSIS=false only to temporarily skip the scanner.
+# Organization key: blackdark. Project key: mopayment1-commits_blackdark.
 
 on:
   push:
@@ -35,9 +34,7 @@ jobs:
 
       - name: Generate Cobertura coverage.xml
         run: |
-          # Critical + broad modules that are currently green. Full-tree pytest
-          # still has ~20 pre-existing failures and must not be used to fake a
-          # green coverage job; this produces real coverage.xml for the measured set.
+          # Critical remediation modules — real coverage.xml for Sonar import.
           python -m pytest \
             tests/test_slippage_guard.py \
             tests/test_fee_matrix.py \
@@ -53,6 +50,7 @@ jobs:
             tests/test_postgres_migration_integrity.py \
             tests/test_service_bus_distributed.py \
             tests/test_production_guard.py \
+            tests/test_xss_sink_hardening.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
@@ -78,7 +76,8 @@ jobs:
   sonarcloud-ci:
     name: SonarCloud CI Scanner
     needs: coverage-report
-    if: ${{ vars.SONAR_CI_ANALYSIS == 'true' }}
+    # Default ON now that AA is disabled. Opt out with SONAR_CI_ANALYSIS=false.
+    if: ${{ vars.SONAR_CI_ANALYSIS != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -90,7 +89,7 @@ jobs:
         with:
           name: coverage-xml
 
-      - name: SonarCloud Scan (requires AA disabled)
+      - name: SonarCloud Scan (AA must stay disabled)
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -101,14 +100,12 @@ jobs:
             -Dsonar.organization=blackdark
             -Dsonar.projectKey=mopayment1-commits_blackdark
 
-  sonarcloud-aa-notice:
+  sonarcloud-skip-notice:
     name: SonarCloud
-    if: ${{ vars.SONAR_CI_ANALYSIS != 'true' }}
+    if: ${{ vars.SONAR_CI_ANALYSIS == 'false' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Automatic Analysis policy
+      - name: Scanner explicitly skipped
         run: |
-          echo "Automatic Analysis is active — GitHub App owns Quality Gate."
-          echo "coverage.xml is produced by the Coverage XML job as an artifact."
-          echo "To import coverage into SonarCloud: disable AA, set SONAR_CI_ANALYSIS=true,"
-          echo "ensure SONAR_TOKEN secret exists, then re-run this workflow."
+          echo "SONAR_CI_ANALYSIS=false — CI scanner skipped by variable."
+          echo "coverage.xml is still produced by the Coverage XML job."
