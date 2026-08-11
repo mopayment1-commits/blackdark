@@ -472,28 +472,21 @@ def _scorecard(requirements: list[RequirementAssessment]) -> tuple[dict[str, int
     return counts, overall
 
 
-async def build_technical_due_diligence_report(*, probe_production: bool = True) -> dict[str, Any]:
-    from due_diligence import due_diligence_report
+def _has_prod_cryptography() -> bool:
+    req_path = ROOT / "requirements-prod.txt"
+    prod_req = req_path.read_text(encoding="utf-8") if req_path.exists() else ""
+    return "cryptography" in prod_req
 
-    tech = due_diligence_report()
-    checks = tech.get("checks") or {}
-    coverage = tech.get("coverage") or {}
-    uptime = tech.get("uptime") or {}
-    latency = tech.get("latency") or {}
 
-    prod_oracle: dict[str, Any] = await _probe_production_oracle() if probe_production else {}
-    acquisition, moat = await _load_acquisition_and_moat()
+def _static_readiness_flags() -> tuple[bool, bool, int]:
+    return (
+        (ROOT / "gdpr_service.py").exists(),
+        bool(os.getenv("SENTRY_DSN", "").strip()),
+        _count_lines(ROOT / "dashboard.py"),
+    )
 
-    prod_req = (ROOT / "requirements-prod.txt").read_text(encoding="utf-8") if (ROOT / "requirements-prod.txt").exists() else ""
-    has_cryptography = "cryptography" in prod_req
-    ci_has_cov_gate, ci_has_dd_verify, ci_has_docker = _read_ci_flags()
-    gdpr_module = (ROOT / "gdpr_service.py").exists()
-    sentry_configured = bool(os.getenv("SENTRY_DSN", "").strip())
-    dashboard_lines = _count_lines(ROOT / "dashboard.py")
 
-    probes_total = int(uptime.get("probes_total") or 0)
-    coverage_pct = float(coverage.get("coverage_percent") or 0)
-    prod_ok = bool(prod_oracle.get("ok"))
+def _acquisition_metrics(acquisition: dict[str, Any]) -> tuple[int, int, str, str]:
     pillars = acquisition.get("pillars") or {}
     if not isinstance(pillars, dict):
         pillars = {}
@@ -504,8 +497,33 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     behavior_events = int((behavior.get("evidence") or {}).get("total_events") or 0)
     model_verdict = str(models.get("verdict") or "none")
     deal_verdict = str(acquisition.get("deal_verdict") or "unknown")
+    return paid, behavior_events, model_verdict, deal_verdict
 
-    requirements = [
+
+def _build_requirements(
+    *,
+    probes_total: int,
+    checks: dict[str, Any],
+    uptime: dict[str, Any],
+    latency: dict[str, Any],
+    coverage: dict[str, Any],
+    coverage_pct: float,
+    prod_ok: bool,
+    prod_oracle: dict[str, Any],
+    moat: dict[str, Any],
+    model_verdict: str,
+    behavior_events: int,
+    paid: int,
+    has_cryptography: bool,
+    dashboard_lines: int,
+    sentry_configured: bool,
+    ci_has_cov_gate: bool,
+    ci_has_dd_verify: bool,
+    ci_has_docker: bool,
+    gdpr_module: bool,
+    deal_verdict: str,
+) -> list[RequirementAssessment]:
+    return [
         _req_uptime(probes_total, checks, uptime),
         _req_latency(checks, latency),
         _req_coverage(checks, coverage, coverage_pct),
@@ -527,6 +545,51 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         _req_gdpr(gdpr_module),
         _req_ma(deal_verdict, prod_ok),
     ]
+
+
+async def build_technical_due_diligence_report(*, probe_production: bool = True) -> dict[str, Any]:
+    from due_diligence import due_diligence_report
+
+    tech = due_diligence_report()
+    checks = tech.get("checks") or {}
+    coverage = tech.get("coverage") or {}
+    uptime = tech.get("uptime") or {}
+    latency = tech.get("latency") or {}
+
+    prod_oracle: dict[str, Any] = await _probe_production_oracle() if probe_production else {}
+    acquisition, moat = await _load_acquisition_and_moat()
+
+    has_cryptography = _has_prod_cryptography()
+    ci_has_cov_gate, ci_has_dd_verify, ci_has_docker = _read_ci_flags()
+    gdpr_module, sentry_configured, dashboard_lines = _static_readiness_flags()
+
+    probes_total = int(uptime.get("probes_total") or 0)
+    coverage_pct = float(coverage.get("coverage_percent") or 0)
+    prod_ok = bool(prod_oracle.get("ok"))
+    paid, behavior_events, model_verdict, deal_verdict = _acquisition_metrics(acquisition)
+
+    requirements = _build_requirements(
+        probes_total=probes_total,
+        checks=checks,
+        uptime=uptime,
+        latency=latency,
+        coverage=coverage,
+        coverage_pct=coverage_pct,
+        prod_ok=prod_ok,
+        prod_oracle=prod_oracle,
+        moat=moat,
+        model_verdict=model_verdict,
+        behavior_events=behavior_events,
+        paid=paid,
+        has_cryptography=has_cryptography,
+        dashboard_lines=dashboard_lines,
+        sentry_configured=sentry_configured,
+        ci_has_cov_gate=ci_has_cov_gate,
+        ci_has_dd_verify=ci_has_dd_verify,
+        ci_has_docker=ci_has_docker,
+        gdpr_module=gdpr_module,
+        deal_verdict=deal_verdict,
+    )
     counts, overall = _scorecard(requirements)
     return {
         "generated_at": datetime.now(UTC).isoformat(),
