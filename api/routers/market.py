@@ -134,6 +134,8 @@ async def market_klines(
     sym = "".join(ch for ch in symbol.upper() if ch.isalnum())
     if not sym.endswith("USDT"):
         sym = f"{sym}USDT"
+    if not sym.isalnum():
+        raise HTTPException(status_code=400, detail="Invalid symbol")
     if interval not in _ALLOWED_INTERVALS:
         raise HTTPException(status_code=400, detail="Invalid interval")
 

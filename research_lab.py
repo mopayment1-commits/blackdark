@@ -38,7 +38,14 @@ def _normalize_asset(symbol: str) -> str:
     return cleaned
 
 
+_ALLOWED_INTERVALS = {"1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M"}
+
+
 async def _fetch_klines(pair: str, interval: str = "1d", limit: int = 90) -> list[float]:
+    if not pair.isalnum():
+        return []
+    if interval not in _ALLOWED_INTERVALS:
+        interval = "1d"
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)
@@ -52,6 +59,8 @@ async def _fetch_klines(pair: str, interval: str = "1d", limit: int = 90) -> lis
 
 
 async def _fetch_ticker(pair: str) -> dict | None:
+    if not pair.isalnum():
+        return None
     url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
         timeout = aiohttp.ClientTimeout(total=10)

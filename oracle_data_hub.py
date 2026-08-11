@@ -23,6 +23,7 @@ from typing import Any, Literal
 import aiohttp
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.OracleDataHub")
 
@@ -147,7 +148,7 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
             payload = await _fetch_text(session, feed_url)
             headlines.extend(_parse_rss_headlines(payload, label))
         except Exception:
-            logger.warning("Geo news RSS failed | feed=%s", feed_url)
+            logger.warning("Geo news RSS failed | feed=%s", sanitize_log_value(feed_url, max_len=120))
 
     geo_count = sum(1 for row in headlines if row.get("geopolitical"))
     tone: RiskTone = "neutral"
@@ -235,6 +236,17 @@ async def fetch_onchain_derivatives_mesh(
 
     symbol = asset.upper()
     binance_symbol = f"{symbol}USDT"
+    if not binance_symbol.isalnum():
+        return {
+            "asset": symbol,
+            "tvl_total_usd": 0.0,
+            "chain_count": 0,
+            "funding_rate": None,
+            "open_interest_usd": None,
+            "long_short_ratio": None,
+            "deriv_bias": "neutral",
+            "error": "invalid_symbol",
+        }
 
     tvl_total_usd = 0.0
     chain_count = 0
@@ -257,7 +269,7 @@ async def fetch_onchain_derivatives_mesh(
         )
         funding_rate = float(funding.get("lastFundingRate") or 0)
     except Exception:
-        logger.warning("Binance funding fetch failed | asset=%s", symbol)
+        logger.warning("Binance funding fetch failed | asset=%s", sanitize_asset(symbol))
 
     try:
         oi = await _fetch_json(
@@ -275,7 +287,7 @@ async def fetch_onchain_derivatives_mesh(
             price = float(mark.get("price") or 0)
             open_interest_usd = round(oi_qty * price, 2)
     except Exception:
-        logger.warning("Binance OI fetch failed | asset=%s", symbol)
+        logger.warning("Binance OI fetch failed | asset=%s", sanitize_asset(symbol))
 
     try:
         ls = await _fetch_json(
@@ -286,7 +298,7 @@ async def fetch_onchain_derivatives_mesh(
         if ls:
             long_short_ratio = float(ls[0].get("longShortRatio") or 1.0)
     except Exception:
-        logger.warning("Binance long/short ratio fetch failed | asset=%s", symbol)
+        logger.warning("Binance long/short ratio fetch failed | asset=%s", sanitize_asset(symbol))
 
     deriv_bias = "neutral"
     if funding_rate is not None:

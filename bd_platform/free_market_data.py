@@ -26,6 +26,14 @@ async def _get_json(url: str, *, params: dict | None = None) -> Any:
 async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:
     """Funding, mark price, OI, long/short ratio from Binance public REST."""
     symbol = f"{asset.upper()}USDT"
+    if not symbol.isalnum():
+        return {
+            "source": "binance_futures_public",
+            "asset": asset.upper(),
+            "symbol": symbol,
+            "timestamp": _utcnow(),
+            "error": "invalid_symbol",
+        }
     premium = await _get_json("https://fapi.binance.com/fapi/v1/premiumIndex", params={"symbol": symbol})
     oi = await _get_json("https://fapi.binance.com/fapi/v1/openInterest", params={"symbol": symbol})
     ticker = await _get_json("https://fapi.binance.com/fapi/v1/ticker/24hr", params={"symbol": symbol})

@@ -11,6 +11,7 @@ import logging
 from datetime import UTC, datetime
 from typing import Any
 
+from log_safety import sanitize_asset
 from macro_correlations import macro_score_weight
 from model_weights_guard import load_weights, save_weights
 from obi_predictor import get_obi_for_asset, obi_score_adjustment_for_asset
@@ -270,7 +271,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
 
         ctx.update(await get_latest_institutional_context())
     except Exception:
-        logger.debug("Institutional context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("Institutional context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     try:
         from database import fetch_latest_order_books
@@ -280,7 +281,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         obi_context = await build_obi_context_safe(books)
         ctx = merge_market_context(ctx, obi_context)
     except Exception:
-        logger.debug("OBI context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("OBI context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     try:
         from onchain_tracker import build_onchain_context_safe, merge_onchain_context
@@ -288,7 +289,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         onchain_context = await build_onchain_context_safe()
         ctx = merge_onchain_context(ctx, onchain_context)
     except Exception:
-        logger.debug("On-chain context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("On-chain context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     try:
         from sentiment_engine import (
@@ -299,7 +300,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         sentiment_context = await load_active_sentiment_indices_for_valuation_safe()
         ctx = merge_sentiment_context(ctx, sentiment_context)
     except Exception:
-        logger.debug("Sentiment context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("Sentiment context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     try:
         from macro_correlations import get_latest_macro_regime, merge_macro_context
@@ -307,7 +308,7 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         macro_context = await get_latest_macro_regime()
         ctx = merge_macro_context(ctx, macro_context)
     except Exception:
-        logger.debug("Macro context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("Macro context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     try:
         from oracle_data_hub import build_hub_context_safe, merge_hub_context
@@ -315,6 +316,6 @@ async def build_full_market_context(asset: str) -> dict[str, Any]:
         hub_context = await build_hub_context_safe(asset)
         ctx = merge_hub_context(ctx, hub_context)
     except Exception:
-        logger.debug("Oracle hub context unavailable | asset=%s", asset, exc_info=True)
+        logger.debug("Oracle hub context unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
 
     return ctx

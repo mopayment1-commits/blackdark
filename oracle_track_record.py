@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from log_safety import sanitize_asset, sanitize_log_value
 from oracle_audit_chain import append_prediction_record, chain_summary, verify_chain
 
 logger = logging.getLogger("BLACKDARK.TrackRecord")
@@ -38,7 +39,11 @@ def on_prediction_created(
         "kind": kind,
         "resolved": False,
     })
-    logger.debug("Track record | new prediction id=%s asset=%s", prediction_id, asset)
+    logger.debug(
+        "Track record | new prediction id=%s asset=%s",
+        sanitize_log_value(prediction_id),
+        sanitize_asset(asset),
+    )
     return entry
 
 
@@ -69,7 +74,10 @@ def on_prediction_resolved(
     })
     logger.debug(
         "Track record | resolved id=%s asset=%s outcome=%s acc=%.1f",
-        prediction_id, asset, outcome, accuracy_score,
+        sanitize_log_value(prediction_id),
+        sanitize_asset(asset),
+        sanitize_log_value(outcome, max_len=24),
+        accuracy_score,
     )
     return entry
 

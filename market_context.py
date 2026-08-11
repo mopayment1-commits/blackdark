@@ -16,6 +16,7 @@ from typing import Any
 import aiohttp
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.MarketContext")
 
@@ -49,7 +50,11 @@ async def _rest_get(
         assert session is not None
         async with session.get(url, params=params, headers=headers) as resp:
             if resp.status != 200:
-                logger.debug("REST price fetch non-200 | url=%s status=%s", url, resp.status)
+                logger.debug(
+                    "REST price fetch non-200 | url=%s status=%s",
+                    sanitize_log_value(url, max_len=120),
+                    sanitize_log_value(resp.status),
+                )
                 return None
             return await resp.json()
     except (aiohttp.ClientError, json.JSONDecodeError, TypeError, ValueError):
@@ -412,12 +417,16 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
                 asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
                 source_raw = str(row.get("source") or "unknown")
                 source_label = source_raw if source_raw.replace("_", "").isalnum() else "unknown"
-                logger.info("Price REST fallback | asset=%s source=%s", asset_label, source_label)
+                logger.info(
+                    "Price REST fallback | asset=%s source=%s",
+                    sanitize_asset(asset_label),
+                    sanitize_log_value(source_label, max_len=32),
+                )
                 return row
 
     allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
     asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
-    logger.warning("All price sources failed | asset=%s", asset_label)
+    logger.warning("All price sources failed | asset=%s", sanitize_asset(asset_label))
     return None
 
 
@@ -524,6 +533,8 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
 
         asset = pair.replace("USDT", "")
         return await get_whale_signal(asset, price)
+    if not pair.isalnum():
+        return "No significant whale activity"
     url = f"https://api.binance.com/api/v3/aggTrades?symbol={pair}&limit=200"
     threshold_usd = 75_000
     try:
@@ -913,12 +924,21 @@ def ema_position_label(price: float, closes: list[float]) -> str:
     return "Price below key EMAs — downtrend structure"
 
 
+_ALLOWED_KLINE_INTERVALS = {
+    "1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8h", "12h", "1d", "3d", "1w", "1M",
+}
+
+
 async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200) -> list[float]:
     if config.PRICE_FEED_WS_ONLY:
         from ws_price_provider import get_klines
 
         asset = pair.replace("USDT", "")
         return await get_klines(asset, interval=interval, limit=limit)
+    if not pair.isalnum():
+        return []
+    if interval not in _ALLOWED_KLINE_INTERVALS:
+        interval = "1h"
     url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)

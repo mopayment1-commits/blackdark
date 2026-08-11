@@ -12,6 +12,7 @@ from datetime import UTC, datetime
 from typing import Any, Literal
 
 import config
+from log_safety import sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.Retention")
 
@@ -244,7 +245,11 @@ async def maybe_grant_bear_trial_extension(email: str, subscription: dict[str, A
     from database import record_retention_grant
 
     await record_retention_grant(email, "bear_trial_extension", days)
-    logger.info("Bear trial extension granted | email=%s days=%s", email, days)
+    logger.info(
+        "Bear trial extension granted | email=%s days=%s",
+        sanitize_log_value(email),
+        sanitize_log_value(days),
+    )
     return {"granted": True, "days": days, "trial_ends_at": result.get("trial_ends_at")}
 
 

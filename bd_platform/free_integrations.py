@@ -10,6 +10,7 @@ from typing import Any
 
 import aiohttp
 
+from log_safety import sanitize_log_value
 from path_safety import assert_url_path_safe, safe_url_segment
 
 logger = logging.getLogger("BLACKDARK.FreeIntegrations")
@@ -38,7 +39,7 @@ async def _get_json(
                     return None
                 return await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
-        logger.debug("GET failed: %s", url)
+        logger.debug("GET failed: %s", sanitize_log_value(url, max_len=120))
         return None
 
 

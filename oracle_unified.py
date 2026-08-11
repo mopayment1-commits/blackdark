@@ -17,6 +17,7 @@ from sentiment_manipulation_guard import (
     greed_pump_penalty_for_asset as sentiment_greed_penalty_for_asset,
     is_extreme_positive_sentiment,
 )
+from log_safety import sanitize_asset
 from weight_aggregator import apply_modal_adjustments_with_regime, build_full_market_context
 
 logger = logging.getLogger("BLACKDARK.OracleUnified")
@@ -120,7 +121,7 @@ async def _optional_ml_nudge(asset: str, price: float, score: float) -> dict[str
 
         ml = await predict_direction(asset, price=price)
     except Exception:
-        logger.debug("ML inference skipped | asset=%s", asset, exc_info=True)
+        logger.debug("ML inference skipped | asset=%s", sanitize_asset(asset), exc_info=True)
         return {"available": False, "nudge": 0.0}
 
     if not ml.get("available"):

@@ -1312,7 +1312,9 @@
             const mode = document.getElementById('uxMode');
             if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
             try {
-                const res = await fetch('/api/lenses/' + currentLens);
+                const ALLOWED_LENSES = new Set(['prove','operate','desk','room']);
+                if (!ALLOWED_LENSES.has(currentLens)) currentLens = 'prove';
+                const res = await fetch('/api/lenses/' + encodeURIComponent(currentLens));
                 const d = await res.json();
                 lensManifest = d;
                 const lens = d.lens || {};

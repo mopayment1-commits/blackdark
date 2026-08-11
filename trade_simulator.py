@@ -32,6 +32,8 @@ def _normalize_symbol(symbol: str) -> tuple[str, str]:
 
 
 async def _fetch_ticker(pair: str) -> dict | None:
+    if not pair.isalnum():
+        return None
     url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
         timeout = aiohttp.ClientTimeout(total=10)

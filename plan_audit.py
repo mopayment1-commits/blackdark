@@ -160,6 +160,8 @@ async def market_radar_narrative() -> dict[str, Any]:
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in config.tracked_asset_list()[:24]:
             pair = f"{asset}USDT"
+            if not pair.isalnum():
+                continue
             sector = config.SECTOR_MAP.get(asset, "Other")
             try:
                 async with session.get(

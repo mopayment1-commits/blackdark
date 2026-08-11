@@ -21,6 +21,7 @@ from typing import Any
 import aiosqlite
 
 import config
+from log_safety import sanitize_asset, sanitize_log_value
 
 logger = logging.getLogger(__name__)
 
@@ -1338,7 +1339,7 @@ async def _safe_table_count(db: aiosqlite.Connection, table_name: str) -> int:
         row = await (await db.execute(f"SELECT COUNT(*) FROM {table_name}")).fetchone()
         return int(row[0] or 0)
     except Exception:
-        logger.debug("Unable to count rows for table=%s", table_name)
+        logger.debug("Unable to count rows for table=%s", sanitize_log_value(table_name, max_len=64))
         return 0
 
 
@@ -1598,7 +1599,10 @@ async def fetch_latest_cloud_sync_log(local_path: str) -> dict[str, Any] | None:
             row = await rows.fetchone()
         return dict(row) if row else None
     except Exception:
-        logger.exception("Unable to read cloud sync log for %s", local_path)
+        logger.exception(
+            "Unable to read cloud sync log for %s",
+            sanitize_log_value(local_path, max_len=120),
+        )
         return None
 
 
@@ -1686,8 +1690,6 @@ async def fetch_sentiment_logs_for_asset(
                 filtered.append(item)
         return filtered
     except Exception:
-        from log_safety import sanitize_asset
-
         logger.exception("Unable to read sentiment logs for asset=%s", sanitize_asset(asset))
         return []
 
@@ -1896,9 +1898,9 @@ async def insert_oracle_prediction(
     if not ok:
         logger.warning(
             "Oracle prediction insert blocked | asset=%s source=%s reason=%s",
-            asset,
-            source,
-            reason,
+            sanitize_asset(asset),
+            sanitize_log_value(source, max_len=32),
+            sanitize_log_value(reason, max_len=64),
         )
         return 0
 
@@ -2559,7 +2561,10 @@ async def fetch_user_risk_settings(user_id: int) -> dict[str, Any]:
         if row:
             return dict(row)
     except Exception:
-        logger.exception("Unable to read user risk settings | user_id=%s", user_id)
+        logger.exception(
+            "Unable to read user risk settings | user_id=%s",
+            sanitize_log_value(user_id),
+        )
     return defaults
 
 
@@ -2690,7 +2695,10 @@ async def increment_platform_metric(metric: str) -> dict[str, Any]:
             )
         return await fetch_platform_analytics()
     except Exception:
-        logger.exception("Unable to increment platform metric | metric=%s", metric)
+        logger.exception(
+            "Unable to increment platform metric | metric=%s",
+            sanitize_log_value(metric, max_len=48),
+        )
         return {}
 
 
@@ -3461,7 +3469,7 @@ async def erase_user_personal_data(email: str) -> dict[str, Any]:
                 deleted += int(cur.rowcount or 0)
             await db.commit()
     except Exception:
-        logger.exception("GDPR erasure failed | email=%s", normalized)
+        logger.exception("GDPR erasure failed | email=%s", sanitize_log_value(normalized))
         raise
 
     return {"found": True, "rows_deleted": deleted, "user_id": user_id}

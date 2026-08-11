@@ -16,6 +16,7 @@ from typing import Any
 import stripe
 
 import config
+from log_safety import sanitize_log_value
 
 logger = logging.getLogger("BLACKDARK.Billing")
 
@@ -217,7 +218,11 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
                 str(stripe_sub_id),
                 stripe_customer_id=str(stripe_customer_id) if stripe_customer_id else None,
             )
-            logger.info("Subscription activated | email=%s tier=%s currency=USD", email, tier)
+            logger.info(
+                "Subscription activated | email=%s tier=%s currency=USD",
+                sanitize_log_value(email),
+                sanitize_log_value(tier, max_len=24),
+            )
         return {"handled": True, "action": "checkout_completed", "currency": "USD"}
 
     if event_type in {"customer.subscription.updated", "customer.subscription.created"}:
@@ -246,7 +251,11 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
             from database import upsert_subscription_by_stripe_id
 
             await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
-            logger.warning("Stripe dunning | sub=%s event=%s", stripe_sub_id, event_type)
+            logger.warning(
+                "Stripe dunning | sub=%s event=%s",
+                sanitize_log_value(stripe_sub_id),
+                sanitize_log_value(event_type, max_len=48),
+            )
         return {"handled": True, "action": "payment_failed", "dunning": True}
 
     if event_type == "invoice.paid":
@@ -259,7 +268,11 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
 
     if event_type in {"charge.refunded", "charge.dispute.created"}:
         # Entitlement stays until subscription cancels unless ops force-expire.
-        logger.info("Stripe refund/dispute recorded | type=%s id=%s", event_type, data_object.get("id"))
+        logger.info(
+            "Stripe refund/dispute recorded | type=%s id=%s",
+            sanitize_log_value(event_type, max_len=48),
+            sanitize_log_value(data_object.get("id")),
+        )
         return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
 
     return {"handled": False, "type": event_type}
@@ -367,7 +380,12 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     }:
         if email and lemon_id:
             await activate_paid_subscription(email, tier, lemon_id)
-            logger.info("Lemon subscription activated | email=%s tier=%s id=%s", email, tier, lemon_id)
+            logger.info(
+                "Lemon subscription activated | email=%s tier=%s id=%s",
+                sanitize_log_value(email),
+                sanitize_log_value(tier, max_len=24),
+                sanitize_log_value(lemon_id),
+            )
             return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
         return {"handled": False, "reason": "missing_email_or_id", "event": event_name}
 
