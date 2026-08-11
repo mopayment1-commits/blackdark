@@ -42,7 +42,8 @@ def test_gates_unit():
 def test_closure_complete():
     from zero_tolerance import build_zero_tolerance_closure
 
-    closure = asyncio.run(build_zero_tolerance_closure())
+    # Closure builder is sync (dict-returning); do not wrap with asyncio.run.
+    closure = build_zero_tolerance_closure()
     assert closure["defect_count"] == 7
     assert closure["all_done_for_agreed_scope"] is True
     assert closure["deferred_code_count"] == 0

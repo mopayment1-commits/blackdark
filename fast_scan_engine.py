@@ -95,7 +95,11 @@ def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
         "latency_ms": round(total_ms, 3),
         "book_read_ms": round(book_read_ms, 3),
         "latency_tier": latency_tier,
-        "opportunities": sorted(opportunities, key=lambda x: x.get("net_profit_usdt", 0), reverse=True),
+        "opportunities": sorted(
+            opportunities,
+            key=lambda x: float(x.get("net_profit_usdt") or 0),
+            reverse=True,
+        ),
         "books": hub_stats(),
         "assets_scanned": len(assets),
         "ws_required": hub_stats().get("symbol_count", 0) == 0,

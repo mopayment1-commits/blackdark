@@ -40,7 +40,8 @@ def test_chain_shape_and_rule():
 def test_closure_smoke():
     from cso_priority_chain import build_cso_priority_closure
 
-    closure = asyncio.run(build_cso_priority_closure())
+    # Closure builder is sync (dict-returning); do not wrap with asyncio.run.
+    closure = build_cso_priority_closure()
     assert closure["code_complete_zero_deferred"] is True
     assert closure["gate_smoke"]["vanity_rejected"] is True
     assert closure["gate_smoke"]["habit_loop_allowed"] is True
