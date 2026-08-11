@@ -91,6 +91,46 @@ def _monte_carlo(closes: list[float], *, days: int = 30, simulations: int = 500)
     }
 
 
+def _band_signal(value: float, *, low: float, high: float, low_label: str, high_label: str) -> str:
+    if value > high:
+        return high_label
+    if value < low:
+        return low_label
+    return "neutral"
+
+
+def _mvrv_history(closes: list[float]) -> list[float]:
+    return [
+        closes[i] / (_sma(closes[: i + 1], min(200, i + 1)) or closes[i])
+        for i in range(200, len(closes))
+    ]
+
+
+def _hodl_waves(closes: list[float], price: float) -> dict[str, Any]:
+    short_hold = sum(closes[-7:]) / 7 if len(closes) >= 7 else price
+    long_hold = sum(closes[-90:]) / 90 if len(closes) >= 90 else price
+    return {
+        "short_term_7d_avg": round(short_hold, 2),
+        "long_term_90d_avg": round(long_hold, 2),
+        "accumulation_signal": short_hold < long_hold,
+    }
+
+
+def _advanced_proxies(closes: list[float], price: float) -> dict[str, float]:
+    sma30 = _sma(closes, 30)
+    realized = _sma(closes, min(200, len(closes)))
+    mvrv = price / realized if realized and realized > 0 else 1.0
+    mvrv_hist = _mvrv_history(closes)
+    mvrv_z = (mvrv - (sum(mvrv_hist) / len(mvrv_hist))) / (_std(mvrv_hist) or 1) if mvrv_hist else 0.0
+    return {
+        "mvrv": mvrv,
+        "mvrv_z": mvrv_z,
+        "sopr": price / sma30 if sma30 and sma30 > 0 else 1.0,
+        "nupl": (price - (realized or price)) / price if price > 0 else 0.0,
+        "puell": price / (_sma(closes, 365) or price) if len(closes) >= 30 else 1.0,
+    }
+
+
 async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_000) -> dict[str, Any]:
     asset = asset.upper()
     closes = await _klines(asset, limit=365)
@@ -98,67 +138,53 @@ async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_0
         return {"asset": asset, "error": "market_data_unavailable", "timestamp": _utcnow()}
 
     price = closes[-1]
-    _sma(closes, 200)
-    sma30 = _sma(closes, 30)
-    realized = _sma(closes, min(200, len(closes)))
-
-    mvrv = price / realized if realized and realized > 0 else 1.0
-    mvrv_hist = [closes[i] / (_sma(closes[: i + 1], min(200, i + 1)) or closes[i]) for i in range(200, len(closes))]
-    mvrv_z = (mvrv - (sum(mvrv_hist) / len(mvrv_hist))) / (_std(mvrv_hist) or 1) if mvrv_hist else 0.0
-
-    sopr_proxy = price / sma30 if sma30 and sma30 > 0 else 1.0
-    nupl_proxy = (price - (realized or price)) / price if price > 0 else 0.0
-    puell_proxy = price / (_sma(closes, 365) or price) if len(closes) >= 30 else 1.0
-
-    short_hold = sum(closes[-7:]) / 7 if len(closes) >= 7 else price
-    long_hold = sum(closes[-90:]) / 90 if len(closes) >= 90 else price
-    hodl_waves = {
-        "short_term_7d_avg": round(short_hold, 2),
-        "long_term_90d_avg": round(long_hold, 2),
-        "accumulation_signal": short_hold < long_hold,
-    }
-
+    proxies = _advanced_proxies(closes, price)
     supply = _SUPPLY.get(asset, 100_000_000)
     s2f = supply / max(1.0, supply * 0.02)
-
     rets = [(closes[i] - closes[i - 1]) / closes[i - 1] for i in range(1, len(closes))]
     risk = _var_cvar(rets, notional=notional)
     mc = _monte_carlo(closes)
-
-    if mvrv_z > 2:
-        mvrv_signal = "overheated"
-    elif mvrv_z < -1:
-        mvrv_signal = "undervalued"
-    else:
-        mvrv_signal = "neutral"
-    if nupl_proxy > 0.5:
-        nupl_signal = "euphoria"
-    elif nupl_proxy < 0:
-        nupl_signal = "capitulation"
-    else:
-        nupl_signal = "neutral"
-    if puell_proxy < 0.5:
-        puell_signal = "miner_stress"
-    elif puell_proxy > 1.2:
-        puell_signal = "miner_profit"
-    else:
-        puell_signal = "neutral"
-    if sopr_proxy > 1.05:
-        sopr_signal = "profit_taking"
-    elif sopr_proxy < 0.95:
-        sopr_signal = "capitulation"
-    else:
-        sopr_signal = "neutral"
 
     return {
         "asset": asset,
         "price": round(price, 2),
         "timestamp": _utcnow(),
-        "mvrv": {"ratio": round(mvrv, 3), "z_score": round(mvrv_z, 3), "signal": mvrv_signal},
-        "nupl_proxy": {"value": round(nupl_proxy, 4), "signal": nupl_signal},
-        "puell_proxy": {"ratio": round(puell_proxy, 3), "signal": puell_signal},
-        "sopr_proxy": {"ratio": round(sopr_proxy, 3), "signal": sopr_signal},
-        "hodl_waves": hodl_waves,
+        "mvrv": {
+            "ratio": round(proxies["mvrv"], 3),
+            "z_score": round(proxies["mvrv_z"], 3),
+            "signal": _band_signal(
+                proxies["mvrv_z"],
+                low=-1,
+                high=2,
+                low_label="undervalued",
+                high_label="overheated",
+            ),
+        },
+        "nupl_proxy": {
+            "value": round(proxies["nupl"], 4),
+            "signal": _band_signal(proxies["nupl"], low=0, high=0.5, low_label="capitulation", high_label="euphoria"),
+        },
+        "puell_proxy": {
+            "ratio": round(proxies["puell"], 3),
+            "signal": _band_signal(
+                proxies["puell"],
+                low=0.5,
+                high=1.2,
+                low_label="miner_stress",
+                high_label="miner_profit",
+            ),
+        },
+        "sopr_proxy": {
+            "ratio": round(proxies["sopr"], 3),
+            "signal": _band_signal(
+                proxies["sopr"],
+                low=0.95,
+                high=1.05,
+                low_label="capitulation",
+                high_label="profit_taking",
+            ),
+        },
+        "hodl_waves": _hodl_waves(closes, price),
         "s2f_proxy": {"ratio": round(s2f, 2), "note": "Supply/annual-issuance proxy"},
         "var_cvar": risk,
         "monte_carlo": mc,
