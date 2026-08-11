@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 import re
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlparse
+from urllib.request import Request, urlopen
 
 _SAFE_URL_SEGMENT_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 _SAFE_HOST_RE = re.compile(r"^[A-Za-z0-9._:\-\[\]]+$")
@@ -82,6 +84,56 @@ def assert_safe_http_url(
     if host not in allow:
         raise ValueError(f"Host not in allowlist: {host!r}")
     return url
+
+
+def open_http_url(
+    url: str,
+    *,
+    timeout: float = 10.0,
+    headers: dict[str, str] | None = None,
+    data: bytes | None = None,
+    method: str | None = None,
+    allowed_hosts: frozenset[str] | set[str] | None = None,
+) -> Any:
+    """
+    Open http/https URLs only (rejects file:/ and custom schemes).
+
+    When ``allowed_hosts`` is set, the URL hostname must be in that set.
+    Centralizes urllib so call sites do not each trigger Bandit B310.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"}:
+        raise ValueError(f"Unsupported URL scheme: {parsed.scheme!r}")
+    host = (parsed.hostname or "").lower()
+    if not host:
+        raise ValueError(f"URL missing host: {url!r}")
+    if allowed_hosts is not None:
+        allow = {str(h).strip().lower() for h in allowed_hosts if str(h).strip()}
+        if host not in allow:
+            raise ValueError(f"Host not in allowlist: {host!r}")
+    req = Request(url, data=data, headers=headers or {}, method=method)
+    return urlopen(req, timeout=timeout)  # nosec B310
+
+
+def safe_urlopen(
+    url: str,
+    *,
+    timeout: float = 10.0,
+    headers: dict[str, str] | None = None,
+    allowed_hosts: frozenset[str] | set[str] | None = None,
+    data: bytes | None = None,
+    method: str | None = None,
+) -> Any:
+    """Open URL after localhost/allowlist host checks (acceptance probes)."""
+    safe_url = assert_safe_http_url(url, allowed_hosts=allowed_hosts)
+    return open_http_url(
+        safe_url,
+        timeout=timeout,
+        headers=headers,
+        data=data,
+        method=method,
+        allowed_hosts=http_host_allowlist(extra=allowed_hosts),
+    )
 
 
 def validate_bind_host(host: str) -> str:

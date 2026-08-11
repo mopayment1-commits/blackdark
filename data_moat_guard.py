@@ -79,7 +79,12 @@ def _model_artifact_present() -> bool:
 
 
 async def fetch_dataset_stats() -> dict[str, Any]:
-    from oracle_integrity import live_source_sql
+    from sql_safety import (
+        LIVE_ORACLE_COUNT_SQL,
+        LIVE_ORACLE_FEATURES_COUNT_SQL,
+        LIVE_ORACLE_LABELED_COUNT_SQL,
+        LIVE_ORACLE_RESOLVED_ONLY_COUNT_SQL,
+    )
 
     stats: dict[str, Any] = {
         "live_predictions": 0,
@@ -92,32 +97,14 @@ async def fetch_dataset_stats() -> dict[str, Any]:
     try:
         from database import get_connection
 
-        live_clause = live_source_sql()
         async with get_connection() as db:
-            live_row = await (await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause}")).fetchone()
+            live_row = await (await db.execute(LIVE_ORACLE_COUNT_SQL)).fetchone()
             syn_row = await (
                 await db.execute("SELECT COUNT(*) FROM oracle_predictions WHERE source = 'historical_seed'")
             ).fetchone()
-            feat_row = await (
-                await db.execute(
-                    f"""
-                    SELECT COUNT(*) FROM oracle_predictions
-                    WHERE {live_clause}
-                      AND features_json IS NOT NULL AND TRIM(features_json) != ''
-                    """
-                )
-            ).fetchone()
-            labeled_row = await (
-                await db.execute(
-                    f"""
-                    SELECT COUNT(*) FROM oracle_predictions
-                    WHERE {live_clause} AND resolved = 1 AND label IS NOT NULL
-                    """
-                )
-            ).fetchone()
-            resolved_row = await (
-                await db.execute(f"SELECT COUNT(*) FROM oracle_predictions WHERE {live_clause} AND resolved = 1")
-            ).fetchone()
+            feat_row = await (await db.execute(LIVE_ORACLE_FEATURES_COUNT_SQL)).fetchone()
+            labeled_row = await (await db.execute(LIVE_ORACLE_LABELED_COUNT_SQL)).fetchone()
+            resolved_row = await (await db.execute(LIVE_ORACLE_RESOLVED_ONLY_COUNT_SQL)).fetchone()
 
         live = int(live_row[0]) if live_row else 0
         stats["live_predictions"] = live

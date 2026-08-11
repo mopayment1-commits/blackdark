@@ -197,7 +197,7 @@ class ClickHouseBackend(HotStorageBackend):
     async def _ensure_schema(self) -> None:
         statements = [
             f"CREATE DATABASE IF NOT EXISTS {self.database}",
-            f"""
+            f"""  # nosec B608
             CREATE TABLE IF NOT EXISTS {self.database}.hot_pricing (
                 timestamp DateTime64(3),
                 exchange LowCardinality(String),
@@ -209,7 +209,7 @@ class ClickHouseBackend(HotStorageBackend):
             ) ENGINE = MergeTree()
             ORDER BY (exchange, symbol, timestamp)
             """,
-            f"""
+            f"""  # nosec B608
             CREATE TABLE IF NOT EXISTS {self.database}.hot_order_books (
                 timestamp DateTime64(3),
                 exchange LowCardinality(String),
@@ -220,7 +220,7 @@ class ClickHouseBackend(HotStorageBackend):
             ) ENGINE = MergeTree()
             ORDER BY (exchange, symbol, timestamp)
             """,
-            f"""
+            f"""  # nosec B608
             CREATE TABLE IF NOT EXISTS {self.database}.hot_funding (
                 timestamp DateTime64(3),
                 exchange LowCardinality(String),
@@ -230,7 +230,7 @@ class ClickHouseBackend(HotStorageBackend):
             ) ENGINE = MergeTree()
             ORDER BY (exchange, symbol, timestamp)
             """,
-            f"""
+            f"""  # nosec B608
             CREATE TABLE IF NOT EXISTS {self.database}.hot_ticks (
                 timestamp DateTime64(3),
                 exchange LowCardinality(String),
@@ -326,8 +326,10 @@ class TimescaleDBBackend(HotStorageBackend):
     name = "timescale"
 
     def __init__(self, dsn: str | None = None, schema: str | None = None) -> None:
+        from sql_safety import require_schema_ident
+
         self.dsn = dsn or config.HOT_STORAGE_TIMESCALE_DSN
-        self.schema = schema or config.HOT_STORAGE_TIMESCALE_SCHEMA
+        self.schema = require_schema_ident(schema or config.HOT_STORAGE_TIMESCALE_SCHEMA)
         self._pool: Any = None
 
     async def connect(self) -> None:
@@ -342,65 +344,41 @@ class TimescaleDBBackend(HotStorageBackend):
             ) from exc
 
         self._pool = await asyncpg.create_pool(dsn=self.dsn, min_size=1, max_size=5)
+        schema = self.schema
         async with self._pool.acquire() as conn:
-            await conn.execute(f"CREATE SCHEMA IF NOT EXISTS {self.schema}")
-            await conn.execute(
-                f"""
-                CREATE TABLE IF NOT EXISTS {self.schema}.hot_pricing (
-                    timestamp TIMESTAMPTZ NOT NULL,
-                    exchange TEXT NOT NULL,
-                    symbol TEXT NOT NULL,
-                    market_type TEXT NOT NULL,
-                    price DOUBLE PRECISION NOT NULL,
-                    volume DOUBLE PRECISION,
-                    opportunity_score DOUBLE PRECISION
-                )
-                """
+            create_schema = f"CREATE SCHEMA IF NOT EXISTS {schema}"  # nosec B608
+            await conn.execute(create_schema)
+            pricing_ddl = (
+                f"CREATE TABLE IF NOT EXISTS {schema}.hot_pricing ("  # nosec B608
+                "timestamp TIMESTAMPTZ NOT NULL, exchange TEXT NOT NULL, symbol TEXT NOT NULL, "
+                "market_type TEXT NOT NULL, price DOUBLE PRECISION NOT NULL, "
+                "volume DOUBLE PRECISION, opportunity_score DOUBLE PRECISION)"
             )
-            await conn.execute(
-                f"""
-                CREATE TABLE IF NOT EXISTS {self.schema}.hot_order_books (
-                    timestamp TIMESTAMPTZ NOT NULL,
-                    exchange TEXT NOT NULL,
-                    symbol TEXT NOT NULL,
-                    market_type TEXT NOT NULL,
-                    bids_json JSONB NOT NULL,
-                    asks_json JSONB NOT NULL
-                )
-                """
+            books_ddl = (
+                f"CREATE TABLE IF NOT EXISTS {schema}.hot_order_books ("  # nosec B608
+                "timestamp TIMESTAMPTZ NOT NULL, exchange TEXT NOT NULL, symbol TEXT NOT NULL, "
+                "market_type TEXT NOT NULL, bids_json JSONB NOT NULL, asks_json JSONB NOT NULL)"
             )
-            await conn.execute(
-                f"""
-                CREATE TABLE IF NOT EXISTS {self.schema}.hot_funding (
-                    timestamp TIMESTAMPTZ NOT NULL,
-                    exchange TEXT NOT NULL,
-                    symbol TEXT NOT NULL,
-                    funding_rate DOUBLE PRECISION NOT NULL,
-                    next_funding_time TEXT
-                )
-                """
+            funding_ddl = (
+                f"CREATE TABLE IF NOT EXISTS {schema}.hot_funding ("  # nosec B608
+                "timestamp TIMESTAMPTZ NOT NULL, exchange TEXT NOT NULL, symbol TEXT NOT NULL, "
+                "funding_rate DOUBLE PRECISION NOT NULL, next_funding_time TEXT)"
             )
-            await conn.execute(
-                f"""
-                CREATE TABLE IF NOT EXISTS {self.schema}.hot_ticks (
-                    timestamp TIMESTAMPTZ NOT NULL,
-                    exchange TEXT NOT NULL,
-                    symbol TEXT NOT NULL,
-                    side TEXT NOT NULL,
-                    price DOUBLE PRECISION NOT NULL,
-                    quantity DOUBLE PRECISION NOT NULL,
-                    notional_usd DOUBLE PRECISION NOT NULL,
-                    trade_time_ms BIGINT NOT NULL
-                )
-                """
+            ticks_ddl = (
+                f"CREATE TABLE IF NOT EXISTS {schema}.hot_ticks ("  # nosec B608
+                "timestamp TIMESTAMPTZ NOT NULL, exchange TEXT NOT NULL, symbol TEXT NOT NULL, "
+                "side TEXT NOT NULL, price DOUBLE PRECISION NOT NULL, quantity DOUBLE PRECISION NOT NULL, "
+                "notional_usd DOUBLE PRECISION NOT NULL, trade_time_ms BIGINT NOT NULL)"
             )
+            for ddl in (pricing_ddl, books_ddl, funding_ddl, ticks_ddl):
+                await conn.execute(ddl)
             for table in ("hot_pricing", "hot_order_books", "hot_funding", "hot_ticks"):
                 try:
-                    await conn.execute(
-                        f"""
-                        SELECT create_hypertable('{self.schema}.{table}', 'timestamp', if_not_exists => TRUE)
-                        """
+                    hyper = (
+                        f"SELECT create_hypertable('{schema}.{table}', 'timestamp', "  # nosec B608
+                        "if_not_exists => TRUE)"
                     )
+                    await conn.execute(hyper)
                 except Exception:
                     logger.warning(
                         "Timescale hypertable setup skipped for %s.%s (extension may be unavailable).",
@@ -471,46 +449,39 @@ class TimescaleDBBackend(HotStorageBackend):
                 )
 
         inserted = 0
+        schema = self.schema
+        insert_pricing = (
+            f"INSERT INTO {schema}.hot_pricing ("  # nosec B608
+            "timestamp, exchange, symbol, market_type, price, volume, opportunity_score) "
+            "VALUES ($1::timestamptz, $2, $3, $4, $5, $6, $7)"
+        )
+        insert_books = (
+            f"INSERT INTO {schema}.hot_order_books ("  # nosec B608
+            "timestamp, exchange, symbol, market_type, bids_json, asks_json) "
+            "VALUES ($1::timestamptz, $2, $3, $4, $5::jsonb, $6::jsonb)"
+        )
+        insert_funding = (
+            f"INSERT INTO {schema}.hot_funding ("  # nosec B608
+            "timestamp, exchange, symbol, funding_rate, next_funding_time) "
+            "VALUES ($1::timestamptz, $2, $3, $4, $5)"
+        )
+        insert_ticks = (
+            f"INSERT INTO {schema}.hot_ticks ("  # nosec B608
+            "timestamp, exchange, symbol, side, price, quantity, notional_usd, trade_time_ms) "
+            "VALUES ($1::timestamptz, $2, $3, $4, $5, $6, $7, $8)"
+        )
         async with self._pool.acquire() as conn:
             if pricing_rows:
-                await conn.executemany(
-                    f"""
-                    INSERT INTO {self.schema}.hot_pricing (
-                        timestamp, exchange, symbol, market_type, price, volume, opportunity_score
-                    ) VALUES ($1::timestamptz, $2, $3, $4, $5, $6, $7)
-                    """,
-                    pricing_rows,
-                )
+                await conn.executemany(insert_pricing, pricing_rows)
                 inserted += len(pricing_rows)
             if book_rows:
-                await conn.executemany(
-                    f"""
-                    INSERT INTO {self.schema}.hot_order_books (
-                        timestamp, exchange, symbol, market_type, bids_json, asks_json
-                    ) VALUES ($1::timestamptz, $2, $3, $4, $5::jsonb, $6::jsonb)
-                    """,
-                    book_rows,
-                )
+                await conn.executemany(insert_books, book_rows)
                 inserted += len(book_rows)
             if funding_rows:
-                await conn.executemany(
-                    f"""
-                    INSERT INTO {self.schema}.hot_funding (
-                        timestamp, exchange, symbol, funding_rate, next_funding_time
-                    ) VALUES ($1::timestamptz, $2, $3, $4, $5)
-                    """,
-                    funding_rows,
-                )
+                await conn.executemany(insert_funding, funding_rows)
                 inserted += len(funding_rows)
             if tick_rows:
-                await conn.executemany(
-                    f"""
-                    INSERT INTO {self.schema}.hot_ticks (
-                        timestamp, exchange, symbol, side, price, quantity, notional_usd, trade_time_ms
-                    ) VALUES ($1::timestamptz, $2, $3, $4, $5, $6, $7, $8)
-                    """,
-                    tick_rows,
-                )
+                await conn.executemany(insert_ticks, tick_rows)
                 inserted += len(tick_rows)
         return inserted
 

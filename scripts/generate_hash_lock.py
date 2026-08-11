@@ -50,8 +50,14 @@ def _resolve(lock_file: Path) -> list[tuple[str, str]]:
 
 
 def _hashes(name: str, version: str) -> list[str]:
+    import sys
+    from pathlib import Path
+    root = Path(__file__).resolve().parent.parent
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from path_safety import open_http_url
     url = f"https://pypi.org/pypi/{name}/{version}/json"
-    with urllib.request.urlopen(url, timeout=30) as resp:
+    with open_http_url(url, timeout=30, allowed_hosts={"pypi.org"}) as resp:
         data = json.load(resp)
     seen: set[str] = set()
     out: list[str] = []

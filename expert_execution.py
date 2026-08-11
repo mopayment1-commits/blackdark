@@ -11,9 +11,8 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
 
-from path_safety import assert_safe_http_url
+from path_safety import assert_safe_http_url, safe_urlopen
 
 CANONICAL_DOCS: list[str] = [
     "docs/PRODUCT_CONSTITUTION_AR.md",
@@ -50,8 +49,11 @@ def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
     t0 = datetime.now(UTC)
     try:
         safe_url = assert_safe_http_url(url)
-        req = Request(safe_url, headers={"Accept": "application/json,text/html,*/*"})
-        with urlopen(req, timeout=timeout) as resp:
+        with safe_urlopen(
+            safe_url,
+            timeout=timeout,
+            headers={"Accept": "application/json,text/html,*/*"},
+        ) as resp:
             body = resp.read(4000)
             ms = (datetime.now(UTC) - t0).total_seconds() * 1000
             return {
@@ -136,7 +138,7 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
             url = assert_safe_http_url(named[key]["url"])
             if not named[key].get("ok"):
                 continue
-            with urlopen(url, timeout=8) as resp:
+            with safe_urlopen(url, timeout=8) as resp:
                 payload = json.loads(resp.read().decode("utf-8", errors="replace"))
             if key == "trust_os":
                 layers = payload.get("value_layers") or []

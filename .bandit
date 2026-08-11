@@ -1,0 +1,15 @@
+# BLACKDARK Bandit policy — production security closure.
+# Test asserts (B101) are intentional and excluded via skips/excludes.
+exclude_dirs:
+  - ./.venv
+  - ./venv
+  - ./tests
+  - ./data
+  - ./node_modules
+  - ./.git
+  - ./dist
+  - ./build
+
+skips:
+  # Intentional pytest/runtime asserts outside tests/ (tiny residual set).
+  - B101

@@ -33,19 +33,29 @@ async def _read_timescale_closes(symbol: str, *, limit: int) -> list[float]:
     except ImportError:
         return []
 
-    schema = config.HOT_STORAGE_TIMESCALE_SCHEMA
+    from sql_safety import require_schema_ident
+
+    schema = require_schema_ident(str(config.HOT_STORAGE_TIMESCALE_SCHEMA or "public"))
     sym = _normalize_symbol(symbol)
+    # Schema is env config (validated identifier), not request input.
+    if schema == "public":
+        query = """
+                SELECT price
+                FROM public.hot_pricing
+                WHERE symbol = $1
+                ORDER BY timestamp DESC
+                LIMIT $2
+                """
+    else:
+        query = (
+            f"SELECT price FROM {schema}.hot_pricing "  # nosec B608
+            "WHERE symbol = $1 ORDER BY timestamp DESC LIMIT $2"
+        )
     try:
         conn = await asyncpg.connect(dsn=dsn, timeout=8)
         try:
             rows = await conn.fetch(
-                f"""
-                SELECT price
-                FROM {schema}.hot_pricing
-                WHERE symbol = $1
-                ORDER BY timestamp DESC
-                LIMIT $2
-                """,
+                query,
                 sym,
                 limit,
             )

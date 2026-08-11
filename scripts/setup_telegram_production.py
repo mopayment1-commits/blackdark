@@ -23,11 +23,19 @@ def _env(name: str) -> str:
 
 
 def _tg(method: str, token: str, payload: dict | None = None) -> dict:
+    sys.path.insert(0, str(ROOT))
+    from path_safety import open_http_url
     url = f"https://api.telegram.org/bot{token}/{method}"
     data = json.dumps(payload or {}).encode("utf-8") if payload else None
     headers = {"Content-Type": "application/json"} if data else {}
-    req = urllib.request.Request(url, data=data, headers=headers, method="POST" if data else "GET")
-    with urllib.request.urlopen(req, timeout=20) as resp:
+    with open_http_url(
+        url,
+        timeout=20,
+        headers=headers,
+        data=data,
+        method="POST" if data else "GET",
+        allowed_hosts={"api.telegram.org"},
+    ) as resp:
         return json.loads(resp.read().decode())
 
 
