@@ -1,0 +1,34 @@
+name: SonarCloud Analysis
+
+# FINAL POLICY
+# ------------
+# This project uses SonarCloud Automatic Analysis (GitHub App).
+# Running SonarSource/sonarcloud-github-action / sonarqube-scan-action here
+# fails hard with:
+#   "You are running CI analysis while Automatic Analysis is enabled"
+# So this workflow MUST NOT invoke the scanner. It exists only to:
+#   1) replace the old broken workflow definition (secrets-in-if / wrong org)
+#   2) keep the Actions tab green instead of replaying stale scanner failures
+#
+# Real analysis + Quality Gate = check named "SonarCloud Code Analysis".
+# Organization key in sonar-project.properties = blackdark (not GitHub login).
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm Automatic Analysis policy
+        run: |
+          echo "SonarCloud CI scanner is intentionally disabled."
+          echo "Reason: Automatic Analysis is enabled on organization 'blackdark'."
+          echo "Quality Gate comes from the GitHub App check: SonarCloud Code Analysis."
+          echo "Do not re-add SonarSource/*-scan-action while Automatic Analysis stays on."
