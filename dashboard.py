@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -821,17 +821,13 @@ async def _build_opportunity_explanation(
     resistance = round(price * 1.03, -2)
     if abs(change) < 2:
         volatility = "Low"
+        vol_warning = "Low volatility environment"
     elif abs(change) < 5:
         volatility = "Medium"
+        vol_warning = "Moderate swings expected"
     else:
         volatility = "High"
-    vol_warning = (
-        "Elevated volatility — widen stops"
-        if abs(change) >= 5
-        else "Moderate swings expected"
-        if abs(change) >= 2
-        else "Low volatility environment"
-    )
+        vol_warning = "Elevated volatility — widen stops"
 
     # Hero #1 — Top-3 factors for <5s understanding (with real sources).
     top_factors = [
