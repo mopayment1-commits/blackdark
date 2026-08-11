@@ -246,7 +246,7 @@ def build_cso_priority_chain() -> dict[str, Any]:
     }
 
 
-async def build_cso_priority_closure() -> dict[str, Any]:
+def build_cso_priority_closure() -> dict[str, Any]:
     """Public closure surface — confirms binding is shipped, not deferred."""
     chain = build_cso_priority_chain()
     # Smoke the gate with a known reject + allow

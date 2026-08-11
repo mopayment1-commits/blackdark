@@ -219,14 +219,14 @@ def execution_keys_status() -> dict[str, Any]:
     has_keys = bool(
         parsed.get("BINANCE_API_KEY") or os.getenv("BINANCE_API_KEY")
     ) and bool(parsed.get("BINANCE_API_SECRET") or os.getenv("BINANCE_API_SECRET"))
-        if live_flag and has_keys and not dry_run:
+    if live_flag and has_keys and not dry_run:
         mode = "live"
     elif dry_run:
         mode = "dry_run"
     else:
         mode = "off"
 
-return {
+    return {
         "timestamp": _utcnow(),
         "keys_file": str(KEYS_FILE),
         "has_binance_keys": has_keys,

@@ -37,7 +37,11 @@ function key(){let k=(document.getElementById('userKey').value||'').trim();if(!k
 async function load(touch){
   const r=await fetch('/api/since-you-left?user_key='+encodeURIComponent(key())+'&touch='+(touch?'true':'false'));
   const d=await r.json();
-  document.getElementById('meta').textContent=(d.first_visit?'First baseline sealed. ':'')+(d.away_seconds!=null?('Away ~'+Math.round(d.away_seconds/60)+' min. '):'')+(d.headline||'');
+  let meta = '';
+  if (d.first_visit) meta += 'First baseline sealed. ';
+  if (d.away_seconds != null) meta += 'Away ~' + Math.round(d.away_seconds / 60) + ' min. ';
+  meta += (d.headline || '');
+  document.getElementById('meta').textContent = meta;
   document.getElementById('list').innerHTML=(d.top3||[]).map((x,i)=>`
     <div class="card" data-evidence><h2>${i+1}. ${x.title}</h2><p>${x.detail}</p>
     <p style="margin-top:.5rem"><a href="${x.href||'/'}">Open</a></p></div>`).join('');

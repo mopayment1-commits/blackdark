@@ -60,7 +60,7 @@ async def startup(mode: str | None = None, ctx: ServiceContext | None = None) ->
     elif ctx.mode == "arbitrage":
         await _boot_arbitrage(ctx)
     elif ctx.mode == "ingestion":
-        await _boot_ingestion(ctx)
+        _boot_ingestion(ctx)
     else:
         logger.info("SERVICE_MODE=all — use dashboard monolith lifespan.")
 
@@ -138,15 +138,15 @@ async def _boot_web(ctx: ServiceContext) -> None:
     from telegram_bot_poller import start_telegram_poller
     from telegram_monitor import start_telegram_monitor
 
-    ctx.tasks["telegram"] = await start_telegram_monitor()
-    ctx.tasks["telegram_poller"] = await start_telegram_poller()
+    ctx.tasks["telegram"] = start_telegram_monitor()
+    ctx.tasks["telegram_poller"] = start_telegram_poller()
     await start_b2b_websocket_hub()
     ctx.flags["b2b_ws"] = True
 
     if config.ML_FLYWHEEL_ENABLED:
         from ml_flywheel_scheduler import start_ml_flywheel
 
-        await start_ml_flywheel()
+        start_ml_flywheel()
         ctx.flags["ml_flywheel"] = True
 
 
@@ -176,13 +176,13 @@ async def _boot_arbitrage(ctx: ServiceContext) -> None:
     from execution_engine import start_auto_execution_loop
     from instant_alert_engine import start_instant_alert_engine
 
-    ctx.tasks["instant_alerts"] = await start_instant_alert_engine()
+    ctx.tasks["instant_alerts"] = start_instant_alert_engine()
     await start_exchange_ws_hub()
     ctx.flags["exchange_ws"] = True
-    ctx.tasks["auto_exec"] = await start_auto_execution_loop()
+    ctx.tasks["auto_exec"] = start_auto_execution_loop()
 
 
-async def _boot_ingestion(ctx: ServiceContext) -> None:
+def _boot_ingestion(ctx: ServiceContext) -> None:
     async def _ingestion_wrapper() -> None:
         try:
             from ingestion_scheduler import start_ingestion_scheduler

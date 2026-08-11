@@ -3784,7 +3784,7 @@ async def increment_oracle_usage(email: str) -> int:
     return int(row[0]) if row else 1
 
 
-async def close_db() -> None:
+def close_db() -> None:
     """
     Compatibility hook for graceful shutdown.
 

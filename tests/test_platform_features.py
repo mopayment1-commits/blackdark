@@ -52,7 +52,7 @@ def test_public_proof():
 async def test_portfolio_rebalance():
     from bd_platform.portfolio_rebalancer import suggest_rebalance
 
-    r = await suggest_rebalance({"BTC": 5000, "ETH": 5000}, target_weights={"BTC": 0.5, "ETH": 0.5})
+    r = suggest_rebalance({"BTC": 5000, "ETH": 5000}, target_weights={"BTC": 0.5, "ETH": 0.5})
     assert r["portfolio_total_usd"] == 10000
     assert r["trades"] == []
 

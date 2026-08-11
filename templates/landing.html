@@ -201,10 +201,8 @@
                 0 1px 0 rgba(255, 255, 255, 0.18),
                 0 10px 40px rgba(0, 0, 0, 0.55),
                 0 0 48px rgba(34, 211, 238, 0.12);
-            background: linear-gradient(180deg, #f8fafc 10%, #d4d4d8 55%, #e2e8f0 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #f4f4f5;
+            -webkit-text-fill-color: #f4f4f5;
         }
 
         .hero-headline {
@@ -1060,6 +1058,11 @@
     </section>
     </main>
     
+    <script type="module">
+if (typeof window.loadLandingTrustPulse === 'function') {
+  await window.loadLandingTrustPulse();
+}
+</script>
     {% include "partials/site_footer.html" %}
     
     <script>
@@ -1128,6 +1131,126 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
         }
 
+
+        async function fetchOraclePayload(symbol, mode, lang) {
+            const preferQuick = mode !== 'pro';
+            const primary = preferQuick
+                ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+            const fallback = preferQuick
+                ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
+                : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
+            let response = await fetch(primary, { headers: { Accept: 'application/json' } });
+            let rawText = await response.text();
+            let data = null;
+            try {
+                data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error')
+                    ? JSON.parse(rawText) : null;
+            } catch (error) { console.debug(error); data = null; }
+            if (!data || !response.ok) {
+                response = await fetch(fallback, { headers: { Accept: 'application/json' } });
+                rawText = await response.text();
+                try { data = JSON.parse(rawText); } catch (error) { console.debug(error); data = null; }
+            }
+            return { response, data };
+        }
+        function decideLandingAction(data) {
+            const rawAction = String(data.decision_action || data.verdict || data.action || 'WAIT').toUpperCase();
+            if (rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL')) return 'ACT';
+            return 'WAIT';
+        }
+        function fallbackDecisionSentence(data, symbol, action) {
+            let sentence = data.decision_sentence || data.narrative || data.oracle || data.action_line || '';
+            if (sentence && !/meditat|consulting the oracle/i.test(sentence)) return sentence;
+            if (typeof data.action === 'string' && data.action.length > 12) return data.action;
+            if (action === 'ACT') return `ACT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
+            return `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
+        }
+        function renderLandingCertificate(certEl, cert, data) {
+            if (!(cert.certificate_hash || data.prediction_id)) {
+                certEl.style.display = 'none';
+                return;
+            }
+            certEl.style.display = 'block';
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
+            const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
+            const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
+            const xBtn = (cert.share_urls && cert.share_urls.x) ? `<a class="btn-secondary" id="certShareX" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = (cert.share_urls && cert.share_urls.telegram) ? `<a class="btn-secondary" id="certShareTg" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>` : '';
+            certEl.innerHTML =
+                `Decision Certificate · <code>${hashLabel}</code>` +
+                `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
+                copyBtn +
+                `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
+                txtBtn + xBtn + tgBtn + `</div>`;
+            document.getElementById('copyCertBtn')?.addEventListener('click', () => {
+                navigator.clipboard.writeText(cert.share_text || '');
+            });
+            document.getElementById('dlCertBtn')?.addEventListener('click', () => {
+                const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
+            document.getElementById('dlCertTxtBtn')?.addEventListener('click', () => {
+                const blob = new Blob([cert.export_text || ''], {type:'text/plain'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.txt`;
+                a.click();
+                URL.revokeObjectURL(a.href);
+            });
+        }
+        function renderLandingWhy(oracleEl, data, cert, latencyMs) {
+            const whyBlock = data.oqs_why || {};
+            const factors = whyBlock.top_3_factors
+                || (data.explanation && data.explanation.top_3_factors)
+                || data.top_3_factors
+                || [];
+            const scen = (data.scenarios && data.scenarios.scenarios) || {};
+            let whyEl = document.getElementById('landingWhy');
+            if (!whyEl) {
+                whyEl = document.createElement('div');
+                whyEl.id = 'landingWhy';
+                whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
+                oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
+            }
+            let scenHtml = '';
+            if (scen.bull || scen.base || scen.bear) {
+                const bits = ['bull','base','bear'].map(k => {
+                    const s = scen[k] || {};
+                    const pct = s.probability_pct != null ? s.probability_pct+'%' : '—';
+                    return `${s.label||k} ${pct}`;
+                }).join(' · ');
+                const disc = (data.scenarios && data.scenarios.disclaimer) || '';
+                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${disc}</div></div>`;
+            }
+            let whyList = '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
+            if (factors.length) {
+                whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
+                    const label = f.factor || f.label || f.name || f;
+                    const detail = f.detail ? ` — ${f.detail}` : '';
+                    const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
+                    return `<li>${label}${detail}${src}</li>`;
+                }).join('') + '</ol>';
+            }
+            let certLine = '';
+            if (cert.certificate_hash || data.prediction_id) {
+                const hashShort = cert.certificate_hash
+                    ? String(cert.certificate_hash).slice(0, 16) + '…'
+                    : 'pending';
+                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${hashShort}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`;
+            }
+            whyEl.innerHTML =
+                `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'} · ${latencyMs}ms</div>` +
+                whyList +
+                '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
+                '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
+                scenHtml + certLine + '</details>';
+        }
+
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
@@ -1149,23 +1272,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const t0 = performance.now();
             
             try {
-                // Retail/beginner: prefer /quick for speed; Pro gets full evidence path.
-                const preferQuick = mode !== 'pro';
-                const primary = preferQuick
-                    ? `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                    : `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-                const fallback = preferQuick
-                    ? `/oracle/${encodeURIComponent(symbol)}?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`
-                    : `/oracle/${encodeURIComponent(symbol)}/quick?ux_mode=${encodeURIComponent(mode)}&lang=${encodeURIComponent(lang)}`;
-                let response = await fetch(primary, { headers: { Accept: 'application/json' } });
-                let rawText = await response.text();
-                let data = null;
-                try { data = rawText && !rawText.trim().startsWith('<') && !rawText.includes('Internal Server Error') ? JSON.parse(rawText) : null; } catch (error) { console.debug(error); data = null; }
-                if (!data || !response.ok) {
-                    response = await fetch(fallback, { headers: { Accept: 'application/json' } });
-                    rawText = await response.text();
-                    try { data = JSON.parse(rawText); } catch (error) { console.debug(error); data = null; }
-                }
+                const { response, data } = await fetchOraclePayload(symbol, mode, lang);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
                     oracleEl.textContent = 'Could not get a decision right now. Try again.';
@@ -1187,10 +1294,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 symbolEl.textContent = data.symbol || symbol;
                 scoreEl.textContent = data.opportunity_score ?? '--';
                 
-                const rawAction = String(data.decision_action || data.verdict || data.action || 'WAIT').toUpperCase();
-                const action = (rawAction === 'ACT' || rawAction.includes('BUY') || rawAction.includes('BULL'))
-                    ? 'ACT'
-                    : 'WAIT';
+                const action = decideLandingAction(data);
                 const verdict = data.verdict || action;
                 verdictEl.textContent = action;
                 verdictEl.className = 'result-verdict';
@@ -1198,18 +1302,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 if (action === 'ACT' || v.includes('BUY')) verdictEl.classList.add('verdict-buy');
                 else if (v.includes('SELL')) verdictEl.classList.add('verdict-sell');
                 else verdictEl.classList.add('verdict-wait');
-                
-                let sentence = data.decision_sentence || data.narrative || data.oracle || data.action_line || '';
-                if (!sentence || /meditat|consulting the oracle/i.test(sentence)) {
-                    if (typeof data.action === 'string' && data.action.length > 12) {
-                        sentence = data.action;
-                    } else if (action === 'ACT') {
-                        sentence = `ACT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
-                    } else {
-                        sentence = `WAIT on ${data.symbol || symbol} — score ${data.opportunity_score ?? '—'}.`;
-                    }
-                }
-                oracleEl.textContent = sentence;
+                oracleEl.textContent = fallbackDecisionSentence(data, symbol, action);
                 const freshChip = document.getElementById('oracleFreshnessLabel');
                 const fresh = data.data_freshness || {};
                 if (freshChip) {
@@ -1259,84 +1352,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 }
                 const certEl = document.getElementById('landingCert');
                 const cert = data.decision_certificate || {};
-                if (cert.certificate_hash || data.prediction_id) {
-                    certEl.style.display = 'block';
-                    certEl.innerHTML =
-                        `Decision Certificate · <code>${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>` +
-                        `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
-                        (cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '') +
-                        `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
-                        (cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '') +
-                        (cert.share_urls && cert.share_urls.x ? `<a class="btn-secondary" id="certShareX" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>` : '') +
-                        (cert.share_urls && cert.share_urls.telegram ? `<a class="btn-secondary" id="certShareTg" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>` : '') +
-                        `</div>`;
-                    document.getElementById('copyCertBtn')?.addEventListener('click', () => {
-                        navigator.clipboard.writeText(cert.share_text || '');
-                    });
-                    document.getElementById('dlCertBtn')?.addEventListener('click', () => {
-                        const blob = new Blob([JSON.stringify(cert, null, 2)], {type:'application/json'});
-                        const a = document.createElement('a');
-                        a.href = URL.createObjectURL(blob);
-                        a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.json`;
-                        a.click();
-                        URL.revokeObjectURL(a.href);
-                    });
-                    document.getElementById('dlCertTxtBtn')?.addEventListener('click', () => {
-                        const blob = new Blob([cert.export_text || ''], {type:'text/plain'});
-                        const a = document.createElement('a');
-                        a.href = URL.createObjectURL(blob);
-                        a.download = `blackdark-certificate-${(data.symbol||'asset').toLowerCase()}.txt`;
-                        a.click();
-                        URL.revokeObjectURL(a.href);
-                    });
-                } else {
-                    certEl.style.display = 'none';
-                }
+                renderLandingCertificate(certEl, cert, data);
 
-                const whyBlock = data.oqs_why || {};
-                const factors = whyBlock.top_3_factors
-                    || (data.explanation && data.explanation.top_3_factors)
-                    || data.top_3_factors
-                    || [];
-                const scen = (data.scenarios && data.scenarios.scenarios) || {};
-                let whyEl = document.getElementById('landingWhy');
-                if (!whyEl) {
-                    whyEl = document.createElement('div');
-                    whyEl.id = 'landingWhy';
-                    whyEl.style.cssText = 'margin-top:.75rem;font-size:.85rem;color:var(--text-muted);text-align:left';
-                    oracleEl.parentNode.insertBefore(whyEl, oracleEl.nextSibling);
-                }
-                let scenHtml = '';
-                if (scen.bull || scen.base || scen.bear) {
-                    scenHtml = '<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ' +
-                        ['bull','base','bear'].map(k => {
-                            const s = scen[k] || {};
-                            return `${s.label||k} ${s.probability_pct != null ? s.probability_pct+'%' : '—'}`;
-                        }).join(' · ') +
-                        `<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${(data.scenarios && data.scenarios.disclaimer) || ''}</div></div>`;
-                }
-                const whyList = factors.length
-                    ? '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
-                        const label = f.factor || f.label || f.name || f;
-                        const detail = f.detail ? ` — ${f.detail}` : '';
-                        const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
-                        return `<li>${label}${detail}${src}</li>`;
-                    }).join('') + '</ol>'
-                    : '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
-                whyEl.innerHTML =
-                    `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'} · ${latencyMs}ms</div>` +
-                    whyList +
-                    '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
-                    '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
-                    scenHtml +
-                    (() => {
-                        if (!(cert.certificate_hash || data.prediction_id)) return '';
-                        const hashShort = cert.certificate_hash
-                            ? String(cert.certificate_hash).slice(0, 16) + '…'
-                            : 'pending';
-                        return `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${hashShort}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`;
-                    })() +
-                    '</details>';
+                renderLandingWhy(oracleEl, data, cert, latencyMs);
 
                 const disc = document.getElementById('landingDiscipline');
                 const followAction = data.decision_action || data.verdict || action || 'WAIT';
@@ -1598,7 +1616,8 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             loadBillingReadyLine();
             wireInstitutionalInquiry();
             loadTelegramBotLink();
-            loadLandingTrustPulse();
+            window.loadLandingTrustPulse = loadLandingTrustPulse;
+            window.renderLandingPulse = renderLandingPulse;
             startLandingPulseStream();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {

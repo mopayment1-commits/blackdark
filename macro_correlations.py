@@ -363,7 +363,7 @@ class MacroCorrelationsEngine:
     _shutdown: asyncio.Event = field(default_factory=asyncio.Event)
     _last_cycle_at: float = field(default=0.0)
 
-    async def close(self) -> None:
+    def close(self) -> None:
         self._shutdown.set()
 
     async def run_cycle(self, *, force: bool = False) -> dict[str, Any]:

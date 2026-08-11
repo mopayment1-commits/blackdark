@@ -41,7 +41,7 @@ async def _loop() -> None:
         await asyncio.sleep(interval)
 
 
-async def start_uptime_probe_loop() -> asyncio.Task | None:
+def start_uptime_probe_loop() -> asyncio.Task | None:
     global _task
     if not _enabled():
         logger.info("Uptime self-probe loop disabled (UPTIME_SELF_PROBE_ENABLED=false)")

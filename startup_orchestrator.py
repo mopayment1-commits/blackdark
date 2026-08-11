@@ -114,14 +114,14 @@ def _start_aggregator(state: RuntimeState) -> None:
 async def _start_core_streams(state: RuntimeState) -> None:
     from telegram_monitor import start_telegram_monitor
 
-    state.telegram_task = await start_telegram_monitor()
+    state.telegram_task = start_telegram_monitor()
     from telegram_bot_poller import start_telegram_poller
 
-    state.telegram_poller_task = await start_telegram_poller()
+    state.telegram_poller_task = start_telegram_poller()
 
     from instant_alert_engine import start_instant_alert_engine
 
-    state.instant_alert_task = await start_instant_alert_engine()
+    state.instant_alert_task = start_instant_alert_engine()
 
     from b2b_websocket_hub import start_b2b_websocket_hub
 
@@ -146,8 +146,8 @@ async def _start_fee_and_gas() -> None:
     from fee_matrix import start_fee_matrix_scheduler
     from gas_oracle import start_gas_oracle_loop
 
-    await start_gas_oracle_loop()
-    await start_fee_matrix_scheduler()
+    start_gas_oracle_loop()
+    start_fee_matrix_scheduler()
 
 
 async def _start_storage_tier() -> None:
@@ -241,7 +241,7 @@ async def _start_ml_flywheel(state: RuntimeState) -> None:
         return
     from ml_flywheel_scheduler import start_ml_flywheel
 
-    await start_ml_flywheel()
+    start_ml_flywheel()
     state.ml_flywheel_started = True
     logger.info("ML flywheel started (ML_FLYWHEEL_ENABLED=true).")
 
@@ -319,7 +319,7 @@ async def _start_auto_execution(state: RuntimeState) -> None:
         return
     from execution_engine import start_auto_execution_loop
 
-    state.auto_exec_task = await start_auto_execution_loop()
+    state.auto_exec_task = start_auto_execution_loop()
 
 
 async def _db_maintenance_loop() -> None:
@@ -370,7 +370,7 @@ async def _start_uptime_probe(state: RuntimeState) -> None:
     try:
         from uptime_probe_loop import start_uptime_probe_loop
 
-        state.uptime_probe_task = await start_uptime_probe_loop()
+        state.uptime_probe_task = start_uptime_probe_loop()
     except Exception:
         logger.exception("Uptime self-probe loop failed to start")
 

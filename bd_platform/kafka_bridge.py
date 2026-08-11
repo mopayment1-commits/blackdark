@@ -31,14 +31,14 @@ def bus_status() -> dict[str, Any]:
     producer_ok = False
     if kafka_enabled():
         producer_ok = _get_producer() is not None
-        if kafka_enabled() and producer_ok:
+    if kafka_enabled() and producer_ok:
         primary = "kafka"
     elif redis_url():
         primary = "redis"
     else:
         primary = "local"
 
-return {
+    return {
         "kafka_configured": kafka_enabled(),
         "kafka_brokers": kafka_brokers() or None,
         "kafka_producer_ok": producer_ok,

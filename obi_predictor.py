@@ -100,7 +100,7 @@ def _weighted_side_volume(
     return total
 
 
-async def calculate_order_book_imbalance(
+def calculate_order_book_imbalance(
     order_book: dict[str, Any],
     *,
     exchange: str,
@@ -242,7 +242,7 @@ async def analyze_order_book_snapshot(
         for storage_key, book in books.items():
             try:
                 symbol = str(book.get("symbol") or storage_key.split("@")[0])
-                obi = await calculate_order_book_imbalance(
+                obi = calculate_order_book_imbalance(
                     book,
                     exchange=exchange_id,
                     symbol=symbol,

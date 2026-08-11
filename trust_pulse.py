@@ -332,6 +332,20 @@ def _shape_pulse(
         factors_now=factors,
         factors_prev=previous_factors,
     )
+    if tier not in ("", "free"):
+        continuity_out = continuity
+    elif continuity:
+        continuity_out = {
+            "locked": True,
+            "upgrade_hint": "Decision Pro unlocks “since your last visit” continuity.",
+            "summary": continuity.get("summary") if continuity.get("flipped") else None,
+            "flipped": bool(continuity.get("flipped")),
+        }
+    else:
+        continuity_out = {
+            "locked": True,
+            "upgrade_hint": "Decision Pro unlocks “since your last visit”.",
+        }
 
     sentence = (
         payload.get("decision_sentence")

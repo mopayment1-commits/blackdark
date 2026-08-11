@@ -458,10 +458,13 @@
             try {
                 const res = await fetch('/api/oracle/audit-chain/verify');
                 const data = await res.json();
+                const vColor = data.valid ? 'var(--success)' : 'var(--danger)';
+                const vLabel = data.valid ? 'VALID' : 'INVALID';
+                const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
                 panel.innerHTML =
-                    `Live verify: <strong style="color:${data.valid ? 'var(--success)' : 'var(--danger)'}">${data.valid ? 'VALID' : 'INVALID'}</strong>` +
+                    `Live verify: <strong style="color:${vColor}">${vLabel}</strong>` +
                     ` · records=${data.records ?? '—'}` +
-                    (data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '');
+                    broken;
             } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);

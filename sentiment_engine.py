@@ -477,7 +477,7 @@ async def _fetch_twitter_fallback_reddit(
     return items
 
 
-async def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
+def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
     items: list[SentimentNewsItem] = []
     if config.SENTIMENT_DATA_SOURCE not in {"mock", "mixed"}:
         return items

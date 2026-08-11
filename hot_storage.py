@@ -81,7 +81,7 @@ class HotStorageBackend(ABC):
     async def insert_batch(self, records: list[HotRecord]) -> int:
         raise NotImplementedError
 
-    async def health_check(self) -> bool:
+    def health_check(self) -> bool:
         return True
 
 
@@ -950,7 +950,7 @@ def enqueue_tick_snapshot(
     )
 
 
-async def get_hot_storage_stats() -> HotStorageStats:
+def get_hot_storage_stats() -> HotStorageStats:
     pipeline = get_hot_pipeline()
     if pipeline is None:
         return HotStorageStats()

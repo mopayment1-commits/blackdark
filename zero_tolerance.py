@@ -317,7 +317,7 @@ def build_zero_tolerance_manifest() -> dict[str, Any]:
     }
 
 
-async def build_zero_tolerance_closure() -> dict[str, Any]:
+def build_zero_tolerance_closure() -> dict[str, Any]:
     """Public closure — binding shipped, code helpers present, smoke gates pass."""
     import inspect
     from pathlib import Path

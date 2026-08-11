@@ -626,7 +626,7 @@ def get_parquet_compactor() -> MidnightParquetCompactor | None:
     return _compactor
 
 
-async def start_midnight_compaction_scheduler() -> MidnightParquetCompactor:
+def start_midnight_compaction_scheduler() -> MidnightParquetCompactor:
     global _compactor
     if _compactor is None:
         _compactor = MidnightParquetCompactor()

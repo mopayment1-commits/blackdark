@@ -65,7 +65,7 @@ async def _ensure_hot_pipeline() -> None:
         logger.info("Hot pipeline started for Binance WebSocket ingest.")
 
 
-async def _handle_trade_message(payload: dict) -> None:
+def _handle_trade_message(payload: dict) -> None:
     global _ticks_received, _last_tick_at
 
     data = payload.get("data") or payload
@@ -128,7 +128,7 @@ async def _run_stream_loop() -> None:
                     async for msg in ws:
                         if msg.type == aiohttp.WSMsgType.TEXT:
                             payload = json.loads(msg.data)
-                            await _handle_trade_message(payload)
+                            _handle_trade_message(payload)
                         elif msg.type in (aiohttp.WSMsgType.CLOSED, aiohttp.WSMsgType.ERROR):
                             break
             except asyncio.CancelledError:
@@ -139,7 +139,7 @@ async def _run_stream_loop() -> None:
                 await asyncio.sleep(5)
 
 
-async def start_binance_ws_ingest() -> None:
+def start_binance_ws_ingest() -> None:
     global _ws_task
     enabled = os.getenv("BINANCE_WS_ENABLED", "true").lower() in {"1", "true", "yes"}
     if not enabled:

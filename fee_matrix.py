@@ -158,7 +158,7 @@ async def refresh_fee_matrix() -> dict[str, Any]:
     return {"updated": updated, "errors": errors, "total": len(_matrix), "last_refresh": _last_refresh}
 
 
-async def start_fee_matrix_scheduler() -> asyncio.Task | None:  # pragma: no cover
+def start_fee_matrix_scheduler() -> asyncio.Task | None:  # pragma: no cover
     global _refresh_task
     if _refresh_task is not None:
         return _refresh_task

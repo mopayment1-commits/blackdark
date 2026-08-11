@@ -29,7 +29,7 @@ def _item(id_: str, done: bool, href: str, proof: str, report: str, severity: st
     }
 
 
-async def build_report1_weaknesses_closure() -> dict[str, Any]:
+def build_report1_weaknesses_closure() -> dict[str, Any]:
     from d5_regime_honesty import build_d5_honesty_board
     from institutional_assurance import get_signed_capacity, ha_activation_status, verify_signed_capacity
     from institutional_commerce import commerce_status
@@ -135,7 +135,7 @@ async def build_report2_capabilities_closure() -> dict[str, Any]:
 
 
 async def build_dd_radical_closure() -> dict[str, Any]:
-    r1 = await build_report1_weaknesses_closure()
+    r1 = build_report1_weaknesses_closure()
     r2 = await build_report2_capabilities_closure()
     human_ops_slots = [
         {

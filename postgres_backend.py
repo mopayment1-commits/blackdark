@@ -6,6 +6,8 @@ Activated when DATABASE_URL starts with postgresql:// or postgres://
 
 from __future__ import annotations
 
+import asyncio
+
 import logging
 import re
 from collections.abc import AsyncIterator
@@ -53,12 +55,15 @@ class _PgResult:
         self.lastrowid = lastrowid
 
     async def fetchall(self) -> list[Any]:
+        await asyncio.sleep(0)
         return list(self._rows)
 
     async def fetchone(self) -> Any | None:
+        await asyncio.sleep(0)
         return self._rows[0] if self._rows else None
 
     async def fetchmany(self, size: int = 1) -> list[Any]:
+        await asyncio.sleep(0)
         return self._rows[: max(0, size)]
 
 

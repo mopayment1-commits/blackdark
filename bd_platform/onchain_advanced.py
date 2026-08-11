@@ -125,7 +125,7 @@ async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_0
     risk = _var_cvar(rets, notional=notional)
     mc = _monte_carlo(closes)
 
-        if mvrv_z > 2:
+    if mvrv_z > 2:
         mvrv_signal = "overheated"
     elif mvrv_z < -1:
         mvrv_signal = "undervalued"
@@ -150,7 +150,7 @@ async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_0
     else:
         sopr_signal = "neutral"
 
-return {
+    return {
         "asset": asset,
         "price": round(price, 2),
         "timestamp": _utcnow(),

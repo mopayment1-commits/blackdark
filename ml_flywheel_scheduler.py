@@ -37,7 +37,7 @@ async def _flywheel_loop() -> None:
         await asyncio.sleep(interval)
 
 
-async def start_ml_flywheel() -> None:
+def start_ml_flywheel() -> None:
     global _running, _flywheel_task
     if _running or not config.ML_FLYWHEEL_ENABLED:
         return

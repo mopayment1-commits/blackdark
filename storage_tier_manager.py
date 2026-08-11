@@ -72,7 +72,7 @@ async def ensure_compaction_scheduler() -> bool:
     try:
         from parquet_compactor import start_midnight_compaction_scheduler
 
-        await start_midnight_compaction_scheduler()
+        start_midnight_compaction_scheduler()
         _compactor_started = True
         logger.info(
             "Parquet compaction scheduler active | hot_cutoff_hours=%s",
@@ -249,7 +249,7 @@ async def storage_architecture_status() -> dict[str, Any]:
     from hot_storage import get_hot_storage_stats
     from storage_cost_guard import storage_cost_guard_status
 
-    hot_stats = await get_hot_storage_stats()
+    hot_stats = get_hot_storage_stats()
     db_health = await database_health_report()
     external = external_database_status()
 

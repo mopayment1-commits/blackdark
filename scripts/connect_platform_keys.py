@@ -123,7 +123,7 @@ def _prompt_value(spec: dict[str, str], preset: str | None) -> str | None:
     return value or None
 
 
-async def _collect_keys(args: argparse.Namespace) -> dict[str, str]:
+def _collect_keys(args: argparse.Namespace) -> dict[str, str]:
     arg_map = {
         "lunarcrush": args.lunarcrush,
         "coinmarketcal": args.coinmarketcal,
@@ -220,7 +220,7 @@ async def run_connect(args: argparse.Namespace) -> int:
             await _test_local_server(args.test_server)
         return 0 if report.get("valid_count", 0) > 0 else 1
 
-    payload = await _collect_keys(args)
+    payload = _collect_keys(args)
     if not payload:
         print("\n⚠️  لم تُدخل أي مفاتيح — لا شيء للحفظ.")
         report = await _verify_report()

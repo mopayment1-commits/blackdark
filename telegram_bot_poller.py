@@ -70,7 +70,7 @@ def _polling_enabled() -> bool:
     return bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
 
 
-async def start_telegram_poller() -> asyncio.Task | None:
+def start_telegram_poller() -> asyncio.Task | None:
     global _poller_task
     if not _polling_enabled() or not os.getenv("TELEGRAM_BOT_TOKEN"):
         return None

@@ -146,7 +146,7 @@ async def _on_market_updated(payload: dict[str, Any]) -> None:
         logger.debug("Market cache refresh on bus event failed", exc_info=True)
 
 
-async def _on_arbitrage_hot(payload: dict[str, Any]) -> None:
+def _on_arbitrage_hot(payload: dict[str, Any]) -> None:
     global _received_total
     _received_total += 1
     logger.debug("Hot arbitrage event received | asset=%s", payload.get("asset"))

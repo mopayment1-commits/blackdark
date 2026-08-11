@@ -35,7 +35,7 @@ async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
         return False
 
 
-async def send_email_alert(to_email: str, subject: str, body: str) -> bool:
+def send_email_alert(to_email: str, subject: str, body: str) -> bool:
     host = os.getenv("SMTP_HOST", "")
     port = int(os.getenv("SMTP_PORT", "587"))
     user = os.getenv("SMTP_USER", "")
@@ -161,7 +161,7 @@ async def dispatch_alert(
                     level="signal",
                 )
             else:
-                sub_result["email"] = await send_email_alert(email, title, full_text)
+                sub_result["email"] = send_email_alert(email, title, full_text)
         tg_chat = sub.get("telegram_chat_id")
         if tg_chat:
             sub_result["telegram"] = await send_telegram_message(full_text, chat_id=tg_chat)

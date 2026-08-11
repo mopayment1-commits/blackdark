@@ -797,7 +797,7 @@ try:
 except ImportError:
     logger.warning("Market fetcher hub unavailable; extended venues disabled.")
 
-    async def close_all_pools() -> None:
+    def close_all_pools() -> None:
         return None
 
     def is_spot_only(exchange_id: str) -> bool:
@@ -810,7 +810,7 @@ except ImportError:
         return spot_symbols
 
 
-async def _persist_market_snapshot(
+def _persist_market_snapshot(
     ticker: TickerSnapshot,
     order_book: OrderBookSnapshot,
     timestamp: str,
@@ -837,7 +837,7 @@ async def _poll_market_symbol(
     fetcher = MARKET_FETCHERS[exchange_id]
     timestamp = _utcnow_iso()
     ticker, order_book = await fetcher(session, symbol, market_type)
-    await _persist_market_snapshot(ticker, order_book, timestamp)
+    _persist_market_snapshot(ticker, order_book, timestamp)
 
 
 async def _poll_funding_symbol(
@@ -1005,7 +1005,7 @@ class Aggregator:
         finally:
             await self._close_session()
             await shutdown_hot_pipeline()
-            await close_all_pools()
+            close_all_pools()
 
     async def _run_loop(
         self,

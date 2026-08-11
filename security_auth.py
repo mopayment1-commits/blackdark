@@ -171,7 +171,7 @@ async def optional_user_from_request(
     return await get_user_from_token(token.strip())
 
 
-async def require_authenticated(
+def require_authenticated(
     user: dict | None = Depends(optional_user_from_request),
 ) -> dict:
     if user is None:
@@ -179,7 +179,7 @@ async def require_authenticated(
     return user
 
 
-async def require_whale(
+def require_whale(
     user: dict = Depends(require_authenticated),
 ) -> dict:
     tier = str(user.get("tier") or "free")
@@ -191,7 +191,7 @@ async def require_whale(
     return user
 
 
-async def require_admin(
+def require_admin(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
 ) -> dict:
@@ -216,10 +216,10 @@ async def require_admin_dev(
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key)
+    return require_admin(user, x_admin_key)
 
 
-async def require_pro_or_above(
+def require_pro_or_above(
     user: dict = Depends(require_authenticated),
 ) -> dict:
     tier = str(user.get("tier") or "free")

@@ -85,7 +85,7 @@ def analyze_text(text: str) -> dict[str, Any]:
     }
 
 
-async def analyze_headlines(headlines: list[str], *, limit: int = 20) -> dict[str, Any]:
+def analyze_headlines(headlines: list[str], *, limit: int = 20) -> dict[str, Any]:
     items = []
     for headline in headlines[:limit]:
         analysis = analyze_text(headline)

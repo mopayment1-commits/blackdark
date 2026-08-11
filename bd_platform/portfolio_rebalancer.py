@@ -6,7 +6,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 
-async def suggest_rebalance(
+def suggest_rebalance(
     holdings: dict[str, float],
     *,
     target_weights: dict[str, float] | None = None,

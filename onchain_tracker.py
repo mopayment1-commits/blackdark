@@ -262,7 +262,7 @@ def _asset_bias(net_flow_usd: float) -> Literal["distribution", "accumulation", 
     return "neutral"
 
 
-async def analyze_onchain_flows(
+def analyze_onchain_flows(
     flows: list[ExchangeFlowMetrics],
 ) -> tuple[list[OnChainSignal], dict[str, AssetOnChainStatus]]:
     signals: list[OnChainSignal] = []
@@ -391,7 +391,7 @@ def inject_oracle_onchain_analytics(
 
 async def build_onchain_context() -> dict[str, Any]:
     flows = await process_onchain_flows()
-    signals, statuses = await analyze_onchain_flows(flows)
+    signals, statuses = analyze_onchain_flows(flows)
 
     status_payload = {key: value.model_dump() for key, value in statuses.items()}
     signal_payload = [signal.model_dump() for signal in signals]

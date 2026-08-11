@@ -34,7 +34,7 @@ def _fingerprint(opp: dict[str, Any]) -> str:
     return hashlib.sha1(raw.encode()).hexdigest()[:16]
 
 
-async def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:
+def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:
     from live_book_hub import get_live_books_if_fresh
 
     fresh = get_live_books_if_fresh()
@@ -82,7 +82,7 @@ async def rewalk_opportunity_slippage(
     kind = str(opportunity.get("kind") or "")
 
     if kind == "triangular":
-        return await _rewalk_triangular(opportunity, notional)
+        return _rewalk_triangular(opportunity, notional)
 
     if kind == "cex_dex":
         from dex_slippage import simulate_amm_swap
@@ -177,7 +177,7 @@ async def validate_alert(opportunity: dict[str, Any]) -> tuple[bool, dict[str, A
     return True, updated
 
 
-async def reconcile_active_alerts(current_opportunities: list[dict[str, Any]]) -> list[str]:
+def reconcile_active_alerts(current_opportunities: list[dict[str, Any]]) -> list[str]:
     """Cancel stale alerts not in current profitable set."""
     global _cancelled_total
     current_fps = {_fingerprint(o) for o in current_opportunities}

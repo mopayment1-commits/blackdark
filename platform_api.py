@@ -122,7 +122,7 @@ async def cex_dex_arb(quote_usd: float = Query(1000)):
 async def cex_dex_status_route():
     from bd_platform.cex_dex_executor import cex_dex_status
 
-    return await cex_dex_status()
+    return cex_dex_status()
 
 
 @router.post("/arb/cex-dex/execute", responses=COMMON_ERROR_RESPONSES)
@@ -428,7 +428,7 @@ async def portfolio_rebalance(
 ):
     from bd_platform.portfolio_rebalancer import suggest_rebalance
 
-    return await suggest_rebalance(
+    return suggest_rebalance(
         body.get("holdings") or {},
         target_weights=body.get("target_weights"),
     )

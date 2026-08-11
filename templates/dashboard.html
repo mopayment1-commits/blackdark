@@ -16,14 +16,14 @@
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
         .logo { font-family: var(--bd-font-display); font-weight: 800; font-size: 1.2rem; color: #22d3ee; letter-spacing: .04em; }
-        .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
+        .nav-links a { color: #a1a1aa; margin-left: .85rem; font-size: .875rem; }
         .nav-links a:hover { color: #e4e4e7; }
-        .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
+        .tier { font-size: .75rem; color: #a1a1aa; margin-right: .5rem; }
         .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
         main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
         .hero { text-align: center; margin-bottom: .65rem; }
         .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; margin-bottom: .35rem; color: #fff; }
-        .hero p { color: #71717a; font-size: .85rem; }
+        .hero p { color: #a1a1aa; font-size: .85rem; }
         .intent-wrap { max-width: 720px; margin: 0 auto 1.25rem; text-align: center; }
         .intent-q { font-size: 1.05rem; color: #e4e4e7; font-weight: 600; margin-bottom: .65rem; }
         .intent-grid { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
@@ -38,7 +38,7 @@
         .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
         .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
         .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
-        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #a1a1aa; font-size: .8rem; cursor: pointer; }
+        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #d4d4d8; font-size: .8rem; cursor: pointer; }
         .pick:hover { border-color: #22d3ee; color: #22d3ee; }
         section { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; margin-bottom: 1rem; }
         section h2 { font-size: 1rem; color: #22d3ee; margin-bottom: .5rem; }
@@ -72,7 +72,7 @@
         .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
         .lens-btn {
             padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
-            background:#111118; color:#a1a1aa; font-size:.82rem; font-weight:700; cursor:pointer;
+            background:#111118; color:#e4e4e7; font-size:.82rem; font-weight:700; cursor:pointer;
         }
         .lens-btn.active { border-color:#22d3ee; color:#041016; background:linear-gradient(135deg,#22d3ee,#06b6d4); }
         .lens-btn.room { border-style:dashed; }
@@ -403,36 +403,6 @@
         }
         function esc(s) { return escapeHtml(s); }
 
-        function priceDecimals(price) {
-            return price < 1 ? 4 : 2;
-        }
-        function changeClass(n) {
-            return (n || 0) >= 0 ? 'up' : 'down';
-        }
-        function signedPct(n, digits = 2) {
-            const v = n || 0;
-            return (v >= 0 ? '+' : '') + fmt(v, digits);
-        }
-        function freshDotClass(fresh) {
-            if (fresh.stale) return 'tp-dot stale';
-            if (fresh.status === 'warm') return 'tp-dot warm';
-            return 'tp-dot';
-        }
-        function riskColorFor(risk) {
-            if (risk === 'HIGH') return '#ef4444';
-            if (risk === 'LOW') return '#22c55e';
-            return '#f59e0b';
-        }
-        function coversPlanBit(v) {
-            if (v.covers_subscription == null) return '';
-            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
-        }
-        function formatTpFactor(f, i) {
-            const detail = f.detail ? ' — ' + f.detail : '';
-            const source = f.source ? `<small>${f.source}</small>` : '';
-            return `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${detail}${source}</div>`;
-        }
-
 
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
@@ -582,7 +552,8 @@
         function changePrefix(ch) { return (ch || 0) >= 0 ? '+' : ''; }
         function fmtPrice(price) {
             if (price == null) return '';
-            return '$' + fmt(price, price < 1 ? 4 : 2);
+            const decimals = price < 1 ? 4 : 2;
+            return '$' + fmt(price, decimals);
         }
         function changeSpan(ch) {
             if (ch == null) return '';
@@ -1150,7 +1121,10 @@
             return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
         }
         function whalePriceBit(a) {
-            if (a.price != null) return ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}`;
+            if (a.price != null) {
+                const decimals = a.price < 1 ? 4 : 2;
+                return ` · $${fmt(a.price, decimals)}`;
+            }
             if (a.spot_price != null) return ` · $${fmt(a.spot_price, 2)}`;
             return '';
         }
@@ -1304,6 +1278,10 @@
                 const foot = d.compliance_footer || {};
                 const risk = (d.risk_level || '').toUpperCase();
                 const riskColor = riskColorFor(risk);
+                const recs = d.recommendations || [];
+                const recHtml = recs.length
+                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${r}</li>`).join('') + '</ul>'
+                    : '';
                 el.innerHTML = `
                     <div class="arb-card">
                         <strong>Portfolio AI</strong>
@@ -1311,7 +1289,7 @@
                         <div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">${d.one_sentence || d.plain_language || d.summary || ''}</div>
                         ${d.scenario_note ? `<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">${d.scenario_note}</div>` : ''}
                         ${d.total_value_formatted ? `<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ${d.total_value_formatted} · BTC corr ${d.btc_correlation || '—'}</div>` : ''}
-                        ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+                        ${recHtml}
                         ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
                     </div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }

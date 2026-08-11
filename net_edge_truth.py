@@ -53,7 +53,7 @@ def _bump_reason(reason: str) -> None:
     bucket[reason] = int(bucket.get(reason, 0)) + 1
 
 
-def _quote_age_ms(opportunity: dict[str, Any]) -> float | None:
+def _direct_quote_age_ms(opportunity: dict[str, Any]) -> float | None:
     for key in ("quote_age_ms", "rewalk_age_ms", "book_age_ms", "age_ms"):
         try:
             value = float(opportunity.get(key) or 0)
@@ -61,11 +61,17 @@ def _quote_age_ms(opportunity: dict[str, Any]) -> float | None:
             value = 0.0
         if value > 0:
             return value
+    return None
 
+
+def _quote_symbol(opportunity: dict[str, Any]) -> str:
+    asset = str(opportunity.get("asset") or opportunity.get("symbol") or "BTC")
+    return asset if "/" in asset else f"{asset.split('/')[0]}/USDT"
+
+
+def _live_quote_ages(opportunity: dict[str, Any], symbol: str) -> list[float]:
     buy_ex = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "")
     sell_ex = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "")
-    asset = str(opportunity.get("asset") or opportunity.get("symbol") or "BTC")
-    symbol = asset if "/" in asset else f"{asset.split('/')[0]}/USDT"
     ages: list[float] = []
     try:
         from live_book_hub import get_quote_age_ms
@@ -78,9 +84,15 @@ def _quote_age_ms(opportunity: dict[str, Any]) -> float | None:
                 ages.append(float(age))
     except Exception:
         logger.debug("quote age lookup failed", exc_info=True)
-    if not ages:
-        return None
-    return max(ages)
+    return ages
+
+
+def _quote_age_ms(opportunity: dict[str, Any]) -> float | None:
+    direct_age = _direct_quote_age_ms(opportunity)
+    if direct_age is not None:
+        return direct_age
+    ages = _live_quote_ages(opportunity, _quote_symbol(opportunity))
+    return max(ages) if ages else None
 
 
 def _crowd_residual_profit(opportunity: dict[str, Any], net_profit: float) -> tuple[float, dict[str, Any]]:

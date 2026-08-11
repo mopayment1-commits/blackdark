@@ -115,7 +115,7 @@ async def fetch_recent_closes(
     return [], "none"
 
 
-async def hot_tier_status() -> dict[str, Any]:
+def hot_tier_status() -> dict[str, Any]:
     root = config.HOT_STORAGE_DIR
     spool_files = 0
     spool_bytes = 0

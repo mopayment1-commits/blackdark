@@ -39,7 +39,7 @@ def raw_bearer_or_cookie(
 
 
 def require_feature(feature: str):
-    async def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
+    def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
         from auth_service import feature_allowed
 
         if not feature_allowed(user, feature):

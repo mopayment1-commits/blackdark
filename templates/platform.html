@@ -663,9 +663,12 @@ async function loadMacro() {
         const res = await platformFetch('/api/platform/macro/bitcoin');
         const data = await res.json();
         const live = data.live_metrics||{};
-        wrap.innerHTML = (data.indicators||[]).map(i=>
-            `<div class="metric-row"><span>${i.label}</span><span>${i.value!=null?fmt(i.value,0):`<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`}</span></div>`
-        ).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
+        wrap.innerHTML = (data.indicators||[]).map(i => {
+            const val = i.value != null
+                ? fmt(i.value, 0)
+                : `<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`;
+            return `<div class="metric-row"><span>${i.label}</span><span>${val}</span></div>`;
+        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
     } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
@@ -679,7 +682,7 @@ async function runScript() {
         const data = await res.json();
         document.getElementById('scriptOut').textContent = JSON.stringify(data, null, 2);
         showMsg('scriptMsg', `Signal: ${data.signal||'—'} · result ${data.result}`, true);
-    } catch (error) { console.debug(error); showMsg('scriptMsg', e.message, false); }
+    } catch (error) { console.debug(error); showMsg('scriptMsg', error.message, false); }
 }
 
 async function loadPlatformKeys() {
@@ -722,7 +725,7 @@ async function savePlatformKeys() {
         showMsg('keysMsg', `Saved ${data.saved_count || 0} key(s) — reload if needed`, true);
         ids.forEach(id => { const el = document.getElementById('key_' + id); if (el) el.value = ''; });
         await loadPlatformKeys();
-    } catch (error) { console.debug(error); showMsg('keysMsg', e.message, false); }
+    } catch (error) { console.debug(error); showMsg('keysMsg', error.message, false); }
 }
 
 function formatKeyVerify(r) {
@@ -740,7 +743,7 @@ async function verifyPlatformKeys() {
         out.innerHTML = (data.results || []).map(r =>
             `<div>${r.service}: ${formatKeyVerify(r)}</div>`
         ).join('');
-    } catch (error) { console.debug(error); out.innerHTML = e.gatedHtml || ('Verification failed — ' + e.message); }
+    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || ('Verification failed — ' + error.message); }
 }
 
 document.getElementById('chartSymbol').addEventListener('change', loadChart);

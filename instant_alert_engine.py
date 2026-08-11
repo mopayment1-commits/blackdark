@@ -142,7 +142,7 @@ async def _engine_loop() -> None:
         await asyncio.sleep(_interval_sec())
 
 
-async def start_instant_alert_engine() -> asyncio.Task | None:
+def start_instant_alert_engine() -> asyncio.Task | None:
     global _running, _engine_task
     if not _enabled():
         logger.info("Instant alert engine disabled (INSTANT_ALERTS_ENABLED=false)")

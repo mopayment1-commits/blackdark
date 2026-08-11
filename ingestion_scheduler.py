@@ -94,7 +94,7 @@ async def start_ingestion_scheduler(*, bootstrap: bool = True) -> None:
 
     from binance_ws_ingest import start_binance_ws_ingest
 
-    await start_binance_ws_ingest()
+    start_binance_ws_ingest()
 
     logger.info(
         "Ingestion scheduler started | categories=%s",

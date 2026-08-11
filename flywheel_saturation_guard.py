@@ -363,7 +363,7 @@ def release_execution_slot(fingerprint: str, user_id: int | None, amount_usd: fl
         )
 
 
-async def prepare_free_telegram_batch(subscribers: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def prepare_free_telegram_batch(subscribers: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Cap free Telegram blast to avoid herd triggering on identical signal."""
     max_batch = int(getattr(config, "FLYWHEEL_MAX_FREE_TELEGRAM_BATCH", 25))
     if not _enabled() or len(subscribers) <= max_batch:

@@ -141,7 +141,7 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
             for row in all_rows:
                 if row.get("id") in id_set and row.get("status") == "queued":
                     body = _unseal_body(row)
-                    ok = await send_email_alert(row["to"], row["subject"], body)
+                    ok = send_email_alert(row["to"], row["subject"], body)
                     if ok:
                         row["status"] = "sent"
                         row["sent_at"] = _utcnow()
