@@ -1,8 +1,9 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `c0221e1ae8464b05e3a84e91f5953b09b1061013`
+**Canonical HEAD audited:** `c846d379f6e07cd555e4538cd01140b237ee5436`  
 **Branch:** `cursor/institutional-hardening-120d`  
 **Audit date:** 2026-08-11  
+**Sonar PR analysis:** run `31547534063` @ `2026-08-11T23:44:51+0000` (QG OK, new_coverage 87.9%)  
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
 
 Status key:
@@ -133,10 +134,10 @@ Status key:
 | DEC-0406 | Controlled degradation (429/503), not infinite capacity claims | PERFORMANCE | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | honesty flags; capacity claims gated |
 | DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | PARTIALLY_IMPLEMENTED | Soft Launch Postgres+Redis measured row in `LOAD_TEST_RUN_LOG.md` (1 worker); **not** signed HA multi-worker proof |
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
-| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **530 passed / 0 failed** (4 load/network deselected) on tip |
-| DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy |
-| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | NOT_IMPLEMENTED / NEEDS_EXTERNAL | coverage.xml artifact exists; import blocked (AA + user skip) |
-| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | PARTIALLY_IMPLEMENTED | CodeQL+security green on tip; Sonar tip QG with coverage import not evidenced |
+| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **578 passed / 0 failed** (`-m 'not load and not network'`) on tip |
+| DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy; AA disabled (`sonar.autoscan.enabled=false`) |
+| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | CI Coverage XML + SonarCloud CI Scanner on tip `c846d37`; `new_coverage=87.9%` imported; run `31547534063` |
+| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | VERIFIED_IMPLEMENTED | Tip `c846d37`: CodeQL + Security Scan + critical CI + SonarCloud Code Analysis (QG OK) all green on PR #58 |
 | DEC-0413 | Microservices optional via Redis bus; monolith OK for soft launch | ARCHITECTURE | MICROSERVICES_ARCHITECTURE | VERIFIED_IMPLEMENTED | service_bus + SERVICE_MODE |
 
 ---
@@ -177,7 +178,7 @@ Status key:
 | CF-01 | English-only public UI (Heroes/SOURCE) | English default + 15 locales (Sat/Sun / Morning) | **RESOLVED** → DEC-0017 canonical |
 | CF-02 | ARCHITECTURE.md “Alembic (+ _apply_migrations)” | DATABASE_MIGRATIONS.md single runtime authority | **RESOLVED** — ARCHITECTURE.md updated to single runtime authority |
 | CF-03 | net_edge_truth `withdrawal or 0.0` | fee_matrix unknown→None fail-closed | **RESOLVED** — net_edge_truth + decision_enrichment preserve None / reject |
-| CF-04 | Sonar AA-only policy (PR #53) vs institutional coverage-import requirement | Both “final” in different eras | **NEEDS USER DECISION** (user skipped AA disable) |
+| CF-04 | Sonar AA-only policy (PR #53) vs institutional coverage-import requirement | Both “final” in different eras | **RESOLVED** — AA disabled; CI scanner ran; coverage imported; QG OK on tip |
 | CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch (#54 intent) on tip; Ruff #51 cherry-picked; Bandit #50 conflicts (sql_safety/path_safety ported; full merge DIRTY) | **PARTIALLY RECONCILED** — #51 landed on tip; #50 still needs conflict resolution |
 
 ---
@@ -188,10 +189,10 @@ Status key:
 |---|---|
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
-| VERIFIED_IMPLEMENTED | **78** |
-| PARTIALLY_IMPLEMENTED | **6** |
+| VERIFIED_IMPLEMENTED | **80** |
+| PARTIALLY_IMPLEMENTED | **5** (`DEC-0014`, `DEC-0029`, `DEC-0217`, `DEC-0218`, `DEC-0407`) |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
-| NOT_IMPLEMENTED | **2** |
-| NEEDS_EXTERNAL_VERIFICATION | **5** (DEC-0411 dual; Bandit #50 still external-ish) | (includes DEC-0411 dual tag) |
-| CONFLICTED (open DEC rows) | **1** (DEC-0016 → see DEC-0017) |
-| Unresolved CF-* needing user | **CF-04** (Sonar AA/token); CF-05 Bandit #50 still open |
+| NOT_IMPLEMENTED | **1** (`DEC-0501`) |
+| NEEDS_EXTERNAL_VERIFICATION | **4** (DEC-0028/0030/0504 + HA DEC-0407 evidence) |
+| CONFLICTED (open DEC rows) | **0** (DEC-0016 superseded via DEC-0017) |
+| Unresolved CF-* needing user | **CF-05** Bandit #50 still open |
