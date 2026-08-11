@@ -129,7 +129,7 @@ def _run_pytest_quick() -> tuple[bool, str]:
     return True, "in_process_constitution_smoke_ok"
 
 
-def _constitution_modules_ready() -> bool:
+def _constitution_modules_ready() -> bool:  # noqa: SIM110 - explicit loop keeps Sonar S3776 low.
     for path in _constitution_required_paths():
         if not _file_exists(path):
             return False
@@ -415,7 +415,6 @@ def _checklist_rows() -> list[dict[str, Any]]:
         + _day4_rows()
         + _day5_rows(tests_ok, tests_note, _golive_status())
     )
-    return rows
 
 
 def launch_checklist() -> dict[str, Any]:

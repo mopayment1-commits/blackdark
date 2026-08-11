@@ -613,25 +613,40 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
     except (aiohttp.ClientError, TypeError, ValueError):
         return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
 
+    buy_blocks, sell_blocks, max_notional = _whale_trade_blocks(trades, threshold_usd)
+    return _whale_trade_message(buy_blocks, sell_blocks, max_notional, threshold_usd)
+
+
+def _whale_trade_blocks(trades: list[dict[str, Any]], threshold_usd: float) -> tuple[int, int, float]:
     buy_blocks = 0
     sell_blocks = 0
     max_notional = 0.0
     for trade in trades:
-        try:
-            qty = float(trade["q"])
-            trade_price = float(trade["p"])
-            notional = qty * trade_price
-        except (KeyError, TypeError, ValueError):
-            continue
+        notional = _trade_notional(trade)
         if notional < threshold_usd:
             continue
         max_notional = max(max_notional, notional)
-        # m=true → buyer is maker → aggressive seller; m=false → aggressive buyer
+        # m=true -> buyer is maker -> aggressive seller; m=false -> aggressive buyer
         if trade.get("m"):
             sell_blocks += 1
         else:
             buy_blocks += 1
+    return buy_blocks, sell_blocks, max_notional
 
+
+def _trade_notional(trade: dict[str, Any]) -> float:
+    try:
+        return float(trade["q"]) * float(trade["p"])
+    except (KeyError, TypeError, ValueError):
+        return 0.0
+
+
+def _whale_trade_message(
+    buy_blocks: int,
+    sell_blocks: int,
+    max_notional: float,
+    threshold_usd: float,
+) -> str:
     if buy_blocks >= 3 and buy_blocks > sell_blocks:
         return f"Whale accumulation detected — {buy_blocks} large buy blocks (max ${max_notional:,.0f})"
     if sell_blocks >= 3 and sell_blocks > buy_blocks:

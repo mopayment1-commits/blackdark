@@ -471,6 +471,115 @@ def _scorecard(requirements: list[RequirementAssessment]) -> tuple[dict[str, int
         overall = "fail"
     return counts, overall
 
+def _tech_sections(tech: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        "checks": tech.get("checks") or {},
+        "coverage": tech.get("coverage") or {},
+        "uptime": tech.get("uptime") or {},
+        "latency": tech.get("latency") or {},
+    }
+
+
+async def _production_probe(probe_production: bool) -> dict[str, Any]:
+    if probe_production:
+        return await _probe_production_oracle()
+    return {}
+
+
+def _pillar_stats(acquisition: dict[str, Any]) -> dict[str, Any]:
+    pillars = acquisition.get("pillars") or {}
+    if not isinstance(pillars, dict):
+        pillars = {}
+    community = pillars.get("community") or {}
+    behavior = pillars.get("behavior") or {}
+    models = pillars.get("models") or {}
+    return {
+        "paid": int((community.get("evidence") or {}).get("paid_subscribers") or 0),
+        "behavior_events": int((behavior.get("evidence") or {}).get("total_events") or 0),
+        "model_verdict": str(models.get("verdict") or "none"),
+        "deal_verdict": str(acquisition.get("deal_verdict") or "unknown"),
+    }
+
+
+def _static_due_diligence_inputs() -> dict[str, Any]:
+    prod_path = ROOT / "requirements-prod.txt"
+    prod_req = prod_path.read_text(encoding="utf-8") if prod_path.exists() else ""
+    ci_has_cov_gate, ci_has_dd_verify, ci_has_docker = _read_ci_flags()
+    return {
+        "has_cryptography": "cryptography" in prod_req,
+        "ci_has_cov_gate": ci_has_cov_gate,
+        "ci_has_dd_verify": ci_has_dd_verify,
+        "ci_has_docker": ci_has_docker,
+        "gdpr_module": (ROOT / "gdpr_service.py").exists(),
+        "sentry_configured": bool(os.getenv("SENTRY_DSN", "").strip()),
+        "dashboard_lines": _count_lines(ROOT / "dashboard.py"),
+    }
+
+
+async def _technical_report_inputs(probe_production: bool) -> dict[str, Any]:
+    from due_diligence import due_diligence_report
+
+    tech = due_diligence_report()
+    sections = _tech_sections(tech)
+    prod_oracle = await _production_probe(probe_production)
+    acquisition, moat = await _load_acquisition_and_moat()
+    return {
+        "tech": tech,
+        "prod_oracle": prod_oracle,
+        "prod_ok": bool(prod_oracle.get("ok")),
+        "moat": moat,
+        "probes_total": int(sections["uptime"].get("probes_total") or 0),
+        "coverage_pct": float(sections["coverage"].get("coverage_percent") or 0),
+        **sections,
+        **_pillar_stats(acquisition),
+        **_static_due_diligence_inputs(),
+    }
+
+
+def _technical_requirements(data: dict[str, Any]) -> list[RequirementAssessment]:
+    return [
+        _req_uptime(data["probes_total"], data["checks"], data["uptime"]),
+        _req_latency(data["checks"], data["latency"]),
+        _req_coverage(data["checks"], data["coverage"], data["coverage_pct"]),
+        _req_ha(data["checks"], data["prod_ok"]),
+        _req_prod(data["prod_ok"], data["prod_oracle"]),
+        _req_oracle_ingest(data["prod_ok"], data["prod_oracle"]),
+        _req_moat(data["moat"]),
+        _req_ml(data["model_verdict"]),
+        _req_behavior(data["behavior_events"]),
+        _req_paid(data["paid"]),
+        _req_api_keys(),
+        _req_secrets(data["has_cryptography"]),
+        _req_regulatory(),
+        _req_auth(),
+        _req_architecture(data["dashboard_lines"]),
+        _req_observability(data["sentry_configured"]),
+        _req_cicd(data["ci_has_cov_gate"], data["ci_has_dd_verify"], data["ci_has_docker"]),
+        _req_docs(),
+        _req_gdpr(data["gdpr_module"]),
+        _req_ma(data["deal_verdict"], data["prod_ok"]),
+    ]
+
+
+def _technical_report_payload(
+    data: dict[str, Any],
+    requirements: list[RequirementAssessment],
+    counts: dict[str, int],
+    overall: str,
+) -> dict[str, Any]:
+    return {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "overall_verdict": overall,
+        "committee_statement": (
+            "Salvageable engineering with honest documentation. "
+            "Production Oracle must stay live; close FAIL gaps (ML, subscribers, GDPR proof) for LOI."
+        ),
+        "scorecard": counts,
+        "requirements": [asdict(r) for r in requirements],
+        "automated_checks": data["tech"],
+        "production_probe": data["prod_oracle"],
+    }
+
 
 def _has_prod_cryptography() -> bool:
     req_path = ROOT / "requirements-prod.txt"
@@ -548,61 +657,10 @@ def _build_requirements(
 
 
 async def build_technical_due_diligence_report(*, probe_production: bool = True) -> dict[str, Any]:
-    from due_diligence import due_diligence_report
-
-    tech = due_diligence_report()
-    checks = tech.get("checks") or {}
-    coverage = tech.get("coverage") or {}
-    uptime = tech.get("uptime") or {}
-    latency = tech.get("latency") or {}
-
-    prod_oracle: dict[str, Any] = await _probe_production_oracle() if probe_production else {}
-    acquisition, moat = await _load_acquisition_and_moat()
-
-    has_cryptography = _has_prod_cryptography()
-    ci_has_cov_gate, ci_has_dd_verify, ci_has_docker = _read_ci_flags()
-    gdpr_module, sentry_configured, dashboard_lines = _static_readiness_flags()
-
-    probes_total = int(uptime.get("probes_total") or 0)
-    coverage_pct = float(coverage.get("coverage_percent") or 0)
-    prod_ok = bool(prod_oracle.get("ok"))
-    paid, behavior_events, model_verdict, deal_verdict = _acquisition_metrics(acquisition)
-
-    requirements = _build_requirements(
-        probes_total=probes_total,
-        checks=checks,
-        uptime=uptime,
-        latency=latency,
-        coverage=coverage,
-        coverage_pct=coverage_pct,
-        prod_ok=prod_ok,
-        prod_oracle=prod_oracle,
-        moat=moat,
-        model_verdict=model_verdict,
-        behavior_events=behavior_events,
-        paid=paid,
-        has_cryptography=has_cryptography,
-        dashboard_lines=dashboard_lines,
-        sentry_configured=sentry_configured,
-        ci_has_cov_gate=ci_has_cov_gate,
-        ci_has_dd_verify=ci_has_dd_verify,
-        ci_has_docker=ci_has_docker,
-        gdpr_module=gdpr_module,
-        deal_verdict=deal_verdict,
-    )
+    data = await _technical_report_inputs(probe_production)
+    requirements = _technical_requirements(data)
     counts, overall = _scorecard(requirements)
-    return {
-        "generated_at": datetime.now(UTC).isoformat(),
-        "overall_verdict": overall,
-        "committee_statement": (
-            "Salvageable engineering with honest documentation. "
-            "Production Oracle must stay live; close FAIL gaps (ML, subscribers, GDPR proof) for LOI."
-        ),
-        "scorecard": counts,
-        "requirements": [asdict(r) for r in requirements],
-        "automated_checks": tech,
-        "production_probe": prod_oracle,
-    }
+    return _technical_report_payload(data, requirements, counts, overall)
 
 
 def run_sync_report(*, probe_production: bool = True) -> dict[str, Any]:

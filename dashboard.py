@@ -360,108 +360,135 @@ _BOOT_DB_READY = False
 _BOOT_DB_OK = False
 
 
+async def _initialize_database_ready_state() -> None:
+    global _BOOT_DB_READY, _BOOT_DB_OK
+    try:
+        from database import init_db
+
+        await init_db()
+        _BOOT_DB_OK = True
+        _BOOT_DB_READY = True
+    except Exception:
+        logger.exception("init_db failed — API stays up for live probes; ready stays closed")
+        _BOOT_DB_OK = False
+        local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+        env = (os.getenv("ENV") or "").strip().lower()
+        _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
+
+
+def _initialize_sentry_safe() -> None:
+    try:
+        from observability import init_sentry
+
+        init_sentry()
+    except Exception:
+        logger.exception("Sentry init failed")
+
+
+def _check_production_guard() -> None:
+    try:
+        from production_guard import enforce_production_guard, is_production, log_production_guard
+
+        if is_production():
+            enforce_production_guard()
+        else:
+            log_production_guard()
+    except Exception:
+        logger.exception("Production guard check failed")
+        from production_guard import is_production
+
+        if is_production():
+            raise
+
+
+async def _load_risk_freeze_safe() -> None:
+    try:
+        from risk_manager import load_persistent_freeze
+
+        await load_persistent_freeze()
+    except Exception:
+        logger.exception("Risk freeze load failed")
+
+
+async def _start_web_microservice(app: FastAPI) -> None:
+    try:
+        from microservices.lifecycle import ServiceContext, startup
+
+        ms_ctx = ServiceContext()
+        await startup("web", ms_ctx)
+        app.state.ms_ctx = ms_ctx
+    except Exception:
+        logger.exception("Web microservice startup failed")
+    try:
+        from uptime_probe_loop import start_uptime_probe_loop
+
+        app.state.uptime_probe_task = start_uptime_probe_loop()
+    except Exception:
+        logger.exception("Uptime self-probe failed in web mode")
+
+
+async def _start_background_runtime(app: FastAPI) -> None:
+    try:
+        from startup_orchestrator import RuntimeState, run_background_startup
+
+        runtime = RuntimeState()
+        app.state.runtime = runtime
+        await run_background_startup(runtime)
+    except Exception:
+        logger.exception("Background startup failed")
+
+
+async def _background_boot(app: FastAPI) -> None:
+    await _initialize_database_ready_state()
+    _initialize_sentry_safe()
+    _check_production_guard()
+    await _load_risk_freeze_safe()
+    if getattr(config, "SERVICE_MODE", "all").strip().lower() == "web":
+        await _start_web_microservice(app)
+        return
+    await _start_background_runtime(app)
+
+
+async def _shutdown_lifespan_services(app: FastAPI, boot_task: asyncio.Task[Any]) -> None:
+    boot_task.cancel()
+    await asyncio.gather(boot_task, return_exceptions=True)
+    if await _shutdown_web_microservice(app):
+        return
+    await _shutdown_background_runtime(app)
+
+
+async def _shutdown_web_microservice(app: FastAPI) -> bool:
+    ms_ctx = getattr(app.state, "ms_ctx", None)
+    if ms_ctx is None:
+        return False
+    try:
+        from microservices.lifecycle import shutdown
+
+        await shutdown(ms_ctx)
+    except Exception:
+        logger.exception("Web microservice shutdown failed")
+    return True
+
+
+async def _shutdown_background_runtime(app: FastAPI) -> None:
+    runtime = getattr(app.state, "runtime", None)
+    if runtime is None:
+        return
+    try:
+        from startup_orchestrator import shutdown_runtime
+
+        await shutdown_runtime(runtime)
+    except Exception:
+        logger.exception("Background shutdown failed")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
-    global _BOOT_DB_READY, _BOOT_DB_OK
-
-    async def _background_boot() -> None:
-        global _BOOT_DB_READY, _BOOT_DB_OK
-        try:
-            from database import init_db
-
-            await init_db()
-            _BOOT_DB_OK = True
-            _BOOT_DB_READY = True
-        except Exception:
-            logger.exception("init_db failed — API stays up for live probes; ready stays closed")
-            _BOOT_DB_OK = False
-            # Local/dev: allow ready so smoke tests don't hang forever
-            local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-            env = (os.getenv("ENV") or "").strip().lower()
-            _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
-
-        try:
-            from observability import init_sentry
-
-            init_sentry()
-        except Exception:
-            logger.exception("Sentry init failed")
-
-        try:
-            from production_guard import enforce_production_guard, is_production, log_production_guard
-
-            if is_production():
-                # Fail closed in production — do not swallow
-                enforce_production_guard()
-            else:
-                log_production_guard()
-        except Exception:
-            logger.exception("Production guard check failed")
-            from production_guard import is_production
-
-            if is_production():
-                raise
-
-        try:
-            from risk_manager import load_persistent_freeze
-
-            await load_persistent_freeze()
-        except Exception:
-            logger.exception("Risk freeze load failed")
-
-        _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
-        if _ms_mode == "web":
-            try:
-                from microservices.lifecycle import ServiceContext, startup
-
-                _ms_ctx = ServiceContext()
-                await startup("web", _ms_ctx)
-                app.state.ms_ctx = _ms_ctx
-            except Exception:
-                logger.exception("Web microservice startup failed")
-            try:
-                from uptime_probe_loop import start_uptime_probe_loop
-
-                app.state.uptime_probe_task = start_uptime_probe_loop()
-            except Exception:
-                logger.exception("Uptime self-probe failed in web mode")
-            return
-
-        try:
-            from startup_orchestrator import RuntimeState, run_background_startup
-
-            runtime = RuntimeState()
-            app.state.runtime = runtime
-            await run_background_startup(runtime)
-        except Exception:
-            logger.exception("Background startup failed")
-
-    boot_task = asyncio.create_task(_background_boot(), name="blackdark-boot")
+    boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
     logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
-
-    boot_task.cancel()
-    await asyncio.gather(boot_task, return_exceptions=True)
-
-    _ms_ctx = getattr(app.state, "ms_ctx", None)
-    if _ms_ctx is not None:
-        try:
-            from microservices.lifecycle import shutdown
-
-            await shutdown(_ms_ctx)
-        except Exception:
-            logger.exception("Web microservice shutdown failed")
-        return
-
-    runtime = getattr(app.state, "runtime", None)
-    if runtime is not None:
-        try:
-            from startup_orchestrator import shutdown_runtime
-
-            await shutdown_runtime(runtime)
-        except Exception:
-            logger.exception("Background shutdown failed")
+    await _shutdown_lifespan_services(app, boot_task)
 
 
 # Public /docs is our evidence/read developer page (not full Swagger dump).

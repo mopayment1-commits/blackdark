@@ -375,85 +375,107 @@ def _map_lemon_status(status: str) -> str:
     return mapping.get((status or "").strip().lower(), "active")
 
 
-async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
-    """Activate / update / cancel entitlements from Lemon Squeezy webhooks."""
-    from database import (
-        activate_paid_subscription,
-        cancel_subscription_by_stripe_id,
-        claim_billing_webhook_event,
-        upsert_subscription_by_stripe_id,
-    )
-
+def _lemon_event_context(event: dict[str, Any]) -> dict[str, Any]:
     meta = event.get("meta") or {}
-    event_name = str(meta.get("event_name") or "").strip()
     data = event.get("data") or {}
     attrs = data.get("attributes") or {}
-    webhook_id = str(meta.get("webhook_id") or event.get("webhook_id") or "").strip()
+    event_name = str(meta.get("event_name") or "").strip()
     lemon_id = str(data.get("id") or attrs.get("subscription_id") or "").strip()
+    webhook_id = str(meta.get("webhook_id") or event.get("webhook_id") or "").strip()
     dedupe_key = webhook_id or f"{event_name}:{lemon_id}:{attrs.get('updated_at') or attrs.get('created_at') or ''}"
-    if dedupe_key.strip(":"):
-        claimed = await claim_billing_webhook_event(
-            provider="lemon_squeezy",
-            event_id=dedupe_key[:240],
-            event_type=event_name or "unknown",
-        )
-        if not claimed:
-            return {
-                "handled": True,
-                "action": "duplicate_ignored",
-                "provider": "lemon_squeezy",
-                "event_id": dedupe_key[:240],
-            }
     if lemon_id and not lemon_id.startswith("lemon_"):
         lemon_id = f"lemon_{lemon_id}"
+    return {
+        "meta": meta,
+        "attrs": attrs,
+        "event_name": event_name,
+        "lemon_id": lemon_id,
+        "dedupe_key": dedupe_key,
+        "email": str(attrs.get("user_email") or attrs.get("customer_email") or attrs.get("email") or "").strip().lower(),
+        "tier": _lemon_infer_tier(attrs, meta if isinstance(meta, dict) else None),
+        "status": _map_lemon_status(str(attrs.get("status") or "active")),
+    }
 
-    email = (
-        str(attrs.get("user_email") or attrs.get("customer_email") or attrs.get("email") or "")
-        .strip()
-        .lower()
+
+async def _claim_lemon_webhook(ctx: dict[str, Any]) -> dict[str, Any] | None:
+    dedupe_key = str(ctx["dedupe_key"])
+    if not dedupe_key.strip(":"):
+        return None
+    from database import claim_billing_webhook_event
+
+    claimed = await claim_billing_webhook_event(
+        provider="lemon_squeezy",
+        event_id=dedupe_key[:240],
+        event_type=ctx["event_name"] or "unknown",
     )
-    tier = _lemon_infer_tier(attrs, meta if isinstance(meta, dict) else None)
-    status = _map_lemon_status(str(attrs.get("status") or "active"))
+    if claimed:
+        return None
+    return {
+        "handled": True,
+        "action": "duplicate_ignored",
+        "provider": "lemon_squeezy",
+        "event_id": dedupe_key[:240],
+    }
 
-    if event_name in {
-        "subscription_created",
-        "subscription_payment_success",
-        "order_created",
-    }:
-        if email and lemon_id:
-            await activate_paid_subscription(email, tier, lemon_id)
-            logger.info(
-                "Lemon subscription activated | email=%s tier=%s id=%s",
-                str(email).replace("\r", " ").replace("\n", " "),
-                str(tier).replace("\r", " ").replace("\n", " "),
-                str(lemon_id).replace("\r", " ").replace("\n", " "),
-            )
-            return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
-        return {"handled": False, "reason": "missing_email_or_id", "event": event_name}
 
+async def _handle_lemon_activation(ctx: dict[str, Any]) -> dict[str, Any]:
+    if not (ctx["email"] and ctx["lemon_id"]):
+        return {"handled": False, "reason": "missing_email_or_id", "event": ctx["event_name"]}
+    from database import activate_paid_subscription
+
+    await activate_paid_subscription(ctx["email"], ctx["tier"], ctx["lemon_id"])
+    logger.info(
+        "Lemon subscription activated | email=%s tier=%s id=%s",
+        str(ctx["email"]).replace("\r", " ").replace("\n", " "),
+        str(ctx["tier"]).replace("\r", " ").replace("\n", " "),
+        str(ctx["lemon_id"]).replace("\r", " ").replace("\n", " "),
+    )
+    return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
+
+
+async def _handle_lemon_update(ctx: dict[str, Any]) -> dict[str, Any]:
+    if not ctx["lemon_id"]:
+        return {"handled": False, "reason": "missing_id", "event": ctx["event_name"]}
+    from database import upsert_subscription_by_stripe_id
+
+    await upsert_subscription_by_stripe_id(
+        ctx["lemon_id"],
+        tier=ctx["tier"],
+        status=ctx["status"],
+        email=ctx["email"] or None,
+    )
+    return {"handled": True, "action": "subscription_updated", "provider": "lemon_squeezy"}
+
+
+async def _handle_lemon_inactive(ctx: dict[str, Any]) -> dict[str, Any]:
+    if not ctx["lemon_id"]:
+        return {"handled": False, "reason": "missing_id", "event": ctx["event_name"]}
+    if ctx["event_name"] in {"subscription_cancelled", "subscription_expired"}:
+        from database import cancel_subscription_by_stripe_id
+
+        await cancel_subscription_by_stripe_id(ctx["lemon_id"])
+        return {"handled": True, "action": "subscription_cancelled", "provider": "lemon_squeezy"}
+    from database import upsert_subscription_by_stripe_id
+
+    await upsert_subscription_by_stripe_id(ctx["lemon_id"], status="past_due", email=ctx["email"] or None)
+    return {"handled": True, "action": "payment_failed", "provider": "lemon_squeezy"}
+
+async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
+    """Activate / update / cancel entitlements from Lemon Squeezy webhooks."""
+    ctx = _lemon_event_context(event)
+    duplicate = await _claim_lemon_webhook(ctx)
+    if duplicate:
+        return duplicate
+    event_name = ctx["event_name"]
+    if event_name in {"subscription_created", "subscription_payment_success", "order_created"}:
+        return await _handle_lemon_activation(ctx)
     if event_name in {"subscription_updated", "subscription_resumed", "subscription_unpaused"}:
-        if lemon_id:
-            await upsert_subscription_by_stripe_id(
-                lemon_id,
-                tier=tier,
-                status=status,
-                email=email or None,
-            )
-            return {"handled": True, "action": "subscription_updated", "provider": "lemon_squeezy"}
-        return {"handled": False, "reason": "missing_id", "event": event_name}
-
+        return await _handle_lemon_update(ctx)
     if event_name in {
         "subscription_cancelled",
         "subscription_expired",
         "subscription_payment_failed",
         "subscription_paused",
     }:
-        if lemon_id:
-            if event_name in {"subscription_cancelled", "subscription_expired"}:
-                await cancel_subscription_by_stripe_id(lemon_id)
-                return {"handled": True, "action": "subscription_cancelled", "provider": "lemon_squeezy"}
-            await upsert_subscription_by_stripe_id(lemon_id, status="past_due", email=email or None)
-            return {"handled": True, "action": "payment_failed", "provider": "lemon_squeezy"}
-        return {"handled": False, "reason": "missing_id", "event": event_name}
-
+        return await _handle_lemon_inactive(ctx)
     return {"handled": False, "type": event_name, "provider": "lemon_squeezy"}

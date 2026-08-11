@@ -23,6 +23,35 @@ def _probe(url: str) -> tuple[bool, int | None]:
         return False, None
 
 
+def _print_env_checks(checks: list[tuple[str, str]]) -> int:
+    missing = 0
+    for key, hint in checks:
+        val = _env(key)
+        ok = bool(val)
+        required = key in {"SERVICE_MODE", "DATABASE_URL", "LEMON_SQUEEZY_CHECKOUT_PRO", "APP_BASE_URL"}
+        if not ok and required:
+            missing += 1
+        mark = "SET" if ok else "MISSING"
+        print(f"  [{mark}] {key}")
+        if not ok:
+            print(f"         -> {hint}")
+    return missing
+
+
+def _print_production_guard() -> None:
+    try:
+        from production_guard import evaluate_production_guard
+
+        guard = evaluate_production_guard()
+        print("\n--- Production Guard ---")
+        print(f"  Required pass: {guard.get('required_pass')}")
+        if guard.get("required_failures"):
+            print(f"  Failures: {', '.join(guard['required_failures'])}")
+        print(f"  API: {PROD_URL}/api/production/guard")
+    except Exception:
+        pass
+
+
 def main() -> int:
     print("=" * 60)
     print("BLACKDARK - Production Launch Setup")
@@ -58,29 +87,9 @@ def main() -> int:
         ("PRICE_FEED_WS_ONLY", "false (Railway cloud)"),
         ("UPTIME_SELF_PROBE_ENABLED", "true"),
     ]
-    missing = 0
-    for key, hint in checks:
-        val = _env(key)
-        ok = bool(val)
-        required = key in {"SERVICE_MODE", "DATABASE_URL", "LEMON_SQUEEZY_CHECKOUT_PRO", "APP_BASE_URL"}
-        if not ok and required:
-            missing += 1
-        mark = "SET" if ok else "MISSING"
-        print(f"  [{mark}] {key}")
-        if not ok:
-            print(f"         -> {hint}")
+    missing = _print_env_checks(checks)
 
-    try:
-        from production_guard import evaluate_production_guard
-
-        guard = evaluate_production_guard()
-        print("\n--- Production Guard ---")
-        print(f"  Required pass: {guard.get('required_pass')}")
-        if guard.get("required_failures"):
-            print(f"  Failures: {', '.join(guard['required_failures'])}")
-        print(f"  API: {PROD_URL}/api/production/guard")
-    except Exception:
-        pass
+    _print_production_guard()
 
     print("\n--- GTM setup scripts ---")
     print("  python scripts/railway_production_checklist.py")
