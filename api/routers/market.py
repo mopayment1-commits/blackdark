@@ -131,21 +131,30 @@ async def market_klines(
     limit: int = Query(100, ge=1, le=500),
 ):
     """Server-side Binance klines proxy — avoids browser CORS failures."""
+    # Rebuild from allowlisted charset only (CodeQL py/partial-ssrf).
     sym = "".join(ch for ch in symbol.upper() if ch.isalnum())
     if not sym.endswith("USDT"):
         sym = f"{sym}USDT"
-    if not sym.isalnum():
+    if not sym.isalnum() or len(sym) < 5 or len(sym) > 20:
         raise HTTPException(status_code=400, detail="Invalid symbol")
     if interval not in _ALLOWED_INTERVALS:
         raise HTTPException(status_code=400, detail="Invalid interval")
+    safe_interval = interval  # membership in _ALLOWED_INTERVALS is the sanitizer
+    safe_limit = int(limit)
 
-    url = f"https://api.binance.com/api/v3/klines?symbol={sym}&interval={interval}&limit={limit}"
+    # Fixed host/path; user input only as query params after validation.
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
-            if resp.status != 200:
-                raise HTTPException(status_code=502, detail="Upstream klines unavailable")
-            rows = await resp.json()
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            if not sym.isalnum():
+                raise HTTPException(status_code=400, detail="Invalid symbol")
+            async with session.get(
+                "https://api.binance.com/api/v3/klines",
+                params={"symbol": sym, "interval": safe_interval, "limit": safe_limit},
+            ) as resp:
+                if resp.status != 200:
+                    raise HTTPException(status_code=502, detail="Upstream klines unavailable")
+                rows = await resp.json()
     except HTTPException:
         raise
     except (aiohttp.ClientError, TypeError, ValueError) as exc:

@@ -333,21 +333,30 @@ async def execute_order(
                 "executedQty": order.get("executedQty"),
             }
             payload["message"] = f"Live {side} {asset} submitted to Binance."
-            logger.info(
-                "Live order placed | %s %s $%.2f order_id=%s source=%s",
-                str(side).replace("\r", " ").replace("\n", " "),
-                str(asset).replace("\r", " ").replace("\n", " "),
-                amount_usd,
-                str(order.get("orderId")).replace("\r", " ").replace("\n", " "),
-                str(credential_source).replace("\r", " ").replace("\n", " "),
+            # Log only locally validated scalars — never raw upstream order payload (CodeQL py/log-injection).
+            safe_side = side if side in {"buy", "sell"} else "unknown"
+            safe_asset = asset if str(asset).isalnum() else "invalid"
+            safe_source = (
+                credential_source
+                if str(credential_source).replace("_", "").isalnum()
+                else "unknown"
             )
-        except Exception as exc:
+            logger.info(
+                "Live order placed | side=%s asset=%s amount_usd=%.2f source=%s",
+                safe_side,
+                safe_asset,
+                float(amount_usd),
+                safe_source,
+            )
+        except Exception:
             payload["executed"] = False
-            payload["message"] = f"Live order failed: {exc}"
+            payload["message"] = "Live order failed"
+            safe_side = side if side in {"buy", "sell"} else "unknown"
+            safe_asset = asset if str(asset).isalnum() else "invalid"
             logger.exception(
-                "Live order failed | %s %s",
-                str(side).replace("\r", " ").replace("\n", " "),
-                str(asset).replace("\r", " ").replace("\n", " "),
+                "Live order failed | side=%s asset=%s",
+                safe_side,
+                safe_asset,
             )
     else:
         payload["message"] = f"Dry-run: would {side} {quantity:.6f} {asset} @ ${price:,.2f}"
