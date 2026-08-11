@@ -333,30 +333,22 @@ async def execute_order(
                 "executedQty": order.get("executedQty"),
             }
             payload["message"] = f"Live {side} {asset} submitted to Binance."
-            # Log only locally validated scalars — never raw upstream order payload (CodeQL py/log-injection).
-            safe_side = side if side in {"buy", "sell"} else "unknown"
-            safe_asset = asset if str(asset).isalnum() else "invalid"
-            safe_source = (
-                credential_source
-                if str(credential_source).replace("_", "").isalnum()
-                else "unknown"
-            )
+            # CodeQL py/log-injection: CR/LF replace must be INLINE at the sink.
+            # (isalnum()/helper guards are NOT treated as log-injection sanitizers.)
             logger.info(
                 "Live order placed | side=%s asset=%s amount_usd=%.2f source=%s",
-                safe_side,
-                safe_asset,
+                str(side).replace("\r", " ").replace("\n", " ")[:16],
+                str(asset).replace("\r", " ").replace("\n", " ")[:32],
                 float(amount_usd),
-                safe_source,
+                str(credential_source).replace("\r", " ").replace("\n", " ")[:32],
             )
         except Exception:
             payload["executed"] = False
             payload["message"] = "Live order failed"
-            safe_side = side if side in {"buy", "sell"} else "unknown"
-            safe_asset = asset if str(asset).isalnum() else "invalid"
             logger.exception(
                 "Live order failed | side=%s asset=%s",
-                safe_side,
-                safe_asset,
+                str(side).replace("\r", " ").replace("\n", " ")[:16],
+                str(asset).replace("\r", " ").replace("\n", " ")[:32],
             )
     else:
         payload["message"] = f"Dry-run: would {side} {quantity:.6f} {asset} @ ${price:,.2f}"
