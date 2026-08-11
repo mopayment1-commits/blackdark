@@ -65,6 +65,12 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
         pred_id = row.get("id")
         chain_meta = _chain_lookup().get(str(pred_id) if pred_id is not None else "")
+        if chain_meta:
+            chain_ref = ((chain_meta or {}).get("chain_hash") or "")[:16]
+        elif pred_id is not None:
+            chain_ref = f"oracle_pred:{pred_id}"
+        else:
+            chain_ref = None
         public_recent.append(
             {
                 "prediction_id": pred_id,
@@ -82,11 +88,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
                 "chain_hash": (chain_meta or {}).get("chain_hash"),
                 "prev_hash": (chain_meta or {}).get("prev_hash"),
                 "chain_seq": (chain_meta or {}).get("seq"),
-                "chain_ref": (
-                    ((chain_meta or {}).get("chain_hash") or "")[:16]
-                    if chain_meta
-                    else (f"oracle_pred:{pred_id}" if pred_id is not None else None)
-                ),
+                "chain_ref": chain_ref,
             }
         )
 
