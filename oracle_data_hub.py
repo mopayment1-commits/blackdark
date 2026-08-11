@@ -239,13 +239,13 @@ async def fetch_onchain_derivatives_mesh(
     if not binance_symbol.isalnum():
         return {
             "asset": symbol,
-            "tvl_total_usd": 0.0,
-            "chain_count": 0,
+            "defi_tvl_usd": 0.0,
+            "defi_chain_count": 0,
             "funding_rate": None,
             "open_interest_usd": None,
             "long_short_ratio": None,
-            "deriv_bias": "neutral",
-            "error": "invalid_symbol",
+            "derivatives_bias": "neutral",
+            "sources": [],
         }
 
     tvl_total_usd = 0.0
