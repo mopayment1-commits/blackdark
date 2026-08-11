@@ -283,6 +283,42 @@ async def scan_mev_slippage_proxy(session: aiohttp.ClientSession, asset: str) ->
     }
 
 
+def _defi_scanners() -> tuple[Any, ...]:
+    return (
+        scan_uniswap_sushiswap_spread,
+        scan_flash_loan_proxy,
+        scan_bridge_spread,
+        scan_mev_slippage_proxy,
+    )
+
+
+async def _scan_asset_defi_strategies(
+    session: aiohttp.ClientSession,
+    asset: str,
+    quote_usd: float,
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for scanner in _defi_scanners():
+        try:
+            row = await scanner(session, asset)
+            if row and row.get("profitable"):
+                row["quote_usd"] = quote_usd
+                row["estimated_profit_usd"] = round(
+                    quote_usd * float(row.get("net_spread_bps") or 0) / 10_000, 2
+                )
+                rows.append(row)
+        except Exception:
+            logger.debug("DeFi scanner failed | asset=%s", asset, exc_info=True)
+    return rows
+
+
+async def _scan_cex_dex_defi(quote_usd: float) -> list[dict[str, Any]]:
+    from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
+
+    cex_dex = await scan_cex_dex_opportunities(quote_usd=quote_usd)
+    return [row for row in cex_dex.get("opportunities") or [] if row.get("profitable")]
+
+
 async def scan_all_defi_strategies(*, quote_usd: float = 1000) -> dict[str, Any]:
     assets = list(config.WHITELIST_ASSETS)[:10]
     opportunities: list[dict[str, Any]] = []
@@ -290,29 +326,8 @@ async def scan_all_defi_strategies(*, quote_usd: float = 1000) -> dict[str, Any]
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in assets:
-            for scanner in (
-                scan_uniswap_sushiswap_spread,
-                scan_flash_loan_proxy,
-                scan_bridge_spread,
-                scan_mev_slippage_proxy,
-            ):
-                try:
-                    row = await scanner(session, asset)
-                    if row and row.get("profitable"):
-                        row["quote_usd"] = quote_usd
-                        row["estimated_profit_usd"] = round(
-                            quote_usd * float(row.get("net_spread_bps") or 0) / 10_000, 2
-                        )
-                        opportunities.append(row)
-                except Exception:
-                    logger.debug("DeFi scanner failed | asset=%s", asset, exc_info=True)
-
-    from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
-
-    cex_dex = await scan_cex_dex_opportunities(quote_usd=quote_usd)
-    for row in cex_dex.get("opportunities") or []:
-        if row.get("profitable"):
-            opportunities.append(row)
+            opportunities.extend(await _scan_asset_defi_strategies(session, asset, quote_usd))
+    opportunities.extend(await _scan_cex_dex_defi(quote_usd))
 
     opportunities.sort(key=lambda x: float(x.get("net_spread_bps") or 0), reverse=True)
     return {

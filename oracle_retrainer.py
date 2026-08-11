@@ -54,12 +54,49 @@ def _price_direction(row: dict[str, Any]) -> str:
     return "flat"
 
 
-async def run_oracle_retrain_step() -> dict[str, Any]:
-    audit = await fetch_oracle_audit_stats(limit=200, include_synthetic=False)
-    resolved_rows = [
+def _resolved_rows(audit: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
         row for row in audit.get("recent", [])
         if row.get("resolved") in (1, True, "1")
     ]
+
+
+def _error_accumulators(resolved_rows: list[dict[str, Any]]) -> tuple[dict[str, float], dict[str, int]]:
+    errors = {"technical": 0.0, "onchain": 0.0, "sentiment": 0.0, "macro": 0.0, "whale": 0.0}
+    counts = dict.fromkeys(errors, 0)
+    for row in resolved_rows:
+        accuracy = float(row.get("accuracy_score") or 0)
+        if accuracy >= 70:
+            continue
+        bucket = _verdict_bucket(row)
+        direction = _price_direction(row)
+        wrong_buy = bucket == "buy" and direction == "down"
+        wrong_avoid = bucket == "avoid" and direction == "up"
+        if not (wrong_buy or wrong_avoid):
+            continue
+        # Under-weight sentiment/onchain when directional calls miss; boost technical.
+        errors["sentiment"] += 1.0
+        errors["onchain"] += 0.5
+        errors["technical"] -= 0.5
+        for key in counts:
+            counts[key] += 1
+    return errors, counts
+
+
+def _adjust_dimensions(dims: dict[str, float], errors: dict[str, float], counts: dict[str, int]) -> dict[str, float]:
+    new_dims = dict(DEFAULT_DIMENSIONS)
+    new_dims.update(dims)
+    for key, err in errors.items():
+        if counts[key] <= 0:
+            continue
+        delta = -err * _LEARNING_RATE / max(counts[key], 1)
+        new_dims[key] = max(0.05, new_dims.get(key, 0.1) + delta)
+    return new_dims
+
+
+async def run_oracle_retrain_step() -> dict[str, Any]:
+    audit = await fetch_oracle_audit_stats(limit=200, include_synthetic=False)
+    resolved_rows = _resolved_rows(audit)
     if len(resolved_rows) < _MIN_SAMPLES:
         return {
             "adjusted": False,
@@ -70,27 +107,7 @@ async def run_oracle_retrain_step() -> dict[str, Any]:
         }
 
     dims = get_dimension_weights()
-    errors = {"technical": 0.0, "onchain": 0.0, "sentiment": 0.0, "macro": 0.0, "whale": 0.0}
-    counts = dict.fromkeys(errors, 0)
-
-    for row in resolved_rows:
-        accuracy = float(row.get("accuracy_score") or 0)
-        if accuracy >= 70:
-            continue
-
-        bucket = _verdict_bucket(row)
-        direction = _price_direction(row)
-        wrong_buy = bucket == "buy" and direction == "down"
-        wrong_avoid = bucket == "avoid" and direction == "up"
-        if not (wrong_buy or wrong_avoid):
-            continue
-
-        # Under-weight sentiment/onchain when directional calls miss; boost technical.
-        errors["sentiment"] += 1.0
-        errors["onchain"] += 0.5
-        errors["technical"] -= 0.5
-        for key in counts:
-            counts[key] += 1
+    errors, counts = _error_accumulators(resolved_rows)
 
     total_errors = sum(errors.values())
     if total_errors <= 0:
@@ -102,13 +119,7 @@ async def run_oracle_retrain_step() -> dict[str, Any]:
             "timestamp": _utcnow_iso(),
         }
 
-    new_dims = dict(DEFAULT_DIMENSIONS)
-    new_dims.update(dims)
-    for key, err in errors.items():
-        if counts[key] <= 0:
-            continue
-        delta = -err * _LEARNING_RATE / max(counts[key], 1)
-        new_dims[key] = max(0.05, new_dims.get(key, 0.1) + delta)
+    new_dims = _adjust_dimensions(dims, errors, counts)
 
     payload = persist_dimension_weights(
         new_dims,

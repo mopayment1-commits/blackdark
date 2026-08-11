@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -911,6 +911,149 @@ def _top_opportunity_factors(
     ]
 
 
+def _explanation_checklist(
+    score: int,
+    liquidity: str,
+    liquidity_score: int,
+    whale: dict[str, Any],
+    risk: dict[str, Any],
+    change: float,
+) -> list[dict[str, Any]]:
+    whale_value = "present" if whale["asset_alerts"] else "quiet"
+    return [
+        {"label": "Score", "value": score, "ok": score >= 55},
+        {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
+        {"label": "Whale context", "value": whale_value, "ok": True},
+        {"label": "Volatility", "value": risk["volatility"], "ok": abs(change) < 8},
+    ]
+
+
+def _technical_analysis_block(tech: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "rsi": tech["rsi"],
+        "rsi_signal": _rsi_signal_label(tech["rsi"]),
+        "rsi_source": tech["rsi_source"],
+        "macd_trend": tech["macd_trend"],
+        "ema_position": tech["ema_position"],
+    }
+
+
+def _market_context_block(
+    quote_volume: float,
+    liquidity_score: int,
+    liquidity: str,
+    trend: str,
+    onchain_note: str,
+) -> dict[str, Any]:
+    return {
+        "volume_analysis": f"24h quote volume ${quote_volume:,.0f}",
+        "liquidity_score": liquidity_score,
+        "liquidity_label": liquidity,
+        "trend_direction": trend,
+        "onchain_flow": onchain_note,
+    }
+
+
+def _whale_activity_block(whale: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "flow": whale["whale_flow"],
+        "volume_anomaly": whale["volume_anomaly"],
+        "alert": whale["whale_alert_text"],
+        "cvvd_alerts_count": len(whale["asset_alerts"]),
+    }
+
+
+def _sentiment_block(sentiment: dict[str, Any], hub_ctx: dict[str, Any]) -> dict[str, Any]:
+    hub_sentiment = hub_ctx.get("sentiment") or {}
+    return {
+        "news_sentiment_score": sentiment["news_sentiment"],
+        "news_label": sentiment["news_label"],
+        "compound_index": round(sentiment["compound"], 3),
+        "social_buzz_score": sentiment["social_buzz"],
+        "social_label": sentiment["social_label"],
+        "fear_greed_index": hub_sentiment.get("fear_greed_index"),
+        "fear_greed_label": hub_sentiment.get("fear_greed_label"),
+        "coingecko_trending": hub_sentiment.get("coingecko_trending"),
+    }
+
+
+def _oracle_data_hub_block(
+    hub_ctx: dict[str, Any],
+    hub_score_adj: int,
+    hub_reasons: list[str],
+    hub_risks: list[str],
+) -> dict[str, Any]:
+    aggregators = (hub_ctx.get("aggregators") or {}).get("coingecko_global") or {}
+    return {
+        "enabled": hub_ctx.get("enabled", False),
+        "score_adjustment": hub_score_adj,
+        "macro_regime": (hub_ctx.get("macro") or {}).get("macro_regime_proxy"),
+        "derivatives_bias": (hub_ctx.get("derivatives") or {}).get("derivatives_bias"),
+        "geopolitical_headlines": (hub_ctx.get("geo_news") or {}).get("geopolitical_headline_count"),
+        "top_headlines": (hub_ctx.get("geo_news") or {}).get("headlines", [])[:5],
+        "market_cap_change_24h_pct": aggregators.get("market_cap_change_24h_pct"),
+        "hub_reasons": hub_reasons[:3],
+        "hub_risks": hub_risks[:3],
+        "free_llm_providers": hub_ctx.get("free_llm_providers"),
+        "pillars": hub_ctx.get("pillars"),
+    }
+
+
+def _risk_factors_block(risk: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "support": risk["support"],
+        "resistance": risk["resistance"],
+        "volatility": risk["volatility"],
+        "volatility_warning": risk["vol_warning"],
+    }
+
+
+def _opportunity_explanation_payload(
+    *,
+    asset: str,
+    verdict: str,
+    score: int,
+    top_factors: list[dict[str, Any]],
+    liquidity: str,
+    liquidity_score: int,
+    whale: dict[str, Any],
+    risk: dict[str, Any],
+    change: float,
+    tech: dict[str, Any],
+    quote_volume: float,
+    trend: str,
+    onchain_note: str,
+    sentiment: dict[str, Any],
+    hub_ctx: dict[str, Any],
+    hub_score_adj: int,
+    hub_reasons: list[str],
+    hub_risks: list[str],
+) -> dict[str, Any]:
+    return {
+        "symbol": asset,
+        "verdict": verdict,
+        "opportunity_score": score,
+        "simulated": False,
+        "top_3_factors": top_factors,
+        "checklist": _explanation_checklist(score, liquidity, liquidity_score, whale, risk, change),
+        "data_sources": [
+            "Binance Live API (price + 1h candles)",
+            "CVVD Cross-Venue Whale Detection",
+            "Rolling Compound Sentiment Index",
+            "On-Chain Exchange Flow Tracker",
+            "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
+        ],
+        "disclaimer": "Not financial advice. Do your own research (DYOR).",
+        "technical_analysis": _technical_analysis_block(tech),
+        "market_context": _market_context_block(quote_volume, liquidity_score, liquidity, trend, onchain_note),
+        "whale_activity": _whale_activity_block(whale),
+        "sentiment": _sentiment_block(sentiment, hub_ctx),
+        "oracle_data_hub": _oracle_data_hub_block(hub_ctx, hub_score_adj, hub_reasons, hub_risks),
+        "risk_factors": _risk_factors_block(risk),
+        "timestamp": datetime.now(UTC).isoformat(),
+    }
+
+
 async def _build_opportunity_explanation(
     asset: str,
     price: float,
@@ -940,79 +1083,26 @@ async def _build_opportunity_explanation(
     # Hero #1 — Top-3 factors for <5s understanding (with real sources).
     top_factors = _top_opportunity_factors(tech, whale, sentiment, onchain_note)
 
-    return {
-        "symbol": asset,
-        "verdict": verdict,
-        "opportunity_score": score,
-        "simulated": False,
-        "top_3_factors": top_factors,
-        "checklist": [
-            {"label": "Score", "value": score, "ok": score >= 55},
-            {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
-            {"label": "Whale context", "value": "present" if whale["asset_alerts"] else "quiet", "ok": True},
-            {"label": "Volatility", "value": risk["volatility"], "ok": abs(change) < 8},
-        ],
-        "data_sources": [
-            "Binance Live API (price + 1h candles)",
-            "CVVD Cross-Venue Whale Detection",
-            "Rolling Compound Sentiment Index",
-            "On-Chain Exchange Flow Tracker",
-            "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
-        ],
-        "disclaimer": "Not financial advice. Do your own research (DYOR).",
-        "technical_analysis": {
-            "rsi": tech["rsi"],
-            "rsi_signal": _rsi_signal_label(tech["rsi"]),
-            "rsi_source": tech["rsi_source"],
-            "macd_trend": tech["macd_trend"],
-            "ema_position": tech["ema_position"],
-        },
-        "market_context": {
-            "volume_analysis": f"24h quote volume ${quote_volume:,.0f}",
-            "liquidity_score": liquidity_score,
-            "liquidity_label": liquidity,
-            "trend_direction": trend,
-            "onchain_flow": onchain_note,
-        },
-        "whale_activity": {
-            "flow": whale["whale_flow"],
-            "volume_anomaly": whale["volume_anomaly"],
-            "alert": whale["whale_alert_text"],
-            "cvvd_alerts_count": len(whale["asset_alerts"]),
-        },
-        "sentiment": {
-            "news_sentiment_score": sentiment["news_sentiment"],
-            "news_label": sentiment["news_label"],
-            "compound_index": round(sentiment["compound"], 3),
-            "social_buzz_score": sentiment["social_buzz"],
-            "social_label": sentiment["social_label"],
-            "fear_greed_index": (hub_ctx.get("sentiment") or {}).get("fear_greed_index"),
-            "fear_greed_label": (hub_ctx.get("sentiment") or {}).get("fear_greed_label"),
-            "coingecko_trending": (hub_ctx.get("sentiment") or {}).get("coingecko_trending"),
-        },
-        "oracle_data_hub": {
-            "enabled": hub_ctx.get("enabled", False),
-            "score_adjustment": hub_score_adj,
-            "macro_regime": (hub_ctx.get("macro") or {}).get("macro_regime_proxy"),
-            "derivatives_bias": (hub_ctx.get("derivatives") or {}).get("derivatives_bias"),
-            "geopolitical_headlines": (hub_ctx.get("geo_news") or {}).get("geopolitical_headline_count"),
-            "top_headlines": (hub_ctx.get("geo_news") or {}).get("headlines", [])[:5],
-            "market_cap_change_24h_pct": (
-                (hub_ctx.get("aggregators") or {}).get("coingecko_global") or {}
-            ).get("market_cap_change_24h_pct"),
-            "hub_reasons": hub_reasons[:3],
-            "hub_risks": hub_risks[:3],
-            "free_llm_providers": hub_ctx.get("free_llm_providers"),
-            "pillars": hub_ctx.get("pillars"),
-        },
-        "risk_factors": {
-            "support": risk["support"],
-            "resistance": risk["resistance"],
-            "volatility": risk["volatility"],
-            "volatility_warning": risk["vol_warning"],
-        },
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+    return _opportunity_explanation_payload(
+        asset=asset,
+        verdict=verdict,
+        score=score,
+        top_factors=top_factors,
+        liquidity=liquidity,
+        liquidity_score=liquidity_score,
+        whale=whale,
+        risk=risk,
+        change=change,
+        tech=tech,
+        quote_volume=quote_volume,
+        trend=trend,
+        onchain_note=onchain_note,
+        sentiment=sentiment,
+        hub_ctx=hub_ctx,
+        hub_score_adj=hub_score_adj,
+        hub_reasons=hub_reasons,
+        hub_risks=hub_risks,
+    )
 
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
@@ -2638,238 +2728,31 @@ async def oracle(
     ux_mode: str = "beginner",
     lang: str = "en",
 ):
-    # Reserved path — must not be captured as a trading symbol
-    if symbol.strip().lower() == "accuracy":
-        # Public Accuracy Ledger stays open (Prove-it); decision Oracle below is gated.
-        return render_page(request, "oracle_accuracy.html", _footer_ctx())
+    reserved = _reserved_oracle_response(symbol, request)
+    if reserved is not None:
+        return reserved
 
-    blocked = _require_terms_ack_or_403(request)
-    if blocked is not None:
-        return blocked
-
-    from auth_service import check_oracle_quota
-
-    allowed, message = await check_oracle_quota(user)
-    if not allowed:
-        raise HTTPException(
-            status_code=403,
-            detail={
-                "error": "quota_exceeded",
-                "message": message,
-                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
-            },
-        )
-
-    asset, pair = _normalize_oracle_symbol(symbol)
-    market = await _fetch_binance_ticker(pair)
-    if market is None:
-        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
-
-    price = market["price"]
-    volume = market["volume"]
-    quote_volume = market["quote_volume"] or (volume * price)
-    change = market["change_24h"]
-    whale_alert = None
-    try:
-        whale_alert = await _fetch_cvvd_whale_alert(asset, pair, price)
-    except Exception:
-        logger.exception("Whale alert fetch failed")
-
-    try:
-        from oracle_unified import compute_unified_oracle
-
-        unified = await compute_unified_oracle(asset, price, quote_volume, change)
-    except Exception:
-        logger.exception("Unified oracle engine unavailable — falling back to technical score")
-        from market_context import oracle_score
-
-        unified = {
-            "opportunity_score": oracle_score(quote_volume, change),
-            "verdict": None,
-            "confidence": None,
-            "engine": "technical_fallback_v1",
-        }
-
-    payload = _build_full_oracle_response(
-        asset, price, volume, quote_volume, change,
-        whale_alert=whale_alert,
-        unified=unified,
+    await _enforce_oracle_quota(user)
+    asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
+    payload = await _build_primary_oracle_payload(
+        asset,
+        pair,
+        price,
+        volume,
+        quote_volume,
+        change,
     )
-    try:
-        payload["explanation"] = await _build_opportunity_explanation(
-            asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
-        )
-    except Exception:
-        logger.exception("Oracle explanation unavailable")
-        payload["explanation"] = {"summary": "Technical oracle response (extended explanation unavailable)."}
-    try:
-        from forecast_engine import enrich_oracle_payload
-
-        payload = await enrich_oracle_payload(payload)
-    except Exception:
-        logger.exception("Oracle forecast enrichment unavailable")
-
-    # Constitution differentiators on the primary user path (D3/D4/D7/D8 + UX mode)
-    try:
-        from decision_enrichment import enrich_oracle_decision
-        from ux_mode import normalize_lang, normalize_ux_mode
-
-        payload = enrich_oracle_decision(
-            payload,
-            ux_mode=normalize_ux_mode(ux_mode),
-            lang=normalize_lang(lang),
-            register_signal=True,
-        )
-    except Exception:
-        logger.exception("Constitution decision enrichment unavailable")
-
-    # D1: await audit log so response carries a real prediction_id (not signal_id).
-    try:
-        prediction_id = await _log_oracle_prediction(payload)
-        if prediction_id is not None:
-            payload["prediction_id"] = prediction_id
-            # D8: bind audit prediction_id onto the sovereign registry row
-            try:
-                from signal_registry import attach_prediction_id, register_from_evaluation
-
-                sig = (payload.get("signal_registry") or {}).get("signal_id")
-                linked = attach_prediction_id(str(sig), prediction_id) if sig else None
-                if not linked:
-                    linked = register_from_evaluation(
-                        {
-                            "kind": payload.get("kind") or "oracle_direction",
-                            "asset": asset,
-                            "opportunity_score": payload.get("opportunity_score"),
-                            "oracle": {"verdict": payload.get("verdict")},
-                            "prediction_id": prediction_id,
-                            "payload": payload,
-                        }
-                    )
-                if linked:
-                    payload["signal_registry"] = {
-                        "signal_id": linked.get("signal_id"),
-                        "prediction_id": linked.get("prediction_id"),
-                        "features_hash": linked.get("features_hash"),
-                        "label": linked.get("label"),
-                        "definition": linked.get("definition"),
-                        "source": linked.get("source"),
-                        "weight": linked.get("weight"),
-                        "performance": linked.get("performance"),
-                    }
-            except Exception:
-                logger.debug("signal registry prediction_id attach failed", exc_info=True)
-            try:
-                from oracle_audit_chain import chain_summary
-
-                recent = (chain_summary(limit=8) or {}).get("recent_records") or []
-                for entry in reversed(recent):
-                    if str(entry.get("prediction_id")) == str(prediction_id):
-                        payload["chain_hash"] = entry.get("chain_hash")
-                        payload["proof"] = {
-                            "prediction_id": prediction_id,
-                            "chain_hash": entry.get("chain_hash"),
-                            "public_page": PATH_ORACLE_ACCURACY,
-                        }
-                        break
-            except Exception:
-                logger.debug("chain_hash attach failed", exc_info=True)
-    except Exception:
-        logger.exception("Oracle prediction_id attach failed")
-
-    # Hero #6 — Decision Certificate on every primary Oracle response.
-    try:
-        from decision_certificate import build_decision_certificate, compliance_footer_block
-
-        payload["tier"] = (user or {}).get("tier") or "free"
-        payload["decision_certificate"] = build_decision_certificate(payload)
-        payload["compliance_footer"] = compliance_footer_block(
-            surface="single_sentence_oracle",
-            trust_basis="public_accuracy_ledger + decision_certificate",
-        )
-    except Exception:
-        logger.debug("Decision certificate attach failed", exc_info=True)
-
-    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
-    try:
-        from oracle_scenarios import build_oracle_scenarios
-
-        payload["scenarios"] = build_oracle_scenarios(payload)
-    except Exception:
-        logger.debug("Oracle scenarios attach failed", exc_info=True)
-
-    # Hero #1 — Why in <5s (normalized Top-3 for UI)
-    try:
-        from heroes_quality import build_oqs_why_block
-
-        payload["oqs_why"] = build_oqs_why_block(payload)
-        if payload["oqs_why"].get("top_3_factors"):
-            expl = payload.get("explanation") or {}
-            if isinstance(expl, dict) and not expl.get("top_3_factors"):
-                expl = {**expl, "top_3_factors": payload["oqs_why"]["top_3_factors"]}
-                payload["explanation"] = expl
-    except Exception:
-        logger.debug("OQS why block attach failed", exc_info=True)
-
-    # Durable product alert without Telegram when Oracle says ACT.
-    try:
-        if str(payload.get("decision_action") or "").upper() == "ACT":
-            from alert_service import dispatch_alert
-
-            sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
-            await dispatch_alert(
-                f"Oracle ACT · {asset}",
-                sentence,
-                payload={
-                    "asset": asset,
-                    "prediction_id": payload.get("prediction_id"),
-                    "opportunity_score": payload.get("opportunity_score"),
-                    "verdict": payload.get("verdict"),
-                    "source": "oracle_act",
-                },
-                channels=["in_app"],
-            )
-    except Exception:
-        logger.debug("Oracle ACT in-app alert failed", exc_info=True)
-
-    background_tasks.add_task(
-        _record_behavior,
-        "oracle_query",
-        user=user,
-        asset=asset,
-        payload={
-            "verdict": payload.get("verdict"),
-            "opportunity_score": payload.get("opportunity_score"),
-            "ux_mode": payload.get("ux_mode"),
-            "prediction_id": payload.get("prediction_id"),
-            "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
-        },
-    )
-    try:
-        from observability import increment_metric
-
-        increment_metric("oracle_queries_total")
-    except Exception:
-        pass
-
-    try:
-        from data_freshness import attach_oracle_freshness
-
-        payload = attach_oracle_freshness({**payload, "asset": asset})
-    except Exception:
-        logger.debug("Oracle freshness attach failed", exc_info=True)
-
-    try:
-        from zero_tolerance import apply_zero_tolerance
-
-        payload = apply_zero_tolerance(payload)
-    except Exception:
-        logger.debug("Zero-tolerance attach failed", exc_info=True)
-
-    from regulatory_compliance_guard import apply_regulatory_compliance
-    from security_sanitize import sanitize_oracle_payload
-
-    payload = apply_regulatory_compliance(payload) if user and is_admin_user(user) else sanitize_oracle_payload(payload)
-    return JSONResponse(payload)
+    payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
+    payload = await _attach_oracle_prediction_proof(payload, asset)
+    _attach_oracle_certificate(payload, user)
+    _attach_oracle_scenarios_safe(payload)
+    _attach_oqs_why_safe(payload)
+    await _dispatch_oracle_act_alert_safe(payload, asset)
+    _queue_oracle_behavior_task(background_tasks, user, asset, payload)
+    _increment_oracle_queries_metric()
+    payload = _attach_oracle_freshness_safe(payload, asset)
+    payload = _apply_zero_tolerance_safe(payload)
+    return JSONResponse(_sanitize_oracle_response(payload, user))
 
 
 @app.get("/api/whale-activity")
