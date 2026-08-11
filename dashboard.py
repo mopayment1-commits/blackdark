@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -222,6 +222,10 @@ async def _record_behavior(
         session_id=session_id,
         payload=payload,
     )
+    _increment_behavior_metric()
+
+
+def _increment_behavior_metric() -> None:
     try:
         from observability import increment_metric
 
