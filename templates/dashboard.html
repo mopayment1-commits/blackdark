@@ -1367,6 +1367,27 @@
             return ({ retail:'prove', pro:'operate', whale:'desk', fund:'room' })[aud] || 'prove';
         }
 
+
+        function scrollForLens(lensId) {
+            const hash = (location.hash || '').replace('#','');
+            if (hash) {
+                setTimeout(() => scrollToId(hash === 'oracle' ? 'decide' : hash), 200);
+                return;
+            }
+            if (lensId === 'desk') setTimeout(scrollToStealth, 250);
+            else setTimeout(() => scrollToId('decide'), 200);
+        }
+        function paintLensChrome(d) {
+            const lens = d.lens || {};
+            const promise = document.getElementById('lensPromise');
+            if (promise) promise.textContent = (lens.promise || '') + (lens.support ? ' — ' + lens.support : '');
+            const banner = document.getElementById('audienceBanner');
+            if (banner) {
+                banner.style.display = 'block';
+                banner.textContent = (lens.label || currentLens) + ' lens · ' + (lens.viral_role || '');
+            }
+            renderEntries(d.entries || []);
+        }
         async function applyLens(lensId, { persist=true, scroll=true } = {}) {
             currentLens = (lensId || 'prove').toLowerCase();
             if (persist) {
@@ -1387,27 +1408,13 @@
                 const res = await fetch('/api/lenses/' + encodeURIComponent(currentLens));
                 const d = await res.json();
                 lensManifest = d;
-                const lens = d.lens || {};
-                const promise = document.getElementById('lensPromise');
-                if (promise) promise.textContent = (lens.promise || '') + (lens.support ? ' — ' + lens.support : '');
-                const banner = document.getElementById('audienceBanner');
-                if (banner) {
-                    banner.style.display = 'block';
-                    banner.textContent = (lens.label || currentLens) + ' lens · ' + (lens.viral_role || '');
-                }
-                renderEntries(d.entries || []);
+                paintLensChrome(d);
                 if (currentLens === 'room' && scroll) {
-                    // Room is prestige / Talk to us — leave decision room for Data Room
-                    setTimeout(() => { location.href = lens.cta_primary?.href || '/data-room'; }, 180);
+                    const href = (d.lens && d.lens.cta_primary && d.lens.cta_primary.href) || '/data-room';
+                    setTimeout(() => { location.href = href; }, 180);
                     return;
                 }
-                if (scroll) {
-                    const hash = (location.hash || '').replace('#','');
-                    if (hash) setTimeout(() => scrollToId(hash === 'oracle' ? 'decide' : hash), 200);
-                    else if (currentLens === 'desk') setTimeout(scrollToStealth, 250);
-                    else if (currentLens === 'operate') setTimeout(() => scrollToId('decide'), 200);
-                    else setTimeout(() => scrollToId('decide'), 200);
-                }
+                if (scroll) scrollForLens(currentLens);
             } catch (error) {
                 console.debug(error);
                 renderEntries([

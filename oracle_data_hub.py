@@ -567,18 +567,16 @@ async def _openrouter_sentence(prompt: str) -> str | None:
         return None
 
 
-async def synthesize_with_free_llm_chain(
+def _llm_synthesis_prompt(
     asset: str,
     opportunity_score: float,
     summary: str,
     hub_context: dict[str, Any],
-) -> str | None:
-    """Try free LLM providers in order until one responds."""
+) -> str:
     macro = hub_context.get("macro") or {}
     sentiment = hub_context.get("sentiment") or {}
     geo = hub_context.get("geo_news") or {}
-
-    prompt = (
+    return (
         "You are a crypto oracle. Return ONE sentence starting with 'Buy Now' or 'Do Not Touch', "
         "then em dash, then reason. Consider war/peace news, macro, fear/greed, derivatives.\n"
         f"Asset={asset}, score={opportunity_score}, summary={summary}\n"
@@ -587,24 +585,42 @@ async def synthesize_with_free_llm_chain(
         f"Geo headlines={geo.get('geopolitical_headline_count')}"
     )
 
-    chain = os.getenv(
-        "ORACLE_FREE_LLM_CHAIN",
-        STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
-    ).split(",")
 
-    handlers = {
+def _llm_handlers() -> dict[str, Any]:
+    return {
         "ollama": _ollama_sentence,
         "groq": _groq_sentence,
         "gemini": _gemini_sentence,
         "openrouter": _openrouter_sentence,
     }
 
-    for name in chain:
+
+def _llm_chain_names() -> list[str]:
+    return os.getenv(
+        "ORACLE_FREE_LLM_CHAIN",
+        STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
+    ).split(",")
+
+
+def _accepted_llm_sentence(sentence: str | None) -> bool:
+    return bool(sentence and ("Buy Now" in sentence or "Do Not Touch" in sentence))
+
+
+async def synthesize_with_free_llm_chain(
+    asset: str,
+    opportunity_score: float,
+    summary: str,
+    hub_context: dict[str, Any],
+) -> str | None:
+    """Try free LLM providers in order until one responds."""
+    prompt = _llm_synthesis_prompt(asset, opportunity_score, summary, hub_context)
+    handlers = _llm_handlers()
+    for name in _llm_chain_names():
         handler = handlers.get(name.strip().lower())
         if handler is None:
             continue
         sentence = await handler(prompt)
-        if sentence and ("Buy Now" in sentence or "Do Not Touch" in sentence):
+        if _accepted_llm_sentence(sentence):
             return sentence
     return None
 

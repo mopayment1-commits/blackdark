@@ -426,7 +426,7 @@ async function executeCexDex() {
             ? `✅ ${ex.asset} · ${ex.mode} · ${(ex.legs||[]).length} legs`
             : '✅ Cycle complete';
     } catch (error) { console.debug(error); msg.className = 'msg err';
-        msg.textContent = '❌ ' + e.message; }
+        msg.textContent = '❌ ' + error.message; }
 }
 
 async function loadDerivCompare() {
@@ -438,12 +438,18 @@ async function loadDerivCompare() {
         const data = await res.json();
         const cex = (data.cex_funding || []).slice(0, 6);
         const dex = (data.dex_perp_quotes || []).slice(0, 6);
+        const cexHtml = cex.length
+            ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
+            : '<div class="loading">No CEX funding</div>';
+        const dexHtml = dex.length
+            ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
+            : '<div class="loading">No DEX perp data</div>';
         wrap.innerHTML = `<div class="grid-2">
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">CEX Funding</h3>
-            ${cex.length ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('') : '<div class="loading">No CEX funding</div>'}
+            ${cexHtml}
             </div>
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">DEX Perp</h3>
-            ${dex.length ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('') : '<div class="loading">No DEX perp data</div>'}
+            ${dexHtml}
             </div></div>
             <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${data.comparison_note||''}</p>`;
     } catch (e) {
@@ -493,7 +499,7 @@ async function createGrid() {
         const data = await res.json();
         showMsg('gridMsg', `Grid ${data.id} created (${data.levels.length} levels)`, true);
         loadGrids();
-    } catch (error) { console.debug(error); showMsg('gridMsg', e.message || 'Create failed', false); }
+    } catch (error) { console.debug(error); showMsg('gridMsg', error.message || 'Create failed', false); }
 }
 
 async function loadRules() {
@@ -535,7 +541,7 @@ async function createRule() {
         document.getElementById('ruleIf').value = '';
         document.getElementById('ruleThen').value = '';
         loadRules();
-    } catch (error) { console.debug(error); showMsg('ruleMsg', e.message || 'Add failed', false); }
+    } catch (error) { console.debug(error); showMsg('ruleMsg', error.message || 'Add failed', false); }
 }
 
 async function evalRules() {
@@ -545,7 +551,7 @@ async function evalRules() {
         const data = await res.json();
         const n = (data.triggered || []).length;
         showMsg('ruleMsg', `Evaluated ${data.evaluated} rules · ${n} triggered (${data.scan_ms||'?'}ms scan)`, true);
-    } catch (error) { console.debug(error); showMsg('ruleMsg', e.message || 'Evaluate failed', false); }
+    } catch (error) { console.debug(error); showMsg('ruleMsg', error.message || 'Evaluate failed', false); }
 }
 
 async function runRebalance() {
@@ -574,7 +580,7 @@ async function runRebalance() {
             : '<div class="loading">Portfolio already balanced</div>';
         showMsg('rebalMsg', `Total $${fmt(data.portfolio_total_usd, 0)} · ${trades.length} trade(s) suggested`, true);
     } catch (error) { console.debug(error); wrap.innerHTML = '';
-        showMsg('rebalMsg', e.message || 'Rebalance failed', false); }
+        showMsg('rebalMsg', error.message || 'Rebalance failed', false); }
 }
 
 async function loadMarketplace() {
@@ -604,7 +610,7 @@ async function publishStrategy() {
         showMsg('marketplaceMsg', `Published ${data.name}`, true);
         document.getElementById('stratName').value = '';
         loadMarketplace();
-    } catch (error) { console.debug(error); showMsg('marketplaceMsg', e.message, false); }
+    } catch (error) { console.debug(error); showMsg('marketplaceMsg', error.message, false); }
 }
 
 async function loadLiquidations() {
