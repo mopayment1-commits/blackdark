@@ -92,9 +92,7 @@ def _require_terms_ack_or_403(request: Request):
 def _cookie_secure(request: Request | None = None) -> bool:
     if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
         return True
-    if request is not None and (request.url.scheme or "").lower() == "https":
-        return True
-    return False
+    return bool(request is not None and (request.url.scheme or "").lower() == "https")
 
 
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:

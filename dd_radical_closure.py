@@ -86,9 +86,9 @@ async def build_report2_capabilities_closure() -> dict[str, Any]:
     from enterprise_sso import sso_status
     from institutional_assurance import assurance_bundle_status
     from institutional_commerce import commerce_status
+    from org_mfa_policy import mfa_policy_status
     from org_rbac import rbac_status
     from org_tenant import org_isolation_status
-    from org_mfa_policy import mfa_policy_status
 
     assurance = assurance_bundle_status()
     model_card = await build_buyer_model_card()

@@ -30,7 +30,7 @@ def _safe_secret_key(key: str) -> str:
 
 def _storage_id(safe_key: str) -> str:
     """Non-path identifier for local/KV storage (hex digest only)."""
-    return hashlib.sha256(f"bd-vault-key:{safe_key}".encode("utf-8")).hexdigest()
+    return hashlib.sha256(f"bd-vault-key:{safe_key}".encode()).hexdigest()
 
 
 def _vault_kv_path(safe_key: str) -> str:

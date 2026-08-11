@@ -20,7 +20,7 @@ def _parse_ts(value: str | None) -> float | None:
     if not value:
         return None
     try:
-        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).timestamp()
+        return datetime.fromisoformat(str(value)).timestamp()
     except ValueError:
         return None
 

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from org_tenant import get_org, list_orgs_for_email, member_of
+from org_tenant import get_org, list_orgs_for_email
 
 
 def org_requires_mfa_for_email(email: str) -> dict[str, Any]:

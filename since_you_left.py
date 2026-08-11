@@ -185,19 +185,23 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
             }
         )
 
-    if cur.get("hottest_asset") and cur.get("active_opps", 0) > 0:
-        if cur.get("hottest_asset") != prev.get("hottest_asset") or cur.get("active_opps") != prev.get(
-            "active_opps"
-        ):
-            items.append(
-                {
-                    "id": "half_life_heat",
-                    "rank_score": 65,
-                    "title": "Desk heat changed",
-                    "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
-                    "href": "/dashboard?lens=desk#half-life-clock",
-                }
-            )
+    if (
+        cur.get("hottest_asset")
+        and cur.get("active_opps", 0) > 0
+        and (
+            cur.get("hottest_asset") != prev.get("hottest_asset")
+            or cur.get("active_opps") != prev.get("active_opps")
+        )
+    ):
+        items.append(
+            {
+                "id": "half_life_heat",
+                "rank_score": 65,
+                "title": "Desk heat changed",
+                "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
+                "href": "/dashboard?lens=desk#half-life-clock",
+            }
+        )
 
     if not items:
         items = [
