@@ -215,16 +215,24 @@ def test_institutional_router_and_pages_wired():
     assert Path("sdk/blackdark/client.py").exists()
 
 
-def test_http_dd_closure_endpoint():
+def test_http_dd_closure_endpoint(monkeypatch):
     import os
 
     os.environ.setdefault("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("ADMIN_API_KEY", "dd-closure-test-admin-key")
+    monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
     from fastapi.testclient import TestClient
 
     from dashboard import app
 
     client = TestClient(app)
-    r = client.get("/api/institutional/dd-closure")
+    # Unauthenticated institutional API must fail closed.
+    denied = client.get("/api/institutional/dd-closure")
+    assert denied.status_code in {401, 403}
+    r = client.get(
+        "/api/institutional/dd-closure",
+        headers={"X-Admin-Key": "dd-closure-test-admin-key"},
+    )
     assert r.status_code == 200
     body = r.json()
     assert body["all_done"] is True

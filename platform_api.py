@@ -15,13 +15,11 @@ router = APIRouter(prefix="/api/platform", tags=["platform"], responses=COMMON_E
 
 
 def _local_or_admin(request: Request, x_admin_key: str | None = None) -> None:
-    """Allow key save from localhost (non-prod only) or with admin credentials."""
-    from security_auth import is_production_env, verify_admin_key
+    """Fail-closed key save — admin API key only (never trust proxy peer/loopback)."""
+    from security_auth import verify_admin_key
 
+    _ = request
     if verify_admin_key(x_admin_key):
-        return
-    host = request.client.host if request.client else ""
-    if host in {"127.0.0.1", "::1", "localhost"} and not is_production_env():
         return
     raise HTTPException(status_code=403, detail="Admin authentication required to save API keys")
 
@@ -43,14 +41,14 @@ def _force_safe_dry_run(requested: Any) -> bool:
 
 
 @router.get("/keys/status")
-async def platform_keys_status():
+async def platform_keys_status(_admin: dict = Depends(require_admin)):
     from bd_platform.key_manager import keys_status
 
     return keys_status()
 
 
 @router.get("/keys/verify")
-async def platform_keys_verify():
+async def platform_keys_verify(_admin: dict = Depends(require_admin)):
     from bd_platform.key_manager import verify_all_keys
 
     return await verify_all_keys()

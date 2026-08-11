@@ -2970,7 +2970,7 @@ async def universe_status():
 
 
 @app.post("/api/universe/activate-full")
-async def universe_activate_full():
+async def universe_activate_full(_admin: dict = Depends(require_admin)):
     from universe_rollout import activate_full_universe, live_rollout_status
 
     result = activate_full_universe(save=True)
@@ -3202,7 +3202,7 @@ async def b2b_page(request: Request):
         request,
         "b2b.html",
         {
-            "demo_key": config.B2B_DEMO_API_KEY,
+            "demo_key": (config.B2B_DEMO_API_KEY if os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"} else "contact-sales"),
             "feed_version": config.B2B_FEED_VERSION,
             **_footer_ctx(),
         },

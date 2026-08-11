@@ -4,12 +4,37 @@ from __future__ import annotations
 
 from typing import Annotated, Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from pydantic import BaseModel, Field
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from security_auth import (
+    optional_user_from_request,
+    require_admin,
+    require_authenticated,
+    verify_admin_key,
+)
 
-router = APIRouter(prefix="/api/institutional", tags=["institutional"], responses=COMMON_ERROR_RESPONSES)
+
+async def require_institutional_principal(
+    user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
+    x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
+) -> dict:
+    """Authenticated user OR fail-closed admin key (+ MFA when policy on)."""
+    if verify_admin_key(x_admin_key):
+        return await require_admin(user=user, x_admin_key=x_admin_key, x_admin_totp=x_admin_totp)
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return user
+
+
+router = APIRouter(
+    prefix="/api/institutional",
+    tags=["institutional"],
+    responses=COMMON_ERROR_RESPONSES,
+    dependencies=[Depends(require_institutional_principal)],
+)
 
 
 class OrgCreate(BaseModel):
@@ -164,16 +189,21 @@ async def dd_report2() -> dict[str, Any]:
 
 
 @router.post("/orgs")
-async def create_org(body: OrgCreate) -> dict[str, Any]:
+async def create_org(body: OrgCreate, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
     from org_tenant import create_org
 
-    return create_org(name=body.name, owner_email=body.owner_email, require_mfa=body.require_mfa, slug=body.slug)
+    # Owner is always the authenticated principal — never trust body spoof.
+    owner = str(user.get("email") or "").strip().lower()
+    if not owner:
+        raise HTTPException(401, "Authenticated email required")
+    return create_org(name=body.name, owner_email=owner, require_mfa=body.require_mfa, slug=body.slug)
 
 
 @router.get("/orgs")
-async def list_orgs(email: Annotated[str, Query(...)]) -> dict[str, Any]:
+async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, Any]:
     from org_tenant import list_orgs_for_email, org_isolation_status
 
+    email = str(user.get("email") or "").strip().lower()
     return {"orgs": list_orgs_for_email(email), "isolation": org_isolation_status()}
 
 
@@ -195,11 +225,12 @@ async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
 
 
 @router.post("/orgs/{org_id}/roles", responses=COMMON_ERROR_RESPONSES)
-async def org_role_change(org_id: str, body: RoleChange) -> dict[str, Any]:
+async def org_role_change(org_id: str, body: RoleChange, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
     from org_tenant import set_member_role
 
+    actor = str(user.get("email") or "").strip().lower()
     try:
-        return set_member_role(org_id, body.email, body.role, actor_email=body.actor_email)
+        return set_member_role(org_id, body.email, body.role, actor_email=actor)
     except PermissionError as exc:
         raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
@@ -207,11 +238,12 @@ async def org_role_change(org_id: str, body: RoleChange) -> dict[str, Any]:
 
 
 @router.post("/orgs/{org_id}/mfa-policy", responses=COMMON_ERROR_RESPONSES)
-async def org_mfa_policy(org_id: str, body: MfaPolicy) -> dict[str, Any]:
+async def org_mfa_policy(org_id: str, body: MfaPolicy, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
     from org_tenant import set_org_mfa_required
 
+    actor = str(user.get("email") or "").strip().lower()
     try:
-        return set_org_mfa_required(org_id, body.require_mfa, actor_email=body.actor_email)
+        return set_org_mfa_required(org_id, body.require_mfa, actor_email=actor)
     except PermissionError as exc:
         raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
@@ -219,9 +251,17 @@ async def org_mfa_policy(org_id: str, body: MfaPolicy) -> dict[str, Any]:
 
 
 @router.get("/mfa-policy/check")
-async def mfa_policy_check(email: Annotated[str, Query(...)]) -> dict[str, Any]:
+async def mfa_policy_check(
+    email: Annotated[str, Query(...)],
+    user: dict = Depends(require_authenticated),
+) -> dict[str, Any]:
     from org_mfa_policy import mfa_policy_status, org_requires_mfa_for_email
+    from security_auth import is_admin_user
 
+    ask = email.strip().lower()
+    me = str(user.get("email") or "").strip().lower()
+    if ask != me and not is_admin_user(user):
+        raise HTTPException(403, "Cannot inspect MFA policy for another user")
     return {**org_requires_mfa_for_email(email), **mfa_policy_status()}
 
 
@@ -233,7 +273,7 @@ async def rbac_matrix() -> dict[str, Any]:
 
 
 @router.post("/sso/configure", responses=COMMON_ERROR_RESPONSES)
-async def sso_configure(body: SsoConfigure) -> dict[str, Any]:
+async def sso_configure(body: SsoConfigure, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from enterprise_sso import configure_provider
 
     try:
@@ -285,7 +325,7 @@ async def sso_status_api(org_id: str | None = None) -> dict[str, Any]:
 
 
 @router.post("/commerce/invoice", responses=COMMON_ERROR_RESPONSES)
-async def commerce_invoice(body: InvoiceCreate) -> dict[str, Any]:
+async def commerce_invoice(body: InvoiceCreate, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import create_invoice
 
     try:
@@ -301,7 +341,7 @@ async def commerce_invoice(body: InvoiceCreate) -> dict[str, Any]:
 
 
 @router.post("/commerce/mark-paid", responses=COMMON_ERROR_RESPONSES)
-async def commerce_mark_paid(body: MarkPaid) -> dict[str, Any]:
+async def commerce_mark_paid(body: MarkPaid, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import mark_invoice_paid
 
     try:
@@ -311,7 +351,7 @@ async def commerce_mark_paid(body: MarkPaid) -> dict[str, Any]:
 
 
 @router.post("/commerce/kyc")
-async def commerce_kyc(body: KycOpen) -> dict[str, Any]:
+async def commerce_kyc(body: KycOpen, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import open_kyc_case
 
     return open_kyc_case(
@@ -323,7 +363,7 @@ async def commerce_kyc(body: KycOpen) -> dict[str, Any]:
 
 
 @router.post("/commerce/kyc/decide", responses=COMMON_ERROR_RESPONSES)
-async def commerce_kyc_decide(body: KycDecide) -> dict[str, Any]:
+async def commerce_kyc_decide(body: KycDecide, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import decide_kyc
 
     try:
@@ -340,7 +380,7 @@ async def commerce_status_api() -> dict[str, Any]:
 
 
 @router.post("/capacity")
-async def publish_capacity(body: CapacityPublish) -> dict[str, Any]:
+async def publish_capacity(body: CapacityPublish, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import publish_signed_capacity
 
     return publish_signed_capacity(**body.model_dump())
@@ -366,7 +406,7 @@ async def compliance_api() -> dict[str, Any]:
 
 
 @router.post("/compliance/evidence", responses=COMMON_ERROR_RESPONSES)
-async def compliance_deposit(body: EvidenceDeposit) -> dict[str, Any]:
+async def compliance_deposit(body: EvidenceDeposit, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import deposit_compliance_evidence
 
     try:
@@ -376,7 +416,7 @@ async def compliance_deposit(body: EvidenceDeposit) -> dict[str, Any]:
 
 
 @router.post("/contracts", responses=COMMON_ERROR_RESPONSES)
-async def contracts_create(body: ContractCreate) -> dict[str, Any]:
+async def contracts_create(body: ContractCreate, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import create_contract
 
     try:
@@ -386,7 +426,7 @@ async def contracts_create(body: ContractCreate) -> dict[str, Any]:
 
 
 @router.post("/contracts/sign", responses=COMMON_ERROR_RESPONSES)
-async def contracts_sign(body: ContractSign) -> dict[str, Any]:
+async def contracts_sign(body: ContractSign, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import sign_contract
 
     try:
@@ -414,7 +454,7 @@ async def ir_api() -> dict[str, Any]:
 
 
 @router.post("/ir/tabletop")
-async def ir_tabletop(body: Tabletop) -> dict[str, Any]:
+async def ir_tabletop(body: Tabletop, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import record_tabletop
 
     return record_tabletop(title=body.title, outcome=body.outcome, participants=body.participants)
@@ -435,7 +475,7 @@ async def ha_api() -> dict[str, Any]:
 
 
 @router.post("/ha/failover-drill")
-async def ha_failover(body: FailoverDrill) -> dict[str, Any]:
+async def ha_failover(body: FailoverDrill, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import record_failover_drill
 
     return record_failover_drill(**body.model_dump())
@@ -476,7 +516,7 @@ async def backup_api() -> dict[str, Any]:
 
 
 @router.post("/backup/drill")
-async def backup_drill(body: BackupDrill) -> dict[str, Any]:
+async def backup_drill(body: BackupDrill, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_assurance import record_backup_drill
 
     return record_backup_drill(**body.model_dump())
