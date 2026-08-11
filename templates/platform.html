@@ -695,6 +695,10 @@ async function runScript() {
     } catch (error) { console.debug(error); showMsg('scriptMsg', error.message, false); }
 }
 
+function keyStatusLabel(k) {
+    if (!k.configured) return 'Not connected';
+    return 'Saved ' + (k.masked || '');
+}
 async function loadPlatformKeys() {
     const wrap = document.getElementById('keysWrap');
     try {
@@ -704,7 +708,7 @@ async function loadPlatformKeys() {
             <div class="key-row">
                 <div>
                     <strong>${k.label || k.id}</strong>
-                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${k.configured ? 'Saved ' + (k.masked || '') : 'Not connected'}</span>
+                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${keyStatusLabel(k)}</span>
                     <div class="key-meta">${k.tier} · <a href="${k.signup}" target="_blank" rel="noopener">Sign up / API</a></div>
                     <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off" aria-label="${k.env}">
                 </div>

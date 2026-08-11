@@ -222,6 +222,10 @@
             };
         }
 
+        function listItemLabel(item) {
+            if (typeof item === 'string') return item;
+            return item.title || item.name || item.item || item.label || JSON.stringify(item);
+        }
         function disconnectWs() {
             if (ws) ws.close();
         }
@@ -300,13 +304,13 @@
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Differentiators</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${diffs.map(d => `<li>${typeof d === 'string' ? d : (d.title || d.name || JSON.stringify(d))}</li>`).join('') || '<li>See JSON below</li>'}
+                        ${(diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('') || '<li>See JSON below</li>')}
                     </ul>
                 </div>
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Committee checklist</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${checks.map(c => `<li>${typeof c === 'string' ? c : (c.item || c.label || JSON.stringify(c))}</li>`).join('') || '<li>See JSON below</li>'}
+                        ${(checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('') || '<li>See JSON below</li>')}
                     </ul>
                 </div>
                 <p style="font-size:.8rem;color:var(--muted);margin:0">

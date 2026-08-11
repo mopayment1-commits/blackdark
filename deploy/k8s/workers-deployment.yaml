@@ -55,6 +55,7 @@ spec:
               cpu: "250m"
               memory: "512Mi"
             limits:
+              ephemeral-storage: "1Gi"
               cpu: "1500m"
               memory: "2Gi"
 ---
@@ -115,5 +116,6 @@ spec:
               cpu: "200m"
               memory: "512Mi"
             limits:
+              ephemeral-storage: "1Gi"
               cpu: "1000m"
               memory: "1Gi"

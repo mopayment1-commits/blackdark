@@ -1242,26 +1242,33 @@
                 });
                 const d = await res.json();
                 const slices = ((d.slice_plan || {}).slices || []);
-                const sliceTable = slices.length
-                    ? `<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">
-                        <thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>
-                        <tbody>${slices.slice(0,12).map(s => `<tr>
+                const sliceRows = slices.slice(0,12).map(s => `<tr>
                             <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
                             <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
                             <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
                             <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
                             <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
-                        </tr>`).join('')}</tbody></table>`
+                        </tr>`).join('');
+                const sliceTable = slices.length
+                    ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
+                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>'
+                        + '<tbody>' + sliceRows + '</tbody></table>')
                     : '';
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
-                        ${d.slice_plan ? `<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ${d.slice_plan.algo} · window ${d.slice_plan.window_sec}s · interval ${d.slice_plan.interval_sec}s · offset ${d.slice_plan.limit_offset_bps} bps</div>` : ''}
-                        ${sliceTable}
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
-                    </div>`;
+                let planBit = '';
+                if (d.slice_plan) {
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + d.slice_plan.algo
+                        + ' · window ' + d.slice_plan.window_sec + 's · interval ' + d.slice_plan.interval_sec
+                        + 's · offset ' + d.slice_plan.limit_offset_bps + ' bps</div>';
+                }
+                el.innerHTML =
+                    '<div class="arb-card"><strong>' + (d.style||'advisory') + '</strong> · ' + d.asset + ' ' + d.side
+                    + ' · $' + fmt(d.notional_usd,0)
+                    + '<div style="margin-top:.4rem">' + d.recommended_slices + ' slices × $' + fmt(d.slice_usd,2)
+                    + ' · urgency ' + d.urgency + '</div>'
+                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + (d.advice||'') + '</div>'
+                    + planBit + sliceTable
+                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
+                    + (d.disclaimer||'') + '</div></div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
