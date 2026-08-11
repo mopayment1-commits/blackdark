@@ -72,6 +72,64 @@ def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str
     return updated
 
 
+def _rewalk_cex_dex(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:
+    from dex_slippage import simulate_amm_swap
+
+    liq = float(opportunity.get("dex_liquidity_usd") or 0)
+    price = float(opportunity.get("dex_price") or opportunity.get("buy_price") or 0)
+    sim = simulate_amm_swap(amount_in_usd=notional, price=price, liquidity_usd=liq)
+    if sim is None:
+        return {**opportunity, "rewalk": "dex_liquidity_fail", "executable": False, "cancel_reason": "liquidity"}
+    return {
+        **opportunity,
+        "total_slippage_bps": sim["slippage_bps"],
+        "executable": sim["executable"],
+        "rewalk": "dex_ok",
+    }
+
+
+def _rewalk_cross_exchange(
+    opportunity: dict[str, Any],
+    *,
+    books: dict[str, Any],
+    age_ms: float,
+    notional: float,
+) -> dict[str, Any]:
+    buy_ex = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "").lower()
+    sell_ex = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "").lower()
+    asset = str(opportunity.get("asset") or "BTC")
+    symbol = f"{asset}/USDT"
+    buy_book = (books.get(buy_ex) or {}).get(symbol)
+    sell_book = (books.get(sell_ex) or {}).get(symbol)
+    if not buy_book or not sell_book:
+        return {**opportunity, "rewalk": "missing_books", "executable": False}
+
+    buy_exec = walk_asks(buy_book, notional)
+    if buy_exec is None:
+        return {**opportunity, "rewalk": "insufficient_buy_depth", "executable": False, "cancel_reason": "liquidity"}
+
+    sell_exec = walk_bids(sell_book, buy_exec.base_amount)
+    if sell_exec is None:
+        return {**opportunity, "rewalk": "insufficient_sell_depth", "executable": False, "cancel_reason": "liquidity"}
+
+    total_slip = buy_exec.slippage_bps + sell_exec.slippage_bps
+    from risk_manager import check_slippage
+
+    verdict = check_slippage(total_slip)
+    updated = {
+        **opportunity,
+        "total_slippage_bps": round(total_slip, 2),
+        "buy_slippage_bps": round(buy_exec.slippage_bps, 2),
+        "sell_slippage_bps": round(sell_exec.slippage_bps, 2),
+        "rewalk_age_ms": round(age_ms, 1),
+        "executable": verdict.allowed,
+        "rewalk": "ok",
+    }
+    if not verdict.allowed:
+        updated["cancel_reason"] = verdict.reason
+    return updated
+
+
 async def rewalk_opportunity_slippage(
     opportunity: dict[str, Any],
     *,
@@ -88,60 +146,15 @@ async def rewalk_opportunity_slippage(
         return _rewalk_triangular(opportunity, notional)
 
     if kind == "cex_dex":
-        from dex_slippage import simulate_amm_swap
-
-        liq = float(opportunity.get("dex_liquidity_usd") or 0)
-        price = float(opportunity.get("dex_price") or opportunity.get("buy_price") or 0)
-        sim = simulate_amm_swap(amount_in_usd=notional, price=price, liquidity_usd=liq)
-        if sim is None:
-            return {**opportunity, "rewalk": "dex_liquidity_fail", "executable": False, "cancel_reason": "liquidity"}
-        return {
-            **opportunity,
-            "total_slippage_bps": sim["slippage_bps"],
-            "executable": sim["executable"],
-            "rewalk": "dex_ok",
-        }
+        return _rewalk_cex_dex(opportunity, notional)
 
     fresh = get_live_books_if_fresh()
     if not fresh:
         return {**opportunity, "rewalk": "no_fresh_books", "executable": False}
 
     books, age_ms = fresh
-    buy_ex = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "").lower()
-    sell_ex = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "").lower()
-    asset = str(opportunity.get("asset") or "BTC")
-    symbol = f"{asset}/USDT"
-
     if kind in {"cross_exchange", "fast_cross", "stream_cross_exchange"}:
-        buy_book = (books.get(buy_ex) or {}).get(symbol)
-        sell_book = (books.get(sell_ex) or {}).get(symbol)
-        if not buy_book or not sell_book:
-            return {**opportunity, "rewalk": "missing_books", "executable": False}
-
-        buy_exec = walk_asks(buy_book, notional)
-        if buy_exec is None:
-            return {**opportunity, "rewalk": "insufficient_buy_depth", "executable": False, "cancel_reason": "liquidity"}
-
-        sell_exec = walk_bids(sell_book, buy_exec.base_amount)
-        if sell_exec is None:
-            return {**opportunity, "rewalk": "insufficient_sell_depth", "executable": False, "cancel_reason": "liquidity"}
-
-        total_slip = buy_exec.slippage_bps + sell_exec.slippage_bps
-        from risk_manager import check_slippage
-
-        verdict = check_slippage(total_slip)
-        updated = {
-            **opportunity,
-            "total_slippage_bps": round(total_slip, 2),
-            "buy_slippage_bps": round(buy_exec.slippage_bps, 2),
-            "sell_slippage_bps": round(sell_exec.slippage_bps, 2),
-            "rewalk_age_ms": round(age_ms, 1),
-            "executable": verdict.allowed,
-            "rewalk": "ok",
-        }
-        if not verdict.allowed:
-            updated["cancel_reason"] = verdict.reason
-        return updated
+        return _rewalk_cross_exchange(opportunity, books=books, age_ms=age_ms, notional=notional)
 
     return {**opportunity, "rewalk": "skipped", "executable": True}
 

@@ -445,6 +445,45 @@ def _half_life_skip_reason(opportunity: dict[str, Any]) -> dict[str, Any] | None
     return None
 
 
+def _state_skip_reason(
+    opportunity: dict[str, Any],
+    state: dict[str, Any],
+    live: bool,
+    dry_run_default: bool,
+) -> dict[str, Any] | None:
+    if state.get("panic_active"):
+        return {"skipped": True, "reason": "panic_active"}
+    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
+        return {"skipped": True, "reason": "auto_execution_disabled"}
+    profit = float(opportunity.get("net_profit_usdt") or 0)
+    min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
+    if profit < min_usdt:
+        return {"skipped": True, "reason": "below_min_profit", "profit_usdt": profit}
+    return None
+
+
+def _opportunity_risk_skip_reason(opportunity: dict[str, Any]) -> dict[str, Any] | None:
+    from risk_manager import evaluate_execution_risk
+
+    risk = evaluate_execution_risk(opportunity)
+    if not risk.allowed:
+        return {"skipped": True, "reason": risk.reason, "risk_blocked": True}
+    kind = str(opportunity.get("kind") or "")
+    if kind == "triangular" and float(opportunity.get("data_age_sec") or 0) > 1.0:
+        return {"skipped": True, "reason": "triangular_stale_for_execution"}
+    return None
+
+
+def _ensure_execution_gates_safe(opportunity: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from constitution_gates import ensure_execution_gates
+
+        return ensure_execution_gates(opportunity)
+    except Exception:
+        logger.debug("execution gate recompute failed", exc_info=True)
+        return opportunity
+
+
 async def try_execute_from_opportunity(
     opportunity: dict[str, Any],
     *,
@@ -458,37 +497,17 @@ async def try_execute_from_opportunity(
         return {"skipped": True, "reason": "trading_frozen"}
 
     state = await fetch_execution_state()
-    if state.get("panic_active"):
-        return {"skipped": True, "reason": "panic_active"}
-
     live = _live_enabled()
     dry_run_default = _dry_run_default()
-    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
-        return {"skipped": True, "reason": "auto_execution_disabled"}
 
-    min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
-    profit = float(opportunity.get("net_profit_usdt") or 0)
-    if profit < min_usdt:
-        return {"skipped": True, "reason": "below_min_profit", "profit_usdt": profit}
+    skip = _state_skip_reason(opportunity, state, live, dry_run_default)
+    if skip is not None:
+        return skip
+    skip = _opportunity_risk_skip_reason(opportunity)
+    if skip is not None:
+        return skip
 
-    from risk_manager import evaluate_execution_risk
-
-    risk = evaluate_execution_risk(opportunity)
-    if not risk.allowed:
-        return {"skipped": True, "reason": risk.reason, "risk_blocked": True}
-
-    kind = str(opportunity.get("kind") or "")
-    if kind == "triangular" and float(opportunity.get("data_age_sec") or 0) > 1.0:
-        return {"skipped": True, "reason": "triangular_stale_for_execution"}
-
-    # Constitution fail-closed: recompute missing Truth / Half-Life / Veto before exec.
-    try:
-        from constitution_gates import ensure_execution_gates
-
-        opportunity = ensure_execution_gates(opportunity)
-    except Exception:
-        logger.debug("execution gate recompute failed", exc_info=True)
-
+    opportunity = _ensure_execution_gates_safe(opportunity)
     skip = _gate_skip_reason(opportunity) or _half_life_skip_reason(opportunity)
     if skip is not None:
         return skip
