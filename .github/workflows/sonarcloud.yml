@@ -58,6 +58,7 @@ jobs:
             tests/test_path_safety.py \
             tests/test_arb_truth_gate.py \
             tests/test_sql_safety.py \
+            tests/test_sonar_new_coverage_closure.py \
             tests/test_zero_tolerance.py \
             tests/test_viral_capacity.py \
             tests/test_dec_motion_and_oqs_weights.py \

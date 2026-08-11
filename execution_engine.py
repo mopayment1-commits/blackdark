@@ -360,8 +360,10 @@ async def execute_order(
         return _blocked_order("invalid_price_or_amount", "Price and amount must be positive.")
     from fee_matrix import taker_fee as _venue_taker_fee
 
-    fee_rate = float(_venue_taker_fee(str(market.get("exchange") or "binance")))
-    fee = amount_usd * fee_rate
+    fee_rate = _venue_taker_fee(str(market.get("exchange") or "binance"))
+    if fee_rate is None:
+        return _blocked_order("unknown_venue_fee", "Venue taker fee unknown — fail closed.")
+    fee = amount_usd * float(fee_rate)
     quantity = (amount_usd - fee) / price if side == "buy" else amount_usd / price
 
     use_dry_run = _dry_run_default() if dry_run is None else dry_run
