@@ -5,14 +5,17 @@ Writes gitignored `.env.softlaunch.local` (mode 0600) with:
   Soft Launch flags, vault/session/admin secrets, Admin TOTP, demo key off.
 
 Does NOT print secret values. Does NOT require Stripe/Lemon/WhatsApp/domain purchase.
+Does NOT require pyotp (stdlib only for TOTP secret/URI).
 """
 
 from __future__ import annotations
 
 import argparse
+import base64
 import secrets
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -26,13 +29,21 @@ def _hex(n: int) -> str:
 
 
 def _totp_secret() -> str:
-    import pyotp
+    """Base32 TOTP secret without pyotp."""
+    return base64.b32encode(secrets.token_bytes(20)).decode("ascii").rstrip("=")
 
-    return pyotp.random_base32()
+
+def _totp_uri(secret: str, admin_email: str) -> str:
+    label = quote(f"BLACKDARK Admin:{admin_email}", safe="")
+    issuer = quote("BLACKDARK Admin", safe="")
+    return (
+        f"otpauth://totp/{label}?secret={secret}"
+        f"&issuer={issuer}&algorithm=SHA1&digits=6&period=30"
+    )
 
 
 def _parse_existing(path: Path) -> dict[str, str]:
-    if not path.is_file():
+    if not path.is_file() or path.stat().st_size < 100:
         return {}
     out: dict[str, str] = {}
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -41,7 +52,8 @@ def _parse_existing(path: Path) -> dict[str, str]:
             continue
         k, _, v = raw.partition("=")
         out[k.strip()] = v.strip()
-    return out
+    # Empty/whitespace-only Notepad residue counts as missing.
+    return out if out else {}
 
 
 def build_block(*, admin_email: str, rotate: bool) -> dict[str, str]:
@@ -52,7 +64,8 @@ def build_block(*, admin_email: str, rotate: bool) -> dict[str, str]:
         "SERVICE_MODE": "web",
         "APP_BASE_URL": prev.get("APP_BASE_URL") or "http://127.0.0.1:8080",
         "ALLOWED_HOSTS": prev.get("ALLOWED_HOSTS") or "127.0.0.1,localhost",
-        "CORS_ALLOWED_ORIGINS": prev.get("CORS_ALLOWED_ORIGINS") or "http://127.0.0.1:8080,http://localhost:8080",
+        "CORS_ALLOWED_ORIGINS": prev.get("CORS_ALLOWED_ORIGINS")
+        or "http://127.0.0.1:8080,http://localhost:8080",
         "SECRETS_MASTER_KEY": prev.get("SECRETS_MASTER_KEY") or _hex(32),
         "SESSION_TOKEN_PEPPER": prev.get("SESSION_TOKEN_PEPPER") or _hex(16),
         "ADMIN_API_KEY": prev.get("ADMIN_API_KEY") or _hex(24),
@@ -79,6 +92,9 @@ def main() -> int:
     p.add_argument("--admin-email", default="mopayment1@gmail.com")
     p.add_argument("--rotate", action="store_true")
     args = p.parse_args()
+    # Empty prior Notepad file => treat as missing and regenerate.
+    if OUT.is_file() and OUT.stat().st_size < 100:
+        args.rotate = True
     block = build_block(admin_email=args.admin_email.strip().lower(), rotate=args.rotate)
     lines = [
         "# BLACKDARK Soft Launch — FREE human-ops bootstrap",
@@ -90,36 +106,32 @@ def main() -> int:
     for k, v in block.items():
         lines.append(f"{k}={v}")
     lines.append("")
-    # TOTP URI helper (no secret reprint beyond file)
-    try:
-        import pyotp
-
-        uri = pyotp.TOTP(block["ADMIN_TOTP_SECRET"]).provisioning_uri(
-            name=block["ADMIN_EMAILS"],
-            issuer_name="BLACKDARK Admin",
-        )
-        lines.extend(
-            [
-                "# --- Admin MFA (Authenticator app) ---",
-                f"# otpauth URI (also in file comment only): scan via Authenticator",
-                f"# ADMIN_TOTP_URI={uri}",
-                "",
-            ]
-        )
-    except Exception:
-        pass
+    uri = _totp_uri(block["ADMIN_TOTP_SECRET"], block["ADMIN_EMAILS"])
+    lines.extend(
+        [
+            "# --- Admin MFA (Authenticator app) ---",
+            "# otpauth URI: add in Google/Microsoft Authenticator (manual entry or URI)",
+            f"# ADMIN_TOTP_URI={uri}",
+            "",
+        ]
+    )
     write_private_text(OUT, "\n".join(lines) + "\n")
+    size = OUT.stat().st_size
+    if size < 100:
+        print({"ok": False, "error": "wrote_suspiciously_small_file", "bytes": size, "path": str(OUT)})
+        return 2
     print(
         {
             "ok": True,
             "wrote": str(OUT),
+            "bytes": size,
             "mode": "0600",
             "soft_launch": True,
             "admin_email": block["ADMIN_EMAILS"],
             "keys_set": sorted(block.keys()),
             "next": [
                 "Open .env.softlaunch.local locally (do not commit)",
-                "Scan ADMIN_TOTP into Authenticator (URI comment in file)",
+                "Scan/add ADMIN_TOTP into Authenticator (URI comment in file)",
                 "Follow docs/FREE_HUMAN_OPS_PLAYBOOK_AR.md",
             ],
             "secrets_printed": False,

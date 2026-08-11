@@ -129,10 +129,11 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
                 deny = " ".join(r.get("claim", "") for r in (payload.get("overclaim_denylist") or []))
                 if "ARENA" not in deny.upper():
                     content_notes.append("denylist missing ARENA")
-            if key == "intent" and "What do you want to do today?" not in str(
-                payload.get("question")
-            ):
-                content_notes.append("intent question mismatch")
+            if key == "intent":
+                q = str(payload.get("question") or "")
+                # Accept current canon ("What do you need?") and legacy phrasing.
+                if "What do you need?" not in q and "What do you want to do today?" not in q:
+                    content_notes.append("intent question mismatch")
             if key == "correction" and payload.get("heroes_count") != 6:
                 content_notes.append("correction heroes_count != 6")
     except Exception as exc:

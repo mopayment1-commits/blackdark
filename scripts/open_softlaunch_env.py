@@ -1,56 +1,71 @@
 #!/usr/bin/env python3
-"""Open .env.softlaunch.local in the easiest local editor (Notepad on Windows)."""
+"""Open Soft Launch env file in the OS default editor (Notepad on Windows).
+
+If the env file is missing or empty, regenerate it first.
+"""
 
 from __future__ import annotations
 
+import argparse
 import os
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ENV_PATH = ROOT / ".env.softlaunch.local"
+DEFAULT_ENV = ROOT / ".env.softlaunch.local"
 
 
-def ensure_file() -> None:
-    if ENV_PATH.is_file():
-        return
-    print("File missing — creating with bootstrap_free_human_ops.py ...")
-    subprocess.check_call(
-        [
+def _ensure_env(admin_email: str, rotate: bool) -> Path:
+    path = DEFAULT_ENV
+    needs = (not path.exists()) or path.stat().st_size < 100
+    if needs or rotate:
+        cmd = [
             sys.executable,
             str(ROOT / "scripts" / "bootstrap_free_human_ops.py"),
             "--admin-email",
-            os.getenv("ADMIN_EMAIL", "mopayment1@gmail.com"),
-        ],
-        cwd=str(ROOT),
-    )
+            admin_email,
+        ]
+        if rotate or needs:
+            cmd.append("--rotate")
+        subprocess.check_call(cmd)
+    return path
+
+
+def _open(path: Path) -> int:
+    if sys.platform.startswith("win"):
+        # Prefer Notepad explicitly so Git Bash users see the same editor.
+        return subprocess.call(["notepad", str(path)])
+    if sys.platform == "darwin":
+        return subprocess.call(["open", str(path)])
+    # Linux / cloud VM
+    for editor in (os.environ.get("EDITOR"), "xdg-open", "nano", "vi"):
+        if not editor:
+            continue
+        try:
+            return subprocess.call([editor, str(path)])
+        except FileNotFoundError:
+            continue
+    print(path)
+    return 0
 
 
 def main() -> int:
-    ensure_file()
-    print(f"Opening: {ENV_PATH}")
-    print("Do NOT paste secrets into chat or email.")
-    if sys.platform.startswith("win"):
-        # Notepad — simplest for non-experts on Windows
-        subprocess.Popen(["notepad.exe", str(ENV_PATH)])
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--admin-email", default="mopayment1@gmail.com")
+    ap.add_argument("--rotate", action="store_true")
+    ap.add_argument("--no-open", action="store_true", help="Only ensure file exists")
+    args = ap.parse_args()
+
+    path = _ensure_env(args.admin_email, args.rotate)
+    size = path.stat().st_size
+    print(f"Env ready: {path} ({size} bytes)")
+    if size < 100:
+        print("ERROR: env file still too small", file=sys.stderr)
+        return 2
+    if args.no_open:
         return 0
-    if sys.platform == "darwin":
-        subprocess.Popen(["open", "-t", str(ENV_PATH)])
-        return 0
-    # Linux: try common editors, then print path
-    for cmd in (
-        ["xdg-open", str(ENV_PATH)],
-        ["gedit", str(ENV_PATH)],
-        ["nano", str(ENV_PATH)],
-    ):
-        try:
-            subprocess.Popen(cmd)
-            return 0
-        except FileNotFoundError:
-            continue
-    print(f"Open this file manually:\n{ENV_PATH}")
-    return 0
+    return _open(path)
 
 
 if __name__ == "__main__":
