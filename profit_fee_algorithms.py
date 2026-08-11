@@ -77,18 +77,23 @@ def slippage_buffer_usdt(
     return notional * (total_bps / 10_000)
 
 
-def open_leg_fees_usdt(notional: float, exchange_id: str = "binance") -> float:
+def open_leg_fees_usdt(notional: float, exchange_id: str = "binance") -> float | None:
     from fee_matrix import trading_fees_usdt
 
-    return trading_fees_usdt(exchange_id, notional, market="spot") + trading_fees_usdt(
-        exchange_id, notional, market="perpetual"
-    )
+    spot = trading_fees_usdt(exchange_id, notional, market="spot")
+    perp = trading_fees_usdt(exchange_id, notional, market="perpetual")
+    if spot is None or perp is None:
+        return None
+    return spot + perp
 
 
-def funding_open_leg_fees_usdt(notional: float, exchange_id: str = "binance") -> float:
+def funding_open_leg_fees_usdt(notional: float, exchange_id: str = "binance") -> float | None:
     from fee_matrix import trading_fees_usdt
 
-    return trading_fees_usdt(exchange_id, notional, market="perpetual") * 2
+    perp = trading_fees_usdt(exchange_id, notional, market="perpetual")
+    if perp is None:
+        return None
+    return perp * 2
 
 
 def walk_asks(order_book: dict[str, Any], quote_amount: float) -> BuyExecution | None:
@@ -199,14 +204,20 @@ def net_cross_exchange_profit(
     from fee_matrix import taker_fee
     from money_decimal import apply_fee, money_float, net_after_costs
 
-    buy_fee = apply_fee(buy_exec.quote_cost, taker_fee(buy_exchange))
-    sell_fee = apply_fee(sell_exec.quote_value, taker_fee(sell_exchange))
+    buy_rate = taker_fee(buy_exchange)
+    sell_rate = taker_fee(sell_exchange)
+    if buy_rate is None or sell_rate is None:
+        return None
+    buy_fee = apply_fee(buy_exec.quote_cost, buy_rate)
+    sell_fee = apply_fee(sell_exec.quote_value, sell_rate)
     trading_fees = money_float(buy_fee + sell_fee)
     withdraw = withdrawal_fee_usdt(buy_exchange, symbol)
     if withdraw is None:
         # Unknown transfer cost must not invent a zero-fee false profit.
         return None
     deposit = deposit_fee_usdt(sell_exchange, symbol)
+    if deposit is None:
+        return None
     total_slip = buy_exec.slippage_bps + sell_exec.slippage_bps
     slip_buf = slippage_buffer_usdt(quote, total_slip, market_context)
     net_profit_dec = net_after_costs(

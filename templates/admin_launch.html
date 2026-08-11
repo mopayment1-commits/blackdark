@@ -30,6 +30,7 @@
         .ready.no { border-color: var(--warn); color: var(--warn); }
         a { color: var(--accent); }
     </style>
+  <script src="/static/js/dom_safe.js"></script>
 </head>
 <body>
     <nav>
@@ -56,23 +57,37 @@
             ready.textContent = d.launch_ready
                 ? `Launch-ready · ${d.launch_percent}%`
                 : `Not ready yet · ${d.launch_percent}% — blocked=${d.blocked_count}`;
-            document.getElementById('stats').innerHTML = `
-                <div class="stat"><strong>${d.done_count}</strong>Done</div>
-                <div class="stat"><strong>${d.progress_count}</strong>In progress</div>
-                <div class="stat"><strong>${d.blocked_count}</strong>Blocked</div>
-                <div class="stat"><strong>${d.pending_count}</strong>Pending</div>`;
-            document.getElementById('days').innerHTML = (d.days || []).map(day => `
-                <section class="day">
-                    <h2>${day.label} — ${day.percent}%</h2>
-                    ${(day.items || []).map(i => `
-                        <div class="item">
-                            <span class="pill ${i.status}">${i.status}</span>
-                            <div>
-                                <div>${i.title}</div>
-                                <div style="color:var(--muted);font-size:.8rem">${i.action || ''}${i.endpoint ? ' · ' + i.endpoint : ''}</div>
-                            </div>
-                        </div>`).join('')}
-                </section>`).join('');
+            const esc = (globalThis.esc || globalThis.escapeHtml || ((v)=>String(v??'')));
+            const stats = document.getElementById('stats');
+            stats.replaceChildren();
+            for (const [val, label] of [[d.done_count,'Done'],[d.progress_count,'In progress'],[d.blocked_count,'Blocked'],[d.pending_count,'Pending']]) {
+              const box=document.createElement('div'); box.className='stat';
+              const strong=document.createElement('strong'); strong.textContent=String(val??'—');
+              box.appendChild(strong); box.appendChild(document.createTextNode(label));
+              stats.appendChild(box);
+            }
+            const daysEl=document.getElementById('days');
+            daysEl.replaceChildren();
+            for (const day of (d.days||[])) {
+              const section=document.createElement('section'); section.className='day';
+              const h2=document.createElement('h2');
+              h2.textContent=`${day.label || ''} — ${day.percent ?? '—'}%`;
+              section.appendChild(h2);
+              for (const i of (day.items||[])) {
+                const item=document.createElement('div'); item.className='item';
+                const pill=document.createElement('span');
+                pill.className='pill ' + esc(i.status||'');
+                pill.textContent=String(i.status||'');
+                const body=document.createElement('div');
+                const title=document.createElement('div'); title.textContent=String(i.title||'');
+                const meta=document.createElement('div'); meta.style.cssText='color:var(--muted);font-size:.8rem';
+                meta.textContent=`${i.action||''}${i.endpoint ? ' · ' + i.endpoint : ''}`;
+                body.appendChild(title); body.appendChild(meta);
+                item.appendChild(pill); item.appendChild(body);
+                section.appendChild(item);
+              }
+              daysEl.appendChild(section);
+            }
         }
         try {
             await load();

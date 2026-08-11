@@ -37,24 +37,41 @@ def _cross_exchange_spread(asset: str) -> dict[str, Any] | None:
         return None
 
     spread_bps = ((sell_bid - buy_ask) / buy_ask) * 10_000
-    fee_bps = float(getattr(config, "DEFAULT_TAKER_FEE", 0.001)) * 2 * 10_000
-    net_bps = spread_bps - fee_bps
+    # Fee authority: fee_matrix only. Unknown venue fees → omit net claim (fail-closed).
+    from fee_matrix import taker_fee as _venue_taker
+
+    buy_rate = _venue_taker(best_ask_ex)
+    sell_rate = _venue_taker(best_bid_ex)
+    fee_bps = None
+    net_bps = None
+    if buy_rate is not None and sell_rate is not None:
+        fee_bps = (buy_rate + sell_rate) * 10_000
+        net_bps = spread_bps - fee_bps
 
     # Top-of-book only — NEVER claim profitable/executable without depth rewalk.
     from executable_edge_truth import mark_indicative_only
 
+    payload = {
+        "asset": base,
+        "buy_exchange": best_ask_ex,
+        "sell_exchange": best_bid_ex,
+        "buy_price": buy_ask,
+        "sell_price": sell_bid,
+        "spread_bps": round(spread_bps, 2),
+        "kind": "fast_cross",
+    }
+    if fee_bps is not None and net_bps is not None:
+        payload["fee_bps"] = round(fee_bps, 2)
+        payload["net_spread_bps"] = round(net_bps, 2)
+        payload["topline_positive"] = net_bps > 0
+    else:
+        payload["fee_bps"] = None
+        payload["net_spread_bps"] = None
+        payload["topline_positive"] = False
+        payload["fee_unknown"] = True
+
     return mark_indicative_only(
-        {
-            "asset": base,
-            "buy_exchange": best_ask_ex,
-            "sell_exchange": best_bid_ex,
-            "buy_price": buy_ask,
-            "sell_price": sell_bid,
-            "spread_bps": round(spread_bps, 2),
-            "net_spread_bps": round(net_bps, 2),
-            "topline_positive": net_bps > 0,
-            "kind": "fast_cross",
-        },
+        payload,
         reason="top_of_book_only_no_depth",
     )
 

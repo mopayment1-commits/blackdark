@@ -52,6 +52,13 @@ def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str
     from fee_matrix import taker_fee
 
     ex_fee = taker_fee(exchange)
+    if ex_fee is None:
+        return {
+            **opportunity,
+            "rewalk": "unknown_venue_fee",
+            "executable": False,
+            "cancel_reason": "fee_unknown",
+        }
     net_final, slip = _walk_triangle_legs(legs, books, notional, ex_fee, True)
     if net_final is None:
         return {**opportunity, "rewalk": "triangle_depth_fail", "executable": False, "cancel_reason": "liquidity"}

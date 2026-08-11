@@ -51,6 +51,25 @@ python scripts/load_test_1m_simulation.py
 
 ## Recorded runs
 
+### 2026-08-11T23:00:29Z — Soft Launch Postgres+Redis concurrent burst (NOT signed HA)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-11T23:00:29Z |
+| Commit intent | tip before closure commit on `cursor/institutional-hardening-120d` (post-Ruff cherry-pick `518b018`) |
+| Environment | local Soft Launch (`SOFT_LAUNCH=true`, `ENV=development`, single uvicorn worker) |
+| Workers / replicas | 1 × 1 |
+| Postgres | yes (`postgresql://blackdark@127.0.0.1:5432/blackdark`) |
+| Redis | yes (`redis://127.0.0.1:6379/0`, used_memory≈1.1M) |
+| Infra limits | Single process; Soft Launch rate-limits; **not** multi-worker / multi-replica HA |
+| Script | `scripts/load_test.py` (50) + `scripts/load_test_concurrent.py` (20 workers × 100 req/endpoint) |
+| Results (sequential) | app_live p50/p95=2/2ms · ready 1/2 · trust_os 2/2 · strategy_correction 2/2 · ledger_page 2/3 (errors 30/50) · sidecar_live 0/0 · harness PASS |
+| Results (concurrent) | live ok_rate=1.0 p50/p95=28.4/32.9ms · ready 1.0 26.1/181.1ms · compliance_html 1.0 34.6/40.0ms · oracle_quick ok_rate=0.6 p95=769.4ms · viral/trust_os/scale/arb capacity_ok_rate=1.0 via controlled 429 |
+| Error / degradation | Controlled 429 under burst (Soft Launch / viral protection). No process collapse. |
+| Notes | **NEEDS_EXTERNAL_VERIFICATION for DEC-0407 signed HA.** Re-run with `WEB_CONCURRENCY`×`WEB_REPLICAS`≥2, Soft Launch unset, viral production approved. |
+| Operator | cloud-agent one-shot closure |
+
+
 ### 2026-08-11T21:39:09Z — local Soft Launch + Postgres/Redis (NOT signed HA multi-worker proof)
 
 | Field | Value |

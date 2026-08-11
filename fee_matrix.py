@@ -2,6 +2,10 @@
 BLACKDARK — Runtime fee matrix (maker/taker, withdrawal, deposit).
 
 Refreshed hourly via CCXT + exchange APIs; covers all enabled venues.
+
+Fail-closed policy (DEC-0305):
+- Known seeded / refreshed venues return concrete rates.
+- Unknown venues or missing cells return None — never invent DEFAULT_* for live authority.
 """
 
 from __future__ import annotations
@@ -39,7 +43,20 @@ _refresh_task: asyncio.Task | None = None
 REFRESH_INTERVAL_SEC = int(getattr(config, "FEE_MATRIX_REFRESH_SEC", 3600))
 
 
+def _is_known_venue(exchange_id: str) -> bool:
+    ex = (exchange_id or "").lower().strip()
+    if not ex:
+        return False
+    if ex in WITHDRAWAL_FEE_USDT:
+        return True
+    try:
+        return ex in {k.lower() for k in config.enabled_exchanges()}
+    except Exception:
+        return False
+
+
 def _default_row(exchange_id: str) -> dict[str, Any]:
+    """Seed row for a *known* venue only. Unknown venues must not be invented."""
     return {
         "exchange": exchange_id,
         "taker": float(config.DEFAULT_TAKER_FEE),
@@ -56,45 +73,88 @@ def _ensure_seeded() -> None:
     if _matrix:
         return
     for ex in config.enabled_exchanges():
-        _matrix[ex] = _default_row(ex)
+        _matrix[ex.lower()] = _default_row(ex.lower())
 
 
-def taker_fee(exchange_id: str, *, market: str = "spot") -> float:
+def _row_for(exchange_id: str) -> dict[str, Any] | None:
+    """Return matrix row for known venues; None for unknown (fail-closed)."""
     _ensure_seeded()
-    row = _matrix.get(exchange_id.lower()) or _default_row(exchange_id.lower())
-    if market == "perpetual":
-        return float(row.get("futures_taker") or config.DEFAULT_FUTURES_TAKER_FEE)
-    return float(row.get("taker") or config.DEFAULT_TAKER_FEE)
+    ex = (exchange_id or "").lower().strip()
+    if not ex:
+        return None
+    row = _matrix.get(ex)
+    if row is not None:
+        return row
+    if _is_known_venue(ex):
+        row = _default_row(ex)
+        _matrix[ex] = row
+        return row
+    return None
 
 
-def maker_fee(exchange_id: str, *, market: str = "spot") -> float:
-    _ensure_seeded()
-    row = _matrix.get(exchange_id.lower()) or _default_row(exchange_id.lower())
+def _finite_rate(raw: Any) -> float | None:
+    if raw is None:
+        return None
+    try:
+        val = float(raw)
+    except (TypeError, ValueError):
+        return None
+    if val < 0 or val != val:  # NaN
+        return None
+    return val
+
+
+def taker_fee(exchange_id: str, *, market: str = "spot") -> float | None:
+    """Known venue taker rate, or None when unknown (never invent DEFAULT_*)."""
+    row = _row_for(exchange_id)
+    if row is None:
+        return None
     if market == "perpetual":
-        return float(row.get("futures_taker") or config.DEFAULT_FUTURES_TAKER_FEE) * 0.8
-    return float(row.get("maker") or config.DEFAULT_MAKER_FEE)
+        return _finite_rate(row.get("futures_taker"))
+    return _finite_rate(row.get("taker"))
+
+
+def maker_fee(exchange_id: str, *, market: str = "spot") -> float | None:
+    """Known venue maker rate, or None when unknown."""
+    row = _row_for(exchange_id)
+    if row is None:
+        return None
+    if market == "perpetual":
+        fut = _finite_rate(row.get("futures_taker"))
+        if fut is None:
+            return None
+        return fut * 0.8
+    return _finite_rate(row.get("maker"))
 
 
 def withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float | None:
     """Return known USDT withdrawal fee, or None when unknown (never invent 0)."""
-    _ensure_seeded()
+    row = _row_for(exchange_id)
+    if row is None:
+        return None
     base = symbol.split("/")[0].upper()
-    row = _matrix.get(exchange_id.lower()) or _default_row(exchange_id.lower())
     w = row.get("withdrawal") or {}
     if base in w and w[base] is not None:
         return float(w[base])
-    seed = WITHDRAWAL_FEE_USDT.get(exchange_id.lower(), {}).get(base)
+    seed = WITHDRAWAL_FEE_USDT.get((exchange_id or "").lower(), {}).get(base)
     if seed is not None:
         return float(seed)
     return None
 
 
-def deposit_fee_usdt(exchange_id: str, symbol: str) -> float:
-    _ensure_seeded()
+def deposit_fee_usdt(exchange_id: str, symbol: str) -> float | None:
+    """Known deposit fee (0 is valid for free deposits); None when unknown."""
+    row = _row_for(exchange_id)
+    if row is None:
+        return None
     base = symbol.split("/")[0].upper()
-    row = _matrix.get(exchange_id.lower()) or _default_row(exchange_id.lower())
     d = row.get("deposit") or {}
-    return float(d.get(base) or 0.0)
+    if base in d and d[base] is not None:
+        return float(d[base])
+    seed = DEPOSIT_FEE_USDT.get((exchange_id or "").lower(), {}).get(base)
+    if seed is not None:
+        return float(seed)
+    return None
 
 
 def trading_fees_usdt(
@@ -103,8 +163,10 @@ def trading_fees_usdt(
     *,
     market: str = "spot",
     use_maker: bool = False,
-) -> float:
+) -> float | None:
     rate = maker_fee(exchange_id, market=market) if use_maker else taker_fee(exchange_id, market=market)
+    if rate is None:
+        return None
     return notional * rate
 
 
@@ -127,14 +189,43 @@ async def _fetch_trading_fees(ex: Any) -> dict[str, Any]:
         return {}
 
 
-def _fee_rates(exchange_id: str, ex: Any, fees: dict[str, Any]) -> tuple[float, float]:
-    taker = float(getattr(ex, "fees", {}).get("trading", {}).get("taker") or 0) or taker_fee(exchange_id)
-    maker = float(getattr(ex, "fees", {}).get("trading", {}).get("maker") or 0) or maker_fee(exchange_id)
-    if not fees:
-        return taker, maker
-    for _sym, row in list(fees.items())[:1]:
-        if isinstance(row, dict):
-            return float(row.get("taker") or taker), float(row.get("maker") or maker)
+def _fee_rates(exchange_id: str, ex: Any, fees: dict[str, Any]) -> tuple[float | None, float | None]:
+    """Extract CCXT rates; treat missing/0 as unknown (do not chain to invented DEFAULT_*)."""
+    trading = getattr(ex, "fees", {}) or {}
+    if not isinstance(trading, dict):
+        trading = {}
+    trading = trading.get("trading") or {}
+    taker = _finite_rate(trading.get("taker"))
+    maker = _finite_rate(trading.get("maker"))
+    # Explicit 0.0 from CCXT is a valid free-fee rate; distinguish from missing via key presence.
+    if "taker" in trading and trading.get("taker") is not None:
+        try:
+            taker = float(trading["taker"])
+        except (TypeError, ValueError):
+            taker = None
+    if "maker" in trading and trading.get("maker") is not None:
+        try:
+            maker = float(trading["maker"])
+        except (TypeError, ValueError):
+            maker = None
+    if fees:
+        for _sym, row in list(fees.items())[:1]:
+            if isinstance(row, dict):
+                if "taker" in row and row.get("taker") is not None:
+                    try:
+                        taker = float(row["taker"])
+                    except (TypeError, ValueError):
+                        pass
+                if "maker" in row and row.get("maker") is not None:
+                    try:
+                        maker = float(row["maker"])
+                    except (TypeError, ValueError):
+                        pass
+                break
+    if taker is None:
+        taker = taker_fee(exchange_id)
+    if maker is None:
+        maker = maker_fee(exchange_id)
     return taker, maker
 
 
@@ -146,8 +237,9 @@ async def _refresh_exchange_fee(exchange_id: str, ccxt_async: Any, ccxt_id_map: 
     ex = exchange_class({"enableRateLimit": True})
     await ex.load_markets()
     taker, maker = _fee_rates(exchange_id, ex, await _fetch_trading_fees(ex))
-    _matrix[exchange_id] = {
-        **_matrix.get(exchange_id, _default_row(exchange_id)),
+    base = _row_for(exchange_id) or _default_row(exchange_id.lower())
+    _matrix[exchange_id.lower()] = {
+        **base,
         "taker": taker,
         "maker": maker,
         "source": "ccxt",
@@ -223,5 +315,8 @@ def matrix_stats() -> dict[str, Any]:
         "exchanges": len(_matrix),
         "last_refresh": _last_refresh,
         "refresh_interval_sec": REFRESH_INTERVAL_SEC,
-        "sample": {k: {"taker": v.get("taker"), "maker": v.get("maker"), "source": v.get("source")} for k, v in list(_matrix.items())[:8]},
+        "sample": {
+            k: {"taker": v.get("taker"), "maker": v.get("maker"), "source": v.get("source")}
+            for k, v in list(_matrix.items())[:8]
+        },
     }

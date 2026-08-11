@@ -56,20 +56,54 @@ def _cors_origins() -> list[str]:
     return origins
 
 
+def _csp_nonce() -> str:
+    import secrets
+
+    return secrets.token_urlsafe(16)
+
+
 def security_headers_for(request: Request) -> dict[str, str]:
-    """Baseline browser hardening headers."""
-    csp = os.getenv(
-        "CONTENT_SECURITY_POLICY",
-        "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline'; "
-        "img-src 'self' data: https:; "
-        "font-src 'self' data:; "
-        "connect-src 'self' https: wss:; "
-        "frame-ancestors 'none'; "
-        "base-uri 'self'; "
-        "form-action 'self'",
-    )
+    """Baseline browser hardening headers.
+
+    CSP nonce mode (DEC-0217 path): set CSP_NONCE_MODE=true to emit
+    script-src 'nonce-…' 'strict-dynamic' without 'unsafe-inline'.
+    Templates must then bind nonce via request.state.csp_nonce (progressive).
+    Default remains unsafe-inline until template migration completes.
+    """
+    nonce_mode = os.getenv("CSP_NONCE_MODE", "").strip().lower() in {"1", "true", "yes"}
+    nonce = getattr(request.state, "csp_nonce", None) if hasattr(request, "state") else None
+    if nonce_mode and not nonce:
+        nonce = _csp_nonce()
+        try:
+            request.state.csp_nonce = nonce
+        except Exception:
+            pass
+    if os.getenv("CONTENT_SECURITY_POLICY"):
+        csp = os.getenv("CONTENT_SECURITY_POLICY", "")
+    elif nonce_mode and nonce:
+        csp = (
+            "default-src 'self'; "
+            f"script-src 'nonce-{nonce}' 'strict-dynamic'; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data: https:; "
+            "font-src 'self' data:; "
+            "connect-src 'self' https: wss:; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
+    else:
+        csp = (
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline'; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data: https:; "
+            "font-src 'self' data:; "
+            "connect-src 'self' https: wss:; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
     headers = {
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",
@@ -121,6 +155,13 @@ def _request_origin_ok(request: Request) -> bool:
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
+        # Mint CSP nonce early so template render can read request.state.csp_nonce.
+        if os.getenv("CSP_NONCE_MODE", "").strip().lower() in {"1", "true", "yes"}:
+            try:
+                request.state.csp_nonce = _csp_nonce()
+            except Exception:
+                pass
+
         # TrustedHost in production
         if _is_production() and os.getenv("TRUSTED_HOST_ENFORCE", "true").lower() in {
             "1",

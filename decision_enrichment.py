@@ -27,17 +27,35 @@ def _truth_withdrawal_fee_usdt(out: dict[str, Any]) -> float | None:
 
 
 def _truth_input(out: dict[str, Any], asset: str, score: float, net_profit: float) -> dict[str, Any]:
-    # Synthetic edge proxy for directional oracle (non-arb): use score as confidence of edge
-    return {
+    """Build Truth inputs without inventing optimistic slip/net when fields are absent.
+
+    Directional oracle paths without explicit edge economics omit Truth fields so
+    compute_net_edge_truth fail-closes rather than scoring synthetic 8bps / 0 fees.
+    """
+    payload: dict[str, Any] = {
         "kind": out.get("kind") or "oracle_direction",
         "asset": asset,
-        "net_profit_usdt": net_profit or max(0.0, (score - 50.0) / 50.0),
-        "quote_amount": float(out.get("quote_amount") or out.get("volume_24h") or 1000),
-        "total_slippage_bps": float(out.get("total_slippage_bps") or 8.0),
-        "withdrawal_fee_usdt": _truth_withdrawal_fee_usdt(out),
         "quote_age_ms": out.get("quote_age_ms"),
         "estimated_recipients": int(out.get("estimated_recipients") or 5),
     }
+    if "quote_amount" in out and out.get("quote_amount") is not None:
+        payload["quote_amount"] = float(out["quote_amount"])
+    elif "volume_24h" in out and out.get("volume_24h") is not None:
+        payload["quote_amount"] = float(out["volume_24h"])
+    # Only pass net/slip/fees when present — never invent defaults for Truth.
+    if net_profit and net_profit > 0:
+        payload["net_profit_usdt"] = float(net_profit)
+    elif "net_profit_usdt" in out and out.get("net_profit_usdt") is not None:
+        payload["net_profit_usdt"] = float(out["net_profit_usdt"])
+    if "total_slippage_bps" in out and out.get("total_slippage_bps") is not None:
+        payload["total_slippage_bps"] = float(out["total_slippage_bps"])
+    if "trading_fees_usdt" in out and out.get("trading_fees_usdt") is not None:
+        payload["trading_fees_usdt"] = float(out["trading_fees_usdt"])
+    elif "fees_usdt" in out and out.get("fees_usdt") is not None:
+        payload["trading_fees_usdt"] = float(out["fees_usdt"])
+    if "withdrawal_fee_usdt" in out:
+        payload["withdrawal_fee_usdt"] = _truth_withdrawal_fee_usdt(out)
+    return payload
 
 
 def _has_explicit_edge(out: dict[str, Any], net_profit: float) -> bool:
@@ -45,11 +63,12 @@ def _has_explicit_edge(out: dict[str, Any], net_profit: float) -> bool:
 
 
 def _directional_truth_input(truth_input: dict[str, Any], score: float) -> dict[str, Any]:
+    """Directional oracle: do not invent slip/fees/net for Truth — mark indicative only."""
     return {
         **truth_input,
-        "net_profit_usdt": max(0.15, (score / 100.0) * 0.5),
-        "quote_age_ms": truth_input.get("quote_age_ms") or 300,
-        "total_slippage_bps": 5.0,
+        # Keep score for UI; Truth gate itself fail-closes without full economics.
+        "oracle_score": score,
+        "truth_indicative_only": True,
     }
 
 

@@ -222,13 +222,15 @@ def _execution_feasibility(net_bps: float, liq_usd: float, quote_usd: float) -> 
     return "partial"
 
 
-def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float:
-    """Indicative fee haircut via fee_matrix — never treat config defaults as venue truth."""
+def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float | None:
+    """Indicative fee haircut via fee_matrix — None when either venue fee unknown."""
     from fee_matrix import taker_fee
 
-    buy_rate = float(taker_fee(str(buy_venue or "")))
-    sell_rate = float(taker_fee(str(sell_venue or "")))
-    return (buy_rate + sell_rate) * 10_000 + _GAS_BPS_EST
+    buy_rate = taker_fee(str(buy_venue or ""))
+    sell_rate = taker_fee(str(sell_venue or ""))
+    if buy_rate is None or sell_rate is None:
+        return None
+    return (float(buy_rate) + float(sell_rate)) * 10_000 + _GAS_BPS_EST
 
 
 async def _cex_dex_opportunity_for_asset(
@@ -261,6 +263,8 @@ async def _cex_dex_opportunity_for_asset(
         return None
     # Mid-price path is indicative-only; fee estimate from fee_matrix (not DEFAULT_TAKER_FEE).
     fee_bps = _indicative_fee_bps(buy_venue, sell_venue)
+    if fee_bps is None:
+        return None
     net_bps = spread_bps - fee_bps
     if abs(net_bps) < _MIN_NET_BPS:
         return None

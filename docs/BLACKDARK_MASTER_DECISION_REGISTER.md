@@ -94,11 +94,11 @@ Status key:
 | DEC-0214 | Soft Launch forbids live execution + public demo key | SECURITY | production_guard | VERIFIED_IMPLEMENTED | tests |
 | DEC-0215 | Login rate limit 10/5min; Redis when available | SECURITY | SECURITY_REMEDIATION | VERIFIED_IMPLEMENTED | `check_login_rate_limit` |
 | DEC-0216 | Webhook signatures fail closed when configured | SECURITY | Remediation / payments | VERIFIED_IMPLEMENTED | Stripe/Lemon verify paths + tests |
-| DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | PARTIALLY_IMPLEMENTED | Headers present; `script-src 'unsafe-inline'` weakens XSS posture |
-| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | `dom_escape.js`/`dom_safe.js` + priority template escapes + `test_xss_sink_hardening`; **~151 innerHTML sinks** remain; CSP still `unsafe-inline` |
+| DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | PARTIALLY_IMPLEMENTED | Headers present; `CSP_NONCE_MODE` scaffold (`nonce` + `strict-dynamic`) exists but default still `script-src 'unsafe-inline'` until template nonce migration |
+| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | Admin launch/roadmap/plan + platform gatedHtml closed; shared DOM helpers; residual esc()+innerHTML sinks remain; CSP default still unsafe-inline |
 | DEC-0219 | Softlaunch CLI must not OS-command-taint admin email | SECURITY | PR #54 / tip | VERIFIED_IMPLEMENTED | `scripts/open_softlaunch_env.py` in-process + email metachar reject; `tests/test_softlaunch_no_shell_taint.py` |
 | DEC-0220 | Bandit zero HIGH/MEDIUM/LOW on production scan | QUALITY | PR #50 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
-| DEC-0221 | Ruff report 22 findings cleared | QUALITY | PR #51 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
+| DEC-0221 | Ruff report 22 findings cleared | QUALITY | PR #51 | VERIFIED_IMPLEMENTED | Cherry-picked `a6cb6a6` onto hardening tip; CI green on tip |
 
 ---
 
@@ -111,7 +111,7 @@ Status key:
 | DEC-0302 | Execution fail-closed on stale quotes | EXECUTION | Remediation Batch 2 | VERIFIED_IMPLEMENTED | `enforce_execution_quote_truth` |
 | DEC-0303 | Rewalk must recompute NET EXECUTABLE PROFIT | EXECUTION | Remediation Batch 2 | VERIFIED_IMPLEMENTED | slippage_guard + profit_fee |
 | DEC-0304 | Unknown withdrawal fee must not invent 0 | FINANCIAL | Remediation Batch 2/5 | VERIFIED_IMPLEMENTED | `fee_matrix` None; `net_edge_truth._parse_withdrawal_fee_usdt`; `decision_enrichment._truth_withdrawal_fee_usdt` |
-| DEC-0305 | fee_matrix is single fee authority | FINANCIAL | Remediation | PARTIALLY_IMPLEMENTED | `cex_dex_arbitrage` mid path uses fee_matrix; residual `DEFAULT_TAKER_FEE` remains in `arbitrage_engine`/`fast_scan`/`trade_simulator` as defaults/fallbacks |
+| DEC-0305 | fee_matrix is single fee authority | FINANCIAL | Remediation | VERIFIED_IMPLEMENTED | Unknown venues return None; DEFAULT_TAKER_FEE removed from live arb/fast_scan/trade_simulator/triangle/cex_dex paths; tests assert fail-closed |
 | DEC-0306 | Decimal half-even at net decision boundary | FINANCIAL | Remediation Batch 5 | VERIFIED_IMPLEMENTED | `money_decimal.py` + `money_model` field + tests |
 | DEC-0307 | Risk gate + panic stop before orders | EXECUTION | Constitution / risk_manager | VERIFIED_IMPLEMENTED | risk + execution freeze paths |
 | DEC-0308 | Live execution off by default / guarded | EXECUTION | production_guard / LIVE flags | VERIFIED_IMPLEMENTED | flags + soft-launch forbid |
@@ -178,7 +178,7 @@ Status key:
 | CF-02 | ARCHITECTURE.md “Alembic (+ _apply_migrations)” | DATABASE_MIGRATIONS.md single runtime authority | **RESOLVED** — ARCHITECTURE.md updated to single runtime authority |
 | CF-03 | net_edge_truth `withdrawal or 0.0` | fee_matrix unknown→None fail-closed | **RESOLVED** — net_edge_truth + decision_enrichment preserve None / reject |
 | CF-04 | Sonar AA-only policy (PR #53) vs institutional coverage-import requirement | Both “final” in different eras | **NEEDS USER DECISION** (user skipped AA disable) |
-| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch (#54 intent) on tip; Ruff cherry-picks partial; Bandit #50 not merged | **PARTIALLY RECONCILED** — #54 intent landed; #50/#51 still open |
+| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch (#54 intent) on tip; Ruff #51 cherry-picked; Bandit #50 conflicts (sql_safety/path_safety ported; full merge DIRTY) | **PARTIALLY RECONCILED** — #51 landed on tip; #50 still needs conflict resolution |
 
 ---
 
@@ -189,9 +189,9 @@ Status key:
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
 | VERIFIED_IMPLEMENTED | **69** |
-| PARTIALLY_IMPLEMENTED | **14** |
+| PARTIALLY_IMPLEMENTED | **13** |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
 | NOT_IMPLEMENTED | **2** |
-| NEEDS_EXTERNAL_VERIFICATION | **6** (includes DEC-0411 dual tag) |
+| NEEDS_EXTERNAL_VERIFICATION | **5** (DEC-0411 dual; Bandit #50 still external-ish) | (includes DEC-0411 dual tag) |
 | CONFLICTED (open DEC rows) | **1** (DEC-0016 → see DEC-0017) |
 | Unresolved CF-* needing user | **CF-04** (Sonar AA/token); CF-05 Bandit #50 still open |

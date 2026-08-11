@@ -283,10 +283,29 @@ function authHeaders() {
 }
 
 function gatedMessage(status) {
-    if (status === 401 || status === 403) {
-        return 'Login or Pro upgrade required — <a href="/login">Login</a> · <a href="/create-checkout-session?tier=pro">Upgrade</a>';
-    }
-    return null;
+    // Return boolean only — never pass HTML strings through error→innerHTML (XSS).
+    return status === 401 || status === 403;
+}
+
+function renderGated(wrap) {
+    wrap.replaceChildren();
+    const div = document.createElement('div');
+    div.className = 'loading';
+    div.appendChild(document.createTextNode('Login or Pro upgrade required — '));
+    const a1 = document.createElement('a'); a1.href = '/login'; a1.textContent = 'Login';
+    const sep = document.createTextNode(' · ');
+    const a2 = document.createElement('a'); a2.href = '/create-checkout-session?tier=pro'; a2.textContent = 'Upgrade';
+    div.appendChild(a1); div.appendChild(sep); div.appendChild(a2);
+    wrap.appendChild(div);
+}
+
+function renderLoadError(wrap, err, fallback) {
+    if (err && err.gated) { renderGated(wrap); return; }
+    wrap.replaceChildren();
+    const div = document.createElement('div');
+    div.className = 'loading';
+    div.textContent = (err && err.message) ? String(err.message) : String(fallback || 'Failed');
+    wrap.appendChild(div);
 }
 
 async function platformFetch(url, options) {
@@ -302,7 +321,7 @@ async function platformFetch(url, options) {
         } catch (error) { console.debug(error); }
         const err = new Error(gated ? 'Login or Pro upgrade required' : (detail || `Request failed (${res.status})`));
         err.status = res.status;
-        err.gatedHtml = gated;
+        err.gated = !!gated;
         throw err;
     }
     return res;
@@ -348,7 +367,7 @@ async function loadRankings() {
         rankingsCache = (data.coins || []).slice(0, 100);
         filterRankings();
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load rankings')}</div>`;
+        renderLoadError(wrap, e, 'Failed to load rankings');
     }
 }
 
@@ -402,7 +421,7 @@ async function loadCexDex() {
                 <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)} <span style="color:var(--muted);font-size:.68rem">indicative</span></span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Scan failed')}</div>`;
+        renderLoadError(wrap, e, 'Scan failed');
     }
 }
 
@@ -452,7 +471,7 @@ async function loadDerivCompare() {
             </div></div>
             <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${esc(data.comparison_note||'')}</p>`;
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Compare failed')}</div>`;
+        renderLoadError(wrap, e, 'Compare failed');
     }
 }
 
@@ -478,7 +497,7 @@ async function loadGrids() {
                 <span class="pill">${esc(g.mode||'paper')}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load grids')}</div>`;
+        renderLoadError(wrap, e, 'Failed to load grids');
     }
 }
 
@@ -517,7 +536,7 @@ async function loadRules() {
                 <span class="pill">${r.enabled ? 'on' : 'off'}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed to load rules')}</div>`;
+        renderLoadError(wrap, e, 'Failed to load rules');
     }
 }
 
@@ -591,7 +610,7 @@ async function loadMarketplace() {
             `<div class="metric-row"><span>${esc(s.name)} <span style="color:var(--muted)">${esc(s.kind||'')}</span></span><span class="pill">${esc(s.tier)}</span></div>`
         ).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`;
+        renderLoadError(wrap, e, 'Failed');
     }
 }
 
@@ -622,7 +641,7 @@ async function loadLiquidations() {
         wrap.innerHTML = (data.alerts||[]).map(a =>
             `<div class="metric-row"><span><strong>${esc(a.type)}</strong> · ${esc(a.detail||'')}</span><span class="pill">${esc(a.severity)}</span></div>`
         ).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadUnlocks() {
@@ -637,7 +656,7 @@ async function loadUnlocks() {
             (sched.length ? sched.map(u=>`<div class="metric-row"><span>${esc(u.asset)} · ${esc(u.unlock_date)}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
             `<h3 style="font-size:.85rem;margin:1rem 0 .5rem">Supply pressure</h3>` +
             press.slice(0,8).map(u=>`<div class="metric-row"><span>${esc(u.asset)}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadFootprint() {
@@ -650,7 +669,7 @@ async function loadFootprint() {
         const depth = data.depth_levels||[];
         wrap.innerHTML = `<div class="metric-row"><span>Order-flow delta</span><span>${fmt(data.order_flow_delta,4)}</span></div>` +
             depth.map(d=>`<div class="metric-row"><span>${esc(d.exchange)}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadCoindesk() {
@@ -662,7 +681,7 @@ async function loadCoindesk() {
         wrap.innerHTML = (data.coindesk_headlines||[]).map(h=>
             `<div class="metric-row"><span><a href="${safeUrl(h.link)}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none">${esc(h.title)}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
         ).join('') || '<div class="loading">No headlines</div>';
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadMacro() {
@@ -678,7 +697,7 @@ async function loadMacro() {
                 : `<a href="${safeUrl(i.url)}" target="_blank" rel="noopener" style="color:var(--accent)">Open</a>`;
             return `<div class="metric-row"><span>${esc(i.label)}</span><span>${val}</span></div>`;
         }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${esc(live.fee_fastest_sat_vb||'—')} sat/vB</p>`;
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Failed')}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function runScript() {
@@ -713,7 +732,7 @@ async function loadPlatformKeys() {
                 </div>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || esc('Key status unavailable — start server')}</div>`;
+        renderLoadError(wrap, e, 'Key status unavailable — start server');
     }
 }
 

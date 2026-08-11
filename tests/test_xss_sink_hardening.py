@@ -118,11 +118,13 @@ def test_net_edge_truth_rejects_unknown_withdrawal():
     assert "missing_withdrawal_fee" in missing["reasons"]
     assert missing["economics"]["withdrawal_fee_usdt"] is None
 
-    # Explicit None — same.
+    # Explicit None — same (other economics present so withdrawal is the fail reason).
     none_fee = compute_net_edge_truth(
         {
             "net_profit_usdt": 5.0,
             "quote_amount": 1000,
+            "total_slippage_bps": 2,
+            "trading_fees_usdt": 0.1,
             "withdrawal_fee_usdt": None,
             "quote_age_ms": 100,
         }
@@ -154,3 +156,31 @@ def test_cex_dex_fee_matrix_authority_not_default_taker():
     assert "config.DEFAULT_TAKER_FEE" not in src
     assert "fee_matrix" in src
     assert "indicative_fee_bps" in src
+
+
+def test_admin_templates_escape_or_dom_text():
+    for name in ("admin_launch.html", "admin_roadmap.html", "admin_plan.html"):
+        text = _read(TEMPLATES / name)
+        assert "dom_safe.js" in text or "escapeHtml" in text or "globalThis.esc" in text
+        # Must not interpolate raw i.title / i.note without esc/textContent
+        assert "${i.title}" not in text
+        assert "${i.note||''}" not in text or "esc(i.note" in text
+
+
+def test_platform_no_gatedhtml_passthrough():
+    plat = _read(TEMPLATES / "platform.html")
+    assert "gatedHtml" not in plat
+    assert "renderLoadError" in plat or "renderGated" in plat
+
+
+def test_csp_nonce_mode_scaffold():
+    src = _read(ROOT / "security_middleware.py")
+    assert "CSP_NONCE_MODE" in src
+    assert "strict-dynamic" in src
+    assert "csp_nonce" in src
+
+
+def test_fee_matrix_unknown_venue_none():
+    import fee_matrix
+    fee_matrix._matrix.clear()
+    assert fee_matrix.taker_fee("totally_unknown_xyz") is None

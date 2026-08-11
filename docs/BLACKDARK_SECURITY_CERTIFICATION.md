@@ -49,3 +49,13 @@ Therefore FINAL SECURITY VERDICT cannot be **VERIFIED COMPLETE**.
 1. Human paste of the 6 open alert rows (number/severity/rule/file/line) **or** grant code-scanning read.
 2. Merge fixes to `main` and wait for CodeQL default-branch analysis to close alerts.
 3. Sonar AA / `SONAR_TOKEN` / `SONAR_CI_ANALYSIS` remain separate institutional blockers (not CodeQL).
+
+## One-shot closure delta (pre-merge tip)
+
+- Fee authority fail-closed for unknown venues (`fee_matrix.taker_fee` → `None`).
+- Admin XSS sinks + platform `gatedHtml` passthrough closed.
+- CSP nonce mode scaffolded via `CSP_NONCE_MODE` (default still unsafe-inline).
+- Ruff #51 cherry-picked; Bandit `sql_safety`/`path_safety` ported (full #50 still conflicted).
+- Local pytest: **543 passed** (load/network deselected).
+- Sonar CI scanner still **SKIPPED** until AA disabled + `SONAR_CI_ANALYSIS=true` + `SONAR_TOKEN`.
+- CodeQL alerts API still **403**; cannot certify main open-alert count=0.

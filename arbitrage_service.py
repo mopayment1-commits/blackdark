@@ -753,9 +753,16 @@ async def compare_symbol_across_exchanges(
     net_profit_estimate = 0.0
     if best_buy and best_sell and best_buy["exchange"] != best_sell["exchange"]:
         gross_spread_bps = _gross_spread_bps(best_buy["best_ask"], best_sell["best_bid"])
-        fee_drag = notional * config.DEFAULT_TAKER_FEE * 2
-        gross_profit = notional * (gross_spread_bps / 10_000)
-        net_profit_estimate = gross_profit - fee_drag - 5.0
+        from fee_matrix import taker_fee as _tf
+
+        buy_r = _tf(str(best_buy["exchange"]))
+        sell_r = _tf(str(best_sell["exchange"]))
+        if buy_r is not None and sell_r is not None:
+            fee_drag = notional * (float(buy_r) + float(sell_r))
+            gross_profit = notional * (gross_spread_bps / 10_000)
+            net_profit_estimate = gross_profit - fee_drag - 5.0
+        else:
+            net_profit_estimate = 0.0
 
     from feed_lag_scanner import scan_feed_lag_from_venues
 
