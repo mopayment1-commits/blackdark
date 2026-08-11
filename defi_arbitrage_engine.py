@@ -12,6 +12,9 @@ import aiohttp
 
 import config
 
+# Sonar S1192: duplicated string literals
+STR_BLACKDARK_1_0 = 'BLACKDARK/1.0'
+
 logger = logging.getLogger("BLACKDARK.DeFiArbitrage")
 
 
@@ -25,7 +28,7 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
         return None
     url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT"
     try:
-        async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:
+        async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
             if resp.status != 200:
                 return None
             data = await resp.json()
@@ -99,7 +102,7 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
     dex_b_price = 0.0
     dex_b_venue = ""
     try:
-        async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:
+        async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
             if resp.status == 200:
                 data = await resp.json()
                 for row in data.get("pairs") or []:
@@ -158,7 +161,7 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
             continue
         url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT%20{chain}"
         try:
-            async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:
+            async with session.get(url, headers={"User-Agent": STR_BLACKDARK_1_0}) as resp:
                 if resp.status != 200:
                     continue
                 data = await resp.json()

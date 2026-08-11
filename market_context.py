@@ -16,6 +16,9 @@ from typing import Any
 import aiohttp
 
 import config
+
+# Sonar S1192: duplicated string literals
+STR_NO_SIGNIFICANT_WHALE_ACTIVITY = 'No significant whale activity'
 logger = logging.getLogger("BLACKDARK.MarketContext")
 
 _HTTP_TIMEOUT = aiohttp.ClientTimeout(total=12)
@@ -532,17 +535,17 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
         asset = pair.replace("USDT", "")
         return await get_whale_signal(asset, price)
     if not pair.isalnum():
-        return "No significant whale activity"
+        return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
     url = f"https://api.binance.com/api/v3/aggTrades?symbol={pair}&limit=200"
     threshold_usd = 75_000
     try:
         timeout = aiohttp.ClientTimeout(total=10)
         async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
             if resp.status != 200:
-                return "No significant whale activity"
+                return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
             trades = await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
-        return "No significant whale activity"
+        return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
 
     buy_blocks = 0
     sell_blocks = 0
@@ -665,7 +668,7 @@ def whale_alert_message(quote_volume: float, change: float) -> str:
         return "Moderate whale interest"
     if change < -5:
         return "Whale distribution detected — large sell pressure"
-    return "No significant whale activity"
+    return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
 
 
 def oracle_action(score: int, price: float, support: float, resistance: float) -> str:

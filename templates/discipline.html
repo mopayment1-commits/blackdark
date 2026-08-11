@@ -86,7 +86,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 document.getElementById('recent').innerHTML = rows.length
                     ? rows.map(r => `<div class="row"><strong>${r.asset}</strong> · system ${r.system_action} · ${r.followed ? 'followed' : 'overrode'} · ${r.outcome_label || 'pending'}</div>`).join('')
                     : '<div class="row">No answers yet — use Yes/No after an Oracle decision on the home page.</div>';
-            } catch (error) { console.debug(error); console.debug(error); console.debug(error); document.getElementById('msg').textContent = 'Mirror unavailable'; }
+            } catch (error) { console.debug(error); document.getElementById('msg').textContent = 'Mirror unavailable'; }
         }
         document.getElementById('userKey').value = localStorage.getItem('bd_user_key') || '';
         if (document.getElementById('userKey').value) loadMirror();

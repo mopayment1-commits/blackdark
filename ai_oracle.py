@@ -29,6 +29,10 @@ from sentiment_engine import (
     is_extreme_negative_sentiment,
 )
 
+# Sonar S1192: duplicated string literals
+STR_BUY_NOW = 'Buy Now'
+STR_DO_NOT_TOUCH = 'Do Not Touch'
+
 logger = logging.getLogger("BLACKDARK.AIOracle")
 
 OpportunityKind = Literal[
@@ -37,7 +41,7 @@ OpportunityKind = Literal[
     "spot_futures",
     "funding",
 ]
-OracleVerdict = Literal["Buy Now", "Do Not Touch"]
+OracleVerdict = Literal[STR_BUY_NOW, STR_DO_NOT_TOUCH]
 
 
 class OpportunityMetrics(BaseModel):
@@ -428,13 +432,13 @@ def _rules_oracle(
     if actionable:
         reason = explanation.reasons[0] if explanation.reasons else "Positive net edge detected."
         return OracleResponse(
-            verdict="Buy Now",
+            verdict=STR_BUY_NOW,
             sentence=f"Buy Now — {asset}: {reason}",
         )
 
     top_risk = explanation.risk_factors[0] if explanation.risk_factors else "Edge is too thin."
     return OracleResponse(
-        verdict="Do Not Touch",
+        verdict=STR_DO_NOT_TOUCH,
         sentence=f"Do Not Touch — {asset}: {top_risk}",
     )
 
@@ -486,7 +490,7 @@ async def _openai_oracle(
                 data = await response.json()
         sentence = data["choices"][0]["message"]["content"].strip()
         verdict: OracleVerdict = (
-            "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
         )
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
@@ -521,7 +525,7 @@ async def _ollama_oracle(
         if not sentence:
             return None
         verdict: OracleVerdict = (
-            "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
         )
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
@@ -560,7 +564,7 @@ async def get_single_sentence_oracle(
         )
         if sentence:
             verdict: OracleVerdict = (
-                "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+                STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
             )
             return OracleResponse(verdict=verdict, sentence=sentence)
 
@@ -572,7 +576,7 @@ async def get_single_sentence_oracle(
             hub,
         )
         if sentence:
-            verdict = "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            verdict = STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
             return OracleResponse(verdict=verdict, sentence=sentence)
 
     return _rules_oracle(asset, opportunity_score, explanation)
@@ -665,11 +669,11 @@ async def evaluate_opportunity(
     if finalized.get("dimension_conflict", {}).get("veto") or finalized.get(
         "dimension_conflict", {}
     ).get("abstain"):
-        internal = "Do Not Touch"
+        internal = STR_DO_NOT_TOUCH
     if truth.get("reject"):
-        internal = "Do Not Touch"
+        internal = STR_DO_NOT_TOUCH
     oracle = OracleResponse(
-        verdict=internal if internal in {"Buy Now", "Do Not Touch"} else oracle.verdict,
+        verdict=internal if internal in {STR_BUY_NOW, STR_DO_NOT_TOUCH} else oracle.verdict,
         sentence=inject_oracle_onchain_analytics(
             oracle.sentence,
             explanation.asset,

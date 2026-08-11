@@ -13,6 +13,10 @@ from typing import Any
 
 import config
 
+# Sonar S1192: duplicated string literals
+STR_BUY_NOW = 'Buy Now'
+STR_DO_NOT_TOUCH = 'Do Not Touch'
+
 logger = logging.getLogger("BLACKDARK.RegulatoryCompliance")
 
 REGULATORY_DISCLAIMER = (
@@ -26,10 +30,10 @@ PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
 PUBLIC_VERDICT_NEUTRAL = "NEUTRAL_OBSERVE"
 PUBLIC_VERDICT_RISK = "ELEVATED_RISK"
 
-_INTERNAL_BULLISH = frozenset({"BUY", "Buy Now", "BULLISH", PUBLIC_VERDICT_BULLISH})
+_INTERNAL_BULLISH = frozenset({"BUY", STR_BUY_NOW, "BULLISH", PUBLIC_VERDICT_BULLISH})
 _INTERNAL_BEARISH = frozenset({"SELL", "BEARISH", PUBLIC_VERDICT_BEARISH})
 _INTERNAL_NEUTRAL = frozenset({"WAIT", "HOLD", "NEUTRAL", PUBLIC_VERDICT_NEUTRAL})
-_INTERNAL_RISK = frozenset({"CAUTION", "Do Not Touch", "AVOID", PUBLIC_VERDICT_RISK})
+_INTERNAL_RISK = frozenset({"CAUTION", STR_DO_NOT_TOUCH, "AVOID", PUBLIC_VERDICT_RISK})
 
 _ADVICE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bBuy Now\b", re.IGNORECASE), "Analytics indicate positive momentum"),
@@ -57,7 +61,7 @@ def classify_internal_verdict(verdict: str) -> str:
         return "bullish"
     if v in _INTERNAL_BEARISH or v.upper() == "SELL":
         return "bearish"
-    if v in _INTERNAL_RISK or v == "Do Not Touch":
+    if v in _INTERNAL_RISK or v == STR_DO_NOT_TOUCH:
         return "risk"
     return "neutral"
 
@@ -80,11 +84,11 @@ def to_internal_action_verdict(verdict: str) -> str:
     """Normalize for execution/audit pipelines that expect legacy buckets."""
     bucket = classify_internal_verdict(verdict)
     if bucket == "bullish":
-        return "Buy Now"
+        return STR_BUY_NOW
     if bucket == "bearish":
         return "SELL"
     if bucket == "risk":
-        return "Do Not Touch"
+        return STR_DO_NOT_TOUCH
     return "WAIT"
 
 
@@ -217,9 +221,9 @@ def regulatory_compliance_status() -> dict[str, Any]:
             "elevated_risk": PUBLIC_VERDICT_RISK,
         },
         "prohibited_public_phrases": [
-            "Buy Now",
+            STR_BUY_NOW,
             "Sell Now",
-            "Do Not Touch",
+            STR_DO_NOT_TOUCH,
             "you should buy",
             "you should sell",
         ],

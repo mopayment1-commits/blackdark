@@ -12,6 +12,9 @@ import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+STR_TRUST_OS = 'Trust OS'
+
 logger = logging.getLogger("BLACKDARK.Auth")
 
 Tier = Literal["free", "pro", "whale"]
@@ -37,7 +40,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": False,
         "ux_pro_default": False,
         "proof_watermark": True,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
     # Decision Pro — daily decision habit ($29). 7-day trial stays.
     "pro": {
@@ -56,7 +59,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": False,
         "ux_pro_default": True,
         "proof_watermark": False,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
     # Decision Desk — edge + serious tools ($49).
     "whale": {
@@ -75,7 +78,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": True,
         "ux_pro_default": True,
         "proof_watermark": False,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
 }
 

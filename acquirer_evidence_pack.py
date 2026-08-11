@@ -10,6 +10,9 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+STR_REGIME_CONDITIONAL_MODELS = 'Regime-Conditional Models'
+
 
 async def build_acquirer_evidence_pack() -> dict[str, Any]:
     pack: dict[str, Any] = {
@@ -102,7 +105,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         {"id": "D2", "name": "Contradiction Veto", "status": "live"},
         {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
         {"id": "D4", "name": "Opportunity Half-Life", "status": "live"},
-        {"id": "D5", "name": "Regime-Conditional Models", "status": "pending"},
+        {"id": "D5", "name": STR_REGIME_CONDITIONAL_MODELS, "status": "pending"},
         {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
         {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
         {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
@@ -113,7 +116,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         d5 = regime_model_registry()
         pack["differentiators"][4] = {
             "id": "D5",
-            "name": "Regime-Conditional Models",
+            "name": STR_REGIME_CONDITIONAL_MODELS,
             "status": d5.get("status") or d5.get("evidence_status") or "weights_live",
             "evidence_status": d5.get("evidence_status"),
             "artifacts_ready": d5.get("artifacts_ready"),
@@ -123,7 +126,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
     except Exception:
         pack["differentiators"][4] = {
             "id": "D5",
-            "name": "Regime-Conditional Models",
+            "name": STR_REGIME_CONDITIONAL_MODELS,
             "status": "weights_live",
             "note": "Regime weights + confidence router live; registry unavailable",
         }

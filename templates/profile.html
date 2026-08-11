@@ -174,7 +174,7 @@
             btn.textContent = up.cta || up.label || 'Upgrade';
             btn.href = up.href || '/#pricing';
             if (reason) reason.textContent = up.reason || 'Next depth on the Option A ladder.';
-        } catch (error) { console.debug(error); console.debug(error); console.debug(error); btn.href = '/create-checkout-session?tier=pro';
+        } catch (error) { console.debug(error); btn.href = '/create-checkout-session?tier=pro';
             btn.textContent = 'Start 7-Day Trial · Decision Pro $29'; }
     }
     async function loadSubscriberValue(tier) {
@@ -203,7 +203,7 @@
                     ? ` · Covers plan: <strong style="color:var(--text)">${v.covers_subscription ? 'yes' : 'not yet'}</strong>`
                     : '') +
                 `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
-        } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Value digest unavailable'; }
+        } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
     }
     async function saveProfile() {
         const res = await fetch('/api/auth/profile', {
@@ -304,7 +304,7 @@
                 el.textContent = 'Payments architecture live · provider keys not fully configured yet (Lemon checkout URL / Stripe price IDs). Free Proof Pass still works. Contact ops to finish KYC.';
                 el.style.color = 'var(--muted)';
             }
-        } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
+        } catch (error) { console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
     }
     load();
     loadBillingReady();

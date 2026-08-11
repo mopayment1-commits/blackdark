@@ -11,6 +11,12 @@ import json
 from collections.abc import Callable
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+KEY_DECISION_ACT = 'decision.act'
+KEY_DECISION_WAIT = 'decision.wait'
+STR_PUBLIC_ACCURACY_LEDGER = 'Public Accuracy Ledger'
+STR_TRY_ORACLE_FREE = 'Try Oracle Free'
+
 # code -> metadata
 LOCALES: dict[str, dict[str, str]] = {
     "en": {"code": "en", "name": "English", "native": "English", "dir": "ltr", "group": "core"},
@@ -106,7 +112,7 @@ EN: dict[str, str] = {
     "nav.compliance": "Compliance",
     "nav.portfolio": "Portfolio",
     "nav.stealth": "Stealth",
-    "nav.try_oracle": "Try Oracle Free",
+    "nav.try_oracle": STR_TRY_ORACLE_FREE,
     "nav.verify_accuracy": "Verify Accuracy",
     "lang.label": "Language",
     "lang.choose": "Choose language",
@@ -119,7 +125,7 @@ EN: dict[str, str] = {
     "hero.stat.verdict": "Oracle verdict",
     "hero.stat.sources": "Live data sources",
     "hero.stat.free": "10 queries/day",
-    "hero.cta.oracle": "Try Oracle Free",
+    "hero.cta.oracle": STR_TRY_ORACLE_FREE,
     "hero.cta.telegram": "Telegram — 3 Free Alerts/Day",
     "hero.cta.accuracy": "Live Accuracy",
     "stats.visitors": "Visitors",
@@ -178,7 +184,7 @@ EN: dict[str, str] = {
     "pricing.cta.pro": "Go Pro",
     "pricing.cta.whale": "Go Whale",
     "pricing.free.f1": "Oracle 10×/day",
-    "pricing.free.f2": "Public Accuracy Ledger",
+    "pricing.free.f2": STR_PUBLIC_ACCURACY_LEDGER,
     "pricing.free.f3": "Decision Certificate",
     "pricing.pro.f1": "Unlimited Oracle",
     "pricing.pro.f2": "Arbitrage scanner",
@@ -212,7 +218,7 @@ EN: dict[str, str] = {
     "login.create": "Create Account",
     "login.home": "← Home",
     # Accuracy / prove-it
-    "accuracy.title": "Public Accuracy Ledger",
+    "accuracy.title": STR_PUBLIC_ACCURACY_LEDGER,
     "accuracy.sub": "Don't trust us. Verify us. — labeled predictions with public outcomes.",
     "accuracy.prove": "Prove it",
     # Common
@@ -225,8 +231,8 @@ EN: dict[str, str] = {
     "common.docs": "Docs",
     "footer.rights": "© 2026 BLACKDARK",
     # Decision sentence templates ({asset} {score})
-    "decision.act": "ACT on {asset} — score {score}.",
-    "decision.wait": "WAIT on {asset} — score {score}.",
+    KEY_DECISION_ACT: "ACT on {asset} — score {score}.",
+    KEY_DECISION_WAIT: "WAIT on {asset} — score {score}.",
     "decision.clear_act": "Clear opportunity on {asset}: score {score}/100.",
     "decision.clear_wait": "Wait on {asset}: score {score}/100.",
     "decision.rejected": "Rejected: not executable after real costs.",
@@ -243,7 +249,7 @@ EN: dict[str, str] = {
     "nav.open_proof": "Open Proof",
     "hero.headline": "We publish the miss.",
     "hero.support": "Sealed forecasts before the event. Public proof after.",
-    "hero.cta.try": "Try Oracle Free",
+    "hero.cta.try": STR_TRY_ORACLE_FREE,
     "hero.cta.seal": "Watch the Seal",
     "pulse.label": "TRUST PULSE",
     "pulse.live": "Live",
@@ -279,7 +285,7 @@ EN: dict[str, str] = {
     "feat.pulse.body": "One live Act / Wait with Why under five seconds — the first thing you see, every time.",
     "feat.cert.title": "Decision Certificate",
     "feat.cert.body": "Shareable Proof Card with verify link. Dual-coded: text + visual state — not a mystery score.",
-    "feat.ledger.title": "Public Accuracy Ledger",
+    "feat.ledger.title": STR_PUBLIC_ACCURACY_LEDGER,
     "feat.ledger.body": "Hits and misses published. Don't trust us — verify us.",
     "feat.operate.title": "Operate depth",
     "feat.operate.body": "Decision Pro unlocks daily habit, Portfolio AI, alerts, and AI Chat — without Free watermark.",
@@ -376,8 +382,8 @@ _TRANSLATIONS: dict[str, dict[str, str]] = {
         "common.not_advice": "非投资建议。请在公开准确率账本上验证主张。",
         "common.anti_hype": "反炒作", "common.legal": "法律", "common.contact": "联系", "common.docs": "文档",
         "footer.rights": "© 2026 BLACKDARK",
-        "decision.act": "对 {asset} 采取行动 — 分数 {score}。",
-        "decision.wait": "对 {asset} 等待 — 分数 {score}。",
+        KEY_DECISION_ACT: "对 {asset} 采取行动 — 分数 {score}。",
+        KEY_DECISION_WAIT: "对 {asset} 等待 — 分数 {score}。",
         "decision.clear_act": "{asset} 机会明确：分数 {score}/100。",
         "decision.clear_wait": "对 {asset} 等待：分数 {score}/100。",
         "decision.rejected": "已拒绝：扣除真实成本后不可执行。",
@@ -503,7 +509,7 @@ def template_context(request: Any, extra: dict[str, Any] | None = None) -> dict[
 
 def decision_sentence(lang: str | None, action: str, asset: str, score: Any) -> str:
     code = normalize_lang(lang)
-    key = "decision.act" if str(action).upper() in {"ACT", "BUY", "BULLISH"} else "decision.wait"
+    key = KEY_DECISION_ACT if str(action).upper() in {"ACT", "BUY", "BULLISH"} else KEY_DECISION_WAIT
     try:
         score_s = f"{float(score):.0f}"
     except Exception:

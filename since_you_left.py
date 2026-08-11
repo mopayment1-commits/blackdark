@@ -15,6 +15,9 @@ from typing import Any
 
 from path_safety import ensure_under, safe_data_file
 
+# Sonar S1192: duplicated string literals
+PATH_KILL_RATE = '/kill-rate'
+
 _DATA = safe_data_file("since_you_left.json")
 _DATA_BASE = Path(__file__).resolve().parent / "data"
 
@@ -145,7 +148,7 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
                     f"{prev.get('kill_rate_percent', 0)}% → {cur.get('kill_rate_percent', 0)}% "
                     f"({prev.get('total_kills', 0)} → {cur.get('total_kills', 0)} refusals)"
                 ),
-                "href": "/kill-rate",
+                "href": PATH_KILL_RATE,
             }
         )
 
@@ -185,19 +188,23 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
             }
         )
 
-    if cur.get("hottest_asset") and cur.get("active_opps", 0) > 0:
-        if cur.get("hottest_asset") != prev.get("hottest_asset") or cur.get("active_opps") != prev.get(
-            "active_opps"
-        ):
-            items.append(
-                {
-                    "id": "half_life_heat",
-                    "rank_score": 65,
-                    "title": "Desk heat changed",
-                    "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
-                    "href": "/dashboard?lens=desk#half-life-clock",
-                }
-            )
+    if (
+        cur.get("hottest_asset")
+        and cur.get("active_opps", 0) > 0
+        and (
+            cur.get("hottest_asset") != prev.get("hottest_asset")
+            or cur.get("active_opps") != prev.get("active_opps")
+        )
+    ):
+        items.append(
+            {
+                "id": "half_life_heat",
+                "rank_score": 65,
+                "title": "Desk heat changed",
+                "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
+                "href": "/dashboard?lens=desk#half-life-clock",
+            }
+        )
 
     if not items:
         items = [
@@ -213,7 +220,7 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
                 "rank_score": 40,
                 "title": "Kill-Rate board live",
                 "detail": f"Public refusal rate {cur.get('kill_rate_percent', 0)}%",
-                "href": "/kill-rate",
+                "href": PATH_KILL_RATE,
             },
             {
                 "id": "arena",
@@ -232,7 +239,7 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
             "rank_score": 20,
             "title": "Kill-Rate board live",
             "detail": "Public refusal rate — verify honesty anytime",
-            "href": "/kill-rate",
+            "href": PATH_KILL_RATE,
         },
         {
             "id": "miss_feed",
@@ -288,7 +295,7 @@ def build_since_you_left(user_key: str = "anon", *, touch: bool = True) -> dict[
                 "rank_score": 80,
                 "title": "See what we refuse",
                 "detail": f"Kill-Rate {cur.get('kill_rate_percent', 0)}%",
-                "href": "/kill-rate",
+                "href": PATH_KILL_RATE,
             },
         ]
         if first_visit

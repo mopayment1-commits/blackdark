@@ -20,6 +20,10 @@ from collections.abc import AsyncIterator
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_ORACLE_ACCURACY = '/oracle-accuracy'
+STR_VERIFIED_ON_LEDGER = 'Verified on Ledger'
+
 logger = logging.getLogger("BLACKDARK.TrustPulse")
 
 # Soft cache — identity of the pulse for a symbol (avoids spam + flicker).
@@ -84,8 +88,8 @@ def _ledger_honesty() -> dict[str, Any]:
         resolved = [r for r in recent if r.get("resolved")]
         misses = sum(1 for r in resolved if r.get("label") != "correct")
         return {
-            "label": "Verified on Ledger",
-            "href": "/oracle-accuracy",
+            "label": STR_VERIFIED_ON_LEDGER,
+            "href": PATH_ORACLE_ACCURACY,
             "recent_hit_rate_percent": hit,
             "misses_in_window": misses,
             "resolved_in_window": len(resolved),
@@ -99,8 +103,8 @@ def _ledger_honesty() -> dict[str, Any]:
         }
     except Exception:
         return {
-            "label": "Verified on Ledger",
-            "href": "/oracle-accuracy",
+            "label": STR_VERIFIED_ON_LEDGER,
+            "href": PATH_ORACLE_ACCURACY,
             "honesty_line": "Public Accuracy Ledger — hits and misses published",
             "recent_hit_rate_percent": None,
             "misses_in_window": None,
@@ -354,12 +358,12 @@ def _shape_pulse(
         "change_24h": payload.get("change_24h"),
         "freshness": freshness,
         "proof": {
-            "label": "Verified on Ledger",
+            "label": STR_VERIFIED_ON_LEDGER,
             "prediction_id": payload.get("prediction_id"),
             "certificate_hash": cert.get("certificate_hash"),
             "chain_hash": payload.get("chain_hash"),
-            "verify_url": cert.get("verify_url") or "/oracle-accuracy",
-            "permalink": cert.get("permalink") or "/oracle-accuracy",
+            "verify_url": cert.get("verify_url") or PATH_ORACLE_ACCURACY,
+            "permalink": cert.get("permalink") or PATH_ORACLE_ACCURACY,
             "share_text": cert.get("share_text"),
             "share_urls": cert.get("share_urls") or {},
             "watermark": watermark,
@@ -383,7 +387,7 @@ def _shape_pulse(
         "tier": tier or "free",
         "cta": {
             "primary": {"label": "Open full proof", "href": "/dashboard?lens=prove#decide"},
-            "verify": {"label": "Verify Ledger", "href": "/oracle-accuracy"},
+            "verify": {"label": "Verify Ledger", "href": PATH_ORACLE_ACCURACY},
         },
         "compliance": payload.get("compliance_footer")
         or {

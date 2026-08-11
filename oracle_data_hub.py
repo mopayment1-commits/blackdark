@@ -23,6 +23,9 @@ from typing import Any, Literal
 import aiohttp
 
 import config
+
+# Sonar S1192: duplicated string literals
+STR_GROQ_GEMINI_OPENROUTER_OLLAMA = 'groq,gemini,openrouter,ollama'
 logger = logging.getLogger("BLACKDARK.OracleDataHub")
 
 GEOPOLITICAL_KEYWORDS = (
@@ -543,7 +546,7 @@ async def synthesize_with_free_llm_chain(
 
     chain = os.getenv(
         "ORACLE_FREE_LLM_CHAIN",
-        "groq,gemini,openrouter,ollama",
+        STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
     ).split(",")
 
     handlers = {
@@ -648,7 +651,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             name.strip()
             for name in os.getenv(
                 "ORACLE_FREE_LLM_CHAIN",
-                "groq,gemini,openrouter,ollama",
+                STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
             ).split(",")
             if name.strip()
         ]
@@ -683,7 +686,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             name.strip()
             for name in os.getenv(
                 "ORACLE_FREE_LLM_CHAIN",
-                "groq,gemini,openrouter,ollama",
+                STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
             ).split(",")
             if name.strip()
         ],

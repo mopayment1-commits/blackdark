@@ -20,6 +20,7 @@ from fastapi import (
 from fastapi.responses import JSONResponse, RedirectResponse, Response as RawResponse
 
 from api.deps import optional_user, raw_bearer_or_cookie, record_behavior
+from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
     AuthChangePasswordBody,
     AuthForgotPasswordBody,
@@ -34,7 +35,7 @@ from security_models import (
 # Sonar S1192: duplicated string literals
 STR_LOGIN_REQUIRED = 'Login required'
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
 def _attach_session_cookie(response: Response, token: str | None) -> None:

@@ -6,6 +6,9 @@ All runtime parameters live here to prevent context drift across modules.
 import os
 from pathlib import Path
 
+# Sonar S1192: duplicated string literals
+STR_LAYER_1 = 'Layer 1'
+
 # ── Paths ──────────────────────────────────────────────────────────────────
 ROOT_DIR = Path(__file__).resolve().parent
 DATA_DIR = ROOT_DIR / "data"
@@ -437,27 +440,27 @@ SECTOR_FLOW_WINDOW_SECONDS = 60
 SII_BUCKET_COUNT = 4
 
 SECTOR_MAP: dict[str, str] = {
-    "BTC": "Layer 1",
-    "ETH": "Layer 1",
-    "SOL": "Layer 1",
+    "BTC": STR_LAYER_1,
+    "ETH": STR_LAYER_1,
+    "SOL": STR_LAYER_1,
     "BNB": "DeFi",
     "XRP": "Payments",
-    "ADA": "Layer 1",
+    "ADA": STR_LAYER_1,
     "DOGE": "Meme",
-    "AVAX": "Layer 1",
-    "DOT": "Layer 1",
+    "AVAX": STR_LAYER_1,
+    "DOT": STR_LAYER_1,
     "LINK": "Oracle",
     "MATIC": "L2",
     "UNI": "DeFi",
-    "ATOM": "Layer 1",
+    "ATOM": STR_LAYER_1,
     "LTC": "Payments",
-    "NEAR": "Layer 1",
-    "APT": "Layer 1",
+    "NEAR": STR_LAYER_1,
+    "APT": STR_LAYER_1,
     "ARB": "L2",
     "OP": "L2",
     "INJ": "DeFi",
-    "SUI": "Layer 1",
-    "SEI": "Layer 1",
+    "SUI": STR_LAYER_1,
+    "SEI": STR_LAYER_1,
     "TIA": "Infrastructure",
     "PEPE": "Meme",
     "WIF": "Meme",

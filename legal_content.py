@@ -1,10 +1,13 @@
 """Legal page content for BLACKDARK launch."""
 
+# Sonar S1192: duplicated string literals
+STR_JULY_24_2026 = 'July 24, 2026'
+
 LEGAL_PAGES: dict[str, dict[str, str]] = {
     "terms": {
         "title": "Terms of Service",
         "title_ar": "شروط الاستخدام",
-        "updated": "July 24, 2026",
+        "updated": STR_JULY_24_2026,
         "html": """
 <h2>0. Four-layer legal shield (binding)</h2>
 <p>BLACKDARK publishes a four-layer protective shield on every decision surface:</p>
@@ -33,7 +36,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     "privacy": {
         "title": "Privacy Policy",
         "title_ar": "سياسة الخصوصية",
-        "updated": "July 24, 2026",
+        "updated": STR_JULY_24_2026,
         "html": """
 <h2>1. Data We Collect</h2>
 <p>Email, display name, optional public username, optional avatar image, password hash, email verification status, subscription status, usage metrics (Oracle queries, dashboard views), journal entries, UI preferences (language / UX mode / timezone), OAuth provider ids when linked, MFA secrets (encrypted), and alert preferences (Telegram chat ID if provided).</p>
@@ -54,7 +57,7 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
     "disclaimer": {
         "title": "Risk Disclaimer",
         "title_ar": "إخلاء المسؤولية",
-        "updated": "July 24, 2026",
+        "updated": STR_JULY_24_2026,
         "html": """
 <h2>Not Financial Advice</h2>
 <p>BLACKDARK outputs — Oracle verdicts, arbitrage signals, whale alerts, research metrics, and AI chat — are <strong>informational only</strong>. They are not investment, tax, or legal advice.</p>

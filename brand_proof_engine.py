@@ -11,6 +11,10 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_COVERAGE_HONESTY = '/coverage-honesty'
+PATH_MISS_FEED = '/miss-feed'
+
 
 async def build_brand_coverage_radical_closure() -> dict[str, Any]:
     from coverage_honesty import build_coverage_honesty_board
@@ -27,7 +31,7 @@ async def build_brand_coverage_radical_closure() -> dict[str, Any]:
         {
             "id": "miss_feed",
             "done": True,
-            "href": "/miss-feed",
+            "href": PATH_MISS_FEED,
             "proof": f"{miss.get('count', 0)} recent misses public-first",
         },
         {
@@ -51,7 +55,7 @@ async def build_brand_coverage_radical_closure() -> dict[str, Any]:
         {
             "id": "coverage_honesty",
             "done": True,
-            "href": "/coverage-honesty",
+            "href": PATH_COVERAGE_HONESTY,
             "proof": f"live_venues={coverage['live']['count']}",
         },
         {
@@ -80,15 +84,15 @@ async def build_brand_coverage_radical_closure() -> dict[str, Any]:
         ],
         "checklist": checklist,
         "all_done": all(c["done"] for c in checklist),
-        "miss_feed": {"count": miss.get("count"), "page": "/miss-feed"},
+        "miss_feed": {"count": miss.get("count"), "page": PATH_MISS_FEED},
         "coverage": {
             "live": coverage["live"]["count"],
-            "page": "/coverage-honesty",
+            "page": PATH_COVERAGE_HONESTY,
             "provenance_band": coverage["metrics"].get("decision_grade_posture"),
         },
         "pages": [
-            "/miss-feed",
-            "/coverage-honesty",
+            PATH_MISS_FEED,
+            PATH_COVERAGE_HONESTY,
             "/emotion-tax",
             "/kill-rate",
             "/oracle-accuracy",

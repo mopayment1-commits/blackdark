@@ -80,7 +80,7 @@
                     localStorage.setItem('bd_user', JSON.stringify(d.user));
                     el.textContent = 'Plan: ' + (d.tier?.label || d.user.tier) + ' — ready on Trust Pulse.';
                 }
-            } catch (error) { console.debug(error); console.debug(error); console.debug(error); el.textContent = 'Subscription active — open Trust Pulse to continue.'; }
+            } catch (error) { console.debug(error); el.textContent = 'Subscription active — open Trust Pulse to continue.'; }
         }
         refreshTier();
     </script>

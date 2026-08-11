@@ -20,12 +20,15 @@ import sys
 import encoding_bootstrap  # noqa: F401 — UTF-8 Arabic in console
 from path_safety import validate_bind_host, validate_port
 
+# Sonar S1192: duplicated string literals
+STR_MICROSERVICES_WORKER_APP_APP = 'microservices.worker_app:app'
+
 MODES = {
     "all": ("dashboard:app", 8080),
     "web": ("dashboard:app", 8080),
-    "aggregator": ("microservices.worker_app:app", 8091),
-    "arbitrage": ("microservices.worker_app:app", 8092),
-    "ingestion": ("microservices.worker_app:app", 8093),
+    "aggregator": (STR_MICROSERVICES_WORKER_APP_APP, 8091),
+    "arbitrage": (STR_MICROSERVICES_WORKER_APP_APP, 8092),
+    "ingestion": (STR_MICROSERVICES_WORKER_APP_APP, 8093),
 }
 _ALLOWED_TARGETS = frozenset(target for target, _ in MODES.values())
 

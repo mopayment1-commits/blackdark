@@ -14,8 +14,11 @@ from typing import Any, Literal
 
 import aiohttp
 
+# Sonar S1192: duplicated string literals
+STR_PARTIALLY_PASS = 'PARTIALLY PASS'
+
 ROOT = Path(__file__).resolve().parent
-Verdict = Literal["PASS", "FAIL", "PARTIALLY PASS", "NOT APPLICABLE"]
+Verdict = Literal["PASS", "FAIL", STR_PARTIALLY_PASS, "NOT APPLICABLE"]
 
 
 @dataclass
@@ -130,7 +133,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     if probes_total >= 10 and checks.get("uptime_sla_99_99"):
         v1: Verdict = "PASS"
     elif probes_total >= 10:
-        v1 = "PARTIALLY PASS"
+        v1 = STR_PARTIALLY_PASS
     else:
         v1 = "FAIL"
     requirements.append(
@@ -151,7 +154,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 2 Latency
-    v2: Verdict = "PASS" if checks.get("latency_p99_le_50ms") else "PARTIALLY PASS"
+    v2: Verdict = "PASS" if checks.get("latency_p99_le_50ms") else STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             2,
@@ -187,7 +190,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 4 HA
-    v4: Verdict = "PASS" if checks.get("ha_architecture_ready") and prod_ok else "PARTIALLY PASS"
+    v4: Verdict = "PASS" if checks.get("ha_architecture_ready") and prod_ok else STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             4,
@@ -249,7 +252,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         or dataset.get("live_labeled_oracle")
         or 0
     )
-    v7: Verdict = "PASS" if live_labeled >= 50 else "PARTIALLY PASS" if live_labeled >= 1 else "FAIL"
+    v7: Verdict = "PASS" if live_labeled >= 50 else STR_PARTIALLY_PASS if live_labeled >= 1 else "FAIL"
     requirements.append(
         RequirementAssessment(
             7,
@@ -285,7 +288,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 9 Behavior data
-    v9: Verdict = "PASS" if behavior_events >= 1000 else "PARTIALLY PASS" if behavior_events >= 100 else "FAIL"
+    v9: Verdict = "PASS" if behavior_events >= 1000 else STR_PARTIALLY_PASS if behavior_events >= 100 else "FAIL"
     requirements.append(
         RequirementAssessment(
             9,
@@ -303,7 +306,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 10 Paying subscribers
-    v10: Verdict = "PASS" if paid >= 10 else "PARTIALLY PASS" if paid >= 1 else "FAIL"
+    v10: Verdict = "PASS" if paid >= 10 else STR_PARTIALLY_PASS if paid >= 1 else "FAIL"
     requirements.append(
         RequirementAssessment(
             10,
@@ -324,7 +327,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     audit_persist = (ROOT / "data" / "api_key_access_audit.jsonl").exists() or (
         ROOT / "api_key_security_guard.py"
     ).exists()
-    v11: Verdict = "PARTIALLY PASS" if audit_persist else "FAIL"
+    v11: Verdict = STR_PARTIALLY_PASS if audit_persist else "FAIL"
     requirements.append(
         RequirementAssessment(
             11,
@@ -360,7 +363,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 13 Regulatory
-    v13: Verdict = "PARTIALLY PASS"
+    v13: Verdict = STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             13,
@@ -378,7 +381,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 14 Auth
-    v14: Verdict = "PARTIALLY PASS"
+    v14: Verdict = STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             14,
@@ -396,7 +399,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 15 Architecture
-    v15: Verdict = "PARTIALLY PASS" if dashboard_lines < 3000 else "FAIL"
+    v15: Verdict = STR_PARTIALLY_PASS if dashboard_lines < 3000 else "FAIL"
     requirements.append(
         RequirementAssessment(
             15,
@@ -414,7 +417,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 16 Observability
-    v16: Verdict = "PARTIALLY PASS"
+    v16: Verdict = STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             16,
@@ -435,7 +438,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     if ci_has_cov_gate and ci_has_dd_verify and ci_has_docker:
         v17: Verdict = "PASS"
     elif ci_has_cov_gate and ci_has_dd_verify:
-        v17 = "PARTIALLY PASS"
+        v17 = STR_PARTIALLY_PASS
     else:
         v17 = "FAIL"
     requirements.append(
@@ -455,7 +458,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
 
     # 18 Documentation
     docs_ok = all((ROOT / p).exists() for p in ("docs/ARCHITECTURE.md", "docs/DATA_ROOM.md", "docs/RUNBOOK.md"))
-    v18: Verdict = "PASS" if docs_ok else "PARTIALLY PASS"
+    v18: Verdict = "PASS" if docs_ok else STR_PARTIALLY_PASS
     requirements.append(
         RequirementAssessment(
             18,
@@ -491,11 +494,11 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
 
     # 20 M&A
     if deal_verdict in {"consider_strategic_acquisition", "conditional_acquisition"}:
-        v20: Verdict = "PARTIALLY PASS"
+        v20: Verdict = STR_PARTIALLY_PASS
     elif deal_verdict == "pass_build_instead":
         v20 = "FAIL"
     else:
-        v20 = "PARTIALLY PASS" if prod_ok else "FAIL"
+        v20 = STR_PARTIALLY_PASS if prod_ok else "FAIL"
     requirements.append(
         RequirementAssessment(
             20,
@@ -512,11 +515,11 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         )
     )
 
-    counts = {k: 0 for k in ("PASS", "FAIL", "PARTIALLY PASS", "NOT APPLICABLE")}
+    counts = {k: 0 for k in ("PASS", "FAIL", STR_PARTIALLY_PASS, "NOT APPLICABLE")}
     for r in requirements:
         counts[r.verdict] += 1
 
-    overall = "pass" if counts["FAIL"] == 0 and counts["PARTIALLY PASS"] <= 5 else "partial"
+    overall = "pass" if counts["FAIL"] == 0 and counts[STR_PARTIALLY_PASS] <= 5 else "partial"
     if counts["FAIL"] >= 5:
         overall = "fail"
 
