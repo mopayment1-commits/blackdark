@@ -26,6 +26,7 @@ ul{color:var(--muted);line-height:1.55}
 <div class="box"><h2>Failure modes</h2><ul id="fail"></ul></div>
 <div class="box"><h2>Bootstrap honesty</h2><p class="sub" id="boot"></p></div>
 </main>
+{% include "partials/site_footer.html" %}
 <script type="module">
 const __r = await fetch('/api/institutional/model-card');
 const d = await __r.json();

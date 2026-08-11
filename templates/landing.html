@@ -850,7 +850,7 @@
                     <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
                         <span class="live-dot"></span>
-                        <span id="oracleFreshnessLabel">Live</span>
+                        <span id="oracleFreshnessLabel">Freshness unknown</span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
@@ -1264,11 +1264,16 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const freshChip = document.getElementById('oracleFreshnessLabel');
             const fresh = data.data_freshness || {};
             if (!freshChip) return;
-            freshChip.textContent = fresh.label || 'Live';
+            const state = String(fresh.state || fresh.status || '').toLowerCase();
+            const stale = fresh.stale === true || state === 'stale';
+            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+            freshChip.textContent = stale
+                ? (fresh.label || 'Stale — not live')
+                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
             const wrap = document.getElementById('oracleFreshnessChip');
             if (!wrap) return;
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
-            wrap.style.opacity = fresh.state === 'stale' ? '0.65' : '1';
+            wrap.style.opacity = stale ? '0.65' : '1';
         }
         function paintLandingProMeta(proMeta, data, mode) {
             if (mode === 'pro') {
@@ -1552,7 +1557,14 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const dot = document.getElementById('lpDot');
             if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
             const fl = document.getElementById('lpFresh');
-            if (fl) fl.textContent = fresh.label || 'Live';
+            if (fl) {
+                const state = String(fresh.state || fresh.status || '').toLowerCase();
+                const stale = fresh.stale === true || state === 'stale';
+                const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+                fl.textContent = stale
+                    ? (fresh.label || 'Stale — not live')
+                    : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
+            }
             _lpRenderProof(p);
         }
 

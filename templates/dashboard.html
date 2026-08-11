@@ -643,7 +643,12 @@
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
-            document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
+            const freshState = String(fresh.state || fresh.status || '').toLowerCase();
+            const stale = fresh.stale === true || freshState === 'stale';
+            const knownFresh = freshState === 'fresh' || freshState === 'ok' || freshState === 'live';
+            document.getElementById('tpFresh').textContent = stale
+                ? (fresh.label || 'Stale — not live')
+                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
