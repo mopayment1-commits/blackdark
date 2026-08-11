@@ -196,3 +196,11 @@ def test_known_venue_seed_row_without_enabled_list(monkeypatch):
 def test_deposit_fee_unknown_base_none():
     fee_matrix._matrix.clear()
     assert fee_matrix.deposit_fee_usdt("binance", "ZZZ/USDT") is None
+
+
+def test_trade_simulator_fee_uses_fee_matrix():
+    from trade_simulator import _fee_usd
+
+    assert _fee_usd(1000.0, exchange_id="binance") > 0
+    with pytest.raises(ValueError):
+        _fee_usd(1000.0, exchange_id="unknown_venue_xyz")
