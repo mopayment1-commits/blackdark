@@ -26,6 +26,16 @@ logger = logging.getLogger("BLACKDARK.BinanceWS")
 
 _ws_task: asyncio.Task | None = None
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 _ticks_received = 0
 _last_tick_at: str | None = None
 _last_price: dict[str, float] = {}
@@ -116,6 +126,7 @@ async def _run_stream_loop() -> None:
     url = f"wss://stream.binance.com:9443/stream?streams={streams}"
 
     await _ensure_hot_pipeline()
+    _stop_event.clear()
     _running = True
     logger.info("Binance WebSocket connecting | symbols=%s", ",".join(symbols))
 
@@ -136,7 +147,7 @@ async def _run_stream_loop() -> None:
             except Exception as exc:
                 _reconnect_count += 1
                 logger.warning("Binance WebSocket disconnected: %s — retry in 5s", exc)
-                await asyncio.sleep(5)
+                await _interruptible_sleep(5)
 
 
 def start_binance_ws_ingest() -> None:
@@ -152,6 +163,7 @@ def start_binance_ws_ingest() -> None:
 
 async def stop_binance_ws_ingest() -> None:
     global _running, _ws_task
+    _stop_event.set()
     _running = False
     if _ws_task is not None:
         _ws_task.cancel()

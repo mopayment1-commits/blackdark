@@ -18,6 +18,16 @@ logger = logging.getLogger("BLACKDARK.InstantAlerts")
 
 _engine_task: asyncio.Task | None = None
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 _last_fingerprint: str = ""
 _last_alert_at: float = 0.0
 _cooldown_cache: dict[str, float] = {}
@@ -139,7 +149,7 @@ async def _engine_loop() -> None:
             raise
         except Exception:
             logger.exception("Instant alert pulse failed")
-        await asyncio.sleep(_interval_sec())
+        await _interruptible_sleep(_interval_sec())
 
 
 def start_instant_alert_engine() -> asyncio.Task | None:
@@ -149,6 +159,7 @@ def start_instant_alert_engine() -> asyncio.Task | None:
         return None
     if _engine_task is not None and not _engine_task.done():
         return _engine_task
+    _stop_event.clear()
     _running = True
     _engine_task = asyncio.create_task(_engine_loop(), name="instant-alerts")
     return _engine_task
@@ -156,6 +167,7 @@ def start_instant_alert_engine() -> asyncio.Task | None:
 
 async def stop_instant_alert_engine() -> None:
     global _running, _engine_task
+    _stop_event.set()
     _running = False
     if _engine_task is not None:
         _engine_task.cancel()

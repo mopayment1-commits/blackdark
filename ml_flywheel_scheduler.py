@@ -15,6 +15,16 @@ logger = logging.getLogger("BLACKDARK.MLFlywheel")
 
 _flywheel_task: asyncio.Task | None = None
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 
 
 async def _flywheel_loop() -> None:
@@ -34,13 +44,14 @@ async def _flywheel_loop() -> None:
             raise
         except Exception:
             logger.exception("ML flywheel cycle failed.")
-        await asyncio.sleep(interval)
+        await _interruptible_sleep(interval)
 
 
 def start_ml_flywheel() -> None:
     global _running, _flywheel_task
     if _running or not config.ML_FLYWHEEL_ENABLED:
         return
+    _stop_event.clear()
     _running = True
     _flywheel_task = asyncio.create_task(_flywheel_loop(), name="ml-flywheel")
     logger.info("ML flywheel scheduler started | interval=%ss", config.ML_FLYWHEEL_INTERVAL_SEC)
@@ -48,6 +59,7 @@ def start_ml_flywheel() -> None:
 
 async def stop_ml_flywheel() -> None:
     global _running, _flywheel_task
+    _stop_event.set()
     _running = False
     if _flywheel_task is not None:
         _flywheel_task.cancel()

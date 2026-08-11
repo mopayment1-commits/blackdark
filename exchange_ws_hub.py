@@ -21,6 +21,16 @@ logger = logging.getLogger("BLACKDARK.ExchangeWS")
 
 _tasks: list[asyncio.Task] = []
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 _messages_total = 0
 
 
@@ -87,7 +97,7 @@ async def _binance_book_ticker_loop() -> None:
                 raise
             except Exception as exc:
                 logger.warning("Binance bookTicker WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
 
 
 def _update_okx_book(row: dict[str, Any]) -> bool:
@@ -139,7 +149,7 @@ async def _okx_bbo_loop() -> None:
                 raise
             except Exception as exc:
                 logger.warning("OKX bbo-tbt WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
 
 
 def _update_bybit_book(payload: dict[str, Any]) -> bool:
@@ -188,7 +198,7 @@ async def _bybit_orderbook_loop() -> None:
                 raise
             except Exception as exc:
                 logger.warning("Bybit orderbook WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
 
 
 async def _poll_kraken_pair(session: aiohttp.ClientSession, asset: str, pair: str) -> int:
@@ -231,7 +241,7 @@ async def _kraken_ticker_poll_loop() -> None:
             for asset, pair in pairs.items():
                 for _ in range(await _poll_kraken_pair(session, asset, pair)):
                     _inc_messages()
-            await asyncio.sleep(1)
+            await _interruptible_sleep(1)
 
 
 async def start_exchange_ws_hub() -> None:
@@ -241,6 +251,7 @@ async def start_exchange_ws_hub() -> None:
         return
     if _running:
         return
+    _stop_event.clear()
     _running = True
     _tasks = [
         asyncio.create_task(_binance_book_ticker_loop(), name="ws-binance-book"),
@@ -253,6 +264,7 @@ async def start_exchange_ws_hub() -> None:
 
 async def stop_exchange_ws_hub() -> None:
     global _running, _tasks
+    _stop_event.set()
     _running = False
     for task in _tasks:
         task.cancel()

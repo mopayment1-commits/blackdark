@@ -26,6 +26,16 @@ _scheduler_task: asyncio.Task | None = None
 _legacy_cleanup_task: asyncio.Task | None = None
 _compactor_started = False
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 
 
 def _utcnow() -> datetime:
@@ -361,7 +371,7 @@ async def _maintenance_loop() -> None:
             raise
         except Exception:
             logger.exception("Storage tier maintenance cycle failed.")
-        await asyncio.sleep(interval_hours * 3600)
+        await _interruptible_sleep(interval_hours * 3600)
 
 
 async def _maybe_legacy_db_cleanup() -> None:
@@ -392,8 +402,8 @@ async def start_storage_tier_manager() -> None:
     global _scheduler_task, _legacy_cleanup_task, _running
     if _running:
         return
+    _stop_event.clear()
     _running = True
-
     await ensure_hot_pipeline_started()
     await ensure_compaction_scheduler()
 
@@ -441,6 +451,7 @@ async def purge_legacy_ops_market_data(*, vacuum: bool = True) -> dict[str, Any]
 
 async def stop_storage_tier_manager() -> None:
     global _scheduler_task, _running, _compactor_started
+    _stop_event.set()
     _running = False
 
     if _scheduler_task is not None:
