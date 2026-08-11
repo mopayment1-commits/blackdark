@@ -1,0 +1,54 @@
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    # Do NOT use secrets.* in job-level if — GitHub rejects it as
+    # "Unrecognized named-value: 'secrets'". Gate the scan step via env instead.
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Skip when SONAR_TOKEN missing
+        if: env.SONAR_TOKEN == ''
+        run: echo "SONAR_TOKEN not configured — skipping SonarCloud scan."
+
+      - uses: actions/setup-python@v5
+        if: env.SONAR_TOKEN != ''
+        with:
+          python-version: "3.12"
+
+      - name: Install deps + coverage
+        if: env.SONAR_TOKEN != ''
+        run: |
+          python -m pip install --upgrade "pip==25.2"
+          python -m pip install --only-binary :all: -r requirements.txt "pytest-cov==6.2.1"
+
+      - name: Generate coverage.xml
+        if: env.SONAR_TOKEN != ''
+        run: |
+          python -m pytest tests/test_security.py tests/test_path_safety.py \
+            tests/test_slippage_guard.py tests/test_profit_fee_algorithms.py \
+            -q --tb=line --cov=. --cov-report=xml:coverage.xml \
+            --cov-config=.coveragerc-profit-fee || true
+          test -f coverage.xml
+
+      - name: SonarCloud Scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

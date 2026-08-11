@@ -19,9 +19,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install --only-binary=:all: "pip-audit==2.9.0"
+      # Quote the run string — unquoted `:all:` breaks YAML mapping parse.
+      - run: "pip install --only-binary=:all: pip-audit==2.9.0"
       # Audit the hash-locked tree used by CI (Sonar S8541 / S8544).
-      - run: pip-audit -r requirements.hashes.txt --desc
+      - run: "pip-audit -r requirements.hashes.txt --desc"
 
   pytest-security:
     runs-on: ubuntu-latest
@@ -30,5 +31,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
-      - run: python -m pytest tests/test_security.py tests/test_security_hardening.py tests/test_risk_manager.py tests/test_radical_dd_scale_closure.py -q
+      - run: "pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt"
+      - run: >-
+          python -m pytest
+          tests/test_security.py
+          tests/test_security_hardening.py
+          tests/test_risk_manager.py
+          tests/test_radical_dd_scale_closure.py
+          -q
