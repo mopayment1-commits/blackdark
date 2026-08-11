@@ -708,6 +708,76 @@ def detect_cross_venue_manipulation(
     return alerts
 
 
+def _record_sii_trade(
+    *,
+    trade: NormalizedTrade,
+    start_ms: int,
+    bucket_seconds: int,
+    buckets: int,
+    sector_bucket_flows: dict[str, list[float]],
+    sector_buy: dict[str, float],
+    sector_sell: dict[str, float],
+    sector_count: dict[str, int],
+) -> None:
+    if trade.trade_time_ms < start_ms:
+        return
+    sector_count[trade.sector] += 1
+    if trade.side == "buy":
+        sector_buy[trade.sector] += trade.notional_usd
+        signed = trade.notional_usd
+    else:
+        sector_sell[trade.sector] += trade.notional_usd
+        signed = -trade.notional_usd
+
+    elapsed_ms = trade.trade_time_ms - start_ms
+    bucket_idx = min(buckets - 1, int(elapsed_ms / (bucket_seconds * 1000)))
+    sector_bucket_flows.setdefault(trade.sector, [0.0] * buckets)
+    sector_bucket_flows[trade.sector][bucket_idx] += signed
+
+
+def _cumulative_flows(flows: list[float]) -> list[float]:
+    cumulative = list(flows)
+    for idx in range(1, len(cumulative)):
+        cumulative[idx] += cumulative[idx - 1]
+    return cumulative
+
+
+def _flow_momentum(cumulative: list[float]) -> tuple[float, float, float]:
+    net_flow = cumulative[-1] if cumulative else 0.0
+    velocity = cumulative[-1] - cumulative[-2] if len(cumulative) >= 2 else net_flow
+    if len(cumulative) >= 3:
+        acceleration = (cumulative[-1] - cumulative[-2]) - (cumulative[-2] - cumulative[-3])
+    else:
+        acceleration = velocity
+    return net_flow, velocity, acceleration
+
+
+def _sector_inflow_snapshot(
+    *,
+    sector: str,
+    flows: list[float],
+    sector_buy: dict[str, float],
+    sector_sell: dict[str, float],
+    sector_count: dict[str, int],
+    window: int,
+) -> SectorInflowIndex:
+    net_flow, velocity, acceleration = _flow_momentum(_cumulative_flows(flows))
+    velocity_component = _tanh_scale(velocity, config.SII_VELOCITY_SCALE_USD) * 50.0
+    acceleration_component = _tanh_scale(acceleration, config.SII_ACCELERATION_SCALE_USD) * 50.0
+    sii_score = max(-100.0, min(100.0, velocity_component + acceleration_component))
+    return SectorInflowIndex(
+        sector=sector,
+        sii_score=round(sii_score, 2),
+        net_flow_usd=round(net_flow, 2),
+        flow_velocity_usd=round(velocity, 2),
+        flow_acceleration_usd=round(acceleration, 2),
+        buy_notional_usd=round(sector_buy.get(sector, 0.0), 2),
+        sell_notional_usd=round(sector_sell.get(sector, 0.0), 2),
+        trade_count=sector_count.get(sector, 0),
+        window_seconds=window,
+    )
+
+
 def compute_sector_inflow_index(
     trades: list[NormalizedTrade],
     *,
@@ -734,53 +804,29 @@ def compute_sector_inflow_index(
     sector_count: dict[str, int] = defaultdict(int)
 
     for trade in trades:
-        if trade.trade_time_ms < start_ms:
-            continue
-
-        sector_count[trade.sector] += 1
-        if trade.side == "buy":
-            sector_buy[trade.sector] += trade.notional_usd
-            signed = trade.notional_usd
-        else:
-            sector_sell[trade.sector] += trade.notional_usd
-            signed = -trade.notional_usd
-
-        elapsed_ms = trade.trade_time_ms - start_ms
-        bucket_idx = min(buckets - 1, int(elapsed_ms / (bucket_seconds * 1000)))
-        sector_bucket_flows.setdefault(trade.sector, [0.0] * buckets)
-        sector_bucket_flows[trade.sector][bucket_idx] += signed
+        _record_sii_trade(
+            trade=trade,
+            start_ms=start_ms,
+            bucket_seconds=bucket_seconds,
+            buckets=buckets,
+            sector_bucket_flows=sector_bucket_flows,
+            sector_buy=sector_buy,
+            sector_sell=sector_sell,
+            sector_count=sector_count,
+        )
 
     snapshots: list[SectorInflowIndex] = []
 
     for sector in sorted(set(config.SECTOR_MAP.values())):
         flows = sector_bucket_flows.get(sector, [0.0] * buckets)
-        cumulative = list(flows)
-        for idx in range(1, len(cumulative)):
-            cumulative[idx] += cumulative[idx - 1]
-
-        net_flow = cumulative[-1] if cumulative else 0.0
-        velocity = cumulative[-1] - cumulative[-2] if len(cumulative) >= 2 else net_flow
-        acceleration = (
-            (cumulative[-1] - cumulative[-2]) - (cumulative[-2] - cumulative[-3])
-            if len(cumulative) >= 3
-            else velocity
-        )
-
-        velocity_component = _tanh_scale(velocity, config.SII_VELOCITY_SCALE_USD) * 50.0
-        acceleration_component = _tanh_scale(acceleration, config.SII_ACCELERATION_SCALE_USD) * 50.0
-        sii_score = max(-100.0, min(100.0, velocity_component + acceleration_component))
-
         snapshots.append(
-            SectorInflowIndex(
+            _sector_inflow_snapshot(
                 sector=sector,
-                sii_score=round(sii_score, 2),
-                net_flow_usd=round(net_flow, 2),
-                flow_velocity_usd=round(velocity, 2),
-                flow_acceleration_usd=round(acceleration, 2),
-                buy_notional_usd=round(sector_buy.get(sector, 0.0), 2),
-                sell_notional_usd=round(sector_sell.get(sector, 0.0), 2),
-                trade_count=sector_count.get(sector, 0),
-                window_seconds=window,
+                flows=flows,
+                sector_buy=sector_buy,
+                sector_sell=sector_sell,
+                sector_count=sector_count,
+                window=window,
             )
         )
 
