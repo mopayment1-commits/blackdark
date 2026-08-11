@@ -2,12 +2,14 @@
 
 **Generated:** 2026-08-11  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Report commit / tip:** `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`  
+**Report commit / tip:** `b8698ea0d5031f9f44d48f41d806b5d720da8d8a`  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58
 
 ## A. Final commit SHA
 
-`f1a4815c7f87db6526619c8fcd3406ea1d2c2403`
+`b8698ea0d5031f9f44d48f41d806b5d720da8d8a`
+
+Remediation evidence commit: `f1a4815c7f87db6526619c8fcd3406ea1d2c2403`
 
 ## B. Final branch
 
