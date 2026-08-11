@@ -27,6 +27,7 @@ Committee-facing index for acquisition / allocator diligence.
 | 60s acceptance | `/api/acceptance/60s` |
 | Scale readiness | `/api/scale/readiness` |
 | Security posture | `/api/security/status` |
+| Security catastrophe P0 | `/api/security/catastrophe-p0` |
 | Evidence pack (public summary) | `/api/b2b/evidence-pack/public-summary` |
 | Evidence pack (Whale) | `/api/b2b/evidence-pack` |
 

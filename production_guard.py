@@ -5,6 +5,7 @@ BLACKDARK — Production environment guard (ARC / launch recommendations).
 from __future__ import annotations
 
 import os
+from pathlib import Path
 from typing import Any
 
 import config
@@ -65,13 +66,28 @@ def evaluate_production_guard() -> dict[str, Any]:
     }
     no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
     no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
-    admin_ok = bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip())
+    admin_ok = bool(
+        os.getenv("ADMIN_API_KEY", "").strip()
+        or os.getenv("ADMIN_API_KEY_FILE", "").strip()
+        or os.getenv("ADMIN_EMAILS", "").strip()
+    )
     demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     demo_disabled = demo_key in {"", "disabled", "off", "none"}
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
     live_exec = os.getenv("LIVE_EXECUTION_ALLOW_API", "").lower() in {"1", "true", "yes"}
+    jupiter_live = os.getenv("JUPITER_LIVE_EXECUTION", "").lower() in {"1", "true", "yes"}
     # Soft Launch must never combine with live money / public demo key exposure.
-    soft_launch_safe = (not soft_launch) or (not live_exec and not expose_demo)
+    soft_launch_safe = (not soft_launch) or (not live_exec and not expose_demo and not jupiter_live)
+    edge_waf = bool(
+        os.getenv("CDN_WAF_ACTIVE", "").strip() or os.getenv("CLOUDFLARE_ZONE_ID", "").strip()
+    )
+    backup_ops = (
+        os.getenv("BACKUP_SCHEDULE_CONFIGURED", "").lower() in {"1", "true", "yes"}
+        or Path("data/backups/LATEST").is_file()
+    )
+    monitor_ops = bool(os.getenv("SENTRY_DSN", "").strip()) or (
+        os.getenv("EXTERNAL_UPTIME_CONFIGURED", "").lower() in {"1", "true", "yes"}
+    )
 
     # Billing entitlement webhook: Lemon secret if Lemon checkout, else Stripe secret if Stripe.
     billing_webhook_ok = True
@@ -195,8 +211,8 @@ def evaluate_production_guard() -> dict[str, Any]:
         _check(
             "b2b_demo_key_disabled",
             demo_disabled if strict_prod else True,
-            required=False,
-            hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in production",
+            required=strict_prod,
+            hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in strict production",
         ),
         _check(
             "demo_key_not_publicly_exposed",
@@ -208,7 +224,10 @@ def evaluate_production_guard() -> dict[str, Any]:
             "soft_launch_no_live_money",
             soft_launch_safe,
             required=is_production(),
-            hint="Soft Launch forbids LIVE_EXECUTION_ALLOW_API and EXPOSE_B2B_DEMO_KEY",
+            hint=(
+                "Soft Launch forbids LIVE_EXECUTION_ALLOW_API, JUPITER_LIVE_EXECUTION, "
+                "and EXPOSE_B2B_DEMO_KEY"
+            ),
         ),
         _check(
             "admin_mfa_configured",
@@ -224,6 +243,24 @@ def evaluate_production_guard() -> dict[str, Any]:
             not expose_demo,
             required=strict_prod,
             hint="EXPOSE_B2B_DEMO_KEY must be false in strict production",
+        ),
+        _check(
+            "edge_waf_declared",
+            edge_waf if strict_prod else True,
+            required=strict_prod,
+            hint="Activate CDN/WAF then set CDN_WAF_ACTIVE=true or CLOUDFLARE_ZONE_ID (docs/CDN_WAF_CHECKLIST.md)",
+        ),
+        _check(
+            "backup_ops_configured",
+            backup_ops if strict_prod else True,
+            required=strict_prod,
+            hint="Schedule scripts/backup_postgres.py then set BACKUP_SCHEDULE_CONFIGURED=true (or write data/backups/LATEST)",
+        ),
+        _check(
+            "monitoring_declared",
+            monitor_ops if strict_prod else True,
+            required=strict_prod,
+            hint="Set SENTRY_DSN and/or EXTERNAL_UPTIME_CONFIGURED=true with UptimeRobot on /health/live",
         ),
         _check(
             "redis_shared_bus",

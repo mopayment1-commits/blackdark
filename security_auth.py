@@ -194,13 +194,51 @@ async def require_whale(
 async def require_admin(
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
+    """Privileged admin guard — MFA enforced when ADMIN_MFA_REQUIRED policy is on."""
+    admin_user: dict | None = None
     if verify_admin_key(x_admin_key):
-        return {"email": "admin@system", "tier": "whale", "is_admin": True}
-    if user and is_admin_user(user):
+        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+    elif user and is_admin_user(user):
         user["is_admin"] = True
-        return user
-    raise HTTPException(status_code=403, detail="Admin authentication required (X-Admin-Key or admin email)")
+        admin_user = user
+    else:
+        try:
+            from security_events import record_security_event
+
+            record_security_event(
+                "admin_auth_denied",
+                severity="warning",
+                actor=(user or {}).get("email") if user else None,
+                detail={"has_admin_key": bool(x_admin_key)},
+            )
+        except Exception:
+            logger.debug("admin deny event failed", exc_info=True)
+        raise HTTPException(
+            status_code=403,
+            detail="Admin authentication required (X-Admin-Key or admin email)",
+        )
+
+    try:
+        from admin_mfa import assert_admin_mfa
+
+        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin_user)
+    except HTTPException as exc:
+        try:
+            from security_events import record_security_event
+
+            detail = exc.detail if isinstance(exc.detail, dict) else {"detail": str(exc.detail)}
+            record_security_event(
+                "admin_mfa_denied",
+                severity="critical",
+                actor=str((admin_user or {}).get("email") or "admin"),
+                detail=detail,
+            )
+        except Exception:
+            logger.debug("admin MFA deny event failed", exc_info=True)
+        raise
+    return admin_user
 
 
 def _is_localhost(request: Request) -> bool:
@@ -212,11 +250,12 @@ async def require_admin_dev(
     request: Request,
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    x_admin_totp: str | None = Header(None, alias="X-Admin-TOTP"),
 ) -> dict:
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key)
+    return await require_admin(user, x_admin_key, x_admin_totp)
 
 
 async def require_pro_or_above(
