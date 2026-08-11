@@ -60,10 +60,20 @@ def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
             }
     except HTTPError as exc:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
-        return {"url": url, "ok": False, "status": exc.code, "latency_ms": round(ms, 1), "error": str(exc)}
-    except (URLError, TimeoutError, OSError) as exc:
+        # Generic error codes only — never return exception/stack text to clients.
+        return {
+            "url": url,
+            "ok": False,
+            "status": exc.code,
+            "latency_ms": round(ms, 1),
+            "error": "http_error",
+        }
+    except TimeoutError:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
-        return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": str(exc)}
+        return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "timed out"}
+    except (URLError, OSError):
+        ms = (datetime.now(UTC) - t0).total_seconds() * 1000
+        return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "network_error"}
 
 
 def glass_box_announce_drafts() -> dict[str, Any]:
@@ -136,8 +146,8 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
                     content_notes.append("intent question mismatch")
             if key == "correction" and payload.get("heroes_count") != 6:
                 content_notes.append("correction heroes_count != 6")
-    except Exception as exc:
-        content_notes.append(f"content_check_error: {exc}")
+    except Exception:
+        content_notes.append("content_check_error")
 
     passed = ok_count >= 7 and not content_notes
     return {

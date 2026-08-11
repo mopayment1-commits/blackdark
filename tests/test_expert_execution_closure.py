@@ -46,6 +46,29 @@ def test_router_exposes_closure_endpoints():
     assert "/api/execution/closure" in paths
     assert "/api/acceptance/60s" in paths
     assert "/api/glass-box/announce-drafts" in paths
+    src = Path("api/routers/heroes.py").read_text(encoding="utf-8")
+    assert "acceptance_probe_unavailable" in src
+    assert "execution_closure_unavailable" in src
+    assert "str(exc)" not in src
+
+
+def test_probe_errors_do_not_expose_exception_text():
+    from expert_execution import _probe
+
+    result = _probe("http://127.0.0.1:1/", timeout=0.2)
+    assert result.get("ok") is False
+    assert result.get("error") in {"network_error", "timed out", "http_error"}
+    assert "Traceback" not in str(result)
+    assert "/workspace" not in str(result)
+
+
+def test_dashboard_oracle_render_escapes_dynamic_html():
+    html = Path("templates/dashboard.html").read_text(encoding="utf-8")
+    # High CodeQL sink region must escape upgrade/conflict/compliance fields.
+    assert "esc(d.upgrade_hint.message" in html
+    assert "esc(conflict.reason || conflict.message)" in html
+    assert "esc(cf.disclaimer)" in html
+    assert "safeUrl" in html
 
 
 def test_deferred_human_points_to_announce_api():
