@@ -110,3 +110,7 @@
 **BLACKDARK DECISION TRACEABILITY: NOT COMPLETE**
 
 Not **100% VERIFIED — NO KNOWN DECISION OMITTED** while `DEC-0411` / `DEC-0501` remain NOT_IMPLEMENTED and 14 PARTIAL + external ops remain.
+
+## Closure run note
+
+Tip `1651c71` on PR #58: DEC-0305 fee fail-closed + DEC-0221 Ruff landed; DEC-0217/0218 still PARTIAL; DEC-0411/0501 still blocked on Sonar AA + acquisition evidence. Track 1/2 remain NOT COMPLETE.
