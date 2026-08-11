@@ -720,6 +720,10 @@
                 const truth = d.net_edge_truth || {};
                 const half = d.opportunity_half_life || {};
                 const sig = d.signal_registry || {};
+                const safeUrl = (u) => {
+                    const s = String(u || '');
+                    return (/^https?:\/\//i.test(s)) ? esc(s) : '';
+                };
                 let proBlock = '';
                 const whyBlock = d.oqs_why || {};
                 const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
@@ -730,14 +734,14 @@
                         <div class="metrics">
                             ${['bull','base','bear'].map(k => {
                                 const s = scen[k] || {};
-                                return `<div class="metric"><strong>${s.probability_pct != null ? s.probability_pct+'%' : '—'}</strong><span>${(s.label||k)}</span></div>`;
+                                return `<div class="metric"><strong>${esc(s.probability_pct != null ? s.probability_pct+'%' : '—')}</strong><span>${esc(s.label||k)}</span></div>`;
                             }).join('')}
                         </div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(d.scenarios && d.scenarios.disclaimer) || ''}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((d.scenarios && d.scenarios.disclaimer) || '')}</div>
                     </div>` : '';
                 const whyVisible = `
                     <div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">
-                        <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'}</div>
+                        <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')}</div>
                         ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${f.detail ? ' — '+esc(f.detail) : ''}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
                     </div>`;
                 const factorBlock = whyVisible + `
@@ -748,10 +752,10 @@
                 if (mode === 'pro') {
                     proBlock = `
                     <div class="metrics">
-                        <div class="metric"><strong>${truth.truth_score ?? '—'}</strong><span>Truth</span></div>
-                        <div class="metric"><strong>${half.remaining_seconds ?? '—'}s</strong><span>Half-Life</span></div>
-                        <div class="metric"><strong>${d.market_regime || '—'}</strong><span>Regime</span></div>
-                        <div class="metric"><strong>${(sig.signal_id || '—').toString().slice(0,10)}</strong><span>Signal</span></div>
+                        <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
+                        <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
+                        <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
+                        <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
                     </div>${factorBlock}`;
                 } else {
                     proBlock = factorBlock;
@@ -761,8 +765,8 @@
                     const t = d.upgrade_hint.teaser || {};
                     upgradeBlock = `
                     <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
-                        ${d.upgrade_hint.message || ''}
-                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${t.truth_score ?? '—'} · Half-life ${t.remaining_seconds ?? '—'}s</div>` : ''}
+                        ${esc(d.upgrade_hint.message || '')}
+                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${esc(t.truth_score ?? '—')} · Half-life ${esc(t.remaining_seconds ?? '—')}s</div>` : ''}
                         <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
                     </div>`;
                 }
@@ -770,41 +774,48 @@
                 const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
                     ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
                         Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
-                        ${conflict.severity ? ` · ${conflict.severity}` : ''}
-                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${conflict.reason || conflict.message}</div>` : ''}
+                        ${conflict.severity ? ` · ${esc(conflict.severity)}` : ''}
+                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(conflict.reason || conflict.message)}</div>` : ''}
                        </div>` : '';
                 const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${d.prediction_id}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${String(d.chain_hash).slice(0,16)}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
+                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
                     : '';
+                const cf = d.compliance_footer || {};
+                const complianceBlock = cf.disclaimer
+                    ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`
+                    : '';
+                const cert = d.decision_certificate || {};
+                let certBlock = '';
+                if (cert.certificate_hash || d.prediction_id) {
+                    window._lastCertShare = cert.share_text || '';
+                    window._lastCertJson = cert;
+                    window._lastCertTxt = cert.export_text || '';
+                    const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
+                    const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
+                    certBlock = `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending')}</code>
+                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
+                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
+                        ${cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : ''}
+                        ${xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : ''}
+                        ${tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : ''}</div>`;
+                }
                 el.innerHTML = `
-                    <div class="verdict ${vc(d.verdict)}">${esc(action || d.verdict)}</div>
+                    <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
                     <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
                         <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
                     <div class="narrative">${esc(sentence)}</div>
                     <div class="metrics">
-                        <div class="metric"><strong>${d.opportunity_score}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${d.confidence != null ? d.confidence + '%' : '—'}</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${d.ux_mode || mode}</strong><span>Mode</span></div>
-                        <div class="metric"><strong>${d.lang || lang}</strong><span>Lang</span></div>
+                        <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
+                        <div class="metric"><strong>${esc(d.confidence != null ? d.confidence + '%' : '—')}</strong><span>Confidence</span></div>
+                        <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
+                        <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
                     </div>
                     ${proBlock}
                     ${vetoBlock}
                     ${proofBlock}
                     ${upgradeBlock}
-                    ${(d.compliance_footer && d.compliance_footer.disclaimer) ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${d.compliance_footer.data_source||''} · ${d.compliance_footer.trust_basis||''}<br>${d.compliance_footer.disclaimer}</div>` : ''}
-                    ${(() => {
-                        const cert = d.decision_certificate || {};
-                        if (!(cert.certificate_hash || d.prediction_id)) return '';
-                        window._lastCertShare = cert.share_text || '';
-                        window._lastCertJson = cert;
-                        window._lastCertTxt = cert.export_text || '';
-                        return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending'}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
-                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
-                        ${cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : ''}
-                        ${(cert.share_urls&&cert.share_urls.x)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>`:''}
-                        ${(cert.share_urls&&cert.share_urls.telegram)?` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>`:''}</div>`;
-                    })()}
+                    ${complianceBlock}
+                    ${certBlock}
                     <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
             } catch (e) {
                 const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty);

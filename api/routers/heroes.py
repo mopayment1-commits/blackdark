@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 
-from fastapi import APIRouter, Body, Query
+from fastapi import APIRouter, Body, HTTPException, Query
 
 router = APIRouter(tags=["heroes"])
+logger = logging.getLogger("BLACKDARK.HeroesAPI")
 
 
 @router.get("/api/heroes/strategy")
@@ -352,15 +354,27 @@ async def execution_closure(base_url: str | None = Query(None)):
     """Expert execution closure — canonical binding + remaining human-only gates."""
     from expert_execution import execution_closure_manifest
 
-    return execution_closure_manifest(base_url=base_url)
+    try:
+        return await asyncio.to_thread(execution_closure_manifest, base_url=base_url)
+    except Exception:
+        logger.exception("execution_closure failed")
+        raise HTTPException(status_code=500, detail="execution_closure_unavailable") from None
 
 
 @router.get("/api/acceptance/60s")
 async def acceptance_60s(base_url: str = Query("http://127.0.0.1:8080")):
-    """Machine probe for 60-second grasp (founder confirm still required)."""
+    """Machine probe for 60-second grasp (founder confirm still required).
+
+    Runs off the event loop so single-worker Soft Launch does not deadlock on
+    self-HTTP probes. Exception details are never returned to clients.
+    """
     from expert_execution import run_acceptance_60s
 
-    return run_acceptance_60s(base_url)
+    try:
+        return await asyncio.to_thread(run_acceptance_60s, base_url)
+    except Exception:
+        logger.exception("acceptance_60s failed")
+        raise HTTPException(status_code=500, detail="acceptance_probe_unavailable") from None
 
 
 @router.get("/api/glass-box/announce-drafts")
@@ -574,10 +588,8 @@ async def desk_duel_accept(payload: dict = Body(default={})):
             desk=str(body.get("desk") or "Challenger"),
             verdict=str(body.get("verdict") or "WAIT"),
         )
-    except ValueError as exc:
-        from fastapi import HTTPException
-
-        raise HTTPException(400, str(exc)) from exc
+    except ValueError:
+        raise HTTPException(status_code=400, detail="invalid_duel_accept") from None
 
 
 @router.post("/api/desk-duel/reveal")
@@ -587,10 +599,8 @@ async def desk_duel_reveal(payload: dict = Body(default={})):
     body = payload or {}
     try:
         return reveal_duel(str(body.get("duel_id") or ""), force=bool(body.get("force", True)))
-    except ValueError as exc:
-        from fastapi import HTTPException
-
-        raise HTTPException(400, str(exc)) from exc
+    except ValueError:
+        raise HTTPException(status_code=400, detail="invalid_duel_reveal") from None
 
 
 @router.get("/api/trust-debt")
