@@ -26,7 +26,7 @@ _SAFE_EDITORS = {
 
 
 def _validate_admin_email(raw: str) -> str:
-    email = (raw or "").strip().lower()
+    email = raw.strip().lower()
     if len(email) > 254 or not _EMAIL_RE.fullmatch(email):
         raise ValueError(f"Invalid admin email: {raw!r}")
     if any(ch in email for ch in (";", "|", "&", "$", "`", "\n", "\r", " ", "\t")):

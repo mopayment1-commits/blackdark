@@ -29,7 +29,7 @@ WITHDRAWAL_FEE_USDT: dict[str, dict[str, float]] = {
 }
 
 DEPOSIT_FEE_USDT: dict[str, dict[str, float]] = {
-    ex: {asset: 0.0 for asset in ("BTC", "ETH", "SOL", "BNB", "XRP")}
+    ex: dict.fromkeys(("BTC", "ETH", "SOL", "BNB", "XRP"), 0.0)
     for ex in WITHDRAWAL_FEE_USDT
 }
 

@@ -71,7 +71,7 @@ async def startup(mode: str | None = None, ctx: ServiceContext | None = None) ->
 async def shutdown(ctx: ServiceContext) -> None:
     from service_bus import stop_service_bus
 
-    for name, task in list(ctx.tasks.items()):
+    for name, task in tuple(ctx.tasks.items()):
         if task is None:
             continue
         if name == "aggregator":

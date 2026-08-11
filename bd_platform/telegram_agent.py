@@ -9,7 +9,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.TelegramAgent")
 
 
-async def handle_agent_message(text: str, *, user_id: int | None = None) -> dict[str, Any]:
+async def handle_agent_message(text: str, *, _user_id: int | None = None) -> dict[str, Any]:
     from chat_service import process_chat
 
     reply = await process_chat(text)

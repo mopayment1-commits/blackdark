@@ -64,7 +64,7 @@ def _discover_ccxt_phase_b2() -> frozenset[str]:
         import ccxt
 
         supported: set[str] = set(CCXT_ID_MAP.keys())
-        for exchange_id, ccxt_id in list(CCXT_ID_MAP.items()):
+        for exchange_id, ccxt_id in tuple(CCXT_ID_MAP.items()):
             if ccxt_id not in ccxt.exchanges:
                 supported.discard(exchange_id)
         return frozenset(supported)
@@ -293,7 +293,7 @@ def symbols_for_exchange(exchange_id: str, spot_symbols: list[str]) -> list[str]
 
 
 async def close_ccxt_pool() -> None:
-    for exchange_id, exchange in list(_exchange_pool.items()):
+    for exchange_id, exchange in tuple(_exchange_pool.items()):
         try:
             await exchange.close()
         except Exception:

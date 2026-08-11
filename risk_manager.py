@@ -259,7 +259,7 @@ def register_stop_loss(
 def check_stop_losses(current_prices: dict[str, float]) -> list[dict[str, Any]]:
     """Return triggered stop-loss orders; marks them triggered."""
     triggered: list[dict[str, Any]] = []
-    for sym, sl in list(_active_stop_losses.items()):
+    for sym, sl in tuple(_active_stop_losses.items()):
         if sl.get("triggered"):
             continue
         px = current_prices.get(sym)

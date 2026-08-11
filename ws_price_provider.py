@@ -183,7 +183,7 @@ async def get_klines(asset: str, interval: str = "1h", limit: int = 200) -> list
     return []
 
 
-async def get_whale_signal(asset: str, price: float) -> str:
+async def get_whale_signal(asset: str, _price: float) -> str:
     sym = _symbol(asset)
     threshold_usd = 75_000.0
     large_side: str | None = None

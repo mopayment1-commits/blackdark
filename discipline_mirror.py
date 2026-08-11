@@ -51,7 +51,7 @@ def record_follow_up(
     return {"ok": True, "id": row["id"], "private": True}
 
 
-def _outcome_points(system_action: str, label: str | None) -> float | None:
+def _outcome_points(_system_action: str, label: str | None) -> float | None:
     """Heuristic points when a prediction label is known."""
     if not label or label == "pending":
         return None

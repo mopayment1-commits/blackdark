@@ -3,11 +3,17 @@
 
   function detectSymbol() {
     const path = location.pathname + location.search + " " + document.title;
-    const m =
-      path.match(/\b([A-Z]{2,10})[-_/]?(USDT|USD|PERP)\b/i) ||
-      path.match(/\/trade\/([A-Z0-9]{2,12})/i) ||
-      path.match(/symbol=([A-Z0-9]{2,12})/i) ||
-      path.match(/\b(BTC|ETH|SOL|BNB|XRP|DOGE|ADA|AVAX|LINK|DOT)\b/i);
+    const patterns = [
+      /\b([A-Z]{2,10})[-_/]?(USDT|USD|PERP)\b/i,
+      /\/trade\/([A-Z0-9]{2,12})/i,
+      /symbol=([A-Z0-9]{2,12})/i,
+      /\b(BTC|ETH|SOL|BNB|XRP|DOGE|ADA|AVAX|LINK|DOT)\b/i,
+    ];
+    let m = null;
+    for (const re of patterns) {
+      m = re.exec(path);
+      if (m) break;
+    }
     return (m && (m[1] || m[0])) || "BTC";
   }
 
@@ -49,10 +55,10 @@
 
   function escapeHtml(s) {
     return String(s)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll(""", "&quot;");
   }
 
   async function refresh() {

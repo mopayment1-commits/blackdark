@@ -63,9 +63,9 @@ def opportunity_fingerprint(opportunity: dict[str, Any]) -> str:
 
 def _prune_state() -> None:
     cutoff = time.monotonic() - _ttl_sec()
-    for fp in list(_crowd_state.keys()):
-        if float(_crowd_state[fp].get("at") or 0) < cutoff:
-            _crowd_state.pop(fp, None)
+    stale = [fp for fp, row in _crowd_state.items() if float(row.get("at") or 0) < cutoff]
+    for fp in stale:
+        _crowd_state.pop(fp, None)
 
 
 def _state(fp: str) -> dict[str, Any]:

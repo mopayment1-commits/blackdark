@@ -37,7 +37,8 @@ class _LiveHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def log_message(self, fmt: str, *args: Any) -> None:
-        pass
+        # Silence default HTTPServer access logging for the health probe.
+        return
 
 
 def start_health_sidecar(port: int) -> None:

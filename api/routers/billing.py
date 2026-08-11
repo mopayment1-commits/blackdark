@@ -84,7 +84,7 @@ async def billing_refund_policy():
     return refund_policy_public()
 
 
-@router.post("/checkout")
+@router.post("/checkout", responses=COMMON_ERROR_RESPONSES)
 async def billing_checkout(
     data: dict = Body(default={}),
     user: dict | None = Depends(optional_user),
@@ -131,7 +131,7 @@ async def billing_checkout(
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@router.post("/portal")
+@router.post("/portal", responses=COMMON_ERROR_RESPONSES)
 async def billing_portal(user: dict | None = Depends(optional_user)):
     from billing_service import (
         create_billing_portal_session,
@@ -168,7 +168,7 @@ async def billing_portal(user: dict | None = Depends(optional_user)):
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@router.post("/institutional-inquiry")
+@router.post("/institutional-inquiry", responses=COMMON_ERROR_RESPONSES)
 async def institutional_inquiry(data: dict = Body(default={})):
     """Sales-led Institutional path — USD wire / invoice, not self-serve Checkout."""
     from database import insert_institutional_inquiry
@@ -197,7 +197,7 @@ async def institutional_inquiry(data: dict = Body(default={})):
     }
 
 
-@router.post("/webhook/lemon")
+@router.post("/webhook/lemon", responses=COMMON_ERROR_RESPONSES)
 async def lemon_webhook(request: Request):
     """Lemon Squeezy entitlement webhook — HMAC-SHA256 via X-Signature."""
     from billing_service import handle_lemon_webhook_event, verify_lemon_webhook_signature

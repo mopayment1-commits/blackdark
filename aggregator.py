@@ -803,10 +803,10 @@ except ImportError:
     def is_spot_only(exchange_id: str) -> bool:
         return exchange_id in SPOT_ONLY_EXCHANGES
 
-    def perp_symbols_for_exchange(exchange_id: str, perp_symbols: list[str]) -> list[str]:
+    def perp_symbols_for_exchange(_exchange_id: str, perp_symbols: list[str]) -> list[str]:
         return perp_symbols
 
-    def symbols_for_exchange(exchange_id: str, spot_symbols: list[str]) -> list[str]:
+    def symbols_for_exchange(_exchange_id: str, spot_symbols: list[str]) -> list[str]:
         return spot_symbols
 
 

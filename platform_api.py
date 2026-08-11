@@ -56,7 +56,7 @@ async def platform_keys_verify():
     return await verify_all_keys()
 
 
-@router.post("/keys/save")
+@router.post("/keys/save", responses=COMMON_ERROR_RESPONSES)
 async def platform_keys_save(
     request: Request,
     body: dict[str, str] = Body(...),
@@ -125,7 +125,7 @@ async def cex_dex_status_route():
     return await cex_dex_status()
 
 
-@router.post("/arb/cex-dex/execute")
+@router.post("/arb/cex-dex/execute", responses=COMMON_ERROR_RESPONSES)
 async def cex_dex_execute(
     body: dict[str, Any] = Body(default_factory=dict),
     _admin: dict = Depends(require_admin),
@@ -441,7 +441,7 @@ async def tv_config(symbol: str = Query("BTCUSDT")):
     return chart_config(symbol)
 
 
-@router.post("/tradingview/webhook")
+@router.post("/tradingview/webhook", responses=COMMON_ERROR_RESPONSES)
 async def tv_webhook(request: Request, payload: dict[str, Any] = Body(...)):
     import hmac
 
@@ -511,7 +511,7 @@ async def vault_status():
     return _fn()
 
 
-@router.post("/vault/store")
+@router.post("/vault/store", responses=COMMON_ERROR_RESPONSES)
 async def vault_store(body: dict[str, Any] = Body(...), _admin: dict = Depends(require_admin)):
     from bd_platform.vault_client import store_secret
 
@@ -543,7 +543,7 @@ async def onchain_advanced(asset: str = Query("BTC")):
     return await compute_advanced_metrics(asset)
 
 
-@router.get("/ml/rl")
+@router.get("/ml/rl", responses=COMMON_ERROR_RESPONSES)
 async def rl_policy(features: str = Query(""), train: bool = Query(False)):
     from ml.rl_policy import policy_status, predict_action
 

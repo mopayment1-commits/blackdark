@@ -18,7 +18,7 @@ async def privacy_status():
     return gdpr_compliance_status()
 
 
-@router.post("/dsr/export")
+@router.post("/dsr/export", responses=COMMON_ERROR_RESPONSES)
 async def dsr_export(user: dict = Depends(require_authenticated)):
     """Authenticated user exports their own data (GDPR Art. 15/20)."""
     from gdpr_service import export_user_data
@@ -29,7 +29,7 @@ async def dsr_export(user: dict = Depends(require_authenticated)):
     return await export_user_data(email)
 
 
-@router.post("/dsr/erase")
+@router.post("/dsr/erase", responses=COMMON_ERROR_RESPONSES)
 async def dsr_erase(
     user: dict = Depends(require_authenticated),
     body: dict = Body(default={}),

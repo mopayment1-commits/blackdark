@@ -126,7 +126,7 @@ async def market_radar_narrative_api():
     return await market_radar_narrative()
 
 
-@router.get("/klines")
+@router.get("/klines", responses=COMMON_ERROR_RESPONSES)
 async def market_klines(
     symbol: str = Query("BTCUSDT", min_length=3, max_length=20),
     interval: str = Query("1h"),

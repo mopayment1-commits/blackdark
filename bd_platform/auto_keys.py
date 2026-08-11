@@ -59,7 +59,7 @@ def payload_from_env_file(path: Path | None = None) -> dict[str, str]:
     return {_ENV_TO_ID[k]: v for k, v in parse_keys_file(path).items()}
 
 
-async def auto_import_keys(*, verify: bool = True, silent: bool = False) -> dict[str, Any]:
+async def auto_import_keys(*, verify: bool = True, _silent: bool = False) -> dict[str, Any]:
     """
     Import keys from keys/platform_keys.env into .env.
     If file empty — free-tier mode (no keys required).

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Annotated, Any
 
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -171,7 +171,7 @@ async def create_org(body: OrgCreate) -> dict[str, Any]:
 
 
 @router.get("/orgs")
-async def list_orgs(email: str = Query(...)) -> dict[str, Any]:
+async def list_orgs(email: Annotated[str, Query(...)]) -> dict[str, Any]:
     from org_tenant import list_orgs_for_email, org_isolation_status
 
     return {"orgs": list_orgs_for_email(email), "isolation": org_isolation_status()}
@@ -184,7 +184,7 @@ async def org_members(org_id: str) -> dict[str, Any]:
     return {"org_id": org_id, "members": list_members(org_id)}
 
 
-@router.post("/orgs/{org_id}/members")
+@router.post("/orgs/{org_id}/members", responses=COMMON_ERROR_RESPONSES)
 async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
     from org_tenant import add_member
 
@@ -194,7 +194,7 @@ async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.post("/orgs/{org_id}/roles")
+@router.post("/orgs/{org_id}/roles", responses=COMMON_ERROR_RESPONSES)
 async def org_role_change(org_id: str, body: RoleChange) -> dict[str, Any]:
     from org_tenant import set_member_role
 
@@ -206,7 +206,7 @@ async def org_role_change(org_id: str, body: RoleChange) -> dict[str, Any]:
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.post("/orgs/{org_id}/mfa-policy")
+@router.post("/orgs/{org_id}/mfa-policy", responses=COMMON_ERROR_RESPONSES)
 async def org_mfa_policy(org_id: str, body: MfaPolicy) -> dict[str, Any]:
     from org_tenant import set_org_mfa_required
 
@@ -219,7 +219,7 @@ async def org_mfa_policy(org_id: str, body: MfaPolicy) -> dict[str, Any]:
 
 
 @router.get("/mfa-policy/check")
-async def mfa_policy_check(email: str = Query(...)) -> dict[str, Any]:
+async def mfa_policy_check(email: Annotated[str, Query(...)]) -> dict[str, Any]:
     from org_mfa_policy import mfa_policy_status, org_requires_mfa_for_email
 
     return {**org_requires_mfa_for_email(email), **mfa_policy_status()}
@@ -232,7 +232,7 @@ async def rbac_matrix() -> dict[str, Any]:
     return rbac_status()
 
 
-@router.post("/sso/configure")
+@router.post("/sso/configure", responses=COMMON_ERROR_RESPONSES)
 async def sso_configure(body: SsoConfigure) -> dict[str, Any]:
     from enterprise_sso import configure_provider
 
@@ -262,7 +262,7 @@ async def sso_authorize(
     return build_sso_authorize_url(org_id, redirect_uri=redirect_uri, email_hint=email_hint)
 
 
-@router.post("/sso/callback")
+@router.post("/sso/callback", responses=COMMON_ERROR_RESPONSES)
 async def sso_callback(body: SsoCallback) -> dict[str, Any]:
     from enterprise_sso import complete_sso_login_async
 
@@ -284,7 +284,7 @@ async def sso_status_api(org_id: str | None = None) -> dict[str, Any]:
     return sso_status(org_id)
 
 
-@router.post("/commerce/invoice")
+@router.post("/commerce/invoice", responses=COMMON_ERROR_RESPONSES)
 async def commerce_invoice(body: InvoiceCreate) -> dict[str, Any]:
     from institutional_commerce import create_invoice
 
@@ -300,7 +300,7 @@ async def commerce_invoice(body: InvoiceCreate) -> dict[str, Any]:
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.post("/commerce/mark-paid")
+@router.post("/commerce/mark-paid", responses=COMMON_ERROR_RESPONSES)
 async def commerce_mark_paid(body: MarkPaid) -> dict[str, Any]:
     from institutional_commerce import mark_invoice_paid
 
@@ -322,7 +322,7 @@ async def commerce_kyc(body: KycOpen) -> dict[str, Any]:
     )
 
 
-@router.post("/commerce/kyc/decide")
+@router.post("/commerce/kyc/decide", responses=COMMON_ERROR_RESPONSES)
 async def commerce_kyc_decide(body: KycDecide) -> dict[str, Any]:
     from institutional_commerce import decide_kyc
 
@@ -365,7 +365,7 @@ async def compliance_api() -> dict[str, Any]:
     return compliance_status()
 
 
-@router.post("/compliance/evidence")
+@router.post("/compliance/evidence", responses=COMMON_ERROR_RESPONSES)
 async def compliance_deposit(body: EvidenceDeposit) -> dict[str, Any]:
     from institutional_assurance import deposit_compliance_evidence
 
@@ -375,7 +375,7 @@ async def compliance_deposit(body: EvidenceDeposit) -> dict[str, Any]:
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.post("/contracts")
+@router.post("/contracts", responses=COMMON_ERROR_RESPONSES)
 async def contracts_create(body: ContractCreate) -> dict[str, Any]:
     from institutional_assurance import create_contract
 
@@ -385,7 +385,7 @@ async def contracts_create(body: ContractCreate) -> dict[str, Any]:
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.post("/contracts/sign")
+@router.post("/contracts/sign", responses=COMMON_ERROR_RESPONSES)
 async def contracts_sign(body: ContractSign) -> dict[str, Any]:
     from institutional_assurance import sign_contract
 

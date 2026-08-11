@@ -98,7 +98,7 @@ async def _fetch_solana_priority_fee(session: aiohttp.ClientSession) -> float | 
     return float(sorted(fees)[len(fees) // 2])
 
 
-async def _native_usd(session: aiohttp.ClientSession, chain: str) -> float:
+async def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float:
     asset_map = {
         "ethereum": "ETH",
         "bsc": "BNB",

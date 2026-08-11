@@ -71,7 +71,7 @@ async def run_oracle_retrain_step() -> dict[str, Any]:
 
     dims = get_dimension_weights()
     errors = {"technical": 0.0, "onchain": 0.0, "sentiment": 0.0, "macro": 0.0, "whale": 0.0}
-    counts = {k: 0 for k in errors}
+    counts = dict.fromkeys(errors, 0)
 
     for row in resolved_rows:
         accuracy = float(row.get("accuracy_score") or 0)

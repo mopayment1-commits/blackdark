@@ -14,6 +14,7 @@ status_set() {
   local tool_name="$1"
   local result="$2"
   printf '%s\n' "$result" >"${OUT}/${tool_name}.status"
+  return 0
 }
 
 run() {
@@ -28,6 +29,7 @@ run() {
     echo "FAIL ${name} (see ${OUT}/${name}.log)"
     status_set "${name}" FAIL
   fi
+  return 0
 }
 
 $PY -m pip install -q "pip-audit==2.9.0" "bandit==1.8.6" "detect-secrets==1.5.0" ruff 2>/dev/null || true

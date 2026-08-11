@@ -182,11 +182,11 @@ async def reconcile_active_alerts(current_opportunities: list[dict[str, Any]]) -
     global _cancelled_total
     current_fps = {_fingerprint(o) for o in current_opportunities}
     cancelled: list[str] = []
-    for fp in list(_active_alerts.keys()):
-        if fp not in current_fps:
-            _active_alerts.pop(fp, None)
-            _cancelled_total += 1
-            cancelled.append(fp)
+    stale = [fp for fp in _active_alerts if fp not in current_fps]
+    for fp in stale:
+        _active_alerts.pop(fp, None)
+        _cancelled_total += 1
+        cancelled.append(fp)
     return cancelled
 
 

@@ -351,7 +351,7 @@ async def intent_resolve(intent_id: str = Query(...)):
     return resolve_intent(intent_id)
 
 
-@router.get("/api/execution/closure")
+@router.get("/api/execution/closure", responses=COMMON_ERROR_RESPONSES)
 async def execution_closure(base_url: str | None = Query(None)):
     """Expert execution closure — canonical binding + remaining human-only gates."""
     from expert_execution import execution_closure_manifest
@@ -363,7 +363,7 @@ async def execution_closure(base_url: str | None = Query(None)):
         raise HTTPException(status_code=500, detail="execution_closure_unavailable") from None
 
 
-@router.get("/api/acceptance/60s")
+@router.get("/api/acceptance/60s", responses=COMMON_ERROR_RESPONSES)
 async def acceptance_60s(base_url: str = Query("http://127.0.0.1:8080")):
     """Machine probe for 60-second grasp (founder confirm still required).
 
@@ -579,7 +579,7 @@ async def desk_duel_create(payload: dict = Body(default={})):
     )
 
 
-@router.post("/api/desk-duel/accept")
+@router.post("/api/desk-duel/accept", responses=COMMON_ERROR_RESPONSES)
 async def desk_duel_accept(payload: dict = Body(default={})):
     from sealed_desk_duel import accept_duel
 
@@ -594,7 +594,7 @@ async def desk_duel_accept(payload: dict = Body(default={})):
         raise HTTPException(status_code=400, detail="invalid_duel_accept") from None
 
 
-@router.post("/api/desk-duel/reveal")
+@router.post("/api/desk-duel/reveal", responses=COMMON_ERROR_RESPONSES)
 async def desk_duel_reveal(payload: dict = Body(default={})):
     from sealed_desk_duel import reveal_duel
 

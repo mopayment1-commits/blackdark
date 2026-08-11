@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -913,7 +913,7 @@ async def reset_password_page(request: Request):
     return render_page(request, "reset_password.html", _footer_ctx())
 
 
-@app.get("/verify-email", response_class=HTMLResponse)
+@app.get("/verify-email", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def verify_email_page(request: Request, token: str = ""):
     """Browser entry — verify server-side, then redirect to a fixed profile URL."""
     from fastapi.responses import RedirectResponse
@@ -963,7 +963,7 @@ async def verify_email_page(request: Request, token: str = ""):
 # GTM / platform stats → api/routers/gtm.py
 # Telegram → api/routers/telegram.py
 
-@app.post("/api/promo/redeem")
+@app.post("/api/promo/redeem", responses=COMMON_ERROR_RESPONSES)
 async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from auth_service import redeem_promo_code
 
@@ -975,7 +975,7 @@ async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optio
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@app.post("/api/chat")
+@app.post("/api/chat", responses=COMMON_ERROR_RESPONSES)
 async def ai_chat(
     data: dict = Body(...),
     user: dict | None = Depends(require_feature("ai_chat")),
@@ -987,7 +987,7 @@ async def ai_chat(
     return await process_chat(message, history=history)
 
 
-@app.get("/api/journal")
+@app.get("/api/journal", responses=COMMON_ERROR_RESPONSES)
 async def journal_list(user: dict | None = Depends(optional_user)):
     from auth_service import feature_allowed
     from database import fetch_journal_entries
@@ -997,7 +997,7 @@ async def journal_list(user: dict | None = Depends(optional_user)):
     return {"entries": await fetch_journal_entries(user["email"])}
 
 
-@app.post("/api/journal")
+@app.post("/api/journal", responses=COMMON_ERROR_RESPONSES)
 async def journal_create(data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from auth_service import feature_allowed
     from database import insert_journal_entry
@@ -1017,7 +1017,7 @@ async def journal_create(data: dict = Body(...), user: dict | None = Depends(opt
     return {"success": True, "id": entry_id}
 
 
-@app.patch("/api/journal/{entry_id}")
+@app.patch("/api/journal/{entry_id}", responses=COMMON_ERROR_RESPONSES)
 async def journal_update(entry_id: int, data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from database import update_journal_entry
 
@@ -1060,7 +1060,7 @@ async def telegram_status():
     }
 
 
-@app.post("/api/alerts/telegram/test")
+@app.post("/api/alerts/telegram/test", responses=COMMON_ERROR_RESPONSES)
 async def telegram_test(
     data: dict = Body(default={}),
     user: dict = Depends(require_authenticated),
@@ -1153,7 +1153,7 @@ async def api_i18n_locales():
     return i18n_manifest()
 
 
-@app.get("/api/i18n/catalog")
+@app.get("/api/i18n/catalog", responses=COMMON_ERROR_RESPONSES)
 async def api_i18n_catalog(lang: str = "en"):
     from i18n_service import catalog_for, locale_meta, normalize_lang
 
@@ -1446,7 +1446,7 @@ async def dashboard_live_stream():
     )
 
 
-@app.get("/api/trust-pulse")
+@app.get("/api/trust-pulse", responses=COMMON_ERROR_RESPONSES)
 async def api_trust_pulse(
     symbol: str = "BTC",
     previous_action: str | None = None,
@@ -1842,7 +1842,7 @@ async def api_faq():
     return {"items": FAQ_ITEMS}
 
 
-@app.post("/api/feedback")
+@app.post("/api/feedback", responses=COMMON_ERROR_RESPONSES)
 async def api_feedback(data: dict = Body(...)):
     from site_services import submit_feedback
 
@@ -2082,7 +2082,7 @@ async def oracle_quick(
     return JSONResponse(clean)
 
 
-@app.get("/oracle/{symbol}")
+@app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
 async def oracle(
     symbol: str,
     request: Request,
@@ -2632,7 +2632,7 @@ async def oracle_accuracy_page(request: Request):
 
 # ML experience routes → api/routers/oracle.py
 
-@app.get("/api/b2b/feed")
+@app.get("/api/b2b/feed", responses=COMMON_ERROR_RESPONSES)
 async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     from whale_tracker import InstitutionalDataExporter
 
@@ -2643,7 +2643,7 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
         raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
 
-@app.get("/api/b2b/demo")
+@app.get("/api/b2b/demo", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_feed():
     """Public demo feed — limited records, no key required."""
     from whale_tracker import InstitutionalDataExporter
@@ -2784,7 +2784,7 @@ async def api_legal_ack_terms():
     return resp
 
 
-@app.get("/system/info")
+@app.get("/system/info", responses=COMMON_ERROR_RESPONSES)
 async def system_info(request: Request, user: dict | None = Depends(optional_user)):
     """Classified system surface — requires Terms ack; auth required for payload."""
     blocked = _require_terms_ack_or_403(request)
@@ -2840,7 +2840,7 @@ async def cookies_page(request: Request):
     return _legal_page(request, "cookies")
 
 
-@app.get("/api/b2b/demo/proposal")
+@app.get("/api/b2b/demo/proposal", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_proposal(client: str = "Demo Prospect"):
     """Public demo sales proposal — limited data, no API key."""
     from whale_tracker import InstitutionalDataExporter
@@ -2859,7 +2859,7 @@ async def b2b_demo_proposal(client: str = "Demo Prospect"):
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
 
-@app.get("/api/b2b/proposal")
+@app.get("/api/b2b/proposal", responses=COMMON_ERROR_RESPONSES)
 async def b2b_proposal(
     client: str = "Prospect",
     x_api_key: str = Header(..., alias="X-API-Key"),
@@ -2878,7 +2878,7 @@ async def b2b_proposal(
 
 # Arbitrage API routes → api/routers/arbitrage.py
 
-@app.post("/api/simulate/trade")
+@app.post("/api/simulate/trade", responses=COMMON_ERROR_RESPONSES)
 async def simulate_trade(
     data: dict = Body(...),
     _user: dict | None = Depends(require_feature("research_lab")),
@@ -2914,7 +2914,7 @@ async def simulate_arbitrage(
     )
 
 
-@app.get("/api/simulate/history")
+@app.get("/api/simulate/history", responses=COMMON_ERROR_RESPONSES)
 async def simulate_history(
     limit: int = 15,
     _user: dict | None = Depends(require_feature("research_lab")),
@@ -2924,7 +2924,7 @@ async def simulate_history(
     return {"simulations": await fetch_simulation_logs(limit=limit)}
 
 
-@app.post("/api/alerts/subscribe")
+@app.post("/api/alerts/subscribe", responses=COMMON_ERROR_RESPONSES)
 async def alerts_subscribe(
     data: dict = Body(...),
     user: dict | None = Depends(optional_user),
@@ -2956,7 +2956,7 @@ async def alerts_test(_admin: dict = Depends(require_admin)):
     return await send_test_alert()
 
 
-@app.get("/api/alerts/inbox")
+@app.get("/api/alerts/inbox", responses=COMMON_ERROR_RESPONSES)
 async def alerts_inbox(
     limit: int = 30,
     unread_only: bool = False,
@@ -3006,7 +3006,7 @@ async def execution_status(_user: dict = Depends(require_pro_or_above)):
     return await get_execution_status()
 
 
-@app.get("/api/execution/keys/status")
+@app.get("/api/execution/keys/status", responses=COMMON_ERROR_RESPONSES)
 async def execution_keys_status_api(_user: dict = Depends(require_whale)):
     from execution_keys import execution_keys_status
 
@@ -3015,7 +3015,7 @@ async def execution_keys_status_api(_user: dict = Depends(require_whale)):
     return status
 
 
-@app.post("/api/execution/keys/activate")
+@app.post("/api/execution/keys/activate", responses=COMMON_ERROR_RESPONSES)
 async def execution_keys_activate(request: Request, live: bool = False, user: dict = Depends(require_whale)):
     from execution_keys import activate_live_execution
 
@@ -3059,7 +3059,7 @@ async def execution_resume(_user: dict = Depends(require_whale)):
     return await resume_execution()
 
 
-@app.post("/api/execution/order")
+@app.post("/api/execution/order", responses=COMMON_ERROR_RESPONSES)
 async def execution_order(body: ExecutionOrderBody, user: dict = Depends(require_whale)):
     from execution_engine import execute_order
 
@@ -3123,14 +3123,14 @@ async def behavior_data_stats(days: int = 30):
     return stats
 
 
-@app.get("/api/research/asset/{symbol}")
+@app.get("/api/research/asset/{symbol}", responses=COMMON_ERROR_RESPONSES)
 async def research_asset(symbol: str, notional: float = 10_000):
     from research_lab import compute_financial_models
 
     return await compute_financial_models(symbol, notional=notional)
 
 
-@app.get("/api/research/export")
+@app.get("/api/research/export", responses=COMMON_ERROR_RESPONSES)
 async def research_export(x_api_key: str = Header(..., alias="X-API-Key")):
     from research_lab import export_signed_research
 
@@ -3263,7 +3263,7 @@ async def api_regulatory_compliance():
     return regulatory_compliance_status()
 
 
-@app.get("/api/retention/status")
+@app.get("/api/retention/status", responses=COMMON_ERROR_RESPONSES)
 async def api_retention_status(user: dict | None = Depends(optional_user)):
     from database import fetch_active_subscription_for_email
     from retention_service import build_retention_status
@@ -3609,7 +3609,7 @@ async def health():
     }
 
 
-@app.get("/api/build-info")
+@app.get("/api/build-info", responses=COMMON_ERROR_RESPONSES)
 async def build_info():
     """Verify which commit Railway is actually running."""
     return {
@@ -3623,7 +3623,7 @@ async def build_info():
         "price_probe": "/api/diagnostics/price/BTC",
     }
 
-@app.post("/portfolio/analyze")
+@app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
     assets: list = Body(...),
     _user: dict | None = Depends(require_feature("portfolio_ai")),
@@ -3764,7 +3764,7 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@app.get("/create-checkout-session")
+@app.get("/create-checkout-session", responses=COMMON_ERROR_RESPONSES)
 async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_user)):
     """Landing page links use GET — redirect to Lemon Squeezy or Stripe."""
     email = user.get("email") if user else None
@@ -3773,14 +3773,14 @@ async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_u
     return RedirectResponse(url=payload["url"], status_code=303)
 
 
-@app.post("/create-checkout-session")
+@app.post("/create-checkout-session", responses=COMMON_ERROR_RESPONSES)
 async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_user)):
     email = user.get("email") if user else None
     user_id = int(user["id"]) if user and user.get("id") else None
     return _create_stripe_checkout(tier, customer_email=email, user_id=user_id)
 
 
-@app.post("/webhook")
+@app.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def stripe_webhook(request: Request):
     from billing_service import handle_stripe_webhook_event
 

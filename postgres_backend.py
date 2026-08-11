@@ -158,13 +158,16 @@ class PgConnectionAdapter:
                 await self._conn.execute(cleaned)
 
     async def commit(self) -> None:
-        pass
+        # asyncpg autocommits each statement; keep sqlite-compatible no-op.
+        return
 
     async def rollback(self) -> None:
-        pass
+        # No transaction boundary to undo under asyncpg autocommit.
+        return
 
     async def close(self) -> None:
-        pass
+        # Connection lifetime is owned by the pool, not this wrapper.
+        return
 
 
 async def init_pool() -> None:

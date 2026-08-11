@@ -515,7 +515,7 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         )
     )
 
-    counts = {k: 0 for k in ("PASS", "FAIL", STR_PARTIALLY_PASS, "NOT APPLICABLE")}
+    counts = dict.fromkeys(("PASS", "FAIL", STR_PARTIALLY_PASS, "NOT APPLICABLE"), 0)
     for r in requirements:
         counts[r.verdict] += 1
 
