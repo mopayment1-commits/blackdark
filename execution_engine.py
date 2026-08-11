@@ -229,6 +229,99 @@ async def set_auto_execution(enabled: bool) -> dict[str, Any]:
     return {"success": True, "auto_execution_enabled": enabled, "mode": mode if enabled else "off"}
 
 
+def _blocked_order(reason: str, message: str) -> dict[str, Any]:
+    return {
+        "success": False,
+        "blocked": True,
+        "reason": reason,
+        "message": message,
+    }
+
+
+async def _live_credential_source(user_id: int | None) -> tuple[bool, str, dict[str, Any] | None]:
+    from api_key_security_guard import live_execution_allowed
+
+    try:
+        _key, _secret, credential_source = await resolve_binance_credentials(user_id)
+    except ValueError as exc:
+        return False, "none", _blocked_order("missing_credentials", str(exc))
+    allowed, reason = live_execution_allowed(
+        user_id=user_id,
+        using_env_keys=(credential_source == "env_operator"),
+    )
+    if not allowed:
+        return False, credential_source, _blocked_order(
+            reason,
+            f"API key security guard blocked live order: {reason}",
+        )
+    return True, credential_source, None
+
+
+def _order_payload(
+    asset: str,
+    pair: str,
+    side: Side,
+    amount_usd: float,
+    price: float,
+    quantity: float,
+    fee: float,
+    live: bool,
+    credential_source: str,
+    user_id: int | None,
+) -> dict[str, Any]:
+    return {
+        "symbol": asset,
+        "pair": pair,
+        "side": side,
+        "amount_usd": round(amount_usd, 2),
+        "price": price,
+        "quantity": round(quantity, 8),
+        "fee_usd": round(fee, 4),
+        "mode": "dry_run" if not live else "live",
+        "credential_source": credential_source,
+        "user_id": user_id,
+        "timestamp": _utcnow_iso(),
+    }
+
+
+async def _submit_live_order(
+    payload: dict[str, Any],
+    pair: str,
+    side: Side,
+    quantity: float,
+    user_id: int | None,
+) -> None:
+    asset = str(payload.get("symbol") or "")
+    amount_usd = float(payload.get("amount_usd") or 0)
+    credential_source = str(payload.get("credential_source") or "")
+    try:
+        order = await _place_binance_market_order(pair, side, quantity, user_id=user_id)
+        payload["executed"] = True
+        payload["exchange_order"] = {
+            "orderId": order.get("orderId"),
+            "status": order.get("status"),
+            "executedQty": order.get("executedQty"),
+        }
+        payload["message"] = f"Live {side} {asset} submitted to Binance."
+        # CodeQL py/log-injection: CR/LF replace must be INLINE at the sink.
+        # (isalnum()/helper guards are NOT treated as log-injection sanitizers.)
+        logger.info(
+            "Live order placed | side=%s asset=%s amount_usd=%.2f source=%s",
+            str(side).replace("\r", " ").replace("\n", " ")[:16],
+            str(asset).replace("\r", " ").replace("\n", " ")[:32],
+            amount_usd,
+            str(credential_source).replace("\r", " ").replace("\n", " ")[:32],
+        )
+    except Exception:
+        payload["executed"] = False
+        payload["message"] = "Live order failed"
+        logger.exception(
+            "Live order failed | side=%s asset=%s",
+            str(side).replace("\r", " ").replace("\n", " ")[:16],
+            str(asset).replace("\r", " ").replace("\n", " ")[:32],
+        )
+
+
 async def execute_order(
     symbol: str,
     side: Side,
@@ -238,38 +331,25 @@ async def execute_order(
     user_id: int | None = None,
 ) -> dict[str, Any]:
     """Execute or simulate a spot order with security + risk gates."""
-    from api_key_security_guard import live_execution_allowed
     from database import fetch_execution_state, insert_execution_log
 
     state = await fetch_execution_state()
     if state.get("panic_active"):
-        return {
-            "success": False,
-            "blocked": True,
-            "reason": "panic_active",
-            "message": "Panic button is active — no orders allowed.",
-        }
+        return _blocked_order("panic_active", "Panic button is active — no orders allowed.")
 
     asset, pair = _normalize_symbol(symbol)
 
     from risk_manager import evaluate_execution_risk, is_trading_frozen, register_stop_loss
 
     if is_trading_frozen():
-        return {
-            "success": False,
-            "blocked": True,
-            "reason": "trading_frozen",
-            "message": "Risk manager has frozen trading (data poisoning or manual freeze).",
-        }
+        return _blocked_order(
+            "trading_frozen",
+            "Risk manager has frozen trading (data poisoning or manual freeze).",
+        )
 
     risk = evaluate_execution_risk({"asset": asset, "slippage_bps": 0})
     if not risk.allowed:
-        return {
-            "success": False,
-            "blocked": True,
-            "reason": risk.reason,
-            "message": f"Risk gate blocked: {risk.reason}",
-        }
+        return _blocked_order(risk.reason, f"Risk gate blocked: {risk.reason}")
 
     market = await _fetch_ticker(pair)
     if market is None:
@@ -284,72 +364,18 @@ async def execute_order(
 
     credential_source = "none"
     if live_requested:
-        try:
-            _key, _secret, credential_source = await resolve_binance_credentials(user_id)
-        except ValueError as exc:
-            return {
-                "success": False,
-                "blocked": True,
-                "reason": "missing_credentials",
-                "message": str(exc),
-            }
-        allowed, reason = live_execution_allowed(
-            user_id=user_id,
-            using_env_keys=(credential_source == "env_operator"),
-        )
+        allowed, credential_source, blocked = await _live_credential_source(user_id)
         if not allowed:
-            return {
-                "success": False,
-                "blocked": True,
-                "reason": reason,
-                "message": f"API key security guard blocked live order: {reason}",
-            }
+            return blocked or _blocked_order("missing_credentials", "Live credentials unavailable.")
 
     live = bool(live_requested)
 
-    payload = {
-        "symbol": asset,
-        "pair": pair,
-        "side": side,
-        "amount_usd": round(amount_usd, 2),
-        "price": price,
-        "quantity": round(quantity, 8),
-        "fee_usd": round(fee, 4),
-        "mode": "dry_run" if not live else "live",
-        "credential_source": credential_source,
-        "user_id": user_id,
-        "timestamp": _utcnow_iso(),
-    }
+    payload = _order_payload(
+        asset, pair, side, amount_usd, price, quantity, fee, live, credential_source, user_id
+    )
 
     if live:
-        try:
-            order = await _place_binance_market_order(
-                pair, side, quantity, user_id=user_id
-            )
-            payload["executed"] = True
-            payload["exchange_order"] = {
-                "orderId": order.get("orderId"),
-                "status": order.get("status"),
-                "executedQty": order.get("executedQty"),
-            }
-            payload["message"] = f"Live {side} {asset} submitted to Binance."
-            # CodeQL py/log-injection: CR/LF replace must be INLINE at the sink.
-            # (isalnum()/helper guards are NOT treated as log-injection sanitizers.)
-            logger.info(
-                "Live order placed | side=%s asset=%s amount_usd=%.2f source=%s",
-                str(side).replace("\r", " ").replace("\n", " ")[:16],
-                str(asset).replace("\r", " ").replace("\n", " ")[:32],
-                float(amount_usd),
-                str(credential_source).replace("\r", " ").replace("\n", " ")[:32],
-            )
-        except Exception:
-            payload["executed"] = False
-            payload["message"] = "Live order failed"
-            logger.exception(
-                "Live order failed | side=%s asset=%s",
-                str(side).replace("\r", " ").replace("\n", " ")[:16],
-                str(asset).replace("\r", " ").replace("\n", " ")[:32],
-            )
+        await _submit_live_order(payload, pair, side, quantity, user_id)
     else:
         payload["message"] = f"Dry-run: would {side} {quantity:.6f} {asset} @ ${price:,.2f}"
         payload["executed"] = False
@@ -382,6 +408,82 @@ def _infer_execution_side(opportunity: dict[str, Any]) -> Side:
     return "buy"
 
 
+def _gate_skip_reason(opportunity: dict[str, Any]) -> dict[str, Any] | None:
+    if opportunity.get("gates_missing"):
+        return {"skipped": True, "reason": "constitution_gates_missing", "opportunity": {
+            "net_edge_truth": opportunity.get("net_edge_truth"),
+            "opportunity_half_life": opportunity.get("opportunity_half_life"),
+        }}
+    conflict = opportunity.get("dimension_conflict") or {}
+    if conflict.get("veto") or conflict.get("abstain"):
+        return {"skipped": True, "reason": "dimension_conflict", "conflict": conflict}
+    truth = opportunity.get("net_edge_truth") or {}
+    if truth.get("reject"):
+        return {"skipped": True, "reason": "net_edge_truth_reject", "net_edge_truth": truth}
+    if opportunity.get("half_life_killed"):
+        return {
+            "skipped": True,
+            "reason": "opportunity_half_life_expired",
+            "opportunity_half_life": opportunity.get("opportunity_half_life"),
+        }
+    return None
+
+
+def _half_life_skip_reason(opportunity: dict[str, Any]) -> dict[str, Any] | None:
+    half = opportunity.get("opportunity_half_life") or {}
+    try:
+        remain = float(half.get("remaining_seconds"))
+        p_gone = float(half.get("disappearance_probability") or 0)
+    except (TypeError, ValueError):
+        return {"skipped": True, "reason": "opportunity_half_life_unavailable", "opportunity_half_life": half}
+    if remain <= 2.0 or p_gone >= 0.92:
+        return {
+            "skipped": True,
+            "reason": "opportunity_half_life_expired",
+            "opportunity_half_life": half,
+        }
+    return None
+
+
+def _state_skip_reason(
+    opportunity: dict[str, Any],
+    state: dict[str, Any],
+    live: bool,
+    dry_run_default: bool,
+) -> dict[str, Any] | None:
+    if state.get("panic_active"):
+        return {"skipped": True, "reason": "panic_active"}
+    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
+        return {"skipped": True, "reason": "auto_execution_disabled"}
+    profit = float(opportunity.get("net_profit_usdt") or 0)
+    min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
+    if profit < min_usdt:
+        return {"skipped": True, "reason": "below_min_profit", "profit_usdt": profit}
+    return None
+
+
+def _opportunity_risk_skip_reason(opportunity: dict[str, Any]) -> dict[str, Any] | None:
+    from risk_manager import evaluate_execution_risk
+
+    risk = evaluate_execution_risk(opportunity)
+    if not risk.allowed:
+        return {"skipped": True, "reason": risk.reason, "risk_blocked": True}
+    kind = str(opportunity.get("kind") or "")
+    if kind == "triangular" and float(opportunity.get("data_age_sec") or 0) > 1.0:
+        return {"skipped": True, "reason": "triangular_stale_for_execution"}
+    return None
+
+
+def _ensure_execution_gates_safe(opportunity: dict[str, Any]) -> dict[str, Any]:
+    try:
+        from constitution_gates import ensure_execution_gates
+
+        return ensure_execution_gates(opportunity)
+    except Exception:
+        logger.debug("execution gate recompute failed", exc_info=True)
+        return opportunity
+
+
 async def try_execute_from_opportunity(
     opportunity: dict[str, Any],
     *,
@@ -395,69 +497,20 @@ async def try_execute_from_opportunity(
         return {"skipped": True, "reason": "trading_frozen"}
 
     state = await fetch_execution_state()
-    if state.get("panic_active"):
-        return {"skipped": True, "reason": "panic_active"}
-
     live = _live_enabled()
     dry_run_default = _dry_run_default()
-    if not state.get("auto_execution_enabled") and (live or not dry_run_default):
-        return {"skipped": True, "reason": "auto_execution_disabled"}
 
-    min_usdt = float(os.getenv("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25"))
-    profit = float(opportunity.get("net_profit_usdt") or 0)
-    if profit < min_usdt:
-        return {"skipped": True, "reason": "below_min_profit", "profit_usdt": profit}
+    skip = _state_skip_reason(opportunity, state, live, dry_run_default)
+    if skip is not None:
+        return skip
+    skip = _opportunity_risk_skip_reason(opportunity)
+    if skip is not None:
+        return skip
 
-    from risk_manager import evaluate_execution_risk
-
-    risk = evaluate_execution_risk(opportunity)
-    if not risk.allowed:
-        return {"skipped": True, "reason": risk.reason, "risk_blocked": True}
-
-    kind = str(opportunity.get("kind") or "")
-    if kind == "triangular" and float(opportunity.get("data_age_sec") or 0) > 1.0:
-        return {"skipped": True, "reason": "triangular_stale_for_execution"}
-
-    # Constitution fail-closed: recompute missing Truth / Half-Life / Veto before exec.
-    try:
-        from constitution_gates import ensure_execution_gates
-
-        opportunity = ensure_execution_gates(opportunity)
-    except Exception:
-        logger.debug("execution gate recompute failed", exc_info=True)
-
-    if opportunity.get("gates_missing"):
-        return {"skipped": True, "reason": "constitution_gates_missing", "opportunity": {
-            "net_edge_truth": opportunity.get("net_edge_truth"),
-            "opportunity_half_life": opportunity.get("opportunity_half_life"),
-        }}
-
-    conflict = opportunity.get("dimension_conflict") or {}
-    if conflict.get("veto") or conflict.get("abstain"):
-        return {"skipped": True, "reason": "dimension_conflict", "conflict": conflict}
-    truth = opportunity.get("net_edge_truth") or {}
-    if truth.get("reject"):
-        return {"skipped": True, "reason": "net_edge_truth_reject", "net_edge_truth": truth}
-    if opportunity.get("half_life_killed"):
-        return {
-            "skipped": True,
-            "reason": "opportunity_half_life_expired",
-            "opportunity_half_life": opportunity.get("opportunity_half_life"),
-        }
-    half = opportunity.get("opportunity_half_life") or {}
-    try:
-        remain = float(half.get("remaining_seconds"))
-        p_gone = float(half.get("disappearance_probability") or 0)
-    except (TypeError, ValueError):
-        remain, p_gone = None, 0.0
-    if remain is None:
-        return {"skipped": True, "reason": "opportunity_half_life_unavailable", "opportunity_half_life": half}
-    if remain <= 2.0 or p_gone >= 0.92:
-        return {
-            "skipped": True,
-            "reason": "opportunity_half_life_expired",
-            "opportunity_half_life": half,
-        }
+    opportunity = _ensure_execution_gates_safe(opportunity)
+    skip = _gate_skip_reason(opportunity) or _half_life_skip_reason(opportunity)
+    if skip is not None:
+        return skip
 
     asset = str(opportunity.get("asset") or "BTC")
     side = _infer_execution_side(opportunity)
@@ -480,58 +533,75 @@ async def try_execute_from_opportunity(
     }
 
 
-async def run_auto_execution_cycle() -> dict[str, Any]:
-    """Scan profitable arb and execute top signal if auto-execution is enabled."""
-    # Built-in stop-loss monitor — flatten/halt when registered stops hit
+async def _stop_loss_flatten_outcome() -> dict[str, Any] | None:
     try:
         from risk_manager import active_stop_loss_symbols, check_stop_losses, freeze_trading
 
-        prices: dict[str, float] = {}
-        for sym in active_stop_loss_symbols():
-            try:
-                market = await _fetch_ticker(f"{sym}USDT")
-                if market and market.get("price") is not None:
-                    prices[sym] = float(market["price"])
-            except Exception:
-                continue
-        if prices:
-            triggered = check_stop_losses(prices)
-            if triggered:
-                freeze_trading(
-                    f"stop_loss_triggered:{','.join(t.get('symbol','?') for t in triggered[:5])}",
-                    duration_sec=int(os.getenv("RISK_STOP_LOSS_FREEZE_SEC", "120")),
-                )
-                flatten_results = []
-                for hit in triggered:
-                    try:
-                        side = "sell" if hit.get("side") == "buy" else "buy"
-                        amt = float(os.getenv("AUTO_EXECUTION_QUOTE_USD", "100"))
-                        result = await execute_order(
-                            hit["symbol"],
-                            side,  # type: ignore[arg-type]
-                            amt,
-                            dry_run=None,
-                        )
-                        flatten_results.append(
-                            {
-                                "symbol": hit["symbol"],
-                                "flatten_side": side,
-                                "mode": result.get("mode"),
-                                "executed": result.get("executed"),
-                            }
-                        )
-                    except Exception as exc:
-                        flatten_results.append(
-                            {"symbol": hit.get("symbol"), "error": str(exc)[:120]}
-                        )
-                return {
-                    "executed": bool(flatten_results),
-                    "mode": "stop_loss_flatten",
-                    "triggered": triggered,
-                    "flatten": flatten_results,
-                }
+        prices = await _active_stop_loss_prices(active_stop_loss_symbols())
+        if not prices:
+            return None
+        triggered = check_stop_losses(prices)
+        if not triggered:
+            return None
+        freeze_trading(
+            f"stop_loss_triggered:{','.join(t.get('symbol','?') for t in triggered[:5])}",
+            duration_sec=int(os.getenv("RISK_STOP_LOSS_FREEZE_SEC", "120")),
+        )
+        flatten_results = await _flatten_stop_loss_hits(triggered)
+        return {
+            "executed": bool(flatten_results),
+            "mode": "stop_loss_flatten",
+            "triggered": triggered,
+            "flatten": flatten_results,
+        }
     except Exception:
         logger.debug("stop-loss monitor skipped", exc_info=True)
+        return None
+
+
+async def _active_stop_loss_prices(symbols: Any) -> dict[str, float]:
+    prices: dict[str, float] = {}
+    for sym in symbols:
+        try:
+            market = await _fetch_ticker(f"{sym}USDT")
+            if market and market.get("price") is not None:
+                prices[sym] = float(market["price"])
+        except Exception:
+            continue
+    return prices
+
+
+async def _flatten_stop_loss_hits(triggered: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    flatten_results = []
+    for hit in triggered:
+        try:
+            side = "sell" if hit.get("side") == "buy" else "buy"
+            amt = float(os.getenv("AUTO_EXECUTION_QUOTE_USD", "100"))
+            result = await execute_order(
+                hit["symbol"],
+                side,  # type: ignore[arg-type]
+                amt,
+                dry_run=None,
+            )
+            flatten_results.append(
+                {
+                    "symbol": hit["symbol"],
+                    "flatten_side": side,
+                    "mode": result.get("mode"),
+                    "executed": result.get("executed"),
+                }
+            )
+        except Exception as exc:
+            flatten_results.append({"symbol": hit.get("symbol"), "error": str(exc)[:120]})
+    return flatten_results
+
+
+async def run_auto_execution_cycle() -> dict[str, Any]:
+    """Scan profitable arb and execute top signal if auto-execution is enabled."""
+    # Built-in stop-loss monitor — flatten/halt when registered stops hit
+    stop_loss = await _stop_loss_flatten_outcome()
+    if stop_loss is not None:
+        return stop_loss
 
     if os.getenv("CEX_DEX_AUTO_EXEC", "false").lower() in {"1", "true", "yes"}:
         try:
@@ -562,7 +632,7 @@ async def run_auto_execution_cycle() -> dict[str, Any]:
     return await try_execute_from_opportunity(top_exec)
 
 
-async def start_auto_execution_loop() -> Any:
+def start_auto_execution_loop() -> Any:
     global _auto_task
     # Safer default: loop off unless explicitly enabled.
     enabled = os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}

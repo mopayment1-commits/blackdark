@@ -14,20 +14,20 @@ $env:SERVICE_BUS_LOCAL = "true"
 $env:LOW_LATENCY_MODE = "true"
 $env:EXCHANGE_WS_ENABLED = "true"
 
-function Start-Worker($Mode, $Port) {
+function Show-Worker($Mode, $Port) {
     $title = "BLACKDARK-$Mode"
     Start-Process powershell -ArgumentList @(
         "-NoExit", "-Command",
         "Set-Location '$Root'; `$env:SERVICE_MODE='$Mode'; python run_service.py $Mode --port $Port"
     ) -WindowStyle Normal
-    Write-Host "Started $title on port $Port"
+    Write-Output "Started $title on port $Port"
 }
 
-Start-Worker "web" 8080
+Show-Worker "web" 8080
 Start-Sleep -Seconds 2
-Start-Worker "aggregator" 8091
-Start-Worker "arbitrage" 8092
-Start-Worker "ingestion" 8093
+Show-Worker "aggregator" 8091
+Show-Worker "arbitrage" 8092
+Show-Worker "ingestion" 8093
 
 Write-Host ""
 Write-Host "Microservices starting..."

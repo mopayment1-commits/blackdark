@@ -98,7 +98,7 @@ async def _fetch_solana_priority_fee(session: aiohttp.ClientSession) -> float | 
     return float(sorted(fees)[len(fees) // 2])
 
 
-async def _native_usd(session: aiohttp.ClientSession, chain: str) -> float:
+def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float:
     asset_map = {
         "ethereum": "ETH",
         "bsc": "BNB",
@@ -144,7 +144,7 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
             try:
                 if chain == "solana":
                     lamports = await _fetch_solana_priority_fee(session)
-                    native_usd = await _native_usd(session, chain)
+                    native_usd = _native_usd(session, chain)
                     # ~2 signatures + swap CU
                     cost_usd = (lamports / 1e9) * native_usd * 2
                     row = {
@@ -158,7 +158,7 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
                     gwei = await _fetch_eth_gas_gwei(session, chain)
                     if gwei is None:
                         continue
-                    native_usd = await _native_usd(session, chain)
+                    native_usd = _native_usd(session, chain)
                     gas_units = SWAP_GAS_UNITS.get(chain, 180_000)
                     cost_usd = (gwei * 1e-9) * gas_units * native_usd
                     row = {
@@ -202,7 +202,7 @@ def oracle_stats() -> dict[str, Any]:
     }
 
 
-async def start_gas_oracle_loop() -> asyncio.Task | None:
+def start_gas_oracle_loop() -> asyncio.Task | None:
     global _REFRESH_TASK
     if _REFRESH_TASK is not None:
         return _REFRESH_TASK

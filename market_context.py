@@ -16,6 +16,9 @@ from typing import Any
 import aiohttp
 
 import config
+
+# Sonar S1192: duplicated string literals
+STR_NO_SIGNIFICANT_WHALE_ACTIVITY = 'No significant whale activity'
 logger = logging.getLogger("BLACKDARK.MarketContext")
 
 _HTTP_TIMEOUT = aiohttp.ClientTimeout(total=12)
@@ -386,46 +389,108 @@ _REST_PRICE_FALLBACKS: tuple[
 )
 
 
+def _safe_asset_label(asset: str) -> str:
+    allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
+    asset_upper = str(asset).upper()
+    return asset_upper if asset_upper in allowed else "other"
+
+
+async def _ws_ticker_if_enabled(asset: str) -> dict[str, Any] | None:
+    if not config.PRICE_FEED_WS_ONLY:
+        return None
+    from live_book_hub import get_live_books_if_fresh
+
+    fresh = get_live_books_if_fresh()
+    if not fresh:
+        return None
+    from ws_price_provider import get_ticker
+
+    ws_row = await get_ticker(asset)
+    if ws_row is not None:
+        ws_row.setdefault("source", "websocket_live")
+    return ws_row
+
+
+async def _primary_rest_ticker(
+    pair: str,
+    session: aiohttp.ClientSession,
+) -> dict[str, Any] | None:
+    for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
+        row = await _fetch_binance_host_ticker(pair, host, session=session)
+        if row is not None:
+            return row
+    return None
+
+
+def _log_price_fallback(asset: str, source: str) -> None:
+    source_label = source if source.replace("_", "").isalnum() else "unknown"
+    logger.info(
+        "Price REST fallback | asset=%s source=%s",
+        _safe_asset_label(asset).replace("\r", " ").replace("\n", " "),
+        str(source_label).replace("\r", " ").replace("\n", " "),
+    )
+
+
+async def _fallback_rest_ticker(
+    asset: str,
+    session: aiohttp.ClientSession,
+) -> dict[str, Any] | None:
+    for fallback in _REST_PRICE_FALLBACKS:
+        row = await fallback(asset, session=session)
+        if row is None:
+            continue
+        _log_price_fallback(asset, str(row.get("source") or "unknown"))
+        return row
+    return None
+
+
 async def fetch_binance_ticker(pair: str) -> dict | None:
     """Live spot ticker — WS when fresh, else multi-source REST (Railway/cloud safe)."""
     asset = pair.replace("USDT", "").upper()
 
-    if config.PRICE_FEED_WS_ONLY:
-        from live_book_hub import get_live_books_if_fresh
-
-        fresh = get_live_books_if_fresh()
-        if fresh:
-            from ws_price_provider import get_ticker
-
-            ws_row = await get_ticker(asset)
-            if ws_row is not None:
-                ws_row.setdefault("source", "websocket_live")
-                return ws_row
+    ws_row = await _ws_ticker_if_enabled(asset)
+    if ws_row is not None:
+        return ws_row
 
     async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
-            row = await _fetch_binance_host_ticker(pair, host, session=session)
-            if row is not None:
-                return row
+        row = await _primary_rest_ticker(pair, session)
+        if row is not None:
+            return row
+        row = await _fallback_rest_ticker(asset, session)
+        if row is not None:
+            return row
 
-        for fallback in _REST_PRICE_FALLBACKS:
-            row = await fallback(asset, session=session)
-            if row is not None:
-                allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
-                asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
-                source_raw = str(row.get("source") or "unknown")
-                source_label = source_raw if source_raw.replace("_", "").isalnum() else "unknown"
-                logger.info(
-                    "Price REST fallback | asset=%s source=%s",
-                    str(asset_label).replace("\r", " ").replace("\n", " "),
-                    str(source_label).replace("\r", " ").replace("\n", " "),
-                )
-                return row
-
-    allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
-    asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
-    logger.warning("All price sources failed | asset=%s", str(asset_label).replace("\r", " ").replace("\n", " "))
+    logger.warning("All price sources failed | asset=%s", _safe_asset_label(asset).replace("\r", " ").replace("\n", " "))
     return None
+
+
+async def _probe_binance_hosts(
+    pair: str,
+    session: aiohttp.ClientSession,
+) -> dict[str, Any]:
+    checks: dict[str, Any] = {}
+    for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
+        row = await _fetch_binance_host_ticker(pair, host, session=session)
+        checks[host] = {"ok": row is not None, "source": row.get("source") if row else None}
+    return checks
+
+
+async def _probe_rest_fallbacks(
+    asset: str,
+    session: aiohttp.ClientSession,
+) -> dict[str, Any]:
+    checks: dict[str, Any] = {}
+    for name, fetcher in (
+        ("kraken", _fetch_kraken_ticker),
+        ("okx", _fetch_okx_ticker),
+        ("bybit", _fetch_bybit_ticker),
+        ("coingecko", _fetch_coingecko_ticker),
+        ("coinbase", _fetch_coinbase_ticker),
+        ("cryptocompare", _fetch_cryptocompare_ticker),
+    ):
+        row = await fetcher(asset, session=session)
+        checks[name] = {"ok": row is not None, "source": row.get("source") if row else None}
+    return checks
 
 
 async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
@@ -433,19 +498,8 @@ async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
     asset, pair = normalize_oracle_symbol(symbol)
     checks: dict[str, Any] = {}
     async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
-        for host in ("api.binance.com", "data-api.binance.vision", "api.binance.us"):
-            row = await _fetch_binance_host_ticker(pair, host, session=session)
-            checks[host] = {"ok": row is not None, "source": row.get("source") if row else None}
-        for name, fetcher in (
-            ("kraken", _fetch_kraken_ticker),
-            ("okx", _fetch_okx_ticker),
-            ("bybit", _fetch_bybit_ticker),
-            ("coingecko", _fetch_coingecko_ticker),
-            ("coinbase", _fetch_coinbase_ticker),
-            ("cryptocompare", _fetch_cryptocompare_ticker),
-        ):
-            row = await fetcher(asset, session=session)
-            checks[name] = {"ok": row is not None, "source": row.get("source") if row else None}
+        checks.update(await _probe_binance_hosts(pair, session))
+        checks.update(await _probe_rest_fallbacks(asset, session))
     resolved = await fetch_binance_ticker(pair)
     return {
         "symbol": asset,
@@ -457,6 +511,55 @@ async def probe_price_sources(symbol: str = "BTC") -> dict[str, Any]:
         "resolved_price": (resolved or {}).get("price"),
         "timestamp": datetime.now(UTC).isoformat(),
     }
+
+
+def _market_overview_item(row: dict[str, Any]) -> dict[str, Any] | None:
+    symbol = row.get("symbol", "")
+    if not symbol.endswith("USDT"):
+        return None
+    asset = symbol[:-4]
+    if is_stablecoin(asset):
+        return None
+    try:
+        quote_volume = float(row.get("quoteVolume") or 0)
+        change = float(row.get("priceChangePercent") or 0)
+        price = float(row.get("lastPrice") or 0)
+    except (TypeError, ValueError):
+        return None
+    if quote_volume < 10_000_000:
+        return None
+    score = oracle_score(quote_volume, change)
+    verdict, _ = oracle_verdict(score, asset, price)
+    return {
+        "symbol": asset,
+        "price": price,
+        "change_24h": change,
+        "volume_24h": quote_volume,
+        "score": score,
+        "verdict": verdict,
+        "sector": sector_for_asset(asset),
+    }
+
+
+def _prioritized_market_overview(
+    by_symbol: dict[str, dict],
+    all_candidates: list[dict],
+    limit: int,
+) -> list[dict]:
+    priority: list[dict] = []
+    seen: set[str] = set()
+    for asset in config.tracked_asset_list():
+        if asset in by_symbol:
+            priority.append(by_symbol[asset])
+            seen.add(asset)
+    for candidate in all_candidates:
+        if len(priority) >= limit:
+            break
+        if candidate["symbol"] in seen:
+            continue
+        priority.append(candidate)
+        seen.add(candidate["symbol"])
+    return priority[:limit]
 
 
 async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
@@ -480,48 +583,14 @@ async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
     by_symbol: dict[str, dict] = {}
     all_candidates: list[dict] = []
     for row in rows:
-        symbol = row.get("symbol", "")
-        if not symbol.endswith("USDT"):
+        item = _market_overview_item(row)
+        if item is None:
             continue
-        asset = symbol[:-4]
-        if is_stablecoin(asset):
-            continue
-        try:
-            quote_volume = float(row.get("quoteVolume") or 0)
-            change = float(row.get("priceChangePercent") or 0)
-            price = float(row.get("lastPrice") or 0)
-        except (TypeError, ValueError):
-            continue
-        if quote_volume < 10_000_000:
-            continue
-        score = oracle_score(quote_volume, change)
-        verdict, _ = oracle_verdict(score, asset, price)
-        item = {
-            "symbol": asset,
-            "price": price,
-            "change_24h": change,
-            "volume_24h": quote_volume,
-            "score": score,
-            "verdict": verdict,
-            "sector": sector_for_asset(asset),
-        }
-        by_symbol[asset] = item
+        by_symbol[item["symbol"]] = item
         all_candidates.append(item)
 
     all_candidates.sort(key=lambda x: x["volume_24h"], reverse=True)
-    priority: list[dict] = []
-    seen: set[str] = set()
-    for asset in config.tracked_asset_list():
-        if asset in by_symbol:
-            priority.append(by_symbol[asset])
-            seen.add(asset)
-    for candidate in all_candidates:
-        if len(priority) >= limit:
-            break
-        if candidate["symbol"] not in seen:
-            priority.append(candidate)
-            seen.add(candidate["symbol"])
-    return priority[:limit]
+    return _prioritized_market_overview(by_symbol, all_candidates, limit)
 
 
 async def fetch_live_whale_signal(pair: str, price: float) -> str:
@@ -530,39 +599,54 @@ async def fetch_live_whale_signal(pair: str, price: float) -> str:
         from ws_price_provider import get_whale_signal
 
         asset = pair.replace("USDT", "")
-        return await get_whale_signal(asset, price)
+        return get_whale_signal(asset, price)
     if not pair.isalnum():
-        return "No significant whale activity"
+        return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
     url = f"https://api.binance.com/api/v3/aggTrades?symbol={pair}&limit=200"
     threshold_usd = 75_000
     try:
         timeout = aiohttp.ClientTimeout(total=10)
         async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
             if resp.status != 200:
-                return "No significant whale activity"
+                return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
             trades = await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
-        return "No significant whale activity"
+        return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
 
+    buy_blocks, sell_blocks, max_notional = _whale_trade_blocks(trades, threshold_usd)
+    return _whale_trade_message(buy_blocks, sell_blocks, max_notional, threshold_usd)
+
+
+def _whale_trade_blocks(trades: list[dict[str, Any]], threshold_usd: float) -> tuple[int, int, float]:
     buy_blocks = 0
     sell_blocks = 0
     max_notional = 0.0
     for trade in trades:
-        try:
-            qty = float(trade["q"])
-            trade_price = float(trade["p"])
-            notional = qty * trade_price
-        except (KeyError, TypeError, ValueError):
-            continue
+        notional = _trade_notional(trade)
         if notional < threshold_usd:
             continue
         max_notional = max(max_notional, notional)
-        # m=true → buyer is maker → aggressive seller; m=false → aggressive buyer
+        # m=true -> buyer is maker -> aggressive seller; m=false -> aggressive buyer
         if trade.get("m"):
             sell_blocks += 1
         else:
             buy_blocks += 1
+    return buy_blocks, sell_blocks, max_notional
 
+
+def _trade_notional(trade: dict[str, Any]) -> float:
+    try:
+        return float(trade["q"]) * float(trade["p"])
+    except (KeyError, TypeError, ValueError):
+        return 0.0
+
+
+def _whale_trade_message(
+    buy_blocks: int,
+    sell_blocks: int,
+    max_notional: float,
+    threshold_usd: float,
+) -> str:
     if buy_blocks >= 3 and buy_blocks > sell_blocks:
         return f"Whale accumulation detected — {buy_blocks} large buy blocks (max ${max_notional:,.0f})"
     if sell_blocks >= 3 and sell_blocks > buy_blocks:
@@ -665,7 +749,7 @@ def whale_alert_message(quote_volume: float, change: float) -> str:
         return "Moderate whale interest"
     if change < -5:
         return "Whale distribution detected — large sell pressure"
-    return "No significant whale activity"
+    return STR_NO_SIGNIFICANT_WHALE_ACTIVITY
 
 
 def oracle_action(score: int, price: float, support: float, resistance: float) -> str:
@@ -692,23 +776,26 @@ def oracle_narrative(
     if is_stablecoin(asset):
         return f"{asset} is pegged — hold for stability, not for trading gains."
 
-    direction = "surging" if change > 2 else "rising" if change > 0 else "falling"
-    whale_phrase = (
-        "massive whale inflow"
-        if quote_volume > 50_000_000
-        else "moderate interest"
-        if quote_volume > 10_000_000
-        else "low activity"
-    )
-    signal = (
-        "strong bullish analytics"
-        if score >= 70
-        else "bullish analytics"
-        if score >= 55
-        else "neutral analytics"
-        if score >= 40
-        else "bearish analytics"
-    )
+    if change > 2:
+        direction = "surging"
+    elif change > 0:
+        direction = "rising"
+    else:
+        direction = "falling"
+    if quote_volume > 50_000_000:
+        whale_phrase = "massive whale inflow"
+    elif quote_volume > 10_000_000:
+        whale_phrase = "moderate interest"
+    else:
+        whale_phrase = "low activity"
+    if score >= 70:
+        signal = "strong bullish analytics"
+    elif score >= 55:
+        signal = "bullish analytics"
+    elif score >= 40:
+        signal = "neutral analytics"
+    else:
+        signal = "bearish analytics"
     return (
         f"Analytics summary: {action} — {market_summary} — "
         f"{risk_level} Risk — {trend_direction} — {asset} is {direction} {change:+.2f}% "
@@ -723,6 +810,72 @@ def timestamp_human(now: datetime | None = None) -> str:
     return ts.strftime("%B %d, %Y at %I:%M %p UTC")
 
 
+def _oracle_response_score(
+    asset: str,
+    quote_volume: float,
+    change: float,
+    unified: dict[str, Any] | None,
+) -> int:
+    score = int((unified or {}).get("opportunity_score") or oracle_score(quote_volume, change))
+    return min(score, 55) if is_stablecoin(asset) else score
+
+
+def _oracle_response_verdict(
+    asset: str,
+    price: float,
+    score: int,
+    unified: dict[str, Any] | None,
+) -> tuple[str, str]:
+    verdict, oracle_text = oracle_verdict(score, asset, price)
+    if not unified or not unified.get("verdict"):
+        return verdict, oracle_text
+    from regulatory_compliance_guard import compliant_verdict_description, to_public_verdict
+
+    public_verdict = to_public_verdict(str(unified["verdict"]))
+    public_text = compliant_verdict_description(asset, score, price, str(unified["verdict"]))
+    return public_verdict, public_text
+
+
+def _volatility_label(change: float) -> str:
+    if abs(change) < 2:
+        return "Low"
+    if abs(change) < 5:
+        return "Medium"
+    return "High"
+
+
+def _attach_unified_oracle_fields(payload: dict[str, Any], unified: dict[str, Any] | None) -> None:
+    if not unified:
+        return
+    payload["unified_engine"] = unified.get("engine", "unified_multimodal_v1")
+    payload["market_regime"] = unified.get("market_regime")
+    payload["dimension_weights"] = unified.get("dimension_weights")
+    payload["modal_breakdown"] = unified.get("modal_breakdown")
+    payload["base_score"] = unified.get("base_score")
+    payload["ml"] = unified.get("ml")
+    conflict = _unified_dimension_conflict(unified)
+    if conflict is not None:
+        payload["dimension_conflict"] = conflict
+
+
+def _unified_dimension_conflict(unified: dict[str, Any]) -> dict[str, Any] | None:
+    conflict_meta = unified.get("dimension_conflict")
+    if isinstance(conflict_meta, dict) and _is_actionable_conflict(conflict_meta):
+        return conflict_meta
+    conflicts = (unified.get("modal_breakdown") or {}).get("conflicts")
+    if conflicts and conflicts.get("severity") != "none":
+        return conflicts
+    return None
+
+
+def _is_actionable_conflict(conflict_meta: dict[str, Any]) -> bool:
+    return bool(
+        conflict_meta.get("veto")
+        or conflict_meta.get("abstain")
+        or conflict_meta.get("severity") not in (None, "none")
+    )
+
+
 def build_full_oracle_response(
     asset: str,
     price: float,
@@ -733,16 +886,8 @@ def build_full_oracle_response(
     whale_alert: str | None = None,
     unified: dict[str, Any] | None = None,
 ) -> dict:
-    score = int((unified or {}).get("opportunity_score") or oracle_score(quote_volume, change))
-    if is_stablecoin(asset):
-        score = min(score, 55)
-    verdict, oracle_text = oracle_verdict(score, asset, price)
-    if unified and unified.get("verdict"):
-        from regulatory_compliance_guard import compliant_verdict_description, to_public_verdict
-
-        verdict = to_public_verdict(str(unified["verdict"]))
-        oracle_text = compliant_verdict_description(asset, score, price, str(unified["verdict"]))
-
+    score = _oracle_response_score(asset, quote_volume, change, unified)
+    verdict, oracle_text = _oracle_response_verdict(asset, price, score, unified)
     sentiment = oracle_sentiment(change)
     fg_score, fear_greed = fear_greed_index(change, quote_volume)
     confidence = int((unified or {}).get("confidence") or oracle_confidence(score, change, quote_volume))
@@ -752,7 +897,7 @@ def build_full_oracle_response(
     resistance = round(price * 1.03, -2)
     prediction_low = round(price * (1 + (change / 100) * 0.5), -2)
     prediction_high = round(price * (1 + (change / 100) * 1.5), -2)
-    volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
+    volatility = _volatility_label(change)
     liquidity, _ = liquidity_label(quote_volume)
     market_summary = f"Market: {sentiment} | Volatility: {volatility} | Liquidity: {liquidity}"
     action = oracle_action(score, price, support, resistance)
@@ -802,25 +947,7 @@ def build_full_oracle_response(
         "timestamp": now.isoformat(),
         "disclaimer": "Not financial advice. Do your own research (DYOR).",
     }
-    if unified:
-        payload["unified_engine"] = unified.get("engine", "unified_multimodal_v1")
-        payload["market_regime"] = unified.get("market_regime")
-        payload["dimension_weights"] = unified.get("dimension_weights")
-        payload["modal_breakdown"] = unified.get("modal_breakdown")
-        payload["base_score"] = unified.get("base_score")
-        payload["ml"] = unified.get("ml")
-        # Prefer guard meta (veto/abstain) from finalize_unified_score; fall back to modal conflicts.
-        conflict_meta = unified.get("dimension_conflict")
-        if isinstance(conflict_meta, dict) and (
-            conflict_meta.get("veto")
-            or conflict_meta.get("abstain")
-            or conflict_meta.get("severity") not in (None, "none")
-        ):
-            payload["dimension_conflict"] = conflict_meta
-        else:
-            conflicts = (unified.get("modal_breakdown") or {}).get("conflicts")
-            if conflicts and conflicts.get("severity") != "none":
-                payload["dimension_conflict"] = conflicts
+    _attach_unified_oracle_fields(payload, unified)
     return payload
 
 

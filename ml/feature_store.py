@@ -88,7 +88,7 @@ async def _obi_features(asset: str) -> tuple[float, float]:
         from obi_predictor import build_obi_context_safe, get_obi_for_asset, obi_score_adjustment_for_asset
 
         books = await fetch_latest_order_books()
-        ctx = await build_obi_context_safe(books)
+        ctx = build_obi_context_safe(books)
         imbalance = get_obi_for_asset(asset, ctx)
         score = obi_score_adjustment_for_asset(asset, ctx)
         return float(score or 0.0), float(imbalance or 0.0)

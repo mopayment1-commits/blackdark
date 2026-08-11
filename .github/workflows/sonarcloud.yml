@@ -11,7 +11,8 @@ name: SonarCloud Analysis
 #   2) keep the Actions tab green instead of replaying stale scanner failures
 #
 # Real analysis + Quality Gate = check named "SonarCloud Code Analysis".
-# Organization key in sonar-project.properties = blackdark (not GitHub login).
+# Organization key = blackdark (not GitHub login).
+# Automatic Analysis reads .sonarcloud.properties (NOT sonar-project.properties).
 
 on:
   push:

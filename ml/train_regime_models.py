@@ -67,54 +67,55 @@ def _direction_label(row: dict[str, Any]) -> str | None:
     return None
 
 
-def _infer_regime_from_row(row: dict[str, Any]) -> str:
-    """Tag missing market_regime from returns / features so all 4 buckets can train."""
-    explicit = str(row.get("market_regime") or row.get("regime") or "").lower().strip()
-    if explicit in REGIMES:
-        return explicit
-    change = None
-    for key in ("change_24h", "price_change_24h", "ret_24h"):
-        if row.get(key) is not None:
-            try:
-                change = float(row[key])
-                break
-            except (TypeError, ValueError):
-                pass
+def _stable_hash_bucket(row: dict[str, Any], modulo: int) -> int:
+    asset = str(row.get("asset") or row.get("id") or "x")
+    return sum(ord(c) for c in asset) % modulo
+
+
+def _float_or_none(value: Any) -> float | None:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _features_dict(row: dict[str, Any]) -> dict[str, Any]:
     feats = row.get("features_json")
-    if change is None and isinstance(feats, str) and feats.strip():
+    if isinstance(feats, dict):
+        return feats
+    if isinstance(feats, str) and feats.strip():
         try:
             parsed = json.loads(feats)
-            if isinstance(parsed, dict) and parsed.get("change_24h") is not None:
-                change = float(parsed["change_24h"])
         except Exception:
-            pass
-    elif change is None and isinstance(feats, dict) and feats.get("change_24h") is not None:
-        try:
-            change = float(feats["change_24h"])
-        except (TypeError, ValueError):
-            pass
-    if change is None:
-        try:
-            p0 = float(row.get("price_at_prediction") or 0)
-            p1 = float(row.get("price_after") or row.get("price_after_24h") or 0)
-            if p0 > 0 and p1 > 0:
-                change = (p1 - p0) / p0 * 100.0
-        except (TypeError, ValueError):
-            change = None
-    if change is None:
-        # Stable hash-spread so force-train can still populate all regimes from untagged corpus
-        asset = str(row.get("asset") or row.get("id") or "x")
-        bucket = sum(ord(c) for c in asset) % 4
-        return REGIMES[bucket]
+            return {}
+        return parsed if isinstance(parsed, dict) else {}
+    return {}
+
+
+def _change_from_row(row: dict[str, Any]) -> float | None:
+    for key in ("change_24h", "price_change_24h", "ret_24h"):
+        change = _float_or_none(row.get(key))
+        if change is not None:
+            return change
+    feats = _features_dict(row)
+    change = _float_or_none(feats.get("change_24h"))
+    if change is not None:
+        return change
+    p0 = _float_or_none(row.get("price_at_prediction")) or 0.0
+    p1 = _float_or_none(row.get("price_after") or row.get("price_after_24h")) or 0.0
+    if p0 > 0 and p1 > 0:
+        return (p1 - p0) / p0 * 100.0
+    return None
+
+
+def _regime_from_change(change: float, row: dict[str, Any]) -> str:
     if change <= -8:
         return "panic"
     if change <= -2:
         return "risk_off"
     if change >= 3:
         return "risk_on"
-    # Mild moves: still spread a fraction by hash so panic/risk_on get samples
-    asset = str(row.get("asset") or row.get("id") or "x")
-    h = sum(ord(c) for c in asset) % 10
+    h = _stable_hash_bucket(row, 10)
     if h == 0:
         return "panic"
     if h in {1, 2}:
@@ -122,6 +123,17 @@ def _infer_regime_from_row(row: dict[str, Any]) -> str:
     if h in {3, 4, 5}:
         return "risk_on"
     return "neutral"
+
+
+def _infer_regime_from_row(row: dict[str, Any]) -> str:
+    """Tag missing market_regime from returns / features so all 4 buckets can train."""
+    explicit = str(row.get("market_regime") or row.get("regime") or "").lower().strip()
+    if explicit in REGIMES:
+        return explicit
+    change = _change_from_row(row)
+    if change is None:
+        return REGIMES[_stable_hash_bucket(row, 4)]
+    return _regime_from_change(change, row)
 
 
 async def collect_regime_buckets() -> dict[str, list[dict[str, Any]]]:
@@ -154,60 +166,18 @@ def _bootstrap_regime_samples(
     import hashlib
 
     if not seed_rows:
-        # Absolute seed when corpus empty
-        seed_rows = [
-            {
-                "asset": f"SEED{i}",
-                "direction_label": "up" if i % 2 == 0 else "down",
-                "label": "correct" if i % 3 else "incorrect",
-                "price_at_prediction": 100.0 + i,
-                "features_json": {
-                    "price": 100.0 + i,
-                    "rsi": 30 + (i % 40),
-                    "volatility": 0.2 + (i % 5) * 0.1,
-                    "change_24h": -12.0 if regime == "panic" else (-4.0 if regime == "risk_off" else (5.0 if regime == "risk_on" else 0.5)),
-                },
-                "timestamp": _utcnow(),
-            }
-            for i in range(16)
-        ]
+        seed_rows = _absolute_seed_rows(regime)
     out = [dict(r) for r in seed_rows]
     digest = hashlib.sha256(regime.encode("utf-8")).hexdigest()
     i = 0
     while len(out) < target_n:
         base = copy.deepcopy(seed_rows[i % len(seed_rows)])
-        feats = base.get("features_json")
-        if isinstance(feats, str) and feats.strip():
-            try:
-                feats = json.loads(feats)
-            except Exception:
-                feats = {}
-        if not isinstance(feats, dict):
-            feats = {}
-        feats = dict(feats)
-        # Push features toward regime corners
-        if regime == "panic":
-            feats["change_24h"] = -10.0 - (i % 5)
-            feats["volatility"] = min(1.0, float(feats.get("volatility") or 0.4) + 0.4)
-            feats["rsi"] = max(5.0, float(feats.get("rsi") or 40) * 0.4)
-        elif regime == "risk_off":
-            feats["change_24h"] = -3.0 - (i % 3)
-            feats["volatility"] = min(1.0, float(feats.get("volatility") or 0.3) + 0.2)
-        elif regime == "risk_on":
-            feats["change_24h"] = 4.0 + (i % 4)
-            feats["rsi"] = min(90.0, float(feats.get("rsi") or 50) + 15)
-        else:
-            feats["change_24h"] = -0.5 + (i % 5) * 0.25
-        base["features_json"] = feats
+        base["features_json"] = _regime_biased_features(base, regime, i)
         base["market_regime"] = regime
         base["direction_label"] = base.get("direction_label") or ("down" if regime in {"panic", "risk_off"} else "up")
         if not base.get("direction_label"):
             base["direction_label"] = "up" if int(digest[i % len(digest)], 16) % 2 == 0 else "down"
-        # Ensure alternating labels so logistic has ≥2 classes
-        if i % 2 == 0:
-            base["direction_label"] = "up"
-        else:
-            base["direction_label"] = "down"
+        base["direction_label"] = "up" if i % 2 == 0 else "down"
         base["id"] = f"synth_{regime}_{i}"
         base["_bootstrap"] = True
         out.append(base)
@@ -217,41 +187,93 @@ def _bootstrap_regime_samples(
     return out
 
 
-def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str, Any]:
-    import joblib
-    import pandas as pd
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.metrics import accuracy_score
-    from sklearn.pipeline import Pipeline
-    from sklearn.preprocessing import StandardScaler
+def _absolute_seed_rows(regime: str) -> list[dict[str, Any]]:
+    change_by_regime = {"panic": -12.0, "risk_off": -4.0, "risk_on": 5.0}
+    change = change_by_regime.get(regime, 0.5)
+    return [
+        {
+            "asset": f"SEED{i}",
+            "direction_label": "up" if i % 2 == 0 else "down",
+            "label": "correct" if i % 3 else "incorrect",
+            "price_at_prediction": 100.0 + i,
+            "features_json": {
+                "price": 100.0 + i,
+                "rsi": 30 + (i % 40),
+                "volatility": 0.2 + (i % 5) * 0.1,
+                "change_24h": change,
+            },
+            "timestamp": _utcnow(),
+        }
+        for i in range(16)
+    ]
 
+
+def _regime_biased_features(row: dict[str, Any], regime: str, index: int) -> dict[str, Any]:
+    feats = dict(_features_dict(row))
+    if regime == "panic":
+        feats["change_24h"] = -10.0 - (index % 5)
+        feats["volatility"] = min(1.0, float(feats.get("volatility") or 0.4) + 0.4)
+        feats["rsi"] = max(5.0, float(feats.get("rsi") or 40) * 0.4)
+        return feats
+    if regime == "risk_off":
+        feats["change_24h"] = -3.0 - (index % 3)
+        feats["volatility"] = min(1.0, float(feats.get("volatility") or 0.3) + 0.2)
+        return feats
+    if regime == "risk_on":
+        feats["change_24h"] = 4.0 + (index % 4)
+        feats["rsi"] = min(90.0, float(feats.get("rsi") or 50) + 15)
+        return feats
+    feats["change_24h"] = -0.5 + (index % 5) * 0.25
+    return feats
+
+
+def _training_records(samples: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], bool]:
     records = []
     bootstrap_used = False
     for row in samples:
         y = _direction_label(row)
         if not y:
             continue
-        if row.get("_bootstrap"):
-            bootstrap_used = True
+        bootstrap_used = bootstrap_used or bool(row.get("_bootstrap"))
         feats = _row_to_feature_dict(row)
         records.append({**feats, "direction_label": y, "timestamp": row.get("timestamp") or ""})
-    if len(records) < 8:
-        return {"trained": False, "reason": "insufficient_labeled_with_direction", "n": len(records)}
+    return records, bootstrap_used
 
-    frame = pd.DataFrame(records)
+
+def _build_pipeline() -> Any:
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    return Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            (
+                "clf",
+                LogisticRegression(max_iter=400, class_weight="balanced", solver="lbfgs"),
+            ),
+        ],
+        memory=None,
+    )
+
+
+def _ensure_two_classes(frame: Any) -> tuple[Any, bool]:
+    import pandas as pd
+
     classes = sorted(set(frame["direction_label"].astype(str)))
-    # Ensure ≥2 classes for logistic; synthesize tiny opposite if needed (honest flag)
-    synthetic_balance = False
-    if len(classes) < 2:
-        synthetic_balance = True
-        minority = "up" if classes[0] == "down" else "down"
-        seed = frame.iloc[0].to_dict()
-        seed["direction_label"] = minority
-        # Slight feature jitter so scaler doesn't collapse
-        for col in FEATURE_COLUMNS:
-            if col in seed and isinstance(seed[col], (int, float)):
-                seed[col] = float(seed[col]) * 1.001 + 1e-6
-        frame = pd.concat([frame, pd.DataFrame([seed])], ignore_index=True)
+    if len(classes) >= 2:
+        return frame, False
+    minority = "up" if classes[0] == "down" else "down"
+    seed = frame.iloc[0].to_dict()
+    seed["direction_label"] = minority
+    for col in FEATURE_COLUMNS:
+        if col in seed and isinstance(seed[col], (int, float)):
+            seed[col] = float(seed[col]) * 1.001 + 1e-6
+    return pd.concat([frame, pd.DataFrame([seed])], ignore_index=True), True
+
+
+def _fit_pipeline(frame: Any) -> tuple[Any, float, bool]:
+    from sklearn.metrics import accuracy_score
 
     split = temporal_train_test_split(
         frame,
@@ -260,38 +282,27 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
         min_train=6,
         min_test=2,
     )
-    try:
-        if split is None:
-            x = frame[list(FEATURE_COLUMNS)]
-            y = frame["direction_label"]
-            pipe = Pipeline(
-                [
-                    ("scaler", StandardScaler()),
-                    (
-                        "clf",
-                        LogisticRegression(max_iter=400, class_weight="balanced", solver="lbfgs"),
-                    ),
-                ]
-            )
-            pipe.fit(x, y)
-            acc = float(accuracy_score(y, pipe.predict(x)))
-            holdout = False
-        else:
-            x_train, x_test, y_train, y_test = split
-            pipe = Pipeline(
-                [
-                    ("scaler", StandardScaler()),
-                    (
-                        "clf",
-                        LogisticRegression(max_iter=400, class_weight="balanced", solver="lbfgs"),
-                    ),
-                ]
-            )
-            pipe.fit(x_train, y_train)
-            acc = float(accuracy_score(y_test, pipe.predict(x_test)))
-            holdout = True
-    except ValueError as exc:
-        return {"trained": False, "reason": f"fit_failed:{exc}", "n": len(records)}
+    pipe = _build_pipeline()
+    if split is None:
+        x = frame[list(FEATURE_COLUMNS)]
+        y = frame["direction_label"]
+        pipe.fit(x, y)
+        return pipe, float(accuracy_score(y, pipe.predict(x))), False
+    x_train, x_test, y_train, y_test = split
+    pipe.fit(x_train, y_train)
+    return pipe, float(accuracy_score(y_test, pipe.predict(x_test))), True
+
+
+def _write_regime_artifact(
+    pipe: Any,
+    regime: str,
+    records: list[dict[str, Any]],
+    accuracy: float,
+    holdout: bool,
+    synthetic_balance: bool,
+    bootstrap_used: bool,
+) -> dict[str, Any]:
+    import joblib
 
     target = _REGIME_MODEL_ROOT / regime
     target.mkdir(parents=True, exist_ok=True)
@@ -314,7 +325,7 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
         "regime": regime,
         "samples": len(records),
         "status": "artifact_ready",
-        "accuracy": round(acc, 4),
+        "accuracy": round(accuracy, 4),
         "holdout_eval": holdout,
         "synthetic_class_balance": synthetic_balance,
         "bootstrap_samples": bootstrap_used,
@@ -322,6 +333,32 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
         "model_path": rel,
     }
     meta_path.write_text(json.dumps(meta, indent=2), encoding="utf-8")
+    return meta
+
+
+def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str, Any]:
+    import pandas as pd
+
+    records, bootstrap_used = _training_records(samples)
+    if len(records) < 8:
+        return {"trained": False, "reason": "insufficient_labeled_with_direction", "n": len(records)}
+
+    frame = pd.DataFrame(records)
+    frame, synthetic_balance = _ensure_two_classes(frame)
+    try:
+        pipe, acc, holdout = _fit_pipeline(frame)
+    except ValueError as exc:
+        return {"trained": False, "reason": f"fit_failed:{exc}", "n": len(records)}
+
+    meta = _write_regime_artifact(
+        pipe,
+        regime,
+        records,
+        acc,
+        holdout,
+        synthetic_balance,
+        bootstrap_used,
+    )
     return {
         "trained": True,
         "artifact_written": True,
@@ -334,6 +371,43 @@ def _fit_regime_model(samples: list[dict[str, Any]], *, regime: str) -> dict[str
     }
 
 
+def _seed_pool(buckets: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    all_rows: list[dict[str, Any]] = []
+    for rows in buckets.values():
+        all_rows.extend(rows)
+    return all_rows
+
+
+def _regime_entry(
+    samples: list[dict[str, Any]],
+    all_rows: list[dict[str, Any]],
+    regime: str,
+    *,
+    force: bool,
+) -> dict[str, Any]:
+    entry: dict[str, Any] = {
+        "samples": len(samples),
+        "ready": len(samples) >= MIN_SAMPLES_PER_REGIME,
+        "artifact_written": False,
+    }
+    if (entry["ready"] or force) and len(samples) < 8:
+        samples = _bootstrap_regime_samples(samples or all_rows, regime=regime, target_n=24)
+        entry["samples"] = len(samples)
+        entry["bootstrap"] = True
+    if not (entry["ready"] or force):
+        entry["status"] = "insufficient_labeled_samples"
+        return entry
+    try:
+        fit = _fit_regime_model(samples, regime=regime)
+    except Exception as exc:
+        logger.exception("Regime train failed for %s", regime)
+        entry["status"] = "train_error"
+        entry["error"] = str(exc)[:200]
+        return entry
+    entry.update(fit)
+    return entry
+
+
 async def train_regime_models(*, force: bool = False) -> dict[str, Any]:
     buckets = await collect_regime_buckets()
     status: dict[str, Any] = {
@@ -344,36 +418,13 @@ async def train_regime_models(*, force: bool = False) -> dict[str, Any]:
     }
 
     _REGIME_MODEL_ROOT.mkdir(parents=True, exist_ok=True)
-
-    # Flatten all rows as seed pool for sparse regime bootstrap
-    all_rows: list[dict[str, Any]] = []
-    for rows in buckets.values():
-        all_rows.extend(rows)
+    all_rows = _seed_pool(buckets)
 
     for regime in REGIMES:
         samples = list(buckets.get(regime) or [])
-        entry: dict[str, Any] = {
-            "samples": len(samples),
-            "ready": len(samples) >= MIN_SAMPLES_PER_REGIME,
-            "artifact_written": False,
-        }
-        # Force path: bootstrap sparse/empty regimes so all 4 artifacts ship (flagged)
-        if (entry["ready"] or force) and len(samples) < 8:
-            samples = _bootstrap_regime_samples(samples or all_rows, regime=regime, target_n=24)
-            entry["samples"] = len(samples)
-            entry["bootstrap"] = True
-        if entry["ready"] or force:
-            try:
-                fit = _fit_regime_model(samples, regime=regime)
-                entry.update(fit)
-                if fit.get("artifact_written"):
-                    status["artifacts_written"] += 1
-            except Exception as exc:
-                logger.exception("Regime train failed for %s", regime)
-                entry["status"] = "train_error"
-                entry["error"] = str(exc)[:200]
-        else:
-            entry["status"] = "insufficient_labeled_samples"
+        entry = _regime_entry(samples, all_rows, regime, force=force)
+        if entry.get("artifact_written"):
+            status["artifacts_written"] += 1
         status["regimes"][regime] = entry
 
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)

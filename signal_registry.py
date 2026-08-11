@@ -153,12 +153,13 @@ def register_signal(
     label: str | None = None,
     asof: str | None = None,
     persist: bool = True,
-    definition: str | None = None,
-    source: str | None = None,
-    weight: float | None = None,
+    lexicon_override: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Register a sovereign signal record and optionally append to JSONL."""
-    lex = _lexicon_for(signal_type)
+    """Register a sovereign signal record and optionally append to JSONL.
+
+    lexicon_override may include definition, source, and/or weight.
+    """
+    lex = {**_lexicon_for(signal_type), **(lexicon_override or {})}
     sid = str(prediction_id) if prediction_id not in (None, "", 0) else f"sig_{uuid4().hex[:16]}"
     record = {
         "signal_id": sid,
@@ -171,9 +172,9 @@ def register_signal(
         "verdict": verdict,
         "horizon_seconds": horizon_seconds,
         "label": label or "pending",  # pending | correct | incorrect | expired | vetoed
-        "definition": definition or lex.get("definition"),
-        "source": source or lex.get("source"),
-        "weight": float(weight if weight is not None else lex.get("weight") or 0.5),
+        "definition": lex.get("definition"),
+        "source": lex.get("source"),
+        "weight": float(lex.get("weight") or 0.5),
         "performance": {"hits": 0, "misses": 0, "pending": 1, "hit_rate": None},
         "provenance": provenance or {},
         "created_at": _utcnow(),
@@ -194,41 +195,86 @@ def register_signal(
     return dict(record)
 
 
+def _find_signal_unlocked(signal_id: str) -> tuple[str, dict[str, Any] | None]:
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    _hydrate_unlocked()
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    for sid, candidate in _SIGNALS.items():
+        if str(candidate.get("prediction_id") or "") == str(signal_id):
+            return sid, candidate
+    return str(signal_id), None
+
+
+def _performance_after_label(row: dict[str, Any], label: str) -> dict[str, Any]:
+    perf = dict(row.get("performance") or {})
+    lab = str(label).lower()
+    if lab in {"correct", "win", "hit"}:
+        perf["hits"] = int(perf.get("hits") or 0) + 1
+        perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
+    elif lab in {"incorrect", "loss", "miss", "partial"}:
+        perf["misses"] = int(perf.get("misses") or 0) + 1
+        perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
+    decided = int(perf.get("hits") or 0) + int(perf.get("misses") or 0)
+    perf["hit_rate"] = round(int(perf.get("hits") or 0) / decided, 4) if decided else None
+    return perf
+
+
+def _resolved_signal_row(
+    row: dict[str, Any],
+    label: str,
+    meta: dict[str, Any] | None,
+) -> dict[str, Any]:
+    updated = dict(row)
+    updated["label"] = label
+    updated["updated_at"] = _utcnow()
+    if meta:
+        updated["resolution"] = meta
+    updated["performance"] = _performance_after_label(updated, label)
+    return updated
+
+
 def resolve_signal(signal_id: str, label: str, *, meta: dict[str, Any] | None = None) -> dict[str, Any] | None:
     with _LOCK:
-        row = _SIGNALS.get(str(signal_id))
-        if not row:
-            # Try hydrate lookup by prediction_id / signal_id from disk once
-            _hydrate_unlocked()
-            row = _SIGNALS.get(str(signal_id))
-        if not row:
-            # Secondary key: prediction_id field match
-            for sid, candidate in _SIGNALS.items():
-                if str(candidate.get("prediction_id") or "") == str(signal_id):
-                    row = candidate
-                    signal_id = sid
-                    break
+        signal_id, row = _find_signal_unlocked(str(signal_id))
         if not row:
             return None
-        row = dict(row)
-        row["label"] = label
-        row["updated_at"] = _utcnow()
-        if meta:
-            row["resolution"] = meta
-        perf = dict(row.get("performance") or {})
-        lab = str(label).lower()
-        if lab in {"correct", "win", "hit"}:
-            perf["hits"] = int(perf.get("hits") or 0) + 1
-            perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
-        elif lab in {"incorrect", "loss", "miss", "partial"}:
-            perf["misses"] = int(perf.get("misses") or 0) + 1
-            perf["pending"] = max(0, int(perf.get("pending") or 1) - 1)
-        decided = int(perf.get("hits") or 0) + int(perf.get("misses") or 0)
-        perf["hit_rate"] = round(int(perf.get("hits") or 0) / decided, 4) if decided else None
-        row["performance"] = perf
+        row = _resolved_signal_row(row, label, meta)
         _SIGNALS[str(signal_id)] = row
         _rewrite_jsonl_unlocked()
         return dict(row)
+
+
+def _find_signal_identity_unlocked(signal_id: str) -> tuple[str, dict[str, Any] | None]:
+    row = _SIGNALS.get(str(signal_id))
+    if row:
+        return str(signal_id), row
+    for sid, candidate in _SIGNALS.items():
+        if str(candidate.get("signal_id") or "") == str(signal_id):
+            return sid, candidate
+    return str(signal_id), None
+
+
+def _attach_prediction_id_unlocked(
+    signal_id: str,
+    row: dict[str, Any],
+    pid: str,
+) -> dict[str, Any]:
+    updated = dict(row)
+    old_sid = str(updated.get("signal_id") or signal_id)
+    updated["prediction_id"] = pid
+    updated["signal_id"] = pid
+    updated["updated_at"] = _utcnow()
+    prov = dict(updated.get("provenance") or {})
+    prov["prediction_id"] = pid
+    updated["provenance"] = prov
+    if old_sid != pid and old_sid in _SIGNALS:
+        _SIGNALS.pop(old_sid, None)
+    _SIGNALS[pid] = updated
+    return updated
 
 
 def attach_prediction_id(signal_id: str, prediction_id: str | int) -> dict[str, Any] | None:
@@ -237,29 +283,39 @@ def attach_prediction_id(signal_id: str, prediction_id: str | int) -> dict[str, 
     with _LOCK:
         if not _SIGNALS:
             _hydrate_unlocked()
-        row = _SIGNALS.get(str(signal_id))
-        if not row:
-            for sid, candidate in _SIGNALS.items():
-                if str(candidate.get("signal_id") or "") == str(signal_id):
-                    row = candidate
-                    signal_id = sid
-                    break
+        signal_id, row = _find_signal_identity_unlocked(str(signal_id))
         if not row:
             return None
-        row = dict(row)
-        old_sid = str(row.get("signal_id") or signal_id)
-        row["prediction_id"] = pid
-        # Prefer prediction_id as canonical key when available
-        row["signal_id"] = pid
-        row["updated_at"] = _utcnow()
-        prov = dict(row.get("provenance") or {})
-        prov["prediction_id"] = pid
-        row["provenance"] = prov
-        if old_sid != pid and old_sid in _SIGNALS:
-            _SIGNALS.pop(old_sid, None)
-        _SIGNALS[pid] = row
+        row = _attach_prediction_id_unlocked(signal_id, row, pid)
         _rewrite_jsonl_unlocked()
         return dict(row)
+
+
+def _signal_rows_from_disk() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for line in _PATH.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if str(row.get("signal_id") or ""):
+            rows.append(row)
+    return rows
+
+
+def _should_replace_signal(sid: str, row: dict[str, Any]) -> bool:
+    existing = _SIGNALS.get(sid)
+    if not existing:
+        return True
+    return str(existing.get("updated_at") or "") < str(row.get("updated_at") or "")
+
+
+def _trim_registry_unlocked() -> None:
+    while len(_SIGNALS) > _MAX_MEMORY:
+        oldest = next(iter(_SIGNALS))
+        _SIGNALS.pop(oldest, None)
 
 
 def _hydrate_unlocked() -> int:
@@ -268,25 +324,14 @@ def _hydrate_unlocked() -> int:
         return 0
     loaded = 0
     try:
-        for line in _PATH.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            try:
-                row = json.loads(line)
-            except json.JSONDecodeError:
-                continue
+        for row in _signal_rows_from_disk():
             sid = str(row.get("signal_id") or "")
-            if not sid:
-                continue
             # Prefer newer updated_at if duplicate
-            existing = _SIGNALS.get(sid)
-            if existing and str(existing.get("updated_at") or "") >= str(row.get("updated_at") or ""):
+            if not _should_replace_signal(sid, row):
                 continue
             _SIGNALS[sid] = row
             loaded += 1
-        while len(_SIGNALS) > _MAX_MEMORY:
-            oldest = next(iter(_SIGNALS))
-            _SIGNALS.pop(oldest, None)
+        _trim_registry_unlocked()
     except Exception:
         logger.debug("signal registry hydrate failed", exc_info=True)
     return loaded
@@ -341,22 +386,26 @@ def list_signals(
     return rows[: max(1, min(limit, 500))]
 
 
-def registry_stats() -> dict[str, Any]:
-    with _LOCK:
-        if not _SIGNALS:
-            _hydrate_unlocked()
-        rows = list(_SIGNALS.values())
+def _registry_aggregates(rows: list[dict[str, Any]]) -> tuple[dict[str, int], dict[str, int], int, int]:
     by_type: dict[str, int] = {}
     by_label: dict[str, int] = {}
-    by_type_perf: dict[str, dict[str, Any]] = {}
     linked = 0
+    labeled = 0
     for row in rows:
         st = str(row.get("signal_type") or "unknown")
-        by_type[st] = by_type.get(st, 0) + 1
         lab = str(row.get("label") or "pending")
+        by_type[st] = by_type.get(st, 0) + 1
         by_label[lab] = by_label.get(lab, 0) + 1
-        if row.get("prediction_id"):
-            linked += 1
+        linked += 1 if row.get("prediction_id") else 0
+        labeled += 1 if row.get("label") and row.get("label") not in {"pending", None, ""} else 0
+    return by_type, by_label, linked, labeled
+
+
+def _registry_type_performance(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    by_type_perf: dict[str, dict[str, Any]] = {}
+    for row in rows:
+        st = str(row.get("signal_type") or "unknown")
+        lab = str(row.get("label") or "pending")
         bucket = by_type_perf.setdefault(st, {"hits": 0, "misses": 0, "pending": 0, "hit_rate": None})
         if lab in {"correct", "win", "hit"}:
             bucket["hits"] += 1
@@ -364,6 +413,11 @@ def registry_stats() -> dict[str, Any]:
             bucket["misses"] += 1
         else:
             bucket["pending"] += 1
+    _attach_type_performance_meta(by_type_perf)
+    return by_type_perf
+
+
+def _attach_type_performance_meta(by_type_perf: dict[str, dict[str, Any]]) -> None:
     for st, bucket in by_type_perf.items():
         decided = bucket["hits"] + bucket["misses"]
         bucket["hit_rate"] = round(bucket["hits"] / decided, 4) if decided else None
@@ -371,13 +425,24 @@ def registry_stats() -> dict[str, Any]:
         bucket["definition"] = lex.get("definition")
         bucket["weight"] = lex.get("weight")
         bucket["source"] = lex.get("source")
-    labeled = sum(1 for r in rows if r.get("label") and r.get("label") not in {"pending", None, ""})
+
+
+def _registry_status(rows: list[dict[str, Any]], labeled: int, linked: int) -> str:
     if labeled > 0 and linked > 0:
-        status = "live"
-    elif len(rows) > 0:
-        status = "pending_labels" if labeled == 0 else "partial"
-    else:
-        status = "empty"
+        return "live"
+    if len(rows) > 0:
+        return "pending_labels" if labeled == 0 else "partial"
+    return "empty"
+
+
+def registry_stats() -> dict[str, Any]:
+    with _LOCK:
+        if not _SIGNALS:
+            _hydrate_unlocked()
+        rows = list(_SIGNALS.values())
+    by_type, by_label, linked, labeled = _registry_aggregates(rows)
+    by_type_perf = _registry_type_performance(rows)
+    status = _registry_status(rows, labeled, linked)
     return {
         "total_in_memory": len(rows),
         "labeled": labeled,
@@ -404,10 +469,8 @@ except Exception:
     pass
 
 
-def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
-    """Convenience: persist Oracle/arb evaluation as a registry row."""
-    payload = evaluated.get("payload") or {}
-    features = {
+def _evaluation_features(evaluated: dict[str, Any], payload: dict[str, Any]) -> dict[str, Any]:
+    return {
         "opportunity_score": evaluated.get("opportunity_score"),
         "net_profit_usdt": evaluated.get("net_profit_usdt"),
         "market_regime": payload.get("market_regime"),
@@ -415,28 +478,75 @@ def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
         "half_life_seconds": (payload.get("opportunity_half_life") or {}).get("expected_half_life_seconds"),
         "dimension_conflict": bool((payload.get("dimension_conflict") or {}).get("veto")),
     }
-    label = "pending"
+
+
+def _evaluation_label(payload: dict[str, Any]) -> str:
     if (payload.get("dimension_conflict") or {}).get("veto"):
-        label = "vetoed"
-    elif (payload.get("net_edge_truth") or {}).get("reject"):
-        label = "rejected_net_edge"
+        return "vetoed"
+    if (payload.get("net_edge_truth") or {}).get("reject"):
+        return "rejected_net_edge"
+    return "pending"
+
+
+def _evaluation_provenance(payload: dict[str, Any], pred_id: Any) -> dict[str, Any]:
+    return {
+        "engine": payload.get("unified_engine") or "unified_multimodal_v1",
+        "public_verdict": payload.get("public_verdict"),
+        "proof_hint": "oracle_audit_chain",
+        "prediction_id": pred_id,
+    }
+
+
+def register_from_evaluation(evaluated: dict[str, Any]) -> dict[str, Any]:
+    """Convenience: persist Oracle/arb evaluation as a registry row."""
+    payload = evaluated.get("payload") or {}
     pred_id = evaluated.get("prediction_id") or payload.get("prediction_id")
     stype = str(evaluated.get("kind") or payload.get("kind") or "oracle_decision")
     return register_signal(
         signal_type=stype,
         asset=str(evaluated.get("asset") or "BTC"),
-        features=features,
+        features=_evaluation_features(evaluated, payload),
         score=float(evaluated.get("opportunity_score") or 0),
         verdict=str((evaluated.get("oracle") or {}).get("verdict") or evaluated.get("verdict") or ""),
         horizon_seconds=int((payload.get("opportunity_half_life") or {}).get("expected_half_life_seconds") or 45),
-        provenance={
-            "engine": payload.get("unified_engine") or "unified_multimodal_v1",
-            "public_verdict": payload.get("public_verdict"),
-            "proof_hint": "oracle_audit_chain",
-            "prediction_id": pred_id,
-        },
+        provenance=_evaluation_provenance(payload, pred_id),
         prediction_id=str(pred_id) if pred_id not in (None, "", 0) else None,
-        label=label,
+        label=_evaluation_label(payload),
+    )
+
+
+def _backfill_outcome(pred: dict[str, Any]) -> tuple[Any, str] | None:
+    pred_id = pred.get("id") or pred.get("prediction_id")
+    outcome = str(pred.get("label") or pred.get("outcome") or "").lower().strip()
+    if not pred_id or outcome not in {"correct", "incorrect", "partial", "win", "loss", "miss"}:
+        return None
+    return pred_id, outcome
+
+
+def _oracle_backfill_meta(pred: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "accuracy": pred.get("accuracy_score"),
+        "direction_label": pred.get("direction_label"),
+        "resolved_via": "oracle_backfill",
+        "asset": pred.get("asset"),
+    }
+
+
+def _register_labeled_backfill(pred: dict[str, Any], pred_id: Any, outcome: str) -> None:
+    register_signal(
+        signal_type=str(pred.get("kind") or "oracle_direction"),
+        asset=str(pred.get("asset") or "BTC"),
+        features={
+            "opportunity_score": pred.get("opportunity_score"),
+            "market_regime": pred.get("market_regime"),
+            "confidence": pred.get("confidence"),
+        },
+        score=float(pred.get("opportunity_score") or 0) if pred.get("opportunity_score") is not None else None,
+        verdict=str(pred.get("verdict") or ""),
+        prediction_id=str(pred_id),
+        label=outcome,
+        asof=str(pred.get("timestamp") or _utcnow()),
+        provenance={"source": "oracle_backfill", "prediction_id": pred_id},
     )
 
 
@@ -452,41 +562,22 @@ async def backfill_labels_from_oracle(*, limit: int = 2000) -> dict[str, Any]:
     labeled = 0
     registered = 0
     for pred in rows or []:
-        pred_id = pred.get("id") or pred.get("prediction_id")
-        outcome = str(pred.get("label") or pred.get("outcome") or "").lower().strip()
-        if not pred_id or outcome not in {"correct", "incorrect", "partial", "win", "loss", "miss"}:
+        backfill = _backfill_outcome(pred)
+        if backfill is None:
             continue
+        pred_id, outcome = backfill
         # Prefer exact prediction_id match
         hit = resolve_signal(
             str(pred_id),
             outcome,
-            meta={
-                "accuracy": pred.get("accuracy_score"),
-                "direction_label": pred.get("direction_label"),
-                "resolved_via": "oracle_backfill",
-                "asset": pred.get("asset"),
-            },
+            meta=_oracle_backfill_meta(pred),
         )
         if hit:
             linked += 1
             labeled += 1
             continue
         # No registry row yet — register a labeled historical row (moat growth)
-        register_signal(
-            signal_type=str(pred.get("kind") or "oracle_direction"),
-            asset=str(pred.get("asset") or "BTC"),
-            features={
-                "opportunity_score": pred.get("opportunity_score"),
-                "market_regime": pred.get("market_regime"),
-                "confidence": pred.get("confidence"),
-            },
-            score=float(pred.get("opportunity_score") or 0) if pred.get("opportunity_score") is not None else None,
-            verdict=str(pred.get("verdict") or ""),
-            prediction_id=str(pred_id),
-            label=outcome,
-            asof=str(pred.get("timestamp") or _utcnow()),
-            provenance={"source": "oracle_backfill", "prediction_id": pred_id},
-        )
+        _register_labeled_backfill(pred, pred_id, outcome)
         registered += 1
         labeled += 1
     stats = registry_stats()

@@ -24,6 +24,35 @@ def _normalize_symbol(symbol: str) -> str:
     return cleaned
 
 
+def _price_from_ndjson_line(raw_line: str, symbol: str) -> float | None:
+    stripped = raw_line.strip()
+    if not stripped:
+        return None
+    try:
+        row = json.loads(stripped)
+    except json.JSONDecodeError:
+        return None
+    if str(row.get("symbol", "")).upper() != symbol:
+        return None
+    payload = row.get("payload") or {}
+    price = payload.get("price")
+    return float(price) if price is not None else None
+
+
+def _append_spool_prices(spool_file: Any, symbol: str, closes: list[float], limit: int) -> bool:
+    try:
+        with spool_file.open("r", encoding="utf-8") as handle:
+            for raw_line in handle:
+                price = _price_from_ndjson_line(raw_line, symbol)
+                if price is not None:
+                    closes.append(price)
+                if len(closes) >= limit:
+                    return True
+    except OSError:
+        return False
+    return False
+
+
 async def _read_timescale_closes(symbol: str, *, limit: int) -> list[float]:
     dsn = str(config.HOT_STORAGE_TIMESCALE_DSN or "").strip()
     if not dsn:
@@ -66,26 +95,8 @@ def _read_ndjson_closes(symbol: str, *, limit: int) -> list[float]:
     closes: list[float] = []
     files = sorted(root.glob("*.ndjson"), reverse=True)
     for spool_file in files:
-        try:
-            with spool_file.open("r", encoding="utf-8") as handle:
-                for raw_line in handle:
-                    stripped = raw_line.strip()
-                    if not stripped:
-                        continue
-                    try:
-                        row = json.loads(stripped)
-                    except json.JSONDecodeError:
-                        continue
-                    if str(row.get("symbol", "")).upper() != sym:
-                        continue
-                    payload = row.get("payload") or {}
-                    price = payload.get("price")
-                    if price is not None:
-                        closes.append(float(price))
-                    if len(closes) >= limit:
-                        return closes[-limit:]
-        except OSError:
-            continue
+        if _append_spool_prices(spool_file, sym, closes, limit):
+            return closes[-limit:]
     return closes[-limit:]
 
 
@@ -115,7 +126,7 @@ async def fetch_recent_closes(
     return [], "none"
 
 
-async def hot_tier_status() -> dict[str, Any]:
+def hot_tier_status() -> dict[str, Any]:
     root = config.HOT_STORAGE_DIR
     spool_files = 0
     spool_bytes = 0

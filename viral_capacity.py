@@ -27,6 +27,9 @@ from typing import Any
 from fastapi import HTTPException, Request
 from starlette.responses import JSONResponse
 
+# Sonar S1192: duplicated string literals
+STR_BD_VIRAL_INFLIGHT = 'bd:viral:inflight'
+
 logger = logging.getLogger("BLACKDARK.ViralCapacity")
 
 # Tunables (env-overridable)
@@ -254,7 +257,7 @@ def begin_inflight() -> tuple[bool, str]:
     client = _redis_client()
     if client is not None:
         try:
-            key = "bd:viral:inflight"
+            key = STR_BD_VIRAL_INFLIGHT
             n = int(client.incr(key))
             if n == 1:
                 client.expire(key, 180)
@@ -283,7 +286,7 @@ def end_inflight(backend: str = "memory") -> None:
         client = _redis_client()
         if client is not None:
             try:
-                key = "bd:viral:inflight"
+                key = STR_BD_VIRAL_INFLIGHT
                 n = int(client.decr(key))
                 if n < 0:
                     client.set(key, 0, ex=180)
@@ -302,7 +305,7 @@ def inflight_count() -> int:
     client = _redis_client()
     if client is not None:
         try:
-            return max(0, int(client.get("bd:viral:inflight") or 0))
+            return max(0, int(client.get(STR_BD_VIRAL_INFLIGHT) or 0))
         except asyncio.CancelledError:
             raise
         except Exception:

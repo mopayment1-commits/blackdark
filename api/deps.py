@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Annotated
+
 from fastapi import Cookie, Depends, Header, HTTPException
 
 
 async def optional_user(
-    authorization: str | None = Header(None, alias="Authorization"),
-    bd_token: str | None = Cookie(None, alias="bd_token"),
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    bd_token: Annotated[str | None, Cookie(alias="bd_token")] = None,
 ) -> dict | None:
     """Resolve user from Bearer token or HttpOnly bd_token cookie."""
     from auth_service import get_user_from_token
@@ -25,8 +27,8 @@ async def optional_user(
 
 
 def raw_bearer_or_cookie(
-    authorization: str | None = Header(None, alias="Authorization"),
-    bd_token: str | None = Cookie(None, alias="bd_token"),
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    bd_token: Annotated[str | None, Cookie(alias="bd_token")] = None,
 ) -> str | None:
     """Return the raw session token (for logout / revoke)."""
     if authorization:
@@ -39,7 +41,7 @@ def raw_bearer_or_cookie(
 
 
 def require_feature(feature: str):
-    async def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
+    def _dependency(user: Annotated[dict | None, Depends(optional_user)]) -> dict | None:
         from auth_service import feature_allowed
 
         if not feature_allowed(user, feature):

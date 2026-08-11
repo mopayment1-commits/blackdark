@@ -10,6 +10,9 @@ from __future__ import annotations
 
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_CREATE_CHECKOUT_SESSION_TIER_WHALE = '/create-checkout-session?tier=whale'
+
 # Self-serve SKUs map to auth tiers free/pro/whale (whale = Decision Desk @ $49).
 # Institutional is sales-led (not a Stripe SKU).
 
@@ -207,7 +210,7 @@ _UPGRADE_NEXT: dict[str, dict[str, Any]] = {
         "next_id": "whale",
         "label": "Decision Desk $49",
         "cta": "Upgrade to Decision Desk",
-        "href": "/create-checkout-session?tier=whale",
+        "href": PATH_CREATE_CHECKOUT_SESSION_TIER_WHALE,
         "checkout_tier": "whale",
         "reason": "Whale Signal-to-Noise, Stealth Advisor, B2B/API, Evidence Pack.",
     },
@@ -298,7 +301,7 @@ def signup_next_after_register(plan: str) -> dict[str, Any]:
     if plan == "whale":
         return {
             "action": "checkout",
-            "href": "/create-checkout-session?tier=whale",
+            "href": PATH_CREATE_CHECKOUT_SESSION_TIER_WHALE,
             "start_pro_trial": False,
             "checkout_tier": "whale",
             "message": "Account created — continue to Decision Desk checkout ($49).",
@@ -334,7 +337,7 @@ def pricing_catalog() -> dict[str, Any]:
         },
         "checkout": {
             "pro": "/create-checkout-session?tier=pro",
-            "whale": "/create-checkout-session?tier=whale",
+            "whale": PATH_CREATE_CHECKOUT_SESSION_TIER_WHALE,
             "institutional": "/data-room",
         },
     }

@@ -25,6 +25,16 @@ logger = logging.getLogger("BLACKDARK.IngestionScheduler")
 _scheduler_task: asyncio.Task | None = None
 _category_tasks: dict[Category, asyncio.Task] = {}
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 
 
 async def _category_loop(category: Category) -> None:
@@ -47,7 +57,7 @@ async def _category_loop(category: Category) -> None:
             raise
         except Exception:
             logger.exception("Ingestion category loop failed | category=%s", category)
-        await asyncio.sleep(interval)
+        await _interruptible_sleep(interval)
 
 
 async def _maintenance_loop() -> None:
@@ -60,7 +70,7 @@ async def _maintenance_loop() -> None:
             raise
         except Exception:
             logger.exception("Data lake maintenance failed.")
-        await asyncio.sleep(config.INGESTION_MAINTENANCE_INTERVAL_SECONDS)
+        await _interruptible_sleep(config.INGESTION_MAINTENANCE_INTERVAL_SECONDS)
 
 
 async def run_initial_bootstrap() -> dict[str, Any]:
@@ -76,8 +86,8 @@ async def start_ingestion_scheduler(*, bootstrap: bool = True) -> None:
     global _running, _scheduler_task, _category_tasks
     if _running:
         return
+    _stop_event.clear()
     _running = True
-
     if bootstrap:
         try:
             await run_initial_bootstrap()
@@ -94,7 +104,7 @@ async def start_ingestion_scheduler(*, bootstrap: bool = True) -> None:
 
     from binance_ws_ingest import start_binance_ws_ingest
 
-    await start_binance_ws_ingest()
+    start_binance_ws_ingest()
 
     logger.info(
         "Ingestion scheduler started | categories=%s",
@@ -104,6 +114,7 @@ async def start_ingestion_scheduler(*, bootstrap: bool = True) -> None:
 
 async def stop_ingestion_scheduler() -> None:
     global _running, _scheduler_task, _category_tasks
+    _stop_event.set()
     _running = False
 
     from binance_ws_ingest import stop_binance_ws_ingest

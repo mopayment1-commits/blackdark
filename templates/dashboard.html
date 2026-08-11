@@ -16,14 +16,14 @@
         nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,.97); border-bottom: 1px solid #2a2a35; padding: .85rem 1.25rem; }
         .nav-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
         .logo { font-family: var(--bd-font-display); font-weight: 800; font-size: 1.2rem; color: #22d3ee; letter-spacing: .04em; }
-        .nav-links a { color: #71717a; margin-left: .85rem; font-size: .875rem; }
+        .nav-links a { color: #a1a1aa; margin-left: .85rem; font-size: .875rem; }
         .nav-links a:hover { color: #e4e4e7; }
-        .tier { font-size: .75rem; color: #71717a; margin-right: .5rem; }
+        .tier { font-size: .75rem; color: #a1a1aa; margin-right: .5rem; }
         .btn-upgrade { padding: .4rem .85rem; border-radius: 8px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; font-size: .78rem; border: none; cursor: pointer; }
         main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
-        .hero { text-align: center; margin-bottom: 1.25rem; }
-        .hero h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); margin-bottom: .35rem; color: #fff; }
-        .hero p { color: #71717a; font-size: .95rem; }
+        .hero { text-align: center; margin-bottom: .65rem; }
+        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; margin-bottom: .35rem; color: #fff; }
+        .hero p { color: #a1a1aa; font-size: .85rem; }
         .intent-wrap { max-width: 720px; margin: 0 auto 1.25rem; text-align: center; }
         .intent-q { font-size: 1.05rem; color: #e4e4e7; font-weight: 600; margin-bottom: .65rem; }
         .intent-grid { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; }
@@ -38,7 +38,7 @@
         .btn { padding: .75rem 1.25rem; border: none; border-radius: 10px; background: linear-gradient(135deg,#22d3ee,#06b6d4); color: #041016; font-weight: 700; cursor: pointer; }
         .btn.secondary { background: #1a1a24; color: #e4e4e7; border: 1px solid #2a2a35; }
         .picks { display: flex; gap: .45rem; justify-content: center; flex-wrap: wrap; margin-bottom: .75rem; }
-        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #71717a; font-size: .8rem; cursor: pointer; }
+        .pick { padding: .3rem .75rem; border-radius: 999px; border: 1px solid #2a2a35; background: #111118; color: #d4d4d8; font-size: .8rem; cursor: pointer; }
         .pick:hover { border-color: #22d3ee; color: #22d3ee; }
         section { background: #111118; border: 1px solid #2a2a35; border-radius: 14px; padding: 1.1rem; margin-bottom: 1rem; }
         section h2 { font-size: 1rem; color: #22d3ee; margin-bottom: .5rem; }
@@ -72,7 +72,7 @@
         .lens-bar { display:flex; gap:.4rem; justify-content:center; flex-wrap:wrap; margin:0 auto 1rem; max-width:720px; }
         .lens-btn {
             padding:.45rem 1rem; border-radius:999px; border:1px solid #2a2a35;
-            background:#111118; color:#71717a; font-size:.82rem; font-weight:700; cursor:pointer;
+            background:#111118; color:#e4e4e7; font-size:.82rem; font-weight:700; cursor:pointer;
         }
         .lens-btn.active { border-color:#22d3ee; color:#041016; background:linear-gradient(135deg,#22d3ee,#06b6d4); }
         .lens-btn.room { border-style:dashed; }
@@ -96,9 +96,6 @@
         .nav-links a.lens-nav { color:#a1a1aa; font-weight:600; }
 
         /* Trust Pulse — first-open composition */
-        .hero { margin-bottom: .65rem; }
-        .hero h1 { font-family: var(--bd-font-display); font-size: clamp(1.35rem, 3.2vw, 1.75rem); letter-spacing: .04em; }
-        .hero p { font-size: .85rem; }
         #trust-pulse {
             position: relative; overflow: hidden;
             background: linear-gradient(165deg, rgba(18,32,42,.95) 0%, #111118 55%);
@@ -127,12 +124,12 @@
             border-radius:999px; border:1px solid #2a2a35; background:#1a1a24; color:#a1a1aa;
         }
         .tp-chip.ok { border-color:rgba(34,197,94,.35); color:#86efac; }
-        .tp-chip.warn { border-color:rgba(245,158,11,.4); color:#fcd34d; }
+        .tp-chip.warn { border-color:rgba(245,158,11,.4); color:#fde68a; }
         .tp-wm { font-size:.72rem; color:#71717a; border:1px dashed #3f3f46; padding:.2rem .45rem; border-radius:6px; }
         .tp-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.35rem; }
         .tp-flip {
             display:none; margin-bottom:.75rem; padding:.65rem .85rem; border-radius:10px;
-            border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.08); color:#fcd34d; font-size:.88rem;
+            border:1px solid rgba(245,158,11,.55); background:rgba(120,53,15,.92); color:#fffbeb; font-size:.88rem;
         }
         .tp-flip.show { display:block; animation: pulseIn .45s ease; }
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
@@ -173,7 +170,7 @@
                 <strong style="color:#22d3ee;font-size:.85rem;letter-spacing:.04em">TRUST PULSE</strong>
                 <span class="tp-live"><span class="tp-dot" id="tpDot"></span><span id="tpFresh">Connecting…</span></span>
             </div>
-            <div id="tpFlip" class="tp-flip" role="status"></div>
+            <output id="tpFlip" class="tp-flip"></output>
             <div class="tp-action WAIT" id="tpAction">—</div>
             <div class="tp-sym" id="tpSym">Loading decision…</div>
             <div class="tp-sentence" id="tpSentence">One clear Act / Wait with a reviewable why.</div>
@@ -398,13 +395,14 @@
 
         function escapeHtml(value) {
             return String(value ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
         }
         function esc(s) { return escapeHtml(s); }
+
 
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
@@ -452,9 +450,7 @@
                         + (d.symbol ? ` · context ${d.symbol}` : '')
                         + (d.source ? ` · ${d.source}` : '');
                 }
-            } catch (e) {
-                appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.');
-            }
+            } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
 
         let nextUpgrade = { checkout_tier: 'pro', href: '/create-checkout-session?tier=pro', cta: 'Decision Pro $29' };
@@ -501,13 +497,14 @@
                     try {
                         const up = await fetch('/api/pricing/upgrade-path?tier=' + encodeURIComponent(userTierId));
                         nextUpgrade = await up.json();
-                    } catch (e2) {
-                        nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: userTierId === 'pro' ? 'whale' : 'pro', href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
+                    } catch (error) {
+                        console.debug(error);
+                        nextUpgrade = { has_upgrade: userTierId !== 'institutional', checkout_tier: (userTierId === 'pro' ? 'whale' : 'pro'), href: '/create-checkout-session?tier=pro', cta: 'Upgrade' };
                     }
                     applyUpgradeButton();
                     syncChatGate();
                 }
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
         }
 
         async function upgradeTier(tier) {
@@ -523,7 +520,7 @@
                 });
                 const d = await res.json();
                 if (d.url) { location.href = d.url; return; }
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
             location.href = '/create-checkout-session?tier=' + target;
         }
 
@@ -532,7 +529,7 @@
         const TP_STORE = 'bd_trust_pulse_last';
 
         function readLastPulseVisit() {
-            try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (e) { return null; }
+            try { return JSON.parse(localStorage.getItem(TP_STORE) || 'null'); } catch (error) { console.debug(error); return null; }
         }
         function savePulseVisit(p) {
             if (!p) return;
@@ -548,30 +545,39 @@
                     })),
                     certificate_hash: (p.proof && p.proof.certificate_hash) || null,
                 }));
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
         }
 
-        function renderTrustPulse(p, { fromStream } = {}) {
-            if (!p) return;
-            lastPulse = p;
-            const actionEl = document.getElementById('tpAction');
-            const act = (p.action || 'WAIT').toUpperCase();
-            actionEl.textContent = act;
-            actionEl.className = 'tp-action ' + act;
-            const price = p.price != null ? '$' + fmt(p.price, p.price < 1 ? 4 : 2) : '';
-            const ch = p.change_24h;
-            const chS = ch == null ? '' : ` · <span class="${ch>=0?'up':'down'}">${ch>=0?'+':''}${fmt(ch,2)}%</span>`;
-            document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
-            document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
-            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
-            const factors = (p.why && p.why.factors) || [];
-            document.getElementById('tpFactors').innerHTML = factors.length
-                ? factors.map((f,i) => `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${f.detail? ' — '+f.detail:''}${f.source?`<small>${f.source}</small>`:''}</div>`).join('')
-                : '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
-            const fresh = p.freshness || {};
-            const dot = document.getElementById('tpDot');
-            dot.className = 'tp-dot' + (fresh.stale ? ' stale' : (fresh.status === 'warm' ? ' warm' : ''));
-            document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
+        function changeClass(ch) { return (ch || 0) >= 0 ? 'up' : 'down'; }
+        function changePrefix(ch) { return (ch || 0) >= 0 ? '+' : ''; }
+        function fmtPrice(price) {
+            if (price == null) return '';
+            const decimals = price < 1 ? 4 : 2;
+            return '$' + fmt(price, decimals);
+        }
+        function changeSpan(ch) {
+            if (ch == null) return '';
+            const cls = ch >= 0 ? 'up' : 'down';
+            const sign = ch >= 0 ? '+' : '';
+            return ` · <span class="${cls}">${sign}${fmt(ch,2)}%</span>`;
+        }
+        function freshnessDotClass(fresh) {
+            if (fresh.stale) return 'tp-dot stale';
+            if (fresh.status === 'warm') return 'tp-dot warm';
+            return 'tp-dot';
+        }
+        function riskColorFor(risk) {
+            if (risk === 'HIGH') return '#ef4444';
+            if (risk === 'LOW') return '#22c55e';
+            return '#f59e0b';
+        }
+        function formatFactorLine(f, i) {
+            const detail = f.detail ? (' — ' + f.detail) : '';
+            const source = f.source ? ('<small>' + f.source + '</small>') : '';
+            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + (f.factor||f) + '</strong>' + detail + source + '</div>';
+        }
+
+        function buildPulseChips(p) {
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
@@ -580,7 +586,9 @@
             if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
             if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
             if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
-            document.getElementById('tpProof').innerHTML = chips.join('');
+            return chips.join('');
+        }
+        function renderPulseFlip(p, fromStream) {
             const flip = document.getElementById('tpFlip');
             const root = document.getElementById('trust-pulse');
             if (p.flip && p.flip.message) {
@@ -588,23 +596,57 @@
                 flip.classList.add('show');
                 root.classList.add('flipped');
                 setTimeout(() => root.classList.remove('flipped'), 1200);
-            } else if (!fromStream) {
-                flip.classList.remove('show');
+                return;
             }
+            if (!fromStream) flip.classList.remove('show');
+        }
+        function renderPulseContinuity(p) {
             const cont = p.continuity || {};
             const contEl = document.getElementById('tpContinuity');
             if (cont.locked) {
-                contEl.innerHTML = cont.flipped && cont.summary
-                    ? `${cont.summary} · <a href="#" onclick="upgradeTier('pro');return false">${cont.upgrade_hint||'Decision Pro'}</a>`
-                    : (cont.upgrade_hint || '');
-            } else if (cont.summary) {
-                contEl.textContent = cont.summary + ((cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '');
-            } else {
-                contEl.textContent = '';
+                if (cont.flipped && cont.summary) {
+                    contEl.innerHTML = cont.summary + ' · <a href="#" onclick="upgradeTier(\'pro\');return false">' + (cont.upgrade_hint||'Decision Pro') + '</a>';
+                } else {
+                    contEl.textContent = cont.upgrade_hint || '';
+                }
+                return;
             }
+            if (cont.summary) {
+                const extra = (cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '';
+                contEl.textContent = cont.summary + extra;
+                return;
+            }
+            contEl.textContent = '';
+        }
+        function renderTrustPulse(p, { fromStream } = {}) {
+            if (!p) return;
+            lastPulse = p;
+            const actionEl = document.getElementById('tpAction');
+            const act = (p.action || 'WAIT').toUpperCase();
+            actionEl.textContent = act;
+            actionEl.className = 'tp-action ' + act;
+            const price = fmtPrice(p.price);
+            const ch = p.change_24h;
+            const chS = changeSpan(ch);
+            document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
+            document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
+            document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
+            const factors = (p.why && p.why.factors) || [];
+            let factorHtml = '<div class="empty" style="padding:.25rem 0">Why factors loading…</div>';
+            if (factors.length) factorHtml = factors.map((f,i) => formatFactorLine(f, i)).join('');
+            document.getElementById('tpFactors').innerHTML = factorHtml;
+            const fresh = p.freshness || {};
+            const dot = document.getElementById('tpDot');
+            dot.className = freshnessDotClass(fresh);
+            document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
+            document.getElementById('tpProof').innerHTML = buildPulseChips(p);
+            renderPulseFlip(p, fromStream);
+            renderPulseContinuity(p);
+            const ledger = p.ledger || {};
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
-                document.getElementById('tpFoot').innerHTML = `<strong>Anti-Hype</strong> · ${ledger.honesty_line}${foot ? '<br>'+foot : ''}`;
+                const footBit = foot ? '<br>' + foot : '';
+                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + ledger.honesty_line + footBit;
             }
             savePulseVisit(p);
         }
@@ -625,21 +667,19 @@
                 if (prev.seen_at) qs.set('previous_seen_at', prev.seen_at);
             }
             if (prev && prev.factors && prev.factors.length) {
-                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (e) {}
+                try { qs.set('previous_factors', JSON.stringify(prev.factors.slice(0, 5))); } catch (error) { console.debug(error); }
             }
             try {
                 const res = await fetch('/api/trust-pulse?' + qs.toString(), { headers: authHeaders() });
                 if (!res.ok) throw new Error('pulse_fail');
                 const p = await res.json();
                 renderTrustPulse(p);
-            } catch (e) {
-                document.getElementById('tpFresh').textContent = 'Unavailable';
-                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.';
-            }
+            } catch (error) { console.debug(error); document.getElementById('tpFresh').textContent = 'Unavailable';
+                document.getElementById('tpSentence').textContent = 'Trust Pulse unavailable — use Get Decision below.'; }
         }
 
         function startTrustPulseStream() {
-            if (pulseEs) { try { pulseEs.close(); } catch (e) {} }
+            if (pulseEs) { try { pulseEs.close(); } catch (error) { console.debug(error); } }
             const sym = (document.getElementById('symbol')?.value || 'BTC').trim().toUpperCase() || 'BTC';
             const url = '/api/trust-pulse/stream?symbol=' + encodeURIComponent(sym);
             try {
@@ -651,7 +691,7 @@
                         else if (d.type === 'connected') {
                             document.getElementById('tpFresh').textContent = 'Live stream on';
                         }
-                    } catch (e) {}
+                    } catch (error) { console.debug(error); }
                 };
                 pulseEs.onerror = () => {
                     const fresh = document.getElementById('tpFresh');
@@ -659,14 +699,14 @@
                         fresh.textContent = 'Reconnecting…';
                     }
                 };
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
         }
 
         function shareTrustPulse() {
             const btn = document.getElementById('tpShareBtn');
             if (btn) {
                 btn.classList.remove('bd-motion-share');
-                void btn.offsetWidth;
+                btn.dataset.reflow = String(btn.offsetWidth);
                 btn.classList.add('bd-motion-share');
             }
             const p = lastPulse || {};
@@ -698,6 +738,128 @@
             document.getElementById('askBtn').textContent = 'Get Decision';
         }
 
+
+        function buildScenarioBlock(d) {
+            const scen = (d.scenarios && d.scenarios.scenarios) || {};
+            if (!(scen.bull || scen.base || scen.bear)) return '';
+            const metrics = ['bull','base','bear'].map(k => {
+                const s = scen[k] || {};
+                const pct = s.probability_pct != null ? s.probability_pct + '%' : '—';
+                return `<div class="metric"><strong>${esc(pct)}</strong><span>${esc(s.label||k)}</span></div>`;
+            }).join('');
+            const disc = esc((d.scenarios && d.scenarios.disclaimer) || '');
+            return `<div style="margin-top:.85rem"><div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div><div class="metrics">${metrics}</div><div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${disc}</div></div>`;
+        }
+        function buildWhyFactorsHtml(factors, whyBlock) {
+            let lines = '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>';
+            if (factors.length) {
+                lines = factors.slice(0,3).map((f,i) => {
+                    const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                    return '<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>'
+                        + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail
+                        + '<div style="color:#71717a;font-size:.75rem">' + esc(f.source||'') + '</div></div>';
+                }).join('');
+            }
+            const title = esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds');
+            return '<div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">'
+                + '<div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">' + title + '</div>' + lines + '</div>';
+        }
+        function buildVetoBlock(mode, conflict) {
+            const hot = conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none');
+            if (!(mode === 'pro' && hot)) return '';
+            const title = conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain';
+            const sev = conflict.severity ? ` · ${esc(conflict.severity)}` : '';
+            const reason = conflict.reason || conflict.message;
+            const reasonHtml = reason ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(reason)}</div>` : '';
+            return `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">Contradiction Veto — ${title}${sev}${reasonHtml}</div>`;
+        }
+        function buildCertBlock(cert, predictionId, safeUrl) {
+            if (!(cert.certificate_hash || predictionId)) return '';
+            window._lastCertShare = cert.share_text || '';
+            window._lastCertJson = cert;
+            window._lastCertTxt = cert.export_text || '';
+            const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
+            const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
+            const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
+            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : '';
+            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : '';
+            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
+        }
+        function buildUpgradeBlock(d) {
+            if (!d.upgrade_hint) return '';
+            const teaser = d.upgrade_hint.teaser || {};
+            let teaserHtml = '';
+            if (teaser.truth_score != null || teaser.remaining_seconds != null) {
+                teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
+            }
+            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button></div>`;
+        }
+        function safeShareUrl(u) {
+            const s = String(u || '');
+            return (/^https?:\/\//i.test(s)) ? esc(s) : '';
+        }
+        function buildFactorDrawer(d) {
+            const whyBlock = d.oqs_why || {};
+            const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
+            const whyVisible = buildWhyFactorsHtml(factors, whyBlock);
+            return whyVisible + `
+                <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
+                    <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
+                    <div style="margin-top:.65rem">${buildScenarioBlock(d)}</div>
+                </details>`;
+        }
+        function buildProMetrics(d, factorBlock) {
+            const truth = d.net_edge_truth || {};
+            const half = d.opportunity_half_life || {};
+            const sig = d.signal_registry || {};
+            return `
+                <div class="metrics">
+                    <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
+                    <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
+                    <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
+                    <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
+                </div>${factorBlock}`;
+        }
+        function buildProofBlock(d) {
+            if (!d.prediction_id) return '';
+            const hashBit = d.chain_hash
+                ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>`
+                : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${hashBit} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`;
+        }
+        function buildComplianceBlock(d) {
+            const cf = d.compliance_footer || {};
+            if (!cf.disclaimer) return '';
+            return `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`;
+        }
+        function renderOracleDecision(el, d, { sym, mode, lang }) {
+            const sentence = d.decision_sentence || d.narrative || d.oracle || '';
+            const action = d.decision_action || '';
+            const factorBlock = buildFactorDrawer(d);
+            const proBlock = mode === 'pro' ? buildProMetrics(d, factorBlock) : factorBlock;
+            const conf = d.confidence != null ? d.confidence + '%' : '—';
+            el.innerHTML = `
+                <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
+                <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
+                    <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
+                <div class="narrative">${esc(sentence)}</div>
+                <div class="metrics">
+                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
+                    <div class="metric"><strong>${esc(conf)}</strong><span>Confidence</span></div>
+                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
+                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
+                </div>
+                ${proBlock}
+                ${buildVetoBlock(mode, d.dimension_conflict || {})}
+                ${buildProofBlock(d)}
+                ${buildUpgradeBlock(d)}
+                ${buildComplianceBlock(d)}
+                ${buildCertBlock(d.decision_certificate || {}, d.prediction_id, safeShareUrl)}
+                <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
+        }
+
         async function askOracle() {
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
@@ -707,118 +869,20 @@
             if (!sym) return;
             box.classList.add('show');
             box.classList.remove('proof-pulse');
-            void box.offsetWidth;
+            box.dataset.reflow = String(box.offsetWidth);
             box.classList.add('proof-pulse');
             el.innerHTML = '<div class="loading">Analyzing…</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
                 const res = await fetch(url, { headers: authHeaders() });
                 if (!res.ok) throw new Error('fail');
-                const d = await res.json();
-                const sentence = d.decision_sentence || d.narrative || d.oracle || '';
-                const action = d.decision_action || '';
-                const truth = d.net_edge_truth || {};
-                const half = d.opportunity_half_life || {};
-                const sig = d.signal_registry || {};
-                const safeUrl = (u) => {
-                    const s = String(u || '');
-                    return (/^https?:\/\//i.test(s)) ? esc(s) : '';
-                };
-                let proBlock = '';
-                const whyBlock = d.oqs_why || {};
-                const factors = whyBlock.top_3_factors || (d.explanation && d.explanation.top_3_factors) || [];
-                const scen = (d.scenarios && d.scenarios.scenarios) || {};
-                const scenBlock = (scen.bull || scen.base || scen.bear) ? `
-                    <div style="margin-top:.85rem">
-                        <div style="font-size:.8rem;color:#71717a;margin-bottom:.4rem">Scenarios (sketch)</div>
-                        <div class="metrics">
-                            ${['bull','base','bear'].map(k => {
-                                const s = scen[k] || {};
-                                return `<div class="metric"><strong>${esc(s.probability_pct != null ? s.probability_pct+'%' : '—')}</strong><span>${esc(s.label||k)}</span></div>`;
-                            }).join('')}
-                        </div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((d.scenarios && d.scenarios.disclaimer) || '')}</div>
-                    </div>` : '';
-                const whyVisible = `
-                    <div style="margin-top:.85rem;padding:.65rem .85rem;border:1px solid rgba(34,211,238,.25);border-radius:10px;background:#1a1a24">
-                        <div style="font-size:.8rem;color:#22d3ee;margin-bottom:.4rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')}</div>
-                        ${factors.length ? factors.slice(0,3).map((f,i) => `<div style="font-size:.85rem;padding:.3rem 0;border-bottom:1px solid #2a2a35"><strong>${i+1}. ${esc(f.factor||f)}</strong>${f.detail ? ' — '+esc(f.detail) : ''}<div style="color:#71717a;font-size:.75rem">${esc(f.source||'')}</div></div>`).join('') : '<div class="empty" style="padding:.35rem 0">No factor breakdown on this response</div>'}
-                    </div>`;
-                const factorBlock = whyVisible + `
-                    <details style="margin-top:.65rem;border:1px solid #2a2a35;border-radius:10px;padding:.65rem .85rem;background:#1a1a24">
-                        <summary style="cursor:pointer;color:#22d3ee;font-size:.85rem;font-weight:600">Evidence drawer · Certificate + scenarios</summary>
-                        <div style="margin-top:.65rem">${scenBlock}</div>
-                    </details>`;
-                if (mode === 'pro') {
-                    proBlock = `
-                    <div class="metrics">
-                        <div class="metric"><strong>${esc(truth.truth_score ?? '—')}</strong><span>Truth</span></div>
-                        <div class="metric"><strong>${esc(half.remaining_seconds ?? '—')}s</strong><span>Half-Life</span></div>
-                        <div class="metric"><strong>${esc(d.market_regime || '—')}</strong><span>Regime</span></div>
-                        <div class="metric"><strong>${esc((sig.signal_id || '—').toString().slice(0,10))}</strong><span>Signal</span></div>
-                    </div>${factorBlock}`;
-                } else {
-                    proBlock = factorBlock;
-                }
-                let upgradeBlock = '';
-                if (d.upgrade_hint) {
-                    const t = d.upgrade_hint.teaser || {};
-                    upgradeBlock = `
-                    <div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">
-                        ${esc(d.upgrade_hint.message || '')}
-                        ${t.truth_score != null || t.remaining_seconds != null ? `<div style="margin-top:.35rem">Teaser · Truth ${esc(t.truth_score ?? '—')} · Half-life ${esc(t.remaining_seconds ?? '—')}s</div>` : ''}
-                        <button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button>
-                    </div>`;
-                }
-                const conflict = d.dimension_conflict || {};
-                const vetoBlock = (mode === 'pro' && (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')))
-                    ? `<div style="margin-top:.75rem;padding:.7rem .9rem;border:1px solid rgba(239,68,68,.35);border-radius:10px;color:#fca5a5;font-size:.85rem">
-                        Contradiction Veto — ${conflict.veto ? 'WAIT / Do Not Touch' : 'Abstain'}
-                        ${conflict.severity ? ` · ${esc(conflict.severity)}` : ''}
-                        ${conflict.reason || conflict.message ? `<div style="margin-top:.3rem;color:#a1a1aa">${esc(conflict.reason || conflict.message)}</div>` : ''}
-                       </div>` : '';
-                const proofBlock = d.prediction_id
-                    ? `<div style="margin-top:.65rem;font-size:.8rem;color:#71717a">Proof · prediction_id <code style="color:var(--accent,#22d3ee)">${esc(d.prediction_id)}</code>${d.chain_hash ? ` · hash <code style="color:var(--accent,#22d3ee)">${esc(String(d.chain_hash).slice(0,16))}…</code>` : ''} · <a href="/oracle-accuracy" style="color:var(--accent,#22d3ee)">Public accuracy</a></div>`
-                    : '';
-                const cf = d.compliance_footer || {};
-                const complianceBlock = cf.disclaimer
-                    ? `<div style="margin-top:.85rem;font-size:.72rem;color:#71717a;border-top:1px solid #2a2a35;padding-top:.65rem"><strong>Anti-Hype</strong> · ${esc(cf.data_source||'')} · ${esc(cf.trust_basis||'')}<br>${esc(cf.disclaimer)}</div>`
-                    : '';
-                const cert = d.decision_certificate || {};
-                let certBlock = '';
-                if (cert.certificate_hash || d.prediction_id) {
-                    window._lastCertShare = cert.share_text || '';
-                    window._lastCertJson = cert;
-                    window._lastCertTxt = cert.export_text || '';
-                    const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
-                    const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
-                    certBlock = `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending')}</code>
-                        ${cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : ''}
-                        <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>
-                        ${cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : ''}
-                        ${xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : ''}
-                        ${tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : ''}</div>`;
-                }
-                el.innerHTML = `
-                    <div class="verdict ${esc(vc(d.verdict))}">${esc(action || d.verdict)}</div>
-                    <div style="color:#71717a;font-size:.9rem">${esc(d.symbol || sym)} · $${fmt(d.price,2)} ·
-                        <span class="${(d.change_24h||0)>=0?'up':'down'}">${(d.change_24h||0)>=0?'+':''}${fmt(d.change_24h||0,2)}%</span></div>
-                    <div class="narrative">${esc(sentence)}</div>
-                    <div class="metrics">
-                        <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
-                        <div class="metric"><strong>${esc(d.confidence != null ? d.confidence + '%' : '—')}</strong><span>Confidence</span></div>
-                        <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
-                        <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
-                    </div>
-                    ${proBlock}
-                    ${vetoBlock}
-                    ${proofBlock}
-                    ${upgradeBlock}
-                    ${complianceBlock}
-                    ${certBlock}
-                    <div style="margin-top:.65rem;font-size:.8rem"><a href="/discipline-mirror" style="color:var(--accent,#22d3ee)">Open private Discipline Mirror</a></div>`;
-            } catch (e) {
-                const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'Could not analyze ' + sym; el.replaceChildren(empty);
+                renderOracleDecision(el, await res.json(), { sym, mode, lang });
+            } catch (error) {
+                console.debug(error);
+                const empty = document.createElement('div');
+                empty.className = 'empty';
+                empty.textContent = 'Could not analyze ' + sym;
+                el.replaceChildren(empty);
             }
         }
 
@@ -843,7 +907,7 @@
                 const rows = payload.klines || payload || [];
                 series.setData(rows.map(k => ({ time: Math.floor(k[0]/1000), open:+k[1], high:+k[2], low:+k[3], close:+k[4] })));
                 chart.timeScale().fitContent();
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
         }
 
         function renderMarketAssets(assets) {
@@ -854,7 +918,7 @@
                 <div class="card" onclick="setSymbol('${a.symbol}')">
                     <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
-                    <div class="${a.change_24h>=0?'up':'down'}">${a.change_24h>=0?'+':''}${fmt(a.change_24h,2)}%</div>
+                    <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
                 </div>`).join('') : '<div class="empty">No market rows</div>';
         }
 
@@ -864,7 +928,7 @@
                 const res = await fetch('/api/market/overview');
                 const data = await res.json();
                 renderMarketAssets(data.assets || []);
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
         async function loadDailyReport() {
@@ -884,20 +948,22 @@
                 const title = d.title || d.headline || 'Daily research brief';
                 const summary = d.narrative || d.summary || d.executive_summary || d.one_liner || '';
                 const bullets = [
-                    d.oracle_accuracy_percent != null ? `Oracle accuracy ${d.oracle_accuracy_percent}%` : null,
-                    d.moat_score != null ? `Moat ${d.moat_score}/100` : null,
-                    d.whale_alerts_24h != null ? `Whale alerts ${d.whale_alerts_24h}` : null,
-                    d.arb_alerts_24h != null ? `Arb alerts ${d.arb_alerts_24h}` : null,
+                    d.oracle_accuracy_percent != null ? ('Oracle accuracy ' + d.oracle_accuracy_percent + '%') : null,
+                    d.moat_score != null ? ('Moat ' + d.moat_score + '/100') : null,
+                    d.whale_alerts_24h != null ? ('Whale alerts ' + d.whale_alerts_24h) : null,
+                    d.arb_alerts_24h != null ? ('Arb alerts ' + d.arb_alerts_24h) : null,
                 ].filter(Boolean).slice(0, 4);
-                el.innerHTML = `<strong>${title}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">${summary || 'Brief ready — open Markdown for full detail.'}</div>
-                    ${bullets.length ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' +
-                        bullets.map(b => `<li>${b}</li>`).join('') +
-                        '</ul>' : ''}
-                    <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>`;
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Daily report unavailable</div>';
-            }
+                const bulletHtml = bullets.length
+                    ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
+                        + bullets.map(b => '<li>' + b + '</li>').join('')
+                        + '</ul>')
+                    : '';
+                el.innerHTML = '<strong>' + title + '</strong>'
+                    + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
+                    + (summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + bulletHtml
+                    + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
         }
 
         async function loadSubscriberValue() {
@@ -919,44 +985,43 @@
                 el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
                     <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
                     <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
-                    ${v.covers_subscription != null ? ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet') : ''}</div>
+                    ${coversPlanBit(v)}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Value digest unavailable</div>';
-            }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
         }
 
         let dashEs = null;
         let lastWhaleStreamAt = 0;
+
+        function renderSnapshotOI(assets) {
+            const el = document.getElementById('oi');
+            if (!el || !assets.length) return;
+            el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+                assets.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
+                    <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+        }
+        function renderSnapshotArb(arbitrage) {
+            const el = document.getElementById('arbList');
+            const stats = document.getElementById('arbStats');
+            const c = arbitrage.counts || {};
+            if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${arbitrage.executable_count||0} · Profitable ${arbitrage.profitable_count||0}`;
+            const opps = arbitrage.opportunities || [];
+            if (!el || !opps.length) return;
+            el.innerHTML = opps.slice(0,6).map(o => {
+                const half = o.opportunity_half_life || {};
+                const truth = o.net_edge_truth || {};
+                const rejected = o.truth_rejected || truth.reject;
+                const rej = rejected ? ' · REJECTED' : '';
+                return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rej}</div></div>`;
+            }).join('');
+        }
         function applyDashboardSnapshot(d) {
             if (!d || d.type === 'error') return;
             if (d.market && Array.isArray(d.market.assets)) renderMarketAssets(d.market.assets);
-            if (d.open_interest && Array.isArray(d.open_interest.assets)) {
-                const el = document.getElementById('oi');
-                const rows = d.open_interest.assets;
-                if (el && rows.length) {
-                    el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                        rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                            <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-                }
-            }
-            if (d.arbitrage) {
-                const el = document.getElementById('arbList');
-                const stats = document.getElementById('arbStats');
-                const c = d.arbitrage.counts || {};
-                if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${d.arbitrage.executable_count||0} · Profitable ${d.arbitrage.profitable_count||0}`;
-                const opps = d.arbitrage.opportunities || [];
-                if (el && opps.length) {
-                    el.innerHTML = opps.slice(0,6).map(o => {
-                        const half = o.opportunity_half_life || {};
-                        const truth = o.net_edge_truth || {};
-                        const rejected = o.truth_rejected || truth.reject;
-                        return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                        <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                        <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                    }).join('');
-                }
-            }
+            if (d.open_interest && Array.isArray(d.open_interest.assets)) renderSnapshotOI(d.open_interest.assets);
+            if (d.arbitrage) renderSnapshotArb(d.arbitrage);
             const now = Date.now();
             if (d.whales && (now - lastWhaleStreamAt) > 45000) {
                 lastWhaleStreamAt = now;
@@ -964,7 +1029,7 @@
             }
         }
         function startDashboardStream() {
-            if (dashEs) { try { dashEs.close(); } catch (e) {} }
+            if (dashEs) { try { dashEs.close(); } catch (error) { console.debug(error); } }
             try {
                 dashEs = new EventSource('/api/dashboard/stream');
                 dashEs.onmessage = (ev) => {
@@ -972,9 +1037,9 @@
                         const d = JSON.parse(ev.data);
                         if (d.type === 'connected') return;
                         applyDashboardSnapshot(d);
-                    } catch (e) {}
+                    } catch (error) { console.debug(error); }
                 };
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
         }
 
         async function loadOI() {
@@ -987,7 +1052,7 @@
                 el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
                     rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
                         <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
         async function loadArbitrage(refresh) {
@@ -1012,10 +1077,10 @@
                     const truth = o.net_edge_truth || {};
                     const rejected = o.truth_rejected || truth.reject;
                     return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                    <div class="${(o.net_profit_usdt||0)>=0?'up':'down'}">${(o.net_profit_usdt||0)>=0?'+':''}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                    <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
                     <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
-            } catch (e) { el.innerHTML = '<div class="empty">Scan failed</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
 
         async function loadInbox() {
@@ -1034,9 +1099,7 @@
                         <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Inbox unavailable</div>';
-            }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
         }
 
         async function markInboxRead(id) {
@@ -1047,7 +1110,7 @@
                     headers: authHeaders(),
                 });
                 loadInbox();
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); }
         }
 
         async function loadWhales(refresh) {
@@ -1067,9 +1130,9 @@
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
                             <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
-                            ${a.price != null ? ` · $${fmt(a.price, a.price < 1 ? 4 : 2)}` : (a.spot_price != null ? ` · $${fmt(a.spot_price, 2)}` : '')}
+                            ${whalePriceBit(a)}
                             <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
-                            ${(a.funding_rate != null || a.open_interest != null) ? `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${a.funding_rate != null ? 'Funding ' + a.funding_rate : ''}${a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : ''}</div>` : ''}
+                            ${whaleFundingBit(a)}
                         </div>`).join('');
                 } else if (stories.length) {
                     el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
@@ -1079,9 +1142,27 @@
                 if (foot) {
                     foot.innerHTML = '<strong>Anti-Hype</strong> · Whale labels are classified, not guaranteed alpha · Not financial advice · Verify on Public Accuracy Ledger';
                 }
-            } catch (e) { el.innerHTML = '<div class="empty">Unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
+        function coversPlanBit(v) {
+            if (v.covers_subscription == null) return '';
+            return ' · covers plan: ' + (v.covers_subscription ? 'yes' : 'not yet');
+        }
+        function whaleFundingBit(a) {
+            if (a.funding_rate == null && a.open_interest == null) return '';
+            const fr = a.funding_rate != null ? 'Funding ' + a.funding_rate : '';
+            const oi = a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : '';
+            return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
+        }
+        function whalePriceBit(a) {
+            if (a.price != null) {
+                const decimals = a.price < 1 ? 4 : 2;
+                return ` · $${fmt(a.price, decimals)}`;
+            }
+            if (a.spot_price != null) return ` · $${fmt(a.spot_price, 2)}`;
+            return '';
+        }
         function antiHypeOn() {
             return localStorage.getItem('bd_anti_hype') === '1' || /(?:^|; )bd_anti_hype=1(?:;|$)/.test(document.cookie);
         }
@@ -1102,7 +1183,7 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({enabled: next, user_key: k}),
                 });
-            } catch (e) {}
+            } catch (error) { console.debug(error); }
             applyAntiHypeClass();
         }
         async function loadSinceYouLeft() {
@@ -1121,9 +1202,7 @@
                     `<div class="arb-card"><strong>${i + 1}. ${x.title}</strong><div style="margin-top:.3rem;color:#a1a1aa">${x.detail}</div>
                      <a href="${x.href || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
                 ).join('') || '<div class="empty">No deltas yet</div>';
-            } catch (e) {
-                el.innerHTML = '<div class="empty">Continuity unavailable</div>';
-            }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
 
         async function loadHalfLifeClock() {
@@ -1135,9 +1214,7 @@
                 const d = await res.json();
                 svg.innerHTML = d.svg || '';
                 line.innerHTML = `<strong style="color:${d.band?.color||'#22d3ee'}">${d.band?.label||'—'}</strong><div style="margin-top:.35rem">${d.desk_line||''}</div>`;
-            } catch (e) {
-                line.textContent = 'Half-Life clock unavailable';
-            }
+            } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
         }
 
         let lastMevShare = '';
@@ -1160,7 +1237,7 @@
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
                         <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
                     </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Report unavailable</div>'; }
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
         }
         function copyMevShare() {
             if (!lastMevShare) { loadMevReport().then(() => navigator.clipboard.writeText(lastMevShare)); return; }
@@ -1182,34 +1259,41 @@
                 });
                 const d = await res.json();
                 const slices = ((d.slice_plan || {}).slices || []);
-                const sliceTable = slices.length
-                    ? `<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">
-                        <thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>
-                        <tbody>${slices.slice(0,12).map(s => `<tr>
+                const sliceRows = slices.slice(0,12).map(s => `<tr>
                             <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
                             <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
                             <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
                             <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
                             <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
-                        </tr>`).join('')}</tbody></table>`
+                        </tr>`).join('');
+                const sliceTable = slices.length
+                    ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
+                        + '<thead><tr style="color:#71717a;text-align:left"><th style="padding:.25rem">#</th><th>USD</th><th>Delay</th><th>Offset</th><th>Algo</th></tr></thead>'
+                        + '<tbody>' + sliceRows + '</tbody></table>')
                     : '';
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>${d.style||'advisory'}</strong> · ${d.asset} ${d.side} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">${d.recommended_slices} slices × $${fmt(d.slice_usd,2)} · urgency ${d.urgency}</div>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">${d.advice||''}</div>
-                        ${d.slice_plan ? `<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ${d.slice_plan.algo} · window ${d.slice_plan.window_sec}s · interval ${d.slice_plan.interval_sec}s · offset ${d.slice_plan.limit_offset_bps} bps</div>` : ''}
-                        ${sliceTable}
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${d.disclaimer||''}</div>
-                    </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
+                let planBit = '';
+                if (d.slice_plan) {
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + d.slice_plan.algo
+                        + ' · window ' + d.slice_plan.window_sec + 's · interval ' + d.slice_plan.interval_sec
+                        + 's · offset ' + d.slice_plan.limit_offset_bps + ' bps</div>';
+                }
+                el.innerHTML =
+                    '<div class="arb-card"><strong>' + (d.style||'advisory') + '</strong> · ' + d.asset + ' ' + d.side
+                    + ' · $' + fmt(d.notional_usd,0)
+                    + '<div style="margin-top:.4rem">' + d.recommended_slices + ' slices × $' + fmt(d.slice_usd,2)
+                    + ' · urgency ' + d.urgency + '</div>'
+                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + (d.advice||'') + '</div>'
+                    + planBit + sliceTable
+                    + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
+                    + (d.disclaimer||'') + '</div></div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
         let portfolioAssets = [];
         function addPortfolioAsset() {
             const symbol = (document.getElementById('pfSym').value || '').toUpperCase().trim();
             const amount = Number(document.getElementById('pfAmt').value || 0);
-            if (!symbol || !(amount > 0)) return;
+            if (!symbol || amount <= 0) return;
             portfolioAssets.push({ symbol, amount });
             document.getElementById('pfSym').value = '';
             document.getElementById('pfAmt').value = '';
@@ -1235,18 +1319,28 @@
                 const d = await res.json();
                 const foot = d.compliance_footer || {};
                 const risk = (d.risk_level || '').toUpperCase();
-                const riskColor = risk === 'HIGH' ? '#ef4444' : (risk === 'LOW' ? '#22c55e' : '#f59e0b');
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>Portfolio AI</strong>
-                        ${risk ? ` · <span style="color:${riskColor};font-weight:700">${risk}</span> risk (${d.risk_score ?? '—'}/10)` : ''}
-                        <div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">${d.one_sentence || d.plain_language || d.summary || ''}</div>
-                        ${d.scenario_note ? `<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">${d.scenario_note}</div>` : ''}
-                        ${d.total_value_formatted ? `<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ${d.total_value_formatted} · BTC corr ${d.btc_correlation || '—'}</div>` : ''}
-                        ${(d.recommendations||[]).length ? `<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${d.recommendations.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
-                        ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
-                    </div>`;
-            } catch (e) { el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
+                const riskColor = riskColorFor(risk);
+                const recs = d.recommendations || [];
+                const recHtml = recs.length
+                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${r}</li>`).join('') + '</ul>'
+                    : '';
+                const riskBit = risk
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + risk + '</span> risk (' + (d.risk_score ?? '—') + '/10)')
+                    : '';
+                const scenarioBit = d.scenario_note
+                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + d.scenario_note + '</div>')
+                    : '';
+                const valueBit = d.total_value_formatted
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + d.total_value_formatted + ' · BTC corr ' + (d.btc_correlation || '—') + '</div>')
+                    : '';
+                const footBit = foot.disclaimer
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + foot.disclaimer + '</div>')
+                    : '';
+                el.innerHTML =
+                    '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
+                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + (d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
+                    scenarioBit + valueBit + recHtml + footBit + '</div>';
+            } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
 
         async function loadTgStatus() {
@@ -1255,7 +1349,7 @@
                 const res = await fetch('/api/alerts/telegram/status');
                 const d = await res.json();
                 el.textContent = d.bot_token_set ? 'Telegram bot configured — connect via /login' : 'Set TELEGRAM_BOT_TOKEN to enable alerts';
-            } catch (e) { el.textContent = 'Alert status unavailable'; }
+            } catch (error) { console.debug(error); el.textContent = 'Alert status unavailable'; }
         }
 
         async function testTelegram() {
@@ -1263,7 +1357,7 @@
                 const res = await fetch('/api/alerts/telegram/test', { method: 'POST', headers: authHeaders() });
                 const d = await res.json();
                 alert(d.message || (d.success ? 'Sent!' : 'Failed'));
-            } catch (e) { alert('Test failed — configure bot first'); }
+            } catch (error) { console.debug(error); alert('Test failed — configure bot first'); }
         }
 
         async function loadAlertsGenerosity() {
@@ -1275,7 +1369,7 @@
                 const bd = d.blackdark || {};
                 el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
                     `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); }
         }
 
         function scrollToId(id) {
@@ -1297,6 +1391,27 @@
             return ({ retail:'prove', pro:'operate', whale:'desk', fund:'room' })[aud] || 'prove';
         }
 
+
+        function scrollForLens(lensId) {
+            const hash = (location.hash || '').replace('#','');
+            if (hash) {
+                setTimeout(() => scrollToId(hash === 'oracle' ? 'decide' : hash), 200);
+                return;
+            }
+            if (lensId === 'desk') setTimeout(scrollToStealth, 250);
+            else setTimeout(() => scrollToId('decide'), 200);
+        }
+        function paintLensChrome(d) {
+            const lens = d.lens || {};
+            const promise = document.getElementById('lensPromise');
+            if (promise) promise.textContent = (lens.promise || '') + (lens.support ? ' — ' + lens.support : '');
+            const banner = document.getElementById('audienceBanner');
+            if (banner) {
+                banner.style.display = 'block';
+                banner.textContent = (lens.label || currentLens) + ' lens · ' + (lens.viral_role || '');
+            }
+            renderEntries(d.entries || []);
+        }
         async function applyLens(lensId, { persist=true, scroll=true } = {}) {
             currentLens = (lensId || 'prove').toLowerCase();
             if (persist) {
@@ -1307,7 +1422,7 @@
             document.body.classList.remove('lens-prove','lens-operate','lens-desk','lens-room');
             document.body.classList.add('lens-' + currentLens);
             document.querySelectorAll('.lens-btn').forEach(b => {
-                b.classList.toggle('active', b.getAttribute('data-lens') === currentLens);
+                b.classList.toggle('active', b.dataset.lens === currentLens);
             });
             const mode = document.getElementById('uxMode');
             if (mode) mode.value = (currentLens === 'prove') ? 'beginner' : 'pro';
@@ -1317,28 +1432,15 @@
                 const res = await fetch('/api/lenses/' + encodeURIComponent(currentLens));
                 const d = await res.json();
                 lensManifest = d;
-                const lens = d.lens || {};
-                const promise = document.getElementById('lensPromise');
-                if (promise) promise.textContent = (lens.promise || '') + (lens.support ? ' — ' + lens.support : '');
-                const banner = document.getElementById('audienceBanner');
-                if (banner) {
-                    banner.style.display = 'block';
-                    banner.textContent = (lens.label || currentLens) + ' lens · ' + (lens.viral_role || '');
-                }
-                renderEntries(d.entries || []);
+                paintLensChrome(d);
                 if (currentLens === 'room' && scroll) {
-                    // Room is prestige / Talk to us — leave decision room for Data Room
-                    setTimeout(() => { location.href = lens.cta_primary?.href || '/data-room'; }, 180);
+                    const href = (d.lens && d.lens.cta_primary && d.lens.cta_primary.href) || '/data-room';
+                    setTimeout(() => { location.href = href; }, 180);
                     return;
                 }
-                if (scroll) {
-                    const hash = (location.hash || '').replace('#','');
-                    if (hash) setTimeout(() => scrollToId(hash === 'oracle' ? 'decide' : hash), 200);
-                    else if (currentLens === 'desk') setTimeout(scrollToStealth, 250);
-                    else if (currentLens === 'operate') setTimeout(() => scrollToId('decide'), 200);
-                    else setTimeout(() => scrollToId('decide'), 200);
-                }
-            } catch (e) {
+                if (scroll) scrollForLens(currentLens);
+            } catch (error) {
+                console.debug(error);
                 renderEntries([
                     {id:'decide',label:'Decide',available:true,hint:'Act/Wait + Proof'},
                     {id:'verify',label:'Verify',available:true,path:'/oracle-accuracy'},
@@ -1363,9 +1465,9 @@
                         upgradeTier('pro');
                         return;
                     }
-                    const id = btn.getAttribute('data-entry');
-                    const action = btn.getAttribute('data-action');
-                    const path = btn.getAttribute('data-path') || '';
+                    const id = btn.dataset.entry;
+                    const action = btn.dataset.action;
+                    const path = btn.dataset.path || '';
                     if (id === 'verify' || (action === 'navigate' && path.includes('oracle-accuracy'))) {
                         location.href = '/oracle-accuracy';
                         return;
@@ -1380,7 +1482,7 @@
 
         function bindLensBar() {
             document.querySelectorAll('.lens-btn').forEach(btn => {
-                btn.addEventListener('click', () => applyLens(btn.getAttribute('data-lens')));
+                btn.addEventListener('click', () => applyLens(btn.dataset.lens));
             });
         }
 
@@ -1412,9 +1514,9 @@
                     btn.addEventListener('click', () => {
                         grid.querySelectorAll('.intent-btn').forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        const id = btn.getAttribute('data-id');
-                        const action = btn.getAttribute('data-action');
-                        const path = btn.getAttribute('data-path') || '';
+                        const id = btn.dataset.id;
+                        const action = btn.dataset.action;
+                        const path = btn.dataset.path || '';
                         const row = intents.find(x => x.id === id) || {};
                         if (hint) hint.textContent = row.hint || '';
                         if (action === 'navigate' && (path === '/b2b' || path === '/oracle-accuracy')) {
@@ -1452,9 +1554,7 @@
                         }
                     });
                 });
-            } catch (e) {
-                if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.';
-            }
+            } catch (error) { console.debug(error); if (hint) hint.textContent = 'Intent router unavailable — use Get Decision below.'; }
         }
 
         function boot() {

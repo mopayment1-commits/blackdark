@@ -47,7 +47,7 @@
         <div class="stats" id="stats"></div>
         <div id="days"></div>
     </main>
-    <script>
+    <script type="module">
         async function load() {
             const res = await fetch('/api/admin/launch-checklist');
             const d = await res.json();
@@ -74,9 +74,12 @@
                         </div>`).join('')}
                 </section>`).join('');
         }
-        load().catch(() => {
+        try {
+            await load();
+        } catch (error) {
+            console.debug(error);
             document.getElementById('ready').textContent = 'Could not load checklist — check Admin access';
-        });
+        }
     </script>
 </body>
 </html>

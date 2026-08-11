@@ -56,6 +56,14 @@ def _execution_feasibility(net_profit: float, slippage_bps: float) -> str:
     return "risky"
 
 
+def _latency_tier(source: str, data_age_sec: float) -> str:
+    if source == "websocket_live":
+        return "millisecond"
+    if data_age_sec <= 2:
+        return "sub_second"
+    return "slow"
+
+
 def _top_bid(book: dict[str, Any]) -> float | None:
     bids = book.get("bids") or []
     return float(bids[0][0]) if bids else None
@@ -64,6 +72,103 @@ def _top_bid(book: dict[str, Any]) -> float | None:
 def _top_ask(book: dict[str, Any]) -> float | None:
     asks = book.get("asks") or []
     return float(asks[0][0]) if asks else None
+
+
+def _live_exchange_ids(native_exchanges: set[str], fast: bool) -> list[str]:
+    fast_exchanges = getattr(config, "FAST_LIVE_EXCHANGES", config.WHITELIST_EXCHANGES)
+    return sorted(
+        ex
+        for ex in native_exchanges
+        if ex in config.WHITELIST_EXCHANGES and (not fast or ex in fast_exchanges)
+    )
+
+
+def _queue_live_fetches(
+    *,
+    session: aiohttp.ClientSession,
+    exchange_ids: list[str],
+    spot_symbols: list[str],
+    perp_symbols: list[str],
+    market_fetchers: dict[str, Any],
+    funding_fetchers: dict[str, Any],
+    spot_only_exchanges: set[str],
+    symbols_for_exchange,
+    perp_symbols_for_exchange,
+) -> tuple[list[asyncio.Task[Any]], list[tuple[str, str, str]]]:
+    tasks: list[asyncio.Task[Any]] = []
+    meta: list[tuple[str, str, str]] = []
+    for exchange_id in exchange_ids:
+        market_fetcher = market_fetchers.get(exchange_id)
+        funding_fetcher = funding_fetchers.get(exchange_id)
+        if market_fetcher is None:
+            continue
+
+        for symbol in symbols_for_exchange(exchange_id, spot_symbols):
+            tasks.append(asyncio.create_task(market_fetcher(session, symbol, "spot")))
+            meta.append((exchange_id, symbol, "spot"))
+
+        for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
+            if exchange_id in spot_only_exchanges:
+                continue
+            tasks.append(asyncio.create_task(market_fetcher(session, symbol, "perpetual")))
+            meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
+            if funding_fetcher is not None:
+                tasks.append(asyncio.create_task(funding_fetcher(session, symbol)))
+                meta.append((exchange_id, symbol, "funding"))
+    return tasks, meta
+
+
+async def _wait_for_live_fetches(tasks: list[asyncio.Task[Any]], deadline: float) -> None:
+    pending = set(tasks)
+    loop = asyncio.get_running_loop()
+    deadline_at = loop.time() + deadline
+    while pending and loop.time() < deadline_at:
+        done, pending = await asyncio.wait(
+            pending,
+            timeout=max(0.05, deadline_at - loop.time()),
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+        if not done:
+            break
+    for task in pending:
+        task.cancel()
+    if pending:
+        await asyncio.gather(*pending, return_exceptions=True)
+
+
+def _record_live_fetch_result(
+    *,
+    books: dict[str, dict[str, dict[str, Any]]],
+    funding: dict[str, dict[str, dict[str, Any]]],
+    task: asyncio.Task[Any],
+    meta: tuple[str, str, str],
+    timestamp: str,
+) -> None:
+    exchange_id, key, kind = meta
+    if task.cancelled():
+        return
+    try:
+        result = task.result()
+    except Exception as exc:
+        logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
+        return
+
+    if kind == "funding":
+        funding.setdefault(exchange_id, {})[key.replace("@perpetual", "")] = {
+            "funding_rate": float(result.funding_rate),
+            "next_funding_time": result.next_funding_time,
+            "timestamp": timestamp,
+        }
+        return
+
+    _ticker, order_book = result
+    books.setdefault(exchange_id, {})[key] = {
+        "bids": order_book.bids,
+        "asks": order_book.asks,
+        "timestamp": timestamp,
+        "market_type": kind if kind != "spot" else "spot",
+        "symbol": key.replace("@perpetual", ""),
+    }
 
 
 async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, dict[str, dict[str, Any]]], dict[str, dict[str, dict[str, Any]]]]:
@@ -80,80 +185,30 @@ async def fetch_live_market_snapshots(*, fast: bool = True) -> tuple[dict[str, d
 
     spot_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
     perp_symbols = [f"{asset}/USDT" for asset in sorted(config.WHITELIST_ASSETS)]
-    exchange_ids = sorted(
-        ex for ex in NATIVE_EXCHANGES
-        if ex in config.WHITELIST_EXCHANGES and (not fast or ex in getattr(config, "FAST_LIVE_EXCHANGES", config.WHITELIST_EXCHANGES))
-    )
+    exchange_ids = _live_exchange_ids(NATIVE_EXCHANGES, fast)
 
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        tasks: list[asyncio.Task[Any]] = []
-        meta: list[tuple[str, str, str]] = []
-
-        for exchange_id in exchange_ids:
-            market_fetcher = MARKET_FETCHERS.get(exchange_id)
-            funding_fetcher = FUNDING_FETCHERS.get(exchange_id)
-            if market_fetcher is None:
-                continue
-
-            for symbol in symbols_for_exchange(exchange_id, spot_symbols):
-                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "spot")))
-                meta.append((exchange_id, symbol, "spot"))
-
-            for symbol in perp_symbols_for_exchange(exchange_id, perp_symbols):
-                if exchange_id in SPOT_ONLY_EXCHANGES:
-                    continue
-                tasks.append(asyncio.create_task(market_fetcher(session, symbol, "perpetual")))
-                meta.append((exchange_id, f"{symbol}@perpetual", "perpetual"))
-                if funding_fetcher is not None:
-                    tasks.append(asyncio.create_task(funding_fetcher(session, symbol)))
-                    meta.append((exchange_id, symbol, "funding"))
-
-        pending = set(tasks)
-        loop = asyncio.get_running_loop()
-        deadline_at = loop.time() + deadline
-
-        while pending and loop.time() < deadline_at:
-            done, pending = await asyncio.wait(
-                pending,
-                timeout=max(0.05, deadline_at - loop.time()),
-                return_when=asyncio.FIRST_COMPLETED,
-            )
-            if not done:
-                break
-
-        for task in pending:
-            task.cancel()
-        if pending:
-            await asyncio.gather(*pending, return_exceptions=True)
-
+        tasks, meta = _queue_live_fetches(
+            session=session,
+            exchange_ids=exchange_ids,
+            spot_symbols=spot_symbols,
+            perp_symbols=perp_symbols,
+            market_fetchers=MARKET_FETCHERS,
+            funding_fetchers=FUNDING_FETCHERS,
+            spot_only_exchanges=SPOT_ONLY_EXCHANGES,
+            symbols_for_exchange=symbols_for_exchange,
+            perp_symbols_for_exchange=perp_symbols_for_exchange,
+        )
+        await _wait_for_live_fetches(tasks, deadline)
         timestamp = _utcnow_iso()
-        for task, (exchange_id, key, kind) in zip(tasks, meta):
-            if task.cancelled():
-                continue
-            try:
-                result = task.result()
-            except Exception as exc:
-                logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
-                continue
-
-            if kind == "funding":
-                snap = result
-                funding.setdefault(exchange_id, {})[key.replace("@perpetual", "")] = {
-                    "funding_rate": float(snap.funding_rate),
-                    "next_funding_time": snap.next_funding_time,
-                    "timestamp": timestamp,
-                }
-                continue
-
-            _ticker, order_book = result
-            symbol_key = key
-            books.setdefault(exchange_id, {})[symbol_key] = {
-                "bids": order_book.bids,
-                "asks": order_book.asks,
-                "timestamp": timestamp,
-                "market_type": kind if kind != "spot" else "spot",
-                "symbol": key.replace("@perpetual", ""),
-            }
+        for task, row_meta in zip(tasks, meta):
+            _record_live_fetch_result(
+                books=books,
+                funding=funding,
+                task=task,
+                meta=row_meta,
+                timestamp=timestamp,
+            )
 
     return books, funding
 
@@ -169,18 +224,12 @@ async def get_market_snapshots(
 
     # 1) WebSocket in-memory books — always first (sub-ms) unless explicit REST forced.
     if low_latency and not force_rest:
-        try:
-            from live_book_hub import get_live_books_if_fresh
-
-            fresh = get_live_books_if_fresh()
-            if fresh:
-                ws_books, age_ms = fresh
-                _books, funding, _source, _age = await get_market_snapshots_cached()
-                age_sec = age_ms / 1000.0
-                set_cached_snapshots(ws_books, funding, source="websocket_live", age_sec=age_sec)
-                return ws_books, funding, "websocket_live", age_sec
-        except Exception:
-            logger.debug("WebSocket live book path unavailable", exc_info=True)
+        websocket_snapshot = await _fresh_websocket_snapshot(
+            get_market_snapshots_cached,
+            set_cached_snapshots,
+        )
+        if websocket_snapshot is not None:
+            return websocket_snapshot
 
     books, funding, source, age_sec = await get_market_snapshots_cached()
 
@@ -190,24 +239,60 @@ async def get_market_snapshots(
     # 2) REST refresh ONLY when stale/missing OR caller explicitly forces REST.
     #    prefer_live alone must NOT trigger a 2–3s REST round-trip when cache/WS is fresh.
     if force_rest or must_refresh:
-        try:
-            live_books, live_funding = await fetch_live_market_snapshots(fast=True)
-            if live_books:
-                books = live_books
-                source = "live_api"
-                age_sec = 0.0
-            if live_funding:
-                funding = live_funding
-            set_cached_snapshots(books, funding, source=source, age_sec=age_sec)
-        except Exception:
-            if must_refresh:
-                logger.warning(
-                    "Stale market data (age=%.1fs) and live refresh failed — results may be unreliable.",
-                    age_sec,
-                )
-            else:
-                logger.exception("Live arbitrage snapshot fetch failed; using cache/database fallback.")
+        books, funding, source, age_sec = await _refresh_rest_snapshots(
+            books,
+            funding,
+            source,
+            age_sec,
+            must_refresh,
+            set_cached_snapshots,
+        )
 
+    return books, funding, source, age_sec
+
+
+async def _fresh_websocket_snapshot(get_cached: Any, set_cached: Any) -> tuple[dict, dict, str, float] | None:
+    try:
+        from live_book_hub import get_live_books_if_fresh
+
+        fresh = get_live_books_if_fresh()
+        if not fresh:
+            return None
+        ws_books, age_ms = fresh
+        _books, funding, _source, _age = await get_cached()
+        age_sec = age_ms / 1000.0
+        set_cached(ws_books, funding, source="websocket_live", age_sec=age_sec)
+        return ws_books, funding, "websocket_live", age_sec
+    except Exception:
+        logger.debug("WebSocket live book path unavailable", exc_info=True)
+        return None
+
+
+async def _refresh_rest_snapshots(
+    books: dict,
+    funding: dict,
+    source: str,
+    age_sec: float,
+    must_refresh: bool,
+    set_cached: Any,
+) -> tuple[dict, dict, str, float]:
+    try:
+        live_books, live_funding = await fetch_live_market_snapshots(fast=True)
+        if live_books:
+            books = live_books
+            source = "live_api"
+            age_sec = 0.0
+        if live_funding:
+            funding = live_funding
+        set_cached(books, funding, source=source, age_sec=age_sec)
+    except Exception:
+        if must_refresh:
+            logger.warning(
+                "Stale market data (age=%.1fs) and live refresh failed — results may be unreliable.",
+                age_sec,
+            )
+        else:
+            logger.exception("Live arbitrage snapshot fetch failed; using cache/database fallback.")
     return books, funding, source, age_sec
 
 
@@ -328,6 +413,228 @@ def _format_funding(item: Any, institutional_context: dict | None) -> dict[str, 
     }
 
 
+def _profit_floor(min_profit_usdt: float | None, profitable_only: bool) -> float:
+    if profitable_only:
+        return 0.0
+    if min_profit_usdt is not None:
+        return min_profit_usdt
+    return -1_000_000.0
+
+
+def _empty_scan_response(
+    *,
+    source: str,
+    data_age_sec: float,
+    scan_ms: float,
+    quote_amount: float,
+) -> dict[str, Any]:
+    return {
+        "opportunities": [],
+        "counts": {"cross_exchange": 0, "triangular": 0, "spot_futures": 0, "funding": 0},
+        "data_source": source,
+        "data_age_sec": data_age_sec,
+        "scan_ms": scan_ms,
+        "quote_amount": quote_amount,
+        "timestamp": _utcnow_iso(),
+        "message": "No order-book data — start aggregator.py or retry live scan.",
+    }
+
+
+def _strategy_opportunities(
+    books: dict[str, dict[str, Any]],
+    funding: list[dict[str, Any]],
+    notional: float,
+    institutional_context: dict[str, Any],
+) -> tuple[list[Any], list[Any], list[Any], list[Any]]:
+    cross = calculate_cross_exchange_arbitrage(books, notional, institutional_context)
+    triangular = calculate_triangular_arbitrage(books, notional, institutional_context)
+    basis = calculate_spot_futures_premium(books, notional, institutional_context)
+    funding_opps = calculate_funding_arbitrage_with_institutional_context(
+        funding,
+        notional,
+        institutional_context,
+        institutional_context,
+    )
+    return cross, triangular, basis, funding_opps
+
+
+def _append_profitable(rows: list[dict[str, Any]], row: dict[str, Any], profit_floor: float) -> None:
+    if row["net_profit_usdt"] >= profit_floor:
+        rows.append(row)
+
+
+def _append_triangular_row(
+    rows: list[dict[str, Any]],
+    row: dict[str, Any],
+    *,
+    data_age_sec: float,
+    profit_floor: float,
+) -> None:
+    if row["net_profit_usdt"] < profit_floor:
+        return
+    if data_age_sec <= 10:
+        row["staleness_ok"] = True
+        rows.append(row)
+        return
+    row["staleness_ok"] = False
+    row["risk_factors"] = (row.get("risk_factors") or []) + ["stale_data_for_triangular"]
+
+
+def _formatted_opportunities(
+    *,
+    cross: list[Any],
+    triangular: list[Any],
+    basis: list[Any],
+    funding_opps: list[Any],
+    institutional_context: dict[str, Any],
+    data_age_sec: float,
+    profit_floor: float,
+) -> list[dict[str, Any]]:
+    formatted: list[dict[str, Any]] = []
+    for item in cross:
+        _append_profitable(formatted, _format_cross(item, institutional_context), profit_floor)
+    for item in triangular:
+        _append_triangular_row(
+            formatted,
+            _format_triangular(item, institutional_context),
+            data_age_sec=data_age_sec,
+            profit_floor=profit_floor,
+        )
+    for item in basis:
+        _append_profitable(formatted, _format_basis(item, institutional_context), profit_floor)
+    for item in funding_opps:
+        _append_profitable(formatted, _format_funding(item, institutional_context), profit_floor)
+    return [row for row in formatted if row.get("staleness_ok", True) is not False]
+
+
+def _apply_truth_to_row(row: dict[str, Any], quote_age_ms: float) -> None:
+    from net_edge_truth import compute_net_edge_truth
+
+    if quote_age_ms and not row.get("quote_age_ms"):
+        row["quote_age_ms"] = quote_age_ms
+    try:
+        truth = compute_net_edge_truth(row)
+    except Exception:
+        logger.debug("net-edge truth on scan row failed", exc_info=True)
+        truth = {"enabled": False, "error": "unavailable"}
+    row["net_edge_truth"] = truth
+    if not truth.get("reject"):
+        return
+    row["truth_rejected"] = True
+    row["execution_feasibility"] = "not_executable"
+    risks = list(row.get("risk_factors") or [])
+    if "net_edge_truth_reject" not in risks:
+        risks.append("net_edge_truth_reject")
+    row["risk_factors"] = risks
+
+
+def _mark_constitution_gates_unavailable(rows: list[dict[str, Any]]) -> None:
+    for row in rows:
+        row["gates_missing"] = True
+        row["execution_feasibility"] = "not_executable"
+        row.setdefault("net_edge_truth", {"enabled": False, "reject": True, "error": "gates_unavailable"})
+        row.setdefault("dimension_conflict", {"severity": "unavailable", "veto": False, "abstain": True})
+        risks = list(row.get("risk_factors") or [])
+        if "constitution_gates_unavailable" not in risks:
+            risks.append("constitution_gates_unavailable")
+        row["risk_factors"] = risks
+
+
+def _apply_constitution_scan_gates(
+    formatted: list[dict[str, Any]],
+    *,
+    institutional_context: dict[str, Any],
+    data_age_sec: float,
+) -> list[dict[str, Any]]:
+    try:
+        from constitution_gates import apply_constitution_gates_to_scan
+
+        quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
+        for row in formatted:
+            _apply_truth_to_row(row, quote_age_ms)
+        return apply_constitution_gates_to_scan(
+            formatted,
+            institutional_context=institutional_context,
+            register_limit=12,
+        )
+    except Exception:
+        logger.exception("Constitution scan gates unavailable")
+        _mark_constitution_gates_unavailable(formatted)
+        return formatted
+
+
+def _attach_execution_risk_rows(
+    formatted: list[dict[str, Any]],
+    data_age_sec: float,
+) -> list[dict[str, Any]]:
+    try:
+        from execution_risk_score import attach_execution_risk
+
+        return [
+            attach_execution_risk(
+                {
+                    **row,
+                    "data_age_sec": float(data_age_sec or row.get("data_age_sec") or 0),
+                }
+            )
+            for row in formatted
+        ]
+    except Exception:
+        logger.debug("execution risk scoring unavailable", exc_info=True)
+        return formatted
+
+
+def _scan_pricing_errors(
+    books: dict[str, dict[str, Any]],
+    source: str,
+) -> list[dict[str, Any]]:
+    pricing_errors: list[dict[str, Any]] = []
+    if source == "websocket_live":
+        return pricing_errors
+    try:
+        from pricing_error_sniper import scan_pricing_errors_from_books
+
+        for symbol in config.all_spot_symbols()[:5]:
+            scan = scan_pricing_errors_from_books(books, symbol)
+            pricing_errors.extend(scan.get("opportunities") or [])
+    except Exception:
+        logger.exception("Pricing error scan failed")
+    return pricing_errors
+
+
+def _scan_counts(
+    cross: list[Any],
+    triangular: list[Any],
+    basis: list[Any],
+    funding_opps: list[Any],
+) -> dict[str, int]:
+    return {
+        "cross_exchange": len(cross),
+        "triangular": len(triangular),
+        "spot_futures": len(basis),
+        "funding": len(funding_opps),
+    }
+
+
+def _is_executable_row(row: dict[str, Any]) -> bool:
+    return (
+        row.get("execution_feasibility") in {"full", "partial"}
+        and not row.get("truth_rejected")
+        and not row.get("half_life_killed")
+        and not (row.get("dimension_conflict") or {}).get("veto")
+        and not (row.get("dimension_conflict") or {}).get("abstain")
+    )
+
+
+def _is_gated_out_row(row: dict[str, Any]) -> bool:
+    return (
+        row.get("truth_rejected")
+        or row.get("half_life_killed")
+        or (row.get("dimension_conflict") or {}).get("veto")
+        or (row.get("dimension_conflict") or {}).get("abstain")
+    )
+
+
 async def scan_arbitrage_opportunities(
     quote_amount: float | None = None,
     *,
@@ -345,166 +652,61 @@ async def scan_arbitrage_opportunities(
         prefer_live=prefer_live,
         force_rest=force_rest,
     )
-    profit_floor = 0.0 if profitable_only else (min_profit_usdt if min_profit_usdt is not None else -1_000_000.0)
+    profit_floor = _profit_floor(min_profit_usdt, profitable_only)
 
     if not books:
-        return {
-            "opportunities": [],
-            "counts": {"cross_exchange": 0, "triangular": 0, "spot_futures": 0, "funding": 0},
-            "data_source": source,
-            "data_age_sec": data_age_sec,
-            "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
-            "quote_amount": notional,
-            "timestamp": _utcnow_iso(),
-            "message": "No order-book data — start aggregator.py or retry live scan.",
-        }
+        return _empty_scan_response(
+            source=source,
+            data_age_sec=data_age_sec,
+            scan_ms=round((time.monotonic() - scan_started) * 1000, 1),
+            quote_amount=notional,
+        )
 
     institutional_context = await get_institutional_context_cached()
 
-    cross = calculate_cross_exchange_arbitrage(books, notional, institutional_context)
-    triangular = calculate_triangular_arbitrage(books, notional, institutional_context)
-    basis = calculate_spot_futures_premium(books, notional, institutional_context)
-    funding_opps = calculate_funding_arbitrage_with_institutional_context(
-        funding, notional, institutional_context, institutional_context
+    cross, triangular, basis, funding_opps = _strategy_opportunities(
+        books,
+        funding,
+        notional,
+        institutional_context,
     )
 
-    formatted: list[dict[str, Any]] = []
-    for item in cross:
-        row = _format_cross(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-    for item in triangular:
-        row = _format_triangular(item, institutional_context)
-        if data_age_sec <= 10 and row["net_profit_usdt"] >= profit_floor:
-            row["staleness_ok"] = True
-            formatted.append(row)
-        elif row["net_profit_usdt"] >= profit_floor:
-            row["staleness_ok"] = False
-            row["risk_factors"] = (row.get("risk_factors") or []) + ["stale_data_for_triangular"]
-    for item in basis:
-        row = _format_basis(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-    for item in funding_opps:
-        row = _format_funding(item, institutional_context)
-        if row["net_profit_usdt"] >= profit_floor:
-            formatted.append(row)
-
-    formatted = [row for row in formatted if row.get("staleness_ok", True) is not False]
-
+    formatted = _formatted_opportunities(
+        cross=cross,
+        triangular=triangular,
+        basis=basis,
+        funding_opps=funding_opps,
+        institutional_context=institutional_context,
+        data_age_sec=data_age_sec,
+        profit_floor=profit_floor,
+    )
     formatted.sort(key=lambda x: x["net_profit_usdt"], reverse=True)
 
     from opportunity_tracker import sync_scan_opportunities
 
     formatted = sync_scan_opportunities(formatted)
+    formatted = _apply_constitution_scan_gates(
+        formatted,
+        institutional_context=institutional_context,
+        data_age_sec=data_age_sec,
+    )
+    formatted = _attach_execution_risk_rows(formatted, data_age_sec)
+    pricing_errors = _scan_pricing_errors(books, source)
 
-    # Constitution stack on live scan: D3 Truth → D4 Half-Life → D2 Veto → D8 Registry
-    try:
-        from constitution_gates import apply_constitution_gates_to_scan
-        from net_edge_truth import compute_net_edge_truth
-
-        quote_age_ms = max(0.0, float(data_age_sec or 0) * 1000.0)
-        for row in formatted:
-            if quote_age_ms and not row.get("quote_age_ms"):
-                row["quote_age_ms"] = quote_age_ms
-            try:
-                truth = compute_net_edge_truth(row)
-            except Exception:
-                logger.debug("net-edge truth on scan row failed", exc_info=True)
-                truth = {"enabled": False, "error": "unavailable"}
-            row["net_edge_truth"] = truth
-            if truth.get("reject"):
-                row["truth_rejected"] = True
-                row["execution_feasibility"] = "not_executable"
-                risks = list(row.get("risk_factors") or [])
-                if "net_edge_truth_reject" not in risks:
-                    risks.append("net_edge_truth_reject")
-                row["risk_factors"] = risks
-
-        formatted = apply_constitution_gates_to_scan(
-            formatted,
-            institutional_context=institutional_context,
-            register_limit=12,
-        )
-    except Exception:
-        logger.exception("Constitution scan gates unavailable")
-        for row in formatted:
-            row["gates_missing"] = True
-            row["execution_feasibility"] = "not_executable"
-            row.setdefault(
-                "net_edge_truth",
-                {"enabled": False, "reject": True, "error": "gates_unavailable"},
-            )
-            row.setdefault(
-                "dimension_conflict",
-                {"severity": "unavailable", "veto": False, "abstain": True},
-            )
-            risks = list(row.get("risk_factors") or [])
-            if "constitution_gates_unavailable" not in risks:
-                risks.append("constitution_gates_unavailable")
-            row["risk_factors"] = risks
-
-    # Execution Risk % (advisory) on every scan row
-    try:
-        from execution_risk_score import attach_execution_risk
-
-        formatted = [
-            attach_execution_risk(
-                {
-                    **row,
-                    "data_age_sec": float(data_age_sec or row.get("data_age_sec") or 0),
-                }
-            )
-            for row in formatted
-        ]
-    except Exception:
-        logger.debug("execution risk scoring unavailable", exc_info=True)
-
-    pricing_errors: list[dict[str, Any]] = []
-    if source != "websocket_live":
-        try:
-            from pricing_error_sniper import scan_pricing_errors_from_books
-
-            for symbol in config.all_spot_symbols()[:5]:
-                scan = scan_pricing_errors_from_books(books, symbol)
-                pricing_errors.extend(scan.get("opportunities") or [])
-        except Exception:
-            logger.exception("Pricing error scan failed")
+    latency_tier = _latency_tier(source, data_age_sec)
 
     return {
         "opportunities": formatted,
         "top_opportunity": formatted[0] if formatted else None,
-        "counts": {
-            "cross_exchange": len(cross),
-            "triangular": len(triangular),
-            "spot_futures": len(basis),
-            "funding": len(funding_opps),
-        },
-        "executable_count": sum(
-            1
-            for row in formatted
-            if row.get("execution_feasibility") in {"full", "partial"}
-            and not row.get("truth_rejected")
-            and not row.get("half_life_killed")
-            and not (row.get("dimension_conflict") or {}).get("veto")
-            and not (row.get("dimension_conflict") or {}).get("abstain")
-        ),
+        "counts": _scan_counts(cross, triangular, basis, funding_opps),
+        "executable_count": sum(1 for row in formatted if _is_executable_row(row)),
         "profitable_count": sum(1 for row in formatted if row["net_profit_usdt"] > 0),
-        "gated_out_count": sum(
-            1
-            for row in formatted
-            if row.get("truth_rejected")
-            or row.get("half_life_killed")
-            or (row.get("dimension_conflict") or {}).get("veto")
-            or (row.get("dimension_conflict") or {}).get("abstain")
-        ),
+        "gated_out_count": sum(1 for row in formatted if _is_gated_out_row(row)),
         "pricing_errors": pricing_errors[:10],
         "data_source": source,
         "data_age_sec": round(data_age_sec, 2),
         "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
-        "latency_tier": (
-            "millisecond" if source == "websocket_live" else "sub_second" if data_age_sec <= 2 else "slow"
-        ),
+        "latency_tier": latency_tier,
         "quote_amount": notional,
         "constitution_gates": ["D3", "D4", "D2", "D8"],
         "timestamp": _utcnow_iso(),
@@ -603,6 +805,83 @@ async def send_telegram_alert(message: str) -> bool:
         return False
 
 
+def _alert_thresholds_met(opp: dict[str, Any], min_usdt: float, min_pct: float, is_alertable: Any) -> bool:
+    if not is_alertable(opp):
+        return False
+    if float(opp.get("net_profit_usdt") or 0) < min_usdt:
+        return False
+    return float(opp.get("net_profit_percent") or 0) >= min_pct
+
+
+def _alert_title(opp: dict[str, Any]) -> str:
+    return (
+        f"{opp.get('kind_label')} · {opp.get('asset')} · "
+        f"+${float(opp.get('net_profit_usdt') or 0):.2f} "
+        f"({float(opp.get('net_profit_percent') or 0):.3f}%)"
+    )
+
+
+async def _dispatch_primary_arbitrage_alert(
+    title: str,
+    opp: dict[str, Any],
+    scan_result: dict[str, Any],
+) -> None:
+    await _dispatch_unified_alert(title, opp)
+    await _publish_b2b_arbitrage_alert(opp)
+    await _publish_service_bus_arbitrage_alert(opp)
+    await _dispatch_free_telegram_if_configured(scan_result)
+
+
+async def _dispatch_unified_alert(title: str, opp: dict[str, Any]) -> None:
+    try:
+        from alert_service import dispatch_alert
+
+        body = (
+            f"Feasibility: {opp.get('execution_feasibility')}\n"
+            f"Duration: {opp.get('estimated_duration')}\n"
+            f"{opp.get('why', '')[:200]}"
+        )
+        await dispatch_alert(title, body, payload=opp)
+    except Exception:
+        logger.exception("Unified alert dispatch failed")
+
+
+async def _publish_b2b_arbitrage_alert(opp: dict[str, Any]) -> None:
+    try:
+        from b2b_websocket_hub import publish_arbitrage_opportunity
+
+        await publish_arbitrage_opportunity(opp)
+    except Exception:
+        logger.exception("B2B WS arbitrage publish failed")
+
+
+async def _publish_service_bus_arbitrage_alert(opp: dict[str, Any]) -> None:
+    try:
+        from service_bus import publish
+
+        await publish(
+            "blackdark.arbitrage.hot",
+            {
+                "asset": opp.get("asset"),
+                "kind": opp.get("kind"),
+                "net_profit_usdt": opp.get("net_profit_usdt"),
+            },
+        )
+    except Exception:
+        logger.debug("Service bus arbitrage publish skipped", exc_info=True)
+
+
+async def _dispatch_free_telegram_if_configured(scan_result: dict[str, Any]) -> None:
+    if not os.getenv("TELEGRAM_BOT_TOKEN"):
+        return
+    try:
+        from telegram_free_alerts import dispatch_free_telegram_alerts
+
+        await dispatch_free_telegram_alerts(scan=scan_result)
+    except Exception:
+        logger.exception("Free Telegram dispatch from arbitrage alert failed")
+
+
 async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str, Any]]:
     """Create in-app alerts and dispatch via Telegram/Email/WhatsApp."""
     from database import insert_arbitrage_alert_log
@@ -614,61 +893,14 @@ async def process_arbitrage_alerts(scan_result: dict[str, Any]) -> list[dict[str
     from constitution_gates import is_alertable
 
     for opp in scan_result.get("opportunities", [])[:5]:
-        if not is_alertable(opp):
-            continue
-        if float(opp.get("net_profit_usdt") or 0) < min_usdt:
-            continue
-        if float(opp.get("net_profit_percent") or 0) < min_pct:
+        if not _alert_thresholds_met(opp, min_usdt, min_pct, is_alertable):
             continue
 
-        title = (
-            f"{opp.get('kind_label')} · {opp.get('asset')} · "
-            f"+${float(opp.get('net_profit_usdt') or 0):.2f} "
-            f"({float(opp.get('net_profit_percent') or 0):.3f}%)"
-        )
+        title = _alert_title(opp)
         await insert_arbitrage_alert_log(opp.get("kind", "unknown"), title, json.dumps(opp))
         triggered.append({"title": title, "opportunity": opp})
 
         if len(triggered) == 1:
-            try:
-                from alert_service import dispatch_alert
-
-                body = (
-                    f"Feasibility: {opp.get('execution_feasibility')}\n"
-                    f"Duration: {opp.get('estimated_duration')}\n"
-                    f"{opp.get('why', '')[:200]}"
-                )
-                await dispatch_alert(title, body, payload=opp)
-            except Exception:
-                logger.exception("Unified alert dispatch failed")
-
-            try:
-                from b2b_websocket_hub import publish_arbitrage_opportunity
-
-                await publish_arbitrage_opportunity(opp)
-            except Exception:
-                logger.exception("B2B WS arbitrage publish failed")
-
-            try:
-                from service_bus import publish
-
-                await publish(
-                    "blackdark.arbitrage.hot",
-                    {
-                        "asset": opp.get("asset"),
-                        "kind": opp.get("kind"),
-                        "net_profit_usdt": opp.get("net_profit_usdt"),
-                    },
-                )
-            except Exception:
-                logger.debug("Service bus arbitrage publish skipped", exc_info=True)
-
-            if os.getenv("TELEGRAM_BOT_TOKEN"):
-                try:
-                    from telegram_free_alerts import dispatch_free_telegram_alerts
-
-                    await dispatch_free_telegram_alerts(scan=scan_result)
-                except Exception:
-                    logger.exception("Free Telegram dispatch from arbitrage alert failed")
+            await _dispatch_primary_arbitrage_alert(title, opp, scan_result)
 
     return triggered

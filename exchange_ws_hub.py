@@ -21,6 +21,16 @@ logger = logging.getLogger("BLACKDARK.ExchangeWS")
 
 _tasks: list[asyncio.Task] = []
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 _messages_total = 0
 
 
@@ -50,6 +60,23 @@ def _inc_messages() -> None:
     _messages_total += 1
 
 
+def _update_binance_book(payload: dict[str, Any]) -> bool:
+    data = payload.get("data") or payload
+    sym = str(data.get("s") or "").upper()
+    if not sym.endswith("USDT"):
+        return False
+    asset = sym.replace("USDT", "")
+    update_top_of_book(
+        "binance",
+        f"{asset}/USDT",
+        bid=float(data.get("b") or 0),
+        bid_qty=float(data.get("B") or 0),
+        ask=float(data.get("a") or 0),
+        ask_qty=float(data.get("A") or 0),
+    )
+    return True
+
+
 async def _binance_book_ticker_loop() -> None:
     streams = "/".join(f"{s.replace('/', '').lower()}@bookTicker" for s in _symbols())
     url = f"wss://stream.binance.com:9443/stream?streams={streams}"
@@ -64,25 +91,40 @@ async def _binance_book_ticker_loop() -> None:
                         if msg.type != aiohttp.WSMsgType.TEXT:
                             continue
                         payload = json.loads(msg.data)
-                        data = payload.get("data") or payload
-                        sym = str(data.get("s") or "").upper()
-                        if not sym.endswith("USDT"):
-                            continue
-                        asset = sym.replace("USDT", "")
-                        update_top_of_book(
-                            "binance",
-                            f"{asset}/USDT",
-                            bid=float(data.get("b") or 0),
-                            bid_qty=float(data.get("B") or 0),
-                            ask=float(data.get("a") or 0),
-                            ask_qty=float(data.get("A") or 0),
-                        )
-                        _inc_messages()
+                        if _update_binance_book(payload):
+                            _inc_messages()
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
                 logger.warning("Binance bookTicker WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
+
+
+def _update_okx_book(row: dict[str, Any]) -> bool:
+    inst = str(row.get("instId") or "").replace("-", "/")
+    bids = row.get("bids") or []
+    asks = row.get("asks") or []
+    if not bids or not asks:
+        return False
+    update_top_of_book(
+        "okx",
+        inst,
+        bid=float(bids[0][0]),
+        bid_qty=float(bids[0][1]),
+        ask=float(asks[0][0]),
+        ask_qty=float(asks[0][1]),
+    )
+    return True
+
+
+def _update_okx_books(payload: dict[str, Any]) -> int:
+    if payload.get("event"):
+        return 0
+    updated = 0
+    for row in payload.get("data") or []:
+        if _update_okx_book(row):
+            updated += 1
+    return updated
 
 
 async def _okx_bbo_loop() -> None:
@@ -101,28 +143,37 @@ async def _okx_bbo_loop() -> None:
                         if msg.type != aiohttp.WSMsgType.TEXT:
                             continue
                         payload = json.loads(msg.data)
-                        if payload.get("event"):
-                            continue
-                        for row in payload.get("data") or []:
-                            inst = str(row.get("instId") or "").replace("-", "/")
-                            bids = row.get("bids") or []
-                            asks = row.get("asks") or []
-                            if not bids or not asks:
-                                continue
-                            update_top_of_book(
-                                "okx",
-                                inst,
-                                bid=float(bids[0][0]),
-                                bid_qty=float(bids[0][1]),
-                                ask=float(asks[0][0]),
-                                ask_qty=float(asks[0][1]),
-                            )
+                        for _ in range(_update_okx_books(payload)):
                             _inc_messages()
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
                 logger.warning("OKX bbo-tbt WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
+
+
+def _update_bybit_book(payload: dict[str, Any]) -> bool:
+    if payload.get("op") == "subscribe":
+        return False
+    topic = str(payload.get("topic") or "")
+    data = payload.get("data") or {}
+    if not topic.startswith("orderbook.1."):
+        return False
+    raw = topic.replace("orderbook.1.", "")
+    symbol = f"{raw[:-4]}/USDT" if raw.endswith("USDT") else raw
+    bids = data.get("b") or []
+    asks = data.get("a") or []
+    if not bids or not asks:
+        return False
+    update_top_of_book(
+        "bybit",
+        symbol,
+        bid=float(bids[0][0]),
+        bid_qty=float(bids[0][1]),
+        ask=float(asks[0][0]),
+        ask_qty=float(asks[0][1]),
+    )
+    return True
 
 
 async def _bybit_orderbook_loop() -> None:
@@ -141,32 +192,44 @@ async def _bybit_orderbook_loop() -> None:
                         if msg.type != aiohttp.WSMsgType.TEXT:
                             continue
                         payload = json.loads(msg.data)
-                        if payload.get("op") == "subscribe":
-                            continue
-                        topic = str(payload.get("topic") or "")
-                        data = payload.get("data") or {}
-                        if not topic.startswith("orderbook.1."):
-                            continue
-                        raw = topic.replace("orderbook.1.", "")
-                        symbol = f"{raw[:-4]}/USDT" if raw.endswith("USDT") else raw
-                        bids = data.get("b") or []
-                        asks = data.get("a") or []
-                        if not bids or not asks:
-                            continue
-                        update_top_of_book(
-                            "bybit",
-                            symbol,
-                            bid=float(bids[0][0]),
-                            bid_qty=float(bids[0][1]),
-                            ask=float(asks[0][0]),
-                            ask_qty=float(asks[0][1]),
-                        )
-                        _inc_messages()
+                        if _update_bybit_book(payload):
+                            _inc_messages()
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
                 logger.warning("Bybit orderbook WS error: %s — retry 3s", exc)
-                await asyncio.sleep(3)
+                await _interruptible_sleep(3)
+
+
+async def _poll_kraken_pair(session: aiohttp.ClientSession, asset: str, pair: str) -> int:
+    url = f"https://api.kraken.com/0/public/Ticker?pair={pair}"
+    try:
+        async with session.get(url) as resp:
+            if resp.status != 200:
+                return 0
+            data = await resp.json()
+        return _update_kraken_ticks(asset, data.get("result") or {})
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return 0
+
+
+def _update_kraken_ticks(asset: str, result: dict[str, Any]) -> int:
+    updated = 0
+    for tick in result.values():
+        bid = float((tick.get("b") or [0])[0])
+        ask = float((tick.get("a") or [0])[0])
+        if bid <= 0 or ask <= 0:
+            continue
+        update_top_of_book(
+            "kraken",
+            f"{asset}/USDT",
+            bid=bid,
+            bid_qty=1.0,
+            ask=ask,
+            ask_qty=1.0,
+        )
+        updated += 1
+    return updated
 
 
 async def _kraken_ticker_poll_loop() -> None:
@@ -176,38 +239,20 @@ async def _kraken_ticker_poll_loop() -> None:
     async with aiohttp.ClientSession(timeout=timeout) as session:
         while _running:
             for asset, pair in pairs.items():
-                url = f"https://api.kraken.com/0/public/Ticker?pair={pair}"
-                try:
-                    async with session.get(url) as resp:
-                        if resp.status != 200:
-                            continue
-                        data = await resp.json()
-                        result = data.get("result") or {}
-                        for tick in result.values():
-                            bid = float((tick.get("b") or [0])[0])
-                            ask = float((tick.get("a") or [0])[0])
-                            if bid > 0 and ask > 0:
-                                update_top_of_book(
-                                    "kraken",
-                                    f"{asset}/USDT",
-                                    bid=bid,
-                                    bid_qty=1.0,
-                                    ask=ask,
-                                    ask_qty=1.0,
-                                )
-                                _inc_messages()
-                except (aiohttp.ClientError, TypeError, ValueError):
-                    pass
-            await asyncio.sleep(1)
+                for _ in range(await _poll_kraken_pair(session, asset, pair)):
+                    _inc_messages()
+            await _interruptible_sleep(1)
 
 
 async def start_exchange_ws_hub() -> None:
+    await asyncio.sleep(0)
     global _running, _tasks
     if not _enabled():
         logger.info("Exchange WS hub disabled (EXCHANGE_WS_ENABLED=false).")
         return
     if _running:
         return
+    _stop_event.clear()
     _running = True
     _tasks = [
         asyncio.create_task(_binance_book_ticker_loop(), name="ws-binance-book"),
@@ -220,6 +265,7 @@ async def start_exchange_ws_hub() -> None:
 
 async def stop_exchange_ws_hub() -> None:
     global _running, _tasks
+    _stop_event.set()
     _running = False
     for task in _tasks:
         task.cancel()

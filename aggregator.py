@@ -489,6 +489,48 @@ async def _fetch_kucoin_market(
     )
 
 
+async def _gateio_payloads(
+    session: aiohttp.ClientSession,
+    endpoints: dict[str, Any],
+    native: str,
+    market_type: MarketType,
+) -> tuple[Any, dict[str, Any]]:
+    if market_type == "perpetual":
+        ticker = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['ticker_path']}",
+            {"contract": native},
+        )
+        depth = await _fetch_json(
+            session,
+            f"{endpoints['base_url']}{endpoints['depth_path']}",
+            {"contract": native, "limit": config.ORDER_BOOK_DEPTH},
+        )
+        return ticker, depth
+    ticker = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['ticker_path']}",
+        {"currency_pair": native},
+    )
+    depth = await _fetch_json(
+        session,
+        f"{endpoints['base_url']}{endpoints['depth_path']}",
+        {"currency_pair": native, "limit": config.ORDER_BOOK_DEPTH},
+    )
+    return ticker, depth
+
+
+def _gateio_ticker_row(payload: Any, native: str, market_type: MarketType) -> dict[str, Any]:
+    if market_type != "perpetual":
+        return (payload or [{}])[0] if isinstance(payload, list) else payload
+    if isinstance(payload, list):
+        return next(
+            (row for row in payload if str(row.get("contract") or "") == native),
+            payload[0] if payload else {},
+        )
+    return payload or {}
+
+
 async def _fetch_gateio_market(
     session: aiohttp.ClientSession,
     symbol: str,
@@ -501,36 +543,8 @@ async def _fetch_gateio_market(
         else EXCHANGE_ENDPOINTS["gateio"]["spot"]
     )
 
-    if market_type == "perpetual":
-        ticker_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['ticker_path']}",
-            {"contract": native},
-        )
-        depth_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['depth_path']}",
-            {"contract": native, "limit": config.ORDER_BOOK_DEPTH},
-        )
-        if isinstance(ticker_payload, list):
-            ticker_row = next(
-                (row for row in ticker_payload if str(row.get("contract") or "") == native),
-                ticker_payload[0] if ticker_payload else {},
-            )
-        else:
-            ticker_row = ticker_payload or {}
-    else:
-        ticker_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['ticker_path']}",
-            {"currency_pair": native},
-        )
-        depth_payload = await _fetch_json(
-            session,
-            f"{endpoints['base_url']}{endpoints['depth_path']}",
-            {"currency_pair": native, "limit": config.ORDER_BOOK_DEPTH},
-        )
-        ticker_row = (ticker_payload or [{}])[0] if isinstance(ticker_payload, list) else ticker_payload
+    ticker_payload, depth_payload = await _gateio_payloads(session, endpoints, native, market_type)
+    ticker_row = _gateio_ticker_row(ticker_payload, native, market_type)
 
     return (
         TickerSnapshot(
@@ -797,20 +811,20 @@ try:
 except ImportError:
     logger.warning("Market fetcher hub unavailable; extended venues disabled.")
 
-    async def close_all_pools() -> None:
+    def close_all_pools() -> None:
         return None
 
     def is_spot_only(exchange_id: str) -> bool:
         return exchange_id in SPOT_ONLY_EXCHANGES
 
-    def perp_symbols_for_exchange(exchange_id: str, perp_symbols: list[str]) -> list[str]:
+    def perp_symbols_for_exchange(_exchange_id: str, perp_symbols: list[str]) -> list[str]:
         return perp_symbols
 
-    def symbols_for_exchange(exchange_id: str, spot_symbols: list[str]) -> list[str]:
+    def symbols_for_exchange(_exchange_id: str, spot_symbols: list[str]) -> list[str]:
         return spot_symbols
 
 
-async def _persist_market_snapshot(
+def _persist_market_snapshot(
     ticker: TickerSnapshot,
     order_book: OrderBookSnapshot,
     timestamp: str,
@@ -837,7 +851,7 @@ async def _poll_market_symbol(
     fetcher = MARKET_FETCHERS[exchange_id]
     timestamp = _utcnow_iso()
     ticker, order_book = await fetcher(session, symbol, market_type)
-    await _persist_market_snapshot(ticker, order_book, timestamp)
+    _persist_market_snapshot(ticker, order_book, timestamp)
 
 
 async def _poll_funding_symbol(
@@ -912,6 +926,43 @@ async def _poll_exchange(
         len(perp_symbols),
     )
     return stats
+
+
+def _log_worker_errors(exchanges: list[str], results: list[Any]) -> None:
+    for exchange_id, result in zip(exchanges, results):
+        if isinstance(result, Exception):
+            logger.error(
+                "Exchange worker crashed | exchange=%s error=%s",
+                exchange_id,
+                result,
+            )
+
+
+async def _refresh_market_cache_and_publish(exchange_count: int) -> None:
+    try:
+        from market_cache import refresh_from_database
+
+        await refresh_from_database(force=False)
+        try:
+            from service_bus import publish
+
+            await publish(
+                "blackdark.market.updated",
+                {"source": "aggregator", "exchanges": exchange_count},
+            )
+        except Exception:
+            logger.debug("Service bus publish skipped", exc_info=True)
+    except Exception:
+        logger.debug("Market cache refresh after aggregator cycle failed", exc_info=True)
+
+
+async def _wait_for_next_cycle(shutdown: asyncio.Event, elapsed: float) -> None:
+    sleep_for = max(0.0, config.POLL_INTERVAL_SECONDS - elapsed)
+    if sleep_for > 0 and not shutdown.is_set():
+        try:
+            await asyncio.wait_for(shutdown.wait(), timeout=sleep_for)
+        except TimeoutError:
+            pass
 
 
 class Aggregator:
@@ -1005,7 +1056,7 @@ class Aggregator:
         finally:
             await self._close_session()
             await shutdown_hot_pipeline()
-            await close_all_pools()
+            close_all_pools()
 
     async def _run_loop(
         self,
@@ -1034,37 +1085,11 @@ class Aggregator:
                 return_exceptions=True,
             )
 
-            for exchange_id, result in zip(exchanges, results):
-                if isinstance(result, Exception):
-                    logger.error(
-                        "Exchange worker crashed | exchange=%s error=%s",
-                        exchange_id,
-                        result,
-                    )
+            _log_worker_errors(exchanges, results)
 
             elapsed = time.monotonic() - cycle_started
-            try:
-                from market_cache import refresh_from_database
-
-                await refresh_from_database(force=False)
-                try:
-                    from service_bus import publish
-
-                    await publish(
-                        "blackdark.market.updated",
-                        {"source": "aggregator", "exchanges": len(exchanges)},
-                    )
-                except Exception:
-                    logger.debug("Service bus publish skipped", exc_info=True)
-            except Exception:
-                logger.debug("Market cache refresh after aggregator cycle failed", exc_info=True)
-
-            sleep_for = max(0.0, config.POLL_INTERVAL_SECONDS - elapsed)
-            if sleep_for > 0 and not self._shutdown.is_set():
-                try:
-                    await asyncio.wait_for(self._shutdown.wait(), timeout=sleep_for)
-                except TimeoutError:
-                    pass
+            await _refresh_market_cache_and_publish(len(exchanges))
+            await _wait_for_next_cycle(self._shutdown, elapsed)
 
         logger.info("Aggregator shutdown complete.")
 

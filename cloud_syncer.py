@@ -156,7 +156,7 @@ class CloudSyncer:
             return False
         return int(latest.get("size_bytes") or 0) == size_bytes
 
-    async def _apply_retention(self, local_path: Path) -> bool:
+    def _apply_retention(self, local_path: Path) -> bool:
         if not config.CLOUD_SYNC_DELETE_LOCAL_AFTER_VERIFY:
             return False
         if not local_path.exists():
@@ -207,7 +207,7 @@ class CloudSyncer:
                 size_bytes=size_bytes,
             )
 
-            deleted = await self._apply_retention(local_path)
+            deleted = self._apply_retention(local_path)
             result.local_deleted = deleted
             if deleted:
                 await self._log_status(

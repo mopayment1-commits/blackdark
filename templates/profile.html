@@ -21,7 +21,7 @@
         button, .btn { padding:.7rem 1rem; border:none; border-radius:8px; font-weight:700; cursor:pointer; margin-top:.6rem; margin-right:.4rem; display:inline-block; text-decoration:none; }
         .btn-primary { background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0a0a0f; }
         .btn-secondary { background:#1a1a24; color:var(--text); border:1px solid var(--border); }
-        .btn-danger { background:rgba(239,68,68,.15); color:#fca5a5; border:1px solid rgba(239,68,68,.35); }
+        .btn-danger { background:rgba(127,29,29,.85); color:#ffffff; border:1px solid rgba(248,113,113,.65); }
         .msg { margin-top:.75rem; font-size:.85rem; min-height:1.2rem; }
         .msg.ok { color:var(--ok); } .msg.error { color:var(--danger); }
         .pill { display:inline-block; padding:.2rem .55rem; border-radius:999px; background:rgba(34,211,238,.12); color:var(--accent); font-size:.75rem; margin-right:.35rem; }
@@ -108,7 +108,7 @@
         </main>
     </div>
 </div>
-<script>
+<script type="module">
     function authHeaders() {
         const t = localStorage.getItem('bd_token');
         return t ? { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
@@ -118,15 +118,8 @@
         el.className = 'msg ' + (ok ? 'ok' : 'error');
         el.textContent = text;
     }
-    async function load() {
-        const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
-        const d = await res.json();
-        if (!d.authenticated) {
-            document.getElementById('gate').innerHTML = 'Please <a href="/login">log in</a> or <a href="/login?tab=register">create an account</a> to manage profile &amp; billing.';
-            return;
-        }
-        document.getElementById('gate').style.display = 'none';
-        document.getElementById('app').style.display = 'grid';
+
+    function fillProfileFields(d) {
         const p = d.profile || {};
         const u = d.user || {};
         document.getElementById('name').value = p.name || '';
@@ -140,22 +133,36 @@
         document.getElementById('verifyHint').textContent = p.email_verified ? 'Email verified.' : 'Verify your email to harden account recovery.';
         const tier = (d.tier && d.tier.label) || u.tier || 'free';
         const tierId = String((d.tier && d.tier.id) || u.tier || 'free').toLowerCase();
-        document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' +
-            (d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>');
+        const mfaPill = d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>';
+        document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' + mfaPill;
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
             ? 'Authenticator MFA is enabled. Recommended for Decision Desk.'
             : 'Optional TOTP MFA — strongly recommended for paid tiers.';
-        document.getElementById('billingHint').textContent =
-            'Plan: ' + tier + '. Currency USD. ' + ((d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.');
-        await syncNextUpgrade(tierId);
+        const subStatus = (d.subscription && d.subscription.status) ? ('Status: ' + d.subscription.status) : 'Proof Pass / trial until you subscribe.';
+        document.getElementById('billingHint').textContent = 'Plan: ' + tier + '. Currency USD. ' + subStatus;
+        return tierId;
+    }
+    function showWelcomeMessage() {
         if (new URLSearchParams(location.search).get('verified') === '1') setMsg('profileMsg', 'Email verified.', true);
         const welcome = new URLSearchParams(location.search).get('welcome');
         const planQ = new URLSearchParams(location.search).get('plan');
-        if (welcome === '1') {
-            if (planQ === 'pro') setMsg('profileMsg', 'Welcome — Decision Pro 7-day trial is active. Open unlimited Proof Cards.', true);
-            else if (planQ === 'free') setMsg('profileMsg', 'Welcome to Proof Pass — open your first Proof Card before any upgrade.', true);
-            else setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
+        if (welcome !== '1') return;
+        if (planQ === 'pro') setMsg('profileMsg', 'Welcome — Decision Pro 7-day trial is active. Open unlimited Proof Cards.', true);
+        else if (planQ === 'free') setMsg('profileMsg', 'Welcome to Proof Pass — open your first Proof Card before any upgrade.', true);
+        else setMsg('profileMsg', 'Welcome — complete your profile and open your first Proof Card.', true);
+    }
+    async function load() {
+        const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
+        const d = await res.json();
+        if (!d.authenticated) {
+            document.getElementById('gate').innerHTML = 'Please <a href="/login">log in</a> or <a href="/login?tab=register">create an account</a> to manage profile &amp; billing.';
+            return;
         }
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('app').style.display = 'grid';
+        const tierId = fillProfileFields(d);
+        await syncNextUpgrade(tierId);
+        showWelcomeMessage();
         loadSubscriberValue(tierId);
     }
     async function syncNextUpgrade(tierId) {
@@ -174,10 +181,8 @@
             btn.textContent = up.cta || up.label || 'Upgrade';
             btn.href = up.href || '/#pricing';
             if (reason) reason.textContent = up.reason || 'Next depth on the Option A ladder.';
-        } catch (e) {
-            btn.href = '/create-checkout-session?tier=pro';
-            btn.textContent = 'Start 7-Day Trial · Decision Pro $29';
-        }
+        } catch (error) { console.debug(error); btn.href = '/create-checkout-session?tier=pro';
+            btn.textContent = 'Start 7-Day Trial · Decision Pro $29'; }
     }
     async function loadSubscriberValue(tier) {
         const el = document.getElementById('valueDigest');
@@ -201,13 +206,13 @@
                 `Oracle calls (30d): <strong style="color:var(--text)">${u.oracle_calls_30d ?? 0}</strong>` +
                 ` · Risk warnings: <strong style="color:var(--text)">${u.risk_warnings_30d ?? 0}</strong><br>` +
                 `Estimated research value: <strong style="color:var(--accent)">$${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}</strong>` +
-                (v.covers_subscription != null
-                    ? ` · Covers plan: <strong style="color:var(--text)">${v.covers_subscription ? 'yes' : 'not yet'}</strong>`
-                    : '') +
+                (() => {
+                    if (v.covers_subscription == null) return '';
+                    const cover = v.covers_subscription ? 'yes' : 'not yet';
+                    return ` · Covers plan: <strong style="color:var(--text)">${cover}</strong>`;
+                })() +
                 `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
-        } catch (e) {
-            el.textContent = 'Value digest unavailable';
-        }
+        } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
     }
     async function saveProfile() {
         const res = await fetch('/api/auth/profile', {
@@ -308,12 +313,11 @@
                 el.textContent = 'Payments architecture live · provider keys not fully configured yet (Lemon checkout URL / Stripe price IDs). Free Proof Pass still works. Contact ops to finish KYC.';
                 el.style.color = 'var(--muted)';
             }
-        } catch (e) {
-            el.textContent = 'Could not load payment readiness — try /api/billing/payments';
-        }
+        } catch (error) { console.debug(error); el.textContent = 'Could not load payment readiness — try /api/billing/payments'; }
     }
-    load();
-    loadBillingReady();
+    Object.assign(window, { uploadAvatar, resetAvatar, saveProfile, resendVerify, changePassword, enrollMfa, confirmMfa, disableMfa, logoutAll, openPortal, load, loadBillingReady });
+    await load();
+    await loadBillingReady();
 </script>
 {% include "partials/site_footer.html" %}
 </body>

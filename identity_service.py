@@ -20,6 +20,9 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+STR_WEBP = '.webp'
+
 BILLING_NOTE = "USD self-serve via hosted PSP — card data never stored here."
 
 USERNAME_RE = re.compile(r"^[a-z][a-z0-9_]{2,23}$")
@@ -49,7 +52,7 @@ TOKEN_TTL_MINUTES = {
 
 AVATAR_DIR = Path(os.getenv("IDENTITY_AVATAR_DIR", "data/avatars"))
 AVATAR_MAX_BYTES = int(os.getenv("IDENTITY_AVATAR_MAX_BYTES", str(2 * 1024 * 1024)))
-ALLOWED_AVATAR_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}
+ALLOWED_AVATAR_TYPES = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": STR_WEBP}
 
 
 def _utcnow() -> datetime:
@@ -334,7 +337,7 @@ def save_avatar_bytes(user_id: int, content_type: str, data: bytes) -> str:
         raise ValueError("Invalid WebP data")
     AVATAR_DIR.mkdir(parents=True, exist_ok=True)
     # Remove prior extensions
-    for ext in (".jpg", ".png", ".webp"):
+    for ext in (".jpg", ".png", STR_WEBP):
         old = AVATAR_DIR / f"{user_id}{ext}"
         if old.exists():
             old.unlink()
@@ -345,7 +348,7 @@ def save_avatar_bytes(user_id: int, content_type: str, data: bytes) -> str:
 
 
 def resolve_avatar_file(user_id: int) -> Path | None:
-    for ext in (".jpg", ".png", ".webp"):
+    for ext in (".jpg", ".png", STR_WEBP):
         path = AVATAR_DIR / f"{user_id}{ext}"
         if path.is_file():
             return path

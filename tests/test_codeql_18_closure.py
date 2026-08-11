@@ -39,7 +39,8 @@ def test_launch_secrets_never_print_cleartext():
 def test_telegram_setup_masks_secrets():
     src = (ROOT / "scripts/setup_telegram_production.py").read_text(encoding="utf-8")
     assert 'print(f"  {key}={val or hint}")' not in src
-    assert "present" in src and "missing" in src
+    assert "present" in src
+    assert "missing" in src
     assert "mask_secret(val)" not in src
     assert "Webhook set successfully" in src
 

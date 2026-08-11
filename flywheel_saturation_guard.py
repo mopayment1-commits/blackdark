@@ -63,9 +63,9 @@ def opportunity_fingerprint(opportunity: dict[str, Any]) -> str:
 
 def _prune_state() -> None:
     cutoff = time.monotonic() - _ttl_sec()
-    for fp in list(_crowd_state.keys()):
-        if float(_crowd_state[fp].get("at") or 0) < cutoff:
-            _crowd_state.pop(fp, None)
+    stale = [fp for fp, row in _crowd_state.items() if float(row.get("at") or 0) < cutoff]
+    for fp in stale:
+        _crowd_state.pop(fp, None)
 
 
 def _state(fp: str) -> dict[str, Any]:
@@ -137,97 +137,52 @@ def estimated_competing_notional(fingerprint: str, *, pending_recipients: int | 
     return reserved + actors * _per_actor_notional()
 
 
-async def crowd_adjusted_rewalk(
-    opportunity: dict[str, Any],
-    *,
-    crowd_notional_usd: float,
-    user_notional_usd: float | None = None,
-) -> dict[str, Any]:
-    """Re-walk slippage after simulating prior crowd takers depleting depth."""
+async def _fallback_rewalk(opportunity: dict[str, Any], notional: float | None) -> dict[str, Any]:
     from slippage_guard import rewalk_opportunity_slippage
 
-    if not _enabled() or crowd_notional_usd <= 0:
-        return await rewalk_opportunity_slippage(opportunity, quote_amount=user_notional_usd)
+    return await rewalk_opportunity_slippage(opportunity, quote_amount=notional)
 
-    from live_book_hub import get_live_books_if_fresh
 
-    fresh = get_live_books_if_fresh()
-    if not fresh:
-        return await rewalk_opportunity_slippage(opportunity, quote_amount=user_notional_usd)
+def _crowd_depleted(opportunity: dict[str, Any], crowd_notional_usd: float, rewalk: str) -> dict[str, Any]:
+    return {
+        **opportunity,
+        "executable": False,
+        "cancel_reason": "crowd_liquidity_depleted",
+        "flywheel_saturation": True,
+        "flywheel_crowd_notional_usd": round(crowd_notional_usd, 2),
+        "rewalk": rewalk,
+    }
 
-    books, age_ms = fresh
-    kind = str(opportunity.get("kind") or "")
-    notional = user_notional_usd or float(opportunity.get("quote_amount") or config.DEFAULT_QUOTE_AMOUNT)
-    buy_ex = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "").lower()
-    sell_ex = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "").lower()
-    asset = str(opportunity.get("asset") or "BTC")
-    symbol = f"{asset}/USDT"
 
-    if kind not in {"cross_exchange", "fast_cross", "stream_cross_exchange"}:
-        updated = await rewalk_opportunity_slippage(opportunity, quote_amount=notional)
-        updated["flywheel_crowd_notional_usd"] = round(crowd_notional_usd, 2)
-        return updated
+def _is_cross_exchange_kind(kind: str) -> bool:
+    return kind in {"cross_exchange", "fast_cross", "stream_cross_exchange"}
 
-    try:
-        from arbitrage_engine import walk_asks, walk_bids
-    except ImportError:
-        return await rewalk_opportunity_slippage(opportunity, quote_amount=notional)
 
-    buy_book_raw = (books.get(buy_ex) or {}).get(symbol)
-    sell_book_raw = (books.get(sell_ex) or {}).get(symbol)
+def _crowd_books(
+    books: dict[str, Any],
+    *,
+    buy_exchange: str,
+    sell_exchange: str,
+    symbol: str,
+) -> tuple[dict[str, Any], dict[str, Any]] | None:
+    buy_book_raw = (books.get(buy_exchange) or {}).get(symbol)
+    sell_book_raw = (books.get(sell_exchange) or {}).get(symbol)
     if not buy_book_raw or not sell_book_raw:
-        return await rewalk_opportunity_slippage(opportunity, quote_amount=notional)
+        return None
+    return deepcopy(buy_book_raw), deepcopy(sell_book_raw)
 
-    buy_book = deepcopy(buy_book_raw)
-    sell_book = deepcopy(sell_book_raw)
-    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd)
 
-    crowd_buy = walk_asks(buy_book, crowd_notional_usd)
-    if crowd_buy is None:
-        return {
-            **opportunity,
-            "executable": False,
-            "cancel_reason": "crowd_liquidity_depleted",
-            "flywheel_saturation": True,
-            "flywheel_crowd_notional_usd": round(crowd_notional_usd, 2),
-            "rewalk": "crowd_depleted_buy",
-        }
-
-    sell_book["bids"] = deplete_bids_levels(sell_book.get("bids") or [], crowd_buy.base_amount)
-    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd + notional)
-
-    user_buy = walk_asks(buy_book, notional)
-    if user_buy is None:
-        return {
-            **opportunity,
-            "executable": False,
-            "cancel_reason": "crowd_liquidity_depleted",
-            "flywheel_saturation": True,
-            "flywheel_crowd_notional_usd": round(crowd_notional_usd, 2),
-            "rewalk": "crowd_depleted_user_buy",
-        }
-
-    user_sell = walk_bids(sell_book, user_buy.base_amount)
-    if user_sell is None:
-        return {
-            **opportunity,
-            "executable": False,
-            "cancel_reason": "crowd_liquidity_depleted",
-            "flywheel_saturation": True,
-            "flywheel_crowd_notional_usd": round(crowd_notional_usd, 2),
-            "rewalk": "crowd_depleted_user_sell",
-        }
-
-    total_slip = user_buy.slippage_bps + user_sell.slippage_bps
-    from risk_manager import check_slippage
-
-    verdict = check_slippage(total_slip)
-    gross = user_sell.quote_value - user_buy.quote_cost
-    from fee_matrix import trading_fees_usdt
-
-    fees = trading_fees_usdt(buy_ex, notional) + trading_fees_usdt(sell_ex, user_sell.quote_value)
-    net_profit = gross - fees
-
+def _crowd_rewalk_success(
+    opportunity: dict[str, Any],
+    *,
+    age_ms: float,
+    crowd_notional_usd: float,
+    total_slip: float,
+    user_buy: Any,
+    user_sell: Any,
+    net_profit: float,
+    verdict: Any,
+) -> dict[str, Any]:
     updated = {
         **opportunity,
         "total_slippage_bps": round(total_slip, 2),
@@ -244,6 +199,106 @@ async def crowd_adjusted_rewalk(
     if not updated["executable"]:
         updated["cancel_reason"] = verdict.reason or "unprofitable_after_crowd"
     return updated
+
+
+def _crowd_cross_exchange_rewalk(
+    opportunity: dict[str, Any],
+    *,
+    books: dict[str, Any],
+    age_ms: float,
+    buy_exchange: str,
+    sell_exchange: str,
+    symbol: str,
+    notional: float,
+    crowd_notional_usd: float,
+) -> dict[str, Any] | None:
+    try:
+        from arbitrage_engine import walk_asks, walk_bids
+    except ImportError:
+        return None
+
+    crowd_books = _crowd_books(books, buy_exchange=buy_exchange, sell_exchange=sell_exchange, symbol=symbol)
+    if crowd_books is None:
+        return None
+
+    buy_book, sell_book = crowd_books
+    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd)
+    crowd_buy = walk_asks(buy_book, crowd_notional_usd)
+    if crowd_buy is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_buy")
+
+    sell_book["bids"] = deplete_bids_levels(sell_book.get("bids") or [], crowd_buy.base_amount)
+    buy_book["asks"] = deplete_asks_levels(buy_book.get("asks") or [], crowd_notional_usd + notional)
+    user_buy = walk_asks(buy_book, notional)
+    if user_buy is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_buy")
+
+    user_sell = walk_bids(sell_book, user_buy.base_amount)
+    if user_sell is None:
+        return _crowd_depleted(opportunity, crowd_notional_usd, "crowd_depleted_user_sell")
+
+    total_slip = user_buy.slippage_bps + user_sell.slippage_bps
+    from risk_manager import check_slippage
+
+    verdict = check_slippage(total_slip)
+    gross = user_sell.quote_value - user_buy.quote_cost
+    from fee_matrix import trading_fees_usdt
+
+    fees = trading_fees_usdt(buy_exchange, notional) + trading_fees_usdt(sell_exchange, user_sell.quote_value)
+    return _crowd_rewalk_success(
+        opportunity,
+        age_ms=age_ms,
+        crowd_notional_usd=crowd_notional_usd,
+        total_slip=total_slip,
+        user_buy=user_buy,
+        user_sell=user_sell,
+        net_profit=gross - fees,
+        verdict=verdict,
+    )
+
+
+async def crowd_adjusted_rewalk(
+    opportunity: dict[str, Any],
+    *,
+    crowd_notional_usd: float,
+    user_notional_usd: float | None = None,
+) -> dict[str, Any]:
+    """Re-walk slippage after simulating prior crowd takers depleting depth."""
+    if not _enabled() or crowd_notional_usd <= 0:
+        return await _fallback_rewalk(opportunity, user_notional_usd)
+
+    from live_book_hub import get_live_books_if_fresh
+
+    fresh = get_live_books_if_fresh()
+    if not fresh:
+        return await _fallback_rewalk(opportunity, user_notional_usd)
+
+    books, age_ms = fresh
+    kind = str(opportunity.get("kind") or "")
+    notional = user_notional_usd or float(opportunity.get("quote_amount") or config.DEFAULT_QUOTE_AMOUNT)
+    buy_ex = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "").lower()
+    sell_ex = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "").lower()
+    asset = str(opportunity.get("asset") or "BTC")
+    symbol = f"{asset}/USDT"
+
+    if not _is_cross_exchange_kind(kind):
+        updated = await _fallback_rewalk(opportunity, notional)
+        updated["flywheel_crowd_notional_usd"] = round(crowd_notional_usd, 2)
+        return updated
+
+    adjusted = _crowd_cross_exchange_rewalk(
+        opportunity,
+        books=books,
+        age_ms=age_ms,
+        buy_exchange=buy_ex,
+        sell_exchange=sell_ex,
+        symbol=symbol,
+        notional=notional,
+        crowd_notional_usd=crowd_notional_usd,
+    )
+    if adjusted is not None:
+        return adjusted
+    return await _fallback_rewalk(opportunity, notional)
 
 
 async def apply_crowd_guard_to_alert(opportunity: dict[str, Any]) -> tuple[bool, dict[str, Any]]:
@@ -363,7 +418,7 @@ def release_execution_slot(fingerprint: str, user_id: int | None, amount_usd: fl
         )
 
 
-async def prepare_free_telegram_batch(subscribers: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def prepare_free_telegram_batch(subscribers: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """Cap free Telegram blast to avoid herd triggering on identical signal."""
     max_batch = int(getattr(config, "FLYWHEEL_MAX_FREE_TELEGRAM_BATCH", 25))
     if not _enabled() or len(subscribers) <= max_batch:

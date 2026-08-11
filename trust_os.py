@@ -10,6 +10,11 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+DOC_CSO_PRIORITY_CHAIN_BINDING_AR = 'docs/CSO_PRIORITY_CHAIN_BINDING_AR.md'
+PATH_API_STRATEGY_PRIORITY_CHAIN = '/api/strategy/priority-chain'
+STR_NOT_SHIPPED = 'Not shipped'
+
 VALUE_LAYERS: list[dict[str, Any]] = [
     {
         "id": "decision_intelligence",
@@ -97,20 +102,20 @@ VALUE_LAYERS: list[dict[str, Any]] = [
 # Claims that must NOT be marketed as shipped product facts.
 OVERCLAIM_DENYLIST: list[dict[str, str]] = [
     {"claim": "SOR / Smart Order Routing", "truth": "Not shipped — stealth advisor is advisory only"},
-    {"claim": "TWAP / VWAP execution algorithms", "truth": "Not shipped"},
-    {"claim": "Institutional TCA (Transaction Cost Analysis)", "truth": "Not shipped"},
+    {"claim": "TWAP / VWAP execution algorithms", "truth": STR_NOT_SHIPPED},
+    {"claim": "Institutional TCA (Transaction Cost Analysis)", "truth": STR_NOT_SHIPPED},
     {"claim": "IFRS 13 certification", "truth": "Decimal money helpers ≠ IFRS 13 certification"},
     {"claim": "Triple-Entry Ledger Reconciliation (live sat/wei)", "truth": "Not shipped as institutional reconciliation suite"},
     {"claim": "SOC 2 / ISO 27001 certificate", "truth": "Engineering controls exist; no external certificate"},
     {"claim": "16 or 21 independently valued platforms", "truth": "One product, four value layers"},
     {"claim": "15 separately marketed product sections", "truth": "Rejected — four value layers + six heroes only"},
     {"claim": "Expected Shortfall / full VaR 99% risk desk", "truth": "Kill-switch + drawdown + simple proxies only"},
-    {"claim": "Knowledge Graph / semantic ontology platform", "truth": "Not shipped"},
+    {"claim": "Knowledge Graph / semantic ontology platform", "truth": STR_NOT_SHIPPED},
     {"claim": "BLACKDARK ARENA / Viral Community Engine", "truth": "Not building — virality via Certificate share + Glass Box event"},
     {"claim": "Neuro-Design / Parametric Canvas OS", "truth": "Not a product surface — quiet UX depth only"},
     {"claim": "100 retail indicator product / Whale Gravity Map as 100-metric UI", "truth": "Engines stay quiet behind six heroes"},
     {"claim": "Kafka + Rust <50ms + 100 CEX WebSockets as shipped", "truth": "Future infra option — not a current ship claim"},
-    {"claim": "Panic Button closes 100 venues in 100ms", "truth": "Not shipped"},
+    {"claim": "Panic Button closes 100 venues in 100ms", "truth": STR_NOT_SHIPPED},
     {"claim": "Guaranteed 65–70% predictive accuracy", "truth": "Only live labeled Public Accuracy Ledger stats — never a guarantee"},
     {"claim": "Net profit <15% auto-cancel as CAO law", "truth": "Invalid arb threshold — use net-edge truth gates instead"},
     {"claim": "HashiCorp Vault + Trail of Bits + Big Four as completed", "truth": "Human / procurement steps — not claimed shipped"},
@@ -201,17 +206,17 @@ def trust_os_manifest() -> dict[str, Any]:
             "funds": "/data-room?lens=room",
             "compliance": "/compliance",
             "strategy_correction": "/api/strategy/correction",
-            "priority_chain": "/api/strategy/priority-chain",
+            "priority_chain": PATH_API_STRATEGY_PRIORITY_CHAIN,
             "priority_chain_page": "/priority-chain",
             "zero_tolerance": "/api/strategy/zero-tolerance",
             "zero_tolerance_page": "/zero-tolerance",
             "lenses": "/api/lenses",
         },
         "cso_priority_chain": {
-            "api": "/api/strategy/priority-chain",
+            "api": PATH_API_STRATEGY_PRIORITY_CHAIN,
             "closure": "/api/public/cso-priority-closure",
             "page": "/priority-chain",
-            "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "doc": DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "binding_rule": (
                 "No new feature unless it raises decision habit, distribution, revenue, "
                 "or live data flywheel."
@@ -233,7 +238,7 @@ def trust_os_manifest() -> dict[str, Any]:
             "docs/TRUST_OS_DESIGN_SYSTEM.md",
             "docs/HEROES_STRATEGY_BINDING.md",
             "docs/STRATEGIC_CORRECTION_BINDING.md",
-            "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "docs/ZERO_TOLERANCE_BINDING_AR.md",
         ],
         "design_system": {
@@ -279,8 +284,8 @@ def strategy_correction_manifest() -> dict[str, Any]:
         ],
         "canonical_binding": "docs/CANONICAL_BINDING.md",
         "cso_priority_chain": {
-            "api": "/api/strategy/priority-chain",
-            "doc": "docs/CSO_PRIORITY_CHAIN_BINDING_AR.md",
+            "api": PATH_API_STRATEGY_PRIORITY_CHAIN,
+            "doc": DOC_CSO_PRIORITY_CHAIN_BINDING_AR,
             "rejects": "features_first_launch_users_acquisition",
         },
         "generated_at": datetime.now(UTC).isoformat(),

@@ -33,7 +33,7 @@
     <div class="card"><div class="grid" id="stats"></div></div>
     <div class="card"><p id="desc" style="font-size:.9rem;color:var(--muted);line-height:1.6"></p></div>
 </main>
-<script>
+<script type="module">
 const coinId = {{ coin_id|tojson }};
 const fmt = (n,d=2) => n==null?'—':Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
 function esc(s) {
@@ -114,7 +114,6 @@ async function load() {
         chart.timeScale().fitContent();
     }
 }
-load();
-</script>
+await load();</script>
 </body>
 </html>

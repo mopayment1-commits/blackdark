@@ -290,26 +290,32 @@ def merge_asset_candidates(
     return ranked[: config.LIQUIDITY_MAX_DYNAMIC_ASSETS]
 
 
+def _merge_exchange_candidate(
+    merged: dict[str, dict[str, Any]],
+    row: dict[str, Any],
+    source: str,
+) -> None:
+    ccxt_id = _normalize_exchange_id(str(row.get("ccxt_id") or ""))
+    if not ccxt_id:
+        return
+    if ccxt_id not in merged:
+        merged[ccxt_id] = {**row, "verification": [source]}
+        return
+    verification = list(merged[ccxt_id].get("verification") or [])
+    if source not in verification:
+        verification.append(source)
+    merged[ccxt_id]["verification"] = verification
+
+
 def merge_exchange_candidates(
     coingecko_rows: list[dict[str, Any]],
     cmc_rows: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     merged: dict[str, dict[str, Any]] = {}
     for row in coingecko_rows:
-        ccxt_id = _normalize_exchange_id(str(row.get("ccxt_id") or ""))
-        if ccxt_id:
-            merged[ccxt_id] = {**row, "verification": ["coingecko"]}
+        _merge_exchange_candidate(merged, row, "coingecko")
     for row in cmc_rows:
-        ccxt_id = _normalize_exchange_id(str(row.get("ccxt_id") or ""))
-        if not ccxt_id:
-            continue
-        if ccxt_id in merged:
-            verification = list(merged[ccxt_id].get("verification") or [])
-            if "coinmarketcap" not in verification:
-                verification.append("coinmarketcap")
-            merged[ccxt_id]["verification"] = verification
-        else:
-            merged[ccxt_id] = {**row, "verification": ["coinmarketcap"]}
+        _merge_exchange_candidate(merged, row, "coinmarketcap")
     ranked = sorted(
         merged.values(),
         key=lambda item: float(
@@ -320,6 +326,63 @@ def merge_exchange_candidates(
         reverse=True,
     )
     return ranked[: config.LIQUIDITY_MAX_DYNAMIC_EXCHANGES]
+
+
+def _ccxt_market_row(
+    *,
+    exchange_id: str,
+    symbol: str,
+    market: dict[str, Any],
+    candidate_set: set[str],
+    quote_set: set[str],
+) -> dict[str, Any] | None:
+    if not market.get("active", True):
+        return None
+    if str(market.get("type") or "spot") != "spot":
+        return None
+    base = _normalize_asset(str(market.get("base") or ""))
+    quote = _normalize_asset(str(market.get("quote") or ""))
+    if quote not in quote_set:
+        return None
+    if base not in candidate_set and base not in config.WHITELIST_ASSETS:
+        return None
+    return {
+        "exchange": exchange_id,
+        "symbol": symbol.replace(":", "/") if ":" in symbol else symbol,
+        "base": base,
+        "quote": quote,
+        "source": "ccxt",
+    }
+
+
+async def _scan_ccxt_exchange_markets(
+    exchange_id: str,
+    exchange: Any,
+    candidate_set: set[str],
+    quote_set: set[str],
+) -> list[dict[str, Any]]:
+    await exchange.load_markets()
+    rows: list[dict[str, Any]] = []
+    for symbol, market in exchange.markets.items():
+        row = _ccxt_market_row(
+            exchange_id=exchange_id,
+            symbol=symbol,
+            market=market,
+            candidate_set=candidate_set,
+            quote_set=quote_set,
+        )
+        if row is not None:
+            rows.append(row)
+    return rows
+
+
+async def _close_ccxt_exchange(exchange_id: str, exchange: Any | None) -> None:
+    if exchange is None:
+        return
+    try:
+        await exchange.close()
+    except Exception:
+        logger.exception("Failed closing CCXT exchange | exchange=%s", exchange_id)
 
 
 async def _discover_ccxt_exchange_pairs(
@@ -340,46 +403,14 @@ async def _discover_ccxt_exchange_pairs(
     try:
         exchange_class = getattr(ccxt_async, exchange_id)
         exchange = exchange_class({"enableRateLimit": True, "timeout": 15000})
-
-        async def _load_and_scan() -> list[dict[str, Any]]:
-            if exchange is None:
-                raise RuntimeError("exchange client not initialized")
-            await exchange.load_markets()
-            rows: list[dict[str, Any]] = []
-            for symbol, market in exchange.markets.items():
-                if not market.get("active", True):
-                    continue
-                if str(market.get("type") or "spot") != "spot":
-                    continue
-                base = _normalize_asset(str(market.get("base") or ""))
-                quote = _normalize_asset(str(market.get("quote") or ""))
-                if quote not in quote_set:
-                    continue
-                if base not in candidate_set and base not in config.WHITELIST_ASSETS:
-                    continue
-                rows.append(
-                    {
-                        "exchange": exchange_id,
-                        "symbol": symbol.replace(":", "/") if ":" in symbol else symbol,
-                        "base": base,
-                        "quote": quote,
-                        "source": "ccxt",
-                    }
-                )
-            return rows
-
         discovered = await asyncio.wait_for(
-            _load_and_scan(),
+            _scan_ccxt_exchange_markets(exchange_id, exchange, candidate_set, quote_set),
             timeout=config.LIQUIDITY_DISCOVERY_TIMEOUT_SECONDS,
         )
     except Exception:
         logger.warning("CCXT market discovery failed safely | exchange=%s", exchange_id)
     finally:
-        if exchange is not None:
-            try:
-                await exchange.close()
-            except Exception:
-                logger.exception("Failed closing CCXT exchange | exchange=%s", exchange_id)
+        await _close_ccxt_exchange(exchange_id, exchange)
 
     return discovered
 

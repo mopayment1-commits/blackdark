@@ -23,6 +23,9 @@ from typing import Any, Literal
 import aiohttp
 
 import config
+
+# Sonar S1192: duplicated string literals
+STR_GROQ_GEMINI_OPENROUTER_OLLAMA = 'groq,gemini,openrouter,ollama'
 logger = logging.getLogger("BLACKDARK.OracleDataHub")
 
 GEOPOLITICAL_KEYWORDS = (
@@ -134,6 +137,29 @@ def _parse_rss_headlines(payload: str, source: str, limit: int = 12) -> list[dic
     return items
 
 
+async def _rss_feed_headlines(
+    session: aiohttp.ClientSession,
+    feed_url: str,
+) -> list[dict[str, Any]]:
+    label = feed_url.split("//")[-1].split("/")[0]
+    try:
+        payload = await _fetch_text(session, feed_url)
+        return _parse_rss_headlines(payload, label)
+    except Exception:
+        logger.warning("Geo news RSS failed | feed=%s", str(feed_url).replace("\r", " ").replace("\n", " "))
+        return []
+
+
+def _geo_news_tone(headlines: list[dict[str, Any]]) -> tuple[int, RiskTone]:
+    geo_count = sum(1 for row in headlines if row.get("geopolitical"))
+    tone: RiskTone = "neutral"
+    if geo_count >= 4:
+        tone = "risk_off"
+    elif geo_count <= 1 and headlines:
+        tone = "risk_on"
+    return geo_count, tone
+
+
 async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str, Any]:
     cached = _CACHE.get("geo_news")
     if cached is not None:
@@ -141,19 +167,9 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
 
     headlines: list[dict[str, Any]] = []
     for feed_url in config.ORACLE_GEO_NEWS_RSS_FEEDS:
-        label = feed_url.split("//")[-1].split("/")[0]
-        try:
-            payload = await _fetch_text(session, feed_url)
-            headlines.extend(_parse_rss_headlines(payload, label))
-        except Exception:
-            logger.warning("Geo news RSS failed | feed=%s", str(feed_url).replace("\r", " ").replace("\n", " "))
+        headlines.extend(await _rss_feed_headlines(session, feed_url))
 
-    geo_count = sum(1 for row in headlines if row.get("geopolitical"))
-    tone: RiskTone = "neutral"
-    if geo_count >= 4:
-        tone = "risk_off"
-    elif geo_count <= 1 and headlines:
-        tone = "risk_on"
+    geo_count, tone = _geo_news_tone(headlines)
 
     result = {
         "headlines": headlines[:20],
@@ -165,51 +181,60 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
     return result
 
 
+async def _fetch_fear_greed(session: aiohttp.ClientSession) -> tuple[int, str]:
+    try:
+        fng = await _fetch_json(session, "https://api.alternative.me/fng/", params={"limit": "1"})
+        row = (fng.get("data") or [{}])[0]
+        return int(row.get("value") or 50), str(row.get("value_classification") or "Neutral")
+    except Exception:
+        logger.warning("Fear & Greed index fetch failed.")
+        return 50, "Neutral"
+
+
+async def _fetch_coingecko_trending(session: aiohttp.ClientSession) -> list[str]:
+    try:
+        payload = await _fetch_json(
+            session,
+            "https://api.coingecko.com/api/v3/search/trending",
+        )
+    except Exception:
+        logger.warning("CoinGecko trending fetch failed.")
+        return []
+    trending: list[str] = []
+    for coin in (payload.get("coins") or [])[:7]:
+        symbol = str((coin.get("item") or {}).get("symbol") or "").upper()
+        if symbol:
+            trending.append(symbol)
+    return trending
+
+
+async def _fetch_reddit_hot_titles(session: aiohttp.ClientSession) -> list[str]:
+    try:
+        reddit = await _fetch_json(
+            session,
+            "https://www.reddit.com/r/CryptoCurrency/hot.json",
+            params={"limit": "8"},
+            headers={"User-Agent": "BLACKDARK-Oracle/1.0"},
+        )
+    except Exception:
+        logger.warning("Reddit sentiment fetch failed.")
+        return []
+    titles: list[str] = []
+    for child in (reddit.get("data") or {}).get("children") or []:
+        title = str((child.get("data") or {}).get("title") or "").strip()
+        if title:
+            titles.append(title[:180])
+    return titles
+
+
 async def fetch_sentiment_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
     cached = _CACHE.get("sentiment_mesh")
     if cached is not None:
         return cached
 
-    fear_greed_value = 50
-    fear_greed_label = "Neutral"
-    trending: list[str] = []
-    reddit_hot: list[str] = []
-
-    try:
-        fng = await _fetch_json(session, "https://api.alternative.me/fng/", params={"limit": "1"})
-        row = (fng.get("data") or [{}])[0]
-        fear_greed_value = int(row.get("value") or 50)
-        fear_greed_label = str(row.get("value_classification") or "Neutral")
-    except Exception:
-        logger.warning("Fear & Greed index fetch failed.")
-
-    try:
-        trending_payload = await _fetch_json(
-            session,
-            "https://api.coingecko.com/api/v3/search/trending",
-        )
-        for coin in (trending_payload.get("coins") or [])[:7]:
-            item = coin.get("item") or {}
-            symbol = str(item.get("symbol") or "").upper()
-            if symbol:
-                trending.append(symbol)
-    except Exception:
-        logger.warning("CoinGecko trending fetch failed.")
-
-    try:
-        reddit_headers = {"User-Agent": "BLACKDARK-Oracle/1.0"}
-        reddit = await _fetch_json(
-            session,
-            "https://www.reddit.com/r/CryptoCurrency/hot.json",
-            params={"limit": "8"},
-            headers=reddit_headers,
-        )
-        for child in (reddit.get("data") or {}).get("children") or []:
-            title = str((child.get("data") or {}).get("title") or "").strip()
-            if title:
-                reddit_hot.append(title[:180])
-    except Exception:
-        logger.warning("Reddit sentiment fetch failed.")
+    fear_greed_value, fear_greed_label = await _fetch_fear_greed(session)
+    trending = await _fetch_coingecko_trending(session)
+    reddit_hot = await _fetch_reddit_hot_titles(session)
 
     compound = _clamp((fear_greed_value - 50) / 50.0)
     result = {
@@ -221,6 +246,89 @@ async def fetch_sentiment_mesh(session: aiohttp.ClientSession) -> dict[str, Any]
     }
     _CACHE.set("sentiment_mesh", result)
     return result
+
+
+def _empty_derivatives_mesh(symbol: str) -> dict[str, Any]:
+    return {
+        "asset": symbol,
+        "defi_tvl_usd": 0.0,
+        "defi_chain_count": 0,
+        "funding_rate": None,
+        "open_interest_usd": None,
+        "long_short_ratio": None,
+        "derivatives_bias": "neutral",
+        "sources": [],
+    }
+
+
+async def _defi_tvl_snapshot(session: aiohttp.ClientSession) -> tuple[float, int]:
+    try:
+        chains = await _fetch_json(session, "https://api.llama.fi/v2/chains")
+        return sum(float(row.get("tvl") or 0) for row in chains or []), len(chains or [])
+    except Exception:
+        logger.warning("DeFiLlama chains fetch failed.")
+        return 0.0, 0
+
+
+async def _binance_funding_rate(session: aiohttp.ClientSession, symbol: str) -> float | None:
+    try:
+        funding = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/premiumIndex",
+            params={"symbol": symbol},
+        )
+        return float(funding.get("lastFundingRate") or 0)
+    except Exception:
+        logger.warning("Binance funding fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+async def _binance_open_interest_usd(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    funding_rate: float | None,
+) -> float | None:
+    try:
+        oi = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/openInterest",
+            params={"symbol": symbol},
+        )
+        oi_qty = float(oi.get("openInterest") or 0)
+        if funding_rate is None:
+            return None
+        mark = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/ticker/price",
+            params={"symbol": symbol},
+        )
+        return round(oi_qty * float(mark.get("price") or 0), 2)
+    except Exception:
+        logger.warning("Binance OI fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+async def _binance_long_short_ratio(session: aiohttp.ClientSession, symbol: str) -> float | None:
+    try:
+        ls = await _fetch_json(
+            session,
+            "https://fapi.binance.com/futures/data/globalLongShortAccountRatio",
+            params={"symbol": symbol, "period": "1h", "limit": "1"},
+        )
+        return float(ls[0].get("longShortRatio") or 1.0) if ls else None
+    except Exception:
+        logger.warning("Binance long/short ratio fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+def _derivatives_bias(funding_rate: float | None) -> str:
+    if funding_rate is None:
+        return "neutral"
+    if funding_rate > 0.0003:
+        return "overheated_longs"
+    if funding_rate < -0.0001:
+        return "short_crowded"
+    return "neutral"
 
 
 async def fetch_onchain_derivatives_mesh(
@@ -235,75 +343,13 @@ async def fetch_onchain_derivatives_mesh(
     symbol = asset.upper()
     binance_symbol = f"{symbol}USDT"
     if not binance_symbol.isalnum():
-        return {
-            "asset": symbol,
-            "defi_tvl_usd": 0.0,
-            "defi_chain_count": 0,
-            "funding_rate": None,
-            "open_interest_usd": None,
-            "long_short_ratio": None,
-            "derivatives_bias": "neutral",
-            "sources": [],
-        }
+        return _empty_derivatives_mesh(symbol)
 
-    tvl_total_usd = 0.0
-    chain_count = 0
-    funding_rate = None
-    open_interest_usd = None
-    long_short_ratio = None
-
-    try:
-        chains = await _fetch_json(session, "https://api.llama.fi/v2/chains")
-        chain_count = len(chains or [])
-        tvl_total_usd = sum(float(row.get("tvl") or 0) for row in chains or [])
-    except Exception:
-        logger.warning("DeFiLlama chains fetch failed.")
-
-    try:
-        funding = await _fetch_json(
-            session,
-            "https://fapi.binance.com/fapi/v1/premiumIndex",
-            params={"symbol": binance_symbol},
-        )
-        funding_rate = float(funding.get("lastFundingRate") or 0)
-    except Exception:
-        logger.warning("Binance funding fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    try:
-        oi = await _fetch_json(
-            session,
-            "https://fapi.binance.com/fapi/v1/openInterest",
-            params={"symbol": binance_symbol},
-        )
-        oi_qty = float(oi.get("openInterest") or 0)
-        if funding_rate is not None:
-            mark = await _fetch_json(
-                session,
-                "https://fapi.binance.com/fapi/v1/ticker/price",
-                params={"symbol": binance_symbol},
-            )
-            price = float(mark.get("price") or 0)
-            open_interest_usd = round(oi_qty * price, 2)
-    except Exception:
-        logger.warning("Binance OI fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    try:
-        ls = await _fetch_json(
-            session,
-            "https://fapi.binance.com/futures/data/globalLongShortAccountRatio",
-            params={"symbol": binance_symbol, "period": "1h", "limit": "1"},
-        )
-        if ls:
-            long_short_ratio = float(ls[0].get("longShortRatio") or 1.0)
-    except Exception:
-        logger.warning("Binance long/short ratio fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    deriv_bias = "neutral"
-    if funding_rate is not None:
-        if funding_rate > 0.0003:
-            deriv_bias = "overheated_longs"
-        elif funding_rate < -0.0001:
-            deriv_bias = "short_crowded"
+    tvl_total_usd, chain_count = await _defi_tvl_snapshot(session)
+    funding_rate = await _binance_funding_rate(session, binance_symbol)
+    open_interest_usd = await _binance_open_interest_usd(session, binance_symbol, funding_rate)
+    long_short_ratio = await _binance_long_short_ratio(session, binance_symbol)
+    deriv_bias = _derivatives_bias(funding_rate)
 
     result = {
         "asset": symbol,
@@ -319,12 +365,8 @@ async def fetch_onchain_derivatives_mesh(
     return result
 
 
-async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
-    cached = _CACHE.get("macro_mesh")
-    if cached is not None:
-        return cached
-
-    symbols = {
+def _macro_symbols() -> dict[str, str]:
+    return {
         "dxy": config.MACRO_YAHOO_DXY_SYMBOL,
         "spx": config.MACRO_YAHOO_SPX_SYMBOL,
         "vix": config.ORACLE_MACRO_VIX_SYMBOL,
@@ -334,39 +376,53 @@ async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
         "oil": config.ORACLE_MACRO_OIL_SYMBOL,
     }
 
-    async def _yahoo_change(sym: str) -> float | None:
-        try:
-            payload = await _fetch_json(
-                session,
-                f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
-                params={"interval": "1d", "range": "5d"},
-            )
-            result = (payload.get("chart") or {}).get("result") or []
-            if not result:
-                return None
-            closes = (
-                ((result[0].get("indicators") or {}).get("quote") or [{}])[0].get("close") or []
-            )
-            valid = [float(v) for v in closes if v is not None]
-            if len(valid) < 2 or valid[-2] == 0:
-                return None
-            return round((valid[-1] - valid[-2]) / valid[-2], 4)
-        except Exception:
+
+async def _yahoo_change(session: aiohttp.ClientSession, sym: str) -> float | None:
+    try:
+        payload = await _fetch_json(
+            session,
+            f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}",
+            params={"interval": "1d", "range": "5d"},
+        )
+        result = (payload.get("chart") or {}).get("result") or []
+        if not result:
             return None
+        closes = (
+            ((result[0].get("indicators") or {}).get("quote") or [{}])[0].get("close") or []
+        )
+        valid = [float(v) for v in closes if v is not None]
+        if len(valid) < 2 or valid[-2] == 0:
+            return None
+        return round((valid[-1] - valid[-2]) / valid[-2], 4)
+    except Exception:
+        return None
 
+
+async def _macro_changes(session: aiohttp.ClientSession) -> dict[str, float | None]:
     changes: dict[str, float | None] = {}
-    for label, sym in symbols.items():
-        changes[label] = await _yahoo_change(sym)
+    for label, sym in _macro_symbols().items():
+        changes[label] = await _yahoo_change(session, sym)
+    return changes
 
+
+def _macro_regime(changes: dict[str, float | None]) -> RiskTone:
     vix = changes.get("vix") or 0.0
     dxy = changes.get("dxy") or 0.0
     spx = changes.get("spx") or 0.0
-
-    regime: RiskTone = "neutral"
     if vix > 0.08 or dxy > 0.002 or spx < -0.01:
-        regime = "risk_off"
-    elif vix < -0.03 and spx > 0.005 and dxy < 0:
-        regime = "risk_on"
+        return "risk_off"
+    if vix < -0.03 and spx > 0.005 and dxy < 0:
+        return "risk_on"
+    return "neutral"
+
+
+async def fetch_macro_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
+    cached = _CACHE.get("macro_mesh")
+    if cached is not None:
+        return cached
+
+    changes = await _macro_changes(session)
+    regime = _macro_regime(changes)
 
     result = {
         "changes_1d_pct": changes,
@@ -521,18 +577,16 @@ async def _openrouter_sentence(prompt: str) -> str | None:
         return None
 
 
-async def synthesize_with_free_llm_chain(
+def _llm_synthesis_prompt(
     asset: str,
     opportunity_score: float,
     summary: str,
     hub_context: dict[str, Any],
-) -> str | None:
-    """Try free LLM providers in order until one responds."""
+) -> str:
     macro = hub_context.get("macro") or {}
     sentiment = hub_context.get("sentiment") or {}
     geo = hub_context.get("geo_news") or {}
-
-    prompt = (
+    return (
         "You are a crypto oracle. Return ONE sentence starting with 'Buy Now' or 'Do Not Touch', "
         "then em dash, then reason. Consider war/peace news, macro, fear/greed, derivatives.\n"
         f"Asset={asset}, score={opportunity_score}, summary={summary}\n"
@@ -541,89 +595,130 @@ async def synthesize_with_free_llm_chain(
         f"Geo headlines={geo.get('geopolitical_headline_count')}"
     )
 
-    chain = os.getenv(
-        "ORACLE_FREE_LLM_CHAIN",
-        "groq,gemini,openrouter,ollama",
-    ).split(",")
 
-    handlers = {
+def _llm_handlers() -> dict[str, Any]:
+    return {
         "ollama": _ollama_sentence,
         "groq": _groq_sentence,
         "gemini": _gemini_sentence,
         "openrouter": _openrouter_sentence,
     }
 
-    for name in chain:
+
+def _llm_chain_names() -> list[str]:
+    return os.getenv(
+        "ORACLE_FREE_LLM_CHAIN",
+        STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
+    ).split(",")
+
+
+def _accepted_llm_sentence(sentence: str | None) -> bool:
+    return bool(sentence and ("Buy Now" in sentence or "Do Not Touch" in sentence))
+
+
+async def synthesize_with_free_llm_chain(
+    asset: str,
+    opportunity_score: float,
+    summary: str,
+    hub_context: dict[str, Any],
+) -> str | None:
+    """Try free LLM providers in order until one responds."""
+    prompt = _llm_synthesis_prompt(asset, opportunity_score, summary, hub_context)
+    handlers = _llm_handlers()
+    for name in _llm_chain_names():
         handler = handlers.get(name.strip().lower())
         if handler is None:
             continue
         sentence = await handler(prompt)
-        if sentence and ("Buy Now" in sentence or "Do Not Touch" in sentence):
+        if _accepted_llm_sentence(sentence):
             return sentence
     return None
 
 
-def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
-    """Return score delta, reasons, risks from hub context."""
-    delta = 0.0
-    reasons: list[str] = []
-    risks: list[str] = []
-
+def _sentiment_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     sentiment = hub_context.get("sentiment") or {}
     fg = int(sentiment.get("fear_greed_index") or 50)
     if fg >= 75:
-        delta += 2.0
-        reasons.append(f"Market greed index elevated ({fg}) — momentum tailwind.")
-    elif fg <= 25:
-        delta -= 3.0
-        risks.append(f"Extreme fear index ({fg}) — capitulation risk.")
+        return 2.0, [f"Market greed index elevated ({fg}) — momentum tailwind."], []
+    if fg <= 25:
+        return -3.0, [], [f"Extreme fear index ({fg}) — capitulation risk."]
+    return 0.0, [], []
 
+
+def _geo_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     geo = hub_context.get("geo_news") or {}
     geo_count = int(geo.get("geopolitical_headline_count") or 0)
     if geo_count >= 3:
-        delta -= 4.0
-        risks.append(
-            f"{geo_count} geopolitical/macro headlines — war/peace/policy shock risk."
-        )
-    elif geo.get("macro_news_tone") == "risk_on":
-        delta += 1.5
-        reasons.append("Global headline tone supportive — reduced macro shock risk.")
+        return -4.0, [], [f"{geo_count} geopolitical/macro headlines — war/peace/policy shock risk."]
+    if geo.get("macro_news_tone") == "risk_on":
+        return 1.5, ["Global headline tone supportive — reduced macro shock risk."], []
+    return 0.0, [], []
 
+
+def _macro_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     macro = hub_context.get("macro") or {}
     if macro.get("macro_regime_proxy") == "risk_off":
-        delta -= 3.0
-        risks.append("Macro mesh risk-off (VIX/DXY/SPX stress).")
-    elif macro.get("macro_regime_proxy") == "risk_on":
-        delta += 2.0
-        reasons.append("Macro mesh risk-on — traditional markets supportive.")
+        return -3.0, [], ["Macro mesh risk-off (VIX/DXY/SPX stress)."]
+    if macro.get("macro_regime_proxy") == "risk_on":
+        return 2.0, ["Macro mesh risk-on — traditional markets supportive."], []
+    return 0.0, [], []
 
+
+def _derivatives_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     deriv = hub_context.get("derivatives") or {}
     bias = str(deriv.get("derivatives_bias") or "neutral")
     if bias == "overheated_longs":
-        delta -= 2.0
-        risks.append("Derivatives overheated — crowded long funding.")
-    elif bias == "short_crowded":
-        delta += 1.5
-        reasons.append("Derivatives short-crowded — squeeze potential.")
+        return -2.0, [], ["Derivatives overheated — crowded long funding."]
+    if bias == "short_crowded":
+        return 1.5, ["Derivatives short-crowded — squeeze potential."], []
+    return 0.0, [], []
 
+
+def _market_cap_score_adjustment(hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
     agg = hub_context.get("aggregators") or {}
     mc_change = (agg.get("coingecko_global") or {}).get("market_cap_change_24h_pct")
-    if mc_change is not None:
-        try:
-            mc_val = float(mc_change)
-            if mc_val >= 2.0:
-                delta += 1.0
-                reasons.append(f"Total crypto market cap +{mc_val:.1f}% 24h.")
-            elif mc_val <= -2.0:
-                delta -= 2.0
-                risks.append(f"Total crypto market cap {mc_val:.1f}% 24h — broad risk-off.")
-        except (TypeError, ValueError):
-            pass
+    if mc_change is None:
+        return 0.0, [], []
+    try:
+        mc_val = float(mc_change)
+    except (TypeError, ValueError):
+        return 0.0, [], []
+    if mc_val >= 2.0:
+        return 1.0, [f"Total crypto market cap +{mc_val:.1f}% 24h."], []
+    if mc_val <= -2.0:
+        return -2.0, [], [f"Total crypto market cap {mc_val:.1f}% 24h — broad risk-off."]
+    return 0.0, [], []
 
+
+def _trending_asset_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
+    sentiment = hub_context.get("sentiment") or {}
     if asset.upper() in (sentiment.get("coingecko_trending") or []):
-        delta += 1.0
-        reasons.append(f"{asset.upper()} trending on CoinGecko — social attention.")
+        return 1.0, [f"{asset.upper()} trending on CoinGecko — social attention."], []
+    return 0.0, [], []
 
+
+def _merge_adjustment(
+    total: tuple[float, list[str], list[str]],
+    update: tuple[float, list[str], list[str]],
+) -> tuple[float, list[str], list[str]]:
+    delta, reasons, risks = total
+    next_delta, next_reasons, next_risks = update
+    return delta + next_delta, [*reasons, *next_reasons], [*risks, *next_risks]
+
+
+def hub_score_adjustment(asset: str, hub_context: dict[str, Any]) -> tuple[float, list[str], list[str]]:
+    """Return score delta, reasons, risks from hub context."""
+    total: tuple[float, list[str], list[str]] = (0.0, [], [])
+    for adjustment in (
+        _sentiment_score_adjustment(hub_context),
+        _geo_score_adjustment(hub_context),
+        _macro_score_adjustment(hub_context),
+        _derivatives_score_adjustment(hub_context),
+        _market_cap_score_adjustment(hub_context),
+        _trending_asset_adjustment(asset, hub_context),
+    ):
+        total = _merge_adjustment(total, adjustment)
+    delta, reasons, risks = total
     delta = max(-12.0, min(12.0, delta))
     return round(delta, 2), reasons, risks
 
@@ -648,7 +743,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             name.strip()
             for name in os.getenv(
                 "ORACLE_FREE_LLM_CHAIN",
-                "groq,gemini,openrouter,ollama",
+                STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
             ).split(",")
             if name.strip()
         ]
@@ -683,7 +778,7 @@ async def build_oracle_data_hub_context(asset: str | None = None) -> dict[str, A
             name.strip()
             for name in os.getenv(
                 "ORACLE_FREE_LLM_CHAIN",
-                "groq,gemini,openrouter,ollama",
+                STR_GROQ_GEMINI_OPENROUTER_OLLAMA,
             ).split(",")
             if name.strip()
         ],

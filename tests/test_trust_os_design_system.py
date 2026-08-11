@@ -14,11 +14,14 @@ def test_design_system_css_and_doc():
     assert "--bd-accent: #22d3ee" in css or "#22d3ee" in css
     assert "Syne" in css
     assert "IBM Plex Sans" in css
-    assert "bdPulseIn" in css and "bdFlipFlash" in css and "bdSharePop" in css
+    assert "bdPulseIn" in css
+    assert "bdFlipFlash" in css
+    assert "bdSharePop" in css
     assert "Inter" not in css.split("REJECTED")[0] or "REJECTED" in css
     assert "ARENA" in doc or "arena" in doc.lower()
     assert "Fake scarcity" in doc or "fake scarcity" in doc.lower()
-    assert "$29" in doc and "$49" in doc
+    assert "$29" in doc
+    assert "$49" in doc
 
 
 def test_templates_link_design_system():
@@ -47,8 +50,10 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert "fonts.googleapis.com/css2?family=Inter" not in land
     assert "#a78bfa" not in land
     assert "#f472b6" not in land
-    assert "Decision Pro" in land and "$29" in land
-    assert "Decision Desk" in land and "$49" in land
+    assert "Decision Pro" in land
+    assert "$29" in land
+    assert "Decision Desk" in land
+    assert "$49" in land
     assert "$199" not in land
     assert "pricing.cta.talk" in land or "pricing.from_open" in land or "institutionalInquiryForm" in land
     assert 'id="trust-pulse"' in land
@@ -63,8 +68,10 @@ def test_landing_rejects_inter_purple_and_keeps_pricing_canon():
     assert 0 <= pulse_i < stats_i
     assert "BLACKDARK" in land
     # Copy lives in i18n keys (rendered via t()) — template must wire them.
-    assert "hero.headline" in land and "hero.support" in land
-    assert "hero.cta.try" in land and "hero.cta.seal" in land
+    assert "hero.headline" in land
+    assert "hero.support" in land
+    assert "hero.cta.try" in land
+    assert "hero.cta.seal" in land
     assert "blackdark-sealed-hero-1280.webp" in land
     assert "blackdark-sealed-hero.jpg" in land
     assert "hero-bleed" in land

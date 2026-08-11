@@ -331,7 +331,7 @@
         BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
     </footer>
 
-    <script>
+    <script type="module">
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
@@ -339,6 +339,107 @@
             return 'partial';
         }
 
+        function verifyLabel(valid) {
+            if (valid === true) return 'VALID ✓';
+            if (valid === false) return 'INVALID';
+            return 'n/a';
+        }
+        function verifyLabelShort(valid) {
+            if (valid === true) return 'VALID';
+            if (valid === false) return 'INVALID';
+            return 'n/a';
+        }
+
+
+        function renderAccuracyStats({ oracle, model, moat, exp }) {
+            document.getElementById('stat-accuracy').textContent =
+                (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
+            document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
+            document.getElementById('stat-labeled').textContent = model.labeled_samples || 0;
+            document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
+            document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
+            document.getElementById('stat-assets').textContent = moat.assets || 0;
+        }
+        function renderRegimeTable(regime) {
+            document.getElementById('regime-status').textContent =
+                (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
+                ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
+            const regimeRows = regime.regimes || {};
+            const rbody = document.getElementById('regime-body');
+            const keys = Object.keys(regimeRows);
+            if (!keys.length) {
+                rbody.innerHTML = '<tr><td colspan="4">Regime registry unavailable.</td></tr>';
+                return;
+            }
+            rbody.innerHTML = keys.map(k => {
+                const row = regimeRows[k] || {};
+                const pill = row.artifact_present ? 'correct' : 'partial';
+                return `<tr>
+                    <td>${k}</td>
+                    <td>${row.confidence_multiplier ?? '—'}</td>
+                    <td>${row.artifact_present ? 'yes' : 'no'}</td>
+                    <td><span class="pill ${pill}">${row.status || '—'}</span></td>
+                </tr>`;
+            }).join('');
+        }
+        function renderRegistryTable(reg) {
+            document.getElementById('registry-status').textContent =
+                `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
+                (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
+            const byType = reg.by_type || {};
+            const regBody = document.getElementById('registry-body');
+            const typeKeys = Object.keys(byType);
+            if (!typeKeys.length) {
+                regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
+                return;
+            }
+            regBody.innerHTML = typeKeys.map(k =>
+                `<tr><td>${k}</td><td>${byType[k]}</td></tr>`
+            ).join('');
+        }
+        function renderPredictionsTable(rows) {
+            const tbody = document.getElementById('predictions-body');
+            if (!rows.length) {
+                tbody.innerHTML = '<tr><td colspan="8">No scored predictions yet — collecting data.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = rows.map(r => `
+                <tr>
+                    <td>${r.prediction_id ?? '—'}</td>
+                    <td>${(r.timestamp || '').slice(0, 19)}</td>
+                    <td>${r.asset || '—'}</td>
+                    <td>${r.verdict || '—'}</td>
+                    <td>${Number(r.price_at_prediction || 0).toLocaleString()}</td>
+                    <td>${Number(r.price_after_24h || 0).toLocaleString()}</td>
+                    <td><span class="pill ${pillClass(r.label)}">${r.label || '—'}</span></td>
+                    <td style="font-size:.75rem;color:var(--muted)">${r.chain_ref || '—'}</td>
+                </tr>
+            `).join('');
+        }
+        function renderLearningEvents(events) {
+            const list = document.getElementById('events-list');
+            if (!events.length) {
+                list.innerHTML = '<li>Learning log will start after the first flywheel cycle.</li>';
+                return;
+            }
+            list.innerHTML = events.map(e => {
+                const h = e.highlights || {};
+                return `<li><strong>${e.event_type}</strong> · ${e.timestamp || ''} · ${JSON.stringify(h)}</li>`;
+            }).join('');
+        }
+        function renderProofChain(chain) {
+            const verify = chain.verify || {};
+            const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
+            document.getElementById('chain-status').textContent =
+                'Audit chain: ' + verifyLabel(verify.valid) +
+                ' · records=' + records;
+            const tip = chain.tip_hash || '—';
+            const vColor = verify.valid ? 'var(--success)' : 'var(--danger)';
+            document.getElementById('proof-panel').innerHTML =
+                `Tip hash: <code style="color:var(--accent)">${tip}</code><br>` +
+                `Integrity: <strong style="color:${vColor}">${verifyLabelShort(verify.valid)}</strong>` +
+                ` · ${records} linked records`;
+        }
         async function loadAccuracy() {
             try {
                 const res = await fetch('/api/oracle/accuracy/public');
@@ -353,94 +454,13 @@
                     transparency.production_engine === 'ml_model' ? 'ML model (OOD-gated)' : 'rules engine';
                 document.getElementById('transparency-note').textContent =
                     transparency.engine_note || '';
-                const chain = data.proof_chain || {};
-                const verify = chain.verify || {};
-                const records = chain.total_records ?? (chain.verify && chain.verify.records) ?? '—';
-                document.getElementById('chain-status').textContent =
-                    'Audit chain: ' + (verify.valid === true ? 'VALID ✓' : (verify.valid === false ? 'INVALID' : 'n/a')) +
-                    ' · records=' + records;
-                const tip = chain.tip_hash || '—';
-                document.getElementById('proof-panel').innerHTML =
-                    `Tip hash: <code style="color:var(--accent)">${tip}</code><br>` +
-                    `Integrity: <strong style="color:${verify.valid ? 'var(--success)' : 'var(--danger)'}">${verify.valid === true ? 'VALID' : (verify.valid === false ? 'INVALID' : 'n/a')}</strong>` +
-                    ` · ${records} linked records`;
-
-                document.getElementById('stat-accuracy').textContent =
-                    (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
-                document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
-                document.getElementById('stat-labeled').textContent = model.labeled_samples || 0;
-                document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
-                document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
-                document.getElementById('stat-assets').textContent = moat.assets || 0;
-
-                const regime = data.regime_models || {};
-                document.getElementById('regime-status').textContent =
-                    (regime.evidence_status || 'n/a') + ' · ' + (regime.note || '') +
-                    ' · artifacts ' + (regime.artifacts_ready ?? 0) + '/' + (regime.artifacts_expected ?? 4);
-                const regimeRows = regime.regimes || {};
-                const rbody = document.getElementById('regime-body');
-                const keys = Object.keys(regimeRows);
-                if (!keys.length) {
-                    rbody.innerHTML = '<tr><td colspan="4">Regime registry unavailable.</td></tr>';
-                } else {
-                    rbody.innerHTML = keys.map(k => {
-                        const row = regimeRows[k] || {};
-                        return `<tr>
-                            <td>${k}</td>
-                            <td>${row.confidence_multiplier ?? '—'}</td>
-                            <td>${row.artifact_present ? 'yes' : 'no'}</td>
-                            <td><span class="pill ${row.artifact_present ? 'correct' : 'partial'}">${row.status || '—'}</span></td>
-                        </tr>`;
-                    }).join('');
-                }
-
-                const reg = data.signal_registry || {};
-                document.getElementById('registry-status').textContent =
-                    `Labeled lexicon · total=${reg.total ?? 0} · labeled=${reg.labeled ?? 0} · unlabeled=${reg.unlabeled ?? 0}` +
-                    (reg.moat_claim ? ` · ${reg.moat_claim}` : '');
-                const byType = reg.by_type || {};
-                const regBody = document.getElementById('registry-body');
-                const typeKeys = Object.keys(byType);
-                if (!typeKeys.length) {
-                    regBody.innerHTML = '<tr><td colspan="2">No registered signals yet — lexicon grows with every Oracle decision.</td></tr>';
-                } else {
-                    regBody.innerHTML = typeKeys.map(k =>
-                        `<tr><td>${k}</td><td>${byType[k]}</td></tr>`
-                    ).join('');
-                }
-
-                const rows = oracle.recent_predictions || [];
-                const tbody = document.getElementById('predictions-body');
-                if (!rows.length) {
-                    tbody.innerHTML = '<tr><td colspan="8">No scored predictions yet — collecting data.</td></tr>';
-                } else {
-                    tbody.innerHTML = rows.map(r => `
-                        <tr>
-                            <td>${r.prediction_id ?? '—'}</td>
-                            <td>${(r.timestamp || '').slice(0, 19)}</td>
-                            <td>${r.asset || '—'}</td>
-                            <td>${r.verdict || '—'}</td>
-                            <td>${Number(r.price_at_prediction || 0).toLocaleString()}</td>
-                            <td>${Number(r.price_after_24h || 0).toLocaleString()}</td>
-                            <td><span class="pill ${pillClass(r.label)}">${r.label || '—'}</span></td>
-                            <td style="font-size:.75rem;color:var(--muted)">${r.chain_ref || '—'}</td>
-                        </tr>
-                    `).join('');
-                }
-
-                const events = (data.learning_experience || {}).recent_events || [];
-                const list = document.getElementById('events-list');
-                if (!events.length) {
-                    list.innerHTML = '<li>Learning log will start after the first flywheel cycle.</li>';
-                } else {
-                    list.innerHTML = events.map(e => {
-                        const h = e.highlights || {};
-                        return `<li><strong>${e.event_type}</strong> · ${e.timestamp || ''} · ${JSON.stringify(h)}</li>`;
-                    }).join('');
-                }
-            } catch (err) {
-                console.error(err);
-            }
+                renderProofChain(data.proof_chain || {});
+                renderAccuracyStats({ oracle, model, moat, exp });
+                renderRegimeTable(data.regime_models || {});
+                renderRegistryTable(data.signal_registry || {});
+                renderPredictionsTable(oracle.recent_predictions || []);
+                renderLearningEvents((data.learning_experience || {}).recent_events || []);
+            } catch (error) { console.debug(error); }
         }
 
         async function verifyChain() {
@@ -449,13 +469,14 @@
             try {
                 const res = await fetch('/api/oracle/audit-chain/verify');
                 const data = await res.json();
+                const vColor = data.valid ? 'var(--success)' : 'var(--danger)';
+                const vLabel = data.valid ? 'VALID' : 'INVALID';
+                const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
                 panel.innerHTML =
-                    `Live verify: <strong style="color:${data.valid ? 'var(--success)' : 'var(--danger)'}">${data.valid ? 'VALID' : 'INVALID'}</strong>` +
+                    `Live verify: <strong style="color:${vColor}">${vLabel}</strong>` +
                     ` · records=${data.records ?? '—'}` +
-                    (data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '');
-            } catch (e) {
-                panel.textContent = 'Verify failed';
-            }
+                    broken;
+            } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
 
@@ -478,9 +499,7 @@
                         `</li>`
                     ).join('');
                 }
-            } catch (e) {
-                document.getElementById('locked-status').textContent = 'Locked predictions unavailable';
-            }
+            } catch (error) { console.debug(error); document.getElementById('locked-status').textContent = 'Locked predictions unavailable'; }
         }
 
         let lastLosingShare = '';
@@ -496,9 +515,7 @@
                 list.innerHTML = rows.length
                     ? rows.map(r => `<li><strong>${r.asset||'—'}</strong> · ${r.verdict||''} · ${r.label||''} · id ${r.prediction_id??'—'}</li>`).join('')
                     : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
-            } catch (e) {
-                document.getElementById('losing-status').textContent = 'Losing report unavailable';
-            }
+            } catch (error) { console.debug(error); document.getElementById('losing-status').textContent = 'Losing report unavailable'; }
         }
         document.getElementById('copyLosingBtn')?.addEventListener('click', () => {
             if (lastLosingShare) navigator.clipboard.writeText(lastLosingShare);
@@ -510,10 +527,8 @@
                 const data = await res.json();
                 const v = data.live_verify || {};
                 document.getElementById('audit-status').textContent =
-                    `${data.invitation || ''} Live verify: ${v.valid === true ? 'VALID' : (v.valid === false ? 'INVALID' : 'n/a')} · records=${v.records ?? '—'}`;
-            } catch (e) {
-                document.getElementById('audit-status').textContent = 'Audit challenge unavailable';
-            }
+                    `${data.invitation || ''} Live verify: ${verifyLabelShort(v.valid)} · records=${v.records ?? '—'}`;
+            } catch (error) { console.debug(error); document.getElementById('audit-status').textContent = 'Audit challenge unavailable'; }
         }
 
         let lastLedgerShare = location.origin + '/oracle-accuracy';
@@ -528,7 +543,7 @@
                 const tg = document.getElementById('ledgerShareTg');
                 if (x && d.share_urls && d.share_urls.x) x.href = d.share_urls.x;
                 if (tg && d.share_urls && d.share_urls.telegram) tg.href = d.share_urls.telegram;
-            } catch (e) { /* keep fallback link */ }
+            } catch (error) { console.debug(error); }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
             navigator.clipboard.writeText(lastLedgerShare);
@@ -537,7 +552,7 @@
             if (navigator.share) {
                 try {
                     await navigator.share({ title: 'BLACKDARK Public Accuracy Ledger', text: lastLedgerShare, url: location.origin + '/oracle-accuracy' });
-                } catch (e) { /* user cancelled */ }
+                } catch (error) { console.debug(error); }
             } else {
                 navigator.clipboard.writeText(lastLedgerShare);
             }
@@ -582,9 +597,7 @@
                 if (tm && Array.isArray(rb.t_minus_checklist)) {
                     tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + s + '</li>').join('');
                 }
-            } catch (e) {
-                document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable';
-            }
+            } catch (error) { console.debug(error); document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable'; }
         }
         document.getElementById('copyGlassBtn')?.addEventListener('click', () => {
             if (lastGlassShare) navigator.clipboard.writeText(lastGlassShare);
@@ -605,21 +618,21 @@
                 if (foot) {
                     foot.innerHTML = `<strong>Anti-Hype</strong> · ${c.data_source || ''} · ${c.disclaimer || 'Not financial advice.'}`;
                 }
-            } catch (e) {
-                document.getElementById('mev-status').textContent = 'MEV report unavailable';
-            }
+            } catch (error) { console.debug(error); document.getElementById('mev-status').textContent = 'MEV report unavailable'; }
         }
         document.getElementById('copyMevBtn')?.addEventListener('click', () => {
             if (lastMevShare) navigator.clipboard.writeText(lastMevShare);
         });
 
-        loadAccuracy();
-        loadLedgerShareKit();
-        loadGlassBox();
-        loadMevReport();
-        loadLocked();
-        loadLosing();
-        loadAuditChallenge();
+        await Promise.all([
+            loadAccuracy(),
+            loadLedgerShareKit(),
+            loadGlassBox(),
+            loadMevReport(),
+            loadLocked(),
+            loadLosing(),
+            loadAuditChallenge(),
+        ]);
         setInterval(loadAccuracy, 60000);
         setInterval(loadLocked, 120000);
     </script>

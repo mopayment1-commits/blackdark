@@ -46,7 +46,7 @@
             </table>
         </div>
     </main>
-    <script>
+    <script type="module">
         async function load() {
             const res = await fetch('/api/plan/audit');
             const d = await res.json();
@@ -67,9 +67,12 @@
                     </tr>`).join('')
                 : '<tr><td colspan="6">No plan rows</td></tr>';
         }
-        load().catch(() => {
+        try {
+            await load();
+        } catch (error) {
+            console.debug(error);
             document.getElementById('summary').textContent = 'Could not load plan audit — admin access required';
-        });
+        }
     </script>
 </body>
 </html>

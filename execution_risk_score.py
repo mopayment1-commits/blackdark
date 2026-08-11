@@ -36,7 +36,12 @@ def score_execution_risk(opportunity: dict[str, Any] | None) -> dict[str, Any]:
     }
     feas_score = feas_map.get(feasibility, 8.0)
     # Thin edge / negative: 0–10
-    edge_score = 0.0 if net > 5 else (5.0 if net > 0 else 10.0)
+    if net > 5:
+        edge_score = 0.0
+    elif net > 0:
+        edge_score = 5.0
+    else:
+        edge_score = 10.0
     # Extra risk factors: 0–5
     factor_score = min(5.0, float(len(risk_factors)) * 1.5)
     # Low confidence adds risk: 0–10

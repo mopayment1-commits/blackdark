@@ -50,7 +50,7 @@ def register_event(
     sealed_by_blackdark: bool = True,
     peer_seals: dict[str, bool] | None = None,
 ) -> dict[str, Any]:
-    peers = peer_seals or {p: False for p in DEFAULT_PEERS}
+    peers = peer_seals or dict.fromkeys(DEFAULT_PEERS, False)
     silent = [k for k, v in peers.items() if not v]
     vocal = [k for k, v in peers.items() if v]
     silence_ratio = round(len(silent) / max(1, len(peers)), 4)
@@ -100,7 +100,7 @@ def ensure_seed_events() -> None:
             event_at=when.isoformat(),
             category=cat,
             sealed_by_blackdark=True,
-            peer_seals={p: False for p in DEFAULT_PEERS},
+            peer_seals=dict.fromkeys(DEFAULT_PEERS, False),
         )
 
 

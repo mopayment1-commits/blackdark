@@ -11,7 +11,7 @@
             background:
                 radial-gradient(900px 480px at 20% -10%, rgba(34,211,238,.12), transparent),
                 #0a0a0f;
-            color: #e4e4e7;
+            color: #fafafa;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -63,7 +63,7 @@
             <a href="/privacy" style="color:#a1a1aa">Privacy</a>
         </p>
     </div>
-    <script>
+    <script type="module">
         async function refreshTier() {
             const token = localStorage.getItem('bd_token');
             const el = document.getElementById('status');
@@ -80,12 +80,10 @@
                     localStorage.setItem('bd_user', JSON.stringify(d.user));
                     el.textContent = 'Plan: ' + (d.tier?.label || d.user.tier) + ' — ready on Trust Pulse.';
                 }
-            } catch (e) {
-                el.textContent = 'Subscription active — open Trust Pulse to continue.';
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Subscription active — open Trust Pulse to continue.'; }
         }
-        refreshTier();
-    </script>
+        await refreshTier();
+</script>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

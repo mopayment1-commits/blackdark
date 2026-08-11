@@ -262,7 +262,7 @@
     </div>
 </main>
 
-<script>
+<script type="module">
 const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, {maximumFractionDigits: d});
 let chart, candleSeries;
 let rankingsCache = [];
@@ -280,7 +280,7 @@ function authHeaders() {
     try {
         const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
         if (token) headers['Authorization'] = `Bearer ${token}`;
-    } catch (e) { /* ignore */ }
+    } catch (error) { console.debug(error); }
     return headers;
 }
 
@@ -291,8 +291,9 @@ function gatedMessage(status) {
     return null;
 }
 
-async function platformFetch(url, options = {}) {
-    const opts = { ...options, headers: { ...(options.headers || {}), ...authHeaders() } };
+async function platformFetch(url, options) {
+    const base = options ?? {};
+    const opts = { ...base, headers: { ...authHeaders(), ...base.headers } };
     const res = await fetch(url, opts);
     if (!res.ok) {
         const gated = gatedMessage(res.status);
@@ -300,7 +301,7 @@ async function platformFetch(url, options = {}) {
         try {
             const body = await res.clone().json();
             detail = typeof body.detail === 'string' ? body.detail : (body.detail?.message || body.reason || '');
-        } catch (e) { /* ignore */ }
+        } catch (error) { console.debug(error); }
         const err = new Error(gated ? 'Login or Pro upgrade required' : (detail || `Request failed (${res.status})`));
         err.status = res.status;
         err.gatedHtml = gated;
@@ -337,9 +338,7 @@ async function loadChart() {
         }));
         candleSeries.setData(data);
         chart.timeScale().fitContent();
-    } catch (e) {
-        console.error(e);
-    }
+    } catch (error) { console.debug(error); console.error(e); }
 }
 
 async function loadRankings() {
@@ -362,17 +361,21 @@ function filterRankings() {
     let rows = rankingsCache.filter(c => !q || c.symbol.toLowerCase().includes(q) || (c.name||'').toLowerCase().includes(q));
     if (sort === 'change') rows.sort((a,b)=>(b.change_24h_pct||0)-(a.change_24h_pct||0));
     if (sort === 'mcap') rows.sort((a,b)=>(b.market_cap_usd||0)-(a.market_cap_usd||0));
-    wrap.innerHTML = `<table>
-        <thead><tr><th>#</th><th>Asset</th><th>7d</th><th>Price</th><th>24h</th><th>MCap</th><th>Vol</th></tr></thead>
-        <tbody>${rows.slice(0,50).map(c => `<tr onclick="location.href='/platform/coin/${c.id}'">
+    const body = rows.slice(0,50).map(c => {
+        const cls = (c.change_24h_pct||0)>=0 ? 'pos' : 'neg';
+        return `<tr onclick="location.href='/platform/coin/${c.id}'">
             <td>${c.rank}</td>
             <td><strong>${c.symbol}</strong><br><span style="color:var(--muted)">${c.name||''}</span></td>
             <td>${sparkSvg(c.sparkline_7d)}</td>
             <td>$${fmt(c.price_usd)}</td>
-            <td class="${(c.change_24h_pct||0)>=0?'pos':'neg'}">${fmt(c.change_24h_pct)}%</td>
+            <td class="${cls}">${fmt(c.change_24h_pct)}%</td>
             <td>$${fmt(c.market_cap_usd, 0)}</td>
             <td>$${fmt(c.volume_24h_usd, 0)}</td>
-        </tr>`).join('')}</tbody></table>`;
+        </tr>`;
+    }).join('');
+    wrap.innerHTML = `<table>
+        <thead><tr><th>#</th><th>Asset</th><th>7d</th><th>Price</th><th>24h</th><th>MCap</th><th>Vol</th></tr></thead>
+        <tbody>${body}</tbody></table>`;
 }
 
 function pickSymbol(s) {
@@ -422,10 +425,8 @@ async function executeCexDex() {
         msg.textContent = ex.legs
             ? `✅ ${ex.asset} · ${ex.mode} · ${(ex.legs||[]).length} legs`
             : '✅ Cycle complete';
-    } catch (e) {
-        msg.className = 'msg err';
-        msg.textContent = '❌ ' + e.message;
-    }
+    } catch (error) { console.debug(error); msg.className = 'msg err';
+        msg.textContent = '❌ ' + error.message; }
 }
 
 async function loadDerivCompare() {
@@ -437,12 +438,18 @@ async function loadDerivCompare() {
         const data = await res.json();
         const cex = (data.cex_funding || []).slice(0, 6);
         const dex = (data.dex_perp_quotes || []).slice(0, 6);
+        const cexHtml = cex.length
+            ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
+            : '<div class="loading">No CEX funding</div>';
+        const dexHtml = dex.length
+            ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
+            : '<div class="loading">No DEX perp data</div>';
         wrap.innerHTML = `<div class="grid-2">
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">CEX Funding</h3>
-            ${cex.length ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('') : '<div class="loading">No CEX funding</div>'}
+            ${cexHtml}
             </div>
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">DEX Perp</h3>
-            ${dex.length ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('') : '<div class="loading">No DEX perp data</div>'}
+            ${dexHtml}
             </div></div>
             <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${data.comparison_note||''}</p>`;
     } catch (e) {
@@ -492,9 +499,7 @@ async function createGrid() {
         const data = await res.json();
         showMsg('gridMsg', `Grid ${data.id} created (${data.levels.length} levels)`, true);
         loadGrids();
-    } catch (e) {
-        showMsg('gridMsg', e.message || 'Create failed', false);
-    }
+    } catch (error) { console.debug(error); showMsg('gridMsg', error.message || 'Create failed', false); }
 }
 
 async function loadRules() {
@@ -536,9 +541,7 @@ async function createRule() {
         document.getElementById('ruleIf').value = '';
         document.getElementById('ruleThen').value = '';
         loadRules();
-    } catch (e) {
-        showMsg('ruleMsg', e.message || 'Add failed', false);
-    }
+    } catch (error) { console.debug(error); showMsg('ruleMsg', error.message || 'Add failed', false); }
 }
 
 async function evalRules() {
@@ -548,9 +551,7 @@ async function evalRules() {
         const data = await res.json();
         const n = (data.triggered || []).length;
         showMsg('ruleMsg', `Evaluated ${data.evaluated} rules · ${n} triggered (${data.scan_ms||'?'}ms scan)`, true);
-    } catch (e) {
-        showMsg('ruleMsg', e.message || 'Evaluate failed', false);
-    }
+    } catch (error) { console.debug(error); showMsg('ruleMsg', error.message || 'Evaluate failed', false); }
 }
 
 async function runRebalance() {
@@ -560,10 +561,8 @@ async function runRebalance() {
     try {
         holdings = JSON.parse(document.getElementById('rebalHoldings').value);
         target_weights = JSON.parse(document.getElementById('rebalTargets').value);
-    } catch (e) {
-        showMsg('rebalMsg', 'Invalid JSON in holdings or targets', false);
-        return;
-    }
+    } catch (error) { console.debug(error); showMsg('rebalMsg', 'Invalid JSON in holdings or targets', false);
+        return; }
     wrap.innerHTML = '<div class="loading">Calculating…</div>';
     try {
         const res = await platformFetch('/api/platform/portfolio/rebalance', {
@@ -580,10 +579,8 @@ async function runRebalance() {
             </div>`).join('')
             : '<div class="loading">Portfolio already balanced</div>';
         showMsg('rebalMsg', `Total $${fmt(data.portfolio_total_usd, 0)} · ${trades.length} trade(s) suggested`, true);
-    } catch (e) {
-        wrap.innerHTML = '';
-        showMsg('rebalMsg', e.message || 'Rebalance failed', false);
-    }
+    } catch (error) { console.debug(error); wrap.innerHTML = '';
+        showMsg('rebalMsg', error.message || 'Rebalance failed', false); }
 }
 
 async function loadMarketplace() {
@@ -613,7 +610,7 @@ async function publishStrategy() {
         showMsg('marketplaceMsg', `Published ${data.name}`, true);
         document.getElementById('stratName').value = '';
         loadMarketplace();
-    } catch(e) { showMsg('marketplaceMsg', e.message, false); }
+    } catch (error) { console.debug(error); showMsg('marketplaceMsg', error.message, false); }
 }
 
 async function loadLiquidations() {
@@ -676,9 +673,12 @@ async function loadMacro() {
         const res = await platformFetch('/api/platform/macro/bitcoin');
         const data = await res.json();
         const live = data.live_metrics||{};
-        wrap.innerHTML = (data.indicators||[]).map(i=>
-            `<div class="metric-row"><span>${i.label}</span><span>${i.value!=null?fmt(i.value,0):`<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`}</span></div>`
-        ).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
+        wrap.innerHTML = (data.indicators||[]).map(i => {
+            const val = i.value != null
+                ? fmt(i.value, 0)
+                : `<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`;
+            return `<div class="metric-row"><span>${i.label}</span><span>${val}</span></div>`;
+        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
     } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
 }
 
@@ -692,9 +692,13 @@ async function runScript() {
         const data = await res.json();
         document.getElementById('scriptOut').textContent = JSON.stringify(data, null, 2);
         showMsg('scriptMsg', `Signal: ${data.signal||'—'} · result ${data.result}`, true);
-    } catch(e) { showMsg('scriptMsg', e.message, false); }
+    } catch (error) { console.debug(error); showMsg('scriptMsg', error.message, false); }
 }
 
+function keyStatusLabel(k) {
+    if (!k.configured) return 'Not connected';
+    return 'Saved ' + (k.masked || '');
+}
 async function loadPlatformKeys() {
     const wrap = document.getElementById('keysWrap');
     try {
@@ -704,7 +708,7 @@ async function loadPlatformKeys() {
             <div class="key-row">
                 <div>
                     <strong>${k.label || k.id}</strong>
-                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${k.configured ? 'Saved ' + (k.masked || '') : 'Not connected'}</span>
+                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${keyStatusLabel(k)}</span>
                     <div class="key-meta">${k.tier} · <a href="${k.signup}" target="_blank" rel="noopener">Sign up / API</a></div>
                     <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off" aria-label="${k.env}">
                 </div>
@@ -735,9 +739,13 @@ async function savePlatformKeys() {
         showMsg('keysMsg', `Saved ${data.saved_count || 0} key(s) — reload if needed`, true);
         ids.forEach(id => { const el = document.getElementById('key_' + id); if (el) el.value = ''; });
         await loadPlatformKeys();
-    } catch (e) {
-        showMsg('keysMsg', e.message, false);
-    }
+    } catch (error) { console.debug(error); showMsg('keysMsg', error.message, false); }
+}
+
+function formatKeyVerify(r) {
+    if (r.valid) return 'Valid';
+    if (r.configured) return 'Invalid — ' + (r.message || r.reason || '');
+    return 'Not connected';
 }
 
 async function verifyPlatformKeys() {
@@ -747,30 +755,25 @@ async function verifyPlatformKeys() {
         const res = await platformFetch('/api/platform/keys/verify');
         const data = await res.json();
         out.innerHTML = (data.results || []).map(r =>
-            `<div>${r.service}: ${r.valid ? 'Valid' : (r.configured ? 'Invalid — ' + (r.message || r.reason) : 'Not connected')}</div>`
+            `<div>${r.service}: ${formatKeyVerify(r)}</div>`
         ).join('');
-    } catch (e) {
-        out.innerHTML = e.gatedHtml || ('Verification failed — ' + e.message);
-    }
+    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || ('Verification failed — ' + error.message); }
 }
 
 document.getElementById('chartSymbol').addEventListener('change', loadChart);
 document.getElementById('chartInterval').addEventListener('change', loadChart);
 
+Object.assign(window, {
+    verifyPlatformKeys, savePlatformKeys, loadChart, loadRankings, loadCexDex, executeCexDex,
+    loadDerivCompare, publishStrategy, loadLiquidations, loadUnlocks, loadFootprint,
+    loadCoindesk, loadMacro, runScript, createGrid, createRule, evalRules, runRebalance,
+});
 initChart();
-loadChart();
-loadRankings();
-loadCexDex();
-loadDerivCompare();
-loadMarketplace();
-loadGrids();
-loadRules();
-loadPlatformKeys();
-loadCoindesk();
-loadMacro();
-loadUnlocks();
-loadLiquidations();
-loadFootprint();
+await Promise.all([
+    loadChart(), loadRankings(), loadCexDex(), loadDerivCompare(), loadMarketplace(),
+    loadGrids(), loadRules(), loadPlatformKeys(), loadCoindesk(), loadMacro(),
+    loadUnlocks(), loadLiquidations(), loadFootprint(),
+]);
 setInterval(loadRankings, 60000);
 setInterval(loadCexDex, 30000);
 </script>

@@ -21,7 +21,12 @@ def main() -> int:
     print("=" * 60)
     # Print only constants / SET|MISSING flags — never getenv secret values.
     print("\nCurrency: USD")
-    provider = "lemon" if _set("LEMON_SQUEEZY_CHECKOUT_PRO") else ("stripe" if _set("STRIPE_SECRET_KEY") else "unset")
+    if _set("LEMON_SQUEEZY_CHECKOUT_PRO"):
+        provider = "lemon"
+    elif _set("STRIPE_SECRET_KEY"):
+        provider = "stripe"
+    else:
+        provider = "unset"
     print(f"Active provider: {provider}")
     print("PCI target: SAQ_A")
     print("Stores PAN: false")

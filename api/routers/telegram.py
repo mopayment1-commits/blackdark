@@ -4,15 +4,18 @@ from __future__ import annotations
 
 import hmac
 import os
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from security_auth import require_admin
 
-router = APIRouter(prefix="/api/telegram", tags=["telegram"])
+from api.openapi_responses import COMMON_ERROR_RESPONSES
+
+router = APIRouter(prefix="/api/telegram", tags=["telegram"], responses=COMMON_ERROR_RESPONSES)
 
 
-@router.post("/webhook")
+@router.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def telegram_webhook(request: Request):
     """Telegram Bot API webhook — /start subscribes to 3 free alerts/day."""
     from security_auth import is_production_env
@@ -68,7 +71,7 @@ async def telegram_free_status():
 
 
 @router.post("/free/broadcast")
-async def telegram_free_broadcast(_admin: dict = Depends(require_admin)):
+async def telegram_free_broadcast(_admin: Annotated[dict, Depends(require_admin)]):
     from telegram_free_alerts import dispatch_free_telegram_alerts
 
     return await dispatch_free_telegram_alerts()

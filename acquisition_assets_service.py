@@ -123,7 +123,7 @@ async def _audit_community_asset() -> dict[str, Any]:
     }
 
 
-async def _audit_brand_asset() -> dict[str, Any]:
+def _audit_brand_asset() -> dict[str, Any]:
     manifest_path = Path(__file__).resolve().parent / "static" / "manifest.json"
     has_pwa = manifest_path.exists()
     domain = getattr(config, "APP_PUBLIC_NAME", "BLACKDARK")
@@ -217,7 +217,7 @@ async def build_acquisition_asset_audit() -> dict[str, Any]:
     pillars = [
         await _audit_data_asset(),
         await _audit_community_asset(),
-        await _audit_brand_asset(),
+        _audit_brand_asset(),
         await _audit_models_asset(),
         await _audit_behavior_asset(),
     ]

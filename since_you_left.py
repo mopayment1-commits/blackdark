@@ -15,6 +15,9 @@ from typing import Any
 
 from path_safety import ensure_under, safe_data_file
 
+# Sonar S1192: duplicated string literals
+PATH_KILL_RATE = '/kill-rate'
+
 _DATA = safe_data_file("since_you_left.json")
 _DATA_BASE = Path(__file__).resolve().parent / "data"
 
@@ -38,10 +41,7 @@ def _save_store(store: dict[str, Any]) -> None:
     path.write_text(json.dumps(store, ensure_ascii=False, indent=2), encoding="utf-8")  # NOSONAR pythonsecurity:S2083
 
 
-def capture_market_snapshot() -> dict[str, Any]:
-    """Point-in-time facts used to compute Top-3 deltas."""
-    snap: dict[str, Any] = {"captured_at": _utcnow(), "ts": time.time()}
-
+def _snapshot_kill_rate(snap: dict[str, Any]) -> None:
     try:
         from kill_rate_board import build_kill_rate_board
 
@@ -52,6 +52,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["kill_rate_percent"] = 0.0
         snap["total_kills"] = 0
 
+
+def _snapshot_net_edge(snap: dict[str, Any]) -> None:
     try:
         from net_edge_truth import net_edge_truth_status
 
@@ -62,6 +64,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["net_edge_reject_rate"] = 0.0
         snap["net_edge_evaluated"] = 0
 
+
+def _snapshot_accuracy(snap: dict[str, Any]) -> None:
     try:
         from oracle_track_record import public_track_record
 
@@ -74,6 +78,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["accuracy_hit_rate"] = 0.0
         snap["accuracy_samples"] = 0
 
+
+def _snapshot_locked_predictions(snap: dict[str, Any]) -> None:
     try:
         from locked_predictions import list_locked_predictions
 
@@ -86,6 +92,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["locked_count"] = 0
         snap["locked_open"] = 0
 
+
+def _snapshot_active_opportunities(snap: dict[str, Any]) -> None:
     try:
         from opportunity_tracker import get_active_durations
 
@@ -96,6 +104,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["active_opps"] = 0
         snap["hottest_asset"] = None
 
+
+def _snapshot_registry(snap: dict[str, Any]) -> None:
     try:
         from signal_registry import registry_stats
 
@@ -106,7 +116,8 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["registry_labeled"] = 0
         snap["registry_total"] = 0
 
-    # Best-effort oracle action for BTC
+
+def _snapshot_btc_oracle(snap: dict[str, Any]) -> None:
     try:
         from ai_oracle import get_latest_oracle_snapshot
 
@@ -117,122 +128,140 @@ def capture_market_snapshot() -> dict[str, Any]:
         snap["btc_action"] = "—"
         snap["btc_score"] = None
 
+
+def capture_market_snapshot() -> dict[str, Any]:
+    """Point-in-time facts used to compute Top-3 deltas."""
+    snap: dict[str, Any] = {"captured_at": _utcnow(), "ts": time.time()}
+    for collector in (
+        _snapshot_kill_rate,
+        _snapshot_net_edge,
+        _snapshot_accuracy,
+        _snapshot_locked_predictions,
+        _snapshot_active_opportunities,
+        _snapshot_registry,
+        _snapshot_btc_oracle,
+    ):
+        collector(snap)
     return snap
 
 
-def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, Any]]:
-    items: list[dict[str, Any]] = []
+def _oracle_flip_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
+    if not (prev.get("btc_action") and cur.get("btc_action")):
+        return None
+    if prev["btc_action"] == cur["btc_action"]:
+        return None
+    return {
+        "id": "oracle_flip",
+        "rank_score": 100,
+        "title": "Oracle flipped",
+        "detail": f"BTC {prev['btc_action']} → {cur['btc_action']}",
+        "href": "/dashboard?lens=prove#decide",
+    }
 
-    if prev.get("btc_action") and cur.get("btc_action") and prev["btc_action"] != cur["btc_action"]:
-        items.append(
-            {
-                "id": "oracle_flip",
-                "rank_score": 100,
-                "title": "Oracle flipped",
-                "detail": f"BTC {prev['btc_action']} → {cur['btc_action']}",
-                "href": "/dashboard?lens=prove#decide",
-            }
-        )
 
+def _kill_rate_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
     dk = float(cur.get("kill_rate_percent") or 0) - float(prev.get("kill_rate_percent") or 0)
-    if abs(dk) >= 0.1 or int(cur.get("total_kills") or 0) > int(prev.get("total_kills") or 0):
-        items.append(
-            {
-                "id": "kill_rate",
-                "rank_score": 90 + min(9, abs(dk)),
-                "title": "Kill-Rate moved",
-                "detail": (
-                    f"{prev.get('kill_rate_percent', 0)}% → {cur.get('kill_rate_percent', 0)}% "
-                    f"({prev.get('total_kills', 0)} → {cur.get('total_kills', 0)} refusals)"
-                ),
-                "href": "/kill-rate",
-            }
-        )
+    if abs(dk) < 0.1 and int(cur.get("total_kills") or 0) <= int(prev.get("total_kills") or 0):
+        return None
+    return {
+        "id": "kill_rate",
+        "rank_score": 90 + min(9, abs(dk)),
+        "title": "Kill-Rate moved",
+        "detail": (
+            f"{prev.get('kill_rate_percent', 0)}% → {cur.get('kill_rate_percent', 0)}% "
+            f"({prev.get('total_kills', 0)} → {cur.get('total_kills', 0)} refusals)"
+        ),
+        "href": PATH_KILL_RATE,
+    }
 
+
+def _ledger_growth_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
     ds = int(cur.get("accuracy_samples") or 0) - int(prev.get("accuracy_samples") or 0)
-    if ds != 0:
-        items.append(
-            {
-                "id": "ledger_growth",
-                "rank_score": 80 + min(9, abs(ds)),
-                "title": "Public ledger grew",
-                "detail": f"{ds:+d} resolved samples · hit-rate {cur.get('accuracy_hit_rate', 0)}%",
-                "href": "/oracle-accuracy",
-            }
-        )
+    if ds == 0:
+        return None
+    return {
+        "id": "ledger_growth",
+        "rank_score": 80 + min(9, abs(ds)),
+        "title": "Public ledger grew",
+        "detail": f"{ds:+d} resolved samples · hit-rate {cur.get('accuracy_hit_rate', 0)}%",
+        "href": "/oracle-accuracy",
+    }
 
+
+def _locked_predictions_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
     dl = int(cur.get("locked_count") or 0) - int(prev.get("locked_count") or 0)
-    if dl != 0:
-        items.append(
-            {
-                "id": "locked_preds",
-                "rank_score": 75,
-                "title": "Locked predictions changed",
-                "detail": f"{dl:+d} sealed/listed · {cur.get('locked_open', 0)} open",
-                "href": "/oracle-accuracy#locked",
-            }
-        )
+    if dl == 0:
+        return None
+    return {
+        "id": "locked_preds",
+        "rank_score": 75,
+        "title": "Locked predictions changed",
+        "detail": f"{dl:+d} sealed/listed · {cur.get('locked_open', 0)} open",
+        "href": "/oracle-accuracy#locked",
+    }
 
+
+def _corpus_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
     dr = int(cur.get("registry_labeled") or 0) - int(prev.get("registry_labeled") or 0)
-    if dr != 0:
-        items.append(
-            {
-                "id": "corpus",
-                "rank_score": 70,
-                "title": "Labeled corpus grew",
-                "detail": f"{dr:+d} labeled signals · total labeled {cur.get('registry_labeled', 0)}",
-                "href": "/corpus-passport",
-            }
-        )
+    if dr == 0:
+        return None
+    return {
+        "id": "corpus",
+        "rank_score": 70,
+        "title": "Labeled corpus grew",
+        "detail": f"{dr:+d} labeled signals · total labeled {cur.get('registry_labeled', 0)}",
+        "href": "/corpus-passport",
+    }
 
-    if cur.get("hottest_asset") and cur.get("active_opps", 0) > 0:
-        if cur.get("hottest_asset") != prev.get("hottest_asset") or cur.get("active_opps") != prev.get(
-            "active_opps"
-        ):
-            items.append(
-                {
-                    "id": "half_life_heat",
-                    "rank_score": 65,
-                    "title": "Desk heat changed",
-                    "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
-                    "href": "/dashboard?lens=desk#half-life-clock",
-                }
-            )
 
-    if not items:
-        items = [
-            {
-                "id": "stable_oracle",
-                "rank_score": 50,
-                "title": "Oracle stance steady",
-                "detail": f"BTC still {cur.get('btc_action', '—')} — no material flip since last visit",
-                "href": "/",
-            },
-            {
-                "id": "kill_board",
-                "rank_score": 40,
-                "title": "Kill-Rate board live",
-                "detail": f"Public refusal rate {cur.get('kill_rate_percent', 0)}%",
-                "href": "/kill-rate",
-            },
-            {
-                "id": "arena",
-                "rank_score": 30,
-                "title": "Proof Arena waiting",
-                "detail": "Human vs Oracle weekly — place or review your pick",
-                "href": "/proof-arena",
-            },
-        ]
+def _half_life_heat_item(prev: dict[str, Any], cur: dict[str, Any]) -> dict[str, Any] | None:
+    if not cur.get("hottest_asset") or cur.get("active_opps", 0) <= 0:
+        return None
+    if cur.get("hottest_asset") == prev.get("hottest_asset") and cur.get("active_opps") == prev.get("active_opps"):
+        return None
+    return {
+        "id": "half_life_heat",
+        "rank_score": 65,
+        "title": "Desk heat changed",
+        "detail": f"{cur.get('active_opps')} live edges · hottest {cur.get('hottest_asset')}",
+        "href": "/dashboard?lens=desk#half-life-clock",
+    }
 
-    items.sort(key=lambda x: float(x.get("rank_score") or 0), reverse=True)
-    # Always return exactly Top-3 (pad with stable continuity cards)
-    pads = [
+
+def _stable_delta_items(cur: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        {
+            "id": "stable_oracle",
+            "rank_score": 50,
+            "title": "Oracle stance steady",
+            "detail": f"BTC still {cur.get('btc_action', '—')} — no material flip since last visit",
+            "href": "/",
+        },
+        {
+            "id": "kill_board",
+            "rank_score": 40,
+            "title": "Kill-Rate board live",
+            "detail": f"Public refusal rate {cur.get('kill_rate_percent', 0)}%",
+            "href": PATH_KILL_RATE,
+        },
+        {
+            "id": "arena",
+            "rank_score": 30,
+            "title": "Proof Arena waiting",
+            "detail": "Human vs Oracle weekly — place or review your pick",
+            "href": "/proof-arena",
+        },
+    ]
+
+
+def _delta_pads() -> list[dict[str, Any]]:
+    return [
         {
             "id": "kill_board",
             "rank_score": 20,
             "title": "Kill-Rate board live",
             "detail": "Public refusal rate — verify honesty anytime",
-            "href": "/kill-rate",
+            "href": PATH_KILL_RATE,
         },
         {
             "id": "miss_feed",
@@ -249,8 +278,25 @@ def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, An
             "href": "/coverage-honesty",
         },
     ]
+
+
+def _delta_items(prev: dict[str, Any], cur: dict[str, Any]) -> list[dict[str, Any]]:
+    builders = (
+        _oracle_flip_item,
+        _kill_rate_item,
+        _ledger_growth_item,
+        _locked_predictions_item,
+        _corpus_item,
+        _half_life_heat_item,
+    )
+    items = [item for builder in builders if (item := builder(prev, cur)) is not None]
+    if not items:
+        items = _stable_delta_items(cur)
+
+    items.sort(key=lambda x: float(x.get("rank_score") or 0), reverse=True)
+    # Always return exactly Top-3 (pad with stable continuity cards)
     out = items[:3]
-    for p in pads:
+    for p in _delta_pads():
         if len(out) >= 3:
             break
         if p["id"] not in {x.get("id") for x in out}:
@@ -288,7 +334,7 @@ def build_since_you_left(user_key: str = "anon", *, touch: bool = True) -> dict[
                 "rank_score": 80,
                 "title": "See what we refuse",
                 "detail": f"Kill-Rate {cur.get('kill_rate_percent', 0)}%",
-                "href": "/kill-rate",
+                "href": PATH_KILL_RATE,
             },
         ]
         if first_visit

@@ -10,6 +10,11 @@ from typing import Any
 
 from org_tenant import ROLES, assert_org_access, member_of
 
+# Sonar S1192: duplicated string literals
+KEY_AUDIT_VIEW = 'audit.view'
+KEY_DECISIONS_EXECUTE = 'decisions.execute'
+KEY_DECISIONS_VIEW = 'decisions.view'
+
 PERMISSIONS: dict[str, set[str]] = {
     "admin": {
         "org.manage",
@@ -19,34 +24,34 @@ PERMISSIONS: dict[str, set[str]] = {
         "billing.manage",
         "compliance.view",
         "compliance.export",
-        "decisions.view",
-        "decisions.execute",
-        "audit.view",
+        KEY_DECISIONS_VIEW,
+        KEY_DECISIONS_EXECUTE,
+        KEY_AUDIT_VIEW,
         "contracts.sign",
         "support.manage",
     },
     "compliance": {
         "compliance.view",
         "compliance.export",
-        "decisions.view",
-        "audit.view",
+        KEY_DECISIONS_VIEW,
+        KEY_AUDIT_VIEW,
         "contracts.view",
     },
     "pm": {
-        "decisions.view",
-        "decisions.execute",
+        KEY_DECISIONS_VIEW,
+        KEY_DECISIONS_EXECUTE,
         "billing.view",
-        "audit.view",
+        KEY_AUDIT_VIEW,
         "support.open",
     },
     "analyst": {
-        "decisions.view",
-        "decisions.execute",
-        "audit.view",
+        KEY_DECISIONS_VIEW,
+        KEY_DECISIONS_EXECUTE,
+        KEY_AUDIT_VIEW,
     },
     "viewer": {
-        "decisions.view",
-        "audit.view",
+        KEY_DECISIONS_VIEW,
+        KEY_AUDIT_VIEW,
     },
 }
 

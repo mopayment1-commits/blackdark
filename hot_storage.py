@@ -71,17 +71,20 @@ class HotStorageBackend(ABC):
 
     @abstractmethod
     async def connect(self) -> None:
-        raise NotImplementedError
+        await asyncio.sleep(0)
+        raise NotImplementedError("HotStorageBackend.connect")
 
     @abstractmethod
     async def close(self) -> None:
-        raise NotImplementedError
+        await asyncio.sleep(0)
+        raise NotImplementedError("HotStorageBackend.close")
 
     @abstractmethod
     async def insert_batch(self, records: list[HotRecord]) -> int:
-        raise NotImplementedError
+        await asyncio.sleep(0)
+        raise NotImplementedError("HotStorageBackend.insert_batch")
 
-    async def health_check(self) -> bool:
+    def health_check(self) -> bool:
         return True
 
 
@@ -99,11 +102,13 @@ class LocalNDJSONSpoolBackend(HotStorageBackend):
         self._open_handles: dict[Path, Any] = {}
 
     async def connect(self) -> None:
+        await asyncio.sleep(0)
         self.root_dir.mkdir(parents=True, exist_ok=True)
         for record_type in HotRecordType:
             (self.root_dir / record_type.value).mkdir(parents=True, exist_ok=True)
 
     async def close(self) -> None:
+        await asyncio.sleep(0)
         for handle in self._open_handles.values():
             try:
                 handle.flush()
@@ -125,6 +130,7 @@ class LocalNDJSONSpoolBackend(HotStorageBackend):
         return handle
 
     async def insert_batch(self, records: list[HotRecord]) -> int:
+        await asyncio.sleep(0)
         if not records:
             return 0
 
@@ -526,6 +532,7 @@ class SQLiteMirrorBackend(HotStorageBackend):
         await init_db()
 
     async def close(self) -> None:
+        await asyncio.sleep(0)
         return None
 
     async def insert_batch(self, records: list[HotRecord]) -> int:
@@ -950,7 +957,7 @@ def enqueue_tick_snapshot(
     )
 
 
-async def get_hot_storage_stats() -> HotStorageStats:
+def get_hot_storage_stats() -> HotStorageStats:
     pipeline = get_hot_pipeline()
     if pipeline is None:
         return HotStorageStats()

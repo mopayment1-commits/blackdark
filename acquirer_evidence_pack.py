@@ -10,6 +10,167 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+STR_REGIME_CONDITIONAL_MODELS = 'Regime-Conditional Models'
+
+
+async def _public_accuracy_section() -> dict[str, Any]:
+    try:
+        from ml.public_accuracy import build_public_accuracy_payload
+
+        return await build_public_accuracy_payload()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _track_record_section() -> dict[str, Any]:
+    try:
+        from oracle_track_record import public_track_record
+
+        return public_track_record()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _audit_chain_section() -> dict[str, Any]:
+    try:
+        from oracle_audit_chain import chain_summary, verify_chain
+
+        return {
+            "summary": chain_summary(limit=10),
+            "verify": verify_chain(),
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _registry_section() -> dict[str, Any]:
+    try:
+        from signal_registry import registry_stats
+
+        return registry_stats()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _net_edge_section() -> dict[str, Any]:
+    try:
+        from net_edge_truth import net_edge_truth_status
+
+        return net_edge_truth_status()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _half_life_section() -> dict[str, Any]:
+    try:
+        from opportunity_tracker import half_life_status
+
+        return half_life_status()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _conflict_section() -> dict[str, Any]:
+    try:
+        from dimension_conflict_guard import dimension_conflict_status
+
+        return dimension_conflict_status()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+async def _data_moat_section() -> dict[str, Any]:
+    try:
+        from data_moat_guard import build_moat_build_status
+
+        return await build_moat_build_status()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+async def _acquisition_assets_section() -> dict[str, Any]:
+    try:
+        from acquisition_assets_service import build_acquisition_asset_audit
+
+        return await build_acquisition_asset_audit()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _flywheel_section() -> dict[str, Any]:
+    try:
+        from flywheel_saturation_guard import flywheel_saturation_status
+
+        return flywheel_saturation_status()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+async def _corpus_passport_section() -> dict[str, Any]:
+    try:
+        from corpus_passport import build_corpus_passport
+
+        return await build_corpus_passport()
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
+def _base_differentiators() -> list[dict[str, Any]]:
+    return [
+        {"id": "D1", "name": "Proof-Native Oracle", "status": "live"},
+        {"id": "D2", "name": "Contradiction Veto", "status": "live"},
+        {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
+        {"id": "D4", "name": "Opportunity Half-Life", "status": "live"},
+        {"id": "D5", "name": STR_REGIME_CONDITIONAL_MODELS, "status": "pending"},
+        {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
+        {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
+        {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
+    ]
+
+
+def _refresh_regime_differentiator(differentiators: list[dict[str, Any]]) -> None:
+    try:
+        from ml.regime_models import regime_model_registry
+
+        d5 = regime_model_registry()
+        differentiators[4] = {
+            "id": "D5",
+            "name": STR_REGIME_CONDITIONAL_MODELS,
+            "status": d5.get("status") or d5.get("evidence_status") or "weights_live",
+            "evidence_status": d5.get("evidence_status"),
+            "artifacts_ready": d5.get("artifacts_ready"),
+            "artifacts_expected": d5.get("artifacts_expected"),
+            "note": d5.get("note"),
+        }
+    except Exception:
+        differentiators[4] = {
+            "id": "D5",
+            "name": STR_REGIME_CONDITIONAL_MODELS,
+            "status": "weights_live",
+            "note": "Regime weights + confidence router live; registry unavailable",
+        }
+
+
+def _refresh_registry_differentiator(differentiators: list[dict[str, Any]]) -> None:
+    try:
+        from signal_registry import registry_stats
+
+        d8 = registry_stats()
+        differentiators[7] = {
+            "id": "D8",
+            "name": "Sovereign Signal Registry",
+            "status": d8.get("status") or ("live" if (d8.get("labeled") or 0) > 0 else "pending_labels"),
+            "labeled": d8.get("labeled"),
+            "unlabeled": d8.get("unlabeled"),
+            "linked_prediction_ids": d8.get("linked_prediction_ids"),
+            "total_in_memory": d8.get("total_in_memory"),
+            "by_label": d8.get("by_label"),
+            "by_type_performance": d8.get("by_type_performance"),
+        }
+    except Exception:
+        pass
+
 
 async def build_acquirer_evidence_pack() -> dict[str, Any]:
     pack: dict[str, Any] = {
@@ -23,135 +184,24 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         "committee_checklist": [],
     }
 
-    # Public accuracy / track record
-    try:
-        from ml.public_accuracy import build_public_accuracy_payload
+    sections = pack["sections"]
+    sections["public_accuracy"] = await _public_accuracy_section()
+    sections["track_record"] = _track_record_section()
+    sections["audit_chain"] = _audit_chain_section()
+    sections["signal_registry"] = _registry_section()
+    sections["net_edge_truth"] = _net_edge_section()
+    sections["opportunity_half_life"] = _half_life_section()
+    sections["contradiction_veto"] = _conflict_section()
+    sections["data_moat"] = await _data_moat_section()
+    sections["acquisition_assets"] = await _acquisition_assets_section()
+    sections["flywheel_saturation"] = _flywheel_section()
 
-        pack["sections"]["public_accuracy"] = await build_public_accuracy_payload()
-    except Exception as exc:
-        pack["sections"]["public_accuracy"] = {"error": str(exc)}
-
-    try:
-        from oracle_track_record import public_track_record
-
-        pack["sections"]["track_record"] = public_track_record()
-    except Exception as exc:
-        pack["sections"]["track_record"] = {"error": str(exc)}
-
-    try:
-        from oracle_audit_chain import chain_summary, verify_chain
-
-        pack["sections"]["audit_chain"] = {
-            "summary": chain_summary(limit=10),
-            "verify": verify_chain(),
-        }
-    except Exception as exc:
-        pack["sections"]["audit_chain"] = {"error": str(exc)}
-
-    try:
-        from signal_registry import registry_stats
-
-        pack["sections"]["signal_registry"] = registry_stats()
-    except Exception as exc:
-        pack["sections"]["signal_registry"] = {"error": str(exc)}
-
-    try:
-        from net_edge_truth import net_edge_truth_status
-
-        pack["sections"]["net_edge_truth"] = net_edge_truth_status()
-    except Exception as exc:
-        pack["sections"]["net_edge_truth"] = {"error": str(exc)}
-
-    try:
-        from opportunity_tracker import half_life_status
-
-        pack["sections"]["opportunity_half_life"] = half_life_status()
-    except Exception as exc:
-        pack["sections"]["opportunity_half_life"] = {"error": str(exc)}
-
-    try:
-        from dimension_conflict_guard import dimension_conflict_status
-
-        pack["sections"]["contradiction_veto"] = dimension_conflict_status()
-    except Exception as exc:
-        pack["sections"]["contradiction_veto"] = {"error": str(exc)}
-
-    try:
-        from data_moat_guard import build_moat_build_status
-
-        pack["sections"]["data_moat"] = await build_moat_build_status()
-    except Exception as exc:
-        pack["sections"]["data_moat"] = {"error": str(exc)}
-
-    try:
-        from acquisition_assets_service import build_acquisition_asset_audit
-
-        pack["sections"]["acquisition_assets"] = await build_acquisition_asset_audit()
-    except Exception as exc:
-        pack["sections"]["acquisition_assets"] = {"error": str(exc)}
-
-    try:
-        from flywheel_saturation_guard import flywheel_saturation_status
-
-        pack["sections"]["flywheel_saturation"] = flywheel_saturation_status()
-    except Exception as exc:
-        pack["sections"]["flywheel_saturation"] = {"error": str(exc)}
-
-    pack["differentiators"] = [
-        {"id": "D1", "name": "Proof-Native Oracle", "status": "live"},
-        {"id": "D2", "name": "Contradiction Veto", "status": "live"},
-        {"id": "D3", "name": "Net-Edge Truth Score", "status": "live"},
-        {"id": "D4", "name": "Opportunity Half-Life", "status": "live"},
-        {"id": "D5", "name": "Regime-Conditional Models", "status": "pending"},
-        {"id": "D6", "name": "Acquirer Evidence Pack", "status": "live"},
-        {"id": "D7", "name": "Persona Clarity (English-first)", "status": "live"},
-        {"id": "D8", "name": "Sovereign Signal Registry", "status": "live"},
-    ]
-    try:
-        from ml.regime_models import regime_model_registry
-
-        d5 = regime_model_registry()
-        pack["differentiators"][4] = {
-            "id": "D5",
-            "name": "Regime-Conditional Models",
-            "status": d5.get("status") or d5.get("evidence_status") or "weights_live",
-            "evidence_status": d5.get("evidence_status"),
-            "artifacts_ready": d5.get("artifacts_ready"),
-            "artifacts_expected": d5.get("artifacts_expected"),
-            "note": d5.get("note"),
-        }
-    except Exception:
-        pack["differentiators"][4] = {
-            "id": "D5",
-            "name": "Regime-Conditional Models",
-            "status": "weights_live",
-            "note": "Regime weights + confidence router live; registry unavailable",
-        }
-    try:
-        from signal_registry import registry_stats
-
-        d8 = registry_stats()
-        pack["differentiators"][7] = {
-            "id": "D8",
-            "name": "Sovereign Signal Registry",
-            "status": d8.get("status") or ("live" if (d8.get("labeled") or 0) > 0 else "pending_labels"),
-            "labeled": d8.get("labeled"),
-            "unlabeled": d8.get("unlabeled"),
-            "linked_prediction_ids": d8.get("linked_prediction_ids"),
-            "total_in_memory": d8.get("total_in_memory"),
-            "by_label": d8.get("by_label"),
-            "by_type_performance": d8.get("by_type_performance"),
-        }
-    except Exception:
-        pass
+    pack["differentiators"] = _base_differentiators()
+    _refresh_regime_differentiator(pack["differentiators"])
+    _refresh_registry_differentiator(pack["differentiators"])
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
-    try:
-        from corpus_passport import build_corpus_passport
-
-        pack["sections"]["corpus_passport"] = await build_corpus_passport()
-    except Exception as exc:
-        pack["sections"]["corpus_passport"] = {"error": str(exc)}
+    pack["sections"]["corpus_passport"] = await _corpus_passport_section()
 
     pack["committee_checklist"] = [
         "Verify audit chain integrity",

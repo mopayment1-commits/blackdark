@@ -23,7 +23,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
-async def _verify() -> dict:
+def _verify() -> dict:
     from bd_platform.infra_status import infra_ready_score
 
     return infra_ready_score()

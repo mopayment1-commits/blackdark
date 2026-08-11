@@ -166,7 +166,7 @@ def _live_mode_requested() -> bool:
     return live and not dry_run
 
 
-def resolve_credential_source(user_id: int | None, has_user_creds: bool) -> str:
+def resolve_credential_source(_user_id: int | None, has_user_creds: bool) -> str:
     if has_user_creds:
         return "user_vault"
     if os.getenv("BINANCE_API_KEY") and os.getenv("BINANCE_API_SECRET"):

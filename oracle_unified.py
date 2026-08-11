@@ -7,6 +7,8 @@ base score → regime-weighted dimensions → conflict resolution → optional M
 
 from __future__ import annotations
 
+import asyncio
+
 import logging
 from typing import Any
 
@@ -199,6 +201,82 @@ def apply_unified_adjustments(
     return max(0.0, min(100.0, adjusted)), breakdown
 
 
+async def _rl_policy_adjustment(change_24h: float, breakdown: dict[str, Any]) -> dict[str, Any]:
+    await asyncio.sleep(0)
+    rl_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
+    try:
+        from ml.rl_policy import predict_action
+
+        feats = {
+            "ret_24h": float(change_24h or 0.0) / 100.0,
+            "volatility": abs(float(change_24h or 0.0)) / 100.0,
+            "obi_score": float((breakdown.get("obi") or {}).get("score") or 0.0),
+            "sentiment_score": float(
+                (breakdown.get("sentiment") or {}).get("compound")
+                or (breakdown.get("hub_adjustment") or 0.0)
+            ),
+        }
+        action = predict_action(feats)
+    except Exception:
+        return rl_meta
+    rl_meta = {"available": True, **action}
+    act = str(action.get("action") or "hold")
+    conf = float(action.get("confidence") or 0.0)
+    if act == "long":
+        rl_meta["nudge"] = min(3.0, 2.0 * conf)
+    elif act == "short":
+        rl_meta["nudge"] = -min(3.0, 2.0 * conf)
+    else:
+        rl_meta["nudge"] = 0.0
+    return rl_meta
+
+
+async def _timeframe_confluence_adjustment(
+    asset: str,
+    adjusted: float,
+    conflict_meta: dict[str, Any],
+) -> tuple[float, dict[str, Any], dict[str, Any]]:
+    confluence: dict[str, Any] = {"aligned": None, "score_penalty": 0.0}
+    try:
+        from technical_analysis import compute_timeframe_confluence
+
+        confluence = await compute_timeframe_confluence(asset)
+        adjusted -= float(confluence.get("score_penalty") or 0.0)
+        conflict_meta = _merge_timeframe_conflict(conflict_meta, confluence)
+    except Exception:
+        pass
+    return adjusted, conflict_meta, confluence
+
+
+def _merge_timeframe_conflict(
+    conflict_meta: dict[str, Any],
+    confluence: dict[str, Any],
+) -> dict[str, Any]:
+    penalty = float(confluence.get("score_penalty") or 0)
+    if confluence.get("aligned") is False and penalty >= 8:
+        return {
+            **conflict_meta,
+            "timeframe_disagreement": True,
+            "abstain": True if not conflict_meta.get("veto") else conflict_meta.get("abstain"),
+        }
+    return conflict_meta
+
+
+def _conflict_penalty(
+    breakdown: dict[str, Any],
+    conflict_meta: dict[str, Any],
+    confluence: dict[str, Any],
+) -> float:
+    penalty = float((breakdown.get("conflicts") or {}).get("confidence_penalty") or 0.0)
+    if conflict_meta.get("veto"):
+        penalty += 15.0
+    elif conflict_meta.get("abstain"):
+        penalty += 8.0
+    if confluence.get("aligned") is False:
+        penalty += 5.0
+    return penalty
+
+
 async def finalize_unified_score(
     adjusted_score: float,
     asset: str,
@@ -218,51 +296,17 @@ async def finalize_unified_score(
         adjusted += float(ml_meta.get("nudge") or 0.0)
 
     # Soft RL policy fusion (size/bias hint) — never overrides veto/conflict.
-    rl_meta: dict[str, Any] = {"available": False, "nudge": 0.0}
-    try:
-        from ml.rl_policy import predict_action
-
-        feats = {
-            "ret_24h": float(change_24h or 0.0) / 100.0,
-            "volatility": abs(float(change_24h or 0.0)) / 100.0,
-            "obi_score": float((breakdown.get("obi") or {}).get("score") or 0.0),
-            "sentiment_score": float(
-                (breakdown.get("sentiment") or {}).get("compound")
-                or (breakdown.get("hub_adjustment") or 0.0)
-            ),
-        }
-        action = predict_action(feats)
-        rl_meta = {"available": True, **action}
-        act = str(action.get("action") or "hold")
-        conf = float(action.get("confidence") or 0.0)
-        if act == "long":
-            rl_meta["nudge"] = min(3.0, 2.0 * conf)
-        elif act == "short":
-            rl_meta["nudge"] = -min(3.0, 2.0 * conf)
-        else:
-            rl_meta["nudge"] = 0.0
-        adjusted += float(rl_meta["nudge"])
-    except Exception:
-        pass
+    rl_meta = await _rl_policy_adjustment(change_24h, breakdown)
+    adjusted += float(rl_meta.get("nudge") or 0.0)
 
     adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
 
     # Core Canon §1.1 — multi-timeframe confluence before trusting score.
-    confluence: dict[str, Any] = {"aligned": None, "score_penalty": 0.0}
-    try:
-        from technical_analysis import compute_timeframe_confluence
-
-        confluence = await compute_timeframe_confluence(asset)
-        adjusted -= float(confluence.get("score_penalty") or 0.0)
-        if confluence.get("aligned") is False and float(confluence.get("score_penalty") or 0) >= 8:
-            # Frames disagree strongly — fail-soft toward WAIT presentation.
-            conflict_meta = {
-                **conflict_meta,
-                "timeframe_disagreement": True,
-                "abstain": True if not conflict_meta.get("veto") else conflict_meta.get("abstain"),
-            }
-    except Exception:
-        pass
+    adjusted, conflict_meta, confluence = await _timeframe_confluence_adjustment(
+        asset,
+        adjusted,
+        conflict_meta,
+    )
 
     final_score = round(max(0.0, min(100.0, adjusted)))
     public_verdict = unified_verdict_with_conflict(
@@ -271,19 +315,12 @@ async def finalize_unified_score(
         conflict_meta,
         base_verdict=_oracle_verdict_from_score(final_score, asset),
     )
-    conflict_penalty = float((breakdown.get("conflicts") or {}).get("confidence_penalty") or 0.0)
-    if conflict_meta.get("veto"):
-        conflict_penalty += 15.0
-    elif conflict_meta.get("abstain"):
-        conflict_penalty += 8.0
-    if confluence.get("aligned") is False:
-        conflict_penalty += 5.0
     ml_conf = float(ml_meta.get("confidence_percent") or 0) if ml_meta.get("available") else None
     confidence = _confidence_from_score(
         final_score,
         change_24h,
         quote_volume,
-        conflict_penalty=conflict_penalty,
+        conflict_penalty=_conflict_penalty(breakdown, conflict_meta, confluence),
         ml_confidence=ml_conf,
     )
     internal_verdict = arbitrage_internal_verdict(

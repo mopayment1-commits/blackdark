@@ -23,7 +23,8 @@ def test_site_services_manifest():
     assert m["product"] == "BLACKDARK Trust OS"
     assert m["ai_chat"]["free_tier"] is False
     assert "pro" in m["ai_chat"]["tiers"]
-    assert FAQ_ITEMS and HOW_IT_WORKS_STEPS
+    assert FAQ_ITEMS
+    assert HOW_IT_WORKS_STEPS
     foot = footer_manifest()
     assert any(x["href"] == "/legal" for x in foot["legal"])
     assert any(x["href"] == "/faq" for x in foot["trust"])

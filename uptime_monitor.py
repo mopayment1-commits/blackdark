@@ -50,7 +50,7 @@ def _load_recent_probes(max_age_sec: float | None = None) -> list[dict[str, Any]
             ts = datetime.fromisoformat(str(row["ts"]))
             if ts.timestamp() >= cutoff:
                 rows.append(row)
-        except (json.JSONDecodeError, KeyError, ValueError, TypeError):
+        except (KeyError, ValueError, TypeError):
             continue
     return rows
 

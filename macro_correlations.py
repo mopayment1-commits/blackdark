@@ -134,53 +134,52 @@ async def _fetch_yahoo_last_price(
         return None
 
 
-async def fetch_macro_indicators() -> MacroIndicators:
-    """
-    Pull or mock real-time macro indicators for DXY, SPX, and BTC/Gold ratio.
-    """
-    if config.MACRO_DATA_SOURCE == "mock":
-        return _mock_macro_indicators()
-
+async def _fetch_yahoo_macro_values() -> tuple[float | None, float | None, float | None, float | None]:
     timeout = aiohttp.ClientTimeout(total=config.MACRO_FETCH_TIMEOUT_SECONDS)
     async with aiohttp.ClientSession(timeout=timeout) as session:
-        dxy_task = _fetch_yahoo_pct_change(session, config.MACRO_YAHOO_DXY_SYMBOL)
-        spx_task = _fetch_yahoo_pct_change(session, config.MACRO_YAHOO_SPX_SYMBOL)
-        btc_task = _fetch_yahoo_last_price(session, config.MACRO_YAHOO_BTC_SYMBOL)
-        gold_task = _fetch_yahoo_last_price(session, config.MACRO_YAHOO_GOLD_SYMBOL)
         results = await asyncio.gather(
-            dxy_task,
-            spx_task,
-            btc_task,
-            gold_task,
+            _fetch_yahoo_pct_change(session, config.MACRO_YAHOO_DXY_SYMBOL),
+            _fetch_yahoo_pct_change(session, config.MACRO_YAHOO_SPX_SYMBOL),
+            _fetch_yahoo_last_price(session, config.MACRO_YAHOO_BTC_SYMBOL),
+            _fetch_yahoo_last_price(session, config.MACRO_YAHOO_GOLD_SYMBOL),
             return_exceptions=True,
         )
 
-    dxy_score = results[0] if isinstance(results[0], float) else None
-    spx_score = results[1] if isinstance(results[1], float) else None
-    btc_price = results[2] if isinstance(results[2], float) else None
-    gold_price = results[3] if isinstance(results[3], float) else None
+    return (
+        results[0] if isinstance(results[0], float) else None,
+        results[1] if isinstance(results[1], float) else None,
+        results[2] if isinstance(results[2], float) else None,
+        results[3] if isinstance(results[3], float) else None,
+    )
 
-    if config.MACRO_DATA_SOURCE == "mixed" and (
-        dxy_score is None or spx_score is None or btc_price is None or gold_price is None
-    ):
-        mock = _mock_macro_indicators()
-        return MacroIndicators(
-            dxy_score=dxy_score if dxy_score is not None else mock.dxy_score,
-            spx_score=spx_score if spx_score is not None else mock.spx_score,
-            btc_gold_ratio=(
-                round(btc_price / gold_price, 4)
-                if btc_price and gold_price
-                else mock.btc_gold_ratio
-            ),
-            btc_gold_score=mock.btc_gold_score,
-            source="mock" if dxy_score is None and spx_score is None else "yahoo",
-            timestamp=_utcnow_iso(),
-        )
 
-    if dxy_score is None or spx_score is None or not btc_price or not gold_price:
-        logger.warning("Macro indicator fetch incomplete; using mock fallback.")
-        return _mock_macro_indicators()
+def _mixed_macro_indicators(
+    dxy_score: float | None,
+    spx_score: float | None,
+    btc_price: float | None,
+    gold_price: float | None,
+) -> MacroIndicators:
+    mock = _mock_macro_indicators()
+    return MacroIndicators(
+        dxy_score=dxy_score if dxy_score is not None else mock.dxy_score,
+        spx_score=spx_score if spx_score is not None else mock.spx_score,
+        btc_gold_ratio=(
+            round(btc_price / gold_price, 4)
+            if btc_price and gold_price
+            else mock.btc_gold_ratio
+        ),
+        btc_gold_score=mock.btc_gold_score,
+        source="mock" if dxy_score is None and spx_score is None else "yahoo",
+        timestamp=_utcnow_iso(),
+    )
 
+
+def _yahoo_macro_indicators(
+    dxy_score: float,
+    spx_score: float,
+    btc_price: float,
+    gold_price: float,
+) -> MacroIndicators:
     btc_gold_ratio = round(btc_price / gold_price, 4)
     return MacroIndicators(
         dxy_score=dxy_score,
@@ -190,6 +189,27 @@ async def fetch_macro_indicators() -> MacroIndicators:
         source="yahoo",
         timestamp=_utcnow_iso(),
     )
+
+
+async def fetch_macro_indicators() -> MacroIndicators:
+    """
+    Pull or mock real-time macro indicators for DXY, SPX, and BTC/Gold ratio.
+    """
+    if config.MACRO_DATA_SOURCE == "mock":
+        return _mock_macro_indicators()
+
+    dxy_score, spx_score, btc_price, gold_price = await _fetch_yahoo_macro_values()
+
+    if config.MACRO_DATA_SOURCE == "mixed" and (
+        dxy_score is None or spx_score is None or btc_price is None or gold_price is None
+    ):
+        return _mixed_macro_indicators(dxy_score, spx_score, btc_price, gold_price)
+
+    if dxy_score is None or spx_score is None or not btc_price or not gold_price:
+        logger.warning("Macro indicator fetch incomplete; using mock fallback.")
+        return _mock_macro_indicators()
+
+    return _yahoo_macro_indicators(dxy_score, spx_score, btc_price, gold_price)
 
 
 def compute_macro_regime(indicators: MacroIndicators) -> MacroRegimeSnapshot:
@@ -363,7 +383,7 @@ class MacroCorrelationsEngine:
     _shutdown: asyncio.Event = field(default_factory=asyncio.Event)
     _last_cycle_at: float = field(default=0.0)
 
-    async def close(self) -> None:
+    def close(self) -> None:
         self._shutdown.set()
 
     async def run_cycle(self, *, force: bool = False) -> dict[str, Any]:

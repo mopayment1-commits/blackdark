@@ -20,6 +20,7 @@ from fastapi import (
 from fastapi.responses import JSONResponse, RedirectResponse, Response as RawResponse
 
 from api.deps import optional_user, raw_bearer_or_cookie, record_behavior
+from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_models import (
     AuthChangePasswordBody,
     AuthForgotPasswordBody,
@@ -31,7 +32,10 @@ from security_models import (
     AuthResetPasswordBody,
 )
 
-router = APIRouter(prefix="/api/auth", tags=["auth"])
+# Sonar S1192: duplicated string literals
+STR_LOGIN_REQUIRED = 'Login required'
+
+router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
 def _attach_session_cookie(response: Response, token: str | None) -> None:
@@ -54,7 +58,7 @@ async def auth_identity_architecture():
     return identity_architecture()
 
 
-@router.post("/register")
+@router.post("/register", responses=COMMON_ERROR_RESPONSES)
 async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTasks):
     from auth_service import register_user
     from security_auth import check_login_rate_limit
@@ -88,7 +92,7 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.post("/login")
+@router.post("/login", responses=COMMON_ERROR_RESPONSES)
 async def auth_login(
     body: AuthLoginBody,
     request: Request,
@@ -116,7 +120,7 @@ async def auth_login(
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
-@router.post("/mfa/complete")
+@router.post("/mfa/complete", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: BackgroundTasks):
     from auth_service import complete_mfa_login
 
@@ -133,31 +137,31 @@ async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: Backgr
         raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
-@router.get("/mfa/status")
+@router.get("/mfa/status", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_status(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import mfa_status_for_user
 
     return await mfa_status_for_user(int(user["id"]))
 
 
-@router.post("/mfa/enroll")
+@router.post("/mfa/enroll", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import begin_mfa_enroll
 
     return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
 
 
-@router.post("/mfa/confirm")
+@router.post("/mfa/confirm", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_confirm(
     body: AuthMfaConfirmBody,
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import confirm_mfa_enroll
 
     try:
@@ -166,13 +170,13 @@ async def auth_mfa_confirm(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.post("/mfa/disable")
+@router.post("/mfa/disable", responses=COMMON_ERROR_RESPONSES)
 async def auth_mfa_disable(
     body: AuthMfaConfirmBody,
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import disable_mfa
 
     try:
@@ -214,7 +218,7 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     return payload
 
 
-@router.post("/reset-password")
+@router.post("/reset-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_reset_password(body: AuthResetPasswordBody):
     from auth_service import create_session, hash_password
     from database import (
@@ -255,13 +259,13 @@ async def auth_reset_password(body: AuthResetPasswordBody):
     return resp
 
 
-@router.post("/change-password")
+@router.post("/change-password", responses=COMMON_ERROR_RESPONSES)
 async def auth_change_password(
     body: AuthChangePasswordBody,
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from auth_service import hash_password, verify_password
     from database import (
         delete_user_sessions_for_user,
@@ -295,7 +299,7 @@ async def auth_change_password(
     return resp
 
 
-@router.get("/verify-email")
+@router.get("/verify-email", responses=COMMON_ERROR_RESPONSES)
 async def auth_verify_email(token: str = Query(...)):
     from database import mark_email_verified
     from identity_service import consume_auth_token
@@ -311,10 +315,10 @@ async def auth_verify_email(token: str = Query(...)):
     return RedirectResponse(url="/profile?verified=1", status_code=302)
 
 
-@router.post("/resend-verification")
+@router.post("/resend-verification", responses=COMMON_ERROR_RESPONSES)
 async def auth_resend_verification(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     if user.get("email_verified"):
         return {"ok": True, "message": "Email already verified"}
     from identity_service import send_verification_email
@@ -363,7 +367,7 @@ async def auth_oauth_status():
     return oauth_status()
 
 
-@router.get("/oauth/{provider}/start")
+@router.get("/oauth/{provider}/start", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_start(provider: str):
     from identity_service import store_oauth_state_async
     from oauth_service import build_authorize_url
@@ -376,7 +380,7 @@ async def auth_oauth_start(provider: str):
     return payload
 
 
-@router.get("/oauth/{provider}/callback")
+@router.get("/oauth/{provider}/callback", responses=COMMON_ERROR_RESPONSES)
 async def auth_oauth_callback(
     provider: str,
     code: str | None = Query(None),
@@ -423,10 +427,10 @@ async def auth_logout(
     return resp
 
 
-@router.post("/logout-all")
+@router.post("/logout-all", responses=COMMON_ERROR_RESPONSES)
 async def auth_logout_all(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import delete_user_sessions_for_user
 
     await delete_user_sessions_for_user(int(user["id"]))
@@ -486,51 +490,70 @@ async def auth_me(user: dict | None = Depends(optional_user)):
     }
 
 
-@router.patch("/profile")
+@router.patch("/profile", responses=COMMON_ERROR_RESPONSES)
 async def auth_profile_update(
     body: AuthProfileUpdateBody,
     user: dict | None = Depends(optional_user),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
-    from database import fetch_user_by_username, update_user_profile_fields
-    from identity_service import validate_display_name, validate_username
-
-    fields: dict[str, Any] = {}
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     try:
-        if body.name is not None:
-            fields["name"] = validate_display_name(body.name)
-        if body.username is not None:
-            if body.username.strip() == "":
-                fields["username"] = None
-            else:
-                handle = validate_username(body.username)
-                existing = await fetch_user_by_username(handle)
-                if existing and int(existing["id"]) != int(user["id"]):
-                    raise ValueError("Username already taken")
-                fields["username"] = handle
-        if body.telegram_chat_id is not None:
-            fields["telegram_chat_id"] = body.telegram_chat_id.strip() or None
-        if body.ui_lang is not None:
-            fields["ui_lang"] = body.ui_lang.strip().lower()[:12] or "en"
-        if body.ux_mode_pref is not None:
-            fields["ux_mode_pref"] = body.ux_mode_pref
-        if body.timezone is not None:
-            fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+        fields = await _profile_update_fields(body, user)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    from database import update_user_profile_fields
 
     await update_user_profile_fields(int(user["id"]), fields)
     return {"success": True, "updated": list(fields.keys())}
 
 
-@router.post("/avatar")
+async def _profile_update_fields(
+    body: AuthProfileUpdateBody,
+    user: dict,
+) -> dict[str, Any]:
+    fields: dict[str, Any] = {}
+    await _set_profile_name_and_username(fields, body, user)
+    if body.telegram_chat_id is not None:
+        fields["telegram_chat_id"] = body.telegram_chat_id.strip() or None
+    if body.ui_lang is not None:
+        fields["ui_lang"] = body.ui_lang.strip().lower()[:12] or "en"
+    if body.ux_mode_pref is not None:
+        fields["ux_mode_pref"] = body.ux_mode_pref
+    if body.timezone is not None:
+        fields["timezone"] = (body.timezone.strip() or "UTC")[:64]
+    return fields
+
+
+async def _set_profile_name_and_username(
+    fields: dict[str, Any],
+    body: AuthProfileUpdateBody,
+    user: dict,
+) -> None:
+    from database import fetch_user_by_username
+    from identity_service import validate_display_name, validate_username
+
+    if body.name is not None:
+        fields["name"] = validate_display_name(body.name)
+    if body.username is None:
+        return
+    if body.username.strip() == "":
+        fields["username"] = None
+        return
+    handle = validate_username(body.username)
+    existing = await fetch_user_by_username(handle)
+    if existing and int(existing["id"]) != int(user["id"]):
+        raise ValueError("Username already taken")
+    fields["username"] = handle
+
+
+@router.post("/avatar", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_upload(
     user: dict | None = Depends(optional_user),
     file: UploadFile = File(...),
 ):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import update_user_profile_fields
     from identity_service import save_avatar_bytes
 
@@ -544,10 +567,10 @@ async def auth_avatar_upload(
     return {"ok": True, "avatar_url": url}
 
 
-@router.delete("/avatar")
+@router.delete("/avatar", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from database import update_user_profile_fields
     from identity_service import AVATAR_DIR
 
@@ -561,7 +584,7 @@ async def auth_avatar_delete(user: dict | None = Depends(optional_user)):
     return {"ok": True, "avatar_url": url}
 
 
-@router.get("/avatar/{filename}")
+@router.get("/avatar/{filename}", responses=COMMON_ERROR_RESPONSES)
 async def auth_avatar_get(filename: str):
     from identity_service import default_avatar_svg, resolve_avatar_file
 

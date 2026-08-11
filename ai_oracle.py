@@ -29,6 +29,10 @@ from sentiment_engine import (
     is_extreme_negative_sentiment,
 )
 
+# Sonar S1192: duplicated string literals
+STR_BUY_NOW = 'Buy Now'
+STR_DO_NOT_TOUCH = 'Do Not Touch'
+
 logger = logging.getLogger("BLACKDARK.AIOracle")
 
 OpportunityKind = Literal[
@@ -37,7 +41,7 @@ OpportunityKind = Literal[
     "spot_futures",
     "funding",
 ]
-OracleVerdict = Literal["Buy Now", "Do Not Touch"]
+OracleVerdict = Literal[STR_BUY_NOW, STR_DO_NOT_TOUCH]
 
 
 class OpportunityMetrics(BaseModel):
@@ -215,26 +219,10 @@ def calculate_opportunity_score(
     return score
 
 
-def explain_opportunity(
-    opportunity: Any,
-    kind: OpportunityKind,
-    opportunity_score: float,
-    institutional_context: dict[str, Any] | None = None,
-) -> OpportunityExplanation:
-    """Break down technical drivers and produce a confidence percentage."""
-    metrics = extract_metrics(opportunity, kind)
+
+def _explain_kind_reasons(opportunity: Any, kind: OpportunityKind, metrics: OpportunityMetrics) -> tuple[list[str], list[str]]:
     reasons: list[str] = []
     risks: list[str] = []
-
-    reasons.append(
-        f"Net edge after costs: ${metrics.net_profit_usdt:.4f} "
-        f"({metrics.net_profit_percent:.4f}%) on ${metrics.quote_amount:.2f} notional."
-    )
-    reasons.append(
-        f"Depth-walk slippage: {metrics.total_slippage_bps:.2f} bps "
-        f"(lower is better for executable size)."
-    )
-
     if kind == "cross_exchange":
         reasons.append(
             f"Cross-venue spread: buy {opportunity.buy_exchange} / "
@@ -244,19 +232,22 @@ def explain_opportunity(
         risks.append(
             f"Withdrawal fee drag: ${float(opportunity.withdrawal_fee_usdt):.4f}."
         )
-    elif kind == "triangular":
+        return reasons, risks
+    if kind == "triangular":
         reasons.append(
             f"Triangular loop {opportunity.path} on {opportunity.exchange} "
             f"at {opportunity.gross_spread_bps:.2f} bps gross."
         )
         risks.append("Three-leg execution risk: one stale leg collapses the loop.")
-    elif kind == "spot_futures":
+        return reasons, risks
+    if kind == "spot_futures":
         reasons.append(
             f"Spot-perp basis on {opportunity.exchange}: "
             f"{metrics.basis_bps:.2f} bps ({opportunity.direction})."
         )
         risks.append("Basis can mean-revert before both legs fill.")
-    elif kind == "funding":
+        return reasons, risks
+    if kind == "funding":
         reasons.append(
             f"Funding spread: long {opportunity.long_exchange} / "
             f"short {opportunity.short_exchange} at "
@@ -275,115 +266,153 @@ def explain_opportunity(
                 f"CVVD risk buffer applied (${cvvd_buffer:.4f}) due to "
                 f"{', '.join(cvvd_patterns)}."
             )
+    return reasons, risks
 
-    if institutional_context:
-        alert_count = len(institutional_context.get("manipulation_alerts", [])) or len(
-            institutional_context.get("whale_alerts", [])
+
+def _explain_institutional_context(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    alert_count = len(institutional_context.get("manipulation_alerts", [])) or len(
+        institutional_context.get("whale_alerts", [])
+    )
+    if alert_count:
+        reasons.append(
+            f"CVVD radar: {alert_count} cross-venue manipulation signal(s) in latest sweep."
         )
-        if alert_count:
-            reasons.append(
-                f"CVVD radar: {alert_count} cross-venue manipulation signal(s) in latest sweep."
-            )
-        sector_flows = institutional_context.get("sector_inflow_index") or institutional_context.get(
-            "sector_flows", []
-        )
-        asset_sector = config.SECTOR_MAP.get(metrics.asset)
-        for flow in sector_flows:
-            if flow.get("sector") == asset_sector:
-                meta_raw = flow.get("metadata_json")
+    sector_flows = institutional_context.get("sector_inflow_index") or institutional_context.get(
+        "sector_flows", []
+    )
+    asset_sector = config.SECTOR_MAP.get(metrics.asset)
+    for flow in sector_flows:
+        if flow.get("sector") != asset_sector:
+            continue
+        meta_raw = flow.get("metadata_json")
+        meta: dict[str, Any] = {}
+        if isinstance(meta_raw, str):
+            try:
+                meta = json.loads(meta_raw)
+            except json.JSONDecodeError:
                 meta = {}
-                if isinstance(meta_raw, str):
-                    try:
-                        meta = json.loads(meta_raw)
-                    except json.JSONDecodeError:
-                        meta = {}
-                sii = float(meta.get("sii_score") or flow.get("net_flow_usd") or 0.0)
-                reasons.append(
-                    f"Sector Inflow Index ({asset_sector}): SII {sii:.1f} "
-                    f"(capital acceleration, not raw volume)."
-                )
-                break
+        sii = float(meta.get("sii_score") or flow.get("net_flow_usd") or 0.0)
+        reasons.append(
+            f"Sector Inflow Index ({asset_sector}): SII {sii:.1f} "
+            f"(capital acceleration, not raw volume)."
+        )
+        break
+    return reasons, risks
 
-    asset_obi = get_obi_for_asset(metrics.asset, institutional_context or {})
+
+def _explain_obi(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    asset_obi = get_obi_for_asset(metrics.asset, institutional_context)
     if asset_obi is not None:
         reasons.append(f"Order book imbalance (OBI): {asset_obi:+.3f} across watched venues.")
-    obi_warnings = (institutional_context or {}).get("obi_warnings") or []
-    for warning in obi_warnings:
+    for warning in institutional_context.get("obi_warnings") or []:
         if str(warning.get("asset") or "") != metrics.asset:
             continue
         risks.append(str(warning.get("message") or warning.get("warning_type") or "OBI warning"))
         break
+    return reasons, risks
 
-    onchain_status = get_onchain_status_for_asset(metrics.asset, institutional_context or {})
-    if onchain_status:
-        bias = str(onchain_status.get("bias") or "neutral")
-        net_flow = float(onchain_status.get("net_flow_usd") or 0.0)
-        if bias == "accumulation":
-            reasons.append(
-                f"On-chain matrix: accumulation bias (${net_flow:+,.0f} net exchange outflow)."
-            )
-        elif bias == "distribution":
-            risks.append(
-                f"On-chain matrix: distribution risk (${net_flow:+,.0f} net exchange inflow)."
-            )
-        for signal in onchain_status.get("signals") or []:
-            text = str(signal.get("message") or signal.get("signal_type") or "")
-            if signal.get("signal_type") == "accumulation_signal":
-                reasons.append(text)
-            else:
-                risks.append(text)
-            break
 
+def _explain_onchain(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    onchain_status = get_onchain_status_for_asset(metrics.asset, institutional_context)
+    if not onchain_status:
+        return reasons, risks
+    bias = str(onchain_status.get("bias") or "neutral")
+    net_flow = float(onchain_status.get("net_flow_usd") or 0.0)
+    if bias == "accumulation":
+        reasons.append(
+            f"On-chain matrix: accumulation bias (${net_flow:+,.0f} net exchange outflow)."
+        )
+    elif bias == "distribution":
+        risks.append(
+            f"On-chain matrix: distribution risk (${net_flow:+,.0f} net exchange inflow)."
+        )
+    for signal in onchain_status.get("signals") or []:
+        text = str(signal.get("message") or signal.get("signal_type") or "")
+        if signal.get("signal_type") == "accumulation_signal":
+            reasons.append(text)
+        else:
+            risks.append(text)
+        break
+    return reasons, risks
+
+
+def _explain_sentiment(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
     sentiment_index = float(
-        (institutional_context or {}).get("sentiment_compound_index", {}).get(metrics.asset, 0.0)
+        institutional_context.get("sentiment_compound_index", {}).get(metrics.asset, 0.0)
     )
     if is_extreme_negative_sentiment(sentiment_index):
         risks.append(build_sentiment_panic_warning(metrics.asset, sentiment_index))
-    elif abs(sentiment_index) > config.SENTIMENT_NEUTRAL_BAND:
+        return reasons, risks
+    if abs(sentiment_index) > config.SENTIMENT_NEUTRAL_BAND:
         tone = "greed/FOMO" if sentiment_index > 0 else "fear/panic"
         reasons.append(
             f"5-minute news sentiment for {metrics.asset}: {sentiment_index:+.2f} ({tone})."
         )
+    return reasons, risks
 
-    macro_regime = str((institutional_context or {}).get("macro_regime") or "")
-    if macro_regime:
-        macro_weight = macro_score_weight(institutional_context)
-        dxy = float((institutional_context or {}).get("macro_dxy_score", 0.0))
-        spx = float((institutional_context or {}).get("macro_spx_score", 0.0))
-        buffer = float((institutional_context or {}).get("macro_volatility_buffer", 0.0))
-        macro_line = (
-            f"Macro regime: {macro_regime} | DXY {dxy:+.2f}% | SPX {spx:+.2f}% | "
-            f"volatility buffer {buffer:.1f} bps | score weight x{macro_weight:.2f}."
-        )
-        if macro_regime == "Risk-Off":
-            risks.append(macro_line)
-        else:
-            reasons.append(macro_line)
 
-    hub = (institutional_context or {}).get("oracle_data_hub") or {}
-    if hub.get("enabled"):
-        _, hub_reasons, hub_risks = hub_score_adjustment(metrics.asset, hub)
-        reasons.extend(hub_reasons[:4])
-        risks.extend(hub_risks[:4])
-        geo = hub.get("geo_news") or {}
-        if geo.get("headlines"):
-            top_geo = next(
-                (h for h in geo["headlines"] if h.get("geopolitical")),
-                geo["headlines"][0],
-            )
-            risks.append(
-                f"Global headline watch: {top_geo.get('title', '')[:120]}"
-            )
+def _explain_macro(institutional_context: dict[str, Any]) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    macro_regime = str(institutional_context.get("macro_regime") or "")
+    if not macro_regime:
+        return reasons, risks
+    macro_weight = macro_score_weight(institutional_context)
+    dxy = float(institutional_context.get("macro_dxy_score", 0.0))
+    spx = float(institutional_context.get("macro_spx_score", 0.0))
+    buffer = float(institutional_context.get("macro_volatility_buffer", 0.0))
+    macro_line = (
+        f"Macro regime: {macro_regime} | DXY {dxy:+.2f}% | SPX {spx:+.2f}% | "
+        f"volatility buffer {buffer:.1f} bps | score weight x{macro_weight:.2f}."
+    )
+    if macro_regime == "Risk-Off":
+        risks.append(macro_line)
+    else:
+        reasons.append(macro_line)
+    return reasons, risks
 
-    if metrics.total_slippage_bps >= config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS:
-        risks.append("Slippage is elevated relative to the configured safety ceiling.")
 
+def _explain_hub(
+    metrics: OpportunityMetrics, institutional_context: dict[str, Any]
+) -> tuple[list[str], list[str]]:
+    reasons: list[str] = []
+    risks: list[str] = []
+    hub = institutional_context.get("oracle_data_hub") or {}
+    if not hub.get("enabled"):
+        return reasons, risks
+    _, hub_reasons, hub_risks = hub_score_adjustment(metrics.asset, hub)
+    reasons.extend(hub_reasons[:4])
+    risks.extend(hub_risks[:4])
+    geo = hub.get("geo_news") or {}
+    headlines = geo.get("headlines") or []
+    if headlines:
+        top_geo = next((h for h in headlines if h.get("geopolitical")), headlines[0])
+        risks.append(f"Global headline watch: {top_geo.get('title', '')[:120]}")
+    return reasons, risks
+
+
+def _calibrate_explanation_confidence(opportunity_score: float, metrics: OpportunityMetrics) -> float:
     confidence = _clamp(
         opportunity_score * 0.55
         + liquidity_component(metrics.total_slippage_bps) * 0.25
         + profit_component(metrics.net_profit_percent) * 0.20
     )
-
     try:
         from ml.drift_monitor import calibrate_confidence
 
@@ -392,12 +421,46 @@ def explain_opportunity(
             confidence = float(calibration["calibrated_hit_rate_percent"])
     except Exception:
         pass
+    return confidence
 
+
+def explain_opportunity(
+    opportunity: Any,
+    kind: OpportunityKind,
+    opportunity_score: float,
+    institutional_context: dict[str, Any] | None = None,
+) -> OpportunityExplanation:
+    """Break down technical drivers and produce a confidence percentage."""
+    metrics = extract_metrics(opportunity, kind)
+    ctx = institutional_context or {}
+    reasons: list[str] = [
+        f"Net edge after costs: ${metrics.net_profit_usdt:.4f} "
+        f"({metrics.net_profit_percent:.4f}%) on ${metrics.quote_amount:.2f} notional.",
+        f"Depth-walk slippage: {metrics.total_slippage_bps:.2f} bps "
+        f"(lower is better for executable size).",
+    ]
+    risks: list[str] = []
+
+    for extra_r, extra_k in (
+        _explain_kind_reasons(opportunity, kind, metrics),
+        _explain_institutional_context(metrics, ctx) if ctx else ([], []),
+        _explain_obi(metrics, ctx),
+        _explain_onchain(metrics, ctx),
+        _explain_sentiment(metrics, ctx),
+        _explain_macro(ctx),
+        _explain_hub(metrics, ctx),
+    ):
+        reasons.extend(extra_r)
+        risks.extend(extra_k)
+
+    if metrics.total_slippage_bps >= config.AI_ORACLE_SLIPPAGE_REFERENCE_BPS:
+        risks.append("Slippage is elevated relative to the configured safety ceiling.")
+
+    confidence = _calibrate_explanation_confidence(opportunity_score, metrics)
     summary = (
         f"{metrics.asset} {kind.replace('_', ' ')} setup scores "
         f"{opportunity_score:.1f}/100 with {confidence:.1f}% confidence (rules engine)."
     )
-
     return OpportunityExplanation(
         kind=kind,
         asset=metrics.asset,
@@ -406,6 +469,7 @@ def explain_opportunity(
         risk_factors=risks,
         confidence_percent=round(confidence, 2),
     )
+
 
 
 def liquidity_component(slippage_bps: float) -> float:
@@ -428,13 +492,13 @@ def _rules_oracle(
     if actionable:
         reason = explanation.reasons[0] if explanation.reasons else "Positive net edge detected."
         return OracleResponse(
-            verdict="Buy Now",
+            verdict=STR_BUY_NOW,
             sentence=f"Buy Now — {asset}: {reason}",
         )
 
     top_risk = explanation.risk_factors[0] if explanation.risk_factors else "Edge is too thin."
     return OracleResponse(
-        verdict="Do Not Touch",
+        verdict=STR_DO_NOT_TOUCH,
         sentence=f"Do Not Touch — {asset}: {top_risk}",
     )
 
@@ -486,7 +550,7 @@ async def _openai_oracle(
                 data = await response.json()
         sentence = data["choices"][0]["message"]["content"].strip()
         verdict: OracleVerdict = (
-            "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
         )
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
@@ -521,12 +585,53 @@ async def _ollama_oracle(
         if not sentence:
             return None
         verdict: OracleVerdict = (
-            "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
+            STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
         )
         return OracleResponse(verdict=verdict, sentence=sentence)
     except Exception as exc:
         logger.warning("Ollama oracle fallback triggered: %s", exc)
         return None
+
+
+def _oracle_response_from_sentence(sentence: str) -> OracleResponse | None:
+    sentence = sentence.strip()
+    if not sentence:
+        return None
+    verdict: OracleVerdict = STR_BUY_NOW if sentence.startswith(STR_BUY_NOW) else STR_DO_NOT_TOUCH
+    return OracleResponse(verdict=verdict, sentence=sentence)
+
+
+async def _free_chain_oracle_response(
+    asset: str,
+    opportunity_score: float,
+    explanation: OpportunityExplanation,
+    hub: dict[str, Any],
+) -> OracleResponse | None:
+    if not hub.get("enabled"):
+        return None
+    sentence = await synthesize_with_free_llm_chain(
+        asset,
+        opportunity_score,
+        explanation.summary,
+        hub,
+    )
+    return _oracle_response_from_sentence(sentence or "")
+
+
+async def _provider_oracle_response(
+    provider: str,
+    asset: str,
+    opportunity_score: float,
+    explanation: OpportunityExplanation,
+    hub: dict[str, Any],
+) -> OracleResponse | None:
+    if provider == "openai":
+        return await _openai_oracle(asset, opportunity_score, explanation)
+    if provider == "ollama":
+        return await _ollama_oracle(asset, opportunity_score, explanation)
+    if provider == "free_chain":
+        return await _free_chain_oracle_response(asset, opportunity_score, explanation, hub)
+    return None
 
 
 async def get_single_sentence_oracle(
@@ -543,133 +648,91 @@ async def get_single_sentence_oracle(
     provider = os.getenv("AI_ORACLE_PROVIDER", config.AI_ORACLE_PROVIDER).lower()
     hub = (institutional_context or {}).get("oracle_data_hub") or {}
 
-    if provider == "openai":
-        llm = await _openai_oracle(asset, opportunity_score, explanation)
-        if llm is not None:
-            return llm
-    elif provider == "ollama":
-        llm = await _ollama_oracle(asset, opportunity_score, explanation)
-        if llm is not None:
-            return llm
-    elif provider == "free_chain" and hub.get("enabled"):
-        sentence = await synthesize_with_free_llm_chain(
-            asset,
-            opportunity_score,
-            explanation.summary,
-            hub,
-        )
-        if sentence:
-            verdict: OracleVerdict = (
-                "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
-            )
-            return OracleResponse(verdict=verdict, sentence=sentence)
-
-    if hub.get("enabled"):
-        sentence = await synthesize_with_free_llm_chain(
-            asset,
-            opportunity_score,
-            explanation.summary,
-            hub,
-        )
-        if sentence:
-            verdict = "Buy Now" if sentence.startswith("Buy Now") else "Do Not Touch"
-            return OracleResponse(verdict=verdict, sentence=sentence)
+    llm = await _provider_oracle_response(provider, asset, opportunity_score, explanation, hub)
+    if llm is not None:
+        return llm
+    fallback = await _free_chain_oracle_response(asset, opportunity_score, explanation, hub)
+    if fallback is not None:
+        return fallback
 
     return _rules_oracle(asset, opportunity_score, explanation)
 
 
-async def evaluate_opportunity(
-    opportunity: Any,
-    kind: OpportunityKind,
-    institutional_context: dict[str, Any] | None = None,
-) -> EvaluatedOpportunity:
-    """Score, explain, and oracle-wrap a single opportunity via unified stack."""
-    from oracle_unified import finalize_unified_score
-
-    score, breakdown, metrics = score_opportunity_with_breakdown(
-        opportunity, kind, institutional_context
-    )
+async def _apply_ta_score_adjustment(score: float, asset: str) -> float:
     try:
         from technical_analysis import build_ta_bundle
 
-        ta = await build_ta_bundle(metrics.asset)
+        ta = await build_ta_bundle(asset)
         if ta.get("available"):
-            score = round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
+            return round(_clamp(score + float(ta.get("score_adjustment") or 0)), 2)
     except Exception:
-        logger.warning("TA bundle unavailable | asset=%s", metrics.asset)
+        logger.warning("TA bundle unavailable | asset=%s", asset)
+    return score
 
-    price_hint = 0.0
+
+def _raw_opportunity_payload(opportunity: Any) -> dict[str, Any]:
     if hasattr(opportunity, "model_dump"):
-        raw_payload = opportunity.model_dump()
-    elif isinstance(opportunity, dict):
-        raw_payload = dict(opportunity)
-    elif hasattr(opportunity, "__dict__"):
-        raw_payload = {
+        return opportunity.model_dump()
+    if isinstance(opportunity, dict):
+        return dict(opportunity)
+    if hasattr(opportunity, "__dict__"):
+        return {
             key: value
             for key, value in vars(opportunity).items()
             if not str(key).startswith("_")
         }
-    else:
-        raw_payload = {}
+    return {}
+
+
+def _price_hint_from_payload(payload: dict[str, Any]) -> float:
     for key in ("price", "spot_price", "mark_price", "buy_price", "mid_price"):
         try:
-            value = float(raw_payload.get(key) or 0)
+            value = float(payload.get(key) or 0)
         except (TypeError, ValueError):
             value = 0.0
         if value > 0:
-            price_hint = value
-            break
+            return value
+    return 0.0
 
-    finalized = await finalize_unified_score(
-        score,
-        metrics.asset,
-        breakdown,
-        price=price_hint,
-        change_24h=float(raw_payload.get("change_24h") or 0.0),
-        quote_volume=float(metrics.quote_amount or 0.0),
-        include_ml=True,
-    )
-    score = float(finalized["opportunity_score"])
 
-    # D3 Net-Edge Truth + D4 Half-Life — unique executable-edge gates
-    from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
-    from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
-    from persona_clarity import build_persona_clarity
-
+def _truth_input(kind: OpportunityKind, metrics: OpportunityMetrics, raw_payload: dict[str, Any]) -> dict[str, Any]:
     truth_input = dict(raw_payload)
     truth_input.setdefault("kind", kind)
     truth_input.setdefault("asset", metrics.asset)
     truth_input["net_profit_usdt"] = metrics.net_profit_usdt
     truth_input["quote_amount"] = metrics.quote_amount
     truth_input["total_slippage_bps"] = metrics.total_slippage_bps
-    truth = compute_net_edge_truth(truth_input)
-    score = apply_truth_gate_to_score(score, truth)
+    return truth_input
 
-    duration_meta = touch_opportunity(truth_input)
-    half_life = estimate_opportunity_half_life(
-        truth_input, live_duration_seconds=float(duration_meta.get("duration_seconds") or 0)
-    )
 
-    explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+def _annotate_explanation(
+    explanation: OpportunityExplanation,
+    truth: dict[str, Any],
+    half_life: dict[str, Any],
+) -> None:
     if truth.get("reject"):
         explanation.risk_factors = [*list(explanation.risk_factors), "Net-Edge Truth rejected: residual edge fails after latency/crowd/fees."]
         explanation.reasons = [*list(explanation.reasons), f"Truth Score {truth.get('truth_score')}/100 — executable edge not proven."]
     if half_life.get("remaining_seconds") is not None:
         explanation.reasons = [*list(explanation.reasons), f"Opportunity half-life ~{half_life.get('expected_half_life_seconds')}s; ~{half_life.get('remaining_seconds')}s remaining (P(disappear)={half_life.get('disappearance_probability')})."]
 
-    # Prefer unified conflict-aware internal verdict; keep sentence generation.
+
+async def _oracle_with_internal_verdict(
+    explanation: OpportunityExplanation,
+    score: float,
+    institutional_context: dict[str, Any] | None,
+    finalized: dict[str, Any],
+    truth: dict[str, Any],
+) -> OracleResponse:
     oracle = await get_single_sentence_oracle(
         explanation.asset, score, explanation, institutional_context
     )
     internal = str(finalized.get("internal_verdict") or oracle.verdict)
-    if finalized.get("dimension_conflict", {}).get("veto") or finalized.get(
-        "dimension_conflict", {}
-    ).get("abstain"):
-        internal = "Do Not Touch"
-    if truth.get("reject"):
-        internal = "Do Not Touch"
-    oracle = OracleResponse(
-        verdict=internal if internal in {"Buy Now", "Do Not Touch"} else oracle.verdict,
+    conflict = finalized.get("dimension_conflict", {})
+    if conflict.get("veto") or conflict.get("abstain") or truth.get("reject"):
+        internal = STR_DO_NOT_TOUCH
+    return OracleResponse(
+        verdict=internal if internal in {STR_BUY_NOW, STR_DO_NOT_TOUCH} else oracle.verdict,
         sentence=inject_oracle_onchain_analytics(
             oracle.sentence,
             explanation.asset,
@@ -677,6 +740,13 @@ async def evaluate_opportunity(
         ),
     )
 
+
+def _evaluation_payload(
+    raw_payload: dict[str, Any],
+    finalized: dict[str, Any],
+    truth: dict[str, Any],
+    half_life: dict[str, Any],
+) -> dict[str, Any]:
     payload = dict(raw_payload)
     payload["unified_engine"] = finalized.get("engine")
     payload["public_verdict"] = finalized.get("verdict")
@@ -685,15 +755,17 @@ async def evaluate_opportunity(
     payload["ml"] = finalized.get("ml")
     payload["net_edge_truth"] = truth
     payload["opportunity_half_life"] = half_life
-    payload["persona_clarity"] = build_persona_clarity(
-        asset=metrics.asset,
-        score=score,
-        verdict=oracle.verdict,
-        payload=payload,
-        net_profit_usdt=metrics.net_profit_usdt,
-    )
+    return payload
 
-    # D8 Sovereign Signal Registry — labeled lexicon row per decision
+
+def _register_evaluation_signal(
+    payload: dict[str, Any],
+    *,
+    kind: OpportunityKind,
+    metrics: OpportunityMetrics,
+    score: float,
+    oracle: OracleResponse,
+) -> None:
     try:
         from signal_registry import register_from_evaluation
 
@@ -715,6 +787,8 @@ async def evaluate_opportunity(
     except Exception:
         logger.debug("signal registry write skipped", exc_info=True)
 
+
+def _attach_evaluation_compliance(payload: dict[str, Any]) -> None:
     try:
         from decision_certificate import compliance_footer_block
 
@@ -724,6 +798,66 @@ async def evaluate_opportunity(
         )
     except Exception:
         pass
+
+
+async def evaluate_opportunity(
+    opportunity: Any,
+    kind: OpportunityKind,
+    institutional_context: dict[str, Any] | None = None,
+) -> EvaluatedOpportunity:
+    """Score, explain, and oracle-wrap a single opportunity via unified stack."""
+    from oracle_unified import finalize_unified_score
+
+    score, breakdown, metrics = score_opportunity_with_breakdown(
+        opportunity, kind, institutional_context
+    )
+    score = await _apply_ta_score_adjustment(score, metrics.asset)
+    raw_payload = _raw_opportunity_payload(opportunity)
+
+    finalized = await finalize_unified_score(
+        score,
+        metrics.asset,
+        breakdown,
+        price=_price_hint_from_payload(raw_payload),
+        change_24h=float(raw_payload.get("change_24h") or 0.0),
+        quote_volume=float(metrics.quote_amount or 0.0),
+        include_ml=True,
+    )
+    score = float(finalized["opportunity_score"])
+
+    # D3 Net-Edge Truth + D4 Half-Life — unique executable-edge gates
+    from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
+    from opportunity_tracker import estimate_opportunity_half_life, touch_opportunity
+    from persona_clarity import build_persona_clarity
+
+    truth_input = _truth_input(kind, metrics, raw_payload)
+    truth = compute_net_edge_truth(truth_input)
+    score = apply_truth_gate_to_score(score, truth)
+
+    duration_meta = touch_opportunity(truth_input)
+    half_life = estimate_opportunity_half_life(
+        truth_input, live_duration_seconds=float(duration_meta.get("duration_seconds") or 0)
+    )
+
+    explanation = explain_opportunity(opportunity, kind, score, institutional_context)
+    _annotate_explanation(explanation, truth, half_life)
+
+    # Prefer unified conflict-aware internal verdict; keep sentence generation.
+    oracle = await _oracle_with_internal_verdict(
+        explanation, score, institutional_context, finalized, truth
+    )
+    payload = _evaluation_payload(raw_payload, finalized, truth, half_life)
+    payload["persona_clarity"] = build_persona_clarity(
+        asset=metrics.asset,
+        score=score,
+        verdict=oracle.verdict,
+        payload=payload,
+        net_profit_usdt=metrics.net_profit_usdt,
+    )
+
+    # D8 Sovereign Signal Registry — labeled lexicon row per decision
+    _register_evaluation_signal(payload, kind=kind, metrics=metrics, score=score, oracle=oracle)
+    _attach_evaluation_compliance(payload)
 
     return EvaluatedOpportunity(
         kind=kind,
@@ -800,6 +934,19 @@ async def evaluate_and_store(
 
 async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
     """Best-effort mid price so arb samples are not logged at price=0."""
+    payload_price = _training_payload_price(payload)
+    if payload_price > 0:
+        return payload_price
+    mid_price = _training_mid_price(payload)
+    if mid_price > 0:
+        return mid_price
+    live_price = _training_live_book_price(asset)
+    if live_price > 0:
+        return live_price
+    return await _training_reference_price(asset)
+
+
+def _training_payload_price(payload: dict[str, Any]) -> float:
     for key in ("price", "spot_price", "mark_price", "mid_price", "buy_price", "sell_price"):
         try:
             value = float(payload.get(key) or 0)
@@ -807,6 +954,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
             value = 0.0
         if value > 0:
             return value
+    return 0.0
+
+
+def _training_mid_price(payload: dict[str, Any]) -> float:
     try:
         buy = float(payload.get("buy_price") or payload.get("ask") or 0)
         sell = float(payload.get("sell_price") or payload.get("bid") or 0)
@@ -814,6 +965,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
             return (buy + sell) / 2.0
     except (TypeError, ValueError):
         pass
+    return 0.0
+
+
+def _training_live_book_price(asset: str) -> float:
     try:
         from live_book_hub import get_best_price
 
@@ -823,6 +978,10 @@ async def _resolve_training_price(asset: str, payload: dict[str, Any]) -> float:
                 return float(quote["mid"])
     except Exception:
         logger.debug("Live book price lookup failed | asset=%s", asset, exc_info=True)
+    return 0.0
+
+
+async def _training_reference_price(asset: str) -> float:
     try:
         from ml.labeling_pipeline import fetch_reference_price
 

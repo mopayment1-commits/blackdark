@@ -100,7 +100,7 @@ def _weighted_side_volume(
     return total
 
 
-async def calculate_order_book_imbalance(
+def calculate_order_book_imbalance(
     order_book: dict[str, Any],
     *,
     exchange: str,
@@ -232,7 +232,7 @@ def forecast_flash_crash(
         return None
 
 
-async def analyze_order_book_snapshot(
+def analyze_order_book_snapshot(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> tuple[list[OrderBookImbalance], list[FlashCrashWarning]]:
     imbalances: list[OrderBookImbalance] = []
@@ -242,7 +242,7 @@ async def analyze_order_book_snapshot(
         for storage_key, book in books.items():
             try:
                 symbol = str(book.get("symbol") or storage_key.split("@")[0])
-                obi = await calculate_order_book_imbalance(
+                obi = calculate_order_book_imbalance(
                     book,
                     exchange=exchange_id,
                     symbol=symbol,
@@ -298,6 +298,23 @@ def _aggregate_asset_snapshots(
     return snapshots
 
 
+def _snapshot_obi_and_warnings(snapshot: Any) -> tuple[float, list[Any]]:
+    if isinstance(snapshot, dict):
+        return float(snapshot.get("average_obi") or 0.0), snapshot.get("warnings") or []
+    return float(getattr(snapshot, "average_obi", 0.0)), getattr(snapshot, "warnings", [])
+
+
+def _obi_warning_penalty(warning: Any) -> float:
+    if isinstance(warning, dict):
+        severity = float(warning.get("severity") or 0.0)
+        warning_type = str(warning.get("warning_type") or "")
+    else:
+        severity = float(getattr(warning, "severity", 0.0))
+        warning_type = str(getattr(warning, "warning_type", ""))
+    weight = 1.0 if warning_type == "flash_crash_warning" else 0.75
+    return (severity / 100.0) * config.OBI_FLASH_PENALTY_MAX * weight
+
+
 def obi_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> float:
     """
     Convert OBI posture into an Opportunity Score boost or penalty.
@@ -314,24 +331,12 @@ def obi_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> float
         if not snapshot:
             return 0.0
 
-        if isinstance(snapshot, dict):
-            average_obi = float(snapshot.get("average_obi") or 0.0)
-            warnings = snapshot.get("warnings") or []
-        else:
-            average_obi = float(getattr(snapshot, "average_obi", 0.0))
-            warnings = getattr(snapshot, "warnings", [])
+        average_obi, warnings = _snapshot_obi_and_warnings(snapshot)
 
         boost = max(0.0, average_obi) * config.OBI_SCORE_BOOST_MAX
         penalty = 0.0
         for warning in warnings:
-            if isinstance(warning, dict):
-                severity = float(warning.get("severity") or 0.0)
-                warning_type = str(warning.get("warning_type") or "")
-            else:
-                severity = float(getattr(warning, "severity", 0.0))
-                warning_type = str(getattr(warning, "warning_type", ""))
-            weight = 1.0 if warning_type == "flash_crash_warning" else 0.75
-            penalty += (severity / 100.0) * config.OBI_FLASH_PENALTY_MAX * weight
+            penalty += _obi_warning_penalty(warning)
 
         return round(
             max(-config.OBI_FLASH_PENALTY_MAX, min(config.OBI_SCORE_BOOST_MAX, boost - penalty)),
@@ -356,10 +361,10 @@ def get_obi_for_asset(asset: str, context: dict[str, Any]) -> float | None:
         return None
 
 
-async def build_obi_context(
+def build_obi_context(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> dict[str, Any]:
-    imbalances, warnings = await analyze_order_book_snapshot(order_books)
+    imbalances, warnings = analyze_order_book_snapshot(order_books)
     snapshots = _aggregate_asset_snapshots(imbalances, warnings)
 
     score_adjustments = {
@@ -383,7 +388,7 @@ async def build_obi_context(
     }
 
 
-async def build_obi_context_safe(
+def build_obi_context_safe(
     order_books: dict[str, dict[str, dict[str, Any]]] | None,
 ) -> dict[str, Any]:
     """Build OBI context without ever raising to protect engine loops."""
@@ -395,7 +400,7 @@ async def build_obi_context_safe(
             "obi_score_adjustments": {},
         }
     try:
-        return await build_obi_context(order_books)
+        return build_obi_context(order_books)
     except Exception:
         logger.exception("OBI context build failed safely; returning empty context.")
         return {
@@ -416,8 +421,8 @@ def merge_market_context(
     return merged
 
 
-async def get_current_obi_context_for_books(
+def get_current_obi_context_for_books(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> dict[str, Any]:
     """Convenience helper for engine/oracle consumers."""
-    return await build_obi_context_safe(order_books)
+    return build_obi_context_safe(order_books)

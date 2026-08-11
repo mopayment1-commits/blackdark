@@ -13,22 +13,9 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.DecisionEnrichment")
 
 
-def enrich_oracle_decision(
-    payload: dict[str, Any],
-    *,
-    ux_mode: str = "beginner",
-    lang: str = "en",
-    register_signal: bool = True,
-) -> dict[str, Any]:
-    """Mutate/return oracle payload with constitution differentiators."""
-    out = dict(payload)
-    asset = str(out.get("symbol") or out.get("asset") or "BTC").upper()
-    score = float(out.get("opportunity_score") or 0)
-    verdict = str(out.get("verdict") or "WAIT")
-    net_profit = float(out.get("net_profit_usdt") or 0.0)
-
+def _truth_input(out: dict[str, Any], asset: str, score: float, net_profit: float) -> dict[str, Any]:
     # Synthetic edge proxy for directional oracle (non-arb): use score as confidence of edge
-    truth_input = {
+    return {
         "kind": out.get("kind") or "oracle_direction",
         "asset": asset,
         "net_profit_usdt": net_profit or max(0.0, (score - 50.0) / 50.0),
@@ -39,35 +26,74 @@ def enrich_oracle_decision(
         "estimated_recipients": int(out.get("estimated_recipients") or 5),
     }
 
+
+def _has_explicit_edge(out: dict[str, Any], net_profit: float) -> bool:
+    return out.get("kind") in {"cross_exchange", "triangular", "spot_futures", "funding"} or net_profit > 0
+
+
+def _directional_truth_input(truth_input: dict[str, Any], score: float) -> dict[str, Any]:
+    return {
+        **truth_input,
+        "net_profit_usdt": max(0.15, (score / 100.0) * 0.5),
+        "quote_age_ms": truth_input.get("quote_age_ms") or 300,
+        "total_slippage_bps": 5.0,
+    }
+
+
+def _apply_truth_reject(out: dict[str, Any], truth: dict[str, Any], verdict: str) -> str:
+    if not truth.get("reject"):
+        return verdict
+    from regulatory_compliance_guard import to_public_verdict
+
+    out["verdict"] = to_public_verdict("Do Not Touch")
+    return out["verdict"]
+
+
+def _attach_net_edge_truth(
+    out: dict[str, Any],
+    asset: str,
+    score: float,
+    verdict: str,
+    net_profit: float,
+) -> tuple[float, str]:
     try:
         from net_edge_truth import apply_truth_gate_to_score, compute_net_edge_truth
 
-        # Directional oracle: Truth is advisory unless explicit arb economics present
-        if out.get("kind") in {"cross_exchange", "triangular", "spot_futures", "funding"} or net_profit > 0:
+        truth_input = _truth_input(out, asset, score, net_profit)
+        if _has_explicit_edge(out, net_profit):
             truth = compute_net_edge_truth(truth_input)
             score = apply_truth_gate_to_score(score, truth)
             out["opportunity_score"] = round(score)
-            if truth.get("reject"):
-                from regulatory_compliance_guard import to_public_verdict
-
-                out["verdict"] = to_public_verdict("Do Not Touch")
-                verdict = out["verdict"]
+            verdict = _apply_truth_reject(out, truth, verdict)
         else:
-            # Soft truth for directional: still expose score for pros without hard kill
-            truth = compute_net_edge_truth(
-                {
-                    **truth_input,
-                    "net_profit_usdt": max(0.15, (score / 100.0) * 0.5),
-                    "quote_age_ms": truth_input.get("quote_age_ms") or 300,
-                    "total_slippage_bps": 5.0,
-                }
-            )
+            truth = compute_net_edge_truth(_directional_truth_input(truth_input, score))
             truth = {**truth, "mode": "directional_advisory", "reject": False, "pass": True}
         out["net_edge_truth"] = truth
     except Exception:
         logger.debug("net edge enrich failed", exc_info=True)
         out["net_edge_truth"] = {"enabled": False, "error": "unavailable"}
+    return score, verdict
 
+
+def _calibrated_directional_half_life(half: dict[str, Any], meta: dict[str, Any], samples: int) -> dict[str, Any]:
+    lived = float(meta.get("duration_seconds") or 0)
+    prior = 3600.0
+    weight = min(1.0, samples / 20.0)
+    blended = prior * (1 - weight) + float(half.get("expected_half_life_seconds") or prior) * weight
+    return {
+        **half,
+        "expected_half_life_seconds": round(blended, 2),
+        "remaining_seconds": max(0.0, blended - lived),
+        "model": "directional_horizon_calibrated_v2",
+        "urgency": "normal",
+        "cold_start": False,
+        "calibrated_prior": True,
+        "history_samples": samples,
+        "note": "Calibrated 1h directional prior blended with observed half-life history",
+    }
+
+
+def _attach_half_life(out: dict[str, Any], asset: str) -> None:
     try:
         from opportunity_tracker import (
             estimate_opportunity_half_life,
@@ -83,36 +109,25 @@ def enrich_oracle_decision(
             {"kind": "oracle_direction", "asset": asset},
             live_duration_seconds=float(meta.get("duration_seconds") or 0),
         )
-        # Directional horizon: calibrated prior (H3 cure) — not a cold-start defect.
         samples = half_life_sample_count("oracle_direction", asset)
         if half.get("expected_half_life_seconds", 0) < 30 or samples < 3:
-            lived = float(meta.get("duration_seconds") or 0)
-            prior = 3600.0
-            weight = min(1.0, samples / 20.0)
-            blended = prior * (1 - weight) + float(half.get("expected_half_life_seconds") or prior) * weight
-            half = {
-                **half,
-                "expected_half_life_seconds": round(blended, 2),
-                "remaining_seconds": max(0.0, blended - lived),
-                "model": "directional_horizon_calibrated_v2",
-                "urgency": "normal",
-                "cold_start": False,
-                "calibrated_prior": True,
-                "history_samples": samples,
-                "note": "Calibrated 1h directional prior blended with observed half-life history",
-            }
+            half = _calibrated_directional_half_life(half, meta, samples)
         out["opportunity_half_life"] = half
     except Exception:
         logger.debug("half-life enrich failed", exc_info=True)
         out["opportunity_half_life"] = {"error": "unavailable"}
 
-    # Ensure contradiction meta is visible to persona + registry before labeling.
-    if not isinstance(out.get("dimension_conflict"), dict):
-        modal = out.get("modal_breakdown") or {}
-        conflicts = modal.get("conflicts") if isinstance(modal, dict) else None
-        if isinstance(conflicts, dict):
-            out["dimension_conflict"] = conflicts
 
+def _ensure_dimension_conflict(out: dict[str, Any]) -> None:
+    if isinstance(out.get("dimension_conflict"), dict):
+        return
+    modal = out.get("modal_breakdown") or {}
+    conflicts = modal.get("conflicts") if isinstance(modal, dict) else None
+    if isinstance(conflicts, dict):
+        out["dimension_conflict"] = conflicts
+
+
+def _attach_persona(out: dict[str, Any], asset: str, score: float, verdict: str, net_profit: float) -> None:
     try:
         from persona_clarity import build_persona_clarity
 
@@ -131,41 +146,47 @@ def enrich_oracle_decision(
     except Exception:
         logger.debug("persona enrich failed", exc_info=True)
 
-    if register_signal:
-        try:
-            from signal_registry import register_from_evaluation
 
-            row = register_from_evaluation(
-                {
-                    "kind": out.get("kind") or "oracle_direction",
-                    "asset": asset,
-                    "opportunity_score": out.get("opportunity_score"),
-                    "net_profit_usdt": net_profit,
-                    "oracle": {"verdict": verdict},
-                    "payload": out,
-                }
-            )
-            out["signal_registry"] = {
-                "signal_id": row.get("signal_id"),
-                "features_hash": row.get("features_hash"),
-                "label": row.get("label"),
+def _register_signal(out: dict[str, Any], asset: str, verdict: str, net_profit: float) -> None:
+    try:
+        from signal_registry import register_from_evaluation
+
+        row = register_from_evaluation(
+            {
+                "kind": out.get("kind") or "oracle_direction",
+                "asset": asset,
+                "opportunity_score": out.get("opportunity_score"),
+                "net_profit_usdt": net_profit,
+                "oracle": {"verdict": verdict},
+                "payload": out,
             }
-            # D1 proof id must come from audit/log_oracle_signal — never overwrite a real id.
-            if out.get("prediction_id") in (None, "", 0):
-                out["prediction_id_fallback"] = row.get("signal_id")
-        except Exception:
-            logger.debug("signal registry enrich failed", exc_info=True)
+        )
+        out["signal_registry"] = {
+            "signal_id": row.get("signal_id"),
+            "features_hash": row.get("features_hash"),
+            "label": row.get("label"),
+        }
+        # D1 proof id must come from audit/log_oracle_signal — never overwrite a real id.
+        if out.get("prediction_id") in (None, "", 0):
+            out["prediction_id_fallback"] = row.get("signal_id")
+    except Exception:
+        logger.debug("signal registry enrich failed", exc_info=True)
 
+
+def _apply_ux_mode(out: dict[str, Any], ux_mode: str, lang: str) -> dict[str, Any]:
     try:
         from ux_mode import apply_ux_mode
 
-        out = apply_ux_mode(out, mode=ux_mode, lang=lang)
+        return apply_ux_mode(out, mode=ux_mode, lang=lang)
     except Exception:
         logger.debug("ux mode filter failed", exc_info=True)
         out["ux_mode"] = ux_mode
         out["lang"] = lang
+        return out
 
-    out["constitution"] = {
+
+def _constitution_block() -> dict[str, Any]:
+    return {
         "ref": "docs/PRODUCT_CONSTITUTION_AR.md",
         "capabilities": [
             "Unified Financial Oracle",
@@ -175,4 +196,31 @@ def enrich_oracle_decision(
         ],
         "differentiators": ["D1", "D2", "D3", "D4", "D5", "D7", "D8"],
     }
+
+
+def enrich_oracle_decision(
+    payload: dict[str, Any],
+    *,
+    ux_mode: str = "beginner",
+    lang: str = "en",
+    register_signal: bool = True,
+) -> dict[str, Any]:
+    """Mutate/return oracle payload with constitution differentiators."""
+    out = dict(payload)
+    asset = str(out.get("symbol") or out.get("asset") or "BTC").upper()
+    score = float(out.get("opportunity_score") or 0)
+    verdict = str(out.get("verdict") or "WAIT")
+    net_profit = float(out.get("net_profit_usdt") or 0.0)
+
+    score, verdict = _attach_net_edge_truth(out, asset, score, verdict, net_profit)
+    _attach_half_life(out, asset)
+    # Ensure contradiction meta is visible to persona + registry before labeling.
+    _ensure_dimension_conflict(out)
+    _attach_persona(out, asset, score, verdict, net_profit)
+
+    if register_signal:
+        _register_signal(out, asset, verdict, net_profit)
+
+    out = _apply_ux_mode(out, ux_mode, lang)
+    out["constitution"] = _constitution_block()
     return out

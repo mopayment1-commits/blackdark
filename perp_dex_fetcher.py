@@ -131,6 +131,15 @@ async def _dydx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, 
     return price, funding
 
 
+def _gmx_row_price(row: dict[str, Any], symbol: str) -> float | None:
+    if str(row.get("tokenSymbol") or "").upper() != symbol:
+        return None
+    price = float(row.get("minPrice") or row.get("maxPrice") or 0) / 1e30
+    if price <= 0:
+        price = float(row.get("price") or 0)
+    return price if price > 0 else None
+
+
 async def _gmx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, float]:
     sym = PERP_SYMBOLS.get(asset.upper(), asset.upper())
     for base in (
@@ -140,12 +149,9 @@ async def _gmx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, f
         try:
             rows = await _fetch_json(session, base)
             for row in rows:
-                if str(row.get("tokenSymbol") or "").upper() == sym:
-                    price = float(row.get("minPrice") or row.get("maxPrice") or 0) / 1e30
-                    if price <= 0:
-                        price = float(row.get("price") or 0)
-                    if price > 0:
-                        return price, 0.0
+                price = _gmx_row_price(row, sym)
+                if price is not None:
+                    return price, 0.0
         except (aiohttp.ClientError, TypeError, ValueError):
             continue
     raise ValueError(f"GMX price missing for {asset}")

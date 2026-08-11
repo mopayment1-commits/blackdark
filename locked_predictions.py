@@ -168,6 +168,38 @@ def _has_open_lock_for(asset: str, event_name: str) -> bool:
     return False
 
 
+async def _seal_asset_from_oracle(asset_u: str, event_name: str, unlock_at: str) -> dict[str, Any] | None:
+    from market_context import fetch_binance_market_overview
+    from oracle_unified import compute_unified_oracle
+
+    markets = await fetch_binance_market_overview()
+    row = next(
+        (m for m in (markets or []) if str(m.get("symbol") or "").upper() == asset_u),
+        None,
+    )
+    price = float((row or {}).get("price") or 0) or None
+    change = float((row or {}).get("change_24h") or 0)
+    quote_vol = float((row or {}).get("quote_volume") or 0)
+    if price is None or price <= 0:
+        return None
+    unified = await compute_unified_oracle(asset_u, price, quote_vol, change)
+    direction = str(unified.get("verdict") or unified.get("public_verdict") or "WAIT")
+    score = unified.get("opportunity_score")
+    rationale = (
+        f"Auto-sealed {asset_u} Oracle · score={score} · regime="
+        f"{unified.get('market_regime') or 'n/a'}"
+    )[:280]
+    return lock_prediction(
+        event_name=event_name,
+        asset=asset_u,
+        direction=direction,
+        rationale=rationale,
+        unlock_at=unlock_at,
+        opportunity_score=float(score) if score is not None else None,
+        prediction_id=None,
+    )
+
+
 async def maybe_auto_seal_from_oracle(
     *,
     assets: list[str] | None = None,
@@ -192,36 +224,10 @@ async def maybe_auto_seal_from_oracle(
             skipped.append(asset_u)
             continue
         try:
-            from market_context import fetch_binance_market_overview
-            from oracle_unified import compute_unified_oracle
-
-            markets = await fetch_binance_market_overview()
-            row = next(
-                (m for m in (markets or []) if str(m.get("symbol") or "").upper() == asset_u),
-                None,
-            )
-            price = float((row or {}).get("price") or 0) or None
-            change = float((row or {}).get("change_24h") or 0)
-            quote_vol = float((row or {}).get("quote_volume") or 0)
-            if price is None or price <= 0:
+            sealed = await _seal_asset_from_oracle(asset_u, event_name, unlock_at)
+            if sealed is None:
                 skipped.append(asset_u)
                 continue
-            unified = await compute_unified_oracle(asset_u, price, quote_vol, change)
-            direction = str(unified.get("verdict") or unified.get("public_verdict") or "WAIT")
-            score = unified.get("opportunity_score")
-            rationale = (
-                f"Auto-sealed {asset_u} Oracle · score={score} · regime="
-                f"{unified.get('market_regime') or 'n/a'}"
-            )[:280]
-            sealed = lock_prediction(
-                event_name=event_name,
-                asset=asset_u,
-                direction=direction,
-                rationale=rationale,
-                unlock_at=unlock_at,
-                opportunity_score=float(score) if score is not None else None,
-                prediction_id=None,
-            )
             created.append(sealed)
         except Exception:
             skipped.append(asset_u)

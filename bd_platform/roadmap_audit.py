@@ -11,6 +11,9 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+KEY_BD_PLATFORM_ONCHAIN_HUB = 'bd_platform.onchain_hub'
+
 RoadmapStatus = Literal["complete", "partial", "planned"]
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,26 +41,26 @@ _ROADMAP_ROWS: tuple[tuple[Any, ...], ...] = (
     ("shield", "Anti-Spoofing & Poisoning Shield", "complete", "whale_tracker", "/api/whale/scan", "CVVD + poison price freeze"),
     ("proof", "Zero-Knowledge Public Proof", "complete", "bd_platform.public_proof", "/api/platform/proof/public", "Merkle inclusion + commitment verify"),
     ("ui", "CoinMarketCap-style rankings page", "complete", "bd_platform.market_rankings", "/platform", "Rankings + coin detail pages"),
-    ("onchain", "Extended on-chain (DexScreener, Gecko, Dune…)", "complete", "bd_platform.onchain_hub", "/api/platform/onchain/pairs", "Free APIs · paid keys optional"),
+    ("onchain", "Extended on-chain (DexScreener, Gecko, Dune…)", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/onchain/pairs", "Free APIs · paid keys optional"),
     ("onchain", "Token Unlocks Tracking", "complete", "bd_platform.token_unlocks", "/api/platform/unlocks/calendar", "TokenUnlocks + CryptoRank free"),
-    ("social", "LunarCrush", "complete", "bd_platform.onchain_hub", "/api/platform/social/lunarcrush", "socialtickers free fallback"),
-    ("social", "Crowdsourced Event Calendar", "complete", "bd_platform.onchain_hub", "/api/platform/events/calendar", "CoinMarketCal + DeFiLlama"),
-    ("wallet", "Multi-EVM Wallet Dashboard", "complete", "bd_platform.onchain_hub", "/api/platform/wallet/debank", "Tracely free · DeBank key optional"),
-    ("wallet", "Wallet Cluster Visualization", "complete", "bd_platform.onchain_hub", "/api/platform/wallet/clusters", "Tracely graph clusters"),
-    ("defi", "GeckoTerminal", "complete", "bd_platform.onchain_hub", "/api/platform/defi/geckoterminal", "Integrated with on-chain hub"),
+    ("social", "LunarCrush", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/social/lunarcrush", "socialtickers free fallback"),
+    ("social", "Crowdsourced Event Calendar", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/events/calendar", "CoinMarketCal + DeFiLlama"),
+    ("wallet", "Multi-EVM Wallet Dashboard", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/wallet/debank", "Tracely free · DeBank key optional"),
+    ("wallet", "Wallet Cluster Visualization", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/wallet/clusters", "Tracely graph clusters"),
+    ("defi", "GeckoTerminal", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/defi/geckoterminal", "Integrated with on-chain hub"),
     ("charts", "TradingView Lightweight Charts", "complete", "bd_platform.tradingview_bridge", "/api/platform/charts/config", "Dashboard + coin pages"),
     ("analytics", "Footprint Analytics", "complete", "bd_platform.footprint_analytics", "/api/platform/analytics/footprint", "Order-flow proxy"),
-    ("analytics", "0xScope / Scopescan", "complete", "bd_platform.onchain_hub", "/api/platform/wallet/scopescan", "eth-labels + Tracely free"),
+    ("analytics", "0xScope / Scopescan", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/wallet/scopescan", "eth-labels + Tracely free"),
     ("analytics", "Whale Movement Storytelling", "complete", "bd_platform.whale_story", "/api/platform/whale/narrative", "Narrative API"),
     ("research", "CoinDesk Research Reports", "complete", "bd_platform.news_classifier", "/api/platform/news/coindesk", "RSS deep feed"),
-    ("research", "DeFiLlama Raises", "complete", "bd_platform.onchain_hub", "/api/platform/defi/raises", "Funding rounds feed"),
-    ("macro", "Bitcoin Macro Cycle Indicators", "complete", "bd_platform.onchain_hub", "/api/platform/macro/bitcoin", "LookIntoBitcoin proxies"),
+    ("research", "DeFiLlama Raises", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/defi/raises", "Funding rounds feed"),
+    ("macro", "Bitcoin Macro Cycle Indicators", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/macro/bitcoin", "LookIntoBitcoin proxies"),
     ("macro", "Advanced on-chain (MVRV, NUPL, SOPR, VaR…)", "complete", "bd_platform.onchain_advanced", "/api/platform/onchain/advanced", "Extended metrics + Monte Carlo"),
     ("news", "News classification engine", "complete", "bd_platform.news_classifier", "/api/platform/news/classify", "Topic + FinBERT hook"),
-    ("l2", "L2Beat", "complete", "bd_platform.onchain_hub", "/api/platform/l2/security", "L2 security metrics"),
+    ("l2", "L2Beat", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/l2/security", "L2 security metrics"),
     ("deriv", "CEX-DEX Derivatives Comparison UI", "complete", "bd_platform.derivatives_hub", "/api/platform/derivatives/cex-dex-compare", "Comparison endpoint + UI"),
-    ("flows", "Blockpour cross-chain flows", "complete", "bd_platform.onchain_hub", "/api/platform/flows/cross-chain", "DeFiLlama bridges free"),
-    ("analytics", "IntoTheBlock / Sentora", "complete", "bd_platform.onchain_hub", "/api/platform/analytics/intotheblock", "CoinGecko + Binance proxy"),
+    ("flows", "Blockpour cross-chain flows", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/flows/cross-chain", "DeFiLlama bridges free"),
+    ("analytics", "IntoTheBlock / Sentora", "complete", KEY_BD_PLATFORM_ONCHAIN_HUB, "/api/platform/analytics/intotheblock", "CoinGecko + Binance proxy"),
     ("bots", "Grid Trading Bot", "complete", "bd_platform.grid_bot", "/api/platform/bots/grid", "Create/list grids"),
     ("market", "Strategy Marketplace", "complete", "bd_platform.strategy_marketplace", "/api/platform/marketplace/strategies", "Publish + browse"),
     ("inst", "Institutional Account Linking", "complete", "user_keys_service", "/api/user/exchange-keys", "Quadency/Tealstreet-style keys"),

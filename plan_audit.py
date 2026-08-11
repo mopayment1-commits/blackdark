@@ -11,6 +11,11 @@ from importlib import import_module
 from pathlib import Path
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+PATH_API_ARBITRAGE_OPPORTUNITIES = '/api/arbitrage/opportunities'
+PATH_API_PORTFOLIO_ANALYZE = '/api/portfolio/analyze'
+STR_COPY_XLSX = 'خطوات التحقيق - Copy.xlsx'
+
 PlanStatus = Literal["complete", "partial", "planned"]
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -20,10 +25,10 @@ _PLAN_ROWS: tuple[tuple[Any, ...], ...] = (
     ("core", "Real-time price ingestion", "complete", "aggregator", "/api/ingestion/status", "Binance/OKX/Bybit + WS hub"),
     ("core", "Fast price updates (WebSocket)", "partial", "exchange_ws_hub", "/api/low-latency/status", "WS ~100–800ms — not microsecond HFT"),
     ("core", "100 exchanges — phase 1", "complete", "universe_rollout", "/api/universe/rollout", "100 fetchers + auto-activate manifest"),
-    ("core", "Cross-exchange arbitrage", "complete", "arbitrage_engine", "/api/arbitrage/opportunities", "cross_exchange live"),
-    ("core", "Triangular arbitrage", "complete", "arbitrage_engine", "/api/arbitrage/opportunities", "triangular live"),
-    ("core", "Funding rate harvest", "complete", "arbitrage_engine", "/api/arbitrage/opportunities", "funding harvest live"),
-    ("core", "Spot vs Futures", "complete", "arbitrage_engine", "/api/arbitrage/opportunities", "spot_futures live"),
+    ("core", "Cross-exchange arbitrage", "complete", "arbitrage_engine", PATH_API_ARBITRAGE_OPPORTUNITIES, "cross_exchange live"),
+    ("core", "Triangular arbitrage", "complete", "arbitrage_engine", PATH_API_ARBITRAGE_OPPORTUNITIES, "triangular live"),
+    ("core", "Funding rate harvest", "complete", "arbitrage_engine", PATH_API_ARBITRAGE_OPPORTUNITIES, "funding harvest live"),
+    ("core", "Spot vs Futures", "complete", "arbitrage_engine", PATH_API_ARBITRAGE_OPPORTUNITIES, "spot_futures live"),
     ("core", "CEX ↔ DEX", "complete", "bd_platform.cex_dex_executor", "/api/platform/arb/cex-dex/execute", "DexScreener scan + dry-run/live CEX leg"),
     ("core", "Execution risk scoring %", "complete", "risk_manager", "/api/risk/status", "slippage + poison price freeze"),
     ("core", "Risk management", "complete", "risk_manager", "/api/risk/freeze", "freeze/unfreeze + VaR in Research Lab"),
@@ -33,13 +38,13 @@ _PLAN_ROWS: tuple[tuple[Any, ...], ...] = (
     ("dash", "Live monitoring dashboard", "complete", "dashboard", "/dashboard", "Live dashboard + heatmap"),
     ("dash", "Telegram/Email/WhatsApp alerts", "partial", "alert_service", "/api/alerts/subscribe", "WhatsApp = wa.me link"),
     ("dash", "Opportunity duration tracking", "complete", "opportunity_tracker", "/api/arbitrage/durations", "duration tracking"),
-    ("dash", "Net profit after fees", "complete", "arbitrage_service", "/api/arbitrage/opportunities", "net profit after fees"),
+    ("dash", "Net profit after fees", "complete", "arbitrage_service", PATH_API_ARBITRAGE_OPPORTUNITIES, "net profit after fees"),
     ("dash", "Why did this opportunity appear?", "complete", "ai_oracle", "/oracle/{symbol}/explain", "why + reasons + confidence"),
     ("features", "Heat map", "complete", "whale_tracker", "/api/market/sectors", "SII + sector heat"),
     ("features", "Trading Journal", "complete", "database", "/api/journal", "auth required"),
     ("features", "AI Reports / Weekly", "complete", "weekly_report", "/api/reports/weekly", "auto scheduler optional"),
-    ("features", "Portfolio Analytics", "complete", "dashboard", "/api/portfolio/analyze", "risk score 1–10"),
-    ("features", "Risk Score", "complete", "dashboard", "/api/portfolio/analyze", "beta-weighted risk"),
+    ("features", "Portfolio Analytics", "complete", "dashboard", PATH_API_PORTFOLIO_ANALYZE, "risk score 1–10"),
+    ("features", "Risk Score", "complete", "dashboard", PATH_API_PORTFOLIO_ANALYZE, "beta-weighted risk"),
     ("features", "Profit Analytics", "complete", "market_intel", "/api/analytics/profit", "P&L analytics"),
     ("features", "AI Chat", "complete", "chat_service", "/api/chat", "LLM + context"),
     ("features", "AI Explanation", "complete", "ai_oracle", "/oracle/{symbol}", "single-sentence oracle"),
@@ -48,7 +53,7 @@ _PLAN_ROWS: tuple[tuple[Any, ...], ...] = (
     ("biz", "3 subscription tiers", "complete", "auth_service", "/api/billing/status", "free/pro/whale + Stripe"),
     ("ai", "AI Trading Engine RSI/MACD/EMA", "complete", "technical_analysis", "/api/forecast/{symbol}", "multi-indicator"),
     ("ai", "Whale Intelligence", "complete", "whale_tracker", "/api/whale-activity", "CVVD + why narrative"),
-    ("ai", "Portfolio AI", "complete", "dashboard", "/api/portfolio/analyze", "concentration + scenarios"),
+    ("ai", "Portfolio AI", "complete", "dashboard", PATH_API_PORTFOLIO_ANALYZE, "concentration + scenarios"),
     ("ai", "Market Radar — sectors", "complete", "dashboard", "/api/market/sectors", "Gaming/AI/RWA/Solana sectors"),
     ("ai", "Opportunity Score 0–100", "complete", "ai_oracle", "/api/oracle/data-hub", "scored opportunities"),
     ("inst", "Institutional B2B", "partial", "b2b_websocket_hub", "/b2b", "WS feed + proposal deck"),
@@ -117,14 +122,14 @@ def plan_audit(*, excel_path: str | None = None) -> dict[str, Any]:
             "percent": round(cat_weight / len(rows) * 100, 1),
         })
 
-    excel_file = Path(excel_path) if excel_path else ROOT.parent / "خطوات التحقيق - Copy.xlsx"
+    excel_file = Path(excel_path) if excel_path else ROOT.parent / STR_COPY_XLSX
     if not excel_file.exists():
         excel_file = ROOT / "excel_plan_review.json"
 
     return {
         "timestamp": datetime.now(UTC).isoformat(),
-        "source_excel": str(excel_path or "خطوات التحقيق - Copy.xlsx"),
-        "source_found": Path(excel_path or ROOT.parent / "خطوات التحقيق - Copy.xlsx").exists(),
+        "source_excel": str(excel_path or STR_COPY_XLSX),
+        "source_found": Path(excel_path or ROOT.parent / STR_COPY_XLSX).exists(),
         "total_items": total,
         "complete_count": complete,
         "partial_count": partial,
@@ -149,6 +154,61 @@ def _catalog_stats() -> dict[str, Any]:
         return {"live": 0, "proxy": 0, "planned": 0}
 
 
+async def _fetch_sector_change(session: Any, asset: str) -> tuple[str, float] | None:
+    import aiohttp
+
+    import config
+
+    pair = f"{asset}USDT"
+    if not pair.isalnum():
+        return None
+    try:
+        async with session.get(
+            f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
+        ) as resp:
+            if resp.status != 200:
+                return None
+            row = await resp.json()
+            sector = config.SECTOR_MAP.get(asset, "Other")
+            return sector, float(row.get("priceChangePercent") or 0)
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return None
+
+
+def _sector_heat(avg: float) -> str:
+    if avg > 2:
+        return "Hot"
+    if avg < -2:
+        return "Cool"
+    return "Neutral"
+
+
+def _sector_rows(sector_assets: dict[str, list[float]]) -> list[dict[str, Any]]:
+    sectors: list[dict[str, Any]] = []
+    for name, changes in sector_assets.items():
+        if not changes:
+            continue
+        avg = sum(changes) / len(changes)
+        sectors.append({
+            "sector": name,
+            "avg_change_24h": round(avg, 2),
+            "asset_count": len(changes),
+            "heat_label": _sector_heat(avg),
+        })
+    sectors.sort(key=lambda x: abs(x["avg_change_24h"]), reverse=True)
+    return sectors
+
+
+def _market_radar_bullets(sectors: list[dict[str, Any]]) -> list[str]:
+    hot = [s for s in sectors if s["heat_label"] == "Hot"][:3]
+    cool = [s for s in sectors if s["heat_label"] == "Cool"][:3]
+    unusual = [s for s in sectors if s["heat_label"] == "Neutral" and abs(s["avg_change_24h"]) > 1][:2]
+    bullets_en = [f"Strong activity in {s['sector']} (+{s['avg_change_24h']:.1f}%)" for s in hot]
+    bullets_en.extend(f"Weakness in {s['sector']} ({s['avg_change_24h']:.1f}%)" for s in cool)
+    bullets_en.extend(f"Unusual flow in {s['sector']}" for s in unusual)
+    return bullets_en or ["Market balanced — no extreme sectors today"]
+
+
 async def market_radar_narrative() -> dict[str, Any]:
     """Excel-style sector narrative: Gaming up, AI weak, etc."""
     import aiohttp
@@ -159,50 +219,13 @@ async def market_radar_narrative() -> dict[str, Any]:
     timeout = aiohttp.ClientTimeout(total=12)
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for asset in config.tracked_asset_list()[:24]:
-            pair = f"{asset}USDT"
-            if not pair.isalnum():
-                continue
-            sector = config.SECTOR_MAP.get(asset, "Other")
-            try:
-                async with session.get(
-                    f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
-                ) as resp:
-                    if resp.status != 200:
-                        continue
-                    row = await resp.json()
-                    change = float(row.get("priceChangePercent") or 0)
-                    sector_assets.setdefault(sector, []).append(change)
-            except (aiohttp.ClientError, TypeError, ValueError):
-                continue
+            result = await _fetch_sector_change(session, asset)
+            if result is not None:
+                sector, change = result
+                sector_assets.setdefault(sector, []).append(change)
 
-    sectors: list[dict[str, Any]] = []
-    for name, changes in sector_assets.items():
-        if not changes:
-            continue
-        avg = sum(changes) / len(changes)
-        heat = "Hot" if avg > 2 else "Cool" if avg < -2 else "Neutral"
-        sectors.append({
-            "sector": name,
-            "avg_change_24h": round(avg, 2),
-            "asset_count": len(changes),
-            "heat_label": heat,
-        })
-    sectors.sort(key=lambda x: abs(x["avg_change_24h"]), reverse=True)
-
-    hot = [s for s in sectors if s["heat_label"] == "Hot"][:3]
-    cool = [s for s in sectors if s["heat_label"] == "Cool"][:3]
-    unusual = [s for s in sectors if s["heat_label"] == "Neutral" and abs(s["avg_change_24h"]) > 1][:2]
-
-    bullets_en: list[str] = []
-    for s in hot:
-        bullets_en.append(f"Strong activity in {s['sector']} (+{s['avg_change_24h']:.1f}%)")
-    for s in cool:
-        bullets_en.append(f"Weakness in {s['sector']} ({s['avg_change_24h']:.1f}%)")
-    for s in unusual:
-        bullets_en.append(f"Unusual flow in {s['sector']}")
-
-    if not bullets_en:
-        bullets_en.append("Market balanced — no extreme sectors today")
+    sectors = _sector_rows(sector_assets)
+    bullets_en = _market_radar_bullets(sectors)
 
     return {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),

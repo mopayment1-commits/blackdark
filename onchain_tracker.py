@@ -151,6 +151,31 @@ async def _fetch_onchain_flows_api(session: aiohttp.ClientSession) -> list[Excha
     return flows
 
 
+async def _fetch_api_flows_with_simulated_missing(
+    assets: list[str],
+) -> list[ExchangeFlowMetrics] | None:
+    session: aiohttp.ClientSession | None = None
+    try:
+        session = aiohttp.ClientSession(
+            timeout=aiohttp.ClientTimeout(total=config.ONCHAIN_FETCH_TIMEOUT_SECONDS)
+        )
+        api_flows = await _fetch_onchain_flows_api(session)
+        if not api_flows:
+            return None
+        present = {flow.asset for flow in api_flows}
+        flows = list(api_flows)
+        for asset in assets:
+            if asset not in present:
+                flows.append(_simulate_asset_flow(asset))
+        return flows
+    except Exception:
+        logger.exception("On-chain API fetch failed safely; falling back to simulation.")
+        return None
+    finally:
+        if session is not None and not session.closed:
+            await session.close()
+
+
 async def process_onchain_flows() -> list[ExchangeFlowMetrics]:
     """
     Parse or simulate exchange inflow/outflow metrics for core assets.
@@ -161,24 +186,9 @@ async def process_onchain_flows() -> list[ExchangeFlowMetrics]:
     source = str(config.ONCHAIN_DATA_SOURCE or "simulated").strip().lower()
 
     if source == "api" and config.ONCHAIN_API_URL:
-        session: aiohttp.ClientSession | None = None
-        try:
-            session = aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=config.ONCHAIN_FETCH_TIMEOUT_SECONDS)
-            )
-            api_flows = await _fetch_onchain_flows_api(session)
-            if api_flows:
-                present = {flow.asset for flow in api_flows}
-                flows = list(api_flows)
-                for asset in assets:
-                    if asset not in present:
-                        flows.append(_simulate_asset_flow(asset))
-                return flows
-        except Exception:
-            logger.exception("On-chain API fetch failed safely; falling back to simulation.")
-        finally:
-            if session is not None and not session.closed:
-                await session.close()
+        flows = await _fetch_api_flows_with_simulated_missing(assets)
+        if flows is not None:
+            return flows
 
     return [_simulate_asset_flow(asset) for asset in assets]
 
@@ -262,7 +272,28 @@ def _asset_bias(net_flow_usd: float) -> Literal["distribution", "accumulation", 
     return "neutral"
 
 
-async def analyze_onchain_flows(
+def _status_bias_and_signals(status: Any) -> tuple[str, list[Any]]:
+    if isinstance(status, dict):
+        return str(status.get("bias") or "neutral"), status.get("signals") or []
+    return status.bias, status.signals
+
+
+def _onchain_signal_score_delta(signal: Any) -> tuple[float, float]:
+    if isinstance(signal, dict):
+        severity = float(signal.get("severity") or 0.0)
+        signal_type = str(signal.get("signal_type") or "")
+    else:
+        severity = float(signal.severity)
+        signal_type = signal.signal_type
+    weight = severity / 100.0
+    if signal_type == "accumulation_signal":
+        return config.ONCHAIN_SCORE_BOOST_MAX * weight, 0.0
+    if signal_type == "distribution_risk":
+        return 0.0, config.ONCHAIN_DISTRIBUTION_PENALTY_MAX * weight
+    return 0.0, 0.0
+
+
+def analyze_onchain_flows(
     flows: list[ExchangeFlowMetrics],
 ) -> tuple[list[OnChainSignal], dict[str, AssetOnChainStatus]]:
     signals: list[OnChainSignal] = []
@@ -306,12 +337,7 @@ def onchain_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> f
         if status is None:
             return 0.0
 
-        if isinstance(status, dict):
-            bias = str(status.get("bias") or "neutral")
-            signals = status.get("signals") or []
-        else:
-            bias = status.bias
-            signals = status.signals
+        bias, signals = _status_bias_and_signals(status)
 
         boost = 0.0
         penalty = 0.0
@@ -321,17 +347,9 @@ def onchain_score_adjustment_for_asset(asset: str, context: dict[str, Any]) -> f
             penalty = config.ONCHAIN_DISTRIBUTION_PENALTY_MAX * 0.5
 
         for signal in signals:
-            if isinstance(signal, dict):
-                severity = float(signal.get("severity") or 0.0)
-                signal_type = str(signal.get("signal_type") or "")
-            else:
-                severity = float(signal.severity)
-                signal_type = signal.signal_type
-            weight = severity / 100.0
-            if signal_type == "accumulation_signal":
-                boost += config.ONCHAIN_SCORE_BOOST_MAX * weight
-            elif signal_type == "distribution_risk":
-                penalty += config.ONCHAIN_DISTRIBUTION_PENALTY_MAX * weight
+            signal_boost, signal_penalty = _onchain_signal_score_delta(signal)
+            boost += signal_boost
+            penalty += signal_penalty
 
         return round(
             max(
@@ -391,7 +409,7 @@ def inject_oracle_onchain_analytics(
 
 async def build_onchain_context() -> dict[str, Any]:
     flows = await process_onchain_flows()
-    signals, statuses = await analyze_onchain_flows(flows)
+    signals, statuses = analyze_onchain_flows(flows)
 
     status_payload = {key: value.model_dump() for key, value in statuses.items()}
     signal_payload = [signal.model_dump() for signal in signals]

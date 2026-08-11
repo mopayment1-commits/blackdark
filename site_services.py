@@ -326,30 +326,30 @@ def submit_feedback(
     }
 
 
-def public_status_report() -> dict[str, Any]:
-    """Aggregate non-secret readiness for /status — never expose keys."""
-    viral: dict[str, Any] = {}
-    billing: dict[str, Any] = {}
-    db_engine = "sqlite"
+def _database_engine() -> str:
     try:
         from postgres_backend import use_postgres
 
-        db_engine = "postgresql" if use_postgres() else "sqlite"
+        return "postgresql" if use_postgres() else "sqlite"
     except Exception:
-        pass
+        return "sqlite"
 
+
+def _viral_status() -> dict[str, Any]:
     try:
         from viral_capacity import viral_readiness_report
 
         raw = viral_readiness_report()
-        viral = {
+        return {
             "status": raw.get("status") or raw.get("overall") or "reported",
             "summary": raw.get("summary") or raw.get("headline") or raw.get("message"),
             "ha_required": bool(raw.get("ha_required") or raw.get("ha_prerequisites")),
         }
     except Exception:
-        viral = {"status": "unavailable"}
+        return {"status": "unavailable"}
 
+
+def _billing_status() -> dict[str, Any]:
     try:
         from payments_usd import payments_architecture
 
@@ -357,22 +357,39 @@ def public_status_report() -> dict[str, Any]:
         ops = arch.get("ops_readiness") or {}
         sec = arch.get("security") or {}
         launch_ready = bool(ops.get("launch_ready"))
-        billing = {
+        return {
             "currency": arch.get("currency_code") or arch.get("currency") or "USD",
             "status": "operational" if launch_ready else "degraded",
             "active_provider": arch.get("active_provider"),
             "billing_configured": bool(arch.get("billing_configured")),
-            "pci_posture": sec.get("pci_target")
-            or sec.get("pci_saq")
-            or "SAQ_A",
+            "pci_posture": sec.get("pci_target") or sec.get("pci_saq") or "SAQ_A",
         }
     except Exception:
-        billing = {
+        return {
             "currency": "USD",
             "status": "reported",
             "pci_posture": "SAQ_A_hosted_checkout",
             "note": "Card data never stored on BLACKDARK servers",
         }
+
+
+def _overall_status(components: list[dict[str, Any]]) -> str:
+    bad = {"down", "fail", "failed", "error", "critical", "outage"}
+    overall = "operational"
+    for component in components:
+        status = str(component.get("status") or "").lower()
+        if status in bad:
+            return "outage"
+        if status in {"degraded", "warn", "warning", "partial", "unavailable"}:
+            overall = "degraded"
+    return overall
+
+
+def public_status_report() -> dict[str, Any]:
+    """Aggregate non-secret readiness for /status — never expose keys."""
+    viral = _viral_status()
+    billing = _billing_status()
+    db_engine = _database_engine()
 
     components = [
         {"id": "api", "label": "API process", "status": "operational"},
@@ -388,19 +405,9 @@ def public_status_report() -> dict[str, Any]:
             "status": billing.get("status") or "reported",
         },
     ]
-    bad = {"down", "fail", "failed", "error", "critical", "outage"}
-    overall = "operational"
-    for c in components:
-        st = str(c.get("status") or "").lower()
-        if st in bad:
-            overall = "outage"
-            break
-        if st in {"degraded", "warn", "warning", "partial", "unavailable"}:
-            overall = "degraded"
-
     return {
         "product": "BLACKDARK Trust OS",
-        "overall": overall,
+        "overall": _overall_status(components),
         "updated_at": _utcnow(),
         "components": components,
         "viral": viral,

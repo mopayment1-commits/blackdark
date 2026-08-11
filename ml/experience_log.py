@@ -55,6 +55,25 @@ def append_experience(
     return entry
 
 
+def _update_training_summary(stats: dict[str, Any], latest: dict[str, Any]) -> None:
+    if not latest.get("payload", {}).get("trained"):
+        return
+    stats["total_training_runs"] = int(stats.get("total_training_runs") or 0) + 1
+    metrics = latest.get("payload", {}).get("metrics") or {}
+    best = float(stats.get("best_accuracy") or 0)
+    accuracy = float(metrics.get("accuracy") or 0)
+    if accuracy > best:
+        stats["best_accuracy"] = accuracy
+        stats["best_model_version"] = latest.get("payload", {}).get("model_version")
+
+
+def _update_flywheel_summary(stats: dict[str, Any], latest: dict[str, Any]) -> None:
+    stats["total_flywheel_cycles"] = int(stats.get("total_flywheel_cycles") or 0) + 1
+    labeled = (latest.get("payload") or {}).get("export", {}).get("exported")
+    if labeled is not None:
+        stats["last_labeled_export_count"] = labeled
+
+
 def _refresh_summary(latest: dict[str, Any]) -> None:
     stats = load_experience_summary()
     stats["total_events"] = int(stats.get("total_events") or 0) + 1
@@ -64,18 +83,9 @@ def _refresh_summary(latest: dict[str, Any]) -> None:
     event_type = str(latest.get("event_type") or "unknown")
     by_type[event_type] = int(by_type.get(event_type) or 0) + 1
     if event_type == "training_run" and latest.get("payload", {}).get("trained"):
-        stats["total_training_runs"] = int(stats.get("total_training_runs") or 0) + 1
-        metrics = latest.get("payload", {}).get("metrics") or {}
-        best = float(stats.get("best_accuracy") or 0)
-        accuracy = float(metrics.get("accuracy") or 0)
-        if accuracy > best:
-            stats["best_accuracy"] = accuracy
-            stats["best_model_version"] = latest.get("payload", {}).get("model_version")
+        _update_training_summary(stats, latest)
     if event_type == "flywheel_cycle":
-        stats["total_flywheel_cycles"] = int(stats.get("total_flywheel_cycles") or 0) + 1
-        labeled = (latest.get("payload") or {}).get("export", {}).get("exported")
-        if labeled is not None:
-            stats["last_labeled_export_count"] = labeled
+        _update_flywheel_summary(stats, latest)
     ensure_under(SUMMARY_PATH, config.DATA_DIR).write_text(  # NOSONAR pythonsecurity:S2083
         json.dumps(stats, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",

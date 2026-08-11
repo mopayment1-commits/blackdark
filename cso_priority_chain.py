@@ -15,6 +15,9 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_DATA_ROOM = '/data-room'
+
 # Levers that may unlock new product work (binding gate).
 PERMITTED_LEVERS = frozenset(
     {
@@ -95,7 +98,7 @@ CHAIN_STAGES: list[dict[str, Any]] = [
         "id": "institutional_proof",
         "name": "Institutional Proof",
         "definition": "Evidence Pack / Data Room after real retention — empty SOC2 slots stay empty.",
-        "primary_surfaces": ["/data-room", "/b2b", "/api/due-diligence/evidence-pack/public-summary"],
+        "primary_surfaces": [PATH_DATA_ROOM, "/b2b", "/api/due-diligence/evidence-pack/public-summary"],
         "success_signal": "Desk conversations cite live ledger + kill-rate, not a capability catalog.",
         "forbids": ["fake_soc2", "loi_ready_without_traction", "white_label_before_b2b"],
     },
@@ -113,7 +116,7 @@ CHAIN_STAGES: list[dict[str, Any]] = [
         "id": "acquisition_leverage",
         "name": "Acquisition Leverage",
         "definition": "Option after moat + revenue signals — not a daily build target.",
-        "primary_surfaces": ["/api/trust-os", "/api/acquisition/assets", "/data-room"],
+        "primary_surfaces": ["/api/trust-os", "/api/acquisition/assets", PATH_DATA_ROOM],
         "success_signal": "Diligence can verify Prove-it + paid habit + flywheel without feature inflation.",
         "forbids": ["build_for_buyer_tour", "sixteen_platform_valuation"],
     },
@@ -220,7 +223,7 @@ def build_cso_priority_chain() -> dict[str, Any]:
             "white_label",
             "feature_catalog_expansion",
         ],
-        "pages": ["/priority-chain", "/dashboard?lens=prove#trust-pulse", "/kill-rate", "/data-room"],
+        "pages": ["/priority-chain", "/dashboard?lens=prove#trust-pulse", "/kill-rate", PATH_DATA_ROOM],
         "api": "/api/strategy/priority-chain",
         "evaluate_api": "/api/strategy/priority-chain/evaluate",
         "closure_api": "/api/public/cso-priority-closure",
@@ -243,7 +246,7 @@ def build_cso_priority_chain() -> dict[str, Any]:
     }
 
 
-async def build_cso_priority_closure() -> dict[str, Any]:
+def build_cso_priority_closure() -> dict[str, Any]:
     """Public closure surface — confirms binding is shipped, not deferred."""
     chain = build_cso_priority_chain()
     # Smoke the gate with a known reject + allow

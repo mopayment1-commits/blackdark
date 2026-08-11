@@ -16,7 +16,8 @@ client = TestClient(app)
 def test_arabic_changes_hero_and_lenses_and_nav():
     en = client.get("/").text
     ar = client.get("/?lang=ar").text
-    assert 'lang="ar"' in ar and 'dir="rtl"' in ar
+    assert 'lang="ar"' in ar
+    assert 'dir="rtl"' in ar
     assert "We publish the miss." in en
     assert "ننشر الخطأ." in ar
     # Body headline must not stay English (meta may still mention brand EN in rare cases)

@@ -10,6 +10,7 @@ import logging
 import os
 import time
 from collections import defaultdict
+from typing import Annotated
 
 from fastapi import Cookie, Depends, Header, HTTPException, Request
 
@@ -156,8 +157,8 @@ def is_admin_user(user: dict | None) -> bool:
 
 
 async def optional_user_from_request(
-    authorization: str | None = Header(None, alias="Authorization"),
-    bd_token: str | None = Cookie(None, alias="bd_token"),
+    authorization: Annotated[str | None, Header(alias="Authorization")] = None,
+    bd_token: Annotated[str | None, Cookie(alias="bd_token")] = None,
 ) -> dict | None:
     from auth_service import get_user_from_token
 
@@ -171,16 +172,16 @@ async def optional_user_from_request(
     return await get_user_from_token(token.strip())
 
 
-async def require_authenticated(
-    user: dict | None = Depends(optional_user_from_request),
+def require_authenticated(
+    user: Annotated[dict | None, Depends(optional_user_from_request)],
 ) -> dict:
     if user is None:
         raise HTTPException(status_code=401, detail="Authentication required")
     return user
 
 
-async def require_whale(
-    user: dict = Depends(require_authenticated),
+def require_whale(
+    user: Annotated[dict, Depends(require_authenticated)],
 ) -> dict:
     tier = str(user.get("tier") or "free")
     if tier != "whale" and not is_admin_user(user):
@@ -191,9 +192,9 @@ async def require_whale(
     return user
 
 
-async def require_admin(
-    user: dict | None = Depends(optional_user_from_request),
-    x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+def require_admin(
+    user: Annotated[dict | None, Depends(optional_user_from_request)],
+    x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
 ) -> dict:
     if verify_admin_key(x_admin_key):
         return {"email": "admin@system", "tier": "whale", "is_admin": True}
@@ -208,19 +209,19 @@ def _is_localhost(request: Request) -> bool:
     return host in {"127.0.0.1", "::1", "localhost"}
 
 
-async def require_admin_dev(
+def require_admin_dev(
     request: Request,
-    user: dict | None = Depends(optional_user_from_request),
-    x_admin_key: str | None = Header(None, alias="X-Admin-Key"),
+    user: Annotated[dict | None, Depends(optional_user_from_request)],
+    x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
 ) -> dict:
     """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
     if not is_production_env() and _is_localhost(request):
         return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return await require_admin(user, x_admin_key)
+    return require_admin(user, x_admin_key)
 
 
-async def require_pro_or_above(
-    user: dict = Depends(require_authenticated),
+def require_pro_or_above(
+    user: Annotated[dict, Depends(require_authenticated)],
 ) -> dict:
     tier = str(user.get("tier") or "free")
     if tier in {"pro", "whale"} or is_admin_user(user):

@@ -56,7 +56,8 @@ def test_ledger_share_kit():
     kit = build_ledger_share_kit(accuracy_pct=61.5, total_predictions=120)
     assert "oracle-accuracy" in kit["url"]
     assert "misses" in kit["share_text"].lower()
-    assert "x" in kit["share_urls"] and "telegram" in kit["share_urls"]
+    assert "x" in kit["share_urls"]
+    assert "telegram" in kit["share_urls"]
 
 
 def test_portfolio_one_sentence():

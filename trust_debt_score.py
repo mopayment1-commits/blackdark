@@ -72,32 +72,45 @@ def record_trust_event(
     return build_trust_debt_score(user_key=uk)
 
 
+def _recent_events(events: list[dict[str, Any]], cutoff: datetime) -> list[dict[str, Any]]:
+    recent: list[dict[str, Any]] = []
+    for event in events:
+        try:
+            ts = datetime.fromisoformat(str(event.get("at")))
+        except ValueError:
+            continue
+        if ts.tzinfo is None:
+            ts = ts.replace(tzinfo=UTC)
+        if ts >= cutoff:
+            recent.append(event)
+    return recent
+
+
+def _weighted_points(events: list[dict[str, Any]], kinds: set[str]) -> float:
+    return sum(float(event.get("weight") or 0) for event in events if event.get("kind") in kinds)
+
+
+def _seed_trust_debt_demo(user_key: str) -> None:
+    record_trust_event(user_key=user_key, kind="unverified_ai", weight=5)
+    record_trust_event(user_key=user_key, kind="unverified_ai", weight=3)
+    record_trust_event(user_key=user_key, kind="ledger_decision", weight=2)
+
+
 def build_trust_debt_score(*, user_key: str = "anon", window_days: int = 7) -> dict[str, Any]:
     uk = (user_key or "anon").strip() or "anon"
     data = _load()
     row = (data.get("users") or {}).get(uk) or {}
     events = row.get("events") or []
     cutoff = _utcnow() - timedelta(days=window_days)
-    recent = []
-    for e in events:
-        try:
-            ts = datetime.fromisoformat(str(e.get("at")))
-            if ts.tzinfo is None:
-                ts = ts.replace(tzinfo=UTC)
-            if ts >= cutoff:
-                recent.append(e)
-        except ValueError:
-            continue
+    recent = _recent_events(events, cutoff)
 
     # Seed a meaningful demo path if empty
     if not recent and not events:
-        record_trust_event(user_key=uk, kind="unverified_ai", weight=5)
-        record_trust_event(user_key=uk, kind="unverified_ai", weight=3)
-        record_trust_event(user_key=uk, kind="ledger_decision", weight=2)
+        _seed_trust_debt_demo(uk)
         return build_trust_debt_score(user_key=uk, window_days=window_days)
 
-    ledger = sum(float(e.get("weight") or 0) for e in recent if e.get("kind") in {"ledger_decision", "anti_hype_session", "kill_followed"})
-    unverified = sum(float(e.get("weight") or 0) for e in recent if e.get("kind") in {"unverified_ai", "hype_click", "external_signal"})
+    ledger = _weighted_points(recent, {"ledger_decision", "anti_hype_session", "kill_followed"})
+    unverified = _weighted_points(recent, {"unverified_ai", "hype_click", "external_signal"})
     # Debt 0–100: high unverified / low ledger → high debt
     raw = 100.0 * (unverified / max(1.0, unverified + ledger * 1.5))
     debt = int(round(min(100.0, max(0.0, raw))))

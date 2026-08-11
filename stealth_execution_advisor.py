@@ -54,6 +54,81 @@ def _book_depth_usd(asset: str) -> tuple[float | None, str]:
     return None, "book_unavailable"
 
 
+def _slice_guidance(participation: float, depth_participation: float | None) -> tuple[int, str, str]:
+    large_depth = depth_participation is not None and depth_participation > 5
+    moderate_depth = depth_participation is not None and depth_participation > 1.5
+    if participation > 0.02 or large_depth:
+        slices = max(5, min(20, int(max(participation, (depth_participation or 0) / 50) * 400)))
+        return slices, "aggressive_slice", "Size is large vs ADV/depth — slice across time; avoid single print."
+    if participation > 0.005 or moderate_depth:
+        slices = max(3, min(10, int(participation * 500) or 3))
+        return slices, "standard_slice", "Moderate footprint — use staggered limits."
+    return 1, "single_clip_ok", "Small vs ADV — single clip usually fine."
+
+
+def _resolve_half_life(asset: str, half_life_seconds: float | None) -> float | None:
+    if half_life_seconds is not None:
+        return half_life_seconds
+    try:
+        from opportunity_tracker import estimate_half_life_seconds  # type: ignore
+
+        return float(estimate_half_life_seconds(asset.upper()) or 0) or None
+    except Exception:
+        return None
+
+
+def _urgency_note(half_life_seconds: float | None, note: str) -> tuple[str, str]:
+    if half_life_seconds is not None and half_life_seconds < 30:
+        return "edge_dying", note + " Half-life short — prioritize speed over stealth or stand down."
+    return "normal", note
+
+
+def _window_seconds(half_life_seconds: float | None, slices: int, urgency: str) -> int:
+    window_sec = int(half_life_seconds) if half_life_seconds and half_life_seconds > 0 else max(60, slices * 30)
+    if urgency == "edge_dying":
+        return max(15, min(window_sec, 45))
+    return window_sec
+
+
+def _limit_offset_bps(style: str) -> float:
+    if style == "single_clip_ok":
+        return 2.0
+    if style == "standard_slice":
+        return 5.0
+    return 8.0
+
+
+def _slice_algo(slices: int) -> str:
+    if slices >= 5:
+        return "SLICE_TWAP_STYLE"
+    if slices >= 3:
+        return "SLICE_VWAP_STYLE"
+    return "LIMIT_CLIP_ADVISORY"
+
+
+def _slice_plan_rows(
+    *,
+    slices: int,
+    slice_usd: float,
+    interval_sec: int,
+    limit_offset_bps: float,
+    side: str,
+    algo: str,
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "slice_index": i + 1,
+            "notional_usd": slice_usd,
+            "delay_sec": i * interval_sec,
+            "limit_offset_bps": limit_offset_bps,
+            "side": side.lower(),
+            "venue_preference": ["binance", "okx"],
+            "algo": algo,
+        }
+        for i in range(slices)
+    ]
+
+
 def advise_stealth_execution(
     *,
     asset: str,
@@ -68,61 +143,26 @@ def advise_stealth_execution(
     participation = (notional / adv) if adv > 0 else 0.0
     depth_participation = (notional / depth_usd) if depth_usd and depth_usd > 0 else None
 
-    if participation > 0.02 or (depth_participation is not None and depth_participation > 5):
-        slices = max(5, min(20, int(max(participation, (depth_participation or 0) / 50) * 400)))
-        style = "aggressive_slice"
-        note = "Size is large vs ADV/depth — slice across time; avoid single print."
-    elif participation > 0.005 or (depth_participation is not None and depth_participation > 1.5):
-        slices = max(3, min(10, int(participation * 500) or 3))
-        style = "standard_slice"
-        note = "Moderate footprint — use staggered limits."
-    else:
-        slices = 1
-        style = "single_clip_ok"
-        note = "Small vs ADV — single clip usually fine."
-
-    urgency = "normal"
-    hl = half_life_seconds
-    if hl is None:
-        try:
-            from opportunity_tracker import estimate_half_life_seconds  # type: ignore
-
-            hl = float(estimate_half_life_seconds(asset.upper()) or 0) or None
-        except Exception:
-            hl = None
-    if hl is not None and hl < 30:
-        urgency = "edge_dying"
-        note += " Half-life short — prioritize speed over stealth or stand down."
-
+    slices, style, note = _slice_guidance(participation, depth_participation)
+    hl = _resolve_half_life(asset, half_life_seconds)
+    urgency, note = _urgency_note(hl, note)
     slice_usd = round(notional / slices, 2) if slices else notional
 
     # Half-life-aligned advisory window (still advisory — no live SOR)
-    window_sec = int(hl) if hl and hl > 0 else max(60, slices * 30)
-    if urgency == "edge_dying":
-        window_sec = max(15, min(window_sec, 45))
+    window_sec = _window_seconds(hl, slices, urgency)
     interval_sec = max(5, int(window_sec / max(slices, 1)))
-    limit_offset_bps = 2.0 if style == "single_clip_ok" else (5.0 if style == "standard_slice" else 8.0)
+    limit_offset_bps = _limit_offset_bps(style)
     participation_target = min(0.02, max(0.001, participation / max(slices, 1)))
     # Advisory slice labels only — NOT live TWAP/VWAP algo execution.
-    algo = (
-        "SLICE_TWAP_STYLE"
-        if slices >= 5
-        else ("SLICE_VWAP_STYLE" if slices >= 3 else "LIMIT_CLIP_ADVISORY")
+    algo = _slice_algo(slices)
+    slice_plan_rows = _slice_plan_rows(
+        slices=slices,
+        slice_usd=slice_usd,
+        interval_sec=interval_sec,
+        limit_offset_bps=limit_offset_bps,
+        side=side,
+        algo=algo,
     )
-
-    slice_plan_rows = []
-    for i in range(slices):
-        slice_plan_rows.append(
-            {
-                "slice_index": i + 1,
-                "notional_usd": slice_usd,
-                "delay_sec": i * interval_sec,
-                "limit_offset_bps": limit_offset_bps,
-                "side": side.lower(),
-                "venue_preference": ["binance", "okx"],
-                "algo": algo,
-            }
-        )
 
     return {
         "asset": asset.upper(),

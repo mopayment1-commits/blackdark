@@ -362,6 +362,318 @@ def _detect_iceberg_cluster(trades: list[NormalizedTrade]) -> tuple[bool, int, f
     return is_cluster, len(trades), cv
 
 
+def _volume_spike(
+    volume_profile: dict[str, dict[str, dict[str, float]]],
+    sector: str,
+    exchange_id: str,
+) -> tuple[float, float, float]:
+    current_volume = volume_profile.get(sector, {}).get(exchange_id, {}).get("current", 0.0)
+    prior_volume = volume_profile.get(sector, {}).get(exchange_id, {}).get("prior", 0.0)
+    return current_volume, prior_volume, current_volume / max(prior_volume, 1.0)
+
+
+def _liquidity_drop(
+    *,
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    sector: str,
+    exchange_id: str,
+) -> tuple[float, float, float]:
+    current_liq = current_liquidity.get(sector, {}).get(exchange_id, 0.0)
+    previous_liq = prior_liquidity.get(sector, {}).get(exchange_id, current_liq)
+    drop_ratio = (current_liq - previous_liq) / max(previous_liq, 1.0)
+    return current_liq, previous_liq, drop_ratio
+
+
+def _dominant_side(symbol_trades: list[NormalizedTrade]) -> Side | None:
+    if not symbol_trades:
+        return None
+    buy_total = sum(t.notional_usd for t in symbol_trades if t.side == "buy")
+    sell_total = sum(t.notional_usd for t in symbol_trades if t.side == "sell")
+    return "buy" if buy_total >= sell_total else "sell"
+
+
+def _cvvd_pattern(iceberg: bool, volume_spike_ratio: float) -> ManipulationPattern:
+    if iceberg:
+        return "iceberg_cluster"
+    if volume_spike_ratio >= config.CVVD_VOLUME_SPIKE_RATIO * 1.5:
+        return "liquidity_spoof"
+    return "cross_venue_manipulation"
+
+
+def _cvvd_score(volume_spike_ratio: float, liquidity_drop_ratio: float, iceberg: bool) -> float:
+    return min(
+        100.0,
+        (volume_spike_ratio * abs(liquidity_drop_ratio) * 100.0)
+        + (10.0 if iceberg else 0.0),
+    )
+
+
+def _alert_symbol_asset(symbol_trades: list[NormalizedTrade]) -> tuple[str, str]:
+    top_trade = max(symbol_trades, key=lambda item: item.notional_usd, default=None)
+    symbol = top_trade.symbol if top_trade else config.SYMBOLS[0]
+    asset = top_trade.asset if top_trade else _asset_from_symbol(symbol)
+    return symbol, asset
+
+
+def _cvvd_alert_for_pair(
+    *,
+    sector: str,
+    volume_exchange: str,
+    liquidity_exchange: str,
+    sector_trades: list[NormalizedTrade],
+    volume_profile: dict[str, dict[str, dict[str, float]]],
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    window: int,
+) -> ManipulationAlert | None:
+    current_volume, prior_volume, volume_spike_ratio = _volume_spike(
+        volume_profile,
+        sector,
+        volume_exchange,
+    )
+    if volume_spike_ratio < config.CVVD_VOLUME_SPIKE_RATIO:
+        return None
+    current_liq, previous_liq, liquidity_drop_ratio = _liquidity_drop(
+        current_liquidity=current_liquidity,
+        prior_liquidity=prior_liquidity,
+        sector=sector,
+        exchange_id=liquidity_exchange,
+    )
+    if liquidity_drop_ratio > config.CVVD_LIQUIDITY_DROP_RATIO:
+        return None
+
+    symbol_trades = [trade for trade in sector_trades if trade.exchange == volume_exchange]
+    iceberg, iceberg_count, iceberg_cv = _detect_iceberg_cluster(symbol_trades)
+    manipulation_score = _cvvd_score(volume_spike_ratio, liquidity_drop_ratio, iceberg)
+    if manipulation_score < config.CVVD_MIN_MANIPULATION_SCORE:
+        return None
+
+    symbol, asset = _alert_symbol_asset(symbol_trades)
+    return ManipulationAlert(
+        pattern=_cvvd_pattern(iceberg, volume_spike_ratio),
+        sector=sector,
+        volume_exchange=volume_exchange,
+        liquidity_exchange=liquidity_exchange,
+        symbol=symbol,
+        asset=asset,
+        side=_dominant_side(symbol_trades),
+        manipulation_score=round(manipulation_score, 2),
+        volume_spike_ratio=round(volume_spike_ratio, 4),
+        liquidity_drop_ratio=round(liquidity_drop_ratio, 4),
+        volume_usd=round(current_volume, 2),
+        liquidity_usd=round(current_liq, 2),
+        iceberg_trade_count=iceberg_count,
+        metadata={
+            "prior_volume_usd": round(prior_volume, 2),
+            "prior_liquidity_usd": round(previous_liq, 2),
+            "iceberg_size_cv": round(iceberg_cv, 4),
+            "window_seconds": window,
+        },
+    )
+
+
+def _sector_cvvd_alerts(
+    *,
+    sector: str,
+    sector_trades: list[NormalizedTrade],
+    volume_profile: dict[str, dict[str, dict[str, float]]],
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    window: int,
+) -> list[ManipulationAlert]:
+    alerts: list[ManipulationAlert] = []
+    exchanges = _enabled_exchange_ids()
+    for volume_exchange in exchanges:
+        for liquidity_exchange in exchanges:
+            if liquidity_exchange == volume_exchange:
+                continue
+            alert = _cvvd_alert_for_pair(
+                sector=sector,
+                volume_exchange=volume_exchange,
+                liquidity_exchange=liquidity_exchange,
+                sector_trades=sector_trades,
+                volume_profile=volume_profile,
+                current_liquidity=current_liquidity,
+                prior_liquidity=prior_liquidity,
+                window=window,
+            )
+            if alert is not None:
+                alerts.append(alert)
+    return alerts
+
+
+def _recent_cvvd_trades(trades: list[NormalizedTrade], window: int) -> list[NormalizedTrade]:
+    now_ms = int(time.time() * 1000)
+    cutoff_ms = now_ms - (window * 1000)
+    return [trade for trade in trades if trade.trade_time_ms >= cutoff_ms]
+
+
+def _sector_volume_spike(
+    volume_profile: dict[str, Any],
+    sector: str,
+    exchange_id: str,
+) -> tuple[float, float, float] | None:
+    current_volume = volume_profile.get(sector, {}).get(exchange_id, {}).get("current", 0.0)
+    prior_volume = volume_profile.get(sector, {}).get(exchange_id, {}).get("prior", 0.0)
+    volume_spike_ratio = current_volume / max(prior_volume, 1.0)
+    if volume_spike_ratio < config.CVVD_VOLUME_SPIKE_RATIO:
+        return None
+    return current_volume, prior_volume, volume_spike_ratio
+
+
+def _sector_liquidity_drop(
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    sector: str,
+    exchange_id: str,
+) -> tuple[float, float, float] | None:
+    current_liq = current_liquidity.get(sector, {}).get(exchange_id, 0.0)
+    previous_liq = prior_liquidity.get(sector, {}).get(exchange_id, current_liq)
+    liquidity_drop_ratio = (current_liq - previous_liq) / max(previous_liq, 1.0)
+    if liquidity_drop_ratio > config.CVVD_LIQUIDITY_DROP_RATIO:
+        return None
+    return current_liq, previous_liq, liquidity_drop_ratio
+
+
+def _dominant_trade_side(symbol_trades: list[NormalizedTrade]) -> Side | None:
+    if not symbol_trades:
+        return None
+    buy_total = sum(t.notional_usd for t in symbol_trades if t.side == "buy")
+    sell_total = sum(t.notional_usd for t in symbol_trades if t.side == "sell")
+    return "buy" if buy_total >= sell_total else "sell"
+
+
+def _cvvd_pattern(iceberg: bool, volume_spike_ratio: float) -> ManipulationPattern:
+    if iceberg:
+        return "iceberg_cluster"
+    if volume_spike_ratio >= config.CVVD_VOLUME_SPIKE_RATIO * 1.5:
+        return "liquidity_spoof"
+    return "cross_venue_manipulation"
+
+
+def _cvvd_score(volume_spike_ratio: float, liquidity_drop_ratio: float, iceberg: bool) -> float:
+    return min(
+        100.0,
+        (volume_spike_ratio * abs(liquidity_drop_ratio) * 100.0) + (10.0 if iceberg else 0.0),
+    )
+
+
+def _top_cvvd_trade(symbol_trades: list[NormalizedTrade]) -> tuple[str, str]:
+    top_trade = max(symbol_trades, key=lambda item: item.notional_usd, default=None)
+    symbol = top_trade.symbol if top_trade else config.SYMBOLS[0]
+    asset = top_trade.asset if top_trade else _asset_from_symbol(symbol)
+    return symbol, asset
+
+
+def _build_cvvd_alert(
+    *,
+    sector: str,
+    volume_exchange: str,
+    liquidity_exchange: str,
+    symbol_trades: list[NormalizedTrade],
+    volume_stats: tuple[float, float, float],
+    liquidity_stats: tuple[float, float, float],
+    window: int,
+) -> ManipulationAlert | None:
+    current_volume, prior_volume, volume_spike_ratio = volume_stats
+    current_liq, previous_liq, liquidity_drop_ratio = liquidity_stats
+    iceberg, iceberg_count, iceberg_cv = _detect_iceberg_cluster(symbol_trades)
+    manipulation_score = _cvvd_score(volume_spike_ratio, liquidity_drop_ratio, iceberg)
+    if manipulation_score < config.CVVD_MIN_MANIPULATION_SCORE:
+        return None
+    symbol, asset = _top_cvvd_trade(symbol_trades)
+    return ManipulationAlert(
+        pattern=_cvvd_pattern(iceberg, volume_spike_ratio),
+        sector=sector,
+        volume_exchange=volume_exchange,
+        liquidity_exchange=liquidity_exchange,
+        symbol=symbol,
+        asset=asset,
+        side=_dominant_trade_side(symbol_trades),
+        manipulation_score=round(manipulation_score, 2),
+        volume_spike_ratio=round(volume_spike_ratio, 4),
+        liquidity_drop_ratio=round(liquidity_drop_ratio, 4),
+        volume_usd=round(current_volume, 2),
+        liquidity_usd=round(current_liq, 2),
+        iceberg_trade_count=iceberg_count,
+        metadata={
+            "prior_volume_usd": round(prior_volume, 2),
+            "prior_liquidity_usd": round(previous_liq, 2),
+            "iceberg_size_cv": round(iceberg_cv, 4),
+            "window_seconds": window,
+        },
+    )
+
+
+def _cvvd_alerts_for_volume_exchange(
+    *,
+    sector: str,
+    sector_trades: list[NormalizedTrade],
+    exchanges: list[str],
+    volume_exchange: str,
+    volume_stats: tuple[float, float, float],
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    window: int,
+) -> list[ManipulationAlert]:
+    alerts: list[ManipulationAlert] = []
+    symbol_trades = [trade for trade in sector_trades if trade.exchange == volume_exchange]
+    for liquidity_exchange in exchanges:
+        if liquidity_exchange == volume_exchange:
+            continue
+        liquidity_stats = _sector_liquidity_drop(
+            current_liquidity,
+            prior_liquidity,
+            sector,
+            liquidity_exchange,
+        )
+        if not liquidity_stats:
+            continue
+        alert = _build_cvvd_alert(
+            sector=sector,
+            volume_exchange=volume_exchange,
+            liquidity_exchange=liquidity_exchange,
+            symbol_trades=symbol_trades,
+            volume_stats=volume_stats,
+            liquidity_stats=liquidity_stats,
+            window=window,
+        )
+        if alert:
+            alerts.append(alert)
+    return alerts
+
+
+def _cvvd_alerts_for_sector(
+    *,
+    sector: str,
+    recent_trades: list[NormalizedTrade],
+    volume_profile: dict[str, Any],
+    current_liquidity: dict[str, dict[str, float]],
+    prior_liquidity: dict[str, dict[str, float]],
+    window: int,
+) -> list[ManipulationAlert]:
+    alerts: list[ManipulationAlert] = []
+    exchanges = _enabled_exchange_ids()
+    sector_trades = [trade for trade in recent_trades if trade.sector == sector]
+    for volume_exchange in exchanges:
+        volume_stats = _sector_volume_spike(volume_profile, sector, volume_exchange)
+        if not volume_stats:
+            continue
+        alerts.extend(
+            _cvvd_alerts_for_volume_exchange(
+                sector=sector,
+                sector_trades=sector_trades,
+                exchanges=exchanges,
+                volume_exchange=volume_exchange,
+                volume_stats=volume_stats,
+                current_liquidity=current_liquidity,
+                prior_liquidity=prior_liquidity,
+                window=window,
+            )
+        )
+    return alerts
+
 def detect_cross_venue_manipulation(
     trades: list[NormalizedTrade],
     order_books: dict[str, dict[str, dict[str, Any]]],
@@ -378,100 +690,92 @@ def detect_cross_venue_manipulation(
     """
     window = window_seconds or config.SECTOR_FLOW_WINDOW_SECONDS
     volume_profile = _aggregate_sector_volume(trades, window)
-    current_liquidity, prior_liquidity = _aggregate_sector_liquidity(
-        order_books,
-        prior_liquidity,
-    )
-
-    now_ms = int(time.time() * 1000)
-    cutoff_ms = now_ms - (window * 1000)
-    recent_trades = [trade for trade in trades if trade.trade_time_ms >= cutoff_ms]
-
+    current_liquidity, prior_liquidity = _aggregate_sector_liquidity(order_books, prior_liquidity)
+    recent_trades = _recent_cvvd_trades(trades, window)
     alerts: list[ManipulationAlert] = []
-
     for sector in sorted(set(config.SECTOR_MAP.values())):
-        sector_trades = [trade for trade in recent_trades if trade.sector == sector]
-        exchanges = _enabled_exchange_ids()
-
-        for volume_exchange in exchanges:
-            current_volume = volume_profile.get(sector, {}).get(volume_exchange, {}).get("current", 0.0)
-            prior_volume = volume_profile.get(sector, {}).get(volume_exchange, {}).get("prior", 0.0)
-            volume_baseline = max(prior_volume, 1.0)
-            volume_spike_ratio = current_volume / volume_baseline
-
-            if volume_spike_ratio < config.CVVD_VOLUME_SPIKE_RATIO:
-                continue
-
-            for liquidity_exchange in exchanges:
-                if liquidity_exchange == volume_exchange:
-                    continue
-
-                current_liq = current_liquidity.get(sector, {}).get(liquidity_exchange, 0.0)
-                previous_liq = prior_liquidity.get(sector, {}).get(liquidity_exchange, current_liq)
-                liquidity_baseline = max(previous_liq, 1.0)
-                liquidity_drop_ratio = (current_liq - previous_liq) / liquidity_baseline
-
-                if liquidity_drop_ratio > config.CVVD_LIQUIDITY_DROP_RATIO:
-                    continue
-
-                symbol_trades = [
-                    trade
-                    for trade in sector_trades
-                    if trade.exchange == volume_exchange
-                ]
-                iceberg, iceberg_count, iceberg_cv = _detect_iceberg_cluster(symbol_trades)
-
-                dominant_side: Side | None = None
-                if symbol_trades:
-                    buy_total = sum(t.notional_usd for t in symbol_trades if t.side == "buy")
-                    sell_total = sum(t.notional_usd for t in symbol_trades if t.side == "sell")
-                    dominant_side = "buy" if buy_total >= sell_total else "sell"
-
-                pattern: ManipulationPattern = "cross_venue_manipulation"
-                if iceberg:
-                    pattern = "iceberg_cluster"
-                elif volume_spike_ratio >= config.CVVD_VOLUME_SPIKE_RATIO * 1.5:
-                    pattern = "liquidity_spoof"
-
-                manipulation_score = min(
-                    100.0,
-                    (volume_spike_ratio * abs(liquidity_drop_ratio) * 100.0)
-                    + (10.0 if iceberg else 0.0),
-                )
-
-                if manipulation_score < config.CVVD_MIN_MANIPULATION_SCORE:
-                    continue
-
-                top_trade = max(symbol_trades, key=lambda item: item.notional_usd, default=None)
-                symbol = top_trade.symbol if top_trade else config.SYMBOLS[0]
-                asset = top_trade.asset if top_trade else _asset_from_symbol(symbol)
-
-                alerts.append(
-                    ManipulationAlert(
-                        pattern=pattern,
-                        sector=sector,
-                        volume_exchange=volume_exchange,
-                        liquidity_exchange=liquidity_exchange,
-                        symbol=symbol,
-                        asset=asset,
-                        side=dominant_side,
-                        manipulation_score=round(manipulation_score, 2),
-                        volume_spike_ratio=round(volume_spike_ratio, 4),
-                        liquidity_drop_ratio=round(liquidity_drop_ratio, 4),
-                        volume_usd=round(current_volume, 2),
-                        liquidity_usd=round(current_liq, 2),
-                        iceberg_trade_count=iceberg_count,
-                        metadata={
-                            "prior_volume_usd": round(prior_volume, 2),
-                            "prior_liquidity_usd": round(previous_liq, 2),
-                            "iceberg_size_cv": round(iceberg_cv, 4),
-                            "window_seconds": window,
-                        },
-                    )
-                )
-
+        alerts.extend(
+            _cvvd_alerts_for_sector(
+                sector=sector,
+                recent_trades=recent_trades,
+                volume_profile=volume_profile,
+                current_liquidity=current_liquidity,
+                prior_liquidity=prior_liquidity,
+                window=window,
+            )
+        )
     alerts.sort(key=lambda item: item.manipulation_score, reverse=True)
     return alerts
+
+
+def _record_sii_trade(
+    *,
+    trade: NormalizedTrade,
+    start_ms: int,
+    bucket_seconds: int,
+    buckets: int,
+    sector_bucket_flows: dict[str, list[float]],
+    sector_buy: dict[str, float],
+    sector_sell: dict[str, float],
+    sector_count: dict[str, int],
+) -> None:
+    if trade.trade_time_ms < start_ms:
+        return
+    sector_count[trade.sector] += 1
+    if trade.side == "buy":
+        sector_buy[trade.sector] += trade.notional_usd
+        signed = trade.notional_usd
+    else:
+        sector_sell[trade.sector] += trade.notional_usd
+        signed = -trade.notional_usd
+
+    elapsed_ms = trade.trade_time_ms - start_ms
+    bucket_idx = min(buckets - 1, int(elapsed_ms / (bucket_seconds * 1000)))
+    sector_bucket_flows.setdefault(trade.sector, [0.0] * buckets)
+    sector_bucket_flows[trade.sector][bucket_idx] += signed
+
+
+def _cumulative_flows(flows: list[float]) -> list[float]:
+    cumulative = list(flows)
+    for idx in range(1, len(cumulative)):
+        cumulative[idx] += cumulative[idx - 1]
+    return cumulative
+
+
+def _flow_momentum(cumulative: list[float]) -> tuple[float, float, float]:
+    net_flow = cumulative[-1] if cumulative else 0.0
+    velocity = cumulative[-1] - cumulative[-2] if len(cumulative) >= 2 else net_flow
+    if len(cumulative) >= 3:
+        acceleration = (cumulative[-1] - cumulative[-2]) - (cumulative[-2] - cumulative[-3])
+    else:
+        acceleration = velocity
+    return net_flow, velocity, acceleration
+
+
+def _sector_inflow_snapshot(
+    *,
+    sector: str,
+    flows: list[float],
+    sector_buy: dict[str, float],
+    sector_sell: dict[str, float],
+    sector_count: dict[str, int],
+    window: int,
+) -> SectorInflowIndex:
+    net_flow, velocity, acceleration = _flow_momentum(_cumulative_flows(flows))
+    velocity_component = _tanh_scale(velocity, config.SII_VELOCITY_SCALE_USD) * 50.0
+    acceleration_component = _tanh_scale(acceleration, config.SII_ACCELERATION_SCALE_USD) * 50.0
+    sii_score = max(-100.0, min(100.0, velocity_component + acceleration_component))
+    return SectorInflowIndex(
+        sector=sector,
+        sii_score=round(sii_score, 2),
+        net_flow_usd=round(net_flow, 2),
+        flow_velocity_usd=round(velocity, 2),
+        flow_acceleration_usd=round(acceleration, 2),
+        buy_notional_usd=round(sector_buy.get(sector, 0.0), 2),
+        sell_notional_usd=round(sector_sell.get(sector, 0.0), 2),
+        trade_count=sector_count.get(sector, 0),
+        window_seconds=window,
+    )
 
 
 def compute_sector_inflow_index(
@@ -500,53 +804,29 @@ def compute_sector_inflow_index(
     sector_count: dict[str, int] = defaultdict(int)
 
     for trade in trades:
-        if trade.trade_time_ms < start_ms:
-            continue
-
-        sector_count[trade.sector] += 1
-        if trade.side == "buy":
-            sector_buy[trade.sector] += trade.notional_usd
-            signed = trade.notional_usd
-        else:
-            sector_sell[trade.sector] += trade.notional_usd
-            signed = -trade.notional_usd
-
-        elapsed_ms = trade.trade_time_ms - start_ms
-        bucket_idx = min(buckets - 1, int(elapsed_ms / (bucket_seconds * 1000)))
-        sector_bucket_flows.setdefault(trade.sector, [0.0] * buckets)
-        sector_bucket_flows[trade.sector][bucket_idx] += signed
+        _record_sii_trade(
+            trade=trade,
+            start_ms=start_ms,
+            bucket_seconds=bucket_seconds,
+            buckets=buckets,
+            sector_bucket_flows=sector_bucket_flows,
+            sector_buy=sector_buy,
+            sector_sell=sector_sell,
+            sector_count=sector_count,
+        )
 
     snapshots: list[SectorInflowIndex] = []
 
     for sector in sorted(set(config.SECTOR_MAP.values())):
         flows = sector_bucket_flows.get(sector, [0.0] * buckets)
-        cumulative = list(flows)
-        for idx in range(1, len(cumulative)):
-            cumulative[idx] += cumulative[idx - 1]
-
-        net_flow = cumulative[-1] if cumulative else 0.0
-        velocity = cumulative[-1] - cumulative[-2] if len(cumulative) >= 2 else net_flow
-        acceleration = (
-            (cumulative[-1] - cumulative[-2]) - (cumulative[-2] - cumulative[-3])
-            if len(cumulative) >= 3
-            else velocity
-        )
-
-        velocity_component = _tanh_scale(velocity, config.SII_VELOCITY_SCALE_USD) * 50.0
-        acceleration_component = _tanh_scale(acceleration, config.SII_ACCELERATION_SCALE_USD) * 50.0
-        sii_score = max(-100.0, min(100.0, velocity_component + acceleration_component))
-
         snapshots.append(
-            SectorInflowIndex(
+            _sector_inflow_snapshot(
                 sector=sector,
-                sii_score=round(sii_score, 2),
-                net_flow_usd=round(net_flow, 2),
-                flow_velocity_usd=round(velocity, 2),
-                flow_acceleration_usd=round(acceleration, 2),
-                buy_notional_usd=round(sector_buy.get(sector, 0.0), 2),
-                sell_notional_usd=round(sector_sell.get(sector, 0.0), 2),
-                trade_count=sector_count.get(sector, 0),
-                window_seconds=window,
+                flows=flows,
+                sector_buy=sector_buy,
+                sector_sell=sector_sell,
+                sector_count=sector_count,
+                window=window,
             )
         )
 
@@ -865,7 +1145,7 @@ class WhaleTracker:
         self._session: aiohttp.ClientSession | None = None
         self._prior_liquidity: dict[str, dict[str, float]] = {}
 
-    async def _ensure_session(self) -> aiohttp.ClientSession:
+    def _ensure_session(self) -> aiohttp.ClientSession:
         if self._session is None or self._session.closed:
             timeout = aiohttp.ClientTimeout(total=REQUEST_TIMEOUT_SECONDS)
             self._session = aiohttp.ClientSession(timeout=timeout)
@@ -877,7 +1157,7 @@ class WhaleTracker:
 
     async def run_cycle(self) -> dict[str, Any]:
         await init_db()
-        session = await self._ensure_session()
+        session = self._ensure_session()
         trades = await fetch_all_recent_trades(session)
         order_books = await fetch_latest_order_books()
 

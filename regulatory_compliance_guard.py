@@ -13,6 +13,10 @@ from typing import Any
 
 import config
 
+# Sonar S1192: duplicated string literals
+STR_BUY_NOW = 'Buy Now'
+STR_DO_NOT_TOUCH = 'Do Not Touch'
+
 logger = logging.getLogger("BLACKDARK.RegulatoryCompliance")
 
 REGULATORY_DISCLAIMER = (
@@ -26,10 +30,10 @@ PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
 PUBLIC_VERDICT_NEUTRAL = "NEUTRAL_OBSERVE"
 PUBLIC_VERDICT_RISK = "ELEVATED_RISK"
 
-_INTERNAL_BULLISH = frozenset({"BUY", "Buy Now", "BULLISH", PUBLIC_VERDICT_BULLISH})
+_INTERNAL_BULLISH = frozenset({"BUY", STR_BUY_NOW, "BULLISH", PUBLIC_VERDICT_BULLISH})
 _INTERNAL_BEARISH = frozenset({"SELL", "BEARISH", PUBLIC_VERDICT_BEARISH})
 _INTERNAL_NEUTRAL = frozenset({"WAIT", "HOLD", "NEUTRAL", PUBLIC_VERDICT_NEUTRAL})
-_INTERNAL_RISK = frozenset({"CAUTION", "Do Not Touch", "AVOID", PUBLIC_VERDICT_RISK})
+_INTERNAL_RISK = frozenset({"CAUTION", STR_DO_NOT_TOUCH, "AVOID", PUBLIC_VERDICT_RISK})
 
 _ADVICE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bBuy Now\b", re.IGNORECASE), "Analytics indicate positive momentum"),
@@ -57,7 +61,7 @@ def classify_internal_verdict(verdict: str) -> str:
         return "bullish"
     if v in _INTERNAL_BEARISH or v.upper() == "SELL":
         return "bearish"
-    if v in _INTERNAL_RISK or v == "Do Not Touch":
+    if v in _INTERNAL_RISK or v == STR_DO_NOT_TOUCH:
         return "risk"
     return "neutral"
 
@@ -80,11 +84,11 @@ def to_internal_action_verdict(verdict: str) -> str:
     """Normalize for execution/audit pipelines that expect legacy buckets."""
     bucket = classify_internal_verdict(verdict)
     if bucket == "bullish":
-        return "Buy Now"
+        return STR_BUY_NOW
     if bucket == "bearish":
         return "SELL"
     if bucket == "risk":
-        return "Do Not Touch"
+        return STR_DO_NOT_TOUCH
     return "WAIT"
 
 
@@ -169,6 +173,40 @@ def llm_oracle_system_prompt() -> str:
     )
 
 
+def _apply_public_verdict_fields(out: dict[str, Any], raw_verdict: str) -> None:
+    if not raw_verdict:
+        return
+    out.setdefault("oracle_internal_verdict", to_internal_action_verdict(raw_verdict))
+    out["verdict"] = to_public_verdict(raw_verdict)
+    if "oracle_verdict" in out:
+        out["oracle_verdict"] = out["verdict"]
+
+
+def _sanitize_string_fields(out: dict[str, Any]) -> None:
+    for field in ("oracle", "narrative", "action", "explanation"):
+        if isinstance(out.get(field), str):
+            out[field] = sanitize_advice_text(str(out[field]))
+
+
+def _sanitize_explanation_dict(out: dict[str, Any]) -> None:
+    if not isinstance(out.get("explanation"), dict):
+        return
+    exp = dict(out["explanation"])
+    for key in ("summary", "narrative", "text"):
+        if isinstance(exp.get(key), str):
+            exp[key] = sanitize_advice_text(str(exp[key]))
+    out["explanation"] = exp
+
+
+def _sanitize_oracle_sentence(out: dict[str, Any], raw_verdict: str) -> None:
+    sentence = out.get("sentence") or out.get("oracle")
+    if not isinstance(sentence, str) or not raw_verdict:
+        return
+    out["oracle"] = sanitize_advice_text(sentence)
+    if "sentence" in out:
+        out["sentence"] = out["oracle"]
+
+
 def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
     """Transform oracle API payload to compliant public form."""
     if not _enabled():
@@ -176,28 +214,10 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
 
     out = dict(payload)
     raw_verdict = str(out.get("verdict") or out.get("oracle_verdict") or "")
-    if raw_verdict:
-        out.setdefault("oracle_internal_verdict", to_internal_action_verdict(raw_verdict))
-        out["verdict"] = to_public_verdict(raw_verdict)
-        if "oracle_verdict" in out:
-            out["oracle_verdict"] = out["verdict"]
-
-    for field in ("oracle", "narrative", "action", "explanation"):
-        if isinstance(out.get(field), str):
-            out[field] = sanitize_advice_text(str(out[field]))
-
-    if isinstance(out.get("explanation"), dict):
-        exp = dict(out["explanation"])
-        for key in ("summary", "narrative", "text"):
-            if isinstance(exp.get(key), str):
-                exp[key] = sanitize_advice_text(str(exp[key]))
-        out["explanation"] = exp
-
-    sentence = out.get("sentence") or out.get("oracle")
-    if isinstance(sentence, str) and raw_verdict:
-        out["oracle"] = sanitize_advice_text(sentence)
-        if "sentence" in out:
-            out["sentence"] = out["oracle"]
+    _apply_public_verdict_fields(out, raw_verdict)
+    _sanitize_string_fields(out)
+    _sanitize_explanation_dict(out)
+    _sanitize_oracle_sentence(out, raw_verdict)
 
     out["regulatory_classification"] = "informational_analytics_only"
     out["is_investment_advice"] = False
@@ -217,9 +237,9 @@ def regulatory_compliance_status() -> dict[str, Any]:
             "elevated_risk": PUBLIC_VERDICT_RISK,
         },
         "prohibited_public_phrases": [
-            "Buy Now",
+            STR_BUY_NOW,
             "Sell Now",
-            "Do Not Touch",
+            STR_DO_NOT_TOUCH,
             "you should buy",
             "you should sell",
         ],

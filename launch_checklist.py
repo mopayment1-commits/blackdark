@@ -11,6 +11,9 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+STR_ENV_LAUNCH_LOCAL = '.env.launch.local'
+
 LaunchStatus = Literal["done", "progress", "blocked", "pending"]
 
 ROOT = Path(__file__).resolve().parent
@@ -26,7 +29,7 @@ def _file_exists(rel: str) -> bool:
 
 def _launch_local_env() -> dict[str, str]:
     """Read generated .env.launch.local without exporting into process."""
-    path = ROOT / ".env.launch.local"
+    path = ROOT / STR_ENV_LAUNCH_LOCAL
     if not path.is_file():
         return {}
     out: dict[str, str] = {}
@@ -90,7 +93,7 @@ def _run_pytest_quick() -> tuple[bool, str]:
             {"kind": "cross_exchange", "asset": "BTC"},
             live_duration_seconds=5,
         )
-        if not (half.get("expected_half_life_seconds", 0) > 0):
+        if half.get("expected_half_life_seconds", 0) <= 0:
             raise RuntimeError("half_life")
 
         persona = build_persona_clarity(
@@ -126,8 +129,15 @@ def _run_pytest_quick() -> tuple[bool, str]:
     return True, "in_process_constitution_smoke_ok"
 
 
-def _constitution_modules_ready() -> bool:
-    required = [
+def _constitution_modules_ready() -> bool:  # noqa: SIM110 - explicit loop keeps Sonar S3776 low.
+    for path in _constitution_required_paths():
+        if not _file_exists(path):
+            return False
+    return True
+
+
+def _constitution_required_paths() -> tuple[str, ...]:
+    return (
         "docs/PRODUCT_CONSTITUTION_AR.md",
         "net_edge_truth.py",
         "persona_clarity.py",
@@ -136,17 +146,47 @@ def _constitution_modules_ready() -> bool:
         "decision_enrichment.py",
         "ux_mode.py",
         "opportunity_tracker.py",
-    ]
-    return all(_file_exists(path) for path in required)
+    )
 
 
-def _checklist_rows() -> list[dict[str, Any]]:
-    base_url = _env_or_launch("APP_BASE_URL") or "http://localhost:8080"
+def _golive_status() -> LaunchStatus:
+    if _file_exists("data/golive_announced.json"):
+        return "done"
+    if _file_exists("data/finalize_launch.json") and _file_exists("docs/GO_LIVE_AR.md"):
+        return "progress"
+    return "pending"
+
+
+def _domain_status(base_url: str) -> LaunchStatus:
     is_local = "localhost" in base_url or "127.0.0.1" in base_url
-    tests_ok, tests_note = _run_pytest_quick()
+    configured = _env_or_launch("APP_BASE_URL")
+    if not is_local and base_url.startswith("https"):
+        return "done"
+    if configured.startswith("https") and "localhost" not in configured:
+        return "done"
+    return "pending"
 
-    rows: list[dict[str, Any]] = [
-        # ── Day 1: Production infra ──
+
+def _billing_live() -> bool:
+    if _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO"):
+        return True
+    if _env("LEMON_SQUEEZY_API_KEY") and _env("LEMON_SQUEEZY_WEBHOOK_SECRET"):
+        return True
+    return bool(_env("STRIPE_SECRET_KEY") and _env("STRIPE_WEBHOOK_SECRET"))
+
+
+def _telegram_skipped() -> bool:
+    return _env_or_launch("LAUNCH_SKIP_TELEGRAM").lower() in {"1", "true", "yes"}
+
+
+def _telegram_status() -> LaunchStatus:
+    if (_env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID")) or _telegram_skipped():
+        return "done"
+    return "progress"
+
+
+def _day1_rows() -> list[dict[str, Any]]:
+    return [
         {
             "day": 1,
             "id": "d1_docker",
@@ -166,10 +206,10 @@ def _checklist_rows() -> list[dict[str, Any]]:
             ),
             "action": (
                 "Secrets ready in .env.launch.local — paste into Railway Variables"
-                if _file_exists(".env.launch.local")
+                if _file_exists(STR_ENV_LAUNCH_LOCAL)
                 else "python scripts/generate_launch_secrets.py --write → Railway Variables"
             ),
-            "file": ".env.launch.local",
+            "file": STR_ENV_LAUNCH_LOCAL,
         },
         {
             "day": 1,
@@ -189,22 +229,19 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "status": "done" if _file_exists("data/finalize_launch.json") else "progress",
             "action": "python scripts/finalize_launch.py",
         },
-        # ── Day 2: Domain + Payments ──
+    ]
+
+
+def _day2_rows(base_url: str) -> list[dict[str, Any]]:
+    lemon_checkout = _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO")
+    return [
         {
             "day": 2,
             "day_ar": "اليوم 2 — الدومين والدفع",
             "id": "d2_domain",
             "title": "Production domain + APP_BASE_URL",
             "title_ar": "دومين إنتاج + APP_BASE_URL",
-            "status": (
-                "done"
-                if (not is_local and base_url.startswith("https"))
-                or (
-                    _env_or_launch("APP_BASE_URL").startswith("https")
-                    and "localhost" not in _env_or_launch("APP_BASE_URL")
-                )
-                else "pending"
-            ),
+            "status": _domain_status(base_url),
             "action": "Railway → Generate Domain → APP_BASE_URL=https://YOUR-DOMAIN",
         },
         {
@@ -212,21 +249,10 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d2_stripe",
             "title": "Billing live (Lemon primary or Stripe) + webhook",
             "title_ar": "دفع حي Lemon/Stripe + webhook",
-            "status": (
-                "done"
-                if (
-                    bool(_env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO"))
-                    or (
-                        _env("LEMON_SQUEEZY_API_KEY")
-                        and _env("LEMON_SQUEEZY_WEBHOOK_SECRET")
-                    )
-                    or (_env("STRIPE_SECRET_KEY") and _env("STRIPE_WEBHOOK_SECRET"))
-                )
-                else "blocked"
-            ),
+            "status": "done" if _billing_live() else "blocked",
             "action": (
                 "Lemon checkout URL ready — ensure it is set on Railway"
-                if _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO")
+                if lemon_checkout
                 else "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live + webhook"
             ),
         },
@@ -235,28 +261,26 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d2_billing",
             "title": "Billing checkout tested (free → pro trial)",
             "title_ar": "اختبار الاشتراك (free → pro)",
-            "status": "done" if _env_or_launch("LEMON_SQUEEZY_CHECKOUT_PRO") else "progress",
+            "status": "done" if lemon_checkout else "progress",
             "action": "/api/billing/status + /login → upgrade flow",
             "endpoint": "/api/billing/status",
         },
-        # ── Day 3: Alerts + Monitoring ──
+    ]
+
+
+def _day3_rows() -> list[dict[str, Any]]:
+    telegram_skipped = _telegram_skipped()
+    return [
         {
             "day": 3,
             "day_ar": "اليوم 3 — التنبيهات والمراقبة",
             "id": "d3_telegram",
             "title": "Telegram bot live (token + chat + webhook)",
             "title_ar": "بوت Telegram حي",
-            "status": (
-                "done"
-                if (
-                    (_env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID"))
-                    or _env_or_launch("LAUNCH_SKIP_TELEGRAM").lower() in {"1", "true", "yes"}
-                )
-                else "progress"
-            ),
+            "status": _telegram_status(),
             "action": (
                 "Telegram optional for soft-launch — enable post-deploy for growth"
-                if _env_or_launch("LAUNCH_SKIP_TELEGRAM").lower() in {"1", "true", "yes"}
+                if telegram_skipped
                 else "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL"
             ),
             "endpoint": "/api/alerts/telegram/status",
@@ -279,7 +303,11 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "status": "done",
             "action": "Telegram-first for v1; optional SMTP_* later",
         },
-        # ── Day 4: UX + Mobile + Legal ──
+    ]
+
+
+def _day4_rows() -> list[dict[str, Any]]:
+    return [
         {
             "day": 4,
             "day_ar": "اليوم 4 — UX + PWA + قانوني",
@@ -307,7 +335,11 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "action": "/terms · /privacy · /disclaimer",
             "endpoint": "/terms",
         },
-        # ── Day 5: Go-live ──
+    ]
+
+
+def _day5_rows(tests_ok: bool, tests_note: str, golive_status: LaunchStatus) -> list[dict[str, Any]]:
+    return [
         {
             "day": 5,
             "day_ar": "اليوم 5 — الإطلاق",
@@ -363,24 +395,26 @@ def _checklist_rows() -> list[dict[str, Any]]:
             "id": "d5_golive",
             "title": "GO LIVE — announce + monitor 24h",
             "title_ar": "GO LIVE — إعلان + مراقبة 24س",
-            "status": (
-                "done"
-                if _file_exists("data/golive_announced.json")
-                else (
-                    "progress"
-                    if _file_exists("data/finalize_launch.json")
-                    and _file_exists("docs/GO_LIVE_AR.md")
-                    else "pending"
-                )
-            ),
+            "status": golive_status,
             "action": (
                 "Announced — monitor 24h via /health/live"
-                if _file_exists("data/golive_announced.json")
+                if golive_status == "done"
                 else "Deploy Railway → python scripts/mark_golive.py --url https://YOUR-DOMAIN"
             ),
         },
     ]
-    return rows
+
+
+def _checklist_rows() -> list[dict[str, Any]]:
+    base_url = _env_or_launch("APP_BASE_URL") or "http://localhost:8080"
+    tests_ok, tests_note = _run_pytest_quick()
+    return (
+        _day1_rows()
+        + _day2_rows(base_url)
+        + _day3_rows()
+        + _day4_rows()
+        + _day5_rows(tests_ok, tests_note, _golive_status())
+    )
 
 
 def launch_checklist() -> dict[str, Any]:

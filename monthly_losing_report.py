@@ -11,6 +11,43 @@ from datetime import UTC, datetime
 from typing import Any
 
 
+def _miss_row(row: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "prediction_id": row.get("id") or row.get("prediction_id"),
+        "asset": row.get("asset"),
+        "verdict": row.get("verdict"),
+        "label": row.get("label"),
+        "score": row.get("opportunity_score"),
+        "timestamp": row.get("timestamp") or row.get("created_at"),
+    }
+
+
+def _month_key(row: dict[str, Any]) -> str:
+    ts = str(row.get("timestamp") or row.get("created_at") or "")
+    return ts[:7] if len(ts) >= 7 else "unknown"
+
+
+def _group_misses_by_month(misses: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
+    by_month: dict[str, list[dict[str, Any]]] = {}
+    for row in misses:
+        by_month.setdefault(_month_key(row), []).append(row)
+    return by_month
+
+
+def _month_reports(by_month: dict[str, list[dict[str, Any]]], limit: int) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for month in sorted(by_month.keys(), reverse=True):
+        rows_m = by_month[month]
+        rows.append(
+            {
+                "month": month,
+                "count": len(rows_m),
+                "misses": [_miss_row(row) for row in rows_m[: min(limit, 50)]],
+            }
+        )
+    return rows
+
+
 async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
     from database import fetch_labeled_oracle_predictions
 
@@ -22,46 +59,13 @@ async def build_monthly_losing_report(*, limit: int = 25) -> dict[str, Any]:
     ]
     misses.sort(key=lambda r: str(r.get("timestamp") or r.get("created_at") or ""), reverse=True)
 
-    by_month: dict[str, list[dict[str, Any]]] = {}
-    for r in misses:
-        ts = str(r.get("timestamp") or r.get("created_at") or "")
-        month = ts[:7] if len(ts) >= 7 else "unknown"
-        by_month.setdefault(month, []).append(r)
+    by_month = _group_misses_by_month(misses)
 
     current_month = datetime.now(UTC).strftime("%Y-%m")
-    months_out = []
-    for month in sorted(by_month.keys(), reverse=True):
-        rows_m = by_month[month]
-        months_out.append(
-            {
-                "month": month,
-                "count": len(rows_m),
-                "misses": [
-                    {
-                        "prediction_id": r.get("id") or r.get("prediction_id"),
-                        "asset": r.get("asset"),
-                        "verdict": r.get("verdict"),
-                        "label": r.get("label"),
-                        "score": r.get("opportunity_score"),
-                        "timestamp": r.get("timestamp") or r.get("created_at"),
-                    }
-                    for r in rows_m[: min(limit, 50)]
-                ],
-            }
-        )
+    months_out = _month_reports(by_month, limit)
 
     focus = by_month.get(current_month) or (misses[:limit] if misses else [])
-    sample = [
-        {
-            "prediction_id": r.get("id") or r.get("prediction_id"),
-            "asset": r.get("asset"),
-            "verdict": r.get("verdict"),
-            "label": r.get("label"),
-            "score": r.get("opportunity_score"),
-            "timestamp": r.get("timestamp") or r.get("created_at"),
-        }
-        for r in focus[:limit]
-    ]
+    sample = [_miss_row(row) for row in focus[:limit]]
     thesis = (
         "We publish misses, not just wins — the Glass Box posture. "
         "Competitors show highlights; we show the full ledger."

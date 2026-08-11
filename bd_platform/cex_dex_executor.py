@@ -126,7 +126,7 @@ async def run_cex_dex_cycle(
     return {"scan_count": scan.get("count"), "executed": exec_result, "dry_run": dry_run}
 
 
-async def cex_dex_status() -> dict[str, Any]:
+def cex_dex_status() -> dict[str, Any]:
     return {
         "timestamp": _utcnow(),
         "enabled": os.getenv("CEX_DEX_EXECUTION_ENABLED", "true").lower() in {"1", "true", "yes"},

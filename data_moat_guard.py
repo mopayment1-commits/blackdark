@@ -180,6 +180,13 @@ async def build_moat_build_status() -> dict[str, Any]:
     if not getattr(config, "ML_FLYWHEEL_ENABLED", True):
         recommendations.append("Enable ML_FLYWHEEL_ENABLED so resolutions and exports run hourly.")
 
+    if readiness_score >= 70:
+        readiness_label = "Investable dataset"
+    elif readiness_score >= 35:
+        readiness_label = "Building"
+    else:
+        readiness_label = "Early"
+
     return {
         "enabled": _enabled(),
         "live_only_enforced": _live_only(),
@@ -196,9 +203,7 @@ async def build_moat_build_status() -> dict[str, Any]:
             "model_artifact_present": model_present,
         },
         "acquisition_readiness_score": readiness_score,
-        "acquisition_readiness_label": (
-            "Investable dataset" if readiness_score >= 70 else "Building" if readiness_score >= 35 else "Early"
-        ),
+        "acquisition_readiness_label": readiness_label,
         "copyability_risk": _copyability_risk(labeled, model_present),
         "recommended_actions_en": recommendations,
         "integrity_note_en": (

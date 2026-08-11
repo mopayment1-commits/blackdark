@@ -27,7 +27,8 @@ def test_avatar_svg_and_initials():
 
     assert avatar_initials("Ada Lovelace", "a@b.c") == "AL"
     svg = default_avatar_svg("Ada Lovelace", "ada@example.com")
-    assert "AL" in svg and "svg" in svg
+    assert "AL" in svg
+    assert "svg" in svg
 
 
 def test_password_reset_flow(tmp_path, monkeypatch):
@@ -94,7 +95,8 @@ def test_register_requires_terms_and_sets_username(tmp_path, monkeypatch):
             plan="pro",
         )
         assert pro["selected_plan"] == "pro"
-        assert pro["trial"] and pro["trial"]["active"] is True
+        assert pro["trial"]
+        assert pro["trial"]["active"] is True
         assert pro["user"]["tier"] == "pro"
 
     asyncio.run(_run())

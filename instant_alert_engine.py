@@ -18,6 +18,16 @@ logger = logging.getLogger("BLACKDARK.InstantAlerts")
 
 _engine_task: asyncio.Task | None = None
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 _last_fingerprint: str = ""
 _last_alert_at: float = 0.0
 _cooldown_cache: dict[str, float] = {}
@@ -60,15 +70,54 @@ def _cooldown_ok(key: str) -> bool:
     return True
 
 
-async def _pulse_once() -> dict[str, Any]:
+async def _maybe_execute_top_opportunity(top: dict[str, Any], scan: dict[str, Any], profit: float) -> None:
+    if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() not in {"1", "true", "yes"}:
+        return
+    try:
+        from execution_engine import try_execute_from_opportunity
+
+        top_exec = dict(top)
+        top_exec["data_age_sec"] = scan.get("data_age_sec")
+        exec_result = await try_execute_from_opportunity(top_exec)
+        if exec_result.get("executed"):
+            logger.info(
+                "Fast execution | mode=%s asset=%s profit=$%.2f",
+                exec_result.get("mode"),
+                top.get("asset"),
+                profit,
+            )
+    except Exception:
+        logger.exception("Fast execution from instant pulse failed")
+
+
+async def _maybe_process_top_alert(
+    top: dict[str, Any],
+    scan: dict[str, Any],
+    profit: float,
+) -> tuple[list[dict[str, Any]], int]:
     global _last_fingerprint, _last_alert_at
 
+    if not top or profit < _min_profit_usdt():
+        return [], 0
+    fp = _fingerprint(top)
+    if fp == _last_fingerprint or not _cooldown_ok(fp):
+        return [], 0
+
+    from arbitrage_service import process_arbitrage_alerts
+
+    alerts = await process_arbitrage_alerts(scan)
+    _last_fingerprint = fp
+    _last_alert_at = time.monotonic()
+    await _maybe_execute_top_opportunity(top, scan, profit)
+    return alerts, sum(1 for alert in alerts if alert)
+
+
+async def _pulse_once() -> dict[str, Any]:
     from risk_manager import is_trading_frozen
 
     if is_trading_frozen():
         return {"skipped": True, "reason": "trading_frozen", "interval_sec": _interval_sec()}
 
-    from arbitrage_service import process_arbitrage_alerts
     from scan_coordinator import get_shared_scan
 
     started = time.monotonic()
@@ -77,34 +126,7 @@ async def _pulse_once() -> dict[str, Any]:
 
     top = scan.get("top_opportunity") or {}
     profit = float(top.get("net_profit_usdt") or 0)
-    triggered: list[dict[str, Any]] = []
-    telegram_sent = 0
-
-    if top and profit >= _min_profit_usdt():
-        fp = _fingerprint(top)
-        if fp != _last_fingerprint and _cooldown_ok(fp):
-            alerts = await process_arbitrage_alerts(scan)
-            triggered.extend(alerts)
-            _last_fingerprint = fp
-            _last_alert_at = time.monotonic()
-            telegram_sent = sum(1 for alert in alerts if alert)
-
-            if os.getenv("AUTO_EXECUTION_LOOP", "false").lower() in {"1", "true", "yes"}:
-                try:
-                    from execution_engine import try_execute_from_opportunity
-
-                    top_exec = dict(top)
-                    top_exec["data_age_sec"] = scan.get("data_age_sec")
-                    exec_result = await try_execute_from_opportunity(top_exec)
-                    if exec_result.get("executed"):
-                        logger.info(
-                            "Fast execution | mode=%s asset=%s profit=$%.2f",
-                            exec_result.get("mode"),
-                            top.get("asset"),
-                            profit,
-                        )
-                except Exception:
-                    logger.exception("Fast execution from instant pulse failed")
+    triggered, telegram_sent = await _maybe_process_top_alert(top, scan, profit)
 
     return {
         "scan_ms": elapsed_ms,
@@ -139,16 +161,17 @@ async def _engine_loop() -> None:
             raise
         except Exception:
             logger.exception("Instant alert pulse failed")
-        await asyncio.sleep(_interval_sec())
+        await _interruptible_sleep(_interval_sec())
 
 
-async def start_instant_alert_engine() -> asyncio.Task | None:
+def start_instant_alert_engine() -> asyncio.Task | None:
     global _running, _engine_task
     if not _enabled():
         logger.info("Instant alert engine disabled (INSTANT_ALERTS_ENABLED=false)")
         return None
     if _engine_task is not None and not _engine_task.done():
         return _engine_task
+    _stop_event.clear()
     _running = True
     _engine_task = asyncio.create_task(_engine_loop(), name="instant-alerts")
     return _engine_task
@@ -156,6 +179,7 @@ async def start_instant_alert_engine() -> asyncio.Task | None:
 
 async def stop_instant_alert_engine() -> None:
     global _running, _engine_task
+    _stop_event.set()
     _running = False
     if _engine_task is not None:
         _engine_task.cancel()

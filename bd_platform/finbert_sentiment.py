@@ -52,7 +52,12 @@ def analyze_text(text: str) -> dict[str, Any]:
             result = pipe(text[:2000])[0]
             label = str(result.get("label") or "neutral").lower()
             conf = float(result.get("score") or 0.5)
-            signed = conf if label in {"positive", "bullish"} else -conf if label in {"negative", "bearish"} else 0.0
+            if label in {"positive", "bullish"}:
+                signed = conf
+            elif label in {"negative", "bearish"}:
+                signed = -conf
+            else:
+                signed = 0.0
             return {
                 "engine": "finbert",
                 "label": label,
@@ -65,7 +70,12 @@ def analyze_text(text: str) -> dict[str, Any]:
 
     vader = _vader_score(text)
     compound = float(vader.get("compound") or 0)
-    label = "positive" if compound > 0.05 else "negative" if compound < -0.05 else "neutral"
+    if compound > 0.05:
+        label = "positive"
+    elif compound < -0.05:
+        label = "negative"
+    else:
+        label = "neutral"
     return {
         "engine": "vader_fallback",
         "label": label,
@@ -75,7 +85,7 @@ def analyze_text(text: str) -> dict[str, Any]:
     }
 
 
-async def analyze_headlines(headlines: list[str], *, limit: int = 20) -> dict[str, Any]:
+def analyze_headlines(headlines: list[str], *, limit: int = 20) -> dict[str, Any]:
     items = []
     for headline in headlines[:limit]:
         analysis = analyze_text(headline)

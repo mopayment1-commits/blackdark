@@ -78,7 +78,7 @@ async def test_validate_alert_sends_when_executable():
 async def test_reconcile_cancels_stale_alerts():
     slippage_guard._active_alerts.clear()
     slippage_guard._active_alerts["abc"] = {"at": 0, "opportunity": {}}
-    cancelled = await slippage_guard.reconcile_active_alerts([])
+    cancelled = slippage_guard.reconcile_active_alerts([])
     assert "abc" in cancelled
 
 

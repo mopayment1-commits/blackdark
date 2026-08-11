@@ -91,64 +91,81 @@ def predict_with_regime_artifact(
         return None
 
 
-def regime_model_registry() -> dict[str, Any]:
-    """Public-safe registry of D5 regime-conditional model status."""
+def _artifact_relative_path(path: Path, has_artifact: bool) -> str | None:
+    if not has_artifact:
+        return None
+    try:
+        return str(path.relative_to(Path(__file__).resolve().parents[1]))
+    except ValueError:
+        return str(path)
+
+
+def _load_regime_meta(regime: str) -> dict[str, Any]:
     import json
 
+    meta_path = _REGIME_MODEL_ROOT / regime / "meta.json"
+    if not meta_path.is_file():
+        return {}
+    try:
+        return json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+
+def _regime_registry_row(regime: str) -> tuple[dict[str, Any], bool, bool]:
+    has_artifact = regime_has_artifact(regime)
+    meta = _load_regime_meta(regime)
+    bootstrap = bool(meta.get("bootstrap_samples") or meta.get("synthetic_class_balance"))
+    return {
+        "artifact_present": has_artifact,
+        "artifact_path": _artifact_relative_path(_artifact_path(regime), has_artifact),
+        "status": "artifact_ready" if has_artifact else "pending_training",
+        "confidence_multiplier": float(REGIME_CONF_MULT.get(regime, 1.0)),
+        "bootstrap_samples": bool(meta.get("bootstrap_samples")),
+        "synthetic_class_balance": bool(meta.get("synthetic_class_balance")),
+        "samples": meta.get("samples"),
+    }, has_artifact, bootstrap
+
+
+def _registry_status(artifacts_ready: int, bootstrap_any: bool) -> tuple[str, str, str]:
+    per_regime = artifacts_ready == len(REGIMES)
+    if per_regime and not bootstrap_any:
+        return "per_regime_artifacts_live", "per_regime_models_live", "Separate per-regime ML artifacts are live (labeled history)."
+    if per_regime and bootstrap_any:
+        return (
+            "per_regime_artifacts_bootstrapped",
+            "per_regime_models_live_bootstrapped",
+            "All four regime artifacts present; one or more used bootstrap/synthetic "
+            "class balance — replace with live labeled history as the flywheel grows.",
+        )
+    if artifacts_ready > 0:
+        return (
+            "partial_artifacts",
+            "partial_regime_artifacts",
+            "Regime confidence routing is live; dedicated per-regime model files pending training.",
+        )
+    return (
+        "weights_live",
+        "weights_and_confidence_live",
+        "Regime confidence routing is live; dedicated per-regime model files pending training.",
+    )
+
+
+def regime_model_registry() -> dict[str, Any]:
+    """Public-safe registry of D5 regime-conditional model status."""
     regimes: dict[str, Any] = {}
     artifacts_ready = 0
     bootstrap_any = False
     for regime in REGIMES:
-        has = regime_has_artifact(regime)
-        if has:
+        row, has_artifact, bootstrap = _regime_registry_row(regime)
+        if has_artifact:
             artifacts_ready += 1
-        art = _artifact_path(regime)
-        if has:
-            try:
-                art_rel = str(art.relative_to(Path(__file__).resolve().parents[1]))
-            except ValueError:
-                art_rel = str(art)
-        else:
-            art_rel = None
-        meta: dict[str, Any] = {}
-        meta_path = _REGIME_MODEL_ROOT / regime / "meta.json"
-        if meta_path.is_file():
-            try:
-                meta = json.loads(meta_path.read_text(encoding="utf-8"))
-            except Exception:
-                meta = {}
-        if meta.get("bootstrap_samples") or meta.get("synthetic_class_balance"):
+        if bootstrap:
             bootstrap_any = True
-        regimes[regime] = {
-            "artifact_present": has,
-            "artifact_path": art_rel,
-            "status": "artifact_ready" if has else "pending_training",
-            "confidence_multiplier": float(REGIME_CONF_MULT.get(regime, 1.0)),
-            "bootstrap_samples": bool(meta.get("bootstrap_samples")),
-            "synthetic_class_balance": bool(meta.get("synthetic_class_balance")),
-            "samples": meta.get("samples"),
-        }
+        regimes[regime] = row
 
     per_regime = artifacts_ready == len(REGIMES)
-    if per_regime and not bootstrap_any:
-        evidence = "per_regime_artifacts_live"
-        status = "per_regime_models_live"
-        note = "Separate per-regime ML artifacts are live (labeled history)."
-    elif per_regime and bootstrap_any:
-        evidence = "per_regime_artifacts_bootstrapped"
-        status = "per_regime_models_live_bootstrapped"
-        note = (
-            "All four regime artifacts present; one or more used bootstrap/synthetic "
-            "class balance — replace with live labeled history as the flywheel grows."
-        )
-    elif artifacts_ready > 0:
-        evidence = "partial_artifacts"
-        status = "partial_regime_artifacts"
-        note = "Regime confidence routing is live; dedicated per-regime model files pending training."
-    else:
-        evidence = "weights_live"
-        status = "weights_and_confidence_live"
-        note = "Regime confidence routing is live; dedicated per-regime model files pending training."
+    evidence, status, note = _registry_status(artifacts_ready, bootstrap_any)
 
     return {
         "differentiator": "D5",

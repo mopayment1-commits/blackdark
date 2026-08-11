@@ -57,7 +57,7 @@
         <p class="foot" id="compliance">Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.</p>
         <a class="btn" href="/">Back to Single-Sentence Oracle</a>
     </main>
-    <script>
+    <script type="module">
 function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
 
         function key() {
@@ -86,13 +86,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 document.getElementById('recent').innerHTML = rows.length
                     ? rows.map(r => `<div class="row"><strong>${r.asset}</strong> · system ${r.system_action} · ${r.followed ? 'followed' : 'overrode'} · ${r.outcome_label || 'pending'}</div>`).join('')
                     : '<div class="row">No answers yet — use Yes/No after an Oracle decision on the home page.</div>';
-            } catch (e) {
-                document.getElementById('msg').textContent = 'Mirror unavailable';
-            }
+            } catch (error) { console.debug(error); document.getElementById('msg').textContent = 'Mirror unavailable'; }
         }
         document.getElementById('userKey').value = localStorage.getItem('bd_user_key') || '';
-        if (document.getElementById('userKey').value) loadMirror();
-    </script>
+        Object.assign(window, { loadMirror, key });
+        if (document.getElementById('userKey').value) await loadMirror();
+</script>
     {% include "partials/site_footer.html" %}
 </body>
 </html>

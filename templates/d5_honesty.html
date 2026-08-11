@@ -25,8 +25,9 @@ h1{font-family:Syne,sans-serif}.sub{color:var(--muted);line-height:1.55}
 <p class="flag" id="flags"></p>
 <div id="rows"></div>
 </main>
-<script>
-fetch('/api/public/d5-honesty').then(r=>r.json()).then(d=>{
+<script type="module">
+const __r = await fetch('/api/public/d5-honesty');
+const d = await __r.json();
   document.getElementById('disc').textContent = d.public_disclosure || '';
   document.getElementById('flags').textContent = 'bootstrap=' + d.bootstrap + ' · synthetic_any=' + d.synthetic_any + ' · mature_for_committee=' + d.mature_for_committee;
   (d.regimes||[]).forEach(r=>{
@@ -34,7 +35,6 @@ fetch('/api/public/d5-honesty').then(r=>r.json()).then(d=>{
     el.innerHTML = '<strong>'+r.regime+'</strong><p class="sub">samples='+(r.samples??'—')+' · holdout='+(r.holdout_accuracy??'—')+' · synthetic='+r.synthetic_class_balance+'</p>';
     document.getElementById('rows').appendChild(el);
   });
-});
 </script>
 </body>
 </html>

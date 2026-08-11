@@ -157,20 +157,26 @@ async def _orca_price(session: aiohttp.ClientSession, asset: str) -> float:
     return await _jupiter_price(session, asset)
 
 
+def _has_thorchain_pool(payload: Any, asset: str) -> bool:
+    for pool in payload:
+        if pool.get("status") != "available":
+            continue
+        asset_pool = str(pool.get("asset") or "")
+        if asset_pool.startswith(f"{asset}."):
+            price_rune = float(pool.get("assetPrice") or 0)
+            if price_rune > 0:
+                return True
+    return False
+
+
 async def _thorchain_price(session: aiohttp.ClientSession, asset: str) -> float:
     asset = asset.upper()
     try:
         if asset in {"BTC", "ETH", "BNB", "AVAX", "ATOM", "LTC", "BCH", "DOGE"}:
             url = "https://midgard.ninerealms.com/v2/pools"
             payload = await _fetch_json(session, url)
-            for pool in payload:
-                if pool.get("status") != "available":
-                    continue
-                asset_pool = str(pool.get("asset") or "")
-                if asset_pool.startswith(f"{asset}."):
-                    price_rune = float(pool.get("assetPrice") or 0)
-                    if price_rune > 0:
-                        return await _defillama_price(session, asset)
+            if _has_thorchain_pool(payload, asset):
+                return await _defillama_price(session, asset)
     except (aiohttp.ClientError, TypeError, ValueError, OSError):
         pass
     return await _defillama_price(session, asset)

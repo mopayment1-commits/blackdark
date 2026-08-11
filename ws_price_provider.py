@@ -71,6 +71,21 @@ def _oracle_verdict(score: int, asset: str, price: float) -> tuple[str, str]:
     return "SELL", f"Weak structure for {asset} at ${price:,.0f} (Score: {score}/100)"
 
 
+def _overview_item(asset: str, price: float, source: str) -> dict[str, Any]:
+    score = _oracle_score(0, 0)
+    verdict, _ = _oracle_verdict(score, asset, price)
+    return {
+        "symbol": asset,
+        "price": price,
+        "change_24h": 0.0,
+        "volume_24h": 0.0,
+        "score": score,
+        "verdict": verdict,
+        "sector": _sector_for_asset(asset),
+        "source": source,
+    }
+
+
 async def get_ticker(asset: str) -> dict[str, Any] | None:
     sym = _symbol(asset)
     row = get_best_price(_PRIMARY_VENUE, sym)
@@ -93,75 +108,68 @@ async def get_ticker(asset: str) -> dict[str, Any] | None:
     }
 
 
-async def get_market_overview(limit: int | None = None) -> list[dict[str, Any]]:
-    if limit is None:
-        limit = config.MARKET_RADAR_LIMIT
+def _best_live_mid(symbol: str) -> float:
+    for venue in sorted(config.WS_PRICE_VENUES):
+        row = get_best_price(venue, symbol)
+        if row and row.get("mid"):
+            return float(row["mid"])
+    return 0.0
 
+
+def _live_overview_items() -> list[dict[str, Any]]:
     items: list[dict[str, Any]] = []
     for asset in config.tracked_asset_list():
         if _is_stablecoin(asset):
             continue
-        sym = _symbol(asset)
-        best_mid = 0.0
-        for venue in sorted(config.WS_PRICE_VENUES):
-            row = get_best_price(venue, sym)
-            if row and row.get("mid"):
-                best_mid = float(row["mid"])
-                break
-        if best_mid <= 0:
-            continue
-        score = _oracle_score(0, 0)
-        verdict, _ = _oracle_verdict(score, asset, best_mid)
-        items.append(
-            {
-                "symbol": asset,
-                "price": best_mid,
-                "change_24h": 0.0,
-                "volume_24h": 0.0,
-                "score": score,
-                "verdict": verdict,
-                "sector": _sector_for_asset(asset),
-                "source": "websocket_live",
-            }
-        )
+        best_mid = _best_live_mid(_symbol(asset))
+        if best_mid > 0:
+            items.append(_overview_item(asset, best_mid, "websocket_live"))
+    return items
 
+
+def _redis_overview_item(sym: str, row: dict[str, Any], seen: set[str]) -> dict[str, Any] | None:
+    if not sym.endswith("/USDT"):
+        return None
+    asset = sym.replace("/USDT", "")
+    if asset in seen or _is_stablecoin(asset):
+        return None
+    mid = float(row.get("mid") or 0)
+    if mid <= 0:
+        return None
+    return _overview_item(asset, mid, "redis_cache")
+
+
+async def _append_redis_overview_items(
+    items: list[dict[str, Any]],
+    limit: int,
+) -> None:
+    try:
+        from redis_price_cache import get_all_books
+
+        books = await get_all_books()
+    except Exception:
+        logger.debug("Redis market overview enrichment skipped", exc_info=True)
+        return
+
+    seen = {i["symbol"] for i in items}
+    for symbols in books.values():
+        for sym, row in symbols.items():
+            item = _redis_overview_item(sym, row, seen)
+            if item is None:
+                continue
+            items.append(item)
+            seen.add(item["symbol"])
+            if len(items) >= limit:
+                return
+
+
+async def get_market_overview(limit: int | None = None) -> list[dict[str, Any]]:
+    if limit is None:
+        limit = config.MARKET_RADAR_LIMIT
+
+    items = _live_overview_items()
     if len(items) < limit:
-        try:
-            from redis_price_cache import get_all_books
-
-            books = await get_all_books()
-            seen = {i["symbol"] for i in items}
-            for symbols in books.values():
-                for sym, row in symbols.items():
-                    if not sym.endswith("/USDT"):
-                        continue
-                    asset = sym.replace("/USDT", "")
-                    if asset in seen or _is_stablecoin(asset):
-                        continue
-                    mid = float(row.get("mid") or 0)
-                    if mid <= 0:
-                        continue
-                    score = _oracle_score(0, 0)
-                    verdict, _ = _oracle_verdict(score, asset, mid)
-                    items.append(
-                        {
-                            "symbol": asset,
-                            "price": mid,
-                            "change_24h": 0.0,
-                            "volume_24h": 0.0,
-                            "score": score,
-                            "verdict": verdict,
-                            "sector": _sector_for_asset(asset),
-                            "source": "redis_cache",
-                        }
-                    )
-                    seen.add(asset)
-                    if len(items) >= limit:
-                        break
-                if len(items) >= limit:
-                    break
-        except Exception:
-            logger.debug("Redis market overview enrichment skipped", exc_info=True)
+        await _append_redis_overview_items(items, limit)
 
     return items[:limit]
 
@@ -183,7 +191,7 @@ async def get_klines(asset: str, interval: str = "1h", limit: int = 200) -> list
     return []
 
 
-async def get_whale_signal(asset: str, price: float) -> str:
+def get_whale_signal(asset: str, _price: float) -> str:
     sym = _symbol(asset)
     threshold_usd = 75_000.0
     large_side: str | None = None

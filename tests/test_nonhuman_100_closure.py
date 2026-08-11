@@ -31,7 +31,8 @@ def test_signal_registry_lexicon_and_attach():
     assert str(linked.get("prediction_id")) == "424242"
     assert linked.get("signal_id") == "424242"
     resolved = resolve_signal("424242", "correct", meta={"test": True})
-    assert resolved and resolved.get("label") == "correct"
+    assert resolved
+    assert resolved.get("label") == "correct"
     assert (resolved.get("performance") or {}).get("hits", 0) >= 1
     stats = registry_stats()
     assert "status" in stats

@@ -15,7 +15,8 @@ def test_in_app_push_and_list():
     stats = inbox_stats()
     assert stats["total"] >= 1
     marked = mark_read(row["id"])
-    assert marked and marked["read"] is True
+    assert marked
+    assert marked["read"] is True
 
 
 @pytest.mark.asyncio

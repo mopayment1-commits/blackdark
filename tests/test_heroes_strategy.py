@@ -161,7 +161,9 @@ def test_report_inventory_covers_section_ten():
     assert "UNDER_STUDY" in text
     assert "Browser Extension" in text or "Browser extension" in text
     deferred = Path("docs/DEFERRED_HUMAN_STEPS.md").read_text(encoding="utf-8")
-    assert "H1" in deferred and "H2" in deferred and "H3" in deferred
+    assert "H1" in deferred
+    assert "H2" in deferred
+    assert "H3" in deferred
 
 
 def test_heroes_http_endpoints():

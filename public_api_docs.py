@@ -9,10 +9,14 @@ from __future__ import annotations
 
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_API_TRUST_OS = '/api/trust-os'
+PATH_ORACLE_ACCURACY = '/oracle-accuracy'
+
 # Path prefixes allowed in the public developer OpenAPI.
 PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/health/",
-    "/api/trust-os",
+    PATH_API_TRUST_OS,
     "/api/strategy/",
     "/api/intent/",
     "/api/execution/",
@@ -56,7 +60,7 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
 
 PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
     {
-        "/api/trust-os",
+        PATH_API_TRUST_OS,
         "/api/audit-challenge",
         "/api/security/status",
         "/api/scale/readiness",
@@ -66,7 +70,7 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/capabilities",
         "/compliance",
         "/data-room",
-        "/oracle-accuracy",
+        PATH_ORACLE_ACCURACY,
         "/discipline-mirror",
         "/kill-rate",
         "/contradiction-replay",
@@ -120,7 +124,7 @@ def filter_openapi_for_public(schema: dict[str, Any]) -> dict[str, Any]:
             "live_execution_orders",
             "secrets",
         ],
-        "verify": "/oracle-accuracy",
+        "verify": PATH_ORACLE_ACCURACY,
     }
     return out
 
@@ -134,10 +138,10 @@ def public_docs_manifest() -> dict[str, Any]:
         "full_openapi_ops": "/api/docs/openapi.json",
         "allowed_prefixes": list(PUBLIC_PATH_PREFIXES),
         "primary_surfaces": [
-            {"path": "/oracle-accuracy", "role": "Public Accuracy Ledger including misses"},
+            {"path": PATH_ORACLE_ACCURACY, "role": "Public Accuracy Ledger including misses"},
             {"path": "/errors", "role": "Alias → ledger misses section"},
             {"path": "/discipline-mirror", "role": "Private Discipline Mirror"},
-            {"path": "/api/trust-os", "role": "Four value layers + denylist"},
+            {"path": PATH_API_TRUST_OS, "role": "Four value layers + denylist"},
             {"path": "/api/glass-box/challenge", "role": "Competitor challenge pack"},
         ],
         "disclaimer": (

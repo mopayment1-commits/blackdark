@@ -395,6 +395,42 @@ def _mock_stream_headline(asset: str, source: str, salt: str) -> str:
     return templates[index]
 
 
+async def _fetch_twitter_asset(
+    session: aiohttp.ClientSession,
+    asset: str,
+    headers: dict[str, str],
+) -> list[SentimentNewsItem]:
+    url = "https://api.twitter.com/2/tweets/search/recent"
+    params = {
+        "query": f"${asset} OR #{asset} lang:en -is:retweet",
+        "max_results": "10",
+        "tweet.fields": "created_at,text",
+    }
+    try:
+        async with session.get(url, headers=headers, params=params) as resp:
+            if resp.status != 200:
+                return []
+            data = await resp.json()
+    except (aiohttp.ClientError, TypeError, ValueError) as exc:
+        logger.warning(
+            "Twitter API failed | asset=%s err=%s",
+            str(asset).replace("\r", " ").replace("\n", " "),
+            str(exc).replace("\r", " ").replace("\n", " "),
+        )
+        return []
+    return [
+        SentimentNewsItem(
+            asset=asset,
+            sector=_sector_for_asset(asset),
+            source="twitter",
+            raw_text=str(tw.get("text") or "")[:500],
+            published_at=tw.get("created_at") or _utcnow_iso(),
+        )
+        for tw in (data.get("data") or [])
+        if str(tw.get("text") or "")
+    ]
+
+
 async def _fetch_twitter_real(
     session: aiohttp.ClientSession,
     assets: list[str],
@@ -406,37 +442,49 @@ async def _fetch_twitter_real(
     if token and not config.SENTIMENT_TWITTER_MOCK_ENABLED:
         headers = {"Authorization": f"Bearer {token}"}
         for asset in assets:
-            query = f"${asset} OR #{asset} lang:en -is:retweet"
-            url = "https://api.twitter.com/2/tweets/search/recent"
-            params = {"query": query, "max_results": "10", "tweet.fields": "created_at,text"}
-            try:
-                async with session.get(url, headers=headers, params=params) as resp:
-                    if resp.status != 200:
-                        continue
-                    data = await resp.json()
-                    for tw in (data.get("data") or []):
-                        text = str(tw.get("text") or "")
-                        if text:
-                            items.append(
-                                SentimentNewsItem(
-                                    asset=asset,
-                                    sector=_sector_for_asset(asset),
-                                    source="twitter",
-                                    raw_text=text[:500],
-                                    published_at=tw.get("created_at") or _utcnow_iso(),
-                                )
-                            )
-            except (aiohttp.ClientError, TypeError, ValueError) as exc:
-                logger.warning(
-                    "Twitter API failed | asset=%s err=%s",
-                    str(asset).replace("\r", " ").replace("\n", " "),
-                    str(exc).replace("\r", " ").replace("\n", " "),
-                )
+            items.extend(await _fetch_twitter_asset(session, asset, headers))
         if items:
             return items
 
     # Free fallback — no token required (Reddit social proxy)
     return await _fetch_twitter_fallback_reddit(session, assets)
+
+
+def _reddit_items_from_posts(asset: str, posts: list[dict[str, Any]]) -> list[SentimentNewsItem]:
+    items: list[SentimentNewsItem] = []
+    for post in posts:
+        post_data = post.get("data") or {}
+        title = str(post_data.get("title") or "")
+        if title and asset.upper() in title.upper():
+            items.append(
+                SentimentNewsItem(
+                    asset=asset,
+                    sector=_sector_for_asset(asset),
+                    source="social_reddit_live",
+                    raw_text=title[:500],
+                    published_at=_utcnow_iso(),
+                )
+            )
+    return items
+
+
+async def _fetch_reddit_asset(
+    session: aiohttp.ClientSession,
+    *,
+    asset: str,
+    subreddit: str,
+    headers: dict[str, str],
+) -> list[SentimentNewsItem]:
+    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=5"
+    try:
+        async with session.get(url, headers=headers) as resp:
+            if resp.status != 200:
+                return []
+            data = await resp.json()
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return []
+    posts = (data.get("data") or {}).get("children") or []
+    return _reddit_items_from_posts(asset, posts)
 
 
 async def _fetch_twitter_fallback_reddit(
@@ -453,31 +501,11 @@ async def _fetch_twitter_fallback_reddit(
 
     for asset in assets:
         sub = sub_map.get(asset.upper(), "cryptocurrency")
-        url = f"https://www.reddit.com/r/{sub}/hot.json?limit=5"
-        try:
-            async with session.get(url, headers=headers) as resp:
-                if resp.status != 200:
-                    continue
-                data = await resp.json()
-                for post in (data.get("data") or {}).get("children") or []:
-                    pd = post.get("data") or {}
-                    title = str(pd.get("title") or "")
-                    if title and asset.upper() in title.upper():
-                        items.append(
-                            SentimentNewsItem(
-                                asset=asset,
-                                sector=_sector_for_asset(asset),
-                                source="social_reddit_live",
-                                raw_text=title[:500],
-                                published_at=_utcnow_iso(),
-                            )
-                        )
-        except (aiohttp.ClientError, TypeError, ValueError):
-            pass
+        items.extend(await _fetch_reddit_asset(session, asset=asset, subreddit=sub, headers=headers))
     return items
 
 
-async def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
+def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
     items: list[SentimentNewsItem] = []
     if config.SENTIMENT_DATA_SOURCE not in {"mock", "mixed"}:
         return items

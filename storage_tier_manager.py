@@ -26,6 +26,16 @@ _scheduler_task: asyncio.Task | None = None
 _legacy_cleanup_task: asyncio.Task | None = None
 _compactor_started = False
 _running = False
+_stop_event = asyncio.Event()
+
+
+async def _interruptible_sleep(seconds: float) -> None:
+    """Wait for stop or timeout — preferred over bare sleep polling (S7484)."""
+    try:
+        await asyncio.wait_for(_stop_event.wait(), timeout=max(0.01, float(seconds)))
+    except asyncio.TimeoutError:
+        return
+
 
 
 def _utcnow() -> datetime:
@@ -66,13 +76,14 @@ async def ensure_hot_pipeline_started() -> bool:
 
 
 async def ensure_compaction_scheduler() -> bool:
+    await asyncio.sleep(0)
     global _compactor_started
     if _compactor_started or not config.PARQUET_COMPACTION_ENABLED:
         return _compactor_started
     try:
         from parquet_compactor import start_midnight_compaction_scheduler
 
-        await start_midnight_compaction_scheduler()
+        start_midnight_compaction_scheduler()
         _compactor_started = True
         logger.info(
             "Parquet compaction scheduler active | hot_cutoff_hours=%s",
@@ -249,7 +260,7 @@ async def storage_architecture_status() -> dict[str, Any]:
     from hot_storage import get_hot_storage_stats
     from storage_cost_guard import storage_cost_guard_status
 
-    hot_stats = await get_hot_storage_stats()
+    hot_stats = get_hot_storage_stats()
     db_health = await database_health_report()
     external = external_database_status()
 
@@ -361,7 +372,7 @@ async def _maintenance_loop() -> None:
             raise
         except Exception:
             logger.exception("Storage tier maintenance cycle failed.")
-        await asyncio.sleep(interval_hours * 3600)
+        await _interruptible_sleep(interval_hours * 3600)
 
 
 async def _maybe_legacy_db_cleanup() -> None:
@@ -392,8 +403,8 @@ async def start_storage_tier_manager() -> None:
     global _scheduler_task, _legacy_cleanup_task, _running
     if _running:
         return
+    _stop_event.clear()
     _running = True
-
     await ensure_hot_pipeline_started()
     await ensure_compaction_scheduler()
 
@@ -441,6 +452,7 @@ async def purge_legacy_ops_market_data(*, vacuum: bool = True) -> dict[str, Any]
 
 async def stop_storage_tier_manager() -> None:
     global _scheduler_task, _running, _compactor_started
+    _stop_event.set()
     _running = False
 
     if _scheduler_task is not None:

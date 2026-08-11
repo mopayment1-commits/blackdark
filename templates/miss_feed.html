@@ -29,7 +29,7 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);margin:0 0 .5r
 <div id="list"></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share the honesty</a>
 </main>
-<script>
+<script type="module">
 async function load(){
   const r=await fetch('/api/public/miss-feed?limit=40'); const d=await r.json();
   document.getElementById('thesis').textContent=d.thesis||'';
@@ -41,6 +41,5 @@ async function load(){
     </div>`).join('') || '<div class="item">Feed armed — misses publish as outcomes resolve.</div>';
   document.getElementById('share').href=d.share_urls?.x||('#');
 }
-load();
-</script>
+await load();</script>
 </body></html>

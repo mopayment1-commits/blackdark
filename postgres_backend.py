@@ -6,6 +6,8 @@ Activated when DATABASE_URL starts with postgresql:// or postgres://
 
 from __future__ import annotations
 
+import asyncio
+
 import logging
 import re
 from collections.abc import AsyncIterator
@@ -53,12 +55,15 @@ class _PgResult:
         self.lastrowid = lastrowid
 
     async def fetchall(self) -> list[Any]:
+        await asyncio.sleep(0)
         return list(self._rows)
 
     async def fetchone(self) -> Any | None:
+        await asyncio.sleep(0)
         return self._rows[0] if self._rows else None
 
     async def fetchmany(self, size: int = 1) -> list[Any]:
+        await asyncio.sleep(0)
         return self._rows[: max(0, size)]
 
 
@@ -101,6 +106,31 @@ class PgConnectionAdapter:
         except Exception:
             return {"value": row}
 
+    @staticmethod
+    def _rowcount_from_status(status: Any) -> int:
+        if not status:
+            return 0
+        try:
+            return int(str(status).split()[-1])
+        except (TypeError, ValueError):
+            return 0
+
+    async def _execute_insert_without_returning(
+        self,
+        q: str,
+        params: tuple | list,
+    ) -> _PgResult:
+        try:
+            q_ret = q.rstrip(";") + " RETURNING id"
+            row = await self._conn.fetchrow(q_ret, *params)
+            self._last_id = int(row["id"]) if row and "id" in row else None
+            mapped = [self._row_to_mapping(row)] if row else []
+            return _PgResult(mapped, rowcount=1, lastrowid=self._last_id)
+        except Exception:
+            status = await self._conn.execute(q, *params)
+            count = self._rowcount_from_status(status)
+            return _PgResult(rowcount=count, lastrowid=self._last_id)
+
     async def execute(self, query: str, params: tuple | list = ()) -> _PgResult:
         q = self._convert_query(query)
         upper = q.strip().upper()
@@ -114,21 +144,7 @@ class PgConnectionAdapter:
 
         if upper.startswith("INSERT") and "RETURNING" not in upper:
             # Prefer returning id when present; fall back safely for tables without id.
-            try:
-                q_ret = q.rstrip(";") + " RETURNING id"
-                row = await self._conn.fetchrow(q_ret, *params)
-                self._last_id = int(row["id"]) if row and "id" in row else None
-                mapped = [self._row_to_mapping(row)] if row else []
-                return _PgResult(mapped, rowcount=1, lastrowid=self._last_id)
-            except Exception:
-                status = await self._conn.execute(q, *params)
-                count = 0
-                if status:
-                    try:
-                        count = int(str(status).split()[-1])
-                    except (TypeError, ValueError):
-                        count = 0
-                return _PgResult(rowcount=count, lastrowid=self._last_id)
+            return await self._execute_insert_without_returning(q, params)
 
         if self._is_read_query(q):
             rows = await self._conn.fetch(q, *params)
@@ -136,12 +152,7 @@ class PgConnectionAdapter:
             return _PgResult(mapped, lastrowid=self._last_id)
 
         status = await self._conn.execute(q, *params)
-        count = 0
-        if status:
-            try:
-                count = int(str(status).split()[-1])
-            except (TypeError, ValueError):
-                count = 0
+        count = self._rowcount_from_status(status)
         return _PgResult(rowcount=count, lastrowid=self._last_id)
 
     async def executemany(self, query: str, params_seq: list) -> None:
@@ -158,13 +169,19 @@ class PgConnectionAdapter:
                 await self._conn.execute(cleaned)
 
     async def commit(self) -> None:
-        pass
+        # asyncpg autocommits each statement; keep sqlite-compatible no-op.
+        await asyncio.sleep(0)
+        self._last_txn_op = "commit"
 
     async def rollback(self) -> None:
-        pass
+        # No transaction boundary to undo under asyncpg autocommit.
+        await asyncio.sleep(0)
+        self._last_txn_op = "rollback"
 
     async def close(self) -> None:
-        pass
+        # Connection lifetime is owned by the pool, not this wrapper.
+        await asyncio.sleep(0)
+        self._last_txn_op = "close"
 
 
 async def init_pool() -> None:

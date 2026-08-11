@@ -20,6 +20,10 @@ from collections.abc import AsyncIterator
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_ORACLE_ACCURACY = '/oracle-accuracy'
+STR_VERIFIED_ON_LEDGER = 'Verified on Ledger'
+
 logger = logging.getLogger("BLACKDARK.TrustPulse")
 
 # Soft cache — identity of the pulse for a symbol (avoids spam + flicker).
@@ -84,8 +88,8 @@ def _ledger_honesty() -> dict[str, Any]:
         resolved = [r for r in recent if r.get("resolved")]
         misses = sum(1 for r in resolved if r.get("label") != "correct")
         return {
-            "label": "Verified on Ledger",
-            "href": "/oracle-accuracy",
+            "label": STR_VERIFIED_ON_LEDGER,
+            "href": PATH_ORACLE_ACCURACY,
             "recent_hit_rate_percent": hit,
             "misses_in_window": misses,
             "resolved_in_window": len(resolved),
@@ -99,8 +103,8 @@ def _ledger_honesty() -> dict[str, Any]:
         }
     except Exception:
         return {
-            "label": "Verified on Ledger",
-            "href": "/oracle-accuracy",
+            "label": STR_VERIFIED_ON_LEDGER,
+            "href": PATH_ORACLE_ACCURACY,
             "honesty_line": "Public Accuracy Ledger — hits and misses published",
             "recent_hit_rate_percent": None,
             "misses_in_window": None,
@@ -126,6 +130,7 @@ def _continuity(
         for name in now_names - prev_names:
             if name:
                 changed_factors.append(name)
+
     return {
         "previous_action": prev,
         "current_action": current_action,
@@ -152,7 +157,6 @@ async def _compute_oracle_payload(
     from market_context import (
         build_full_oracle_response,
         fetch_binance_ticker,
-        fetch_cvvd_whale_alert,
         normalize_oracle_symbol,
     )
 
@@ -168,34 +172,53 @@ async def _compute_oracle_payload(
     price_ts = market.get("timestamp") or market.get("close_time")
     fetched_at = time.time()
 
-    whale = None
-    try:
-        whale = await fetch_cvvd_whale_alert(asset, pair, price)
-    except Exception:
-        whale = None
-
-    unified = None
-    try:
-        from oracle_unified import compute_unified_oracle
-
-        unified = await compute_unified_oracle(asset, price, quote_volume, change)
-    except Exception:
-        logger.debug("unified oracle unavailable for trust pulse", exc_info=True)
-
     payload = build_full_oracle_response(
         asset,
         price,
         volume,
         quote_volume,
         change,
-        whale_alert=whale,
-        unified=unified,
+        whale_alert=await _fetch_trust_pulse_whale(asset, pair, price),
+        unified=await _fetch_trust_pulse_unified(asset, price, quote_volume, change),
     )
+    payload = _enrich_trust_pulse_payload(payload, ux_mode=ux_mode, lang=lang)
+    _attach_trust_pulse_why(payload)
+    await _persist_trust_pulse_payload(payload, persist=persist)
+    _attach_trust_pulse_certificate(payload, tier=tier)
+    payload["_pulse_meta"] = {"fetched_at": fetched_at, "price_ts": price_ts, "asset": asset}
+    return payload
+
+
+async def _fetch_trust_pulse_whale(asset: str, pair: str, price: float) -> Any | None:
+    try:
+        from market_context import fetch_cvvd_whale_alert
+
+        return await fetch_cvvd_whale_alert(asset, pair, price)
+    except Exception:
+        return None
+
+
+async def _fetch_trust_pulse_unified(
+    asset: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> Any | None:
+    try:
+        from oracle_unified import compute_unified_oracle
+
+        return await compute_unified_oracle(asset, price, quote_volume, change)
+    except Exception:
+        logger.debug("unified oracle unavailable for trust pulse", exc_info=True)
+        return None
+
+
+def _enrich_trust_pulse_payload(payload: dict[str, Any], *, ux_mode: str, lang: str) -> dict[str, Any]:
     try:
         from decision_enrichment import enrich_oracle_decision
         from ux_mode import normalize_lang, normalize_ux_mode
 
-        payload = enrich_oracle_decision(
+        return enrich_oracle_decision(
             payload,
             ux_mode=normalize_ux_mode(ux_mode),
             lang=normalize_lang(lang),
@@ -203,7 +226,34 @@ async def _compute_oracle_payload(
         )
     except Exception:
         logger.debug("enrichment skipped", exc_info=True)
+        return payload
 
+
+def _trust_pulse_synth_factors(payload: dict[str, Any]) -> list[dict[str, str]]:
+    change = float(payload.get("change_24h") or 0)
+    score = payload.get("opportunity_score")
+    regime = payload.get("market_regime") or "unknown"
+    whale = payload.get("whale_alert")
+    return [
+        {
+            "factor": f"Opportunity score {score}" if score is not None else "Score pending",
+            "detail": "Composite Trust OS score from live market context",
+            "source": "oracle",
+        },
+        {
+            "factor": f"24h move {change:+.2f}%",
+            "detail": "Short-horizon price change on the watched pair",
+            "source": "live market",
+        },
+        {
+            "factor": f"Regime {regime}",
+            "detail": str(whale)[:120] if whale else "Regime label from unified context",
+            "source": "context",
+        },
+    ]
+
+
+def _attach_trust_pulse_why(payload: dict[str, Any]) -> None:
     try:
         from heroes_quality import build_oqs_why_block
 
@@ -214,27 +264,7 @@ async def _compute_oracle_payload(
     # Guarantee a readable Why on first open even if explanation pipeline is thin.
     factors = (payload.get("oqs_why") or {}).get("top_3_factors") or []
     if not factors:
-        change = float(payload.get("change_24h") or 0)
-        score = payload.get("opportunity_score")
-        regime = payload.get("market_regime") or "unknown"
-        whale = payload.get("whale_alert")
-        synth = [
-            {
-                "factor": f"Opportunity score {score}" if score is not None else "Score pending",
-                "detail": "Composite Trust OS score from live market context",
-                "source": "oracle",
-            },
-            {
-                "factor": f"24h move {change:+.2f}%",
-                "detail": "Short-horizon price change on the watched pair",
-                "source": "live market",
-            },
-            {
-                "factor": f"Regime {regime}",
-                "detail": str(whale)[:120] if whale else "Regime label from unified context",
-                "source": "context",
-            },
-        ]
+        synth = _trust_pulse_synth_factors(payload)
         payload["oqs_why"] = {
             "grasp_line": "Top reasons — under five seconds",
             "top_3_factors": synth,
@@ -245,16 +275,21 @@ async def _compute_oracle_payload(
         expl["top_3_factors"] = synth
         payload["explanation"] = expl
 
-    if persist:
-        try:
-            from dashboard import _log_oracle_prediction
 
-            pid = await _log_oracle_prediction(payload)
-            if pid is not None:
-                payload["prediction_id"] = pid
-        except Exception:
-            logger.debug("trust pulse prediction log skipped", exc_info=True)
+async def _persist_trust_pulse_payload(payload: dict[str, Any], *, persist: bool) -> None:
+    if not persist:
+        return
+    try:
+        from dashboard import _log_oracle_prediction
 
+        pid = await _log_oracle_prediction(payload)
+        if pid is not None:
+            payload["prediction_id"] = pid
+    except Exception:
+        logger.debug("trust pulse prediction log skipped", exc_info=True)
+
+
+def _attach_trust_pulse_certificate(payload: dict[str, Any], *, tier: str) -> None:
     payload["tier"] = tier or "free"
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
@@ -267,13 +302,173 @@ async def _compute_oracle_payload(
     except Exception:
         logger.debug("certificate skipped", exc_info=True)
 
-    payload["_pulse_meta"] = {
-        "fetched_at": fetched_at,
-        "price_ts": price_ts,
-        "asset": asset,
-    }
-    return payload
 
+def _pulse_factors(payload: dict[str, Any], why: dict[str, Any]) -> list[dict[str, str]]:
+    raw_factors = why.get("top_3_factors") or (payload.get("explanation") or {}).get("top_3_factors") or []
+    return [
+        {
+            "factor": str(f.get("factor") if isinstance(f, dict) else f),
+            "detail": str((f.get("detail") if isinstance(f, dict) else "") or ""),
+            "source": str((f.get("source") if isinstance(f, dict) else "") or ""),
+        }
+        for f in raw_factors[:3]
+    ]
+
+
+def _pulse_watermark(cert: dict[str, Any], tier: str) -> str | None:
+    return cert.get("watermark") or ("Free Proof" if tier in ("", "free") else None)
+
+
+def _pulse_flip(previous_action: str | None, action: str) -> dict[str, str] | None:
+    if not previous_action or _norm_action(previous_action) == action:
+        return None
+    previous = _norm_action(previous_action)
+    return {
+        "from": previous,
+        "to": action,
+        "message": f"Decision flipped {previous} → {action}",
+    }
+
+
+def _visible_continuity(tier: str, continuity: dict[str, Any] | None) -> dict[str, Any] | None:
+    if tier not in ("", "free"):
+        return continuity
+    if continuity:
+        return {
+            "locked": True,
+            "upgrade_hint": "Decision Pro unlocks “since your last visit” continuity.",
+            "summary": continuity.get("summary") if continuity.get("flipped") else None,
+            "flipped": bool(continuity.get("flipped")),
+        }
+    return {
+        "locked": True,
+        "upgrade_hint": "Decision Pro unlocks “since your last visit”.",
+    }
+
+
+def _pulse_sentence(payload: dict[str, Any]) -> str:
+    return payload.get("decision_sentence") or payload.get("narrative") or payload.get("oracle") or ""
+
+
+def _pulse_base_result(
+    payload: dict[str, Any],
+    *,
+    meta: dict[str, Any],
+    why: dict[str, Any],
+    factors: list[dict[str, str]],
+    cert: dict[str, Any],
+    half: dict[str, Any],
+    conflict: dict[str, Any],
+    tier: str,
+    freshness: dict[str, Any],
+    event: str,
+    from_cache: bool,
+    flip_now: dict[str, str] | None,
+    continuity_out: dict[str, Any] | None,
+) -> dict[str, Any]:
+    return {
+        "product": "BLACKDARK Trust OS",
+        "surface": "trust_pulse",
+        "event": event,
+        "symbol": str(payload.get("symbol") or meta.get("asset") or DEFAULT_SYMBOL).upper(),
+        "action": _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action")),
+        "verdict": payload.get("verdict") or _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action")),
+        "sentence": _pulse_sentence(payload),
+        "why": {
+            "grasp_line": why.get("grasp_line") or "Top reasons — under five seconds",
+            "factors": factors,
+        },
+        "score": payload.get("opportunity_score"),
+        "price": payload.get("price"),
+        "change_24h": payload.get("change_24h"),
+        "freshness": freshness,
+        "proof": {
+            "label": STR_VERIFIED_ON_LEDGER,
+            "prediction_id": payload.get("prediction_id"),
+            "certificate_hash": cert.get("certificate_hash"),
+            "chain_hash": payload.get("chain_hash"),
+            "verify_url": cert.get("verify_url") or PATH_ORACLE_ACCURACY,
+            "permalink": cert.get("permalink") or PATH_ORACLE_ACCURACY,
+            "share_text": cert.get("share_text"),
+            "share_urls": cert.get("share_urls") or {},
+            "watermark": _pulse_watermark(cert, tier),
+        },
+        "ledger": _ledger_honesty(),
+        "flip": flip_now,
+        "continuity": continuity_out,
+        "half_life_seconds": half.get("remaining_seconds") or half.get("expected_half_life_seconds"),
+        "veto": bool(conflict.get("veto") or conflict.get("abstain")),
+        "veto_reason": conflict.get("reason") or conflict.get("message"),
+        "tier": tier or "free",
+        "cta": {
+            "primary": {"label": "Open full proof", "href": "/dashboard?lens=prove#decide"},
+            "verify": {"label": "Verify Ledger", "href": PATH_ORACLE_ACCURACY},
+        },
+        "compliance": payload.get("compliance_footer")
+        or {
+            "disclaimer": (
+                "Not financial advice. AI cannot guarantee returns. "
+                "Verify on the Public Accuracy Ledger."
+            )
+        },
+        "from_cache": from_cache,
+        "updated_at": _utcnow(),
+        "cache_ttl_sec": CACHE_TTL_SEC,
+    }
+
+
+def _zero_tolerance_input(
+    result: dict[str, Any],
+    payload: dict[str, Any],
+    why: dict[str, Any],
+    factors: list[dict[str, str]],
+    freshness: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "opportunity_score": result.get("score"),
+        "one_sentence": result.get("sentence"),
+        "oqs_why": {
+            "why_text": why.get("grasp_line") or why.get("why_text"),
+            "top_3_factors": factors,
+            "invalidation": payload.get("invalidation") or result.get("veto_reason"),
+        },
+        "data_freshness": {
+            "state": freshness.get("status"),
+            "stale": freshness.get("stale"),
+            "age_sec": freshness.get("age_seconds"),
+        },
+        "data_sources": ["trust_pulse", "oracle", "live_book"],
+    }
+
+
+def _demote_live_freshness_if_needed(result: dict[str, Any], freshness: dict[str, Any]) -> None:
+    if result.get("live_claim_allowed") or freshness.get("status") != "live":
+        return
+    result["freshness"] = {
+        **freshness,
+        "status": "unknown" if freshness.get("age_seconds") is None else freshness.get("status"),
+        "label": freshness.get("label")
+        if freshness.get("status") != "live"
+        else f"Updated {int(freshness.get('age_seconds') or 0)}s ago",
+    }
+
+
+def _apply_pulse_zero_tolerance(
+    result: dict[str, Any],
+    payload: dict[str, Any],
+    why: dict[str, Any],
+    factors: list[dict[str, str]],
+    freshness: dict[str, Any],
+) -> None:
+    try:
+        from zero_tolerance import apply_zero_tolerance
+
+        audited = apply_zero_tolerance(_zero_tolerance_input(result, payload, why, factors, freshness))
+        result["zero_tolerance"] = audited.get("zero_tolerance")
+        result["live_claim_allowed"] = audited.get("live_claim_allowed")
+        _demote_live_freshness_if_needed(result, freshness)
+    except Exception:
+        logger.debug("zero tolerance on trust pulse failed", exc_info=True)
 
 def _shape_pulse(
     payload: dict[str, Any],
@@ -287,39 +482,11 @@ def _shape_pulse(
     meta = payload.get("_pulse_meta") or {}
     fetched_at = float(meta.get("fetched_at") or time.time())
     age = max(0.0, time.time() - fetched_at)
-    stale = age > STALE_AFTER_SEC
-
-    action = _norm_action(
-        payload.get("decision_action") or payload.get("verdict") or payload.get("action")
-    )
+    freshness = _freshness(age, stale=age > STALE_AFTER_SEC)
+    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
     why = payload.get("oqs_why") or {}
-    factors = why.get("top_3_factors") or (payload.get("explanation") or {}).get(
-        "top_3_factors"
-    ) or []
-    factors = [
-        {
-            "factor": str(f.get("factor") if isinstance(f, dict) else f),
-            "detail": str((f.get("detail") if isinstance(f, dict) else "") or ""),
-            "source": str((f.get("source") if isinstance(f, dict) else "") or ""),
-        }
-        for f in factors[:3]
-    ]
-    cert = payload.get("decision_certificate") or {}
-    half = payload.get("opportunity_half_life") or {}
-    conflict = payload.get("dimension_conflict") or {}
+    factors = _pulse_factors(payload, why)
     tier = str(payload.get("tier") or "free").lower()
-    watermark = cert.get("watermark") or (
-        "Free Proof" if tier in ("", "free") else None
-    )
-
-    flip_now = None
-    if previous_action and _norm_action(previous_action) != action:
-        flip_now = {
-            "from": _norm_action(previous_action),
-            "to": action,
-            "message": f"Decision flipped {_norm_action(previous_action)} → {action}",
-        }
-
     continuity = _continuity(
         current_action=action,
         previous_action=previous_action,
@@ -327,109 +494,94 @@ def _shape_pulse(
         factors_now=factors,
         factors_prev=previous_factors,
     )
-
-    sentence = (
-        payload.get("decision_sentence")
-        or payload.get("narrative")
-        or payload.get("oracle")
-        or ""
+    result = _pulse_base_result(
+        payload,
+        meta=meta,
+        why=why,
+        factors=factors,
+        cert=payload.get("decision_certificate") or {},
+        half=payload.get("opportunity_half_life") or {},
+        conflict=payload.get("dimension_conflict") or {},
+        tier=tier,
+        freshness=freshness,
+        event=event,
+        from_cache=from_cache,
+        flip_now=_pulse_flip(previous_action, action),
+        continuity_out=_visible_continuity(tier, continuity),
     )
-
-    freshness = _freshness(age, stale=stale)
-    result = {
-        "product": "BLACKDARK Trust OS",
-        "surface": "trust_pulse",
-        "event": event,
-        "symbol": str(payload.get("symbol") or meta.get("asset") or DEFAULT_SYMBOL).upper(),
-        "action": action,
-        "verdict": payload.get("verdict") or action,
-        "sentence": sentence,
-        "why": {
-            "grasp_line": why.get("grasp_line")
-            or "Top reasons — under five seconds",
-            "factors": factors,
-        },
-        "score": payload.get("opportunity_score"),
-        "price": payload.get("price"),
-        "change_24h": payload.get("change_24h"),
-        "freshness": freshness,
-        "proof": {
-            "label": "Verified on Ledger",
-            "prediction_id": payload.get("prediction_id"),
-            "certificate_hash": cert.get("certificate_hash"),
-            "chain_hash": payload.get("chain_hash"),
-            "verify_url": cert.get("verify_url") or "/oracle-accuracy",
-            "permalink": cert.get("permalink") or "/oracle-accuracy",
-            "share_text": cert.get("share_text"),
-            "share_urls": cert.get("share_urls") or {},
-            "watermark": watermark,
-        },
-        "ledger": _ledger_honesty(),
-        "flip": flip_now,
-        "continuity": continuity if tier not in ("", "free") else (
-            {
-                "locked": True,
-                "upgrade_hint": "Decision Pro unlocks “since your last visit” continuity.",
-                "summary": continuity.get("summary") if continuity and continuity.get("flipped") else None,
-                "flipped": bool(continuity and continuity.get("flipped")),
-            }
-            if continuity
-            else {"locked": True, "upgrade_hint": "Decision Pro unlocks “since your last visit”."}
-        ),
-        "half_life_seconds": half.get("remaining_seconds")
-        or half.get("expected_half_life_seconds"),
-        "veto": bool(conflict.get("veto") or conflict.get("abstain")),
-        "veto_reason": conflict.get("reason") or conflict.get("message"),
-        "tier": tier or "free",
-        "cta": {
-            "primary": {"label": "Open full proof", "href": "/dashboard?lens=prove#decide"},
-            "verify": {"label": "Verify Ledger", "href": "/oracle-accuracy"},
-        },
-        "compliance": payload.get("compliance_footer")
-        or {
-            "disclaimer": (
-                "Not financial advice. AI cannot guarantee returns. "
-                "Verify on the Public Accuracy Ledger."
-            )
-        },
-        "from_cache": from_cache,
-        "updated_at": _utcnow(),
-        "cache_ttl_sec": CACHE_TTL_SEC,
-    }
-    try:
-        from zero_tolerance import apply_zero_tolerance
-
-        audited = apply_zero_tolerance(
-            {
-                "opportunity_score": result.get("score"),
-                "one_sentence": result.get("sentence"),
-                "oqs_why": {
-                    "why_text": why.get("grasp_line") or why.get("why_text"),
-                    "top_3_factors": factors,
-                    "invalidation": payload.get("invalidation") or result.get("veto_reason"),
-                },
-                "data_freshness": {
-                    "state": freshness.get("status"),
-                    "stale": freshness.get("stale"),
-                    "age_sec": freshness.get("age_seconds"),
-                },
-                "data_sources": ["trust_pulse", "oracle", "live_book"],
-            }
-        )
-        result["zero_tolerance"] = audited.get("zero_tolerance")
-        result["live_claim_allowed"] = audited.get("live_claim_allowed")
-        if not result.get("live_claim_allowed") and freshness.get("status") == "live":
-            # Never market LIVE when gate forbids it.
-            result["freshness"] = {
-                **freshness,
-                "status": "unknown" if freshness.get("age_seconds") is None else freshness.get("status"),
-                "label": freshness.get("label")
-                if freshness.get("status") != "live"
-                else f"Updated {int(freshness.get('age_seconds') or 0)}s ago",
-            }
-    except Exception:
-        logger.debug("zero tolerance on trust pulse failed", exc_info=True)
+    _apply_pulse_zero_tolerance(result, payload, why, factors, freshness)
     return result
+
+
+def _cached_pulse_if_fresh(
+    _sym: str,
+    cached: dict[str, Any],
+    *,
+    now: float,
+    previous_action: str | None,
+    previous_seen_at: str | None,
+    previous_factors: list[dict[str, Any]] | None,
+    force_refresh: bool,
+) -> dict[str, Any] | None:
+    if force_refresh or not cached or (now - float(cached.get("fetched_at") or 0)) >= CACHE_TTL_SEC:
+        return None
+    payload = cached.get("payload") or {}
+    meta = dict(payload.get("_pulse_meta") or {})
+    meta["fetched_at"] = float(cached.get("fetched_at") or now)
+    pulse = _shape_pulse(
+        {**payload, "_pulse_meta": meta},
+        previous_action=previous_action or cached.get("action"),
+        previous_seen_at=previous_seen_at,
+        previous_factors=previous_factors,
+        event="pulse",
+        from_cache=True,
+    )
+    if previous_action and _norm_action(previous_action) != pulse["action"]:
+        pulse["event"] = "decision_changed"
+        pulse["flip"] = {
+            "from": _norm_action(previous_action),
+            "to": pulse["action"],
+            "message": f"Decision flipped {_norm_action(previous_action)} → {pulse['action']}",
+        }
+    return pulse
+
+
+def _should_persist_pulse(persist: bool | None, cached: dict[str, Any]) -> bool:
+    if persist is not None:
+        return bool(persist)
+    return not bool(cached)
+
+
+async def _payload_after_flip_persistence(
+    sym: str,
+    *,
+    tier: str,
+    ux_mode: str,
+    lang: str,
+    payload: dict[str, Any],
+    do_persist: bool,
+    prev_cached_action: Any,
+) -> tuple[dict[str, Any], str]:
+    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
+    if not prev_cached_action or _norm_action(str(prev_cached_action)) == action:
+        return payload, "pulse"
+    if do_persist:
+        return payload, "decision_changed"
+    try:
+        payload = await _compute_oracle_payload(sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True)
+    except Exception:
+        pass
+    return payload, "decision_changed"
+
+
+def _store_pulse_cache(sym: str, payload: dict[str, Any]) -> None:
+    action = _norm_action(payload.get("decision_action") or payload.get("verdict") or payload.get("action"))
+    with _LOCK:
+        _PULSE_CACHE[sym] = {
+            "fetched_at": time.time(),
+            "action": action,
+            "payload": payload,
+        }
 
 
 async def build_trust_pulse(
@@ -450,65 +602,33 @@ async def build_trust_pulse(
     with _LOCK:
         cached = dict(_PULSE_CACHE.get(sym) or {})
 
-    if (
-        not force_refresh
-        and cached
-        and (now - float(cached.get("fetched_at") or 0)) < CACHE_TTL_SEC
-    ):
-        payload = cached.get("payload") or {}
-        # Refresh age only
-        meta = dict(payload.get("_pulse_meta") or {})
-        meta["fetched_at"] = float(cached.get("fetched_at") or now)
-        payload = {**payload, "_pulse_meta": meta}
-        pulse = _shape_pulse(
-            payload,
-            previous_action=previous_action or cached.get("action"),
-            previous_seen_at=previous_seen_at,
-            previous_factors=previous_factors,
-            event="pulse",
-            from_cache=True,
-        )
-        # Detect flip vs caller's previous even on cache hit
-        if previous_action and _norm_action(previous_action) != pulse["action"]:
-            pulse["event"] = "decision_changed"
-            pulse["flip"] = {
-                "from": _norm_action(previous_action),
-                "to": pulse["action"],
-                "message": f"Decision flipped {_norm_action(previous_action)} → {pulse['action']}",
-            }
+    pulse = _cached_pulse_if_fresh(
+        sym,
+        cached,
+        now=now,
+        previous_action=previous_action,
+        previous_seen_at=previous_seen_at,
+        previous_factors=previous_factors,
+        force_refresh=force_refresh,
+    )
+    if pulse is not None:
         return pulse
 
-    do_persist = bool(persist) if persist is not None else True
-    # On soft refresh after cache expiry: persist only if action flips vs cache
-    if persist is None and cached:
-        do_persist = False
-
+    do_persist = _should_persist_pulse(persist, cached)
     payload = await _compute_oracle_payload(
         sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=do_persist
     )
-    action = _norm_action(
-        payload.get("decision_action") or payload.get("verdict") or payload.get("action")
+    payload, event = await _payload_after_flip_persistence(
+        sym,
+        tier=tier,
+        ux_mode=ux_mode,
+        lang=lang,
+        payload=payload,
+        do_persist=do_persist,
+        prev_cached_action=cached.get("action"),
     )
     prev_cached_action = cached.get("action")
-    event = "pulse"
-    if prev_cached_action and _norm_action(str(prev_cached_action)) != action:
-        event = "decision_changed"
-        # Persist flip as a real logged decision
-        if not do_persist:
-            try:
-                payload = await _compute_oracle_payload(
-                    sym, tier=tier, ux_mode=ux_mode, lang=lang, persist=True
-                )
-            except Exception:
-                pass
-
-    with _LOCK:
-        _PULSE_CACHE[sym] = {
-            "fetched_at": time.time(),
-            "action": action,
-            "payload": payload,
-        }
-
+    _store_pulse_cache(sym, payload)
     return _shape_pulse(
         payload,
         previous_action=previous_action or prev_cached_action,

@@ -23,7 +23,7 @@ def probe(url: str, label: str) -> tuple[bool, float]:
         safe_url = assert_safe_http_url(url)
         with urllib.request.urlopen(safe_url, timeout=10) as resp:
             ok = resp.status == 200
-    except (urllib.error.URLError, TimeoutError, OSError, ValueError):
+    except (OSError, ValueError):
         ok = False
     elapsed_ms = (time.perf_counter() - t0) * 1000
     status = "OK" if ok else "FAIL"

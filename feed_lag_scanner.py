@@ -41,6 +41,76 @@ def _top_ask(book: dict[str, Any]) -> float | None:
     return float(asks[0][0]) if asks else None
 
 
+def _venue_row(exchange_id: str, book: dict[str, Any]) -> dict[str, Any] | None:
+    bid = _top_bid(book)
+    ask = _top_ask(book)
+    if bid is None or ask is None:
+        return None
+    ts = _parse_ts(book.get("timestamp"))
+    return {
+        "exchange": exchange_id,
+        "best_bid": bid,
+        "best_ask": ask,
+        "mid": (bid + ask) / 2,
+        "timestamp": book.get("timestamp"),
+        "timestamp_epoch": ts,
+        "speed_tier": "fast" if exchange_id in FAST_EXCHANGES else "slow",
+    }
+
+
+def _feed_lag_opportunity(slow: dict[str, Any], ref_mid: float, lag_sec: float, *, reverse: bool) -> dict[str, Any]:
+    if reverse:
+        edge_bps = (slow["best_bid"] - ref_mid) / ref_mid * 10_000
+        return {
+            "kind": "feed_lag",
+            "direction": "buy_fast_sell_slow",
+            "slow_exchange": slow["exchange"],
+            "reference_mid": round(ref_mid, 6),
+            "slow_bid": round(slow["best_bid"], 6),
+            "edge_bps": round(edge_bps, 2),
+            "lag_seconds": round(lag_sec, 2),
+            "note": "Slow venue bid above fast reference — possible stale book",
+        }
+    edge_bps = (ref_mid - slow["best_ask"]) / ref_mid * 10_000
+    return {
+        "kind": "feed_lag",
+        "direction": "buy_slow_sell_fast",
+        "slow_exchange": slow["exchange"],
+        "reference_mid": round(ref_mid, 6),
+        "slow_ask": round(slow["best_ask"], 6),
+        "edge_bps": round(edge_bps, 2),
+        "lag_seconds": round(lag_sec, 2),
+        "note": "Slow venue ask below fast reference — possible stale book",
+    }
+
+
+def _venues_from_books(books: dict[str, dict[str, dict[str, Any]]], pair: str) -> list[dict[str, Any]]:
+    venues: list[dict[str, Any]] = []
+    for exchange_id, symbols in books.items():
+        book = symbols.get(pair)
+        if not book:
+            continue
+        row = _venue_row(exchange_id, book)
+        if row is not None:
+            venues.append(row)
+    return venues
+
+
+def _append_feed_lag_opportunity(
+    opportunities: list[dict[str, Any]],
+    slow: dict[str, Any],
+    ref_mid: float,
+    lag_sec: float,
+    min_edge_bps: float,
+) -> None:
+    edge_bps = (ref_mid - slow["best_ask"]) / ref_mid * 10_000
+    reverse_edge_bps = (slow["best_bid"] - ref_mid) / ref_mid * 10_000
+    if edge_bps >= min_edge_bps:
+        opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=False))
+    elif reverse_edge_bps >= min_edge_bps:
+        opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=True))
+
+
 def scan_feed_lag_from_books(
     books: dict[str, dict[str, dict[str, Any]]],
     pair: str,
@@ -48,27 +118,7 @@ def scan_feed_lag_from_books(
     lag_threshold_sec: float = DEFAULT_LAG_THRESHOLD_SEC,
     min_edge_bps: float = DEFAULT_EDGE_BPS,
 ) -> dict[str, Any]:
-    venues: list[dict[str, Any]] = []
-    for exchange_id, symbols in books.items():
-        book = symbols.get(pair)
-        if not book:
-            continue
-        bid = _top_bid(book)
-        ask = _top_ask(book)
-        if bid is None or ask is None:
-            continue
-        ts = _parse_ts(book.get("timestamp"))
-        venues.append(
-            {
-                "exchange": exchange_id,
-                "best_bid": bid,
-                "best_ask": ask,
-                "mid": (bid + ask) / 2,
-                "timestamp": book.get("timestamp"),
-                "timestamp_epoch": ts,
-                "speed_tier": "fast" if exchange_id in FAST_EXCHANGES else "slow",
-            }
-        )
+    venues = _venues_from_books(books, pair)
 
     fast_refs = [v for v in venues if v["speed_tier"] == "fast" and v["timestamp_epoch"]]
     slow_refs = [v for v in venues if v["speed_tier"] == "slow" and v["timestamp_epoch"]]
@@ -90,35 +140,7 @@ def scan_feed_lag_from_books(
         if lag_sec < lag_threshold_sec:
             continue
 
-        edge_bps = (ref_mid - slow["best_ask"]) / ref_mid * 10_000
-        reverse_edge_bps = (slow["best_bid"] - ref_mid) / ref_mid * 10_000
-
-        if edge_bps >= min_edge_bps:
-            opportunities.append(
-                {
-                    "kind": "feed_lag",
-                    "direction": "buy_slow_sell_fast",
-                    "slow_exchange": slow["exchange"],
-                    "reference_mid": round(ref_mid, 6),
-                    "slow_ask": round(slow["best_ask"], 6),
-                    "edge_bps": round(edge_bps, 2),
-                    "lag_seconds": round(lag_sec, 2),
-                    "note": "Slow venue ask below fast reference — possible stale book",
-                }
-            )
-        elif reverse_edge_bps >= min_edge_bps:
-            opportunities.append(
-                {
-                    "kind": "feed_lag",
-                    "direction": "buy_fast_sell_slow",
-                    "slow_exchange": slow["exchange"],
-                    "reference_mid": round(ref_mid, 6),
-                    "slow_bid": round(slow["best_bid"], 6),
-                    "edge_bps": round(reverse_edge_bps, 2),
-                    "lag_seconds": round(lag_sec, 2),
-                    "note": "Slow venue bid above fast reference — possible stale book",
-                }
-            )
+        _append_feed_lag_opportunity(opportunities, slow, ref_mid, lag_sec, min_edge_bps)
 
     opportunities.sort(key=lambda x: float(x.get("edge_bps") or 0), reverse=True)
     return {

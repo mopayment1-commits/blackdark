@@ -20,7 +20,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: arbitrage
-          image: blackdark:latest
+          image: blackdark:1.0.0
           env:
             - name: SERVICE_MODE
               value: arbitrage
@@ -51,9 +51,11 @@ spec:
             timeoutSeconds: 5
           resources:
             requests:
+              ephemeral-storage: "512Mi"
               cpu: "250m"
               memory: "512Mi"
             limits:
+              ephemeral-storage: "1Gi"
               cpu: "1500m"
               memory: "2Gi"
 ---
@@ -79,7 +81,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: aggregator
-          image: blackdark:latest
+          image: blackdark:1.0.0
           env:
             - name: SERVICE_MODE
               value: aggregator
@@ -110,8 +112,10 @@ spec:
             timeoutSeconds: 5
           resources:
             requests:
+              ephemeral-storage: "512Mi"
               cpu: "200m"
               memory: "512Mi"
             limits:
+              ephemeral-storage: "1Gi"
               cpu: "1000m"
               memory: "1Gi"

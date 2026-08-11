@@ -81,7 +81,7 @@ async def _monitor_loop(interval_seconds: float) -> None:
         await asyncio.sleep(interval_seconds)
 
 
-async def start_telegram_monitor() -> asyncio.Task | None:
+def start_telegram_monitor() -> asyncio.Task | None:
     global _monitor_task
     enabled = os.getenv("TELEGRAM_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"}
     if not enabled or not bot_token_configured():

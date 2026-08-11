@@ -43,7 +43,7 @@
         .demo-result { margin-top: 1rem; font-size: 0.82rem; color: var(--muted); max-height: 200px; overflow: auto; }
         .ws-log { max-height: 280px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.75rem; }
         .ws-status { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-        .ws-off { background: #3f3f46; color: #a1a1aa; }
+        .ws-off { background: #27272a; color: #f4f4f5; }
         .ws-on { background: rgba(34,197,94,0.15); color: var(--success); }
         footer { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
     </style>
@@ -207,20 +207,25 @@
             ws.onmessage = (ev) => {
                 try {
                     const d = JSON.parse(ev.data);
-                    const summary = d.type === 'snapshot'
-                        ? `snapshot (${d.record_count || 0} records)`
-                        : d.type === 'arbitrage_opportunity'
-                            ? `arb ${d.opportunity?.asset || '?'} $${Number(d.opportunity?.net_profit_usdt || 0).toFixed(2)}`
-                            : d.type === 'oracle_signal'
-                                ? `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`
-                                : JSON.stringify(d).slice(0, 120);
+                    let summary;
+                    if (d.type === 'snapshot') {
+                        summary = `snapshot (${d.record_count || 0} records)`;
+                    } else if (d.type === 'arbitrage_opportunity') {
+                        summary = `arb ${d.opportunity?.asset || '?'} $${Number(d.opportunity?.net_profit_usdt || 0).toFixed(2)}`;
+                    } else if (d.type === 'oracle_signal') {
+                        summary = `oracle ${d.signal?.asset || '?'} → ${d.signal?.oracle_verdict || '?'}`;
+                    } else {
+                        summary = JSON.stringify(d).slice(0, 120);
+                    }
                     logWs(summary);
-                } catch (e) {
-                    logWs(ev.data.slice(0, 120));
-                }
+                } catch (error) { console.debug(error); logWs(ev.data.slice(0, 120)); }
             };
         }
 
+        function listItemLabel(item) {
+            if (typeof item === 'string') return item;
+            return item.title || item.name || item.item || item.label || JSON.stringify(item);
+        }
         function disconnectWs() {
             if (ws) ws.close();
         }
@@ -236,9 +241,7 @@
                     feed_version: d.feed_version,
                     sample: (d.records || []).slice(0, 3)
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Demo unavailable — restart server and try again.';
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Demo unavailable — restart server and try again.'; }
         }
         function copyKey() {
             navigator.clipboard.writeText(document.getElementById('demoKey').textContent);
@@ -249,7 +252,7 @@
             try {
                 const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
                 if (token) headers['Authorization'] = `Bearer ${token}`;
-            } catch (e) { /* ignore */ }
+            } catch (error) { console.debug(error); }
             return headers;
         }
 
@@ -268,9 +271,7 @@
                     onboarding_steps: data.onboarding_steps,
                     compliance: data.compliance,
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Fund terminal unavailable.';
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Fund terminal unavailable.'; }
         }
 
         function downloadFundTerminal() {
@@ -303,13 +304,13 @@
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Differentiators</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${diffs.map(d => `<li>${typeof d === 'string' ? d : (d.title || d.name || JSON.stringify(d))}</li>`).join('') || '<li>See JSON below</li>'}
+                        ${(diffs.map(d => '<li>' + listItemLabel(d) + '</li>').join('') || '<li>See JSON below</li>')}
                     </ul>
                 </div>
                 <div class="card" style="padding:1rem">
                     <h3 style="margin:0 0 .4rem">Committee checklist</h3>
                     <ul style="margin:0;padding-left:1.1rem;color:var(--muted)">
-                        ${checks.map(c => `<li>${typeof c === 'string' ? c : (c.item || c.label || JSON.stringify(c))}</li>`).join('') || '<li>See JSON below</li>'}
+                        ${(checks.map(c => '<li>' + listItemLabel(c) + '</li>').join('') || '<li>See JSON below</li>')}
                     </ul>
                 </div>
                 <p style="font-size:.8rem;color:var(--muted);margin:0">
@@ -327,9 +328,7 @@
                 const data = await res.json();
                 renderEvidenceCards(data);
                 el.textContent = JSON.stringify(data, null, 2);
-            } catch (e) {
-                el.textContent = 'Public summary unavailable.';
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Public summary unavailable.'; }
         }
 
         async function loadEvidenceFull() {
@@ -350,9 +349,7 @@
                     committee_checklist: data.committee_checklist,
                     sections: Object.keys(data.sections || {}),
                 }, null, 2);
-            } catch (e) {
-                el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.';
-            }
+            } catch (error) { console.debug(error); el.textContent = 'Full pack unavailable — login as Decision Desk/Admin and retry.'; }
         }
     </script>
     {% include "partials/site_footer.html" %}

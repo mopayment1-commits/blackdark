@@ -81,7 +81,7 @@ export function setup() {
   return { warmed: true };
 }
 
-export default function () {
+export default function smokeTest() {
   for (const path of PATHS) {
     const url = path.startsWith('http') ? path : `${BASE}${path}`;
     const res = http.get(url, { redirects: 5, tags: { name: path } });

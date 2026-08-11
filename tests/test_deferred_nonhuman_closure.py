@@ -47,7 +47,8 @@ def test_orphan_index_has_no_inter_or_purple():
     assert "Inter" not in idx
     assert "/dashboard" in idx
     notices = (ROOT / "THIRD_PARTY_NOTICES.md").read_text(encoding="utf-8")
-    assert "Syne" in notices and "IBM Plex" in notices
+    assert "Syne" in notices
+    assert "IBM Plex" in notices
     assert "Inter, Tajawal" not in notices
 
 

@@ -1,4 +1,4 @@
-﻿import asyncio
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -25,9 +25,20 @@ from fastapi import (
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+
+from api.openapi_responses import COMMON_ERROR_RESPONSES
 from starlette.middleware.gzip import GZipMiddleware
 
 import encoding_bootstrap  # noqa: F401 — UTF-8 for Arabic (console + JSON)
+
+# Sonar S1192: duplicated string literals
+STR_UTILITY_HTML = 'utility.html'
+PATH_CREATE_CHECKOUT_SESSION_TIER_PRO = '/create-checkout-session?tier=pro'
+PATH_ORACLE_ACCURACY = '/oracle-accuracy'
+STR_BTC_USDT = 'BTC/USDT'
+STR_INVALID_B2B_API_KEY = 'Invalid B2B API key'
+STR_LOGIN_REQUIRED = 'Login required'
+STR_VERIFY_EMAIL = 'Verify email'
 
 _ROOT = Path(__file__).resolve().parent
 load_dotenv(_ROOT / ".env")
@@ -211,6 +222,10 @@ async def _record_behavior(
         session_id=session_id,
         payload=payload,
     )
+    _increment_behavior_metric()
+
+
+def _increment_behavior_metric() -> None:
     try:
         from observability import increment_metric
 
@@ -219,54 +234,96 @@ async def _record_behavior(
         pass
 
 
+async def _portfolio_holding(item: dict) -> tuple[dict | None, float]:
+    symbol = str(item.get("symbol") or "").upper().strip()
+    amount = float(item.get("amount") or 0)
+    if not symbol or amount <= 0:
+        return None, 0.0
+    _, pair = _normalize_oracle_symbol(symbol)
+    ticker = await _fetch_binance_ticker(pair)
+    price = float(ticker["price"]) if ticker else float(item.get("price") or 0)
+    value = amount * price
+    beta = _btc_beta_estimate(symbol)
+    return (
+        {
+            "symbol": symbol,
+            "amount": amount,
+            "price": price,
+            "value_usd": round(value, 2),
+            "sector": _sector_for_asset(symbol),
+            "btc_beta": beta,
+        },
+        value,
+    )
+
+
+def _portfolio_risk_level(risk_score: int) -> str:
+    if risk_score >= 8:
+        return "HIGH"
+    if risk_score >= 5:
+        return "MEDIUM"
+    return "LOW"
+
+
+def _portfolio_recommendations(weighted_beta: float, holdings_count: int) -> list[str]:
+    recommendations: list[str] = []
+    if weighted_beta > 0.75:
+        recommendations.append("High BTC correlation — diversify into uncorrelated assets")
+    if holdings_count < 3:
+        recommendations.append("Portfolio is concentrated — add 2+ more assets")
+    if not recommendations:
+        recommendations.append("Balanced portfolio structure for current holdings")
+    return recommendations
+
+
+def _portfolio_compliance_footer() -> dict:
+    try:
+        from decision_certificate import compliance_footer_block
+
+        return compliance_footer_block(
+            surface="portfolio_ai",
+            trust_basis="holdings beta model + public_accuracy_ledger",
+            data_sources="live spot marks · weighted BTC beta heuristic",
+        )
+    except Exception:
+        return {
+            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
+        }
+
+
+def _attach_portfolio_clarity(result: dict, risk_level: str, risk_score: int) -> None:
+    try:
+        from heroes_quality import build_portfolio_clarity
+
+        clarity = build_portfolio_clarity(result)
+        result["one_sentence"] = clarity["one_sentence"]
+        result["clarity"] = clarity
+    except Exception:
+        result["one_sentence"] = (
+            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
+        )
+
+
 async def _analyze_portfolio_holdings(assets: list) -> dict:
     holdings: list[dict] = []
     total_value = 0.0
-    weighted_beta = 0.0
 
     for item in assets:
-        symbol = str(item.get("symbol") or "").upper().strip()
-        amount = float(item.get("amount") or 0)
-        if not symbol or amount <= 0:
+        holding, value = await _portfolio_holding(item)
+        if holding is None:
             continue
-        _, pair = _normalize_oracle_symbol(symbol)
-        ticker = await _fetch_binance_ticker(pair)
-        price = float(ticker["price"]) if ticker else float(item.get("price") or 0)
-        value = amount * price
+        holdings.append(holding)
         total_value += value
-        beta = _btc_beta_estimate(symbol)
-        holdings.append(
-            {
-                "symbol": symbol,
-                "amount": amount,
-                "price": price,
-                "value_usd": round(value, 2),
-                "sector": _sector_for_asset(symbol),
-                "btc_beta": beta,
-            }
-        )
 
+    weighted_beta = 0.0
     if total_value > 0:
         weighted_beta = sum((h["value_usd"] / total_value) * h["btc_beta"] for h in holdings)
 
     btc_drop_pct = 15.0
     estimated_loss = total_value * weighted_beta * (btc_drop_pct / 100.0)
     risk_score = min(10, max(1, round(weighted_beta * 10)))
-    if risk_score >= 8:
-        risk_level = "HIGH"
-    elif risk_score >= 5:
-        risk_level = "MEDIUM"
-    else:
-        risk_level = "LOW"
-
-    recommendations: list[str] = []
-    if weighted_beta > 0.75:
-        recommendations.append("High BTC correlation — diversify into uncorrelated assets")
-    if len(holdings) < 3:
-        recommendations.append("Portfolio is concentrated — add 2+ more assets")
-    if not recommendations:
-        recommendations.append("Balanced portfolio structure for current holdings")
-
+    risk_level = _portfolio_risk_level(risk_score)
+    recommendations = _portfolio_recommendations(weighted_beta, len(holdings))
     plain = (
         f"In plain language: your book is {risk_level.lower()} risk "
         f"(score {risk_score}/10). Weighted BTC sensitivity is about "
@@ -274,18 +331,6 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         f"${estimated_loss:,.0f} drawdown on current holdings. "
         f"{recommendations[0]}"
     )
-    try:
-        from decision_certificate import compliance_footer_block
-
-        compliance = compliance_footer_block(
-            surface="portfolio_ai",
-            trust_basis="holdings beta model + public_accuracy_ledger",
-            data_sources="live spot marks · weighted BTC beta heuristic",
-        )
-    except Exception:
-        compliance = {
-            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
-        }
 
     result = {
         "holdings": holdings,
@@ -304,19 +349,10 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         ),
         "plain_language": plain,
         "recommendations": recommendations,
-        "compliance_footer": compliance,
+        "compliance_footer": _portfolio_compliance_footer(),
         "hero": "portfolio_ai",
     }
-    try:
-        from heroes_quality import build_portfolio_clarity
-
-        clarity = build_portfolio_clarity(result)
-        result["one_sentence"] = clarity["one_sentence"]
-        result["clarity"] = clarity
-    except Exception:
-        result["one_sentence"] = (
-            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
-        )
+    _attach_portfolio_clarity(result, risk_level, risk_score)
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
@@ -324,108 +360,135 @@ _BOOT_DB_READY = False
 _BOOT_DB_OK = False
 
 
+async def _initialize_database_ready_state() -> None:
+    global _BOOT_DB_READY, _BOOT_DB_OK
+    try:
+        from database import init_db
+
+        await init_db()
+        _BOOT_DB_OK = True
+        _BOOT_DB_READY = True
+    except Exception:
+        logger.exception("init_db failed — API stays up for live probes; ready stays closed")
+        _BOOT_DB_OK = False
+        local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
+        env = (os.getenv("ENV") or "").strip().lower()
+        _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
+
+
+def _initialize_sentry_safe() -> None:
+    try:
+        from observability import init_sentry
+
+        init_sentry()
+    except Exception:
+        logger.exception("Sentry init failed")
+
+
+def _check_production_guard() -> None:
+    try:
+        from production_guard import enforce_production_guard, is_production, log_production_guard
+
+        if is_production():
+            enforce_production_guard()
+        else:
+            log_production_guard()
+    except Exception:
+        logger.exception("Production guard check failed")
+        from production_guard import is_production
+
+        if is_production():
+            raise
+
+
+async def _load_risk_freeze_safe() -> None:
+    try:
+        from risk_manager import load_persistent_freeze
+
+        await load_persistent_freeze()
+    except Exception:
+        logger.exception("Risk freeze load failed")
+
+
+async def _start_web_microservice(app: FastAPI) -> None:
+    try:
+        from microservices.lifecycle import ServiceContext, startup
+
+        ms_ctx = ServiceContext()
+        await startup("web", ms_ctx)
+        app.state.ms_ctx = ms_ctx
+    except Exception:
+        logger.exception("Web microservice startup failed")
+    try:
+        from uptime_probe_loop import start_uptime_probe_loop
+
+        app.state.uptime_probe_task = start_uptime_probe_loop()
+    except Exception:
+        logger.exception("Uptime self-probe failed in web mode")
+
+
+async def _start_background_runtime(app: FastAPI) -> None:
+    try:
+        from startup_orchestrator import RuntimeState, run_background_startup
+
+        runtime = RuntimeState()
+        app.state.runtime = runtime
+        await run_background_startup(runtime)
+    except Exception:
+        logger.exception("Background startup failed")
+
+
+async def _background_boot(app: FastAPI) -> None:
+    await _initialize_database_ready_state()
+    _initialize_sentry_safe()
+    _check_production_guard()
+    await _load_risk_freeze_safe()
+    if getattr(config, "SERVICE_MODE", "all").strip().lower() == "web":
+        await _start_web_microservice(app)
+        return
+    await _start_background_runtime(app)
+
+
+async def _shutdown_lifespan_services(app: FastAPI, boot_task: asyncio.Task[Any]) -> None:
+    boot_task.cancel()
+    await asyncio.gather(boot_task, return_exceptions=True)
+    if await _shutdown_web_microservice(app):
+        return
+    await _shutdown_background_runtime(app)
+
+
+async def _shutdown_web_microservice(app: FastAPI) -> bool:
+    ms_ctx = getattr(app.state, "ms_ctx", None)
+    if ms_ctx is None:
+        return False
+    try:
+        from microservices.lifecycle import shutdown
+
+        await shutdown(ms_ctx)
+    except Exception:
+        logger.exception("Web microservice shutdown failed")
+    return True
+
+
+async def _shutdown_background_runtime(app: FastAPI) -> None:
+    runtime = getattr(app.state, "runtime", None)
+    if runtime is None:
+        return
+    try:
+        from startup_orchestrator import shutdown_runtime
+
+        await shutdown_runtime(runtime)
+    except Exception:
+        logger.exception("Background shutdown failed")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
-    global _BOOT_DB_READY, _BOOT_DB_OK
-
-    async def _background_boot() -> None:
-        global _BOOT_DB_READY, _BOOT_DB_OK
-        try:
-            from database import init_db
-
-            await init_db()
-            _BOOT_DB_OK = True
-            _BOOT_DB_READY = True
-        except Exception:
-            logger.exception("init_db failed — API stays up for live probes; ready stays closed")
-            _BOOT_DB_OK = False
-            # Local/dev: allow ready so smoke tests don't hang forever
-            local_dev = os.getenv("LOCAL_DEV", "false").lower() in {"1", "true", "yes"}
-            env = (os.getenv("ENV") or "").strip().lower()
-            _BOOT_DB_READY = local_dev and env not in {"production", "prod"}
-
-        try:
-            from observability import init_sentry
-
-            init_sentry()
-        except Exception:
-            logger.exception("Sentry init failed")
-
-        try:
-            from production_guard import enforce_production_guard, is_production, log_production_guard
-
-            if is_production():
-                # Fail closed in production — do not swallow
-                enforce_production_guard()
-            else:
-                log_production_guard()
-        except Exception:
-            logger.exception("Production guard check failed")
-            from production_guard import is_production
-
-            if is_production():
-                raise
-
-        try:
-            from risk_manager import load_persistent_freeze
-
-            await load_persistent_freeze()
-        except Exception:
-            logger.exception("Risk freeze load failed")
-
-        _ms_mode = getattr(config, "SERVICE_MODE", "all").strip().lower()
-        if _ms_mode == "web":
-            try:
-                from microservices.lifecycle import ServiceContext, startup
-
-                _ms_ctx = ServiceContext()
-                await startup("web", _ms_ctx)
-                app.state.ms_ctx = _ms_ctx
-            except Exception:
-                logger.exception("Web microservice startup failed")
-            try:
-                from uptime_probe_loop import start_uptime_probe_loop
-
-                app.state.uptime_probe_task = await start_uptime_probe_loop()
-            except Exception:
-                logger.exception("Uptime self-probe failed in web mode")
-            return
-
-        try:
-            from startup_orchestrator import RuntimeState, run_background_startup
-
-            runtime = RuntimeState()
-            app.state.runtime = runtime
-            await run_background_startup(runtime)
-        except Exception:
-            logger.exception("Background startup failed")
-
-    boot_task = asyncio.create_task(_background_boot(), name="blackdark-boot")
+    boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
     logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
-
-    boot_task.cancel()
-    await asyncio.gather(boot_task, return_exceptions=True)
-
-    _ms_ctx = getattr(app.state, "ms_ctx", None)
-    if _ms_ctx is not None:
-        try:
-            from microservices.lifecycle import shutdown
-
-            await shutdown(_ms_ctx)
-        except Exception:
-            logger.exception("Web microservice shutdown failed")
-        return
-
-    runtime = getattr(app.state, "runtime", None)
-    if runtime is not None:
-        try:
-            from startup_orchestrator import shutdown_runtime
-
-            await shutdown_runtime(runtime)
-        except Exception:
-            logger.exception("Background shutdown failed")
+    await _shutdown_lifespan_services(app, boot_task)
 
 
 # Public /docs is our evidence/read developer page (not full Swagger dump).
@@ -437,6 +500,7 @@ app = FastAPI(
     docs_url=None,
     redoc_url=None,
     openapi_url="/openapi.json",
+    responses=COMMON_ERROR_RESPONSES,
 )
 
 # Compress HTML/CSS/JS/JSON for Lighthouse text-compression + faster FCP/LCP.
@@ -653,7 +717,7 @@ def require_feature(feature: str):
                     "feature": feature,
                     "current_tier": tier,
                     "message": f"This feature requires an upgrade. Current plan: {tier}.",
-                    "upgrade_url": "/create-checkout-session?tier=pro",
+                    "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
                 },
             )
         return user
@@ -700,6 +764,294 @@ def _compound_label(compound: float) -> str:
     return "Neutral"
 
 
+async def _technical_explanation_context(
+    resolved_pair: str,
+    price: float,
+    change: float,
+) -> dict[str, Any]:
+    closes = await _fetch_binance_klines(resolved_pair)
+    rsi = _compute_rsi(closes)
+    rsi_source = "binance_1h_candles"
+    if rsi is None:
+        rsi = round(max(18.0, min(82.0, 50.0 + change * 4.5)), 1)
+        rsi_source = "estimated_from_24h_change"
+    return {
+        "closes": closes,
+        "rsi": rsi,
+        "rsi_source": rsi_source,
+        "macd_trend": _macd_trend_label(closes) if closes else "Insufficient candle data",
+        "ema_position": _ema_position_label(price, closes) if closes else _ema_position_label(price, [price]),
+    }
+
+
+async def _whale_explanation_context(
+    asset: str,
+    resolved_pair: str,
+    price: float,
+    quote_volume: float,
+) -> dict[str, Any]:
+    whale_context = await _fetch_cvvd_whale_context(refresh=False)
+    asset_alerts = _whale_alerts_for_asset(whale_context["whale_alerts"], asset)
+    if asset_alerts:
+        return _whale_alert_explanation(asset_alerts)
+    live_phrase = await _fetch_live_whale_signal(resolved_pair, price)
+    return {
+        "asset_alerts": asset_alerts,
+        "whale_flow": live_phrase,
+        "volume_anomaly": (
+            "High 24h quote volume vs typical range"
+            if quote_volume > 50_000_000
+            else "Normal institutional range"
+        ),
+        "whale_alert_text": live_phrase,
+    }
+
+
+def _whale_alert_explanation(asset_alerts: list[dict[str, Any]]) -> dict[str, Any]:
+    top = asset_alerts[0]
+    meta = _parse_alert_metadata(top)
+    pattern = str(meta.get("pattern") or "manipulation").replace("_", " ")
+    spike = float(meta.get("volume_spike_ratio") or 0)
+    return {
+        "asset_alerts": asset_alerts,
+        "whale_flow": (
+            f"CVVD {pattern} — {top.get('side') or 'mixed'!s} — "
+            f"${float(top.get('notional_usd') or 0):,.0f}"
+        ),
+        "volume_anomaly": (
+            f"Cross-venue spike {spike:.1f}x vs baseline"
+            if spike > 1.2
+            else "Elevated institutional footprint"
+        ),
+        "whale_alert_text": (
+            f"{pattern} detected — score {float(meta.get('manipulation_score') or 0):.0f}/100"
+        ),
+    }
+
+
+async def _sentiment_explanation_context(asset: str, score: int) -> dict[str, Any]:
+    from sentiment_engine import build_sentiment_context_safe
+
+    sentiment_ctx = await build_sentiment_context_safe([asset])
+    compound = float((sentiment_ctx.get("sentiment_compound_index") or {}).get(asset.upper(), 0.0))
+    social_buzz = int(max(15, min(95, round(48 + score * 0.35 + abs(compound) * 40))))
+    return {
+        "compound": compound,
+        "news_sentiment": _compound_to_score(compound),
+        "news_label": _compound_label(compound),
+        "social_buzz": social_buzz,
+        "social_label": _social_buzz_label(social_buzz),
+    }
+
+
+def _social_buzz_label(social_buzz: int) -> str:
+    if social_buzz >= 70:
+        return "High"
+    if social_buzz >= 45:
+        return "Moderate"
+    return "Low"
+
+
+async def _onchain_explanation_note(asset: str) -> str:
+    from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
+
+    onchain_ctx = await build_onchain_context_safe()
+    onchain_status = get_onchain_status_for_asset(asset, onchain_ctx)
+    if not onchain_status:
+        return "On-chain flow data unavailable for this asset"
+    bias = str(onchain_status.get("bias") or "neutral")
+    net_flow = float(onchain_status.get("net_flow_usd") or 0)
+    return f"Exchange flow {bias} (${net_flow:+,.0f} net)"
+
+
+def _volatility_context(price: float, change: float) -> dict[str, Any]:
+    abs_change = abs(change)
+    if abs_change < 2:
+        volatility = "Low"
+        vol_warning = "Low volatility environment"
+    elif abs_change < 5:
+        volatility = "Medium"
+        vol_warning = "Moderate swings expected"
+    else:
+        volatility = "High"
+        vol_warning = "Elevated volatility — widen stops"
+    return {
+        "support": round(price * 0.97, -2),
+        "resistance": round(price * 1.03, -2),
+        "volatility": volatility,
+        "vol_warning": vol_warning,
+    }
+
+
+def _top_opportunity_factors(
+    tech: dict[str, Any],
+    whale: dict[str, Any],
+    sentiment: dict[str, Any],
+    onchain_note: str,
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "factor": "Technical structure",
+            "detail": f"RSI {tech['rsi']} ({_rsi_signal_label(tech['rsi'])}) · {tech['macd_trend']}",
+            "source": tech["rsi_source"],
+            "weight_hint": "high" if abs(float(tech["rsi"]) - 50) > 12 else "medium",
+        },
+        {
+            "factor": "Whale / institutional flow",
+            "detail": whale["whale_alert_text"],
+            "source": "CVVD whale detection",
+            "weight_hint": "high" if whale["asset_alerts"] else "medium",
+        },
+        {
+            "factor": "Sentiment + on-chain",
+            "detail": f"{sentiment['news_label']} news · {onchain_note}",
+            "source": "sentiment index + exchange flows",
+            "weight_hint": "medium",
+        },
+    ]
+
+
+def _explanation_checklist(
+    score: int,
+    liquidity: str,
+    liquidity_score: int,
+    whale: dict[str, Any],
+    risk: dict[str, Any],
+    change: float,
+) -> list[dict[str, Any]]:
+    whale_value = "present" if whale["asset_alerts"] else "quiet"
+    return [
+        {"label": "Score", "value": score, "ok": score >= 55},
+        {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
+        {"label": "Whale context", "value": whale_value, "ok": True},
+        {"label": "Volatility", "value": risk["volatility"], "ok": abs(change) < 8},
+    ]
+
+
+def _technical_analysis_block(tech: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "rsi": tech["rsi"],
+        "rsi_signal": _rsi_signal_label(tech["rsi"]),
+        "rsi_source": tech["rsi_source"],
+        "macd_trend": tech["macd_trend"],
+        "ema_position": tech["ema_position"],
+    }
+
+
+def _market_context_block(
+    quote_volume: float,
+    liquidity_score: int,
+    liquidity: str,
+    trend: str,
+    onchain_note: str,
+) -> dict[str, Any]:
+    return {
+        "volume_analysis": f"24h quote volume ${quote_volume:,.0f}",
+        "liquidity_score": liquidity_score,
+        "liquidity_label": liquidity,
+        "trend_direction": trend,
+        "onchain_flow": onchain_note,
+    }
+
+
+def _whale_activity_block(whale: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "flow": whale["whale_flow"],
+        "volume_anomaly": whale["volume_anomaly"],
+        "alert": whale["whale_alert_text"],
+        "cvvd_alerts_count": len(whale["asset_alerts"]),
+    }
+
+
+def _sentiment_block(sentiment: dict[str, Any], hub_ctx: dict[str, Any]) -> dict[str, Any]:
+    hub_sentiment = hub_ctx.get("sentiment") or {}
+    return {
+        "news_sentiment_score": sentiment["news_sentiment"],
+        "news_label": sentiment["news_label"],
+        "compound_index": round(sentiment["compound"], 3),
+        "social_buzz_score": sentiment["social_buzz"],
+        "social_label": sentiment["social_label"],
+        "fear_greed_index": hub_sentiment.get("fear_greed_index"),
+        "fear_greed_label": hub_sentiment.get("fear_greed_label"),
+        "coingecko_trending": hub_sentiment.get("coingecko_trending"),
+    }
+
+
+def _oracle_data_hub_block(
+    hub_ctx: dict[str, Any],
+    hub_score_adj: int,
+    hub_reasons: list[str],
+    hub_risks: list[str],
+) -> dict[str, Any]:
+    aggregators = (hub_ctx.get("aggregators") or {}).get("coingecko_global") or {}
+    return {
+        "enabled": hub_ctx.get("enabled", False),
+        "score_adjustment": hub_score_adj,
+        "macro_regime": (hub_ctx.get("macro") or {}).get("macro_regime_proxy"),
+        "derivatives_bias": (hub_ctx.get("derivatives") or {}).get("derivatives_bias"),
+        "geopolitical_headlines": (hub_ctx.get("geo_news") or {}).get("geopolitical_headline_count"),
+        "top_headlines": (hub_ctx.get("geo_news") or {}).get("headlines", [])[:5],
+        "market_cap_change_24h_pct": aggregators.get("market_cap_change_24h_pct"),
+        "hub_reasons": hub_reasons[:3],
+        "hub_risks": hub_risks[:3],
+        "free_llm_providers": hub_ctx.get("free_llm_providers"),
+        "pillars": hub_ctx.get("pillars"),
+    }
+
+
+def _risk_factors_block(risk: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "support": risk["support"],
+        "resistance": risk["resistance"],
+        "volatility": risk["volatility"],
+        "volatility_warning": risk["vol_warning"],
+    }
+
+
+def _opportunity_explanation_payload(pack: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "symbol": pack["asset"],
+        "verdict": pack["verdict"],
+        "opportunity_score": pack["score"],
+        "simulated": False,
+        "top_3_factors": pack["top_factors"],
+        "checklist": _explanation_checklist(
+            pack["score"],
+            pack["liquidity"],
+            pack["liquidity_score"],
+            pack["whale"],
+            pack["risk"],
+            pack["change"],
+        ),
+        "data_sources": [
+            "Binance Live API (price + 1h candles)",
+            "CVVD Cross-Venue Whale Detection",
+            "Rolling Compound Sentiment Index",
+            "On-Chain Exchange Flow Tracker",
+            "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
+        ],
+        "disclaimer": "Not financial advice. Do your own research (DYOR).",
+        "technical_analysis": _technical_analysis_block(pack["tech"]),
+        "market_context": _market_context_block(
+            pack["quote_volume"],
+            pack["liquidity_score"],
+            pack["liquidity"],
+            pack["trend"],
+            pack["onchain_note"],
+        ),
+        "whale_activity": _whale_activity_block(pack["whale"]),
+        "sentiment": _sentiment_block(pack["sentiment"], pack["hub_ctx"]),
+        "oracle_data_hub": _oracle_data_hub_block(
+            pack["hub_ctx"],
+            pack["hub_score_adj"],
+            pack["hub_reasons"],
+            pack["hub_risks"],
+        ),
+        "risk_factors": _risk_factors_block(pack["risk"]),
+        "timestamp": datetime.now(UTC).isoformat(),
+    }
+
+
 async def _build_opportunity_explanation(
     asset: str,
     price: float,
@@ -710,180 +1062,47 @@ async def _build_opportunity_explanation(
     pair: str | None = None,
 ) -> dict:
     """Multi-factor explanation from live technical, CVVD whale, sentiment, and on-chain feeds."""
-    from onchain_tracker import build_onchain_context_safe, get_onchain_status_for_asset
     from oracle_data_hub import build_hub_context_safe, hub_score_adjustment
-    from sentiment_engine import build_sentiment_context_safe
 
-    if pair:
-        resolved_pair = pair
-    else:
-        _, resolved_pair = _normalize_oracle_symbol(asset)
-
-    closes = await _fetch_binance_klines(resolved_pair)
-    rsi = _compute_rsi(closes)
-    if rsi is None:
-        rsi = round(max(18.0, min(82.0, 50.0 + change * 4.5)), 1)
-        rsi_source = "estimated_from_24h_change"
-    else:
-        rsi_source = "binance_1h_candles"
-
-    macd_trend = _macd_trend_label(closes) if closes else "Insufficient candle data"
-    ema_position = _ema_position_label(price, closes) if closes else _ema_position_label(price, [price])
-
+    resolved_pair = pair or _normalize_oracle_symbol(asset)[1]
+    tech = await _technical_explanation_context(resolved_pair, price, change)
     liquidity, liquidity_score = _liquidity_label(quote_volume)
     trend = _trend_direction(change)
-
-    whale_context = await _fetch_cvvd_whale_context(refresh=False)
-    asset_alerts = _whale_alerts_for_asset(whale_context["whale_alerts"], asset)
-    if asset_alerts:
-        top = asset_alerts[0]
-        meta = _parse_alert_metadata(top)
-        pattern = str(meta.get("pattern") or "manipulation").replace("_", " ")
-        whale_flow = f"CVVD {pattern} — {top.get('side') or 'mixed'!s} — ${float(top.get('notional_usd') or 0):,.0f}"
-        spike = float(meta.get("volume_spike_ratio") or 0)
-        volume_anomaly = (
-            f"Cross-venue spike {spike:.1f}x vs baseline"
-            if spike > 1.2
-            else "Elevated institutional footprint"
-        )
-        whale_alert_text = (
-            f"{pattern} detected — score {float(meta.get('manipulation_score') or 0):.0f}/100"
-        )
-    else:
-        live_phrase = await _fetch_live_whale_signal(resolved_pair, price)
-        whale_flow = live_phrase
-        volume_anomaly = (
-            "High 24h quote volume vs typical range"
-            if quote_volume > 50_000_000
-            else "Normal institutional range"
-        )
-        whale_alert_text = live_phrase
-
-    sentiment_ctx = await build_sentiment_context_safe([asset])
-    compound = float((sentiment_ctx.get("sentiment_compound_index") or {}).get(asset.upper(), 0.0))
-    news_sentiment = _compound_to_score(compound)
-    news_label = _compound_label(compound)
-    social_buzz = int(max(15, min(95, round(48 + score * 0.35 + abs(compound) * 40))))
-
-    onchain_ctx = await build_onchain_context_safe()
-    onchain_status = get_onchain_status_for_asset(asset, onchain_ctx)
-    if onchain_status:
-        bias = str(onchain_status.get("bias") or "neutral")
-        net_flow = float(onchain_status.get("net_flow_usd") or 0)
-        onchain_note = f"Exchange flow {bias} (${net_flow:+,.0f} net)"
-    else:
-        onchain_note = "On-chain flow data unavailable for this asset"
+    whale = await _whale_explanation_context(asset, resolved_pair, price, quote_volume)
+    sentiment = await _sentiment_explanation_context(asset, score)
+    onchain_note = await _onchain_explanation_note(asset)
 
     hub_ctx = await build_hub_context_safe(asset)
     hub_delta, hub_reasons, hub_risks = hub_score_adjustment(asset, hub_ctx)
     hub_score_adj = round(hub_delta)
 
-    support = round(price * 0.97, -2)
-    resistance = round(price * 1.03, -2)
-    volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
-    vol_warning = (
-        "Elevated volatility — widen stops"
-        if abs(change) >= 5
-        else "Moderate swings expected"
-        if abs(change) >= 2
-        else "Low volatility environment"
-    )
+    risk = _volatility_context(price, change)
 
     # Hero #1 — Top-3 factors for <5s understanding (with real sources).
-    top_factors = [
-        {
-            "factor": "Technical structure",
-            "detail": f"RSI {rsi} ({_rsi_signal_label(rsi)}) · {macd_trend}",
-            "source": rsi_source,
-            "weight_hint": "high" if abs(float(rsi) - 50) > 12 else "medium",
-        },
-        {
-            "factor": "Whale / institutional flow",
-            "detail": whale_alert_text,
-            "source": "CVVD whale detection",
-            "weight_hint": "high" if asset_alerts else "medium",
-        },
-        {
-            "factor": "Sentiment + on-chain",
-            "detail": f"{news_label} news · {onchain_note}",
-            "source": "sentiment index + exchange flows",
-            "weight_hint": "medium",
-        },
-    ]
+    top_factors = _top_opportunity_factors(tech, whale, sentiment, onchain_note)
 
-    return {
-        "symbol": asset,
-        "verdict": verdict,
-        "opportunity_score": score,
-        "simulated": False,
-        "top_3_factors": top_factors,
-        "checklist": [
-            {"label": "Score", "value": score, "ok": score >= 55},
-            {"label": "Liquidity", "value": liquidity, "ok": liquidity_score >= 60},
-            {"label": "Whale context", "value": "present" if asset_alerts else "quiet", "ok": True},
-            {"label": "Volatility", "value": volatility, "ok": abs(change) < 8},
-        ],
-        "data_sources": [
-            "Binance Live API (price + 1h candles)",
-            "CVVD Cross-Venue Whale Detection",
-            "Rolling Compound Sentiment Index",
-            "On-Chain Exchange Flow Tracker",
-            "Oracle Data Hub (news, macro, derivatives, aggregators, free LLMs)",
-        ],
-        "disclaimer": "Not financial advice. Do your own research (DYOR).",
-        "technical_analysis": {
-            "rsi": rsi,
-            "rsi_signal": _rsi_signal_label(rsi),
-            "rsi_source": rsi_source,
-            "macd_trend": macd_trend,
-            "ema_position": ema_position,
-        },
-        "market_context": {
-            "volume_analysis": f"24h quote volume ${quote_volume:,.0f}",
+    return _opportunity_explanation_payload(
+        {
+            "asset": asset,
+            "verdict": verdict,
+            "score": score,
+            "top_factors": top_factors,
+            "liquidity": liquidity,
             "liquidity_score": liquidity_score,
-            "liquidity_label": liquidity,
-            "trend_direction": trend,
-            "onchain_flow": onchain_note,
-        },
-        "whale_activity": {
-            "flow": whale_flow,
-            "volume_anomaly": volume_anomaly,
-            "alert": whale_alert_text,
-            "cvvd_alerts_count": len(asset_alerts),
-        },
-        "sentiment": {
-            "news_sentiment_score": news_sentiment,
-            "news_label": news_label,
-            "compound_index": round(compound, 3),
-            "social_buzz_score": social_buzz,
-            "social_label": "High" if social_buzz >= 70 else "Moderate" if social_buzz >= 45 else "Low",
-            "fear_greed_index": (hub_ctx.get("sentiment") or {}).get("fear_greed_index"),
-            "fear_greed_label": (hub_ctx.get("sentiment") or {}).get("fear_greed_label"),
-            "coingecko_trending": (hub_ctx.get("sentiment") or {}).get("coingecko_trending"),
-        },
-        "oracle_data_hub": {
-            "enabled": hub_ctx.get("enabled", False),
-            "score_adjustment": hub_score_adj,
-            "macro_regime": (hub_ctx.get("macro") or {}).get("macro_regime_proxy"),
-            "derivatives_bias": (hub_ctx.get("derivatives") or {}).get("derivatives_bias"),
-            "geopolitical_headlines": (hub_ctx.get("geo_news") or {}).get("geopolitical_headline_count"),
-            "top_headlines": (hub_ctx.get("geo_news") or {}).get("headlines", [])[:5],
-            "market_cap_change_24h_pct": (
-                (hub_ctx.get("aggregators") or {}).get("coingecko_global") or {}
-            ).get("market_cap_change_24h_pct"),
-            "hub_reasons": hub_reasons[:3],
-            "hub_risks": hub_risks[:3],
-            "free_llm_providers": hub_ctx.get("free_llm_providers"),
-            "pillars": hub_ctx.get("pillars"),
-        },
-        "risk_factors": {
-            "support": support,
-            "resistance": resistance,
-            "volatility": volatility,
-            "volatility_warning": vol_warning,
-        },
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+            "whale": whale,
+            "risk": risk,
+            "change": change,
+            "tech": tech,
+            "quote_volume": quote_volume,
+            "trend": trend,
+            "onchain_note": onchain_note,
+            "sentiment": sentiment,
+            "hub_ctx": hub_ctx,
+            "hub_score_adj": hub_score_adj,
+            "hub_reasons": hub_reasons,
+            "hub_risks": hub_risks,
+        }
+    )
 
 # ========== LANDING PAGE (ROOT) ==========
 @app.get("/login", response_class=HTMLResponse)
@@ -901,7 +1120,7 @@ async def reset_password_page(request: Request):
     return render_page(request, "reset_password.html", _footer_ctx())
 
 
-@app.get("/verify-email", response_class=HTMLResponse)
+@app.get("/verify-email", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def verify_email_page(request: Request, token: str = ""):
     """Browser entry — verify server-side, then redirect to a fixed profile URL."""
     from fastapi.responses import RedirectResponse
@@ -909,10 +1128,10 @@ async def verify_email_page(request: Request, token: str = ""):
     if not token:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Missing verification token. Use the link from your email, or resend from Profile.",
             },
         )
@@ -921,10 +1140,10 @@ async def verify_email_page(request: Request, token: str = ""):
     if len(safe) < 16:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
             },
         )
@@ -937,10 +1156,10 @@ async def verify_email_page(request: Request, token: str = ""):
     except ValueError:
         return templates.TemplateResponse(
             request,
-            "utility.html",
+            STR_UTILITY_HTML,
             {
                 "page": "verify_email",
-                "title": "Verify email",
+                "title": STR_VERIFY_EMAIL,
                 "lead": "Invalid or expired verification link. Resend from Profile.",
             },
         )
@@ -951,7 +1170,7 @@ async def verify_email_page(request: Request, token: str = ""):
 # GTM / platform stats → api/routers/gtm.py
 # Telegram → api/routers/telegram.py
 
-@app.post("/api/promo/redeem")
+@app.post("/api/promo/redeem", responses=COMMON_ERROR_RESPONSES)
 async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from auth_service import redeem_promo_code
 
@@ -963,7 +1182,7 @@ async def promo_redeem(data: dict = Body(...), user: dict | None = Depends(optio
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@app.post("/api/chat")
+@app.post("/api/chat", responses=COMMON_ERROR_RESPONSES)
 async def ai_chat(
     data: dict = Body(...),
     user: dict | None = Depends(require_feature("ai_chat")),
@@ -975,7 +1194,7 @@ async def ai_chat(
     return await process_chat(message, history=history)
 
 
-@app.get("/api/journal")
+@app.get("/api/journal", responses=COMMON_ERROR_RESPONSES)
 async def journal_list(user: dict | None = Depends(optional_user)):
     from auth_service import feature_allowed
     from database import fetch_journal_entries
@@ -985,13 +1204,13 @@ async def journal_list(user: dict | None = Depends(optional_user)):
     return {"entries": await fetch_journal_entries(user["email"])}
 
 
-@app.post("/api/journal")
+@app.post("/api/journal", responses=COMMON_ERROR_RESPONSES)
 async def journal_create(data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from auth_service import feature_allowed
     from database import insert_journal_entry
 
     if not user or not feature_allowed(user, "journal"):
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     asset = str(data.get("asset") or "BTC").upper()
     action = str(data.get("action") or "note").lower()
     entry_id = await insert_journal_entry(
@@ -1005,12 +1224,12 @@ async def journal_create(data: dict = Body(...), user: dict | None = Depends(opt
     return {"success": True, "id": entry_id}
 
 
-@app.patch("/api/journal/{entry_id}")
+@app.patch("/api/journal/{entry_id}", responses=COMMON_ERROR_RESPONSES)
 async def journal_update(entry_id: int, data: dict = Body(...), user: dict | None = Depends(optional_user)):
     from database import update_journal_entry
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     ok = await update_journal_entry(
         entry_id,
         user["email"],
@@ -1024,12 +1243,12 @@ async def journal_update(entry_id: int, data: dict = Body(...), user: dict | Non
     return {"success": True}
 
 
-@app.delete("/api/journal/{entry_id}")
+@app.delete("/api/journal/{entry_id}", responses=COMMON_ERROR_RESPONSES)
 async def journal_delete(entry_id: int, user: dict | None = Depends(optional_user)):
     from database import delete_journal_entry
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     if not await delete_journal_entry(entry_id, user["email"]):
         raise HTTPException(status_code=404, detail="Entry not found")
     return {"success": True}
@@ -1048,7 +1267,7 @@ async def telegram_status():
     }
 
 
-@app.post("/api/alerts/telegram/test")
+@app.post("/api/alerts/telegram/test", responses=COMMON_ERROR_RESPONSES)
 async def telegram_test(
     data: dict = Body(default={}),
     user: dict = Depends(require_authenticated),
@@ -1141,7 +1360,7 @@ async def api_i18n_locales():
     return i18n_manifest()
 
 
-@app.get("/api/i18n/catalog")
+@app.get("/api/i18n/catalog", responses=COMMON_ERROR_RESPONSES)
 async def api_i18n_catalog(lang: str = "en"):
     from i18n_service import catalog_for, locale_meta, normalize_lang
 
@@ -1149,7 +1368,7 @@ async def api_i18n_catalog(lang: str = "en"):
     return {"lang": code, "locale": locale_meta(code), "catalog": catalog_for(code)}
 
 
-@app.get("/favicon.ico")
+@app.get("/favicon.ico", responses=COMMON_ERROR_RESPONSES)
 async def favicon():
     """Browsers probe /favicon.ico — serve the PWA icon to avoid console 404 noise."""
     icon = STATIC_DIR / "icon-192.png"
@@ -1184,7 +1403,7 @@ async def sitemap_xml(request: Request):
     paths = [
         "/",
         "/dashboard",
-        "/oracle-accuracy",
+        PATH_ORACLE_ACCURACY,
         "/kill-rate",
         "/contradiction-replay",
         "/proof-arena",
@@ -1399,7 +1618,7 @@ async def public_errors_alias():
 async def public_accuracy_ledger_alias():
     from fastapi.responses import RedirectResponse
 
-    return RedirectResponse(url="/oracle-accuracy", status_code=307)
+    return RedirectResponse(url=PATH_ORACLE_ACCURACY, status_code=307)
 
 
 @app.get("/docs", response_class=HTMLResponse)
@@ -1434,7 +1653,7 @@ async def dashboard_live_stream():
     )
 
 
-@app.get("/api/trust-pulse")
+@app.get("/api/trust-pulse", responses=COMMON_ERROR_RESPONSES)
 async def api_trust_pulse(
     symbol: str = "BTC",
     previous_action: str | None = None,
@@ -1562,7 +1781,7 @@ async def capabilities_page(request: Request):
     manifest = trust_os_manifest()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "capabilities",
             "title": "Capabilities — Trust OS",
@@ -1592,7 +1811,7 @@ async def compliance_page(request: Request):
         regulatory = {"status": "engineering_posture_only"}
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "compliance",
             "title": "Anti-Hype Compliance",
@@ -1612,7 +1831,7 @@ async def data_room_page(request: Request):
     """Committee-facing data room index (HTML)."""
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "data_room",
             "title": "Data Room",
@@ -1655,7 +1874,7 @@ async def contact_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "contact",
             "title": "Contact",
@@ -1672,7 +1891,7 @@ async def complaints_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "complaints",
             "title": "Complaints",
@@ -1689,7 +1908,7 @@ async def faq_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "faq",
             "title": "FAQ",
@@ -1706,7 +1925,7 @@ async def how_it_works_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "how_it_works",
             "title": "How it works",
@@ -1724,7 +1943,7 @@ async def about_page(request: Request):
     about = about_blurb()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "about",
             "title": about["title"],
@@ -1742,7 +1961,7 @@ async def status_page(request: Request):
     status = public_status_report()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "status",
             "title": "System status",
@@ -1759,7 +1978,7 @@ async def changelog_page(request: Request):
 
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "changelog",
             "title": "Changelog",
@@ -1774,7 +1993,7 @@ async def changelog_page(request: Request):
 async def feedback_page(request: Request):
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "feedback",
             "title": "Feedback & suggestions",
@@ -1791,7 +2010,7 @@ async def legal_hub_page(request: Request):
     hub = legal_hub_manifest()
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "legal_hub",
             "title": hub["title"],
@@ -1830,7 +2049,7 @@ async def api_faq():
     return {"items": FAQ_ITEMS}
 
 
-@app.post("/api/feedback")
+@app.post("/api/feedback", responses=COMMON_ERROR_RESPONSES)
 async def api_feedback(data: dict = Body(...)):
     from site_services import submit_feedback
 
@@ -1853,39 +2072,15 @@ async def platform_coin_page(request: Request, coin_id: str):
 
 
 # ========== API ENDPOINTS ==========
-@app.get("/oracle/{symbol}/explain")
-async def oracle_explain(
-    symbol: str,
-    background_tasks: BackgroundTasks,
-    user: dict | None = Depends(optional_user),
-) -> JSONResponse:
+async def _oracle_explain_market(symbol: str) -> tuple[str, str, dict]:
     asset, pair = _normalize_oracle_symbol(symbol)
     market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+    return asset, pair, market
 
-    price = market["price"]
-    volume = market["volume"]
-    quote_volume = market["quote_volume"] or (volume * price)
-    change = market["change_24h"]
 
-    from oracle_unified import compute_unified_oracle
-
-    unified = await compute_unified_oracle(asset, price, quote_volume, change)
-    score = unified["opportunity_score"]
-    verdict = unified["verdict"]
-
-    payload = await _build_opportunity_explanation(
-        asset, price, change, quote_volume, score, verdict, pair=pair
-    )
-    payload["unified_engine"] = unified.get("engine")
-    payload["market_regime"] = unified.get("market_regime")
-    if user and is_admin_user(user):
-        payload["modal_breakdown"] = unified.get("modal_breakdown")
-    else:
-        payload["weights_protected"] = True
-    payload["opportunity_score"] = score
-    payload["verdict"] = verdict
+async def _attach_explain_forecast(payload: dict, asset: str, price: float, score: int, verdict: str, change: float, quote_volume: float) -> None:
     from forecast_engine import enrich_oracle_payload
 
     forecast_stub = {
@@ -1900,23 +2095,46 @@ async def oracle_explain(
     payload["forecast"] = enriched.get("forecast")
     payload["forecast_summary"] = enriched.get("forecast_summary")
 
+
+def _attach_explain_admin_fields(payload: dict, unified: dict, user: dict | None) -> None:
+    payload["unified_engine"] = unified.get("engine")
+    payload["market_regime"] = unified.get("market_regime")
+    if user and is_admin_user(user):
+        payload["modal_breakdown"] = unified.get("modal_breakdown")
+    else:
+        payload["weights_protected"] = True
+
+
+def _sanitize_explain_payload(payload: dict, asset: str, user: dict | None) -> dict:
     from security_sanitize import sanitize_explanation_payload, sanitize_oracle_payload
 
     if user and is_admin_user(user):
-        payload = sanitize_explanation_payload(payload)
-    else:
-        base = sanitize_oracle_payload(
-            {
-                "symbol": asset,
-                "verdict": payload.get("verdict"),
-                "opportunity_score": payload.get("opportunity_score"),
-                "explanation": payload,
-            }
-        )
-        payload = sanitize_explanation_payload(payload)
-        payload["regulatory_classification"] = base.get("regulatory_classification")
-        payload["disclaimer"] = base.get("disclaimer")
-        payload["is_investment_advice"] = False
+        return sanitize_explanation_payload(payload)
+    base = sanitize_oracle_payload(
+        {
+            "symbol": asset,
+            "verdict": payload.get("verdict"),
+            "opportunity_score": payload.get("opportunity_score"),
+            "explanation": payload,
+        }
+    )
+    payload = sanitize_explanation_payload(payload)
+    payload["regulatory_classification"] = base.get("regulatory_classification")
+    payload["disclaimer"] = base.get("disclaimer")
+    payload["is_investment_advice"] = False
+    return payload
+
+
+def _queue_oracle_explain_tasks(
+    background_tasks: BackgroundTasks,
+    *,
+    asset: str,
+    price: float,
+    verdict: str,
+    score: int,
+    confidence: float,
+    user: dict | None,
+) -> None:
     background_tasks.add_task(
         _log_oracle_prediction,
         {
@@ -1925,7 +2143,7 @@ async def oracle_explain(
             "price": price,
             "verdict": verdict,
             "opportunity_score": score,
-            "confidence": payload.get("confidence") or _oracle_confidence(score, change, quote_volume),
+            "confidence": confidence,
             "kind": "oracle_explain",
         },
     )
@@ -1936,93 +2154,156 @@ async def oracle_explain(
         asset=asset,
         payload={"verdict": verdict, "opportunity_score": score},
     )
+
+
+@app.get("/oracle/{symbol}/explain", responses=COMMON_ERROR_RESPONSES)
+async def oracle_explain(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    user: dict | None = Depends(optional_user),
+) -> JSONResponse:
+    asset, pair, market = await _oracle_explain_market(symbol)
+    price = market["price"]
+    volume = market["volume"]
+    quote_volume = market["quote_volume"] or (volume * price)
+    change = market["change_24h"]
+
+    from oracle_unified import compute_unified_oracle
+
+    unified = await compute_unified_oracle(asset, price, quote_volume, change)
+    score = unified["opportunity_score"]
+    verdict = unified["verdict"]
+
+    payload = await _build_opportunity_explanation(
+        asset, price, change, quote_volume, score, verdict, pair=pair
+    )
+    _attach_explain_admin_fields(payload, unified, user)
+    payload["opportunity_score"] = score
+    payload["verdict"] = verdict
+    await _attach_explain_forecast(payload, asset, price, score, verdict, change, quote_volume)
+    payload = _sanitize_explain_payload(payload, asset, user)
+    _queue_oracle_explain_tasks(
+        background_tasks,
+        asset=asset,
+        price=price,
+        verdict=verdict,
+        score=score,
+        confidence=payload.get("confidence") or _oracle_confidence(score, change, quote_volume),
+        user=user,
+    )
     return JSONResponse(payload)
 
 
-@app.get("/oracle/{symbol}/quick")
-async def oracle_quick(
-    symbol: str,
-    background_tasks: BackgroundTasks,
-    lang: str = "en",
-    ux_mode: str = "beginner",
-) -> JSONResponse:
-    """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
-    import time
-
+async def _compute_oracle_quick_payload(
+    asset: str,
+    pair: str,
+    lang: str,
+    ux_mode: str,
+) -> dict:
     from live_book_hub import get_best_price
-    from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
-    t0 = time.perf_counter()
-    asset, pair = _normalize_oracle_symbol(symbol)
-    cached = quick_cache_get(asset, lang, ux_mode)
-    if cached is not None:
-        cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
-        return JSONResponse(cached)
+    row = get_best_price("binance", f"{asset}/USDT")
+    market = _quick_ws_market(row)
+    if market is None:
+        market = await _fetch_binance_ticker(pair)
+    if market is None:
+        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
 
-    async def _compute() -> dict:
-        row = get_best_price("binance", f"{asset}/USDT")
-        market = None
-        if row and row.get("mid"):
-            market = {
-                "price": float(row["mid"]),
-                "change_24h": 0.0,
-                "volume": 0.0,
-                "quote_volume": 0.0,
-                "source": "websocket_live",
-            }
-        if market is None:
-            market = await _fetch_binance_ticker(pair)
-        if market is None:
-            raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+    price = market["price"]
+    quote_volume = market["quote_volume"] or (market["volume"] * price)
+    change = market["change_24h"]
 
-        price = market["price"]
-        quote_volume = market["quote_volume"] or (market["volume"] * price)
-        change = market["change_24h"]
+    from market_context import oracle_score
 
-        from market_context import oracle_score
+    score = oracle_score(quote_volume, change)
+    if _is_stablecoin(asset):
+        score = min(score, 55)
+    verdict, _ = _oracle_verdict(score, asset, price)
+    support = round(price * 0.97, -2)
+    resistance = round(price * 1.03, -2)
+    action = _oracle_action(score, price, support, resistance)
+    sentiment = _oracle_sentiment(change)
+    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
+    return _quick_payload(
+        asset,
+        price,
+        change,
+        verdict,
+        decision_action,
+        decision_sentence,
+        score,
+        action,
+        sentiment,
+        ux_mode,
+        lang,
+    )
 
-        score = oracle_score(quote_volume, change)
-        if _is_stablecoin(asset):
-            score = min(score, 55)
-        verdict, _ = _oracle_verdict(score, asset, price)
-        support = round(price * 0.97, -2)
-        resistance = round(price * 1.03, -2)
-        action = _oracle_action(score, price, support, resistance)
-        sentiment = _oracle_sentiment(change)
-        decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
-        try:
-            from i18n_service import decision_sentence as _dec
 
-            decision_sentence = _dec(lang, decision_action, asset, score)
-        except Exception:
-            decision_sentence = (
-                f"{decision_action} on {asset} — score {score}. "
-                f"Analytical summary (not advice): {action}"
-            )
-        return {
-            "symbol": asset,
-            "price": price,
-            "change_24h": change,
-            "verdict": verdict,
-            "decision_action": decision_action,
-            "decision_sentence": decision_sentence,
-            "opportunity_score": score,
-            "action": action,
-            "action_line": f"Analytics summary: {action}",
-            "oracle": decision_sentence,
-            "sentiment": sentiment,
-            "engine": "quick_rules_v1",
-            "latency_target_ms": 100,
-            "ux_mode": ux_mode,
-            "lang": lang,
-            "viral_cache": "miss",
-        }
+def _quick_ws_market(row: dict | None) -> dict | None:
+    if not row or not row.get("mid"):
+        return None
+    return {
+        "price": float(row["mid"]),
+        "change_24h": 0.0,
+        "volume": 0.0,
+        "quote_volume": 0.0,
+        "source": "websocket_live",
+    }
 
-    payload = await run_oracle_bounded(_compute)
-    latency_ms = round((time.perf_counter() - t0) * 1000, 1)
-    payload["latency_ms"] = latency_ms
-    payload["meets_latency_target"] = latency_ms <= 100
 
+def _quick_decision_sentence(
+    lang: str,
+    decision_action: str,
+    asset: str,
+    score: int,
+    action: str,
+) -> str:
+    try:
+        from i18n_service import decision_sentence as _dec
+
+        return _dec(lang, decision_action, asset, score)
+    except Exception:
+        return (
+            f"{decision_action} on {asset} — score {score}. "
+            f"Analytical summary (not advice): {action}"
+        )
+
+
+def _quick_payload(
+    asset: str,
+    price: float,
+    change: float,
+    verdict: str,
+    decision_action: str,
+    decision_sentence: str,
+    score: int,
+    action: str,
+    sentiment: str,
+    ux_mode: str,
+    lang: str,
+) -> dict:
+    return {
+        "symbol": asset,
+        "price": price,
+        "change_24h": change,
+        "verdict": verdict,
+        "decision_action": decision_action,
+        "decision_sentence": decision_sentence,
+        "opportunity_score": score,
+        "action": action,
+        "action_line": f"Analytics summary: {action}",
+        "oracle": decision_sentence,
+        "sentiment": sentiment,
+        "engine": "quick_rules_v1",
+        "latency_target_ms": 100,
+        "ux_mode": ux_mode,
+        "lang": lang,
+        "viral_cache": "miss",
+    }
+
+
+def _queue_oracle_quick_tasks(background_tasks: BackgroundTasks, asset: str, payload: dict) -> None:
     background_tasks.add_task(
         _log_oracle_prediction,
         {
@@ -2046,6 +2327,8 @@ async def oracle_quick(
         },
     )
 
+
+def _attach_quick_certificate(payload: dict) -> None:
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
@@ -2057,12 +2340,46 @@ async def oracle_quick(
         )
     except Exception:
         pass
+
+
+def _attach_quick_freshness(payload: dict, asset: str) -> dict:
     try:
         from data_freshness import attach_oracle_freshness
 
-        payload = attach_oracle_freshness({**payload, "asset": asset})
+        return attach_oracle_freshness({**payload, "asset": asset})
     except Exception:
-        pass
+        return payload
+
+
+@app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
+async def oracle_quick(
+    symbol: str,
+    background_tasks: BackgroundTasks,
+    lang: str = "en",
+    ux_mode: str = "beginner",
+) -> JSONResponse:
+    """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
+    import time
+
+    from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
+
+    t0 = time.perf_counter()
+    asset, pair = _normalize_oracle_symbol(symbol)
+    cached = quick_cache_get(asset, lang, ux_mode)
+    if cached is not None:
+        cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
+        return JSONResponse(cached)
+
+    payload = await run_oracle_bounded(
+        lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+    )
+    latency_ms = round((time.perf_counter() - t0) * 1000, 1)
+    payload["latency_ms"] = latency_ms
+    payload["meets_latency_target"] = latency_ms <= 100
+
+    _queue_oracle_quick_tasks(background_tasks, asset, payload)
+    _attach_quick_certificate(payload)
+    payload = _attach_quick_freshness(payload, asset)
     from security_sanitize import sanitize_oracle_payload
 
     clean = sanitize_oracle_payload(payload)
@@ -2070,92 +2387,136 @@ async def oracle_quick(
     return JSONResponse(clean)
 
 
-@app.get("/oracle/{symbol}")
-async def oracle(
-    symbol: str,
-    request: Request,
-    background_tasks: BackgroundTasks,
-    user: dict | None = Depends(optional_user),
-    ux_mode: str = "beginner",
-    lang: str = "en",
-):
-    # Reserved path — must not be captured as a trading symbol
+def _reserved_oracle_response(symbol: str, request: Request) -> Any | None:
     if symbol.strip().lower() == "accuracy":
-        # Public Accuracy Ledger stays open (Prove-it); decision Oracle below is gated.
         return render_page(request, "oracle_accuracy.html", _footer_ctx())
-
     blocked = _require_terms_ack_or_403(request)
     if blocked is not None:
         return blocked
+    return None
 
+
+async def _enforce_oracle_quota(user: dict | None) -> None:
     from auth_service import check_oracle_quota
 
     allowed, message = await check_oracle_quota(user)
-    if not allowed:
-        raise HTTPException(
-            status_code=403,
-            detail={
-                "error": "quota_exceeded",
-                "message": message,
-                "upgrade_url": "/create-checkout-session?tier=pro",
-            },
-        )
+    if allowed:
+        return
+    raise HTTPException(
+        status_code=403,
+        detail={
+            "error": "quota_exceeded",
+            "message": message,
+            "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
+        },
+    )
 
+
+async def _oracle_market_inputs(symbol: str) -> tuple[str, str, dict[str, Any], float, float, float, float]:
     asset, pair = _normalize_oracle_symbol(symbol)
     market = await _fetch_binance_ticker(pair)
     if market is None:
         raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
-
     price = market["price"]
     volume = market["volume"]
     quote_volume = market["quote_volume"] or (volume * price)
     change = market["change_24h"]
-    whale_alert = None
+    return asset, pair, market, price, volume, quote_volume, change
+
+
+async def _fetch_whale_alert_safe(asset: str, pair: str, price: float) -> Any | None:
     try:
-        whale_alert = await _fetch_cvvd_whale_alert(asset, pair, price)
+        return await _fetch_cvvd_whale_alert(asset, pair, price)
     except Exception:
         logger.exception("Whale alert fetch failed")
+        return None
 
+
+async def _compute_unified_oracle_safe(
+    asset: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
     try:
         from oracle_unified import compute_unified_oracle
 
-        unified = await compute_unified_oracle(asset, price, quote_volume, change)
+        return await compute_unified_oracle(asset, price, quote_volume, change)
     except Exception:
         logger.exception("Unified oracle engine unavailable — falling back to technical score")
         from market_context import oracle_score
 
-        unified = {
+        return {
             "opportunity_score": oracle_score(quote_volume, change),
             "verdict": None,
             "confidence": None,
             "engine": "technical_fallback_v1",
         }
 
+
+async def _build_primary_oracle_payload(
+    asset: str,
+    pair: str,
+    price: float,
+    volume: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
+    whale_alert = await _fetch_whale_alert_safe(asset, pair, price)
+    unified = await _compute_unified_oracle_safe(asset, price, quote_volume, change)
     payload = _build_full_oracle_response(
-        asset, price, volume, quote_volume, change,
+        asset,
+        price,
+        volume,
+        quote_volume,
+        change,
         whale_alert=whale_alert,
         unified=unified,
     )
+    payload = await _attach_oracle_explanation_safe(payload, asset, pair, price, quote_volume, change)
+    return await _enrich_oracle_forecast_safe(payload)
+
+
+async def _attach_oracle_explanation_safe(
+    payload: dict[str, Any],
+    asset: str,
+    pair: str,
+    price: float,
+    quote_volume: float,
+    change: float,
+) -> dict[str, Any]:
     try:
         payload["explanation"] = await _build_opportunity_explanation(
-            asset, price, change, quote_volume, payload["opportunity_score"], payload["verdict"], pair=pair
+            asset,
+            price,
+            change,
+            quote_volume,
+            payload["opportunity_score"],
+            payload["verdict"],
+            pair=pair,
         )
     except Exception:
         logger.exception("Oracle explanation unavailable")
         payload["explanation"] = {"summary": "Technical oracle response (extended explanation unavailable)."}
+    return payload
+
+
+async def _enrich_oracle_forecast_safe(payload: dict[str, Any]) -> dict[str, Any]:
     try:
         from forecast_engine import enrich_oracle_payload
 
-        payload = await enrich_oracle_payload(payload)
+        return await enrich_oracle_payload(payload)
     except Exception:
         logger.exception("Oracle forecast enrichment unavailable")
+        return payload
 
-    # Constitution differentiators on the primary user path (D3/D4/D7/D8 + UX mode)
+
+def _enrich_oracle_decision_safe(payload: dict[str, Any], ux_mode: str, lang: str) -> dict[str, Any]:
     try:
         from decision_enrichment import enrich_oracle_decision
         from ux_mode import normalize_lang, normalize_ux_mode
 
-        payload = enrich_oracle_decision(
+        return enrich_oracle_decision(
             payload,
             ux_mode=normalize_ux_mode(ux_mode),
             lang=normalize_lang(lang),
@@ -2163,61 +2524,78 @@ async def oracle(
         )
     except Exception:
         logger.exception("Constitution decision enrichment unavailable")
+        return payload
 
-    # D1: await audit log so response carries a real prediction_id (not signal_id).
+
+async def _attach_oracle_prediction_proof(payload: dict[str, Any], asset: str) -> dict[str, Any]:
     try:
         prediction_id = await _log_oracle_prediction(payload)
-        if prediction_id is not None:
-            payload["prediction_id"] = prediction_id
-            # D8: bind audit prediction_id onto the sovereign registry row
-            try:
-                from signal_registry import attach_prediction_id, register_from_evaluation
-
-                sig = (payload.get("signal_registry") or {}).get("signal_id")
-                linked = attach_prediction_id(str(sig), prediction_id) if sig else None
-                if not linked:
-                    linked = register_from_evaluation(
-                        {
-                            "kind": payload.get("kind") or "oracle_direction",
-                            "asset": asset,
-                            "opportunity_score": payload.get("opportunity_score"),
-                            "oracle": {"verdict": payload.get("verdict")},
-                            "prediction_id": prediction_id,
-                            "payload": payload,
-                        }
-                    )
-                if linked:
-                    payload["signal_registry"] = {
-                        "signal_id": linked.get("signal_id"),
-                        "prediction_id": linked.get("prediction_id"),
-                        "features_hash": linked.get("features_hash"),
-                        "label": linked.get("label"),
-                        "definition": linked.get("definition"),
-                        "source": linked.get("source"),
-                        "weight": linked.get("weight"),
-                        "performance": linked.get("performance"),
-                    }
-            except Exception:
-                logger.debug("signal registry prediction_id attach failed", exc_info=True)
-            try:
-                from oracle_audit_chain import chain_summary
-
-                recent = (chain_summary(limit=8) or {}).get("recent_records") or []
-                for entry in reversed(recent):
-                    if str(entry.get("prediction_id")) == str(prediction_id):
-                        payload["chain_hash"] = entry.get("chain_hash")
-                        payload["proof"] = {
-                            "prediction_id": prediction_id,
-                            "chain_hash": entry.get("chain_hash"),
-                            "public_page": "/oracle-accuracy",
-                        }
-                        break
-            except Exception:
-                logger.debug("chain_hash attach failed", exc_info=True)
     except Exception:
         logger.exception("Oracle prediction_id attach failed")
+        return payload
+    if prediction_id is None:
+        return payload
+    payload["prediction_id"] = prediction_id
+    _attach_signal_registry_prediction(payload, asset, prediction_id)
+    _attach_chain_hash_proof(payload, prediction_id)
+    return payload
 
-    # Hero #6 — Decision Certificate on every primary Oracle response.
+
+def _attach_signal_registry_prediction(payload: dict[str, Any], asset: str, prediction_id: Any) -> None:
+    try:
+        from signal_registry import attach_prediction_id, register_from_evaluation
+
+        sig = (payload.get("signal_registry") or {}).get("signal_id")
+        linked = attach_prediction_id(str(sig), prediction_id) if sig else None
+        if not linked:
+            linked = register_from_evaluation(
+                {
+                    "kind": payload.get("kind") or "oracle_direction",
+                    "asset": asset,
+                    "opportunity_score": payload.get("opportunity_score"),
+                    "oracle": {"verdict": payload.get("verdict")},
+                    "prediction_id": prediction_id,
+                    "payload": payload,
+                }
+            )
+        if linked:
+            payload["signal_registry"] = _signal_registry_payload(linked)
+    except Exception:
+        logger.debug("signal registry prediction_id attach failed", exc_info=True)
+
+
+def _signal_registry_payload(linked: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "signal_id": linked.get("signal_id"),
+        "prediction_id": linked.get("prediction_id"),
+        "features_hash": linked.get("features_hash"),
+        "label": linked.get("label"),
+        "definition": linked.get("definition"),
+        "source": linked.get("source"),
+        "weight": linked.get("weight"),
+        "performance": linked.get("performance"),
+    }
+
+
+def _attach_chain_hash_proof(payload: dict[str, Any], prediction_id: Any) -> None:
+    try:
+        from oracle_audit_chain import chain_summary
+
+        recent = (chain_summary(limit=8) or {}).get("recent_records") or []
+        for entry in reversed(recent):
+            if str(entry.get("prediction_id")) == str(prediction_id):
+                payload["chain_hash"] = entry.get("chain_hash")
+                payload["proof"] = {
+                    "prediction_id": prediction_id,
+                    "chain_hash": entry.get("chain_hash"),
+                    "public_page": PATH_ORACLE_ACCURACY,
+                }
+                break
+    except Exception:
+        logger.debug("chain_hash attach failed", exc_info=True)
+
+
+def _attach_oracle_certificate(payload: dict[str, Any], user: dict | None) -> None:
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
@@ -2230,7 +2608,8 @@ async def oracle(
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
 
-    # Lightweight Bull / Base / Bear fan-out (not Monte Carlo desk)
+
+def _attach_oracle_scenarios_safe(payload: dict[str, Any]) -> None:
     try:
         from oracle_scenarios import build_oracle_scenarios
 
@@ -2238,40 +2617,55 @@ async def oracle(
     except Exception:
         logger.debug("Oracle scenarios attach failed", exc_info=True)
 
-    # Hero #1 — Why in <5s (normalized Top-3 for UI)
+
+def _attach_oqs_why_safe(payload: dict[str, Any]) -> None:
     try:
         from heroes_quality import build_oqs_why_block
 
         payload["oqs_why"] = build_oqs_why_block(payload)
-        if payload["oqs_why"].get("top_3_factors"):
-            expl = payload.get("explanation") or {}
-            if isinstance(expl, dict) and not expl.get("top_3_factors"):
-                expl = {**expl, "top_3_factors": payload["oqs_why"]["top_3_factors"]}
-                payload["explanation"] = expl
+        _copy_oqs_factors_to_explanation(payload)
     except Exception:
         logger.debug("OQS why block attach failed", exc_info=True)
 
-    # Durable product alert without Telegram when Oracle says ACT.
-    try:
-        if str(payload.get("decision_action") or "").upper() == "ACT":
-            from alert_service import dispatch_alert
 
-            sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
-            await dispatch_alert(
-                f"Oracle ACT · {asset}",
-                sentence,
-                payload={
-                    "asset": asset,
-                    "prediction_id": payload.get("prediction_id"),
-                    "opportunity_score": payload.get("opportunity_score"),
-                    "verdict": payload.get("verdict"),
-                    "source": "oracle_act",
-                },
-                channels=["in_app"],
-            )
+def _copy_oqs_factors_to_explanation(payload: dict[str, Any]) -> None:
+    top_factors = (payload.get("oqs_why") or {}).get("top_3_factors")
+    if not top_factors:
+        return
+    expl = payload.get("explanation") or {}
+    if isinstance(expl, dict) and not expl.get("top_3_factors"):
+        payload["explanation"] = {**expl, "top_3_factors": top_factors}
+
+
+async def _dispatch_oracle_act_alert_safe(payload: dict[str, Any], asset: str) -> None:
+    if str(payload.get("decision_action") or "").upper() != "ACT":
+        return
+    try:
+        from alert_service import dispatch_alert
+
+        sentence = str(payload.get("decision_sentence") or payload.get("verdict") or "ACT")
+        await dispatch_alert(
+            f"Oracle ACT · {asset}",
+            sentence,
+            payload={
+                "asset": asset,
+                "prediction_id": payload.get("prediction_id"),
+                "opportunity_score": payload.get("opportunity_score"),
+                "verdict": payload.get("verdict"),
+                "source": "oracle_act",
+            },
+            channels=["in_app"],
+        )
     except Exception:
         logger.debug("Oracle ACT in-app alert failed", exc_info=True)
 
+
+def _queue_oracle_behavior_task(
+    background_tasks: BackgroundTasks,
+    user: dict | None,
+    asset: str,
+    payload: dict[str, Any],
+) -> None:
     background_tasks.add_task(
         _record_behavior,
         "oracle_query",
@@ -2285,6 +2679,9 @@ async def oracle(
             "signal_id": (payload.get("signal_registry") or {}).get("signal_id"),
         },
     )
+
+
+def _increment_oracle_queries_metric() -> None:
     try:
         from observability import increment_metric
 
@@ -2292,25 +2689,70 @@ async def oracle(
     except Exception:
         pass
 
+
+def _attach_oracle_freshness_safe(payload: dict[str, Any], asset: str) -> dict[str, Any]:
     try:
         from data_freshness import attach_oracle_freshness
 
-        payload = attach_oracle_freshness({**payload, "asset": asset})
+        return attach_oracle_freshness({**payload, "asset": asset})
     except Exception:
         logger.debug("Oracle freshness attach failed", exc_info=True)
+        return payload
 
+
+def _apply_zero_tolerance_safe(payload: dict[str, Any]) -> dict[str, Any]:
     try:
         from zero_tolerance import apply_zero_tolerance
 
-        payload = apply_zero_tolerance(payload)
+        return apply_zero_tolerance(payload)
     except Exception:
         logger.debug("Zero-tolerance attach failed", exc_info=True)
+        return payload
 
+
+def _sanitize_oracle_response(payload: dict[str, Any], user: dict | None) -> dict[str, Any]:
     from regulatory_compliance_guard import apply_regulatory_compliance
     from security_sanitize import sanitize_oracle_payload
 
-    payload = apply_regulatory_compliance(payload) if user and is_admin_user(user) else sanitize_oracle_payload(payload)
-    return JSONResponse(payload)
+    if user and is_admin_user(user):
+        return apply_regulatory_compliance(payload)
+    return sanitize_oracle_payload(payload)
+
+
+@app.get("/oracle/{symbol}", responses=COMMON_ERROR_RESPONSES)
+async def oracle(
+    symbol: str,
+    request: Request,
+    background_tasks: BackgroundTasks,
+    user: dict | None = Depends(optional_user),
+    ux_mode: str = "beginner",
+    lang: str = "en",
+):
+    reserved = _reserved_oracle_response(symbol, request)
+    if reserved is not None:
+        return reserved
+
+    await _enforce_oracle_quota(user)
+    asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
+    payload = await _build_primary_oracle_payload(
+        asset,
+        pair,
+        price,
+        volume,
+        quote_volume,
+        change,
+    )
+    payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
+    payload = await _attach_oracle_prediction_proof(payload, asset)
+    _attach_oracle_certificate(payload, user)
+    _attach_oracle_scenarios_safe(payload)
+    _attach_oqs_why_safe(payload)
+    await _dispatch_oracle_act_alert_safe(payload, asset)
+    _queue_oracle_behavior_task(background_tasks, user, asset, payload)
+    _increment_oracle_queries_metric()
+    payload = _attach_oracle_freshness_safe(payload, asset)
+    payload = _apply_zero_tolerance_safe(payload)
+    return JSONResponse(_sanitize_oracle_response(payload, user))
 
 
 @app.get("/api/whale-activity")
@@ -2451,35 +2893,35 @@ async def macro_overview():
 
 
 @app.get("/api/universe/phase-b/probe")
-async def universe_phase_b_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_b_probe(symbol: str = STR_BTC_USDT):
     from ccxt_market_fetcher import probe_phase_b_exchanges
 
     return await probe_phase_b_exchanges(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-b2/probe")
-async def universe_phase_b2_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_b2_probe(symbol: str = STR_BTC_USDT):
     from coingecko_cex_fetcher import probe_coingecko_exchanges
 
     return await probe_coingecko_exchanges(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-c/probe")
-async def universe_phase_c_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_c_probe(symbol: str = STR_BTC_USDT):
     from dex_fetcher import probe_dex_venues
 
     return await probe_dex_venues(sample_symbol=symbol)
 
 
 @app.get("/api/universe/phase-d/probe")
-async def universe_phase_d_probe(symbol: str = "BTC/USDT"):
+async def universe_phase_d_probe(symbol: str = STR_BTC_USDT):
     from perp_dex_fetcher import probe_perp_dex_venues
 
     return await probe_perp_dex_venues(sample_symbol=symbol)
 
 
 @app.get("/api/universe/full-probe")
-async def universe_full_probe(symbol: str = "BTC/USDT"):
+async def universe_full_probe(symbol: str = STR_BTC_USDT):
     import aggregator
     from ccxt_market_fetcher import probe_phase_b_exchanges
     from coingecko_cex_fetcher import probe_coingecko_exchanges
@@ -2611,7 +3053,7 @@ async def ingestion_run_once(_admin: dict = Depends(require_admin)):
 
 # Forecast + oracle audit routes → api/routers/oracle.py
 
-@app.get("/oracle-accuracy", response_class=HTMLResponse)
+@app.get(PATH_ORACLE_ACCURACY, response_class=HTMLResponse)
 @app.get("/oracle/accuracy", response_class=HTMLResponse)
 async def oracle_accuracy_page(request: Request):
     # Public ledger must stay visible without an ack wall (hits + misses).
@@ -2620,7 +3062,7 @@ async def oracle_accuracy_page(request: Request):
 
 # ML experience routes → api/routers/oracle.py
 
-@app.get("/api/b2b/feed")
+@app.get("/api/b2b/feed", responses=COMMON_ERROR_RESPONSES)
 async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     from whale_tracker import InstitutionalDataExporter
 
@@ -2628,10 +3070,10 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
     try:
         return await exporter.export_institutional_feed(provided_key=x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail=public_error(exc, fallback="Invalid B2B API key")) from exc
+        raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
 
-@app.get("/api/b2b/demo")
+@app.get("/api/b2b/demo", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_feed():
     """Public demo feed — limited records, no key required."""
     from whale_tracker import InstitutionalDataExporter
@@ -2719,7 +3161,7 @@ async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min
 
     exporter = InstitutionalDataExporter()
     if not exporter.authorize(api_key):
-        await websocket.close(code=1008, reason="Invalid B2B API key")
+        await websocket.close(code=1008, reason=STR_INVALID_B2B_API_KEY)
         return
 
     await websocket.accept()
@@ -2772,7 +3214,7 @@ async def api_legal_ack_terms():
     return resp
 
 
-@app.get("/system/info")
+@app.get("/system/info", responses=COMMON_ERROR_RESPONSES)
 async def system_info(request: Request, user: dict | None = Depends(optional_user)):
     """Classified system surface — requires Terms ack; auth required for payload."""
     blocked = _require_terms_ack_or_403(request)
@@ -2803,32 +3245,32 @@ def _legal_page(request: Request, page: str):
     )
 
 
-@app.get("/terms", response_class=HTMLResponse)
+@app.get("/terms", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def terms_page(request: Request):
     return _legal_page(request, "terms")
 
 
-@app.get("/privacy", response_class=HTMLResponse)
+@app.get("/privacy", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def privacy_page(request: Request):
     return _legal_page(request, "privacy")
 
 
-@app.get("/disclaimer", response_class=HTMLResponse)
+@app.get("/disclaimer", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def disclaimer_page(request: Request):
     return _legal_page(request, "disclaimer")
 
 
-@app.get("/refund", response_class=HTMLResponse)
+@app.get("/refund", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def refund_page(request: Request):
     return _legal_page(request, "refund")
 
 
-@app.get("/cookies", response_class=HTMLResponse)
+@app.get("/cookies", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def cookies_page(request: Request):
     return _legal_page(request, "cookies")
 
 
-@app.get("/api/b2b/demo/proposal")
+@app.get("/api/b2b/demo/proposal", responses=COMMON_ERROR_RESPONSES)
 async def b2b_demo_proposal(client: str = "Demo Prospect"):
     """Public demo sales proposal — limited data, no API key."""
     from whale_tracker import InstitutionalDataExporter
@@ -2847,7 +3289,7 @@ async def b2b_demo_proposal(client: str = "Demo Prospect"):
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
 
-@app.get("/api/b2b/proposal")
+@app.get("/api/b2b/proposal", responses=COMMON_ERROR_RESPONSES)
 async def b2b_proposal(
     client: str = "Prospect",
     x_api_key: str = Header(..., alias="X-API-Key"),
@@ -2861,12 +3303,12 @@ async def b2b_proposal(
             client_name=client,
         )
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=STR_INVALID_B2B_API_KEY) from exc
 
 
 # Arbitrage API routes → api/routers/arbitrage.py
 
-@app.post("/api/simulate/trade")
+@app.post("/api/simulate/trade", responses=COMMON_ERROR_RESPONSES)
 async def simulate_trade(
     data: dict = Body(...),
     _user: dict | None = Depends(require_feature("research_lab")),
@@ -2902,7 +3344,7 @@ async def simulate_arbitrage(
     )
 
 
-@app.get("/api/simulate/history")
+@app.get("/api/simulate/history", responses=COMMON_ERROR_RESPONSES)
 async def simulate_history(
     limit: int = 15,
     _user: dict | None = Depends(require_feature("research_lab")),
@@ -2912,7 +3354,7 @@ async def simulate_history(
     return {"simulations": await fetch_simulation_logs(limit=limit)}
 
 
-@app.post("/api/alerts/subscribe")
+@app.post("/api/alerts/subscribe", responses=COMMON_ERROR_RESPONSES)
 async def alerts_subscribe(
     data: dict = Body(...),
     user: dict | None = Depends(optional_user),
@@ -2926,7 +3368,7 @@ async def alerts_subscribe(
             detail={
                 "error": "upgrade_required",
                 "feature": "alerts",
-                "upgrade_url": "/create-checkout-session?tier=pro",
+                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
             },
         )
     try:
@@ -2944,7 +3386,7 @@ async def alerts_test(_admin: dict = Depends(require_admin)):
     return await send_test_alert()
 
 
-@app.get("/api/alerts/inbox")
+@app.get("/api/alerts/inbox", responses=COMMON_ERROR_RESPONSES)
 async def alerts_inbox(
     limit: int = 30,
     unread_only: bool = False,
@@ -2960,7 +3402,7 @@ async def alerts_inbox(
     }
 
 
-@app.post("/api/alerts/inbox/{alert_id}/read")
+@app.post("/api/alerts/inbox/{alert_id}/read", responses=COMMON_ERROR_RESPONSES)
 async def alerts_inbox_mark_read(
     alert_id: str,
     user: dict = Depends(require_authenticated),
@@ -2994,7 +3436,7 @@ async def execution_status(_user: dict = Depends(require_pro_or_above)):
     return await get_execution_status()
 
 
-@app.get("/api/execution/keys/status")
+@app.get("/api/execution/keys/status", responses=COMMON_ERROR_RESPONSES)
 async def execution_keys_status_api(_user: dict = Depends(require_whale)):
     from execution_keys import execution_keys_status
 
@@ -3003,7 +3445,7 @@ async def execution_keys_status_api(_user: dict = Depends(require_whale)):
     return status
 
 
-@app.post("/api/execution/keys/activate")
+@app.post("/api/execution/keys/activate", responses=COMMON_ERROR_RESPONSES)
 async def execution_keys_activate(request: Request, live: bool = False, user: dict = Depends(require_whale)):
     from execution_keys import activate_live_execution
 
@@ -3047,7 +3489,7 @@ async def execution_resume(_user: dict = Depends(require_whale)):
     return await resume_execution()
 
 
-@app.post("/api/execution/order")
+@app.post("/api/execution/order", responses=COMMON_ERROR_RESPONSES)
 async def execution_order(body: ExecutionOrderBody, user: dict = Depends(require_whale)):
     from execution_engine import execute_order
 
@@ -3111,25 +3553,25 @@ async def behavior_data_stats(days: int = 30):
     return stats
 
 
-@app.get("/api/research/asset/{symbol}")
+@app.get("/api/research/asset/{symbol}", responses=COMMON_ERROR_RESPONSES)
 async def research_asset(symbol: str, notional: float = 10_000):
     from research_lab import compute_financial_models
 
     return await compute_financial_models(symbol, notional=notional)
 
 
-@app.get("/api/research/export")
+@app.get("/api/research/export", responses=COMMON_ERROR_RESPONSES)
 async def research_export(x_api_key: str = Header(..., alias="X-API-Key")):
     from research_lab import export_signed_research
 
     try:
         return await export_signed_research(x_api_key)
     except PermissionError as exc:
-        raise HTTPException(status_code=403, detail="Invalid B2B API key") from exc
+        raise HTTPException(status_code=403, detail=STR_INVALID_B2B_API_KEY) from exc
 
 
 
-@app.post("/api/voice/command")
+@app.post("/api/voice/command", responses=COMMON_ERROR_RESPONSES)
 async def voice_command(
     data: dict = Body(...),
     _user: dict | None = Depends(require_feature("voice")),
@@ -3251,7 +3693,7 @@ async def api_regulatory_compliance():
     return regulatory_compliance_status()
 
 
-@app.get("/api/retention/status")
+@app.get("/api/retention/status", responses=COMMON_ERROR_RESPONSES)
 async def api_retention_status(user: dict | None = Depends(optional_user)):
     from database import fetch_active_subscription_for_email
     from retention_service import build_retention_status
@@ -3262,12 +3704,12 @@ async def api_retention_status(user: dict | None = Depends(optional_user)):
     return await build_retention_status(user, sub)
 
 
-@app.get("/api/subscriber/value")
+@app.get("/api/subscriber/value", responses=COMMON_ERROR_RESPONSES)
 async def api_subscriber_value(user: dict | None = Depends(optional_user)):
     from retention_service import build_subscriber_value_digest
 
     if not user:
-        raise HTTPException(status_code=401, detail="Login required")
+        raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     tier = str(user.get("tier") or "free")
     if tier == "free":
         raise HTTPException(
@@ -3275,7 +3717,7 @@ async def api_subscriber_value(user: dict | None = Depends(optional_user)):
             detail={
                 "error": "upgrade_required",
                 "message": "Subscriber value digest requires Pro or Whale.",
-                "upgrade_url": "/create-checkout-session?tier=pro",
+                "upgrade_url": PATH_CREATE_CHECKOUT_SESSION_TIER_PRO,
             },
         )
     return await build_subscriber_value_digest(user["email"], tier)
@@ -3300,7 +3742,7 @@ async def storage_legacy_purge(_admin: dict = Depends(require_admin_dev)):
 async def storage_hot_tier():
     from hot_tier_reader import hot_tier_status
 
-    return await hot_tier_status()
+    return hot_tier_status()
 
 
 @app.post("/api/database/maintenance")
@@ -3597,7 +4039,7 @@ async def health():
     }
 
 
-@app.get("/api/build-info")
+@app.get("/api/build-info", responses=COMMON_ERROR_RESPONSES)
 async def build_info():
     """Verify which commit Railway is actually running."""
     return {
@@ -3611,7 +4053,7 @@ async def build_info():
         "price_probe": "/api/diagnostics/price/BTC",
     }
 
-@app.post("/portfolio/analyze")
+@app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
     assets: list = Body(...),
     _user: dict | None = Depends(require_feature("portfolio_ai")),
@@ -3620,7 +4062,7 @@ async def portfolio_analyze(
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
 
-@app.post("/join-waitlist")
+@app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
     from database import insert_waitlist_signup
 
@@ -3752,7 +4194,7 @@ def _create_stripe_checkout(tier: str, customer_email: str | None = None, user_i
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
 
-@app.get("/create-checkout-session")
+@app.get("/create-checkout-session", responses=COMMON_ERROR_RESPONSES)
 async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_user)):
     """Landing page links use GET — redirect to Lemon Squeezy or Stripe."""
     email = user.get("email") if user else None
@@ -3761,14 +4203,14 @@ async def checkout_get(tier: str = "pro", user: dict | None = Depends(optional_u
     return RedirectResponse(url=payload["url"], status_code=303)
 
 
-@app.post("/create-checkout-session")
+@app.post("/create-checkout-session", responses=COMMON_ERROR_RESPONSES)
 async def checkout_post(tier: str = "pro", user: dict | None = Depends(optional_user)):
     email = user.get("email") if user else None
     user_id = int(user["id"]) if user and user.get("id") else None
     return _create_stripe_checkout(tier, customer_email=email, user_id=user_id)
 
 
-@app.post("/webhook")
+@app.post("/webhook", responses=COMMON_ERROR_RESPONSES)
 async def stripe_webhook(request: Request):
     from billing_service import handle_stripe_webhook_event
 
@@ -3813,7 +4255,7 @@ async def checkout_success(request: Request):
 async def checkout_cancel(request: Request):
     return templates.TemplateResponse(
         request,
-        "utility.html",
+        STR_UTILITY_HTML,
         {
             "page": "cancel",
             "title": "Checkout cancelled",

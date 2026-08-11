@@ -25,79 +25,106 @@ def _parse_ts(value: str | None) -> float | None:
         return None
 
 
-async def build_validity_decay_map(*, limit: int = 40, asset: str | None = None) -> dict[str, Any]:
-    rows: list[dict[str, Any]] = []
+def _validity_lifetime(row: dict[str, Any], created: float, resolved: float | None) -> float:
+    observed = _observed_lifetime(created, resolved)
+    if observed is not None:
+        return observed
+    # Synthetic educational lifetime from confidence / score
+    return 600 + _synthetic_lifetime_score(row) * 18  # ~10-40 minutes band
+
+
+def _observed_lifetime(created: float, resolved: float | None) -> float | None:
+    if resolved is None or resolved < created:
+        return None
+    return resolved - created
+
+
+def _synthetic_lifetime_score(row: dict[str, Any]) -> float:
+    return float(row.get("opportunity_score") or row.get("confidence") or 50)
+
+
+def _row_to_decay_point(row: dict[str, Any], asset_filter: str | None) -> dict[str, Any] | None:
+    asset = str(row.get("asset") or row.get("symbol") or "").upper()
+    if asset_filter and asset != asset_filter.upper():
+        return None
+    created = _parse_ts(str(row.get("timestamp") or row.get("created_at") or ""))
+    if created is None:
+        return None
+    resolved = _parse_ts(str(row.get("resolved_at") or row.get("labeled_at") or ""))
+    lifetime = _validity_lifetime(row, created, resolved)
+    return {
+        "id": row.get("id") or row.get("prediction_id"),
+        "asset": asset or "—",
+        "verdict": str(row.get("verdict") or row.get("action") or "—"),
+        "label": str(row.get("label") or "pending").lower(),
+        "validity_seconds": round(float(lifetime), 1),
+        "validity_minutes": round(float(lifetime) / 60.0, 2),
+        "timestamp": row.get("timestamp") or row.get("created_at"),
+    }
+
+
+async def _fetch_decay_rows(*, limit: int, asset: str | None) -> list[dict[str, Any]]:
     try:
         from database import fetch_labeled_oracle_predictions
 
         raw = await fetch_labeled_oracle_predictions(limit=400, include_synthetic=False)
-        for r in raw or []:
-            a = str(r.get("asset") or r.get("symbol") or "").upper()
-            if asset and a != asset.upper():
-                continue
-            created = _parse_ts(str(r.get("timestamp") or r.get("created_at") or ""))
-            resolved = _parse_ts(str(r.get("resolved_at") or r.get("labeled_at") or ""))
-            label = str(r.get("label") or "pending").lower()
-            if created is None:
-                continue
-            # Validity lifetime: until resolution or until first contradiction mark
-            if resolved is not None and resolved >= created:
-                lifetime = resolved - created
-            else:
-                # Synthetic educational lifetime from confidence / score
-                score = float(r.get("opportunity_score") or r.get("confidence") or 50)
-                lifetime = 600 + score * 18  # ~10–40 minutes band
-            rows.append(
-                {
-                    "id": r.get("id") or r.get("prediction_id"),
-                    "asset": a or "—",
-                    "verdict": str(r.get("verdict") or r.get("action") or "—"),
-                    "label": label,
-                    "validity_seconds": round(float(lifetime), 1),
-                    "validity_minutes": round(float(lifetime) / 60.0, 2),
-                    "timestamp": r.get("timestamp") or r.get("created_at"),
-                }
-            )
-            if len(rows) >= limit:
-                break
     except Exception:
-        rows = []
+        return []
 
-    if not rows:
-        # Seed educational map so the surface is never empty
-        for i, (a, mins, lab) in enumerate(
-            [
-                ("BTC", 37, "correct"),
-                ("ETH", 22, "incorrect"),
-                ("BTC", 51, "correct"),
-                ("SOL", 14, "partial"),
-                ("ETH", 41, "correct"),
-            ]
-        ):
-            rows.append(
-                {
-                    "id": f"seed_{i}",
-                    "asset": a,
-                    "verdict": "WAIT" if i % 2 else "ACT",
-                    "label": lab,
-                    "validity_seconds": mins * 60,
-                    "validity_minutes": mins,
-                    "timestamp": _utcnow(),
-                    "seeded": True,
-                }
-            )
+    rows: list[dict[str, Any]] = []
+    for row in raw or []:
+        point = _row_to_decay_point(row, asset)
+        if point is None:
+            continue
+        rows.append(point)
+        if len(rows) >= limit:
+            break
+    return rows
+
+
+def _seed_decay_rows() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for i, (asset, mins, label) in enumerate(
+        [
+            ("BTC", 37, "correct"),
+            ("ETH", 22, "incorrect"),
+            ("BTC", 51, "correct"),
+            ("SOL", 14, "partial"),
+            ("ETH", 41, "correct"),
+        ]
+    ):
+        rows.append(
+            {
+                "id": f"seed_{i}",
+                "asset": asset,
+                "verdict": "WAIT" if i % 2 else "ACT",
+                "label": label,
+                "validity_seconds": mins * 60,
+                "validity_minutes": mins,
+                "timestamp": _utcnow(),
+                "seeded": True,
+            }
+        )
+    return rows
+
+
+def _decay_curve(half: float) -> list[dict[str, Any]]:
+    curve = []
+    for t_min in (0, 5, 10, 15, 30, 45, 60):
+        t = t_min * 60
+        survival = 1.0 if half <= 0 else math.pow(0.5, t / half)
+        curve.append({"t_minutes": t_min, "validity_survival": round(survival, 4)})
+    return curve
+
+
+async def build_validity_decay_map(*, limit: int = 40, asset: str | None = None) -> dict[str, Any]:
+    rows = await _fetch_decay_rows(limit=limit, asset=asset) or _seed_decay_rows()
 
     lifetimes = [float(r["validity_seconds"]) for r in rows if r.get("validity_seconds")]
     lifetimes.sort()
     mid = lifetimes[len(lifetimes) // 2] if lifetimes else 0.0
     mean = sum(lifetimes) / len(lifetimes) if lifetimes else 0.0
-    # Decay curve points (survival under half-life model at median)
-    curve = []
     half = mid or 1.0
-    for t_min in (0, 5, 10, 15, 30, 45, 60):
-        t = t_min * 60
-        survival = 1.0 if half <= 0 else math.pow(0.5, t / half)
-        curve.append({"t_minutes": t_min, "validity_survival": round(survival, 4)})
 
     share = (
         f"BLACKDARK Validity Decay · median decision stayed valid "
@@ -113,7 +140,7 @@ async def build_validity_decay_map(*, limit: int = 40, asset: str | None = None)
         "median_validity_seconds": round(mid, 1),
         "median_validity_minutes": round(mid / 60.0, 2),
         "mean_validity_minutes": round(mean / 60.0, 2),
-        "decay_curve": curve,
+        "decay_curve": _decay_curve(half),
         "points": rows[:limit],
         "headline": f"Median validity {round(mid/60,1)} minutes",
         "doctrine": "Correct decisions still die — measure validity half-life for committees",

@@ -245,45 +245,56 @@ async def enrich_oracle_payload(payload: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
+async def _current_binance_price(pair: str) -> float | None:
+    ticker_url = f"https://api.binance.com/api/v3/ticker/price?symbol={pair}"
+    try:
+        timeout = aiohttp.ClientTimeout(total=8)
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(ticker_url) as resp:
+            if resp.status != 200:
+                return None
+            data = await resp.json()
+        actual = float(data.get("price") or 0)
+        return actual if actual > 0 else None
+    except (aiohttp.ClientError, TypeError, ValueError):
+        return None
+
+
+async def _resolve_forecast_row(row: dict[str, Any]) -> bool:
+    from database import resolve_forecast_log
+
+    asset = str(row.get("asset") or "")
+    pair = f"{_normalize_asset(asset)}USDT"
+    if not pair.isalnum():
+        return False
+    actual = await _current_binance_price(pair)
+    price_at = float(row.get("price_at") or 0)
+    forecast_price = float(row.get("price_forecast") or 0)
+    if price_at <= 0 or actual is None:
+        return False
+
+    predicted_dir = str(row.get("direction_predicted") or "neutral")
+    actual_dir = _direction(price_at, actual, threshold_pct=0.5)
+    price_error_pct = abs((actual - forecast_price) / price_at) * 100
+    direction_hit = predicted_dir == actual_dir or predicted_dir == "neutral"
+    accuracy = round(max(0.0, 100.0 - price_error_pct * 2 + (20 if direction_hit else 0)), 2)
+
+    await resolve_forecast_log(
+        int(row["id"]),
+        actual,
+        actual_dir,
+        accuracy,
+    )
+    return True
+
+
 async def run_forecast_audit() -> dict[str, Any]:
     """Resolve matured forecasts vs actual Binance price (flywheel)."""
-    from database import fetch_unresolved_forecast_logs, resolve_forecast_log
+    from database import fetch_unresolved_forecast_logs
 
     unresolved = await fetch_unresolved_forecast_logs(limit=100)
     resolved = 0
     for row in unresolved:
-        asset = str(row.get("asset") or "")
-        pair = f"{_normalize_asset(asset)}USDT"
-        if not pair.isalnum():
-            continue
-        ticker_url = f"https://api.binance.com/api/v3/ticker/price?symbol={pair}"
-        try:
-            timeout = aiohttp.ClientTimeout(total=8)
-            async with aiohttp.ClientSession(timeout=timeout) as session, session.get(ticker_url) as resp:
-                if resp.status != 200:
-                    continue
-                data = await resp.json()
-            actual = float(data.get("price") or 0)
-        except (aiohttp.ClientError, TypeError, ValueError):
-            continue
-
-        price_at = float(row.get("price_at") or 0)
-        forecast_price = float(row.get("price_forecast") or 0)
-        if price_at <= 0 or actual <= 0:
-            continue
-
-        predicted_dir = str(row.get("direction_predicted") or "neutral")
-        actual_dir = _direction(price_at, actual, threshold_pct=0.5)
-        price_error_pct = abs((actual - forecast_price) / price_at) * 100
-        direction_hit = predicted_dir == actual_dir or predicted_dir == "neutral"
-        accuracy = round(max(0.0, 100.0 - price_error_pct * 2 + (20 if direction_hit else 0)), 2)
-
-        await resolve_forecast_log(
-            int(row["id"]),
-            actual,
-            actual_dir,
-            accuracy,
-        )
-        resolved += 1
+        if await _resolve_forecast_row(row):
+            resolved += 1
 
     return {"resolved": resolved, "checked": len(unresolved)}

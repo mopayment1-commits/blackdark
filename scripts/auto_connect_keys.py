@@ -59,7 +59,12 @@ async def main() -> int:
         print(f"   محفوظ: {imp.get('saved_count', 0)}")
         print(f"   صالح:  {ver.get('valid_count', 0)}/{ver.get('configured_count', 0)}")
         for row in ver.get("results", []):
-            icon = "✅" if row.get("valid") else ("❌" if row.get("configured") else "⏭️")
+            if row.get("valid"):
+                icon = "✅"
+            elif row.get("configured"):
+                icon = "❌"
+            else:
+                icon = "⏭️"
             print(f"   {icon} {row.get('service')}")
 
     print()

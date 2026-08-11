@@ -73,6 +73,8 @@ def test_decision_sentence_localized():
 
     en = decision_sentence("en", "ACT", "ETH", 80)
     ar = decision_sentence("ar", "ACT", "ETH", 80)
-    assert "ETH" in en and "80" in en
-    assert "ETH" in ar and "80" in ar
+    assert "ETH" in en
+    assert "80" in en
+    assert "ETH" in ar
+    assert "80" in ar
     assert en != ar

@@ -42,17 +42,24 @@ code{color:var(--ok)} @media(max-width:720px){.grid{grid-template-columns:1fr}}
   <p class="sub"><code>GET /api/institutional/dd-closure</code> · <code>/model-card</code> · <code>/commerce/status</code> · <code>/sso/status</code></p>
 </div>
 </main>
-<script>
-fetch('/api/institutional/dd-closure').then(r=>r.json()).then(d=>{
+<script type="module">
+try {
+  const __r = await fetch('/api/institutional/dd-closure');
+  const d = await __r.json();
   document.getElementById('all').textContent = d.all_done ? 'YES' : 'NO';
   document.getElementById('p0').textContent = d.p0_wave_closed ? 'YES' : 'NO';
-  document.getElementById('r2').textContent = (d.report2&&d.report2.closed_count||0)+'/'+(d.report2&&d.report2.total||0);
-  document.getElementById('note').textContent = (d.institutional_purchase_readiness||{}).note || '';
+  document.getElementById('r2').textContent = ((d.report2 && d.report2.closed_count) || 0) + '/' + ((d.report2 && d.report2.total) || 0);
+  document.getElementById('note').textContent = (d.institutional_purchase_readiness || {}).note || '';
   const ul = document.getElementById('slots');
-  (d.institutional_purchase_readiness.external_attestation_slots||[]).forEach(s=>{
-    const li=document.createElement('li'); li.textContent=s.id+': '+s.what; ul.appendChild(li);
-  });
-}).catch(()=>{document.getElementById('note').textContent='Closure API unavailable';});
+  for (const s of (d.institutional_purchase_readiness.external_attestation_slots || [])) {
+    const li = document.createElement('li');
+    li.textContent = s.id + ': ' + s.what;
+    ul.appendChild(li);
+  }
+} catch (error) {
+  console.debug(error);
+  document.getElementById('note').textContent = 'Closure API unavailable';
+}
 </script>
 </body>
 </html>

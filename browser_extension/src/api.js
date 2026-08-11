@@ -29,11 +29,11 @@ function mapOraclePayload(data, asset, base) {
     "No decision sentence available.";
   return {
     asset,
-    action: action.includes("WAIT") || action.includes("NEUTRAL") || action.includes("HOLD")
-      ? "WAIT"
-      : action.includes("BUY") || action.includes("BULL") || action.includes("ACT")
-        ? "ACT"
-        : action.slice(0, 12),
+    action: (() => {
+      if (action.includes("WAIT") || action.includes("NEUTRAL") || action.includes("HOLD")) return "WAIT";
+      if (action.includes("BUY") || action.includes("BULL") || action.includes("ACT")) return "ACT";
+      return action.slice(0, 12);
+    })(),
     sentence,
     score: data.opportunity_score,
     predictionId: data.prediction_id,

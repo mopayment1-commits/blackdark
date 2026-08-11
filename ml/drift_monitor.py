@@ -28,22 +28,25 @@ def _calibration_path() -> Path:
     return config.ML_MODELS_DIR / "confidence_calibration.json"
 
 
+def _features_from_row(row: dict[str, Any]) -> dict[str, Any]:
+    raw = row.get("features_json")
+    if isinstance(raw, str):
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            return {}
+    if isinstance(raw, dict):
+        return raw
+    return {}
+
+
 def build_feature_envelope(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """Min/max/mean/std per feature from labeled training rows."""
     import statistics
 
     buckets: dict[str, list[float]] = {col: [] for col in FEATURE_COLUMNS}
     for row in rows:
-        raw = row.get("features_json")
-        if isinstance(raw, str):
-            try:
-                feats = json.loads(raw)
-            except json.JSONDecodeError:
-                feats = {}
-        elif isinstance(raw, dict):
-            feats = raw
-        else:
-            feats = {}
+        feats = _features_from_row(row)
         for col in FEATURE_COLUMNS:
             val = feats.get(col)
             if isinstance(val, (int, float)) and math.isfinite(float(val)):
@@ -156,18 +159,8 @@ def drift_report(reference_rows: list[dict[str, Any]], current_features: list[di
     threshold = float(getattr(config, "ML_DRIFT_PSI_THRESHOLD", 0.25))
     alerts: list[dict[str, Any]] = []
 
-    def _extract(rows: list[dict[str, Any]], col: str) -> list[float]:
-        out: list[float] = []
-        for row in rows:
-            raw = row.get("features_json")
-            feats = json.loads(raw) if isinstance(raw, str) else (raw or {})
-            val = feats.get(col, row.get(col))
-            if isinstance(val, (int, float)):
-                out.append(float(val))
-        return out
-
     for col in FEATURE_COLUMNS:
-        ref_vals = _extract(reference_rows, col)
+        ref_vals = _extract_feature_values(reference_rows, col)
         cur_vals = [float(f[col]) for f in current_features if isinstance(f.get(col), (int, float))]
         if len(ref_vals) < 5 or len(cur_vals) < 5:
             continue
@@ -181,6 +174,17 @@ def drift_report(reference_rows: list[dict[str, Any]], current_features: list[di
         "psi_threshold": threshold,
         "features_checked": len(FEATURE_COLUMNS),
     }
+
+
+def _extract_feature_values(rows: list[dict[str, Any]], col: str) -> list[float]:
+    out: list[float] = []
+    for row in rows:
+        raw = row.get("features_json")
+        feats = json.loads(raw) if isinstance(raw, str) else (raw or {})
+        val = feats.get(col, row.get(col))
+        if isinstance(val, (int, float)):
+            out.append(float(val))
+    return out
 
 
 def build_confidence_calibration(labeled_rows: list[dict[str, Any]]) -> dict[str, Any]:

@@ -145,6 +145,76 @@ async def handle_bot_command(
     return None
 
 
+def _top_opportunity_message(top: dict[str, Any] | None) -> str | None:
+    if not top or float(top.get("net_profit_usdt") or 0) <= 0:
+        return None
+    return (
+        "⚡ <b>BLACKDARK Free Alert</b>\n\n"
+        f"{top.get('kind_label')} · <b>{top.get('asset')}</b>\n"
+        f"Profit: <b>+${float(top.get('net_profit_usdt') or 0):.2f}</b> "
+        f"({float(top.get('net_profit_percent') or 0):.3f}%)\n"
+        f"Feasibility: {top.get('execution_feasibility')}\n"
+        f"{str(top.get('why') or '')[:160]}"
+    )
+
+
+async def _oracle_signal_message() -> str | None:
+    try:
+        from database import fetch_evaluated_opportunities
+
+        rows = await fetch_evaluated_opportunities(limit=20)
+    except Exception:
+        return None
+    oracle_rows = [row for row in rows if int(row.get("opportunity_score") or 0) >= 70]
+    if not oracle_rows:
+        return None
+    row = oracle_rows[0]
+    return (
+        "🧠 <b>Oracle Signal</b>\n\n"
+        f"Asset: <b>{row.get('asset')}</b>\n"
+        f"Verdict: <b>{row.get('oracle_verdict')}</b>\n"
+        f"Score: <b>{row.get('opportunity_score')}</b>\n"
+        f"{str(row.get('oracle_sentence') or '')[:160]}"
+    )
+
+
+async def _free_alert_messages(scan: dict[str, Any]) -> list[str]:
+    messages: list[str] = []
+    top_message = _top_opportunity_message(scan.get("top_opportunity"))
+    if top_message:
+        messages.append(top_message)
+    oracle_message = await _oracle_signal_message()
+    if oracle_message:
+        messages.append(oracle_message)
+    if not messages:
+        messages.append(
+            "🔔 <b>BLACKDARK Market Scan</b>\n\n"
+            "No high-priority opportunity this cycle.\n"
+            "Track live Oracle accuracy: /accuracy"
+        )
+    return messages
+
+
+async def _deliver_free_alert(
+    subscriber: dict[str, Any],
+    *,
+    body: str,
+    sem,
+    send_telegram_message,
+) -> str:
+    chat_id = str(subscriber.get("chat_id") or "")
+    if not chat_id:
+        return "skip"
+    if not await can_send_free_alert(chat_id):
+        return "skip"
+    async with sem:
+        ok = await send_telegram_message(body, chat_id=chat_id)
+    if ok:
+        await record_free_alert_sent(chat_id)
+        return "sent"
+    return "skip"
+
+
 async def dispatch_free_telegram_alerts(*, scan: dict[str, Any] | None = None) -> dict[str, Any]:
     """Send launch alerts to all free subscribers within daily quota."""
     import asyncio
@@ -159,64 +229,17 @@ async def dispatch_free_telegram_alerts(*, scan: dict[str, Any] | None = None) -
 
     if scan is None:
         scan = await get_shared_scan(profitable_only=True, prefer_live=False)
-    top = scan.get("top_opportunity")
-    messages: list[str] = []
-
-    if top and float(top.get("net_profit_usdt") or 0) > 0:
-        messages.append(
-            "⚡ <b>BLACKDARK Free Alert</b>\n\n"
-            f"{top.get('kind_label')} · <b>{top.get('asset')}</b>\n"
-            f"Profit: <b>+${float(top.get('net_profit_usdt') or 0):.2f}</b> "
-            f"({float(top.get('net_profit_percent') or 0):.3f}%)\n"
-            f"Feasibility: {top.get('execution_feasibility')}\n"
-            f"{str(top.get('why') or '')[:160]}"
-        )
-
-    try:
-        from database import fetch_evaluated_opportunities
-
-        rows = await fetch_evaluated_opportunities(limit=20)
-        oracle_rows = [
-            row for row in rows if int(row.get("opportunity_score") or 0) >= 70
-        ]
-        if oracle_rows:
-            row = oracle_rows[0]
-            messages.append(
-                "🧠 <b>Oracle Signal</b>\n\n"
-                f"Asset: <b>{row.get('asset')}</b>\n"
-                f"Verdict: <b>{row.get('oracle_verdict')}</b>\n"
-                f"Score: <b>{row.get('opportunity_score')}</b>\n"
-                f"{str(row.get('oracle_sentence') or '')[:160]}"
-            )
-    except Exception:
-        pass
-
-    if not messages:
-        messages.append(
-            "🔔 <b>BLACKDARK Market Scan</b>\n\n"
-            "No high-priority opportunity this cycle.\n"
-            "Track live Oracle accuracy: /accuracy"
-        )
-
-    sent = 0
-    skipped = 0
+    messages = await _free_alert_messages(scan)
     sem = asyncio.Semaphore(10)
-
-    async def _deliver(subscriber: dict[str, Any]) -> str:
-        chat_id = str(subscriber.get("chat_id") or "")
-        if not chat_id:
-            return "skip"
-        if not await can_send_free_alert(chat_id):
-            return "skip"
-        body = messages[0]
-        async with sem:
-            ok = await send_telegram_message(body, chat_id=chat_id)
-        if ok:
-            await record_free_alert_sent(chat_id)
-            return "sent"
-        return "skip"
-
-    results = await asyncio.gather(*[_deliver(subscriber) for subscriber in subscribers])
+    results = await asyncio.gather(*[
+        _deliver_free_alert(
+            subscriber,
+            body=messages[0],
+            sem=sem,
+            send_telegram_message=send_telegram_message,
+        )
+        for subscriber in subscribers
+    ])
     sent = sum(1 for result in results if result == "sent")
     skipped = len(subscribers) - sent
 

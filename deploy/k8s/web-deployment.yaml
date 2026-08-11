@@ -26,7 +26,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: web
-          image: blackdark:latest
+          image: blackdark:1.0.0
           ports:
             - containerPort: 8080
           securityContext:
@@ -92,9 +92,11 @@ spec:
             timeoutSeconds: 5
           resources:
             requests:
+              ephemeral-storage: "512Mi"
               cpu: "250m"
               memory: "512Mi"
             limits:
+              ephemeral-storage: "1Gi"
               cpu: "1000m"
               memory: "1Gi"
 ---

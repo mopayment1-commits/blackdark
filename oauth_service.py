@@ -91,6 +91,41 @@ def build_authorize_url(provider: str, *, state: str | None = None) -> dict[str,
     }
 
 
+async def _oauth_token(client: Any, cfg: dict[str, str], code: str, redirect_uri: str) -> str:
+    token_resp = await client.post(
+        cfg["token_url"],
+        data={
+            "client_id": cfg["client_id"],
+            "client_secret": cfg["client_secret"],
+            "code": code,
+            "redirect_uri": redirect_uri,
+            "grant_type": "authorization_code",
+        },
+        headers={"Accept": "application/json"},
+    )
+    token_resp.raise_for_status()
+    access = token_resp.json().get("access_token")
+    if not access:
+        raise ValueError("OAuth token exchange failed")
+    return access
+
+
+async def _oauth_userinfo(client: Any, cfg: dict[str, str], headers: dict[str, str]) -> dict[str, Any]:
+    info_resp = await client.get(cfg["userinfo_url"], headers=headers)
+    info_resp.raise_for_status()
+    return info_resp.json()
+
+
+async def _github_primary_email(client: Any, headers: dict[str, str]) -> str:
+    emails_resp = await client.get("https://api.github.com/user/emails", headers=headers)
+    if emails_resp.status_code != 200:
+        return ""
+    for row in emails_resp.json():
+        if row.get("primary") and row.get("verified"):
+            return str(row.get("email") or "").lower()
+    return ""
+
+
 async def exchange_code(provider: str, code: str) -> dict[str, Any]:
     """Exchange authorization code for profile {email, name, subject, provider}."""
     import httpx
@@ -100,37 +135,14 @@ async def exchange_code(provider: str, code: str) -> dict[str, Any]:
         raise ValueError(f"OAuth provider {provider} is not configured")
     redirect_uri = f"{_base_url()}/api/auth/oauth/{provider}/callback"
     async with httpx.AsyncClient(timeout=20.0) as client:
-        token_headers = {"Accept": "application/json"}
-        token_resp = await client.post(
-            cfg["token_url"],
-            data={
-                "client_id": cfg["client_id"],
-                "client_secret": cfg["client_secret"],
-                "code": code,
-                "redirect_uri": redirect_uri,
-                "grant_type": "authorization_code",
-            },
-            headers=token_headers,
-        )
-        token_resp.raise_for_status()
-        token_data = token_resp.json()
-        access = token_data.get("access_token")
-        if not access:
-            raise ValueError("OAuth token exchange failed")
+        access = await _oauth_token(client, cfg, code, redirect_uri)
         headers = {"Authorization": f"Bearer {access}", "Accept": "application/json"}
-        info_resp = await client.get(cfg["userinfo_url"], headers=headers)
-        info_resp.raise_for_status()
-        info = info_resp.json()
+        info = await _oauth_userinfo(client, cfg, headers)
         email = (info.get("email") or "").strip().lower()
         name = (info.get("name") or info.get("login") or "").strip()
         subject = str(info.get("sub") or info.get("id") or "")
         if provider.lower() == "github" and not email:
-            emails_resp = await client.get("https://api.github.com/user/emails", headers=headers)
-            if emails_resp.status_code == 200:
-                for row in emails_resp.json():
-                    if row.get("primary") and row.get("verified"):
-                        email = str(row.get("email") or "").lower()
-                        break
+            email = await _github_primary_email(client, headers)
         if not email:
             raise ValueError("OAuth provider did not return a verified email")
         return {

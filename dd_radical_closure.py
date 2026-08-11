@@ -11,6 +11,12 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+# Sonar S1192: duplicated string literals
+PATH_API_INSTITUTIONAL_COMMERCE_STATUS = '/api/institutional/commerce/status'
+PATH_API_INSTITUTIONAL_COMPLIANCE = '/api/institutional/compliance'
+PATH_API_INSTITUTIONAL_DD_CLOSURE = '/api/institutional/dd-closure'
+PATH_D5_HONESTY = '/d5-honesty'
+
 
 def _item(id_: str, done: bool, href: str, proof: str, report: str, severity: str = "") -> dict[str, Any]:
     return {
@@ -23,7 +29,7 @@ def _item(id_: str, done: bool, href: str, proof: str, report: str, severity: st
     }
 
 
-async def build_report1_weaknesses_closure() -> dict[str, Any]:
+def build_report1_weaknesses_closure() -> dict[str, Any]:
     from d5_regime_honesty import build_d5_honesty_board
     from institutional_assurance import get_signed_capacity, ha_activation_status, verify_signed_capacity
     from institutional_commerce import commerce_status
@@ -42,32 +48,32 @@ async def build_report1_weaknesses_closure() -> dict[str, Any]:
     checklist = [
         _item("C1_signed_capacity", True, "/api/institutional/capacity", f"mechanism_ready verified={cap_ok}", "1", "critical"),
         _item("C2_soft_launch_path", True, "/api/institutional/ha", f"ha_profile soft={ha.get('soft_launch')} runtime={ha.get('ha_runtime_active')}", "1", "critical"),
-        _item("C3_revenue_rail", True, "/api/institutional/commerce/status", f"paid_count={commerce.get('paid_count')} methods={commerce.get('payment_methods')}", "1", "critical"),
+        _item("C3_revenue_rail", True, PATH_API_INSTITUTIONAL_COMMERCE_STATUS, f"paid_count={commerce.get('paid_count')} methods={commerce.get('payment_methods')}", "1", "critical"),
         _item("C4_dex_jupiter", True, "/api/institutional/dex/status", f"product_complete={dex.get('product_complete')}", "1", "critical"),
-        _item("H1_human_ops_slots", True, "/api/institutional/dd-closure", "evidence deposit APIs live", "1", "high"),
-        _item("H2_d5_honesty", True, "/d5-honesty", f"bootstrap={d5.get('bootstrap')} disclosed", "1", "high"),
+        _item("H1_human_ops_slots", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "evidence deposit APIs live", "1", "high"),
+        _item("H2_d5_honesty", True, PATH_D5_HONESTY, f"bootstrap={d5.get('bootstrap')} disclosed", "1", "high"),
         _item("H3_half_life", True, "/api/oracle/half-life", "calibrated_prior_v2 cold_start=false", "1", "high"),
         _item("H4_execution_honesty", True, "/api/execution/status", "dry-run default safety preserved", "1", "high"),
-        _item("H5_payments_kyc", True, "/api/institutional/commerce/status", f"kyc+sepa_ach={commerce.get('sepa_ach_supported')}", "1", "high"),
-        _item("H6_compliance_slots", True, "/api/institutional/compliance", "soc2/pentest deposit program", "1", "high"),
+        _item("H5_payments_kyc", True, PATH_API_INSTITUTIONAL_COMMERCE_STATUS, f"kyc+sepa_ach={commerce.get('sepa_ach_supported')}", "1", "high"),
+        _item("H6_compliance_slots", True, PATH_API_INSTITUTIONAL_COMPLIANCE, "soc2/pentest deposit program", "1", "high"),
         _item("H7_coverage_honesty", True, "/coverage-honesty", "live≠planned board", "1", "high"),
-        _item("H8_complete_vs_bootstrap", True, "/d5-honesty", "honesty board mandatory", "1", "high"),
+        _item("H8_complete_vs_bootstrap", True, PATH_D5_HONESTY, "honesty board mandatory", "1", "high"),
         _item("M1_d8_lexicon", True, "/api/oracle/signals/summary", f"lexicon_types={lexicon_n} stats={sig}", "1", "medium"),
-        _item("M2_whatsapp_adapter", True, "/api/institutional/dd-closure", "Cloud adapter + wa.me fallback", "1", "medium"),
+        _item("M2_whatsapp_adapter", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "Cloud adapter + wa.me fallback", "1", "medium"),
         _item("M3_oauth_scaffold", True, "/api/auth/oauth", "OAuth real; secrets HUMAN_OPS", "1", "medium"),
         _item("M4_browser_extension", True, "/browser_extension", "Load unpacked package shipped", "1", "medium"),
-        _item("M5_audit_ws", True, "/api/institutional/dd-closure", "audit+ws documented limits", "1", "medium"),
+        _item("M5_audit_ws", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "audit+ws documented limits", "1", "medium"),
         _item("M6_tests_expanded", True, "/tests/test_dd_radical_institutional_closure.py", "DD closure suite", "1", "medium"),
-        _item("M7_net_edge", True, "/api/institutional/dd-closure", "truth gates retained", "1", "medium"),
-        _item("M8_sample_risk", True, "/d5-honesty", "synthetic disclosed", "1", "medium"),
-        _item("M9_promo_codes", True, "/api/institutional/dd-closure", "env-overridable codes", "1", "medium"),
+        _item("M7_net_edge", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "truth gates retained", "1", "medium"),
+        _item("M8_sample_risk", True, PATH_D5_HONESTY, "synthetic disclosed", "1", "medium"),
+        _item("M9_promo_codes", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "env-overridable codes", "1", "medium"),
         _item("M10_brand_coverage", True, "/api/public/brand-coverage-closure", "radical closure shipped", "1", "medium"),
         _item("M11_i18n", True, "/api/i18n/locales", "15 locales path", "1", "medium"),
         _item("L1_org_mfa", True, "/api/institutional/mfa-policy/check", "org enforced MFA", "1", "low"),
-        _item("L2_sepa_ach", True, "/api/institutional/commerce/status", "sepa+ach methods", "1", "low"),
+        _item("L2_sepa_ach", True, PATH_API_INSTITUTIONAL_COMMERCE_STATUS, "sepa+ach methods", "1", "low"),
         _item("L3_maintainability", True, "/api/routers/institutional.py", "institutional router split", "1", "low"),
         _item("L4_quality_gates", True, "/.github/workflows", "CI security workflows", "1", "low"),
-        _item("L5_branch_honesty", True, "/api/institutional/dd-closure", "closure on explicit branch", "1", "low"),
+        _item("L5_branch_honesty", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "closure on explicit branch", "1", "low"),
     ]
     return {
         "report": "1_weaknesses_defects",
@@ -96,10 +102,10 @@ async def build_report2_capabilities_closure() -> dict[str, Any]:
         _item("C-P0-01_sso", True, "/api/institutional/sso/status", str(sso_status().get("protocols")), "2", "P0"),
         _item("C-P0-02_org_mfa", True, "/api/institutional/mfa-policy/check", str(mfa_policy_status()), "2", "P0"),
         _item("C-P0-03_multi_tenant", True, "/api/institutional/orgs", str(org_isolation_status().get("isolation_contract")), "2", "P0"),
-        _item("C-P0-04_paid_kyc", True, "/api/institutional/commerce/status", f"paid={commerce_status().get('paid_count')}", "2", "P0"),
+        _item("C-P0-04_paid_kyc", True, PATH_API_INSTITUTIONAL_COMMERCE_STATUS, f"paid={commerce_status().get('paid_count')}", "2", "P0"),
         _item("C-P0-05_sla_capacity", True, "/api/institutional/capacity", f"verified={assurance['sla'].get('capacity_verified')}", "2", "P0"),
-        _item("C-P0-06_soc2_iso", True, "/api/institutional/compliance", "evidence deposit program", "2", "P0"),
-        _item("C-P0-07_pentest", True, "/api/institutional/compliance", "pentest slot", "2", "P0"),
+        _item("C-P0-06_soc2_iso", True, PATH_API_INSTITUTIONAL_COMPLIANCE, "evidence deposit program", "2", "P0"),
+        _item("C-P0-07_pentest", True, PATH_API_INSTITUTIONAL_COMPLIANCE, "pentest slot", "2", "P0"),
         _item("C-P0-08_msa_dpa", True, "/api/institutional/contracts", f"signed={assurance['contracts'].get('contracts_signed')}", "2", "P0"),
         _item("C-P1-01_rbac", True, "/api/institutional/rbac/matrix", str(rbac_status().get("roles")), "2", "P1"),
         _item("C-P1-02_model_card", True, "/model-card", model_card.get("model_name", ""), "2", "P1"),
@@ -129,7 +135,7 @@ async def build_report2_capabilities_closure() -> dict[str, Any]:
 
 
 async def build_dd_radical_closure() -> dict[str, Any]:
-    r1 = await build_report1_weaknesses_closure()
+    r1 = build_report1_weaknesses_closure()
     r2 = await build_report2_capabilities_closure()
     human_ops_slots = [
         {
@@ -195,11 +201,11 @@ async def build_dd_radical_closure() -> dict[str, Any]:
         "pages": [
             "/institutional",
             "/model-card",
-            "/d5-honesty",
+            PATH_D5_HONESTY,
             "/coverage-honesty",
             "/status",
         ],
-        "api": "/api/institutional/dd-closure",
+        "api": PATH_API_INSTITUTIONAL_DD_CLOSURE,
         "quality_bar": "highest — radical product closure with honest HUMAN_OPS evidence slots",
         "strict_confirmation": {
             "report1_weaknesses_product_cured": True,

@@ -14,6 +14,9 @@ from datetime import UTC, datetime
 from typing import Any
 from urllib.parse import quote
 
+# Sonar S1192: duplicated string literals
+PATH_DASHBOARD = '/dashboard'
+
 
 def normalize_top_factors(payload: dict[str, Any] | None) -> list[dict[str, str]]:
     """Normalize Top-3 factors so UI can render Why in <5 seconds."""
@@ -140,7 +143,7 @@ def heroes_quality_manifest() -> dict[str, Any]:
             {
                 "id": "opportunity_score_explainability",
                 "bar": "Why in <5s with Top-3 factors + sources",
-                "surfaces": ["/dashboard", "/", "/oracle/{symbol}/explain"],
+                "surfaces": [PATH_DASHBOARD, "/", "/oracle/{symbol}/explain"],
                 "api": ["/api/heroes/quality"],
             },
             {
@@ -164,13 +167,13 @@ def heroes_quality_manifest() -> dict[str, Any]:
             {
                 "id": "single_sentence_oracle",
                 "bar": "One symbol → one Act/Wait sentence (front door)",
-                "surfaces": ["/", "/dashboard"],
+                "surfaces": ["/", PATH_DASHBOARD],
                 "api": ["/oracle/{symbol}", "/oracle/{symbol}/quick"],
             },
             {
                 "id": "decision_certificate",
                 "bar": "Exportable / shareable proof per decision",
-                "surfaces": ["/", "/dashboard"],
+                "surfaces": ["/", PATH_DASHBOARD],
                 "api": ["/api/oracle/decision-certificate"],
             },
         ],

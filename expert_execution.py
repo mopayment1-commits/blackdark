@@ -77,7 +77,7 @@ def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
     except TimeoutError:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "timed out"}
-    except (URLError, OSError):
+    except OSError:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "network_error"}
 
@@ -107,13 +107,8 @@ def glass_box_announce_drafts() -> dict[str, Any]:
     }
 
 
-def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any]:
-    """
-    Machine probe for the 60-second grasp bar.
-    Founder still confirms cold walkthrough (human H3).
-    """
-    base = assert_safe_http_url(base_url.rstrip("/"))
-    checks = [
+def _acceptance_checks(base: str) -> list[tuple[str, str]]:
+    return [
         ("landing", f"{base}/"),
         ("dashboard", f"{base}/dashboard"),
         ("ledger", f"{base}/oracle-accuracy"),
@@ -124,36 +119,56 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
         ("oracle_quick", f"{base}/oracle/BTC/quick?ux_mode=beginner&lang=en"),
         ("glass_box", f"{base}/api/glass-box/challenge"),
     ]
+
+
+def _content_notes_for_payload(key: str, payload: dict[str, Any]) -> list[str]:
+    notes: list[str] = []
+    if key == "trust_os":
+        layers = payload.get("value_layers") or []
+        if len(layers) != 4:
+            notes.append(f"trust_os layers={len(layers)} (want 4)")
+        deny = " ".join(r.get("claim", "") for r in (payload.get("overclaim_denylist") or []))
+        if "ARENA" not in deny.upper():
+            notes.append("denylist missing ARENA")
+    if key == "intent":
+        question = str(payload.get("question") or "")
+        # Accept current canon ("What do you need?") and legacy phrasing.
+        if "What do you need?" not in question and "What do you want to do today?" not in question:
+            notes.append("intent question mismatch")
+    if key == "correction" and payload.get("heroes_count") != 6:
+        notes.append("correction heroes_count != 6")
+    return notes
+
+
+def _content_notes(named: dict[str, dict[str, Any]]) -> list[str]:
+    import json
+
+    notes: list[str] = []
+    for key in ("trust_os", "intent", "correction"):
+        if not named[key].get("ok"):
+            continue
+        url = assert_safe_http_url(named[key]["url"])
+        with urlopen(url, timeout=8) as resp:
+            payload = json.loads(resp.read().decode("utf-8", errors="replace"))
+        notes.extend(_content_notes_for_payload(key, payload))
+    return notes
+
+
+def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any]:
+    """
+    Machine probe for the 60-second grasp bar.
+    Founder still confirms cold walkthrough (human H3).
+    """
+    base = assert_safe_http_url(base_url.rstrip("/"))
+    checks = _acceptance_checks(base)
     results = [_probe(url) for _, url in checks]
     named = {checks[i][0]: results[i] for i in range(len(checks))}
     ok_count = sum(1 for r in results if r.get("ok"))
-    # Soft content assertions where JSON
-    content_notes: list[str] = []
     try:
-        import json
-
-        for key in ("trust_os", "intent", "correction"):
-            url = assert_safe_http_url(named[key]["url"])
-            if not named[key].get("ok"):
-                continue
-            with urlopen(url, timeout=8) as resp:
-                payload = json.loads(resp.read().decode("utf-8", errors="replace"))
-            if key == "trust_os":
-                layers = payload.get("value_layers") or []
-                if len(layers) != 4:
-                    content_notes.append(f"trust_os layers={len(layers)} (want 4)")
-                deny = " ".join(r.get("claim", "") for r in (payload.get("overclaim_denylist") or []))
-                if "ARENA" not in deny.upper():
-                    content_notes.append("denylist missing ARENA")
-            if key == "intent":
-                q = str(payload.get("question") or "")
-                # Accept current canon ("What do you need?") and legacy phrasing.
-                if "What do you need?" not in q and "What do you want to do today?" not in q:
-                    content_notes.append("intent question mismatch")
-            if key == "correction" and payload.get("heroes_count") != 6:
-                content_notes.append("correction heroes_count != 6")
+        # Soft content assertions where JSON
+        content_notes = _content_notes(named)
     except Exception:
-        content_notes.append("content_check_error")
+        content_notes = ["content_check_error"]
 
     passed = ok_count >= 7 and not content_notes
     return {

@@ -18,6 +18,63 @@ import config
 from oracle_integrity import is_synthetic_prediction
 
 
+def _track_record_block() -> dict[str, Any]:
+    try:
+        from oracle_track_record import public_track_record
+
+        return public_track_record()
+    except Exception:
+        return {"auto_accumulation": False}
+
+
+def _chain_ref(pred_id: Any, chain_meta: dict[str, Any] | None) -> str | None:
+    if chain_meta is not None:
+        return (chain_meta.get("chain_hash") or "")[:16]
+    if pred_id is not None:
+        return f"oracle_pred:{pred_id}"
+    return None
+
+
+def _public_recent_row(row: dict[str, Any], chain_meta: dict[str, Any] | None, label: str) -> dict[str, Any]:
+    pred_id = row.get("id")
+    return {
+        "prediction_id": pred_id,
+        "timestamp": row.get("timestamp"),
+        "asset": row.get("asset"),
+        "verdict": row.get("verdict"),
+        "price_at_prediction": row.get("price_at_prediction"),
+        "price_after_24h": row.get("price_after_24h"),
+        "label": label,
+        "direction_label": row.get("direction_label"),
+        "accuracy_score": row.get("accuracy_score"),
+        "opportunity_score": row.get("opportunity_score"),
+        "synthetic": False,
+        "source": row.get("source") or "oracle",
+        "chain_hash": (chain_meta or {}).get("chain_hash"),
+        "prev_hash": (chain_meta or {}).get("prev_hash"),
+        "chain_seq": (chain_meta or {}).get("seq"),
+        "chain_ref": _chain_ref(pred_id, chain_meta),
+    }
+
+
+def _public_recent_predictions(recent: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int, int]:
+    chain_lookup = _chain_lookup()
+    public_recent = []
+    correct = 0
+    resolved_rows = 0
+    for row in recent:
+        if not row.get("resolved") or is_synthetic_prediction(row):
+            continue
+        resolved_rows += 1
+        label = str(row.get("label") or row.get("outcome") or "")
+        if label == "correct":
+            correct += 1
+        pred_id = row.get("id")
+        chain_meta = chain_lookup.get(str(pred_id) if pred_id is not None else "")
+        public_recent.append(_public_recent_row(row, chain_meta, label))
+    return public_recent, correct, resolved_rows
+
+
 async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, Any]:
 
     from database import fetch_labeled_oracle_predictions, fetch_oracle_audit_stats
@@ -37,58 +94,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
 
 
-    recent = stats.get("recent") or []
-
-    public_recent = []
-
-    correct = 0
-
-    resolved_rows = 0
-
-    for row in recent:
-
-        if not row.get("resolved"):
-
-            continue
-
-        if is_synthetic_prediction(row):
-
-            continue
-
-        resolved_rows += 1
-
-        label = str(row.get("label") or row.get("outcome") or "")
-
-        if label == "correct":
-
-            correct += 1
-
-        pred_id = row.get("id")
-        chain_meta = _chain_lookup().get(str(pred_id) if pred_id is not None else "")
-        public_recent.append(
-            {
-                "prediction_id": pred_id,
-                "timestamp": row.get("timestamp"),
-                "asset": row.get("asset"),
-                "verdict": row.get("verdict"),
-                "price_at_prediction": row.get("price_at_prediction"),
-                "price_after_24h": row.get("price_after_24h"),
-                "label": label,
-                "direction_label": row.get("direction_label"),
-                "accuracy_score": row.get("accuracy_score"),
-                "opportunity_score": row.get("opportunity_score"),
-                "synthetic": False,
-                "source": row.get("source") or "oracle",
-                "chain_hash": (chain_meta or {}).get("chain_hash"),
-                "prev_hash": (chain_meta or {}).get("prev_hash"),
-                "chain_seq": (chain_meta or {}).get("seq"),
-                "chain_ref": (
-                    ((chain_meta or {}).get("chain_hash") or "")[:16]
-                    if chain_meta
-                    else (f"oracle_pred:{pred_id}" if pred_id is not None else None)
-                ),
-            }
-        )
+    public_recent, correct, resolved_rows = _public_recent_predictions(stats.get("recent") or [])
 
 
 
@@ -96,19 +102,7 @@ async def build_public_accuracy_payload(*, recent_limit: int = 20) -> dict[str, 
 
 
 
-    track_record_block: dict[str, Any] = {}
-
-    try:
-
-        from oracle_track_record import public_track_record
-
-
-
-        track_record_block = public_track_record()
-
-    except Exception:
-
-        track_record_block = {"auto_accumulation": False}
+    track_record_block = _track_record_block()
 
 
 

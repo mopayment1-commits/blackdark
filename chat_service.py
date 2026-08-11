@@ -91,7 +91,7 @@ async def _gather_market_context(symbol: str | None) -> dict[str, Any]:
     return ctx
 
 
-def _rule_based_reply(message: str, context: dict[str, Any]) -> str:
+def _rule_based_reply(_message: str, context: dict[str, Any]) -> str:
     symbol = context.get("symbol")
     oracle = context.get("oracle") or {}
 

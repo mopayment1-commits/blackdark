@@ -105,30 +105,26 @@ async def lunarcrush_social(symbol: str = "BTC") -> dict[str, Any]:
     }
 
 
-async def coinmarketcal_events(*, limit: int = 20) -> dict[str, Any]:
-    key = os.getenv("COINMARKETCAL_API_KEY", "").strip()
-    if key:
-        data = await _get_json(
-            "https://developers.coinmarketcal.com/v1/events",
-            headers={"x-api-key": key, "Accept": "application/json"},
-            params={"max": min(limit, 50), "page": 1},
-        )
-        if data is not None:
-            events = data if isinstance(data, list) else (data.get("body") or data.get("data") or [])
-            return {
-                "available": True,
-                "source": "coinmarketcal",
-                "events": events[:limit],
-                "count": len(events),
-                "tier": "official_free_key",
-                "timestamp": _utcnow(),
-            }
-
-    # Free fallback: DeFiLlama raises + CoinGecko trending as event proxy
-    raises = await _get_json("https://api.llama.fi/raises")
-    trending = await _get_json(
-        "https://api.coingecko.com/api/v3/search/trending",
+async def _coinmarketcal_official(limit: int, key: str) -> dict[str, Any] | None:
+    data = await _get_json(
+        "https://developers.coinmarketcal.com/v1/events",
+        headers={"x-api-key": key, "Accept": "application/json"},
+        params={"max": min(limit, 50), "page": 1},
     )
+    if data is None:
+        return None
+    events = data if isinstance(data, list) else (data.get("body") or data.get("data") or [])
+    return {
+        "available": True,
+        "source": "coinmarketcal",
+        "events": events[:limit],
+        "count": len(events),
+        "tier": "official_free_key",
+        "timestamp": _utcnow(),
+    }
+
+
+def _raise_events(raises: Any) -> list[dict[str, Any]]:
     events: list[dict[str, Any]] = []
     for row in (raises or [])[:10]:
         if isinstance(row, dict):
@@ -139,6 +135,11 @@ async def coinmarketcal_events(*, limit: int = 20) -> dict[str, Any]:
                 "date": row.get("date"),
                 "source": "defillama_free",
             })
+    return events
+
+
+def _trending_events(trending: Any) -> list[dict[str, Any]]:
+    events: list[dict[str, Any]] = []
     for item in ((trending or {}).get("coins") or [])[:10]:
         coin = item.get("item") or item
         events.append({
@@ -147,6 +148,22 @@ async def coinmarketcal_events(*, limit: int = 20) -> dict[str, Any]:
             "score": coin.get("score"),
             "source": "coingecko_free",
         })
+    return events
+
+
+async def coinmarketcal_events(*, limit: int = 20) -> dict[str, Any]:
+    key = os.getenv("COINMARKETCAL_API_KEY", "").strip()
+    if key:
+        official = await _coinmarketcal_official(limit, key)
+        if official is not None:
+            return official
+
+    # Free fallback: DeFiLlama raises + CoinGecko trending as event proxy
+    raises = await _get_json("https://api.llama.fi/raises")
+    trending = await _get_json(
+        "https://api.coingecko.com/api/v3/search/trending",
+    )
+    events = _raise_events(raises) + _trending_events(trending)
     return {
         "available": True,
         "source": "free_fallback_composite",

@@ -60,7 +60,7 @@ async def startup(mode: str | None = None, ctx: ServiceContext | None = None) ->
     elif ctx.mode == "arbitrage":
         await _boot_arbitrage(ctx)
     elif ctx.mode == "ingestion":
-        await _boot_ingestion(ctx)
+        _boot_ingestion(ctx)
     else:
         logger.info("SERVICE_MODE=all — use dashboard monolith lifespan.")
 
@@ -68,45 +68,40 @@ async def startup(mode: str | None = None, ctx: ServiceContext | None = None) ->
     return ctx
 
 
-async def shutdown(ctx: ServiceContext) -> None:
-    from service_bus import stop_service_bus
+async def _stop_named_task(name: str, task: asyncio.Task | None) -> None:
+    if task is None:
+        return
+    if name == "ingestion":
+        from ingestion_scheduler import stop_ingestion_scheduler
 
-    for name, task in list(ctx.tasks.items()):
-        if task is None:
-            continue
-        if name == "aggregator":
-            task.cancel()
-        elif name == "ingestion":
-            from ingestion_scheduler import stop_ingestion_scheduler
+        await stop_ingestion_scheduler()
+        task.cancel()
+    elif name == "telegram":
+        from telegram_monitor import stop_telegram_monitor
 
-            await stop_ingestion_scheduler()
-            task.cancel()
-        elif name == "telegram":
-            from telegram_monitor import stop_telegram_monitor
+        await stop_telegram_monitor()
+    elif name == "telegram_poller":
+        from telegram_bot_poller import stop_telegram_poller
 
-            await stop_telegram_monitor()
-        elif name == "telegram_poller":
-            from telegram_bot_poller import stop_telegram_poller
+        await stop_telegram_poller()
+    elif name == "instant_alerts":
+        from instant_alert_engine import stop_instant_alert_engine
 
-            await stop_telegram_poller()
-        elif name == "instant_alerts":
-            from instant_alert_engine import stop_instant_alert_engine
+        await stop_instant_alert_engine()
+    elif name == "auto_exec":
+        from execution_engine import stop_auto_execution_loop
 
-            await stop_instant_alert_engine()
-        elif name == "auto_exec":
-            from execution_engine import stop_auto_execution_loop
+        await stop_auto_execution_loop()
+    elif name == "ml_flywheel":
+        from ml_flywheel_scheduler import stop_ml_flywheel
 
-            await stop_auto_execution_loop()
-        elif name == "ml_flywheel":
-            from ml_flywheel_scheduler import stop_ml_flywheel
+        await stop_ml_flywheel()
+    else:
+        task.cancel()
+    await asyncio.gather(task, return_exceptions=True)
 
-            await stop_ml_flywheel()
-        elif name == "forecast_audit":
-            task.cancel()
-        else:
-            task.cancel()
-        await asyncio.gather(task, return_exceptions=True)
 
+async def _stop_flagged_services(ctx: ServiceContext) -> None:
     if ctx.flags.get("b2b_ws"):
         from b2b_websocket_hub import stop_b2b_websocket_hub
 
@@ -116,6 +111,14 @@ async def shutdown(ctx: ServiceContext) -> None:
 
         await stop_exchange_ws_hub()
 
+
+async def shutdown(ctx: ServiceContext) -> None:
+    from service_bus import stop_service_bus
+
+    for name, task in tuple(ctx.tasks.items()):
+        await _stop_named_task(name, task)
+
+    await _stop_flagged_services(ctx)
     await stop_service_bus()
     try:
         from bd_platform.kafka_bridge import stop_kafka_consumer
@@ -138,15 +141,15 @@ async def _boot_web(ctx: ServiceContext) -> None:
     from telegram_bot_poller import start_telegram_poller
     from telegram_monitor import start_telegram_monitor
 
-    ctx.tasks["telegram"] = await start_telegram_monitor()
-    ctx.tasks["telegram_poller"] = await start_telegram_poller()
+    ctx.tasks["telegram"] = start_telegram_monitor()
+    ctx.tasks["telegram_poller"] = start_telegram_poller()
     await start_b2b_websocket_hub()
     ctx.flags["b2b_ws"] = True
 
     if config.ML_FLYWHEEL_ENABLED:
         from ml_flywheel_scheduler import start_ml_flywheel
 
-        await start_ml_flywheel()
+        start_ml_flywheel()
         ctx.flags["ml_flywheel"] = True
 
 
@@ -176,13 +179,13 @@ async def _boot_arbitrage(ctx: ServiceContext) -> None:
     from execution_engine import start_auto_execution_loop
     from instant_alert_engine import start_instant_alert_engine
 
-    ctx.tasks["instant_alerts"] = await start_instant_alert_engine()
+    ctx.tasks["instant_alerts"] = start_instant_alert_engine()
     await start_exchange_ws_hub()
     ctx.flags["exchange_ws"] = True
-    ctx.tasks["auto_exec"] = await start_auto_execution_loop()
+    ctx.tasks["auto_exec"] = start_auto_execution_loop()
 
 
-async def _boot_ingestion(ctx: ServiceContext) -> None:
+def _boot_ingestion(ctx: ServiceContext) -> None:
     async def _ingestion_wrapper() -> None:
         try:
             from ingestion_scheduler import start_ingestion_scheduler

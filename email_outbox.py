@@ -111,6 +111,51 @@ def list_queued(*, limit: int = 50) -> list[dict[str, Any]]:
     return rows[-max(1, min(limit, 200)) :]
 
 
+def _read_outbox_rows() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if not _PATH.is_file():
+        return rows
+    with _LOCK:
+        for line in _PATH.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            try:
+                rows.append(json.loads(line))
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                continue
+    return rows
+
+
+def _send_queued_row(row: dict[str, Any], send_email_alert) -> tuple[dict[str, Any], bool, bool]:
+    row = dict(row)
+    body = _unseal_body(row)
+    ok = send_email_alert(row["to"], row["subject"], body)
+    if ok:
+        row["status"] = "sent"
+        row["sent_at"] = _utcnow()
+        row["body"] = ""
+        return row, True, False
+    row["status"] = "failed"
+    row["error"] = "smtp_send_failed"
+    return row, False, True
+
+
+def _clear_plain_body(row: dict[str, Any]) -> dict[str, Any]:
+    if row.get("body"):
+        row = dict(row)
+        row["body"] = ""
+    return row
+
+
+def _rewrite_outbox_rows(rows: list[dict[str, Any]]) -> None:
+    with _LOCK:
+        with _PATH.open("w", encoding="utf-8") as fh:
+            for item in rows:
+                fh.write(json.dumps(item, separators=(",", ":"), default=str) + "\n")
+
+
 async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
     """Send queued emails if SMTP_HOST is configured."""
     if not os.getenv("SMTP_HOST", "").strip():
@@ -125,41 +170,15 @@ async def flush_email_outbox(*, limit: int = 50) -> dict[str, Any]:
     sent = 0
     failed = 0
     kept: list[dict[str, Any]] = []
+    id_set = {r["id"] for r in queued}
+    for row in _read_outbox_rows():
+        if row.get("id") in id_set and row.get("status") == "queued":
+            row, was_sent, was_failed = _send_queued_row(row, send_email_alert)
+            sent += int(was_sent)
+            failed += int(was_failed)
+        # Never rewrite clear-text bodies onto disk.
+        kept.append(_clear_plain_body(row))
+
     if _PATH.is_file():
-        with _LOCK:
-            all_rows: list[dict[str, Any]] = []
-            for line in _PATH.read_text(encoding="utf-8").splitlines():
-                if not line.strip():
-                    continue
-                try:
-                    all_rows.append(json.loads(line))
-                except asyncio.CancelledError:
-                    raise
-                except Exception:
-                    continue
-            id_set = {r["id"] for r in queued}
-            for row in all_rows:
-                if row.get("id") in id_set and row.get("status") == "queued":
-                    body = _unseal_body(row)
-                    ok = await send_email_alert(row["to"], row["subject"], body)
-                    if ok:
-                        row["status"] = "sent"
-                        row["sent_at"] = _utcnow()
-                        row["body"] = ""
-                        sent += 1
-                    else:
-                        row["status"] = "failed"
-                        row["error"] = "smtp_send_failed"
-                        failed += 1
-                # Never rewrite clear-text bodies onto disk.
-                if row.get("body"):
-                    row["body"] = ""
-                kept.append(row)
-
-            def _write() -> None:
-                with _PATH.open("w", encoding="utf-8") as fh:
-                    for item in kept:
-                        fh.write(json.dumps(item, separators=(",", ":"), default=str) + "\n")
-
-            await asyncio.to_thread(_write)
+        await asyncio.to_thread(_rewrite_outbox_rows, kept)
     return {"flushed": sent, "failed": failed, "pending": len(list_queued(limit=200))}

@@ -136,6 +136,38 @@ def _binance_base_url() -> str:
     return "https://testnet.binance.vision" if testnet else "https://api.binance.com"
 
 
+def _sign_params(secret: str, params: dict[str, Any]) -> dict[str, Any]:
+    query = urlencode(params)
+    signed = dict(params)
+    signed["signature"] = hmac.new(secret.encode(), query.encode(), hashlib.sha256).hexdigest()
+    return signed
+
+
+async def _binance_withdraw_permission(
+    session: aiohttp.ClientSession,
+    secret: str,
+    headers: dict[str, str],
+    current: bool,
+) -> bool:
+    try:
+        perm_params = _sign_params(secret, {"timestamp": int(time.time() * 1000)})
+        perm_url = f"{_binance_base_url()}/sapi/v1/account/apiRestrictions"
+        async with session.get(perm_url, params=perm_params, headers=headers) as perm_resp:
+            if perm_resp.status != 200:
+                return current
+            perms = await perm_resp.json()
+            if not isinstance(perms, dict):
+                return current
+            # Explicit withdraw enable flags from Binance
+            if "enableWithdrawals" in perms:
+                return bool(perms.get("enableWithdrawals"))
+            if "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
+                return False
+    except Exception:
+        pass
+    return current
+
+
 async def verify_binance_keys(
     api_key: str | None = None,
     api_secret: str | None = None,
@@ -150,10 +182,7 @@ async def verify_binance_keys(
             "reason": "BINANCE_API_KEY / BINANCE_API_SECRET not set",
         }
 
-    params = {"timestamp": int(time.time() * 1000)}
-    query = urlencode(params)
-    signature = hmac.new(secret.encode(), query.encode(), hashlib.sha256).hexdigest()
-    params["signature"] = signature
+    params = _sign_params(secret, {"timestamp": int(time.time() * 1000)})
     url = f"{_binance_base_url()}/api/v3/account"
     headers = {"X-MBX-APIKEY": key}
     timeout = aiohttp.ClientTimeout(total=15)
@@ -165,27 +194,7 @@ async def verify_binance_keys(
                     # Spot account exposes canTrade / canWithdraw / canDeposit.
                     # Also probe API key permissions endpoint when available.
                     can_withdraw = bool(data.get("canWithdraw"))
-                    try:
-                        perm_params = {"timestamp": int(time.time() * 1000)}
-                        perm_query = urlencode(perm_params)
-                        perm_sig = hmac.new(
-                            secret.encode(), perm_query.encode(), hashlib.sha256
-                        ).hexdigest()
-                        perm_params["signature"] = perm_sig
-                        perm_url = f"{_binance_base_url()}/sapi/v1/account/apiRestrictions"
-                        async with session.get(
-                            perm_url, params=perm_params, headers=headers
-                        ) as perm_resp:
-                            if perm_resp.status == 200:
-                                perms = await perm_resp.json()
-                                if isinstance(perms, dict):
-                                    # Explicit withdraw enable flags from Binance
-                                    if "enableWithdrawals" in perms:
-                                        can_withdraw = bool(perms.get("enableWithdrawals"))
-                                    elif "ipRestrict" in perms and perms.get("enableWithdrawals") is False:
-                                        can_withdraw = False
-                    except Exception:
-                        pass
+                    can_withdraw = await _binance_withdraw_permission(session, secret, headers, can_withdraw)
                     return {
                         "exchange": "binance",
                         "configured": True,
@@ -219,16 +228,56 @@ def execution_keys_status() -> dict[str, Any]:
     has_keys = bool(
         parsed.get("BINANCE_API_KEY") or os.getenv("BINANCE_API_KEY")
     ) and bool(parsed.get("BINANCE_API_SECRET") or os.getenv("BINANCE_API_SECRET"))
+    if live_flag and has_keys and not dry_run:
+        mode = "live"
+    elif dry_run:
+        mode = "dry_run"
+    else:
+        mode = "off"
+
     return {
         "timestamp": _utcnow(),
         "keys_file": str(KEYS_FILE),
         "has_binance_keys": has_keys,
         "auto_execution_dry_run": dry_run,
         "auto_execution_live_flag": live_flag,
-        "mode": "live" if live_flag and has_keys and not dry_run else ("dry_run" if dry_run else "off"),
+        "mode": mode,
         "binance_testnet": os.getenv("BINANCE_TESTNET", "false"),
         "setup_script": "python scripts/activate_live_execution.py",
     }
+
+
+def _prepare_execution_config(parsed: dict[str, str], *, enable_live: bool, enable_auto_loop: bool) -> None:
+    if not parsed.get("AUTO_EXECUTION_DRY_RUN"):
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "true" if not enable_live else "false"
+    if enable_auto_loop:
+        parsed.setdefault("AUTO_EXECUTION_LOOP", "true")
+        parsed.setdefault("AUTO_EXECUTION_INTERVAL_SEC", "5")
+    parsed.setdefault("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25")
+    parsed.setdefault("AUTO_EXECUTION_QUOTE_USD", "100")
+
+
+def _apply_live_mode(parsed: dict[str, str], *, enable_live: bool, has_keys: bool, verify_result: dict[str, Any] | None) -> bool:
+    if enable_live and has_keys and verify_result and verify_result.get("valid"):
+        parsed["AUTO_EXECUTION_ENABLED"] = "true"
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "false"
+        return True
+    parsed["AUTO_EXECUTION_ENABLED"] = "false"
+    if (enable_live and has_keys) or ("AUTO_EXECUTION_DRY_RUN" not in parsed):
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
+    return False
+
+
+async def _persist_execution_state(parsed: dict[str, str]) -> bool:
+    auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
+    try:
+        from database import init_db, set_execution_state
+
+        await init_db()
+        await set_execution_state(auto_execution_enabled=auto_on, panic_active=False)
+    except Exception:
+        pass
+    return auto_on
 
 
 async def activate_live_execution(
@@ -243,13 +292,7 @@ async def activate_live_execution(
     """
     ensure_keys_file()
     parsed = parse_exchange_keys_file()
-    if not parsed.get("AUTO_EXECUTION_DRY_RUN"):
-        parsed["AUTO_EXECUTION_DRY_RUN"] = "true" if not enable_live else "false"
-    if enable_auto_loop:
-        parsed.setdefault("AUTO_EXECUTION_LOOP", "true")
-        parsed.setdefault("AUTO_EXECUTION_INTERVAL_SEC", "5")
-    parsed.setdefault("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25")
-    parsed.setdefault("AUTO_EXECUTION_QUOTE_USD", "100")
+    _prepare_execution_config(parsed, enable_live=enable_live, enable_auto_loop=enable_auto_loop)
 
     verify_result: dict[str, Any] | None = None
     has_keys = bool(parsed.get("BINANCE_API_KEY") and parsed.get("BINANCE_API_SECRET"))
@@ -260,29 +303,10 @@ async def activate_live_execution(
             parsed.get("BINANCE_API_SECRET"),
         )
 
-    if enable_live and has_keys:
-        if verify_result and verify_result.get("valid"):
-            parsed["AUTO_EXECUTION_ENABLED"] = "true"
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "false"
-        else:
-            enable_live = False
-            parsed["AUTO_EXECUTION_ENABLED"] = "false"
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
-    else:
-        parsed["AUTO_EXECUTION_ENABLED"] = "false"
-        if "AUTO_EXECUTION_DRY_RUN" not in parsed:
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
+    _apply_live_mode(parsed, enable_live=enable_live, has_keys=has_keys, verify_result=verify_result)
 
     save_exchange_keys_to_env(parsed)
-
-    try:
-        from database import init_db, set_execution_state
-
-        await init_db()
-        auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
-        await set_execution_state(auto_execution_enabled=auto_on, panic_active=False)
-    except Exception:
-        auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
+    auto_on = await _persist_execution_state(parsed)
 
     mode = "live" if parsed.get("AUTO_EXECUTION_ENABLED") == "true" else "dry_run"
     msg = {

@@ -51,7 +51,7 @@
     <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share the refusal</a>
     <p class="sub" style="margin-top:1.5rem;font-size:.75rem" id="disc"></p>
 </main>
-<script>
+<script type="module">
 async function load(){
   const r = await fetch('/api/public/kill-rate');
   const d = await r.json();
@@ -68,7 +68,6 @@ async function load(){
   ).join('') || '<div class="row">Board armed — kills appear as the engine refuses edges.</div>';
   document.getElementById('share').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(d.share_line||'BLACKDARK Kill-Rate');
 }
-load();
-</script>
+await load();</script>
 </body>
 </html>

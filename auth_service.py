@@ -12,6 +12,9 @@ import secrets
 from datetime import UTC, datetime, timedelta
 from typing import Any, Literal
 
+# Sonar S1192: duplicated string literals
+STR_TRUST_OS = 'Trust OS'
+
 logger = logging.getLogger("BLACKDARK.Auth")
 
 Tier = Literal["free", "pro", "whale"]
@@ -37,7 +40,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": False,
         "ux_pro_default": False,
         "proof_watermark": True,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
     # Decision Pro — daily decision habit ($29). 7-day trial stays.
     "pro": {
@@ -56,7 +59,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": False,
         "ux_pro_default": True,
         "proof_watermark": False,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
     # Decision Desk — edge + serious tools ($49).
     "whale": {
@@ -75,7 +78,7 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "evidence_pack": True,
         "ux_pro_default": True,
         "proof_watermark": False,
-        "product_name": "Trust OS",
+        "product_name": STR_TRUST_OS,
     },
 }
 
@@ -211,35 +214,24 @@ async def register_user(
     }
 
 
-async def login_user(
-    email: str,
-    password: str,
-    *,
-    mfa_code: str | None = None,
-) -> dict[str, Any]:
-    from database import fetch_user_by_email, touch_user_login
-    from security_auth import check_login_rate_limit, record_login_failure
+def _record_invalid_login(email: str) -> None:
+    from security_auth import record_login_failure
 
-    email = normalize_email(email)
-    check_login_rate_limit(email)
-    user = await fetch_user_by_email(email)
-    if user is None or not verify_password(password, str(user.get("password_hash") or "")):
-        record_login_failure(email)
-        try:
-            from security_events import record_security_event
+    record_login_failure(email)
+    try:
+        from security_events import record_security_event
 
-            record_security_event(
-                "login_failure",
-                severity="warning",
-                actor=email,
-                detail={"reason": "invalid_credentials"},
-            )
-        except Exception:
-            pass
-        raise ValueError("Invalid email or password")
+        record_security_event(
+            "login_failure",
+            severity="warning",
+            actor=email,
+            detail={"reason": "invalid_credentials"},
+        )
+    except Exception:
+        pass
 
-    mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
-    # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
+
+async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str | None) -> dict[str, Any]:
     try:
         from org_mfa_policy import assert_login_mfa_policy
 
@@ -252,32 +244,65 @@ async def login_user(
             raise ValueError(
                 "Organization MFA is required. Enroll TOTP at /settings/security before login."
             )
+        return org_mfa
     except ValueError:
         raise
     except Exception:
-        org_mfa = {"org_mfa_enforced": False}
+        return {"org_mfa_enforced": False}
+
+
+def _mfa_challenge_response(user: dict[str, Any], email: str, org_mfa: dict[str, Any]) -> dict[str, Any]:
+    challenge = secrets.token_urlsafe(24)
+    _mfa_challenges[challenge] = {
+        "user_id": int(user["id"]),
+        "email": email,
+        "expires": (_utcnow() + timedelta(minutes=5)).timestamp(),
+    }
+    return {
+        "mfa_required": True,
+        "mfa_challenge": challenge,
+        "org_mfa_enforced": bool(org_mfa.get("org_mfa_enforced")),
+        "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
+    }
+
+
+async def _verify_login_mfa(user: dict[str, Any], email: str, mfa_code: str | None) -> dict[str, Any] | None:
+    if not mfa_code:
+        return None
+    from mfa_service import verify_user_mfa
+    from security_auth import record_login_failure
+
+    ok = await verify_user_mfa(int(user["id"]), mfa_code)
+    if not ok:
+        record_login_failure(email)
+        raise ValueError("Invalid MFA code")
+    return None
+
+
+async def login_user(
+    email: str,
+    password: str,
+    *,
+    mfa_code: str | None = None,
+) -> dict[str, Any]:
+    from database import fetch_user_by_email, touch_user_login
+    from security_auth import check_login_rate_limit
+
+    email = normalize_email(email)
+    check_login_rate_limit(email)
+    user = await fetch_user_by_email(email)
+    if user is None or not verify_password(password, str(user.get("password_hash") or "")):
+        _record_invalid_login(email)
+        raise ValueError("Invalid email or password")
+
+    mfa_enabled = bool(int(user.get("mfa_enabled") or 0))
+    # Org-enforced MFA (Report-2 C-P0-02) — refuse login if org requires MFA and user not enrolled.
+    org_mfa = await _login_org_mfa_policy(email, mfa_enabled=mfa_enabled, mfa_code=mfa_code)
 
     if mfa_enabled or (org_mfa.get("org_mfa_enforced") and mfa_enabled):
         if not mfa_code:
-            # Do not issue a session until MFA is verified.
-            challenge = secrets.token_urlsafe(24)
-            _mfa_challenges[challenge] = {
-                "user_id": int(user["id"]),
-                "email": email,
-                "expires": (_utcnow() + timedelta(minutes=5)).timestamp(),
-            }
-            return {
-                "mfa_required": True,
-                "mfa_challenge": challenge,
-                "org_mfa_enforced": bool(org_mfa.get("org_mfa_enforced")),
-                "user": {"id": user["id"], "email": email, "name": user.get("name") or ""},
-            }
-        from mfa_service import verify_user_mfa
-
-        ok = await verify_user_mfa(int(user["id"]), mfa_code)
-        if not ok:
-            record_login_failure(email)
-            raise ValueError("Invalid MFA code")
+            return _mfa_challenge_response(user, email, org_mfa)
+        await _verify_login_mfa(user, email, mfa_code)
 
     await touch_user_login(int(user["id"]))
     session = await create_session(int(user["id"]))
