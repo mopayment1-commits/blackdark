@@ -4,6 +4,8 @@ BLACKDARK — Pre-execution slippage re-walk + alert validation/cancellation.
 
 from __future__ import annotations
 
+import asyncio
+
 import hashlib
 import logging
 import time
@@ -76,6 +78,7 @@ async def rewalk_opportunity_slippage(
     quote_amount: float | None = None,
 ) -> dict[str, Any]:
     """Re-simulate order book depth before execution; update slippage fields."""
+    await asyncio.sleep(0)
     from live_book_hub import get_live_books_if_fresh
 
     notional = quote_amount or float(opportunity.get("quote_amount") or config.DEFAULT_QUOTE_AMOUNT)

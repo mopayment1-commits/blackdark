@@ -361,17 +361,21 @@ function filterRankings() {
     let rows = rankingsCache.filter(c => !q || c.symbol.toLowerCase().includes(q) || (c.name||'').toLowerCase().includes(q));
     if (sort === 'change') rows.sort((a,b)=>(b.change_24h_pct||0)-(a.change_24h_pct||0));
     if (sort === 'mcap') rows.sort((a,b)=>(b.market_cap_usd||0)-(a.market_cap_usd||0));
-    wrap.innerHTML = `<table>
-        <thead><tr><th>#</th><th>Asset</th><th>7d</th><th>Price</th><th>24h</th><th>MCap</th><th>Vol</th></tr></thead>
-        <tbody>${rows.slice(0,50).map(c => `<tr onclick="location.href='/platform/coin/${c.id}'">
+    const body = rows.slice(0,50).map(c => {
+        const cls = (c.change_24h_pct||0)>=0 ? 'pos' : 'neg';
+        return `<tr onclick="location.href='/platform/coin/${c.id}'">
             <td>${c.rank}</td>
             <td><strong>${c.symbol}</strong><br><span style="color:var(--muted)">${c.name||''}</span></td>
             <td>${sparkSvg(c.sparkline_7d)}</td>
             <td>$${fmt(c.price_usd)}</td>
-            <td class="${(c.change_24h_pct||0)>=0?'pos':'neg'}">${fmt(c.change_24h_pct)}%</td>
+            <td class="${cls}">${fmt(c.change_24h_pct)}%</td>
             <td>$${fmt(c.market_cap_usd, 0)}</td>
             <td>$${fmt(c.volume_24h_usd, 0)}</td>
-        </tr>`).join('')}</tbody></table>`;
+        </tr>`;
+    }).join('');
+    wrap.innerHTML = `<table>
+        <thead><tr><th>#</th><th>Asset</th><th>7d</th><th>Price</th><th>24h</th><th>MCap</th><th>Vol</th></tr></thead>
+        <tbody>${body}</tbody></table>`;
 }
 
 function pickSymbol(s) {

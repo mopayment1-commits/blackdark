@@ -350,6 +350,20 @@
             return 'n/a';
         }
 
+
+        function renderAccuracyStats(data) {
+            const oracle = data.oracle || data.accuracy || {};
+            const model = data.model || {};
+            const exp = data.experience || data.training || {};
+            const moat = data.moat || {};
+            document.getElementById('stat-accuracy').textContent =
+                (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
+            document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
+            document.getElementById('stat-labeled').textContent = model.labeled_samples || 0;
+            document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
+            document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
+            document.getElementById('stat-assets').textContent = moat.assets || 0;
+        }
         async function loadAccuracy() {
             try {
                 const res = await fetch('/api/oracle/accuracy/public');
@@ -376,13 +390,7 @@
                     `Integrity: <strong style="color:${verify.valid ? 'var(--success)' : 'var(--danger)'}">${verifyLabelShort(verify.valid)}</strong>` +
                     ` · ${records} linked records`;
 
-                document.getElementById('stat-accuracy').textContent =
-                    (oracle.average_accuracy_percent || 0).toFixed(1) + '%';
-                document.getElementById('stat-total').textContent = oracle.total_predictions || 0;
-                document.getElementById('stat-labeled').textContent = model.labeled_samples || 0;
-                document.getElementById('stat-training').textContent = exp.total_training_runs || 0;
-                document.getElementById('stat-exchanges').textContent = moat.exchanges || 0;
-                document.getElementById('stat-assets').textContent = moat.assets || 0;
+                renderAccuracyStats(data);
 
                 const regime = data.regime_models || {};
                 document.getElementById('regime-status').textContent =

@@ -129,7 +129,7 @@
         .tp-cta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.35rem; }
         .tp-flip {
             display:none; margin-bottom:.75rem; padding:.65rem .85rem; border-radius:10px;
-            border:1px solid rgba(245,158,11,.4); background:rgba(245,158,11,.18); color:#fef3c7; font-size:.88rem;
+            border:1px solid rgba(245,158,11,.55); background:rgba(120,53,15,.92); color:#fffbeb; font-size:.88rem;
         }
         .tp-flip.show { display:block; animation: pulseIn .45s ease; }
         .tp-cont { font-size:.8rem; color:#a1a1aa; margin:.5rem 0 .25rem; min-height:1.1em; }
@@ -576,6 +576,48 @@
             const source = f.source ? `<small>${f.source}</small>` : '';
             return `<div class="tp-factor"><strong>${i+1}. ${f.factor||f}</strong>${detail}${source}</div>`;
         }
+
+        function buildPulseChips(p) {
+            const proof = p.proof || {};
+            const ledger = p.ledger || {};
+            const chips = [];
+            chips.push(`<a class="tp-chip ok" href="${ledger.href||'/oracle-accuracy'}">${ledger.label||'Verified on Ledger'}</a>`);
+            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${String(proof.certificate_hash).slice(0,12)}…</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
+            if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
+            if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
+            return chips.join('');
+        }
+        function renderPulseFlip(p, fromStream) {
+            const flip = document.getElementById('tpFlip');
+            const root = document.getElementById('trust-pulse');
+            if (p.flip && p.flip.message) {
+                flip.textContent = p.flip.message;
+                flip.classList.add('show');
+                root.classList.add('flipped');
+                setTimeout(() => root.classList.remove('flipped'), 1200);
+                return;
+            }
+            if (!fromStream) flip.classList.remove('show');
+        }
+        function renderPulseContinuity(p) {
+            const cont = p.continuity || {};
+            const contEl = document.getElementById('tpContinuity');
+            if (cont.locked) {
+                if (cont.flipped && cont.summary) {
+                    contEl.innerHTML = cont.summary + ' · <a href="#" onclick="upgradeTier(\'pro\');return false">' + (cont.upgrade_hint||'Decision Pro') + '</a>';
+                } else {
+                    contEl.textContent = cont.upgrade_hint || '';
+                }
+                return;
+            }
+            if (cont.summary) {
+                const extra = (cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '';
+                contEl.textContent = cont.summary + extra;
+                return;
+            }
+            contEl.textContent = '';
+        }
         function renderTrustPulse(p, { fromStream } = {}) {
             if (!p) return;
             lastPulse = p;
@@ -597,39 +639,14 @@
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
             document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
-            const proof = p.proof || {};
+            document.getElementById('tpProof').innerHTML = buildPulseChips(p);
+            renderPulseFlip(p, fromStream);
+            renderPulseContinuity(p);
             const ledger = p.ledger || {};
-            const chips = [];
-            chips.push(`<a class="tp-chip ok" href="${ledger.href||'/oracle-accuracy'}">${ledger.label||'Verified on Ledger'}</a>`);
-            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${String(proof.certificate_hash).slice(0,12)}…</span>`);
-            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
-            if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
-            if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
-            document.getElementById('tpProof').innerHTML = chips.join('');
-            const flip = document.getElementById('tpFlip');
-            const root = document.getElementById('trust-pulse');
-            if (p.flip && p.flip.message) {
-                flip.textContent = p.flip.message;
-                flip.classList.add('show');
-                root.classList.add('flipped');
-                setTimeout(() => root.classList.remove('flipped'), 1200);
-            } else if (!fromStream) {
-                flip.classList.remove('show');
-            }
-            const cont = p.continuity || {};
-            const contEl = document.getElementById('tpContinuity');
-            if (cont.locked) {
-                contEl.innerHTML = cont.flipped && cont.summary
-                    ? `${cont.summary} · <a href="#" onclick="upgradeTier('pro');return false">${cont.upgrade_hint||'Decision Pro'}</a>`
-                    : (cont.upgrade_hint || '');
-            } else if (cont.summary) {
-                contEl.textContent = cont.summary + ((cont.new_factors||[]).length ? ' · New factors: ' + cont.new_factors.join(', ') : '');
-            } else {
-                contEl.textContent = '';
-            }
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
-                document.getElementById('tpFoot').innerHTML = `<strong>Anti-Hype</strong> · ${ledger.honesty_line}${foot ? '<br>'+foot : ''}`;
+                const footBit = foot ? '<br>' + foot : '';
+                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + ledger.honesty_line + footBit;
             }
             savePulseVisit(p);
         }
@@ -958,35 +975,36 @@
 
         let dashEs = null;
         let lastWhaleStreamAt = 0;
+
+        function renderSnapshotOI(assets) {
+            const el = document.getElementById('oi');
+            if (!el || !assets.length) return;
+            el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
+                assets.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
+                    <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+        }
+        function renderSnapshotArb(arbitrage) {
+            const el = document.getElementById('arbList');
+            const stats = document.getElementById('arbStats');
+            const c = arbitrage.counts || {};
+            if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${arbitrage.executable_count||0} · Profitable ${arbitrage.profitable_count||0}`;
+            const opps = arbitrage.opportunities || [];
+            if (!el || !opps.length) return;
+            el.innerHTML = opps.slice(0,6).map(o => {
+                const half = o.opportunity_half_life || {};
+                const truth = o.net_edge_truth || {};
+                const rejected = o.truth_rejected || truth.reject;
+                const rej = rejected ? ' · REJECTED' : '';
+                return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
+                <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rej}</div></div>`;
+            }).join('');
+        }
         function applyDashboardSnapshot(d) {
             if (!d || d.type === 'error') return;
             if (d.market && Array.isArray(d.market.assets)) renderMarketAssets(d.market.assets);
-            if (d.open_interest && Array.isArray(d.open_interest.assets)) {
-                const el = document.getElementById('oi');
-                const rows = d.open_interest.assets;
-                if (el && rows.length) {
-                    el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                        rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                            <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
-                }
-            }
-            if (d.arbitrage) {
-                const el = document.getElementById('arbList');
-                const stats = document.getElementById('arbStats');
-                const c = d.arbitrage.counts || {};
-                if (stats) stats.textContent = `Live · Cross ${c.cross_exchange||0} · Executable ${d.arbitrage.executable_count||0} · Profitable ${d.arbitrage.profitable_count||0}`;
-                const opps = d.arbitrage.opportunities || [];
-                if (el && opps.length) {
-                    el.innerHTML = opps.slice(0,6).map(o => {
-                        const half = o.opportunity_half_life || {};
-                        const truth = o.net_edge_truth || {};
-                        const rejected = o.truth_rejected || truth.reject;
-                        return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
-                        <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                        <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
-                    }).join('');
-                }
-            }
+            if (d.open_interest && Array.isArray(d.open_interest.assets)) renderSnapshotOI(d.open_interest.assets);
+            if (d.arbitrage) renderSnapshotArb(d.arbitrage);
             const now = Date.now();
             if (d.whales && (now - lastWhaleStreamAt) > 45000) {
                 lastWhaleStreamAt = now;
@@ -1282,16 +1300,22 @@
                 const recHtml = recs.length
                     ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${r}</li>`).join('') + '</ul>'
                     : '';
-                el.innerHTML = `
-                    <div class="arb-card">
-                        <strong>Portfolio AI</strong>
-                        ${risk ? ` · <span style="color:${riskColor};font-weight:700">${risk}</span> risk (${d.risk_score ?? '—'}/10)` : ''}
-                        <div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">${d.one_sentence || d.plain_language || d.summary || ''}</div>
-                        ${d.scenario_note ? `<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">${d.scenario_note}</div>` : ''}
-                        ${d.total_value_formatted ? `<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ${d.total_value_formatted} · BTC corr ${d.btc_correlation || '—'}</div>` : ''}
-                        ${recHtml}
-                        ${foot.disclaimer ? `<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${foot.disclaimer}</div>` : ''}
-                    </div>`;
+                const riskBit = risk
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + risk + '</span> risk (' + (d.risk_score ?? '—') + '/10)')
+                    : '';
+                const scenarioBit = d.scenario_note
+                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + d.scenario_note + '</div>')
+                    : '';
+                const valueBit = d.total_value_formatted
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + d.total_value_formatted + ' · BTC corr ' + (d.btc_correlation || '—') + '</div>')
+                    : '';
+                const footBit = foot.disclaimer
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + foot.disclaimer + '</div>')
+                    : '';
+                el.innerHTML =
+                    '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
+                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + (d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
+                    scenarioBit + valueBit + recHtml + footBit + '</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
 

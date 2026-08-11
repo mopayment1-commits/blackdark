@@ -230,54 +230,96 @@ async def _record_behavior(
         pass
 
 
+async def _portfolio_holding(item: dict) -> tuple[dict | None, float]:
+    symbol = str(item.get("symbol") or "").upper().strip()
+    amount = float(item.get("amount") or 0)
+    if not symbol or amount <= 0:
+        return None, 0.0
+    _, pair = _normalize_oracle_symbol(symbol)
+    ticker = await _fetch_binance_ticker(pair)
+    price = float(ticker["price"]) if ticker else float(item.get("price") or 0)
+    value = amount * price
+    beta = _btc_beta_estimate(symbol)
+    return (
+        {
+            "symbol": symbol,
+            "amount": amount,
+            "price": price,
+            "value_usd": round(value, 2),
+            "sector": _sector_for_asset(symbol),
+            "btc_beta": beta,
+        },
+        value,
+    )
+
+
+def _portfolio_risk_level(risk_score: int) -> str:
+    if risk_score >= 8:
+        return "HIGH"
+    if risk_score >= 5:
+        return "MEDIUM"
+    return "LOW"
+
+
+def _portfolio_recommendations(weighted_beta: float, holdings_count: int) -> list[str]:
+    recommendations: list[str] = []
+    if weighted_beta > 0.75:
+        recommendations.append("High BTC correlation — diversify into uncorrelated assets")
+    if holdings_count < 3:
+        recommendations.append("Portfolio is concentrated — add 2+ more assets")
+    if not recommendations:
+        recommendations.append("Balanced portfolio structure for current holdings")
+    return recommendations
+
+
+def _portfolio_compliance_footer() -> dict:
+    try:
+        from decision_certificate import compliance_footer_block
+
+        return compliance_footer_block(
+            surface="portfolio_ai",
+            trust_basis="holdings beta model + public_accuracy_ledger",
+            data_sources="live spot marks · weighted BTC beta heuristic",
+        )
+    except Exception:
+        return {
+            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
+        }
+
+
+def _attach_portfolio_clarity(result: dict, risk_level: str, risk_score: int) -> None:
+    try:
+        from heroes_quality import build_portfolio_clarity
+
+        clarity = build_portfolio_clarity(result)
+        result["one_sentence"] = clarity["one_sentence"]
+        result["clarity"] = clarity
+    except Exception:
+        result["one_sentence"] = (
+            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
+        )
+
+
 async def _analyze_portfolio_holdings(assets: list) -> dict:
     holdings: list[dict] = []
     total_value = 0.0
-    weighted_beta = 0.0
 
     for item in assets:
-        symbol = str(item.get("symbol") or "").upper().strip()
-        amount = float(item.get("amount") or 0)
-        if not symbol or amount <= 0:
+        holding, value = await _portfolio_holding(item)
+        if holding is None:
             continue
-        _, pair = _normalize_oracle_symbol(symbol)
-        ticker = await _fetch_binance_ticker(pair)
-        price = float(ticker["price"]) if ticker else float(item.get("price") or 0)
-        value = amount * price
+        holdings.append(holding)
         total_value += value
-        beta = _btc_beta_estimate(symbol)
-        holdings.append(
-            {
-                "symbol": symbol,
-                "amount": amount,
-                "price": price,
-                "value_usd": round(value, 2),
-                "sector": _sector_for_asset(symbol),
-                "btc_beta": beta,
-            }
-        )
 
+    weighted_beta = 0.0
     if total_value > 0:
         weighted_beta = sum((h["value_usd"] / total_value) * h["btc_beta"] for h in holdings)
 
     btc_drop_pct = 15.0
     estimated_loss = total_value * weighted_beta * (btc_drop_pct / 100.0)
     risk_score = min(10, max(1, round(weighted_beta * 10)))
-    if risk_score >= 8:
-        risk_level = "HIGH"
-    elif risk_score >= 5:
-        risk_level = "MEDIUM"
-    else:
-        risk_level = "LOW"
-
-    recommendations: list[str] = []
-    if weighted_beta > 0.75:
-        recommendations.append("High BTC correlation — diversify into uncorrelated assets")
-    if len(holdings) < 3:
-        recommendations.append("Portfolio is concentrated — add 2+ more assets")
-    if not recommendations:
-        recommendations.append("Balanced portfolio structure for current holdings")
-
+    risk_level = _portfolio_risk_level(risk_score)
+    recommendations = _portfolio_recommendations(weighted_beta, len(holdings))
     plain = (
         f"In plain language: your book is {risk_level.lower()} risk "
         f"(score {risk_score}/10). Weighted BTC sensitivity is about "
@@ -285,18 +327,6 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         f"${estimated_loss:,.0f} drawdown on current holdings. "
         f"{recommendations[0]}"
     )
-    try:
-        from decision_certificate import compliance_footer_block
-
-        compliance = compliance_footer_block(
-            surface="portfolio_ai",
-            trust_basis="holdings beta model + public_accuracy_ledger",
-            data_sources="live spot marks · weighted BTC beta heuristic",
-        )
-    except Exception:
-        compliance = {
-            "disclaimer": "Not financial advice. Verify claims on the Public Accuracy Ledger.",
-        }
 
     result = {
         "holdings": holdings,
@@ -315,19 +345,10 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         ),
         "plain_language": plain,
         "recommendations": recommendations,
-        "compliance_footer": compliance,
+        "compliance_footer": _portfolio_compliance_footer(),
         "hero": "portfolio_ai",
     }
-    try:
-        from heroes_quality import build_portfolio_clarity
-
-        clarity = build_portfolio_clarity(result)
-        result["one_sentence"] = clarity["one_sentence"]
-        result["clarity"] = clarity
-    except Exception:
-        result["one_sentence"] = (
-            f"Your portfolio looks {risk_level.lower()} risk ({risk_score}/10)."
-        )
+    _attach_portfolio_clarity(result, risk_level, risk_score)
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
@@ -1962,6 +1983,73 @@ async def oracle_explain(
     return JSONResponse(payload)
 
 
+async def _compute_oracle_quick_payload(
+    asset: str,
+    pair: str,
+    lang: str,
+    ux_mode: str,
+) -> dict:
+    from live_book_hub import get_best_price
+
+    row = get_best_price("binance", f"{asset}/USDT")
+    market = None
+    if row and row.get("mid"):
+        market = {
+            "price": float(row["mid"]),
+            "change_24h": 0.0,
+            "volume": 0.0,
+            "quote_volume": 0.0,
+            "source": "websocket_live",
+        }
+    if market is None:
+        market = await _fetch_binance_ticker(pair)
+    if market is None:
+        raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
+
+    price = market["price"]
+    quote_volume = market["quote_volume"] or (market["volume"] * price)
+    change = market["change_24h"]
+
+    from market_context import oracle_score
+
+    score = oracle_score(quote_volume, change)
+    if _is_stablecoin(asset):
+        score = min(score, 55)
+    verdict, _ = _oracle_verdict(score, asset, price)
+    support = round(price * 0.97, -2)
+    resistance = round(price * 1.03, -2)
+    action = _oracle_action(score, price, support, resistance)
+    sentiment = _oracle_sentiment(change)
+    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    try:
+        from i18n_service import decision_sentence as _dec
+
+        decision_sentence = _dec(lang, decision_action, asset, score)
+    except Exception:
+        decision_sentence = (
+            f"{decision_action} on {asset} — score {score}. "
+            f"Analytical summary (not advice): {action}"
+        )
+    return {
+        "symbol": asset,
+        "price": price,
+        "change_24h": change,
+        "verdict": verdict,
+        "decision_action": decision_action,
+        "decision_sentence": decision_sentence,
+        "opportunity_score": score,
+        "action": action,
+        "action_line": f"Analytics summary: {action}",
+        "oracle": decision_sentence,
+        "sentiment": sentiment,
+        "engine": "quick_rules_v1",
+        "latency_target_ms": 100,
+        "ux_mode": ux_mode,
+        "lang": lang,
+        "viral_cache": "miss",
+    }
+
+
 @app.get("/oracle/{symbol}/quick", responses=COMMON_ERROR_RESPONSES)
 async def oracle_quick(
     symbol: str,
@@ -1972,7 +2060,6 @@ async def oracle_quick(
     """Instant verdict + ACTION line — viral-hardened (cache + semaphore)."""
     import time
 
-    from live_book_hub import get_best_price
     from viral_capacity import quick_cache_get, quick_cache_set, run_oracle_bounded
 
     t0 = time.perf_counter()
@@ -1982,66 +2069,9 @@ async def oracle_quick(
         cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
         return JSONResponse(cached)
 
-    async def _compute() -> dict:
-        row = get_best_price("binance", f"{asset}/USDT")
-        market = None
-        if row and row.get("mid"):
-            market = {
-                "price": float(row["mid"]),
-                "change_24h": 0.0,
-                "volume": 0.0,
-                "quote_volume": 0.0,
-                "source": "websocket_live",
-            }
-        if market is None:
-            market = await _fetch_binance_ticker(pair)
-        if market is None:
-            raise HTTPException(status_code=404, detail=f"Symbol {asset} not found.")
-
-        price = market["price"]
-        quote_volume = market["quote_volume"] or (market["volume"] * price)
-        change = market["change_24h"]
-
-        from market_context import oracle_score
-
-        score = oracle_score(quote_volume, change)
-        if _is_stablecoin(asset):
-            score = min(score, 55)
-        verdict, _ = _oracle_verdict(score, asset, price)
-        support = round(price * 0.97, -2)
-        resistance = round(price * 1.03, -2)
-        action = _oracle_action(score, price, support, resistance)
-        sentiment = _oracle_sentiment(change)
-        decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
-        try:
-            from i18n_service import decision_sentence as _dec
-
-            decision_sentence = _dec(lang, decision_action, asset, score)
-        except Exception:
-            decision_sentence = (
-                f"{decision_action} on {asset} — score {score}. "
-                f"Analytical summary (not advice): {action}"
-            )
-        return {
-            "symbol": asset,
-            "price": price,
-            "change_24h": change,
-            "verdict": verdict,
-            "decision_action": decision_action,
-            "decision_sentence": decision_sentence,
-            "opportunity_score": score,
-            "action": action,
-            "action_line": f"Analytics summary: {action}",
-            "oracle": decision_sentence,
-            "sentiment": sentiment,
-            "engine": "quick_rules_v1",
-            "latency_target_ms": 100,
-            "ux_mode": ux_mode,
-            "lang": lang,
-            "viral_cache": "miss",
-        }
-
-    payload = await run_oracle_bounded(_compute)
+    payload = await run_oracle_bounded(
+        lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+    )
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
     payload["latency_ms"] = latency_ms
     payload["meets_latency_target"] = latency_ms <= 100

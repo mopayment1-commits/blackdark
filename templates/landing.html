@@ -1058,11 +1058,6 @@
     </section>
     </main>
     
-    <script type="module">
-if (typeof window.loadLandingTrustPulse === 'function') {
-  await window.loadLandingTrustPulse();
-}
-</script>
     {% include "partials/site_footer.html" %}
     
     <script>
@@ -1319,7 +1314,9 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     const conflict = data.dimension_conflict || {};
                     let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
                     if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
-                        line += ` · Contradiction Veto: ${conflict.veto ? 'WAIT' : 'Abstain'}${conflict.severity ? ' (' + conflict.severity + ')' : ''}`;
+                        const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
+                const sevBit = conflict.severity ? ' (' + conflict.severity + ')' : '';
+                line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
                     }
                     if (data.prediction_id) {
                         line += ` · Proof #${data.prediction_id}`;
@@ -1512,9 +1509,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const factors = (p.why && p.why.factors) || [];
             const why = document.getElementById('lpWhy');
             if (why) {
-                why.innerHTML = factors.slice(0, 3).map((f, i) =>
-                    `<div><strong>${i + 1}. ${f.factor || f}</strong>${f.detail ? ' — ' + f.detail : ''}</div>`
-                ).join('') || '';
+                why.innerHTML = factors.slice(0, 3).map((f, i) => {
+                    const detail = f.detail ? (' — ' + f.detail) : '';
+                    return '<div><strong>' + (i + 1) + '. ' + (f.factor || f) + '</strong>' + detail + '</div>';
+                }).join('') || '';
             }
             const fresh = p.freshness || {};
             const dot = document.getElementById('lpDot');
@@ -1610,18 +1608,17 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     msg.style.color = 'var(--danger)'; }
             });
         }
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
             updateShareLinks(null);
             loadLandingAnalytics();
             loadBillingReadyLine();
             wireInstitutionalInquiry();
             loadTelegramBotLink();
-            window.loadLandingTrustPulse = loadLandingTrustPulse;
-            window.renderLandingPulse = renderLandingPulse;
+            await loadLandingTrustPulse();
             startLandingPulseStream();
             setTimeout(consultOracle, 500);
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
+                navigator.serviceWorker.register('/sw.js').catch((error) => { console.debug(error); });
             }
         });
     </script>

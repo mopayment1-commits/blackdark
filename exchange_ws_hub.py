@@ -245,6 +245,7 @@ async def _kraken_ticker_poll_loop() -> None:
 
 
 async def start_exchange_ws_hub() -> None:
+    await asyncio.sleep(0)
     global _running, _tasks
     if not _enabled():
         logger.info("Exchange WS hub disabled (EXCHANGE_WS_ENABLED=false).")

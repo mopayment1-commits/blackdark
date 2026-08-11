@@ -97,6 +97,7 @@ async def start_kafka_consumer(
     topics: tuple[str, ...] = KAFKA_TOPICS,
 ) -> asyncio.Task | None:
     """Background consumer — no-op if Kafka not configured."""
+    await asyncio.sleep(0)
     global _consumer_task
     if not kafka_enabled() or _consumer_task is not None:
         return _consumer_task

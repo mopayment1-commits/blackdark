@@ -208,7 +208,7 @@ def _is_localhost(request: Request) -> bool:
     return host in {"127.0.0.1", "::1", "localhost"}
 
 
-async def require_admin_dev(
+def require_admin_dev(
     request: Request,
     user: dict | None = Depends(optional_user_from_request),
     x_admin_key: str | None = Header(None, alias="X-Admin-Key"),

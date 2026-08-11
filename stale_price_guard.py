@@ -37,6 +37,49 @@ def validate_venue_quote(exchange: str, symbol: str, *, for_execution: bool = Fa
     return True, age, "ok"
 
 
+def _normalized_symbol(opportunity: dict[str, Any]) -> str:
+    symbol = str(opportunity.get("symbol") or f"{opportunity.get('asset', 'BTC')}/USDT")
+    if not symbol.endswith("/USDT"):
+        symbol = f"{symbol.replace('/USDT', '')}/USDT"
+    return symbol
+
+
+def _opportunity_legs(opportunity: dict[str, Any], symbol: str, kind: str) -> list[tuple[str, str]] | None:
+    legs: list[tuple[str, str]] = []
+    if kind in {"cross_exchange", "fast_cross", "stream_cross_exchange", "cex_dex"}:
+        buy = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "")
+        sell = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "")
+        if buy:
+            legs.append((buy, symbol))
+        if sell:
+            legs.append((sell, symbol))
+        return legs
+    if kind == "triangular":
+        ex = str(opportunity.get("exchange") or "binance")
+        return [(ex, str(leg_sym)) for leg_sym, _side in opportunity.get("legs") or []]
+    return None
+
+
+def _venue_scan_passes(asset: str, *, for_execution: bool) -> bool:
+    sym = f"{asset}/USDT"
+    return any(
+        is_quote_fresh(venue, sym, max_age_ms=max_quote_age_ms(for_execution=for_execution))
+        for venue in getattr(config, "WS_PRICE_VENUES", ())
+    )
+
+
+def _quote_age_details(legs: list[tuple[str, str]], *, for_execution: bool) -> tuple[list[dict[str, Any]], dict[str, float]]:
+    stale: list[dict[str, Any]] = []
+    fresh_ages: dict[str, float] = {}
+    for exchange, sym in legs:
+        ok, age, reason = validate_venue_quote(exchange, sym, for_execution=for_execution)
+        if not ok:
+            stale.append({"exchange": exchange, "symbol": sym, "age_ms": age, "reason": reason})
+        elif age is not None:
+            fresh_ages[f"{exchange}|{sym}"] = round(age, 2)
+    return stale, fresh_ages
+
+
 def validate_opportunity_quotes(opportunity: dict[str, Any], *, for_execution: bool = False) -> tuple[bool, dict[str, Any]]:
     """
     Validate all exchange legs referenced by an opportunity.
@@ -46,40 +89,18 @@ def validate_opportunity_quotes(opportunity: dict[str, Any], *, for_execution: b
         return True, {"guard": "disabled"}
 
     kind = str(opportunity.get("kind") or "")
-    symbol = str(opportunity.get("symbol") or f"{opportunity.get('asset', 'BTC')}/USDT")
-    if not symbol.endswith("/USDT"):
-        symbol = f"{symbol.replace('/USDT', '')}/USDT"
-
-    legs: list[tuple[str, str]] = []
-    if kind in {"cross_exchange", "fast_cross", "stream_cross_exchange", "cex_dex"}:
-        buy = str(opportunity.get("buy_exchange") or opportunity.get("buy_venue") or "")
-        sell = str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or "")
-        if buy:
-            legs.append((buy, symbol))
-        if sell:
-            legs.append((sell, symbol))
-    elif kind == "triangular":
-        ex = str(opportunity.get("exchange") or "binance")
-        for leg_sym, _side in opportunity.get("legs") or []:
-            legs.append((ex, str(leg_sym)))
-    else:
+    symbol = _normalized_symbol(opportunity)
+    legs = _opportunity_legs(opportunity, symbol, kind)
+    if legs is None:
         asset = str(opportunity.get("asset") or "BTC")
-        sym = f"{asset}/USDT"
-        for venue in getattr(config, "WS_PRICE_VENUES", ()):
-            if is_quote_fresh(venue, sym, max_age_ms=max_quote_age_ms(for_execution=for_execution)):
-                return True, {"guard": "ok", "kind": kind, "note": "venue_scan_pass"}
+        if _venue_scan_passes(asset, for_execution=for_execution):
+            return True, {"guard": "ok", "kind": kind, "note": "venue_scan_pass"}
+        legs = []
 
     if not legs:
         return True, {"guard": "ok", "kind": kind, "note": "no_legs_to_check"}
 
-    stale: list[dict[str, Any]] = []
-    fresh_ages: dict[str, float] = {}
-    for exchange, sym in legs:
-        ok, age, reason = validate_venue_quote(exchange, sym, for_execution=for_execution)
-        if not ok:
-            stale.append({"exchange": exchange, "symbol": sym, "age_ms": age, "reason": reason})
-        elif age is not None:
-            fresh_ages[f"{exchange}|{sym}"] = round(age, 2)
+    stale, fresh_ages = _quote_age_details(legs, for_execution=for_execution)
 
     if stale:
         return False, {

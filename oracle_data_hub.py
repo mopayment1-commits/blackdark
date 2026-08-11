@@ -137,6 +137,29 @@ def _parse_rss_headlines(payload: str, source: str, limit: int = 12) -> list[dic
     return items
 
 
+async def _rss_feed_headlines(
+    session: aiohttp.ClientSession,
+    feed_url: str,
+) -> list[dict[str, Any]]:
+    label = feed_url.split("//")[-1].split("/")[0]
+    try:
+        payload = await _fetch_text(session, feed_url)
+        return _parse_rss_headlines(payload, label)
+    except Exception:
+        logger.warning("Geo news RSS failed | feed=%s", str(feed_url).replace("\r", " ").replace("\n", " "))
+        return []
+
+
+def _geo_news_tone(headlines: list[dict[str, Any]]) -> tuple[int, RiskTone]:
+    geo_count = sum(1 for row in headlines if row.get("geopolitical"))
+    tone: RiskTone = "neutral"
+    if geo_count >= 4:
+        tone = "risk_off"
+    elif geo_count <= 1 and headlines:
+        tone = "risk_on"
+    return geo_count, tone
+
+
 async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str, Any]:
     cached = _CACHE.get("geo_news")
     if cached is not None:
@@ -144,19 +167,9 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
 
     headlines: list[dict[str, Any]] = []
     for feed_url in config.ORACLE_GEO_NEWS_RSS_FEEDS:
-        label = feed_url.split("//")[-1].split("/")[0]
-        try:
-            payload = await _fetch_text(session, feed_url)
-            headlines.extend(_parse_rss_headlines(payload, label))
-        except Exception:
-            logger.warning("Geo news RSS failed | feed=%s", str(feed_url).replace("\r", " ").replace("\n", " "))
+        headlines.extend(await _rss_feed_headlines(session, feed_url))
 
-    geo_count = sum(1 for row in headlines if row.get("geopolitical"))
-    tone: RiskTone = "neutral"
-    if geo_count >= 4:
-        tone = "risk_off"
-    elif geo_count <= 1 and headlines:
-        tone = "risk_on"
+    geo_count, tone = _geo_news_tone(headlines)
 
     result = {
         "headlines": headlines[:20],
@@ -168,51 +181,60 @@ async def fetch_global_economic_news(session: aiohttp.ClientSession) -> dict[str
     return result
 
 
+async def _fetch_fear_greed(session: aiohttp.ClientSession) -> tuple[int, str]:
+    try:
+        fng = await _fetch_json(session, "https://api.alternative.me/fng/", params={"limit": "1"})
+        row = (fng.get("data") or [{}])[0]
+        return int(row.get("value") or 50), str(row.get("value_classification") or "Neutral")
+    except Exception:
+        logger.warning("Fear & Greed index fetch failed.")
+        return 50, "Neutral"
+
+
+async def _fetch_coingecko_trending(session: aiohttp.ClientSession) -> list[str]:
+    try:
+        payload = await _fetch_json(
+            session,
+            "https://api.coingecko.com/api/v3/search/trending",
+        )
+    except Exception:
+        logger.warning("CoinGecko trending fetch failed.")
+        return []
+    trending: list[str] = []
+    for coin in (payload.get("coins") or [])[:7]:
+        symbol = str((coin.get("item") or {}).get("symbol") or "").upper()
+        if symbol:
+            trending.append(symbol)
+    return trending
+
+
+async def _fetch_reddit_hot_titles(session: aiohttp.ClientSession) -> list[str]:
+    try:
+        reddit = await _fetch_json(
+            session,
+            "https://www.reddit.com/r/CryptoCurrency/hot.json",
+            params={"limit": "8"},
+            headers={"User-Agent": "BLACKDARK-Oracle/1.0"},
+        )
+    except Exception:
+        logger.warning("Reddit sentiment fetch failed.")
+        return []
+    titles: list[str] = []
+    for child in (reddit.get("data") or {}).get("children") or []:
+        title = str((child.get("data") or {}).get("title") or "").strip()
+        if title:
+            titles.append(title[:180])
+    return titles
+
+
 async def fetch_sentiment_mesh(session: aiohttp.ClientSession) -> dict[str, Any]:
     cached = _CACHE.get("sentiment_mesh")
     if cached is not None:
         return cached
 
-    fear_greed_value = 50
-    fear_greed_label = "Neutral"
-    trending: list[str] = []
-    reddit_hot: list[str] = []
-
-    try:
-        fng = await _fetch_json(session, "https://api.alternative.me/fng/", params={"limit": "1"})
-        row = (fng.get("data") or [{}])[0]
-        fear_greed_value = int(row.get("value") or 50)
-        fear_greed_label = str(row.get("value_classification") or "Neutral")
-    except Exception:
-        logger.warning("Fear & Greed index fetch failed.")
-
-    try:
-        trending_payload = await _fetch_json(
-            session,
-            "https://api.coingecko.com/api/v3/search/trending",
-        )
-        for coin in (trending_payload.get("coins") or [])[:7]:
-            item = coin.get("item") or {}
-            symbol = str(item.get("symbol") or "").upper()
-            if symbol:
-                trending.append(symbol)
-    except Exception:
-        logger.warning("CoinGecko trending fetch failed.")
-
-    try:
-        reddit_headers = {"User-Agent": "BLACKDARK-Oracle/1.0"}
-        reddit = await _fetch_json(
-            session,
-            "https://www.reddit.com/r/CryptoCurrency/hot.json",
-            params={"limit": "8"},
-            headers=reddit_headers,
-        )
-        for child in (reddit.get("data") or {}).get("children") or []:
-            title = str((child.get("data") or {}).get("title") or "").strip()
-            if title:
-                reddit_hot.append(title[:180])
-    except Exception:
-        logger.warning("Reddit sentiment fetch failed.")
+    fear_greed_value, fear_greed_label = await _fetch_fear_greed(session)
+    trending = await _fetch_coingecko_trending(session)
+    reddit_hot = await _fetch_reddit_hot_titles(session)
 
     compound = _clamp((fear_greed_value - 50) / 50.0)
     result = {
@@ -224,6 +246,89 @@ async def fetch_sentiment_mesh(session: aiohttp.ClientSession) -> dict[str, Any]
     }
     _CACHE.set("sentiment_mesh", result)
     return result
+
+
+def _empty_derivatives_mesh(symbol: str) -> dict[str, Any]:
+    return {
+        "asset": symbol,
+        "defi_tvl_usd": 0.0,
+        "defi_chain_count": 0,
+        "funding_rate": None,
+        "open_interest_usd": None,
+        "long_short_ratio": None,
+        "derivatives_bias": "neutral",
+        "sources": [],
+    }
+
+
+async def _defi_tvl_snapshot(session: aiohttp.ClientSession) -> tuple[float, int]:
+    try:
+        chains = await _fetch_json(session, "https://api.llama.fi/v2/chains")
+        return sum(float(row.get("tvl") or 0) for row in chains or []), len(chains or [])
+    except Exception:
+        logger.warning("DeFiLlama chains fetch failed.")
+        return 0.0, 0
+
+
+async def _binance_funding_rate(session: aiohttp.ClientSession, symbol: str) -> float | None:
+    try:
+        funding = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/premiumIndex",
+            params={"symbol": symbol},
+        )
+        return float(funding.get("lastFundingRate") or 0)
+    except Exception:
+        logger.warning("Binance funding fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+async def _binance_open_interest_usd(
+    session: aiohttp.ClientSession,
+    symbol: str,
+    funding_rate: float | None,
+) -> float | None:
+    try:
+        oi = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/openInterest",
+            params={"symbol": symbol},
+        )
+        oi_qty = float(oi.get("openInterest") or 0)
+        if funding_rate is None:
+            return None
+        mark = await _fetch_json(
+            session,
+            "https://fapi.binance.com/fapi/v1/ticker/price",
+            params={"symbol": symbol},
+        )
+        return round(oi_qty * float(mark.get("price") or 0), 2)
+    except Exception:
+        logger.warning("Binance OI fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+async def _binance_long_short_ratio(session: aiohttp.ClientSession, symbol: str) -> float | None:
+    try:
+        ls = await _fetch_json(
+            session,
+            "https://fapi.binance.com/futures/data/globalLongShortAccountRatio",
+            params={"symbol": symbol, "period": "1h", "limit": "1"},
+        )
+        return float(ls[0].get("longShortRatio") or 1.0) if ls else None
+    except Exception:
+        logger.warning("Binance long/short ratio fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
+        return None
+
+
+def _derivatives_bias(funding_rate: float | None) -> str:
+    if funding_rate is None:
+        return "neutral"
+    if funding_rate > 0.0003:
+        return "overheated_longs"
+    if funding_rate < -0.0001:
+        return "short_crowded"
+    return "neutral"
 
 
 async def fetch_onchain_derivatives_mesh(
@@ -238,75 +343,13 @@ async def fetch_onchain_derivatives_mesh(
     symbol = asset.upper()
     binance_symbol = f"{symbol}USDT"
     if not binance_symbol.isalnum():
-        return {
-            "asset": symbol,
-            "defi_tvl_usd": 0.0,
-            "defi_chain_count": 0,
-            "funding_rate": None,
-            "open_interest_usd": None,
-            "long_short_ratio": None,
-            "derivatives_bias": "neutral",
-            "sources": [],
-        }
+        return _empty_derivatives_mesh(symbol)
 
-    tvl_total_usd = 0.0
-    chain_count = 0
-    funding_rate = None
-    open_interest_usd = None
-    long_short_ratio = None
-
-    try:
-        chains = await _fetch_json(session, "https://api.llama.fi/v2/chains")
-        chain_count = len(chains or [])
-        tvl_total_usd = sum(float(row.get("tvl") or 0) for row in chains or [])
-    except Exception:
-        logger.warning("DeFiLlama chains fetch failed.")
-
-    try:
-        funding = await _fetch_json(
-            session,
-            "https://fapi.binance.com/fapi/v1/premiumIndex",
-            params={"symbol": binance_symbol},
-        )
-        funding_rate = float(funding.get("lastFundingRate") or 0)
-    except Exception:
-        logger.warning("Binance funding fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    try:
-        oi = await _fetch_json(
-            session,
-            "https://fapi.binance.com/fapi/v1/openInterest",
-            params={"symbol": binance_symbol},
-        )
-        oi_qty = float(oi.get("openInterest") or 0)
-        if funding_rate is not None:
-            mark = await _fetch_json(
-                session,
-                "https://fapi.binance.com/fapi/v1/ticker/price",
-                params={"symbol": binance_symbol},
-            )
-            price = float(mark.get("price") or 0)
-            open_interest_usd = round(oi_qty * price, 2)
-    except Exception:
-        logger.warning("Binance OI fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    try:
-        ls = await _fetch_json(
-            session,
-            "https://fapi.binance.com/futures/data/globalLongShortAccountRatio",
-            params={"symbol": binance_symbol, "period": "1h", "limit": "1"},
-        )
-        if ls:
-            long_short_ratio = float(ls[0].get("longShortRatio") or 1.0)
-    except Exception:
-        logger.warning("Binance long/short ratio fetch failed | asset=%s", str(symbol).replace("\r", " ").replace("\n", " "))
-
-    deriv_bias = "neutral"
-    if funding_rate is not None:
-        if funding_rate > 0.0003:
-            deriv_bias = "overheated_longs"
-        elif funding_rate < -0.0001:
-            deriv_bias = "short_crowded"
+    tvl_total_usd, chain_count = await _defi_tvl_snapshot(session)
+    funding_rate = await _binance_funding_rate(session, binance_symbol)
+    open_interest_usd = await _binance_open_interest_usd(session, binance_symbol, funding_rate)
+    long_short_ratio = await _binance_long_short_ratio(session, binance_symbol)
+    deriv_bias = _derivatives_bias(funding_rate)
 
     result = {
         "asset": symbol,

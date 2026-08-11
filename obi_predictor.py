@@ -232,7 +232,7 @@ def forecast_flash_crash(
         return None
 
 
-async def analyze_order_book_snapshot(
+def analyze_order_book_snapshot(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> tuple[list[OrderBookImbalance], list[FlashCrashWarning]]:
     imbalances: list[OrderBookImbalance] = []
@@ -356,10 +356,10 @@ def get_obi_for_asset(asset: str, context: dict[str, Any]) -> float | None:
         return None
 
 
-async def build_obi_context(
+def build_obi_context(
     order_books: dict[str, dict[str, dict[str, Any]]],
 ) -> dict[str, Any]:
-    imbalances, warnings = await analyze_order_book_snapshot(order_books)
+    imbalances, warnings = analyze_order_book_snapshot(order_books)
     snapshots = _aggregate_asset_snapshots(imbalances, warnings)
 
     score_adjustments = {
@@ -395,7 +395,7 @@ async def build_obi_context_safe(
             "obi_score_adjustments": {},
         }
     try:
-        return await build_obi_context(order_books)
+        return build_obi_context(order_books)
     except Exception:
         logger.exception("OBI context build failed safely; returning empty context.")
         return {
