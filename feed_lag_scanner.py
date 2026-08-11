@@ -84,13 +84,7 @@ def _feed_lag_opportunity(slow: dict[str, Any], ref_mid: float, lag_sec: float, 
     }
 
 
-def scan_feed_lag_from_books(
-    books: dict[str, dict[str, dict[str, Any]]],
-    pair: str,
-    *,
-    lag_threshold_sec: float = DEFAULT_LAG_THRESHOLD_SEC,
-    min_edge_bps: float = DEFAULT_EDGE_BPS,
-) -> dict[str, Any]:
+def _venues_from_books(books: dict[str, dict[str, dict[str, Any]]], pair: str) -> list[dict[str, Any]]:
     venues: list[dict[str, Any]] = []
     for exchange_id, symbols in books.items():
         book = symbols.get(pair)
@@ -99,6 +93,32 @@ def scan_feed_lag_from_books(
         row = _venue_row(exchange_id, book)
         if row is not None:
             venues.append(row)
+    return venues
+
+
+def _append_feed_lag_opportunity(
+    opportunities: list[dict[str, Any]],
+    slow: dict[str, Any],
+    ref_mid: float,
+    lag_sec: float,
+    min_edge_bps: float,
+) -> None:
+    edge_bps = (ref_mid - slow["best_ask"]) / ref_mid * 10_000
+    reverse_edge_bps = (slow["best_bid"] - ref_mid) / ref_mid * 10_000
+    if edge_bps >= min_edge_bps:
+        opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=False))
+    elif reverse_edge_bps >= min_edge_bps:
+        opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=True))
+
+
+def scan_feed_lag_from_books(
+    books: dict[str, dict[str, dict[str, Any]]],
+    pair: str,
+    *,
+    lag_threshold_sec: float = DEFAULT_LAG_THRESHOLD_SEC,
+    min_edge_bps: float = DEFAULT_EDGE_BPS,
+) -> dict[str, Any]:
+    venues = _venues_from_books(books, pair)
 
     fast_refs = [v for v in venues if v["speed_tier"] == "fast" and v["timestamp_epoch"]]
     slow_refs = [v for v in venues if v["speed_tier"] == "slow" and v["timestamp_epoch"]]
@@ -120,13 +140,7 @@ def scan_feed_lag_from_books(
         if lag_sec < lag_threshold_sec:
             continue
 
-        edge_bps = (ref_mid - slow["best_ask"]) / ref_mid * 10_000
-        reverse_edge_bps = (slow["best_bid"] - ref_mid) / ref_mid * 10_000
-
-        if edge_bps >= min_edge_bps:
-            opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=False))
-        elif reverse_edge_bps >= min_edge_bps:
-            opportunities.append(_feed_lag_opportunity(slow, ref_mid, lag_sec, reverse=True))
+        _append_feed_lag_opportunity(opportunities, slow, ref_mid, lag_sec, min_edge_bps)
 
     opportunities.sort(key=lambda x: float(x.get("edge_bps") or 0), reverse=True)
     return {

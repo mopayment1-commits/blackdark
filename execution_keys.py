@@ -247,6 +247,41 @@ def execution_keys_status() -> dict[str, Any]:
     }
 
 
+def _prepare_execution_config(parsed: dict[str, str], *, enable_live: bool, enable_auto_loop: bool) -> None:
+    if not parsed.get("AUTO_EXECUTION_DRY_RUN"):
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "true" if not enable_live else "false"
+    if enable_auto_loop:
+        parsed.setdefault("AUTO_EXECUTION_LOOP", "true")
+        parsed.setdefault("AUTO_EXECUTION_INTERVAL_SEC", "5")
+    parsed.setdefault("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25")
+    parsed.setdefault("AUTO_EXECUTION_QUOTE_USD", "100")
+
+
+def _apply_live_mode(parsed: dict[str, str], *, enable_live: bool, has_keys: bool, verify_result: dict[str, Any] | None) -> bool:
+    if enable_live and has_keys and verify_result and verify_result.get("valid"):
+        parsed["AUTO_EXECUTION_ENABLED"] = "true"
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "false"
+        return True
+    parsed["AUTO_EXECUTION_ENABLED"] = "false"
+    if enable_live and has_keys:
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
+    elif "AUTO_EXECUTION_DRY_RUN" not in parsed:
+        parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
+    return False
+
+
+async def _persist_execution_state(parsed: dict[str, str]) -> bool:
+    auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
+    try:
+        from database import init_db, set_execution_state
+
+        await init_db()
+        await set_execution_state(auto_execution_enabled=auto_on, panic_active=False)
+    except Exception:
+        pass
+    return auto_on
+
+
 async def activate_live_execution(
     *,
     enable_live: bool = False,
@@ -259,13 +294,7 @@ async def activate_live_execution(
     """
     ensure_keys_file()
     parsed = parse_exchange_keys_file()
-    if not parsed.get("AUTO_EXECUTION_DRY_RUN"):
-        parsed["AUTO_EXECUTION_DRY_RUN"] = "true" if not enable_live else "false"
-    if enable_auto_loop:
-        parsed.setdefault("AUTO_EXECUTION_LOOP", "true")
-        parsed.setdefault("AUTO_EXECUTION_INTERVAL_SEC", "5")
-    parsed.setdefault("AUTO_EXECUTION_MIN_PROFIT_USDT", "0.25")
-    parsed.setdefault("AUTO_EXECUTION_QUOTE_USD", "100")
+    _prepare_execution_config(parsed, enable_live=enable_live, enable_auto_loop=enable_auto_loop)
 
     verify_result: dict[str, Any] | None = None
     has_keys = bool(parsed.get("BINANCE_API_KEY") and parsed.get("BINANCE_API_SECRET"))
@@ -276,29 +305,10 @@ async def activate_live_execution(
             parsed.get("BINANCE_API_SECRET"),
         )
 
-    if enable_live and has_keys:
-        if verify_result and verify_result.get("valid"):
-            parsed["AUTO_EXECUTION_ENABLED"] = "true"
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "false"
-        else:
-            enable_live = False
-            parsed["AUTO_EXECUTION_ENABLED"] = "false"
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
-    else:
-        parsed["AUTO_EXECUTION_ENABLED"] = "false"
-        if "AUTO_EXECUTION_DRY_RUN" not in parsed:
-            parsed["AUTO_EXECUTION_DRY_RUN"] = "true"
+    _apply_live_mode(parsed, enable_live=enable_live, has_keys=has_keys, verify_result=verify_result)
 
     save_exchange_keys_to_env(parsed)
-
-    try:
-        from database import init_db, set_execution_state
-
-        await init_db()
-        auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
-        await set_execution_state(auto_execution_enabled=auto_on, panic_active=False)
-    except Exception:
-        auto_on = parsed.get("AUTO_EXECUTION_LOOP", "true").lower() in {"1", "true", "yes"}
+    auto_on = await _persist_execution_state(parsed)
 
     mode = "live" if parsed.get("AUTO_EXECUTION_ENABLED") == "true" else "dry_run"
     msg = {
