@@ -130,6 +130,91 @@ async def simulate_spot_trade(
     return payload
 
 
+def _arbitrage_match(
+    opp: dict[str, Any],
+    *,
+    kind: str,
+    symbol: str | None,
+    buy_exchange: str | None,
+    sell_exchange: str | None,
+    exchange: str | None,
+    path: str | None,
+) -> bool:
+    if opp.get("kind") != kind:
+        return False
+    if symbol and opp.get("symbol") != symbol and opp.get("asset") != symbol.replace("/USDT", ""):
+        return False
+    if buy_exchange and opp.get("buy_exchange") != buy_exchange:
+        return False
+    if sell_exchange and opp.get("sell_exchange") != sell_exchange:
+        return False
+    if exchange and opp.get("exchange") != exchange:
+        return False
+    if path and opp.get("path") != path:
+        return False
+    return True
+
+
+def _find_arbitrage_match(
+    opportunities: list[dict[str, Any]],
+    *,
+    kind: str,
+    symbol: str | None,
+    buy_exchange: str | None,
+    sell_exchange: str | None,
+    exchange: str | None,
+    path: str | None,
+) -> dict[str, Any] | None:
+    for opp in opportunities:
+        if _arbitrage_match(
+            opp,
+            kind=kind,
+            symbol=symbol,
+            buy_exchange=buy_exchange,
+            sell_exchange=sell_exchange,
+            exchange=exchange,
+            path=path,
+        ):
+            return opp
+    if opportunities:
+        return next((o for o in opportunities if o.get("kind") == kind), opportunities[0])
+    return None
+
+
+def _no_arbitrage_match(kind: str, quote_amount: float) -> dict[str, Any]:
+    return {
+        "mode": "arbitrage_simulation",
+        "kind": kind,
+        "quote_amount": quote_amount,
+        "executed": False,
+        "message": "No matching arbitrage opportunity found for simulation.",
+        "timestamp": _utcnow_iso(),
+    }
+
+
+def _arbitrage_payload(
+    *,
+    kind: str,
+    quote_amount: float,
+    match: dict[str, Any],
+    net: float,
+) -> dict[str, Any]:
+    return {
+        "mode": "arbitrage_simulation",
+        "executed": True,
+        "kind": kind,
+        "quote_amount": quote_amount,
+        "opportunity": match,
+        "projected_profit_usd": round(net, 4),
+        "projected_profit_percent": round(float(match.get("net_profit_percent") or 0), 4),
+        "execution_feasibility": match.get("execution_feasibility"),
+        "estimated_duration": match.get("estimated_duration"),
+        "fees_usd": round(float(match.get("fees_usdt") or 0), 4),
+        "disclaimer": "Paper simulation — assumes full fill at depth-walk prices.",
+        "timestamp": _utcnow_iso(),
+    }
+
+
 async def simulate_arbitrage_trade(
     kind: str,
     quote_amount: float,
@@ -146,51 +231,21 @@ async def simulate_arbitrage_trade(
     scan = await scan_arbitrage_opportunities(quote_amount=quote_amount, prefer_live=True)
     opportunities = scan.get("opportunities") or []
 
-    match: dict[str, Any] | None = None
-    for opp in opportunities:
-        if opp.get("kind") != kind:
-            continue
-        if symbol and opp.get("symbol") != symbol and opp.get("asset") != symbol.replace("/USDT", ""):
-            continue
-        if buy_exchange and opp.get("buy_exchange") != buy_exchange:
-            continue
-        if sell_exchange and opp.get("sell_exchange") != sell_exchange:
-            continue
-        if exchange and opp.get("exchange") != exchange:
-            continue
-        if path and opp.get("path") != path:
-            continue
-        match = opp
-        break
-
-    if match is None and opportunities:
-        match = next((o for o in opportunities if o.get("kind") == kind), opportunities[0])
+    match = _find_arbitrage_match(
+        opportunities,
+        kind=kind,
+        symbol=symbol,
+        buy_exchange=buy_exchange,
+        sell_exchange=sell_exchange,
+        exchange=exchange,
+        path=path,
+    )
 
     if match is None:
-        return {
-            "mode": "arbitrage_simulation",
-            "kind": kind,
-            "quote_amount": quote_amount,
-            "executed": False,
-            "message": "No matching arbitrage opportunity found for simulation.",
-            "timestamp": _utcnow_iso(),
-        }
+        return _no_arbitrage_match(kind, quote_amount)
 
     net = float(match.get("net_profit_usdt") or 0)
-    payload = {
-        "mode": "arbitrage_simulation",
-        "executed": True,
-        "kind": kind,
-        "quote_amount": quote_amount,
-        "opportunity": match,
-        "projected_profit_usd": round(net, 4),
-        "projected_profit_percent": round(float(match.get("net_profit_percent") or 0), 4),
-        "execution_feasibility": match.get("execution_feasibility"),
-        "estimated_duration": match.get("estimated_duration"),
-        "fees_usd": round(float(match.get("fees_usdt") or 0), 4),
-        "disclaimer": "Paper simulation — assumes full fill at depth-walk prices.",
-        "timestamp": _utcnow_iso(),
-    }
+    payload = _arbitrage_payload(kind=kind, quote_amount=quote_amount, match=match, net=net)
 
     from database import insert_simulation_log
 
