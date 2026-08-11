@@ -252,7 +252,12 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
         or dataset.get("live_labeled_oracle")
         or 0
     )
-    v7: Verdict = "PASS" if live_labeled >= 50 else STR_PARTIALLY_PASS if live_labeled >= 1 else "FAIL"
+    if live_labeled >= 50:
+        v7: Verdict = "PASS"
+    elif live_labeled >= 1:
+        v7: Verdict = STR_PARTIALLY_PASS
+    else:
+        v7: Verdict = "FAIL"
     requirements.append(
         RequirementAssessment(
             7,
@@ -288,7 +293,12 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 9 Behavior data
-    v9: Verdict = "PASS" if behavior_events >= 1000 else STR_PARTIALLY_PASS if behavior_events >= 100 else "FAIL"
+    if behavior_events >= 1000:
+        v9: Verdict = "PASS"
+    elif behavior_events >= 100:
+        v9: Verdict = STR_PARTIALLY_PASS
+    else:
+        v9: Verdict = "FAIL"
     requirements.append(
         RequirementAssessment(
             9,
@@ -306,7 +316,12 @@ async def build_technical_due_diligence_report(*, probe_production: bool = True)
     )
 
     # 10 Paying subscribers
-    v10: Verdict = "PASS" if paid >= 10 else STR_PARTIALLY_PASS if paid >= 1 else "FAIL"
+    if paid >= 10:
+        v10: Verdict = "PASS"
+    elif paid >= 1:
+        v10: Verdict = STR_PARTIALLY_PASS
+    else:
+        v10: Verdict = "FAIL"
     requirements.append(
         RequirementAssessment(
             10,

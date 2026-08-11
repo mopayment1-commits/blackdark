@@ -135,7 +135,12 @@ def train_ppo_policy(
             for feat in DEFAULT_FEATURES:
                 score += float(w.get(feat, 0)) * float(feats.get(feat) or 0)
             prob = _sigmoid(score)
-            target = 1.0 if reward > 0 else 0.0 if reward == 0 else -1.0
+            if reward > 0:
+                target = 1.0
+            elif reward == 0:
+                target = 0.0
+            else:
+                target = -1.0
             grad_scale = (prob - (0.5 + target * 0.5)) * reward
             w["bias"] = float(w.get("bias", 0)) - lr * grad_scale
             for feat in DEFAULT_FEATURES:

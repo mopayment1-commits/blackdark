@@ -199,7 +199,9 @@ def build_whale_gravity_map(
                 "price": mkt.get("price"),
                 "change_24h": mkt.get("change_24h"),
                 "size": max(24, min(100, gravity + node["alert_count"] * 10)),
-                "label": "High gravity" if gravity >= 55 else "Moderate" if gravity >= 28 else "Low",
+                "label": (
+                    "High gravity" if gravity >= 55 else "Moderate" if gravity >= 28 else "Low"
+                ),
             }
         )
 

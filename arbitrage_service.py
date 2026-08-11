@@ -56,6 +56,14 @@ def _execution_feasibility(net_profit: float, slippage_bps: float) -> str:
     return "risky"
 
 
+def _latency_tier(source: str, data_age_sec: float) -> str:
+    if source == "websocket_live":
+        return "millisecond"
+    if data_age_sec <= 2:
+        return "sub_second"
+    return "slow"
+
+
 def _top_bid(book: dict[str, Any]) -> float | None:
     bids = book.get("bids") or []
     return float(bids[0][0]) if bids else None
@@ -345,7 +353,12 @@ async def scan_arbitrage_opportunities(
         prefer_live=prefer_live,
         force_rest=force_rest,
     )
-    profit_floor = 0.0 if profitable_only else (min_profit_usdt if min_profit_usdt is not None else -1_000_000.0)
+    if profitable_only:
+        profit_floor = 0.0
+    elif min_profit_usdt is not None:
+        profit_floor = min_profit_usdt
+    else:
+        profit_floor = -1_000_000.0
 
     if not books:
         return {
@@ -471,6 +484,8 @@ async def scan_arbitrage_opportunities(
         except Exception:
             logger.exception("Pricing error scan failed")
 
+    latency_tier = _latency_tier(source, data_age_sec)
+
     return {
         "opportunities": formatted,
         "top_opportunity": formatted[0] if formatted else None,
@@ -502,9 +517,7 @@ async def scan_arbitrage_opportunities(
         "data_source": source,
         "data_age_sec": round(data_age_sec, 2),
         "scan_ms": round((time.monotonic() - scan_started) * 1000, 1),
-        "latency_tier": (
-            "millisecond" if source == "websocket_live" else "sub_second" if data_age_sec <= 2 else "slow"
-        ),
+        "latency_tier": latency_tier,
         "quote_amount": notional,
         "constitution_gates": ["D3", "D4", "D2", "D8"],
         "timestamp": _utcnow_iso(),

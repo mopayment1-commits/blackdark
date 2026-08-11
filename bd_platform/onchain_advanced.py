@@ -125,14 +125,39 @@ async def compute_advanced_metrics(asset: str = "BTC", *, notional: float = 10_0
     risk = _var_cvar(rets, notional=notional)
     mc = _monte_carlo(closes)
 
-    return {
+        if mvrv_z > 2:
+        mvrv_signal = "overheated"
+    elif mvrv_z < -1:
+        mvrv_signal = "undervalued"
+    else:
+        mvrv_signal = "neutral"
+    if nupl_proxy > 0.5:
+        nupl_signal = "euphoria"
+    elif nupl_proxy < 0:
+        nupl_signal = "capitulation"
+    else:
+        nupl_signal = "neutral"
+    if puell_proxy < 0.5:
+        puell_signal = "miner_stress"
+    elif puell_proxy > 1.2:
+        puell_signal = "miner_profit"
+    else:
+        puell_signal = "neutral"
+    if sopr_proxy > 1.05:
+        sopr_signal = "profit_taking"
+    elif sopr_proxy < 0.95:
+        sopr_signal = "capitulation"
+    else:
+        sopr_signal = "neutral"
+
+return {
         "asset": asset,
         "price": round(price, 2),
         "timestamp": _utcnow(),
-        "mvrv": {"ratio": round(mvrv, 3), "z_score": round(mvrv_z, 3), "signal": "overheated" if mvrv_z > 2 else "undervalued" if mvrv_z < -1 else "neutral"},
-        "nupl_proxy": {"value": round(nupl_proxy, 4), "signal": "euphoria" if nupl_proxy > 0.5 else "capitulation" if nupl_proxy < 0 else "neutral"},
-        "puell_proxy": {"ratio": round(puell_proxy, 3), "signal": "miner_stress" if puell_proxy < 0.5 else "miner_profit" if puell_proxy > 1.2 else "neutral"},
-        "sopr_proxy": {"ratio": round(sopr_proxy, 3), "signal": "profit_taking" if sopr_proxy > 1.05 else "capitulation" if sopr_proxy < 0.95 else "neutral"},
+        "mvrv": {"ratio": round(mvrv, 3), "z_score": round(mvrv_z, 3), "signal": mvrv_signal},
+        "nupl_proxy": {"value": round(nupl_proxy, 4), "signal": nupl_signal},
+        "puell_proxy": {"ratio": round(puell_proxy, 3), "signal": puell_signal},
+        "sopr_proxy": {"ratio": round(sopr_proxy, 3), "signal": sopr_signal},
         "hodl_waves": hodl_waves,
         "s2f_proxy": {"ratio": round(s2f, 2), "note": "Supply/annual-issuance proxy"},
         "var_cvar": risk,

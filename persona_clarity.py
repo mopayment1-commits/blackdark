@@ -28,6 +28,41 @@ def _conflict(payload: dict[str, Any]) -> dict[str, Any]:
     return payload.get("dimension_conflict") or {}
 
 
+def _retail_texts(
+    *,
+    action: str,
+    asset: str,
+    score: float,
+    reject: bool,
+    veto: bool,
+    net_profit_usdt: float,
+) -> tuple[str, str]:
+    if reject:
+        ar_suffix = "النظام رفض الإشارة لأنها غير مضمونة التنفيذ بعد التكاليف."
+        en_suffix = "Rejected: not executable after real costs."
+    elif veto:
+        ar_suffix = "يوجد تعارض بين مصادر السوق — الأفضل عدم الدخول الآن."
+        en_suffix = "Sources contradict — stay flat."
+    else:
+        ar_suffix = f"صافي تقديري بعد التكاليف حوالي ${net_profit_usdt:.2f}."
+        en_suffix = f"Estimated net after costs ~${net_profit_usdt:.2f}."
+
+    retail_ar = (
+        f"{'انتظر' if action == 'WAIT' else 'فرصة واضحة'} على {asset}: "
+        f"الدرجة {score:.0f}/100. "
+        + ar_suffix
+    )
+    retail_en = f"{'Wait' if action == 'WAIT' else 'Clear opportunity'} on {asset}: score {score:.0f}/100. " + en_suffix
+    return retail_en, retail_ar
+
+
+def _persona(en: str, ar: str, include_ar: bool) -> dict[str, str]:
+    row = {"en": en, "text": en}
+    if include_ar:
+        row["ar"] = ar
+    return row
+
+
 def build_persona_clarity(
     *,
     asset: str,
@@ -49,31 +84,13 @@ def build_persona_clarity(
     disappear = half.get("disappearance_probability")
     action = "WAIT" if (reject or veto or verdict == "Do Not Touch") else "ACT"
 
-    retail_ar = (
-        f"{'انتظر' if action == 'WAIT' else 'فرصة واضحة'} على {asset}: "
-        f"الدرجة {score:.0f}/100. "
-        + (
-            "النظام رفض الإشارة لأنها غير مضمونة التنفيذ بعد التكاليف."
-            if reject
-            else (
-                "يوجد تعارض بين مصادر السوق — الأفضل عدم الدخول الآن."
-                if veto
-                else f"صافي تقديري بعد التكاليف حوالي ${net_profit_usdt:.2f}."
-            )
-        )
-    )
-    retail_en = (
-        f"{'Wait' if action == 'WAIT' else 'Clear opportunity'} on {asset}: "
-        f"score {score:.0f}/100. "
-        + (
-            "Rejected: not executable after real costs."
-            if reject
-            else (
-                "Sources contradict — stay flat."
-                if veto
-                else f"Estimated net after costs ~${net_profit_usdt:.2f}."
-            )
-        )
+    retail_en, retail_ar = _retail_texts(
+        action=action,
+        asset=asset,
+        score=score,
+        reject=reject,
+        veto=veto,
+        net_profit_usdt=net_profit_usdt,
     )
 
     pro_ar = (
@@ -113,12 +130,6 @@ def build_persona_clarity(
         "Not an indicator dashboard — a sellable labeled signal lexicon."
     )
 
-    def _persona(en: str, ar: str) -> dict[str, str]:
-        row = {"en": en, "text": en}
-        if include_ar:
-            row["ar"] = ar
-        return row
-
     return {
         "action": action,
         "asset": asset,
@@ -127,11 +138,11 @@ def build_persona_clarity(
         "regime": regime,
         "lang": "en",
         "personas": {
-            "retail": _persona(retail_en, retail_ar),
-            "pro": _persona(pro_en, pro_ar),
-            "whale": _persona(whale_en, whale_ar),
-            "fund": _persona(fund_en, fund_ar),
-            "acquirer": _persona(acquirer_en, acquirer_ar),
+            "retail": _persona(retail_en, retail_ar, include_ar),
+            "pro": _persona(pro_en, pro_ar, include_ar),
+            "whale": _persona(whale_en, whale_ar, include_ar),
+            "fund": _persona(fund_en, fund_ar, include_ar),
+            "acquirer": _persona(acquirer_en, acquirer_ar, include_ar),
         },
         "hooks": {
             "problem_solved_retail": "one clear act/wait instead of 200 indicators",

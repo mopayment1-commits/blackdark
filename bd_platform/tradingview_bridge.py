@@ -34,7 +34,12 @@ async def handle_webhook(payload: dict[str, Any], *, signature: str | None = Non
 
     action = str(payload.get("action") or payload.get("strategy", {}).get("order_action") or "").lower()
     symbol = str(payload.get("symbol") or payload.get("ticker") or "BTC").replace("USDT", "")
-    side = "buy" if action in {"buy", "long", "enter_long"} else "sell" if action in {"sell", "short"} else None
+    if action in {"buy", "long", "enter_long"}:
+        side = "buy"
+    elif action in {"sell", "short"}:
+        side = "sell"
+    else:
+        side = None
 
     if not side:
         return {"accepted": True, "executed": False, "reason": "no_trade_action", "payload": payload}

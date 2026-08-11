@@ -196,7 +196,12 @@ def estimate_opportunity_half_life(opp: dict[str, Any], *, live_duration_seconds
     remaining = max(0.0, half - lived)
     # Survival under exponential half-life model
     p_disappear = 1.0 if half <= 0 else 1.0 - math.pow(0.5, lived / half)
-    urgency = "critical" if remaining <= 5 else "high" if remaining <= 15 else "normal"
+    if remaining <= 5:
+        urgency = "critical"
+    elif remaining <= 15:
+        urgency = "high"
+    else:
+        urgency = "normal"
     return {
         "expected_half_life_seconds": half,
         "lived_seconds": round(lived, 2),

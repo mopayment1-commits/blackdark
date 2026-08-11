@@ -26,11 +26,21 @@ def _parse_ts(value: str | None) -> float | None:
 
 
 def _validity_lifetime(row: dict[str, Any], created: float, resolved: float | None) -> float:
-    if resolved is not None and resolved >= created:
-        return resolved - created
+    observed = _observed_lifetime(created, resolved)
+    if observed is not None:
+        return observed
     # Synthetic educational lifetime from confidence / score
-    score = float(row.get("opportunity_score") or row.get("confidence") or 50)
-    return 600 + score * 18  # ~10-40 minutes band
+    return 600 + _synthetic_lifetime_score(row) * 18  # ~10-40 minutes band
+
+
+def _observed_lifetime(created: float, resolved: float | None) -> float | None:
+    if resolved is None or resolved < created:
+        return None
+    return resolved - created
+
+
+def _synthetic_lifetime_score(row: dict[str, Any]) -> float:
+    return float(row.get("opportunity_score") or row.get("confidence") or 50)
 
 
 def _row_to_decay_point(row: dict[str, Any], asset_filter: str | None) -> dict[str, Any] | None:

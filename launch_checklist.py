@@ -130,7 +130,14 @@ def _run_pytest_quick() -> tuple[bool, str]:
 
 
 def _constitution_modules_ready() -> bool:
-    required = [
+    for path in _constitution_required_paths():
+        if not _file_exists(path):
+            return False
+    return True
+
+
+def _constitution_required_paths() -> tuple[str, ...]:
+    return (
         "docs/PRODUCT_CONSTITUTION_AR.md",
         "net_edge_truth.py",
         "persona_clarity.py",
@@ -139,8 +146,7 @@ def _constitution_modules_ready() -> bool:
         "decision_enrichment.py",
         "ux_mode.py",
         "opportunity_tracker.py",
-    ]
-    return all(_file_exists(path) for path in required)
+    )
 
 
 def _checklist_rows() -> list[dict[str, Any]]:

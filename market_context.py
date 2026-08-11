@@ -695,23 +695,26 @@ def oracle_narrative(
     if is_stablecoin(asset):
         return f"{asset} is pegged — hold for stability, not for trading gains."
 
-    direction = "surging" if change > 2 else "rising" if change > 0 else "falling"
-    whale_phrase = (
-        "massive whale inflow"
-        if quote_volume > 50_000_000
-        else "moderate interest"
-        if quote_volume > 10_000_000
-        else "low activity"
-    )
-    signal = (
-        "strong bullish analytics"
-        if score >= 70
-        else "bullish analytics"
-        if score >= 55
-        else "neutral analytics"
-        if score >= 40
-        else "bearish analytics"
-    )
+    if change > 2:
+        direction = "surging"
+    elif change > 0:
+        direction = "rising"
+    else:
+        direction = "falling"
+    if quote_volume > 50_000_000:
+        whale_phrase = "massive whale inflow"
+    elif quote_volume > 10_000_000:
+        whale_phrase = "moderate interest"
+    else:
+        whale_phrase = "low activity"
+    if score >= 70:
+        signal = "strong bullish analytics"
+    elif score >= 55:
+        signal = "bullish analytics"
+    elif score >= 40:
+        signal = "neutral analytics"
+    else:
+        signal = "bearish analytics"
     return (
         f"Analytics summary: {action} — {market_summary} — "
         f"{risk_level} Risk — {trend_direction} — {asset} is {direction} {change:+.2f}% "
@@ -755,7 +758,12 @@ def build_full_oracle_response(
     resistance = round(price * 1.03, -2)
     prediction_low = round(price * (1 + (change / 100) * 0.5), -2)
     prediction_high = round(price * (1 + (change / 100) * 1.5), -2)
-    volatility = "Low" if abs(change) < 2 else "Medium" if abs(change) < 5 else "High"
+    if abs(change) < 2:
+        volatility = "Low"
+    elif abs(change) < 5:
+        volatility = "Medium"
+    else:
+        volatility = "High"
     liquidity, _ = liquidity_label(quote_volume)
     market_summary = f"Market: {sentiment} | Volatility: {volatility} | Liquidity: {liquidity}"
     action = oracle_action(score, price, support, resistance)

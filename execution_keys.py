@@ -219,13 +219,20 @@ def execution_keys_status() -> dict[str, Any]:
     has_keys = bool(
         parsed.get("BINANCE_API_KEY") or os.getenv("BINANCE_API_KEY")
     ) and bool(parsed.get("BINANCE_API_SECRET") or os.getenv("BINANCE_API_SECRET"))
-    return {
+        if live_flag and has_keys and not dry_run:
+        mode = "live"
+    elif dry_run:
+        mode = "dry_run"
+    else:
+        mode = "off"
+
+return {
         "timestamp": _utcnow(),
         "keys_file": str(KEYS_FILE),
         "has_binance_keys": has_keys,
         "auto_execution_dry_run": dry_run,
         "auto_execution_live_flag": live_flag,
-        "mode": "live" if live_flag and has_keys and not dry_run else ("dry_run" if dry_run else "off"),
+        "mode": mode,
         "binance_testnet": os.getenv("BINANCE_TESTNET", "false"),
         "setup_script": "python scripts/activate_live_execution.py",
     }

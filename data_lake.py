@@ -57,8 +57,7 @@ async def get_category_bundle(
     return await fetch_latest_ingestion_by_category(category, max_age_seconds=age, limit=100)
 
 
-async def build_lake_context_for_oracle(asset: str = "BTC") -> dict[str, Any]:
-    """Merge all category snapshots into oracle-ready context."""
+async def _load_category_bundles() -> tuple[dict[str, Any], str | None]:
     bundles: dict[str, Any] = {}
     latest_ts: str | None = None
 
@@ -75,8 +74,10 @@ async def build_lake_context_for_oracle(asset: str = "BTC") -> dict[str, Any]:
             ts = row.get("fetched_at")
             if ts and (latest_ts is None or ts > latest_ts):
                 latest_ts = ts
+    return bundles, latest_ts
 
-    # Derive high-level signals from lake (no live API)
+
+def _sentiment_from_bundles(bundles: dict[str, Any]) -> tuple[Any, list[str]]:
     sentiment_rows = bundles.get("sentiment", {}).get("items") or []
     fear_greed = None
     trending: list[str] = []
@@ -86,36 +87,64 @@ async def build_lake_context_for_oracle(asset: str = "BTC") -> dict[str, Any]:
             fear_greed = payload.get("value")
         if row.get("source_id") == "coingecko_trending":
             trending = payload.get("symbols") or []
+    return fear_greed, trending
 
+
+def _news_from_bundles(bundles: dict[str, Any]) -> list[dict[str, Any]]:
     news_items: list[dict[str, Any]] = []
     for row in bundles.get("news", {}).get("items") or []:
         headlines = (row.get("payload") or {}).get("headlines") or []
         news_items.extend(headlines[:5])
+    return news_items
 
+
+def _macro_changes_from_bundles(bundles: dict[str, Any]) -> dict[str, Any]:
     macro_items = bundles.get("macro", {}).get("items") or []
     macro_changes: dict[str, Any] = {}
     for row in macro_items:
         if row.get("source_id") == "yahoo_finance":
             macro_changes = (row.get("payload") or {}).get("changes") or {}
+    return macro_changes
 
+
+def _defi_tvl_from_bundles(bundles: dict[str, Any]) -> Any:
     defi_items = bundles.get("defi", {}).get("items") or []
     tvl_usd = None
     for row in defi_items:
         if row.get("source_id") == "defillama_tvl":
             tvl_usd = (row.get("payload") or {}).get("total_tvl_usd")
+    return tvl_usd
 
+
+def _price_quotes_from_bundles(bundles: dict[str, Any]) -> list[dict[str, Any]]:
     price_items = bundles.get("prices", {}).get("items") or []
     price_quotes: list[dict[str, Any]] = []
     for row in price_items[:15]:
         payload = row.get("payload") or {}
         if payload.get("symbol") and payload.get("price"):
             price_quotes.append(payload)
+    return price_quotes
 
+
+def _btc_stats_from_bundles(bundles: dict[str, Any]) -> dict[str, Any]:
     onchain_items = bundles.get("onchain", {}).get("items") or []
     btc_stats: dict[str, Any] = {}
     for row in onchain_items:
         if row.get("source_id") == "blockchain_com":
             btc_stats = row.get("payload") or {}
+    return btc_stats
+
+
+async def build_lake_context_for_oracle(asset: str = "BTC") -> dict[str, Any]:
+    """Merge all category snapshots into oracle-ready context."""
+    bundles, latest_ts = await _load_category_bundles()
+    fear_greed, trending = _sentiment_from_bundles(bundles)
+    news_items = _news_from_bundles(bundles)
+    macro_changes = _macro_changes_from_bundles(bundles)
+    tvl_usd = _defi_tvl_from_bundles(bundles)
+    price_items = bundles.get("prices", {}).get("items") or []
+    price_quotes = _price_quotes_from_bundles(bundles)
+    btc_stats = _btc_stats_from_bundles(bundles)
 
     return {
         "enabled": bool(bundles),

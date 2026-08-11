@@ -16,6 +16,12 @@ def infra_matrix() -> dict[str, Any]:
 
     pg = use_postgres()
     rl = policy_status()
+    if pg and pool_stats().get("active"):
+        pg_status = "connected"
+    elif pg:
+        pg_status = "configured"
+    else:
+        pg_status = "sqlite_fallback"
     return {
         "microservices": {
             "status": "ready",
@@ -25,7 +31,7 @@ def infra_matrix() -> dict[str, Any]:
             "scale_hint": "docker compose up -d --scale arbitrage=2",
         },
         "postgresql": {
-            "status": "connected" if pg and pool_stats().get("active") else ("configured" if pg else "sqlite_fallback"),
+            "status": pg_status,
             "engine": "postgresql" if pg else "sqlite",
             "pool": pool_stats(),
             "database_url_set": bool(os.getenv("DATABASE_URL", "").strip()),

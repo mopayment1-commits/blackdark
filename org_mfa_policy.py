@@ -24,7 +24,7 @@ def org_requires_mfa_for_email(email: str) -> dict[str, Any]:
     }
 
 
-async def assert_login_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code_present: bool) -> dict[str, Any]:
+def assert_login_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code_present: bool) -> dict[str, Any]:
     """
     Call from auth login path.
     Raises ValueError when org policy requires MFA and user lacks it.

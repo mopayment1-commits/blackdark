@@ -31,14 +31,21 @@ def bus_status() -> dict[str, Any]:
     producer_ok = False
     if kafka_enabled():
         producer_ok = _get_producer() is not None
-    return {
+        if kafka_enabled() and producer_ok:
+        primary = "kafka"
+    elif redis_url():
+        primary = "redis"
+    else:
+        primary = "local"
+
+return {
         "kafka_configured": kafka_enabled(),
         "kafka_brokers": kafka_brokers() or None,
         "kafka_producer_ok": producer_ok,
         "kafka_topics": list(KAFKA_TOPICS),
         "redis_url_configured": bool(redis_url()),
         "local_bus_enabled": bus_enabled(),
-        "primary": "kafka" if (kafka_enabled() and producer_ok) else ("redis" if redis_url() else "local"),
+        "primary": primary,
         "messages_buffered_local": len(_received),
         "note": "Set KAFKA_BROKERS=localhost:9092 (docker compose kafka service).",
     }

@@ -69,11 +69,18 @@ def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
     book_read_ms = (time.perf_counter() - t_book) * 1000
     total_ms = (time.perf_counter() - t0) * 1000
 
-    return {
+        if total_ms < 50:
+        latency_tier = "millisecond"
+    elif total_ms < 500:
+        latency_tier = "sub_second"
+    else:
+        latency_tier = "slow"
+
+return {
         "engine": "fast_scan_in_memory",
         "latency_ms": round(total_ms, 3),
         "book_read_ms": round(book_read_ms, 3),
-        "latency_tier": "millisecond" if total_ms < 50 else "sub_second" if total_ms < 500 else "slow",
+        "latency_tier": latency_tier,
         "opportunities": sorted(opportunities, key=lambda x: x.get("net_profit_usdt", 0), reverse=True),
         "books": hub_stats(),
         "assets_scanned": len(assets),

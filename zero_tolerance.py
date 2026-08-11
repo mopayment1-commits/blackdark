@@ -197,9 +197,7 @@ def unknown_when_source_missing(
     }
 
 
-def apply_zero_tolerance(payload: dict[str, Any]) -> dict[str, Any]:
-    """Attach zero_tolerance audit block; strip illegal LIVE claim; never invent fields."""
-    out = dict(payload)
+def _apply_live_label_gate(out: dict[str, Any]) -> dict[str, Any]:
     freshness = out.get("data_freshness") or out.get("freshness") or {}
     live = live_label_allowed(freshness if isinstance(freshness, dict) else {})
     if live["violated"]:
@@ -209,7 +207,10 @@ def apply_zero_tolerance(payload: dict[str, Any]) -> dict[str, Any]:
         out["live_claim_allowed"] = False
     else:
         out["live_claim_allowed"] = True
+    return live
 
+
+def _why_inputs(out: dict[str, Any]) -> tuple[Any, Any, Any]:
     why = None
     factors = None
     invalidation = None
@@ -223,15 +224,21 @@ def apply_zero_tolerance(payload: dict[str, Any]) -> dict[str, Any]:
         why = expl.get("why") or out.get("why") or out.get("one_sentence")
     if not factors:
         factors = expl.get("top_3_factors") or out.get("top_3_factors")
+    return why, factors, invalidation
+
+
+def _score_gate(out: dict[str, Any], why: Any, factors: Any, invalidation: Any) -> dict[str, Any]:
     score = out.get("opportunity_score", out.get("confidence", out.get("score")))
-    score_gate = score_requires_why(
+    return score_requires_why(
         score=score,
         why_text=str(why) if why is not None else None,
         factors=list(factors) if isinstance(factors, list) else None,
         invalidation=invalidation,
     )
 
-    text_blob = " ".join(
+
+def _payload_text_blob(out: dict[str, Any], why: Any) -> str:
+    return " ".join(
         str(x)
         for x in (
             out.get("one_sentence"),
@@ -241,15 +248,25 @@ def apply_zero_tolerance(payload: dict[str, Any]) -> dict[str, Any]:
         )
         if x
     )
-    fake = detect_fake_precision(text_blob)
 
-    # Hallucination posture: if freshness unknown and no sources listed → prefer WAIT banner.
+
+def _hallucination_posture(out: dict[str, Any]) -> dict[str, Any]:
     sources = out.get("data_sources") or out.get("sources") or []
     has_source = bool(sources) or bool(out.get("data_freshness")) or bool(out.get("data_provenance"))
-    hall = unknown_when_source_missing(
+    return unknown_when_source_missing(
         has_source=has_source,
         claimed_fact=str(out.get("fabricated_claim") or ""),
     )
+
+
+def apply_zero_tolerance(payload: dict[str, Any]) -> dict[str, Any]:
+    """Attach zero_tolerance audit block; strip illegal LIVE claim; never invent fields."""
+    out = dict(payload)
+    live = _apply_live_label_gate(out)
+    why, factors, invalidation = _why_inputs(out)
+    score_gate = _score_gate(out, why, factors, invalidation)
+    fake = detect_fake_precision(_payload_text_blob(out, why))
+    hall = _hallucination_posture(out)
 
     violations = [
         x["defect"]

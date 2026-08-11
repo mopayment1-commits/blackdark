@@ -119,7 +119,11 @@ async def compute_financial_models(asset: str, *, notional: float = 10_000) -> d
 
     nvt = market_cap / quote_volume if quote_volume > 0 else 0.0
     nvt_signal = (
-        "Overheated (high NVT)" if nvt > 120 else "Fair range" if nvt > 40 else "Undervalued zone"
+        "Overheated (high NVT)"
+        if nvt > 120
+        else "Fair range"
+        if nvt > 40
+        else "Undervalued zone"
     )
 
     sma200 = _sma(closes, min(200, len(closes)))

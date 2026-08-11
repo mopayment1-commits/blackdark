@@ -65,6 +65,35 @@ def _outcome_points(_system_action: str, label: str | None) -> float | None:
     return 0.0
 
 
+def _score_recent_rows(
+    rows: list[dict[str, Any]],
+    labels: dict[str, str],
+) -> tuple[float, float, int, list[dict[str, Any]]]:
+    system_score = 0.0
+    user_score = 0.0
+    scored = 0
+    enriched_recent = []
+    for row in reversed(rows[-20:]):
+        pid = row.get("prediction_id")
+        label = labels.get(str(pid)) if pid is not None else None
+        sys_pts = _outcome_points(str(row.get("system_action") or ""), label)
+        if sys_pts is not None:
+            scored += 1
+            system_score += sys_pts
+            user_score += sys_pts if row.get("followed") else -sys_pts
+        enriched_recent.append(
+            {
+                "asset": row.get("asset"),
+                "system_action": row.get("system_action"),
+                "followed": row.get("followed"),
+                "prediction_id": row.get("prediction_id"),
+                "created_at": row.get("created_at"),
+                "outcome_label": label or "pending",
+            }
+        )
+    return system_score, user_score, scored, enriched_recent
+
+
 def personal_mirror(
     user_key: str,
     *,
@@ -80,28 +109,7 @@ def personal_mirror(
     ignored = [r for r in rows if not r.get("followed")]
     labels = label_by_id or {}
 
-    system_score = 0.0
-    user_score = 0.0
-    scored = 0
-    enriched_recent = []
-    for r in reversed(rows[-20:]):
-        pid = r.get("prediction_id")
-        label = labels.get(str(pid)) if pid is not None else None
-        sys_pts = _outcome_points(str(r.get("system_action") or ""), label)
-        if sys_pts is not None:
-            scored += 1
-            system_score += sys_pts
-            user_score += sys_pts if r.get("followed") else -sys_pts
-        enriched_recent.append(
-            {
-                "asset": r.get("asset"),
-                "system_action": r.get("system_action"),
-                "followed": r.get("followed"),
-                "prediction_id": r.get("prediction_id"),
-                "created_at": r.get("created_at"),
-                "outcome_label": label or "pending",
-            }
-        )
+    system_score, user_score, scored, enriched_recent = _score_recent_rows(rows, labels)
 
     delta = round(system_score - user_score, 2) if scored else None
     return {
