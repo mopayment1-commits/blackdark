@@ -12,9 +12,9 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 from path_safety import ensure_under, safe_data_file
-from urllib.parse import quote
 
 _LOCK = threading.Lock()
 _PATH = safe_data_file("trust_debt.json")
@@ -62,7 +62,7 @@ def record_trust_event(
             "note": note,
             "at": _utcnow().isoformat(),
         }
-        row["events"] = (row.get("events") or [])[-199:] + [ev]
+        row["events"] = [*(row.get("events") or [])[-199:], ev]
         if kind in {"ledger_decision", "anti_hype_session", "kill_followed"}:
             row["ledger_points"] = float(row.get("ledger_points") or 0) + float(weight)
         elif kind in {"unverified_ai", "hype_click", "external_signal"}:
@@ -113,7 +113,7 @@ def build_trust_debt_score(*, user_key: str = "anon", window_days: int = 7) -> d
     unverified = _weighted_points(recent, {"unverified_ai", "hype_click", "external_signal"})
     # Debt 0–100: high unverified / low ledger → high debt
     raw = 100.0 * (unverified / max(1.0, unverified + ledger * 1.5))
-    debt = int(round(min(100.0, max(0.0, raw))))
+    debt = round(min(100.0, max(0.0, raw)))
     anon = hashlib.sha256(uk.encode()).hexdigest()[:10]
     reduce_by = max(0, 3 - int(ledger))
     share = (

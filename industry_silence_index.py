@@ -107,10 +107,7 @@ def ensure_seed_events() -> None:
 def build_industry_silence_index() -> dict[str, Any]:
     ensure_seed_events()
     events = _read_events(30)
-    if not events:
-        avg_silence = 1.0
-    else:
-        avg_silence = round(sum(float(e.get("silence_ratio") or 0) for e in events) / len(events), 4)
+    avg_silence = 1.0 if not events else round(sum(float(e.get("silence_ratio") or 0) for e in events) / len(events), 4)
     score = round(avg_silence * 100, 1)
     share = (
         f"BLACKDARK Industry Silence Index · {score}/100 · "

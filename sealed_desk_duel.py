@@ -14,9 +14,9 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 from path_safety import ensure_under, safe_data_file
-from urllib.parse import quote
 
 _LOCK = threading.Lock()
 _PATH = safe_data_file("sealed_desk_duels.jsonl")

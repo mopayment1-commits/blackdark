@@ -19,7 +19,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from _secret_io import write_private_text  # noqa: E402
+from _secret_io import write_private_text
 
 OUT = ROOT / ".env.softlaunch.local"
 
@@ -53,7 +53,7 @@ def _parse_existing(path: Path) -> dict[str, str]:
         k, _, v = raw.partition("=")
         out[k.strip()] = v.strip()
     # Empty/whitespace-only Notepad residue counts as missing.
-    return out if out else {}
+    return out or {}
 
 
 def build_block(*, admin_email: str, rotate: bool) -> dict[str, str]:

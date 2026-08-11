@@ -11,8 +11,8 @@ from typing import Any
 async def build_buyer_model_card() -> dict[str, Any]:
     regime = {}
     try:
-        from pathlib import Path
         import json
+        from pathlib import Path
 
         p = Path("data/models/regime/training_status.json")
         if p.exists():
