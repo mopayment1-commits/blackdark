@@ -180,10 +180,109 @@ def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
     return {"url": session.url}
 
 
+async def _claim_stripe_webhook_event(event_id: str, event_type: Any) -> dict[str, Any] | None:
+    if not event_id:
+        return None
+    from database import claim_billing_webhook_event
+
+    claimed = await claim_billing_webhook_event(
+        provider="stripe",
+        event_id=event_id,
+        event_type=str(event_type),
+    )
+    if claimed:
+        return None
+    return {"handled": True, "action": "duplicate_ignored", "event_id": event_id}
+
+
+async def _handle_stripe_checkout_completed(data_object: dict[str, Any]) -> dict[str, Any]:
+    from database import activate_paid_subscription
+
+    email = (
+        (data_object.get("customer_details") or {}).get("email")
+        or data_object.get("customer_email")
+        or ""
+    )
+    tier = (data_object.get("metadata") or {}).get("tier", "pro")
+    stripe_sub_id = data_object.get("subscription")
+    stripe_customer_id = data_object.get("customer")
+    if email and stripe_sub_id:
+        await activate_paid_subscription(
+            email,
+            tier,
+            str(stripe_sub_id),
+            stripe_customer_id=str(stripe_customer_id) if stripe_customer_id else None,
+        )
+        logger.info(
+            "Subscription activated | email=%s tier=%s currency=USD",
+            str(email).replace("\r", " ").replace("\n", " "),
+            str(tier).replace("\r", " ").replace("\n", " "),
+        )
+    return {"handled": True, "action": "checkout_completed", "currency": "USD"}
+
+
+async def _handle_stripe_subscription_updated(data_object: dict[str, Any]) -> dict[str, Any]:
+    stripe_sub_id = str(data_object.get("id") or "")
+    status = str(data_object.get("status") or "active")
+    tier = (data_object.get("metadata") or {}).get("tier", "pro")
+    if stripe_sub_id:
+        from database import upsert_subscription_by_stripe_id
+
+        await upsert_subscription_by_stripe_id(
+            stripe_sub_id,
+            tier=tier,
+            status=_map_stripe_status(status),
+        )
+    return {"handled": True, "action": "subscription_updated"}
+
+
+async def _handle_stripe_subscription_deleted(data_object: dict[str, Any]) -> dict[str, Any]:
+    from database import cancel_subscription_by_stripe_id
+
+    stripe_sub_id = str(data_object.get("id") or "")
+    if stripe_sub_id:
+        await cancel_subscription_by_stripe_id(stripe_sub_id)
+    return {"handled": True, "action": "subscription_cancelled"}
+
+
+async def _handle_stripe_payment_failed(
+    data_object: dict[str, Any],
+    event_type: Any,
+) -> dict[str, Any]:
+    stripe_sub_id = str(data_object.get("subscription") or "")
+    if stripe_sub_id:
+        from database import upsert_subscription_by_stripe_id
+
+        await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
+        logger.warning(
+            "Stripe dunning | sub=%s event=%s",
+            str(stripe_sub_id).replace("\r", " ").replace("\n", " "),
+            str(event_type).replace("\r", " ").replace("\n", " "),
+        )
+    return {"handled": True, "action": "payment_failed", "dunning": True}
+
+
+async def _handle_stripe_invoice_paid(data_object: dict[str, Any]) -> dict[str, Any]:
+    stripe_sub_id = str(data_object.get("subscription") or "")
+    if stripe_sub_id:
+        from database import upsert_subscription_by_stripe_id
+
+        await upsert_subscription_by_stripe_id(stripe_sub_id, status="active")
+    return {"handled": True, "action": "invoice_paid", "currency": "USD"}
+
+
+def _handle_stripe_refund_or_dispute(data_object: dict[str, Any], event_type: Any) -> dict[str, Any]:
+    # Entitlement stays until subscription cancels unless ops force-expire.
+    logger.info(
+        "Stripe refund/dispute recorded | type=%s id=%s",
+        str(event_type).replace("\r", " ").replace("\n", " "),
+        str(data_object.get("id")).replace("\r", " ").replace("\n", " "),
+    )
+    return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
+
+
 async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     from database import (
-        activate_paid_subscription,
-        cancel_subscription_by_stripe_id,
         claim_billing_webhook_event,
     )
 
@@ -201,77 +300,22 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     data_object = (event.get("data") or {}).get("object") or {}
 
     if event_type == "checkout.session.completed":
-        email = (
-            (data_object.get("customer_details") or {}).get("email")
-            or data_object.get("customer_email")
-            or ""
-        )
-        tier = (data_object.get("metadata") or {}).get("tier", "pro")
-        stripe_sub_id = data_object.get("subscription")
-        stripe_customer_id = data_object.get("customer")
-        if email and stripe_sub_id:
-            await activate_paid_subscription(
-                email,
-                tier,
-                str(stripe_sub_id),
-                stripe_customer_id=str(stripe_customer_id) if stripe_customer_id else None,
-            )
-            logger.info(
-                "Subscription activated | email=%s tier=%s currency=USD",
-                str(email).replace("\r", " ").replace("\n", " "),
-                str(tier).replace("\r", " ").replace("\n", " "),
-            )
-        return {"handled": True, "action": "checkout_completed", "currency": "USD"}
+        return await _handle_stripe_checkout_completed(data_object)
 
     if event_type in {"customer.subscription.updated", "customer.subscription.created"}:
-        stripe_sub_id = str(data_object.get("id") or "")
-        status = str(data_object.get("status") or "active")
-        tier = (data_object.get("metadata") or {}).get("tier", "pro")
-        if stripe_sub_id:
-            from database import upsert_subscription_by_stripe_id
-
-            await upsert_subscription_by_stripe_id(
-                stripe_sub_id,
-                tier=tier,
-                status=_map_stripe_status(status),
-            )
-        return {"handled": True, "action": "subscription_updated"}
+        return await _handle_stripe_subscription_updated(data_object)
 
     if event_type == "customer.subscription.deleted":
-        stripe_sub_id = str(data_object.get("id") or "")
-        if stripe_sub_id:
-            await cancel_subscription_by_stripe_id(stripe_sub_id)
-        return {"handled": True, "action": "subscription_cancelled"}
+        return await _handle_stripe_subscription_deleted(data_object)
 
     if event_type in {"invoice.payment_failed", "invoice.payment_action_required"}:
-        stripe_sub_id = str(data_object.get("subscription") or "")
-        if stripe_sub_id:
-            from database import upsert_subscription_by_stripe_id
-
-            await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
-            logger.warning(
-                "Stripe dunning | sub=%s event=%s",
-                str(stripe_sub_id).replace("\r", " ").replace("\n", " "),
-                str(event_type).replace("\r", " ").replace("\n", " "),
-            )
-        return {"handled": True, "action": "payment_failed", "dunning": True}
+        return await _handle_stripe_payment_failed(data_object, event_type)
 
     if event_type == "invoice.paid":
-        stripe_sub_id = str(data_object.get("subscription") or "")
-        if stripe_sub_id:
-            from database import upsert_subscription_by_stripe_id
-
-            await upsert_subscription_by_stripe_id(stripe_sub_id, status="active")
-        return {"handled": True, "action": "invoice_paid", "currency": "USD"}
+        return await _handle_stripe_invoice_paid(data_object)
 
     if event_type in {"charge.refunded", "charge.dispute.created"}:
-        # Entitlement stays until subscription cancels unless ops force-expire.
-        logger.info(
-            "Stripe refund/dispute recorded | type=%s id=%s",
-            str(event_type).replace("\r", " ").replace("\n", " "),
-            str(data_object.get("id")).replace("\r", " ").replace("\n", " "),
-        )
-        return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
+        return _handle_stripe_refund_or_dispute(data_object, event_type)
 
     return {"handled": False, "type": event_type}
 

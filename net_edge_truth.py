@@ -112,127 +112,154 @@ def _crowd_residual_profit(opportunity: dict[str, Any], net_profit: float) -> tu
     }
 
 
-def compute_net_edge_truth(
-    opportunity: dict[str, Any] | None = None,
-    *,
-    net_profit_usdt: float | None = None,
-    quote_amount: float | None = None,
-    total_slippage_bps: float | None = None,
-) -> dict[str, Any]:
-    """
-    Return Truth Score 0–100 plus hard reject flag.
-
-    Components (weighted):
-      residual edge 45% | latency freshness 25% | slippage quality 15% | fee drag clarity 15%
-    """
-    opp = dict(opportunity or {})
-    net = float(
-        net_profit_usdt
-        if net_profit_usdt is not None
-        else opp.get("net_profit_usdt")
-        or 0.0
-    )
+def _truth_inputs(
+    opportunity: dict[str, Any],
+    net_profit_usdt: float | None,
+    quote_amount: float | None,
+    total_slippage_bps: float | None,
+) -> tuple[float, float, float, float, float]:
+    net = float(net_profit_usdt if net_profit_usdt is not None else opportunity.get("net_profit_usdt") or 0.0)
     notional = float(
         quote_amount
         if quote_amount is not None
-        else opp.get("quote_amount")
+        else opportunity.get("quote_amount")
         or getattr(config, "DEFAULT_QUOTE_AMOUNT", 100)
         or 100
     )
     slippage_bps = float(
         total_slippage_bps
         if total_slippage_bps is not None
-        else opp.get("total_slippage_bps")
+        else opportunity.get("total_slippage_bps")
         or 0.0
     )
-    withdrawal = float(opp.get("withdrawal_fee_usdt") or 0.0)
-    trading_fees = float(opp.get("trading_fees_usdt") or opp.get("fees_usdt") or 0.0)
+    withdrawal = float(opportunity.get("withdrawal_fee_usdt") or 0.0)
+    trading_fees = float(opportunity.get("trading_fees_usdt") or opportunity.get("fees_usdt") or 0.0)
+    return net, notional, slippage_bps, withdrawal, trading_fees
 
-    residual, crowd_meta = _crowd_residual_profit(opp, net)
-    age_ms = _quote_age_ms(opp)
-    latency_buffer_usd = 0.0
-    if age_ms is not None and notional > 0:
-        latency_buffer_usd = notional * ((_latency_cost_bps_per_second() * (age_ms / 1000.0)) / 10_000)
-    truth_edge = residual - latency_buffer_usd
 
-    # Component scores
-    edge_score = 0.0
+def _latency_buffer_usd(age_ms: float | None, notional: float) -> float:
+    if age_ms is None or notional <= 0:
+        return 0.0
+    return notional * ((_latency_cost_bps_per_second() * (age_ms / 1000.0)) / 10_000)
+
+
+def _edge_score(truth_edge: float) -> float:
     if truth_edge >= _min_residual_usd() * 3:
-        edge_score = 100.0
-    elif truth_edge >= _min_residual_usd():
-        edge_score = 55.0 + 45.0 * min(1.0, (truth_edge - _min_residual_usd()) / max(_min_residual_usd() * 2, 1e-9))
-    elif truth_edge > 0:
-        edge_score = 35.0 * (truth_edge / max(_min_residual_usd(), 1e-9))
-    else:
-        edge_score = 0.0
+        return 100.0
+    if truth_edge >= _min_residual_usd():
+        return 55.0 + 45.0 * min(
+            1.0,
+            (truth_edge - _min_residual_usd()) / max(_min_residual_usd() * 2, 1e-9),
+        )
+    if truth_edge > 0:
+        return 35.0 * (truth_edge / max(_min_residual_usd(), 1e-9))
+    return 0.0
 
+
+def _latency_score(age_ms: float | None) -> float:
     if age_ms is None:
-        latency_score = 60.0  # unknown → cautious mid
-    elif age_ms <= 400:
-        latency_score = 100.0
-    elif age_ms <= _max_quote_age_ms():
-        latency_score = 100.0 - 55.0 * ((age_ms - 400) / max(_max_quote_age_ms() - 400, 1.0))
-    else:
-        latency_score = max(0.0, 30.0 - (age_ms - _max_quote_age_ms()) / 100.0)
+        return 60.0  # unknown → cautious mid
+    if age_ms <= 400:
+        return 100.0
+    if age_ms <= _max_quote_age_ms():
+        return 100.0 - 55.0 * ((age_ms - 400) / max(_max_quote_age_ms() - 400, 1.0))
+    return max(0.0, 30.0 - (age_ms - _max_quote_age_ms()) / 100.0)
 
+
+def _slippage_score(slippage_bps: float) -> float:
     if slippage_bps <= 5:
-        slip_score = 100.0
-    elif slippage_bps <= 25:
-        slip_score = 100.0 - (slippage_bps - 5) * 3.0
-    else:
-        slip_score = max(0.0, 40.0 - (slippage_bps - 25) * 1.5)
+        return 100.0
+    if slippage_bps <= 25:
+        return 100.0 - (slippage_bps - 5) * 3.0
+    return max(0.0, 40.0 - (slippage_bps - 25) * 1.5)
 
+
+def _fee_score(withdrawal: float, trading_fees: float, net: float) -> float:
     fee_drag = withdrawal + trading_fees
     fee_ratio = fee_drag / max(abs(net) + fee_drag, 1e-9)
-    fee_score = max(0.0, 100.0 - fee_ratio * 120.0)
+    return max(0.0, 100.0 - fee_ratio * 120.0)
 
-    truth_score = round(
+
+def _truth_score(
+    edge_score: float,
+    latency_score: float,
+    slip_score: float,
+    fee_score: float,
+) -> float:
+    return round(
         0.45 * edge_score + 0.25 * latency_score + 0.15 * slip_score + 0.15 * fee_score,
         2,
     )
 
-    reasons: list[str] = []
-    reject = False
-    if not _enabled():
-        return {
-            "enabled": False,
-            "truth_score": truth_score,
-            "reject": False,
-            "pass": True,
-            "reason": "guard_disabled",
-        }
 
+def _disabled_truth_result(truth_score: float) -> dict[str, Any]:
+    return {
+        "enabled": False,
+        "truth_score": truth_score,
+        "reject": False,
+        "pass": True,
+        "reason": "guard_disabled",
+    }
+
+
+def _reject_reasons(
+    opportunity: dict[str, Any],
+    truth_edge: float,
+    age_ms: float | None,
+    truth_score: float,
+) -> list[str]:
+    reasons: list[str] = []
     if truth_edge < _min_residual_usd():
-        reject = True
         reasons.append("residual_edge_below_threshold")
     if age_ms is not None and age_ms > _max_quote_age_ms():
-        reject = True
         reasons.append("stale_quote_latency")
     if truth_score < _min_truth_score():
-        reject = True
         reasons.append("truth_score_below_minimum")
-    if opp.get("executable") is False and opp.get("flywheel_saturation"):
-        reject = True
+    if opportunity.get("executable") is False and opportunity.get("flywheel_saturation"):
         reasons.append("crowd_liquidity_depleted")
+    return reasons
 
+
+def _record_truth_stats(reject: bool, reasons: list[str], truth_score: float, opportunity: dict[str, Any]) -> None:
     _STATS["evaluated"] += 1
-    if reject:
-        _STATS["rejected"] += 1
-        for reason in reasons:
-            _bump_reason(reason)
-        try:
-            from kill_rate_board import record_kill
-
-            record_kill(
-                "net_edge_truth",
-                reasons[0] if reasons else "rejected",
-                meta={"truth_score": truth_score, "asset": opp.get("asset") or opp.get("symbol")},
-            )
-        except Exception:
-            logger.debug("kill_rate record failed", exc_info=True)
-    else:
+    if not reject:
         _STATS["passed"] += 1
+        return
+    _STATS["rejected"] += 1
+    for reason in reasons:
+        _bump_reason(reason)
+    try:
+        from kill_rate_board import record_kill
 
+        record_kill(
+            "net_edge_truth",
+            reasons[0] if reasons else "rejected",
+            meta={"truth_score": truth_score, "asset": opportunity.get("asset") or opportunity.get("symbol")},
+        )
+    except Exception:
+        logger.debug("kill_rate record failed", exc_info=True)
+
+
+def _truth_result(
+    *,
+    truth_score: float,
+    reject: bool,
+    reasons: list[str],
+    edge_score: float,
+    latency_score: float,
+    slip_score: float,
+    fee_score: float,
+    net: float,
+    residual: float,
+    latency_buffer_usd: float,
+    truth_edge: float,
+    age_ms: float | None,
+    slippage_bps: float,
+    withdrawal: float,
+    trading_fees: float,
+    notional: float,
+    crowd_meta: dict[str, Any],
+) -> dict[str, Any]:
     return {
         "enabled": True,
         "truth_score": truth_score,
@@ -264,6 +291,65 @@ def compute_net_edge_truth(
             "max_quote_age_ms": _max_quote_age_ms(),
         },
     }
+
+
+def compute_net_edge_truth(
+    opportunity: dict[str, Any] | None = None,
+    *,
+    net_profit_usdt: float | None = None,
+    quote_amount: float | None = None,
+    total_slippage_bps: float | None = None,
+) -> dict[str, Any]:
+    """
+    Return Truth Score 0–100 plus hard reject flag.
+
+    Components (weighted):
+      residual edge 45% | latency freshness 25% | slippage quality 15% | fee drag clarity 15%
+    """
+    opp = dict(opportunity or {})
+    net, notional, slippage_bps, withdrawal, trading_fees = _truth_inputs(
+        opp,
+        net_profit_usdt,
+        quote_amount,
+        total_slippage_bps,
+    )
+    residual, crowd_meta = _crowd_residual_profit(opp, net)
+    age_ms = _quote_age_ms(opp)
+    latency_buffer_usd = _latency_buffer_usd(age_ms, notional)
+    truth_edge = residual - latency_buffer_usd
+
+    # Component scores
+    edge_score = _edge_score(truth_edge)
+    latency_score = _latency_score(age_ms)
+    slip_score = _slippage_score(slippage_bps)
+    fee_score = _fee_score(withdrawal, trading_fees, net)
+    truth_score = _truth_score(edge_score, latency_score, slip_score, fee_score)
+
+    if not _enabled():
+        return _disabled_truth_result(truth_score)
+
+    reasons = _reject_reasons(opp, truth_edge, age_ms, truth_score)
+    reject = bool(reasons)
+    _record_truth_stats(reject, reasons, truth_score, opp)
+    return _truth_result(
+        truth_score=truth_score,
+        reject=reject,
+        reasons=reasons,
+        edge_score=edge_score,
+        latency_score=latency_score,
+        slip_score=slip_score,
+        fee_score=fee_score,
+        net=net,
+        residual=residual,
+        latency_buffer_usd=latency_buffer_usd,
+        truth_edge=truth_edge,
+        age_ms=age_ms,
+        slippage_bps=slippage_bps,
+        withdrawal=withdrawal,
+        trading_fees=trading_fees,
+        notional=notional,
+        crowd_meta=crowd_meta,
+    )
 
 
 def apply_truth_gate_to_score(score: float, truth: dict[str, Any]) -> float:
