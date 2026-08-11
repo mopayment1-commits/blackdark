@@ -16,8 +16,6 @@ from typing import Any
 import stripe
 
 import config
-from log_safety import sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.Billing")
 
 STRIPE_TIERS: dict[str, dict[str, Any]] = {
@@ -220,8 +218,8 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
             )
             logger.info(
                 "Subscription activated | email=%s tier=%s currency=USD",
-                sanitize_log_value(email),
-                sanitize_log_value(tier, max_len=24),
+                str(email).replace("\r", " ").replace("\n", " "),
+                str(tier).replace("\r", " ").replace("\n", " "),
             )
         return {"handled": True, "action": "checkout_completed", "currency": "USD"}
 
@@ -253,8 +251,8 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
             await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
             logger.warning(
                 "Stripe dunning | sub=%s event=%s",
-                sanitize_log_value(stripe_sub_id),
-                sanitize_log_value(event_type, max_len=48),
+                str(stripe_sub_id).replace("\r", " ").replace("\n", " "),
+                str(event_type).replace("\r", " ").replace("\n", " "),
             )
         return {"handled": True, "action": "payment_failed", "dunning": True}
 
@@ -270,8 +268,8 @@ async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
         # Entitlement stays until subscription cancels unless ops force-expire.
         logger.info(
             "Stripe refund/dispute recorded | type=%s id=%s",
-            sanitize_log_value(event_type, max_len=48),
-            sanitize_log_value(data_object.get("id")),
+            str(event_type).replace("\r", " ").replace("\n", " "),
+            str(data_object.get("id")).replace("\r", " ").replace("\n", " "),
         )
         return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
 
@@ -382,9 +380,9 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
             await activate_paid_subscription(email, tier, lemon_id)
             logger.info(
                 "Lemon subscription activated | email=%s tier=%s id=%s",
-                sanitize_log_value(email),
-                sanitize_log_value(tier, max_len=24),
-                sanitize_log_value(lemon_id),
+                str(email).replace("\r", " ").replace("\n", " "),
+                str(tier).replace("\r", " ").replace("\n", " "),
+                str(lemon_id).replace("\r", " ").replace("\n", " "),
             )
             return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
         return {"handled": False, "reason": "missing_email_or_id", "event": event_name}

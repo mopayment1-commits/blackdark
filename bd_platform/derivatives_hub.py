@@ -9,8 +9,6 @@ from typing import Any
 
 import aiohttp
 
-from log_safety import sanitize_asset, sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.DerivativesHub")
 
 
@@ -84,9 +82,9 @@ async def cex_dex_derivatives_compare(asset: str = "BTC") -> dict[str, Any]:
         except Exception as exc:
             logger.debug(
                 "DEX quote failed %s %s: %s",
-                sanitize_log_value(venue_id, max_len=32),
-                sanitize_asset(symbol),
-                sanitize_log_value(exc, max_len=120),
+                str(venue_id).replace("\r", " ").replace("\n", " "),
+                str(symbol).replace("\r", " ").replace("\n", " "),
+                str(exc).replace("\r", " ").replace("\n", " "),
             )
             return None
 

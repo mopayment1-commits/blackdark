@@ -10,8 +10,6 @@ import logging
 from typing import Any
 
 import config
-from log_safety import sanitize_asset
-
 logger = logging.getLogger("BLACKDARK.FeatureStore")
 
 
@@ -31,7 +29,7 @@ async def _recent_closes(asset: str, *, limit: int = 48) -> list[float]:
         if len(rows) >= 5:
             return [float(row["price"]) for row in reversed(rows)]
     except Exception:
-        logger.debug("Local pricing unavailable | asset=%s", sanitize_asset(asset))
+        logger.debug("Local pricing unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "))
     return []
 
 
@@ -62,7 +60,7 @@ async def _sentiment_features(asset: str) -> tuple[float, float]:
 
         compound = float(await get_rolling_compound_sentiment_index(asset))
     except Exception:
-        logger.debug("Sentiment feature unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
+        logger.debug("Sentiment feature unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)
         compound = 0.0
 
     momentum = 0.0
@@ -95,7 +93,7 @@ async def _obi_features(asset: str) -> tuple[float, float]:
         score = obi_score_adjustment_for_asset(asset, ctx)
         return float(score or 0.0), float(imbalance or 0.0)
     except Exception:
-        logger.debug("OBI feature unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
+        logger.debug("OBI feature unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)
         return 0.0, 0.0
 
 
@@ -127,7 +125,7 @@ async def _funding_spread_bps(asset: str) -> float:
         if rates:
             return round(rates[0], 4)
     except Exception:
-        logger.debug("Funding feature unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
+        logger.debug("Funding feature unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)
     return 0.0
 
 
@@ -138,7 +136,7 @@ async def _whale_sii(asset: str) -> float:
         ctx = await get_latest_institutional_context()
         return round(float(whale_score_boost_for_asset(asset, ctx) or 0.0), 4)
     except Exception:
-        logger.debug("Whale SII feature unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
+        logger.debug("Whale SII feature unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)
         return 0.0
 
 
@@ -157,7 +155,7 @@ async def _onchain_netflow(asset: str) -> float:
                 return round(float(status[key]), 4)
         return round(float(onchain_score_adjustment_for_asset(asset, ctx) or 0.0), 4)
     except Exception:
-        logger.debug("On-chain feature unavailable | asset=%s", sanitize_asset(asset), exc_info=True)
+        logger.debug("On-chain feature unavailable | asset=%s", str(asset).replace("\r", " ").replace("\n", " "), exc_info=True)
         return 0.0
 
 

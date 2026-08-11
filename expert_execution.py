@@ -13,6 +13,8 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from path_safety import assert_safe_http_url
+
 CANONICAL_DOCS: list[str] = [
     "docs/PRODUCT_CONSTITUTION_AR.md",
     "docs/CANONICAL_BINDING.md",
@@ -47,17 +49,21 @@ SUPERSEDED_FRAMES: list[dict[str, str]] = [
 def _probe(url: str, *, timeout: float = 8.0) -> dict[str, Any]:
     t0 = datetime.now(UTC)
     try:
-        req = Request(url, headers={"Accept": "application/json,text/html,*/*"})
+        safe_url = assert_safe_http_url(url)
+        req = Request(safe_url, headers={"Accept": "application/json,text/html,*/*"})
         with urlopen(req, timeout=timeout) as resp:
             body = resp.read(4000)
             ms = (datetime.now(UTC) - t0).total_seconds() * 1000
             return {
-                "url": url,
+                "url": safe_url,
                 "ok": 200 <= resp.status < 400,
                 "status": resp.status,
                 "latency_ms": round(ms, 1),
                 "bytes": len(body),
             }
+    except ValueError:
+        ms = (datetime.now(UTC) - t0).total_seconds() * 1000
+        return {"url": url, "ok": False, "status": None, "latency_ms": round(ms, 1), "error": "host_not_allowed"}
     except HTTPError as exc:
         ms = (datetime.now(UTC) - t0).total_seconds() * 1000
         # Generic error codes only — never return exception/stack text to clients.
@@ -106,7 +112,7 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
     Machine probe for the 60-second grasp bar.
     Founder still confirms cold walkthrough (human H3).
     """
-    base = base_url.rstrip("/")
+    base = assert_safe_http_url(base_url.rstrip("/"))
     checks = [
         ("landing", f"{base}/"),
         ("dashboard", f"{base}/dashboard"),
@@ -127,7 +133,7 @@ def run_acceptance_60s(base_url: str = "http://127.0.0.1:8080") -> dict[str, Any
         import json
 
         for key in ("trust_os", "intent", "correction"):
-            url = named[key]["url"]
+            url = assert_safe_http_url(named[key]["url"])
             if not named[key].get("ok"):
                 continue
             with urlopen(url, timeout=8) as resp:

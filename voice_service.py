@@ -12,8 +12,6 @@ import re
 from datetime import UTC, datetime
 from typing import Any
 
-from log_safety import sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.Voice")
 
 _ASSET_ALIASES: dict[str, str] = {
@@ -127,8 +125,8 @@ async def process_voice_command(text: str) -> dict[str, Any]:
     intent, params = _detect_intent(text)
     logger.info(
         "Voice command | intent=%s | text=%s",
-        sanitize_log_value(intent, max_len=32),
-        sanitize_log_value(text[:80], max_len=80),
+        str(intent).replace("\r", " ").replace("\n", " "),
+        str(text[:80]).replace("\r", " ").replace("\n", " "),
     )
 
     try:
@@ -295,7 +293,7 @@ async def process_voice_command(text: str) -> dict[str, Any]:
             })
 
     except Exception as exc:
-        logger.exception("Voice command failed | intent=%s", sanitize_log_value(intent, max_len=32))
+        logger.exception("Voice command failed | intent=%s", str(intent).replace("\r", " ").replace("\n", " "))
         return _out({
             "success": False,
             "intent": intent,

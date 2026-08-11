@@ -22,8 +22,10 @@ def _utcnow() -> str:
 
 
 async def _cex_prices(session: aiohttp.ClientSession, asset: str) -> dict[str, float]:
-    pair = f"{asset}USDT"
     out: dict[str, float] = {}
+    if not asset.isalnum():
+        return out
+    pair = f"{asset}USDT"
     if not pair.isalnum():
         return out
     urls = {
@@ -57,6 +59,8 @@ async def _dexscreener_best(
     asset: str,
     cex_ref: float,
 ) -> dict[str, Any]:
+    if not asset.isalnum():
+        return {}
     url = f"https://api.dexscreener.com/latest/dex/search?q={asset}%20USDT"
     headers = {"User-Agent": "BLACKDARK/1.0"}
     try:
@@ -127,6 +131,8 @@ async def _gmx_price(session: aiohttp.ClientSession, asset: str, cex_ref: float)
 
 async def _oneinch_spot(session: aiohttp.ClientSession, asset: str, cex_ref: float) -> dict[str, Any]:
     """1inch spot indicative price via DexScreener 1inch pools."""
+    if not asset.isalnum():
+        return {}
     url = f"https://api.dexscreener.com/latest/dex/search?q=1inch%20{asset}%20USDT"
     try:
         async with session.get(url, headers={"User-Agent": "BLACKDARK/1.0"}) as resp:

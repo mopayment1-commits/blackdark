@@ -16,8 +16,6 @@ from typing import Any
 import aiohttp
 
 import config
-from log_safety import sanitize_asset, sanitize_log_value
-
 logger = logging.getLogger("BLACKDARK.MarketContext")
 
 _HTTP_TIMEOUT = aiohttp.ClientTimeout(total=12)
@@ -52,8 +50,8 @@ async def _rest_get(
             if resp.status != 200:
                 logger.debug(
                     "REST price fetch non-200 | url=%s status=%s",
-                    sanitize_log_value(url, max_len=120),
-                    sanitize_log_value(resp.status),
+                    str(url).replace("\r", " ").replace("\n", " "),
+                    str(resp.status).replace("\r", " ").replace("\n", " "),
                 )
                 return None
             return await resp.json()
@@ -419,14 +417,14 @@ async def fetch_binance_ticker(pair: str) -> dict | None:
                 source_label = source_raw if source_raw.replace("_", "").isalnum() else "unknown"
                 logger.info(
                     "Price REST fallback | asset=%s source=%s",
-                    sanitize_asset(asset_label),
-                    sanitize_log_value(source_label, max_len=32),
+                    str(asset_label).replace("\r", " ").replace("\n", " "),
+                    str(source_label).replace("\r", " ").replace("\n", " "),
                 )
                 return row
 
     allowed = {str(a).upper() for a in (getattr(config, "WHITELIST_ASSETS", None) or [])}
     asset_label = str(asset).upper() if str(asset).upper() in allowed else "other"
-    logger.warning("All price sources failed | asset=%s", sanitize_asset(asset_label))
+    logger.warning("All price sources failed | asset=%s", str(asset_label).replace("\r", " ").replace("\n", " "))
     return None
 
 
