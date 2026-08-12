@@ -2,15 +2,15 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** `24aa6fb9f437a64e35be066744827c76ba8ce0ae`  
+**Product tip:** `92bdf506dd873e62a80b1a2ee489b3620b73faa8`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 | Field | Value |
 |---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_24aa6fb.md` |
-| Overall | **86 / 100** |
+| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_92bdf50.md` |
+| Overall | **91 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **0** |
 
@@ -18,12 +18,12 @@
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Venue L2 spot (OKX+Kraken+perp venues) | PARTIAL | real sizes; fabricated forbidden |
-| Multi-venue perp+funding (OKX/Gate/Bitget/KuCoin) | PARTIAL | Super Terminal `perp_venues>=2` |
-| Scheduler continuum (bounded) | PARTIAL | start→cycle→stop proven |
-| Fill proof + protocol_proof | PARTIAL (paper) | never claims live_fill without venue |
-| Postgres DDL ready (offline) | PARTIAL | HA/DR still EXTERNAL |
-| product_complete honesty sweep | improved | root True ≈7 (was 37) |
+| Multi-venue L2 + perp/funding | PARTIAL | OKX/Kraken/Gate/Bitget/KuCoin |
+| Durable prices mesh + continuum | PARTIAL | coverage lift observed (~20%+) |
+| Jupiter live quote | PARTIAL | submit NOT_IMPLEMENTED |
+| Local Postgres dump/restore | PARTIAL | `LOCAL_EPHEMERAL_NOT_HA` |
+| Fill lifecycle | PARTIAL (paper) | live_fill requires real creds |
+| product_complete honesty | improved | no root self-cert True theater |
 
 ## Absolute rule
 
