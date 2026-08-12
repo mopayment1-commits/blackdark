@@ -83,6 +83,7 @@ jobs:
             tests/test_i18n_15_locales.py \
             tests/test_i18n_language_actually_switches.py \
             tests/test_sonar_template_js_parse_hygiene.py \
+            tests/test_sonar_project_version_baseline.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
@@ -121,6 +122,18 @@ jobs:
         with:
           name: coverage-xml
 
+      - name: Resolve sonar.projectVersion (engineering baseline)
+        id: sonar_ver
+        run: |
+          test -s SONAR_PROJECT_VERSION
+          VER="$(tr -d '[:space:]' < SONAR_PROJECT_VERSION)"
+          test -n "$VER"
+          # Guard: must match sonar-project.properties (single source of truth check).
+          PROP="$(sed -n 's/^sonar.projectVersion=//p' sonar-project.properties | head -n1 | tr -d '[:space:]')"
+          test "$VER" = "$PROP"
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "Using sonar.projectVersion=$VER (buildString=${GITHUB_SHA})"
+
       - name: SonarCloud Scan (AA must stay disabled)
         uses: SonarSource/sonarcloud-github-action@ffc3010689be73b8e5ae0c57ce35968afd7909e8 # v5.0.0
         env:
@@ -131,6 +144,8 @@ jobs:
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.organization=blackdark
             -Dsonar.projectKey=mopayment1-commits_blackdark
+            -Dsonar.projectVersion=${{ steps.sonar_ver.outputs.version }}
+            -Dsonar.buildString=${{ github.sha }}
             -Dsonar.qualitygate.wait=true
 
   sonarcloud-skip-notice:
