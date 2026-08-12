@@ -20,6 +20,20 @@ def test_rate_limit_trips_in_memory(monkeypatch):
     assert exc.value.status_code == 429
 
 
+def test_ops_readiness_paths_not_rate_limited_class():
+    from viral_capacity import _limits_for, _path_class
+
+    assert _path_class("/health/live") is None
+    assert _path_class("/api/viral/readiness") is None
+    assert _path_class("/api/scale/readiness") is None
+    assert _path_class("/api/production/guard") is None
+    assert _path_class("/") == "web"
+    assert _path_class("/oracle/BTC/quick") == "oracle"
+    web_limit, window = _limits_for("web")
+    assert window == 60
+    assert web_limit >= 1200
+
+
 def test_inflight_shed():
     from viral_capacity import begin_inflight, end_inflight, inflight_count
 

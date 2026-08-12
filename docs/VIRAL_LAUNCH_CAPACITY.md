@@ -30,6 +30,7 @@ VIRAL_ORACLE_CONCURRENCY=32
 VIRAL_ORACLE_RL_PER_MIN=60
 VIRAL_AUTH_RL_PER_MIN=30
 VIRAL_API_RL_PER_MIN=120
+VIRAL_WEB_RL_PER_MIN=1200
 VIRAL_QUICK_CACHE_TTL_SEC=2
 PRODUCTION_GUARD_FAIL_CLOSED=true
 SESSION_TOKEN_PEPPER=…   # long random
@@ -42,6 +43,9 @@ Compose viral rehearsal:
 docker compose up -d --scale web=2
 curl -s localhost:8080/api/viral/readiness | jq .
 curl -s localhost:8080/health/viral | jq .
+# Staged surge kill-gate (A→E + recovery)
+python scripts/viral_surge_staged.py --base http://127.0.0.1:8080 --stages A,B,C,D,E
+# Evidence: docs/dd/VIRAL_SURGE_EVIDENCE.md · SPOF: docs/dd/VIRAL_SPOF_REGISTER.md
 ```
 
 ## Protections shipped

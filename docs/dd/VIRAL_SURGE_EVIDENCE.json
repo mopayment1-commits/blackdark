@@ -1,0 +1,4902 @@
+{
+  "generated_at_utc": "2026-08-12T11:57:20.767139+00:00",
+  "git_sha": "4cf710240cfa70dfb889bae192a47e7582015209",
+  "base": "http://127.0.0.1:8080",
+  "viral_readiness": {
+    "product": "BLACKDARK",
+    "surface": "viral_launch_capacity",
+    "viral_codepath_ready": true,
+    "viral_production_approved": true,
+    "inflight": 0,
+    "rate_limit_backend": "redis",
+    "inflight_backend": "memory",
+    "cache_backend": "memory",
+    "parallelism": {
+      "workers": 2,
+      "replicas": 2,
+      "parallelism": 4
+    },
+    "limits": {
+      "max_inflight": 200,
+      "oracle_concurrency": 32,
+      "oracle_rl_per_min": 60,
+      "auth_rl_per_min": 30,
+      "api_rl_per_min": 120,
+      "quick_cache_ttl_sec": 2.0
+    },
+    "scale": {
+      "product": "BLACKDARK",
+      "ha_ready_codepath": true,
+      "soft_launch": false,
+      "database": "postgresql",
+      "login_rate_limit_backend": "redis",
+      "postgres_pool": {
+        "active": true,
+        "min_size": 4,
+        "max_size": 20,
+        "size": 4
+      },
+      "parallelism": {
+        "workers": 2,
+        "replicas": 2,
+        "parallelism": 4
+      },
+      "recommended_env": {
+        "DATABASE_URL": "postgresql://...",
+        "REDIS_URL": "redis://...",
+        "SERVICE_BUS_LOCAL": "false",
+        "WEB_CONCURRENCY": "4+",
+        "WEB_REPLICAS": "2+",
+        "PG_POOL_MAX": "20",
+        "SOFT_LAUNCH": "unset for institutional pitch",
+        "VIRAL_MODE": "true"
+      },
+      "checks": [
+        {
+          "id": "postgres",
+          "ok": true,
+          "required_for_ha": true,
+          "detail": "postgresql"
+        },
+        {
+          "id": "postgres_pool",
+          "ok": true,
+          "required_for_ha": true,
+          "detail": {
+            "active": true,
+            "min_size": 4,
+            "max_size": 20,
+            "size": 4
+          }
+        },
+        {
+          "id": "redis_shared",
+          "ok": true,
+          "required_for_ha": true,
+          "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+        },
+        {
+          "id": "login_rate_limit_shared",
+          "ok": true,
+          "required_for_ha": true,
+          "detail": "redis"
+        },
+        {
+          "id": "multi_worker",
+          "ok": true,
+          "required_for_ha": true,
+          "detail": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          }
+        },
+        {
+          "id": "soft_launch_honesty",
+          "ok": true,
+          "required_for_ha": false,
+          "detail": "strict/non-soft"
+        }
+      ],
+      "capacity_claim": {
+        "code_enables_high_concurrency": true,
+        "proven_high_concurrency_signed": false,
+        "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+        "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+      },
+      "viral": {
+        "readiness_api": "/api/viral/readiness",
+        "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+        "protections": [
+          "load_shedding",
+          "oracle_semaphore",
+          "shared_rate_limits",
+          "quick_cache"
+        ]
+      },
+      "k8s": {
+        "web_deployment": "deploy/k8s/web-deployment.yaml",
+        "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+        "hpa": "deploy/k8s/workers-hpa.yaml"
+      }
+    },
+    "checks": [
+      {
+        "id": "postgres",
+        "ok": true,
+        "required_for_ha": true,
+        "detail": "postgresql"
+      },
+      {
+        "id": "postgres_pool",
+        "ok": true,
+        "required_for_ha": true,
+        "detail": {
+          "active": true,
+          "min_size": 4,
+          "max_size": 20,
+          "size": 4
+        }
+      },
+      {
+        "id": "redis_shared",
+        "ok": true,
+        "required_for_ha": true,
+        "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+      },
+      {
+        "id": "login_rate_limit_shared",
+        "ok": true,
+        "required_for_ha": true,
+        "detail": "redis"
+      },
+      {
+        "id": "multi_worker",
+        "ok": true,
+        "required_for_ha": true,
+        "detail": {
+          "workers": 2,
+          "replicas": 2,
+          "parallelism": 4
+        }
+      },
+      {
+        "id": "soft_launch_honesty",
+        "ok": true,
+        "required_for_ha": false,
+        "detail": "strict/non-soft"
+      },
+      {
+        "id": "viral_middleware",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "VIRAL_MODE": true
+        }
+      },
+      {
+        "id": "inflight_ceiling",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "max_inflight": 200,
+          "current": 0,
+          "backend": "memory"
+        }
+      },
+      {
+        "id": "oracle_semaphore",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "oracle_concurrency": 32
+        }
+      },
+      {
+        "id": "shared_rate_limits",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "backend": "redis",
+          "redis_live": true,
+          "note": "Viral approval requires live Redis (not memory fallback)"
+        }
+      },
+      {
+        "id": "shared_inflight_and_cache",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "inflight_backend": "memory",
+          "cache_backend": "memory"
+        }
+      },
+      {
+        "id": "soft_launch_not_viral",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": "SOFT_LAUNCH must be unset for viral production"
+      },
+      {
+        "id": "multi_worker_viral",
+        "ok": true,
+        "required_for_viral": true,
+        "detail": {
+          "workers": 2,
+          "replicas": 2,
+          "parallelism": 4
+        }
+      }
+    ],
+    "recommended_env": {
+      "DATABASE_URL": "postgresql://...",
+      "REDIS_URL": "redis://...",
+      "SERVICE_BUS_LOCAL": "false",
+      "WEB_CONCURRENCY": "4",
+      "WEB_REPLICAS": "2",
+      "PG_POOL_MAX": "40",
+      "SOFT_LAUNCH": "unset",
+      "VIRAL_MODE": "true",
+      "VIRAL_MAX_INFLIGHT": "200",
+      "VIRAL_ORACLE_CONCURRENCY": "32"
+    },
+    "honesty": {
+      "code_protects_under_spike": true,
+      "proven_signed_load_test": false,
+      "signed_capacity": {
+        "capacity_id": "cap_06b39e3d96",
+        "environment": "staging",
+        "workers": 4,
+        "postgres": true,
+        "redis": true,
+        "requests": 500,
+        "p50_ms": 100.0,
+        "p95_ms": 400.0,
+        "p99_ms": 800.0,
+        "error_rate": 0.0,
+        "operator": "dd-test",
+        "notes": "",
+        "published_at": "2026-08-12T11:49:26.989925+00:00",
+        "sla_targets": {
+          "availability_monthly": 0.995,
+          "api_p95_ms": 800,
+          "oracle_p95_ms": 2500,
+          "error_budget_burn_alert": 0.5,
+          "support_response_hours": {
+            "p0": 1,
+            "p1": 4,
+            "p2": 24
+          }
+        },
+        "ha_claim_eligible": true,
+        "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+      },
+      "proof_path": "data/institutional_assurance/signed_capacity.json",
+      "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+      "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+    },
+    "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+  },
+  "stages": [
+    {
+      "stage": "A",
+      "name": "baseline",
+      "workers": 10,
+      "requests_per_endpoint": 40,
+      "elapsed_sec": 1.08,
+      "endpoints": [
+        {
+          "label": "live",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 6.8,
+          "p95_ms": 8.8,
+          "p99_ms": 9.0,
+          "max_ms": 9.0,
+          "rps": 1494.1,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "ready",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 6.9,
+          "p95_ms": 8.5,
+          "p99_ms": 8.7,
+          "max_ms": 8.8,
+          "rps": 1470.3,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_health",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 7.6,
+          "p95_ms": 10.6,
+          "p99_ms": 11.4,
+          "max_ms": 12.6,
+          "rps": 1393.4,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "landing",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 9.0,
+          "p95_ms": 36.9,
+          "p99_ms": 37.9,
+          "max_ms": 38.3,
+          "rps": 667.3,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "trust_os",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 8.9,
+          "p95_ms": 12.5,
+          "p99_ms": 13.6,
+          "max_ms": 13.6,
+          "rps": 1109.1,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_readiness",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 9.0,
+          "p95_ms": 14.5,
+          "p99_ms": 14.7,
+          "max_ms": 14.9,
+          "rps": 1069.8,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "scale_readiness",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 5.9,
+          "p95_ms": 8.5,
+          "p99_ms": 8.5,
+          "max_ms": 8.6,
+          "rps": 1606.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "oracle_quick",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 16.5,
+          "p95_ms": 644.4,
+          "p99_ms": 648.4,
+          "max_ms": 652.6,
+          "rps": 59.4,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "arb_scan",
+          "workers": 10,
+          "requests": 40,
+          "ok": 0,
+          "controlled_429_503": 0,
+          "errors": 40,
+          "timeouts": 0,
+          "statuses": {
+            "405": 40
+          },
+          "p50_ms": 10.7,
+          "p95_ms": 13.1,
+          "p99_ms": 14.0,
+          "max_ms": 14.2,
+          "rps": 965.5,
+          "ok_rate": 0.0,
+          "controlled_rate": 0.0,
+          "error_rate": 1.0,
+          "capacity_ok_rate": 0.0
+        },
+        {
+          "label": "compliance_html",
+          "workers": 10,
+          "requests": 40,
+          "ok": 40,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 40
+          },
+          "p50_ms": 8.9,
+          "p95_ms": 25.0,
+          "p99_ms": 25.8,
+          "max_ms": 25.8,
+          "rps": 807.9,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "observability_status",
+          "workers": 10,
+          "requests": 40,
+          "ok": 0,
+          "controlled_429_503": 0,
+          "errors": 40,
+          "timeouts": 0,
+          "statuses": {
+            "403": 40
+          },
+          "p50_ms": 7.0,
+          "p95_ms": 9.5,
+          "p99_ms": 9.5,
+          "max_ms": 9.5,
+          "rps": 1443.7,
+          "ok_rate": 0.0,
+          "controlled_rate": 0.0,
+          "error_rate": 1.0,
+          "capacity_ok_rate": 0.0
+        }
+      ],
+      "before": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7111588,
+            "MemAvailable": 14567036
+          },
+          "harness_ru_maxrss_kb": 26908
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1319224,
+          "used_memory_human": "1.26M",
+          "connected_clients": 5,
+          "instantaneous_ops_per_sec": 1,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 9,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 9.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "memory",
+          "cache_backend": "memory",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "memory"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "memory",
+                "cache_backend": "memory"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "memory",
+            "quick_cache": "memory"
+          }
+        }
+      },
+      "after": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7087396,
+            "MemAvailable": 14542852
+          },
+          "harness_ru_maxrss_kb": 42148
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1344776,
+          "used_memory_human": "1.28M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 598,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "collapse": false,
+      "core_capacity_fail": false
+    },
+    {
+      "stage": "B",
+      "name": "2x",
+      "workers": 20,
+      "requests_per_endpoint": 80,
+      "elapsed_sec": 0.7,
+      "endpoints": [
+        {
+          "label": "live",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 13.4,
+          "p95_ms": 16.6,
+          "p99_ms": 16.9,
+          "max_ms": 17.2,
+          "rps": 1517.9,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "ready",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 10.3,
+          "p95_ms": 123.3,
+          "p99_ms": 124.5,
+          "max_ms": 124.5,
+          "rps": 525.5,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_health",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 14.6,
+          "p95_ms": 17.3,
+          "p99_ms": 17.8,
+          "max_ms": 18.7,
+          "rps": 1398.7,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "landing",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 17.3,
+          "p95_ms": 20.0,
+          "p99_ms": 20.7,
+          "max_ms": 21.2,
+          "rps": 1181.4,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "trust_os",
+          "workers": 20,
+          "requests": 80,
+          "ok": 0,
+          "controlled_429_503": 80,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 80
+          },
+          "p50_ms": 6.5,
+          "p95_ms": 7.3,
+          "p99_ms": 7.4,
+          "max_ms": 7.4,
+          "rps": 3261.3,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_readiness",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 19.9,
+          "p95_ms": 24.8,
+          "p99_ms": 25.2,
+          "max_ms": 25.8,
+          "rps": 1011.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "scale_readiness",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 12.7,
+          "p95_ms": 14.4,
+          "p99_ms": 14.9,
+          "max_ms": 15.4,
+          "rps": 1597.1,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "oracle_quick",
+          "workers": 20,
+          "requests": 80,
+          "ok": 20,
+          "controlled_429_503": 60,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 20,
+            "429": 60
+          },
+          "p50_ms": 6.3,
+          "p95_ms": 18.9,
+          "p99_ms": 20.1,
+          "max_ms": 21.5,
+          "rps": 2248.1,
+          "ok_rate": 0.25,
+          "controlled_rate": 0.75,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "arb_scan",
+          "workers": 20,
+          "requests": 80,
+          "ok": 0,
+          "controlled_429_503": 80,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 80
+          },
+          "p50_ms": 5.9,
+          "p95_ms": 7.5,
+          "p99_ms": 7.9,
+          "max_ms": 8.3,
+          "rps": 3570.8,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "compliance_html",
+          "workers": 20,
+          "requests": 80,
+          "ok": 80,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 80
+          },
+          "p50_ms": 16.8,
+          "p95_ms": 19.8,
+          "p99_ms": 21.9,
+          "max_ms": 22.4,
+          "rps": 1197.1,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "observability_status",
+          "workers": 20,
+          "requests": 80,
+          "ok": 0,
+          "controlled_429_503": 80,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 80
+          },
+          "p50_ms": 4.7,
+          "p95_ms": 7.2,
+          "p99_ms": 7.7,
+          "max_ms": 8.1,
+          "rps": 4216.1,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        }
+      ],
+      "before": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7084924,
+            "MemAvailable": 14540396
+          },
+          "harness_ru_maxrss_kb": 42148
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1346824,
+          "used_memory_human": "1.28M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 796,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 5
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 5
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 5
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "after": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7082304,
+            "MemAvailable": 14537800
+          },
+          "harness_ru_maxrss_kb": 43796
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1355016,
+          "used_memory_human": "1.29M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 1734,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "collapse": false,
+      "core_capacity_fail": false
+    },
+    {
+      "stage": "C",
+      "name": "5x",
+      "workers": 50,
+      "requests_per_endpoint": 150,
+      "elapsed_sec": 1.14,
+      "endpoints": [
+        {
+          "label": "live",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 36.4,
+          "p95_ms": 40.2,
+          "p99_ms": 43.0,
+          "max_ms": 45.4,
+          "rps": 1500.6,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "ready",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 37.5,
+          "p95_ms": 40.8,
+          "p99_ms": 41.2,
+          "max_ms": 42.6,
+          "rps": 1469.8,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_health",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 39.0,
+          "p95_ms": 43.6,
+          "p99_ms": 45.9,
+          "max_ms": 47.3,
+          "rps": 1401.6,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "landing",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 42.1,
+          "p95_ms": 46.1,
+          "p99_ms": 47.8,
+          "max_ms": 48.4,
+          "rps": 1302.4,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "trust_os",
+          "workers": 50,
+          "requests": 150,
+          "ok": 0,
+          "controlled_429_503": 150,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 150
+          },
+          "p50_ms": 14.0,
+          "p95_ms": 18.0,
+          "p99_ms": 18.3,
+          "max_ms": 18.8,
+          "rps": 4001.3,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_readiness",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 51.2,
+          "p95_ms": 59.5,
+          "p99_ms": 63.6,
+          "max_ms": 65.2,
+          "rps": 1050.4,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "scale_readiness",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 29.8,
+          "p95_ms": 36.3,
+          "p99_ms": 37.6,
+          "max_ms": 38.2,
+          "rps": 1906.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "oracle_quick",
+          "workers": 50,
+          "requests": 150,
+          "ok": 0,
+          "controlled_429_503": 150,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 150
+          },
+          "p50_ms": 4.2,
+          "p95_ms": 8.1,
+          "p99_ms": 9.3,
+          "max_ms": 11.1,
+          "rps": 11157.0,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "arb_scan",
+          "workers": 50,
+          "requests": 150,
+          "ok": 0,
+          "controlled_429_503": 150,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 150
+          },
+          "p50_ms": 6.5,
+          "p95_ms": 9.6,
+          "p99_ms": 10.4,
+          "max_ms": 11.1,
+          "rps": 8098.4,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "compliance_html",
+          "workers": 50,
+          "requests": 150,
+          "ok": 150,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 150
+          },
+          "p50_ms": 46.6,
+          "p95_ms": 50.2,
+          "p99_ms": 51.3,
+          "max_ms": 52.9,
+          "rps": 1190.1,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "observability_status",
+          "workers": 50,
+          "requests": 150,
+          "ok": 0,
+          "controlled_429_503": 150,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 150
+          },
+          "p50_ms": 10.1,
+          "p95_ms": 14.5,
+          "p99_ms": 15.5,
+          "max_ms": 17.0,
+          "rps": 5088.0,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        }
+      ],
+      "before": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7076008,
+            "MemAvailable": 14531532
+          },
+          "harness_ru_maxrss_kb": 43796
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1355016,
+          "used_memory_human": "1.29M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 1734,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "after": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7070128,
+            "MemAvailable": 14525756
+          },
+          "harness_ru_maxrss_kb": 46504
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1307800,
+          "used_memory_human": "1.25M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 3685,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 5
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 5
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 5
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "collapse": false,
+      "core_capacity_fail": false
+    },
+    {
+      "stage": "D",
+      "name": "10x",
+      "workers": 100,
+      "requests_per_endpoint": 250,
+      "elapsed_sec": 2.03,
+      "endpoints": [
+        {
+          "label": "live",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 66.0,
+          "p95_ms": 74.8,
+          "p99_ms": 82.7,
+          "max_ms": 84.5,
+          "rps": 1768.0,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "ready",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 74.3,
+          "p95_ms": 135.6,
+          "p99_ms": 146.0,
+          "max_ms": 146.6,
+          "rps": 1507.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_health",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 89.4,
+          "p95_ms": 160.4,
+          "p99_ms": 168.9,
+          "max_ms": 171.5,
+          "rps": 1172.7,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "landing",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 87.6,
+          "p95_ms": 94.7,
+          "p99_ms": 95.8,
+          "max_ms": 96.1,
+          "rps": 1345.9,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "trust_os",
+          "workers": 100,
+          "requests": 250,
+          "ok": 0,
+          "controlled_429_503": 250,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 250
+          },
+          "p50_ms": 8.4,
+          "p95_ms": 11.0,
+          "p99_ms": 12.0,
+          "max_ms": 12.7,
+          "rps": 12089.2,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_readiness",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 102.8,
+          "p95_ms": 106.2,
+          "p99_ms": 107.4,
+          "max_ms": 109.1,
+          "rps": 1141.3,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "scale_readiness",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 59.2,
+          "p95_ms": 73.1,
+          "p99_ms": 73.3,
+          "max_ms": 73.6,
+          "rps": 1845.0,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "oracle_quick",
+          "workers": 100,
+          "requests": 250,
+          "ok": 0,
+          "controlled_429_503": 250,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 250
+          },
+          "p50_ms": 5.6,
+          "p95_ms": 8.7,
+          "p99_ms": 10.1,
+          "max_ms": 11.1,
+          "rps": 17840.6,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "arb_scan",
+          "workers": 100,
+          "requests": 250,
+          "ok": 0,
+          "controlled_429_503": 250,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 250
+          },
+          "p50_ms": 13.0,
+          "p95_ms": 18.9,
+          "p99_ms": 19.4,
+          "max_ms": 21.2,
+          "rps": 7835.8,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "compliance_html",
+          "workers": 100,
+          "requests": 250,
+          "ok": 250,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 250
+          },
+          "p50_ms": 92.6,
+          "p95_ms": 96.7,
+          "p99_ms": 97.3,
+          "max_ms": 98.0,
+          "rps": 1269.9,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "observability_status",
+          "workers": 100,
+          "requests": 250,
+          "ok": 0,
+          "controlled_429_503": 250,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 250
+          },
+          "p50_ms": 5.6,
+          "p95_ms": 9.1,
+          "p99_ms": 10.9,
+          "max_ms": 13.0,
+          "rps": 17284.9,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        }
+      ],
+      "before": {
+        "host": {
+          "loadavg": [
+            0.05419921875,
+            0.2333984375,
+            0.13916015625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7075664,
+            "MemAvailable": 14531352
+          },
+          "harness_ru_maxrss_kb": 46504
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1307800,
+          "used_memory_human": "1.25M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 3830,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 5
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 5
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 5
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "after": {
+        "host": {
+          "loadavg": [
+            0.29052734375,
+            0.27978515625,
+            0.15478515625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7053072,
+            "MemAvailable": 14508916
+          },
+          "harness_ru_maxrss_kb": 49100
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1300632,
+          "used_memory_human": "1.24M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 3983,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "collapse": false,
+      "core_capacity_fail": false
+    },
+    {
+      "stage": "E",
+      "name": "viral_burst",
+      "workers": 200,
+      "requests_per_endpoint": 400,
+      "elapsed_sec": 2.79,
+      "endpoints": [
+        {
+          "label": "live",
+          "workers": 200,
+          "requests": 400,
+          "ok": 400,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 400
+          },
+          "p50_ms": 90.4,
+          "p95_ms": 147.5,
+          "p99_ms": 159.3,
+          "max_ms": 162.4,
+          "rps": 2046.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "ready",
+          "workers": 200,
+          "requests": 400,
+          "ok": 400,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 400
+          },
+          "p50_ms": 131.5,
+          "p95_ms": 196.4,
+          "p99_ms": 221.4,
+          "max_ms": 224.9,
+          "rps": 1530.0,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_health",
+          "workers": 200,
+          "requests": 400,
+          "ok": 400,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 400
+          },
+          "p50_ms": 122.8,
+          "p95_ms": 211.6,
+          "p99_ms": 254.0,
+          "max_ms": 260.9,
+          "rps": 1555.2,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "landing",
+          "workers": 200,
+          "requests": 400,
+          "ok": 160,
+          "controlled_429_503": 240,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 160,
+            "429": 240
+          },
+          "p50_ms": 92.9,
+          "p95_ms": 128.8,
+          "p99_ms": 131.7,
+          "max_ms": 133.6,
+          "rps": 2220.7,
+          "ok_rate": 0.4,
+          "controlled_rate": 0.6,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "trust_os",
+          "workers": 200,
+          "requests": 400,
+          "ok": 0,
+          "controlled_429_503": 400,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 400
+          },
+          "p50_ms": 6.6,
+          "p95_ms": 11.0,
+          "p99_ms": 12.7,
+          "max_ms": 13.9,
+          "rps": 29610.8,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "viral_readiness",
+          "workers": 200,
+          "requests": 400,
+          "ok": 400,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 400
+          },
+          "p50_ms": 174.6,
+          "p95_ms": 211.5,
+          "p99_ms": 212.3,
+          "max_ms": 212.8,
+          "rps": 1290.6,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "scale_readiness",
+          "workers": 200,
+          "requests": 400,
+          "ok": 400,
+          "controlled_429_503": 0,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "200": 400
+          },
+          "p50_ms": 119.8,
+          "p95_ms": 146.4,
+          "p99_ms": 146.7,
+          "max_ms": 147.6,
+          "rps": 1882.0,
+          "ok_rate": 1.0,
+          "controlled_rate": 0.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "oracle_quick",
+          "workers": 200,
+          "requests": 400,
+          "ok": 0,
+          "controlled_429_503": 400,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 400
+          },
+          "p50_ms": 10.5,
+          "p95_ms": 20.5,
+          "p99_ms": 28.2,
+          "max_ms": 31.9,
+          "rps": 17568.8,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "arb_scan",
+          "workers": 200,
+          "requests": 400,
+          "ok": 0,
+          "controlled_429_503": 400,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 400
+          },
+          "p50_ms": 10.0,
+          "p95_ms": 16.9,
+          "p99_ms": 17.7,
+          "max_ms": 18.4,
+          "rps": 20340.5,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "compliance_html",
+          "workers": 200,
+          "requests": 400,
+          "ok": 0,
+          "controlled_429_503": 400,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 400
+          },
+          "p50_ms": 9.6,
+          "p95_ms": 14.8,
+          "p99_ms": 15.8,
+          "max_ms": 16.7,
+          "rps": 20669.0,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        },
+        {
+          "label": "observability_status",
+          "workers": 200,
+          "requests": 400,
+          "ok": 0,
+          "controlled_429_503": 400,
+          "errors": 0,
+          "timeouts": 0,
+          "statuses": {
+            "429": 400
+          },
+          "p50_ms": 18.5,
+          "p95_ms": 25.5,
+          "p99_ms": 26.6,
+          "max_ms": 27.0,
+          "rps": 11195.9,
+          "ok_rate": 0.0,
+          "controlled_rate": 1.0,
+          "error_rate": 0.0,
+          "capacity_ok_rate": 1.0
+        }
+      ],
+      "before": {
+        "host": {
+          "loadavg": [
+            0.29052734375,
+            0.27978515625,
+            0.15478515625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7056660,
+            "MemAvailable": 14512508
+          },
+          "harness_ru_maxrss_kb": 49100
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1300632,
+          "used_memory_human": "1.24M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 3983,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "after": {
+        "host": {
+          "loadavg": [
+            0.29052734375,
+            0.27978515625,
+            0.15478515625
+          ],
+          "meminfo_kb": {
+            "MemTotal": 16398384,
+            "MemFree": 7054304,
+            "MemAvailable": 14510524
+          },
+          "harness_ru_maxrss_kb": 53936
+        },
+        "redis": {
+          "ok": true,
+          "used_memory": 1293464,
+          "used_memory_human": "1.23M",
+          "connected_clients": 7,
+          "instantaneous_ops_per_sec": 5973,
+          "rejected_connections": 0
+        },
+        "postgres": {
+          "ok": true,
+          "connections": 10,
+          "active": 1,
+          "max_connections": 100,
+          "saturation_pct": 10.0
+        },
+        "viral": {
+          "product": "BLACKDARK",
+          "surface": "viral_launch_capacity",
+          "viral_codepath_ready": true,
+          "viral_production_approved": true,
+          "inflight": 0,
+          "rate_limit_backend": "redis",
+          "inflight_backend": "redis",
+          "cache_backend": "redis",
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "limits": {
+            "max_inflight": 200,
+            "oracle_concurrency": 32,
+            "oracle_rl_per_min": 60,
+            "auth_rl_per_min": 30,
+            "api_rl_per_min": 120,
+            "quick_cache_ttl_sec": 2.0
+          },
+          "scale": {
+            "product": "BLACKDARK",
+            "ha_ready_codepath": true,
+            "soft_launch": false,
+            "database": "postgresql",
+            "login_rate_limit_backend": "redis",
+            "postgres_pool": {
+              "active": true,
+              "min_size": 4,
+              "max_size": 20,
+              "size": 4
+            },
+            "parallelism": {
+              "workers": 2,
+              "replicas": 2,
+              "parallelism": 4
+            },
+            "recommended_env": {
+              "DATABASE_URL": "postgresql://...",
+              "REDIS_URL": "redis://...",
+              "SERVICE_BUS_LOCAL": "false",
+              "WEB_CONCURRENCY": "4+",
+              "WEB_REPLICAS": "2+",
+              "PG_POOL_MAX": "20",
+              "SOFT_LAUNCH": "unset for institutional pitch",
+              "VIRAL_MODE": "true"
+            },
+            "checks": [
+              {
+                "id": "postgres",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "postgresql"
+              },
+              {
+                "id": "postgres_pool",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "active": true,
+                  "min_size": 4,
+                  "max_size": 20,
+                  "size": 4
+                }
+              },
+              {
+                "id": "redis_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+              },
+              {
+                "id": "login_rate_limit_shared",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": "redis"
+              },
+              {
+                "id": "multi_worker",
+                "ok": true,
+                "required_for_ha": true,
+                "detail": {
+                  "workers": 2,
+                  "replicas": 2,
+                  "parallelism": 4
+                }
+              },
+              {
+                "id": "soft_launch_honesty",
+                "ok": true,
+                "required_for_ha": false,
+                "detail": "strict/non-soft"
+              }
+            ],
+            "capacity_claim": {
+              "code_enables_high_concurrency": true,
+              "proven_high_concurrency_signed": false,
+              "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
+              "note": "Do not claim production HA concurrent capacity until a signed Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
+            },
+            "viral": {
+              "readiness_api": "/api/viral/readiness",
+              "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
+              "protections": [
+                "load_shedding",
+                "oracle_semaphore",
+                "shared_rate_limits",
+                "quick_cache"
+              ]
+            },
+            "k8s": {
+              "web_deployment": "deploy/k8s/web-deployment.yaml",
+              "worker_deployments": "deploy/k8s/workers-deployment.yaml",
+              "hpa": "deploy/k8s/workers-hpa.yaml"
+            }
+          },
+          "checks": [
+            {
+              "id": "postgres",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "postgresql"
+            },
+            {
+              "id": "postgres_pool",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 4
+              }
+            },
+            {
+              "id": "redis_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
+            },
+            {
+              "id": "login_rate_limit_shared",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": "redis"
+            },
+            {
+              "id": "multi_worker",
+              "ok": true,
+              "required_for_ha": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            },
+            {
+              "id": "soft_launch_honesty",
+              "ok": true,
+              "required_for_ha": false,
+              "detail": "strict/non-soft"
+            },
+            {
+              "id": "viral_middleware",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "VIRAL_MODE": true
+              }
+            },
+            {
+              "id": "inflight_ceiling",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "max_inflight": 200,
+                "current": 0,
+                "backend": "redis"
+              }
+            },
+            {
+              "id": "oracle_semaphore",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "oracle_concurrency": 32
+              }
+            },
+            {
+              "id": "shared_rate_limits",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "backend": "redis",
+                "redis_live": true,
+                "note": "Viral approval requires live Redis (not memory fallback)"
+              }
+            },
+            {
+              "id": "shared_inflight_and_cache",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "inflight_backend": "redis",
+                "cache_backend": "redis"
+              }
+            },
+            {
+              "id": "soft_launch_not_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": "SOFT_LAUNCH must be unset for viral production"
+            },
+            {
+              "id": "multi_worker_viral",
+              "ok": true,
+              "required_for_viral": true,
+              "detail": {
+                "workers": 2,
+                "replicas": 2,
+                "parallelism": 4
+              }
+            }
+          ],
+          "recommended_env": {
+            "DATABASE_URL": "postgresql://...",
+            "REDIS_URL": "redis://...",
+            "SERVICE_BUS_LOCAL": "false",
+            "WEB_CONCURRENCY": "4",
+            "WEB_REPLICAS": "2",
+            "PG_POOL_MAX": "40",
+            "SOFT_LAUNCH": "unset",
+            "VIRAL_MODE": "true",
+            "VIRAL_MAX_INFLIGHT": "200",
+            "VIRAL_ORACLE_CONCURRENCY": "32"
+          },
+          "honesty": {
+            "code_protects_under_spike": true,
+            "proven_signed_load_test": false,
+            "signed_capacity": {
+              "capacity_id": "cap_06b39e3d96",
+              "environment": "staging",
+              "workers": 4,
+              "postgres": true,
+              "redis": true,
+              "requests": 500,
+              "p50_ms": 100.0,
+              "p95_ms": 400.0,
+              "p99_ms": 800.0,
+              "error_rate": 0.0,
+              "operator": "dd-test",
+              "notes": "",
+              "published_at": "2026-08-12T11:49:26.989925+00:00",
+              "sla_targets": {
+                "availability_monthly": 0.995,
+                "api_p95_ms": 800,
+                "oracle_p95_ms": 2500,
+                "error_budget_burn_alert": 0.5,
+                "support_response_hours": {
+                  "p0": 1,
+                  "p1": 4,
+                  "p2": 24
+                }
+              },
+              "ha_claim_eligible": true,
+              "signature": "bf19e91b3559ffb55682432d610dd5cc6d8f357606706eae3eaa58147b65730b"
+            },
+            "proof_path": "data/institutional_assurance/signed_capacity.json",
+            "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+          },
+          "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
+        },
+        "health_viral": {
+          "status": "ok",
+          "probe": "viral",
+          "ok": true,
+          "soft_launch": false,
+          "redis_live": true,
+          "middleware": true,
+          "parallelism": {
+            "workers": 2,
+            "replicas": 2,
+            "parallelism": 4
+          },
+          "inflight": 0,
+          "backends": {
+            "rate_limit": "redis",
+            "inflight": "redis",
+            "quick_cache": "redis"
+          }
+        }
+      },
+      "collapse": false,
+      "core_capacity_fail": false
+    }
+  ],
+  "recovery": {
+    "recovered": true,
+    "reasons": [],
+    "settle_sec": 65.0,
+    "endpoints": [
+      {
+        "label": "live",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 6.0,
+        "p95_ms": 9.9,
+        "p99_ms": 10.0,
+        "max_ms": 10.4,
+        "rps": 1192.9,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      },
+      {
+        "label": "ready",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 5.1,
+        "p95_ms": 7.1,
+        "p99_ms": 7.3,
+        "max_ms": 7.6,
+        "rps": 1557.9,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      },
+      {
+        "label": "landing",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 5.9,
+        "p95_ms": 9.4,
+        "p99_ms": 9.6,
+        "max_ms": 10.4,
+        "rps": 1202.7,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      },
+      {
+        "label": "trust_os",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 7.4,
+        "p95_ms": 13.6,
+        "p99_ms": 13.6,
+        "max_ms": 13.8,
+        "rps": 1030.3,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      },
+      {
+        "label": "viral_readiness",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 7.8,
+        "p95_ms": 11.5,
+        "p99_ms": 12.8,
+        "max_ms": 12.9,
+        "rps": 1039.1,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      },
+      {
+        "label": "oracle_quick",
+        "workers": 8,
+        "requests": 24,
+        "ok": 24,
+        "controlled_429_503": 0,
+        "errors": 0,
+        "timeouts": 0,
+        "statuses": {
+          "200": 24
+        },
+        "p50_ms": 8.8,
+        "p95_ms": 656.6,
+        "p99_ms": 657.2,
+        "max_ms": 657.3,
+        "rps": 36.6,
+        "ok_rate": 1.0,
+        "controlled_rate": 0.0,
+        "error_rate": 0.0,
+        "capacity_ok_rate": 1.0
+      }
+    ],
+    "redis": {
+      "ok": true,
+      "used_memory": 1301784,
+      "used_memory_human": "1.24M",
+      "connected_clients": 7,
+      "instantaneous_ops_per_sec": 261,
+      "rejected_connections": 0
+    },
+    "postgres": {
+      "ok": true,
+      "connections": 10,
+      "active": 1,
+      "max_connections": 100,
+      "saturation_pct": 10.0
+    }
+  },
+  "capacity_envelope": {
+    "SAFE_VERIFIED_CAPACITY_CONCURRENT_WORKERS": 100,
+    "DEGRADED_BUT_STABLE_CAPACITY_CONCURRENT_WORKERS": 200,
+    "FAILURE_SATURATION_POINT_CONCURRENT_WORKERS": null,
+    "BOTTLENECK": "viral_rate_limit_or_oracle_compute",
+    "unit_note": "Numbers are concurrent HTTP worker threads in this harness against the measured process topology — NOT unique human users, NOT global CDN."
+  },
+  "topology": {
+    "parallelism": 4,
+    "redis_shared": true,
+    "topology_ok_for_viral_claim": true
+  },
+  "verdict": "VIRAL SURGE READY",
+  "ready_requirements": {
+    "no_platform_wide_collapse": true,
+    "core_health_capacity_ok": true,
+    "recovery_proven": true,
+    "safe_capacity_measured": true,
+    "multi_worker_redis_topology": true
+  }
+}

@@ -231,6 +231,9 @@ def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str 
 def _path_class(path: str) -> str | None:
     if path.startswith(("/health", "/static")) or path == "/favicon.ico":
         return None  # never rate-limit probes/static
+    # Ops/capacity probes must remain observable under shedding pressure.
+    if path in {"/api/viral/readiness", "/api/scale/readiness", "/api/production/guard"}:
+        return None
     if path.startswith(("/oracle/", "/api/oracle")):
         return "oracle"
     if path.startswith(("/api/auth/login", "/api/auth/register")):
@@ -247,7 +250,9 @@ def _limits_for(kind: str) -> tuple[int, int]:
         return _env_int("VIRAL_AUTH_RL_PER_MIN", AUTH_RL_PER_MIN), 60
     if kind == "api":
         return _env_int("VIRAL_API_RL_PER_MIN", API_RL_PER_MIN), 60
-    return _env_int("VIRAL_WEB_RL_PER_MIN", 240), 60
+    # HTML/marketing surfaces — higher default so anonymous viral page views
+    # degrade via CDN/edge first; still bounded for single-origin abuse.
+    return _env_int("VIRAL_WEB_RL_PER_MIN", 1200), 60
 
 
 def begin_inflight() -> tuple[bool, str]:
