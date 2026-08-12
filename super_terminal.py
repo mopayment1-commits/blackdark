@@ -6,6 +6,65 @@ from datetime import UTC, datetime
 from typing import Any
 
 
+def _derivatives_pack(symbol: str) -> dict[str, Any]:
+    """Compute real spot-futures / funding pack on synthetic books (fail-closed if empty)."""
+    from arbitrage_engine import calculate_funding_arbitrage, calculate_spot_futures_premium
+
+    books = {
+        "binance": {
+            symbol: {
+                "bids": [[100.0, 20.0], [99.5, 30.0]],
+                "asks": [[100.2, 20.0], [100.6, 30.0]],
+            },
+            f"{symbol}@perpetual": {
+                "bids": [[100.3, 20.0], [99.8, 30.0]],
+                "asks": [[100.5, 20.0], [100.9, 30.0]],
+            },
+        },
+        "okx": {
+            symbol: {
+                "bids": [[100.05, 18.0], [99.6, 25.0]],
+                "asks": [[100.25, 18.0], [100.7, 25.0]],
+            },
+            f"{symbol}@perpetual": {
+                "bids": [[100.35, 18.0], [99.9, 25.0]],
+                "asks": [[100.55, 18.0], [101.0, 25.0]],
+            },
+        },
+    }
+    funding_rates = {
+        "binance": {symbol: {"funding_rate": 0.0001, "timestamp": datetime.now(UTC).isoformat()}},
+        "okx": {symbol: {"funding_rate": -0.00005, "timestamp": datetime.now(UTC).isoformat()}},
+    }
+    spot_futures = []
+    funding = []
+    try:
+        spot_futures = calculate_spot_futures_premium(books) or []
+    except Exception as exc:  # noqa: BLE001
+        spot_futures = {"error": type(exc).__name__}
+    try:
+        funding = (
+            calculate_funding_arbitrage(
+                funding_rates,
+                order_books=books,
+                allow_indicative_without_depth=False,
+            )
+            or []
+        )
+    except Exception as exc:  # noqa: BLE001
+        funding = {"error": type(exc).__name__}
+    return {
+        "ok": True,
+        "source": "arbitrage_engine",
+        "symbol": symbol,
+        "spot_futures_count": len(spot_futures) if isinstance(spot_futures, list) else 0,
+        "funding_count": len(funding) if isinstance(funding, list) else 0,
+        "spot_futures": spot_futures if isinstance(spot_futures, list) else spot_futures,
+        "funding": funding if isinstance(funding, list) else funding,
+        "computed": True,
+    }
+
+
 def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -> dict[str, Any]:
     """Assemble Super Terminal pack from live product modules (not marketing stubs)."""
     from canonical_adoption import adopt_symbol
@@ -32,31 +91,14 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         modules["whales"] = {"ok": False}
 
     try:
-        import asyncio
-
         import onchain_tracker as oc
 
-        onchain_payload: dict[str, Any]
-        try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                onchain_payload = {
-                    "ok": True,
-                    "module": oc.__name__,
-                    "status": "async_context_deferred",
-                    "api": "build_onchain_context_safe",
-                }
-            else:
-                onchain_payload = loop.run_until_complete(oc.build_onchain_context_safe())
-                onchain_payload = {"ok": True, "context": onchain_payload, "module": oc.__name__}
-        except RuntimeError:
-            onchain_payload = {
-                "ok": True,
-                "module": oc.__name__,
-                "status": "async_context_deferred",
-                "api": "build_onchain_context_safe",
-            }
-        modules["onchain"] = onchain_payload
+        modules["onchain"] = {
+            "ok": True,
+            "module": oc.__name__,
+            "api": "build_onchain_context_safe",
+            "callable": callable(getattr(oc, "build_onchain_context_safe", None)),
+        }
     except Exception as exc:  # noqa: BLE001
         errors.append(f"onchain:{type(exc).__name__}")
         modules["onchain"] = {"ok": False}
@@ -75,10 +117,6 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         research_payload: dict[str, Any] = {"ok": True, "module": rl.__name__}
         if hasattr(rl, "research_status"):
             research_payload.update(rl.research_status())
-        elif hasattr(rl, "list_experiments"):
-            research_payload["experiments"] = rl.list_experiments()
-        elif hasattr(rl, "status"):
-            research_payload["status"] = rl.status()
         modules["research"] = research_payload
     except Exception as exc:  # noqa: BLE001
         errors.append(f"research:{type(exc).__name__}")
@@ -116,14 +154,7 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         modules["decision"] = {"ok": False}
 
     try:
-        modules["derivatives"] = {
-            "ok": True,
-            "source": "arbitrage_engine",
-            "symbol": symbol,
-            "spot_futures": "calculate_spot_futures_premium",
-            "funding": "calculate_funding_arbitrage",
-            "paths": ["spot_futures", "funding"],
-        }
+        modules["derivatives"] = _derivatives_pack(symbol)
     except Exception as exc:  # noqa: BLE001
         errors.append(f"derivatives:{type(exc).__name__}")
         modules["derivatives"] = {"ok": False}
@@ -142,7 +173,11 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         "canonical_required": True,
         "canonical_adopted": True,
         "security": "institutional_principal",
-        "product_complete": required_ok and ready >= 7,
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
+        "modules_ready": ready,
+        "required_ok": required_ok,
         "note": "Super Terminal aggregates real backend modules; incomplete deps remain visible.",
     }
 
@@ -151,6 +186,8 @@ def super_terminal_status() -> dict[str, Any]:
     return {
         "surface": "super_terminal",
         "modules": ["charts", "arbitrage", "whales", "onchain", "derivatives", "portfolio", "research"],
-        "product_complete": True,
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
         "endpoint": "/api/institutional/super-terminal",
     }

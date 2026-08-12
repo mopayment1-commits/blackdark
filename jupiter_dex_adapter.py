@@ -160,11 +160,14 @@ def adapter_status() -> dict[str, Any]:
         "configured": cfg,
         "synthetic_ok_forbidden": True,
         "live_submit_fail_closed": True,
+        "live_submit_implemented": False,
         "production_stub_reachable": False,
-        "product_complete": True,
+        "product_complete": False,
+        "verified_complete": False,
+        "implementation_class": "NOT_IMPLEMENTED",
         "quote_path_ready": bool(cfg["api"]),
         "note": (
-            "Quotes fail closed on network errors; live submit is fail-closed "
-            "(no synthetic executed=True reachable in production)."
+            "Quotes fail closed on network errors. Live submit is intentionally "
+            "NOT_IMPLEMENTED in-repo and fail-closed (never executed=True)."
         ),
     }

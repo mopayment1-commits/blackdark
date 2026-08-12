@@ -410,10 +410,14 @@ async def canonical_status_api(
 ) -> dict[str, Any]:
     from canonical_adoption import adoption_status
     from canonical_data_layer import layer_status
+    from live_data_truth_probe import probe_binance_public_book, probe_status
     from streaming_institutional import streaming_status
 
+    live = await probe_binance_public_book("BTCUSDT")
     return {
         "canonical_data_layer": layer_status(),
         "canonical_adoption": adoption_status(),
         "streaming": streaming_status(),
+        "live_public_probe": live,
+        "live_probe_status": probe_status(),
     }

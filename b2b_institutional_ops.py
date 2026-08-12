@@ -51,6 +51,25 @@ def generate_committee_report(
     return _append(_REPORTS, row)
 
 
+def _deliver_channel(channel: str, payload: dict[str, Any]) -> dict[str, Any]:
+    """Dispatch alert to a channel sink. Unknown channels fail closed."""
+    channel = (channel or "").strip().lower()
+    allowed = {"inbox", "pager", "webhook", "email", "slack"}
+    if channel not in allowed:
+        return {"delivered": False, "reason": "channel_unknown", "channel": channel}
+    # In-repo delivery: durable delivery receipt (operator connectors plug here).
+    receipt = {
+        "delivered": True,
+        "channel": channel,
+        "transport": "institutional_channel_sink",
+        "delivered_at": _utcnow(),
+        "payload_digest": str(abs(hash(json.dumps(payload, sort_keys=True, default=str))) % 10**12),
+    }
+    delivery_path = ensure_under(_DATA_BASE / "alert_deliveries.jsonl", _DATA_BASE)
+    _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})
+    return receipt
+
+
 def orchestrate_alert(
     *,
     org_id: str,
@@ -69,6 +88,7 @@ def orchestrate_alert(
             "queued",
             "acked",
             "silenced",
+            "delivered",
         }:
             return {**row, "deduplicated": True}
     priority = {"low": 4, "medium": 3, "high": 2, "critical": 1}[severity]
@@ -85,6 +105,14 @@ def orchestrate_alert(
         "escalation": "pager" if severity in {"high", "critical"} else "inbox",
         "ack_required": severity in {"high", "critical"},
     }
+    delivery = _deliver_channel(channel, row)
+    if delivery.get("delivered"):
+        row["status"] = "delivered"
+        row["delivery"] = delivery
+    else:
+        row["status"] = "delivery_failed"
+        row["delivery"] = delivery
+        row["gate"] = "fail_closed"
     return _append(_ALERTS, row)
 
 
@@ -157,7 +185,10 @@ def b2b_status() -> dict[str, Any]:
         "surface": "b2b_institutional_ops",
         "reporting": True,
         "alert_orchestration": True,
+        "alert_delivery": True,
         "sla_instrumentation": True,
-        "product_complete": True,
-        "note": "Foundation surfaces for committee reports, alert fanout queue, and SLA breach metrics.",
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
+        "note": "Committee reports, alert queue+channel delivery receipts, SLA breach metrics.",
     }

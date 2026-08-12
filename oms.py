@@ -38,8 +38,8 @@ _TRANSITIONS: dict[str, frozenset[str]] = {
     "RISK_CHECK": frozenset({"ROUTING", "REJECT", "CANCEL"}),
     "ROUTING": frozenset({"SUBMISSION", "REJECT", "CANCEL"}),
     "SUBMISSION": frozenset({"ACK", "REJECT", "RETRY", "CANCEL"}),
-    "ACK": frozenset({"PARTIAL_FILL", "FILL", "CANCEL", "EXPIRE", "REJECT"}),
-    "PARTIAL_FILL": frozenset({"PARTIAL_FILL", "FILL", "CANCEL", "EXPIRE"}),
+    "ACK": frozenset({"PARTIAL_FILL", "FILL", "CANCEL", "EXPIRE", "REJECT", "RECONCILE"}),
+    "PARTIAL_FILL": frozenset({"PARTIAL_FILL", "FILL", "CANCEL", "EXPIRE", "RECONCILE"}),
     "FILL": frozenset({"RECONCILE"}),
     "CANCEL": frozenset({"RECONCILE"}),
     "REJECT": frozenset({"RECONCILE", "RETRY"}),
@@ -381,67 +381,70 @@ def reconcile(
         raise ValueError("order_not_found")
     cur = row["state"]
     if cur == "RECONCILE":
-        return {"order_id": order_id, "state": cur, "reconciled": True, "already": True}
+        existing = row.get("reconcile") or {}
+        return {
+            "order_id": order_id,
+            "state": cur,
+            "reconciled": True,
+            "already": True,
+            "ok": bool(existing.get("ok", True)),
+            "reconcile": existing,
+        }
     if cur not in {"FILL", "CANCEL", "REJECT", "EXPIRE", "PARTIAL_FILL", "ACK"}:
         raise ValueError(f"cannot_reconcile_from:{cur}")
     oms_filled = float(row.get("filled_quantity") or 0.0)
     venue_qty = float(venue_filled_qty) if venue_filled_qty is not None else oms_filled
     mismatch = abs(oms_filled - venue_qty) > 1e-9
-    if mismatch and cur in {"FILL", "PARTIAL_FILL"}:
-        transition(
-            order_id,
-            "REJECT" if "REJECT" in _TRANSITIONS.get(cur, frozenset()) else cur,
-            actor=actor,
-            reason=f"reconcile_mismatch:oms={oms_filled}:venue={venue_qty}",
-        )
-        # Force terminal reconcile annotation even if REJECT not allowed from FILL
-        with _LOCK:
-            data = _load()
-            r = data["orders"][order_id]
-            r["reconcile"] = {
-                "ok": False,
-                "oms_filled": oms_filled,
-                "venue_filled": venue_qty,
-                "venue_ack_id": venue_ack_id or r.get("venue_ack_id"),
-                "at": _utcnow(),
-            }
-            if r["state"] == "FILL":
-                r["state"] = "RECONCILE"
-                r.setdefault("history", []).append(
-                    {
-                        "state": "RECONCILE",
-                        "at": r["updated_at"],
-                        "actor": actor,
-                        "reason": "reconcile_mismatch_recorded",
-                    }
-                )
-            _save(data)
-        return {
-            "order_id": order_id,
-            "reconciled": False,
-            "ok": False,
-            "reason": "fill_mismatch",
-            "oms_state": get_order(order_id)["state"],
-        }
-    if cur in {"FILL", "CANCEL", "REJECT", "EXPIRE"} and "RECONCILE" in _TRANSITIONS.get(cur, frozenset()):
-        transition(order_id, "RECONCILE", actor=actor, reason="venue_reconcile_ok", venue_ack_id=venue_ack_id)
+
+    # Always terminate into RECONCILE when legal; never attempt FILL→REJECT/FILL.
     with _LOCK:
         data = _load()
         r = data["orders"][order_id]
+        cur = r["state"]
+        if cur != "RECONCILE" and "RECONCILE" in _TRANSITIONS.get(cur, frozenset()):
+            r["state"] = "RECONCILE"
+            r["updated_at"] = _utcnow()
+            r.setdefault("history", []).append(
+                {
+                    "state": "RECONCILE",
+                    "at": r["updated_at"],
+                    "actor": actor,
+                    "reason": "reconcile_mismatch" if mismatch else "venue_reconcile_ok",
+                }
+            )
+        elif cur != "RECONCILE" and cur in {"ACK", "PARTIAL_FILL"}:
+            # ACK/PARTIAL_FILL may need FILL first for quantity truth, but mismatch
+            # still records a terminal reconcile annotation for audit safety.
+            r["state"] = "RECONCILE"
+            r["updated_at"] = _utcnow()
+            r.setdefault("history", []).append(
+                {
+                    "state": "RECONCILE",
+                    "at": r["updated_at"],
+                    "actor": actor,
+                    "reason": "reconcile_forced_terminal",
+                }
+            )
         r["reconcile"] = {
-            "ok": True,
+            "ok": not mismatch,
             "oms_filled": oms_filled,
             "venue_filled": venue_qty,
             "venue_ack_id": venue_ack_id or r.get("venue_ack_id"),
+            "mismatch": mismatch,
             "at": _utcnow(),
         }
+        if venue_ack_id:
+            r["venue_ack_id"] = venue_ack_id
+        data["orders"][order_id] = r
         _save(data)
+        out = dict(r)
     return {
         "order_id": order_id,
         "reconciled": True,
-        "ok": True,
-        "oms_state": get_order(order_id)["state"],
-        "reconcile": get_order(order_id).get("reconcile"),
+        "ok": not mismatch,
+        "reason": "fill_mismatch" if mismatch else None,
+        "oms_state": out["state"],
+        "reconcile": out.get("reconcile"),
     }
 
 
@@ -459,9 +462,11 @@ def oms_status() -> dict[str, Any]:
         "reconcile": True,
         "canonical_adopted": True,
         "durable_store": str(_PATH),
-        "product_complete": True,
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
         "note": (
-            "OMS lifecycle + risk gate + venue submit + reconcile "
-            "(dry-run default; live gated by LIVE_EXECUTION flags)."
+            "OMS lifecycle + risk gate + venue submit + reconcile. "
+            "Live venue fills require LIVE_EXECUTION; default is dry-run."
         ),
     }

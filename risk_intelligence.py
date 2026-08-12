@@ -213,9 +213,13 @@ def full_risk_architecture(
     tvl_usd: float | None = None,
     incident_count: int | None = None,
     pairwise_corr: dict[tuple[str, str], float] | None = None,
+    venue_health: dict[str, float] | None = None,
+    leverage: float | None = None,
+    funding_rate: float | None = None,
+    liquidation_distance_bps: float | None = None,
 ) -> dict[str, Any]:
-    """One integrated Risk Architecture covering institutional risk domains."""
-    reports = [
+    """Integrated Risk Architecture — only lists domains that were actually computed."""
+    reports: list[dict[str, Any]] = [
         liquidity_risk(
             symbol=symbol,
             notional=notional,
@@ -225,9 +229,11 @@ def full_risk_architecture(
         ),
         flash_crash_risk(returns_bps=list(returns_bps or []), window_sec=window_sec),
     ]
+    computed = ["liquidity", "flash_crash"]
     if positions:
         reports.append(correlation_contagion_risk(positions=positions, pairwise_corr=pairwise_corr))
         reports.append(stress_test_portfolio(positions=positions))
+        computed.extend(["correlation_contagion", "portfolio_stress"])
     if protocol is not None:
         reports.append(
             smart_contract_risk(
@@ -238,32 +244,63 @@ def full_risk_architecture(
                 incident_count=incident_count,
             )
         )
+        computed.append("smart_contract")
+    if venue_health is not None:
+        worst = min(venue_health.values()) if venue_health else 0.0
+        venue_rep = {
+            "kind": "venue_risk",
+            "venues": venue_health,
+            "worst_health": worst,
+            "gate": "block" if worst < 0.35 else "pass",
+            "executable": worst >= 0.35,
+            "reason": "venue_unhealthy" if worst < 0.35 else None,
+        }
+        reports.append(venue_rep)
+        computed.append("venue")
+    if leverage is not None:
+        lev = float(leverage)
+        lev_rep = {
+            "kind": "leverage_risk",
+            "leverage": lev,
+            "gate": "block" if lev > 5.0 else "pass",
+            "executable": lev <= 5.0,
+            "reason": "leverage_too_high" if lev > 5.0 else None,
+        }
+        reports.append(lev_rep)
+        computed.append("leverage")
+    if funding_rate is not None:
+        fr = abs(float(funding_rate))
+        fund_rep = {
+            "kind": "funding_risk",
+            "funding_rate": float(funding_rate),
+            "gate": "block" if fr >= 0.01 else "pass",
+            "executable": fr < 0.01,
+            "reason": "funding_extreme" if fr >= 0.01 else None,
+        }
+        reports.append(fund_rep)
+        computed.append("funding")
+    if liquidation_distance_bps is not None:
+        dist = float(liquidation_distance_bps)
+        liq_rep = {
+            "kind": "liquidation_risk",
+            "distance_bps": dist,
+            "gate": "block" if dist < 150 else "pass",
+            "executable": dist >= 150,
+            "reason": "near_liquidation" if dist < 150 else None,
+        }
+        reports.append(liq_rep)
+        computed.append("liquidation")
     gate = aggregate_risk_gate(reports)
     return {
         "architecture": "full_risk",
-        "domains": [
-            "market",
-            "volatility",
-            "liquidity",
-            "execution",
-            "portfolio",
-            "concentration",
-            "correlation",
-            "contagion",
-            "counterparty",
-            "venue",
-            "smart_contract",
-            "protocol",
-            "liquidation",
-            "leverage",
-            "funding",
-            "flash_crash",
-            "operational",
-        ],
+        "domains_computed": computed,
+        "domains_advertised_only": False,
         "reports": reports,
         "gate": gate,
         "executable": gate.get("executable"),
-        "product_complete": True,
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
     }
 
 
@@ -281,6 +318,8 @@ def risk_intelligence_status() -> dict[str, Any]:
         ],
         "integrations": ["decision_gate", "execution_gate", "oms", "portfolio", "whale"],
         "api": ["/api/institutional/risk/status", "/api/institutional/risk/aggregate"],
-        "product_complete": True,
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
         "note": "Risk modules fail closed on unknown required inputs and feed execution gates.",
     }

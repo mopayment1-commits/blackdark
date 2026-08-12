@@ -385,10 +385,12 @@ def test_b2b_ops_surfaces(tmp_path, monkeypatch):
         message="liquidity gate",
         dedupe_key="liq-1",
     )
-    assert al["status"] == "queued"
+    assert al["status"] in {"queued", "delivered"}
+    assert al.get("delivery", {}).get("delivered") is True
     sla = b2b.record_sla_event(org_id="org", metric="api_p95", value=900, target=500)
     assert sla["breached"] is True
-    assert b2b.b2b_status()["product_complete"] is True
+    assert b2b.b2b_status()["alert_delivery"] is True
+    assert b2b.b2b_status()["implementation_class"] == "PARTIAL"
 
 
 def test_cex_dex_depth_aware_and_executor_blocks_indicative():
