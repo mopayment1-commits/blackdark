@@ -43,14 +43,24 @@ def test_csrf_allows_matching_origin(monkeypatch):
     assert sm._request_origin_ok(req) is True
 
 
-def test_production_rejects_legacy_clear_cookie(monkeypatch):
+def _force_production_markers(monkeypatch) -> None:
+    """APP_ENV=production must win even when ENV is polluted to development."""
+    monkeypatch.setenv("ENV", "development")
     monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("ENVIRONMENT", raising=False)
+    monkeypatch.delenv("RAILWAY_ENVIRONMENT", raising=False)
+
+
+def test_production_rejects_legacy_clear_cookie(monkeypatch):
+    _force_production_markers(monkeypatch)
     monkeypatch.delenv("ALLOW_LEGACY_SESSION_COOKIE", raising=False)
     assert sm.cookie_to_session_bearer("plainBearerTokenValue1234567890") == ""
 
 
 def test_sealed_cookie_roundtrip(monkeypatch):
-    monkeypatch.setenv("APP_ENV", "production")
+    _force_production_markers(monkeypatch)
+    # Production vault requires explicit key material (fail-closed).
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "p1-session-hardening-test-master-key")
     from secrets_vault import encrypt_secret
 
     plain = "sessionBearerTokenValueABCDEFG123"
@@ -60,7 +70,7 @@ def test_sealed_cookie_roundtrip(monkeypatch):
 
 
 def test_auth_body_omits_token_in_production(monkeypatch):
-    monkeypatch.setenv("APP_ENV", "production")
+    _force_production_markers(monkeypatch)
     monkeypatch.delenv("AUTH_TOKEN_IN_BODY", raising=False)
     from api.routers.auth import _session_response_body
 
@@ -70,7 +80,7 @@ def test_auth_body_omits_token_in_production(monkeypatch):
 
 
 def test_cookie_secure_in_production(monkeypatch):
-    monkeypatch.setenv("APP_ENV", "production")
+    _force_production_markers(monkeypatch)
     monkeypatch.delenv("COOKIE_SECURE", raising=False)
     monkeypatch.delenv("APP_BASE_URL", raising=False)
     kwargs = sm.cookie_session_kwargs()
