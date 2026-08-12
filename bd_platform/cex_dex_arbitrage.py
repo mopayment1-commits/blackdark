@@ -311,12 +311,19 @@ def _cex_dex_row(
     net_bps: float,
     quote_usd: float,
     fee_bps: float = 0.0,
+    *,
+    cex_l2_walk_verified: bool = False,
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
-    # Depth-aware executability: require DEX liquidity ≥ 3× quote and known fees.
-    # Without verified CEX book walk, remain indicative (fail closed for executable).
-    depth_ok = liq >= max(quote_usd * 3.0, 1.0) and fee_bps is not None
+    # Depth-aware executability: require verified CEX L2 book walk + DEX liquidity + fees.
+    # Mid/pool-only paths remain INDICATIVE forever (fail closed for executable).
+    cex_l2_verified = bool(cex_l2_walk_verified)
+    depth_ok = (
+        cex_l2_verified
+        and liq >= max(quote_usd * 3.0, 1.0)
+        and fee_bps is not None
+    )
     # Conservative impact haircut when only pool liquidity is known (no L2 walk).
     impact_bps = min(75.0, (quote_usd / liq) * 10_000 * 0.35) if liq > 0 else None
     executable = bool(
@@ -356,8 +363,17 @@ def _cex_dex_row(
         "profitable": bool(executable and est_profit and est_profit > 0),
         "executable": executable,
         "indicative": not executable,
-        "indicative_reason": "" if executable else "cex_dex_insufficient_depth_or_impact",
+        "indicative_reason": (
+            ""
+            if executable
+            else (
+                "cex_l2_walk_required"
+                if not cex_l2_verified
+                else "cex_dex_insufficient_depth_or_impact"
+            )
+        ),
         "depth_verified": depth_ok,
+        "cex_l2_walk_verified": cex_l2_verified,
         "smart_contract_risk_required": True,
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (

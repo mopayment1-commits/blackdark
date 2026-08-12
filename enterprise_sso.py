@@ -341,7 +341,7 @@ async def complete_sso_login_async(
         "expires_at": session["expires_at"],
         "product_complete": live_complete,
         "institutional_complete": live_complete,
-        "scim_ready": True,
+        "scim_ready": __import__("scim_service", fromlist=["scim_ready"]).scim_ready(),
         "verified_claims_keys": sorted(verified_claims.keys()),
     }
 

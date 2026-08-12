@@ -1,9 +1,8 @@
 """
 BLACKDARK — Jupiter / Solana DEX live leg adapter (Report-1 C4 cure).
 
-Product-complete: quote + simulate + execute path.
-Live execute requires SOLANA_PRIVATE_KEY + JUPITER_API; otherwise returns
-structured dry-run with executable=true when economics pass.
+Fail-closed: network failure / non-200 NEVER returns ok=True synthetic economics
+as a live quote. Synthetic may only appear as ok=False research residue.
 """
 
 from __future__ import annotations
@@ -32,7 +31,7 @@ async def quote_swap(
     amount_atomic: int,
     slippage_bps: int = 50,
 ) -> dict[str, Any]:
-    """Fetch Jupiter quote; falls back to synthetic economics quote if network blocked."""
+    """Fetch Jupiter quote. Fail closed on network/API failure (no synthetic ok=True)."""
     cfg = jupiter_configured()
     base = os.getenv("JUPITER_API_URL", "https://quote-api.jup.ag/v6").rstrip("/")
     try:
@@ -55,32 +54,30 @@ async def quote_swap(
                     "source": "jupiter_api",
                     "quote": data,
                     "configured": cfg,
+                    "executable_quote": True,
                     "at": _utcnow(),
                 }
+            return {
+                "ok": False,
+                "source": "jupiter_api_error",
+                "status_code": r.status_code,
+                "quote": None,
+                "configured": cfg,
+                "executable_quote": False,
+                "reason": f"http_{r.status_code}",
+                "at": _utcnow(),
+            }
     except Exception as exc:
         return {
-            "ok": True,
-            "source": "synthetic_economics",
-            "quote": {
-                "inAmount": str(amount_atomic),
-                "outAmount": str(int(amount_atomic * 0.997)),
-                "slippageBps": slippage_bps,
-                "note": f"network_unavailable:{type(exc).__name__}",
-            },
+            "ok": False,
+            "source": "network_unavailable",
+            "quote": None,
             "configured": cfg,
+            "executable_quote": False,
+            "reason": f"network_unavailable:{type(exc).__name__}",
+            "synthetic_forbidden": True,
             "at": _utcnow(),
         }
-    return {
-        "ok": True,
-        "source": "synthetic_economics",
-        "quote": {
-            "inAmount": str(amount_atomic),
-            "outAmount": str(int(amount_atomic * 0.997)),
-            "slippageBps": slippage_bps,
-        },
-        "configured": cfg,
-        "at": _utcnow(),
-    }
 
 
 async def execute_swap(
@@ -101,6 +98,21 @@ async def execute_swap(
         output_mint=sol if side == "buy" else usdc,
         amount_atomic=amount_atomic,
     )
+    if not q.get("ok"):
+        return {
+            "leg": "dex",
+            "venue": venue,
+            "asset": asset,
+            "side": side,
+            "amount_usd": amount_usd,
+            "mode": "blocked",
+            "executed": False,
+            "executable_product_path": False,
+            "quote": q,
+            "configured": cfg,
+            "blocked_reason": q.get("reason") or "jupiter_quote_unavailable",
+            "message": "Jupiter quote unavailable — fail closed (no synthetic economics).",
+        }
     if dry_run or not cfg["wallet"] or not cfg["live_enabled"]:
         return {
             "leg": "dex",
@@ -118,33 +130,29 @@ async def execute_swap(
                 "Set SOLANA_PRIVATE_KEY + JUPITER_LIVE_EXECUTION=true for live fill."
             ),
             "blocked_reason": None if dry_run else "live_requires_wallet_and_flag",
-            "product_complete": True,
-            "at": _utcnow(),
         }
-
-    # Live path scaffold — signed tx submission would use solders/solana-py
     return {
         "leg": "dex",
         "venue": venue,
         "asset": asset,
         "side": side,
         "amount_usd": amount_usd,
-        "mode": "live_attempt",
+        "mode": "live_submit_not_implemented_in_repo",
         "executed": False,
+        "executable_product_path": True,
         "quote": q,
         "configured": cfg,
-        "message": "Live Jupiter swap adapter engaged — submit via operator wallet signer",
-        "signer": "operator_wallet_slot",
-        "product_complete": True,
-        "at": _utcnow(),
+        "blocked_reason": "live_submit_requires_operator_wallet_runtime",
+        "message": "Live Jupiter submit is operator-gated; quote was live API.",
     }
 
 
 def adapter_status() -> dict[str, Any]:
+    cfg = jupiter_configured()
     return {
-        "surface": "jupiter_dex_live_leg",
-        "product_complete": True,
-        "configured": jupiter_configured(),
-        "replaces": "blocked_until_jupiter stub",
-        "module": "jupiter_dex_adapter.py",
+        "surface": "jupiter_dex_adapter",
+        "configured": cfg,
+        "synthetic_ok_forbidden": True,
+        "product_complete": bool(cfg["api"]),
+        "note": "Quotes fail closed on network errors; no synthetic ok=True.",
     }

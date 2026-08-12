@@ -673,6 +673,13 @@ except Exception:
     logger.exception("Institutional router unavailable")
 
 try:
+    from api.routers.oms_decision import router as oms_decision_router
+
+    app.include_router(oms_decision_router)
+except Exception:
+    logger.exception("OMS/Decision router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")

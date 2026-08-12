@@ -63,6 +63,7 @@ class OpportunityExplanation(BaseModel):
     reasons: list[str]
     risk_factors: list[str]
     confidence_percent: float = Field(ge=0, le=100)
+    confidence_claim: dict[str, Any] | None = None
 
 
 class OracleResponse(BaseModel):
@@ -457,9 +458,13 @@ def explain_opportunity(
         risks.append("Slippage is elevated relative to the configured safety ceiling.")
 
     confidence = _calibrate_explanation_confidence(opportunity_score, metrics)
+    from confidence_truth import claim_heuristic
+
+    conf_claim = claim_heuristic(confidence / 100.0, label="oracle_rules_engine")
     summary = (
         f"{metrics.asset} {kind.replace('_', ' ')} setup scores "
-        f"{opportunity_score:.1f}/100 with {confidence:.1f}% confidence (rules engine)."
+        f"{opportunity_score:.1f}/100 with {confidence:.1f}% heuristic confidence "
+        f"(not an empirical probability)."
     )
     return OpportunityExplanation(
         kind=kind,
@@ -468,6 +473,7 @@ def explain_opportunity(
         reasons=reasons,
         risk_factors=risks,
         confidence_percent=round(confidence, 2),
+        confidence_claim=conf_claim.to_dict(),
     )
 
 

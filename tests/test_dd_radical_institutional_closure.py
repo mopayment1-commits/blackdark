@@ -174,16 +174,27 @@ def test_compliance_contracts_ir_support():
     assert ticket["sla_response_hours"] == 1
 
 
-def test_jupiter_dex_adapter_product_complete():
-    from jupiter_dex_adapter import adapter_status, execute_swap
+def test_jupiter_dex_adapter_fail_closed_no_synthetic():
+    from jupiter_dex_adapter import adapter_status, execute_swap, quote_swap
 
     async def _run():
-        return await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
+        q = await quote_swap(
+            input_mint="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            output_mint="So11111111111111111111111111111111111111112",
+            amount_atomic=1_000_000,
+        )
+        out = await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
+        return q, out
 
-    out = asyncio.run(_run())
-    assert out["product_complete"] is True
-    assert out["executable_product_path"] is True
-    assert adapter_status()["product_complete"] is True
+    q, out = asyncio.run(_run())
+    # Network may succeed or fail; synthetic ok=True is forbidden either way.
+    if not q.get("ok"):
+        assert q.get("source") != "synthetic_economics"
+        assert q.get("executable_quote") is False
+        assert out["executable_product_path"] is False
+    else:
+        assert q.get("source") == "jupiter_api"
+    assert adapter_status()["synthetic_ok_forbidden"] is True
 
 
 def test_d5_honesty_and_model_card():

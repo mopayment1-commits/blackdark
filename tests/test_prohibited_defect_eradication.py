@@ -16,11 +16,13 @@ def test_no_default_on_enterprise_sso_demo():
     assert 'ENTERPRISE_SSO_DEMO", "true"' not in src
 
 
-def test_scim_ready_is_true_with_real_module():
+def test_scim_ready_is_true_with_real_module(monkeypatch):
+    monkeypatch.setenv("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
     from scim_service import scim_ready, scim_status
 
     assert scim_ready() is True
     assert scim_status()["product_complete"] is True
+    assert scim_status()["bearer_configured"] is True
 
 
 def test_unknown_fee_never_becomes_zero():
@@ -116,11 +118,38 @@ def test_canonical_adoption_required_marker():
     assert "adopt_funding_rates" in src
 
 
-def test_plan_audit_zero_partials():
+def test_funding_helper_never_returns_zero_slip_when_missing():
+    from arbitrage_engine import _funding_depth_slippage_bps
+
+    slip, ok, reason = _funding_depth_slippage_bps(
+        None, symbol="BTC/USDT", long_exchange="binance", short_exchange="okx", notional=1000
+    )
+    assert slip is None
+    assert ok is False
+    assert reason == "order_books_missing"
+
+
+def test_coverage_percent_is_live_not_catalog():
+    import asyncio
+    from platform_universe import compute_universe_coverage
+
+    cov = asyncio.run(compute_universe_coverage())
+    assert cov["coverage_percent_exchanges"] == cov["live_coverage_percent_exchanges"]
+    assert "catalog_ready_percent_exchanges" in cov
+    assert "catalog_ready ≠ live" in cov["honesty"]
+    # Vanity inflation gate: live percent must equal live sources / target
+    target = max(cov["target"]["exchanges"], 1)
+    expected = round(cov["live_ingestion_sources"] / target * 100, 1)
+    assert cov["coverage_percent_exchanges"] == expected
+
+
+def test_plan_audit_honest_catalog_partial_allowed():
     import plan_audit
     from collections import Counter
 
     c = Counter(r[2] for r in plan_audit._PLAN_ROWS)
-    assert c.get("partial", 0) == 0
+    # Catalog honesty: planned/proxy mix may be partial — never invent 46/46 complete.
     assert c.get("planned", 0) == 0
-    assert c["complete"] == len(plan_audit._PLAN_ROWS)
+    assert c["complete"] + c.get("partial", 0) == len(plan_audit._PLAN_ROWS)
+    catalog = [r for r in plan_audit._PLAN_ROWS if "77 arbitrage" in r[1]]
+    assert catalog and catalog[0][2] == "partial"

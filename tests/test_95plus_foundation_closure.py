@@ -328,6 +328,7 @@ def test_decision_intelligence_engine_stand_down(tmp_path, monkeypatch):
 def test_scim_honesty_endpoint(monkeypatch):
     monkeypatch.setenv("ADMIN_API_KEY", "scim-honesty-admin-key")
     monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
+    monkeypatch.setenv("SCIM_BEARER_TOKEN", "scim-honesty-bearer")
     from fastapi.testclient import TestClient
 
     from dashboard import app
@@ -341,6 +342,25 @@ def test_scim_honesty_endpoint(monkeypatch):
     body = st.json()
     assert body["scim_ready"] is True
     assert body["product_complete"] is True
+    assert body["bearer_configured"] is True
+
+
+def test_oms_decision_api_wired(monkeypatch):
+    monkeypatch.setenv("ADMIN_API_KEY", "oms-decision-admin-key")
+    monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    headers = {"X-Admin-Key": "oms-decision-admin-key"}
+    oms_st = client.get("/api/institutional/oms/status", headers=headers)
+    assert oms_st.status_code == 200
+    assert "lifecycle" in oms_st.json() or oms_st.json().get("surface")
+    dg = client.get("/api/institutional/decision-graph/status", headers=headers)
+    assert dg.status_code == 200
+    di = client.get("/api/institutional/decision-intelligence/status", headers=headers)
+    assert di.status_code == 200
 
 
 def test_b2b_ops_surfaces(tmp_path, monkeypatch):
@@ -381,12 +401,13 @@ def test_cex_dex_depth_aware_and_executor_blocks_indicative():
     src = Path(inspect.getfile(scan_cex_dex_opportunities)).read_text(encoding="utf-8")
     assert "depth_verified" in src
     assert "impact_bps_estimate" in src
-    # Insufficient liquidity → not executable
+    assert "cex_l2_walk_verified" in src
+    # Without CEX L2 walk, never executable — even with huge DEX liquidity.
     row = _cex_dex_row(
         "BTC",
         {"binance": 100.0},
         100.0,
-        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 100.0},
+        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 10_000_000.0},
         "jupiter",
         99.0,
         "binance",
@@ -395,9 +416,12 @@ def test_cex_dex_depth_aware_and_executor_blocks_indicative():
         80.0,
         1000.0,
         fee_bps=10.0,
+        cex_l2_walk_verified=False,
     )
     assert row["executable"] is False
     assert row["indicative"] is True
+    assert row["cex_l2_walk_verified"] is False
+    assert row["indicative_reason"] == "cex_l2_walk_required"
 
     async def _run():
         return await execute_cex_dex_opportunity(row, dry_run=True)

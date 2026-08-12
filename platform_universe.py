@@ -112,6 +112,10 @@ async def compute_universe_coverage() -> dict[str, Any]:
     healthy_count = sum(1 for row in health_rows if row.get("last_ok_at"))
 
     ready_ids = set(block["ingestion_ready_ids"])
+    target_ex = max(block["target_exchanges"], 1)
+    catalog_ready_pct = round(block["ingestion_ready_count"] / target_ex * 100, 1)
+    # LIVE coverage uses observed healthy ingestion sources — never catalog-ready vanity.
+    live_pct = round(healthy_count / target_ex * 100, 1)
 
     return {
         "target": {
@@ -122,10 +126,10 @@ async def compute_universe_coverage() -> dict[str, Any]:
         "ccxt_next_wave": block["ccxt_mapped_count"],
         "dex_venues": block["dex_count"],
         "perp_dex_venues": block["perp_dex_count"],
-        "coverage_percent_exchanges": round(
-            block["ingestion_ready_count"] / max(block["target_exchanges"], 1) * 100,
-            1,
-        ),
+        # Honest live metric (healthy_count). Catalog-ready is separate and never sold as live.
+        "coverage_percent_exchanges": live_pct,
+        "live_coverage_percent_exchanges": live_pct,
+        "catalog_ready_percent_exchanges": catalog_ready_pct,
         "coverage_percent_assets": round(
             len(block["asset_symbols"]) / max(block["target_assets"], 1) * 100,
             1,
@@ -133,6 +137,9 @@ async def compute_universe_coverage() -> dict[str, Any]:
         "live_ingestion_sources": healthy_count,
         "ingestion_health_rows": len(health_rows),
         "ingestion_ready_ids": sorted(ready_ids),
+        "honesty": (
+            "catalog_ready ≠ live. coverage_percent_exchanges uses live_ingestion_sources only."
+        ),
         "recommended_next_exchanges": [
             row["id"]
             for row in universe_exchanges()

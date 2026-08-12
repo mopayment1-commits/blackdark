@@ -868,22 +868,22 @@ def _funding_depth_slippage_bps(
     short_exchange: str,
     notional: float,
 ) -> tuple[float, bool, str]:
-    """Return (slippage_bps, depth_verified, reason). Fail closed without books."""
+    """Return (slippage_bps|None, depth_verified, reason). Fail closed without books."""
     if not order_books:
-        return 0.0, False, "order_books_missing"
+        return None, False, "order_books_missing"
     long_books = order_books.get(long_exchange, {})
     short_books = order_books.get(short_exchange, {})
     long_book = long_books.get(_perpetual_book_key(symbol)) or long_books.get(symbol)
     short_book = short_books.get(_perpetual_book_key(symbol)) or short_books.get(symbol)
     if long_book is None or short_book is None:
-        return 0.0, False, "perp_depth_missing"
+        return None, False, "perp_depth_missing"
     # Open long = buy asks; open short = sell into bids.
     buy_ex = walk_asks(long_book, notional)
     if buy_ex is None:
-        return 0.0, False, "long_depth_insufficient"
+        return None, False, "long_depth_insufficient"
     sell_ex = walk_bids(short_book, buy_ex.base_amount)
     if sell_ex is None:
-        return 0.0, False, "short_depth_insufficient"
+        return None, False, "short_depth_insufficient"
     return buy_ex.slippage_bps + sell_ex.slippage_bps, True, ""
 
 
@@ -956,11 +956,38 @@ def calculate_funding_arbitrage(
             short_exchange=short_exchange,
             notional=notional,
         )
-        if not depth_ok and not allow_indicative_without_depth:
-            # Fail closed: never emit executable funding yield with zero invented slippage.
+        if not depth_ok or slip_bps is None:
+            if not allow_indicative_without_depth:
+                # Fail closed: never emit funding yield with unknown/zero invented slippage.
+                continue
+            # Research-only indicative: wipe yield so unknown slippage cannot look profitable.
+            slippage_buffer = gross_yield + trading_fees
+            net_yield = gross_yield - trading_fees - slippage_buffer
+            net_yield_percent = (net_yield / notional) * 100 if notional else 0.0
+            opportunities.append(
+                FundingArbitrageOpportunity(
+                    symbol=symbol,
+                    long_exchange=long_exchange,
+                    short_exchange=short_exchange,
+                    long_funding_rate=long_rate,
+                    short_funding_rate=short_rate,
+                    funding_spread_bps=funding_spread_bps,
+                    quote_amount=notional,
+                    gross_yield_usdt=gross_yield,
+                    trading_fees_usdt=trading_fees,
+                    slippage_buffer_usdt=slippage_buffer,
+                    total_slippage_bps=0.0,  # unknown — not a measured zero; see indicative_reason
+                    depth_verified=False,
+                    executable=False,
+                    indicative=True,
+                    indicative_reason=depth_reason or "slippage_unknown_not_zero",
+                    net_yield_usdt=net_yield,
+                    net_yield_percent=net_yield_percent,
+                    base_net_yield_usdt=net_yield,
+                )
+            )
             continue
-
-        slippage_buffer = _slippage_buffer_usdt(notional, slip_bps if depth_ok else 0.0, market_context)
+        slippage_buffer = _slippage_buffer_usdt(notional, float(slip_bps), market_context)
         net_yield = gross_yield - trading_fees - slippage_buffer
         net_yield_percent = (net_yield / notional) * 100 if notional else 0.0
         executable = bool(depth_ok and net_yield > 0)
@@ -977,7 +1004,7 @@ def calculate_funding_arbitrage(
                 gross_yield_usdt=gross_yield,
                 trading_fees_usdt=trading_fees,
                 slippage_buffer_usdt=slippage_buffer,
-                total_slippage_bps=slip_bps if depth_ok else 0.0,
+                total_slippage_bps=float(slip_bps),
                 depth_verified=depth_ok,
                 executable=executable,
                 indicative=not executable,

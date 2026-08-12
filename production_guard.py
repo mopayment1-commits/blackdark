@@ -179,6 +179,9 @@ def _production_guard_state() -> dict[str, Any]:
     secrets_ok, session_pepper_ok, prod_secrets_hygiene = _secret_hygiene_flags()
     expose_demo = _env_flag("EXPOSE_B2B_DEMO_KEY")
     live_exec = _env_flag("LIVE_EXECUTION_ALLOW_API")
+    # Soft Launch NEVER waives production Postgres/billing/security dependencies.
+    # DEMO/non-production may use Soft Launch for local SQLite demos only.
+    soft_launch_waive = soft_launch and not production
     strict_prod = production and not soft_launch
     viral_mode = _env_flag("VIRAL_MODE", "true")
     viral_ha = strict_prod and viral_mode
@@ -191,6 +194,7 @@ def _production_guard_state() -> dict[str, Any]:
         "mode": _service_mode(),
         "production": production,
         "soft_launch": soft_launch,
+        "soft_launch_waive": soft_launch_waive,
         "institutional": institutional,
         "sso_demo": sso_demo,
         "strict_prod": strict_prod,
@@ -217,7 +221,7 @@ def _production_guard_state() -> dict[str, Any]:
         "billing_webhook_ok": _billing_webhook_ready(lemon, stripe, lemon_webhook, stripe_webhook),
         "redis_shared_ok": redis_ok and not getattr(config, "SERVICE_BUS_LOCAL", True),
         "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
-        "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not production),
+        "sqlite_forbidden_ok": pg if production else (pg or soft_launch or not production),
         "prod_secrets_hygiene": prod_secrets_hygiene,
     }
 
@@ -225,17 +229,30 @@ def _base_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
     return [
         _check(
             "postgres_database",
-            s["pg"] or s["soft_launch"],
+            s["pg"] or s["soft_launch_waive"],
             required=True,
-            hint="Set Postgres DATABASE_URL=postgresql://... (or SOFT_LAUNCH=true for free SQLite demo)",
+            hint=(
+                "Set Postgres DATABASE_URL=postgresql://... "
+                "(SOFT_LAUNCH waives Postgres only outside ENV=production; "
+                "production Soft Launch cannot bypass Postgres)"
+            ),
         ),
         _check(
             "sqlite_forbidden_in_strict_production",
             s["sqlite_forbidden_ok"],
-            required=s["strict_prod"],
+            required=s["production"],
             hint=(
-                "Strict production forbids SQLite. Set DATABASE_URL=postgresql://... "
-                "and unset SOFT_LAUNCH before any institutional pitch."
+                "Production forbids SQLite. Set DATABASE_URL=postgresql://... "
+                "Soft Launch cannot waive Postgres in production."
+            ),
+        ),
+        _check(
+            "production_soft_launch_no_dependency_bypass",
+            (not s["production"]) or (not s["soft_launch"]) or s["pg"],
+            required=s["production"],
+            hint=(
+                "In ENV=production, Soft Launch must not bypass Postgres. "
+                "Unset SOFT_LAUNCH or configure DATABASE_URL=postgresql://..."
             ),
         ),
         _check(
@@ -253,25 +270,30 @@ def _base_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _billing_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
     whale_checkout_ok = s["lemon_whale"] or s["stripe_price_whale"] or (s["stripe"] and not s["lemon"])
+    waive = s["soft_launch_waive"]
     return [
         _check(
             "billing_checkout",
-            s["billing"] or s["soft_launch"],
+            s["billing"] or waive,
             required=True,
-            hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys (or SOFT_LAUNCH=true)",
+            hint=(
+                "Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys "
+                "(SOFT_LAUNCH billing waive is non-production only)"
+            ),
         ),
         _check(
             "billing_entitlement_webhook",
-            s["billing_webhook_ok"] or s["soft_launch"],
+            s["billing_webhook_ok"] or waive,
             required=True,
             hint=(
                 "Set LEMON_SQUEEZY_WEBHOOK_SECRET (POST /webhook/lemon) "
-                "or STRIPE_WEBHOOK_SECRET (POST /webhook) — or SOFT_LAUNCH=true"
+                "or STRIPE_WEBHOOK_SECRET (POST /webhook) — "
+                "SOFT_LAUNCH billing waive is non-production only"
             ),
         ),
         _check(
             "billing_whale_checkout_usd",
-            whale_checkout_ok or s["soft_launch"],
+            whale_checkout_ok or waive,
             required=False,
             hint=(
                 "Set LEMON_SQUEEZY_CHECKOUT_WHALE or STRIPE_PRICE_WHALE "

@@ -72,7 +72,9 @@ def build_authn_request(
         "xml": xml,
         "destination": destination,
         "acs_url": acs_url,
-        "institutional_complete": True,
+        "signed": False,
+        "institutional_complete": False,
+        "note": "AuthnRequest unsigned until SP signing key attached; Response verify is separate",
     }
 
 
@@ -270,10 +272,19 @@ def build_test_response(
 
 
 def saml_status() -> dict[str, Any]:
+    import os
+
+    sp_key = bool(os.getenv("SAML_SP_PRIVATE_KEY_PEM", "").strip())
+    idp_cert = bool(os.getenv("SAML_IDP_CERT_PEM", "").strip())
+    complete = sp_key and idp_cert
     return {
         "surface": "saml_service",
         "bindings": ["HTTP-Redirect AuthnRequest", "HTTP-POST Response verify"],
         "signature": "RSA-SHA256",
         "fail_closed": True,
-        "product_complete": True,
+        "authn_request_signed": sp_key,
+        "idp_cert_configured": idp_cert,
+        "product_complete": complete,
+        "institutional_complete": complete,
+        "note": "product_complete only when SP signing key + IdP cert are configured",
     }

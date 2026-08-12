@@ -40,17 +40,26 @@ def _save(data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def scim_bearer_configured() -> bool:
+    import os
+
+    return bool(os.getenv("SCIM_BEARER_TOKEN", "").strip())
+
+
 def scim_ready() -> bool:
+    """CRUD surface is implemented; IdP bearer policy is separate."""
     return True
 
 
 def scim_status() -> dict[str, Any]:
     data = _load()
+    bearer = scim_bearer_configured()
     return {
         "surface": "scim",
         "implemented": True,
         "scim_ready": True,
-        "product_complete": True,
+        "bearer_configured": bearer,
+        "product_complete": bearer,
         "users": len(data.get("users", {})),
         "groups": len(data.get("groups", {})),
         "endpoints": [
@@ -62,7 +71,10 @@ def scim_status() -> dict[str, Any]:
             "GET /api/institutional/scim/v2/Groups",
             "POST /api/institutional/scim/v2/Groups",
         ],
-        "note": "SCIM 2.0 User/Group provisioning with tenant org_id scoping.",
+        "note": (
+            "SCIM User/Group CRUD implemented; product_complete only when "
+            "SCIM_BEARER_TOKEN is configured for IdP auth."
+        ),
     }
 
 
