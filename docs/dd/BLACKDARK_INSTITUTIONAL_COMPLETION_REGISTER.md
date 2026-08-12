@@ -2,16 +2,15 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** `ac13c0ef7fdde8414906b45155001390255d8485`  
+**Product tip:** `24aa6fb9f437a64e35be066744827c76ba8ce0ae`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 | Field | Value |
 |---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_ac13c0e.md` |
-| Final report | `docs/dd/BLACKDARK_INSTITUTIONAL_DEPTH_FINAL_REPORT_ac13c0e.md` |
-| Overall | **79 / 100** |
+| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_24aa6fb.md` |
+| Overall | **86 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **0** |
 
@@ -19,11 +18,12 @@
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Venue L2 truth bus (OKX+Kraken) | PARTIAL | real sizes; fabricated ladders rejected |
-| Venue OKX perp + funding → Super Terminal | PARTIAL | `perp_leg=venue_futures` |
-| Fill proof + venue-L2 depth | PARTIAL (paper) | `live_fill:false` without creds |
-| Durable ingestion_health rows | PARTIAL | prove path rows≥1; scheduler continuum open |
-| Ops schema authority | PARTIAL | SQLite proven; Postgres HA EXTERNAL |
+| Venue L2 spot (OKX+Kraken+perp venues) | PARTIAL | real sizes; fabricated forbidden |
+| Multi-venue perp+funding (OKX/Gate/Bitget/KuCoin) | PARTIAL | Super Terminal `perp_venues>=2` |
+| Scheduler continuum (bounded) | PARTIAL | start→cycle→stop proven |
+| Fill proof + protocol_proof | PARTIAL (paper) | never claims live_fill without venue |
+| Postgres DDL ready (offline) | PARTIAL | HA/DR still EXTERNAL |
+| product_complete honesty sweep | improved | root True ≈7 (was 37) |
 
 ## Absolute rule
 
