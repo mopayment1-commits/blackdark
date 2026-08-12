@@ -147,7 +147,7 @@ python scripts/load_test_1m_simulation.py
 | Field | Value |
 |-------|--------|
 | Date (UTC) | 2026-08-12T06:33:53Z |
-| Commit / tip | `6038b7a6a83253a4534698b923a5065ca1a48941` |
+| Commit / tip | `69d7bf30a555ad658e8f32aa0cddd6379108836f` |
 | Environment | local HA rehearsal: `ENV=production`, `VIRAL_MODE=true`, Soft Launch **unset**, ephemeral local secrets for production-guard gates (not live Stripe) |
 | Workers / replicas | **2 × 1** (`WEB_CONCURRENCY=2`, `WEB_REPLICAS=1`, parallelism=2 via uvicorn `--workers 2`) |
 | Postgres | yes (`postgresql://blackdark:***@127.0.0.1:5432/blackdark_clean`, pool active min=4 max=20) |
