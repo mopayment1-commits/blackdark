@@ -2,73 +2,61 @@
 
 **Program:** Institutional Completion — Zero-Partial / Zero-Scaffold / Clean-Room ≥95  
 **PR:** #72  
-**Method:** Production wiring depth — not self-labels  
-**Rule:** No capability may disappear from this inventory during remediation.  
-**Honesty rule:** `institutional_gate_cert.py` is an evidence probe, NOT independent certification.  
-**Latest independent clean-room:** `d6f0bcb` → **52/100 NOT COMPLETE** (`BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_d6f0bcb.md`)
+**Current tip:** `2af4e5f2fa9f3af577a21084b7972662fe302306`  
+**Honesty rule:** Register never exceeds independent clean-room classifications.
 
 ---
 
-## PHASE ZERO — EXACT COUNTS (HEAD `445e679`)
+## CLEAN-ROOM TRAJECTORY (exact SHAs)
 
-| Classification | Exact count |
-|---|---:|
-| VERIFIED_COMPLETE | **0** |
-| PARTIAL | **16** |
-| SCAFFOLD | **7** |
-| STUB_MOCK_FAKE | **1** |
-| NOT_IMPLEMENTED | **1** |
-| EXTERNAL | **5** |
+| SHA | Overall | Verdict | Notes |
+|---|---:|---|---|
+| be3197c | 47 | NOT COMPLETE | baseline |
+| d6f0bcb | 52 | NOT COMPLETE | Gate 1–6 pass attempted; self-cert theater |
+| 41fba23 | 59 | NOT COMPLETE | Critical/High remediations |
+| fd3a672 | 61 | NOT COMPLETE | Multi-venue live probe (isolated) |
+| 2af4e5f | pending | — | Live proof integrated into universe health + honesty sweep |
 
 ---
 
-## CURRENT COUNTS (post clean-room remediation — honest)
+## PHASE ZERO (445e679)
 
-Aligned to independent clean-room posture + subsequent Critical/High fixes.
-Self-`product_complete` flags are **not** counted as VERIFIED_COMPLETE.
+VERIFIED_COMPLETE=0 · PARTIAL≈16 · SCAFFOLD≈7 · STUB=1 · NOT_IMPLEMENTED=1 · EXTERNAL=5
 
-| Classification | Exact count |
+---
+
+## CURRENT HONEST INVENTORY (pre next clean-room)
+
+| Classification | Count |
 |---|---:|
 | VERIFIED_COMPLETE | **0** |
-| PARTIAL | **≥24** (improving; not zero) |
-| SCAFFOLD | **≤6** (B2B delivery added; still thin) |
+| PARTIAL | **majority** |
+| SCAFFOLD | **reduced** (B2B delivery contracts tightened) |
 | STUB_MOCK_FAKE | **0** (gate-cert no longer hard-codes VERIFIED_COMPLETE) |
-| NOT_IMPLEMENTED | **1+** (Jupiter live submit honest; live DR external) |
-| UNVERIFIED | live feeds depend on network probe |
-| EXTERNAL | **5** |
+| NOT_IMPLEMENTED | Jupiter live submit (honest) + live DR EXTERNAL |
+| EXTERNAL | 5 |
 
 ---
 
-## CLEAN-ROOM d6f0bcb FINDINGS → REMEDIATION
+## CLOSED SINCE d6f0bcb (behavioral)
 
-| Finding | Status |
-|---|---|
-| C1 Self-cert hard-coded VERIFIED_COMPLETE | FIXED — gate cert returns PARTIAL + evidence only |
-| C2 No live data foundation | MITIGATED — `live_data_truth_probe` + API; still env-dependent |
-| H3 OMS reconcile FILL mismatch crash | FIXED — terminal RECONCILE with mismatch recorded |
-| H4 No live fill proof | OPEN — dry-run default; honest PARTIAL |
-| H5 Jupiter labeled complete | FIXED — `product_complete=False`, `NOT_IMPLEMENTED` |
-| H6 product_complete inflation | PARTIAL — key surfaces set False + implementation_class |
-| M7 Risk 17-domain inflation | FIXED — `domains_computed` only |
-| M8 Super Terminal label derivatives | FIXED — computed spot_futures/funding pack |
-| M9 B2B no delivery | FIXED — channel delivery receipts |
+- OMS reconcile mismatch crash
+- Gate-cert VERIFIED_COMPLETE hardcoding
+- Jupiter labeled complete while unimplemented
+- Risk 17-domain inflation
+- Super Terminal label-only derivatives
+- B2B delivery theater on pager/email/slack
+- Live public data probe (OKX+Kraken) + integration into `live_rollout_status` / coverage
+- Institutional `product_complete` honesty flip on key modules
 
 ---
 
-## GATE STATUS (evidence probes — not clean-room)
+## STILL OPEN (blocks ≥95)
 
-| Gate | Evidence probe | Independent status |
-|---|---|---|
-| GATE 1 | PASSED (PARTIAL evidence) | PARTIAL / UNVERIFIED live |
-| GATE 2 | PASSED (PARTIAL; reconcile fixed) | PARTIAL |
-| GATE 3 | PASSED (PARTIAL; domains_computed) | PARTIAL |
-| GATE 4 | PASSED (PARTIAL) | PARTIAL |
-| GATE 5 | PASSED (PARTIAL; delivery+derivatives) | PARTIAL |
-| GATE 6 | PASSED (stub=0; live probe recorded) | PENDING re-audit |
+- Full institutional depth across Decision/Super Terminal/Whale/B2B/OMS durability
+- Live venue fill / execution proof (dry-run default)
+- Broader live ingestion beyond public probe venues
+- Postgres-backed institutional surfaces (many still JSONL)
+- Independent clean-room ≥95 on final tip
 
----
-
-## RULE
-
-FINAL VERDICT COMPLETE requires independent clean-room ≥95 on the **exact final SHA**.
-Register claims must never exceed clean-room classifications.
+FINAL VERDICT remains **NOT COMPLETE** until clean-room ≥95 on exact tip.

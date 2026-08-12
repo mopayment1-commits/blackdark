@@ -23,6 +23,7 @@ def evaluate_decision(
     contradictions: list[dict[str, Any]] | None = None,
     confidence: Any = None,
     actor: str = "decision_intelligence_engine",
+    use_calibration: bool = False,
 ) -> dict[str, Any]:
     """Build an auditable decision with risk-influenced execution feasibility."""
     market_state = adopt_decision_market_state(market_state, source="decision_intelligence")
@@ -33,9 +34,10 @@ def evaluate_decision(
         notes="No calibrated probability supplied",
     ).to_dict()
 
-    # Prefer calibrated history when sufficient samples exist.
+    # Calibration is opt-in — never silently rewrite an explicit typed confidence claim
+    # from polluted global learning history (training-serving / hermetic-test hazard).
     calib = calibrate_from_history(min_samples=30)
-    if calib.get("is_probability"):
+    if use_calibration and confidence is None and calib.get("is_probability"):
         conf = calib
 
     executable = bool(gate.get("executable")) and bool(decision.get("wants_action", True))
