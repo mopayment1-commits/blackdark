@@ -1,7 +1,7 @@
 # BLACKDARK TOTAL COMPLETION REPORT — PR #72 continuation (master mandate)
 
-**Candidate tip:** see git HEAD after push  
-**Suite (pre-clean-room):** see CI / local pytest summary on tip  
+**Candidate tip:** `819ed7bb5dee01ef420d2b18379dcfe62bd1cc7b`  
+**Suite (pre-clean-room):** 700 passed / 0 failed / 1 skipped  
 
 ## Closed this iteration (master mandate delta)
 

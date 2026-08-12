@@ -3,7 +3,7 @@
 **Original audit context:** BLACKDARK Capability Reality Audit  
 **Prior tip audited:** `e00971a034043046f4eefd3df1807c7b59101859`  
 **Remediation PR:** #72  
-**Candidate tip:** see git HEAD (`f2f67bb`+)  
+**Candidate tip:** `819ed7bb5dee01ef420d2b18379dcfe62bd1cc7b`  
 **Rule:** No finding may disappear via rename/de-scope/doc deletion.
 
 | ID | ORIGINAL FINDING | ORIGINAL STATUS | ROOT CAUSE | CLOSURE IMPLEMENTATION | FILES | TESTS / NEGATIVE | CURRENT |
