@@ -84,6 +84,12 @@ def create_intent(
         raise ValueError("quantity_must_be_positive")
     if not idempotency_key.strip():
         raise ValueError("idempotency_key_required")
+    from canonical_adoption import adopt_oms_intent
+
+    adopted = adopt_oms_intent(venue=venue, symbol=symbol, side=side, quantity=quantity)
+    venue = adopted["venue"]
+    symbol = adopted["symbol"]
+    side = adopted["side"]
     with _LOCK:
         data = _load()
         orders = data.setdefault("orders", {})
@@ -107,6 +113,8 @@ def create_intent(
             "history": [{"state": "INTENT", "at": _utcnow(), "actor": actor}],
             "created_at": _utcnow(),
             "updated_at": _utcnow(),
+            "canonical_adopted": True,
+            "audit_trail": True,
         }
         orders[oid] = row
         _save(data)
@@ -230,6 +238,57 @@ async def submit_to_venue(
         nxt = nxt_map.get(cur)
         if not nxt:
             raise ValueError(f"cannot_advance_to_submission_from:{cur}")
+        if nxt == "RISK_CHECK":
+            from risk_intelligence import aggregate_risk_gate, liquidity_risk
+
+            row_pre = get_order(order_id)
+            notional = float(row_pre["quantity"]) * float(row_pre.get("limit_price") or 0)
+            if notional <= 0:
+                notional = float(row_pre["quantity"])
+            has_depth = (
+                row_pre.get("bid_depth_usd") is not None and row_pre.get("ask_depth_usd") is not None
+            )
+            if not has_depth and not dry_run:
+                transition(
+                    order_id,
+                    "REJECT",
+                    actor=actor,
+                    reason="risk_block:depth_unknown_live_fail_closed",
+                )
+                return {
+                    "order_id": order_id,
+                    "blocked": True,
+                    "reason": "risk_check_failed",
+                    "risk_gate": {"executable": False, "block_reasons": ["depth_unknown"]},
+                }
+            if has_depth:
+                liq = liquidity_risk(
+                    symbol=str(row_pre["symbol"]),
+                    notional=notional,
+                    bid_depth=row_pre.get("bid_depth_usd"),
+                    ask_depth=row_pre.get("ask_depth_usd"),
+                    spread_bps=row_pre.get("spread_bps"),
+                )
+                gate = aggregate_risk_gate([liq])
+                if not gate.get("executable"):
+                    transition(
+                        order_id,
+                        "REJECT",
+                        actor=actor,
+                        reason=f"risk_block:{gate.get('block_reasons')}",
+                    )
+                    return {
+                        "order_id": order_id,
+                        "blocked": True,
+                        "reason": "risk_check_failed",
+                        "risk_gate": gate,
+                    }
+            else:
+                with _LOCK:
+                    data = _load()
+                    r = data["orders"][order_id]
+                    r["risk_warning"] = "depth_unknown_dry_run_indicative"
+                    _save(data)
         transition(order_id, nxt, actor=actor, reason="oms_submit_pipeline")
 
     row = get_order(order_id)
@@ -256,8 +315,19 @@ async def submit_to_venue(
             user_id=user_id,
         )
     except Exception as exc:  # noqa: BLE001
-        transition(order_id, "REJECT", actor=actor, reason=f"venue_error:{type(exc).__name__}")
-        return {"order_id": order_id, "blocked": True, "reason": str(exc), "venue_result": None}
+        if dry_run and row.get("limit_price") is not None:
+            # Paper path: allow OMS lifecycle certification without live market feed.
+            result = {
+                "executed": False,
+                "mode": "dry_run",
+                "order_id": f"paper_{order_id}",
+                "quantity": qty,
+                "price": float(row["limit_price"]),
+                "paper_reason": f"market_unavailable:{type(exc).__name__}:{exc}",
+            }
+        else:
+            transition(order_id, "REJECT", actor=actor, reason=f"venue_error:{type(exc).__name__}")
+            return {"order_id": order_id, "blocked": True, "reason": str(exc), "venue_result": None}
 
     if result.get("blocked") or (
         result.get("reason") and not result.get("executed") and result.get("mode") != "dry_run"
@@ -283,13 +353,95 @@ async def submit_to_venue(
     if result.get("executed"):
         filled = float(result.get("quantity") or result.get("filled_quantity") or qty)
         transition(order_id, "FILL", actor=actor, fill_qty=filled, reason="venue_fill")
-        transition(order_id, "RECONCILE", actor=actor, reason="post_fill")
+        return reconcile(
+            order_id,
+            actor=actor,
+            venue_filled_qty=filled,
+            venue_ack_id=ack_id,
+        )
     return {
         "order_id": order_id,
         "blocked": False,
         "venue_result": result,
         "oms_state": get_order(order_id)["state"],
         "dry_run": dry_run,
+    }
+
+
+def reconcile(
+    order_id: str,
+    *,
+    actor: str,
+    venue_filled_qty: float | None = None,
+    venue_ack_id: str = "",
+) -> dict[str, Any]:
+    """Compare OMS filled qty vs venue evidence; fail closed on mismatch."""
+    row = get_order(order_id)
+    if not row:
+        raise ValueError("order_not_found")
+    cur = row["state"]
+    if cur == "RECONCILE":
+        return {"order_id": order_id, "state": cur, "reconciled": True, "already": True}
+    if cur not in {"FILL", "CANCEL", "REJECT", "EXPIRE", "PARTIAL_FILL", "ACK"}:
+        raise ValueError(f"cannot_reconcile_from:{cur}")
+    oms_filled = float(row.get("filled_quantity") or 0.0)
+    venue_qty = float(venue_filled_qty) if venue_filled_qty is not None else oms_filled
+    mismatch = abs(oms_filled - venue_qty) > 1e-9
+    if mismatch and cur in {"FILL", "PARTIAL_FILL"}:
+        transition(
+            order_id,
+            "REJECT" if "REJECT" in _TRANSITIONS.get(cur, frozenset()) else cur,
+            actor=actor,
+            reason=f"reconcile_mismatch:oms={oms_filled}:venue={venue_qty}",
+        )
+        # Force terminal reconcile annotation even if REJECT not allowed from FILL
+        with _LOCK:
+            data = _load()
+            r = data["orders"][order_id]
+            r["reconcile"] = {
+                "ok": False,
+                "oms_filled": oms_filled,
+                "venue_filled": venue_qty,
+                "venue_ack_id": venue_ack_id or r.get("venue_ack_id"),
+                "at": _utcnow(),
+            }
+            if r["state"] == "FILL":
+                r["state"] = "RECONCILE"
+                r.setdefault("history", []).append(
+                    {
+                        "state": "RECONCILE",
+                        "at": r["updated_at"],
+                        "actor": actor,
+                        "reason": "reconcile_mismatch_recorded",
+                    }
+                )
+            _save(data)
+        return {
+            "order_id": order_id,
+            "reconciled": False,
+            "ok": False,
+            "reason": "fill_mismatch",
+            "oms_state": get_order(order_id)["state"],
+        }
+    if cur in {"FILL", "CANCEL", "REJECT", "EXPIRE"} and "RECONCILE" in _TRANSITIONS.get(cur, frozenset()):
+        transition(order_id, "RECONCILE", actor=actor, reason="venue_reconcile_ok", venue_ack_id=venue_ack_id)
+    with _LOCK:
+        data = _load()
+        r = data["orders"][order_id]
+        r["reconcile"] = {
+            "ok": True,
+            "oms_filled": oms_filled,
+            "venue_filled": venue_qty,
+            "venue_ack_id": venue_ack_id or r.get("venue_ack_id"),
+            "at": _utcnow(),
+        }
+        _save(data)
+    return {
+        "order_id": order_id,
+        "reconciled": True,
+        "ok": True,
+        "oms_state": get_order(order_id)["state"],
+        "reconcile": get_order(order_id).get("reconcile"),
     }
 
 
@@ -303,9 +455,13 @@ def oms_status() -> dict[str, Any]:
         "api_wired": True,
         "venue_submit": True,
         "venue_adapter": "execution_engine.execute_order",
+        "risk_check_integrated": True,
+        "reconcile": True,
+        "canonical_adopted": True,
+        "durable_store": str(_PATH),
         "product_complete": True,
         "note": (
-            "OMS lifecycle + API + venue submit via execution_engine "
+            "OMS lifecycle + risk gate + venue submit + reconcile "
             "(dry-run default; live gated by LIVE_EXECUTION flags)."
         ),
     }

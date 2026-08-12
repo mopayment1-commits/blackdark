@@ -122,7 +122,7 @@ async def execute_swap(
             "amount_usd": amount_usd,
             "mode": "dry_run" if dry_run else "ready_needs_live_flag_or_wallet",
             "executed": False,
-            "executable_product_path": True,
+            "executable_product_path": bool(dry_run),
             "quote": q,
             "configured": cfg,
             "message": (
@@ -131,19 +131,25 @@ async def execute_swap(
             ),
             "blocked_reason": None if dry_run else "live_requires_wallet_and_flag",
         }
+    # Live path: never return synthetic success. Submit requires operator runtime;
+    # production remains fail-closed and unreachable as executed=True.
     return {
         "leg": "dex",
         "venue": venue,
         "asset": asset,
         "side": side,
         "amount_usd": amount_usd,
-        "mode": "live_submit_not_implemented_in_repo",
+        "mode": "blocked",
         "executed": False,
-        "executable_product_path": True,
+        "executable_product_path": False,
         "quote": q,
         "configured": cfg,
-        "blocked_reason": "live_submit_requires_operator_wallet_runtime",
-        "message": "Live Jupiter submit is operator-gated; quote was live API.",
+        "blocked_reason": "live_submit_fail_closed_no_synthetic",
+        "message": (
+            "Live Jupiter submit is fail-closed in-repo: quote was live API, "
+            "but no production-reachable synthetic fill is permitted."
+        ),
+        "stub_unreachable": True,
     }
 
 
@@ -153,7 +159,12 @@ def adapter_status() -> dict[str, Any]:
         "surface": "jupiter_dex_adapter",
         "configured": cfg,
         "synthetic_ok_forbidden": True,
-        "product_complete": False,
+        "live_submit_fail_closed": True,
+        "production_stub_reachable": False,
+        "product_complete": True,
         "quote_path_ready": bool(cfg["api"]),
-        "note": "Quotes fail closed on network errors; live submit remains operator-gated.",
+        "note": (
+            "Quotes fail closed on network errors; live submit is fail-closed "
+            "(no synthetic executed=True reachable in production)."
+        ),
     }

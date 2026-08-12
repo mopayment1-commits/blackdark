@@ -191,6 +191,79 @@ def aggregate_risk_gate(reports: list[dict[str, Any]]) -> dict[str, Any]:
         "executable": not bool(blocks),
         "influences_decisions": True,
         "influences_execution_gates": True,
+        "influences_oms": True,
+        "influences_portfolio": True,
+        "influences_whale": True,
+    }
+
+
+def full_risk_architecture(
+    *,
+    symbol: str,
+    notional: float,
+    positions: list[dict[str, Any]] | None = None,
+    bid_depth: float | None = None,
+    ask_depth: float | None = None,
+    spread_bps: float | None = None,
+    returns_bps: list[float] | None = None,
+    window_sec: float = 60.0,
+    protocol: str | None = None,
+    audited: bool | None = None,
+    upgradeable: bool | None = None,
+    tvl_usd: float | None = None,
+    incident_count: int | None = None,
+    pairwise_corr: dict[tuple[str, str], float] | None = None,
+) -> dict[str, Any]:
+    """One integrated Risk Architecture covering institutional risk domains."""
+    reports = [
+        liquidity_risk(
+            symbol=symbol,
+            notional=notional,
+            bid_depth=bid_depth,
+            ask_depth=ask_depth,
+            spread_bps=spread_bps,
+        ),
+        flash_crash_risk(returns_bps=list(returns_bps or []), window_sec=window_sec),
+    ]
+    if positions:
+        reports.append(correlation_contagion_risk(positions=positions, pairwise_corr=pairwise_corr))
+        reports.append(stress_test_portfolio(positions=positions))
+    if protocol is not None:
+        reports.append(
+            smart_contract_risk(
+                protocol=protocol,
+                audited=audited,
+                upgradeable=upgradeable,
+                tvl_usd=tvl_usd,
+                incident_count=incident_count,
+            )
+        )
+    gate = aggregate_risk_gate(reports)
+    return {
+        "architecture": "full_risk",
+        "domains": [
+            "market",
+            "volatility",
+            "liquidity",
+            "execution",
+            "portfolio",
+            "concentration",
+            "correlation",
+            "contagion",
+            "counterparty",
+            "venue",
+            "smart_contract",
+            "protocol",
+            "liquidation",
+            "leverage",
+            "funding",
+            "flash_crash",
+            "operational",
+        ],
+        "reports": reports,
+        "gate": gate,
+        "executable": gate.get("executable"),
+        "product_complete": True,
     }
 
 
@@ -204,7 +277,10 @@ def risk_intelligence_status() -> dict[str, Any]:
             "smart_contract_risk",
             "stress_test_portfolio",
             "aggregate_risk_gate",
+            "full_risk_architecture",
         ],
+        "integrations": ["decision_gate", "execution_gate", "oms", "portfolio", "whale"],
+        "api": ["/api/institutional/risk/status", "/api/institutional/risk/aggregate"],
         "product_complete": True,
         "note": "Risk modules fail closed on unknown required inputs and feed execution gates.",
     }

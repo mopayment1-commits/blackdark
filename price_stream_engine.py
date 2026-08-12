@@ -92,10 +92,11 @@ async def emit_tick(
         )
     )
 
-    try:
-        from canonical_adoption import adopt_tick_quote
+    from canonical_adoption import adopt_tick_quote
 
-        adopt_tick_quote(
+    # Fail-closed: malformed/un-normalizable ticks never enter the live fanout path.
+    try:
+        adopted = adopt_tick_quote(
             venue=ex,
             symbol=symbol,
             bid=bid,
@@ -105,25 +106,30 @@ async def emit_tick(
             bid_qty=bid_qty,
             ask_qty=ask_qty,
             require_live=False,
+            path="price_stream",
         )
     except Exception:
-        logger.debug("Canonical quote adopt skipped", exc_info=True)
+        logger.warning("Canonical quote adopt rejected tick", exc_info=True)
+        return
 
+    # Stale/degraded ticks may fan out only with executable_quotes=False (never as LIVE).
+    executable = bool(labeled.get("executable_quotes")) and labeled.get("freshness_class") == "LIVE"
     payload = {
-        "exchange": ex,
-        "symbol": symbol.strip().upper(),
-        "bid": bid,
-        "ask": ask,
+        "exchange": adopted.get("venue") or ex,
+        "symbol": adopted.get("symbol") or symbol.strip().upper(),
+        "bid": float(adopted.get("bid") or bid),
+        "ask": float(adopted.get("ask") or ask),
         "bid_qty": bid_qty,
         "ask_qty": ask_qty,
         "market_type": market_type,
         "ts_ms": labeled["ingest_ts_ms"],
         "provider_ts_ms": labeled.get("provider_ts_ms"),
         "freshness_class": labeled["freshness_class"],
-        "is_live": labeled["is_live"],
+        "is_live": bool(labeled["is_live"]) and executable,
         "stream_status": labeled["stream_status"],
         "display_badge": labeled.get("display_badge"),
-        "executable_quotes": labeled.get("executable_quotes"),
+        "executable_quotes": executable,
+        "canonical_provenance": adopted.get("provenance"),
     }
 
     if getattr(config, "REDIS_PRICE_CACHE_ENABLED", True):

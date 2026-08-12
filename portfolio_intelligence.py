@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from canonical_adoption import adopt_positions
 from confidence_truth import claim_heuristic, claim_insufficient
 from risk_intelligence import correlation_contagion_risk, stress_test_portfolio
 
@@ -19,7 +20,9 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
             "executable_analysis": False,
             "reason": "no_positions",
             "confidence": claim_insufficient(label="portfolio").to_dict(),
+            "canonical_adopted": True,
         }
+    positions = adopt_positions(positions, source="portfolio_intelligence")
     gross = 0.0
     net = 0.0
     pnl = 0.0
@@ -32,6 +35,7 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
                 "executable_analysis": False,
                 "reason": "notional_unknown",
                 "confidence": claim_insufficient(label="portfolio").to_dict(),
+                "canonical_adopted": True,
             }
         n = float(notional)
         side = str(p.get("side") or "long").lower()
@@ -61,13 +65,44 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
         "executable_analysis": not blocked,
         "gate": "block" if blocked else "pass",
         "confidence": claim_heuristic(min(1.0, herfindahl), label="concentration").to_dict(),
+        "canonical_adopted": True,
         "product_complete": True,
     }
+
+
+def holdings_from_dashboard_assets(assets: list[Any]) -> list[dict[str, Any]]:
+    """Map dashboard /portfolio/analyze body into institutional position rows."""
+    positions: list[dict[str, Any]] = []
+    for item in assets or []:
+        if not isinstance(item, dict):
+            continue
+        symbol = str(item.get("symbol") or item.get("asset") or "").strip()
+        if not symbol:
+            continue
+        qty = float(item.get("quantity") or item.get("amount") or item.get("qty") or 0)
+        price = float(item.get("price") or item.get("mark_price") or item.get("avg_price") or 0)
+        notional = item.get("notional_usd")
+        if notional is None and qty and price:
+            notional = qty * price
+        if notional is None and item.get("value_usd") is not None:
+            notional = item.get("value_usd")
+        positions.append(
+            {
+                "asset": symbol.split("/")[0].upper() if symbol else "UNK",
+                "symbol": symbol.upper(),
+                "side": str(item.get("side") or "long").lower(),
+                "notional_usd": float(notional) if notional is not None else None,
+                "unrealized_pnl_usd": float(item.get("unrealized_pnl_usd") or item.get("pnl") or 0),
+                "venue": item.get("venue") or item.get("exchange"),
+            }
+        )
+    return positions
 
 
 def portfolio_status() -> dict[str, Any]:
     return {
         "surface": "portfolio_intelligence",
         "product_complete": True,
-        "modules": ["analyze_portfolio", "correlation", "stress"],
+        "modules": ["analyze_portfolio", "correlation", "stress", "canonical_adoption"],
+        "api": ["/portfolio/analyze", "/api/institutional/portfolio/analyze"],
     }

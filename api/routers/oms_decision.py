@@ -179,6 +179,70 @@ async def decision_intel_status(
     return decision_intelligence_engine.engine_status()
 
 
+class DecisionEvaluateBody(BaseModel):
+    market_state: dict[str, Any]
+    evidence: list[dict[str, Any]] = Field(default_factory=list)
+    contradictions: list[dict[str, Any]] = Field(default_factory=list)
+    hypothesis: dict[str, Any] = Field(default_factory=dict)
+    decision: dict[str, Any] = Field(default_factory=dict)
+    risk_reports: list[dict[str, Any]] = Field(default_factory=list)
+    confidence: float | dict[str, Any] | None = None
+    actor: str = "api"
+
+
+@router.post("/decision-intelligence/evaluate")
+async def decision_intel_evaluate(
+    body: DecisionEvaluateBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from decision_intelligence_engine import evaluate_decision
+
+    try:
+        return evaluate_decision(
+            market_state=body.market_state,
+            evidence=body.evidence,
+            contradictions=body.contradictions,
+            hypothesis=body.hypothesis or {"text": "unspecified"},
+            decision=body.decision or {"action": "hold", "wants_action": False},
+            risk_reports=body.risk_reports,
+            confidence=body.confidence,
+            actor=body.actor,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+class DecisionCloseLoopBody(BaseModel):
+    graph_id: str
+    decision_node_id: str
+    predicted: dict[str, Any]
+    actual: dict[str, Any]
+    decision_ts: str
+    outcome_ts: str
+    actor: str = "api"
+
+
+@router.post("/decision-intelligence/close-loop")
+async def decision_intel_close_loop(
+    body: DecisionCloseLoopBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from decision_intelligence_engine import close_decision_loop
+
+    try:
+        return close_decision_loop(
+            graph_id=body.graph_id,
+            decision_node_id=body.decision_node_id,
+            predicted=body.predicted,
+            actual=body.actual,
+            decision_ts=body.decision_ts,
+            outcome_ts=body.outcome_ts,
+            actor=body.actor,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @router.get("/super-terminal")
 async def super_terminal_api(
     _: Annotated[dict, Depends(require_institutional_principal)],
@@ -188,3 +252,168 @@ async def super_terminal_api(
     from super_terminal import build_super_terminal
 
     return build_super_terminal(symbol=symbol, org_id=org_id)
+
+
+class PortfolioAnalyzeBody(BaseModel):
+    positions: list[dict[str, Any]] = Field(default_factory=list)
+
+
+@router.post("/portfolio/analyze")
+async def portfolio_analyze_api(
+    body: PortfolioAnalyzeBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from portfolio_intelligence import analyze_portfolio
+
+    return analyze_portfolio(body.positions)
+
+
+@router.get("/portfolio/status")
+async def portfolio_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from portfolio_intelligence import portfolio_status
+
+    return portfolio_status()
+
+
+@router.get("/risk/status")
+async def risk_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from risk_intelligence import risk_intelligence_status
+
+    return risk_intelligence_status()
+
+
+class RiskAggregateBody(BaseModel):
+    reports: list[dict[str, Any]] = Field(default_factory=list)
+
+
+@router.post("/risk/aggregate")
+async def risk_aggregate_api(
+    body: RiskAggregateBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from risk_intelligence import aggregate_risk_gate
+
+    return aggregate_risk_gate(body.reports)
+
+
+@router.get("/memory/query")
+async def memory_query_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    kind: str | None = None,
+    graph_id: str | None = None,
+    limit: int = 100,
+) -> dict[str, Any]:
+    from institutional_memory import memory_status, query
+
+    return {"status": memory_status(), "rows": query(kind=kind, graph_id=graph_id, limit=limit)}
+
+
+@router.get("/learning/status")
+async def learning_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from continuous_learning import calibrate_from_history, learning_status
+
+    return {**learning_status(), "calibration": calibrate_from_history(min_samples=30)}
+
+
+class B2BReportBody(BaseModel):
+    org_id: str
+    title: str
+    evidence_pack: dict[str, Any] = Field(default_factory=dict)
+    actor: str = "api"
+
+
+@router.post("/b2b/committee-report")
+async def b2b_committee_report_api(
+    body: B2BReportBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from b2b_institutional_ops import generate_committee_report
+
+    return generate_committee_report(
+        org_id=body.org_id,
+        title=body.title,
+        evidence_pack=body.evidence_pack,
+        actor=body.actor,
+    )
+
+
+class B2BAlertBody(BaseModel):
+    org_id: str
+    severity: str
+    channel: str
+    message: str
+    dedupe_key: str
+
+
+@router.post("/b2b/alerts")
+async def b2b_alert_api(
+    body: B2BAlertBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from b2b_institutional_ops import orchestrate_alert
+
+    try:
+        return orchestrate_alert(
+            org_id=body.org_id,
+            severity=body.severity,
+            channel=body.channel,
+            message=body.message,
+            dedupe_key=body.dedupe_key,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/b2b/status")
+async def b2b_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from b2b_institutional_ops import b2b_status
+
+    return b2b_status()
+
+
+class OmsReconcileBody(BaseModel):
+    actor: str = "api"
+    venue_filled_qty: float | None = None
+    venue_ack_id: str = ""
+
+
+@router.post("/oms/orders/{order_id}/reconcile")
+async def oms_reconcile_api(
+    order_id: str,
+    body: OmsReconcileBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    import oms
+
+    try:
+        return oms.reconcile(
+            order_id,
+            actor=body.actor,
+            venue_filled_qty=body.venue_filled_qty,
+            venue_ack_id=body.venue_ack_id,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/canonical/status")
+async def canonical_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from canonical_adoption import adoption_status
+    from canonical_data_layer import layer_status
+    from streaming_institutional import streaming_status
+
+    return {
+        "canonical_data_layer": layer_status(),
+        "canonical_adoption": adoption_status(),
+        "streaming": streaming_status(),
+    }

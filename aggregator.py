@@ -829,13 +829,26 @@ def _persist_market_snapshot(
     order_book: OrderBookSnapshot,
     timestamp: str,
 ) -> None:
-    enqueue_market_snapshot(
+    from canonical_adoption import adopt_market_snapshot
+
+    adopted = adopt_market_snapshot(
         exchange=ticker.exchange,
         symbol=ticker.symbol,
         price=ticker.price,
         volume=ticker.volume,
         bids=order_book.bids,
         asks=order_book.asks,
+        timestamp=timestamp,
+        market_type=str(ticker.market_type),
+        source="aggregator",
+    )
+    enqueue_market_snapshot(
+        exchange=adopted["exchange"],
+        symbol=adopted["symbol"],
+        price=adopted["price"],
+        volume=adopted.get("volume") or ticker.volume,
+        bids=adopted["bids"],
+        asks=adopted["asks"],
         timestamp=timestamp,
         market_type=ticker.market_type,
         opportunity_score=DEFAULT_OPPORTUNITY_SCORE,
@@ -862,11 +875,21 @@ async def _poll_funding_symbol(
     fetcher = FUNDING_FETCHERS[exchange_id]
     timestamp = _utcnow_iso()
     funding = await fetcher(session, symbol)
-    enqueue_funding_snapshot(
+    from canonical_adoption import adopt_funding_snapshot
+
+    adopted = adopt_funding_snapshot(
         exchange=funding.exchange,
         symbol=funding.symbol,
         funding_rate=funding.funding_rate,
         next_funding_time=funding.next_funding_time,
+        timestamp=timestamp,
+        source="aggregator_funding",
+    )
+    enqueue_funding_snapshot(
+        exchange=adopted["venue"],
+        symbol=adopted["symbol"],
+        funding_rate=adopted["funding_rate"],
+        next_funding_time=adopted.get("next_funding_time"),
         timestamp=timestamp,
     )
 

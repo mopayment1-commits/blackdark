@@ -242,19 +242,30 @@ def _verify_cex_l2_walk(
 ) -> tuple[bool, float | None, str]:
     """Require walkable CEX depth (live hub book or fail closed)."""
     from arbitrage_engine import walk_asks, walk_bids
+    from canonical_adoption import adopt_order_books, adopt_symbol, adopt_venue
     from live_book_hub import get_top_of_book, is_quote_fresh
 
-    symbol = f"{asset}/USDT"
-    if not is_quote_fresh(venue, symbol):
-        # Also try USDT-concat forms already normalized in hub
-        if not is_quote_fresh(venue, f"{asset}USDT"):
+    v = adopt_venue(venue)
+    symbol = adopt_symbol(f"{asset}/USDT")
+    compact = symbol.replace("/", "")
+    if not is_quote_fresh(v, symbol):
+        if not is_quote_fresh(v, compact):
             return False, None, "cex_quote_stale_or_missing"
-    tob = get_top_of_book(venue, symbol) or get_top_of_book(venue, f"{asset}USDT")
+    tob = get_top_of_book(v, symbol) or get_top_of_book(v, compact)
     if not tob:
         return False, None, "cex_book_missing"
     book = {"bids": list(tob.get("bids") or []), "asks": list(tob.get("asks") or [])}
     if not book["bids"] or not book["asks"]:
         return False, None, "cex_book_empty"
+    try:
+        adopted = adopt_order_books(
+            {v: {symbol: book}},
+            source="cex_dex_l2",
+            path="cex_dex",
+        )
+        book = adopted[v][symbol]
+    except ValueError as exc:
+        return False, None, f"cex_canonical_reject:{exc}"
     if side == "buy":
         ex = walk_asks(book, quote_usd)
         if ex is None:

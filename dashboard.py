@@ -4076,7 +4076,21 @@ async def portfolio_analyze(
 ):
     if not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
-    return await _analyze_portfolio_holdings(assets)
+    # Institutional path: portfolio_intelligence (canonical + risk + stress).
+    # Legacy beta heuristic retained as secondary clarity layer.
+    from portfolio_intelligence import analyze_portfolio, holdings_from_dashboard_assets
+
+    positions = holdings_from_dashboard_assets(assets)
+    institutional = analyze_portfolio(positions)
+    legacy = await _analyze_portfolio_holdings(assets)
+    return {
+        **legacy,
+        "institutional": institutional,
+        "canonical_adopted": True,
+        "analyzer": "portfolio_intelligence",
+        "gate": institutional.get("gate"),
+        "executable_analysis": institutional.get("executable_analysis"),
+    }
 
 @app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):

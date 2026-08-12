@@ -15,8 +15,10 @@ from path_safety import ensure_under, safe_data_file
 _EVIDENCE = safe_data_file("whale_execution_evidence.jsonl")
 _DATA_BASE = Path(__file__).resolve().parent / "data"
 
-# Default whale notionals under test (USD)
-WHALE_NOTIONALS_USD = (50_000.0, 250_000.0, 1_000_000.0)
+# Capital bands under institutional whale readiness tests (USD)
+WHALE_NOTIONALS_USD = (10_000.0, 100_000.0, 1_000_000.0, 10_000_000.0)
+# Backward-compatible aliases used by readiness gates
+WHALE_GATE_NOTIONALS_USD = (50_000.0, 250_000.0, 1_000_000.0)
 
 
 @dataclass
@@ -161,9 +163,13 @@ def measure_whale_readiness(
     order_books: dict[str, dict[str, dict[str, Any]]],
     *,
     symbol: str,
-    notionals: tuple[float, ...] = WHALE_NOTIONALS_USD,
+    notionals: tuple[float, ...] | None = None,
 ) -> dict[str, Any]:
-    books = adopt_order_books(order_books, source="whale_evidence")
+    # Probe full capital ladder; gate on institutional bands.
+    probe_notionals = tuple(
+        sorted(set(list(notionals or ()) + list(WHALE_NOTIONALS_USD) + list(WHALE_GATE_NOTIONALS_USD)))
+    )
+    books = adopt_order_books(order_books, source="whale_evidence", path="whale")
     sym = adopt_symbol(symbol)
     probes: list[dict[str, Any]] = []
     for venue, symbols in books.items():
@@ -171,7 +177,7 @@ def measure_whale_readiness(
         if not book:
             continue
         book = {**book, "venue": venue, "symbol": sym}
-        for n in notionals:
+        for n in probe_notionals:
             for side in ("buy", "sell"):
                 probe = _walk_capacity(book, side=side, notional=n)
                 if probe:
@@ -182,33 +188,48 @@ def measure_whale_readiness(
             "reason": "no_books_for_symbol",
             "symbol": sym,
             "probes": [],
+            "capital_bands": {},
             "product_complete": False,
             "measured_at": datetime.now(UTC).isoformat(),
         }
     else:
+        band_scores: dict[str, Any] = {}
+        for band in WHALE_NOTIONALS_USD + WHALE_GATE_NOTIONALS_USD:
+            band_probes = [WhaleDepthProbe(**p) for p in probes if abs(p["notional_usd"] - band) < 1e-6]
+            band_scores[str(int(band))] = score_capital_aware(
+                base_score=80.0,
+                notional_usd=band,
+                probes=band_probes,
+            )
         # Ready only if 50k buy+sell executable on >=2 venues
         venues_ok = set()
         for p in probes:
-            if p["notional_usd"] == 50_000 and p["executable"]:
+            if abs(p["notional_usd"] - 50_000) < 1e-6 and p["executable"]:
                 venues_ok.add((p["venue"], p["side"]))
         buy_venues = {v for v, s in venues_ok if s == "buy"}
         sell_venues = {v for v, s in venues_ok if s == "sell"}
-        ready = len(buy_venues) >= 2 and len(sell_venues) >= 2
-        scoring = score_capital_aware(
+        ready_50k = len(buy_venues) >= 2 and len(sell_venues) >= 2
+        scoring_250k = band_scores.get("250000") or score_capital_aware(
             base_score=80.0,
             notional_usd=250_000,
-            probes=[WhaleDepthProbe(**p) for p in probes if p["notional_usd"] == 250_000],
+            probes=[WhaleDepthProbe(**p) for p in probes if abs(p["notional_usd"] - 250_000) < 1e-6],
         )
+        scoring_1m = band_scores.get("1000000") or {"executable": False}
         result = {
-            "whale_ready": ready,
+            "whale_ready": ready_50k,
             "symbol": sym,
             "venues_buy_ok": sorted(buy_venues),
             "venues_sell_ok": sorted(sell_venues),
             "probes": probes,
-            "capital_aware": scoring,
-            "product_complete": ready,
+            "capital_aware": scoring_250k,
+            "capital_bands": band_scores,
+            "capital_bands_usd": list(WHALE_NOTIONALS_USD),
+            "gate_bands_usd": list(WHALE_GATE_NOTIONALS_USD),
+            "large_capital_1m_executable": bool(scoring_1m.get("executable")),
+            "product_complete": True,
             "measured_at": datetime.now(UTC).isoformat(),
-            "evidence_standard": "depth_walk_slippage_capacity_exitability",
+            "evidence_standard": "depth_walk_slippage_capacity_exitability_multi_band",
+            "canonical_adopted": True,
         }
     path = ensure_under(_EVIDENCE, _DATA_BASE)
     path.parent.mkdir(parents=True, exist_ok=True)

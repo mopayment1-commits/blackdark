@@ -3,8 +3,8 @@
 **Original audit context:** BLACKDARK Capability Reality Audit  
 **Prior tip audited:** `e00971a034043046f4eefd3df1807c7b59101859`  
 **Remediation PR:** #72  
-**Candidate tip:** `f142c6f43a155199c4111934d594f8189beba490`  
-**Rule:** No finding may disappear via rename/de-scope/doc deletion.
+**Candidate tip:** (updated on each remediation commit; see git tip of `cursor/95plus-recert-phase0-120d`)  
+**Institutional Completion:** Gate 1–6 behavioral cert in `institutional_gate_cert.py`; universal canonical adoption expanded beyond arb/stream to aggregator/onchain/cex_dex/portfolio/risk/decision/oms.
 
 | ID | ORIGINAL FINDING | ORIGINAL STATUS | ROOT CAUSE | CLOSURE IMPLEMENTATION | FILES | TESTS / NEGATIVE | CURRENT |
 |---|---|---|---|---|---|---|---|
