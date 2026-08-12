@@ -90,7 +90,11 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
         "spread_bps": round(spread_bps, 2),
         "gas_bps": round(gas_bps, 2),
         "net_spread_bps": round(net_bps, 2),
-        "profitable": net_bps > 8,
+        # Mid-price DexScreener rows lack executable depth → indicative only.
+        "profitable": False,
+        "executable": False,
+        "indicative": True,
+        "reject_reason": "defi_depth_not_verified",
         "chain": "ethereum",
         "gas_truth": "live_cached",
     }
@@ -114,11 +118,15 @@ async def _find_second_dex_quote(
     except aiohttp.ClientError:
         return dex_b_price, dex_b_venue
 
+    # Prefer the closest liquid peer — maximizing disagreement invents flash "profit".
+    best_dist = None
     for row in data.get("pairs") or []:
         price, liquidity = _dex_row_price_liquidity(row)
         if price <= 0 or liquidity <= 50_000:
             continue
-        if dex_b_price == 0 or abs(price - cex_mid) > abs(dex_b_price - cex_mid):
+        dist = abs(price - cex_mid)
+        if best_dist is None or dist < best_dist:
+            best_dist = dist
             dex_b_price = price
             dex_b_venue = row.get("dexId") or "dex"
     return dex_b_price, dex_b_venue
@@ -171,10 +179,16 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
         "flash_fee_bps": flash_fee_bps,
         "gas_bps": round(gas_bps, 2),
         "net_spread_bps": round(net_bps, 2),
-        "profitable": net_bps > 8,
+        "profitable": False,
+        "executable": False,
+        "indicative": True,
+        "reject_reason": "defi_depth_not_verified",
         "chain": chain,
         "gas_truth": "live_cached",
-        "note": "Atomic flash loan feasible if spread covers 0.09% + gas",
+        "note": (
+            "Indicative flash-loan spread only. Executable profitability requires "
+            "verified pool depth, route continuity, and gas — fail closed."
+        ),
     }
 
 
@@ -292,8 +306,14 @@ async def scan_mev_slippage_proxy(session: aiohttp.ClientSession, asset: str) ->
         "slippage_bps": round(slip_bps, 2),
         "dex_liquidity_usd": liq,
         "net_spread_bps": round(spread_bps - slip_bps, 2),
-        "profitable": spread_bps > slip_bps + 10,
-        "note": "MEV opportunity if block builder captures spread before public",
+        "profitable": False,
+        "executable": False,
+        "indicative": True,
+        "reject_reason": "mev_gas_and_depth_not_verified",
+        "note": (
+            "Indicative MEV/slippage gap only. No gas/fee truth — fail closed "
+            "for executable profitability."
+        ),
     }
 
 

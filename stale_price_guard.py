@@ -92,13 +92,29 @@ def validate_opportunity_quotes(opportunity: dict[str, Any], *, for_execution: b
     symbol = _normalized_symbol(opportunity)
     legs = _opportunity_legs(opportunity, symbol, kind)
     if legs is None:
+        # Unknown / unmapped kinds: scan alerts may use venue-wide freshness;
+        # execution paths must fail closed (no inventing "fresh enough").
+        if for_execution:
+            return False, {
+                "guard": "blocked",
+                "reason": "unknown_legs",
+                "kind": kind or "unset",
+            }
         asset = str(opportunity.get("asset") or "BTC")
         if _venue_scan_passes(asset, for_execution=for_execution):
             return True, {"guard": "ok", "kind": kind, "note": "venue_scan_pass"}
-        legs = []
+        return False, {
+            "guard": "blocked",
+            "reason": "no_legs_to_check",
+            "kind": kind or "unset",
+        }
 
     if not legs:
-        return True, {"guard": "ok", "kind": kind, "note": "no_legs_to_check"}
+        return False, {
+            "guard": "blocked",
+            "reason": "no_legs_to_check",
+            "kind": kind or "unset",
+        }
 
     stale, fresh_ages = _quote_age_details(legs, for_execution=for_execution)
 

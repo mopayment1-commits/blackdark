@@ -64,7 +64,17 @@ def _utcnow_iso() -> str:
 
 
 def hash_token(raw: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-identity").encode("utf-8")
+    pepper_raw = (os.getenv("SESSION_TOKEN_PEPPER") or "").strip()
+    if not pepper_raw:
+        try:
+            from production_guard import is_production
+
+            if is_production():
+                raise RuntimeError("SESSION_TOKEN_PEPPER required in production")
+        except ImportError:
+            pass
+        pepper_raw = "blackdark-identity"
+    pepper = pepper_raw.encode("utf-8")
     return hashlib.sha256(pepper + raw.encode("utf-8")).hexdigest()
 
 

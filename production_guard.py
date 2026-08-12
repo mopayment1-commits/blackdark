@@ -414,6 +414,18 @@ def _security_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
             required=s["production"],
             hint="Unset IDENTITY_DEBUG_TOKENS in production (runtime hard-off exists; env must stay false for hygiene)",
         ),
+        _check(
+            "enterprise_sso_demo_off",
+            os.getenv("ENTERPRISE_SSO_DEMO", "false").lower() not in {"1", "true", "yes"},
+            required=s["production"],
+            hint="Unset ENTERPRISE_SSO_DEMO in production (demo SSO session minting is forbidden)",
+        ),
+        _check(
+            "metrics_token_configured",
+            bool((os.getenv("METRICS_TOKEN") or "").strip()),
+            required=False,
+            hint="Set METRICS_TOKEN to require Bearer auth on /metrics (recommended for public scrapes)",
+        ),
     ]
 
 

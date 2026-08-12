@@ -30,10 +30,13 @@ def test_org_mfa_policy_enforced():
     assert org["org_id"] in {o["org_id"] for o in decision["enforcing_orgs"]}
 
 
-def test_enterprise_sso_authorize_and_callback():
+def test_enterprise_sso_authorize_and_callback(monkeypatch):
     from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
     from org_tenant import create_org
 
+    # Demo minting is opt-in and forbidden in production.
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "true")
+    monkeypatch.setenv("ENV", "development")
     org = create_org(name="SSO Org", owner_email="sso.owner@dd.example")
     configure_provider(
         org["org_id"],

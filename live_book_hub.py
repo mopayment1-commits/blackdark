@@ -53,7 +53,11 @@ def update_top_of_book(
 
 
 def get_live_books_if_fresh(*, max_age_ms: float | None = None) -> tuple[dict[str, dict[str, dict[str, Any]]], float] | None:
-    """Return books if at least 2 venues have fresh data."""
+    """Return only per-(exchange,symbol) rows that are fresh.
+
+    Never mix stale symbol books into a snapshot merely because another
+    symbol on the same venue (or a different venue) is fresh.
+    """
     if not _books:
         return None
 
@@ -61,25 +65,27 @@ def get_live_books_if_fresh(*, max_age_ms: float | None = None) -> tuple[dict[st
     now_ms = time.monotonic() * 1000.0
     fresh_exchanges = 0
     worst_age_ms = 0.0
+    filtered: dict[str, dict[str, dict[str, Any]]] = {}
 
     for exchange_id, symbols in _books.items():
-        exchange_fresh = False
-        for symbol in symbols:
+        fresh_symbols: dict[str, dict[str, Any]] = {}
+        for symbol, book in symbols.items():
             key = f"{exchange_id}|{symbol}"
             last = _last_update_ms.get(key, 0.0)
             if last <= 0:
                 continue
             age = now_ms - last
             if age <= limit:
-                exchange_fresh = True
+                fresh_symbols[symbol] = book
                 worst_age_ms = max(worst_age_ms, age)
-        if exchange_fresh:
+        if fresh_symbols:
+            filtered[exchange_id] = fresh_symbols
             fresh_exchanges += 1
 
     if fresh_exchanges < 2:
         return None
 
-    return dict(_books), worst_age_ms
+    return filtered, worst_age_ms
 
 
 def _norm_symbol(symbol: str) -> list[str]:

@@ -3,6 +3,8 @@ BLACKDARK — Enterprise SSO (SAML 2.0 / OIDC) — Report-2 C-P0-01.
 
 Product-complete IdP connector: configure Okta / Azure AD / generic OIDC or SAML metadata.
 Live redirect works when client credentials are present; otherwise returns setup-ready status.
+
+Demo SSO minting is OPT-IN and forbidden in production (fail closed).
 """
 
 from __future__ import annotations
@@ -16,7 +18,7 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from uuid import uuid4
 
 from path_safety import ensure_under, safe_data_file
@@ -29,6 +31,53 @@ _STATES: dict[str, dict[str, Any]] = {}
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def _is_production() -> bool:
+    try:
+        from production_guard import is_production
+
+        return bool(is_production())
+    except Exception:
+        env = (
+            os.getenv("ENV")
+            or os.getenv("APP_ENV")
+            or os.getenv("ENVIRONMENT")
+            or os.getenv("RAILWAY_ENVIRONMENT")
+            or ""
+        ).strip().lower()
+        return env in {"production", "prod"}
+
+
+def _demo_sso_allowed() -> bool:
+    """Demo session minting requires explicit non-production opt-in."""
+    if _is_production():
+        return False
+    return os.getenv("ENTERPRISE_SSO_DEMO", "false").lower() in {"1", "true", "yes"}
+
+
+def _redirect_uri_allowed(redirect_uri: str) -> bool:
+    """Allow only APP_BASE_URL hosts + explicit loopback for local IdP lab."""
+    raw = (redirect_uri or "").strip()
+    if not raw:
+        return False
+    try:
+        parsed = urlparse(raw)
+    except Exception:
+        return False
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return False
+    host = (parsed.hostname or "").lower()
+    if host in {"127.0.0.1", "localhost"}:
+        return not _is_production()
+    base = (os.getenv("APP_BASE_URL") or os.getenv("PUBLIC_BASE_URL") or "").strip()
+    if not base:
+        return False
+    try:
+        base_host = (urlparse(base).hostname or "").lower()
+    except Exception:
+        return False
+    return bool(base_host) and host == base_host
 
 
 def _load() -> dict[str, Any]:
@@ -103,6 +152,14 @@ def get_provider(org_id: str) -> dict[str, Any] | None:
 
 
 def build_sso_authorize_url(org_id: str, *, redirect_uri: str, email_hint: str = "") -> dict[str, Any]:
+    if not _redirect_uri_allowed(redirect_uri):
+        return {
+            "ready": False,
+            "error": "redirect_uri_not_allowed",
+            "setup": {
+                "hint": "redirect_uri must match APP_BASE_URL host (or loopback outside production)",
+            },
+        }
     provider = get_provider(org_id)
     if not provider:
         # Fall back to env-level enterprise OIDC (Okta/Azure shared)
@@ -175,26 +232,36 @@ async def complete_sso_login_async(
     email: str = "",
     subject: str = "",
 ) -> dict[str, Any]:
-    """Finalize SSO callback. Demo code `demo_sso_ok` proves the product path without IdP."""
+    """Finalize SSO callback.
+
+    Demo path (`demo_sso_ok`) is opt-in via ENTERPRISE_SSO_DEMO and forbidden in production.
+    Live path requires a real authorization code; identity email/subject must not be
+    client-spoofable without IdP token exchange (not yet wired → fail closed).
+    """
     row = _STATES.pop(state, None)
     if not row or float(row.get("exp") or 0) < time.time():
         raise ValueError("sso_state_expired")
     org_id = str(row["org_id"])
-    demo = code in {"demo_sso_ok", ""} or os.getenv("ENTERPRISE_SSO_DEMO", "true").lower() in {
-        "1",
-        "true",
-        "yes",
-    }
+
+    demo_requested = code in {"demo_sso_ok"}
+    if not demo_requested:
+        # Live IdP token exchange is not implemented — never mint sessions from
+        # unverified client-supplied email/code (account-takeover class).
+        raise ValueError("sso_idp_verification_required")
+    if not _demo_sso_allowed():
+        raise ValueError("sso_demo_disabled")
+    email = str(email or row.get("email_hint") or "").strip().lower()
     if not email:
-        email = row.get("email_hint") or f"sso.user+{org_id[-6:]}@blackdark.local"
-    email = str(email).strip().lower()
-    subject = subject or f"sso:{org_id}:{email}"
+        raise ValueError("sso_email_required")
+    subject = subject or f"sso-demo:{org_id}:{email}"
+    demo = True
 
     from org_tenant import add_member, get_org, member_of
 
     if not get_org(org_id):
         raise ValueError("org_not_found")
     if not member_of(org_id, email):
+        # JIT only for demo lab; live IdP must assert membership claims.
         add_member(org_id, email, role="analyst")
 
     from auth_service import create_session
@@ -205,7 +272,7 @@ async def complete_sso_login_async(
         user_id = await create_oauth_user(email, email.split("@")[0], "enterprise_sso", subject)
         user = await fetch_user_by_email(email) or {"id": user_id, "email": email}
     session = await create_session(int(user["id"]))
-    return {
+    result = {
         "org_id": org_id,
         "email": email,
         "subject": subject,
@@ -215,6 +282,11 @@ async def complete_sso_login_async(
         "expires_at": session["expires_at"],
         "product_complete": True,
     }
+    # Mirror auth router: omit bearer from JSON in production (cookie path preferred).
+    if _is_production() and os.getenv("AUTH_TOKEN_IN_BODY", "").lower() not in {"1", "true", "yes"}:
+        result.pop("token", None)
+        result["session"] = "cookie"
+    return result
 
 
 def sso_status(org_id: str | None = None) -> dict[str, Any]:
@@ -233,11 +305,16 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
         "scim_ready": True,
         "org_configured": bool(row),
         "env_oidc_ready": env_ready,
+        "demo_allowed": _demo_sso_allowed(),
         "providers_count": len(providers),
         "api": {
             "configure": "POST /api/institutional/sso/configure",
             "authorize": "GET /api/institutional/sso/authorize",
             "callback": "POST /api/institutional/sso/callback",
         },
-        "note": "Consumer OAuth ≠ Enterprise SSO. This surface is IdP-org scoped.",
+        "note": (
+            "Consumer OAuth ≠ Enterprise SSO. Demo minting requires "
+            "ENTERPRISE_SSO_DEMO=true outside production. Live IdP token "
+            "exchange must be wired before production use."
+        ),
     }

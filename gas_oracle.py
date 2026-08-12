@@ -126,9 +126,10 @@ def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float | None:
     return None
 
 
-def _chain_from_dex_chain_id(chain_id: str | None) -> str:
+def _chain_from_dex_chain_id(chain_id: str | None) -> str | None:
+    """Map DexScreener/chain labels to gas cache keys. Unknown → None (fail closed)."""
     if not chain_id:
-        return "ethereum"
+        return None
     c = str(chain_id).lower()
     mapping = {
         "ethereum": "ethereum",
@@ -141,7 +142,7 @@ def _chain_from_dex_chain_id(chain_id: str | None) -> str:
         "matic": "polygon",
         "solana": "solana",
     }
-    return mapping.get(c, "ethereum")
+    return mapping.get(c)
 
 
 def _solana_gas_row(lamports: float, native_usd: float) -> dict[str, Any]:
@@ -215,6 +216,8 @@ async def get_swap_gas_usd(chain: str, *, hops: int = 1) -> float | None:
     Callers MUST fail closed — never invent a default gas USD for P&L.
     """
     chain_key = _chain_from_dex_chain_id(chain)
+    if not chain_key:
+        return None
     age = time.monotonic() - _CACHE_TS.get(chain_key, 0.0)
     if chain_key not in _CACHE or age > _REFRESH_INTERVAL_SEC:
         await refresh_gas_cache(chains=(chain_key, "ethereum", "bsc", "solana"))

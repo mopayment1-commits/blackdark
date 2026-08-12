@@ -134,7 +134,14 @@ async def _gmx_price(session: aiohttp.ClientSession, asset: str, cex_ref: float)
                         continue
                     if cex_ref > 0 and abs(price - cex_ref) / cex_ref > 0.15:
                         continue
-                    return {"venue": "gmx", "price": price, "liquidity_usd": 1_000_000, "source": "gmx_arbitrum"}
+                    # Liquidity unknown — never invent $1M depth for ranking.
+                    return {
+                        "venue": "gmx",
+                        "price": price,
+                        "liquidity_usd": None,
+                        "liquidity_unknown": True,
+                        "source": "gmx_arbitrum",
+                    }
     except (aiohttp.ClientError, TypeError, ValueError):
         pass
     return {}

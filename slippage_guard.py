@@ -86,18 +86,20 @@ def _rewalk_triangular(opportunity: dict[str, Any], notional: float) -> dict[str
 
 def _rewalk_cex_dex(opportunity: dict[str, Any], notional: float) -> dict[str, Any]:
     from dex_slippage import simulate_amm_swap
+    from executable_edge_truth import mark_indicative_only
 
     liq = float(opportunity.get("dex_liquidity_usd") or 0)
     price = float(opportunity.get("dex_price") or opportunity.get("buy_price") or 0)
     sim = simulate_amm_swap(amount_in_usd=notional, price=price, liquidity_usd=liq)
     if sim is None:
         return {**opportunity, "rewalk": "dex_liquidity_fail", "executable": False, "cancel_reason": "liquidity"}
-    return {
+    # AMM slip alone is not full net/fee/gas recompute — fail closed for executability.
+    updated = {
         **opportunity,
         "total_slippage_bps": sim["slippage_bps"],
-        "executable": sim["executable"],
-        "rewalk": "dex_ok",
+        "rewalk": "dex_slip_only",
     }
+    return mark_indicative_only(updated, reason="cex_dex_net_not_recomputed")
 
 
 def _rewalk_cross_exchange(
@@ -213,7 +215,7 @@ async def validate_alert(opportunity: dict[str, Any]) -> tuple[bool, dict[str, A
 
     updated = await rewalk_opportunity_slippage(opportunity)
 
-    if not updated.get("executable", True):
+    if updated.get("executable") is not True:
         _cancelled_total += 1
         _active_alerts.pop(fp, None)
         logger.info("Alert cancelled | fp=%s reason=%s", fp, updated.get("cancel_reason"))

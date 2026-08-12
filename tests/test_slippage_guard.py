@@ -91,7 +91,10 @@ async def test_rewalk_cex_dex_path():
         "quote_amount": 200.0,
     }
     out = await slippage_guard.rewalk_opportunity_slippage(opp)
-    assert out.get("rewalk") == "dex_ok"
+    # Slip-only AMM rewalk is indicative — never marks executable without full net.
+    assert out.get("rewalk") == "dex_slip_only"
+    assert out.get("executable") is False
+    assert out.get("indicative") is True
     assert "total_slippage_bps" in out
 
 

@@ -247,8 +247,17 @@ async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str 
         return org_mfa
     except ValueError:
         raise
-    except Exception:
-        return {"org_mfa_enforced": False}
+    except Exception as exc:
+        # Fail closed: unexpected MFA policy errors must not skip org MFA.
+        import logging
+
+        logging.getLogger("BLACKDARK.Auth").warning(
+            "org_mfa_policy_lookup_failed err_type=%s",
+            type(exc).__name__,
+        )
+        raise ValueError(
+            "Organization MFA policy unavailable. Retry login shortly."
+        ) from exc
 
 
 def _mfa_challenge_response(user: dict[str, Any], email: str, org_mfa: dict[str, Any]) -> dict[str, Any]:
