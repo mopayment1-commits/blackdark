@@ -75,6 +75,10 @@ jobs:
             tests/test_risk_manager.py \
             tests/test_security_max_closure.py \
             tests/test_radical_dd_scale_closure.py \
+            tests/test_rc2_financial_truth.py \
+            tests/test_rc2_chaos_resilience.py \
+            tests/test_rc2_oracle_contract.py \
+            tests/test_env_secrets_loader.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

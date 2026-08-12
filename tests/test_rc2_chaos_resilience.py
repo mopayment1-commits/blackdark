@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import os
-
 import pytest
 
 
@@ -16,16 +14,12 @@ async def test_postgres_unavailable_does_not_invent_ready(monkeypatch):
         "DATABASE_URL",
         "postgresql://blackdark:blackdark@127.0.0.1:1/blackdark_missing",
     )
-    # Force pool rebuild attempt
     if hasattr(pb, "_pool"):
         monkeypatch.setattr(pb, "_pool", None, raising=False)
-    try:
-        if hasattr(pb, "get_pool"):
-            with pytest.raises(Exception):
-                await pb.get_pool()
-    except Exception:
-        # Any connection failure is acceptable evidence of fail-closed.
-        pass
+    if not hasattr(pb, "get_pool"):
+        pytest.skip("postgres_backend.get_pool not present")
+    with pytest.raises((OSError, ConnectionError, TimeoutError, RuntimeError, Exception)):
+        await pb.get_pool()
 
 
 def test_fee_matrix_unknown_venue_is_none():
@@ -39,19 +33,12 @@ def test_fee_matrix_unknown_venue_is_none():
 def test_redis_url_missing_viral_not_fabricated(monkeypatch):
     monkeypatch.delenv("REDIS_URL", raising=False)
     monkeypatch.setenv("VIRAL_MODE", "true")
-    # Import-time configs vary; assert production_guard / viral readiness refuse silent OK.
-    try:
-        import production_guard as pg
+    import production_guard as pg
 
-        report = pg.evaluate_production_guard() if hasattr(pg, "evaluate_production_guard") else None
-        if report is None and hasattr(pg, "build_guard_report"):
-            report = pg.build_guard_report()
-        if isinstance(report, dict):
-            # Soft Launch may still pass; viral strict path should surface redis.
-            blob = str(report).lower()
-            assert "redis" in blob or "soft" in blob or "required" in blob
-    except Exception:
-        pytest.skip("production_guard API shape differs")
+    report = pg.evaluate_production_guard()
+    assert isinstance(report, dict)
+    blob = str(report).lower()
+    assert ("redis" in blob) or ("soft" in blob) or ("required" in blob)
 
 
 @pytest.mark.asyncio

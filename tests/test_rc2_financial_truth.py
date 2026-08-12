@@ -19,7 +19,8 @@ def test_cross_exchange_uses_decimal_money_path(monkeypatch):
     assert ok is not None
     buy_rate = fee_matrix.taker_fee("binance")
     sell_rate = fee_matrix.taker_fee("okx")
-    assert buy_rate is not None and sell_rate is not None
+    assert buy_rate is not None
+    assert sell_rate is not None
     # Reconstruct with Decimal helpers — engine must match within money quantum.
     expected_buy_fee = money_float(apply_fee(ok.quote_amount, buy_rate))  # rough bound
     assert ok.trading_fees_usdt > 0
@@ -32,7 +33,8 @@ def test_open_leg_fees_fail_closed_and_decimal(monkeypatch):
 
     fee_matrix._matrix.clear()
     known = _open_leg_fees_usdt(1_000.0, spot_ex="binance", perp_ex="binance")
-    assert known is not None and known > 0
+    assert known is not None
+    assert known > 0
 
     monkeypatch.setattr(fee_matrix, "taker_fee", lambda *_a, **_k: None)
     assert _open_leg_fees_usdt(1_000.0) is None
@@ -129,8 +131,81 @@ def test_setup_telegram_writes_private_file_not_env_token():
     assert "telegram.secrets.env" in src
     assert "write_private_text" in src
     assert "TELEGRAM_SECRETS_FILE" in src
+    assert "_persist_telegram_secrets" in src
+    assert "_persist_nonsecret_env" in src
     # Must not upsert cleartext token into .env anymore.
     assert '_upsert_env("TELEGRAM_BOT_TOKEN"' not in src
+    # Must not print secret file path after writing secrets (CodeQL clear-text log).
+    assert "Wrote private secrets file (mode 0600)." in src
+
+
+@pytest.mark.asyncio
+async def test_gas_oracle_fresh_cache_returns_cost(monkeypatch):
+    import time
+
+    import gas_oracle
+
+    gas_oracle._CACHE.clear()
+    gas_oracle._CACHE_TS.clear()
+    gas_oracle._CACHE["ethereum"] = {
+        "chain": "ethereum",
+        "swap_cost_usd": 2.5,
+        "native_usd_source": "live_mid",
+    }
+    gas_oracle._CACHE_TS["ethereum"] = time.monotonic()
+
+    async def _no_refresh(**_k):
+        return gas_oracle._CACHE
+
+    monkeypatch.setattr(gas_oracle, "refresh_gas_cache", _no_refresh)
+    assert await gas_oracle.get_swap_gas_usd("ethereum", hops=2) == 5.0
+    assert await gas_oracle.gas_cost_bps("ethereum", 100.0, hops=1) == pytest.approx(250.0)
+
+
+@pytest.mark.asyncio
+async def test_gas_row_builders_and_refresh_success(monkeypatch):
+    import gas_oracle
+
+    row = gas_oracle._evm_gas_row("ethereum", gwei=30.0, native_usd=2000.0)
+    assert row["swap_cost_usd"] > 0
+    assert row["native_usd_source"] == "live_mid"
+    srow = gas_oracle._solana_gas_row(10_000.0, 100.0)
+    assert srow["chain"] == "solana"
+
+    async def _gwei(_s, _c):
+        return 20.0
+
+    monkeypatch.setattr(gas_oracle, "_fetch_eth_gas_gwei", _gwei)
+    monkeypatch.setattr(gas_oracle, "_native_usd", lambda *_a, **_k: 1800.0)
+    gas_oracle._CACHE.clear()
+    gas_oracle._CACHE_TS.clear()
+    out = await gas_oracle.refresh_gas_cache(chains=("ethereum",))
+    assert "ethereum" in out
+    assert await gas_oracle.get_swap_gas_usd("ethereum") is not None
+
+
+@pytest.mark.asyncio
+async def test_bridge_scan_fail_closed_without_invented_bridge_fee(monkeypatch):
+    import defi_arbitrage_engine as dae
+    import gas_oracle
+
+    async def _gas(chain, *, hops=1):
+        return 1.0
+
+    monkeypatch.setattr(gas_oracle, "get_swap_gas_usd", _gas)
+
+    class _Session:
+        pass
+
+    async def _price(_s, _a, chain):
+        return {"ethereum": 100.0, "bsc": 102.0}.get(chain, 0.0)
+
+    monkeypatch.setattr(dae, "_chain_dex_price", _price)
+    out = await dae.scan_bridge_spread(_Session(), "ETH")
+    assert out is not None
+    assert out.get("executable") is False
+    assert out.get("bridge_protocol_fee_usd") is None
+    assert out.get("profitable") is False
 
 
 def test_architecture_vault_honesty():

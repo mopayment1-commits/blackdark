@@ -144,45 +144,63 @@ def _chain_from_dex_chain_id(chain_id: str | None) -> str:
     return mapping.get(c, "ethereum")
 
 
+def _solana_gas_row(lamports: float, native_usd: float) -> dict[str, Any]:
+    # ~2 signatures + swap CU
+    cost_usd = (lamports / 1e9) * native_usd * 2
+    return {
+        "chain": "solana",
+        "lamports_priority": lamports,
+        "native_usd": native_usd,
+        "swap_cost_usd": round(max(0.001, cost_usd), 4),
+        "updated_ms": int(time.time() * 1000),
+        "native_usd_source": "live_mid",
+    }
+
+
+def _evm_gas_row(chain: str, gwei: float, native_usd: float) -> dict[str, Any]:
+    gas_units = SWAP_GAS_UNITS.get(chain, 180_000)
+    cost_usd = (gwei * 1e-9) * gas_units * native_usd
+    return {
+        "chain": chain,
+        "gas_gwei": round(gwei, 3),
+        "gas_units": gas_units,
+        "native_usd": round(native_usd, 2),
+        "swap_cost_usd": round(max(0.01, cost_usd), 4),
+        "updated_ms": int(time.time() * 1000),
+        "native_usd_source": "live_mid",
+    }
+
+
+async def _build_chain_gas_row(
+    session: aiohttp.ClientSession,
+    chain: str,
+) -> dict[str, Any] | None:
+    """Build one cache row; None when live gas or native/USD mid is unknown."""
+    if chain == "solana":
+        lamports = await _fetch_solana_priority_fee(session)
+        native_usd = _native_usd(session, chain)
+        if lamports is None or native_usd is None:
+            return None
+        return _solana_gas_row(lamports, native_usd)
+
+    gwei = await _fetch_eth_gas_gwei(session, chain)
+    if gwei is None:
+        return None
+    native_usd = _native_usd(session, chain)
+    if native_usd is None:
+        return None
+    return _evm_gas_row(chain, gwei, native_usd)
+
+
 async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "solana")) -> dict[str, Any]:
     global _CACHE, _CACHE_TS
     timeout = aiohttp.ClientTimeout(total=10)
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for chain in chains:
             try:
-                if chain == "solana":
-                    lamports = await _fetch_solana_priority_fee(session)
-                    native_usd = _native_usd(session, chain)
-                    if lamports is None or native_usd is None:
-                        continue
-                    # ~2 signatures + swap CU
-                    cost_usd = (lamports / 1e9) * native_usd * 2
-                    row = {
-                        "chain": chain,
-                        "lamports_priority": lamports,
-                        "native_usd": native_usd,
-                        "swap_cost_usd": round(max(0.001, cost_usd), 4),
-                        "updated_ms": int(time.time() * 1000),
-                        "native_usd_source": "live_mid",
-                    }
-                else:
-                    gwei = await _fetch_eth_gas_gwei(session, chain)
-                    if gwei is None:
-                        continue
-                    native_usd = _native_usd(session, chain)
-                    if native_usd is None:
-                        continue
-                    gas_units = SWAP_GAS_UNITS.get(chain, 180_000)
-                    cost_usd = (gwei * 1e-9) * gas_units * native_usd
-                    row = {
-                        "chain": chain,
-                        "gas_gwei": round(gwei, 3),
-                        "gas_units": gas_units,
-                        "native_usd": round(native_usd, 2),
-                        "swap_cost_usd": round(max(0.01, cost_usd), 4),
-                        "updated_ms": int(time.time() * 1000),
-                        "native_usd_source": "live_mid",
-                    }
+                row = await _build_chain_gas_row(session, chain)
+                if row is None:
+                    continue
                 _CACHE[chain] = row
                 _CACHE_TS[chain] = time.monotonic()
             except Exception:

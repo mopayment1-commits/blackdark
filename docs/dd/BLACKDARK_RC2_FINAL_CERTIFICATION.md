@@ -104,9 +104,9 @@ Strong E3 on tests (618 passed @ RC2 tip pending SHA), Bandit H/M=0, financial r
 | DATA TRUTH | PASS_WITH_RISK — fee/gas authorities clear; multi-source DeFi indicative when incomplete |
 | DATABASE | PASS — runtime migration authority unchanged; PG integrity tests green |
 | ARCHITECTURE | PASS_WITH_RISK — Vault honesty fixed; oracle contract documented; dashboard modularize POST_CLOSE |
-| TESTS | PASS — **618 passed / 0 failed** (clean env: `SERVICE_BUS_LOCAL=true`, unset polluted Redis) |
-| SONARCLOUD | EXTERNAL / MIXED — CI scanner model retained; Automatic Analysis must stay **disabled** until owner chooses final model; main New Code admin EXTERNAL; **do not re-enable AA silently** |
-| CODEQL | PASS workflow historically; open-alert UI count EXTERNAL |
+| TESTS | PASS — **628 passed / 0 failed / 1 skipped** (clean env: `SERVICE_BUS_LOCAL=true`, unset polluted Redis/Viral) |
+| SONARCLOUD | CI scanner + real RC2 coverage suite; Automatic Analysis must stay **disabled**; main New Code admin still EXTERNAL (`F-EXT-08`); PR QG re-run after coverage/reliability fixes |
+| CODEQL | Analyze jobs green; PR “CodeQL” check must show 0 new High after telegram clear-text remediation — open-alert UI count still EXTERNAL |
 | RELIABILITY | PASS_WITH_RISK — chaos unit pack added; live compound outage limited |
 | PERFORMANCE | PASS_WITH_RISK — MEASURED soft HA in load log; 1k/10k UNPROVEN |
 | TRANSFERABILITY | PASS_WITH_RISK → **LOW–MODERATE residual** (docs complete; account ownership EXTERNAL). Not HIGH RISK for repository knowledge. |
