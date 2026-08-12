@@ -166,9 +166,12 @@ def test_redis_negative_cache_avoids_repeat_connect_penalty(monkeypatch):
     """Dead REDIS_URL must not re-pay connect timeout on every request."""
     import time
 
+    import config
     import viral_capacity as vc
 
-    monkeypatch.setenv("REDIS_URL", "redis://127.0.0.1:1/0")
+    dead = "redis://127.0.0.1:1/0"
+    monkeypatch.setenv("REDIS_URL", dead)
+    monkeypatch.setattr(config, "REDIS_URL", dead, raising=False)
     monkeypatch.setattr(vc, "_REDIS_CONNECT_TIMEOUT", 0.05)
     monkeypatch.setattr(vc, "_REDIS_SOCKET_TIMEOUT", 0.05)
     monkeypatch.setattr(vc, "_REDIS_NEG_TTL_SEC", 30.0)

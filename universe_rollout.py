@@ -131,13 +131,17 @@ async def live_rollout_status() -> dict[str, Any]:
     target = set(_registry_exchange_ids())
     healthy: set[str] = set()
     try:
+        from datetime import UTC, datetime, timedelta
+
+        cutoff = (datetime.now(UTC) - timedelta(hours=2)).isoformat()
         async with get_connection() as db:
             rows = await (
                 await db.execute(
                     """
                     SELECT DISTINCT exchange FROM pricing_logs
-                    WHERE timestamp >= datetime('now', '-2 hours')
-                    """
+                    WHERE timestamp >= ?
+                    """,
+                    (cutoff,),
                 )
             ).fetchall()
         healthy = {str(row[0]).lower() for row in rows if row[0]}

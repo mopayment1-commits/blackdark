@@ -3267,6 +3267,9 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
         now_dt = datetime.now(UTC)
         now = now_dt.isoformat()
         grace_days = int(getattr(config, "RETENTION_PAST_DUE_GRACE_DAYS", 7))
+        # Dialect-safe grace floor: past_due_at + grace_days > now
+        # ⇔ past_due_at > now - grace_days (no SQLite datetime() — breaks Postgres).
+        past_due_grace_floor = (now_dt - timedelta(days=grace_days)).isoformat()
         async with get_connection() as db:
             rows = await db.execute(
                 """
@@ -3278,14 +3281,14 @@ async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | No
                     OR (
                       status = 'past_due'
                       AND past_due_at IS NOT NULL
-                      AND datetime(past_due_at, '+' || ? || ' days') > ?
+                      AND past_due_at > ?
                     )
                     OR (access_bonus_until IS NOT NULL AND access_bonus_until > ?)
                   )
                 ORDER BY CASE status WHEN 'active' THEN 0 WHEN 'past_due' THEN 1 ELSE 2 END, id DESC
                 LIMIT 1
                 """,
-                (email.strip().lower(), now, grace_days, now, now),
+                (email.strip().lower(), now, past_due_grace_floor, now),
             )
             result = await rows.fetchone()
         if result is None:

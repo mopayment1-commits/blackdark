@@ -121,6 +121,7 @@ jobs:
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.organization=blackdark
             -Dsonar.projectKey=mopayment1-commits_blackdark
+            -Dsonar.qualitygate.wait=true
 
   sonarcloud-skip-notice:
     name: SonarCloud
