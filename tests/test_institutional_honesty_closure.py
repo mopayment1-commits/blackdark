@@ -121,6 +121,9 @@ def test_sso_live_callback_with_secret(monkeypatch):
     assert auth["institutional_complete"] is True
 
     async def _run():
+        import database
+
+        await database.init_db()
         return await complete_sso_login_async(
             state=auth["state"],
             code="auth-code-from-idp",
