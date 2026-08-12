@@ -2,22 +2,41 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Response
+import hmac
+import os
+
+from fastapi import APIRouter, Depends, Header, HTTPException, Response
 
 from security_auth import require_admin, require_whale
 
 router = APIRouter(tags=["observability"])
 
 
+def _require_metrics_access(authorization: str | None = Header(default=None)) -> None:
+    """Optional bearer gate for /metrics (F-OPS-02).
+
+    When METRICS_TOKEN is unset, scrapes remain open (local/dev / private network).
+    When set, require `Authorization: Bearer <token>` — no anonymous public metrics.
+    """
+    expected = (os.getenv("METRICS_TOKEN") or "").strip()
+    if not expected:
+        return
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="metrics_unauthorized")
+    got = authorization.split(" ", 1)[1].strip()
+    if not hmac.compare_digest(got, expected):
+        raise HTTPException(status_code=403, detail="metrics_forbidden")
+
+
 @router.get("/metrics")
-async def prometheus_metrics():
+async def prometheus_metrics(_auth: None = Depends(_require_metrics_access)):
     from observability import prometheus_metrics_text
 
     return Response(content=prometheus_metrics_text(), media_type="text/plain; version=0.0.4")
 
 
 @router.get("/api/observability/status")
-async def observability_status_api():
+async def observability_status_api(_admin: dict = Depends(require_admin)):
     from observability import observability_status
 
     return observability_status()

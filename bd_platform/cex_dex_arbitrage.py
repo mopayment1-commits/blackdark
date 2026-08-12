@@ -13,7 +13,6 @@ import config
 
 logger = logging.getLogger("BLACKDARK.CexDexArb")
 
-_GAS_BPS_EST = float(os.getenv("CEX_DEX_GAS_BPS_EST", "35"))
 _MIN_NET_BPS = float(os.getenv("CEX_DEX_MIN_NET_BPS", "8"))
 
 
@@ -134,7 +133,14 @@ async def _gmx_price(session: aiohttp.ClientSession, asset: str, cex_ref: float)
                         continue
                     if cex_ref > 0 and abs(price - cex_ref) / cex_ref > 0.15:
                         continue
-                    return {"venue": "gmx", "price": price, "liquidity_usd": 1_000_000, "source": "gmx_arbitrum"}
+                    # Liquidity unknown — never invent $1M depth for ranking.
+                    return {
+                        "venue": "gmx",
+                        "price": price,
+                        "liquidity_usd": None,
+                        "liquidity_unknown": True,
+                        "source": "gmx_arbitrum",
+                    }
     except (aiohttp.ClientError, TypeError, ValueError):
         pass
     return {}
@@ -223,14 +229,18 @@ def _execution_feasibility(net_bps: float, liq_usd: float, quote_usd: float) -> 
 
 
 def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float | None:
-    """Indicative fee haircut via fee_matrix — None when either venue fee unknown."""
+    """Trading-fee haircut via fee_matrix only — never invent gas bps.
+
+    Gas must come from gas_oracle asynchronously; callers that need full net
+    should use live gas or omit net (fail closed).
+    """
     from fee_matrix import taker_fee
 
     buy_rate = taker_fee(str(buy_venue or ""))
     sell_rate = taker_fee(str(sell_venue or ""))
     if buy_rate is None or sell_rate is None:
         return None
-    return (float(buy_rate) + float(sell_rate)) * 10_000 + _GAS_BPS_EST
+    return (float(buy_rate) + float(sell_rate)) * 10_000
 
 
 async def _cex_dex_opportunity_for_asset(

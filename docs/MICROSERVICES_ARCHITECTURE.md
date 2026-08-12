@@ -43,6 +43,7 @@ REDIS_URL=redis://localhost:6379/0
 DATABASE_URL=postgresql://user:pass@host:5432/blackdark  # production (SQLite if empty)
 HEALTH_PORT=8180          # instant liveness sidecar (default: app port + 100)
 SERVICE_BUS_LOCAL=true    # in-process fallback when Redis absent
+SERVICE_BUS_LOCAL_QUEUE_MAX=1000  # bounded local queues; publish drops when full
 ```
 
 ## Service Bus Channels
@@ -51,6 +52,9 @@ SERVICE_BUS_LOCAL=true    # in-process fallback when Redis absent
 |---------|-----------|------------|---------|
 | `blackdark.market.updated` | aggregator | arbitrage, web | cycle complete |
 | `blackdark.arbitrage.hot` | arbitrage | web, analytics | hot opportunity |
+
+Local (non-Redis) mode uses **bounded** `asyncio.Queue` per channel (`SERVICE_BUS_LOCAL_QUEUE_MAX`).
+When full, `publish()` returns `false` and drops — no unbounded memory growth under overload.
 
 ## Health Checks
 

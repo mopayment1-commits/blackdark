@@ -312,7 +312,7 @@ async def apply_crowd_guard_to_alert(opportunity: dict[str, Any]) -> tuple[bool,
     crowd_notional = estimated_competing_notional(fp, pending_recipients=pending)
     updated = await crowd_adjusted_rewalk(opportunity, crowd_notional_usd=crowd_notional)
 
-    if not updated.get("executable", True):
+    if updated.get("executable") is not True:
         _blocked_alerts += 1
         logger.info(
             "Alert blocked (flywheel saturation) | fp=%s crowd=$%.0f reason=%s",

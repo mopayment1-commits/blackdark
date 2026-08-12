@@ -62,14 +62,13 @@ def _session_response_body(result: dict[str, Any]) -> dict[str, Any]:
     if explicit in {"0", "false", "no"}:
         include = False
     elif not explicit:
-        env = (
-            os.getenv("ENV")
-            or os.getenv("APP_ENV")
-            or os.getenv("ENVIRONMENT")
-            or os.getenv("RAILWAY_ENVIRONMENT")
-            or ""
-        ).strip().lower()
-        include = env not in {"production", "prod"}
+        tokens = [
+            (os.getenv("ENV") or "").strip().lower(),
+            (os.getenv("APP_ENV") or "").strip().lower(),
+            (os.getenv("ENVIRONMENT") or "").strip().lower(),
+            (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+        ]
+        include = not any(t in {"production", "prod"} for t in tokens)
     if not include:
         body.pop("token", None)
         body["session"] = "cookie"
@@ -231,8 +230,13 @@ async def auth_forgot_password(body: AuthForgotPasswordBody, request: Request):
     if user and int(user.get("password_is_set") if user.get("password_is_set") is not None else 1):
         try:
             debug = await send_password_reset_email(int(user["id"]), email)
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+
+            logging.getLogger("BLACKDARK.Auth").warning(
+                "password_reset_email_failed err_type=%s",
+                type(exc).__name__,
+            )
     payload = {
         "ok": True,
         "message": "If an account exists for that email, a reset link was sent.",

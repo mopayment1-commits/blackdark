@@ -150,7 +150,13 @@ def _record_live_fetch_result(
     try:
         result = task.result()
     except Exception as exc:
-        logger.debug("Live fetch failed | %s %s %s | %s", exchange_id, key, kind, exc)
+        # Never log exception text — exchange/client errors can embed credentials.
+        logger.debug(
+            "Live fetch failed | exchange=%s kind=%s err_type=%s",
+            exchange_id,
+            kind,
+            type(exc).__name__,
+        )
         return
 
     if kind == "funding":

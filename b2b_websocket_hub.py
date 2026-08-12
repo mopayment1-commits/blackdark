@@ -56,7 +56,7 @@ class B2BWebSocketHub:
         self._heartbeat_task: asyncio.Task | None = None
         self._running = False
 
-    def start(self) -> None:
+    async def start(self) -> None:
         if self._running:
             return
         self._running = True

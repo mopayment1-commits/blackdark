@@ -247,8 +247,17 @@ async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str 
         return org_mfa
     except ValueError:
         raise
-    except Exception:
-        return {"org_mfa_enforced": False}
+    except Exception as exc:
+        # Fail closed: unexpected MFA policy errors must not skip org MFA.
+        import logging
+
+        logging.getLogger("BLACKDARK.Auth").warning(
+            "org_mfa_policy_lookup_failed err_type=%s",
+            type(exc).__name__,
+        )
+        raise ValueError(
+            "Organization MFA policy unavailable. Retry login shortly."
+        ) from exc
 
 
 def _mfa_challenge_response(user: dict[str, Any], email: str, org_mfa: dict[str, Any]) -> dict[str, Any]:
@@ -359,8 +368,14 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
     if revoke_others:
         try:
             await delete_user_sessions_for_user(int(user_id))
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+
+            logging.getLogger("BLACKDARK.Auth").error(
+                "session_revoke_failed err_type=%s",
+                type(exc).__name__,
+            )
+            raise RuntimeError("session_revoke_failed") from exc
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()

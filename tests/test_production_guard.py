@@ -62,6 +62,7 @@ def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
     monkeypatch.delenv("IDENTITY_DEBUG_TOKENS", raising=False)
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_WEBHOOK_SECRET", raising=False)
+    monkeypatch.delenv("ENTERPRISE_SSO_DEMO", raising=False)
 
     from production_guard import evaluate_production_guard
 

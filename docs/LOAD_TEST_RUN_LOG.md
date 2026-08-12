@@ -51,6 +51,25 @@ python scripts/load_test_1m_simulation.py
 
 ## Recorded runs
 
+### 2026-08-12T11:56:00Z — Staged viral surge A→E @ external-audit-readiness (lab READY)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-12T11:56:00Z |
+| Commit | `4cf7102` + surge remediations (see PR `cursor/external-audit-readiness-120d`) |
+| Environment | local prod-like: `ENV=production`, Soft Launch unset, Postgres `blackdark_clean`, Redis live |
+| Workers / replicas | `WEB_CONCURRENCY=2` (1 host process); env `WEB_REPLICAS=2` claimed — **physical replicas=1** |
+| Postgres | yes (peak connections 10 / max 100 = 10%) |
+| Redis | yes (`rate_limit_backend=redis`, quick cache redis after warm) |
+| Script | `scripts/viral_surge_staged.py --stages A,B,C,D,E --recovery-settle-sec 65` |
+| Envelope | SAFE=**100** concurrent workers · DEGRADED=**200** · FAILURE=**not reached** |
+| Bottleneck | Viral class RL / oracle compute (controlled 429) |
+| Recovery | Proven after 65s — live/ready/landing/trust/oracle ok_rate=1.0 |
+| Error rate | Core health hard errors=0; product shed via 429 |
+| Verdict | **VIRAL SURGE READY** (lab envelope — not global 100k claim) |
+| Evidence | `docs/dd/VIRAL_SURGE_EVIDENCE.md` · `docs/dd/VIRAL_SURGE_EVIDENCE.json` · `docs/dd/VIRAL_SPOF_REGISTER.md` |
+| Operator | cloud-agent |
+
 ### 2026-08-12T00:07:00Z — Soft Launch tip concurrent burst @ `73818e2` (NOT signed HA)
 
 | Field | Value |

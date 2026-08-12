@@ -73,7 +73,7 @@ class SsoConfigure(BaseModel):
 
 class SsoCallback(BaseModel):
     state: str
-    code: str = "demo_sso_ok"
+    code: str = ""
     email: str = ""
     subject: str = ""
 
@@ -208,18 +208,36 @@ async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, An
 
 
 @router.get("/orgs/{org_id}/members")
-async def org_members(org_id: str) -> dict[str, Any]:
+async def org_members(org_id: str, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+    from org_rbac import require_permission
     from org_tenant import list_members
 
+    actor = str(user.get("email") or "").strip().lower()
+    try:
+        # Any org member may list; non-members are denied.
+        require_permission(org_id, actor, "decisions.view")
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(404, str(exc)) from exc
     return {"org_id": org_id, "members": list_members(org_id)}
 
 
 @router.post("/orgs/{org_id}/members", responses=COMMON_ERROR_RESPONSES)
-async def org_add_member(org_id: str, body: MemberAdd) -> dict[str, Any]:
+async def org_add_member(
+    org_id: str,
+    body: MemberAdd,
+    user: dict = Depends(require_authenticated),
+) -> dict[str, Any]:
+    from org_rbac import require_permission
     from org_tenant import add_member
 
+    actor = str(user.get("email") or "").strip().lower()
     try:
+        require_permission(org_id, actor, "org.members")
         return add_member(org_id, body.email, body.role)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
 

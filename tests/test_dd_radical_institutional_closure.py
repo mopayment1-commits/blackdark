@@ -30,10 +30,13 @@ def test_org_mfa_policy_enforced():
     assert org["org_id"] in {o["org_id"] for o in decision["enforcing_orgs"]}
 
 
-def test_enterprise_sso_authorize_and_callback():
+def test_enterprise_sso_authorize_and_callback(monkeypatch):
     from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
     from org_tenant import create_org
 
+    # Demo minting is opt-in and forbidden in production.
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "true")
+    monkeypatch.setenv("ENV", "development")
     org = create_org(name="SSO Org", owner_email="sso.owner@dd.example")
     configure_provider(
         org["org_id"],
@@ -138,9 +141,11 @@ def test_jupiter_dex_adapter_product_complete():
         return await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
 
     out = asyncio.run(_run())
-    assert out["product_complete"] is True
-    assert out["executable_product_path"] is True
-    assert adapter_status()["product_complete"] is True
+    # Synthetic economics removed — unavailable quote must not claim completion.
+    assert out["executed"] is False
+    assert out.get("executable") is False
+    assert out.get("product_complete") is False
+    assert adapter_status()["product_complete"] is False
 
 
 def test_d5_honesty_and_model_card():

@@ -100,6 +100,7 @@ class CrossExchangeOpportunity(BaseModel):
     total_slippage_bps: float = Field(ge=0)
     trading_fees_usdt: float = Field(ge=0)
     withdrawal_fee_usdt: float = Field(ge=0)
+    deposit_fee_usdt: float = Field(ge=0)
     slippage_buffer_usdt: float = Field(ge=0)
     net_profit_usdt: float
     net_profit_percent: float
@@ -153,6 +154,10 @@ class FundingArbitrageOpportunity(BaseModel):
     predictive_convergence_score_delta: float = 0.0
     institutional_risk_buffer_usdt: float = Field(default=0.0, ge=0)
     cvvd_risk_patterns: list[str] = Field(default_factory=list)
+    # Rates-only scans are research/indicative until perp depth is walked.
+    indicative: bool = True
+    executable: bool = False
+    reject_reason: str | None = "funding_depth_not_verified"
 
 
 def _parse_symbol(symbol: str) -> tuple[str, str]:
@@ -161,8 +166,12 @@ def _parse_symbol(symbol: str) -> tuple[str, str]:
 
 
 def _normalize_book(order_book: dict[str, Any]) -> dict[str, list[list[float]]]:
-    bids = OrderBookSide(levels=order_book.get("bids") or []).levels
-    asks = OrderBookSide(levels=order_book.get("asks") or []).levels
+    try:
+        bids = OrderBookSide(levels=order_book.get("bids") or []).levels
+        asks = OrderBookSide(levels=order_book.get("asks") or []).levels
+    except Exception:
+        # Malformed provider books must fail closed (empty → no fills).
+        return {"bids": [], "asks": []}
     return {"bids": bids, "asks": asks}
 
 
@@ -187,6 +196,13 @@ def _withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float | None:
     from fee_matrix import withdrawal_fee_usdt as _w
 
     return _w(exchange_id, symbol)
+
+
+def _deposit_fee_usdt(exchange_id: str, symbol: str) -> float | None:
+    """Delegate to fee_matrix; None means unknown (fail closed for executability)."""
+    from fee_matrix import deposit_fee_usdt as _d
+
+    return _d(exchange_id, symbol)
 
 
 def _slippage_buffer_usdt(
@@ -548,6 +564,9 @@ def _build_cross_exchange_opportunity(
     withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
     if withdrawal_fee is None:
         return None
+    deposit_fee = _deposit_fee_usdt(sell_exchange, symbol)
+    if deposit_fee is None:
+        return None
     total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
     slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
     net_profit = money_float(
@@ -558,6 +577,7 @@ def _build_cross_exchange_opportunity(
                 buy_fee,
                 sell_fee,
                 withdrawal_fee,
+                deposit_fee,
                 slippage_buffer,
             ],
         )
@@ -577,6 +597,7 @@ def _build_cross_exchange_opportunity(
         total_slippage_bps=total_slippage_bps,
         trading_fees_usdt=trading_fees,
         withdrawal_fee_usdt=float(withdrawal_fee),
+        deposit_fee_usdt=float(deposit_fee),
         slippage_buffer_usdt=slippage_buffer,
         net_profit_usdt=net_profit,
         net_profit_percent=net_profit_percent,
@@ -884,10 +905,9 @@ def calculate_funding_arbitrage(
         )
         if trading_fees is None:
             continue
-        slippage_buffer = _slippage_buffer_usdt(notional, 0.0, market_context)
-        net_yield = gross_yield - trading_fees - slippage_buffer
-        net_yield_percent = (net_yield / notional) * 100 if notional else 0.0
-
+        # Do not invent fills: without perp depth walks, never claim positive
+        # net_yield (UNKNOWN CRITICAL INPUT → fail closed for executability).
+        slippage_buffer = 0.0
         opportunities.append(
             FundingArbitrageOpportunity(
                 symbol=symbol,
@@ -900,9 +920,12 @@ def calculate_funding_arbitrage(
                 gross_yield_usdt=gross_yield,
                 trading_fees_usdt=trading_fees,
                 slippage_buffer_usdt=slippage_buffer,
-                net_yield_usdt=net_yield,
-                net_yield_percent=net_yield_percent,
-                base_net_yield_usdt=net_yield,
+                net_yield_usdt=0.0,
+                net_yield_percent=0.0,
+                base_net_yield_usdt=0.0,
+                indicative=True,
+                executable=False,
+                reject_reason="funding_depth_not_verified",
             )
         )
 
@@ -1067,8 +1090,21 @@ def _enrich_funding_opportunity_with_institutional_context(
         max_manipulation_score=max_cvvd_score,
     )
 
-    adjusted_net = opportunity.net_yield_usdt + sii_adjustment_usd - risk_buffer
-    adjusted_pct = (adjusted_net / opportunity.quote_amount) * 100 if opportunity.quote_amount else 0.0
+    # Research adjustments are retained as metadata, but rates-only funding
+    # must not convert SII/CVVD into claimed executable net yield.
+    depth_verified = (
+        not opportunity.indicative
+        and opportunity.executable
+        and opportunity.reject_reason is None
+    )
+    if depth_verified:
+        adjusted_net = opportunity.net_yield_usdt + sii_adjustment_usd - risk_buffer
+        adjusted_pct = (
+            (adjusted_net / opportunity.quote_amount) * 100 if opportunity.quote_amount else 0.0
+        )
+    else:
+        adjusted_net = 0.0
+        adjusted_pct = 0.0
 
     return opportunity.model_copy(
         update={
@@ -1081,6 +1117,9 @@ def _enrich_funding_opportunity_with_institutional_context(
             "cvvd_risk_patterns": cvvd_patterns,
             "net_yield_usdt": round(adjusted_net, 6),
             "net_yield_percent": round(adjusted_pct, 6),
+            "indicative": not depth_verified,
+            "executable": bool(depth_verified and adjusted_net > 0),
+            "reject_reason": None if depth_verified else "funding_depth_not_verified",
         }
     )
 

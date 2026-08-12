@@ -42,7 +42,9 @@ def apply_net_executable_profit(
     out["net_profit_usdt"] = float(net_profit_usdt)
     positive = float(net_profit_usdt) > 0
     out["profitable"] = positive
-    out["executable"] = positive and bool(out.get("executable", True))
+    # Recomputed net is authoritative for this helper. Callers that already
+    # hard-blocked (executable=False + cancel_reason) should not invoke it.
+    out["executable"] = positive
     out["actionable"] = bool(out["executable"])
     out["indicative"] = not out["executable"]
     return out

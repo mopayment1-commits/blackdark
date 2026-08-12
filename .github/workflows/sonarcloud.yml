@@ -79,6 +79,7 @@ jobs:
             tests/test_rc2_chaos_resilience.py \
             tests/test_rc2_oracle_contract.py \
             tests/test_env_secrets_loader.py \
+            tests/test_external_audit_adversarial.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
