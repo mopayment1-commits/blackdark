@@ -380,8 +380,9 @@ def _cex_dex_row(
     # Mid/pool-only paths remain INDICATIVE forever (fail closed for executable).
     # fee_bps default None — never invent unknown fees as 0.0 / free.
     cex_l2_verified = bool(cex_l2_walk_verified)
-    fees_known = fee_bps is not None
-    gas_known = gas_bps is not None
+    # Zero fee is never silently inventable: require positive known fee haircut.
+    fees_known = fee_bps is not None and float(fee_bps) > 0
+    gas_known = gas_bps is not None and float(gas_bps) >= 0
     depth_ok = (
         cex_l2_verified
         and liq >= max(quote_usd * 3.0, 1.0)

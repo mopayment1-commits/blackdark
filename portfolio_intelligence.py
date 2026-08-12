@@ -46,6 +46,7 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
     herfindahl = sum(v * v for v in conc.values())
     corr = correlation_contagion_risk(positions=positions)
     stress = stress_test_portfolio(positions=positions, shock_bps=-1500)
+    blocked = (not corr.get("executable", True)) or (stress.get("gate") == "fail_closed")
     return {
         "holdings": len(positions),
         "gross_exposure_usd": round(gross, 4),
@@ -57,7 +58,8 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
         "stress": stress,
         "liquidity_note": "exitability requires venue depth probes (whale_execution_evidence)",
         "decision_relevance": True,
-        "executable_analysis": True,
+        "executable_analysis": not blocked,
+        "gate": "block" if blocked else "pass",
         "confidence": claim_heuristic(min(1.0, herfindahl), label="concentration").to_dict(),
         "product_complete": True,
     }
