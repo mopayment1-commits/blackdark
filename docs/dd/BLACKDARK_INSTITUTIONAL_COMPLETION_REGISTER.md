@@ -2,40 +2,24 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Tip:** `3c01c26be32a3adefeb9e78439a4c16c91cd076f`  
+**Tip:** `ac13c0ef7fdde8414906b45155001390255d8485`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
-## Independent clean-room (binding)
+## Latest implementation (awaiting / bound by clean-room)
 
-| Field | Value |
-|---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_3c01c26.md` |
-| Final report | `docs/dd/BLACKDARK_INSTITUTIONAL_DEPTH_FINAL_REPORT_3c01c26.md` |
-| Overall | **70 / 100** |
-| Verdict | **NOT COMPLETE** |
-| VERIFIED_COMPLETE | **0** |
-
-## Implemented this completion loop
-
-| Priority | Deliverable | Clean-room class | Evidence |
+| Priority | Deliverable | Pre-clean-room class | Evidence |
 |---|---|---|---|
-| P0 | Canonical Truth Bus — LIVE→CANONICAL consumers | PARTIAL | `canonical_truth_bus.py`; Super Terminal / Whale / Decision E2E |
-| P1 | Venue fill lifecycle proof | PARTIAL (paper) | `venue_fill_proof.py` — `live_fill:false` without testnet |
-| P2 | SQLite institutional authority + OMS dual-write | PARTIAL | `institutional_store.py`, `inst_*` tables, OMS sync fix |
-| P3 | Decision E2E + Super Terminal unified decision_object | PARTIAL | `decision_e2e.py`, Super Terminal `unified_decision` |
-| P3 | Whale $5M band + require_live default | PARTIAL | `whale_execution_evidence.py` |
-| P4 | Ops backup/restore probe | PARTIAL | `ops_recovery.py` (SQLite) |
-| P4 | B2B alerts honesty + DB dual-write | PARTIAL | inbox delivered; pager/email/slack pending-connector |
+| C1 | Venue L2 on Canonical Truth Bus (no fabricated 2.0+i sizes) | PARTIAL→stronger PARTIAL | `live_data_truth_probe` OKX books + Kraken Depth; `canonical_truth_bus` |
+| C2 | Fill proof walks venue L2 depth; live_fill honest | PARTIAL (paper) | `venue_fill_proof.py` |
+| C3 | Venue perpetual books + venue funding into Super Terminal | PARTIAL | OKX perp+funding via aggregator → bus → `_derivatives_pack` |
+| C4 | Durable ingestion_source_health rows | PARTIAL | `institutional_ingestion_proof.prove_durable_ingestion` |
+| C5 | Ops schema authority (SQLite/Postgres engine) | PARTIAL | `ops_recovery.prove_db_authority_tables` |
 
-## APIs
+## Binding clean-room
 
-- `GET /api/institutional/canonical/status` (includes truth bus)
-- `POST /api/institutional/venue-fill-proof`
-- `POST /api/institutional/decision-e2e`
-- `GET /api/institutional/ops/recovery`
-- `GET /api/institutional/store/status`
+Prior binding tip `3c01c26` / intermediate `3981914`: **70/100 NOT COMPLETE**, VERIFIED_COMPLETE **0**.  
+New tip `ac13c0e` clean-room supersedes when the independent audit file lands.
 
 ## Absolute rule
 
-Green tests / HARDENED labels / self-`product_complete` ≠ COMPLETE.  
-Only independent clean-room on the exact tip SHA may raise classifications.
+Green tests / HARDENED / self-`product_complete` ≠ COMPLETE.
