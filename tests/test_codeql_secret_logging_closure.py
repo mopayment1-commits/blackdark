@@ -37,9 +37,12 @@ def test_activate_infra_never_prints_vault_dev_token():
 
 def test_coin_stats_use_dom_not_innerhtml_escape():
     coin = (ROOT / "templates/coin.html").read_text(encoding="utf-8")
-    assert "statsEl.textContent" in coin or "statsEl.replaceChildren" in coin or "appendChild" in coin
+    js = (ROOT / "static/js/coin_detail.js").read_text(encoding="utf-8")
+    assert "statsEl.textContent" in js or "statsEl.replaceChildren" in js or "appendChild" in js
     assert ".replace(/<[^>]+>/g" not in coin
+    assert ".replace(/<[^>]+>/g" not in js
     assert "function esc(" not in coin
+    assert "/static/js/coin_detail.js" in coin
 
 
 def test_dashboard_chat_uses_dom_text_nodes():

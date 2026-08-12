@@ -82,11 +82,14 @@ def test_dashboard_escapes_oracle_dom():
 
 def test_coin_no_incomplete_regex_sanitizer():
     coin = (ROOT / "templates/coin.html").read_text(encoding="utf-8")
+    js = (ROOT / "static/js/coin_detail.js").read_text(encoding="utf-8")
     assert ".replace(/<[^>]+>/g" not in coin
-    assert "plainText" in coin
-    assert "textContent" in coin
+    assert ".replace(/<[^>]+>/g" not in js
+    assert "plainText" in js
+    assert "textContent" in js
     # Stats grid must not rebuild via escaped HTML strings.
     assert "stats.innerHTML" not in coin
+    assert "stats.innerHTML" not in js
 
 
 def test_admin_key_file_loader():

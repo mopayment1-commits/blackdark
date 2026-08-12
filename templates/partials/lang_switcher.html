@@ -1,5 +1,6 @@
 {# Language switcher — English default; full UI reload on change.
-   Always render a control (fallback locales) so the top-right never goes blank. #}
+   Always render a control (fallback locales) so the top-right never goes blank.
+   Executable JS lives in /static/js/bd_i18n.js (Sonar-analyzable). Boot via JSON. #}
 {% set _locales = locales if locales is defined and locales else [
   {"code":"en","native":"English"},{"code":"zh-CN","native":"简体中文"},{"code":"hi","native":"हिन्दी"},
   {"code":"ja","native":"日本語"},{"code":"ko","native":"한국어"},{"code":"ru","native":"Русский"},
@@ -55,41 +56,5 @@
     {% endfor %}
   </select>
 </div>
-<script>
-window.BD_I18N = window.BD_I18N || {
-  lang: {{ _lang|tojson }},
-  catalog: {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %},
-  t: function(key, vars) {
-    var s = (this.catalog && this.catalog[key]) || key;
-    if (vars) {
-      Object.keys(vars).forEach(function(k) {
-        s = s.replace(new RegExp('\\{' + k + '\\}', 'g'), String(vars[k]));
-      });
-    }
-    return s;
-  },
-  setLang: function(code) {
-    try { localStorage.setItem('bd_lang', code); } catch (error) { console.debug(error); }
-    document.cookie = 'bd_lang=' + encodeURIComponent(code) + ';path=/;max-age=31536000;SameSite=Lax';
-    var url = new URL(window.location.href);
-    url.searchParams.set('lang', code);
-    window.location.href = url.toString();
-  },
-  syncSelect: function() {
-    var el = document.getElementById('bdLangSelect');
-    if (el) el.value = this.lang;
-  }
-};
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-    var stored = localStorage.getItem('bd_lang');
-    var url = new URL(window.location.href);
-    if (stored && !url.searchParams.get('lang') && stored !== {{ _lang|tojson }}) {
-      url.searchParams.set('lang', stored);
-      window.location.replace(url.toString());
-      return;
-    }
-  } catch (error) { console.debug(error); }
-  if (window.BD_I18N) BD_I18N.syncSelect();
-});
-</script>
+<script type="application/json" id="bd-i18n-boot">{"lang": {{ _lang|tojson }}, "catalog": {% if i18n is defined %}{{ i18n|tojson }}{% else %}{}{% endif %}}</script>
+<script src="/static/js/bd_i18n.js"></script>
