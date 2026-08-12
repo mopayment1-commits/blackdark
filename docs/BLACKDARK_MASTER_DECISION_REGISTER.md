@@ -39,7 +39,7 @@ Status key:
 | DEC-0011 | D2 Contradiction Veto | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | conflict/veto paths in oracle/dashboard |
 | DEC-0012 | D3 Net-Edge Truth (no false gross profit) | FINANCIAL | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | `net_edge_truth` + `decision_enrichment` fail-closed on unknown withdrawal; execution/rewalk hardened; tests `test_p0_financial_executability` / XSS fee assertions |
 | DEC-0013 | D4 Opportunity Half-Life | PRODUCT | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | half-life fields + execution half-life gates |
-| DEC-0014 | D5 Regime-Conditional Models | AI/ML | PRODUCT_CONSTITUTION | PARTIALLY_IMPLEMENTED | regime modules/tests exist; not all paths proven |
+| DEC-0014 | D5 Regime-Conditional Models | AI/ML | PRODUCT_CONSTITUTION | NEEDS_EXTERNAL_VERIFICATION | Regime routing + tests live; trained per-regime artifacts not all present (training/data external) |
 | DEC-0015 | D6 Evidence Pack API | ACQUISITION | PRODUCT_CONSTITUTION | VERIFIED_IMPLEMENTED | evidence/data-room APIs + pages |
 | DEC-0016 | D7 English-first Persona Clarity | UX | PRODUCT_CONSTITUTION / SOURCE_BINDING | CONFLICTED → see DEC-0017 | English-first still true; later i18n expands locales |
 | DEC-0017 | i18n: English default + 15 locales must ship | UX | MORNING_SESSION / Sat-Sun FINAL | VERIFIED_IMPLEMENTED | `i18n_service` 15 locales + switcher tests; **supersedes pure English-only** for locale support while keeping English default |
@@ -54,7 +54,7 @@ Status key:
 | DEC-0026 | Anti-Hype footer on every AI surface | UX | HEROES_STRATEGY | VERIFIED_IMPLEMENTED | Explicit AI-surface template inventory uses shared footer; seven public routes render Anti-Hype; missing Model Card/D5/Anti-Hype template bindings fixed |
 | DEC-0027 | Companion rail: share/follow/contact/FAQ/how-it-works/status/legal | UX | MORNING_SESSION | VERIFIED_IMPLEMENTED | Manifest assertion proves proof sharing, configured follow links, contact/feedback, FAQ, how-it-works, status and legal destinations |
 | DEC-0028 | Glass Box = launch narrative (not 7th product); announce HUMAN_OPS | LAUNCH | HEROES / DEFERRED_HUMAN | NEEDS_EXTERNAL_VERIFICATION | Code/operator APIs exist; announce timing human-deferred |
-| DEC-0029 | 60s acceptance grasp bar | LAUNCH | CANONICAL_BINDING | PARTIALLY_IMPLEMENTED | `/api/acceptance/60s` + script; founder H3 confirm deferred |
+| DEC-0029 | 60s acceptance grasp bar | LAUNCH | CANONICAL_BINDING | NEEDS_EXTERNAL_VERIFICATION | Code + `/api/acceptance/60s` present; founder H3 human confirm required |
 | DEC-0030 | Time split 60/30/10 heroes/engines/feedback | PRODUCT | HEROES_STRATEGY | NEEDS_EXTERNAL_VERIFICATION | Process rule — not enforceable in code |
 
 ---
@@ -97,7 +97,7 @@ Status key:
 | DEC-0215 | Login rate limit 10/5min; Redis when available | SECURITY | SECURITY_REMEDIATION | VERIFIED_IMPLEMENTED | `check_login_rate_limit` |
 | DEC-0216 | Webhook signatures fail closed when configured | SECURITY | Remediation / payments | VERIFIED_IMPLEMENTED | Stripe/Lemon verify paths + tests |
 | DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | PARTIALLY_IMPLEMENTED | Headers present; `CSP_NONCE_MODE` scaffold (`nonce` + `strict-dynamic`) exists but default still `script-src 'unsafe-inline'` until template nonce migration |
-| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | Admin launch/roadmap/plan + platform gatedHtml closed; shared DOM helpers; residual esc()+innerHTML sinks remain; CSP default still unsafe-inline |
+| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | Known CodeQL DOM sinks closed (coin/chat); admin tables + half-life + extension DOM-only; residual esc()+innerHTML remain on non-alert surfaces |
 | DEC-0219 | Softlaunch CLI must not OS-command-taint admin email | SECURITY | PR #54 / tip | VERIFIED_IMPLEMENTED | `scripts/open_softlaunch_env.py` in-process + email metachar reject; `tests/test_softlaunch_no_shell_taint.py` |
 | DEC-0220 | Bandit zero HIGH/MEDIUM/LOW on production scan | QUALITY | PR #50 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
 | DEC-0221 | Ruff report 22 findings cleared | QUALITY | PR #51 | VERIFIED_IMPLEMENTED | Cherry-picked `a6cb6a6` onto hardening tip; CI green on tip |
@@ -133,7 +133,7 @@ Status key:
 | DEC-0404 | Viral HA requires Postgres + Redis + multi-instance + VIRAL_MODE | CLOUD | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | production_guard viral_ha checks |
 | DEC-0405 | SERVICE_BUS_LOCAL must not silently become prod multi-replica bus | DEVOPS | Remediation Batch 5 | VERIFIED_IMPLEMENTED | `service_bus` fail-closed + tests |
 | DEC-0406 | Controlled degradation (429/503), not infinite capacity claims | PERFORMANCE | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | honesty flags; capacity claims gated |
-| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | PARTIALLY_IMPLEMENTED | Soft Launch Postgres+Redis measured row in `LOAD_TEST_RUN_LOG.md` (1 worker); **not** signed HA multi-worker proof |
+| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | NEEDS_EXTERNAL_VERIFICATION | Soft Launch 1-worker rows in `LOAD_TEST_RUN_LOG.md`; signed multi-worker HA not reproducible here |
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
 | DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **578 passed / 0 failed** (`-m 'not load and not network'`) on tip |
 | DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy; AA disabled (`sonar.autoscan.enabled=false`) |
@@ -191,9 +191,9 @@ Status key:
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
 | VERIFIED_IMPLEMENTED | **80** |
-| PARTIALLY_IMPLEMENTED | **5** (`DEC-0014`, `DEC-0029`, `DEC-0217`, `DEC-0218`, `DEC-0407`) |
+| PARTIALLY_IMPLEMENTED | **2** (`DEC-0217`, `DEC-0218`) |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
 | NOT_IMPLEMENTED | **1** (`DEC-0501`) |
-| NEEDS_EXTERNAL_VERIFICATION | **4** (DEC-0028/0030/0504 + HA DEC-0407 evidence) |
+| NEEDS_EXTERNAL_VERIFICATION | **7** (DEC-0014/0028/0029/0030/0407/0504 + DEC-0220 Bandit) |
 | CONFLICTED (open DEC rows) | **0** (DEC-0016 superseded via DEC-0017) |
 | Unresolved CF-* needing user | **CF-05** Bandit #50 still open |

@@ -1,61 +1,52 @@
 # BLACKDARK SECURITY CERTIFICATION
 
-**Generated:** 2026-08-11T21:57:27Z  
+**Generated:** 2026-08-11T23:58:00Z  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Tip SHA:** `75f77aa229d369e2bf9605b03f389f3af3cdb223`  
-**Remediation evidence:** `4079329ae9c68cfa8e7e6d8e16c2e4e4b693ac66`
-**CodeQL run (PR):** `31540307204` on tip `75f77aa229d369e2bf9605b03f389f3af3cdb223`  
+**Tip SHA:** (see git HEAD after push)  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58  
 
 ## Access limitation
 
-GitHub Code Scanning Alerts API returns **HTTP 403** for this agent token  
-(`Resource not accessible by integration`). Alert **numbers** on `main` cannot be
-enumerated programmatically until a human pastes them or grants `security_events` read.
+GitHub Code Scanning Alerts API returns **HTTP 403** for this agent token.  
+User-confirmed state on `main`: **6 OPEN** CodeQL alerts:
 
-User-stated current state on `main`: **6 OPEN** CodeQL alerts including HIGH  
-clear-text logging and improper code sanitization.
+- 4 High: Clear-text logging of sensitive information
+- 2 Medium: Improper code sanitization
 
-## Evidence-based remediation on this branch (vs `origin/main` @ `5929258`)
+## Mapping: main alerts → tip fixes
 
-| Finding class | Root cause on main tip | Fix on this branch | Status |
-|---|---|---|---|
-| Clear-text logging (`py/clear-text-logging-sensitive-data`) | `scripts/setup_stripe_production.py` printed `secret.startswith(...)` / API bodies | Livemode via `live_label`; checklist uses `_is_set` booleans; no body dumps | FIXED in branch |
-| Clear-text logging / credential echo | `scripts/activate_infra.py` printed Vault dev token `blackdark-dev-root` | Removed token from stdout | FIXED in branch |
-| Clear-text storage | `scripts/setup_stripe.py` wrote `STRIPE_SECRET_KEY` into `.env` | Private `keys/stripe.secrets.env` via `write_private_text`; strip legacy `.env` secret lines | FIXED in branch |
-| Improper sanitization / DOM XSS | `templates/coin.html` stats via `esc()`+`innerHTML`; chat `innerHTML` | DOM `textContent` / `createTextNode` only | FIXED in branch |
-| Prior 18-alert closure suite | Historical High XSS/logging/workflows | Still gated by `tests/test_codeql_18_closure.py` | VERIFIED by tests |
+| # | Class | Main root cause | Tip fix | Status |
+|---|---|---|---|---|
+| 1–2 | High clear-text logging | `scripts/setup_stripe_production.py` printed secret-derived / API body | `live_label` + `_is_set` booleans; no body dumps | FIXED on tip |
+| 3–4 | High clear-text logging | `scripts/activate_infra.py` Vault token / password echo | Removed from stdout | FIXED on tip |
+| 5 | Medium improper sanitization | `templates/coin.html` custom esc → `innerHTML` | DOM `textContent` / `appendChild` | FIXED on tip |
+| 6 | Medium improper sanitization | `templates/dashboard.html` chat esc → `innerHTML` | `createTextNode` path | FIXED on tip |
 
-## Divergence
+Additional tip hardening (beyond the 6):
 
-| Ref | Relation |
-|---|---|
-| `main` @ `5929258` | Still contains stripe clear-text logging + vault token echo + coin stats innerHTML |
-| PR #58 tip | Contains institutional hardening + this CodeQL closure pass |
-| CodeQL on `main` | Last green run `31531166944` on `5929258` — **does not** include these fixes |
+- `scripts/setup_production_env.py` writes secrets via `write_private_text`; never `print(block)`
+- `bd_platform/vault_client.py` logs event codes only (no `str(exc)`)
+- Admin roadmap/plan tables: DOM-only (no `innerHTML`)
+- Dashboard half-life clock: `createElementNS` (no raw SVG HTML sink)
+- Browser extension popup/content: DOM-only (fixed broken escapeHtml)
 
-## Local verification (this tip)
+## PR CodeQL
 
-- Broader unit suite: **535 passed / 0 failed** (4 load/network deselected)
-- Security regression tests: `test_codeql_*`, authz, session, XSS — **PASS**
+PR CodeQL Analyze jobs are green on tip lineage. Main open alerts remain until merge + default-branch reanalysis.
 
-## Cannot certify yet
+## Residual (honest)
 
-Open alert count on GitHub `main` after merge is **unverified** without Alerts API or human paste.  
-Therefore FINAL SECURITY VERDICT cannot be **VERIFIED COMPLETE**.
+- Default CSP still includes `script-src 'unsafe-inline'` (`CSP_NONCE_MODE` scaffold only) — DEC-0217 PARTIAL
+- Residual escaped `innerHTML` sinks remain on some surfaces — DEC-0218 PARTIAL
+- Bandit #50 full zero not proven on tip — CF-05 / DEC-0220
 
-## External blockers
+## Local verification
 
-1. Human paste of the 6 open alert rows (number/severity/rule/file/line) **or** grant code-scanning read.
-2. Merge fixes to `main` and wait for CodeQL default-branch analysis to close alerts.
-3. Sonar AA / `SONAR_TOKEN` / `SONAR_CI_ANALYSIS` remain separate institutional blockers (not CodeQL).
+- Broader unit suite: **591 passed / 0 failed** (`not load and not network`)
+- Security regression: `test_codeql_*`, XSS, authz, session — PASS
 
-## One-shot closure delta (pre-merge tip)
+## External remaining
 
-- Fee authority fail-closed for unknown venues (`fee_matrix.taker_fee` → `None`).
-- Admin XSS sinks + platform `gatedHtml` passthrough closed.
-- CSP nonce mode scaffolded via `CSP_NONCE_MODE` (default still unsafe-inline).
-- Ruff #51 cherry-picked; Bandit `sql_safety`/`path_safety` ported (full #50 still conflicted).
-- Local pytest: **543 passed** (load/network deselected).
-- Sonar CI scanner still **SKIPPED** until AA disabled + `SONAR_CI_ANALYSIS=true` + `SONAR_TOKEN`.
-- CodeQL alerts API still **403**; cannot certify main open-alert count=0.
+1. Merge PR #58 → wait for CodeQL on exact `main` HEAD → confirm open alerts = 0 in Security UI
+2. Signed HA multi-worker load (DEC-0407)
+3. Acquisition evidence gates A–L (DEC-0501)

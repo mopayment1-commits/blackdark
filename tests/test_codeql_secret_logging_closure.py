@@ -47,3 +47,45 @@ def test_dashboard_chat_uses_dom_text_nodes():
     assert "function appendChat" in dash
     assert "createTextNode" in dash
     assert "row.innerHTML = role === 'user'" not in dash
+
+
+def test_setup_production_env_never_prints_secret_block():
+    src = (ROOT / "scripts/setup_production_env.py").read_text(encoding="utf-8")
+    assert "write_private_text" in src
+    assert "print(block)" not in src
+    assert "SECRETS_MASTER_KEY=set" in src
+    assert "never echo it to CI logs" in src
+
+
+def test_vault_client_logs_event_codes_not_exception_text():
+    src = (ROOT / "bd_platform/vault_client.py").read_text(encoding="utf-8")
+    assert 'logger.warning("Vault read failed: %s", exc)' not in src
+    assert "event=vault_read_failed" in src
+    assert "event=vault_store_failed" in src
+
+
+def test_half_life_clock_builds_svg_via_dom_not_raw_html():
+    dash = (ROOT / "templates/dashboard.html").read_text(encoding="utf-8")
+    assert "createElementNS('http://www.w3.org/2000/svg'" in dash or 'createElementNS("http://www.w3.org/2000/svg"' in dash
+    assert "svg.innerHTML = /<script" not in dash
+    assert "rawSvg" not in dash
+
+
+def test_admin_audit_tables_use_dom_not_innerhtml():
+    for name in ("admin_roadmap.html", "admin_plan.html"):
+        src = (ROOT / "templates" / name).read_text(encoding="utf-8")
+        assert "innerHTML" not in src
+        assert "createElement('tr')" in src or 'createElement("tr")' in src
+        assert "textContent" in src
+
+
+def test_extension_oracle_surfaces_use_dom_not_innerhtml():
+    popup = (ROOT / "browser_extension/src/popup.js").read_text(encoding="utf-8")
+    content = (ROOT / "browser_extension/src/content.js").read_text(encoding="utf-8")
+    assert "innerHTML" not in popup
+    assert "textContent" in popup
+    assert "body.innerHTML" not in content
+    assert "createElement" in content
+    # Broken quote escapes from prior revision must stay gone.
+    assert '.replaceAll("",' not in popup
+    assert '.replaceAll("",' not in content

@@ -73,10 +73,10 @@ def main() -> int:
     try:
         bot = _validate_token(token)
     except urllib.error.HTTPError as exc:
-        print(f"\nToken rejected ({exc.code}). Copy again from BotFather.")
+        print(f"\nToken rejected (HTTP {exc.code}). Copy again from BotFather.")
         return 1
-    except Exception as exc:
-        print(f"\nConnection failed: {exc}")
+    except Exception:
+        print("\nConnection failed (network or API unavailable).")
         return 1
 
     username = str(bot.get("username") or "").strip()

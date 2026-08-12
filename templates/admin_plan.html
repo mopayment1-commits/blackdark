@@ -48,32 +48,61 @@
         </div>
     </main>
     <script type="module">
+        function cell(text) {
+            const td = document.createElement('td');
+            td.textContent = text == null ? '' : String(text);
+            return td;
+        }
         async function load() {
-            const esc = (globalThis.esc || globalThis.escapeHtml || ((v)=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')));
             const res = await fetch('/api/plan/audit');
             const d = await res.json();
+            const summary = document.getElementById('summary');
+            summary.replaceChildren();
+            const stat = document.createElement('span');
+            stat.className = 'stat';
             const s = d.summary || {};
-            document.getElementById('summary').innerHTML =
-                `<span class="stat">${d.overall_percent ?? s.completion_percent ?? '—'}%</span>` +
-                `complete=${d.complete_count ?? '—'} · partial=${d.partial_count ?? '—'} · planned=${d.planned_count ?? '—'}`;
-            const items = d.items || d.rows || d.plan || [];
-            document.getElementById('rows').innerHTML = items.length
-                ? items.map(i => `
-                    <tr>
-                        <td><span class="pill ${esc(i.status||'')}">${esc(i.status||'')}</span></td>
-                        <td>${esc(i.category||'')}</td>
-                        <td>${esc(i.title||i.name||'')}</td>
-                        <td>${esc(i.module||'—')}</td>
-                        <td>${esc(i.endpoint||'—')}</td>
-                        <td style="color:var(--muted)">${esc(i.note||'')}</td>
-                    </tr>`).join('')
-                : '<tr><td colspan="6">No plan rows</td></tr>';
+            stat.textContent = `${d.overall_percent ?? s.completion_percent ?? '—'}%`;
+            summary.append(stat, document.createTextNode(
+                `complete=${d.complete_count ?? '—'} · partial=${d.partial_count ?? '—'} · planned=${d.planned_count ?? '—'}`
+            ));
+            const items = d.items || d.rows || d.roadmap || d.plan || [];
+            const tbody = document.getElementById('rows');
+            tbody.replaceChildren();
+            if (!items.length) {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.colSpan = 6;
+                td.textContent = 'No plan rows';
+                tr.append(td);
+                tbody.append(tr);
+                return;
+            }
+            for (const i of items) {
+                const tr = document.createElement('tr');
+                const statusTd = document.createElement('td');
+                const pill = document.createElement('span');
+                const st = String(i.status || '');
+                pill.className = 'pill ' + (/^(complete|partial|planned)$/i.test(st) ? st.toLowerCase() : 'planned');
+                pill.textContent = st;
+                statusTd.append(pill);
+                const note = cell(i.note || '');
+                note.style.color = 'var(--muted)';
+                tr.append(
+                    statusTd,
+                    cell(i.category || ''),
+                    cell(i.title || i.name || ''),
+                    cell(i.module || '—'),
+                    cell(i.endpoint || '—'),
+                    note,
+                );
+                tbody.append(tr);
+            }
         }
         try {
             await load();
         } catch (error) {
             console.debug(error);
-            document.getElementById('summary').textContent = 'Could not load plan audit — admin access required';
+            document.getElementById('summary').textContent = 'Could not load audit — admin access required';
         }
     </script>
 </body>
