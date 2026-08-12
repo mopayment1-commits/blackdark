@@ -310,25 +310,28 @@ def _cex_dex_row(
     spread_bps: float,
     net_bps: float,
     quote_usd: float,
-    fee_bps: float = 0.0,
+    fee_bps: float | None = None,
     *,
     cex_l2_walk_verified: bool = False,
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
-    # Depth-aware executability: require verified CEX L2 book walk + DEX liquidity + fees.
+    # Depth-aware executability: require verified CEX L2 book walk + DEX liquidity + known fees.
     # Mid/pool-only paths remain INDICATIVE forever (fail closed for executable).
+    # fee_bps default None — never invent unknown fees as 0.0 / free.
     cex_l2_verified = bool(cex_l2_walk_verified)
+    fees_known = fee_bps is not None
     depth_ok = (
         cex_l2_verified
         and liq >= max(quote_usd * 3.0, 1.0)
-        and fee_bps is not None
+        and fees_known
     )
     # Conservative impact haircut when only pool liquidity is known (no L2 walk).
     impact_bps = min(75.0, (quote_usd / liq) * 10_000 * 0.35) if liq > 0 else None
     executable = bool(
         depth_ok
         and impact_bps is not None
+        and fees_known
         and (net_bps - float(impact_bps)) > 0
         and quote_usd > 0
     )
@@ -336,7 +339,7 @@ def _cex_dex_row(
     est_profit = (
         quote_usd * (adj_net / 10_000)
         if executable and adj_net is not None and adj_net > 0
-        else (quote_usd * (net_bps / 10_000) if net_bps > 0 else 0)
+        else None
     )
     return {
         "asset": asset,
@@ -351,13 +354,13 @@ def _cex_dex_row(
         "buy_price": round(buy_price, 6),
         "sell_price": round(sell_price, 6),
         "spread_bps": round(spread_bps, 2),
-        "indicative_fee_bps": round(fee_bps, 2),
+        "indicative_fee_bps": round(fee_bps, 2) if fee_bps is not None else None,
         "impact_bps_estimate": round(impact_bps, 2) if impact_bps is not None else None,
         "net_spread_bps": round(net_bps, 2),
         "net_executable_spread_bps": round(adj_net, 2) if adj_net is not None else None,
         "indicative_estimated_profit_usd": round(quote_usd * (net_bps / 10_000), 2) if net_bps > 0 else 0,
-        "estimated_profit_usd": round(est_profit, 2) if executable else None,
-        "net_executable_profit_usdt": round(est_profit, 2) if executable else None,
+        "estimated_profit_usd": round(est_profit, 2) if executable and est_profit is not None else None,
+        "net_executable_profit_usdt": round(est_profit, 2) if executable and est_profit is not None else None,
         "quote_usd": quote_usd,
         "topline_positive": net_bps > 0,
         "profitable": bool(executable and est_profit and est_profit > 0),
@@ -367,13 +370,18 @@ def _cex_dex_row(
             ""
             if executable
             else (
-                "cex_l2_walk_required"
-                if not cex_l2_verified
-                else "cex_dex_insufficient_depth_or_impact"
+                "fee_unknown"
+                if not fees_known
+                else (
+                    "cex_l2_walk_required"
+                    if not cex_l2_verified
+                    else "cex_dex_insufficient_depth_or_impact"
+                )
             )
         ),
         "depth_verified": depth_ok,
         "cex_l2_walk_verified": cex_l2_verified,
+        "fees_known": fees_known,
         "smart_contract_risk_required": True,
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (

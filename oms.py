@@ -211,7 +211,11 @@ def oms_status() -> dict[str, Any]:
         "orders": len(data.get("orders", {})),
         "states": list(STATES),
         "not_execution_engine": True,
-        "product_complete": True,
-        "note": "Genuine OMS lifecycle with idempotency + audit history. "
-        "execution_engine remains a separate venue adapter layer.",
+        "api_wired": True,
+        "venue_submit": False,
+        "product_complete": False,
+        "note": (
+            "OMS lifecycle + API wired; venue submission adapter not product-complete. "
+            "execution_engine remains a separate venue adapter layer."
+        ),
     }

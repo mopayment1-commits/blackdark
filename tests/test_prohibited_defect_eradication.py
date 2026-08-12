@@ -118,6 +118,30 @@ def test_canonical_adoption_required_marker():
     assert "adopt_funding_rates" in src
 
 
+def test_cex_dex_unknown_fee_never_executable():
+    from bd_platform.cex_dex_arbitrage import _cex_dex_row
+
+    row = _cex_dex_row(
+        "BTC",
+        {"binance": 100.0},
+        100.0,
+        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 10_000_000.0},
+        "jupiter",
+        99.0,
+        "binance",
+        100.0,
+        100.0,
+        80.0,
+        1000.0,
+        # default fee_bps=None must not invent free fees
+        cex_l2_walk_verified=True,
+    )
+    assert row["executable"] is False
+    assert row["fees_known"] is False
+    assert row["indicative_reason"] == "fee_unknown"
+    assert row["estimated_profit_usd"] is None
+
+
 def test_funding_helper_never_returns_zero_slip_when_missing():
     from arbitrage_engine import _funding_depth_slippage_bps
 

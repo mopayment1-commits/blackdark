@@ -153,6 +153,7 @@ def adapter_status() -> dict[str, Any]:
         "surface": "jupiter_dex_adapter",
         "configured": cfg,
         "synthetic_ok_forbidden": True,
-        "product_complete": bool(cfg["api"]),
-        "note": "Quotes fail closed on network errors; no synthetic ok=True.",
+        "product_complete": False,
+        "quote_path_ready": bool(cfg["api"]),
+        "note": "Quotes fail closed on network errors; live submit remains operator-gated.",
     }

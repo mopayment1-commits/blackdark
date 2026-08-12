@@ -976,7 +976,7 @@ def calculate_funding_arbitrage(
                     gross_yield_usdt=gross_yield,
                     trading_fees_usdt=trading_fees,
                     slippage_buffer_usdt=slippage_buffer,
-                    total_slippage_bps=0.0,  # unknown — not a measured zero; see indicative_reason
+                    total_slippage_bps=10_000.0,  # sentinel: unknown ≠ free; wipe economics above
                     depth_verified=False,
                     executable=False,
                     indicative=True,
