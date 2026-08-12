@@ -57,11 +57,19 @@ def test_live_rollout_status_uses_dialect_safe_cutoff(tmp_path, monkeypatch):
 
     monkeypatch.setattr("database.get_connection", lambda: _DB())
 
+    async def _fake_proof():
+        return {"ok": True, "live_venues": ["okx"], "live_count": 1}
+
+    monkeypatch.setattr("live_data_truth_probe.prove_multi_venue_live", _fake_proof)
+
     async def _run():
         status = await ur.live_rollout_status()
         assert status["target_exchanges"] == 2
-        assert status["healthy_exchanges"] == 1
+        # DB healthy (binance) + public live probe (okx)
+        assert status["healthy_exchanges"] == 2
         assert "binance" in status["healthy_sample"]
+        assert "okx" in status["public_live_venues"]
+        assert status["live_data_truth_integrated"] is True
         assert status["manifest_approved"] is True
 
     asyncio.run(_run())

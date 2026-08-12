@@ -226,7 +226,9 @@ def measure_whale_readiness(
             "capital_bands_usd": list(WHALE_NOTIONALS_USD),
             "gate_bands_usd": list(WHALE_GATE_NOTIONALS_USD),
             "large_capital_1m_executable": bool(scoring_1m.get("executable")),
-            "product_complete": True,
+            # Behavioral: this measurement run is complete when readiness gate passes.
+            "product_complete": bool(ready_50k),
+            "verified_complete": False,
             "measured_at": datetime.now(UTC).isoformat(),
             "evidence_standard": "depth_walk_slippage_capacity_exitability_multi_band",
             "canonical_adopted": True,

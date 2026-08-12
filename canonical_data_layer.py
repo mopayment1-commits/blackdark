@@ -379,7 +379,7 @@ def layer_status() -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "entities_cached": len(_DEDUP),
         "conflicts": len(_CONFLICTS),
-        "product_complete": True,
+        "product_complete": False,
         "note": "Canonical authority for normalized+provenance datums. "
         "Confidence fields are heuristic_score unless calibration says otherwise.",
         "monotonic_ms": int(time.time() * 1000),

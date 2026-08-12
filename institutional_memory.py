@@ -94,6 +94,6 @@ def memory_status() -> dict[str, Any]:
         "surface": "institutional_memory",
         "entries": len(rows),
         "append_only": True,
-        "product_complete": True,
+        "product_complete": False,
         "note": "Durable memory is append-only; continuous learning must attach new events, never rewrite.",
     }

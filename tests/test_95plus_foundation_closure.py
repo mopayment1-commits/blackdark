@@ -381,12 +381,21 @@ def test_b2b_ops_surfaces(tmp_path, monkeypatch):
     al = b2b.orchestrate_alert(
         org_id="org",
         severity="high",
-        channel="pager",
+        channel="inbox",
         message="liquidity gate",
         dedupe_key="liq-1",
     )
-    assert al["status"] in {"queued", "delivered"}
+    assert al["status"] == "delivered"
     assert al.get("delivery", {}).get("delivered") is True
+    pending = b2b.orchestrate_alert(
+        org_id="org",
+        severity="high",
+        channel="pager",
+        message="needs connector",
+        dedupe_key="liq-pager",
+    )
+    assert pending["status"] == "accepted_pending_connector"
+    assert pending.get("delivery", {}).get("delivered") is False
     sla = b2b.record_sla_event(org_id="org", metric="api_p95", value=900, target=500)
     assert sla["breached"] is True
     assert b2b.b2b_status()["alert_delivery"] is True

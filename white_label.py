@@ -88,7 +88,7 @@ def white_label_status() -> dict[str, Any]:
     return {
         "surface": "white_label",
         "tenants": len(data.get("tenants", {})),
-        "product_complete": True,
+        "product_complete": False,
         "features": [
             "tenant_branding",
             "configuration",

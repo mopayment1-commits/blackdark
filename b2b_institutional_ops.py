@@ -111,14 +111,61 @@ def _deliver_channel(channel: str, payload: dict[str, Any]) -> dict[str, Any]:
         _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})
         return receipt
 
-    receipt = {
-        "delivered": True,
-        "channel": channel,
-        "transport": f"local_{channel}_sink",
-        "delivered_at": _utcnow(),
-        "payload_digest": str(abs(hash(json.dumps(payload, sort_keys=True, default=str))) % 10**12),
-        "note": "Local durable sink; external MTA/chat connector optional via env.",
-    }
+    # inbox = in-app durable delivery (true local product path).
+    # pager/email/slack require connector env; otherwise accepted but not delivered.
+    if channel == "inbox":
+        receipt = {
+            "delivered": True,
+            "channel": channel,
+            "transport": "in_app_inbox",
+            "delivered_at": _utcnow(),
+            "payload_digest": str(abs(hash(json.dumps(payload, sort_keys=True, default=str))) % 10**12),
+        }
+    else:
+        connector_env = {
+            "pager": "ALERT_PAGER_WEBHOOK_URL",
+            "email": "ALERT_EMAIL_SMTP_URL",
+            "slack": "ALERT_SLACK_WEBHOOK_URL",
+        }.get(channel)
+        connector = (os.getenv(connector_env) or "").strip() if connector_env else ""
+        if not connector:
+            receipt = {
+                "delivered": False,
+                "accepted": True,
+                "channel": channel,
+                "transport": "pending_connector",
+                "reason": f"{connector_env}_unset",
+                "delivered_at": _utcnow(),
+            }
+        else:
+            # Connector URL present — attempt HTTP POST (same fail-closed contract as webhook).
+            body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            req = urllib.request.Request(
+                connector,
+                data=body,
+                headers={"Content-Type": "application/json", "User-Agent": "BLACKDARK-Alert/1.0"},
+                method="POST",
+            )
+            try:
+                with urllib.request.urlopen(req, timeout=5) as resp:  # noqa: S310
+                    status = getattr(resp, "status", 0) or 0
+                ok = 200 <= int(status) < 300
+                receipt = {
+                    "delivered": ok,
+                    "channel": channel,
+                    "transport": f"http_{channel}",
+                    "http_status": int(status),
+                    "reason": None if ok else f"http_{status}",
+                    "delivered_at": _utcnow(),
+                }
+            except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+                receipt = {
+                    "delivered": False,
+                    "channel": channel,
+                    "transport": f"http_{channel}",
+                    "reason": f"connector_error:{type(exc).__name__}",
+                    "delivered_at": _utcnow(),
+                }
     delivery_path = ensure_under(_DATA_BASE / "alert_deliveries.jsonl", _DATA_BASE)
     _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})
     return receipt
@@ -160,12 +207,13 @@ def orchestrate_alert(
         "ack_required": severity in {"high", "critical"},
     }
     delivery = _deliver_channel(channel, row)
+    row["delivery"] = delivery
     if delivery.get("delivered"):
         row["status"] = "delivered"
-        row["delivery"] = delivery
+    elif delivery.get("accepted"):
+        row["status"] = "accepted_pending_connector"
     else:
         row["status"] = "delivery_failed"
-        row["delivery"] = delivery
         row["gate"] = "fail_closed"
     return _append(_ALERTS, row)
 

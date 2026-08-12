@@ -110,6 +110,16 @@ async def compute_universe_coverage() -> dict[str, Any]:
     block = build_manifest_universe_block()
     health_rows = await fetch_ingestion_health_summary()
     healthy_count = sum(1 for row in health_rows if row.get("last_ok_at"))
+    public_live_venues: list[str] = []
+    try:
+        from live_data_truth_probe import prove_multi_venue_live
+
+        proof = await prove_multi_venue_live()
+        public_live_venues = [str(v).lower() for v in (proof.get("live_venues") or [])]
+        # Public live probes count as observed healthy sources (not catalog vanity).
+        healthy_count = max(healthy_count, len(set(public_live_venues)))
+    except Exception:
+        proof = {"ok": False}
 
     ready_ids = set(block["ingestion_ready_ids"])
     target_ex = max(block["target_exchanges"], 1)
@@ -135,6 +145,8 @@ async def compute_universe_coverage() -> dict[str, Any]:
             1,
         ),
         "live_ingestion_sources": healthy_count,
+        "public_live_venues": public_live_venues,
+        "public_live_proof_ok": bool(proof.get("ok")),
         "ingestion_health_rows": len(health_rows),
         "ingestion_ready_ids": sorted(ready_ids),
         "honesty": (

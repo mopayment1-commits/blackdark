@@ -324,11 +324,19 @@ def certify_gate5_product() -> dict[str, Any]:
     alert = orchestrate_alert(
         org_id="cert",
         severity="high",
-        channel="pager",
+        channel="inbox",
         message="gate5",
         dedupe_key=f"gate5-cert-{datetime.now(UTC).timestamp()}",
     )
     assert alert.get("status") == "delivered"
+    pending = orchestrate_alert(
+        org_id="cert",
+        severity="medium",
+        channel="slack",
+        message="needs connector",
+        dedupe_key=f"gate5-pending-{datetime.now(UTC).timestamp()}",
+    )
+    assert pending.get("status") == "accepted_pending_connector"
     brand = configure_brand("cert", product_name="CertLabel")
     assert get_brand("cert")["product_name"] == "CertLabel"
     return {

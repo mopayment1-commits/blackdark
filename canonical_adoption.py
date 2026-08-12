@@ -410,7 +410,7 @@ def adoption_audit() -> dict[str, Any]:
 def adoption_status() -> dict[str, Any]:
     return {
         "surface": "canonical_adoption",
-        "product_complete": True,
+        "product_complete": False,
         "critical_paths": list(CRITICAL_PATHS),
         "bypass_forbidden": True,
         "stale_as_live_forbidden": True,

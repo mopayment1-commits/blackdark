@@ -66,7 +66,7 @@ def analyze_portfolio(positions: list[dict[str, Any]]) -> dict[str, Any]:
         "gate": "block" if blocked else "pass",
         "confidence": claim_heuristic(min(1.0, herfindahl), label="concentration").to_dict(),
         "canonical_adopted": True,
-        "product_complete": True,
+        "product_complete": False,
     }
 
 
@@ -102,7 +102,7 @@ def holdings_from_dashboard_assets(assets: list[Any]) -> list[dict[str, Any]]:
 def portfolio_status() -> dict[str, Any]:
     return {
         "surface": "portfolio_intelligence",
-        "product_complete": True,
+        "product_complete": False,
         "modules": ["analyze_portfolio", "correlation", "stress", "canonical_adoption"],
         "api": ["/portfolio/analyze", "/api/institutional/portfolio/analyze"],
     }

@@ -60,7 +60,7 @@ def detect_flash_crash(
 def flash_crash_status() -> dict[str, Any]:
     return {
         "surface": "flash_crash_protection",
-        "product_complete": True,
+        "product_complete": False,
         "signals": [
             "price_velocity",
             "spread_explosion",

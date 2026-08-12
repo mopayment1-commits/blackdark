@@ -106,7 +106,7 @@ def evaluate_decision(
         "auditable": True,
         "replayable": True,
         "canonical_adopted": True,
-        "product_complete": True,
+        "product_complete": False,
         "note": "Unified decision brain: canonical market + graph + typed confidence + risk + memory.",
     }
 
@@ -161,14 +161,14 @@ def close_decision_loop(
         "learning": learning_attach,
         "calibration": calibrate_from_history(min_samples=30),
         "memory_entries": len(memory_query(graph_id=graph_id, limit=500)),
-        "product_complete": True,
+        "product_complete": False,
     }
 
 
 def engine_status() -> dict[str, Any]:
     return {
         "surface": "decision_intelligence_engine",
-        "product_complete": True,
+        "product_complete": False,
         "components": [
             "decision_graph",
             "confidence_truth",

@@ -84,6 +84,6 @@ def liquidity_intelligence(
 def microstructure_status() -> dict[str, Any]:
     return {
         "surface": "microstructure_liquidity",
-        "product_complete": True,
+        "product_complete": False,
         "modules": ["order_book_microstructure", "liquidity_intelligence"],
     }

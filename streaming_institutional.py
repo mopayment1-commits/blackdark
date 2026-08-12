@@ -295,7 +295,7 @@ def streaming_control_plane() -> dict[str, Any]:
         "freshness_module": "stream_freshness_truth",
         "lifecycle": snap,
         "stale_as_live": 0,
-        "product_complete": True,
+        "product_complete": False,
         "note": "Ticks must carry freshness_class; STALE cannot display as LIVE.",
     }
 

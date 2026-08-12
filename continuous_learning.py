@@ -86,7 +86,7 @@ def calibrate_from_history(*, min_samples: int = 30) -> dict[str, Any]:
 def learning_status() -> dict[str, Any]:
     return {
         "surface": "continuous_learning",
-        "product_complete": True,
+        "product_complete": False,
         "loop": ["DECISION", "OUTCOME", "EVALUATION", "CALIBRATION", "LEARNING"],
         "guards": [
             "look_ahead_leakage",

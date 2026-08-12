@@ -54,7 +54,7 @@ def run_stress_battery(positions: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "ok": not blocked,
         "scenarios": rows,
-        "product_complete": True,
+        "product_complete": False,
         "confidence": claim_heuristic(0.7, label="stress_battery").to_dict(),
     }
 
@@ -63,5 +63,5 @@ def stress_status() -> dict[str, Any]:
     return {
         "surface": "stress_testing",
         "scenarios": [s[0] for s in SCENARIOS] + ["venue_outage", "protocol_failure"],
-        "product_complete": True,
+        "product_complete": False,
     }
