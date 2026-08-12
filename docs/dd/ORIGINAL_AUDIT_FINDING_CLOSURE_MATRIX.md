@@ -3,7 +3,7 @@
 **Original audit context:** BLACKDARK Capability Reality Audit  
 **Prior tip audited:** `e00971a034043046f4eefd3df1807c7b59101859`  
 **Remediation PR:** #72  
-**Candidate tip:** `819ed7bb5dee01ef420d2b18379dcfe62bd1cc7b`  
+**Candidate tip:** `86241b7e19e0f0de68ad73fb828dfcffcaa68936`  
 **Rule:** No finding may disappear via rename/de-scope/doc deletion.
 
 | ID | ORIGINAL FINDING | ORIGINAL STATUS | ROOT CAUSE | CLOSURE IMPLEMENTATION | FILES | TESTS / NEGATIVE | CURRENT |
@@ -33,8 +33,13 @@
 | O-WL-01 | White label missing/partial | PARTIAL | — | white_label | `white_label.py` | brand export | CLOSED |
 | O-PORT-01 | Portfolio AI partial | PARTIAL | — | portfolio_intelligence | `portfolio_intelligence.py` | fail-closed unknown notional | CLOSED |
 | O-100-01 | 100 platforms / 105 assets claim partial | PARTIAL | Catalog vs live | config universe + regression gate | `config.py`, prohibited tests | ≥100/≥105 | CLOSED |
-| O-CLAIM-01 | False COMPLETE claims | PRESENT | Honesty drift | SSO/SCIM/SAML honesty + plan_audit 46/46 | multiple | honesty suite | CLOSED |
+| O-CLAIM-01 | False COMPLETE claims | PRESENT | Honesty drift | SSO/SCIM/SAML honesty + plan_audit catalog partial honesty | multiple | honesty suite | CLOSED |
 | O-MOCK-01 | Production mock sentiment/macro | PRESENT | Silent fallback | Prod forbids mock sentiment/macro | `sentiment_engine.py`, `macro_correlations.py` | prod raises | CLOSED |
+| O-CR-01 | Soft Launch waives Postgres in production | RECURRENT@2f8d968 | soft_launch OR | Production Soft Launch cannot waive deps | `production_guard.py` | prod Soft Launch fails without PG | CLOSED |
+| O-CR-02 | CEX-DEX executable without CEX L2 | RECURRENT@2f8d968 | DEX liq only | `cex_l2_walk_verified` required | `cex_dex_arbitrage.py` | huge liq still indicative | CLOSED |
+| O-CR-03 | Jupiter synthetic ok=True | HIGH@2f8d968 | Network fallback | Fail closed quote | `jupiter_dex_adapter.py` | no synthetic ok | CLOSED |
+| O-CR-04 | OMS/Decision unwired | RECURRENT@2f8d968 | No API | `/api/institutional/oms/*` + decision-graph | `api/routers/oms_decision.py` | HTTP status 200 | CLOSED |
+| O-CR-05 | Coverage 100% with 0 live sources | CRITICAL@2f8d968 | Catalog vanity | live % = healthy sources | `platform_universe.py` | honesty gate | CLOSED |
 | O-EXT-PSP | Live PSP proof | EXTERNAL | Credentials | Subscription code complete; live proof EXTERNAL | billing modules | — | EXTERNAL |
 | O-EXT-COUNSEL | Legal counsel | EXTERNAL | Legal | Repo license/SBOM support only | docs | — | EXTERNAL |
 | O-EXT-DR | Live DR drill | EXTERNAL | Infra | Runbooks/impl repo-side; live drill EXTERNAL | ops docs | — | EXTERNAL |
@@ -43,9 +48,9 @@
 
 | Metric | Value |
 |---|---|
-| ORIGINAL MATERIAL FINDINGS (repo-fixable in this matrix) | 27 |
-| CLOSED WITH EVIDENCE | 27 |
-| RECURRENT | 0 |
+| ORIGINAL MATERIAL FINDINGS (repo-fixable in this matrix) | 32 |
+| CLOSED WITH EVIDENCE | 32 |
+| RECURRENT (open) | 0 |
 | UNVERIFIED | 0 |
 | SILENTLY DE-SCOPED | 0 |
 | EXTERNAL ONLY | 3 (PSP, counsel, live DR) |
