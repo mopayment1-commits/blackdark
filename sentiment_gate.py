@@ -60,12 +60,16 @@ def sentiment_allows_execution(asset: str, *, compound_score: float | None = Non
     if score is None:
         cached = _cache.get(asset.upper())
         if cached:
-            score = cached[1].get("compound_score", 0.0)
+            score = cached[1].get("compound_score")
         else:
-            return True
+            # Unknown sentiment must not fail-open into auto-exec.
+            logger.info("Sentiment gate BLOCKED | asset=%s reason=sentiment_unknown", str(asset).replace("\r", " ").replace("\n", " "))
+            return False
+    if score is None:
+        return False
 
-    if score <= _fear_threshold():
-        logger.info("Sentiment gate BLOCKED | asset=%s score=%.3f", str(asset).replace("\r", " ").replace("\n", " "), score)
+    if float(score) <= _fear_threshold():
+        logger.info("Sentiment gate BLOCKED | asset=%s score=%.3f", str(asset).replace("\r", " ").replace("\n", " "), float(score))
         return False
     return True
 

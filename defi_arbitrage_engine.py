@@ -161,12 +161,8 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
     gas_bps = await gas_cost_bps(chain, quote, hops=3)
     if gas_bps is None:
         return None
-    flash_fee_bps = 9.0  # Aave 0.09%
-    net_bps = spread_bps - gas_bps - flash_fee_bps - 60
-
-    if net_bps < 5:
-        return None
-
+    # Flash-loan protocol fee is venue-specific and not inventoried → fail closed
+    # for net/profitability (do not invent Aave 0.09% as authority).
     return {
         "kind": "defi_flash_loan",
         "strategy": "flash_loan_atomic",
@@ -176,18 +172,18 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
         "price_a": round(pa, 6),
         "price_b": round(dex_b_price, 6),
         "spread_bps": round(spread_bps, 2),
-        "flash_fee_bps": flash_fee_bps,
+        "flash_fee_bps": None,
         "gas_bps": round(gas_bps, 2),
-        "net_spread_bps": round(net_bps, 2),
+        "net_spread_bps": None,
         "profitable": False,
         "executable": False,
         "indicative": True,
-        "reject_reason": "defi_depth_not_verified",
+        "reject_reason": "flash_loan_protocol_fee_unknown",
         "chain": chain,
         "gas_truth": "live_cached",
         "note": (
-            "Indicative flash-loan spread only. Executable profitability requires "
-            "verified pool depth, route continuity, and gas — fail closed."
+            "Indicative flash-loan spread only. Protocol fee not inventoried — "
+            "fail closed for executable profitability."
         ),
     }
 

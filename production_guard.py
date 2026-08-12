@@ -11,15 +11,18 @@ import config
 
 
 def is_production() -> bool:
-    """True when ENV/APP_ENV/RAILWAY is production — LOCAL_DEV never overrides explicit prod."""
-    env = (
-        os.getenv("ENV")
-        or os.getenv("APP_ENV")
-        or os.getenv("ENVIRONMENT")
-        or os.getenv("RAILWAY_ENVIRONMENT")
-        or ""
-    ).strip().lower()
-    return env in {"production", "prod"}
+    """True when any ENV/APP_ENV/RAILWAY token is production (fail-closed OR).
+
+    First-wins chaining incorrectly ignored APP_ENV=production when ENV=development
+    was left set in a polluted process — any explicit prod marker means production.
+    """
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    return any(t in {"production", "prod"} for t in tokens)
 
 
 def _check(name: str, ok: bool, *, required: bool, hint: str) -> dict[str, Any]:

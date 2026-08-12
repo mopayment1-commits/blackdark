@@ -40,26 +40,16 @@ def _normalize_symbol(symbol: str) -> tuple[str, str]:
 
 
 async def _fetch_ticker(pair: str, *, exchange: str = "binance") -> dict | None:
-    from live_book_hub import get_best_price
+    from live_book_hub import get_best_price, is_quote_fresh
 
     symbol = pair.replace("USDT", "") + "/USDT" if pair.endswith("USDT") else pair
+    # Fail closed without fresh WS mid — never invent REST lastPrice for sizing.
+    if not is_quote_fresh(exchange, symbol):
+        return None
     live = get_best_price(exchange, symbol)
     if live:
         return {"price": live["mid"], "bid": live["bid"], "ask": live["ask"], "source": "websocket_live"}
-
-    if not pair.isalnum():
-        return None
-    url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
-    try:
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                return {"price": float(data["lastPrice"])}
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
-        return None
+    return None
 
 
 def _live_enabled() -> bool:

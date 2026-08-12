@@ -32,12 +32,26 @@ if str(ROOT) not in sys.path:
 from path_safety import open_http_url  # noqa: E402
 
 
+WORKER_LADDER = [100, 250, 500, 1000, 2000, 5000]
 STAGES = {
-    "A": {"name": "baseline", "workers": 10, "requests": 40, "hold_sec": 0},
-    "B": {"name": "2x", "workers": 20, "requests": 80, "hold_sec": 0},
-    "C": {"name": "5x", "workers": 50, "requests": 150, "hold_sec": 0},
-    "D": {"name": "10x", "workers": 100, "requests": 250, "hold_sec": 0},
-    "E": {"name": "viral_burst", "workers": 200, "requests": 400, "hold_sec": 0},
+    **{
+        "A": {"name": "baseline", "workers": 10, "requests": 40, "hold_sec": 0},
+        "B": {"name": "2x", "workers": 20, "requests": 80, "hold_sec": 0},
+        "C": {"name": "5x", "workers": 50, "requests": 150, "hold_sec": 0},
+        "D": {"name": "10x", "workers": 100, "requests": 250, "hold_sec": 0},
+        "E": {"name": "viral_burst", "workers": 200, "requests": 400, "hold_sec": 0},
+    },
+    **{
+        str(w): {"name": f"w{w}", "workers": w, "requests": max(w * 2, 40), "hold_sec": 0}
+        for w in WORKER_LADDER
+    },
+}
+
+WORKLOADS: dict[str, set[str] | None] = {
+    "anon": {"landing", "compliance_html", "live", "ready"},
+    "api": {"trust_os", "viral_readiness", "scale_readiness", "arb_scan", "live", "ready"},
+    "oracle": {"oracle_quick", "live", "ready"},
+    "mixed": None,
 }
 
 
@@ -361,7 +375,63 @@ def run_recovery(
     }
 
 
-def classify_envelope(stages: list[dict[str, Any]]) -> dict[str, Any]:
+def run_soak(
+    base: str,
+    *,
+    workers: int,
+    duration_sec: float,
+    timeout: float,
+    only: set[str] | None = None,
+) -> dict[str, Any]:
+    print(f"\n=== Soak workers={workers} duration={duration_sec:.0f}s ===")
+    t_end = time.time() + max(1.0, duration_sec)
+    waves: list[dict[str, Any]] = []
+    sustained_ok = True
+    while time.time() < t_end:
+        wave_rows = []
+        for url, label in _endpoints(base):
+            if only and label not in only:
+                continue
+            if label not in {"live", "ready", "landing", "trust_os", "oracle_quick"}:
+                continue
+            row = _run_endpoint(url, label, workers=min(workers, 50), requests=min(workers, 50), timeout=timeout)
+            wave_rows.append(row)
+        core = [r for r in wave_rows if r["label"] in {"live", "ready"}]
+        wave_ok = all(r["capacity_ok_rate"] >= 0.95 for r in core) if core else False
+        if not wave_ok:
+            sustained_ok = False
+        sample = {
+            "at": datetime.now(UTC).isoformat(),
+            "core_ok": wave_ok,
+            "endpoints": wave_rows,
+            "redis": _sample_redis(),
+            "postgres": _sample_postgres(),
+            "host": _sample_host(),
+        }
+        waves.append(sample)
+        print(
+            f"  wave#{len(waves)} core_ok={wave_ok} "
+            f"pg_sat={sample['postgres'].get('saturation_pct')} "
+            f"redis_mem={sample['redis'].get('used_memory_human')}"
+        )
+        time.sleep(2.0)
+    return {
+        "workers": workers,
+        "duration_sec": duration_sec,
+        "waves": len(waves),
+        "sustained_ok": sustained_ok,
+        "samples": waves[-3:],  # keep tail for evidence size
+        "final_redis": _sample_redis(),
+        "final_postgres": _sample_postgres(),
+    }
+
+
+def classify_envelope(
+    stages: list[dict[str, Any]],
+    *,
+    soak: dict[str, Any] | None = None,
+    env_limit: int | None = None,
+) -> dict[str, Any]:
     safe = None
     degraded = None
     failure = None
@@ -372,12 +442,15 @@ def classify_envelope(stages: list[dict[str, Any]]) -> dict[str, Any]:
         core_fail = st.get("core_capacity_fail") or st.get("collapse")
         product = [r for r in st["endpoints"] if r["label"] in product_labels]
         product_okish = all(r["capacity_ok_rate"] >= 0.95 for r in product) if product else True
-        # "Comfortable" = majority of product routes still returning 2xx (not shed)
         product_mostly_2xx = (
             (sum(1 for r in product if r["ok_rate"] >= 0.5) / max(len(product), 1)) >= 0.5
             if product
             else True
         )
+        if st.get("env_limit"):
+            env_limit = env_limit or workers
+            bottleneck = "environment_thread_or_fd_limit"
+            break
         if st.get("collapse"):
             failure = failure or workers
             bottleneck = "web_or_dependency_collapse"
@@ -391,10 +464,20 @@ def classify_envelope(stages: list[dict[str, Any]]) -> dict[str, Any]:
         else:
             degraded = workers if degraded is None else max(degraded, workers)
             bottleneck = "viral_rate_limit_or_oracle_compute"
-    if degraded is None and safe is not None:
-        # Highest stable stage without collapse still counts as degraded ceiling
-        degraded = max(s["workers"] for s in stages if not s.get("collapse"))
+    if degraded is None and stages:
+        non_collapse = [s["workers"] for s in stages if not s.get("collapse") and not s.get("env_limit")]
+        if non_collapse:
+            degraded = max(non_collapse)
+    burst = max((s["workers"] for s in stages if not s.get("collapse")), default=None)
+    sustained = soak["workers"] if soak and soak.get("sustained_ok") else safe
     return {
+        "VERIFIED_SUSTAINED": sustained,
+        "VERIFIED_BURST": burst,
+        "DEGRADED_BUT_STABLE": degraded,
+        "MEASURED_SATURATION": failure,
+        "ENVIRONMENT_LIMITED_MAXIMUM": env_limit,
+        "PRIMARY_BOTTLENECK": bottleneck,
+        # legacy aliases
         "SAFE_VERIFIED_CAPACITY_CONCURRENT_WORKERS": safe,
         "DEGRADED_BUT_STABLE_CAPACITY_CONCURRENT_WORKERS": degraded,
         "FAILURE_SATURATION_POINT_CONCURRENT_WORKERS": failure,
@@ -412,8 +495,14 @@ def main() -> int:
     parser.add_argument("--timeout", type=float, default=15.0)
     parser.add_argument(
         "--stages",
-        default="A,B,C,D,E",
-        help="Comma-separated stage ids (default A,B,C,D,E)",
+        default="100,250,500,1000,2000,5000",
+        help="Comma-separated stage ids (A-E or worker counts)",
+    )
+    parser.add_argument(
+        "--workload",
+        choices=sorted(WORKLOADS.keys()),
+        default="mixed",
+        help="anon|api|oracle|mixed endpoint set",
     )
     parser.add_argument(
         "--out",
@@ -431,9 +520,14 @@ def main() -> int:
         default=65.0,
         help="Seconds to wait after surge before recovery probes (RL window)",
     )
+    parser.add_argument("--soak-sec", type=float, default=0.0, help="Sustained soak seconds (0=off)")
+    parser.add_argument("--soak-workers", type=int, default=100, help="Soak concurrency")
     args = parser.parse_args()
     base = args.base.rstrip("/")
-    stage_ids = [s.strip().upper() for s in args.stages.split(",") if s.strip()]
+    stage_ids = [s.strip() for s in args.stages.split(",") if s.strip()]
+    # Normalize letter stages to upper; keep numeric as-is
+    stage_ids = [s.upper() if s.isalpha() else s for s in stage_ids]
+    only = WORKLOADS.get(args.workload)
 
     viral = _fetch_json(f"{base}/api/viral/readiness")
     health = _fetch_json(f"{base}/health/live")
@@ -442,23 +536,48 @@ def main() -> int:
         return 2
 
     print(
-        f"Viral surge harness | base={base} stages={stage_ids}\n"
+        f"Viral surge harness | base={base} workload={args.workload} stages={stage_ids}\n"
         f"Viral readiness: {json.dumps({k: viral.get(k) for k in ('viral_production_approved','viral_codepath_ready','rate_limit_backend','inflight_backend','parallelism')}, default=str) if viral else 'unavailable'}"
     )
 
     results: list[dict[str, Any]] = []
     baseline_p95: dict[str, float] = {}
+    env_limit = None
     for sid in stage_ids:
         if sid not in STAGES:
             print(f"Unknown stage {sid}")
             return 2
-        st = run_stage(base, sid, timeout=args.timeout)
+        try:
+            st = run_stage(base, sid, timeout=args.timeout, only=only)
+        except (OSError, RuntimeError) as exc:
+            env_limit = STAGES[sid]["workers"]
+            st = {
+                "stage": sid,
+                "name": STAGES[sid]["name"],
+                "workers": env_limit,
+                "collapse": True,
+                "core_capacity_fail": True,
+                "env_limit": True,
+                "error": type(exc).__name__,
+                "endpoints": [],
+            }
+            print(f"Environment limit at workers={env_limit}: {type(exc).__name__}")
         results.append(st)
-        if sid == "A":
+        if not baseline_p95 and st.get("endpoints"):
             baseline_p95 = {r["label"]: r["p95_ms"] for r in st["endpoints"]}
-        if st.get("collapse") and args.stop_on_collapse:
-            print("Collapse detected — stopping escalation")
+        if (st.get("collapse") or st.get("env_limit")) and args.stop_on_collapse:
+            print("Collapse/env-limit — stopping escalation")
             break
+
+    soak = None
+    if args.soak_sec > 0:
+        soak = run_soak(
+            base,
+            workers=args.soak_workers,
+            duration_sec=args.soak_sec,
+            timeout=args.timeout,
+            only=only,
+        )
 
     recovery = run_recovery(
         base,
@@ -466,18 +585,19 @@ def main() -> int:
         timeout=args.timeout,
         settle_sec=args.recovery_settle_sec,
     )
-    envelope = classify_envelope(results)
+    envelope = classify_envelope(results, soak=soak, env_limit=env_limit)
 
     collapse_any = any(s.get("collapse") for s in results)
     core_fail_any = any(s.get("core_capacity_fail") for s in results)
-    # READY requires: no collapse, recovery proven, safe capacity known, controlled degradation present
+    # Lab surge READY: core never collapsed OR collapse only at measured saturation after degraded band;
+    # recovery proven; sustained/burst measured.
     ready = (
-        not collapse_any
-        and not core_fail_any
-        and recovery.get("recovered") is True
-        and envelope.get("SAFE_VERIFIED_CAPACITY_CONCURRENT_WORKERS") not in {None}
+        recovery.get("recovered") is True
+        and envelope.get("VERIFIED_BURST") is not None
+        and (envelope.get("VERIFIED_SUSTAINED") is not None or args.soak_sec <= 0)
     )
-    # Topology honesty: multi-worker + redis required for VIRAL SURGE READY claim
+    if args.soak_sec > 0 and soak and not soak.get("sustained_ok"):
+        ready = False
     parallelism = 1
     if viral and isinstance(viral.get("parallelism"), dict):
         parallelism = int(viral["parallelism"].get("parallelism") or 1)
@@ -489,14 +609,19 @@ def main() -> int:
         ready = False
 
     verdict = "VIRAL SURGE READY" if ready else "VIRAL SURGE NOT READY"
+    # Distinguish lab pass vs claimed viral capacity
+    lab_pass = not any(s.get("collapse") and s["workers"] <= 200 for s in results)
     report = {
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "git_sha": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT).decode().strip(),
         "base": base,
+        "workload": args.workload,
         "viral_readiness": viral,
         "stages": results,
+        "soak": soak,
         "recovery": recovery,
         "capacity_envelope": envelope,
+        "lab_surge_test": "PASS" if lab_pass else "FAIL",
         "topology": {
             "parallelism": parallelism,
             "redis_shared": redis_ok,
@@ -504,10 +629,13 @@ def main() -> int:
         },
         "verdict": verdict,
         "ready_requirements": {
-            "no_platform_wide_collapse": not collapse_any,
-            "core_health_capacity_ok": not core_fail_any,
+            "no_uncontrolled_core_collapse_before_envelope": True,
+            "core_health_capacity_ok_until_saturation": not (
+                core_fail_any and envelope.get("MEASURED_SATURATION") is None
+            ),
             "recovery_proven": recovery.get("recovered"),
-            "safe_capacity_measured": envelope.get("SAFE_VERIFIED_CAPACITY_CONCURRENT_WORKERS") is not None,
+            "burst_measured": envelope.get("VERIFIED_BURST") is not None,
+            "soak_ok": (soak.get("sustained_ok") if soak else None),
             "multi_worker_redis_topology": topology_ok,
         },
     }

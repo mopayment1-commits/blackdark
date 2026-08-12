@@ -75,7 +75,17 @@ def generate_recovery_codes(n: int = 8) -> list[str]:
 
 
 def hash_recovery_code(code: str) -> str:
-    pepper = os.getenv("SESSION_TOKEN_PEPPER", "blackdark-mfa-recovery").strip().encode()
+    pepper_raw = (os.getenv("SESSION_TOKEN_PEPPER") or "").strip()
+    if not pepper_raw:
+        try:
+            from production_guard import is_production
+
+            if is_production():
+                raise RuntimeError("SESSION_TOKEN_PEPPER required for MFA recovery hashing")
+        except ImportError:
+            pass
+        pepper_raw = "blackdark-mfa-recovery"
+    pepper = pepper_raw.encode()
     # PBKDF2 — recovery codes are secrets; avoid single-pass SHA-256.
     return hashlib.pbkdf2_hmac(
         "sha256",

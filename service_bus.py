@@ -21,7 +21,14 @@ ChannelHandler = Callable[[dict[str, Any]], Awaitable[None]]
 _redis_client: Any = None
 _subscribers: dict[str, list[ChannelHandler]] = defaultdict(list)
 _listener_task: asyncio.Task | None = None
-_local_queues: dict[str, asyncio.Queue] = defaultdict(asyncio.Queue)
+_LOCAL_QUEUE_MAX = max(16, int(os.getenv("SERVICE_BUS_LOCAL_QUEUE_MAX", "1000") or 1000))
+
+
+def _make_local_queue() -> asyncio.Queue:
+    return asyncio.Queue(maxsize=_LOCAL_QUEUE_MAX)
+
+
+_local_queues: dict[str, asyncio.Queue] = defaultdict(_make_local_queue)
 _published_total = 0
 _received_total = 0
 
@@ -47,14 +54,13 @@ def bus_enabled() -> bool:
 
 def require_distributed_bus() -> bool:
     """True when multi-replica / production HA must not use process-local bus."""
-    env = (
-        os.getenv("ENV")
-        or os.getenv("APP_ENV")
-        or os.getenv("ENVIRONMENT")
-        or os.getenv("RAILWAY_ENVIRONMENT")
-        or ""
-    ).strip().lower()
-    prod = env in {"production", "prod"}
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    prod = any(t in {"production", "prod"} for t in tokens)
     soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
     workers = int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1)
     replicas = int(os.getenv("WEB_REPLICAS", "1") or 1)
@@ -107,7 +113,15 @@ async def publish(channel: str, payload: dict[str, Any]) -> bool:
         return False
 
     queue = _local_queues[channel]
-    await queue.put(payload)
+    try:
+        queue.put_nowait(payload)
+    except asyncio.QueueFull:
+        logger.warning(
+            "Service bus local queue full — drop | channel=%s max=%s",
+            channel,
+            _LOCAL_QUEUE_MAX,
+        )
+        return False
     _published_total += 1
     for handler in _subscribers[channel]:
         try:

@@ -141,9 +141,11 @@ def test_jupiter_dex_adapter_product_complete():
         return await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
 
     out = asyncio.run(_run())
-    assert out["product_complete"] is True
-    assert out["executable_product_path"] is True
-    assert adapter_status()["product_complete"] is True
+    # Synthetic economics removed — unavailable quote must not claim completion.
+    assert out["executed"] is False
+    assert out.get("executable") is False
+    assert out.get("product_complete") is False
+    assert adapter_status()["product_complete"] is False
 
 
 def test_d5_honesty_and_model_card():

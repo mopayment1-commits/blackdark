@@ -298,7 +298,7 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
     row = providers.get(org_id) if org_id else None
     return {
         "surface": "enterprise_sso",
-        "product_complete": True,
+        "product_complete": False,
         "protocols": ["oidc", "saml"],
         "idp_targets": ["okta", "azure_ad", "generic_oidc", "generic_saml"],
         "jit_provisioning": True,
@@ -307,6 +307,7 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
         "env_oidc_ready": env_ready,
         "demo_allowed": _demo_sso_allowed(),
         "providers_count": len(providers),
+        "live_idp_verification": False,
         "api": {
             "configure": "POST /api/institutional/sso/configure",
             "authorize": "GET /api/institutional/sso/authorize",
@@ -315,6 +316,6 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
         "note": (
             "Consumer OAuth ≠ Enterprise SSO. Demo minting requires "
             "ENTERPRISE_SSO_DEMO=true outside production. Live IdP token "
-            "exchange must be wired before production use."
+            "exchange is NOT product-complete — fail closed until wired."
         ),
     }

@@ -368,8 +368,14 @@ async def create_session(user_id: int, *, revoke_others: bool = True) -> dict[st
     if revoke_others:
         try:
             await delete_user_sessions_for_user(int(user_id))
-        except Exception:
-            pass
+        except Exception as exc:
+            import logging
+
+            logging.getLogger("BLACKDARK.Auth").error(
+                "session_revoke_failed err_type=%s",
+                type(exc).__name__,
+            )
+            raise RuntimeError("session_revoke_failed") from exc
     token = secrets.token_urlsafe(48)
     token_hash = hash_session_token(token)
     expires_at = (_utcnow() + timedelta(days=SESSION_DAYS)).isoformat()

@@ -104,10 +104,15 @@ def build_trust_debt_score(*, user_key: str = "anon", window_days: int = 7) -> d
     cutoff = _utcnow() - timedelta(days=window_days)
     recent = _recent_events(events, cutoff)
 
-    # Seed a meaningful demo path if empty
+    # Demo seed only when explicitly enabled — never invent debt in production.
     if not recent and not events:
-        _seed_trust_debt_demo(uk)
-        return build_trust_debt_score(user_key=uk, window_days=window_days)
+        import os
+
+        demo = os.getenv("TRUST_DEBT_DEMO_SEED", "false").lower() in {"1", "true", "yes"}
+        soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
+        if demo or soft:
+            _seed_trust_debt_demo(uk)
+            return build_trust_debt_score(user_key=uk, window_days=window_days)
 
     ledger = _weighted_points(recent, {"ledger_decision", "anti_hype_session", "kill_followed"})
     unverified = _weighted_points(recent, {"unverified_ai", "hype_click", "external_signal"})

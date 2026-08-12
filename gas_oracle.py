@@ -112,17 +112,28 @@ def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float | None:
         "polygon": "MATIC",
         "solana": "SOL",
     }
-    asset = asset_map.get(chain, "ETH")
+    asset = asset_map.get(chain)
+    if not asset:
+        return None
     try:
-        from live_book_hub import get_best_price
+        from live_book_hub import get_best_price, is_quote_fresh
 
-        row = get_best_price("binance", f"{asset}/USDT")
+        symbol = f"{asset}/USDT"
+        if not is_quote_fresh("binance", symbol):
+            return None
+        row = get_best_price("binance", symbol)
         if row and row.get("mid"):
             mid = float(row["mid"])
             if mid > 0:
                 return mid
-    except Exception:
-        pass
+    except Exception as exc:
+        import logging
+
+        logging.getLogger("BLACKDARK.GasOracle").debug(
+            "native_usd_lookup_failed chain=%s err_type=%s",
+            chain,
+            type(exc).__name__,
+        )
     return None
 
 

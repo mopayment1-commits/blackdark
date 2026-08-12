@@ -117,6 +117,33 @@ def test_live_hub_excludes_stale_symbol_rows():
     assert "ETH/USDT" in (books.get("binance") or {})
 
 
+def test_sentiment_unknown_fail_closed():
+    from sentiment_gate import sentiment_allows_execution
+
+    # No cached score and no compound → must not allow execution.
+    assert sentiment_allows_execution("ZZZNOCACHE", compound_score=None) is False
+
+
+def test_jupiter_synthetic_economics_removed():
+    import asyncio
+
+    from jupiter_dex_adapter import quote_swap
+
+    async def _run():
+        return await quote_swap(
+            input_mint="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            output_mint="So11111111111111111111111111111111111111112",
+            amount_atomic=1_000_000,
+        )
+
+    out = asyncio.run(_run())
+    if not out.get("ok"):
+        assert out.get("executable") is False
+        assert out.get("source") != "synthetic_economics"
+    else:
+        assert out.get("source") == "jupiter_api"
+
+
 def test_sso_demo_disabled_by_default(monkeypatch):
     import asyncio
 
@@ -218,3 +245,94 @@ async def test_provider_malformed_book_fail_closed():
         )
         is None
     )
+
+
+def test_production_detection_or_across_env_tokens(monkeypatch):
+    """Polluted ENV=development must not hide APP_ENV=production."""
+    from production_guard import is_production
+
+    monkeypatch.setenv("ENV", "development")
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("ENVIRONMENT", raising=False)
+    monkeypatch.delenv("RAILWAY_ENVIRONMENT", raising=False)
+    assert is_production() is True
+
+    monkeypatch.setenv("ENV", "development")
+    monkeypatch.setenv("APP_ENV", "development")
+    assert is_production() is False
+
+
+def test_cex_dex_fee_haircut_excludes_invented_gas():
+    from bd_platform.cex_dex_arbitrage import _indicative_fee_bps
+
+    fee_matrix._matrix.clear()
+    fee_matrix._matrix["binance"] = {"taker": 0.001, "maker": 0.001}
+    fee_matrix._matrix["uniswap"] = {"taker": 0.003, "maker": 0.003}
+    bps = _indicative_fee_bps("binance", "uniswap")
+    assert bps == pytest.approx(40.0)  # 10 + 30 trading bps only
+    assert _indicative_fee_bps("binance", "unknown-dex") is None
+
+
+@pytest.mark.asyncio
+async def test_service_bus_local_queue_bounded_drop(monkeypatch):
+    import asyncio
+    from collections import defaultdict
+
+    import service_bus
+
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+    monkeypatch.delenv("REDIS_URL", raising=False)
+    monkeypatch.setenv("WEB_CONCURRENCY", "1")
+    monkeypatch.setenv("WEB_REPLICAS", "1")
+    monkeypatch.setenv("ENV", "development")
+    service_bus._redis_client = None
+    service_bus._LOCAL_QUEUE_MAX = 2
+
+    def _q() -> asyncio.Queue:
+        return asyncio.Queue(maxsize=2)
+
+    service_bus._make_local_queue = _q
+    service_bus._local_queues = defaultdict(_q)
+    ch = "blackdark.test.bounded"
+    assert await service_bus.publish(ch, {"n": 1}) is True
+    assert await service_bus.publish(ch, {"n": 2}) is True
+    assert await service_bus.publish(ch, {"n": 3}) is False
+
+
+def test_unknown_chain_native_usd_fail_closed():
+    import gas_oracle
+
+    assert gas_oracle._native_usd(None, "not-a-real-chain") is None
+
+
+@pytest.mark.asyncio
+async def test_flash_loan_protocol_fee_unknown_fail_closed(monkeypatch):
+    import aiohttp
+
+    import defi_arbitrage_engine as dae
+    import gas_oracle
+
+    async def _cex(_session, _asset):
+        return {"binance": 100.0}
+
+    async def _dex(_session, _asset, _mid):
+        return {"price": 100.5, "venue": "uni", "chain": "ethereum"}
+
+    async def _second(_session, _asset, _mid):
+        return 101.0, "sushi"
+
+    async def _gas(_chain, _quote, hops=3):
+        return 12.0
+
+    monkeypatch.setattr("bd_platform.cex_dex_arbitrage._cex_prices", _cex)
+    monkeypatch.setattr("bd_platform.cex_dex_arbitrage._best_dex_quote", _dex)
+    monkeypatch.setattr(dae, "_find_second_dex_quote", _second)
+    monkeypatch.setattr(gas_oracle, "gas_cost_bps", _gas)
+    async with aiohttp.ClientSession() as session:
+        row = await dae.scan_flash_loan_proxy(session, "ETH")
+    assert row is not None
+    assert row["profitable"] is False
+    assert row["executable"] is False
+    assert row["flash_fee_bps"] is None
+    assert row["net_spread_bps"] is None
+    assert row["reject_reason"] == "flash_loan_protocol_fee_unknown"

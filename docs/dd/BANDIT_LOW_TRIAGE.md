@@ -1,7 +1,7 @@
 # Bandit LOW Triage — External Audit Readiness
 
 **Canonical scan:** `bandit -c .bandit -r .`  
-**Result on main tip scan:** HIGH=0 MEDIUM=0 LOW=112
+**Result on certification tip scan (`bandit -c .bandit -r .`):** HIGH=0 MEDIUM=0 LOW=114
 
 | Test ID | Count | Classification | Rationale |
 |---------|------:|----------------|-----------|

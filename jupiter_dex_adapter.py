@@ -59,25 +59,22 @@ async def quote_swap(
                 }
     except Exception as exc:
         return {
-            "ok": True,
-            "source": "synthetic_economics",
-            "quote": {
-                "inAmount": str(amount_atomic),
-                "outAmount": str(int(amount_atomic * 0.997)),
-                "slippageBps": slippage_bps,
-                "note": f"network_unavailable:{type(exc).__name__}",
-            },
+            "ok": False,
+            "source": "jupiter_unavailable",
+            "executable": False,
+            "indicative": True,
+            "quote": None,
+            "error": type(exc).__name__,
             "configured": cfg,
             "at": _utcnow(),
         }
+    # Non-200 / empty — never invent synthetic executable economics.
     return {
-        "ok": True,
-        "source": "synthetic_economics",
-        "quote": {
-            "inAmount": str(amount_atomic),
-            "outAmount": str(int(amount_atomic * 0.997)),
-            "slippageBps": slippage_bps,
-        },
+        "ok": False,
+        "source": "jupiter_no_quote",
+        "executable": False,
+        "indicative": True,
+        "quote": None,
         "configured": cfg,
         "at": _utcnow(),
     }
@@ -101,6 +98,22 @@ async def execute_swap(
         output_mint=sol if side == "buy" else usdc,
         amount_atomic=amount_atomic,
     )
+    if not q.get("ok"):
+        return {
+            "leg": "dex",
+            "venue": venue,
+            "asset": asset,
+            "side": side,
+            "amount_usd": amount_usd,
+            "mode": "quote_unavailable",
+            "executed": False,
+            "executable": False,
+            "quote": q,
+            "configured": cfg,
+            "blocked_reason": "jupiter_quote_unavailable",
+            "product_complete": False,
+            "at": _utcnow(),
+        }
     if dry_run or not cfg["wallet"] or not cfg["live_enabled"]:
         return {
             "leg": "dex",
@@ -110,32 +123,34 @@ async def execute_swap(
             "amount_usd": amount_usd,
             "mode": "dry_run" if dry_run else "ready_needs_live_flag_or_wallet",
             "executed": False,
-            "executable_product_path": True,
+            "executable": False,
+            "executable_product_path": False,
             "quote": q,
             "configured": cfg,
             "message": (
-                f"Jupiter product path ready — would {side} ${amount_usd:.0f} {asset}. "
-                "Set SOLANA_PRIVATE_KEY + JUPITER_LIVE_EXECUTION=true for live fill."
+                f"Jupiter quote available — would {side} ${amount_usd:.0f} {asset}. "
+                "Live signed submit is not product-complete until wallet signer is wired."
             ),
             "blocked_reason": None if dry_run else "live_requires_wallet_and_flag",
-            "product_complete": True,
+            "product_complete": False,
             "at": _utcnow(),
         }
 
-    # Live path scaffold — signed tx submission would use solders/solana-py
+    # Live signed submit is not implemented — refuse rather than claim completion.
     return {
         "leg": "dex",
         "venue": venue,
         "asset": asset,
         "side": side,
         "amount_usd": amount_usd,
-        "mode": "live_attempt",
+        "mode": "live_not_implemented",
         "executed": False,
+        "executable": False,
         "quote": q,
         "configured": cfg,
-        "message": "Live Jupiter swap adapter engaged — submit via operator wallet signer",
-        "signer": "operator_wallet_slot",
-        "product_complete": True,
+        "message": "Live Jupiter signed submission is not implemented — fail closed",
+        "blocked_reason": "jupiter_live_signer_not_implemented",
+        "product_complete": False,
         "at": _utcnow(),
     }
 
@@ -143,8 +158,9 @@ async def execute_swap(
 def adapter_status() -> dict[str, Any]:
     return {
         "surface": "jupiter_dex_live_leg",
-        "product_complete": True,
+        "product_complete": False,
         "configured": jupiter_configured(),
         "replaces": "blocked_until_jupiter stub",
         "module": "jupiter_dex_adapter.py",
+        "note": "Quotes require live Jupiter API; synthetic economics removed.",
     }
