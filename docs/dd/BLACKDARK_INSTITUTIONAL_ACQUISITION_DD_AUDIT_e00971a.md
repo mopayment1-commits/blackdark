@@ -1,119 +1,135 @@
-# BLACKDARK Institutional Acquisition DD Assessment
+# BLACKDARK — Institutional Acquisition & Launch DD Audit
 
-**Canonical tip:** `e00971a034043046f4eefd3df1807c7b59101859` (origin/main, post-merge PR #69)  
-**Audit date:** 2026-08-12  
-**Mode:** Evidence-only (repo, `docs/dd/*`, CI, tests, code). No marketing language.
+**Canonical main SHA:** `e00971a034043046f4eefd3df1807c7b59101859`  
+**As-of:** 2026-08-12T14:10Z  
+**Standard applied:** Hardest reasonable M&A tech DD + institutional launch committee (kill gates, external evidence, no marketing credit)
 
 ---
 
 ## Executive verdict
 
-**NOT READY** for unconditional institutional acquisition or commercial launch claim.
+| Question | Answer |
+|----------|--------|
+| Institutionally acquisition-ready as turnkey operated business? | **NO** |
+| Commercially launch-ready (paid production, strict path)? | **NO** |
+| Software asset transferable under conditions? | **YES — PROCEED WITH CONDITIONS** |
+| Fabricated “READY / COMPLETE” claim allowed? | **FORBIDDEN** |
 
-**Committee posture:** **PROCEED WITH CONDITIONS** as a *software asset with strong fail-closed financial/security engineering* — **not** as a turnkey operated business. Tip CI proves Critical Gate + Security Scan + CodeQL Analyze green; **SonarCloud main Quality Gate is FAILED** on this exact SHA. Material EXTERNAL packs (PSP, counsel, Code Scanning UI, branch protection, DR drill, account ownership) remain empty or unverifiable.
-
-Do **not** treat RC2’s “93/100” self-score as buyer-grade PASS. This audit re-scores from tip evidence.
-
----
-
-## Domain scorecard
-
-| # | Domain | Score | Evidence (1–2 sentences) |
-|---|--------|-------|--------------------------|
-| 1 | Financial truth / fail-closed economics | **PASS** | `fee_matrix.py` returns `None` for unknown venues/fees/withdrawals (never invents defaults); `net_edge_truth.py` hard-rejects missing net/slippage/fees/withdrawal; `arbitrage_engine` / `execution_engine` fail closed on unknown fees; critical CI runs `tests/test_rc2_financial_truth.py` + fee suite with `--cov-fail-under=85`. |
-| 2 | Auth / session / secrets / production guards | **CONDITIONAL** | Fernet-sealed session cookies, CSRF reject path, production ENV OR fail-closed, vault key required in prod tests (`test_p1_session_hardening`), `require_admin` + `X-Admin-TOTP`, `production_guard` refuses strict prod without secrets/pepper/MFA/demo-key-off. Residual: Soft Launch still bypasses Postgres/billing gates; prod CSP/secrets attestation forms unfilled; founder-held secrets. |
-| 3 | XSS / CSP / DOM safety | **CONDITIONAL** | Default `CSP_NONCE_MODE=true` with nonce + `strict-dynamic` (no default `script-src 'unsafe-inline'`); regression suites `test_xss_sink_hardening.py` / CodeQL XSS closure tests on tip. Residual: `style-src 'unsafe-inline'` accepted; break-glass `CSP_NONCE_MODE=false` reopens unsafe-inline; `docs/ops/CSP_PRODUCTION_ATTESTATION.md` unsigned for live URL. |
-| 4 | CodeQL / Bandit / security scan posture | **CONDITIONAL** | Tip run CodeQL Analyze **SUCCESS** (python/js/actions); Security Scan **SUCCESS** (pip-audit + pytest-security); local Bandit `@ .bandit` = **HIGH=0 MEDIUM=0 LOW=111**. Code Scanning open-alert API **403** (counts EXTERNAL); Bandit LOW≠0 and PR #50 (claim LOW=0) still open/CONFLICTING — posture is strong-but-incomplete, not “cleared.” |
-| 5 | SonarCloud main QG / coverage / AA | **FAIL** | Tip SonarCloud Analysis run `31604386000` @ `e00971a`: **QUALITY GATE STATUS: FAILED** (dashboard main). Workflow correctly keeps Automatic Analysis **DISABLED** and imports curated `coverage.xml` (`--cov-fail-under=0`); `#69` only established `sonar.projectVersion=2026.08.12` baseline — **main QG still red**. |
-| 6 | Payments / PSP live readiness | **EXTERNAL** | Hosted Lemon/Stripe checkout code + webhook auth + SKUs ($29/$49) exist (`billing_service.py`, `docs/PAYMENTS_USD_SECURITY.md`); `docs/DEFERRED_HUMAN_STEPS.md` H1 still requires live PSP + **one test purchase**. Soft Launch can boot without billing — no live purchase evidence on tip. |
-| 7 | DR / backup / restore | **EXTERNAL** | Scripts + runbook present (`scripts/backup_postgres.py`, `restore_postgres.py`, `docs/ops/BACKUP_RESTORE.md`); drill API records exist in code. Doc itself: **“Live restore drill evidence in buyer cloud remains EXTERNAL.”** No attached restore artifact for tip. |
-| 8 | Branch protection / supply chain | **CONDITIONAL** | Hash-locked installs (`requirements.hashes.txt` + `--require-hashes`), Actions SHA-pinned in `ci.yml` / `security.yml` / `sonarcloud.yml`, SBOM + license inventory gated in Critical CI. Branch protection API **403** — required checks / admin enforcement **unverifiable** from this token. |
-| 9 | Legal / counsel / IP / regulatory | **EXTERNAL** | Engineering IP pack exists (`docs/IP_CLEANLINESS.md`, NOTICE, license inventory CI artifact) claiming no GPL/AGPL in direct stack. **No counsel letter** for IP assignment / dependency opinion / advice-marketing boundaries (`F-EXT-05`, `F-EXT-06`); docs alone ≠ legal clearance. |
-| 10 | Scale / viral capacity | **CONDITIONAL** | Signed HA row exists for soft multi-worker (`docs/LOAD_TEST_RUN_LOG.md` @ `9bae7c4`, `WEB_CONCURRENCY=2`, Soft Launch off) with controlled 429 — honest that **1k–10k / multi-replica is UNPROVEN**. PR #65 viral surge certification tip `770f150` is **not** ancestor of main (`e00971a`). |
-| 11 | SSO / RBAC / enterprise claims vs code | **FAIL** | `enterprise_sso.py` advertises `product_complete: True`, `scim_ready: True`, SAML via stub `BD_SAML_AUTHN_*`, and treats empty/`demo_sso_ok` code as demo with `ENTERPRISE_SSO_DEMO` defaulting **true**. Org RBAC roles exist (`org_tenant.ROLES`) but IdP path is demo-grade — enterprise claim language on main is not buyer-defensible. |
-| 12 | Test suite honesty | **CONDITIONAL** | Critical Gate is explicitly **not** the full tree and is green on tip; fee coverage gate ≥85% is real. Sonar `coverage.xml` is a **curated** broad-green list with `--cov-fail-under=0` (import theater risk if misread as full coverage). CI footer still warns of ~20 non-gate failures (may be stale vs RC2 “628 passed” claim — either way, tip does not prove full-suite green on main CI). Skips are minimal (`skipif` Postgres / optional pool). |
-| 13 | Open stale security PRs (#40,#41,#50,#51,#54,#65) | **FAIL** | Six named PRs still open: #40/#41/#65 **DRAFT+CONFLICTING**; #50 Bandit LOW=0 **CONFLICTING** (100 files); #51 Ruff MERGEABLE; #54 softlaunch taint MERGEABLE but largely superseded on main (in-process bootstrap already present; founder email default remains). Unmerged/conflicting security closure work is a governance red flag, not closed risk. |
-| 14 | Commercial launch readiness | **FAIL** | RC2 cert on merged lineage still says **LAUNCH: NOT READY**; Soft Launch is the operational escape hatch; PSP test purchase EXTERNAL; ownership schedule blank; Sonar main QG FAIL. Pricing tables exist on paper ($29/$49 + institutional inquiry) — that is SKU design, not launch proof. |
+**Committee recommendation:** **PROCEED WITH CONDITIONS** as a *software asset*, not a certified operated franchise. Do not pitch Soft Launch SQLite / demo SSO as institutional production.
 
 ---
 
-## TOP 10 HARD BLOCKERS (acquisition committee)
+## Live tip gates (`e00971a`)
 
-These block an unconditional close / READY claim. They are not nitpicks.
+| Gate | Result |
+|------|--------|
+| CI Critical Gate | **PASS** |
+| Security Scan (pip-audit + pytest-security) | **PASS** |
+| CodeQL Analyze (python / js / actions) | **PASS** |
+| Full local pytest | **647 passed / 0 failed / 1 skipped** |
+| SonarCloud CI Scanner on main | **FAIL** (QG) |
+| Sonar main Quality Gate | **ERROR** — only `new_coverage` 33.8% &lt; 80% |
+| New Code period | `previous_version` start **2026-08-08** (~10,765 new lines to cover) |
+| Sonar `projectVersion` on tip analysis | **2026.08.12** (VERSION event registered by #69) |
+| Bugs / Vulnerabilities / Hotspots (Sonar) | **0 / 0 / 0** |
+| Overall coverage (Sonar) | **31.0%** (honest; not gamed) |
+| Branch protection API | **403 — unverifiable** |
+| Code Scanning open-alert export | **403 — unverifiable** |
 
-1. **SonarCloud main Quality Gate FAILED** on certified tip `e00971a` (run `31604386000`) — institutional static-analysis gate red after deliberate baseline PR #69.
-2. **No counsel IP / license opinion** — KG-08 remains EXTERNAL; engineering `IP_CLEANLINESS.md` is not a legal opinion or assignment package.
-3. **No live PSP configuration + test purchase evidence** (or signed Soft-Launch-only non-sale disclosure) — monetization path unproven (`F-EXT-01` / H1).
-4. **Code Scanning open Critical/High/Medium counts unverifiable** (API 403) — Analyze job green ≠ open-alert inventory cleared (`F-EXT-02`).
-5. **Account / secrets control plane empty** — `docs/ops/ACCOUNT_OWNERSHIP_SCHEDULE.md` has blank rows for GitHub, Sonar, cloud, DNS, PSP, CDN (`F-EXT-07`). Buyer cannot operate or transfer.
-6. **Enterprise SSO honesty failure on main** — `product_complete` / `scim_ready` True with demo-default callback and stub SAML; institutional enterprise claim is false-complete.
-7. **Branch protection unverifiable** — cannot confirm required checks / review rules actually enforce Critical+Security+CodeQL+Sonar (`F-EXT-04`).
-8. **No live Postgres backup/restore drill artifact** — scripts/docs only; RPO/RTO declared, not proven (`F-EXT-03`).
-9. **Open conflicting security closure PRs** (#50 Bandit LOW, #41 catastrophe P0, #65 integrity/viral, #40 quality honesty) — unfinished or superseded security work still hanging; diligence signal of incomplete closure discipline.
-10. **Commercial / strict-production launch path not closed** — Soft Launch bypasses billing/Postgres; RC2/own certs say NOT READY; no production CSP attestation signed for target URL.
+**Note on #69:** Version cut registered correctly, but New Code window did **not** collapse on the first analysis of `2026.08.12` (period still 2026-08-08). Under Previous version, a **second intentional version increment** after this baseline analysis is the legitimate next step — not Number of days gaming.
 
----
-
-## TOP 10 CONDITIONAL / EXTERNAL items
-
-1. **Pentest / WAF / CDN evidence** absent or deferred (`F-EXT-09`, `CDN_WAF_CHECKLIST.md`).
-2. **Regulatory counsel memo** on advice/marketing / financial-adjacent positioning (`F-EXT-06`).
-3. **CSP production attestation** form fill for live URL (`F-SEC-01`).
-4. **Bandit LOW backlog (~111)** — H/M clean; LOW triage incomplete; PR #50 not mergeable onto tip.
-5. **style-src 'unsafe-inline'** residual (accepted risk if HTML injection absent).
-6. **Capacity beyond signed 2-worker HA** — 1k–10k / multi-replica / global UNPROVEN; PR #65 surge pack not on main.
-7. **Founder 60s walkthrough / Glass Box operator ritual** deferred human steps.
-8. **Dual oracle paths** (`oracle_unified` vs `ai_oracle`) — documented debt, post-close integration friction.
-9. **Dashboard monolith / observability depth** — post-close maintainability (RC2 `F-CQ-01`, `F-OPS-02`).
-10. **Sonar New Code admin confirmation** that Previous-version baseline is actually active in SonarCloud UI (repo set `projectVersion`; QG still failing — admin/settings EXTERNAL).
+Automatic Analysis: **must remain DISABLED**.
 
 ---
 
-## What is actually strong and defensible
+## Domain scorecard (14)
 
-- **Fail-closed fee / withdrawal / net-edge economics** with independent RC2 tests in the merge-critical path — this is real product integrity, not slideware.
-- **Security engineering baseline:** CSP nonce default, Fernet session sealing, admin MFA hook, production guard fail-closed OR across ENV tokens, hash-locked deps, SHA-pinned Actions, SBOM+license inventory CI gates.
-- **Honest certification culture in current DD docs:** RC2 and two-track certs say **NOT READY / NOT COMPLETE / PROCEED WITH CONDITIONS** rather than fabricating READY (older marketing docs exist elsewhere — discount them).
-- **Critical CI + Security Scan + CodeQL Analyze green on tip** — reproducible engineering signal.
-- **Hosted-checkout PCI boundary** (no PAN storage) is correctly designed for SAQ A *if* live PSP is configured.
-- **Postgres migration integrity tests** and Soft Launch vs strict Postgres honesty in `production_guard`.
-- **Measured (limited) HA rehearsal** documented with explicit non-claims on viral 1k–10k.
-
----
-
-## Tip CI snapshot (`e00971a`)
-
-| Check | Result | Run |
-|------|--------|-----|
-| CI Critical Gate Suite | SUCCESS | `31604385904` |
-| Security Scan | SUCCESS | `31604385899` |
-| CodeQL (Analyze python/js/actions) | SUCCESS | `31604385834` |
-| SonarCloud Analysis | **FAILURE (QG)** | `31604386000` |
+| # | Domain | Score | One-line evidence |
+|---|--------|-------|-------------------|
+| 1 | Financial truth / fail-closed | **PASS** | Fee/withdrawal/net-edge fail-closed; RC2 financial tests in Critical CI |
+| 2 | Auth / session / secrets / prod guard | **CONDITIONAL** | Fernet/CSRF/vault/TOTP solid; Soft Launch bypasses Postgres/billing |
+| 3 | XSS / CSP / DOM | **CONDITIONAL** | Nonce CSP + XSS suites; residual `style-src 'unsafe-inline'` |
+| 4 | CodeQL / Bandit / scanners | **CONDITIONAL** | Tip Analyze + Security green; Bandit H/M=0; open-alert UI EXTERNAL |
+| 5 | Sonar main QG | **FAIL** | Tip QG FAILED on `new_coverage` 33.8% |
+| 6 | Live PSP / payments | **EXTERNAL** | Hosted checkout design OK; live purchase evidence missing |
+| 7 | DR / restore drill | **EXTERNAL** | Scripts/runbooks present; live drill artifact missing |
+| 8 | Branch protection / supply chain | **CONDITIONAL** | Hash-locked deps + SHA-pinned Actions; protection unverifiable |
+| 9 | Counsel IP / regulatory | **EXTERNAL** | Eng packs exist; no counsel opinion (KG-08) |
+| 10 | Scale / viral | **CONDITIONAL** | Limited signed HA; 1k–10k UNPROVEN; surge PR not on main |
+| 11 | Enterprise SSO / SCIM claims | **FAIL** | `product_complete`/`scim_ready` True with `demo_sso_ok` / `ENTERPRISE_SSO_DEMO` default true |
+| 12 | Test honesty | **CONDITIONAL** | Critical Gate green & scoped honestly; Sonar suite curated; overall cov ~31% |
+| 13 | Stale open security PRs | **FAIL** | #40/#41/#50/#51/#54/#65 still open; several CONFLICTING |
+| 14 | Commercial launch | **FAIL** | Soft Launch escape + PSP/ownership/Sonar blockers; not paid-prod launch |
 
 ---
 
-## Stale PR register (as of audit)
+## Kill-style blockers (acquisition / launch)
 
-| PR | Title | State | Mergeability | DD read |
-|----|-------|-------|--------------|---------|
-| #40 | Quality Honesty Soft Launch | DRAFT | CONFLICTING | Unfinished honesty packaging vs main |
-| #41 | Security catastrophe P0 | DRAFT | CONFLICTING | Claims operator gates / MFA wiring; conflicts with tip — verify delta before discard |
-| #50 | Bandit full closure LOW=0 | OPEN | CONFLICTING | Large divergent security rewrite; tip still LOW≈111 |
-| #51 | Ruff report closure | OPEN | MERGEABLE | Style hygiene; not a kill gate |
-| #54 | Sonar High softlaunch shell taint | OPEN | MERGEABLE | Core taint fix largely on main already; residual founder email default |
-| #65 | Final integrity + viral capacity | DRAFT | CONFLICTING | Contains SSO honesty + surge evidence **not** on main |
-
----
-
-## Final acquisition language (allowed)
-
-| Claim | Allowed? |
-|-------|----------|
-| READY / CERTIFIED COMPLETE / acquisition-ready turnkey | **NO** |
-| PROCEED WITH CONDITIONS (software asset) | **YES** — with blockers above as conditions precedent |
-| Financial fail-closed core is institutional-grade engineering | **YES** — with test evidence |
-| Live operated SaaS / enterprise SSO / viral 10k / Sonar main QG | **NO** on tip evidence |
+1. Sonar **main** Quality Gate red on certified tip  
+2. No counsel IP/license opinion  
+3. No live PSP test purchase (or signed Soft-Launch non-sale disclosure)  
+4. Code Scanning open C/H/M counts unknown  
+5. Cloud/DNS/vendor ownership schedule incomplete  
+6. Enterprise SSO advertised complete while demo path defaults on  
+7. Branch protection unverifiable  
+8. No live backup/restore drill artifact  
+9. Open conflicting security/integrity PRs (#40/#41/#50/#65)  
+10. Strict commercial launch path not closed (`SOFT_LAUNCH` can waive Postgres/billing)
 
 ---
 
-*Audit bound to tip `e00971a`. Inaccessible systems (Code Scanning UI counts, branch protection, Sonar admin UI, live PSP, counsel) marked EXTERNAL — never PASS.*
+## What is defensible today
+
+- Fail-closed financial economics with regression gates  
+- Auth/session hardening, production-guard fail-closed (strict path)  
+- CSP nonce default + XSS regression coverage  
+- Hash-locked installs, pinned Actions, SBOM/license tooling  
+- Bandit HIGH/MEDIUM = 0; Critical + Security + CodeQL Analyze green on tip  
+- Sonar bugs/vulns/hotspots = 0; reliability/security/maintainability New Code ratings OK  
+- DD documentation historically honest about EXTERNAL gaps (do not override with READY claims)
+
+---
+
+## Forbidden claims
+
+- READY / CERTIFIED COMPLETE / turnkey operated acquisition  
+- Enterprise SSO / SCIM production-complete  
+- Viral 1k–10k proven  
+- Sonar main Quality Gate PASS  
+- Soft Launch = institutional production  
+
+---
+
+## Required next actions (ordered)
+
+### Repository (engineering)
+
+1. Post-baseline Sonar version increment (after `2026.08.12` analysis exists) so Previous version New Code starts at that baseline — then prove **main** QG PASS.  
+2. Remove or hard-gate false-complete SSO flags (`product_complete` / `scim_ready` / demo default) until real IdP path is proven.  
+3. Close or explicitly supersede stale conflicting PRs (#40/#41/#50/#51/#54/#65) with main truth.  
+4. Keep expanding meaningful coverage for production New Code — without narrowing coverage exclusions to fake %.
+
+### Owner / admin / counsel (non-repo)
+
+1. Sonar UI: keep **Previous version** (do not switch to Number of days).  
+2. Export branch protection + required checks.  
+3. Code Scanning UI: open Critical/High/Medium = 0 screenshot on tip SHA.  
+4. Live PSP test purchase evidence.  
+5. Live restore drill artifact.  
+6. Counsel IP + regulatory memos.  
+7. Account ownership schedule filled.  
+8. Pentest/WAF or buyer waiver.
+
+---
+
+## Final institutional stamp
+
+```
+INSTITUTIONAL ACQUISITION READINESS: NOT READY
+COMMERCIAL LAUNCH READINESS: NOT READY
+SOFTWARE ASSET DD POSTURE: PROCEED WITH CONDITIONS
+CONFIDENCE IN ENGINEERING GATES (Critical/Security/CodeQL tip): HIGH
+CONFIDENCE IN OPERATED / LEGAL / LIVE EVIDENCE: LOW
+OVERALL COMMITTEE SCORE (indicative): ~65–70% — MEDIUM
+FINAL VERDICT: NOT COMPLETE
+```
