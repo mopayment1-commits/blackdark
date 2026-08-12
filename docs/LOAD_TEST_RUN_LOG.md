@@ -51,6 +51,23 @@ python scripts/load_test_1m_simulation.py
 
 ## Recorded runs
 
+### 2026-08-12T00:07:00Z — Soft Launch tip concurrent burst @ `73818e2` (NOT signed HA)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-12T00:07:00Z |
+| Commit | `73818e24635d2b6be8483127dcb2d37e0aadef6c` |
+| Environment | local Soft Launch / single uvicorn worker |
+| Workers / replicas | 1 × 1 |
+| Postgres | yes |
+| Redis | yes |
+| Script | `load_test_concurrent.py --workers 40 --requests 80` |
+| Results | live p50/p95=51.8/57.6ms ok=1.0 · ready 46.6/55.1 · trust_os 69.1/76.9 · oracle_quick 446/1448 ok=0.75 · controlled 429 elsewhere |
+| Error rate | hard errors=0 |
+| Notes | **NEEDS_EXTERNAL_VERIFICATION for DEC-0407** |
+| Operator | cloud-agent |
+
+
 ### 2026-08-11T23:48:40Z — Soft Launch tip concurrent burst @ `31a492e` (NOT signed HA)
 
 | Field | Value |

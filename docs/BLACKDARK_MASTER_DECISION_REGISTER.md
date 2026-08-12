@@ -1,9 +1,9 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `39704c2337f2f2eeb8e63d1046216c516fc82660`  
+**Canonical HEAD audited:** `73818e24635d2b6be8483127dcb2d37e0aadef6c`  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Audit date:** 2026-08-11  
-**Sonar PR analysis:** run `31547884573` @ `2026-08-11T23:50:11+0000` on tip SHA (QG OK, new_coverage 87.9%)  
+**Audit date:** 2026-08-12  
+**Sonar PR analysis:** run `31549303247` @ `2026-08-12T00:12:59+0000` on tip SHA (QG OK, new_coverage 87.1%)  
 
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
 

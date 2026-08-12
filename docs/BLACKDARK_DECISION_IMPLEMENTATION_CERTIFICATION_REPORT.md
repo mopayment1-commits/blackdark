@@ -1,7 +1,7 @@
 # BLACKDARK DECISION IMPLEMENTATION CERTIFICATION REPORT
 
 **Audit type:** Complete decision-to-implementation traceability  
-**Canonical HEAD:** `39704c2337f2f2eeb8e63d1046216c516fc82660`  
+**Canonical HEAD:** `73818e24635d2b6be8483127dcb2d37e0aadef6c`  
 
 **Branch:** `cursor/institutional-hardening-120d`  
 **Date:** 2026-08-11  
