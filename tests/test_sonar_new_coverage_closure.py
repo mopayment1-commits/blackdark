@@ -537,7 +537,7 @@ async def test_middleware_mints_single_csp_nonce(monkeypatch):
 
     from security_middleware import SecurityHeadersMiddleware, security_headers_for
 
-    monkeypatch.setenv("CSP_NONCE_MODE", "true")
+    monkeypatch.delenv("CSP_NONCE_MODE", raising=False)  # default-on
     monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
 
     scope = {
@@ -566,7 +566,6 @@ async def test_middleware_mints_single_csp_nonce(monkeypatch):
 
     mw = SecurityHeadersMiddleware(app=MagicMock())
     monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
-    monkeypatch.setenv("CSP_NONCE_MODE", "true")
 
     async def _next(request):
         assert getattr(request.state, "csp_nonce", None)
@@ -574,6 +573,65 @@ async def test_middleware_mints_single_csp_nonce(monkeypatch):
 
     resp = await mw.dispatch(Request(scope), _next)
     assert resp.status_code == 200
+
+
+def test_csp_html_nonce_injection_and_binder():
+    from security_middleware import _csp_nonce_mode_enabled, _inject_html_csp_nonce
+
+    assert _csp_nonce_mode_enabled() is True
+    html = "<html><body><script src='/static/js/dom_escape.js'></script><script>1</script></body></html>"
+    out = _inject_html_csp_nonce(html, "abc123nonce")
+    assert 'nonce="abc123nonce"' in out
+    assert out.count('nonce="abc123nonce"') >= 2
+    assert "/static/js/csp_events.js" in out
+    # Idempotent nonce attribute
+    again = _inject_html_csp_nonce(out, "abc123nonce")
+    assert again.count('nonce="abc123nonce"') >= 2
+
+
+@pytest.mark.asyncio
+async def test_middleware_rewrites_html_with_nonce(monkeypatch):
+    from starlette.requests import Request
+    from starlette.responses import HTMLResponse
+
+    from security_middleware import SecurityHeadersMiddleware
+
+    monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
+    monkeypatch.delenv("CSP_NONCE_MODE", raising=False)
+    scope = {
+        "type": "http",
+        "asgi": {"version": "3.0"},
+        "http_version": "1.1",
+        "method": "GET",
+        "scheme": "http",
+        "path": "/",
+        "raw_path": b"/",
+        "query_string": b"",
+        "headers": [],
+        "client": ("127.0.0.1", 123),
+        "server": ("test", 80),
+    }
+    mw = SecurityHeadersMiddleware(app=MagicMock())
+
+    async def _next(request):
+        return HTMLResponse("<html><body><script>window.x=1</script></body></html>")
+
+    resp = await mw.dispatch(Request(scope), _next)
+    body = resp.body.decode("utf-8")
+    assert "csp_events.js" in body
+    assert "nonce-" in resp.headers.get("content-security-policy", "")
+    assert "nonce=" in body
+
+
+def test_login_rate_limit_backend_probes_redis(monkeypatch):
+    import security_auth as sa
+
+    monkeypatch.setattr(sa, "_rate_limit_backend", "memory")
+    monkeypatch.setattr(sa, "_redis_client_sync", lambda: object())
+    assert sa.login_rate_limit_backend() == "redis"
+    monkeypatch.setattr(sa, "_rate_limit_backend", "memory")
+    monkeypatch.setattr(sa, "_redis_client_sync", lambda: None)
+    assert sa.login_rate_limit_backend() == "memory"
 
 
 # ---------------------------------------------------------------------------
