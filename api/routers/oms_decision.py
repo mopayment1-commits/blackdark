@@ -467,3 +467,13 @@ async def institutional_store_api(
     from institutional_store import store_status
 
     return store_status()
+
+
+@router.post("/ingestion/prove")
+async def institutional_ingestion_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    symbol: str = "BTC/USDT",
+) -> dict[str, Any]:
+    from institutional_ingestion_proof import prove_durable_ingestion
+
+    return await prove_durable_ingestion(symbol=symbol)

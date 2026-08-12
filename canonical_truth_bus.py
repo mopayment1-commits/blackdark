@@ -3,23 +3,23 @@
 LIVE DATA → CANONICAL → consumers (Risk / Decision / Whale / Execution / Terminal)
 
 Production consumers must call `require_live_books` / `require_canonical_quote`.
-Synthetic books are forbidden on production execution paths.
+Synthetic / fabricated L2 sizes are forbidden on production execution paths.
 """
 
 from __future__ import annotations
 
 import asyncio
 import threading
-import time
 from datetime import UTC, datetime
 from typing import Any
 
-from canonical_adoption import adopt_order_books, adopt_tick_quote, adoption_audit
+from canonical_adoption import adopt_order_books, adoption_audit
 from canonical_data_layer import EntityType, FreshnessClass, get_datum, reset_store_for_tests
 
 _LOCK = threading.RLock()
 _LAST_REFRESH: dict[str, Any] = {"at": None, "venues": [], "ok": False}
 _BOOKS: dict[str, dict[str, dict[str, Any]]] = {}
+_FUNDING: dict[str, dict[str, dict[str, Any]]] = {}
 
 
 def _run(coro: Any) -> Any:
@@ -29,69 +29,150 @@ def _run(coro: Any) -> Any:
             import concurrent.futures
 
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
-                return pool.submit(asyncio.run, coro).result(timeout=30)
+                return pool.submit(asyncio.run, coro).result(timeout=45)
         return loop.run_until_complete(coro)
     except RuntimeError:
         return asyncio.run(coro)
 
 
+def _book_from_probe(probe: dict[str, Any], *, symbol: str) -> dict[str, Any] | None:
+    if not (probe.get("ok") and probe.get("live")):
+        return None
+    bids = probe.get("bids") or []
+    asks = probe.get("asks") or []
+    if not bids or not asks:
+        return None
+    if probe.get("fabricated_depth"):
+        return None
+    if probe.get("depth_source") not in {"venue_l2", "venue_tob"}:
+        return None
+    # Institutional consumers require multi-level L2 when available; TOB alone is marked.
+    return {
+        "bids": [[float(p), float(q)] for p, q in bids],
+        "asks": [[float(p), float(q)] for p, q in asks],
+        "venue": probe["venue"],
+        "symbol": symbol,
+        "depth_source": probe.get("depth_source"),
+        "fabricated_depth": False,
+        "source": probe.get("source"),
+    }
+
+
+async def _fetch_okx_perp_and_funding(symbol: str) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    """Pull venue perpetual book + funding via aggregator (real sizes / rates)."""
+    try:
+        import aiohttp
+
+        from aggregator import _fetch_okx_funding, _fetch_okx_market
+    except Exception:
+        return None, None
+
+    timeout = aiohttp.ClientTimeout(total=12)
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            _ticker, book = await _fetch_okx_market(session, symbol, "perpetual")
+            funding = await _fetch_okx_funding(session, symbol)
+    except Exception:
+        return None, None
+
+    perp = None
+    if book and book.bids and book.asks:
+        perp = {
+            "bids": [[float(p), float(q)] for p, q in book.bids],
+            "asks": [[float(p), float(q)] for p, q in book.asks],
+            "venue": "okx",
+            "symbol": f"{symbol}@perpetual",
+            "market_type": "perpetual",
+            "depth_source": "venue_l2",
+            "fabricated_depth": False,
+            "source": "okx_public_perp_books",
+        }
+    fund = None
+    if funding is not None:
+        fund = {
+            "funding_rate": float(funding.funding_rate),
+            "next_funding_time": funding.next_funding_time,
+            "venue": "okx",
+            "symbol": symbol,
+            "source": "okx_public_funding",
+            "timestamp": datetime.now(UTC).isoformat(),
+            "synthetic": False,
+        }
+    return perp, fund
+
+
 async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
-    """Pull public live venues into canonical + in-memory books for consumers."""
-    from live_data_truth_probe import prove_multi_venue_live, probe_okx_book, probe_kraken_ticker
+    """Pull public live venue L2 (+ OKX perp/funding) into canonical + in-memory books."""
+    from live_data_truth_probe import (
+        prove_multi_venue_live,
+        probe_kraken_depth,
+        probe_okx_book,
+    )
 
     proof = await prove_multi_venue_live()
     books: dict[str, dict[str, dict[str, Any]]] = {}
     quotes: list[dict[str, Any]] = []
+    funding: dict[str, dict[str, dict[str, Any]]] = {}
+    depth_meta: dict[str, Any] = {"fabricated_rejected": True, "venues_l2": []}
 
-    okx = await probe_okx_book("BTC-USDT")
-    if okx.get("ok") and okx.get("live"):
-        bid, ask = float(okx["bid"]), float(okx["ask"])
-        qty_b = float((okx.get("depth_levels") or {}).get("bids") or 5)
-        # Reconstruct a shallow book around live top-of-book for walk math
-        book = {
-            "bids": [[bid * (1 - 0.0001 * i), 2.0 + i] for i in range(0, 8)],
-            "asks": [[ask * (1 + 0.0001 * i), 2.0 + i] for i in range(0, 8)],
-            "venue": "okx",
-            "symbol": symbol,
-        }
-        books.setdefault("okx", {})[symbol] = book
+    okx = await probe_okx_book("BTC-USDT", depth=20)
+    okx_book = _book_from_probe(okx, symbol=symbol)
+    if okx_book:
+        books.setdefault("okx", {})[symbol] = okx_book
         quotes.append(okx)
+        if okx_book.get("depth_source") == "venue_l2":
+            depth_meta["venues_l2"].append("okx")
 
-    kr = await probe_kraken_ticker("XBTUSDT")
-    if kr.get("ok") and kr.get("live"):
-        bid, ask = float(kr["bid"]), float(kr["ask"])
-        book = {
-            "bids": [[bid * (1 - 0.0001 * i), 1.5 + i] for i in range(0, 8)],
-            "asks": [[ask * (1 + 0.0001 * i), 1.5 + i] for i in range(0, 8)],
-            "venue": "kraken",
-            "symbol": symbol,
-        }
-        books.setdefault("kraken", {})[symbol] = book
+    kr = await probe_kraken_depth("XBTUSDT", depth=25)
+    kr_book = _book_from_probe(kr, symbol=symbol)
+    if kr_book:
+        books.setdefault("kraken", {})[symbol] = kr_book
         quotes.append(kr)
+        if kr_book.get("depth_source") == "venue_l2":
+            depth_meta["venues_l2"].append("kraken")
 
-    adopted = {}
+    perp, fund = await _fetch_okx_perp_and_funding(symbol)
+    if perp:
+        books.setdefault("okx", {})[f"{symbol}@perpetual"] = perp
+        depth_meta["okx_perp"] = True
+    if fund:
+        funding.setdefault("okx", {})[symbol] = fund
+        depth_meta["okx_funding"] = True
+
+    adopted: dict[str, Any] = {}
     if books:
         adopted = adopt_order_books(books, source="canonical_truth_bus", path="streaming")
 
+    l2_ok = len(depth_meta["venues_l2"]) >= 1
     with _LOCK:
         _BOOKS.clear()
         _BOOKS.update(adopted or books)
+        _FUNDING.clear()
+        _FUNDING.update(funding)
         _LAST_REFRESH.update(
             {
                 "at": datetime.now(UTC).isoformat(),
                 "venues": sorted(_BOOKS.keys()),
-                "ok": bool(_BOOKS) and bool(proof.get("ok") or quotes),
+                "ok": bool(_BOOKS) and l2_ok and bool(proof.get("ok") or quotes),
                 "proof": proof,
                 "quote_count": len(quotes),
                 "live_count": sum(1 for q in quotes if q.get("live")),
+                "l2_venues": sorted(set(depth_meta["venues_l2"])),
+                "fabricated_depth": False,
+                "perp_present": bool(perp),
+                "funding_present": bool(fund),
+                "depth_meta": depth_meta,
             }
         )
     return {
         "ok": _LAST_REFRESH["ok"],
         "venues": list(_LAST_REFRESH["venues"]),
+        "l2_venues": list(_LAST_REFRESH.get("l2_venues") or []),
         "books": {v: list(syms.keys()) for v, syms in _BOOKS.items()},
+        "funding_venues": sorted(funding.keys()),
         "proof": proof,
         "canonical_adoption": adoption_audit(),
+        "fabricated_depth": False,
         "refreshed_at": _LAST_REFRESH["at"],
     }
 
@@ -113,11 +194,26 @@ def get_live_books(*, require_live: bool = True, symbol: str = "BTC/USDT") -> di
         raise ValueError("live_books_unavailable_fail_closed")
     if require_live and not meta.get("ok"):
         raise ValueError("live_truth_stale_or_unavailable")
+    if require_live and meta.get("fabricated_depth"):
+        raise ValueError("fabricated_depth_forbidden")
     return books
 
 
+def get_live_funding(*, require_live: bool = True, symbol: str = "BTC/USDT") -> dict[str, dict[str, dict[str, Any]]]:
+    with _LOCK:
+        empty_books = not _BOOKS
+        funding = {v: dict(syms) for v, syms in _FUNDING.items()}
+    if empty_books or not funding:
+        refresh_live_truth_sync(symbol=symbol)
+        with _LOCK:
+            funding = {v: dict(syms) for v, syms in _FUNDING.items()}
+    if require_live and not funding:
+        raise ValueError("live_funding_unavailable_fail_closed")
+    return funding
+
+
 def require_canonical_quote(*, venue: str, symbol: str) -> dict[str, Any]:
-    from canonical_adoption import adopt_venue, adopt_symbol
+    from canonical_adoption import adopt_symbol, adopt_venue
 
     v = adopt_venue(venue)
     s = adopt_symbol(symbol)
@@ -134,16 +230,27 @@ def production_books_or_raise(symbol: str = "BTC/USDT") -> dict[str, dict[str, d
     return get_live_books(require_live=True, symbol=symbol)
 
 
+def book_notional_depth_usd(book: dict[str, Any], *, side: str = "bid", levels: int = 10) -> float:
+    key = "bids" if side in {"bid", "bids", "buy"} else "asks"
+    total = 0.0
+    for p, q in (book.get(key) or [])[:levels]:
+        total += float(p) * float(q)
+    return total
+
+
 def bus_status() -> dict[str, Any]:
     with _LOCK:
         meta = dict(_LAST_REFRESH)
         venues = list(_BOOKS.keys())
+        funding_venues = list(_FUNDING.keys())
     return {
         "surface": "canonical_truth_bus",
         "last_refresh": meta,
         "venues_cached": venues,
+        "funding_venues": funding_venues,
         "bypass_forbidden": True,
         "synthetic_forbidden_on_production": True,
+        "fabricated_depth_forbidden": True,
         "pipeline": "LIVE→CANONICAL→RISK→DECISION→EXECUTION→UI/API",
         "verified_complete": False,
         "implementation_class": "PARTIAL",
@@ -154,5 +261,6 @@ def bus_status() -> dict[str, Any]:
 def reset_bus_for_tests() -> None:
     with _LOCK:
         _BOOKS.clear()
-        _LAST_REFRESH.update({"at": None, "venues": [], "ok": False})
+        _FUNDING.clear()
+        _LAST_REFRESH.update({"at": None, "venues": [], "ok": False, "fabricated_depth": False})
     reset_store_for_tests()

@@ -7,13 +7,13 @@ from typing import Any
 
 
 def _derivatives_pack(symbol: str) -> dict[str, Any]:
-    """Spot-futures / funding pack via Canonical Truth Bus (no hard-coded synthetic books).
+    """Spot-futures / funding pack via Canonical Truth Bus venue L2 + venue funding.
 
-    Spot books are LIVE from the bus. Perpetual legs are derived from live spot for
-    premium math only and are labeled `derived_perp_from_live_spot` — not venue futures.
+    Requires venue perpetual books and venue funding rates. Does not derive perp from spot
+    and does not inject constant funding rates.
     """
     from arbitrage_engine import calculate_funding_arbitrage, calculate_spot_futures_premium
-    from canonical_truth_bus import get_live_books
+    from canonical_truth_bus import get_live_books, get_live_funding
 
     try:
         live_books = get_live_books(require_live=True, symbol=symbol)
@@ -30,45 +30,76 @@ def _derivatives_pack(symbol: str) -> dict[str, Any]:
         }
 
     books: dict[str, dict[str, dict[str, Any]]] = {}
+    perp_venues: list[str] = []
     for venue, symbols in live_books.items():
         spot = symbols.get(symbol)
-        if not spot:
+        perp = symbols.get(f"{symbol}@perpetual")
+        if not spot or not perp:
             continue
-        bids = list(spot.get("bids") or [])
-        asks = list(spot.get("asks") or [])
-        if not bids or not asks:
+        if spot.get("fabricated_depth") or perp.get("fabricated_depth"):
             continue
-        # Derived perpetual book: small premium over live spot (not a venue futures feed).
-        perp_bids = [[float(p) * 1.0002, float(q)] for p, q in bids[:8]]
-        perp_asks = [[float(p) * 1.0002, float(q)] for p, q in asks[:8]]
+        if perp.get("depth_source") != "venue_l2":
+            continue
         books[venue] = {
             symbol: {**spot, "venue": venue, "symbol": symbol},
-            f"{symbol}@perpetual": {
-                "bids": perp_bids,
-                "asks": perp_asks,
-                "venue": venue,
-                "symbol": f"{symbol}@perpetual",
-                "derived_from": "live_spot",
-            },
+            f"{symbol}@perpetual": {**perp, "venue": venue, "symbol": f"{symbol}@perpetual"},
         }
+        perp_venues.append(venue)
 
     if not books:
         return {
             "ok": False,
             "source": "canonical_truth_bus",
             "symbol": symbol,
-            "reason": "no_live_spot_books",
+            "reason": "venue_perpetual_books_unavailable",
             "book_source": "unavailable",
             "live_anchored": False,
             "computed": False,
             "synthetic_forbidden": True,
+            "perp_leg": "required_venue_futures",
         }
 
-    live_source = "canonical_truth_bus_live_spot+derived_perp"
-    funding_rates = {
-        venue: {symbol: {"funding_rate": 0.0001 if venue == "okx" else -0.00005, "timestamp": datetime.now(UTC).isoformat()}}
-        for venue in books
-    }
+    try:
+        funding_raw = get_live_funding(require_live=True, symbol=symbol)
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "source": "canonical_truth_bus",
+            "symbol": symbol,
+            "reason": f"live_funding_unavailable:{type(exc).__name__}",
+            "book_source": "venue_l2_spot_perp",
+            "live_anchored": True,
+            "computed": False,
+            "synthetic_forbidden": True,
+            "perp_venues": perp_venues,
+        }
+
+    funding_rates: dict[str, dict[str, dict[str, Any]]] = {}
+    for venue, syms in funding_raw.items():
+        row = syms.get(symbol)
+        if not row or row.get("synthetic"):
+            continue
+        funding_rates[venue] = {
+            symbol: {
+                "funding_rate": float(row["funding_rate"]),
+                "timestamp": row.get("timestamp") or datetime.now(UTC).isoformat(),
+                "next_funding_time": row.get("next_funding_time"),
+                "source": row.get("source"),
+            }
+        }
+    if not funding_rates:
+        return {
+            "ok": False,
+            "source": "canonical_truth_bus",
+            "symbol": symbol,
+            "reason": "venue_funding_unavailable",
+            "book_source": "venue_l2_spot_perp",
+            "live_anchored": True,
+            "computed": False,
+            "synthetic_forbidden": True,
+        }
+
+    live_source = "canonical_truth_bus_venue_l2_spot_perp_funding"
     spot_futures: Any = []
     funding: Any = []
     try:
@@ -97,8 +128,11 @@ def _derivatives_pack(symbol: str) -> dict[str, Any]:
         "computed": True,
         "book_source": live_source,
         "live_anchored": True,
-        "perp_leg": "derived_from_live_spot_not_venue_futures",
+        "perp_leg": "venue_futures",
+        "funding_source": "venue_funding",
+        "perp_venues": perp_venues,
         "synthetic_hardcoded_books": False,
+        "fabricated_depth": False,
     }
 
 

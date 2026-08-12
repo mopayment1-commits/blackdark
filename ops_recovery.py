@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import shutil
 import tempfile
 from datetime import UTC, datetime
@@ -20,7 +19,6 @@ def prove_sqlite_backup_restore() -> dict[str, Any]:
     """Copy SQLite DB to temp, reopen, verify institutional table readable."""
     db_path = Path(config.DB_PATH)
     if not db_path.exists():
-        # Ensure schema exists
         from institutional_store import ensure_ready
 
         ensure_ready()
@@ -51,6 +49,71 @@ def prove_sqlite_backup_restore() -> dict[str, Any]:
             conn.close()
 
 
+async def prove_db_authority_tables() -> dict[str, Any]:
+    """Verify institutional tables exist on the active engine (SQLite or Postgres)."""
+    from institutional_store import ensure_ready
+    from postgres_backend import use_postgres
+
+    ensure_ready()
+    engine = "postgres" if use_postgres() else "sqlite"
+    required = {
+        "inst_oms_orders",
+        "inst_decision_nodes",
+        "inst_memory",
+        "inst_alerts",
+        "inst_portfolio_positions",
+        "inst_audit_events",
+    }
+    from database import get_connection
+
+    async with get_connection() as db:
+        if use_postgres():
+            cur = await db.execute(
+                """
+                SELECT table_name FROM information_schema.tables
+                WHERE table_schema = 'public' AND table_name LIKE 'inst_%'
+                """
+            )
+            rows = await cur.fetchall()
+            tables = sorted(str(r[0] if not isinstance(r, dict) else r.get("table_name")) for r in rows)
+        else:
+            cur = await db.execute(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'inst_%'"
+            )
+            rows = await cur.fetchall()
+            tables = sorted(str(r[0] if not isinstance(r, dict) else list(r.values())[0]) for r in rows)
+    missing = sorted(required - set(tables))
+    return {
+        "ok": not missing,
+        "engine": engine,
+        "authority": engine,
+        "institutional_tables": tables,
+        "missing": missing,
+        "database_url_configured": bool(getattr(config, "DATABASE_URL", "") or ""),
+        "control": "schema_authority",
+        "proved_at": _utcnow(),
+        "note": (
+            "Postgres HA / pg_dump DR is EXTERNAL operational proof. "
+            "This control verifies schema authority on the configured engine."
+        ),
+    }
+
+
+def prove_db_authority_tables_sync() -> dict[str, Any]:
+    import asyncio
+
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            import concurrent.futures
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+                return pool.submit(asyncio.run, prove_db_authority_tables()).result(timeout=30)
+        return loop.run_until_complete(prove_db_authority_tables())
+    except RuntimeError:
+        return asyncio.run(prove_db_authority_tables())
+
+
 def dependency_degrade_matrix() -> dict[str, Any]:
     """Document/prove fail-closed degrade contracts for core deps."""
     return {
@@ -76,15 +139,22 @@ def dependency_degrade_matrix() -> dict[str, Any]:
 def ops_status() -> dict[str, Any]:
     from postgres_backend import use_postgres
 
-    backup = prove_sqlite_backup_restore() if not use_postgres() else {
-        "ok": True,
-        "engine": "postgres",
-        "note": "Use pg_dump/restore runbook; SQLite probe skipped",
-        "control": "backup_restore",
-    }
+    authority = prove_db_authority_tables_sync()
+    if use_postgres():
+        backup = {
+            "ok": bool(authority.get("ok")),
+            "engine": "postgres",
+            "control": "backup_restore",
+            "note": "Schema authority verified. Full pg_dump/restore remains runbook EXTERNAL proof.",
+            "institutional_tables": authority.get("institutional_tables"),
+            "proved_at": _utcnow(),
+        }
+    else:
+        backup = prove_sqlite_backup_restore()
     return {
         "surface": "ops_recovery",
         "backup_restore": backup,
+        "schema_authority": authority,
         "degrade": dependency_degrade_matrix(),
         "verified_complete": False,
         "implementation_class": "PARTIAL",

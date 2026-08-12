@@ -4,13 +4,13 @@ Modes:
 - paper_lifecycle (default): full Intent→…→Fill→Reconcile→Portfolio→Audit without live capital
 - testnet_live: when BINANCE_TESTNET + credentials + AUTO_EXECUTION_ENABLED — real venue protocol
 
-Never claims live fill unless venue returns executed=True.
+Never claims live fill unless venue returns executed evidence.
+Depth for risk gates is walked from Canonical Truth Bus venue L2 — never price*N fabrication.
 """
 
 from __future__ import annotations
 
 import os
-import time
 import uuid
 from datetime import UTC, datetime
 from typing import Any
@@ -18,6 +18,23 @@ from typing import Any
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def _detect_live_fill(submit: dict[str, Any], *, dry_run: bool) -> bool:
+    if dry_run:
+        return False
+    if submit.get("executed") is True:
+        return True
+    venue_result = submit.get("venue_result") or {}
+    if isinstance(venue_result, dict):
+        if venue_result.get("executed") is True:
+            return True
+        if venue_result.get("exchange_order") or venue_result.get("orderId"):
+            return True
+        nested = venue_result.get("result") or {}
+        if isinstance(nested, dict) and (nested.get("orderId") or nested.get("executed")):
+            return True
+    return False
 
 
 async def prove_fill_lifecycle(
@@ -31,34 +48,65 @@ async def prove_fill_lifecycle(
     actor: str = "venue_fill_proof",
 ) -> dict[str, Any]:
     import oms
-    from canonical_truth_bus import refresh_live_truth
-    from institutional_store import ensure_ready, portfolio_upsert_position, store_status
+    from canonical_truth_bus import book_notional_depth_usd, get_live_books, refresh_live_truth
+    from institutional_store import ensure_ready, oms_upsert_sync, portfolio_upsert_position, store_status
 
     ensure_ready()
     live = await refresh_live_truth(symbol=symbol)
-    # Anchor limit price from live mid when available
-    if limit_price is None:
-        try:
-            from canonical_truth_bus import get_live_books
+    books = {}
+    try:
+        books = get_live_books(require_live=bool(live.get("ok")), symbol=symbol)
+    except Exception:
+        books = {}
 
-            books = get_live_books(require_live=False, symbol=symbol)
-            for venue_books in books.values():
-                book = venue_books.get(symbol)
-                if book and book.get("bids") and book.get("asks"):
-                    limit_price = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
-                    break
-        except Exception:
-            limit_price = None
-    if limit_price is None:
-        limit_price = 100.0
+    depth_source = "unavailable"
+    bid_depth = 0.0
+    ask_depth = 0.0
+    for venue_books in books.values():
+        book = venue_books.get(symbol)
+        if not book or not book.get("bids") or not book.get("asks"):
+            continue
+        if book.get("fabricated_depth"):
+            continue
+        bid_depth = book_notional_depth_usd(book, side="bid", levels=10)
+        ask_depth = book_notional_depth_usd(book, side="ask", levels=10)
+        depth_source = str(book.get("depth_source") or book.get("source") or venue_books)
+        if limit_price is None:
+            limit_price = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
+        break
 
-    # Attach depth so RISK_CHECK can pass on live path
-    bid_depth = float(limit_price) * 50.0
-    ask_depth = float(limit_price) * 50.0
+    if limit_price is None:
+        return {
+            "ok": False,
+            "mode": "blocked",
+            "live_fill": False,
+            "reason": "live_mid_unavailable_fail_closed",
+            "live_truth": {"venues": live.get("venues"), "ok": live.get("ok")},
+            "proved_at": _utcnow(),
+        }
+    if bid_depth <= 0 or ask_depth <= 0:
+        return {
+            "ok": False,
+            "mode": "blocked",
+            "live_fill": False,
+            "reason": "venue_l2_depth_unavailable_fail_closed",
+            "depth_source": depth_source,
+            "proved_at": _utcnow(),
+        }
 
     testnet = prefer_testnet and os.getenv("BINANCE_TESTNET", "").lower() in {"1", "true", "yes"}
     live_enabled = os.getenv("AUTO_EXECUTION_ENABLED", "").lower() in {"1", "true", "yes"}
-    dry_run = not (testnet and live_enabled)
+    dry_env = os.getenv("AUTO_EXECUTION_DRY_RUN", "true").lower() in {"1", "true", "yes"}
+    dry_run = not (testnet and live_enabled and not dry_env)
+
+    # Ensure execution engine DB flag when attempting live/testnet
+    if not dry_run:
+        try:
+            from execution_engine import set_auto_execution
+
+            await set_auto_execution(True)
+        except Exception:
+            pass
 
     intent = oms.create_intent(
         org_id=org_id,
@@ -70,16 +118,13 @@ async def prove_fill_lifecycle(
         idempotency_key=f"fill-proof-{uuid.uuid4().hex}",
         actor=actor,
     )
-    # Annotate depth for risk gate
     row = oms.get_order(intent["order_id"])
     assert row is not None
     row["bid_depth_usd"] = bid_depth
     row["ask_depth_usd"] = ask_depth
     row["spread_bps"] = 2.0
-    from institutional_store import oms_upsert_sync
-
+    row["depth_source"] = depth_source
     oms_upsert_sync(row)
-    # Keep file mirror consistent
     with oms._LOCK:  # noqa: SLF001
         data = oms._load()  # noqa: SLF001
         data["orders"][intent["order_id"]] = {**data["orders"][intent["order_id"]], **row}
@@ -89,9 +134,8 @@ async def prove_fill_lifecycle(
     order = oms.get_order(intent["order_id"])
     assert order is not None
 
-    # If still ACK (dry-run without executed), advance paper fill for lifecycle proof
     mode = "paper_lifecycle"
-    live_fill = False
+    live_fill = _detect_live_fill(submit if isinstance(submit, dict) else {}, dry_run=dry_run)
     if order["state"] == "ACK" and dry_run:
         oms.transition(intent["order_id"], "FILL", actor=actor, fill_qty=quantity, reason="paper_fill_proof")
         recon = oms.reconcile(
@@ -101,21 +145,20 @@ async def prove_fill_lifecycle(
             venue_ack_id=str((submit.get("venue_result") or {}).get("order_id") or f"paper_{intent['order_id']}"),
         )
         mode = "paper_lifecycle"
+        live_fill = False
     elif order["state"] in {"FILL", "RECONCILE"}:
         recon = order.get("reconcile") or oms.reconcile(
             intent["order_id"],
             actor=actor,
             venue_filled_qty=float(order.get("filled_quantity") or quantity),
         )
-        live_fill = bool((submit.get("venue_result") or {}).get("executed"))
-        mode = "testnet_live" if live_fill else "paper_or_dry_run"
+        mode = "testnet_live" if live_fill else "venue_path_no_fill_evidence"
     else:
         recon = {"ok": False, "oms_state": order["state"], "submit": submit}
 
     final = oms.get_order(intent["order_id"])
     assert final is not None
 
-    # Portfolio state update from fill
     notional = float(final.get("filled_quantity") or 0) * float(limit_price)
     pos = None
     if final["state"] in {"FILL", "RECONCILE"} and float(final.get("filled_quantity") or 0) > 0:
@@ -144,14 +187,26 @@ async def prove_fill_lifecycle(
         "history_states": trail,
         "reconcile": recon if isinstance(recon, dict) else final.get("reconcile"),
         "portfolio_position": pos,
-        "live_truth": {"venues": live.get("venues"), "ok": live.get("ok")},
+        "live_truth": {
+            "venues": live.get("venues"),
+            "l2_venues": live.get("l2_venues"),
+            "ok": live.get("ok"),
+            "fabricated_depth": live.get("fabricated_depth"),
+        },
+        "depth": {
+            "source": depth_source,
+            "bid_depth_usd": bid_depth,
+            "ask_depth_usd": ask_depth,
+            "fabricated": False,
+        },
         "store": store_status(),
         "dry_run": dry_run,
         "proved_at": _utcnow(),
         "audit_trail": True,
         "note": (
-            "Live venue fill requires BINANCE_TESTNET + AUTO_EXECUTION_ENABLED + vault creds. "
-            "Default proves full paper lifecycle with DB portfolio/audit authority."
+            "Live venue fill requires BINANCE_TESTNET + AUTO_EXECUTION_ENABLED + "
+            "AUTO_EXECUTION_DRY_RUN=false + vault/test creds. "
+            "Default proves full paper lifecycle with venue-L2 depth + DB portfolio/audit authority."
         ),
     }
 
@@ -160,7 +215,13 @@ def proof_status() -> dict[str, Any]:
     return {
         "surface": "venue_fill_proof",
         "modes": ["paper_lifecycle", "testnet_live"],
-        "live_fill_requires": ["BINANCE_TESTNET", "AUTO_EXECUTION_ENABLED", "vault_or_test_creds"],
+        "live_fill_requires": [
+            "BINANCE_TESTNET",
+            "AUTO_EXECUTION_ENABLED",
+            "AUTO_EXECUTION_DRY_RUN=false",
+            "vault_or_test_creds",
+        ],
+        "depth_source": "canonical_truth_bus_venue_l2",
         "verified_complete": False,
         "implementation_class": "PARTIAL",
         "product_complete": False,
