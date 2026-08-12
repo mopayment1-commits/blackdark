@@ -17,8 +17,15 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.OracleAuditChain")
 
+# Mutable module attribute so tests may monkeypatch.setattr(chain, "CHAIN_PATH", path).
+# Production readers should prefer chain_path() which also honors live env overrides.
 CHAIN_PATH = Path(os.getenv("ORACLE_AUDIT_CHAIN_PATH", "data/oracle_audit_chain.jsonl"))
 _APPEND_LOCK = threading.Lock()
+
+
+def chain_path() -> Path:
+    """Active chain path (module CHAIN_PATH — monkeypatchable for tests)."""
+    return CHAIN_PATH
 
 
 def _utcnow_iso() -> str:
@@ -30,11 +37,11 @@ def _hash_record(payload: dict[str, Any], prev_hash: str) -> str:
     return hashlib.sha256(f"{prev_hash}|{body}".encode()).hexdigest()
 
 
-def _read_last_hash() -> str:
-    if not CHAIN_PATH.exists():
+def _read_last_hash(path: Path) -> str:
+    if not path.exists():
         return "0" * 64
     last_line = ""
-    with CHAIN_PATH.open("r", encoding="utf-8") as fh:
+    with path.open("r", encoding="utf-8") as fh:
         for line in fh:
             if line.strip():
                 last_line = line
@@ -46,49 +53,28 @@ def _read_last_hash() -> str:
         return "0" * 64
 
 
-def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
-    """Append tamper-evident record to hash chain (process-local lock)."""
-    with _APPEND_LOCK:
-        CHAIN_PATH.parent.mkdir(parents=True, exist_ok=True)
-        prev = _read_last_hash()
-        entry = {
-            "seq": _count_records() + 1,
-            "timestamp": _utcnow_iso(),
-            "prev_hash": prev,
-            **record,
-        }
-        entry["chain_hash"] = _hash_record(entry, prev)
-        with CHAIN_PATH.open("a", encoding="utf-8") as fh:
-            fh.write(json.dumps(entry, default=str) + "\n")
-            fh.flush()
-            try:
-                os.fsync(fh.fileno())
-            except OSError:
-                pass
-        return entry
-
-
-def _count_records() -> int:
-    if not CHAIN_PATH.exists():
+def _count_records(path: Path) -> int:
+    if not path.exists():
         return 0
     count = 0
-    with CHAIN_PATH.open("r", encoding="utf-8") as fh:
+    with path.open("r", encoding="utf-8") as fh:
         for line in fh:
             if line.strip():
                 count += 1
     return count
 
 
-def verify_chain() -> dict[str, Any]:
+def verify_chain(path: Path | None = None) -> dict[str, Any]:
     """Verify integrity of entire chain."""
-    if not CHAIN_PATH.exists():
-        return {"valid": True, "records": 0, "message": "empty chain"}
+    chain = path or chain_path()
+    if not chain.exists():
+        return {"valid": True, "records": 0, "message": "empty chain", "chain_path": str(chain)}
 
     prev_hash = "0" * 64
     records = 0
     broken_at: int | None = None
 
-    with CHAIN_PATH.open("r", encoding="utf-8") as fh:
+    with chain.open("r", encoding="utf-8") as fh:
         for line in fh:
             if not line.strip():
                 continue
@@ -106,15 +92,51 @@ def verify_chain() -> dict[str, Any]:
         "valid": broken_at is None,
         "records": records,
         "broken_at_seq": broken_at,
-        "chain_path": str(CHAIN_PATH),
+        "chain_path": str(chain),
     }
 
 
+def append_prediction_record(record: dict[str, Any]) -> dict[str, Any]:
+    """Append tamper-evident record to hash chain (process-local lock).
+
+    Fail closed if the existing chain is already broken — never extend a
+    tampered or corrupted audit log.
+    """
+    with _APPEND_LOCK:
+        path = chain_path()
+        integrity = verify_chain(path)
+        if not integrity.get("valid"):
+            logger.error(
+                "oracle_audit_chain_integrity_failed broken_at=%s path=%s",
+                integrity.get("broken_at_seq"),
+                str(path),
+            )
+            raise RuntimeError("oracle_audit_chain_integrity_failed")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prev = _read_last_hash(path)
+        entry = {
+            "seq": _count_records(path) + 1,
+            "timestamp": _utcnow_iso(),
+            "prev_hash": prev,
+            **record,
+        }
+        entry["chain_hash"] = _hash_record(entry, prev)
+        with path.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps(entry, default=str) + "\n")
+            fh.flush()
+            try:
+                os.fsync(fh.fileno())
+            except OSError:
+                pass
+        return entry
+
+
 def chain_summary(*, limit: int = 20) -> dict[str, Any]:
-    verify = verify_chain()
+    path = chain_path()
+    verify = verify_chain(path)
     recent: list[dict[str, Any]] = []
-    if CHAIN_PATH.exists():
-        with CHAIN_PATH.open("r", encoding="utf-8") as fh:
+    if path.exists():
+        with path.open("r", encoding="utf-8") as fh:
             lines = [line for line in fh if line.strip()]
         for line in lines[-limit:]:
             recent.append(json.loads(line))

@@ -221,12 +221,13 @@ def public_track_record() -> dict[str, Any]:
 def _read_all_records() -> list[dict]:
     import json
 
-    from oracle_audit_chain import CHAIN_PATH
+    from oracle_audit_chain import chain_path
 
-    if not CHAIN_PATH.exists():
+    path = chain_path()
+    if not path.exists():
         return []
     records = []
-    with CHAIN_PATH.open("r", encoding="utf-8") as fh:
+    with path.open("r", encoding="utf-8") as fh:
         for line in fh:
             if line.strip():
                 records.append(json.loads(line))

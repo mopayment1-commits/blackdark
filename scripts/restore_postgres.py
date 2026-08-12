@@ -46,7 +46,11 @@ def main() -> int:
             text=True,
         )
         if proc.returncode != 0:
-            print(proc.stderr, file=sys.stderr)
+            # Never echo psql stderr — it may include connection strings.
+            print(
+                f"psql restore failed exit={proc.returncode} (stderr redacted)",
+                file=sys.stderr,
+            )
             return proc.returncode
         print("OK restore complete")
         return 0

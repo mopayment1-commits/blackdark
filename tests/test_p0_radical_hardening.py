@@ -90,3 +90,12 @@ def test_is_production_env_respects_explicit_prod_over_local_dev(monkeypatch):
     monkeypatch.setenv("ENV", "development")
     monkeypatch.setenv("LOCAL_DEV", "true")
     assert is_production_env() is False
+
+
+def test_is_production_env_or_across_app_env(monkeypatch):
+    """Polluted ENV=development must not hide APP_ENV=production."""
+    monkeypatch.setenv("ENV", "development")
+    monkeypatch.setenv("APP_ENV", "production")
+    monkeypatch.delenv("ENVIRONMENT", raising=False)
+    monkeypatch.delenv("RAILWAY_ENVIRONMENT", raising=False)
+    assert is_production_env() is True

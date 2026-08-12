@@ -48,7 +48,9 @@ def test_telegram_setup_masks_secrets():
 def test_railway_checklist_no_secret_json_dump():
     src = (ROOT / "scripts/railway_production_checklist.py").read_text(encoding="utf-8")
     assert "json.dumps(report" not in src
-    assert "statuses only" in src or "required_failures" in src
+    assert "statuses only" in src or "required_failure_count" in src
+    assert "public_guard_console_summary" in src
+    assert "evaluate_production_guard" not in src
 
 
 def test_exception_sinks_do_not_echo_str_exc():

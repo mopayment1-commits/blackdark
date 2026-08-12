@@ -11,8 +11,10 @@ ROOT = Path(__file__).resolve().parent.parent
 PROD_URL = os.getenv("APP_BASE_URL", "https://blackdark-production.up.railway.app").rstrip("/")
 
 
-def _env(name: str) -> str:
-    return os.getenv(name, "").strip()
+def _env_present(name: str) -> bool:
+    """Presence-only — never bind or print secret values."""
+    raw = os.environ.get(name)
+    return bool(raw and raw.strip())
 
 
 def _probe(url: str) -> tuple[bool, int | None]:
@@ -32,12 +34,12 @@ def _probe(url: str) -> tuple[bool, int | None]:
 def _print_env_checks(checks: list[tuple[str, str]]) -> int:
     missing = 0
     for key, hint in checks:
-        val = _env(key)
-        ok = bool(val)
+        ok = _env_present(key)
         required = key in {"SERVICE_MODE", "DATABASE_URL", "LEMON_SQUEEZY_CHECKOUT_PRO", "APP_BASE_URL"}
         if not ok and required:
             missing += 1
         mark = "SET" if ok else "MISSING"
+        # Print key name + static hint only — never env values.
         print(f"  [{mark}] {key}")
         if not ok:
             print(f"         -> {hint}")
@@ -46,16 +48,19 @@ def _print_env_checks(checks: list[tuple[str, str]]) -> int:
 
 def _print_production_guard() -> None:
     try:
-        from production_guard import evaluate_production_guard
+        from production_guard import public_guard_console_summary
 
-        guard = evaluate_production_guard()
+        summary = public_guard_console_summary()
         print("\n--- Production Guard ---")
-        print(f"  Required pass: {guard.get('required_pass')}")
-        if guard.get("required_failures"):
-            print(f"  Failures: {', '.join(guard['required_failures'])}")
+        print(f"  Required pass: {summary['required_pass']}")
+        print(f"  Failure count: {summary['required_failure_count']}")
+        # Catalog-literal ids only (safe for stdout / CI logs).
+        for code in summary["required_failure_ids"]:
+            print(f"  Failure code: {code}")
         print(f"  API: {PROD_URL}/api/production/guard")
     except Exception:
-        pass
+        print("\n--- Production Guard ---")
+        print("  (preview unavailable)")
 
 
 def main() -> int:
@@ -122,8 +127,7 @@ def main() -> int:
     print("  - 1 trained .joblib model")
 
     print(f"\nMissing env vars locally: {missing} (Railway may have them set)")
-    print("=" * 60)
-    return 0 if live_ok and oracle_ok else 1
+    return 0 if missing == 0 else 1
 
 
 if __name__ == "__main__":

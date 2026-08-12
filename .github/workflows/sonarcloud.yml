@@ -54,6 +54,7 @@ jobs:
             tests/test_unique_differentiators.py \
             tests/test_codeql_secret_logging_closure.py \
             tests/test_codeql_18_closure.py \
+            tests/test_codeql_cleartext_logging_closure.py \
             tests/test_softlaunch_no_shell_taint.py \
             tests/test_path_safety.py \
             tests/test_arb_truth_gate.py \
