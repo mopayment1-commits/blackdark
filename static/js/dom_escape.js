@@ -14,12 +14,14 @@
       .replace(/'/g, "&#39;");
   }
 
-  /** Allow only http(s) absolute URLs or same-origin path-absolute links. */
+  /** Allow only http(s) absolute URLs or same-origin path-absolute links.
+   *  For HTML attribute interpolation use esc(safeUrl(x)).
+   */
   function safeUrl(value) {
     const raw = String(value ?? "").trim();
     if (!raw) return "";
     if (raw.startsWith("/") && !raw.startsWith("//")) {
-      if (raw.toLowerCase().includes("javascript:")) return "";
+      if (/[<>"']/.test(raw) || raw.toLowerCase().includes("javascript:")) return "";
       return raw;
     }
     try {

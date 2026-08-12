@@ -58,7 +58,7 @@ def opportunity_fingerprint(opportunity: dict[str, Any]) -> str:
             str(opportunity.get("sell_exchange") or opportunity.get("sell_venue") or ""),
         ]
     )
-    return hashlib.sha1(raw.encode()).hexdigest()[:16]
+    return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
 def _prune_state() -> None:

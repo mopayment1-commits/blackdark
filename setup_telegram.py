@@ -43,8 +43,10 @@ def _upsert_env(key: str, value: str, lines: list[str]) -> list[str]:
 
 
 def _validate_token(token: str) -> dict:
+    from path_safety import open_http_url
+
     url = f"https://api.telegram.org/bot{token}/getMe"
-    with urllib.request.urlopen(url, timeout=15) as resp:
+    with open_http_url(url, timeout=15, allowed_hosts={"api.telegram.org"}) as resp:
         payload = json.loads(resp.read().decode("utf-8"))
     if not payload.get("ok"):
         raise ValueError(payload.get("description") or "Invalid token")

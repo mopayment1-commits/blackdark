@@ -855,7 +855,7 @@
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Audience
-                    <select id="landingAudience" name="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <select id="landingAudience" name="landingAudience" data-bd-change-call="applyAudience" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="retail" selected>Prove</option>
                         <option value="pro">Operate</option>
                         <option value="whale">Desk</option>
@@ -870,7 +870,7 @@
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
-                    <button onclick="consultOracle()">Get Decision</button>
+                    <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
@@ -1049,7 +1049,7 @@
             <span>Telegram: <strong id="landingTelegram">—</strong></span>
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
-        <form class="waitlist-form" onsubmit="joinWaitlist(event)">
+        <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
@@ -1389,7 +1389,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
                     }
                     return;
                 }
@@ -1530,7 +1530,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const box = document.getElementById('lpProof');
             if (!box) return;
             const bits = [
-                `<a class="bd-chip ok" href="${safeUrl(ledger.href) || '/oracle-accuracy'}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
+                `<a class="bd-chip ok" href="${esc(safeUrl(ledger.href) || '/oracle-accuracy')}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
             ];
             if (proof.watermark) bits.push(`<span class="bd-chip">${esc(proof.watermark)}</span>`);
             if (proof.certificate_hash) {

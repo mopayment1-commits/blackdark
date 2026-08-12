@@ -26,7 +26,7 @@ button,.btn{border:0;background:var(--ok);color:#062016;font-weight:800;padding:
 <main>
 <h1>Whale Visibility Cost Meter</h1>
 <p class="sub">F7 — Before size: expected MEV/slippage tax if you show up now.</p>
-<label class="sub" for="asset">Asset</label><input id="asset" value="ETH"><label class="sub" for="n">Notional USD</label><input id="n" type="number" value="250000"><button type="button" onclick="load()">Meter cost</button>
+<label class="sub" for="asset">Asset</label><input id="asset" value="ETH"><label class="sub" for="n">Notional USD</label><input id="n" type="number" value="250000"><button type="button" data-bd-call="load">Meter cost</button>
 <div class="hero" id="hero">—</div>
 <div class="box" data-evidence><p class="sub" id="line"></p><p class="muted" id="disc"></p></div>
 <a class="btn" id="share" href="#" target="_blank" rel="noopener">Share</a>

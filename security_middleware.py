@@ -62,22 +62,92 @@ def _csp_nonce() -> str:
     return secrets.token_urlsafe(16)
 
 
+def _csp_nonce_mode_enabled() -> bool:
+    """Nonce CSP is default-on; set CSP_NONCE_MODE=false to emergency-rollback."""
+    raw = os.getenv("CSP_NONCE_MODE", "true").strip().lower()
+    if raw in {"0", "false", "no", "off"}:
+        return False
+    return True
+
+
+def _ensure_request_csp_nonce(request: Request) -> str | None:
+    if not _csp_nonce_mode_enabled():
+        return None
+    nonce = getattr(request.state, "csp_nonce", None) if hasattr(request, "state") else None
+    if nonce:
+        return str(nonce)
+    nonce = _csp_nonce()
+    try:
+        request.state.csp_nonce = nonce
+    except Exception:
+        pass
+    return nonce
+
+
+def _inject_html_csp_nonce(html: str, nonce: str) -> str:
+    """Attach nonce to every <script> tag and ensure csp_events binder is present."""
+    import re
+
+    def _add_nonce(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\bnonce\s*=", tag, flags=re.I):
+            return tag
+        return tag.replace("<script", f'<script nonce="{nonce}"', 1)
+
+    out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
+    binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
+    if "csp_events.js" not in out:
+        lower = out.lower()
+        idx = lower.rfind("</body>")
+        if idx >= 0:
+            out = out[:idx] + binder + out[idx:]
+        else:
+            out = out + binder
+    return out
+
+
+async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
+    ct = (response.headers.get("content-type") or "").lower()
+    if "text/html" not in ct:
+        return response
+    body = getattr(response, "body", None)
+    if body is None:
+        return response
+    if isinstance(body, memoryview):
+        body = body.tobytes()
+    if not isinstance(body, (bytes, bytearray)):
+        return response
+    try:
+        text = bytes(body).decode("utf-8")
+    except Exception:
+        return response
+    rewritten = _inject_html_csp_nonce(text, nonce)
+    if rewritten == text:
+        return response
+    headers = {
+        k: v
+        for k, v in response.headers.items()
+        if k.lower() not in {"content-length", "content-encoding"}
+    }
+    return Response(
+        content=rewritten.encode("utf-8"),
+        status_code=response.status_code,
+        headers=headers,
+        media_type=response.media_type or "text/html; charset=utf-8",
+        background=response.background,
+    )
+
+
 def security_headers_for(request: Request) -> dict[str, str]:
     """Baseline browser hardening headers.
 
-    CSP nonce mode (DEC-0217 path): set CSP_NONCE_MODE=true to emit
-    script-src 'nonce-…' 'strict-dynamic' without 'unsafe-inline'.
-    Templates must then bind nonce via request.state.csp_nonce (progressive).
-    Default remains unsafe-inline until template migration completes.
+    DEC-0217: default CSP uses per-request nonce + strict-dynamic and omits
+    script-src 'unsafe-inline'. Middleware injects nonce onto <script> tags and
+    loads /static/js/csp_events.js for data-bd-* handlers. Set CSP_NONCE_MODE=false
+    only for emergency rollback to the legacy unsafe-inline policy.
     """
-    nonce_mode = os.getenv("CSP_NONCE_MODE", "").strip().lower() in {"1", "true", "yes"}
-    nonce = getattr(request.state, "csp_nonce", None) if hasattr(request, "state") else None
-    if nonce_mode and not nonce:
-        nonce = _csp_nonce()
-        try:
-            request.state.csp_nonce = nonce
-        except Exception:
-            pass
+    nonce_mode = _csp_nonce_mode_enabled()
+    nonce = _ensure_request_csp_nonce(request) if nonce_mode else None
     if os.getenv("CONTENT_SECURITY_POLICY"):
         csp = os.getenv("CONTENT_SECURITY_POLICY", "")
     elif nonce_mode and nonce:
@@ -155,12 +225,8 @@ def _request_origin_ok(request: Request) -> bool:
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
-        # Mint CSP nonce early so template render can read request.state.csp_nonce.
-        if os.getenv("CSP_NONCE_MODE", "").strip().lower() in {"1", "true", "yes"}:
-            try:
-                request.state.csp_nonce = _csp_nonce()
-            except Exception:
-                pass
+        # Mint CSP nonce early so template render / HTML rewrite can use it.
+        nonce = _ensure_request_csp_nonce(request)
 
         # TrustedHost in production
         if _is_production() and os.getenv("TRUSTED_HOST_ENFORCE", "true").lower() in {
@@ -192,6 +258,8 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
+        if nonce:
+            response = await _maybe_rewrite_html_with_nonce(response, nonce)
         for key, value in security_headers_for(request).items():
             response.headers.setdefault(key, value)
         response.headers.setdefault("X-Security-Hardening", "1")

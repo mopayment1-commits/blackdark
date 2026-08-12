@@ -29,8 +29,8 @@ ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
 <p class="sub">Institutional skin: evidence only. Promo CTAs and guaranteed-return language stay off.</p>
 <div class="panel">
   <p id="state">Loading…</p>
-  <button class="btn" id="onBtn" type="button" onclick="setMode(true)">Enable</button>
-  <button class="btn" id="offBtn" type="button" onclick="setMode(false)">Disable</button>
+  <button class="btn" id="onBtn" type="button" data-bd-call="setMode" data-bd-args="[true]">Enable</button>
+  <button class="btn" id="offBtn" type="button" data-bd-call="setMode" data-bd-args="[false]">Disable</button>
 </div>
 <div class="panel" data-evidence>
   <h2>When enabled</h2>

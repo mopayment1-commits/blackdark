@@ -29,7 +29,7 @@ a.btn{display:inline-block;text-decoration:none;margin-right:.5rem}
 <input id="userKey" placeholder="email or local id">
 <label class="sub" for="notional">Assumed notional (USD)</label>
 <input id="notional" type="number" value="1000">
-<button class="btn" type="button" onclick="load()">Build receipt</button>
+<button class="btn" type="button" data-bd-call="load">Build receipt</button>
 <div class="receipt" data-evidence>
   <div class="big" id="tax">$—</div>
   <p class="sub" id="line"></p>

@@ -35,6 +35,14 @@ def is_production_env() -> bool:
 
 
 def login_rate_limit_backend() -> str:
+    """Report the backend that will be used for login RL (probe Redis when idle)."""
+    global _rate_limit_backend
+    if _rate_limit_backend == "redis":
+        return "redis"
+    # HA readiness must not require a prior failed login to discover Redis.
+    if _redis_client_sync() is not None:
+        _rate_limit_backend = "redis"
+        return "redis"
     return _rate_limit_backend
 
 

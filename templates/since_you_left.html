@@ -27,7 +27,7 @@ h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);margin:0 0 .5r
 <p class="sub">Top 3 material changes since your last visit — habit loop, not noise.</p>
 <label for="userKey">Your key</label>
 <input id="userKey" placeholder="email or local id">
-<button class="btn" type="button" onclick="load(true)">Refresh Top 3</button>
+<button class="btn" type="button" data-bd-call="load" data-bd-args="[true]">Refresh Top 3</button>
 <p class="sub" id="meta"></p>
 <div id="list"></div>
 </main>
@@ -46,7 +46,7 @@ async function load(touch){
   document.getElementById('meta').textContent = meta;
   document.getElementById('list').innerHTML=(d.top3||[]).map((x,i)=>`
     <div class="card" data-evidence><h2>${i+1}. ${esc(x.title)}</h2><p>${esc(x.detail)}</p>
-    <p style="margin-top:.5rem"><a href="${safeUrl(x.href)||'/'}">Open</a></p></div>`).join('');
+    <p style="margin-top:.5rem"><a href="${esc(safeUrl(x.href)||'/')}">Open</a></p></div>`).join('');
 }
 Object.assign(window, { load });
 await load(true);</script>

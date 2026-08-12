@@ -10,8 +10,16 @@ import urllib.request
 
 
 def probe(url: str) -> float:
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from path_safety import open_http_url
+
     t0 = time.perf_counter()
-    with urllib.request.urlopen(url, timeout=10) as resp:
+    with open_http_url(url, timeout=10) as resp:
         resp.read()
     return (time.perf_counter() - t0) * 1000
 

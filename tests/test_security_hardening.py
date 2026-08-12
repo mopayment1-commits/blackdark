@@ -29,6 +29,11 @@ def test_security_headers_helper():
     assert headers["X-Content-Type-Options"] == "nosniff"
     assert headers["X-Frame-Options"] == "DENY"
     assert "Content-Security-Policy" in headers
+    csp = headers["Content-Security-Policy"]
+    assert "nonce-" in csp
+    assert "strict-dynamic" in csp
+    script_src = csp.split("script-src")[1].split(";")[0]
+    assert "'unsafe-inline'" not in script_src
     assert "Strict-Transport-Security" in headers
 
 
@@ -141,11 +146,10 @@ async def test_logout_clears_without_user_token_field():
 
 
 def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
-    import os
     from types import SimpleNamespace
     from security_middleware import security_headers_for
 
-    monkeypatch.setenv("CSP_NONCE_MODE", "true")
+    monkeypatch.delenv("CSP_NONCE_MODE", raising=False)  # default-on
     monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
     req = SimpleNamespace(state=SimpleNamespace(), url=SimpleNamespace(scheme="http"))
     headers = security_headers_for(req)
@@ -154,3 +158,15 @@ def test_csp_nonce_mode_emits_nonce_without_unsafe_inline(monkeypatch):
     assert "nonce-" in csp
     assert "'unsafe-inline'" not in csp.split("script-src")[1].split(";")[0]
     assert getattr(req.state, "csp_nonce", None)
+
+
+def test_csp_nonce_mode_can_rollback_to_unsafe_inline(monkeypatch):
+    from types import SimpleNamespace
+    from security_middleware import security_headers_for
+
+    monkeypatch.setenv("CSP_NONCE_MODE", "false")
+    monkeypatch.delenv("CONTENT_SECURITY_POLICY", raising=False)
+    req = SimpleNamespace(state=SimpleNamespace(), url=SimpleNamespace(scheme="http"))
+    headers = security_headers_for(req)
+    script_src = headers["Content-Security-Policy"].split("script-src")[1].split(";")[0]
+    assert "'unsafe-inline'" in script_src

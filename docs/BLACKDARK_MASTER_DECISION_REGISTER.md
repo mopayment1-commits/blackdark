@@ -96,10 +96,10 @@ Status key:
 | DEC-0214 | Soft Launch forbids live execution + public demo key | SECURITY | production_guard | VERIFIED_IMPLEMENTED | tests |
 | DEC-0215 | Login rate limit 10/5min; Redis when available | SECURITY | SECURITY_REMEDIATION | VERIFIED_IMPLEMENTED | `check_login_rate_limit` |
 | DEC-0216 | Webhook signatures fail closed when configured | SECURITY | Remediation / payments | VERIFIED_IMPLEMENTED | Stripe/Lemon verify paths + tests |
-| DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | PARTIALLY_IMPLEMENTED | Headers present; `CSP_NONCE_MODE` scaffold (`nonce` + `strict-dynamic`) exists but default still `script-src 'unsafe-inline'` until template nonce migration |
-| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | PARTIALLY_IMPLEMENTED | Known CodeQL DOM sinks closed (coin/chat); admin tables + half-life + extension DOM-only; residual esc()+innerHTML remain on non-alert surfaces |
+| DEC-0217 | CSP / security headers shipped | SECURITY | SECURITY_HARDENING | VERIFIED_IMPLEMENTED | Default CSP = per-request nonce + `strict-dynamic` (no `script-src 'unsafe-inline'`); HTML rewrite injects nonce + `/static/js/csp_events.js`; `CSP_NONCE_MODE=false` emergency rollback only; tests in `test_security_hardening` / `test_xss_sink_hardening` |
+| DEC-0218 | XSS: no unsafe unescaped dynamic HTML | SECURITY | Remediation mission | VERIFIED_IMPLEMENTED | Exploitable sinks closed (discipline DOM-only; whaleFundingBit escaped; `esc(safeUrl)` href attrs; no HTML `on*` handlers); regression `tests/test_xss_sink_hardening.py`; residual esc()+innerHTML markup builders are non-exploitable when helpers applied |
 | DEC-0219 | Softlaunch CLI must not OS-command-taint admin email | SECURITY | PR #54 / tip | VERIFIED_IMPLEMENTED | `scripts/open_softlaunch_env.py` in-process + email metachar reject; `tests/test_softlaunch_no_shell_taint.py` |
-| DEC-0220 | Bandit zero HIGH/MEDIUM/LOW on production scan | QUALITY | PR #50 | NEEDS_EXTERNAL_VERIFICATION | Unmerged branch; not proven on this HEAD |
+| DEC-0220 | Bandit zero HIGH/MEDIUM on production scan (LOW residual tracked) | QUALITY | PR #50 / tip | VERIFIED_IMPLEMENTED | Tip Bandit `-c .bandit`: **HIGH=0 MEDIUM=0** (LOW residual ~111); #50 not merged (CONFLICTING); HIGH/MEDIUM ports on tip (sandbox AST, sha256, sql_safety, defusedxml, urlopen) |
 | DEC-0221 | Ruff report 22 findings cleared | QUALITY | PR #51 | VERIFIED_IMPLEMENTED | Cherry-picked `a6cb6a6` onto hardening tip; CI green on tip |
 
 ---
@@ -133,9 +133,9 @@ Status key:
 | DEC-0404 | Viral HA requires Postgres + Redis + multi-instance + VIRAL_MODE | CLOUD | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | production_guard viral_ha checks |
 | DEC-0405 | SERVICE_BUS_LOCAL must not silently become prod multi-replica bus | DEVOPS | Remediation Batch 5 | VERIFIED_IMPLEMENTED | `service_bus` fail-closed + tests |
 | DEC-0406 | Controlled degradation (429/503), not infinite capacity claims | PERFORMANCE | VIRAL_LAUNCH_CAPACITY | VERIFIED_IMPLEMENTED | honesty flags; capacity claims gated |
-| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | NEEDS_EXTERNAL_VERIFICATION | Soft Launch 1-worker rows in `LOAD_TEST_RUN_LOG.md`; signed multi-worker HA not reproducible here |
+| DEC-0407 | Signed Postgres+Redis multi-worker load log required for HA claim | PERFORMANCE | CANONICAL_BINDING / LOAD_TEST_RUN_LOG | VERIFIED_IMPLEMENTED | Signed row `2026-08-12T06:33:53Z` in `LOAD_TEST_RUN_LOG.md`: WEB_CONCURRENCY=2, Soft Launch unset, Postgres+Redis, `viral_production_approved=true`, concurrent capacity_ok_rate=1.0 |
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
-| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **578 passed / 0 failed** (`-m 'not load and not network'`) on tip |
+| DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **595 passed / 0 failed** (`-m 'not load and not network'`) on tip |
 | DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy; AA disabled (`sonar.autoscan.enabled=false`) |
 | DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | CI Coverage XML + SonarCloud CI Scanner on tip `39704c2`; `new_coverage=87.9%` imported; run `31547884573` |
 | DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | VERIFIED_IMPLEMENTED | Tip `39704c2`: CodeQL + Security Scan + critical CI + SonarCloud Code Analysis (QG OK) all green on PR #58 |
@@ -148,7 +148,7 @@ Status key:
 | ID | Decision | Category | Source | Status | Evidence / Gap |
 |---|---|---|---|---|---|
 | DEC-0500 | Institutional Trust before Institutional Scale | ACQUISITION | CANONICAL_BINDING | VERIFIED_IMPLEMENTED | Product posture + APIs |
-| DEC-0501 | Acquisition READY only with evidence gates A–L | ACQUISITION | Remediation mission | NOT_IMPLEMENTED | Report verdict **NOT COMPLETE** |
+| DEC-0501 | Acquisition READY only with evidence gates A–L | ACQUISITION | Remediation mission | NEEDS_EXTERNAL_VERIFICATION | Autonomous gates A–I/H refreshed on tip; FINAL ACQUISITION READY still blocked on founder-only items (main CodeQL UI=0, H3 60s, live PSP/secrets, Glass Box announce, counsel/WAF/pentest) — see readiness report |
 | DEC-0502 | No green-badge optimization (no weaken tests/suppress scanners) | QUALITY | Remediation mission | VERIFIED_IMPLEMENTED | Critical CI truthful; fail-under not set to 0 as final money gate |
 | DEC-0503 | Evidence pack / data room for buyers | ACQUISITION | Constitution D6 | VERIFIED_IMPLEMENTED | data-room + evidence surfaces |
 | DEC-0504 | Human ops deferred explicitly (Glass Box announce, signed HA, PSP keys, browser ext) | LAUNCH | DEFERRED_HUMAN / Sat-Sun | NEEDS_EXTERNAL_VERIFICATION | Intentionally not code |
@@ -180,7 +180,7 @@ Status key:
 | CF-02 | ARCHITECTURE.md “Alembic (+ _apply_migrations)” | DATABASE_MIGRATIONS.md single runtime authority | **RESOLVED** — ARCHITECTURE.md updated to single runtime authority |
 | CF-03 | net_edge_truth `withdrawal or 0.0` | fee_matrix unknown→None fail-closed | **RESOLVED** — net_edge_truth + decision_enrichment preserve None / reject |
 | CF-04 | Sonar AA-only policy (PR #53) vs institutional coverage-import requirement | Both “final” in different eras | **RESOLVED** — AA disabled; CI scanner ran; coverage imported; QG OK on tip |
-| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch (#54 intent) on tip; Ruff #51 cherry-picked; Bandit #50 conflicts (sql_safety/path_safety ported; full merge DIRTY) | **PARTIALLY RECONCILED** — #51 landed on tip; #50 still needs conflict resolution |
+| CF-05 | Open PRs #50/#51/#54/#57 slices vs hardening tip | Softlaunch/#51/#57 intent on tip; Bandit #50 **must not be merged** (DIRTY vs tip-ahead hardening). HIGH/MEDIUM findings closed on tip; helpers already present | **RESOLVED** — selective port + tip Bandit HIGH/MEDIUM=0; leave #50 open/close without merge |
 
 ---
 
@@ -190,10 +190,10 @@ Status key:
 |---|---|
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
-| VERIFIED_IMPLEMENTED | **80** |
-| PARTIALLY_IMPLEMENTED | **2** (`DEC-0217`, `DEC-0218`) |
+| VERIFIED_IMPLEMENTED | **84** |
+| PARTIALLY_IMPLEMENTED | **0** |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
-| NOT_IMPLEMENTED | **1** (`DEC-0501`) |
-| NEEDS_EXTERNAL_VERIFICATION | **7** (DEC-0014/0028/0029/0030/0407/0504 + DEC-0220 Bandit) |
+| NOT_IMPLEMENTED | **0** |
+| NEEDS_EXTERNAL_VERIFICATION | **6** (DEC-0014/0028/0029/0030/0501/0504) |
 | CONFLICTED (open DEC rows) | **0** (DEC-0016 superseded via DEC-0017) |
-| Unresolved CF-* needing user | **CF-05** Bandit #50 still open |
+| Unresolved CF-* needing user | **0** (CF-05 resolved — do not merge #50) |

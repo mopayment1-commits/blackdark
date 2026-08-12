@@ -22,9 +22,17 @@ import urllib.request
 
 def probe(url: str, timeout: float = 15.0) -> tuple[str, int, float]:
     """Return (class, status, ms). class: ok | controlled | error."""
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from path_safety import open_http_url
+
     t0 = time.perf_counter()
     try:
-        with urllib.request.urlopen(url, timeout=timeout) as resp:
+        with open_http_url(url, timeout=timeout) as resp:
             resp.read()
             status = int(resp.status)
             ms = (time.perf_counter() - t0) * 1000
@@ -80,8 +88,16 @@ def run_endpoint(url: str, label: str, workers: int, requests: int) -> dict:
 
 
 def fetch_json(url: str) -> dict | None:
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parent.parent
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+    from path_safety import open_http_url
+
     try:
-        with urllib.request.urlopen(url, timeout=10) as resp:
+        with open_http_url(url, timeout=10) as resp:
             return json.loads(resp.read().decode())
     except Exception:
         return None

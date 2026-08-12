@@ -1,52 +1,34 @@
-# BLACKDARK SECURITY CERTIFICATION
+# BLACKDARK Security Certification (tip)
 
-**Generated:** 2026-08-11T23:58:00Z  
 **Branch:** `cursor/institutional-hardening-120d`  
-**Tip SHA:** (see git HEAD after push)  
-**PR:** https://github.com/mopayment1-commits/blackdark/pull/58  
+**Bind evidence to the tip SHA of the commit that lands this file.**
 
-## Access limitation
+## CodeQL / main alerts (mapped)
 
-GitHub Code Scanning Alerts API returns **HTTP 403** for this agent token.  
-User-confirmed state on `main`: **6 OPEN** CodeQL alerts:
+| # | Class | Surface | Tip status |
+|---|---|---|---|
+| 1–4 | Clear-text logging | Stripe/Vault/setup scripts | FIXED on tip (no secret `print` / vault event-code logging) |
+| 5 | Improper sanitization | `templates/coin.html` | FIXED — DOM / no unsafe `innerHTML` |
+| 6 | Improper sanitization | dashboard chat | FIXED — `createTextNode` path |
 
-- 4 High: Clear-text logging of sensitive information
-- 2 Medium: Improper code sanitization
+PR CodeQL (python/js/actions) must stay green on tip checks. Main-branch open-alert count remains **NEEDS_EXTERNAL** for agent (API 403) — founder confirms UI=0 post-merge.
 
-## Mapping: main alerts → tip fixes
+## XSS / CSP (DEC-0217 / DEC-0218)
 
-| # | Class | Main root cause | Tip fix | Status |
-|---|---|---|---|---|
-| 1–2 | High clear-text logging | `scripts/setup_stripe_production.py` printed secret-derived / API body | `live_label` + `_is_set` booleans; no body dumps | FIXED on tip |
-| 3–4 | High clear-text logging | `scripts/activate_infra.py` Vault token / password echo | Removed from stdout | FIXED on tip |
-| 5 | Medium improper sanitization | `templates/coin.html` custom esc → `innerHTML` | DOM `textContent` / `appendChild` | FIXED on tip |
-| 6 | Medium improper sanitization | `templates/dashboard.html` chat esc → `innerHTML` | `createTextNode` path | FIXED on tip |
+- Default CSP: `script-src 'nonce-…' 'strict-dynamic'` — **no** `script-src 'unsafe-inline'`
+- Middleware mints nonce, injects onto `<script>` tags, loads `/static/js/csp_events.js`
+- HTML `on*` handlers removed → `data-bd-*` binder
+- Exploitable sinks closed: discipline DOM-only; whale funding escaped; `esc(safeUrl(...))` for href attrs
+- Regression: `tests/test_xss_sink_hardening.py`, `tests/test_security_hardening.py`
 
-Additional tip hardening (beyond the 6):
+## Bandit (CF-05 / DEC-0220)
 
-- `scripts/setup_production_env.py` writes secrets via `write_private_text`; never `print(block)`
-- `bd_platform/vault_client.py` logs event codes only (no `str(exc)`)
-- Admin roadmap/plan tables: DOM-only (no `innerHTML`)
-- Dashboard half-life clock: `createElementNS` (no raw SVG HTML sink)
-- Browser extension popup/content: DOM-only (fixed broken escapeHtml)
+- Tip scan (`bandit -c .bandit`): **HIGH=0 MEDIUM=0** (LOW residual ~111)
+- PR #50 remains CONFLICTING — **do not merge**; HIGH/MEDIUM intent selectively ported
+- Helpers on tip: `sql_safety.py`, `path_safety.py`, `.bandit`
 
-## PR CodeQL
+## Residual / external
 
-PR CodeQL Analyze jobs are green on tip lineage. Main open alerts remain until merge + default-branch reanalysis.
-
-## Residual (honest)
-
-- Default CSP still includes `script-src 'unsafe-inline'` (`CSP_NONCE_MODE` scaffold only) — DEC-0217 PARTIAL
-- Residual escaped `innerHTML` sinks remain on some surfaces — DEC-0218 PARTIAL
-- Bandit #50 full zero not proven on tip — CF-05 / DEC-0220
-
-## Local verification
-
-- Broader unit suite: **591 passed / 0 failed** (`not load and not network`)
-- Security regression: `test_codeql_*`, XSS, authz, session — PASS
-
-## External remaining
-
-1. Merge PR #58 → wait for CodeQL on exact `main` HEAD → confirm open alerts = 0 in Security UI
-2. Signed HA multi-worker load (DEC-0407)
-3. Acquisition evidence gates A–L (DEC-0501)
+1. Founder confirms main CodeQL open alerts = 0 after merge
+2. Acquisition READY founder gates (H3, live PSP, Glass Box, counsel/WAF/pentest)
+3. Bandit LOW cleanup (non-blocking quality debt)

@@ -99,8 +99,8 @@
             <div class="price">Custom<span style="font-size:0.85rem"> / from Decision Desk $49</span></div>
             <p style="margin-top:1rem;font-size:0.85rem"><strong>Demo API Key:</strong> <code id="demoKey">{{ demo_key }}</code></p>
             <pre>curl -H "X-API-Key: {{ demo_key }}" {{ request.url.scheme }}://{{ request.url.netloc }}/api/b2b/feed</pre>
-            <button class="btn btn-primary" onclick="runDemo()">Fetch Demo Feed</button>
-            <button class="btn btn-secondary" onclick="copyKey()">Copy Demo Key</button>
+            <button class="btn btn-primary" data-bd-call="runDemo">Fetch Demo Feed</button>
+            <button class="btn btn-secondary" data-bd-call="copyKey">Copy Demo Key</button>
             <div class="demo-result" id="demoResult">Click "Fetch Demo Feed" to see live CVVD records.</div>
         </div>
     </div>
@@ -113,8 +113,8 @@
                 Public Accuracy Ledger + Decision Certificates + DD checklist —
                 priced for 10–50M desks, not billion-dollar terminals.
             </p>
-            <button class="btn btn-primary" type="button" onclick="loadFundTerminal()">Load Fund DD Pack</button>
-            <button class="btn btn-secondary" type="button" onclick="downloadFundTerminal()">Download DD JSON</button>
+            <button class="btn btn-primary" type="button" data-bd-call="loadFundTerminal">Load Fund DD Pack</button>
+            <button class="btn btn-secondary" type="button" data-bd-call="downloadFundTerminal">Download DD JSON</button>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy Ledger</a>
             <a class="btn btn-secondary" href="/oracle-accuracy#losing">Monthly Losing Report</a>
             <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Decision Desk · Full Evidence</a>
@@ -129,8 +129,8 @@
                 One-click data-room pack for funds and M&amp;A committees.
                 Public summary is open; full pack requires Decision Desk / Admin.
             </p>
-            <button class="btn btn-primary" type="button" onclick="loadEvidenceSummary()">Load Public Summary</button>
-            <button class="btn btn-secondary" type="button" onclick="loadEvidenceFull()">Open Full Pack</button>
+            <button class="btn btn-primary" type="button" data-bd-call="loadEvidenceSummary">Load Public Summary</button>
+            <button class="btn btn-secondary" type="button" data-bd-call="loadEvidenceFull">Open Full Pack</button>
             <a class="btn btn-secondary" href="/data-room">Data Room Index</a>
             <a class="btn btn-secondary" href="/create-checkout-session?tier=whale">Get Decision Desk Access</a>
             <a class="btn btn-secondary" href="/oracle-accuracy">Public Accuracy</a>
@@ -147,8 +147,8 @@
                 Target latency 100–500ms.
             </p>
             <pre>wss://{{ request.url.netloc }}/ws/b2b/feed?api_key={{ demo_key }}</pre>
-            <button class="btn btn-primary" onclick="connectWs()">Connect WebSocket</button>
-            <button class="btn btn-secondary" onclick="disconnectWs()">Disconnect</button>
+            <button class="btn btn-primary" data-bd-call="connectWs">Connect WebSocket</button>
+            <button class="btn btn-secondary" data-bd-call="disconnectWs">Disconnect</button>
             <div class="demo-result ws-log" id="wsLog">Events will appear here when connected.</div>
         </div>
     </div>

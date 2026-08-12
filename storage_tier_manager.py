@@ -426,9 +426,11 @@ async def purge_legacy_ops_market_data(*, vacuum: bool = True) -> dict[str, Any]
     from database import get_connection
 
     result: dict[str, Any] = {"timestamp": _utcnow_iso(), "deleted": {}}
+    from sql_safety import delete_all_sql
+
     async with get_connection() as db:
         for table in ("pricing_logs", "order_books"):
-            cursor = await db.execute(f"DELETE FROM {table}")
+            cursor = await db.execute(delete_all_sql(table))
             result["deleted"][table] = int(cursor.rowcount or 0)
         if vacuum:
             await db.execute("PRAGMA wal_checkpoint(TRUNCATE)")

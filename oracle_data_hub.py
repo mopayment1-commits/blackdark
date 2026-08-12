@@ -16,7 +16,7 @@ import asyncio
 import logging
 import os
 import time
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 from datetime import UTC, datetime
 from typing import Any, Literal
 

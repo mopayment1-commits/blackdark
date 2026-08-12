@@ -39,7 +39,7 @@ async function load(){
   document.getElementById('list').innerHTML=(d.items||[]).map(x=>`
     <div class="item" data-evidence>
       <div><b>MISS</b> · ${esc(x.asset)} · said ${esc(x.verdict)} · ${esc(x.label)}</div>
-      <div class="meta">${esc((x.timestamp||'').slice(0,19))} · ${esc(x.lesson||'')} · <a href="${safeUrl(x.verify_href)||'/oracle-accuracy'}" style="color:var(--accent)">verify</a></div>
+      <div class="meta">${esc((x.timestamp||'').slice(0,19))} · ${esc(x.lesson||'')} · <a href="${esc(safeUrl(x.verify_href)||'/oracle-accuracy')}" style="color:var(--accent)">verify</a></div>
     </div>`).join('') || '<div class="item">Feed armed — misses publish as outcomes resolve.</div>';
   document.getElementById('share').href=safeUrl(d.share_urls?.x)||'#';
 }

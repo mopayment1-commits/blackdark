@@ -178,6 +178,33 @@ def test_csp_nonce_mode_scaffold():
     assert "CSP_NONCE_MODE" in src
     assert "strict-dynamic" in src
     assert "csp_nonce" in src
+    assert "_inject_html_csp_nonce" in src
+    assert (STATIC_JS / "csp_events.js").is_file()
+
+
+def test_discipline_mirror_uses_dom_only_rows():
+    text = _read(TEMPLATES / "discipline.html")
+    assert "innerHTML = rows" not in text
+    assert "createElement" in text and "textContent" in text
+    assert "dom_escape.js" in text
+
+
+def test_templates_prefer_data_bd_over_inline_handlers():
+    offenders: list[str] = []
+    for path in TEMPLATES.rglob("*.html"):
+        text = _read(path)
+        # Allow JS property assignment (btn.onclick = ...) but not HTML on* attributes.
+        for m in re.finditer(r"\bon(?:click|change|submit|input|keydown)\s*=\s*\"", text):
+            offenders.append(f"{path.relative_to(ROOT)}:{text.count(chr(10), 0, m.start())+1}")
+    assert offenders == [], f"inline HTML event handlers remain: {offenders}"
+
+
+def test_safeurl_href_interpolations_are_escaped():
+    for name in ("landing.html", "platform.html", "since_you_left.html", "miss_feed.html"):
+        text = _read(TEMPLATES / name)
+        # href="${safeUrl(...)}" without esc is attribute-breakable
+        assert 'href="${safeUrl(' not in text
+        assert "href=\"${safeUrl(" not in text
 
 
 def test_fee_matrix_unknown_venue_none():

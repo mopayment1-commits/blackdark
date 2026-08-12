@@ -81,36 +81,36 @@
         <p class="lead">{{ t('login.lead') }}</p>
 
         <div class="tabs" role="tablist">
-            <button type="button" class="tab active" id="tabLogin" role="tab" onclick="showTab('login')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('login')">{{ t('login.tab.login') }}</button>
-            <button type="button" class="tab" id="tabRegister" role="tab" onclick="showTab('register')" onkeydown="if(event.key==='Enter'||event.key===' ')showTab('register')">{{ t('login.tab.signup') }}</button>
+            <button type="button" class="tab active" id="tabLogin" role="tab" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]" data-bd-keydown-call="showTab" data-bd-keys="enter space" data-bd-args="[&quot;login&quot;]">{{ t('login.tab.login') }}</button>
+            <button type="button" class="tab" id="tabRegister" role="tab" data-bd-call="showTab" data-bd-args="[&quot;register&quot;]" data-bd-keydown-call="showTab" data-bd-keys="enter space" data-bd-args="[&quot;register&quot;]">{{ t('login.tab.signup') }}</button>
         </div>
 
         <div id="oauthBox" class="hidden">
-            <button type="button" class="btn btn-oauth" id="googleBtn" onclick="startOAuth('google')">{{ t('auth.google') }}</button>
-            <button type="button" class="btn btn-secondary hidden" id="githubBtn" onclick="startOAuth('github')">{{ t('auth.github') }}</button>
+            <button type="button" class="btn btn-oauth" id="googleBtn" data-bd-call="startOAuth" data-bd-args="[&quot;google&quot;]">{{ t('auth.google') }}</button>
+            <button type="button" class="btn btn-secondary hidden" id="githubBtn" data-bd-call="startOAuth" data-bd-args="[&quot;github&quot;]">{{ t('auth.github') }}</button>
             <div class="divider">{{ t('auth.or_email') }}</div>
         </div>
 
-        <form id="loginForm" onsubmit="doLogin(event)">
+        <form id="loginForm" data-bd-submit-call="doLogin">
             <label for="loginEmail">{{ t('login.email') }}</label>
             <input type="email" id="loginEmail" required autocomplete="username" placeholder="you@email.com">
             <label for="loginPassword">{{ t('login.pass_label') }}</label>
             <input type="password" id="loginPassword" required minlength="10" autocomplete="current-password">
             <div class="row-links">
-                <button type="button" class="linkish" onclick="showForgot()">{{ t('auth.forgot_pass') }}</button>
-                <button type="button" class="linkish" onclick="showForgotUsername()">{{ t('auth.forgot_username') }}</button>
+                <button type="button" class="linkish" data-bd-call="showForgot">{{ t('auth.forgot_pass') }}</button>
+                <button type="button" class="linkish" data-bd-call="showForgotUsername">{{ t('auth.forgot_username') }}</button>
             </div>
             <button type="submit" class="btn-primary">{{ t('login.submit') }}</button>
         </form>
 
-        <form id="mfaForm" class="hidden" onsubmit="doMfa(event)">
+        <form id="mfaForm" class="hidden" data-bd-submit-call="doMfa">
             <label for="mfaCode">Authenticator code</label>
             <input type="text" id="mfaCode" inputmode="numeric" autocomplete="one-time-code" placeholder="6-digit code or recovery" required>
             <button type="submit" class="btn-primary">Verify MFA</button>
-            <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>
+            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back</button>
         </form>
 
-        <form id="registerForm" class="hidden" onsubmit="doRegister(event)">
+        <form id="registerForm" class="hidden" data-bd-submit-call="doRegister">
             <div class="plan-grid" id="planGrid" role="radiogroup" aria-labelledby="planGridLabel">
             <div id="planGridLabel" class="plan-grid-label">Choose your plan</div>
                 <label class="plan-card active" data-plan="free">
@@ -149,19 +149,19 @@
             <button type="submit" class="btn-primary" id="regSubmit">{{ t('auth.create') }}</button>
         </form>
 
-        <form id="forgotForm" class="hidden" onsubmit="doForgot(event)">
+        <form id="forgotForm" class="hidden" data-bd-submit-call="doForgot">
             <label for="forgotEmail">Account email</label>
             <input type="email" id="forgotEmail" required>
             <button type="submit" class="btn-primary">Send reset link</button>
-            <button type="button" class="btn-secondary" onclick="showTab('login')">Back to login</button>
+            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back to login</button>
         </form>
 
-        <form id="forgotUserForm" class="hidden" onsubmit="doForgotUsername(event)">
+        <form id="forgotUserForm" class="hidden" data-bd-submit-call="doForgotUsername">
             <p class="lead" style="margin-bottom:.75rem">Login uses your <strong>email</strong>. Enter it to receive a reminder (and your optional @username).</p>
             <label for="forgotUserEmail">Email</label>
             <input type="email" id="forgotUserEmail" required>
             <button type="submit" class="btn-primary">Send reminder</button>
-            <button type="button" class="btn-secondary" onclick="showTab('login')">Back</button>
+            <button type="button" class="btn-secondary" data-bd-call="showTab" data-bd-args="[&quot;login&quot;]">Back</button>
         </form>
 
         <div class="msg" id="msg"></div>
