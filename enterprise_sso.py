@@ -339,7 +339,8 @@ async def complete_sso_login_async(
         "crypto_verified": (not demo),
         "token": session["token"],
         "expires_at": session["expires_at"],
-        "product_complete": live_complete,
+        # product_complete never self-certs from config alone; institutional_complete tracks readiness.
+        "product_complete": False,
         "institutional_complete": live_complete,
         "scim_ready": __import__("scim_service", fromlist=["scim_ready"]).scim_ready(),
         "verified_claims_keys": sorted(verified_claims.keys()),
@@ -358,7 +359,7 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
         complete = env_ready
     return {
         "surface": "enterprise_sso",
-        "product_complete": complete,
+        "product_complete": False,
         "institutional_complete": complete,
         "protocols": ["oidc", "saml"],
         "idp_targets": ["okta", "azure_ad", "generic_oidc", "generic_saml"],

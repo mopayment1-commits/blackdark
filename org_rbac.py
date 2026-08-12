@@ -81,7 +81,7 @@ def require_permission(org_id: str, email: str, permission: str) -> dict[str, An
 def rbac_status() -> dict[str, Any]:
     return {
         "surface": "institutional_rbac",
-        "product_complete": True,
+        "product_complete": False,
         "roles": list(ROLES),
         "matrix": role_matrix(),
         "audit_on_role_change": True,

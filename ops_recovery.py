@@ -182,18 +182,288 @@ def prove_postgres_ddl_ready() -> dict[str, Any]:
     }
 
 
+def prove_postgres_local_dump_restore() -> dict[str, Any]:
+    """Ephemeral local Postgres dump→restore prove (NOT production HA).
+
+    Uses BLACKDARK_PG_DR_URL or postgresql://blackdark:blackdark@127.0.0.1:5432/postgres.
+    Labels ha_dr=LOCAL_EPHEMERAL_NOT_HA — never claims cluster HA/RPO.
+    """
+    import os
+    import subprocess
+    import tempfile
+    import uuid
+    from urllib.parse import urlparse
+
+    url = (
+        os.getenv("BLACKDARK_PG_DR_URL")
+        or os.getenv("DATABASE_URL")
+        or "postgresql://blackdark:blackdark@127.0.0.1:5432/postgres"
+    ).strip()
+    if not url.startswith(("postgresql://", "postgres://")):
+        return {
+            "ok": False,
+            "control": "postgres_local_dump_restore",
+            "reason": "no_postgres_url",
+            "ha_dr": "EXTERNAL",
+            "proved_at": _utcnow(),
+        }
+
+    parsed = urlparse(url)
+    user = parsed.username or "blackdark"
+    password = parsed.password or "blackdark"
+    host = parsed.hostname or "127.0.0.1"
+    port = str(parsed.port or 5432)
+    admin_db = (parsed.path or "/postgres").lstrip("/") or "postgres"
+    probe_db = f"blackdark_dr_{uuid.uuid4().hex[:10]}"
+    env = {**os.environ, "PGPASSWORD": password}
+
+    def _run(args: list[str]) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(
+            args,
+            env=env,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+
+    created = False
+    dump_path = ""
+    try:
+        c1 = _run(
+            [
+                "psql",
+                "-h",
+                host,
+                "-p",
+                port,
+                "-U",
+                user,
+                "-d",
+                admin_db,
+                "-v",
+                "ON_ERROR_STOP=1",
+                "-c",
+                f'CREATE DATABASE "{probe_db}"',
+            ]
+        )
+        if c1.returncode != 0:
+            return {
+                "ok": False,
+                "control": "postgres_local_dump_restore",
+                "reason": f"create_db_failed:{c1.stderr.strip()[:200]}",
+                "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+                "proved_at": _utcnow(),
+            }
+        created = True
+        c2 = _run(
+            [
+                "psql",
+                "-h",
+                host,
+                "-p",
+                port,
+                "-U",
+                user,
+                "-d",
+                probe_db,
+                "-v",
+                "ON_ERROR_STOP=1",
+                "-c",
+                """
+                CREATE TABLE inst_oms_orders (
+                    order_id TEXT PRIMARY KEY,
+                    org_id TEXT NOT NULL,
+                    state TEXT NOT NULL
+                );
+                CREATE TABLE inst_audit_events (
+                    id SERIAL PRIMARY KEY,
+                    org_id TEXT NOT NULL,
+                    event_type TEXT NOT NULL
+                );
+                INSERT INTO inst_oms_orders VALUES ('oms_dr_1','org_dr','INTENT');
+                INSERT INTO inst_audit_events (org_id, event_type) VALUES ('org_dr','dr_seed');
+                """,
+            ]
+        )
+        if c2.returncode != 0:
+            return {
+                "ok": False,
+                "control": "postgres_local_dump_restore",
+                "reason": f"seed_failed:{c2.stderr.strip()[:200]}",
+                "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+                "proved_at": _utcnow(),
+            }
+        with tempfile.TemporaryDirectory() as tmp:
+            dump_path = str(Path(tmp) / f"{probe_db}.dump")
+            d1 = _run(
+                [
+                    "pg_dump",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-Fc",
+                    "-f",
+                    dump_path,
+                    probe_db,
+                ]
+            )
+            if d1.returncode != 0:
+                return {
+                    "ok": False,
+                    "control": "postgres_local_dump_restore",
+                    "reason": f"dump_failed:{d1.stderr.strip()[:200]}",
+                    "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+                    "proved_at": _utcnow(),
+                }
+            _run(
+                [
+                    "psql",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    admin_db,
+                    "-c",
+                    f'DROP DATABASE "{probe_db}"',
+                ]
+            )
+            created = False
+            c3 = _run(
+                [
+                    "psql",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    admin_db,
+                    "-c",
+                    f'CREATE DATABASE "{probe_db}"',
+                ]
+            )
+            if c3.returncode != 0:
+                return {
+                    "ok": False,
+                    "control": "postgres_local_dump_restore",
+                    "reason": f"recreate_failed:{c3.stderr.strip()[:200]}",
+                    "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+                    "proved_at": _utcnow(),
+                }
+            created = True
+            r1 = _run(
+                [
+                    "pg_restore",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    probe_db,
+                    dump_path,
+                ]
+            )
+            # pg_restore may return non-zero with warnings; verify tables explicitly
+            v1 = _run(
+                [
+                    "psql",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    probe_db,
+                    "-tAc",
+                    "SELECT count(*) FROM inst_oms_orders WHERE order_id='oms_dr_1'",
+                ]
+            )
+            v2 = _run(
+                [
+                    "psql",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    probe_db,
+                    "-tAc",
+                    "SELECT count(*) FROM inst_audit_events",
+                ]
+            )
+            ok = (
+                v1.returncode == 0
+                and v2.returncode == 0
+                and (v1.stdout or "").strip() == "1"
+                and int((v2.stdout or "0").strip() or "0") >= 1
+            )
+            return {
+                "ok": ok,
+                "control": "postgres_local_dump_restore",
+                "engine": "postgres",
+                "probe_db": probe_db,
+                "dump_bytes": Path(dump_path).stat().st_size if Path(dump_path).exists() else 0,
+                "restore_rc": r1.returncode,
+                "oms_rows": (v1.stdout or "").strip(),
+                "audit_rows": (v2.stdout or "").strip(),
+                "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+                "note": "Local ephemeral dump/restore only — not multi-AZ HA / RPO-RTO certification.",
+                "proved_at": _utcnow(),
+            }
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "control": "postgres_local_dump_restore",
+            "reason": f"{type(exc).__name__}:{exc}"[:200],
+            "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+            "proved_at": _utcnow(),
+        }
+    finally:
+        if created:
+            _run(
+                [
+                    "psql",
+                    "-h",
+                    host,
+                    "-p",
+                    port,
+                    "-U",
+                    user,
+                    "-d",
+                    admin_db,
+                    "-c",
+                    f'DROP DATABASE IF EXISTS "{probe_db}"',
+                ]
+            )
+
+
 def ops_status() -> dict[str, Any]:
     from postgres_backend import use_postgres
 
     authority = prove_db_authority_tables_sync()
     ddl = prove_postgres_ddl_ready()
+    pg_dr = prove_postgres_local_dump_restore()
     if use_postgres():
         backup = {
-            "ok": bool(authority.get("ok")),
+            "ok": bool(authority.get("ok")) and bool(pg_dr.get("ok")),
             "engine": "postgres",
             "control": "backup_restore",
-            "note": "Schema authority verified. Full pg_dump/restore remains runbook EXTERNAL proof.",
+            "note": "Schema authority + local ephemeral dump/restore. Production HA remains EXTERNAL.",
             "institutional_tables": authority.get("institutional_tables"),
+            "local_dump_restore": pg_dr,
             "proved_at": _utcnow(),
         }
     else:
@@ -203,6 +473,7 @@ def ops_status() -> dict[str, Any]:
         "backup_restore": backup,
         "schema_authority": authority,
         "postgres_ddl_ready": ddl,
+        "postgres_local_dump_restore": pg_dr,
         "degrade": dependency_degrade_matrix(),
         "verified_complete": False,
         "implementation_class": "PARTIAL",

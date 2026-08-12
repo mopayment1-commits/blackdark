@@ -123,7 +123,7 @@ def test_commerce_invoice_paid_and_kyc():
     decided = decide_kyc(case["case_id"], decision="approved")
     assert decided["status"] == "approved"
     st = commerce_status()
-    assert st["product_complete"] is True
+    assert st["product_complete"] is False
     assert st["sepa_ach_supported"] is True
     assert st["paid_count"] >= 1
 
@@ -204,11 +204,11 @@ def test_d5_honesty_and_model_card():
     from d5_regime_honesty import build_d5_honesty_board
 
     board = build_d5_honesty_board()
-    assert board["product_complete"] is True
+    assert board["product_complete"] is False
     assert "bootstrap" in board
     card = asyncio.run(build_buyer_model_card())
     assert card["page"] == "/model-card"
-    assert card["product_complete"] is True
+    assert card["product_complete"] is False
 
 
 def test_half_life_no_cold_start_defect():
@@ -250,7 +250,7 @@ def test_dd_radical_closure_all_done():
     closure = asyncio.run(build_dd_radical_closure())
     assert closure["design_complete"] is True
     assert closure["implementation_complete"] is True
-    assert closure["product_complete"] is True
+    assert closure["product_complete"] is False
     assert closure["all_done"] is True
     assert closure["p0_wave_closed"] is True
     assert closure["report1"]["closed_count"] == closure["report1"]["total"]
@@ -292,7 +292,7 @@ def test_http_dd_closure_endpoint(monkeypatch):
     assert r.status_code == 200
     body = r.json()
     assert body["all_done"] is True
-    assert body["product_complete"] is True
+    assert body["product_complete"] is False
     r2 = client.get("/api/public/d5-honesty")
     assert r2.status_code == 200
     r3 = client.get("/institutional")

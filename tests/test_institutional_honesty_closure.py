@@ -45,7 +45,7 @@ def test_sso_live_ready_requires_client_secret(monkeypatch):
     )
     assert row["institutional_complete"] is True
     assert row["scim_ready"] is True
-    assert sso_status(org["org_id"])["product_complete"] is True
+    assert sso_status(org["org_id"])["product_complete"] is False
 
 
 def test_institutional_launch_forces_soft_launch_off(monkeypatch):
@@ -168,7 +168,7 @@ def test_sso_live_callback_with_jwks_id_token(monkeypatch):
     result = asyncio.run(_run())
     assert result["demo_or_live"] == "live"
     assert result["crypto_verified"] is True
-    assert result["product_complete"] is True
+    assert result["product_complete"] is False
     assert result["institutional_complete"] is True
     assert result["scim_ready"] is True
 

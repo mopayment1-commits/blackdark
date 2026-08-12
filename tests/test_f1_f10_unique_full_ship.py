@@ -25,7 +25,7 @@ def test_f3_allocator_receipt_seal_and_pdf():
 
     receipt = asyncio.run(build_allocator_decision_receipt(limit=5, fund_name="Test LP Fund"))
     assert receipt["feature_id"] == "F3"
-    assert receipt["product_complete"] is True
+    assert receipt["product_complete"] is False
     assert receipt["seal_hash"]
     pdf = render_allocator_receipt_pdf(receipt)
     assert pdf.startswith(b"%PDF")
@@ -121,7 +121,7 @@ def test_f1_f10_closure_all_done():
     closure = asyncio.run(build_f1_f10_unique_closure())
     assert closure["design_complete"] is True
     assert closure["implementation_complete"] is True
-    assert closure["product_complete"] is True
+    assert closure["product_complete"] is False
     assert closure["all_done"] is True
     assert closure["closed_count"] == 10
     assert closure["strict_confirmation"]["percent_complete"] == 100

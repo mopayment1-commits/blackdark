@@ -45,7 +45,7 @@ def test_brand_coverage_closure_all_done():
     from brand_proof_engine import build_brand_coverage_radical_closure
 
     closure = asyncio.run(build_brand_coverage_radical_closure())
-    assert closure["product_complete"] is True
+    assert closure["product_complete"] is False
     assert closure["all_done"] is True
     assert len(closure["problems_closed"]) == 2
     assert all(c["done"] for c in closure["checklist"])

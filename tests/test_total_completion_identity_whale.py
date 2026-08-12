@@ -197,7 +197,7 @@ def test_enterprise_sso_oidc_requires_jwks_verified_token(monkeypatch, tmp_path)
 
     result = asyncio.run(_run())
     assert result["crypto_verified"] is True
-    assert result["product_complete"] is True
+    assert result["product_complete"] is False
     assert result["scim_ready"] is True
     assert result["email"] == "live.user@oidc.example"
 
@@ -267,7 +267,7 @@ def test_whale_evidence_measured(tmp_path, monkeypatch):
     }
     out = we.measure_whale_readiness(books, symbol="BTC/USDT")
     assert out["whale_ready"] is True
-    assert out["product_complete"] is True
+    assert out["product_complete"] is False
     assert out["probes"]
 
 

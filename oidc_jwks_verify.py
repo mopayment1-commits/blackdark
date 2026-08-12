@@ -148,5 +148,5 @@ def verification_status() -> dict[str, Any]:
             "clock_skew",
         ],
         "fail_closed": True,
-        "product_complete": True,
+        "product_complete": False,
     }

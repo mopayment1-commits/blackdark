@@ -16,9 +16,17 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+# Public Swap API host (legacy quote-api.jup.ag/v6 no longer resolves in many environments).
+DEFAULT_JUPITER_API_URL = "https://api.jup.ag/swap/v1"
+
+
+def jupiter_api_base() -> str:
+    return os.getenv("JUPITER_API_URL", DEFAULT_JUPITER_API_URL).strip().rstrip("/")
+
+
 def jupiter_configured() -> dict[str, bool]:
     return {
-        "api": bool(os.getenv("JUPITER_API_URL", "https://quote-api.jup.ag/v6").strip()),
+        "api": bool(jupiter_api_base()),
         "wallet": bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip()),
         "live_enabled": os.getenv("JUPITER_LIVE_EXECUTION", "").lower() in {"1", "true", "yes"},
     }
@@ -33,7 +41,7 @@ async def quote_swap(
 ) -> dict[str, Any]:
     """Fetch Jupiter quote. Fail closed on network/API failure (no synthetic ok=True)."""
     cfg = jupiter_configured()
-    base = os.getenv("JUPITER_API_URL", "https://quote-api.jup.ag/v6").rstrip("/")
+    base = jupiter_api_base()
     try:
         import httpx
 
@@ -153,21 +161,50 @@ async def execute_swap(
     }
 
 
+async def prove_jupiter_live_quote(
+    *,
+    amount_atomic: int = 1_000_000,
+) -> dict[str, Any]:
+    """Prove live Jupiter quote path (not submit). Fail-closed; never synthetic ok."""
+    usdc = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    sol = "So11111111111111111111111111111111111111112"
+    q = await quote_swap(input_mint=usdc, output_mint=sol, amount_atomic=amount_atomic)
+    out_amount = None
+    if q.get("ok") and isinstance(q.get("quote"), dict):
+        out_amount = q["quote"].get("outAmount")
+    return {
+        "ok": bool(q.get("ok") and q.get("executable_quote") and out_amount),
+        "surface": "jupiter_live_quote_proof",
+        "api_base": jupiter_api_base(),
+        "executable_quote": bool(q.get("executable_quote")),
+        "out_amount": out_amount,
+        "quote": q,
+        "live_submit_implemented": False,
+        "implementation_class": "PARTIAL" if q.get("ok") else "UNVERIFIED",
+        "product_complete": False,
+        "verified_complete": False,
+        "note": "Live quote only — submit remains NOT_IMPLEMENTED / fail-closed.",
+        "at": _utcnow(),
+    }
+
+
 def adapter_status() -> dict[str, Any]:
     cfg = jupiter_configured()
     return {
         "surface": "jupiter_dex_adapter",
         "configured": cfg,
+        "api_base": jupiter_api_base(),
         "synthetic_ok_forbidden": True,
         "live_submit_fail_closed": True,
         "live_submit_implemented": False,
         "production_stub_reachable": False,
         "product_complete": False,
         "verified_complete": False,
-        "implementation_class": "NOT_IMPLEMENTED",
+        "implementation_class": "NOT_IMPLEMENTED",  # submit class
+        "quote_implementation_class": "PARTIAL",
         "quote_path_ready": bool(cfg["api"]),
         "note": (
-            "Quotes fail closed on network errors. Live submit is intentionally "
+            f"Quotes via {jupiter_api_base()}. Live submit is intentionally "
             "NOT_IMPLEMENTED in-repo and fail-closed (never executed=True)."
         ),
     }

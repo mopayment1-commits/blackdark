@@ -29,7 +29,7 @@ EXTRA_DATA_SOURCES: tuple[DataSourceSpec, ...] = (
     DataSourceSpec("whitebit_spot", "prices", "WhiteBIT Spot", "rest",
                    "https://whitebit.com/api/v4/public/ticker", 30),
     DataSourceSpec("jupiter_quote", "defi", "Jupiter Quote", "rest",
-                   "https://quote-api.jup.ag/v6/quote", 60),
+                   "https://api.jup.ag/swap/v1/quote?inputMint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v&outputMint=So11111111111111111111111111111111111111112&amount=1000000&slippageBps=50", 60),
     DataSourceSpec("raydium_pools", "defi", "Raydium Pools", "rest",
                    "https://api.raydium.io/v2/main/pairs", 120),
     DataSourceSpec("orca_whirlpools", "defi", "Orca Whirlpools", "rest",

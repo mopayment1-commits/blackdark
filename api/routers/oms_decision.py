@@ -486,3 +486,12 @@ async def institutional_scheduler_prove_api(
     from institutional_scheduler_proof import prove_scheduler_continuum
 
     return await prove_scheduler_continuum()
+
+
+@router.get("/jupiter/quote-proof")
+async def jupiter_quote_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from jupiter_dex_adapter import prove_jupiter_live_quote
+
+    return await prove_jupiter_live_quote()

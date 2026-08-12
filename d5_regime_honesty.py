@@ -47,7 +47,7 @@ def build_d5_honesty_board() -> dict[str, Any]:
     mature = (not bootstrap) and (not synthetic_any) and bool(rows)
     return {
         "surface": "d5_regime_honesty",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": datetime.now(UTC).isoformat(),
         "bootstrap": bootstrap,
         "synthetic_any": synthetic_any,

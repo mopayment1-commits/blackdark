@@ -49,7 +49,7 @@ async def build_buyer_model_card() -> dict[str, Any]:
 
     return {
         "surface": "buyer_model_card",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": datetime.now(UTC).isoformat(),
         "model_name": "BLACKDARK Unified Oracle Direction v1",
         "version": "unified_multimodal_v1",

@@ -18,8 +18,8 @@ def _utcnow() -> str:
 
 async def prove_scheduler_continuum(
     *,
-    categories: tuple[str, ...] = ("research", "events"),
-    cycle_seconds: float = 1.5,
+    categories: tuple[str, ...] = ("prices", "research"),
+    cycle_seconds: float = 2.0,
 ) -> dict[str, Any]:
     """Run a bounded scheduler continuum on light free categories."""
     import ingestion_scheduler as sch

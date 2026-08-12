@@ -50,7 +50,7 @@ def mfa_policy_status(org_id: str | None = None) -> dict[str, Any]:
     org = get_org(org_id) if org_id else None
     return {
         "surface": "org_enforced_mfa",
-        "product_complete": True,
+        "product_complete": False,
         "org_id": org_id,
         "require_mfa": bool(org.get("require_mfa")) if org else None,
         "factors": ["totp", "recovery_codes"],

@@ -231,7 +231,7 @@ def org_isolation_status() -> dict[str, Any]:
     members = _iter_members()
     return {
         "surface": "multi_tenant_org_isolation",
-        "product_complete": True,
+        "product_complete": False,
         "org_count": len(orgs),
         "membership_count": len([m for m in members if m.get("status") == "active"]),
         "roles": list(ROLES),

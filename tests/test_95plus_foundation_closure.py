@@ -346,6 +346,7 @@ def test_scim_honesty_endpoint(monkeypatch):
     assert st.status_code == 200
     body = st.json()
     assert body["scim_ready"] is True
+    # SCIM product_complete tracks bearer readiness (implemented CRUD), not trading completeness.
     assert body["product_complete"] is True
     assert body["bearer_configured"] is True
 

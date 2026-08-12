@@ -251,5 +251,44 @@ def test_product_complete_overclaim_census_reduced():
     for p in pathlib.Path(".").glob("*.py"):
         text = p.read_text(encoding="utf-8", errors="ignore")
         true_hits += len(re.findall(r'["\']product_complete["\']\s*:\s*True', text))
-    # After honesty sweep, root True census must be well below prior 37
-    assert true_hits <= 12
+    # After honesty sweep, root True census must be zero (no self-cert theater)
+    assert true_hits == 0
+
+
+@pytest.mark.asyncio
+async def test_jupiter_live_quote_proof():
+    from jupiter_dex_adapter import adapter_status, prove_jupiter_live_quote
+
+    st = adapter_status()
+    assert st["live_submit_implemented"] is False
+    assert st["quote_implementation_class"] == "PARTIAL"
+    out = await prove_jupiter_live_quote()
+    assert out["ok"] is True
+    assert out["executable_quote"] is True
+    assert out["live_submit_implemented"] is False
+    assert out["out_amount"]
+
+
+def test_postgres_local_dump_restore_prove():
+    from ops_recovery import prove_postgres_local_dump_restore
+
+    out = prove_postgres_local_dump_restore()
+    assert out["ok"] is True
+    assert out["ha_dr"] == "LOCAL_EPHEMERAL_NOT_HA"
+    assert int(out.get("oms_rows") or 0) == 1
+
+
+@pytest.mark.asyncio
+async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from institutional_ingestion_proof import prove_durable_ingestion
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "cov.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    out = await prove_durable_ingestion()
+    assert out["ok"] is True
+    assert out["live_sources"] >= 2
+    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 5
+    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 5.0

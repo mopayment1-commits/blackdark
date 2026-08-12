@@ -81,7 +81,7 @@ def schedule_status() -> dict[str, Any]:
         "due_now": due,
         "drafts_ready": bool(drafts),
         "drafts": drafts,
-        "product_complete": True,
+        "product_complete": False,
         "operator_action": (
             "When due_now=true, post drafts from /api/glass-box/announce-drafts "
             "(keys/accounts are operator runtime, not missing product code)."
