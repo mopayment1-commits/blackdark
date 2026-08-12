@@ -30,6 +30,43 @@ def test_activate_full_universe_writes_manifest(tmp_path, monkeypatch):
     assert len(payload["operational"]["exchanges"]) >= 100
 
 
+def test_live_rollout_status_uses_dialect_safe_cutoff(tmp_path, monkeypatch):
+    import asyncio
+
+    import universe_rollout as ur
+
+    monkeypatch.setattr(ur, "_registry_exchange_ids", lambda: ["binance", "okx"])
+    monkeypatch.setattr(ur, "_manifest_is_approved", lambda: True)
+
+    class _Rows:
+        async def fetchall(self):
+            return [("binance",), ("coinbase",)]
+
+    class _DB:
+        async def execute(self, query, params=None):
+            assert "datetime(" not in query
+            assert "timestamp >= ?" in query
+            assert params and len(params) == 1
+            return _Rows()
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            return False
+
+    monkeypatch.setattr("database.get_connection", lambda: _DB())
+
+    async def _run():
+        status = await ur.live_rollout_status()
+        assert status["target_exchanges"] == 2
+        assert status["healthy_exchanges"] == 1
+        assert "binance" in status["healthy_sample"]
+        assert status["manifest_approved"] is True
+
+    asyncio.run(_run())
+
+
 def test_rollout_summary_json():
     data = rollout_summary_json()
     assert "registry_exchanges" in data

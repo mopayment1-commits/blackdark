@@ -260,8 +260,16 @@ async def init_pool() -> None:
 async def close_pool() -> None:
     global _pool
     if _pool is not None:
-        await _pool.close()
+        pool = _pool
         _pool = None
+        try:
+            await pool.close()
+        except RuntimeError:
+            # Event loop already closed (test teardown) — force-drop connections.
+            try:
+                pool.terminate()
+            except Exception:
+                pass
 
 
 async def init_postgres() -> None:
