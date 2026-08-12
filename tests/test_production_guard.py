@@ -32,6 +32,9 @@ def test_production_guard_postgres_pass(monkeypatch):
     monkeypatch.setenv("SECRETS_MASTER_KEY", "test-master-key")
     monkeypatch.setenv("SESSION_TOKEN_PEPPER", "test-pepper")
     monkeypatch.setenv("ADMIN_API_KEY", "test-admin")
+    # Isolate from telegram secrets-loader leakage in other tests.
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_WEBHOOK_SECRET", raising=False)
     import config
 
     monkeypatch.setattr(config, "DATABASE_URL", "postgresql://u:p@host/db")
@@ -57,6 +60,8 @@ def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
     monkeypatch.delenv("STRIPE_SECRET_KEY", raising=False)
     monkeypatch.delenv("LEMON_SQUEEZY_WEBHOOK_SECRET", raising=False)
     monkeypatch.delenv("IDENTITY_DEBUG_TOKENS", raising=False)
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_WEBHOOK_SECRET", raising=False)
 
     from production_guard import evaluate_production_guard
 

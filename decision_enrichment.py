@@ -99,7 +99,20 @@ def _attach_net_edge_truth(
             verdict = _apply_truth_reject(out, truth, verdict)
         else:
             truth = compute_net_edge_truth(_directional_truth_input(truth_input, score))
-            truth = {**truth, "mode": "directional_advisory", "reject": False, "pass": True}
+            truth = {
+                **truth,
+                "mode": "directional_advisory",
+                "reject": False,
+                "pass": True,
+                "executable": False,
+                "label": "ADVISORY_NOT_EXECUTABLE",
+                "disclaimer": (
+                    "Directional / advisory signal only — not an executable "
+                    "profit claim. Fees, slip, and capacity are not fully proven."
+                ),
+            }
+            out["truth_mode"] = "advisory"
+            out["executable"] = False
         out["net_edge_truth"] = truth
     except Exception:
         logger.debug("net edge enrich failed", exc_info=True)

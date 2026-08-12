@@ -2,6 +2,8 @@
 
 Committee-facing index for acquisition / allocator diligence.
 
+**RC2:** Repository-producible artifacts are indexed below. Legal/live/cloud ownership items remain EXTERNAL (never fabricated as PASS).
+
 ## Canon (read first)
 
 | Doc | Purpose |
@@ -11,6 +13,9 @@ Committee-facing index for acquisition / allocator diligence.
 | `docs/HEROES_STRATEGY_BINDING.md` | Six heroes quality bars |
 | `docs/STRATEGIC_CORRECTION_BINDING.md` | Rejected inflation (ARENA/Neuro/15 sections) |
 | `ARCHITECTURE.md` | Runtime / deploy index |
+| `docs/dd/BLACKDARK_RC1_MANIFEST.md` | Immutable RC1 freeze |
+| `docs/dd/BLACKDARK_RC2_REMEDIATION_LEDGER.json` | RC1→RC2 machine-readable ledger |
+| `docs/dd/BLACKDARK_RC2_FINAL_CERTIFICATION.md` | RC2 certification report |
 
 ## Prove-it surfaces (live)
 
@@ -37,6 +42,23 @@ Committee-facing index for acquisition / allocator diligence.
 - High concurrency is **code-enabled**; **proven** only after a signed Postgres+Redis multi-worker row in `docs/LOAD_TEST_RUN_LOG.md`.
 - MFA (TOTP) and OAuth2 are engineering controls when configured — not a compliance certificate.
 
+## Repository-producible packs (RC2)
+
+| Pack | Path |
+|------|------|
+| SBOM (CycloneDX) | `docs/data-room/sbom/cyclonedx-python.json` |
+| License inventory | `docs/data-room/licenses/` |
+| Buyer handover | `docs/ops/BUYER_HANDOVER_PACK.md` |
+| Incident / DR / secrets | `docs/ops/INCIDENT_RESPONSE.md`, `BACKUP_RESTORE.md`, `SECRET_ROTATION.md` |
+| Env / ownership maps | `docs/ops/ENV_VAR_REGISTRY.md`, `SERVICE_OWNERSHIP_MAP.md`, `EXTERNAL_VENDOR_MAP.md` |
+| Account ownership template | `docs/ops/ACCOUNT_OWNERSHIP_SCHEDULE.md` (**EXTERNAL fill**) |
+| CSP / CORS reviews | `docs/ops/CSP_PRODUCTION_ATTESTATION.md`, `CORS_ALLOWLIST_REVIEW.md` |
+| NOTICE / third-party | `NOTICE`, `THIRD_PARTY_NOTICES.md` |
+| Load evidence (MEASURED) | `docs/LOAD_TEST_RUN_LOG.md` |
+| Security | `SECURITY.md`, `docs/SECURITY_HARDENING.md`, `docs/BLACKDARK_SECURITY_CERTIFICATION.md` |
+| Financial correctness tests | `tests/test_rc2_financial_truth.py`, fee/money suites |
+| Chaos / resilience tests | `tests/test_rc2_chaos_resilience.py` |
+
 ## Human-only remaining
 
-See `docs/DEFERRED_HUMAN_STEPS.md` (Glass Box announce channel, founder cold confirm on deployed URL, signed HA load row).
+See `docs/DEFERRED_HUMAN_STEPS.md` and RC2 EXTERNAL list (PSP, CodeQL UI, counsel, Sonar New Code admin, branch protection, WAF/pentest, account ownership fill-in, live restore drill, founder 60s).

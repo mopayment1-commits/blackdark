@@ -1,0 +1,9 @@
+BLACKDARK
+Copyright (c) 2024-2026 BLACKDARK contributors / rights holders as listed in LICENSE.
+
+This product includes third-party open source software components.
+See THIRD_PARTY_NOTICES.md and docs/data-room/licenses/DEPENDENCY_LICENSE_INVENTORY.md
+for package-level attribution generated from requirements.lock.txt.
+
+The dependency license inventory is an engineering artifact and is NOT a legal opinion.
+Counsel review remains an external acquisition condition (F-EXT-05 / F-IP-01).

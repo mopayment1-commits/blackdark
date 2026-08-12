@@ -7,6 +7,13 @@ from live_book_hub import get_best_price, hub_stats, update_top_of_book
 from service_bus import bus_enabled, bus_stats, publish, subscribe
 
 
+@pytest.fixture(autouse=True)
+def _isolate_bus_env(monkeypatch):
+    """F-TEST-02: isolate from host SERVICE_BUS_LOCAL=false pollution."""
+    monkeypatch.delenv("REDIS_URL", raising=False)
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+
+
 def test_live_book_hub_update_and_read():
     update_top_of_book("binance", "BTC/USDT", bid=50000, bid_qty=1, ask=50001, ask_qty=1)
     update_top_of_book("okx", "BTC/USDT", bid=50010, bid_qty=1, ask=50011, ask_qty=1)

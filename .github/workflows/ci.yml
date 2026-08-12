@@ -31,9 +31,9 @@ jobs:
     env:
       BLACKDARK_TEST_DATABASE_URL: postgresql://blackdark:blackdark@127.0.0.1:5432/blackdark_clean
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12"
 
@@ -49,6 +49,7 @@ jobs:
           python -m pytest tests/test_slippage_guard.py tests/test_fee_matrix.py \
             tests/test_profit_fee_algorithms.py tests/test_fast_scan_profit.py \
             tests/test_p0_financial_executability.py tests/test_money_decimal.py \
+            tests/test_rc2_financial_truth.py \
             -q --tb=short --cov-config=.coveragerc-profit-fee \
             --cov=fee_matrix --cov=slippage_guard --cov=fast_scan_engine \
             --cov=profit_fee_algorithms --cov=executable_edge_truth --cov=money_decimal \
@@ -63,7 +64,25 @@ jobs:
             tests/test_p1_session_hardening.py \
             tests/test_production_guard.py \
             tests/test_service_bus_distributed.py \
+            tests/test_rc2_chaos_resilience.py \
             -q --tb=short
+
+      - name: Supply chain SBOM + license inventory
+        run: |
+          python scripts/generate_sbom.py
+          python scripts/generate_license_inventory.py
+          test -s docs/data-room/sbom/cyclonedx-python.json
+          test -s docs/data-room/licenses/dependency_licenses.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          sbom = json.loads(Path("docs/data-room/sbom/cyclonedx-python.json").read_text())
+          assert sbom.get("bomFormat") == "CycloneDX"
+          assert len(sbom.get("components") or []) >= 10
+          lic = json.loads(Path("docs/data-room/licenses/dependency_licenses.json").read_text())
+          assert lic.get("component_count", 0) >= 10
+          print("sbom_ok", len(sbom["components"]), "license_ok", lic["component_count"])
+          PY
 
       - name: Postgres migration integrity
         run: |
