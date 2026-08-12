@@ -1,9 +1,9 @@
 # BLACKDARK MASTER DECISION REGISTER
 
-**Canonical HEAD audited:** `73818e24635d2b6be8483127dcb2d37e0aadef6c`  
-**Branch:** `cursor/institutional-hardening-120d`  
+**Canonical HEAD audited:** `abc9e2bb602d82274d6c7f60e1547306745490d2`  
+**Branch:** `main`  
 **Audit date:** 2026-08-12  
-**Sonar PR analysis:** run `31549303247` @ `2026-08-12T00:12:59+0000` on tip SHA (QG OK, new_coverage 87.1%)  
+**Sonar main analysis:** run `31583925008` @ `abc9e2b` — **QG FAILED** (new_coverage 28.3%; Coverage XML imported; AA skipped). PR analyses on #58/#59/#61 were QG OK but are not substituted for main.  
 
 **Rule:** Only FINAL / APPROVED / BINDING / VERIFIED decisions are obligations. PROPOSED / REJECTED / SUPERSEDED listed separately.
 
@@ -137,8 +137,8 @@ Status key:
 | DEC-0408 | CI critical gate must be real (not fake “full suite”) | DEVOPS | Remediation | VERIFIED_IMPLEMENTED | `.github/workflows/ci.yml` renamed/expanded; critical green |
 | DEC-0409 | Full tests/ suite must be green for institutional completeness | TESTING | Remediation mission | VERIFIED_IMPLEMENTED | Broader unit suite **595 passed / 0 failed** (`-m 'not load and not network'`) on tip |
 | DEC-0410 | Sonar AA and CI scanner mutually exclusive | DEVOPS | PR #53 / sonarcloud.yml | VERIFIED_IMPLEMENTED | Workflow policy; AA disabled (`sonar.autoscan.enabled=false`) |
-| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | CI Coverage XML + SonarCloud CI Scanner on tip `39704c2`; `new_coverage=87.9%` imported; run `31547884573` |
-| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | VERIFIED_IMPLEMENTED | Tip `39704c2`: CodeQL + Security Scan + critical CI + SonarCloud Code Analysis (QG OK) all green on PR #58 |
+| DEC-0411 | Coverage must be imported into Sonar for institutional gate | COVERAGE | Remediation / PR #57 | VERIFIED_IMPLEMENTED | Coverage XML generated + Cobertura sensor imports on main `abc9e2b` run `31583925008`; AA remains off |
+| DEC-0412 | Quality gates CodeQL / Sonar / security scans keep green | QUALITY | MORNING_SESSION | NEEDS_EXTERNAL_VERIFICATION | CodeQL Analyze + Security Scan + Critical CI green on main `abc9e2b`; **Sonar QG FAILED** on main (new_coverage 28.3%) despite PR QG OK — requires SonarCloud admin New Code = Previous version (or period reset); do not game coverage attribution |
 | DEC-0413 | Microservices optional via Redis bus; monolith OK for soft launch | ARCHITECTURE | MICROSERVICES_ARCHITECTURE | VERIFIED_IMPLEMENTED | service_bus + SERVICE_MODE |
 
 ---
@@ -190,10 +190,10 @@ Status key:
 |---|---|
 | FINAL obligations catalogued (DEC-0001–0504 material set) | **91** |
 | REJECTED/SUPERSEDED excluded | **10** |
-| VERIFIED_IMPLEMENTED | **84** |
+| VERIFIED_IMPLEMENTED | **83** |
 | PARTIALLY_IMPLEMENTED | **0** |
 | IMPLEMENTED_BUT_UNVERIFIED | **0** |
 | NOT_IMPLEMENTED | **0** |
-| NEEDS_EXTERNAL_VERIFICATION | **6** (DEC-0014/0028/0029/0030/0501/0504) |
+| NEEDS_EXTERNAL_VERIFICATION | **7** (DEC-0014/0028/0029/0030/0412/0501/0504) |
 | CONFLICTED (open DEC rows) | **0** (DEC-0016 superseded via DEC-0017) |
 | Unresolved CF-* needing user | **0** (CF-05 resolved — do not merge #50) |
