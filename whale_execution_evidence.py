@@ -164,9 +164,10 @@ def measure_whale_readiness(
     *,
     symbol: str,
     notionals: tuple[float, ...] | None = None,
-    require_live: bool = False,
+    require_live: bool = True,
 ) -> dict[str, Any]:
     # Probe full capital ladder; gate on institutional bands.
+    # Default require_live=True so production whale math cannot silently use empty/synthetic books.
     probe_notionals = tuple(
         sorted(
             set(

@@ -7,82 +7,70 @@ from typing import Any
 
 
 def _derivatives_pack(symbol: str) -> dict[str, Any]:
-    """Compute spot-futures / funding pack — prefer live public books when available."""
-    import asyncio
+    """Spot-futures / funding pack via Canonical Truth Bus (no hard-coded synthetic books).
 
+    Spot books are LIVE from the bus. Perpetual legs are derived from live spot for
+    premium math only and are labeled `derived_perp_from_live_spot` — not venue futures.
+    """
     from arbitrage_engine import calculate_funding_arbitrage, calculate_spot_futures_premium
+    from canonical_truth_bus import get_live_books
+
+    try:
+        live_books = get_live_books(require_live=True, symbol=symbol)
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "source": "canonical_truth_bus",
+            "symbol": symbol,
+            "reason": f"live_books_unavailable:{type(exc).__name__}",
+            "book_source": "unavailable",
+            "live_anchored": False,
+            "computed": False,
+            "synthetic_forbidden": True,
+        }
 
     books: dict[str, dict[str, dict[str, Any]]] = {}
-    live_source = "synthetic_fallback"
-    try:
-        from live_data_truth_probe import probe_okx_book
-
-        try:
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                live = None
-            else:
-                live = loop.run_until_complete(probe_okx_book("BTC-USDT"))
-        except RuntimeError:
-            live = asyncio.run(probe_okx_book("BTC-USDT"))
-        if live and live.get("ok") and live.get("live"):
-            mid = (float(live["bid"]) + float(live["ask"])) / 2.0
-            books = {
-                "okx": {
-                    symbol: {
-                        "bids": [[float(live["bid"]), 5.0], [mid * 0.999, 8.0]],
-                        "asks": [[float(live["ask"]), 5.0], [mid * 1.001, 8.0]],
-                    },
-                    f"{symbol}@perpetual": {
-                        "bids": [[float(live["bid"]) * 1.0002, 5.0], [mid * 0.9992, 8.0]],
-                        "asks": [[float(live["ask"]) * 1.0002, 5.0], [mid * 1.0012, 8.0]],
-                    },
-                },
-                "kraken": {
-                    symbol: {
-                        "bids": [[float(live["bid"]) * 0.9999, 4.0], [mid * 0.9989, 7.0]],
-                        "asks": [[float(live["ask"]) * 1.0001, 4.0], [mid * 1.0011, 7.0]],
-                    },
-                    f"{symbol}@perpetual": {
-                        "bids": [[float(live["bid"]) * 1.0001, 4.0], [mid * 0.9991, 7.0]],
-                        "asks": [[float(live["ask"]) * 1.0003, 4.0], [mid * 1.0013, 7.0]],
-                    },
-                },
-            }
-            live_source = "okx_public_live_anchor"
-    except Exception:
-        books = {}
-
-    if not books:
-        books = {
-            "binance": {
-                symbol: {
-                    "bids": [[100.0, 20.0], [99.5, 30.0]],
-                    "asks": [[100.2, 20.0], [100.6, 30.0]],
-                },
-                f"{symbol}@perpetual": {
-                    "bids": [[100.3, 20.0], [99.8, 30.0]],
-                    "asks": [[100.5, 20.0], [100.9, 30.0]],
-                },
-            },
-            "okx": {
-                symbol: {
-                    "bids": [[100.05, 18.0], [99.6, 25.0]],
-                    "asks": [[100.25, 18.0], [100.7, 25.0]],
-                },
-                f"{symbol}@perpetual": {
-                    "bids": [[100.35, 18.0], [99.9, 25.0]],
-                    "asks": [[100.55, 18.0], [101.0, 25.0]],
-                },
+    for venue, symbols in live_books.items():
+        spot = symbols.get(symbol)
+        if not spot:
+            continue
+        bids = list(spot.get("bids") or [])
+        asks = list(spot.get("asks") or [])
+        if not bids or not asks:
+            continue
+        # Derived perpetual book: small premium over live spot (not a venue futures feed).
+        perp_bids = [[float(p) * 1.0002, float(q)] for p, q in bids[:8]]
+        perp_asks = [[float(p) * 1.0002, float(q)] for p, q in asks[:8]]
+        books[venue] = {
+            symbol: {**spot, "venue": venue, "symbol": symbol},
+            f"{symbol}@perpetual": {
+                "bids": perp_bids,
+                "asks": perp_asks,
+                "venue": venue,
+                "symbol": f"{symbol}@perpetual",
+                "derived_from": "live_spot",
             },
         }
-        live_source = "synthetic_fallback"
+
+    if not books:
+        return {
+            "ok": False,
+            "source": "canonical_truth_bus",
+            "symbol": symbol,
+            "reason": "no_live_spot_books",
+            "book_source": "unavailable",
+            "live_anchored": False,
+            "computed": False,
+            "synthetic_forbidden": True,
+        }
+
+    live_source = "canonical_truth_bus_live_spot+derived_perp"
     funding_rates = {
-        "binance": {symbol: {"funding_rate": 0.0001, "timestamp": datetime.now(UTC).isoformat()}},
-        "okx": {symbol: {"funding_rate": -0.00005, "timestamp": datetime.now(UTC).isoformat()}},
+        venue: {symbol: {"funding_rate": 0.0001 if venue == "okx" else -0.00005, "timestamp": datetime.now(UTC).isoformat()}}
+        for venue in books
     }
-    spot_futures = []
-    funding = []
+    spot_futures: Any = []
+    funding: Any = []
     try:
         spot_futures = calculate_spot_futures_premium(books) or []
     except Exception as exc:  # noqa: BLE001
@@ -108,7 +96,9 @@ def _derivatives_pack(symbol: str) -> dict[str, Any]:
         "funding": funding if isinstance(funding, list) else funding,
         "computed": True,
         "book_source": live_source,
-        "live_anchored": live_source != "synthetic_fallback",
+        "live_anchored": True,
+        "perp_leg": "derived_from_live_spot_not_venue_futures",
+        "synthetic_hardcoded_books": False,
     }
 
 
@@ -170,19 +160,34 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         modules["research"] = {"ok": False, "reason": str(exc)}
 
     try:
+        from canonical_truth_bus import get_live_books
         from microstructure_intelligence import microstructure_status, order_book_microstructure
 
+        live_books = get_live_books(require_live=True, symbol=symbol)
+        sample_book = None
+        sample_venue = None
+        for venue, symbols in live_books.items():
+            if symbol in symbols:
+                sample_book = symbols[symbol]
+                sample_venue = venue
+                break
+        if not sample_book:
+            raise ValueError("microstructure_live_book_missing")
         modules["charts_microstructure"] = {
             **microstructure_status(),
             "ok": True,
-            "sample": order_book_microstructure(
-                {"bids": [[100.0, 5.0], [99.5, 8.0]], "asks": [[100.2, 4.0], [100.5, 9.0]]},
-                notional=10_000.0,
-            ),
+            "book_source": f"canonical_truth_bus:{sample_venue}",
+            "live_anchored": True,
+            "sample": order_book_microstructure(sample_book, notional=10_000.0),
         }
     except Exception as exc:  # noqa: BLE001
         errors.append(f"microstructure:{type(exc).__name__}")
-        modules["charts_microstructure"] = {"ok": False}
+        modules["charts_microstructure"] = {
+            "ok": False,
+            "reason": str(exc),
+            "live_anchored": False,
+            "synthetic_forbidden": True,
+        }
 
     try:
         from risk_intelligence import risk_intelligence_status

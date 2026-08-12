@@ -25,7 +25,7 @@ def run_decision_e2e(
     try:
         from canonical_truth_bus import get_live_books
 
-        books = get_live_books(require_live=bool(live.get("ok")), symbol=symbol)
+        books = get_live_books(require_live=True, symbol=symbol)
     except ValueError as exc:
         return {
             "ok": False,
