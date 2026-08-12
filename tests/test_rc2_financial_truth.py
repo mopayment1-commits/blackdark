@@ -130,12 +130,11 @@ def test_setup_telegram_writes_private_file_not_env_token():
     src = Path("setup_telegram.py").read_text(encoding="utf-8")
     assert "telegram.secrets.env" in src
     assert "write_private_text" in src
-    assert "TELEGRAM_SECRETS_FILE" in src
     assert "_persist_telegram_secrets" in src
-    assert "_persist_nonsecret_env" in src
-    # Must not upsert cleartext token into .env anymore.
+    assert "_persist_nonsecret_flags" in src
+    # Must not upsert cleartext token or secrets-file pointer into .env.
     assert '_upsert_env("TELEGRAM_BOT_TOKEN"' not in src
-    # Must not print secret file path after writing secrets (CodeQL clear-text log).
+    assert '_upsert_env("TELEGRAM_SECRETS_FILE"' not in src
     assert "Wrote private secrets file (mode 0600)." in src
 
 

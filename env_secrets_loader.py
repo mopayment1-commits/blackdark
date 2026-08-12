@@ -61,5 +61,21 @@ def load_secrets_file(env_pointer: str, *, override: bool = False) -> bool:
     return True
 
 
+_DEFAULT_TELEGRAM_SECRETS = _ROOT / "keys" / "telegram.secrets.env"
+
+
 def ensure_telegram_env() -> None:
-    load_secrets_file("TELEGRAM_SECRETS_FILE")
+    """Load Telegram secrets from TELEGRAM_SECRETS_FILE or the default 0600 path."""
+    if load_secrets_file("TELEGRAM_SECRETS_FILE"):
+        return
+    if not os.getenv("TELEGRAM_BOT_TOKEN", "").strip() and _DEFAULT_TELEGRAM_SECRETS.is_file():
+        # Default private file — no .env pointer required (CodeQL: avoid storing
+        # secret-path pointers next to cleartext project .env).
+        pointer = str(_DEFAULT_TELEGRAM_SECRETS)
+        if pointer in _LOADED:
+            return
+        for key, value in _parse_env_file(_DEFAULT_TELEGRAM_SECRETS).items():
+            if not os.getenv(key, "").strip():
+                os.environ[key] = value
+        _LOADED.add(pointer)
+        logger.info("secrets_file_loaded pointer=default_telegram keys=present")

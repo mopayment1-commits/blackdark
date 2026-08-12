@@ -148,3 +148,14 @@ async def test_telegram_poll_loop_returns_without_token(monkeypatch):
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     esl._LOADED.clear()
     await tbp._poll_loop()
+
+
+def test_ensure_telegram_env_default_private_file(monkeypatch, tmp_path):
+    secret = tmp_path / "telegram.secrets.env"
+    secret.write_text("TELEGRAM_BOT_TOKEN=7:CCCCCCCCCCCCCCCCCCCC\n", encoding="utf-8")
+    monkeypatch.setattr(esl, "_DEFAULT_TELEGRAM_SECRETS", secret)
+    monkeypatch.delenv("TELEGRAM_SECRETS_FILE", raising=False)
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    esl._LOADED.clear()
+    esl.ensure_telegram_env()
+    assert os.getenv("TELEGRAM_BOT_TOKEN", "").startswith("7:")

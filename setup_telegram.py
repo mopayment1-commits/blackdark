@@ -4,7 +4,8 @@ BLACKDARK — Telegram one-step setup.
 Usage: python setup_telegram.py
 
 Secret values are written only to a private file (mode 0600).
-The project .env receives the path pointer + non-secret flags only.
+No secret values and no secret-file path pointers are written to .env.
+Runtime loads `keys/telegram.secrets.env` by default (see env_secrets_loader).
 """
 
 from __future__ import annotations
@@ -17,9 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 ENV_PATH = ROOT / ".env"
-# Constant relative pointer — never derived from the token value (CodeQL hygiene).
-SECRETS_POINTER = "keys/telegram.secrets.env"
-SECRET_FILE = ROOT / SECRETS_POINTER
+SECRET_FILE = ROOT / "keys" / "telegram.secrets.env"
 
 TOKEN_RE = re.compile(r"^\d+:[A-Za-z0-9_-]{20,}$")
 
@@ -33,8 +32,8 @@ def _read_env() -> list[str]:
     return ENV_PATH.read_text(encoding="utf-8").splitlines()
 
 
-def _write_env_nonsecret(lines: list[str]) -> None:
-    """Persist non-secret pointer/flags only. Never write bot tokens here."""
+def _write_env_flags(lines: list[str]) -> None:
+    """Persist non-secret boolean/username flags only."""
     # Constant project .env path — not user-controlled.
     ENV_PATH.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")  # NOSONAR pythonsecurity:S2083,pythonsecurity:S8707
 
@@ -73,25 +72,25 @@ def _persist_telegram_secrets(token: str, chat: str) -> None:
     write_private_text(SECRET_FILE, "\n".join(secret_lines) + "\n")
 
 
-def _persist_nonsecret_env(username: str) -> None:
+def _persist_nonsecret_flags(username: str) -> None:
     lines = _read_env()
     if not lines:
         example = ROOT / ".env.example"
         lines = example.read_text(encoding="utf-8").splitlines() if example.exists() else ["# BLACKDARK"]
 
-    lines = _upsert_env("TELEGRAM_SECRETS_FILE", SECRETS_POINTER, lines)
     if username:
         lines = _upsert_env("TELEGRAM_BOT_USERNAME", username, lines)
     lines = _upsert_env("TELEGRAM_FREE_ALERTS_ENABLED", "true", lines)
     lines = _upsert_env("TELEGRAM_POLLING_ENABLED", "true", lines)
     lines = _upsert_env("TELEGRAM_ALERTS_ENABLED", "true", lines)
-    # Strip any prior cleartext token/chat lines from .env if present.
-    lines = [
-        ln
-        for ln in lines
-        if not ln.startswith("TELEGRAM_BOT_TOKEN=") and not ln.startswith("TELEGRAM_CHAT_ID=")
-    ]
-    _write_env_nonsecret(lines)
+    # Strip any prior cleartext token/chat/pointer lines from .env if present.
+    strip_prefixes = (
+        "TELEGRAM_BOT_TOKEN=",
+        "TELEGRAM_CHAT_ID=",
+        "TELEGRAM_SECRETS_FILE=",
+    )
+    lines = [ln for ln in lines if not ln.startswith(strip_prefixes)]
+    _write_env_flags(lines)
 
 
 def main() -> int:
@@ -131,14 +130,13 @@ def main() -> int:
     chat = input("Your TELEGRAM_CHAT_ID (message /start to bot, optional now): ").strip()
 
     _persist_telegram_secrets(token, chat)
-    # Drop secret locals before any further I/O messaging.
     del token
     del chat
-    _persist_nonsecret_env(username)
+    _persist_nonsecret_flags(username)
 
     print("\nWrote private secrets file (mode 0600).")
-    print("Pointer saved to .env as TELEGRAM_SECRETS_FILE (path only, no secret values).")
-    print("Load secrets before start: set -a; . keys/telegram.secrets.env; set +a")
+    print("Runtime loads keys/telegram.secrets.env by default (no .env secret pointer).")
+    print("Optional override: TELEGRAM_SECRETS_FILE=<path> in process env only.")
     if username:
         print(f"Open bot: https://t.me/{username} → send /start")
     print("Test: http://127.0.0.1:8080/api/alerts/telegram/status")
