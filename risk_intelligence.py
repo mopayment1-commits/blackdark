@@ -65,13 +65,21 @@ def correlation_contagion_risk(
             if abs(float(c)) >= 0.75:
                 high_pairs.append({"a": a, "b": b, "corr": float(c)})
     clustered = len(high_pairs) > 0
+    # Concentration / missing pairwise evidence fail closed for large books
+    notionals = [abs(float(p.get("notional_usd") or 0)) for p in positions]
+    gross = sum(notionals) or 1.0
+    herfindahl = sum((n / gross) ** 2 for n in notionals)
+    missing_corr = pairwise_corr is None or len(corr) == 0
+    block = clustered or herfindahl >= 0.45 or (missing_corr and len(assets) >= 3)
     return {
         "kind": "correlation_contagion",
         "high_pairs": high_pairs,
         "cluster_risk": clustered,
-        "gate": "warn" if clustered else "pass",
-        "executable": True,  # warning — does not alone block unless policy says so
-        "score": claim_heuristic(min(1.0, 0.2 * len(high_pairs)), label="contagion").to_dict(),
+        "herfindahl": round(herfindahl, 6),
+        "missing_pairwise_corr": missing_corr,
+        "gate": "block" if block else "pass",
+        "executable": not block,
+        "score": claim_heuristic(min(1.0, 0.2 * len(high_pairs) + herfindahl), label="contagion").to_dict(),
     }
 
 

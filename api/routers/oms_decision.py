@@ -116,6 +116,25 @@ async def oms_get_order(
     return row
 
 
+class OmsSubmitBody(BaseModel):
+    actor: str = "api"
+    dry_run: bool = True
+
+
+@router.post("/oms/orders/{order_id}/submit")
+async def oms_submit_venue(
+    order_id: str,
+    body: OmsSubmitBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    import oms
+
+    try:
+        return await oms.submit_to_venue(order_id, actor=body.actor, dry_run=body.dry_run)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @router.get("/decision-graph/status")
 async def decision_graph_status(
     _: Annotated[dict, Depends(require_institutional_principal)],
@@ -158,3 +177,14 @@ async def decision_intel_status(
     import decision_intelligence_engine
 
     return decision_intelligence_engine.engine_status()
+
+
+@router.get("/super-terminal")
+async def super_terminal_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    symbol: str = "BTC/USDT",
+    org_id: str = "default",
+) -> dict[str, Any]:
+    from super_terminal import build_super_terminal
+
+    return build_super_terminal(symbol=symbol, org_id=org_id)

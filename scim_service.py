@@ -47,8 +47,8 @@ def scim_bearer_configured() -> bool:
 
 
 def scim_ready() -> bool:
-    """CRUD surface is implemented; IdP bearer policy is separate."""
-    return True
+    """Ready only when IdP bearer token policy is configured."""
+    return scim_bearer_configured()
 
 
 def scim_status() -> dict[str, Any]:
@@ -57,7 +57,7 @@ def scim_status() -> dict[str, Any]:
     return {
         "surface": "scim",
         "implemented": True,
-        "scim_ready": True,
+        "scim_ready": bearer,
         "bearer_configured": bearer,
         "product_complete": bearer,
         "users": len(data.get("users", {})),
@@ -72,10 +72,25 @@ def scim_status() -> dict[str, Any]:
             "POST /api/institutional/scim/v2/Groups",
         ],
         "note": (
-            "SCIM User/Group CRUD implemented; product_complete only when "
+            "SCIM User/Group CRUD implemented; scim_ready/product_complete only when "
             "SCIM_BEARER_TOKEN is configured for IdP auth."
         ),
     }
+
+
+def require_scim_bearer(authorization: str | None) -> None:
+    """Fail closed SCIM API calls without matching bearer."""
+    import hmac
+    import os
+
+    expected = os.getenv("SCIM_BEARER_TOKEN", "").strip()
+    if not expected:
+        raise PermissionError("scim_bearer_not_configured")
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise PermissionError("scim_unauthorized")
+    got = authorization.split(" ", 1)[1].strip()
+    if not hmac.compare_digest(got, expected):
+        raise PermissionError("scim_unauthorized")
 
 
 def _user_resource(row: dict[str, Any]) -> dict[str, Any]:

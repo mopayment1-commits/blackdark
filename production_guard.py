@@ -131,11 +131,12 @@ def _env_flag(name: str, default: str = "") -> bool:
 
 
 def _billing_webhook_ready(lemon: bool, stripe: bool, lemon_webhook: bool, stripe_webhook: bool) -> bool:
+    # Vacuous True when no PSP configured is forbidden — no billing ⇒ webhook not ready.
     if lemon:
         return lemon_webhook
     if stripe:
         return stripe_webhook
-    return True
+    return False
 
 
 def _effective_parallelism() -> dict[str, Any]:

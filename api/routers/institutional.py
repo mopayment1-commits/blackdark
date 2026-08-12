@@ -341,20 +341,35 @@ async def scim_status_api() -> dict[str, Any]:
     return scim_status()
 
 
+def _enforce_scim_bearer(authorization: str | None) -> None:
+    from scim_service import require_scim_bearer
+
+    try:
+        require_scim_bearer(authorization)
+    except PermissionError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+
+
 @router.get("/scim/v2/Users")
 async def scim_list_users(
     org_id: str = Query(...),
     filter: str = "",
     startIndex: int = 1,
     count: int = 100,
+    authorization: Annotated[str | None, Header()] = None,
 ) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import list_users
 
     return list_users(org_id=org_id, filter_expr=filter, start_index=startIndex, count=count)
 
 
 @router.post("/scim/v2/Users")
-async def scim_create_user(body: dict[str, Any]) -> dict[str, Any]:
+async def scim_create_user(
+    body: dict[str, Any],
+    authorization: Annotated[str | None, Header()] = None,
+) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import create_user, scim_error
 
     try:
@@ -379,7 +394,12 @@ async def scim_create_user(body: dict[str, Any]) -> dict[str, Any]:
 
 
 @router.get("/scim/v2/Users/{user_id}")
-async def scim_get_user(user_id: str, org_id: str = Query(...)) -> dict[str, Any]:
+async def scim_get_user(
+    user_id: str,
+    org_id: str = Query(...),
+    authorization: Annotated[str | None, Header()] = None,
+) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import get_user
 
     row = get_user(user_id, org_id=org_id)
@@ -389,7 +409,13 @@ async def scim_get_user(user_id: str, org_id: str = Query(...)) -> dict[str, Any
 
 
 @router.patch("/scim/v2/Users/{user_id}")
-async def scim_patch_user(user_id: str, body: dict[str, Any], org_id: str = Query(...)) -> dict[str, Any]:
+async def scim_patch_user(
+    user_id: str,
+    body: dict[str, Any],
+    org_id: str = Query(...),
+    authorization: Annotated[str | None, Header()] = None,
+) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import patch_user, scim_error
 
     try:
@@ -399,7 +425,12 @@ async def scim_patch_user(user_id: str, body: dict[str, Any], org_id: str = Quer
 
 
 @router.delete("/scim/v2/Users/{user_id}")
-async def scim_delete_user(user_id: str, org_id: str = Query(...)) -> Response:
+async def scim_delete_user(
+    user_id: str,
+    org_id: str = Query(...),
+    authorization: Annotated[str | None, Header()] = None,
+) -> Response:
+    _enforce_scim_bearer(authorization)
     from scim_service import delete_user
 
     try:
@@ -410,14 +441,22 @@ async def scim_delete_user(user_id: str, org_id: str = Query(...)) -> Response:
 
 
 @router.get("/scim/v2/Groups")
-async def scim_list_groups(org_id: str = Query(...)) -> dict[str, Any]:
+async def scim_list_groups(
+    org_id: str = Query(...),
+    authorization: Annotated[str | None, Header()] = None,
+) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import list_groups
 
     return list_groups(org_id=org_id)
 
 
 @router.post("/scim/v2/Groups")
-async def scim_create_group(body: dict[str, Any]) -> dict[str, Any]:
+async def scim_create_group(
+    body: dict[str, Any],
+    authorization: Annotated[str | None, Header()] = None,
+) -> dict[str, Any]:
+    _enforce_scim_bearer(authorization)
     from scim_service import create_group, scim_error
 
     try:

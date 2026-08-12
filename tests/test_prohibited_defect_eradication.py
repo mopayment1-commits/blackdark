@@ -16,13 +16,16 @@ def test_no_default_on_enterprise_sso_demo():
     assert 'ENTERPRISE_SSO_DEMO", "true"' not in src
 
 
-def test_scim_ready_is_true_with_real_module(monkeypatch):
+def test_scim_ready_requires_bearer(monkeypatch):
+    monkeypatch.delenv("SCIM_BEARER_TOKEN", raising=False)
+    from importlib import reload
+    import scim_service
+    reload(scim_service)
+    assert scim_service.scim_ready() is False
     monkeypatch.setenv("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
-    from scim_service import scim_ready, scim_status
-
-    assert scim_ready() is True
-    assert scim_status()["product_complete"] is True
-    assert scim_status()["bearer_configured"] is True
+    reload(scim_service)
+    assert scim_service.scim_ready() is True
+    assert scim_service.scim_status()["product_complete"] is True
 
 
 def test_unknown_fee_never_becomes_zero():
@@ -177,3 +180,38 @@ def test_plan_audit_honest_catalog_partial_allowed():
     assert c["complete"] + c.get("partial", 0) == len(plan_audit._PLAN_ROWS)
     catalog = [r for r in plan_audit._PLAN_ROWS if "77 arbitrage" in r[1]]
     assert catalog and catalog[0][2] == "partial"
+
+
+def test_cex_dex_requires_gas_and_l2_for_executable():
+    from bd_platform.cex_dex_arbitrage import _cex_dex_row
+    from live_book_hub import update_top_of_book
+
+    update_top_of_book("binance", "BTC/USDT", bid=99.0, bid_qty=100.0, ask=100.0, ask_qty=100.0)
+    # fee known but gas missing → not executable
+    row = _cex_dex_row(
+        "BTC", {"binance": 100.0}, 100.0,
+        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 10_000_000.0},
+        "binance", 100.0, "jupiter", 99.0, 100.0, 80.0, 1000.0,
+        fee_bps=10.0, cex_l2_walk_verified=True,
+    )
+    assert row["executable"] is False
+    assert row["indicative_reason"] == "gas_unknown"
+    row2 = _cex_dex_row(
+        "BTC", {"binance": 100.0}, 100.0,
+        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 10_000_000.0},
+        "binance", 100.0, "jupiter", 99.0, 100.0, 80.0, 1000.0,
+        fee_bps=10.0, cex_l2_walk_verified=True, gas_bps=35.0,
+    )
+    assert row2["executable"] is True
+    assert row2["gas_known"] is True
+
+
+def test_correlation_contagion_fail_closed_high_concentration():
+    from risk_intelligence import correlation_contagion_risk
+    out = correlation_contagion_risk(positions=[
+        {"asset": "BTC", "notional_usd": 900_000},
+        {"asset": "ETH", "notional_usd": 50_000},
+        {"asset": "SOL", "notional_usd": 50_000},
+    ])
+    assert out["executable"] is False
+    assert out["gate"] == "block"

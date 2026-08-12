@@ -221,6 +221,6 @@ def whale_status() -> dict[str, Any]:
     return {
         "surface": "whale_execution_evidence",
         "notionals_usd": list(WHALE_NOTIONALS_USD),
-        "product_complete": True,
+        "product_complete": False,
         "note": "Whale readiness requires measured multi-venue depth/impact evidence — not endpoint existence.",
     }

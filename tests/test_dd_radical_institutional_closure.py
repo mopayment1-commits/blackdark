@@ -1,6 +1,8 @@
 """DD radical institutional closure — Reports 1+2 product-complete gates."""
 
 from __future__ import annotations
+import os
+os.environ.setdefault("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
 
 import asyncio
 from pathlib import Path

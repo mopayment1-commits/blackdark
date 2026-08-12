@@ -1,6 +1,8 @@
 """Total completion gates — JWKS/OIDC, SAML, SCIM, whale, canonical adoption."""
 
 from __future__ import annotations
+import os
+os.environ.setdefault("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
 
 import base64
 import json
@@ -303,8 +305,9 @@ def test_scim_http_ready(monkeypatch):
 
     org = create_org(name="HTTP SCIM", owner_email="h@scim.example")
     client = TestClient(app)
-    headers = {"X-Admin-Key": "scim-ready-admin"}
+    headers = {"Authorization": "Bearer test-scim-bearer-token", "X-Admin-Key": "scim-ready-admin"}
     st = client.get("/api/institutional/scim/status", headers=headers)
+    # status does not require SCIM bearer
     assert st.status_code == 200
     assert st.json()["scim_ready"] is True
     created = client.post(

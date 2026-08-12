@@ -124,7 +124,7 @@ def configure_provider(
             "idp_cert_pem": idp_cert_pem.strip(),
             "audiences": audiences or ([client_id.strip()] if client_id.strip() else []),
             "jit_provisioning": True,
-            "scim_ready": True,
+            "scim_ready": __import__("scim_service", fromlist=["scim_ready"]).scim_ready(),
             "updated_at": _utcnow(),
         }
         if client_secret.strip():

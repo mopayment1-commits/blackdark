@@ -1,6 +1,8 @@
 """Institutional honesty gates — SSO claims, Soft Launch, Sonar baseline, JWKS."""
 
 from __future__ import annotations
+import os
+os.environ.setdefault("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
 
 import time
 from pathlib import Path

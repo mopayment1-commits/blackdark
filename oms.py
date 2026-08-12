@@ -204,6 +204,95 @@ def cancel_replace(
         _save(data)
         return dict(data["orders"][repl["order_id"]])
 
+
+async def submit_to_venue(
+    order_id: str,
+    *,
+    actor: str,
+    dry_run: bool = True,
+    user_id: int | None = None,
+) -> dict[str, Any]:
+    """Route through VALIDATION→…→SUBMISSION then venue adapter (execution_engine)."""
+    row = get_order(order_id)
+    if not row:
+        raise ValueError("order_not_found")
+
+    nxt_map = {
+        "INTENT": "VALIDATION",
+        "VALIDATION": "RISK_CHECK",
+        "RISK_CHECK": "ROUTING",
+        "ROUTING": "SUBMISSION",
+    }
+    while True:
+        cur = get_order(order_id)["state"]
+        if cur in {"SUBMISSION", "ACK", "REJECT", "FILL", "CANCEL", "RECONCILE"}:
+            break
+        nxt = nxt_map.get(cur)
+        if not nxt:
+            raise ValueError(f"cannot_advance_to_submission_from:{cur}")
+        transition(order_id, nxt, actor=actor, reason="oms_submit_pipeline")
+
+    row = get_order(order_id)
+    if row["state"] != "SUBMISSION":
+        raise ValueError(f"not_in_submission:{row['state']}")
+
+    from execution_engine import execute_order
+
+    side = str(row["side"]).lower()
+    if side not in {"buy", "sell"}:
+        transition(order_id, "REJECT", actor=actor, reason="invalid_side")
+        return {"order_id": order_id, "blocked": True, "reason": "invalid_side"}
+
+    qty = float(row["quantity"])
+    limit_price = row.get("limit_price")
+    amount_usd = qty * float(limit_price) if limit_price is not None and float(limit_price) > 0 else qty
+
+    try:
+        result = await execute_order(
+            str(row["symbol"]),
+            side,  # type: ignore[arg-type]
+            float(amount_usd),
+            dry_run=dry_run,
+            user_id=user_id,
+        )
+    except Exception as exc:  # noqa: BLE001
+        transition(order_id, "REJECT", actor=actor, reason=f"venue_error:{type(exc).__name__}")
+        return {"order_id": order_id, "blocked": True, "reason": str(exc), "venue_result": None}
+
+    if result.get("blocked") or (
+        result.get("reason") and not result.get("executed") and result.get("mode") != "dry_run"
+    ):
+        # Dry-run success path has executed=False but is a valid ACK
+        if result.get("blocked") or result.get("reason") in {
+            "panic_active",
+            "trading_frozen",
+            "unknown_venue_fee",
+            "missing_credentials",
+            "invalid_price_or_amount",
+        }:
+            transition(
+                order_id,
+                "REJECT",
+                actor=actor,
+                reason=str(result.get("reason") or "venue_blocked"),
+            )
+            return {"order_id": order_id, "blocked": True, "venue_result": result}
+
+    ack_id = str(result.get("order_id") or result.get("exchange_order_id") or f"dry_{order_id}")
+    transition(order_id, "ACK", actor=actor, venue_ack_id=ack_id, reason="venue_ack")
+    if result.get("executed"):
+        filled = float(result.get("quantity") or result.get("filled_quantity") or qty)
+        transition(order_id, "FILL", actor=actor, fill_qty=filled, reason="venue_fill")
+        transition(order_id, "RECONCILE", actor=actor, reason="post_fill")
+    return {
+        "order_id": order_id,
+        "blocked": False,
+        "venue_result": result,
+        "oms_state": get_order(order_id)["state"],
+        "dry_run": dry_run,
+    }
+
+
 def oms_status() -> dict[str, Any]:
     data = _load()
     return {
@@ -212,10 +301,11 @@ def oms_status() -> dict[str, Any]:
         "states": list(STATES),
         "not_execution_engine": True,
         "api_wired": True,
-        "venue_submit": False,
-        "product_complete": False,
+        "venue_submit": True,
+        "venue_adapter": "execution_engine.execute_order",
+        "product_complete": True,
         "note": (
-            "OMS lifecycle + API wired; venue submission adapter not product-complete. "
-            "execution_engine remains a separate venue adapter layer."
+            "OMS lifecycle + API + venue submit via execution_engine "
+            "(dry-run default; live gated by LIVE_EXECUTION flags)."
         ),
     }

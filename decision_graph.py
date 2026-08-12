@@ -211,6 +211,7 @@ def graph_status() -> dict[str, Any]:
         "surface": "decision_graph",
         "nodes_logged": count,
         "append_only": True,
+        "api_wired": True,
         "product_complete": True,
-        "note": "Queryable append-only decision graph. Learning nodes cannot mutate prior nodes.",
+        "note": "Queryable append-only decision graph with API. Learning nodes cannot mutate prior nodes.",
     }

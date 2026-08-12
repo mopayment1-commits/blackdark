@@ -233,6 +233,44 @@ def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float | None:
     return (float(buy_rate) + float(sell_rate)) * 10_000 + _GAS_BPS_EST
 
 
+def _verify_cex_l2_walk(
+    *,
+    venue: str,
+    asset: str,
+    quote_usd: float,
+    side: str,
+) -> tuple[bool, float | None, str]:
+    """Require walkable CEX depth (live hub book or fail closed)."""
+    from arbitrage_engine import walk_asks, walk_bids
+    from live_book_hub import get_top_of_book, is_quote_fresh
+
+    symbol = f"{asset}/USDT"
+    if not is_quote_fresh(venue, symbol):
+        # Also try USDT-concat forms already normalized in hub
+        if not is_quote_fresh(venue, f"{asset}USDT"):
+            return False, None, "cex_quote_stale_or_missing"
+    tob = get_top_of_book(venue, symbol) or get_top_of_book(venue, f"{asset}USDT")
+    if not tob:
+        return False, None, "cex_book_missing"
+    book = {"bids": list(tob.get("bids") or []), "asks": list(tob.get("asks") or [])}
+    if not book["bids"] or not book["asks"]:
+        return False, None, "cex_book_empty"
+    if side == "buy":
+        ex = walk_asks(book, quote_usd)
+        if ex is None:
+            return False, None, "cex_ask_depth_insufficient"
+        return True, float(ex.slippage_bps), "ok"
+    # sell into bids — convert quote notional to approx base via mid
+    mid = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
+    if mid <= 0:
+        return False, None, "cex_mid_invalid"
+    base_amt = quote_usd / mid
+    ex = walk_bids(book, base_amt)
+    if ex is None:
+        return False, None, "cex_bid_depth_insufficient"
+    return True, float(ex.slippage_bps), "ok"
+
+
 async def _cex_dex_opportunity_for_asset(
     session: aiohttp.ClientSession,
     asset: str,
@@ -261,14 +299,23 @@ async def _cex_dex_opportunity_for_asset(
     spread_bps = ((sell_price - buy_price) / buy_price) * 10_000 if buy_price else 0
     if abs(spread_bps) > 500:
         return None
-    # Mid-price path is indicative-only; fee estimate from fee_matrix (not DEFAULT_TAKER_FEE).
     fee_bps = _indicative_fee_bps(buy_venue, sell_venue)
     if fee_bps is None:
         return None
     net_bps = spread_bps - fee_bps
     if abs(net_bps) < _MIN_NET_BPS:
         return None
-    return _cex_dex_row(
+
+    # CEX leg L2 verification (DEX liquidity checked in _cex_dex_row).
+    cex_leg = buy_venue if buy_venue in cex_map else sell_venue
+    cex_side = "buy" if buy_venue == cex_leg else "sell"
+    l2_ok, l2_slip, l2_reason = _verify_cex_l2_walk(
+        venue=cex_leg,
+        asset=asset,
+        quote_usd=quote_usd,
+        side=cex_side,
+    )
+    row = _cex_dex_row(
         asset,
         cex_map,
         cex_mid,
@@ -281,7 +328,16 @@ async def _cex_dex_opportunity_for_asset(
         net_bps,
         quote_usd,
         fee_bps,
+        cex_l2_walk_verified=l2_ok,
+        cex_l2_slippage_bps=l2_slip,
+        gas_bps=_GAS_BPS_EST,
+        bridge_required=False,
+        settlement="atomic_cex_plus_dex_legs",
     )
+    if not l2_ok:
+        row["indicative_reason"] = row.get("indicative_reason") or l2_reason
+        row["cex_l2_reason"] = l2_reason
+    return row
 
 
 def _cex_dex_route(
@@ -313,6 +369,10 @@ def _cex_dex_row(
     fee_bps: float | None = None,
     *,
     cex_l2_walk_verified: bool = False,
+    cex_l2_slippage_bps: float | None = None,
+    gas_bps: float | None = None,
+    bridge_required: bool = False,
+    settlement: str = "unspecified",
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
@@ -321,19 +381,26 @@ def _cex_dex_row(
     # fee_bps default None — never invent unknown fees as 0.0 / free.
     cex_l2_verified = bool(cex_l2_walk_verified)
     fees_known = fee_bps is not None
+    gas_known = gas_bps is not None
     depth_ok = (
         cex_l2_verified
         and liq >= max(quote_usd * 3.0, 1.0)
         and fees_known
+        and gas_known
     )
     # Conservative impact haircut when only pool liquidity is known (no L2 walk).
     impact_bps = min(75.0, (quote_usd / liq) * 10_000 * 0.35) if liq > 0 else None
+    if cex_l2_slippage_bps is not None and impact_bps is not None:
+        impact_bps = max(float(impact_bps), float(cex_l2_slippage_bps))
+    elif cex_l2_slippage_bps is not None:
+        impact_bps = float(cex_l2_slippage_bps)
     executable = bool(
         depth_ok
         and impact_bps is not None
         and fees_known
         and (net_bps - float(impact_bps)) > 0
         and quote_usd > 0
+        and not bridge_required  # bridging path remains indicative until proven
     )
     adj_net = (net_bps - float(impact_bps)) if impact_bps is not None else None
     est_profit = (
@@ -375,13 +442,26 @@ def _cex_dex_row(
                 else (
                     "cex_l2_walk_required"
                     if not cex_l2_verified
-                    else "cex_dex_insufficient_depth_or_impact"
+                    else (
+                        "gas_unknown"
+                        if not gas_known
+                        else (
+                            "bridge_unproven"
+                            if bridge_required
+                            else "cex_dex_insufficient_depth_or_impact"
+                        )
+                    )
                 )
             )
         ),
         "depth_verified": depth_ok,
         "cex_l2_walk_verified": cex_l2_verified,
+        "cex_l2_slippage_bps": round(cex_l2_slippage_bps, 4) if cex_l2_slippage_bps is not None else None,
+        "gas_bps": round(gas_bps, 4) if gas_bps is not None else None,
+        "bridge_required": bool(bridge_required),
+        "settlement": settlement,
         "fees_known": fees_known,
+        "gas_known": gas_known,
         "smart_contract_risk_required": True,
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (
