@@ -21,20 +21,50 @@ def _utcnow() -> str:
 
 
 def _detect_live_fill(submit: dict[str, Any], *, dry_run: bool) -> bool:
+    """True only for real venue execution — never for paper or protocol-proof mocks."""
     if dry_run:
         return False
-    if submit.get("executed") is True:
-        return True
+    mode = str(submit.get("mode") or "")
+    if mode in {"dry_run", "paper", "venue_protocol_proof", "paper_lifecycle"}:
+        return False
+    if submit.get("protocol_proof"):
+        return False
     venue_result = submit.get("venue_result") or {}
     if isinstance(venue_result, dict):
+        if venue_result.get("protocol_proof") or venue_result.get("mode") == "venue_protocol_proof":
+            return False
         if venue_result.get("executed") is True:
             return True
         if venue_result.get("exchange_order") or venue_result.get("orderId"):
             return True
-        nested = venue_result.get("result") or {}
-        if isinstance(nested, dict) and (nested.get("orderId") or nested.get("executed")):
-            return True
-    return False
+    return bool(submit.get("executed") is True)
+
+
+def build_venue_protocol_proof_ack(
+    *,
+    order_id: str,
+    symbol: str,
+    side: str,
+    quantity: float,
+    price: float,
+) -> dict[str, Any]:
+    """Honest mock venue ACK/FILL protocol — NEVER claims live_fill."""
+    return {
+        "mode": "venue_protocol_proof",
+        "protocol_proof": True,
+        "executed": False,
+        "live_fill": False,
+        "exchange_order": {
+            "orderId": f"protocol_{order_id}",
+            "symbol": symbol.replace("/", ""),
+            "side": side.upper(),
+            "status": "FILLED",
+            "executedQty": str(quantity),
+            "price": str(price),
+            "proof": "synthetic_protocol_shape_only",
+        },
+        "note": "Protocol shape proof only — not a live or testnet venue fill.",
+    }
 
 
 async def prove_fill_lifecycle(
@@ -130,21 +160,36 @@ async def prove_fill_lifecycle(
         data["orders"][intent["order_id"]] = {**data["orders"][intent["order_id"]], **row}
         oms._save(data)  # noqa: SLF001
 
+    protocol_env = os.getenv("VENUE_PROTOCOL_PROOF", "").lower() in {"1", "true", "yes"}
     submit = await oms.submit_to_venue(intent["order_id"], actor=actor, dry_run=dry_run)
     order = oms.get_order(intent["order_id"])
     assert order is not None
 
     mode = "paper_lifecycle"
+    protocol_ack = None
     live_fill = _detect_live_fill(submit if isinstance(submit, dict) else {}, dry_run=dry_run)
-    if order["state"] == "ACK" and dry_run:
+    if order["state"] == "ACK" and (dry_run or protocol_env):
+        # Optional honest protocol-shape ACK (still not live_fill)
+        if protocol_env or dry_run:
+            protocol_ack = build_venue_protocol_proof_ack(
+                order_id=intent["order_id"],
+                symbol=symbol,
+                side=side,
+                quantity=quantity,
+                price=float(limit_price),
+            )
         oms.transition(intent["order_id"], "FILL", actor=actor, fill_qty=quantity, reason="paper_fill_proof")
         recon = oms.reconcile(
             intent["order_id"],
             actor=actor,
             venue_filled_qty=quantity,
-            venue_ack_id=str((submit.get("venue_result") or {}).get("order_id") or f"paper_{intent['order_id']}"),
+            venue_ack_id=str(
+                (protocol_ack or {}).get("exchange_order", {}).get("orderId")
+                or (submit.get("venue_result") or {}).get("order_id")
+                or f"paper_{intent['order_id']}"
+            ),
         )
-        mode = "paper_lifecycle"
+        mode = "venue_protocol_proof" if protocol_ack else "paper_lifecycle"
         live_fill = False
     elif order["state"] in {"FILL", "RECONCILE"}:
         recon = order.get("reconcile") or oms.reconcile(
@@ -201,11 +246,13 @@ async def prove_fill_lifecycle(
         },
         "store": store_status(),
         "dry_run": dry_run,
+        "protocol_ack": protocol_ack,
         "proved_at": _utcnow(),
         "audit_trail": True,
         "note": (
             "Live venue fill requires BINANCE_TESTNET + AUTO_EXECUTION_ENABLED + "
             "AUTO_EXECUTION_DRY_RUN=false + vault/test creds. "
+            "venue_protocol_proof is an honest ACK/FILL *shape* mock — never live_fill. "
             "Default proves full paper lifecycle with venue-L2 depth + DB portfolio/audit authority."
         ),
     }
@@ -214,7 +261,7 @@ async def prove_fill_lifecycle(
 def proof_status() -> dict[str, Any]:
     return {
         "surface": "venue_fill_proof",
-        "modes": ["paper_lifecycle", "testnet_live"],
+        "modes": ["paper_lifecycle", "venue_protocol_proof", "testnet_live"],
         "live_fill_requires": [
             "BINANCE_TESTNET",
             "AUTO_EXECUTION_ENABLED",

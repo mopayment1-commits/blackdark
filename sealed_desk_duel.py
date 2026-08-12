@@ -194,7 +194,7 @@ def build_duel_board(*, limit: int = 20) -> dict[str, Any]:
     return {
         "feature_id": "F9",
         "surface": "sealed_desk_duel",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow().isoformat(),
         "duels": views,
         "count": len(views),

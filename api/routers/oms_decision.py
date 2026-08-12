@@ -477,3 +477,12 @@ async def institutional_ingestion_prove_api(
     from institutional_ingestion_proof import prove_durable_ingestion
 
     return await prove_durable_ingestion(symbol=symbol)
+
+
+@router.post("/ingestion/scheduler-prove")
+async def institutional_scheduler_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from institutional_scheduler_proof import prove_scheduler_continuum
+
+    return await prove_scheduler_continuum()

@@ -733,7 +733,7 @@ async def anti_hype_mode_set(payload: dict = Body(...)):
 async def wow_surfaces_manifest():
     """Unique wow surfaces by tier — product-complete registry (100%)."""
     return {
-        "product_complete": True,
+        "product_complete": False,
         "proof_pass": [
             {"id": "oracle", "href": "/", "label": "Single-Sentence Oracle"},
             {"id": "certificate", "href": "/dashboard?lens=prove#decide", "label": "Decision Certificate"},
@@ -784,7 +784,7 @@ async def wow_surfaces_manifest():
             "emotion_tax": "/emotion-tax",
             "provenance_score": "/api/oracle/provenance-score",
             "status_api": "/api/public/brand-coverage-closure",
-            "product_complete": True,
+            "product_complete": False,
         },
         "cso_priority_chain": {
             "page": "/priority-chain",
@@ -815,7 +815,7 @@ async def wow_surfaces_manifest():
             "F9": "/desk-duel",
             "F10": "/trust-debt",
             "status_api": "/api/public/f1-f10-closure",
-            "product_complete": True,
+            "product_complete": False,
         },
     }
 

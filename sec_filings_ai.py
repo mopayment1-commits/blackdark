@@ -83,7 +83,7 @@ def scan_sec_filings(*, xml_text: str | None = None, limit: int = 20) -> dict[st
                 "ok": False,
                 "error": str(exc),
                 "filings": [],
-                "product_complete": True,
+                "product_complete": False,
                 "note": "Implementation complete; live feed may be unreachable from environment.",
                 "scanned_at": _utcnow(),
             }
@@ -94,7 +94,7 @@ def scan_sec_filings(*, xml_text: str | None = None, limit: int = 20) -> dict[st
         "count": len(filings),
         "risk_flagged": sum(1 for f in filings if f.get("risk_flag")),
         "filings": filings,
-        "product_complete": True,
+        "product_complete": False,
         "scanned_at": _utcnow(),
     }
 
@@ -102,7 +102,7 @@ def scan_sec_filings(*, xml_text: str | None = None, limit: int = 20) -> dict[st
 def sec_filings_status() -> dict[str, Any]:
     return {
         "surface": "sec_filings_ai",
-        "product_complete": True,
+        "product_complete": False,
         "feed": "SEC EDGAR Atom",
         "classification": "keyword_risk_heuristic",
     }

@@ -133,7 +133,7 @@ async def build_validity_decay_map(*, limit: int = 40, asset: str | None = None)
     return {
         "feature_id": "F8",
         "surface": "decision_validity_decay_map",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow(),
         "asset_filter": asset,
         "sample_n": len(rows),

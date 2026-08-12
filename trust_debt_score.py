@@ -123,7 +123,7 @@ def build_trust_debt_score(*, user_key: str = "anon", window_days: int = 7) -> d
     return {
         "feature_id": "F10",
         "surface": "trust_debt_score",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow().isoformat(),
         "user_key_hash": anon,
         "window_days": window_days,

@@ -195,7 +195,7 @@ def commerce_status() -> dict[str, Any]:
     paid = paid_count()
     return {
         "surface": "live_paid_rail_kyc",
-        "product_complete": True,
+        "product_complete": False,
         "payment_methods": list(PAYMENT_METHODS),
         "sepa_ach_supported": True,
         "psp_keys_present": keys,

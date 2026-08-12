@@ -58,51 +58,74 @@ def _book_from_probe(probe: dict[str, Any], *, symbol: str) -> dict[str, Any] | 
     }
 
 
-async def _fetch_okx_perp_and_funding(symbol: str) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+async def _fetch_venue_perp_and_funding(
+    venue: str,
+    symbol: str,
+    session: Any,
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
     """Pull venue perpetual book + funding via aggregator (real sizes / rates)."""
-    try:
-        import aiohttp
+    from aggregator import FUNDING_FETCHERS, MARKET_FETCHERS
 
-        from aggregator import _fetch_okx_funding, _fetch_okx_market
-    except Exception:
+    market_fn = MARKET_FETCHERS.get(venue)
+    funding_fn = FUNDING_FETCHERS.get(venue)
+    if market_fn is None or funding_fn is None:
         return None, None
-
-    timeout = aiohttp.ClientTimeout(total=12)
     try:
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            _ticker, book = await _fetch_okx_market(session, symbol, "perpetual")
-            funding = await _fetch_okx_funding(session, symbol)
+        _ticker, book = await market_fn(session, symbol, "perpetual")
+        funding = await funding_fn(session, symbol)
     except Exception:
         return None, None
 
     perp = None
-    if book and book.bids and book.asks:
+    if book and getattr(book, "bids", None) and getattr(book, "asks", None):
         perp = {
             "bids": [[float(p), float(q)] for p, q in book.bids],
             "asks": [[float(p), float(q)] for p, q in book.asks],
-            "venue": "okx",
+            "venue": venue,
             "symbol": f"{symbol}@perpetual",
             "market_type": "perpetual",
             "depth_source": "venue_l2",
             "fabricated_depth": False,
-            "source": "okx_public_perp_books",
+            "source": f"{venue}_public_perp_books",
         }
     fund = None
     if funding is not None:
         fund = {
             "funding_rate": float(funding.funding_rate),
-            "next_funding_time": funding.next_funding_time,
-            "venue": "okx",
+            "next_funding_time": getattr(funding, "next_funding_time", None),
+            "venue": venue,
             "symbol": symbol,
-            "source": "okx_public_funding",
+            "source": f"{venue}_public_funding",
             "timestamp": datetime.now(UTC).isoformat(),
             "synthetic": False,
         }
     return perp, fund
 
 
+async def _fetch_multi_venue_perp_funding(symbol: str) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]], list[str]]:
+    """OKX + Bybit public perpetual/funding (Kraken is spot-only — excluded)."""
+    import aiohttp
+
+    perps: dict[str, dict[str, Any]] = {}
+    funds: dict[str, dict[str, Any]] = {}
+    venues_ok: list[str] = []
+    timeout = aiohttp.ClientTimeout(total=15)
+    # Prefer venues with public perp+funding reachable in restricted regions.
+    # Bybit/Binance often 403/451 here; OKX/Gate/Bitget/KuCoin typically work.
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        for venue in ("okx", "gateio", "bitget", "kucoin", "bybit"):
+            perp, fund = await _fetch_venue_perp_and_funding(venue, symbol, session)
+            if perp:
+                perps[venue] = perp
+            if fund:
+                funds[venue] = fund
+            if perp and fund:
+                venues_ok.append(venue)
+    return perps, funds, venues_ok
+
+
 async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
-    """Pull public live venue L2 (+ OKX perp/funding) into canonical + in-memory books."""
+    """Pull public live venue L2 (+ multi-venue perp/funding) into canonical books."""
     from live_data_truth_probe import (
         prove_multi_venue_live,
         probe_kraken_depth,
@@ -113,7 +136,7 @@ async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
     books: dict[str, dict[str, dict[str, Any]]] = {}
     quotes: list[dict[str, Any]] = []
     funding: dict[str, dict[str, dict[str, Any]]] = {}
-    depth_meta: dict[str, Any] = {"fabricated_rejected": True, "venues_l2": []}
+    depth_meta: dict[str, Any] = {"fabricated_rejected": True, "venues_l2": [], "perp_venues": []}
 
     okx = await probe_okx_book("BTC-USDT", depth=20)
     okx_book = _book_from_probe(okx, symbol=symbol)
@@ -131,13 +154,45 @@ async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
         if kr_book.get("depth_source") == "venue_l2":
             depth_meta["venues_l2"].append("kraken")
 
-    perp, fund = await _fetch_okx_perp_and_funding(symbol)
-    if perp:
-        books.setdefault("okx", {})[f"{symbol}@perpetual"] = perp
-        depth_meta["okx_perp"] = True
-    if fund:
-        funding.setdefault("okx", {})[symbol] = fund
-        depth_meta["okx_funding"] = True
+    perps, funds, perp_venues = await _fetch_multi_venue_perp_funding(symbol)
+    for venue, perp in perps.items():
+        books.setdefault(venue, {})[f"{symbol}@perpetual"] = perp
+    for venue, fund in funds.items():
+        funding.setdefault(venue, {})[symbol] = fund
+    depth_meta["perp_venues"] = list(perp_venues)
+    depth_meta["funding_venues"] = sorted(funds.keys())
+
+    # Fetch spot L2 for perp venues missing spot so Super Terminal can pair spot+perp.
+    missing_spot = [v for v in perps if symbol not in books.get(v, {})]
+    if missing_spot:
+        try:
+            import aiohttp
+
+            from aggregator import MARKET_FETCHERS
+
+            timeout = aiohttp.ClientTimeout(total=12)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                for venue in missing_spot:
+                    fn = MARKET_FETCHERS.get(venue)
+                    if not fn:
+                        continue
+                    try:
+                        _t, book = await fn(session, symbol, "spot")
+                    except Exception:
+                        continue
+                    if book and book.bids and book.asks:
+                        books.setdefault(venue, {})[symbol] = {
+                            "bids": [[float(p), float(q)] for p, q in book.bids],
+                            "asks": [[float(p), float(q)] for p, q in book.asks],
+                            "venue": venue,
+                            "symbol": symbol,
+                            "depth_source": "venue_l2",
+                            "fabricated_depth": False,
+                            "source": f"{venue}_public_spot_books",
+                        }
+                        depth_meta["venues_l2"].append(venue)
+        except Exception:
+            pass
 
     adopted: dict[str, Any] = {}
     if books:
@@ -159,8 +214,10 @@ async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
                 "live_count": sum(1 for q in quotes if q.get("live")),
                 "l2_venues": sorted(set(depth_meta["venues_l2"])),
                 "fabricated_depth": False,
-                "perp_present": bool(perp),
-                "funding_present": bool(fund),
+                "perp_present": bool(perps),
+                "funding_present": bool(funds),
+                "perp_venues": list(perp_venues),
+                "funding_venues": sorted(funds.keys()),
                 "depth_meta": depth_meta,
             }
         )
@@ -168,6 +225,7 @@ async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
         "ok": _LAST_REFRESH["ok"],
         "venues": list(_LAST_REFRESH["venues"]),
         "l2_venues": list(_LAST_REFRESH.get("l2_venues") or []),
+        "perp_venues": list(_LAST_REFRESH.get("perp_venues") or []),
         "books": {v: list(syms.keys()) for v, syms in _BOOKS.items()},
         "funding_venues": sorted(funding.keys()),
         "proof": proof,

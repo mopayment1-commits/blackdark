@@ -69,7 +69,7 @@ async def build_brand_coverage_radical_closure() -> dict[str, Any]:
     return {
         "surface": "brand_coverage_radical_closure",
         "generated_at": datetime.now(UTC).isoformat(),
-        "product_complete": True,
+        "product_complete": False,
         "problems_closed": [
             {
                 "id": "newer_brand",

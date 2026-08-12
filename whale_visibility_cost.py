@@ -65,7 +65,7 @@ def build_visibility_cost_meter(
     return {
         "feature_id": "F7",
         "surface": "whale_visibility_cost_meter",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow(),
         "asset": asset_u,
         "notional_usd": notional,

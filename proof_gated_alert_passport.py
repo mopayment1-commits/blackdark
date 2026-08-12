@@ -129,7 +129,7 @@ def build_alert_passport(*, user_key: str = "anon") -> dict[str, Any]:
     return {
         "feature_id": "F6",
         "surface": "proof_gated_alert_passport",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow(),
         "user_key": user_key,
         "sent": sent,

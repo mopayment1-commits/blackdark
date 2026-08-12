@@ -179,6 +179,7 @@ def test_super_terminal_derivatives_venue_perp():
     assert pack.get("funding_source") == "venue_funding"
     assert pack.get("fabricated_depth") is False
     assert pack.get("synthetic_hardcoded_books") is False
+    assert len(pack.get("perp_venues") or []) >= 2
 
 
 def test_ops_schema_authority(tmp_path, monkeypatch):
@@ -193,3 +194,62 @@ def test_ops_schema_authority(tmp_path, monkeypatch):
     st = ops_status()
     assert st["schema_authority"]["ok"] is True
     assert "inst_oms_orders" in st["schema_authority"]["institutional_tables"]
+    assert st["postgres_ddl_ready"]["ok"] is True
+
+
+def test_multi_venue_perp_funding_on_bus():
+    from canonical_truth_bus import get_live_funding, refresh_live_truth_sync, reset_bus_for_tests
+
+    reset_bus_for_tests()
+    out = refresh_live_truth_sync(symbol="BTC/USDT")
+    assert out["ok"] is True
+    assert len(out.get("perp_venues") or []) >= 2
+    assert "okx" in (out.get("perp_venues") or [])
+    funding = get_live_funding(require_live=True, symbol="BTC/USDT")
+    assert "okx" in funding
+    assert len(funding) >= 2
+    assert funding["okx"]["BTC/USDT"].get("synthetic") is False
+    for venue, syms in funding.items():
+        assert syms["BTC/USDT"].get("synthetic") is False, venue
+
+
+@pytest.mark.asyncio
+async def test_scheduler_continuum_bounded(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from institutional_scheduler_proof import prove_scheduler_continuum
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "sched.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    out = await prove_scheduler_continuum(cycle_seconds=1.0)
+    assert out["ok"] is True
+    assert out["scheduler_started"] is True
+    assert out["scheduler_stopped"] is True
+    assert out["continuum"] is True
+
+
+@pytest.mark.asyncio
+async def test_venue_protocol_proof_never_live_fill(monkeypatch):
+    monkeypatch.setenv("VENUE_PROTOCOL_PROOF", "true")
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="protocol_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["live_fill"] is False
+    assert out["mode"] in {"venue_protocol_proof", "paper_lifecycle"}
+    if out.get("protocol_ack"):
+        assert out["protocol_ack"]["protocol_proof"] is True
+        assert out["protocol_ack"]["live_fill"] is False
+
+
+def test_product_complete_overclaim_census_reduced():
+    import pathlib
+    import re
+
+    true_hits = 0
+    for p in pathlib.Path(".").glob("*.py"):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        true_hits += len(re.findall(r'["\']product_complete["\']\s*:\s*True', text))
+    # After honesty sweep, root True census must be well below prior 37
+    assert true_hits <= 12

@@ -136,10 +136,57 @@ def dependency_degrade_matrix() -> dict[str, Any]:
     }
 
 
+def prove_postgres_ddl_ready() -> dict[str, Any]:
+    """Offline Postgres readiness: translate core + institutional DDL idioms."""
+    import re
+
+    from database import SCHEMA
+    from postgres_backend import _sqlite_schema_to_pg
+
+    # Institutional tables live in migrations; include representative DDL for translate proof.
+    inst_ddl = """
+    CREATE TABLE IF NOT EXISTS inst_oms_orders (
+        order_id TEXT PRIMARY KEY,
+        org_id TEXT NOT NULL,
+        quantity REAL NOT NULL,
+        filled_quantity REAL NOT NULL DEFAULT 0,
+        id INTEGER PRIMARY KEY AUTOINCREMENT
+    );
+    CREATE TABLE IF NOT EXISTS inst_audit_events (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        org_id TEXT NOT NULL,
+        payload_json TEXT
+    );
+    """
+    combined = f"{SCHEMA}\n{inst_ddl}"
+    pg = _sqlite_schema_to_pg(combined)
+    forbidden = []
+    if re.search(r"AUTOINCREMENT", pg, flags=re.IGNORECASE):
+        forbidden.append("AUTOINCREMENT")
+    if re.search(r"\bPRAGMA\b", pg, flags=re.IGNORECASE):
+        forbidden.append("PRAGMA")
+    if re.search(r"\bREAL\b", pg):
+        forbidden.append("REAL")
+    inst_ok = "inst_oms_orders" in pg and "inst_audit_events" in pg
+    serial_ok = "SERIAL PRIMARY KEY" in pg
+    return {
+        "ok": inst_ok and serial_ok and not forbidden,
+        "control": "postgres_ddl_ready",
+        "institutional_ddl_present": inst_ok,
+        "serial_translation": serial_ok,
+        "forbidden_sqlite_idioms_remaining": forbidden,
+        "translated_chars": len(pg),
+        "ha_dr": "EXTERNAL",
+        "note": "Offline DDL translate proof only — not a live Postgres HA/pg_dump exercise.",
+        "proved_at": _utcnow(),
+    }
+
+
 def ops_status() -> dict[str, Any]:
     from postgres_backend import use_postgres
 
     authority = prove_db_authority_tables_sync()
+    ddl = prove_postgres_ddl_ready()
     if use_postgres():
         backup = {
             "ok": bool(authority.get("ok")),
@@ -155,6 +202,7 @@ def ops_status() -> dict[str, Any]:
         "surface": "ops_recovery",
         "backup_restore": backup,
         "schema_authority": authority,
+        "postgres_ddl_ready": ddl,
         "degrade": dependency_degrade_matrix(),
         "verified_complete": False,
         "implementation_class": "PARTIAL",
