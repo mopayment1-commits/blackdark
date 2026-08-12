@@ -30,17 +30,23 @@ User intent (dashboard) → Six Heroes → Quiet engines (~Signal Registry)
 ```
 CEX/DEX / market adapters
         ↓
-Ingestion + live book hub (WS when available; REST fallback)
+Canonical Data Layer (normalize · provenance · freshness · quality)
         ↓
-Opportunity / Oracle engines (net-edge · half-life · conflict guard)
+Streaming Truth (LIVE | STALE | DEGRADED | UNKNOWN) + live book hub
         ↓
-Decision Certificate + audit hash chain
+Opportunity / Oracle / Risk Intelligence
+        ↓
+Decision Intelligence Engine (Decision Graph · typed confidence · memory)
+        ↓
+Execution Truth (indicative ≠ executable) → OMS lifecycle → venues
+        ↓
+Decision Certificate + audit hash chain · B2B reports / alerts / SLA
         ↓
 Public Accuracy Ledger (/oracle-accuracy) · private Discipline Mirror
-        ↓
-Alerts inbox / Telegram (proof-gated) · B2B feed (signed)
 ```
 
+> 95+ program register: [`docs/dd/CURRENT_PRODUCT_TRUTH_BASELINE.md`](docs/dd/CURRENT_PRODUCT_TRUTH_BASELINE.md)  
+> OMS (`oms.py`) is distinct from `execution_engine.py`. Soft Launch is demo-only; `INSTITUTIONAL_LAUNCH` forces it off.
 Storage posture:
 
 | Mode | Database | Notes |

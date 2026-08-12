@@ -324,6 +324,29 @@ async def sso_status_api(org_id: str | None = None) -> dict[str, Any]:
     return sso_status(org_id)
 
 
+@router.get("/scim/status")
+async def scim_status_api() -> dict[str, Any]:
+    """Honest SCIM surface — not implemented; never claims ready."""
+    return {
+        "surface": "scim",
+        "implemented": False,
+        "scim_ready": False,
+        "product_complete": False,
+        "http_status_if_provisioning": 501,
+        "note": "SCIM User/Group provisioning API is not shipped. Do not claim SCIM-ready.",
+    }
+
+
+@router.post("/scim/v2/Users")
+async def scim_users_not_implemented() -> None:
+    from fastapi import HTTPException
+
+    raise HTTPException(
+        status_code=501,
+        detail="SCIM not implemented — scim_ready=false",
+    )
+
+
 @router.post("/commerce/invoice", responses=COMMON_ERROR_RESPONSES)
 async def commerce_invoice(body: InvoiceCreate, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import create_invoice

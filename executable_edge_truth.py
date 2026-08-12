@@ -66,4 +66,27 @@ async def enforce_execution_quote_truth(opportunity: dict[str, Any]) -> dict[str
             updated,
             reason=str(updated.get("cancel_reason") or updated.get("rewalk") or "not_executable"),
         )
+
+    # Risk intelligence must influence execution gates (fail closed on blocks).
+    from risk_intelligence import aggregate_risk_gate, liquidity_risk
+
+    liq = liquidity_risk(
+        symbol=str(updated.get("symbol") or ""),
+        notional=float(updated.get("quote_amount") or updated.get("notional") or 0),
+        bid_depth=updated.get("bid_depth"),
+        ask_depth=updated.get("ask_depth"),
+        spread_bps=updated.get("total_slippage_bps") or updated.get("spread_bps"),
+    )
+    # If depth fields absent but slip rewalk already passed, treat depth as verified via rewalk.
+    if liq.get("reason") == "depth_unknown" and updated.get("executable"):
+        liq = {
+            **liq,
+            "gate": "pass",
+            "executable": True,
+            "reason": "depth_verified_by_slip_rewalk",
+        }
+    gate = aggregate_risk_gate([liq])
+    updated["risk_gate"] = gate
+    if not gate.get("executable"):
+        return mark_indicative_only(updated, reason="risk_gate_blocked")
     return updated

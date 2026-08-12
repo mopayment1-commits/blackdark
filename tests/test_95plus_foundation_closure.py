@@ -294,6 +294,57 @@ def test_oms_lifecycle_and_idempotency(tmp_path, monkeypatch):
     assert st["not_execution_engine"] is True
 
 
+def test_decision_intelligence_engine_stand_down(tmp_path, monkeypatch):
+    import decision_graph as dg
+    import institutional_memory as im
+    from decision_intelligence_engine import evaluate_decision
+    from risk_intelligence import liquidity_risk
+
+    monkeypatch.setattr(dg, "_PATH", tmp_path / "decision_graph.jsonl")
+    monkeypatch.setattr(dg, "_DATA_BASE", tmp_path)
+    monkeypatch.setattr(im, "_PATH", tmp_path / "institutional_memory.jsonl")
+    monkeypatch.setattr(im, "_DATA_BASE", tmp_path)
+
+    blocked = liquidity_risk(
+        symbol="BTC/USDT",
+        notional=1_000_000,
+        bid_depth=1000,
+        ask_depth=1000,
+        spread_bps=5,
+    )
+    out = evaluate_decision(
+        market_state={"regime": "stress"},
+        evidence=[{"k": "v"}],
+        hypothesis={"view": "fade"},
+        decision={"action": "enter", "wants_action": True},
+        risk_reports=[blocked],
+        confidence=0.9,
+    )
+    assert out["executable"] is False
+    assert out["action"]["type"] == "stand_down"
+    assert out["confidence"]["confidence_type"] == "heuristic_score"
+
+
+def test_scim_honesty_endpoint(monkeypatch):
+    monkeypatch.setenv("ADMIN_API_KEY", "scim-honesty-admin-key")
+    monkeypatch.setenv("ADMIN_MFA_REQUIRED", "false")
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    denied = client.get("/api/institutional/scim/status")
+    assert denied.status_code in {401, 403}
+    headers = {"X-Admin-Key": "scim-honesty-admin-key"}
+    st = client.get("/api/institutional/scim/status", headers=headers)
+    assert st.status_code == 200
+    body = st.json()
+    assert body["scim_ready"] is False
+    assert body["product_complete"] is False
+    users = client.post("/api/institutional/scim/v2/Users", headers=headers, json={})
+    assert users.status_code == 501
+
+
 def test_b2b_ops_surfaces(tmp_path, monkeypatch):
     import b2b_institutional_ops as b2b
 
