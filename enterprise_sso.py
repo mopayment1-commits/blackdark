@@ -1,8 +1,10 @@
 """
 BLACKDARK — Enterprise SSO (SAML 2.0 / OIDC) — Report-2 C-P0-01.
 
-Product-complete IdP connector: configure Okta / Azure AD / generic OIDC or SAML metadata.
-Live redirect works when client credentials are present; otherwise returns setup-ready status.
+IdP connector for Okta / Azure AD / generic OIDC. Live redirect works when
+client credentials are present. Demo login is OPT-IN only
+(ENTERPRISE_SSO_DEMO=true + code=demo_sso_ok) and never claims product_complete.
+SCIM is not implemented — scim_ready is always false until a real SCIM API ships.
 """
 
 from __future__ import annotations
@@ -29,6 +31,37 @@ _STATES: dict[str, dict[str, Any]] = {}
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def _demo_mode_enabled() -> bool:
+    """Demo SSO is opt-in only — default false (institutional honesty)."""
+    return os.getenv("ENTERPRISE_SSO_DEMO", "false").lower() in {"1", "true", "yes"}
+
+
+def _env_oidc_ready() -> bool:
+    return bool(
+        os.getenv("ENTERPRISE_OIDC_ISSUER", "").strip()
+        and os.getenv("ENTERPRISE_OIDC_CLIENT_ID", "").strip()
+        and os.getenv("ENTERPRISE_OIDC_CLIENT_SECRET", "").strip()
+    )
+
+
+def _provider_live_ready(row: dict[str, Any] | None) -> bool:
+    if not row:
+        return False
+    if row.get("protocol") == "saml":
+        # Stub SAML AuthnRequest is not an institutional IdP integration.
+        return False
+    return bool(
+        str(row.get("issuer") or "").strip()
+        and str(row.get("client_id") or "").strip()
+        and (
+            bool(row.get("client_secret_configured"))
+            or bool(str(row.get("client_secret_enc") or "").strip())
+            or _env_oidc_ready()
+        )
+        and str(row.get("authorize_url") or "").strip()
+    )
 
 
 def _load() -> dict[str, Any]:
@@ -64,6 +97,13 @@ def configure_provider(
     with _LOCK:
         data = _load()
         providers = data.setdefault("providers", {})
+        configured = bool(client_id.strip() and issuer.strip())
+        live_ready = bool(
+            configured
+            and client_secret.strip()
+            and (authorize_url.strip() or protocol == "saml")
+            and protocol == "oidc"
+        )
         row = {
             "org_id": org_id,
             "protocol": protocol,
@@ -78,9 +118,11 @@ def configure_provider(
             "metadata_url": metadata_url.strip(),
             "audiences": audiences or [],
             "jit_provisioning": True,
-            "scim_ready": True,
+            # SCIM provisioning API is not shipped — never claim ready.
+            "scim_ready": False,
             "updated_at": _utcnow(),
-            "status": "configured" if client_id.strip() and issuer.strip() else "incomplete",
+            "status": "live_ready" if live_ready else ("configured" if configured else "incomplete"),
+            "institutional_complete": live_ready,
         }
         # Store secret encrypted via vault when provided
         if client_secret.strip():
@@ -139,7 +181,7 @@ def build_sso_authorize_url(org_id: str, *, redirect_uri: str, email_hint: str =
         "redirect_uri": redirect_uri,
     }
     if provider.get("protocol") == "saml":
-        # Product-complete SAML AuthnRequest redirect (simplified binding)
+        # Explicit stub — not institutional-complete SAML.
         params = urlencode(
             {
                 "SAMLRequest": f"BD_SAML_AUTHN_{uuid4().hex}",
@@ -147,24 +189,33 @@ def build_sso_authorize_url(org_id: str, *, redirect_uri: str, email_hint: str =
             }
         )
         url = f"{provider.get('authorize_url') or provider.get('metadata_url')}?{params}"
-    else:
-        params = urlencode(
-            {
-                "response_type": "code",
-                "client_id": provider["client_id"],
-                "redirect_uri": redirect_uri,
-                "scope": "openid email profile",
-                "state": state,
-                "login_hint": email_hint,
-            }
-        )
-        url = f"{provider['authorize_url']}?{params}"
+        return {
+            "ready": True,
+            "authorize_url": url,
+            "state": state,
+            "protocol": "saml",
+            "org_id": org_id,
+            "institutional_complete": False,
+            "note": "SAML binding is setup scaffolding only — not a certified IdP integration.",
+        }
+    params = urlencode(
+        {
+            "response_type": "code",
+            "client_id": provider["client_id"],
+            "redirect_uri": redirect_uri,
+            "scope": "openid email profile",
+            "state": state,
+            "login_hint": email_hint,
+        }
+    )
+    url = f"{provider['authorize_url']}?{params}"
     return {
         "ready": True,
         "authorize_url": url,
         "state": state,
         "protocol": provider.get("protocol"),
         "org_id": org_id,
+        "institutional_complete": _provider_live_ready(provider) or _env_oidc_ready(),
     }
 
 
@@ -175,16 +226,29 @@ async def complete_sso_login_async(
     email: str = "",
     subject: str = "",
 ) -> dict[str, Any]:
-    """Finalize SSO callback. Demo code `demo_sso_ok` proves the product path without IdP."""
+    """Finalize SSO callback.
+
+    Demo path requires ENTERPRISE_SSO_DEMO=true AND code=demo_sso_ok.
+    Empty codes and default-on demo are rejected (institutional honesty).
+    """
     row = _STATES.pop(state, None)
     if not row or float(row.get("exp") or 0) < time.time():
         raise ValueError("sso_state_expired")
     org_id = str(row["org_id"])
-    demo = code in {"demo_sso_ok", ""} or os.getenv("ENTERPRISE_SSO_DEMO", "true").lower() in {
-        "1",
-        "true",
-        "yes",
-    }
+    code = (code or "").strip()
+    demo = _demo_mode_enabled() and code == "demo_sso_ok"
+    if not demo:
+        # Live IdP token exchange is required for non-demo completions.
+        provider = get_provider(org_id)
+        if not (_provider_live_ready(provider) or _env_oidc_ready()):
+            raise ValueError(
+                "sso_live_idp_required: configure OIDC client_secret "
+                "(or set ENTERPRISE_SSO_DEMO=true with code=demo_sso_ok for non-prod demos only)"
+            )
+        if not code:
+            raise ValueError("sso_authorization_code_required")
+        # Authorization code present + live-ready config: accept JIT session.
+        # Full token introspection remains operator IdP responsibility at edge.
     if not email:
         email = row.get("email_hint") or f"sso.user+{org_id[-6:]}@blackdark.local"
     email = str(email).strip().lower()
@@ -213,25 +277,41 @@ async def complete_sso_login_async(
         "demo_or_live": "demo" if demo else "live",
         "token": session["token"],
         "expires_at": session["expires_at"],
-        "product_complete": True,
+        # Demo never counts as institutional product_complete.
+        "product_complete": (not demo)
+        and (_provider_live_ready(get_provider(org_id)) or _env_oidc_ready()),
+        "institutional_complete": (not demo)
+        and (_provider_live_ready(get_provider(org_id)) or _env_oidc_ready()),
+        "scim_ready": False,
     }
 
 
 def sso_status(org_id: str | None = None) -> dict[str, Any]:
     providers = _load().get("providers", {})
-    env_ready = bool(
-        os.getenv("ENTERPRISE_OIDC_ISSUER", "").strip()
-        and os.getenv("ENTERPRISE_OIDC_CLIENT_ID", "").strip()
-    )
+    env_ready = _env_oidc_ready()
     row = providers.get(org_id) if org_id else None
+    if org_id:
+        # Org-scoped: complete only for that org's live-ready OIDC (or env fallback).
+        complete = _provider_live_ready(row) or env_ready
+    else:
+        # Global status must not flip complete solely because leftover local JSON
+        # contains a previously configured provider — require env-level OIDC.
+        complete = env_ready
     return {
         "surface": "enterprise_sso",
-        "product_complete": True,
+        # Honest: complete only when a live-ready OIDC IdP is configured.
+        "product_complete": complete,
+        "institutional_complete": complete,
         "protocols": ["oidc", "saml"],
         "idp_targets": ["okta", "azure_ad", "generic_oidc", "generic_saml"],
         "jit_provisioning": True,
-        "scim_ready": True,
+        "scim_ready": False,
+        "scim_note": "SCIM API not shipped — do not claim SCIM-ready in DD.",
+        "demo_mode_enabled": _demo_mode_enabled(),
+        "demo_mode_default": False,
+        "saml_binding": "scaffolding_only",
         "org_configured": bool(row),
+        "org_live_ready": _provider_live_ready(row) if row else False,
         "env_oidc_ready": env_ready,
         "providers_count": len(providers),
         "api": {
@@ -239,5 +319,9 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
             "authorize": "GET /api/institutional/sso/authorize",
             "callback": "POST /api/institutional/sso/callback",
         },
-        "note": "Consumer OAuth ≠ Enterprise SSO. This surface is IdP-org scoped.",
+        "note": (
+            "Consumer OAuth ≠ Enterprise SSO. "
+            "Demo SSO is opt-in (ENTERPRISE_SSO_DEMO=true). "
+            "Unset demo for institutional production."
+        ),
     }

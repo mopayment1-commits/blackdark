@@ -73,7 +73,7 @@ class SsoConfigure(BaseModel):
 
 class SsoCallback(BaseModel):
     state: str
-    code: str = "demo_sso_ok"
+    code: str = ""
     email: str = ""
     subject: str = ""
 

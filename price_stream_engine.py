@@ -67,6 +67,18 @@ async def emit_tick(
     update_top_of_book(ex, symbol, bid=bid, bid_qty=bid_qty, ask=ask, ask_qty=ask_qty, market_type=market_type)
     _ticks_total += 1
 
+    from stream_freshness_truth import fanout_safe, label_tick
+
+    labeled = fanout_safe(
+        label_tick(
+            exchange=ex,
+            symbol=symbol,
+            bid=bid,
+            ask=ask,
+            provider_ts_ms=int(time.time() * 1000),
+        )
+    )
+
     payload = {
         "exchange": ex,
         "symbol": symbol.strip().upper(),
@@ -75,7 +87,13 @@ async def emit_tick(
         "bid_qty": bid_qty,
         "ask_qty": ask_qty,
         "market_type": market_type,
-        "ts_ms": int(time.time() * 1000),
+        "ts_ms": labeled["ingest_ts_ms"],
+        "provider_ts_ms": labeled.get("provider_ts_ms"),
+        "freshness_class": labeled["freshness_class"],
+        "is_live": labeled["is_live"],
+        "stream_status": labeled["stream_status"],
+        "display_badge": labeled.get("display_badge"),
+        "executable_quotes": labeled.get("executable_quotes"),
     }
 
     if getattr(config, "REDIS_PRICE_CACHE_ENABLED", True):

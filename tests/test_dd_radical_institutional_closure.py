@@ -30,10 +30,13 @@ def test_org_mfa_policy_enforced():
     assert org["org_id"] in {o["org_id"] for o in decision["enforcing_orgs"]}
 
 
-def test_enterprise_sso_authorize_and_callback():
-    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
+def test_enterprise_sso_authorize_and_callback(monkeypatch):
+    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider, sso_status
     from org_tenant import create_org
 
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "true")
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
     org = create_org(name="SSO Org", owner_email="sso.owner@dd.example")
     configure_provider(
         org["org_id"],
@@ -58,8 +61,48 @@ def test_enterprise_sso_authorize_and_callback():
         )
 
     result = asyncio.run(_run())
-    assert result["product_complete"] is True
+    assert result["demo_or_live"] == "demo"
+    # Demo must never claim institutional product_complete.
+    assert result["product_complete"] is False
+    assert result["scim_ready"] is False
     assert result["token"]
+    st = sso_status(org["org_id"])
+    assert st["scim_ready"] is False
+    assert st["demo_mode_default"] is False
+    assert st["product_complete"] is False  # no client_secret → not live-ready
+
+
+def test_enterprise_sso_rejects_demo_when_disabled(monkeypatch):
+    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
+    from org_tenant import create_org
+
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "false")
+    org = create_org(name="SSO Strict", owner_email="strict.owner@dd.example")
+    configure_provider(
+        org["org_id"],
+        protocol="oidc",
+        issuer="https://example.okta.com",
+        client_id="dd-client",
+        authorize_url="https://example.okta.com/oauth2/v1/authorize",
+    )
+    auth = build_sso_authorize_url(
+        org["org_id"],
+        redirect_uri="http://127.0.0.1:8080/callback",
+        email_hint="sso.user@dd.example",
+    )
+
+    async def _run():
+        return await complete_sso_login_async(
+            state=auth["state"],
+            code="demo_sso_ok",
+            email="sso.user@dd.example",
+        )
+
+    try:
+        asyncio.run(_run())
+        raise AssertionError("demo SSO must fail when ENTERPRISE_SSO_DEMO is false")
+    except ValueError as exc:
+        assert "sso_live_idp_required" in str(exc)
 
 
 def test_commerce_invoice_paid_and_kyc():

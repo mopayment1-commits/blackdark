@@ -144,6 +144,11 @@ class FundingArbitrageOpportunity(BaseModel):
     gross_yield_usdt: float
     trading_fees_usdt: float = Field(ge=0)
     slippage_buffer_usdt: float = Field(ge=0)
+    total_slippage_bps: float = Field(default=0.0, ge=0)
+    depth_verified: bool = False
+    executable: bool = False
+    indicative: bool = True
+    indicative_reason: str = ""
     net_yield_usdt: float
     net_yield_percent: float
     base_net_yield_usdt: float = 0.0
@@ -840,16 +845,50 @@ def calculate_spot_futures_premium(
     return opportunities
 
 
+def _funding_depth_slippage_bps(
+    order_books: dict[str, dict[str, dict[str, Any]]] | None,
+    *,
+    symbol: str,
+    long_exchange: str,
+    short_exchange: str,
+    notional: float,
+) -> tuple[float, bool, str]:
+    """Return (slippage_bps, depth_verified, reason). Fail closed without books."""
+    if not order_books:
+        return 0.0, False, "order_books_missing"
+    long_books = order_books.get(long_exchange, {})
+    short_books = order_books.get(short_exchange, {})
+    long_book = long_books.get(_perpetual_book_key(symbol)) or long_books.get(symbol)
+    short_book = short_books.get(_perpetual_book_key(symbol)) or short_books.get(symbol)
+    if long_book is None or short_book is None:
+        return 0.0, False, "perp_depth_missing"
+    # Open long = buy asks; open short = sell into bids.
+    buy_ex = walk_asks(long_book, notional)
+    if buy_ex is None:
+        return 0.0, False, "long_depth_insufficient"
+    sell_ex = walk_bids(short_book, buy_ex.base_amount)
+    if sell_ex is None:
+        return 0.0, False, "short_depth_insufficient"
+    return buy_ex.slippage_bps + sell_ex.slippage_bps, True, ""
+
+
 def calculate_funding_arbitrage(
     funding_rates: dict[str, dict[str, dict[str, Any]]],
     quote_amount: float | None = None,
     market_context: dict[str, Any] | None = None,
+    order_books: dict[str, dict[str, dict[str, Any]]] | None = None,
+    *,
+    allow_indicative_without_depth: bool = False,
 ) -> list[FundingArbitrageOpportunity]:
     """
     Find cross-venue funding spreads suitable for delta-neutral convergence trades.
 
     Short the highest funding venue and long the lowest funding venue to harvest
-    the differential after fees and slippage buffer.
+    the differential after fees and depth-derived slippage.
+
+    Without verified perpetual depth, opportunities are omitted by default
+    (fail closed). Set allow_indicative_without_depth=True for research-only rows
+    that are explicitly non-executable.
     """
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
     opportunities: list[FundingArbitrageOpportunity] = []
@@ -884,9 +923,22 @@ def calculate_funding_arbitrage(
         )
         if trading_fees is None:
             continue
-        slippage_buffer = _slippage_buffer_usdt(notional, 0.0, market_context)
+
+        slip_bps, depth_ok, depth_reason = _funding_depth_slippage_bps(
+            order_books,
+            symbol=symbol,
+            long_exchange=long_exchange,
+            short_exchange=short_exchange,
+            notional=notional,
+        )
+        if not depth_ok and not allow_indicative_without_depth:
+            # Fail closed: never emit executable funding yield with zero invented slippage.
+            continue
+
+        slippage_buffer = _slippage_buffer_usdt(notional, slip_bps if depth_ok else 0.0, market_context)
         net_yield = gross_yield - trading_fees - slippage_buffer
         net_yield_percent = (net_yield / notional) * 100 if notional else 0.0
+        executable = bool(depth_ok and net_yield > 0)
 
         opportunities.append(
             FundingArbitrageOpportunity(
@@ -900,6 +952,11 @@ def calculate_funding_arbitrage(
                 gross_yield_usdt=gross_yield,
                 trading_fees_usdt=trading_fees,
                 slippage_buffer_usdt=slippage_buffer,
+                total_slippage_bps=slip_bps if depth_ok else 0.0,
+                depth_verified=depth_ok,
+                executable=executable,
+                indicative=not executable,
+                indicative_reason="" if executable else (depth_reason or "not_executable"),
                 net_yield_usdt=net_yield,
                 net_yield_percent=net_yield_percent,
                 base_net_yield_usdt=net_yield,
@@ -1123,6 +1180,7 @@ def calculate_funding_arbitrage_with_institutional_context(
     quote_amount: float | None = None,
     institutional_context: dict[str, Any] | None = None,
     market_context: dict[str, Any] | None = None,
+    order_books: dict[str, dict[str, dict[str, Any]]] | None = None,
 ) -> list[FundingArbitrageOpportunity]:
     """Funding scan plus CVVD/SII enrichment with top-level exception isolation."""
     try:
@@ -1130,6 +1188,7 @@ def calculate_funding_arbitrage_with_institutional_context(
             funding_rates,
             quote_amount,
             market_context,
+            order_books=order_books,
         )
         return enrich_funding_opportunities_with_institutional_context(
             opportunities,
@@ -1279,6 +1338,7 @@ class ArbitrageEngine:
             self.quote_amount,
             institutional_context,
             institutional_context,
+            order_books=order_books,
         )
 
         await _evaluate_positive_opportunities(cross, "cross_exchange", institutional_context)
