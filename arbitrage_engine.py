@@ -632,6 +632,11 @@ def calculate_cross_exchange_arbitrage(
     Detects paths where the lowest ask on one venue is below the highest bid
     on another, then depth-walks both books to compute net-of-cost profit.
     """
+    from canonical_adoption import adopt_order_books
+
+    if not order_books:
+        return []
+    order_books = adopt_order_books(order_books, source="cross_exchange")
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
     exchange_ids = list(config.enabled_exchanges())
     opportunities: list[CrossExchangeOpportunity] = []
@@ -661,6 +666,11 @@ def calculate_triangular_arbitrage(
 
     Example path: USDT -> BTC -> ETH/BTC -> ETH/USDT.
     """
+    from canonical_adoption import adopt_order_books
+
+    if not order_books:
+        return []
+    order_books = adopt_order_books(order_books, source="triangular")
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
     opportunities: list[TriangularOpportunity] = []
     triangle_books = _spot_triangle_books(order_books)
@@ -819,6 +829,11 @@ def calculate_spot_futures_premium(
     Positive basis: futures rich -> long spot, short perp.
     Negative basis: futures cheap -> short spot, long perp.
     """
+    from canonical_adoption import adopt_order_books
+
+    if not order_books:
+        return []
+    order_books = adopt_order_books(order_books, source="spot_futures")
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
     opportunities: list[SpotFuturesPremiumOpportunity] = []
 
@@ -890,6 +905,16 @@ def calculate_funding_arbitrage(
     (fail closed). Set allow_indicative_without_depth=True for research-only rows
     that are explicitly non-executable.
     """
+    from canonical_adoption import adopt_funding_rates, adopt_order_books
+
+    if not funding_rates:
+        return []
+    funding_rates = adopt_funding_rates(funding_rates, source="funding")
+    if order_books is not None:
+        if not order_books:
+            order_books = None
+        else:
+            order_books = adopt_order_books(order_books, source="funding_books")
     notional = quote_amount or config.DEFAULT_QUOTE_AMOUNT
     opportunities: list[FundingArbitrageOpportunity] = []
 

@@ -64,10 +64,10 @@ def test_enterprise_sso_authorize_and_callback(monkeypatch):
     assert result["demo_or_live"] == "demo"
     # Demo must never claim institutional product_complete.
     assert result["product_complete"] is False
-    assert result["scim_ready"] is False
+    assert result["scim_ready"] is True
     assert result["token"]
     st = sso_status(org["org_id"])
-    assert st["scim_ready"] is False
+    assert st["scim_ready"] is True
     assert st["demo_mode_default"] is False
     assert st["product_complete"] is False  # no client_secret → not live-ready
 

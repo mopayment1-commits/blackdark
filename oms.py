@@ -156,6 +156,54 @@ def list_orders(org_id: str) -> list[dict[str, Any]]:
     return [o for o in _load().get("orders", {}).values() if o.get("org_id") == org_id]
 
 
+
+def cancel_replace(
+    order_id: str,
+    *,
+    actor: str,
+    new_quantity: float | None = None,
+    new_limit_price: float | None = None,
+) -> dict[str, Any]:
+    """Cancel/replace: CANCEL then new INTENT linked by replaces_order_id."""
+    with _LOCK:
+        data = _load()
+        row = data.get("orders", {}).get(order_id)
+        if not row:
+            raise ValueError("order_not_found")
+        cur = row["state"]
+        if cur in {"FILL", "CANCEL", "RECONCILE", "EXPIRE"}:
+            raise ValueError(f"cannot_cancel_replace_from:{cur}")
+        # Transition toward CANCEL if legal, else force CANCEL via allowed path
+        if "CANCEL" in _TRANSITIONS.get(cur, frozenset()):
+            row["state"] = "CANCEL"
+            row["updated_at"] = _utcnow()
+            row.setdefault("history", []).append(
+                {"state": "CANCEL", "at": row["updated_at"], "actor": actor, "reason": "cancel_replace"}
+            )
+            data["orders"][order_id] = row
+            _save(data)
+        else:
+            raise ValueError(f"illegal_transition:{cur}->CANCEL")
+    # Create replacement outside lock via create_intent
+    repl = create_intent(
+        org_id=str(row["org_id"]),
+        venue=str(row["venue"]),
+        symbol=str(row["symbol"]),
+        side=str(row["side"]),
+        quantity=float(new_quantity if new_quantity is not None else row["quantity"]),
+        order_type=str(row.get("order_type") or "limit"),
+        limit_price=new_limit_price if new_limit_price is not None else row.get("limit_price"),
+        idempotency_key=f"{row['idempotency_key']}::replace::{row['updated_at']}",
+        actor=actor,
+    )
+    with _LOCK:
+        data = _load()
+        repl_row = data["orders"][repl["order_id"]]
+        repl_row["replaces_order_id"] = order_id
+        data["orders"][order_id]["replaced_by"] = repl["order_id"]
+        _save(data)
+        return dict(data["orders"][repl["order_id"]])
+
 def oms_status() -> dict[str, Any]:
     data = _load()
     return {

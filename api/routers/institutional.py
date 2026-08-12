@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query, Response
 from pydantic import BaseModel, Field
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
@@ -69,6 +69,9 @@ class SsoConfigure(BaseModel):
     authorize_url: str = ""
     token_url: str = ""
     metadata_url: str = ""
+    jwks_uri: str = ""
+    idp_cert_pem: str = ""
+    audiences: list[str] = Field(default_factory=list)
 
 
 class SsoCallback(BaseModel):
@@ -76,6 +79,8 @@ class SsoCallback(BaseModel):
     code: str = ""
     email: str = ""
     subject: str = ""
+    id_token: str = ""
+    saml_response: str = ""
 
 
 class InvoiceCreate(BaseModel):
@@ -286,6 +291,9 @@ async def sso_configure(body: SsoConfigure, _admin: dict = Depends(require_admin
             authorize_url=body.authorize_url,
             token_url=body.token_url,
             metadata_url=body.metadata_url,
+            audiences=body.audiences or None,
+            jwks_uri=body.jwks_uri,
+            idp_cert_pem=body.idp_cert_pem,
         )
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
@@ -312,6 +320,8 @@ async def sso_callback(body: SsoCallback) -> dict[str, Any]:
             code=body.code,
             email=body.email,
             subject=body.subject,
+            id_token=body.id_token,
+            saml_response=body.saml_response,
         )
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
@@ -326,25 +336,96 @@ async def sso_status_api(org_id: str | None = None) -> dict[str, Any]:
 
 @router.get("/scim/status")
 async def scim_status_api() -> dict[str, Any]:
-    """Honest SCIM surface — not implemented; never claims ready."""
-    return {
-        "surface": "scim",
-        "implemented": False,
-        "scim_ready": False,
-        "product_complete": False,
-        "http_status_if_provisioning": 501,
-        "note": "SCIM User/Group provisioning API is not shipped. Do not claim SCIM-ready.",
-    }
+    from scim_service import scim_status
+
+    return scim_status()
+
+
+@router.get("/scim/v2/Users")
+async def scim_list_users(
+    org_id: str = Query(...),
+    filter: str = "",
+    startIndex: int = 1,
+    count: int = 100,
+) -> dict[str, Any]:
+    from scim_service import list_users
+
+    return list_users(org_id=org_id, filter_expr=filter, start_index=startIndex, count=count)
 
 
 @router.post("/scim/v2/Users")
-async def scim_users_not_implemented() -> None:
-    from fastapi import HTTPException
+async def scim_create_user(body: dict[str, Any]) -> dict[str, Any]:
+    from scim_service import create_user, scim_error
 
-    raise HTTPException(
-        status_code=501,
-        detail="SCIM not implemented — scim_ready=false",
-    )
+    try:
+        ext = body.get("urn:blackdark:params:scim:schemas:extension:tenant:2.0:User") or {}
+        org_id = str(ext.get("org_id") or body.get("org_id") or "")
+        emails = body.get("emails") or []
+        email = ""
+        if emails and isinstance(emails, list):
+            email = str(emails[0].get("value") or "")
+        user = create_user(
+            org_id=org_id,
+            user_name=str(body.get("userName") or ""),
+            email=email,
+            display_name=str(body.get("displayName") or ""),
+            role=str(ext.get("role") or "analyst"),
+            external_id=str(body.get("externalId") or ""),
+            active=bool(body.get("active", True)),
+        )
+        return user
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=scim_error(str(exc), 400)) from exc
+
+
+@router.get("/scim/v2/Users/{user_id}")
+async def scim_get_user(user_id: str, org_id: str = Query(...)) -> dict[str, Any]:
+    from scim_service import get_user
+
+    row = get_user(user_id, org_id=org_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="scim_user_not_found")
+    return row
+
+
+@router.patch("/scim/v2/Users/{user_id}")
+async def scim_patch_user(user_id: str, body: dict[str, Any], org_id: str = Query(...)) -> dict[str, Any]:
+    from scim_service import patch_user, scim_error
+
+    try:
+        return patch_user(user_id, org_id=org_id, operations=list(body.get("Operations") or []))
+    except ValueError as exc:
+        raise HTTPException(status_code=404 if "not_found" in str(exc) else 400, detail=scim_error(str(exc))) from exc
+
+
+@router.delete("/scim/v2/Users/{user_id}")
+async def scim_delete_user(user_id: str, org_id: str = Query(...)) -> Response:
+    from scim_service import delete_user
+
+    try:
+        delete_user(user_id, org_id=org_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return Response(status_code=204)
+
+
+@router.get("/scim/v2/Groups")
+async def scim_list_groups(org_id: str = Query(...)) -> dict[str, Any]:
+    from scim_service import list_groups
+
+    return list_groups(org_id=org_id)
+
+
+@router.post("/scim/v2/Groups")
+async def scim_create_group(body: dict[str, Any]) -> dict[str, Any]:
+    from scim_service import create_group, scim_error
+
+    try:
+        org_id = str(body.get("org_id") or "")
+        members = [str(m.get("value")) for m in (body.get("members") or []) if isinstance(m, dict)]
+        return create_group(org_id=org_id, display_name=str(body.get("displayName") or ""), members=members)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=scim_error(str(exc), 400)) from exc
 
 
 @router.post("/commerce/invoice", responses=COMMON_ERROR_RESPONSES)

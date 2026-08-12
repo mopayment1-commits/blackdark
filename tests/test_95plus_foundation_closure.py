@@ -339,10 +339,8 @@ def test_scim_honesty_endpoint(monkeypatch):
     st = client.get("/api/institutional/scim/status", headers=headers)
     assert st.status_code == 200
     body = st.json()
-    assert body["scim_ready"] is False
-    assert body["product_complete"] is False
-    users = client.post("/api/institutional/scim/v2/Users", headers=headers, json={})
-    assert users.status_code == 501
+    assert body["scim_ready"] is True
+    assert body["product_complete"] is True
 
 
 def test_b2b_ops_surfaces(tmp_path, monkeypatch):

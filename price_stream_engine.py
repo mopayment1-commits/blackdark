@@ -79,6 +79,23 @@ async def emit_tick(
         )
     )
 
+    try:
+        from canonical_adoption import adopt_tick_quote
+
+        adopt_tick_quote(
+            venue=ex,
+            symbol=symbol,
+            bid=bid,
+            ask=ask,
+            source=f"ws:{ex}",
+            provider_timestamp=labeled.get("provider_ts_ms"),
+            bid_qty=bid_qty,
+            ask_qty=ask_qty,
+            require_live=False,
+        )
+    except Exception:
+        logger.debug("Canonical quote adopt skipped", exc_info=True)
+
     payload = {
         "exchange": ex,
         "symbol": symbol.strip().upper(),

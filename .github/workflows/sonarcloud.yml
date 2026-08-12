@@ -86,6 +86,7 @@ jobs:
             tests/test_sonar_project_version_baseline.py \
             tests/test_institutional_honesty_closure.py \
             tests/test_95plus_foundation_closure.py \
+            tests/test_total_completion_identity_whale.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \
