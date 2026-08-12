@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-import hashlib
 import os
 import re
+import secrets
 from typing import Any, Iterable
 
 _CONTROL = re.compile(r"[\x00-\x1f\x7f]+")
@@ -49,23 +49,33 @@ def env_configured(name: str) -> bool:
     return len(raw.strip()) > 0
 
 
-def env_digest(name: str) -> str:
-    """SHA-256 hex of stripped env value, or empty string when unset.
+def env_matches_any(name: str, candidates: tuple[str, ...] | frozenset[str]) -> bool:
+    """True when env value equals one of the literal candidates (constant-time).
 
-    Used to compare against known-insecure default digests without retaining
-    clear-text secret material in caller state.
+    Comparison stays inside this function — callers only receive a bool.
+    Does not hash secrets (avoids weak-sensitive-data-hashing) and does not
+    return clear-text material.
     """
     raw = os.environ.get(name)
     if raw is None:
-        return ""
+        return False
     text = raw.strip().lower()
     if not text:
-        return ""
-    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+        return False
+    for candidate in candidates:
+        if secrets.compare_digest(text, str(candidate).strip().lower()):
+            return True
+    return False
 
 
-def digest_text(value: str) -> str:
-    return hashlib.sha256(value.strip().lower().encode("utf-8")).hexdigest()
+def text_matches_any(value: str, candidates: tuple[str, ...] | frozenset[str]) -> bool:
+    text = str(value).strip().lower()
+    if not text:
+        return False
+    for candidate in candidates:
+        if secrets.compare_digest(text, str(candidate).strip().lower()):
+            return True
+    return False
 
 
 def redact_secret(value: Any) -> str:

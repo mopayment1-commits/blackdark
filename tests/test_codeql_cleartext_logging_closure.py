@@ -130,14 +130,18 @@ def test_setup_scripts_forbid_printing_guard_required_failures_join():
     assert "check.get('status')" not in rail
 
 
-def test_secret_hygiene_uses_digests_not_cleartext_compare():
+def test_secret_hygiene_uses_contained_compare_not_retained_cleartext():
     src = Path("production_guard.py").read_text(encoding="utf-8")
-    assert "env_digest" in src
+    assert "env_matches_any" in src
     assert "secrets_raw.lower() not in insecure_defaults" not in src
     assert "session_pepper.lower() not in insecure_defaults" not in src
+    assert "sha256" not in src.lower()
     # Connection strings must not be retained on guard state/report keys.
     assert '"redis_url"' not in src
     assert "'redis_url'" not in src
+    safety = Path("log_safety.py").read_text(encoding="utf-8")
+    assert "sha256" not in safety.lower()
+    assert "env_matches_any" in safety
 
 
 def test_log_safety_redacts_secretish_strings():

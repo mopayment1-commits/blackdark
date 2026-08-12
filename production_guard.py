@@ -8,7 +8,7 @@ import os
 from typing import Any
 
 import config
-from log_safety import digest_text, env_configured, env_digest, untainted_catalog_ids
+from log_safety import env_configured, env_matches_any, text_matches_any, untainted_catalog_ids
 
 # Literal check-id catalog — log/print sinks may only emit ids re-sourced from here
 # so CodeQL cannot treat secret-derived container taint as clear-text logging.
@@ -42,22 +42,14 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "soft_launch_mode",
 )
 
-_INSECURE_DEFAULT_DIGESTS = frozenset(
-    {
-        digest_text("blackdark-dev-change-me-in-production"),
-        digest_text("blackdark-session-pepper-change-me"),
-        digest_text("change-me"),
-        digest_text("changeme"),
-        digest_text("secret"),
-    }
+_INSECURE_DEFAULTS = (
+    "blackdark-dev-change-me-in-production",
+    "blackdark-session-pepper-change-me",
+    "change-me",
+    "changeme",
+    "secret",
 )
-_DISABLED_DEMO_DIGESTS = frozenset(
-    {
-        digest_text("disabled"),
-        digest_text("off"),
-        digest_text("none"),
-    }
-)
+_DISABLED_DEMO_VALUES = ("disabled", "off", "none")
 
 
 def is_production() -> bool:
@@ -126,24 +118,24 @@ def _secret_hygiene() -> tuple[bool, bool, bool]:
     """Presence + insecure-default checks without retaining clear-text secrets."""
     secrets_ok = env_configured("SECRETS_MASTER_KEY") or env_configured("SECRETS_VAULT_KEY")
     session_pepper_ok = env_configured("SESSION_TOKEN_PEPPER")
-    master_digest = env_digest("SECRETS_MASTER_KEY") or env_digest("SECRETS_VAULT_KEY")
-    pepper_digest = env_digest("SESSION_TOKEN_PEPPER")
-    no_insecure_secrets = (not master_digest) or (master_digest not in _INSECURE_DEFAULT_DIGESTS)
-    no_insecure_pepper = (not pepper_digest) or (pepper_digest not in _INSECURE_DEFAULT_DIGESTS)
+    insecure_master = env_matches_any("SECRETS_MASTER_KEY", _INSECURE_DEFAULTS) or env_matches_any(
+        "SECRETS_VAULT_KEY", _INSECURE_DEFAULTS
+    )
+    insecure_pepper = env_matches_any("SESSION_TOKEN_PEPPER", _INSECURE_DEFAULTS)
+    no_insecure_secrets = (not secrets_ok) or (not insecure_master)
+    no_insecure_pepper = (not session_pepper_ok) or (not insecure_pepper)
     prod_hygiene = (not is_production()) or (no_insecure_secrets and no_insecure_pepper)
     return secrets_ok, session_pepper_ok, prod_hygiene
 
 
 def _demo_key_disabled() -> bool:
-    """True when B2B demo key unset/disabled — compares digests, not clear-text."""
+    """True when B2B demo key unset/disabled — bool only, no clear-text returned."""
     cfg = getattr(config, "B2B_DEMO_API_KEY", None)
     if cfg is not None and str(cfg).strip():
-        digest = digest_text(str(cfg))
-        return digest in _DISABLED_DEMO_DIGESTS
-    digest = env_digest("BLACKDARK_B2B_DEMO_KEY")
-    if not digest:
+        return text_matches_any(str(cfg), _DISABLED_DEMO_VALUES)
+    if not env_configured("BLACKDARK_B2B_DEMO_KEY"):
         return True
-    return digest in _DISABLED_DEMO_DIGESTS
+    return env_matches_any("BLACKDARK_B2B_DEMO_KEY", _DISABLED_DEMO_VALUES)
 
 
 def _redis_configured() -> bool:
