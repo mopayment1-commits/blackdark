@@ -3,11 +3,11 @@
 **Generated:** 2026-08-12  
 **Branch:** `cursor/institutional-hardening-120d`  
 **PR:** https://github.com/mopayment1-commits/blackdark/pull/58  
-**Report tip:** `0839637a95dbc2ded5428f40c25777b17384a796`
+**Report tip:** see tip SHA of this file on branch `cursor/institutional-hardening-120d` (HA code tip `9bae7c48c630d60654a5d8f09e1f9535b60a8c00`)
 
 ## A. Final commit SHA
 
-`0839637a95dbc2ded5428f40c25777b17384a796`
+`9bae7c48c630d60654a5d8f09e1f9535b60a8c00` (closure code; tip may include later docs-only binds)
 
 ## B. Final branch
 
