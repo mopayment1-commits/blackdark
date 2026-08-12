@@ -17,48 +17,71 @@
     return (m && (m[1] || m[0])) || "BTC";
   }
 
+  function setText(el, value) {
+    if (!el) return;
+    el.textContent = value == null ? "" : String(value);
+  }
+
   function ensurePanel() {
     let el = document.getElementById(PANEL_ID);
     if (el) return el;
     el = document.createElement("div");
     el.id = PANEL_ID;
-    el.innerHTML = `
-      <div class="bd-head">
-        <strong>BLACKDARK</strong>
-        <button type="button" class="bd-refresh" title="Refresh">↻</button>
-        <button type="button" class="bd-close" title="Close">×</button>
-      </div>
-      <div class="bd-body">Loading…</div>
-      <div class="bd-foot">Not financial advice · Public Accuracy Ledger</div>
-    `;
+
+    const head = document.createElement("div");
+    head.className = "bd-head";
+    const title = document.createElement("strong");
+    setText(title, "BLACKDARK");
+    const refreshBtn = document.createElement("button");
+    refreshBtn.type = "button";
+    refreshBtn.className = "bd-refresh";
+    refreshBtn.title = "Refresh";
+    setText(refreshBtn, "↻");
+    const closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "bd-close";
+    closeBtn.title = "Close";
+    setText(closeBtn, "×");
+    head.append(title, refreshBtn, closeBtn);
+
+    const body = document.createElement("div");
+    body.className = "bd-body";
+    setText(body, "Loading…");
+
+    const foot = document.createElement("div");
+    foot.className = "bd-foot";
+    setText(foot, "Not financial advice · Public Accuracy Ledger");
+
+    el.append(head, body, foot);
     document.documentElement.appendChild(el);
-    el.querySelector(".bd-close").addEventListener("click", () => el.remove());
-    el.querySelector(".bd-refresh").addEventListener("click", () => refresh());
+    closeBtn.addEventListener("click", () => el.remove());
+    refreshBtn.addEventListener("click", () => refresh());
     return el;
   }
 
   function render(payload, error) {
     const el = ensurePanel();
     const body = el.querySelector(".bd-body");
+    body.replaceChildren();
     if (error) {
-      body.innerHTML = `<div class="bd-err">${escapeHtml(error)}</div>`;
+      const err = document.createElement("div");
+      err.className = "bd-err";
+      setText(err, error);
+      body.append(err);
       return;
     }
     const action = String(payload.action || "WAIT").toUpperCase();
-    body.innerHTML = `
-      <div class="bd-action ${action}">${escapeHtml(action)}</div>
-      <div class="bd-sentence">${escapeHtml(payload.sentence || "")}</div>
-      <div class="bd-meta">${escapeHtml(payload.asset || "")} · score ${payload.score ?? "—"}
-        ${payload.predictionId != null ? ` · id ${payload.predictionId}` : ""}</div>
-    `;
-  }
-
-  function escapeHtml(s) {
-    return String(s)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll(""", "&quot;");
+    const actionEl = document.createElement("div");
+    actionEl.className = `bd-action ${/^[A-Z_.…]{1,16}$/.test(action) ? action : "WAIT"}`;
+    setText(actionEl, action);
+    const sentence = document.createElement("div");
+    sentence.className = "bd-sentence";
+    setText(sentence, payload.sentence || "");
+    const meta = document.createElement("div");
+    meta.className = "bd-meta";
+    const pid = payload.predictionId != null ? ` · id ${payload.predictionId}` : "";
+    setText(meta, `${payload.asset || ""} · score ${payload.score ?? "—"}${pid}`);
+    body.append(actionEl, sentence, meta);
   }
 
   async function refresh() {
@@ -73,11 +96,9 @@
     }
   }
 
-  // Boot once per page
   if (!window.__bdOracleBooted) {
     window.__bdOracleBooted = true;
     refresh();
-    // Soft refresh when URL changes (SPA)
     let last = location.href;
     setInterval(() => {
       if (location.href !== last) {

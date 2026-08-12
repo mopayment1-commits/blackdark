@@ -49,8 +49,14 @@ async def _fetch_ticker(pair: str) -> dict | None:
         return None
 
 
-def _fee_usd(notional: float) -> float:
-    return notional * config.DEFAULT_TAKER_FEE
+def _fee_usd(notional: float, *, exchange_id: str = "binance") -> float:
+    """Venue fee from fee_matrix; refuse simulation economics when unknown."""
+    from fee_matrix import trading_fees_usdt
+
+    fee = trading_fees_usdt(exchange_id, notional)
+    if fee is None:
+        raise ValueError(f"Unknown taker fee for venue {exchange_id!r} — fail closed")
+    return fee
 
 
 async def simulate_spot_trade(

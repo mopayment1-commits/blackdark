@@ -16,8 +16,14 @@ def _env(name: str) -> str:
 
 
 def _probe(url: str) -> tuple[bool, int | None]:
+    import sys
+
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from path_safety import open_http_url
+
     try:
-        with urllib.request.urlopen(url, timeout=15) as resp:
+        with open_http_url(url, timeout=15) as resp:
             return resp.status == 200, resp.status
     except Exception:
         return False, None
@@ -65,7 +71,13 @@ def main() -> int:
     print(f"  [{'OK' if oracle_ok else 'FAIL'}] /oracle/BTC    HTTP {oracle_code}")
 
     try:
-        with urllib.request.urlopen(f"{PROD_URL}/api/build-info", timeout=15) as resp:
+        import sys
+
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from path_safety import open_http_url
+
+        with open_http_url(f"{PROD_URL}/api/build-info", timeout=15) as resp:
             info = json.loads(resp.read().decode())
         print(f"  Build: {info.get('release')} ({str(info.get('git_commit') or '')[:8]})")
     except Exception:

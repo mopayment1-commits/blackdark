@@ -17,7 +17,13 @@ SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
 
 
 def _is_production() -> bool:
-    env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
+    env = (
+        os.getenv("ENV")
+        or os.getenv("APP_ENV")
+        or os.getenv("ENVIRONMENT")
+        or os.getenv("RAILWAY_ENVIRONMENT")
+        or ""
+    ).strip().lower()
     return env in {"production", "prod"}
 
 
@@ -50,20 +56,124 @@ def _cors_origins() -> list[str]:
     return origins
 
 
-def security_headers_for(request: Request) -> dict[str, str]:
-    """Baseline browser hardening headers."""
-    csp = os.getenv(
-        "CONTENT_SECURITY_POLICY",
-        "default-src 'self'; "
-        "script-src 'self' 'unsafe-inline'; "
-        "style-src 'self' 'unsafe-inline'; "
-        "img-src 'self' data: https:; "
-        "font-src 'self' data:; "
-        "connect-src 'self' https: wss:; "
-        "frame-ancestors 'none'; "
-        "base-uri 'self'; "
-        "form-action 'self'",
+def _csp_nonce() -> str:
+    import secrets
+
+    return secrets.token_urlsafe(16)
+
+
+def _csp_nonce_mode_enabled() -> bool:
+    """Nonce CSP is default-on; set CSP_NONCE_MODE=false to emergency-rollback."""
+    raw = os.getenv("CSP_NONCE_MODE", "true").strip().lower()
+    if raw in {"0", "false", "no", "off"}:
+        return False
+    return True
+
+
+def _ensure_request_csp_nonce(request: Request) -> str | None:
+    if not _csp_nonce_mode_enabled():
+        return None
+    nonce = getattr(request.state, "csp_nonce", None) if hasattr(request, "state") else None
+    if nonce:
+        return str(nonce)
+    nonce = _csp_nonce()
+    try:
+        request.state.csp_nonce = nonce
+    except Exception:
+        pass
+    return nonce
+
+
+def _inject_html_csp_nonce(html: str, nonce: str) -> str:
+    """Attach nonce to every <script> tag and ensure csp_events binder is present."""
+    import re
+
+    def _add_nonce(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\bnonce\s*=", tag, flags=re.I):
+            return tag
+        return tag.replace("<script", f'<script nonce="{nonce}"', 1)
+
+    out = re.sub(r"<script\b[^>]*>", _add_nonce, html, flags=re.I)
+    binder = f'<script nonce="{nonce}" src="/static/js/csp_events.js"></script>'
+    if "csp_events.js" not in out:
+        lower = out.lower()
+        idx = lower.rfind("</body>")
+        if idx >= 0:
+            out = out[:idx] + binder + out[idx:]
+        else:
+            out = out + binder
+    return out
+
+
+async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
+    ct = (response.headers.get("content-type") or "").lower()
+    if "text/html" not in ct:
+        return response
+    body = getattr(response, "body", None)
+    if body is None:
+        return response
+    if isinstance(body, memoryview):
+        body = body.tobytes()
+    if not isinstance(body, (bytes, bytearray)):
+        return response
+    try:
+        text = bytes(body).decode("utf-8")
+    except Exception:
+        return response
+    rewritten = _inject_html_csp_nonce(text, nonce)
+    if rewritten == text:
+        return response
+    headers = {
+        k: v
+        for k, v in response.headers.items()
+        if k.lower() not in {"content-length", "content-encoding"}
+    }
+    return Response(
+        content=rewritten.encode("utf-8"),
+        status_code=response.status_code,
+        headers=headers,
+        media_type=response.media_type or "text/html; charset=utf-8",
+        background=response.background,
     )
+
+
+def security_headers_for(request: Request) -> dict[str, str]:
+    """Baseline browser hardening headers.
+
+    DEC-0217: default CSP uses per-request nonce + strict-dynamic and omits
+    script-src 'unsafe-inline'. Middleware injects nonce onto <script> tags and
+    loads /static/js/csp_events.js for data-bd-* handlers. Set CSP_NONCE_MODE=false
+    only for emergency rollback to the legacy unsafe-inline policy.
+    """
+    nonce_mode = _csp_nonce_mode_enabled()
+    nonce = _ensure_request_csp_nonce(request) if nonce_mode else None
+    if os.getenv("CONTENT_SECURITY_POLICY"):
+        csp = os.getenv("CONTENT_SECURITY_POLICY", "")
+    elif nonce_mode and nonce:
+        csp = (
+            "default-src 'self'; "
+            f"script-src 'nonce-{nonce}' 'strict-dynamic'; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data: https:; "
+            "font-src 'self' data:; "
+            "connect-src 'self' https: wss:; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
+    else:
+        csp = (
+            "default-src 'self'; "
+            "script-src 'self' 'unsafe-inline'; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data: https:; "
+            "font-src 'self' data:; "
+            "connect-src 'self' https: wss:; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
     headers = {
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "DENY",
@@ -108,12 +218,16 @@ def _request_origin_ok(request: Request) -> bool:
         return _match(origin)
     if referer:
         return _match(referer)
-    # No Origin/Referer: allow Bearer-only clients (non-browser) — cookie-only blocked below
-    return True
+    # Fail closed for cookie-authenticated browsers that omit both headers.
+    # Bearer-only clients bypass this check in the middleware (no cookie path).
+    return False
 
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
+        # Mint CSP nonce early so template render / HTML rewrite can use it.
+        nonce = _ensure_request_csp_nonce(request)
+
         # TrustedHost in production
         if _is_production() and os.getenv("TRUSTED_HOST_ENFORCE", "true").lower() in {
             "1",
@@ -144,6 +258,8 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
                 )
 
         response = await call_next(request)
+        if nonce:
+            response = await _maybe_rewrite_html_with_nonce(response, nonce)
         for key, value in security_headers_for(request).items():
             response.headers.setdefault(key, value)
         response.headers.setdefault("X-Security-Hardening", "1")
@@ -173,7 +289,8 @@ def apply_cors(app) -> None:
 def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
     """HttpOnly Secure SameSite cookie flags for bd_token."""
     base = (os.getenv("APP_BASE_URL") or "").strip().lower()
-    secure = base.startswith("https") or _is_production()
+    env_secure = os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}
+    secure = env_secure or base.startswith("https") or _is_production()
     return {
         "key": "bd_token",
         "httponly": True,
@@ -203,7 +320,12 @@ def attach_session_cookie(response: Response, token: str, *, max_age: int | None
 
 
 def cookie_to_session_bearer(raw: str | None) -> str:
-    """Decode bd_token cookie (Fernet-sealed or legacy clear bearer)."""
+    """Decode bd_token cookie via the canonical Fernet-sealed path.
+
+    Legacy clear-text cookies are rejected in production (fail closed).
+    Non-production may accept legacy cookies only when
+    ALLOW_LEGACY_SESSION_COOKIE=true for migration.
+    """
     value = (raw or "").strip().strip('"').strip("'")
     if not value:
         return ""
@@ -215,5 +337,11 @@ def cookie_to_session_bearer(raw: str | None) -> str:
             return "".join(ch for ch in plain if ch.isalnum() or ch in "-_")
         except Exception:
             return ""
-    # Legacy cookies minted before sealing.
+    # Production rejects unsealed cookies unless explicitly opted in for migration.
+    legacy_flag = os.getenv("ALLOW_LEGACY_SESSION_COOKIE", "").strip().lower()
+    allow_legacy = legacy_flag in {"1", "true", "yes"} or (
+        not _is_production() and legacy_flag not in {"0", "false", "no"}
+    )
+    if not allow_legacy:
+        return ""
     return "".join(ch for ch in value if ch.isalnum() or ch in "-_")

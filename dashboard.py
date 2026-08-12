@@ -103,9 +103,7 @@ def _require_terms_ack_or_403(request: Request):
 def _cookie_secure(request: Request | None = None) -> bool:
     if os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}:
         return True
-    if request is not None and (request.url.scheme or "").lower() == "https":
-        return True
-    return False
+    return bool(request is not None and (request.url.scheme or "").lower() == "https")
 
 
 def render_page(request: Request, name: str, context: dict[str, Any] | None = None) -> HTMLResponse:
@@ -705,7 +703,7 @@ async def optional_user(
 
 
 def require_feature(feature: str):
-    async def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
+    def _dependency(user: dict | None = Depends(optional_user)) -> dict | None:
         from auth_service import feature_allowed
 
         if not feature_allowed(user, feature):
@@ -1653,6 +1651,34 @@ async def dashboard_live_stream():
     )
 
 
+
+def _parse_trust_pulse_previous_factors(previous_factors: str | None) -> list[dict[str, str]] | None:
+    """Parse optional previous_factors JSON for Trust Pulse continuity."""
+    if not previous_factors:
+        return None
+    import json as _json
+
+    try:
+        parsed = _json.loads(previous_factors)
+    except (TypeError, ValueError):
+        return None
+    if not isinstance(parsed, list):
+        return None
+    factors: list[dict[str, str]] = []
+    for f in parsed[:5]:
+        if isinstance(f, dict):
+            factors.append(
+                {
+                    "factor": str(f.get("factor") or "")[:120],
+                    "detail": str(f.get("detail") or "")[:200],
+                    "source": str(f.get("source") or "")[:80],
+                }
+            )
+        else:
+            factors.append({"factor": str(f)[:120], "detail": "", "source": ""})
+    return factors
+
+
 @app.get("/api/trust-pulse", responses=COMMON_ERROR_RESPONSES)
 async def api_trust_pulse(
     symbol: str = "BTC",
@@ -1665,26 +1691,9 @@ async def api_trust_pulse(
     user: dict | None = Depends(optional_user),
 ):
     """First-open Trust Pulse — one live decision + Why + proof + freshness."""
-    import json as _json
-
     from trust_pulse import build_trust_pulse
 
     tier = (user or {}).get("tier") or "free"
-    factors_prev = None
-    if previous_factors:
-        try:
-            parsed = _json.loads(previous_factors)
-            if isinstance(parsed, list):
-                factors_prev = [
-                    {
-                        "factor": str(f.get("factor") if isinstance(f, dict) else f)[:120],
-                        "detail": str((f.get("detail") if isinstance(f, dict) else "") or "")[:200],
-                        "source": str((f.get("source") if isinstance(f, dict) else "") or "")[:80],
-                    }
-                    for f in parsed[:5]
-                ]
-        except Exception:
-            factors_prev = None
     try:
         return await build_trust_pulse(
             symbol,
@@ -1693,7 +1702,7 @@ async def api_trust_pulse(
             lang=lang,
             previous_action=previous_action,
             previous_seen_at=previous_seen_at,
-            previous_factors=factors_prev,
+            previous_factors=_parse_trust_pulse_previous_factors(previous_factors),
             force_refresh=force,
             # Soft cache miss may persist once; force only refreshes identity — no spam
             persist=None,
@@ -2959,7 +2968,7 @@ async def universe_status():
 
 
 @app.post("/api/universe/activate-full")
-async def universe_activate_full():
+async def universe_activate_full(_admin: dict = Depends(require_admin)):
     from universe_rollout import activate_full_universe, live_rollout_status
 
     result = activate_full_universe(save=True)
@@ -3191,7 +3200,7 @@ async def b2b_page(request: Request):
         request,
         "b2b.html",
         {
-            "demo_key": config.B2B_DEMO_API_KEY,
+            "demo_key": (config.B2B_DEMO_API_KEY if os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"} else "contact-sales"),
             "feed_version": config.B2B_FEED_VERSION,
             **_footer_ctx(),
         },

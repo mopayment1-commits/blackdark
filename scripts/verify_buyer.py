@@ -14,14 +14,14 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import encoding_bootstrap  # noqa: F401
-from path_safety import assert_safe_http_url
+from path_safety import assert_safe_http_url, safe_urlopen
 
 
 def probe(url: str, label: str) -> tuple[bool, float]:
     t0 = time.perf_counter()
     try:
         safe_url = assert_safe_http_url(url)
-        with urllib.request.urlopen(safe_url, timeout=10) as resp:
+        with safe_urlopen(safe_url, timeout=10) as resp:
             ok = resp.status == 200
     except (OSError, ValueError):
         ok = False

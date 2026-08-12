@@ -18,9 +18,11 @@ def test_regime_artifact_loader_exists():
 def test_regime_router_prefers_artifact_path():
     import ml.regime_router as rr
 
-    src = inspect.getsource(rr.predict_direction_regime_aware)
-    assert "predict_with_regime_artifact" in src
-    assert "per_regime_artifact" in src or "inference_path" in src
+    router_src = inspect.getsource(rr.predict_direction_regime_aware)
+    artifact_src = inspect.getsource(rr._artifact_prediction)
+    assert "_artifact_prediction" in router_src
+    assert "predict_with_regime_artifact" in artifact_src
+    assert "per_regime_artifact" in router_src or "inference_path" in router_src
 
 
 def test_whale_enrich_wires_derivatives():
@@ -40,8 +42,10 @@ def test_locked_auto_seal_exists():
 def test_startup_has_glass_box_cadence():
     import startup_orchestrator as so
 
-    src = inspect.getsource(so.run_background_startup)
-    assert "maybe_auto_seal_from_oracle" in src
+    startup_src = inspect.getsource(so.run_background_startup)
+    loop_src = inspect.getsource(so._glass_box_seal_loop)
+    assert "_start_glass_box" in startup_src
+    assert "maybe_auto_seal_from_oracle" in loop_src
     assert "glass_box_task" in inspect.getsource(so.RuntimeState)
 
 
@@ -75,11 +79,16 @@ def test_chat_and_oracle_attach_compliance():
     import chat_service
 
     assert "compliance_footer" in inspect.getsource(chat_service.process_chat)
-    assert "compliance_footer" in inspect.getsource(ai_oracle.evaluate_opportunity)
+    eval_src = inspect.getsource(ai_oracle.evaluate_opportunity)
+    helper_src = inspect.getsource(ai_oracle._attach_evaluation_compliance)
+    assert "_attach_evaluation_compliance" in eval_src
+    assert "compliance_footer" in helper_src
 
 
 def test_voice_attaches_compliance():
     import voice_service
 
-    src = inspect.getsource(voice_service.process_voice_command)
-    assert "compliance_footer" in src
+    cmd_src = inspect.getsource(voice_service.process_voice_command)
+    out_src = inspect.getsource(voice_service._out)
+    assert "_out(" in cmd_src or "return _out" in cmd_src or "_out({" in inspect.getsource(voice_service)
+    assert "compliance_footer" in out_src

@@ -28,6 +28,12 @@ def use_postgres() -> bool:
 
 
 def _sqlite_schema_to_pg(sqlite_schema: str) -> str:
+    """Translate SQLite DDL idioms to PostgreSQL.
+
+    INSERT OR IGNORE is left intact so callers (execute) can rewrite it to
+    INSERT ... ON CONFLICT DO NOTHING. Stripping IGNORE here previously
+    caused unique violations that aborted the whole migration transaction.
+    """
     pg = sqlite_schema
     pg = re.sub(
         r"INTEGER PRIMARY KEY AUTOINCREMENT",
@@ -36,7 +42,6 @@ def _sqlite_schema_to_pg(sqlite_schema: str) -> str:
         flags=re.IGNORECASE,
     )
     pg = re.sub(r"\bREAL\b", "DOUBLE PRECISION", pg)
-    pg = re.sub(r"INSERT OR IGNORE", "INSERT", pg, flags=re.IGNORECASE)
     return pg
 
 
@@ -72,12 +77,24 @@ class PgConnectionAdapter:
 
     row_factory = None
 
-    def __init__(self, conn: Any) -> None:
+    def __init__(self, conn: Any, tx: Any | None = None) -> None:
         self._conn = conn
+        self._tx = tx
         self._last_id: int | None = None
+        self._txn_closed = False
+        self._explicit_rollback = False
+
+    async def _restart_transaction(self) -> None:
+        """After commit/rollback, open a fresh transaction for subsequent statements."""
+        self._tx = self._conn.transaction()
+        await self._tx.start()
+        self._txn_closed = False
 
     @staticmethod
     def _convert_query(query: str) -> str:
+        # Translate SQLite DDL idioms before placeholder conversion.
+        if re.search(r"AUTOINCREMENT|\bREAL\b", query, flags=re.IGNORECASE):
+            query = _sqlite_schema_to_pg(query)
         if "?" not in query:
             return query
         idx = 0
@@ -120,12 +137,15 @@ class PgConnectionAdapter:
         q: str,
         params: tuple | list,
     ) -> _PgResult:
+        # Nested transaction → savepoint so a failed RETURNING probe cannot
+        # poison the outer migration/application transaction.
         try:
-            q_ret = q.rstrip(";") + " RETURNING id"
-            row = await self._conn.fetchrow(q_ret, *params)
-            self._last_id = int(row["id"]) if row and "id" in row else None
-            mapped = [self._row_to_mapping(row)] if row else []
-            return _PgResult(mapped, rowcount=1, lastrowid=self._last_id)
+            async with self._conn.transaction():
+                q_ret = q.rstrip(";") + " RETURNING id"
+                row = await self._conn.fetchrow(q_ret, *params)
+                self._last_id = int(row["id"]) if row and "id" in row else None
+                mapped = [self._row_to_mapping(row)] if row else []
+                return _PgResult(mapped, rowcount=1 if row else 0, lastrowid=self._last_id)
         except Exception:
             status = await self._conn.execute(q, *params)
             count = self._rowcount_from_status(status)
@@ -169,19 +189,48 @@ class PgConnectionAdapter:
                 await self._conn.execute(cleaned)
 
     async def commit(self) -> None:
-        # asyncpg autocommits each statement; keep sqlite-compatible no-op.
-        await asyncio.sleep(0)
+        """Commit the active transaction (sqlite-compatible mid-context commit)."""
+        if self._tx is None or self._txn_closed:
+            self._last_txn_op = "commit"
+            return
+        await self._tx.commit()
+        self._txn_closed = True
+        self._explicit_rollback = False
         self._last_txn_op = "commit"
+        await self._restart_transaction()
 
     async def rollback(self) -> None:
-        # No transaction boundary to undo under asyncpg autocommit.
-        await asyncio.sleep(0)
+        """Roll back the active transaction (must undo work, not no-op)."""
+        if self._tx is None or self._txn_closed:
+            self._explicit_rollback = True
+            self._last_txn_op = "rollback"
+            return
+        await self._tx.rollback()
+        self._txn_closed = True
+        self._explicit_rollback = True
         self._last_txn_op = "rollback"
+        await self._restart_transaction()
 
     async def close(self) -> None:
         # Connection lifetime is owned by the pool, not this wrapper.
         await asyncio.sleep(0)
         self._last_txn_op = "close"
+
+    async def finalize_success(self) -> None:
+        """Called by pg_connection on clean exit — commit open work."""
+        if self._tx is None or self._txn_closed:
+            return
+        await self._tx.commit()
+        self._txn_closed = True
+        self._last_txn_op = "finalize_commit"
+
+    async def finalize_failure(self) -> None:
+        """Called by pg_connection on exception — rollback open work."""
+        if self._tx is None or self._txn_closed:
+            return
+        await self._tx.rollback()
+        self._txn_closed = True
+        self._last_txn_op = "finalize_rollback"
 
 
 async def init_pool() -> None:
@@ -260,12 +309,12 @@ async def pg_connection() -> AsyncIterator[PgConnectionAdapter]:
     async with _pool.acquire() as conn:
         tx = conn.transaction()
         await tx.start()
-        adapter = PgConnectionAdapter(conn)
+        adapter = PgConnectionAdapter(conn, tx)
         try:
             yield adapter
-            await tx.commit()
+            await adapter.finalize_success()
         except Exception:
-            await tx.rollback()
+            await adapter.finalize_failure()
             raise
 
 

@@ -14,7 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import encoding_bootstrap  # noqa: F401
-from path_safety import assert_safe_http_url
+from path_safety import assert_safe_http_url, safe_urlopen
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -24,7 +24,7 @@ def probe(url: str, label: str) -> tuple[bool, float]:
     t0 = time.perf_counter()
     try:
         safe_url = assert_safe_http_url(url)
-        with urllib.request.urlopen(safe_url, timeout=12) as resp:
+        with safe_urlopen(safe_url, timeout=12) as resp:
             ok = resp.status == 200
     except (OSError, ValueError):
         ok = False
@@ -45,7 +45,7 @@ def _probe_group(items: list[tuple[str, str]]) -> int:
 def _probe_admin_gates(base: str) -> None:
     for path in ("/admin/launch", "/admin/plan", "/admin/roadmap"):
         try:
-            with urllib.request.urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
+            with safe_urlopen(assert_safe_http_url(f"{base}{path}"), timeout=8) as resp:
                 print(f"  [WARN] {path} publicly reachable — got {resp.status}")
         except ValueError as exc:
             print(f"  [FAIL] {path} blocked by URL allowlist: {exc}")

@@ -26,7 +26,9 @@ ul{line-height:1.55}.foot{font-size:11px;color:#666;margin-top:22px}
 <a class="btn" href="/data-room">Data Room</a>
 <a class="btn" href="/kill-rate">Kill-Rate</a>
 </p>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 async function load(){
   let d=null;
   try{const r=await fetch('/api/due-diligence/corpus-passport'); if(r.ok) d=await r.json();}catch (error) { console.debug(error); }
@@ -36,7 +38,7 @@ async function load(){
   }
   document.getElementById('stamp').textContent=(d.metrics?.labeled??0)+' labeled';
   document.getElementById('headline').textContent=d.headline||d.one_liner_for_ic||'';
-  document.getElementById('stamps').innerHTML=(d.stamps||[]).map(s=>`<li>${s}</li>`).join('');
+  document.getElementById('stamps').innerHTML=(d.stamps||[]).map(s=>`<li>${esc(s)}</li>`).join('');
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
 await load();</script>

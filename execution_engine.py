@@ -356,7 +356,14 @@ async def execute_order(
         raise ValueError(f"Symbol {asset} not found")
 
     price = float(market["price"])
-    fee = amount_usd * config.DEFAULT_TAKER_FEE
+    if price <= 0 or amount_usd <= 0:
+        return _blocked_order("invalid_price_or_amount", "Price and amount must be positive.")
+    from fee_matrix import taker_fee as _venue_taker_fee
+
+    fee_rate = _venue_taker_fee(str(market.get("exchange") or "binance"))
+    if fee_rate is None:
+        return _blocked_order("unknown_venue_fee", "Venue taker fee unknown — fail closed.")
+    fee = amount_usd * float(fee_rate)
     quantity = (amount_usd - fee) / price if side == "buy" else amount_usd / price
 
     use_dry_run = _dry_run_default() if dry_run is None else dry_run
@@ -511,6 +518,18 @@ async def try_execute_from_opportunity(
     skip = _gate_skip_reason(opportunity) or _half_life_skip_reason(opportunity)
     if skip is not None:
         return skip
+
+    from executable_edge_truth import enforce_execution_quote_truth
+
+    opportunity = await enforce_execution_quote_truth(opportunity)
+    if not opportunity.get("executable"):
+        return {
+            "skipped": True,
+            "reason": opportunity.get("cancel_reason") or opportunity.get("indicative_reason") or "not_executable",
+            "opportunity": opportunity,
+        }
+    if float(opportunity.get("net_executable_profit_usdt") or opportunity.get("net_profit_usdt") or 0) <= 0:
+        return {"skipped": True, "reason": "non_positive_net_executable_profit", "opportunity": opportunity}
 
     asset = str(opportunity.get("asset") or "BTC")
     side = _infer_execution_side(opportunity)

@@ -47,8 +47,8 @@
             <p class="hint" id="emailLine"></p>
             <label for="avatarFile">Upload avatar (JPEG/PNG/WebP ≤ 2MB)</label>
             <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/webp">
-            <button class="btn-secondary" onclick="uploadAvatar()">Upload</button>
-            <button class="btn-secondary" onclick="resetAvatar()">Use initials</button>
+            <button class="btn-secondary" data-bd-call="uploadAvatar">Upload</button>
+            <button class="btn-secondary" data-bd-call="resetAvatar">Use initials</button>
         </aside>
         <main class="grid" style="grid-template-columns:1fr">
             <section class="card">
@@ -65,28 +65,28 @@
                 <input id="timezone" maxlength="64" placeholder="UTC">
                 <label for="telegram_chat_id">Telegram chat ID (alerts)</label>
                 <input id="telegram_chat_id" maxlength="64">
-                <button class="btn-primary" onclick="saveProfile()">Save profile</button>
+                <button class="btn-primary" data-bd-call="saveProfile">Save profile</button>
                 <div class="msg" id="profileMsg"></div>
             </section>
             <section class="card">
                 <h2>Security</h2>
                 <p class="hint" id="verifyHint"></p>
-                <button class="btn-secondary" onclick="resendVerify()">Resend verification email</button>
+                <button class="btn-secondary" data-bd-call="resendVerify">Resend verification email</button>
                 <label for="current_password">Current password (blank if OAuth-only / setting first password)</label>
                 <input type="password" id="current_password" autocomplete="current-password">
                 <label for="new_password">New password (10+)</label>
                 <input type="password" id="new_password" minlength="10" autocomplete="new-password">
-                <button class="btn-secondary" onclick="changePassword()">Update password</button>
+                <button class="btn-secondary" data-bd-call="changePassword">Update password</button>
                 <hr style="border:none;border-top:1px solid var(--border);margin:1rem 0">
                 <p class="hint" id="mfaHint"></p>
-                <button class="btn-secondary" onclick="enrollMfa()">Enable MFA (TOTP)</button>
+                <button class="btn-secondary" data-bd-call="enrollMfa">Enable MFA (TOTP)</button>
                 <label for="mfaConfirm">Confirm MFA code</label>
                 <input id="mfaConfirm" placeholder="Confirm MFA code to enable" style="margin-top:.5rem">
-                <button class="btn-secondary" onclick="confirmMfa()">Confirm MFA</button>
+                <button class="btn-secondary" data-bd-call="confirmMfa">Confirm MFA</button>
                 <label for="mfaDisable">Disable MFA code</label>
                 <input id="mfaDisable" placeholder="Code to disable MFA" style="margin-top:.5rem">
-                <button class="btn-danger" onclick="disableMfa()">Disable MFA</button>
-                <button class="btn-danger" onclick="logoutAll()">Log out all sessions</button>
+                <button class="btn-danger" data-bd-call="disableMfa">Disable MFA</button>
+                <button class="btn-danger" data-bd-call="logoutAll">Log out all sessions</button>
                 <div class="msg" id="secMsg"></div>
                 <pre id="mfaEnrollBox" class="hint" style="white-space:pre-wrap;margin-top:.75rem"></pre>
             </section>
@@ -96,8 +96,9 @@
                 <p class="hint" id="billingReady">Checking payment readiness…</p>
                 <div class="msg" id="billingMsg"></div>
                 <a class="btn btn-primary" id="btnNextUpgrade" href="/create-checkout-session?tier=pro">Start 7-Day Trial · Decision Pro $29</a>
+                <a class="btn btn-secondary" id="btnDeskUpgrade" href="/create-checkout-session?tier=whale">Decision Desk $49</a>
                 <p class="hint" id="upgradeReason">Next step only — depth ladder, not a wall of SKUs.</p>
-                <button class="btn-secondary" onclick="openPortal()">Manage billing</button>
+                <button class="btn-secondary" data-bd-call="openPortal">Manage billing</button>
                 <a class="btn btn-secondary" id="btnAllPlans" href="/#pricing">Compare all plans</a>
             </section>
             <section class="card" id="valueDigestCard">
@@ -108,10 +109,12 @@
         </main>
     </div>
 </div>
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+    const { esc } = window.BDDomSafe;
     function authHeaders() {
-        const t = localStorage.getItem('bd_token');
-        return t ? { Authorization: 'Bearer ' + t, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+        // HttpOnly cookie session — do not attach Bearer from localStorage.
+        return { 'Content-Type': 'application/json' };
     }
     function setMsg(id, text, ok) {
         const el = document.getElementById(id);
@@ -134,7 +137,7 @@
         const tier = (d.tier && d.tier.label) || u.tier || 'free';
         const tierId = String((d.tier && d.tier.id) || u.tier || 'free').toLowerCase();
         const mfaPill = d.mfa && d.mfa.enabled ? '<span class="pill">MFA on</span>' : '<span class="pill">MFA off</span>';
-        document.getElementById('planPills').innerHTML = '<span class="pill">' + tier + '</span>' + mfaPill;
+        document.getElementById('planPills').innerHTML = '<span class="pill">' + esc(tier) + '</span>' + mfaPill;
         document.getElementById('mfaHint').textContent = d.mfa && d.mfa.enabled
             ? 'Authenticator MFA is enabled. Recommended for Decision Desk.'
             : 'Optional TOTP MFA — strongly recommended for paid tiers.';
@@ -203,13 +206,13 @@
             const v = d.value || {};
             const u = d.usage || {};
             el.innerHTML =
-                `Oracle calls (30d): <strong style="color:var(--text)">${u.oracle_calls_30d ?? 0}</strong>` +
-                ` · Risk warnings: <strong style="color:var(--text)">${u.risk_warnings_30d ?? 0}</strong><br>` +
-                `Estimated research value: <strong style="color:var(--accent)">$${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}</strong>` +
+                `Oracle calls (30d): <strong style="color:var(--text)">${esc(u.oracle_calls_30d ?? 0)}</strong>` +
+                ` · Risk warnings: <strong style="color:var(--text)">${esc(u.risk_warnings_30d ?? 0)}</strong><br>` +
+                `Estimated research value: <strong style="color:var(--accent)">$${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}</strong>` +
                 (() => {
                     if (v.covers_subscription == null) return '';
                     const cover = v.covers_subscription ? 'yes' : 'not yet';
-                    return ` · Covers plan: <strong style="color:var(--text)">${cover}</strong>`;
+                    return ` · Covers plan: <strong style="color:var(--text)">${esc(cover)}</strong>`;
                 })() +
                 `<br><span class="hint">Anti-Hype · Illustrative usage math, not guaranteed ROI · Verify Ledger</span>`;
         } catch (error) { console.debug(error); el.textContent = 'Value digest unavailable'; }
@@ -234,8 +237,7 @@
         const f = document.getElementById('avatarFile').files[0];
         if (!f) return setMsg('profileMsg', 'Choose a file first', false);
         const fd = new FormData(); fd.append('file', f);
-        const t = localStorage.getItem('bd_token');
-        const res = await fetch('/api/auth/avatar', { method: 'POST', headers: t ? { Authorization: 'Bearer ' + t } : {}, body: fd, credentials: 'same-origin' });
+        const res = await fetch('/api/auth/avatar', { method: 'POST', body: fd, credentials: 'same-origin' });
         const d = await res.json();
         setMsg('profileMsg', res.ok ? 'Avatar updated' : (d.detail || 'Upload failed'), res.ok);
         if (res.ok) load();
@@ -254,7 +256,7 @@
             })
         });
         const d = await res.json();
-        if (res.ok && d.token) localStorage.setItem('bd_token', d.token);
+        if (res.ok) { try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {} }
         setMsg('secMsg', res.ok ? 'Password updated — other sessions revoked.' : (d.detail || 'Failed'), res.ok);
     }
     async function resendVerify() {

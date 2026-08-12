@@ -16,9 +16,9 @@ import threading
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from path_safety import ensure_under, project_data_dir
-from uuid import uuid4
 
 _LOCK = threading.Lock()
 _DATA_BASE = project_data_dir()
@@ -532,7 +532,7 @@ def support_status() -> dict[str, Any]:
 
 def coverage_catalog() -> dict[str, Any]:
     try:
-        from coverage_honesty import build_coverage_honesty_board
+        pass
 
         # sync wrapper not available — return static contractable catalog + honesty link
     except Exception:

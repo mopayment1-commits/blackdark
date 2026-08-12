@@ -30,7 +30,7 @@ def _safe_secret_key(key: str) -> str:
 
 def _storage_id(safe_key: str) -> str:
     """Non-path identifier for local/KV storage (hex digest only)."""
-    return hashlib.sha256(f"bd-vault-key:{safe_key}".encode("utf-8")).hexdigest()
+    return hashlib.sha256(f"bd-vault-key:{safe_key}".encode()).hexdigest()
 
 
 def _vault_kv_path(safe_key: str) -> str:
@@ -119,8 +119,8 @@ def read_secret(key: str) -> dict[str, Any]:
             secret = client.secrets.kv.v2.read_secret_version(path=kv_path, mount_point=MOUNT)
             data = (secret.get("data") or {}).get("data") or {}
             return {"source": "hashicorp", "path": kv_path, "data": data}
-        except Exception as exc:
-            logger.warning("Vault read failed: %s", exc)
+        except Exception:
+            logger.warning("Vault read failed | event=vault_read_failed")
             return {"source": "hashicorp", "error": "vault_read_failed", "stored": False}
 
     try:
@@ -134,8 +134,8 @@ def read_secret(key: str) -> dict[str, Any]:
                 "path": safe_key,
                 "data": {"value": decrypt_secret(enc)},
             }
-    except Exception as exc:
-        logger.warning("Local vault read failed: %s", exc)
+    except Exception:
+        logger.warning("Local vault read failed | event=local_vault_read_failed")
         return {"source": "local_fernet", "error": "local_vault_read_failed"}
 
     return {"source": "none", "note": "Secret not found — use store_secret first."}
@@ -158,8 +158,8 @@ def store_secret(key: str, value: str) -> dict[str, Any]:
                 secret={"value": value},
             )
             return {"source": "hashicorp", "path": kv_path, "stored": True}
-        except Exception as exc:
-            logger.warning("Vault store failed: %s", exc)
+        except Exception:
+            logger.warning("Vault store failed | event=vault_store_failed")
             return {"source": "hashicorp", "error": "vault_store_failed", "stored": False}
 
     from secrets_vault import encrypt_secret

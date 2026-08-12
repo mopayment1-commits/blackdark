@@ -51,6 +51,31 @@ def _clear_session_cookie(response: Response) -> None:
     response.delete_cookie("bd_token", path="/")
 
 
+def _session_response_body(result: dict[str, Any]) -> dict[str, Any]:
+    """Prefer HttpOnly cookie session; omit reusable bearer from JSON in production.
+
+    Set AUTH_TOKEN_IN_BODY=true only for legacy clients that cannot use cookies.
+    """
+    body = dict(result)
+    explicit = os.getenv("AUTH_TOKEN_IN_BODY", "").strip().lower()
+    include = explicit in {"1", "true", "yes"}
+    if explicit in {"0", "false", "no"}:
+        include = False
+    elif not explicit:
+        env = (
+            os.getenv("ENV")
+            or os.getenv("APP_ENV")
+            or os.getenv("ENVIRONMENT")
+            or os.getenv("RAILWAY_ENVIRONMENT")
+            or ""
+        ).strip().lower()
+        include = env not in {"production", "prod"}
+    if not include:
+        body.pop("token", None)
+        body["session"] = "cookie"
+    return body
+
+
 @router.get("/identity")
 async def auth_identity_architecture():
     from identity_service import identity_architecture
@@ -85,7 +110,7 @@ async def auth_register(body: AuthRegisterBody, background_tasks: BackgroundTask
         from observability import increment_metric
 
         increment_metric("auth_logins_total")
-        resp = JSONResponse(result)
+        resp = JSONResponse(_session_response_body(result))
         _attach_session_cookie(resp, result.get("token"))
         return resp
     except ValueError as exc:
@@ -113,7 +138,7 @@ async def auth_login(
         from observability import increment_metric
 
         increment_metric("auth_logins_total")
-        resp = JSONResponse(result)
+        resp = JSONResponse(_session_response_body(result))
         _attach_session_cookie(resp, result.get("token"))
         return resp
     except ValueError as exc:
@@ -130,7 +155,7 @@ async def auth_mfa_complete(body: AuthMfaChallengeBody, background_tasks: Backgr
         from observability import increment_metric
 
         increment_metric("auth_logins_total")
-        resp = JSONResponse(result)
+        resp = JSONResponse(_session_response_body(result))
         _attach_session_cookie(resp, result.get("token"))
         return resp
     except ValueError as exc:
@@ -247,13 +272,15 @@ async def auth_reset_password(body: AuthResetPasswordBody):
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     resp = JSONResponse(
-        {
-            "ok": True,
-            "message": "Password updated. You are signed in.",
-            "token": session["token"],
-            "expires_at": session["expires_at"],
-            "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
-        }
+        _session_response_body(
+            {
+                "ok": True,
+                "message": "Password updated. You are signed in.",
+                "token": session["token"],
+                "expires_at": session["expires_at"],
+                "user": {"id": user_id, "email": email, "name": user.get("name") or ""},
+            }
+        )
     )
     _attach_session_cookie(resp, session["token"])
     return resp
@@ -294,7 +321,11 @@ async def auth_change_password(
     from auth_service import create_session
 
     session = await create_session(int(user["id"]))
-    resp = JSONResponse({"ok": True, "token": session["token"], "expires_at": session["expires_at"]})
+    resp = JSONResponse(
+        _session_response_body(
+            {"ok": True, "token": session["token"], "expires_at": session["expires_at"]}
+        )
+    )
     _attach_session_cookie(resp, session["token"])
     return resp
 

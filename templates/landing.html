@@ -850,12 +850,12 @@
                     <h3>BLACKDARK Oracle</h3>
                     <div class="live-indicator" id="oracleFreshnessChip" title="Data freshness">
                         <span class="live-dot"></span>
-                        <span id="oracleFreshnessLabel">Live</span>
+                        <span id="oracleFreshnessLabel">Freshness unknown</span>
                     </div>
                 </div>
                 <div class="oracle-input" style="flex-wrap:wrap;gap:.5rem">
                     <label class="field-label" for="landingAudience" style="display:inline-flex;flex-direction:column;gap:.25rem;font-size:.75rem;color:var(--text-muted);text-align:left">Audience
-                    <select id="landingAudience" name="landingAudience" onchange="applyAudience()" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
+                    <select id="landingAudience" name="landingAudience" data-bd-change-call="applyAudience" style="background:var(--bg-elevated);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:.55rem">
                         <option value="retail" selected>Prove</option>
                         <option value="pro">Operate</option>
                         <option value="whale">Desk</option>
@@ -870,7 +870,7 @@
                     </label>
                     <input type="hidden" id="landingLang" value="en" aria-label="landingLang">
                     <input type="text" id="symbolInput" placeholder="BTC / ETH / SOL" value="BTC" aria-label="BTC / ETH / SOL">
-                    <button onclick="consultOracle()">Get Decision</button>
+                    <button data-bd-call="consultOracle">Get Decision</button>
                 </div>
                 <p id="audienceCta" style="color:var(--text-muted);font-size:.85rem;margin:.5rem 0 0">Get one clear Act / Wait decision — no dashboard tourism.</p>
                 <div class="oracle-result" id="oracleResult">
@@ -1049,7 +1049,7 @@
             <span>Telegram: <strong id="landingTelegram">—</strong></span>
             <span>Waitlist: <strong id="landingWaitlist">—</strong></span>
         </div>
-        <form class="waitlist-form" onsubmit="joinWaitlist(event)">
+        <form class="waitlist-form" data-bd-submit-call="joinWaitlist">
             <input type="email" id="waitlistEmail" placeholder="Enter your email" required aria-label="Enter your email">
             <button type="submit">Join Waitlist</button>
         </form>
@@ -1059,7 +1059,10 @@
     
     {% include "partials/site_footer.html" %}
     
+    <script src="/static/js/dom_escape.js"></script>
     <script>
+        const { escapeHtml, esc, safeUrl } = window.BDDomSafe;
+
 function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
 
         window.lastOracleResult = null;
@@ -1169,10 +1172,12 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
             const copyBtn = cert.share_text ? `<button type="button" class="btn-secondary" id="copyCertBtn">Copy certificate</button>` : '';
             const txtBtn = cert.export_text ? `<button type="button" class="btn-secondary" id="dlCertTxtBtn">Download TXT</button>` : '';
-            const xBtn = (cert.share_urls && cert.share_urls.x) ? `<a class="btn-secondary" id="certShareX" href="${cert.share_urls.x}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = (cert.share_urls && cert.share_urls.telegram) ? `<a class="btn-secondary" id="certShareTg" href="${cert.share_urls.telegram}" target="_blank" rel="noopener">Share TG</a>` : '';
+            const xHref = safeUrl(cert.share_urls && cert.share_urls.x);
+            const tgHref = safeUrl(cert.share_urls && cert.share_urls.telegram);
+            const xBtn = xHref ? `<a class="btn-secondary" id="certShareX" href="${xHref}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgHref ? `<a class="btn-secondary" id="certShareTg" href="${tgHref}" target="_blank" rel="noopener">Share TG</a>` : '';
             certEl.innerHTML =
-                `Decision Certificate · <code>${hashLabel}</code>` +
+                `Decision Certificate · <code>${esc(hashLabel)}</code>` +
                 `<div style="margin-top:.35rem;display:flex;flex-wrap:wrap;gap:.35rem">` +
                 copyBtn +
                 `<button type="button" class="btn-secondary" id="dlCertBtn">Download JSON</button>` +
@@ -1216,18 +1221,18 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const bits = ['bull','base','bear'].map(k => {
                     const s = scen[k] || {};
                     const pct = s.probability_pct != null ? s.probability_pct+'%' : '—';
-                    return `${s.label||k} ${pct}`;
+                    return `${esc(s.label||k)} ${esc(pct)}`;
                 }).join(' · ');
                 const disc = (data.scenarios && data.scenarios.disclaimer) || '';
-                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${disc}</div></div>`;
+                scenHtml = `<div style="margin-top:.65rem"><strong style="color:var(--text)">Scenarios</strong> · ${bits}<div style="font-size:.75rem;margin-top:.25rem;opacity:.8">${esc(disc)}</div></div>`;
             }
             let whyList = '<p style="margin-top:.35rem">No factor breakdown on this response.</p>';
             if (factors.length) {
                 whyList = '<ol style="margin:.35rem 0 0 1.1rem;color:var(--text)">' + factors.slice(0,3).map(f => {
                     const label = f.factor || f.label || f.name || f;
-                    const detail = f.detail ? ` — ${f.detail}` : '';
-                    const src = f.source ? ` <span style="opacity:.7">· ${f.source}</span>` : '';
-                    return `<li>${label}${detail}${src}</li>`;
+                    const detail = f.detail ? ` — ${esc(f.detail)}` : '';
+                    const src = f.source ? ` <span style="opacity:.7">· ${esc(f.source)}</span>` : '';
+                    return `<li>${esc(label)}${detail}${src}</li>`;
                 }).join('') + '</ol>';
             }
             let certLine = '';
@@ -1235,10 +1240,10 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const hashShort = cert.certificate_hash
                     ? String(cert.certificate_hash).slice(0, 16) + '…'
                     : 'pending';
-                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${hashShort}</code> · prediction_id <code>${data.prediction_id || '—'}</code></div>`;
+                certLine = `<div style="margin-top:.5rem;font-size:.8rem">Certificate <code>${esc(hashShort)}</code> · prediction_id <code>${esc(data.prediction_id || '—')}</code></div>`;
             }
             whyEl.innerHTML =
-                `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${whyBlock.grasp_line || 'Why (Top 3) — under five seconds'} · ${latencyMs}ms</div>` +
+                `<div style="font-size:.78rem;color:var(--accent);margin-bottom:.35rem">${esc(whyBlock.grasp_line || 'Why (Top 3) — under five seconds')} · ${esc(latencyMs)}ms</div>` +
                 whyList +
                 '<details style="margin-top:.65rem;border:1px solid var(--border,#2a2a35);border-radius:10px;padding:.65rem .85rem;background:rgba(0,0,0,.2)">' +
                 '<summary style="cursor:pointer;color:var(--accent);font-weight:600">Evidence drawer · Certificate + scenarios</summary>' +
@@ -1259,24 +1264,29 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const freshChip = document.getElementById('oracleFreshnessLabel');
             const fresh = data.data_freshness || {};
             if (!freshChip) return;
-            freshChip.textContent = fresh.label || 'Live';
+            const state = String(fresh.state || fresh.status || '').toLowerCase();
+            const stale = fresh.stale === true || state === 'stale';
+            const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+            freshChip.textContent = stale
+                ? (fresh.label || 'Stale — not live')
+                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
             const wrap = document.getElementById('oracleFreshnessChip');
             if (!wrap) return;
             wrap.title = fresh.state ? `Freshness: ${fresh.state}` : 'Data freshness';
-            wrap.style.opacity = fresh.state === 'stale' ? '0.65' : '1';
+            wrap.style.opacity = stale ? '0.65' : '1';
         }
         function paintLandingProMeta(proMeta, data, mode) {
             if (mode === 'pro') {
                 const truth = data.net_edge_truth || {};
                 const half = data.opportunity_half_life || {};
                 const conflict = data.dimension_conflict || {};
-                let line = `Truth ${truth.truth_score ?? '—'} · Half-life ${half.remaining_seconds ?? '—'}s · Regime ${data.market_regime || '—'}`;
+                let line = `Truth ${esc(truth.truth_score ?? '—')} · Half-life ${esc(half.remaining_seconds ?? '—')}s · Regime ${esc(data.market_regime || '—')}`;
                 if (conflict.veto || conflict.abstain || (conflict.severity && conflict.severity !== 'none')) {
                     const vetoWord = conflict.veto ? 'WAIT' : 'Abstain';
-                    const sevBit = conflict.severity ? ' (' + conflict.severity + ')' : '';
+                    const sevBit = conflict.severity ? ' (' + esc(conflict.severity) + ')' : '';
                     line += ` · Contradiction Veto: ${vetoWord}${sevBit}`;
                 }
-                if (data.prediction_id) line += ` · Proof #${data.prediction_id}`;
+                if (data.prediction_id) line += ` · Proof #${esc(data.prediction_id)}`;
                 proMeta.style.display = 'block';
                 proMeta.innerHTML = line + (data.prediction_id
                     ? ` · <a href="/oracle-accuracy" style="color:var(--accent)">accuracy</a>`
@@ -1285,20 +1295,20 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             }
             if (data.prediction_id) {
                 proMeta.style.display = 'block';
-                proMeta.innerHTML = `Proof · prediction_id <code>${data.prediction_id}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
+                proMeta.innerHTML = `Proof · prediction_id <code>${esc(data.prediction_id)}</code> · <a href="/oracle-accuracy" style="color:var(--accent)">Public accuracy</a>`;
             }
         }
         function paintLandingUpgrade(upgradeEl, data) {
             if (!data.upgrade_hint) return;
             const teaser = data.upgrade_hint.teaser || {};
             const teaserLine = [
-                teaser.truth_score != null ? `Truth teaser ${teaser.truth_score}` : null,
-                teaser.remaining_seconds != null ? `Half-life ~${teaser.remaining_seconds}s` : null,
-                teaser.regime ? `Regime ${teaser.regime}` : null,
+                teaser.truth_score != null ? `Truth teaser ${esc(teaser.truth_score)}` : null,
+                teaser.remaining_seconds != null ? `Half-life ~${esc(teaser.remaining_seconds)}s` : null,
+                teaser.regime ? `Regime ${esc(teaser.regime)}` : null,
             ].filter(Boolean).join(' · ');
             upgradeEl.style.display = 'block';
             upgradeEl.innerHTML =
-                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${data.upgrade_hint.message || ''}` +
+                `<div style="color:var(--text-muted);font-size:.85rem;margin-bottom:.5rem">${esc(data.upgrade_hint.message || '')}` +
                 (teaserLine ? `<br>${teaserLine}` : '') +
                 `</div><button type="button" class="btn-secondary" id="switchProBtn">Switch to Pro</button>`;
             document.getElementById('switchProBtn')?.addEventListener('click', () => {
@@ -1341,7 +1351,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const comp = document.getElementById('landingCompliance');
             if (!foot.disclaimer || !comp) return;
             comp.style.display = 'block';
-            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${foot.data_source || '—'} · Trust: ${foot.trust_basis || '—'}<br>${foot.disclaimer}`;
+            comp.innerHTML = `<strong>Anti-Hype</strong> · Source: ${esc(foot.data_source || '—')} · Trust: ${esc(foot.trust_basis || '—')}<br>${esc(foot.disclaimer)}`;
         }
 
         async function consultOracle() {
@@ -1379,7 +1389,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
-                        upgradeEl.innerHTML = `<a class="btn-primary" href="${detail.upgrade_url || '/create-checkout-session?tier=pro'}">Upgrade to Pro</a>`;
+                        upgradeEl.innerHTML = `<a class="btn-primary" href="${esc(safeUrl(detail.upgrade_url) || '/create-checkout-session?tier=pro')}">Upgrade to Pro</a>`;
                     }
                     return;
                 }
@@ -1495,6 +1505,40 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         let landingPulse = null;
         let landingPulseEs = null;
 
+        function _lpPriceBit(p) {
+            const price = p.price != null
+                ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 }))
+                : '';
+            const ch = p.change_24h;
+            if (ch == null) return price;
+            const sign = ch >= 0 ? '+' : '';
+            return `${price} · ${sign}${Number(ch).toFixed(2)}%`;
+        }
+
+        function _lpRenderWhy(factors) {
+            const why = document.getElementById('lpWhy');
+            if (!why) return;
+            why.innerHTML = (factors || []).slice(0, 3).map((f, i) => {
+                const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+                return '<div><strong>' + (i + 1) + '. ' + esc(f.factor || f) + '</strong>' + detail + '</div>';
+            }).join('') || '';
+        }
+
+        function _lpRenderProof(p) {
+            const proof = p.proof || {};
+            const ledger = p.ledger || {};
+            const box = document.getElementById('lpProof');
+            if (!box) return;
+            const bits = [
+                `<a class="bd-chip ok" href="${esc(safeUrl(ledger.href) || '/oracle-accuracy')}">${esc(ledger.label || 'Verified on Ledger')}</a>`,
+            ];
+            if (proof.watermark) bits.push(`<span class="bd-chip">${esc(proof.watermark)}</span>`);
+            if (proof.certificate_hash) {
+                bits.push(`<span class="bd-chip">cert ${esc(String(proof.certificate_hash).slice(0, 10))}…</span>`);
+            }
+            box.innerHTML = bits.join('');
+        }
+
         function renderLandingPulse(p) {
             if (!p) return;
             landingPulse = p;
@@ -1502,47 +1546,26 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             const actionEl = document.getElementById('lpAction');
             if (actionEl) {
                 actionEl.textContent = act;
-                actionEl.className = 'tp-mini-action ' + act;
-            }
-            const price = p.price != null ? ('$' + Number(p.price).toLocaleString(undefined, { maximumFractionDigits: 2 })) : '';
-            const ch = p.change_24h;
-            let chBit = '';
-            if (ch != null) {
-                const sign = ch >= 0 ? '+' : '';
-                chBit = ` · ${sign}${Number(ch).toFixed(2)}%`;
+                actionEl.className = 'tp-mini-action bd-tp-action ' + act;
             }
             const sym = document.getElementById('lpSym');
-            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${price}${chBit}`;
+            if (sym) sym.textContent = `${p.symbol || 'BTC'} ${_lpPriceBit(p)}`;
             const sent = document.getElementById('lpSentence');
             if (sent) sent.textContent = p.sentence || 'One clear Act / Wait — reviewable.';
-            const factors = (p.why && p.why.factors) || [];
-            const why = document.getElementById('lpWhy');
-            if (why) {
-                why.innerHTML = factors.slice(0, 3).map((f, i) => {
-                    const detail = f.detail ? (' — ' + f.detail) : '';
-                    return '<div><strong>' + (i + 1) + '. ' + (f.factor || f) + '</strong>' + detail + '</div>';
-                }).join('') || '';
-            }
+            _lpRenderWhy((p.why && p.why.factors) || []);
             const fresh = p.freshness || {};
             const dot = document.getElementById('lpDot');
             if (dot) dot.className = 'tp-mini-dot' + (fresh.stale ? ' stale' : '');
             const fl = document.getElementById('lpFresh');
-            if (fl) fl.textContent = fresh.label || 'Live';
-            const proof = p.proof || {};
-            const ledger = p.ledger || {};
-            const box = document.getElementById('lpProof');
-            if (box) {
-                const bits = [
-                    `<a class="bd-chip ok" href="${ledger.href || '/oracle-accuracy'}">${ledger.label || 'Verified on Ledger'}</a>`,
-                ];
-                if (proof.watermark) bits.push(`<span class="bd-chip">${proof.watermark}</span>`);
-                if (proof.certificate_hash) bits.push(`<span class="bd-chip">cert ${String(proof.certificate_hash).slice(0, 10)}…</span>`);
-                box.innerHTML = bits.join('');
+            if (fl) {
+                const state = String(fresh.state || fresh.status || '').toLowerCase();
+                const stale = fresh.stale === true || state === 'stale';
+                const knownFresh = state === 'fresh' || state === 'ok' || state === 'live';
+                fl.textContent = stale
+                    ? (fresh.label || 'Stale — not live')
+                    : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
             }
-            const actionEl2 = document.getElementById('lpAction');
-            if (actionEl2) {
-                actionEl2.className = 'tp-mini-action bd-tp-action ' + act;
-            }
+            _lpRenderProof(p);
         }
 
         async function loadLandingTrustPulse() {

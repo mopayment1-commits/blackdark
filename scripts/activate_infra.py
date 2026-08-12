@@ -37,10 +37,10 @@ def main() -> None:
 
     if args.docker:
         print("Docker stack (Postgres + Redis + Kafka + Vault + workers):")
-        print("  set POSTGRES_PASSWORD=your_secret_in_.env")
+        print("  set POSTGRES_PASSWORD in .env (never paste into logs)")
         print("  docker compose up -d --build")
         print("  Web UI: http://localhost:8080")
-        print("  Vault:  http://localhost:8200 (token: blackdark-dev-root)")
+        print("  Vault:  http://localhost:8200 (use VAULT_DEV_TOKEN from .env — never print it)")
         print("  Kafka:  localhost:9092")
         return
 

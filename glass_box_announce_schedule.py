@@ -42,7 +42,7 @@ def set_schedule(
     note: str = "",
 ) -> dict[str, Any]:
     # Validate ISO
-    at = datetime.fromisoformat(announce_at.replace("Z", "+00:00"))
+    at = datetime.fromisoformat(announce_at)
     if at.tzinfo is None:
         at = at.replace(tzinfo=UTC)
     payload = {
@@ -69,7 +69,7 @@ def schedule_status() -> dict[str, Any]:
     due = False
     if sched.get("announce_at"):
         try:
-            at = datetime.fromisoformat(str(sched["announce_at"]).replace("Z", "+00:00"))
+            at = datetime.fromisoformat(str(sched["announce_at"]))
             if at.tzinfo is None:
                 at = at.replace(tzinfo=UTC)
             due = _utcnow() >= at

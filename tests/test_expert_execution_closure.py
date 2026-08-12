@@ -66,9 +66,10 @@ def test_dashboard_oracle_render_escapes_dynamic_html():
     html = Path("templates/dashboard.html").read_text(encoding="utf-8")
     # High CodeQL sink region must escape upgrade/conflict/compliance fields.
     assert "esc(d.upgrade_hint.message" in html
-    assert "esc(conflict.reason || conflict.message)" in html
+    assert "const reason = conflict.reason || conflict.message" in html
+    assert "esc(reason)" in html
     assert "esc(cf.disclaimer)" in html
-    assert "safeUrl" in html
+    assert "safeUrl" in html or "safeShareUrl" in html
 
 
 def test_deferred_human_points_to_announce_api():

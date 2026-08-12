@@ -331,7 +331,9 @@
         BLACKDARK — Proprietary Crypto Intelligence AI · Every prediction tracked
     </footer>
 
+    <script src="/static/js/dom_escape.js"></script>
     <script type="module">
+        const { esc, safeUrl } = window.BDDomSafe;
         function pillClass(label) {
             if (!label) return 'partial';
             if (label === 'correct') return 'correct';
@@ -375,10 +377,10 @@
                 const row = regimeRows[k] || {};
                 const pill = row.artifact_present ? 'correct' : 'partial';
                 return `<tr>
-                    <td>${k}</td>
-                    <td>${row.confidence_multiplier ?? '—'}</td>
+                    <td>${esc(k)}</td>
+                    <td>${esc(row.confidence_multiplier ?? '—')}</td>
                     <td>${row.artifact_present ? 'yes' : 'no'}</td>
-                    <td><span class="pill ${pill}">${row.status || '—'}</span></td>
+                    <td><span class="pill ${pill}">${esc(row.status || '—')}</span></td>
                 </tr>`;
             }).join('');
         }
@@ -394,7 +396,7 @@
                 return;
             }
             regBody.innerHTML = typeKeys.map(k =>
-                `<tr><td>${k}</td><td>${byType[k]}</td></tr>`
+                `<tr><td>${esc(k)}</td><td>${esc(byType[k])}</td></tr>`
             ).join('');
         }
         function renderPredictionsTable(rows) {
@@ -405,14 +407,14 @@
             }
             tbody.innerHTML = rows.map(r => `
                 <tr>
-                    <td>${r.prediction_id ?? '—'}</td>
-                    <td>${(r.timestamp || '').slice(0, 19)}</td>
-                    <td>${r.asset || '—'}</td>
-                    <td>${r.verdict || '—'}</td>
-                    <td>${Number(r.price_at_prediction || 0).toLocaleString()}</td>
-                    <td>${Number(r.price_after_24h || 0).toLocaleString()}</td>
-                    <td><span class="pill ${pillClass(r.label)}">${r.label || '—'}</span></td>
-                    <td style="font-size:.75rem;color:var(--muted)">${r.chain_ref || '—'}</td>
+                    <td>${esc(r.prediction_id ?? '—')}</td>
+                    <td>${esc((r.timestamp || '').slice(0, 19))}</td>
+                    <td>${esc(r.asset || '—')}</td>
+                    <td>${esc(r.verdict || '—')}</td>
+                    <td>${esc(Number(r.price_at_prediction || 0).toLocaleString())}</td>
+                    <td>${esc(Number(r.price_after_24h || 0).toLocaleString())}</td>
+                    <td><span class="pill ${pillClass(r.label)}">${esc(r.label || '—')}</span></td>
+                    <td style="font-size:.75rem;color:var(--muted)">${esc(r.chain_ref || '—')}</td>
                 </tr>
             `).join('');
         }
@@ -424,7 +426,7 @@
             }
             list.innerHTML = events.map(e => {
                 const h = e.highlights || {};
-                return `<li><strong>${e.event_type}</strong> · ${e.timestamp || ''} · ${JSON.stringify(h)}</li>`;
+                return `<li><strong>${esc(e.event_type)}</strong> · ${esc(e.timestamp || '')} · ${esc(JSON.stringify(h))}</li>`;
             }).join('');
         }
         function renderProofChain(chain) {
@@ -436,9 +438,9 @@
             const tip = chain.tip_hash || '—';
             const vColor = verify.valid ? 'var(--success)' : 'var(--danger)';
             document.getElementById('proof-panel').innerHTML =
-                `Tip hash: <code style="color:var(--accent)">${tip}</code><br>` +
-                `Integrity: <strong style="color:${vColor}">${verifyLabelShort(verify.valid)}</strong>` +
-                ` · ${records} linked records`;
+                `Tip hash: <code style="color:var(--accent)">${esc(tip)}</code><br>` +
+                `Integrity: <strong style="color:${vColor}">${esc(verifyLabelShort(verify.valid))}</strong>` +
+                ` · ${esc(records)} linked records`;
         }
         async function loadAccuracy() {
             try {
@@ -473,9 +475,9 @@
                 const vLabel = data.valid ? 'VALID' : 'INVALID';
                 const broken = data.broken_at_seq != null ? ` · broken_at=${data.broken_at_seq}` : '';
                 panel.innerHTML =
-                    `Live verify: <strong style="color:${vColor}">${vLabel}</strong>` +
-                    ` · records=${data.records ?? '—'}` +
-                    broken;
+                    `Live verify: <strong style="color:${vColor}">${esc(vLabel)}</strong>` +
+                    ` · records=${esc(data.records ?? '—')}` +
+                    esc(broken);
             } catch (error) { console.debug(error); panel.textContent = 'Verify failed'; }
         }
         document.getElementById('verifyChainBtn').addEventListener('click', verifyChain);
@@ -493,9 +495,9 @@
                     list.innerHTML = '<li>No locked predictions yet — seal before the next major macro event.</li>';
                 } else {
                     list.innerHTML = rows.map(r =>
-                        `<li><strong>${r.event_name || 'event'}</strong> · ${r.asset || ''} · ` +
-                        `${r.status} · seal ${String(r.seal_hash || '').slice(0,12)}…` +
-                        (r.revealed ? ` · ${r.direction || ''} — ${(r.rationale || '').slice(0,80)}` : ' · sealed until unlock') +
+                        `<li><strong>${esc(r.event_name || 'event')}</strong> · ${esc(r.asset || '')} · ` +
+                        `${esc(r.status)} · seal ${esc(String(r.seal_hash || '').slice(0,12))}…` +
+                        (r.revealed ? ` · ${esc(r.direction || '')} — ${esc((r.rationale || '').slice(0,80))}` : ' · sealed until unlock') +
                         `</li>`
                     ).join('');
                 }
@@ -513,7 +515,7 @@
                 const rows = data.sample || [];
                 const list = document.getElementById('losing-list');
                 list.innerHTML = rows.length
-                    ? rows.map(r => `<li><strong>${r.asset||'—'}</strong> · ${r.verdict||''} · ${r.label||''} · id ${r.prediction_id??'—'}</li>`).join('')
+                    ? rows.map(r => `<li><strong>${esc(r.asset||'—')}</strong> · ${esc(r.verdict||'')} · ${esc(r.label||'')} · id ${esc(r.prediction_id??'—')}</li>`).join('')
                     : '<li>No labeled misses yet — the ledger will list them here honestly.</li>';
             } catch (error) { console.debug(error); document.getElementById('losing-status').textContent = 'Losing report unavailable'; }
         }
@@ -541,8 +543,8 @@
                 if (preview) preview.textContent = lastLedgerShare;
                 const x = document.getElementById('ledgerShareX');
                 const tg = document.getElementById('ledgerShareTg');
-                if (x && d.share_urls && d.share_urls.x) x.href = d.share_urls.x;
-                if (tg && d.share_urls && d.share_urls.telegram) tg.href = d.share_urls.telegram;
+                if (x && d.share_urls && d.share_urls.x) x.href = safeUrl(d.share_urls.x) || '#';
+                if (tg && d.share_urls && d.share_urls.telegram) tg.href = safeUrl(d.share_urls.telegram) || '#';
             } catch (error) { console.debug(error); }
         }
         document.getElementById('shareLedgerBtn')?.addEventListener('click', () => {
@@ -572,7 +574,7 @@
                 const steps = (d.event_template && d.event_template.steps) || [];
                 const ol = document.getElementById('glass-event-steps');
                 if (ol && steps.length) {
-                    ol.innerHTML = steps.map(s => '<li>' + s + '</li>').join('');
+                    ol.innerHTML = steps.map(s => '<li>' + esc(s) + '</li>').join('');
                 }
                 const gx = document.getElementById('glassShareX');
                 const gt = document.getElementById('glassShareTg');
@@ -589,13 +591,13 @@
                 const gates = document.getElementById('glass-operator-gates');
                 if (gates && Array.isArray(rb.gates)) {
                     gates.innerHTML = rb.gates.map(g =>
-                        `<li><strong>${g.label || g.id}</strong> · ${g.status || '—'}` +
-                        (g.check ? ` · <code>${g.check}</code>` : '') + '</li>'
+                        `<li><strong>${esc(g.label || g.id)}</strong> · ${esc(g.status || '—')}` +
+                        (g.check ? ` · <code>${esc(g.check)}</code>` : '') + '</li>'
                     ).join('');
                 }
                 const tm = document.getElementById('glass-tminus');
                 if (tm && Array.isArray(rb.t_minus_checklist)) {
-                    tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + s + '</li>').join('');
+                    tm.innerHTML = rb.t_minus_checklist.map(s => '<li>' + esc(s) + '</li>').join('');
                 }
             } catch (error) { console.debug(error); document.getElementById('glass-hook').textContent = 'Glass Box pack unavailable'; }
         }
@@ -611,12 +613,12 @@
                 document.getElementById('mev-status').textContent =
                     `${d.asset} · notional $${Number(d.notional_usd||0).toLocaleString()} · est. sandwich ~${d.estimated_sandwich_bps} bps (~$${d.estimated_cost_usd}) · ${d.confidence||''}`;
                 const list = document.getElementById('mev-mitigations');
-                list.innerHTML = (d.mitigations || []).map(m => `<li>${m}</li>`).join('')
+                list.innerHTML = (d.mitigations || []).map(m => `<li>${esc(m)}</li>`).join('')
                     || '<li>No mitigations listed</li>';
                 const c = d.compliance || {};
                 const foot = document.getElementById('mev-compliance');
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${c.data_source || ''} · ${c.disclaimer || 'Not financial advice.'}`;
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(c.data_source || '')} · ${esc(c.disclaimer || 'Not financial advice.')}`;
                 }
             } catch (error) { console.debug(error); document.getElementById('mev-status').textContent = 'MEV report unavailable'; }
         }

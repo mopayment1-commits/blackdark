@@ -14,6 +14,7 @@ def test_net_edge_truth_rejects_stale_thin_edge():
             "quote_amount": 1000,
             "total_slippage_bps": 40,
             "withdrawal_fee_usdt": 1.0,
+            "trading_fees_usdt": 0.5,
             "quote_age_ms": 5000,
             "estimated_recipients": 40,
         }

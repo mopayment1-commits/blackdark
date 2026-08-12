@@ -1,3 +1,10 @@
+* text=auto eol=lf
+*.py text eol=lf working-tree-encoding=UTF-8
+*.html text eol=lf working-tree-encoding=UTF-8
+*.js text eol=lf working-tree-encoding=UTF-8
+*.css text eol=lf working-tree-encoding=UTF-8
+*.md text eol=lf working-tree-encoding=UTF-8
+*.properties text eol=lf working-tree-encoding=UTF-8
 Dockerfile text eol=lf
 *.sh text eol=lf
 railway.json text eol=lf

@@ -29,8 +29,8 @@ ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
 <p class="sub">Institutional skin: evidence only. Promo CTAs and guaranteed-return language stay off.</p>
 <div class="panel">
   <p id="state">Loading…</p>
-  <button class="btn" id="onBtn" type="button" onclick="setMode(true)">Enable</button>
-  <button class="btn" id="offBtn" type="button" onclick="setMode(false)">Disable</button>
+  <button class="btn" id="onBtn" type="button" data-bd-call="setMode" data-bd-args="[true]">Enable</button>
+  <button class="btn" id="offBtn" type="button" data-bd-call="setMode" data-bd-args="[false]">Disable</button>
 </div>
 <div class="panel" data-evidence>
   <h2>When enabled</h2>
@@ -39,7 +39,10 @@ ul{line-height:1.6;color:var(--muted)} li b{color:var(--fg)}
 </div>
 <p class="promo-cta" data-hype>This promo must never show in Anti-Hype Mode.</p>
 </main>
+{% include "partials/site_footer.html" %}
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { esc } = window.BDDomSafe;
 function key(){return localStorage.getItem('bd_user_key')||'anon';}
 function apply(on){
   document.cookie='bd_anti_hype='+(on?'1':'0')+'; path=/; max-age=31536000; SameSite=Lax';
@@ -53,7 +56,7 @@ async function load(){
   const d=await r.json();
   apply(!!d.enabled);
   document.getElementById('state').textContent=d.enabled?'Anti-Hype Mode is ON — evidence only.':'Anti-Hype Mode is OFF.';
-  document.getElementById('show').innerHTML=(d.when_on?.show||[]).map(x=>`<li><b>${x}</b></li>`).join('');
+  document.getElementById('show').innerHTML=(d.when_on?.show||[]).map(x=>`<li><b>${esc(x)}</b></li>`).join('');
   document.getElementById('disc').textContent=d.disclaimer||'';
 }
 async function setMode(on){

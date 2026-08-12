@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate production secrets and print a Railway Variables block."""
+"""Generate production secrets into a private file — never print secret values."""
 
 from __future__ import annotations
 
@@ -8,13 +8,17 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _secret_io import write_private_text  # noqa: E402
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 
 def main() -> None:
-    domain = (sys.argv[1] if len(sys.argv) > 1 else input("Your Railway domain (e.g. blackdark.up.railway.app): ")).strip()
+    domain = (
+        sys.argv[1] if len(sys.argv) > 1 else input("Your Railway domain (e.g. blackdark.up.railway.app): ")
+    ).strip()
     insecure_scheme = "http" + "://"
     secure_scheme = "https" + "://"
     domain = domain.replace(secure_scheme, "").replace(insecure_scheme, "").rstrip("/")
@@ -61,11 +65,17 @@ GROQ_API_KEY=
 """
     out = ROOT / "data" / "railway_variables.txt"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(block, encoding="utf-8")
+    write_private_text(out, block)
 
-    print("\n=== RAILWAY VARIABLES (copy to Railway dashboard) ===\n")
-    print(block)
-    print(f"Saved to: {out}")
+    print("\n=== RAILWAY VARIABLES ===")
+    print("Secret values written to private file (mode 0600).")
+    print(f"  path={out}")
+    print("  SECRETS_MASTER_KEY=set")
+    print("  SESSION_TOKEN_PEPPER=set")
+    print("  ADMIN_API_KEY=set")
+    print("  TELEGRAM_WEBHOOK_SECRET=set")
+    print("  APP_BASE_URL=set")
+    print("Open the private file locally to paste into Railway — never echo it to CI logs.")
     print("\nNext: Railway → New Project → Deploy from GitHub → paste variables → Generate Domain")
 
 

@@ -16,10 +16,10 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-
-from path_safety import ensure_under, safe_data_file
 from urllib.parse import urlencode
 from uuid import uuid4
+
+from path_safety import ensure_under, safe_data_file
 
 _LOCK = threading.Lock()
 _PATH = safe_data_file("enterprise_sso.json")

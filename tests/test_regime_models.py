@@ -19,8 +19,16 @@ def test_regime_model_registry_is_honest():
 def test_english_ui_covers_all_templates():
     from pathlib import Path
 
+    def _has_english_default_lang(text: str) -> bool:
+        return (
+            'lang="en"' in text
+            or "lang='en'" in text
+            or "lang|default('en')" in text
+            or 'lang|default("en")' in text
+        )
+
     root = Path(__file__).resolve().parents[1]
     for path in (root / "templates").glob("*.html"):
         text = path.read_text(encoding="utf-8")
-        assert 'lang="en"' in text or "lang='en'" in text, path.name
+        assert _has_english_default_lang(text), path.name
         assert 'dir="rtl"' not in text, path.name

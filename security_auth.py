@@ -35,6 +35,14 @@ def is_production_env() -> bool:
 
 
 def login_rate_limit_backend() -> str:
+    """Report the backend that will be used for login RL (probe Redis when idle)."""
+    global _rate_limit_backend
+    if _rate_limit_backend == "redis":
+        return "redis"
+    # HA readiness must not require a prior failed login to discover Redis.
+    if _redis_client_sync() is not None:
+        _rate_limit_backend = "redis"
+        return "redis"
     return _rate_limit_backend
 
 
@@ -160,13 +168,16 @@ async def optional_user_from_request(
     authorization: Annotated[str | None, Header(alias="Authorization")] = None,
     bd_token: Annotated[str | None, Cookie(alias="bd_token")] = None,
 ) -> dict | None:
+    """Resolve user from Bearer or Fernet-sealed HttpOnly bd_token cookie."""
     from auth_service import get_user_from_token
 
     token: str | None = None
     if authorization:
-        token = authorization.removeprefix("Bearer ")
+        token = authorization.removeprefix("Bearer ").strip()
     elif bd_token:
-        token = bd_token.strip()
+        from security_middleware import cookie_to_session_bearer
+
+        token = cookie_to_session_bearer(bd_token)
     if not token:
         return None
     return await get_user_from_token(token.strip())
@@ -192,32 +203,48 @@ def require_whale(
     return user
 
 
-def require_admin(
+async def require_admin(
     user: Annotated[dict | None, Depends(optional_user_from_request)],
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ) -> dict:
+    """Fail-closed admin auth — never trusts reverse-proxy peer/loopback.
+
+    Requires X-Admin-Key or an ADMIN_EMAILS session, plus admin MFA when policy is on.
+    """
+    admin_user: dict | None = None
     if verify_admin_key(x_admin_key):
-        return {"email": "admin@system", "tier": "whale", "is_admin": True}
-    if user and is_admin_user(user):
+        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+    elif user and is_admin_user(user):
+        user = dict(user)
         user["is_admin"] = True
-        return user
-    raise HTTPException(status_code=403, detail="Admin authentication required (X-Admin-Key or admin email)")
+        admin_user = user
+    if admin_user is None:
+        raise HTTPException(
+            status_code=403,
+            detail="Admin authentication required (X-Admin-Key or admin email)",
+        )
+    from admin_mfa import assert_admin_mfa
+
+    await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin_user)
+    return admin_user
 
 
 def _is_localhost(request: Request) -> bool:
+    """Peer-address helper for diagnostics only — NEVER used for authorization."""
     host = request.client.host if request.client else ""
     return host in {"127.0.0.1", "::1", "localhost"}
 
 
-def require_admin_dev(
+async def require_admin_dev(
     request: Request,
     user: Annotated[dict | None, Depends(optional_user_from_request)],
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ) -> dict:
-    """Admin guard — loopback bypass only outside production (never via LOCAL_DEV alone)."""
-    if not is_production_env() and _is_localhost(request):
-        return {"email": "localhost-dev", "tier": "whale", "is_admin": True}
-    return require_admin(user, x_admin_key)
+    """Same as require_admin — loopback peer trust removed (proxy-safe)."""
+    _ = request  # retained for FastAPI signature compatibility with call sites
+    return await require_admin(user=user, x_admin_key=x_admin_key, x_admin_totp=x_admin_totp)
 
 
 def require_pro_or_above(

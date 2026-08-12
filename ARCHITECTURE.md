@@ -90,6 +90,6 @@ Storage posture:
 | k8s web + workers | `deploy/k8s/web-deployment.yaml`, `workers-deployment.yaml`, `workers-hpa.yaml` |
 | Concurrent harness | `scripts/load_test_concurrent.py` |
 | Signed HA evidence | `docs/LOAD_TEST_RUN_LOG.md` (Postgres+Redis multi-worker row required) |
-| Schema migrations | Alembic `alembic/` (+ lightweight SQLite `_apply_migrations`) |
+| Schema migrations | **Runtime authority:** `database.SCHEMA` + `database._apply_migrations` via `init_db()` (SQLite + Postgres). `alembic/` is optional/historical tooling only — see `docs/DATABASE_MIGRATIONS.md`. |
 
 **Not claimed:** ISO 27001/25010 certificates · HashiCorp Vault as shipped · proven HA concurrent capacity without a signed Postgres+Redis multi-worker load-log row.

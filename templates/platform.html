@@ -93,8 +93,8 @@
         </p>
         <div id="keysWrap"><div class="loading">Loading key status…</div></div>
         <div class="toolbar" style="margin-top:.75rem">
-            <button class="secondary" onclick="verifyPlatformKeys()">Verify saved keys</button>
-            <button onclick="savePlatformKeys()">Verify &amp; Save</button>
+            <button class="secondary" data-bd-call="verifyPlatformKeys">Verify saved keys</button>
+            <button data-bd-call="savePlatformKeys">Verify &amp; Save</button>
         </div>
         <div id="keysMsg"></div>
         <div id="keysVerifyOut" style="margin-top:.5rem;font-size:.78rem;color:var(--muted)"></div>
@@ -112,7 +112,7 @@
                 <select id="chartInterval">
                     <option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option><option value="1d">1d</option>
                 </select>
-                <button class="secondary" onclick="loadChart()">Refresh</button>
+                <button class="secondary" data-bd-call="loadChart">Refresh</button>
             </div>
             <div id="chart"></div>
             <p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">TradingView Lightweight Charts · Binance klines feed</p>
@@ -121,14 +121,14 @@
         <section>
             <h2>🏆 Market Rankings (CMC-style)</h2>
             <div class="toolbar">
-                <input id="rankSearch" placeholder="Search symbol or name…" oninput="filterRankings()" style="min-width:10rem" aria-label="Search symbol or name…">
+                <input id="rankSearch" placeholder="Search symbol or name…" data-bd-input-call="filterRankings" style="min-width:10rem" aria-label="Search symbol or name…">
                 <label for="rankSort" class="sub">Sort</label>
-                <select id="rankSort" onchange="filterRankings()">
+                <select id="rankSort" data-bd-change-call="filterRankings">
                     <option value="rank">Sort: Rank</option>
                     <option value="change">Sort: 24h %</option>
                     <option value="mcap">Sort: Market Cap</option>
                 </select>
-                <button class="secondary" onclick="loadRankings()">Refresh</button>
+                <button class="secondary" data-bd-call="loadRankings">Refresh</button>
             </div>
             <div style="overflow-x:auto" id="rankingsWrap"><div class="loading">Loading rankings…</div></div>
         </section>
@@ -136,8 +136,8 @@
         <section>
             <h2>⚡ CEX ↔ DEX Arbitrage</h2>
             <div class="toolbar">
-                <button onclick="loadCexDex()">Scan</button>
-                <button class="secondary" onclick="executeCexDex()">Execute Top (Dry-Run)</button>
+                <button data-bd-call="loadCexDex">Scan</button>
+                <button class="secondary" data-bd-call="executeCexDex">Execute Top (Dry-Run)</button>
             </div>
             <div id="cexDexWrap"><div class="loading">Click Scan</div></div>
             <div id="cexDexMsg" class="msg" style="display:none"></div>
@@ -148,7 +148,7 @@
             <div class="toolbar">
                 <label for="derivAsset" class="sub">Asset</label>
                 <select id="derivAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
-                <button class="secondary" onclick="loadDerivCompare()">Compare</button>
+                <button class="secondary" data-bd-call="loadDerivCompare">Compare</button>
             </div>
             <div id="derivWrap"><div class="loading">Select asset and compare</div></div>
         </section>
@@ -159,7 +159,7 @@
                 <input id="stratName" placeholder="Strategy name" style="flex:1" aria-label="Strategy name">
                 <label for="stratKind" class="sub">Kind</label>
                 <select id="stratKind"><option>arbitrage</option><option>grid</option><option>oracle</option><option>custom</option></select>
-                <button onclick="publishStrategy()">Publish</button>
+                <button data-bd-call="publishStrategy">Publish</button>
             </div>
             <div id="marketplaceMsg"></div>
             <div id="marketplaceWrap"><div class="loading">Loading…</div></div>
@@ -170,14 +170,14 @@
             <div class="toolbar">
                 <label for="liqAsset" class="sub">Asset</label>
                 <select id="liqAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
-                <button class="secondary" onclick="loadLiquidations()">Scan</button>
+                <button class="secondary" data-bd-call="loadLiquidations">Scan</button>
             </div>
             <div id="liqWrap"><div class="loading">Click Scan</div></div>
         </section>
 
         <section>
             <h2>📅 Token Unlocks</h2>
-            <button class="secondary" onclick="loadUnlocks()">Load calendar</button>
+            <button class="secondary" data-bd-call="loadUnlocks">Load calendar</button>
             <div id="unlocksWrap" style="margin-top:.75rem"><div class="loading">Click load</div></div>
         </section>
 
@@ -186,20 +186,20 @@
             <div class="toolbar">
                 <label for="fpAsset" class="sub">Asset</label>
                 <select id="fpAsset"><option>BTC</option><option>ETH</option><option>SOL</option></select>
-                <button class="secondary" onclick="loadFootprint()">Load</button>
+                <button class="secondary" data-bd-call="loadFootprint">Load</button>
             </div>
             <div id="fpWrap"><div class="loading">Click load</div></div>
         </section>
 
         <section>
             <h2>📰 CoinDesk Research</h2>
-            <button class="secondary" onclick="loadCoindesk()">Refresh</button>
+            <button class="secondary" data-bd-call="loadCoindesk">Refresh</button>
             <div id="coindeskWrap" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
         </section>
 
         <section>
             <h2>₿ Bitcoin Macro</h2>
-            <button class="secondary" onclick="loadMacro()">Load</button>
+            <button class="secondary" data-bd-call="loadMacro">Load</button>
             <div id="macroWrap" style="margin-top:.75rem"><div class="loading">Click load</div></div>
         </section>
 
@@ -208,7 +208,7 @@
             <label for="scriptExpr" class="sub">Expression</label>
             <textarea id="scriptExpr" style="min-height:56px">price > ma_slow and rsi &lt; 70</textarea>
             <div class="toolbar" style="margin-top:.5rem">
-                <button onclick="runScript()">Run</button>
+                <button data-bd-call="runScript">Run</button>
             </div>
             <div id="scriptMsg"></div>
             <pre id="scriptOut" style="font-size:.78rem;color:var(--muted);margin-top:.5rem"></pre>
@@ -222,7 +222,7 @@
                 <label for="gridHigh">High $</label><input id="gridHigh" type="number" value="100000" style="width:6rem">
                 <label for="gridCount">Grids</label><input id="gridCount" type="number" value="10" style="width:3.5rem">
                 <label for="gridQuote">Quote $</label><input id="gridQuote" type="number" value="1000" style="width:5rem">
-                <button onclick="createGrid()">Create</button>
+                <button data-bd-call="createGrid">Create</button>
             </div>
             <div id="gridMsg"></div>
             <div id="gridWrap"><div class="loading">Loading grids…</div></div>
@@ -233,8 +233,8 @@
             <div class="form-row">
                 <label for="ruleIf">If</label><input id="ruleIf" placeholder="profit > 0.25" style="flex:1;min-width:8rem">
                 <label for="ruleThen">Then</label><input id="ruleThen" placeholder="alert telegram" style="flex:1;min-width:8rem">
-                <button onclick="createRule()">Add</button>
-                <button class="secondary" onclick="evalRules()">Evaluate</button>
+                <button data-bd-call="createRule">Add</button>
+                <button class="secondary" data-bd-call="evalRules">Evaluate</button>
             </div>
             <div id="ruleMsg"></div>
             <div id="rulesWrap"><div class="loading">Loading rules…</div></div>
@@ -254,7 +254,7 @@
                 </div>
             </div>
             <div class="toolbar" style="margin-top:.5rem">
-                <button onclick="runRebalance()">Suggest trades</button>
+                <button data-bd-call="runRebalance">Suggest trades</button>
             </div>
             <div id="rebalMsg"></div>
             <div id="rebalWrap"></div>
@@ -262,7 +262,9 @@
     </div>
 </main>
 
+<script src="/static/js/dom_escape.js"></script>
 <script type="module">
+const { escapeHtml, esc, safeUrl, setText } = window.BDDomSafe;
 const fmt = (n, d=2) => n == null ? '—' : Number(n).toLocaleString(undefined, {maximumFractionDigits: d});
 let chart, candleSeries;
 let rankingsCache = [];
@@ -276,19 +278,34 @@ function sparkSvg(prices) {
 }
 
 function authHeaders() {
-    const headers = {};
-    try {
-        const token = localStorage.getItem('bd_token') || localStorage.getItem('token');
-        if (token) headers['Authorization'] = `Bearer ${token}`;
-    } catch (error) { console.debug(error); }
-    return headers;
+    // Cookie session authoritative — never promote localStorage bearer (XSS).
+    return {};
 }
 
 function gatedMessage(status) {
-    if (status === 401 || status === 403) {
-        return 'Login or Pro upgrade required — <a href="/login">Login</a> · <a href="/create-checkout-session?tier=pro">Upgrade</a>';
-    }
-    return null;
+    // Return boolean only — never pass HTML strings through error→innerHTML (XSS).
+    return status === 401 || status === 403;
+}
+
+function renderGated(wrap) {
+    wrap.replaceChildren();
+    const div = document.createElement('div');
+    div.className = 'loading';
+    div.appendChild(document.createTextNode('Login or Pro upgrade required — '));
+    const a1 = document.createElement('a'); a1.href = '/login'; a1.textContent = 'Login';
+    const sep = document.createTextNode(' · ');
+    const a2 = document.createElement('a'); a2.href = '/create-checkout-session?tier=pro'; a2.textContent = 'Upgrade';
+    div.appendChild(a1); div.appendChild(sep); div.appendChild(a2);
+    wrap.appendChild(div);
+}
+
+function renderLoadError(wrap, err, fallback) {
+    if (err && err.gated) { renderGated(wrap); return; }
+    wrap.replaceChildren();
+    const div = document.createElement('div');
+    div.className = 'loading';
+    div.textContent = (err && err.message) ? String(err.message) : String(fallback || 'Failed');
+    wrap.appendChild(div);
 }
 
 async function platformFetch(url, options) {
@@ -304,7 +321,7 @@ async function platformFetch(url, options) {
         } catch (error) { console.debug(error); }
         const err = new Error(gated ? 'Login or Pro upgrade required' : (detail || `Request failed (${res.status})`));
         err.status = res.status;
-        err.gatedHtml = gated;
+        err.gated = !!gated;
         throw err;
     }
     return res;
@@ -350,7 +367,7 @@ async function loadRankings() {
         rankingsCache = (data.coins || []).slice(0, 100);
         filterRankings();
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rankings'}</div>`;
+        renderLoadError(wrap, e, 'Failed to load rankings');
     }
 }
 
@@ -363,9 +380,10 @@ function filterRankings() {
     if (sort === 'mcap') rows.sort((a,b)=>(b.market_cap_usd||0)-(a.market_cap_usd||0));
     const body = rows.slice(0,50).map(c => {
         const cls = (c.change_24h_pct||0)>=0 ? 'pos' : 'neg';
-        return `<tr onclick="location.href='/platform/coin/${c.id}'">
-            <td>${c.rank}</td>
-            <td><strong>${c.symbol}</strong><br><span style="color:var(--muted)">${c.name||''}</span></td>
+        const coinPath = '/platform/coin/' + encodeURIComponent(String(c.id || ''));
+        return `<tr data-bd-call="goCoinPath" data-bd-args="[&quot;${esc(coinPath)}&quot;]" style="cursor:pointer">
+            <td>${esc(c.rank)}</td>
+            <td><strong>${esc(c.symbol)}</strong><br><span style="color:var(--muted)">${esc(c.name||'')}</span></td>
             <td>${sparkSvg(c.sparkline_7d)}</td>
             <td>$${fmt(c.price_usd)}</td>
             <td class="${cls}">${fmt(c.change_24h_pct)}%</td>
@@ -398,12 +416,12 @@ async function loadCexDex() {
         }
         wrap.innerHTML = opps.slice(0, 8).map(o => `
             <div class="metric-row">
-                <span><strong>${o.asset}</strong> ${o.buy_venue} → ${o.sell_venue}
-                <span style="color:var(--muted);font-size:.72rem"> · ${o.execution_feasibility||''}</span></span>
-                <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)}</span>
+                <span><strong>${esc(o.asset)}</strong> ${esc(o.buy_venue)} → ${esc(o.sell_venue)}
+                <span style="color:var(--muted);font-size:.72rem"> · ${esc(o.execution_feasibility||'indicative')}</span></span>
+                <span class="${o.profitable?'pos':'neg'}">${fmt(o.net_spread_bps)} bps · $${fmt(o.estimated_profit_usd||0)} <span style="color:var(--muted);font-size:.68rem">indicative</span></span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Scan failed'}</div>`;
+        renderLoadError(wrap, e, 'Scan failed');
     }
 }
 
@@ -439,10 +457,10 @@ async function loadDerivCompare() {
         const cex = (data.cex_funding || []).slice(0, 6);
         const dex = (data.dex_perp_quotes || []).slice(0, 6);
         const cexHtml = cex.length
-            ? cex.map(r => `<div class="metric-row"><span>${r.exchange||'?'}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
+            ? cex.map(r => `<div class="metric-row"><span>${esc(r.exchange||'?')}</span><span>${fmt((r.funding_rate||0)*100, 4)}%</span></div>`).join('')
             : '<div class="loading">No CEX funding</div>';
         const dexHtml = dex.length
-            ? dex.map(r => `<div class="metric-row"><span>${r.exchange||r.venue||'?'}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
+            ? dex.map(r => `<div class="metric-row"><span>${esc(r.exchange||r.venue||'?')}</span><span>$${fmt(r.mark_price||r.price)}</span></div>`).join('')
             : '<div class="loading">No DEX perp data</div>';
         wrap.innerHTML = `<div class="grid-2">
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">CEX Funding</h3>
@@ -451,16 +469,16 @@ async function loadDerivCompare() {
             <div><h3 style="font-size:.9rem;margin-bottom:.5rem">DEX Perp</h3>
             ${dexHtml}
             </div></div>
-            <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${data.comparison_note||''}</p>`;
+            <p style="margin-top:.75rem;font-size:.75rem;color:var(--muted)">${esc(data.comparison_note||'')}</p>`;
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Compare failed'}</div>`;
+        renderLoadError(wrap, e, 'Compare failed');
     }
 }
 
 function showMsg(id, text, ok) {
     const el = document.getElementById(id);
     if (!text) { el.innerHTML = ''; return; }
-    el.innerHTML = `<div class="msg ${ok ? 'ok' : 'err'}">${text}</div>`;
+    el.innerHTML = `<div class="msg ${ok ? 'ok' : 'err'}">${esc(text)}</div>`;
 }
 
 async function loadGrids() {
@@ -475,11 +493,11 @@ async function loadGrids() {
         }
         wrap.innerHTML = rows.slice(-5).reverse().map(g => `
             <div class="metric-row">
-                <span><strong>${g.asset}</strong> $${fmt(g.lower_price,0)}–$${fmt(g.upper_price,0)} · ${g.grids} grids</span>
-                <span class="pill">${g.mode||'paper'}</span>
+                <span><strong>${esc(g.asset)}</strong> $${fmt(g.lower_price,0)}–$${fmt(g.upper_price,0)} · ${esc(g.grids)} grids</span>
+                <span class="pill">${esc(g.mode||'paper')}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load grids'}</div>`;
+        renderLoadError(wrap, e, 'Failed to load grids');
     }
 }
 
@@ -514,11 +532,11 @@ async function loadRules() {
         }
         wrap.innerHTML = rows.slice(-6).reverse().map(r => `
             <div class="metric-row">
-                <span><code style="font-size:.75rem">IF ${r.if} → ${r.then}</code></span>
+                <span><code style="font-size:.75rem">IF ${esc(r.if)} → ${esc(r.then)}</code></span>
                 <span class="pill">${r.enabled ? 'on' : 'off'}</span>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed to load rules'}</div>`;
+        renderLoadError(wrap, e, 'Failed to load rules');
     }
 }
 
@@ -574,7 +592,7 @@ async function runRebalance() {
         const trades = data.trades || [];
         wrap.innerHTML = trades.length
             ? trades.map(t => `<div class="metric-row">
-                <span><strong>${t.asset}</strong> ${t.side.toUpperCase()} $${fmt(t.amount_usd)}</span>
+                <span><strong>${esc(t.asset)}</strong> ${esc(String(t.side||'').toUpperCase())} $${fmt(t.amount_usd)}</span>
                 <span>${fmt(t.current_weight_pct)}% → ${fmt(t.target_weight_pct)}%</span>
             </div>`).join('')
             : '<div class="loading">Portfolio already balanced</div>';
@@ -589,10 +607,10 @@ async function loadMarketplace() {
         const res = await platformFetch('/api/platform/marketplace/strategies');
         const data = await res.json();
         wrap.innerHTML = (data.strategies||[]).map(s =>
-            `<div class="metric-row"><span>${s.name} <span style="color:var(--muted)">${s.kind||''}</span></span><span class="pill">${s.tier}</span></div>`
+            `<div class="metric-row"><span>${esc(s.name)} <span style="color:var(--muted)">${esc(s.kind||'')}</span></span><span class="pill">${esc(s.tier)}</span></div>`
         ).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`;
+        renderLoadError(wrap, e, 'Failed');
     }
 }
 
@@ -621,9 +639,9 @@ async function loadLiquidations() {
         const res = await platformFetch(`/api/platform/liquidations/radar?asset=${asset}`);
         const data = await res.json();
         wrap.innerHTML = (data.alerts||[]).map(a =>
-            `<div class="metric-row"><span><strong>${a.type}</strong> · ${a.detail||''}</span><span class="pill">${a.severity}</span></div>`
+            `<div class="metric-row"><span><strong>${esc(a.type)}</strong> · ${esc(a.detail||'')}</span><span class="pill">${esc(a.severity)}</span></div>`
         ).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadUnlocks() {
@@ -635,10 +653,10 @@ async function loadUnlocks() {
         const sched = data.scheduled_unlocks||[];
         const press = data.supply_pressure||[];
         wrap.innerHTML = `<h3 style="font-size:.85rem;margin-bottom:.5rem">Scheduled</h3>` +
-            (sched.length ? sched.map(u=>`<div class="metric-row"><span>${u.asset} · ${u.unlock_date}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
+            (sched.length ? sched.map(u=>`<div class="metric-row"><span>${esc(u.asset)} · ${esc(u.unlock_date)}</span><span>$${fmt(u.amount_usd,0)}</span></div>`).join('') : '<div class="loading">No scheduled rows</div>') +
             `<h3 style="font-size:.85rem;margin:1rem 0 .5rem">Supply pressure</h3>` +
-            press.slice(0,8).map(u=>`<div class="metric-row"><span>${u.asset}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+            press.slice(0,8).map(u=>`<div class="metric-row"><span>${esc(u.asset)}</span><span>${fmt(u.locked_supply_pct)}% locked</span></div>`).join('');
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadFootprint() {
@@ -650,8 +668,8 @@ async function loadFootprint() {
         const data = await res.json();
         const depth = data.depth_levels||[];
         wrap.innerHTML = `<div class="metric-row"><span>Order-flow delta</span><span>${fmt(data.order_flow_delta,4)}</span></div>` +
-            depth.map(d=>`<div class="metric-row"><span>${d.exchange}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+            depth.map(d=>`<div class="metric-row"><span>${esc(d.exchange)}</span><span>imb ${fmt(d.imbalance,3)}</span></div>`).join('');
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadCoindesk() {
@@ -661,9 +679,9 @@ async function loadCoindesk() {
         const res = await platformFetch('/api/platform/news/coindesk?limit=8');
         const data = await res.json();
         wrap.innerHTML = (data.coindesk_headlines||[]).map(h=>
-            `<div class="metric-row"><span><a href="${h.link}" target="_blank" style="color:var(--text);text-decoration:none">${h.title}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
+            `<div class="metric-row"><span><a href="${esc(safeUrl(h.link))}" target="_blank" rel="noopener" style="color:var(--text);text-decoration:none">${esc(h.title)}</a></span><span class="pill">${fmt(h.compound_score,2)}</span></div>`
         ).join('') || '<div class="loading">No headlines</div>';
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function loadMacro() {
@@ -676,10 +694,10 @@ async function loadMacro() {
         wrap.innerHTML = (data.indicators||[]).map(i => {
             const val = i.value != null
                 ? fmt(i.value, 0)
-                : `<a href="${i.url}" target="_blank" style="color:var(--accent)">Open</a>`;
-            return `<div class="metric-row"><span>${i.label}</span><span>${val}</span></div>`;
-        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${live.fee_fastest_sat_vb||'—'} sat/vB</p>`;
-    } catch(e) { wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Failed'}</div>`; }
+                : `<a href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" style="color:var(--accent)">Open</a>`;
+            return `<div class="metric-row"><span>${esc(i.label)}</span><span>${val}</span></div>`;
+        }).join('') + `<p style="margin-top:.5rem;font-size:.75rem;color:var(--muted)">Fees fast: ${esc(live.fee_fastest_sat_vb||'—')} sat/vB</p>`;
+    } catch(e) { renderLoadError(wrap, e, 'Failed'); }
 }
 
 async function runScript() {
@@ -707,14 +725,14 @@ async function loadPlatformKeys() {
         wrap.innerHTML = (data.keys || []).map(k => `
             <div class="key-row">
                 <div>
-                    <strong>${k.label || k.id}</strong>
-                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${keyStatusLabel(k)}</span>
-                    <div class="key-meta">${k.tier} · <a href="${k.signup}" target="_blank" rel="noopener">Sign up / API</a></div>
-                    <input class="key-input" id="key_${k.id}" type="password" placeholder="${k.env}" autocomplete="off" aria-label="${k.env}">
+                    <strong>${esc(k.label || k.id)}</strong>
+                    <span class="badge ${k.configured ? 'ok' : 'miss'}">${esc(keyStatusLabel(k))}</span>
+                    <div class="key-meta">${esc(k.tier)} · <a href="${esc(safeUrl(k.signup))}" target="_blank" rel="noopener">Sign up / API</a></div>
+                    <input class="key-input" id="key_${esc(k.id)}" type="password" placeholder="${esc(k.env)}" autocomplete="off" aria-label="${esc(k.env)}">
                 </div>
             </div>`).join('');
     } catch (e) {
-        wrap.innerHTML = `<div class="loading">${e.gatedHtml || 'Key status unavailable — start server'}</div>`;
+        renderLoadError(wrap, e, 'Key status unavailable — start server');
     }
 }
 
@@ -755,18 +773,28 @@ async function verifyPlatformKeys() {
         const res = await platformFetch('/api/platform/keys/verify');
         const data = await res.json();
         out.innerHTML = (data.results || []).map(r =>
-            `<div>${r.service}: ${formatKeyVerify(r)}</div>`
+            `<div>${esc(r.service)}: ${esc(formatKeyVerify(r))}</div>`
         ).join('');
-    } catch (error) { console.debug(error); out.innerHTML = error.gatedHtml || ('Verification failed — ' + error.message); }
+    } catch (error) {
+        console.debug(error);
+        out.textContent = 'Verification failed — ' + String(error?.message || 'unknown');
+    }
 }
 
 document.getElementById('chartSymbol').addEventListener('change', loadChart);
 document.getElementById('chartInterval').addEventListener('change', loadChart);
 
+function goCoinPath(path) {
+    const p = String(path || '').trim();
+    if (!p.startsWith('/') || p.startsWith('//')) return;
+    location.href = p;
+}
+
 Object.assign(window, {
-    verifyPlatformKeys, savePlatformKeys, loadChart, loadRankings, loadCexDex, executeCexDex,
+    verifyPlatformKeys, savePlatformKeys, loadChart, loadRankings, filterRankings, loadCexDex, executeCexDex,
     loadDerivCompare, publishStrategy, loadLiquidations, loadUnlocks, loadFootprint,
     loadCoindesk, loadMacro, runScript, createGrid, createRule, evalRules, runRebalance,
+    goCoinPath, pickSymbol,
 });
 initChart();
 await Promise.all([

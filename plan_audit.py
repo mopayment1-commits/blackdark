@@ -77,7 +77,7 @@ def _module_exists(dotted: str | None) -> bool:
     try:
         import_module(dotted)
         return True
-    except (ImportError, SyntaxError, ModuleNotFoundError):
+    except (ImportError, SyntaxError):
         return False
 
 
@@ -128,8 +128,8 @@ def plan_audit(*, excel_path: str | None = None) -> dict[str, Any]:
 
     return {
         "timestamp": datetime.now(UTC).isoformat(),
-        "source_excel": str(excel_path or STR_COPY_XLSX),
-        "source_found": Path(excel_path or ROOT.parent / STR_COPY_XLSX).exists(),
+        "source_excel": str(excel_file),
+        "source_found": excel_file.exists(),
         "total_items": total,
         "complete_count": complete,
         "partial_count": partial,

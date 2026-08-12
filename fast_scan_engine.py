@@ -37,19 +37,43 @@ def _cross_exchange_spread(asset: str) -> dict[str, Any] | None:
         return None
 
     spread_bps = ((sell_bid - buy_ask) / buy_ask) * 10_000
-    fee_bps = float(getattr(config, "DEFAULT_TAKER_FEE", 0.001)) * 2 * 10_000
-    net_bps = spread_bps - fee_bps
+    # Fee authority: fee_matrix only. Unknown venue fees → omit net claim (fail-closed).
+    from fee_matrix import taker_fee as _venue_taker
 
-    return {
+    buy_rate = _venue_taker(best_ask_ex)
+    sell_rate = _venue_taker(best_bid_ex)
+    fee_bps = None
+    net_bps = None
+    if buy_rate is not None and sell_rate is not None:
+        fee_bps = (buy_rate + sell_rate) * 10_000
+        net_bps = spread_bps - fee_bps
+
+    # Top-of-book only — NEVER claim profitable/executable without depth rewalk.
+    from executable_edge_truth import mark_indicative_only
+
+    payload = {
         "asset": base,
         "buy_exchange": best_ask_ex,
         "sell_exchange": best_bid_ex,
         "buy_price": buy_ask,
         "sell_price": sell_bid,
         "spread_bps": round(spread_bps, 2),
-        "net_spread_bps": round(net_bps, 2),
-        "profitable": net_bps > 0,
+        "kind": "fast_cross",
     }
+    if fee_bps is not None and net_bps is not None:
+        payload["fee_bps"] = round(fee_bps, 2)
+        payload["net_spread_bps"] = round(net_bps, 2)
+        payload["topline_positive"] = net_bps > 0
+    else:
+        payload["fee_bps"] = None
+        payload["net_spread_bps"] = None
+        payload["topline_positive"] = False
+        payload["fee_unknown"] = True
+
+    return mark_indicative_only(
+        payload,
+        reason="top_of_book_only_no_depth",
+    )
 
 
 def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
@@ -62,9 +86,16 @@ def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
 
     for asset in assets:
         opp = _cross_exchange_spread(asset)
-        if opp and opp.get("profitable"):
-            net_usdt = quote_usd * (opp["net_spread_bps"] / 10_000)
-            opportunities.append({**opp, "net_profit_usdt": round(net_usdt, 4), "kind": "fast_cross"})
+        if opp and opp.get("topline_positive"):
+            net_usdt = quote_usd * (float(opp.get("net_spread_bps") or 0) / 10_000)
+            opportunities.append(
+                {
+                    **opp,
+                    "indicative_net_profit_usdt": round(net_usdt, 4),
+                    "net_profit_usdt": None,
+                    "kind": "fast_cross",
+                }
+            )
 
     book_read_ms = (time.perf_counter() - t_book) * 1000
     total_ms = (time.perf_counter() - t0) * 1000
@@ -81,7 +112,11 @@ def run_fast_scan(*, quote_usd: float = 100.0) -> dict[str, Any]:
         "latency_ms": round(total_ms, 3),
         "book_read_ms": round(book_read_ms, 3),
         "latency_tier": latency_tier,
-        "opportunities": sorted(opportunities, key=lambda x: x.get("net_profit_usdt", 0), reverse=True),
+        "opportunities": sorted(
+            opportunities,
+            key=lambda x: float(x.get("net_profit_usdt") or 0),
+            reverse=True,
+        ),
         "books": hub_stats(),
         "assets_scanned": len(assets),
         "ws_required": hub_stats().get("symbol_count", 0) == 0,

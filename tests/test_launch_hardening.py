@@ -40,20 +40,29 @@ async def test_lemon_webhook_activates_subscription(monkeypatch):
         calls.append((email, tier, sub_id))
         return 1
 
+    async def _claim(*_args, **_kwargs):
+        return True
+
     monkeypatch.setattr(
         "database.activate_paid_subscription",
         _activate,
+        raising=False,
+    )
+    monkeypatch.setattr(
+        "database.claim_billing_webhook_event",
+        _claim,
         raising=False,
     )
     # Patch where handler imports from
     import database
 
     monkeypatch.setattr(database, "activate_paid_subscription", _activate)
+    monkeypatch.setattr(database, "claim_billing_webhook_event", _claim)
 
     event = {
-        "meta": {"event_name": "subscription_created"},
+        "meta": {"event_name": "subscription_created", "webhook_id": "wh_test_unique_activate"},
         "data": {
-            "id": "12345",
+            "id": "12345-unique-activate",
             "attributes": {
                 "user_email": "buyer@example.com",
                 "status": "active",
@@ -120,6 +129,10 @@ def test_audit_chain_append_locked():
 def test_production_guard_requires_billing_webhook(monkeypatch):
     monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/checkout")
     monkeypatch.delenv("LEMON_SQUEEZY_WEBHOOK_SECRET", raising=False)
+    monkeypatch.delenv("STRIPE_WEBHOOK_SECRET", raising=False)
+    monkeypatch.delenv("STRIPE_SECRET_KEY", raising=False)
+    # Other tests may setenv Soft Launch permanently; isolate this assertion.
+    monkeypatch.delenv("SOFT_LAUNCH", raising=False)
     monkeypatch.setenv("SERVICE_MODE", "web")
     monkeypatch.setenv("SECRETS_MASTER_KEY", "k")
     monkeypatch.setenv("SESSION_TOKEN_PEPPER", "p")

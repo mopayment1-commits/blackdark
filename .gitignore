@@ -30,3 +30,4 @@ terminals/
 
 .venv/
 venv/
+coverage.xml

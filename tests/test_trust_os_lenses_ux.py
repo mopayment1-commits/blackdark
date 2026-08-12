@@ -63,5 +63,6 @@ def test_dashboard_and_landing_wire_lenses():
     assert 'id="decide"' in dash
     assert 'id="alerts"' in dash
     assert "Prove → Operate → Desk → Room" in land or "lens=prove" in land
-    assert "Open Proof" in land
+    # Landing uses i18n key; English string lives in i18n_service.
+    assert "Open Proof" in land or "nav.open_proof" in land
     assert Path("docs/TRUST_OS_LENSES_UX.md").is_file()

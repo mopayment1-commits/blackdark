@@ -3,31 +3,51 @@ import { getApiBase } from "./api.js";
 const out = document.getElementById("out");
 const symbolEl = document.getElementById("symbol");
 
+function setText(el, value) {
+  if (!el) return;
+  el.textContent = value == null ? "" : String(value);
+}
+
+function renderOracle(payload) {
+  out.replaceChildren();
+  const action = String(payload.action || "WAIT").toUpperCase();
+  const verdict = document.createElement("div");
+  verdict.className = `verdict ${/^[A-Z_]{2,16}$/.test(action) ? action : "WAIT"}`;
+  setText(verdict, action);
+  const sentence = document.createElement("div");
+  sentence.className = "sentence";
+  setText(sentence, payload.sentence || "");
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  const score = payload.score ?? "—";
+  const asset = payload.asset ?? "";
+  const pid = payload.predictionId != null ? ` · id ${payload.predictionId}` : "";
+  setText(meta, `Score ${score} · ${asset}${pid}`);
+  out.append(verdict, sentence, meta);
+}
+
+function renderError(message) {
+  out.replaceChildren();
+  const err = document.createElement("div");
+  err.className = "err";
+  setText(err, message);
+  out.append(err);
+}
+
 async function ask() {
   const symbol = symbolEl.value || "BTC";
-  out.innerHTML = '<span class="sub">Asking Oracle…</span>';
+  out.replaceChildren();
+  const loading = document.createElement("span");
+  loading.className = "sub";
+  setText(loading, "Asking Oracle…");
+  out.append(loading);
   try {
     const res = await chrome.runtime.sendMessage({ type: "ORACLE_LOOKUP", symbol });
     if (!res?.ok) throw new Error(res?.error || "lookup failed");
-    const p = res.payload;
-    const action = String(p.action || "WAIT").toUpperCase();
-    out.innerHTML = `
-      <div class="verdict ${action}">${action}</div>
-      <div class="sentence">${escapeHtml(p.sentence)}</div>
-      <div class="meta">Score ${p.score ?? "—"} · ${p.asset}
-        ${p.predictionId != null ? ` · id ${p.predictionId}` : ""}</div>
-    `;
+    renderOracle(res.payload);
   } catch (err) {
-    out.innerHTML = `<div class="err">${escapeHtml(String(err.message || err))}</div>`;
+    renderError(String(err.message || err));
   }
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll(""", "&quot;");
 }
 
 document.getElementById("ask").addEventListener("click", ask);

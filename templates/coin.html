@@ -36,14 +36,6 @@
 <script type="module">
 const coinId = {{ coin_id|tojson }};
 const fmt = (n,d=2) => n==null?'—':Number(n).toLocaleString(undefined,{maximumFractionDigits:d});
-function esc(s) {
-    return String(s ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
 /** Plain text only via textContent — never regex strip / never assign untrusted HTML. */
 function plainText(s, maxLen) {
     const d = document.createElement('div');
@@ -84,14 +76,27 @@ async function load() {
     head.appendChild(p);
     document.getElementById('desc').textContent = plainText(c.description, 600);
     const ch = c.change_24h_pct||0;
-    document.getElementById('stats').innerHTML = [
+    const statsEl = document.getElementById('stats');
+    statsEl.textContent = '';
+    [
         ['24h', `${fmt(ch)}%`, ch>=0?'pos':'neg'],
         ['7d', `${fmt(c.change_7d_pct)}%`, (c.change_7d_pct||0)>=0?'pos':'neg'],
         ['30d', `${fmt(c.change_30d_pct)}%`, (c.change_30d_pct||0)>=0?'pos':'neg'],
         ['Vol 24h', `$${fmt(c.volume_24h_usd,0)}`, ''],
         ['ATH', `$${fmt(c.ath_usd)}`, ''],
         ['Circulating', fmt(c.circulating_supply,0), ''],
-    ].map(([l,v,cls])=>`<div class="stat"><label>${esc(l)}</label><strong class="${esc(cls)}">${esc(v)}</strong></div>`).join('');
+    ].forEach(([l, v, cls]) => {
+        const box = document.createElement('div');
+        box.className = 'stat';
+        const lab = document.createElement('label');
+        lab.textContent = l;
+        const strong = document.createElement('strong');
+        if (cls) strong.className = cls;
+        strong.textContent = v;
+        box.appendChild(lab);
+        box.appendChild(strong);
+        statsEl.appendChild(box);
+    });
 
     const el = document.getElementById('chart');
     chart = LightweightCharts.createChart(el, {
@@ -115,5 +120,6 @@ async function load() {
     }
 }
 await load();</script>
+{% include "partials/site_footer.html" %}
 </body>
 </html>

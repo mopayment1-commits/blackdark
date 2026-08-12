@@ -69,9 +69,11 @@ def test_execution_keys_english_only_and_withdraw_field():
 def test_stop_loss_wired_into_auto_cycle():
     import execution_engine as ee
 
-    src = inspect.getsource(ee.run_auto_execution_cycle)
-    assert "check_stop_losses" in src
-    assert "stop_loss_flatten" in src
+    cycle_src = inspect.getsource(ee.run_auto_execution_cycle)
+    helper_src = inspect.getsource(ee._stop_loss_flatten_outcome)
+    assert "_stop_loss_flatten_outcome" in cycle_src
+    assert "check_stop_losses" in helper_src
+    assert "stop_loss_flatten" in helper_src
 
 
 def test_regime_train_has_panic_bootstrap():
@@ -86,8 +88,10 @@ def test_regime_train_has_panic_bootstrap():
 def test_evidence_pack_d8_honest_status():
     import acquirer_evidence_pack as aep
 
-    src = inspect.getsource(aep.build_acquirer_evidence_pack)
-    assert "pending_labels" in src or "d8.get(\"status\")" in src or "status" in src
+    pack_src = inspect.getsource(aep.build_acquirer_evidence_pack)
+    d8_src = inspect.getsource(aep._refresh_registry_differentiator)
+    assert "_refresh_registry_differentiator" in pack_src
+    assert "pending_labels" in d8_src or 'd8.get("status")' in d8_src
 
 
 def test_utility_routes_exist():

@@ -47,57 +47,8 @@ logger = logging.getLogger("BLACKDARK.ArbitrageEngine")
 
 Side = Literal["buy", "sell"]
 
-WITHDRAWAL_FEE_USDT: dict[str, dict[str, float]] = {
-    "binance": {
-        "BTC": 4.5,
-        "ETH": 1.2,
-        "SOL": 0.15,
-        "BNB": 0.20,
-        "XRP": 0.25,
-    },
-    "okx": {
-        "BTC": 5.0,
-        "ETH": 1.5,
-        "SOL": 0.18,
-        "BNB": 0.22,
-        "XRP": 0.30,
-    },
-    "bybit": {
-        "BTC": 4.8,
-        "ETH": 1.3,
-        "SOL": 0.16,
-        "BNB": 0.21,
-        "XRP": 0.28,
-    },
-    "coinbase": {
-        "BTC": 5.5,
-        "ETH": 1.8,
-        "SOL": 0.20,
-        "BNB": 0.25,
-        "XRP": 0.35,
-    },
-    "kraken": {
-        "BTC": 5.0,
-        "ETH": 1.6,
-        "SOL": 0.18,
-        "BNB": 0.24,
-        "XRP": 0.32,
-    },
-    "kucoin": {
-        "BTC": 5.2,
-        "ETH": 1.4,
-        "SOL": 0.17,
-        "BNB": 0.22,
-        "XRP": 0.30,
-    },
-    "gateio": {
-        "BTC": 4.9,
-        "ETH": 1.35,
-        "SOL": 0.17,
-        "BNB": 0.21,
-        "XRP": 0.29,
-    },
-}
+# Canonical withdrawal fee table lives in fee_matrix (single authority).
+from fee_matrix import WITHDRAWAL_FEE_USDT
 
 
 class OrderBookSide(BaseModel):
@@ -231,9 +182,11 @@ def _gross_spread_bps(buy_ask: float, sell_bid: float) -> float:
     return (sell_bid - buy_ask) / buy_ask * 10_000
 
 
-def _withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float:
-    base, _ = _parse_symbol(symbol)
-    return WITHDRAWAL_FEE_USDT.get(exchange_id, {}).get(base, 0.0)
+def _withdrawal_fee_usdt(exchange_id: str, symbol: str) -> float | None:
+    """Delegate to fee_matrix; None means unknown (fail closed for executability)."""
+    from fee_matrix import withdrawal_fee_usdt as _w
+
+    return _w(exchange_id, symbol)
 
 
 def _slippage_buffer_usdt(
@@ -269,14 +222,26 @@ def _spot_triangle_books(
     return merged
 
 
-def _open_leg_fees_usdt(notional: float) -> float:
-    """Estimated taker fees to open a spot + perpetual convergence pair."""
-    return notional * (config.DEFAULT_TAKER_FEE + config.DEFAULT_FUTURES_TAKER_FEE)
+def _open_leg_fees_usdt(notional: float, *, spot_ex: str = "binance", perp_ex: str | None = None) -> float | None:
+    """Estimated taker fees to open a spot + perpetual pair; None if either fee unknown."""
+    from fee_matrix import taker_fee as _tf
+
+    spot = _tf(spot_ex, market="spot")
+    perp = _tf(perp_ex or spot_ex, market="perpetual")
+    if spot is None or perp is None:
+        return None
+    return notional * (spot + perp)
 
 
-def _funding_open_leg_fees_usdt(notional: float) -> float:
-    """Estimated taker fees to open a two-venue perpetual funding pair."""
-    return notional * config.DEFAULT_FUTURES_TAKER_FEE * 2
+def _funding_open_leg_fees_usdt(notional: float, *, venue_a: str = "binance", venue_b: str = "okx") -> float | None:
+    """Estimated taker fees to open a two-venue perpetual funding pair; None if unknown."""
+    from fee_matrix import taker_fee as _tf
+
+    a = _tf(venue_a, market="perpetual")
+    b = _tf(venue_b, market="perpetual")
+    if a is None or b is None:
+        return None
+    return notional * (a + b)
 
 
 def walk_asks(order_book: dict[str, Any], quote_amount: float) -> BuyExecution | None:
@@ -561,13 +526,21 @@ def _build_cross_exchange_opportunity(
     if sell_execution is None:
         return None
 
-    buy_fee = buy_execution.quote_cost * config.DEFAULT_TAKER_FEE
-    sell_fee = sell_execution.quote_value * config.DEFAULT_TAKER_FEE
+    from fee_matrix import taker_fee as _venue_taker_fee
+
+    buy_rate = _venue_taker_fee(buy_exchange)
+    sell_rate = _venue_taker_fee(sell_exchange)
+    if buy_rate is None or sell_rate is None:
+        return None
+    buy_fee = buy_execution.quote_cost * float(buy_rate)
+    sell_fee = sell_execution.quote_value * float(sell_rate)
     trading_fees = buy_fee + sell_fee
     withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
+    if withdrawal_fee is None:
+        return None
     total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
     slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
-    total_cost = buy_execution.quote_cost + buy_fee + withdrawal_fee + slippage_buffer
+    total_cost = buy_execution.quote_cost + buy_fee + float(withdrawal_fee) + slippage_buffer
     net_profit = sell_execution.quote_value - sell_fee - total_cost
     net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
 
@@ -675,18 +648,24 @@ def calculate_triangular_arbitrage(
             if any(symbol not in books for symbol, _ in legs):
                 continue
 
+            from fee_matrix import taker_fee as _triangle_fee
+
+            venue_fee = _triangle_fee(exchange_id)
+            if venue_fee is None:
+                continue
+
             gross_final, slippage_bps = _walk_triangle_legs(
                 legs,
                 books,
                 start_amount=notional,
-                taker_fee=config.DEFAULT_TAKER_FEE,
+                taker_fee=venue_fee,
                 apply_fees=False,
             )
             net_final, _ = _walk_triangle_legs(
                 legs,
                 books,
                 start_amount=notional,
-                taker_fee=config.DEFAULT_TAKER_FEE,
+                taker_fee=venue_fee,
                 apply_fees=True,
             )
 
@@ -780,7 +759,9 @@ def _build_spot_futures_opportunity(
     direction, buy_execution, sell_execution = executions
 
     total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
-    trading_fees = _open_leg_fees_usdt(notional)
+    trading_fees = _open_leg_fees_usdt(notional, spot_ex=exchange_id, perp_ex=exchange_id)
+    if trading_fees is None:
+        return None
     slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
     gross_edge = sell_execution.quote_value - buy_execution.quote_cost
     net_profit = gross_edge - trading_fees - slippage_buffer
@@ -878,7 +859,11 @@ def calculate_funding_arbitrage(
             continue
 
         gross_yield = notional * funding_spread
-        trading_fees = _funding_open_leg_fees_usdt(notional)
+        trading_fees = _funding_open_leg_fees_usdt(
+            notional, venue_a=long_exchange, venue_b=short_exchange
+        )
+        if trading_fees is None:
+            continue
         slippage_buffer = _slippage_buffer_usdt(notional, 0.0, market_context)
         net_yield = gross_yield - trading_fees - slippage_buffer
         net_yield_percent = (net_yield / notional) * 100 if notional else 0.0

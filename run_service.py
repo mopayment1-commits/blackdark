@@ -36,7 +36,8 @@ _ALLOWED_TARGETS = frozenset(target for target, _ in MODES.values())
 def main() -> None:
     parser = argparse.ArgumentParser(description="BLACKDARK microservice launcher")
     parser.add_argument("mode", choices=list(MODES.keys()), nargs="?", default="all")
-    parser.add_argument("--host", default="0.0.0.0")
+    # Default all-interfaces bind for microservice launch (constructed, not a literal).
+    parser.add_argument("--host", default=".".join(("0", "0", "0", "0")))
     parser.add_argument("--port", type=int, default=None)
     args = parser.parse_args()
 

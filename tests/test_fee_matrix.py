@@ -29,8 +29,14 @@ def test_withdrawal_and_deposit_fees():
     fee_matrix._matrix.clear()
     w = fee_matrix.withdrawal_fee_usdt("binance", "BTC/USDT")
     d = fee_matrix.deposit_fee_usdt("binance", "BTC/USDT")
-    assert w >= 0
-    assert d >= 0
+    assert w is not None and w >= 0
+    assert d is not None and d >= 0
+
+
+def test_unknown_withdrawal_fee_is_none_not_zero():
+    fee_matrix._matrix.clear()
+    assert fee_matrix.withdrawal_fee_usdt("binance", "ZZZCOIN/USDT") is None
+    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") is None
 
 
 def test_trading_fees_usdt_scales_with_notional():
@@ -49,10 +55,14 @@ def test_matrix_stats_after_seed():
     assert "sample" in stats
 
 
-def test_unknown_exchange_uses_defaults():
+def test_unknown_exchange_fail_closed_no_invented_defaults():
     fee_matrix._matrix.clear()
-    assert fee_matrix.taker_fee("unknown_venue_xyz") > 0
-    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") >= 0
+    # Unknown venue must not invent DEFAULT_TAKER_FEE / DEFAULT_MAKER_FEE.
+    assert fee_matrix.taker_fee("unknown_venue_xyz") is None
+    assert fee_matrix.maker_fee("unknown_venue_xyz") is None
+    assert fee_matrix.trading_fees_usdt("unknown_venue_xyz", 100.0) is None
+    assert fee_matrix.withdrawal_fee_usdt("unknown_venue_xyz", "ETH/USDT") is None
+    assert fee_matrix.deposit_fee_usdt("unknown_venue_xyz", "ETH/USDT") is None
 
 
 def test_maker_fee_and_trading_fees_maker():
@@ -166,3 +176,31 @@ def test_fee_rates_empty_fees_fallback():
     taker, maker = _fee_rates("binance", Ex(), {})
     assert taker == 0.0015
     assert maker == 0.0007
+
+
+def test_finite_rate_rejects_nan_and_negative():
+    assert fee_matrix._finite_rate(float("nan")) is None
+    assert fee_matrix._finite_rate(-0.1) is None
+    assert fee_matrix._finite_rate("nope") is None
+    assert fee_matrix._finite_rate(0.001) == 0.001
+
+
+def test_known_venue_seed_row_without_enabled_list(monkeypatch):
+    fee_matrix._matrix.clear()
+    monkeypatch.setattr(fee_matrix.config, "enabled_exchanges", dict)
+    # binance is in WITHDRAWAL seed even if not enabled
+    assert fee_matrix.taker_fee("binance") is not None
+    assert fee_matrix.maker_fee("binance", market="perpetual") is not None
+
+
+def test_deposit_fee_unknown_base_none():
+    fee_matrix._matrix.clear()
+    assert fee_matrix.deposit_fee_usdt("binance", "ZZZ/USDT") is None
+
+
+def test_trade_simulator_fee_uses_fee_matrix():
+    from trade_simulator import _fee_usd
+
+    assert _fee_usd(1000.0, exchange_id="binance") > 0
+    with pytest.raises(ValueError):
+        _fee_usd(1000.0, exchange_id="unknown_venue_xyz")

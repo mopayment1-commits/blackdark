@@ -222,6 +222,17 @@ def _execution_feasibility(net_bps: float, liq_usd: float, quote_usd: float) -> 
     return "partial"
 
 
+def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float | None:
+    """Indicative fee haircut via fee_matrix — None when either venue fee unknown."""
+    from fee_matrix import taker_fee
+
+    buy_rate = taker_fee(str(buy_venue or ""))
+    sell_rate = taker_fee(str(sell_venue or ""))
+    if buy_rate is None or sell_rate is None:
+        return None
+    return (float(buy_rate) + float(sell_rate)) * 10_000 + _GAS_BPS_EST
+
+
 async def _cex_dex_opportunity_for_asset(
     session: aiohttp.ClientSession,
     asset: str,
@@ -250,7 +261,10 @@ async def _cex_dex_opportunity_for_asset(
     spread_bps = ((sell_price - buy_price) / buy_price) * 10_000 if buy_price else 0
     if abs(spread_bps) > 500:
         return None
-    fee_bps = float(config.DEFAULT_TAKER_FEE) * 2 * 10_000 + _GAS_BPS_EST
+    # Mid-price path is indicative-only; fee estimate from fee_matrix (not DEFAULT_TAKER_FEE).
+    fee_bps = _indicative_fee_bps(buy_venue, sell_venue)
+    if fee_bps is None:
+        return None
     net_bps = spread_bps - fee_bps
     if abs(net_bps) < _MIN_NET_BPS:
         return None
@@ -266,6 +280,7 @@ async def _cex_dex_opportunity_for_asset(
         spread_bps,
         net_bps,
         quote_usd,
+        fee_bps,
     )
 
 
@@ -295,9 +310,11 @@ def _cex_dex_row(
     spread_bps: float,
     net_bps: float,
     quote_usd: float,
+    fee_bps: float = 0.0,
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
+    # Indicative estimate only — never an executable fee-adjusted claim.
     est_profit = quote_usd * (net_bps / 10_000) if net_bps > 0 else 0
     return {
         "asset": asset,
@@ -312,14 +329,22 @@ def _cex_dex_row(
         "buy_price": round(buy_price, 6),
         "sell_price": round(sell_price, 6),
         "spread_bps": round(spread_bps, 2),
+        "indicative_fee_bps": round(fee_bps, 2),
+        # Kept for scan ranking/UI; labeled indicative — not executable economics.
         "net_spread_bps": round(net_bps, 2),
+        "indicative_estimated_profit_usd": round(est_profit, 2),
         "estimated_profit_usd": round(est_profit, 2),
         "quote_usd": quote_usd,
-        "profitable": net_bps > 0,
+        "topline_positive": net_bps > 0,
+        "profitable": False,
+        "executable": False,
+        "indicative": True,
+        "indicative_reason": "cex_dex_mid_price_no_depth",
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (
             f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "
-            f"sell on {sell_venue} @ ${sell_price:,.2f} — net {net_bps:.1f} bps after fees/gas"
+            f"sell on {sell_venue} @ ${sell_price:,.2f} — indicative "
+            f"{net_bps:.1f} bps after fee_matrix estimate + gas (not executable)"
         ),
         "kind": "cex_dex",
     }

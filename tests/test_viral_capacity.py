@@ -50,6 +50,12 @@ def test_viral_readiness_honesty(monkeypatch):
     monkeypatch.setenv("VIRAL_MODE", "true")
     monkeypatch.setenv("WEB_CONCURRENCY", "1")
     monkeypatch.setenv("WEB_REPLICAS", "1")
+    # Isolate from any deposited signed-capacity artifact on disk.
+    monkeypatch.setattr(
+        "institutional_assurance.get_signed_capacity",
+        lambda: None,
+        raising=False,
+    )
     from viral_capacity import viral_readiness_report
 
     report = viral_readiness_report()

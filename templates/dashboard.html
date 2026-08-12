@@ -143,7 +143,7 @@
             <a href="/" class="logo">BLACKDARK</a>
             <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin-inline-start:auto;justify-content:flex-end">
                 <span class="tier" id="userTier">Guest · Proof Pass</span>
-                <button class="btn-upgrade" id="upgradeBtn" onclick="upgradeTier('pro')">Decision Pro $29</button>
+                <button class="btn-upgrade" id="upgradeBtn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Decision Pro $29</button>
                 <div class="nav-links">
                     <a class="lens-nav" href="/dashboard?lens=prove#trust-pulse">Prove</a>
                     <a class="lens-nav" href="/dashboard?lens=operate">Operate</a>
@@ -181,9 +181,9 @@
             <div class="tp-proof" id="tpProof"></div>
             <div class="tp-cont" id="tpContinuity"></div>
             <div class="tp-cta">
-                <button class="btn" type="button" onclick="scrollToId('decide');askOracle()">Open full proof</button>
+                <button class="btn" type="button" data-bd-call="openFullProof">Open full proof</button>
                 <a class="btn secondary" href="/oracle-accuracy" style="text-decoration:none;display:inline-flex;align-items:center">Verify Ledger</a>
-                <button class="btn secondary" type="button" id="tpShareBtn" onclick="shareTrustPulse()">Share Proof</button>
+                <button class="btn secondary" type="button" id="tpShareBtn" data-bd-call="shareTrustPulse">Share Proof</button>
             </div>
             <div class="tp-foot" id="tpFoot"><strong>Anti-Hype</strong> · Not financial advice · AI cannot guarantee returns</div>
         </section>
@@ -202,7 +202,7 @@
         </div>
         <div class="toolbar hide-in-room" style="justify-content:center;margin-bottom:.75rem">
             <label for="uxMode" class="sr-only">UX mode</label>
-            <select id="uxMode" onchange="askOracle(); loadTrustPulse(true)">
+            <select id="uxMode" data-bd-change-call="onUxModeChange">
                 <option value="beginner" selected>Beginner</option>
                 <option value="pro">Pro</option>
             </select>
@@ -210,22 +210,22 @@
             <a class="btn secondary" href="/since-you-left" style="text-decoration:none;display:inline-flex;align-items:center">Since You Left</a>
             <a class="btn secondary" href="/miss-feed" style="text-decoration:none;display:inline-flex;align-items:center">Miss Feed</a>
             <a class="btn secondary" href="/coverage-honesty" style="text-decoration:none;display:inline-flex;align-items:center">Coverage Honesty</a>
-            <button class="btn secondary" type="button" id="antiHypeBtn" onclick="toggleAntiHype()">Anti-Hype</button>
+            <button class="btn secondary" type="button" id="antiHypeBtn" data-bd-call="toggleAntiHype">Anti-Hype</button>
             <a class="btn secondary section-operate-plus" href="#portfolio" style="text-decoration:none;display:inline-flex;align-items:center">My book</a>
             <a class="btn secondary section-desk-only" href="#stealth" style="text-decoration:none;display:inline-flex;align-items:center">Desk tools</a>
             <a class="btn secondary section-desk-only" href="/corpus-passport" style="text-decoration:none;display:inline-flex;align-items:center">Corpus Passport</a>
         </div>
         <div class="picks hide-in-room">
-            <button type="button" class="pick" onclick="setSymbol('BTC')">BTC</button>
-            <button type="button" class="pick" onclick="setSymbol('ETH')">ETH</button>
-            <button type="button" class="pick" onclick="setSymbol('SOL')">SOL</button>
-            <button type="button" class="pick" onclick="setSymbol('BNB')">BNB</button>
-            <button type="button" class="pick" onclick="setSymbol('XRP')">XRP</button>
+            <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BTC&quot;]">BTC</button>
+            <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;ETH&quot;]">ETH</button>
+            <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;SOL&quot;]">SOL</button>
+            <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;BNB&quot;]">BNB</button>
+            <button type="button" class="pick" data-bd-call="setSymbol" data-bd-args="[&quot;XRP&quot;]">XRP</button>
         </div>
         <div class="search-row hide-in-room" id="decide">
             <label for="symbol" class="sr-only">Symbol</label>
-            <input id="symbol" type="text" value="BTC" placeholder="Symbol" onkeydown="if(event.key==='Enter')askOracle()">
-            <button class="btn" onclick="askOracle()" id="askBtn">Get Decision</button>
+            <input id="symbol" type="text" value="BTC" placeholder="Symbol" data-bd-keydown-call="askOracle" data-bd-keys="enter">
+            <button class="btn" data-bd-call="askOracle" id="askBtn">Get Decision</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
         <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
@@ -241,8 +241,8 @@
             <h2>Live Chart</h2>
             <div class="toolbar">
                 <label for="chartIv" class="sr-only">Chart interval</label>
-                <select id="chartIv" onchange="loadChart()"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
-                <button class="btn secondary" onclick="loadChart()">Refresh</button>
+                <select id="chartIv" data-bd-change-call="loadChart"><option value="15m">15m</option><option value="1h" selected>1h</option><option value="4h">4h</option></select>
+                <button class="btn secondary" data-bd-call="loadChart">Refresh</button>
             </div>
             <div id="chart"></div>
         </section>
@@ -261,14 +261,14 @@
         <section id="arbitrage" class="hide-on-prove hide-in-room">
             <h2>Arbitrage Engine</h2>
             <p class="sub" id="arbStats">Scanning…</p>
-            <button class="btn secondary" onclick="loadArbitrage(true)">Live Scan</button>
+            <button class="btn secondary" data-bd-call="loadArbitrage" data-bd-args="[true]">Live Scan</button>
             <div id="arbList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
         </section>
 
         <section id="whales" class="section-desk-only hide-in-room">
             <h2>Whale Intelligence · Signal vs Noise</h2>
             <p class="sub">Transfers ≠ Trades — classifier labels SIGNAL / NOISE / HEDGED in one sentence</p>
-            <button class="btn secondary" onclick="loadWhales(true)">Refresh</button>
+            <button class="btn secondary" data-bd-call="loadWhales" data-bd-args="[true]">Refresh</button>
             <div id="whaleList" style="margin-top:.75rem"><div class="loading">Loading…</div></div>
             <div id="whaleCompliance" style="margin-top:.65rem;font-size:.72rem;color:#71717a"></div>
         </section>
@@ -277,8 +277,8 @@
             <h2>Operate digest</h2>
             <p class="sub">Daily research brief + subscriber value — Decision Pro / Decision Desk</p>
             <div class="toolbar" style="margin-bottom:.65rem">
-                <button class="btn secondary" type="button" onclick="loadDailyReport()">Refresh daily report</button>
-                <button class="btn secondary" type="button" onclick="loadSubscriberValue()">Refresh value</button>
+                <button class="btn secondary" type="button" data-bd-call="loadDailyReport">Refresh daily report</button>
+                <button class="btn secondary" type="button" data-bd-call="loadSubscriberValue">Refresh value</button>
                 <a class="btn secondary" href="/api/reports/daily/markdown" style="text-decoration:none;display:inline-flex;align-items:center">Markdown</a>
             </div>
             <div id="dailyReportBox" class="arb-card"><div class="empty" style="padding:.25rem 0">Pro/Whale — load daily report</div></div>
@@ -291,8 +291,8 @@
             <div class="toolbar">
                 <input id="pfSym" type="text" placeholder="BTC" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="BTC">
                 <input id="pfAmt" type="number" placeholder="Amount" style="width:120px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="Amount">
-                <button class="btn secondary" type="button" onclick="addPortfolioAsset()">Add</button>
-                <button class="btn" type="button" onclick="analyzePortfolio()">Analyze</button>
+                <button class="btn secondary" type="button" data-bd-call="addPortfolioAsset">Add</button>
+                <button class="btn" type="button" data-bd-call="analyzePortfolio">Analyze</button>
             </div>
             <div id="portfolioList" class="sub" style="margin:.5rem 0"></div>
             <div id="portfolioResult" class="empty">Add holdings, then analyze</div>
@@ -302,7 +302,7 @@
             <h2>Half-Life Heat Clock</h2>
             <p class="sub">Decision Desk · seconds = money · urgency bands from Opportunity Half-Life</p>
             <div class="toolbar">
-                <button class="btn secondary" type="button" onclick="loadHalfLifeClock()">Refresh clock</button>
+                <button class="btn secondary" type="button" data-bd-call="loadHalfLifeClock">Refresh clock</button>
                 <a class="btn secondary" href="/kill-rate">Kill-Rate Board</a>
                 <a class="btn secondary" href="/b2b/committee-one-pager">Committee One-Pager</a>
             </div>
@@ -320,7 +320,7 @@
                 <input id="stealthNotional" type="number" value="250000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="stealthNotional">
                 <label for="stealthSide" class="sub" style="margin:0">Side</label>
                 <select id="stealthSide" aria-label="stealthSide"><option value="buy">Buy</option><option value="sell">Sell</option></select>
-                <button class="btn secondary" onclick="runStealthAdvisor()">Advise</button>
+                <button class="btn secondary" data-bd-call="runStealthAdvisor">Advise</button>
             </div>
             <div id="stealthResult" class="empty">Enter size and run advisor</div>
         </section>
@@ -331,8 +331,8 @@
             <div class="toolbar">
                 <input id="mevAsset" type="text" value="ETH" style="width:90px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevAsset">
                 <input id="mevNotional" type="number" value="10000" style="width:140px;padding:.4rem .6rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:8px;color:#e4e4e7" aria-label="mevNotional">
-                <button class="btn secondary" onclick="loadMevReport()">Build report</button>
-                <button class="btn secondary" onclick="copyMevShare()">Copy share text</button>
+                <button class="btn secondary" data-bd-call="loadMevReport">Build report</button>
+                <button class="btn secondary" data-bd-call="copyMevShare">Copy share text</button>
             </div>
             <div id="mevResult" class="empty">Generate a shareable MEV report</div>
         </section>
@@ -342,8 +342,8 @@
             <p class="sub" id="tgStatus">In-app inbox: no TradingView-style 15-alerts / 3-min hard cap · only Truth + Half-Life survivors fire</p>
             <div id="alertsGenerosity" class="sub" style="margin-bottom:.75rem"></div>
             <div class="toolbar">
-                <button class="btn secondary" onclick="loadInbox()">Refresh Inbox</button>
-                <button class="btn secondary" onclick="testTelegram()">Test Telegram</button>
+                <button class="btn secondary" data-bd-call="loadInbox">Refresh Inbox</button>
+                <button class="btn secondary" data-bd-call="testTelegram">Test Telegram</button>
             </div>
             <div id="inbox" style="margin-top:.75rem"><div class="loading">…</div></div>
         </section>
@@ -353,7 +353,7 @@
             <p class="sub">Operate+ · explains the current decision context — does not replace the Oracle or guarantee outcomes</p>
             <div id="chatGate" class="empty" style="display:none">
                 AI Chat is on Decision Pro and Decision Desk.
-                <button class="btn" style="margin-top:.65rem" type="button" onclick="upgradeTier('pro')">Start Decision Pro</button>
+                <button class="btn" style="margin-top:.65rem" type="button" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Start Decision Pro</button>
                 <div style="margin-top:.5rem;font-size:.75rem"><a href="/faq">FAQ</a> · <a href="/how-it-works">How it works</a></div>
             </div>
             <div id="chatPanel" style="display:none">
@@ -362,8 +362,8 @@
                 </div>
                 <div class="toolbar">
                     <label for="chatInput" class="sr-only">Chat message</label>
-                    <input id="chatInput" type="text" placeholder="What should I do with BTC?" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" onkeydown="if(event.key==='Enter')sendChat()">
-                    <button class="btn" type="button" onclick="sendChat()">Send</button>
+                    <input id="chatInput" type="text" placeholder="What should I do with BTC?" style="flex:1;min-width:180px;padding:.65rem .85rem;background:#1a1a24;border:1px solid #2a2a35;border-radius:10px;color:#e4e4e7" data-bd-keydown-call="sendChat" data-bd-keys="enter">
+                    <button class="btn" type="button" data-bd-call="sendChat">Send</button>
                 </div>
                 <div id="chatFoot" style="margin-top:.55rem;font-size:.72rem;color:#71717a"></div>
             </div>
@@ -377,8 +377,8 @@
         let chart, series;
 
         function authHeaders() {
-            const t = localStorage.getItem('bd_token');
-            return t ? { Authorization: 'Bearer ' + t } : {};
+            // Cookie session is authoritative (HttpOnly). Avoid Bearer-from-localStorage (XSS theft).
+            return {};
         }
 
         let chatHistory = [];
@@ -403,17 +403,63 @@
         }
         function esc(s) { return escapeHtml(s); }
 
+        function openFullProof() {
+            scrollToId('decide');
+            askOracle();
+        }
+        function onUxModeChange() {
+            askOracle();
+            loadTrustPulse(true);
+        }
+        function copyLastCertShare() {
+            if (navigator.clipboard && window._lastCertShare) {
+                navigator.clipboard.writeText(window._lastCertShare || '');
+            }
+        }
+        function downloadLastCertTxt() {
+            const b = new Blob([window._lastCertTxt || ''], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'blackdark-certificate.txt';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+        function downloadLastCertJson() {
+            const b = new Blob([JSON.stringify(window._lastCertJson || {}, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'blackdark-certificate.json';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+        function switchUxModePro() {
+            const el = document.getElementById('uxMode');
+            if (el) el.value = 'pro';
+            askOracle();
+        }
+        function removePortfolioAsset(idx) {
+            const i = Number(idx);
+            if (!Number.isFinite(i) || i < 0) return;
+            portfolioAssets.splice(i, 1);
+            renderPortfolioList();
+        }
 
         function appendChat(role, text) {
             const log = document.getElementById('chatLog');
             if (!log) return;
-            if (log.querySelector('.empty')) log.innerHTML = '';
+            const empty = log.querySelector('.empty');
+            if (empty) empty.remove();
+            // DOM-only construction — never assign HTML strings (CodeQL XSS / bad sanitization).
             const row = document.createElement('div');
             row.style.margin = '.45rem 0';
-            const safe = escapeHtml(text);
-            row.innerHTML = role === 'user'
-                ? `<div style="color:#a1a1aa"><strong>You</strong> · ${safe}</div>`
-                : `<div style="color:#e4e4e7"><strong style="color:#22d3ee">AI</strong> · ${safe}</div>`;
+            const wrap = document.createElement('div');
+            wrap.style.color = role === 'user' ? '#a1a1aa' : '#e4e4e7';
+            const strong = document.createElement('strong');
+            if (role !== 'user') strong.style.color = '#22d3ee';
+            strong.textContent = role === 'user' ? 'You' : 'AI';
+            wrap.appendChild(strong);
+            wrap.appendChild(document.createTextNode(' · ' + String(text ?? '')));
+            row.appendChild(wrap);
             log.appendChild(row);
             log.scrollTop = log.scrollHeight;
         }
@@ -446,9 +492,9 @@
                 chatHistory.push({ role: 'assistant', content: reply });
                 const cf = d.compliance_footer || {};
                 if (foot) {
-                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.'}`
-                        + (d.symbol ? ` · context ${d.symbol}` : '')
-                        + (d.source ? ` · ${d.source}` : '');
+                    foot.innerHTML = `<strong>Anti-Hype</strong> · ${esc(cf.disclaimer || 'Not financial advice. Verify on the Public Accuracy Ledger.')}`
+                        + (d.symbol ? ` · context ${esc(d.symbol)}` : '')
+                        + (d.source ? ` · ${esc(d.source)}` : '');
                 }
             } catch (error) { console.debug(error); appendChat('assistant', 'Chat unavailable right now — try again or use Get Decision.'); }
         }
@@ -473,16 +519,15 @@
         async function loadAuth() {
             const tierEl = document.getElementById('userTier');
             const authLink = document.getElementById('authLink');
-            const token = localStorage.getItem('bd_token');
             syncChatGate();
-            if (!token) {
-                nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
-                applyUpgradeButton();
-                return;
-            }
             try {
-                const res = await fetch('/api/auth/me', { headers: authHeaders() });
+                const res = await fetch('/api/auth/me', { headers: authHeaders(), credentials: 'same-origin' });
                 const d = await res.json();
+                if (!d.authenticated) {
+                    nextUpgrade = { has_upgrade: true, checkout_tier: 'pro', href: '/login?tab=register&plan=pro', cta: 'Start 7-Day Trial' };
+                    applyUpgradeButton();
+                    return;
+                }
                 if (d.authenticated) {
                     userTierId = (d.user && d.user.tier) || (d.tier && d.tier.id) || 'free';
                     tierEl.textContent = (d.user.email || '') + ' · ' + (d.tier?.label || d.user.tier);
@@ -490,8 +535,8 @@
                     authLink.href = '#';
                     authLink.onclick = async e => {
                         e.preventDefault();
-                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders() });
-                        localStorage.removeItem('bd_token');
+                        await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), credentials: 'same-origin' });
+                        try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
                         location.reload();
                     };
                     try {
@@ -572,19 +617,19 @@
             return '#f59e0b';
         }
         function formatFactorLine(f, i) {
-            const detail = f.detail ? (' — ' + f.detail) : '';
-            const source = f.source ? ('<small>' + f.source + '</small>') : '';
-            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + (f.factor||f) + '</strong>' + detail + source + '</div>';
+            const detail = f.detail ? (' — ' + esc(f.detail)) : '';
+            const source = f.source ? ('<small>' + esc(f.source) + '</small>') : '';
+            return '<div class="tp-factor"><strong>' + (i+1) + '. ' + esc(f.factor||f) + '</strong>' + detail + source + '</div>';
         }
 
         function buildPulseChips(p) {
             const proof = p.proof || {};
             const ledger = p.ledger || {};
             const chips = [];
-            chips.push(`<a class="tp-chip ok" href="${ledger.href||'/oracle-accuracy'}">${ledger.label||'Verified on Ledger'}</a>`);
-            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${String(proof.certificate_hash).slice(0,12)}…</span>`);
-            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${proof.prediction_id}</span>`);
-            if (proof.watermark) chips.push(`<span class="tp-wm">${proof.watermark}</span>`);
+            chips.push(`<a class="tp-chip ok" href="${safeShareUrl(ledger.href)||'/oracle-accuracy'}">${esc(ledger.label||'Verified on Ledger')}</a>`);
+            if (proof.certificate_hash) chips.push(`<span class="tp-chip">cert ${esc(String(proof.certificate_hash).slice(0,12))}…</span>`);
+            if (proof.prediction_id) chips.push(`<span class="tp-chip">id ${esc(proof.prediction_id)}</span>`);
+            if (proof.watermark) chips.push(`<span class="tp-wm">${esc(proof.watermark)}</span>`);
             if (p.veto) chips.push(`<span class="tp-chip warn">Veto</span>`);
             return chips.join('');
         }
@@ -605,7 +650,7 @@
             const contEl = document.getElementById('tpContinuity');
             if (cont.locked) {
                 if (cont.flipped && cont.summary) {
-                    contEl.innerHTML = cont.summary + ' · <a href="#" onclick="upgradeTier(\'pro\');return false">' + (cont.upgrade_hint||'Decision Pro') + '</a>';
+                    contEl.innerHTML = esc(cont.summary) + ' · <a href="#" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]" data-bd-prevent="1">' + esc(cont.upgrade_hint||'Decision Pro') + '</a>';
                 } else {
                     contEl.textContent = cont.upgrade_hint || '';
                 }
@@ -628,7 +673,7 @@
             const price = fmtPrice(p.price);
             const ch = p.change_24h;
             const chS = changeSpan(ch);
-            document.getElementById('tpSym').innerHTML = `${p.symbol || 'BTC'} ${price}${chS}`;
+            document.getElementById('tpSym').innerHTML = `${escapeHtml(p.symbol || 'BTC')} ${price}${chS}`;
             document.getElementById('tpSentence').textContent = p.sentence || 'One clear decision — research only.';
             document.getElementById('tpWhyTitle').textContent = (p.why && p.why.grasp_line) || 'Why (under 5 seconds)';
             const factors = (p.why && p.why.factors) || [];
@@ -638,15 +683,20 @@
             const fresh = p.freshness || {};
             const dot = document.getElementById('tpDot');
             dot.className = freshnessDotClass(fresh);
-            document.getElementById('tpFresh').textContent = fresh.label || (fromStream ? 'Live' : 'Updated');
+            const freshState = String(fresh.state || fresh.status || '').toLowerCase();
+            const stale = fresh.stale === true || freshState === 'stale';
+            const knownFresh = freshState === 'fresh' || freshState === 'ok' || freshState === 'live';
+            document.getElementById('tpFresh').textContent = stale
+                ? (fresh.label || 'Stale — not live')
+                : (fresh.label || (knownFresh ? 'Live' : 'Freshness unknown'));
             document.getElementById('tpProof').innerHTML = buildPulseChips(p);
             renderPulseFlip(p, fromStream);
             renderPulseContinuity(p);
             const ledger = p.ledger || {};
             if (ledger.honesty_line) {
                 const foot = p.compliance && p.compliance.disclaimer ? p.compliance.disclaimer : '';
-                const footBit = foot ? '<br>' + foot : '';
-                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + ledger.honesty_line + footBit;
+                const footBit = foot ? '<br>' + escapeHtml(foot) : '';
+                document.getElementById('tpFoot').innerHTML = '<strong>Anti-Hype</strong> · ' + escapeHtml(ledger.honesty_line) + footBit;
             }
             savePulseVisit(p);
         }
@@ -781,11 +831,11 @@
             const xUrl = safeUrl(cert.share_urls && cert.share_urls.x);
             const tgUrl = safeUrl(cert.share_urls && cert.share_urls.telegram);
             const hashLabel = cert.certificate_hash ? String(cert.certificate_hash).slice(0,16)+'…' : 'pending';
-            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="navigator.clipboard.writeText(window._lastCertShare||'')">Copy</button>` : '';
-            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([window._lastCertTxt||''],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.txt';a.click();URL.revokeObjectURL(a.href);})()">TXT</button>` : '';
-            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${xUrl}" target="_blank" rel="noopener">Share X</a>` : '';
-            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${tgUrl}" target="_blank" rel="noopener">Share TG</a>` : '';
-            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" onclick="(function(){const b=new Blob([JSON.stringify(window._lastCertJson||{},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='blackdark-certificate.json';a.click();URL.revokeObjectURL(a.href);})()">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
+            const copyBtn = cert.share_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="copyLastCertShare">Copy</button>` : '';
+            const txtBtn = cert.export_text ? ` <button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertTxt">TXT</button>` : '';
+            const xBtn = xUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(xUrl)}" target="_blank" rel="noopener">Share X</a>` : '';
+            const tgBtn = tgUrl ? ` <a class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem;text-decoration:none" href="${esc(tgUrl)}" target="_blank" rel="noopener">Share TG</a>` : '';
+            return `<div style="margin-top:.65rem;font-size:.8rem;color:#a1a1aa">Decision Certificate · <code style="color:var(--accent,#22d3ee)">${esc(hashLabel)}</code>${copyBtn}<button class="btn secondary" style="margin-left:.35rem;padding:.3rem .6rem;font-size:.75rem" type="button" data-bd-call="downloadLastCertJson">JSON</button>${txtBtn}${xBtn}${tgBtn}</div>`;
         }
         function buildUpgradeBlock(d) {
             if (!d.upgrade_hint) return '';
@@ -794,10 +844,15 @@
             if (teaser.truth_score != null || teaser.remaining_seconds != null) {
                 teaserHtml = `<div style="margin-top:.35rem">Teaser · Truth ${esc(teaser.truth_score ?? '—')} · Half-life ${esc(teaser.remaining_seconds ?? '—')}s</div>`;
             }
-            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" onclick="document.getElementById('uxMode').value='pro';askOracle()">Switch to Pro</button></div>`;
+            return `<div style="margin-top:1rem;padding:.85rem 1rem;border:1px solid var(--border,#2a2a35);border-radius:10px;color:#a1a1aa;font-size:.85rem">${esc(d.upgrade_hint.message || '')}${teaserHtml}<button class="btn" style="margin-top:.65rem" type="button" data-bd-call="switchUxModePro">Switch to Pro</button></div>`;
         }
         function safeShareUrl(u) {
-            const s = String(u || '');
+            const s = String(u || '').trim();
+            if (!s) return '';
+            if (s.startsWith('/') && !s.startsWith('//')) {
+                if (s.toLowerCase().includes('javascript:')) return '';
+                return esc(s);
+            }
             return (/^https?:\/\//i.test(s)) ? esc(s) : '';
         }
         function buildFactorDrawer(d) {
@@ -915,8 +970,8 @@
             if (!el) return;
             const rows = assets || [];
             el.innerHTML = rows.length ? rows.slice(0,8).map(a => `
-                <div class="card" onclick="setSymbol('${a.symbol}')">
-                    <strong>${a.symbol}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${a.verdict||''}</span>
+                <div class="card" data-bd-call="setSymbol" data-bd-args="[&quot;${esc(a.symbol)}&quot;]">
+                    <strong>${esc(a.symbol)}</strong> <span class="${vc(a.verdict)==='BUY'?'up':''}">${esc(a.verdict||'')}</span>
                     <div>$${fmt(a.price,a.price<1?4:2)}</div>
                     <div class="${changeClass(a.change_24h)}">${changePrefix(a.change_24h)}${fmt(a.change_24h,2)}%</div>
                 </div>`).join('') : '<div class="empty">No market rows</div>';
@@ -940,8 +995,8 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${detail.message || 'Decision Pro required for daily report'}
-                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Decision Pro required for daily report')}
+                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
@@ -955,12 +1010,12 @@
                 ].filter(Boolean).slice(0, 4);
                 const bulletHtml = bullets.length
                     ? ('<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">'
-                        + bullets.map(b => '<li>' + b + '</li>').join('')
+                        + bullets.map(b => '<li>' + esc(b) + '</li>').join('')
                         + '</ul>')
                     : '';
-                el.innerHTML = '<strong>' + title + '</strong>'
+                el.innerHTML = '<strong>' + esc(title) + '</strong>'
                     + '<div style="margin-top:.35rem;font-size:.9rem;color:#a1a1aa">'
-                    + (summary || 'Brief ready — open Markdown for full detail.') + '</div>'
+                    + esc(summary || 'Brief ready — open Markdown for full detail.') + '</div>'
                     + bulletHtml
                     + '<div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Research brief, not advice · Verify Ledger</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Daily report unavailable</div>'; }
@@ -975,17 +1030,17 @@
                 const d = await res.json();
                 if (res.status === 401 || res.status === 403) {
                     const detail = d.detail || {};
-                    el.innerHTML = `<div class="empty">${detail.message || 'Pro/Whale required for subscriber value'}
-                        <div style="margin-top:.65rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Pro/Whale required for subscriber value')}
+                        <div style="margin-top:.65rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 if (!res.ok) throw new Error('fail');
                 const v = d.value || {};
                 const u = d.usage || {};
-                el.innerHTML = `<strong>Subscriber value · ${d.tier || ''}</strong>
-                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${u.oracle_calls_30d ?? 0} · Risk warnings: ${u.risk_warnings_30d ?? 0}</div>
-                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0)}
-                    ${coversPlanBit(v)}</div>
+                el.innerHTML = `<strong>Subscriber value · ${esc(d.tier || '')}</strong>
+                    <div style="margin-top:.35rem;font-size:.9rem">Calls 30d: ${esc(u.oracle_calls_30d ?? 0)} · Risk warnings: ${esc(u.risk_warnings_30d ?? 0)}</div>
+                    <div style="margin-top:.25rem;color:#22d3ee">Est. research value $${esc(Number(v.estimated_value_usd_month || v.estimated_value_usd || v.value_usd || 0).toFixed(0))}
+                    ${esc(coversPlanBit(v))}</div>
                     <div style="margin-top:.55rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · Illustrative usage math · Not guaranteed ROI</div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Value digest unavailable</div>'; }
         }
@@ -997,8 +1052,8 @@
             const el = document.getElementById('oi');
             if (!el || !assets.length) return;
             el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                assets.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                    <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                assets.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
+                    <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
         }
         function renderSnapshotArb(arbitrage) {
             const el = document.getElementById('arbList');
@@ -1012,9 +1067,9 @@
                 const truth = o.net_edge_truth || {};
                 const rejected = o.truth_rejected || truth.reject;
                 const rej = rejected ? ' · REJECTED' : '';
-                return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                 <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rej}</div></div>`;
+                <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rej}</div></div>`;
             }).join('');
         }
         function applyDashboardSnapshot(d) {
@@ -1050,8 +1105,8 @@
                 const rows = data.assets || [];
                 if (!rows.length) { el.innerHTML = '<div class="empty">No OI data</div>'; return; }
                 el.innerHTML = '<table><thead><tr><th>Asset</th><th>OI</th><th>Funding</th></tr></thead><tbody>' +
-                    rows.slice(0,6).map(r => `<tr onclick="setSymbol('${r.asset}')" style="cursor:pointer">
-                        <td>${r.asset}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
+                    rows.slice(0,6).map(r => `<tr data-bd-call="setSymbol" data-bd-args="[&quot;${esc(r.asset)}&quot;]" style="cursor:pointer">
+                        <td>${esc(r.asset)}</td><td>$${fmt(r.open_interest_usd,0)}</td><td>${fmt(r.funding_rate_pct,4)}%</td></tr>`).join('') + '</tbody></table>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Unavailable</div>'; }
         }
 
@@ -1065,8 +1120,8 @@
                 if (res.status === 403) {
                     const detail = data.detail || {};
                     stats.textContent = detail.message || 'Pro required';
-                    el.innerHTML = `<div class="empty">${detail.message || 'Upgrade required for arbitrage'}
-                        <div style="margin-top:.75rem"><button class="btn" onclick="upgradeTier('pro')">Upgrade Pro</button></div></div>`;
+                    el.innerHTML = `<div class="empty">${esc(detail.message || 'Upgrade required for arbitrage')}
+                        <div style="margin-top:.75rem"><button class="btn" data-bd-call="upgradeTier" data-bd-args="[&quot;pro&quot;]">Upgrade Pro</button></div></div>`;
                     return;
                 }
                 const c = data.counts || {};
@@ -1076,9 +1131,9 @@
                     const half = o.opportunity_half_life || {};
                     const truth = o.net_edge_truth || {};
                     const rejected = o.truth_rejected || truth.reject;
-                    return `<div class="arb-card"><strong>${o.kind_label||o.kind}</strong> ${o.asset||''}
+                    return `<div class="arb-card"><strong>${esc(o.kind_label||o.kind)}</strong> ${esc(o.asset||'')}
                     <div class="${changeClass(o.net_profit_usdt)}">${changePrefix(o.net_profit_usdt)}$${fmt(Math.abs(o.net_profit_usdt||0),4)}</div>
-                    <div style="font-size:.75rem;color:#71717a">Truth ${truth.truth_score??'—'} · HL ${half.remaining_seconds??o.expected_half_life_seconds??'—'}s${rejected ? ' · REJECTED' : ''}</div></div>`;
+                    <div style="font-size:.75rem;color:#71717a">Truth ${esc(truth.truth_score??'—')} · HL ${esc(half.remaining_seconds??o.expected_half_life_seconds??'—')}s${rejected ? ' · REJECTED' : ''}</div></div>`;
                 }).join('') : '<div class="empty">No opportunities now</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Scan failed</div>'; }
         }
@@ -1093,10 +1148,10 @@
                 status.textContent = `Inbox ${stats.unread||0} unread · ${stats.generosity_note || 'no TV-style 15/3min hard cap'} · works without Telegram`;
                 const rows = data.alerts || [];
                 el.innerHTML = rows.length ? rows.map(a => `
-                    <div class="arb-card" style="cursor:pointer" onclick="markInboxRead('${a.id}')">
-                        <strong>${a.title||'Alert'}</strong>
-                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${a.body||''}</div>
-                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${(a.created_at||'').slice(0,19)} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
+                    <div class="arb-card" style="cursor:pointer" data-bd-call="markInboxRead" data-bd-args="[&quot;${esc(a.id)}&quot;]">
+                        <strong>${esc(a.title||'Alert')}</strong>
+                        <div style="font-size:.85rem;color:#a1a1aa;margin-top:.25rem">${esc(a.body||'')}</div>
+                        <div style="font-size:.72rem;color:#71717a;margin-top:.35rem">${esc((a.created_at||'').slice(0,19))} · ${a.read ? 'read' : 'new · tap to mark read'}</div>
                         <div style="margin-top:.4rem;font-size:.7rem;color:#71717a"><strong>Anti-Hype</strong> · Truth + Half-Life gated · Not financial advice</div>
                     </div>`).join('') : '<div class="empty">No alerts yet — inbox has no TradingView-style 15/3min hard cap</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Inbox unavailable</div>'; }
@@ -1124,18 +1179,18 @@
                 const stories = data.stories || [];
                 const headline = data.one_sentence || data.headline || (stories[0] || '');
                 const headHtml = headline
-                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${headline}</div></div>`
+                    ? `<div class="whale-card" style="border-color:rgba(34,211,238,.35)"><strong>One sentence · Signal vs Noise</strong><div style="margin-top:.35rem;font-size:.95rem;line-height:1.45">${esc(headline)}</div></div>`
                     : '';
                 if (classified.length) {
                     el.innerHTML = headHtml + classified.map(a => `
                         <div class="whale-card">
-                            <strong>${a.label||'—'}</strong> · ${a.asset||'—'}
+                            <strong>${esc(a.label||'—')}</strong> · ${esc(a.asset||'—')}
                             ${whalePriceBit(a)}
-                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${a.sentence||a.class_id||''}</div>
+                            <div style="font-size:.8rem;color:#a1a1aa;margin-top:.25rem">${esc(a.sentence||a.class_id||'')}</div>
                             ${whaleFundingBit(a)}
                         </div>`).join('');
                 } else if (stories.length) {
-                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${s}</div>`).join('');
+                    el.innerHTML = headHtml + stories.slice(0,8).map(s => `<div class="whale-card">${esc(s)}</div>`).join('');
                 } else {
                     el.innerHTML = '<div class="empty">No whale narratives</div>';
                 }
@@ -1151,8 +1206,8 @@
         }
         function whaleFundingBit(a) {
             if (a.funding_rate == null && a.open_interest == null) return '';
-            const fr = a.funding_rate != null ? 'Funding ' + a.funding_rate : '';
-            const oi = a.open_interest != null ? ' · OI ' + fmt(a.open_interest,0) : '';
+            const fr = a.funding_rate != null ? 'Funding ' + esc(a.funding_rate) : '';
+            const oi = a.open_interest != null ? ' · OI ' + esc(fmt(a.open_interest,0)) : '';
             return `<div style="font-size:.72rem;color:#71717a;margin-top:.2rem">${fr}${oi}</div>`;
         }
         function whalePriceBit(a) {
@@ -1199,8 +1254,8 @@
                 const res = await fetch('/api/since-you-left?user_key=' + encodeURIComponent(k) + '&touch=true');
                 const d = await res.json();
                 el.innerHTML = (d.top3 || []).map((x, i) =>
-                    `<div class="arb-card"><strong>${i + 1}. ${x.title}</strong><div style="margin-top:.3rem;color:#a1a1aa">${x.detail}</div>
-                     <a href="${x.href || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
+                    `<div class="arb-card"><strong>${i + 1}. ${esc(x.title)}</strong><div style="margin-top:.3rem;color:#a1a1aa">${esc(x.detail)}</div>
+                     <a href="${safeShareUrl(x.href) || '/'}" style="font-size:.8rem;color:#22d3ee">Open</a></div>`
                 ).join('') || '<div class="empty">No deltas yet</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Continuity unavailable</div>'; }
         }
@@ -1212,8 +1267,43 @@
             try {
                 const res = await fetch('/api/oracle/half-life/heat');
                 const d = await res.json();
-                svg.innerHTML = d.svg || '';
-                line.innerHTML = `<strong style="color:${d.band?.color||'#22d3ee'}">${d.band?.label||'—'}</strong><div style="margin-top:.35rem">${d.desk_line||''}</div>`;
+                const bandColor = /^#[0-9a-fA-F]{3,8}$/.test(String(d.band?.color || '')) ? d.band.color : '#22d3ee';
+                const remaining = Number.isFinite(Number(d.half_life?.remaining_seconds))
+                    ? Math.max(0, Math.floor(Number(d.half_life.remaining_seconds)))
+                    : 0;
+                const angle = Number.isFinite(Number(d.sweep_degrees))
+                    ? Math.min(360, Math.max(0, Number(d.sweep_degrees)))
+                    : 0;
+                const label = String(d.band?.label || '—').slice(0, 24);
+                // Build SVG with DOM only — never assign server HTML into innerHTML.
+                while (svg.firstChild) svg.removeChild(svg.firstChild);
+                svg.setAttribute('viewBox', '0 0 120 120');
+                const mk = (name, attrs = {}) => {
+                    const n = document.createElementNS('http://www.w3.org/2000/svg', name);
+                    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, String(v));
+                    return n;
+                };
+                svg.append(
+                    mk('circle', { cx: 60, cy: 60, r: 52, fill: '#0a0a0f', stroke: '#2a2a35', 'stroke-width': 4 }),
+                    mk('circle', {
+                        cx: 60, cy: 60, r: 44, fill: 'none', stroke: bandColor, 'stroke-width': 8,
+                        'stroke-dasharray': `${(angle * 0.767).toFixed(1)} 276`,
+                        'stroke-linecap': 'round', transform: 'rotate(-90 60 60)',
+                    }),
+                );
+                const t1 = mk('text', { x: 60, y: 58, 'text-anchor': 'middle', fill: '#e4e4e7', 'font-size': 18, 'font-family': 'monospace' });
+                t1.textContent = `${remaining}s`;
+                const t2 = mk('text', { x: 60, y: 76, 'text-anchor': 'middle', fill: bandColor, 'font-size': 11 });
+                t2.textContent = label;
+                svg.append(t1, t2);
+                line.replaceChildren();
+                const strong = document.createElement('strong');
+                strong.style.color = bandColor;
+                strong.textContent = label;
+                const desk = document.createElement('div');
+                desk.style.marginTop = '.35rem';
+                desk.textContent = String(d.desk_line || '');
+                line.append(strong, desk);
             } catch (error) { console.debug(error); line.textContent = 'Half-Life clock unavailable'; }
         }
 
@@ -1227,15 +1317,15 @@
                 const res = await fetch('/api/mev/sandwich-report?asset=' + encodeURIComponent(asset) + '&notional_usd=' + encodeURIComponent(notional));
                 const d = await res.json();
                 lastMevShare = d.share_text || '';
-                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${m}</li>`).join('');
+                const mit = (d.mitigations || []).map(m => `<li style="margin:.25rem 0">${esc(m)}</li>`).join('');
                 const c = d.compliance || {};
                 el.innerHTML = `
                     <div class="arb-card">
-                        <strong>${d.title||'MEV Report'}</strong> · ${d.asset} · $${fmt(d.notional_usd,0)}
-                        <div style="margin-top:.4rem">Est. sandwich drag ~${d.estimated_sandwich_bps} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
-                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${d.note||''}</div>
+                        <strong>${esc(d.title||'MEV Report')}</strong> · ${esc(d.asset)} · $${fmt(d.notional_usd,0)}
+                        <div style="margin-top:.4rem">Est. sandwich drag ~${esc(d.estimated_sandwich_bps)} bps (~$${fmt(d.estimated_cost_usd,2)})</div>
+                        <div style="font-size:.8rem;color:#a1a1aa;margin-top:.35rem">${esc(d.note||'')}</div>
                         <ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">${mit}</ul>
-                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${c.disclaimer||''}</div>
+                        <div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ${esc(c.disclaimer||'')}</div>
                     </div>`;
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Report unavailable</div>'; }
         }
@@ -1260,11 +1350,11 @@
                 const d = await res.json();
                 const slices = ((d.slice_plan || {}).slices || []);
                 const sliceRows = slices.slice(0,12).map(s => `<tr>
-                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${s.slice_index||''}</td>
+                            <td style="padding:.25rem;border-top:1px solid #2a2a35">${esc(s.slice_index||'')}</td>
                             <td style="border-top:1px solid #2a2a35">$${fmt(s.notional_usd,0)}</td>
-                            <td style="border-top:1px solid #2a2a35">${s.delay_sec||0}s</td>
-                            <td style="border-top:1px solid #2a2a35">${s.limit_offset_bps||0} bps</td>
-                            <td style="border-top:1px solid #2a2a35">${s.algo||''}</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.delay_sec||0)}s</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.limit_offset_bps||0)} bps</td>
+                            <td style="border-top:1px solid #2a2a35">${esc(s.algo||'')}</td>
                         </tr>`).join('');
                 const sliceTable = slices.length
                     ? ('<table style="width:100%;margin-top:.65rem;font-size:.8rem;border-collapse:collapse">'
@@ -1273,19 +1363,19 @@
                     : '';
                 let planBit = '';
                 if (d.slice_plan) {
-                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + d.slice_plan.algo
-                        + ' · window ' + d.slice_plan.window_sec + 's · interval ' + d.slice_plan.interval_sec
-                        + 's · offset ' + d.slice_plan.limit_offset_bps + ' bps</div>';
+                    planBit = '<div style="margin-top:.5rem;font-size:.8rem;color:#a1a1aa">Plan · ' + esc(d.slice_plan.algo)
+                        + ' · window ' + esc(d.slice_plan.window_sec) + 's · interval ' + esc(d.slice_plan.interval_sec)
+                        + 's · offset ' + esc(d.slice_plan.limit_offset_bps) + ' bps</div>';
                 }
                 el.innerHTML =
-                    '<div class="arb-card"><strong>' + (d.style||'advisory') + '</strong> · ' + d.asset + ' ' + d.side
+                    '<div class="arb-card"><strong>' + esc(d.style||'advisory') + '</strong> · ' + esc(d.asset) + ' ' + esc(d.side)
                     + ' · $' + fmt(d.notional_usd,0)
-                    + '<div style="margin-top:.4rem">' + d.recommended_slices + ' slices × $' + fmt(d.slice_usd,2)
-                    + ' · urgency ' + d.urgency + '</div>'
-                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + (d.advice||'') + '</div>'
+                    + '<div style="margin-top:.4rem">' + esc(d.recommended_slices) + ' slices × $' + fmt(d.slice_usd,2)
+                    + ' · urgency ' + esc(d.urgency) + '</div>'
+                    + '<div style="font-size:.85rem;color:#a1a1aa;margin-top:.35rem">' + esc(d.advice||'') + '</div>'
                     + planBit + sliceTable
                     + '<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · '
-                    + (d.disclaimer||'') + '</div></div>';
+                    + esc(d.disclaimer||'') + '</div></div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Advisor unavailable</div>'; }
         }
 
@@ -1303,7 +1393,7 @@
             const el = document.getElementById('portfolioList');
             if (!portfolioAssets.length) { el.textContent = ''; return; }
             el.innerHTML = portfolioAssets.map((a,i) =>
-                `${a.symbol}: ${a.amount} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" onclick="portfolioAssets.splice(${i},1);renderPortfolioList()">×</button>`
+                `${esc(a.symbol)}: ${esc(a.amount)} <button class="btn secondary" style="padding:.15rem .4rem;font-size:.7rem" type="button" data-bd-call="removePortfolioAsset" data-bd-args="[${Number(i)}]">×</button>`
             ).join(' · ');
         }
         async function analyzePortfolio() {
@@ -1322,23 +1412,23 @@
                 const riskColor = riskColorFor(risk);
                 const recs = d.recommendations || [];
                 const recHtml = recs.length
-                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${r}</li>`).join('') + '</ul>'
+                    ? '<ul style="margin:.5rem 0 0 1.1rem;font-size:.85rem;color:#a1a1aa">' + recs.map(r => `<li>${esc(r)}</li>`).join('') + '</ul>'
                     : '';
                 const riskBit = risk
-                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + risk + '</span> risk (' + (d.risk_score ?? '—') + '/10)')
+                    ? (' · <span style="color:' + riskColor + ';font-weight:700">' + esc(risk) + '</span> risk (' + esc(d.risk_score ?? '—') + '/10)')
                     : '';
                 const scenarioBit = d.scenario_note
-                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + d.scenario_note + '</div>')
+                    ? ('<div style="margin-top:.4rem;font-size:.85rem;color:#a1a1aa">' + esc(d.scenario_note) + '</div>')
                     : '';
                 const valueBit = d.total_value_formatted
-                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + d.total_value_formatted + ' · BTC corr ' + (d.btc_correlation || '—') + '</div>')
+                    ? ('<div style="margin-top:.35rem;font-size:.8rem;color:#71717a">Marked value ' + esc(d.total_value_formatted) + ' · BTC corr ' + esc(d.btc_correlation || '—') + '</div>')
                     : '';
                 const footBit = foot.disclaimer
-                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + foot.disclaimer + '</div>')
+                    ? ('<div style="margin-top:.65rem;font-size:.72rem;color:#71717a"><strong>Anti-Hype</strong> · ' + esc(foot.disclaimer) + '</div>')
                     : '';
                 el.innerHTML =
                     '<div class="arb-card"><strong>Portfolio AI</strong>' + riskBit +
-                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + (d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
+                    '<div style="margin-top:.55rem;font-size:.95rem;color:#e4e4e7">' + esc(d.one_sentence || d.plain_language || d.summary || '') + '</div>' +
                     scenarioBit + valueBit + recHtml + footBit + '</div>';
             } catch (error) { console.debug(error); el.innerHTML = '<div class="empty">Portfolio AI unavailable</div>'; }
         }
@@ -1367,8 +1457,8 @@
                 const res = await fetch('/api/alerts/generosity');
                 const d = await res.json();
                 const bd = d.blackdark || {};
-                el.innerHTML = `<strong>${d.title || 'Alert generosity'}</strong><br>${d.competitor_friction || ''}<br>` +
-                    `${bd.in_app_inbox || ''} · ${bd.proof_gate || ''}`;
+                el.innerHTML = `<strong>${esc(d.title || 'Alert generosity')}</strong><br>${esc(d.competitor_friction || '')}<br>` +
+                    `${esc(bd.in_app_inbox || '')} · ${esc(bd.proof_gate || '')}`;
             } catch (error) { console.debug(error); }
         }
 
@@ -1455,8 +1545,8 @@
             if (!rail) return;
             rail.innerHTML = entries.map(e => {
                 const locked = e.available === false;
-                return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${e.id}" data-path="${e.path||''}" data-action="${e.action||''}" title="${e.hint||''}">
-                    ${e.label}<small>${locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || '')}</small></button>`;
+                return `<button type="button" class="entry-btn${locked?' locked':''}" data-entry="${esc(e.id)}" data-path="${esc(e.path||'')}" data-action="${esc(e.action||'')}" title="${esc(e.hint||'')}">
+                    ${esc(e.label)}<small>${esc(locked ? (e.upgrade_hint || 'Operate to unlock') : (e.hint || ''))}</small></button>`;
             }).join('');
             rail.querySelectorAll('.entry-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -1508,7 +1598,7 @@
                 }
                 const intents = d.primary_entries || d.intents || [];
                 grid.innerHTML = intents.map(it =>
-                    `<button type="button" class="intent-btn" data-id="${it.id}" data-action="${it.action||''}" data-path="${it.path||''}">${it.label}</button>`
+                    `<button type="button" class="intent-btn" data-id="${esc(it.id)}" data-action="${esc(it.action||'')}" data-path="${esc(it.path||'')}">${esc(it.label)}</button>`
                 ).join('');
                 grid.querySelectorAll('.intent-btn').forEach(btn => {
                     btn.addEventListener('click', () => {

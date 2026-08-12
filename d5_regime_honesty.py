@@ -30,9 +30,8 @@ def build_d5_honesty_board() -> dict[str, Any]:
         or status.get("bootstrap")
         or status.get("bootstrapped")
     )
-    for name, meta in regimes.items() if regimes else []:
-        if not isinstance(meta, dict):
-            meta = {"raw": meta}
+    for name, meta_raw in regimes.items() if regimes else []:
+        meta = meta_raw if isinstance(meta_raw, dict) else {"raw": meta_raw}
         synth = bool(meta.get("synthetic_class_balance") or meta.get("synthetic"))
         synthetic_any = synthetic_any or synth
         rows.append(

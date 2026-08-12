@@ -42,7 +42,7 @@
         <div class="card">
             <label for="userKey">Your private key (email or local id)</label>
             <input id="userKey" placeholder="you@email.com or leave blank to use browser key">
-            <button class="btn" type="button" onclick="loadMirror()">Open my mirror</button>
+            <button class="btn" type="button" data-bd-call="loadMirror">Open my mirror</button>
         </div>
         <div class="card" id="mirrorBox">
             <p class="sub" id="msg">Enter your key to load private stats.</p>
@@ -57,6 +57,7 @@
         <p class="foot" id="compliance">Anti-Hype · Private coaching metrics · Not financial advice · Not shown on the public ledger.</p>
         <a class="btn" href="/">Back to Single-Sentence Oracle</a>
     </main>
+    <script src="/static/js/dom_escape.js"></script>
     <script type="module">
 function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
 
@@ -83,9 +84,26 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 document.getElementById('delta').textContent = d.delta_plain_english || d.message || '';
                 document.getElementById('msg').textContent = `Answers: ${d.total_answers || 0} · followed ${d.followed_count || 0} · overridden ${d.ignored_count || 0}`;
                 const rows = d.recent || [];
-                document.getElementById('recent').innerHTML = rows.length
-                    ? rows.map(r => `<div class="row"><strong>${r.asset}</strong> · system ${r.system_action} · ${r.followed ? 'followed' : 'overrode'} · ${r.outcome_label || 'pending'}</div>`).join('')
-                    : '<div class="row">No answers yet — use Yes/No after an Oracle decision on the home page.</div>';
+                const recent = document.getElementById('recent');
+                recent.replaceChildren();
+                if (!rows.length) {
+                    const empty = document.createElement('div');
+                    empty.className = 'row';
+                    empty.textContent = 'No answers yet — use Yes/No after an Oracle decision on the home page.';
+                    recent.appendChild(empty);
+                } else {
+                    for (const r of rows) {
+                        const row = document.createElement('div');
+                        row.className = 'row';
+                        const strong = document.createElement('strong');
+                        strong.textContent = String(r.asset ?? '');
+                        row.appendChild(strong);
+                        row.appendChild(document.createTextNode(
+                            ` · system ${String(r.system_action ?? '')} · ${r.followed ? 'followed' : 'overrode'} · ${String(r.outcome_label || 'pending')}`,
+                        ));
+                        recent.appendChild(row);
+                    }
+                }
             } catch (error) { console.debug(error); document.getElementById('msg').textContent = 'Mirror unavailable'; }
         }
         document.getElementById('userKey').value = localStorage.getItem('bd_user_key') || '';

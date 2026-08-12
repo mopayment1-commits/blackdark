@@ -1,0 +1,25 @@
+# Coverage config for SonarCloud import (Cobertura XML).
+# Broad production sources — no mass exclusions to inflate %.
+
+[run]
+# Line coverage only — mixing branch+statement parallel data caused
+# coverage.exceptions.DataError during combine on the full suite.
+branch = false
+source =
+    .
+omit =
+    tests/*
+    .venv/*
+    venv/*
+    scripts/*
+    **/__pycache__/*
+    setup_*.py
+    run_service.py
+    alembic/*
+    data/*
+    ml/train_*.py
+
+[report]
+show_missing = true
+precision = 1
+skip_empty = true
