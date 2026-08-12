@@ -47,7 +47,7 @@ Storage posture:
 |------|----------|-------|
 | Soft Launch | SQLite allowed | Demo only — not an HA claim |
 | Production (strict) | **PostgreSQL required** | `DATABASE_URL=postgresql://…` · `SOFT_LAUNCH` unset |
-| Secrets at rest | Fernet vault | User exchange keys · model weights HMAC · not ISO cert |
+| Secrets at rest | **Fernet** (+ private 0600 secret files) | User exchange keys · model weights HMAC · not ISO cert. HashiCorp Vault `-dev` is an **optional** `docker compose --profile vault-dev` local helper only — **not** the production secrets authority. |
 
 ---
 
@@ -92,4 +92,20 @@ Storage posture:
 | Signed HA evidence | `docs/LOAD_TEST_RUN_LOG.md` (Postgres+Redis multi-worker row required) |
 | Schema migrations | **Runtime authority:** `database.SCHEMA` + `database._apply_migrations` via `init_db()` (SQLite + Postgres). `alembic/` is optional/historical tooling only — see `docs/DATABASE_MIGRATIONS.md`. |
 
-**Not claimed:** ISO 27001/25010 certificates · HashiCorp Vault as shipped · proven HA concurrent capacity without a signed Postgres+Redis multi-worker load-log row.
+**Not claimed:** ISO 27001/25010 certificates · HashiCorp Vault as a production-shipped secrets platform · proven HA concurrent capacity without a signed Postgres+Redis multi-worker load-log row.
+
+### Secrets architecture (canonical)
+
+| Layer | Authority | Notes |
+|-------|-----------|-------|
+| Production / Soft Launch | Fernet (`SECRETS_MASTER_KEY` / `SECRETS_VAULT_KEY`) + `keys/*.secrets.env` mode 0600 | Shipped path |
+| Local optional | `docker compose --profile vault-dev` → Hashicorp Vault `-dev` | Dev convenience only; root token in compose is **not** production-safe |
+| Client | `bd_platform/vault_client.py` | Optional HashiCorp client with Fernet fallback |
+
+### Oracle decision authorities (contract)
+
+| Surface | Module | Role |
+|---------|--------|------|
+| HTTP product oracle (`/oracle/*`) | `oracle_unified.py` | **Canonical** multimodal product decision engine |
+| Arb evaluation / training labels | `ai_oracle.py` | Wraps unified helpers for opportunity evaluation; not a second product oracle |
+| Financial fee authority | `fee_matrix.py` + `money_decimal.py` | Unknown fee → `None` (fail closed); Decimal for executable net |

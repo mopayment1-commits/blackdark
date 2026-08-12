@@ -225,23 +225,25 @@ def _spot_triangle_books(
 def _open_leg_fees_usdt(notional: float, *, spot_ex: str = "binance", perp_ex: str | None = None) -> float | None:
     """Estimated taker fees to open a spot + perpetual pair; None if either fee unknown."""
     from fee_matrix import taker_fee as _tf
+    from money_decimal import apply_fee, money_float
 
     spot = _tf(spot_ex, market="spot")
     perp = _tf(perp_ex or spot_ex, market="perpetual")
     if spot is None or perp is None:
         return None
-    return notional * (spot + perp)
+    return money_float(apply_fee(notional, spot) + apply_fee(notional, perp))
 
 
 def _funding_open_leg_fees_usdt(notional: float, *, venue_a: str = "binance", venue_b: str = "okx") -> float | None:
     """Estimated taker fees to open a two-venue perpetual funding pair; None if unknown."""
     from fee_matrix import taker_fee as _tf
+    from money_decimal import apply_fee, money_float
 
     a = _tf(venue_a, market="perpetual")
     b = _tf(venue_b, market="perpetual")
     if a is None or b is None:
         return None
-    return notional * (a + b)
+    return money_float(apply_fee(notional, a) + apply_fee(notional, b))
 
 
 def walk_asks(order_book: dict[str, Any], quote_amount: float) -> BuyExecution | None:
@@ -395,9 +397,12 @@ def _walk_triangle_legs(
     taker_fee: float,
     apply_fees: bool,
 ) -> tuple[float | None, float]:
+    from money_decimal import d, money_float, rate
+
     holding_coin = config.TRIANGLE_ANCHOR
     holding_amount = start_amount
-    fee_mult = (1.0 - taker_fee) if apply_fees else 1.0
+    # Decimal fee multiplier — avoid binary-float fee erosion on multi-leg paths.
+    fee_mult = money_float(d(1) - rate(taker_fee)) if apply_fees else 1.0
     total_slippage_bps = 0.0
 
     for symbol, side in legs:
@@ -452,10 +457,12 @@ def _walk_triangle_buy_leg(
 ) -> tuple[str, float, float] | None:
     if holding_coin != quote_coin:
         return None
+    from money_decimal import d, money_float
+
     execution = walk_asks(raw_book, holding_amount)
     if execution is None:
         return None
-    return base_coin, execution.base_amount * fee_mult, execution.slippage_bps
+    return base_coin, money_float(d(execution.base_amount) * d(fee_mult)), execution.slippage_bps
 
 
 def _walk_triangle_sell_leg(
@@ -466,12 +473,14 @@ def _walk_triangle_sell_leg(
     holding_amount: float,
     fee_mult: float,
 ) -> tuple[str, float, float] | None:
+    from money_decimal import d, money_float
+
     if holding_coin != base_coin:
         return None
     execution = walk_bids(raw_book, holding_amount)
     if execution is None:
         return None
-    return quote_coin, execution.quote_value * fee_mult, execution.slippage_bps
+    return quote_coin, money_float(d(execution.quote_value) * d(fee_mult)), execution.slippage_bps
 
 
 def _collect_cross_exchange_quotes(
@@ -527,21 +536,32 @@ def _build_cross_exchange_opportunity(
         return None
 
     from fee_matrix import taker_fee as _venue_taker_fee
+    from money_decimal import apply_fee, money_float, net_after_costs
 
     buy_rate = _venue_taker_fee(buy_exchange)
     sell_rate = _venue_taker_fee(sell_exchange)
     if buy_rate is None or sell_rate is None:
         return None
-    buy_fee = buy_execution.quote_cost * float(buy_rate)
-    sell_fee = sell_execution.quote_value * float(sell_rate)
-    trading_fees = buy_fee + sell_fee
+    buy_fee = apply_fee(buy_execution.quote_cost, buy_rate)
+    sell_fee = apply_fee(sell_execution.quote_value, sell_rate)
+    trading_fees = money_float(buy_fee + sell_fee)
     withdrawal_fee = _withdrawal_fee_usdt(buy_exchange, symbol)
     if withdrawal_fee is None:
         return None
     total_slippage_bps = buy_execution.slippage_bps + sell_execution.slippage_bps
     slippage_buffer = _slippage_buffer_usdt(notional, total_slippage_bps, market_context)
-    total_cost = buy_execution.quote_cost + buy_fee + float(withdrawal_fee) + slippage_buffer
-    net_profit = sell_execution.quote_value - sell_fee - total_cost
+    net_profit = money_float(
+        net_after_costs(
+            sell_execution.quote_value,
+            costs=[
+                buy_execution.quote_cost,
+                buy_fee,
+                sell_fee,
+                withdrawal_fee,
+                slippage_buffer,
+            ],
+        )
+    )
     net_profit_percent = (net_profit / notional) * 100 if notional else 0.0
 
     return CrossExchangeOpportunity(
@@ -556,7 +576,7 @@ def _build_cross_exchange_opportunity(
         sell_slippage_bps=sell_execution.slippage_bps,
         total_slippage_bps=total_slippage_bps,
         trading_fees_usdt=trading_fees,
-        withdrawal_fee_usdt=withdrawal_fee,
+        withdrawal_fee_usdt=float(withdrawal_fee),
         slippage_buffer_usdt=slippage_buffer,
         net_profit_usdt=net_profit,
         net_profit_percent=net_profit_percent,

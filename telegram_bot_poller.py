@@ -45,6 +45,12 @@ async def _poll_once(token: str) -> None:
 
 
 async def _poll_loop() -> None:
+    try:
+        from env_secrets_loader import ensure_telegram_env
+
+        ensure_telegram_env()
+    except Exception:
+        logger.debug("telegram_secrets_load_skipped", exc_info=True)
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     if not token:
         return

@@ -13,6 +13,13 @@ from service_bus import (
 )
 
 
+@pytest.fixture(autouse=True)
+def _isolate_service_bus_env(monkeypatch):
+    """F-TEST-02: do not inherit host SERVICE_BUS_LOCAL=false / Redis pollution."""
+    monkeypatch.delenv("REDIS_URL", raising=False)
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+
+
 def test_redis_url_empty(monkeypatch):
     monkeypatch.delenv("REDIS_URL", raising=False)
     assert redis_url() == ""

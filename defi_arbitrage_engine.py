@@ -74,6 +74,9 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
 
     quote = float(getattr(config, "DEFAULT_QUOTE_AMOUNT", 100))
     gas_bps = await gas_cost_bps("ethereum", quote, hops=2)
+    if gas_bps is None:
+        # Unknown/stale gas must not invent executable DeFi profitability.
+        return None
     net_bps = spread_bps - gas_bps - 60  # pool fees ~0.6%
 
     return {
@@ -89,6 +92,7 @@ async def scan_uniswap_sushiswap_spread(session: aiohttp.ClientSession, asset: s
         "net_spread_bps": round(net_bps, 2),
         "profitable": net_bps > 8,
         "chain": "ethereum",
+        "gas_truth": "live_cached",
     }
 
 
@@ -147,6 +151,8 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
 
     quote = float(getattr(config, "DEFAULT_QUOTE_AMOUNT", 100))
     gas_bps = await gas_cost_bps(chain, quote, hops=3)
+    if gas_bps is None:
+        return None
     flash_fee_bps = 9.0  # Aave 0.09%
     net_bps = spread_bps - gas_bps - flash_fee_bps - 60
 
@@ -167,6 +173,7 @@ async def scan_flash_loan_proxy(session: aiohttp.ClientSession, asset: str) -> d
         "net_spread_bps": round(net_bps, 2),
         "profitable": net_bps > 8,
         "chain": chain,
+        "gas_truth": "live_cached",
         "note": "Atomic flash loan feasible if spread covers 0.09% + gas",
     }
 
@@ -220,14 +227,14 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
 
     from gas_oracle import get_swap_gas_usd
 
-    quote = float(getattr(config, "DEFAULT_QUOTE_AMOUNT", 100))
-    bridge_gas = await get_swap_gas_usd(buy_chain, hops=1) + await get_swap_gas_usd(sell_chain, hops=1) + 3.0
-    gas_bps = (bridge_gas / quote) * 10_000
-    net_bps = spread_bps - gas_bps - 20
-
-    if net_bps < 5:
+    buy_gas = await get_swap_gas_usd(buy_chain, hops=1)
+    sell_gas = await get_swap_gas_usd(sell_chain, hops=1)
+    if buy_gas is None or sell_gas is None:
+        # Unknown/stale gas must not invent executable DeFi profitability.
         return None
-
+    bridge_gas = buy_gas + sell_gas
+    # Bridge protocol fee is venue-specific and not inventoried → fail closed
+    # for executability (do not invent a flat +$3 bridge fee).
     return {
         "kind": "defi_bridge",
         "strategy": "cross_chain_bridge",
@@ -238,8 +245,15 @@ async def scan_bridge_spread(session: aiohttp.ClientSession, asset: str) -> dict
         "sell_price": round(sell_p, 6),
         "spread_bps": round(spread_bps, 2),
         "bridge_gas_usd": round(bridge_gas, 2),
-        "net_spread_bps": round(net_bps, 2),
-        "profitable": net_bps > 10,
+        "bridge_protocol_fee_usd": None,
+        "net_spread_bps": None,
+        "profitable": False,
+        "executable": False,
+        "reject_reason": "bridge_protocol_fee_unknown",
+        "note": (
+            "Indicative cross-chain spread only. Bridge protocol fee is not "
+            "inventoried — fail closed for executable profitability."
+        ),
     }
 
 

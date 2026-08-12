@@ -39,13 +39,18 @@ RPC_ENDPOINTS = {
     "solana": "https://api.mainnet-beta.solana.com",
 }
 
-NATIVE_USD_FALLBACK = {
+# Display-only reference levels — NEVER used for executable gas / DeFi P&L.
+# Executable paths must fail closed when a live native/USD mid is unavailable.
+NATIVE_USD_DISPLAY_ONLY = {
     "ethereum": 3500.0,
     "bsc": 600.0,
     "arbitrum": 3500.0,
     "polygon": 0.5,
     "solana": 180.0,
 }
+
+# Cached gas older than this is not executable truth.
+_MAX_STALE_SEC = float(getattr(config, "GAS_ORACLE_MAX_STALE_SEC", 60))
 
 
 async def _rpc_post(session: aiohttp.ClientSession, url: str, payload: dict[str, Any]) -> Any:
@@ -90,15 +95,16 @@ async def _fetch_solana_priority_fee(session: aiohttp.ClientSession) -> float | 
         },
     )
     if not result:
-        # Fallback: ~5000 lamports per signature × 2 sigs
-        return 10_000.0
+        # Fail closed — do not invent priority fees for executable DeFi P&L.
+        return None
     fees = [int(row.get("prioritizationFee") or 0) for row in result if isinstance(row, dict)]
     if not fees:
-        return 10_000.0
+        return None
     return float(sorted(fees)[len(fees) // 2])
 
 
-def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float:
+def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float | None:
+    """Live native/USD mid for gas conversion. None when unknown (fail closed)."""
     asset_map = {
         "ethereum": "ETH",
         "bsc": "BNB",
@@ -112,10 +118,12 @@ def _native_usd(_session: aiohttp.ClientSession, chain: str) -> float:
 
         row = get_best_price("binance", f"{asset}/USDT")
         if row and row.get("mid"):
-            return float(row["mid"])
+            mid = float(row["mid"])
+            if mid > 0:
+                return mid
     except Exception:
         pass
-    return NATIVE_USD_FALLBACK.get(chain, 100.0)
+    return None
 
 
 def _chain_from_dex_chain_id(chain_id: str | None) -> str:
@@ -145,6 +153,8 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
                 if chain == "solana":
                     lamports = await _fetch_solana_priority_fee(session)
                     native_usd = _native_usd(session, chain)
+                    if lamports is None or native_usd is None:
+                        continue
                     # ~2 signatures + swap CU
                     cost_usd = (lamports / 1e9) * native_usd * 2
                     row = {
@@ -153,12 +163,15 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
                         "native_usd": native_usd,
                         "swap_cost_usd": round(max(0.001, cost_usd), 4),
                         "updated_ms": int(time.time() * 1000),
+                        "native_usd_source": "live_mid",
                     }
                 else:
                     gwei = await _fetch_eth_gas_gwei(session, chain)
                     if gwei is None:
                         continue
                     native_usd = _native_usd(session, chain)
+                    if native_usd is None:
+                        continue
                     gas_units = SWAP_GAS_UNITS.get(chain, 180_000)
                     cost_usd = (gwei * 1e-9) * gas_units * native_usd
                     row = {
@@ -168,6 +181,7 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
                         "native_usd": round(native_usd, 2),
                         "swap_cost_usd": round(max(0.01, cost_usd), 4),
                         "updated_ms": int(time.time() * 1000),
+                        "native_usd_source": "live_mid",
                     }
                 _CACHE[chain] = row
                 _CACHE_TS[chain] = time.monotonic()
@@ -176,21 +190,35 @@ async def refresh_gas_cache(*, chains: tuple[str, ...] = ("ethereum", "bsc", "so
     return dict(_CACHE)
 
 
-async def get_swap_gas_usd(chain: str, *, hops: int = 1) -> float:
-    """Live swap gas cost in USD for chain (cached)."""
+async def get_swap_gas_usd(chain: str, *, hops: int = 1) -> float | None:
+    """Live swap gas cost in USD for chain (cached).
+
+    Returns None when gas or native/USD conversion is unknown/stale.
+    Callers MUST fail closed — never invent a default gas USD for P&L.
+    """
     chain_key = _chain_from_dex_chain_id(chain)
     age = time.monotonic() - _CACHE_TS.get(chain_key, 0.0)
     if chain_key not in _CACHE or age > _REFRESH_INTERVAL_SEC:
         await refresh_gas_cache(chains=(chain_key, "ethereum", "bsc", "solana"))
-    row = _CACHE.get(chain_key) or _CACHE.get("ethereum") or {}
-    base = float(row.get("swap_cost_usd") or 5.0)
+    age = time.monotonic() - _CACHE_TS.get(chain_key, 0.0)
+    row = _CACHE.get(chain_key) or {}
+    if not row or "swap_cost_usd" not in row:
+        return None
+    if age > _MAX_STALE_SEC:
+        return None
+    base = float(row["swap_cost_usd"])
+    if base <= 0:
+        return None
     return base * max(1, hops)
 
 
-async def gas_cost_bps(chain: str, quote_usd: float, *, hops: int = 1) -> float:
+async def gas_cost_bps(chain: str, quote_usd: float, *, hops: int = 1) -> float | None:
+    """Gas cost in bps of quote; None when gas truth is unknown (fail closed)."""
     if quote_usd <= 0:
-        return 0.0
+        return None
     cost = await get_swap_gas_usd(chain, hops=hops)
+    if cost is None:
+        return None
     return (cost / quote_usd) * 10_000
 
 

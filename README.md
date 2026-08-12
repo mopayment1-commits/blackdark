@@ -47,6 +47,27 @@ APIs: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/intent/
 Harnesses: `scripts/load_test.py`, `scripts/load_test_1m_simulation.py`  
 Record runs in [`docs/LOAD_TEST_RUN_LOG.md`](docs/LOAD_TEST_RUN_LOG.md) before claiming capacity.
 
+## Install / operate / handover
+
+| Doc | Purpose |
+|-----|---------|
+| [`DEPLOY.md`](DEPLOY.md) · [`LAUNCH_GUIDE.md`](LAUNCH_GUIDE.md) | Deploy paths |
+| [`docs/RUNBOOK.md`](docs/RUNBOOK.md) | Day-2 ops, rollback, fail-closed |
+| [`docs/ops/BUYER_HANDOVER_PACK.md`](docs/ops/BUYER_HANDOVER_PACK.md) | Acquisition transfer pack |
+| [`docs/ops/ENV_VAR_REGISTRY.md`](docs/ops/ENV_VAR_REGISTRY.md) | Environment registry |
+| [`docs/DATA_ROOM.md`](docs/DATA_ROOM.md) | Diligence index + SBOM/licenses |
+| [`docs/dd/BLACKDARK_RC2_FINAL_CERTIFICATION.md`](docs/dd/BLACKDARK_RC2_FINAL_CERTIFICATION.md) | RC2 certification |
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install --upgrade "pip==25.2"
+pip install --require-hashes --only-binary=:all: -r requirements.hashes.txt
+python scripts/bootstrap_free_human_ops.py --admin-email YOU@example.com --rotate
+set -a; source .env.softlaunch.local; set +a
+# Do not inherit SERVICE_BUS_LOCAL=false from the host when running local tests
+env -u REDIS_URL SERVICE_BUS_LOCAL=true python -m pytest tests/ -q
+```
+
 ## Classification
 
 Analytical tool — not financial advice. Engineering compliance posture is not a substitute for counsel or licenses.

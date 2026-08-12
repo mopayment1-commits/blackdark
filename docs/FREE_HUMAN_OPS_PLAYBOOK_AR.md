@@ -44,7 +44,8 @@
 cd ~/Desktop/BLACKDARK
 git pull origin main
 rm -f .env.softlaunch.local
-python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
+python scripts/bootstrap_free_human_ops.py --admin-email YOU@example.com --rotate
+# Set YOU@example.com from docs/ops/OWNER_CONTACT_REGISTRY.md
 # يجب أن يطبع: "ok": true و "bytes": رقم أكبر من 100 — بدون ModuleNotFoundError
 python scripts/open_softlaunch_env.py
 ```
@@ -66,7 +67,7 @@ python scripts\open_softlaunch_env.py
 
 ```bat
 del .env.softlaunch.local
-python scripts\bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
+python scripts\bootstrap_free_human_ops.py --admin-email YOU@example.com --rotate
 python scripts\open_softlaunch_env.py
 ```
 
@@ -76,7 +77,7 @@ python scripts\open_softlaunch_env.py
 
 ```bash
 # 1) أسرار Soft Launch (لا تُطبع الأسرار؛ لا يحتاج pyotp)
-python scripts/bootstrap_free_human_ops.py --admin-email mopayment1@gmail.com --rotate
+python scripts/bootstrap_free_human_ops.py --admin-email YOU@example.com --rotate
 # فتح الملف (ويندوز = Notepad)
 python scripts/open_softlaunch_env.py
 

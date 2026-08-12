@@ -20,6 +20,12 @@ logger = logging.getLogger("BLACKDARK.AlertService")
 
 
 async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
+    try:
+        from env_secrets_loader import ensure_telegram_env
+
+        ensure_telegram_env()
+    except Exception:
+        logger.debug("telegram_secrets_load_skipped", exc_info=True)
     token = os.getenv("TELEGRAM_BOT_TOKEN", "")
     target = chat_id or os.getenv("TELEGRAM_CHAT_ID", "")
     if not token or not target:
