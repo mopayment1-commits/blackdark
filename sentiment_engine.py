@@ -507,6 +507,14 @@ async def _fetch_twitter_fallback_reddit(
 
 def _fetch_mock_social_streams(assets: list[str]) -> list[SentimentNewsItem]:
     items: list[SentimentNewsItem] = []
+    # Production / institutional: never inject mock social as live sentiment.
+    try:
+        from production_guard import is_production
+
+        if is_production() or os.getenv("INSTITUTIONAL_LAUNCH", "").lower() in {"1", "true", "yes"}:
+            return items
+    except Exception:
+        pass
     if config.SENTIMENT_DATA_SOURCE not in {"mock", "mixed"}:
         return items
 

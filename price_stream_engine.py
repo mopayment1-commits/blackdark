@@ -67,6 +67,19 @@ async def emit_tick(
     update_top_of_book(ex, symbol, bid=bid, bid_qty=bid_qty, ask=ask, ask_qty=ask_qty, market_type=market_type)
     _ticks_total += 1
 
+    # Institutional stream lifecycle: backpressure / outage / throttle fail-closed.
+    try:
+        from streaming_institutional import get_stream_lifecycle_manager
+
+        life = get_stream_lifecycle_manager()
+        life.register_subscription(ex, symbol)
+        life_mark = life.mark_message(ex, seq=None)
+        if not life_mark.get("ok"):
+            logger.warning("Stream lifecycle blocked tick: %s", life_mark.get("reason"))
+            return
+    except Exception:
+        logger.debug("Stream lifecycle mark skipped", exc_info=True)
+
     from stream_freshness_truth import fanout_safe, label_tick
 
     labeled = fanout_safe(

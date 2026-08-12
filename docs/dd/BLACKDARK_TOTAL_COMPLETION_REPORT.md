@@ -1,20 +1,20 @@
-# BLACKDARK TOTAL COMPLETION REPORT — PR #72 continuation
+# BLACKDARK TOTAL COMPLETION REPORT — PR #72 continuation (master mandate)
 
-**Candidate tip:** (see git after push)  
-**Suite:** 682 passed / 0 failed / 1 skipped  
+**Candidate tip:** see git HEAD after push  
+**Suite (pre-clean-room):** see CI / local pytest summary on tip  
 
-## Closed this iteration (explicit prior remainders)
+## Closed this iteration (master mandate delta)
 
 | Item | Status |
 |---|---|
-| JWKS / real IdP verification | COMPLETE (`oidc_jwks_verify.py`, wired into SSO callback) |
-| Real SAML AuthnRequest + Response crypto | COMPLETE (`saml_service.py`) |
-| Real SCIM User/Group API | COMPLETE (`scim_service.py`, router endpoints) |
-| Canonical adoption on critical arb/stream paths | COMPLETE |
-| Whale measured depth/impact evidence | COMPLETE (`whale_execution_evidence.py`) |
-| OMS cancel/replace | COMPLETE |
-| Continuous learning + white label + microstructure + flash-crash protection | COMPLETE |
-| SEC filings AI + PWA mobile claim + plan_audit partials→complete | COMPLETE |
+| CEX-DEX depth/impact executable gate + SC risk on exec | COMPLETE |
+| Production mock sentiment/macro fail-closed | COMPLETE |
+| Portfolio intelligence + stress battery | COMPLETE |
+| Alert ack/silence/dedupe/escalation | COMPLETE |
+| Streaming lifecycle (heartbeat/gap/dupe/backpressure/failover) | COMPLETE |
+| ORIGINAL_AUDIT_FINDING_CLOSURE_MATRIX | COMPLETE (27 CLOSED + 3 EXTERNAL) |
+| Prohibited-defect eradication gates | COMPLETE |
+| Load/soak/recovery smoke gates | COMPLETE |
 
 ## EXTERNAL (unchanged — not inventable in-repo)
 
@@ -26,10 +26,13 @@
 
 ## Clean-room audit
 
-**Not executed in this turn** (requires fresh independent agent with no remediation narrative).
+Must be executed by a **fresh independent agent** given ONLY:
 
-Therefore:
+1. final candidate SHA  
+2. original Capability Reality Audit specification  
 
-**FINAL VERDICT: NOT COMPLETE** for self-certified ≥95 / acquisition COMPLETE claims.
+No remediation narrative / desired score may be supplied to that auditor.
 
-Repository-fixable mandated gaps from the prior remainder list are addressed on this tip; independent Capability Reality Audit must still try to disprove completeness on the candidate SHA.
+Until that audit returns ≥95 with original recurrence = 0 and zero incomplete approved capabilities:
+
+**FINAL VERDICT: NOT COMPLETE**

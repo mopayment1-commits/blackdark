@@ -14,7 +14,8 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 from urllib.parse import urlencode
 from uuid import uuid4
-from xml.etree import ElementTree as ET
+from defusedxml import ElementTree as ET
+from xml.etree.ElementTree import ParseError as ETParseError
 
 from cryptography import x509
 from cryptography.exceptions import InvalidSignature
@@ -165,7 +166,7 @@ def verify_saml_response(
 
     try:
         root = ET.fromstring(xml_text)
-    except ET.ParseError as exc:
+    except ETParseError as exc:
         raise SamlVerificationError(f"saml_xml_invalid:{exc}") from exc
 
     if expected_destination:

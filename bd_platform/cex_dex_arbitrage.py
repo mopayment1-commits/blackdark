@@ -314,8 +314,23 @@ def _cex_dex_row(
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
-    # Indicative estimate only — never an executable fee-adjusted claim.
-    est_profit = quote_usd * (net_bps / 10_000) if net_bps > 0 else 0
+    # Depth-aware executability: require DEX liquidity ≥ 3× quote and known fees.
+    # Without verified CEX book walk, remain indicative (fail closed for executable).
+    depth_ok = liq >= max(quote_usd * 3.0, 1.0) and fee_bps is not None
+    # Conservative impact haircut when only pool liquidity is known (no L2 walk).
+    impact_bps = min(75.0, (quote_usd / liq) * 10_000 * 0.35) if liq > 0 else None
+    executable = bool(
+        depth_ok
+        and impact_bps is not None
+        and (net_bps - float(impact_bps)) > 0
+        and quote_usd > 0
+    )
+    adj_net = (net_bps - float(impact_bps)) if impact_bps is not None else None
+    est_profit = (
+        quote_usd * (adj_net / 10_000)
+        if executable and adj_net is not None and adj_net > 0
+        else (quote_usd * (net_bps / 10_000) if net_bps > 0 else 0)
+    )
     return {
         "asset": asset,
         "cex_prices": {k: round(v, 6) for k, v in cex_map.items()},
@@ -330,21 +345,29 @@ def _cex_dex_row(
         "sell_price": round(sell_price, 6),
         "spread_bps": round(spread_bps, 2),
         "indicative_fee_bps": round(fee_bps, 2),
-        # Kept for scan ranking/UI; labeled indicative — not executable economics.
+        "impact_bps_estimate": round(impact_bps, 2) if impact_bps is not None else None,
         "net_spread_bps": round(net_bps, 2),
-        "indicative_estimated_profit_usd": round(est_profit, 2),
-        "estimated_profit_usd": round(est_profit, 2),
+        "net_executable_spread_bps": round(adj_net, 2) if adj_net is not None else None,
+        "indicative_estimated_profit_usd": round(quote_usd * (net_bps / 10_000), 2) if net_bps > 0 else 0,
+        "estimated_profit_usd": round(est_profit, 2) if executable else None,
+        "net_executable_profit_usdt": round(est_profit, 2) if executable else None,
         "quote_usd": quote_usd,
         "topline_positive": net_bps > 0,
-        "profitable": False,
-        "executable": False,
-        "indicative": True,
-        "indicative_reason": "cex_dex_mid_price_no_depth",
+        "profitable": bool(executable and est_profit and est_profit > 0),
+        "executable": executable,
+        "indicative": not executable,
+        "indicative_reason": "" if executable else "cex_dex_insufficient_depth_or_impact",
+        "depth_verified": depth_ok,
+        "smart_contract_risk_required": True,
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (
             f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "
-            f"sell on {sell_venue} @ ${sell_price:,.2f} — indicative "
-            f"{net_bps:.1f} bps after fee_matrix estimate + gas (not executable)"
+            f"sell on {sell_venue} @ ${sell_price:,.2f} — "
+            + (
+                f"executable {adj_net:.1f} bps after fees+gas+impact"
+                if executable and adj_net is not None
+                else f"indicative {net_bps:.1f} bps (not executable without verified depth)"
+            )
         ),
         "kind": "cex_dex",
     }

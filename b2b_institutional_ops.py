@@ -62,17 +62,70 @@ def orchestrate_alert(
     severity = severity.lower()
     if severity not in {"low", "medium", "high", "critical"}:
         raise ValueError("invalid_severity")
+    # Deduplicate recent identical keys
+    existing = _tail(_ALERTS, limit=200)
+    for row in reversed(existing):
+        if row.get("org_id") == org_id and row.get("dedupe_key") == dedupe_key and row.get("status") in {
+            "queued",
+            "acked",
+            "silenced",
+        }:
+            return {**row, "deduplicated": True}
+    priority = {"low": 4, "medium": 3, "high": 2, "critical": 1}[severity]
     row = {
         "alert_id": f"al_{uuid.uuid4().hex[:12]}",
         "org_id": org_id,
         "severity": severity,
+        "priority": priority,
         "channel": channel,
         "message": message,
         "dedupe_key": dedupe_key,
         "created_at": _utcnow(),
         "status": "queued",
+        "escalation": "pager" if severity in {"high", "critical"} else "inbox",
+        "ack_required": severity in {"high", "critical"},
     }
     return _append(_ALERTS, row)
+
+
+def acknowledge_alert(alert_id: str, *, actor: str) -> dict[str, Any]:
+    rows = _tail(_ALERTS, limit=500)
+    for row in rows:
+        if row.get("alert_id") == alert_id:
+            row["status"] = "acked"
+            row["acked_by"] = actor
+            row["acked_at"] = _utcnow()
+            return _append(_ALERTS, row)
+    raise ValueError("alert_not_found")
+
+
+def silence_alert(alert_id: str, *, actor: str, reason: str = "") -> dict[str, Any]:
+    rows = _tail(_ALERTS, limit=500)
+    for row in rows:
+        if row.get("alert_id") == alert_id:
+            row["status"] = "silenced"
+            row["silenced_by"] = actor
+            row["silence_reason"] = reason
+            row["silenced_at"] = _utcnow()
+            return _append(_ALERTS, row)
+    raise ValueError("alert_not_found")
+
+
+def _tail(path, limit: int = 100) -> list[dict[str, Any]]:
+    p = ensure_under(path, _DATA_BASE)
+    if not p.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    with p.open(encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                continue
+    return rows[-limit:]
 
 
 def record_sla_event(

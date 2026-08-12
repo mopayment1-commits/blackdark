@@ -371,10 +371,109 @@ def test_b2b_ops_surfaces(tmp_path, monkeypatch):
     assert b2b.b2b_status()["product_complete"] is True
 
 
-def test_cex_dex_remains_indicative_not_executable():
-    from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
+def test_cex_dex_depth_aware_and_executor_blocks_indicative():
+    from pathlib import Path
     import inspect
+    import asyncio
+    from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities, _cex_dex_row
+    from bd_platform.cex_dex_executor import execute_cex_dex_opportunity
 
     src = Path(inspect.getfile(scan_cex_dex_opportunities)).read_text(encoding="utf-8")
-    assert '"executable": False' in src
-    assert "indicative" in src
+    assert "depth_verified" in src
+    assert "impact_bps_estimate" in src
+    # Insufficient liquidity → not executable
+    row = _cex_dex_row(
+        "BTC",
+        {"binance": 100.0},
+        100.0,
+        {"price": 99.0, "venue": "jupiter", "liquidity_usd": 100.0},
+        "jupiter",
+        99.0,
+        "binance",
+        100.0,
+        100.0,
+        80.0,
+        1000.0,
+        fee_bps=10.0,
+    )
+    assert row["executable"] is False
+    assert row["indicative"] is True
+
+    async def _run():
+        return await execute_cex_dex_opportunity(row, dry_run=True)
+
+    out = asyncio.run(_run())
+    assert out["blocked"] is True
+
+
+def test_stream_lifecycle_gap_duplicate_outage_failover():
+    from streaming_institutional import (
+        StreamLifecycleManager,
+        reset_stream_lifecycle_for_tests,
+        streaming_control_plane,
+    )
+
+    reset_stream_lifecycle_for_tests()
+    m = StreamLifecycleManager()
+    m.register_subscription("binance", "BTC/USDT", worker_id="w1")
+    assert m.heartbeat("binance")["alive"] is True
+    assert m.mark_message("binance", seq=1)["ok"] is True
+    dup = m.mark_message("binance", seq=1)
+    assert dup["duplicate"] is True
+    assert dup["ok"] is False
+    gap = m.mark_message("binance", seq=5)
+    assert gap["gap"] is True
+    outage = m.mark_outage("binance", failover_to="okx")
+    assert outage["executable_quotes"] is False
+    assert m.mark_message("binance", seq=6)["ok"] is False
+    assert m.reconnect("binance")["recovery"] is True
+    assert m.is_alive("binance")["alive"] is True
+    plane = streaming_control_plane()
+    assert plane["stale_as_live"] == 0
+    assert "gap_detection" in plane["controls"]
+
+
+def test_portfolio_and_stress_fail_closed_unknown_notional():
+    from portfolio_intelligence import analyze_portfolio
+    from stress_testing import run_stress_battery
+
+    bad = analyze_portfolio([{"asset": "BTC", "side": "long"}])
+    assert bad["executable_analysis"] is False
+    assert bad["reason"] == "notional_unknown"
+
+    positions = [
+        {"asset": "BTC", "side": "long", "notional_usd": 500_000, "unrealized_pnl_usd": -1000},
+        {"asset": "ETH", "side": "long", "notional_usd": 200_000, "unrealized_pnl_usd": 500},
+    ]
+    good = analyze_portfolio(positions)
+    assert good["executable_analysis"] is True
+    assert good["herfindahl"] > 0
+    battery = run_stress_battery(positions)
+    assert battery["scenarios"]
+    names = {s["scenario"] for s in battery["scenarios"]}
+    assert "market_crash" in names
+    assert "protocol_failure" in names
+
+
+def test_alert_ack_silence_dedupe():
+    import b2b_institutional_ops as b2b
+
+    a1 = b2b.orchestrate_alert(
+        org_id="org-x",
+        severity="critical",
+        channel="pager",
+        message="flash",
+        dedupe_key="flash-1",
+    )
+    a2 = b2b.orchestrate_alert(
+        org_id="org-x",
+        severity="critical",
+        channel="pager",
+        message="flash",
+        dedupe_key="flash-1",
+    )
+    assert a2.get("deduplicated") is True
+    ack = b2b.acknowledge_alert(a1["alert_id"], actor="ops")
+    assert ack["status"] == "acked"
+    sil = b2b.silence_alert(a1["alert_id"], actor="ops", reason="known")
+    assert sil["status"] == "silenced"
