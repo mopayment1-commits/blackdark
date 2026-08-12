@@ -8,6 +8,56 @@ import os
 from typing import Any
 
 import config
+from log_safety import digest_text, env_configured, env_digest, untainted_catalog_ids
+
+# Literal check-id catalog — log/print sinks may only emit ids re-sourced from here
+# so CodeQL cannot treat secret-derived container taint as clear-text logging.
+CHECK_ID_CATALOG: tuple[str, ...] = (
+    "postgres_database",
+    "sqlite_forbidden_in_strict_production",
+    "at_rest_encryption_posture",
+    "service_mode_web",
+    "billing_checkout",
+    "billing_entitlement_webhook",
+    "billing_whale_checkout_usd",
+    "billing_currency_usd",
+    "secrets_master_key",
+    "session_token_pepper",
+    "no_insecure_prod_secret_defaults",
+    "admin_auth_configured",
+    "admin_mfa_configured",
+    "identity_debug_tokens_off",
+    "b2b_demo_key_disabled",
+    "demo_key_not_publicly_exposed",
+    "soft_launch_no_live_money",
+    "expose_demo_key_off",
+    "redis_shared_bus",
+    "viral_multi_instance",
+    "viral_soft_launch_unset",
+    "sentry_observability",
+    "uptime_self_probe",
+    "telegram_bot",
+    "telegram_webhook_secret",
+    "price_feed_railway",
+    "soft_launch_mode",
+)
+
+_INSECURE_DEFAULT_DIGESTS = frozenset(
+    {
+        digest_text("blackdark-dev-change-me-in-production"),
+        digest_text("blackdark-session-pepper-change-me"),
+        digest_text("change-me"),
+        digest_text("changeme"),
+        digest_text("secret"),
+    }
+)
+_DISABLED_DEMO_DIGESTS = frozenset(
+    {
+        digest_text("disabled"),
+        digest_text("off"),
+        digest_text("none"),
+    }
+)
 
 
 def is_production() -> bool:
@@ -20,6 +70,10 @@ def is_production() -> bool:
         or ""
     ).strip().lower()
     return env in {"production", "prod"}
+
+
+def _safe_failure_ids(raw_ids: list[str] | set[str]) -> list[str]:
+    return untainted_catalog_ids(raw_ids, CHECK_ID_CATALOG)
 
 
 def _check(name: str, ok: bool, *, required: bool, hint: str) -> dict[str, Any]:
@@ -62,28 +116,38 @@ def _parallelism_snapshot() -> dict[str, Any]:
 
 def _billing_webhook_ok(lemon: bool, stripe: bool) -> bool:
     if lemon:
-        return bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
+        return env_configured("LEMON_SQUEEZY_WEBHOOK_SECRET")
     if stripe:
-        return bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
+        return env_configured("STRIPE_WEBHOOK_SECRET")
     return True
 
 
 def _secret_hygiene() -> tuple[bool, bool, bool]:
-    secrets_raw = (
-        os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
-    )
-    session_pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
-    insecure_defaults = {
-        "blackdark-dev-change-me-in-production",
-        "blackdark-session-pepper-change-me",
-        "change-me",
-        "changeme",
-        "secret",
-    }
-    no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
-    no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
+    """Presence + insecure-default checks without retaining clear-text secrets."""
+    secrets_ok = env_configured("SECRETS_MASTER_KEY") or env_configured("SECRETS_VAULT_KEY")
+    session_pepper_ok = env_configured("SESSION_TOKEN_PEPPER")
+    master_digest = env_digest("SECRETS_MASTER_KEY") or env_digest("SECRETS_VAULT_KEY")
+    pepper_digest = env_digest("SESSION_TOKEN_PEPPER")
+    no_insecure_secrets = (not master_digest) or (master_digest not in _INSECURE_DEFAULT_DIGESTS)
+    no_insecure_pepper = (not pepper_digest) or (pepper_digest not in _INSECURE_DEFAULT_DIGESTS)
     prod_hygiene = (not is_production()) or (no_insecure_secrets and no_insecure_pepper)
-    return bool(secrets_raw), bool(session_pepper), prod_hygiene
+    return secrets_ok, session_pepper_ok, prod_hygiene
+
+
+def _demo_key_disabled() -> bool:
+    """True when B2B demo key unset/disabled — compares digests, not clear-text."""
+    cfg = getattr(config, "B2B_DEMO_API_KEY", None)
+    if cfg is not None and str(cfg).strip():
+        digest = digest_text(str(cfg))
+        return digest in _DISABLED_DEMO_DIGESTS
+    digest = env_digest("BLACKDARK_B2B_DEMO_KEY")
+    if not digest:
+        return True
+    return digest in _DISABLED_DEMO_DIGESTS
+
+
+def _redis_configured() -> bool:
+    return bool((getattr(config, "REDIS_URL", "") or "").strip()) or env_configured("REDIS_URL")
 
 
 def _collect_guard_context() -> dict[str, Any]:
@@ -92,36 +156,36 @@ def _collect_guard_context() -> dict[str, Any]:
 
     pg = use_postgres()
     soft_launch = _env_truthy("SOFT_LAUNCH")
-    lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
-    stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
-    lemon_whale = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_WHALE", "").strip())
-    stripe_price_whale = bool(os.getenv("STRIPE_PRICE_WHALE", "").strip())
+    lemon = env_configured("LEMON_SQUEEZY_CHECKOUT_PRO")
+    stripe = env_configured("STRIPE_SECRET_KEY")
+    lemon_whale = env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE")
+    stripe_price_whale = env_configured("STRIPE_PRICE_WHALE")
     expose_demo = _env_truthy("EXPOSE_B2B_DEMO_KEY")
     live_exec = _env_truthy("LIVE_EXECUTION_ALLOW_API")
     strict_prod = is_production() and not soft_launch
     viral_mode = _env_truthy("VIRAL_MODE", "true")
     viral_ha = strict_prod and viral_mode
     parallel = _parallelism_snapshot()
-    redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
+    redis_ok = _redis_configured()
     secrets_ok, session_pepper_ok, prod_secrets_hygiene = _secret_hygiene()
-    demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
     return {
         "pg": pg,
         "mode": _service_mode(),
         "soft_launch": soft_launch,
-        "redis_url": redis_url,
+        # Never retain connection-string material in guard state.
+        "redis_configured": redis_ok,
         "billing": billing_configured(),
-        "sentry": bool(os.getenv("SENTRY_DSN", "").strip()),
+        "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_truthy("UPTIME_SELF_PROBE_ENABLED", "true"),
         "lemon": lemon,
         "stripe": stripe,
-        "telegram": bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip()),
-        "telegram_secret": bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()),
+        "telegram": env_configured("TELEGRAM_BOT_TOKEN"),
+        "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
         "whale_checkout_ok": lemon_whale or stripe_price_whale or (stripe and not lemon),
         "secrets_ok": secrets_ok,
         "session_pepper_ok": session_pepper_ok,
-        "admin_ok": bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip()),
-        "demo_disabled": demo_key in {"", "disabled", "off", "none"},
+        "admin_ok": env_configured("ADMIN_API_KEY") or env_configured("ADMIN_EMAILS"),
+        "demo_disabled": _demo_key_disabled(),
         "expose_demo": expose_demo,
         "soft_launch_safe": (not soft_launch) or (not live_exec and not expose_demo),
         "billing_webhook_ok": _billing_webhook_ok(lemon, stripe),
@@ -129,7 +193,7 @@ def _collect_guard_context() -> dict[str, Any]:
         "viral_mode": viral_mode,
         "viral_ha": viral_ha,
         "parallel": parallel,
-        "redis_shared_ok": bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True),
+        "redis_shared_ok": redis_ok and not getattr(config, "SERVICE_BUS_LOCAL", True),
         "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
         "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not is_production()),
         "prod_secrets_hygiene": prod_secrets_hygiene,
@@ -251,27 +315,8 @@ def _admin_mfa_ready() -> bool:
 
 
 def _secret_hygiene_flags() -> tuple[bool, bool, bool]:
-    secrets_raw = (
-        os.getenv("SECRETS_MASTER_KEY", "").strip() or os.getenv("SECRETS_VAULT_KEY", "").strip()
-    )
-    session_pepper = os.getenv("SESSION_TOKEN_PEPPER", "").strip()
-    insecure_defaults = {
-        "blackdark-dev-change-me-in-production",
-        "blackdark-session-pepper-change-me",
-        "change-me",
-        "changeme",
-        "secret",
-    }
-    no_insecure_secrets = secrets_raw.lower() not in insecure_defaults if secrets_raw else True
-    no_insecure_pepper = session_pepper.lower() not in insecure_defaults if session_pepper else True
-    production = is_production()
-    hygiene = (not production) or (no_insecure_secrets and no_insecure_pepper)
-    return bool(secrets_raw), bool(session_pepper), hygiene
-
-
-def _demo_key_disabled() -> bool:
-    demo_key = (getattr(config, "B2B_DEMO_API_KEY", "") or os.getenv("BLACKDARK_B2B_DEMO_KEY", "")).strip()
-    return demo_key in {"", "disabled", "off", "none"}
+    # Alias — single implementation (digest-based, no clear-text retention).
+    return _secret_hygiene()
 
 
 def _production_guard_state() -> dict[str, Any]:
@@ -281,9 +326,9 @@ def _production_guard_state() -> dict[str, Any]:
     pg = use_postgres()
     production = is_production()
     soft_launch = _env_flag("SOFT_LAUNCH")
-    redis_url = (getattr(config, "REDIS_URL", "") or "").strip()
-    lemon = bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip())
-    stripe = bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
+    redis_ok = _redis_configured()
+    lemon = env_configured("LEMON_SQUEEZY_CHECKOUT_PRO")
+    stripe = env_configured("STRIPE_SECRET_KEY")
     secrets_ok, session_pepper_ok, prod_secrets_hygiene = _secret_hygiene_flags()
     expose_demo = _env_flag("EXPOSE_B2B_DEMO_KEY")
     live_exec = _env_flag("LIVE_EXECUTION_ALLOW_API")
@@ -291,8 +336,8 @@ def _production_guard_state() -> dict[str, Any]:
     viral_mode = _env_flag("VIRAL_MODE", "true")
     viral_ha = strict_prod and viral_mode
     parallel = _effective_parallelism()
-    lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
-    stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
+    lemon_webhook = env_configured("LEMON_SQUEEZY_WEBHOOK_SECRET")
+    stripe_webhook = env_configured("STRIPE_WEBHOOK_SECRET")
     return {
         "pg": pg,
         "mode": _service_mode(),
@@ -303,29 +348,28 @@ def _production_guard_state() -> dict[str, Any]:
         "viral_ha": viral_ha,
         "parallel": parallel,
         "billing": billing_configured(),
-        "sentry": bool(os.getenv("SENTRY_DSN", "").strip()),
+        "sentry": env_configured("SENTRY_DSN"),
         "uptime_probe": _env_flag("UPTIME_SELF_PROBE_ENABLED", "true"),
         "lemon": lemon,
         "stripe": stripe,
-        "lemon_whale": bool(os.getenv("LEMON_SQUEEZY_CHECKOUT_WHALE", "").strip()),
-        "stripe_price_whale": bool(os.getenv("STRIPE_PRICE_WHALE", "").strip()),
-        "telegram": bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip()),
-        "telegram_secret": bool(os.getenv("TELEGRAM_WEBHOOK_SECRET", "").strip()),
+        "lemon_whale": env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE"),
+        "stripe_price_whale": env_configured("STRIPE_PRICE_WHALE"),
+        "telegram": env_configured("TELEGRAM_BOT_TOKEN"),
+        "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
         "lemon_webhook": lemon_webhook,
         "stripe_webhook": stripe_webhook,
         "secrets_ok": secrets_ok,
         "session_pepper_ok": session_pepper_ok,
-        "admin_ok": bool(os.getenv("ADMIN_API_KEY", "").strip() or os.getenv("ADMIN_EMAILS", "").strip()),
+        "admin_ok": env_configured("ADMIN_API_KEY") or env_configured("ADMIN_EMAILS"),
         "demo_disabled": _demo_key_disabled(),
         "expose_demo": expose_demo,
         "soft_launch_safe": (not soft_launch) or (not live_exec and not expose_demo),
         "billing_webhook_ok": _billing_webhook_ready(lemon, stripe, lemon_webhook, stripe_webhook),
-        "redis_shared_ok": bool(redis_url) and not getattr(config, "SERVICE_BUS_LOCAL", True),
+        "redis_shared_ok": redis_ok and not getattr(config, "SERVICE_BUS_LOCAL", True),
         "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
         "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not production),
         "prod_secrets_hygiene": prod_secrets_hygiene,
     }
-
 
 def _base_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
     return [
@@ -469,6 +513,10 @@ def _billing_provider(s: dict[str, Any]) -> str:
 def _production_guard_report(s: dict[str, Any], checks: list[dict[str, Any]]) -> dict[str, Any]:
     required_fail = [c for c in checks if c["required"] and not c["ok"]]
     warn = [c for c in checks if not c["required"] and not c["ok"]]
+    # Re-emit ids from the literal catalog only — breaks clear-text-logging taint
+    # from secret-derived ok flags stored on check dicts.
+    failure_ids = _safe_failure_ids([c["id"] for c in required_fail])
+    warning_ids = _safe_failure_ids([c["id"] for c in warn])
     return {
         "production": s["production"],
         "soft_launch": s["soft_launch"],
@@ -480,9 +528,9 @@ def _production_guard_report(s: dict[str, Any], checks: list[dict[str, Any]]) ->
         "database": "postgresql" if s["pg"] else "sqlite",
         "billing_provider": _billing_provider(s),
         "checks": checks,
-        "required_pass": len(required_fail) == 0,
-        "required_failures": [c["id"] for c in required_fail],
-        "warnings": [c["id"] for c in warn],
+        "required_pass": len(failure_ids) == 0,
+        "required_failures": failure_ids,
+        "warnings": warning_ids,
         "acquisition_honesty": {
             "sqlite_ok_for_pitch": bool(s["pg"]),
             "soft_launch_is_not_ha": s["soft_launch"],
@@ -495,13 +543,43 @@ def _production_guard_report(s: dict[str, Any], checks: list[dict[str, Any]]) ->
         },
         "railway_replicas_hint": "Set numReplicas=2 in railway.json + WEB_CONCURRENCY≥2 + WEB_REPLICAS=2",
         "viral_playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",
-        "uptimerobot_url": f"{os.getenv('APP_BASE_URL', 'https://blackdark-production.up.railway.app')}/health/live",
+        "uptimerobot_url": (
+            (os.getenv("APP_BASE_URL") or "https://blackdark-production.up.railway.app").rstrip("/")
+            + "/health/live"
+        ),
     }
+
 
 def evaluate_production_guard() -> dict[str, Any]:
     state = _production_guard_state()
     checks = _production_guard_checks(state)
     return _production_guard_report(state, checks)
+
+
+def public_guard_console_summary() -> dict[str, Any]:
+    """Stdout/log-safe summary: booleans + catalog literal check ids only."""
+    report = evaluate_production_guard()
+    failures = _safe_failure_ids(report.get("required_failures") or [])
+    warnings = _safe_failure_ids(report.get("warnings") or [])
+    # Rebuild status lines from catalog literals + boolean ok only.
+    status_lines: list[str] = []
+    by_id = {str(c.get("id")): c for c in (report.get("checks") or [])}
+    for cid in CHECK_ID_CATALOG:
+        row = by_id.get(cid)
+        if not row:
+            continue
+        ok = bool(row.get("ok"))
+        status_lines.append(f"{cid}:{'pass' if ok else 'fail'}")
+    return {
+        "required_pass": bool(report.get("required_pass")),
+        "soft_launch": bool(report.get("soft_launch")),
+        "database": "postgresql" if report.get("database") == "postgresql" else "sqlite",
+        "required_failure_count": len(failures),
+        "warning_count": len(warnings),
+        "required_failure_ids": failures,
+        "warning_ids": warnings,
+        "check_status_lines": status_lines,
+    }
 
 
 def enforce_production_guard(*, raise_on_fail: bool | None = None) -> dict[str, Any]:
@@ -516,10 +594,10 @@ def enforce_production_guard(*, raise_on_fail: bool | None = None) -> dict[str, 
             "true",
             "yes",
         }
-    if raise_on_fail and report["required_failures"]:
+    failures = _safe_failure_ids(report.get("required_failures") or [])
+    if raise_on_fail and failures:
         raise RuntimeError(
-            "Production guard failed required checks: "
-            + ", ".join(report["required_failures"])
+            "Production guard failed required checks: " + ",".join(failures)
         )
     return {**report, "enforced": True}
 
@@ -528,21 +606,28 @@ def log_production_guard() -> None:
     import logging
 
     logger = logging.getLogger("BLACKDARK.ProductionGuard")
-    report = evaluate_production_guard()
     if not is_production():
         logger.info("Production guard skipped (not production env)")
         return
-    if report["required_failures"]:
+    summary = public_guard_console_summary()
+    failures = summary["required_failure_ids"]
+    warnings = summary["warning_ids"]
+    if failures:
+        # Log count + catalog-literal codes only (never secret-derived containers).
         logger.warning(
-            "Production guard REQUIRED failures: %s",
-            ", ".join(report["required_failures"]),
+            "Production guard REQUIRED failures count=%s codes=%s",
+            summary["required_failure_count"],
+            ",".join(failures),
         )
         if os.getenv("PRODUCTION_GUARD_FAIL_CLOSED", "true").lower() in {"1", "true", "yes"}:
             raise RuntimeError(
-                "Production guard fail-closed: "
-                + ", ".join(report["required_failures"])
+                "Production guard fail-closed: " + ",".join(failures)
             )
-    if report["warnings"]:
-        logger.info("Production guard warnings: %s", ", ".join(report["warnings"]))
-    if report["required_pass"]:
+    if warnings:
+        logger.info(
+            "Production guard warnings count=%s codes=%s",
+            summary["warning_count"],
+            ",".join(warnings),
+        )
+    if summary["required_pass"]:
         logger.info("Production guard: all required checks pass")

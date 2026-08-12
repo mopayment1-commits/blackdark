@@ -39,6 +39,7 @@ def main() -> int:
     print("=" * 60)
     print("\nREQUIRED (paste into Railway -> Variables):\n")
     for key, val in REQUIRED:
+        # Placeholder strings only — never live env values.
         print(f"  {key}={val}")
 
     print("\nRECOMMENDED:\n")
@@ -51,17 +52,18 @@ def main() -> int:
     print(f"Architecture DD: {PROD_URL}/api/due-diligence/architecture")
 
     try:
-        from production_guard import evaluate_production_guard
+        from production_guard import public_guard_console_summary
 
-        report = evaluate_production_guard()
+        summary = public_guard_console_summary()
         print("\nLocal guard preview (statuses only — no secrets):")
-        print(f"  required_pass={report.get('required_pass')}")
-        print(f"  soft_launch={report.get('soft_launch')}")
-        print(f"  database={report.get('database')}")
-        fails = report.get("required_failures") or []
-        print(f"  required_failures={fails}")
-        for check in report.get("checks") or []:
-            print(f"  - {check.get('id')}: {check.get('status')}")
+        print(f"  required_pass={summary['required_pass']}")
+        print(f"  soft_launch={summary['soft_launch']}")
+        print(f"  database={summary['database']}")
+        print(f"  required_failure_count={summary['required_failure_count']}")
+        for code in summary["required_failure_ids"]:
+            print(f"  failure_code={code}")
+        for code in summary["warning_ids"]:
+            print(f"  warning_code={code}")
     except Exception:
         print("\n(local preview skipped)")
 
