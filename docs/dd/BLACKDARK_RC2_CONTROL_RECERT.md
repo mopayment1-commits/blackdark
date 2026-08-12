@@ -1,7 +1,7 @@
 # BLACKDARK RC2 — Independent 210-Control Re-Certification
 
 **RC1 SHA (immutable):** `de6537fb29d6bc6203d58b572924db55b9c74d53`  
-**RC2 evaluation SHA:** `d7a5c4dc1ad2ce1905e9071710e78aeb1e99f0bf`  
+**RC2 evaluation SHA:** `a597fb7808e5cf79626d24e9bdc1e388abc416fa`  
 **Method:** Re-evaluate every RC1 control against RC2 repository evidence. Do not inherit PASS from documentation alone. EXTERNAL never fabricated as PASS.
 
 ## Aggregate (RC2)

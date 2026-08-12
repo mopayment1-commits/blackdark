@@ -1,7 +1,7 @@
 # BLACKDARK RC2 FINAL CERTIFICATION
 
 **RC1 SHA:** `de6537fb29d6bc6203d58b572924db55b9c74d53`  
-**RC2 SHA:** `d7a5c4dc1ad2ce1905e9071710e78aeb1e99f0bf`  
+**RC2 SHA:** `a597fb7808e5cf79626d24e9bdc1e388abc416fa` (docs stamp commit may be tip+1)  
 **Branch:** `cursor/rc2-zero-defect-120d`  
 **Ledger:** `docs/dd/BLACKDARK_RC2_REMEDIATION_LEDGER.json`  
 **Control re-cert:** `docs/dd/BLACKDARK_RC2_CONTROL_RECERT.md`
@@ -9,7 +9,7 @@
 ---
 
 
-## CI @ RC2 tip 
+## CI @ RC2 tip `a597fb7808e5cf79626d24e9bdc1e388abc416fa`
 
 | Gate | Result |
 |------|--------|
