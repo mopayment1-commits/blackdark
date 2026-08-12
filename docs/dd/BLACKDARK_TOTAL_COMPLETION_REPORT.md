@@ -1,6 +1,6 @@
 # BLACKDARK TOTAL COMPLETION REPORT — PR #72 continuation (master mandate)
 
-**Candidate tip:** `86241b7e19e0f0de68ad73fb828dfcffcaa68936`  
+**Candidate tip:** `f142c6f43a155199c4111934d594f8189beba490`  
 **Suite (pre-clean-room):** 704 passed / 0 failed / 1 skipped  
 
 ## Closed this iteration (master mandate delta)
