@@ -413,11 +413,15 @@ async def canonical_status_api(
     from live_data_truth_probe import probe_binance_public_book, probe_status
     from streaming_institutional import streaming_status
 
+    from live_data_truth_probe import prove_multi_venue_live
+
     live = await probe_binance_public_book("BTCUSDT")
+    multi = await prove_multi_venue_live()
     return {
         "canonical_data_layer": layer_status(),
         "canonical_adoption": adoption_status(),
         "streaming": streaming_status(),
         "live_public_probe": live,
+        "live_multi_venue_proof": multi,
         "live_probe_status": probe_status(),
     }

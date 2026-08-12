@@ -52,18 +52,72 @@ def generate_committee_report(
 
 
 def _deliver_channel(channel: str, payload: dict[str, Any]) -> dict[str, Any]:
-    """Dispatch alert to a channel sink. Unknown channels fail closed."""
+    """Dispatch alert to a channel sink. Unknown channels fail closed.
+
+    - inbox/pager/email/slack: durable local sink (operator MTA/chat connectors optional)
+    - webhook: real HTTP POST when ALERT_WEBHOOK_URL is set; otherwise fail-closed
+      (no simulated success)
+    """
+    import os
+    import urllib.error
+    import urllib.request
+
     channel = (channel or "").strip().lower()
     allowed = {"inbox", "pager", "webhook", "email", "slack"}
     if channel not in allowed:
         return {"delivered": False, "reason": "channel_unknown", "channel": channel}
-    # In-repo delivery: durable delivery receipt (operator connectors plug here).
+
+    if channel == "webhook":
+        url = (os.getenv("ALERT_WEBHOOK_URL") or "").strip()
+        if not url:
+            receipt = {
+                "delivered": False,
+                "channel": channel,
+                "transport": "webhook",
+                "reason": "ALERT_WEBHOOK_URL_unset_fail_closed",
+                "delivered_at": _utcnow(),
+            }
+            delivery_path = ensure_under(_DATA_BASE / "alert_deliveries.jsonl", _DATA_BASE)
+            _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})
+            return receipt
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=body,
+            headers={"Content-Type": "application/json", "User-Agent": "BLACKDARK-Alert/1.0"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=5) as resp:  # noqa: S310 — operator URL
+                status = getattr(resp, "status", 0) or 0
+            ok = 200 <= int(status) < 300
+            receipt = {
+                "delivered": ok,
+                "channel": channel,
+                "transport": "http_webhook",
+                "http_status": int(status),
+                "reason": None if ok else f"http_{status}",
+                "delivered_at": _utcnow(),
+            }
+        except (urllib.error.URLError, TimeoutError, ValueError) as exc:
+            receipt = {
+                "delivered": False,
+                "channel": channel,
+                "transport": "http_webhook",
+                "reason": f"webhook_error:{type(exc).__name__}",
+                "delivered_at": _utcnow(),
+            }
+        delivery_path = ensure_under(_DATA_BASE / "alert_deliveries.jsonl", _DATA_BASE)
+        _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})
+        return receipt
+
     receipt = {
         "delivered": True,
         "channel": channel,
-        "transport": "institutional_channel_sink",
+        "transport": f"local_{channel}_sink",
         "delivered_at": _utcnow(),
         "payload_digest": str(abs(hash(json.dumps(payload, sort_keys=True, default=str))) % 10**12),
+        "note": "Local durable sink; external MTA/chat connector optional via env.",
     }
     delivery_path = ensure_under(_DATA_BASE / "alert_deliveries.jsonl", _DATA_BASE)
     _append(delivery_path, {**receipt, "alert_id": payload.get("alert_id")})

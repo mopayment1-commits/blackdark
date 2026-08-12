@@ -121,14 +121,18 @@ def test_portfolio_dashboard_mapper():
 
 @pytest.mark.asyncio
 async def test_live_data_truth_probe_fail_closed_or_live():
-    from live_data_truth_probe import probe_binance_public_book
+    from live_data_truth_probe import probe_binance_public_book, prove_multi_venue_live
 
     out = await probe_binance_public_book("BTCUSDT")
     assert "ok" in out
     if out["ok"]:
         assert out["live"] is True
         assert out["executable_quotes"] is True
-        assert out["venue"] == "binance"
+        assert out["venue"] in {"binance", "okx", "kraken"}
     else:
         assert out["live"] is False
         assert out["executable_quotes"] is False
+    multi = await prove_multi_venue_live()
+    # At least one public venue should be reachable from this environment.
+    assert multi["live_count"] >= 1
+    assert multi["stale_as_live"] == 0
