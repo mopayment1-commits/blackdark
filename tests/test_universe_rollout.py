@@ -65,3 +65,9 @@ def test_live_rollout_status_uses_dialect_safe_cutoff(tmp_path, monkeypatch):
         assert status["manifest_approved"] is True
 
     asyncio.run(_run())
+
+
+def test_rollout_summary_json():
+    data = rollout_summary_json()
+    assert "registry_exchanges" in data
+    assert data["registry_exchanges"] >= 100
