@@ -63,6 +63,12 @@ def remember(
     with _LOCK:
         with path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    try:
+        from institutional_store import memory_remember_sync
+
+        memory_remember_sync(row)
+    except Exception:
+        pass
     return row
 
 

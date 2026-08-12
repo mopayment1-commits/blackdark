@@ -206,8 +206,34 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         errors.append(f"derivatives:{type(exc).__name__}")
         modules["derivatives"] = {"ok": False}
 
+    # Unified decision object — one coherent decision, not 7 dashboards.
+    decision_object: dict[str, Any] = {}
+    try:
+        from decision_e2e import run_decision_e2e
+
+        e2e = run_decision_e2e(symbol=symbol, org_id=org_id, notional=25_000.0)
+        decision_object = e2e.get("decision_object") or {}
+        modules["unified_decision"] = {
+            "ok": bool(e2e.get("ok")),
+            "executable": e2e.get("executable"),
+            "graph_id": decision_object.get("graph_id"),
+            "pipeline": decision_object.get("pipeline"),
+        }
+    except Exception as exc:  # noqa: BLE001
+        errors.append(f"unified_decision:{type(exc).__name__}")
+        modules["unified_decision"] = {"ok": False}
+
     ready = sum(1 for v in modules.values() if v.get("ok") is True)
-    required = ("arbitrage", "whales", "onchain", "portfolio", "research", "charts_microstructure", "derivatives")
+    required = (
+        "arbitrage",
+        "whales",
+        "onchain",
+        "portfolio",
+        "research",
+        "charts_microstructure",
+        "derivatives",
+        "unified_decision",
+    )
     required_ok = all(modules.get(k, {}).get("ok") for k in required)
     return {
         "surface": "super_terminal",
@@ -215,6 +241,7 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         "org_id": org_id,
         "generated_at": datetime.now(UTC).isoformat(),
         "modules": modules,
+        "decision_object": decision_object,
         "module_keys": sorted(modules.keys()),
         "errors": errors,
         "canonical_required": True,
@@ -225,7 +252,7 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         "product_complete": False,
         "modules_ready": ready,
         "required_ok": required_ok,
-        "note": "Super Terminal aggregates real backend modules; incomplete deps remain visible.",
+        "note": "Super Terminal = intelligence domains feeding one coherent decision_object.",
     }
 
 

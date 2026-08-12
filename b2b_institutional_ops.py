@@ -215,7 +215,14 @@ def orchestrate_alert(
     else:
         row["status"] = "delivery_failed"
         row["gate"] = "fail_closed"
-    return _append(_ALERTS, row)
+    saved = _append(_ALERTS, row)
+    try:
+        from institutional_store import alert_upsert_sync
+
+        alert_upsert_sync(saved)
+    except Exception:
+        pass
+    return saved
 
 
 def acknowledge_alert(alert_id: str, *, actor: str) -> dict[str, Any]:

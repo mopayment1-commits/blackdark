@@ -40,6 +40,12 @@ def _append(row: dict[str, Any]) -> dict[str, Any]:
     with _LOCK:
         with path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    try:
+        from institutional_store import decision_append_sync
+
+        decision_append_sync(row)
+    except Exception:
+        pass
     return row
 
 

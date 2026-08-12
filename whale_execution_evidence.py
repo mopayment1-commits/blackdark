@@ -160,15 +160,27 @@ def score_capital_aware(
 
 
 def measure_whale_readiness(
-    order_books: dict[str, dict[str, dict[str, Any]]],
+    order_books: dict[str, dict[str, dict[str, Any]]] | None = None,
     *,
     symbol: str,
     notionals: tuple[float, ...] | None = None,
+    require_live: bool = False,
 ) -> dict[str, Any]:
     # Probe full capital ladder; gate on institutional bands.
     probe_notionals = tuple(
-        sorted(set(list(notionals or ()) + list(WHALE_NOTIONALS_USD) + list(WHALE_GATE_NOTIONALS_USD)))
+        sorted(
+            set(
+                list(notionals or ())
+                + list(WHALE_NOTIONALS_USD)
+                + list(WHALE_GATE_NOTIONALS_USD)
+                + [5_000_000.0]
+            )
+        )
     )
+    if order_books is None:
+        from canonical_truth_bus import get_live_books
+
+        order_books = get_live_books(require_live=require_live, symbol=symbol)
     books = adopt_order_books(order_books, source="whale_evidence", path="whale")
     sym = adopt_symbol(symbol)
     probes: list[dict[str, Any]] = []
@@ -194,7 +206,10 @@ def measure_whale_readiness(
         }
     else:
         band_scores: dict[str, Any] = {}
-        for band in WHALE_NOTIONALS_USD + WHALE_GATE_NOTIONALS_USD:
+        score_bands = tuple(
+            sorted(set(list(WHALE_NOTIONALS_USD) + list(WHALE_GATE_NOTIONALS_USD) + [5_000_000.0]))
+        )
+        for band in score_bands:
             band_probes = [WhaleDepthProbe(**p) for p in probes if abs(p["notional_usd"] - band) < 1e-6]
             band_scores[str(int(band))] = score_capital_aware(
                 base_score=80.0,

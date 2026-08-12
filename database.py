@@ -945,6 +945,120 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
 
+    # Institutional operational authority (OMS / Decision / Alerts / Portfolio)
+    for ddl in (
+        """
+        CREATE TABLE IF NOT EXISTS inst_oms_orders (
+            order_id          TEXT PRIMARY KEY,
+            org_id            TEXT NOT NULL,
+            venue             TEXT NOT NULL,
+            symbol            TEXT NOT NULL,
+            side              TEXT NOT NULL,
+            quantity          REAL NOT NULL,
+            filled_quantity   REAL NOT NULL DEFAULT 0,
+            order_type        TEXT NOT NULL,
+            limit_price       REAL,
+            state             TEXT NOT NULL,
+            idempotency_key   TEXT NOT NULL,
+            actor             TEXT NOT NULL,
+            venue_ack_id      TEXT,
+            history_json      TEXT NOT NULL,
+            reconcile_json    TEXT,
+            payload_json      TEXT,
+            created_at        TEXT NOT NULL,
+            updated_at        TEXT NOT NULL,
+            UNIQUE(org_id, idempotency_key)
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_oms_org_state
+            ON inst_oms_orders (org_id, state, updated_at DESC)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS inst_decision_nodes (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            graph_id     TEXT NOT NULL,
+            node_id      TEXT,
+            kind         TEXT NOT NULL,
+            payload_json TEXT NOT NULL,
+            parent_ids   TEXT,
+            actor        TEXT,
+            created_at   TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_decision_graph
+            ON inst_decision_nodes (graph_id, created_at)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS inst_memory (
+            memory_id    TEXT PRIMARY KEY,
+            kind         TEXT NOT NULL,
+            graph_id     TEXT,
+            payload_json TEXT NOT NULL,
+            actor        TEXT,
+            created_at   TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_memory_kind
+            ON inst_memory (kind, created_at DESC)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS inst_alerts (
+            alert_id     TEXT PRIMARY KEY,
+            org_id       TEXT NOT NULL,
+            severity     TEXT NOT NULL,
+            channel      TEXT NOT NULL,
+            message      TEXT NOT NULL,
+            dedupe_key   TEXT NOT NULL,
+            status       TEXT NOT NULL,
+            delivery_json TEXT,
+            created_at   TEXT NOT NULL,
+            UNIQUE(org_id, dedupe_key, status)
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_alerts_org
+            ON inst_alerts (org_id, created_at DESC)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS inst_portfolio_positions (
+            position_id     TEXT PRIMARY KEY,
+            org_id          TEXT NOT NULL,
+            asset           TEXT NOT NULL,
+            symbol          TEXT,
+            side            TEXT NOT NULL,
+            quantity        REAL,
+            notional_usd    REAL,
+            unrealized_pnl_usd REAL,
+            venue           TEXT,
+            source_order_id TEXT,
+            updated_at      TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_portfolio_org
+            ON inst_portfolio_positions (org_id, updated_at DESC)
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS inst_audit_events (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            org_id       TEXT NOT NULL,
+            surface      TEXT NOT NULL,
+            event_type   TEXT NOT NULL,
+            ref_id       TEXT,
+            payload_json TEXT NOT NULL,
+            created_at   TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE INDEX IF NOT EXISTS idx_inst_audit_org
+            ON inst_audit_events (org_id, created_at DESC)
+        """,
+    ):
+        await db.execute(ddl)
+
 
 def compaction_cutoff_iso(hours: int | None = None) -> str:
     age_hours = hours if hours is not None else config.COMPACTION_MIN_AGE_HOURS

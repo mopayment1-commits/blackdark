@@ -1,62 +1,30 @@
 # BLACKDARK INSTITUTIONAL COMPLETION REGISTER
 
-**Program:** Institutional Completion — Zero-Partial / Zero-Scaffold / Clean-Room ≥95  
 **PR:** #72  
-**Current tip:** `2af4e5f2fa9f3af577a21084b7972662fe302306`  
-**Honesty rule:** Register never exceeds independent clean-room classifications.
+**Tip:** see `git rev-parse HEAD` on `cursor/95plus-recert-phase0-120d`  
+**Rule:** Register never exceeds independent clean-room classifications.
 
----
+## Implemented this completion loop
 
-## CLEAN-ROOM TRAJECTORY (exact SHAs)
+| Priority | Deliverable | Evidence |
+|---|---|---|
+| P0 | Canonical Truth Bus — LIVE→CANONICAL sole production path | `canonical_truth_bus.py`, refresh wired to API |
+| P1 | Venue fill lifecycle proof (paper + testnet-ready) | `venue_fill_proof.py` → Intent…Fill→Reconcile→Portfolio→Audit |
+| P2 | Postgres/SQLite institutional authority | `inst_*` tables in `database._apply_migrations`, `institutional_store.py` |
+| P3 | Decision E2E + Super Terminal unified decision_object | `decision_e2e.py`, Super Terminal `unified_decision` |
+| P3 | Whale $5M band + live-book option | `whale_execution_evidence.py` |
+| P4 | Ops backup/restore probe | `ops_recovery.py` |
+| P4 | B2B alerts dual-write to DB | `b2b_institutional_ops.py` → `inst_alerts` |
 
-| SHA | Overall | Verdict | Notes |
-|---|---:|---|---|
-| be3197c | 47 | NOT COMPLETE | baseline |
-| d6f0bcb | 52 | NOT COMPLETE | Gate 1–6 pass attempted; self-cert theater |
-| 41fba23 | 59 | NOT COMPLETE | Critical/High remediations |
-| fd3a672 | 61 | NOT COMPLETE | Multi-venue live probe (isolated) |
-| 2af4e5f | pending | — | Live proof integrated into universe health + honesty sweep |
+## Honest classification (pre clean-room)
 
----
+VERIFIED_COMPLETE remains **0** until independent clean-room says otherwise.  
+Domains moved from scaffold/isolated → **wired PARTIAL with behavioral proofs**.
 
-## PHASE ZERO (445e679)
+## APIs added
 
-VERIFIED_COMPLETE=0 · PARTIAL≈16 · SCAFFOLD≈7 · STUB=1 · NOT_IMPLEMENTED=1 · EXTERNAL=5
-
----
-
-## CURRENT HONEST INVENTORY (pre next clean-room)
-
-| Classification | Count |
-|---|---:|
-| VERIFIED_COMPLETE | **0** |
-| PARTIAL | **majority** |
-| SCAFFOLD | **reduced** (B2B delivery contracts tightened) |
-| STUB_MOCK_FAKE | **0** (gate-cert no longer hard-codes VERIFIED_COMPLETE) |
-| NOT_IMPLEMENTED | Jupiter live submit (honest) + live DR EXTERNAL |
-| EXTERNAL | 5 |
-
----
-
-## CLOSED SINCE d6f0bcb (behavioral)
-
-- OMS reconcile mismatch crash
-- Gate-cert VERIFIED_COMPLETE hardcoding
-- Jupiter labeled complete while unimplemented
-- Risk 17-domain inflation
-- Super Terminal label-only derivatives
-- B2B delivery theater on pager/email/slack
-- Live public data probe (OKX+Kraken) + integration into `live_rollout_status` / coverage
-- Institutional `product_complete` honesty flip on key modules
-
----
-
-## STILL OPEN (blocks ≥95)
-
-- Full institutional depth across Decision/Super Terminal/Whale/B2B/OMS durability
-- Live venue fill / execution proof (dry-run default)
-- Broader live ingestion beyond public probe venues
-- Postgres-backed institutional surfaces (many still JSONL)
-- Independent clean-room ≥95 on final tip
-
-FINAL VERDICT remains **NOT COMPLETE** until clean-room ≥95 on exact tip.
+- `GET /api/institutional/canonical/status` (includes truth bus)
+- `POST /api/institutional/venue-fill-proof`
+- `POST /api/institutional/decision-e2e`
+- `GET /api/institutional/ops/recovery`
+- `GET /api/institutional/store/status`

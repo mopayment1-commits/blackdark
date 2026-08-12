@@ -410,13 +410,13 @@ async def canonical_status_api(
 ) -> dict[str, Any]:
     from canonical_adoption import adoption_status
     from canonical_data_layer import layer_status
-    from live_data_truth_probe import probe_binance_public_book, probe_status
+    from canonical_truth_bus import bus_status, refresh_live_truth
+    from live_data_truth_probe import probe_binance_public_book, probe_status, prove_multi_venue_live
     from streaming_institutional import streaming_status
-
-    from live_data_truth_probe import prove_multi_venue_live
 
     live = await probe_binance_public_book("BTCUSDT")
     multi = await prove_multi_venue_live()
+    bus = await refresh_live_truth()
     return {
         "canonical_data_layer": layer_status(),
         "canonical_adoption": adoption_status(),
@@ -424,4 +424,46 @@ async def canonical_status_api(
         "live_public_probe": live,
         "live_multi_venue_proof": multi,
         "live_probe_status": probe_status(),
+        "canonical_truth_bus": {**bus_status(), "refresh": bus},
     }
+
+
+@router.post("/venue-fill-proof")
+async def venue_fill_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    org_id: str = "proof",
+    prefer_testnet: bool = False,
+) -> dict[str, Any]:
+    from venue_fill_proof import prove_fill_lifecycle
+
+    return await prove_fill_lifecycle(org_id=org_id, prefer_testnet=prefer_testnet)
+
+
+@router.post("/decision-e2e")
+async def decision_e2e_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    symbol: str = "BTC/USDT",
+    org_id: str = "default",
+    notional: float = 25_000.0,
+) -> dict[str, Any]:
+    from decision_e2e import run_decision_e2e
+
+    return run_decision_e2e(symbol=symbol, org_id=org_id, notional=notional)
+
+
+@router.get("/ops/recovery")
+async def ops_recovery_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from ops_recovery import ops_status
+
+    return ops_status()
+
+
+@router.get("/store/status")
+async def institutional_store_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from institutional_store import store_status
+
+    return store_status()

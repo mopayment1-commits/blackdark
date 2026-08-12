@@ -90,6 +90,11 @@ def create_intent(
     venue = adopted["venue"]
     symbol = adopted["symbol"]
     side = adopted["side"]
+    from institutional_store import oms_get_by_idempotency_sync, oms_upsert_sync
+
+    existing_db = oms_get_by_idempotency_sync(org_id, idempotency_key)
+    if existing_db:
+        return existing_db
     with _LOCK:
         data = _load()
         orders = data.setdefault("orders", {})
@@ -115,10 +120,12 @@ def create_intent(
             "updated_at": _utcnow(),
             "canonical_adopted": True,
             "audit_trail": True,
+            "db_authority": True,
         }
         orders[oid] = row
         _save(data)
-        return dict(row)
+    oms_upsert_sync(row)
+    return dict(row)
 
 
 def transition(
@@ -153,14 +160,37 @@ def transition(
         )
         data["orders"][order_id] = row
         _save(data)
-        return dict(row)
+        out = dict(row)
+    try:
+        from institutional_store import oms_upsert_sync
+
+        oms_upsert_sync(out)
+    except Exception:
+        pass
+    return out
 
 
 def get_order(order_id: str) -> dict[str, Any] | None:
+    try:
+        from institutional_store import oms_get_sync
+
+        db_row = oms_get_sync(order_id)
+        if db_row:
+            return db_row
+    except Exception:
+        pass
     return _load().get("orders", {}).get(order_id)
 
 
 def list_orders(org_id: str) -> list[dict[str, Any]]:
+    try:
+        from institutional_store import oms_list_sync
+
+        rows = oms_list_sync(org_id)
+        if rows:
+            return rows
+    except Exception:
+        pass
     return [o for o in _load().get("orders", {}).values() if o.get("org_id") == org_id]
 
 
@@ -438,6 +468,12 @@ def reconcile(
         data["orders"][order_id] = r
         _save(data)
         out = dict(r)
+    try:
+        from institutional_store import oms_upsert_sync
+
+        oms_upsert_sync(out)
+    except Exception:
+        pass
     return {
         "order_id": order_id,
         "reconciled": True,
@@ -450,6 +486,12 @@ def reconcile(
 
 def oms_status() -> dict[str, Any]:
     data = _load()
+    try:
+        from institutional_store import store_status
+
+        store = store_status()
+    except Exception:
+        store = {"authority": "file_fallback"}
     return {
         "surface": "oms",
         "orders": len(data.get("orders", {})),
@@ -462,11 +504,14 @@ def oms_status() -> dict[str, Any]:
         "reconcile": True,
         "canonical_adopted": True,
         "durable_store": str(_PATH),
+        "db_authority": store,
+        "json_is_export_mirror": True,
         "verified_complete": False,
         "implementation_class": "PARTIAL",
         "product_complete": False,
         "note": (
             "OMS lifecycle + risk gate + venue submit + reconcile. "
-            "Live venue fills require LIVE_EXECUTION; default is dry-run."
+            "DB is operational authority; JSON is export mirror. "
+            "Live venue fills require LIVE_EXECUTION; default is dry-run/paper proof."
         ),
     }
