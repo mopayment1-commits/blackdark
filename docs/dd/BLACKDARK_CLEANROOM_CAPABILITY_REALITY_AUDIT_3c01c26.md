@@ -79,21 +79,27 @@ bar for VERIFIED_COMPLETE.
    `execute_swap(dry_run=False)` remains non-executable (`mode:blocked` / network or config fail-closed;
    `live_submit_implemented:false`). Completeness cannot be claimed for execution truth.
 
-2. **Perpetual / funding truth is still partially synthetic.** Super Terminal now refuses hard-coded
+2. **Canonical "live books" carry live top-of-book prices with fabricated L2 size ladders.**
+   `canonical_truth_bus.refresh_live_truth` reconstructs depth as
+   `[[bid*(1-0.0001*i), 2.0+i], …]` (Kraken `1.5+i`) around public TOB — not exchanged depth.
+   Whale / risk / decision then walk those invented quantities. Live→canonical wiring is real;
+   **depth authority is still synthetic**. Blocks VERIFIED_COMPLETE for whale/risk/decision.
+
+3. **Perpetual / funding truth is still partially synthetic.** Super Terminal now refuses hard-coded
    spot≈100 books and anchors spot to the Canonical Truth Bus, but constructs `@perpetual` books by
    multiplying live spot and injects constant funding rates. Spot-futures / funding “opportunities”
    are therefore **not** venue-futures truth.
 
 ### HIGH
 
-3. **Scheduled multi-venue ingestion still absent.** `ingestion_health_rows:0`. Live proof is
+4. **Scheduled multi-venue ingestion still absent.** `ingestion_health_rows:0`. Live proof is
    on-demand via `prove_multi_venue_live` / truth-bus refresh. Coverage `2.0%` is ephemeral per call.
 
-4. **Institutional authority is SQLite dual-write, not proven Postgres HA.** Tables exist and OMS
+5. **Institutional authority is SQLite dual-write, not proven Postgres HA.** Tables exist and OMS
    dual-writes work; production transferability (RPO/RTO, multi-writer, Postgres failover) is
    EXTERNAL / unproven. `ops_recovery` proves local SQLite backup/restore only.
 
-5. **Peripheral `product_complete:True` census remains 37** on root modules (identity/commerce/scorers
+6. **Peripheral `product_complete:True` census remains 37** on root modules (identity/commerce/scorers
    etc.), contradicting a strict zero-overclaim posture even though the core truth stack is honest.
 
 ### MEDIUM
@@ -119,7 +125,7 @@ bar for VERIFIED_COMPLETE.
 
 | # | Capability / Domain | Classification | Score | Evidence |
 |---|---|---|---:|---|
-| 1 | Canonical Data / Truth Bus | PARTIAL | 74 | LIVE refresh + require_live fail-closed; consumers wired |
+| 1 | Canonical Data / Truth Bus | PARTIAL | 68 | LIVE TOB refresh + require_live; **fabricated L2 sizes** |
 | 2 | Streaming / Universe coverage | PARTIAL | 54 | healthy 2 / 2.0%; `ingestion_health_rows:0`; on-demand |
 | 3 | live_data_truth_probe | PARTIAL | 70 | OKX+Kraken live; Binance 451 failover; `stale_as_live:0` |
 | 4 | Financial Truth | PARTIAL | 62 | fee fail-closed unchanged |
@@ -130,11 +136,11 @@ bar for VERIFIED_COMPLETE.
 | 9 | Funding Arb | PARTIAL | 54 | Depth fail-closed; funding rates still synthetic constants |
 | 10 | CEX-DEX | PARTIAL | 56 | fees_known gate; Jupiter live blocked |
 | 11 | OMS | PARTIAL | 74 | Lifecycle + reconcile + DB dual-write + file sync fix |
-| 12 | Full Risk | PARTIAL | 60 | domains_computed; live depth into decision_e2e |
+| 12 | Full Risk | PARTIAL | 56 | domains_computed; depth from fabricated bus ladders |
 | 13 | Correlation/Contagion | PARTIAL | 60 | Blocking gate real |
-| 14 | Decision brain E2E | PARTIAL | 68 | Unified object LIVE→…→LEARNING; heuristic confidence honest |
-| 15 | Super Terminal | PARTIAL | 70 | Live bus; unified decision_object; no 100.0 synthetic spot |
-| 16 | Whale | PARTIAL | 68 | $5M band; default require_live; live books |
+| 14 | Decision brain E2E | PARTIAL | 64 | Unified object LIVE→…→LEARNING; heuristic confidence; predicted=actual close |
+| 15 | Super Terminal | PARTIAL | 68 | Live bus; unified decision_object; no 100.0 synthetic spot; derived perp |
+| 16 | Whale | PARTIAL | 60 | $5M band; require_live; walks fabricated L2 sizes |
 | 17 | Portfolio | PARTIAL | 60 | DB position write from fill proof |
 | 18 | B2B alert delivery | PARTIAL | 62 | inbox delivered; pending-connector honesty; DB alert dual-write |
 | 19 | Enterprise Identity | PARTIAL | 62 | Unchanged posture |
@@ -151,23 +157,22 @@ bar for VERIFIED_COMPLETE.
 
 | Track | Score |
 |---|---:|
-| Data & Streaming truth (1-3) | 66 |
+| Data & Streaming truth (1-3) | 64 |
 | Financial & Execution (4-10) | 56 |
-| Risk / OMS (11-13) | 65 |
-| Decision brain (14) | 68 |
-| Product / Institutional (15-21) | 58 |
+| Risk / OMS (11-13) | 63 |
+| Decision brain (14) | 64 |
+| Product / Institutional (15-21) | 56 |
 | Security & separation (19,22) | 61 |
 | Ops / Reliability (23-24) | 55 |
 | Honesty of completion evidence | 66 |
 
-### OVERALL: **73 / 100**
+### OVERALL: **70 / 100**
 
-(Prior clean-room `2af4e5f` = 64. The **+9** reflects behaviorally verified depth: Canonical Truth Bus
-with live books reaching Super Terminal / Whale / Decision E2E; paper fill lifecycle through portfolio
-+ audit on SQLite institutional tables; OMS dual-write sync hardened; ops SQLite backup/restore probe;
-removal of hard-coded synthetic spot≈100 in Super Terminal. Gain is capped because: **no live venue
-fill**, **derived perp/funding still synthetic**, **no scheduled ingestion** (`ingestion_health_rows:0`),
-**Postgres HA unproven**, Jupiter still NOT_IMPLEMENTED, and **0 VERIFIED_COMPLETE**.)
+(Prior clean-room `2af4e5f` = 64; intermediate independent audit `3981914` = 70. Binding tip score
+aligned to **independent adversarial consensus = 70**. Credit for Canonical Truth Bus consumers,
+paper fill→portfolio/audit, OMS dual-write, Super Terminal synthetic-100 removal. Cap enforced by:
+**fabricated L2 depth**, **no live venue fill**, **derived perp/funding**, **no scheduled ingestion**,
+**SQLite≠Postgres HA**, Jupiter NOT_IMPLEMENTED, **0 VERIFIED_COMPLETE**.)
 
 ---
 
@@ -180,9 +185,9 @@ depth** beyond the prior 64/100 baseline, and the owner’s recommended priority
 *implemented as PARTIAL with proofs*. Completeness is still **disproved**:
 
 - **VERIFIED_COMPLETE = 0** across the mandatory focus set.
-- **Critical:** no live venue FILL; perpetual/funding legs not venue-true.
+- **Critical:** no live venue FILL; fabricated L2 depth on the truth bus; perpetual/funding not venue-true.
 - **High:** no scheduled ingestion; SQLite≠Postgres HA; peripheral `product_complete:True` remains.
-- Overall **73/100 < 95** threshold for institutional completion claims.
+- Overall **70/100 < 95** threshold for institutional completion claims.
 
 Per the rule — COMPLETE only if repository-controlled mandatory capabilities are truly
 VERIFIED_COMPLETE with behavioral evidence and no open Critical/High repo defects — the verdict is

@@ -3,7 +3,7 @@
 **Branch:** `cursor/95plus-recert-phase0-120d` (PR #72)  
 **Exact tip SHA:** `3c01c26be32a3adefeb9e78439a4c16c91cd076f`  
 **Independent clean-room:** `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_3c01c26.md`  
-**Clean-room overall:** **73 / 100**  
+**Clean-room overall:** **70 / 100**  
 **Verdict:** **NOT COMPLETE**  
 **VERIFIED_COMPLETE capabilities:** **0**
 
@@ -34,7 +34,7 @@
 
 | Metric | Value |
 |---|---|
-| Overall | **73 / 100** (was 64 at `2af4e5f`) |
+| Overall | **70 / 100** (was 64 at `2af4e5f`; independent consensus) |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **0** |
 | PARTIAL (focus set) | 22 |
@@ -44,10 +44,10 @@
 ### Why not ≥95 / COMPLETE
 
 1. **No live venue FILL** proven (paper only).  
-2. **Perp/funding** still derived/synthetic constants, not venue futures feeds.  
-3. **No scheduled ingestion** (`ingestion_health_rows:0`).  
-4. **Postgres HA / live DR** unproven (SQLite authority + local backup probe only).  
-5. Peripheral **`product_complete:True` still 37**.  
+2. **Truth-bus L2 sizes are fabricated** around live TOB (not exchanged depth).  
+3. **Perp/funding** still derived/synthetic constants, not venue futures feeds.  
+4. **No scheduled ingestion** (`ingestion_health_rows:0`).  
+5. **Postgres HA / live DR** unproven; peripheral **`product_complete:True` still 37**.  
 
 Green tests and self-`product_complete` are **not** treated as COMPLETE.
 
@@ -62,7 +62,8 @@ Green tests and self-`product_complete` are **not** treated as COMPLETE.
 | 41fba23 | 59 | NOT COMPLETE |
 | fd3a672 | 61 | NOT COMPLETE |
 | 2af4e5f | 64 | NOT COMPLETE |
-| **3c01c26** | **73** | **NOT COMPLETE** |
+| 3981914 | 70 | NOT COMPLETE (intermediate) |
+| **3c01c26** | **70** | **NOT COMPLETE** |
 
 ---
 

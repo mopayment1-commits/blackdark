@@ -11,7 +11,7 @@
 |---|---|
 | Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_3c01c26.md` |
 | Final report | `docs/dd/BLACKDARK_INSTITUTIONAL_DEPTH_FINAL_REPORT_3c01c26.md` |
-| Overall | **73 / 100** |
+| Overall | **70 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **0** |
 
