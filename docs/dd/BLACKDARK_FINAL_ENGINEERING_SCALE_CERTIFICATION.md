@@ -3,7 +3,7 @@
 **Date (UTC):** 2026-08-12  
 **Branch:** `cursor/external-audit-readiness-120d` (PR #65)  
 **RC2 merge on main:** `9618a761ec3f7f29073e556d1ac003c954ccb6d7`  
-**Certification tip:** recorded at commit time on this branch (see git SHA below after merge)
+**Certification tip:** 1f82b6bbb913dc568b4db5b886bd7d83d1221003
 
 ---
 

@@ -274,7 +274,7 @@
       },
       "proof_path": "data/institutional_assurance/signed_capacity.json",
       "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-      "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+      "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
     },
     "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
   },
@@ -799,7 +799,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -1123,7 +1123,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -1669,7 +1669,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -1993,7 +1993,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -2538,7 +2538,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -2862,7 +2862,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -3407,7 +3407,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -3731,7 +3731,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -4276,7 +4276,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -4600,7 +4600,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -5148,7 +5148,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -5472,7 +5472,7 @@
             },
             "proof_path": "data/institutional_assurance/signed_capacity.json",
             "proof_log": "docs/LOAD_TEST_RUN_LOG.md",
-            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers≥2."
+            "note": "Protections reduce collapse risk under viral spikes. HA marketing numbers require verified signed capacity with postgres+redis+workers\u22652."
           },
           "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md"
         },
@@ -6100,7 +6100,7 @@
     "DEGRADED_BUT_STABLE_CAPACITY_CONCURRENT_WORKERS": 5000,
     "FAILURE_SATURATION_POINT_CONCURRENT_WORKERS": null,
     "BOTTLENECK": "viral_rate_limit_or_oracle_compute",
-    "unit_note": "Numbers are concurrent HTTP worker threads in this harness against the measured process topology — NOT unique human users, NOT global CDN."
+    "unit_note": "Numbers are concurrent HTTP worker threads in this harness against the measured process topology \u2014 NOT unique human users, NOT global CDN."
   },
   "lab_surge_test": "PASS",
   "topology": {
@@ -6116,5 +6116,7 @@
     "burst_measured": true,
     "soak_ok": true,
     "multi_worker_redis_topology": true
-  }
+  },
+  "certification_tip_sha": "1f82b6bbb913dc568b4db5b886bd7d83d1221003",
+  "measurement_git_sha": "f05d6652168ec1750e9188d45f01d496bcb3d739"
 }
