@@ -495,3 +495,116 @@ async def jupiter_quote_proof_api(
     from jupiter_dex_adapter import prove_jupiter_live_quote
 
     return await prove_jupiter_live_quote()
+
+
+@router.post("/jupiter/submit-proof")
+async def jupiter_submit_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from jupiter_dex_adapter import prove_jupiter_submit_path
+
+    return await prove_jupiter_submit_path()
+
+
+class WhiteLabelBrandBody(BaseModel):
+    product_name: str
+    primary_color: str = "#0B1F33"
+    logo_url: str = ""
+    support_email: str = ""
+    custom_domain: str = ""
+    report_footer: str = ""
+    api_title: str = ""
+
+
+class WhiteLabelExportBody(BaseModel):
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
+@router.get("/orgs/{org_id}/brand")
+async def white_label_get_brand_api(
+    org_id: str,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import get_brand
+
+    brand = get_brand(org_id)
+    if not brand:
+        raise HTTPException(status_code=404, detail="white_label_not_configured")
+    return brand
+
+
+@router.put("/orgs/{org_id}/brand")
+async def white_label_put_brand_api(
+    org_id: str,
+    body: WhiteLabelBrandBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import configure_brand
+
+    try:
+        return configure_brand(
+            org_id,
+            product_name=body.product_name,
+            primary_color=body.primary_color,
+            logo_url=body.logo_url,
+            support_email=body.support_email,
+            custom_domain=body.custom_domain,
+            report_footer=body.report_footer,
+            api_title=body.api_title,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/orgs/{org_id}/brand/export")
+async def white_label_export_api(
+    org_id: str,
+    body: WhiteLabelExportBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import apply_brand_to_surface, branded_report_export
+
+    try:
+        export = branded_report_export(org_id, body.payload or {})
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    surface = apply_brand_to_surface(org_id, {"surface": "export", "payload_keys": list((body.payload or {}).keys())})
+    return {**export, "served_surface": surface}
+
+
+@router.get("/white-label/status")
+async def white_label_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import white_label_status
+
+    return white_label_status()
+
+
+@router.post("/white-label/prove")
+async def white_label_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    org_id: str = "wl_proof_org",
+    product_name: str = "Desk Alpha",
+) -> dict[str, Any]:
+    from white_label import prove_white_label_surface
+
+    return prove_white_label_surface(org_id, product_name=product_name)
+
+
+@router.post("/ops/postgres-product-path")
+async def postgres_product_path_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from ops_recovery import prove_postgres_product_path
+
+    return await prove_postgres_product_path()
+
+
+@router.post("/ops/postgres-ha-rpo-rto")
+async def postgres_ha_rpo_rto_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from ops_recovery import prove_postgres_streaming_ha_rpo_rto
+
+    return prove_postgres_streaming_ha_rpo_rto()

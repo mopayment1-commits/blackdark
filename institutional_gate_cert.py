@@ -132,7 +132,7 @@ def certify_gate2_financial_execution() -> dict[str, Any]:
     assert j.get("executed") is False
     jst = adapter_status()
     assert jst["live_submit_fail_closed"] is True
-    assert jst["live_submit_implemented"] is False
+    assert jst["live_submit_implemented"] is True  # path in-repo; live needs wallet
     assert jst["product_complete"] is False
 
     intent = oms.create_intent(
@@ -167,7 +167,7 @@ def certify_gate2_financial_execution() -> dict[str, Any]:
         "oms": "PARTIAL",
         "cex_dex": "PARTIAL",
         "funding": "PARTIAL",
-        "jupiter_live_submit": "NOT_IMPLEMENTED",
+        "jupiter_live_submit": "PARTIAL",  # path implemented; live signature needs wallet
         "jupiter_stub_reachable": False,
         "oms_reconcile_mismatch_ok": True,
         "false_profit": 0,

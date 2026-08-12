@@ -260,13 +260,27 @@ async def test_jupiter_live_quote_proof():
     from jupiter_dex_adapter import adapter_status, prove_jupiter_live_quote
 
     st = adapter_status()
-    assert st["live_submit_implemented"] is False
+    assert st["live_submit_implemented"] is True
     assert st["quote_implementation_class"] == "PARTIAL"
     out = await prove_jupiter_live_quote()
     assert out["ok"] is True
     assert out["executable_quote"] is True
-    assert out["live_submit_implemented"] is False
+    assert out["live_submit_implemented"] is True
     assert out["out_amount"]
+
+
+@pytest.mark.asyncio
+async def test_jupiter_submit_path_implemented_fail_closed_without_wallet():
+    from jupiter_dex_adapter import execute_swap, prove_jupiter_submit_path
+
+    proof = await prove_jupiter_submit_path()
+    assert proof["ok"] is True
+    assert proof["live_submit_implemented"] is True
+    assert proof["dry_run"]["executed"] is False
+    live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
+    assert live["executed"] is False
+    assert live["live_submit_implemented"] is True
+    assert live["mode"] in {"ready_needs_live_flag_or_wallet", "live_submit_failed", "blocked"}
 
 
 def test_postgres_local_dump_restore_prove():
@@ -276,6 +290,53 @@ def test_postgres_local_dump_restore_prove():
     assert out["ok"] is True
     assert out["ha_dr"] == "LOCAL_EPHEMERAL_NOT_HA"
     assert int(out.get("oms_rows") or 0) == 1
+
+
+def test_postgres_streaming_ha_rpo_rto_prove():
+    from ops_recovery import prove_postgres_streaming_ha_rpo_rto
+
+    out = prove_postgres_streaming_ha_rpo_rto()
+    assert out["ok"] is True
+    assert out["ha_class"] == "LOCAL_STREAMING_REPLICATION"
+    assert out["cloud_multi_az"] is False
+    assert int(out["rpo_ms"]) <= 1000
+    assert int(out["rto_ms"]) <= 5000
+    assert out["verified_complete"] is True
+
+
+@pytest.mark.asyncio
+async def test_postgres_product_path_oms_round_trip():
+    from ops_recovery import prove_postgres_product_path
+
+    out = await prove_postgres_product_path()
+    assert out["ok"] is True
+    assert out["authority"] == "postgres"
+    assert out["oms_round_trip"] is True
+    assert out["ha_dr"] == "LOCAL_EPHEMERAL_NOT_HA"
+
+
+@pytest.mark.asyncio
+async def test_venue_fill_paper_venue_follows_l2():
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="venue_id_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["live_fill"] is False
+    assert out["depth"].get("venue")
+    assert out["order_venue"] == out["depth"]["venue"]
+    assert out["order_venue"] != "binance" or out["depth"]["venue"] == "binance"
+
+
+def test_white_label_served_surface_prove():
+    from white_label import prove_white_label_surface, white_label_status
+
+    st = white_label_status()
+    assert st["implementation_class"] == "PARTIAL"
+    assert "institutional_api" in st["features"]
+    out = prove_white_label_surface(org_id="wl_test_org", product_name="Desk Test")
+    assert out["ok"] is True
+    assert out["served_surface"]["brand_applied"] is True
+    assert out["product_complete"] is False
 
 
 @pytest.mark.asyncio
@@ -292,3 +353,19 @@ async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
     assert out["live_sources"] >= 2
     assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 5
     assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 5.0
+    assert len(out.get("pricing_log_exchanges") or []) >= 2
+    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 2
+
+
+@pytest.mark.asyncio
+async def test_rollout_multi_venue_live_at_least_five():
+    from live_data_truth_probe import prove_multi_venue_live
+    from universe_rollout import live_rollout_status
+
+    mv = await prove_multi_venue_live()
+    assert mv["ok"] is True
+    assert mv["live_count"] >= 4
+    assert len(mv.get("l2_venues") or []) >= 4
+    roll = await live_rollout_status()
+    assert roll["healthy_exchanges"] >= 4
+    assert roll["coverage_percent"] >= 4.0

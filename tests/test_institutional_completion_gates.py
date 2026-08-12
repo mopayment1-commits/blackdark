@@ -38,7 +38,7 @@ def test_gate2_oms_reconcile_mismatch_records_safely():
     out = certify_gate2_financial_execution()
     assert out["passed"] is True
     assert out["oms_reconcile_mismatch_ok"] is True
-    assert out["jupiter_live_submit"] == "NOT_IMPLEMENTED"
+    assert out["jupiter_live_submit"] == "PARTIAL"
     assert out["unknown_fee_as_zero"] == 0
 
 

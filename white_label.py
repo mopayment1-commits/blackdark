@@ -83,17 +83,111 @@ def branded_report_export(org_id: str, payload: dict[str, Any]) -> dict[str, Any
     }
 
 
+def apply_brand_to_surface(org_id: str, surface: dict[str, Any]) -> dict[str, Any]:
+    """Apply tenant brand onto a served institutional surface (status/terminal payload)."""
+    brand = get_brand(org_id)
+    if not brand:
+        return {
+            "org_id": org_id,
+            "brand_applied": False,
+            "reason": "white_label_not_configured",
+            "surface": surface,
+            "proved_at": _utcnow(),
+        }
+    return {
+        "org_id": org_id,
+        "brand_applied": True,
+        "product_name": brand["product_name"],
+        "api_title": brand.get("api_title") or brand["product_name"],
+        "primary_color": brand.get("primary_color"),
+        "logo_url": brand.get("logo_url") or "",
+        "support_email": brand.get("support_email") or "",
+        "custom_domain": brand.get("custom_domain") or "",
+        "footer": brand.get("report_footer") or f"{brand['product_name']} confidential",
+        "surface": {
+            **surface,
+            "branding": {
+                "product_name": brand["product_name"],
+                "api_title": brand.get("api_title") or brand["product_name"],
+                "primary_color": brand.get("primary_color"),
+            },
+        },
+        "isolation": brand.get("isolation") or "org_id_scoped",
+        "proved_at": _utcnow(),
+    }
+
+
+def prove_white_label_surface(
+    org_id: str = "wl_proof_org",
+    *,
+    product_name: str = "Desk Alpha",
+) -> dict[str, Any]:
+    """Configure → apply brand on a served surface → export. Honest PARTIAL (not full portal)."""
+    brand = configure_brand(
+        org_id,
+        product_name=product_name,
+        primary_color="#0B1F33",
+        support_email="ops@desk-alpha.example",
+        report_footer=f"{product_name} — institutional export",
+        api_title=f"{product_name} API",
+    )
+    surface = apply_brand_to_surface(
+        org_id,
+        {
+            "surface": "institutional_status",
+            "modules": ["oms", "decision", "truth_bus"],
+            "default_title": "BLACKDARK Institutional",
+        },
+    )
+    export = branded_report_export(
+        org_id,
+        {"kind": "status_snapshot", "ok": True, "modules": ["oms", "decision"]},
+    )
+    ok = bool(surface.get("brand_applied")) and export.get("brand", {}).get("product_name") == product_name
+    return {
+        "ok": ok,
+        "org_id": org_id,
+        "brand": brand,
+        "served_surface": surface,
+        "export": {
+            "footer": export.get("footer"),
+            "product_name": (export.get("brand") or {}).get("product_name"),
+            "exported_at": export.get("exported_at"),
+        },
+        "api_routes": [
+            "GET /api/institutional/orgs/{org_id}/brand",
+            "PUT /api/institutional/orgs/{org_id}/brand",
+            "POST /api/institutional/orgs/{org_id}/brand/export",
+            "GET /api/institutional/white-label/status",
+            "POST /api/institutional/white-label/prove",
+        ],
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
+        "note": (
+            "Tenant brand config + served-surface application + export proven. "
+            "Not a full multi-tenant white-label portal / custom-domain hosting."
+        ),
+        "proved_at": _utcnow(),
+    }
+
+
 def white_label_status() -> dict[str, Any]:
     data = _load()
     return {
         "surface": "white_label",
         "tenants": len(data.get("tenants", {})),
-        "product_complete": False,
         "features": [
             "tenant_branding",
             "configuration",
             "report_exports",
             "api_branding",
+            "served_surface_brand_apply",
             "org_isolation",
+            "institutional_api",
         ],
+        "verified_complete": False,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
+        "note": "PARTIAL — brand API + surface apply; not full white-label portal.",
     }

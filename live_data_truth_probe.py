@@ -291,8 +291,84 @@ async def probe_binance_public_book(symbol: str = "BTCUSDT") -> dict[str, Any]:
     }
 
 
+async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dict[str, Any]:
+    """Public spot L2 via aggregator MARKET_FETCHERS (Gate/Bitget/KuCoin mesh)."""
+    try:
+        import aiohttp
+
+        from aggregator import MARKET_FETCHERS
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "live": False, "venue": venue, "reason": type(exc).__name__}
+    fn = MARKET_FETCHERS.get(venue)
+    if not fn:
+        return {"ok": False, "live": False, "venue": venue, "reason": "fetcher_missing"}
+    try:
+        timeout = aiohttp.ClientTimeout(total=12)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            _t, book = await fn(session, symbol, "spot")
+        if not book or not book.bids or not book.asks:
+            return {"ok": False, "live": False, "venue": venue, "reason": "empty_book"}
+        bids = [[float(p), float(q)] for p, q, *_ in book.bids]
+        asks = [[float(p), float(q)] for p, q, *_ in book.asks]
+        if not _levels_are_venue_real(bids, asks):
+            return {
+                "ok": False,
+                "live": False,
+                "venue": venue,
+                "reason": "fabricated_sizes_rejected",
+            }
+        return {
+            "ok": True,
+            "live": True,
+            "venue": venue,
+            "symbol": symbol,
+            "bid": bids[0][0],
+            "ask": asks[0][0],
+            "bids": bids,
+            "asks": asks,
+            "depth_levels": {"bids": len(bids), "asks": len(asks)},
+            "depth_source": "venue_l2",
+            "fabricated_depth": False,
+            "source": f"{venue}_public_spot",
+            "probed_at": datetime.now(UTC).isoformat(),
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "live": False,
+            "venue": venue,
+            "reason": f"{type(exc).__name__}:{exc}"[:160],
+        }
+
+
+async def _persist_live_mid(probe: dict[str, Any], *, symbol: str = "BTC/USDT") -> None:
+    """Best-effort pricing_logs write for rollout health (real mid only)."""
+    if not (probe.get("ok") and probe.get("live") and probe.get("venue")):
+        return
+    if probe.get("fabricated_depth"):
+        return
+    bid = probe.get("bid")
+    ask = probe.get("ask")
+    if bid is None or ask is None:
+        return
+    try:
+        mid = (float(bid) + float(ask)) / 2.0
+        if mid <= 0:
+            return
+        from database import insert_pricing_log
+
+        await insert_pricing_log(
+            exchange=str(probe["venue"]).lower(),
+            symbol=str(probe.get("symbol") or symbol),
+            price=mid,
+            market_type="spot",
+        )
+    except Exception:
+        return
+
+
 async def prove_multi_venue_live() -> dict[str, Any]:
-    """Prove independent live venues with real L2 (OKX books + Kraken Depth; Binance optional)."""
+    """Prove independent live venues with real L2 (OKX/Kraken + Gate/Bitget/KuCoin; Binance optional)."""
     results = []
     for factory in (
         lambda: probe_okx_book("BTC-USDT"),
@@ -302,6 +378,13 @@ async def prove_multi_venue_live() -> dict[str, Any]:
             results.append(await factory())
         except Exception as exc:  # noqa: BLE001
             results.append({"ok": False, "live": False, "reason": type(exc).__name__})
+
+    for venue in ("gateio", "bitget", "kucoin"):
+        try:
+            results.append(await _probe_aggregator_spot_l2(venue, "BTC/USDT"))
+        except Exception as exc:  # noqa: BLE001
+            results.append({"ok": False, "live": False, "venue": venue, "reason": type(exc).__name__})
+
     try:
         code, body, latency_ms = await _http_get_json(
             "https://api.binance.com/api/v3/ticker/bookTicker?symbol=BTCUSDT"
@@ -325,6 +408,9 @@ async def prove_multi_venue_live() -> dict[str, Any]:
                     "ok": True,
                     "live": adopted.get("freshness_class") == FreshnessClass.LIVE.value,
                     "venue": "binance",
+                    "bid": float(body["bidPrice"]),
+                    "ask": float(body["askPrice"]),
+                    "symbol": "BTC/USDT",
                     "latency_ms": latency_ms,
                     "source": "binance_public_bookticker",
                     "depth_source": "venue_tob",
@@ -343,6 +429,9 @@ async def prove_multi_venue_live() -> dict[str, Any]:
             )
     except Exception as exc:  # noqa: BLE001
         results.append({"ok": False, "live": False, "venue": "binance", "reason": type(exc).__name__})
+
+    for probe in results:
+        await _persist_live_mid(probe)
 
     live = [r for r in results if r.get("ok") and r.get("live")]
     venues = sorted({r["venue"] for r in live if r.get("venue")})
@@ -363,6 +452,7 @@ async def prove_multi_venue_live() -> dict[str, Any]:
         "canonical_required": True,
         "stale_as_live": 0,
         "fabricated_depth_forbidden": True,
+        "pricing_logs_attempted": True,
         "proved_at": datetime.now(UTC).isoformat(),
         "implementation_class": "PARTIAL" if len(l2_venues) >= 1 else "UNVERIFIED",
     }
@@ -371,13 +461,20 @@ async def prove_multi_venue_live() -> dict[str, Any]:
 def probe_status() -> dict[str, Any]:
     return {
         "surface": "live_data_truth_probe",
-        "providers": ["okx_public_books", "kraken_public_depth", "binance_public"],
+        "providers": [
+            "okx_public_books",
+            "kraken_public_depth",
+            "gateio_public_spot",
+            "bitget_public_spot",
+            "kucoin_public_spot",
+            "binance_public",
+        ],
         "credentials_required": False,
         "fail_closed_on_outage": True,
         "failover": True,
         "fabricated_depth_forbidden": True,
         "verified_complete": False,
         "implementation_class": "PARTIAL",
-        "note": "Proves live public L2 → canonical adopt; never fabricates depth sizes.",
+        "note": "Proves live public L2 → canonical adopt + pricing_logs; never fabricates depth sizes.",
         "product_complete": False,
     }

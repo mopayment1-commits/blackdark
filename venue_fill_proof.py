@@ -92,7 +92,8 @@ async def prove_fill_lifecycle(
     depth_source = "unavailable"
     bid_depth = 0.0
     ask_depth = 0.0
-    for venue_books in books.values():
+    depth_venue = None
+    for venue_name, venue_books in books.items():
         book = venue_books.get(symbol)
         if not book or not book.get("bids") or not book.get("asks"):
             continue
@@ -100,7 +101,8 @@ async def prove_fill_lifecycle(
             continue
         bid_depth = book_notional_depth_usd(book, side="bid", levels=10)
         ask_depth = book_notional_depth_usd(book, side="ask", levels=10)
-        depth_source = str(book.get("depth_source") or book.get("source") or venue_books)
+        depth_source = str(book.get("depth_source") or book.get("source") or "venue_l2")
+        depth_venue = str(venue_name).lower()
         if limit_price is None:
             limit_price = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
         break
@@ -124,10 +126,19 @@ async def prove_fill_lifecycle(
             "proved_at": _utcnow(),
         }
 
-    testnet = prefer_testnet and os.getenv("BINANCE_TESTNET", "").lower() in {"1", "true", "yes"}
+    testnet = os.getenv("BINANCE_TESTNET", "").lower() in {"1", "true", "yes"} or prefer_testnet
     live_enabled = os.getenv("AUTO_EXECUTION_ENABLED", "").lower() in {"1", "true", "yes"}
     dry_env = os.getenv("AUTO_EXECUTION_DRY_RUN", "true").lower() in {"1", "true", "yes"}
-    dry_run = not (testnet and live_enabled and not dry_env)
+    has_binance_creds = bool(
+        os.getenv("BINANCE_API_KEY", "").strip() and os.getenv("BINANCE_API_SECRET", "").strip()
+    )
+    # Live/testnet fill only when testnet+flags+creds — never invent live_fill.
+    dry_run = not (testnet and live_enabled and not dry_env and has_binance_creds)
+
+    # Paper/protocol venue identity follows the L2 book venue (not hard-coded binance).
+    # Live Binance testnet execution still routes via execution_engine when dry_run=False.
+    paper_venue = depth_venue or (live.get("l2_venues") or ["okx"])[0]
+    exec_venue = "binance" if not dry_run else str(paper_venue)
 
     # Ensure execution engine DB flag when attempting live/testnet
     if not dry_run:
@@ -140,7 +151,7 @@ async def prove_fill_lifecycle(
 
     intent = oms.create_intent(
         org_id=org_id,
-        venue="binance",
+        venue=exec_venue,
         symbol=symbol,
         side=side,
         quantity=quantity,
@@ -240,20 +251,40 @@ async def prove_fill_lifecycle(
         },
         "depth": {
             "source": depth_source,
+            "venue": depth_venue,
             "bid_depth_usd": bid_depth,
             "ask_depth_usd": ask_depth,
             "fabricated": False,
+        },
+        "order_venue": final.get("venue"),
+        "fill_readiness": {
+            "binance_testnet": testnet,
+            "auto_execution_enabled": live_enabled,
+            "dry_run_env": dry_env,
+            "has_binance_creds": has_binance_creds,
+            "live_path_armed": not dry_run,
+            "blocking": (
+                []
+                if not dry_run
+                else [
+                    *(["BINANCE_TESTNET"] if not testnet else []),
+                    *(["AUTO_EXECUTION_ENABLED"] if not live_enabled else []),
+                    *(["AUTO_EXECUTION_DRY_RUN=false"] if dry_env else []),
+                    *(["BINANCE_API_KEY/SECRET"] if not has_binance_creds else []),
+                ]
+            ),
         },
         "store": store_status(),
         "dry_run": dry_run,
         "protocol_ack": protocol_ack,
         "proved_at": _utcnow(),
         "audit_trail": True,
+        "verified_complete": bool(live_fill),
         "note": (
             "Live venue fill requires BINANCE_TESTNET + AUTO_EXECUTION_ENABLED + "
             "AUTO_EXECUTION_DRY_RUN=false + vault/test creds. "
             "venue_protocol_proof is an honest ACK/FILL *shape* mock — never live_fill. "
-            "Default proves full paper lifecycle with venue-L2 depth + DB portfolio/audit authority."
+            "Paper venue identity follows bus L2 venue; testnet live routes to binance."
         ),
     }
 
@@ -269,6 +300,7 @@ def proof_status() -> dict[str, Any]:
             "vault_or_test_creds",
         ],
         "depth_source": "canonical_truth_bus_venue_l2",
+        "paper_venue_follows_l2": True,
         "verified_complete": False,
         "implementation_class": "PARTIAL",
         "product_complete": False,

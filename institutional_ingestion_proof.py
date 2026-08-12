@@ -17,6 +17,42 @@ def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
+async def _write_live_mid_pricing_log(
+    *,
+    exchange: str,
+    symbol: str,
+    bid: float | None,
+    ask: float | None,
+) -> dict[str, Any] | None:
+    """Persist real TOB mid into pricing_logs so rollout health sees durable live venues."""
+    if bid is None or ask is None:
+        return None
+    try:
+        bid_f = float(bid)
+        ask_f = float(ask)
+    except (TypeError, ValueError):
+        return None
+    if bid_f <= 0 or ask_f <= 0 or ask_f < bid_f:
+        return None
+    mid = (bid_f + ask_f) / 2.0
+    from database import insert_pricing_log
+
+    row_id = await insert_pricing_log(
+        exchange=str(exchange).lower(),
+        symbol=symbol,
+        price=mid,
+        volume=None,
+        opportunity_score=None,
+        market_type="spot",
+    )
+    return {
+        "exchange": str(exchange).lower(),
+        "symbol": symbol,
+        "mid": mid,
+        "pricing_log_id": row_id,
+    }
+
+
 async def _upsert_book_source(
     *,
     source_id: str,
@@ -25,6 +61,11 @@ async def _upsert_book_source(
     levels: Any,
     reason: str | None,
     records: list[dict[str, Any]],
+    exchange: str | None = None,
+    symbol: str = "BTC/USDT",
+    bid: float | None = None,
+    ask: float | None = None,
+    pricing_logs: list[dict[str, Any]] | None = None,
 ) -> None:
     from database import upsert_ingestion_health
 
@@ -34,12 +75,21 @@ async def _upsert_book_source(
         ok=ok,
         error=None if ok else str(reason or f"{source_id}_fail"),
     )
+    pricing_row = None
+    if ok and exchange:
+        pricing_row = await _write_live_mid_pricing_log(
+            exchange=exchange, symbol=symbol, bid=bid, ask=ask
+        )
+        if pricing_row is not None and pricing_logs is not None:
+            pricing_logs.append(pricing_row)
     records.append(
         {
             "source_id": source_id,
             "ok": ok,
             "depth_source": depth_source,
             "levels": levels,
+            "exchange": exchange,
+            "pricing_log": bool(pricing_row),
         }
     )
 
@@ -60,10 +110,14 @@ async def _probe_aggregator_spot(venue: str, symbol: str = "BTC/USDT") -> dict[s
             _t, book = await fn(session, symbol, "spot")
         if not book or not book.bids or not book.asks:
             return {"ok": False, "reason": "empty_book"}
+        bid = float(book.bids[0][0])
+        ask = float(book.asks[0][0])
         return {
             "ok": True,
             "live": True,
             "venue": venue,
+            "bid": bid,
+            "ask": ask,
             "depth_source": "venue_l2",
             "fabricated_depth": False,
             "depth_levels": {"bids": len(book.bids), "asks": len(book.asks)},
@@ -84,6 +138,7 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
 
     await init_db()
     records: list[dict[str, Any]] = []
+    pricing_logs: list[dict[str, Any]] = []
 
     okx = await probe_okx_book("BTC-USDT", depth=20)
     await _upsert_book_source(
@@ -93,6 +148,11 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
         levels=okx.get("depth_levels"),
         reason=okx.get("reason"),
         records=records,
+        exchange="okx",
+        symbol=str(okx.get("symbol") or symbol),
+        bid=okx.get("bid"),
+        ask=okx.get("ask"),
+        pricing_logs=pricing_logs,
     )
 
     kr = await probe_kraken_depth("XBTUSDT", depth=25)
@@ -103,6 +163,11 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
         levels=kr.get("depth_levels"),
         reason=kr.get("reason"),
         records=records,
+        exchange="kraken",
+        symbol=str(kr.get("symbol") or symbol),
+        bid=kr.get("bid"),
+        ask=kr.get("ask"),
+        pricing_logs=pricing_logs,
     )
 
     for venue in ("gateio", "bitget", "kucoin"):
@@ -114,6 +179,11 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
             levels=probe.get("depth_levels"),
             reason=probe.get("reason"),
             records=records,
+            exchange=venue,
+            symbol=symbol,
+            bid=probe.get("bid"),
+            ask=probe.get("ask"),
+            pricing_logs=pricing_logs,
         )
 
     prices_stats: dict[str, Any] = {}
@@ -139,10 +209,20 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
 
     ok_sources = [r for r in records if r.get("ok")]
     live_ingestion = int(coverage.get("live_ingestion_sources") or len(ok_sources))
+    rollout: dict[str, Any] = {}
+    try:
+        from universe_rollout import live_rollout_status
+
+        rollout = await live_rollout_status()
+    except Exception as exc:  # noqa: BLE001
+        rollout = {"error": type(exc).__name__}
+
     return {
         "ok": len(ok_sources) >= 2 and rows >= 2,
         "sources": records,
         "live_sources": len(ok_sources),
+        "pricing_logs_written": pricing_logs,
+        "pricing_log_exchanges": sorted({p["exchange"] for p in pricing_logs}),
         "prices_ingest": prices_stats,
         "ingestion_health_rows": rows,
         "health_summary_count": len(summary) if isinstance(summary, list) else 0,
@@ -158,8 +238,15 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
             "live_ingestion_sources": live_ingestion,
             "coverage_percent_exchanges": coverage.get("coverage_percent_exchanges"),
         },
+        "rollout": {
+            "healthy_exchanges": rollout.get("healthy_exchanges"),
+            "coverage_percent": rollout.get("coverage_percent"),
+            "healthy_sample": rollout.get("healthy_sample"),
+            "public_live_venues": rollout.get("public_live_venues"),
+        },
         "scheduled_note": (
-            "Durable L2 + prices ingest written. Continuum: prove_scheduler_continuum(categories=prices)."
+            "Durable L2 + prices ingest + pricing_logs written. "
+            "Continuum: prove_scheduler_continuum(categories=prices)."
         ),
         "proved_at": _utcnow(),
         "verified_complete": False,
@@ -171,7 +258,7 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
 def ingestion_proof_status() -> dict[str, Any]:
     return {
         "surface": "institutional_ingestion_proof",
-        "writes": ["ingestion_source_health"],
+        "writes": ["ingestion_source_health", "pricing_logs"],
         "sources": [
             "okx_public_books",
             "kraken_public_depth",
