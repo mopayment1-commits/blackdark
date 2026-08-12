@@ -8,6 +8,24 @@
 
 ---
 
+
+## CI @ RC2 tip 
+
+| Gate | Result |
+|------|--------|
+| Critical Gate Suite | PASS |
+| Security Scan (pip-audit + pytest-security) | PASS |
+| CodeQL PR check | PASS (0 new alerts) |
+| CodeQL Analyze (python/js/actions) | PASS |
+| SonarCloud CI Scanner | PASS |
+| SonarCloud Code Analysis (PR) | PASS |
+| Sonar new_coverage | 85.7% |
+| Sonar new_bugs | 0 |
+| Sonar new_vulnerabilities | 0 |
+| Sonar new_reliability_rating | 1.0 (1.0=A) |
+
+**Automatic Analysis:** keep **DISABLED** (CI scanner + coverage.xml operating model).
+
 ## PRODUCTION CODE CHANGED
 
 YES — financial truth, gas fail-closed, telegram secret hygiene, compose Vault profile, CI supply-chain, Action SHA pins, advisory labeling, ops/data-room documentation.
@@ -180,7 +198,7 @@ GENUINE_POST_CLOSE (not autonomous blockers): `F-CQ-01` dashboard split, `F-OPS-
 
 ## REGRESSIONS INTRODUCED
 
-**0** — full suite **618 passed / 0 failed** under clean env.
+**0** — full suite **628 passed / 0 failed / 1 skipped** under clean env.
 
 ---
 
