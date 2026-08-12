@@ -29,9 +29,18 @@ _REDIS_SOCKET_TIMEOUT = float(os.getenv("LOGIN_RL_REDIS_SOCKET_TIMEOUT_SEC", "0.
 
 
 def is_production_env() -> bool:
-    """True when ENV/RAILWAY is production — LOCAL_DEV never overrides an explicit prod ENV."""
-    env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
-    return env in {"production", "prod"}
+    """True when any ENV/APP_ENV/ENVIRONMENT/RAILWAY token is production.
+
+    First-wins chaining incorrectly ignored APP_ENV=production when a polluted
+    ENV=development remained set. LOCAL_DEV never downgrades an explicit prod marker.
+    """
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    return any(t in {"production", "prod"} for t in tokens)
 
 
 def login_rate_limit_backend() -> str:

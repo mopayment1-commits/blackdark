@@ -53,15 +53,17 @@ _DISABLED_DEMO_VALUES = ("disabled", "off", "none")
 
 
 def is_production() -> bool:
-    """True when ENV/APP_ENV/RAILWAY is production — LOCAL_DEV never overrides explicit prod."""
-    env = (
-        os.getenv("ENV")
-        or os.getenv("APP_ENV")
-        or os.getenv("ENVIRONMENT")
-        or os.getenv("RAILWAY_ENVIRONMENT")
-        or ""
-    ).strip().lower()
-    return env in {"production", "prod"}
+    """True when any ENV/APP_ENV/ENVIRONMENT/RAILWAY token is production (fail-closed OR).
+
+    Polluted ENV=development must not hide APP_ENV=production.
+    """
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    return any(t in {"production", "prod"} for t in tokens)
 
 
 def _safe_failure_ids(raw_ids: list[str] | set[str]) -> list[str]:

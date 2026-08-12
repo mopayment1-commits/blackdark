@@ -20,9 +20,14 @@ def _derive_fernet_key(raw: str) -> bytes:
 
 
 def _is_production() -> bool:
-    """ENV=production is never overridden by LOCAL_DEV (admin/vault footgun)."""
-    env = (os.getenv("ENV") or os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower()
-    return env in {"production", "prod"}
+    """Any ENV/APP_ENV/ENVIRONMENT/RAILWAY production marker wins (fail-closed OR)."""
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    return any(t in {"production", "prod"} for t in tokens)
 
 
 def get_vault_key() -> bytes:

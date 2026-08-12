@@ -31,6 +31,12 @@ def test_tamper_detection(tmp_path, monkeypatch):
 
     result = chain.verify_chain()
     assert result["valid"] is False
+    # Fail closed — never extend a broken chain.
+    try:
+        chain.append_prediction_record({"asset": "ETH", "verdict": "bullish"})
+        raise AssertionError("expected oracle_audit_chain_integrity_failed")
+    except RuntimeError as exc:
+        assert "oracle_audit_chain_integrity_failed" in str(exc)
 
 
 def test_chain_summary(tmp_path, monkeypatch):

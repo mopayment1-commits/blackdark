@@ -62,14 +62,14 @@ def _session_response_body(result: dict[str, Any]) -> dict[str, Any]:
     if explicit in {"0", "false", "no"}:
         include = False
     elif not explicit:
-        env = (
-            os.getenv("ENV")
-            or os.getenv("APP_ENV")
-            or os.getenv("ENVIRONMENT")
-            or os.getenv("RAILWAY_ENVIRONMENT")
-            or ""
-        ).strip().lower()
-        include = env not in {"production", "prod"}
+        tokens = [
+            (os.getenv("ENV") or "").strip().lower(),
+            (os.getenv("APP_ENV") or "").strip().lower(),
+            (os.getenv("ENVIRONMENT") or "").strip().lower(),
+            (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+        ]
+        # Any explicit production marker → omit bearer from JSON body.
+        include = not any(t in {"production", "prod"} for t in tokens)
     if not include:
         body.pop("token", None)
         body["session"] = "cookie"

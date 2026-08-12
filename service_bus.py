@@ -47,14 +47,13 @@ def bus_enabled() -> bool:
 
 def require_distributed_bus() -> bool:
     """True when multi-replica / production HA must not use process-local bus."""
-    env = (
-        os.getenv("ENV")
-        or os.getenv("APP_ENV")
-        or os.getenv("ENVIRONMENT")
-        or os.getenv("RAILWAY_ENVIRONMENT")
-        or ""
-    ).strip().lower()
-    prod = env in {"production", "prod"}
+    tokens = [
+        (os.getenv("ENV") or "").strip().lower(),
+        (os.getenv("APP_ENV") or "").strip().lower(),
+        (os.getenv("ENVIRONMENT") or "").strip().lower(),
+        (os.getenv("RAILWAY_ENVIRONMENT") or "").strip().lower(),
+    ]
+    prod = any(t in {"production", "prod"} for t in tokens)
     soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
     workers = int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1)
     replicas = int(os.getenv("WEB_REPLICAS", "1") or 1)
