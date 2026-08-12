@@ -391,10 +391,15 @@ def test_flash_crash_and_microstructure():
 
 
 def test_oms_cancel_replace(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
     import oms
 
     monkeypatch.setattr(oms, "_PATH", tmp_path / "oms.json")
     monkeypatch.setattr(oms, "_DATA_BASE", tmp_path)
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "oms_cancel_replace.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
     order = oms.create_intent(
         org_id="o1",
         venue="binance",

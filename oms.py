@@ -92,9 +92,24 @@ def create_intent(
     side = adopted["side"]
     from institutional_store import oms_get_by_idempotency_sync, oms_upsert_sync
 
+    # File cache is the process-local mirror; check it before DB so ephemeral
+    # OMS_DIR test sandboxes are not poisoned by leftover shared-DB rows.
+    with _LOCK:
+        data = _load()
+        orders = data.setdefault("orders", {})
+        for existing in orders.values():
+            if existing.get("idempotency_key") == idempotency_key and existing.get("org_id") == org_id:
+                return existing
+
     existing_db = oms_get_by_idempotency_sync(org_id, idempotency_key)
     if existing_db:
+        # Restart recovery: DB authority wins when the file mirror is empty.
+        with _LOCK:
+            data = _load()
+            data.setdefault("orders", {})[existing_db["order_id"]] = existing_db
+            _save(data)
         return existing_db
+
     with _LOCK:
         data = _load()
         orders = data.setdefault("orders", {})
@@ -140,6 +155,19 @@ def transition(
     new_state = new_state.strip().upper()
     if new_state not in STATES:
         raise ValueError(f"invalid_state:{new_state}")
+    # Hydrate from DB authority when the file mirror is cold (process restart).
+    if not _load().get("orders", {}).get(order_id):
+        try:
+            from institutional_store import oms_get_sync
+
+            db_row = oms_get_sync(order_id)
+        except Exception:
+            db_row = None
+        if db_row:
+            with _LOCK:
+                data = _load()
+                data.setdefault("orders", {})[order_id] = db_row
+                _save(data)
     with _LOCK:
         data = _load()
         row = data.get("orders", {}).get(order_id)
@@ -171,15 +199,20 @@ def transition(
 
 
 def get_order(order_id: str) -> dict[str, Any] | None:
+    file_row = _load().get("orders", {}).get(order_id)
+    db_row = None
     try:
         from institutional_store import oms_get_sync
 
         db_row = oms_get_sync(order_id)
-        if db_row:
-            return db_row
     except Exception:
-        pass
-    return _load().get("orders", {}).get(order_id)
+        db_row = None
+    if file_row and db_row:
+        # Prefer the newer updated_at between file mirror and DB authority.
+        if str(file_row.get("updated_at") or "") >= str(db_row.get("updated_at") or ""):
+            return file_row
+        return db_row
+    return file_row or db_row
 
 
 def list_orders(org_id: str) -> list[dict[str, Any]]:
@@ -203,6 +236,13 @@ def cancel_replace(
     new_limit_price: float | None = None,
 ) -> dict[str, Any]:
     """Cancel/replace: CANCEL then new INTENT linked by replaces_order_id."""
+    # Ensure DB-only rows are mirrored into the file cache before cancel.
+    seed = get_order(order_id)
+    if seed:
+        with _LOCK:
+            data = _load()
+            data.setdefault("orders", {})[order_id] = {**data.get("orders", {}).get(order_id, {}), **seed}
+            _save(data)
     with _LOCK:
         data = _load()
         row = data.get("orders", {}).get(order_id)
@@ -222,6 +262,12 @@ def cancel_replace(
             _save(data)
         else:
             raise ValueError(f"illegal_transition:{cur}->CANCEL")
+    try:
+        from institutional_store import oms_upsert_sync
+
+        oms_upsert_sync(dict(row))
+    except Exception:
+        pass
     # Create replacement outside lock via create_intent
     repl = create_intent(
         org_id=str(row["org_id"]),

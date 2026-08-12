@@ -251,10 +251,15 @@ def test_risk_intelligence_fail_closed_and_gates():
 
 
 def test_oms_lifecycle_and_idempotency(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
     import oms
 
     monkeypatch.setattr(oms, "_PATH", tmp_path / "oms_orders.json")
     monkeypatch.setattr(oms, "_DATA_BASE", tmp_path)
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "oms_lifecycle.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
 
     a = oms.create_intent(
         org_id="org1",
