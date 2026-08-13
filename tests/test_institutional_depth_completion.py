@@ -409,7 +409,7 @@ async def test_full_catalog_mesh_prove_near_complete():
     assert out["verified_complete"] is False
     # Honesty: synthetic mids may count for catalog %, but L2 is separate.
     breakdown = out.get("depth_breakdown") or {}
-    assert int(breakdown.get("venue_l2") or 0) >= 70
+    assert int(breakdown.get("venue_l2") or 0) >= 75
     assert int(breakdown.get("failed") or 0) <= 10
     assert int(out.get("institutional_l2_exchanges") or 0) == int(breakdown.get("venue_l2") or 0)
     assert out.get("full_mesh_l2_complete") is False or int(breakdown.get("synthetic_mid") or 0) == 0
@@ -424,7 +424,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 67
+    assert len(CORE_PUBLIC_CEX_MESH) >= 72
     assert mv.get("mesh_symbol_overrides")
     # Regional overrides must be probed with non-default pairs when present.
     override_hits = [
@@ -538,6 +538,9 @@ async def test_native_upgraded_cex_l2_not_synthetic():
     symbol_for = {
         "indodax": "BTC/IDR",
         "coinmate": "BTC/EUR",
+        "btcmarkets": "BTC/AUD",
+        "bitmex": "BTC/USD",
+        "deribit": "BTC/USD",
     }
     for venue in (
         "pionex",
@@ -553,6 +556,11 @@ async def test_native_upgraded_cex_l2_not_synthetic():
         "indodax",
         "coinmate",
         "bitopro",
+        "yobit",
+        "max",
+        "btcmarkets",
+        "bitmex",
+        "deribit",
     ):
         assert venue_kind(venue) == "native_regional"
         pair = symbol_for.get(venue, "BTC/USDT")

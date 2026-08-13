@@ -343,15 +343,6 @@
       "provider": "native_regional"
     },
     {
-      "id": "tokocrypto",
-      "name": "Tokocrypto",
-      "category": "regional_cex",
-      "tier": 2,
-      "status": "ingestion_ready",
-      "ccxt_id": "binance_tr",
-      "provider": "ccxt"
-    },
-    {
       "id": "gemini",
       "name": "Gemini",
       "category": "cex",
@@ -469,24 +460,6 @@
       "provider": "dex"
     },
     {
-      "id": "spookyswap",
-      "name": "SpookySwap",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "camelot",
-      "name": "Camelot",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
       "id": "aerodrome",
       "name": "Aerodrome",
       "category": "dex",
@@ -525,15 +498,6 @@
     {
       "id": "dedust",
       "name": "Dedust",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "vvs",
-      "name": "VVS Finance",
       "category": "dex",
       "tier": 3,
       "status": "ingestion_ready",
@@ -647,15 +611,6 @@
       "status": "ingestion_ready",
       "ccxt_id": null,
       "provider": "perp_dex"
-    },
-    {
-      "id": "binance_tr",
-      "name": "Binance TR",
-      "category": "regional_cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
     },
     {
       "id": "bitflyer",
@@ -896,6 +851,51 @@
       "name": "BitoPro",
       "category": "cex",
       "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "yobit",
+      "name": "YoBit",
+      "category": "cex",
+      "tier": 4,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "max",
+      "name": "MAX",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "btcmarkets",
+      "name": "BTC Markets",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "bitmex",
+      "name": "BitMEX",
+      "category": "cex",
+      "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "deribit",
+      "name": "Deribit",
+      "category": "cex",
+      "tier": 2,
       "status": "ingestion_ready",
       "ccxt_id": null,
       "provider": "native_regional"

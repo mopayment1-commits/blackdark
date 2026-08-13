@@ -17,22 +17,14 @@
 |---|---|---|---|---|---|
 | PA-01 | Real-time price ingestion | complete | complete | aggregator | VERIFIED_COMPLETE |
 | PA-02 | Fast price updates (WebSocket) | partial | complete | exchange_ws_hub + stream_freshness_truth | VERIFIED_COMPLETE |
-| PA-03 | 100 exchanges — phase 1 | complete | complete | universe_rollout | VERIFIED_COMPLETE |
-| PA-04 | Cross-exchange arbitrage | complete | complete + canonical | arbitrage_engine | VERIFIED_COMPLETE |
-| PA-05 | Triangular arbitrage | complete | complete + canonical | arbitrage_engine | VERIFIED_COMPLETE |
-| PA-06 | Funding rate harvest | complete/weak depth | complete + depth fail-closed | arbitrage_engine | VERIFIED_COMPLETE |
-| PA-07 | Spot vs Futures | complete | complete + canonical | arbitrage_engine | VERIFIED_COMPLETE |
-| PA-08 | CEX ↔ DEX | complete | complete (indicative≠executable) | cex_dex_* | VERIFIED_COMPLETE |
-| PA-09 | Execution risk scoring | complete | complete | risk_manager | VERIFIED_COMPLETE |
-| PA-10 | Risk management | complete | complete + risk_intelligence | risk_* | VERIFIED_COMPLETE |
-| PA-11 | Liquidity filtering | complete | complete + microstructure | liquidity_* | VERIFIED_COMPLETE |
-| PA-12 | Auto execution via API keys | complete | complete | execution_keys | VERIFIED_COMPLETE |
+| PA-03 | 100 exchanges — phase 1 | complete | complete | universe_rollout | PARTIAL (price health 100%; institutional L2 not 100%) |
+| PA-12 | Auto execution via API keys | complete | complete | execution_keys | PARTIAL (`live_fill` geo-blocked) |
 | PA-13 | 77 arb catalog | partial | complete (honest labels) | arbitrage_catalog | VERIFIED_COMPLETE |
 | PA-14–18 | Dashboard/alerts/journal… | mixed | complete | various | VERIFIED_COMPLETE |
 | PA-Mobile | Web/Desktop/Mobile | planned | complete (PWA) | dashboard/static | VERIFIED_COMPLETE |
 | PA-SEC | SEC filings AI | planned | complete | sec_filings_ai | VERIFIED_COMPLETE |
 
-All `plan_audit` rows: **complete / partial=0 / planned=0**
+Historical rows below remain over-labeled; **binding verdict is NOT COMPLETE**.
 
 ## Identity / Institutional (explicit prior remainders)
 

@@ -46,6 +46,11 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "indodax": "BTC/IDR",
     "coinmate": "BTC/EUR",
     "bitopro": "BTC/USDT",
+    "yobit": "BTC/USDT",
+    "max": "BTC/USDT",
+    "btcmarkets": "BTC/AUD",
+    "bitmex": "BTC/USD",
+    "deribit": "BTC/USD",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -65,7 +70,7 @@ async def _fetch_valr(session: aiohttp.ClientSession, symbol: str) -> tuple[list
     url = f"https://api.valr.com/v1/public/{pair}/orderbook"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     bids = [[float(x["price"]), float(x["quantity"])] for x in (body.get("Bids") or [])]
     asks = [[float(x["price"]), float(x["quantity"])] for x in (body.get("Asks") or [])]
     return bids, asks
@@ -85,7 +90,7 @@ async def _fetch_korbit(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     url = f"https://api.korbit.co.kr/v1/orderbook?currency_pair={pair}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     # Korbit levels are [price, qty, order_count]
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
@@ -95,7 +100,7 @@ async def _fetch_buda(session: aiohttp.ClientSession, symbol: str) -> tuple[list
     url = f"https://www.buda.com/api/v2/markets/{market}/order_book"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     ob = body.get("order_book") or {}
     return _levels_pq(ob.get("bids") or []), _levels_pq(ob.get("asks") or [])
 
@@ -105,7 +110,7 @@ async def _fetch_coinone(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://api.coinone.co.kr/orderbook/?currency={base}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if body.get("result") != "success":
         raise ValueError(f"coinone_error:{body.get('errorCode')}")
     bids = [[float(x["price"]), float(x["qty"])] for x in (body.get("bid") or [])]
@@ -120,7 +125,7 @@ async def _fetch_bitfinex(session: aiohttp.ClientSession, symbol: str) -> tuple[
     url = f"https://api-pub.bitfinex.com/v2/book/{pair}/P0?len=25"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if not isinstance(body, list):
         raise ValueError("bitfinex_bad_book")
     bids: list[list[float]] = []
@@ -145,7 +150,7 @@ async def _fetch_woox(session: aiohttp.ClientSession, symbol: str) -> tuple[list
     url = f"https://api.woo.org/v1/public/orderbook/{woo_sym}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if not body.get("success"):
         raise ValueError(f"woox_error:{body.get('code') or body.get('message')}")
     bids = [[float(x["price"]), float(x["quantity"])] for x in (body.get("bids") or [])]
@@ -159,7 +164,7 @@ async def _fetch_hotcoin(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://api.hotcoinfin.com/v1/depth?symbol={pair}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if int(body.get("code") or 0) != 200:
         raise ValueError(f"hotcoin_error:{body.get('msg') or body.get('code')}")
     depth = (body.get("data") or {}).get("depth") or {}
@@ -175,7 +180,7 @@ async def _fetch_paribu(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     url = f"https://api.paribu.com/orderbook?market={market}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
 
@@ -188,7 +193,7 @@ async def _fetch_gemini_uk(session: aiohttp.ClientSession, symbol: str) -> tuple
     url = f"https://api.gemini.com/v1/book/{pair}?limit_bids=20&limit_asks=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     bids = [[float(x["price"]), float(x["amount"])] for x in (body.get("bids") or [])]
     asks = [[float(x["price"]), float(x["amount"])] for x in (body.get("asks") or [])]
     return bids, asks
@@ -204,7 +209,7 @@ async def _fetch_cryptocom_us(session: aiohttp.ClientSession, symbol: str) -> tu
     )
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if int(body.get("code") or 0) != 0:
         raise ValueError(f"cryptocom_us_error:{body.get('message') or body.get('code')}")
     data = ((body.get("result") or {}).get("data") or [{}])[0]
@@ -217,7 +222,7 @@ async def _fetch_pionex(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     url = f"https://api.pionex.com/api/v1/market/depth?symbol={pair}&limit=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if not body.get("result"):
         raise ValueError(f"pionex_error:{body.get('error_msg') or body}")
     data = body.get("data") or {}
@@ -233,7 +238,7 @@ async def _fetch_coinw(session: aiohttp.ClientSession, symbol: str) -> tuple[lis
     )
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if str(body.get("code") or "") not in {"200", "0"}:
         raise ValueError(f"coinw_error:{body.get('msg') or body.get('message') or body.get('code')}")
     data = body.get("data") or {}
@@ -257,7 +262,7 @@ async def _fetch_biconomy(session: aiohttp.ClientSession, symbol: str) -> tuple[
     url = f"https://www.biconomy.com/api/v1/depth?symbol={pair}&size=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
 
@@ -267,7 +272,7 @@ async def _fetch_coinstore(session: aiohttp.ClientSession, symbol: str) -> tuple
     url = f"https://api.coinstore.com/api/v1/market/depth/{pair}?depth=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     data = body.get("data") or {}
     # a=asks, b=bids; levels [price, qty, ...]
     return _levels_pq(data.get("b") or []), _levels_pq(data.get("a") or [])
@@ -279,7 +284,7 @@ async def _fetch_azbit(session: aiohttp.ClientSession, symbol: str) -> tuple[lis
     url = f"https://data.azbit.com/api/orderbook?currencyPairCode={pair}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if not isinstance(body, list):
         raise ValueError("azbit_bad_book")
     bids: list[list[float]] = []
@@ -316,7 +321,7 @@ async def _fetch_bitunix(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://openapi.bitunix.com/api/spot/v1/market/depth?symbol={pair}&limit=50"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     data = body.get("data") if isinstance(body.get("data"), dict) else None
     if data is None:
         raise ValueError(f"bitunix_error:{body.get('msg') or body.get('code') or 'no_data'}")
@@ -333,7 +338,7 @@ async def _fetch_fameex(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     url = f"https://api.fameex.com/sapi/v1/depth?symbol={pair}&limit=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
 
@@ -343,7 +348,7 @@ async def _fetch_ourbit(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     url = f"https://api.ourbit.com/api/v3/depth?symbol={pair}&limit=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
 
@@ -353,7 +358,7 @@ async def _fetch_hashkey(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://api-pro.hashkey.com/quote/v1/depth?symbol={pair}&limit=20"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     return _levels_pq(body.get("b") or body.get("bids") or []), _levels_pq(
         body.get("a") or body.get("asks") or []
     )
@@ -365,7 +370,7 @@ async def _fetch_indodax(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://indodax.com/api/depth/{pair}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     # Indodax: buy=bids, sell=asks as [price, qty] strings
     return _levels_pq(body.get("buy") or []), _levels_pq(body.get("sell") or [])
 
@@ -376,7 +381,7 @@ async def _fetch_coinmate(session: aiohttp.ClientSession, symbol: str) -> tuple[
     url = f"https://coinmate.io/api/orderBook?currencyPair={pair}&groupByPriceLimit=False"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     if body.get("error"):
         raise ValueError(f"coinmate_error:{body.get('errorMessage')}")
     data = body.get("data") or {}
@@ -395,10 +400,80 @@ async def _fetch_bitopro(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     url = f"https://api.bitopro.com/v3/order-book/{pair}"
     async with session.get(url) as r:
         r.raise_for_status()
-        body = await r.json()
+        body = await r.json(content_type=None)
     bids = _levels_price_volume_dicts(body.get("bids") or [])
     asks = _levels_price_volume_dicts(body.get("asks") or [])
     return bids, asks
+
+
+async def _fetch_yobit(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.lower()}_{quote.lower()}"
+    url = f"https://yobit.net/api/3/depth/{pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    row = body.get(pair) if isinstance(body, dict) else None
+    if not isinstance(row, dict):
+        raise ValueError("yobit_bad_book")
+    return _levels_pq(row.get("bids") or []), _levels_pq(row.get("asks") or [])
+
+
+async def _fetch_max(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    market = f"{base.lower()}{quote.lower()}"
+    url = f"https://max-api.maicoin.com/api/v2/depth?market={market}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_btcmarkets(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}-{quote.upper()}"
+    url = f"https://api.btcmarkets.net/v3/markets/{pair}/orderbook?level=2"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_bitmex(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://www.bitmex.com/api/v1/orderBook/L2?symbol=XBTUSD&depth=25"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    if not isinstance(body, list):
+        raise ValueError("bitmex_bad_book")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("size") or 0)
+        if price <= 0 or size <= 0:
+            continue
+        side = str(row.get("side") or "").lower()
+        if side == "buy":
+            bids.append([price, size])
+        elif side == "sell":
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_deribit(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://www.deribit.com/api/v2/public/get_order_book?instrument_name=BTC-PERPETUAL&depth=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    result = (body or {}).get("result") if isinstance(body, dict) else None
+    if not isinstance(result, dict):
+        raise ValueError("deribit_bad_book")
+    return _levels_pq(result.get("bids") or []), _levels_pq(result.get("asks") or [])
 
 
 _FETCHERS: dict[str, Callable[..., Any]] = {
@@ -425,6 +500,11 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "indodax": _fetch_indodax,
     "coinmate": _fetch_coinmate,
     "bitopro": _fetch_bitopro,
+    "yobit": _fetch_yobit,
+    "max": _fetch_max,
+    "btcmarkets": _fetch_btcmarkets,
+    "bitmex": _fetch_bitmex,
+    "deribit": _fetch_deribit,
 }
 
 
