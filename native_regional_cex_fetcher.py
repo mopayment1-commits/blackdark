@@ -41,6 +41,11 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "bitunix": "BTC/USDT",
     "fameex": "BTC/USDT",
     "ourbit": "BTC/USDT",
+    # Catalog-swap free public L2 (not in prior CoinGecko synthetic set).
+    "hashkey": "BTC/USDT",
+    "indodax": "BTC/IDR",
+    "coinmate": "BTC/EUR",
+    "bitopro": "BTC/USDT",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -342,6 +347,60 @@ async def _fetch_ourbit(session: aiohttp.ClientSession, symbol: str) -> tuple[li
     return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
 
 
+async def _fetch_hashkey(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    url = f"https://api-pro.hashkey.com/quote/v1/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    return _levels_pq(body.get("b") or body.get("bids") or []), _levels_pq(
+        body.get("a") or body.get("asks") or []
+    )
+
+
+async def _fetch_indodax(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.lower()}{quote.lower()}"
+    url = f"https://indodax.com/api/depth/{pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    # Indodax: buy=bids, sell=asks as [price, qty] strings
+    return _levels_pq(body.get("buy") or []), _levels_pq(body.get("sell") or [])
+
+
+async def _fetch_coinmate(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://coinmate.io/api/orderBook?currencyPair={pair}&groupByPriceLimit=False"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if body.get("error"):
+        raise ValueError(f"coinmate_error:{body.get('errorMessage')}")
+    data = body.get("data") or {}
+    bids = _levels_price_volume_dicts(
+        [{"price": x.get("price"), "amount": x.get("amount")} for x in (data.get("bids") or [])]
+    )
+    asks = _levels_price_volume_dicts(
+        [{"price": x.get("price"), "amount": x.get("amount")} for x in (data.get("asks") or [])]
+    )
+    return bids, asks
+
+
+async def _fetch_bitopro(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://api.bitopro.com/v3/order-book/{pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    bids = _levels_price_volume_dicts(body.get("bids") or [])
+    asks = _levels_price_volume_dicts(body.get("asks") or [])
+    return bids, asks
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -362,6 +421,10 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "bitunix": _fetch_bitunix,
     "fameex": _fetch_fameex,
     "ourbit": _fetch_ourbit,
+    "hashkey": _fetch_hashkey,
+    "indodax": _fetch_indodax,
+    "coinmate": _fetch_coinmate,
+    "bitopro": _fetch_bitopro,
 }
 
 

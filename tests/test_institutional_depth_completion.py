@@ -409,7 +409,7 @@ async def test_full_catalog_mesh_prove_near_complete():
     assert out["verified_complete"] is False
     # Honesty: synthetic mids may count for catalog %, but L2 is separate.
     breakdown = out.get("depth_breakdown") or {}
-    assert int(breakdown.get("venue_l2") or 0) >= 30
+    assert int(breakdown.get("venue_l2") or 0) >= 70
     assert int(breakdown.get("failed") or 0) <= 10
     assert int(out.get("institutional_l2_exchanges") or 0) == int(breakdown.get("venue_l2") or 0)
     assert out.get("full_mesh_l2_complete") is False or int(breakdown.get("synthetic_mid") or 0) == 0
@@ -424,7 +424,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 58
+    assert len(CORE_PUBLIC_CEX_MESH) >= 67
     assert mv.get("mesh_symbol_overrides")
     # Regional overrides must be probed with non-default pairs when present.
     override_hits = [
@@ -435,7 +435,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
         and p.get("symbol") == MESH_SYMBOL_OVERRIDES[p["venue"]]
     ]
     assert len(override_hits) >= 3
-    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 15)
+    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 4)
     assert mv["live_count"] >= floor
     assert len(mv.get("l2_venues") or []) >= floor
     assert int(mv.get("canonical_mesh_adopted_count") or 0) >= max(15, floor - 10)
@@ -535,6 +535,10 @@ async def test_native_upgraded_cex_l2_not_synthetic():
     from native_regional_cex_fetcher import build_native_regional_market_fetchers
 
     fetchers = build_native_regional_market_fetchers()
+    symbol_for = {
+        "indodax": "BTC/IDR",
+        "coinmate": "BTC/EUR",
+    }
     for venue in (
         "pionex",
         "coinw",
@@ -545,10 +549,15 @@ async def test_native_upgraded_cex_l2_not_synthetic():
         "bitunix",
         "fameex",
         "ourbit",
+        "hashkey",
+        "indodax",
+        "coinmate",
+        "bitopro",
     ):
         assert venue_kind(venue) == "native_regional"
+        pair = symbol_for.get(venue, "BTC/USDT")
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=12)) as session:
-            _t, book = await fetchers[venue](session, "BTC/USDT", "spot")
+            _t, book = await fetchers[venue](session, pair, "spot")
         assert len(book.bids) >= 5 and len(book.asks) >= 5
 
 
@@ -558,7 +567,7 @@ async def test_hyperliquid_dydx_real_l2_not_synthetic():
     from perp_dex_fetcher import fetch_perp_dex_market
 
     async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20)) as session:
-        for venue in ("hyperliquid", "dydx"):
+        for venue in ("hyperliquid", "dydx", "apex"):
             _t, book = await fetch_perp_dex_market(
                 session, "BTC/USD", "perpetual", exchange_id=venue
             )
@@ -588,3 +597,36 @@ def test_decision_e2e_returns_from_live_mids():
     assert len(mi.get("returns_bps") or []) >= 1
     # Must not be the old hardcoded theater vector.
     assert mi.get("returns_bps") != [-5.0, 3.0, -2.0]
+    assert mi.get("liquidation_distance_bps") == 0.0
+    assert mi.get("liquidation_distance_source") == "unmeasured_zero_not_theater"
+    assert mi.get("spread_source") in {"live_tob", "unavailable_zero_not_theater"}
+    assert mi.get("funding_source") in {"live_funding", "unavailable_zero_not_theater"}
+
+
+def test_ops_status_surfaces_four_blockers():
+    from ops_recovery import ops_status
+
+    st = ops_status()
+    assert st.get("product_complete") is False
+    assert st.get("cloud_multi_az") is False
+    fb = st.get("four_blockers") or {}
+    assert fb.get("product_complete") is False
+    assert fb.get("institutional_verdict") == "NOT_COMPLETE"
+    assert "live_fill" in fb
+    assert "jupiter_verified_complete" in fb
+    assert "full_mesh_l2_complete" in fb
+    assert fb.get("live_fill") is False
+    assert fb.get("jupiter_verified_complete") is False
+    assert fb.get("full_mesh_l2_complete") is False
+    assert fb.get("cloud_multi_az") is False
+
+
+def test_white_label_prove_lists_org_gateway_routes():
+    from white_label import prove_white_label_surface
+
+    out = prove_white_label_surface(org_id="wl_unpaid_routes", product_name="Desk")
+    routes = out.get("api_routes") or []
+    assert any("/portal" in r for r in routes)
+    assert any("/terminal" in r for r in routes)
+    assert out.get("product_complete") is False
+    assert out.get("verified_complete") is False

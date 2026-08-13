@@ -235,24 +235,6 @@
       "provider": "ccxt"
     },
     {
-      "id": "kcex",
-      "name": "KCEX",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
-      "id": "btcc",
-      "name": "BTCC",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
       "id": "weex",
       "name": "WEEX",
       "category": "cex",
@@ -287,15 +269,6 @@
       "status": "ingestion_ready",
       "ccxt_id": null,
       "provider": "ccxt"
-    },
-    {
-      "id": "tapbit",
-      "name": "Tapbit",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
     },
     {
       "id": "fameex",
@@ -341,15 +314,6 @@
       "status": "ingestion_ready",
       "ccxt_id": null,
       "provider": "native_regional"
-    },
-    {
-      "id": "zoomex",
-      "name": "Zoomex",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
     },
     {
       "id": "phemex",
@@ -808,7 +772,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "gemini_uk",
@@ -817,7 +781,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "bitbank",
@@ -899,6 +863,42 @@
       "status": "ingestion_ready",
       "ccxt_id": "zaif",
       "provider": "ccxt"
+    },
+    {
+      "id": "hashkey",
+      "name": "HashKey",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "indodax",
+      "name": "Indodax",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "coinmate",
+      "name": "CoinMate",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "bitopro",
+      "name": "BitoPro",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
     }
   ],
   "assets": [

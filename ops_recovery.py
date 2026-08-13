@@ -1048,4 +1048,51 @@ def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
     }
     if pg_ha is not None:
         out["postgres_streaming_ha_rpo_rto"] = pg_ha
+    # Surface frozen four-blocker honesty for institutional ops dashboards.
+    out["four_blockers"] = _four_blockers_ops_snapshot()
     return out
+
+
+def _four_blockers_ops_snapshot() -> dict[str, Any]:
+    """Embed four-blocker evidence into ops_status — never invents PASS."""
+    from pathlib import Path
+    import json
+
+    path = Path("docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json")
+    base: dict[str, Any] = {
+        "product_complete": False,
+        "institutional_verdict": "NOT_COMPLETE",
+        "source": str(path),
+        "external_block_cloud_multi_az": "zero_cost_no_paid_cloud_multi_az",
+    }
+    if not path.is_file():
+        base["ok"] = False
+        base["reason"] = "four_blockers_evidence_missing"
+        return base
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        base["ok"] = False
+        base["error"] = str(exc)[:200]
+        return base
+    b1 = raw.get("blocker_1_live_venue_fill") or {}
+    b2 = raw.get("blocker_2_jupiter_live_signature") or {}
+    b3 = raw.get("blocker_3_full_mesh_100") or {}
+    b4 = raw.get("blocker_4_cloud_multi_az_ha") or {}
+    base.update(
+        {
+            "ok": True,
+            "proved_at": raw.get("proved_at"),
+            "live_fill": bool(b1.get("live_fill")),
+            "live_fill_external_block": b1.get("external_block"),
+            "jupiter_verified_complete": bool(b2.get("verified_complete")),
+            "jupiter_external_block": b2.get("external_block"),
+            "institutional_l2_coverage_percent": b3.get("institutional_l2_coverage_percent"),
+            "full_mesh_l2_complete": bool(b3.get("full_mesh_l2_complete")),
+            "mesh_live_count": b3.get("mesh_live_count"),
+            "cloud_multi_az": bool(b4.get("cloud_multi_az")),
+            "cloud_multi_az_external_block": b4.get("external_block"),
+            "operator_decisions": raw.get("operator_decisions"),
+        }
+    )
+    return base

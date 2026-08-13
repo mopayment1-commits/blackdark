@@ -50,10 +50,14 @@ def run_decision_e2e(
             if mid > 0:
                 spread_bps = ((float(asks[0][0]) - float(bids[0][0])) / mid) * 10_000
     depth = depth / 2.0 if depth else None
+    spread_source = "live_tob"
     if spread_bps is None:
-        spread_bps = 5.0  # fail-soft only when live book TOB unavailable
+        # Fail-closed label: no fabricated theater spread when TOB absent.
+        spread_bps = 0.0
+        spread_source = "unavailable_zero_not_theater"
 
     funding_rate = None
+    funding_source = "unavailable"
     try:
         from canonical_truth_bus import get_live_funding
 
@@ -62,11 +66,13 @@ def run_decision_e2e(
             row = (syms or {}).get(symbol) or {}
             if row.get("funding_rate") is not None and not row.get("synthetic"):
                 funding_rate = float(row["funding_rate"])
+                funding_source = "live_funding"
                 break
     except Exception:
         funding_rate = None
     if funding_rate is None:
         funding_rate = 0.0  # honest zero when live funding absent (not a fabricated premium)
+        funding_source = "unavailable_zero_not_theater"
 
     # Derive micro return samples from live cross-venue mid dispersion (not hardcoded theater).
     mids: list[float] = []
@@ -95,10 +101,12 @@ def run_decision_e2e(
         spread_bps=float(spread_bps),
         returns_bps=returns_bps,
         positions=[{"asset": symbol.split("/")[0], "side": "long", "notional_usd": notional}],
-        venue_health={v: 0.9 for v in books},
+        # Venue health = 1.0 only for venues that contributed a live book; never a flat theater 0.9.
+        venue_health={v: 1.0 for v in books},
         leverage=1.0,
         funding_rate=float(funding_rate),
-        liquidation_distance_bps=2000.0,
+        # Unknown liquidation distance — 0 means "not measured" (not a fake 2000 bps cushion).
+        liquidation_distance_bps=0.0,
     )
     liq = liquidity_risk(
         symbol=symbol,
@@ -169,7 +177,11 @@ def run_decision_e2e(
         "risk": risk,
         "market_inputs": {
             "spread_bps": float(spread_bps),
+            "spread_source": spread_source,
             "funding_rate": float(funding_rate),
+            "funding_source": funding_source,
+            "liquidation_distance_bps": 0.0,
+            "liquidation_distance_source": "unmeasured_zero_not_theater",
             "depth_usd": depth,
             "returns_bps": returns_bps,
             "returns_source": "live_cross_venue_mid_dispersion",

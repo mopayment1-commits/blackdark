@@ -197,6 +197,27 @@ async def _dydx_l2(
     return bids, asks, mid
 
 
+async def _apex_l2(
+    session: aiohttp.ClientSession, asset: str
+) -> tuple[list[list[float]], list[list[float]], float]:
+    """Real Apex Omni public depth (not synthetic 1-level mid)."""
+    sym = PERP_SYMBOLS.get(asset.upper(), asset.upper())
+    pair = f"{sym}USDT"
+    url = f"https://omni.apex.exchange/api/v3/depth?symbol={pair}&limit=50"
+    payload = await _fetch_json(session, url)
+    data = payload.get("data") if isinstance(payload, dict) else None
+    if not isinstance(data, dict):
+        raise ValueError(f"Apex l2 missing for {asset}")
+    bids = [[float(r[0]), float(r[1])] for r in (data.get("b") or []) if r and len(r) >= 2]
+    asks = [[float(r[0]), float(r[1])] for r in (data.get("a") or []) if r and len(r) >= 2]
+    bids = [x for x in bids if x[0] > 0 and x[1] > 0]
+    asks = [x for x in asks if x[0] > 0 and x[1] > 0]
+    if len(bids) < 5 or len(asks) < 5:
+        raise ValueError(f"Apex shallow_l2:{len(bids)}/{len(asks)}")
+    mid = (bids[0][0] + asks[0][0]) / 2.0
+    return bids, asks, mid
+
+
 def _gmx_row_price(row: dict[str, Any], symbol: str) -> float | None:
     if str(row.get("tokenSymbol") or "").upper() != symbol:
         return None
@@ -290,6 +311,12 @@ async def fetch_perp_dex_market(
                 bids, asks, price = await _dydx_l2(session, asset)
             except (aiohttp.ClientError, TypeError, ValueError, KeyError):
                 price, _funding = await _dydx_mid(session, asset)
+                bids, asks = _synthetic_book(price)
+        elif ex == "apex":
+            try:
+                bids, asks, price = await _apex_l2(session, asset)
+            except (aiohttp.ClientError, TypeError, ValueError, KeyError):
+                price, _funding = await _fetch_perp_mid(session, exchange_id, asset)
                 bids, asks = _synthetic_book(price)
         else:
             price, _funding = await _fetch_perp_mid(session, exchange_id, asset)
