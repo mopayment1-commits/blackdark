@@ -2,15 +2,15 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** `76105a853f67fa5c72ccb7c61e0fad13ea48a7bc`  
+**Product tip:** `5292cc70c115cbb685dcd9f63d6d6998a1764d9b`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 | Field | Value |
 |---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_76105a8.md` |
-| Overall | **96 / 100** |
+| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_5292cc7.md` |
+| Overall | **97 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **1** (`postgres_streaming_ha_rpo_rto`) |
 
@@ -18,24 +18,25 @@
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Public CEX L2 mesh (34) + regional symbols | PARTIAL | 34/34 L2; MESH_SYMBOL_OVERRIDES; canonical adopt 32 |
-| Durable prices mesh + continuum | PARTIAL | ~46% ingest; rollout ~34% |
-| Jupiter quote + `/swap` build/decode/sim | PARTIAL | simulate ok; live signature needs wallet |
-| Local Postgres dump/restore | PARTIAL | `LOCAL_EPHEMERAL_NOT_HA` |
-| Postgres product-path OMS | PARTIAL | ephemeral `authority=postgres` |
-| Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local streaming; `cloud_multi_az=false` |
-| Fill lifecycle | PARTIAL (paper) | book-walk impact; live_fill needs creds |
-| White Label | PARTIAL | real `build_super_terminal` brand prove |
-| product_complete honesty | held | no root self-cert True theater |
+| Public CEX L2 mesh (48) + regional/native | PARTIAL | 48/48 L2; native regional REST; canonical adopt 46 |
+| Durable prices mesh + continuum | PARTIAL | 48 sources; ~66% ingest; rollout ~40% |
+| Jupiter quote/build/decode/sim/reverse | PARTIAL | no signed broadcast |
+| Local Postgres dump/restore + ops bundle | PARTIAL | LOCAL_EPHEMERAL_NOT_HA; continuity ok |
+| Postgres product-path OMS | PARTIAL | authority=postgres |
+| Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local; cloud_multi_az=false |
+| Fill lifecycle | PARTIAL (paper) | book-walk + cancel/replace; no live_fill |
+| White Label | PARTIAL | builder + org isolation; no portal |
+| Decision e2e | PARTIAL | live inputs; no same-tick self-grade |
+| product_complete honesty | held | 0 root True literals |
 
-## Still open (credential / env / cloud)
+## Still open (credential / env / cloud — excluded this wave)
 
 | Blocker | Why open |
 |---|---|
-| Live venue FILL | No Binance testnet keys/flags in environment |
-| Jupiter live signature | No `SOLANA_PRIVATE_KEY` + live flag |
-| Full mesh | Catalog target 100; public blocks (451/403) + keyed sources |
-| Cloud multi-AZ HA | Explicitly not claimed by local streaming prove |
+| Live venue FILL | No Binance testnet keys/flags |
+| Jupiter live signature | No SOLANA_PRIVATE_KEY + live flag |
+| Full catalog mesh 100% | Public blocks + keyed sources |
+| Cloud multi-AZ HA | Not claimed by local streaming |
 
 ## Absolute rule
 
