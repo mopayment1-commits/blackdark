@@ -152,6 +152,12 @@ async def _probe_one(venue: str, *, symbol: str = "BTC/USDT") -> dict[str, Any]:
         "gemini_uk",
         "cryptocom_us",
         "woox",
+        "pionex",
+        "coinw",
+        "orangex",
+        "biconomy",
+        "coinstore",
+        "azbit",
     }:
         probe_symbol = mesh_symbol_for(venue)
 

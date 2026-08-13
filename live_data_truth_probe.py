@@ -376,6 +376,15 @@ CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "woox",
     "hotcoin",
     "paribu",
+    "gemini_uk",
+    "cryptocom_us",
+    # Upgraded from CoinGecko synthetic_mid to native public L2.
+    "pionex",
+    "coinw",
+    "orangex",
+    "biconomy",
+    "coinstore",
+    "azbit",
 )
 MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "bitvavo": "BTC/EUR",
@@ -397,6 +406,12 @@ MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "gemini_uk": "BTC/USD",
     "cryptocom_us": "BTC/USDT",
     "woox": "BTC/USDT",
+    "pionex": "BTC/USDT",
+    "coinw": "BTC/USDT",
+    "orangex": "BTC/USDT",
+    "biconomy": "BTC/USDT",
+    "coinstore": "BTC/USDT",
+    "azbit": "BTC/USDT",
 }
 _MIN_L2_LEVELS = 5
 
@@ -573,43 +588,60 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
 
         results.extend(await asyncio.gather(*[_one(v) for v in mesh]))
 
-    # Adopt mesh L2 into canonical (OKX/Kraken already adopt in their native probes).
+    # Adopt mesh L2 into canonical. Core natives may already be adopted in their probes —
+    # count them as adopted when live L2 is present (honest optics, no double-write required).
     adopted_venues: list[str] = []
+    native_pre_adopted = {"okx", "kraken", "binance"}
     for probe in results:
         venue = str(probe.get("venue") or "").lower()
-        if venue in {"okx", "kraken", "binance"}:
+        if not (probe.get("ok") and probe.get("live") and probe.get("depth_source") == "venue_l2"):
+            continue
+        if venue in native_pre_adopted:
+            adopted_venues.append(venue)
+            probe["canonical_adopted"] = True
+            probe["canonical_adopt_path"] = "native_pre_adopted"
             continue
         if _adopt_mesh_l2_probe(probe):
             adopted_venues.append(venue)
             probe["canonical_adopted"] = True
+            probe["canonical_adopt_path"] = "mesh_adopt"
 
-    # Binance TOB via public host failover (vision mirror first).
-    try:
-        bn = await probe_binance_public_book("BTCUSDT")
-        if bn.get("ok") and bn.get("venue") == "binance":
-            results.append(bn)
-        elif bn.get("ok"):
-            # Failover returned okx/kraken — do not mislabel as binance live.
+    # Binance public book only if mesh probe did not already succeed for binance.
+    binance_already = any(
+        str(r.get("venue") or "").lower() == "binance" and r.get("ok") and r.get("live")
+        for r in results
+    )
+    if not binance_already:
+        try:
+            bn = await probe_binance_public_book("BTCUSDT")
+            if bn.get("ok") and bn.get("venue") == "binance":
+                results.append(bn)
+                if _adopt_mesh_l2_probe(bn) or bn.get("depth_source") == "venue_l2":
+                    adopted_venues.append("binance")
+                    bn["canonical_adopted"] = True
+            elif bn.get("ok"):
+                results.append(
+                    {
+                        "ok": False,
+                        "live": False,
+                        "venue": "binance",
+                        "reason": "binance_hosts_failed_failover_used",
+                        "failover_venue": bn.get("venue"),
+                    }
+                )
+            else:
+                results.append(
+                    {
+                        "ok": False,
+                        "live": False,
+                        "venue": "binance",
+                        "reason": bn.get("reason") or "binance_unavailable",
+                    }
+                )
+        except Exception as exc:  # noqa: BLE001
             results.append(
-                {
-                    "ok": False,
-                    "live": False,
-                    "venue": "binance",
-                    "reason": "binance_hosts_failed_failover_used",
-                    "failover_venue": bn.get("venue"),
-                }
+                {"ok": False, "live": False, "venue": "binance", "reason": type(exc).__name__}
             )
-        else:
-            results.append(
-                {
-                    "ok": False,
-                    "live": False,
-                    "venue": "binance",
-                    "reason": bn.get("reason") or "binance_unavailable",
-                }
-            )
-    except Exception as exc:  # noqa: BLE001
-        results.append({"ok": False, "live": False, "venue": "binance", "reason": type(exc).__name__})
 
     for probe in results:
         await _persist_live_mid(probe)

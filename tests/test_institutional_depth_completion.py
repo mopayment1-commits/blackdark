@@ -424,7 +424,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 51
+    assert len(CORE_PUBLIC_CEX_MESH) >= 58
     assert mv.get("mesh_symbol_overrides")
     # Regional overrides must be probed with non-default pairs when present.
     override_hits = [
@@ -526,3 +526,42 @@ def test_testnet_env_operator_allowed_non_production(monkeypatch):
     allowed, reason = guard.live_execution_allowed(user_id=None, using_env_keys=True)
     assert allowed is True
     assert reason == "testnet_env_operator_allowed"
+
+
+@pytest.mark.asyncio
+async def test_native_upgraded_cex_l2_not_synthetic():
+    import aiohttp
+    from market_fetcher_hub import venue_kind
+    from native_regional_cex_fetcher import build_native_regional_market_fetchers
+
+    fetchers = build_native_regional_market_fetchers()
+    for venue in ("pionex", "coinw", "orangex", "biconomy", "coinstore", "azbit"):
+        assert venue_kind(venue) == "native_regional"
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=12)) as session:
+            _t, book = await fetchers[venue](session, "BTC/USDT", "spot")
+        assert len(book.bids) >= 5 and len(book.asks) >= 5
+
+
+@pytest.mark.asyncio
+async def test_jupiter_ephemeral_local_sign_no_broadcast():
+    from jupiter_dex_adapter import prove_jupiter_ephemeral_local_sign
+
+    out = await prove_jupiter_ephemeral_local_sign()
+    assert out["ok"] is True
+    assert out["signed_local"] is True
+    assert out["broadcast"] is False
+    assert out["executed"] is False
+    assert out["verified_complete"] is False
+
+
+def test_decision_e2e_returns_from_live_mids():
+    from decision_e2e import run_decision_e2e
+
+    out = run_decision_e2e(org_id="ret_org", notional=10_000.0)
+    assert out["ok"] is True
+    mi = (out.get("decision_object") or {}).get("market_inputs") or {}
+    assert mi.get("returns_source") == "live_cross_venue_mid_dispersion"
+    assert isinstance(mi.get("returns_bps"), list)
+    assert len(mi.get("returns_bps") or []) >= 1
+    # Must not be the old hardcoded theater vector.
+    assert mi.get("returns_bps") != [-5.0, 3.0, -2.0]

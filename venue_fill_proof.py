@@ -67,6 +67,21 @@ def build_venue_protocol_proof_ack(
     }
 
 
+def _secrets_presence() -> dict[str, dict[str, object]]:
+    keys = (
+        "BINANCE_API_KEY",
+        "BINANCE_API_SECRET",
+        "BINANCE_TESTNET",
+        "AUTO_EXECUTION_ENABLED",
+        "AUTO_EXECUTION_DRY_RUN",
+    )
+    out: dict[str, dict[str, object]] = {}
+    for k in keys:
+        v = os.getenv(k, "")
+        out[k] = {"present": bool(v.strip()), "len": len(v.strip())}
+    return out
+
+
 def _arm_testnet_live_env(*, restore: dict[str, str | None] | None = None) -> dict[str, str | None]:
     """Temporarily arm testnet live flags for an explicit prove (non-production).
 
@@ -462,6 +477,7 @@ async def prove_fill_lifecycle(
                 },
                 "external_block": external_block,
                 "blocking": blocking,
+                "secrets_presence": _secrets_presence(),
             },
             "store": store_status(),
             "dry_run": effective_dry_run,

@@ -460,10 +460,11 @@ async def decision_e2e_api(
 @router.get("/ops/recovery")
 async def ops_recovery_api(
     _: Annotated[dict, Depends(require_institutional_principal)],
+    include_streaming_ha: bool = False,
 ) -> dict[str, Any]:
     from ops_recovery import ops_status
 
-    return ops_status()
+    return ops_status(include_streaming_ha=include_streaming_ha)
 
 
 @router.get("/store/status")
@@ -529,6 +530,15 @@ async def jupiter_wallet_sign_proof_api(
     from jupiter_dex_adapter import prove_jupiter_wallet_sign
 
     return await prove_jupiter_wallet_sign(attempt_broadcast=attempt_broadcast)
+
+
+@router.post("/jupiter/ephemeral-sign-proof")
+async def jupiter_ephemeral_sign_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from jupiter_dex_adapter import prove_jupiter_ephemeral_local_sign
+
+    return await prove_jupiter_ephemeral_local_sign()
 
 
 @router.post("/jupiter/swap-build-proof")
@@ -637,6 +647,71 @@ async def white_label_portal_api(
     if not out.get("ok"):
         raise HTTPException(status_code=404, detail=out.get("reason") or "portal_unavailable")
     return out
+
+
+@router.get("/orgs/{org_id}/terminal")
+async def white_label_terminal_api(
+    org_id: str,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    symbol: str = "BTC/USDT",
+) -> dict[str, Any]:
+    from super_terminal import build_super_terminal
+    from white_label import get_brand
+
+    if not get_brand(org_id):
+        raise HTTPException(status_code=404, detail="white_label_not_configured")
+    pack = build_super_terminal(symbol=symbol, org_id=org_id)
+    return {
+        "ok": bool(pack.get("brand_applied")),
+        "org_id": org_id,
+        "surface": "super_terminal",
+        "terminal": pack,
+        "hosted_custom_domain": False,
+        "product_complete": False,
+    }
+
+
+@router.post("/orgs/{org_id}/exports")
+async def white_label_exports_api(
+    org_id: str,
+    body: WhiteLabelExportBody,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import branded_report_export, get_brand
+
+    if not get_brand(org_id):
+        raise HTTPException(status_code=404, detail="white_label_not_configured")
+    try:
+        return branded_report_export(org_id, body.payload or {})
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.get("/orgs/{org_id}/status")
+async def white_label_org_status_api(
+    org_id: str,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import apply_brand_to_surface, get_brand
+
+    brand = get_brand(org_id)
+    if not brand:
+        raise HTTPException(status_code=404, detail="white_label_not_configured")
+    surface = apply_brand_to_surface(
+        org_id,
+        {
+            "surface": "institutional_status",
+            "modules": ["oms", "decision", "truth_bus", "portal"],
+            "default_title": "BLACKDARK Institutional",
+        },
+    )
+    return {
+        "ok": bool(surface.get("brand_applied")),
+        "org_id": org_id,
+        "branded_status": surface,
+        "hosted_custom_domain": False,
+        "product_complete": False,
+    }
 
 
 @router.post("/ops/postgres-product-path")

@@ -1,63 +1,40 @@
-# Four Remaining Blockers — Honest Status
+# Four Remaining Blockers — Honest Status (unpaid wave)
 
 **Branch:** `cursor/95plus-recert-phase0-120d`  
 **Evidence JSON:** `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`  
 **Integrity:** Never claim PASS / 100% / live execution / cloud HA without real evidence.
 
-## Runtime secrets in this Cloud Agent
+## Operator constraint (this wave)
 
-At evidence collection time, `BINANCE_API_KEY`, `BINANCE_API_SECRET`, `SOLANA_PRIVATE_KEY`,
-`JUPITER_LIVE_EXECUTION`, `BINANCE_TESTNET`, `AUTO_EXECUTION_ENABLED`, and
-`AUTO_EXECUTION_DRY_RUN` were **absent** from the process environment (lengths 0), despite
-operator statement that Runtime Secrets were added. Remediation code is landed; live proves
-that require secrets remain blocked until secrets are injected into **this** run.
+Continue full institutional remediation **except** anything that requires payment
+(funded SOL/USDC, paid cloud multi-AZ, paid APIs). Secrets injection is free but
+was still **absent** from this Cloud Agent process at evidence time.
 
-## 1) Live venue FILL
+## What closed without payment (this wave)
 
-| Field | Status |
+| Deliverable | Evidence |
 |---|---|
-| Code path | Armed prove + testnet env-operator exception (non-prod) + order-host geo probe |
-| `live_fill` | **false** |
-| External block | **`binance_order_host_geo_451`** — `testnet.binance.vision` / demo-api / api.binance.com return HTTP 451 from this egress |
-| Market data | `data-api.binance.vision` works (books only) — does **not** authorize fills |
-| Closure | **Externally blocked** (geo). Also secrets not injected into this run. |
+| Native public L2 for pionex/coinw/orangex/biconomy/coinstore/azbit | ≥20 levels each; no longer CoinGecko synthetic |
+| CORE mesh expand | **60** targets; live L2 mesh prove green |
+| Brand aliases in mesh | gemini_uk / cryptocom_us |
+| WL client-gateway routes wired | `/orgs/{id}/terminal|exports|status` + portal |
+| Jupiter ephemeral local sign | signed_local=true, broadcast=false, VC=false |
+| Decision e2e returns | live cross-venue mid dispersion (not hardcoded) |
+| Ops cloud multi-AZ honesty | external_block surfaced on status/bundle |
+| Canonical adopt counting | okx/kraken/binance counted as native_pre_adopted |
 
-## 2) Jupiter live signature
+## Blocker verdicts
 
-| Field | Status |
-|---|---|
-| Code path | `prove_jupiter_wallet_sign` (local sign + optional RPC broadcast) |
-| Local sign | Requires `SOLANA_PRIVATE_KEY` in runtime (absent here) |
-| On-chain VC | Requires funded wallet + RPC-accepted signature |
-| External block | **`wallet_secret_absent_in_runtime`** now; with key present but unfunded → `wallet_unfunded_zero_cost_constraint` |
-| Closure | **Externally blocked** (secrets injection + zero-cost unfunded wallet). |
+| Blocker | Closed? | Status |
+|---|---|---|
+| Live venue FILL | **No** | Secrets absent + Spot Testnet order hosts **HTTP 451** geo |
+| Jupiter live signature VC | **No** | Secrets absent; unfunded wallet = zero-cost block (ephemeral local sign OK) |
+| Full Mesh institutional L2 100% | **No** | L2 improved via native upgrades; remaining venues still synthetic/geo-dead |
+| Cloud Multi-AZ HA | **No** | `zero_cost_no_paid_cloud_multi_az` (local streaming HA separate VC) |
 
-## 3) Full Mesh 100%
+## Absolute rule
 
-| Field | Status |
-|---|---|
-| Catalog price health | **100%** (includes honest `synthetic_mid`) |
-| Institutional L2 | **~46%** (`venue_l2≈46/100`) |
-| CORE public L2 mesh | **52/52** live L2 (includes Binance via vision) |
-| `full_mesh_l2_complete` | **false** |
-| External block | **`geo_dead_or_no_public_l2_for_remaining_venues`** |
-| Closure | **Not closed** — cannot fabricate L2 for dead/geo venues. |
-
-## 4) Cloud Multi-AZ HA
-
-| Field | Status |
-|---|---|
-| `prove_cloud_multi_az_ha` | `cloud_multi_az=false` |
-| External block | **`zero_cost_no_paid_cloud_multi_az`** |
-| Local streaming HA | Still **VERIFIED_COMPLETE** separately (`cloud_multi_az=false`) |
-| Closure | **Externally blocked** (paid cloud not authorized). |
-
-## What was remediable without cost / secrets
-
-1. Testnet env-operator allow (non-production only) so vault gate does not block Spot Testnet proves.
-2. Binance order-host connectivity prove with honest 451 classification.
-3. Fill prove arming + geo fail-closed (never claims `live_fill` on 451).
-4. Jupiter wallet-sign prove surface (local vs RPC signature separation).
-5. Institutional L2 metric separated from catalog price-health %.
-6. CORE mesh includes Binance vision L2 (52 targets).
-7. Explicit cloud multi-AZ prove that refuses theater under zero-cost policy.
+`synthetic_mid` ≠ institutional L2.  
+Local wallet/ephemeral sign ≠ RPC signature VC.  
+Local streaming HA ≠ cloud multi-AZ.  
+Paper / protocol fill ≠ `live_fill`.

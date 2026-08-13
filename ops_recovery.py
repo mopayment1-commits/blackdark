@@ -1028,7 +1028,16 @@ def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
         "ops_recovery_bundle": {
             "ok": bundle.get("ok"),
             "process_restart_continuity": bundle.get("process_restart_continuity"),
+            "cloud_multi_az": bool(bundle.get("cloud_multi_az")),
+            "cloud_multi_az_ha": bundle.get("cloud_multi_az_ha"),
+        },
+        "cloud_multi_az": bool(bundle.get("cloud_multi_az")),
+        "cloud_multi_az_ha": bundle.get("cloud_multi_az_ha")
+        or {
+            "ok": False,
             "cloud_multi_az": False,
+            "external_block": "zero_cost_no_paid_cloud_multi_az",
+            "verified_complete": False,
         },
         "postgres_streaming_ha_control": "prove_postgres_streaming_ha_rpo_rto",
         "degrade": dependency_degrade_matrix(),

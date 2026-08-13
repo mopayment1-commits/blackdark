@@ -30,6 +30,13 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     # Brand/regional aliases sharing a public parent book (honest venue_l2 from parent API).
     "gemini_uk": "BTC/USD",
     "cryptocom_us": "BTC/USDT",
+    # Former CoinGecko 1-level proxies upgraded to real public L2 books.
+    "pionex": "BTC/USDT",
+    "coinw": "BTC/USDT",
+    "orangex": "BTC/USDT",
+    "biconomy": "BTC/USDT",
+    "coinstore": "BTC/USDT",
+    "azbit": "BTC/USDT",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -195,6 +202,93 @@ async def _fetch_cryptocom_us(session: aiohttp.ClientSession, symbol: str) -> tu
     return _levels_pq(data.get("bids") or []), _levels_pq(data.get("asks") or [])
 
 
+async def _fetch_pionex(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://api.pionex.com/api/v1/market/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if not body.get("result"):
+        raise ValueError(f"pionex_error:{body.get('error_msg') or body}")
+    data = body.get("data") or {}
+    return _levels_pq(data.get("bids") or []), _levels_pq(data.get("asks") or [])
+
+
+async def _fetch_coinw(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = (
+        "https://api.coinw.com/api/v1/public"
+        f"?command=returnOrderBook&symbol={pair}&size=20"
+    )
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if str(body.get("code") or "") not in {"200", "0"}:
+        raise ValueError(f"coinw_error:{body.get('msg') or body.get('message') or body.get('code')}")
+    data = body.get("data") or {}
+    return _levels_pq(data.get("bids") or []), _levels_pq(data.get("asks") or [])
+
+
+async def _fetch_orangex(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    instrument = f"{base.upper()}-{quote.upper()}"
+    url = "https://api.orangex.com/api/v1/public/get_order_book"
+    async with session.get(url, params={"instrument_name": instrument, "depth": 20}) as r:
+        r.raise_for_status()
+        body = await r.json()
+    data = body.get("result") or {}
+    return _levels_pq(data.get("bids") or []), _levels_pq(data.get("asks") or [])
+
+
+async def _fetch_biconomy(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://www.biconomy.com/api/v1/depth?symbol={pair}&size=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_coinstore(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    url = f"https://api.coinstore.com/api/v1/market/depth/{pair}?depth=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    data = body.get("data") or {}
+    # a=asks, b=bids; levels [price, qty, ...]
+    return _levels_pq(data.get("b") or []), _levels_pq(data.get("a") or [])
+
+
+async def _fetch_azbit(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://data.azbit.com/api/orderbook?currencyPairCode={pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if not isinstance(body, list):
+        raise ValueError("azbit_bad_book")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body:
+        price = float(row.get("price") or 0)
+        amount = float(row.get("amount") or 0)
+        if price <= 0 or amount <= 0:
+            continue
+        if row.get("isBid"):
+            bids.append([price, amount])
+        else:
+            asks.append([price, amount])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -206,6 +300,12 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "paribu": _fetch_paribu,
     "gemini_uk": _fetch_gemini_uk,
     "cryptocom_us": _fetch_cryptocom_us,
+    "pionex": _fetch_pionex,
+    "coinw": _fetch_coinw,
+    "orangex": _fetch_orangex,
+    "biconomy": _fetch_biconomy,
+    "coinstore": _fetch_coinstore,
+    "azbit": _fetch_azbit,
 }
 
 

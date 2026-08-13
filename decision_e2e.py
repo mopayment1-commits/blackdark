@@ -68,13 +68,32 @@ def run_decision_e2e(
     if funding_rate is None:
         funding_rate = 0.0  # honest zero when live funding absent (not a fabricated premium)
 
+    # Derive micro return samples from live cross-venue mid dispersion (not hardcoded theater).
+    mids: list[float] = []
+    for vb in books.values():
+        b = vb.get(symbol) or {}
+        bids = b.get("bids") or []
+        asks = b.get("asks") or []
+        if bids and asks:
+            mid = (float(bids[0][0]) + float(asks[0][0])) / 2.0
+            if mid > 0:
+                mids.append(mid)
+    returns_bps: list[float] = []
+    if len(mids) >= 2:
+        ref = sum(mids) / len(mids)
+        if ref > 0:
+            returns_bps = [((m - ref) / ref) * 10_000 for m in mids[:8]]
+    if not returns_bps:
+        # Fail-soft: single-tick zero-return vector when multi-venue mids unavailable.
+        returns_bps = [0.0, 0.0, 0.0]
+
     risk = full_risk_architecture(
         symbol=symbol,
         notional=notional,
         bid_depth=depth,
         ask_depth=depth,
         spread_bps=float(spread_bps),
-        returns_bps=[-5.0, 3.0, -2.0],
+        returns_bps=returns_bps,
         positions=[{"asset": symbol.split("/")[0], "side": "long", "notional_usd": notional}],
         venue_health={v: 0.9 for v in books},
         leverage=1.0,
@@ -152,6 +171,8 @@ def run_decision_e2e(
             "spread_bps": float(spread_bps),
             "funding_rate": float(funding_rate),
             "depth_usd": depth,
+            "returns_bps": returns_bps,
+            "returns_source": "live_cross_venue_mid_dispersion",
             "from_live_books": True,
         },
         "whale": {

@@ -33,12 +33,25 @@ def solana_rpc_url() -> str:
     return os.getenv("SOLANA_RPC_URL", DEFAULT_SOLANA_RPC).strip().rstrip("/")
 
 
-def jupiter_configured() -> dict[str, bool]:
+def jupiter_configured() -> dict[str, Any]:
+    wallet = bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip())
+    live = os.getenv("JUPITER_LIVE_EXECUTION", "").lower() in {"1", "true", "yes"}
     return {
         "api": bool(jupiter_api_base()),
-        "wallet": bool(os.getenv("SOLANA_PRIVATE_KEY", "").strip()),
-        "live_enabled": os.getenv("JUPITER_LIVE_EXECUTION", "").lower() in {"1", "true", "yes"},
+        "wallet": wallet,
+        "live_enabled": live,
         "signing_libs": _signing_libs_available(),
+        "secrets_presence": {
+            "SOLANA_PRIVATE_KEY": {
+                "present": wallet,
+                "len": len(os.getenv("SOLANA_PRIVATE_KEY", "").strip()),
+            },
+            "JUPITER_LIVE_EXECUTION": {
+                "present": bool(os.getenv("JUPITER_LIVE_EXECUTION", "").strip()),
+                "len": len(os.getenv("JUPITER_LIVE_EXECUTION", "").strip()),
+                "truthy": live,
+            },
+        },
     }
 
 
@@ -608,6 +621,99 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
             "Live /swap tx build + decode + simulate + reverse quote + blockhash "
             "with ephemeral pubkey — no broadcast, no fill claim. "
             "simulate AccountNotFound is expected without funded wallet."
+        ),
+        "at": _utcnow(),
+    }
+
+
+async def prove_jupiter_ephemeral_local_sign() -> dict[str, Any]:
+    """Sign a Jupiter swap with an ephemeral keypair (no operator wallet / no broadcast).
+
+    Proves cryptographic sign path without SOLANA_PRIVATE_KEY and without spending.
+    Never claims verified_complete / live execution.
+    """
+    if not _signing_libs_available():
+        return {
+            "ok": False,
+            "surface": "jupiter_ephemeral_local_sign_proof",
+            "reason": "signing_libs_missing",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "UNVERIFIED",
+            "at": _utcnow(),
+        }
+    from solders.keypair import Keypair
+    from solders.transaction import VersionedTransaction
+
+    usdc = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    sol = "So11111111111111111111111111111111111111112"
+    q = await quote_swap(input_mint=usdc, output_mint=sol, amount_atomic=1_000_000)
+    if not q.get("ok") or not isinstance(q.get("quote"), dict):
+        return {
+            "ok": False,
+            "surface": "jupiter_ephemeral_local_sign_proof",
+            "reason": q.get("reason") or "quote_failed",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+    kp = Keypair()
+    pubkey = str(kp.pubkey())
+    built = await build_swap_transaction(quote=q["quote"], user_public_key=pubkey)
+    if not built.get("ok"):
+        return {
+            "ok": False,
+            "surface": "jupiter_ephemeral_local_sign_proof",
+            "reason": built.get("reason") or "swap_build_failed",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+    try:
+        raw = base64.b64decode(built["swap_transaction"])
+        tx = VersionedTransaction.from_bytes(raw)
+        signed = VersionedTransaction(tx.message, [kp])
+        sig = signed.signatures[0] if signed.signatures else None
+        signed_local = bool(sig is not None and bytes(sig) != bytes(64))
+        sig_b58 = str(sig) if sig is not None else None
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "surface": "jupiter_ephemeral_local_sign_proof",
+            "reason": f"sign_failed:{type(exc).__name__}",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+    return {
+        "ok": bool(signed_local),
+        "surface": "jupiter_ephemeral_local_sign_proof",
+        "ephemeral_pubkey": pubkey,
+        "signed_local": signed_local,
+        "local_signature": sig_b58,
+        "broadcast": False,
+        "executed": False,
+        "verified_complete": False,
+        "product_complete": False,
+        "implementation_class": "PARTIAL" if signed_local else "UNVERIFIED",
+        "note": (
+            "Ephemeral local cryptographic signature of a Jupiter /swap tx — "
+            "no operator wallet, no broadcast, not an on-chain VC."
         ),
         "at": _utcnow(),
     }
