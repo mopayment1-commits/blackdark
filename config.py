@@ -502,6 +502,17 @@ B2B_WS_EVENT_COOLDOWN_SEC = float(os.getenv("B2B_WS_EVENT_COOLDOWN_SEC", "3"))
 B2B_WS_LATENCY_TARGET_MS = int(os.getenv("B2B_WS_LATENCY_TARGET_MS", "500"))
 B2B_WS_MAX_CONNECTIONS = int(os.getenv("B2B_WS_MAX_CONNECTIONS", "50"))
 
+# Decision API v1 (commercial Financial Intelligence contract)
+DECISION_API_VERSION = "v1"
+DECISION_API_KEY_PEPPER = os.getenv("DECISION_API_KEY_PEPPER", "").strip()
+DECISION_API_UNIVERSE = os.getenv("DECISION_API_UNIVERSE", "").strip()
+METRICS_BEARER_TOKEN = os.getenv("METRICS_BEARER_TOKEN", "").strip()
+METRICS_ALLOW_UNAUTHENTICATED = os.getenv("METRICS_ALLOW_UNAUTHENTICATED", "").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+
 # Launch — Pro trial on signup + Stripe checkout
 PRO_TRIAL_DAYS = int(os.getenv("PRO_TRIAL_DAYS", "7"))
 # Launch promo codes — override via LAUNCH_PROMO_CODES_JSON='{"CODE":days}'

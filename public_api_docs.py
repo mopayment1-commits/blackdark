@@ -15,7 +15,14 @@ PATH_ORACLE_ACCURACY = '/oracle-accuracy'
 
 # Path prefixes allowed in the public developer OpenAPI.
 PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
-    "/health/",
+    "/api/v1/oracle",
+    "/api/v1/accuracy",
+    "/api/v1/feed",
+    "/api/v1/me",
+    "/api/v1/audit",
+    "/api/v1/usage",
+    "/api/v1/webhooks",
+    "/api/v1/changelog",
     PATH_API_TRUST_OS,
     "/api/strategy/",
     "/api/intent/",
@@ -69,6 +76,10 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
         "/api/viral/readiness",
         "/health/viral",
         "/api/docs/public-openapi.json",
+        "/api/v1",
+        "/api/v1/",
+        "/api/v1/openapi.json",
+        "/api/v1/changelog",
         "/capabilities",
         "/compliance",
         "/data-room",
@@ -97,6 +108,8 @@ PUBLIC_PATH_EXACT: frozenset[str] = frozenset(
 
 
 def path_is_public(path: str) -> bool:
+    if path.startswith("/api/v1/keys"):
+        return False
     if path in PUBLIC_PATH_EXACT:
         return True
     return any(path.startswith(prefix) for prefix in PUBLIC_PATH_PREFIXES)

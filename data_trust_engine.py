@@ -426,7 +426,12 @@ def build_data_trust_closure() -> dict[str, Any]:
     fred = Path("ingestion_fetchers.py").read_text(encoding="utf-8")
     oracle = Path("oracle_unified.py").read_text(encoding="utf-8")
     registry = Path("signal_registry.py").read_text(encoding="utf-8")
+    adapter = Path("api/v1/oracle_adapter.py").read_text(encoding="utf-8")
     persist = "persist_book" in Path("aggregator.py").read_text(encoding="utf-8")
+    attach_idx = adapter.find("attach_data_trust")
+    cert_idx = adapter.find("build_decision_certificate")
+    feed_fn = adapter.find("def build_v1_feed")
+    feed_stamp = adapter.find("stamp_license", feed_fn) if feed_fn >= 0 else -1
 
     code_checks = [
         {"id": "binding_doc", "ok": Path("docs/DATA_TRUST_LAW_BINDING.md").is_file()},
@@ -448,6 +453,14 @@ def build_data_trust_closure() -> dict[str, Any]:
         {"id": "signal_registry_lexicon", "ok": "synthetic_l2_reject" in registry},
         {"id": "persist_skips_synthetic_book", "ok": persist},
         {"id": "license_forbids_redistribution", "ok": DATA_LICENSE["redistribution_allowed"] is False},
+        {
+            "id": "v1_oracle_attach_before_certificate",
+            "ok": 0 <= attach_idx < cert_idx,
+        },
+        {
+            "id": "v1_feed_license_stamp",
+            "ok": feed_stamp > feed_fn >= 0,
+        },
     ]
     failures = [c["id"] for c in code_checks if not c["ok"]]
     from canonical_market_state import build_data_trust_law_manifest
@@ -468,6 +481,7 @@ def build_data_trust_closure() -> dict[str, Any]:
             "synthetic_only_fail_closed",
             "certificate_and_evidence_pack_proof",
             "license_stamp_no_raw_redistribution",
+            "decision_api_v1_inherits_data_trust",
             "macro_vintage_on_fred",
             "news_provenance_rank_not_llm_vote",
             "machine_verifiable_closure",

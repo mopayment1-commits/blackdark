@@ -204,7 +204,7 @@ async def api_oracle_track_record():
 
 
 @router.post("/api/oracle/track-record/backfill")
-async def api_oracle_track_record_backfill():
+async def api_oracle_track_record_backfill(_admin: dict = Depends(require_admin)):
     from oracle_track_record import backfill_from_database
 
     return await backfill_from_database()

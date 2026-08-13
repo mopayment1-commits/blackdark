@@ -247,3 +247,6 @@ def test_institutional_closure_all_done():
     assert "vintage" in fred and "revision_policy" in fred
     html = Path("templates/coverage_honesty.html").read_text(encoding="utf-8")
     assert "decision-grade" in html
+    adapter = Path("api/v1/oracle_adapter.py").read_text(encoding="utf-8")
+    assert adapter.find("attach_data_trust") < adapter.find("build_decision_certificate")
+    assert "stamp_license" in adapter.split("def build_v1_feed", 1)[1]

@@ -1,9 +1,31 @@
 # BLACKDARK API Reference (Buyer Requirement #1 / #5)
 
+## Decision API v1 (commercial contract)
+
+Institutional Financial Intelligence API. Sales-issued per-tenant keys. Not the Trust OS web session.
+
+| Method | Path | Auth |
+|--------|------|------|
+| GET | `/api/v1` | none (discovery) |
+| GET | `/api/v1/openapi.json` | none |
+| POST | `/api/v1/keys` | admin (`X-Admin-Key`) — sales-led issuance |
+| GET | `/api/v1/oracle/{symbol}` | `X-API-Key` scope `oracle:read` |
+| POST | `/api/v1/oracle/{symbol}/certificate` | `X-API-Key` scope `oracle:read` |
+| GET | `/api/v1/accuracy` | `X-API-Key` scope `accuracy:read` |
+| GET | `/api/v1/feed` | `X-API-Key` scope `feed:read` |
+| WS | `/api/v1/feed/ws` | `Authorization` / `X-API-Key` scope `feed:ws` (query keys rejected) |
+| GET | `/api/v1/audit` | `X-API-Key` scope `audit:read` |
+| GET | `/api/v1/usage` | `X-API-Key` |
+| POST/GET | `/api/v1/webhooks` | `X-API-Key` scope `webhooks:write` |
+| POST | `/api/v1/webhooks/test` | `X-API-Key` scope `webhooks:write` |
+| DELETE | `/api/v1/webhooks/{id}` | `X-API-Key` scope `webhooks:write` |
+
+See `docs/DECISION_API_V1.md`. Licensed use is internal decision support (`data_license.redistribution_allowed: false`). Legacy `/api/b2b/feed` (shared house key) is deprecated; successor `/api/v1/feed`. Oracle v1 attaches Canonical Market State before the Decision Certificate.
+
 ## Base URL
 - Local: `http://localhost:8080`
 - GraphQL: `http://localhost:8080/graphql`
-- OpenAPI: `http://localhost:8080/docs` | export: `/api/docs/openapi.json`
+- OpenAPI: `http://localhost:8080/docs` | export: `/api/docs/openapi.json` | Decision API: `/api/v1/openapi.json`
 
 ## Health & Infrastructure
 | Method | Path | Description |

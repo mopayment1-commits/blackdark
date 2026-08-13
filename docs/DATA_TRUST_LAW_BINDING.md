@@ -53,4 +53,6 @@ venues حية ذات دفتر مباشر (native/CCXT) + سلاسل قائمة �
 
 الإثبات على الأبطال الحاليين فقط (لا زر سابع): Coverage Honesty · Decision Certificate · Evidence Pack · Oracle WAIT.
 
+Decision API v1 (`/api/v1`) يرث القانون نفسه: `attach_data_trust` قبل الشهادة، و`data_license` على `/api/v1/feed` وعلى `/api/b2b/feed` المُهمل. ليس منتجًا سابعًا ولا «100 API».
+
 ما يبقى خارج النطاق (ليس دينًا برمجيًا): تكاملات مدفوعة مؤسسية، أسلاك أخبار مرخّصة، محرك جيوسياسي سعري، بحيرة vintage كاملة لكل سلاسل FRED.
