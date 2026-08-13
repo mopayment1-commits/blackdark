@@ -193,10 +193,19 @@ async def _rpc_send_transaction(tx_b64: str) -> dict[str, Any]:
         )
         body = r.json()
         if body.get("error"):
+            err = body.get("error") or {}
+            err_msg = str(err.get("message") or err)
+            err_data = err.get("data") if isinstance(err, dict) else None
+            err_code = err.get("code") if isinstance(err, dict) else None
+            detail = ""
+            if isinstance(err_data, dict):
+                detail = str(err_data.get("err") or err_data)[:160]
             return {
                 "ok": False,
-                "reason": "rpc_error",
-                "error": body.get("error"),
+                "reason": f"rpc_error:{err_msg}:{detail}"[:240],
+                "error": err,
+                "error_code": err_code,
+                "simulation_err": detail or None,
             }
         sig = body.get("result")
         if not sig:
@@ -719,13 +728,44 @@ async def prove_jupiter_ephemeral_local_sign() -> dict[str, Any]:
     }
 
 
-async def prove_jupiter_wallet_sign(*, attempt_broadcast: bool = True) -> dict[str, Any]:
+async def prove_jupiter_wallet_sign(
+    *,
+    attempt_broadcast: bool = True,
+    arm_live_execution: bool = False,
+) -> dict[str, Any]:
     """Sign a real Jupiter swap with the configured wallet.
 
     Local cryptographic signature is evidenced when the wallet key is present.
     On-chain / RPC-accepted signature (VERIFIED_COMPLETE) requires a funded wallet.
     Zero-cost policy: unfunded wallets must remain fail-closed without fake PASS.
+
+    arm_live_execution: temporarily sets JUPITER_LIVE_EXECUTION=true for this prove
+    only when SOLANA_PRIVATE_KEY is already present (never invents a wallet).
     """
+    live_restore: str | None = None
+    armed_live = False
+    if arm_live_execution and os.getenv("SOLANA_PRIVATE_KEY", "").strip():
+        live_restore = os.getenv("JUPITER_LIVE_EXECUTION")
+        os.environ["JUPITER_LIVE_EXECUTION"] = "true"
+        armed_live = True
+    try:
+        return await _prove_jupiter_wallet_sign_inner(
+            attempt_broadcast=attempt_broadcast,
+            armed_live=armed_live,
+        )
+    finally:
+        if armed_live:
+            if live_restore is None:
+                os.environ.pop("JUPITER_LIVE_EXECUTION", None)
+            else:
+                os.environ["JUPITER_LIVE_EXECUTION"] = live_restore
+
+
+async def _prove_jupiter_wallet_sign_inner(
+    *,
+    attempt_broadcast: bool,
+    armed_live: bool,
+) -> dict[str, Any]:
     cfg = jupiter_configured()
     if not cfg.get("signing_libs"):
         return {
@@ -836,16 +876,23 @@ async def prove_jupiter_wallet_sign(*, attempt_broadcast: bool = True) -> dict[s
             executed = True
             rpc_signature = sent.get("signature")
         else:
-            rpc_reason = str(sent.get("reason") or sent.get("error") or "rpc_send_failed")[:240]
+            rpc_reason = str(
+                sent.get("reason")
+                or sent.get("simulation_err")
+                or sent.get("error")
+                or "rpc_send_failed"
+            )[:240]
             low = rpc_reason.lower()
+            sim = str(sent.get("simulation_err") or "").lower()
             if any(
-                tok in low
+                tok in low or tok in sim
                 for tok in (
                     "insufficient",
                     "no record of a prior credit",
                     "accountnotfound",
                     "attempt to debit an account but found no record",
                     "custom program error",
+                    "transaction simulation failed",
                 )
             ):
                 external_block = "wallet_unfunded_zero_cost_constraint"
@@ -856,6 +903,39 @@ async def prove_jupiter_wallet_sign(*, attempt_broadcast: bool = True) -> dict[s
         rpc_reason = "live_flag_off_sign_only"
     elif signed_local and not attempt_broadcast:
         rpc_reason = "broadcast_not_attempted"
+
+    # Honest funding probe (lamports + USDC token accounts) — never fabricates balances.
+    sol_lamports = None
+    usdc_accounts = None
+    try:
+        import httpx
+
+        async with httpx.AsyncClient(timeout=12.0) as client:
+            bal = await client.post(
+                solana_rpc_url(),
+                json={"jsonrpc": "2.0", "id": 1, "method": "getBalance", "params": [pubkey]},
+            )
+            if bal.status_code == 200:
+                sol_lamports = int(((bal.json() or {}).get("result") or {}).get("value") or 0)
+            tok = await client.post(
+                solana_rpc_url(),
+                json={
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "getTokenAccountsByOwner",
+                    "params": [pubkey, {"mint": usdc}, {"encoding": "jsonParsed"}],
+                },
+            )
+            if tok.status_code == 200:
+                usdc_accounts = len((((tok.json() or {}).get("result") or {}).get("value") or []))
+        if (
+            external_block == "rpc_broadcast_failed"
+            and sol_lamports == 0
+            and (usdc_accounts or 0) == 0
+        ):
+            external_block = "wallet_unfunded_zero_cost_constraint"
+    except Exception:
+        pass
 
     ok = bool(signed_local)
     return {
@@ -870,6 +950,12 @@ async def prove_jupiter_wallet_sign(*, attempt_broadcast: bool = True) -> dict[s
         "executed": executed,
         "rpc_signature": rpc_signature,
         "rpc_reason": rpc_reason or sign_reason,
+        "armed_live_execution": armed_live,
+        "wallet_funding": {
+            "sol_lamports": sol_lamports,
+            "usdc_token_accounts": usdc_accounts,
+            "funded": bool((sol_lamports or 0) > 0 or (usdc_accounts or 0) > 0),
+        },
         "live_enabled": bool(cfg.get("live_enabled")),
         "external_block": external_block,
         "verified_complete": bool(executed and rpc_signature),

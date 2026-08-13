@@ -1,4 +1,4 @@
-# Four Remaining Blockers — Honest Status (unpaid wave)
+# Four Remaining Blockers — Honest Status (secrets-injected wave)
 
 **Branch:** `cursor/95plus-recert-phase0-120d`  
 **Evidence JSON:** `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`  
@@ -6,35 +6,42 @@
 
 ## Operator constraint (this wave)
 
-Continue full institutional remediation **except** anything that requires payment
-(funded SOL/USDC, paid cloud multi-AZ, paid APIs). Secrets injection is free but
-was still **absent** from this Cloud Agent process at evidence time.
+Runtime secrets were injected into **this** agent (free): `BINANCE_API_KEY`,
+`BINANCE_API_SECRET`, `SOLANA_PRIVATE_KEY`, plus flags
+`BINANCE_TESTNET`, `AUTO_EXECUTION_*`, `JUPITER_LIVE_EXECUTION`.
 
-## What closed without payment (this wave)
+Flags arrived safe/disabled (`AUTO_EXECUTION_ENABLED=false`,
+`AUTO_EXECUTION_DRY_RUN=true`, `JUPITER_LIVE_EXECUTION=false`). Prove paths use
+**scoped arming** only when credentials are present — never invent wallets or
+keys. Zero-cost: no funded SOL/USDC, no paid cloud multi-AZ.
+
+## What closed without payment (secrets wave)
 
 | Deliverable | Evidence |
 |---|---|
-| Native public L2 for pionex/coinw/orangex/biconomy/coinstore/azbit | ≥20 levels each; no longer CoinGecko synthetic |
-| CORE mesh expand | **60** targets; live L2 mesh prove green |
-| Brand aliases in mesh | gemini_uk / cryptocom_us |
-| WL client-gateway routes wired | `/orgs/{id}/terminal|exports|status` + portal |
-| Jupiter ephemeral local sign | signed_local=true, broadcast=false, VC=false |
-| Decision e2e returns | live cross-venue mid dispersion (not hardcoded) |
-| Ops cloud multi-AZ honesty | external_block surfaced on status/bundle |
-| Canonical adopt counting | okx/kraken/binance counted as native_pre_adopted |
+| HMAC fill path armed with real Binance creds | `has_creds=true`; live path armed under testnet scope |
+| Order-host geo probe (honest) | `testnet.binance.vision` + `demo-api.binance.com` → **HTTP 451** |
+| Jupiter local wallet sign | `signed_local=true` pubkey `BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf` |
+| Jupiter broadcast fail-closed | RPC sim `AccountNotFound`; SOL=0, USDC accounts=0 |
+| Unfunded classification | `external_block=wallet_unfunded_zero_cost_constraint` |
+| CORE public mesh | **60/60** live L2 |
+| Catalog price health | **100%** with depth labels (`venue_l2` vs `synthetic_mid`) |
+| Institutional L2 catalog | **52/100** venue_l2; 48 synthetic_mid (not claimed as L2) |
+| Local Postgres streaming HA | `verified_complete=true` (not cloud multi-AZ) |
 
-## Blocker verdicts
+## Blocker verdicts (post-secrets evidence)
 
 | Blocker | Closed? | Status |
 |---|---|---|
-| Live venue FILL | **No** | Secrets absent + Spot Testnet order hosts **HTTP 451** geo |
-| Jupiter live signature VC | **No** | Secrets absent; unfunded wallet = zero-cost block (ephemeral local sign OK) |
-| Full Mesh institutional L2 100% | **No** | L2 improved via native upgrades; remaining venues still synthetic/geo-dead |
-| Cloud Multi-AZ HA | **No** | `zero_cost_no_paid_cloud_multi_az` (local streaming HA separate VC) |
+| Live venue FILL | **No** | Creds present + path armed; order hosts **HTTP 451** → `binance_order_host_geo_451`; `live_fill=false` |
+| Jupiter live signature VC | **No** | Local sign proven; broadcast blocked as `wallet_unfunded_zero_cost_constraint`; `verified_complete=false` |
+| Full Mesh institutional L2 100% | **No** | 52/100 venue_l2; remaining `geo_dead_or_no_public_l2_for_remaining_venues` |
+| Cloud Multi-AZ HA | **No** | `zero_cost_no_paid_cloud_multi_az` (local streaming HA is separate VC) |
 
 ## Absolute rule
 
 `synthetic_mid` ≠ institutional L2.  
 Local wallet/ephemeral sign ≠ RPC signature VC.  
 Local streaming HA ≠ cloud multi-AZ.  
-Paper / protocol fill ≠ `live_fill`.
+Paper / protocol fill ≠ `live_fill`.  
+Geo 451 / unfunded wallet / unpaid cloud are **external blocks**, not product PASS.

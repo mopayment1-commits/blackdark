@@ -1,41 +1,41 @@
 {
-  "proved_at": "2026-08-13T11:56:36.856720+00:00",
+  "proved_at": "2026-08-13T13:02:05.128658+00:00",
   "secrets_presence": {
     "BINANCE_API_KEY": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 64
     },
     "BINANCE_API_SECRET": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 64
     },
     "BINANCE_TESTNET": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 4
     },
     "AUTO_EXECUTION_ENABLED": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 5
     },
     "AUTO_EXECUTION_DRY_RUN": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 4
     },
     "SOLANA_PRIVATE_KEY": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 88
     },
     "JUPITER_LIVE_EXECUTION": {
-      "present": false,
-      "len": 0
+      "present": true,
+      "len": 5
     }
   },
   "blocker_1_live_venue_fill": {
     "live_fill": false,
     "verified_complete": false,
-    "mode": "venue_protocol_proof",
+    "mode": "external_block_geo",
     "ok": true,
-    "external_block": null,
+    "external_block": "binance_order_host_geo_451",
     "order_host": {
       "ok": false,
       "geo_blocked": true,
@@ -58,18 +58,23 @@
       ]
     },
     "fill_readiness_blocking": [
-      "AUTO_EXECUTION_ENABLED",
-      "AUTO_EXECUTION_DRY_RUN=false",
-      "BINANCE_API_KEY/SECRET"
+      "binance_order_host_geo_451"
     ]
   },
   "blocker_2_jupiter_live_signature": {
-    "signed_local": false,
+    "signed_local": true,
     "broadcast": false,
     "executed": false,
     "rpc_signature": false,
     "verified_complete": false,
-    "external_block": "wallet_secret_absent_in_runtime",
+    "external_block": "wallet_unfunded_zero_cost_constraint",
+    "rpc_reason": "rpc_error:Transaction simulation failed:AccountNotFound",
+    "wallet_funding": {
+      "sol_lamports": 0,
+      "usdc_token_accounts": 0,
+      "funded": false
+    },
+    "wallet_pubkey": "BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf",
     "submit_path_ok": true
   },
   "blocker_3_full_mesh_100": {

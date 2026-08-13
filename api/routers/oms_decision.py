@@ -526,10 +526,14 @@ async def jupiter_submit_proof_api(
 async def jupiter_wallet_sign_proof_api(
     _: Annotated[dict, Depends(require_institutional_principal)],
     attempt_broadcast: bool = True,
+    arm_live_execution: bool = False,
 ) -> dict[str, Any]:
     from jupiter_dex_adapter import prove_jupiter_wallet_sign
 
-    return await prove_jupiter_wallet_sign(attempt_broadcast=attempt_broadcast)
+    return await prove_jupiter_wallet_sign(
+        attempt_broadcast=attempt_broadcast,
+        arm_live_execution=arm_live_execution,
+    )
 
 
 @router.post("/jupiter/ephemeral-sign-proof")

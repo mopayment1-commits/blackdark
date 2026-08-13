@@ -51,9 +51,14 @@ async def main() -> dict:
     fill = await prove_fill_lifecycle(
         org_id="four_blockers_fill",
         prefer_testnet=True,
-        arm_testnet_live=bool(secrets["BINANCE_API_KEY"]["present"] and secrets["BINANCE_API_SECRET"]["present"]),
+        arm_testnet_live=bool(
+            secrets["BINANCE_API_KEY"]["present"] and secrets["BINANCE_API_SECRET"]["present"]
+        ),
     )
-    wallet_sign = await prove_jupiter_wallet_sign(attempt_broadcast=True)
+    wallet_sign = await prove_jupiter_wallet_sign(
+        attempt_broadcast=True,
+        arm_live_execution=bool(secrets["SOLANA_PRIVATE_KEY"]["present"]),
+    )
     jup_submit = await prove_jupiter_submit_path()
     catalog = await prove_full_catalog_health(concurrency=6)
     mesh = await prove_multi_venue_live(full_mesh=True)
@@ -84,6 +89,9 @@ async def main() -> dict:
             "rpc_signature": bool(wallet_sign.get("rpc_signature")),
             "verified_complete": wallet_sign.get("verified_complete"),
             "external_block": wallet_sign.get("external_block") or jup_submit.get("external_block"),
+            "rpc_reason": (wallet_sign.get("rpc_reason") or "")[:200],
+            "wallet_funding": wallet_sign.get("wallet_funding"),
+            "wallet_pubkey": wallet_sign.get("wallet_pubkey"),
             "submit_path_ok": jup_submit.get("ok"),
         },
         "blocker_3_full_mesh_100": {
