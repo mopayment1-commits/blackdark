@@ -506,6 +506,15 @@ async def jupiter_submit_proof_api(
     return await prove_jupiter_submit_path()
 
 
+@router.post("/jupiter/swap-build-proof")
+async def jupiter_swap_build_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from jupiter_dex_adapter import prove_jupiter_swap_build
+
+    return await prove_jupiter_swap_build()
+
+
 class WhiteLabelBrandBody(BaseModel):
     product_name: str
     primary_color: str = "#0B1F33"

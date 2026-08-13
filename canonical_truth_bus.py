@@ -132,7 +132,8 @@ async def refresh_live_truth(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
         probe_okx_book,
     )
 
-    proof = await prove_multi_venue_live()
+    # Light prove only — full public mesh belongs to rollout/ingestion proves.
+    proof = await prove_multi_venue_live(full_mesh=False)
     books: dict[str, dict[str, dict[str, Any]]] = {}
     quotes: list[dict[str, Any]] = []
     funding: dict[str, dict[str, dict[str, Any]]] = {}

@@ -854,42 +854,42 @@ def prove_postgres_streaming_ha_rpo_rto() -> dict[str, Any]:
             shutil.rmtree(standby_dir, ignore_errors=True)
 
 
-def ops_status() -> dict[str, Any]:
+def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
+    """Ops status. Streaming HA is opt-in (heavy basebackup) — call prove_* directly for VC."""
     from postgres_backend import use_postgres
 
     authority = prove_db_authority_tables_sync()
     ddl = prove_postgres_ddl_ready()
     pg_dr = prove_postgres_local_dump_restore()
-    pg_ha = prove_postgres_streaming_ha_rpo_rto()
+    pg_ha: dict[str, Any] | None = None
+    if include_streaming_ha:
+        pg_ha = prove_postgres_streaming_ha_rpo_rto()
     if use_postgres():
         backup = {
             "ok": bool(authority.get("ok")) and bool(pg_dr.get("ok")),
             "engine": "postgres",
             "control": "backup_restore",
-            "note": "Schema authority + local dump/restore + streaming HA prove (local).",
+            "note": "Schema authority + local dump/restore. Streaming HA via prove_postgres_streaming_ha_rpo_rto.",
             "institutional_tables": authority.get("institutional_tables"),
             "local_dump_restore": pg_dr,
-            "streaming_ha": {
-                "ok": pg_ha.get("ok"),
-                "rpo_ms": pg_ha.get("rpo_ms"),
-                "rto_ms": pg_ha.get("rto_ms"),
-                "ha_class": pg_ha.get("ha_class"),
-            },
             "proved_at": _utcnow(),
         }
     else:
         backup = prove_sqlite_backup_restore()
-    verified = bool(pg_ha.get("verified_complete"))
-    return {
+    verified = bool(pg_ha and pg_ha.get("verified_complete"))
+    out: dict[str, Any] = {
         "surface": "ops_recovery",
         "backup_restore": backup,
         "schema_authority": authority,
         "postgres_ddl_ready": ddl,
         "postgres_local_dump_restore": pg_dr,
-        "postgres_streaming_ha_rpo_rto": pg_ha,
+        "postgres_streaming_ha_control": "prove_postgres_streaming_ha_rpo_rto",
         "degrade": dependency_degrade_matrix(),
         "verified_complete": verified,
         "implementation_class": "VERIFIED_COMPLETE" if verified else "PARTIAL",
         "product_complete": False,
         "proved_at": _utcnow(),
     }
+    if pg_ha is not None:
+        out["postgres_streaming_ha_rpo_rto"] = pg_ha
+    return out

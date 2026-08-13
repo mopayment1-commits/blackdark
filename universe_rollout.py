@@ -117,7 +117,7 @@ def activate_full_universe(*, save: bool = True) -> dict[str, Any]:
     }
 
 
-async def live_rollout_status() -> dict[str, Any]:
+async def live_rollout_status(*, include_public_probe: bool = True) -> dict[str, Any]:
     """How many of the 100 venues have recent price data."""
     from database import get_connection
 
@@ -151,16 +151,18 @@ async def live_rollout_status() -> dict[str, Any]:
     # Merge behavioral public live probes (canonical-adopted) into observed health.
     # Do NOT inflate the catalog target denominator with probe venues.
     public_live: list[str] = []
-    try:
-        from live_data_truth_probe import prove_multi_venue_live
+    proof: dict[str, Any] = {"ok": False, "live_venues": [], "live_count": 0}
+    if include_public_probe:
+        try:
+            from live_data_truth_probe import prove_multi_venue_live
 
-        proof = await prove_multi_venue_live()
-        public_live = [str(v).lower() for v in (proof.get("live_venues") or [])]
-        for v in public_live:
-            healthy.add(v)
-    except Exception:
-        logger.debug("public live probe merge failed", exc_info=True)
-        proof = {"ok": False, "live_venues": [], "live_count": 0}
+            proof = await prove_multi_venue_live()
+            public_live = [str(v).lower() for v in (proof.get("live_venues") or [])]
+            for v in public_live:
+                healthy.add(v)
+        except Exception:
+            logger.debug("public live probe merge failed", exc_info=True)
+            proof = {"ok": False, "live_venues": [], "live_count": 0}
 
     healthy_in_target = healthy & target
     observed_healthy = sorted(set(healthy_in_target) | set(public_live))

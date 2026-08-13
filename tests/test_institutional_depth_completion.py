@@ -271,11 +271,17 @@ async def test_jupiter_live_quote_proof():
 
 @pytest.mark.asyncio
 async def test_jupiter_submit_path_implemented_fail_closed_without_wallet():
-    from jupiter_dex_adapter import execute_swap, prove_jupiter_submit_path
+    from jupiter_dex_adapter import execute_swap, prove_jupiter_submit_path, prove_jupiter_swap_build
 
+    build = await prove_jupiter_swap_build()
+    assert build["ok"] is True
+    assert build["swap_transaction_built"] is True
+    assert build["executed"] is False
+    assert build["broadcast"] is False
     proof = await prove_jupiter_submit_path()
     assert proof["ok"] is True
     assert proof["live_submit_implemented"] is True
+    assert proof["swap_build"]["ok"] is True
     assert proof["dry_run"]["executed"] is False
     live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
     assert live["executed"] is False
@@ -333,10 +339,16 @@ def test_white_label_served_surface_prove():
     st = white_label_status()
     assert st["implementation_class"] == "PARTIAL"
     assert "institutional_api" in st["features"]
+    assert "super_terminal_brand_apply" in st["features"]
     out = prove_white_label_surface(org_id="wl_test_org", product_name="Desk Test")
     assert out["ok"] is True
     assert out["served_surface"]["brand_applied"] is True
+    assert out["super_terminal"]["brand_applied"] is True
+    assert out["super_terminal"]["product_name"] == "Desk Test"
     assert out["product_complete"] is False
+    src = open("super_terminal.py", encoding="utf-8").read()
+    assert "apply_brand_to_surface" in src
+    assert "brand_applied" in src
 
 
 @pytest.mark.asyncio
@@ -350,22 +362,26 @@ async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
     store._READY_FOR = None  # noqa: SLF001
     out = await prove_durable_ingestion()
     assert out["ok"] is True
-    assert out["live_sources"] >= 2
+    # Expanded mesh: under CI load some venues may time out; require clear lift vs prior 2–5.
+    assert out["live_sources"] >= 5
     assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 5
     assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 5.0
-    assert len(out.get("pricing_log_exchanges") or []) >= 2
-    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 2
+    assert len(out.get("pricing_log_exchanges") or []) >= 5
+    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 5
 
 
 @pytest.mark.asyncio
-async def test_rollout_multi_venue_live_at_least_five():
-    from live_data_truth_probe import prove_multi_venue_live
+async def test_rollout_multi_venue_live_mesh_expanded():
+    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH, prove_multi_venue_live
     from universe_rollout import live_rollout_status
 
-    mv = await prove_multi_venue_live()
+    mv = await prove_multi_venue_live(full_mesh=True)
     assert mv["ok"] is True
-    assert mv["live_count"] >= 4
-    assert len(mv.get("l2_venues") or []) >= 4
-    roll = await live_rollout_status()
-    assert roll["healthy_exchanges"] >= 4
-    assert roll["coverage_percent"] >= 4.0
+    assert mv["full_mesh"] is True
+    assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
+    # Require meaningful multi-venue L2 mesh; tolerate partial timeouts under suite load.
+    assert mv["live_count"] >= 5
+    assert len(mv.get("l2_venues") or []) >= 5
+    roll = await live_rollout_status(include_public_probe=False)
+    assert roll["healthy_exchanges"] >= 5
+    assert roll["coverage_percent"] >= 5.0

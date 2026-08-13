@@ -396,21 +396,94 @@ async def prove_jupiter_live_quote(
     }
 
 
+async def prove_jupiter_swap_build() -> dict[str, Any]:
+    """Prove Jupiter /swap builds a real transaction without broadcasting.
+
+    Uses an ephemeral pubkey (no operator wallet required). Never claims executed.
+    """
+    usdc = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    sol = "So11111111111111111111111111111111111111112"
+    q = await quote_swap(input_mint=usdc, output_mint=sol, amount_atomic=1_000_000)
+    if not q.get("ok") or not isinstance(q.get("quote"), dict):
+        return {
+            "ok": False,
+            "surface": "jupiter_swap_build_proof",
+            "reason": q.get("reason") or "quote_unavailable",
+            "executed": False,
+            "broadcast": False,
+            "live_submit_implemented": True,
+            "verified_complete": False,
+            "implementation_class": "UNVERIFIED",
+            "product_complete": False,
+            "at": _utcnow(),
+        }
+    try:
+        from solders.keypair import Keypair
+
+        ephemeral = Keypair()
+        pubkey = str(ephemeral.pubkey())
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "surface": "jupiter_swap_build_proof",
+            "reason": f"keypair_unavailable:{type(exc).__name__}",
+            "executed": False,
+            "broadcast": False,
+            "live_submit_implemented": True,
+            "verified_complete": False,
+            "implementation_class": "PARTIAL",
+            "product_complete": False,
+            "at": _utcnow(),
+        }
+    built = await build_swap_transaction(quote=q["quote"], user_public_key=pubkey)
+    tx_b64 = built.get("swap_transaction") if built.get("ok") else None
+    ok = bool(built.get("ok") and tx_b64 and len(str(tx_b64)) > 100)
+    return {
+        "ok": ok,
+        "surface": "jupiter_swap_build_proof",
+        "api_base": jupiter_api_base(),
+        "ephemeral_pubkey": pubkey,
+        "swap_transaction_built": ok,
+        "swap_transaction_chars": len(str(tx_b64 or "")),
+        "executed": False,
+        "broadcast": False,
+        "live_submit_implemented": True,
+        "reason": None if ok else built.get("reason"),
+        "verified_complete": False,
+        "implementation_class": "PARTIAL" if ok else "UNVERIFIED",
+        "product_complete": False,
+        "note": "Live /swap tx build proven with ephemeral pubkey — no broadcast, no fill claim.",
+        "at": _utcnow(),
+    }
+
+
 async def prove_jupiter_submit_path() -> dict[str, Any]:
     """Prove submit path is implemented (build readiness); execute only if armed."""
     cfg = jupiter_configured()
     quote_proof = await prove_jupiter_live_quote()
+    build_proof = await prove_jupiter_swap_build()
     # Dry-run execute always exercises quote→path without broadcasting.
     dry = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=True)
     live = None
     if cfg["wallet"] and cfg["live_enabled"] and cfg.get("signing_libs"):
         live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
     return {
-        "ok": bool(quote_proof.get("ok") and dry.get("live_submit_implemented")),
+        "ok": bool(
+            quote_proof.get("ok")
+            and dry.get("live_submit_implemented")
+            and build_proof.get("ok")
+        ),
         "surface": "jupiter_submit_path_proof",
         "live_submit_implemented": True,
         "configured": cfg,
         "quote_ok": quote_proof.get("ok"),
+        "swap_build": {
+            "ok": build_proof.get("ok"),
+            "swap_transaction_built": build_proof.get("swap_transaction_built"),
+            "swap_transaction_chars": build_proof.get("swap_transaction_chars"),
+            "broadcast": False,
+            "executed": False,
+        },
         "dry_run": {
             "mode": dry.get("mode"),
             "executed": dry.get("executed"),
@@ -430,8 +503,8 @@ async def prove_jupiter_submit_path() -> dict[str, Any]:
         "product_complete": False,
         "verified_complete": bool(live and live.get("executed")),
         "note": (
-            "Submit path is in-repo (quote→/swap→sign→RPC). "
-            "verified_complete only when a live signature is obtained."
+            "Submit path is in-repo (quote→/swap build→sign→RPC). "
+            "Swap build proven without wallet; verified_complete only with live signature."
         ),
         "at": _utcnow(),
     }

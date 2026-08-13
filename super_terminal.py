@@ -274,7 +274,7 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         "unified_decision",
     )
     required_ok = all(modules.get(k, {}).get("ok") for k in required)
-    return {
+    pack: dict[str, Any] = {
         "surface": "super_terminal",
         "symbol": symbol,
         "org_id": org_id,
@@ -293,6 +293,23 @@ def build_super_terminal(*, symbol: str = "BTC/USDT", org_id: str = "default") -
         "required_ok": required_ok,
         "note": "Super Terminal = intelligence domains feeding one coherent decision_object.",
     }
+    # Optional tenant brand apply (served surface) — never invents brand.
+    try:
+        from white_label import apply_brand_to_surface, get_brand
+
+        if get_brand(org_id):
+            branded = apply_brand_to_surface(org_id, pack)
+            pack["branding"] = branded.get("surface", {}).get("branding")
+            pack["brand_applied"] = bool(branded.get("brand_applied"))
+            pack["api_title"] = branded.get("api_title")
+            pack["product_name"] = branded.get("product_name")
+        else:
+            pack["brand_applied"] = False
+    except Exception as exc:  # noqa: BLE001
+        pack["brand_applied"] = False
+        errors.append(f"white_label:{type(exc).__name__}")
+        pack["errors"] = errors
+    return pack
 
 
 def super_terminal_status() -> dict[str, Any]:

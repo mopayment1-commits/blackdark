@@ -94,39 +94,6 @@ async def _upsert_book_source(
     )
 
 
-async def _probe_aggregator_spot(venue: str, symbol: str = "BTC/USDT") -> dict[str, Any]:
-    try:
-        import aiohttp
-
-        from aggregator import MARKET_FETCHERS
-    except Exception as exc:  # noqa: BLE001
-        return {"ok": False, "reason": type(exc).__name__}
-    fn = MARKET_FETCHERS.get(venue)
-    if not fn:
-        return {"ok": False, "reason": "fetcher_missing"}
-    try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            _t, book = await fn(session, symbol, "spot")
-        if not book or not book.bids or not book.asks:
-            return {"ok": False, "reason": "empty_book"}
-        bid = float(book.bids[0][0])
-        ask = float(book.asks[0][0])
-        return {
-            "ok": True,
-            "live": True,
-            "venue": venue,
-            "bid": bid,
-            "ask": ask,
-            "depth_source": "venue_l2",
-            "fabricated_depth": False,
-            "depth_levels": {"bids": len(book.bids), "asks": len(book.asks)},
-            "source": f"{venue}_public_spot",
-        }
-    except Exception as exc:  # noqa: BLE001
-        return {"ok": False, "reason": f"{type(exc).__name__}:{exc}"[:160]}
-
-
 async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]:
     """Record live venue probes + free prices ingest into ingestion_source_health."""
     import aiohttp
@@ -134,7 +101,12 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
     from canonical_truth_bus import refresh_live_truth
     from database import fetch_ingestion_health_summary, init_db
     from ingestion_fetchers import ingest_category
-    from live_data_truth_probe import probe_kraken_depth, probe_okx_book
+    from live_data_truth_probe import (
+        CORE_PUBLIC_CEX_MESH,
+        _probe_aggregator_spot_l2,
+        probe_kraken_depth,
+        probe_okx_book,
+    )
 
     await init_db()
     records: list[dict[str, Any]] = []
@@ -170,11 +142,33 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
         pricing_logs=pricing_logs,
     )
 
-    for venue in ("gateio", "bitget", "kucoin"):
-        probe = await _probe_aggregator_spot(venue, symbol)
+    # Expand durable health + pricing_logs across curated public CEX mesh (bounded concurrency).
+    import asyncio
+
+    mesh_venues = [v for v in CORE_PUBLIC_CEX_MESH if v not in {"okx", "kraken"}]
+    sem = asyncio.Semaphore(8)
+
+    async def _mesh_one(venue: str) -> dict[str, Any]:
+        async with sem:
+            try:
+                return await asyncio.wait_for(_probe_aggregator_spot_l2(venue, symbol), timeout=14.0)
+            except TimeoutError:
+                return {"ok": False, "live": False, "venue": venue, "reason": "probe_timeout"}
+            except Exception as exc:  # noqa: BLE001
+                return {"ok": False, "live": False, "venue": venue, "reason": type(exc).__name__}
+
+    mesh_probes = await asyncio.gather(*[_mesh_one(v) for v in mesh_venues])
+    for probe in mesh_probes:
+        venue = str(probe.get("venue") or "unknown")
+        ok = bool(
+            probe.get("ok")
+            and probe.get("live")
+            and probe.get("depth_source") == "venue_l2"
+            and not probe.get("fabricated_depth")
+        )
         await _upsert_book_source(
             source_id=f"{venue}_public_spot",
-            ok=bool(probe.get("ok") and probe.get("live")),
+            ok=ok,
             depth_source=probe.get("depth_source"),
             levels=probe.get("depth_levels"),
             reason=probe.get("reason"),
@@ -213,7 +207,8 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
     try:
         from universe_rollout import live_rollout_status
 
-        rollout = await live_rollout_status()
+        # pricing_logs already written above — skip second full public mesh probe.
+        rollout = await live_rollout_status(include_public_probe=False)
     except Exception as exc:  # noqa: BLE001
         rollout = {"error": type(exc).__name__}
 
@@ -256,16 +251,13 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
 
 
 def ingestion_proof_status() -> dict[str, Any]:
+    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH
+
     return {
         "surface": "institutional_ingestion_proof",
         "writes": ["ingestion_source_health", "pricing_logs"],
-        "sources": [
-            "okx_public_books",
-            "kraken_public_depth",
-            "gateio_public_spot",
-            "bitget_public_spot",
-            "kucoin_public_spot",
-        ],
+        "sources": ["okx_public_books", "kraken_public_depth", *[f"{v}_public_spot" for v in CORE_PUBLIC_CEX_MESH]],
+        "mesh_target_count": len(CORE_PUBLIC_CEX_MESH),
         "fabricated_depth_forbidden": True,
         "verified_complete": False,
         "implementation_class": "PARTIAL",

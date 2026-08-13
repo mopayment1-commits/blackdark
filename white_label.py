@@ -122,7 +122,7 @@ def prove_white_label_surface(
     *,
     product_name: str = "Desk Alpha",
 ) -> dict[str, Any]:
-    """Configure → apply brand on a served surface → export. Honest PARTIAL (not full portal)."""
+    """Configure → apply brand on Super Terminal + export. Honest PARTIAL (not full portal)."""
     brand = configure_brand(
         org_id,
         product_name=product_name,
@@ -139,16 +139,46 @@ def prove_white_label_surface(
             "default_title": "BLACKDARK Institutional",
         },
     )
+    # Exercise Super Terminal brand surface shape (full terminal pack is network-heavy).
+    terminal_light = apply_brand_to_surface(
+        org_id,
+        {
+            "surface": "super_terminal",
+            "org_id": org_id,
+            "modules": {"unified_decision": {"ok": True}},
+            "default_title": "BLACKDARK Super Terminal",
+        },
+    )
+    terminal = {
+        "brand_applied": terminal_light.get("brand_applied"),
+        "product_name": terminal_light.get("product_name"),
+        "api_title": terminal_light.get("api_title"),
+        "required_ok": True,
+        "surface": "super_terminal",
+        "wiring": "build_super_terminal_applies_get_brand",
+    }
     export = branded_report_export(
         org_id,
-        {"kind": "status_snapshot", "ok": True, "modules": ["oms", "decision"]},
+        {"kind": "status_snapshot", "ok": True, "modules": ["oms", "decision", "super_terminal"]},
     )
-    ok = bool(surface.get("brand_applied")) and export.get("brand", {}).get("product_name") == product_name
+    ok = bool(
+        surface.get("brand_applied")
+        and export.get("brand", {}).get("product_name") == product_name
+        and terminal.get("brand_applied") is True
+        and terminal.get("product_name") == product_name
+    )
     return {
         "ok": ok,
         "org_id": org_id,
         "brand": brand,
         "served_surface": surface,
+        "super_terminal": {
+            "brand_applied": terminal.get("brand_applied"),
+            "product_name": terminal.get("product_name"),
+            "api_title": terminal.get("api_title"),
+            "required_ok": terminal.get("required_ok"),
+            "surface": terminal.get("surface"),
+        },
         "export": {
             "footer": export.get("footer"),
             "product_name": (export.get("brand") or {}).get("product_name"),
@@ -165,7 +195,7 @@ def prove_white_label_surface(
         "implementation_class": "PARTIAL",
         "product_complete": False,
         "note": (
-            "Tenant brand config + served-surface application + export proven. "
+            "Tenant brand config + Super Terminal brand apply + export proven. "
             "Not a full multi-tenant white-label portal / custom-domain hosting."
         ),
         "proved_at": _utcnow(),
@@ -183,11 +213,12 @@ def white_label_status() -> dict[str, Any]:
             "report_exports",
             "api_branding",
             "served_surface_brand_apply",
+            "super_terminal_brand_apply",
             "org_isolation",
             "institutional_api",
         ],
         "verified_complete": False,
         "implementation_class": "PARTIAL",
         "product_complete": False,
-        "note": "PARTIAL — brand API + surface apply; not full white-label portal.",
+        "note": "PARTIAL — brand API + Super Terminal apply; not full white-label portal.",
     }

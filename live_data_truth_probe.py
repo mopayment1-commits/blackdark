@@ -291,8 +291,38 @@ async def probe_binance_public_book(symbol: str = "BTCUSDT") -> dict[str, Any]:
     }
 
 
+# Curated public CEX mesh — native books with multi-level depth (not 1-level proxy TOB).
+CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
+    "okx",
+    "kraken",
+    "gateio",
+    "bitget",
+    "kucoin",
+    "mexc",
+    "htx",
+    "bingx",
+    "bitmart",
+    "bitstamp",
+    "coinbase",
+    "coinex",
+    "cryptocom",
+    "digifinex",
+    "gemini",
+    "lbank",
+    "phemex",
+    "poloniex",
+    "whitebit",
+    "xt",
+    "bigone",
+    "bitso",
+    "btcturk",
+    "toobit",
+)
+_MIN_L2_LEVELS = 5
+
+
 async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dict[str, Any]:
-    """Public spot L2 via aggregator MARKET_FETCHERS (Gate/Bitget/KuCoin mesh)."""
+    """Public spot L2 via aggregator MARKET_FETCHERS (multi-venue mesh)."""
     try:
         import aiohttp
 
@@ -310,6 +340,14 @@ async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dic
             return {"ok": False, "live": False, "venue": venue, "reason": "empty_book"}
         bids = [[float(p), float(q)] for p, q, *_ in book.bids]
         asks = [[float(p), float(q)] for p, q, *_ in book.asks]
+        if len(bids) < _MIN_L2_LEVELS or len(asks) < _MIN_L2_LEVELS:
+            return {
+                "ok": False,
+                "live": False,
+                "venue": venue,
+                "reason": "insufficient_l2_depth",
+                "depth_levels": {"bids": len(bids), "asks": len(asks)},
+            }
         if not _levels_are_venue_real(bids, asks):
             return {
                 "ok": False,
@@ -367,9 +405,17 @@ async def _persist_live_mid(probe: dict[str, Any], *, symbol: str = "BTC/USDT") 
         return
 
 
-async def prove_multi_venue_live() -> dict[str, Any]:
-    """Prove independent live venues with real L2 (OKX/Kraken + Gate/Bitget/KuCoin; Binance optional)."""
-    results = []
+async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
+    """Prove independent live venues with real L2.
+
+    full_mesh=True — curated public CEX mesh (rollout/ingestion).
+    full_mesh=False — light OKX+Kraken(+optional Binance) for truth-bus refresh.
+    """
+    import asyncio
+
+    results: list[dict[str, Any]] = []
+
+    # Prefer native OKX/Kraken probes first (canonical adoption path).
     for factory in (
         lambda: probe_okx_book("BTC-USDT"),
         lambda: probe_kraken_depth("XBTUSDT"),
@@ -379,11 +425,28 @@ async def prove_multi_venue_live() -> dict[str, Any]:
         except Exception as exc:  # noqa: BLE001
             results.append({"ok": False, "live": False, "reason": type(exc).__name__})
 
-    for venue in ("gateio", "bitget", "kucoin"):
-        try:
-            results.append(await _probe_aggregator_spot_l2(venue, "BTC/USDT"))
-        except Exception as exc:  # noqa: BLE001
-            results.append({"ok": False, "live": False, "venue": venue, "reason": type(exc).__name__})
+    if full_mesh:
+        seen = {str(r.get("venue") or "").lower() for r in results if r.get("venue")}
+        mesh = [v for v in CORE_PUBLIC_CEX_MESH if v not in seen]
+        sem = asyncio.Semaphore(8)
+
+        async def _one(venue: str) -> dict[str, Any]:
+            async with sem:
+                try:
+                    return await asyncio.wait_for(
+                        _probe_aggregator_spot_l2(venue, "BTC/USDT"), timeout=14.0
+                    )
+                except TimeoutError:
+                    return {"ok": False, "live": False, "venue": venue, "reason": "probe_timeout"}
+                except Exception as exc:  # noqa: BLE001
+                    return {
+                        "ok": False,
+                        "live": False,
+                        "venue": venue,
+                        "reason": type(exc).__name__,
+                    }
+
+        results.extend(await asyncio.gather(*[_one(v) for v in mesh]))
 
     try:
         code, body, latency_ms = await _http_get_json(
@@ -439,7 +502,10 @@ async def prove_multi_venue_live() -> dict[str, Any]:
         {
             r["venue"]
             for r in live
-            if r.get("venue") and r.get("depth_source") == "venue_l2" and not r.get("fabricated_depth")
+            if r.get("venue")
+            and r.get("depth_source") == "venue_l2"
+            and not r.get("fabricated_depth")
+            and int((r.get("depth_levels") or {}).get("bids") or 0) >= _MIN_L2_LEVELS
         }
     )
     return {
@@ -448,33 +514,44 @@ async def prove_multi_venue_live() -> dict[str, Any]:
         "live_count": len(venues),
         "l2_venues": l2_venues,
         "l2_count": len(l2_venues),
-        "probes": results,
+        "full_mesh": full_mesh,
+        "mesh_target": list(CORE_PUBLIC_CEX_MESH) if full_mesh else ["okx", "kraken"],
+        "mesh_target_count": len(CORE_PUBLIC_CEX_MESH) if full_mesh else 2,
+        "probes": [
+            {
+                "venue": r.get("venue"),
+                "ok": r.get("ok"),
+                "live": r.get("live"),
+                "depth_source": r.get("depth_source"),
+                "depth_levels": r.get("depth_levels"),
+                "reason": r.get("reason"),
+            }
+            for r in results
+        ],
         "canonical_required": True,
         "stale_as_live": 0,
         "fabricated_depth_forbidden": True,
+        "min_l2_levels": _MIN_L2_LEVELS,
         "pricing_logs_attempted": True,
         "proved_at": datetime.now(UTC).isoformat(),
         "implementation_class": "PARTIAL" if len(l2_venues) >= 1 else "UNVERIFIED",
+        "product_complete": False,
+        "verified_complete": False,
     }
 
 
 def probe_status() -> dict[str, Any]:
     return {
         "surface": "live_data_truth_probe",
-        "providers": [
-            "okx_public_books",
-            "kraken_public_depth",
-            "gateio_public_spot",
-            "bitget_public_spot",
-            "kucoin_public_spot",
-            "binance_public",
-        ],
+        "providers": ["okx_public_books", "kraken_public_depth", *CORE_PUBLIC_CEX_MESH, "binance_public"],
+        "mesh_target_count": len(CORE_PUBLIC_CEX_MESH),
+        "min_l2_levels": _MIN_L2_LEVELS,
         "credentials_required": False,
         "fail_closed_on_outage": True,
         "failover": True,
         "fabricated_depth_forbidden": True,
         "verified_complete": False,
         "implementation_class": "PARTIAL",
-        "note": "Proves live public L2 → canonical adopt + pricing_logs; never fabricates depth sizes.",
+        "note": "Proves live public L2 mesh → pricing_logs; rejects shallow/fabricated depth.",
         "product_complete": False,
     }
