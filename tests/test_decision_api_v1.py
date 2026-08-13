@@ -266,10 +266,11 @@ def test_audit_persists_401_and_200(client):
     assert after_401 == before + 1
 
     key = _issue(client, "org_audit_persist")["api_key"]
+    after_issue = asyncio.run(_audit_row_count())
     me = client.get("/api/v1/me", headers={"X-API-Key": key})
     assert me.status_code == 200
     after_200 = asyncio.run(_audit_row_count())
-    assert after_200 == after_401 + 1
+    assert after_200 == after_issue + 1
 
     audit = client.get("/api/v1/audit", headers={"X-API-Key": key})
     assert audit.status_code == 200, audit.text
