@@ -2,15 +2,15 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** `fc885cb1eee3090b20c6a9c71d3e3dfbf49e68eb`  
+**Product tip:** `94325d634f4ca0d10cc8fae77895ea7e59ab1b29`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 | Field | Value |
 |---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_fc885cb.md` |
-| Overall | **94 / 100** |
+| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_94325d6.md` |
+| Overall | **95 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **1** (`postgres_streaming_ha_rpo_rto`) |
 
@@ -18,14 +18,14 @@
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Multi-venue L2 + perp/funding | PARTIAL | OKX/Kraken/Gate/Bitget/KuCoin |
-| Durable prices mesh + continuum | PARTIAL | ~23% ingest; rollout ~5% |
-| Jupiter live quote + submit path | PARTIAL | submit implemented; live signature needs wallet |
+| Public CEX L2 mesh (24) | PARTIAL | CORE_PUBLIC_CEX_MESH; 24/24 L2 in clean-room |
+| Durable prices mesh + continuum | PARTIAL | ~42% ingest; rollout ~24% |
+| Jupiter live quote + `/swap` build | PARTIAL | build proven; live signature needs wallet |
 | Local Postgres dump/restore | PARTIAL | `LOCAL_EPHEMERAL_NOT_HA` |
 | Postgres product-path OMS | PARTIAL | ephemeral `authority=postgres` |
 | Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local streaming; `cloud_multi_az=false` |
 | Fill lifecycle | PARTIAL (paper) | venue follows L2; live_fill needs creds |
-| White Label | PARTIAL | API + served surface apply + prove |
+| White Label | PARTIAL | API + Super Terminal brand apply + prove |
 | product_complete honesty | held | no root self-cert True theater |
 
 ## Still open (credential / env / cloud)
