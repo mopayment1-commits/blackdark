@@ -463,6 +463,69 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
             "at": _utcnow(),
         }
     quote = q["quote"]
+    # Fail-closed on extreme impact (honest gate; still not a live fill).
+    try:
+        impact = float(quote.get("priceImpactPct") or 0.0)
+    except (TypeError, ValueError):
+        impact = 0.0
+    route_steps = (
+        len(quote.get("routePlan") or []) if isinstance(quote.get("routePlan"), list) else 0
+    )
+    if impact > 5.0:
+        return {
+            "ok": False,
+            "surface": "jupiter_swap_build_proof",
+            "reason": f"price_impact_fail_closed:{impact}",
+            "executed": False,
+            "broadcast": False,
+            "live_submit_implemented": True,
+            "verified_complete": False,
+            "implementation_class": "PARTIAL",
+            "product_complete": False,
+            "at": _utcnow(),
+        }
+    if route_steps < 1:
+        return {
+            "ok": False,
+            "surface": "jupiter_swap_build_proof",
+            "reason": "route_plan_empty",
+            "executed": False,
+            "broadcast": False,
+            "live_submit_implemented": True,
+            "verified_complete": False,
+            "implementation_class": "PARTIAL",
+            "product_complete": False,
+            "at": _utcnow(),
+        }
+
+    # Reverse mint prove (SOL→USDC) — quote-only, no broadcast.
+    reverse = await quote_swap(input_mint=sol, output_mint=usdc, amount_atomic=10_000_000)
+    reverse_ok = bool(reverse.get("ok") and isinstance(reverse.get("quote"), dict))
+
+    blockhash: dict[str, Any] = {"ok": False}
+    try:
+        import httpx
+
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            r = await client.post(
+                solana_rpc_url(),
+                json={
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "getLatestBlockhash",
+                    "params": [{"commitment": "processed"}],
+                },
+            )
+            body = r.json() if r.status_code == 200 else {}
+            value = ((body.get("result") or {}).get("value") or {})
+            blockhash = {
+                "ok": bool(value.get("blockhash")),
+                "blockhash": value.get("blockhash"),
+                "last_valid_block_height": value.get("lastValidBlockHeight"),
+            }
+    except Exception as exc:  # noqa: BLE001
+        blockhash = {"ok": False, "reason": type(exc).__name__}
+
     try:
         from solders.keypair import Keypair
 
@@ -505,7 +568,7 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
         if decoded.get("ok"):
             simulated = await _rpc_simulate_transaction(str(tx_b64))
 
-    ok = bool(built_ok and decoded.get("ok"))
+    ok = bool(built_ok and decoded.get("ok") and reverse_ok and blockhash.get("ok"))
     return {
         "ok": ok,
         "surface": "jupiter_swap_build_proof",
@@ -522,12 +585,17 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
             "units_consumed": simulated.get("units_consumed"),
             "note": simulated.get("note") or simulated.get("reason"),
         },
+        "reverse_quote": {
+            "ok": reverse_ok,
+            "out_amount": (reverse.get("quote") or {}).get("outAmount") if reverse_ok else None,
+            "direction": "SOL→USDC",
+        },
+        "latest_blockhash": blockhash,
         "quote_route": {
             "out_amount": quote.get("outAmount"),
             "price_impact_pct": quote.get("priceImpactPct"),
-            "route_plan_steps": len(quote.get("routePlan") or [])
-            if isinstance(quote.get("routePlan"), list)
-            else None,
+            "route_plan_steps": route_steps,
+            "impact_fail_closed_max_pct": 5.0,
         },
         "executed": False,
         "broadcast": False,
@@ -537,7 +605,7 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
         "implementation_class": "PARTIAL" if ok else "UNVERIFIED",
         "product_complete": False,
         "note": (
-            "Live /swap tx build + VersionedTransaction decode (+ optional simulate) "
+            "Live /swap tx build + decode + simulate + reverse quote + blockhash "
             "with ephemeral pubkey — no broadcast, no fill claim. "
             "simulate AccountNotFound is expected without funded wallet."
         ),

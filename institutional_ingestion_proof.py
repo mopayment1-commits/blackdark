@@ -104,6 +104,7 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
     from live_data_truth_probe import (
         CORE_PUBLIC_CEX_MESH,
         _probe_aggregator_spot_l2,
+        mesh_symbol_for,
         probe_kraken_depth,
         probe_okx_book,
     )
@@ -150,12 +151,27 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
 
     async def _mesh_one(venue: str) -> dict[str, Any]:
         async with sem:
+            probe_symbol = mesh_symbol_for(venue)
             try:
-                return await asyncio.wait_for(_probe_aggregator_spot_l2(venue, symbol), timeout=14.0)
+                return await asyncio.wait_for(
+                    _probe_aggregator_spot_l2(venue, probe_symbol), timeout=14.0
+                )
             except TimeoutError:
-                return {"ok": False, "live": False, "venue": venue, "reason": "probe_timeout"}
+                return {
+                    "ok": False,
+                    "live": False,
+                    "venue": venue,
+                    "symbol": probe_symbol,
+                    "reason": "probe_timeout",
+                }
             except Exception as exc:  # noqa: BLE001
-                return {"ok": False, "live": False, "venue": venue, "reason": type(exc).__name__}
+                return {
+                    "ok": False,
+                    "live": False,
+                    "venue": venue,
+                    "symbol": probe_symbol,
+                    "reason": type(exc).__name__,
+                }
 
     mesh_probes = await asyncio.gather(*[_mesh_one(v) for v in mesh_venues])
     for probe in mesh_probes:
@@ -174,11 +190,18 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
             reason=probe.get("reason"),
             records=records,
             exchange=venue,
-            symbol=symbol,
+            symbol=str(probe.get("symbol") or mesh_symbol_for(venue)),
             bid=probe.get("bid"),
             ask=probe.get("ask"),
             pricing_logs=pricing_logs,
         )
+
+    try:
+        from ccxt_market_fetcher import close_ccxt_pool
+
+        await close_ccxt_pool()
+    except Exception:
+        pass
 
     prices_stats: dict[str, Any] = {}
     try:

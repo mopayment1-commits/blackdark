@@ -38,23 +38,47 @@ def run_decision_e2e(
     # Microstructure / whale / risk on the same live books
     whale = measure_whale_readiness(books, symbol=symbol) if books else {"whale_ready": False}
     depth = 0.0
+    spread_bps = None
     for vb in books.values():
         b = vb.get(symbol) or {}
-        depth += sum(float(p) * float(q) for p, q in (b.get("bids") or [])[:5])
-        depth += sum(float(p) * float(q) for p, q in (b.get("asks") or [])[:5])
+        bids = b.get("bids") or []
+        asks = b.get("asks") or []
+        depth += sum(float(p) * float(q) for p, q in bids[:5])
+        depth += sum(float(p) * float(q) for p, q in asks[:5])
+        if spread_bps is None and bids and asks:
+            mid = (float(bids[0][0]) + float(asks[0][0])) / 2.0
+            if mid > 0:
+                spread_bps = ((float(asks[0][0]) - float(bids[0][0])) / mid) * 10_000
     depth = depth / 2.0 if depth else None
+    if spread_bps is None:
+        spread_bps = 5.0  # fail-soft only when live book TOB unavailable
+
+    funding_rate = None
+    try:
+        from canonical_truth_bus import get_live_funding
+
+        funding = get_live_funding(require_live=False, symbol=symbol)
+        for _venue, syms in (funding or {}).items():
+            row = (syms or {}).get(symbol) or {}
+            if row.get("funding_rate") is not None and not row.get("synthetic"):
+                funding_rate = float(row["funding_rate"])
+                break
+    except Exception:
+        funding_rate = None
+    if funding_rate is None:
+        funding_rate = 0.0  # honest zero when live funding absent (not a fabricated premium)
 
     risk = full_risk_architecture(
         symbol=symbol,
         notional=notional,
         bid_depth=depth,
         ask_depth=depth,
-        spread_bps=5.0,
+        spread_bps=float(spread_bps),
         returns_bps=[-5.0, 3.0, -2.0],
         positions=[{"asset": symbol.split("/")[0], "side": "long", "notional_usd": notional}],
         venue_health={v: 0.9 for v in books},
         leverage=1.0,
-        funding_rate=0.0001,
+        funding_rate=float(funding_rate),
         liquidation_distance_bps=2000.0,
     )
     liq = liquidity_risk(
@@ -62,7 +86,7 @@ def run_decision_e2e(
         notional=notional,
         bid_depth=depth,
         ask_depth=depth,
-        spread_bps=5.0,
+        spread_bps=float(spread_bps),
     )
 
     evidence = [
@@ -99,11 +123,17 @@ def run_decision_e2e(
         use_calibration=False,
     )
 
+    # Close loop with withheld self-grade: predicted recorded; actual is calibration stub
+    # (same-tick self-label is not an independent outcome — never claim measured alpha).
     closed = close_decision_loop(
         graph_id=out["graph_id"],
         decision_node_id=out["decision_node_id"],
         predicted={"label": "proceed" if wants else "stand_down"},
-        actual={"label": "proceed" if wants else "stand_down"},
+        actual={
+            "label": "withheld_same_tick",
+            "calibration_stub": True,
+            "note": "Independent outcome not available in e2e prove; not self-graded.",
+        },
         decision_ts=datetime.now(UTC).isoformat(),
         outcome_ts=datetime.now(UTC).isoformat(),
         actor=actor,
@@ -118,6 +148,12 @@ def run_decision_e2e(
         "evidence": evidence,
         "counter_evidence": counter,
         "risk": risk,
+        "market_inputs": {
+            "spread_bps": float(spread_bps),
+            "funding_rate": float(funding_rate),
+            "depth_usd": depth,
+            "from_live_books": True,
+        },
         "whale": {
             "whale_ready": whale.get("whale_ready"),
             "capital_bands": whale.get("capital_bands_usd") or whale.get("capital_bands"),
@@ -125,6 +161,7 @@ def run_decision_e2e(
         "live_venues": live.get("venues"),
         "graph_id": out.get("graph_id"),
         "learning": closed.get("evaluation"),
+        "learning_self_grade": False,
         "pipeline": "LIVE→CANONICAL→RISK→DECISION→OUTCOME→LEARNING",
         "bus": bus_status(),
     }

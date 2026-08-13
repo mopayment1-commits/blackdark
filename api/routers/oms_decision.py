@@ -618,3 +618,42 @@ async def postgres_ha_rpo_rto_api(
     from ops_recovery import prove_postgres_streaming_ha_rpo_rto
 
     return prove_postgres_streaming_ha_rpo_rto()
+
+
+@router.post("/ops/postgres-dump-restore")
+async def postgres_dump_restore_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from ops_recovery import prove_postgres_local_dump_restore
+
+    return prove_postgres_local_dump_restore()
+
+
+@router.post("/ops/recovery-bundle")
+async def ops_recovery_bundle_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    include_streaming_ha: bool = False,
+) -> dict[str, Any]:
+    from ops_recovery import prove_ops_recovery_bundle
+
+    return prove_ops_recovery_bundle(include_streaming_ha=include_streaming_ha)
+
+
+@router.post("/canonical/mesh-prove")
+async def canonical_mesh_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    full_mesh: bool = True,
+) -> dict[str, Any]:
+    from live_data_truth_probe import prove_multi_venue_live
+
+    return await prove_multi_venue_live(full_mesh=full_mesh)
+
+
+@router.get("/rollout/status")
+async def rollout_status_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    include_public_probe: bool = True,
+) -> dict[str, Any]:
+    from universe_rollout import live_rollout_status
+
+    return await live_rollout_status(include_public_probe=include_public_probe)

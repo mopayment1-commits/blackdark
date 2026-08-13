@@ -143,6 +143,7 @@ def prove_white_label_surface(
     from super_terminal import build_super_terminal
 
     terminal_pack = build_super_terminal(symbol="BTC/USDT", org_id=org_id)
+    builder_invoked = isinstance(terminal_pack, dict) and "modules" in terminal_pack
     terminal = {
         "brand_applied": bool(terminal_pack.get("brand_applied")),
         "product_name": terminal_pack.get("product_name"),
@@ -151,17 +152,41 @@ def prove_white_label_surface(
         "module_keys": list(terminal_pack.get("module_keys") or []),
         "surface": "super_terminal",
         "wiring": "build_super_terminal_applies_get_brand",
-        "builder_invoked": True,
+        "builder_invoked": bool(builder_invoked),
     }
     export = branded_report_export(
         org_id,
         {"kind": "status_snapshot", "ok": True, "modules": ["oms", "decision", "super_terminal"]},
     )
+    # Multi-org isolation negative prove: peer org must not inherit this brand.
+    peer_org = f"{org_id}_peer_isolation"
+    peer_surface = apply_brand_to_surface(
+        peer_org,
+        {"surface": "institutional_status", "default_title": "BLACKDARK Institutional"},
+    )
+    isolation = {
+        "ok": peer_surface.get("brand_applied") is False,
+        "peer_org": peer_org,
+        "peer_brand_applied": bool(peer_surface.get("brand_applied")),
+        "peer_reason": peer_surface.get("reason"),
+    }
+    theme_tokens = {
+        "product_name": brand.get("product_name"),
+        "api_title": brand.get("api_title"),
+        "primary_color": brand.get("primary_color"),
+        "logo_url": brand.get("logo_url") or "",
+        "css_vars": {
+            "--bd-brand-primary": brand.get("primary_color"),
+            "--bd-brand-name": brand.get("product_name"),
+        },
+    }
     ok = bool(
         surface.get("brand_applied")
         and export.get("brand", {}).get("product_name") == product_name
         and terminal.get("brand_applied") is True
         and terminal.get("product_name") == product_name
+        and terminal.get("builder_invoked") is True
+        and isolation.get("ok") is True
     )
     return {
         "ok": ok,
@@ -178,6 +203,8 @@ def prove_white_label_surface(
             "wiring": terminal.get("wiring"),
             "surface": terminal.get("surface"),
         },
+        "isolation": isolation,
+        "theme_tokens": theme_tokens,
         "export": {
             "footer": export.get("footer"),
             "product_name": (export.get("brand") or {}).get("product_name"),
@@ -194,7 +221,7 @@ def prove_white_label_surface(
         "implementation_class": "PARTIAL",
         "product_complete": False,
         "note": (
-            "Tenant brand config + Super Terminal brand apply + export proven. "
+            "Tenant brand config + Super Terminal brand apply + export + org isolation proven. "
             "Not a full multi-tenant white-label portal / custom-domain hosting."
         ),
         "proved_at": _utcnow(),

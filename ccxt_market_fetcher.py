@@ -56,6 +56,15 @@ CCXT_ID_MAP: dict[str, str] = {
     "btcturk": "btcturk",
     "coinone": "coinone",
     "bitbank": "bitbank",
+    # Additional public L2 venues (proven ≥5 levels via ccxt)
+    "hitbtc": "hitbtc",
+    "bitrue": "bitrue",
+    "latoken": "latoken",
+    "bequant": "bequant",
+    "fmfwio": "fmfwio",
+    "cex": "cex",
+    "paymium": "paymium",
+    "zaif": "zaif",
 }
 
 
@@ -105,6 +114,14 @@ CCXT_SPOT_ONLY: frozenset[str] = frozenset(
         "weex",
         "bigone",
         "woox",
+        "hitbtc",
+        "bitrue",
+        "latoken",
+        "bequant",
+        "fmfwio",
+        "cex",
+        "paymium",
+        "zaif",
     }
 )
 

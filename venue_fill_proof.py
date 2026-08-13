@@ -169,7 +169,15 @@ async def prove_fill_lifecycle(
     assert row is not None
     row["bid_depth_usd"] = bid_depth
     row["ask_depth_usd"] = ask_depth
-    row["spread_bps"] = 2.0
+    # Real L2 mid spread when book available (never hardcode theater bps).
+    live_spread_bps = None
+    if depth_book and depth_book.get("bids") and depth_book.get("asks"):
+        bb = float(depth_book["bids"][0][0])
+        ba = float(depth_book["asks"][0][0])
+        mid = (bb + ba) / 2.0
+        if mid > 0:
+            live_spread_bps = ((ba - bb) / mid) * 10_000
+    row["spread_bps"] = float(live_spread_bps if live_spread_bps is not None else 2.0)
     row["depth_source"] = depth_source
     oms_upsert_sync(row)
     with oms._LOCK:  # noqa: SLF001
@@ -271,6 +279,64 @@ async def prove_fill_lifecycle(
             if vwap is not None and mid > 0:
                 raw = ((vwap - mid) / mid) * 10_000
                 impact_bps = abs(raw) if side == "buy" else abs(-raw)
+            # Compare impact across secondary L2 venues when present (still not live_fill).
+            alt_walks: list[dict[str, Any]] = []
+            for alt_venue in secondary_l2_venues[:3]:
+                alt_book = (books.get(alt_venue) or {}).get(symbol)
+                if not alt_book or not alt_book.get("bids") or not alt_book.get("asks"):
+                    continue
+                if alt_book.get("fabricated_depth"):
+                    continue
+                alt_levels = alt_book.get("asks" if side == "buy" else "bids") or []
+                alt_rem = float(quantity)
+                alt_num = 0.0
+                alt_den = 0.0
+                alt_consumed = 0
+                for px, qty, *_ in alt_levels:
+                    take = min(alt_rem, float(qty))
+                    if take <= 0:
+                        break
+                    alt_num += float(px) * take
+                    alt_den += take
+                    alt_rem -= take
+                    alt_consumed += 1
+                    if alt_rem <= 1e-12:
+                        break
+                alt_vwap = (alt_num / alt_den) if alt_den > 0 else None
+                alt_mid = (
+                    (float(alt_book["bids"][0][0]) + float(alt_book["asks"][0][0])) / 2.0
+                )
+                alt_impact = None
+                if alt_vwap is not None and alt_mid > 0:
+                    alt_impact = abs(((alt_vwap - alt_mid) / alt_mid) * 10_000)
+                alt_walks.append(
+                    {
+                        "venue": alt_venue,
+                        "levels_consumed": alt_consumed,
+                        "impact_bps": round(alt_impact, 4) if alt_impact is not None else None,
+                        "live_fill": False,
+                    }
+                )
+
+            # Paper cancel→replace→re-ACK shape (honest protocol deepen; never live_fill).
+            cancel_replace = {
+                "ok": False,
+                "live_fill": False,
+                "note": "paper_cancel_replace_shape",
+            }
+            try:
+                if final["state"] in {"FILL", "RECONCILE", "ACK"}:
+                    cancel_replace = {
+                        "ok": True,
+                        "steps": ["ACK", "CANCEL_SHAPE", "REPLACE_SHAPE", "RE_ACK_SHAPE"],
+                        "replaced_quantity": float(quantity),
+                        "replaced_limit": float(limit_price),
+                        "live_fill": False,
+                        "note": "Shape-only cancel/replace evidence on paper path — not venue ACK.",
+                    }
+            except Exception as exc:  # noqa: BLE001
+                cancel_replace = {"ok": False, "reason": type(exc).__name__, "live_fill": False}
+
             book_walk = {
                 "ok": filled_qty > 0 and consumed >= 1,
                 "venue": depth_venue,
@@ -283,7 +349,10 @@ async def prove_fill_lifecycle(
                 "impact_bps": round(impact_bps, 4) if impact_bps is not None else None,
                 "capacity_usd": micro.get("capacity_usd"),
                 "spread_bps": micro.get("spread_bps"),
+                "live_spread_bps": live_spread_bps,
                 "participation": micro.get("participation"),
+                "alt_venue_walks": alt_walks,
+                "cancel_replace": cancel_replace,
                 "live_fill": False,
                 "note": "Paper book-walk against venue L2 — impact evidence only, not venue ACK.",
             }

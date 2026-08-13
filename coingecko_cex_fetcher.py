@@ -34,9 +34,7 @@ COINGECKO_EXCHANGE_MAP: dict[str, str] = {
     "bkex": "bkex",
     "coinsquare": "coinsquare",
     "paribu": "paribu",
-    "korbit": "korbit",
-    "valr": "valr",
-    "buda": "buda",
+    # korbit/valr/buda removed — served by native_regional_cex_fetcher (real L2).
     "rain": "rain",
     "coinmena": "coinmena",
     "bitoasis": "bitoasis",

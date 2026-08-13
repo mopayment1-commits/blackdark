@@ -854,19 +854,111 @@ def prove_postgres_streaming_ha_rpo_rto() -> dict[str, Any]:
             shutil.rmtree(standby_dir, ignore_errors=True)
 
 
-def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
-    """Ops status. Streaming HA is opt-in (heavy basebackup) — call prove_* directly for VC."""
-    from postgres_backend import use_postgres
+def prove_ops_recovery_bundle(*, include_streaming_ha: bool = False) -> dict[str, Any]:
+    """Bundle local dump/restore + schema authority (+ optional streaming HA).
+
+    Never claims cloud multi-AZ. Streaming HA remains the only VC candidate.
+    """
+    from institutional_store import ensure_ready, oms_get_sync, oms_upsert_sync, store_status
 
     authority = prove_db_authority_tables_sync()
     ddl = prove_postgres_ddl_ready()
     pg_dr = prove_postgres_local_dump_restore()
+    sqlite_br = prove_sqlite_backup_restore()
     pg_ha: dict[str, Any] | None = None
     if include_streaming_ha:
         pg_ha = prove_postgres_streaming_ha_rpo_rto()
+
+    # Process-restart continuity: re-open store and read back an OMS row.
+    continuity: dict[str, Any] = {"ok": False}
+    try:
+        ensure_ready()
+        order_id = f"ops_cont_{_utcnow().replace(':', '').replace('+', '')[:20]}"
+        row = {
+            "order_id": order_id,
+            "org_id": "ops_bundle",
+            "venue": "okx",
+            "symbol": "BTC/USDT",
+            "side": "buy",
+            "quantity": 0.001,
+            "filled_quantity": 0.0,
+            "order_type": "limit",
+            "limit_price": 1.0,
+            "state": "INTENT",
+            "idempotency_key": f"ops-cont-{order_id}",
+            "actor": "ops_bundle",
+            "history": [{"state": "INTENT"}],
+            "created_at": _utcnow(),
+            "updated_at": _utcnow(),
+        }
+        oms_upsert_sync(row)
+        # Simulate re-open
+        import institutional_store as store
+
+        store._READY_FOR = None  # noqa: SLF001
+        ensure_ready()
+        got = oms_get_sync(order_id)
+        continuity = {
+            "ok": bool(got and got.get("order_id") == order_id and got.get("state") == "INTENT"),
+            "order_id": order_id,
+            "authority": store_status().get("authority"),
+            "note": "Local process re-open continuity — not cloud multi-AZ HA.",
+        }
+    except Exception as exc:  # noqa: BLE001
+        continuity = {"ok": False, "reason": type(exc).__name__}
+
+    verified = bool(pg_ha and pg_ha.get("verified_complete"))
+    ok = bool(authority.get("ok") and ddl.get("ok") and (pg_dr.get("ok") or sqlite_br.get("ok")) and continuity.get("ok"))
+    out: dict[str, Any] = {
+        "ok": ok,
+        "surface": "ops_recovery_bundle",
+        "schema_authority": {"ok": authority.get("ok")},
+        "postgres_ddl_ready": {"ok": ddl.get("ok")},
+        "postgres_local_dump_restore": {
+            "ok": pg_dr.get("ok"),
+            "ha_dr": pg_dr.get("ha_dr"),
+        },
+        "sqlite_backup_restore": {"ok": sqlite_br.get("ok")},
+        "process_restart_continuity": continuity,
+        "cloud_multi_az": False,
+        "verified_complete": verified,
+        "implementation_class": "VERIFIED_COMPLETE" if verified else "PARTIAL",
+        "product_complete": False,
+        "note": (
+            "Local ops recovery bundle. Streaming HA VC only when include_streaming_ha "
+            "and prove_postgres_streaming_ha_rpo_rto succeeds. Never cloud multi-AZ."
+        ),
+        "proved_at": _utcnow(),
+    }
+    if pg_ha is not None:
+        out["postgres_streaming_ha_rpo_rto"] = {
+            "ok": pg_ha.get("ok"),
+            "verified_complete": pg_ha.get("verified_complete"),
+            "rpo_ms": pg_ha.get("rpo_ms"),
+            "rto_ms": pg_ha.get("rto_ms"),
+            "cloud_multi_az": pg_ha.get("cloud_multi_az"),
+        }
+    return out
+
+
+def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
+    """Ops status. Streaming HA is opt-in (heavy basebackup) — call prove_* directly for VC."""
+    from postgres_backend import use_postgres
+
+    bundle = prove_ops_recovery_bundle(include_streaming_ha=include_streaming_ha)
+    authority = prove_db_authority_tables_sync()
+    ddl = prove_postgres_ddl_ready()
+    # Reuse dump/restore already exercised inside the bundle when possible.
+    pg_dr = prove_postgres_local_dump_restore() if not bundle.get("postgres_local_dump_restore") else {
+        "ok": (bundle.get("postgres_local_dump_restore") or {}).get("ok"),
+        "ha_dr": (bundle.get("postgres_local_dump_restore") or {}).get("ha_dr"),
+        "control": "postgres_local_dump_restore",
+        "proved_at": _utcnow(),
+    }
+    pg_ha = bundle.get("postgres_streaming_ha_rpo_rto") if include_streaming_ha else None
     if use_postgres():
         backup = {
-            "ok": bool(authority.get("ok")) and bool(pg_dr.get("ok")),
+            "ok": bool(authority.get("ok")) and bool((pg_dr or {}).get("ok")),
             "engine": "postgres",
             "control": "backup_restore",
             "note": "Schema authority + local dump/restore. Streaming HA via prove_postgres_streaming_ha_rpo_rto.",
@@ -883,6 +975,11 @@ def ops_status(*, include_streaming_ha: bool = False) -> dict[str, Any]:
         "schema_authority": authority,
         "postgres_ddl_ready": ddl,
         "postgres_local_dump_restore": pg_dr,
+        "ops_recovery_bundle": {
+            "ok": bundle.get("ok"),
+            "process_restart_continuity": bundle.get("process_restart_continuity"),
+            "cloud_multi_az": False,
+        },
         "postgres_streaming_ha_control": "prove_postgres_streaming_ha_rpo_rto",
         "degrade": dependency_degrade_matrix(),
         "verified_complete": verified,

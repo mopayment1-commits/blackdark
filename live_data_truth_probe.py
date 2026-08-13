@@ -330,6 +330,21 @@ CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "bitbank",
     "bithumb",
     "independentreserve",
+    "mercadobitcoin",
+    "hitbtc",
+    "bitrue",
+    "latoken",
+    "bequant",
+    "fmfwio",
+    "cex",
+    "paymium",
+    "zaif",
+    # Native regional REST L2 (not CoinGecko 1-level TOB).
+    "valr",
+    "korbit",
+    "buda",
+    "coinone",
+    "bitfinex",
 )
 MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "bitvavo": "BTC/EUR",
@@ -338,6 +353,14 @@ MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "bitbank": "BTC/JPY",
     "bithumb": "BTC/KRW",
     "independentreserve": "BTC/AUD",
+    "mercadobitcoin": "BTC/BRL",
+    "paymium": "BTC/EUR",
+    "zaif": "BTC/JPY",
+    "valr": "BTC/ZAR",
+    "korbit": "BTC/KRW",
+    "buda": "BTC/CLP",
+    "coinone": "BTC/KRW",
+    "bitfinex": "BTC/USDT",
 }
 _MIN_L2_LEVELS = 5
 
@@ -571,6 +594,14 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
 
     for probe in results:
         await _persist_live_mid(probe)
+
+    # Release one-shot CCXT pools so prove surfaces do not leak connectors.
+    try:
+        from ccxt_market_fetcher import close_ccxt_pool
+
+        await close_ccxt_pool()
+    except Exception:
+        pass
 
     live = [r for r in results if r.get("ok") and r.get("live")]
     venues = sorted({r["venue"] for r in live if r.get("venue")})

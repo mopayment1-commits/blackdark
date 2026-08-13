@@ -27,6 +27,13 @@ def build_all_market_fetchers(native_fetchers: dict) -> dict:
         fetchers.update(build_coingecko_market_fetchers())
     except ImportError:
         pass
+    # Native regional L2 must win over CoinGecko 1-level synthetic TOB.
+    try:
+        from native_regional_cex_fetcher import build_native_regional_market_fetchers
+
+        fetchers.update(build_native_regional_market_fetchers())
+    except ImportError:
+        pass
     try:
         from dex_fetcher import build_dex_market_fetchers
 
@@ -63,6 +70,13 @@ def venue_kind(exchange_id: str) -> str:
     ex = exchange_id.lower()
     if ex in NATIVE_EXCHANGES:
         return "native"
+    try:
+        from native_regional_cex_fetcher import NATIVE_REGIONAL_VENUES
+
+        if ex in NATIVE_REGIONAL_VENUES:
+            return "native_regional"
+    except ImportError:
+        pass
     try:
         from dex_fetcher import DEX_VENUES
 

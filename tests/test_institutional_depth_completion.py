@@ -92,6 +92,8 @@ def test_decision_e2e_unified_object():
     assert d["pipeline"].startswith("LIVE→CANONICAL")
     assert d["graph_id"]
     assert "evidence" in d and "risk" in d and "whale" in d
+    assert d.get("learning_self_grade") is False
+    assert d.get("market_inputs", {}).get("from_live_books") is True
     assert out["loop"]["evaluation"]
 
 
@@ -282,6 +284,9 @@ async def test_jupiter_submit_path_implemented_fail_closed_without_wallet():
     assert build["ok"] is True
     assert build["swap_transaction_built"] is True
     assert build["tx_decoded"]["ok"] is True
+    assert build["reverse_quote"]["ok"] is True
+    assert build["latest_blockhash"]["ok"] is True
+    assert int((build.get("quote_route") or {}).get("route_plan_steps") or 0) >= 1
     assert build["executed"] is False
     assert build["broadcast"] is False
     # simulate may return AccountNotFound for ephemeral — still not a broadcast/fill
@@ -357,6 +362,9 @@ def test_white_label_served_surface_prove():
     assert out["super_terminal"]["product_name"] == "Desk Test"
     assert out["super_terminal"]["builder_invoked"] is True
     assert out["super_terminal"]["wiring"] == "build_super_terminal_applies_get_brand"
+    assert out["isolation"]["ok"] is True
+    assert out["isolation"]["peer_brand_applied"] is False
+    assert out["theme_tokens"]["css_vars"]["--bd-brand-primary"]
     assert out["product_complete"] is False
     src = open("super_terminal.py", encoding="utf-8").read()
     assert "apply_brand_to_surface" in src
@@ -374,29 +382,56 @@ async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
     store._READY_FOR = None  # noqa: SLF001
     out = await prove_durable_ingestion()
     assert out["ok"] is True
-    # Expanded mesh: under CI load some venues may time out; require clear lift vs prior 2–5.
-    assert out["live_sources"] >= 5
-    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 5
-    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 5.0
-    assert len(out.get("pricing_log_exchanges") or []) >= 5
-    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 5
+    # Mesh-aligned floor: tolerate load flake but reject theater thresholds of 5.
+    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH
+
+    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 15)
+    assert out["live_sources"] >= floor
+    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= floor
+    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 20.0
+    assert len(out.get("pricing_log_exchanges") or []) >= floor
+    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= floor
 
 
 @pytest.mark.asyncio
 async def test_rollout_multi_venue_live_mesh_expanded():
-    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH, prove_multi_venue_live
+    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH, MESH_SYMBOL_OVERRIDES, prove_multi_venue_live
     from universe_rollout import live_rollout_status
 
     mv = await prove_multi_venue_live(full_mesh=True)
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 30
+    assert len(CORE_PUBLIC_CEX_MESH) >= 45
     assert mv.get("mesh_symbol_overrides")
-    # Require meaningful multi-venue L2 mesh; tolerate partial timeouts under suite load.
-    assert mv["live_count"] >= 5
-    assert len(mv.get("l2_venues") or []) >= 5
-    assert int(mv.get("canonical_mesh_adopted_count") or 0) >= 3
+    # Regional overrides must be probed with non-default pairs when present.
+    override_hits = [
+        p
+        for p in (mv.get("probes") or [])
+        if (p.get("venue") in MESH_SYMBOL_OVERRIDES)
+        and p.get("ok")
+        and p.get("symbol") == MESH_SYMBOL_OVERRIDES[p["venue"]]
+    ]
+    assert len(override_hits) >= 3
+    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 15)
+    assert mv["live_count"] >= floor
+    assert len(mv.get("l2_venues") or []) >= floor
+    assert int(mv.get("canonical_mesh_adopted_count") or 0) >= max(15, floor - 10)
     roll = await live_rollout_status(include_public_probe=False)
-    assert roll["healthy_exchanges"] >= 5
-    assert roll["coverage_percent"] >= 5.0
+    assert roll["healthy_exchanges"] >= floor
+    assert roll["coverage_percent"] >= 20.0
+
+
+@pytest.mark.asyncio
+async def test_ops_recovery_bundle_local_only():
+    from ops_recovery import prove_ops_recovery_bundle
+
+    out = prove_ops_recovery_bundle(include_streaming_ha=False)
+    assert out["ok"] is True
+    assert out["cloud_multi_az"] is False
+    assert out["verified_complete"] is False  # HA not included
+    assert out["process_restart_continuity"]["ok"] is True
+    assert out["postgres_local_dump_restore"]["ha_dr"] in {
+        "LOCAL_EPHEMERAL_NOT_HA",
+        None,
+    } or out["sqlite_backup_restore"]["ok"] is True

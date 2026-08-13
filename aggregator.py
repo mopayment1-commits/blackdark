@@ -1079,7 +1079,10 @@ class Aggregator:
         finally:
             await self._close_session()
             await shutdown_hot_pipeline()
-            close_all_pools()
+            # Hub exposes async close_all_pools; await when coroutine.
+            maybe = close_all_pools()
+            if hasattr(maybe, "__await__"):
+                await maybe
 
     async def _run_loop(
         self,
