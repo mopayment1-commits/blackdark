@@ -98,10 +98,27 @@ ASSET_TO_COINGECKO: dict[str, str] = {
 
 PHASE_B2_COINGECKO_EXCHANGES: frozenset[str] = frozenset(COINGECKO_EXCHANGE_MAP.keys())
 
+# Exchange ids absent from CoinGecko /exchanges/list — skip venue tickers, use global mid.
+COINGECKO_DEAD_EXCHANGE_IDS: frozenset[str] = frozenset(
+    {
+        "bifinance",
+        "bitoasis",
+        "ascendex",
+        "probit",
+        "bkex",
+        "coinsquare",
+        "rain",
+        "coinmena",
+        "binance_tr",
+    }
+)
+
 # Shared public API throttle (CoinGecko free tier ~10–30 rpm).
 _CG_LOCK = asyncio.Lock()
 _CG_NEXT_OK_AT = 0.0
 _CG_MIN_INTERVAL_SEC = 1.35
+_GLOBAL_PRICE_CACHE: dict[str, tuple[float, float, float]] = {}
+_GLOBAL_PRICE_TTL_SEC = 120.0
 
 
 def _utcnow_iso() -> str:
@@ -174,15 +191,22 @@ async def _global_price_volume(
     session: aiohttp.ClientSession,
     coin_id: str,
 ) -> tuple[float, float]:
+    cached = _GLOBAL_PRICE_CACHE.get(coin_id)
+    if cached and (time.monotonic() - cached[2]) < _GLOBAL_PRICE_TTL_SEC and cached[0] > 0:
+        return cached[0], cached[1]
     global_url = "https://api.coingecko.com/api/v3/simple/price"
     payload = await _fetch_json(
         session,
         global_url,
         params={"ids": coin_id, "vs_currencies": "usd", "include_24hr_vol": "true"},
-        retries=4,
+        retries=6,
     )
     coin = payload.get(coin_id) or {}
-    return float(coin.get("usd") or 0), float(coin.get("usd_24h_vol") or 0)
+    price = float(coin.get("usd") or 0)
+    volume = float(coin.get("usd_24h_vol") or 0)
+    if price > 0:
+        _GLOBAL_PRICE_CACHE[coin_id] = (price, volume, time.monotonic())
+    return price, volume
 
 
 def _market_snapshots(
@@ -236,20 +260,24 @@ async def fetch_coingecko_cex_market(
     try:
         price: float | None = None
         volume = 0.0
-        try:
-            url = f"https://api.coingecko.com/api/v3/exchanges/{cg_exchange}/tickers"
-            payload = await _fetch_json(
-                session,
-                url,
-                params={"coin_ids": coin_id, "include_exchange_logo": "false"},
-                retries=3,
-            )
-            tickers = payload.get("tickers") or []
-            price, volume = _ticker_price_volume(tickers, asset)
-        except ValueError as exc:
-            # Dead / renamed CG ids and rate-limit exhaustion → global mid (synthetic only).
-            logger.info("coingecko_exchange_failover | %s | %s", exchange_id, exc)
+        if cg_exchange in COINGECKO_DEAD_EXCHANGE_IDS or exchange_id in COINGECKO_DEAD_EXCHANGE_IDS:
+            logger.info("coingecko_dead_id_global_mid | %s", exchange_id)
             price = None
+        else:
+            try:
+                url = f"https://api.coingecko.com/api/v3/exchanges/{cg_exchange}/tickers"
+                payload = await _fetch_json(
+                    session,
+                    url,
+                    params={"coin_ids": coin_id, "include_exchange_logo": "false"},
+                    retries=2,
+                )
+                tickers = payload.get("tickers") or []
+                price, volume = _ticker_price_volume(tickers, asset)
+            except ValueError as exc:
+                # Dead / renamed CG ids and rate-limit exhaustion → global mid (synthetic only).
+                logger.info("coingecko_exchange_failover | %s | %s", exchange_id, exc)
+                price = None
 
         if not price or price <= 0:
             price, volume = await _global_price_volume(session, coin_id)

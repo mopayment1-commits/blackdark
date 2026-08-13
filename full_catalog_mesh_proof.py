@@ -42,16 +42,12 @@ async def _global_mid_failover(
     coin_id = coin_map.get(asset)
     if not coin_id:
         return None
-    from coingecko_cex_fetcher import _fetch_json  # noqa: PLC0415
+    from coingecko_cex_fetcher import _global_price_volume  # noqa: PLC0415
 
-    url = "https://api.coingecko.com/api/v3/simple/price"
-    body = await _fetch_json(
-        session,
-        url,
-        params={"ids": coin_id, "vs_currencies": "usd"},
-        retries=4,
-    )
-    last = float((body.get(coin_id) or {}).get("usd") or 0)
+    try:
+        last, _vol = await _global_price_volume(session, coin_id)
+    except Exception:
+        return None
     if last <= 0:
         return None
     spread = max(last * 0.0006, 0.01)
@@ -75,9 +71,15 @@ async def _coingecko_exchange_mid(
     session: Any, *, venue: str, symbol: str = "BTC/USDT"
 ) -> dict[str, Any] | None:
     """Public mid via CoinGecko exchange tickers (honest synthetic_mid)."""
-    from coingecko_cex_fetcher import COINGECKO_EXCHANGE_MAP, _fetch_json  # noqa: PLC0415
+    from coingecko_cex_fetcher import (  # noqa: PLC0415
+        COINGECKO_DEAD_EXCHANGE_IDS,
+        COINGECKO_EXCHANGE_MAP,
+        _fetch_json,
+    )
 
     cg_id = COINGECKO_EXCHANGE_MAP.get(venue, venue)
+    if venue in COINGECKO_DEAD_EXCHANGE_IDS or cg_id in COINGECKO_DEAD_EXCHANGE_IDS:
+        return await _global_mid_failover(session, venue=venue, symbol=symbol)
     asset = symbol.split("/")[0].upper()
     coin_map = {"BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana"}
     coin_id = coin_map.get(asset)
@@ -248,6 +250,16 @@ async def prove_full_catalog_health(*, concurrency: int = 6) -> dict[str, Any]:
 
     await init_db()
     venues = list(universe_exchange_ids())
+    # Warm shared global mid cache once so dead-CG failovers do not stampede /simple/price.
+    try:
+        import aiohttp
+        from coingecko_cex_fetcher import _global_price_volume
+
+        timeout = aiohttp.ClientTimeout(total=16)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            await _global_price_volume(session, "bitcoin")
+    except Exception:
+        pass
     # Keep concurrency modest — CoinGecko free tier rate-limits hard.
     sem = asyncio.Semaphore(max(2, min(int(concurrency), 8)))
 
@@ -314,11 +326,20 @@ async def prove_full_catalog_health(*, concurrency: int = 6) -> dict[str, Any]:
         from database import fetch_ingestion_health_summary
 
         health_rows = await fetch_ingestion_health_summary()
-        healthy_count = sum(1 for r in health_rows if r.get("last_ok_at"))
+        # Prefer catalog-tagged health rows for registry-100 percent (avoid >100% from
+        # extra source ids like okx_public_books / prices ingest handlers).
+        catalog_ok = {
+            str(r.get("source_id") or "").removesuffix("_catalog_health")
+            for r in health_rows
+            if r.get("last_ok_at") and str(r.get("source_id") or "").endswith("_catalog_health")
+        }
+        healthy_count = len(catalog_ok) if catalog_ok else sum(
+            1 for r in health_rows if r.get("last_ok_at")
+        )
         target_n = max(len(venues), 1)
         coverage = {
             "live_ingestion_sources": healthy_count,
-            "coverage_percent_exchanges": round(healthy_count / target_n * 100, 1),
+            "coverage_percent_exchanges": round(min(healthy_count, target_n) / target_n * 100, 1),
             "ingestion_health_rows": len(health_rows),
             "honesty": "catalog health rows; synthetic_mid counted for price health only",
         }
