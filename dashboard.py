@@ -673,6 +673,17 @@ except Exception:
     logger.exception("Institutional router unavailable")
 
 try:
+    from api.v1.router import commercial as decision_api_commercial
+    from api.v1.router import discovery as decision_api_discovery
+    from api.v1.router import issuance as decision_api_issuance
+
+    app.include_router(decision_api_discovery)
+    app.include_router(decision_api_issuance)
+    app.include_router(decision_api_commercial)
+except Exception:
+    logger.exception("Decision API v1 router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")
@@ -3073,11 +3084,15 @@ async def oracle_accuracy_page(request: Request):
 
 @app.get("/api/b2b/feed", responses=COMMON_ERROR_RESPONSES)
 async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
+    from api.v1.router import legacy_b2b_json
     from whale_tracker import InstitutionalDataExporter
 
     exporter = InstitutionalDataExporter()
     try:
-        return await exporter.export_institutional_feed(provided_key=x_api_key)
+        payload = await exporter.export_institutional_feed(provided_key=x_api_key)
+        payload["deprecated"] = True
+        payload["successor"] = "/api/v1/feed"
+        return legacy_b2b_json(payload)
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
@@ -3095,68 +3110,83 @@ async def b2b_demo_feed():
         )
         feed["demo"] = True
         feed["upgrade_url"] = "/b2b"
-        return feed
+        feed["deprecated"] = True
+        feed["successor"] = "/api/v1/feed"
+        from api.v1.router import legacy_b2b_json
+
+        return legacy_b2b_json(feed)
     except PermissionError:
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
 
 @app.get("/api/b2b/info")
 async def b2b_info():
+    from api.v1.router import legacy_b2b_json
     from b2b_websocket_hub import get_b2b_ws_hub
 
     ws_stats = get_b2b_ws_hub().stats()
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    return {
-        "product": "BLACKDARK Institutional Manipulation Feed",
-        "feed_version": config.B2B_FEED_VERSION,
-        "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
-        "demo_endpoint": "/api/b2b/demo",
-        "authenticated_endpoint": "/api/b2b/feed",
-        "header": "X-API-Key",
-        "websocket_endpoint": "/ws/b2b/feed",
-        "websocket_auth": "api_key query parameter",
-        "websocket_info_endpoint": "/api/b2b/ws/info",
-        "websocket_enabled": ws_stats.get("enabled"),
-        "websocket_latency_target_ms": ws_stats.get("latency_target_ms"),
-        "pricing_usd_monthly": 49,
-        "one_pager_url": "/b2b",
-        "methodology": {
-            "cvvd": "Cross-Venue Volume Discrepancy",
-            "sii": "Sector Inflow Index",
-        },
-        "events": [
-            "connected",
-            "snapshot",
-            "arbitrage_opportunity",
-            "oracle_signal",
-            "heartbeat",
-        ],
-    }
+    return legacy_b2b_json(
+        {
+            "product": "BLACKDARK Institutional Manipulation Feed",
+            "feed_version": config.B2B_FEED_VERSION,
+            "demo_key": config.B2B_DEMO_API_KEY if expose_demo else "contact-sales",
+            "demo_endpoint": "/api/b2b/demo",
+            "authenticated_endpoint": "/api/b2b/feed",
+            "header": "X-API-Key",
+            "websocket_endpoint": "/ws/b2b/feed",
+            "websocket_auth": "api_key query parameter (legacy — Decision API v1 uses Authorization header)",
+            "websocket_info_endpoint": "/api/b2b/ws/info",
+            "websocket_enabled": ws_stats.get("enabled"),
+            "websocket_latency_target_ms": ws_stats.get("latency_target_ms"),
+            "pricing_usd_monthly": 49,
+            "one_pager_url": "/b2b",
+            "methodology": {
+                "cvvd": "Cross-Venue Volume Discrepancy",
+                "sii": "Sector Inflow Index",
+            },
+            "events": [
+                "connected",
+                "snapshot",
+                "arbitrage_opportunity",
+                "oracle_signal",
+                "heartbeat",
+            ],
+            "deprecated": True,
+            "successor": "/api/v1/feed",
+            "successor_ws": "/api/v1/feed/ws",
+        }
+    )
 
 
 @app.get("/api/b2b/ws/info")
 async def b2b_ws_info():
+    from api.v1.router import legacy_b2b_json
     from b2b_websocket_hub import get_b2b_ws_hub
 
     expose_demo = os.getenv("EXPOSE_B2B_DEMO_KEY", "").lower() in {"1", "true", "yes"}
-    auth: dict[str, Any] = {"query": "api_key"}
+    auth: dict[str, Any] = {"query": "api_key", "legacy": True, "successor": "Authorization header on /api/v1/feed/ws"}
     if expose_demo:
         auth["demo_key"] = config.B2B_DEMO_API_KEY
     else:
         auth["demo_key"] = "contact-sales"
-    return {
-        "endpoint": "/ws/b2b/feed",
-        "auth": auth,
-        "feed_version": config.B2B_FEED_VERSION,
-        **get_b2b_ws_hub().stats(),
-        "events": [
-            "connected",
-            "snapshot",
-            "arbitrage_opportunity",
-            "oracle_signal",
-            "heartbeat",
-        ],
-    }
+    return legacy_b2b_json(
+        {
+            "endpoint": "/ws/b2b/feed",
+            "auth": auth,
+            "feed_version": config.B2B_FEED_VERSION,
+            **get_b2b_ws_hub().stats(),
+            "events": [
+                "connected",
+                "snapshot",
+                "arbitrage_opportunity",
+                "oracle_signal",
+                "heartbeat",
+            ],
+            "deprecated": True,
+            "successor_ws": "/api/v1/feed/ws",
+        }
+    )
 
 
 @app.websocket("/ws/b2b/feed")
@@ -3293,7 +3323,11 @@ async def b2b_demo_proposal(client: str = "Demo Prospect"):
         )
         payload["demo"] = True
         payload["upgrade_url"] = "/b2b"
-        return payload
+        payload["deprecated"] = True
+        payload["successor"] = "/api/v1/feed"
+        from api.v1.router import legacy_b2b_json
+
+        return legacy_b2b_json(payload)
     except PermissionError:
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 
@@ -3307,10 +3341,15 @@ async def b2b_proposal(
 
     exporter = InstitutionalDataExporter()
     try:
-        return await exporter.generate_sales_proposal_payload(
+        payload = await exporter.generate_sales_proposal_payload(
             provided_key=x_api_key,
             client_name=client,
         )
+        payload["deprecated"] = True
+        payload["successor"] = "/api/v1/feed"
+        from api.v1.router import legacy_b2b_json
+
+        return legacy_b2b_json(payload)
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail=STR_INVALID_B2B_API_KEY) from exc
 

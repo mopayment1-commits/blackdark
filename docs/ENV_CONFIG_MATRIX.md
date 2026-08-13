@@ -15,6 +15,10 @@
 | `ALLOW_LEGACY_SESSION_COOKIE` | Accept unsealed cookies | No | false in prod | No | Unsealed cookies rejected in prod |
 | `COOKIE_SECURE` | Force Secure cookie | Recommended | derived | No | Cookies may omit Secure on HTTP |
 | `EXPOSE_B2B_DEMO_KEY` | Public demo key page | No | false | No | `/b2b` omits demo key |
+| `DECISION_API_KEY_PEPPER` | HMAC pepper for Decision API v1 keys | Yes (or SESSION_TOKEN_PEPPER) | unset | Yes | Prod issuance/auth fails closed |
+| `DECISION_API_UNIVERSE` | Licensed symbols for Decision API v1 | No | all | No | Unlisted symbols → 403 universe_not_licensed |
+| `METRICS_BEARER_TOKEN` | Prometheus scrape token | Yes in prod | unset | Yes | `/metrics` 401 in production |
+| `METRICS_ALLOW_UNAUTHENTICATED` | Allow public `/metrics` | No | false | No | Private-network override |
 | `LIVE_EXECUTION_ALLOW_API` | Live order API | No | false | No | Live orders blocked |
 | `SOFT_LAUNCH` | Demo mode | Demo only | false | No | Relaxes Postgres/billing requirements |
 | `STRIPE_WEBHOOK_SECRET` / `LEMON_SQUEEZY_WEBHOOK_SECRET` | Webhook verify | Yes if billing | unset | Yes | Webhooks fail closed when configured |

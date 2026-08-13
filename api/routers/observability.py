@@ -2,15 +2,38 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Header, HTTPException, Response
 
-from security_auth import require_admin, require_whale
+from security_auth import is_production_env, require_admin, require_whale, verify_admin_key
 
 router = APIRouter(tags=["observability"])
 
 
+def require_metrics_access(
+    authorization: str | None = Header(default=None),
+    x_admin_key: str | None = Header(default=None, alias="X-Admin-Key"),
+) -> None:
+    """Fail-closed Prometheus scrape in production unless a scrape token or admin key is presented."""
+    import hmac
+    import os
+
+    if os.getenv("METRICS_ALLOW_UNAUTHENTICATED", "").lower() in {"1", "true", "yes"}:
+        return
+    token = os.getenv("METRICS_BEARER_TOKEN", "").strip()
+    presented = ""
+    if authorization:
+        presented = authorization.removeprefix("Bearer ").strip()
+    if token and presented and hmac.compare_digest(presented, token):
+        return
+    if verify_admin_key(x_admin_key):
+        return
+    if not is_production_env():
+        return
+    raise HTTPException(status_code=401, detail="Metrics scrape authentication required")
+
+
 @router.get("/metrics")
-async def prometheus_metrics():
+async def prometheus_metrics(_auth: None = Depends(require_metrics_access)):
     from observability import prometheus_metrics_text
 
     return Response(content=prometheus_metrics_text(), media_type="text/plain; version=0.0.4")

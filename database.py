@@ -559,11 +559,77 @@ async def _ensure_oracle_prediction_columns(db: Any) -> None:
     )
 
 
+async def _ensure_decision_api_tables(db: Any) -> None:
+    """Commercial Decision API v1 keys, daily quotas, and request audit."""
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decision_api_keys (
+            id                         INTEGER PRIMARY KEY AUTOINCREMENT,
+            public_id                  TEXT    NOT NULL UNIQUE,
+            org_id                     TEXT    NOT NULL,
+            name                       TEXT    NOT NULL,
+            environment                TEXT    NOT NULL,
+            key_prefix                 TEXT    NOT NULL UNIQUE,
+            key_hash                   TEXT    NOT NULL,
+            signing_secret_encrypted   TEXT    NOT NULL,
+            scopes_json                TEXT    NOT NULL,
+            plan                       TEXT    NOT NULL DEFAULT 'institutional',
+            rpm_limit                  INTEGER NOT NULL,
+            rpd_limit                  INTEGER NOT NULL,
+            created_at                 TEXT    NOT NULL,
+            created_by                 TEXT    NOT NULL,
+            last_used_at               TEXT,
+            revoked_at                 TEXT,
+            revoked_by                 TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decision_api_keys_org
+            ON decision_api_keys (org_id)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decision_api_usage_daily (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            key_public_id  TEXT    NOT NULL,
+            usage_date     TEXT    NOT NULL,
+            count          INTEGER NOT NULL DEFAULT 0,
+            UNIQUE(key_public_id, usage_date)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decision_api_audit (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            ts             TEXT    NOT NULL,
+            key_public_id  TEXT,
+            org_id         TEXT,
+            method         TEXT    NOT NULL,
+            path           TEXT    NOT NULL,
+            status         INTEGER NOT NULL,
+            request_id     TEXT    NOT NULL,
+            error_code     TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decision_api_audit_ts
+            ON decision_api_audit (ts DESC)
+        """
+    )
+
+
 async def _apply_migrations(db: Any) -> None:
     """Apply lightweight schema migrations for existing databases (SQLite + Postgres)."""
 
     await _ensure_market_type_columns(db)
     await _ensure_timestamp_indexes(db)
+    await _ensure_decision_api_tables(db)
 
     await db.execute(
         """
@@ -4337,6 +4403,180 @@ async def delete_user_api_key(user_id: int, exchange: str) -> bool:
             (user_id, exchange.lower()),
         )
         return int(cursor.rowcount or 0) > 0
+
+
+def _decision_api_key_row(row: Any) -> dict[str, Any]:
+    item = dict(row)
+    raw_scopes = item.pop("scopes_json", None)
+    if isinstance(raw_scopes, str):
+        try:
+            item["scopes"] = json.loads(raw_scopes)
+        except json.JSONDecodeError:
+            item["scopes"] = []
+    else:
+        item["scopes"] = raw_scopes or []
+    return item
+
+
+async def insert_decision_api_key(
+    *,
+    public_id: str,
+    org_id: str,
+    name: str,
+    environment: str,
+    key_prefix: str,
+    key_hash: str,
+    signing_secret_encrypted: str,
+    scopes: list[str],
+    plan: str,
+    rpm_limit: int,
+    rpd_limit: int,
+    created_by: str,
+    created_at: str,
+) -> dict[str, Any]:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO decision_api_keys (
+                public_id, org_id, name, environment, key_prefix, key_hash,
+                signing_secret_encrypted, scopes_json, plan, rpm_limit, rpd_limit,
+                created_at, created_by
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                public_id,
+                org_id,
+                name,
+                environment,
+                key_prefix,
+                key_hash,
+                signing_secret_encrypted,
+                json.dumps(scopes),
+                plan,
+                rpm_limit,
+                rpd_limit,
+                created_at,
+                created_by,
+            ),
+        )
+        row = await (
+            await db.execute("SELECT * FROM decision_api_keys WHERE public_id = ?", (public_id,))
+        ).fetchone()
+    return _decision_api_key_row(row)
+
+
+async def fetch_decision_api_key_by_prefix(key_prefix: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                "SELECT * FROM decision_api_keys WHERE key_prefix = ?",
+                (key_prefix,),
+            )
+        ).fetchone()
+    return _decision_api_key_row(row) if row else None
+
+
+async def list_decision_api_keys(*, org_id: str | None = None) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        if org_id:
+            rows = await (
+                await db.execute(
+                    """
+                    SELECT * FROM decision_api_keys
+                    WHERE org_id = ?
+                    ORDER BY created_at DESC
+                    """,
+                    (org_id,),
+                )
+            ).fetchall()
+        else:
+            rows = await (
+                await db.execute("SELECT * FROM decision_api_keys ORDER BY created_at DESC")
+            ).fetchall()
+    return [_decision_api_key_row(r) for r in rows]
+
+
+async def touch_decision_api_key_usage(public_id: str) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            "UPDATE decision_api_keys SET last_used_at = ? WHERE public_id = ?",
+            (_utcnow_iso(), public_id),
+        )
+
+
+async def revoke_decision_api_key_row(
+    public_id: str,
+    *,
+    revoked_by: str,
+    revoked_at: str,
+) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE decision_api_keys
+            SET revoked_at = ?, revoked_by = ?
+            WHERE public_id = ? AND revoked_at IS NULL
+            """,
+            (revoked_at, revoked_by, public_id),
+        )
+        row = await (
+            await db.execute("SELECT * FROM decision_api_keys WHERE public_id = ?", (public_id,))
+        ).fetchone()
+    return _decision_api_key_row(row) if row else None
+
+
+async def fetch_decision_api_usage_today(key_public_id: str) -> int:
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
+    try:
+        async with get_connection() as db:
+            rows = await db.execute(
+                """
+                SELECT count FROM decision_api_usage_daily
+                WHERE key_public_id = ? AND usage_date = ?
+                """,
+                (key_public_id, today),
+            )
+            row = await rows.fetchone()
+        if not row:
+            return 0
+        return int(row["count"] if isinstance(row, dict) or hasattr(row, "keys") else row[0])
+    except Exception:
+        return 0
+
+
+async def increment_decision_api_usage(key_public_id: str) -> None:
+    today = datetime.now(UTC).strftime("%Y-%m-%d")
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO decision_api_usage_daily (key_public_id, usage_date, count)
+            VALUES (?, ?, 1)
+            ON CONFLICT(key_public_id, usage_date) DO UPDATE SET
+                count = decision_api_usage_daily.count + 1
+            """,
+            (key_public_id, today),
+        )
+
+
+async def insert_decision_api_audit(
+    *,
+    key_public_id: str | None,
+    org_id: str | None,
+    method: str,
+    path: str,
+    status: int,
+    request_id: str,
+    error_code: str | None = None,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO decision_api_audit (
+                ts, key_public_id, org_id, method, path, status, request_id, error_code
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (_utcnow_iso(), key_public_id, org_id, method, path, status, request_id, error_code),
+        )
 
 
 if __name__ == "__main__":
