@@ -162,12 +162,16 @@ def _record_live_fetch_result(
         return
 
     _ticker, order_book = result
+    if getattr(order_book, "decision_grade", True) is False:
+        return
     books.setdefault(exchange_id, {})[key] = {
         "bids": order_book.bids,
         "asks": order_book.asks,
         "timestamp": timestamp,
         "market_type": kind if kind != "spot" else "spot",
         "symbol": key.replace("@perpetual", ""),
+        "book_origin": getattr(order_book, "book_origin", "venue_l2"),
+        "decision_grade": True,
     }
 
 

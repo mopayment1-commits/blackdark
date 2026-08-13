@@ -15,10 +15,11 @@
 5. [`STRATEGIC_CORRECTION_BINDING.md`](./STRATEGIC_CORRECTION_BINDING.md) — reject inflated pastes  
 6. [`CSO_PRIORITY_CHAIN_BINDING_AR.md`](./CSO_PRIORITY_CHAIN_BINDING_AR.md) — Product Excellence → … → Acquisition Leverage (not Features-first)  
 7. [`ZERO_TOLERANCE_BINDING_AR.md`](./ZERO_TOLERANCE_BINDING_AR.md) — seven trust-destroying defects (LIVE/stale, hallucination, fake precision, …)  
-8. [`GLASS_BOX_OPERATOR_RUNBOOK.md`](./GLASS_BOX_OPERATOR_RUNBOOK.md) — one public prove-it event  
-9. Engine docs / audits / FalconAI inventories — **appendices only**, never separate P&Ls  
+8. [`DATA_TRUST_LAW_BINDING.md`](./DATA_TRUST_LAW_BINDING.md) — source tiers, honesty gate, Canonical Market State (quiet engine — not a 100-API product)  
+9. [`GLASS_BOX_OPERATOR_RUNBOOK.md`](./GLASS_BOX_OPERATOR_RUNBOOK.md) — one public prove-it event  
+10. Engine docs / audits / FalconAI inventories — **appendices only**, never separate P&Ls
 
-Machine-readable: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/strategy/priority-chain` · `GET /api/strategy/zero-tolerance` · `GET /api/execution/closure`
+Machine-readable: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET /api/strategy/priority-chain` · `GET /api/strategy/zero-tolerance` · `GET /api/strategy/data-trust-law` · `GET /api/execution/closure`
 
 ---
 
@@ -43,6 +44,7 @@ Machine-readable: `GET /api/trust-os` · `GET /api/strategy/correction` · `GET 
 | FalconAI BD-DEC-0031 as sole canonical product map | **Superseded** by this hierarchy (engines may be inventoried underneath) |
 | BLACKDARK evolution “25 sections” + ARENA + Neuro-Design | **Rejected** |
 | “100 indicators” as sellable surfaces | **Rejected** — internal Signal Registry only |
+| “100 APIs” / Financial Truth Layer as a marketed product | **Rejected** — Data Trust Law is a quiet engine; catalog size is not coverage |
 | Guaranteed 65–70% accuracy / IFRS-certified / SOC2-done / VaR desk | **Overclaim denylist** |
 
 Keep from FalconAI pastes: decision-before-data, no-duplication, single-owner, deferred/removed/rejected discipline, unified opportunity engine idea.

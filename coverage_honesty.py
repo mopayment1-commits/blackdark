@@ -63,6 +63,12 @@ async def build_coverage_honesty_board() -> dict[str, Any]:
             ),
             "status": "product_complete",
         },
+        "data_trust": {
+            "doc": "docs/DATA_TRUST_LAW_BINDING.md",
+            "api": "/api/strategy/data-trust-law",
+            "canonical_api": "/api/public/canonical-market-state",
+            "rule": "Catalog size ≠ decision coverage. Aggregators never produce venue L2.",
+        },
         "provenance_sample": prov,
         "strategy": coverage.get("strategy"),
         "page": "/coverage-honesty",

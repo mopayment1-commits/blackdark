@@ -301,6 +301,24 @@ async def finalize_unified_score(
 
     adjusted, conflict_meta = apply_dimension_conflict_guard(adjusted, breakdown)
 
+    trust_meta: dict[str, Any] = {"applied": False, "action": "not_applied"}
+    try:
+        from canonical_market_state import observations_from_live_books
+        from data_trust_engine import apply_data_trust_gate
+
+        trust_obs = observations_from_live_books(asset)
+        if trust_obs:
+            adjusted, trust_meta = apply_data_trust_gate(adjusted, observations=trust_obs)
+            if trust_meta.get("veto"):
+                conflict_meta = {
+                    **conflict_meta,
+                    "veto": True,
+                    "abstain": True,
+                    "data_trust": trust_meta,
+                }
+    except Exception:
+        logger.debug("Data trust gate skipped | asset=%s", asset, exc_info=True)
+
     # Core Canon §1.1 — multi-timeframe confluence before trusting score.
     adjusted, conflict_meta, confluence = await _timeframe_confluence_adjustment(
         asset,
@@ -338,6 +356,7 @@ async def finalize_unified_score(
         "dimension_weights": breakdown.get("dimension_weights", {}),
         "modal_breakdown": breakdown,
         "dimension_conflict": conflict_meta,
+        "data_trust": trust_meta,
         "timeframe_confluence": confluence,
         "hub_adjustment": breakdown.get("hub_adjustment", 0.0),
         "hub_reasons": breakdown.get("hub_reasons") or [],

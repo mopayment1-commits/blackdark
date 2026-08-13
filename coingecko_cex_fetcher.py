@@ -1,7 +1,9 @@
 """
 BLACKDARK — CoinGecko CEX Proxy (Phase B2 fallback).
 
-For regional / small CEX venues without CCXT support — public exchange tickers API.
+Discovery / fallback tickers only. Never decision-grade L2.
+Honesty gate: a synthetic one-level book is connector-compatible but
+must not enter Canonical Market State or executable depth.
 """
 
 from __future__ import annotations
@@ -167,6 +169,8 @@ def _market_snapshots(
             price=price,
             volume=volume,
             market_type=market_type,
+            price_origin="aggregator",
+            decision_grade=False,
         ),
         OrderBookSnapshot(
             exchange=exchange_id,
@@ -174,6 +178,8 @@ def _market_snapshots(
             bids=bids,
             asks=asks,
             market_type=market_type,
+            book_origin="synthetic",
+            decision_grade=False,
         ),
     )
 

@@ -160,6 +160,8 @@ class TickerSnapshot(BaseModel):
     price: float = Field(gt=0)
     volume: float | None = Field(default=None, ge=0)
     market_type: MarketType
+    price_origin: str = "venue"
+    decision_grade: bool = True
 
 
 class OrderBookSnapshot(BaseModel):
@@ -168,6 +170,8 @@ class OrderBookSnapshot(BaseModel):
     bids: list[list[float]]
     asks: list[list[float]]
     market_type: MarketType
+    book_origin: str = "venue_l2"
+    decision_grade: bool = True
 
     @field_validator("bids", "asks")
     @classmethod
@@ -839,6 +843,7 @@ def _persist_market_snapshot(
         timestamp=timestamp,
         market_type=ticker.market_type,
         opportunity_score=DEFAULT_OPPORTUNITY_SCORE,
+        persist_book=bool(order_book.decision_grade),
     )
 
 

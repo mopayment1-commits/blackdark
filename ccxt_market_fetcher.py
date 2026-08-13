@@ -220,6 +220,8 @@ async def fetch_ccxt_market(
             bids=_parse_book_side(book.get("bids")),
             asks=_parse_book_side(book.get("asks")),
             market_type=market_type,
+            book_origin="venue_l2",
+            decision_grade=True,
         ),
     )
 

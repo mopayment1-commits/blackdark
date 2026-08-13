@@ -44,6 +44,8 @@ DEFECTS: list[dict[str, Any]] = [
             "stale_price_guard",
             "trust_pulse_freshness",
             "provenance_score",
+            "data_trust_engine",
+            "canonical_market_state",
         ],
         "forbidden_patterns": ["live_label_without_freshness", "live_while_stale"],
     },

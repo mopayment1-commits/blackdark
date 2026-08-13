@@ -875,6 +875,7 @@ def enqueue_market_snapshot(
     timestamp: str,
     market_type: str = "spot",
     opportunity_score: float = 0.0,
+    persist_book: bool = True,
 ) -> tuple[bool, bool]:
     pricing_ok = enqueue_pricing_snapshot(
         exchange=exchange,
@@ -885,6 +886,8 @@ def enqueue_market_snapshot(
         market_type=market_type,
         opportunity_score=opportunity_score,
     )
+    if not persist_book:
+        return pricing_ok, False
     book_ok = enqueue_order_book_snapshot(
         exchange=exchange,
         symbol=symbol,

@@ -34,6 +34,8 @@ def update_top_of_book(
     ask: float,
     ask_qty: float,
     market_type: str = "spot",
+    decision_grade: bool = True,
+    book_origin: str = "venue_l2",
 ) -> None:
     global _updates_total
     if bid <= 0 or ask <= 0:
@@ -47,6 +49,8 @@ def update_top_of_book(
         "timestamp": ts,
         "market_type": market_type,
         "symbol": sym,
+        "decision_grade": bool(decision_grade),
+        "book_origin": book_origin,
     }
     _last_update_ms[f"{exchange_id}|{sym}"] = time.monotonic() * 1000.0
     _updates_total += 1
@@ -64,7 +68,11 @@ def get_live_books_if_fresh(*, max_age_ms: float | None = None) -> tuple[dict[st
 
     for exchange_id, symbols in _books.items():
         exchange_fresh = False
-        for symbol in symbols:
+        for symbol, row in symbols.items():
+            if row.get("decision_grade") is False:
+                continue
+            if str(row.get("book_origin") or "venue_l2").lower() == "synthetic":
+                continue
             key = f"{exchange_id}|{symbol}"
             last = _last_update_ms.get(key, 0.0)
             if last <= 0:
@@ -79,7 +87,20 @@ def get_live_books_if_fresh(*, max_age_ms: float | None = None) -> tuple[dict[st
     if fresh_exchanges < 2:
         return None
 
-    return dict(_books), worst_age_ms
+    filtered: dict[str, dict[str, dict[str, Any]]] = {}
+    for exchange_id, symbols in _books.items():
+        kept: dict[str, dict[str, Any]] = {}
+        for symbol, row in symbols.items():
+            if row.get("decision_grade") is False:
+                continue
+            if str(row.get("book_origin") or "venue_l2").lower() == "synthetic":
+                continue
+            kept[symbol] = row
+        if kept:
+            filtered[exchange_id] = kept
+    if len(filtered) < 2:
+        return None
+    return filtered, worst_age_ms
 
 
 def _norm_symbol(symbol: str) -> list[str]:
@@ -156,6 +177,15 @@ def is_quote_fresh(
         return False
     limit = max_age_ms if max_age_ms is not None else _max_age_ms()
     return age <= limit
+
+
+def iter_live_book_rows() -> list[tuple[str, str, dict[str, Any]]]:
+    """All hub rows as (exchange_id, symbol, row)."""
+    rows: list[tuple[str, str, dict[str, Any]]] = []
+    for exchange_id, symbols in _books.items():
+        for symbol, row in symbols.items():
+            rows.append((exchange_id, symbol, row))
+    return rows
 
 
 def hub_stats() -> dict[str, Any]:

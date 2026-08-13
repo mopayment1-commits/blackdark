@@ -109,9 +109,13 @@ def compute_data_provenance_score(
             "executable_gate": {"score": exec_score, "executable": bool(executable)},
         },
         "live_ingestion_ready_ids": [r.get("id") for r in live_venues][:20],
+        "data_trust": {
+            "aggregators_never_l2": True,
+            "canonical_eligible_only": "venue_direct",
+        },
         "honesty": (
             "Score uses LIVE ingestion-ready venues only — never inflates with planned/catalog rows. "
-            "Breadth without freshness is not coverage."
+            "Breadth without freshness is not coverage. CoinGecko/synthetic books are not L2."
         ),
         "api": "/api/oracle/provenance-score",
         "disclaimer": "Provenance ≠ profit guarantee. Low score forces WAIT posture.",

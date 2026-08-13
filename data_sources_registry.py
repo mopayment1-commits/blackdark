@@ -1,8 +1,8 @@
 """
-BLACKDARK — Master registry of external data sources (100+ free-tier endpoints).
+BLACKDARK — Master registry of external data sources (catalog, not decision coverage).
 
-Architecture: schedulers pull → data_lake (SQLite + hot spool) → Oracle reads lake.
-Never hit APIs directly from the AI model at request time.
+Schedulers pull → data_lake → Oracle. Sources are classified by Data Trust Law:
+venue-direct may be decision-grade; aggregators are fallback/discovery only.
 """
 
 from __future__ import annotations
@@ -238,8 +238,15 @@ def registry_summary() -> dict[str, int]:
     for spec in DATA_SOURCES:
         counts[spec.category] = counts.get(spec.category, 0) + 1
     unique_ids = {s.source_id for s in DATA_SOURCES}
-    return {
+    summary = {
         "total_sources": len(unique_ids),
         "registered_entries": len(DATA_SOURCES),
         "by_category": counts,
     }
+    try:
+        from data_source_trust import classify_registry
+
+        summary["trust"] = classify_registry()
+    except Exception:
+        pass
+    return summary

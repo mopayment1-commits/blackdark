@@ -30,6 +30,7 @@
 | BLACKDARK ARENA / Viral Community Engine | **Not building** — virality = shareable certificates + one Glass Box event |
 | Neuro-Design / parametric Canvas OS | **Not building** as a product surface |
 | Kafka + Rust &lt;50ms + 100 CEX as current ship claim | Future infra option; not marketed as shipped |
+| 100 APIs / Financial Truth Layer as a product SKU | Quiet Data Trust Law under Oracle — catalog size is not coverage |
 | IFRS 13 / Triple-Entry / VaR 99% desk | Engineering helpers ≠ certification / full risk desk |
 | Panic Button closes 100 venues in 100ms | Not shipped — kill-switch posture only where wired |
 | Net profit &lt;15% auto-cancel as CAO law | Invalid for crypto arb economics — use net-edge truth gates |

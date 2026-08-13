@@ -234,6 +234,8 @@ async def fetch_dex_market(
                 price=price,
                 volume=0.0,
                 market_type="spot",
+                price_origin="dex_mid",
+                decision_grade=True,
             ),
             OrderBookSnapshot(
                 exchange=exchange_id,
@@ -241,6 +243,8 @@ async def fetch_dex_market(
                 bids=bids,
                 asks=asks,
                 market_type="spot",
+                book_origin="synthetic",
+                decision_grade=False,
             ),
         )
     finally:

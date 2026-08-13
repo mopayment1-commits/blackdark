@@ -21,6 +21,7 @@ CANONICAL_DOCS: list[str] = [
     "docs/HEROES_STRATEGY_BINDING.md",
     "docs/STRATEGIC_CORRECTION_BINDING.md",
     "docs/GLASS_BOX_OPERATOR_RUNBOOK.md",
+    "docs/DATA_TRUST_LAW_BINDING.md",
 ]
 
 SUPERSEDED_FRAMES: list[dict[str, str]] = [

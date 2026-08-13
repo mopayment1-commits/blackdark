@@ -328,6 +328,22 @@ async def strategy_zero_tolerance():
     return build_zero_tolerance_manifest()
 
 
+@router.get("/api/strategy/data-trust-law")
+async def strategy_data_trust_law():
+    """Data Trust Law — source tiers, honesty gate, not a 100-API product."""
+    from canonical_market_state import build_data_trust_law_manifest
+
+    return build_data_trust_law_manifest()
+
+
+@router.get("/api/public/canonical-market-state")
+async def canonical_market_state_api(symbol: str = Query("BTC")):
+    """Venue-direct consensus price with provenance. Aggregators excluded."""
+    from canonical_market_state import build_canonical_market_state
+
+    return build_canonical_market_state(symbol)
+
+
 @router.get("/api/public/zero-tolerance-closure")
 async def zero_tolerance_closure_api():
     """Public closure — Zero-Tolerance helpers wired with zero deferred code."""
@@ -802,6 +818,13 @@ async def wow_surfaces_manifest():
             "doc": "docs/ZERO_TOLERANCE_BINDING_AR.md",
             "binding": True,
             "defect_count": 7,
+        },
+        "data_trust_law": {
+            "api": "/api/strategy/data-trust-law",
+            "canonical_api": "/api/public/canonical-market-state",
+            "doc": "docs/DATA_TRUST_LAW_BINDING.md",
+            "binding": True,
+            "not_a_100_api_product": True,
         },
         "f1_f10_unique_full_ship": {
             "F1": "/miss-feed",
