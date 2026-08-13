@@ -86,7 +86,7 @@ def _open(path: Path) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--admin-email", default="mopayment1@gmail.com")
+    ap.add_argument("--admin-email", default="", help="Required admin email (no hardcoded founder default)")
     ap.add_argument("--rotate", action="store_true")
     ap.add_argument("--no-open", action="store_true", help="Only ensure file exists")
     args = ap.parse_args()

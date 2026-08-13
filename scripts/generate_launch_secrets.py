@@ -114,7 +114,7 @@ def main() -> int:
         "--app-base-url",
         default="https://blackdark-production.up.railway.app",
     )
-    parser.add_argument("--admin-email", default="mopayment1@gmail.com")
+    parser.add_argument("--admin-email", default="", help="Required admin email (no hardcoded founder default)")
     parser.add_argument(
         "--rotate",
         action="store_true",

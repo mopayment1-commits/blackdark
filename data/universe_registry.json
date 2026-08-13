@@ -133,7 +133,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "upbit",
@@ -160,7 +160,7 @@
       "tier": 2,
       "status": "ingestion_ready",
       "ccxt_id": "bitfinex",
-      "provider": "ccxt"
+      "provider": "native_regional"
     },
     {
       "id": "bitstamp",
@@ -187,7 +187,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "toobit",
@@ -223,7 +223,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "deepcoin",
@@ -268,7 +268,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "poloniex",
@@ -304,7 +304,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "azbit",
@@ -313,7 +313,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "biconomy",
@@ -322,7 +322,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "orangex",
@@ -331,7 +331,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "hotcoin",
@@ -340,20 +340,11 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "zoomex",
       "name": "Zoomex",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
-      "id": "bifinance",
-      "name": "BiFinance",
       "category": "cex",
       "tier": 4,
       "status": "ingestion_ready",
@@ -376,7 +367,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "ccxt"
+      "provider": "native_regional"
     },
     {
       "id": "coinstore",
@@ -385,7 +376,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "tokocrypto",
@@ -406,24 +397,6 @@
       "provider": "ccxt"
     },
     {
-      "id": "ascendex",
-      "name": "AscendEX",
-      "category": "cex",
-      "tier": 2,
-      "status": "ingestion_ready",
-      "ccxt_id": "ascendex",
-      "provider": "coingecko"
-    },
-    {
-      "id": "bkex",
-      "name": "BKEX",
-      "category": "cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
       "id": "digifinex",
       "name": "Digifinex",
       "category": "cex",
@@ -440,15 +413,6 @@
       "status": "ingestion_ready",
       "ccxt_id": "bitvavo",
       "provider": "ccxt"
-    },
-    {
-      "id": "probit",
-      "name": "ProBit Global",
-      "category": "cex",
-      "tier": 2,
-      "status": "ingestion_ready",
-      "ccxt_id": "probit",
-      "provider": "coingecko"
     },
     {
       "id": "uniswap_v3",
@@ -757,15 +721,6 @@
       "provider": "ccxt"
     },
     {
-      "id": "coinsquare",
-      "name": "CoinSquare",
-      "category": "regional_cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
       "id": "independentreserve",
       "name": "Independent Reserve",
       "category": "regional_cex",
@@ -784,40 +739,13 @@
       "provider": "ccxt"
     },
     {
-      "id": "rain",
-      "name": "Rain",
-      "category": "regional_cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
-      "id": "coinmena",
-      "name": "CoinMENA",
-      "category": "regional_cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
-      "id": "bitoasis",
-      "name": "BitOasis",
-      "category": "regional_cex",
-      "tier": 4,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "coingecko"
-    },
-    {
       "id": "korbit",
       "name": "Korbit",
       "category": "regional_cex",
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "coinone",
@@ -826,7 +754,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "ccxt"
+      "provider": "native_regional"
     },
     {
       "id": "paribu",
@@ -835,7 +763,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "btcturk",
@@ -853,7 +781,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "bitso",
@@ -871,7 +799,7 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "coingecko"
+      "provider": "native_regional"
     },
     {
       "id": "cryptocom_us",
@@ -898,6 +826,78 @@
       "tier": 4,
       "status": "ingestion_ready",
       "ccxt_id": null,
+      "provider": "ccxt"
+    },
+    {
+      "id": "bequant",
+      "name": "Bequant",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "bequant",
+      "provider": "ccxt"
+    },
+    {
+      "id": "bitrue",
+      "name": "Bitrue",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "bitrue",
+      "provider": "ccxt"
+    },
+    {
+      "id": "cex",
+      "name": "CEX.IO",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "cex",
+      "provider": "ccxt"
+    },
+    {
+      "id": "fmfwio",
+      "name": "FMFW.io",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "fmfwio",
+      "provider": "ccxt"
+    },
+    {
+      "id": "hitbtc",
+      "name": "HitBTC",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "hitbtc",
+      "provider": "ccxt"
+    },
+    {
+      "id": "latoken",
+      "name": "LATOKEN",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "latoken",
+      "provider": "ccxt"
+    },
+    {
+      "id": "paymium",
+      "name": "Paymium",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "paymium",
+      "provider": "ccxt"
+    },
+    {
+      "id": "zaif",
+      "name": "Zaif",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": "zaif",
       "provider": "ccxt"
     }
   ],

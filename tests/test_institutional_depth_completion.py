@@ -535,11 +535,34 @@ async def test_native_upgraded_cex_l2_not_synthetic():
     from native_regional_cex_fetcher import build_native_regional_market_fetchers
 
     fetchers = build_native_regional_market_fetchers()
-    for venue in ("pionex", "coinw", "orangex", "biconomy", "coinstore", "azbit"):
+    for venue in (
+        "pionex",
+        "coinw",
+        "orangex",
+        "biconomy",
+        "coinstore",
+        "azbit",
+        "bitunix",
+        "fameex",
+        "ourbit",
+    ):
         assert venue_kind(venue) == "native_regional"
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=12)) as session:
             _t, book = await fetchers[venue](session, "BTC/USDT", "spot")
         assert len(book.bids) >= 5 and len(book.asks) >= 5
+
+
+@pytest.mark.asyncio
+async def test_hyperliquid_dydx_real_l2_not_synthetic():
+    import aiohttp
+    from perp_dex_fetcher import fetch_perp_dex_market
+
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20)) as session:
+        for venue in ("hyperliquid", "dydx"):
+            _t, book = await fetch_perp_dex_market(
+                session, "BTC/USD", "perpetual", exchange_id=venue
+            )
+            assert len(book.bids) >= 5 and len(book.asks) >= 5
 
 
 @pytest.mark.asyncio

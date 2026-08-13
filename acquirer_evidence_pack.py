@@ -172,6 +172,42 @@ def _refresh_registry_differentiator(differentiators: list[dict[str, Any]]) -> N
         pass
 
 
+def _four_blockers_section() -> dict[str, Any]:
+    """Embed frozen four-blocker evidence — never invents PASS/COMPLETE."""
+    from pathlib import Path
+    import json
+
+    path = Path("docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json")
+    if not path.is_file():
+        return {
+            "ok": False,
+            "product_complete": False,
+            "reason": "four_blockers_evidence_missing",
+            "external_evidence_required": True,
+        }
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "product_complete": False, "error": str(exc)[:200]}
+    return {
+        "ok": True,
+        "product_complete": False,
+        "institutional_verdict": "NOT_COMPLETE",
+        "source": str(path),
+        "proved_at": raw.get("proved_at"),
+        "blocker_1_live_venue_fill": raw.get("blocker_1_live_venue_fill"),
+        "blocker_2_jupiter_live_signature": raw.get("blocker_2_jupiter_live_signature"),
+        "blocker_3_full_mesh_100": raw.get("blocker_3_full_mesh_100"),
+        "blocker_4_cloud_multi_az_ha": raw.get("blocker_4_cloud_multi_az_ha"),
+        "operator_decisions": raw.get("operator_decisions"),
+        "integrity": raw.get("integrity"),
+        "note": (
+            "Binding: green tests ≠ COMPLETE. live_fill / Jupiter VC / Full Mesh "
+            "L2 100% / cloud multi-AZ must not be claimed without observed evidence."
+        ),
+    }
+
+
 async def build_acquirer_evidence_pack() -> dict[str, Any]:
     pack: dict[str, Any] = {
         "generated_at": datetime.now(UTC).isoformat(),
@@ -202,6 +238,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
     pack["constitution"] = "docs/PRODUCT_CONSTITUTION_AR.md"
 
     pack["sections"]["corpus_passport"] = await _corpus_passport_section()
+    pack["sections"]["four_blockers"] = _four_blockers_section()
 
     pack["committee_checklist"] = [
         "Verify audit chain integrity",
@@ -212,10 +249,15 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         "Confirm contradiction veto is fail-closed on severe conflict",
         "Confirm half-life stats exist (time-edge product)",
         "Review data moat / acquisition asset audit",
+        "Read four-blockers evidence — do NOT treat as product COMPLETE",
+        "Confirm live_fill / Jupiter VC / Full Mesh L2 100% / cloud multi-AZ are external-blocked or unpaid",
     ]
 
     pack["one_liner_for_ic"] = (
         "We sell audited market decisions with a labeled corpus and executable "
-        "net-edge truth — not indicator spam."
+        "net-edge truth — not indicator spam. Institutional readiness is NOT COMPLETE "
+        "while live_fill, Jupiter on-chain VC, Full Mesh L2 100%, or cloud multi-AZ remain open."
     )
+    pack["product_complete"] = False
+    pack["institutional_verdict"] = "NOT_COMPLETE"
     return pack

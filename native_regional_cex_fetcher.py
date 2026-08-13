@@ -37,6 +37,10 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "biconomy": "BTC/USDT",
     "coinstore": "BTC/USDT",
     "azbit": "BTC/USDT",
+    # Additional free public L2 upgrades (former CoinGecko synthetic_mid).
+    "bitunix": "BTC/USDT",
+    "fameex": "BTC/USDT",
+    "ourbit": "BTC/USDT",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -289,6 +293,55 @@ async def _fetch_azbit(session: aiohttp.ClientSession, symbol: str) -> tuple[lis
     return bids, asks
 
 
+def _levels_price_volume_dicts(rows: list[Any]) -> list[list[float]]:
+    out: list[list[float]] = []
+    for row in rows or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        qty = float(row.get("volume") or row.get("qty") or row.get("amount") or row.get("size") or 0)
+        if price > 0 and qty > 0:
+            out.append([price, qty])
+    return out
+
+
+async def _fetch_bitunix(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    url = f"https://openapi.bitunix.com/api/spot/v1/market/depth?symbol={pair}&limit=50"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    data = body.get("data") if isinstance(body.get("data"), dict) else None
+    if data is None:
+        raise ValueError(f"bitunix_error:{body.get('msg') or body.get('code') or 'no_data'}")
+    bids = _levels_price_volume_dicts(data.get("bids") or [])
+    asks = _levels_price_volume_dicts(data.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_fameex(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    url = f"https://api.fameex.com/sapi/v1/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_ourbit(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    url = f"https://api.ourbit.com/api/v3/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -306,6 +359,9 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "biconomy": _fetch_biconomy,
     "coinstore": _fetch_coinstore,
     "azbit": _fetch_azbit,
+    "bitunix": _fetch_bitunix,
+    "fameex": _fetch_fameex,
+    "ourbit": _fetch_ourbit,
 }
 
 

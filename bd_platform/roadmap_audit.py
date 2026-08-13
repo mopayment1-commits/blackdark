@@ -33,7 +33,7 @@ _ROADMAP_ROWS: tuple[tuple[Any, ...], ...] = (
     ("qa", "Test coverage measurement", "complete", "bd_platform.coverage_report", "/api/platform/coverage", "pytest --cov gate 80%"),
     ("deriv", "Derivatives (CoinGlass / Apex)", "complete", "bd_platform.derivatives_hub", "/api/platform/derivatives/overview", "Free tier proxies"),
     ("sec", "Security — vulnerability scan + key encryption", "complete", "secrets_vault", "/api/security/status", "Fernet vault · pip-audit hook"),
-    ("sec", "HashiCorp Vault", "complete", "bd_platform.vault_client", "/api/platform/vault/status", "Docker vault dev + local Fernet fallback"),
+    ("sec", "HashiCorp Vault", "partial", "bd_platform.vault_client", "/api/platform/vault/status", "Optional vault-dev; Fernet primary — not production Vault VC"),
     ("arb", "Cross-Boundary CEX↔DEX (GMX, 1inch)", "complete", "bd_platform.cex_dex_arbitrage", "/api/platform/arb/cex-dex", "DexScreener + Jupiter + GMX + 1inch"),
     ("arb", "Statistical pairs trading", "complete", "bd_platform.pairs_trading", "/api/platform/arb/pairs", "Z-score spread · cointegration proxy"),
     ("liq", "Predictive Liquidation Front-Running", "complete", "bd_platform.liquidation_radar", "/api/platform/liquidations/radar", "Funding + OI radar"),

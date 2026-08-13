@@ -118,6 +118,42 @@ async def _hyperliquid_mid(session: aiohttp.ClientSession, asset: str) -> tuple[
     return price, funding_rate
 
 
+async def _hyperliquid_l2(
+    session: aiohttp.ClientSession, asset: str
+) -> tuple[list[list[float]], list[list[float]], float]:
+    """Real Hyperliquid L2 book (not synthetic 1-level mid)."""
+    sym = PERP_SYMBOLS.get(asset.upper(), asset.upper())
+    payload = await _fetch_json(
+        session,
+        "https://api.hyperliquid.xyz/info",
+        method="POST",
+        json_body={"type": "l2Book", "coin": sym},
+    )
+    levels = payload.get("levels") or []
+    if not isinstance(levels, list) or len(levels) < 2:
+        raise ValueError(f"Hyperliquid l2 missing for {asset}")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in levels[0] or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("px") or 0)
+        sz = float(row.get("sz") or 0)
+        if px > 0 and sz > 0:
+            bids.append([px, sz])
+    for row in levels[1] or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("px") or 0)
+        sz = float(row.get("sz") or 0)
+        if px > 0 and sz > 0:
+            asks.append([px, sz])
+    if len(bids) < 5 or len(asks) < 5:
+        raise ValueError(f"Hyperliquid shallow_l2:{len(bids)}/{len(asks)}")
+    mid = (bids[0][0] + asks[0][0]) / 2.0
+    return bids, asks, mid
+
+
 async def _dydx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, float]:
     sym = PERP_SYMBOLS.get(asset.upper(), asset.upper())
     url = "https://indexer.dydx.trade/v4/perpetualMarkets"
@@ -129,6 +165,36 @@ async def _dydx_mid(session: aiohttp.ClientSession, asset: str) -> tuple[float, 
     if price <= 0:
         raise ValueError(f"dYdX price missing for {asset}")
     return price, funding
+
+
+async def _dydx_l2(
+    session: aiohttp.ClientSession, asset: str
+) -> tuple[list[list[float]], list[list[float]], float]:
+    """Real dYdX v4 indexer orderbook (not synthetic 1-level mid)."""
+    sym = PERP_SYMBOLS.get(asset.upper(), asset.upper())
+    market = f"{sym}-USD"
+    url = f"https://indexer.dydx.trade/v4/orderbooks/perpetualMarket/{market}"
+    payload = await _fetch_json(session, url)
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in payload.get("bids") or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("price") or 0)
+        sz = float(row.get("size") or 0)
+        if px > 0 and sz > 0:
+            bids.append([px, sz])
+    for row in payload.get("asks") or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("price") or 0)
+        sz = float(row.get("size") or 0)
+        if px > 0 and sz > 0:
+            asks.append([px, sz])
+    if len(bids) < 5 or len(asks) < 5:
+        raise ValueError(f"dYdX shallow_l2:{len(bids)}/{len(asks)}")
+    mid = (bids[0][0] + asks[0][0]) / 2.0
+    return bids, asks, mid
 
 
 def _gmx_row_price(row: dict[str, Any], symbol: str) -> float | None:
@@ -209,8 +275,26 @@ async def fetch_perp_dex_market(
         session = aiohttp.ClientSession(timeout=timeout)
 
     try:
-        price, _funding = await _fetch_perp_mid(session, exchange_id, asset)
-        bids, asks = _synthetic_book(price)
+        ex = exchange_id.lower()
+        bids: list[list[float]]
+        asks: list[list[float]]
+        price: float
+        if ex == "hyperliquid":
+            try:
+                bids, asks, price = await _hyperliquid_l2(session, asset)
+            except (aiohttp.ClientError, TypeError, ValueError, KeyError):
+                price, _funding = await _hyperliquid_mid(session, asset)
+                bids, asks = _synthetic_book(price)
+        elif ex == "dydx":
+            try:
+                bids, asks, price = await _dydx_l2(session, asset)
+            except (aiohttp.ClientError, TypeError, ValueError, KeyError):
+                price, _funding = await _dydx_mid(session, asset)
+                bids, asks = _synthetic_book(price)
+        else:
+            price, _funding = await _fetch_perp_mid(session, exchange_id, asset)
+            # Remaining perp venues expose mids only — honest 1-level synthetic_mid.
+            bids, asks = _synthetic_book(price)
         mtype: MarketType = "perpetual" if market_type == "perpetual" else "spot"
         return (
             TickerSnapshot(

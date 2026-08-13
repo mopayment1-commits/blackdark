@@ -1,8 +1,15 @@
 # BLACKDARK TOTAL COMPLETION CAPABILITY MATRIX — PR #72 tip continuation
 
+> **BINDING OVERRIDE (institutional honesty):** This historical matrix over-labels many
+> surfaces as `VERIFIED_COMPLETE`. Independent clean-room + four-blockers evidence remain
+> authoritative: product verdict is **NOT COMPLETE**, with **VERIFIED_COMPLETE = 1**
+> (local Postgres streaming HA only; `cloud_multi_az=false`). Do **not** use this matrix
+> alone for acquisition / institutional exam PASS. See
+> `BLACKDARK_INSTITUTIONAL_COMPLETION_REGISTER.md` and `BLACKDARK_FOUR_BLOCKERS_*`.
+
 **Branch tip (pre-push):** see git HEAD after commit  
 **Base main reconciled:** `e00971a`  
-**Mandate:** zero PARTIAL/SCAFFOLD/STUB for approved inventory — no de-scope
+**Mandate:** unpaid closures maximize honesty + native L2; paid/geo/wallet blockers stay EXTERNAL
 
 ## Plan audit inventory (`plan_audit._PLAN_ROWS`)
 
