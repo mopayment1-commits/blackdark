@@ -165,6 +165,11 @@ async def test_venue_fill_proof_uses_venue_l2_depth():
     assert out["depth"]["bid_depth_usd"] > 0
     assert out["depth"]["ask_depth_usd"] > 0
     assert out["live_fill"] is False  # no testnet creds in CI
+    walk = out["depth"].get("book_walk") or {}
+    assert walk.get("ok") is True
+    assert walk.get("live_fill") is False
+    assert int(walk.get("levels_consumed") or 0) >= 1
+    assert walk.get("impact_bps") is not None
 
 
 def test_super_terminal_derivatives_venue_perp():
@@ -276,12 +281,17 @@ async def test_jupiter_submit_path_implemented_fail_closed_without_wallet():
     build = await prove_jupiter_swap_build()
     assert build["ok"] is True
     assert build["swap_transaction_built"] is True
+    assert build["tx_decoded"]["ok"] is True
     assert build["executed"] is False
     assert build["broadcast"] is False
+    # simulate may return AccountNotFound for ephemeral — still not a broadcast/fill
+    assert build.get("tx_simulated") is not None
+    assert build["verified_complete"] is False
     proof = await prove_jupiter_submit_path()
     assert proof["ok"] is True
     assert proof["live_submit_implemented"] is True
     assert proof["swap_build"]["ok"] is True
+    assert proof["swap_build"]["tx_decoded"] is True
     assert proof["dry_run"]["executed"] is False
     live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
     assert live["executed"] is False
@@ -345,6 +355,8 @@ def test_white_label_served_surface_prove():
     assert out["served_surface"]["brand_applied"] is True
     assert out["super_terminal"]["brand_applied"] is True
     assert out["super_terminal"]["product_name"] == "Desk Test"
+    assert out["super_terminal"]["builder_invoked"] is True
+    assert out["super_terminal"]["wiring"] == "build_super_terminal_applies_get_brand"
     assert out["product_complete"] is False
     src = open("super_terminal.py", encoding="utf-8").read()
     assert "apply_brand_to_surface" in src
@@ -379,9 +391,12 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
+    assert len(CORE_PUBLIC_CEX_MESH) >= 30
+    assert mv.get("mesh_symbol_overrides")
     # Require meaningful multi-venue L2 mesh; tolerate partial timeouts under suite load.
     assert mv["live_count"] >= 5
     assert len(mv.get("l2_venues") or []) >= 5
+    assert int(mv.get("canonical_mesh_adopted_count") or 0) >= 3
     roll = await live_rollout_status(include_public_probe=False)
     assert roll["healthy_exchanges"] >= 5
     assert roll["coverage_percent"] >= 5.0

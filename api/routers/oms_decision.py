@@ -415,7 +415,8 @@ async def canonical_status_api(
     from streaming_institutional import streaming_status
 
     live = await probe_binance_public_book("BTCUSDT")
-    multi = await prove_multi_venue_live()
+    # Light mesh here — full public CEX mesh is proven via rollout/ingestion surfaces.
+    multi = await prove_multi_venue_live(full_mesh=False)
     bus = await refresh_live_truth()
     return {
         "canonical_data_layer": layer_status(),

@@ -93,19 +93,25 @@ async def prove_fill_lifecycle(
     bid_depth = 0.0
     ask_depth = 0.0
     depth_venue = None
+    depth_book: dict[str, Any] | None = None
+    secondary_l2_venues: list[str] = []
     for venue_name, venue_books in books.items():
         book = venue_books.get(symbol)
         if not book or not book.get("bids") or not book.get("asks"):
             continue
         if book.get("fabricated_depth"):
             continue
-        bid_depth = book_notional_depth_usd(book, side="bid", levels=10)
-        ask_depth = book_notional_depth_usd(book, side="ask", levels=10)
-        depth_source = str(book.get("depth_source") or book.get("source") or "venue_l2")
-        depth_venue = str(venue_name).lower()
-        if limit_price is None:
-            limit_price = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
-        break
+        vname = str(venue_name).lower()
+        if depth_venue is None:
+            bid_depth = book_notional_depth_usd(book, side="bid", levels=10)
+            ask_depth = book_notional_depth_usd(book, side="ask", levels=10)
+            depth_source = str(book.get("depth_source") or book.get("source") or "venue_l2")
+            depth_venue = vname
+            depth_book = book
+            if limit_price is None:
+                limit_price = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
+        else:
+            secondary_l2_venues.append(vname)
 
     if limit_price is None:
         return {
@@ -234,6 +240,56 @@ async def prove_fill_lifecycle(
     trail = [h.get("state") for h in (final.get("history") or [])]
     required = {"INTENT", "VALIDATION", "RISK_CHECK", "ROUTING", "SUBMISSION", "ACK"}
     lifecycle_ok = required.issubset(set(trail)) and final["state"] in {"FILL", "RECONCILE"}
+
+    # Honest L2 book-walk / impact evidence for paper fills (never sets live_fill).
+    book_walk: dict[str, Any] = {"ok": False, "reason": "no_depth_book"}
+    if depth_book is not None:
+        try:
+            from microstructure_intelligence import order_book_microstructure
+
+            notional = float(quantity) * float(limit_price)
+            micro = order_book_microstructure(depth_book, notional=max(notional, 1.0))
+            levels = depth_book.get("asks" if side == "buy" else "bids") or []
+            remaining = float(quantity)
+            consumed = 0
+            vwap_num = 0.0
+            vwap_den = 0.0
+            for px, qty, *_ in levels:
+                take = min(remaining, float(qty))
+                if take <= 0:
+                    break
+                vwap_num += float(px) * take
+                vwap_den += take
+                remaining -= take
+                consumed += 1
+                if remaining <= 1e-12:
+                    break
+            filled_qty = float(quantity) - remaining
+            vwap = (vwap_num / vwap_den) if vwap_den > 0 else None
+            mid = micro.get("mid") or float(limit_price)
+            impact_bps = None
+            if vwap is not None and mid > 0:
+                raw = ((vwap - mid) / mid) * 10_000
+                impact_bps = abs(raw) if side == "buy" else abs(-raw)
+            book_walk = {
+                "ok": filled_qty > 0 and consumed >= 1,
+                "venue": depth_venue,
+                "side": side,
+                "quantity": float(quantity),
+                "levels_consumed": consumed,
+                "filled_qty_on_book": filled_qty,
+                "unfilled_qty": max(0.0, remaining),
+                "vwap": vwap,
+                "impact_bps": round(impact_bps, 4) if impact_bps is not None else None,
+                "capacity_usd": micro.get("capacity_usd"),
+                "spread_bps": micro.get("spread_bps"),
+                "participation": micro.get("participation"),
+                "live_fill": False,
+                "note": "Paper book-walk against venue L2 — impact evidence only, not venue ACK.",
+            }
+        except Exception as exc:  # noqa: BLE001
+            book_walk = {"ok": False, "reason": type(exc).__name__, "live_fill": False}
+
     return {
         "ok": lifecycle_ok and bool((recon or {}).get("ok", recon)),
         "mode": mode,
@@ -255,6 +311,8 @@ async def prove_fill_lifecycle(
             "bid_depth_usd": bid_depth,
             "ask_depth_usd": ask_depth,
             "fabricated": False,
+            "secondary_l2_venues": secondary_l2_venues[:8],
+            "book_walk": book_walk,
         },
         "order_venue": final.get("venue"),
         "fill_readiness": {
@@ -284,7 +342,7 @@ async def prove_fill_lifecycle(
             "Live venue fill requires BINANCE_TESTNET + AUTO_EXECUTION_ENABLED + "
             "AUTO_EXECUTION_DRY_RUN=false + vault/test creds. "
             "venue_protocol_proof is an honest ACK/FILL *shape* mock — never live_fill. "
-            "Paper venue identity follows bus L2 venue; testnet live routes to binance."
+            "Paper venue identity follows bus L2 venue; book_walk is L2 impact evidence only."
         ),
     }
 

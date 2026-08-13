@@ -396,10 +396,55 @@ async def prove_jupiter_live_quote(
     }
 
 
+async def _rpc_simulate_transaction(tx_b64: str) -> dict[str, Any]:
+    """Simulate unsigned/ephemeral tx (sigVerify=false). Never broadcasts."""
+    import httpx
+
+    try:
+        async with httpx.AsyncClient(timeout=20.0) as client:
+            r = await client.post(
+                solana_rpc_url(),
+                json={
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "simulateTransaction",
+                    "params": [
+                        tx_b64,
+                        {
+                            "encoding": "base64",
+                            "sigVerify": False,
+                            "replaceRecentBlockhash": True,
+                            "commitment": "processed",
+                        },
+                    ],
+                },
+            )
+            body = r.json() if r.status_code == 200 else {"error": {"code": r.status_code}}
+            result = body.get("result") or {}
+            value = result.get("value") if isinstance(result, dict) else None
+            err = None
+            if isinstance(value, dict):
+                err = value.get("err")
+            return {
+                "ok": r.status_code == 200 and "error" not in body,
+                "http_status": r.status_code,
+                "rpc_error": body.get("error"),
+                "simulation_err": err,
+                "units_consumed": (value or {}).get("unitsConsumed") if isinstance(value, dict) else None,
+                "note": (
+                    "simulateTransaction with sigVerify=false; ephemeral AccountNotFound "
+                    "is expected and is not a live fill."
+                ),
+            }
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "reason": f"simulate_network:{type(exc).__name__}"}
+
+
 async def prove_jupiter_swap_build() -> dict[str, Any]:
     """Prove Jupiter /swap builds a real transaction without broadcasting.
 
-    Uses an ephemeral pubkey (no operator wallet required). Never claims executed.
+    Uses an ephemeral pubkey (no operator wallet required). Decodes VersionedTransaction
+    and optionally simulates via RPC (sigVerify=false). Never claims executed.
     """
     usdc = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
     sol = "So11111111111111111111111111111111111111112"
@@ -417,6 +462,7 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
             "product_complete": False,
             "at": _utcnow(),
         }
+    quote = q["quote"]
     try:
         from solders.keypair import Keypair
 
@@ -435,24 +481,66 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
             "product_complete": False,
             "at": _utcnow(),
         }
-    built = await build_swap_transaction(quote=q["quote"], user_public_key=pubkey)
+    built = await build_swap_transaction(quote=quote, user_public_key=pubkey)
     tx_b64 = built.get("swap_transaction") if built.get("ok") else None
-    ok = bool(built.get("ok") and tx_b64 and len(str(tx_b64)) > 100)
+    built_ok = bool(built.get("ok") and tx_b64 and len(str(tx_b64)) > 100)
+
+    decoded = {"ok": False, "reason": "not_attempted"}
+    simulated: dict[str, Any] = {"ok": False, "reason": "not_attempted"}
+    if built_ok:
+        try:
+            import base64
+
+            from solders.transaction import VersionedTransaction
+
+            raw = base64.b64decode(str(tx_b64))
+            vtx = VersionedTransaction.from_bytes(raw)
+            decoded = {
+                "ok": True,
+                "num_signatures": len(vtx.signatures),
+                "message_bytes": len(bytes(vtx.message)),
+            }
+        except Exception as exc:  # noqa: BLE001
+            decoded = {"ok": False, "reason": f"decode:{type(exc).__name__}"}
+        if decoded.get("ok"):
+            simulated = await _rpc_simulate_transaction(str(tx_b64))
+
+    ok = bool(built_ok and decoded.get("ok"))
     return {
         "ok": ok,
         "surface": "jupiter_swap_build_proof",
         "api_base": jupiter_api_base(),
+        "rpc": solana_rpc_url(),
         "ephemeral_pubkey": pubkey,
-        "swap_transaction_built": ok,
+        "swap_transaction_built": built_ok,
         "swap_transaction_chars": len(str(tx_b64 or "")),
+        "tx_decoded": decoded,
+        "tx_simulated": {
+            "ok": simulated.get("ok"),
+            "http_status": simulated.get("http_status"),
+            "simulation_err": simulated.get("simulation_err"),
+            "units_consumed": simulated.get("units_consumed"),
+            "note": simulated.get("note") or simulated.get("reason"),
+        },
+        "quote_route": {
+            "out_amount": quote.get("outAmount"),
+            "price_impact_pct": quote.get("priceImpactPct"),
+            "route_plan_steps": len(quote.get("routePlan") or [])
+            if isinstance(quote.get("routePlan"), list)
+            else None,
+        },
         "executed": False,
         "broadcast": False,
         "live_submit_implemented": True,
-        "reason": None if ok else built.get("reason"),
+        "reason": None if ok else (built.get("reason") or decoded.get("reason")),
         "verified_complete": False,
         "implementation_class": "PARTIAL" if ok else "UNVERIFIED",
         "product_complete": False,
-        "note": "Live /swap tx build proven with ephemeral pubkey — no broadcast, no fill claim.",
+        "note": (
+            "Live /swap tx build + VersionedTransaction decode (+ optional simulate) "
+            "with ephemeral pubkey — no broadcast, no fill claim. "
+            "simulate AccountNotFound is expected without funded wallet."
+        ),
         "at": _utcnow(),
     }
 
@@ -481,6 +569,9 @@ async def prove_jupiter_submit_path() -> dict[str, Any]:
             "ok": build_proof.get("ok"),
             "swap_transaction_built": build_proof.get("swap_transaction_built"),
             "swap_transaction_chars": build_proof.get("swap_transaction_chars"),
+            "tx_decoded": (build_proof.get("tx_decoded") or {}).get("ok"),
+            "tx_simulated": (build_proof.get("tx_simulated") or {}).get("ok"),
+            "price_impact_pct": (build_proof.get("quote_route") or {}).get("price_impact_pct"),
             "broadcast": False,
             "executed": False,
         },

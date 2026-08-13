@@ -139,23 +139,19 @@ def prove_white_label_surface(
             "default_title": "BLACKDARK Institutional",
         },
     )
-    # Exercise Super Terminal brand surface shape (full terminal pack is network-heavy).
-    terminal_light = apply_brand_to_surface(
-        org_id,
-        {
-            "surface": "super_terminal",
-            "org_id": org_id,
-            "modules": {"unified_decision": {"ok": True}},
-            "default_title": "BLACKDARK Super Terminal",
-        },
-    )
+    # Exercise the real Super Terminal builder brand path (not a hand-built fake pack).
+    from super_terminal import build_super_terminal
+
+    terminal_pack = build_super_terminal(symbol="BTC/USDT", org_id=org_id)
     terminal = {
-        "brand_applied": terminal_light.get("brand_applied"),
-        "product_name": terminal_light.get("product_name"),
-        "api_title": terminal_light.get("api_title"),
-        "required_ok": True,
+        "brand_applied": bool(terminal_pack.get("brand_applied")),
+        "product_name": terminal_pack.get("product_name"),
+        "api_title": terminal_pack.get("api_title"),
+        "required_ok": bool(terminal_pack.get("required_ok")),
+        "module_keys": list(terminal_pack.get("module_keys") or []),
         "surface": "super_terminal",
         "wiring": "build_super_terminal_applies_get_brand",
+        "builder_invoked": True,
     }
     export = branded_report_export(
         org_id,
@@ -177,6 +173,9 @@ def prove_white_label_surface(
             "product_name": terminal.get("product_name"),
             "api_title": terminal.get("api_title"),
             "required_ok": terminal.get("required_ok"),
+            "module_keys": terminal.get("module_keys"),
+            "builder_invoked": terminal.get("builder_invoked"),
+            "wiring": terminal.get("wiring"),
             "surface": terminal.get("surface"),
         },
         "export": {

@@ -292,6 +292,8 @@ async def probe_binance_public_book(symbol: str = "BTCUSDT") -> dict[str, Any]:
 
 
 # Curated public CEX mesh — native books with multi-level depth (not 1-level proxy TOB).
+# Regional pairs use MESH_SYMBOL_OVERRIDES (BTC/USDT hardcode falsely kills them).
+# Do NOT add CoinGecko 1-level synthetic proxies (ascendex/pionex/…).
 CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "okx",
     "kraken",
@@ -317,12 +319,73 @@ CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "bitso",
     "btcturk",
     "toobit",
+    # Additional public L2 venues proven with ≥5 levels (clean-room mesh expand).
+    "deepcoin",
+    "luno",
+    "weex",
+    "upbit",
+    "bitvavo",
+    "bitflyer",
+    "coincheck",
+    "bitbank",
+    "bithumb",
+    "independentreserve",
 )
+MESH_SYMBOL_OVERRIDES: dict[str, str] = {
+    "bitvavo": "BTC/EUR",
+    "bitflyer": "BTC/JPY",
+    "coincheck": "BTC/JPY",
+    "bitbank": "BTC/JPY",
+    "bithumb": "BTC/KRW",
+    "independentreserve": "BTC/AUD",
+}
 _MIN_L2_LEVELS = 5
 
 
-async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dict[str, Any]:
+def mesh_symbol_for(venue: str) -> str:
+    return MESH_SYMBOL_OVERRIDES.get(str(venue).lower(), "BTC/USDT")
+
+
+def _adopt_mesh_l2_probe(probe: dict[str, Any]) -> bool:
+    """Adopt successful mesh L2 into canonical (same path as OKX/Kraken)."""
+    if not (probe.get("ok") and probe.get("live") and probe.get("bids") and probe.get("asks")):
+        return False
+    if probe.get("fabricated_depth") or probe.get("depth_source") != "venue_l2":
+        return False
+    venue = str(probe.get("venue") or "").lower()
+    symbol = str(probe.get("symbol") or "BTC/USDT")
+    if not venue:
+        return False
+    try:
+        from canonical_adoption import adopt_order_books, adopt_tick_quote
+
+        ts_ms = int(time.time() * 1000)
+        adopt_tick_quote(
+            venue=venue,
+            symbol=symbol,
+            bid=float(probe["bid"]),
+            ask=float(probe["ask"]),
+            source=str(probe.get("source") or f"{venue}_public_spot"),
+            provider_timestamp=ts_ms,
+            bid_qty=float(probe["bids"][0][1]),
+            ask_qty=float(probe["asks"][0][1]),
+            require_live=True,
+            path="streaming",
+        )
+        adopt_order_books(
+            {venue: {symbol: {"bids": probe["bids"], "asks": probe["asks"]}}},
+            source=str(probe.get("source") or f"{venue}_public_spot"),
+            provider_timestamp=ts_ms,
+            path="streaming",
+        )
+        return True
+    except Exception:
+        return False
+
+
+async def _probe_aggregator_spot_l2(venue: str, symbol: str | None = None) -> dict[str, Any]:
     """Public spot L2 via aggregator MARKET_FETCHERS (multi-venue mesh)."""
+    symbol = symbol or mesh_symbol_for(venue)
     try:
         import aiohttp
 
@@ -337,7 +400,7 @@ async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dic
         async with aiohttp.ClientSession(timeout=timeout) as session:
             _t, book = await fn(session, symbol, "spot")
         if not book or not book.bids or not book.asks:
-            return {"ok": False, "live": False, "venue": venue, "reason": "empty_book"}
+            return {"ok": False, "live": False, "venue": venue, "reason": "empty_book", "symbol": symbol}
         bids = [[float(p), float(q)] for p, q, *_ in book.bids]
         asks = [[float(p), float(q)] for p, q, *_ in book.asks]
         if len(bids) < _MIN_L2_LEVELS or len(asks) < _MIN_L2_LEVELS:
@@ -345,6 +408,7 @@ async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dic
                 "ok": False,
                 "live": False,
                 "venue": venue,
+                "symbol": symbol,
                 "reason": "insufficient_l2_depth",
                 "depth_levels": {"bids": len(bids), "asks": len(asks)},
             }
@@ -353,6 +417,7 @@ async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dic
                 "ok": False,
                 "live": False,
                 "venue": venue,
+                "symbol": symbol,
                 "reason": "fabricated_sizes_rejected",
             }
         return {
@@ -375,6 +440,7 @@ async def _probe_aggregator_spot_l2(venue: str, symbol: str = "BTC/USDT") -> dic
             "ok": False,
             "live": False,
             "venue": venue,
+            "symbol": symbol,
             "reason": f"{type(exc).__name__}:{exc}"[:160],
         }
 
@@ -434,7 +500,7 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
             async with sem:
                 try:
                     return await asyncio.wait_for(
-                        _probe_aggregator_spot_l2(venue, "BTC/USDT"), timeout=14.0
+                        _probe_aggregator_spot_l2(venue, mesh_symbol_for(venue)), timeout=14.0
                     )
                 except TimeoutError:
                     return {"ok": False, "live": False, "venue": venue, "reason": "probe_timeout"}
@@ -447,6 +513,16 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
                     }
 
         results.extend(await asyncio.gather(*[_one(v) for v in mesh]))
+
+    # Adopt mesh L2 into canonical (OKX/Kraken already adopt in their native probes).
+    adopted_venues: list[str] = []
+    for probe in results:
+        venue = str(probe.get("venue") or "").lower()
+        if venue in {"okx", "kraken", "binance"}:
+            continue
+        if _adopt_mesh_l2_probe(probe):
+            adopted_venues.append(venue)
+            probe["canonical_adopted"] = True
 
     try:
         code, body, latency_ms = await _http_get_json(
@@ -517,13 +593,18 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
         "full_mesh": full_mesh,
         "mesh_target": list(CORE_PUBLIC_CEX_MESH) if full_mesh else ["okx", "kraken"],
         "mesh_target_count": len(CORE_PUBLIC_CEX_MESH) if full_mesh else 2,
+        "mesh_symbol_overrides": dict(MESH_SYMBOL_OVERRIDES) if full_mesh else {},
+        "canonical_mesh_adopted": sorted(set(adopted_venues)) if full_mesh else [],
+        "canonical_mesh_adopted_count": len(set(adopted_venues)) if full_mesh else 0,
         "probes": [
             {
                 "venue": r.get("venue"),
+                "symbol": r.get("symbol"),
                 "ok": r.get("ok"),
                 "live": r.get("live"),
                 "depth_source": r.get("depth_source"),
                 "depth_levels": r.get("depth_levels"),
+                "canonical_adopted": r.get("canonical_adopted"),
                 "reason": r.get("reason"),
             }
             for r in results
