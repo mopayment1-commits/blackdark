@@ -2,15 +2,15 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** `94325d634f4ca0d10cc8fae77895ea7e59ab1b29`  
+**Product tip:** `76105a853f67fa5c72ccb7c61e0fad13ea48a7bc`  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 | Field | Value |
 |---|---|
-| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_94325d6.md` |
-| Overall | **95 / 100** |
+| Audit | `docs/dd/BLACKDARK_CLEANROOM_CAPABILITY_REALITY_AUDIT_76105a8.md` |
+| Overall | **96 / 100** |
 | Verdict | **NOT COMPLETE** |
 | VERIFIED_COMPLETE | **1** (`postgres_streaming_ha_rpo_rto`) |
 
@@ -18,14 +18,14 @@
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Public CEX L2 mesh (24) | PARTIAL | CORE_PUBLIC_CEX_MESH; 24/24 L2 in clean-room |
-| Durable prices mesh + continuum | PARTIAL | ~42% ingest; rollout ~24% |
-| Jupiter live quote + `/swap` build | PARTIAL | build proven; live signature needs wallet |
+| Public CEX L2 mesh (34) + regional symbols | PARTIAL | 34/34 L2; MESH_SYMBOL_OVERRIDES; canonical adopt 32 |
+| Durable prices mesh + continuum | PARTIAL | ~46% ingest; rollout ~34% |
+| Jupiter quote + `/swap` build/decode/sim | PARTIAL | simulate ok; live signature needs wallet |
 | Local Postgres dump/restore | PARTIAL | `LOCAL_EPHEMERAL_NOT_HA` |
 | Postgres product-path OMS | PARTIAL | ephemeral `authority=postgres` |
 | Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local streaming; `cloud_multi_az=false` |
-| Fill lifecycle | PARTIAL (paper) | venue follows L2; live_fill needs creds |
-| White Label | PARTIAL | API + Super Terminal brand apply + prove |
+| Fill lifecycle | PARTIAL (paper) | book-walk impact; live_fill needs creds |
+| White Label | PARTIAL | real `build_super_terminal` brand prove |
 | product_complete honesty | held | no root self-cert True theater |
 
 ## Still open (credential / env / cloud)
@@ -34,7 +34,7 @@
 |---|---|
 | Live venue FILL | No Binance testnet keys/flags in environment |
 | Jupiter live signature | No `SOLANA_PRIVATE_KEY` + live flag |
-| Full mesh | Public blocks (451/403) + many keyed sources |
+| Full mesh | Catalog target 100; public blocks (451/403) + keyed sources |
 | Cloud multi-AZ HA | Explicitly not claimed by local streaming prove |
 
 ## Absolute rule
