@@ -225,68 +225,94 @@ async def probe_kraken_ticker(pair: str = "XBTUSDT") -> dict[str, Any]:
 
 
 async def probe_binance_public_book(symbol: str = "BTCUSDT") -> dict[str, Any]:
-    """Legacy entry — tries Binance first, then multi-venue failover."""
-    code, body, latency_ms = await _http_get_json(
-        f"https://api.binance.com/api/v3/ticker/bookTicker?symbol={symbol}"
+    """Legacy entry — tries Binance public hosts (incl. vision mirror), then failover."""
+    hosts = (
+        "https://data-api.binance.vision",
+        "https://api.binance.com",
+        "https://api.binance.us",
     )
-    if code == 200 and isinstance(body, dict) and body.get("bidPrice"):
-        from canonical_adoption import adopt_tick_quote
-        from canonical_data_layer import FreshnessClass
-
-        bid = float(body["bidPrice"])
-        ask = float(body["askPrice"])
-        bid_qty = float(body.get("bidQty") or 0) or None
-        ask_qty = float(body.get("askQty") or 0) or None
-        provider_ts_ms = int(time.time() * 1000)
-        adopted = adopt_tick_quote(
-            venue="binance",
-            symbol=f"{symbol[:-4]}/{symbol[-4:]}",
-            bid=bid,
-            ask=ask,
-            source="binance_public_bookticker",
-            provider_timestamp=provider_ts_ms,
-            bid_qty=bid_qty,
-            ask_qty=ask_qty,
-            require_live=True,
-            path="streaming",
+    attempts: list[tuple[str, dict[str, Any]]] = []
+    for host in hosts:
+        code, body, latency_ms = await _http_get_json(
+            f"{host}/api/v3/ticker/bookTicker?symbol={symbol}"
         )
-        live = adopted.get("freshness_class") == FreshnessClass.LIVE.value
-        bids = [[bid, float(bid_qty or 0)]]
-        asks = [[ask, float(ask_qty or 0)]]
-        return {
-            "ok": True,
-            "live": live,
-            "venue": "binance",
-            "symbol": adopted["symbol"],
-            "bid": bid,
-            "ask": ask,
-            "bids": bids,
-            "asks": asks,
-            "freshness_class": adopted.get("freshness_class"),
-            "executable_quotes": live,
-            "latency_ms": latency_ms,
-            "depth_source": "venue_tob",
-            "fabricated_depth": False,
-            "source": "binance_public_bookticker",
-            "probed_at": datetime.now(UTC).isoformat(),
-        }
-    attempts = [
-        ("binance", {"ok": False, "reason": f"binance_http_{code}", "latency_ms": latency_ms}),
+        if code == 200 and isinstance(body, dict) and body.get("bidPrice"):
+            from canonical_adoption import adopt_tick_quote
+            from canonical_data_layer import FreshnessClass
+
+            bid = float(body["bidPrice"])
+            ask = float(body["askPrice"])
+            bid_qty = float(body.get("bidQty") or 0) or None
+            ask_qty = float(body.get("askQty") or 0) or None
+            provider_ts_ms = int(time.time() * 1000)
+            adopted = adopt_tick_quote(
+                venue="binance",
+                symbol=f"{symbol[:-4]}/{symbol[-4:]}",
+                bid=bid,
+                ask=ask,
+                source=f"binance_public_bookticker:{host.split('//', 1)[-1]}",
+                provider_timestamp=provider_ts_ms,
+                bid_qty=bid_qty,
+                ask_qty=ask_qty,
+                require_live=True,
+                path="streaming",
+            )
+            live = adopted.get("freshness_class") == FreshnessClass.LIVE.value
+            return {
+                "ok": True,
+                "live": live,
+                "venue": "binance",
+                "symbol": adopted["symbol"],
+                "bid": bid,
+                "ask": ask,
+                "bids": [[bid, float(bid_qty or 0)]],
+                "asks": [[ask, float(ask_qty or 0)]],
+                "freshness_class": adopted.get("freshness_class"),
+                "executable_quotes": live,
+                "latency_ms": latency_ms,
+                "depth_source": "venue_tob",
+                "fabricated_depth": False,
+                "source": f"binance_public_bookticker:{host.split('//', 1)[-1]}",
+                "probed_at": datetime.now(UTC).isoformat(),
+            }
+        attempts.append(
+            (host, {"ok": False, "reason": f"binance_http_{code}", "latency_ms": latency_ms})
+        )
+    failover_attempts: list[tuple[str, dict[str, Any]]] = [
+        (
+            "binance",
+            attempts[-1][1]
+            if attempts
+            else {"ok": False, "reason": "binance_all_hosts_failed"},
+        )
     ]
     okx = await probe_okx_book("BTC-USDT")
-    attempts.append(("okx", okx))
+    failover_attempts.append(("okx", okx))
     if okx.get("ok") and okx.get("live"):
-        return {**okx, "failover_from": "binance", "attempts": [a[0] for a in attempts]}
+        return {
+            **okx,
+            "failover_from": "binance",
+            "attempts": [a[0] for a in failover_attempts],
+        }
     kr = await probe_kraken_depth("XBTUSDT")
-    attempts.append(("kraken", kr))
+    failover_attempts.append(("kraken", kr))
     if kr.get("ok") and kr.get("live"):
-        return {**kr, "failover_from": "binance", "attempts": [a[0] for a in attempts]}
+        return {
+            **kr,
+            "failover_from": "binance",
+            "attempts": [a[0] for a in failover_attempts],
+        }
     return {
         "ok": False,
         "live": False,
         "reason": "all_public_venues_unavailable",
         "executable_quotes": False,
-        "attempts": [{k: (v if isinstance(v, dict) else {"detail": v})} for k, v in attempts],
+        "attempts": [
+            {k: (v if isinstance(v, dict) else {"detail": v})} for k, v in failover_attempts
+        ],
+        "binance_host_attempts": [
+            {"host": h, "reason": (d or {}).get("reason")} for h, d in attempts
+        ],
         "probed_at": datetime.now(UTC).isoformat(),
     }
 
@@ -345,6 +371,9 @@ CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "buda",
     "coinone",
     "bitfinex",
+    "woox",
+    "hotcoin",
+    "paribu",
 )
 MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "bitvavo": "BTC/EUR",
@@ -361,6 +390,11 @@ MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "buda": "BTC/CLP",
     "coinone": "BTC/KRW",
     "bitfinex": "BTC/USDT",
+    "hotcoin": "BTC/USDT",
+    "paribu": "BTC/USDT",
+    "gemini_uk": "BTC/USD",
+    "cryptocom_us": "BTC/USDT",
+    "woox": "BTC/USDT",
 }
 _MIN_L2_LEVELS = 5
 
@@ -547,36 +581,20 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
             adopted_venues.append(venue)
             probe["canonical_adopted"] = True
 
+    # Binance TOB via public host failover (vision mirror first).
     try:
-        code, body, latency_ms = await _http_get_json(
-            "https://api.binance.com/api/v3/ticker/bookTicker?symbol=BTCUSDT"
-        )
-        if code == 200 and isinstance(body, dict) and body.get("bidPrice"):
-            from canonical_adoption import adopt_tick_quote
-            from canonical_data_layer import FreshnessClass
-
-            adopted = adopt_tick_quote(
-                venue="binance",
-                symbol="BTC/USDT",
-                bid=float(body["bidPrice"]),
-                ask=float(body["askPrice"]),
-                source="binance_public_bookticker",
-                provider_timestamp=int(time.time() * 1000),
-                require_live=True,
-                path="streaming",
-            )
+        bn = await probe_binance_public_book("BTCUSDT")
+        if bn.get("ok") and bn.get("venue") == "binance":
+            results.append(bn)
+        elif bn.get("ok"):
+            # Failover returned okx/kraken — do not mislabel as binance live.
             results.append(
                 {
-                    "ok": True,
-                    "live": adopted.get("freshness_class") == FreshnessClass.LIVE.value,
+                    "ok": False,
+                    "live": False,
                     "venue": "binance",
-                    "bid": float(body["bidPrice"]),
-                    "ask": float(body["askPrice"]),
-                    "symbol": "BTC/USDT",
-                    "latency_ms": latency_ms,
-                    "source": "binance_public_bookticker",
-                    "depth_source": "venue_tob",
-                    "fabricated_depth": False,
+                    "reason": "binance_hosts_failed_failover_used",
+                    "failover_venue": bn.get("venue"),
                 }
             )
         else:
@@ -585,8 +603,7 @@ async def prove_multi_venue_live(*, full_mesh: bool = True) -> dict[str, Any]:
                     "ok": False,
                     "live": False,
                     "venue": "binance",
-                    "reason": f"binance_http_{code}",
-                    "latency_ms": latency_ms,
+                    "reason": bn.get("reason") or "binance_unavailable",
                 }
             )
     except Exception as exc:  # noqa: BLE001

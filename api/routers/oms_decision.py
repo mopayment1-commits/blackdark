@@ -480,6 +480,15 @@ async def institutional_ingestion_prove_api(
     return await prove_durable_ingestion(symbol=symbol)
 
 
+@router.post("/catalog/full-mesh-prove")
+async def full_catalog_mesh_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from full_catalog_mesh_proof import prove_full_catalog_health
+
+    return await prove_full_catalog_health()
+
+
 @router.post("/ingestion/scheduler-prove")
 async def institutional_scheduler_prove_api(
     _: Annotated[dict, Depends(require_institutional_principal)],
@@ -600,6 +609,19 @@ async def white_label_prove_api(
     from white_label import prove_white_label_surface
 
     return prove_white_label_surface(org_id, product_name=product_name)
+
+
+@router.get("/orgs/{org_id}/portal")
+async def white_label_portal_api(
+    org_id: str,
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from white_label import build_white_label_portal
+
+    out = build_white_label_portal(org_id)
+    if not out.get("ok"):
+        raise HTTPException(status_code=404, detail=out.get("reason") or "portal_unavailable")
+    return out
 
 
 @router.post("/ops/postgres-product-path")

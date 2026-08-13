@@ -24,6 +24,12 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "buda": "BTC/CLP",
     "coinone": "BTC/KRW",
     "bitfinex": "BTC/USDT",
+    "woox": "BTC/USDT",
+    "hotcoin": "BTC/USDT",
+    "paribu": "BTC/USDT",
+    # Brand/regional aliases sharing a public parent book (honest venue_l2 from parent API).
+    "gemini_uk": "BTC/USD",
+    "cryptocom_us": "BTC/USDT",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -116,12 +122,90 @@ async def _fetch_bitfinex(session: aiohttp.ClientSession, symbol: str) -> tuple[
     return bids, asks
 
 
+async def _fetch_woox(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    # Woo X public orderbook — registry id "woox", API symbol SPOT_BTC_USDT.
+    base, quote = symbol.split("/")
+    woo_sym = f"SPOT_{base}_{quote}"
+    url = f"https://api.woo.org/v1/public/orderbook/{woo_sym}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if not body.get("success"):
+        raise ValueError(f"woox_error:{body.get('code') or body.get('message')}")
+    bids = [[float(x["price"]), float(x["quantity"])] for x in (body.get("bids") or [])]
+    asks = [[float(x["price"]), float(x["quantity"])] for x in (body.get("asks") or [])]
+    return bids, asks
+
+
+async def _fetch_hotcoin(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.lower()}_{quote.lower()}"
+    url = f"https://api.hotcoinfin.com/v1/depth?symbol={pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if int(body.get("code") or 0) != 200:
+        raise ValueError(f"hotcoin_error:{body.get('msg') or body.get('code')}")
+    depth = (body.get("data") or {}).get("depth") or {}
+    return _levels_pq(depth.get("bids") or []), _levels_pq(depth.get("asks") or [])
+
+
+async def _fetch_paribu(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    # Paribu public L2 — BTC_USDT / BTC_TL.
+    market = f"{base.upper()}_{quote.upper()}"
+    if quote.upper() == "USD":
+        market = f"{base.upper()}_USDT"
+    url = f"https://api.paribu.com/orderbook?market={market}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_gemini_uk(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    # Gemini UK catalog alias — same public Gemini REST book (BTCUSD).
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}{quote.upper()}"
+    if quote.upper() == "USDT":
+        pair = f"{base.upper()}USD"
+    url = f"https://api.gemini.com/v1/book/{pair}?limit_bids=20&limit_asks=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    bids = [[float(x["price"]), float(x["amount"])] for x in (body.get("bids") or [])]
+    asks = [[float(x["price"]), float(x["amount"])] for x in (body.get("asks") or [])]
+    return bids, asks
+
+
+async def _fetch_cryptocom_us(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    # Crypto.com US catalog alias — public Crypto.com Exchange book.
+    base, quote = symbol.split("/")
+    instrument = f"{base.upper()}_{quote.upper()}"
+    url = (
+        "https://api.crypto.com/exchange/v1/public/get-book"
+        f"?instrument_name={instrument}&depth=20"
+    )
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json()
+    if int(body.get("code") or 0) != 0:
+        raise ValueError(f"cryptocom_us_error:{body.get('message') or body.get('code')}")
+    data = ((body.get("result") or {}).get("data") or [{}])[0]
+    return _levels_pq(data.get("bids") or []), _levels_pq(data.get("asks") or [])
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
     "buda": _fetch_buda,
     "coinone": _fetch_coinone,
     "bitfinex": _fetch_bitfinex,
+    "woox": _fetch_woox,
+    "hotcoin": _fetch_hotcoin,
+    "paribu": _fetch_paribu,
+    "gemini_uk": _fetch_gemini_uk,
+    "cryptocom_us": _fetch_cryptocom_us,
 }
 
 

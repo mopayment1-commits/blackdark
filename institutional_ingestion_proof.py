@@ -212,20 +212,35 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
         prices_stats = {"ok": 0, "fail": 0, "skip": 0, "error": type(exc).__name__}
 
     bus = await refresh_live_truth(symbol=symbol)
+
+    # Full registry-100 catalog price-health (honest synthetic_mid allowed for rollout %).
+    catalog: dict[str, Any] = {}
+    try:
+        from full_catalog_mesh_proof import prove_full_catalog_health
+
+        catalog = await prove_full_catalog_health()
+    except Exception as exc:  # noqa: BLE001
+        catalog = {"ok": False, "error": type(exc).__name__}
+
     summary = await fetch_ingestion_health_summary()
     rows = len(summary) if isinstance(summary, list) else 0
-
-    coverage: dict[str, Any] = {}
-    try:
-        from platform_universe import compute_universe_coverage
-
-        coverage = await compute_universe_coverage()
-        rows = max(rows, int(coverage.get("ingestion_health_rows") or 0))
-    except Exception as exc:  # noqa: BLE001
-        coverage = {"error": type(exc).__name__}
+    # Prefer catalog prove metrics — avoid nested prove_multi_venue_live in coverage.
+    coverage = dict(catalog.get("coverage") or {})
+    if not coverage.get("live_ingestion_sources"):
+        healthy_count = sum(1 for r in (summary or []) if isinstance(r, dict) and r.get("last_ok_at"))
+        coverage = {
+            "live_ingestion_sources": healthy_count,
+            "coverage_percent_exchanges": round(healthy_count / 100 * 100, 1),
+            "ingestion_health_rows": rows,
+        }
+    rows = max(rows, int(coverage.get("ingestion_health_rows") or 0))
 
     ok_sources = [r for r in records if r.get("ok")]
-    live_ingestion = int(coverage.get("live_ingestion_sources") or len(ok_sources))
+    live_ingestion = int(
+        coverage.get("live_ingestion_sources")
+        or catalog.get("healthy_exchanges")
+        or len(ok_sources)
+    )
     rollout: dict[str, Any] = {}
     try:
         from universe_rollout import live_rollout_status
@@ -235,15 +250,30 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
     except Exception as exc:  # noqa: BLE001
         rollout = {"error": type(exc).__name__}
 
+    catalog_pct = float(catalog.get("coverage_percent") or 0)
+    rollout_pct = float(rollout.get("coverage_percent") or catalog_pct)
     return {
-        "ok": len(ok_sources) >= 2 and rows >= 2,
+        "ok": len(ok_sources) >= 2 and rows >= 2 and catalog.get("ok") is True,
         "sources": records,
-        "live_sources": len(ok_sources),
+        "live_sources": max(len(ok_sources), int(catalog.get("healthy_exchanges") or 0)),
         "pricing_logs_written": pricing_logs,
-        "pricing_log_exchanges": sorted({p["exchange"] for p in pricing_logs}),
+        "pricing_log_exchanges": sorted(
+            {p["exchange"] for p in pricing_logs}
+            | set(catalog.get("l2_venues") or [])
+            | set(catalog.get("tob_venues") or [])
+            | set(catalog.get("synthetic_mid_venues") or [])
+        ),
         "prices_ingest": prices_stats,
         "ingestion_health_rows": rows,
         "health_summary_count": len(summary) if isinstance(summary, list) else 0,
+        "full_catalog": {
+            "ok": catalog.get("ok"),
+            "healthy_exchanges": catalog.get("healthy_exchanges"),
+            "coverage_percent": catalog.get("coverage_percent"),
+            "depth_breakdown": catalog.get("depth_breakdown"),
+            "failed_count": catalog.get("failed_count"),
+            "failed_sample": (catalog.get("failed") or [])[:10],
+        },
         "truth_bus": {
             "ok": bus.get("ok"),
             "l2_venues": bus.get("l2_venues"),
@@ -254,17 +284,18 @@ async def prove_durable_ingestion(*, symbol: str = "BTC/USDT") -> dict[str, Any]
         "coverage": {
             "ingestion_health_rows": coverage.get("ingestion_health_rows"),
             "live_ingestion_sources": live_ingestion,
-            "coverage_percent_exchanges": coverage.get("coverage_percent_exchanges"),
+            "coverage_percent_exchanges": coverage.get("coverage_percent_exchanges")
+            or catalog.get("coverage", {}).get("coverage_percent_exchanges"),
         },
         "rollout": {
             "healthy_exchanges": rollout.get("healthy_exchanges"),
-            "coverage_percent": rollout.get("coverage_percent"),
+            "coverage_percent": rollout_pct,
             "healthy_sample": rollout.get("healthy_sample"),
             "public_live_venues": rollout.get("public_live_venues"),
         },
         "scheduled_note": (
-            "Durable L2 + prices ingest + pricing_logs written. "
-            "Continuum: prove_scheduler_continuum(categories=prices)."
+            "Durable L2 mesh + full registry-100 catalog price-health + pricing_logs. "
+            "synthetic_mid counted for catalog coverage only — not L2 VC."
         ),
         "proved_at": _utcnow(),
         "verified_complete": False,

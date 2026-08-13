@@ -180,6 +180,7 @@ def prove_white_label_surface(
             "--bd-brand-name": brand.get("product_name"),
         },
     }
+    portal = build_white_label_portal(org_id)
     ok = bool(
         surface.get("brand_applied")
         and export.get("brand", {}).get("product_name") == product_name
@@ -187,6 +188,7 @@ def prove_white_label_surface(
         and terminal.get("product_name") == product_name
         and terminal.get("builder_invoked") is True
         and isolation.get("ok") is True
+        and portal.get("ok") is True
     )
     return {
         "ok": ok,
@@ -202,6 +204,22 @@ def prove_white_label_surface(
             "builder_invoked": terminal.get("builder_invoked"),
             "wiring": terminal.get("wiring"),
             "surface": terminal.get("surface"),
+        },
+        "portal": {
+            "ok": portal.get("ok"),
+            "product_name": (portal.get("portal") or {}).get("product_name"),
+            "hosted_custom_domain": (portal.get("portal") or {}).get("hosted_custom_domain"),
+            "nav": (portal.get("portal") or {}).get("nav"),
+            "client_gateway_ok": bool(
+                ((portal.get("portal") or {}).get("modules") or {})
+                .get("client_gateway", {})
+                .get("ok")
+            ),
+            "client_gateway_hosted": bool(
+                ((portal.get("portal") or {}).get("modules") or {})
+                .get("client_gateway", {})
+                .get("hosted")
+            ),
         },
         "isolation": isolation,
         "theme_tokens": theme_tokens,
@@ -228,6 +246,95 @@ def prove_white_label_surface(
     }
 
 
+def build_white_label_portal(org_id: str) -> dict[str, Any]:
+    """Served institutional white-label portal pack (not hosted custom-domain SaaS)."""
+    brand = get_brand(org_id)
+    if not brand:
+        return {
+            "ok": False,
+            "org_id": org_id,
+            "reason": "white_label_not_configured",
+            "portal": None,
+            "implementation_class": "PARTIAL",
+            "product_complete": False,
+            "verified_complete": False,
+        }
+    from super_terminal import build_super_terminal
+
+    terminal = build_super_terminal(symbol="BTC/USDT", org_id=org_id)
+    export = branded_report_export(
+        org_id,
+        {
+            "kind": "portal_snapshot",
+            "modules": list(terminal.get("module_keys") or []),
+            "ok": bool(terminal.get("required_ok")),
+        },
+    )
+    # Client gateway surface (in-process routes + session shape — not hosted SaaS).
+    client_gateway = {
+        "ok": True,
+        "hosted": False,
+        "session": {
+            "org_id": org_id,
+            "product_name": brand["product_name"],
+            "isolation": brand.get("isolation") or "org_id_scoped",
+            "auth": "org_scoped_api",
+        },
+        "routes": [
+            {"method": "GET", "path": f"/orgs/{org_id}/portal", "surface": "portal_pack"},
+            {"method": "GET", "path": f"/orgs/{org_id}/terminal", "surface": "super_terminal"},
+            {"method": "POST", "path": f"/orgs/{org_id}/exports", "surface": "branded_export"},
+            {"method": "GET", "path": f"/orgs/{org_id}/status", "surface": "branded_status"},
+        ],
+        "note": "Route map + session shape for tenant clients; not a public custom-domain portal.",
+    }
+    portal = {
+        "org_id": org_id,
+        "product_name": brand["product_name"],
+        "api_title": brand.get("api_title") or brand["product_name"],
+        "primary_color": brand.get("primary_color"),
+        "logo_url": brand.get("logo_url") or "",
+        "support_email": brand.get("support_email") or "",
+        "custom_domain": brand.get("custom_domain") or "",
+        "theme": {
+            "css_vars": {
+                "--bd-brand-primary": brand.get("primary_color"),
+                "--bd-brand-name": brand["product_name"],
+            }
+        },
+        "nav": [
+            {"id": "terminal", "label": "Terminal"},
+            {"id": "reports", "label": "Reports"},
+            {"id": "status", "label": "Status"},
+            {"id": "gateway", "label": "Client Gateway"},
+        ],
+        "modules": {
+            "super_terminal": {
+                "brand_applied": bool(terminal.get("brand_applied")),
+                "required_ok": bool(terminal.get("required_ok")),
+                "module_keys": list(terminal.get("module_keys") or []),
+            },
+            "export": {
+                "footer": export.get("footer"),
+                "product_name": (export.get("brand") or {}).get("product_name"),
+            },
+            "client_gateway": client_gateway,
+        },
+        "isolation": brand.get("isolation") or "org_id_scoped",
+        "hosted_custom_domain": False,
+        "note": "In-process portal pack — not external multi-tenant hosting.",
+    }
+    return {
+        "ok": bool(portal["modules"]["super_terminal"]["brand_applied"]),
+        "org_id": org_id,
+        "portal": portal,
+        "implementation_class": "PARTIAL",
+        "product_complete": False,
+        "verified_complete": False,
+        "proved_at": _utcnow(),
+    }
+
+
 def white_label_status() -> dict[str, Any]:
     data = _load()
     return {
@@ -242,9 +349,14 @@ def white_label_status() -> dict[str, Any]:
             "super_terminal_brand_apply",
             "org_isolation",
             "institutional_api",
+            "portal_pack",
+            "client_gateway_route_map",
         ],
         "verified_complete": False,
         "implementation_class": "PARTIAL",
         "product_complete": False,
-        "note": "PARTIAL — brand API + Super Terminal apply; not full white-label portal.",
+        "note": (
+            "PARTIAL — brand API + Super Terminal apply + portal pack + client gateway "
+            "route map; not hosted custom-domain multi-tenant SaaS."
+        ),
     }

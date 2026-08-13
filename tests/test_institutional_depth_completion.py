@@ -365,6 +365,10 @@ def test_white_label_served_surface_prove():
     assert out["isolation"]["ok"] is True
     assert out["isolation"]["peer_brand_applied"] is False
     assert out["theme_tokens"]["css_vars"]["--bd-brand-primary"]
+    assert out["portal"]["ok"] is True
+    assert out["portal"]["hosted_custom_domain"] is False
+    assert out["portal"]["client_gateway_ok"] is True
+    assert out["portal"]["client_gateway_hosted"] is False
     assert out["product_complete"] is False
     src = open("super_terminal.py", encoding="utf-8").read()
     assert "apply_brand_to_surface" in src
@@ -382,15 +386,31 @@ async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
     store._READY_FOR = None  # noqa: SLF001
     out = await prove_durable_ingestion()
     assert out["ok"] is True
-    # Mesh-aligned floor: tolerate load flake but reject theater thresholds of 5.
-    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH
+    # Full catalog-100 price health: require near-complete registry coverage.
+    assert out["full_catalog"]["ok"] is True
+    assert int(out["full_catalog"].get("healthy_exchanges") or 0) >= 90
+    assert float(out["full_catalog"].get("coverage_percent") or 0) >= 90.0
+    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 90
+    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 90.0
+    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 90
+    assert float((out.get("rollout") or {}).get("coverage_percent") or 0) >= 90.0
 
-    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 15)
-    assert out["live_sources"] >= floor
-    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= floor
-    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 20.0
-    assert len(out.get("pricing_log_exchanges") or []) >= floor
-    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= floor
+
+@pytest.mark.asyncio
+async def test_full_catalog_mesh_prove_near_complete():
+    from full_catalog_mesh_proof import prove_full_catalog_health
+
+    out = await prove_full_catalog_health()
+    assert out["ok"] is True
+    assert out["target_exchanges"] == 100
+    assert out["healthy_exchanges"] >= 90
+    assert out["coverage_percent"] >= 90.0
+    assert out["product_complete"] is False
+    assert out["verified_complete"] is False
+    # Honesty: synthetic mids may count for catalog %, but L2 is separate.
+    breakdown = out.get("depth_breakdown") or {}
+    assert int(breakdown.get("venue_l2") or 0) >= 30
+    assert int(breakdown.get("failed") or 0) <= 10
 
 
 @pytest.mark.asyncio
@@ -402,7 +422,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 45
+    assert len(CORE_PUBLIC_CEX_MESH) >= 48
     assert mv.get("mesh_symbol_overrides")
     # Regional overrides must be probed with non-default pairs when present.
     override_hits = [

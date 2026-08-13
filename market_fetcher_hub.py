@@ -14,17 +14,22 @@ NATIVE_EXCHANGES: frozenset[str] = frozenset(
 
 
 def build_all_market_fetchers(native_fetchers: dict) -> dict:
-    fetchers = dict(native_fetchers)
-    try:
-        from ccxt_market_fetcher import build_ccxt_market_fetchers
+    """Compose fetchers with precedence: native → ccxt → coingecko → regional L2 → dex/perp.
 
-        fetchers.update(build_ccxt_market_fetchers())
-    except ImportError:
-        pass
+    CoinGecko is applied before CCXT/regional so real multi-level books always win
+    over 1-level synthetic mids when both exist for the same venue id.
+    """
+    fetchers = dict(native_fetchers)
     try:
         from coingecko_cex_fetcher import build_coingecko_market_fetchers
 
         fetchers.update(build_coingecko_market_fetchers())
+    except ImportError:
+        pass
+    try:
+        from ccxt_market_fetcher import build_ccxt_market_fetchers
+
+        fetchers.update(build_ccxt_market_fetchers())
     except ImportError:
         pass
     # Native regional L2 must win over CoinGecko 1-level synthetic TOB.
@@ -46,6 +51,8 @@ def build_all_market_fetchers(native_fetchers: dict) -> dict:
         fetchers.update(build_perp_market_fetchers())
     except ImportError:
         pass
+    # Core native CEX (binance/okx/…) always win last among spot CEX families.
+    fetchers.update(native_fetchers)
     return fetchers
 
 
@@ -89,6 +96,13 @@ def venue_kind(exchange_id: str) -> str:
 
         if ex in PERP_DEX_VENUES:
             return "perp_dex"
+    except ImportError:
+        pass
+    try:
+        from ccxt_market_fetcher import PHASE_B_EXCHANGES
+
+        if ex in PHASE_B_EXCHANGES:
+            return "ccxt"
     except ImportError:
         pass
     try:
