@@ -119,6 +119,24 @@ async def main() -> dict:
             "synthetic_mid_is_not_institutional_l2": True,
             "local_streaming_is_not_cloud_multi_az": True,
             "local_wallet_sign_is_not_rpc_signature_vc": True,
+            "ui_action_complete_is_not_observed_state": True,
+        },
+        "operator_decisions": {
+            "binance_geo_unblock": "skipped",
+            "jupiter_wallet_funding": "skipped",
+            "proxy_or_funded_key_injection": "skipped",
+            "accepted_external_blocks": [
+                "binance_order_host_geo_451",
+                "wallet_unfunded_zero_cost_constraint",
+                "geo_dead_or_no_public_l2_for_remaining_venues",
+                "zero_cost_no_paid_cloud_multi_az",
+            ],
+            "product_complete": False,
+            "note": (
+                "Operator skipped geo unblock, wallet funding, and proxy injection. "
+                "Those surfaces remain external-blocked; never claim live_fill / "
+                "Jupiter VC / Full Mesh L2 100% / cloud multi-AZ."
+            ),
         },
     }
     out_path = Path("docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json")

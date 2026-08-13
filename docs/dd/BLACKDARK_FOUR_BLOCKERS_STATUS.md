@@ -1,45 +1,37 @@
-# Four Remaining Blockers — Honest Status (post-external-action re-verify)
+# Four Remaining Blockers — Honest Status (operator skipped external unblock)
 
 **Branch:** `cursor/95plus-recert-phase0-120d`  
 **Evidence JSON:** `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`  
 **Integrity:** Never claim PASS / 100% / live execution / cloud HA without real evidence.
 
-## Operator note
+## Operator decision (this wave)
 
-User marked both external actions complete in the Cloud UI. **Live re-probe from this
-agent still fails** — UI completion alone is not evidence. Secrets remain present;
-execution flags remain safe/disabled; prove uses scoped arming.
+Operator **skipped**:
+1. Binance order-host geo unblock (HTTP 451 still observed from this agent)
+2. Jupiter wallet funding / funded-key re-inject
+3. Optional `HTTPS_PROXY` / `HTTP_PROXY` / `ALL_PROXY` / funded `SOLANA_PRIVATE_KEY`
 
-## Re-verify (this agent, egress `3.217.89.139`)
+Those are now **accepted external blocks**. Secrets already in this agent remain present
+(`BINANCE_API_KEY`/`SECRET`, `SOLANA_PRIVATE_KEY`); live flags stay safe/disabled;
+prove paths use scoped arming only. Product verdict: **NOT COMPLETE**.
 
-| Check | Observed |
+## Frozen observed state
+
+| Surface | Evidence |
 |---|---|
-| `testnet.binance.vision/api/v3/ping` | **HTTP 451** |
-| `demo-api.binance.com/api/v3/ping` | **HTTP 451** |
-| `api.binance.com/api/v3/ping` | **HTTP 451** |
-| `data-api.binance.vision` ticker | HTTP 200 (market data only) |
-| Wallet `BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf` | SOL lamports=**0**, USDC token accounts=**0** |
-| Jupiter local sign | `signed_local=true` |
-| Jupiter broadcast / VC | fail-closed `wallet_unfunded_zero_cost_constraint` |
+| Live venue FILL | `live_fill=false`; `binance_order_host_geo_451` |
+| Jupiter | `signed_local=true`; `wallet_unfunded_zero_cost_constraint`; VC=false |
+| Full Mesh institutional L2 | 52/100 `venue_l2`; 48 `synthetic_mid`; CORE 60/60 live L2 |
+| Cloud multi-AZ HA | `zero_cost_no_paid_cloud_multi_az` |
+| Local Postgres streaming HA | `verified_complete=true` (not cloud multi-AZ) |
 
-## Blocker verdicts
+## What remains closed without payment
 
-| Blocker | Closed? | Status |
-|---|---|---|
-| Live venue FILL | **No** | Creds present; order hosts still **HTTP 451** → `live_fill=false` |
-| Jupiter live signature VC | **No** | Local sign OK; wallet still unfunded → VC=false |
-| Full Mesh institutional L2 100% | **No** | 52/100 venue_l2; 48 synthetic_mid |
-| Cloud Multi-AZ HA | **No** | `zero_cost_no_paid_cloud_multi_az` (local streaming HA separate VC) |
-
-## Acceptance criteria for the two external actions
-
-1. **Binance geo:** From this Cloud Agent process,  
-   `GET https://testnet.binance.vision/api/v3/ping` must return **HTTP 200**  
-   (not 451). Then HMAC testnet order path can be re-proved for `live_fill`.
-2. **Jupiter funding:** Wallet used by `SOLANA_PRIVATE_KEY` must show  
-   `sol_lamports > 0` and/or USDC token account balance > 0 on mainnet RPC.  
-   Exact current pubkey: `BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf`  
-   (or re-inject a different funded `SOLANA_PRIVATE_KEY`).
+- HMAC fill path + geo probe honesty (creds present; no fake fill)
+- Jupiter quote/build/local wallet sign + unfunded fail-closed classification
+- Catalog price health 100% with depth labels
+- CORE public mesh 60/60 live L2
+- Local streaming HA VC
 
 ## Absolute rule
 
@@ -47,4 +39,4 @@ execution flags remain safe/disabled; prove uses scoped arming.
 Local wallet sign ≠ RPC signature VC.  
 Local streaming HA ≠ cloud multi-AZ.  
 Paper / protocol fill ≠ `live_fill`.  
-UI “action completed” ≠ observed network/wallet state.
+Operator skip ≠ product PASS.

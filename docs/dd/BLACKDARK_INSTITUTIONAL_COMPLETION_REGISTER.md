@@ -2,14 +2,13 @@
 
 **PR:** #72  
 **Branch:** `cursor/95plus-recert-phase0-120d`  
-**Product tip:** *(see latest unpaid remediation commit)*  
 **Rule:** Register never exceeds independent clean-room classifications.
 
 ## Independent clean-room (binding)
 
 Prior binding on `f164cab`: **98 / 100 NOT COMPLETE**, VERIFIED_COMPLETE **1**.  
-Unpaid remediation wave after that improved L2/mesh/WL/Jupiter-ephemeral/ops honesty;  
-does **not** authorize COMPLETE while live_fill / Jupiter RPC VC / L2-100 / cloud multi-AZ remain open.
+Secrets-injected + unpaid remediations improved honesty/mesh; operator **skipped** geo
+unblock, wallet funding, and proxy injection. Does **not** authorize COMPLETE.
 
 | Field | Value |
 |---|---|
@@ -21,25 +20,24 @@ does **not** authorize COMPLETE while live_fill / Jupiter RPC VC / L2-100 / clou
 | Deliverable | Class | Evidence |
 |---|---|---|
 | Public CEX L2 mesh (**60**) | PARTIAL | mesh prove 60/60 L2 |
-| Full catalog-100 price health | PARTIAL | 100% healthy; institutional L2 **~52/100** |
+| Full catalog-100 price health | PARTIAL | 100% healthy; institutional L2 **52/100** |
 | Native L2 upgrades (pionex/coinw/…) | PARTIAL | real ≥20-level books |
-| Jupiter ephemeral local sign | PARTIAL | signed_local; no broadcast/VC |
-| Jupiter wallet/RPC signature | UNVERIFIED | secrets absent / unfunded |
-| Fill lifecycle | PARTIAL | paper + geo 451 external block |
+| Jupiter local wallet sign | PARTIAL | `signed_local=true`; unfunded broadcast fail-closed |
+| Jupiter wallet/RPC signature VC | UNVERIFIED | operator skipped funding; `wallet_unfunded_zero_cost_constraint` |
+| Fill lifecycle | PARTIAL | creds present; `binance_order_host_geo_451`; operator skipped unblock |
 | White Label portal + gateway routes | PARTIAL | in-process; not hosted SaaS |
 | Cloud multi-AZ HA | UNVERIFIED | zero-cost external block |
 | Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local only |
-| product_complete honesty | held | 0 root True literals |
+| product_complete honesty | held | never self-claimed COMPLETE |
 
-## Still open (external / unpaid ceiling)
+## Operator-accepted external blocks
 
-| Blocker | Why open |
-|---|---|
-| Live venue FILL | Secrets not in this run + **HTTP 451 geo** on testnet order hosts |
-| Jupiter live signature VC | Secrets absent; wallet intentionally unfunded |
-| Catalog institutional L2 100% | ~48 venues still synthetic/geo-dead — not fabricatable |
-| Cloud multi-AZ HA | Paid cloud not authorized |
-| White Label hosted portal | Needs paid multi-tenant hosting |
+| Blocker | Operator decision | Observed |
+|---|---|---|
+| Live venue FILL | skipped geo/proxy unblock | HTTP 451; `live_fill=false` |
+| Jupiter live signature VC | skipped funding / funded-key inject | SOL=0 / USDC=0; VC=false |
+| Catalog institutional L2 100% | unpaid ceiling | 52/100 venue_l2 |
+| Cloud multi-AZ HA | unpaid ceiling | `zero_cost_no_paid_cloud_multi_az` |
 
 Evidence: `docs/dd/BLACKDARK_FOUR_BLOCKERS_STATUS.md` + `BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`
 
