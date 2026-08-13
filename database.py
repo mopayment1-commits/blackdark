@@ -622,6 +622,48 @@ async def _ensure_decision_api_tables(db: Any) -> None:
             ON decision_api_audit (ts DESC)
         """
     )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decision_api_audit_org
+            ON decision_api_audit (org_id, ts DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decision_api_webhooks (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            public_id      TEXT    NOT NULL UNIQUE,
+            org_id         TEXT    NOT NULL,
+            key_public_id  TEXT    NOT NULL,
+            url            TEXT    NOT NULL,
+            events_json    TEXT    NOT NULL,
+            enabled        INTEGER NOT NULL DEFAULT 1,
+            created_at     TEXT    NOT NULL,
+            last_status    INTEGER,
+            last_delivered_at TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decision_api_webhooks_org
+            ON decision_api_webhooks (org_id)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decision_api_webhook_deliveries (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            webhook_id     TEXT    NOT NULL,
+            org_id         TEXT    NOT NULL,
+            event_type     TEXT    NOT NULL,
+            delivery_id    TEXT    NOT NULL,
+            status         INTEGER,
+            ts             TEXT    NOT NULL,
+            error          TEXT
+        )
+        """
+    )
 
 
 async def _apply_migrations(db: Any) -> None:
@@ -4576,6 +4618,189 @@ async def insert_decision_api_audit(
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (_utcnow_iso(), key_public_id, org_id, method, path, status, request_id, error_code),
+        )
+
+
+async def fetch_decision_api_audit(
+    *,
+    org_id: str,
+    key_public_id: str | None = None,
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    take = max(1, min(int(limit), 500))
+    async with get_connection() as db:
+        if key_public_id:
+            rows = await (
+                await db.execute(
+                    """
+                    SELECT ts, key_public_id, org_id, method, path, status, request_id, error_code
+                    FROM decision_api_audit
+                    WHERE org_id = ? AND key_public_id = ?
+                    ORDER BY id DESC
+                    LIMIT ?
+                    """,
+                    (org_id, key_public_id, take),
+                )
+            ).fetchall()
+        else:
+            rows = await (
+                await db.execute(
+                    """
+                    SELECT ts, key_public_id, org_id, method, path, status, request_id, error_code
+                    FROM decision_api_audit
+                    WHERE org_id = ?
+                    ORDER BY id DESC
+                    LIMIT ?
+                    """,
+                    (org_id, take),
+                )
+            ).fetchall()
+    return [dict(r) for r in rows]
+
+
+async def fetch_decision_api_usage_history(key_public_id: str, *, days: int = 31) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT usage_date, count
+                FROM decision_api_usage_daily
+                WHERE key_public_id = ?
+                ORDER BY usage_date DESC
+                LIMIT ?
+                """,
+                (key_public_id, max(1, min(int(days), 90))),
+            )
+        ).fetchall()
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        out.append({"usage_date": item.get("usage_date") or item.get("USAGE_DATE"), "count": int(item.get("count") or 0)})
+    return out
+
+
+async def insert_decision_api_webhook(
+    *,
+    public_id: str,
+    org_id: str,
+    key_public_id: str,
+    url: str,
+    events: list[str],
+    created_at: str,
+) -> dict[str, Any]:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO decision_api_webhooks (
+                public_id, org_id, key_public_id, url, events_json, enabled, created_at
+            ) VALUES (?, ?, ?, ?, ?, 1, ?)
+            """,
+            (public_id, org_id, key_public_id, url, json.dumps(events), created_at),
+        )
+        row = await (
+            await db.execute("SELECT * FROM decision_api_webhooks WHERE public_id = ?", (public_id,))
+        ).fetchone()
+    return dict(row) if row else {"public_id": public_id, "org_id": org_id, "url": url, "events": events}
+
+
+async def list_decision_api_webhooks(*, org_id: str) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT public_id, org_id, key_public_id, url, events_json, enabled,
+                       created_at, last_status, last_delivered_at
+                FROM decision_api_webhooks
+                WHERE org_id = ?
+                ORDER BY created_at DESC
+                """,
+                (org_id,),
+            )
+        ).fetchall()
+    out: list[dict[str, Any]] = []
+    for row in rows:
+        item = dict(row)
+        raw = item.pop("events_json", "[]")
+        try:
+            item["events"] = json.loads(raw) if isinstance(raw, str) else (raw or [])
+        except json.JSONDecodeError:
+            item["events"] = []
+        item["enabled"] = bool(int(item.get("enabled") or 0))
+        out.append(item)
+    return out
+
+
+async def fetch_decision_api_webhook(public_id: str, *, org_id: str) -> dict[str, Any] | None:
+    async with get_connection() as db:
+        row = await (
+            await db.execute(
+                """
+                SELECT * FROM decision_api_webhooks
+                WHERE public_id = ? AND org_id = ?
+                """,
+                (public_id, org_id),
+            )
+        ).fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    raw = item.pop("events_json", "[]")
+    try:
+        item["events"] = json.loads(raw) if isinstance(raw, str) else (raw or [])
+    except json.JSONDecodeError:
+        item["events"] = []
+    item["enabled"] = bool(int(item.get("enabled") or 0))
+    return item
+
+
+async def disable_decision_api_webhook(public_id: str, *, org_id: str) -> bool:
+    async with get_connection() as db:
+        cursor = await db.execute(
+            """
+            UPDATE decision_api_webhooks
+            SET enabled = 0
+            WHERE public_id = ? AND org_id = ?
+            """,
+            (public_id, org_id),
+        )
+        return int(cursor.rowcount or 0) > 0
+
+
+async def touch_decision_api_webhook_delivery(
+    public_id: str,
+    *,
+    status: int | None,
+    error: str | None,
+    delivered_at: str,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            UPDATE decision_api_webhooks
+            SET last_status = ?, last_delivered_at = ?
+            WHERE public_id = ?
+            """,
+            (status, delivered_at, public_id),
+        )
+
+
+async def insert_decision_api_webhook_delivery(
+    *,
+    webhook_id: str,
+    org_id: str,
+    event_type: str,
+    delivery_id: str,
+    status: int | None,
+    error: str | None,
+) -> None:
+    async with get_connection() as db:
+        await db.execute(
+            """
+            INSERT INTO decision_api_webhook_deliveries (
+                webhook_id, org_id, event_type, delivery_id, status, ts, error
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+            """,
+            (webhook_id, org_id, event_type, delivery_id, status, _utcnow_iso(), (error or "")[:240]),
         )
 
 

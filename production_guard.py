@@ -40,6 +40,8 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "telegram_webhook_secret",
     "price_feed_railway",
     "soft_launch_mode",
+    "decision_api_key_pepper",
+    "metrics_scrape_auth",
 )
 
 _INSECURE_DEFAULTS = (
@@ -452,6 +454,12 @@ def _security_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
             required=s["production"],
             hint="Unset IDENTITY_DEBUG_TOKENS in production (runtime hard-off exists; env must stay false for hygiene)",
         ),
+        _check(
+            "decision_api_key_pepper",
+            env_configured("DECISION_API_KEY_PEPPER") or s["session_pepper_ok"],
+            required=s["production"],
+            hint="Set DECISION_API_KEY_PEPPER (or SESSION_TOKEN_PEPPER) before hashing customer API keys in production",
+        ),
     ]
 
 
@@ -483,6 +491,12 @@ def _observability_growth_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
         _check("telegram_webhook_secret", (not s["telegram"]) or s["telegram_secret"], required=bool(s["telegram"]), hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set"),
         _check("price_feed_railway", not getattr(config, "PRICE_FEED_WS_ONLY", True), required=False, hint="PRICE_FEED_WS_ONLY=false on Railway cloud"),
         _check("soft_launch_mode", s["soft_launch"], required=False, hint="SOFT_LAUNCH=true enables free SQLite demo without Postgres/billing webhooks"),
+        _check(
+            "metrics_scrape_auth",
+            env_configured("METRICS_BEARER_TOKEN") or _env_flag("METRICS_ALLOW_UNAUTHENTICATED"),
+            required=s["strict_prod"],
+            hint="Set METRICS_BEARER_TOKEN for Prometheus scrape, or METRICS_ALLOW_UNAUTHENTICATED=true only on a private network",
+        ),
     ]
 
 

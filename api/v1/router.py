@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import uuid
 from typing import Any
 
-from fastapi import APIRouter, Body, Depends, Query, Request, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -46,6 +47,15 @@ class IssueKeyBody(BaseModel):
     rpd_limit: int | None = Field(default=None, ge=1, le=5_000_000)
 
 
+class RegisterWebhookBody(BaseModel):
+    url: str = Field(..., min_length=8, max_length=2048)
+    events: list[str] | None = None
+
+
+class TestWebhookBody(BaseModel):
+    webhook_id: str | None = Field(default=None, max_length=64)
+
+
 @discovery.get("")
 @discovery.get("/")
 async def decision_api_discover() -> dict[str, Any]:
@@ -64,6 +74,10 @@ async def decision_api_discover() -> dict[str, Any]:
             "feed": "GET /api/v1/feed",
             "feed_ws": "WS /api/v1/feed/ws (Authorization header — query keys rejected)",
             "me": "GET /api/v1/me",
+            "audit": "GET /api/v1/audit",
+            "usage": "GET /api/v1/usage",
+            "webhooks": "POST/GET /api/v1/webhooks",
+            "webhook_test": "POST /api/v1/webhooks/test",
             "openapi": "GET /api/v1/openapi.json",
         },
         "not_included": [
@@ -123,8 +137,6 @@ async def decision_api_openapi(request: Request) -> dict[str, Any]:
 
 @issuance.post("/keys")
 async def issue_key(body: IssueKeyBody, admin: dict = Depends(require_admin)) -> dict[str, Any]:
-    from fastapi import HTTPException
-
     try:
         return await issue_decision_api_key(
             org_id=body.org_id,
@@ -154,8 +166,6 @@ async def list_keys(
 @issuance.post("/keys/{public_id}/revoke")
 @issuance.delete("/keys/{public_id}")
 async def revoke_key(public_id: str, admin: dict = Depends(require_admin)) -> dict[str, Any]:
-    from fastapi import HTTPException
-
     row = await revoke_decision_api_key(public_id, revoked_by=str(admin.get("email") or "admin"))
     if row is None:
         raise HTTPException(status_code=404, detail={"error": "not_found", "message": "API key not found"})
@@ -177,8 +187,19 @@ async def v1_oracle(
     principal: dict = Depends(require_scope("oracle:read")),
 ) -> dict[str, Any]:
     from api.v1.oracle_adapter import build_v1_oracle_decision
+    from api.v1.webhooks import schedule_webhook_delivery
 
-    return await build_v1_oracle_decision(symbol, principal=principal)
+    decision = await build_v1_oracle_decision(symbol, principal=principal)
+    schedule_webhook_delivery(
+        principal,
+        "oracle.decision",
+        {
+            "asset": decision.get("asset"),
+            "verdict": decision.get("verdict"),
+            "opportunity_score": decision.get("opportunity_score"),
+        },
+    )
+    return decision
 
 
 @commercial.post("/oracle/{symbol}/certificate")
@@ -237,27 +258,145 @@ async def v1_feed(
     return await build_v1_feed(principal=principal, limit=limit)
 
 
+@commercial.get("/audit")
+async def v1_audit(
+    limit: int = Query(default=50, ge=1, le=500),
+    mine: bool = Query(default=False),
+    principal: dict = Depends(require_scope("audit:read")),
+) -> dict[str, Any]:
+    from database import fetch_decision_api_audit
+
+    org_id = str(principal.get("org_id") or "")
+    key_filter = str(principal.get("public_id") or "") if mine else None
+    rows = await fetch_decision_api_audit(org_id=org_id, key_public_id=key_filter, limit=limit)
+    return {
+        "api_version": API_VERSION,
+        "org_id": org_id,
+        "mine": mine,
+        "events": rows,
+        "disclaimer": DISCLAIMER,
+    }
+
+
+@commercial.get("/usage")
+async def v1_usage(
+    days: int = Query(default=31, ge=1, le=90),
+    principal: dict = Depends(require_decision_api_key),
+) -> dict[str, Any]:
+    from database import fetch_decision_api_usage_history
+
+    key_id = str(principal.get("public_id") or "")
+    history = await fetch_decision_api_usage_history(key_id, days=days)
+    return {
+        "api_version": API_VERSION,
+        "key_id": key_id,
+        "org_id": principal.get("org_id"),
+        "days": days,
+        "history": history,
+        "disclaimer": DISCLAIMER,
+    }
+
+
+@commercial.post("/webhooks")
+async def v1_register_webhook(
+    body: RegisterWebhookBody,
+    principal: dict = Depends(require_scope("webhooks:write")),
+) -> dict[str, Any]:
+    from api.v1.webhooks import register_webhook
+
+    try:
+        hook = await register_webhook(principal=principal, url=body.url, events=body.events)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail={"error": str(exc), "message": str(exc)}) from exc
+    return {"api_version": API_VERSION, "webhook": hook, "disclaimer": DISCLAIMER}
+
+
+@commercial.get("/webhooks")
+async def v1_list_webhooks(
+    principal: dict = Depends(require_scope("webhooks:write")),
+) -> dict[str, Any]:
+    from api.v1.webhooks import public_webhook_view
+    from database import list_decision_api_webhooks
+
+    rows = await list_decision_api_webhooks(org_id=str(principal.get("org_id") or ""))
+    return {
+        "api_version": API_VERSION,
+        "webhooks": [public_webhook_view(row) for row in rows],
+        "disclaimer": DISCLAIMER,
+    }
+
+
+@commercial.delete("/webhooks/{webhook_id}")
+async def v1_disable_webhook(
+    webhook_id: str,
+    principal: dict = Depends(require_scope("webhooks:write")),
+) -> dict[str, Any]:
+    from database import disable_decision_api_webhook
+
+    ok = await disable_decision_api_webhook(webhook_id, org_id=str(principal.get("org_id") or ""))
+    if not ok:
+        raise HTTPException(status_code=404, detail={"error": "not_found", "message": "Webhook not found"})
+    return {"api_version": API_VERSION, "id": webhook_id, "status": "disabled"}
+
+
+@commercial.post("/webhooks/test")
+async def v1_test_webhook(
+    body: TestWebhookBody,
+    principal: dict = Depends(require_scope("webhooks:write")),
+) -> dict[str, Any]:
+    from api.v1.webhooks import deliver_webhook_event
+
+    try:
+        results = await deliver_webhook_event(
+            principal=principal,
+            event_type="ping",
+            payload={"ok": True},
+            webhook_id=body.webhook_id,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail={"error": str(exc), "message": str(exc)}) from exc
+    return {"api_version": API_VERSION, "deliveries": results, "disclaimer": DISCLAIMER}
+
+
+async def _ws_reject(websocket: WebSocket, reason: str, *, principal: dict | None = None) -> None:
+    from api.v1.audit import persist_decision_api_ws_audit
+
+    await persist_decision_api_ws_audit(
+        principal=principal,
+        status=401,
+        error_code=reason,
+        request_id=uuid.uuid4().hex,
+    )
+    await websocket.close(code=1008, reason=reason)
+
+
 @commercial.websocket("/feed/ws")
 async def v1_feed_ws(websocket: WebSocket):
     """Server-to-server WebSocket. Query-string API keys are rejected."""
     if (websocket.query_params.get("api_key") or "").strip():
-        await websocket.close(code=1008, reason="query_api_key_forbidden")
+        await _ws_reject(websocket, "query_api_key_forbidden")
         return
     presented = (websocket.headers.get("x-api-key") or websocket.headers.get("authorization") or "").strip()
     if not presented:
-        await websocket.close(code=1008, reason="api_key_required")
+        await _ws_reject(websocket, "api_key_required")
         return
+    from api.v1.audit import persist_decision_api_ws_audit
     from api.v1.keys import authenticate_decision_api_key, principal_has_scope
     from api.v1.oracle_adapter import build_v1_feed
 
     try:
         principal = await authenticate_decision_api_key(presented)
     except PermissionError:
-        await websocket.close(code=1008, reason="invalid_api_key")
+        await _ws_reject(websocket, "invalid_api_key")
         return
     if not principal_has_scope(principal, "feed:ws"):
-        await websocket.close(code=1008, reason="insufficient_scope")
+        await _ws_reject(websocket, "insufficient_scope", principal=principal)
         return
+    await persist_decision_api_ws_audit(
+        principal=principal,
+        status=101,
+        request_id=uuid.uuid4().hex,
+    )
     await websocket.accept()
     try:
         snapshot = await build_v1_feed(principal=principal, limit=25)

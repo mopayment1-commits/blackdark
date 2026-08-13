@@ -14,6 +14,11 @@ Institutional Financial Intelligence API. Sales-issued per-tenant keys. Not the 
 | GET | `/api/v1/accuracy` | `X-API-Key` scope `accuracy:read` |
 | GET | `/api/v1/feed` | `X-API-Key` scope `feed:read` |
 | WS | `/api/v1/feed/ws` | `Authorization` / `X-API-Key` scope `feed:ws` (query keys rejected) |
+| GET | `/api/v1/audit` | `X-API-Key` scope `audit:read` |
+| GET | `/api/v1/usage` | `X-API-Key` |
+| POST/GET | `/api/v1/webhooks` | `X-API-Key` scope `webhooks:write` |
+| POST | `/api/v1/webhooks/test` | `X-API-Key` scope `webhooks:write` |
+| DELETE | `/api/v1/webhooks/{id}` | `X-API-Key` scope `webhooks:write` |
 
 See `docs/DECISION_API_V1.md`. Legacy `/api/b2b/feed` (shared house key) is deprecated; successor `/api/v1/feed`.
 

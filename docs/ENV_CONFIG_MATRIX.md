@@ -17,6 +17,7 @@
 | `EXPOSE_B2B_DEMO_KEY` | Public demo key page | No | false | No | `/b2b` omits demo key |
 | `DECISION_API_KEY_PEPPER` | HMAC pepper for Decision API v1 keys | Yes (or SESSION_TOKEN_PEPPER) | unset | Yes | Prod issuance/auth fails closed |
 | `DECISION_API_UNIVERSE` | Licensed symbols for Decision API v1 | No | all | No | Unlisted symbols → 403 universe_not_licensed |
+| `DECISION_API_WEBHOOK_HOST_ALLOWLIST` | Optional webhook hostname allowlist | No | unset | No | Unlisted hosts → 400 webhook_host_not_allowlisted |
 | `METRICS_BEARER_TOKEN` | Prometheus scrape token | Yes in prod | unset | Yes | `/metrics` 401 in production |
 | `METRICS_ALLOW_UNAUTHENTICATED` | Allow public `/metrics` | No | false | No | Private-network override |
 | `LIVE_EXECUTION_ALLOW_API` | Live order API | No | false | No | Live orders blocked |

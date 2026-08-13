@@ -10,6 +10,7 @@ from fastapi import Depends, Header, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.routing import APIRoute
 
+from api.v1.audit import error_code_from_detail, persist_decision_api_audit
 from api.v1.contract import API_VERSION, CONTRACT_NAME, http_exception_envelope
 from api.v1.keys import authenticate_decision_api_key, principal_has_scope
 from api.v1.quota import enforce_key_quotas
@@ -81,19 +82,23 @@ class DecisionAPIRoute(APIRoute):
             rid = request_id_of(request)
             try:
                 response = await inner(request)
+                err = None
             except HTTPException as exc:
+                err = error_code_from_detail(exc.detail)
                 body = http_exception_envelope(exc.detail, status=exc.status_code, request_id=rid)
                 headers = dict(exc.headers or {})
                 response = JSONResponse(body, status_code=exc.status_code, headers=headers)
             except Exception:
                 from safe_errors import public_error
 
+                err = "internal_error"
                 body = http_exception_envelope(
                     {"error": "internal_error", "message": public_error(fallback="Internal error")},
                     status=500,
                     request_id=rid,
                 )
                 response = JSONResponse(body, status_code=500)
+            await persist_decision_api_audit(request, status=response.status_code, error_code=err)
             response.headers.setdefault("X-Request-Id", rid)
             response.headers.setdefault("X-API-Version", API_VERSION)
             response.headers.setdefault("X-Blackdark-Contract", CONTRACT_NAME)

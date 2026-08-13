@@ -22,6 +22,8 @@ def test_production_guard_shape(monkeypatch):
     assert "billing_checkout" in ids
     assert "billing_entitlement_webhook" in ids
     assert "secrets_master_key" in ids
+    assert "decision_api_key_pepper" in ids
+    assert "metrics_scrape_auth" in ids
 
 
 def test_production_guard_postgres_pass(monkeypatch):
@@ -85,3 +87,29 @@ def test_identity_debug_tokens_fail_in_production(monkeypatch):
 
     report = evaluate_production_guard()
     assert "identity_debug_tokens_off" in report["required_failures"]
+
+
+def test_metrics_scrape_auth_required_in_strict_production(monkeypatch):
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SERVICE_MODE", "web")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://u:p@host/db")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "x" * 32)
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "y" * 16)
+    monkeypatch.setenv("ADMIN_API_KEY", "z" * 24)
+    monkeypatch.setenv("LEMON_SQUEEZY_CHECKOUT_PRO", "https://example.com/c")
+    monkeypatch.setenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "whsec")
+    monkeypatch.delenv("SOFT_LAUNCH", raising=False)
+    monkeypatch.delenv("METRICS_BEARER_TOKEN", raising=False)
+    monkeypatch.delenv("METRICS_ALLOW_UNAUTHENTICATED", raising=False)
+    import config
+
+    monkeypatch.setattr(config, "DATABASE_URL", "postgresql://u:p@host/db")
+    monkeypatch.setattr(config, "SERVICE_MODE", "web")
+
+    from production_guard import evaluate_production_guard
+
+    report = evaluate_production_guard()
+    assert "metrics_scrape_auth" in report["required_failures"]
+    monkeypatch.setenv("METRICS_BEARER_TOKEN", "scrape-token")
+    report_ok = evaluate_production_guard()
+    assert "metrics_scrape_auth" not in report_ok["required_failures"]

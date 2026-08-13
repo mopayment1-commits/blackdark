@@ -86,3 +86,18 @@ class BlackdarkClient:
 
     def me(self) -> dict[str, Any]:
         return self._get("/api/v1/me")
+
+    def audit(self, limit: int = 50, *, mine: bool = False) -> dict[str, Any]:
+        params: dict[str, Any] = {"limit": limit}
+        if mine:
+            params["mine"] = True
+        return self._get("/api/v1/audit", params)
+
+    def usage(self, days: int = 31) -> dict[str, Any]:
+        return self._get("/api/v1/usage", {"days": days})
+
+    def register_webhook(self, url: str, events: list[str] | None = None) -> dict[str, Any]:
+        body: dict[str, Any] = {"url": url}
+        if events is not None:
+            body["events"] = events
+        return self._post("/api/v1/webhooks", body)

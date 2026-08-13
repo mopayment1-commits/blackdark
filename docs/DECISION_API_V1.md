@@ -22,7 +22,28 @@ WebSocket `/api/v1/feed/ws`: same headers. Query-string `api_key` is rejected (`
 
 ## Scopes
 
-`oracle:read` · `accuracy:read` · `feed:read` · `feed:ws`
+`oracle:read` · `accuracy:read` · `feed:read` · `feed:ws` · `audit:read` · `webhooks:write`
+
+## Audit and usage
+
+Every v1 HTTP response is persisted to `decision_api_audit` (path without query string). Customers with `audit:read` can list org-scoped events via `GET /api/v1/audit` (`mine=true` limits to the calling key). `GET /api/v1/usage` returns daily request counts for the calling key.
+
+WebSocket `/api/v1/feed/ws` writes a separate audit row (`method=WS`).
+
+## Signed webhooks
+
+`POST /api/v1/webhooks` registers an HTTPS callback (`webhooks:write`). Production forbids private/link-local/metadata hosts (SSRF). Deliveries are HMAC-SHA256 over `{timestamp}.{body}`:
+
+```
+X-Blackdark-Signature: sha256=…
+X-Blackdark-Timestamp: <unix seconds>
+X-Blackdark-Event: ping | oracle.decision | feed.snapshot
+X-Blackdark-Delivery: del_…
+```
+
+Verify with `api.v1.webhooks.verify_webhook_signature` (300s skew). `POST /api/v1/webhooks/test` sends a signed `ping`. Successful oracle reads schedule a fire-and-forget `oracle.decision` delivery when hooks exist.
+
+Optional allowlist: `DECISION_API_WEBHOOK_HOST_ALLOWLIST=hooks.example.com`.
 
 ## Quotas
 
@@ -36,6 +57,7 @@ Optional universe allowlist: `DECISION_API_UNIVERSE=BTC,ETH,SOL`.
 |----------|---------|
 | `DECISION_API_KEY_PEPPER` | HMAC pepper for key hashes (falls back to `SESSION_TOKEN_PEPPER`) |
 | `DECISION_API_UNIVERSE` | Comma-separated licensed symbols |
+| `DECISION_API_WEBHOOK_HOST_ALLOWLIST` | Optional comma-separated webhook hostnames |
 | `METRICS_BEARER_TOKEN` | Prometheus scrape token (required in production unless unauthenticated override) |
 | `METRICS_ALLOW_UNAUTHENTICATED` | Opt-in public `/metrics` (private networks only) |
 

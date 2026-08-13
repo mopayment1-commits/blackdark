@@ -20,6 +20,8 @@ CUSTOMER_SCOPES: frozenset[str] = frozenset(
         "accuracy:read",
         "feed:read",
         "feed:ws",
+        "audit:read",
+        "webhooks:write",
     }
 )
 DEFAULT_CUSTOMER_SCOPES: tuple[str, ...] = (
@@ -27,6 +29,8 @@ DEFAULT_CUSTOMER_SCOPES: tuple[str, ...] = (
     "accuracy:read",
     "feed:read",
     "feed:ws",
+    "audit:read",
+    "webhooks:write",
 )
 
 PLAN_LIMITS: dict[str, dict[str, int]] = {
