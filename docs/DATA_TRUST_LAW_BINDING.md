@@ -42,3 +42,15 @@
 venues حية ذات دفتر مباشر (native/CCXT) + سلاسل قائمة أصلًا + FRED/SEC/CFTC إن وُجدت في السجل + CoinGecko/CMC **بوسم fallback/discovery فقط**.
 
 أي مصدر لا يغيّر Act/Wait أو لا يرفع إثباته = ليس Phase I.
+
+---
+
+## إغلاق النطاق المتفق عليه
+
+النطاق المتفق عليه **مغلق هندسيًا** عندما:
+
+`GET /api/public/data-trust-closure` → `all_done_for_agreed_scope: true` و `deferred_code_count: 0`
+
+الإثبات على الأبطال الحاليين فقط (لا زر سابع): Coverage Honesty · Decision Certificate · Evidence Pack · Oracle WAIT.
+
+ما يبقى خارج النطاق (ليس دينًا برمجيًا): تكاملات مدفوعة مؤسسية، أسلاك أخبار مرخّصة، محرك جيوسياسي سعري، بحيرة vintage كاملة لكل سلاسل FRED.

@@ -49,6 +49,10 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
             "expected_half_life_seconds"
         ),
         "market_regime": payload.get("market_regime"),
+        "canonical_value": (payload.get("canonical_market_state") or {}).get("canonical_value"),
+        "data_trust_action": (payload.get("canonical_market_state") or payload.get("data_trust") or {}).get("action"),
+        "venue_count": (payload.get("canonical_market_state") or {}).get("venue_count"),
+        "data_license": "internal_decision_support",
         "ux_mode": payload.get("ux_mode"),
         "tier": "free" if is_free else tier,
         "watermark": watermark,
@@ -106,6 +110,9 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         f"Truth score: {body['truth_score']}\n"
         f"Half-life (s): {body['half_life_seconds']}\n"
         f"Regime: {body['market_regime']}\n"
+        f"Canonical value: {body['canonical_value']}\n"
+        f"Data trust: {body['data_trust_action']}\n"
+        f"Venues: {body['venue_count']}\n"
         f"Tier: {body['tier']}\n"
         f"{wm_line}"
         f"Prediction id: {body['prediction_id']}\n"

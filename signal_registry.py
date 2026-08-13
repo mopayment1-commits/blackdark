@@ -110,6 +110,21 @@ SIGNAL_TYPE_LEXICON: dict[str, dict[str, Any]] = {
         "source": "data_provenance_score",
         "weight": 0.75,
     },
+    "synthetic_l2_reject": {
+        "definition": "Reject Act when book is aggregator/synthetic rather than venue L2",
+        "source": "data_trust_engine",
+        "weight": 1.0,
+    },
+    "canonical_consensus": {
+        "definition": "BLACKDARK Canonical Market State from venue-direct agreement",
+        "source": "canonical_market_state",
+        "weight": 0.85,
+    },
+    "single_source_penalty": {
+        "definition": "Confidence cut when only one decision-grade venue is present",
+        "source": "data_trust_engine",
+        "weight": 0.7,
+    },
     "dimension_conflict": {
         "definition": "Modal dimension contradiction requiring replay / veto",
         "source": "dimension_conflict_guard",

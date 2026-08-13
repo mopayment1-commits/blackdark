@@ -9,6 +9,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+from datetime import UTC, datetime
 import defusedxml.ElementTree as ET
 from collections.abc import Awaitable, Callable
 from typing import Any
@@ -425,7 +426,19 @@ async def _h_fred(session: aiohttp.ClientSession, spec: DataSourceSpec) -> Fetch
             "sort_order": "desc",
         },
     )
-    return {"observations": _take(data.get("observations") or [], 2)}
+    rows = _take(data.get("observations") or [], 2)
+    return {
+        "observations": rows,
+        "vintage": {
+            "series_id": "FEDFUNDS",
+            "asof_dates": [row.get("date") for row in rows if isinstance(row, dict)],
+            "realtime_fetched_at": datetime.now(UTC).isoformat(),
+            "revision_policy": (
+                "Keep observation vintages. The latest print is not historically known "
+                "at prior decision dates."
+            ),
+        },
+    }
 
 
 async def _h_open_exchange_rates(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:

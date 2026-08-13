@@ -212,6 +212,9 @@ def trust_os_manifest() -> dict[str, Any]:
             "priority_chain_page": "/priority-chain",
             "zero_tolerance": "/api/strategy/zero-tolerance",
             "zero_tolerance_page": "/zero-tolerance",
+            "data_trust_law": "/api/strategy/data-trust-law",
+            "canonical_market_state": "/api/public/canonical-market-state",
+            "data_trust_closure": "/api/public/data-trust-closure",
             "lenses": "/api/lenses",
         },
         "cso_priority_chain": {

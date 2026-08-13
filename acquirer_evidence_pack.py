@@ -80,6 +80,23 @@ def _conflict_section() -> dict[str, Any]:
         return {"error": str(exc)}
 
 
+async def _data_trust_section() -> dict[str, Any]:
+    try:
+        from canonical_market_state import build_canonical_market_state, build_data_trust_law_manifest
+        from data_trust_engine import DATA_LICENSE, build_data_trust_closure
+
+        closure = build_data_trust_closure()
+        return {
+            "law": build_data_trust_law_manifest(),
+            "canonical_btc": build_canonical_market_state("BTC"),
+            "license": dict(DATA_LICENSE),
+            "all_done_for_agreed_scope": closure.get("all_done_for_agreed_scope"),
+            "deferred_code_count": closure.get("deferred_code_count"),
+        }
+    except Exception as exc:
+        return {"error": str(exc)}
+
+
 async def _data_moat_section() -> dict[str, Any]:
     try:
         from data_moat_guard import build_moat_build_status
@@ -192,6 +209,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
     sections["net_edge_truth"] = _net_edge_section()
     sections["opportunity_half_life"] = _half_life_section()
     sections["contradiction_veto"] = _conflict_section()
+    sections["data_trust"] = await _data_trust_section()
     sections["data_moat"] = await _data_moat_section()
     sections["acquisition_assets"] = await _acquisition_assets_section()
     sections["flywheel_saturation"] = _flywheel_section()
@@ -210,6 +228,7 @@ async def build_acquirer_evidence_pack() -> dict[str, Any]:
         "Review labeled Signal Registry growth (moat)",
         "Open Corpus Passport (/corpus-passport)",
         "Confirm contradiction veto is fail-closed on severe conflict",
+        "Confirm Data Trust Law: venue-direct Canonical State, aggregators never mint L2",
         "Confirm half-life stats exist (time-edge product)",
         "Review data moat / acquisition asset audit",
     ]

@@ -169,9 +169,81 @@ def test_routes_and_denylist_wired():
     paths = {getattr(r, "path", None) for r in heroes_router.router.routes}
     assert "/api/strategy/data-trust-law" in paths
     assert "/api/public/canonical-market-state" in paths
+    assert "/api/public/data-trust-closure" in paths
     claims = " ".join(row["claim"] for row in OVERCLAIM_DENYLIST)
     assert "100 APIs" in claims
     corr = strategy_correction_manifest()
     assert "hundred_source_ingestion_swamp" in corr["not_building"]
     canon = Path("docs/CANONICAL_BINDING.md").read_text(encoding="utf-8")
     assert "DATA_TRUST_LAW_BINDING.md" in canon
+
+
+def test_synthetic_only_hub_rejects_canonical_and_gate():
+    _books.clear()
+    _last_update_ms.clear()
+    update_top_of_book(
+        "pionex",
+        "BTC/USDT",
+        bid=99.0,
+        bid_qty=1.0,
+        ask=101.0,
+        ask_qty=1.0,
+        decision_grade=False,
+        book_origin="synthetic",
+    )
+    try:
+        from canonical_market_state import build_canonical_market_state, live_book_posture
+        from data_trust_engine import apply_data_trust_gate
+
+        assert live_book_posture("BTC")["posture"] == "synthetic_only"
+        state = build_canonical_market_state("BTC")
+        assert state["action"] == "reject"
+        assert state["reason"] == "synthetic_only"
+        assert state["license"]["redistribution_allowed"] is False
+        score, meta = apply_data_trust_gate(80.0, observations=[], hub_posture="synthetic_only")
+        assert meta["veto"] is True
+        assert score <= 49.0
+    finally:
+        _books.clear()
+        _last_update_ms.clear()
+
+
+def test_news_primary_beats_rewrite():
+    from data_trust_engine import select_news_authority
+
+    winner = select_news_authority(
+        [
+            {"title": "Blog rewrite", "source_class": "news_secondary"},
+            {"title": "SEC press release", "source_class": "regulatory_primary"},
+        ]
+    )
+    assert winner is not None
+    assert winner["source_class"] == "regulatory_primary"
+
+
+def test_institutional_closure_all_done():
+    from data_trust_engine import build_data_trust_closure
+    from decision_certificate import build_decision_certificate
+
+    closure = build_data_trust_closure()
+    assert closure["deferred_code_count"] == 0, closure["deferred_code_items"]
+    assert closure["all_done_for_agreed_scope"] is True
+    cert = build_decision_certificate(
+        {
+            "symbol": "BTC",
+            "verdict": "WAIT",
+            "opportunity_score": 55,
+            "canonical_market_state": {
+                "canonical_value": 100.1,
+                "action": "accept",
+                "venue_count": 2,
+            },
+        }
+    )
+    assert cert["canonical_value"] == 100.1
+    assert cert["data_trust_action"] == "accept"
+    assert "Canonical value" in cert["export_text"]
+    fred = Path("ingestion_fetchers.py").read_text(encoding="utf-8")
+    assert "vintage" in fred and "revision_policy" in fred
+    html = Path("templates/coverage_honesty.html").read_text(encoding="utf-8")
+    assert "decision-grade" in html

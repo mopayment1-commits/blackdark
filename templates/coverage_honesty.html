@@ -31,9 +31,15 @@ code{color:var(--ok)} @media(max-width:700px){.grid{grid-template-columns:1fr}}
   <div class="metric"><strong id="next">—</strong><span>Next-wave (not live)</span></div>
   <div class="metric"><strong id="prov">—</strong><span>BTC provenance score</span></div>
 </div>
-<div class="box" data-evidence>
+<div class="box">
   <h2>Live (used in decisions)</h2>
   <p id="liveIds" class="sub"></p>
+</div>
+<div class="box">
+  <h2>Catalog is not coverage</h2>
+  <p class="sub">Registered APIs are a catalog. Only venue-direct L2 is decision-grade. CoinGecko never mints an order book.</p>
+  <p id="trustLine" class="sub"></p>
+  <p class="sub">Canonical state <code>/api/public/canonical-market-state</code> · Closure <code>/api/public/data-trust-closure</code></p>
 </div>
 <div class="box">
   <h2>Radical fix</h2>
@@ -51,6 +57,8 @@ async function load(){
   document.getElementById('next').textContent=d.next_wave?.count??0;
   document.getElementById('prov').textContent=d.metrics?.btc_provenance_score??'—';
   document.getElementById('liveIds').innerHTML=(d.live?.ids||[]).map(x=>`<code>${esc(x)}</code>`).join(' · ')||'—';
+  const t=d.data_trust||{};
+  document.getElementById('trustLine').textContent=t.rule||'';
   document.getElementById('fix').textContent=d.radical_fix?.solution||'';
   document.getElementById('disc').textContent=d.disclaimer||'';
 }

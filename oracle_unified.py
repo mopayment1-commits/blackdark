@@ -303,12 +303,17 @@ async def finalize_unified_score(
 
     trust_meta: dict[str, Any] = {"applied": False, "action": "not_applied"}
     try:
-        from canonical_market_state import observations_from_live_books
+        from canonical_market_state import live_book_posture, observations_from_live_books
         from data_trust_engine import apply_data_trust_gate
 
         trust_obs = observations_from_live_books(asset)
-        if trust_obs:
-            adjusted, trust_meta = apply_data_trust_gate(adjusted, observations=trust_obs)
+        posture = live_book_posture(asset)
+        if posture.get("posture") == "synthetic_only" or trust_obs:
+            adjusted, trust_meta = apply_data_trust_gate(
+                adjusted,
+                observations=trust_obs,
+                hub_posture=str(posture.get("posture") or ""),
+            )
             if trust_meta.get("veto"):
                 conflict_meta = {
                     **conflict_meta,

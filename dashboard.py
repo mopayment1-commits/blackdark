@@ -2604,6 +2604,16 @@ def _attach_chain_hash_proof(payload: dict[str, Any], prediction_id: Any) -> Non
         logger.debug("chain_hash attach failed", exc_info=True)
 
 
+def _attach_data_trust_safe(payload: dict[str, Any], asset: str) -> dict[str, Any]:
+    try:
+        from data_trust_engine import attach_data_trust
+
+        return attach_data_trust({**payload, "asset": asset})
+    except Exception:
+        logger.debug("Data trust attach failed", exc_info=True)
+        return payload
+
+
 def _attach_oracle_certificate(payload: dict[str, Any], user: dict | None) -> None:
     try:
         from decision_certificate import build_decision_certificate, compliance_footer_block
@@ -2612,7 +2622,7 @@ def _attach_oracle_certificate(payload: dict[str, Any], user: dict | None) -> No
         payload["decision_certificate"] = build_decision_certificate(payload)
         payload["compliance_footer"] = compliance_footer_block(
             surface="single_sentence_oracle",
-            trust_basis="public_accuracy_ledger + decision_certificate",
+            trust_basis="public_accuracy_ledger + decision_certificate + canonical_market_state",
         )
     except Exception:
         logger.debug("Decision certificate attach failed", exc_info=True)
@@ -2753,6 +2763,7 @@ async def oracle(
     )
     payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
     payload = await _attach_oracle_prediction_proof(payload, asset)
+    payload = _attach_data_trust_safe(payload, asset)
     _attach_oracle_certificate(payload, user)
     _attach_oracle_scenarios_safe(payload)
     _attach_oqs_why_safe(payload)
@@ -3077,7 +3088,10 @@ async def b2b_feed(x_api_key: str = Header(..., alias="X-API-Key")):
 
     exporter = InstitutionalDataExporter()
     try:
-        return await exporter.export_institutional_feed(provided_key=x_api_key)
+        feed = await exporter.export_institutional_feed(provided_key=x_api_key)
+        from data_trust_engine import stamp_license
+
+        return stamp_license(feed)
     except PermissionError as exc:
         raise HTTPException(status_code=403, detail=public_error(exc, fallback=STR_INVALID_B2B_API_KEY)) from exc
 
@@ -3095,7 +3109,9 @@ async def b2b_demo_feed():
         )
         feed["demo"] = True
         feed["upgrade_url"] = "/b2b"
-        return feed
+        from data_trust_engine import stamp_license
+
+        return stamp_license(feed)
     except PermissionError:
         raise HTTPException(status_code=503, detail="B2B demo not configured") from None
 

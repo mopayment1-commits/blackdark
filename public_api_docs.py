@@ -37,6 +37,7 @@ PUBLIC_PATH_PREFIXES: tuple[str, ...] = (
     "/api/public/miss-feed",
     "/api/public/coverage-honesty",
     "/api/public/canonical-market-state",
+    "/api/public/data-trust-closure",
     "/api/public/brand-coverage-closure",
     "/api/public/cso-priority-closure",
     "/api/public/zero-tolerance-closure",

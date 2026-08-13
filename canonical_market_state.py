@@ -32,6 +32,32 @@ def _mid_from_book(row: dict[str, Any]) -> float | None:
     return (bid + ask) / 2.0
 
 
+def live_book_posture(symbol: str) -> dict[str, Any]:
+    """empty | synthetic_only | decision_grade — honesty for the live hub."""
+    from live_book_hub import iter_live_book_rows
+
+    asset = symbol.upper().replace("USDT", "").replace("/", "")
+    want = {asset, f"{asset}USDT"}
+    grade = 0
+    synthetic = 0
+    for _exchange_id, sym, row in iter_live_book_rows():
+        compact = str(sym).upper().replace("/", "")
+        if compact not in want and str(sym).upper() not in {asset, f"{asset}/USDT"}:
+            continue
+        origin = str(row.get("book_origin") or "venue_l2").lower()
+        if row.get("decision_grade") is False or origin == "synthetic":
+            synthetic += 1
+        else:
+            grade += 1
+    if grade:
+        posture = "decision_grade"
+    elif synthetic:
+        posture = "synthetic_only"
+    else:
+        posture = "empty"
+    return {"posture": posture, "grade_count": grade, "synthetic_count": synthetic}
+
+
 def observations_from_live_books(symbol: str) -> list[dict[str, Any]]:
     """Collect decision-grade top-of-book mids. Synthetic rows are skipped."""
     from live_book_hub import get_quote_age_ms, iter_live_book_rows
@@ -71,9 +97,23 @@ def observations_from_live_books(symbol: str) -> list[dict[str, Any]]:
 
 def build_canonical_market_state(symbol: str = "BTC") -> dict[str, Any]:
     """Canonical Market State for one instrument. Quiet engine — not a retail surface."""
+    from data_trust_engine import DATA_LICENSE
+
     asset = symbol.upper().replace("USDT", "").replace("/", "")
     observations = observations_from_live_books(asset)
-    consensus = cross_source_consensus(observations)
+    posture = live_book_posture(asset)
+    if posture["posture"] == "synthetic_only" and not observations:
+        consensus = {
+            "action": "reject",
+            "reason": "synthetic_only",
+            "canonical_value": None,
+            "agreement": 0.0,
+            "decision_grade_count": 0,
+            "quarantined": [],
+            "rejected": [],
+        }
+    else:
+        consensus = cross_source_consensus(observations)
     decision_grade = consensus["action"] == "accept" and consensus["canonical_value"] is not None
     quality = 0.0
     if decision_grade:
@@ -96,6 +136,7 @@ def build_canonical_market_state(symbol: str = "BTC") -> dict[str, Any]:
         "decision_grade": bool(decision_grade),
         "agreement": consensus.get("agreement"),
         "venue_count": consensus.get("decision_grade_count"),
+        "hub_posture": posture["posture"],
         "quarantined_count": len(consensus.get("quarantined") or []),
         "rejected_count": len(consensus.get("rejected") or []),
         "observations": [
@@ -108,6 +149,7 @@ def build_canonical_market_state(symbol: str = "BTC") -> dict[str, Any]:
             }
             for o in observations
         ],
+        "license": dict(DATA_LICENSE),
         "honesty": (
             "Canonical price uses venue-direct L2/top-of-book only. "
             "CoinGecko and synthetic books never enter this state."
@@ -137,6 +179,12 @@ def build_data_trust_law_manifest() -> dict[str, Any]:
             "synthetic_l2_honesty_gate",
             "canonical_market_state_majors",
             "oracle_fail_closed_when_trust_rejects",
+            "synthetic_only_fail_closed",
+            "certificate_and_evidence_proof",
+            "license_stamp_no_raw_redistribution",
+            "macro_vintage_on_fred",
+            "news_provenance_rank",
+            "machine_verifiable_closure",
         ],
         "explicitly_not_building": [
             "ingest_100_new_apis",

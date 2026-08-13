@@ -344,6 +344,14 @@ async def canonical_market_state_api(symbol: str = Query("BTC")):
     return build_canonical_market_state(symbol)
 
 
+@router.get("/api/public/data-trust-closure")
+async def data_trust_closure_api():
+    """Public closure — Data Trust Law agreed scope, zero deferred code."""
+    from data_trust_engine import build_data_trust_closure
+
+    return build_data_trust_closure()
+
+
 @router.get("/api/public/zero-tolerance-closure")
 async def zero_tolerance_closure_api():
     """Public closure — Zero-Tolerance helpers wired with zero deferred code."""
@@ -822,6 +830,7 @@ async def wow_surfaces_manifest():
         "data_trust_law": {
             "api": "/api/strategy/data-trust-law",
             "canonical_api": "/api/public/canonical-market-state",
+            "closure": "/api/public/data-trust-closure",
             "doc": "docs/DATA_TRUST_LAW_BINDING.md",
             "binding": True,
             "not_a_100_api_product": True,
