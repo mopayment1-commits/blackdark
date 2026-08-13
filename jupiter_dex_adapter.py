@@ -613,6 +613,175 @@ async def prove_jupiter_swap_build() -> dict[str, Any]:
     }
 
 
+async def prove_jupiter_wallet_sign(*, attempt_broadcast: bool = True) -> dict[str, Any]:
+    """Sign a real Jupiter swap with the configured wallet.
+
+    Local cryptographic signature is evidenced when the wallet key is present.
+    On-chain / RPC-accepted signature (VERIFIED_COMPLETE) requires a funded wallet.
+    Zero-cost policy: unfunded wallets must remain fail-closed without fake PASS.
+    """
+    cfg = jupiter_configured()
+    if not cfg.get("signing_libs"):
+        return {
+            "ok": False,
+            "surface": "jupiter_wallet_sign_proof",
+            "reason": "signing_libs_missing",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "UNVERIFIED",
+            "external_block": None,
+            "at": _utcnow(),
+        }
+    if not cfg.get("wallet"):
+        return {
+            "ok": False,
+            "surface": "jupiter_wallet_sign_proof",
+            "reason": "SOLANA_PRIVATE_KEY_missing",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "external_block": "wallet_secret_absent_in_runtime",
+            "at": _utcnow(),
+        }
+    try:
+        kp = _load_keypair()
+        pubkey = str(kp.pubkey())
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "ok": False,
+            "surface": "jupiter_wallet_sign_proof",
+            "reason": f"wallet_load_failed:{type(exc).__name__}",
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+
+    usdc = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
+    sol = "So11111111111111111111111111111111111111112"
+    # Tiny quote (1 USDC atomic units path uses 1_000_000 = $1) — still needs funded USDC to land.
+    q = await quote_swap(input_mint=usdc, output_mint=sol, amount_atomic=1_000_000)
+    if not q.get("ok") or not isinstance(q.get("quote"), dict):
+        return {
+            "ok": False,
+            "surface": "jupiter_wallet_sign_proof",
+            "reason": q.get("reason") or "quote_failed",
+            "wallet_pubkey": pubkey,
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+    built = await build_swap_transaction(quote=q["quote"], user_public_key=pubkey)
+    if not built.get("ok"):
+        return {
+            "ok": False,
+            "surface": "jupiter_wallet_sign_proof",
+            "reason": built.get("reason") or "swap_build_failed",
+            "wallet_pubkey": pubkey,
+            "signed_local": False,
+            "broadcast": False,
+            "executed": False,
+            "verified_complete": False,
+            "product_complete": False,
+            "implementation_class": "PARTIAL",
+            "at": _utcnow(),
+        }
+
+    signed_local = False
+    sig_b58 = None
+    sign_reason = None
+    try:
+        from solders.transaction import VersionedTransaction
+
+        raw = base64.b64decode(built["swap_transaction"])
+        tx = VersionedTransaction.from_bytes(raw)
+        signed = VersionedTransaction(tx.message, [kp])
+        sig = signed.signatures[0] if signed.signatures else None
+        sig_b58 = str(sig) if sig is not None else None
+        # Default/empty signature is 64 zero bytes — reject as not signed.
+        signed_local = bool(sig is not None and bytes(sig) != bytes(64))
+        signed_b64 = base64.b64encode(bytes(signed)).decode("ascii")
+    except Exception as exc:  # noqa: BLE001
+        sign_reason = f"sign_failed:{type(exc).__name__}:{exc}"[:200]
+        signed_b64 = None
+
+    broadcast = False
+    executed = False
+    rpc_signature = None
+    rpc_reason = None
+    external_block = None
+    if signed_local and attempt_broadcast and cfg.get("live_enabled"):
+        sent = await _rpc_send_transaction(str(signed_b64))
+        if sent.get("ok"):
+            broadcast = True
+            executed = True
+            rpc_signature = sent.get("signature")
+        else:
+            rpc_reason = str(sent.get("reason") or sent.get("error") or "rpc_send_failed")[:240]
+            low = rpc_reason.lower()
+            if any(
+                tok in low
+                for tok in (
+                    "insufficient",
+                    "no record of a prior credit",
+                    "accountnotfound",
+                    "attempt to debit an account but found no record",
+                    "custom program error",
+                )
+            ):
+                external_block = "wallet_unfunded_zero_cost_constraint"
+            else:
+                external_block = "rpc_broadcast_failed"
+    elif signed_local and not cfg.get("live_enabled"):
+        external_block = "JUPITER_LIVE_EXECUTION_false"
+        rpc_reason = "live_flag_off_sign_only"
+    elif signed_local and not attempt_broadcast:
+        rpc_reason = "broadcast_not_attempted"
+
+    ok = bool(signed_local)
+    return {
+        "ok": ok,
+        "surface": "jupiter_wallet_sign_proof",
+        "wallet_pubkey": pubkey,
+        "quote_ok": True,
+        "swap_build_ok": True,
+        "signed_local": signed_local,
+        "local_signature": sig_b58,
+        "broadcast": broadcast,
+        "executed": executed,
+        "rpc_signature": rpc_signature,
+        "rpc_reason": rpc_reason or sign_reason,
+        "live_enabled": bool(cfg.get("live_enabled")),
+        "external_block": external_block,
+        "verified_complete": bool(executed and rpc_signature),
+        "product_complete": False,
+        "implementation_class": (
+            "VERIFIED_COMPLETE"
+            if (executed and rpc_signature)
+            else ("PARTIAL" if signed_local else "UNVERIFIED")
+        ),
+        "note": (
+            "Local wallet signature proven when key loads and solders signs the Jupiter tx. "
+            "verified_complete only with RPC-accepted signature. Unfunded wallet is an "
+            "external zero-cost block — never claimed as live execution."
+        ),
+        "at": _utcnow(),
+    }
+
+
 async def prove_jupiter_submit_path() -> dict[str, Any]:
     """Prove submit path is implemented (build readiness); execute only if armed."""
     cfg = jupiter_configured()
@@ -621,8 +790,12 @@ async def prove_jupiter_submit_path() -> dict[str, Any]:
     # Dry-run execute always exercises quote→path without broadcasting.
     dry = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=True)
     live = None
+    wallet_sign = None
+    if cfg["wallet"] and cfg.get("signing_libs"):
+        wallet_sign = await prove_jupiter_wallet_sign(attempt_broadcast=bool(cfg.get("live_enabled")))
     if cfg["wallet"] and cfg["live_enabled"] and cfg.get("signing_libs"):
         live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
+    vc = bool(live and live.get("executed") and live.get("signature"))
     return {
         "ok": bool(
             quote_proof.get("ok")
@@ -648,6 +821,19 @@ async def prove_jupiter_submit_path() -> dict[str, Any]:
             "executed": dry.get("executed"),
             "executable_product_path": dry.get("executable_product_path"),
         },
+        "wallet_sign": (
+            {
+                "ok": (wallet_sign or {}).get("ok"),
+                "signed_local": (wallet_sign or {}).get("signed_local"),
+                "broadcast": (wallet_sign or {}).get("broadcast"),
+                "executed": (wallet_sign or {}).get("executed"),
+                "rpc_signature": (wallet_sign or {}).get("rpc_signature"),
+                "external_block": (wallet_sign or {}).get("external_block"),
+                "verified_complete": (wallet_sign or {}).get("verified_complete"),
+            }
+            if wallet_sign is not None
+            else {"armed": False, "reason": "wallet_or_signing_libs_absent"}
+        ),
         "live_attempt": (
             {
                 "mode": (live or {}).get("mode"),
@@ -658,12 +844,14 @@ async def prove_jupiter_submit_path() -> dict[str, Any]:
             if live is not None
             else {"armed": False, "reason": "wallet_or_live_flag_absent"}
         ),
-        "implementation_class": "PARTIAL",
+        "implementation_class": "VERIFIED_COMPLETE" if vc else "PARTIAL",
         "product_complete": False,
-        "verified_complete": bool(live and live.get("executed")),
+        "verified_complete": vc,
+        "external_block": (wallet_sign or {}).get("external_block"),
         "note": (
             "Submit path is in-repo (quote→/swap build→sign→RPC). "
-            "Swap build proven without wallet; verified_complete only with live signature."
+            "Local wallet sign may succeed while unfunded broadcast remains externally blocked. "
+            "verified_complete only with RPC-accepted signature."
         ),
         "at": _utcnow(),
     }

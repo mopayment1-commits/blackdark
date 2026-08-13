@@ -30,15 +30,17 @@
 | Decision e2e | PARTIAL | live inputs; no same-tick self-grade |
 | product_complete honesty | held | 0 root True literals |
 
-## Still open (credential / env / cloud / true L2)
+## Still open (external blocks — see FOUR_BLOCKERS_STATUS)
 
 | Blocker | Why open |
 |---|---|
-| Live venue FILL | No Binance testnet keys/flags |
-| Jupiter live signature | No SOLANA_PRIVATE_KEY + live flag |
-| Catalog institutional L2 100% | 54 venues remain synthetic_mid / geo-dead |
-| Cloud multi-AZ HA | Not claimed by local streaming |
+| Live venue FILL | Secrets not in this run + **HTTP 451 geo** on testnet order hosts |
+| Jupiter live signature | Secrets not in this run; wallet intentionally unfunded (zero-cost) |
+| Catalog institutional L2 100% | ~46 venue_l2; 54 synthetic_mid / geo-dead — not fabricatable |
+| Cloud multi-AZ HA | Zero-cost policy — `zero_cost_no_paid_cloud_multi_az` |
 | White Label hosted portal | In-process pack only |
+
+Evidence: `docs/dd/BLACKDARK_FOUR_BLOCKERS_STATUS.md` + `BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`
 
 ## Absolute rule
 

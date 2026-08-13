@@ -854,6 +854,49 @@ def prove_postgres_streaming_ha_rpo_rto() -> dict[str, Any]:
             shutil.rmtree(standby_dir, ignore_errors=True)
 
 
+def prove_cloud_multi_az_ha() -> dict[str, Any]:
+    """Honest cloud multi-AZ HA prove — fail-closed under zero-cost constraint.
+
+    Never claims VERIFIED_COMPLETE without real multi-AZ provider evidence.
+    Local streaming replication is a separate control and does not satisfy this surface.
+    """
+    import os
+
+    markers = {
+        "AWS_REGION": os.getenv("AWS_REGION") or os.getenv("AWS_DEFAULT_REGION"),
+        "AWS_EXECUTION_ENV": os.getenv("AWS_EXECUTION_ENV"),
+        "K_SERVICE": os.getenv("K_SERVICE"),  # Cloud Run
+        "GOOGLE_CLOUD_PROJECT": os.getenv("GOOGLE_CLOUD_PROJECT"),
+        "WEBSITE_SITE_NAME": os.getenv("WEBSITE_SITE_NAME"),  # Azure App Service
+        "RDS_MULTI_AZ": os.getenv("RDS_MULTI_AZ"),
+        "CLOUD_MULTI_AZ_PROVE": os.getenv("CLOUD_MULTI_AZ_PROVE"),
+    }
+    present = {k: bool(v) for k, v in markers.items()}
+    # Without paid cloud infra + explicit multi-AZ prove target, this is externally blocked.
+    authorized = os.getenv("ALLOW_PAID_CLOUD_INFRA", "").lower() in {"1", "true", "yes"}
+    multi_az_flag = str(markers.get("RDS_MULTI_AZ") or markers.get("CLOUD_MULTI_AZ_PROVE") or "").lower()
+    provider_multi_az = multi_az_flag in {"1", "true", "yes"}
+    ok = bool(authorized and provider_multi_az)
+    return {
+        "ok": ok,
+        "surface": "cloud_multi_az_ha",
+        "cloud_multi_az": bool(ok),
+        "paid_cloud_authorized": authorized,
+        "provider_markers_present": present,
+        "external_block": None if ok else "zero_cost_no_paid_cloud_multi_az",
+        "local_streaming_ha_is_not_cloud_multi_az": True,
+        "verified_complete": False,  # never VC from markers alone in this prove
+        "implementation_class": "UNVERIFIED" if not ok else "PARTIAL",
+        "product_complete": False,
+        "note": (
+            "Cloud multi-AZ HA requires paid provider multi-AZ topology with failover evidence. "
+            "Zero-cost policy blocks provisioning. Local Postgres streaming HA remains a "
+            "separate LOCAL_STREAMING_REPLICATION control (cloud_multi_az=false)."
+        ),
+        "proved_at": _utcnow(),
+    }
+
+
 def prove_ops_recovery_bundle(*, include_streaming_ha: bool = False) -> dict[str, Any]:
     """Bundle local dump/restore + schema authority (+ optional streaming HA).
 
@@ -865,6 +908,7 @@ def prove_ops_recovery_bundle(*, include_streaming_ha: bool = False) -> dict[str
     ddl = prove_postgres_ddl_ready()
     pg_dr = prove_postgres_local_dump_restore()
     sqlite_br = prove_sqlite_backup_restore()
+    cloud_az = prove_cloud_multi_az_ha()
     pg_ha: dict[str, Any] | None = None
     if include_streaming_ha:
         pg_ha = prove_postgres_streaming_ha_rpo_rto()
@@ -920,7 +964,13 @@ def prove_ops_recovery_bundle(*, include_streaming_ha: bool = False) -> dict[str
         },
         "sqlite_backup_restore": {"ok": sqlite_br.get("ok")},
         "process_restart_continuity": continuity,
-        "cloud_multi_az": False,
+        "cloud_multi_az": bool(cloud_az.get("cloud_multi_az")),
+        "cloud_multi_az_ha": {
+            "ok": cloud_az.get("ok"),
+            "cloud_multi_az": cloud_az.get("cloud_multi_az"),
+            "external_block": cloud_az.get("external_block"),
+            "verified_complete": cloud_az.get("verified_complete"),
+        },
         "verified_complete": verified,
         "implementation_class": "VERIFIED_COMPLETE" if verified else "PARTIAL",
         "product_complete": False,

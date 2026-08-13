@@ -434,10 +434,15 @@ async def venue_fill_proof_api(
     _: Annotated[dict, Depends(require_institutional_principal)],
     org_id: str = "proof",
     prefer_testnet: bool = False,
+    arm_testnet_live: bool = False,
 ) -> dict[str, Any]:
     from venue_fill_proof import prove_fill_lifecycle
 
-    return await prove_fill_lifecycle(org_id=org_id, prefer_testnet=prefer_testnet)
+    return await prove_fill_lifecycle(
+        org_id=org_id,
+        prefer_testnet=prefer_testnet,
+        arm_testnet_live=arm_testnet_live,
+    )
 
 
 @router.post("/decision-e2e")
@@ -514,6 +519,16 @@ async def jupiter_submit_proof_api(
     from jupiter_dex_adapter import prove_jupiter_submit_path
 
     return await prove_jupiter_submit_path()
+
+
+@router.post("/jupiter/wallet-sign-proof")
+async def jupiter_wallet_sign_proof_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+    attempt_broadcast: bool = True,
+) -> dict[str, Any]:
+    from jupiter_dex_adapter import prove_jupiter_wallet_sign
+
+    return await prove_jupiter_wallet_sign(attempt_broadcast=attempt_broadcast)
 
 
 @router.post("/jupiter/swap-build-proof")
@@ -659,6 +674,15 @@ async def ops_recovery_bundle_api(
     from ops_recovery import prove_ops_recovery_bundle
 
     return prove_ops_recovery_bundle(include_streaming_ha=include_streaming_ha)
+
+
+@router.post("/ops/cloud-multi-az-prove")
+async def cloud_multi_az_prove_api(
+    _: Annotated[dict, Depends(require_institutional_principal)],
+) -> dict[str, Any]:
+    from ops_recovery import prove_cloud_multi_az_ha
+
+    return prove_cloud_multi_az_ha()
 
 
 @router.post("/canonical/mesh-prove")

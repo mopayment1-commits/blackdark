@@ -349,12 +349,22 @@ async def prove_full_catalog_health(*, concurrency: int = 6) -> dict[str, Any]:
     healthy = len(pricing_ok)
     target = len(venues)
     pct = round(healthy / max(target, 1) * 100, 1)
+    institutional_l2_pct = round(len(l2_ok) / max(target, 1) * 100, 1)
     return {
         "ok": healthy >= max(2, int(target * 0.9)),
         "surface": "full_catalog_mesh_proof",
         "target_exchanges": target,
         "healthy_exchanges": healthy,
         "coverage_percent": pct,
+        # Honest L2 metric — never conflated with synthetic_mid catalog price health.
+        "institutional_l2_exchanges": len(l2_ok),
+        "institutional_l2_coverage_percent": institutional_l2_pct,
+        "full_mesh_l2_complete": len(l2_ok) >= target,
+        "external_block_full_mesh_l2": (
+            None
+            if len(l2_ok) >= target
+            else "geo_dead_or_no_public_l2_for_remaining_venues"
+        ),
         "rollout": {
             "healthy_exchanges": rollout.get("healthy_exchanges"),
             "coverage_percent": rollout.get("coverage_percent"),

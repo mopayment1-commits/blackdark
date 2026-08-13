@@ -323,6 +323,8 @@ async def probe_binance_public_book(symbol: str = "BTCUSDT") -> dict[str, Any]:
 CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "okx",
     "kraken",
+    # Binance spot L2 via public vision mirror (order host may still be geo-blocked).
+    "binance",
     "gateio",
     "bitget",
     "kucoin",

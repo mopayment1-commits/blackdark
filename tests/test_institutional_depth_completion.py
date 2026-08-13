@@ -411,6 +411,8 @@ async def test_full_catalog_mesh_prove_near_complete():
     breakdown = out.get("depth_breakdown") or {}
     assert int(breakdown.get("venue_l2") or 0) >= 30
     assert int(breakdown.get("failed") or 0) <= 10
+    assert int(out.get("institutional_l2_exchanges") or 0) == int(breakdown.get("venue_l2") or 0)
+    assert out.get("full_mesh_l2_complete") is False or int(breakdown.get("synthetic_mid") or 0) == 0
 
 
 @pytest.mark.asyncio
@@ -422,7 +424,7 @@ async def test_rollout_multi_venue_live_mesh_expanded():
     assert mv["ok"] is True
     assert mv["full_mesh"] is True
     assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
-    assert len(CORE_PUBLIC_CEX_MESH) >= 48
+    assert len(CORE_PUBLIC_CEX_MESH) >= 51
     assert mv.get("mesh_symbol_overrides")
     # Regional overrides must be probed with non-default pairs when present.
     override_hits = [
@@ -455,3 +457,72 @@ async def test_ops_recovery_bundle_local_only():
         "LOCAL_EPHEMERAL_NOT_HA",
         None,
     } or out["sqlite_backup_restore"]["ok"] is True
+    assert out["cloud_multi_az_ha"]["cloud_multi_az"] is False
+    assert out["cloud_multi_az_ha"]["external_block"] == "zero_cost_no_paid_cloud_multi_az"
+
+
+@pytest.mark.asyncio
+async def test_binance_order_host_geo_probe_honest():
+    from execution_engine import probe_binance_order_host_connectivity
+
+    # Force testnet host probe (may be geo-blocked from this egress).
+    import os
+
+    prev = os.environ.get("BINANCE_TESTNET")
+    os.environ["BINANCE_TESTNET"] = "true"
+    try:
+        out = await probe_binance_order_host_connectivity()
+    finally:
+        if prev is None:
+            os.environ.pop("BINANCE_TESTNET", None)
+        else:
+            os.environ["BINANCE_TESTNET"] = prev
+    assert "hosts" in out
+    assert out.get("testnet") is True
+    # Either reachable or honestly geo-blocked — never silent success without ok hosts.
+    if not out.get("ok"):
+        assert out.get("geo_blocked") is True or out.get("external_block")
+
+
+def test_cloud_multi_az_externally_blocked_zero_cost():
+    from ops_recovery import prove_cloud_multi_az_ha
+
+    out = prove_cloud_multi_az_ha()
+    assert out["cloud_multi_az"] is False
+    assert out["verified_complete"] is False
+    assert out["external_block"] == "zero_cost_no_paid_cloud_multi_az"
+    assert out["local_streaming_ha_is_not_cloud_multi_az"] is True
+
+
+@pytest.mark.asyncio
+async def test_jupiter_wallet_sign_without_secret_is_blocked():
+    import os
+
+    from jupiter_dex_adapter import prove_jupiter_wallet_sign
+
+    prev = os.environ.get("SOLANA_PRIVATE_KEY")
+    os.environ.pop("SOLANA_PRIVATE_KEY", None)
+    try:
+        out = await prove_jupiter_wallet_sign(attempt_broadcast=False)
+    finally:
+        if prev is not None:
+            os.environ["SOLANA_PRIVATE_KEY"] = prev
+    assert out["signed_local"] is False
+    assert out["verified_complete"] is False
+    assert out["executed"] is False
+    assert out.get("external_block") == "wallet_secret_absent_in_runtime"
+
+
+def test_testnet_env_operator_allowed_non_production(monkeypatch):
+    import api_key_security_guard as guard
+
+    monkeypatch.setenv("BINANCE_TESTNET", "true")
+    monkeypatch.setenv("AUTO_EXECUTION_ENABLED", "true")
+    monkeypatch.setenv("AUTO_EXECUTION_DRY_RUN", "false")
+    monkeypatch.delenv("ENV", raising=False)
+    monkeypatch.delenv("APP_ENV", raising=False)
+    monkeypatch.delenv("ENVIRONMENT", raising=False)
+    monkeypatch.delenv("RAILWAY_ENVIRONMENT", raising=False)
+    allowed, reason = guard.live_execution_allowed(user_id=None, using_env_keys=True)
+    assert allowed is True
+    assert reason == "testnet_env_operator_allowed"
