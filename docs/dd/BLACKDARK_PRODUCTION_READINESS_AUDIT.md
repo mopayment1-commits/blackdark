@@ -1,6 +1,6 @@
 # Production Readiness Audit Report
 
-**SHA:** `760a5b4336ab69ed3fd8752a68d9a4e770d9bece`  
+**SHA:** `9204933e42da8891833b9f8205269a832a6bcfd9`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
@@ -19,7 +19,7 @@
 | D10 | Security | FAIL | True | critical |
 | D11 | API Security | PASS | True | high |
 | D12 | Identity & Accounts | PASS | True | high |
-| D13 | Payments | FAIL | True | high |
+| D13 | Payments | PASS | True | high |
 | D14 | Database | PASS | True | high |
 | D15 | Caching/Queues | PASS | True | high |
 | D16 | Infrastructure | FAIL | True | high |
@@ -70,7 +70,7 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | compose_yaml_merge | PASS | PyYAML merge docker-compose.yml + docker-compose.ha.yml |
 | ha_architecture | PASS | railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS |
 | executable_l2_scope | PASS | l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92 |
-| stripe_sandbox | FAIL | stripe.Account.retrieve |
+| stripe_sandbox | PASS | billing_service.prove_stripe_test_cycle TEST checkout+subscription+cancel |
 | counsel_signoff | FAIL | docs/legal/COUNSEL_SIGNOFF.* |
 | independent_pentest_artifact | FAIL | docs/dd/INDEPENDENT_PENTEST_REPORT.* |
 | rate_limit_abuse | PASS | viral_capacity.check_rate_limit limit=5 |
