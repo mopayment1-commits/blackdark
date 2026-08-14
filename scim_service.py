@@ -40,26 +40,38 @@ def _save(data: dict[str, Any]) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def scim_bearer_configured() -> bool:
+def scim_env_bearer_configured() -> bool:
     import os
 
     return bool(os.getenv("SCIM_BEARER_TOKEN", "").strip())
 
 
+def scim_bearer_configured() -> bool:
+    if scim_env_bearer_configured():
+        return True
+    try:
+        from org_tenant import _load_orgs
+
+        return any(bool(o.get("scim_key_hash")) for o in _load_orgs().values())
+    except Exception:
+        return False
+
+
 def scim_ready() -> bool:
-    """Ready only when IdP bearer token policy is configured."""
+    """Ready when env bearer OR an org-scoped SCIM key has been issued."""
     return scim_bearer_configured()
 
 
 def scim_status() -> dict[str, Any]:
     data = _load()
     bearer = scim_bearer_configured()
+    env_bearer = scim_env_bearer_configured()
     return {
         "surface": "scim",
         "implemented": True,
         "scim_ready": bearer,
         "bearer_configured": bearer,
-        "product_complete": bearer,
+        "product_complete": env_bearer,
         "users": len(data.get("users", {})),
         "groups": len(data.get("groups", {})),
         "endpoints": [
@@ -72,25 +84,32 @@ def scim_status() -> dict[str, Any]:
             "POST /api/institutional/scim/v2/Groups",
         ],
         "note": (
-            "SCIM User/Group CRUD implemented; scim_ready/product_complete only when "
-            "SCIM_BEARER_TOKEN is configured for IdP auth."
+            "SCIM User/Group CRUD implemented. Ready when SCIM_BEARER_TOKEN is set "
+            "or an org issues a hashed bd_scim_ key (plaintext once)."
         ),
     }
 
 
-def require_scim_bearer(authorization: str | None) -> None:
-    """Fail closed SCIM API calls without matching bearer."""
+def require_scim_bearer(authorization: str | None) -> dict[str, Any] | None:
+    """Fail closed SCIM API calls without matching env or org-scoped bearer."""
     import hmac
     import os
 
-    expected = os.getenv("SCIM_BEARER_TOKEN", "").strip()
-    if not expected:
-        raise PermissionError("scim_bearer_not_configured")
     if not authorization or not authorization.lower().startswith("bearer "):
         raise PermissionError("scim_unauthorized")
     got = authorization.split(" ", 1)[1].strip()
-    if not hmac.compare_digest(got, expected):
-        raise PermissionError("scim_unauthorized")
+    expected = os.getenv("SCIM_BEARER_TOKEN", "").strip()
+    if expected and len(got) == len(expected) and hmac.compare_digest(got, expected):
+        return {"scope": "env"}
+    try:
+        from org_tenant import verify_org_scim_key
+
+        hit = verify_org_scim_key(got)
+    except Exception:
+        hit = None
+    if hit:
+        return {"scope": "org", **hit}
+    raise PermissionError("scim_unauthorized")
 
 
 def _user_resource(row: dict[str, Any]) -> dict[str, Any]:

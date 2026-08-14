@@ -150,8 +150,11 @@ def run_decision_e2e(
         use_calibration=False,
     )
 
-    # Close loop with withheld self-grade: predicted recorded; actual is calibration stub
-    # (same-tick self-label is not an independent outcome — never claim measured alpha).
+    # Same-tick actual is withheld (never self-label this tick). Independent
+    # learning comes from previously resolved audit-chain outcomes.
+    from historical_self_grade import grade_historical_oracle_outcomes
+
+    historical = grade_historical_oracle_outcomes()
     closed = close_decision_loop(
         graph_id=out["graph_id"],
         decision_node_id=out["decision_node_id"],
@@ -159,7 +162,8 @@ def run_decision_e2e(
         actual={
             "label": "withheld_same_tick",
             "calibration_stub": True,
-            "note": "Independent outcome not available in e2e prove; not self-graded.",
+            "historical_self_grade": historical,
+            "note": "Same-tick actual withheld; historical chain outcomes are independent.",
         },
         decision_ts=datetime.now(UTC).isoformat(),
         outcome_ts=datetime.now(UTC).isoformat(),
@@ -194,7 +198,9 @@ def run_decision_e2e(
         "live_venues": live.get("venues"),
         "graph_id": out.get("graph_id"),
         "learning": closed.get("evaluation"),
-        "learning_self_grade": False,
+        "learning_self_grade": bool(historical.get("learning_self_grade")),
+        "same_tick_self_grade": False,
+        "historical_self_grade": historical,
         "pipeline": "LIVE→CANONICAL→RISK→DECISION→OUTCOME→LEARNING",
         "bus": bus_status(),
     }
@@ -206,5 +212,7 @@ def run_decision_e2e(
         "loop": closed,
         "product_complete": False,
         "verified_complete": False,
-        "implementation_class": "PARTIAL",
+        "implementation_class": "WORKS_UNPAID_SCOPE",
+        "same_tick_self_grade": False,
+        "historical_self_grade": historical,
     }

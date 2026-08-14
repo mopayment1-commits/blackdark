@@ -212,6 +212,19 @@ async def list_orgs(user: dict = Depends(require_authenticated)) -> dict[str, An
     return {"orgs": list_orgs_for_email(email), "isolation": org_isolation_status()}
 
 
+@router.post("/orgs/{org_id}/scim-key", responses=COMMON_ERROR_RESPONSES)
+async def org_issue_scim_key(org_id: str, user: dict = Depends(require_authenticated)) -> dict[str, Any]:
+    from org_tenant import issue_org_scim_key
+
+    email = str(user.get("email") or "").strip().lower()
+    try:
+        return issue_org_scim_key(org_id, actor_email=email)
+    except PermissionError as exc:
+        raise HTTPException(403, str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+
+
 @router.get("/orgs/{org_id}/members")
 async def org_members(org_id: str) -> dict[str, Any]:
     from org_tenant import list_members

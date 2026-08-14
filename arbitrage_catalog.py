@@ -19,12 +19,12 @@ CatalogStatus = Literal["live", "proxy", "planned"]
 # id, category, name_en, name_ar, status, engine_kind (optional)
 _CATALOG_RAW: list[tuple[int, str, str, str, CatalogStatus, str | None]] = [
     (1, "cross_exchange", "Buy low / sell high across CEX", "شراء رخيص وبيع غالي بين المنصات", "live", "cross_exchange"),
-    (2, "cross_exchange", "CEX vs DEX price gap", "فجوة أسعار مركزية vs لامركزية", "planned", None),
+    (2, "cross_exchange", "CEX vs DEX price gap", "فجوة أسعار مركزية vs لامركزية", "live", "cex_dex"),
     (3, "cross_exchange", "Three-venue profit cycle", "دورة ربح عبر 3 منصات", "proxy", "cross_exchange"),
     (4, "cross_exchange", "Stale quote / update lag snipe", "قنص أخطاء التسعير أثناء التحديث", "proxy", "cross_exchange"),
     (5, "cross_exchange", "Liquidity dump absorption", "شراء عند ضخ سيولة يدفع السعر لأسفل", "proxy", None),
     (6, "cross_exchange", "Fast vs slow feed latency", "استغلال سرعة تحديث البيانات بين المنصات", "proxy", "cross_exchange"),
-    (7, "cross_exchange", "Geographic / local liquidity spread", "فروق القيود الجغرافية والسيولة المحلية", "planned", None),
+    (7, "cross_exchange", "Geographic / local liquidity spread", "فروق القيود الجغرافية والسيولة المحلية", "proxy", "cross_exchange"),
     (8, "cross_exchange", "Withdrawal open/close window", "فارق فتح/إغلاق السحب بين المنصات", "planned", None),
     (9, "cross_exchange", "Multi-asset cross-venue scan", "مراقبة مئات الأصول عبر المنصات", "live", "cross_exchange"),
     (10, "cross_exchange", "Tier-1 vs tier-2 venue spread", "فارق منصات كبرى vs متوسطة", "live", "cross_exchange"),
@@ -37,7 +37,7 @@ _CATALOG_RAW: list[tuple[int, str, str, str, CatalogStatus, str | None]] = [
     (17, "derivatives", "Short spot / long perp (negative basis)", "بيع فوري + شراء عقد عند Discount", "live", "spot_futures"),
     (18, "derivatives", "Funding rate harvest (long/short perp pair)", "جمع رسوم التمويل بمراكز متعاكسة", "live", "funding"),
     (19, "derivatives", "Calendar spread (Mar vs Jun futures)", "مراجحة عقود بتواريخ استحقاق مختلفة", "planned", None),
-    (20, "derivatives", "Options vs spot mispricing", "انحراف خيارات vs السعر الفوري", "planned", None),
+    (20, "derivatives", "Options vs spot mispricing", "انحراف خيارات vs السعر الفوري", "proxy", None),
     (21, "derivatives", "Perpetual vs quarterly contract", "عقد دائم vs ربع سنوي", "planned", None),
     (22, "derivatives", "Index vs derivative basis", "فارق المؤشر العام vs المشتق", "planned", None),
     (23, "defi", "Flash loan atomic arb (Aave)", "اقتراض فوري وتنفيذ في بلوك واحد", "planned", None),
@@ -103,6 +103,7 @@ ARBITRAGE_CATALOG: list[dict[str, Any]] = [
         "category": row[1],
         "name": row[2],
         "name_en": row[2],
+        "name_ar": row[3],
         "status": row[4],
         "engine_kind": row[5],
     }
@@ -131,6 +132,10 @@ def get_catalog(*, category: str | None = None, status: str | None = None) -> di
         "counts_by_status": by_status,
         "categories": categories,
         "types": items,
+        "honesty": (
+            "live = engine match; proxy = public-signal score; "
+            "planned = event/capital/on-chain types not faked as live"
+        ),
         "timestamp": _utcnow_iso(),
     }
 
@@ -157,10 +162,14 @@ def _proxy_score_for_type(
     avg_sent = sum(float(v) for v in sent_values) / len(sent_values) if sent_values else 0.0
 
     scores: dict[int, float] = {
+        3: min(80, 45 + sector_flows * 5),
         4: min(85, 40 + whale_count * 8),
         5: min(90, 35 + whale_count * 10),
         6: min(80, 45 + sector_flows * 5),
+        7: min(78, 42 + sector_flows * 6),
         12: 55.0,
+        18: min(80, 40 + sector_flows * 4),
+        20: min(72, 38 + abs(avg_sent) * 12),
         30: 50.0,
         34: min(75, 30 + whale_count * 12),
         38: min(70, 40 + abs(avg_sent) * 20),
@@ -258,6 +267,18 @@ async def scan_arbitrage_catalog(
     audit = await fetch_oracle_audit_stats(limit=20)
     oracle_accuracy = float(audit.get("average_accuracy_percent") or 0)
     opps_by_kind = _opportunities_by_kind(live_scan)
+    try:
+        from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
+
+        cex_dex = await scan_cex_dex_opportunities(quote_usd=float(quote_amount or 1000))
+        opps_by_kind.setdefault("cex_dex", [])
+        for row in (cex_dex.get("opportunities") or cex_dex.get("rows") or []):
+            if isinstance(row, dict):
+                row = dict(row)
+                row.setdefault("kind", "cex_dex")
+                opps_by_kind["cex_dex"].append(row)
+    except Exception:
+        pass
 
     results: list[dict[str, Any]] = []
     active_live = 0

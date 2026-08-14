@@ -257,6 +257,48 @@ def issue_org_feed_key(org_id: str, *, actor_email: str) -> dict[str, Any]:
     }
 
 
+def issue_org_scim_key(org_id: str, *, actor_email: str) -> dict[str, Any]:
+    """Issue a hashed org-scoped SCIM bearer. Plaintext returned once."""
+    actor = member_of(org_id, actor_email)
+    if not actor or actor.get("role") != "admin":
+        raise PermissionError("admin_required")
+    if not get_org(org_id):
+        raise ValueError("org_not_found")
+    raw = f"bd_scim_{secrets.token_urlsafe(24)}"
+    digest = _hash_feed_key(raw)
+    with _LOCK:
+        orgs = _load_orgs()
+        row = orgs.get(org_id)
+        if not row:
+            raise ValueError("org_not_found")
+        row["scim_key_hash"] = digest
+        row["scim_key_prefix"] = raw[:12]
+        row["scim_key_issued_at"] = _utcnow()
+        _save_orgs(orgs)
+    return {
+        "ok": True,
+        "org_id": org_id,
+        "api_key": raw,
+        "prefix": raw[:12],
+        "note": "Store this SCIM bearer now — plaintext is not persisted.",
+    }
+
+
+def verify_org_scim_key(provided_key: str) -> dict[str, Any] | None:
+    if not provided_key or not provided_key.startswith("bd_scim_"):
+        return None
+    digest = _hash_feed_key(provided_key)
+    for org in _load_orgs().values():
+        stored = str(org.get("scim_key_hash") or "")
+        if stored and hmac.compare_digest(stored, digest):
+            return {
+                "org_id": org.get("org_id"),
+                "name": org.get("name"),
+                "key_prefix": org.get("scim_key_prefix"),
+            }
+    return None
+
+
 def verify_org_feed_key(provided_key: str) -> dict[str, Any] | None:
     """Return org record (without secrets) if the provided feed key matches a hash."""
     if not provided_key or not provided_key.startswith("bd_org_"):

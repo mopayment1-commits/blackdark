@@ -20,6 +20,9 @@ def test_scim_ready_requires_bearer(monkeypatch):
     monkeypatch.delenv("SCIM_BEARER_TOKEN", raising=False)
     from importlib import reload
     import scim_service
+    import org_tenant
+
+    monkeypatch.setattr(org_tenant, "_load_orgs", lambda: {})
     reload(scim_service)
     assert scim_service.scim_ready() is False
     monkeypatch.setenv("SCIM_BEARER_TOKEN", "test-scim-bearer-token")

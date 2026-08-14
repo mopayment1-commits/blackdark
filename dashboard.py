@@ -3944,8 +3944,45 @@ async def api_risk_unfreeze(_admin: dict = Depends(require_admin)):
 @app.get("/api/options/overview")
 async def api_options_overview():
     from options_fetcher import fetch_options_overview
+    from options_oms import chain_snapshot
 
-    return await fetch_options_overview()
+    overview = await fetch_options_overview()
+    chain = await chain_snapshot("BTC")
+    overview["paper_oms"] = {
+        "live_execution": False,
+        "chain_ok": chain.get("ok"),
+        "instrument_sample": (chain.get("instruments") or [])[:5],
+        "endpoints": ["/api/options/oms/chain", "/api/options/oms/paper-fill", "/api/options/oms/orders"],
+    }
+    overview["note"] = (
+        "Deribit public chain + paper OMS at mark — not live options execution."
+    )
+    return overview
+
+
+@app.get("/api/options/oms/chain")
+async def api_options_oms_chain(currency: str = "BTC"):
+    from options_oms import chain_snapshot
+
+    return await chain_snapshot(currency)
+
+
+@app.post("/api/options/oms/paper-fill")
+async def api_options_oms_paper_fill(
+    instrument: str = "BTC-PERPETUAL",
+    side: str = "buy",
+    quantity: float = 1.0,
+):
+    from options_oms import paper_fill
+
+    return await paper_fill(instrument=instrument, side=side, quantity=quantity)
+
+
+@app.get("/api/options/oms/orders")
+async def api_options_oms_orders(limit: int = 20):
+    from options_oms import list_orders
+
+    return {"ok": True, "live_execution": False, "orders": list_orders(limit=limit)}
 
 
 @app.get("/api/infra/metrics")

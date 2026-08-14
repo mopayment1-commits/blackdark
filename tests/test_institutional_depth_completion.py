@@ -92,7 +92,12 @@ def test_decision_e2e_unified_object():
     assert d["pipeline"].startswith("LIVE→CANONICAL")
     assert d["graph_id"]
     assert "evidence" in d and "risk" in d and "whale" in d
-    assert d.get("learning_self_grade") is False
+    assert d.get("same_tick_self_grade") is False
+    assert "historical_self_grade" in d
+    hist = d.get("historical_self_grade") or {}
+    assert hist.get("independent_of_this_tick") is True
+    assert hist.get("same_tick_withheld") is True
+    assert d.get("learning_self_grade") is bool(hist.get("learning_self_grade"))
     assert d.get("market_inputs", {}).get("from_live_books") is True
     assert out["loop"]["evaluation"]
 
