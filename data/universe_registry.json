@@ -523,49 +523,49 @@
       "provider": "native_regional"
     },
     {
-      "id": "kwenta",
-      "name": "Kwenta",
-      "category": "perp_dex",
+      "id": "brasilbitcoin",
+      "name": "Brasil Bitcoin",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
-      "id": "drift",
-      "name": "Drift Protocol",
-      "category": "perp_dex",
+      "id": "coinspot",
+      "name": "CoinSpot",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
-      "id": "mux",
-      "name": "MUX Protocol",
-      "category": "perp_dex",
+      "id": "aevo",
+      "name": "Aevo",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
-      "id": "synthetix",
-      "name": "Synthetix",
-      "category": "perp_dex",
+      "id": "paradex",
+      "name": "Paradex",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
-      "id": "jupiter_perps",
-      "name": "Jupiter Perps",
-      "category": "perp_dex",
+      "id": "aster",
+      "name": "Aster",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
       "id": "bitflyer",

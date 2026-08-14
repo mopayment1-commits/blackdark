@@ -1,4 +1,4 @@
-# Four Remaining Blockers — Honest Status (max unpaid wave 6)
+# Four Remaining Blockers — Honest Status (max unpaid wave 7)
 
 **Branch:** `cursor/95plus-recert-phase0-120d`  
 **Evidence JSON:** `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json`  
@@ -9,15 +9,15 @@
 Maximize unpaid institutional readiness. **Excluded:** paid wallet funding, Binance
 geo proxy, paid cloud multi-AZ.
 
-## Unpaid closures landed (wave 6)
+## Unpaid closures landed (wave 7)
 
 | Deliverable | Evidence |
 |---|---|
-| Native L2 | backpack / bullish / bitcointrade / coinsph / giottus |
-| Catalog swap | pancakeswap / curve / thorchain / gmx / gains → those L2 venues |
-| Institutional catalog L2 | **90/100** (was 85) |
-| CORE mesh | **87/87** live L2 (was 82) |
-| Remaining synthetic_mid | uniswap_v3 / raydium / jupiter / orca + bybit geo + perp mids |
+| Native L2 | brasilbitcoin / coinspot / aevo / paradex / aster |
+| Catalog swap | kwenta / drift / mux / synthetix / jupiter_perps → those L2 venues |
+| Institutional catalog L2 | **95/100** (was 90) |
+| CORE mesh | **92/92** live L2 (was 87) |
+| Remaining synthetic_mid | uniswap_v3 / raydium / jupiter / orca + bybit geo |
 | Coverage honesty board | status is honesty surface, not `product_complete` |
 
 ## Blocker verdicts (unchanged EXTERNAL)
@@ -26,7 +26,7 @@ geo proxy, paid cloud multi-AZ.
 |---|---|---|
 | Live venue FILL | **No** | `binance_order_host_geo_451` |
 | Jupiter live signature VC | **No** | unfunded wallet |
-| Full Mesh institutional L2 100% | **No** | 90/100; remaining AMM + bybit geo + perp mids |
+| Full Mesh institutional L2 100% | **No** | 95/100; remaining AMM + bybit geo |
 | Cloud Multi-AZ HA | **No** | `zero_cost_no_paid_cloud_multi_az` |
 
 ## Absolute rule

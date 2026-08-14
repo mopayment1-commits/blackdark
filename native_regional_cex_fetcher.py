@@ -68,6 +68,12 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "bitcointrade": "BTC/BRL",
     "coinsph": "BTC/USDT",
     "giottus": "BTC/INR",
+    # Wave 7 unpaid catalog-swap: remaining perp mids → real public L2.
+    "brasilbitcoin": "BTC/BRL",
+    "coinspot": "BTC/AUD",
+    "aevo": "BTC/USD",
+    "paradex": "BTC/USD",
+    "aster": "BTC/USDT",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -774,6 +780,95 @@ async def _fetch_giottus(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     return bids, asks
 
 
+async def _fetch_brasilbitcoin(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base = symbol.split("/")[0].upper()
+    url = f"https://brasilbitcoin.com.br/API/orderbook/{base}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body.get("buy") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("preco") or 0)
+        size = float(row.get("quantidade") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in body.get("sell") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("preco") or 0)
+        size = float(row.get("quantidade") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_coinspot(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base = symbol.split("/")[0].upper()
+    url = f"https://www.coinspot.com.au/pubapi/v2/orders/open/{base}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    if str((body or {}).get("status") or "").lower() != "ok":
+        raise ValueError(f"coinspot_status:{(body or {}).get('status')}")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body.get("buyorders") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("rate") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in body.get("sellorders") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("rate") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_aevo(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://api.aevo.xyz/orderbook?instrument_name=BTC-PERP"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _levels_pq(body.get("bids") or [])
+    asks = _levels_pq(body.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_paradex(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://api.prod.paradex.trade/v1/orderbook/BTC-USD-PERP?depth=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _levels_pq(body.get("bids") or [])
+    asks = _levels_pq(body.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_aster(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    pair = symbol.replace("/", "").upper()
+    url = f"https://fapi.asterdex.com/fapi/v1/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -818,6 +913,11 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "bitcointrade": _fetch_bitcointrade,
     "coinsph": _fetch_coinsph,
     "giottus": _fetch_giottus,
+    "brasilbitcoin": _fetch_brasilbitcoin,
+    "coinspot": _fetch_coinspot,
+    "aevo": _fetch_aevo,
+    "paradex": _fetch_paradex,
+    "aster": _fetch_aster,
 }
 
 
