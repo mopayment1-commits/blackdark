@@ -15,7 +15,7 @@
 | 20 جزئية | أغلق غير المدفوع → `works`؛ أبقِ L2 فقط `partial` | معظم «الجزئي» كان صدقًا عن عدم كونه Kaiko/Stripe-live لا عطل منتج |
 | 2 إعداد تشغيلي | أبقِ OAuth الحي + Checkout الحي `ops_config`؛ البريد يصبح `works` عبر الصندوق المختوم | المسار موجود؛ السر للمالك |
 | 2 حاجز خارجي | **لا تُغلق ولا تُختلق** | Geo 451، محفظة صفر، سحابة مدفوعة — سبق قبولها EXTERNAL |
-| L2 85/100 | لا تُختلق كتب AMM | `synthetic_mid` ≠ `venue_l2` |
+| L2 90/100 | لا تُختلق كتب AMM | `synthetic_mid` ≠ `venue_l2` |
 | واجهة عربية | موجودة (`?lang=ar` / Accept-Language / RTL) | ليست عطلًا؛ الافتراضي EN عالمي |
 
 ---
@@ -36,7 +36,7 @@
 | الحالة | العدد | المتبقي |
 |---|---|---|
 | `works` | 83 | سقف عدم الدفع مكتمل لهذه القدرات |
-| `partial` | 1 | `MKT-L2` 85/100 — AMM + bybit geo + perp mids |
+| `partial` | 1 | `MKT-L2` 90/100 — AMM + bybit geo + perp mids |
 | `ops_config` | 3 | `ID-OAUTH`، `BIL-CHECKOUT`، `B2B-SSO` |
 | `external_block` | 3 | `EX-LIVE` Geo 451، `FUND-HA` multi-AZ، `B2B-WL-HOST` نطاق مخصص |
 
@@ -46,7 +46,7 @@
 - الدرجة التاريخية: أزواج create→resolve بفاصل زمني ≥ 60 ثانية؛ نفس التيك ممنوع.
 - Checkout بلا PSP: مسار ترقية غير مدفوع مكتمل + 503 صادق.
 - OAuth بلا أسرار: HTTP 503 وليس نجاحًا صامتًا.
-- L2 المتبقي: `/api/product/l2-remainder` يسمّي AMM كـ `synthetic_mid` ولا يختلق سلالم. موجة 5: gopax/gmocoin/binanceus/bitpreco/okj → **85/100**.
+- L2 المتبقي: `/api/product/l2-remainder` يسمّي AMM كـ `synthetic_mid` ولا يختلق سلالم. موجة 6: backpack/bullish/bitcointrade/coinsph/giottus → **90/100**.
 
 التحقق: `GET /api/product/unpaid-closure`
 

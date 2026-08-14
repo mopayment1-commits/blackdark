@@ -199,7 +199,7 @@ def test_l2_remainder_never_claims_complete():
     out = catalog_l2_remainder()
     assert out["product_complete"] is False
     assert out["full_mesh_l2_complete"] is False
-    assert out["remainder_count"] >= 8
+    assert out["remainder_count"] >= 5
     assert all(v["depth_class"] == "synthetic_mid" for v in out["remainder"])
     assert any(v["id"] == "uniswap_v3" for v in out["remainder"])
     assert "synthetic_mid ≠ venue_l2" in out["honesty"] or "synthetic_mid" in out["honesty"]

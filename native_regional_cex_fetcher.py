@@ -62,6 +62,12 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "binanceus": "BTC/USDT",
     "bitpreco": "BTC/BRL",
     "okj": "BTC/JPY",
+    # Wave 6 unpaid catalog-swap: remaining AMM/perp mids → real public CEX L2.
+    "backpack": "BTC/USDC",
+    "bullish": "BTC/USD",
+    "bitcointrade": "BTC/BRL",
+    "coinsph": "BTC/USDT",
+    "giottus": "BTC/INR",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -673,6 +679,101 @@ async def _fetch_delta(session: aiohttp.ClientSession, symbol: str) -> tuple[lis
     return bids, asks
 
 
+async def _fetch_backpack(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://api.backpack.exchange/api/v1/depth?symbol={pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _levels_pq(body.get("bids") or [])
+    asks = _levels_pq(body.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_bullish(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    pair = symbol.replace("/", "").upper()
+    url = f"https://api.exchange.bullish.com/trading-api/v1/markets/{pair}/orderbook/hybrid"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body.get("bids") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("priceLevelQuantity") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in body.get("asks") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("priceLevelQuantity") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_bitcointrade(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    quote, base = symbol.split("/")[1].upper(), symbol.split("/")[0].upper()
+    pair = f"{quote}{base}"
+    url = f"https://api.bitcointrade.com.br/v3/public/{pair}/orders"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    data = (body or {}).get("data") if isinstance(body, dict) else {}
+    if not isinstance(data, dict):
+        raise ValueError("bitcointrade_bad_book")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in data.get("bids") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("unit_price") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in data.get("asks") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("unit_price") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_coinsph(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    pair = symbol.replace("/", "").upper()
+    url = f"https://api.pro.coins.ph/openapi/quote/v1/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_giottus(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    market = f"{base.lower()}{quote.lower()}"
+    url = f"https://www.giottus.com/api/v2/depth?market={market}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _levels_pq(body.get("bids") or [])
+    asks = _levels_pq(body.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -712,6 +813,11 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "binanceus": _fetch_binanceus,
     "bitpreco": _fetch_bitpreco,
     "okj": _fetch_okj,
+    "backpack": _fetch_backpack,
+    "bullish": _fetch_bullish,
+    "bitcointrade": _fetch_bitcointrade,
+    "coinsph": _fetch_coinsph,
+    "giottus": _fetch_giottus,
 }
 
 

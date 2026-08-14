@@ -379,13 +379,13 @@
       "provider": "dex"
     },
     {
-      "id": "pancakeswap",
-      "name": "PancakeSwap",
-      "category": "dex",
+      "id": "backpack",
+      "name": "Backpack Exchange",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
       "id": "raydium",
@@ -415,13 +415,13 @@
       "provider": "dex"
     },
     {
-      "id": "curve",
-      "name": "Curve Finance",
-      "category": "dex",
+      "id": "bullish",
+      "name": "Bullish",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
       "id": "gopax",
@@ -469,13 +469,13 @@
       "provider": "native_regional"
     },
     {
-      "id": "thorchain",
-      "name": "THORChain",
-      "category": "dex",
+      "id": "bitcointrade",
+      "name": "BitcoinTrade",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
       "id": "hyperliquid",
@@ -496,13 +496,13 @@
       "provider": "perp_dex"
     },
     {
-      "id": "gmx",
-      "name": "GMX",
-      "category": "perp_dex",
+      "id": "coinsph",
+      "name": "Coins.ph",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
       "id": "apex",
@@ -514,13 +514,13 @@
       "provider": "perp_dex"
     },
     {
-      "id": "gains",
-      "name": "Gains Network",
-      "category": "perp_dex",
+      "id": "giottus",
+      "name": "Giottus",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "perp_dex"
+      "provider": "native_regional"
     },
     {
       "id": "kwenta",

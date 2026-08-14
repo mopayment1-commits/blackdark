@@ -71,8 +71,8 @@ def capability_catalog() -> list[dict[str, Any]]:
         _f(id="OR-PROV", name="Provenance score", name_ar="درجة المصدر", domain="oracle", status="works", personas=ALL, surfaces=["/api/oracle/provenance-score"], evidence="heroes.py", efficiency="Honesty surface; not exclusive data vendor"),
         # ── Market data ───────────────────────────────────────
         _f(id="MKT-INGEST", name="Catalog-100 price health", name_ar="صحة أسعار الكتالوج 100", domain="market", status="works", personas=ALL, surfaces=["/api/universe/status", "full_catalog_mesh_proof"], evidence="coverage_percent 100%", efficiency="Price health ≠ institutional L2"),
-        _f(id="MKT-L2", name="Institutional venue L2 books", name_ar="كتب L2 مؤسسية حسب المنصة", domain="market", status="partial", personas=DESK, surfaces=["live_data_truth_probe", "/api/product/l2-remainder"], evidence="85/100 venue_l2; remainder labeled synthetic_mid", efficiency="Wave 5 native CEX L2 unpaid max; remaining AMM+bybit+perp mids not invented as CEX ladders", unpaid_block="amm_and_bybit_geo"),
-        _f(id="MKT-MESH", name="CORE public CEX L2 mesh", name_ar="شبكة L2 للمنصات العامة الأساسية", domain="market", status="works", personas=DESK, surfaces=["prove_multi_venue_live", "/api/institutional/canonical/mesh-prove"], evidence="82/82 live L2", efficiency="CORE mesh complete for this wave; catalog L2 is separate"),
+        _f(id="MKT-L2", name="Institutional venue L2 books", name_ar="كتب L2 مؤسسية حسب المنصة", domain="market", status="partial", personas=DESK, surfaces=["live_data_truth_probe", "/api/product/l2-remainder"], evidence="90/100 venue_l2; remainder labeled synthetic_mid", efficiency="Wave 6 native CEX L2 unpaid max; remaining AMM+bybit+perp mids not invented as CEX ladders", unpaid_block="amm_and_bybit_geo"),
+        _f(id="MKT-MESH", name="CORE public CEX L2 mesh", name_ar="شبكة L2 للمنصات العامة الأساسية", domain="market", status="works", personas=DESK, surfaces=["prove_multi_venue_live", "/api/institutional/canonical/mesh-prove"], evidence="87/87 live L2", efficiency="CORE mesh complete for this wave; catalog L2 is separate"),
         _f(id="MKT-RADAR", name="Market radar / sectors / OI / klines", name_ar="رادار السوق / قطاعات / فائدة مفتوحة / شموع", domain="market", status="works", personas=["pro", "whale", "fund"], surfaces=["/api/market/overview", "/api/market/sectors", "/api/market/klines"], evidence="api/routers/market.py", efficiency="Pro+ depth; free gets light radar"),
         _f(id="MKT-SENT", name="Sentiment / onchain / macro overviews", name_ar="نظرة معنويات / سلسلة / كلي", domain="market", status="works", personas=PAID, surfaces=["/api/sentiment/overview", "/api/onchain/overview", "/api/macro/overview"], evidence="dashboard.py", efficiency="Public-proxy product complete; not exclusive vendor data"),
         _f(id="MKT-OPT", name="Options chain + paper OMS", name_ar="سلسلة خيارات + OMS ورقي", domain="market", status="works", personas=["pro", "whale"], surfaces=["/api/options/overview", "/api/options/oms/chain", "/api/options/oms/paper-fill"], evidence="options_fetcher.py options_oms.py", efficiency="Deribit public chain; paper fill at mark; not live options"),
@@ -197,7 +197,7 @@ def institutional_review() -> dict[str, Any]:
                 "org-scoped SCIM bearer bd_scim_",
                 "GraphQL capabilityInventory",
                 "pytest tests/test_unpaid_partial_closure.py",
-                "CORE mesh 82/82 and catalog venue_l2 85/100",
+                "CORE mesh 87/87 and catalog venue_l2 90/100",
             ],
             "not_claimed": [
                 "live_fill",
@@ -246,7 +246,7 @@ def institutional_review() -> dict[str, Any]:
         "ask_6_defects_and_weaknesses": [
             {"id": "live_fill_geo", "type": "external", "impact": "Whale cannot prove venue FILL"},
             {"id": "jupiter_unfunded", "type": "external", "impact": "No on-chain VC"},
-            {"id": "l2_85_of_100", "type": "unpaid_ceiling", "impact": "~15 synthetic_mid (remaining AMM + bybit geo + perp mids)"},
+            {"id": "l2_90_of_100", "type": "unpaid_ceiling", "impact": "~10 synthetic_mid (remaining AMM + bybit geo + perp mids)"},
             {"id": "no_cloud_multi_az", "type": "external", "impact": "Cloud SLA unproven"},
             {"id": "psp_not_armed", "type": "ops", "impact": "Self-serve upgrade cannot complete a live charge"},
             {"id": "oauth_client_ids", "type": "ops", "impact": "Live Google/GitHub login needs owner client ids"},
@@ -270,7 +270,7 @@ def institutional_review() -> dict[str, Any]:
         },
         "ask_8_must_still_implement": {
             "unpaid_remaining": [
-                "Do not invent AMM CEX-style L2 — keep synthetic_mid labeled (85/100 is wave-5 unpaid L2, not 100%)",
+                "Do not invent AMM CEX-style L2 — keep synthetic_mid labeled (90/100 is wave-6 unpaid L2, not 100%)",
             ],
             "ops_owner": [
                 "PSP secrets",
