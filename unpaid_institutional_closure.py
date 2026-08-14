@@ -14,7 +14,7 @@ def prove_unpaid_institutional_closure() -> dict[str, Any]:
     from billing_service import unpaid_upgrade_path
     from historical_self_grade import grade_historical_oracle_outcomes
     from l2_remainder import catalog_l2_remainder
-    from oauth_service import oauth_status
+    from oauth_service import oauth_google_live_proved, oauth_status
     from product_capability_inventory import build_full_capability_inventory
 
     inv = build_full_capability_inventory()
@@ -52,6 +52,7 @@ def prove_unpaid_institutional_closure() -> dict[str, Any]:
         "oauth": {
             "unpaid_protocol_complete": oauth.get("unpaid_protocol_complete"),
             "live_idp": oauth.get("live_idp"),
+            "google_live_proved": oauth_google_live_proved(),
         },
         "billing": {
             "unpaid_path_complete": billing.get("unpaid_path_complete"),

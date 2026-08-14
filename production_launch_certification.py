@@ -532,6 +532,7 @@ def domain_register(
     integ_ok = integrity.get("verdict") == "PASS"
     tg_oncall = _dv(drills, "telegram_oncall_live") == "PASS"
     stripe_ok = _dv(drills, "stripe_sandbox") == "PASS"
+    oauth_ok = _dv(drills, "oauth_google_idp") == "PASS"
 
     return [
         _item(
@@ -642,8 +643,16 @@ def domain_register(
             verdict="PASS",
             launch_critical=True,
             severity_if_open="high",
-            evidence="api/routers/auth.py; /login /register 307; MFA on /profile; tests covering authz",
-            notes="Local register/login/session/reset/outbox proved. Live OAuth IdP is ops (D28).",
+            evidence="api/routers/auth.py; /login /register 307; MFA on /profile; tests covering authz"
+            + ("; oauth_google_idp" if oauth_ok else ""),
+            notes=(
+                "Local register/login/session/reset/outbox proved. "
+                + (
+                    "Google OAuth live IdP slice PASS (authorize+token client accepted; human callback not claimed)."
+                    if oauth_ok
+                    else "Live OAuth IdP is ops (D28)."
+                )
+            ),
         ),
         _item(
             id="D13",
@@ -789,13 +798,18 @@ def domain_register(
             verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence=_ev(drills, "telegram_oncall_live", "stripe_sandbox")
-            + "; Binance 451; Jupiter unfunded; OAuth 503",
+            evidence=_ev(drills, "telegram_oncall_live", "stripe_sandbox", "oauth_google_idp")
+            + "; Binance 451; Jupiter unfunded",
             notes=(
                 ("Telegram on-call live send PASS. " if tg_oncall else "Telegram on-call live send FAIL. ")
                 + ("Stripe TEST PSP cycle PASS. " if stripe_ok else "Stripe TEST PSP cycle FAIL. ")
-                + "D28 stays FAIL while Binance 451, unfunded Jupiter, and live OAuth IdP remain. "
-                "Telegram and Stripe TEST slices are independent of those remaining vendors."
+                + ("Google OAuth live IdP PASS. " if oauth_ok else "Google OAuth live IdP FAIL. ")
+                + (
+                    "D28 stays FAIL while Binance 451 and unfunded Jupiter remain. "
+                    if oauth_ok
+                    else "D28 stays FAIL while Binance 451, unfunded Jupiter, and live OAuth IdP remain. "
+                )
+                + "Telegram, Stripe TEST, and Google OAuth IdP slices are independent of those remaining vendors."
             ),
         ),
         _item(

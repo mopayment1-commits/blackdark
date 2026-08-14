@@ -63,6 +63,7 @@ def test_ha_architecture_and_executable_l2_and_compose_config():
 def test_operator_live_probes_evaluate_remaining_gates(monkeypatch, tmp_path):
     monkeypatch.setenv("TELEGRAM_ONCALL_EVIDENCE_PATH", str(tmp_path / "tg.json"))
     monkeypatch.setenv("STRIPE_TEST_EVIDENCE_PATH", str(tmp_path / "stripe.json"))
+    monkeypatch.setenv("OAUTH_GOOGLE_EVIDENCE_PATH", str(tmp_path / "oauth.json"))
     from operator_go_gates import run_live_probes
 
     live = run_live_probes()
@@ -71,16 +72,22 @@ def test_operator_live_probes_evaluate_remaining_gates(monkeypatch, tmp_path):
     assert "telegram_oncall_live" in live
     assert live["stripe_sandbox"]["verdict"] in {"PASS", "FAIL"}
     assert live["stripe_sandbox"]["verdict"] != "NOT_TESTED"
+    assert "oauth_google_idp" in live
+    assert live["oauth_google_idp"]["verdict"] in {"PASS", "FAIL"}
+    assert live["oauth_google_idp"]["verdict"] != "NOT_TESTED"
     assert live["counsel"]["verdict"] == "FAIL"
     assert live["pentest"]["verdict"] == "FAIL"
     assert live["cloud_multi_az"] is False
     assert live["binance_testnet"]["ok"] is False
     assert live["binance_mainnet"]["ok"] is False
+    import os
+
     assert live["wallet_funded"] is False
-    assert live["app_base_url_set"] is False
+    assert live["app_base_url_set"] is bool(os.getenv("APP_BASE_URL") or os.getenv("PUBLIC_BASE_URL"))
     blob = json.dumps(live)
     assert "TELEGRAM_BOT_TOKEN" not in blob
     assert "sk_test_" not in blob
+    assert "OAUTH_GOOGLE_CLIENT_SECRET" not in blob
     from telegram_monitor import oncall_live_proved
 
     if not oncall_live_proved():

@@ -179,7 +179,8 @@ A decision that cannot be proved is withheld (Net-Edge reject, dimension veto â†
 {_md_table(sc_rows, ("Scenario", "Verdict", "Blocks bad decision", "Fails safe"))}
 
 On-call Telegram configured: **{three.get('telegram_oncall_configured')}**  
-On-call live drill: see `drills.telegram_oncall_live` (PASS requires telegram ok + message_id; secrets never recorded).
+On-call live drill: see `drills.telegram_oncall_live` (PASS requires telegram ok + message_id; secrets never recorded).  
+Google OAuth live IdP drill: see `drills.oauth_google_idp` (PASS requires authorize accepted + token client accepted; human callback is not claimed; secrets never recorded).
 
 Cloud multi-AZ: **FAIL** (unpaid external). Local Postgres streaming HA is a different control and is not this report's cloud HA claim.
 

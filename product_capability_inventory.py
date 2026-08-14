@@ -49,15 +49,32 @@ INST = ["fund", "b2b", "acquirer"]
 
 def capability_catalog() -> list[dict[str, Any]]:
     from billing_service import stripe_test_cycle_proved
+    from oauth_service import oauth_google_live_proved
     from telegram_monitor import oncall_live_proved
 
     telegram_live = oncall_live_proved()
     stripe_live = stripe_test_cycle_proved()
+    oauth_live = oauth_google_live_proved()
     return [
         # ── Identity ──────────────────────────────────────────
         _f(id="ID-REG", name="Register / login / logout / session", name_ar="تسجيل / دخول / خروج / جلسة", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/register", "/api/auth/login", "/login", "/register", "/profile"], evidence="api/routers/auth.py", efficiency="Session cookies + PBKDF2; /register aliases /login"),
         _f(id="ID-MFA", name="TOTP MFA enroll/confirm/disable", name_ar="مصادقة TOTP تسجيل/تأكيد/إيقاف", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/mfa/*", "/profile", "/settings/security"], evidence="auth_service.py; dashboard 307 alias", efficiency="Enrollment on /profile; /settings/security no longer 404"),
-        _f(id="ID-OAUTH", name="OAuth start/callback", name_ar="بدء/رجوع OAuth", domain="identity", status="ops_config", personas=ALL, surfaces=["/api/auth/oauth/status", "/api/auth/oauth/{provider}/start"], evidence="oauth_service.py", efficiency="Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids", unpaid_block="oauth_client_ids"),
+        _f(
+            id="ID-OAUTH",
+            name="OAuth start/callback",
+            name_ar="بدء/رجوع OAuth",
+            domain="identity",
+            status="works" if oauth_live else "ops_config",
+            personas=ALL,
+            surfaces=["/api/auth/oauth/status", "/api/auth/oauth/{provider}/start", "/api/auth/oauth/{provider}/callback"],
+            evidence="docs/dd/BLACKDARK_OAUTH_GOOGLE_EVIDENCE.json" if oauth_live else "oauth_service.py",
+            efficiency=(
+                "Live Google IdP authorize+token client accepted; human consent/callback login is not this unpaid gate"
+                if oauth_live
+                else "Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids"
+            ),
+            unpaid_block=None if oauth_live else "oauth_client_ids",
+        ),
         _f(id="ID-EMAIL", name="Email verify / password reset", name_ar="تحقق البريد / إعادة كلمة المرور", domain="identity", status="works", personas=ALL, surfaces=["/verify-email", "/reset-password"], evidence="identity_service.py email_outbox.py", efficiency="Hashed tokens + sealed outbox; SMTP flush is optional ops"),
         _f(id="ID-TIER", name="Tier gates free/pro/whale", name_ar="بوابات الطبقة مجاني/محترف/حوت", domain="identity", status="works", personas=ALL, surfaces=["auth_service.TIER_FEATURES", "/api/auth/me"], evidence="feature_allowed()", efficiency="Enforced on APIs; gated ≠ broken"),
         _f(id="ID-PROMO", name="Promo code redeem", name_ar="استرداد رمز ترويجي", domain="identity", status="works", personas=ALL, surfaces=["/api/promo/redeem"], evidence="auth_service.redeem_promo_code", efficiency="Extends Pro trial when code in LAUNCH_PROMO_CODES"),
@@ -222,6 +239,51 @@ def personas_for_entitlement() -> dict[str, list[str]]:
 
 def institutional_review() -> dict[str, Any]:
     """Structured answers to the eight operator asks — never COMPLETE."""
+    from billing_service import stripe_test_cycle_proved
+    from oauth_service import oauth_google_live_proved
+    from telegram_monitor import oncall_live_proved
+
+    telegram_live = oncall_live_proved()
+    stripe_live = stripe_test_cycle_proved()
+    oauth_live = oauth_google_live_proved()
+    ops_stops = [
+        "binance_order_host_geo_451",
+        "wallet_unfunded_zero_cost_constraint",
+        "amm_and_bybit_geo remaining synthetic_mid",
+        "zero_cost_no_paid_cloud_multi_az",
+        "mail_transport",
+        "hosted_custom_domain_requires_paid_infra",
+    ]
+    if not stripe_live:
+        ops_stops.append("psp_credentials")
+    if not telegram_live:
+        ops_stops.append("telegram_bot_token")
+    if not oauth_live:
+        ops_stops.append("oauth_client_ids")
+    defects = [
+        {"id": "live_fill_geo", "type": "external", "impact": "Whale cannot prove venue FILL"},
+        {"id": "jupiter_unfunded", "type": "external", "impact": "No on-chain VC"},
+        {"id": "l2_95_of_100", "type": "unpaid_ceiling", "impact": "~5 synthetic_mid (core AMM + bybit geo)"},
+        {"id": "no_cloud_multi_az", "type": "external", "impact": "Cloud SLA unproven"},
+        {"id": "wl_hosted_domain", "type": "external", "impact": "Custom-domain WL SaaS needs paid infra"},
+        {"id": "review_gap_telegram_lesson", "type": "process", "impact": "Prior inventory marked AL-SUB works while live Telegram silently returned False — closed this wave"},
+    ]
+    if not stripe_live:
+        defects.append(
+            {"id": "psp_not_armed", "type": "ops", "impact": "Self-serve upgrade cannot complete a live charge"}
+        )
+    if not telegram_live:
+        defects.append(
+            {
+                "id": "telegram_bot_token",
+                "type": "ops",
+                "impact": "Live Telegram send needs owner bot token; in-app inbox still works",
+            }
+        )
+    if not oauth_live:
+        defects.append(
+            {"id": "oauth_client_ids", "type": "ops", "impact": "Live Google/GitHub login needs owner client ids"}
+        )
     return {
         "ask_1_full_inventory": "capability_catalog() is the binding inventory (id/domain/status/personas/surfaces/evidence/efficiency).",
         "ask_2_precise_review": "Each row has status + efficiency + unpaid_block. Domain reviews live in docs/dd/BLACKDARK_FULL_CAPABILITY_INSTITUTIONAL_REVIEW.md.",
@@ -264,17 +326,7 @@ def institutional_review() -> dict[str, Any]:
                 "org-scoped B2B feed keys",
             ],
             "known_stopped_product_defects": [],
-            "known_external_or_ops_stops": [
-                "binance_order_host_geo_451",
-                "wallet_unfunded_zero_cost_constraint",
-                "amm_and_bybit_geo remaining synthetic_mid",
-                "zero_cost_no_paid_cloud_multi_az",
-                "psp_credentials",
-                "telegram_bot_token",
-                "oauth_client_ids",
-                "mail_transport",
-                "hosted_custom_domain_requires_paid_infra",
-            ],
+            "known_external_or_ops_stops": ops_stops,
         },
         "ask_5_every_user_gets_entitled_capabilities": {
             "retail_free": "Proof Pass: 3 Oracle/day, ledger, journal, uniqueness surfaces, MFA, legal. No arb/alerts/execution.",
@@ -284,17 +336,7 @@ def institutional_review() -> dict[str, Any]:
             "b2b": "Org feed key + in-process WL portal. Hosted custom domain unpaid-excluded.",
             "acquirer": "Evidence pack with NOT_COMPLETE + four blockers. No fake COMPLETE.",
         },
-        "ask_6_defects_and_weaknesses": [
-            {"id": "live_fill_geo", "type": "external", "impact": "Whale cannot prove venue FILL"},
-            {"id": "jupiter_unfunded", "type": "external", "impact": "No on-chain VC"},
-            {"id": "l2_95_of_100", "type": "unpaid_ceiling", "impact": "~5 synthetic_mid (core AMM + bybit geo)"},
-            {"id": "no_cloud_multi_az", "type": "external", "impact": "Cloud SLA unproven"},
-            {"id": "psp_not_armed", "type": "ops", "impact": "Self-serve upgrade cannot complete a live charge"},
-            {"id": "telegram_bot_token", "type": "ops", "impact": "Live Telegram send needs owner bot token; in-app inbox still works"},
-            {"id": "oauth_client_ids", "type": "ops", "impact": "Live Google/GitHub login needs owner client ids"},
-            {"id": "wl_hosted_domain", "type": "external", "impact": "Custom-domain WL SaaS needs paid infra"},
-            {"id": "review_gap_telegram_lesson", "type": "process", "impact": "Prior inventory marked AL-SUB works while live Telegram silently returned False — closed this wave"},
-        ],
+        "ask_6_defects_and_weaknesses": defects,
         "ask_7_missing_essentials": {
             "for_unpaid_trial": [
                 "None that block retail/pro paper trial once the app is running",

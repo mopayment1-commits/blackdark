@@ -812,6 +812,73 @@ def drill_stripe_sandbox() -> dict[str, Any]:
     )
 
 
+def drill_oauth_google_idp() -> dict[str, Any]:
+    """Live Google Authorization Code IdP. Credential presence alone is not PASS."""
+    from oauth_service import oauth_google_evidence_path, prove_google_oauth_idp
+
+    receipt = prove_google_oauth_idp()
+    ok = bool(
+        receipt.get("ok")
+        and receipt.get("reason") == "ok"
+        and receipt.get("start_ok") is True
+        and receipt.get("authorize_accepted") is True
+        and receipt.get("token_client_accepted") is True
+        and bool(receipt.get("redirect_uri"))
+    )
+    verdict = "PASS" if ok else "FAIL"
+    stamped = {
+        "verdict": verdict,
+        "ok": ok,
+        "reason": receipt.get("reason"),
+        "client_id_present": bool(receipt.get("client_id_present")),
+        "client_id_len": receipt.get("client_id_len"),
+        "client_id_google_suffix": bool(receipt.get("client_id_google_suffix")),
+        "client_secret_present": bool(receipt.get("client_secret_present")),
+        "client_secret_len": receipt.get("client_secret_len"),
+        "app_base_url_set": bool(receipt.get("app_base_url_set")),
+        "app_base_url_https": bool(receipt.get("app_base_url_https")),
+        "callback_path": receipt.get("callback_path"),
+        "redirect_uri": receipt.get("redirect_uri"),
+        "start_ok": bool(receipt.get("start_ok")),
+        "authorize_accepted": bool(receipt.get("authorize_accepted")),
+        "token_client_accepted": bool(receipt.get("token_client_accepted")),
+        "authorize_http_status": receipt.get("authorize_http_status"),
+        "token_http_status": receipt.get("token_http_status"),
+        "google_error": receipt.get("google_error"),
+        "token_error": receipt.get("token_error"),
+        "authorize_host": receipt.get("authorize_host"),
+        "human_callback_completed": False,
+        "error_type": receipt.get("error_type"),
+        "proved_at": _utcnow(),
+        "path": "oauth_service.prove_google_oauth_idp",
+    }
+    dest = oauth_google_evidence_path()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(stamped, indent=2) + "\n", encoding="utf-8")
+    return _drill(
+        "oauth_google_idp",
+        verdict,
+        "oauth_service.prove_google_oauth_idp Google authorize+token client accepted",
+        reason=stamped["reason"],
+        redirect_uri=stamped["redirect_uri"],
+        start_ok=stamped["start_ok"],
+        authorize_accepted=stamped["authorize_accepted"],
+        token_client_accepted=stamped["token_client_accepted"],
+        google_error=stamped["google_error"],
+        token_error=stamped["token_error"],
+        authorize_http_status=stamped["authorize_http_status"],
+        token_http_status=stamped["token_http_status"],
+        human_callback_completed=False,
+        error_type=stamped["error_type"],
+        notes=(
+            "PASS requires APP_BASE_URL + Google client id/secret, BLACKDARK authorize URL, "
+            "Google accepting redirect_uri (no redirect_uri_mismatch), and token endpoint "
+            "accepting the client (dummy code → invalid_grant). Human consent/callback is not PASS. "
+            "Secrets and authorize URLs are never recorded."
+        ),
+    )
+
+
 def _wait_http_ok(url: str, timeout_sec: float = 45.0) -> bool:
     import urllib.error
     import urllib.request
@@ -1058,6 +1125,7 @@ def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
         drill_ha_architecture(),
         drill_executable_l2_scope(),
         drill_stripe_sandbox(),
+        drill_oauth_google_idp(),
         drill_counsel_artifacts(),
         drill_independent_pentest_artifact(),
         drill_rate_limit_abuse(),

@@ -59,6 +59,7 @@ def test_required_capability_ids_present():
     for required in (
         "ID-REG",
         "ID-MFA",
+        "ID-OAUTH",
         "OR-SENTENCE",
         "OR-LEDGER",
         "OR-IDK",

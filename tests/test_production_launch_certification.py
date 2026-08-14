@@ -100,6 +100,7 @@ def test_telegram_domains_follow_live_oncall_drill():
     assert dmap["D40"]["verdict"] == "PASS"
     assert dmap["D28"]["verdict"] == "FAIL"
     assert "Telegram on-call live send PASS" in dmap["D28"]["notes"]
+    assert "Google OAuth live IdP FAIL" in dmap["D28"]["notes"]
     assert dmap["D13"]["verdict"] == "FAIL"
 
     stripe_pass = {
@@ -107,6 +108,13 @@ def test_telegram_domains_follow_live_oncall_drill():
             "telegram_oncall_live": {"verdict": "PASS", "evidence": "message_id=9", "message_id": 9},
             "panic_freeze": {"verdict": "PASS", "evidence": "freeze"},
             "stripe_sandbox": {"verdict": "PASS", "evidence": "cs_test_abc sub_test_xyz"},
+            "oauth_google_idp": {
+                "verdict": "PASS",
+                "evidence": "authorize+token",
+                "start_ok": True,
+                "authorize_accepted": True,
+                "token_client_accepted": True,
+            },
         }
     }
     dmap = {
@@ -116,6 +124,8 @@ def test_telegram_domains_follow_live_oncall_drill():
     assert dmap["D13"]["verdict"] == "PASS"
     assert dmap["D28"]["verdict"] == "FAIL"
     assert "Stripe TEST PSP cycle PASS" in dmap["D28"]["notes"]
+    assert "Google OAuth live IdP PASS" in dmap["D28"]["notes"]
+    assert "live OAuth IdP remain" not in dmap["D28"]["notes"]
 
     fail_drills = {
         "by_id": {

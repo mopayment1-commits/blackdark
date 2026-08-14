@@ -36,6 +36,7 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
     from launch_drills import (
         drill_counsel_artifacts,
         drill_independent_pentest_artifact,
+        drill_oauth_google_idp,
         drill_stripe_sandbox,
     )
     from ops_recovery import prove_cloud_multi_az_ha
@@ -43,6 +44,7 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
 
     by_id = (drills or {}).get("by_id") or {}
     stripe = by_id.get("stripe_sandbox") or drill_stripe_sandbox()
+    oauth = by_id.get("oauth_google_idp") or drill_oauth_google_idp()
     counsel = by_id.get("counsel_signoff") or drill_counsel_artifacts()
     pentest = by_id.get("independent_pentest_artifact") or drill_independent_pentest_artifact()
     cloud = prove_cloud_multi_az_ha()
@@ -149,6 +151,17 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
             "subscription_prefix": stripe.get("subscription_prefix"),
             "subscription_status": stripe.get("subscription_status"),
             "livemode": stripe.get("livemode"),
+        },
+        "oauth_google_idp": {
+            "verdict": oauth.get("verdict"),
+            "reason": oauth.get("reason"),
+            "start_ok": oauth.get("start_ok"),
+            "authorize_accepted": oauth.get("authorize_accepted"),
+            "token_client_accepted": oauth.get("token_client_accepted"),
+            "google_error": oauth.get("google_error"),
+            "token_error": oauth.get("token_error"),
+            "redirect_uri": oauth.get("redirect_uri"),
+            "human_callback_completed": False,
         },
         "counsel": {"verdict": counsel.get("verdict")},
         "pentest": {"verdict": pentest.get("verdict")},
@@ -342,15 +355,21 @@ def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]
             }
         )
         if gid == "D28":
+            from oauth_service import oauth_google_live_proved
+
+            oauth_ok = oauth_google_live_proved()
             remain_ar = []
             remain_en = []
             remain_ar.append("Binance غير 451")
             remain_en.append("Binance not 451")
             remain_ar.append("Jupiter ممول")
             remain_en.append("funded Jupiter")
-            remain_ar.append("OAuth IdP")
-            remain_en.append("OAuth")
             closed = []
+            if oauth_ok:
+                closed.append("OAuth Google IdP")
+            else:
+                remain_ar.append("OAuth IdP")
+                remain_en.append("OAuth")
             if tg_ok:
                 closed.append("تيليغرام")
             else:
@@ -366,7 +385,11 @@ def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]
             )
             meta["action_ar"] = "إنجاح الاعتمادات الحية المتبقية: " + "، ".join(remain_ar) + "." + closed_ar
             meta["action"] = "Remaining live vendors: " + ", ".join(remain_en) + "."
-            arts = ["four-blockers + oauth proofs"]
+            arts = ["four-blockers"]
+            if oauth_ok:
+                arts.append("oauth_google_idp PASS")
+            else:
+                arts.append("oauth proofs")
             if tg_ok:
                 arts.append("telegram_oncall_live PASS")
             if stripe_ok:
@@ -420,6 +443,10 @@ def render_markdown(cert: dict[str, Any]) -> str:
             f"message_id=`{(live.get('telegram_oncall_live') or {}).get('message_id')}` "
             f"bot=`{(live.get('telegram_oncall_live') or {}).get('bot_username')}`",
             f"- Stripe TEST API: `{((live.get('stripe_sandbox') or {}).get('verdict'))}` ({(live.get('stripe_sandbox') or {}).get('error')})",
+            f"- Google OAuth live IdP: `{((live.get('oauth_google_idp') or {}).get('verdict'))}` "
+            f"reason=`{((live.get('oauth_google_idp') or {}).get('reason'))}` "
+            f"authorize_accepted=`{((live.get('oauth_google_idp') or {}).get('authorize_accepted'))}` "
+            f"token_client_accepted=`{((live.get('oauth_google_idp') or {}).get('token_client_accepted'))}`",
             f"- Counsel artifact: `{(live.get('counsel') or {}).get('verdict')}`",
             f"- Pentest artifact: `{(live.get('pentest') or {}).get('verdict')}`",
             f"- Binance testnet order host ok: `{(live.get('binance_testnet') or {}).get('ok')}` geo_blocked=`{(live.get('binance_testnet') or {}).get('geo_blocked')}`",
