@@ -1,11 +1,10 @@
 # Performance / Load / Stress / Soak Report
 
-**SHA:** `963dd54221250081589b1155704afe5c84dbbad6`  
-**D18 Performance:** NOT_TESTED  
-**D19 Load/Stress/Spike:** NOT_TESTED  
-**D39 Launch capacity:** NOT_TESTED
+**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
+**D18 Performance:** FAIL  
+**D19 Load/Stress/Spike:** FAIL  
+**D39 Launch capacity:** FAIL
 
-Harness present: `scripts/load_test_concurrent.py`.  
-No p50/p95/p99 SLO pack and no endurance/soak of this SHA against production-like workers is attached.
+Local ASGI pack (`asgi_latency`): verdict=PASS p50_ms=2.48 p95_ms=3.0 n=30.
 
-This report does **not** invent latency numbers.
+This local TestClient pack is **not** a production SLO, soak, or breaking-point measurement. D18/D19/D39 remain FAIL for live production even if the local pack PASSes.

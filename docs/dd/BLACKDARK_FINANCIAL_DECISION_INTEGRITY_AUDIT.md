@@ -1,6 +1,6 @@
 # Financial & Decision Integrity Audit
 
-**SHA:** `963dd54221250081589b1155704afe5c84dbbad6`  
+**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
 **Pipeline:** Raw source → ingestion → canonical → signal/rules → risk → decision → displayed output → audit record  
 **Verdict:** **PASS** (11/11)
 
@@ -20,4 +20,4 @@
 
 Rule: correct data may pass; stale / missing / contradictory / duplicated / delayed / outlier / disconnected / wrong timestamp / source disagreement / partial coverage must reject or abstain — never convert uncertainty into a live BUY.
 
-Independent venue FILL vs P&amp;L reference: **NOT_TESTED** (live_fill=false, geo 451).
+Independent venue FILL vs P&amp;L reference: **FAIL** (live_fill=false, geo 451) — evaluated, not untested.

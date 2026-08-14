@@ -1,14 +1,14 @@
 # Legal, Privacy & Data-Licensing Gap Report
 
-**SHA:** `963dd54221250081589b1155704afe5c84dbbad6`  
+**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
 **Author role:** software engineering cert on this SHA — **not independent legal counsel.**
 
 | Topic | Engineering fact | Specialist verdict |
 |---|---|---|
-| Terms / Privacy / Disclaimer / Refund / Cookies pages | PASS render (public HTTP catalog) | NOT_TESTED by counsel |
-| GDPR DSR export/erase | PASS code path | NOT_TESTED by privacy counsel |
-| Financial positioning | Research tool; anti-hype; ledger of misses | NOT_TESTED by counsel |
-| Venue API / derived-data commercial use | Public market adapters | NOT_TESTED by licensing counsel |
-| Jurisdictions | Not mapped in this cert | NOT_TESTED |
+| Terms / Privacy / Disclaimer / Refund / Cookies pages | PASS render (public HTTP catalog) | counsel artifact FAIL |
+| GDPR DSR export/erase | PASS code path | counsel artifact FAIL |
+| Financial positioning | Research tool; anti-hype; ledger of misses | counsel artifact FAIL |
+| Venue API / derived-data commercial use | Public market adapters; license inventory PASS | counsel artifact FAIL |
+| Jurisdictions | Not mapped in this cert | FAIL unless counsel artifact present |
 
-**D30 / D31:** NOT_TESTED (launch-critical). This file is a **gap report**, not a legal opinion.
+**D30:** FAIL (launch-critical). Missing independent counsel file is FAIL, not NOT_TESTED. This file is a **gap report**, not a legal opinion.

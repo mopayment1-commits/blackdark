@@ -1,119 +1,123 @@
 # Final Launch Certification & Evidence Register
 
-**SHA:** `963dd54221250081589b1155704afe5c84dbbad6`  
+**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
 **Decision:** **NO-GO**  
+**Tracks:** PUBLIC-DEMO-READY=True · LIVE-PRODUCTION-READY=False · LIVE-MONEY-READY=False  
 **JSON:** `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`
+
+This register is bound to SHA `dad20dc7fbc5a56f1778c80b3692ae564583218b` only. A later SHA requires a new prove run.
 
 ## Red team (7 axes)
 
 | Axis | Verdict | Notes |
 |---|---|---|
-| security | NOT_TESTED | No independent pentest. Unit authz/CSP/session tests only. |
+| security | FAIL | Independent pentest artifact required. In-repo adversarial pack is a different axis (apis). |
 | data | PASS | Integrity cases force reject/abstain on stale/missing/conflict/poison. |
 | financial_logic | PASS | Net-edge, fees, unknown withdrawal, indicative≠executable unit-proved. |
-| ai | PASS | Veto/abstain converts conflict into Do Not Touch. LLM provider injection NOT_TESTED under D10. |
-| apis | NOT_TESTED | Fail-closed 401/503 on selected surfaces. No offensive API campaign. |
-| operational_failures | FAIL | On-call page unarmed; cloud HA false; several 3AM drills NOT_TESTED. |
+| ai | PASS | Rules/explain fallback executed. LLM provider injection remains D10. |
+| apis | PASS | In-repo unauth/SQLi/XSS/path-traversal pack. Not D10 firm pentest. |
+| operational_failures | FAIL | On-call page unarmed; cloud HA false; production replica SIGKILL not drilled. |
 | input_manipulation | PASS | Poison price freeze; missing fields reject; dimension conflict veto. |
 
 ## Feature-by-feature certification
 
-PRODUCTION-READY here means the feature may run in a production **paper/advisory** deploy without lying. It is **not** live-money ready unless scope says so (none do for FILL/PSP/Jupiter VC).
+Tokens allowed: PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
+PUBLIC-DEMO-READY is visitor/paper. It is not live production and not live money.
 
 | ID | Certification | Inventory | Scope |
 |---|---|---|---|
-| ID-REG | PRODUCTION-READY | works | paper_or_advisory_production |
-| ID-MFA | PRODUCTION-READY | works | paper_or_advisory_production |
-| ID-OAUTH | NOT PRODUCTION-READY | ops_config | owner_secrets_required |
-| ID-EMAIL | PRODUCTION-READY | works | paper_or_advisory_production |
-| ID-TIER | PRODUCTION-READY | works | paper_or_advisory_production |
-| ID-PROMO | PRODUCTION-READY | works | paper_or_advisory_production |
-| BIL-STATUS | PRODUCTION-READY | works | paper_or_advisory_production |
-| BIL-CHECKOUT | NOT PRODUCTION-READY | ops_config | live_money_or_hosted_or_ops |
-| BIL-INST | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-SENTENCE | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-CERT | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-TRUTH | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-LEDGER | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-PERSONA | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-E2E | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-GRAPH | PRODUCTION-READY | works | paper_or_advisory_production |
-| OR-PROV | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-INGEST | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-L2 | NOT PRODUCTION-READY | partial | depth_incomplete |
-| MKT-MESH | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-RADAR | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-SENT | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-OPT | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-TA | PRODUCTION-READY | works | paper_or_advisory_production |
-| MKT-FEED | PRODUCTION-READY | works | paper_or_advisory_production |
-| ARB-SCAN | PRODUCTION-READY | works | paper_or_advisory_production |
-| ARB-CAT | PRODUCTION-READY | works | paper_or_advisory_production |
-| ARB-CEXDEX | PRODUCTION-READY | works | paper_or_advisory_production |
-| EX-SIM | PRODUCTION-READY | works | paper_or_advisory_production |
-| EX-OMS | PRODUCTION-READY | works | paper_or_advisory_production |
-| EX-KEYS | PRODUCTION-READY | works | paper_or_advisory_production |
-| EX-LIVE | NOT PRODUCTION-READY | external_block | live_money_or_hosted_or_ops |
-| EX-JUP | NOT PRODUCTION-READY | works | local_sign_not_onchain_vc |
-| EX-PANIC | PRODUCTION-READY | works | paper_or_advisory_production |
-| EX-AUTO | PRODUCTION-READY | works | paper_or_advisory_production |
-| RSK-ARCH | PRODUCTION-READY | works | paper_or_advisory_production |
-| RSK-WHALE | PRODUCTION-READY | works | paper_or_advisory_production |
-| AL-INBOX | PRODUCTION-READY | works | paper_or_advisory_production |
-| AL-SUB | PRODUCTION-READY | works | paper_or_advisory_production |
-| AL-TG | NOT PRODUCTION-READY | ops_config | live_money_or_hosted_or_ops |
-| AL-PASS | PRODUCTION-READY | works | paper_or_advisory_production |
-| AL-GEN | PRODUCTION-READY | works | paper_or_advisory_production |
-| JR-CRUD | PRODUCTION-READY | works | paper_or_advisory_production |
-| RP-WEEK | PRODUCTION-READY | works | paper_or_advisory_production |
-| RP-SUB | PRODUCTION-READY | works | paper_or_advisory_production |
-| RS-LAB | PRODUCTION-READY | works | paper_or_advisory_production |
-| RS-CHAT | PRODUCTION-READY | works | paper_or_advisory_production |
-| RS-PORT | PRODUCTION-READY | works | paper_or_advisory_production |
-| WH-RADAR | PRODUCTION-READY | works | paper_or_advisory_production |
-| WH-VOICE | PRODUCTION-READY | works | paper_or_advisory_production |
-| WH-MEV | PRODUCTION-READY | works | paper_or_advisory_production |
-| UX-LENS | PRODUCTION-READY | works | paper_or_advisory_production |
-| UX-AUD | PRODUCTION-READY | works | paper_or_advisory_production |
-| UX-INT | PRODUCTION-READY | works | paper_or_advisory_production |
-| UX-DISC | PRODUCTION-READY | works | paper_or_advisory_production |
-| WOW-CORE | PRODUCTION-READY | works | paper_or_advisory_production |
-| WOW-F1F10 | PRODUCTION-READY | works | paper_or_advisory_production |
-| WOW-COV | PRODUCTION-READY | works | paper_or_advisory_production |
-| WOW-GLASS | PRODUCTION-READY | works | paper_or_advisory_production |
-| WOW-PULSE | PRODUCTION-READY | works | paper_or_advisory_production |
-| ML-TRAIN | PRODUCTION-READY | works | paper_or_advisory_production |
-| ML-EXPLAIN | PRODUCTION-READY | works | paper_or_advisory_production |
-| PLAT-GRID | PRODUCTION-READY | works | paper_or_advisory_production |
-| PLAT-DERIV | PRODUCTION-READY | works | paper_or_advisory_production |
-| PLAT-TV | PRODUCTION-READY | works | paper_or_advisory_production |
-| B2B-FEED | PRODUCTION-READY | works | paper_or_advisory_production |
-| B2B-WL | PRODUCTION-READY | works | paper_or_advisory_production |
-| B2B-WL-HOST | NOT PRODUCTION-READY | external_block | live_money_or_hosted_or_ops |
-| B2B-ORG | PRODUCTION-READY | works | paper_or_advisory_production |
-| B2B-SSO | NOT PRODUCTION-READY | ops_config | owner_secrets_required |
-| B2B-SCIM | PRODUCTION-READY | works | paper_or_advisory_production |
-| B2B-SUPER | PRODUCTION-READY | works | paper_or_advisory_production |
-| FUND-TERM | PRODUCTION-READY | works | paper_or_advisory_production |
-| FUND-HA | NOT PRODUCTION-READY | external_block | live_money_or_hosted_or_ops |
-| FUND-PG | PRODUCTION-READY | works | paper_or_advisory_production |
-| FUND-IR | PRODUCTION-READY | works | paper_or_advisory_production |
-| FUND-OBS | PRODUCTION-READY | works | paper_or_advisory_production |
-| FUND-HEALTH | PRODUCTION-READY | works | paper_or_advisory_production |
-| DD-PACK | PRODUCTION-READY | works | paper_or_advisory_production |
-| DD-FOUR | PRODUCTION-READY | works | paper_or_advisory_production |
-| DD-LAUNCH | PRODUCTION-READY | works | paper_or_advisory_production |
-| DD-PLAN | PRODUCTION-READY | works | paper_or_advisory_production |
-| PRV-DSR | PRODUCTION-READY | works | paper_or_advisory_production |
-| PRV-REG | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-LEGAL | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-I18N | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-PWA | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-DOCS | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-GQL | PRODUCTION-READY | works | paper_or_advisory_production |
-| SEC-KEYS | PRODUCTION-READY | works | paper_or_advisory_production |
-| INV-FULL | PRODUCTION-READY | works | paper_or_advisory_production |
-| SITE-PUBLIC | PRODUCTION-READY | works | paper_or_advisory_production |
+| ID-REG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ID-MFA | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ID-OAUTH | NOT-READY | ops_config | owner_secrets_required |
+| ID-EMAIL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ID-TIER | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ID-PROMO | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| BIL-STATUS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| BIL-CHECKOUT | NOT-READY | ops_config | live_money_path_unproved |
+| BIL-INST | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-SENTENCE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-CERT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-TRUTH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-LEDGER | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-PERSONA | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-E2E | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-GRAPH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| OR-PROV | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-INGEST | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-L2 | NOT-READY | partial | depth_incomplete |
+| MKT-MESH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-RADAR | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-SENT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-OPT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-TA | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| MKT-FEED | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ARB-SCAN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ARB-CAT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ARB-CEXDEX | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| EX-SIM | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| EX-OMS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| EX-KEYS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| EX-LIVE | NOT-READY | external_block | live_money_path_unproved |
+| EX-JUP | NOT-READY | works | live_money_path_unproved |
+| EX-PANIC | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| EX-AUTO | NOT-READY | works | live_money_path_unproved |
+| RSK-ARCH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RSK-WHALE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| AL-INBOX | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| AL-SUB | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| AL-TG | NOT-READY | ops_config | live_money_path_unproved |
+| AL-PASS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| AL-GEN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| JR-CRUD | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RP-WEEK | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RP-SUB | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RS-LAB | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RS-CHAT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| RS-PORT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WH-RADAR | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WH-VOICE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WH-MEV | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| UX-LENS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| UX-AUD | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| UX-INT | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| UX-DISC | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WOW-CORE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WOW-F1F10 | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WOW-COV | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WOW-GLASS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| WOW-PULSE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ML-TRAIN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| ML-EXPLAIN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| PLAT-GRID | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| PLAT-DERIV | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| PLAT-TV | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| B2B-FEED | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| B2B-WL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| B2B-WL-HOST | NOT-READY | external_block | live_money_path_unproved |
+| B2B-ORG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| B2B-SSO | NOT-READY | ops_config | owner_secrets_required |
+| B2B-SCIM | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| B2B-SUPER | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| FUND-TERM | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| FUND-HA | NOT-READY | external_block | live_money_path_unproved |
+| FUND-PG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| FUND-IR | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| FUND-OBS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| FUND-HEALTH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| DD-PACK | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| DD-FOUR | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| DD-LAUNCH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| DD-PLAN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| PRV-DSR | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| PRV-REG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-LEGAL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-I18N | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-PWA | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-DOCS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-GQL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SEC-KEYS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| INV-FULL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
+| SITE-PUBLIC | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 
 ## Mandatory outputs
 

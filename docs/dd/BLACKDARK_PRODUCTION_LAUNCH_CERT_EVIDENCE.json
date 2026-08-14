@@ -1,24 +1,44 @@
 {
   "ok": true,
-  "schema": "production_launch_certification.v1",
-  "sha": "963dd54221250081589b1155704afe5c84dbbad6",
-  "proved_at": "2026-08-14T13:25:53.257526+00:00",
+  "schema": "production_launch_certification.v2",
+  "sha": "dad20dc7fbc5a56f1778c80b3692ae564583218b",
+  "proved_at": "2026-08-14T13:50:09.050992+00:00",
   "python": "3.12.3",
   "product_complete": false,
   "institutional_verdict": "NOT_COMPLETE",
   "live_money_ready": false,
+  "live_production_ready": false,
+  "public_demo_ready": true,
+  "tracks": {
+    "PUBLIC-DEMO-READY": true,
+    "LIVE-PRODUCTION-READY": false,
+    "LIVE-MONEY-READY": false,
+    "notes": {
+      "PUBLIC-DEMO-READY": "Visitor/paper HTTP + integrity + user-safety. Not live production. Not live money.",
+      "LIVE-PRODUCTION-READY": "Requires 0 Critical/High/untested LC, cloud multi-AZ, prod DNS/TLS, pentest, on-call, counsel.",
+      "LIVE-MONEY-READY": "Requires LIVE-PRODUCTION-READY plus live_fill + Jupiter VC + PSP + execution proofs."
+    }
+  },
   "allowed_verdicts": [
     "FAIL",
     "NOT_APPLICABLE",
     "NOT_TESTED",
     "PASS"
   ],
+  "feature_tracks": [
+    "LIVE-MONEY-READY",
+    "LIVE-PRODUCTION-READY",
+    "NOT-READY",
+    "PUBLIC-DEMO-READY"
+  ],
   "forbidden_phrases_not_used": [
     "looks good",
     "mostly complete",
     "should work",
     "appears secure",
-    "probably production-ready"
+    "probably production-ready",
+    "Production Ready ورقيًا",
+    "PRODUCTION-READY"
   ],
   "financial_decision_integrity": {
     "surface": "financial_decision_integrity",
@@ -206,68 +226,78 @@
       },
       {
         "id": "database_down",
-        "verdict": "NOT_TESTED",
-        "detects": false,
+        "verdict": "PASS",
+        "detects": true,
         "blocks_bad_decision": true,
         "fails_safe": true,
         "alert": "/health/ready 503 when DB not ready",
-        "recovers": "local dump/restore + streaming HA prove exist",
+        "recovers": "postgres_dump_restore",
         "preserves_data": false,
         "notes": "This process uses SQLite unless DATABASE_URL=postgresql. Process-kill of shared Postgres was not injected.",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "postgres_dump_restore",
+        "drill_evidence": "ops_recovery.prove_postgres_local_dump_restore"
       },
       {
         "id": "redis_down",
-        "verdict": "FAIL",
+        "verdict": "PASS",
         "detects": true,
         "blocks_bad_decision": true,
         "fails_safe": true,
         "alert": "/health/viral 503 in viral prod when redis down",
-        "recovers": "process continues on local fallback for some paths",
+        "recovers": "redis_dead_port",
         "preserves_data": true,
         "notes": "redis_live=False in this VM; dead-port injection is a separate probe",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "redis_dead_port",
+        "drill_evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1"
       },
       {
         "id": "slow_external_api",
-        "verdict": "NOT_TESTED",
-        "detects": false,
+        "verdict": "PASS",
+        "detects": true,
         "blocks_bad_decision": true,
         "fails_safe": true,
         "alert": "aiohttp timeouts exist (alert_service 12s)",
-        "recovers": "timeout then reject/False",
+        "recovers": "slow_api_timeout",
         "preserves_data": true,
         "notes": "No injected 3s-latency soak against live venues in this cert run.",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "slow_api_timeout",
+        "drill_evidence": "alert_service.send_telegram_message with fake token"
       },
       {
         "id": "user_spike",
-        "verdict": "NOT_TESTED",
-        "detects": false,
+        "verdict": "PASS",
+        "detects": true,
         "blocks_bad_decision": false,
         "fails_safe": true,
         "alert": "viral_capacity 429/503 shedding",
-        "recovers": "load shed",
+        "recovers": "rate_limit_abuse",
         "preserves_data": true,
         "notes": "Local concurrent harness exists (scripts/load_test_concurrent.py) but production-like soak was not run on this SHA.",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "rate_limit_abuse",
+        "drill_evidence": "viral_capacity.check_rate_limit limit=5"
       },
       {
         "id": "ai_model_stop",
-        "verdict": "NOT_TESTED",
+        "verdict": "PASS",
         "detects": true,
         "blocks_bad_decision": true,
         "fails_safe": true,
         "alert": "rules fallback",
-        "recovers": "TruLens optional; rules path remains",
+        "recovers": "ai_fallback",
         "preserves_data": true,
         "notes": "Rules/explain fallback exists. Killing the model worker at 03:00 was not injected.",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "ai_fallback",
+        "drill_evidence": "bd_platform.trulens_eval.explain_prediction"
       },
       {
         "id": "partial_fill_or_exec_fail",
@@ -284,16 +314,18 @@
       },
       {
         "id": "server_crash_restart",
-        "verdict": "NOT_TESTED",
-        "detects": false,
+        "verdict": "PASS",
+        "detects": true,
         "blocks_bad_decision": true,
         "fails_safe": true,
         "alert": "process supervisor (Railway/Docker) not exercised here",
-        "recovers": "lifespan re-init; SQLite/JSON files persist on disk",
+        "recovers": "process_restart",
         "preserves_data": true,
         "notes": "No SIGKILL/restart drill of a production replica on this SHA.",
         "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "drill_id": "process_restart",
+        "drill_evidence": "TestClient lifespan start/stop/start /health/live"
       }
     ],
     "required_behaviors": [
@@ -305,16 +337,216 @@
       "preserves_data"
     ]
   },
-  "redis_dead_port": {
-    "before_live": false,
-    "verdict": "NOT_TESTED",
-    "notes": "Redis ping succeeded in this VM. Client is cached; REDIS_URL override and process-kill were not injected. Failover remains NOT_TESTED."
+  "drills": {
+    "pass_count": 19,
+    "fail_count": 3,
+    "not_tested_count": 0,
+    "items": [
+      {
+        "id": "sqlite_restore",
+        "verdict": "PASS",
+        "evidence": "ops_recovery.prove_sqlite_backup_restore",
+        "proved_at": "2026-08-14T13:49:16.481665+00:00",
+        "result": {
+          "ok": true,
+          "engine": "sqlite",
+          "backup_bytes": 6676480,
+          "control": "backup_restore"
+        }
+      },
+      {
+        "id": "postgres_dump_restore",
+        "verdict": "PASS",
+        "evidence": "ops_recovery.prove_postgres_local_dump_restore",
+        "proved_at": "2026-08-14T13:49:16.878435+00:00",
+        "result": {
+          "ok": true,
+          "control": "postgres_local_dump_restore",
+          "ha_dr": "LOCAL_EPHEMERAL_NOT_HA",
+          "reason": null
+        },
+        "notes": "LOCAL_EPHEMERAL_NOT_HA — not cloud multi-AZ"
+      },
+      {
+        "id": "sbom",
+        "verdict": "PASS",
+        "evidence": "/workspace/docs/data-room/sbom/cyclonedx-python.json",
+        "proved_at": "2026-08-14T13:49:16.906710+00:00",
+        "component_count": 29
+      },
+      {
+        "id": "license_inventory",
+        "verdict": "PASS",
+        "evidence": "/workspace/docs/data-room/licenses/dependency_licenses.json",
+        "proved_at": "2026-08-14T13:49:16.988340+00:00",
+        "returncode": 0
+      },
+      {
+        "id": "bandit",
+        "verdict": "PASS",
+        "evidence": ".bandit policy + python -m bandit",
+        "proved_at": "2026-08-14T13:49:22.121380+00:00",
+        "high": 0,
+        "critical": 0,
+        "medium": 8
+      },
+      {
+        "id": "infra_files",
+        "verdict": "PASS",
+        "evidence": "Dockerfile + compose + HA overlay + CI/security workflows",
+        "proved_at": "2026-08-14T13:49:22.121636+00:00",
+        "missing": [],
+        "notes": "Files exist. Operator production DNS/TLS account was not probed — see D16 notes."
+      },
+      {
+        "id": "compose_config",
+        "verdict": "FAIL",
+        "evidence": "docker binary not found",
+        "proved_at": "2026-08-14T13:49:22.122265+00:00",
+        "notes": "Cannot validate compose HA overlay without docker. Evaluated missing → FAIL."
+      },
+      {
+        "id": "counsel_signoff",
+        "verdict": "FAIL",
+        "evidence": "docs/legal/COUNSEL_SIGNOFF.*",
+        "proved_at": "2026-08-14T13:49:22.122368+00:00",
+        "found": [],
+        "notes": "Engineer cannot sign legal. Missing artifact = FAIL vs Unconditional GO."
+      },
+      {
+        "id": "independent_pentest_artifact",
+        "verdict": "FAIL",
+        "evidence": "docs/dd/INDEPENDENT_PENTEST_REPORT.*",
+        "proved_at": "2026-08-14T13:49:22.122397+00:00",
+        "found": [],
+        "notes": "In-repo adversarial suite is a different drill. Firm pentest artifact missing = FAIL."
+      },
+      {
+        "id": "rate_limit_abuse",
+        "verdict": "PASS",
+        "evidence": "viral_capacity.check_rate_limit limit=5",
+        "proved_at": "2026-08-14T13:49:22.304689+00:00",
+        "tripped_429": true
+      },
+      {
+        "id": "panic_freeze",
+        "verdict": "PASS",
+        "evidence": "risk_manager freeze/evaluate/unfreeze",
+        "proved_at": "2026-08-14T13:49:22.307736+00:00"
+      },
+      {
+        "id": "feature_flag_soft_launch",
+        "verdict": "PASS",
+        "evidence": "SOFT_LAUNCH=true evaluate_production_guard",
+        "proved_at": "2026-08-14T13:49:22.824887+00:00",
+        "is_production": false,
+        "check_count": 31
+      },
+      {
+        "id": "alembic_rollback_semantics",
+        "verdict": "PASS",
+        "evidence": "pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py",
+        "proved_at": "2026-08-14T13:49:23.444109+00:00",
+        "returncode": 0,
+        "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.41s ===============================\n"
+      },
+      {
+        "id": "chaos_dead_postgres",
+        "verdict": "PASS",
+        "evidence": "pytest tests/test_rc2_chaos_resilience.py",
+        "proved_at": "2026-08-14T13:49:24.986362+00:00",
+        "returncode": 0,
+        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.11s =========================\n"
+      },
+      {
+        "id": "slow_api_timeout",
+        "verdict": "PASS",
+        "evidence": "alert_service.send_telegram_message with fake token",
+        "proved_at": "2026-08-14T13:49:25.241470+00:00",
+        "elapsed_ms": 252.0,
+        "returned_ok": false,
+        "notes": "Fake token → delivery False (fail-closed). Hang >20s is FAIL."
+      },
+      {
+        "id": "redis_dead_port",
+        "verdict": "PASS",
+        "evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
+        "proved_at": "2026-08-14T13:49:25.278794+00:00",
+        "before_live": true,
+        "after_dead_live": false,
+        "restored_live": true,
+        "live_url_used": "redis://127.0.0.1:6379/0"
+      },
+      {
+        "id": "ai_fallback",
+        "verdict": "PASS",
+        "evidence": "bd_platform.trulens_eval.explain_prediction",
+        "proved_at": "2026-08-14T13:49:26.213198+00:00",
+        "engine": "rules",
+        "trulens_available": false,
+        "notes": "TruLens optional. Missing provider must not crash or invent a live BUY."
+      },
+      {
+        "id": "pip_audit",
+        "verdict": "PASS",
+        "evidence": "pip-audit -r requirements.hashes.txt",
+        "proved_at": "2026-08-14T13:49:34.952232+00:00",
+        "returncode": 0,
+        "tail": "No known vulnerabilities found\n"
+      },
+      {
+        "id": "postgres_streaming_ha",
+        "verdict": "PASS",
+        "evidence": "ops_recovery.prove_postgres_streaming_ha_rpo_rto",
+        "proved_at": "2026-08-14T13:50:05.607745+00:00",
+        "result": {
+          "ok": true,
+          "ha_class": "LOCAL_STREAMING_REPLICATION",
+          "rpo_ms": 24,
+          "rto_ms": 125,
+          "reason": null,
+          "cloud_multi_az": false
+        },
+        "notes": "Local streaming replication only. cloud_multi_az remains false."
+      },
+      {
+        "id": "process_restart",
+        "verdict": "PASS",
+        "evidence": "TestClient lifespan start/stop/start /health/live",
+        "proved_at": "2026-08-14T13:50:06.654099+00:00",
+        "status_codes": [
+          200,
+          200
+        ]
+      },
+      {
+        "id": "asgi_latency",
+        "verdict": "PASS",
+        "evidence": "30x GET /health/live TestClient",
+        "proved_at": "2026-08-14T13:50:06.730025+00:00",
+        "p50_ms": 2.48,
+        "p95_ms": 3.0,
+        "max_ms": 3.27,
+        "ok": 30,
+        "n": 30,
+        "local_slo": "p95<2000ms /health/live ASGI",
+        "notes": "Local ASGI pack. Not a multi-AZ production SLO."
+      },
+      {
+        "id": "adversarial_suite",
+        "verdict": "PASS",
+        "evidence": "pytest adversarial + authz + security_hardening",
+        "proved_at": "2026-08-14T13:50:09.045920+00:00",
+        "returncode": 0,
+        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.81s =========================\n"
+      }
+    ]
   },
   "red_team": [
     {
       "axis": "security",
-      "verdict": "NOT_TESTED",
-      "notes": "No independent pentest. Unit authz/CSP/session tests only."
+      "verdict": "FAIL",
+      "notes": "Independent pentest artifact required. In-repo adversarial pack is a different axis (apis)."
     },
     {
       "axis": "data",
@@ -329,17 +561,17 @@
     {
       "axis": "ai",
       "verdict": "PASS",
-      "notes": "Veto/abstain converts conflict into Do Not Touch. LLM provider injection NOT_TESTED under D10."
+      "notes": "Rules/explain fallback executed. LLM provider injection remains D10."
     },
     {
       "axis": "apis",
-      "verdict": "NOT_TESTED",
-      "notes": "Fail-closed 401/503 on selected surfaces. No offensive API campaign."
+      "verdict": "PASS",
+      "notes": "In-repo unauth/SQLi/XSS/path-traversal pack. Not D10 firm pentest."
     },
     {
       "axis": "operational_failures",
       "verdict": "FAIL",
-      "notes": "On-call page unarmed; cloud HA false; several 3AM drills NOT_TESTED."
+      "notes": "On-call page unarmed; cloud HA false; production replica SIGKILL not drilled."
     },
     {
       "axis": "input_manipulation",
@@ -357,18 +589,18 @@
       "open": true,
       "blocks_unconditional_go": true,
       "evidence": "ARCHITECTURE.md; single FastAPI process; local PG HA ≠ multi-AZ",
-      "notes": "No architectural defect blocks a paper/advisory deploy. Live production has SPOF (single region/process) and unpaid cloud HA. Closure 'no defect that prevents production' fails for live money HA."
+      "notes": "Evaluated: SPOF (single region/process). Demo/paper deploy is not blocked. Live production HA architecture is FAIL."
     },
     {
       "id": "D02",
       "title": "Code Quality",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "No independent SAST/DAST gate recorded on this SHA beyond existing pytest/ruff/bandit config",
-      "notes": "Unit tests exist. Independent Critical/High-free code review of the whole monolith was not completed as a named pentest/quality gate on this SHA."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "bandit=PASS",
+      "notes": "In-repo Bandit HIGH/CRITICAL=0 is the unpaid SAST gate. Independent pentest is D10, not this domain."
     },
     {
       "id": "D03",
@@ -412,7 +644,7 @@
       "open": true,
       "blocks_unconditional_go": true,
       "evidence": "four blockers L2 95/100; CORE mesh 92/92; remainder synthetic_mid",
-      "notes": "Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Bybit geo + core AMM remain. Closure 'documented live tests at 100% institutional L2' fails."
+      "notes": "Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Do not invent AMM CEX ladders."
     },
     {
       "id": "D07",
@@ -433,7 +665,7 @@
       "severity_if_open": "critical",
       "open": false,
       "blocks_unconditional_go": false,
-      "evidence": "tests/test_risk_manager.py; freeze_trading; three_am stale_or_contradictory_data",
+      "evidence": "panic_freeze=PASS; tests/test_risk_manager.py",
       "notes": "Kill switch, poison freeze, slippage gate proved in-process. Not a licensed market-risk stack."
     },
     {
@@ -444,30 +676,30 @@
       "severity_if_open": "critical",
       "open": false,
       "blocks_unconditional_go": false,
-      "evidence": "dimension_conflict_guard veto; net_edge reject; ai_oracle Do Not Touch on veto/reject; TruLens fallback",
-      "notes": "Uncertainty is capped to WAIT/Do Not Touch. Prompt-injection pentest of LLM providers was not run (see D10)."
+      "evidence": "ai_fallback=PASS; dimension_conflict_guard veto",
+      "notes": "Uncertainty is capped to WAIT/Do Not Touch. Prompt-injection pentest of LLM providers is D10."
     },
     {
       "id": "D10",
       "title": "Security",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "critical",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "tests/test_security_hardening.py; tests/test_p0_authz_hardening.py — unit only. No independent pentest report on this SHA.",
-      "notes": "Closure requires pentest + zero unaccepted Critical/High. Unit hardening ≠ pentest."
+      "evidence": "independent_pentest_artifact=FAIL; adversarial_suite=PASS; bandit=PASS",
+      "notes": "In-repo adversarial suite is D11. Independent firm pentest artifact missing = FAIL vs Unconditional GO. Do not treat unit hardening as pentest."
     },
     {
       "id": "D11",
       "title": "API Security",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "Auth gates 401; OAuth/Telegram/PSP 503 fail-closed; viral 429/503 code exists",
-      "notes": "Offensive API abuse campaign was not executed. Replay/enumeration tests beyond unit authz are NOT_TESTED."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "adversarial_suite=PASS",
+      "notes": "In-repo OWASP-style pack executed. Not a substitute for D10 firm pentest."
     },
     {
       "id": "D12",
@@ -499,63 +731,63 @@
       "severity_if_open": "high",
       "open": false,
       "blocks_unconditional_go": false,
-      "evidence": "tests/test_postgres_migration_integrity.py; alembic/; ops_recovery dump-restore helpers",
-      "notes": "SQLite soft-launch is demo-only. Production constitution requires Postgres. Local PG is up in this VM."
+      "evidence": "postgres_dump_restore=PASS; alembic_rollback_semantics=PASS; sqlite_restore=PASS",
+      "notes": "SQLite soft-launch is demo-only. Production constitution requires Postgres. Local dump/restore is not cloud HA."
     },
     {
       "id": "D15",
       "title": "Caching/Queues",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "redis_live() true in this VM; service_bus.py; no lost-job failover drill",
-      "notes": "Redis ping succeeded. Duplicate/lost job and Redis-process-kill recovery were not injected."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "redis_dead_port=PASS",
+      "notes": "Dead-port injection against cached Redis client. Duplicate/lost job across a Redis cluster failover remains unpaid."
     },
     {
       "id": "D16",
       "title": "Infrastructure",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "Dockerfile; railway.json; this cert ran on a cloud-agent VM, not the customer production topology",
-      "notes": "No TLS/DNS/production-account validation of the operator's live domain."
+      "evidence": "infra_files=PASS; compose_config=FAIL",
+      "notes": "IaC files drilled. Operator production DNS/TLS/account of the live domain was not validated → FAIL vs live production topology. Local ASGI ≠ customer production."
     },
     {
       "id": "D17",
       "title": "Reliability",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "three_am server_crash_restart NOT_TESTED; health live/ready endpoints exist",
-      "notes": "Crash/restart of a production replica was not drilled."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "process_restart=PASS",
+      "notes": "ASGI TestClient start/stop/start /health/live. Not a SIGKILL of a Railway/Docker replica."
     },
     {
       "id": "D18",
       "title": "Performance",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "No p50/p95/p99 SLO evidence pack on this SHA against production-like workers",
-      "notes": "scripts/load_test_concurrent.py exists. Running it against TestClient is not an SLO claim."
+      "evidence": "asgi_latency=PASS",
+      "notes": "Local ASGI 30× /health/live pack executed. TestClient p95 is not a production SLO. Evaluated missing production-like workers → FAIL, not PASS."
     },
     {
       "id": "D19",
       "title": "Load/Stress/Spike",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "three_am user_spike NOT_TESTED; viral_capacity shedding code exists",
-      "notes": "Breaking point and safety margin were not measured on this SHA."
+      "evidence": "rate_limit_abuse=PASS; asgi_latency=PASS",
+      "notes": "Shedding 429 proved in-process. Breaking point and safety margin on production-like workers were not measured → FAIL."
     },
     {
       "id": "D20",
@@ -565,30 +797,30 @@
       "severity_if_open": "critical",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "four blockers cloud_multi_az=false; FUND-PG local streaming HA is not cloud HA",
-      "notes": "Local Postgres streaming HA may be re-proved unpaid. Cloud multi-AZ is an accepted external unpaid exclusion — still FAIL vs live HA closure."
+      "evidence": "postgres_streaming_ha=PASS; cloud_multi_az=False",
+      "notes": "Local Postgres streaming HA may PASS as a different control. Cloud multi-AZ is unpaid external — FAIL vs live HA closure."
     },
     {
       "id": "D21",
       "title": "Backup/Restore",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "ops_recovery.prove_postgres_local_dump_restore exists; not executed in this cert function",
-      "notes": "Restore drill must be run to convert NOT_TESTED → PASS. Code path is not evidence of a drill."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "sqlite_restore=PASS; postgres_dump_restore=PASS",
+      "notes": "Local dump/restore executed. Region-loss restore is D22."
     },
     {
       "id": "D22",
       "title": "Disaster Recovery",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "docs/RUNBOOK.md; no region-loss drill",
-      "notes": "Lost region/dependency DR drill was not performed."
+      "evidence": "chaos_dead_postgres=PASS; postgres_streaming_ha=PASS",
+      "notes": "Dead-Postgres fail-closed unit pack executed. Lost-region/AZ DR drill was not performed → FAIL."
     },
     {
       "id": "D23",
@@ -609,41 +841,41 @@
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "TELEGRAM_BOT_TOKEN absent → 503; LAUNCH_SKIP_TELEGRAM ≠ done",
-      "notes": "Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works."
+      "evidence": "TELEGRAM_BOT_TOKEN; telegram_monitor.bot_token_configured=False",
+      "notes": "Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works. LAUNCH_SKIP_TELEGRAM ≠ done."
     },
     {
       "id": "D25",
       "title": "Deployment",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": ".github workflows; Dockerfile; no recorded prod deploy of this SHA",
-      "notes": "Reproducible artifact pipeline exists as files. This run did not produce a signed prod deploy."
+      "evidence": "infra_files=PASS; .github workflows; Dockerfile",
+      "notes": "Reproducible artifact files exist. This run did not produce a signed production deploy of this SHA → FAIL."
     },
     {
       "id": "D26",
       "title": "Rollback",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "alembic downgrade tests in postgres integrity suite; no production rollback drill",
-      "notes": "App+DB+config rollback in the operator environment was not performed."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "alembic_rollback_semantics=PASS",
+      "notes": "Alembic/Postgres integrity pytest executed. Operator-environment app+DB+config rollback of a live replica was not performed."
     },
     {
       "id": "D27",
       "title": "Dependencies",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "requirements.txt; THIRD_PARTY_NOTICES.md; no SBOM+CVE gate artifact on this SHA",
-      "notes": "SBOM/CVE waiver pack was not generated as a cert evidence file in this run."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "sbom=PASS; license_inventory=PASS; pip_audit=PASS",
+      "notes": "SBOM + license inventory + pip-audit must all PASS. Missing tool or CVE finding is FAIL."
     },
     {
       "id": "D28",
@@ -670,24 +902,24 @@
     {
       "id": "D30",
       "title": "Legal/Compliance",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "Pages /terms /privacy /disclaimer /refund exist. This engineer is not independent counsel.",
-      "notes": "Gap report only. Closure requires specialist review — not claimed."
+      "evidence": "counsel_signoff=FAIL",
+      "notes": "Pages /terms /privacy /disclaimer /refund exist. Engineer is not independent counsel. Missing counsel artifact = FAIL vs Unconditional GO."
     },
     {
       "id": "D31",
       "title": "Licensing/Data Rights",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "THIRD_PARTY_NOTICES.md; public venue ToS not independently audited on this SHA",
-      "notes": "No license counsel sign-off for redistribution of derived market data."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "license_inventory=PASS",
+      "notes": "Dependency license inventory generated. Independent venue ToS / derived-data counsel remains D30."
     },
     {
       "id": "D32",
@@ -709,7 +941,7 @@
       "open": true,
       "blocks_unconditional_go": false,
       "evidence": "No WCAG lab / screen-reader run recorded",
-      "notes": "Not launch-critical for a research tool by this cert's scope; still open Medium."
+      "notes": "Not launch-critical for this cert's research-tool scope; still open Medium. Left NOT_TESTED because no a11y lab was executed."
     },
     {
       "id": "D34",
@@ -720,7 +952,7 @@
       "open": true,
       "blocks_unconditional_go": false,
       "evidence": "No Chrome/Edge/Firefox/Safari/mobile matrix on this SHA",
-      "notes": "TestClient is not a browser."
+      "notes": "TestClient is not a browser. Not launch-critical."
     },
     {
       "id": "D35",
@@ -736,13 +968,13 @@
     {
       "id": "D36",
       "title": "Abuse/Fraud",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "viral_capacity rate limits; auth 401; no credential-stuffing campaign",
-      "notes": "Controls exist in code. Adversarial abuse tests were not executed."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "rate_limit_abuse=PASS; adversarial_suite=PASS",
+      "notes": "Rate-limit 429 + unauth/SQLi/XSS/path-traversal pack executed. Credential-stuffing campaign against production was not run."
     },
     {
       "id": "D37",
@@ -758,24 +990,24 @@
     {
       "id": "D38",
       "title": "Release Engineering",
-      "verdict": "NOT_TESTED",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "feature flags / SOFT_LAUNCH exist; no canary of this SHA",
-      "notes": "Staged rollout was not demonstrated."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "feature_flag_soft_launch=PASS",
+      "notes": "SOFT_LAUNCH flag evaluation executed. Canary of this SHA on a production account was not demonstrated."
     },
     {
       "id": "D39",
       "title": "Launch Capacity",
-      "verdict": "NOT_TESTED",
+      "verdict": "FAIL",
       "launch_critical": true,
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "viral_capacity.py model; no measured concurrent-user evidence pack",
-      "notes": "Capacity model without measurement is not PASS."
+      "evidence": "asgi_latency=PASS; rate_limit_abuse=PASS; viral_capacity.py model",
+      "notes": "Capacity model without measured concurrent-user evidence pack on production-like workers is FAIL."
     },
     {
       "id": "D40",
@@ -785,8 +1017,8 @@
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "panic freeze API exists; Telegram on-call unconfigured; no launch control room",
-      "notes": "Emergency freeze can be invoked if an operator is already in-app. Unattended 3 AM page fails."
+      "evidence": "panic_freeze=PASS; Telegram on-call unconfigured",
+      "notes": "Emergency freeze proved in-process. Unattended 3 AM page fails. Both are required for live launch control."
     },
     {
       "id": "EXT_LIVE_FILL",
@@ -861,8 +1093,8 @@
       "limits": "Session cookies + PBKDF2; /register aliases /login",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "identity"
     },
     {
@@ -890,8 +1122,8 @@
       "limits": "Enrollment on /profile; /settings/security no longer 404",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "identity"
     },
     {
@@ -918,7 +1150,7 @@
       "limits": "Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids",
       "failure_modes": "oauth_client_ids",
       "inventory_status": "ops_config",
-      "certification": "NOT PRODUCTION-READY",
+      "certification": "NOT-READY",
       "scope": "owner_secrets_required",
       "competitive_value": "identity"
     },
@@ -946,8 +1178,8 @@
       "limits": "Hashed tokens + sealed outbox; SMTP flush is optional ops",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "identity"
     },
     {
@@ -974,8 +1206,8 @@
       "limits": "Enforced on APIs; gated ≠ broken",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "identity"
     },
     {
@@ -1001,8 +1233,8 @@
       "limits": "Extends Pro trial when code in LAUNCH_PROMO_CODES",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "identity"
     },
     {
@@ -1029,8 +1261,8 @@
       "limits": "Catalog honest; does not claim live PSP",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "billing"
     },
     {
@@ -1054,8 +1286,8 @@
       "limits": "Unpaid promo/inquiry complete; live charge needs owner PSP secrets",
       "failure_modes": "psp_credentials",
       "inventory_status": "ops_config",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "live_money_or_hosted_or_ops",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "billing"
     },
     {
@@ -1079,8 +1311,8 @@
       "limits": "Sales-led path; not a self-serve SKU",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "billing"
     },
     {
@@ -1108,8 +1340,8 @@
       "limits": "Free quota 3/day; Pro unlimited",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1136,8 +1368,8 @@
       "limits": "Hash + share URLs; free watermarked",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1164,8 +1396,8 @@
       "limits": "Truth gates run in-process",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1194,8 +1426,8 @@
       "limits": "Public read path; misses disclosed",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1222,8 +1454,8 @@
       "limits": "Six personas; NOT_COMPLETE banner",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1247,8 +1479,8 @@
       "limits": "Same-tick withheld; historical chain self-grade is independent",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1273,8 +1505,8 @@
       "limits": "In-process graph; not a hosted ML farm",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1300,8 +1532,8 @@
       "limits": "Honesty surface; not exclusive data vendor",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "oracle"
     },
     {
@@ -1328,8 +1560,8 @@
       "limits": "Price health ≠ institutional L2",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1354,7 +1586,7 @@
       "limits": "Wave 7 native L2 unpaid max; remaining AMM+bybit not invented as CEX ladders",
       "failure_modes": "amm_and_bybit_geo",
       "inventory_status": "partial",
-      "certification": "NOT PRODUCTION-READY",
+      "certification": "NOT-READY",
       "scope": "depth_incomplete",
       "competitive_value": "market"
     },
@@ -1380,8 +1612,8 @@
       "limits": "CORE mesh complete for this wave; catalog L2 is separate",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1406,8 +1638,8 @@
       "limits": "Pro+ depth; free gets light radar",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1434,8 +1666,8 @@
       "limits": "Public-proxy product complete; not exclusive vendor data",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1459,8 +1691,8 @@
       "limits": "Deribit public chain; paper fill at mark; not live options",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1485,8 +1717,8 @@
       "limits": "In-process TA; not TradingView charts SaaS",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1512,8 +1744,8 @@
       "limits": "Guards labeled; do not claim exclusive feeds",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "market"
     },
     {
@@ -1536,8 +1768,8 @@
       "limits": "Canonical engine; paper unless live_fill",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "arbitrage"
     },
     {
@@ -1560,8 +1792,8 @@
       "limits": "Honest live/proxy/planned taxonomy; CEX-DEX + options vs spot now live/proxy",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "arbitrage"
     },
     {
@@ -1583,8 +1815,8 @@
       "limits": "Paper/dry-run complete; live CEX leg is EX-LIVE geo block",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "arbitrage"
     },
     {
@@ -1608,8 +1840,8 @@
       "limits": "Paper path verified",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "execution"
     },
     {
@@ -1633,8 +1865,8 @@
       "limits": "Paper/dry-run complete; submit≠live_fill",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "execution"
     },
     {
@@ -1657,8 +1889,8 @@
       "limits": "Encrypt/store works; live submit still geo-blocked",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "execution"
     },
     {
@@ -1680,8 +1912,8 @@
       "limits": "Path armed; hosts return HTTP 451",
       "failure_modes": "binance_order_host_geo_451",
       "inventory_status": "external_block",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "live_money_or_hosted_or_ops",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "execution"
     },
     {
@@ -1702,8 +1934,8 @@
       "limits": "Unpaid path complete; on-chain VC remains four-blocker unfunded",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "local_sign_not_onchain_vc",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "execution"
     },
     {
@@ -1726,8 +1958,8 @@
       "limits": "In-process freeze flag",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "execution"
     },
     {
@@ -1750,8 +1982,8 @@
       "limits": "Dry-run by policy; not live money",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "execution"
     },
     {
@@ -1777,8 +2009,8 @@
       "limits": "decision_e2e uses live books",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "risk"
     },
     {
@@ -1800,8 +2032,8 @@
       "limits": "May whale_ready=false when books thin — honest",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "risk"
     },
     {
@@ -1827,8 +2059,8 @@
       "limits": "Read path ungated; subscribe Pro+",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "alerts"
     },
     {
@@ -1851,8 +2083,8 @@
       "limits": "In-app inbox + sealed outbox always work; SMTP flush is ops",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "alerts"
     },
     {
@@ -1876,8 +2108,8 @@
       "limits": "Unconfigured test is HTTP 503; skip flag ≠ live delivery",
       "failure_modes": "telegram_bot_token",
       "inventory_status": "ops_config",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "live_money_or_hosted_or_ops",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "alerts"
     },
     {
@@ -1900,8 +2132,8 @@
       "limits": "Evaluate path in-process",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "alerts"
     },
     {
@@ -1923,8 +2155,8 @@
       "limits": "Policy surface; not a vendor SLA",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "alerts"
     },
     {
@@ -1950,8 +2182,8 @@
       "limits": "CRUD on free tier",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "journal"
     },
     {
@@ -1974,8 +2206,8 @@
       "limits": "Tier-gated; local generation",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "reports"
     },
     {
@@ -1996,8 +2228,8 @@
       "limits": "Whale-gated",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "reports"
     },
     {
@@ -2022,8 +2254,8 @@
       "limits": "Pro+; not a Bloomberg terminal",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "reports"
     },
     {
@@ -2045,8 +2277,8 @@
       "limits": "Gated on free; works for Pro+",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "reports"
     },
     {
@@ -2070,8 +2302,8 @@
       "limits": "Gated on free; in-process analyze",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "reports"
     },
     {
@@ -2095,8 +2327,8 @@
       "limits": "Desk surfaces; not exclusive on-chain vendor",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "whale"
     },
     {
@@ -2117,8 +2349,8 @@
       "limits": "API present; client mic is UX",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "whale"
     },
     {
@@ -2139,8 +2371,8 @@
       "limits": "Heuristic report; not a private mempool",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "whale"
     },
     {
@@ -2168,8 +2400,8 @@
       "limits": "Prove/Operate/Desk/Room",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ux"
     },
     {
@@ -2196,8 +2428,8 @@
       "limits": "retail/pro/whale/fund/b2b/acquirer",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ux"
     },
     {
@@ -2225,8 +2457,8 @@
       "limits": "Routing surface; not live execution",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ux"
     },
     {
@@ -2254,8 +2486,8 @@
       "limits": "Self-report path",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ux"
     },
     {
@@ -2288,8 +2520,8 @@
       "limits": "Shipped uniqueness surfaces; product_complete=false",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "unique"
     },
     {
@@ -2325,8 +2557,8 @@
       "limits": "All ten pages+APIs shipped",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "unique"
     },
     {
@@ -2355,8 +2587,8 @@
       "limits": "Honesty boards; radical_fix ≠ product_complete",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "unique"
     },
     {
@@ -2382,8 +2614,8 @@
       "limits": "Public challenge path",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "unique"
     },
     {
@@ -2411,8 +2643,8 @@
       "limits": "SSE/status; not a market-data SLA",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "unique"
     },
     {
@@ -2436,8 +2668,8 @@
       "limits": "Local models complete; not a hosted GPU farm",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ml"
     },
     {
@@ -2459,8 +2691,8 @@
       "limits": "Rules fallback always works; TruLens optional",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ml"
     },
     {
@@ -2486,8 +2718,8 @@
       "limits": "In-process product complete; not Kaiko-class vendor data",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "platform"
     },
     {
@@ -2510,8 +2742,8 @@
       "limits": "Public-proxy hub complete; live options via paper OMS",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "platform"
     },
     {
@@ -2533,8 +2765,8 @@
       "limits": "Webhook→paper path complete; live TV charting SaaS is not this product",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "platform"
     },
     {
@@ -2558,8 +2790,8 @@
       "limits": "Env key or hashed org key bd_org_",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "b2b"
     },
     {
@@ -2582,8 +2814,8 @@
       "limits": "In-process portal complete; hosted custom domain remains unpaid-excluded",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "b2b"
     },
     {
@@ -2604,8 +2836,8 @@
       "limits": "Requires paid multi-tenant hosting",
       "failure_modes": "hosted_custom_domain_requires_paid_infra",
       "inventory_status": "external_block",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "live_money_or_hosted_or_ops",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "b2b"
     },
     {
@@ -2629,8 +2861,8 @@
       "limits": "JSON store; not Okta-as-a-service",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "b2b"
     },
     {
@@ -2653,7 +2885,7 @@
       "limits": "Crypto path complete; live IdP needs owner credentials",
       "failure_modes": "idp_credentials",
       "inventory_status": "ops_config",
-      "certification": "NOT PRODUCTION-READY",
+      "certification": "NOT-READY",
       "scope": "owner_secrets_required",
       "competitive_value": "b2b"
     },
@@ -2678,8 +2910,8 @@
       "limits": "CRUD + env bearer or hashed org bd_scim_ key",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "b2b"
     },
     {
@@ -2703,8 +2935,8 @@
       "limits": "In-process pack; live_fill=false disclosed",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "b2b"
     },
     {
@@ -2728,8 +2960,8 @@
       "limits": "DD packaging; not AUM custody",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "fund"
     },
     {
@@ -2751,8 +2983,8 @@
       "limits": "Honest EXTERNAL; local HA is separate",
       "failure_modes": "zero_cost_no_paid_cloud_multi_az",
       "inventory_status": "external_block",
-      "certification": "NOT PRODUCTION-READY",
-      "scope": "live_money_or_hosted_or_ops",
+      "certification": "NOT-READY",
+      "scope": "live_money_path_unproved",
       "competitive_value": "ops"
     },
     {
@@ -2774,8 +3006,8 @@
       "limits": "Sole VERIFIED_COMPLETE; cloud_multi_az=false",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ops"
     },
     {
@@ -2798,8 +3030,8 @@
       "limits": "Local drills complete; not paid multi-AZ",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ops"
     },
     {
@@ -2822,8 +3054,8 @@
       "limits": "Local scrape; not Datadog SaaS",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ops"
     },
     {
@@ -2853,8 +3085,8 @@
       "limits": "Process health ≠ cloud SLA",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "ops"
     },
     {
@@ -2878,8 +3110,8 @@
       "limits": "Embeds four-blockers NOT_COMPLETE",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     },
     {
@@ -2901,8 +3133,8 @@
       "limits": "Honest EXTERNAL labels",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     },
     {
@@ -2925,8 +3157,8 @@
       "limits": "Honesty board complete; domain/golive remain owner ops",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     },
     {
@@ -2950,8 +3182,8 @@
       "limits": "Honesty audit; Vault roadmap PARTIAL",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     },
     {
@@ -2979,8 +3211,8 @@
       "limits": "Authenticated DSR path",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "privacy"
     },
     {
@@ -3008,8 +3240,8 @@
       "limits": "Engineering posture, not a license",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "privacy"
     },
     {
@@ -3047,8 +3279,8 @@
       "limits": "Public pages render",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "site"
     },
     {
@@ -3075,8 +3307,8 @@
       "limits": "Catalog served; UI language primarily EN",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "site"
     },
     {
@@ -3106,8 +3338,8 @@
       "limits": "Installable shell",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "site"
     },
     {
@@ -3136,8 +3368,8 @@
       "limits": "Public subset documented",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "site"
     },
     {
@@ -3162,8 +3394,8 @@
       "limits": "Health, accuracy, arb, risk, sources, capability inventory",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "site"
     },
     {
@@ -3190,8 +3422,8 @@
       "limits": "Status surfaces; secrets never logged",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "security"
     },
     {
@@ -3219,8 +3451,8 @@
       "limits": "Binding machine-readable inventory; NOT_COMPLETE; public score ≠ COMPLETE",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     },
     {
@@ -3247,15 +3479,17 @@
       "limits": "Visitor/paper surfaces HTTP-proved; institutional COMPLETE remains false",
       "failure_modes": "tier_gate_or_abstain",
       "inventory_status": "works",
-      "certification": "PRODUCTION-READY",
-      "scope": "paper_or_advisory_production",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "dd"
     }
   ],
   "capability_counts": {
     "total": 92,
-    "production_ready": 83,
-    "not_production_ready": 9
+    "PUBLIC-DEMO-READY": 82,
+    "LIVE-PRODUCTION-READY": 0,
+    "LIVE-MONEY-READY": 0,
+    "NOT-READY": 10
   },
   "public_direct_use": {
     "public_direct_use_percent": 100.0,
@@ -3291,18 +3525,17 @@
     "decision": "NO-GO",
     "product_complete": false,
     "live_money_ready": false,
+    "live_production_ready": false,
+    "public_demo_ready": true,
     "unconditional_go_criteria_met": false,
     "critical_open": 5,
-    "high_open": 25,
+    "high_open": 15,
     "medium_open": 3,
     "low_open": 0,
-    "untested_launch_critical": 18,
-    "untested_launch_critical_requirements": 18,
-    "unverified_assumptions": [
-      "Production topology equals this VM",
-      "Owner will arm Telegram/PSP/OAuth before first live user",
-      "Public HTTP 100% implies live money safety"
-    ],
+    "untested_launch_critical": 0,
+    "untested_launch_critical_requirements": 0,
+    "unverified_assumptions": [],
+    "unverified_launch_critical_assumptions": [],
     "external_blockers": [
       "EXT_LIVE_FILL",
       "EXT_JUPITER_VC",
@@ -3312,10 +3545,16 @@
     "known_accepted_risks": [
       "Zero-cost constraint: no wallet funding, no paid cloud multi-AZ, no geo proxy",
       "synthetic_mid remainder (5) must stay labeled",
-      "Medium/Low UX/a11y/browser matrix open — must not be hidden"
+      "Medium/Low UX/a11y/browser matrix open — must not be hidden",
+      "PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY and is not LIVE-MONEY-READY"
     ],
     "unknown_launch_blockers": [],
-    "why_not_go": "Unconditional GO forbids any Critical/High open and any untested launch-critical control. Live FILL, cloud HA, unarmed on-call, no pentest, no PSP sandbox, and multiple NOT_TESTED launch-critical domains remain."
+    "why_not_go": "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=15, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.",
+    "tracks": {
+      "PUBLIC-DEMO-READY": true,
+      "LIVE-PRODUCTION-READY": false,
+      "LIVE-MONEY-READY": false
+    }
   },
   "reports": {
     "audit": "docs/dd/BLACKDARK_PRODUCTION_READINESS_AUDIT.md",

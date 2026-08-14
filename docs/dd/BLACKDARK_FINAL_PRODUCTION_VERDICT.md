@@ -1,44 +1,54 @@
 # FINAL PRODUCTION VERDICT
 
-**SHA:** `963dd54221250081589b1155704afe5c84dbbad6`  
+**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
 **الحكم:** **NO-GO**  
 **product_complete:** `False`  
-**live_money_ready:** `False`  
 **unconditional_go_criteria_met:** `False`
+
+## Three tracks (explicit — never «Production Ready ورقيًا»)
+
+| Track | Result |
+|---|---|
+| PUBLIC-DEMO-READY | **True** |
+| LIVE-PRODUCTION-READY | **False** |
+| LIVE-MONEY-READY | **False** |
+
+PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY. LIVE-PRODUCTION-READY is not LIVE-MONEY-READY. Unconditional GO requires both live tracks plus the counts below at zero.
 
 | عنصر الإدارة | القيمة |
 |---|---|
 | Critical open | **5** |
-| High open | **25** |
+| High open | **15** |
 | Medium open | **3** |
 | Low open | **0** |
-| Untested launch-critical requirements | **18** |
-| Unverified assumptions | 3 |
+| Untested launch-critical requirements | **0** |
+| Unverified launch-critical assumptions | 0 |
+| Unverified assumptions | 0 |
 | External blockers | EXT_LIVE_FILL, EXT_JUPITER_VC, EXT_L2_100, EXT_CLOUD_HA |
-| Known accepted risks | 3 |
+| Known accepted risks | 4 |
 | Unknown launch blockers | 0 |
 
-## لماذا ليس GO
+## لماذا ليس Unconditional GO
 
-Unconditional GO forbids any Critical/High open and any untested launch-critical control. Live FILL, cloud HA, unarmed on-call, no pentest, no PSP sandbox, and multiple NOT_TESTED launch-critical domains remain.
+Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=15, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.
 
-## افتراضات غير مُثبتة
+## افتراضات غير مُثبتة (إطلاق-حرج)
 
-- Production topology equals this VM
-- Owner will arm Telegram/PSP/OAuth before first live user
-- Public HTTP 100% implies live money safety
+- none (converted to FAIL/PASS with drills)
 
 ## مخاطر مقبولة (لا تُخفى)
 
 - Zero-cost constraint: no wallet funding, no paid cloud multi-AZ, no geo proxy
 - synthetic_mid remainder (5) must stay labeled
 - Medium/Low UX/a11y/browser matrix open — must not be hidden
+- PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY and is not LIVE-MONEY-READY
 
 ## ما الذي نجح دون أن يُحوَّل إلى GO
 
 - نزاهة القرار المالية (11 حالة): **PASS** (11/11)
 - جمهور HTTP مباشر: **100.0%** (مقام معلن ≠ مال حي)
-- محرك المخاطر / تجميد التنفيذ: PASS (D08)
-- سلامة المستخدم (لا يقين مضلل): PASS (D35)
+- محرك المخاطر / تجميد التنفيذ: انظر D08
+- سلامة المستخدم (لا يقين مضلل): انظر D35
+- Drills PASS/FAIL: 19/3 (not_tested=0)
 
-معيار GO غير المشروط: 0 Critical + 0 High + 0 untested launch-critical + 0 unknown blockers + أدلة إنتاج إلزامية قابلة لإعادة التحقق. **غير متحقق.**
+معيار GO غير المشروط: 0 Critical + 0 High + 0 untested launch-critical + 0 unknown blockers + 0 unverified launch-critical assumptions + LIVE-PRODUCTION-READY + LIVE-MONEY-READY + أدلة قابلة لإعادة التحقق. **غير متحقق ما لم يظهر الجدول أعلاه كلها صفرًا والمساران الحيّان true.**
