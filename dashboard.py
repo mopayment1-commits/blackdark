@@ -1289,12 +1289,14 @@ async def journal_delete(entry_id: int, user: dict | None = Depends(optional_use
 
 @app.get("/api/alerts/telegram/status")
 async def telegram_status():
+    from alert_service import telegram_secret_presence
     from telegram_monitor import telegram_configured
 
+    presence = telegram_secret_presence()
     return {
         "configured": telegram_configured(),
-        "bot_token_set": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
-        "default_chat_set": bool(os.getenv("TELEGRAM_CHAT_ID")),
+        "bot_token_set": presence["bot_token_present"],
+        "default_chat_set": presence["chat_id_present"],
         "monitor_enabled": os.getenv("TELEGRAM_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"},
         "interval_seconds": int(os.getenv("TELEGRAM_ALERT_INTERVAL_SECONDS", "90")),
     }

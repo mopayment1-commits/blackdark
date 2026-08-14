@@ -28,7 +28,7 @@ FEATURE_TRACKS = frozenset(
     {"PUBLIC-DEMO-READY", "LIVE-PRODUCTION-READY", "LIVE-MONEY-READY", "NOT-READY"}
 )
 GO_VERDICTS = frozenset({"GO", "CONDITIONAL GO", "NO-GO"})
-MONEY_IDS = frozenset({"EX-LIVE", "EX-JUP", "EX-AUTO", "BIL-CHECKOUT", "AL-TG", "FUND-HA", "B2B-WL-HOST"})
+MONEY_IDS = frozenset({"EX-LIVE", "EX-JUP", "EX-AUTO", "BIL-CHECKOUT", "FUND-HA", "B2B-WL-HOST"})
 
 ROOT = Path(__file__).resolve().parent
 EVIDENCE_PATH = ROOT / "docs" / "dd" / "BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json"
@@ -242,7 +242,6 @@ def run_three_am_scenarios() -> dict[str, Any]:
     from net_edge_truth import compute_net_edge_truth
     from risk_manager import evaluate_execution_risk, freeze_trading, is_trading_frozen, unfreeze_trading
     from stale_price_guard import validate_venue_quote
-    from telegram_monitor import bot_token_configured
     from viral_capacity import redis_live
 
     scenarios: list[dict[str, Any]] = []
@@ -419,7 +418,9 @@ def run_three_am_scenarios() -> dict[str, Any]:
         }
     )
 
-    tg = bot_token_configured()
+    from telegram_monitor import oncall_live_proved
+
+    tg = oncall_live_proved()
     for row in scenarios:
         row["pages_human_oncall"] = bool(tg)
         if not tg:
@@ -503,6 +504,15 @@ def overlay_three_am_with_drills(three_am: dict[str, Any], drills: dict[str, Any
             row["recovers"] = did
         if v == "FAIL":
             row["notes"] = (row.get("notes") or "") + f" | drill {did}=FAIL"
+    live = (drills.get("by_id") or {}).get("telegram_oncall_live") or {}
+    tg = live.get("verdict") == "PASS"
+    three_am["telegram_oncall_configured"] = tg
+    for row in three_am.get("scenarios") or []:
+        row["pages_human_oncall"] = tg
+        if tg:
+            row["alert_to_human"] = f"telegram_oncall_live message_id={live.get('message_id')}"
+        else:
+            row["alert_to_human"] = "FAIL_closed_unconfigured_telegram"
     return three_am
 
 
@@ -520,7 +530,7 @@ def domain_register(
     cloud = bool((four.get("blocker_4_cloud_multi_az_ha") or {}).get("cloud_multi_az"))
     pub_ok = bool(pub.get("meets_public_floor"))
     integ_ok = integrity.get("verdict") == "PASS"
-    tg_oncall = bool(three_am.get("telegram_oncall_configured"))
+    tg_oncall = _dv(drills, "telegram_oncall_live") == "PASS"
 
     return [
         _item(
@@ -739,8 +749,11 @@ def domain_register(
             verdict="PASS" if tg_oncall else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="TELEGRAM_BOT_TOKEN; telegram_monitor.bot_token_configured=" + str(tg_oncall),
-            notes="Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works. LAUNCH_SKIP_TELEGRAM ≠ done.",
+            evidence=_ev(drills, "telegram_oncall_live"),
+            notes=(
+                "PASS only on live Bot API sendMessage with telegram ok + message_id. "
+                "Token presence alone is not a page. LAUNCH_SKIP_TELEGRAM ≠ done."
+            ),
         ),
         _item(
             id="D25",
@@ -775,8 +788,13 @@ def domain_register(
             verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="Binance 451; Jupiter unfunded; OAuth 503; PSP 503; Telegram 503",
-            notes="Dependency matrix is honest. Live failure tests against paid IdP/PSP were not done. Geo block is proved.",
+            evidence=_ev(drills, "telegram_oncall_live")
+            + "; Binance 451; Jupiter unfunded; OAuth 503; PSP 503",
+            notes=(
+                ("Telegram on-call live send PASS. " if tg_oncall else "Telegram on-call live send FAIL. ")
+                + "D28 stays FAIL while Binance 451, unfunded Jupiter, live OAuth IdP, and valid PSP remain. "
+                "The Telegram slice is independent of those remaining vendors."
+            ),
         ),
         _item(
             id="D29",
@@ -853,11 +871,14 @@ def domain_register(
         _item(
             id="D37",
             title="Operations",
-            verdict="FAIL",
+            verdict="PASS" if tg_oncall else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="docs/RUNBOOK.md exists; on-call Telegram FAIL; no staffed control room",
-            notes="Runbooks are files. 3 AM human page is not armed.",
+            evidence=_ev(drills, "telegram_oncall_live") + "; docs/RUNBOOK.md",
+            notes=(
+                "On-call armed iff live Telegram page proved (message_id). "
+                "No 24/7 staffed control room is claimed."
+            ),
         ),
         _item(
             id="D38",
@@ -880,11 +901,11 @@ def domain_register(
         _item(
             id="D40",
             title="Post-launch Control",
-            verdict="FAIL",
+            verdict="PASS" if tg_oncall and _all_pass(drills, "panic_freeze") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence=_ev(drills, "panic_freeze") + "; Telegram on-call unconfigured",
-            notes="Emergency freeze proved in-process. Unattended 3 AM page fails. Both are required for live launch control.",
+            evidence=_ev(drills, "panic_freeze", "telegram_oncall_live"),
+            notes="Emergency freeze + live Telegram on-call page. Both required for unattended 3 AM control.",
         ),
         _item(
             id="EXT_LIVE_FILL",
@@ -1012,7 +1033,14 @@ def red_team_axes(drills: dict[str, Any], integrity: dict[str, Any]) -> list[dic
         {
             "axis": "operational_failures",
             "verdict": "FAIL",
-            "notes": "On-call page unarmed; cloud HA false; production replica SIGKILL not drilled.",
+            "notes": (
+                (
+                    "On-call Telegram live send PASS. "
+                    if _dv(drills, "telegram_oncall_live") == "PASS"
+                    else "On-call page unarmed. "
+                )
+                + "Cloud HA false; production replica SIGKILL not drilled."
+            ),
         },
         {
             "axis": "input_manipulation",

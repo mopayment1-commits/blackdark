@@ -148,6 +148,113 @@ def drill_slow_api_timeout() -> dict[str, Any]:
     )
 
 
+TELEGRAM_ONCALL_EVIDENCE = ROOT / "docs" / "dd" / "BLACKDARK_TELEGRAM_ONCALL_EVIDENCE.json"
+
+
+def _telegram_oncall_stamp(payload: dict[str, Any]) -> dict[str, Any]:
+    """Persist a secret-free on-call receipt. Never writes token or chat_id."""
+    from telegram_monitor import oncall_evidence_path
+
+    safe = {
+        "verdict": payload.get("verdict"),
+        "ok": bool(payload.get("ok")),
+        "reason": payload.get("reason"),
+        "bot_token_present": bool(payload.get("bot_token_present")),
+        "chat_id_present": bool(payload.get("chat_id_present")),
+        "bot_username": payload.get("bot_username"),
+        "message_id": payload.get("message_id"),
+        "chat_type": payload.get("chat_type"),
+        "http_status": payload.get("http_status"),
+        "telegram_ok": payload.get("telegram_ok"),
+        "error_code": payload.get("error_code"),
+        "proved_at": payload.get("proved_at") or _utcnow(),
+        "sha": payload.get("sha"),
+        "path": "telegram_monitor.prove_telegram_oncall_page",
+    }
+    dest = oncall_evidence_path()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(safe, indent=2) + "\n", encoding="utf-8")
+    return safe
+
+
+def telegram_oncall_live_proved() -> bool:
+    from telegram_monitor import oncall_live_proved
+
+    return oncall_live_proved()
+
+
+def drill_telegram_oncall_live() -> dict[str, Any]:
+    """Real Bot API page. PASS only with telegram ok + message_id. Never logs secrets."""
+    import asyncio
+    import subprocess
+
+    from telegram_monitor import prove_telegram_oncall_page
+
+    sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(ROOT), text=True).strip()
+    text = (
+        "BLACKDARK on-call test Alert\n"
+        f"SHA: {sha[:12]}\n"
+        f"UTC: {_utcnow()}\n"
+        "This is a real Alert from BLACKDARK. Receipt requires Telegram ok + message_id."
+    )
+    try:
+        receipt = asyncio.run(prove_telegram_oncall_page(text=text))
+    except Exception:
+        receipt = {
+            "ok": False,
+            "reason": "exception",
+            "bot_token_present": False,
+            "chat_id_present": False,
+            "message_id": None,
+            "bot_username": None,
+            "chat_type": None,
+            "http_status": 0,
+            "telegram_ok": None,
+        }
+    ok = bool(
+        receipt.get("ok")
+        and receipt.get("telegram_ok") is True
+        and isinstance(receipt.get("message_id"), int)
+        and receipt.get("message_id") > 0
+        and receipt.get("bot_username")
+    )
+    verdict = "PASS" if ok else "FAIL"
+    stamped = _telegram_oncall_stamp(
+        {
+            "verdict": verdict,
+            "ok": ok,
+            "reason": receipt.get("reason"),
+            "bot_token_present": receipt.get("bot_token_present"),
+            "chat_id_present": receipt.get("chat_id_present"),
+            "bot_username": receipt.get("bot_username"),
+            "message_id": receipt.get("message_id"),
+            "chat_type": receipt.get("chat_type"),
+            "http_status": receipt.get("http_status"),
+            "telegram_ok": receipt.get("telegram_ok"),
+            "error_code": receipt.get("error_code"),
+            "proved_at": _utcnow(),
+            "sha": sha,
+        }
+    )
+    return _drill(
+        "telegram_oncall_live",
+        verdict,
+        "telegram_monitor.prove_telegram_oncall_page getMe+sendMessage; message_id required",
+        bot_token_present=stamped["bot_token_present"],
+        chat_id_present=stamped["chat_id_present"],
+        bot_username=stamped["bot_username"],
+        message_id=stamped["message_id"],
+        chat_type=stamped["chat_type"],
+        http_status=stamped["http_status"],
+        telegram_ok=stamped["telegram_ok"],
+        reason=stamped["reason"],
+        notes=(
+            "Live Telegram on-call page. Token presence alone is not PASS. "
+            "Secrets are never written to evidence."
+        ),
+    )
+
+
 def drill_sbom() -> dict[str, Any]:
     out = ROOT / "docs" / "data-room" / "sbom" / "cyclonedx-python.json"
     proc = subprocess.run(
@@ -972,6 +1079,7 @@ def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
         drill_alembic_rollback_semantics(),
         drill_chaos_dead_postgres(),
         drill_slow_api_timeout(),
+        drill_telegram_oncall_live(),
         drill_redis_dead_port(),
         drill_ai_fallback(),
         drill_pip_audit(),

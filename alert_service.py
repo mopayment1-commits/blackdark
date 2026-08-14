@@ -18,27 +18,142 @@ import aiohttp
 
 logger = logging.getLogger("BLACKDARK.AlertService")
 
+_TELEGRAM_API = "https://api.telegram.org"
 
-async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
+
+def telegram_secret_presence() -> dict[str, bool]:
+    """Presence flags only. Never returns secret values."""
     try:
         from env_secrets_loader import ensure_telegram_env
 
         ensure_telegram_env()
     except Exception:
         logger.debug("telegram_secrets_load_skipped", exc_info=True)
-    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    target = chat_id or os.getenv("TELEGRAM_CHAT_ID", "")
-    if not token or not target:
-        return False
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {"chat_id": target, "text": text, "parse_mode": "HTML"}
+    token = bool(os.getenv("TELEGRAM_BOT_TOKEN", "").strip())
+    chat = bool(os.getenv("TELEGRAM_CHAT_ID", "").strip())
+    return {
+        "bot_token_present": token,
+        "chat_id_present": chat,
+        "oncall_configured": bool(token and chat),
+    }
+
+
+def _telegram_credentials() -> tuple[str, str]:
+    try:
+        from env_secrets_loader import ensure_telegram_env
+
+        ensure_telegram_env()
+    except Exception:
+        logger.debug("telegram_secrets_load_skipped", exc_info=True)
+    return os.getenv("TELEGRAM_BOT_TOKEN", "").strip(), os.getenv("TELEGRAM_CHAT_ID", "").strip()
+
+
+def _safe_telegram_receipt(
+    *,
+    ok: bool,
+    reason: str,
+    http_status: int = 0,
+    telegram_ok: bool | None = None,
+    message_id: int | None = None,
+    chat_type: str | None = None,
+    bot_username: str | None = None,
+    error_code: int | None = None,
+) -> dict[str, Any]:
+    """Receipt for on-call proof. Never includes token, chat_id, or API URLs."""
+    return {
+        "ok": bool(ok),
+        "reason": reason,
+        "http_status": int(http_status or 0),
+        "telegram_ok": telegram_ok,
+        "message_id": message_id,
+        "chat_type": chat_type,
+        "bot_username": bot_username,
+        "error_code": error_code,
+        **telegram_secret_presence(),
+    }
+
+
+async def _telegram_api(method: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    token, _chat = _telegram_credentials()
+    if not token:
+        return _safe_telegram_receipt(ok=False, reason="secrets_missing")
+    # Token is only used to build the request URL; never log the URL.
+    url = f"{_TELEGRAM_API}/bot{token}/{method}"
     try:
         timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.post(url, json=payload) as resp:
-            return resp.status == 200
-    except (aiohttp.ClientError, TypeError, ValueError):
-        logger.exception("Telegram delivery failed")
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            if payload is None:
+                async with session.get(url) as resp:
+                    http_status = int(resp.status)
+                    try:
+                        body = await resp.json(content_type=None)
+                    except Exception:
+                        body = {}
+            else:
+                async with session.post(url, json=payload) as resp:
+                    http_status = int(resp.status)
+                    try:
+                        body = await resp.json(content_type=None)
+                    except Exception:
+                        body = {}
+    except (aiohttp.ClientError, TypeError, ValueError, OSError):
+        logger.warning("telegram_api_failed method=%s reason=network", method)
+        return _safe_telegram_receipt(ok=False, reason="network", http_status=0)
+
+    if not isinstance(body, dict):
+        body = {}
+    result = body.get("result") if isinstance(body.get("result"), dict) else {}
+    error_code = body.get("error_code") if isinstance(body.get("error_code"), int) else None
+    raw_ok = body.get("ok")
+    telegram_ok = True if raw_ok is True else (False if raw_ok is False else None)
+    message_id = result.get("message_id") if isinstance(result.get("message_id"), int) else None
+    chat = result.get("chat") if isinstance(result.get("chat"), dict) else {}
+    chat_type = chat.get("type") if isinstance(chat.get("type"), str) else None
+    if not chat_type and method == "getChat" and isinstance(result.get("type"), str):
+        chat_type = result.get("type")
+    username = None
+    if method == "getMe" and isinstance(result.get("username"), str):
+        username = result.get("username").lstrip("@")
+    if http_status == 200 and telegram_ok is True:
+        reason = "ok"
+    elif http_status == 200 and telegram_ok is None:
+        reason = "http_200_no_json"
+    else:
+        reason = "telegram_reject"
+    return _safe_telegram_receipt(
+        ok=bool(telegram_ok is True and http_status == 200),
+        reason=reason,
+        http_status=http_status,
+        telegram_ok=telegram_ok,
+        message_id=message_id,
+        chat_type=chat_type,
+        bot_username=username,
+        error_code=error_code,
+    )
+
+
+async def send_telegram_message_receipt(text: str, chat_id: str | None = None) -> dict[str, Any]:
+    """Send via Bot API sendMessage and return a secret-free receipt."""
+    token, default_chat = _telegram_credentials()
+    target = (chat_id or default_chat or "").strip()
+    if not token or not target:
+        return _safe_telegram_receipt(ok=False, reason="secrets_missing")
+    receipt = await _telegram_api(
+        "sendMessage",
+        {"chat_id": target, "text": text, "parse_mode": "HTML"},
+    )
+    return receipt
+
+
+async def send_telegram_message(text: str, chat_id: str | None = None) -> bool:
+    receipt = await send_telegram_message_receipt(text, chat_id=chat_id)
+    if receipt.get("reason") == "secrets_missing":
         return False
+    if receipt.get("telegram_ok") is False or receipt.get("error_code"):
+        return False
+    if receipt.get("http_status") == 200:
+        return True
+    return bool(receipt.get("ok"))
 
 
 def send_email_alert(to_email: str, subject: str, body: str) -> bool:

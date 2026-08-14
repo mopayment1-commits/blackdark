@@ -57,7 +57,12 @@ def test_build_cert_is_nogo_and_counts_opens():
     live = next(c for c in cert["capabilities"] if c["id"] == "EX-LIVE")
     assert live["certification"] == "NOT-READY"
     tg = next(c for c in cert["capabilities"] if c["id"] == "AL-TG")
-    assert tg["certification"] == "NOT-READY"
+    from telegram_monitor import oncall_live_proved
+
+    if oncall_live_proved():
+        assert tg["certification"] == "PUBLIC-DEMO-READY"
+    else:
+        assert tg["certification"] == "NOT-READY"
     assert all(c["certification"] != "PRODUCTION-READY" for c in cert["capabilities"])
     assert v["decision"] in GO
     live = cert.get("operator_live_probes") or {}
@@ -65,6 +70,52 @@ def test_build_cert_is_nogo_and_counts_opens():
     assert live.get("wallet_funded") is False
     assert (live.get("binance_testnet") or {}).get("ok") is False
     assert (live.get("binance_mainnet") or {}).get("ok") is False
+
+
+def test_telegram_domains_follow_live_oncall_drill():
+    from production_launch_certification import (
+        domain_register,
+        run_financial_integrity_cases,
+        run_three_am_scenarios,
+    )
+
+    integrity = run_financial_integrity_cases()
+    three = run_three_am_scenarios()
+    pass_drills = {
+        "by_id": {
+            "telegram_oncall_live": {
+                "verdict": "PASS",
+                "evidence": "message_id=9",
+                "message_id": 9,
+            },
+            "panic_freeze": {"verdict": "PASS", "evidence": "freeze"},
+        }
+    }
+    dmap = {
+        d["id"]: d
+        for d in domain_register(integrity=integrity, three_am=three, drills=pass_drills)
+    }
+    assert dmap["D24"]["verdict"] == "PASS"
+    assert dmap["D37"]["verdict"] == "PASS"
+    assert dmap["D40"]["verdict"] == "PASS"
+    assert dmap["D28"]["verdict"] == "FAIL"
+    assert "Telegram on-call live send PASS" in dmap["D28"]["notes"]
+
+    fail_drills = {
+        "by_id": {
+            "telegram_oncall_live": {"verdict": "FAIL", "evidence": "secrets_missing"},
+            "panic_freeze": {"verdict": "PASS", "evidence": "freeze"},
+        }
+    }
+    dmap = {
+        d["id"]: d
+        for d in domain_register(integrity=integrity, three_am=three, drills=fail_drills)
+    }
+    assert dmap["D24"]["verdict"] == "FAIL"
+    assert dmap["D37"]["verdict"] == "FAIL"
+    assert dmap["D40"]["verdict"] == "FAIL"
+    assert dmap["D28"]["verdict"] == "FAIL"
+    assert "Telegram on-call live send FAIL" in dmap["D28"]["notes"]
 
 
 def test_launch_cert_api_never_implies_complete():

@@ -48,6 +48,9 @@ INST = ["fund", "b2b", "acquirer"]
 
 
 def capability_catalog() -> list[dict[str, Any]]:
+    from telegram_monitor import oncall_live_proved
+
+    telegram_live = oncall_live_proved()
     return [
         # ── Identity ──────────────────────────────────────────
         _f(id="ID-REG", name="Register / login / logout / session", name_ar="تسجيل / دخول / خروج / جلسة", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/register", "/api/auth/login", "/login", "/register", "/profile"], evidence="api/routers/auth.py", efficiency="Session cookies + PBKDF2; /register aliases /login"),
@@ -98,7 +101,20 @@ def capability_catalog() -> list[dict[str, Any]]:
         # ── Alerts ────────────────────────────────────────────
         _f(id="AL-INBOX", name="In-app alert inbox", name_ar="صندوق تنبيهات داخل التطبيق", domain="alerts", status="works", personas=ALL, surfaces=["/api/alerts/inbox"], evidence="dashboard.py", efficiency="Read path ungated; subscribe Pro+"),
         _f(id="AL-SUB", name="Alert subscribe + sealed email outbox", name_ar="اشتراك تنبيهات + صندوق بريد مختوم", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/api/alerts/subscribe", "/api/alerts/inbox"], evidence="in_app_alerts.py email_outbox.py", efficiency="In-app inbox + sealed outbox always work; SMTP flush is ops"),
-        _f(id="AL-TG", name="Live Telegram bot send", name_ar="إرسال تيليغرام حي", domain="alerts", status="ops_config", personas=["pro", "whale"], surfaces=["/api/alerts/telegram/status", "/api/alerts/telegram/test", "/api/telegram/webhook"], evidence="telegram_monitor.py alert_service.send_telegram_message", efficiency="Unconfigured test is HTTP 503; skip flag ≠ live delivery", unpaid_block="telegram_bot_token"),
+        _f(
+            id="AL-TG",
+            name="Live Telegram bot send",
+            name_ar="إرسال تيليغرام حي",
+            domain="alerts",
+            status="works" if telegram_live else "ops_config",
+            personas=["pro", "whale"],
+            surfaces=["/api/alerts/telegram/status", "/api/alerts/telegram/test", "/api/telegram/webhook"],
+            evidence="docs/dd/BLACKDARK_TELEGRAM_ONCALL_EVIDENCE.json"
+            if telegram_live
+            else "telegram_monitor.py alert_service.send_telegram_message",
+            efficiency="Live on-call PASS requires telegram ok + message_id; skip flag ≠ live delivery",
+            unpaid_block=None if telegram_live else "telegram_bot_token",
+        ),
         _f(id="AL-PASS", name="Proof-gated alert passport", name_ar="جواز تنبيه مشروط بالدليل", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/alert-passport", "/api/alert-passport"], evidence="proof_gated_alert_passport.py", efficiency="Evaluate path in-process"),
         _f(id="AL-GEN", name="Alert generosity policy", name_ar="سياسة سخاء التنبيهات", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/api/alerts/generosity"], evidence="heroes.py", efficiency="Policy surface; not a vendor SLA"),
         # ── Journal / reports / research ──────────────────────

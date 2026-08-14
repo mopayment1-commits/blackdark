@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import json
+
 
 def test_counsel_and_pentest_missing_are_fail_not_untested():
     from launch_drills import drill_counsel_artifacts, drill_independent_pentest_artifact
@@ -57,12 +59,14 @@ def test_ha_architecture_and_executable_l2_and_compose_config():
     assert cc["verdict"] != "NOT_TESTED"
 
 
-def test_operator_live_probes_evaluate_remaining_gates():
+def test_operator_live_probes_evaluate_remaining_gates(monkeypatch, tmp_path):
+    monkeypatch.setenv("TELEGRAM_ONCALL_EVIDENCE_PATH", str(tmp_path / "tg.json"))
     from operator_go_gates import run_live_probes
 
     live = run_live_probes()
     assert live["engineer_cannot_close"] is True
-    assert live["telegram_oncall_configured"] is False
+    assert "telegram_oncall_configured" in live
+    assert "telegram_oncall_live" in live
     assert live["stripe_sandbox"]["verdict"] == "FAIL"
     assert live["counsel"]["verdict"] == "FAIL"
     assert live["pentest"]["verdict"] == "FAIL"
@@ -71,6 +75,12 @@ def test_operator_live_probes_evaluate_remaining_gates():
     assert live["binance_mainnet"]["ok"] is False
     assert live["wallet_funded"] is False
     assert live["app_base_url_set"] is False
+    blob = json.dumps(live)
+    assert "TELEGRAM_BOT_TOKEN" not in blob
+    from telegram_monitor import oncall_live_proved
+
+    if not oncall_live_proved():
+        assert live["telegram_oncall_configured"] is False
 
 
 def test_ai_fallback_does_not_crash():

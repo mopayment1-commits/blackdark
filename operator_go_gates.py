@@ -39,14 +39,19 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
         drill_stripe_sandbox,
     )
     from ops_recovery import prove_cloud_multi_az_ha
-    from telegram_monitor import bot_token_configured
+    from telegram_monitor import oncall_live_proved
 
     by_id = (drills or {}).get("by_id") or {}
     stripe = by_id.get("stripe_sandbox") or drill_stripe_sandbox()
     counsel = by_id.get("counsel_signoff") or drill_counsel_artifacts()
     pentest = by_id.get("independent_pentest_artifact") or drill_independent_pentest_artifact()
     cloud = prove_cloud_multi_az_ha()
-    tg = bool(bot_token_configured())
+    live_row = by_id.get("telegram_oncall_live") or {}
+    if not live_row:
+        from launch_drills import drill_telegram_oncall_live
+
+        live_row = drill_telegram_oncall_live()
+    tg = live_row.get("verdict") == "PASS" or oncall_live_proved()
 
     async def _net() -> dict[str, Any]:
         import aiohttp
@@ -126,6 +131,16 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
     return {
         "proved_at": _utcnow(),
         "telegram_oncall_configured": tg,
+        "telegram_oncall_live": {
+            "verdict": live_row.get("verdict"),
+            "reason": live_row.get("reason"),
+            "message_id": live_row.get("message_id"),
+            "bot_username": live_row.get("bot_username"),
+            "chat_type": live_row.get("chat_type"),
+            "http_status": live_row.get("http_status"),
+            "bot_token_present": live_row.get("bot_token_present"),
+            "chat_id_present": live_row.get("chat_id_present"),
+        },
         "stripe_sandbox": {"verdict": stripe.get("verdict"), "error": stripe.get("error")},
         "counsel": {"verdict": counsel.get("verdict")},
         "pentest": {"verdict": pentest.get("verdict")},
@@ -294,6 +309,9 @@ GATES: dict[str, dict[str, Any]] = {
 
 
 def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    from telegram_monitor import oncall_live_proved
+
+    tg_ok = oncall_live_proved()
     out: list[dict[str, Any]] = []
     for d in domains:
         if not d.get("launch_critical"):
@@ -301,15 +319,28 @@ def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]
         if d.get("verdict") == "PASS":
             continue
         gid = str(d.get("id") or "")
-        meta = GATES.get(gid) or {
-            "owner": "you",
-            "paid": False,
-            "kind": "unknown",
-            "action": "Close this FAIL with a re-verifiable artifact on a later SHA.",
-            "action_ar": "أغلق هذا البند بملف/دليل قابل لإعادة التحقق على SHA لاحق.",
-            "artifact": d.get("evidence"),
-            "flips": [gid],
-        }
+        meta = dict(
+            GATES.get(gid)
+            or {
+                "owner": "you",
+                "paid": False,
+                "kind": "unknown",
+                "action": "Close this FAIL with a re-verifiable artifact on a later SHA.",
+                "action_ar": "أغلق هذا البند بملف/دليل قابل لإعادة التحقق على SHA لاحق.",
+                "artifact": d.get("evidence"),
+                "flips": [gid],
+            }
+        )
+        if gid == "D28" and tg_ok:
+            meta["action_ar"] = (
+                "إنجاح الاعتمادات الحية المتبقية: Binance غير 451، Jupiter ممول، OAuth IdP، PSP صالح. "
+                "شريحة تيليغرام أُغلقت بدليل إرسال حي (message_id)."
+            )
+            meta["action"] = (
+                "Remaining live vendors: Binance not 451, funded Jupiter, OAuth, valid PSP. "
+                "Telegram on-call slice closed with live send evidence."
+            )
+            meta["artifact"] = "four-blockers + billing + oauth proofs; telegram_oncall_live PASS"
         out.append(
             {
                 "id": gid,
@@ -353,6 +384,10 @@ def render_markdown(cert: dict[str, Any]) -> str:
             "## Live re-probe on this SHA",
             "",
             f"- Telegram on-call configured: `{live.get('telegram_oncall_configured')}`",
+            f"- Telegram on-call live: `{(live.get('telegram_oncall_live') or {}).get('verdict')}` "
+            f"reason=`{(live.get('telegram_oncall_live') or {}).get('reason')}` "
+            f"message_id=`{(live.get('telegram_oncall_live') or {}).get('message_id')}` "
+            f"bot=`{(live.get('telegram_oncall_live') or {}).get('bot_username')}`",
             f"- Stripe TEST API: `{((live.get('stripe_sandbox') or {}).get('verdict'))}` ({(live.get('stripe_sandbox') or {}).get('error')})",
             f"- Counsel artifact: `{(live.get('counsel') or {}).get('verdict')}`",
             f"- Pentest artifact: `{(live.get('pentest') or {}).get('verdict')}`",

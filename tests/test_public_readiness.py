@@ -81,11 +81,17 @@ def test_launch_checklist_skip_is_not_telegram_done(monkeypatch):
     assert found["d3_email"]["status"] != "done"
 
 
-def test_al_tg_is_ops_config_not_works():
+def test_al_tg_tracks_live_oncall_evidence():
     from product_capability_inventory import capability_catalog
+    from telegram_monitor import oncall_live_proved
 
     by_id = {r["id"]: r for r in capability_catalog()}
-    assert by_id["AL-TG"]["status"] == "ops_config"
+    if oncall_live_proved():
+        assert by_id["AL-TG"]["status"] == "works"
+        assert by_id["AL-TG"]["unpaid_block"] is None
+    else:
+        assert by_id["AL-TG"]["status"] == "ops_config"
+        assert by_id["AL-TG"]["unpaid_block"] == "telegram_bot_token"
     assert by_id["AL-SUB"]["status"] == "works"
     assert "/api/alerts/telegram/" not in " ".join(by_id["AL-SUB"]["surfaces"])
     assert by_id["SITE-PUBLIC"]["status"] == "works"

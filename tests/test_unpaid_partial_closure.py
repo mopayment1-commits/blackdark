@@ -191,7 +191,9 @@ def test_inventory_unpaid_closure_mix():
     assert by_id["MKT-L2"]["status"] == "partial"
     assert by_id["BIL-CHECKOUT"]["status"] == "ops_config"
     assert by_id["ID-OAUTH"]["status"] == "ops_config"
-    assert by_id["AL-TG"]["status"] == "ops_config"
+    from telegram_monitor import oncall_live_proved
+
+    assert by_id["AL-TG"]["status"] == ("works" if oncall_live_proved() else "ops_config")
     assert by_id["AL-SUB"]["status"] == "works"
     s = inventory_summary(rows)
     assert s["works"] >= 75
