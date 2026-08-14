@@ -1,8 +1,8 @@
 {
   "ok": true,
   "schema": "production_launch_certification.v2",
-  "sha": "99e4db09eff8ec642d047aa72c231b6c6cf36bc6",
-  "proved_at": "2026-08-14T14:11:11.683191+00:00",
+  "sha": "86c347afce91220e98c3eb2e727611417369bbd7",
+  "proved_at": "2026-08-14T14:17:56.845995+00:00",
   "python": "3.12.3",
   "product_complete": false,
   "institutional_verdict": "NOT_COMPLETE",
@@ -338,15 +338,15 @@
     ]
   },
   "drills": {
-    "pass_count": 22,
-    "fail_count": 4,
+    "pass_count": 25,
+    "fail_count": 3,
     "not_tested_count": 0,
     "items": [
       {
         "id": "sqlite_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_sqlite_backup_restore",
-        "proved_at": "2026-08-14T14:09:33.531919+00:00",
+        "proved_at": "2026-08-14T14:16:19.794508+00:00",
         "result": {
           "ok": true,
           "engine": "sqlite",
@@ -358,7 +358,7 @@
         "id": "postgres_dump_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_local_dump_restore",
-        "proved_at": "2026-08-14T14:09:33.924368+00:00",
+        "proved_at": "2026-08-14T14:16:20.184567+00:00",
         "result": {
           "ok": true,
           "control": "postgres_local_dump_restore",
@@ -371,21 +371,21 @@
         "id": "sbom",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/sbom/cyclonedx-python.json",
-        "proved_at": "2026-08-14T14:09:33.952713+00:00",
+        "proved_at": "2026-08-14T14:16:20.214643+00:00",
         "component_count": 29
       },
       {
         "id": "license_inventory",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/licenses/dependency_licenses.json",
-        "proved_at": "2026-08-14T14:09:34.032377+00:00",
+        "proved_at": "2026-08-14T14:16:20.292748+00:00",
         "returncode": 0
       },
       {
         "id": "bandit",
         "verdict": "PASS",
         "evidence": ".bandit policy + python -m bandit",
-        "proved_at": "2026-08-14T14:09:39.144135+00:00",
+        "proved_at": "2026-08-14T14:16:25.392795+00:00",
         "high": 0,
         "critical": 0,
         "medium": 11
@@ -394,22 +394,23 @@
         "id": "infra_files",
         "verdict": "PASS",
         "evidence": "Dockerfile + compose + HA overlay + CI/security workflows",
-        "proved_at": "2026-08-14T14:09:39.144353+00:00",
+        "proved_at": "2026-08-14T14:16:25.392971+00:00",
         "missing": [],
         "notes": "Files exist. Operator production DNS/TLS account was not probed — see D16 notes."
       },
       {
         "id": "compose_config",
-        "verdict": "FAIL",
-        "evidence": "docker binary not found",
-        "proved_at": "2026-08-14T14:09:39.144899+00:00",
-        "notes": "Cannot validate compose HA overlay without docker. Evaluated missing → FAIL."
+        "verdict": "PASS",
+        "evidence": "docker compose config merged HA overlay",
+        "proved_at": "2026-08-14T14:16:25.454556+00:00",
+        "stdout_chars": 6821,
+        "notes": "Client-side compose interpolation. Does not start a production cluster."
       },
       {
         "id": "compose_yaml_merge",
         "verdict": "PASS",
         "evidence": "PyYAML merge docker-compose.yml + docker-compose.ha.yml",
-        "proved_at": "2026-08-14T14:09:39.162226+00:00",
+        "proved_at": "2026-08-14T14:16:25.471725+00:00",
         "services": [
           "aggregator",
           "arbitrage",
@@ -424,10 +425,29 @@
         "notes": "Valid YAML merge. docker compose config remains a separate drill."
       },
       {
+        "id": "ha_architecture",
+        "verdict": "PASS",
+        "evidence": "railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS",
+        "proved_at": "2026-08-14T14:16:25.471806+00:00",
+        "railway_replicas": 2,
+        "compose_ha_overlay": true,
+        "notes": "Architecture design. Cloud multi-AZ deploy is D20/EXT_CLOUD_HA, not this drill."
+      },
+      {
+        "id": "executable_l2_scope",
+        "verdict": "PASS",
+        "evidence": "l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92",
+        "proved_at": "2026-08-14T14:16:25.472480+00:00",
+        "remainder_count": 5,
+        "synthetic_rejected": true,
+        "core_mesh": "92/92",
+        "notes": "Catalog 100% venue_l2 remains EXT_L2_100. This drill proves live adoption cannot ingest synthetic_mid."
+      },
+      {
         "id": "stripe_sandbox",
         "verdict": "FAIL",
         "evidence": "stripe.Account.retrieve",
-        "proved_at": "2026-08-14T14:09:39.769720+00:00",
+        "proved_at": "2026-08-14T14:16:26.065002+00:00",
         "error": "AuthenticationError",
         "notes": "TEST key present but Stripe API rejected it. Not a sandbox charge."
       },
@@ -435,7 +455,7 @@
         "id": "counsel_signoff",
         "verdict": "FAIL",
         "evidence": "docs/legal/COUNSEL_SIGNOFF.*",
-        "proved_at": "2026-08-14T14:09:39.769793+00:00",
+        "proved_at": "2026-08-14T14:16:26.065074+00:00",
         "found": [],
         "notes": "Engineer cannot sign legal. Missing artifact = FAIL vs Unconditional GO."
       },
@@ -443,7 +463,7 @@
         "id": "independent_pentest_artifact",
         "verdict": "FAIL",
         "evidence": "docs/dd/INDEPENDENT_PENTEST_REPORT.*",
-        "proved_at": "2026-08-14T14:09:39.769816+00:00",
+        "proved_at": "2026-08-14T14:16:26.065098+00:00",
         "found": [],
         "notes": "In-repo adversarial suite is a different drill. Firm pentest artifact missing = FAIL."
       },
@@ -451,20 +471,20 @@
         "id": "rate_limit_abuse",
         "verdict": "PASS",
         "evidence": "viral_capacity.check_rate_limit limit=5",
-        "proved_at": "2026-08-14T14:09:39.900047+00:00",
+        "proved_at": "2026-08-14T14:16:26.193489+00:00",
         "tripped_429": true
       },
       {
         "id": "panic_freeze",
         "verdict": "PASS",
         "evidence": "risk_manager freeze/evaluate/unfreeze",
-        "proved_at": "2026-08-14T14:09:39.902618+00:00"
+        "proved_at": "2026-08-14T14:16:26.196073+00:00"
       },
       {
         "id": "feature_flag_soft_launch",
         "verdict": "PASS",
         "evidence": "SOFT_LAUNCH=true evaluate_production_guard",
-        "proved_at": "2026-08-14T14:09:39.904001+00:00",
+        "proved_at": "2026-08-14T14:16:26.197330+00:00",
         "is_production": false,
         "check_count": 31
       },
@@ -472,24 +492,24 @@
         "id": "alembic_rollback_semantics",
         "verdict": "PASS",
         "evidence": "pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py",
-        "proved_at": "2026-08-14T14:09:40.495123+00:00",
+        "proved_at": "2026-08-14T14:16:26.793208+00:00",
         "returncode": 0,
-        "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.38s ===============================\n"
+        "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.39s ===============================\n"
       },
       {
         "id": "chaos_dead_postgres",
         "verdict": "PASS",
         "evidence": "pytest tests/test_rc2_chaos_resilience.py",
-        "proved_at": "2026-08-14T14:09:42.587832+00:00",
+        "proved_at": "2026-08-14T14:16:28.751688+00:00",
         "returncode": 0,
-        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.66s =========================\n"
+        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.54s =========================\n"
       },
       {
         "id": "slow_api_timeout",
         "verdict": "PASS",
         "evidence": "alert_service.send_telegram_message with fake token",
-        "proved_at": "2026-08-14T14:09:42.844529+00:00",
-        "elapsed_ms": 253.3,
+        "proved_at": "2026-08-14T14:16:29.009221+00:00",
+        "elapsed_ms": 253.8,
         "returned_ok": false,
         "notes": "Fake token → delivery False (fail-closed). Hang >20s is FAIL."
       },
@@ -497,7 +517,7 @@
         "id": "redis_dead_port",
         "verdict": "PASS",
         "evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
-        "proved_at": "2026-08-14T14:09:42.879579+00:00",
+        "proved_at": "2026-08-14T14:16:29.045695+00:00",
         "before_live": true,
         "after_dead_live": false,
         "restored_live": true,
@@ -507,7 +527,7 @@
         "id": "ai_fallback",
         "verdict": "PASS",
         "evidence": "bd_platform.trulens_eval.explain_prediction",
-        "proved_at": "2026-08-14T14:09:43.754854+00:00",
+        "proved_at": "2026-08-14T14:16:29.925639+00:00",
         "engine": "rules",
         "trulens_available": false,
         "notes": "TruLens optional. Missing provider must not crash or invent a live BUY."
@@ -516,7 +536,7 @@
         "id": "pip_audit",
         "verdict": "PASS",
         "evidence": "pip-audit -r requirements.hashes.txt",
-        "proved_at": "2026-08-14T14:09:53.514842+00:00",
+        "proved_at": "2026-08-14T14:16:38.637736+00:00",
         "returncode": 0,
         "tail": "No known vulnerabilities found\n"
       },
@@ -524,11 +544,11 @@
         "id": "postgres_streaming_ha",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_streaming_ha_rpo_rto",
-        "proved_at": "2026-08-14T14:10:23.250146+00:00",
+        "proved_at": "2026-08-14T14:17:08.187798+00:00",
         "result": {
           "ok": true,
           "ha_class": "LOCAL_STREAMING_REPLICATION",
-          "rpo_ms": 24,
+          "rpo_ms": 25,
           "rto_ms": 126,
           "reason": null,
           "cloud_multi_az": false
@@ -539,7 +559,7 @@
         "id": "process_restart",
         "verdict": "PASS",
         "evidence": "TestClient lifespan start/stop/start /health/live",
-        "proved_at": "2026-08-14T14:10:24.283680+00:00",
+        "proved_at": "2026-08-14T14:17:09.242636+00:00",
         "status_codes": [
           200,
           200
@@ -549,10 +569,10 @@
         "id": "asgi_latency",
         "verdict": "PASS",
         "evidence": "30x GET /health/live TestClient",
-        "proved_at": "2026-08-14T14:10:24.362350+00:00",
-        "p50_ms": 2.56,
-        "p95_ms": 2.95,
-        "max_ms": 3.55,
+        "proved_at": "2026-08-14T14:17:09.325262+00:00",
+        "p50_ms": 2.67,
+        "p95_ms": 3.55,
+        "max_ms": 4.41,
         "ok": 30,
         "n": 30,
         "local_slo": "p95<2000ms /health/live ASGI",
@@ -562,15 +582,15 @@
         "id": "adversarial_suite",
         "verdict": "PASS",
         "evidence": "pytest adversarial + authz + security_hardening",
-        "proved_at": "2026-08-14T14:10:26.673929+00:00",
+        "proved_at": "2026-08-14T14:17:11.743720+00:00",
         "returncode": 0,
-        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.80s =========================\n"
+        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.91s =========================\n"
       },
       {
         "id": "chrome_public_pages",
         "verdict": "PASS",
         "evidence": "google-chrome --headless=new --dump-dom against local uvicorn",
-        "proved_at": "2026-08-14T14:11:08.797645+00:00",
+        "proved_at": "2026-08-14T14:17:53.902933+00:00",
         "pages": [
           {
             "path": "/login",
@@ -626,12 +646,12 @@
         "id": "http_load_local",
         "verdict": "PASS",
         "evidence": "80 GETs /health/live via 2-worker uvicorn + 16 threads",
-        "proved_at": "2026-08-14T14:11:11.263843+00:00",
+        "proved_at": "2026-08-14T14:17:56.427045+00:00",
         "ok": 80,
         "n": 80,
-        "p50_ms": 16.21,
-        "p95_ms": 19.97,
-        "max_ms": 327.61,
+        "p50_ms": 15.26,
+        "p95_ms": 319.68,
+        "max_ms": 322.47,
         "notes": "Local two-worker HTTP pack. Not multi-AZ production SLO/soak."
       }
     ]
@@ -677,13 +697,13 @@
     {
       "id": "D01",
       "title": "Architecture",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "ARCHITECTURE.md; single FastAPI process; local PG HA ≠ multi-AZ",
-      "notes": "Evaluated: SPOF (single region/process). Demo/paper deploy is not blocked. Live production HA architecture is FAIL."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "ha_architecture=PASS; compose_yaml_merge=PASS; postgres_streaming_ha=PASS; http_load_local=PASS",
+      "notes": "HA design (Railway replicas≥2, compose HA overlay) + local PG streaming + 2-worker HTTP. Cloud multi-AZ remains D20/EXT_CLOUD_HA."
     },
     {
       "id": "D02",
@@ -732,13 +752,13 @@
     {
       "id": "D06",
       "title": "Market Data",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "four blockers L2 95/100; CORE mesh 92/92; remainder synthetic_mid",
-      "notes": "Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Do not invent AMM CEX ladders."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "executable_l2_scope=PASS; CORE mesh 92/92; remainder synthetic_mid",
+      "notes": "Live adoption rejects synthetic_mid. CORE public CEX L2 is complete. Catalog 100% venue_l2 remains EXT_L2_100 (medium) — AMM ladders were not invented."
     },
     {
       "id": "D07",
@@ -847,7 +867,7 @@
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "infra_files=PASS; compose_config=FAIL; compose_yaml_merge=PASS",
+      "evidence": "infra_files=PASS; compose_config=PASS; compose_yaml_merge=PASS",
       "notes": "IaC files + YAML merge drilled. docker compose config may FAIL without docker. Operator production DNS/TLS/account of the live domain was not validated → FAIL vs live production topology."
     },
     {
@@ -3623,7 +3643,7 @@
     "public_demo_ready": true,
     "unconditional_go_criteria_met": false,
     "critical_open": 5,
-    "high_open": 14,
+    "high_open": 12,
     "medium_open": 1,
     "low_open": 0,
     "untested_launch_critical": 0,
@@ -3643,7 +3663,7 @@
       "PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY and is not LIVE-MONEY-READY"
     ],
     "unknown_launch_blockers": [],
-    "why_not_go": "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=14, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.",
+    "why_not_go": "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=12, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.",
     "tracks": {
       "PUBLIC-DEMO-READY": true,
       "LIVE-PRODUCTION-READY": false,

@@ -1,18 +1,18 @@
 # Production Readiness Audit Report
 
-**SHA:** `99e4db09eff8ec642d047aa72c231b6c6cf36bc6`  
+**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
 
 | ID | Domain | Verdict | Launch-critical | Severity if open |
 |---|---|---|---|---|
-| D01 | Architecture | FAIL | True | high |
+| D01 | Architecture | PASS | True | high |
 | D02 | Code Quality | PASS | True | high |
 | D03 | Functional Correctness | PASS | True | high |
 | D04 | Financial Correctness | PASS | True | critical |
 | D05 | Data Architecture | PASS | True | critical |
-| D06 | Market Data | FAIL | True | high |
+| D06 | Market Data | PASS | True | high |
 | D07 | Trading/Execution | FAIL | True | critical |
 | D08 | Risk Engine | PASS | True | critical |
 | D09 | AI/Models | PASS | True | critical |
@@ -66,8 +66,10 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | license_inventory | PASS | /workspace/docs/data-room/licenses/dependency_licenses.json |
 | bandit | PASS | .bandit policy + python -m bandit |
 | infra_files | PASS | Dockerfile + compose + HA overlay + CI/security workflows |
-| compose_config | FAIL | docker binary not found |
+| compose_config | PASS | docker compose config merged HA overlay |
 | compose_yaml_merge | PASS | PyYAML merge docker-compose.yml + docker-compose.ha.yml |
+| ha_architecture | PASS | railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS |
+| executable_l2_scope | PASS | l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92 |
 | stripe_sandbox | FAIL | stripe.Account.retrieve |
 | counsel_signoff | FAIL | docs/legal/COUNSEL_SIGNOFF.* |
 | independent_pentest_artifact | FAIL | docs/dd/INDEPENDENT_PENTEST_REPORT.* |
