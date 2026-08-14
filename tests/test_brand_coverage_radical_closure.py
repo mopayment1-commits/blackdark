@@ -23,7 +23,7 @@ def test_coverage_honesty_board():
 
     board = asyncio.run(build_coverage_honesty_board())
     assert board["surface"] == "coverage_honesty_board"
-    assert board["radical_fix"]["status"] == "product_complete"
+    assert board["radical_fix"]["status"] == "honesty_surface_not_product_complete"
     assert "live" in board
     assert "healthy" in board["live"]["label"].lower() or "live_ingestion" in board["live"]["label"].lower()
 

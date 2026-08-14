@@ -51,6 +51,11 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "btcmarkets": "BTC/AUD",
     "bitmex": "BTC/USD",
     "deribit": "BTC/USD",
+    "bit2c": "BTC/NIS",
+    "foxbit": "BTC/BRL",
+    "wazirx": "BTC/USDT",
+    "coindcx": "BTC/USDT",
+    "delta": "BTC/USD",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -476,6 +481,85 @@ async def _fetch_deribit(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     return _levels_pq(result.get("bids") or []), _levels_pq(result.get("asks") or [])
 
 
+def _dict_book(side: Any) -> list[list[float]]:
+    if isinstance(side, dict):
+        out: list[list[float]] = []
+        for px, qty in side.items():
+            price = float(px)
+            size = float(qty)
+            if price > 0 and size > 0:
+                out.append([price, size])
+        return out
+    return _levels_pq(side or [])
+
+
+async def _fetch_bit2c(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://bit2c.co.il/Exchanges/BTCNIS/orderbook.json"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _levels_pq(body.get("bids") or [])
+    asks = _levels_pq(body.get("asks") or [])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_foxbit(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://api.foxbit.com.br/rest/v3/markets/btcbrl/orderbook"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_wazirx(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://api.wazirx.com/sapi/v1/depth?symbol=btcusdt&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_coindcx(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://public.coindcx.com/market_data/orderbook?pair=B-BTC_USDT"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids = _dict_book(body.get("bids"))
+    asks = _dict_book(body.get("asks"))
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_delta(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    url = "https://api.india.delta.exchange/v2/l2orderbook/BTCUSD"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    result = (body or {}).get("result") if isinstance(body, dict) else {}
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in result.get("buy") or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("price") or 0)
+        sz = float(row.get("size") or 0)
+        if px > 0 and sz > 0:
+            bids.append([px, sz])
+    for row in result.get("sell") or []:
+        if not isinstance(row, dict):
+            continue
+        px = float(row.get("price") or 0)
+        sz = float(row.get("size") or 0)
+        if px > 0 and sz > 0:
+            asks.append([px, sz])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
 _FETCHERS: dict[str, Callable[..., Any]] = {
     "valr": _fetch_valr,
     "korbit": _fetch_korbit,
@@ -505,6 +589,11 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "btcmarkets": _fetch_btcmarkets,
     "bitmex": _fetch_bitmex,
     "deribit": _fetch_deribit,
+    "bit2c": _fetch_bit2c,
+    "foxbit": _fetch_foxbit,
+    "wazirx": _fetch_wazirx,
+    "coindcx": _fetch_coindcx,
+    "delta": _fetch_delta,
 }
 
 

@@ -7,7 +7,7 @@
 ## Independent clean-room (binding)
 
 Prior binding on `f164cab`: **98 / 100 NOT COMPLETE**, VERIFIED_COMPLETE **1**.  
-Unpaid wave 3: institutional L2 **70 → 75**, mesh **67 → 72**.  
+Unpaid wave 4: institutional L2 **75 → 80**, mesh **72 → 77**.  
 Paid wallet / geo proxy / cloud multi-AZ remain excluded.  
 Does **not** authorize product COMPLETE.
 
@@ -20,11 +20,12 @@ Does **not** authorize product COMPLETE.
 
 | Deliverable | Class | Evidence |
 |---|---|---|
-| Public CEX L2 mesh (**72**) | PARTIAL | mesh prove 72/72 L2 |
-| Full catalog-100 price health | PARTIAL | 100% healthy; institutional L2 **75/100** |
-| yobit / MAX / BTC Markets / BitMEX / Deribit L2 | PARTIAL | real multi-level books |
+| Public CEX L2 mesh (**77**) | PARTIAL | mesh prove 77/77 L2 |
+| Full catalog-100 price health | PARTIAL | 100% healthy; institutional L2 **80/100** |
+| bit2c / foxbit / wazirx / coindcx / delta L2 | PARTIAL | real multi-level books |
 | Jupiter local wallet sign | PARTIAL | signed_local; unfunded fail-closed |
 | Fill lifecycle | PARTIAL | creds present; geo 451 |
+| WL portal OMS/decision snapshot | PARTIAL | in-process; hosted SaaS false |
 | Cloud multi-AZ HA | UNVERIFIED | zero-cost external block |
 | Postgres streaming HA RPO/RTO | **VERIFIED_COMPLETE** | local only |
 

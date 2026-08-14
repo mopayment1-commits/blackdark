@@ -70,7 +70,7 @@ async def build_coverage_honesty_board() -> dict[str, Any]:
                 "Publish LIVE healthy sources vs CATALOG ready; "
                 "refuse to inflate coverage; win on executable honesty + public miss feed."
             ),
-            "status": "product_complete",
+            "status": "honesty_surface_not_product_complete",
         },
         "provenance_sample": prov,
         "strategy": coverage.get("strategy"),

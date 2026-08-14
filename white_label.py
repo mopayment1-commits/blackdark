@@ -210,6 +210,7 @@ def prove_white_label_surface(
             "product_name": (portal.get("portal") or {}).get("product_name"),
             "hosted_custom_domain": (portal.get("portal") or {}).get("hosted_custom_domain"),
             "nav": (portal.get("portal") or {}).get("nav"),
+            "modules": ((portal.get("portal") or {}).get("modules") or {}),
             "client_gateway_ok": bool(
                 ((portal.get("portal") or {}).get("modules") or {})
                 .get("client_gateway", {})
@@ -248,6 +249,45 @@ def prove_white_label_surface(
         ),
         "proved_at": _utcnow(),
     }
+
+
+def _org_oms_snapshot(org_id: str) -> dict[str, Any]:
+    """Org-scoped OMS counts for the portal pack — never claims live_fill."""
+    try:
+        from oms import list_orders
+
+        rows = list_orders(org_id=org_id) or []
+        if isinstance(rows, dict):
+            rows = list(rows.values()) if rows else []
+        n = len(rows) if isinstance(rows, list) else 0
+        return {
+            "ok": True,
+            "org_id": org_id,
+            "order_count": n,
+            "live_fill": False,
+            "note": "Portal snapshot only; live_fill remains externally blocked.",
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "org_id": org_id, "reason": type(exc).__name__, "live_fill": False}
+
+
+def _org_decision_snapshot(org_id: str) -> dict[str, Any]:
+    """Org-scoped decision e2e summary for the portal pack."""
+    try:
+        from decision_e2e import run_decision_e2e
+
+        out = run_decision_e2e(org_id=org_id, notional=10_000.0)
+        obj = (out or {}).get("decision_object") or {}
+        return {
+            "ok": bool((out or {}).get("ok")),
+            "org_id": org_id,
+            "executable": bool(obj.get("executable")),
+            "learning_self_grade": bool(obj.get("learning_self_grade")),
+            "graph_id": obj.get("graph_id"),
+            "returns_source": ((obj.get("market_inputs") or {}).get("returns_source")),
+        }
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "org_id": org_id, "reason": type(exc).__name__}
 
 
 def build_white_label_portal(org_id: str) -> dict[str, Any]:
@@ -322,6 +362,8 @@ def build_white_label_portal(org_id: str) -> dict[str, Any]:
                 "footer": export.get("footer"),
                 "product_name": (export.get("brand") or {}).get("product_name"),
             },
+            "oms": _org_oms_snapshot(org_id),
+            "decision": _org_decision_snapshot(org_id),
             "client_gateway": client_gateway,
         },
         "isolation": brand.get("isolation") or "org_id_scoped",

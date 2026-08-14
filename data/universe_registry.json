@@ -460,51 +460,6 @@
       "provider": "dex"
     },
     {
-      "id": "aerodrome",
-      "name": "Aerodrome",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "syncswap",
-      "name": "SyncSwap",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "cetus",
-      "name": "Cetus",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "stonfi",
-      "name": "Ston.fi",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
-      "id": "dedust",
-      "name": "Dedust",
-      "category": "dex",
-      "tier": 3,
-      "status": "ingestion_ready",
-      "ccxt_id": null,
-      "provider": "dex"
-    },
-    {
       "id": "osmosis",
       "name": "Osmosis",
       "category": "dex",
@@ -896,6 +851,51 @@
       "name": "Deribit",
       "category": "cex",
       "tier": 2,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "bit2c",
+      "name": "Bit2C",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "foxbit",
+      "name": "Foxbit",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "wazirx",
+      "name": "WazirX",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "coindcx",
+      "name": "CoinDCX",
+      "category": "cex",
+      "tier": 3,
+      "status": "ingestion_ready",
+      "ccxt_id": null,
+      "provider": "native_regional"
+    },
+    {
+      "id": "delta",
+      "name": "Delta Exchange",
+      "category": "cex",
+      "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
       "provider": "native_regional"
