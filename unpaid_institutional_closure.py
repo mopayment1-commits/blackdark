@@ -63,6 +63,9 @@ def prove_unpaid_institutional_closure() -> dict[str, Any]:
             "synthetic_mid_is_not_venue_l2": True,
             "same_tick_is_not_self_grade": True,
             "paper_options_is_not_live": True,
+            "public_score_is_not_complete": True,
+            "telegram_skip_is_not_live": True,
         },
         "report": "docs/dd/BLACKDARK_UNPAID_PARTIAL_CLOSURE_RECOMMENDATION.md",
+        "public_review": "docs/dd/BLACKDARK_PUBLIC_DIRECT_USE_INSTITUTIONAL_REVIEW.md",
     }

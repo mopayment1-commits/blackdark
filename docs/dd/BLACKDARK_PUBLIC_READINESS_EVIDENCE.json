@@ -1,0 +1,2011 @@
+{
+  "ok": true,
+  "surface": "public_direct_use_readiness",
+  "proved_at": "2026-08-14T13:08:53.568025+00:00",
+  "product_complete": false,
+  "institutional_verdict": "NOT_COMPLETE",
+  "trial_ready_unpaid": true,
+  "live_money_ready": false,
+  "score": {
+    "public_direct_use_percent": 100.0,
+    "floor_percent": 95.0,
+    "meets_public_floor": true,
+    "counted_total": 134,
+    "counted_pass": 134,
+    "counted_fail": 0,
+    "excluded_external_probes": 1,
+    "failures": [],
+    "institutional_complete": false,
+    "live_money_ready": false,
+    "product_complete": false,
+    "denominator_excludes": [
+      "live_fill (Binance geo 451)",
+      "jupiter on-chain VC (unfunded wallet)",
+      "catalog L2 100% (5 synthetic_mid remain)",
+      "cloud multi-AZ (zero-cost)",
+      "hosted custom-domain white-label",
+      "live PSP charge",
+      "live OAuth IdP (unless owner secrets present)",
+      "live Telegram send (unless TELEGRAM_BOT_TOKEN present)"
+    ],
+    "honesty": "Public ≥95% means visitor/paper surfaces HTTP-prove. It is not institutional COMPLETE and not live money."
+  },
+  "probes": [
+    {
+      "id": "home",
+      "path": "/",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "landing",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "landing_alias",
+      "path": "/landing",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "landing alias",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "dashboard",
+      "path": "/dashboard",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "Trust OS dashboard",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "login",
+      "path": "/login",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "login + register tabs",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "profile",
+      "path": "/profile",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "profile + MFA",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "reset_password",
+      "path": "/reset-password",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "password reset form",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "verify_email",
+      "path": "/verify-email",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "verify without token still renders",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "success",
+      "path": "/success",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "checkout success",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "cancel",
+      "path": "/cancel",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "checkout cancel",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "docs",
+      "path": "/docs",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "developer docs",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "docs_public",
+      "path": "/docs/public",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "public docs",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "contact",
+      "path": "/contact",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "contact",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "complaints",
+      "path": "/complaints",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "complaints",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "faq",
+      "path": "/faq",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "faq",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "how_it_works",
+      "path": "/how-it-works",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "how it works",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "about",
+      "path": "/about",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "about",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "status_page",
+      "path": "/status",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "status",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "changelog",
+      "path": "/changelog",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "changelog",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "feedback",
+      "path": "/feedback",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "feedback",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "legal",
+      "path": "/legal",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "legal hub",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "terms",
+      "path": "/terms",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "terms",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "privacy",
+      "path": "/privacy",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "privacy",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "disclaimer",
+      "path": "/disclaimer",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "disclaimer",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "refund",
+      "path": "/refund",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "refund",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "cookies",
+      "path": "/cookies",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "cookies",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "compliance",
+      "path": "/compliance",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "compliance",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "data_room",
+      "path": "/data-room",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "data room",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "capabilities",
+      "path": "/capabilities",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "capabilities",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "platform",
+      "path": "/platform",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "platform hub",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "b2b",
+      "path": "/b2b",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "b2b / fund terminal",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "oracle_accuracy",
+      "path": "/oracle-accuracy",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "public accuracy ledger",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "discipline",
+      "path": "/discipline-mirror",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "discipline mirror",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "kill_rate",
+      "path": "/kill-rate",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "kill-rate",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "contradiction",
+      "path": "/contradiction-replay",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "contradiction replay",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "proof_arena",
+      "path": "/proof-arena",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "proof arena",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "committee",
+      "path": "/b2b/committee-one-pager",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "committee one-pager",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "since_left",
+      "path": "/since-you-left",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "since you left",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "anti_hype",
+      "path": "/anti-hype",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "anti-hype",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "corpus",
+      "path": "/corpus-passport",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "corpus passport",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "miss_feed",
+      "path": "/miss-feed",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "miss feed",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "coverage",
+      "path": "/coverage-honesty",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "coverage honesty",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "priority",
+      "path": "/priority-chain",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "priority chain",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "zero_tol",
+      "path": "/zero-tolerance",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "zero tolerance",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "emotion",
+      "path": "/emotion-tax",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "emotion tax",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "allocator",
+      "path": "/allocator-receipt",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "allocator receipt",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "transfer",
+      "path": "/transfer-intent",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "transfer intent",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "silence",
+      "path": "/silence-index",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "silence index",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "alert_pass",
+      "path": "/alert-passport",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "alert passport",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "visibility",
+      "path": "/visibility-cost",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "visibility cost",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "validity",
+      "path": "/validity-decay",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "validity decay",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "desk_duel",
+      "path": "/desk-duel",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "desk duel",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "trust_debt",
+      "path": "/trust-debt",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "trust debt",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "unique_ten",
+      "path": "/unique-ten",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "unique ten",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "institutional",
+      "path": "/institutional",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "institutional",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "model_card",
+      "path": "/model-card",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "model card",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "d5",
+      "path": "/d5-honesty",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "d5 honesty",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "robots",
+      "path": "/robots.txt",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "robots",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "sitemap",
+      "path": "/sitemap.xml",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "sitemap",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "manifest",
+      "path": "/manifest.json",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "PWA manifest",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "sw",
+      "path": "/sw.js",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "service worker",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "favicon",
+      "path": "/favicon.ico",
+      "method": "GET",
+      "kind": "html",
+      "bucket": "public_direct",
+      "note": "favicon",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "app_alias",
+      "path": "/app",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "dashboard alias",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 302,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "register_alias",
+      "path": "/register",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "login alias — must not 404",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 307,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "settings_security",
+      "path": "/settings/security",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "profile MFA alias",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 307,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "public_ledger_alias",
+      "path": "/public/accuracy-ledger",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "oracle-accuracy alias",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 307,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "errors_alias",
+      "path": "/errors",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "misses alias (redirect or render)",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 307,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "my_discipline",
+      "path": "/my/discipline-mirror",
+      "method": "GET",
+      "kind": "redirect",
+      "bucket": "public_direct",
+      "note": "auth alias to discipline-mirror",
+      "expect": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 307,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "oracle_accuracy_alias",
+      "path": "/oracle/accuracy",
+      "method": "GET",
+      "kind": "html_or_redirect",
+      "bucket": "public_direct",
+      "note": "accuracy page or alias",
+      "expect": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "plan",
+      "path": "/plan",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "plan audit (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "admin_launch",
+      "path": "/admin/launch",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "launch checklist (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "admin_plan",
+      "path": "/admin/plan",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "admin plan (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "admin_roadmap",
+      "path": "/admin/roadmap",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "admin roadmap (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "plan_audit",
+      "path": "/api/plan/audit",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "plan audit json (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "roadmap_audit",
+      "path": "/api/roadmap/audit",
+      "method": "GET",
+      "kind": "admin_gate",
+      "bucket": "public_direct",
+      "note": "roadmap audit json (admin gate) — 401/403 is a working admin gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "health",
+      "path": "/health",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "process health",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "health_live",
+      "path": "/health/live",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "liveness",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "api_status",
+      "path": "/api/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "site status",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "api_faq",
+      "path": "/api/faq",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "faq json",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "api_changelog",
+      "path": "/api/changelog",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "changelog json",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "api_site",
+      "path": "/api/site-services",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "footer/site catalog",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "i18n_locales",
+      "path": "/api/i18n/locales",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "locales",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "i18n_catalog",
+      "path": "/api/i18n/catalog",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "i18n catalog",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "inv",
+      "path": "/api/product/capability-inventory",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "binding inventory",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "l2rem",
+      "path": "/api/product/l2-remainder",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "L2 remainder honesty",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "unpaid",
+      "path": "/api/product/unpaid-closure",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "unpaid closure",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "persona",
+      "path": "/api/trial/persona-readiness",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "six personas",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "billing_unpaid",
+      "path": "/api/billing/unpaid-upgrade",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "unpaid upgrade path",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "billing_status",
+      "path": "/api/billing/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "billing status",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "pricing",
+      "path": "/api/pricing",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "pricing catalog",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "oauth_status",
+      "path": "/api/auth/oauth/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "oauth honesty",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "tg_status",
+      "path": "/api/alerts/telegram/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "telegram config honesty",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "tg_free",
+      "path": "/api/telegram/free/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "free telegram status",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "b2b_info",
+      "path": "/api/b2b/info",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "b2b info",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "trust_os",
+      "path": "/api/trust-os",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "trust os",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "lenses",
+      "path": "/api/lenses",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "four lenses",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "audience",
+      "path": "/api/audience/entry",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "audience routing",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "openapi_public",
+      "path": "/api/docs/public-openapi.json",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "public openapi",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "docs_manifest",
+      "path": "/api/docs/public-manifest",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "docs manifest",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "build_info",
+      "path": "/api/build-info",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "build info",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "universe",
+      "path": "/api/universe/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "catalog health",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "launch",
+      "path": "/api/launch/readiness",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "launch board",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "gtm",
+      "path": "/api/gtm/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "gtm",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "d5_api",
+      "path": "/api/public/d5-honesty",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "d5 api",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "wow",
+      "path": "/api/wow/surfaces",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "wow surfaces",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "f1f10",
+      "path": "/api/public/f1-f10-closure",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "f1-f10",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "metrics",
+      "path": "/metrics",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "prometheus",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "observability",
+      "path": "/api/observability/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "observability",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "privacy_status",
+      "path": "/api/privacy/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "privacy status",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "regulatory",
+      "path": "/api/regulatory/compliance",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "regulatory",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "services",
+      "path": "/api/services/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "services",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "trust_pulse",
+      "path": "/api/trust-pulse",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "trust pulse",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "trust_pulse_manifest",
+      "path": "/api/trust-pulse/manifest",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "trust pulse manifest",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "scale",
+      "path": "/api/scale/readiness",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "scale readiness",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "viral",
+      "path": "/api/viral/readiness",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "viral readiness",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "db_health",
+      "path": "/api/database/health",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "db health",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "feed_engine",
+      "path": "/api/feed/engine/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "feed engine",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "ingestion",
+      "path": "/api/ingestion/status",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "ingestion",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "public_readiness",
+      "path": "/api/product/public-readiness",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "this catalog",
+      "expect": [
+        200
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "health_ready",
+      "path": "/health/ready",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "readiness (503 starting is honest)",
+      "expect": [
+        200,
+        503
+      ],
+      "status": 503,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "health_viral",
+      "path": "/health/viral",
+      "method": "GET",
+      "kind": "json",
+      "bucket": "public_direct",
+      "note": "viral posture (503 without redis is honest)",
+      "expect": [
+        200,
+        503
+      ],
+      "status": 503,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "inbox",
+      "path": "/api/alerts/inbox",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "in-app inbox — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "locked",
+      "path": "/api/locked-predictions",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "locked predictions — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "dd_status",
+      "path": "/api/due-diligence/status",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "dd status — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "sec_status",
+      "path": "/api/security/status",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "security status — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "exec_status",
+      "path": "/api/execution/status",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "execution dry-run status — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 401,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "risk_status",
+      "path": "/api/risk/status",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "risk status — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 401,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "options",
+      "path": "/api/options/overview",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "options overview — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "arb_cat",
+      "path": "/api/arbitrage/catalog",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "arb catalog — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 403,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "sentiment",
+      "path": "/api/sentiment/overview",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "sentiment — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "onchain",
+      "path": "/api/onchain/overview",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "onchain — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "macro",
+      "path": "/api/macro/overview",
+      "method": "GET",
+      "kind": "gated_json",
+      "bucket": "public_direct",
+      "note": "macro — 401/403 is a working gate, not a missing page",
+      "expect": [
+        200,
+        401,
+        403
+      ],
+      "status": 200,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "tg_test_unauth",
+      "path": "/api/alerts/telegram/test",
+      "method": "POST",
+      "kind": "ops_fail_closed",
+      "bucket": "ops_fail_closed",
+      "note": "unauthenticated test must 401, never silent success",
+      "expect": [
+        401,
+        403
+      ],
+      "status": 401,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "oauth_start_unconfigured",
+      "path": "/api/auth/oauth/google/start",
+      "method": "GET",
+      "kind": "ops_fail_closed",
+      "bucket": "ops_fail_closed",
+      "note": "503 if no client id; 200 only when live IdP configured",
+      "expect": [
+        200,
+        401,
+        403,
+        503
+      ],
+      "status": 503,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "checkout_unconfigured",
+      "path": "/create-checkout-session",
+      "method": "GET",
+      "kind": "ops_fail_closed",
+      "bucket": "ops_fail_closed",
+      "note": "must not pretend a live charge succeeded (503/401/303 login or billing)",
+      "expect": [
+        200,
+        301,
+        302,
+        303,
+        307,
+        308,
+        401,
+        403,
+        503
+      ],
+      "status": 303,
+      "outcome": "pass",
+      "error": ""
+    },
+    {
+      "id": "ex_live_order_unauth",
+      "path": "/api/execution/order",
+      "method": "POST",
+      "kind": "auth_gate",
+      "bucket": "excluded_external",
+      "note": "live fill remains EXTERNAL; path must not 404",
+      "expect": [
+        401,
+        403
+      ],
+      "status": 401,
+      "outcome": "pass",
+      "error": ""
+    }
+  ],
+  "review_gap_closed": [
+    "AL-TG live Telegram reclassified ops_config; unconfigured test is HTTP 503",
+    "LAUNCH_SKIP_TELEGRAM no longer marks telegram done",
+    "SMTP optional no longer auto-done without SMTP_HOST",
+    "/register alias so signup URL does not 404",
+    "sitemap includes legal pages advertised in footer"
+  ],
+  "report": "docs/dd/BLACKDARK_PUBLIC_DIRECT_USE_INSTITUTIONAL_REVIEW.md"
+}

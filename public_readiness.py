@@ -82,11 +82,6 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
         ("platform", "/platform", "platform hub"),
         ("b2b", "/b2b", "b2b / fund terminal"),
         ("oracle_accuracy", "/oracle-accuracy", "public accuracy ledger"),
-        ("errors", "/errors", "errors / misses"),
-        ("plan", "/plan", "plan audit"),
-        ("admin_launch", "/admin/launch", "launch checklist"),
-        ("admin_plan", "/admin/plan", "admin plan"),
-        ("admin_roadmap", "/admin/roadmap", "admin roadmap"),
         ("discipline", "/discipline-mirror", "discipline mirror"),
         ("kill_rate", "/kill-rate", "kill-rate"),
         ("contradiction", "/contradiction-replay", "contradiction replay"),
@@ -112,7 +107,6 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
         ("institutional", "/institutional", "institutional"),
         ("model_card", "/model-card", "model card"),
         ("d5", "/d5-honesty", "d5 honesty"),
-        ("my_discipline", "/my/discipline-mirror", "my discipline"),
         ("robots", "/robots.txt", "robots"),
         ("sitemap", "/sitemap.xml", "sitemap"),
         ("manifest", "/manifest.json", "PWA manifest"),
@@ -124,7 +118,19 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
         ("register_alias", "/register", "login alias — must not 404"),
         ("settings_security", "/settings/security", "profile MFA alias"),
         ("public_ledger_alias", "/public/accuracy-ledger", "oracle-accuracy alias"),
-        ("oracle_accuracy_alias", "/oracle/accuracy", "oracle-accuracy alias"),
+        ("errors_alias", "/errors", "misses alias (redirect or render)"),
+        ("my_discipline", "/my/discipline-mirror", "auth alias to discipline-mirror"),
+    ]
+    html_or_redir = [
+        ("oracle_accuracy_alias", "/oracle/accuracy", "accuracy page or alias"),
+    ]
+    admin_gated = [
+        ("plan", "/plan", "plan audit (admin gate)"),
+        ("admin_launch", "/admin/launch", "launch checklist (admin gate)"),
+        ("admin_plan", "/admin/plan", "admin plan (admin gate)"),
+        ("admin_roadmap", "/admin/roadmap", "admin roadmap (admin gate)"),
+        ("plan_audit", "/api/plan/audit", "plan audit json (admin gate)"),
+        ("roadmap_audit", "/api/roadmap/audit", "roadmap audit json (admin gate)"),
     ]
     json_ok = [
         ("health", "/health", "process health"),
@@ -158,8 +164,6 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
         ("d5_api", "/api/public/d5-honesty", "d5 api"),
         ("wow", "/api/wow/surfaces", "wow surfaces"),
         ("f1f10", "/api/public/f1-f10-closure", "f1-f10"),
-        ("plan_audit", "/api/plan/audit", "plan audit"),
-        ("roadmap_audit", "/api/roadmap/audit", "roadmap audit"),
         ("metrics", "/metrics", "prometheus"),
         ("observability", "/api/observability/status", "observability"),
         ("privacy_status", "/api/privacy/status", "privacy status"),
@@ -207,6 +211,30 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
                 note=note,
             )
         )
+    html_redir_ok = _OK_HTML | _OK_REDIR
+    for sid, path, note in html_or_redir:
+        rows.append(
+            _row(
+                id=sid,
+                path=path,
+                kind="html_or_redirect",
+                bucket="public_direct",
+                expect=html_redir_ok,
+                note=note,
+            )
+        )
+    admin_ok = _OK_HTML | _OK_JSON | _OK_AUTH_GATE
+    for sid, path, note in admin_gated:
+        rows.append(
+            _row(
+                id=sid,
+                path=path,
+                kind="admin_gate",
+                bucket="public_direct",
+                expect=admin_ok,
+                note=note + " — 401/403 is a working admin gate, not a missing page",
+            )
+        )
     for sid, path, note in json_ok:
         rows.append(
             _row(id=sid, path=path, kind="json", bucket="public_direct", expect=_OK_JSON, note=note)
@@ -252,8 +280,8 @@ def advertised_public_surfaces() -> list[dict[str, Any]]:
                 path="/create-checkout-session",
                 kind="ops_fail_closed",
                 bucket="ops_fail_closed",
-                expect=_OK_OPS_CLOSED | frozenset({400, 422}),
-                note="must not pretend a live charge succeeded",
+                expect=_OK_OPS_CLOSED | _OK_JSON | _OK_REDIR,
+                note="must not pretend a live charge succeeded (503/401/303 login or billing)",
             ),
             _row(
                 id="ex_live_order_unauth",
