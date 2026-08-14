@@ -76,30 +76,38 @@ def drill_redis_dead_port() -> dict[str, Any]:
     import config
     from viral_capacity import redis_live, reset_redis_client
 
-    before = bool(redis_live())
     old_env = os.environ.get("REDIS_URL")
     old_cfg = getattr(config, "REDIS_URL", "")
+    live_url = (old_env or old_cfg or "redis://127.0.0.1:6379/0").strip() or "redis://127.0.0.1:6379/0"
+    os.environ["REDIS_URL"] = live_url
+    config.REDIS_URL = live_url
+    reset_redis_client()
+    before = bool(redis_live())
     os.environ["REDIS_URL"] = "redis://127.0.0.1:1/0"
     config.REDIS_URL = "redis://127.0.0.1:1/0"
     reset_redis_client()
     try:
         after = bool(redis_live())
     finally:
+        os.environ["REDIS_URL"] = live_url
+        config.REDIS_URL = live_url
+        reset_redis_client()
+        restored = bool(redis_live())
         if old_env is None:
             os.environ.pop("REDIS_URL", None)
         else:
             os.environ["REDIS_URL"] = old_env
         config.REDIS_URL = old_cfg
         reset_redis_client()
-    restored = bool(redis_live()) if before else True
     ok = before and (after is False) and restored
     return _drill(
         "redis_dead_port",
         "PASS" if ok else "FAIL",
-        "viral_capacity.reset_redis_client + REDIS_URL=127.0.0.1:1",
+        "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
         before_live=before,
         after_dead_live=after,
-        restored_live=bool(redis_live()) if before else restored,
+        restored_live=restored,
+        live_url_used=live_url.split("@")[-1],
     )
 
 
@@ -225,16 +233,23 @@ def drill_infra_files() -> dict[str, Any]:
 
 
 def drill_compose_config() -> dict[str, Any]:
-    proc = subprocess.run(
-        ["docker", "compose", "-f", "docker-compose.yml", "-f", "docker-compose.ha.yml", "config"],
-        cwd=str(ROOT),
-        capture_output=True,
-        text=True,
-        timeout=30,
-        check=False,
-    )
+    try:
+        proc = subprocess.run(
+            ["docker", "compose", "-f", "docker-compose.yml", "-f", "docker-compose.ha.yml", "config"],
+            cwd=str(ROOT),
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+    except FileNotFoundError:
+        return _drill(
+            "compose_config",
+            "FAIL",
+            "docker binary not found",
+            notes="Cannot validate compose HA overlay without docker. Evaluated missing → FAIL.",
+        )
     if proc.returncode != 0:
-        # docker may be absent — that is FAIL for production-like validation, not NOT_TESTED hidden.
         return _drill(
             "compose_config",
             "FAIL",
@@ -491,30 +506,35 @@ def drill_pip_audit() -> dict[str, Any]:
     if not req.is_file():
         return _drill("pip_audit", "FAIL", "requirements.hashes.txt and requirements.lock.txt missing")
 
-    def _run(cmd: list[str]) -> subprocess.CompletedProcess[str]:
-        return subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=180, check=False)
+    def _run(cmd: list[str]) -> subprocess.CompletedProcess[str] | None:
+        try:
+            return subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=180, check=False)
+        except FileNotFoundError:
+            return None
 
     proc = _run(["python", "-m", "pip_audit", "-r", str(req), "--desc"])
-    missing = (
+    missing = proc is None or (
         proc.returncode == 127
         or "No module named pip_audit" in (proc.stderr or "") + (proc.stdout or "")
         or "No module named 'pip_audit'" in (proc.stderr or "") + (proc.stdout or "")
     )
     if missing:
         proc = _run(["pip-audit", "-r", str(req), "--desc"])
-        missing = proc.returncode == 127 or "not found" in (proc.stderr or "").lower()
+        missing = proc is None or proc.returncode == 127 or "not found" in (proc.stderr or "").lower()
     if missing:
         inst = _run(["python", "-m", "pip", "install", "pip-audit", "-q"])
-        if inst.returncode == 0:
+        if inst is not None and inst.returncode == 0:
             proc = _run(["python", "-m", "pip_audit", "-r", str(req), "--desc"])
         else:
             return _drill(
                 "pip_audit",
                 "FAIL",
                 "pip-audit missing and pip install pip-audit failed",
-                returncode=inst.returncode,
-                tail=(inst.stderr or inst.stdout or "")[-400:],
+                returncode=None if inst is None else inst.returncode,
+                tail="" if inst is None else (inst.stderr or inst.stdout or "")[-400:],
             )
+    if proc is None:
+        return _drill("pip_audit", "FAIL", "pip-audit binary missing after install attempt")
     return _drill(
         "pip_audit",
         "PASS" if proc.returncode == 0 else "FAIL",
