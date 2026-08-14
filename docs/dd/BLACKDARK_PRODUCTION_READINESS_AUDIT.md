@@ -1,6 +1,6 @@
 # Production Readiness Audit Report
 
-**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
+**SHA:** `c3da0ce7a851a0edf3689db24a13a95e98204ad2`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
@@ -91,8 +91,8 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 
 ## Capability track counts
 
-- Total: 92
-- PUBLIC-DEMO-READY: 82
+- Total: 94
+- PUBLIC-DEMO-READY: 84
 - LIVE-PRODUCTION-READY: 0
 - LIVE-MONEY-READY: 0
 - NOT-READY: 10
