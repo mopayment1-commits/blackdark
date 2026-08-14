@@ -60,6 +60,11 @@ def test_build_cert_is_nogo_and_counts_opens():
     assert tg["certification"] == "NOT-READY"
     assert all(c["certification"] != "PRODUCTION-READY" for c in cert["capabilities"])
     assert v["decision"] in GO
+    live = cert.get("operator_live_probes") or {}
+    assert live.get("engineer_cannot_close") is True
+    assert live.get("wallet_funded") is False
+    assert (live.get("binance_testnet") or {}).get("ok") is False
+    assert (live.get("binance_mainnet") or {}).get("ok") is False
 
 
 def test_launch_cert_api_never_implies_complete():
@@ -78,3 +83,14 @@ def test_launch_cert_api_never_implies_complete():
     if body.get("ok"):
         assert body["decision"] == "NO-GO"
         assert body.get("LIVE-MONEY-READY") is False or body.get("tracks", {}).get("LIVE-MONEY-READY") is False
+    g = client.get("/api/product/operator-go-gates")
+    assert g.status_code == 200
+    gates = g.json()
+    assert gates.get("decision") in GO | {None}
+    if gates.get("ok"):
+        assert gates["decision"] == "NO-GO"
+        assert gates["LIVE-PRODUCTION-READY"] is False
+        assert gates["LIVE-MONEY-READY"] is False
+        ids = {row["id"] for row in (gates.get("gates") or [])}
+        assert "D07" in ids
+        assert "live_probes" in gates

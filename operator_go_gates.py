@@ -6,7 +6,134 @@ This module never marks a gate PASS. It only describes how a later SHA can.
 
 from __future__ import annotations
 
+import os
+from datetime import UTC, datetime
 from typing import Any
+
+
+def _utcnow() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+def _compact_hosts(probe: dict[str, Any]) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for row in probe.get("hosts") or []:
+        out.append(
+            {
+                "host": row.get("host"),
+                "ok": row.get("ok"),
+                "http_status": row.get("http_status"),
+                "geo_blocked": bool(row.get("geo_blocked")),
+            }
+        )
+    return out
+
+
+def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Re-verify remaining owner/external gates with live calls. Never logs secrets."""
+    import asyncio
+
+    from launch_drills import (
+        drill_counsel_artifacts,
+        drill_independent_pentest_artifact,
+        drill_stripe_sandbox,
+    )
+    from ops_recovery import prove_cloud_multi_az_ha
+    from telegram_monitor import bot_token_configured
+
+    by_id = (drills or {}).get("by_id") or {}
+    stripe = by_id.get("stripe_sandbox") or drill_stripe_sandbox()
+    counsel = by_id.get("counsel_signoff") or drill_counsel_artifacts()
+    pentest = by_id.get("independent_pentest_artifact") or drill_independent_pentest_artifact()
+    cloud = prove_cloud_multi_az_ha()
+    tg = bool(bot_token_configured())
+
+    async def _net() -> dict[str, Any]:
+        import aiohttp
+        from execution_engine import probe_binance_order_host_connectivity
+
+        prev = os.environ.get("BINANCE_TESTNET")
+        os.environ["BINANCE_TESTNET"] = "true"
+        try:
+            testnet = await probe_binance_order_host_connectivity()
+        finally:
+            if prev is None:
+                os.environ.pop("BINANCE_TESTNET", None)
+            else:
+                os.environ["BINANCE_TESTNET"] = prev
+        os.environ["BINANCE_TESTNET"] = "false"
+        try:
+            mainnet = await probe_binance_order_host_connectivity()
+        finally:
+            if prev is None:
+                os.environ.pop("BINANCE_TESTNET", None)
+            else:
+                os.environ["BINANCE_TESTNET"] = prev
+
+        lemon = os.getenv("LEMON_SQUEEZY_CHECKOUT_PRO", "").strip()
+        lemon_status = 0
+        if lemon.startswith("https://"):
+            timeout = aiohttp.ClientTimeout(total=12)
+            try:
+                async with aiohttp.ClientSession(timeout=timeout) as session:
+                    async with session.get(lemon, allow_redirects=False) as resp:
+                        lemon_status = int(resp.status)
+            except Exception as exc:
+                lemon_status = 0
+                lemon_err = type(exc).__name__
+            else:
+                lemon_err = None
+        else:
+            lemon_err = "unset_or_not_https"
+
+        wallet = "BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf"
+        lamports = None
+        rpc_err = None
+        try:
+            timeout = aiohttp.ClientTimeout(total=12)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.post(
+                    "https://api.mainnet-beta.solana.com",
+                    json={"jsonrpc": "2.0", "id": 1, "method": "getBalance", "params": [wallet]},
+                ) as resp:
+                    body = await resp.json()
+                    lamports = ((body.get("result") or {}).get("value"))
+        except Exception as exc:
+            rpc_err = type(exc).__name__
+
+        return {
+            "binance_testnet": {
+                "ok": testnet.get("ok"),
+                "geo_blocked": testnet.get("geo_blocked"),
+                "external_block": testnet.get("external_block"),
+                "hosts": _compact_hosts(testnet),
+            },
+            "binance_mainnet": {
+                "ok": mainnet.get("ok"),
+                "geo_blocked": mainnet.get("geo_blocked"),
+                "external_block": mainnet.get("external_block"),
+                "hosts": _compact_hosts(mainnet),
+            },
+            "lemon_checkout_http_status": lemon_status,
+            "lemon_error": lemon_err,
+            "jupiter_wallet": wallet,
+            "sol_lamports": lamports,
+            "rpc_error": rpc_err,
+            "wallet_funded": bool(isinstance(lamports, int) and lamports > 0),
+        }
+
+    net = asyncio.run(_net())
+    return {
+        "proved_at": _utcnow(),
+        "telegram_oncall_configured": tg,
+        "stripe_sandbox": {"verdict": stripe.get("verdict"), "error": stripe.get("error")},
+        "counsel": {"verdict": counsel.get("verdict")},
+        "pentest": {"verdict": pentest.get("verdict")},
+        "cloud_multi_az": bool(cloud.get("cloud_multi_az")),
+        "app_base_url_set": bool(os.getenv("APP_BASE_URL") or os.getenv("PUBLIC_BASE_URL")),
+        **net,
+        "engineer_cannot_close": True,
+    }
 
 # id → owner action. Keep in sync with production_launch_certification domains.
 GATES: dict[str, dict[str, Any]] = {
@@ -219,8 +346,25 @@ def render_markdown(cert: dict[str, Any]) -> str:
         lines.append(
             f"| {r['id']} | {r.get('severity')} | {r.get('owner')} | {r.get('paid')} | {r.get('action_ar') or r.get('action')} | `{r.get('artifact')}` |"
         )
+    live = cert.get("operator_live_probes") or {}
+    if live:
+        lines += [
+            "",
+            "## Live re-probe on this SHA",
+            "",
+            f"- Telegram on-call configured: `{live.get('telegram_oncall_configured')}`",
+            f"- Stripe TEST API: `{((live.get('stripe_sandbox') or {}).get('verdict'))}` ({(live.get('stripe_sandbox') or {}).get('error')})",
+            f"- Counsel artifact: `{(live.get('counsel') or {}).get('verdict')}`",
+            f"- Pentest artifact: `{(live.get('pentest') or {}).get('verdict')}`",
+            f"- Binance testnet order host ok: `{(live.get('binance_testnet') or {}).get('ok')}` geo_blocked=`{(live.get('binance_testnet') or {}).get('geo_blocked')}`",
+            f"- Binance mainnet order host ok: `{(live.get('binance_mainnet') or {}).get('ok')}` geo_blocked=`{(live.get('binance_mainnet') or {}).get('geo_blocked')}`",
+            f"- Jupiter wallet funded: `{live.get('wallet_funded')}` lamports=`{live.get('sol_lamports')}`",
+            f"- cloud_multi_az: `{live.get('cloud_multi_az')}`",
+            f"- APP_BASE_URL set: `{live.get('app_base_url_set')}`",
+            f"- Lemon checkout HTTP: `{live.get('lemon_checkout_http_status')}`",
+            "",
+        ]
     lines += [
-        "",
         "## After you close a gate",
         "",
         "1. Put the artifact or secrets in the environment.",

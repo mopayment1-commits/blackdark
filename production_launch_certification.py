@@ -1171,9 +1171,11 @@ def build_certification() -> dict[str, Any]:
     import sys
 
     from launch_drills import run_all_drills
+    from operator_go_gates import run_live_probes
 
     sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(ROOT), text=True).strip()
     drills = run_all_drills(include_heavy=True)
+    live_gates = run_live_probes(drills=drills)
     integrity = run_financial_integrity_cases()
     three_am = overlay_three_am_with_drills(run_three_am_scenarios(), drills)
     domains = domain_register(integrity=integrity, three_am=three_am, drills=drills)
@@ -1231,6 +1233,7 @@ def build_certification() -> dict[str, Any]:
         "capabilities": caps,
         "capability_counts": track_counts,
         "public_direct_use": _public_score(),
+        "operator_live_probes": live_gates,
         "four_blockers": {
             "live_fill": False,
             "jupiter_vc": False,

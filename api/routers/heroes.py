@@ -186,6 +186,7 @@ async def operator_go_gates_api():
         "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
         "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
         "gates": gates_for_open_domains(body.get("domains") or []),
+        "live_probes": body.get("operator_live_probes") or {},
         "report": "docs/dd/BLACKDARK_OPERATOR_GO_GATES.md",
     }
 
