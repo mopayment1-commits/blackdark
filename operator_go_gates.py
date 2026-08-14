@@ -160,7 +160,9 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
             "token_client_accepted": oauth.get("token_client_accepted"),
             "google_error": oauth.get("google_error"),
             "token_error": oauth.get("token_error"),
-            "redirect_uri": oauth.get("redirect_uri"),
+            "redirect_uri": (
+                "{APP_BASE_URL}/api/auth/oauth/google/callback" if oauth.get("redirect_uri") else ""
+            ),
             "human_callback_completed": False,
         },
         "counsel": {"verdict": counsel.get("verdict")},

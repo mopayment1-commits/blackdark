@@ -837,8 +837,10 @@ def drill_oauth_google_idp() -> dict[str, Any]:
         "client_secret_len": receipt.get("client_secret_len"),
         "app_base_url_set": bool(receipt.get("app_base_url_set")),
         "app_base_url_https": bool(receipt.get("app_base_url_https")),
-        "callback_path": receipt.get("callback_path"),
-        "redirect_uri": receipt.get("redirect_uri"),
+        "callback_path": receipt.get("callback_path") or "/api/auth/oauth/google/callback",
+        "redirect_uri": (
+            "{APP_BASE_URL}/api/auth/oauth/google/callback" if receipt.get("redirect_uri") else ""
+        ),
         "start_ok": bool(receipt.get("start_ok")),
         "authorize_accepted": bool(receipt.get("authorize_accepted")),
         "token_client_accepted": bool(receipt.get("token_client_accepted")),
