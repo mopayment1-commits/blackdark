@@ -1,6 +1,6 @@
 # Operator GO gates — cannot be closed by the engineer alone
 
-**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
+**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
 **Decision:** **NO-GO**  
 **PUBLIC-DEMO-READY:** `True`  
 **LIVE-PRODUCTION-READY:** `False`  
@@ -27,6 +27,19 @@ Unconditional GO stays NO-GO until every row below is closed with re-verifiable 
 | EXT_LIVE_FILL | critical | you + venue region | True | نفس D07: FILL حي مثبت بعد زوال حظر 451. | `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json` |
 | EXT_JUPITER_VC | high | you | True | تمويل المحفظة BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf بـ SOL/USDC وإثبات توقيع Jupiter على السلسلة (VC). | `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json blocker_2 verified_complete=true` |
 | EXT_CLOUD_HA | critical | you + cloud vendor | True | نفس D20: cloud_multi_az=true بدليل من حساب سحابي مدفوع. | `docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json blocker_4` |
+
+## Live re-probe on this SHA
+
+- Telegram on-call configured: `False`
+- Stripe TEST API: `FAIL` (AuthenticationError)
+- Counsel artifact: `FAIL`
+- Pentest artifact: `FAIL`
+- Binance testnet order host ok: `False` geo_blocked=`True`
+- Binance mainnet order host ok: `False` geo_blocked=`True`
+- Jupiter wallet funded: `False` lamports=`0`
+- cloud_multi_az: `False`
+- APP_BASE_URL set: `False`
+- Lemon checkout HTTP: `302`
 
 ## After you close a gate
 

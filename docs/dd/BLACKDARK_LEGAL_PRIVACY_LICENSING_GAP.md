@@ -1,6 +1,6 @@
 # Legal, Privacy & Data-Licensing Gap Report
 
-**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
+**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
 **Author role:** software engineering cert on this SHA — **not independent legal counsel.**
 
 | Topic | Engineering fact | Specialist verdict |

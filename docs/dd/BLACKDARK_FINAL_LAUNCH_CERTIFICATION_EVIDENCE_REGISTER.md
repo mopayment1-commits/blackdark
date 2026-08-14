@@ -1,11 +1,11 @@
 # Final Launch Certification & Evidence Register
 
-**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
+**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
 **Decision:** **NO-GO**  
 **Tracks:** PUBLIC-DEMO-READY=True · LIVE-PRODUCTION-READY=False · LIVE-MONEY-READY=False  
 **JSON:** `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`
 
-This register is bound to SHA `86c347afce91220e98c3eb2e727611417369bbd7` only. A later SHA requires a new prove run.
+This register is bound to SHA `a5663e74f02a95fceabd27a151f805260a4507eb` only. A later SHA requires a new prove run.
 
 ## Red team (7 axes)
 

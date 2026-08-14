@@ -1,6 +1,6 @@
 # Data Integrity & Provenance Audit
 
-**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
+**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
 **Canonical layer:** `canonical_data_layer.py` (LIVE fails closed without provenance)  
 **Stale guard:** `stale_price_guard.py`  
 **L2 remainder:** synthetic_mid labeled; full_mesh_l2_complete=false

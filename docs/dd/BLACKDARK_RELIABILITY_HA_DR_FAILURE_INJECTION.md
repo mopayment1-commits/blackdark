@@ -1,6 +1,6 @@
 # Reliability / HA / DR / Failure Injection Report
 
-**SHA:** `86c347afce91220e98c3eb2e727611417369bbd7`  
+**SHA:** `a5663e74f02a95fceabd27a151f805260a4507eb`  
 **3 AM definition:** production-bad conditions with no developer catching the process.
 
 | Scenario | Verdict | Blocks bad decision | Fails safe |

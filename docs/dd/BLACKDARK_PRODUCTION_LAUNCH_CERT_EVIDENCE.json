@@ -1,8 +1,8 @@
 {
   "ok": true,
   "schema": "production_launch_certification.v2",
-  "sha": "86c347afce91220e98c3eb2e727611417369bbd7",
-  "proved_at": "2026-08-14T14:17:56.845995+00:00",
+  "sha": "a5663e74f02a95fceabd27a151f805260a4507eb",
+  "proved_at": "2026-08-14T14:30:07.679508+00:00",
   "python": "3.12.3",
   "product_complete": false,
   "institutional_verdict": "NOT_COMPLETE",
@@ -346,7 +346,7 @@
         "id": "sqlite_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_sqlite_backup_restore",
-        "proved_at": "2026-08-14T14:16:19.794508+00:00",
+        "proved_at": "2026-08-14T14:28:27.743784+00:00",
         "result": {
           "ok": true,
           "engine": "sqlite",
@@ -358,7 +358,7 @@
         "id": "postgres_dump_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_local_dump_restore",
-        "proved_at": "2026-08-14T14:16:20.184567+00:00",
+        "proved_at": "2026-08-14T14:28:28.133665+00:00",
         "result": {
           "ok": true,
           "control": "postgres_local_dump_restore",
@@ -371,21 +371,21 @@
         "id": "sbom",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/sbom/cyclonedx-python.json",
-        "proved_at": "2026-08-14T14:16:20.214643+00:00",
+        "proved_at": "2026-08-14T14:28:28.162363+00:00",
         "component_count": 29
       },
       {
         "id": "license_inventory",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/licenses/dependency_licenses.json",
-        "proved_at": "2026-08-14T14:16:20.292748+00:00",
+        "proved_at": "2026-08-14T14:28:28.242165+00:00",
         "returncode": 0
       },
       {
         "id": "bandit",
         "verdict": "PASS",
         "evidence": ".bandit policy + python -m bandit",
-        "proved_at": "2026-08-14T14:16:25.392795+00:00",
+        "proved_at": "2026-08-14T14:28:33.377661+00:00",
         "high": 0,
         "critical": 0,
         "medium": 11
@@ -394,7 +394,7 @@
         "id": "infra_files",
         "verdict": "PASS",
         "evidence": "Dockerfile + compose + HA overlay + CI/security workflows",
-        "proved_at": "2026-08-14T14:16:25.392971+00:00",
+        "proved_at": "2026-08-14T14:28:33.377894+00:00",
         "missing": [],
         "notes": "Files exist. Operator production DNS/TLS account was not probed — see D16 notes."
       },
@@ -402,7 +402,7 @@
         "id": "compose_config",
         "verdict": "PASS",
         "evidence": "docker compose config merged HA overlay",
-        "proved_at": "2026-08-14T14:16:25.454556+00:00",
+        "proved_at": "2026-08-14T14:28:33.439037+00:00",
         "stdout_chars": 6821,
         "notes": "Client-side compose interpolation. Does not start a production cluster."
       },
@@ -410,7 +410,7 @@
         "id": "compose_yaml_merge",
         "verdict": "PASS",
         "evidence": "PyYAML merge docker-compose.yml + docker-compose.ha.yml",
-        "proved_at": "2026-08-14T14:16:25.471725+00:00",
+        "proved_at": "2026-08-14T14:28:33.455085+00:00",
         "services": [
           "aggregator",
           "arbitrage",
@@ -428,7 +428,7 @@
         "id": "ha_architecture",
         "verdict": "PASS",
         "evidence": "railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS",
-        "proved_at": "2026-08-14T14:16:25.471806+00:00",
+        "proved_at": "2026-08-14T14:28:33.455171+00:00",
         "railway_replicas": 2,
         "compose_ha_overlay": true,
         "notes": "Architecture design. Cloud multi-AZ deploy is D20/EXT_CLOUD_HA, not this drill."
@@ -437,7 +437,7 @@
         "id": "executable_l2_scope",
         "verdict": "PASS",
         "evidence": "l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92",
-        "proved_at": "2026-08-14T14:16:25.472480+00:00",
+        "proved_at": "2026-08-14T14:28:33.455837+00:00",
         "remainder_count": 5,
         "synthetic_rejected": true,
         "core_mesh": "92/92",
@@ -447,7 +447,7 @@
         "id": "stripe_sandbox",
         "verdict": "FAIL",
         "evidence": "stripe.Account.retrieve",
-        "proved_at": "2026-08-14T14:16:26.065002+00:00",
+        "proved_at": "2026-08-14T14:28:34.053022+00:00",
         "error": "AuthenticationError",
         "notes": "TEST key present but Stripe API rejected it. Not a sandbox charge."
       },
@@ -455,7 +455,7 @@
         "id": "counsel_signoff",
         "verdict": "FAIL",
         "evidence": "docs/legal/COUNSEL_SIGNOFF.*",
-        "proved_at": "2026-08-14T14:16:26.065074+00:00",
+        "proved_at": "2026-08-14T14:28:34.053094+00:00",
         "found": [],
         "notes": "Engineer cannot sign legal. Missing artifact = FAIL vs Unconditional GO."
       },
@@ -463,7 +463,7 @@
         "id": "independent_pentest_artifact",
         "verdict": "FAIL",
         "evidence": "docs/dd/INDEPENDENT_PENTEST_REPORT.*",
-        "proved_at": "2026-08-14T14:16:26.065098+00:00",
+        "proved_at": "2026-08-14T14:28:34.053117+00:00",
         "found": [],
         "notes": "In-repo adversarial suite is a different drill. Firm pentest artifact missing = FAIL."
       },
@@ -471,20 +471,20 @@
         "id": "rate_limit_abuse",
         "verdict": "PASS",
         "evidence": "viral_capacity.check_rate_limit limit=5",
-        "proved_at": "2026-08-14T14:16:26.193489+00:00",
+        "proved_at": "2026-08-14T14:28:34.181619+00:00",
         "tripped_429": true
       },
       {
         "id": "panic_freeze",
         "verdict": "PASS",
         "evidence": "risk_manager freeze/evaluate/unfreeze",
-        "proved_at": "2026-08-14T14:16:26.196073+00:00"
+        "proved_at": "2026-08-14T14:28:34.184236+00:00"
       },
       {
         "id": "feature_flag_soft_launch",
         "verdict": "PASS",
         "evidence": "SOFT_LAUNCH=true evaluate_production_guard",
-        "proved_at": "2026-08-14T14:16:26.197330+00:00",
+        "proved_at": "2026-08-14T14:28:34.186541+00:00",
         "is_production": false,
         "check_count": 31
       },
@@ -492,24 +492,24 @@
         "id": "alembic_rollback_semantics",
         "verdict": "PASS",
         "evidence": "pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py",
-        "proved_at": "2026-08-14T14:16:26.793208+00:00",
+        "proved_at": "2026-08-14T14:28:34.793733+00:00",
         "returncode": 0,
-        "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.39s ===============================\n"
+        "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.40s ===============================\n"
       },
       {
         "id": "chaos_dead_postgres",
         "verdict": "PASS",
         "evidence": "pytest tests/test_rc2_chaos_resilience.py",
-        "proved_at": "2026-08-14T14:16:28.751688+00:00",
+        "proved_at": "2026-08-14T14:28:36.334465+00:00",
         "returncode": 0,
-        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.54s =========================\n"
+        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.10s =========================\n"
       },
       {
         "id": "slow_api_timeout",
         "verdict": "PASS",
         "evidence": "alert_service.send_telegram_message with fake token",
-        "proved_at": "2026-08-14T14:16:29.009221+00:00",
-        "elapsed_ms": 253.8,
+        "proved_at": "2026-08-14T14:28:36.586463+00:00",
+        "elapsed_ms": 249.5,
         "returned_ok": false,
         "notes": "Fake token → delivery False (fail-closed). Hang >20s is FAIL."
       },
@@ -517,7 +517,7 @@
         "id": "redis_dead_port",
         "verdict": "PASS",
         "evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
-        "proved_at": "2026-08-14T14:16:29.045695+00:00",
+        "proved_at": "2026-08-14T14:28:36.622734+00:00",
         "before_live": true,
         "after_dead_live": false,
         "restored_live": true,
@@ -527,7 +527,7 @@
         "id": "ai_fallback",
         "verdict": "PASS",
         "evidence": "bd_platform.trulens_eval.explain_prediction",
-        "proved_at": "2026-08-14T14:16:29.925639+00:00",
+        "proved_at": "2026-08-14T14:28:37.500642+00:00",
         "engine": "rules",
         "trulens_available": false,
         "notes": "TruLens optional. Missing provider must not crash or invent a live BUY."
@@ -536,7 +536,7 @@
         "id": "pip_audit",
         "verdict": "PASS",
         "evidence": "pip-audit -r requirements.hashes.txt",
-        "proved_at": "2026-08-14T14:16:38.637736+00:00",
+        "proved_at": "2026-08-14T14:28:47.272548+00:00",
         "returncode": 0,
         "tail": "No known vulnerabilities found\n"
       },
@@ -544,11 +544,11 @@
         "id": "postgres_streaming_ha",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_streaming_ha_rpo_rto",
-        "proved_at": "2026-08-14T14:17:08.187798+00:00",
+        "proved_at": "2026-08-14T14:29:18.005402+00:00",
         "result": {
           "ok": true,
           "ha_class": "LOCAL_STREAMING_REPLICATION",
-          "rpo_ms": 25,
+          "rpo_ms": 24,
           "rto_ms": 126,
           "reason": null,
           "cloud_multi_az": false
@@ -559,7 +559,7 @@
         "id": "process_restart",
         "verdict": "PASS",
         "evidence": "TestClient lifespan start/stop/start /health/live",
-        "proved_at": "2026-08-14T14:17:09.242636+00:00",
+        "proved_at": "2026-08-14T14:29:19.054139+00:00",
         "status_codes": [
           200,
           200
@@ -569,10 +569,10 @@
         "id": "asgi_latency",
         "verdict": "PASS",
         "evidence": "30x GET /health/live TestClient",
-        "proved_at": "2026-08-14T14:17:09.325262+00:00",
-        "p50_ms": 2.67,
-        "p95_ms": 3.55,
-        "max_ms": 4.41,
+        "proved_at": "2026-08-14T14:29:19.144915+00:00",
+        "p50_ms": 2.61,
+        "p95_ms": 5.14,
+        "max_ms": 7.44,
         "ok": 30,
         "n": 30,
         "local_slo": "p95<2000ms /health/live ASGI",
@@ -582,15 +582,15 @@
         "id": "adversarial_suite",
         "verdict": "PASS",
         "evidence": "pytest adversarial + authz + security_hardening",
-        "proved_at": "2026-08-14T14:17:11.743720+00:00",
+        "proved_at": "2026-08-14T14:29:21.421643+00:00",
         "returncode": 0,
-        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.91s =========================\n"
+        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.79s =========================\n"
       },
       {
         "id": "chrome_public_pages",
         "verdict": "PASS",
         "evidence": "google-chrome --headless=new --dump-dom against local uvicorn",
-        "proved_at": "2026-08-14T14:17:53.902933+00:00",
+        "proved_at": "2026-08-14T14:30:03.551187+00:00",
         "pages": [
           {
             "path": "/login",
@@ -646,12 +646,12 @@
         "id": "http_load_local",
         "verdict": "PASS",
         "evidence": "80 GETs /health/live via 2-worker uvicorn + 16 threads",
-        "proved_at": "2026-08-14T14:17:56.427045+00:00",
+        "proved_at": "2026-08-14T14:30:06.091634+00:00",
         "ok": 80,
         "n": 80,
-        "p50_ms": 15.26,
-        "p95_ms": 319.68,
-        "max_ms": 322.47,
+        "p50_ms": 20.49,
+        "p95_ms": 25.38,
+        "max_ms": 345.39,
         "notes": "Local two-worker HTTP pack. Not multi-AZ production SLO/soak."
       }
     ]
@@ -3628,6 +3628,61 @@
       "live Telegram send (unless TELEGRAM_BOT_TOKEN present)"
     ],
     "honesty": "Public ≥95% means visitor/paper surfaces HTTP-prove. It is not institutional COMPLETE and not live money."
+  },
+  "operator_live_probes": {
+    "proved_at": "2026-08-14T14:30:07.674318+00:00",
+    "telegram_oncall_configured": false,
+    "stripe_sandbox": {
+      "verdict": "FAIL",
+      "error": "AuthenticationError"
+    },
+    "counsel": {
+      "verdict": "FAIL"
+    },
+    "pentest": {
+      "verdict": "FAIL"
+    },
+    "cloud_multi_az": false,
+    "app_base_url_set": false,
+    "binance_testnet": {
+      "ok": false,
+      "geo_blocked": true,
+      "external_block": "binance_order_host_geo_451",
+      "hosts": [
+        {
+          "host": "https://testnet.binance.vision",
+          "ok": false,
+          "http_status": 451,
+          "geo_blocked": true
+        },
+        {
+          "host": "https://demo-api.binance.com",
+          "ok": false,
+          "http_status": 451,
+          "geo_blocked": true
+        }
+      ]
+    },
+    "binance_mainnet": {
+      "ok": false,
+      "geo_blocked": true,
+      "external_block": "binance_order_host_geo_451",
+      "hosts": [
+        {
+          "host": "https://api.binance.com",
+          "ok": false,
+          "http_status": 451,
+          "geo_blocked": true
+        }
+      ]
+    },
+    "lemon_checkout_http_status": 302,
+    "lemon_error": null,
+    "jupiter_wallet": "BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf",
+    "sol_lamports": 0,
+    "rpc_error": null,
+    "wallet_funded": false,
+    "engineer_cannot_close": true
   },
   "four_blockers": {
     "live_fill": false,
