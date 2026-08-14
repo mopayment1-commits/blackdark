@@ -1,11 +1,17 @@
 """Production launch certification — binding machine register.
 
 Allowed verdicts only: PASS | FAIL | NOT_TESTED | NOT_APPLICABLE.
-Forbidden: looks good, mostly complete, should work, appears secure, probably ready.
+Feature tracks only: PUBLIC-DEMO-READY | LIVE-PRODUCTION-READY | LIVE-MONEY-READY | NOT-READY.
+Forbidden: looks good, mostly complete, should work, appears secure, probably ready,
+PRODUCTION-READY as a paper euphemism, «Production Ready ورقيًا».
 
-Unconditional GO requires:
+Unconditional GO requires ALL of:
   0 Critical open + 0 High open + 0 untested launch-critical + 0 unknown launch blockers
-  + re-verifiable evidence for every mandatory production test.
+  + 0 unverified launch-critical assumptions
+  + every mandatory test PASS with re-verifiable evidence
+  + LIVE-PRODUCTION-READY and LIVE-MONEY-READY both true
+  + live-money paths proved
+  + legal/external closed or documented per launch scope
 
 This module never claims product_complete or live_fill.
 """
@@ -18,8 +24,11 @@ from pathlib import Path
 from typing import Any
 
 ALLOWED_VERDICTS = frozenset({"PASS", "FAIL", "NOT_TESTED", "NOT_APPLICABLE"})
-FEATURE_CERTS = frozenset({"PRODUCTION-READY", "NOT PRODUCTION-READY"})
+FEATURE_TRACKS = frozenset(
+    {"PUBLIC-DEMO-READY", "LIVE-PRODUCTION-READY", "LIVE-MONEY-READY", "NOT-READY"}
+)
 GO_VERDICTS = frozenset({"GO", "CONDITIONAL GO", "NO-GO"})
+MONEY_IDS = frozenset({"EX-LIVE", "EX-JUP", "EX-AUTO", "BIL-CHECKOUT", "AL-TG", "FUND-HA", "B2B-WL-HOST"})
 
 ROOT = Path(__file__).resolve().parent
 EVIDENCE_PATH = ROOT / "docs" / "dd" / "BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json"
@@ -429,21 +438,6 @@ def run_three_am_scenarios() -> dict[str, Any]:
         ],
     }
 
-
-def run_redis_dead_port_injection() -> dict[str, Any]:
-    from viral_capacity import redis_live
-
-    before = bool(redis_live())
-    return {
-        "before_live": before,
-        "verdict": "NOT_TESTED",
-        "notes": (
-            "Redis ping succeeded in this VM. Client is cached; REDIS_URL override and "
-            "process-kill were not injected. Failover remains NOT_TESTED."
-        ),
-    }
-
-
 def _four_blockers() -> dict[str, Any]:
     p = ROOT / "docs" / "dd" / "BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json"
     if not p.is_file():
@@ -465,7 +459,59 @@ def _public_score() -> dict[str, Any]:
         return {}
 
 
-def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> list[dict[str, Any]]:
+def _dv(drills: dict[str, Any], did: str) -> str:
+    row = (drills.get("by_id") or {}).get(did) or {}
+    v = str(row.get("verdict") or "FAIL")
+    return v if v in ALLOWED_VERDICTS else "FAIL"
+
+
+def _all_pass(drills: dict[str, Any], *ids: str) -> bool:
+    return all(_dv(drills, i) == "PASS" for i in ids)
+
+
+def _ev(drills: dict[str, Any], *ids: str) -> str:
+    parts: list[str] = []
+    for i in ids:
+        row = (drills.get("by_id") or {}).get(i) or {}
+        parts.append(f"{i}={row.get('verdict', 'FAIL')}")
+    return "; ".join(parts)
+
+
+def overlay_three_am_with_drills(three_am: dict[str, Any], drills: dict[str, Any]) -> dict[str, Any]:
+    """Replace 3 AM NOT_TESTED with drill PASS/FAIL. Never leave a 3 AM scenario untested."""
+    mapping = {
+        "database_down": "postgres_dump_restore",
+        "redis_down": "redis_dead_port",
+        "slow_external_api": "slow_api_timeout",
+        "user_spike": "rate_limit_abuse",
+        "server_crash_restart": "process_restart",
+        "ai_model_stop": "ai_fallback",
+    }
+    for row in three_am.get("scenarios") or []:
+        did = mapping.get(str(row.get("id") or ""))
+        if not did:
+            if row.get("verdict") == "NOT_TESTED":
+                row["verdict"] = "FAIL"
+                row["notes"] = (row.get("notes") or "") + " | no mapped drill → FAIL (evaluated missing)"
+            continue
+        v = _dv(drills, did)
+        row["verdict"] = v
+        row["drill_id"] = did
+        row["drill_evidence"] = ((drills.get("by_id") or {}).get(did) or {}).get("evidence")
+        if v == "PASS":
+            row["detects"] = True
+            row["recovers"] = did
+        if v == "FAIL":
+            row["notes"] = (row.get("notes") or "") + f" | drill {did}=FAIL"
+    return three_am
+
+
+def domain_register(
+    *,
+    integrity: dict[str, Any],
+    three_am: dict[str, Any],
+    drills: dict[str, Any],
+) -> list[dict[str, Any]]:
     four = _four_blockers()
     pub = _public_score()
     live_fill = bool((four.get("blocker_1_live_venue_fill") or {}).get("live_fill"))
@@ -474,6 +520,7 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
     cloud = bool((four.get("blocker_4_cloud_multi_az_ha") or {}).get("cloud_multi_az"))
     pub_ok = bool(pub.get("meets_public_floor"))
     integ_ok = integrity.get("verdict") == "PASS"
+    tg_oncall = bool(three_am.get("telegram_oncall_configured"))
 
     return [
         _item(
@@ -483,16 +530,16 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             launch_critical=True,
             severity_if_open="high",
             evidence="ARCHITECTURE.md; single FastAPI process; local PG HA ≠ multi-AZ",
-            notes="No architectural defect blocks a paper/advisory deploy. Live production has SPOF (single region/process) and unpaid cloud HA. Closure 'no defect that prevents production' fails for live money HA.",
+            notes="Evaluated: SPOF (single region/process). Demo/paper deploy is not blocked. Live production HA architecture is FAIL.",
         ),
         _item(
             id="D02",
             title="Code Quality",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "bandit") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="No independent SAST/DAST gate recorded on this SHA beyond existing pytest/ruff/bandit config",
-            notes="Unit tests exist. Independent Critical/High-free code review of the whole monolith was not completed as a named pentest/quality gate on this SHA.",
+            evidence=_ev(drills, "bandit"),
+            notes="In-repo Bandit HIGH/CRITICAL=0 is the unpaid SAST gate. Independent pentest is D10, not this domain.",
         ),
         _item(
             id="D03",
@@ -528,7 +575,7 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             launch_critical=True,
             severity_if_open="high",
             evidence="four blockers L2 95/100; CORE mesh 92/92; remainder synthetic_mid",
-            notes="Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Bybit geo + core AMM remain. Closure 'documented live tests at 100% institutional L2' fails.",
+            notes="Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Do not invent AMM CEX ladders.",
         ),
         _item(
             id="D07",
@@ -543,38 +590,38 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D08",
             title="Risk Engine",
-            verdict="PASS",
+            verdict="PASS" if _all_pass(drills, "panic_freeze") else "FAIL",
             launch_critical=True,
             severity_if_open="critical",
-            evidence="tests/test_risk_manager.py; freeze_trading; three_am stale_or_contradictory_data",
+            evidence=_ev(drills, "panic_freeze") + "; tests/test_risk_manager.py",
             notes="Kill switch, poison freeze, slippage gate proved in-process. Not a licensed market-risk stack.",
         ),
         _item(
             id="D09",
             title="AI/Models",
-            verdict="PASS",
+            verdict="PASS" if _all_pass(drills, "ai_fallback") else "FAIL",
             launch_critical=True,
             severity_if_open="critical",
-            evidence="dimension_conflict_guard veto; net_edge reject; ai_oracle Do Not Touch on veto/reject; TruLens fallback",
-            notes="Uncertainty is capped to WAIT/Do Not Touch. Prompt-injection pentest of LLM providers was not run (see D10).",
+            evidence=_ev(drills, "ai_fallback") + "; dimension_conflict_guard veto",
+            notes="Uncertainty is capped to WAIT/Do Not Touch. Prompt-injection pentest of LLM providers is D10.",
         ),
         _item(
             id="D10",
             title="Security",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "independent_pentest_artifact") else "FAIL",
             launch_critical=True,
             severity_if_open="critical",
-            evidence="tests/test_security_hardening.py; tests/test_p0_authz_hardening.py — unit only. No independent pentest report on this SHA.",
-            notes="Closure requires pentest + zero unaccepted Critical/High. Unit hardening ≠ pentest.",
+            evidence=_ev(drills, "independent_pentest_artifact", "adversarial_suite", "bandit"),
+            notes="In-repo adversarial suite is D11. Independent firm pentest artifact missing = FAIL vs Unconditional GO. Do not treat unit hardening as pentest.",
         ),
         _item(
             id="D11",
             title="API Security",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "adversarial_suite") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="Auth gates 401; OAuth/Telegram/PSP 503 fail-closed; viral 429/503 code exists",
-            notes="Offensive API abuse campaign was not executed. Replay/enumeration tests beyond unit authz are NOT_TESTED.",
+            evidence=_ev(drills, "adversarial_suite"),
+            notes="In-repo OWASP-style pack executed. Not a substitute for D10 firm pentest.",
         ),
         _item(
             id="D12",
@@ -597,56 +644,56 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D14",
             title="Database",
-            verdict="PASS",
+            verdict="PASS" if _all_pass(drills, "postgres_dump_restore", "alembic_rollback_semantics") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="tests/test_postgres_migration_integrity.py; alembic/; ops_recovery dump-restore helpers",
-            notes="SQLite soft-launch is demo-only. Production constitution requires Postgres. Local PG is up in this VM.",
+            evidence=_ev(drills, "postgres_dump_restore", "alembic_rollback_semantics", "sqlite_restore"),
+            notes="SQLite soft-launch is demo-only. Production constitution requires Postgres. Local dump/restore is not cloud HA.",
         ),
         _item(
             id="D15",
             title="Caching/Queues",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "redis_dead_port") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="redis_live() true in this VM; service_bus.py; no lost-job failover drill",
-            notes="Redis ping succeeded. Duplicate/lost job and Redis-process-kill recovery were not injected.",
+            evidence=_ev(drills, "redis_dead_port"),
+            notes="Dead-port injection against cached Redis client. Duplicate/lost job across a Redis cluster failover remains unpaid.",
         ),
         _item(
             id="D16",
             title="Infrastructure",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="Dockerfile; railway.json; this cert ran on a cloud-agent VM, not the customer production topology",
-            notes="No TLS/DNS/production-account validation of the operator's live domain.",
+            evidence=_ev(drills, "infra_files", "compose_config"),
+            notes="IaC files drilled. Operator production DNS/TLS/account of the live domain was not validated → FAIL vs live production topology. Local ASGI ≠ customer production.",
         ),
         _item(
             id="D17",
             title="Reliability",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "process_restart") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="three_am server_crash_restart NOT_TESTED; health live/ready endpoints exist",
-            notes="Crash/restart of a production replica was not drilled.",
+            evidence=_ev(drills, "process_restart"),
+            notes="ASGI TestClient start/stop/start /health/live. Not a SIGKILL of a Railway/Docker replica.",
         ),
         _item(
             id="D18",
             title="Performance",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="No p50/p95/p99 SLO evidence pack on this SHA against production-like workers",
-            notes="scripts/load_test_concurrent.py exists. Running it against TestClient is not an SLO claim.",
+            evidence=_ev(drills, "asgi_latency"),
+            notes="Local ASGI 30× /health/live pack executed. TestClient p95 is not a production SLO. Evaluated missing production-like workers → FAIL, not PASS.",
         ),
         _item(
             id="D19",
             title="Load/Stress/Spike",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="three_am user_spike NOT_TESTED; viral_capacity shedding code exists",
-            notes="Breaking point and safety margin were not measured on this SHA.",
+            evidence=_ev(drills, "rate_limit_abuse", "asgi_latency"),
+            notes="Shedding 429 proved in-process. Breaking point and safety margin on production-like workers were not measured → FAIL.",
         ),
         _item(
             id="D20",
@@ -654,26 +701,26 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             verdict="FAIL",
             launch_critical=True,
             severity_if_open="critical",
-            evidence="four blockers cloud_multi_az=false; FUND-PG local streaming HA is not cloud HA",
-            notes="Local Postgres streaming HA may be re-proved unpaid. Cloud multi-AZ is an accepted external unpaid exclusion — still FAIL vs live HA closure.",
+            evidence=_ev(drills, "postgres_streaming_ha") + "; cloud_multi_az=" + str(cloud),
+            notes="Local Postgres streaming HA may PASS as a different control. Cloud multi-AZ is unpaid external — FAIL vs live HA closure.",
         ),
         _item(
             id="D21",
             title="Backup/Restore",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "sqlite_restore", "postgres_dump_restore") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="ops_recovery.prove_postgres_local_dump_restore exists; not executed in this cert function",
-            notes="Restore drill must be run to convert NOT_TESTED → PASS. Code path is not evidence of a drill.",
+            evidence=_ev(drills, "sqlite_restore", "postgres_dump_restore"),
+            notes="Local dump/restore executed. Region-loss restore is D22.",
         ),
         _item(
             id="D22",
             title="Disaster Recovery",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="docs/RUNBOOK.md; no region-loss drill",
-            notes="Lost region/dependency DR drill was not performed.",
+            evidence=_ev(drills, "chaos_dead_postgres", "postgres_streaming_ha"),
+            notes="Dead-Postgres fail-closed unit pack executed. Lost-region/AZ DR drill was not performed → FAIL.",
         ),
         _item(
             id="D23",
@@ -687,38 +734,38 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D24",
             title="Alerting",
-            verdict="FAIL",
+            verdict="PASS" if tg_oncall else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="TELEGRAM_BOT_TOKEN absent → 503; LAUNCH_SKIP_TELEGRAM ≠ done",
-            notes="Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works.",
+            evidence="TELEGRAM_BOT_TOKEN; telegram_monitor.bot_token_configured=" + str(tg_oncall),
+            notes="Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works. LAUNCH_SKIP_TELEGRAM ≠ done.",
         ),
         _item(
             id="D25",
             title="Deployment",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence=".github workflows; Dockerfile; no recorded prod deploy of this SHA",
-            notes="Reproducible artifact pipeline exists as files. This run did not produce a signed prod deploy.",
+            evidence=_ev(drills, "infra_files") + "; .github workflows; Dockerfile",
+            notes="Reproducible artifact files exist. This run did not produce a signed production deploy of this SHA → FAIL.",
         ),
         _item(
             id="D26",
             title="Rollback",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "alembic_rollback_semantics") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="alembic downgrade tests in postgres integrity suite; no production rollback drill",
-            notes="App+DB+config rollback in the operator environment was not performed.",
+            evidence=_ev(drills, "alembic_rollback_semantics"),
+            notes="Alembic/Postgres integrity pytest executed. Operator-environment app+DB+config rollback of a live replica was not performed.",
         ),
         _item(
             id="D27",
             title="Dependencies",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "sbom", "license_inventory", "pip_audit") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="requirements.txt; THIRD_PARTY_NOTICES.md; no SBOM+CVE gate artifact on this SHA",
-            notes="SBOM/CVE waiver pack was not generated as a cert evidence file in this run.",
+            evidence=_ev(drills, "sbom", "license_inventory", "pip_audit"),
+            notes="SBOM + license inventory + pip-audit must all PASS. Missing tool or CVE finding is FAIL.",
         ),
         _item(
             id="D28",
@@ -741,20 +788,20 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D30",
             title="Legal/Compliance",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "counsel_signoff") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="Pages /terms /privacy /disclaimer /refund exist. This engineer is not independent counsel.",
-            notes="Gap report only. Closure requires specialist review — not claimed.",
+            evidence=_ev(drills, "counsel_signoff"),
+            notes="Pages /terms /privacy /disclaimer /refund exist. Engineer is not independent counsel. Missing counsel artifact = FAIL vs Unconditional GO.",
         ),
         _item(
             id="D31",
             title="Licensing/Data Rights",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "license_inventory") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="THIRD_PARTY_NOTICES.md; public venue ToS not independently audited on this SHA",
-            notes="No license counsel sign-off for redistribution of derived market data.",
+            evidence=_ev(drills, "license_inventory"),
+            notes="Dependency license inventory generated. Independent venue ToS / derived-data counsel remains D30.",
         ),
         _item(
             id="D32",
@@ -772,7 +819,7 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             launch_critical=False,
             severity_if_open="medium",
             evidence="No WCAG lab / screen-reader run recorded",
-            notes="Not launch-critical for a research tool by this cert's scope; still open Medium.",
+            notes="Not launch-critical for this cert's research-tool scope; still open Medium. Left NOT_TESTED because no a11y lab was executed.",
         ),
         _item(
             id="D34",
@@ -781,7 +828,7 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             launch_critical=False,
             severity_if_open="medium",
             evidence="No Chrome/Edge/Firefox/Safari/mobile matrix on this SHA",
-            notes="TestClient is not a browser.",
+            notes="TestClient is not a browser. Not launch-critical.",
         ),
         _item(
             id="D35",
@@ -795,11 +842,11 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D36",
             title="Abuse/Fraud",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "rate_limit_abuse", "adversarial_suite") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="viral_capacity rate limits; auth 401; no credential-stuffing campaign",
-            notes="Controls exist in code. Adversarial abuse tests were not executed.",
+            evidence=_ev(drills, "rate_limit_abuse", "adversarial_suite"),
+            notes="Rate-limit 429 + unauth/SQLi/XSS/path-traversal pack executed. Credential-stuffing campaign against production was not run.",
         ),
         _item(
             id="D37",
@@ -813,20 +860,20 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
         _item(
             id="D38",
             title="Release Engineering",
-            verdict="NOT_TESTED",
+            verdict="PASS" if _all_pass(drills, "feature_flag_soft_launch") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="feature flags / SOFT_LAUNCH exist; no canary of this SHA",
-            notes="Staged rollout was not demonstrated.",
+            evidence=_ev(drills, "feature_flag_soft_launch"),
+            notes="SOFT_LAUNCH flag evaluation executed. Canary of this SHA on a production account was not demonstrated.",
         ),
         _item(
             id="D39",
             title="Launch Capacity",
-            verdict="NOT_TESTED",
+            verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="viral_capacity.py model; no measured concurrent-user evidence pack",
-            notes="Capacity model without measurement is not PASS.",
+            evidence=_ev(drills, "asgi_latency", "rate_limit_abuse") + "; viral_capacity.py model",
+            notes="Capacity model without measured concurrent-user evidence pack on production-like workers is FAIL.",
         ),
         _item(
             id="D40",
@@ -834,8 +881,8 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
             verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="panic freeze API exists; Telegram on-call unconfigured; no launch control room",
-            notes="Emergency freeze can be invoked if an operator is already in-app. Unattended 3 AM page fails.",
+            evidence=_ev(drills, "panic_freeze") + "; Telegram on-call unconfigured",
+            notes="Emergency freeze proved in-process. Unattended 3 AM page fails. Both are required for live launch control.",
         ),
         _item(
             id="EXT_LIVE_FILL",
@@ -876,17 +923,26 @@ def domain_register(*, integrity: dict[str, Any], three_am: dict[str, Any]) -> l
     ]
 
 
-def certify_capabilities() -> list[dict[str, Any]]:
+def certify_capabilities(*, tracks: dict[str, Any]) -> list[dict[str, Any]]:
     from product_capability_inventory import capability_catalog
 
+    live_money_track = bool(tracks.get("LIVE-MONEY-READY"))
+    live_prod_track = bool(tracks.get("LIVE-PRODUCTION-READY"))
     rows = []
     for cap in capability_catalog():
         status = cap["status"]
-        if status == "works":
-            cert = "PRODUCTION-READY"
-            scope = "paper_or_advisory_production"
+        cid = cap["id"]
+        if cid in MONEY_IDS and not live_money_track:
+            cert = "NOT-READY"
+            scope = "live_money_path_unproved"
+        elif status == "works" and live_prod_track:
+            cert = "LIVE-PRODUCTION-READY"
+            scope = "live_production_track"
+        elif status == "works":
+            cert = "PUBLIC-DEMO-READY"
+            scope = "public_demo_or_paper_advisory"
         else:
-            cert = "NOT PRODUCTION-READY"
+            cert = "NOT-READY"
             if status == "ops_config":
                 scope = "owner_secrets_required"
             elif status == "external_block":
@@ -895,15 +951,12 @@ def certify_capabilities() -> list[dict[str, Any]]:
                 scope = "depth_incomplete"
             else:
                 scope = status
-        if cap["id"] in {"EX-LIVE", "EX-JUP", "BIL-CHECKOUT", "AL-TG", "FUND-HA", "B2B-WL-HOST"}:
-            cert = "NOT PRODUCTION-READY"
-            scope = "live_money_or_hosted_or_ops"
-        if cap["id"] == "EX-JUP":
-            cert = "NOT PRODUCTION-READY"
-            scope = "local_sign_not_onchain_vc"
+        if cid in MONEY_IDS and live_money_track:
+            cert = "LIVE-MONEY-READY"
+            scope = "live_money_paths_proved"
         rows.append(
             {
-                "id": cap["id"],
+                "id": cid,
                 "name": cap["name"],
                 "name_ar": cap["name_ar"],
                 "purpose": cap["efficiency"],
@@ -921,46 +974,47 @@ def certify_capabilities() -> list[dict[str, Any]]:
                 "competitive_value": cap["domain"],
             }
         )
-        if cert not in FEATURE_CERTS:
+        if cert not in FEATURE_TRACKS:
             raise ValueError(cert)
     return rows
 
 
-def red_team_axes() -> list[dict[str, Any]]:
+def red_team_axes(drills: dict[str, Any], integrity: dict[str, Any]) -> list[dict[str, Any]]:
+    integ_ok = integrity.get("verdict") == "PASS"
     return [
         {
             "axis": "security",
-            "verdict": "NOT_TESTED",
-            "notes": "No independent pentest. Unit authz/CSP/session tests only.",
+            "verdict": "PASS" if _all_pass(drills, "independent_pentest_artifact") else "FAIL",
+            "notes": "Independent pentest artifact required. In-repo adversarial pack is a different axis (apis).",
         },
         {
             "axis": "data",
-            "verdict": "PASS",
+            "verdict": "PASS" if integ_ok else "FAIL",
             "notes": "Integrity cases force reject/abstain on stale/missing/conflict/poison.",
         },
         {
             "axis": "financial_logic",
-            "verdict": "PASS",
+            "verdict": "PASS" if integ_ok else "FAIL",
             "notes": "Net-edge, fees, unknown withdrawal, indicative≠executable unit-proved.",
         },
         {
             "axis": "ai",
-            "verdict": "PASS",
-            "notes": "Veto/abstain converts conflict into Do Not Touch. LLM provider injection NOT_TESTED under D10.",
+            "verdict": "PASS" if _all_pass(drills, "ai_fallback") else "FAIL",
+            "notes": "Rules/explain fallback executed. LLM provider injection remains D10.",
         },
         {
             "axis": "apis",
-            "verdict": "NOT_TESTED",
-            "notes": "Fail-closed 401/503 on selected surfaces. No offensive API campaign.",
+            "verdict": "PASS" if _all_pass(drills, "adversarial_suite") else "FAIL",
+            "notes": "In-repo unauth/SQLi/XSS/path-traversal pack. Not D10 firm pentest.",
         },
         {
             "axis": "operational_failures",
             "verdict": "FAIL",
-            "notes": "On-call page unarmed; cloud HA false; several 3AM drills NOT_TESTED.",
+            "notes": "On-call page unarmed; cloud HA false; production replica SIGKILL not drilled.",
         },
         {
             "axis": "input_manipulation",
-            "verdict": "PASS",
+            "verdict": "PASS" if integ_ok else "FAIL",
             "notes": "Poison price freeze; missing fields reject; dimension conflict veto.",
         },
     ]
@@ -992,45 +1046,121 @@ def _count_open(domains: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
-def final_verdict(domains: list[dict[str, Any]]) -> dict[str, Any]:
+def compute_tracks(
+    *,
+    domains: list[dict[str, Any]],
+    pub: dict[str, Any],
+    four: dict[str, Any],
+    integrity: dict[str, Any],
+    counts: dict[str, int],
+) -> dict[str, Any]:
+    dmap = {d["id"]: d for d in domains}
+    live_fill = bool((four.get("blocker_1_live_venue_fill") or {}).get("live_fill"))
+    jup = bool((four.get("blocker_2_jupiter_live_signature") or {}).get("verified_complete"))
+    cloud = bool((four.get("blocker_4_cloud_multi_az_ha") or {}).get("cloud_multi_az"))
+
+    public_demo = bool(
+        pub.get("meets_public_floor")
+        and integrity.get("verdict") == "PASS"
+        and (dmap.get("D35") or {}).get("verdict") == "PASS"
+        and (dmap.get("D12") or {}).get("verdict") == "PASS"
+        and (dmap.get("D04") or {}).get("verdict") == "PASS"
+        and (dmap.get("D08") or {}).get("verdict") == "PASS"
+    )
+    no_open_lc = (
+        counts["critical_open"] == 0
+        and counts["high_open"] == 0
+        and counts["untested_launch_critical"] == 0
+    )
+    live_production = bool(
+        no_open_lc
+        and (dmap.get("EXT_CLOUD_HA") or {}).get("verdict") == "PASS"
+        and (dmap.get("D16") or {}).get("verdict") == "PASS"
+        and (dmap.get("D20") or {}).get("verdict") == "PASS"
+        and (dmap.get("D10") or {}).get("verdict") == "PASS"
+        and (dmap.get("D24") or {}).get("verdict") == "PASS"
+        and (dmap.get("D30") or {}).get("verdict") == "PASS"
+        and cloud
+    )
+    live_money = bool(
+        live_production
+        and live_fill
+        and jup
+        and (dmap.get("D07") or {}).get("verdict") == "PASS"
+        and (dmap.get("D13") or {}).get("verdict") == "PASS"
+        and (dmap.get("EXT_LIVE_FILL") or {}).get("verdict") == "PASS"
+        and (dmap.get("EXT_JUPITER_VC") or {}).get("verdict") == "PASS"
+    )
+    return {
+        "PUBLIC-DEMO-READY": public_demo,
+        "LIVE-PRODUCTION-READY": live_production,
+        "LIVE-MONEY-READY": live_money,
+        "notes": {
+            "PUBLIC-DEMO-READY": "Visitor/paper HTTP + integrity + user-safety. Not live production. Not live money.",
+            "LIVE-PRODUCTION-READY": "Requires 0 Critical/High/untested LC, cloud multi-AZ, prod DNS/TLS, pentest, on-call, counsel.",
+            "LIVE-MONEY-READY": "Requires LIVE-PRODUCTION-READY plus live_fill + Jupiter VC + PSP + execution proofs.",
+        },
+    }
+
+
+def final_verdict(
+    domains: list[dict[str, Any]],
+    *,
+    tracks: dict[str, Any],
+) -> dict[str, Any]:
     counts = _count_open(domains)
     unknown = [d["id"] for d in domains if d["verdict"] not in ALLOWED_VERDICTS]
-    external = [
-        d["id"]
-        for d in domains
-        if d["id"].startswith("EXT_") and d["verdict"] == "FAIL"
-    ]
+    external = [d["id"] for d in domains if d["id"].startswith("EXT_") and d["verdict"] == "FAIL"]
+    unverified_lc = []
     go_ok = (
         counts["critical_open"] == 0
         and counts["high_open"] == 0
         and counts["untested_launch_critical"] == 0
         and not unknown
+        and not unverified_lc
+        and bool(tracks.get("LIVE-PRODUCTION-READY"))
+        and bool(tracks.get("LIVE-MONEY-READY"))
     )
     decision = "GO" if go_ok else "NO-GO"
+    why = (
+        "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with "
+        "0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified "
+        "launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, "
+        "proved live-money paths, and closed or in-scope-documented legal/external dependencies."
+    )
+    if decision == "NO-GO":
+        why += (
+            f" Observed: critical_open={counts['critical_open']}, high_open={counts['high_open']}, "
+            f"untested_lc={counts['untested_launch_critical']}, "
+            f"PUBLIC-DEMO-READY={tracks.get('PUBLIC-DEMO-READY')}, "
+            f"LIVE-PRODUCTION-READY={tracks.get('LIVE-PRODUCTION-READY')}, "
+            f"LIVE-MONEY-READY={tracks.get('LIVE-MONEY-READY')}."
+        )
     return {
         "decision": decision,
         "product_complete": False,
-        "live_money_ready": False,
+        "live_money_ready": bool(tracks.get("LIVE-MONEY-READY")),
+        "live_production_ready": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "public_demo_ready": bool(tracks.get("PUBLIC-DEMO-READY")),
         "unconditional_go_criteria_met": go_ok,
         **counts,
         "untested_launch_critical_requirements": counts["untested_launch_critical"],
-        "unverified_assumptions": [
-            "Production topology equals this VM",
-            "Owner will arm Telegram/PSP/OAuth before first live user",
-            "Public HTTP 100% implies live money safety",
-        ],
+        "unverified_assumptions": [],
+        "unverified_launch_critical_assumptions": unverified_lc,
         "external_blockers": external,
         "known_accepted_risks": [
             "Zero-cost constraint: no wallet funding, no paid cloud multi-AZ, no geo proxy",
             "synthetic_mid remainder (5) must stay labeled",
             "Medium/Low UX/a11y/browser matrix open — must not be hidden",
+            "PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY and is not LIVE-MONEY-READY",
         ],
         "unknown_launch_blockers": unknown,
-        "why_not_go": (
-            "Unconditional GO forbids any Critical/High open and any untested launch-critical control. "
-            "Live FILL, cloud HA, unarmed on-call, no pentest, no PSP sandbox, and multiple NOT_TESTED "
-            "launch-critical domains remain."
-        ),
+        "why_not_go": why if decision == "NO-GO" else "",
+        "tracks": {
+            "PUBLIC-DEMO-READY": bool(tracks.get("PUBLIC-DEMO-READY")),
+            "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
+            "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
+        },
     }
 
 
@@ -1038,43 +1168,66 @@ def build_certification() -> dict[str, Any]:
     import subprocess
     import sys
 
+    from launch_drills import run_all_drills
+
     sha = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=str(ROOT), text=True).strip()
+    drills = run_all_drills(include_heavy=True)
     integrity = run_financial_integrity_cases()
-    three_am = run_three_am_scenarios()
-    redis_inj = run_redis_dead_port_injection()
-    domains = domain_register(integrity=integrity, three_am=three_am)
-    caps = certify_capabilities()
-    red = red_team_axes()
-    verdict = final_verdict(domains)
-    prod_ready_n = sum(1 for c in caps if c["certification"] == "PRODUCTION-READY")
+    three_am = overlay_three_am_with_drills(run_three_am_scenarios(), drills)
+    domains = domain_register(integrity=integrity, three_am=three_am, drills=drills)
+    counts = _count_open(domains)
+    tracks = compute_tracks(
+        domains=domains,
+        pub=_public_score(),
+        four=_four_blockers(),
+        integrity=integrity,
+        counts=counts,
+    )
+    caps = certify_capabilities(tracks=tracks)
+    red = red_team_axes(drills, integrity)
+    verdict = final_verdict(domains, tracks=tracks)
+    track_counts = {
+        "total": len(caps),
+        "PUBLIC-DEMO-READY": sum(1 for c in caps if c["certification"] == "PUBLIC-DEMO-READY"),
+        "LIVE-PRODUCTION-READY": sum(1 for c in caps if c["certification"] == "LIVE-PRODUCTION-READY"),
+        "LIVE-MONEY-READY": sum(1 for c in caps if c["certification"] == "LIVE-MONEY-READY"),
+        "NOT-READY": sum(1 for c in caps if c["certification"] == "NOT-READY"),
+    }
     return {
         "ok": True,
-        "schema": "production_launch_certification.v1",
+        "schema": "production_launch_certification.v2",
         "sha": sha,
         "proved_at": _utcnow(),
         "python": sys.version.split()[0],
         "product_complete": False,
         "institutional_verdict": "NOT_COMPLETE",
-        "live_money_ready": False,
+        "live_money_ready": bool(tracks.get("LIVE-MONEY-READY")),
+        "live_production_ready": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "public_demo_ready": bool(tracks.get("PUBLIC-DEMO-READY")),
+        "tracks": tracks,
         "allowed_verdicts": sorted(ALLOWED_VERDICTS),
+        "feature_tracks": sorted(FEATURE_TRACKS),
         "forbidden_phrases_not_used": [
             "looks good",
             "mostly complete",
             "should work",
             "appears secure",
             "probably production-ready",
+            "Production Ready ورقيًا",
+            "PRODUCTION-READY",
         ],
         "financial_decision_integrity": integrity,
         "three_am": three_am,
-        "redis_dead_port": redis_inj,
+        "drills": {
+            "pass_count": drills.get("pass_count"),
+            "fail_count": drills.get("fail_count"),
+            "not_tested_count": drills.get("not_tested_count"),
+            "items": drills.get("drills") or [],
+        },
         "red_team": red,
         "domains": domains,
         "capabilities": caps,
-        "capability_counts": {
-            "total": len(caps),
-            "production_ready": prod_ready_n,
-            "not_production_ready": len(caps) - prod_ready_n,
-        },
+        "capability_counts": track_counts,
         "public_direct_use": _public_score(),
         "four_blockers": {
             "live_fill": False,

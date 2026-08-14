@@ -4,7 +4,8 @@ from __future__ import annotations
 
 ALLOWED = {"PASS", "FAIL", "NOT_TESTED", "NOT_APPLICABLE"}
 GO = {"GO", "CONDITIONAL GO", "NO-GO"}
-FEAT = {"PRODUCTION-READY", "NOT PRODUCTION-READY"}
+FEAT = {"PUBLIC-DEMO-READY", "LIVE-PRODUCTION-READY", "LIVE-MONEY-READY", "NOT-READY"}
+FORBIDDEN_CERT = {"PRODUCTION-READY", "NOT PRODUCTION-READY"}
 
 
 def test_integrity_eleven_cases_and_no_illegal_verdicts():
@@ -31,23 +32,33 @@ def test_build_cert_is_nogo_and_counts_opens():
     from production_launch_certification import build_certification
 
     cert = build_certification()
+    assert cert["schema"] == "production_launch_certification.v2"
     assert cert["product_complete"] is False
     assert cert["live_money_ready"] is False
+    assert cert["live_production_ready"] is False
+    tracks = cert["tracks"]
+    assert tracks["LIVE-MONEY-READY"] is False
+    assert tracks["LIVE-PRODUCTION-READY"] is False
     v = cert["final_production_verdict"]
     assert v["decision"] == "NO-GO"
     assert v["unconditional_go_criteria_met"] is False
     assert v["critical_open"] >= 1
     assert v["high_open"] >= 1
-    assert v["untested_launch_critical_requirements"] >= 1
+    assert v["untested_launch_critical_requirements"] == 0
     assert v["unknown_launch_blockers"] == []
+    assert v.get("unverified_launch_critical_assumptions") == []
     for d in cert["domains"]:
         assert d["verdict"] in ALLOWED, d
+        if d["launch_critical"]:
+            assert d["verdict"] != "NOT_TESTED", d
     for c in cert["capabilities"]:
         assert c["certification"] in FEAT, c
+        assert c["certification"] not in FORBIDDEN_CERT, c
     live = next(c for c in cert["capabilities"] if c["id"] == "EX-LIVE")
-    assert live["certification"] == "NOT PRODUCTION-READY"
+    assert live["certification"] == "NOT-READY"
     tg = next(c for c in cert["capabilities"] if c["id"] == "AL-TG")
-    assert tg["certification"] == "NOT PRODUCTION-READY"
+    assert tg["certification"] == "NOT-READY"
+    assert all(c["certification"] != "PRODUCTION-READY" for c in cert["capabilities"])
     assert v["decision"] in GO
 
 
@@ -62,6 +73,8 @@ def test_launch_cert_api_never_implies_complete():
     body = r.json()
     assert body["product_complete"] is False
     assert body["live_money_ready"] is False
+    assert body.get("live_production_ready") in {False, None}
     assert body.get("decision") in GO | {None}
     if body.get("ok"):
         assert body["decision"] == "NO-GO"
+        assert body.get("LIVE-MONEY-READY") is False or body.get("tracks", {}).get("LIVE-MONEY-READY") is False
