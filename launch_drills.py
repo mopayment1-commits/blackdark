@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import statistics
 import subprocess
 import time
@@ -544,6 +545,339 @@ def drill_pip_audit() -> dict[str, Any]:
     )
 
 
+def drill_compose_yaml_merge() -> dict[str, Any]:
+    """Parse and merge compose files without docker. Not a substitute for `docker compose config`."""
+    try:
+        import yaml
+    except Exception as exc:
+        return _drill("compose_yaml_merge", "FAIL", "PyYAML missing", error=type(exc).__name__)
+    base_p = ROOT / "docker-compose.yml"
+    overlay_p = ROOT / "docker-compose.ha.yml"
+    try:
+        base = yaml.safe_load(base_p.read_text(encoding="utf-8")) or {}
+        overlay = yaml.safe_load(overlay_p.read_text(encoding="utf-8")) or {}
+    except Exception as exc:
+        return _drill("compose_yaml_merge", "FAIL", "compose YAML parse", error=type(exc).__name__)
+    services = dict(base.get("services") or {})
+    for name, spec in (overlay.get("services") or {}).items():
+        if name in services and isinstance(services[name], dict) and isinstance(spec, dict):
+            services[name] = {**services[name], **spec}
+        else:
+            services[name] = spec
+    ok = "web" in services and "postgres" in services and "redis" in services
+    return _drill(
+        "compose_yaml_merge",
+        "PASS" if ok else "FAIL",
+        "PyYAML merge docker-compose.yml + docker-compose.ha.yml",
+        services=sorted(services),
+        notes="Valid YAML merge. docker compose config remains a separate drill.",
+    )
+
+
+def drill_stripe_sandbox() -> dict[str, Any]:
+    """Stripe TEST API only. Invalid/live keys must FAIL. Never logs secrets."""
+    import stripe
+
+    key = (os.environ.get("STRIPE_SECRET_KEY") or "").strip()
+    if not key:
+        return _drill(
+            "stripe_sandbox",
+            "FAIL",
+            "STRIPE_SECRET_KEY unset",
+            notes="No sandbox charge. Unconditional GO still requires a proved PSP path.",
+        )
+    if key.startswith("sk_live_"):
+        return _drill(
+            "stripe_sandbox",
+            "FAIL",
+            "sk_live_ refused in unpaid cert",
+            notes="Live Stripe keys are not exercised on this zero-cost cert.",
+        )
+    stripe.api_key = key
+    try:
+        stripe.Account.retrieve()
+    except Exception as exc:
+        return _drill(
+            "stripe_sandbox",
+            "FAIL",
+            "stripe.Account.retrieve",
+            error=type(exc).__name__,
+            notes="TEST key present but Stripe API rejected it. Not a sandbox charge.",
+        )
+    try:
+        session = stripe.checkout.Session.create(
+            mode="subscription",
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "usd",
+                        "product_data": {"name": "BLACKDARK cert probe"},
+                        "unit_amount": 2900,
+                        "recurring": {"interval": "month"},
+                    },
+                    "quantity": 1,
+                }
+            ],
+            success_url="http://127.0.0.1/success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url="http://127.0.0.1/cancel",
+            payment_method_types=["card"],
+        )
+        sid = str(getattr(session, "id", "") or "")
+        url = str(getattr(session, "url", "") or "")
+        ok = sid.startswith("cs_") and url.startswith("https://")
+        if sid:
+            try:
+                stripe.checkout.Session.expire(sid)
+            except Exception:
+                pass
+        return _drill(
+            "stripe_sandbox",
+            "PASS" if ok else "FAIL",
+            "stripe.checkout.Session.create TEST mode",
+            session_id_prefix=sid[:8],
+            notes="Checkout session created in TEST mode. Completing a card charge was not required for this drill.",
+        )
+    except Exception as exc:
+        return _drill(
+            "stripe_sandbox",
+            "FAIL",
+            "stripe.checkout.Session.create",
+            error=type(exc).__name__,
+        )
+
+
+def _wait_http_ok(url: str, timeout_sec: float = 45.0) -> bool:
+    import urllib.error
+    import urllib.request
+
+    t0 = time.time()
+    while time.time() - t0 < timeout_sec:
+        try:
+            with urllib.request.urlopen(url, timeout=2) as resp:
+                if int(resp.status) == 200:
+                    return True
+        except Exception:
+            time.sleep(0.4)
+    return False
+
+
+def _chrome_dump(url: str) -> tuple[int, str]:
+    import tempfile
+
+    profile = tempfile.mkdtemp(prefix="bd-chrome-")
+    proc = subprocess.Popen(
+        [
+            "google-chrome",
+            "--headless=new",
+            "--no-sandbox",
+            "--disable-gpu",
+            "--disable-dev-shm-usage",
+            "--disable-background-networking",
+            "--disable-sync",
+            "--disable-extensions",
+            "--disable-default-apps",
+            "--no-first-run",
+            "--metrics-recording-only",
+            "--remote-debugging-port=0",
+            f"--user-data-dir={profile}",
+            "--virtual-time-budget=4000",
+            "--dump-dom",
+            url,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        start_new_session=True,
+    )
+    try:
+        stdout, _stderr = proc.communicate(timeout=8)
+        return proc.returncode or 0, stdout or ""
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(proc.pid, 15)
+        except Exception:
+            proc.kill()
+        stdout, _stderr = proc.communicate(timeout=5)
+        return 124, stdout or ""
+    finally:
+        try:
+            shutil.rmtree(profile, ignore_errors=True)
+        except Exception:
+            pass
+
+
+def drill_chrome_public_pages() -> dict[str, Any]:
+    """Chromium headless against a local uvicorn — not Safari/Firefox/mobile."""
+    import signal
+    import sys
+    import urllib.request
+
+    port = 18099
+    base = f"http://127.0.0.1:{port}"
+    proc = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "dashboard:app",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            str(port),
+            "--log-level",
+            "warning",
+        ],
+        cwd=str(ROOT),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+    )
+    pages = ["/login", "/privacy", "/terms", "/disclaimer", "/refund"]
+    rows: list[dict[str, Any]] = []
+    try:
+        if not _wait_http_ok(f"{base}/health/live", timeout_sec=60):
+            return _drill(
+                "chrome_public_pages",
+                "FAIL",
+                f"uvicorn :{port} did not become live",
+                pid=proc.pid,
+            )
+        for path in pages:
+            url = base + path
+            try:
+                with urllib.request.urlopen(url, timeout=10) as resp:
+                    http_status = int(resp.status)
+            except Exception:
+                http_status = 0
+            rc, dom = _chrome_dump(url)
+            low = dom.lower()
+            # Chrome may hang after dump-dom; rc 124 with HTML is still a rendered page.
+            rows.append(
+                {
+                    "path": path,
+                    "http_status": http_status,
+                    "chrome_rc": rc,
+                    "has_html_lang": "lang=" in low[:4000],
+                    "has_title": "<title>" in low and "</title>" in low,
+                    "has_viewport": "viewport" in low,
+                    "dom_chars": len(dom),
+                }
+            )
+        ok_pages = [
+            r
+            for r in rows
+            if r["http_status"] == 200 and r["has_title"] and r["dom_chars"] > 200
+        ]
+        a11y_ok = all(r["has_html_lang"] and r["has_title"] for r in ok_pages) and len(ok_pages) >= 4
+        browser_ok = len(ok_pages) >= 4
+        verdict = "PASS" if browser_ok and a11y_ok else "FAIL"
+        return _drill(
+            "chrome_public_pages",
+            verdict,
+            "google-chrome --headless=new --dump-dom against local uvicorn",
+            pages=rows,
+            ok_page_count=len(ok_pages),
+            a11y_lang_title=a11y_ok,
+            notes="Chromium-only. Not Firefox/Safari/mobile. Automated lang/title ≠ WCAG 2.2 lab.",
+        )
+    finally:
+        try:
+            os.killpg(proc.pid, signal.SIGTERM)
+        except Exception:
+            try:
+                proc.terminate()
+            except Exception:
+                pass
+        try:
+            proc.wait(timeout=8)
+        except Exception:
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except Exception:
+                pass
+
+
+def drill_http_load_local() -> dict[str, Any]:
+    """Concurrent HTTP against local uvicorn /health/live. Not a production SLO."""
+    import signal
+    import sys
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    import urllib.request
+
+    port = 18100
+    base = f"http://127.0.0.1:{port}"
+    proc = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "dashboard:app",
+            "--host",
+            "127.0.0.1",
+            "--port",
+            str(port),
+            "--workers",
+            "2",
+            "--log-level",
+            "warning",
+        ],
+        cwd=str(ROOT),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        start_new_session=True,
+    )
+    times: list[float] = []
+    statuses: list[int] = []
+    try:
+        if not _wait_http_ok(f"{base}/health/live", timeout_sec=60):
+            return _drill("http_load_local", "FAIL", f"uvicorn :{port} did not become live", pid=proc.pid)
+
+        def _one() -> tuple[int, float]:
+            t0 = time.perf_counter()
+            try:
+                with urllib.request.urlopen(f"{base}/health/live", timeout=5) as resp:
+                    return int(resp.status), (time.perf_counter() - t0) * 1000
+            except Exception:
+                return 0, (time.perf_counter() - t0) * 1000
+
+        with ThreadPoolExecutor(max_workers=16) as pool:
+            futs = [pool.submit(_one) for _ in range(80)]
+            for fut in as_completed(futs):
+                st, ms = fut.result()
+                statuses.append(st)
+                times.append(ms)
+        times_sorted = sorted(times)
+        p95 = times_sorted[int(0.95 * (len(times_sorted) - 1))]
+        ok_n = sum(1 for s in statuses if s == 200)
+        local_ok = ok_n >= 76 and p95 < 2000
+        return _drill(
+            "http_load_local",
+            "PASS" if local_ok else "FAIL",
+            "80 GETs /health/live via 2-worker uvicorn + 16 threads",
+            ok=ok_n,
+            n=80,
+            p50_ms=round(statistics.median(times_sorted), 2),
+            p95_ms=round(p95, 2),
+            max_ms=round(max(times), 2),
+            notes="Local two-worker HTTP pack. Not multi-AZ production SLO/soak.",
+        )
+    finally:
+        try:
+            os.killpg(proc.pid, signal.SIGTERM)
+        except Exception:
+            try:
+                proc.terminate()
+            except Exception:
+                pass
+        try:
+            proc.wait(timeout=8)
+        except Exception:
+            try:
+                os.killpg(proc.pid, signal.SIGKILL)
+            except Exception:
+                pass
+
+
 def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
     """Execute every in-repo drill. Heavy = postgres HA + dashboard TestClient packs."""
     drills: list[dict[str, Any]] = [
@@ -554,6 +888,8 @@ def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
         drill_bandit(),
         drill_infra_files(),
         drill_compose_config(),
+        drill_compose_yaml_merge(),
+        drill_stripe_sandbox(),
         drill_counsel_artifacts(),
         drill_independent_pentest_artifact(),
         drill_rate_limit_abuse(),
@@ -571,6 +907,8 @@ def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
         drills.append(drill_process_restart())
         drills.append(drill_asgi_latency())
         drills.append(drill_adversarial_suite())
+        drills.append(drill_chrome_public_pages())
+        drills.append(drill_http_load_local())
     by_id = {d["id"]: d for d in drills}
     return {
         "ok": True,

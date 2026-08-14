@@ -35,6 +35,16 @@ def test_feature_flag_and_infra_files():
     assert inf["verdict"] != "NOT_TESTED"
 
 
+def test_compose_yaml_merge_and_stripe_sandbox_evaluated():
+    from launch_drills import drill_compose_yaml_merge, drill_stripe_sandbox
+
+    y = drill_compose_yaml_merge()
+    assert y["verdict"] == "PASS", y
+    s = drill_stripe_sandbox()
+    assert s["verdict"] in {"PASS", "FAIL"}
+    assert s["verdict"] != "NOT_TESTED"
+
+
 def test_ai_fallback_does_not_crash():
     from launch_drills import drill_ai_fallback
 

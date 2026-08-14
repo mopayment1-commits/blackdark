@@ -182,7 +182,7 @@ On-call Telegram configured: **{three.get('telegram_oncall_configured')}**
 
 Cloud multi-AZ: **FAIL** (unpaid external). Local Postgres streaming HA is a different control and is not this report's cloud HA claim.
 
-DR region loss: **FAIL** (evaluated missing — chaos dead-Postgres pack is not region loss). Backup restore: see drill `postgres_dump_restore` / `sqlite_restore`.
+DR region/AZ loss: **FAIL** (D20 / EXT_CLOUD_HA). Local probe-DB DROP + pg_restore: see drill `postgres_dump_restore` (D22). Backup restore: `sqlite_restore` / `postgres_dump_restore`.
 """
     (DD / "BLACKDARK_RELIABILITY_HA_DR_FAILURE_INJECTION.md").write_text(rel, encoding="utf-8")
 
@@ -190,6 +190,8 @@ DR region loss: **FAIL** (evaluated missing — chaos dead-Postgres pack is not 
     d19 = next((d for d in domains if d["id"] == "D19"), {})
     d39 = next((d for d in domains if d["id"] == "D39"), {})
     asgi = next((d for d in drills if d.get("id") == "asgi_latency"), {})
+    http_load = next((d for d in drills if d.get("id") == "http_load_local"), {})
+    chrome = next((d for d in drills if d.get("id") == "chrome_public_pages"), {})
     perf = f"""# Performance / Load / Stress / Soak Report
 
 **SHA:** `{sha}`  
@@ -197,9 +199,11 @@ DR region loss: **FAIL** (evaluated missing — chaos dead-Postgres pack is not 
 **D19 Load/Stress/Spike:** {d19.get('verdict')}  
 **D39 Launch capacity:** {d39.get('verdict')}
 
-Local ASGI pack (`asgi_latency`): verdict={asgi.get('verdict')} p50_ms={asgi.get('p50_ms')} p95_ms={asgi.get('p95_ms')} n={asgi.get('n')}.
+Local ASGI pack (`asgi_latency`): verdict={asgi.get('verdict')} p50_ms={asgi.get('p50_ms')} p95_ms={asgi.get('p95_ms')} n={asgi.get('n')}.  
+Local 2-worker HTTP pack (`http_load_local`): verdict={http_load.get('verdict')} p50_ms={http_load.get('p50_ms')} p95_ms={http_load.get('p95_ms')} n={http_load.get('n')}.  
+Chrome public pages (`chrome_public_pages`): verdict={chrome.get('verdict')}.
 
-This local TestClient pack is **not** a production SLO, soak, or breaking-point measurement. D18/D19/D39 remain FAIL for live production even if the local pack PASSes.
+These local packs are **not** a production multi-AZ SLO, soak, or breaking-point measurement. D18/D19/D39 remain FAIL for live production even if the local packs PASS.
 """
     (DD / "BLACKDARK_PERFORMANCE_LOAD_STRESS_SOAK.md").write_text(perf, encoding="utf-8")
 
