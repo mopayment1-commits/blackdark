@@ -36,6 +36,45 @@ def test_stripe_cycle_refuses_live_key(monkeypatch, tmp_path):
     assert "xxxxxxxx" not in json.dumps(receipt)
 
 
+def test_stripe_cycle_price_not_on_account(monkeypatch, tmp_path):
+    monkeypatch.setenv("STRIPE_TEST_EVIDENCE_PATH", str(tmp_path / "stripe.json"))
+    monkeypatch.setenv("STRIPE_SECRET_KEY", "sk_test_" + ("b" * 24))
+    monkeypatch.setenv("STRIPE_PRICE_PRO", "price_notonthisaccount000")
+
+    class _Missing(Exception):
+        code = "resource_missing"
+        param = "price"
+
+    class _Stripe:
+        api_key = ""
+
+        class Account:
+            @staticmethod
+            def retrieve():
+                return SimpleNamespace(livemode=False, id="acct_test")
+
+        class Balance:
+            @staticmethod
+            def retrieve():
+                return SimpleNamespace(livemode=False)
+
+        class Price:
+            @staticmethod
+            def retrieve(_pid):
+                raise _Missing()
+
+    import billing_service as bs
+
+    monkeypatch.setattr(bs, "stripe", _Stripe)
+    from billing_service import prove_stripe_test_cycle
+
+    receipt = prove_stripe_test_cycle()
+    assert receipt["ok"] is False
+    assert receipt["reason"] == "price_pro_not_on_account"
+    assert receipt["livemode"] is False
+    assert "price_notonthisaccount000" not in json.dumps(receipt)
+
+
 def test_stripe_cycle_pass_on_mocked_subscription(monkeypatch, tmp_path):
     monkeypatch.setenv("STRIPE_TEST_EVIDENCE_PATH", str(tmp_path / "stripe.json"))
     monkeypatch.setenv("STRIPE_SECRET_KEY", "sk_test_" + ("a" * 24))

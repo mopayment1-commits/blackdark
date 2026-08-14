@@ -268,13 +268,25 @@ def prove_stripe_test_cycle() -> dict[str, Any]:
     session_id = None
     try:
         acct = stripe.Account.retrieve()
-        livemode = bool(getattr(acct, "livemode", False))
+        livemode = getattr(acct, "livemode", None)
+        if livemode is None:
+            livemode = bool(getattr(stripe.Balance.retrieve(), "livemode", False))
+        else:
+            livemode = bool(livemode)
         receipt["livemode"] = livemode
         if livemode:
             receipt["reason"] = "account_livemode_true"
             return receipt
 
-        price = stripe.Price.retrieve(price_id)
+        try:
+            price = stripe.Price.retrieve(price_id)
+        except Exception as exc:
+            receipt["error_type"] = _stripe_err_type(exc)
+            code = getattr(exc, "code", None)
+            receipt["reason"] = (
+                "price_pro_not_on_account" if code == "resource_missing" else "price_retrieve_failed"
+            )
+            return receipt
         price_live = bool(getattr(price, "livemode", False))
         recurring = getattr(price, "type", None) == "recurring" or bool(getattr(price, "recurring", None))
         active = bool(getattr(price, "active", False))
