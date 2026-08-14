@@ -61,6 +61,8 @@ def test_required_capability_ids_present():
         "ID-MFA",
         "OR-SENTENCE",
         "OR-LEDGER",
+        "OR-IDK",
+        "OR-MIND",
         "MKT-L2",
         "MKT-MESH",
         "EX-LIVE",

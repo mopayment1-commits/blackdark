@@ -544,6 +544,13 @@ async def public_miss_feed_api(limit: int = Query(40, ge=1, le=100)):
     return await build_public_miss_feed(limit=limit)
 
 
+@router.get("/api/public/changed-mind")
+async def public_changed_mind_api(limit: int = Query(40, ge=1, le=100)):
+    from changed_mind_record import build_changed_mind_record
+
+    return build_changed_mind_record(limit=limit)
+
+
 @router.get("/api/public/coverage-honesty")
 async def coverage_honesty_api():
     from coverage_honesty import build_coverage_honesty_board
@@ -884,6 +891,7 @@ async def wow_surfaces_manifest():
             {"id": "ledger", "href": "/oracle-accuracy", "label": "Public Accuracy Ledger"},
             {"id": "kill_rate", "href": "/kill-rate"},
             {"id": "contradiction_replay", "href": "/contradiction-replay"},
+            {"id": "changed_mind", "href": "/changed-mind"},
             {"id": "proof_arena", "href": "/proof-arena"},
             {"id": "since_you_left", "href": "/since-you-left"},
             {"id": "anti_hype", "href": "/anti-hype"},
@@ -924,6 +932,7 @@ async def wow_surfaces_manifest():
         ],
         "brand_coverage_radical_closure": {
             "miss_feed": "/miss-feed",
+            "changed_mind": "/changed-mind",
             "coverage_honesty": "/coverage-honesty",
             "emotion_tax": "/emotion-tax",
             "provenance_score": "/api/oracle/provenance-score",

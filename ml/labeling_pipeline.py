@@ -48,6 +48,8 @@ def score_verdict_accuracy(
     from regulatory_compliance_guard import classify_internal_verdict
 
     bucket = classify_internal_verdict(verdict)
+    if bucket == "unknown":
+        return "abstain", 0.0, "flat"
     outcome, score = _score_change_for_bucket(bucket, change_pct)
     return outcome, score, _direction_from_change(change_pct)
 

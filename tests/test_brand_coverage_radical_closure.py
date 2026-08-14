@@ -55,14 +55,17 @@ def test_wiring_pages_and_routes():
     heroes = Path("api/routers/heroes.py").read_text(encoding="utf-8")
     dash = Path("dashboard.py").read_text(encoding="utf-8")
     assert "/api/public/miss-feed" in heroes
+    assert "/api/public/changed-mind" in heroes
     assert "/api/public/coverage-honesty" in heroes
     assert "/api/oracle/provenance-score" in heroes
     assert "/api/public/brand-coverage-closure" in heroes
     assert "/miss-feed" in dash
+    assert "/changed-mind" in dash
     assert "/coverage-honesty" in dash
     assert "/emotion-tax" in dash
     for p in (
         "templates/miss_feed.html",
+        "templates/changed_mind.html",
         "templates/coverage_honesty.html",
         "templates/emotion_tax.html",
         "public_miss_feed.py",

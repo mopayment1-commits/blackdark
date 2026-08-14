@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Changed-Mind Record</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#08060a;--fg:#f5f0e6;--muted:#9a948a;--line:#2a2430;--mind:#fbbf24;--accent:#22d3ee}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",sans-serif;background:
+ radial-gradient(900px 420px at 0% 0%,rgba(251,191,36,.14),transparent 55%),#08060a;min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem}.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+main{max-width:780px;margin:0 auto;padding:2.2rem 1.2rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);margin:0 0 .5rem}
+.sub{color:var(--muted);margin-bottom:1.25rem;max-width:40rem;line-height:1.5}
+.item{border:1px solid var(--line);padding:1rem 1.1rem;margin:.65rem 0;background:rgba(255,255,255,.02)}
+.item b{color:var(--mind)}.meta{font-size:.8rem;color:var(--muted);margin-top:.35rem}
+.btn{display:inline-block;margin-top:1rem;padding:.7rem 1.1rem;background:var(--mind);color:#111;font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+<nav><a class="logo" href="/">BLACKDARK</a><div>
+<a href="/miss-feed">Miss Feed</a><a href="/oracle-accuracy">Ledger</a><a href="/contradiction-replay">Replay</a>
+</div></nav>
+<main>
+<h1>Changed-Mind Record</h1>
+<p class="sub" id="thesis">We publish when the sealed view changes. A miss is an outcome. A changed mind is a later sealed view.</p>
+<p class="sub" id="meta"></p>
+<div id="list"></div>
+<a class="btn" id="share" href="#" target="_blank" rel="noopener">Share the revision</a>
+</main>
+<script src="/static/js/dom_escape.js"></script>
+<script type="module">
+const { esc, safeUrl } = window.BDDomSafe;
+async function load(){
+  const r=await fetch('/api/public/changed-mind?limit=40'); const d=await r.json();
+  document.getElementById('thesis').textContent=d.thesis||'';
+  document.getElementById('meta').textContent=`${d.count||0} shown · ${d.total_flips_in_window||0} sealed revisions in window · scanned ${d.created_events_scanned||0} created events`;
+  const items=d.items||[];
+  document.getElementById('list').innerHTML= items.length ? items.map(x=>`
+    <div class="item" data-evidence>
+      <div><b>REVISED</b> · ${esc(x.asset)} · ${esc(x.from_verdict)} → ${esc(x.to_verdict)}</div>
+      <div class="meta">${esc((x.to_timestamp||'').slice(0,19))} · ${esc(x.reason||'')} · <a href="${esc(safeUrl(x.verify_href)||'/oracle-accuracy')}" style="color:var(--accent)">verify</a></div>
+    </div>`).join('') : `<div class="item">${esc(d.empty_honest||'No sealed view changes in the live chain yet.')}</div>`;
+  document.getElementById('share').href=safeUrl(d.share_urls?.x)||'#';
+}
+await load();</script>
+</body></html>

@@ -58,7 +58,7 @@ def apply_dimension_conflict_guard(
         adjusted = min(adjusted, severe_score_cap())
         meta["veto"] = True
         meta["abstain"] = True
-        meta["action"] = "WAIT"
+        meta["action"] = "I_DONT_KNOW"
         logger.info(
             "Dimension conflict VETO | bullish=%s bearish=%s score=%.1f→%.1f",
             meta["bullish"],
@@ -69,7 +69,7 @@ def apply_dimension_conflict_guard(
     elif severity == "mild":
         adjusted = min(adjusted, mild_score_cap())
         meta["abstain"] = True
-        meta["action"] = "CAUTION"
+        meta["action"] = "I_DONT_KNOW"
         logger.info(
             "Dimension conflict abstain | bullish=%s bearish=%s score=%.1f→%.1f",
             meta["bullish"],
@@ -152,7 +152,7 @@ def dimension_conflict_status() -> dict[str, Any]:
         "block_mild_execution": getattr(config, "DIMENSION_CONFLICT_BLOCK_MILD_EXECUTION", True),
         "policy": (
             "Severe conflict (e.g. TA buy vs NLP fear vs whale distribution) → "
-            "score capped, verdict WAIT/Do Not Touch, execution blocked."
+            "score capped, verdict I_DONT_KNOW, execution blocked."
         ),
         "dimensions": ["technical", "onchain", "sentiment", "macro", "whale"],
     }

@@ -261,6 +261,10 @@ def enrich_oracle_decision(
     _attach_half_life(out, asset)
     # Ensure contradiction meta is visible to persona + registry before labeling.
     _ensure_dimension_conflict(out)
+    from epistemic_honesty import apply_epistemic_honesty
+
+    out = apply_epistemic_honesty(out)
+    verdict = str(out.get("verdict") or verdict)
     _attach_persona(out, asset, score, verdict, net_profit)
 
     if register_signal:

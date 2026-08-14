@@ -37,7 +37,10 @@ def _retail_texts(
     veto: bool,
     net_profit_usdt: float,
 ) -> tuple[str, str]:
-    if reject:
+    if action == "I_DONT_KNOW":
+        ar_suffix = "النظام لا يملك دليلاً كافياً لتكوين رأي اتجاهي — يعلن ذلك صراحة."
+        en_suffix = "The system does not have enough evidence to form a directional view — it says so explicitly."
+    elif reject:
         ar_suffix = "النظام رفض الإشارة لأنها غير مضمونة التنفيذ بعد التكاليف."
         en_suffix = "Rejected: not executable after real costs."
     elif veto:
@@ -47,12 +50,14 @@ def _retail_texts(
         ar_suffix = f"صافي تقديري بعد التكاليف حوالي ${net_profit_usdt:.2f}."
         en_suffix = f"Estimated net after costs ~${net_profit_usdt:.2f}."
 
-    retail_ar = (
-        f"{'انتظر' if action == 'WAIT' else 'فرصة واضحة'} على {asset}: "
-        f"الدرجة {score:.0f}/100. "
-        + ar_suffix
-    )
-    retail_en = f"{'Wait' if action == 'WAIT' else 'Clear opportunity'} on {asset}: score {score:.0f}/100. " + en_suffix
+    if action == "I_DONT_KNOW":
+        lead_ar, lead_en = "لا نعرف", "I DON'T KNOW"
+    elif action == "WAIT":
+        lead_ar, lead_en = "انتظر", "Wait"
+    else:
+        lead_ar, lead_en = "فرصة واضحة", "Clear opportunity"
+    retail_ar = f"{lead_ar} على {asset}: الدرجة {score:.0f}/100. " + ar_suffix
+    retail_en = f"{lead_en} on {asset}: score {score:.0f}/100. " + en_suffix
     return retail_en, retail_ar
 
 
@@ -80,9 +85,19 @@ def build_persona_clarity(
     truth_score = float(truth.get("truth_score") or 0)
     reject = bool(truth.get("reject"))
     veto = bool(conflict.get("veto") or conflict.get("abstain"))
+    unknown = str(verdict).strip().upper().replace(" ", "_").replace("'", "") in {
+        "I_DONT_KNOW",
+        "INSUFFICIENT",
+        "INSUFFICIENT_EVIDENCE",
+    }
+    if unknown or veto:
+        action = "I_DONT_KNOW"
+    elif reject or verdict == "Do Not Touch":
+        action = "WAIT"
+    else:
+        action = "ACT"
     hl = half.get("expected_half_life_seconds")
     disappear = half.get("disappearance_probability")
-    action = "WAIT" if (reject or veto or verdict == "Do Not Touch") else "ACT"
 
     retail_en, retail_ar = _retail_texts(
         action=action,

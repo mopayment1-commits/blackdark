@@ -185,13 +185,25 @@ async def _log_oracle_prediction(payload: dict) -> int | None:
     """Persist Oracle decision and return the audit prediction_id (D1)."""
     from ml.labeling_pipeline import log_oracle_signal
 
+    def _oracle_confidence_numeric(row: dict) -> float:
+        raw = row.get("confidence")
+        if isinstance(raw, dict):
+            try:
+                return float(raw.get("value") or 0)
+            except (TypeError, ValueError):
+                return 0.0
+        try:
+            return float(raw or row.get("confidence_percent") or 0)
+        except (TypeError, ValueError):
+            return 0.0
+
     try:
         return await log_oracle_signal(
             asset=str(payload.get("symbol") or payload.get("asset") or ""),
             price=float(payload.get("price") or 0),
             verdict=str(payload.get("verdict") or "WAIT"),
             opportunity_score=float(payload.get("opportunity_score") or 0),
-            confidence=float(payload.get("confidence") or payload.get("confidence_percent") or 0),
+            confidence=_oracle_confidence_numeric(payload),
             kind=str(payload.get("kind") or "oracle_api"),
             market_regime=str(payload.get("market_regime") or "neutral"),
         )
@@ -1441,6 +1453,7 @@ async def sitemap_xml(request: Request):
         "/anti-hype",
         "/corpus-passport",
         "/miss-feed",
+        "/changed-mind",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
@@ -1547,6 +1560,11 @@ async def corpus_passport_page(request: Request):
 @app.get("/miss-feed", response_class=HTMLResponse)
 async def miss_feed_page(request: Request):
     return templates.TemplateResponse(request, "miss_feed.html", _footer_ctx())
+
+
+@app.get("/changed-mind", response_class=HTMLResponse)
+async def changed_mind_page(request: Request):
+    return templates.TemplateResponse(request, "changed_mind.html", _footer_ctx())
 
 
 @app.get("/coverage-honesty", response_class=HTMLResponse)
@@ -2273,7 +2291,13 @@ async def _compute_oracle_quick_payload(
     resistance = round(price * 1.03, -2)
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
-    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    verdict_u = str(verdict).upper().replace(" ", "_").replace("'", "")
+    if "I_DONT_KNOW" in verdict_u or verdict_u in {"INSUFFICIENT", "INSUFFICIENT_EVIDENCE"}:
+        decision_action = "I_DONT_KNOW"
+    elif str(verdict).upper() in {"BUY", "ACT", "BULLISH"}:
+        decision_action = "ACT"
+    else:
+        decision_action = "WAIT"
     decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
     return _quick_payload(
         asset,
