@@ -173,11 +173,14 @@ def test_oauth_idp_pass_on_mocked_google(monkeypatch, tmp_path):
     assert row["authorize_accepted"] is True
     assert row["token_client_accepted"] is True
     assert row["human_callback_completed"] is False
-    assert row["redirect_uri"] == f"{FAKE_BASE}/api/auth/oauth/google/callback"
+    assert row["redirect_uri"] == "{APP_BASE_URL}/api/auth/oauth/google/callback"
     blob = json.dumps(row)
     assert FAKE_SECRET not in blob
     assert FAKE_CLIENT_ID not in blob
+    assert FAKE_BASE not in blob
     assert oauth_google_live_proved() is True
     stamped = json.loads((tmp_path / "oauth.json").read_text(encoding="utf-8"))
     assert stamped["verdict"] == "PASS"
     assert stamped["path"] == "oauth_service.prove_google_oauth_idp"
+    assert stamped["redirect_uri"] == "{APP_BASE_URL}/api/auth/oauth/google/callback"
+    assert FAKE_BASE not in json.dumps(stamped)
