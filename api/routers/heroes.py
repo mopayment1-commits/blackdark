@@ -108,6 +108,43 @@ async def product_public_readiness_api():
     return out
 
 
+@router.get("/api/product/production-launch-cert")
+async def production_launch_cert_api():
+    """Binding live-launch verdict. Missing evidence is NO-GO, not implied GO."""
+    import json
+    from pathlib import Path
+
+    evidence = Path("docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json")
+    if not evidence.is_file():
+        return {
+            "ok": False,
+            "product_complete": False,
+            "live_money_ready": False,
+            "decision": "NO-GO",
+            "reason": "evidence_missing",
+            "hint": "python scripts/prove_production_launch_cert.py",
+        }
+    body = json.loads(evidence.read_text(encoding="utf-8"))
+    v = body.get("final_production_verdict") or {}
+    return {
+        "ok": True,
+        "sha": body.get("sha"),
+        "proved_at": body.get("proved_at"),
+        "product_complete": False,
+        "institutional_verdict": "NOT_COMPLETE",
+        "live_money_ready": False,
+        "decision": v.get("decision"),
+        "unconditional_go_criteria_met": v.get("unconditional_go_criteria_met"),
+        "critical_open": v.get("critical_open"),
+        "high_open": v.get("high_open"),
+        "medium_open": v.get("medium_open"),
+        "untested_launch_critical": v.get("untested_launch_critical_requirements"),
+        "external_blockers": v.get("external_blockers"),
+        "integrity": (body.get("financial_decision_integrity") or {}).get("verdict"),
+        "report": "docs/dd/BLACKDARK_FINAL_PRODUCTION_VERDICT.md",
+    }
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""
