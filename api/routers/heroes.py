@@ -54,6 +54,14 @@ async def trial_persona_readiness_api():
     return persona_capability_matrix()
 
 
+@router.get("/api/product/capability-inventory")
+async def product_capability_inventory_api():
+    """Binding full-product inventory. Never claims COMPLETE."""
+    from product_capability_inventory import build_full_capability_inventory
+
+    return build_full_capability_inventory()
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""

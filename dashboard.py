@@ -1812,7 +1812,8 @@ async def capabilities_page(request: Request):
             "lead": (
                 "Four UX lenses — Prove → Operate → Desk → Room — over one Trust OS. "
                 "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
-                "Don't trust us. Verify us. API: /api/lenses"
+                "Don't trust us. Verify us. API: /api/lenses — "
+                "full inventory: /api/product/capability-inventory (NOT COMPLETE)."
             ),
             "trust_os": manifest,
             **_footer_ctx(),
