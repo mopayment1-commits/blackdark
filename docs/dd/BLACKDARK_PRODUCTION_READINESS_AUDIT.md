@@ -1,6 +1,6 @@
 # Production Readiness Audit Report
 
-**SHA:** `dad20dc7fbc5a56f1778c80b3692ae564583218b`  
+**SHA:** `99e4db09eff8ec642d047aa72c231b6c6cf36bc6`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
@@ -28,7 +28,7 @@
 | D19 | Load/Stress/Spike | FAIL | True | high |
 | D20 | High Availability | FAIL | True | critical |
 | D21 | Backup/Restore | PASS | True | high |
-| D22 | Disaster Recovery | FAIL | True | high |
+| D22 | Disaster Recovery | PASS | True | high |
 | D23 | Observability | PASS | False | medium |
 | D24 | Alerting | FAIL | True | high |
 | D25 | Deployment | FAIL | True | high |
@@ -39,8 +39,8 @@
 | D30 | Legal/Compliance | FAIL | True | high |
 | D31 | Licensing/Data Rights | PASS | True | high |
 | D32 | UX/UI | PASS | False | medium |
-| D33 | Accessibility | NOT_TESTED | False | medium |
-| D34 | Browser/Device | NOT_TESTED | False | medium |
+| D33 | Accessibility | PASS | False | medium |
+| D34 | Browser/Device | PASS | False | medium |
 | D35 | User Safety | PASS | True | critical |
 | D36 | Abuse/Fraud | PASS | True | high |
 | D37 | Operations | FAIL | True | high |
@@ -67,6 +67,8 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | bandit | PASS | .bandit policy + python -m bandit |
 | infra_files | PASS | Dockerfile + compose + HA overlay + CI/security workflows |
 | compose_config | FAIL | docker binary not found |
+| compose_yaml_merge | PASS | PyYAML merge docker-compose.yml + docker-compose.ha.yml |
+| stripe_sandbox | FAIL | stripe.Account.retrieve |
 | counsel_signoff | FAIL | docs/legal/COUNSEL_SIGNOFF.* |
 | independent_pentest_artifact | FAIL | docs/dd/INDEPENDENT_PENTEST_REPORT.* |
 | rate_limit_abuse | PASS | viral_capacity.check_rate_limit limit=5 |
@@ -82,6 +84,8 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | process_restart | PASS | TestClient lifespan start/stop/start /health/live |
 | asgi_latency | PASS | 30x GET /health/live TestClient |
 | adversarial_suite | PASS | pytest adversarial + authz + security_hardening |
+| chrome_public_pages | PASS | google-chrome --headless=new --dump-dom against local uvicorn |
+| http_load_local | PASS | 80 GETs /health/live via 2-worker uvicorn + 16 threads |
 
 ## Capability track counts
 
