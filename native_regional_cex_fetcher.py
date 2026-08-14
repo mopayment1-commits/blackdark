@@ -56,6 +56,12 @@ NATIVE_REGIONAL_DEFAULT_SYMBOL: dict[str, str] = {
     "wazirx": "BTC/USDT",
     "coindcx": "BTC/USDT",
     "delta": "BTC/USD",
+    # Wave 5 unpaid catalog-swap: long-tail AMM → real public CEX L2.
+    "gopax": "BTC/KRW",
+    "gmocoin": "BTC/JPY",
+    "binanceus": "BTC/USDT",
+    "bitpreco": "BTC/BRL",
+    "okj": "BTC/JPY",
 }
 
 NATIVE_REGIONAL_VENUES: frozenset[str] = frozenset(NATIVE_REGIONAL_DEFAULT_SYMBOL.keys())
@@ -533,6 +539,113 @@ async def _fetch_coindcx(session: aiohttp.ClientSession, symbol: str) -> tuple[l
     return bids, asks
 
 
+async def _fetch_gopax(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    # GOPAX book rows: [order_id, price, amount, timestamp]
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}-{quote.upper()}"
+    url = f"https://api.gopax.co.kr/trading-pairs/{pair}/book"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body.get("bid") or []:
+        if not isinstance(row, list) or len(row) < 3:
+            continue
+        price, size = float(row[1]), float(row[2])
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in body.get("ask") or []:
+        if not isinstance(row, list) or len(row) < 3:
+            continue
+        price, size = float(row[1]), float(row[2])
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_gmocoin(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.upper()}_{quote.upper()}"
+    url = f"https://api.coin.z.com/public/v1/orderbooks?symbol={pair}"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    if int((body or {}).get("status") or 0) != 0:
+        raise ValueError(f"gmocoin_status:{(body or {}).get('status')}")
+    data = (body or {}).get("data") if isinstance(body, dict) else {}
+    if not isinstance(data, dict):
+        raise ValueError("gmocoin_bad_book")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in data.get("bids") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("size") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in data.get("asks") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("size") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    return bids, asks
+
+
+async def _fetch_binanceus(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    pair = symbol.replace("/", "").upper()
+    url = f"https://api.binance.us/api/v3/depth?symbol={pair}&limit=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
+async def _fetch_bitpreco(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    pair = f"{base.lower()}-{quote.lower()}"
+    url = f"https://api.bitpreco.com/{pair}/orderbook"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    if not (body or {}).get("success"):
+        raise ValueError("bitpreco_bad_book")
+    bids: list[list[float]] = []
+    asks: list[list[float]] = []
+    for row in body.get("bids") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            bids.append([price, size])
+    for row in body.get("asks") or []:
+        if not isinstance(row, dict):
+            continue
+        price = float(row.get("price") or 0)
+        size = float(row.get("amount") or 0)
+        if price > 0 and size > 0:
+            asks.append([price, size])
+    bids.sort(key=lambda x: x[0], reverse=True)
+    asks.sort(key=lambda x: x[0])
+    return bids, asks
+
+
+async def _fetch_okj(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
+    base, quote = symbol.split("/")
+    inst = f"{base.upper()}-{quote.upper()}"
+    url = f"https://www.okcoin.jp/api/spot/v3/instruments/{inst}/book?size=20"
+    async with session.get(url) as r:
+        r.raise_for_status()
+        body = await r.json(content_type=None)
+    return _levels_pq(body.get("bids") or []), _levels_pq(body.get("asks") or [])
+
+
 async def _fetch_delta(session: aiohttp.ClientSession, symbol: str) -> tuple[list[list[float]], list[list[float]]]:
     url = "https://api.india.delta.exchange/v2/l2orderbook/BTCUSD"
     async with session.get(url) as r:
@@ -594,6 +707,11 @@ _FETCHERS: dict[str, Callable[..., Any]] = {
     "wazirx": _fetch_wazirx,
     "coindcx": _fetch_coindcx,
     "delta": _fetch_delta,
+    "gopax": _fetch_gopax,
+    "gmocoin": _fetch_gmocoin,
+    "binanceus": _fetch_binanceus,
+    "bitpreco": _fetch_bitpreco,
+    "okj": _fetch_okj,
 }
 
 

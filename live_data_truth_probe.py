@@ -402,6 +402,11 @@ CORE_PUBLIC_CEX_MESH: tuple[str, ...] = (
     "wazirx",
     "coindcx",
     "delta",
+    "gopax",
+    "gmocoin",
+    "binanceus",
+    "bitpreco",
+    "okj",
 )
 MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "bitvavo": "BTC/EUR",
@@ -446,6 +451,11 @@ MESH_SYMBOL_OVERRIDES: dict[str, str] = {
     "wazirx": "BTC/USDT",
     "coindcx": "BTC/USDT",
     "delta": "BTC/USD",
+    "gopax": "BTC/KRW",
+    "gmocoin": "BTC/JPY",
+    "binanceus": "BTC/USDT",
+    "bitpreco": "BTC/BRL",
+    "okj": "BTC/JPY",
 }
 _MIN_L2_LEVELS = 5
 

@@ -424,49 +424,49 @@
       "provider": "dex"
     },
     {
-      "id": "balancer",
-      "name": "Balancer",
-      "category": "dex",
+      "id": "gopax",
+      "name": "GOPAX",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
-      "id": "sushiswap",
-      "name": "SushiSwap",
-      "category": "dex",
+      "id": "gmocoin",
+      "name": "GMO Coin",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
-      "id": "traderjoe",
-      "name": "Trader Joe",
-      "category": "dex",
+      "id": "binanceus",
+      "name": "Binance.US",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
-      "id": "quickswap",
-      "name": "QuickSwap",
-      "category": "dex",
+      "id": "bitpreco",
+      "name": "Bitpreço",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
-      "id": "osmosis",
-      "name": "Osmosis",
-      "category": "dex",
+      "id": "okj",
+      "name": "OKCoin Japan",
+      "category": "cex",
       "tier": 3,
       "status": "ingestion_ready",
       "ccxt_id": null,
-      "provider": "dex"
+      "provider": "native_regional"
     },
     {
       "id": "thorchain",
