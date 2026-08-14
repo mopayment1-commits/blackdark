@@ -1,0 +1,3331 @@
+{
+  "ok": true,
+  "schema": "production_launch_certification.v1",
+  "sha": "963dd54221250081589b1155704afe5c84dbbad6",
+  "proved_at": "2026-08-14T13:25:53.257526+00:00",
+  "python": "3.12.3",
+  "product_complete": false,
+  "institutional_verdict": "NOT_COMPLETE",
+  "live_money_ready": false,
+  "allowed_verdicts": [
+    "FAIL",
+    "NOT_APPLICABLE",
+    "NOT_TESTED",
+    "PASS"
+  ],
+  "forbidden_phrases_not_used": [
+    "looks good",
+    "mostly complete",
+    "should work",
+    "appears secure",
+    "probably production-ready"
+  ],
+  "financial_decision_integrity": {
+    "surface": "financial_decision_integrity",
+    "cases": [
+      {
+        "id": "correct",
+        "intent": "fresh executable net-edge may pass",
+        "verdict": "PASS",
+        "observed": {
+          "reject": false,
+          "truth_score": 98.36
+        }
+      },
+      {
+        "id": "stale",
+        "intent": "stale quote must reject",
+        "verdict": "PASS",
+        "observed": {
+          "reject": true,
+          "reasons": [
+            "stale_quote_latency"
+          ]
+        }
+      },
+      {
+        "id": "missing",
+        "intent": "missing net/fees/slippage must reject",
+        "verdict": "PASS",
+        "observed": {
+          "reject": true,
+          "reasons": [
+            "missing_net_profit"
+          ]
+        }
+      },
+      {
+        "id": "contradictory",
+        "intent": "severe dimension conflict must veto and abstain",
+        "verdict": "PASS",
+        "observed": {
+          "severity": "severe",
+          "veto": true,
+          "abstain": true,
+          "message": "dimensions disagree",
+          "bullish": [
+            "technical"
+          ],
+          "bearish": [
+            "onchain",
+            "macro"
+          ],
+          "confidence_penalty": 0.0,
+          "action": "WAIT"
+        }
+      },
+      {
+        "id": "duplicated",
+        "intent": "duplicate evaluation must be deterministic (same reject/score)",
+        "verdict": "PASS",
+        "observed": {
+          "score_a": 98.36,
+          "score_b": 98.36
+        }
+      },
+      {
+        "id": "delayed",
+        "intent": "delayed quote must not be treated as live-executable",
+        "verdict": "PASS",
+        "observed": {
+          "reject": true,
+          "reasons": [
+            "stale_quote_latency"
+          ]
+        }
+      },
+      {
+        "id": "outlier",
+        "intent": "poison/outlier price must freeze trading",
+        "verdict": "PASS",
+        "observed": {
+          "allowed": false,
+          "poison": true
+        }
+      },
+      {
+        "id": "exchange_disconnected",
+        "intent": "missing venue quote must not be fresh for execution",
+        "verdict": "PASS",
+        "observed": {
+          "fresh": false,
+          "age_ms": null,
+          "reason": "no_quote:binance:BTC/USDT"
+        }
+      },
+      {
+        "id": "wrong_timestamp",
+        "intent": "absurd quote age must reject",
+        "verdict": "PASS",
+        "observed": {
+          "reject": true,
+          "reasons": [
+            "residual_edge_below_threshold",
+            "stale_quote_latency",
+            "truth_score_below_minimum"
+          ]
+        }
+      },
+      {
+        "id": "source_disagreement",
+        "intent": "mild disagreement must abstain (not convert uncertainty to BUY)",
+        "verdict": "PASS",
+        "observed": {
+          "severity": "mild",
+          "veto": false,
+          "abstain": true,
+          "message": "",
+          "bullish": [
+            "sentiment"
+          ],
+          "bearish": [
+            "macro"
+          ],
+          "confidence_penalty": 0.0,
+          "action": "CAUTION"
+        }
+      },
+      {
+        "id": "partial_market_coverage",
+        "intent": "uncovered books must stay synthetic_mid, never venue_l2",
+        "verdict": "PASS",
+        "observed": {
+          "remainder_count": 5,
+          "full_mesh_l2_complete": false
+        }
+      }
+    ],
+    "case_count": 11,
+    "pass_count": 11,
+    "fail_ids": [],
+    "verdict": "PASS",
+    "rule": "Correct data may pass; stale/missing/contradictory/delayed/outlier/disconnected/partial must abstain or reject."
+  },
+  "three_am": {
+    "surface": "three_am",
+    "telegram_oncall_configured": false,
+    "scenarios": [
+      {
+        "id": "source_or_binance_down",
+        "verdict": "PASS",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "in_process_stale_guard",
+        "recovers": "await_reconnect",
+        "preserves_data": true,
+        "notes": "no live book → not fresh (no_quote:binance:BTC/USDT); net-edge reject=False",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "websocket_disconnect",
+        "verdict": "PASS",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "stale_price_guard",
+        "recovers": "hub reconnect path exists in live_book_hub / exchange_ws_hub",
+        "preserves_data": true,
+        "notes": "execution freshness fails closed without a quote",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "stale_or_contradictory_data",
+        "verdict": "PASS",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "risk_freeze",
+        "recovers": "unfreeze after duration or operator",
+        "preserves_data": true,
+        "notes": "kill switch blocks execution while frozen",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "database_down",
+        "verdict": "NOT_TESTED",
+        "detects": false,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "/health/ready 503 when DB not ready",
+        "recovers": "local dump/restore + streaming HA prove exist",
+        "preserves_data": false,
+        "notes": "This process uses SQLite unless DATABASE_URL=postgresql. Process-kill of shared Postgres was not injected.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "redis_down",
+        "verdict": "FAIL",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "/health/viral 503 in viral prod when redis down",
+        "recovers": "process continues on local fallback for some paths",
+        "preserves_data": true,
+        "notes": "redis_live=False in this VM; dead-port injection is a separate probe",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "slow_external_api",
+        "verdict": "NOT_TESTED",
+        "detects": false,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "aiohttp timeouts exist (alert_service 12s)",
+        "recovers": "timeout then reject/False",
+        "preserves_data": true,
+        "notes": "No injected 3s-latency soak against live venues in this cert run.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "user_spike",
+        "verdict": "NOT_TESTED",
+        "detects": false,
+        "blocks_bad_decision": false,
+        "fails_safe": true,
+        "alert": "viral_capacity 429/503 shedding",
+        "recovers": "load shed",
+        "preserves_data": true,
+        "notes": "Local concurrent harness exists (scripts/load_test_concurrent.py) but production-like soak was not run on this SHA.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "ai_model_stop",
+        "verdict": "NOT_TESTED",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "rules fallback",
+        "recovers": "TruLens optional; rules path remains",
+        "preserves_data": true,
+        "notes": "Rules/explain fallback exists. Killing the model worker at 03:00 was not injected.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "partial_fill_or_exec_fail",
+        "verdict": "PASS",
+        "detects": true,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "AUTO_EXECUTION_DRY_RUN default; geo 451",
+        "recovers": "paper OMS / dry-run",
+        "preserves_data": true,
+        "notes": "Live venue FILL is blocked (geo 451). Fail-safe is refuse live money, not retry into a black hole.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      },
+      {
+        "id": "server_crash_restart",
+        "verdict": "NOT_TESTED",
+        "detects": false,
+        "blocks_bad_decision": true,
+        "fails_safe": true,
+        "alert": "process supervisor (Railway/Docker) not exercised here",
+        "recovers": "lifespan re-init; SQLite/JSON files persist on disk",
+        "preserves_data": true,
+        "notes": "No SIGKILL/restart drill of a production replica on this SHA.",
+        "pages_human_oncall": false,
+        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+      }
+    ],
+    "required_behaviors": [
+      "detects",
+      "blocks_bad_decision",
+      "fails_safe",
+      "alert",
+      "recovers",
+      "preserves_data"
+    ]
+  },
+  "redis_dead_port": {
+    "before_live": false,
+    "verdict": "NOT_TESTED",
+    "notes": "Redis ping succeeded in this VM. Client is cached; REDIS_URL override and process-kill were not injected. Failover remains NOT_TESTED."
+  },
+  "red_team": [
+    {
+      "axis": "security",
+      "verdict": "NOT_TESTED",
+      "notes": "No independent pentest. Unit authz/CSP/session tests only."
+    },
+    {
+      "axis": "data",
+      "verdict": "PASS",
+      "notes": "Integrity cases force reject/abstain on stale/missing/conflict/poison."
+    },
+    {
+      "axis": "financial_logic",
+      "verdict": "PASS",
+      "notes": "Net-edge, fees, unknown withdrawal, indicative≠executable unit-proved."
+    },
+    {
+      "axis": "ai",
+      "verdict": "PASS",
+      "notes": "Veto/abstain converts conflict into Do Not Touch. LLM provider injection NOT_TESTED under D10."
+    },
+    {
+      "axis": "apis",
+      "verdict": "NOT_TESTED",
+      "notes": "Fail-closed 401/503 on selected surfaces. No offensive API campaign."
+    },
+    {
+      "axis": "operational_failures",
+      "verdict": "FAIL",
+      "notes": "On-call page unarmed; cloud HA false; several 3AM drills NOT_TESTED."
+    },
+    {
+      "axis": "input_manipulation",
+      "verdict": "PASS",
+      "notes": "Poison price freeze; missing fields reject; dimension conflict veto."
+    }
+  ],
+  "domains": [
+    {
+      "id": "D01",
+      "title": "Architecture",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "ARCHITECTURE.md; single FastAPI process; local PG HA ≠ multi-AZ",
+      "notes": "No architectural defect blocks a paper/advisory deploy. Live production has SPOF (single region/process) and unpaid cloud HA. Closure 'no defect that prevents production' fails for live money HA."
+    },
+    {
+      "id": "D02",
+      "title": "Code Quality",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "No independent SAST/DAST gate recorded on this SHA beyond existing pytest/ruff/bandit config",
+      "notes": "Unit tests exist. Independent Critical/High-free code review of the whole monolith was not completed as a named pentest/quality gate on this SHA."
+    },
+    {
+      "id": "D03",
+      "title": "Functional Correctness",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "docs/dd/BLACKDARK_PUBLIC_READINESS_EVIDENCE.json 134/134; tests/test_public_readiness.py",
+      "notes": "Visitor/paper journeys HTTP-proved. Live money journeys are out of this PASS (see D07/D13)."
+    },
+    {
+      "id": "D04",
+      "title": "Financial Correctness",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "run_financial_integrity_cases; tests/test_p0_financial_executability.py; net_edge_truth.py",
+      "notes": "Independent reference prices vs venue FILL not matched (live_fill false). In-process net-edge/fees/stale/poison cases are the unpaid reference."
+    },
+    {
+      "id": "D05",
+      "title": "Data Architecture",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "canonical_data_layer.py; stale_price_guard.py; l2_remainder synthetic_mid label",
+      "notes": "LIVE classification fails closed without provenance. Partial coverage stays labeled."
+    },
+    {
+      "id": "D06",
+      "title": "Market Data",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "four blockers L2 95/100; CORE mesh 92/92; remainder synthetic_mid",
+      "notes": "Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Bybit geo + core AMM remain. Closure 'documented live tests at 100% institutional L2' fails."
+    },
+    {
+      "id": "D07",
+      "title": "Trading/Execution",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json binance_order_host_geo_451; AUTO_EXECUTION_DRY_RUN",
+      "notes": "Fail-safe for live orders is refuse (451 / dry-run). Partial-fill/idempotency against a live venue was not demonstrated. live_fill=False"
+    },
+    {
+      "id": "D08",
+      "title": "Risk Engine",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "tests/test_risk_manager.py; freeze_trading; three_am stale_or_contradictory_data",
+      "notes": "Kill switch, poison freeze, slippage gate proved in-process. Not a licensed market-risk stack."
+    },
+    {
+      "id": "D09",
+      "title": "AI/Models",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "dimension_conflict_guard veto; net_edge reject; ai_oracle Do Not Touch on veto/reject; TruLens fallback",
+      "notes": "Uncertainty is capped to WAIT/Do Not Touch. Prompt-injection pentest of LLM providers was not run (see D10)."
+    },
+    {
+      "id": "D10",
+      "title": "Security",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "tests/test_security_hardening.py; tests/test_p0_authz_hardening.py — unit only. No independent pentest report on this SHA.",
+      "notes": "Closure requires pentest + zero unaccepted Critical/High. Unit hardening ≠ pentest."
+    },
+    {
+      "id": "D11",
+      "title": "API Security",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "Auth gates 401; OAuth/Telegram/PSP 503 fail-closed; viral 429/503 code exists",
+      "notes": "Offensive API abuse campaign was not executed. Replay/enumeration tests beyond unit authz are NOT_TESTED."
+    },
+    {
+      "id": "D12",
+      "title": "Identity & Accounts",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "api/routers/auth.py; /login /register 307; MFA on /profile; tests covering authz",
+      "notes": "Local register/login/session/reset/outbox proved. Live OAuth IdP is ops (D28)."
+    },
+    {
+      "id": "D13",
+      "title": "Payments",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "billing_service.unpaid_upgrade_path; checkout 503/303 without PSP",
+      "notes": "No sandbox live charge, webhook retry, refund, or duplicate-event drill against Stripe/Lemon on this SHA."
+    },
+    {
+      "id": "D14",
+      "title": "Database",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "tests/test_postgres_migration_integrity.py; alembic/; ops_recovery dump-restore helpers",
+      "notes": "SQLite soft-launch is demo-only. Production constitution requires Postgres. Local PG is up in this VM."
+    },
+    {
+      "id": "D15",
+      "title": "Caching/Queues",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "redis_live() true in this VM; service_bus.py; no lost-job failover drill",
+      "notes": "Redis ping succeeded. Duplicate/lost job and Redis-process-kill recovery were not injected."
+    },
+    {
+      "id": "D16",
+      "title": "Infrastructure",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "Dockerfile; railway.json; this cert ran on a cloud-agent VM, not the customer production topology",
+      "notes": "No TLS/DNS/production-account validation of the operator's live domain."
+    },
+    {
+      "id": "D17",
+      "title": "Reliability",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "three_am server_crash_restart NOT_TESTED; health live/ready endpoints exist",
+      "notes": "Crash/restart of a production replica was not drilled."
+    },
+    {
+      "id": "D18",
+      "title": "Performance",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "No p50/p95/p99 SLO evidence pack on this SHA against production-like workers",
+      "notes": "scripts/load_test_concurrent.py exists. Running it against TestClient is not an SLO claim."
+    },
+    {
+      "id": "D19",
+      "title": "Load/Stress/Spike",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "three_am user_spike NOT_TESTED; viral_capacity shedding code exists",
+      "notes": "Breaking point and safety margin were not measured on this SHA."
+    },
+    {
+      "id": "D20",
+      "title": "High Availability",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "four blockers cloud_multi_az=false; FUND-PG local streaming HA is not cloud HA",
+      "notes": "Local Postgres streaming HA may be re-proved unpaid. Cloud multi-AZ is an accepted external unpaid exclusion — still FAIL vs live HA closure."
+    },
+    {
+      "id": "D21",
+      "title": "Backup/Restore",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "ops_recovery.prove_postgres_local_dump_restore exists; not executed in this cert function",
+      "notes": "Restore drill must be run to convert NOT_TESTED → PASS. Code path is not evidence of a drill."
+    },
+    {
+      "id": "D22",
+      "title": "Disaster Recovery",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "docs/RUNBOOK.md; no region-loss drill",
+      "notes": "Lost region/dependency DR drill was not performed."
+    },
+    {
+      "id": "D23",
+      "title": "Observability",
+      "verdict": "PASS",
+      "launch_critical": false,
+      "severity_if_open": "medium",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "/metrics /health /api/observability/status; uptime_monitor",
+      "notes": "Local scrape exists. Not Datadog. Correlation IDs are not a full APM. Medium: no hosted tracing."
+    },
+    {
+      "id": "D24",
+      "title": "Alerting",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "TELEGRAM_BOT_TOKEN absent → 503; LAUNCH_SKIP_TELEGRAM ≠ done",
+      "notes": "Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works."
+    },
+    {
+      "id": "D25",
+      "title": "Deployment",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": ".github workflows; Dockerfile; no recorded prod deploy of this SHA",
+      "notes": "Reproducible artifact pipeline exists as files. This run did not produce a signed prod deploy."
+    },
+    {
+      "id": "D26",
+      "title": "Rollback",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "alembic downgrade tests in postgres integrity suite; no production rollback drill",
+      "notes": "App+DB+config rollback in the operator environment was not performed."
+    },
+    {
+      "id": "D27",
+      "title": "Dependencies",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "requirements.txt; THIRD_PARTY_NOTICES.md; no SBOM+CVE gate artifact on this SHA",
+      "notes": "SBOM/CVE waiver pack was not generated as a cert evidence file in this run."
+    },
+    {
+      "id": "D28",
+      "title": "Cloud/Third Parties",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "Binance 451; Jupiter unfunded; OAuth 503; PSP 503; Telegram 503",
+      "notes": "Dependency matrix is honest. Live failure tests against paid IdP/PSP were not done. Geo block is proved."
+    },
+    {
+      "id": "D29",
+      "title": "Privacy",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "gdpr_service.py DSR export/erase; /privacy; sealed email outbox",
+      "notes": "Engineering controls exist. Independent privacy counsel not obtained (D30)."
+    },
+    {
+      "id": "D30",
+      "title": "Legal/Compliance",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "Pages /terms /privacy /disclaimer /refund exist. This engineer is not independent counsel.",
+      "notes": "Gap report only. Closure requires specialist review — not claimed."
+    },
+    {
+      "id": "D31",
+      "title": "Licensing/Data Rights",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "THIRD_PARTY_NOTICES.md; public venue ToS not independently audited on this SHA",
+      "notes": "No license counsel sign-off for redistribution of derived market data."
+    },
+    {
+      "id": "D32",
+      "title": "UX/UI",
+      "verdict": "PASS",
+      "launch_critical": false,
+      "severity_if_open": "medium",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "public HTML 200 catalog; Trust OS templates",
+      "notes": "HTTP render ≠ visual QA matrix. Critical paper journeys have no 404 blockers."
+    },
+    {
+      "id": "D33",
+      "title": "Accessibility",
+      "verdict": "NOT_TESTED",
+      "launch_critical": false,
+      "severity_if_open": "medium",
+      "open": true,
+      "blocks_unconditional_go": false,
+      "evidence": "No WCAG lab / screen-reader run recorded",
+      "notes": "Not launch-critical for a research tool by this cert's scope; still open Medium."
+    },
+    {
+      "id": "D34",
+      "title": "Browser/Device",
+      "verdict": "NOT_TESTED",
+      "launch_critical": false,
+      "severity_if_open": "medium",
+      "open": true,
+      "blocks_unconditional_go": false,
+      "evidence": "No Chrome/Edge/Firefox/Safari/mobile matrix on this SHA",
+      "notes": "TestClient is not a browser."
+    },
+    {
+      "id": "D35",
+      "title": "User Safety",
+      "verdict": "PASS",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "anti-hype; disclaimer; Do Not Touch on veto; public accuracy ledger; dry-run default",
+      "notes": "Product positioning is research/decision intelligence, not guaranteed returns."
+    },
+    {
+      "id": "D36",
+      "title": "Abuse/Fraud",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "viral_capacity rate limits; auth 401; no credential-stuffing campaign",
+      "notes": "Controls exist in code. Adversarial abuse tests were not executed."
+    },
+    {
+      "id": "D37",
+      "title": "Operations",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "docs/RUNBOOK.md exists; on-call Telegram FAIL; no staffed control room",
+      "notes": "Runbooks are files. 3 AM human page is not armed."
+    },
+    {
+      "id": "D38",
+      "title": "Release Engineering",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "feature flags / SOFT_LAUNCH exist; no canary of this SHA",
+      "notes": "Staged rollout was not demonstrated."
+    },
+    {
+      "id": "D39",
+      "title": "Launch Capacity",
+      "verdict": "NOT_TESTED",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "viral_capacity.py model; no measured concurrent-user evidence pack",
+      "notes": "Capacity model without measurement is not PASS."
+    },
+    {
+      "id": "D40",
+      "title": "Post-launch Control",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "panic freeze API exists; Telegram on-call unconfigured; no launch control room",
+      "notes": "Emergency freeze can be invoked if an operator is already in-app. Unattended 3 AM page fails."
+    },
+    {
+      "id": "EXT_LIVE_FILL",
+      "title": "External blocker — live venue FILL",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "binance_order_host_geo_451",
+      "notes": "Accepted unpaid external. Still a live-launch blocker."
+    },
+    {
+      "id": "EXT_JUPITER_VC",
+      "title": "External blocker — Jupiter on-chain VC",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "high",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "wallet_unfunded_zero_cost_constraint; jup=False",
+      "notes": "Local sign works. On-chain VC false."
+    },
+    {
+      "id": "EXT_L2_100",
+      "title": "External/unpaid ceiling — catalog L2 100%",
+      "verdict": "FAIL",
+      "launch_critical": false,
+      "severity_if_open": "medium",
+      "open": true,
+      "blocks_unconditional_go": false,
+      "evidence": "95/100 venue_l2; l2_complete=False",
+      "notes": "Do not invent AMM CEX ladders. Medium for paper; High only if sold as 100% institutional L2."
+    },
+    {
+      "id": "EXT_CLOUD_HA",
+      "title": "External blocker — cloud multi-AZ",
+      "verdict": "FAIL",
+      "launch_critical": true,
+      "severity_if_open": "critical",
+      "open": true,
+      "blocks_unconditional_go": true,
+      "evidence": "zero_cost_no_paid_cloud_multi_az; cloud=False",
+      "notes": "Local PG HA is a different control."
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "ID-REG",
+      "name": "Register / login / logout / session",
+      "name_ar": "تسجيل / دخول / خروج / جلسة",
+      "purpose": "Session cookies + PBKDF2; /register aliases /login",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/auth/register",
+        "/api/auth/login",
+        "/login",
+        "/register",
+        "/profile"
+      ],
+      "data_sources": "api/routers/auth.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/auth.py",
+      "limits": "Session cookies + PBKDF2; /register aliases /login",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "ID-MFA",
+      "name": "TOTP MFA enroll/confirm/disable",
+      "name_ar": "مصادقة TOTP تسجيل/تأكيد/إيقاف",
+      "purpose": "Enrollment on /profile; /settings/security no longer 404",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/auth/mfa/*",
+        "/profile",
+        "/settings/security"
+      ],
+      "data_sources": "auth_service.py; dashboard 307 alias",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "auth_service.py; dashboard 307 alias",
+      "limits": "Enrollment on /profile; /settings/security no longer 404",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "ID-OAUTH",
+      "name": "OAuth start/callback",
+      "name_ar": "بدء/رجوع OAuth",
+      "purpose": "Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/auth/oauth/status",
+        "/api/auth/oauth/{provider}/start"
+      ],
+      "data_sources": "oauth_service.py",
+      "dependencies": "oauth_client_ids",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "oauth_service.py",
+      "limits": "Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids",
+      "failure_modes": "oauth_client_ids",
+      "inventory_status": "ops_config",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "owner_secrets_required",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "ID-EMAIL",
+      "name": "Email verify / password reset",
+      "name_ar": "تحقق البريد / إعادة كلمة المرور",
+      "purpose": "Hashed tokens + sealed outbox; SMTP flush is optional ops",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/verify-email",
+        "/reset-password"
+      ],
+      "data_sources": "identity_service.py email_outbox.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "identity_service.py email_outbox.py",
+      "limits": "Hashed tokens + sealed outbox; SMTP flush is optional ops",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "ID-TIER",
+      "name": "Tier gates free/pro/whale",
+      "name_ar": "بوابات الطبقة مجاني/محترف/حوت",
+      "purpose": "Enforced on APIs; gated ≠ broken",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "auth_service.TIER_FEATURES",
+        "/api/auth/me"
+      ],
+      "data_sources": "feature_allowed()",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "feature_allowed()",
+      "limits": "Enforced on APIs; gated ≠ broken",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "ID-PROMO",
+      "name": "Promo code redeem",
+      "name_ar": "استرداد رمز ترويجي",
+      "purpose": "Extends Pro trial when code in LAUNCH_PROMO_CODES",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/promo/redeem"
+      ],
+      "data_sources": "auth_service.redeem_promo_code",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "auth_service.redeem_promo_code",
+      "limits": "Extends Pro trial when code in LAUNCH_PROMO_CODES",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "identity"
+    },
+    {
+      "id": "BIL-STATUS",
+      "name": "Billing status + pricing catalog",
+      "name_ar": "حالة الفوترة + كتالوج الأسعار",
+      "purpose": "Catalog honest; does not claim live PSP",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/billing/status",
+        "/api/pricing"
+      ],
+      "data_sources": "billing_service.py pricing_catalog.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "billing_service.py pricing_catalog.py",
+      "limits": "Catalog honest; does not claim live PSP",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "billing"
+    },
+    {
+      "id": "BIL-CHECKOUT",
+      "name": "Self-serve checkout Stripe/Lemon",
+      "name_ar": "دفع ذاتي Stripe/Lemon",
+      "purpose": "Unpaid promo/inquiry complete; live charge needs owner PSP secrets",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/billing/checkout",
+        "/api/billing/unpaid-upgrade",
+        "/webhook"
+      ],
+      "data_sources": "billing_service.unpaid_upgrade_path",
+      "dependencies": "psp_credentials",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "billing_service.unpaid_upgrade_path",
+      "limits": "Unpaid promo/inquiry complete; live charge needs owner PSP secrets",
+      "failure_modes": "psp_credentials",
+      "inventory_status": "ops_config",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "live_money_or_hosted_or_ops",
+      "competitive_value": "billing"
+    },
+    {
+      "id": "BIL-INST",
+      "name": "Institutional inquiry / invoices / KYC",
+      "name_ar": "استعلام مؤسسي / فواتير / KYC",
+      "purpose": "Sales-led path; not a self-serve SKU",
+      "users": [
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/billing/institutional-inquiry",
+        "/api/institutional/commerce/*"
+      ],
+      "data_sources": "api/routers/institutional.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/institutional.py",
+      "limits": "Sales-led path; not a self-serve SKU",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "billing"
+    },
+    {
+      "id": "OR-SENTENCE",
+      "name": "Single-sentence Oracle + explain + quick",
+      "name_ar": "أوركل جملة واحدة + شرح + سريع",
+      "purpose": "Free quota 3/day; Pro unlimited",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/oracle/{symbol}",
+        "/oracle/{symbol}/explain",
+        "/oracle/{symbol}/quick"
+      ],
+      "data_sources": "ai_oracle.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "ai_oracle.py",
+      "limits": "Free quota 3/day; Pro unlimited",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-CERT",
+      "name": "Decision certificate + locked predictions",
+      "name_ar": "شهادة قرار + توقعات مقفلة",
+      "purpose": "Hash + share URLs; free watermarked",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/oracle/decision-certificate",
+        "/api/locked-predictions"
+      ],
+      "data_sources": "decision_certificate.py locked_predictions.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "decision_certificate.py locked_predictions.py",
+      "limits": "Hash + share URLs; free watermarked",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-TRUTH",
+      "name": "Net-edge / half-life / contradiction veto",
+      "name_ar": "صافي الهامش / نصف العمر / نقض التناقض",
+      "purpose": "Truth gates run in-process",
+      "users": [
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/oracle/net-edge-truth",
+        "/api/oracle/half-life",
+        "/api/oracle/dimension-conflict"
+      ],
+      "data_sources": "net_edge_truth.py opportunity_tracker.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "net_edge_truth.py opportunity_tracker.py",
+      "limits": "Truth gates run in-process",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-LEDGER",
+      "name": "Public accuracy ledger + audit chain",
+      "name_ar": "سجل دقة عام + سلسلة تدقيق",
+      "purpose": "Public read path; misses disclosed",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/oracle-accuracy",
+        "/api/oracle/accuracy/public",
+        "/api/oracle/audit-chain",
+        "/public/accuracy-ledger"
+      ],
+      "data_sources": "ml.public_accuracy oracle_audit_chain.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "ml.public_accuracy oracle_audit_chain.py",
+      "limits": "Public read path; misses disclosed",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-PERSONA",
+      "name": "Persona clarity + trial readiness matrix",
+      "name_ar": "وضوح الشخصية + مصفوفة جاهزية التجربة",
+      "purpose": "Six personas; NOT_COMPLETE banner",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/oracle/persona-clarity/demo",
+        "/api/trial/persona-readiness"
+      ],
+      "data_sources": "persona_clarity.py persona_capability_matrix.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "persona_clarity.py persona_capability_matrix.py",
+      "limits": "Six personas; NOT_COMPLETE banner",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-E2E",
+      "name": "Decision e2e LIVE→RISK→DECISION",
+      "name_ar": "قرار طرف-لطرف حي→مخاطرة→قرار",
+      "purpose": "Same-tick withheld; historical chain self-grade is independent",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/decision-e2e"
+      ],
+      "data_sources": "decision_e2e.py historical_self_grade.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "decision_e2e.py historical_self_grade.py",
+      "limits": "Same-tick withheld; historical chain self-grade is independent",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-GRAPH",
+      "name": "Decision graph + intelligence evaluate",
+      "name_ar": "رسم القرار + تقييم الذكاء",
+      "purpose": "In-process graph; not a hosted ML farm",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/decision-graph/*",
+        "/api/institutional/decision-intelligence/*"
+      ],
+      "data_sources": "api/routers/oms_decision.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/oms_decision.py",
+      "limits": "In-process graph; not a hosted ML farm",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "OR-PROV",
+      "name": "Provenance score",
+      "name_ar": "درجة المصدر",
+      "purpose": "Honesty surface; not exclusive data vendor",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/oracle/provenance-score"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Honesty surface; not exclusive data vendor",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "oracle"
+    },
+    {
+      "id": "MKT-INGEST",
+      "name": "Catalog-100 price health",
+      "name_ar": "صحة أسعار الكتالوج 100",
+      "purpose": "Price health ≠ institutional L2",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/universe/status",
+        "full_catalog_mesh_proof"
+      ],
+      "data_sources": "coverage_percent 100%",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "coverage_percent 100%",
+      "limits": "Price health ≠ institutional L2",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-L2",
+      "name": "Institutional venue L2 books",
+      "name_ar": "كتب L2 مؤسسية حسب المنصة",
+      "purpose": "Wave 7 native L2 unpaid max; remaining AMM+bybit not invented as CEX ladders",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "live_data_truth_probe",
+        "/api/product/l2-remainder"
+      ],
+      "data_sources": "95/100 venue_l2; remainder labeled synthetic_mid",
+      "dependencies": "amm_and_bybit_geo",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "95/100 venue_l2; remainder labeled synthetic_mid",
+      "limits": "Wave 7 native L2 unpaid max; remaining AMM+bybit not invented as CEX ladders",
+      "failure_modes": "amm_and_bybit_geo",
+      "inventory_status": "partial",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "depth_incomplete",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-MESH",
+      "name": "CORE public CEX L2 mesh",
+      "name_ar": "شبكة L2 للمنصات العامة الأساسية",
+      "purpose": "CORE mesh complete for this wave; catalog L2 is separate",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "prove_multi_venue_live",
+        "/api/institutional/canonical/mesh-prove"
+      ],
+      "data_sources": "92/92 live L2",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "92/92 live L2",
+      "limits": "CORE mesh complete for this wave; catalog L2 is separate",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-RADAR",
+      "name": "Market radar / sectors / OI / klines",
+      "name_ar": "رادار السوق / قطاعات / فائدة مفتوحة / شموع",
+      "purpose": "Pro+ depth; free gets light radar",
+      "users": [
+        "pro",
+        "whale",
+        "fund"
+      ],
+      "implementation_path": [
+        "/api/market/overview",
+        "/api/market/sectors",
+        "/api/market/klines"
+      ],
+      "data_sources": "api/routers/market.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/market.py",
+      "limits": "Pro+ depth; free gets light radar",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-SENT",
+      "name": "Sentiment / onchain / macro overviews",
+      "name_ar": "نظرة معنويات / سلسلة / كلي",
+      "purpose": "Public-proxy product complete; not exclusive vendor data",
+      "users": [
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/sentiment/overview",
+        "/api/onchain/overview",
+        "/api/macro/overview"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Public-proxy product complete; not exclusive vendor data",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-OPT",
+      "name": "Options chain + paper OMS",
+      "name_ar": "سلسلة خيارات + OMS ورقي",
+      "purpose": "Deribit public chain; paper fill at mark; not live options",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/options/overview",
+        "/api/options/oms/chain",
+        "/api/options/oms/paper-fill"
+      ],
+      "data_sources": "options_fetcher.py options_oms.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "options_fetcher.py options_oms.py",
+      "limits": "Deribit public chain; paper fill at mark; not live options",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-TA",
+      "name": "Technical analysis snapshot",
+      "name_ar": "لقطة تحليل فني",
+      "purpose": "In-process TA; not TradingView charts SaaS",
+      "users": [
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/ta/{symbol}"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "In-process TA; not TradingView charts SaaS",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "MKT-FEED",
+      "name": "Feed stale-price / ingress guards",
+      "name_ar": "حراسة الأسعار المتقادمة / الدخول",
+      "purpose": "Guards labeled; do not claim exclusive feeds",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/feed/stale-price-guard",
+        "/api/feed/ingress-guard",
+        "/api/feed/engine/status"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Guards labeled; do not claim exclusive feeds",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "market"
+    },
+    {
+      "id": "ARB-SCAN",
+      "name": "Cross/tri/funding/spot-fut scans",
+      "name_ar": "مسح تقاطع/ثلاثي/تمويل/فوري-آجل",
+      "purpose": "Canonical engine; paper unless live_fill",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/arbitrage/opportunities",
+        "/api/arbitrage/scan"
+      ],
+      "data_sources": "arbitrage_engine.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "arbitrage_engine.py",
+      "limits": "Canonical engine; paper unless live_fill",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "arbitrage"
+    },
+    {
+      "id": "ARB-CAT",
+      "name": "Arbitrage type catalog",
+      "name_ar": "كتالوج أنواع الأربتراج",
+      "purpose": "Honest live/proxy/planned taxonomy; CEX-DEX + options vs spot now live/proxy",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/arbitrage/catalog",
+        "/api/arbitrage/catalog/scan"
+      ],
+      "data_sources": "arbitrage_catalog.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "arbitrage_catalog.py",
+      "limits": "Honest live/proxy/planned taxonomy; CEX-DEX + options vs spot now live/proxy",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "arbitrage"
+    },
+    {
+      "id": "ARB-CEXDEX",
+      "name": "CEX↔DEX path",
+      "name_ar": "مسار منصة↔DEX",
+      "purpose": "Paper/dry-run complete; live CEX leg is EX-LIVE geo block",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/platform/arb/cex-dex",
+        "/api/execution/cex-dex/cycle"
+      ],
+      "data_sources": "bd_platform.cex_dex_executor",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "bd_platform.cex_dex_executor",
+      "limits": "Paper/dry-run complete; live CEX leg is EX-LIVE geo block",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "arbitrage"
+    },
+    {
+      "id": "EX-SIM",
+      "name": "Trade/arb simulator + history",
+      "name_ar": "محاكي تداول/أربتراج + تاريخ",
+      "purpose": "Paper path verified",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/simulate/trade",
+        "/api/simulate/arbitrage",
+        "/api/simulate/history"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Paper path verified",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-OMS",
+      "name": "OMS lifecycle INTENT→RECONCILE",
+      "name_ar": "دورة OMS نية→مطابقة",
+      "purpose": "Paper/dry-run complete; submit≠live_fill",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/oms/*"
+      ],
+      "data_sources": "oms.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "oms.py",
+      "limits": "Paper/dry-run complete; submit≠live_fill",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-KEYS",
+      "name": "Exchange API key vault (Fernet)",
+      "name_ar": "خزنة مفاتيح المنصات (Fernet)",
+      "purpose": "Encrypt/store works; live submit still geo-blocked",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/user/exchange-keys",
+        "/api/execution/keys/*",
+        "/api/platform/vault/*"
+      ],
+      "data_sources": "secrets_vault.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "secrets_vault.py",
+      "limits": "Encrypt/store works; live submit still geo-blocked",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-LIVE",
+      "name": "Live venue FILL",
+      "name_ar": "تعبئة حية على المنصة",
+      "purpose": "Path armed; hosts return HTTP 451",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/execution/order",
+        "venue_fill_proof"
+      ],
+      "data_sources": "binance_order_host_geo_451",
+      "dependencies": "binance_order_host_geo_451",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "binance_order_host_geo_451",
+      "limits": "Path armed; hosts return HTTP 451",
+      "failure_modes": "binance_order_host_geo_451",
+      "inventory_status": "external_block",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "live_money_or_hosted_or_ops",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-JUP",
+      "name": "Jupiter quote/build/local sign",
+      "name_ar": "Jupiter تسعير/بناء/توقيع محلي",
+      "purpose": "Unpaid path complete; on-chain VC remains four-blocker unfunded",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/institutional/jupiter/*"
+      ],
+      "data_sources": "signed_local=true",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "signed_local=true",
+      "limits": "Unpaid path complete; on-chain VC remains four-blocker unfunded",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "local_sign_not_onchain_vc",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-PANIC",
+      "name": "Panic freeze / resume",
+      "name_ar": "تجميد طوارئ / استئناف",
+      "purpose": "In-process freeze flag",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/execution/panic",
+        "/api/execution/resume",
+        "/api/risk/freeze"
+      ],
+      "data_sources": "execution_engine + risk_manager",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "execution_engine + risk_manager",
+      "limits": "In-process freeze flag",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "EX-AUTO",
+      "name": "Auto execution cycle (dry-run default)",
+      "name_ar": "دورة تنفيذ تلقائي (افتراضي تجريبي)",
+      "purpose": "Dry-run by policy; not live money",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/execution/auto",
+        "/api/execution/cycle",
+        "/api/execution/status"
+      ],
+      "data_sources": "AUTO_EXECUTION_DRY_RUN=true",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "AUTO_EXECUTION_DRY_RUN=true",
+      "limits": "Dry-run by policy; not live money",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "execution"
+    },
+    {
+      "id": "RSK-ARCH",
+      "name": "Full risk architecture + liquidity",
+      "name_ar": "عمارة المخاطر الكاملة + السيولة",
+      "purpose": "decision_e2e uses live books",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/risk/*",
+        "/api/risk/status",
+        "/api/platform/risk/drawdown"
+      ],
+      "data_sources": "risk_intelligence.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "risk_intelligence.py",
+      "limits": "decision_e2e uses live books",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "risk"
+    },
+    {
+      "id": "RSK-WHALE",
+      "name": "Whale 5m band / exitability",
+      "name_ar": "نطاق الحوت 5 د / قابلية الخروج",
+      "purpose": "May whale_ready=false when books thin — honest",
+      "users": [
+        "whale",
+        "fund"
+      ],
+      "implementation_path": [
+        "whale_execution_evidence.py"
+      ],
+      "data_sources": "whale_execution_evidence.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "whale_execution_evidence.py",
+      "limits": "May whale_ready=false when books thin — honest",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "risk"
+    },
+    {
+      "id": "AL-INBOX",
+      "name": "In-app alert inbox",
+      "name_ar": "صندوق تنبيهات داخل التطبيق",
+      "purpose": "Read path ungated; subscribe Pro+",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/alerts/inbox"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Read path ungated; subscribe Pro+",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "alerts"
+    },
+    {
+      "id": "AL-SUB",
+      "name": "Alert subscribe + sealed email outbox",
+      "name_ar": "اشتراك تنبيهات + صندوق بريد مختوم",
+      "purpose": "In-app inbox + sealed outbox always work; SMTP flush is ops",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/alerts/subscribe",
+        "/api/alerts/inbox"
+      ],
+      "data_sources": "in_app_alerts.py email_outbox.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "in_app_alerts.py email_outbox.py",
+      "limits": "In-app inbox + sealed outbox always work; SMTP flush is ops",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "alerts"
+    },
+    {
+      "id": "AL-TG",
+      "name": "Live Telegram bot send",
+      "name_ar": "إرسال تيليغرام حي",
+      "purpose": "Unconfigured test is HTTP 503; skip flag ≠ live delivery",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/alerts/telegram/status",
+        "/api/alerts/telegram/test",
+        "/api/telegram/webhook"
+      ],
+      "data_sources": "telegram_monitor.py alert_service.send_telegram_message",
+      "dependencies": "telegram_bot_token",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "telegram_monitor.py alert_service.send_telegram_message",
+      "limits": "Unconfigured test is HTTP 503; skip flag ≠ live delivery",
+      "failure_modes": "telegram_bot_token",
+      "inventory_status": "ops_config",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "live_money_or_hosted_or_ops",
+      "competitive_value": "alerts"
+    },
+    {
+      "id": "AL-PASS",
+      "name": "Proof-gated alert passport",
+      "name_ar": "جواز تنبيه مشروط بالدليل",
+      "purpose": "Evaluate path in-process",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/alert-passport",
+        "/api/alert-passport"
+      ],
+      "data_sources": "proof_gated_alert_passport.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "proof_gated_alert_passport.py",
+      "limits": "Evaluate path in-process",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "alerts"
+    },
+    {
+      "id": "AL-GEN",
+      "name": "Alert generosity policy",
+      "name_ar": "سياسة سخاء التنبيهات",
+      "purpose": "Policy surface; not a vendor SLA",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/alerts/generosity"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Policy surface; not a vendor SLA",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "alerts"
+    },
+    {
+      "id": "JR-CRUD",
+      "name": "Personal trading journal",
+      "name_ar": "دفتر تداول شخصي",
+      "purpose": "CRUD on free tier",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/journal"
+      ],
+      "data_sources": "database.journal_entries",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "database.journal_entries",
+      "limits": "CRUD on free tier",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "journal"
+    },
+    {
+      "id": "RP-WEEK",
+      "name": "Weekly/daily research reports",
+      "name_ar": "تقارير بحث أسبوعية/يومية",
+      "purpose": "Tier-gated; local generation",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/reports/weekly",
+        "/api/reports/daily"
+      ],
+      "data_sources": "research_lab gate",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "research_lab gate",
+      "limits": "Tier-gated; local generation",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "reports"
+    },
+    {
+      "id": "RP-SUB",
+      "name": "Subscriber value digest",
+      "name_ar": "ملخص قيمة المشترك",
+      "purpose": "Whale-gated",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/subscriber/value"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Whale-gated",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "reports"
+    },
+    {
+      "id": "RS-LAB",
+      "name": "Research lab / moat / asset export",
+      "name_ar": "مختبر بحث / خندق / تصدير أصل",
+      "purpose": "Pro+; not a Bloomberg terminal",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/research/lab",
+        "/api/research/moat",
+        "/api/research/asset/{symbol}",
+        "/api/research/export"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Pro+; not a Bloomberg terminal",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "reports"
+    },
+    {
+      "id": "RS-CHAT",
+      "name": "AI chat (tier-gated)",
+      "name_ar": "دردشة ذكاء اصطناعي (حسب الطبقة)",
+      "purpose": "Gated on free; works for Pro+",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/chat"
+      ],
+      "data_sources": "dashboard.py + TIER_FEATURES.ai_chat",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py + TIER_FEATURES.ai_chat",
+      "limits": "Gated on free; works for Pro+",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "reports"
+    },
+    {
+      "id": "RS-PORT",
+      "name": "Portfolio AI analyze / rebalance",
+      "name_ar": "تحليل محفظة بالذكاء / إعادة توازن",
+      "purpose": "Gated on free; in-process analyze",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/portfolio/analyze",
+        "/api/institutional/portfolio/*",
+        "/api/platform/portfolio/rebalance"
+      ],
+      "data_sources": "TIER_FEATURES.portfolio_ai",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "TIER_FEATURES.portfolio_ai",
+      "limits": "Gated on free; in-process analyze",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "reports"
+    },
+    {
+      "id": "WH-RADAR",
+      "name": "Whale radar / gravity / stealth advisor",
+      "name_ar": "رادار الحيتان / جاذبية / مستشار تخفي",
+      "purpose": "Desk surfaces; not exclusive on-chain vendor",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/whale/scan",
+        "/api/whale/stealth-advisor",
+        "/api/whale/gravity-map",
+        "/api/whale/signal-vs-noise"
+      ],
+      "data_sources": "whale_tracker.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "whale_tracker.py",
+      "limits": "Desk surfaces; not exclusive on-chain vendor",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "whale"
+    },
+    {
+      "id": "WH-VOICE",
+      "name": "Voice command",
+      "name_ar": "أمر صوتي",
+      "purpose": "API present; client mic is UX",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/voice/command"
+      ],
+      "data_sources": "Tier-gated whale",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "Tier-gated whale",
+      "limits": "API present; client mic is UX",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "whale"
+    },
+    {
+      "id": "WH-MEV",
+      "name": "MEV sandwich report",
+      "name_ar": "تقرير ساندويتش MEV",
+      "purpose": "Heuristic report; not a private mempool",
+      "users": [
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/mev/sandwich-report"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Heuristic report; not a private mempool",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "whale"
+    },
+    {
+      "id": "UX-LENS",
+      "name": "Trust OS four lenses",
+      "name_ar": "أربع عدسات نظام الثقة",
+      "purpose": "Prove/Operate/Desk/Room",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/lenses",
+        "/capabilities",
+        "/api/trust-os"
+      ],
+      "data_sources": "trust_os_lenses.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "trust_os_lenses.py",
+      "limits": "Prove/Operate/Desk/Room",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ux"
+    },
+    {
+      "id": "UX-AUD",
+      "name": "Six-audience entry routing",
+      "name_ar": "توجيه دخول ست شرائح",
+      "purpose": "retail/pro/whale/fund/b2b/acquirer",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/audience/entry",
+        "/api/heroes/strategy"
+      ],
+      "data_sources": "audience_routing.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "audience_routing.py",
+      "limits": "retail/pro/whale/fund/b2b/acquirer",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ux"
+    },
+    {
+      "id": "UX-INT",
+      "name": "Intent router + 60s acceptance",
+      "name_ar": "موجّه النية + قبول 60 ثانية",
+      "purpose": "Routing surface; not live execution",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/intent/router",
+        "/api/intent/resolve",
+        "/api/acceptance/60s"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Routing surface; not live execution",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ux"
+    },
+    {
+      "id": "UX-DISC",
+      "name": "Discipline mirror",
+      "name_ar": "مرآة الانضباط",
+      "purpose": "Self-report path",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/discipline-mirror",
+        "/api/discipline-mirror/*",
+        "/my/discipline-mirror"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Self-report path",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ux"
+    },
+    {
+      "id": "WOW-CORE",
+      "name": "WOW eight: kill-rate, replay, arena, since-left, anti-hype, corpus, committee, half-life clock",
+      "name_ar": "الثمانية الفريدة: معدل القتل، إعادة التناقض، الحلبة، منذ المغادرة، ضد المبالغة، جواز المجموعة، لجنة، ساعة نصف العمر",
+      "purpose": "Shipped uniqueness surfaces; product_complete=false",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/kill-rate",
+        "/contradiction-replay",
+        "/proof-arena",
+        "/since-you-left",
+        "/anti-hype",
+        "/corpus-passport",
+        "/b2b/committee-one-pager",
+        "/api/oracle/half-life/heat"
+      ],
+      "data_sources": "/api/wow/surfaces",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "/api/wow/surfaces",
+      "limits": "Shipped uniqueness surfaces; product_complete=false",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "unique"
+    },
+    {
+      "id": "WOW-F1F10",
+      "name": "F1–F10 unique: miss-feed, emotion-tax, allocator, transfer, silence, passport, visibility, decay, duel, trust-debt",
+      "name_ar": "F1–F10: تغذية الفوات، ضريبة العاطفة، إيصال المخصص، نية التحويل، مؤشر الصمت، جواز التنبيه، تكلفة الظهور، اضمحلال الصلاحية، مبارزة المكتب، دين الثقة",
+      "purpose": "All ten pages+APIs shipped",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/miss-feed",
+        "/emotion-tax",
+        "/allocator-receipt",
+        "/transfer-intent",
+        "/silence-index",
+        "/alert-passport",
+        "/visibility-cost",
+        "/validity-decay",
+        "/desk-duel",
+        "/trust-debt",
+        "/unique-ten"
+      ],
+      "data_sources": "/api/public/f1-f10-closure",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "/api/public/f1-f10-closure",
+      "limits": "All ten pages+APIs shipped",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "unique"
+    },
+    {
+      "id": "WOW-COV",
+      "name": "Coverage honesty / priority chain / zero-tolerance / d5",
+      "name_ar": "صدق التغطية / سلسلة الأولوية / صفر تسامح / d5",
+      "purpose": "Honesty boards; radical_fix ≠ product_complete",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/coverage-honesty",
+        "/priority-chain",
+        "/zero-tolerance",
+        "/d5-honesty"
+      ],
+      "data_sources": "heroes.py closures",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py closures",
+      "limits": "Honesty boards; radical_fix ≠ product_complete",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "unique"
+    },
+    {
+      "id": "WOW-GLASS",
+      "name": "Glass-box challenge / operator / announce",
+      "name_ar": "صندوق زجاجي تحدٍ / مشغّل / إعلان",
+      "purpose": "Public challenge path",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/glass-box/*"
+      ],
+      "data_sources": "heroes.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "heroes.py",
+      "limits": "Public challenge path",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "unique"
+    },
+    {
+      "id": "WOW-PULSE",
+      "name": "Trust pulse stream / manifest",
+      "name_ar": "نبض الثقة بث / بيان",
+      "purpose": "SSE/status; not a market-data SLA",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/trust-pulse",
+        "/api/trust-pulse/stream",
+        "/api/dashboard/stream"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "SSE/status; not a market-data SLA",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "unique"
+    },
+    {
+      "id": "ML-TRAIN",
+      "name": "ML train/predict/ensemble/experience",
+      "name_ar": "تدريب/تنبؤ/تجميع/خبرة تعلم آلي",
+      "purpose": "Local models complete; not a hosted GPU farm",
+      "users": [
+        "pro",
+        "whale",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/ml/*",
+        "/api/platform/ml/*"
+      ],
+      "data_sources": "platform_api.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "platform_api.py",
+      "limits": "Local models complete; not a hosted GPU farm",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ml"
+    },
+    {
+      "id": "ML-EXPLAIN",
+      "name": "ML explain / TruLens fallback",
+      "name_ar": "تفسير النموذج / TruLens احتياطي",
+      "purpose": "Rules fallback always works; TruLens optional",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/platform/ml/explain"
+      ],
+      "data_sources": "bd_platform.trulens_eval",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "bd_platform.trulens_eval",
+      "limits": "Rules fallback always works; TruLens optional",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ml"
+    },
+    {
+      "id": "PLAT-GRID",
+      "name": "Grid bots / rules / marketplace / calendars",
+      "name_ar": "بوتات شبكة / قواعد / سوق استراتيجيات / تقاويم",
+      "purpose": "In-process product complete; not Kaiko-class vendor data",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/platform/bots/grid",
+        "/api/platform/rules",
+        "/api/platform/marketplace/strategies",
+        "/api/platform/events/calendar",
+        "/platform"
+      ],
+      "data_sources": "platform_api.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "platform_api.py",
+      "limits": "In-process product complete; not Kaiko-class vendor data",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "platform"
+    },
+    {
+      "id": "PLAT-DERIV",
+      "name": "Derivatives hub / liquidations / CEX-DEX compare",
+      "name_ar": "مركز مشتقات / تصفيات / مقارنة منصة-DEX",
+      "purpose": "Public-proxy hub complete; live options via paper OMS",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/platform/derivatives/*",
+        "/api/platform/liquidations/radar"
+      ],
+      "data_sources": "bd_platform.derivatives_hub",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "bd_platform.derivatives_hub",
+      "limits": "Public-proxy hub complete; live options via paper OMS",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "platform"
+    },
+    {
+      "id": "PLAT-TV",
+      "name": "TradingView config / webhook",
+      "name_ar": "إعداد TradingView / ويب هوك",
+      "purpose": "Webhook→paper path complete; live TV charting SaaS is not this product",
+      "users": [
+        "pro",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/platform/tradingview/*"
+      ],
+      "data_sources": "platform_api.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "platform_api.py",
+      "limits": "Webhook→paper path complete; live TV charting SaaS is not this product",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "platform"
+    },
+    {
+      "id": "B2B-FEED",
+      "name": "Institutional B2B JSON/WS feed",
+      "name_ar": "تغذية B2B JSON/WS مؤسسية",
+      "purpose": "Env key or hashed org key bd_org_",
+      "users": [
+        "b2b",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/b2b/feed",
+        "/ws/b2b/feed",
+        "/api/b2b/info"
+      ],
+      "data_sources": "org_tenant.issue_org_feed_key",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "org_tenant.issue_org_feed_key",
+      "limits": "Env key or hashed org key bd_org_",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-WL",
+      "name": "White-label brand/portal/terminal/exports",
+      "name_ar": "علامة بيضاء علامة/بوابة/طرفية/تصدير",
+      "purpose": "In-process portal complete; hosted custom domain remains unpaid-excluded",
+      "users": [
+        "b2b",
+        "fund"
+      ],
+      "implementation_path": [
+        "/api/institutional/orgs/{id}/portal",
+        "/api/institutional/white-label/*"
+      ],
+      "data_sources": "white_label.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "white_label.py",
+      "limits": "In-process portal complete; hosted custom domain remains unpaid-excluded",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-WL-HOST",
+      "name": "Hosted custom-domain white-label SaaS",
+      "name_ar": "علامة بيضاء بنطاق مخصص مستضاف",
+      "purpose": "Requires paid multi-tenant hosting",
+      "users": [
+        "b2b"
+      ],
+      "implementation_path": [
+        "white_label.hosted_custom_domain"
+      ],
+      "data_sources": "zero_cost unpaid infra",
+      "dependencies": "hosted_custom_domain_requires_paid_infra",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "zero_cost unpaid infra",
+      "limits": "Requires paid multi-tenant hosting",
+      "failure_modes": "hosted_custom_domain_requires_paid_infra",
+      "inventory_status": "external_block",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "live_money_or_hosted_or_ops",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-ORG",
+      "name": "Org tenancy + RBAC + MFA policy",
+      "name_ar": "مؤسسات + صلاحيات + سياسة MFA",
+      "purpose": "JSON store; not Okta-as-a-service",
+      "users": [
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/orgs",
+        "/api/institutional/rbac/matrix"
+      ],
+      "data_sources": "org_tenant.py org_rbac.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "org_tenant.py org_rbac.py",
+      "limits": "JSON store; not Okta-as-a-service",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-SSO",
+      "name": "OIDC/SAML SSO",
+      "name_ar": "تسجيل دخول موحد OIDC/SAML",
+      "purpose": "Crypto path complete; live IdP needs owner credentials",
+      "users": [
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/sso/*"
+      ],
+      "data_sources": "enterprise_sso.py",
+      "dependencies": "idp_credentials",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "enterprise_sso.py",
+      "limits": "Crypto path complete; live IdP needs owner credentials",
+      "failure_modes": "idp_credentials",
+      "inventory_status": "ops_config",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "owner_secrets_required",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-SCIM",
+      "name": "SCIM 2.0 Users/Groups",
+      "name_ar": "SCIM 2.0 مستخدمون/مجموعات",
+      "purpose": "CRUD + env bearer or hashed org bd_scim_ key",
+      "users": [
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/scim/*",
+        "/api/institutional/orgs/{id}/scim-key"
+      ],
+      "data_sources": "scim_service.py org_tenant.issue_org_scim_key",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "scim_service.py org_tenant.issue_org_scim_key",
+      "limits": "CRUD + env bearer or hashed org bd_scim_ key",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "B2B-SUPER",
+      "name": "Super terminal (org)",
+      "name_ar": "طرفية فائقة للمؤسسة",
+      "purpose": "In-process pack; live_fill=false disclosed",
+      "users": [
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/super-terminal",
+        "/api/institutional/orgs/{id}/terminal"
+      ],
+      "data_sources": "oms_decision.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "oms_decision.py",
+      "limits": "In-process pack; live_fill=false disclosed",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "b2b"
+    },
+    {
+      "id": "FUND-TERM",
+      "name": "Emerging fund terminal + model card",
+      "name_ar": "طرفية الصندوق الناشئ + بطاقة النموذج",
+      "purpose": "DD packaging; not AUM custody",
+      "users": [
+        "fund",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/b2b?audience=fund",
+        "/model-card",
+        "/api/fund/emerging-terminal"
+      ],
+      "data_sources": "emerging_fund_terminal.py buyer_model_card.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "emerging_fund_terminal.py buyer_model_card.py",
+      "limits": "DD packaging; not AUM custody",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "fund"
+    },
+    {
+      "id": "FUND-HA",
+      "name": "Cloud multi-AZ HA",
+      "name_ar": "توافر عالٍ سحابي متعدد المناطق",
+      "purpose": "Honest EXTERNAL; local HA is separate",
+      "users": [
+        "fund",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/ops/cloud-multi-az-prove"
+      ],
+      "data_sources": "zero_cost_no_paid_cloud_multi_az",
+      "dependencies": "zero_cost_no_paid_cloud_multi_az",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "zero_cost_no_paid_cloud_multi_az",
+      "limits": "Honest EXTERNAL; local HA is separate",
+      "failure_modes": "zero_cost_no_paid_cloud_multi_az",
+      "inventory_status": "external_block",
+      "certification": "NOT PRODUCTION-READY",
+      "scope": "live_money_or_hosted_or_ops",
+      "competitive_value": "ops"
+    },
+    {
+      "id": "FUND-PG",
+      "name": "Local Postgres streaming HA RPO/RTO",
+      "name_ar": "Postgres محلي تدفق HA RPO/RTO",
+      "purpose": "Sole VERIFIED_COMPLETE; cloud_multi_az=false",
+      "users": [
+        "fund",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/ops/postgres-ha-rpo-rto"
+      ],
+      "data_sources": "prove_postgres_streaming_ha_rpo_rto",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "prove_postgres_streaming_ha_rpo_rto",
+      "limits": "Sole VERIFIED_COMPLETE; cloud_multi_az=false",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ops"
+    },
+    {
+      "id": "FUND-IR",
+      "name": "IR / backup drill / dump-restore / recovery bundle",
+      "name_ar": "استجابة حوادث / نسخ / استعادة / حزمة تعافٍ",
+      "purpose": "Local drills complete; not paid multi-AZ",
+      "users": [
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/institutional/ops/recovery",
+        "/api/institutional/ops/recovery-bundle",
+        "/api/database/health"
+      ],
+      "data_sources": "ops_recovery.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "ops_recovery.py",
+      "limits": "Local drills complete; not paid multi-AZ",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ops"
+    },
+    {
+      "id": "FUND-OBS",
+      "name": "Observability / Prometheus / infra metrics",
+      "name_ar": "رصد / Prometheus / مقاييس بنية",
+      "purpose": "Local scrape; not Datadog SaaS",
+      "users": [
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/metrics",
+        "/api/observability/status",
+        "/api/infra/metrics"
+      ],
+      "data_sources": "api/routers/observability.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/observability.py",
+      "limits": "Local scrape; not Datadog SaaS",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ops"
+    },
+    {
+      "id": "FUND-HEALTH",
+      "name": "Health live/ready/viral + status pages",
+      "name_ar": "صحة حي/جاهز/فيروسي + صفحات الحالة",
+      "purpose": "Process health ≠ cloud SLA",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/health",
+        "/health/live",
+        "/health/ready",
+        "/status",
+        "/api/status"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Process health ≠ cloud SLA",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "ops"
+    },
+    {
+      "id": "DD-PACK",
+      "name": "Acquirer evidence pack + committee PDF",
+      "name_ar": "حزمة أدلة المستحوذ + PDF لجنة",
+      "purpose": "Embeds four-blockers NOT_COMPLETE",
+      "users": [
+        "acquirer",
+        "whale"
+      ],
+      "implementation_path": [
+        "/api/due-diligence/evidence-pack",
+        "/data-room",
+        "/api/due-diligence/committee-one-pager.pdf"
+      ],
+      "data_sources": "due_diligence_bundle.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "due_diligence_bundle.py",
+      "limits": "Embeds four-blockers NOT_COMPLETE",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    },
+    {
+      "id": "DD-FOUR",
+      "name": "Four-blockers prove",
+      "name_ar": "إثبات الحواجز الأربعة",
+      "purpose": "Honest EXTERNAL labels",
+      "users": [
+        "acquirer"
+      ],
+      "implementation_path": [
+        "scripts/prove_four_blockers.py",
+        "/api/product/capability-inventory"
+      ],
+      "data_sources": "docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "docs/dd/BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json",
+      "limits": "Honest EXTERNAL labels",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    },
+    {
+      "id": "DD-LAUNCH",
+      "name": "Launch checklist / production guard / GTM",
+      "name_ar": "قائمة إطلاق / حارس إنتاج / GTM",
+      "purpose": "Honesty board complete; domain/golive remain owner ops",
+      "users": [
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/admin/launch",
+        "/api/launch/readiness",
+        "/api/gtm/status"
+      ],
+      "data_sources": "launch_checklist.py production_guard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "launch_checklist.py production_guard.py",
+      "limits": "Honesty board complete; domain/golive remain owner ops",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    },
+    {
+      "id": "DD-PLAN",
+      "name": "Plan / roadmap audit pages",
+      "name_ar": "صفحات تدقيق الخطة / الخارطة",
+      "purpose": "Honesty audit; Vault roadmap PARTIAL",
+      "users": [
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/admin/plan",
+        "/admin/roadmap",
+        "/api/plan/audit",
+        "/api/roadmap/audit"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Honesty audit; Vault roadmap PARTIAL",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    },
+    {
+      "id": "PRV-DSR",
+      "name": "GDPR DSR export/erase + privacy status",
+      "name_ar": "GDPR تصدير/مسح + حالة الخصوصية",
+      "purpose": "Authenticated DSR path",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/privacy/status",
+        "/api/privacy/dsr/export",
+        "/api/privacy/dsr/erase"
+      ],
+      "data_sources": "api/routers/privacy.py gdpr_service.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "api/routers/privacy.py gdpr_service.py",
+      "limits": "Authenticated DSR path",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "privacy"
+    },
+    {
+      "id": "PRV-REG",
+      "name": "Regulatory compliance posture",
+      "name_ar": "وضعية الامتثال التنظيمي",
+      "purpose": "Engineering posture, not a license",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/compliance",
+        "/api/regulatory/compliance",
+        "/api/institutional/compliance"
+      ],
+      "data_sources": "regulatory_compliance_guard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "regulatory_compliance_guard.py",
+      "limits": "Engineering posture, not a license",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "privacy"
+    },
+    {
+      "id": "SITE-LEGAL",
+      "name": "Legal/FAQ/contact/about/how-it-works/changelog/feedback",
+      "name_ar": "قانوني/أسئلة/اتصال/عن/كيف يعمل/سجل/ملاحظات",
+      "purpose": "Public pages render",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/terms",
+        "/privacy",
+        "/disclaimer",
+        "/refund",
+        "/cookies",
+        "/faq",
+        "/contact",
+        "/about",
+        "/how-it-works",
+        "/changelog",
+        "/feedback",
+        "/complaints",
+        "/legal"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Public pages render",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "site"
+    },
+    {
+      "id": "SITE-I18N",
+      "name": "i18n locales/catalog",
+      "name_ar": "محليات/كتالوج ترجمة",
+      "purpose": "Catalog served; UI language primarily EN",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/i18n/locales",
+        "/api/i18n/catalog"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Catalog served; UI language primarily EN",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "site"
+    },
+    {
+      "id": "SITE-PWA",
+      "name": "PWA manifest / service worker / SEO",
+      "name_ar": "PWA بيان / عامل خدمة / سيو",
+      "purpose": "Installable shell",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/manifest.json",
+        "/sw.js",
+        "/robots.txt",
+        "/sitemap.xml",
+        "/favicon.ico"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Installable shell",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "site"
+    },
+    {
+      "id": "SITE-DOCS",
+      "name": "Public docs / OpenAPI",
+      "name_ar": "وثائق عامة / OpenAPI",
+      "purpose": "Public subset documented",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/docs",
+        "/docs/public",
+        "/api/docs/openapi.json",
+        "/api/docs/public-openapi.json"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Public subset documented",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "site"
+    },
+    {
+      "id": "SITE-GQL",
+      "name": "GraphQL router",
+      "name_ar": "موجّه GraphQL",
+      "purpose": "Health, accuracy, arb, risk, sources, capability inventory",
+      "users": [
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/graphql"
+      ],
+      "data_sources": "graphql_schema.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "graphql_schema.py",
+      "limits": "Health, accuracy, arb, risk, sources, capability inventory",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "site"
+    },
+    {
+      "id": "SEC-KEYS",
+      "name": "Security API keys / events / admin MFA status",
+      "name_ar": "مفاتيح أمن / أحداث / حالة MFA للمشرف",
+      "purpose": "Status surfaces; secrets never logged",
+      "users": [
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/security/api-keys",
+        "/api/security/events",
+        "/api/security/status",
+        "/api/security/admin-mfa"
+      ],
+      "data_sources": "dashboard.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "dashboard.py",
+      "limits": "Status surfaces; secrets never logged",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "security"
+    },
+    {
+      "id": "INV-FULL",
+      "name": "Full capability inventory API (this catalog)",
+      "name_ar": "واجهة جرد القدرات الكاملة",
+      "purpose": "Binding machine-readable inventory; NOT_COMPLETE; public score ≠ COMPLETE",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/product/capability-inventory",
+        "/api/product/unpaid-closure",
+        "/api/product/public-readiness"
+      ],
+      "data_sources": "product_capability_inventory.py unpaid_institutional_closure.py public_readiness.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "product_capability_inventory.py unpaid_institutional_closure.py public_readiness.py",
+      "limits": "Binding machine-readable inventory; NOT_COMPLETE; public score ≠ COMPLETE",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    },
+    {
+      "id": "SITE-PUBLIC",
+      "name": "Public direct-use HTTP readiness probe",
+      "name_ar": "إثبات جاهزية الاستخدام العام عبر HTTP",
+      "purpose": "Visitor/paper surfaces HTTP-proved; institutional COMPLETE remains false",
+      "users": [
+        "retail",
+        "pro",
+        "whale",
+        "fund",
+        "b2b",
+        "acquirer"
+      ],
+      "implementation_path": [
+        "/api/product/public-readiness",
+        "scripts/prove_public_readiness.py"
+      ],
+      "data_sources": "public_readiness.py",
+      "dependencies": "none_declared",
+      "tests": "see domain D03/D04/D12 and capability inventory tests",
+      "evidence": "public_readiness.py",
+      "limits": "Visitor/paper surfaces HTTP-proved; institutional COMPLETE remains false",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PRODUCTION-READY",
+      "scope": "paper_or_advisory_production",
+      "competitive_value": "dd"
+    }
+  ],
+  "capability_counts": {
+    "total": 92,
+    "production_ready": 83,
+    "not_production_ready": 9
+  },
+  "public_direct_use": {
+    "public_direct_use_percent": 100.0,
+    "floor_percent": 95.0,
+    "meets_public_floor": true,
+    "counted_total": 134,
+    "counted_pass": 134,
+    "counted_fail": 0,
+    "excluded_external_probes": 1,
+    "failures": [],
+    "institutional_complete": false,
+    "live_money_ready": false,
+    "product_complete": false,
+    "denominator_excludes": [
+      "live_fill (Binance geo 451)",
+      "jupiter on-chain VC (unfunded wallet)",
+      "catalog L2 100% (5 synthetic_mid remain)",
+      "cloud multi-AZ (zero-cost)",
+      "hosted custom-domain white-label",
+      "live PSP charge",
+      "live OAuth IdP (unless owner secrets present)",
+      "live Telegram send (unless TELEGRAM_BOT_TOKEN present)"
+    ],
+    "honesty": "Public ≥95% means visitor/paper surfaces HTTP-prove. It is not institutional COMPLETE and not live money."
+  },
+  "four_blockers": {
+    "live_fill": false,
+    "jupiter_vc": false,
+    "full_mesh_l2_complete": false,
+    "cloud_multi_az": false
+  },
+  "final_production_verdict": {
+    "decision": "NO-GO",
+    "product_complete": false,
+    "live_money_ready": false,
+    "unconditional_go_criteria_met": false,
+    "critical_open": 5,
+    "high_open": 25,
+    "medium_open": 3,
+    "low_open": 0,
+    "untested_launch_critical": 18,
+    "untested_launch_critical_requirements": 18,
+    "unverified_assumptions": [
+      "Production topology equals this VM",
+      "Owner will arm Telegram/PSP/OAuth before first live user",
+      "Public HTTP 100% implies live money safety"
+    ],
+    "external_blockers": [
+      "EXT_LIVE_FILL",
+      "EXT_JUPITER_VC",
+      "EXT_L2_100",
+      "EXT_CLOUD_HA"
+    ],
+    "known_accepted_risks": [
+      "Zero-cost constraint: no wallet funding, no paid cloud multi-AZ, no geo proxy",
+      "synthetic_mid remainder (5) must stay labeled",
+      "Medium/Low UX/a11y/browser matrix open — must not be hidden"
+    ],
+    "unknown_launch_blockers": [],
+    "why_not_go": "Unconditional GO forbids any Critical/High open and any untested launch-critical control. Live FILL, cloud HA, unarmed on-call, no pentest, no PSP sandbox, and multiple NOT_TESTED launch-critical domains remain."
+  },
+  "reports": {
+    "audit": "docs/dd/BLACKDARK_PRODUCTION_READINESS_AUDIT.md",
+    "security": "docs/dd/BLACKDARK_SECURITY_ASSESSMENT.md",
+    "integrity": "docs/dd/BLACKDARK_FINANCIAL_DECISION_INTEGRITY_AUDIT.md",
+    "data": "docs/dd/BLACKDARK_DATA_INTEGRITY_PROVENANCE_AUDIT.md",
+    "reliability": "docs/dd/BLACKDARK_RELIABILITY_HA_DR_FAILURE_INJECTION.md",
+    "performance": "docs/dd/BLACKDARK_PERFORMANCE_LOAD_STRESS_SOAK.md",
+    "legal": "docs/dd/BLACKDARK_LEGAL_PRIVACY_LICENSING_GAP.md",
+    "register": "docs/dd/BLACKDARK_FINAL_LAUNCH_CERTIFICATION_EVIDENCE_REGISTER.md",
+    "one_pager": "docs/dd/BLACKDARK_FINAL_PRODUCTION_VERDICT.md"
+  }
+}
