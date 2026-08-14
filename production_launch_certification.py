@@ -531,6 +531,7 @@ def domain_register(
     pub_ok = bool(pub.get("meets_public_floor"))
     integ_ok = integrity.get("verdict") == "PASS"
     tg_oncall = _dv(drills, "telegram_oncall_live") == "PASS"
+    stripe_ok = _dv(drills, "stripe_sandbox") == "PASS"
 
     return [
         _item(
@@ -651,7 +652,7 @@ def domain_register(
             launch_critical=True,
             severity_if_open="high",
             evidence=_ev(drills, "stripe_sandbox") + "; billing_service.unpaid_upgrade_path",
-            notes="Stripe TEST API was exercised. PASS only on a real TEST checkout session. Invalid/rejected keys remain FAIL. Completing a live-money charge is out of this unpaid cert.",
+            notes="Stripe TEST cycle exercised. PASS only on sk_test_ Account.retrieve + STRIPE_PRICE_PRO recurring + BLACKDARK checkout session + TEST subscription active/trialing then cancel. Invalid/rejected keys remain FAIL. sk_live_ and hosted live-money charges stay out of this unpaid cert.",
         ),
         _item(
             id="D14",
@@ -788,12 +789,13 @@ def domain_register(
             verdict="FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence=_ev(drills, "telegram_oncall_live")
-            + "; Binance 451; Jupiter unfunded; OAuth 503; PSP 503",
+            evidence=_ev(drills, "telegram_oncall_live", "stripe_sandbox")
+            + "; Binance 451; Jupiter unfunded; OAuth 503",
             notes=(
                 ("Telegram on-call live send PASS. " if tg_oncall else "Telegram on-call live send FAIL. ")
-                + "D28 stays FAIL while Binance 451, unfunded Jupiter, live OAuth IdP, and valid PSP remain. "
-                "The Telegram slice is independent of those remaining vendors."
+                + ("Stripe TEST PSP cycle PASS. " if stripe_ok else "Stripe TEST PSP cycle FAIL. ")
+                + "D28 stays FAIL while Binance 451, unfunded Jupiter, and live OAuth IdP remain. "
+                "Telegram and Stripe TEST slices are independent of those remaining vendors."
             ),
         ),
         _item(

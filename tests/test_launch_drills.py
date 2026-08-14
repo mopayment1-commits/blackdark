@@ -37,7 +37,8 @@ def test_feature_flag_and_infra_files():
     assert inf["verdict"] != "NOT_TESTED"
 
 
-def test_compose_yaml_merge_and_stripe_sandbox_evaluated():
+def test_compose_yaml_merge_and_stripe_sandbox_evaluated(monkeypatch, tmp_path):
+    monkeypatch.setenv("STRIPE_TEST_EVIDENCE_PATH", str(tmp_path / "stripe.json"))
     from launch_drills import drill_compose_yaml_merge, drill_stripe_sandbox
 
     y = drill_compose_yaml_merge()
@@ -61,13 +62,15 @@ def test_ha_architecture_and_executable_l2_and_compose_config():
 
 def test_operator_live_probes_evaluate_remaining_gates(monkeypatch, tmp_path):
     monkeypatch.setenv("TELEGRAM_ONCALL_EVIDENCE_PATH", str(tmp_path / "tg.json"))
+    monkeypatch.setenv("STRIPE_TEST_EVIDENCE_PATH", str(tmp_path / "stripe.json"))
     from operator_go_gates import run_live_probes
 
     live = run_live_probes()
     assert live["engineer_cannot_close"] is True
     assert "telegram_oncall_configured" in live
     assert "telegram_oncall_live" in live
-    assert live["stripe_sandbox"]["verdict"] == "FAIL"
+    assert live["stripe_sandbox"]["verdict"] in {"PASS", "FAIL"}
+    assert live["stripe_sandbox"]["verdict"] != "NOT_TESTED"
     assert live["counsel"]["verdict"] == "FAIL"
     assert live["pentest"]["verdict"] == "FAIL"
     assert live["cloud_multi_az"] is False
@@ -77,6 +80,7 @@ def test_operator_live_probes_evaluate_remaining_gates(monkeypatch, tmp_path):
     assert live["app_base_url_set"] is False
     blob = json.dumps(live)
     assert "TELEGRAM_BOT_TOKEN" not in blob
+    assert "sk_test_" not in blob
     from telegram_monitor import oncall_live_proved
 
     if not oncall_live_proved():

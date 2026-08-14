@@ -141,7 +141,15 @@ def run_live_probes(*, drills: dict[str, Any] | None = None) -> dict[str, Any]:
             "bot_token_present": live_row.get("bot_token_present"),
             "chat_id_present": live_row.get("chat_id_present"),
         },
-        "stripe_sandbox": {"verdict": stripe.get("verdict"), "error": stripe.get("error")},
+        "stripe_sandbox": {
+            "verdict": stripe.get("verdict"),
+            "error": stripe.get("error") or stripe.get("error_type"),
+            "reason": stripe.get("reason"),
+            "checkout_session_prefix": stripe.get("checkout_session_prefix"),
+            "subscription_prefix": stripe.get("subscription_prefix"),
+            "subscription_status": stripe.get("subscription_status"),
+            "livemode": stripe.get("livemode"),
+        },
         "counsel": {"verdict": counsel.get("verdict")},
         "pentest": {"verdict": pentest.get("verdict")},
         "cloud_multi_az": bool(cloud.get("cloud_multi_az")),
@@ -201,9 +209,9 @@ GATES: dict[str, dict[str, Any]] = {
         "owner": "you",
         "paid": False,
         "kind": "secrets",
-        "action_ar": "وضع مفتاح Stripe TEST صالح (sk_test_ حقيقي) ومعرّفات الأسعار. المفتاح الحالي مرفوض من Stripe API.",
-        "action": "Set a real Stripe TEST secret (sk_test_) and price IDs. Current key is rejected (AuthenticationError). Then re-run stripe_sandbox.",
-        "artifact": "STRIPE_SECRET_KEY + STRIPE_PRICE_PRO (valid TEST)",
+        "action_ar": "وضع مفتاح Stripe TEST صالح (sk_test_ حقيقي) و STRIPE_PRICE_PRO ثم إثبات دورة TEST: Account.retrieve + checkout BLACKDARK + اشتراك tok_visa ثم إلغاء.",
+        "action": "Set a real Stripe TEST secret (sk_test_) and STRIPE_PRICE_PRO. Prove the TEST cycle: Account.retrieve, BLACKDARK checkout, tok_visa subscription, then cancel. Live keys are refused.",
+        "artifact": "STRIPE_SECRET_KEY + STRIPE_PRICE_PRO + stripe_sandbox PASS (cs_ + sub_ prefixes)",
         "flips": ["D13"],
     },
     "D16": {
@@ -309,9 +317,11 @@ GATES: dict[str, dict[str, Any]] = {
 
 
 def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    from billing_service import stripe_test_cycle_proved
     from telegram_monitor import oncall_live_proved
 
     tg_ok = oncall_live_proved()
+    stripe_ok = stripe_test_cycle_proved()
     out: list[dict[str, Any]] = []
     for d in domains:
         if not d.get("launch_critical"):
@@ -331,16 +341,37 @@ def gates_for_open_domains(domains: list[dict[str, Any]]) -> list[dict[str, Any]
                 "flips": [gid],
             }
         )
-        if gid == "D28" and tg_ok:
-            meta["action_ar"] = (
-                "إنجاح الاعتمادات الحية المتبقية: Binance غير 451، Jupiter ممول، OAuth IdP، PSP صالح. "
-                "شريحة تيليغرام أُغلقت بدليل إرسال حي (message_id)."
+        if gid == "D28":
+            remain_ar = []
+            remain_en = []
+            remain_ar.append("Binance غير 451")
+            remain_en.append("Binance not 451")
+            remain_ar.append("Jupiter ممول")
+            remain_en.append("funded Jupiter")
+            remain_ar.append("OAuth IdP")
+            remain_en.append("OAuth")
+            closed = []
+            if tg_ok:
+                closed.append("تيليغرام")
+            else:
+                remain_ar.append("تيليغرام")
+                remain_en.append("Telegram")
+            if stripe_ok:
+                closed.append("Stripe TEST PSP")
+            else:
+                remain_ar.append("PSP صالح")
+                remain_en.append("valid PSP")
+            closed_ar = (
+                (" شرائح أُغلقت: " + "، ".join(closed) + ".") if closed else ""
             )
-            meta["action"] = (
-                "Remaining live vendors: Binance not 451, funded Jupiter, OAuth, valid PSP. "
-                "Telegram on-call slice closed with live send evidence."
-            )
-            meta["artifact"] = "four-blockers + billing + oauth proofs; telegram_oncall_live PASS"
+            meta["action_ar"] = "إنجاح الاعتمادات الحية المتبقية: " + "، ".join(remain_ar) + "." + closed_ar
+            meta["action"] = "Remaining live vendors: " + ", ".join(remain_en) + "."
+            arts = ["four-blockers + oauth proofs"]
+            if tg_ok:
+                arts.append("telegram_oncall_live PASS")
+            if stripe_ok:
+                arts.append("stripe_sandbox PASS")
+            meta["artifact"] = "; ".join(arts)
         out.append(
             {
                 "id": gid,

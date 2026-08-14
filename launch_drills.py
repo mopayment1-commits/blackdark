@@ -754,75 +754,62 @@ def drill_compose_yaml_merge() -> dict[str, Any]:
 
 
 def drill_stripe_sandbox() -> dict[str, Any]:
-    """Stripe TEST API only. Invalid/live keys must FAIL. Never logs secrets."""
-    import stripe
+    """Stripe TEST cycle only. Invalid/live keys must FAIL. Never logs secrets."""
+    from billing_service import prove_stripe_test_cycle, stripe_test_evidence_path
 
-    key = (os.environ.get("STRIPE_SECRET_KEY") or "").strip()
-    if not key:
-        return _drill(
-            "stripe_sandbox",
-            "FAIL",
-            "STRIPE_SECRET_KEY unset",
-            notes="No sandbox charge. Unconditional GO still requires a proved PSP path.",
-        )
-    if key.startswith("sk_live_"):
-        return _drill(
-            "stripe_sandbox",
-            "FAIL",
-            "sk_live_ refused in unpaid cert",
-            notes="Live Stripe keys are not exercised on this zero-cost cert.",
-        )
-    stripe.api_key = key
-    try:
-        stripe.Account.retrieve()
-    except Exception as exc:
-        return _drill(
-            "stripe_sandbox",
-            "FAIL",
-            "stripe.Account.retrieve",
-            error=type(exc).__name__,
-            notes="TEST key present but Stripe API rejected it. Not a sandbox charge.",
-        )
-    try:
-        session = stripe.checkout.Session.create(
-            mode="subscription",
-            line_items=[
-                {
-                    "price_data": {
-                        "currency": "usd",
-                        "product_data": {"name": "BLACKDARK cert probe"},
-                        "unit_amount": 2900,
-                        "recurring": {"interval": "month"},
-                    },
-                    "quantity": 1,
-                }
-            ],
-            success_url="http://127.0.0.1/success?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url="http://127.0.0.1/cancel",
-            payment_method_types=["card"],
-        )
-        sid = str(getattr(session, "id", "") or "")
-        url = str(getattr(session, "url", "") or "")
-        ok = sid.startswith("cs_") and url.startswith("https://")
-        if sid:
-            try:
-                stripe.checkout.Session.expire(sid)
-            except Exception:
-                pass
-        return _drill(
-            "stripe_sandbox",
-            "PASS" if ok else "FAIL",
-            "stripe.checkout.Session.create TEST mode",
-            session_id_prefix=sid[:8],
-            notes="Checkout session created in TEST mode. Completing a card charge was not required for this drill.",
-        )
-    except Exception as exc:
-        return _drill(
-            "stripe_sandbox",
-            "FAIL",
-            "stripe.checkout.Session.create",
-            error=type(exc).__name__,
-        )
+    receipt = prove_stripe_test_cycle()
+    ok = bool(
+        receipt.get("ok")
+        and receipt.get("reason") == "ok"
+        and str(receipt.get("checkout_session_prefix") or "").startswith("cs_")
+        and str(receipt.get("subscription_prefix") or "").startswith("sub_")
+        and receipt.get("subscription_canceled") is True
+        and receipt.get("livemode") is False
+        and receipt.get("used_blackdark_checkout") is True
+    )
+    verdict = "PASS" if ok else "FAIL"
+    stamped = {
+        "verdict": verdict,
+        "ok": ok,
+        "reason": receipt.get("reason"),
+        "secret_key_present": bool(receipt.get("secret_key_present")),
+        "secret_key_is_test": bool(receipt.get("secret_key_is_test")),
+        "price_pro_present": bool(receipt.get("price_pro_present")),
+        "livemode": receipt.get("livemode"),
+        "price_recurring": receipt.get("price_recurring"),
+        "price_active": receipt.get("price_active"),
+        "checkout_session_prefix": receipt.get("checkout_session_prefix"),
+        "checkout_url_https": bool(receipt.get("checkout_url_https")),
+        "checkout_mode": receipt.get("checkout_mode"),
+        "used_blackdark_checkout": bool(receipt.get("used_blackdark_checkout")),
+        "subscription_prefix": receipt.get("subscription_prefix"),
+        "subscription_status": receipt.get("subscription_status"),
+        "subscription_canceled": bool(receipt.get("subscription_canceled")),
+        "customer_cleaned": bool(receipt.get("customer_cleaned")),
+        "error_type": receipt.get("error_type"),
+        "proved_at": _utcnow(),
+        "path": "billing_service.prove_stripe_test_cycle",
+    }
+    dest = stripe_test_evidence_path()
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(stamped, indent=2) + "\n", encoding="utf-8")
+    return _drill(
+        "stripe_sandbox",
+        verdict,
+        "billing_service.prove_stripe_test_cycle TEST checkout+subscription+cancel",
+        reason=stamped["reason"],
+        checkout_session_prefix=stamped["checkout_session_prefix"],
+        subscription_prefix=stamped["subscription_prefix"],
+        subscription_status=stamped["subscription_status"],
+        subscription_canceled=stamped["subscription_canceled"],
+        livemode=stamped["livemode"],
+        error_type=stamped["error_type"],
+        notes=(
+            "PASS requires sk_test_ Account.retrieve, STRIPE_PRICE_PRO recurring retrieve, "
+            "BLACKDARK create_checkout_session, TEST tok_visa subscription active/trialing, then cancel. "
+            "sk_live_ refused. Hosted Checkout card form is not live-money. Secrets never recorded."
+        ),
+    )
 
 
 def _wait_http_ok(url: str, timeout_sec: float = 45.0) -> bool:

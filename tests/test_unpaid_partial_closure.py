@@ -189,7 +189,9 @@ def test_inventory_unpaid_closure_mix():
     assert by_id["EX-LIVE"]["status"] == "external_block"
     assert by_id["FUND-HA"]["status"] == "external_block"
     assert by_id["MKT-L2"]["status"] == "partial"
-    assert by_id["BIL-CHECKOUT"]["status"] == "ops_config"
+    assert by_id["BIL-CHECKOUT"]["status"] == (
+        "works" if __import__("billing_service").stripe_test_cycle_proved() else "ops_config"
+    )
     assert by_id["ID-OAUTH"]["status"] == "ops_config"
     from telegram_monitor import oncall_live_proved
 

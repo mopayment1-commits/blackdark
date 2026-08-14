@@ -100,6 +100,22 @@ def test_telegram_domains_follow_live_oncall_drill():
     assert dmap["D40"]["verdict"] == "PASS"
     assert dmap["D28"]["verdict"] == "FAIL"
     assert "Telegram on-call live send PASS" in dmap["D28"]["notes"]
+    assert dmap["D13"]["verdict"] == "FAIL"
+
+    stripe_pass = {
+        "by_id": {
+            "telegram_oncall_live": {"verdict": "PASS", "evidence": "message_id=9", "message_id": 9},
+            "panic_freeze": {"verdict": "PASS", "evidence": "freeze"},
+            "stripe_sandbox": {"verdict": "PASS", "evidence": "cs_test_abc sub_test_xyz"},
+        }
+    }
+    dmap = {
+        d["id"]: d
+        for d in domain_register(integrity=integrity, three_am=three, drills=stripe_pass)
+    }
+    assert dmap["D13"]["verdict"] == "PASS"
+    assert dmap["D28"]["verdict"] == "FAIL"
+    assert "Stripe TEST PSP cycle PASS" in dmap["D28"]["notes"]
 
     fail_drills = {
         "by_id": {

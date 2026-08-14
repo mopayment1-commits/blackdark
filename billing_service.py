@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import hmac
+import json
 import logging
 import os
 from typing import Any
@@ -51,7 +52,26 @@ _LEMON_TIER_HINTS = (
 
 
 def stripe_configured() -> bool:
-    return bool(os.getenv("STRIPE_SECRET_KEY", ""))
+    return bool(os.getenv("STRIPE_SECRET_KEY", "").strip())
+
+
+def ensure_stripe_api_key() -> str:
+    """Load STRIPE_SECRET_KEY into the Stripe SDK. Never logs the value."""
+    key = (os.getenv("STRIPE_SECRET_KEY") or "").strip()
+    stripe.api_key = key
+    return key
+
+
+def stripe_secret_presence() -> dict[str, bool]:
+    """Presence/shape flags only. Never returns secret or price-id values."""
+    key = (os.getenv("STRIPE_SECRET_KEY") or "").strip()
+    price = (os.getenv("STRIPE_PRICE_PRO") or "").strip()
+    return {
+        "secret_key_present": bool(key),
+        "secret_key_is_test": key.startswith("sk_test_"),
+        "secret_key_is_live": key.startswith("sk_live_"),
+        "price_pro_present": bool(price) and price.startswith("price_"),
+    }
 
 
 def lemon_squeezy_checkout_url(tier: str) -> str | None:
@@ -127,7 +147,7 @@ def create_checkout_session(
     customer_email: str | None = None,
     user_id: int | None = None,
 ) -> dict[str, Any]:
-    if not stripe_configured():
+    if not ensure_stripe_api_key():
         raise RuntimeError("Stripe not configured")
 
     tier = tier.lower().strip()
@@ -194,8 +214,202 @@ def create_checkout_session(
     }
 
 
+def _prefix(value: Any, n: int = 12) -> str | None:
+    text = str(value or "").strip()
+    return text[:n] if text else None
+
+
+def _stripe_err_type(exc: BaseException) -> str:
+    return type(exc).__name__
+
+
+def prove_stripe_test_cycle() -> dict[str, Any]:
+    """Live Stripe TEST cycle for D13. Never logs secrets or full price ids.
+
+    Required: sk_test_ Account.retrieve, STRIPE_PRICE_PRO retrieve (recurring),
+    billing_service.create_checkout_session('pro'), TEST subscription via tok_visa,
+    then cancel + expire. sk_live_ is refused.
+    """
+    presence = stripe_secret_presence()
+    receipt: dict[str, Any] = {
+        "ok": False,
+        "reason": "not_started",
+        "livemode": None,
+        "price_recurring": None,
+        "price_active": None,
+        "checkout_session_prefix": None,
+        "checkout_url_https": False,
+        "checkout_mode": None,
+        "used_blackdark_checkout": False,
+        "subscription_prefix": None,
+        "subscription_status": None,
+        "subscription_canceled": False,
+        "customer_cleaned": False,
+        "error_type": None,
+        **presence,
+    }
+    if not presence["secret_key_present"]:
+        receipt["reason"] = "secrets_missing"
+        return receipt
+    if presence["secret_key_is_live"]:
+        receipt["reason"] = "sk_live_refused"
+        return receipt
+    if not presence["secret_key_is_test"]:
+        receipt["reason"] = "not_sk_test"
+        return receipt
+    if not presence["price_pro_present"]:
+        receipt["reason"] = "price_pro_missing"
+        return receipt
+
+    ensure_stripe_api_key()
+    price_id = _price_id_for_tier("pro") or ""
+    customer_id = None
+    subscription_id = None
+    session_id = None
+    try:
+        acct = stripe.Account.retrieve()
+        livemode = bool(getattr(acct, "livemode", False))
+        receipt["livemode"] = livemode
+        if livemode:
+            receipt["reason"] = "account_livemode_true"
+            return receipt
+
+        price = stripe.Price.retrieve(price_id)
+        price_live = bool(getattr(price, "livemode", False))
+        recurring = getattr(price, "type", None) == "recurring" or bool(getattr(price, "recurring", None))
+        active = bool(getattr(price, "active", False))
+        receipt["price_recurring"] = recurring
+        receipt["price_active"] = active
+        if price_live:
+            receipt["reason"] = "price_livemode_true"
+            return receipt
+        if not recurring or not active:
+            receipt["reason"] = "price_not_active_recurring"
+            return receipt
+
+        checkout = create_checkout_session(
+            "pro",
+            customer_email="launch-cert-probe@blackdark.invalid",
+        )
+        session_id = str(checkout.get("session_id") or "")
+        url = str(checkout.get("url") or "")
+        receipt["used_blackdark_checkout"] = True
+        receipt["checkout_session_prefix"] = _prefix(session_id)
+        receipt["checkout_url_https"] = url.startswith("https://")
+        fetched = stripe.checkout.Session.retrieve(session_id) if session_id else None
+        receipt["checkout_mode"] = getattr(fetched, "mode", None) if fetched is not None else None
+        checkout_ok = (
+            session_id.startswith("cs_")
+            and receipt["checkout_url_https"]
+            and receipt["checkout_mode"] == "subscription"
+        )
+        if not checkout_ok:
+            receipt["reason"] = "checkout_session_invalid"
+            return receipt
+
+        customer = stripe.Customer.create(
+            email="launch-cert-probe@blackdark.invalid",
+            metadata={"blackdark_purpose": "launch_cert_stripe_test"},
+        )
+        customer_id = str(getattr(customer, "id", "") or "")
+        default_pm = None
+        try:
+            pm = stripe.PaymentMethod.create(type="card", card={"token": "tok_visa"})
+            stripe.PaymentMethod.attach(pm.id, customer=customer_id)
+            stripe.Customer.modify(
+                customer_id,
+                invoice_settings={"default_payment_method": pm.id},
+            )
+            default_pm = pm.id
+        except Exception:
+            stripe.Customer.modify(customer_id, source="tok_visa")
+        sub_kwargs: dict[str, Any] = {
+            "customer": customer_id,
+            "items": [{"price": price_id}],
+            "payment_behavior": "error_if_incomplete",
+            "metadata": {"blackdark_purpose": "launch_cert_stripe_test"},
+        }
+        if default_pm:
+            sub_kwargs["default_payment_method"] = default_pm
+        sub = stripe.Subscription.create(**sub_kwargs)
+        subscription_id = str(getattr(sub, "id", "") or "")
+        status = str(getattr(sub, "status", "") or "")
+        receipt["subscription_prefix"] = _prefix(subscription_id)
+        receipt["subscription_status"] = status
+        if not (subscription_id.startswith("sub_") and status in {"active", "trialing"}):
+            receipt["reason"] = "subscription_not_active"
+            return receipt
+
+        canceled = stripe.Subscription.cancel(subscription_id)
+        receipt["subscription_canceled"] = str(getattr(canceled, "status", "") or "") in {
+            "canceled",
+            "cancelled",
+        }
+        if not receipt["subscription_canceled"]:
+            receipt["reason"] = "subscription_cancel_failed"
+            return receipt
+
+        receipt["ok"] = True
+        receipt["reason"] = "ok"
+        return receipt
+    except Exception as exc:
+        receipt["error_type"] = _stripe_err_type(exc)
+        if receipt["reason"] in {"not_started"}:
+            receipt["reason"] = (
+                "authentication_rejected"
+                if receipt["error_type"] == "AuthenticationError"
+                else "stripe_api_error"
+            )
+        return receipt
+    finally:
+        try:
+            if session_id:
+                stripe.checkout.Session.expire(session_id)
+        except Exception:
+            pass
+        try:
+            if subscription_id and not receipt.get("subscription_canceled"):
+                stripe.Subscription.cancel(subscription_id)
+                receipt["subscription_canceled"] = True
+        except Exception:
+            pass
+        try:
+            if customer_id:
+                stripe.Customer.delete(customer_id)
+                receipt["customer_cleaned"] = True
+        except Exception:
+            pass
+
+
+def stripe_test_evidence_path():
+    from pathlib import Path
+
+    override = os.getenv("STRIPE_TEST_EVIDENCE_PATH", "").strip()
+    if override:
+        return Path(override)
+    return Path(__file__).resolve().parent / "docs" / "dd" / "BLACKDARK_STRIPE_TEST_EVIDENCE.json"
+
+
+def stripe_test_cycle_proved() -> bool:
+    path = stripe_test_evidence_path()
+    if not path.is_file():
+        return False
+    try:
+        body = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return False
+    return (
+        body.get("verdict") == "PASS"
+        and bool(body.get("ok"))
+        and str(body.get("checkout_session_prefix") or "").startswith("cs_")
+        and str(body.get("subscription_prefix") or "").startswith("sub_")
+        and body.get("subscription_canceled") is True
+        and body.get("livemode") is False
+    )
+
+
 def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
-    if not stripe_configured():
+    if not ensure_stripe_api_key():
         raise RuntimeError("Stripe not configured")
     base = os.getenv("APP_BASE_URL", "http://localhost:8080").rstrip("/")
     session = stripe.billing_portal.Session.create(

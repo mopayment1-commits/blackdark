@@ -48,9 +48,11 @@ INST = ["fund", "b2b", "acquirer"]
 
 
 def capability_catalog() -> list[dict[str, Any]]:
+    from billing_service import stripe_test_cycle_proved
     from telegram_monitor import oncall_live_proved
 
     telegram_live = oncall_live_proved()
+    stripe_live = stripe_test_cycle_proved()
     return [
         # ── Identity ──────────────────────────────────────────
         _f(id="ID-REG", name="Register / login / logout / session", name_ar="تسجيل / دخول / خروج / جلسة", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/register", "/api/auth/login", "/login", "/register", "/profile"], evidence="api/routers/auth.py", efficiency="Session cookies + PBKDF2; /register aliases /login"),
@@ -61,7 +63,20 @@ def capability_catalog() -> list[dict[str, Any]]:
         _f(id="ID-PROMO", name="Promo code redeem", name_ar="استرداد رمز ترويجي", domain="identity", status="works", personas=ALL, surfaces=["/api/promo/redeem"], evidence="auth_service.redeem_promo_code", efficiency="Extends Pro trial when code in LAUNCH_PROMO_CODES"),
         # ── Billing ───────────────────────────────────────────
         _f(id="BIL-STATUS", name="Billing status + pricing catalog", name_ar="حالة الفوترة + كتالوج الأسعار", domain="billing", status="works", personas=ALL, surfaces=["/api/billing/status", "/api/pricing"], evidence="billing_service.py pricing_catalog.py", efficiency="Catalog honest; does not claim live PSP"),
-        _f(id="BIL-CHECKOUT", name="Self-serve checkout Stripe/Lemon", name_ar="دفع ذاتي Stripe/Lemon", domain="billing", status="ops_config", personas=["pro", "whale"], surfaces=["/api/billing/checkout", "/api/billing/unpaid-upgrade", "/webhook"], evidence="billing_service.unpaid_upgrade_path", efficiency="Unpaid promo/inquiry complete; live charge needs owner PSP secrets", unpaid_block="psp_credentials"),
+        _f(
+            id="BIL-CHECKOUT",
+            name="Self-serve checkout Stripe/Lemon",
+            name_ar="دفع ذاتي Stripe/Lemon",
+            domain="billing",
+            status="works" if stripe_live else "ops_config",
+            personas=["pro", "whale"],
+            surfaces=["/api/billing/checkout", "/api/billing/unpaid-upgrade", "/webhook"],
+            evidence="docs/dd/BLACKDARK_STRIPE_TEST_EVIDENCE.json"
+            if stripe_live
+            else "billing_service.unpaid_upgrade_path",
+            efficiency="Stripe TEST checkout+subscription proved; live-money sk_live_ is a different gate",
+            unpaid_block=None if stripe_live else "psp_credentials",
+        ),
         _f(id="BIL-INST", name="Institutional inquiry / invoices / KYC", name_ar="استعلام مؤسسي / فواتير / KYC", domain="billing", status="works", personas=INST, surfaces=["/api/billing/institutional-inquiry", "/api/institutional/commerce/*"], evidence="api/routers/institutional.py", efficiency="Sales-led path; not a self-serve SKU"),
         # ── Oracle / decision ─────────────────────────────────
         _f(id="OR-SENTENCE", name="Single-sentence Oracle + explain + quick", name_ar="أوركل جملة واحدة + شرح + سريع", domain="oracle", status="works", personas=ALL, surfaces=["/oracle/{symbol}", "/oracle/{symbol}/explain", "/oracle/{symbol}/quick"], evidence="ai_oracle.py", efficiency="Free quota 3/day; Pro unlimited"),
