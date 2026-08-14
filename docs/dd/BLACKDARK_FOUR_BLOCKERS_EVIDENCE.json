@@ -1,5 +1,5 @@
 {
-  "proved_at": "2026-08-14T12:30:00.733595+00:00",
+  "proved_at": "2026-08-14T12:46:10.453788+00:00",
   "secrets_presence": {
     "BINANCE_API_KEY": {
       "present": true,
@@ -79,19 +79,19 @@
   },
   "blocker_3_full_mesh_100": {
     "catalog_price_health_pct": 100.0,
-    "institutional_l2_exchanges": 85,
-    "institutional_l2_coverage_percent": 85.0,
+    "institutional_l2_exchanges": 90,
+    "institutional_l2_coverage_percent": 90.0,
     "full_mesh_l2_complete": false,
     "depth_breakdown": {
-      "venue_l2": 85,
+      "venue_l2": 90,
       "venue_tob": 0,
-      "synthetic_mid": 15,
+      "synthetic_mid": 10,
       "failed": 0
     },
     "external_block": "geo_dead_or_no_public_l2_for_remaining_venues",
-    "core_mesh_target": 82,
-    "mesh_live_count": 82,
-    "mesh_l2_count": 82
+    "core_mesh_target": 87,
+    "mesh_live_count": 87,
+    "mesh_l2_count": 87
   },
   "blocker_4_cloud_multi_az_ha": {
     "cloud_multi_az": false,
