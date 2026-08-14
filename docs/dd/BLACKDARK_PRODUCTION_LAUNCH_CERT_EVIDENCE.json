@@ -1,8 +1,8 @@
 {
   "ok": true,
   "schema": "production_launch_certification.v2",
-  "sha": "c3da0ce7a851a0edf3689db24a13a95e98204ad2",
-  "proved_at": "2026-08-14T15:05:26.692696+00:00",
+  "sha": "760a5b4336ab69ed3fd8752a68d9a4e770d9bece",
+  "proved_at": "2026-08-14T15:34:43.093959+00:00",
   "python": "3.12.3",
   "product_complete": false,
   "institutional_verdict": "NOT_COMPLETE",
@@ -183,7 +183,7 @@
   },
   "three_am": {
     "surface": "three_am",
-    "telegram_oncall_configured": false,
+    "telegram_oncall_configured": true,
     "scenarios": [
       {
         "id": "source_or_binance_down",
@@ -195,8 +195,8 @@
         "recovers": "await_reconnect",
         "preserves_data": true,
         "notes": "no live book → not fresh (no_quote:binance:BTC/USDT); net-edge reject=False",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "pages_human_oncall": true,
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "websocket_disconnect",
@@ -208,8 +208,8 @@
         "recovers": "hub reconnect path exists in live_book_hub / exchange_ws_hub",
         "preserves_data": true,
         "notes": "execution freshness fails closed without a quote",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "pages_human_oncall": true,
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "stale_or_contradictory_data",
@@ -221,8 +221,8 @@
         "recovers": "unfreeze after duration or operator",
         "preserves_data": true,
         "notes": "kill switch blocks execution while frozen",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "pages_human_oncall": true,
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "database_down",
@@ -234,10 +234,10 @@
         "recovers": "postgres_dump_restore",
         "preserves_data": false,
         "notes": "This process uses SQLite unless DATABASE_URL=postgresql. Process-kill of shared Postgres was not injected.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "postgres_dump_restore",
-        "drill_evidence": "ops_recovery.prove_postgres_local_dump_restore"
+        "drill_evidence": "ops_recovery.prove_postgres_local_dump_restore",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "redis_down",
@@ -249,10 +249,10 @@
         "recovers": "redis_dead_port",
         "preserves_data": true,
         "notes": "redis_live=False in this VM; dead-port injection is a separate probe",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "redis_dead_port",
-        "drill_evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1"
+        "drill_evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "slow_external_api",
@@ -264,10 +264,10 @@
         "recovers": "slow_api_timeout",
         "preserves_data": true,
         "notes": "No injected 3s-latency soak against live venues in this cert run.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "slow_api_timeout",
-        "drill_evidence": "alert_service.send_telegram_message with fake token"
+        "drill_evidence": "alert_service.send_telegram_message with fake token",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "user_spike",
@@ -279,10 +279,10 @@
         "recovers": "rate_limit_abuse",
         "preserves_data": true,
         "notes": "Local concurrent harness exists (scripts/load_test_concurrent.py) but production-like soak was not run on this SHA.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "rate_limit_abuse",
-        "drill_evidence": "viral_capacity.check_rate_limit limit=5"
+        "drill_evidence": "viral_capacity.check_rate_limit limit=5",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "ai_model_stop",
@@ -294,10 +294,10 @@
         "recovers": "ai_fallback",
         "preserves_data": true,
         "notes": "Rules/explain fallback exists. Killing the model worker at 03:00 was not injected.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "ai_fallback",
-        "drill_evidence": "bd_platform.trulens_eval.explain_prediction"
+        "drill_evidence": "bd_platform.trulens_eval.explain_prediction",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "partial_fill_or_exec_fail",
@@ -309,8 +309,8 @@
         "recovers": "paper OMS / dry-run",
         "preserves_data": true,
         "notes": "Live venue FILL is blocked (geo 451). Fail-safe is refuse live money, not retry into a black hole.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram"
+        "pages_human_oncall": true,
+        "alert_to_human": "telegram_oncall_live message_id=8"
       },
       {
         "id": "server_crash_restart",
@@ -322,10 +322,10 @@
         "recovers": "process_restart",
         "preserves_data": true,
         "notes": "No SIGKILL/restart drill of a production replica on this SHA.",
-        "pages_human_oncall": false,
-        "alert_to_human": "FAIL_closed_unconfigured_telegram",
+        "pages_human_oncall": true,
         "drill_id": "process_restart",
-        "drill_evidence": "TestClient lifespan start/stop/start /health/live"
+        "drill_evidence": "TestClient lifespan start/stop/start /health/live",
+        "alert_to_human": "telegram_oncall_live message_id=8"
       }
     ],
     "required_behaviors": [
@@ -338,7 +338,7 @@
     ]
   },
   "drills": {
-    "pass_count": 25,
+    "pass_count": 26,
     "fail_count": 3,
     "not_tested_count": 0,
     "items": [
@@ -346,11 +346,11 @@
         "id": "sqlite_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_sqlite_backup_restore",
-        "proved_at": "2026-08-14T15:03:47.742469+00:00",
+        "proved_at": "2026-08-14T15:33:01.402516+00:00",
         "result": {
           "ok": true,
           "engine": "sqlite",
-          "backup_bytes": 6815744,
+          "backup_bytes": 6836224,
           "control": "backup_restore"
         }
       },
@@ -358,7 +358,7 @@
         "id": "postgres_dump_restore",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_local_dump_restore",
-        "proved_at": "2026-08-14T15:03:48.163250+00:00",
+        "proved_at": "2026-08-14T15:33:01.843680+00:00",
         "result": {
           "ok": true,
           "control": "postgres_local_dump_restore",
@@ -371,21 +371,21 @@
         "id": "sbom",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/sbom/cyclonedx-python.json",
-        "proved_at": "2026-08-14T15:03:48.191231+00:00",
+        "proved_at": "2026-08-14T15:33:01.871313+00:00",
         "component_count": 29
       },
       {
         "id": "license_inventory",
         "verdict": "PASS",
         "evidence": "/workspace/docs/data-room/licenses/dependency_licenses.json",
-        "proved_at": "2026-08-14T15:03:48.280044+00:00",
+        "proved_at": "2026-08-14T15:33:01.953591+00:00",
         "returncode": 0
       },
       {
         "id": "bandit",
         "verdict": "PASS",
         "evidence": ".bandit policy + python -m bandit",
-        "proved_at": "2026-08-14T15:03:53.514891+00:00",
+        "proved_at": "2026-08-14T15:33:07.228093+00:00",
         "high": 0,
         "critical": 0,
         "medium": 11
@@ -394,7 +394,7 @@
         "id": "infra_files",
         "verdict": "PASS",
         "evidence": "Dockerfile + compose + HA overlay + CI/security workflows",
-        "proved_at": "2026-08-14T15:03:53.515124+00:00",
+        "proved_at": "2026-08-14T15:33:07.228340+00:00",
         "missing": [],
         "notes": "Files exist. Operator production DNS/TLS account was not probed — see D16 notes."
       },
@@ -402,7 +402,7 @@
         "id": "compose_config",
         "verdict": "PASS",
         "evidence": "docker compose config merged HA overlay",
-        "proved_at": "2026-08-14T15:03:53.588570+00:00",
+        "proved_at": "2026-08-14T15:33:07.310283+00:00",
         "stdout_chars": 6821,
         "notes": "Client-side compose interpolation. Does not start a production cluster."
       },
@@ -410,7 +410,7 @@
         "id": "compose_yaml_merge",
         "verdict": "PASS",
         "evidence": "PyYAML merge docker-compose.yml + docker-compose.ha.yml",
-        "proved_at": "2026-08-14T15:03:53.605137+00:00",
+        "proved_at": "2026-08-14T15:33:07.326602+00:00",
         "services": [
           "aggregator",
           "arbitrage",
@@ -428,7 +428,7 @@
         "id": "ha_architecture",
         "verdict": "PASS",
         "evidence": "railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS",
-        "proved_at": "2026-08-14T15:03:53.605223+00:00",
+        "proved_at": "2026-08-14T15:33:07.326693+00:00",
         "railway_replicas": 2,
         "compose_ha_overlay": true,
         "notes": "Architecture design. Cloud multi-AZ deploy is D20/EXT_CLOUD_HA, not this drill."
@@ -437,7 +437,7 @@
         "id": "executable_l2_scope",
         "verdict": "PASS",
         "evidence": "l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92",
-        "proved_at": "2026-08-14T15:03:53.605934+00:00",
+        "proved_at": "2026-08-14T15:33:07.327419+00:00",
         "remainder_count": 5,
         "synthetic_rejected": true,
         "core_mesh": "92/92",
@@ -447,7 +447,7 @@
         "id": "stripe_sandbox",
         "verdict": "FAIL",
         "evidence": "stripe.Account.retrieve",
-        "proved_at": "2026-08-14T15:03:54.216261+00:00",
+        "proved_at": "2026-08-14T15:33:07.935685+00:00",
         "error": "AuthenticationError",
         "notes": "TEST key present but Stripe API rejected it. Not a sandbox charge."
       },
@@ -455,7 +455,7 @@
         "id": "counsel_signoff",
         "verdict": "FAIL",
         "evidence": "docs/legal/COUNSEL_SIGNOFF.*",
-        "proved_at": "2026-08-14T15:03:54.216333+00:00",
+        "proved_at": "2026-08-14T15:33:07.935778+00:00",
         "found": [],
         "notes": "Engineer cannot sign legal. Missing artifact = FAIL vs Unconditional GO."
       },
@@ -463,7 +463,7 @@
         "id": "independent_pentest_artifact",
         "verdict": "FAIL",
         "evidence": "docs/dd/INDEPENDENT_PENTEST_REPORT.*",
-        "proved_at": "2026-08-14T15:03:54.216367+00:00",
+        "proved_at": "2026-08-14T15:33:07.935808+00:00",
         "found": [],
         "notes": "In-repo adversarial suite is a different drill. Firm pentest artifact missing = FAIL."
       },
@@ -471,20 +471,20 @@
         "id": "rate_limit_abuse",
         "verdict": "PASS",
         "evidence": "viral_capacity.check_rate_limit limit=5",
-        "proved_at": "2026-08-14T15:03:54.347492+00:00",
+        "proved_at": "2026-08-14T15:33:08.069876+00:00",
         "tripped_429": true
       },
       {
         "id": "panic_freeze",
         "verdict": "PASS",
         "evidence": "risk_manager freeze/evaluate/unfreeze",
-        "proved_at": "2026-08-14T15:03:54.350380+00:00"
+        "proved_at": "2026-08-14T15:33:08.072718+00:00"
       },
       {
         "id": "feature_flag_soft_launch",
         "verdict": "PASS",
         "evidence": "SOFT_LAUNCH=true evaluate_production_guard",
-        "proved_at": "2026-08-14T15:03:54.352839+00:00",
+        "proved_at": "2026-08-14T15:33:08.075162+00:00",
         "is_production": false,
         "check_count": 31
       },
@@ -492,7 +492,7 @@
         "id": "alembic_rollback_semantics",
         "verdict": "PASS",
         "evidence": "pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py",
-        "proved_at": "2026-08-14T15:03:54.986388+00:00",
+        "proved_at": "2026-08-14T15:33:08.710778+00:00",
         "returncode": 0,
         "tail": "yncio_default_test_loop_scope=function\ncollected 7 items\n\ntests/test_postgres_migration_integrity.py ....                          [ 57%]\ntests/test_postgres_backend.py ...                                       [100%]\n\n============================== 7 passed in 0.42s ===============================\n"
       },
@@ -500,24 +500,39 @@
         "id": "chaos_dead_postgres",
         "verdict": "PASS",
         "evidence": "pytest tests/test_rc2_chaos_resilience.py",
-        "proved_at": "2026-08-14T15:03:56.499400+00:00",
+        "proved_at": "2026-08-14T15:33:10.715086+00:00",
         "returncode": 0,
-        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.09s =========================\n"
+        "tail": "syncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 4 items\n\ntests/test_rc2_chaos_resilience.py s...                                  [100%]\n\n========================= 3 passed, 1 skipped in 1.59s =========================\n"
       },
       {
         "id": "slow_api_timeout",
         "verdict": "PASS",
         "evidence": "alert_service.send_telegram_message with fake token",
-        "proved_at": "2026-08-14T15:03:56.751391+00:00",
-        "elapsed_ms": 249.4,
+        "proved_at": "2026-08-14T15:33:10.965953+00:00",
+        "elapsed_ms": 248.3,
         "returned_ok": false,
         "notes": "Fake token → delivery False (fail-closed). Hang >20s is FAIL."
+      },
+      {
+        "id": "telegram_oncall_live",
+        "verdict": "PASS",
+        "evidence": "telegram_monitor.prove_telegram_oncall_page getMe+sendMessage; message_id required",
+        "proved_at": "2026-08-14T15:33:11.519792+00:00",
+        "bot_token_present": true,
+        "chat_id_present": true,
+        "bot_username": "BLACKDARKAI_oncall_bot",
+        "message_id": 8,
+        "chat_type": "private",
+        "http_status": 200,
+        "telegram_ok": true,
+        "reason": "ok",
+        "notes": "Live Telegram on-call page. Token presence alone is not PASS. Secrets are never written to evidence."
       },
       {
         "id": "redis_dead_port",
         "verdict": "PASS",
         "evidence": "viral_capacity.reset_redis_client + live URL then 127.0.0.1:1",
-        "proved_at": "2026-08-14T15:03:56.788637+00:00",
+        "proved_at": "2026-08-14T15:33:11.558368+00:00",
         "before_live": true,
         "after_dead_live": false,
         "restored_live": true,
@@ -527,7 +542,7 @@
         "id": "ai_fallback",
         "verdict": "PASS",
         "evidence": "bd_platform.trulens_eval.explain_prediction",
-        "proved_at": "2026-08-14T15:03:57.703936+00:00",
+        "proved_at": "2026-08-14T15:33:12.565727+00:00",
         "engine": "rules",
         "trulens_available": false,
         "notes": "TruLens optional. Missing provider must not crash or invent a live BUY."
@@ -536,7 +551,7 @@
         "id": "pip_audit",
         "verdict": "PASS",
         "evidence": "pip-audit -r requirements.hashes.txt",
-        "proved_at": "2026-08-14T15:04:07.701030+00:00",
+        "proved_at": "2026-08-14T15:33:22.742592+00:00",
         "returncode": 0,
         "tail": "No known vulnerabilities found\n"
       },
@@ -544,12 +559,12 @@
         "id": "postgres_streaming_ha",
         "verdict": "PASS",
         "evidence": "ops_recovery.prove_postgres_streaming_ha_rpo_rto",
-        "proved_at": "2026-08-14T15:04:37.068594+00:00",
+        "proved_at": "2026-08-14T15:33:52.020717+00:00",
         "result": {
           "ok": true,
           "ha_class": "LOCAL_STREAMING_REPLICATION",
-          "rpo_ms": 24,
-          "rto_ms": 125,
+          "rpo_ms": 25,
+          "rto_ms": 127,
           "reason": null,
           "cloud_multi_az": false
         },
@@ -559,7 +574,7 @@
         "id": "process_restart",
         "verdict": "PASS",
         "evidence": "TestClient lifespan start/stop/start /health/live",
-        "proved_at": "2026-08-14T15:04:38.167062+00:00",
+        "proved_at": "2026-08-14T15:33:53.079619+00:00",
         "status_codes": [
           200,
           200
@@ -569,10 +584,10 @@
         "id": "asgi_latency",
         "verdict": "PASS",
         "evidence": "30x GET /health/live TestClient",
-        "proved_at": "2026-08-14T15:04:38.246913+00:00",
-        "p50_ms": 2.62,
-        "p95_ms": 3.07,
-        "max_ms": 3.38,
+        "proved_at": "2026-08-14T15:33:53.154499+00:00",
+        "p50_ms": 2.44,
+        "p95_ms": 2.96,
+        "max_ms": 3.34,
         "ok": 30,
         "n": 30,
         "local_slo": "p95<2000ms /health/live ASGI",
@@ -582,15 +597,15 @@
         "id": "adversarial_suite",
         "verdict": "PASS",
         "evidence": "pytest adversarial + authz + security_hardening",
-        "proved_at": "2026-08-14T15:04:40.607332+00:00",
+        "proved_at": "2026-08-14T15:33:55.483496+00:00",
         "returncode": 0,
-        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.86s =========================\n"
+        "tail": "ace/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n======================== 28 passed, 1 warning in 1.83s =========================\n"
       },
       {
         "id": "chrome_public_pages",
         "verdict": "PASS",
         "evidence": "google-chrome --headless=new --dump-dom against local uvicorn",
-        "proved_at": "2026-08-14T15:05:22.729329+00:00",
+        "proved_at": "2026-08-14T15:34:38.229005+00:00",
         "pages": [
           {
             "path": "/login",
@@ -646,12 +661,12 @@
         "id": "http_load_local",
         "verdict": "PASS",
         "evidence": "80 GETs /health/live via 2-worker uvicorn + 16 threads",
-        "proved_at": "2026-08-14T15:05:25.203153+00:00",
+        "proved_at": "2026-08-14T15:34:41.285715+00:00",
         "ok": 80,
         "n": 80,
-        "p50_ms": 11.61,
-        "p95_ms": 327.94,
-        "max_ms": 331.08,
+        "p50_ms": 19.25,
+        "p95_ms": 83.09,
+        "max_ms": 394.05,
         "notes": "Local two-worker HTTP pack. Not multi-AZ production SLO/soak."
       }
     ]
@@ -685,7 +700,7 @@
     {
       "axis": "operational_failures",
       "verdict": "FAIL",
-      "notes": "On-call page unarmed; cloud HA false; production replica SIGKILL not drilled."
+      "notes": "On-call Telegram live send PASS. Cloud HA false; production replica SIGKILL not drilled."
     },
     {
       "axis": "input_manipulation",
@@ -950,13 +965,13 @@
     {
       "id": "D24",
       "title": "Alerting",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "TELEGRAM_BOT_TOKEN; telegram_monitor.bot_token_configured=False",
-      "notes": "Simulated incident cannot page an on-call human without owner Telegram/SMTP. In-app freeze still works. LAUNCH_SKIP_TELEGRAM ≠ done."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "telegram_oncall_live=PASS",
+      "notes": "PASS only on live Bot API sendMessage with telegram ok + message_id. Token presence alone is not a page. LAUNCH_SKIP_TELEGRAM ≠ done."
     },
     {
       "id": "D25",
@@ -999,8 +1014,8 @@
       "severity_if_open": "high",
       "open": true,
       "blocks_unconditional_go": true,
-      "evidence": "Binance 451; Jupiter unfunded; OAuth 503; PSP 503; Telegram 503",
-      "notes": "Dependency matrix is honest. Live failure tests against paid IdP/PSP were not done. Geo block is proved."
+      "evidence": "telegram_oncall_live=PASS; Binance 451; Jupiter unfunded; OAuth 503; PSP 503",
+      "notes": "Telegram on-call live send PASS. D28 stays FAIL while Binance 451, unfunded Jupiter, live OAuth IdP, and valid PSP remain. The Telegram slice is independent of those remaining vendors."
     },
     {
       "id": "D29",
@@ -1093,13 +1108,13 @@
     {
       "id": "D37",
       "title": "Operations",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "docs/RUNBOOK.md exists; on-call Telegram FAIL; no staffed control room",
-      "notes": "Runbooks are files. 3 AM human page is not armed."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "telegram_oncall_live=PASS; docs/RUNBOOK.md",
+      "notes": "On-call armed iff live Telegram page proved (message_id). No 24/7 staffed control room is claimed."
     },
     {
       "id": "D38",
@@ -1126,13 +1141,13 @@
     {
       "id": "D40",
       "title": "Post-launch Control",
-      "verdict": "FAIL",
+      "verdict": "PASS",
       "launch_critical": true,
       "severity_if_open": "high",
-      "open": true,
-      "blocks_unconditional_go": true,
-      "evidence": "panic_freeze=PASS; Telegram on-call unconfigured",
-      "notes": "Emergency freeze proved in-process. Unattended 3 AM page fails. Both are required for live launch control."
+      "open": false,
+      "blocks_unconditional_go": false,
+      "evidence": "panic_freeze=PASS; telegram_oncall_live=PASS",
+      "notes": "Emergency freeze + live Telegram on-call page. Both required for unattended 3 AM control."
     },
     {
       "id": "EXT_LIVE_FILL",
@@ -2261,7 +2276,7 @@
       "id": "AL-TG",
       "name": "Live Telegram bot send",
       "name_ar": "إرسال تيليغرام حي",
-      "purpose": "Unconfigured test is HTTP 503; skip flag ≠ live delivery",
+      "purpose": "Live on-call PASS requires telegram ok + message_id; skip flag ≠ live delivery",
       "users": [
         "pro",
         "whale"
@@ -2271,15 +2286,15 @@
         "/api/alerts/telegram/test",
         "/api/telegram/webhook"
       ],
-      "data_sources": "telegram_monitor.py alert_service.send_telegram_message",
-      "dependencies": "telegram_bot_token",
+      "data_sources": "docs/dd/BLACKDARK_TELEGRAM_ONCALL_EVIDENCE.json",
+      "dependencies": "none_declared",
       "tests": "see domain D03/D04/D12 and capability inventory tests",
-      "evidence": "telegram_monitor.py alert_service.send_telegram_message",
-      "limits": "Unconfigured test is HTTP 503; skip flag ≠ live delivery",
-      "failure_modes": "telegram_bot_token",
-      "inventory_status": "ops_config",
-      "certification": "NOT-READY",
-      "scope": "live_money_path_unproved",
+      "evidence": "docs/dd/BLACKDARK_TELEGRAM_ONCALL_EVIDENCE.json",
+      "limits": "Live on-call PASS requires telegram ok + message_id; skip flag ≠ live delivery",
+      "failure_modes": "tier_gate_or_abstain",
+      "inventory_status": "works",
+      "certification": "PUBLIC-DEMO-READY",
+      "scope": "public_demo_or_paper_advisory",
       "competitive_value": "alerts"
     },
     {
@@ -3656,10 +3671,10 @@
   ],
   "capability_counts": {
     "total": 94,
-    "PUBLIC-DEMO-READY": 84,
+    "PUBLIC-DEMO-READY": 85,
     "LIVE-PRODUCTION-READY": 0,
     "LIVE-MONEY-READY": 0,
-    "NOT-READY": 10
+    "NOT-READY": 9
   },
   "public_direct_use": {
     "public_direct_use_percent": 100.0,
@@ -3686,8 +3701,18 @@
     "honesty": "Public ≥95% means visitor/paper surfaces HTTP-prove. It is not institutional COMPLETE and not live money."
   },
   "operator_live_probes": {
-    "proved_at": "2026-08-14T15:05:26.688019+00:00",
-    "telegram_oncall_configured": false,
+    "proved_at": "2026-08-14T15:34:43.089164+00:00",
+    "telegram_oncall_configured": true,
+    "telegram_oncall_live": {
+      "verdict": "PASS",
+      "reason": "ok",
+      "message_id": 8,
+      "bot_username": "BLACKDARKAI_oncall_bot",
+      "chat_type": "private",
+      "http_status": 200,
+      "bot_token_present": true,
+      "chat_id_present": true
+    },
     "stripe_sandbox": {
       "verdict": "FAIL",
       "error": "AuthenticationError"
@@ -3754,7 +3779,7 @@
     "public_demo_ready": true,
     "unconditional_go_criteria_met": false,
     "critical_open": 5,
-    "high_open": 12,
+    "high_open": 9,
     "medium_open": 1,
     "low_open": 0,
     "untested_launch_critical": 0,
@@ -3774,7 +3799,7 @@
       "PUBLIC-DEMO-READY is not LIVE-PRODUCTION-READY and is not LIVE-MONEY-READY"
     ],
     "unknown_launch_blockers": [],
-    "why_not_go": "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=12, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.",
+    "why_not_go": "Unconditional GO requires LIVE-PRODUCTION-READY and LIVE-MONEY-READY together with 0 Critical, 0 High, 0 untested launch-critical, 0 unknown blockers, 0 unverified launch-critical assumptions, every mandatory test PASS with re-verifiable evidence, proved live-money paths, and closed or in-scope-documented legal/external dependencies. Observed: critical_open=5, high_open=9, untested_lc=0, PUBLIC-DEMO-READY=True, LIVE-PRODUCTION-READY=False, LIVE-MONEY-READY=False.",
     "tracks": {
       "PUBLIC-DEMO-READY": true,
       "LIVE-PRODUCTION-READY": false,

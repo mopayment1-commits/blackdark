@@ -1,0 +1,16 @@
+{
+  "verdict": "PASS",
+  "ok": true,
+  "reason": "ok",
+  "bot_token_present": true,
+  "chat_id_present": true,
+  "bot_username": "BLACKDARKAI_oncall_bot",
+  "message_id": 8,
+  "chat_type": "private",
+  "http_status": 200,
+  "telegram_ok": true,
+  "error_code": null,
+  "proved_at": "2026-08-14T15:33:11.519455+00:00",
+  "sha": "760a5b4336ab69ed3fd8752a68d9a4e770d9bece",
+  "path": "telegram_monitor.prove_telegram_oncall_page"
+}

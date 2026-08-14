@@ -1,6 +1,6 @@
 # Financial & Decision Integrity Audit
 
-**SHA:** `c3da0ce7a851a0edf3689db24a13a95e98204ad2`  
+**SHA:** `760a5b4336ab69ed3fd8752a68d9a4e770d9bece`  
 **Pipeline:** Raw source → ingestion → canonical → signal/rules → risk → decision → displayed output → audit record  
 **Verdict:** **PASS** (11/11)
 

@@ -1,11 +1,11 @@
 # Final Launch Certification & Evidence Register
 
-**SHA:** `c3da0ce7a851a0edf3689db24a13a95e98204ad2`  
+**SHA:** `760a5b4336ab69ed3fd8752a68d9a4e770d9bece`  
 **Decision:** **NO-GO**  
 **Tracks:** PUBLIC-DEMO-READY=True · LIVE-PRODUCTION-READY=False · LIVE-MONEY-READY=False  
 **JSON:** `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`
 
-This register is bound to SHA `c3da0ce7a851a0edf3689db24a13a95e98204ad2` only. A later SHA requires a new prove run.
+This register is bound to SHA `760a5b4336ab69ed3fd8752a68d9a4e770d9bece` only. A later SHA requires a new prove run.
 
 ## Red team (7 axes)
 
@@ -16,7 +16,7 @@ This register is bound to SHA `c3da0ce7a851a0edf3689db24a13a95e98204ad2` only. A
 | financial_logic | PASS | Net-edge, fees, unknown withdrawal, indicative≠executable unit-proved. |
 | ai | PASS | Rules/explain fallback executed. LLM provider injection remains D10. |
 | apis | PASS | In-repo unauth/SQLi/XSS/path-traversal pack. Not D10 firm pentest. |
-| operational_failures | FAIL | On-call page unarmed; cloud HA false; production replica SIGKILL not drilled. |
+| operational_failures | FAIL | On-call Telegram live send PASS. Cloud HA false; production replica SIGKILL not drilled. |
 | input_manipulation | PASS | Poison price freeze; missing fields reject; dimension conflict veto. |
 
 ## Feature-by-feature certification
@@ -67,7 +67,7 @@ PUBLIC-DEMO-READY is visitor/paper. It is not live production and not live money
 | RSK-WHALE | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | AL-INBOX | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | AL-SUB | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
-| AL-TG | NOT-READY | ops_config | live_money_path_unproved |
+| AL-TG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | AL-PASS | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | AL-GEN | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | JR-CRUD | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |

@@ -1,6 +1,6 @@
 # Reliability / HA / DR / Failure Injection Report
 
-**SHA:** `c3da0ce7a851a0edf3689db24a13a95e98204ad2`  
+**SHA:** `760a5b4336ab69ed3fd8752a68d9a4e770d9bece`  
 **3 AM definition:** production-bad conditions with no developer catching the process.
 
 | Scenario | Verdict | Blocks bad decision | Fails safe |
@@ -16,7 +16,8 @@
 | partial_fill_or_exec_fail | PASS | True | True |
 | server_crash_restart | PASS | True | True |
 
-On-call Telegram configured: **False**
+On-call Telegram configured: **True**  
+On-call live drill: see `drills.telegram_oncall_live` (PASS requires telegram ok + message_id; secrets never recorded).
 
 Cloud multi-AZ: **FAIL** (unpaid external). Local Postgres streaming HA is a different control and is not this report's cloud HA claim.
 

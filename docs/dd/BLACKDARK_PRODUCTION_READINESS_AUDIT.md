@@ -1,6 +1,6 @@
 # Production Readiness Audit Report
 
-**SHA:** `c3da0ce7a851a0edf3689db24a13a95e98204ad2`  
+**SHA:** `760a5b4336ab69ed3fd8752a68d9a4e770d9bece`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
@@ -30,7 +30,7 @@
 | D21 | Backup/Restore | PASS | True | high |
 | D22 | Disaster Recovery | PASS | True | high |
 | D23 | Observability | PASS | False | medium |
-| D24 | Alerting | FAIL | True | high |
+| D24 | Alerting | PASS | True | high |
 | D25 | Deployment | FAIL | True | high |
 | D26 | Rollback | PASS | True | high |
 | D27 | Dependencies | PASS | True | high |
@@ -43,10 +43,10 @@
 | D34 | Browser/Device | PASS | False | medium |
 | D35 | User Safety | PASS | True | critical |
 | D36 | Abuse/Fraud | PASS | True | high |
-| D37 | Operations | FAIL | True | high |
+| D37 | Operations | PASS | True | high |
 | D38 | Release Engineering | PASS | True | high |
 | D39 | Launch Capacity | FAIL | True | high |
-| D40 | Post-launch Control | FAIL | True | high |
+| D40 | Post-launch Control | PASS | True | high |
 | EXT_LIVE_FILL | External blocker — live venue FILL | FAIL | True | critical |
 | EXT_JUPITER_VC | External blocker — Jupiter on-chain VC | FAIL | True | high |
 | EXT_L2_100 | External/unpaid ceiling — catalog L2 100% | FAIL | False | medium |
@@ -79,6 +79,7 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | alembic_rollback_semantics | PASS | pytest tests/test_postgres_migration_integrity.py tests/test_postgres_backend.py |
 | chaos_dead_postgres | PASS | pytest tests/test_rc2_chaos_resilience.py |
 | slow_api_timeout | PASS | alert_service.send_telegram_message with fake token |
+| telegram_oncall_live | PASS | telegram_monitor.prove_telegram_oncall_page getMe+sendMessage; message_id requir |
 | redis_dead_port | PASS | viral_capacity.reset_redis_client + live URL then 127.0.0.1:1 |
 | ai_fallback | PASS | bd_platform.trulens_eval.explain_prediction |
 | pip_audit | PASS | pip-audit -r requirements.hashes.txt |
@@ -92,9 +93,9 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 ## Capability track counts
 
 - Total: 94
-- PUBLIC-DEMO-READY: 84
+- PUBLIC-DEMO-READY: 85
 - LIVE-PRODUCTION-READY: 0
 - LIVE-MONEY-READY: 0
-- NOT-READY: 10
+- NOT-READY: 9
 
 Binding JSON: `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`
