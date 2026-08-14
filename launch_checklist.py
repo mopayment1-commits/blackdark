@@ -180,8 +180,11 @@ def _telegram_skipped() -> bool:
 
 
 def _telegram_status() -> LaunchStatus:
-    if (_env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID")) or _telegram_skipped():
+    """Skip flags are not live delivery — LAUNCH_SKIP_TELEGRAM ≠ done."""
+    if _env("TELEGRAM_BOT_TOKEN") and _env("TELEGRAM_CHAT_ID"):
         return "done"
+    if _telegram_skipped():
+        return "pending"
     return "progress"
 
 
@@ -279,7 +282,7 @@ def _day3_rows() -> list[dict[str, Any]]:
             "title_ar": "بوت Telegram حي",
             "status": _telegram_status(),
             "action": (
-                "Telegram optional for soft-launch — enable post-deploy for growth"
+                "LAUNCH_SKIP_TELEGRAM set — skip ≠ live Telegram delivery; still pending until token+chat"
                 if telegram_skipped
                 else "TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID + TELEGRAM_WEBHOOK_URL"
             ),
@@ -299,9 +302,12 @@ def _day3_rows() -> list[dict[str, Any]]:
             "id": "d3_email",
             "title": "Email SMTP alerts (optional)",
             "title_ar": "تنبيهات Email (اختياري)",
-            # v1 soft-launch: Telegram-first; email is not a blocker
-            "status": "done",
-            "action": "Telegram-first for v1; optional SMTP_* later",
+            "status": "done" if _env("SMTP_HOST") else "pending",
+            "action": (
+                "SMTP_HOST set — live flush armed"
+                if _env("SMTP_HOST")
+                else "Sealed outbox works unpaid; SMTP flush pending until SMTP_HOST (skip ≠ live email)"
+            ),
         },
     ]
 

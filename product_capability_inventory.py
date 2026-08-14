@@ -50,7 +50,7 @@ INST = ["fund", "b2b", "acquirer"]
 def capability_catalog() -> list[dict[str, Any]]:
     return [
         # ── Identity ──────────────────────────────────────────
-        _f(id="ID-REG", name="Register / login / logout / session", name_ar="تسجيل / دخول / خروج / جلسة", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/register", "/api/auth/login", "/login", "/profile"], evidence="api/routers/auth.py", efficiency="Session cookies + PBKDF2; local path verified"),
+        _f(id="ID-REG", name="Register / login / logout / session", name_ar="تسجيل / دخول / خروج / جلسة", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/register", "/api/auth/login", "/login", "/register", "/profile"], evidence="api/routers/auth.py", efficiency="Session cookies + PBKDF2; /register aliases /login"),
         _f(id="ID-MFA", name="TOTP MFA enroll/confirm/disable", name_ar="مصادقة TOTP تسجيل/تأكيد/إيقاف", domain="identity", status="works", personas=ALL, surfaces=["/api/auth/mfa/*", "/profile", "/settings/security"], evidence="auth_service.py; dashboard 307 alias", efficiency="Enrollment on /profile; /settings/security no longer 404"),
         _f(id="ID-OAUTH", name="OAuth start/callback", name_ar="بدء/رجوع OAuth", domain="identity", status="ops_config", personas=ALL, surfaces=["/api/auth/oauth/status", "/api/auth/oauth/{provider}/start"], evidence="oauth_service.py", efficiency="Protocol complete; unconfigured start is HTTP 503; live IdP needs client ids", unpaid_block="oauth_client_ids"),
         _f(id="ID-EMAIL", name="Email verify / password reset", name_ar="تحقق البريد / إعادة كلمة المرور", domain="identity", status="works", personas=ALL, surfaces=["/verify-email", "/reset-password"], evidence="identity_service.py email_outbox.py", efficiency="Hashed tokens + sealed outbox; SMTP flush is optional ops"),
@@ -95,7 +95,8 @@ def capability_catalog() -> list[dict[str, Any]]:
         _f(id="RSK-WHALE", name="Whale 5m band / exitability", name_ar="نطاق الحوت 5 د / قابلية الخروج", domain="risk", status="works", personas=["whale", "fund"], surfaces=["whale_execution_evidence.py"], evidence="whale_execution_evidence.py", efficiency="May whale_ready=false when books thin — honest"),
         # ── Alerts ────────────────────────────────────────────
         _f(id="AL-INBOX", name="In-app alert inbox", name_ar="صندوق تنبيهات داخل التطبيق", domain="alerts", status="works", personas=ALL, surfaces=["/api/alerts/inbox"], evidence="dashboard.py", efficiency="Read path ungated; subscribe Pro+"),
-        _f(id="AL-SUB", name="Alert subscribe Telegram/email", name_ar="اشتراك تنبيهات تيليغرام/بريد", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/api/alerts/subscribe", "/api/alerts/inbox", "/api/alerts/telegram/*"], evidence="in_app_alerts.py email_outbox.py", efficiency="In-app + sealed outbox always work; live Telegram token is optional ops"),
+        _f(id="AL-SUB", name="Alert subscribe + sealed email outbox", name_ar="اشتراك تنبيهات + صندوق بريد مختوم", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/api/alerts/subscribe", "/api/alerts/inbox"], evidence="in_app_alerts.py email_outbox.py", efficiency="In-app inbox + sealed outbox always work; SMTP flush is ops"),
+        _f(id="AL-TG", name="Live Telegram bot send", name_ar="إرسال تيليغرام حي", domain="alerts", status="ops_config", personas=["pro", "whale"], surfaces=["/api/alerts/telegram/status", "/api/alerts/telegram/test", "/api/telegram/webhook"], evidence="telegram_monitor.py alert_service.send_telegram_message", efficiency="Unconfigured test is HTTP 503; skip flag ≠ live delivery", unpaid_block="telegram_bot_token"),
         _f(id="AL-PASS", name="Proof-gated alert passport", name_ar="جواز تنبيه مشروط بالدليل", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/alert-passport", "/api/alert-passport"], evidence="proof_gated_alert_passport.py", efficiency="Evaluate path in-process"),
         _f(id="AL-GEN", name="Alert generosity policy", name_ar="سياسة سخاء التنبيهات", domain="alerts", status="works", personas=["pro", "whale"], surfaces=["/api/alerts/generosity"], evidence="heroes.py", efficiency="Policy surface; not a vendor SLA"),
         # ── Journal / reports / research ──────────────────────
@@ -153,7 +154,8 @@ def capability_catalog() -> list[dict[str, Any]]:
         _f(id="SITE-DOCS", name="Public docs / OpenAPI", name_ar="وثائق عامة / OpenAPI", domain="site", status="works", personas=ALL, surfaces=["/docs", "/docs/public", "/api/docs/openapi.json", "/api/docs/public-openapi.json"], evidence="dashboard.py", efficiency="Public subset documented"),
         _f(id="SITE-GQL", name="GraphQL router", name_ar="موجّه GraphQL", domain="site", status="works", personas=PAID, surfaces=["/graphql"], evidence="graphql_schema.py", efficiency="Health, accuracy, arb, risk, sources, capability inventory"),
         _f(id="SEC-KEYS", name="Security API keys / events / admin MFA status", name_ar="مفاتيح أمن / أحداث / حالة MFA للمشرف", domain="security", status="works", personas=DESK, surfaces=["/api/security/api-keys", "/api/security/events", "/api/security/status", "/api/security/admin-mfa"], evidence="dashboard.py", efficiency="Status surfaces; secrets never logged"),
-        _f(id="INV-FULL", name="Full capability inventory API (this catalog)", name_ar="واجهة جرد القدرات الكاملة", domain="dd", status="works", personas=ALL, surfaces=["/api/product/capability-inventory", "/api/product/unpaid-closure"], evidence="product_capability_inventory.py unpaid_institutional_closure.py", efficiency="Binding machine-readable inventory; NOT_COMPLETE"),
+        _f(id="INV-FULL", name="Full capability inventory API (this catalog)", name_ar="واجهة جرد القدرات الكاملة", domain="dd", status="works", personas=ALL, surfaces=["/api/product/capability-inventory", "/api/product/unpaid-closure", "/api/product/public-readiness"], evidence="product_capability_inventory.py unpaid_institutional_closure.py public_readiness.py", efficiency="Binding machine-readable inventory; NOT_COMPLETE; public score ≠ COMPLETE"),
+        _f(id="SITE-PUBLIC", name="Public direct-use HTTP readiness probe", name_ar="إثبات جاهزية الاستخدام العام عبر HTTP", domain="dd", status="works", personas=ALL, surfaces=["/api/product/public-readiness", "scripts/prove_public_readiness.py"], evidence="public_readiness.py", efficiency="Visitor/paper surfaces HTTP-proved; institutional COMPLETE remains false"),
     ]
 
 
@@ -210,14 +212,20 @@ def institutional_review() -> dict[str, Any]:
             "gated_is_not_broken": True,
             "external_block_is_not_product_defect": True,
             "fixed_this_wave": [
+                "live Telegram reclassified AL-TG ops_config; unconfigured test HTTP 503",
+                "LAUNCH_SKIP_TELEGRAM no longer marks telegram done",
+                "SMTP optional no longer auto-done without SMTP_HOST",
+                "/register 307 /login (signup URL no longer 404)",
+                "sitemap includes footer legal pages",
+                "public_readiness HTTP catalog + ≥95% public floor (not COMPLETE)",
+            ],
+            "previously_fixed_unpaid": [
                 "historical independent self-grade (not same-tick stub)",
                 "Deribit paper options OMS",
                 "org-scoped SCIM keys",
                 "arb catalog CEX-DEX live + options vs spot proxy + name_ar",
                 "GraphQL capability inventory",
                 "reclassify unpaid-complete partials to works",
-            ],
-            "previously_fixed_unpaid": [
                 "/settings/security 307 to /profile",
                 "six-audience routing",
                 "org-scoped B2B feed keys",
@@ -249,8 +257,10 @@ def institutional_review() -> dict[str, Any]:
             {"id": "l2_95_of_100", "type": "unpaid_ceiling", "impact": "~5 synthetic_mid (core AMM + bybit geo)"},
             {"id": "no_cloud_multi_az", "type": "external", "impact": "Cloud SLA unproven"},
             {"id": "psp_not_armed", "type": "ops", "impact": "Self-serve upgrade cannot complete a live charge"},
+            {"id": "telegram_bot_token", "type": "ops", "impact": "Live Telegram send needs owner bot token; in-app inbox still works"},
             {"id": "oauth_client_ids", "type": "ops", "impact": "Live Google/GitHub login needs owner client ids"},
             {"id": "wl_hosted_domain", "type": "external", "impact": "Custom-domain WL SaaS needs paid infra"},
+            {"id": "review_gap_telegram_lesson", "type": "process", "impact": "Prior inventory marked AL-SUB works while live Telegram silently returned False — closed this wave"},
         ],
         "ask_7_missing_essentials": {
             "for_unpaid_trial": [
@@ -288,6 +298,7 @@ def institutional_review() -> dict[str, Any]:
         },
         "binding_verdict": "NOT_COMPLETE",
         "trial_ready_unpaid": True,
+        "public_direct_use_floor_percent": 95,
         "live_money_ready": False,
         "product_complete": False,
     }
@@ -337,6 +348,7 @@ def build_full_capability_inventory() -> dict[str, Any]:
             "local_pg_ha_is_not_cloud_multi_az": True,
         },
         "report": "docs/dd/BLACKDARK_FULL_CAPABILITY_INSTITUTIONAL_REVIEW.md",
+        "public_review": "docs/dd/BLACKDARK_PUBLIC_DIRECT_USE_INSTITUTIONAL_REVIEW.md",
         "closure_recommendation": "docs/dd/BLACKDARK_UNPAID_PARTIAL_CLOSURE_RECOMMENDATION.md",
         "prior_persona_report": "docs/dd/BLACKDARK_TRIAL_PERSONA_READINESS_REPORT.md",
     }

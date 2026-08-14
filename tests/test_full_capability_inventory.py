@@ -76,6 +76,8 @@ def test_required_capability_ids_present():
         "INV-FULL",
         "JR-CRUD",
         "AL-INBOX",
+        "AL-TG",
+        "SITE-PUBLIC",
     ):
         assert required in ids, required
     live = next(r for r in capability_catalog() if r["id"] == "EX-LIVE")

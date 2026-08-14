@@ -1115,6 +1115,14 @@ async def login_page(request: Request):
     return render_page(request, "login.html", _footer_ctx())
 
 
+@app.get("/register")
+async def register_alias():
+    """Signup lives on /login (register tab) — keep /register from 404ing."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/login", status_code=307)
+
+
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
     return render_page(request, "profile.html", _footer_ctx())
@@ -1285,8 +1293,17 @@ async def telegram_test(
     data: dict = Body(default={}),
     user: dict = Depends(require_authenticated),
 ):
-    """Authenticated only — send test to the caller's own chat_id (or admin override)."""
-    from telegram_monitor import send_test_telegram
+    """Authenticated only — send test to the caller's own chat_id (or admin override).
+
+    Unconfigured bot is HTTP 503 (fail-closed), never a silent success:false 200.
+    """
+    from telegram_monitor import bot_token_configured, send_test_telegram
+
+    if not bot_token_configured():
+        raise HTTPException(
+            status_code=503,
+            detail="Telegram not configured — set TELEGRAM_BOT_TOKEN (and chat_id or profile telegram_chat_id)",
+        )
 
     requested = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
     profile_chat = None
@@ -1458,6 +1475,14 @@ async def sitemap_xml(request: Request):
         "/cookies",
         "/data-room",
         "/compliance",
+        "/terms",
+        "/privacy",
+        "/disclaimer",
+        "/refund",
+        "/complaints",
+        "/profile",
+        "/register",
+        "/landing",
     ]
     urls = "\n".join(
         f"  <url><loc>{escape(base + p, quote=True)}</loc><changefreq>daily</changefreq></url>"

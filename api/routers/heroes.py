@@ -76,6 +76,38 @@ async def product_unpaid_closure_api():
     return prove_unpaid_institutional_closure()
 
 
+@router.get("/api/product/public-readiness")
+async def product_public_readiness_api():
+    """Visitor/paper HTTP catalog. Score comes from prove script / tests, not self-grade."""
+    from pathlib import Path
+
+    from public_readiness import catalog_without_probe
+
+    out = catalog_without_probe()
+    evidence = Path("docs/dd/BLACKDARK_PUBLIC_READINESS_EVIDENCE.json")
+    if evidence.is_file():
+        try:
+            import json
+
+            last = json.loads(evidence.read_text(encoding="utf-8"))
+            score = last.get("score") or {}
+            out["last_probe"] = {
+                "proved_at": last.get("proved_at"),
+                "public_direct_use_percent": score.get("public_direct_use_percent"),
+                "meets_public_floor": score.get("meets_public_floor"),
+                "counted_pass": score.get("counted_pass"),
+                "counted_total": score.get("counted_total"),
+                "failures": score.get("failures") or [],
+            }
+        except Exception:
+            out["last_probe"] = None
+    else:
+        out["last_probe"] = None
+    out["product_complete"] = False
+    out["institutional_verdict"] = "NOT_COMPLETE"
+    return out
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""

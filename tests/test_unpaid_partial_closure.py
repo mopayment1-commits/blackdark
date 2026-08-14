@@ -164,7 +164,7 @@ async def test_graphql_capability_inventory():
     from graphql_schema import schema
 
     result = await schema.execute(
-        "{ capabilityInventory { total works partial opsConfig externalBlock institutionalVerdict } }"
+        "{ capabilityInventory { total works partial opsConfig externalBlock institutionalVerdict } publicReadiness { advertisedCount floorPercent institutionalVerdict } }"
     )
     assert result.errors is None
     inv = result.data["capabilityInventory"]
@@ -172,6 +172,10 @@ async def test_graphql_capability_inventory():
     assert inv["institutionalVerdict"] == "NOT_COMPLETE"
     assert inv["partial"] <= 5
     assert inv["externalBlock"] >= 2
+    pub = result.data["publicReadiness"]
+    assert pub["advertisedCount"] >= 80
+    assert pub["floorPercent"] >= 95
+    assert pub["institutionalVerdict"] == "NOT_COMPLETE"
 
 
 def test_inventory_unpaid_closure_mix():
@@ -187,6 +191,8 @@ def test_inventory_unpaid_closure_mix():
     assert by_id["MKT-L2"]["status"] == "partial"
     assert by_id["BIL-CHECKOUT"]["status"] == "ops_config"
     assert by_id["ID-OAUTH"]["status"] == "ops_config"
+    assert by_id["AL-TG"]["status"] == "ops_config"
+    assert by_id["AL-SUB"]["status"] == "works"
     s = inventory_summary(rows)
     assert s["works"] >= 75
     assert s["partial"] <= 2
