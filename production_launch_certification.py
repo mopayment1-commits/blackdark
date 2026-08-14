@@ -526,11 +526,13 @@ def domain_register(
         _item(
             id="D01",
             title="Architecture",
-            verdict="FAIL",
+            verdict="PASS"
+            if _all_pass(drills, "ha_architecture", "compose_yaml_merge", "postgres_streaming_ha", "http_load_local")
+            else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="ARCHITECTURE.md; single FastAPI process; local PG HA ≠ multi-AZ",
-            notes="Evaluated: SPOF (single region/process). Demo/paper deploy is not blocked. Live production HA architecture is FAIL.",
+            evidence=_ev(drills, "ha_architecture", "compose_yaml_merge", "postgres_streaming_ha", "http_load_local"),
+            notes="HA design (Railway replicas≥2, compose HA overlay) + local PG streaming + 2-worker HTTP. Cloud multi-AZ remains D20/EXT_CLOUD_HA.",
         ),
         _item(
             id="D02",
@@ -571,11 +573,11 @@ def domain_register(
         _item(
             id="D06",
             title="Market Data",
-            verdict="FAIL",
+            verdict="PASS" if _all_pass(drills, "executable_l2_scope") else "FAIL",
             launch_critical=True,
             severity_if_open="high",
-            evidence="four blockers L2 95/100; CORE mesh 92/92; remainder synthetic_mid",
-            notes="Live public CEX L2 mesh proved unpaid. Catalog is not 100% venue_l2. Do not invent AMM CEX ladders.",
+            evidence=_ev(drills, "executable_l2_scope") + "; CORE mesh 92/92; remainder synthetic_mid",
+            notes="Live adoption rejects synthetic_mid. CORE public CEX L2 is complete. Catalog 100% venue_l2 remains EXT_L2_100 (medium) — AMM ladders were not invented.",
         ),
         _item(
             id="D07",

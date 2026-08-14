@@ -45,6 +45,18 @@ def test_compose_yaml_merge_and_stripe_sandbox_evaluated():
     assert s["verdict"] != "NOT_TESTED"
 
 
+def test_ha_architecture_and_executable_l2_and_compose_config():
+    from launch_drills import drill_compose_config, drill_executable_l2_scope, drill_ha_architecture
+
+    ha = drill_ha_architecture()
+    assert ha["verdict"] == "PASS", ha
+    l2 = drill_executable_l2_scope()
+    assert l2["verdict"] == "PASS", l2
+    cc = drill_compose_config()
+    assert cc["verdict"] in {"PASS", "FAIL"}, cc
+    assert cc["verdict"] != "NOT_TESTED"
+
+
 def test_ai_fallback_does_not_crash():
     from launch_drills import drill_ai_fallback
 

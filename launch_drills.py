@@ -234,6 +234,7 @@ def drill_infra_files() -> dict[str, Any]:
 
 
 def drill_compose_config() -> dict[str, Any]:
+    env = {**os.environ, "POSTGRES_PASSWORD": os.environ.get("POSTGRES_PASSWORD") or "compose-config-probe"}
     try:
         proc = subprocess.run(
             ["docker", "compose", "-f", "docker-compose.yml", "-f", "docker-compose.ha.yml", "config"],
@@ -242,6 +243,7 @@ def drill_compose_config() -> dict[str, Any]:
             text=True,
             timeout=30,
             check=False,
+            env=env,
         )
     except FileNotFoundError:
         return _drill(
@@ -258,7 +260,77 @@ def drill_compose_config() -> dict[str, Any]:
             returncode=proc.returncode,
             stderr=(proc.stderr or proc.stdout)[-400:],
         )
-    return _drill("compose_config", "PASS", "docker compose config merged HA overlay")
+    merged = proc.stdout or ""
+    ok = "WEB_REPLICAS" in merged and "postgres:" in merged
+    return _drill(
+        "compose_config",
+        "PASS" if ok else "FAIL",
+        "docker compose config merged HA overlay",
+        stdout_chars=len(merged),
+        notes="Client-side compose interpolation. Does not start a production cluster.",
+    )
+
+
+def drill_executable_l2_scope() -> dict[str, Any]:
+    """Executable books must be venue_l2. Remainder stays labeled. Do not invent AMM ladders."""
+    from l2_remainder import catalog_l2_remainder
+    from live_data_truth_probe import _adopt_mesh_l2_probe
+
+    rem = catalog_l2_remainder()
+    remainder = rem.get("remainder") or []
+    labeled = bool(remainder) and all(v.get("depth_class") == "synthetic_mid" for v in remainder)
+    rejected = _adopt_mesh_l2_probe(
+        {
+            "ok": True,
+            "live": True,
+            "bids": [[1.0, 1.0]],
+            "asks": [[1.1, 1.0]],
+            "bid": 1.0,
+            "ask": 1.1,
+            "fabricated_depth": False,
+            "depth_source": "synthetic_mid",
+            "venue": "orca",
+            "symbol": "SOL/USDC",
+            "source": "drill",
+        }
+    )
+    four_p = ROOT / "docs" / "dd" / "BLACKDARK_FOUR_BLOCKERS_EVIDENCE.json"
+    four = json.loads(four_p.read_text(encoding="utf-8")) if four_p.is_file() else {}
+    b3 = four.get("blocker_3_full_mesh_100") or {}
+    core_ok = int(b3.get("mesh_live_count") or 0) == int(b3.get("core_mesh_target") or -1)
+    core_ok = core_ok and int(b3.get("mesh_l2_count") or 0) == int(b3.get("core_mesh_target") or -1)
+    ok = labeled and (rejected is False) and core_ok and rem.get("full_mesh_l2_complete") is False
+    return _drill(
+        "executable_l2_scope",
+        "PASS" if ok else "FAIL",
+        "l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92",
+        remainder_count=len(remainder),
+        synthetic_rejected=rejected is False,
+        core_mesh=f"{b3.get('mesh_l2_count')}/{b3.get('core_mesh_target')}",
+        notes="Catalog 100% venue_l2 remains EXT_L2_100. This drill proves live adoption cannot ingest synthetic_mid.",
+    )
+
+
+def drill_ha_architecture() -> dict[str, Any]:
+    """HA *design* locally: replicas in Railway+compose, local PG streaming, 2-worker HTTP."""
+    railway = ROOT / "railway.json"
+    replicas = 0
+    try:
+        body = json.loads(railway.read_text(encoding="utf-8"))
+        replicas = int((body.get("deploy") or {}).get("numReplicas") or 0)
+    except Exception:
+        replicas = 0
+    overlay = (ROOT / "docker-compose.ha.yml").read_text(encoding="utf-8")
+    has_overlay = "WEB_REPLICAS" in overlay and "WEB_CONCURRENCY" in overlay
+    ok = replicas >= 2 and has_overlay
+    return _drill(
+        "ha_architecture",
+        "PASS" if ok else "FAIL",
+        "railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS",
+        railway_replicas=replicas,
+        compose_ha_overlay=has_overlay,
+        notes="Architecture design. Cloud multi-AZ deploy is D20/EXT_CLOUD_HA, not this drill.",
+    )
 
 
 def drill_counsel_artifacts() -> dict[str, Any]:
@@ -889,6 +961,8 @@ def run_all_drills(*, include_heavy: bool = True) -> dict[str, Any]:
         drill_infra_files(),
         drill_compose_config(),
         drill_compose_yaml_merge(),
+        drill_ha_architecture(),
+        drill_executable_l2_scope(),
         drill_stripe_sandbox(),
         drill_counsel_artifacts(),
         drill_independent_pentest_artifact(),

@@ -260,6 +260,9 @@ PUBLIC-DEMO-READY is visitor/paper. It is not live production and not live money
 8. This register + one-pager `BLACKDARK_FINAL_PRODUCTION_VERDICT.md`
 """
     (DD / "BLACKDARK_FINAL_LAUNCH_CERTIFICATION_EVIDENCE_REGISTER.md").write_text(reg, encoding="utf-8")
+    from operator_go_gates import render_markdown as render_operator_gates
+
+    (DD / "BLACKDARK_OPERATOR_GO_GATES.md").write_text(render_operator_gates(cert), encoding="utf-8")
 
 
 def main() -> int:

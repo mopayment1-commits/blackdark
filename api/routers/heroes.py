@@ -160,6 +160,33 @@ async def production_launch_cert_api():
         "external_blockers": v.get("external_blockers"),
         "integrity": (body.get("financial_decision_integrity") or {}).get("verdict"),
         "report": "docs/dd/BLACKDARK_FINAL_PRODUCTION_VERDICT.md",
+        "operator_gates": "docs/dd/BLACKDARK_OPERATOR_GO_GATES.md",
+    }
+
+
+@router.get("/api/product/operator-go-gates")
+async def operator_go_gates_api():
+    """Remaining Unconditional GO gates the engineer cannot close in-repo."""
+    import json
+    from pathlib import Path
+
+    from operator_go_gates import gates_for_open_domains
+
+    evidence = Path("docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json")
+    if not evidence.is_file():
+        return {"ok": False, "decision": "NO-GO", "reason": "evidence_missing", "gates": []}
+    body = json.loads(evidence.read_text(encoding="utf-8"))
+    v = body.get("final_production_verdict") or {}
+    tracks = body.get("tracks") or v.get("tracks") or {}
+    return {
+        "ok": True,
+        "sha": body.get("sha"),
+        "decision": v.get("decision"),
+        "PUBLIC-DEMO-READY": bool(tracks.get("PUBLIC-DEMO-READY")),
+        "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
+        "gates": gates_for_open_domains(body.get("domains") or []),
+        "report": "docs/dd/BLACKDARK_OPERATOR_GO_GATES.md",
     }
 
 
