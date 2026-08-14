@@ -243,6 +243,7 @@ def test_key_hash_is_not_plaintext():
     assert digest != plaintext
     assert prefix.startswith("bd_live_")
     assert hash_api_key(plaintext) == digest
+    assert len(digest) == 64
 
 
 def _issue(client: TestClient, org_id: str, name: str = "desk") -> dict:

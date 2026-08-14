@@ -94,14 +94,21 @@ def test_secrets_vault_prod_ignores_local_dev(monkeypatch):
 
 @pytest.mark.asyncio
 async def test_b2b_ws_info_hides_demo_key(monkeypatch):
+    import json
+
     monkeypatch.delenv("EXPOSE_B2B_DEMO_KEY", raising=False)
     import config
 
     monkeypatch.setattr(config, "B2B_DEMO_API_KEY", "secret-demo-key-should-hide")
     from dashboard import b2b_ws_info
 
-    payload = await b2b_ws_info()
+    resp = await b2b_ws_info()
+    payload = json.loads(bytes(resp.body))
+    raw = bytes(resp.body).decode("utf-8")
     assert payload["auth"]["demo_key"] == "contact-sales"
+    assert "secret-demo-key-should-hide" not in raw
+    assert resp.headers.get("Deprecation") == "true"
+    assert "/api/v1/feed" in (resp.headers.get("Link") or "")
 
 
 @pytest.mark.asyncio

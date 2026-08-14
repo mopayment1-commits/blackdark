@@ -322,7 +322,9 @@ async def finalize_unified_score(
                     "data_trust": trust_meta,
                 }
     except Exception:
-        logger.debug("Data trust gate skipped | asset=%s", asset, exc_info=True)
+        from log_safety import sanitize_asset
+
+        logger.debug("Data trust gate skipped | asset=%s", sanitize_asset(asset), exc_info=True)
 
     # Core Canon §1.1 — multi-timeframe confluence before trusting score.
     adjusted, conflict_meta, confluence = await _timeframe_confluence_adjustment(

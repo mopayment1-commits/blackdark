@@ -47,7 +47,13 @@ def key_pepper() -> str:
 
 
 def hash_api_key(plaintext: str) -> str:
-    return hmac.new(key_pepper().encode("utf-8"), plaintext.encode("utf-8"), hashlib.sha256).hexdigest()
+    """Keyed BLAKE2b of a high-entropy API token (not a user password).
+
+    Customer keys are ``secrets.token_urlsafe`` material. A keyed MAC is the
+    correct at-rest form — not a password KDF (bcrypt/scrypt) and not bare SHA-256.
+    """
+    pepper = key_pepper().encode("utf-8")
+    return hashlib.blake2b(plaintext.encode("utf-8"), key=pepper[:64], digest_size=32).hexdigest()
 
 
 def generate_api_key(*, environment: str) -> tuple[str, str]:
