@@ -1120,6 +1120,14 @@ async def profile_page(request: Request):
     return render_page(request, "profile.html", _footer_ctx())
 
 
+@app.get("/settings/security")
+async def settings_security_alias():
+    """MFA enrollment lives on /profile — keep the old path from 404ing."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/profile", status_code=307)
+
+
 @app.get("/reset-password", response_class=HTMLResponse)
 async def reset_password_page(request: Request):
     return render_page(request, "reset_password.html", _footer_ctx())

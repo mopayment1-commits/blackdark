@@ -47,6 +47,13 @@ async def audience_entry_api(audience: str = Query("retail")):
     return audience_entry(audience)
 
 
+@router.get("/api/trial/persona-readiness")
+async def trial_persona_readiness_api():
+    from persona_capability_matrix import persona_capability_matrix
+
+    return persona_capability_matrix()
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""

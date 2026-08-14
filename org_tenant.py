@@ -9,6 +9,7 @@ until ORM migration — isolation contract is org_id on every scoped read/write.
 from __future__ import annotations
 
 import json
+import hmac
 import secrets
 import threading
 from datetime import UTC, datetime
@@ -220,6 +221,56 @@ def scoped_key(org_id: str, key: str) -> str:
     if not org_id or not str(org_id).startswith("org_"):
         raise ValueError("invalid_org_id")
     return f"{org_id}::{key}"
+
+
+def _hash_feed_key(raw: str) -> str:
+    import hashlib
+
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def issue_org_feed_key(org_id: str, *, actor_email: str) -> dict[str, Any]:
+    """Issue a hashed org-scoped B2B feed key. Plaintext returned once."""
+    actor = member_of(org_id, actor_email)
+    if not actor or actor.get("role") != "admin":
+        raise PermissionError("admin_required")
+    org = get_org(org_id)
+    if not org:
+        raise ValueError("org_not_found")
+    raw = f"bd_org_{secrets.token_urlsafe(24)}"
+    digest = _hash_feed_key(raw)
+    with _LOCK:
+        orgs = _load_orgs()
+        row = orgs.get(org_id)
+        if not row:
+            raise ValueError("org_not_found")
+        row["b2b_feed_key_hash"] = digest
+        row["b2b_feed_key_prefix"] = raw[:12]
+        row["b2b_feed_key_issued_at"] = _utcnow()
+        _save_orgs(orgs)
+    return {
+        "ok": True,
+        "org_id": org_id,
+        "api_key": raw,
+        "prefix": raw[:12],
+        "note": "Store this key now — plaintext is not persisted.",
+    }
+
+
+def verify_org_feed_key(provided_key: str) -> dict[str, Any] | None:
+    """Return org record (without secrets) if the provided feed key matches a hash."""
+    if not provided_key or not provided_key.startswith("bd_org_"):
+        return None
+    digest = _hash_feed_key(provided_key)
+    for org in _load_orgs().values():
+        stored = str(org.get("b2b_feed_key_hash") or "")
+        if stored and hmac.compare_digest(stored, digest):
+            return {
+                "org_id": org.get("org_id"),
+                "name": org.get("name"),
+                "key_prefix": org.get("b2b_feed_key_prefix"),
+            }
+    return None
 
 
 def invite_token(org_id: str) -> str:

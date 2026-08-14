@@ -242,7 +242,7 @@ async def _login_org_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code: str 
         )
         if org_mfa.get("mfa_required") and not mfa_enabled:
             raise ValueError(
-                "Organization MFA is required. Enroll TOTP at /settings/security before login."
+                "Organization MFA is required. Enroll TOTP at /profile before login."
             )
         return org_mfa
     except ValueError:

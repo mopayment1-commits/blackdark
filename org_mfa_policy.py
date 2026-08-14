@@ -34,7 +34,7 @@ def assert_login_mfa_policy(email: str, *, mfa_enabled: bool, mfa_code_present: 
         return {"ok": True, "org_mfa_enforced": False}
     if not mfa_enabled:
         raise ValueError(
-            "Organization MFA is required. Enroll TOTP at /settings/security before login."
+            "Organization MFA is required. Enroll TOTP at /profile before login."
         )
     if not mfa_code_present:
         return {

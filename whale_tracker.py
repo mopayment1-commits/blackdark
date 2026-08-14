@@ -1043,19 +1043,29 @@ class InstitutionalDataExporter:
         demo_key = config.B2B_DEMO_API_KEY
         if demo_key and hmac.compare_digest(demo_key, provided_key):
             return True
+        if self.api_key and hmac.compare_digest(self.api_key, provided_key):
+            return True
+        try:
+            from org_tenant import verify_org_feed_key
+
+            org = verify_org_feed_key(provided_key)
+            if org:
+                return True
+        except Exception:
+            pass
         if not self.api_key:
             logger.warning("B2B exporter has no configured API key.")
-            return False
-        return hmac.compare_digest(self.api_key, provided_key)
+        return False
 
     def is_demo_key(self, provided_key: str) -> bool:
         demo_key = config.B2B_DEMO_API_KEY
         return bool(demo_key and provided_key and hmac.compare_digest(demo_key, provided_key))
 
-    def sign_payload(self, payload: dict[str, Any]) -> str:
+    def sign_payload(self, payload: dict[str, Any], signing_secret: str | None = None) -> str:
         canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+        secret = signing_secret or self.api_key or ""
         digest = hmac.new(
-            self.api_key.encode("utf-8"),
+            secret.encode("utf-8"),
             canonical.encode("utf-8"),
             hashlib.sha256,
         ).hexdigest()
@@ -1085,7 +1095,8 @@ class InstitutionalDataExporter:
             "records": rows,
         }
         payload["signature"] = self.sign_payload(
-            {key: value for key, value in payload.items() if key != "signature"}
+            {key: value for key, value in payload.items() if key != "signature"},
+            signing_secret=self.api_key or provided_key,
         )
         return payload
 
@@ -1133,7 +1144,8 @@ class InstitutionalDataExporter:
             },
         }
         proposal["signature"] = self.sign_payload(
-            {key: value for key, value in proposal.items() if key != "signature"}
+            {key: value for key, value in proposal.items() if key != "signature"},
+            signing_secret=self.api_key or provided_key,
         )
         return proposal
 
