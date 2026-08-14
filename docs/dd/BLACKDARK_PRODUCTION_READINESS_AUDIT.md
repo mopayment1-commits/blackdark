@@ -1,6 +1,6 @@
 # Production Readiness Audit Report
 
-**SHA:** `9204933e42da8891833b9f8205269a832a6bcfd9`  
+**SHA:** `f7659e72abff1991e25e74eec92a2697e45bc317`  
 **Verdicts allowed:** PASS / FAIL / NOT_TESTED / NOT_APPLICABLE only.  
 **Feature tracks allowed:** PUBLIC-DEMO-READY / LIVE-PRODUCTION-READY / LIVE-MONEY-READY / NOT-READY.  
 **Final:** **NO-GO**
@@ -71,6 +71,7 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 | ha_architecture | PASS | railway.json numReplicas + docker-compose.ha.yml WEB_REPLICAS |
 | executable_l2_scope | PASS | l2_remainder + _adopt_mesh_l2_probe rejects synthetic_mid + CORE mesh 92/92 |
 | stripe_sandbox | PASS | billing_service.prove_stripe_test_cycle TEST checkout+subscription+cancel |
+| oauth_google_idp | PASS | oauth_service.prove_google_oauth_idp Google authorize+token client accepted |
 | counsel_signoff | FAIL | docs/legal/COUNSEL_SIGNOFF.* |
 | independent_pentest_artifact | FAIL | docs/dd/INDEPENDENT_PENTEST_REPORT.* |
 | rate_limit_abuse | PASS | viral_capacity.check_rate_limit limit=5 |
@@ -93,9 +94,9 @@ Each launch-critical domain is FAIL unless a re-verifiable drill on this SHA sup
 ## Capability track counts
 
 - Total: 94
-- PUBLIC-DEMO-READY: 85
+- PUBLIC-DEMO-READY: 86
 - LIVE-PRODUCTION-READY: 0
 - LIVE-MONEY-READY: 0
-- NOT-READY: 9
+- NOT-READY: 8
 
 Binding JSON: `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`

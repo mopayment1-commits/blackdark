@@ -5,12 +5,12 @@
   "bot_token_present": true,
   "chat_id_present": true,
   "bot_username": "BLACKDARKAI_oncall_bot",
-  "message_id": 10,
+  "message_id": 15,
   "chat_type": "private",
   "http_status": 200,
   "telegram_ok": true,
   "error_code": null,
-  "proved_at": "2026-08-14T16:54:23.889759+00:00",
-  "sha": "9204933e42da8891833b9f8205269a832a6bcfd9",
+  "proved_at": "2026-08-14T17:53:37.392518+00:00",
+  "sha": "f7659e72abff1991e25e74eec92a2697e45bc317",
   "path": "telegram_monitor.prove_telegram_oncall_page"
 }

@@ -1,6 +1,6 @@
 # Security Assessment + Penetration Test
 
-**SHA:** `9204933e42da8891833b9f8205269a832a6bcfd9`  
+**SHA:** `f7659e72abff1991e25e74eec92a2697e45bc317`  
 **Independent pentest artifact:** **FAIL** (D10)  
 **In-repo adversarial API pack:** **PASS** (D11)
 

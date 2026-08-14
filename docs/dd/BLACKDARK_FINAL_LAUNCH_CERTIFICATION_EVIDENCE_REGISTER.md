@@ -1,11 +1,11 @@
 # Final Launch Certification & Evidence Register
 
-**SHA:** `9204933e42da8891833b9f8205269a832a6bcfd9`  
+**SHA:** `f7659e72abff1991e25e74eec92a2697e45bc317`  
 **Decision:** **NO-GO**  
 **Tracks:** PUBLIC-DEMO-READY=True · LIVE-PRODUCTION-READY=False · LIVE-MONEY-READY=False  
 **JSON:** `docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json`
 
-This register is bound to SHA `9204933e42da8891833b9f8205269a832a6bcfd9` only. A later SHA requires a new prove run.
+This register is bound to SHA `f7659e72abff1991e25e74eec92a2697e45bc317` only. A later SHA requires a new prove run.
 
 ## Red team (7 axes)
 
@@ -28,7 +28,7 @@ PUBLIC-DEMO-READY is visitor/paper. It is not live production and not live money
 |---|---|---|---|
 | ID-REG | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | ID-MFA | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
-| ID-OAUTH | NOT-READY | ops_config | owner_secrets_required |
+| ID-OAUTH | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | ID-EMAIL | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | ID-TIER | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
 | ID-PROMO | PUBLIC-DEMO-READY | works | public_demo_or_paper_advisory |
