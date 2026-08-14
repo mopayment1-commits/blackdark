@@ -1,4 +1,4 @@
-"""Paper options OMS — Deribit public chain + INTENT→FILL at mark (not live money)."""
+"""Paper options OMS — genuine lifecycle at Deribit public mark (never live money)."""
 
 from __future__ import annotations
 
@@ -9,33 +9,74 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
+from path_safety import ensure_under, safe_data_file
+
 _LOCK = threading.Lock()
-_PATH = Path("data/options_oms.jsonl")
+_PATH = safe_data_file("options_oms.json")
+_DATA_BASE = Path(__file__).resolve().parent / "data"
+
+STATES = (
+    "INTENT",
+    "VALIDATION",
+    "RISK_CHECK",
+    "ACK",
+    "FILL",
+    "REJECT",
+    "RECONCILE",
+)
+_TRANSITIONS: dict[str, frozenset[str]] = {
+    "INTENT": frozenset({"VALIDATION", "REJECT"}),
+    "VALIDATION": frozenset({"RISK_CHECK", "REJECT"}),
+    "RISK_CHECK": frozenset({"ACK", "REJECT"}),
+    "ACK": frozenset({"FILL", "REJECT"}),
+    "FILL": frozenset({"RECONCILE"}),
+    "REJECT": frozenset({"RECONCILE"}),
+    "RECONCILE": frozenset(),
+}
+MAX_QTY = 100.0
+MIN_QTY = 0.01
 
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def _append(row: dict[str, Any]) -> None:
-    _PATH.parent.mkdir(parents=True, exist_ok=True)
-    with _LOCK, _PATH.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(row, default=str) + "\n")
+def _load() -> dict[str, Any]:
+    if not _PATH.exists():
+        return {"orders": {}}
+    try:
+        return json.loads(_PATH.read_text(encoding="utf-8") or "{}")
+    except json.JSONDecodeError:
+        return {"orders": {}}
+
+
+def _save(data: dict[str, Any]) -> None:
+    path = ensure_under(_PATH, _DATA_BASE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def _transition(row: dict[str, Any], new_state: str, *, note: str = "") -> dict[str, Any]:
+    current = str(row.get("state") or "INTENT")
+    allowed = _TRANSITIONS.get(current, frozenset())
+    if new_state not in allowed:
+        raise ValueError(f"illegal_transition:{current}->{new_state}")
+    hist = list(row.get("history") or [])
+    hist.append({"state": new_state, "at": _utcnow(), "note": note})
+    row["state"] = new_state
+    row["history"] = hist
+    row["updated_at"] = _utcnow()
+    return row
 
 
 def list_orders(*, limit: int = 50) -> list[dict[str, Any]]:
-    if not _PATH.exists():
-        return []
-    rows: list[dict[str, Any]] = []
-    with _PATH.open("r", encoding="utf-8") as fh:
-        for line in fh:
-            line = line.strip()
-            if line:
-                try:
-                    rows.append(json.loads(line))
-                except json.JSONDecodeError:
-                    continue
-    return rows[-max(1, int(limit)) :]
+    orders = list((_load().get("orders") or {}).values())
+    orders.sort(key=lambda r: str(r.get("created_at") or ""), reverse=True)
+    return orders[: max(1, int(limit))]
+
+
+def get_order(order_id: str) -> dict[str, Any] | None:
+    return (_load().get("orders") or {}).get(order_id)
 
 
 async def chain_snapshot(currency: str = "BTC") -> dict[str, Any]:
@@ -53,55 +94,117 @@ async def chain_snapshot(currency: str = "BTC") -> dict[str, Any]:
     }
 
 
+def _find_instrument(snapshot: dict[str, Any], instrument: str) -> dict[str, Any] | None:
+    wanted = str(instrument or "").strip()
+    for inst in snapshot.get("instruments") or []:
+        if str(inst.get("instrument") or "") == wanted:
+            return inst
+    return None
+
+
+def _persist(row: dict[str, Any]) -> dict[str, Any]:
+    with _LOCK:
+        data = _load()
+        data.setdefault("orders", {})[row["order_id"]] = row
+        _save(data)
+    return dict(row)
+
+
+async def paper_cycle(
+    *,
+    instrument: str,
+    side: str,
+    quantity: float,
+    actor: str = "options_oms",
+    snapshot: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """INTENT→VALIDATION→RISK_CHECK→ACK→FILL→RECONCILE at public mark. Never live."""
+    side_n = str(side or "").lower().strip()
+    if side_n in {"long", "call"}:
+        side_n = "buy"
+    if side_n in {"short", "put"}:
+        side_n = "sell"
+    qty = float(quantity)
+    currency = "ETH" if str(instrument).upper().startswith("ETH") else "BTC"
+    snap = snapshot if snapshot is not None else await chain_snapshot(currency)
+    row: dict[str, Any] = {
+        "order_id": f"opt_{uuid4().hex[:12]}",
+        "instrument": str(instrument or "").strip(),
+        "side": side_n,
+        "quantity": qty,
+        "state": "INTENT",
+        "live_execution": False,
+        "fill_type": "paper_mark",
+        "actor": actor,
+        "history": [{"state": "INTENT", "at": _utcnow(), "note": "created"}],
+        "created_at": _utcnow(),
+        "updated_at": _utcnow(),
+    }
+    _persist(row)
+
+    if side_n not in {"buy", "sell"} or qty < MIN_QTY or qty > MAX_QTY or not row["instrument"]:
+        _transition(row, "VALIDATION", note="invalid_side_or_qty")
+        _transition(row, "REJECT", note="validation_failed")
+        _transition(row, "RECONCILE", note="rejected")
+        row["ok"] = False
+        row["reason"] = "validation_failed"
+        return {"ok": False, "live_execution": False, "order": _persist(row), "reason": row["reason"]}
+
+    _transition(row, "VALIDATION", note="ok")
+    inst = _find_instrument(snap, row["instrument"])
+    if not inst:
+        _transition(row, "RISK_CHECK", note="instrument_missing")
+        _transition(row, "REJECT", note="unknown_instrument_no_silent_swap")
+        _transition(row, "RECONCILE", note="rejected")
+        row["ok"] = False
+        row["reason"] = "unknown_instrument"
+        row["chain_ok"] = bool(snap.get("ok"))
+        return {"ok": False, "live_execution": False, "order": _persist(row), "reason": row["reason"]}
+
+    mark = inst.get("mark_price")
+    bid = inst.get("bid")
+    ask = inst.get("ask")
+    row["mark_price"] = mark
+    row["bid"] = bid
+    row["ask"] = ask
+    if mark is None or float(mark) <= 0:
+        _transition(row, "RISK_CHECK", note="mark_unavailable")
+        _transition(row, "REJECT", note="no_mark")
+        _transition(row, "RECONCILE", note="rejected")
+        row["ok"] = False
+        row["reason"] = "mark_unavailable"
+        return {"ok": False, "live_execution": False, "order": _persist(row), "reason": row["reason"]}
+
+    _transition(row, "RISK_CHECK", note="mark_ok")
+    _transition(row, "ACK", note="paper_ack")
+    _transition(row, "FILL", note="paper_fill_at_mark")
+    _transition(row, "RECONCILE", note="paper_reconcile")
+    row["ok"] = True
+    row["reason"] = None
+    row["chain_ok"] = bool(snap.get("ok"))
+    persisted = _persist(row)
+    return {
+        "ok": True,
+        "live_execution": False,
+        "order": persisted,
+        "chain_ok": bool(snap.get("ok")),
+        "note": "Paper OMS at public mark — not a Deribit live order.",
+    }
+
+
 async def paper_fill(
     *,
     instrument: str,
     side: str,
     quantity: float,
     actor: str = "options_oms",
+    snapshot: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Paper fill at Deribit mark. Never submits a live options order."""
-    currency = "BTC"
-    if instrument.upper().startswith("ETH"):
-        currency = "ETH"
-    snap = await chain_snapshot(currency)
-    mark = None
-    bid = None
-    ask = None
-    for inst in snap.get("instruments") or []:
-        if str(inst.get("instrument") or "") == instrument:
-            mark = inst.get("mark_price")
-            bid = inst.get("bid")
-            ask = inst.get("ask")
-            break
-    if mark is None and (snap.get("instruments") or []):
-        first = snap["instruments"][0]
-        instrument = str(first.get("instrument") or instrument)
-        mark = first.get("mark_price")
-        bid = first.get("bid")
-        ask = first.get("ask")
-    side_n = "buy" if str(side).lower() in {"buy", "long", "call"} else "sell"
-    qty = max(0.01, float(quantity))
-    order = {
-        "order_id": f"opt_{uuid4().hex[:12]}",
-        "instrument": instrument,
-        "side": side_n,
-        "quantity": qty,
-        "state": "FILL",
-        "fill_type": "paper_mark",
-        "mark_price": mark,
-        "bid": bid,
-        "ask": ask,
-        "live_execution": False,
-        "history": ["INTENT", "RISK_CHECK", "ACK", "FILL"],
-        "actor": actor,
-        "created_at": _utcnow(),
-    }
-    _append(order)
-    return {
-        "ok": True,
-        "live_execution": False,
-        "order": order,
-        "chain_ok": snap.get("ok"),
-        "note": "Paper OMS at public mark — not a Deribit live order.",
-    }
+    """Back-compat alias for paper_cycle."""
+    return await paper_cycle(
+        instrument=instrument,
+        side=side,
+        quantity=quantity,
+        actor=actor,
+        snapshot=snapshot,
+    )

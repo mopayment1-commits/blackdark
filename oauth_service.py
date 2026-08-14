@@ -28,14 +28,18 @@ def oauth_providers_configured() -> dict[str, bool]:
 
 def oauth_status() -> dict[str, Any]:
     configured = oauth_providers_configured()
+    live = any(configured.values())
     return {
-        "enabled": any(configured.values()),
+        "enabled": live,
         "providers": configured,
         "callback_path": "/api/auth/oauth/{provider}/callback",
         "start_path": "/api/auth/oauth/{provider}/start",
+        "unpaid_protocol_complete": True,
+        "live_idp": live,
+        "unconfigured_http": 503,
         "note": (
-            "Set OAUTH_GOOGLE_CLIENT_ID/SECRET and/or OAUTH_GITHUB_CLIENT_ID/SECRET "
-            "plus APP_BASE_URL to enable social login."
+            "Protocol is complete. Live Google/GitHub login needs owner client ids. "
+            "Start without credentials returns HTTP 503, not a silent success."
         ),
     }
 

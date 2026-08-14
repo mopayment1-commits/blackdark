@@ -31,14 +31,24 @@
 
 ---
 
-## الحالة بعد الموجة (ملزمة)
+**الحالة بعد التنفيذ عالي الجودة (ملزمة)**
 
-| الحالة | العدد التقريبي | ماذا بقي |
+| الحالة | العدد | المتبقي |
 |---|---|---|
-| `works` | ≥75 | سقف عدم الدفع مكتمل لهذه القدرات |
+| `works` | 83 | سقف عدم الدفع مكتمل لهذه القدرات |
 | `partial` | 1 | `MKT-L2` 80/100 — AMM + bybit geo |
-| `ops_config` | 2 | `ID-OAUTH` (معرفات Google/GitHub)، `BIL-CHECKOUT` (أسرار PSP) |
+| `ops_config` | 3 | `ID-OAUTH`، `BIL-CHECKOUT`، `B2B-SSO` |
 | `external_block` | 3 | `EX-LIVE` Geo 451، `FUND-HA` multi-AZ، `B2B-WL-HOST` نطاق مخصص |
+
+معيار الجودة الذي أُلزم في هذه المراجعة:
+
+- OMS الخيارات: آلة حالات حقيقية INTENT→…→RECONCILE، رفض الأداة المجهولة، بدون تبديل صامت، `path_safety`.
+- الدرجة التاريخية: أزواج create→resolve بفاصل زمني ≥ 60 ثانية؛ نفس التيك ممنوع.
+- Checkout بلا PSP: مسار ترقية غير مدفوع مكتمل + 503 صادق.
+- OAuth بلا أسرار: HTTP 503 وليس نجاحًا صامتًا.
+- L2 المتبقي: `/api/product/l2-remainder` يسمّي AMM كـ `synthetic_mid` ولا يختلق سلالم.
+
+التحقق: `GET /api/product/unpaid-closure`
 
 ---
 

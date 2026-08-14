@@ -80,6 +80,31 @@ def billing_provider() -> str:
     return "none"
 
 
+def unpaid_upgrade_path() -> dict[str, Any]:
+    """Complete unpaid upgrade surface — live PSP charge remains owner ops."""
+    import config
+
+    return {
+        "ok": True,
+        "unpaid_path_complete": True,
+        "live_charge_ready": billing_configured(),
+        "billing_provider": billing_provider(),
+        "product_complete": False,
+        "paths": {
+            "promo_redeem": "/api/promo/redeem",
+            "institutional_inquiry": "/api/billing/institutional-inquiry",
+            "checkout": "/api/billing/checkout",
+            "status": "/api/billing/status",
+        },
+        "promo_codes_configured": bool(getattr(config, "LAUNCH_PROMO_CODES", None)),
+        "checkout_without_psp": "HTTP 503 Billing not configured",
+        "note": (
+            "Trial/promo/institutional inquiry work without PSP secrets. "
+            "Self-serve live charge needs Stripe or Lemon Squeezy credentials."
+        ),
+    }
+
+
 def _price_id_for_tier(tier: str) -> str | None:
     env_key = f"STRIPE_PRICE_{tier.upper()}"
     value = os.getenv(env_key, "").strip()

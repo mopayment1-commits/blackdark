@@ -3952,7 +3952,11 @@ async def api_options_overview():
         "live_execution": False,
         "chain_ok": chain.get("ok"),
         "instrument_sample": (chain.get("instruments") or [])[:5],
-        "endpoints": ["/api/options/oms/chain", "/api/options/oms/paper-fill", "/api/options/oms/orders"],
+        "endpoints": [
+            "/api/options/oms/chain",
+            "/api/options/oms/paper-fill",
+            "/api/options/oms/orders",
+        ],
     }
     overview["note"] = (
         "Deribit public chain + paper OMS at mark — not live options execution."
@@ -3973,9 +3977,14 @@ async def api_options_oms_paper_fill(
     side: str = "buy",
     quantity: float = 1.0,
 ):
-    from options_oms import paper_fill
+    from fastapi import HTTPException
 
-    return await paper_fill(instrument=instrument, side=side, quantity=quantity)
+    from options_oms import paper_cycle
+
+    result = await paper_cycle(instrument=instrument, side=side, quantity=quantity)
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result.get("reason") or "options_oms_rejected")
+    return result
 
 
 @app.get("/api/options/oms/orders")

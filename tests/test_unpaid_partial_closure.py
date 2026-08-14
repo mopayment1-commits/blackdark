@@ -1,18 +1,67 @@
-"""Unpaid partial-closure wave — historical grade, options OMS, SCIM org key, GQL."""
+"""Institutional-quality unpaid closure — OMS lifecycle, time-separated grade, ops honesty."""
 
 from __future__ import annotations
 
 import pytest
 
 
-def test_historical_self_grade_independent():
-    from historical_self_grade import grade_historical_oracle_outcomes
+def test_historical_self_grade_requires_time_separation(monkeypatch):
+    from historical_self_grade import grade_historical_oracle_outcomes, _pair_independent_outcomes
 
-    out = grade_historical_oracle_outcomes()
-    assert out["independent_of_this_tick"] is True
+    rows = [
+        {
+            "event": "prediction_created",
+            "prediction_id": "1",
+            "timestamp": "2026-08-01T00:00:00+00:00",
+            "asset": "BTC",
+            "price_at_prediction": 100,
+            "resolved": False,
+        },
+        {
+            "event": "prediction_resolved",
+            "prediction_id": "1",
+            "timestamp": "2026-08-01T00:00:10+00:00",
+            "asset": "BTC",
+            "label": "correct",
+            "resolved": True,
+            "price_at_prediction": 100,
+            "price_after_24h": 110,
+        },
+        {
+            "event": "prediction_created",
+            "prediction_id": "2",
+            "timestamp": "2026-08-01T00:00:00+00:00",
+            "asset": "ETH",
+            "resolved": False,
+        },
+        {
+            "event": "prediction_resolved",
+            "prediction_id": "2",
+            "timestamp": "2026-08-02T00:00:00+00:00",
+            "asset": "ETH",
+            "label": "correct",
+            "resolved": True,
+            "price_after_24h": 12,
+        },
+    ]
+    pairs = _pair_independent_outcomes(rows, min_delta_seconds=60)
+    ids = {p["prediction_id"] for p in pairs}
+    assert "1" not in ids  # 10s < 60s
+    assert "2" in ids
+
+    monkeypatch.setattr(
+        "historical_self_grade._read_chain_rows",
+        lambda: rows,
+    )
+    monkeypatch.setattr(
+        "oracle_audit_chain.verify_chain",
+        lambda: {"valid": True, "records": 4},
+    )
+    out = grade_historical_oracle_outcomes(min_delta_seconds=60)
     assert out["same_tick_withheld"] is True
-    assert "resolved_count" in out
-    assert out["learning_self_grade"] is bool(out.get("ok") and int(out.get("resolved_count") or 0) >= 1)
+    assert out["independent_of_this_tick"] is True
+    assert out["independent_pairs"] == 1
+    assert out["learning_self_grade"] is True
 
 
 def test_decision_e2e_same_tick_never_self_grades():
@@ -24,20 +73,63 @@ def test_decision_e2e_same_tick_never_self_grades():
     assert d["same_tick_self_grade"] is False
     assert d["historical_self_grade"]["same_tick_withheld"] is True
     assert d["historical_self_grade"]["independent_of_this_tick"] is True
+    assert out["product_complete"] is False
 
 
 @pytest.mark.asyncio
-async def test_options_paper_oms_no_live_flag():
-    from options_oms import chain_snapshot, list_orders, paper_fill
+async def test_options_oms_full_lifecycle_and_reject_unknown():
+    from options_oms import paper_cycle, list_orders
 
-    snap = await chain_snapshot("BTC")
-    assert snap["live_execution"] is False
-    filled = await paper_fill(instrument="BTC-PERPETUAL", side="buy", quantity=1)
+    snap = {
+        "ok": True,
+        "instruments": [
+            {
+                "instrument": "BTC-29MAR24-100000-C",
+                "mark_price": 0.05,
+                "bid": 0.04,
+                "ask": 0.06,
+            }
+        ],
+    }
+    filled = await paper_cycle(
+        instrument="BTC-29MAR24-100000-C",
+        side="buy",
+        quantity=1,
+        snapshot=snap,
+    )
     assert filled["ok"] is True
     assert filled["live_execution"] is False
-    assert filled["order"]["state"] == "FILL"
-    assert filled["order"]["fill_type"] == "paper_mark"
+    states = [h["state"] for h in filled["order"]["history"]]
+    assert states == [
+        "INTENT",
+        "VALIDATION",
+        "RISK_CHECK",
+        "ACK",
+        "FILL",
+        "RECONCILE",
+    ]
+    assert filled["order"]["state"] == "RECONCILE"
+
+    rejected = await paper_cycle(
+        instrument="NOT-A-REAL-OPTION",
+        side="buy",
+        quantity=1,
+        snapshot=snap,
+    )
+    assert rejected["ok"] is False
+    assert rejected["reason"] == "unknown_instrument"
+    assert rejected["order"]["state"] == "RECONCILE"
+    assert "FILL" not in [h["state"] for h in rejected["order"]["history"]]
     assert list_orders(limit=5)
+
+    bad_qty = await paper_cycle(
+        instrument="BTC-29MAR24-100000-C",
+        side="buy",
+        quantity=0,
+        snapshot=snap,
+    )
+    assert bad_qty["ok"] is False
+    assert bad_qty["reason"] == "validation_failed"
 
 
 def test_org_scim_key_roundtrip():
@@ -99,3 +191,49 @@ def test_inventory_unpaid_closure_mix():
     assert s["works"] >= 75
     assert s["partial"] <= 2
     assert s["external_block"] >= 3
+
+
+def test_l2_remainder_never_claims_complete():
+    from l2_remainder import catalog_l2_remainder
+
+    out = catalog_l2_remainder()
+    assert out["product_complete"] is False
+    assert out["full_mesh_l2_complete"] is False
+    assert out["remainder_count"] >= 8
+    assert all(v["depth_class"] == "synthetic_mid" for v in out["remainder"])
+    assert any(v["id"] == "uniswap_v3" for v in out["remainder"])
+    assert "synthetic_mid ≠ venue_l2" in out["honesty"] or "synthetic_mid" in out["honesty"]
+
+
+def test_billing_unpaid_upgrade_and_oauth_503():
+    from billing_service import unpaid_upgrade_path
+    from fastapi.testclient import TestClient
+    from dashboard import app
+
+    path = unpaid_upgrade_path()
+    assert path["unpaid_path_complete"] is True
+    assert path["product_complete"] is False
+    client = TestClient(app, follow_redirects=False)
+    unpaid = client.get("/api/billing/unpaid-upgrade")
+    assert unpaid.status_code == 200
+    assert unpaid.json()["unpaid_path_complete"] is True
+    oauth_status = client.get("/api/auth/oauth/status")
+    assert oauth_status.status_code == 200
+    oauth_body = oauth_status.json()
+    assert oauth_body["unpaid_protocol_complete"] is True
+    start = client.get("/api/auth/oauth/google/start")
+    if oauth_body.get("live_idp"):
+        assert start.status_code == 200
+    else:
+        assert start.status_code == 503
+    l2 = client.get("/api/product/l2-remainder")
+    assert l2.status_code == 200
+    assert l2.json()["full_mesh_l2_complete"] is False
+    closure = client.get("/api/product/unpaid-closure")
+    assert closure.status_code == 200
+    body = closure.json()
+    assert body["product_complete"] is False
+    assert body["institutional_verdict"] == "NOT_COMPLETE"
+    assert body["unpaid_closure_complete"] is True
+    assert body["four_blockers"]["live_fill"] is False
+    assert body["integrity"]["synthetic_mid_is_not_venue_l2"] is True

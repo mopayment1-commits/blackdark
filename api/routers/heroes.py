@@ -62,6 +62,20 @@ async def product_capability_inventory_api():
     return build_full_capability_inventory()
 
 
+@router.get("/api/product/l2-remainder")
+async def product_l2_remainder_api():
+    from l2_remainder import catalog_l2_remainder
+
+    return catalog_l2_remainder()
+
+
+@router.get("/api/product/unpaid-closure")
+async def product_unpaid_closure_api():
+    from unpaid_institutional_closure import prove_unpaid_institutional_closure
+
+    return prove_unpaid_institutional_closure()
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""

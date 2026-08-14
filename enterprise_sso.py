@@ -361,6 +361,8 @@ def sso_status(org_id: str | None = None) -> dict[str, Any]:
         "surface": "enterprise_sso",
         "product_complete": False,
         "institutional_complete": complete,
+        "unpaid_protocol_complete": True,
+        "live_idp": complete,
         "protocols": ["oidc", "saml"],
         "idp_targets": ["okta", "azure_ad", "generic_oidc", "generic_saml"],
         "jit_provisioning": True,
