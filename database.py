@@ -4226,7 +4226,7 @@ async def insert_weekly_report(narrative: str, payload: dict[str, Any]) -> int:
             INSERT INTO weekly_reports (generated_at, narrative, payload_json)
             VALUES (?, ?, ?)
             """,
-            (_utcnow_iso(), narrative[:2000], json.dumps(payload)),
+            (_utcnow_iso(), narrative[:2000], json.dumps(payload, default=str)),
         )
         return int(cursor.lastrowid or 0)
 
