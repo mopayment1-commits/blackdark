@@ -179,8 +179,11 @@ async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
 
     try:
         return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
-    except RuntimeError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="MFA enrollment unavailable. Set SECRETS_MASTER_KEY (or MFA_ENCRYPTION_KEY).",
+        ) from exc
 
 
 @router.post("/mfa/confirm", responses=COMMON_ERROR_RESPONSES)
