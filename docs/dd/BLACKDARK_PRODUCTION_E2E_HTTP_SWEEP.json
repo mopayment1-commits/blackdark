@@ -1,0 +1,722 @@
+{
+  "generated_at": "2026-08-15T00:37:21.033312+00:00",
+  "base": "https://blackdark-production.up.railway.app",
+  "counts": {
+    "2xx": 17,
+    "3xx": 0,
+    "4xx": 31,
+    "5xx": 5,
+    "error": 0,
+    "total": 53
+  },
+  "surfaces": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 125,
+      "content_type": "text/html",
+      "bytes": 8000,
+      "location": null,
+      "html_title": "BLACKDARK \u2014 AI Crypto Intelligence Platform"
+    },
+    {
+      "path": "/login",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 105,
+      "content_type": "text/html",
+      "bytes": 6879,
+      "location": null,
+      "html_title": "BLACKDARK \u2014 Login"
+    },
+    {
+      "path": "/register",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 111,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/dashboard",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 110,
+      "content_type": "text/html",
+      "bytes": 8000,
+      "location": null,
+      "html_title": "BLACKDARK \u2014 Intelligence Dashboard"
+    },
+    {
+      "path": "/pricing",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/billing",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 102,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/upgrade",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/docs",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 108,
+      "content_type": "text/html",
+      "bytes": 1008,
+      "location": null,
+      "html_title": "BLACKDARK - Swagger UI"
+    },
+    {
+      "path": "/redoc",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 104,
+      "content_type": "text/html",
+      "bytes": 890,
+      "location": null,
+      "html_title": "BLACKDARK - ReDoc"
+    },
+    {
+      "path": "/openapi.json",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 376,
+      "content_type": "application/json",
+      "bytes": 8000,
+      "location": null,
+      "json_keys": []
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 131,
+      "location": null,
+      "json_keys": [
+        "probes",
+        "service",
+        "status",
+        "ui_language",
+        "version"
+      ]
+    },
+    {
+      "path": "/health/live",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 54,
+      "location": null,
+      "json_keys": [
+        "probe",
+        "status",
+        "ts"
+      ]
+    },
+    {
+      "path": "/health/ready",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 322,
+      "location": null,
+      "json_keys": [
+        "database_engine",
+        "postgres_pool",
+        "probe",
+        "service_bus",
+        "status"
+      ]
+    },
+    {
+      "path": "/health/deep",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 110,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/health/viral",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 109,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/build-info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 112,
+      "content_type": "application/json",
+      "bytes": 460,
+      "location": null,
+      "json_keys": [
+        "git_branch",
+        "git_commit",
+        "git_message",
+        "price_feed_ws_only",
+        "price_probe",
+        "release",
+        "service",
+        "ui_language"
+      ]
+    },
+    {
+      "path": "/api/services/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 125,
+      "content_type": "application/json",
+      "bytes": 2183,
+      "location": null,
+      "json_keys": [
+        "architecture",
+        "deployment",
+        "flags",
+        "infra",
+        "scale_ready",
+        "service_bus",
+        "service_mode",
+        "service_mode_runtime",
+        "tasks",
+        "valid_modes"
+      ]
+    },
+    {
+      "path": "/api/database/health",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 143,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "error_snippet": "Internal Server Error"
+    },
+    {
+      "path": "/api/observability/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 215,
+      "location": null,
+      "json_keys": [
+        "counters",
+        "metrics_endpoint",
+        "sentry_configured"
+      ]
+    },
+    {
+      "path": "/api/feed/engine/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 107,
+      "content_type": "application/json",
+      "bytes": 1420,
+      "location": null,
+      "json_keys": [
+        "architecture",
+        "hot_tier_archived",
+        "hot_tier_throttled",
+        "kafka_bus",
+        "kafka_ticks_published",
+        "live_book",
+        "policy",
+        "redis_cache",
+        "redis_ticks_written",
+        "stream_processor",
+        "ticks_total",
+        "websocket_hub"
+      ]
+    },
+    {
+      "path": "/api/feed/health",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 103,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/b2b/ws/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 145,
+      "content_type": "application/json",
+      "bytes": 333,
+      "location": null,
+      "json_keys": [
+        "auth",
+        "connected_clients",
+        "demo_clients",
+        "enabled",
+        "endpoint",
+        "event_cooldown_sec",
+        "events",
+        "feed_version",
+        "heartbeat_sec",
+        "latency_target_ms",
+        "running"
+      ]
+    },
+    {
+      "path": "/api/product/capability-inventory",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/product/public-readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 102,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/product/l2-remainder",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/product/unpaid-closure",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/billing/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 115,
+      "content_type": "application/json",
+      "bytes": 76,
+      "location": null,
+      "json_keys": [
+        "authenticated",
+        "billing_configured",
+        "billing_provider"
+      ]
+    },
+    {
+      "path": "/api/billing/unpaid-upgrade",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/alerts/telegram/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 100,
+      "content_type": "application/json",
+      "bytes": 112,
+      "location": null,
+      "json_keys": [
+        "bot_token_set",
+        "configured",
+        "default_chat_set",
+        "interval_seconds",
+        "monitor_enabled"
+      ]
+    },
+    {
+      "path": "/api/telegram/free/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 131,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "error_snippet": "Internal Server Error"
+    },
+    {
+      "path": "/api/auth/oauth/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 126,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/auth/oauth/google/start",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 100,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/auth/session",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 278,
+      "location": null,
+      "json_keys": [
+        "authenticated",
+        "tier"
+      ]
+    },
+    {
+      "path": "/api/scale/readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 101,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/viral/readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/launch/readiness",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 146,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "error_snippet": "Internal Server Error"
+    },
+    {
+      "path": "/api/gtm/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 119,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "error_snippet": "Internal Server Error"
+    },
+    {
+      "path": "/api/universe/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 117,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "error_snippet": "Internal Server Error"
+    },
+    {
+      "path": "/api/oracle/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/oracle/health",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 102,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/arbitrage/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 109,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/markets/overview",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/ticker",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 102,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/prices",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 107,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/live/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 103,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/robots.txt",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/sitemap.xml",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 131,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/favicon.ico",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 127,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/static/css/style.css",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 108,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/ws/b2b/feed",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 107,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/ws",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    }
+  ],
+  "gated_unauth": [
+    {
+      "path": "/api/alerts/telegram/test",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 106,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/billing/checkout",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 127,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "error_json_keys": [
+        "detail"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+{
+  "generated_at": "2026-08-15T00:40:42.301709+00:00",
+  "base": "https://blackdark-production.up.railway.app",
+  "auth_persist": {
+    "email_hash": "2fc3ab36e279ce1a",
+    "register_status": 200,
+    "register_ms": 387,
+    "register_set_cookie": false,
+    "register_keys": [
+      "expires_at",
+      "token",
+      "trial",
+      "user"
+    ],
+    "user_keys": [
+      "email",
+      "id",
+      "name",
+      "tier"
+    ],
+    "user_tier": "free",
+    "user_id_set": true,
+    "token_set": true,
+    "token_len": 64,
+    "duplicate_register_status": 500,
+    "duplicate_register": {
+      "snippet": "Internal Server Error"
+    },
+    "login_status": 401,
+    "login_detail": "Invalid email or password",
+    "login_keys": [
+      "detail"
+    ],
+    "me_header_variants": {
+      "bearer": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      },
+      "token_header": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      },
+      "x_session": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      },
+      "x_auth_token": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      },
+      "cookie_bd_token": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      },
+      "cookie_session": {
+        "status": 200,
+        "authenticated": false,
+        "keys": [
+          "authenticated",
+          "tier"
+        ],
+        "tier": "free"
+      }
+    }
+  },
+  "market_overview": {
+    "status": 200,
+    "tracked_count": 25,
+    "market_status": "active",
+    "data_source": "Binance Live API",
+    "asset_count": 0,
+    "sample_assets": [],
+    "top_gainers_len": 0
+  },
+  "oracle_quick": {
+    "status": 200,
+    "symbol": "BTC",
+    "price": 50005.0,
+    "verdict": "ELEVATED_RISK",
+    "action": "Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+    "keys": [
+      "action",
+      "action_line",
+      "change_24h",
+      "compliance_engine",
+      "disclaimer",
+      "engine",
+      "is_investment_advice",
+      "latency_ms",
+      "latency_target_ms",
+      "meets_latency_target",
+      "opportunity_score",
+      "price",
+      "regulatory_classification",
+      "sentiment",
+      "symbol",
+      "verdict"
+    ]
+  },
+  "options_overview": {
+    "status": 200,
+    "keys": [
+      "assets",
+      "note",
+      "provider"
+    ],
+    "type": "dict",
+    "len": null
+  },
+  "arb_catalog": {
+    "status": 200,
+    "keys": [
+      "categories",
+      "counts_by_status",
+      "timestamp",
+      "total_types",
+      "types"
+    ],
+    "type": "dict",
+    "len": null
+  },
+  "sentiment": {
+    "status": 200,
+    "data_source": "Rolling Compound Sentiment Index",
+    "asset_count": 5
+  },
+  "health_ready": {
+    "status": "ok",
+    "probe": "ready",
+    "database_engine": "postgresql",
+    "postgres_pool": {
+      "active": true,
+      "min_size": 2,
+      "max_size": 20,
+      "size": 1
+    },
+    "service_bus": {
+      "enabled": true,
+      "redis_configured": false,
+      "redis_connected": false,
+      "published_total": 0,
+      "received_total": 0,
+      "subscribers": {
+        "blackdark.market.updated": 1,
+        "blackdark.arbitrage.hot": 1
+      }
+    }
+  },
+  "feed_engine": {
+    "ticks_total": 0,
+    "stream_running": false,
+    "ws_hub_running": false,
+    "live_book_symbols": 9,
+    "redis": {
+      "enabled": false,
+      "connected": false,
+      "cluster_mode": false,
+      "redis_configured": false,
+      "cluster_nodes": [],
+      "strict_mode": false,
+      "local_symbols": 0,
+      "exchanges": [],
+      "ttl_sec": 5
+    }
+  },
+  "telegram_test_unauth": {
+    "status": 200,
+    "body": {
+      "success": false,
+      "configured": false,
+      "message": "Failed \u2014 check TELEGRAM_BOT_TOKEN and chat_id"
+    }
+  },
+  "ws_prior": {
+    "key_prefix": "bd_",
+    "key_len": 19,
+    "opened": true,
+    "close_code": null,
+    "ping_pong": "pong",
+    "messages": [
+      {
+        "type": "connected",
+        "keys": [
+          "channel",
+          "demo_mode",
+          "feed_version",
+          "latency_target_ms",
+          "timestamp",
+          "type"
+        ]
+      },
+      {
+        "type": "snapshot",
+        "keys": [
+          "feed_version",
+          "record_count",
+          "records",
+          "signature",
+          "timestamp",
+          "type"
+        ]
+      },
+      {
+        "type": "heartbeat",
+        "keys": [
+          "clients",
+          "feed_version",
+          "status",
+          "timestamp",
+          "type"
+        ]
+      }
+    ]
+  },
+  "password_printed": false
+}

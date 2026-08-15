@@ -1,0 +1,47 @@
+{
+  "symbol": "BTC",
+  "pair": "BTCUSDT",
+  "price_feed_ws_only": false,
+  "checks": {
+    "api.binance.com": {
+      "ok": false,
+      "source": null
+    },
+    "data-api.binance.vision": {
+      "ok": true,
+      "source": "binance:data-api.binance.vision"
+    },
+    "api.binance.us": {
+      "ok": true,
+      "source": "binance:api.binance.us"
+    },
+    "kraken": {
+      "ok": true,
+      "source": "kraken"
+    },
+    "okx": {
+      "ok": true,
+      "source": "okx"
+    },
+    "bybit": {
+      "ok": false,
+      "source": null
+    },
+    "coingecko": {
+      "ok": true,
+      "source": "coingecko"
+    },
+    "coinbase": {
+      "ok": true,
+      "source": "coinbase"
+    },
+    "cryptocompare": {
+      "ok": false,
+      "source": null
+    }
+  },
+  "resolved": true,
+  "resolved_source": "binance:data-api.binance.vision",
+  "resolved_price": 63015.28,
+  "timestamp": "2026-08-15T00:41:52.468609+00:00"
+}
