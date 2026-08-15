@@ -4112,10 +4112,14 @@ async def build_info():
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
 async def portfolio_analyze(
-    assets: list = Body(...),
+    payload: list | dict = Body(...),
     _user: dict | None = Depends(require_feature("portfolio_ai")),
 ):
-    if not assets:
+    if isinstance(payload, dict):
+        assets = payload.get("holdings") or payload.get("assets") or payload.get("positions") or []
+    else:
+        assets = payload
+    if not isinstance(assets, list) or not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
     return await _analyze_portfolio_holdings(assets)
 

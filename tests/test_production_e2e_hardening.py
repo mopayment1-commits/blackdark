@@ -218,6 +218,58 @@ def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
     assert "MFA" in (enroll.json().get("detail") or "")
 
 
+def test_graphql_http_health_does_not_422_for_missing_request_query():
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.post("/graphql", json={"query": "{ health { status probe } }"})
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert (body.get("data") or {}).get("health", {}).get("status") == "ok"
+
+
+def test_portfolio_analyze_accepts_holdings_object(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-port.db")
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    reg = client.post(
+        "/api/auth/register",
+        json={
+            "email": "port.e2e@example.com",
+            "password": "E2eHarden!Aa123456",
+            "name": "Port",
+            "accepted_terms": True,
+            "plan": "pro",
+        },
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    resp = client.post(
+        "/portfolio/analyze",
+        json={"holdings": [{"symbol": "BTC", "amount": 1}]},
+        headers=origin,
+    )
+    assert resp.status_code == 200, resp.text
+    assert "holdings" in resp.json() or "risk_score" in resp.json() or "plain" in resp.json()
+
+
+@pytest.mark.asyncio
+async def test_simulate_ticker_uses_market_context_failover(monkeypatch):
+    from trade_simulator import _fetch_ticker
+
+    async def _vision(_pair):
+        return {"price": 63023.65, "change_24h": -0.8, "source": "binance:data-api.binance.vision"}
+
+    import market_context as mc
+
+    monkeypatch.setattr(mc, "fetch_binance_ticker", _vision)
+    row = await _fetch_ticker("BTCUSDT")
+    assert row is not None
+    assert row["price"] == 63023.65
+
+
 def test_public_accuracy_and_database_health_do_not_500():
     from dashboard import app
 

@@ -30,15 +30,42 @@ async def build_daily_report(*, persist: bool = True) -> dict[str, Any]:
     from research_lab import compute_economic_moat
     from whale_tracker import get_latest_institutional_context
 
-    moat = await compute_economic_moat()
-    audit = await fetch_oracle_audit_stats(limit=50)
-    forecast_audit = await fetch_forecast_audit_stats(limit=30)
-    profit = await build_profit_analytics()
-    institutional = await get_latest_institutional_context()
-    alerts = await fetch_arbitrage_alert_log(limit=24)
-    analytics = await fetch_platform_analytics()
-    users = await fetch_platform_user_stats()
-    durations = export_state()
+    async def _safe(coro, default):
+        try:
+            return await coro
+        except Exception:
+            return default
+
+    moat = await _safe(compute_economic_moat(), {})
+    audit = await _safe(fetch_oracle_audit_stats(limit=50), {})
+    forecast_audit = await _safe(fetch_forecast_audit_stats(limit=30), {})
+    profit = await _safe(build_profit_analytics(), {})
+    institutional = await _safe(get_latest_institutional_context(), {})
+    alerts = await _safe(fetch_arbitrage_alert_log(limit=24), [])
+    analytics = await _safe(fetch_platform_analytics(), {})
+    users = await _safe(fetch_platform_user_stats(), {})
+    try:
+        durations = export_state()
+    except Exception:
+        durations = {}
+    if not isinstance(moat, dict):
+        moat = {}
+    if not isinstance(audit, dict):
+        audit = {}
+    if not isinstance(forecast_audit, dict):
+        forecast_audit = {}
+    if not isinstance(profit, dict):
+        profit = {}
+    if not isinstance(institutional, dict):
+        institutional = {}
+    if not isinstance(alerts, list):
+        alerts = []
+    if not isinstance(analytics, dict):
+        analytics = {}
+    if not isinstance(users, dict):
+        users = {}
+    if not isinstance(durations, dict):
+        durations = {}
 
     whale_count = len(institutional.get("whale_alerts") or [])
     profitable_alerts = sum(

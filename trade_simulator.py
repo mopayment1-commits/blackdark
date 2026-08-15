@@ -11,8 +11,6 @@ import logging
 from datetime import UTC, datetime
 from typing import Any, Literal
 
-import aiohttp
-
 import config
 
 logger = logging.getLogger("BLACKDARK.TradeSimulator")
@@ -32,20 +30,20 @@ def _normalize_symbol(symbol: str) -> tuple[str, str]:
 
 
 async def _fetch_ticker(pair: str) -> dict | None:
-    if not pair.isalnum():
+    """Use the same Railway-safe ticker path as Oracle (Vision failover)."""
+    if not pair.replace("USDT", "").replace("USD", "").isalnum():
         return None
-    url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
     try:
-        timeout = aiohttp.ClientTimeout(total=10)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
-            if resp.status != 200:
-                return None
-            data = await resp.json()
-            return {
-                "price": float(data["lastPrice"]),
-                "change_24h": float(data["priceChangePercent"]),
-            }
-    except (aiohttp.ClientError, KeyError, TypeError, ValueError):
+        from market_context import fetch_binance_ticker
+
+        row = await fetch_binance_ticker(pair)
+        if not row:
+            return None
+        return {
+            "price": float(row["price"]),
+            "change_24h": float(row.get("change_24h") or 0),
+        }
+    except (KeyError, TypeError, ValueError):
         return None
 
 
