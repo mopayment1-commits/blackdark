@@ -454,10 +454,14 @@ async def ir_api() -> dict[str, Any]:
 
 
 @router.post("/ir/tabletop")
-async def ir_tabletop(body: Tabletop, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
+async def ir_tabletop(
+    body: Tabletop,
+    user: dict = Depends(require_institutional_principal),
+) -> dict[str, Any]:
     from institutional_assurance import record_tabletop
 
-    return record_tabletop(title=body.title, outcome=body.outcome, participants=body.participants)
+    participants = body.participants or [str(user.get("email") or "operator")]
+    return record_tabletop(title=body.title, outcome=body.outcome, participants=participants)
 
 
 @router.get("/edge/waf")
@@ -516,7 +520,10 @@ async def backup_api() -> dict[str, Any]:
 
 
 @router.post("/backup/drill")
-async def backup_drill(body: BackupDrill, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
+async def backup_drill(
+    body: BackupDrill,
+    _user: dict = Depends(require_institutional_principal),
+) -> dict[str, Any]:
     from institutional_assurance import record_backup_drill
 
     return record_backup_drill(**body.model_dump())

@@ -111,8 +111,10 @@ async def mfa_status_for_user(user_id: int) -> dict[str, Any]:
 
 
 async def begin_mfa_enroll(user_id: int, email: str) -> dict[str, Any]:
-    from database import set_user_mfa_pending_secret
+    from database import init_db, set_user_mfa_pending_secret
 
+    # Ensure MFA columns exist on long-lived Postgres volumes.
+    await init_db()
     secret = generate_totp_secret()
     await set_user_mfa_pending_secret(user_id, encrypt_secret(secret))
     return {

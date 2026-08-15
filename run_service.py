@@ -104,13 +104,15 @@ def main() -> None:
     # Viral / HA: honor WEB_CONCURRENCY (or UVICORN_WORKERS) for web/monolith.
     workers = 1
     if args.mode in {"web", "all"}:
+        viral = (os.getenv("VIRAL_MODE", "true") or "").lower() in {"1", "true", "yes"}
+        default_workers = "2" if viral else "1"
         try:
             workers = max(
                 1,
-                int(os.getenv("WEB_CONCURRENCY") or os.getenv("UVICORN_WORKERS") or "1"),
+                int(os.getenv("WEB_CONCURRENCY") or os.getenv("UVICORN_WORKERS") or default_workers),
             )
         except ValueError:
-            workers = 1
+            workers = int(default_workers)
     if workers > 1:
         cmd.extend(["--workers", str(workers)])
     print(

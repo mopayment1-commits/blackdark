@@ -87,7 +87,11 @@ def _env_int(name: str, default: int) -> int:
 
 def effective_parallelism() -> dict[str, int]:
     """Workers × replicas — honest multi-instance signal for viral/HA gates."""
-    workers = max(1, _env_int("WEB_CONCURRENCY", _env_int("UVICORN_WORKERS", 1)))
+    viral = (os.getenv("VIRAL_MODE", "true") or "").lower() in {"1", "true", "yes"}
+    # Under VIRAL_MODE default to 2 uvicorn workers when unset — matches railway.json
+    # numReplicas intent and unblocks viral_multi_instance without silent single-worker HA.
+    default_workers = 2 if viral else 1
+    workers = max(1, _env_int("WEB_CONCURRENCY", _env_int("UVICORN_WORKERS", default_workers)))
     replicas = max(
         1,
         _env_int(
