@@ -13,6 +13,7 @@ psutil==6.1.1
 textblob==0.19.0
 kafka-python==3.0.10
 hvac==2.4.0
+pyotp==2.10.0
 python-dotenv==1.2.2
 cryptography==50.0.0
 scikit-learn==1.9.0
