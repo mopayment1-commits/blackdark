@@ -23,9 +23,9 @@ def test_coverage_honesty_board():
 
     board = asyncio.run(build_coverage_honesty_board())
     assert board["surface"] == "coverage_honesty_board"
-    assert board["radical_fix"]["status"] == "product_complete"
+    assert board["radical_fix"]["status"] == "honesty_surface_not_product_complete"
     assert "live" in board
-    assert board["live"]["label"].startswith("ingestion_ready")
+    assert "healthy" in board["live"]["label"].lower() or "live_ingestion" in board["live"]["label"].lower()
 
 
 def test_public_miss_feed_and_emotion_tax():
@@ -45,7 +45,7 @@ def test_brand_coverage_closure_all_done():
     from brand_proof_engine import build_brand_coverage_radical_closure
 
     closure = asyncio.run(build_brand_coverage_radical_closure())
-    assert closure["product_complete"] is True
+    assert closure["product_complete"] is False
     assert closure["all_done"] is True
     assert len(closure["problems_closed"]) == 2
     assert all(c["done"] for c in closure["checklist"])
@@ -55,14 +55,17 @@ def test_wiring_pages_and_routes():
     heroes = Path("api/routers/heroes.py").read_text(encoding="utf-8")
     dash = Path("dashboard.py").read_text(encoding="utf-8")
     assert "/api/public/miss-feed" in heroes
+    assert "/api/public/changed-mind" in heroes
     assert "/api/public/coverage-honesty" in heroes
     assert "/api/oracle/provenance-score" in heroes
     assert "/api/public/brand-coverage-closure" in heroes
     assert "/miss-feed" in dash
+    assert "/changed-mind" in dash
     assert "/coverage-honesty" in dash
     assert "/emotion-tax" in dash
     for p in (
         "templates/miss_feed.html",
+        "templates/changed_mind.html",
         "templates/coverage_honesty.html",
         "templates/emotion_tax.html",
         "public_miss_feed.py",

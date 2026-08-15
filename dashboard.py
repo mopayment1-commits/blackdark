@@ -185,13 +185,25 @@ async def _log_oracle_prediction(payload: dict) -> int | None:
     """Persist Oracle decision and return the audit prediction_id (D1)."""
     from ml.labeling_pipeline import log_oracle_signal
 
+    def _oracle_confidence_numeric(row: dict) -> float:
+        raw = row.get("confidence")
+        if isinstance(raw, dict):
+            try:
+                return float(raw.get("value") or 0)
+            except (TypeError, ValueError):
+                return 0.0
+        try:
+            return float(raw or row.get("confidence_percent") or 0)
+        except (TypeError, ValueError):
+            return 0.0
+
     try:
         return await log_oracle_signal(
             asset=str(payload.get("symbol") or payload.get("asset") or ""),
             price=float(payload.get("price") or 0),
             verdict=str(payload.get("verdict") or "WAIT"),
             opportunity_score=float(payload.get("opportunity_score") or 0),
-            confidence=float(payload.get("confidence") or payload.get("confidence_percent") or 0),
+            confidence=_oracle_confidence_numeric(payload),
             kind=str(payload.get("kind") or "oracle_api"),
             market_regime=str(payload.get("market_regime") or "neutral"),
         )
@@ -673,6 +685,13 @@ except Exception:
     logger.exception("Institutional router unavailable")
 
 try:
+    from api.routers.oms_decision import router as oms_decision_router
+
+    app.include_router(oms_decision_router)
+except Exception:
+    logger.exception("OMS/Decision router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")
@@ -1108,9 +1127,25 @@ async def login_page(request: Request):
     return render_page(request, "login.html", _footer_ctx())
 
 
+@app.get("/register")
+async def register_alias():
+    """Signup lives on /login (register tab) — keep /register from 404ing."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/login", status_code=307)
+
+
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
     return render_page(request, "profile.html", _footer_ctx())
+
+
+@app.get("/settings/security")
+async def settings_security_alias():
+    """MFA enrollment lives on /profile — keep the old path from 404ing."""
+    from fastapi.responses import RedirectResponse
+
+    return RedirectResponse(url="/profile", status_code=307)
 
 
 @app.get("/reset-password", response_class=HTMLResponse)
@@ -1254,12 +1289,14 @@ async def journal_delete(entry_id: int, user: dict | None = Depends(optional_use
 
 @app.get("/api/alerts/telegram/status")
 async def telegram_status():
+    from alert_service import telegram_secret_presence
     from telegram_monitor import telegram_configured
 
+    presence = telegram_secret_presence()
     return {
         "configured": telegram_configured(),
-        "bot_token_set": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
-        "default_chat_set": bool(os.getenv("TELEGRAM_CHAT_ID")),
+        "bot_token_set": presence["bot_token_present"],
+        "default_chat_set": presence["chat_id_present"],
         "monitor_enabled": os.getenv("TELEGRAM_ALERTS_ENABLED", "true").lower() in {"1", "true", "yes"},
         "interval_seconds": int(os.getenv("TELEGRAM_ALERT_INTERVAL_SECONDS", "90")),
     }
@@ -1270,8 +1307,17 @@ async def telegram_test(
     data: dict = Body(default={}),
     user: dict = Depends(require_authenticated),
 ):
-    """Authenticated only — send test to the caller's own chat_id (or admin override)."""
-    from telegram_monitor import send_test_telegram
+    """Authenticated only — send test to the caller's own chat_id (or admin override).
+
+    Unconfigured bot is HTTP 503 (fail-closed), never a silent success:false 200.
+    """
+    from telegram_monitor import bot_token_configured, send_test_telegram
+
+    if not bot_token_configured():
+        raise HTTPException(
+            status_code=503,
+            detail="Telegram not configured — set TELEGRAM_BOT_TOKEN (and chat_id or profile telegram_chat_id)",
+        )
 
     requested = (data.get("telegram_chat_id") or data.get("chat_id") or "").strip() or None
     profile_chat = None
@@ -1409,6 +1455,7 @@ async def sitemap_xml(request: Request):
         "/anti-hype",
         "/corpus-passport",
         "/miss-feed",
+        "/changed-mind",
         "/coverage-honesty",
         "/priority-chain",
         "/zero-tolerance",
@@ -1443,6 +1490,14 @@ async def sitemap_xml(request: Request):
         "/cookies",
         "/data-room",
         "/compliance",
+        "/terms",
+        "/privacy",
+        "/disclaimer",
+        "/refund",
+        "/complaints",
+        "/profile",
+        "/register",
+        "/landing",
     ]
     urls = "\n".join(
         f"  <url><loc>{escape(base + p, quote=True)}</loc><changefreq>daily</changefreq></url>"
@@ -1507,6 +1562,11 @@ async def corpus_passport_page(request: Request):
 @app.get("/miss-feed", response_class=HTMLResponse)
 async def miss_feed_page(request: Request):
     return templates.TemplateResponse(request, "miss_feed.html", _footer_ctx())
+
+
+@app.get("/changed-mind", response_class=HTMLResponse)
+async def changed_mind_page(request: Request):
+    return templates.TemplateResponse(request, "changed_mind.html", _footer_ctx())
 
 
 @app.get("/coverage-honesty", response_class=HTMLResponse)
@@ -1797,7 +1857,8 @@ async def capabilities_page(request: Request):
             "lead": (
                 "Four UX lenses — Prove → Operate → Desk → Room — over one Trust OS. "
                 "Four doors: Decide · Verify · My book · Alerts. Six heroes. No ARENA. "
-                "Don't trust us. Verify us. API: /api/lenses"
+                "Don't trust us. Verify us. API: /api/lenses — "
+                "full inventory: /api/product/capability-inventory (NOT COMPLETE)."
             ),
             "trust_os": manifest,
             **_footer_ctx(),
@@ -2232,7 +2293,13 @@ async def _compute_oracle_quick_payload(
     resistance = round(price * 1.03, -2)
     action = _oracle_action(score, price, support, resistance)
     sentiment = _oracle_sentiment(change)
-    decision_action = "ACT" if str(verdict).upper() in {"BUY", "ACT", "BULLISH"} else "WAIT"
+    verdict_u = str(verdict).upper().replace(" ", "_").replace("'", "")
+    if "I_DONT_KNOW" in verdict_u or verdict_u in {"INSUFFICIENT", "INSUFFICIENT_EVIDENCE"}:
+        decision_action = "I_DONT_KNOW"
+    elif str(verdict).upper() in {"BUY", "ACT", "BULLISH"}:
+        decision_action = "ACT"
+    else:
+        decision_action = "WAIT"
     decision_sentence = _quick_decision_sentence(lang, decision_action, asset, score, action)
     return _quick_payload(
         asset,
@@ -3928,8 +3995,54 @@ async def api_risk_unfreeze(_admin: dict = Depends(require_admin)):
 @app.get("/api/options/overview")
 async def api_options_overview():
     from options_fetcher import fetch_options_overview
+    from options_oms import chain_snapshot
 
-    return await fetch_options_overview()
+    overview = await fetch_options_overview()
+    chain = await chain_snapshot("BTC")
+    overview["paper_oms"] = {
+        "live_execution": False,
+        "chain_ok": chain.get("ok"),
+        "instrument_sample": (chain.get("instruments") or [])[:5],
+        "endpoints": [
+            "/api/options/oms/chain",
+            "/api/options/oms/paper-fill",
+            "/api/options/oms/orders",
+        ],
+    }
+    overview["note"] = (
+        "Deribit public chain + paper OMS at mark — not live options execution."
+    )
+    return overview
+
+
+@app.get("/api/options/oms/chain")
+async def api_options_oms_chain(currency: str = "BTC"):
+    from options_oms import chain_snapshot
+
+    return await chain_snapshot(currency)
+
+
+@app.post("/api/options/oms/paper-fill")
+async def api_options_oms_paper_fill(
+    instrument: str = "BTC-PERPETUAL",
+    side: str = "buy",
+    quantity: float = 1.0,
+):
+    from fastapi import HTTPException
+
+    from options_oms import paper_cycle
+
+    result = await paper_cycle(instrument=instrument, side=side, quantity=quantity)
+    if not result.get("ok"):
+        raise HTTPException(status_code=400, detail=result.get("reason") or "options_oms_rejected")
+    return result
+
+
+@app.get("/api/options/oms/orders")
+async def api_options_oms_orders(limit: int = 20):
+    from options_oms import list_orders
+
+    return {"ok": True, "live_execution": False, "orders": list_orders(limit=limit)}
 
 
 @app.get("/api/infra/metrics")
@@ -4069,7 +4182,21 @@ async def portfolio_analyze(
 ):
     if not assets:
         raise HTTPException(status_code=400, detail="No assets provided")
-    return await _analyze_portfolio_holdings(assets)
+    # Institutional path: portfolio_intelligence (canonical + risk + stress).
+    # Legacy beta heuristic retained as secondary clarity layer.
+    from portfolio_intelligence import analyze_portfolio, holdings_from_dashboard_assets
+
+    positions = holdings_from_dashboard_assets(assets)
+    institutional = analyze_portfolio(positions)
+    legacy = await _analyze_portfolio_holdings(assets)
+    return {
+        **legacy,
+        "institutional": institutional,
+        "canonical_adopted": True,
+        "analyzer": "portfolio_intelligence",
+        "gate": institutional.get("gate"),
+        "executable_analysis": institutional.get("executable_analysis"),
+    }
 
 @app.post("/join-waitlist", responses=COMMON_ERROR_RESPONSES)
 async def join_waitlist(data: dict, background_tasks: BackgroundTasks):

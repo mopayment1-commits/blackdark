@@ -117,7 +117,7 @@ def build_industry_silence_index() -> dict[str, Any]:
     return {
         "feature_id": "F5",
         "surface": "industry_silence_index",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow().isoformat(),
         "silence_score": score,
         "avg_silence_ratio": avg_silence,

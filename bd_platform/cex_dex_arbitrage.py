@@ -233,6 +233,55 @@ def _indicative_fee_bps(buy_venue: str, sell_venue: str) -> float | None:
     return (float(buy_rate) + float(sell_rate)) * 10_000 + _GAS_BPS_EST
 
 
+def _verify_cex_l2_walk(
+    *,
+    venue: str,
+    asset: str,
+    quote_usd: float,
+    side: str,
+) -> tuple[bool, float | None, str]:
+    """Require walkable CEX depth (live hub book or fail closed)."""
+    from arbitrage_engine import walk_asks, walk_bids
+    from canonical_adoption import adopt_order_books, adopt_symbol, adopt_venue
+    from live_book_hub import get_top_of_book, is_quote_fresh
+
+    v = adopt_venue(venue)
+    symbol = adopt_symbol(f"{asset}/USDT")
+    compact = symbol.replace("/", "")
+    if not is_quote_fresh(v, symbol):
+        if not is_quote_fresh(v, compact):
+            return False, None, "cex_quote_stale_or_missing"
+    tob = get_top_of_book(v, symbol) or get_top_of_book(v, compact)
+    if not tob:
+        return False, None, "cex_book_missing"
+    book = {"bids": list(tob.get("bids") or []), "asks": list(tob.get("asks") or [])}
+    if not book["bids"] or not book["asks"]:
+        return False, None, "cex_book_empty"
+    try:
+        adopted = adopt_order_books(
+            {v: {symbol: book}},
+            source="cex_dex_l2",
+            path="cex_dex",
+        )
+        book = adopted[v][symbol]
+    except ValueError as exc:
+        return False, None, f"cex_canonical_reject:{exc}"
+    if side == "buy":
+        ex = walk_asks(book, quote_usd)
+        if ex is None:
+            return False, None, "cex_ask_depth_insufficient"
+        return True, float(ex.slippage_bps), "ok"
+    # sell into bids — convert quote notional to approx base via mid
+    mid = (float(book["bids"][0][0]) + float(book["asks"][0][0])) / 2.0
+    if mid <= 0:
+        return False, None, "cex_mid_invalid"
+    base_amt = quote_usd / mid
+    ex = walk_bids(book, base_amt)
+    if ex is None:
+        return False, None, "cex_bid_depth_insufficient"
+    return True, float(ex.slippage_bps), "ok"
+
+
 async def _cex_dex_opportunity_for_asset(
     session: aiohttp.ClientSession,
     asset: str,
@@ -261,14 +310,23 @@ async def _cex_dex_opportunity_for_asset(
     spread_bps = ((sell_price - buy_price) / buy_price) * 10_000 if buy_price else 0
     if abs(spread_bps) > 500:
         return None
-    # Mid-price path is indicative-only; fee estimate from fee_matrix (not DEFAULT_TAKER_FEE).
     fee_bps = _indicative_fee_bps(buy_venue, sell_venue)
     if fee_bps is None:
         return None
     net_bps = spread_bps - fee_bps
     if abs(net_bps) < _MIN_NET_BPS:
         return None
-    return _cex_dex_row(
+
+    # CEX leg L2 verification (DEX liquidity checked in _cex_dex_row).
+    cex_leg = buy_venue if buy_venue in cex_map else sell_venue
+    cex_side = "buy" if buy_venue == cex_leg else "sell"
+    l2_ok, l2_slip, l2_reason = _verify_cex_l2_walk(
+        venue=cex_leg,
+        asset=asset,
+        quote_usd=quote_usd,
+        side=cex_side,
+    )
+    row = _cex_dex_row(
         asset,
         cex_map,
         cex_mid,
@@ -281,7 +339,16 @@ async def _cex_dex_opportunity_for_asset(
         net_bps,
         quote_usd,
         fee_bps,
+        cex_l2_walk_verified=l2_ok,
+        cex_l2_slippage_bps=l2_slip,
+        gas_bps=_GAS_BPS_EST,
+        bridge_required=False,
+        settlement="atomic_cex_plus_dex_legs",
     )
+    if not l2_ok:
+        row["indicative_reason"] = row.get("indicative_reason") or l2_reason
+        row["cex_l2_reason"] = l2_reason
+    return row
 
 
 def _cex_dex_route(
@@ -310,12 +377,49 @@ def _cex_dex_row(
     spread_bps: float,
     net_bps: float,
     quote_usd: float,
-    fee_bps: float = 0.0,
+    fee_bps: float | None = None,
+    *,
+    cex_l2_walk_verified: bool = False,
+    cex_l2_slippage_bps: float | None = None,
+    gas_bps: float | None = None,
+    bridge_required: bool = False,
+    settlement: str = "unspecified",
 ) -> dict[str, Any]:
     dex_price = float(dex_row.get("price") or 0)
     liq = float(dex_row.get("liquidity_usd") or 0)
-    # Indicative estimate only — never an executable fee-adjusted claim.
-    est_profit = quote_usd * (net_bps / 10_000) if net_bps > 0 else 0
+    # Depth-aware executability: require verified CEX L2 book walk + DEX liquidity + known fees.
+    # Mid/pool-only paths remain INDICATIVE forever (fail closed for executable).
+    # fee_bps default None — never invent unknown fees as 0.0 / free.
+    cex_l2_verified = bool(cex_l2_walk_verified)
+    # Zero fee is never silently inventable: require positive known fee haircut.
+    fees_known = fee_bps is not None and float(fee_bps) > 0
+    gas_known = gas_bps is not None and float(gas_bps) >= 0
+    depth_ok = (
+        cex_l2_verified
+        and liq >= max(quote_usd * 3.0, 1.0)
+        and fees_known
+        and gas_known
+    )
+    # Conservative impact haircut when only pool liquidity is known (no L2 walk).
+    impact_bps = min(75.0, (quote_usd / liq) * 10_000 * 0.35) if liq > 0 else None
+    if cex_l2_slippage_bps is not None and impact_bps is not None:
+        impact_bps = max(float(impact_bps), float(cex_l2_slippage_bps))
+    elif cex_l2_slippage_bps is not None:
+        impact_bps = float(cex_l2_slippage_bps)
+    executable = bool(
+        depth_ok
+        and impact_bps is not None
+        and fees_known
+        and (net_bps - float(impact_bps)) > 0
+        and quote_usd > 0
+        and not bridge_required  # bridging path remains indicative until proven
+    )
+    adj_net = (net_bps - float(impact_bps)) if impact_bps is not None else None
+    est_profit = (
+        quote_usd * (adj_net / 10_000)
+        if executable and adj_net is not None and adj_net > 0
+        else None
+    )
     return {
         "asset": asset,
         "cex_prices": {k: round(v, 6) for k, v in cex_map.items()},
@@ -329,22 +433,57 @@ def _cex_dex_row(
         "buy_price": round(buy_price, 6),
         "sell_price": round(sell_price, 6),
         "spread_bps": round(spread_bps, 2),
-        "indicative_fee_bps": round(fee_bps, 2),
-        # Kept for scan ranking/UI; labeled indicative — not executable economics.
+        "indicative_fee_bps": round(fee_bps, 2) if fee_bps is not None else None,
+        "impact_bps_estimate": round(impact_bps, 2) if impact_bps is not None else None,
         "net_spread_bps": round(net_bps, 2),
-        "indicative_estimated_profit_usd": round(est_profit, 2),
-        "estimated_profit_usd": round(est_profit, 2),
+        "net_executable_spread_bps": round(adj_net, 2) if adj_net is not None else None,
+        "indicative_estimated_profit_usd": round(quote_usd * (net_bps / 10_000), 2) if net_bps > 0 else 0,
+        "estimated_profit_usd": round(est_profit, 2) if executable and est_profit is not None else None,
+        "net_executable_profit_usdt": round(est_profit, 2) if executable and est_profit is not None else None,
         "quote_usd": quote_usd,
         "topline_positive": net_bps > 0,
-        "profitable": False,
-        "executable": False,
-        "indicative": True,
-        "indicative_reason": "cex_dex_mid_price_no_depth",
+        "profitable": bool(executable and est_profit and est_profit > 0),
+        "executable": executable,
+        "indicative": not executable,
+        "indicative_reason": (
+            ""
+            if executable
+            else (
+                "fee_unknown"
+                if not fees_known
+                else (
+                    "cex_l2_walk_required"
+                    if not cex_l2_verified
+                    else (
+                        "gas_unknown"
+                        if not gas_known
+                        else (
+                            "bridge_unproven"
+                            if bridge_required
+                            else "cex_dex_insufficient_depth_or_impact"
+                        )
+                    )
+                )
+            )
+        ),
+        "depth_verified": depth_ok,
+        "cex_l2_walk_verified": cex_l2_verified,
+        "cex_l2_slippage_bps": round(cex_l2_slippage_bps, 4) if cex_l2_slippage_bps is not None else None,
+        "gas_bps": round(gas_bps, 4) if gas_bps is not None else None,
+        "bridge_required": bool(bridge_required),
+        "settlement": settlement,
+        "fees_known": fees_known,
+        "gas_known": gas_known,
+        "smart_contract_risk_required": True,
         "execution_feasibility": _execution_feasibility(net_bps, liq, quote_usd),
         "why": (
             f"Buy {asset} on {buy_venue} @ ${buy_price:,.2f}, "
-            f"sell on {sell_venue} @ ${sell_price:,.2f} — indicative "
-            f"{net_bps:.1f} bps after fee_matrix estimate + gas (not executable)"
+            f"sell on {sell_venue} @ ${sell_price:,.2f} — "
+            + (
+                f"executable {adj_net:.1f} bps after fees+gas+impact"
+                if executable and adj_net is not None
+                else f"indicative {net_bps:.1f} bps (not executable without verified depth)"
+            )
         ),
         "kind": "cex_dex",
     }

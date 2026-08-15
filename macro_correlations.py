@@ -10,6 +10,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import logging
+import os
 import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -193,9 +194,24 @@ def _yahoo_macro_indicators(
 
 async def fetch_macro_indicators() -> MacroIndicators:
     """
-    Pull or mock real-time macro indicators for DXY, SPX, and BTC/Gold ratio.
+    Pull real-time macro indicators for DXY, SPX, and BTC/Gold ratio.
+
+    Production/institutional: never silently substitute mock as live macro.
     """
+    try:
+        from production_guard import is_production
+
+        prod_like = is_production() or os.getenv("INSTITUTIONAL_LAUNCH", "").lower() in {
+            "1",
+            "true",
+            "yes",
+        }
+    except Exception:
+        prod_like = False
+
     if config.MACRO_DATA_SOURCE == "mock":
+        if prod_like:
+            raise RuntimeError("macro_mock_forbidden_in_production")
         return _mock_macro_indicators()
 
     dxy_score, spx_score, btc_price, gold_price = await _fetch_yahoo_macro_values()
@@ -203,10 +219,15 @@ async def fetch_macro_indicators() -> MacroIndicators:
     if config.MACRO_DATA_SOURCE == "mixed" and (
         dxy_score is None or spx_score is None or btc_price is None or gold_price is None
     ):
+        if prod_like:
+            # Fail closed: incomplete live macro must not become mock truth.
+            raise RuntimeError("macro_incomplete_fail_closed")
         return _mixed_macro_indicators(dxy_score, spx_score, btc_price, gold_price)
 
     if dxy_score is None or spx_score is None or not btc_price or not gold_price:
-        logger.warning("Macro indicator fetch incomplete; using mock fallback.")
+        if prod_like:
+            raise RuntimeError("macro_incomplete_fail_closed")
+        logger.warning("Macro indicator fetch incomplete; using mock fallback (non-prod only).")
         return _mock_macro_indicators()
 
     return _yahoo_macro_indicators(dxy_score, spx_score, btc_price, gold_price)

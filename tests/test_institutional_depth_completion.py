@@ -1,0 +1,685 @@
+"""End-to-end institutional depth: canonical bus, DB authority, fill proof, decision e2e."""
+
+from __future__ import annotations
+
+import pytest
+
+
+@pytest.mark.asyncio
+async def test_canonical_truth_bus_live_refresh():
+    from canonical_truth_bus import bus_status, get_live_books, refresh_live_truth, reset_bus_for_tests
+
+    reset_bus_for_tests()
+    out = await refresh_live_truth(symbol="BTC/USDT")
+    assert out["ok"] is True
+    assert len(out["venues"]) >= 1
+    assert out.get("fabricated_depth") is False
+    assert len(out.get("l2_venues") or []) >= 1
+    books = get_live_books(require_live=True, symbol="BTC/USDT")
+    # Reject prior fabricated ladder pattern (2.0+i / 1.5+i)
+    for venue_books in books.values():
+        spot = venue_books.get("BTC/USDT")
+        if not spot:
+            continue
+        sizes = [float(q) for _, q in (spot.get("bids") or [])[:8]]
+        assert not all(abs(sizes[i] - (2.0 + i)) < 1e-9 for i in range(len(sizes)))
+        assert not all(abs(sizes[i] - (1.5 + i)) < 1e-9 for i in range(len(sizes)))
+        assert spot.get("fabricated_depth") is False
+    st = bus_status()
+    assert st["bypass_forbidden"] is True
+    assert st["synthetic_forbidden_on_production"] is True
+    assert st["fabricated_depth_forbidden"] is True
+
+
+@pytest.mark.asyncio
+async def test_institutional_store_oms_db_authority(tmp_path, monkeypatch):
+    import config
+    from institutional_store import ensure_ready, oms_get_sync, oms_upsert_sync, store_status
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "inst.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    # force re-init
+    import institutional_store as store
+
+    store._READY_FOR = None  # noqa: SLF001
+    ensure_ready()
+    row = {
+        "order_id": "oms_test_1",
+        "org_id": "org1",
+        "venue": "binance",
+        "symbol": "BTC/USDT",
+        "side": "buy",
+        "quantity": 0.01,
+        "filled_quantity": 0.0,
+        "order_type": "limit",
+        "limit_price": 100.0,
+        "state": "INTENT",
+        "idempotency_key": "idem-1",
+        "actor": "test",
+        "history": [{"state": "INTENT"}],
+        "created_at": "2026-01-01T00:00:00+00:00",
+        "updated_at": "2026-01-01T00:00:00+00:00",
+    }
+    oms_upsert_sync(row)
+    got = oms_get_sync("oms_test_1")
+    assert got is not None
+    assert got["state"] == "INTENT"
+    assert store_status()["authority"] == "sqlite"
+    assert "inst_oms_orders" in store_status()["tables"]
+
+
+@pytest.mark.asyncio
+async def test_venue_fill_proof_lifecycle():
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="proof_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["oms_state"] in {"FILL", "RECONCILE"}
+    assert "INTENT" in out["history_states"]
+    assert "RISK_CHECK" in out["history_states"]
+    assert "ACK" in out["history_states"]
+    assert out["audit_trail"] is True
+    assert out["portfolio_position"] is not None
+    assert out["store"]["jsonl_is_export_only"] is True
+
+
+def test_decision_e2e_unified_object():
+    from decision_e2e import run_decision_e2e
+
+    out = run_decision_e2e(symbol="BTC/USDT", org_id="e2e", notional=10_000.0)
+    assert out["ok"] is True
+    d = out["decision_object"]
+    assert d["pipeline"].startswith("LIVE→CANONICAL")
+    assert d["graph_id"]
+    assert "evidence" in d and "risk" in d and "whale" in d
+    assert d.get("same_tick_self_grade") is False
+    assert "historical_self_grade" in d
+    hist = d.get("historical_self_grade") or {}
+    assert hist.get("independent_of_this_tick") is True
+    assert hist.get("same_tick_withheld") is True
+    assert d.get("learning_self_grade") is bool(hist.get("learning_self_grade"))
+    assert d.get("market_inputs", {}).get("from_live_books") is True
+    assert out["loop"]["evaluation"]
+
+
+def test_ops_backup_restore_probe(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from ops_recovery import ops_status
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "ops.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    store.ensure_ready()
+    st = ops_status()
+    assert st["backup_restore"]["ok"] is True
+    assert "inst_oms_orders" in st["backup_restore"]["institutional_tables"]
+
+
+def test_super_terminal_has_unified_decision():
+    from super_terminal import build_super_terminal
+
+    pack = build_super_terminal(symbol="BTC/USDT", org_id="st")
+    assert "unified_decision" in pack["modules"]
+    assert "decision_object" in pack
+    assert pack["decision_object"].get("pipeline")
+
+
+def test_whale_5m_band_present():
+    from whale_execution_evidence import measure_whale_readiness
+
+    books = {
+        "binance": {
+            "BTC/USDT": {
+                "bids": [[100.0 - i * 0.01, 8000.0] for i in range(40)],
+                "asks": [[100.0 + i * 0.01, 8000.0] for i in range(40)],
+            }
+        },
+        "okx": {
+            "BTC/USDT": {
+                "bids": [[100.0 - i * 0.01, 8000.0] for i in range(40)],
+                "asks": [[100.0 + i * 0.01, 8000.0] for i in range(40)],
+            }
+        },
+    }
+    out = measure_whale_readiness(books, symbol="BTC/USDT")
+    assert "5000000" in (out.get("capital_bands") or {})
+
+
+@pytest.mark.asyncio
+async def test_durable_ingestion_health_rows(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from institutional_ingestion_proof import prove_durable_ingestion
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "ingest.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    out = await prove_durable_ingestion(symbol="BTC/USDT")
+    assert out["ok"] is True
+    assert out["ingestion_health_rows"] >= 1
+    assert out["live_sources"] >= 1
+    assert out["truth_bus"].get("fabricated_depth") is False
+
+
+@pytest.mark.asyncio
+async def test_venue_fill_proof_uses_venue_l2_depth():
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="depth_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["depth"]["fabricated"] is False
+    assert out["depth"]["bid_depth_usd"] > 0
+    assert out["depth"]["ask_depth_usd"] > 0
+    assert out["live_fill"] is False  # no testnet creds in CI
+    walk = out["depth"].get("book_walk") or {}
+    assert walk.get("ok") is True
+    assert walk.get("live_fill") is False
+    assert int(walk.get("levels_consumed") or 0) >= 1
+    assert walk.get("impact_bps") is not None
+
+
+def test_super_terminal_derivatives_venue_perp():
+    from canonical_truth_bus import refresh_live_truth_sync, reset_bus_for_tests
+    from super_terminal import _derivatives_pack
+
+    reset_bus_for_tests()
+    refresh_live_truth_sync(symbol="BTC/USDT")
+    pack = _derivatives_pack("BTC/USDT")
+    assert pack.get("ok") is True
+    assert pack.get("perp_leg") == "venue_futures"
+    assert pack.get("funding_source") == "venue_funding"
+    assert pack.get("fabricated_depth") is False
+    assert pack.get("synthetic_hardcoded_books") is False
+    assert len(pack.get("perp_venues") or []) >= 2
+
+
+def test_ops_schema_authority(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from ops_recovery import ops_status
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "ops2.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    store.ensure_ready()
+    st = ops_status()
+    assert st["schema_authority"]["ok"] is True
+    assert "inst_oms_orders" in st["schema_authority"]["institutional_tables"]
+    assert st["postgres_ddl_ready"]["ok"] is True
+
+
+def test_multi_venue_perp_funding_on_bus():
+    from canonical_truth_bus import get_live_funding, refresh_live_truth_sync, reset_bus_for_tests
+
+    reset_bus_for_tests()
+    out = refresh_live_truth_sync(symbol="BTC/USDT")
+    assert out["ok"] is True
+    assert len(out.get("perp_venues") or []) >= 2
+    assert "okx" in (out.get("perp_venues") or [])
+    funding = get_live_funding(require_live=True, symbol="BTC/USDT")
+    assert "okx" in funding
+    assert len(funding) >= 2
+    assert funding["okx"]["BTC/USDT"].get("synthetic") is False
+    for venue, syms in funding.items():
+        assert syms["BTC/USDT"].get("synthetic") is False, venue
+
+
+@pytest.mark.asyncio
+async def test_scheduler_continuum_bounded(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from institutional_scheduler_proof import prove_scheduler_continuum
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "sched.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    out = await prove_scheduler_continuum(cycle_seconds=1.0)
+    assert out["ok"] is True
+    assert out["scheduler_started"] is True
+    assert out["scheduler_stopped"] is True
+    assert out["continuum"] is True
+
+
+@pytest.mark.asyncio
+async def test_venue_protocol_proof_never_live_fill(monkeypatch):
+    monkeypatch.setenv("VENUE_PROTOCOL_PROOF", "true")
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="protocol_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["live_fill"] is False
+    assert out["mode"] in {"venue_protocol_proof", "paper_lifecycle"}
+    if out.get("protocol_ack"):
+        assert out["protocol_ack"]["protocol_proof"] is True
+        assert out["protocol_ack"]["live_fill"] is False
+
+
+def test_product_complete_overclaim_census_reduced():
+    import pathlib
+    import re
+
+    true_hits = 0
+    for p in pathlib.Path(".").glob("*.py"):
+        text = p.read_text(encoding="utf-8", errors="ignore")
+        true_hits += len(re.findall(r'["\']product_complete["\']\s*:\s*True', text))
+    # After honesty sweep, root True census must be zero (no self-cert theater)
+    assert true_hits == 0
+
+
+@pytest.mark.asyncio
+async def test_jupiter_live_quote_proof():
+    from jupiter_dex_adapter import adapter_status, prove_jupiter_live_quote
+
+    st = adapter_status()
+    assert st["live_submit_implemented"] is True
+    assert st["quote_implementation_class"] == "PARTIAL"
+    out = await prove_jupiter_live_quote()
+    assert out["ok"] is True
+    assert out["executable_quote"] is True
+    assert out["live_submit_implemented"] is True
+    assert out["out_amount"]
+
+
+@pytest.mark.asyncio
+async def test_jupiter_submit_path_implemented_fail_closed_without_wallet():
+    from jupiter_dex_adapter import execute_swap, prove_jupiter_submit_path, prove_jupiter_swap_build
+
+    build = await prove_jupiter_swap_build()
+    assert build["ok"] is True
+    assert build["swap_transaction_built"] is True
+    assert build["tx_decoded"]["ok"] is True
+    assert build["reverse_quote"]["ok"] is True
+    assert build["latest_blockhash"]["ok"] is True
+    assert int((build.get("quote_route") or {}).get("route_plan_steps") or 0) >= 1
+    assert build["executed"] is False
+    assert build["broadcast"] is False
+    # simulate may return AccountNotFound for ephemeral — still not a broadcast/fill
+    assert build.get("tx_simulated") is not None
+    assert build["verified_complete"] is False
+    proof = await prove_jupiter_submit_path()
+    assert proof["ok"] is True
+    assert proof["live_submit_implemented"] is True
+    assert proof["swap_build"]["ok"] is True
+    assert proof["swap_build"]["tx_decoded"] is True
+    assert proof["dry_run"]["executed"] is False
+    live = await execute_swap(asset="SOL", side="buy", amount_usd=1, dry_run=False)
+    assert live["executed"] is False
+    assert live["live_submit_implemented"] is True
+    assert live["mode"] in {"ready_needs_live_flag_or_wallet", "live_submit_failed", "blocked"}
+
+
+def test_postgres_local_dump_restore_prove():
+    from ops_recovery import prove_postgres_local_dump_restore
+
+    out = prove_postgres_local_dump_restore()
+    assert out["ok"] is True
+    assert out["ha_dr"] == "LOCAL_EPHEMERAL_NOT_HA"
+    assert int(out.get("oms_rows") or 0) == 1
+
+
+def test_postgres_streaming_ha_rpo_rto_prove():
+    from ops_recovery import prove_postgres_streaming_ha_rpo_rto
+
+    out = prove_postgres_streaming_ha_rpo_rto()
+    assert out["ok"] is True
+    assert out["ha_class"] == "LOCAL_STREAMING_REPLICATION"
+    assert out["cloud_multi_az"] is False
+    assert int(out["rpo_ms"]) <= 1000
+    assert int(out["rto_ms"]) <= 5000
+    assert out["verified_complete"] is True
+
+
+@pytest.mark.asyncio
+async def test_postgres_product_path_oms_round_trip():
+    from ops_recovery import prove_postgres_product_path
+
+    out = await prove_postgres_product_path()
+    assert out["ok"] is True
+    assert out["authority"] == "postgres"
+    assert out["oms_round_trip"] is True
+    assert out["ha_dr"] == "LOCAL_EPHEMERAL_NOT_HA"
+
+
+@pytest.mark.asyncio
+async def test_venue_fill_paper_venue_follows_l2():
+    from venue_fill_proof import prove_fill_lifecycle
+
+    out = await prove_fill_lifecycle(org_id="venue_id_org", quantity=0.001)
+    assert out["ok"] is True
+    assert out["live_fill"] is False
+    assert out["depth"].get("venue")
+    assert out["order_venue"] == out["depth"]["venue"]
+    assert out["order_venue"] != "binance" or out["depth"]["venue"] == "binance"
+
+
+def test_white_label_served_surface_prove():
+    from white_label import prove_white_label_surface, white_label_status
+
+    st = white_label_status()
+    assert st["implementation_class"] == "PARTIAL"
+    assert "institutional_api" in st["features"]
+    assert "super_terminal_brand_apply" in st["features"]
+    out = prove_white_label_surface(org_id="wl_test_org", product_name="Desk Test")
+    assert out["ok"] is True
+    assert out["served_surface"]["brand_applied"] is True
+    assert out["super_terminal"]["brand_applied"] is True
+    assert out["super_terminal"]["product_name"] == "Desk Test"
+    assert out["super_terminal"]["builder_invoked"] is True
+    assert out["super_terminal"]["wiring"] == "build_super_terminal_applies_get_brand"
+    assert out["isolation"]["ok"] is True
+    assert out["isolation"]["peer_brand_applied"] is False
+    assert out["theme_tokens"]["css_vars"]["--bd-brand-primary"]
+    assert out["portal"]["ok"] is True
+    assert out["portal"]["hosted_custom_domain"] is False
+    assert out["portal"]["client_gateway_ok"] is True
+    assert out["portal"]["client_gateway_hosted"] is False
+    assert out["product_complete"] is False
+    src = open("super_terminal.py", encoding="utf-8").read()
+    assert "apply_brand_to_surface" in src
+    assert "brand_applied" in src
+
+
+@pytest.mark.asyncio
+async def test_durable_ingestion_raises_coverage(tmp_path, monkeypatch):
+    import config
+    import institutional_store as store
+    from institutional_ingestion_proof import prove_durable_ingestion
+
+    monkeypatch.setattr(config, "DB_PATH", tmp_path / "cov.db")
+    monkeypatch.setattr(config, "DATABASE_URL", "")
+    store._READY_FOR = None  # noqa: SLF001
+    out = await prove_durable_ingestion()
+    assert out["ok"] is True
+    # Full catalog-100 price health: require near-complete registry coverage.
+    assert out["full_catalog"]["ok"] is True
+    assert int(out["full_catalog"].get("healthy_exchanges") or 0) >= 90
+    assert float(out["full_catalog"].get("coverage_percent") or 0) >= 90.0
+    assert int(out["coverage"].get("live_ingestion_sources") or 0) >= 90
+    assert float(out["coverage"].get("coverage_percent_exchanges") or 0) >= 90.0
+    assert int((out.get("rollout") or {}).get("healthy_exchanges") or 0) >= 90
+    assert float((out.get("rollout") or {}).get("coverage_percent") or 0) >= 90.0
+
+
+@pytest.mark.asyncio
+async def test_full_catalog_mesh_prove_near_complete():
+    from full_catalog_mesh_proof import prove_full_catalog_health
+
+    out = await prove_full_catalog_health()
+    assert out["ok"] is True
+    assert out["target_exchanges"] == 100
+    assert out["healthy_exchanges"] >= 90
+    assert out["coverage_percent"] >= 90.0
+    assert out["product_complete"] is False
+    assert out["verified_complete"] is False
+    # Honesty: synthetic mids may count for catalog %, but L2 is separate.
+    breakdown = out.get("depth_breakdown") or {}
+    assert int(breakdown.get("venue_l2") or 0) >= 95
+    assert int(breakdown.get("failed") or 0) <= 10
+    assert int(out.get("institutional_l2_exchanges") or 0) == int(breakdown.get("venue_l2") or 0)
+    assert out.get("full_mesh_l2_complete") is False or int(breakdown.get("synthetic_mid") or 0) == 0
+
+
+@pytest.mark.asyncio
+async def test_rollout_multi_venue_live_mesh_expanded():
+    from live_data_truth_probe import CORE_PUBLIC_CEX_MESH, MESH_SYMBOL_OVERRIDES, prove_multi_venue_live
+    from universe_rollout import live_rollout_status
+
+    mv = await prove_multi_venue_live(full_mesh=True)
+    assert mv["ok"] is True
+    assert mv["full_mesh"] is True
+    assert mv["mesh_target_count"] == len(CORE_PUBLIC_CEX_MESH)
+    assert len(CORE_PUBLIC_CEX_MESH) >= 92
+    assert mv.get("mesh_symbol_overrides")
+    # Regional overrides must be probed with non-default pairs when present.
+    override_hits = [
+        p
+        for p in (mv.get("probes") or [])
+        if (p.get("venue") in MESH_SYMBOL_OVERRIDES)
+        and p.get("ok")
+        and p.get("symbol") == MESH_SYMBOL_OVERRIDES[p["venue"]]
+    ]
+    assert len(override_hits) >= 3
+    floor = max(20, len(CORE_PUBLIC_CEX_MESH) - 4)
+    assert mv["live_count"] >= floor
+    assert len(mv.get("l2_venues") or []) >= floor
+    assert int(mv.get("canonical_mesh_adopted_count") or 0) >= max(15, floor - 10)
+    roll = await live_rollout_status(include_public_probe=False)
+    assert roll["healthy_exchanges"] >= floor
+    assert roll["coverage_percent"] >= 20.0
+
+
+@pytest.mark.asyncio
+async def test_ops_recovery_bundle_local_only():
+    from ops_recovery import prove_ops_recovery_bundle
+
+    out = prove_ops_recovery_bundle(include_streaming_ha=False)
+    assert out["ok"] is True
+    assert out["cloud_multi_az"] is False
+    assert out["verified_complete"] is False  # HA not included
+    assert out["process_restart_continuity"]["ok"] is True
+    assert out["postgres_local_dump_restore"]["ha_dr"] in {
+        "LOCAL_EPHEMERAL_NOT_HA",
+        None,
+    } or out["sqlite_backup_restore"]["ok"] is True
+    assert out["cloud_multi_az_ha"]["cloud_multi_az"] is False
+    assert out["cloud_multi_az_ha"]["external_block"] == "zero_cost_no_paid_cloud_multi_az"
+
+
+@pytest.mark.asyncio
+async def test_binance_order_host_geo_probe_honest():
+    from execution_engine import probe_binance_order_host_connectivity
+
+    # Force testnet host probe (may be geo-blocked from this egress).
+    import os
+
+    prev = os.environ.get("BINANCE_TESTNET")
+    os.environ["BINANCE_TESTNET"] = "true"
+    try:
+        out = await probe_binance_order_host_connectivity()
+    finally:
+        if prev is None:
+            os.environ.pop("BINANCE_TESTNET", None)
+        else:
+            os.environ["BINANCE_TESTNET"] = prev
+    assert "hosts" in out
+    assert out.get("testnet") is True
+    # Either reachable or honestly geo-blocked — never silent success without ok hosts.
+    if not out.get("ok"):
+        assert out.get("geo_blocked") is True or out.get("external_block")
+
+
+def test_cloud_multi_az_externally_blocked_zero_cost():
+    from ops_recovery import prove_cloud_multi_az_ha
+
+    out = prove_cloud_multi_az_ha()
+    assert out["cloud_multi_az"] is False
+    assert out["verified_complete"] is False
+    assert out["external_block"] == "zero_cost_no_paid_cloud_multi_az"
+    assert out["local_streaming_ha_is_not_cloud_multi_az"] is True
+
+
+@pytest.mark.asyncio
+async def test_jupiter_wallet_sign_without_secret_is_blocked():
+    import os
+
+    from jupiter_dex_adapter import prove_jupiter_wallet_sign
+
+    prev = os.environ.get("SOLANA_PRIVATE_KEY")
+    os.environ.pop("SOLANA_PRIVATE_KEY", None)
+    try:
+        out = await prove_jupiter_wallet_sign(attempt_broadcast=False)
+    finally:
+        if prev is not None:
+            os.environ["SOLANA_PRIVATE_KEY"] = prev
+    assert out["signed_local"] is False
+    assert out["verified_complete"] is False
+    assert out["executed"] is False
+    assert out.get("external_block") == "wallet_secret_absent_in_runtime"
+
+
+def test_testnet_env_operator_allowed_non_production(monkeypatch):
+    import api_key_security_guard as guard
+
+    monkeypatch.setenv("BINANCE_TESTNET", "true")
+    monkeypatch.setenv("AUTO_EXECUTION_ENABLED", "true")
+    monkeypatch.setenv("AUTO_EXECUTION_DRY_RUN", "false")
+    monkeypatch.delenv("ENV", raising=False)
+    monkeypatch.delenv("APP_ENV", raising=False)
+    monkeypatch.delenv("ENVIRONMENT", raising=False)
+    monkeypatch.delenv("RAILWAY_ENVIRONMENT", raising=False)
+    allowed, reason = guard.live_execution_allowed(user_id=None, using_env_keys=True)
+    assert allowed is True
+    assert reason == "testnet_env_operator_allowed"
+
+
+@pytest.mark.asyncio
+async def test_native_upgraded_cex_l2_not_synthetic():
+    import aiohttp
+    from market_fetcher_hub import venue_kind
+    from native_regional_cex_fetcher import build_native_regional_market_fetchers
+
+    fetchers = build_native_regional_market_fetchers()
+    symbol_for = {
+        "indodax": "BTC/IDR",
+        "coinmate": "BTC/EUR",
+        "btcmarkets": "BTC/AUD",
+        "bitmex": "BTC/USD",
+        "deribit": "BTC/USD",
+        "bit2c": "BTC/NIS",
+        "foxbit": "BTC/BRL",
+        "delta": "BTC/USD",
+        "gopax": "BTC/KRW",
+        "gmocoin": "BTC/JPY",
+        "bitpreco": "BTC/BRL",
+        "okj": "BTC/JPY",
+        "backpack": "BTC/USDC",
+        "bullish": "BTC/USD",
+        "bitcointrade": "BTC/BRL",
+        "giottus": "BTC/INR",
+        "brasilbitcoin": "BTC/BRL",
+        "coinspot": "BTC/AUD",
+        "aevo": "BTC/USD",
+        "paradex": "BTC/USD",
+    }
+    for venue in (
+        "pionex",
+        "coinw",
+        "orangex",
+        "biconomy",
+        "coinstore",
+        "azbit",
+        "bitunix",
+        "fameex",
+        "ourbit",
+        "hashkey",
+        "indodax",
+        "coinmate",
+        "bitopro",
+        "yobit",
+        "max",
+        "btcmarkets",
+        "bitmex",
+        "deribit",
+        "bit2c",
+        "foxbit",
+        "wazirx",
+        "coindcx",
+        "delta",
+        "gopax",
+        "gmocoin",
+        "binanceus",
+        "bitpreco",
+        "okj",
+        "backpack",
+        "bullish",
+        "bitcointrade",
+        "coinsph",
+        "giottus",
+        "brasilbitcoin",
+        "coinspot",
+        "aevo",
+        "paradex",
+        "aster",
+    ):
+        assert venue_kind(venue) == "native_regional"
+        pair = symbol_for.get(venue, "BTC/USDT")
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=12)) as session:
+            _t, book = await fetchers[venue](session, pair, "spot")
+        assert len(book.bids) >= 5 and len(book.asks) >= 5
+
+
+@pytest.mark.asyncio
+async def test_hyperliquid_dydx_real_l2_not_synthetic():
+    import aiohttp
+    from perp_dex_fetcher import fetch_perp_dex_market
+
+    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=20)) as session:
+        for venue in ("hyperliquid", "dydx", "apex"):
+            _t, book = await fetch_perp_dex_market(
+                session, "BTC/USD", "perpetual", exchange_id=venue
+            )
+            assert len(book.bids) >= 5 and len(book.asks) >= 5
+
+
+@pytest.mark.asyncio
+async def test_jupiter_ephemeral_local_sign_no_broadcast():
+    from jupiter_dex_adapter import prove_jupiter_ephemeral_local_sign
+
+    out = await prove_jupiter_ephemeral_local_sign()
+    assert out["ok"] is True
+    assert out["signed_local"] is True
+    assert out["broadcast"] is False
+    assert out["executed"] is False
+    assert out["verified_complete"] is False
+
+
+def test_decision_e2e_returns_from_live_mids():
+    from decision_e2e import run_decision_e2e
+
+    out = run_decision_e2e(org_id="ret_org", notional=10_000.0)
+    assert out["ok"] is True
+    mi = (out.get("decision_object") or {}).get("market_inputs") or {}
+    assert mi.get("returns_source") == "live_cross_venue_mid_dispersion"
+    assert isinstance(mi.get("returns_bps"), list)
+    assert len(mi.get("returns_bps") or []) >= 1
+    # Must not be the old hardcoded theater vector.
+    assert mi.get("returns_bps") != [-5.0, 3.0, -2.0]
+    assert mi.get("liquidation_distance_bps") == 0.0
+    assert mi.get("liquidation_distance_source") == "unmeasured_zero_not_theater"
+    assert mi.get("spread_source") in {"live_tob", "unavailable_zero_not_theater"}
+    assert mi.get("funding_source") in {"live_funding", "unavailable_zero_not_theater"}
+
+
+def test_ops_status_surfaces_four_blockers():
+    from ops_recovery import ops_status
+
+    st = ops_status()
+    assert st.get("product_complete") is False
+    assert st.get("cloud_multi_az") is False
+    fb = st.get("four_blockers") or {}
+    assert fb.get("product_complete") is False
+    assert fb.get("institutional_verdict") == "NOT_COMPLETE"
+    assert "live_fill" in fb
+    assert "jupiter_verified_complete" in fb
+    assert "full_mesh_l2_complete" in fb
+    assert fb.get("live_fill") is False
+    assert fb.get("jupiter_verified_complete") is False
+    assert fb.get("full_mesh_l2_complete") is False
+    assert fb.get("cloud_multi_az") is False
+
+
+def test_white_label_prove_lists_org_gateway_routes():
+    from white_label import prove_white_label_surface
+
+    out = prove_white_label_surface(org_id="wl_unpaid_routes", product_name="Desk")
+    routes = out.get("api_routes") or []
+    assert any("/portal" in r for r in routes)
+    assert any("/terminal" in r for r in routes)
+    portal = (out.get("portal") or {})
+    mods = portal.get("modules") or {}
+    assert "oms" in mods
+    assert mods.get("oms", {}).get("live_fill") is False
+    assert "decision" in mods
+    assert out.get("product_complete") is False
+    assert out.get("verified_complete") is False

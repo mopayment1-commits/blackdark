@@ -1,0 +1,22 @@
+{
+  "verdict": "PASS",
+  "ok": true,
+  "reason": "ok",
+  "secret_key_present": true,
+  "secret_key_is_test": true,
+  "price_pro_present": true,
+  "livemode": false,
+  "price_recurring": true,
+  "price_active": true,
+  "checkout_session_prefix": "cs_test_b1aQ",
+  "checkout_url_https": true,
+  "checkout_mode": "subscription",
+  "used_blackdark_checkout": true,
+  "subscription_prefix": "sub_1U4PIMBe",
+  "subscription_status": "active",
+  "subscription_canceled": true,
+  "customer_cleaned": true,
+  "error_type": null,
+  "proved_at": "2026-08-14T17:53:33.963787+00:00",
+  "path": "billing_service.prove_stripe_test_cycle"
+}

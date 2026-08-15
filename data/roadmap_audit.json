@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-07-26T08:52:31.809244+00:00",
+  "timestamp": "2026-08-13T13:42:12.362683+00:00",
   "total_items": 54,
-  "complete_count": 54,
-  "partial_count": 0,
+  "complete_count": 53,
+  "partial_count": 1,
   "planned_count": 0,
-  "weighted_percent": 100.0,
-  "complete_percent": 100.0,
+  "weighted_percent": 99.4,
+  "complete_percent": 98.1,
   "categories": {
     "ml": {
       "count": 2,
@@ -44,7 +44,7 @@
     },
     "sec": {
       "count": 2,
-      "complete": 2,
+      "complete": 1,
       "label_ar": "أمان"
     },
     "arb": {
@@ -198,7 +198,7 @@
       "id": 1,
       "category": "ml",
       "category_ar": "تعلم آلي",
-      "title": "نموذج ML حقيقي (بدون look-ahead)",
+      "title": "Real ML model (no look-ahead)",
       "status": "complete",
       "module": "ml.training_utils",
       "endpoint": "/api/platform/ml/explain",
@@ -209,7 +209,7 @@
       "id": 2,
       "category": "ml",
       "category_ar": "تعلم آلي",
-      "title": "TruLens تفسير ML",
+      "title": "TruLens ML explainability",
       "status": "complete",
       "module": "bd_platform.trulens_eval",
       "endpoint": "/api/platform/ml/explain",
@@ -220,7 +220,7 @@
       "id": 3,
       "category": "exec",
       "category_ar": "تنفيذ ومخاطر",
-      "title": "WebSocket + تنفيذ يدوي/آلي",
+      "title": "WebSocket + manual/auto execution",
       "status": "complete",
       "module": "execution_engine",
       "endpoint": "/api/execution/status",
@@ -275,7 +275,7 @@
       "id": 8,
       "category": "api",
       "category_ar": "واجهات API",
-      "title": "API-First REST عام",
+      "title": "API-First public REST",
       "status": "complete",
       "module": "dashboard",
       "endpoint": "/api/b2b/feed",
@@ -308,7 +308,7 @@
       "id": 11,
       "category": "qa",
       "category_ar": "جودة واختبارات",
-      "title": "قياس نسبة تغطية الاختبارات",
+      "title": "Test coverage measurement",
       "status": "complete",
       "module": "bd_platform.coverage_report",
       "endpoint": "/api/platform/coverage",
@@ -330,7 +330,7 @@
       "id": 13,
       "category": "sec",
       "category_ar": "أمان",
-      "title": "الأمان — فحص ثغرات + تشفير مفاتيح",
+      "title": "Security — vulnerability scan + key encryption",
       "status": "complete",
       "module": "secrets_vault",
       "endpoint": "/api/security/status",
@@ -342,10 +342,10 @@
       "category": "sec",
       "category_ar": "أمان",
       "title": "HashiCorp Vault",
-      "status": "complete",
+      "status": "partial",
       "module": "bd_platform.vault_client",
       "endpoint": "/api/platform/vault/status",
-      "note": "Docker vault dev + local Fernet fallback",
+      "note": "Optional vault-dev; Fernet primary — not production Vault VC",
       "module_loaded": true
     },
     {
@@ -363,7 +363,7 @@
       "id": 16,
       "category": "arb",
       "category_ar": "مراجحة",
-      "title": "مراجحة إحصائية Pairs Trading",
+      "title": "Statistical pairs trading",
       "status": "complete",
       "module": "bd_platform.pairs_trading",
       "endpoint": "/api/platform/arb/pairs",
@@ -418,7 +418,7 @@
       "id": 21,
       "category": "ui",
       "category_ar": "واجهة",
-      "title": "صفحة CoinMarketCap-style",
+      "title": "CoinMarketCap-style rankings page",
       "status": "complete",
       "module": "bd_platform.market_rankings",
       "endpoint": "/platform",
@@ -429,7 +429,7 @@
       "id": 22,
       "category": "onchain",
       "category_ar": "On-chain",
-      "title": "On-Chain موسّع (DexScreener, Gecko, Dune…)",
+      "title": "Extended on-chain (DexScreener, Gecko, Dune…)",
       "status": "complete",
       "module": "bd_platform.onchain_hub",
       "endpoint": "/api/platform/onchain/pairs",
@@ -583,7 +583,7 @@
       "id": 36,
       "category": "macro",
       "category_ar": "ماكرو",
-      "title": "On-chain متقدم (MVRV, NUPL, SOPR, VaR…)",
+      "title": "Advanced on-chain (MVRV, NUPL, SOPR, VaR…)",
       "status": "complete",
       "module": "bd_platform.onchain_advanced",
       "endpoint": "/api/platform/onchain/advanced",
@@ -594,7 +594,7 @@
       "id": 37,
       "category": "news",
       "category_ar": "أخبار",
-      "title": "تحسين محرك تصنيف الأخبار",
+      "title": "News classification engine",
       "status": "complete",
       "module": "bd_platform.news_classifier",
       "endpoint": "/api/platform/news/classify",
@@ -789,6 +789,20 @@
       "module_loaded": true
     }
   ],
-  "gaps": [],
-  "next_priorities": []
+  "gaps": [
+    {
+      "id": 14,
+      "category": "sec",
+      "category_ar": "أمان",
+      "title": "HashiCorp Vault",
+      "status": "partial",
+      "module": "bd_platform.vault_client",
+      "endpoint": "/api/platform/vault/status",
+      "note": "Optional vault-dev; Fernet primary — not production Vault VC",
+      "module_loaded": true
+    }
+  ],
+  "next_priorities": [
+    "HashiCorp Vault"
+  ]
 }

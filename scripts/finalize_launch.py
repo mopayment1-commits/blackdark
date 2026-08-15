@@ -35,8 +35,7 @@ def main() -> int:
         "scripts/generate_launch_secrets.py",
         "--write",
         "--admin-email",
-        os.getenv("ADMIN_EMAILS", "mopayment1@gmail.com").split(",")[0].strip()
-        or "mopayment1@gmail.com",
+        (os.getenv("ADMIN_EMAILS") or os.getenv("ADMIN_EMAIL") or "").split(",")[0].strip(),
     ]
     if os.getenv("APP_BASE_URL"):
         gen.extend(["--app-base-url", os.getenv("APP_BASE_URL", "")])

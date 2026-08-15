@@ -51,7 +51,7 @@ async def build_f1_f10_unique_closure() -> dict[str, Any]:
         "generated_at": datetime.now(UTC).isoformat(),
         "design_complete": True,
         "implementation_complete": True,
-        "product_complete": True,
+        "product_complete": False,
         "all_done": all(c["done"] for c in checklist),
         "closed_count": sum(1 for c in checklist if c["done"]),
         "total": 10,

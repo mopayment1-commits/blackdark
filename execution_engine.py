@@ -45,21 +45,42 @@ async def _fetch_ticker(pair: str, *, exchange: str = "binance") -> dict | None:
     symbol = pair.replace("USDT", "") + "/USDT" if pair.endswith("USDT") else pair
     live = get_best_price(exchange, symbol)
     if live:
-        return {"price": live["mid"], "bid": live["bid"], "ask": live["ask"], "source": "websocket_live"}
+        return {
+            "price": live["mid"],
+            "bid": live["bid"],
+            "ask": live["ask"],
+            "source": "websocket_live",
+            "exchange": exchange,
+        }
 
     if not pair.isalnum():
         return None
-    url = f"https://api.binance.com/api/v3/ticker/24hr?symbol={pair}"
+    # Public market-data hosts (order hosts may be geo-blocked separately).
+    hosts = (
+        "https://data-api.binance.vision",
+        "https://api.binance.us",
+        "https://api.binance.com",
+    )
+    timeout = aiohttp.ClientTimeout(total=10)
     try:
-        timeout = aiohttp.ClientTimeout(total=10)
         async with aiohttp.ClientSession(timeout=timeout) as session:
-            async with session.get(url) as resp:
-                if resp.status != 200:
-                    return None
-                data = await resp.json()
-                return {"price": float(data["lastPrice"])}
+            for host in hosts:
+                url = f"{host}/api/v3/ticker/24hr?symbol={pair}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        data = await resp.json()
+                        return {
+                            "price": float(data["lastPrice"]),
+                            "exchange": "binance",
+                            "source": host,
+                        }
+                except (aiohttp.ClientError, KeyError, TypeError, ValueError):
+                    continue
     except (aiohttp.ClientError, KeyError, TypeError, ValueError):
         return None
+    return None
 
 
 def _live_enabled() -> bool:
@@ -73,6 +94,48 @@ def _dry_run_default() -> bool:
 def _binance_base_url() -> str:
     testnet = os.getenv("BINANCE_TESTNET", "false").lower() in {"1", "true", "yes"}
     return "https://testnet.binance.vision" if testnet else "https://api.binance.com"
+
+
+async def probe_binance_order_host_connectivity() -> dict[str, Any]:
+    """Honest connectivity probe for signed-order hosts (not market-data mirrors)."""
+    testnet = os.getenv("BINANCE_TESTNET", "false").lower() in {"1", "true", "yes"}
+    hosts = (
+        ["https://testnet.binance.vision", "https://demo-api.binance.com"]
+        if testnet
+        else ["https://api.binance.com"]
+    )
+    results: list[dict[str, Any]] = []
+    timeout = aiohttp.ClientTimeout(total=10)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        for host in hosts:
+            row: dict[str, Any] = {"host": host, "ok": False}
+            try:
+                async with session.get(f"{host}/api/v3/ping") as resp:
+                    row["http_status"] = resp.status
+                    body = await resp.text()
+                    row["ok"] = resp.status == 200
+                    if resp.status == 451:
+                        row["geo_blocked"] = True
+                        row["reason"] = "http_451_restricted_location"
+                    elif resp.status != 200:
+                        row["reason"] = body[:160]
+            except Exception as exc:  # noqa: BLE001
+                row["reason"] = f"{type(exc).__name__}:{exc}"[:160]
+            results.append(row)
+    any_ok = any(r.get("ok") for r in results)
+    geo = any(r.get("geo_blocked") for r in results)
+    return {
+        "ok": any_ok,
+        "testnet": testnet,
+        "order_host": _binance_base_url(),
+        "hosts": results,
+        "geo_blocked": bool(geo and not any_ok),
+        "external_block": "binance_order_host_geo_451" if (geo and not any_ok) else None,
+        "note": (
+            "Market-data mirrors (data-api.binance.vision) may work while signed-order "
+            "hosts remain geo-blocked — that does not authorize live_fill claims."
+        ),
+    }
 
 
 async def resolve_binance_credentials(
@@ -138,9 +201,16 @@ async def _place_binance_market_order(
     timeout = aiohttp.ClientTimeout(total=15)
     async with aiohttp.ClientSession(timeout=timeout) as session:
         async with session.post(url, params=params, headers=headers) as resp:
-            data = await resp.json()
+            try:
+                data = await resp.json()
+            except Exception:
+                text = await resp.text()
+                raise RuntimeError(f"binance_order_http_{resp.status}:{text[:180]}") from None
             if resp.status >= 400:
-                raise RuntimeError(str(data.get("msg") or data))
+                msg = str(data.get("msg") or data)
+                if resp.status == 451:
+                    raise RuntimeError(f"binance_order_geo_blocked_451:{msg}")
+                raise RuntimeError(f"binance_order_http_{resp.status}:{msg}")
             return data
 
 

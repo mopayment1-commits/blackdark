@@ -168,11 +168,14 @@ def public_track_record() -> dict[str, Any]:
         return str(row.get("label") or row.get("outcome") or "").strip().lower()
 
     def _hit_rate(rows: list[dict]) -> float:
-        """Strict hit rate: only full `correct` counts (partial is disclosed separately)."""
+        """Strict hit rate: only full `correct` counts (partial/abstain disclosed separately)."""
         if not rows:
             return 0.0
-        correct = sum(1 for r in rows if _label(r) == "correct")
-        return round(correct / len(rows) * 100, 2)
+        directional = [r for r in rows if _label(r) not in {"abstain", "not_applicable", "unknown"}]
+        if not directional:
+            return 0.0
+        correct = sum(1 for r in directional if _label(r) == "correct")
+        return round(correct / len(directional) * 100, 2)
 
     def _partial_rate(rows: list[dict]) -> float:
         if not rows:
@@ -183,6 +186,7 @@ def public_track_record() -> dict[str, Any]:
     live_hit = _hit_rate(live_resolved)
     synth_hit = _hit_rate(synthetic_resolved)
     live_partial = _partial_rate(live_resolved)
+    live_abstain = sum(1 for r in live_resolved if _label(r) == "abstain")
 
     return {
         "immutable_chain": {
@@ -194,12 +198,15 @@ def public_track_record() -> dict[str, Any]:
             "resolved_predictions": len(live_resolved),
             "hit_rate_percent": live_hit,
             "partial_rate_percent": live_partial,
+            "abstain_count": live_abstain,
             "hit_definition": "correct_only",
+            "hit_denominator": "directional_claims_only",
             "metrics_scope": "live_only",
             "meets_target": live_hit >= 65.0 if len(live_resolved) >= 30 else None,
             "note": (
                 "Live predictions only — synthetic historical_seed excluded. "
-                "Hit rate counts full correct only; partial is separate."
+                "Hit rate counts full correct only on directional claims; "
+                "I_DONT_KNOW resolves as abstain and is excluded from the hit denominator."
             ),
         },
         "synthetic_demo_data": {

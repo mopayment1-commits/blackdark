@@ -70,6 +70,25 @@ def _require_pro(info: Info) -> dict:
 
 
 @strawberry.type
+class CapabilityInventorySummary:
+    total: int
+    works: int
+    partial: int
+    ops_config: int
+    external_block: int
+    institutional_verdict: str
+
+
+@strawberry.type
+class PublicReadinessSummary:
+    advertised_count: int
+    floor_percent: float
+    last_percent: float
+    meets_public_floor: bool
+    institutional_verdict: str
+
+
+@strawberry.type
 class Query:
     @strawberry.field
     async def health(self) -> HealthStatus:
@@ -128,6 +147,49 @@ class Query:
         return DataSourceSummary(
             total_sources=int(summary.get("total_sources") or 0),
             categories_json=json.dumps(summary.get("by_category") or {}),
+        )
+
+    @strawberry.field
+    def capability_inventory(self) -> CapabilityInventorySummary:
+        from product_capability_inventory import build_full_capability_inventory
+
+        inv = build_full_capability_inventory()
+        s = inv.get("summary") or {}
+        return CapabilityInventorySummary(
+            total=int(s.get("total") or 0),
+            works=int(s.get("works") or 0),
+            partial=int(s.get("partial") or 0),
+            ops_config=int(s.get("ops_config") or 0),
+            external_block=int(s.get("external_block") or 0),
+            institutional_verdict=str(inv.get("institutional_verdict") or "NOT_COMPLETE"),
+        )
+
+    @strawberry.field
+    def public_readiness(self) -> PublicReadinessSummary:
+        from public_readiness import catalog_without_probe
+
+        cat = catalog_without_probe()
+        last_pct = 0.0
+        meets = False
+        try:
+            import json
+            from pathlib import Path
+
+            p = Path("docs/dd/BLACKDARK_PUBLIC_READINESS_EVIDENCE.json")
+            if p.is_file():
+                last = json.loads(p.read_text(encoding="utf-8"))
+                score = last.get("score") or {}
+                last_pct = float(score.get("public_direct_use_percent") or 0)
+                meets = bool(score.get("meets_public_floor"))
+        except Exception:
+            last_pct = 0.0
+            meets = False
+        return PublicReadinessSummary(
+            advertised_count=int(cat.get("advertised_count") or 0),
+            floor_percent=float(cat.get("floor_percent") or 95),
+            last_percent=last_pct,
+            meets_public_floor=meets,
+            institutional_verdict="NOT_COMPLETE",
         )
 
 

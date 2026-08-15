@@ -408,11 +408,15 @@ def inject_oracle_onchain_analytics(
 
 
 async def build_onchain_context() -> dict[str, Any]:
+    from canonical_adoption import adopt_onchain_flows
+
     flows = await process_onchain_flows()
     signals, statuses = analyze_onchain_flows(flows)
 
     status_payload = {key: value.model_dump() for key, value in statuses.items()}
     signal_payload = [signal.model_dump() for signal in signals]
+    raw_flows = [flow.model_dump() for flow in flows]
+    canonical_flows = adopt_onchain_flows(raw_flows, source="onchain_tracker")
     score_adjustments = {
         asset: onchain_score_adjustment_for_asset(
             asset,
@@ -425,10 +429,11 @@ async def build_onchain_context() -> dict[str, Any]:
     }
 
     return {
-        "onchain_flows": [flow.model_dump() for flow in flows],
+        "onchain_flows": canonical_flows,
         "onchain_signals": signal_payload,
         "onchain_by_asset": status_payload,
         "onchain_score_adjustments": score_adjustments,
+        "canonical_adopted": True,
     }
 
 

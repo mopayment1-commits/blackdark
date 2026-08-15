@@ -482,6 +482,12 @@ async def _h_generic_keyed_rest(session: aiohttp.ClientSession, spec: DataSource
     return {"raw": data}
 
 
+async def _h_public_rest(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    """Unsigned public REST — for EXTRA free CEX/DeFi endpoints without env keys."""
+    data = await _fetch_json(session, spec.url)
+    return {"exchange_or_source": spec.source_id, "raw_type": type(data).__name__, "ok": True}
+
+
 HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[FetchResult]]] = {
     "binance_spot": _h_binance_spot,
     "binance_futures": _h_binance_futures,
@@ -490,6 +496,13 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "bybit_spot": _h_bybit_spot,
     "bybit_linear": _h_bybit_linear,
     "gateio_spot": _h_gateio,
+    "gateio_futures": _h_public_rest,
+    "mexc_spot": _h_public_rest,
+    "bitget_spot": _h_public_rest,
+    "bitget_futures": _h_public_rest,
+    "htx_spot": _h_public_rest,
+    "bitstamp_spot": _h_public_rest,
+    "whitebit_spot": _h_public_rest,
     "kraken_spot": _h_kraken,
     "coinbase_spot": _h_coinbase,
     "coincap": _h_coincap,
@@ -538,6 +551,9 @@ async def fetch_single_source(
                 payload = await _h_okx(session, spec, "SWAP")
             elif spec.source_id in HANDLERS:
                 payload = await HANDLERS[spec.source_id](session, spec)
+            elif not spec.env_key and spec.fetch_kind == "rest":
+                # Public REST with no handler yet — try unsigned fetch (no key theater).
+                payload = await _h_public_rest(session, spec)
             elif spec.env_key and not os.getenv(spec.env_key):
                 await upsert_ingestion_health(
                     spec.source_id,

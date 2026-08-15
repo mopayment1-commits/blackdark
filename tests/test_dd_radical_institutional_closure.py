@@ -1,6 +1,8 @@
 """DD radical institutional closure — Reports 1+2 product-complete gates."""
 
 from __future__ import annotations
+import os
+os.environ.setdefault("SCIM_BEARER_TOKEN", "test-scim-bearer-token")
 
 import asyncio
 from pathlib import Path
@@ -30,10 +32,13 @@ def test_org_mfa_policy_enforced():
     assert org["org_id"] in {o["org_id"] for o in decision["enforcing_orgs"]}
 
 
-def test_enterprise_sso_authorize_and_callback():
-    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
+def test_enterprise_sso_authorize_and_callback(monkeypatch):
+    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider, sso_status
     from org_tenant import create_org
 
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "true")
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
     org = create_org(name="SSO Org", owner_email="sso.owner@dd.example")
     configure_provider(
         org["org_id"],
@@ -58,8 +63,48 @@ def test_enterprise_sso_authorize_and_callback():
         )
 
     result = asyncio.run(_run())
-    assert result["product_complete"] is True
+    assert result["demo_or_live"] == "demo"
+    # Demo must never claim institutional product_complete.
+    assert result["product_complete"] is False
+    assert result["scim_ready"] is True
     assert result["token"]
+    st = sso_status(org["org_id"])
+    assert st["scim_ready"] is True
+    assert st["demo_mode_default"] is False
+    assert st["product_complete"] is False  # no client_secret → not live-ready
+
+
+def test_enterprise_sso_rejects_demo_when_disabled(monkeypatch):
+    from enterprise_sso import build_sso_authorize_url, complete_sso_login_async, configure_provider
+    from org_tenant import create_org
+
+    monkeypatch.setenv("ENTERPRISE_SSO_DEMO", "false")
+    org = create_org(name="SSO Strict", owner_email="strict.owner@dd.example")
+    configure_provider(
+        org["org_id"],
+        protocol="oidc",
+        issuer="https://example.okta.com",
+        client_id="dd-client",
+        authorize_url="https://example.okta.com/oauth2/v1/authorize",
+    )
+    auth = build_sso_authorize_url(
+        org["org_id"],
+        redirect_uri="http://127.0.0.1:8080/callback",
+        email_hint="sso.user@dd.example",
+    )
+
+    async def _run():
+        return await complete_sso_login_async(
+            state=auth["state"],
+            code="demo_sso_ok",
+            email="sso.user@dd.example",
+        )
+
+    try:
+        asyncio.run(_run())
+        raise AssertionError("demo SSO must fail when ENTERPRISE_SSO_DEMO is false")
+    except ValueError as exc:
+        assert "sso_live_idp_required" in str(exc)
 
 
 def test_commerce_invoice_paid_and_kyc():
@@ -78,7 +123,7 @@ def test_commerce_invoice_paid_and_kyc():
     decided = decide_kyc(case["case_id"], decision="approved")
     assert decided["status"] == "approved"
     st = commerce_status()
-    assert st["product_complete"] is True
+    assert st["product_complete"] is False
     assert st["sepa_ach_supported"] is True
     assert st["paid_count"] >= 1
 
@@ -131,16 +176,27 @@ def test_compliance_contracts_ir_support():
     assert ticket["sla_response_hours"] == 1
 
 
-def test_jupiter_dex_adapter_product_complete():
-    from jupiter_dex_adapter import adapter_status, execute_swap
+def test_jupiter_dex_adapter_fail_closed_no_synthetic():
+    from jupiter_dex_adapter import adapter_status, execute_swap, quote_swap
 
     async def _run():
-        return await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
+        q = await quote_swap(
+            input_mint="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+            output_mint="So11111111111111111111111111111111111111112",
+            amount_atomic=1_000_000,
+        )
+        out = await execute_swap(asset="SOL", side="buy", amount_usd=100, dry_run=True)
+        return q, out
 
-    out = asyncio.run(_run())
-    assert out["product_complete"] is True
-    assert out["executable_product_path"] is True
-    assert adapter_status()["product_complete"] is True
+    q, out = asyncio.run(_run())
+    # Network may succeed or fail; synthetic ok=True is forbidden either way.
+    if not q.get("ok"):
+        assert q.get("source") != "synthetic_economics"
+        assert q.get("executable_quote") is False
+        assert out["executable_product_path"] is False
+    else:
+        assert q.get("source") == "jupiter_api"
+    assert adapter_status()["synthetic_ok_forbidden"] is True
 
 
 def test_d5_honesty_and_model_card():
@@ -148,11 +204,11 @@ def test_d5_honesty_and_model_card():
     from d5_regime_honesty import build_d5_honesty_board
 
     board = build_d5_honesty_board()
-    assert board["product_complete"] is True
+    assert board["product_complete"] is False
     assert "bootstrap" in board
     card = asyncio.run(build_buyer_model_card())
     assert card["page"] == "/model-card"
-    assert card["product_complete"] is True
+    assert card["product_complete"] is False
 
 
 def test_half_life_no_cold_start_defect():
@@ -194,7 +250,7 @@ def test_dd_radical_closure_all_done():
     closure = asyncio.run(build_dd_radical_closure())
     assert closure["design_complete"] is True
     assert closure["implementation_complete"] is True
-    assert closure["product_complete"] is True
+    assert closure["product_complete"] is False
     assert closure["all_done"] is True
     assert closure["p0_wave_closed"] is True
     assert closure["report1"]["closed_count"] == closure["report1"]["total"]
@@ -236,7 +292,7 @@ def test_http_dd_closure_endpoint(monkeypatch):
     assert r.status_code == 200
     body = r.json()
     assert body["all_done"] is True
-    assert body["product_complete"] is True
+    assert body["product_complete"] is False
     r2 = client.get("/api/public/d5-honesty")
     assert r2.status_code == 200
     r3 = client.get("/institutional")

@@ -67,15 +67,69 @@ async def emit_tick(
     update_top_of_book(ex, symbol, bid=bid, bid_qty=bid_qty, ask=ask, ask_qty=ask_qty, market_type=market_type)
     _ticks_total += 1
 
+    # Institutional stream lifecycle: backpressure / outage / throttle fail-closed.
+    try:
+        from streaming_institutional import get_stream_lifecycle_manager
+
+        life = get_stream_lifecycle_manager()
+        life.register_subscription(ex, symbol)
+        life_mark = life.mark_message(ex, seq=None)
+        if not life_mark.get("ok"):
+            logger.warning("Stream lifecycle blocked tick: %s", life_mark.get("reason"))
+            return
+    except Exception:
+        logger.debug("Stream lifecycle mark skipped", exc_info=True)
+
+    from stream_freshness_truth import fanout_safe, label_tick
+
+    labeled = fanout_safe(
+        label_tick(
+            exchange=ex,
+            symbol=symbol,
+            bid=bid,
+            ask=ask,
+            provider_ts_ms=int(time.time() * 1000),
+        )
+    )
+
+    from canonical_adoption import adopt_tick_quote
+
+    # Fail-closed: malformed/un-normalizable ticks never enter the live fanout path.
+    try:
+        adopted = adopt_tick_quote(
+            venue=ex,
+            symbol=symbol,
+            bid=bid,
+            ask=ask,
+            source=f"ws:{ex}",
+            provider_timestamp=labeled.get("provider_ts_ms"),
+            bid_qty=bid_qty,
+            ask_qty=ask_qty,
+            require_live=False,
+            path="price_stream",
+        )
+    except Exception:
+        logger.warning("Canonical quote adopt rejected tick", exc_info=True)
+        return
+
+    # Stale/degraded ticks may fan out only with executable_quotes=False (never as LIVE).
+    executable = bool(labeled.get("executable_quotes")) and labeled.get("freshness_class") == "LIVE"
     payload = {
-        "exchange": ex,
-        "symbol": symbol.strip().upper(),
-        "bid": bid,
-        "ask": ask,
+        "exchange": adopted.get("venue") or ex,
+        "symbol": adopted.get("symbol") or symbol.strip().upper(),
+        "bid": float(adopted.get("bid") or bid),
+        "ask": float(adopted.get("ask") or ask),
         "bid_qty": bid_qty,
         "ask_qty": ask_qty,
         "market_type": market_type,
-        "ts_ms": int(time.time() * 1000),
+        "ts_ms": labeled["ingest_ts_ms"],
+        "provider_ts_ms": labeled.get("provider_ts_ms"),
+        "freshness_class": labeled["freshness_class"],
+        "is_live": bool(labeled["is_live"]) and executable,
+        "stream_status": labeled["stream_status"],
+        "display_badge": labeled.get("display_badge"),
+        "executable_quotes": executable,
+        "canonical_provenance": adopted.get("provenance"),
     }
 
     if getattr(config, "REDIS_PRICE_CACHE_ENABLED", True):

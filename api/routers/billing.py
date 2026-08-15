@@ -69,6 +69,13 @@ async def billing_status(user: dict | None = Depends(optional_user)):
     }
 
 
+@router.get("/unpaid-upgrade")
+async def billing_unpaid_upgrade():
+    from billing_service import unpaid_upgrade_path
+
+    return unpaid_upgrade_path()
+
+
 @router.get("/payments")
 async def billing_payments_architecture():
     """USD payment architecture + security posture (no secrets)."""

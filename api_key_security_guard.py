@@ -151,6 +151,10 @@ async def validate_exchange_api_key(
     return result
 
 
+def _binance_testnet_armed() -> bool:
+    return os.getenv("BINANCE_TESTNET", "").lower() in {"1", "true", "yes"}
+
+
 def live_execution_allowed(*, user_id: int | None, using_env_keys: bool) -> tuple[bool, str]:
     """Hard gate before any live order uses decrypted credentials."""
     if not _enabled():
@@ -158,6 +162,17 @@ def live_execution_allowed(*, user_id: int | None, using_env_keys: bool) -> tupl
 
     if _is_production() and block_env_keys_in_production() and using_env_keys:
         return False, "env_keys_blocked_in_production"
+
+    # Spot Testnet operator keys (non-production only): allow env HMAC without user vault.
+    # Production still requires per-user vault. Never opens production env-key path.
+    if (
+        using_env_keys
+        and _binance_testnet_armed()
+        and not _is_production()
+        and _live_mode_requested()
+        and user_id is None
+    ):
+        return True, "testnet_env_operator_allowed"
 
     if _live_mode_requested() and require_user_vault_for_live() and user_id is None:
         return False, "user_vault_required_for_live"

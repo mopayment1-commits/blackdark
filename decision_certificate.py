@@ -42,6 +42,12 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         "prediction_id": payload.get("prediction_id"),
         "chain_hash": payload.get("chain_hash") or (payload.get("proof") or {}).get("chain_hash"),
         "decision_action": payload.get("decision_action") or payload.get("verdict"),
+        "public_verdict": payload.get("verdict"),
+        "epistemic_state": payload.get("epistemic_state") or (
+            "i_dont_know" if payload.get("i_dont_know") else "formed_view"
+        ),
+        "i_dont_know": bool(payload.get("i_dont_know")),
+        "epistemic_reasons": list(payload.get("epistemic_reasons") or []),
         "decision_sentence": payload.get("decision_sentence") or payload.get("oracle"),
         "opportunity_score": payload.get("opportunity_score"),
         "truth_score": (payload.get("net_edge_truth") or {}).get("truth_score"),
@@ -101,6 +107,9 @@ def build_decision_certificate(payload: dict[str, Any]) -> dict[str, Any]:
         "BLACKDARK Decision Certificate\n"
         f"Asset: {body['asset']}\n"
         f"Action: {body['decision_action']}\n"
+        f"Public verdict: {body.get('public_verdict')}\n"
+        f"Epistemic state: {body.get('epistemic_state')}\n"
+        f"I DON'T KNOW: {body.get('i_dont_know')}\n"
         f"Sentence: {body['decision_sentence']}\n"
         f"Opportunity score: {body['opportunity_score']}\n"
         f"Truth score: {body['truth_score']}\n"

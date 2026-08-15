@@ -170,6 +170,15 @@ def redis_live() -> bool:
         return False
 
 
+def reset_redis_client() -> None:
+    """Drop cached client so drills can inject a dead REDIS_URL."""
+    global _redis, _redis_fail_until, _rl_backend
+    with _redis_lock:
+        _redis = None
+        _redis_fail_until = 0.0
+        _rl_backend = "memory"
+
+
 def _client_key(request: Request) -> str:
     forwarded = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
     host = forwarded or (request.client.host if request.client else "unknown")

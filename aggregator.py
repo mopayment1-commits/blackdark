@@ -49,10 +49,18 @@ DEFAULT_OPPORTUNITY_SCORE = 0.0
 
 MarketType = Literal["spot", "cross", "perpetual"]
 
+# Spot hosts tried in order — api.binance.com often HTTP 451 in restricted regions;
+# data-api.binance.vision is the public market-data mirror that remains reachable.
+BINANCE_SPOT_HOSTS: tuple[str, ...] = (
+    "https://data-api.binance.vision",
+    "https://api.binance.com",
+    "https://api.binance.us",
+)
+
 EXCHANGE_ENDPOINTS: dict[str, dict[str, Any]] = {
     "binance": {
         "spot": {
-            "base_url": "https://api.binance.com",
+            "base_url": "https://data-api.binance.vision",
             "ticker_path": "/api/v3/ticker/24hr",
             "depth_path": "/api/v3/depth",
         },
@@ -250,39 +258,49 @@ async def _fetch_binance_market(
     market_type: MarketType,
 ) -> tuple[TickerSnapshot, OrderBookSnapshot]:
     native = _to_native_symbol("binance", symbol, market_type)
-    endpoints = (
-        EXCHANGE_ENDPOINTS["binance"]["perpetual"]
-        if market_type == "perpetual"
-        else EXCHANGE_ENDPOINTS["binance"]["spot"]
-    )
+    if market_type == "perpetual":
+        endpoints = EXCHANGE_ENDPOINTS["binance"]["perpetual"]
+        hosts = (endpoints["base_url"],)
+        ticker_path = endpoints["ticker_path"]
+        depth_path = endpoints["depth_path"]
+    else:
+        hosts = BINANCE_SPOT_HOSTS
+        ticker_path = "/api/v3/ticker/24hr"
+        depth_path = "/api/v3/depth"
 
-    ticker_payload = await _fetch_json(
-        session,
-        f"{endpoints['base_url']}{endpoints['ticker_path']}",
-        {"symbol": native},
-    )
-    depth_payload = await _fetch_json(
-        session,
-        f"{endpoints['base_url']}{endpoints['depth_path']}",
-        {"symbol": native, "limit": config.ORDER_BOOK_DEPTH},
-    )
-
-    return (
-        TickerSnapshot(
-            exchange="binance",
-            symbol=symbol,
-            price=float(ticker_payload["lastPrice"]),
-            volume=float(ticker_payload.get("volume") or 0),
-            market_type=market_type,
-        ),
-        OrderBookSnapshot(
-            exchange="binance",
-            symbol=symbol,
-            bids=_parse_levels(depth_payload.get("bids", [])),
-            asks=_parse_levels(depth_payload.get("asks", [])),
-            market_type=market_type,
-        ),
-    )
+    last_exc: Exception | None = None
+    for host in hosts:
+        try:
+            ticker_payload = await _fetch_json(
+                session,
+                f"{host}{ticker_path}",
+                {"symbol": native},
+            )
+            depth_payload = await _fetch_json(
+                session,
+                f"{host}{depth_path}",
+                {"symbol": native, "limit": config.ORDER_BOOK_DEPTH},
+            )
+            return (
+                TickerSnapshot(
+                    exchange="binance",
+                    symbol=symbol,
+                    price=float(ticker_payload["lastPrice"]),
+                    volume=float(ticker_payload.get("volume") or 0),
+                    market_type=market_type,
+                ),
+                OrderBookSnapshot(
+                    exchange="binance",
+                    symbol=symbol,
+                    bids=_parse_levels(depth_payload.get("bids", [])),
+                    asks=_parse_levels(depth_payload.get("asks", [])),
+                    market_type=market_type,
+                ),
+            )
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            continue
+    raise last_exc or RuntimeError("binance_all_hosts_failed")
 
 
 async def _fetch_okx_market(
@@ -829,13 +847,26 @@ def _persist_market_snapshot(
     order_book: OrderBookSnapshot,
     timestamp: str,
 ) -> None:
-    enqueue_market_snapshot(
+    from canonical_adoption import adopt_market_snapshot
+
+    adopted = adopt_market_snapshot(
         exchange=ticker.exchange,
         symbol=ticker.symbol,
         price=ticker.price,
         volume=ticker.volume,
         bids=order_book.bids,
         asks=order_book.asks,
+        timestamp=timestamp,
+        market_type=str(ticker.market_type),
+        source="aggregator",
+    )
+    enqueue_market_snapshot(
+        exchange=adopted["exchange"],
+        symbol=adopted["symbol"],
+        price=adopted["price"],
+        volume=adopted.get("volume") or ticker.volume,
+        bids=adopted["bids"],
+        asks=adopted["asks"],
         timestamp=timestamp,
         market_type=ticker.market_type,
         opportunity_score=DEFAULT_OPPORTUNITY_SCORE,
@@ -862,11 +893,21 @@ async def _poll_funding_symbol(
     fetcher = FUNDING_FETCHERS[exchange_id]
     timestamp = _utcnow_iso()
     funding = await fetcher(session, symbol)
-    enqueue_funding_snapshot(
+    from canonical_adoption import adopt_funding_snapshot
+
+    adopted = adopt_funding_snapshot(
         exchange=funding.exchange,
         symbol=funding.symbol,
         funding_rate=funding.funding_rate,
         next_funding_time=funding.next_funding_time,
+        timestamp=timestamp,
+        source="aggregator_funding",
+    )
+    enqueue_funding_snapshot(
+        exchange=adopted["venue"],
+        symbol=adopted["symbol"],
+        funding_rate=adopted["funding_rate"],
+        next_funding_time=adopted.get("next_funding_time"),
         timestamp=timestamp,
     )
 
@@ -1056,7 +1097,10 @@ class Aggregator:
         finally:
             await self._close_session()
             await shutdown_hot_pipeline()
-            close_all_pools()
+            # Hub exposes async close_all_pools; await when coroutine.
+            maybe = close_all_pools()
+            if hasattr(maybe, "__await__"):
+                await maybe
 
     async def _run_loop(
         self,

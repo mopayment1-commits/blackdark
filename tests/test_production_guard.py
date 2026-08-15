@@ -48,8 +48,33 @@ def test_production_guard_postgres_pass(monkeypatch):
     assert report["required_pass"] is True
 
 
-def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
+def test_soft_launch_does_not_waive_postgres_in_production(monkeypatch):
+    """Soft Launch cannot bypass Postgres/billing in ENV=production."""
     monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("SERVICE_MODE", "web")
+    monkeypatch.setenv("SOFT_LAUNCH", "true")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "x" * 32)
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "y" * 16)
+    monkeypatch.setenv("ADMIN_API_KEY", "z" * 24)
+    monkeypatch.delenv("INSTITUTIONAL_LAUNCH", raising=False)
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.delenv("LEMON_SQUEEZY_CHECKOUT_PRO", raising=False)
+    monkeypatch.delenv("STRIPE_SECRET_KEY", raising=False)
+    monkeypatch.delenv("LEMON_SQUEEZY_WEBHOOK_SECRET", raising=False)
+    monkeypatch.delenv("IDENTITY_DEBUG_TOKENS", raising=False)
+    monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
+    monkeypatch.delenv("TELEGRAM_WEBHOOK_SECRET", raising=False)
+
+    from production_guard import evaluate_production_guard
+
+    report = evaluate_production_guard()
+    assert report["soft_launch"] is True
+    assert report["required_pass"] is False
+    assert "postgres_database" in report["required_failures"]
+
+
+def test_soft_launch_allows_sqlite_outside_production(monkeypatch):
+    monkeypatch.setenv("ENV", "development")
     monkeypatch.setenv("SERVICE_MODE", "web")
     monkeypatch.setenv("SOFT_LAUNCH", "true")
     monkeypatch.setenv("SECRETS_MASTER_KEY", "x" * 32)
@@ -67,7 +92,6 @@ def test_soft_launch_allows_sqlite_without_postgres(monkeypatch):
 
     report = evaluate_production_guard()
     assert report["soft_launch"] is True
-    assert report["required_pass"] is True
     assert "postgres_database" not in report["required_failures"]
 
 

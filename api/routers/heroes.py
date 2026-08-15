@@ -47,6 +47,150 @@ async def audience_entry_api(audience: str = Query("retail")):
     return audience_entry(audience)
 
 
+@router.get("/api/trial/persona-readiness")
+async def trial_persona_readiness_api():
+    from persona_capability_matrix import persona_capability_matrix
+
+    return persona_capability_matrix()
+
+
+@router.get("/api/product/capability-inventory")
+async def product_capability_inventory_api():
+    """Binding full-product inventory. Never claims COMPLETE."""
+    from product_capability_inventory import build_full_capability_inventory
+
+    return build_full_capability_inventory()
+
+
+@router.get("/api/product/l2-remainder")
+async def product_l2_remainder_api():
+    from l2_remainder import catalog_l2_remainder
+
+    return catalog_l2_remainder()
+
+
+@router.get("/api/product/unpaid-closure")
+async def product_unpaid_closure_api():
+    from unpaid_institutional_closure import prove_unpaid_institutional_closure
+
+    return prove_unpaid_institutional_closure()
+
+
+@router.get("/api/product/public-readiness")
+async def product_public_readiness_api():
+    """Visitor/paper HTTP catalog. Score comes from prove script / tests, not self-grade."""
+    from pathlib import Path
+
+    from public_readiness import catalog_without_probe
+
+    out = catalog_without_probe()
+    evidence = Path("docs/dd/BLACKDARK_PUBLIC_READINESS_EVIDENCE.json")
+    if evidence.is_file():
+        try:
+            import json
+
+            last = json.loads(evidence.read_text(encoding="utf-8"))
+            score = last.get("score") or {}
+            out["last_probe"] = {
+                "proved_at": last.get("proved_at"),
+                "public_direct_use_percent": score.get("public_direct_use_percent"),
+                "meets_public_floor": score.get("meets_public_floor"),
+                "counted_pass": score.get("counted_pass"),
+                "counted_total": score.get("counted_total"),
+                "failures": score.get("failures") or [],
+            }
+        except Exception:
+            out["last_probe"] = None
+    else:
+        out["last_probe"] = None
+    out["product_complete"] = False
+    out["institutional_verdict"] = "NOT_COMPLETE"
+    return out
+
+
+@router.get("/api/product/production-launch-cert")
+async def production_launch_cert_api():
+    """Binding live-launch verdict. Missing evidence is NO-GO, not implied GO."""
+    import json
+    from pathlib import Path
+
+    evidence = Path("docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json")
+    if not evidence.is_file():
+        return {
+            "ok": False,
+            "product_complete": False,
+            "public_demo_ready": False,
+            "live_production_ready": False,
+            "live_money_ready": False,
+            "PUBLIC-DEMO-READY": False,
+            "LIVE-PRODUCTION-READY": False,
+            "LIVE-MONEY-READY": False,
+            "decision": "NO-GO",
+            "reason": "evidence_missing",
+            "hint": "python scripts/prove_production_launch_cert.py",
+        }
+    body = json.loads(evidence.read_text(encoding="utf-8"))
+    v = body.get("final_production_verdict") or {}
+    tracks = body.get("tracks") or v.get("tracks") or {}
+    return {
+        "ok": True,
+        "sha": body.get("sha"),
+        "proved_at": body.get("proved_at"),
+        "product_complete": False,
+        "institutional_verdict": "NOT_COMPLETE",
+        "public_demo_ready": bool(tracks.get("PUBLIC-DEMO-READY")),
+        "live_production_ready": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "live_money_ready": bool(tracks.get("LIVE-MONEY-READY")),
+        "PUBLIC-DEMO-READY": bool(tracks.get("PUBLIC-DEMO-READY")),
+        "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
+        "tracks": {
+            "PUBLIC-DEMO-READY": bool(tracks.get("PUBLIC-DEMO-READY")),
+            "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
+            "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
+        },
+        "decision": v.get("decision"),
+        "unconditional_go_criteria_met": v.get("unconditional_go_criteria_met"),
+        "critical_open": v.get("critical_open"),
+        "high_open": v.get("high_open"),
+        "medium_open": v.get("medium_open"),
+        "untested_launch_critical": v.get("untested_launch_critical_requirements"),
+        "unverified_launch_critical_assumptions": v.get("unverified_launch_critical_assumptions") or [],
+        "unknown_launch_blockers": v.get("unknown_launch_blockers") or [],
+        "external_blockers": v.get("external_blockers"),
+        "integrity": (body.get("financial_decision_integrity") or {}).get("verdict"),
+        "report": "docs/dd/BLACKDARK_FINAL_PRODUCTION_VERDICT.md",
+        "operator_gates": "docs/dd/BLACKDARK_OPERATOR_GO_GATES.md",
+    }
+
+
+@router.get("/api/product/operator-go-gates")
+async def operator_go_gates_api():
+    """Remaining Unconditional GO gates the engineer cannot close in-repo."""
+    import json
+    from pathlib import Path
+
+    from operator_go_gates import gates_for_open_domains
+
+    evidence = Path("docs/dd/BLACKDARK_PRODUCTION_LAUNCH_CERT_EVIDENCE.json")
+    if not evidence.is_file():
+        return {"ok": False, "decision": "NO-GO", "reason": "evidence_missing", "gates": []}
+    body = json.loads(evidence.read_text(encoding="utf-8"))
+    v = body.get("final_production_verdict") or {}
+    tracks = body.get("tracks") or v.get("tracks") or {}
+    return {
+        "ok": True,
+        "sha": body.get("sha"),
+        "decision": v.get("decision"),
+        "PUBLIC-DEMO-READY": bool(tracks.get("PUBLIC-DEMO-READY")),
+        "LIVE-PRODUCTION-READY": bool(tracks.get("LIVE-PRODUCTION-READY")),
+        "LIVE-MONEY-READY": bool(tracks.get("LIVE-MONEY-READY")),
+        "gates": gates_for_open_domains(body.get("domains") or []),
+        "live_probes": body.get("operator_live_probes") or {},
+        "report": "docs/dd/BLACKDARK_OPERATOR_GO_GATES.md",
+    }
+
+
 @router.get("/api/lenses")
 async def lenses_api():
     """Trust OS UX lenses — Prove / Operate / Desk / Room."""
@@ -400,6 +544,13 @@ async def public_miss_feed_api(limit: int = Query(40, ge=1, le=100)):
     return await build_public_miss_feed(limit=limit)
 
 
+@router.get("/api/public/changed-mind")
+async def public_changed_mind_api(limit: int = Query(40, ge=1, le=100)):
+    from changed_mind_record import build_changed_mind_record
+
+    return build_changed_mind_record(limit=limit)
+
+
 @router.get("/api/public/coverage-honesty")
 async def coverage_honesty_api():
     from coverage_honesty import build_coverage_honesty_board
@@ -733,13 +884,14 @@ async def anti_hype_mode_set(payload: dict = Body(...)):
 async def wow_surfaces_manifest():
     """Unique wow surfaces by tier — product-complete registry (100%)."""
     return {
-        "product_complete": True,
+        "product_complete": False,
         "proof_pass": [
             {"id": "oracle", "href": "/", "label": "Single-Sentence Oracle"},
             {"id": "certificate", "href": "/dashboard?lens=prove#decide", "label": "Decision Certificate"},
             {"id": "ledger", "href": "/oracle-accuracy", "label": "Public Accuracy Ledger"},
             {"id": "kill_rate", "href": "/kill-rate"},
             {"id": "contradiction_replay", "href": "/contradiction-replay"},
+            {"id": "changed_mind", "href": "/changed-mind"},
             {"id": "proof_arena", "href": "/proof-arena"},
             {"id": "since_you_left", "href": "/since-you-left"},
             {"id": "anti_hype", "href": "/anti-hype"},
@@ -780,11 +932,12 @@ async def wow_surfaces_manifest():
         ],
         "brand_coverage_radical_closure": {
             "miss_feed": "/miss-feed",
+            "changed_mind": "/changed-mind",
             "coverage_honesty": "/coverage-honesty",
             "emotion_tax": "/emotion-tax",
             "provenance_score": "/api/oracle/provenance-score",
             "status_api": "/api/public/brand-coverage-closure",
-            "product_complete": True,
+            "product_complete": False,
         },
         "cso_priority_chain": {
             "page": "/priority-chain",
@@ -815,7 +968,7 @@ async def wow_surfaces_manifest():
             "F9": "/desk-duel",
             "F10": "/trust-debt",
             "status_api": "/api/public/f1-f10-closure",
-            "product_complete": True,
+            "product_complete": False,
         },
     }
 

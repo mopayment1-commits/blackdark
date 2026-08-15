@@ -1,6 +1,6 @@
 # BLACKDARK Dependency License Inventory
 
-**Generated (UTC):** `2026-08-12T11:01:28Z`
+**Generated (UTC):** `2026-08-14T14:18:05Z`
 **Lockfile:** `requirements.lock.txt` sha256=`96021f5982cb1a967db5a20559dda07a68ab89c4f808e5252b99a6af01a65d27`
 **Components:** 29
 **UNKNOWN license:** 0

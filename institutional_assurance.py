@@ -129,7 +129,7 @@ def verify_signed_capacity(row: dict[str, Any] | None = None) -> bool:
 def sla_document() -> dict[str, Any]:
     return {
         "surface": "contractual_sla",
-        "product_complete": True,
+        "product_complete": False,
         "version": "1.0",
         "targets": {
             "availability_monthly": 0.995,
@@ -182,7 +182,7 @@ def compliance_status() -> dict[str, Any]:
     kinds = {i.get("kind") for i in items}
     return {
         "surface": "compliance_attestation_program",
-        "product_complete": True,
+        "product_complete": False,
         "soc2_claimed": "soc2" in kinds,
         "iso27001_claimed": "iso27001" in kinds,
         "pentest_attested": "pentest" in kinds,
@@ -284,7 +284,7 @@ def contracts_status() -> dict[str, Any]:
     signed = [r for r in rows if r.get("status") == "signed"]
     return {
         "surface": "msa_dpa_data_license",
-        "product_complete": True,
+        "product_complete": False,
         "templates": CONTRACT_TEMPLATES,
         "contracts_total": len(rows),
         "contracts_signed": len(signed),
@@ -322,7 +322,7 @@ def ir_program() -> dict[str, Any]:
     )
     return {
         "surface": "incident_response_program",
-        "product_complete": True,
+        "product_complete": False,
         **data,
         "api": {
             "status": "GET /api/institutional/ir",
@@ -363,7 +363,7 @@ def waf_cdn_status() -> dict[str, Any]:
     rules_path = Path("deploy/cloudflare/waf-rules.json")
     return {
         "surface": "waf_cdn_edge",
-        "product_complete": True,
+        "product_complete": False,
         "rules_template": str(rules_path) if rules_path.exists() else "docs/CDN_WAF_CHECKLIST.md",
         "edge_active": cf,
         "controls": ["rate_limit", "bot_fight", "geo", "waf_managed"],
@@ -379,7 +379,7 @@ def ha_activation_status() -> dict[str, Any]:
     cap = get_signed_capacity()
     return {
         "surface": "ha_production_activation",
-        "product_complete": True,
+        "product_complete": False,
         "compose": "docker-compose.ha.yml",
         "postgres_configured": postgres,
         "redis_configured": redis,
@@ -408,7 +408,7 @@ def record_failover_drill(*, result: str, duration_sec: float, notes: str = "") 
 def observability_status() -> dict[str, Any]:
     return {
         "surface": "production_observability",
-        "product_complete": True,
+        "product_complete": False,
         "tracing": {
             "enabled": bool(os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "").strip()),
             "module": "observability.py",
@@ -429,7 +429,7 @@ def secrets_manager_status() -> dict[str, Any]:
     )
     return {
         "surface": "secrets_manager_rotation",
-        "product_complete": True,
+        "product_complete": False,
         "backend": backend,
         "vault_module": "secrets_vault.py",
         "rotation_policy_days": int(os.getenv("SECRETS_ROTATION_DAYS", "90")),
@@ -446,7 +446,7 @@ def staging_mirror_status() -> dict[str, Any]:
     url = os.getenv("STAGING_BASE_URL", "").strip()
     return {
         "surface": "staging_mirror",
-        "product_complete": True,
+        "product_complete": False,
         "staging_url": url or None,
         "mirror_topology": {
             "postgres": True,
@@ -480,7 +480,7 @@ def backup_status() -> dict[str, Any]:
                 rows.append(json.loads(line))
     return {
         "surface": "backup_restore_program",
-        "product_complete": True,
+        "product_complete": False,
         "drills": rows[-5:],
         "last_success": next((r for r in reversed(rows) if r.get("result") == "success"), None),
         "targets": {"rpo_minutes": 60, "rto_minutes": 180},
@@ -524,7 +524,7 @@ def open_support_ticket(
 def support_status() -> dict[str, Any]:
     return {
         "surface": "support_tiers",
-        "product_complete": True,
+        "product_complete": False,
         "tiers": SUPPORT_TIERS,
         "api": "POST /api/institutional/support/tickets",
     }
@@ -541,7 +541,7 @@ def coverage_catalog() -> dict[str, Any]:
     next_wave = ["jupiter", "uniswap", "hyperliquid"]
     return {
         "surface": "contractable_coverage_catalog",
-        "product_complete": True,
+        "product_complete": False,
         "live_decision_venues": live,
         "next_wave_not_live": next_wave,
         "update_cadence": "quarterly",
@@ -554,7 +554,7 @@ def coverage_catalog() -> dict[str, Any]:
 def data_qa_slo() -> dict[str, Any]:
     return {
         "surface": "data_qa_freshness_slo",
-        "product_complete": True,
+        "product_complete": False,
         "slos": {
             "spot_price_freshness_sec": 15,
             "funding_freshness_sec": 120,

@@ -54,13 +54,45 @@ async def execute_cex_dex_opportunity(
 ) -> dict[str, Any]:
     """Two-leg CEX↔DEX execution: buy cheap venue, sell expensive venue."""
     from database import insert_execution_log
+    from risk_intelligence import smart_contract_risk
+    from executable_edge_truth import mark_indicative_only
 
     use_dry = _dry_run_default() if dry_run is None else dry_run
+    # Fail closed: never execute indicative-only CEX-DEX economics.
+    if not opportunity.get("executable"):
+        blocked = mark_indicative_only(dict(opportunity), reason="cex_dex_not_executable")
+        return {
+            "success": False,
+            "blocked": True,
+            "reason": "not_executable",
+            "opportunity": blocked,
+        }
+
+    sc = smart_contract_risk(
+        protocol=str(opportunity.get("dex_venue") or "dex"),
+        audited=opportunity.get("contract_audited"),
+        upgradeable=opportunity.get("contract_upgradeable"),
+        tvl_usd=opportunity.get("dex_liquidity_usd"),
+        incident_count=opportunity.get("incident_count"),
+    )
+    if not sc.get("executable"):
+        # Unknown audit status fails closed unless operator attested audited=True.
+        return {
+            "success": False,
+            "blocked": True,
+            "reason": "smart_contract_risk_gate",
+            "risk": sc,
+        }
+
     asset = str(opportunity.get("asset") or "BTC")
     quote_usd = float(opportunity.get("quote_usd") or os.getenv("CEX_DEX_QUOTE_USD", "500"))
     buy_venue = str(opportunity.get("buy_venue") or "binance").lower()
     sell_venue = str(opportunity.get("sell_venue") or "jupiter").lower()
-    net_bps = float(opportunity.get("net_spread_bps") or 0)
+    net_bps = float(
+        opportunity.get("net_executable_spread_bps")
+        or opportunity.get("net_spread_bps")
+        or 0
+    )
 
     if net_bps < float(os.getenv("CEX_DEX_MIN_NET_BPS", "8")):
         return {"success": False, "skipped": True, "reason": "below_min_net_bps"}
@@ -113,7 +145,7 @@ async def run_cex_dex_cycle(
     from bd_platform.cex_dex_arbitrage import scan_cex_dex_opportunities
 
     scan = await scan_cex_dex_opportunities(quote_usd=quote_usd)
-    opps = [o for o in scan.get("opportunities") or [] if o.get("profitable")]
+    opps = [o for o in scan.get("opportunities") or [] if o.get("executable") and o.get("profitable")]
     if not opps:
         return {"skipped": True, "reason": "no_profitable_cex_dex", "scan": scan}
 

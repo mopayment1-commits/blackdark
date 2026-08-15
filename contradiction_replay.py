@@ -123,11 +123,11 @@ def build_contradiction_replay(
     bullish = list(meta.get("bullish") or [])
     bearish = list(meta.get("bearish") or [])
     severity = str(meta.get("severity") or "none")
-    action = str(meta.get("action") or ("WAIT" if severity in ("mild", "severe") else "CLEAR"))
+    action = str(meta.get("action") or ("I_DONT_KNOW" if severity in ("mild", "severe") else "CLEAR"))
     cid = _clip_id(symbol, bullish, bearish)
 
     share_text = (
-        f"BLACKDARK WAIT replay on {symbol}: "
+        f"BLACKDARK I DON'T KNOW replay on {symbol}: "
         f"{', '.join(map(str, bullish)) or '—'} vs {', '.join(map(str, bearish)) or '—'} → {action}. "
         f"We publish the refusal. /contradiction-replay?id={cid}"
     )
@@ -145,7 +145,7 @@ def build_contradiction_replay(
         "bearish": bearish,
         "message": meta.get("message") or "Dimensions disagreed — system refused the trade.",
         "frames": _replay_frames(symbol, bullish, bearish, action, severity),
-        "headline": f"Why we WAITED on {symbol.upper()}",
+        "headline": f"Why we said I DON'T KNOW on {symbol.upper()}",
         "share_text": share_text,
         "share_urls": {
             "x": f"https://twitter.com/intent/tweet?text={quote(share_text)}",
@@ -154,10 +154,10 @@ def build_contradiction_replay(
         },
         "verify_url": f"/contradiction-replay?id={cid}",
         "api": "/api/contradiction-replay",
-        "disclaimer": "Not financial advice. WAIT is a transparency product, not a profit guarantee.",
+        "disclaimer": "Not financial advice. I DON'T KNOW is a transparency product, not a profit guarantee.",
     }
 
-    if persist and action == "WAIT":
+    if persist and action in {"WAIT", "I_DONT_KNOW"}:
         _persist_wait_replay(card, cid, symbol, bullish, bearish, meta)
 
     return card

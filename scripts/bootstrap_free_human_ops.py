@@ -136,7 +136,7 @@ def write_softlaunch_env(*, admin_email: str, rotate: bool = False) -> dict:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--admin-email", default="mopayment1@gmail.com")
+    p.add_argument("--admin-email", default="", help="Required admin email (no hardcoded founder default)")
     p.add_argument("--rotate", action="store_true")
     args = p.parse_args()
     result = write_softlaunch_env(admin_email=args.admin_email, rotate=args.rotate)

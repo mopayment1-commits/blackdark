@@ -81,9 +81,9 @@ def unified_verdict_with_conflict(
     from regulatory_compliance_guard import to_public_verdict
 
     if conflict_meta.get("veto"):
-        return to_public_verdict("WAIT")
-    if conflict_meta.get("abstain") and score >= 50:
-        return to_public_verdict("CAUTION")
+        return to_public_verdict("I_DONT_KNOW")
+    if conflict_meta.get("abstain"):
+        return to_public_verdict("I_DONT_KNOW")
     if base_verdict:
         return to_public_verdict(base_verdict)
     return _oracle_verdict_from_score(score, asset)

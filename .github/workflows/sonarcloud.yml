@@ -84,6 +84,9 @@ jobs:
             tests/test_i18n_language_actually_switches.py \
             tests/test_sonar_template_js_parse_hygiene.py \
             tests/test_sonar_project_version_baseline.py \
+            tests/test_institutional_honesty_closure.py \
+            tests/test_95plus_foundation_closure.py \
+            tests/test_total_completion_identity_whale.py \
             -q --tb=line \
             --cov-config=.coveragerc-sonar \
             --cov \

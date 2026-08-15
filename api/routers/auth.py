@@ -407,7 +407,9 @@ async def auth_oauth_start(provider: str):
         payload = build_authorize_url(provider)
         await store_oauth_state_async(provider, payload["state"])
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+        msg = str(exc)
+        code = 503 if "not configured" in msg.lower() else 400
+        raise HTTPException(status_code=code, detail=msg) from exc
     return payload
 
 

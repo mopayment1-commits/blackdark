@@ -74,7 +74,7 @@ def test_committee_pdf_bytes():
 def test_glass_box_announce_schedule_product_complete():
     set_schedule(announce_at="2099-01-01T12:00:00+00:00", channel="x", note="test")
     status = schedule_status()
-    assert status["product_complete"] is True
+    assert status["product_complete"] is False
     assert status["schedule"]["scheduled"] is True
     assert status["drafts_ready"] is True
 

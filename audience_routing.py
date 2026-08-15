@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-Audience = Literal["retail", "pro", "whale", "fund"]
+Audience = Literal["retail", "pro", "whale", "fund", "b2b", "acquirer"]
 
 _AUDIENCES = {
     "retail": {
@@ -63,6 +63,32 @@ _AUDIENCES = {
             "shell": "dd_first",
         },
     },
+    "b2b": {
+        "audience": "b2b",
+        "first_screen": "b2b_feed_and_white_label",
+        "heroes": ["evidence_pack", "whale_intelligence"],
+        "cta": "Org-scoped B2B feed + in-process white-label portal (not hosted SaaS).",
+        "entry_path": "/b2b?audience=b2b",
+        "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["b2b_feed", "white_label", "org_gateway"],
+            "defer": ["retail_tour", "stealth_deep"],
+            "shell": "b2b_first",
+        },
+    },
+    "acquirer": {
+        "audience": "acquirer",
+        "first_screen": "data_room_evidence",
+        "heroes": ["public_accuracy_ledger", "evidence_pack"],
+        "cta": "Data room + four-blockers honesty — verdict is NOT COMPLETE until EXTERNAL blocks close.",
+        "entry_path": "/data-room?audience=acquirer",
+        "ux_mode_default": "pro",
+        "progressive_disclosure": {
+            "emphasize": ["evidence_pack", "ledger", "four_blockers", "launch_checklist"],
+            "defer": ["retail_tour", "stealth_deep"],
+            "shell": "dd_first",
+        },
+    },
 }
 
 
@@ -74,6 +100,10 @@ def normalize_audience(value: str | None) -> Audience:
         return "whale"
     if raw in {"fund", "institution", "institutional", "allocator"}:
         return "fund"
+    if raw in {"b2b", "api", "white-label", "whitelabel", "tenant"}:
+        return "b2b"
+    if raw in {"acquirer", "dd", "diligence", "mna", "acquisition"}:
+        return "acquirer"
     return "retail"
 
 
@@ -91,9 +121,14 @@ def audience_entry(value: str | None = None) -> dict[str, Any]:
         row["primary_entries"] = primary_entries_for_lens(lens_id)
         row["entry_path"] = lens.get("entry_path") or row.get("entry_path")
     except Exception:
-        row["lens"] = {"retail": "prove", "pro": "operate", "whale": "desk", "fund": "room"}.get(
-            key, "prove"
-        )
+        row["lens"] = {
+            "retail": "prove",
+            "pro": "operate",
+            "whale": "desk",
+            "fund": "room",
+            "b2b": "room",
+            "acquirer": "room",
+        }.get(key, "prove")
     return row
 
 

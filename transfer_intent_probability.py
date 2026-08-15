@@ -79,7 +79,7 @@ def compute_transfer_intent(
     return {
         "feature_id": "F4",
         "surface": "transfer_intent_probability",
-        "product_complete": True,
+        "product_complete": False,
         "generated_at": _utcnow(),
         "asset": asset_u,
         "amount_usd": amount_usd,

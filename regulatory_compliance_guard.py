@@ -29,11 +29,23 @@ PUBLIC_VERDICT_BULLISH = "BULLISH_ANALYTICS"
 PUBLIC_VERDICT_BEARISH = "BEARISH_ANALYTICS"
 PUBLIC_VERDICT_NEUTRAL = "NEUTRAL_OBSERVE"
 PUBLIC_VERDICT_RISK = "ELEVATED_RISK"
+PUBLIC_VERDICT_UNKNOWN = "I_DONT_KNOW"
 
 _INTERNAL_BULLISH = frozenset({"BUY", STR_BUY_NOW, "BULLISH", PUBLIC_VERDICT_BULLISH})
 _INTERNAL_BEARISH = frozenset({"SELL", "BEARISH", PUBLIC_VERDICT_BEARISH})
 _INTERNAL_NEUTRAL = frozenset({"WAIT", "HOLD", "NEUTRAL", PUBLIC_VERDICT_NEUTRAL})
 _INTERNAL_RISK = frozenset({"CAUTION", STR_DO_NOT_TOUCH, "AVOID", PUBLIC_VERDICT_RISK})
+_INTERNAL_UNKNOWN = frozenset(
+    {
+        PUBLIC_VERDICT_UNKNOWN,
+        "I DON'T KNOW",
+        "I_DON'T_KNOW",
+        "INSUFFICIENT",
+        "INSUFFICIENT_EVIDENCE",
+        "UNKNOWN",
+        "ABSTAIN",
+    }
+)
 
 _ADVICE_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"\bBuy Now\b", re.IGNORECASE), "Analytics indicate positive momentum"),
@@ -57,6 +69,15 @@ def _enabled() -> bool:
 
 def classify_internal_verdict(verdict: str) -> str:
     v = (verdict or "").strip()
+    compact = v.upper().replace(" ", "_").replace("-", "_").replace("'", "")
+    if v in _INTERNAL_UNKNOWN or compact in {
+        "I_DONT_KNOW",
+        "INSUFFICIENT",
+        "INSUFFICIENT_EVIDENCE",
+        "UNKNOWN",
+        "ABSTAIN",
+    }:
+        return "unknown"
     if v in _INTERNAL_BULLISH or v.upper() == "BUY":
         return "bullish"
     if v in _INTERNAL_BEARISH or v.upper() == "SELL":
@@ -71,6 +92,8 @@ def to_public_verdict(verdict: str) -> str:
     if not _enabled():
         return verdict
     bucket = classify_internal_verdict(verdict)
+    if bucket == "unknown":
+        return PUBLIC_VERDICT_UNKNOWN
     if bucket == "bullish":
         return PUBLIC_VERDICT_BULLISH
     if bucket == "bearish":
@@ -89,6 +112,8 @@ def to_internal_action_verdict(verdict: str) -> str:
         return "SELL"
     if bucket == "risk":
         return STR_DO_NOT_TOUCH
+    if bucket == "unknown":
+        return "WAIT"
     return "WAIT"
 
 
@@ -125,6 +150,10 @@ def compliant_oracle_sentence(asset: str, verdict: str, reason: str) -> str:
         PUBLIC_VERDICT_NEUTRAL: (
             f"{asset} — {public}: {clean_reason} "
             f"(monitoring signal; not investment advice)."
+        ),
+        PUBLIC_VERDICT_UNKNOWN: (
+            f"{asset} — {public}: {clean_reason} "
+            f"(insufficient or contradictory evidence; not a directional view; not investment advice)."
         ),
     }
     return templates.get(public, f"{asset} — {public}: {clean_reason}")
@@ -168,7 +197,8 @@ def llm_oracle_system_prompt() -> str:
         "NEVER tell the user to buy, sell, or trade. "
         "NEVER use 'Buy Now', 'Sell Now', or 'Do Not Touch'. "
         "Start with one of: 'Bullish analytics —', 'Bearish analytics —', "
-        "'Elevated risk —', or 'Neutral observe —'. "
+        "'Elevated risk —', 'Neutral observe —', or 'I don't know —'. "
+        "Use 'I don't know —' when evidence is insufficient or dimensions contradict. "
         "End with '(informational only; not investment advice)'."
     )
 
@@ -212,7 +242,9 @@ def apply_regulatory_compliance(payload: dict[str, Any]) -> dict[str, Any]:
     if not _enabled():
         return payload
 
-    out = dict(payload)
+    from epistemic_honesty import apply_epistemic_honesty
+
+    out = apply_epistemic_honesty(dict(payload))
     raw_verdict = str(out.get("verdict") or out.get("oracle_verdict") or "")
     _apply_public_verdict_fields(out, raw_verdict)
     _sanitize_string_fields(out)
@@ -235,6 +267,7 @@ def regulatory_compliance_status() -> dict[str, Any]:
             "bearish": PUBLIC_VERDICT_BEARISH,
             "neutral": PUBLIC_VERDICT_NEUTRAL,
             "elevated_risk": PUBLIC_VERDICT_RISK,
+            "i_dont_know": PUBLIC_VERDICT_UNKNOWN,
         },
         "prohibited_public_phrases": [
             STR_BUY_NOW,

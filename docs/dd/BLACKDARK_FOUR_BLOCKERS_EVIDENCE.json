@@ -1,0 +1,125 @@
+{
+  "proved_at": "2026-08-14T14:32:10.200807+00:00",
+  "secrets_presence": {
+    "BINANCE_API_KEY": {
+      "present": true,
+      "len": 64
+    },
+    "BINANCE_API_SECRET": {
+      "present": true,
+      "len": 64
+    },
+    "BINANCE_TESTNET": {
+      "present": true,
+      "len": 4
+    },
+    "AUTO_EXECUTION_ENABLED": {
+      "present": true,
+      "len": 5
+    },
+    "AUTO_EXECUTION_DRY_RUN": {
+      "present": true,
+      "len": 4
+    },
+    "SOLANA_PRIVATE_KEY": {
+      "present": true,
+      "len": 88
+    },
+    "JUPITER_LIVE_EXECUTION": {
+      "present": true,
+      "len": 5
+    }
+  },
+  "blocker_1_live_venue_fill": {
+    "live_fill": false,
+    "verified_complete": false,
+    "mode": "external_block_geo",
+    "ok": true,
+    "external_block": "binance_order_host_geo_451",
+    "order_host": {
+      "ok": false,
+      "geo_blocked": true,
+      "external_block": "binance_order_host_geo_451",
+      "hosts": [
+        {
+          "host": "https://testnet.binance.vision",
+          "ok": false,
+          "http_status": 451,
+          "geo_blocked": true,
+          "reason": "http_451_restricted_location"
+        },
+        {
+          "host": "https://demo-api.binance.com",
+          "ok": false,
+          "http_status": 451,
+          "geo_blocked": true,
+          "reason": "http_451_restricted_location"
+        }
+      ]
+    },
+    "fill_readiness_blocking": [
+      "binance_order_host_geo_451"
+    ]
+  },
+  "blocker_2_jupiter_live_signature": {
+    "signed_local": true,
+    "broadcast": false,
+    "executed": false,
+    "rpc_signature": false,
+    "verified_complete": false,
+    "external_block": "wallet_unfunded_zero_cost_constraint",
+    "rpc_reason": "rpc_error:Transaction simulation failed:AccountNotFound",
+    "wallet_funding": {
+      "sol_lamports": 0,
+      "usdc_token_accounts": 0,
+      "funded": false
+    },
+    "wallet_pubkey": "BgaNfyoeqRtSF5ACHdz7sP1DqFa81Hj9XZ9dNLtB5Yf",
+    "submit_path_ok": true
+  },
+  "blocker_3_full_mesh_100": {
+    "catalog_price_health_pct": 100.0,
+    "institutional_l2_exchanges": 95,
+    "institutional_l2_coverage_percent": 95.0,
+    "full_mesh_l2_complete": false,
+    "depth_breakdown": {
+      "venue_l2": 95,
+      "venue_tob": 0,
+      "synthetic_mid": 5,
+      "failed": 0
+    },
+    "external_block": "geo_dead_or_no_public_l2_for_remaining_venues",
+    "core_mesh_target": 92,
+    "mesh_live_count": 92,
+    "mesh_l2_count": 92
+  },
+  "blocker_4_cloud_multi_az_ha": {
+    "cloud_multi_az": false,
+    "ok": false,
+    "external_block": "zero_cost_no_paid_cloud_multi_az",
+    "verified_complete": false,
+    "local_streaming_ha_vc": true,
+    "local_ha_class": "LOCAL_STREAMING_REPLICATION",
+    "local_cloud_multi_az": false
+  },
+  "integrity": {
+    "never_claim_without_evidence": true,
+    "synthetic_mid_is_not_institutional_l2": true,
+    "local_streaming_is_not_cloud_multi_az": true,
+    "local_wallet_sign_is_not_rpc_signature_vc": true,
+    "ui_action_complete_is_not_observed_state": true
+  },
+  "operator_decisions": {
+    "binance_geo_unblock": "skipped",
+    "jupiter_wallet_funding": "skipped",
+    "proxy_or_funded_key_injection": "skipped",
+    "accepted_external_blocks": [
+      "binance_order_host_geo_451",
+      "wallet_unfunded_zero_cost_constraint",
+      "geo_dead_or_no_public_l2_for_remaining_venues",
+      "zero_cost_no_paid_cloud_multi_az"
+    ],
+    "product_complete": false,
+    "note": "Operator skipped geo unblock, wallet funding, and proxy injection. Those surfaces remain external-blocked; never claim live_fill / Jupiter VC / Full Mesh L2 100% / cloud multi-AZ."
+  }
+}

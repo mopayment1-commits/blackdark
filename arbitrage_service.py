@@ -454,6 +454,7 @@ def _strategy_opportunities(
         notional,
         institutional_context,
         institutional_context,
+        order_books=books,
     )
     return cross, triangular, basis, funding_opps
 

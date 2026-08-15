@@ -77,7 +77,7 @@ def build_report1_weaknesses_closure() -> dict[str, Any]:
     ]
     return {
         "report": "1_weaknesses_defects",
-        "product_complete": True,
+        "product_complete": False,
         "design_complete": True,
         "implementation_complete": True,
         "all_done": all(c["done"] for c in checklist),
@@ -123,7 +123,7 @@ async def build_report2_capabilities_closure() -> dict[str, Any]:
     ]
     return {
         "report": "2_missing_core_capabilities",
-        "product_complete": True,
+        "product_complete": False,
         "design_complete": True,
         "implementation_complete": True,
         "all_done": all(c["done"] for c in checklist),
@@ -184,7 +184,7 @@ async def build_dd_radical_closure() -> dict[str, Any]:
         "generated_at": datetime.now(UTC).isoformat(),
         "design_complete": True,
         "implementation_complete": True,
-        "product_complete": True,
+        "product_complete": False,
         "report1": r1,
         "report2": r2,
         "all_done": bool(r1.get("all_done") and r2.get("all_done")),

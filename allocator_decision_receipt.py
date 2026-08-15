@@ -76,7 +76,7 @@ async def build_allocator_decision_receipt(*, limit: int = 12, fund_name: str = 
     return {
         "feature_id": "F3",
         "surface": "allocator_decision_receipt",
-        "product_complete": True,
+        "product_complete": False,
         **body,
         "seal_hash": seal,
         "headline": f"Allocator receipt · {len(decisions)} decisions sealed",

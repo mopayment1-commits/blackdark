@@ -56,7 +56,7 @@ CATEGORY_INTERVALS: dict[Category, int] = {
 DATA_SOURCES: tuple[DataSourceSpec, ...] = (
     # ── 1. Spot & Derivatives Price Data ─────────────────────────────────────
     DataSourceSpec("binance_spot", "prices", "Binance Spot", "rest",
-                   "https://api.binance.com/api/v3/ticker/24hr", 5),
+                   "https://data-api.binance.vision/api/v3/ticker/24hr", 5),
     DataSourceSpec("binance_futures", "prices", "Binance Futures", "rest",
                    "https://fapi.binance.com/fapi/v1/premiumIndex", 5),
     DataSourceSpec("coingecko_prices", "prices", "CoinGecko", "rest",
