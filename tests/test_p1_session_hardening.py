@@ -25,6 +25,28 @@ def _request(headers: dict[str, str], method: str = "POST") -> Request:
     return Request(scope)
 
 
+def test_allowed_hosts_include_railway_healthcheck(monkeypatch):
+    monkeypatch.setenv("APP_BASE_URL", "https://blackdark-production.up.railway.app")
+    monkeypatch.setenv("RAILWAY_PUBLIC_DOMAIN", "blackdark-production.up.railway.app")
+    hosts = sm._allowed_hosts()
+    assert "blackdark-production.up.railway.app" in hosts
+    assert "healthcheck.railway.app" in hosts
+
+
+def test_health_live_not_blocked_by_trusted_host(monkeypatch):
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("APP_BASE_URL", "https://blackdark-production.up.railway.app")
+    monkeypatch.setenv("TRUSTED_HOST_ENFORCE", "true")
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.get("/health/live", headers={"Host": "healthcheck.railway.app"})
+    assert resp.status_code == 200
+    assert resp.json().get("status") == "ok"
+
+
 def test_csrf_rejects_cookie_mutation_without_origin(monkeypatch):
     monkeypatch.setenv("APP_BASE_URL", "https://example.com")
     req = _request({"cookie": "bd_token=abc", "host": "example.com"})
