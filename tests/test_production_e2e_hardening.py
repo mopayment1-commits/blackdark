@@ -255,6 +255,58 @@ def test_portfolio_analyze_accepts_holdings_object(tmp_path, monkeypatch):
     assert "holdings" in resp.json() or "risk_score" in resp.json() or "plain" in resp.json()
 
 
+def test_portfolio_analyze_accepts_asset_quantity_aliases(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-port-alias.db")
+    from dashboard import app
+
+    async def _fake_ticker(_pair):
+        return {"price": 63000.0, "change_24h": 0.1, "source": "test"}
+
+    monkeypatch.setattr("dashboard._fetch_binance_ticker", _fake_ticker)
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    reg = client.post(
+        "/api/auth/register",
+        json={
+            "email": "port.alias@example.com",
+            "password": "E2eHarden!Aa123456",
+            "name": "Port",
+            "accepted_terms": True,
+            "plan": "pro",
+        },
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    resp = client.post(
+        "/portfolio/analyze",
+        json={"holdings": [{"asset": "BTC", "quantity": 0.1}]},
+        headers=origin,
+    )
+    assert resp.status_code == 200, resp.text
+    body = resp.json()
+    assert body.get("total_value", 0) > 0
+    assert body.get("holdings")
+    assert body["holdings"][0]["symbol"] == "BTC"
+
+
+def test_product_honesty_surfaces_are_not_404():
+    from dashboard import app
+
+    client = TestClient(app)
+    for path in (
+        "/api/public/changed-mind",
+        "/api/public/decision-graph",
+        "/api/product/l2-remainder",
+        "/api/product/capability-inventory",
+        "/api/product/public-readiness",
+    ):
+        resp = client.get(path)
+        assert resp.status_code == 200, (path, resp.status_code, resp.text[:200])
+        body = resp.json()
+        assert isinstance(body, dict)
+        assert body.get("surface") or body.get("tracks") or body.get("items") is not None
+
+
 @pytest.mark.asyncio
 async def test_simulate_ticker_uses_market_context_failover(monkeypatch):
     from trade_simulator import _fetch_ticker
@@ -268,6 +320,51 @@ async def test_simulate_ticker_uses_market_context_failover(monkeypatch):
     row = await _fetch_ticker("BTCUSDT")
     assert row is not None
     assert row["price"] == 63023.65
+
+
+@pytest.mark.asyncio
+async def test_binance_closes_failover_hosts(monkeypatch):
+    from forecast_engine import _fetch_binance_closes
+
+    calls: list[str] = []
+
+    class _Resp:
+        def __init__(self, status, payload):
+            self.status = status
+            self._payload = payload
+
+        async def json(self):
+            return self._payload
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            return False
+
+    class _Session:
+        def __init__(self, *args, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *args):
+            return False
+
+        def get(self, url):
+            calls.append(url)
+            if "api.binance.com" in url:
+                return _Resp(451, [])
+            rows = [[0, "1", "1", "1", str(100 + i), "1"] for i in range(30)]
+            return _Resp(200, rows)
+
+    import aiohttp
+
+    monkeypatch.setattr(aiohttp, "ClientSession", _Session)
+    closes = await _fetch_binance_closes("BTCUSDT", interval="1h", limit=30)
+    assert len(closes) == 30
+    assert any("data-api.binance.vision" in u for u in calls)
 
 
 def test_public_accuracy_and_database_health_do_not_500():

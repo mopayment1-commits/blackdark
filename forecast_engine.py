@@ -34,23 +34,34 @@ _ALLOWED_INTERVALS = {"1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "6h", "8
 
 
 async def _fetch_binance_closes(pair: str, interval: str = "1h", limit: int = 168) -> list[float]:
+    """Klines with Vision/US failover — api.binance.com is often blocked on Railway."""
     if not pair.isalnum():
         return []
     if interval not in _ALLOWED_INTERVALS:
         interval = "1h"
-    url = (
-        f"https://api.binance.com/api/v3/klines"
-        f"?symbol={pair}&interval={interval}&limit={limit}"
+    hosts = (
+        "https://data-api.binance.vision",
+        "https://api.binance.us",
+        "https://api.binance.com",
     )
+    timeout = aiohttp.ClientTimeout(total=12)
     try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
-            if resp.status != 200:
-                return []
-            rows = await resp.json()
-        return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            for host in hosts:
+                url = f"{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        rows = await resp.json()
+                    closes = [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
+                    if closes:
+                        return closes
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
+    return []
 
 
 async def load_price_series(asset: str, *, limit: int = 200) -> tuple[list[float], str]:
