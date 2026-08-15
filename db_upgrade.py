@@ -28,27 +28,68 @@ def external_database_status() -> dict[str, Any]:
     ts_dsn = os.getenv("HOT_STORAGE_TIMESCALE_DSN", "").strip()
     clickhouse = os.getenv("HOT_STORAGE_CLICKHOUSE_URL", "").strip()
     backend = os.getenv("HOT_STORAGE_BACKEND", "local").strip().lower()
+    primary = "postgresql" if pg_url.lower().startswith(("postgres://", "postgresql://")) else "sqlite"
     return {
-        "primary": "sqlite",
+        "primary": primary,
         "sqlite_path": str(config.DB_PATH),
         "postgres_configured": bool(pg_url),
         "timescale_configured": bool(ts_dsn),
         "clickhouse_configured": bool(clickhouse),
         "hot_storage_backend": backend,
         "upgrade_ready": bool(pg_url or ts_dsn),
-        "note": "SQLite is default. Set DATABASE_URL or HOT_STORAGE_TIMESCALE_DSN when scaling.",
+        "note": (
+            "PostgreSQL is the production engine when DATABASE_URL is set."
+            if primary == "postgresql"
+            else "SQLite is default. Set DATABASE_URL or HOT_STORAGE_TIMESCALE_DSN when scaling."
+        ),
     }
 
 
-async def database_health_report() -> dict[str, Any]:
-    from database import fetch_platform_user_stats, fetch_system_telemetry
+def _is_postgres_url() -> bool:
+    url = os.getenv("DATABASE_URL", "").strip().lower()
+    return url.startswith(("postgres://", "postgresql://"))
 
-    telemetry = await fetch_system_telemetry()
-    users = await fetch_platform_user_stats()
+
+async def database_health_report() -> dict[str, Any]:
+    """Never raise: production /api/database/health must not 500."""
+    users: dict[str, Any] = {}
+    telemetry: dict[str, Any] = {}
+    try:
+        from database import fetch_platform_user_stats, fetch_system_telemetry
+
+        users = await fetch_platform_user_stats()
+        telemetry = await fetch_system_telemetry()
+    except Exception as exc:
+        logger.exception("database_health telemetry failed")
+        telemetry = {"error": type(exc).__name__}
+
+    external = external_database_status()
+    if _is_postgres_url():
+        pool: dict[str, Any] = {}
+        try:
+            from postgres_backend import pool_stats
+
+            pool = pool_stats()
+        except Exception:
+            pool = {"active": False}
+        return {
+            "timestamp": _utcnow_iso(),
+            "engine": "postgresql",
+            "ok": bool(pool.get("active") or users or telemetry),
+            "telemetry": telemetry,
+            "users": users,
+            "postgres_pool": pool,
+            "external": external,
+            "recommendations": (
+                ["PostgreSQL pool connected."]
+                if pool.get("active")
+                else ["DATABASE_URL is set; confirm the Railway Postgres plugin is attached."]
+            ),
+        }
+
     db_path = config.DB_PATH
     wal_path = Path(str(db_path) + "-wal")
     shm_path = Path(str(db_path) + "-shm")
-
     size_mb = round((telemetry.get("database_size_bytes") or 0) / (1024 * 1024), 2)
     recommendations: list[str] = []
     if size_mb > 500:
@@ -57,16 +98,16 @@ async def database_health_report() -> dict[str, Any]:
         recommendations.append("WAL file large — run checkpoint via maintenance.")
     if (telemetry.get("pricing_count") or 0) > 500_000:
         recommendations.append("pricing_logs growing — retention prune recommended.")
-
     return {
         "timestamp": _utcnow_iso(),
         "engine": "sqlite",
+        "ok": True,
         "telemetry": telemetry,
         "users": users,
         "database_size_mb": size_mb,
         "wal_size_mb": round(wal_path.stat().st_size / (1024 * 1024), 2) if wal_path.exists() else 0,
         "shm_exists": shm_path.exists(),
-        "external": external_database_status(),
+        "external": external,
         "recommendations": recommendations or ["Database healthy for current load."],
     }
 

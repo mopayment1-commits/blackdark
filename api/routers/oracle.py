@@ -117,7 +117,16 @@ async def ml_predict(asset: str, price: float | None = None):
 async def oracle_accuracy_public():
     from ml.public_accuracy import build_public_accuracy_payload
 
-    payload = await build_public_accuracy_payload()
+    try:
+        payload = await build_public_accuracy_payload()
+    except Exception as exc:
+        payload = {
+            "ok": False,
+            "live_only": True,
+            "resolved_count": 0,
+            "recent": [],
+            "error": type(exc).__name__,
+        }
     payload["timestamp"] = datetime.now(UTC).isoformat()
     return payload
 

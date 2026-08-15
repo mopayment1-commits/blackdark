@@ -24,13 +24,32 @@ async def platform_stats():
 
 @router.get("/api/gtm/status")
 async def gtm_status():
-    from gtm_service import fetch_gtm_status
+    try:
+        from gtm_service import fetch_gtm_status
 
-    return await fetch_gtm_status()
+        return await fetch_gtm_status()
+    except Exception as exc:
+        return {
+            "ok": False,
+            "error": type(exc).__name__,
+            "blockers": ["gtm_status_handler_failed"],
+        }
 
 
 @router.get("/api/launch/readiness")
 async def launch_readiness():
+    try:
+        return await _launch_readiness_body()
+    except Exception as exc:
+        return {
+            "ok": False,
+            "error": type(exc).__name__,
+            "billing_configured": False,
+            "blockers": ["launch_readiness_handler_failed"],
+        }
+
+
+async def _launch_readiness_body():
     from billing_service import billing_configured, billing_provider
     from gtm_service import fetch_gtm_status
     from launch_checklist import launch_checklist

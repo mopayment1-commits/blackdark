@@ -562,24 +562,25 @@ def _prioritized_market_overview(
     return priority[:limit]
 
 
-async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
-    """Tracked assets from WebSocket/Redis — no REST when WS-only."""
-    if config.PRICE_FEED_WS_ONLY:
-        from ws_price_provider import get_market_overview
+_BINANCE_REST_HOSTS = ("api.binance.com", "data-api.binance.vision", "api.binance.us")
 
-        return await get_market_overview(limit)
-    if limit is None:
-        limit = config.MARKET_RADAR_LIMIT
-    url = "https://api.binance.com/api/v3/ticker/24hr"
+
+async def _fetch_binance_24hr_rows(
+    session: aiohttp.ClientSession,
+    host: str,
+) -> list[dict[str, Any]] | None:
+    url = f"https://{host}/api/v3/ticker/24hr"
     try:
-        timeout = aiohttp.ClientTimeout(total=15)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
+        async with session.get(url) as resp:
             if resp.status != 200:
-                return []
+                return None
             rows = await resp.json()
     except (aiohttp.ClientError, TypeError, ValueError):
-        return []
+        return None
+    return rows if isinstance(rows, list) else None
 
+
+def _overview_from_24hr_rows(rows: list[dict[str, Any]], limit: int) -> list[dict]:
     by_symbol: dict[str, dict] = {}
     all_candidates: list[dict] = []
     for row in rows:
@@ -588,9 +589,76 @@ async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
             continue
         by_symbol[item["symbol"]] = item
         all_candidates.append(item)
-
     all_candidates.sort(key=lambda x: x["volume_24h"], reverse=True)
     return _prioritized_market_overview(by_symbol, all_candidates, limit)
+
+
+async def _overview_from_tracked_tickers(limit: int) -> list[dict]:
+    """Last-resort radar: resolve each tracked asset via the multi-host ticker."""
+    out: list[dict] = []
+    for asset in config.tracked_asset_list()[: max(1, limit)]:
+        row = await fetch_binance_ticker(f"{asset}USDT")
+        if not row or not row.get("price"):
+            continue
+        price = float(row["price"])
+        change = float(row.get("change_24h") or 0)
+        quote_volume = float(row.get("quote_volume") or 0)
+        score = oracle_score(quote_volume, change)
+        verdict, _ = oracle_verdict(score, asset, price)
+        out.append(
+            {
+                "symbol": asset,
+                "price": price,
+                "change_24h": change,
+                "volume_24h": quote_volume,
+                "score": score,
+                "verdict": verdict,
+                "sector": sector_for_asset(asset),
+            }
+        )
+    return out
+
+
+async def fetch_binance_market_overview_pack(limit: int | None = None) -> dict[str, Any]:
+    """Radar pack with honest source. Never claims Binance Live when the book is empty."""
+    if limit is None:
+        limit = config.MARKET_RADAR_LIMIT
+    if config.PRICE_FEED_WS_ONLY:
+        from ws_price_provider import get_market_overview
+
+        assets = await get_market_overview(limit)
+        return {
+            "assets": assets,
+            "data_source": "websocket_live" if assets else "websocket_empty",
+            "source_host": None,
+        }
+
+    timeout = aiohttp.ClientTimeout(total=15)
+    async with aiohttp.ClientSession(timeout=timeout) as session:
+        for host in _BINANCE_REST_HOSTS:
+            rows = await _fetch_binance_24hr_rows(session, host)
+            if not rows:
+                continue
+            assets = _overview_from_24hr_rows(rows, limit)
+            if assets:
+                return {
+                    "assets": assets,
+                    "data_source": f"binance:{host}",
+                    "source_host": host,
+                }
+
+    assets = await _overview_from_tracked_tickers(limit)
+    return {
+        "assets": assets,
+        "data_source": "multi_source_ticker" if assets else "unavailable",
+        "source_host": None,
+    }
+
+
+async def fetch_binance_market_overview(limit: int | None = None) -> list[dict]:
+    """Tracked assets from WebSocket/Redis, then Binance host failover, then tickers."""
+    pack = await fetch_binance_market_overview_pack(limit)
+    return list(pack.get("assets") or [])
 
 
 async def fetch_live_whale_signal(pair: str, price: float) -> str:
