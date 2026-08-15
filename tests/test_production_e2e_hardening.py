@@ -193,11 +193,6 @@ def test_billing_status_does_not_500():
 
 def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
     _isolated_sqlite(tmp_path, monkeypatch, "e2e-mfa.db")
-    monkeypatch.setenv("ENV", "production")
-    monkeypatch.setenv("COOKIE_SECURE", "false")
-    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
-    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
-    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
     from dashboard import app
 
     client = TestClient(app)
@@ -213,6 +208,11 @@ def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
         headers=origin,
     )
     assert reg.status_code == 200, reg.text
+
+    async def _boom(*_a, **_k):
+        raise RuntimeError("MFA requires SECRETS_MASTER_KEY (or MFA_ENCRYPTION_KEY)")
+
+    monkeypatch.setattr("mfa_service.begin_mfa_enroll", _boom)
     enroll = client.post("/api/auth/mfa/enroll", headers=origin)
     assert enroll.status_code == 503
     assert "MFA" in (enroll.json().get("detail") or "")
