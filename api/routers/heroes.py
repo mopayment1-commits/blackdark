@@ -5,9 +5,10 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from fastapi import APIRouter, Body, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
+from security_auth import optional_user_from_request
 
 router = APIRouter(tags=["heroes"], responses=COMMON_ERROR_RESPONSES)
 logger = logging.getLogger("BLACKDARK.HeroesAPI")
@@ -104,11 +105,20 @@ async def create_locked(body: dict = Body(...)):
 
 
 @router.post("/api/discipline-mirror/answer")
-async def discipline_answer(body: dict = Body(...)):
+async def discipline_answer(
+    body: dict = Body(...),
+    user: dict | None = Depends(optional_user_from_request),
+):
     from discipline_mirror import record_follow_up
 
+    user_key = str(
+        body.get("user_key")
+        or body.get("email")
+        or (user or {}).get("email")
+        or "anonymous"
+    )
     return record_follow_up(
-        user_key=str(body.get("user_key") or body.get("email") or "anonymous"),
+        user_key=user_key,
         asset=str(body.get("asset") or "BTC"),
         system_action=str(body.get("system_action") or body.get("decision_action") or "WAIT"),
         followed=bool(body.get("followed")),
@@ -119,8 +129,19 @@ async def discipline_answer(body: dict = Body(...)):
 
 
 @router.get("/api/discipline-mirror/me")
-async def discipline_me(user_key: str = Query(...), limit: int = Query(100, ge=1, le=500)):
+async def discipline_me(
+    user_key: str | None = Query(None),
+    limit: int = Query(100, ge=1, le=500),
+    user: dict | None = Depends(optional_user_from_request),
+):
     from discipline_mirror import personal_mirror
+
+    resolved = (user_key or "").strip() or str((user or {}).get("email") or "").strip()
+    if not resolved:
+        raise HTTPException(
+            status_code=422,
+            detail="user_key required (or authenticate so session email is used)",
+        )
 
     label_by_id: dict[str, str] = {}
     try:
@@ -133,7 +154,7 @@ async def discipline_me(user_key: str = Query(...), limit: int = Query(100, ge=1
                 label_by_id[str(pid)] = str(lab.get("label") or "")
     except Exception:
         label_by_id = {}
-    return personal_mirror(user_key, limit=limit, label_by_id=label_by_id)
+    return personal_mirror(resolved, limit=limit, label_by_id=label_by_id)
 
 
 @router.get("/api/accuracy/monthly-losing-report")
@@ -405,6 +426,44 @@ async def coverage_honesty_api():
     from coverage_honesty import build_coverage_honesty_board
 
     return await build_coverage_honesty_board()
+
+
+@router.get("/api/public/changed-mind")
+async def changed_mind_api(limit: int = Query(25, ge=1, le=100)):
+    from product_honesty_api import build_changed_mind
+
+    return await build_changed_mind(limit=limit)
+
+
+@router.get("/api/public/decision-graph")
+async def decision_graph_api(
+    asset: str = Query("BTC"),
+    limit: int = Query(12, ge=1, le=50),
+):
+    from product_honesty_api import build_decision_graph
+
+    return await build_decision_graph(asset=asset, limit=limit)
+
+
+@router.get("/api/product/l2-remainder")
+async def product_l2_remainder():
+    from product_honesty_api import build_l2_remainder
+
+    return await build_l2_remainder()
+
+
+@router.get("/api/product/capability-inventory")
+async def product_capability_inventory():
+    from product_honesty_api import build_capability_inventory
+
+    return await build_capability_inventory()
+
+
+@router.get("/api/product/public-readiness")
+async def product_public_readiness():
+    from product_honesty_api import build_public_readiness
+
+    return await build_public_readiness()
 
 
 @router.get("/api/oracle/provenance-score")

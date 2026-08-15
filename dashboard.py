@@ -233,8 +233,9 @@ def _increment_behavior_metric() -> None:
 
 
 async def _portfolio_holding(item: dict) -> tuple[dict | None, float]:
-    symbol = str(item.get("symbol") or "").upper().strip()
-    amount = float(item.get("amount") or 0)
+    # Accept documented aliases: asset/symbol + amount/quantity/qty
+    symbol = str(item.get("symbol") or item.get("asset") or "").upper().strip()
+    amount = float(item.get("amount") or item.get("quantity") or item.get("qty") or 0)
     if not symbol or amount <= 0:
         return None, 0.0
     _, pair = _normalize_oracle_symbol(symbol)
@@ -2350,6 +2351,33 @@ def _attach_quick_certificate(payload: dict) -> None:
         from decision_certificate import build_decision_certificate, compliance_footer_block
 
         payload.setdefault("tier", "free")
+        # Enrich quick payload so certificate carries advisory truth + half-life
+        # (full multimodal oracle already attaches these via decision_enrichment).
+        if "net_edge_truth" not in payload or "opportunity_half_life" not in payload:
+            try:
+                from decision_enrichment import _attach_half_life, _attach_net_edge_truth
+
+                asset = str(payload.get("symbol") or payload.get("asset") or "BTC")
+                score = float(payload.get("opportunity_score") or 0)
+                verdict = str(payload.get("verdict") or payload.get("decision_action") or "WAIT")
+                if "net_edge_truth" not in payload:
+                    _attach_net_edge_truth(payload, asset, score, verdict, 0.0)
+                if "opportunity_half_life" not in payload:
+                    _attach_half_life(payload, asset)
+            except Exception:
+                pass
+        # Explicit I DON'T KNOW token when score is in the dead-zone (no edge).
+        score_i = int(payload.get("opportunity_score") or 0)
+        if 45 <= score_i <= 55 and not payload.get("idk_token"):
+            payload["idk_token"] = "I_DONT_KNOW"
+            payload["idk_reason"] = "opportunity_score_dead_zone"
+            if str(payload.get("decision_action") or "").upper() in {"WAIT", "HOLD", ""}:
+                payload["decision_action"] = "I_DONT_KNOW"
+                payload["decision_sentence"] = (
+                    f"I DON'T KNOW on {payload.get('symbol') or 'asset'} — "
+                    f"score {score_i} is inside the dead-zone; no certified edge."
+                )
+                payload["oracle"] = payload["decision_sentence"]
         payload["decision_certificate"] = build_decision_certificate(payload)
         payload["compliance_footer"] = compliance_footer_block(
             surface="single_sentence_oracle_quick",

@@ -1132,16 +1132,25 @@ async def fetch_binance_klines(pair: str, interval: str = "1h", limit: int = 200
         return []
     if interval not in _ALLOWED_KLINE_INTERVALS:
         interval = "1h"
-    url = f"https://api.binance.com/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
+    # Prefer Vision/US first — same Railway egress pattern as fetch_binance_ticker.
+    hosts = ("data-api.binance.vision", "api.binance.us", "api.binance.com")
     try:
-        timeout = aiohttp.ClientTimeout(total=12)
-        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url) as resp:
-            if resp.status != 200:
-                return []
-            rows = await resp.json()
-        return [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
+        async with aiohttp.ClientSession(timeout=_HTTP_TIMEOUT, headers=_HTTP_HEADERS) as session:
+            for host in hosts:
+                url = f"https://{host}/api/v3/klines?symbol={pair}&interval={interval}&limit={limit}"
+                try:
+                    async with session.get(url) as resp:
+                        if resp.status != 200:
+                            continue
+                        rows = await resp.json()
+                    closes = [float(row[4]) for row in rows if isinstance(row, list) and len(row) > 4]
+                    if closes:
+                        return closes
+                except (aiohttp.ClientError, TypeError, ValueError):
+                    continue
     except (aiohttp.ClientError, TypeError, ValueError):
         return []
+    return []
 
 
 def parse_alert_metadata(row: dict) -> dict:
