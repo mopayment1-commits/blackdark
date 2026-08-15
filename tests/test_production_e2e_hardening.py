@@ -20,6 +20,14 @@ def _isolated_sqlite(tmp_path, monkeypatch, name: str) -> None:
     asyncio.run(database.init_db())
 
 
+def test_first_cell_reads_postgres_dict_and_sqlite_tuple():
+    from database import _first_cell
+
+    assert _first_cell((7,)) == 7
+    assert _first_cell({"count": 4}) == 4
+    assert _first_cell(None) is None
+
+
 def test_register_alias_is_not_404():
     from dashboard import app
 

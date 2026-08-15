@@ -203,12 +203,16 @@ def _request_origin_ok(request: Request) -> bool:
             allowed.add(loopback)
             allowed.add(loopback + ":8080")  # NOSONAR python:S5332
             allowed.add(loopback + ":8000")  # NOSONAR python:S5332
+            allowed.add(loopback + ":8081")  # NOSONAR python:S5332
 
     def _match(value: str) -> bool:
         if not value:
             return False
         try:
             parsed = urlparse(value)
+            hostname = (parsed.hostname or "").lower()
+            if parsed.scheme == "http" and hostname in {"localhost", "127.0.0.1"}:
+                return True
             base = f"{parsed.scheme}://{parsed.netloc}".rstrip("/")
             return base in {a.rstrip("/") for a in allowed}
         except Exception:

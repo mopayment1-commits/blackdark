@@ -23,6 +23,22 @@ import aiosqlite
 import config
 logger = logging.getLogger(__name__)
 
+
+def _first_cell(row: Any) -> Any:
+    """SQLite tuples use [0]; Postgres dict rows use the first mapped value."""
+    if row is None:
+        return None
+    if isinstance(row, dict):
+        return next(iter(row.values()), None)
+    try:
+        return row[0]
+    except (KeyError, IndexError, TypeError):
+        values = getattr(row, "values", None)
+        if callable(values):
+            extracted = list(values())
+            return extracted[0] if extracted else None
+        return None
+
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS pricing_logs (
     id                INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -3231,7 +3247,7 @@ async def count_telegram_free_subscribers() -> int:
                 "SELECT COUNT(*) FROM telegram_free_subscribers WHERE enabled = 1"
             )
         ).fetchone()
-    return int(row[0] or 0)
+    return int(_first_cell(row) or 0)
 
 
 async def fetch_platform_user_stats() -> dict[str, Any]:
@@ -3253,10 +3269,10 @@ async def fetch_platform_user_stats() -> dict[str, Any]:
             await db.execute("SELECT COUNT(*) FROM alert_subscriptions WHERE enabled = 1")
         ).fetchone()
     return {
-        "registered_users": int(users_row[0]) if users_row else 0,
-        "paid_subscribers": int(subs_row[0]) if subs_row else 0,
-        "active_trials": int(trial_row[0]) if trial_row else 0,
-        "alert_subscribers": int(alert_row[0]) if alert_row else 0,
+        "registered_users": int(_first_cell(users_row) or 0),
+        "paid_subscribers": int(_first_cell(subs_row) or 0),
+        "active_trials": int(_first_cell(trial_row) or 0),
+        "alert_subscribers": int(_first_cell(alert_row) or 0),
     }
 
 

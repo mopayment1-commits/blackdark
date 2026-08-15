@@ -43,6 +43,18 @@ def test_csrf_allows_matching_origin(monkeypatch):
     assert sm._request_origin_ok(req) is True
 
 
+def test_csrf_allows_loopback_http_any_port(monkeypatch):
+    monkeypatch.delenv("APP_BASE_URL", raising=False)
+    req = _request(
+        {
+            "cookie": "bd_token=abc",
+            "host": "127.0.0.1:8081",
+            "origin": "http://127.0.0.1:8081",
+        }
+    )
+    assert sm._request_origin_ok(req) is True
+
+
 def _force_production_markers(monkeypatch) -> None:
     """APP_ENV=production must win even when ENV is polluted to development."""
     monkeypatch.setenv("ENV", "development")
