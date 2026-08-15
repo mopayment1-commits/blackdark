@@ -25,12 +25,18 @@ def _fernet():
         os.getenv("SECRETS_MASTER_KEY", "").strip()
         or os.getenv("SECRETS_VAULT_KEY", "").strip()
         or os.getenv("MFA_ENCRYPTION_KEY", "").strip()
+        # Prefer dedicated MFA/vault keys; fall back to session pepper already
+        # required for production cookie sessions so user TOTP enroll works
+        # without a separate secret when SECRETS_MASTER_KEY is unset.
+        or os.getenv("SESSION_TOKEN_PEPPER", "").strip()
     )
     if not raw:
         if getattr(config, "ENV", "development") in {"production", "prod"} or (
             os.getenv("ENV") or ""
         ).lower() in {"production", "prod"}:
-            raise RuntimeError("MFA requires SECRETS_MASTER_KEY (or MFA_ENCRYPTION_KEY)")
+            raise RuntimeError(
+                "MFA requires SECRETS_MASTER_KEY, MFA_ENCRYPTION_KEY, or SESSION_TOKEN_PEPPER"
+            )
         # Deterministic local-dev key — never use in production (guarded above).
         digest = hashlib.sha256(b"blackdark-mfa-dev-only").digest()
         raw = base64.urlsafe_b64encode(digest).decode("ascii")

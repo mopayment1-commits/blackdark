@@ -195,10 +195,10 @@ def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
     _isolated_sqlite(tmp_path, monkeypatch, "e2e-mfa.db")
     monkeypatch.setenv("ENV", "production")
     monkeypatch.setenv("COOKIE_SECURE", "false")
-    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
-    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
-    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "unit-test-vault-key-for-register-only")
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "unit-test-session-pepper-keep-auth")
     from dashboard import app
+    import mfa_service
 
     client = TestClient(app)
     origin = {"Origin": "https://testserver"}
@@ -213,9 +213,50 @@ def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
         headers=origin,
     )
     assert reg.status_code == 200, reg.text
+    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
+    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
+    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
+
+    def _no_mfa_key():
+        raise RuntimeError(
+            "MFA requires SECRETS_MASTER_KEY, MFA_ENCRYPTION_KEY, or SESSION_TOKEN_PEPPER"
+        )
+
+    monkeypatch.setattr(mfa_service, "_fernet", _no_mfa_key)
     enroll = client.post("/api/auth/mfa/enroll", headers=origin)
     assert enroll.status_code == 503
     assert "MFA" in (enroll.json().get("detail") or "")
+
+
+def test_mfa_enroll_with_session_pepper_fallback(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-mfa-pepper.db")
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("COOKIE_SECURE", "false")
+    monkeypatch.setenv("SECRETS_MASTER_KEY", "unit-test-vault-key-for-register-only")
+    monkeypatch.setenv("SESSION_TOKEN_PEPPER", "unit-test-session-pepper-mfa")
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    reg = client.post(
+        "/api/auth/register",
+        json={
+            "email": "mfa.pepper@example.com",
+            "password": "E2eHarden!Aa123456",
+            "name": "MfaPepper",
+            "accepted_terms": True,
+        },
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    # Enroll must succeed using SESSION_TOKEN_PEPPER alone (no vault key).
+    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
+    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
+    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
+    enroll = client.post("/api/auth/mfa/enroll", headers=origin)
+    assert enroll.status_code == 200, enroll.text
+    body = enroll.json()
+    assert body.get("otpauth_uri") or body.get("secret") or body.get("provisioning_uri")
 
 
 def test_graphql_http_health_does_not_422_for_missing_request_query():
