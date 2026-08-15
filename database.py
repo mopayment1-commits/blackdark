@@ -3774,7 +3774,7 @@ async def fetch_oracle_usage_today(email: str) -> int:
                 (email.strip().lower(), today),
             )
             row = await rows.fetchone()
-        return int(row[0]) if row else 0
+        return int(_first_cell(row) or 0)
     except Exception:
         return 0
 
@@ -3793,7 +3793,7 @@ async def fetch_oracle_usage_month(email: str) -> int:
                 (email.strip().lower(), since),
             )
             row = await rows.fetchone()
-        return int(row[0]) if row else 0
+        return int(_first_cell(row) or 0)
     except Exception:
         return 0
 
@@ -3850,21 +3850,25 @@ async def retention_grant_recent(email: str, grant_type: str, *, within_days: in
 
 async def increment_oracle_usage(email: str) -> int:
     today = datetime.now(UTC).strftime("%Y-%m-%d")
-    async with get_connection() as db:
-        await db.execute(
-            """
-            INSERT INTO oracle_usage_daily (email, usage_date, count)
-            VALUES (?, ?, 1)
-            ON CONFLICT(email, usage_date) DO UPDATE SET count = count + 1
-            """,
-            (email.strip().lower(), today),
-        )
-        rows = await db.execute(
-            "SELECT count FROM oracle_usage_daily WHERE email = ? AND usage_date = ?",
-            (email.strip().lower(), today),
-        )
-        row = await rows.fetchone()
-    return int(row[0]) if row else 1
+    try:
+        async with get_connection() as db:
+            await db.execute(
+                """
+                INSERT INTO oracle_usage_daily (email, usage_date, count)
+                VALUES (?, ?, 1)
+                ON CONFLICT(email, usage_date) DO UPDATE SET count = count + 1
+                """,
+                (email.strip().lower(), today),
+            )
+            rows = await db.execute(
+                "SELECT count FROM oracle_usage_daily WHERE email = ? AND usage_date = ?",
+                (email.strip().lower(), today),
+            )
+            row = await rows.fetchone()
+        return int(_first_cell(row) or 1)
+    except Exception:
+        logger.exception("increment_oracle_usage failed")
+        return 0
 
 
 def close_db() -> None:
