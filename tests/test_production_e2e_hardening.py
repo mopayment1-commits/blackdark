@@ -1,0 +1,145 @@
+"""Production E2E hardening: market failover, Postgres health, register alias, dup signup."""
+
+from __future__ import annotations
+
+import asyncio
+
+import pytest
+from fastapi.testclient import TestClient
+
+
+def _isolated_sqlite(tmp_path, monkeypatch, name: str) -> None:
+    import config
+    import database
+
+    db_path = tmp_path / name
+    monkeypatch.setattr(config, "DB_PATH", db_path)
+    monkeypatch.setattr(database.config, "DB_PATH", db_path)
+    monkeypatch.setenv("ENV", "test")
+    monkeypatch.setenv("AUTH_TOKEN_IN_BODY", "true")
+    asyncio.run(database.init_db())
+
+
+def test_register_alias_is_not_404():
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.get("/register", follow_redirects=False)
+    assert resp.status_code == 307
+    assert "/login" in (resp.headers.get("location") or "")
+
+
+def test_duplicate_register_is_400_not_500(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e.db")
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    body = {
+        "email": "dup.e2e@example.com",
+        "password": "E2eHarden!Aa123456",
+        "name": "Dup",
+        "accepted_terms": True,
+    }
+    first = client.post("/api/auth/register", json=body, headers=origin)
+    assert first.status_code == 200, first.text
+    second = client.post("/api/auth/register", json=body, headers=origin)
+    assert second.status_code == 400, second.text
+    assert "already" in (second.json().get("detail") or "").lower()
+
+
+def test_register_login_me_logout_cookie_journey(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-session.db")
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    email = "session.e2e@example.com"
+    password = "E2eHarden!Aa123456"
+    reg = client.post(
+        "/api/auth/register",
+        json={"email": email, "password": password, "name": "Sess", "accepted_terms": True},
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    assert client.cookies.get("bd_token")
+    me_after_register = client.get("/api/auth/me")
+    assert me_after_register.json().get("authenticated") is True
+    login = client.post(
+        "/api/auth/login",
+        json={"email": email, "password": password},
+        headers=origin,
+    )
+    assert login.status_code == 200, login.text
+    me = client.get("/api/auth/me")
+    assert me.status_code == 200
+    assert me.json().get("authenticated") is True
+    out = client.post("/api/auth/logout", headers=origin)
+    assert out.status_code == 200
+    me2 = client.get("/api/auth/me")
+    assert me2.json().get("authenticated") is False
+
+
+@pytest.mark.asyncio
+async def test_market_overview_failsover_when_primary_binance_empty(monkeypatch):
+    import market_context as mc
+
+    async def _empty(_session, host):
+        if host == "api.binance.com":
+            return None
+        return [
+            {
+                "symbol": "BTCUSDT",
+                "lastPrice": "63015.28",
+                "priceChangePercent": "1.2",
+                "quoteVolume": "25000000",
+            }
+        ]
+
+    monkeypatch.setattr(mc, "_fetch_binance_24hr_rows", _empty)
+    pack = await mc.fetch_binance_market_overview_pack(limit=5)
+    assert pack["assets"]
+    assert pack["assets"][0]["symbol"] == "BTC"
+    assert pack["assets"][0]["price"] == 63015.28
+    assert "binance.vision" in pack["data_source"] or pack["source_host"] == "data-api.binance.vision"
+
+
+@pytest.mark.asyncio
+async def test_database_health_postgres_url_does_not_raise(monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://user:pass@localhost:5432/blackdark")
+    from db_upgrade import database_health_report
+
+    report = await database_health_report()
+    assert report["engine"] == "postgresql"
+    assert "postgres_pool" in report
+
+
+def test_telegram_test_unauth_is_401():
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.post("/api/alerts/telegram/test", json={})
+    assert resp.status_code == 401
+
+
+def test_gtm_and_launch_do_not_500():
+    from dashboard import app
+
+    client = TestClient(app)
+    gtm = client.get("/api/gtm/status")
+    launch = client.get("/api/launch/readiness")
+    assert gtm.status_code == 200
+    assert launch.status_code == 200
+
+
+def test_public_accuracy_and_database_health_do_not_500():
+    from dashboard import app
+
+    client = TestClient(app)
+    acc = client.get("/api/oracle/accuracy/public")
+    dbh = client.get("/api/database/health")
+    uni = client.get("/api/universe/status")
+    assert acc.status_code == 200
+    assert dbh.status_code == 200
+    assert uni.status_code == 200
+    assert dbh.json().get("engine") in {"sqlite", "postgresql"}

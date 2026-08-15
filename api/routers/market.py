@@ -10,6 +10,7 @@ from fastapi import APIRouter, HTTPException, Query
 import config
 from market_context import (
     fetch_binance_market_overview,
+    fetch_binance_market_overview_pack,
     fetch_cvvd_whale_context,
     parse_alert_metadata,
 )
@@ -43,7 +44,8 @@ def _sector_for_asset(asset: str) -> str:
 
 @router.get("/overview")
 async def market_overview():
-    assets = await fetch_binance_market_overview()
+    pack = await fetch_binance_market_overview_pack()
+    assets = list(pack.get("assets") or [])
     sectors: dict[str, list] = {}
     for asset in assets:
         sector = asset.get("sector") or _sector_for_asset(asset["symbol"])
@@ -52,10 +54,12 @@ async def market_overview():
         "assets": assets,
         "sectors": sectors,
         "tracked_count": len(config.EXTENDED_TRACKED_ASSETS),
+        "resolved_count": len(assets),
         "top_gainers": sorted(assets, key=lambda x: x["change_24h"], reverse=True)[:3],
         "top_losers": sorted(assets, key=lambda x: x["change_24h"])[:3],
-        "market_status": "active",
-        "data_source": "Binance Live API",
+        "market_status": "active" if assets else "degraded",
+        "data_source": pack.get("data_source") or "unavailable",
+        "source_host": pack.get("source_host"),
         "timestamp": datetime.now(UTC).isoformat(),
     }
 
@@ -75,8 +79,15 @@ async def market_open_interest():
 
 @router.get("/sectors")
 async def market_sectors():
-    assets = await fetch_binance_market_overview()
-    whale_ctx = await fetch_cvvd_whale_context(refresh=False)
+    try:
+        pack = await fetch_binance_market_overview_pack()
+    except Exception:
+        pack = {"assets": [], "data_source": "unavailable", "source_host": None}
+    assets = list(pack.get("assets") or [])
+    try:
+        whale_ctx = await fetch_cvvd_whale_context(refresh=False)
+    except Exception:
+        whale_ctx = {}
     sii_by_sector: dict[str, float] = {}
     for row in whale_ctx.get("sector_flows", []):
         meta = parse_alert_metadata(row)
@@ -112,9 +123,12 @@ async def market_sectors():
         )
 
     sectors_out.sort(key=lambda x: x["sii_score"], reverse=True)
+    source = pack.get("data_source") or "unavailable"
     return {
         "sectors": sectors_out,
-        "data_source": "CVVD SII + Binance Live",
+        "data_source": source,
+        "source_host": pack.get("source_host"),
+        "market_status": "active" if assets else "degraded",
         "timestamp": datetime.now(UTC).isoformat(),
     }
 

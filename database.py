@@ -3469,17 +3469,24 @@ async def mark_email_verified(user_id: int) -> None:
 
 
 async def create_user(email: str, password_hash: str, name: str = "") -> int:
-    async with get_connection() as db:
-        cursor = await db.execute(
-            """
-            INSERT INTO users (
-                email, password_hash, name, created_at, password_is_set
+    try:
+        async with get_connection() as db:
+            cursor = await db.execute(
+                """
+                INSERT INTO users (
+                    email, password_hash, name, created_at, password_is_set
+                )
+                VALUES (?, ?, ?, ?, 1)
+                """,
+                (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
             )
-            VALUES (?, ?, ?, ?, 1)
-            """,
-            (email.strip().lower(), password_hash, name or None, _utcnow_iso()),
-        )
-        return int(cursor.lastrowid or 0)
+            return int(cursor.lastrowid or 0)
+    except Exception as exc:
+        kind = type(exc).__name__
+        msg = str(exc).lower()
+        if "integrity" in kind.lower() or "unique" in kind.lower() or "unique" in msg:
+            raise ValueError("Email already registered") from exc
+        raise
 
 
 async def fetch_user_by_email(email: str) -> dict[str, Any] | None:

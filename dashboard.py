@@ -1108,6 +1108,12 @@ async def login_page(request: Request):
     return render_page(request, "login.html", _footer_ctx())
 
 
+@app.get("/register")
+async def register_alias():
+    """Signup URL must not 404 — register is a tab on /login."""
+    return RedirectResponse(url="/login?tab=register", status_code=307)
+
+
 @app.get("/profile", response_class=HTMLResponse)
 async def profile_page(request: Request):
     return render_page(request, "profile.html", _footer_ctx())
@@ -2379,9 +2385,15 @@ async def oracle_quick(
         cached["latency_ms"] = round((time.perf_counter() - t0) * 1000, 1)
         return JSONResponse(cached)
 
-    payload = await run_oracle_bounded(
-        lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
-    )
+    try:
+        payload = await run_oracle_bounded(
+            lambda: _compute_oracle_quick_payload(asset, pair, lang, ux_mode)
+        )
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("oracle_quick failed")
+        raise HTTPException(status_code=502, detail="Oracle upstream unavailable") from exc
     latency_ms = round((time.perf_counter() - t0) * 1000, 1)
     payload["latency_ms"] = latency_ms
     payload["meets_latency_target"] = latency_ms <= 100
@@ -2741,27 +2753,33 @@ async def oracle(
     if reserved is not None:
         return reserved
 
-    await _enforce_oracle_quota(user)
-    asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
-    payload = await _build_primary_oracle_payload(
-        asset,
-        pair,
-        price,
-        volume,
-        quote_volume,
-        change,
-    )
-    payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
-    payload = await _attach_oracle_prediction_proof(payload, asset)
-    _attach_oracle_certificate(payload, user)
-    _attach_oracle_scenarios_safe(payload)
-    _attach_oqs_why_safe(payload)
-    await _dispatch_oracle_act_alert_safe(payload, asset)
-    _queue_oracle_behavior_task(background_tasks, user, asset, payload)
-    _increment_oracle_queries_metric()
-    payload = _attach_oracle_freshness_safe(payload, asset)
-    payload = _apply_zero_tolerance_safe(payload)
-    return JSONResponse(_sanitize_oracle_response(payload, user))
+    try:
+        await _enforce_oracle_quota(user)
+        asset, pair, _market, price, volume, quote_volume, change = await _oracle_market_inputs(symbol)
+        payload = await _build_primary_oracle_payload(
+            asset,
+            pair,
+            price,
+            volume,
+            quote_volume,
+            change,
+        )
+        payload = _enrich_oracle_decision_safe(payload, ux_mode, lang)
+        payload = await _attach_oracle_prediction_proof(payload, asset)
+        _attach_oracle_certificate(payload, user)
+        _attach_oracle_scenarios_safe(payload)
+        _attach_oqs_why_safe(payload)
+        await _dispatch_oracle_act_alert_safe(payload, asset)
+        _queue_oracle_behavior_task(background_tasks, user, asset, payload)
+        _increment_oracle_queries_metric()
+        payload = _attach_oracle_freshness_safe(payload, asset)
+        payload = _apply_zero_tolerance_safe(payload)
+        return JSONResponse(_sanitize_oracle_response(payload, user))
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("oracle primary failed")
+        raise HTTPException(status_code=502, detail="Oracle upstream unavailable") from exc
 
 
 @app.get("/api/whale-activity")
@@ -2955,16 +2973,24 @@ async def universe_full_probe(symbol: str = STR_BTC_USDT):
 
 @app.get("/api/universe/status")
 async def universe_status():
-    from platform_universe import build_manifest_universe_block, compute_universe_coverage
-    from universe_rollout import live_rollout_status, rollout_summary_json
+    try:
+        from platform_universe import build_manifest_universe_block, compute_universe_coverage
+        from universe_rollout import live_rollout_status, rollout_summary_json
 
-    return {
-        "coverage": await compute_universe_coverage(),
-        "registry": build_manifest_universe_block(),
-        "rollout": rollout_summary_json(),
-        "live": await live_rollout_status(),
-        "timestamp": datetime.now(UTC).isoformat(),
-    }
+        return {
+            "ok": True,
+            "coverage": await compute_universe_coverage(),
+            "registry": build_manifest_universe_block(),
+            "rollout": rollout_summary_json(),
+            "live": await live_rollout_status(),
+            "timestamp": datetime.now(UTC).isoformat(),
+        }
+    except Exception as exc:
+        return {
+            "ok": False,
+            "error": type(exc).__name__,
+            "timestamp": datetime.now(UTC).isoformat(),
+        }
 
 
 @app.post("/api/universe/activate-full")
@@ -2989,6 +3015,13 @@ async def universe_rollout_status_api():
 
 @app.get("/api/ingestion/status")
 async def ingestion_status():
+    try:
+        return await _ingestion_status_body()
+    except Exception as exc:
+        return {"ok": False, "error": type(exc).__name__}
+
+
+async def _ingestion_status_body():
     import os
 
     from binance_ws_ingest import ws_stats
