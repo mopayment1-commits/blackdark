@@ -20,9 +20,9 @@
 
 | Metric | Result |
 |---|---|
-| Capabilities scored | **86** |
+| Capabilities scored | **94** |
 | **PASS** | **0** |
-| **FAIL** | **86** |
+| **FAIL** | **94** |
 | HTTP surfaces probed | 170 |
 | 2xx / 4xx / 5xx | 43 / 113 / 14 |
 | HTML catalog 404 | 46 pages |
@@ -59,6 +59,9 @@ Agent-env proofs (Telegram on-call, Stripe TEST, Google IdP) are **not** Product
 11. **Market overview** — claims `Binance Live API` / `tracked_count=25` / `assets=[]`.
 12. **Options overview** — Deribit JSON 200 (BTC 818 / ETH 694 instruments). Paper OMS not run → capability still FAIL.
 13. **On-chain overview** — numeric flows returned; sentiment/macro stub/null → `MKT-SENT` FAIL.
+14. **Dashboard HTML** — title `Intelligence Dashboard`; JS calls `/api/auth/me`, `/api/market/overview`, `/api/arbitrage/*`, `/api/billing/checkout`, `/api/alerts/telegram/*`. Those APIs are 401/403/empty/unconfigured — the page is a shell, not a working product.
+15. **Landing CTAs** — `/create-checkout-session?tier=pro|whale` are live links and return 503. Telegram links are `t.me/share` only (no production bot). Login HTML has **no** OAuth start control (only Google Fonts).
+16. **`/register`** — HTTP 404 (current repo aliases this to `/login`; production SHA does not).
 
 ## Feature-by-Feature Production Acceptance Matrix
 

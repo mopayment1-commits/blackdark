@@ -87,9 +87,9 @@
     "price_diagnostic": "BTC 63015.28 and ETH 1882.71 from binance:data-api.binance.vision — diagnostic only, not wired into Oracle/radar"
   },
   "counts": {
-    "capabilities": 86,
+    "capabilities": 94,
     "PASS": 0,
-    "FAIL": 86
+    "FAIL": 94
   },
   "capabilities": [
     {"id": "ID-REG", "verdict": "FAIL", "why": "Register 200 creates user+token but no cookie; login 401; bearer/cookie do not authenticate; duplicate register 500."},
