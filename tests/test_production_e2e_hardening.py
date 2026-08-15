@@ -80,6 +80,36 @@ def test_register_login_me_logout_cookie_journey(tmp_path, monkeypatch):
     assert me2.json().get("authenticated") is False
 
 
+def test_production_http_cookie_when_secure_explicitly_disabled(tmp_path, monkeypatch):
+    """ENV=production + COOKIE_SECURE=false must still persist HttpOnly session on HTTP."""
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-http-prod.db")
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("COOKIE_SECURE", "false")
+    monkeypatch.setenv("AUTH_TOKEN_IN_BODY", "false")
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    reg = client.post(
+        "/api/auth/register",
+        json={
+            "email": "http.prod.e2e@example.com",
+            "password": "E2eHarden!Aa123456",
+            "name": "HttpProd",
+            "accepted_terms": True,
+        },
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    assert "token" not in (reg.json() or {})
+    set_cookie = (reg.headers.get("set-cookie") or "").lower()
+    assert "bd_token=" in set_cookie
+    assert "secure" not in set_cookie
+    assert client.cookies.get("bd_token")
+    me = client.get("/api/auth/me")
+    assert me.json().get("authenticated") is True
+
+
 @pytest.mark.asyncio
 async def test_market_overview_failsover_when_primary_binance_empty(monkeypatch):
     import market_context as mc

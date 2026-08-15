@@ -87,3 +87,12 @@ def test_cookie_secure_in_production(monkeypatch):
     assert kwargs["httponly"] is True
     assert kwargs["secure"] is True
     assert kwargs["samesite"] == "lax"
+
+
+def test_cookie_secure_false_overrides_production_http(monkeypatch):
+    _force_production_markers(monkeypatch)
+    monkeypatch.setenv("COOKIE_SECURE", "false")
+    monkeypatch.delenv("APP_BASE_URL", raising=False)
+    kwargs = sm.cookie_session_kwargs()
+    assert kwargs["secure"] is False
+    assert kwargs["httponly"] is True

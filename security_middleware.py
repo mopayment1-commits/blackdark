@@ -287,10 +287,20 @@ def apply_cors(app) -> None:
 
 
 def cookie_session_kwargs(*, max_age: int | None = None) -> dict:
-    """HttpOnly Secure SameSite cookie flags for bd_token."""
+    """HttpOnly Secure SameSite cookie flags for bd_token.
+
+    Explicit COOKIE_SECURE=false wins so HTTP loopback / Cloud Agent
+    production-like stacks can persist the session. Railway HTTPS keeps
+    Secure when COOKIE_SECURE is unset and APP_BASE_URL is https or ENV=production.
+    """
+    raw = os.getenv("COOKIE_SECURE", "").strip().lower()
     base = (os.getenv("APP_BASE_URL") or "").strip().lower()
-    env_secure = os.getenv("COOKIE_SECURE", "").strip().lower() in {"1", "true", "yes"}
-    secure = env_secure or base.startswith("https") or _is_production()
+    if raw in {"0", "false", "no", "off"}:
+        secure = False
+    elif raw in {"1", "true", "yes", "on"}:
+        secure = True
+    else:
+        secure = base.startswith("https") or _is_production()
     return {
         "key": "bd_token",
         "httponly": True,
