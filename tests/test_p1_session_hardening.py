@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import pytest
 from fastapi import Request
 from starlette.datastructures import Headers
 
@@ -130,3 +131,54 @@ def test_cookie_secure_false_overrides_production_http(monkeypatch):
     kwargs = sm.cookie_session_kwargs()
     assert kwargs["secure"] is False
     assert kwargs["httponly"] is True
+
+
+@pytest.mark.asyncio
+async def test_csp_rewrite_reads_streaming_html_body():
+    from starlette.responses import StreamingResponse
+
+    async def _chunks():
+        yield b"<html><body><script>window.x=1</script></body></html>"
+
+    streamed = StreamingResponse(_chunks(), media_type="text/html")
+    rewritten = await sm._maybe_rewrite_html_with_nonce(streamed, "streamNonce")
+    text = rewritten.body.decode("utf-8")
+    assert 'nonce="streamNonce"' in text
+    assert "/static/js/csp_events.js" in text
+
+
+@pytest.mark.asyncio
+async def test_csp_rewrite_unzips_gzip_html_stream():
+    import gzip
+
+    from starlette.responses import StreamingResponse
+
+    html = b"<html><body><script>window.x=1</script></body></html>"
+
+    async def _chunks():
+        yield gzip.compress(html)
+
+    streamed = StreamingResponse(_chunks(), media_type="text/html", headers={"content-encoding": "gzip"})
+    rewritten = await sm._maybe_rewrite_html_with_nonce(streamed, "gzNonce")
+    raw = rewritten.body
+    if (rewritten.headers.get("content-encoding") or "") == "gzip":
+        raw = gzip.decompress(raw)
+    text = raw.decode("utf-8")
+    assert 'nonce="gzNonce"' in text
+    assert "/static/js/csp_events.js" in text
+
+
+def test_login_html_scripts_receive_csp_nonce():
+    from fastapi.testclient import TestClient
+
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.get("/login")
+    assert resp.status_code == 200
+    csp = resp.headers.get("content-security-policy") or ""
+    assert "nonce-" in csp
+    body = resp.text
+    assert "csp_events.js" in body
+    assert body.count("nonce=") >= 2
+    assert 'id="registerForm"' in body
