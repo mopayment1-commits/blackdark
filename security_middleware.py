@@ -14,6 +14,8 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
 
 SAFE_METHODS = frozenset({"GET", "HEAD", "OPTIONS", "TRACE"})
+# Railway / LB probes must never be blocked by TrustedHost (deploy healthcheck).
+HEALTH_PROBE_PATHS = frozenset({"/health", "/health/live", "/health/ready"})
 
 
 def _is_production() -> bool:
@@ -42,6 +44,20 @@ def _allowed_hosts() -> set[str]:
             pass
     # Local / health always allowed
     hosts.update({"localhost", "127.0.0.1", "test", "testserver"})
+    # Railway injects these; healthchecks often use healthcheck.railway.app as Host.
+    for key in ("RAILWAY_PUBLIC_DOMAIN", "RAILWAY_PRIVATE_DOMAIN"):
+        val = (os.getenv(key) or "").strip().lower().split(":")[0]
+        if val:
+            hosts.add(val)
+    static = (os.getenv("RAILWAY_STATIC_URL") or "").strip()
+    if static:
+        try:
+            static_host = urlparse(static).hostname
+            if static_host:
+                hosts.add(static_host.lower())
+        except Exception:
+            pass
+    hosts.update({"healthcheck.railway.app", "healthcheck.railway.internal"})
     return hosts
 
 
@@ -232,12 +248,18 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # Mint CSP nonce early so template render / HTML rewrite can use it.
         nonce = _ensure_request_csp_nonce(request)
 
-        # TrustedHost in production
-        if _is_production() and os.getenv("TRUSTED_HOST_ENFORCE", "true").lower() in {
-            "1",
-            "true",
-            "yes",
-        }:
+        # TrustedHost in production — never apply to liveness/readiness probes.
+        path = request.url.path
+        if (
+            path not in HEALTH_PROBE_PATHS
+            and _is_production()
+            and os.getenv("TRUSTED_HOST_ENFORCE", "true").lower()
+            in {
+                "1",
+                "true",
+                "yes",
+            }
+        ):
             host = (request.headers.get("host") or "").split(":")[0].lower()
             allowed = _allowed_hosts()
             # If only localhost defaults + no APP_BASE_URL, skip hard fail (misconfig)
