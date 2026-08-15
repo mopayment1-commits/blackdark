@@ -384,19 +384,47 @@ def _initialize_sentry_safe() -> None:
         logger.exception("Sentry init failed")
 
 
+def log_production_guard_safe() -> None:
+    try:
+        from production_guard import evaluate_production_guard
+
+        report = evaluate_production_guard()
+        fails = report.get("required_failures") or []
+        if fails:
+            logger.warning(
+                "Production guard REQUIRED failures (boot continued): %s",
+                ",".join(str(x) for x in fails),
+            )
+    except Exception:
+        logger.exception("Unable to log production guard")
+
+
 def _check_production_guard() -> None:
     try:
         from production_guard import enforce_production_guard, is_production, log_production_guard
 
         if is_production():
-            enforce_production_guard()
+            # Soft during boot so Redis/B2B hubs still start when billing/MFA/replicas
+            # are pending. Opt into process kill with PRODUCTION_GUARD_HARD_EXIT=true.
+            hard = os.getenv("PRODUCTION_GUARD_HARD_EXIT", "false").lower() in {
+                "1",
+                "true",
+                "yes",
+            }
+            enforce_production_guard(raise_on_fail=hard)
+            if not hard:
+                log_production_guard_safe()
         else:
             log_production_guard()
     except Exception:
         logger.exception("Production guard check failed")
         from production_guard import is_production
 
-        if is_production():
+        if is_production() and os.getenv("PRODUCTION_GUARD_HARD_EXIT", "false").lower() in {
+            "1",
+            "true",
+            "yes",
+        }:
             raise
 
 
@@ -438,14 +466,21 @@ async def _start_background_runtime(app: FastAPI) -> None:
 
 
 async def _background_boot(app: FastAPI) -> None:
+    """Start runtime services before guard so pending ops secrets do not leave Redis/B2B dead."""
     await _initialize_database_ready_state()
     _initialize_sentry_safe()
-    _check_production_guard()
     await _load_risk_freeze_safe()
     if getattr(config, "SERVICE_MODE", "all").strip().lower() == "web":
         await _start_web_microservice(app)
-        return
-    await _start_background_runtime(app)
+    else:
+        await _start_background_runtime(app)
+    try:
+        _check_production_guard()
+    except Exception:
+        logger.exception("Production guard check failed after runtime start")
+        app.state.production_guard_failed = True
+        if os.getenv("PRODUCTION_GUARD_HARD_EXIT", "false").lower() in {"1", "true", "yes"}:
+            raise
 
 
 async def _shutdown_lifespan_services(app: FastAPI, boot_task: asyncio.Task[Any]) -> None:
@@ -2885,14 +2920,18 @@ async def execution_speed_api():
 
 @app.get("/api/sentiment/overview")
 async def sentiment_overview():
-    from sentiment_engine import build_sentiment_context_safe
+    from sentiment_engine import build_sentiment_context_safe, score_live_headlines_overview
 
     assets = [item.upper() for item in config.WHITELIST_ASSETS]
     ctx = await build_sentiment_context_safe(assets)
     indices = ctx.get("sentiment_compound_index") or {}
+    live = await score_live_headlines_overview(assets)
     rows = []
     for asset in assets:
         compound = float(indices.get(asset, 0.0))
+        live_row = (live.get("by_asset") or {}).get(asset) or {}
+        if abs(compound) < 1e-9 and live_row.get("compound_index") is not None:
+            compound = float(live_row.get("compound_index") or 0.0)
         score = _compound_to_score(compound)
         rows.append(
             {
@@ -2901,12 +2940,18 @@ async def sentiment_overview():
                 "sentiment_score": score,
                 "label": _compound_label(compound),
                 "sector": _sector_for_asset(asset),
+                "live_headlines": live_row.get("headline_count") or 0,
+                "analyzer": live_row.get("analyzer"),
             }
         )
     rows.sort(key=lambda x: x["sentiment_score"], reverse=True)
+    non_neutral = sum(1 for r in rows if r["sentiment_score"] != 50)
     return {
         "assets": rows,
-        "data_source": "Rolling Compound Sentiment Index",
+        "data_source": live.get("data_source") or "Rolling Compound Sentiment Index",
+        "live_refresh": bool(live.get("ok")),
+        "non_neutral_count": non_neutral,
+        "stub": non_neutral == 0,
         "timestamp": datetime.now(UTC).isoformat(),
     }
 
@@ -4008,6 +4053,56 @@ async def api_options_overview():
     return await fetch_options_overview()
 
 
+@app.get("/api/options/oms")
+async def api_options_oms_list(
+    user: dict | None = Depends(optional_user),
+):
+    from paper_options_oms import list_paper_orders
+
+    email = str((user or {}).get("email") or "")
+    return list_paper_orders(user_email=email or None)
+
+
+@app.post("/api/options/oms", responses=COMMON_ERROR_RESPONSES)
+async def api_options_oms_create(
+    body: dict = Body(...),
+    user: dict | None = Depends(require_feature("research_lab")),
+):
+    from paper_options_oms import create_paper_order
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    return create_paper_order(
+        user_email=str(user["email"]),
+        asset=str(body.get("asset") or "BTC"),
+        side=str(body.get("side") or "buy"),
+        option_type=str(body.get("option_type") or body.get("type") or "call"),
+        quantity=float(body.get("quantity") or 1),
+        limit_price=float(body["limit_price"]) if body.get("limit_price") is not None else None,
+    )
+
+
+@app.get("/api/oms/status")
+async def api_oms_status():
+    from paper_options_oms import oms_status
+
+    return oms_status()
+
+
+@app.get("/api/b2b/white-label")
+async def api_b2b_white_label():
+    from b2b_packaging_api import white_label_status
+
+    return white_label_status()
+
+
+@app.get("/api/b2b/super-terminal")
+async def api_b2b_super_terminal():
+    from b2b_packaging_api import super_terminal_status
+
+    return super_terminal_status()
+
+
 @app.get("/api/infra/metrics")
 async def api_infra_metrics():
     from infra_metrics import collect_infra_metrics
@@ -4178,14 +4273,16 @@ async def join_waitlist(data: dict, background_tasks: BackgroundTasks):
 
 
 @app.get("/api/services/status")
-async def services_status():
+async def services_status(request: Request):
     from microservices.lifecycle import current_mode, service_info
     from service_bus import bus_stats
 
+    ms_ctx = getattr(request.app.state, "ms_ctx", None)
     return {
-        **service_info(),
+        **service_info(ms_ctx),
         "service_mode_runtime": current_mode(),
         "service_bus": bus_stats(),
+        "production_guard_failed": bool(getattr(request.app.state, "production_guard_failed", False)),
         "deployment": {
             "docker_compose": "docker-compose.yml",
             "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",

@@ -763,6 +763,59 @@ async def load_active_sentiment_indices_for_valuation_safe(
         }
 
 
+async def score_live_headlines_overview(assets: list[str] | None = None) -> dict[str, Any]:
+    """One-shot live headline sentiment for the public overview (Railway-safe).
+
+    Uses CryptoCompare news + optional RSS. Does not claim Twitter/X firehose.
+    """
+    target = [_normalize_asset(a) for a in (assets or _operational_assets())][:12]
+    by_asset: dict[str, dict[str, Any]] = {
+        a: {"compound_index": None, "headline_count": 0, "analyzer": None} for a in target
+    }
+    timeout = aiohttp.ClientTimeout(total=12)
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            items: list[SentimentNewsItem] = []
+            try:
+                items.extend(await _fetch_cryptocompare_news(session, target))
+            except Exception:
+                logger.debug("CryptoCompare sentiment fetch failed", exc_info=True)
+            try:
+                items.extend(await _fetch_rss_news(session, target))
+            except Exception:
+                logger.debug("RSS sentiment fetch failed", exc_info=True)
+
+            buckets: dict[str, list[float]] = {a: [] for a in target}
+            analyzers: dict[str, str] = {}
+            for item in items:
+                asset = _normalize_asset(item.asset)
+                if asset not in buckets:
+                    continue
+                detailed = analyze_sentiment_score_detailed(item.raw_text)
+                buckets[asset].append(float(detailed.sentiment_score))
+                analyzers[asset] = detailed.analyzer
+
+            for asset, scores in buckets.items():
+                if not scores:
+                    continue
+                compound = sum(scores) / len(scores)
+                by_asset[asset] = {
+                    "compound_index": round(compound, 4),
+                    "headline_count": len(scores),
+                    "analyzer": analyzers.get(asset),
+                }
+    except Exception:
+        logger.exception("Live headline sentiment overview failed")
+        return {"ok": False, "by_asset": by_asset, "data_source": "unavailable"}
+
+    ok = any(v.get("headline_count") for v in by_asset.values())
+    return {
+        "ok": ok,
+        "by_asset": by_asset,
+        "data_source": "cryptocompare+rss_live_headlines" if ok else "unavailable",
+    }
+
+
 async def build_sentiment_context(
     assets: list[str] | None = None,
 ) -> dict[str, Any]:

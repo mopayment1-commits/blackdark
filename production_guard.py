@@ -294,8 +294,10 @@ def _effective_parallelism() -> dict[str, Any]:
 
         return effective_parallelism()
     except Exception:
+        viral = _env_flag("VIRAL_MODE", "true")
+        default_workers = 2 if viral else 1
         return {
-            "workers": int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1),
+            "workers": int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", str(default_workers))) or default_workers),
             "replicas": int(os.getenv("WEB_REPLICAS", "1") or 1),
             "parallelism": 1,
         }

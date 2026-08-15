@@ -35,6 +35,10 @@ from security_models import (
 # Sonar S1192: duplicated string literals
 STR_LOGIN_REQUIRED = 'Login required'
 
+import logging
+
+logger = logging.getLogger("BLACKDARK.AuthAPI")
+
 router = APIRouter(prefix="/api/auth", tags=["auth"], responses=COMMON_ERROR_RESPONSES)
 
 
@@ -179,10 +183,13 @@ async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
 
     try:
         return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
     except Exception as exc:
+        logger.exception("MFA enroll failed")
         raise HTTPException(
             status_code=503,
-            detail="MFA enrollment unavailable. Set SECRETS_MASTER_KEY (or MFA_ENCRYPTION_KEY).",
+            detail=f"MFA enrollment unavailable: {exc}",
         ) from exc
 
 

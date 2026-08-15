@@ -466,6 +466,30 @@ async def product_public_readiness():
     return await build_public_readiness()
 
 
+@router.get("/api/institutional/scim/status")
+async def institutional_scim_status(
+    user: dict | None = Depends(optional_user_from_request),
+):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from b2b_packaging_api import scim_status
+
+    return scim_status()
+
+
+@router.get("/api/scim/v2/Users")
+async def scim_users_list(
+    startIndex: int = Query(1, ge=1),
+    count: int = Query(50, ge=1, le=200),
+    user: dict | None = Depends(optional_user_from_request),
+):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    from b2b_packaging_api import scim_users
+
+    return scim_users(start_index=startIndex, count=count)
+
+
 @router.get("/api/oracle/provenance-score")
 async def provenance_score_api(symbol: str = Query("BTC")):
     from data_provenance_score import compute_data_provenance_score
