@@ -2774,7 +2774,12 @@ async def oracle(
         _increment_oracle_queries_metric()
         payload = _attach_oracle_freshness_safe(payload, asset)
         payload = _apply_zero_tolerance_safe(payload)
-        return JSONResponse(_sanitize_oracle_response(payload, user))
+        try:
+            cleaned = _sanitize_oracle_response(payload, user)
+        except Exception:
+            logger.exception("oracle sanitize failed")
+            cleaned = payload
+        return JSONResponse(cleaned)
     except HTTPException:
         raise
     except Exception as exc:

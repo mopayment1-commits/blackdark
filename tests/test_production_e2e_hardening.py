@@ -28,6 +28,17 @@ def test_first_cell_reads_postgres_dict_and_sqlite_tuple():
     assert _first_cell(None) is None
 
 
+def test_increment_oracle_usage_survives_isolated_sqlite(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "oracle-usage.db")
+    import asyncio
+    import database
+
+    n = asyncio.run(database.increment_oracle_usage("quota.e2e@example.com"))
+    assert n >= 1
+    used = asyncio.run(database.fetch_oracle_usage_today("quota.e2e@example.com"))
+    assert used >= 1
+
+
 def test_register_alias_is_not_404():
     from dashboard import app
 
