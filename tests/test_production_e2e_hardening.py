@@ -181,6 +181,43 @@ def test_gtm_and_launch_do_not_500():
     assert launch.status_code == 200
 
 
+def test_billing_status_does_not_500():
+    from dashboard import app
+
+    client = TestClient(app)
+    resp = client.get("/api/billing/status")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert "billing_configured" in body
+
+
+def test_mfa_enroll_without_master_key_is_503_not_500(tmp_path, monkeypatch):
+    _isolated_sqlite(tmp_path, monkeypatch, "e2e-mfa.db")
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.setenv("COOKIE_SECURE", "false")
+    monkeypatch.delenv("SECRETS_MASTER_KEY", raising=False)
+    monkeypatch.delenv("SECRETS_VAULT_KEY", raising=False)
+    monkeypatch.delenv("MFA_ENCRYPTION_KEY", raising=False)
+    from dashboard import app
+
+    client = TestClient(app)
+    origin = {"Origin": "https://testserver"}
+    reg = client.post(
+        "/api/auth/register",
+        json={
+            "email": "mfa.e2e@example.com",
+            "password": "E2eHarden!Aa123456",
+            "name": "Mfa",
+            "accepted_terms": True,
+        },
+        headers=origin,
+    )
+    assert reg.status_code == 200, reg.text
+    enroll = client.post("/api/auth/mfa/enroll", headers=origin)
+    assert enroll.status_code == 503
+    assert "MFA" in (enroll.json().get("detail") or "")
+
+
 def test_public_accuracy_and_database_health_do_not_500():
     from dashboard import app
 

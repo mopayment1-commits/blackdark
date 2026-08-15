@@ -6,6 +6,7 @@ Honest scope: application-layer hardening. Not a WAF, SOC2 cert, or pentest repo
 
 from __future__ import annotations
 
+import gzip
 import os
 from urllib.parse import urlparse
 
@@ -122,36 +123,85 @@ def _inject_html_csp_nonce(html: str, nonce: str) -> str:
     return out
 
 
-async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
-    ct = (response.headers.get("content-type") or "").lower()
-    if "text/html" not in ct:
-        return response
+async def _read_html_body(response: Response, *, max_bytes: int = 2_000_000) -> bytes | None:
+    """Materialize HTML for CSP nonce rewrite.
+
+    BaseHTTPMiddleware turns TemplateResponse into a streaming response whose
+    ``.body`` is unset. Skipping that path left production HTML without nonces,
+    so browsers blocked every page script (Sign up tab, Get Decision, Trust Pulse).
+    """
     body = getattr(response, "body", None)
-    if body is None:
-        return response
     if isinstance(body, memoryview):
         body = body.tobytes()
-    if not isinstance(body, (bytes, bytearray)):
-        return response
+    if isinstance(body, (bytes, bytearray)):
+        return bytes(body)
+    iterator = getattr(response, "body_iterator", None)
+    if iterator is None:
+        return None
+    chunks: list[bytes] = []
+    total = 0
     try:
-        text = bytes(body).decode("utf-8")
+        async for chunk in iterator:
+            if chunk is None:
+                continue
+            if isinstance(chunk, str):
+                piece = chunk.encode("utf-8")
+            elif isinstance(chunk, memoryview):
+                piece = chunk.tobytes()
+            else:
+                piece = bytes(chunk)
+            total += len(piece)
+            if total > max_bytes:
+                return None
+            chunks.append(piece)
     except Exception:
-        return response
-    rewritten = _inject_html_csp_nonce(text, nonce)
-    if rewritten == text:
-        return response
+        return None
+    return b"".join(chunks)
+
+
+def _gunzip_if_needed(raw: bytes, content_encoding: str) -> tuple[bytes, bool]:
+    enc = (content_encoding or "").lower()
+    if "gzip" in enc or raw.startswith(b"\x1f\x8b"):
+        try:
+            return gzip.decompress(raw), True
+        except Exception:
+            return raw, False
+    return raw, False
+
+
+def _rebuild_html_response(response: Response, content: bytes, *, gzip_out: bool) -> Response:
     headers = {
         k: v
         for k, v in response.headers.items()
         if k.lower() not in {"content-length", "content-encoding"}
     }
+    if gzip_out:
+        content = gzip.compress(content, compresslevel=6)
+        headers["content-encoding"] = "gzip"
     return Response(
-        content=rewritten.encode("utf-8"),
+        content=content,
         status_code=response.status_code,
         headers=headers,
         media_type=response.media_type or "text/html; charset=utf-8",
         background=response.background,
     )
+
+
+async def _maybe_rewrite_html_with_nonce(response: Response, nonce: str) -> Response:
+    ct = (response.headers.get("content-type") or "").lower()
+    if "text/html" not in ct:
+        return response
+    raw = await _read_html_body(response)
+    if raw is None:
+        return response
+    # Iterator is now consumed — always rebuild so the client is not sent a blank page.
+    try:
+        plain, was_gzip = _gunzip_if_needed(raw, response.headers.get("content-encoding") or "")
+        text = plain.decode("utf-8")
+    except Exception:
+        return _rebuild_html_response(response, raw, gzip_out=raw.startswith(b"\x1f\x8b"))
+    rewritten = _inject_html_csp_nonce(text, nonce)
+    return _rebuild_html_response(response, rewritten.encode("utf-8"), gzip_out=was_gzip)
 
 
 def security_headers_for(request: Request) -> dict[str, str]:

@@ -45,28 +45,39 @@ async def billing_status(user: dict | None = Depends(optional_user)):
     from database import fetch_active_subscription_for_email, fetch_user_stripe_customer_id
     from payments_usd import BILLING_CURRENCY_DISPLAY, SECURITY_POSTURE
 
-    provider = billing_provider()
-    base = {
-        "currency": BILLING_CURRENCY_DISPLAY,
-        "billing_configured": billing_configured(),
-        "billing_provider": provider,
-        "stripe_configured": billing_configured(),  # backward-compatible UI flag
-        "stores_card_numbers": False,
-        "pci_target": SECURITY_POSTURE["pci_target"],
-        "lemon_portal_configured": bool(lemon_squeezy_portal_url()),
-    }
-    if not user:
-        return {"authenticated": False, **base}
-    sub = await fetch_active_subscription_for_email(user["email"])
-    customer_id = await fetch_user_stripe_customer_id(user["email"])
-    return {
-        "authenticated": True,
-        **base,
-        "stripe_customer_id": customer_id,
-        "subscription": sub,
-        "tier": user.get("tier"),
-        "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
-    }
+    try:
+        provider = billing_provider()
+        base = {
+            "currency": BILLING_CURRENCY_DISPLAY,
+            "billing_configured": billing_configured(),
+            "billing_provider": provider,
+            "stripe_configured": billing_configured(),  # backward-compatible UI flag
+            "stores_card_numbers": False,
+            "pci_target": SECURITY_POSTURE["pci_target"],
+            "lemon_portal_configured": bool(lemon_squeezy_portal_url()),
+        }
+        if not user:
+            return {"authenticated": False, **base}
+        sub = await fetch_active_subscription_for_email(user["email"])
+        customer_id = await fetch_user_stripe_customer_id(user["email"])
+        return {
+            "authenticated": True,
+            **base,
+            "stripe_customer_id": customer_id,
+            "subscription": sub,
+            "tier": user.get("tier"),
+            "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
+        }
+    except Exception:
+        return {
+            "authenticated": bool(user),
+            "currency": "USD",
+            "billing_configured": False,
+            "billing_provider": "none",
+            "stripe_configured": False,
+            "stores_card_numbers": False,
+            "error": "billing_status_unavailable",
+        }
 
 
 @router.get("/payments")

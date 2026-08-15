@@ -2217,8 +2217,10 @@ async def _compute_oracle_quick_payload(
 ) -> dict:
     from live_book_hub import get_best_price
 
+    from live_book_hub import get_best_price, is_quote_fresh
+
     row = get_best_price("binance", f"{asset}/USDT")
-    market = _quick_ws_market(row)
+    market = _quick_ws_market(row) if row and is_quote_fresh("binance", f"{asset}/USDT") else None
     if market is None:
         market = await _fetch_binance_ticker(pair)
     if market is None:
@@ -3640,7 +3642,11 @@ async def weekly_report_endpoint(
 ):
     from weekly_report import build_weekly_report
 
-    return await build_weekly_report(persist=persist)
+    try:
+        return await build_weekly_report(persist=persist)
+    except Exception as exc:
+        logger.exception("weekly report failed")
+        raise HTTPException(status_code=502, detail="Weekly report unavailable") from exc
 
 
 @app.get("/api/reports/weekly/history")
@@ -3671,7 +3677,11 @@ async def daily_report_endpoint(
 ):
     from daily_report import build_daily_report
 
-    return await build_daily_report(persist=persist)
+    try:
+        return await build_daily_report(persist=persist)
+    except Exception as exc:
+        logger.exception("daily report failed")
+        raise HTTPException(status_code=502, detail="Daily report unavailable") from exc
 
 
 @app.get("/api/reports/daily/markdown")

@@ -77,8 +77,11 @@ async def build_daily_report(*, persist: bool = True) -> dict[str, Any]:
     }
 
     if persist:
-        report_id = await insert_weekly_report(narrative, report)
-        report["report_id"] = report_id
+        try:
+            report_id = await insert_weekly_report(narrative, report)
+            report["report_id"] = report_id
+        except Exception:
+            report["persisted"] = False
 
     return report
 

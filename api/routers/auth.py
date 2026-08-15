@@ -177,7 +177,10 @@ async def auth_mfa_enroll(user: dict | None = Depends(optional_user)):
         raise HTTPException(status_code=401, detail=STR_LOGIN_REQUIRED)
     from mfa_service import begin_mfa_enroll
 
-    return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
+    try:
+        return await begin_mfa_enroll(int(user["id"]), str(user["email"]))
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @router.post("/mfa/confirm", responses=COMMON_ERROR_RESPONSES)

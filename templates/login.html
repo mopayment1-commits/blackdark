@@ -363,18 +363,15 @@
                 if (input) { input.checked = true; syncPlanCards(); }
             });
         });
-        if (localStorage.getItem('bd_token') && !location.search.includes('stay=1')) {
-            window.location.href = '/profile';
-        } else {
-            await loadOAuth();
-            const params = new URLSearchParams(location.search);
-            if (params.get('tab') === 'register') showTab('register');
-            const plan = (params.get('plan') || 'free').toLowerCase();
-            const planInput = document.querySelector('input[name="regPlan"][value="' + plan + '"]');
-            if (planInput) planInput.checked = true;
-            syncPlanCards();
-            if (params.get('reset') === '1') setMsg('Password updated — you can log in.', true);
-        }
+        try { localStorage.removeItem('bd_token'); localStorage.removeItem('token'); } catch (_) {}
+        await loadOAuth();
+        const params = new URLSearchParams(location.search);
+        if (params.get('tab') === 'register') showTab('register');
+        const plan = (params.get('plan') || 'free').toLowerCase();
+        const planInput = document.querySelector('input[name="regPlan"][value="' + plan + '"]');
+        if (planInput) planInput.checked = true;
+        syncPlanCards();
+        if (params.get('reset') === '1') setMsg('Password updated — you can log in.', true);
     </script>
     {% include "partials/site_footer.html" %}
 </body>
