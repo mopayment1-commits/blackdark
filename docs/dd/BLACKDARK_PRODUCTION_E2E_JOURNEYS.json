@@ -1,0 +1,941 @@
+{
+  "generated_at": "2026-08-15T00:40:01.041523+00:00",
+  "base": "https://blackdark-production.up.railway.app",
+  "auth": {
+    "email_hashes": {
+      "no_terms": "8342d816a006daf4",
+      "with_terms": "7217a0e08943def4",
+      "bearer": "91de3d48681c3baa"
+    },
+    "register_no_terms": {
+      "path": "/api/auth/register",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 284,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "resp_headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 15 Aug 2026 00:39:51 GMT",
+        "Server": "railway-hikari",
+        "x-railway-request-id": "sU5Aeh4bSvWmJAJ3ljLL4A",
+        "Content-Length": "296",
+        "x-hikari-trace": "jfk1.cv40",
+        "x-railway-edge": "jfk1",
+        "vary": "accept-encoding",
+        "Connection": "close"
+      },
+      "json": {
+        "token": {
+          "set": true,
+          "len": 64,
+          "prefix": "ernt"
+        },
+        "expires_at": "2026-09-14T00:39:51.383037+00:00",
+        "trial": {
+          "active": true,
+          "ends_at": "2026-08-22T00:39:51.375352+00:00",
+          "days": 7
+        },
+        "user": {
+          "id": 2,
+          "email": "[redacted-hash:8342d816a006daf4]",
+          "name": "E2E Prod",
+          "tier": "free"
+        }
+      }
+    },
+    "register_with_terms": {
+      "path": "/api/auth/register",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 320,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "resp_headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Sat, 15 Aug 2026 00:39:51 GMT",
+        "Server": "railway-hikari",
+        "x-railway-request-id": "Yn1UFIqTTj6YH7MI9I3ezw",
+        "Content-Length": "298",
+        "x-hikari-trace": "jfk1.48ys",
+        "x-railway-edge": "jfk1",
+        "vary": "accept-encoding",
+        "Connection": "close"
+      },
+      "json": {
+        "token": {
+          "set": true,
+          "len": 64,
+          "prefix": "CL1E"
+        },
+        "expires_at": "2026-09-14T00:39:51.702793+00:00",
+        "trial": {
+          "active": true,
+          "ends_at": "2026-08-22T00:39:51.695413+00:00",
+          "days": 7
+        },
+        "user": {
+          "id": 3,
+          "email": "[redacted-hash:7217a0e08943def4]",
+          "name": "E2E Terms",
+          "tier": "free"
+        }
+      }
+    },
+    "register_bearer_status": 200,
+    "register_bearer_keys": [
+      "token",
+      "expires_at",
+      "trial",
+      "user"
+    ],
+    "register_token_meta": {
+      "set": true,
+      "len": 64,
+      "prefix": "IPSa"
+    },
+    "login_no_terms_account": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 111,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Invalid email or password"
+      }
+    },
+    "login_terms_account": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 112,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Invalid email or password"
+      }
+    },
+    "login_bearer_account": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 128,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Invalid email or password"
+      }
+    },
+    "bearer_me": {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 137,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "authenticated": false,
+        "tier": {
+          "tier": "free",
+          "label": "Free",
+          "features": {
+            "label": "Free",
+            "oracle_daily_limit": 10,
+            "arbitrage": false,
+            "arbitrage_catalog": false,
+            "voice": false,
+            "research_lab": false,
+            "alerts": false,
+            "ai_chat": false,
+            "journal": true,
+            "portfolio_ai": true,
+            "market_radar": true
+          }
+        }
+      }
+    },
+    "bearer_inbox": {
+      "path": "/api/alerts/inbox",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    "bearer_oracle_quick": {
+      "path": "/oracle/BTCUSDT/quick",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "symbol": "BTC",
+        "price": 50005.0,
+        "change_24h": 0.0,
+        "verdict": "ELEVATED_RISK",
+        "opportunity_score": 45,
+        "action": "Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+        "action_line": "Analytics summary: Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+        "sentiment": "Neutral",
+        "latency_ms": 0.1,
+        "engine": "quick_rules_v1",
+        "latency_target_ms": 100,
+        "meets_latency_target": true,
+        "regulatory_classification": "informational_analytics_only",
+        "is_investment_advice": false,
+        "disclaimer": "Informational analytics only \u2014 not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee future results. Do yo\u2026",
+        "compliance_engine": "regulatory_compliance_guard_v1"
+      }
+    },
+    "cookie_jar_names": [],
+    "me_via_cookiejar": {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 105,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "authenticated": false,
+        "tier": {
+          "tier": "free",
+          "label": "Free",
+          "features": {
+            "label": "Free",
+            "oracle_daily_limit": 10,
+            "arbitrage": false,
+            "arbitrage_catalog": false,
+            "voice": false,
+            "research_lab": false,
+            "alerts": false,
+            "ai_chat": false,
+            "journal": true,
+            "portfolio_ai": true,
+            "market_radar": true
+          }
+        }
+      }
+    },
+    "logout": {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 102,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "success": true
+      }
+    },
+    "forgot_password": {
+      "path": "/api/auth/forgot-password",
+      "method": "POST",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    "identity": {
+      "path": "/api/auth/identity",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    "password_printed": false
+  },
+  "websocket": {
+    "library": "websockets",
+    "connect": {
+      "key_prefix": "bd_",
+      "key_len": 19,
+      "opened": true,
+      "close_code": null,
+      "ping_pong": "pong",
+      "messages": [
+        {
+          "type": "connected",
+          "keys": [
+            "channel",
+            "demo_mode",
+            "feed_version",
+            "latency_target_ms",
+            "timestamp",
+            "type"
+          ]
+        },
+        {
+          "type": "snapshot",
+          "keys": [
+            "feed_version",
+            "record_count",
+            "records",
+            "signature",
+            "timestamp",
+            "type"
+          ]
+        },
+        {
+          "type": "heartbeat",
+          "keys": [
+            "clients",
+            "feed_version",
+            "status",
+            "timestamp",
+            "type"
+          ]
+        }
+      ]
+    },
+    "messages": [],
+    "error": null,
+    "info_status": 200,
+    "demo_key_meta": {
+      "set": true,
+      "len": 19,
+      "prefix": "bd_"
+    }
+  },
+  "key_endpoints": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "status": "ok",
+        "service": "BLACKDARK",
+        "version": "1.0.0",
+        "ui_language": "en",
+        "probes": {
+          "live": "/health/live",
+          "ready": "/health/ready"
+        }
+      }
+    },
+    {
+      "path": "/health/live",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "status": "ok",
+        "probe": "live",
+        "ts": 1786754397.9413726
+      }
+    },
+    {
+      "path": "/health/ready",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "status": "ok",
+        "probe": "ready",
+        "database_engine": "postgresql",
+        "postgres_pool": {
+          "active": true,
+          "min_size": 2,
+          "max_size": 20,
+          "size": 1
+        },
+        "service_bus": {
+          "enabled": true,
+          "redis_configured": false,
+          "redis_connected": false,
+          "published_total": 0,
+          "received_total": 0,
+          "subscribers": {
+            "blackdark.market.updated": 1,
+            "blackdark.arbitrage.hot": 1
+          }
+        }
+      }
+    },
+    {
+      "path": "/api/build-info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 135,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "ui_language": "en",
+        "release": "2026-07-27-launch-phase-v8",
+        "git_commit": "5927056e45656985929ae7f3d5c58f665ca1767e",
+        "git_branch": "main",
+        "git_message": "Apply ARC launch recommendations: production guard, web mode, HA replicas.\n\nExtract GTM/Telegram routes to routers, add architecture DD API, and Railway checklist.\n\nCo-authored-by: Cursor <cursoragent\u2026",
+        "service": "blackdark",
+        "price_feed_ws_only": false,
+        "price_probe": "/api/diagnostics/price/BTC"
+      }
+    },
+    {
+      "path": "/api/services/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "service_mode": "web",
+        "architecture": "microservices",
+        "valid_modes": [
+          "aggregator",
+          "all",
+          "arbitrage",
+          "ingestion",
+          "web"
+        ],
+        "tasks": [],
+        "flags": {},
+        "service_bus": {
+          "enabled": true,
+          "redis_configured": false,
+          "redis_connected": false,
+          "published_total": 0,
+          "received_total": 0,
+          "subscribers": {
+            "blackdark.market.updated": 1,
+            "blackdark.arbitrage.hot": 1
+          }
+        },
+        "scale_ready": false,
+        "infra": {
+          "microservices": {
+            "status": "ready",
+            "mode": "web",
+            "docker_compose": "docker-compose.yml",
+            "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",
+            "scale_hint": "docker compose up -d --scale arbitrage=2"
+          },
+          "postgresql": {
+            "status": "connected",
+            "engine": "postgresql",
+            "pool": {
+              "active": true,
+              "min_size": 2,
+              "max_size": 20,
+              "size": 1
+            },
+            "database_url_set": true
+          },
+          "haascloud_deploy": {
+            "status": "ready",
+            "dockerfile": "Dockerfile",
+            "railway": "railway.json",
+            "haascloud_manifest": "haascloud.json",
+            "compose_stack": "docker-compose.yml"
+          },
+          "hashicorp_vault": {
+            "hashicorp_configured": false,
+            "hashicorp_authenticated": false,
+            "vault_addr": null,
+            "kv_mount": "secret",
+            "secret_path_prefix": {
+              "set": true,
+              "len": 9,
+              "prefix": "bla"
+            },
+            "local_fernet_available": true,
+            "primary": "local_fernet",
+            "note": "Docker: vault service in docker-compose.yml \u00b7 VAULT_ADDR=http://localhost:8200"
+          },
+          "apache_kafka": {
+            "kafka_configured": false,
+            "kafka_brokers": null,
+            "kafka_producer_ok": false,
+            "kafka_topics": [
+              "blackdark.opportunities",
+              "blackdark.executions",
+              "blackdark.alerts"
+            ],
+            "redis_url_configured": false,
+            "local_bus_enabled": true,
+            "primary": "local",
+            "messages_buffered_local": 0,
+            "note": "Set KAFKA_BROKERS=localhost:9092 (docker compose kafka service)."
+          },
+          "rl_policy": {
+            "ppo_configured": false,
+            "sac_configured": false,
+            "ppo_path": "data/models/ppo_policy.json",
+            "sac_path": "data/models/sac_policy.json",
+            "active_policy": "heuristic",
+            "features": [
+              "ret_24h",
+              "volatility",
+              "obi_score",
+              "sentiment_score"
+            ]
+          },
+          "zk_public_proof": {
+            "status": "ready",
+            "module": "bd_platform.public_proof",
+            "endpoint": "/api/platform/proof/public",
+            "features": [
+              "merkle_root",
+              "inclusion_proof",
+              "commitment_verify"
+            ]
+          }
+        },
+        "service_mode_runtime": "web",
+        "deployment": {
+          "docker_compose": "docker-compose.yml",
+          "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",
+          "scale_hint": "Increase replicas per worker service + REDIS_URL for 1M users path"
+        }
+      }
+    },
+    {
+      "path": "/api/observability/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "sentry_configured": false,
+        "metrics_endpoint": "/metrics",
+        "counters": {
+          "http_requests_total": 317.0,
+          "oracle_queries_total": 0,
+          "arbitrage_scans_total": 0,
+          "auth_logins_total": 4.0,
+          "behavior_events_total": 6.0,
+          "errors_total": 21.0
+        }
+      }
+    },
+    {
+      "path": "/api/billing/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "authenticated": false,
+        "billing_configured": false,
+        "billing_provider": "none"
+      }
+    },
+    {
+      "path": "/api/pricing",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/alerts/telegram/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "configured": false,
+        "bot_token_set": false,
+        "default_chat_set": false,
+        "monitor_enabled": true,
+        "interval_seconds": 90
+      }
+    },
+    {
+      "path": "/api/feed/engine/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 116,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "architecture": "hybrid",
+        "policy": {
+          "rest_price_ingestion": "allowed_legacy",
+          "ws_venues": [
+            "binance",
+            "bybit",
+            "okx"
+          ],
+          "multiplexed_websockets": true
+        },
+        "ticks_total": 0,
+        "kafka_ticks_published": 0,
+        "redis_ticks_written": 0,
+        "hot_tier_archived": 0,
+        "hot_tier_throttled": 0,
+        "stream_processor": {
+          "running": false,
+          "ticks_processed": 0,
+          "spreads_detected": 0,
+          "opportunities_published": 0,
+          "alerts_published": 0,
+          "recent_spreads": [],
+          "recent_opportunities": [],
+          "topics": [
+            "blackdark.price.ticks",
+            "blackdark.opportunities",
+            "blackdark.alerts"
+          ]
+        },
+        "websocket_hub": {
+          "running": false,
+          "enabled": true,
+          "messages_total": 0,
+          "exchanges": [
+            "binance",
+            "okx",
+            "bybit",
+            "kraken"
+          ],
+          "live_book": {
+            "enabled": true,
+            "exchanges": [
+              "binance",
+              "bybit",
+              "okx"
+            ],
+            "symbol_count": 9,
+            "updates_total": 9,
+            "max_age_ms": 300.0,
+            "freshness_ms": 87489.0,
+            "stalest_ms": 87489.0
+          }
+        },
+        "live_book": {
+          "enabled": true,
+          "exchanges": [
+            "binance",
+            "bybit",
+            "okx"
+          ],
+          "symbol_count": 9,
+          "updates_total": 9,
+          "max_age_ms": 300.0,
+          "freshness_ms": 87489.0,
+          "stalest_ms": 87489.0
+        },
+        "redis_cache": {
+          "enabled": false,
+          "connected": false,
+          "cluster_mode": false,
+          "redis_configured": false,
+          "cluster_nodes": [],
+          "strict_mode": false,
+          "local_symbols": 0,
+          "exchanges": [],
+          "ttl_sec": 5
+        },
+        "kafka_bus": {
+          "kafka_configured": false,
+          "kafka_brokers": null,
+          "kafka_producer_ok": false,
+          "kafka_topics": [
+            "blackdark.opportunities",
+            "blackdark.executions",
+            "blackdark.alerts"
+          ],
+          "redis_url_configured": false,
+          "local_bus_enabled": true,
+          "primary": "local",
+          "messages_buffered_local": 0,
+          "note": "Set KAFKA_BROKERS=localhost:9092 (docker compose kafka service)."
+        }
+      }
+    },
+    {
+      "path": "/api/b2b/ws/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "endpoint": "/ws/b2b/feed",
+        "auth": {
+          "query": "api_key",
+          "demo_key": "bd_demo_launch_2026"
+        },
+        "feed_version": "1.0.0",
+        "enabled": true,
+        "running": true,
+        "connected_clients": 0,
+        "demo_clients": 0,
+        "heartbeat_sec": 15,
+        "event_cooldown_sec": 3.0,
+        "latency_target_ms": 500,
+        "events": [
+          "connected",
+          "snapshot",
+          "arbitrage_opportunity",
+          "oracle_signal",
+          "heartbeat"
+        ]
+      }
+    },
+    {
+      "path": "/api/b2b/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "product": "BLACKDARK Institutional Manipulation Feed",
+        "feed_version": "1.0.0",
+        "demo_key": "contact-sales",
+        "demo_endpoint": "/api/b2b/demo",
+        "authenticated_endpoint": "/api/b2b/feed",
+        "header": "X-API-Key",
+        "websocket_endpoint": "/ws/b2b/feed",
+        "websocket_auth": "api_key query parameter",
+        "websocket_info_endpoint": "/api/b2b/ws/info",
+        "websocket_enabled": true,
+        "websocket_latency_target_ms": 500,
+        "pricing_usd_monthly": 199,
+        "one_pager_url": "/b2b",
+        "methodology": {
+          "cvvd": "Cross-Venue Volume Discrepancy",
+          "sii": "Sector Inflow Index"
+        },
+        "events": [
+          "connected",
+          "snapshot",
+          "arbitrage_opportunity",
+          "oracle_signal",
+          "heartbeat"
+        ]
+      }
+    },
+    {
+      "path": "/api/privacy/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "dsr_export_api": "/api/privacy/dsr/export",
+        "dsr_erase_api": "/api/privacy/dsr/erase",
+        "consent_documented_in": "legal_content.py /privacy",
+        "data_room": "docs/DATA_ROOM.md",
+        "implementation": "gdpr_service.py",
+        "ready_for_dd": true,
+        "note": "Legal review and DPIA still required before EU user-base transfer in M&A."
+      }
+    },
+    {
+      "path": "/api/regulatory/compliance",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "json": {
+        "enabled": true,
+        "classification": "informational_analytics_only",
+        "public_verdicts": {
+          "bullish": "BULLISH_ANALYTICS",
+          "bearish": "BEARISH_ANALYTICS",
+          "neutral": "NEUTRAL_OBSERVE",
+          "elevated_risk": "ELEVATED_RISK"
+        },
+        "prohibited_public_phrases": [
+          "Buy Now",
+          "Sell Now",
+          "Do Not Touch",
+          "you should buy",
+          "you should sell"
+        ],
+        "disclaimer": "Informational analytics only \u2014 not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee future results. Do yo\u2026",
+        "policy": "Oracle outputs are analytics labels, not investment recommendations. Users must acknowledge Terms/Disclaimer. Live execution uses separate user-controlled API keys and risk gates."
+      }
+    },
+    {
+      "path": "/api/trust-os",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/lenses",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/audience/entry",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/faq",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/changelog",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/site-services",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 139,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/i18n/locales",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/wow/surfaces",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 132,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/public/changed-mind",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/public/d5-honesty",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/public/f1-f10-closure",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/api/trial/persona-readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "set_cookie_header_present": false,
+      "json": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "text/plain",
+      "set_cookie_header_present": false,
+      "set_cookie_names": [],
+      "snippet": "# HELP blackdark_up BLACKDARK process up\n# TYPE blackdark_up gauge\nblackdark_up 1\n# TYPE blackdark_arbitrage_scans_total counter\nblackdark_arbitrage_scans_total 0\n# TYPE blackdark_auth_logins_total co"
+    }
+  ]
+}

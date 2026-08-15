@@ -1,0 +1,4010 @@
+{
+  "generated_at": "2026-08-15T00:38:40.169417+00:00",
+  "base": "https://blackdark-production.up.railway.app",
+  "rule": "PASS only if production journey actually succeeded. Anything else is FAIL.",
+  "counts": {
+    "2xx": 43,
+    "3xx": 0,
+    "4xx": 113,
+    "5xx": 14,
+    "error": 0,
+    "other": 0,
+    "total": 170
+  },
+  "http_2xx": [
+    "/",
+    "/landing",
+    "/dashboard",
+    "/login",
+    "/success",
+    "/cancel",
+    "/docs",
+    "/terms",
+    "/privacy",
+    "/disclaimer",
+    "/platform",
+    "/b2b",
+    "/oracle-accuracy",
+    "/manifest.json",
+    "/sw.js",
+    "/health",
+    "/health/live",
+    "/api/billing/status",
+    "/api/alerts/telegram/status",
+    "/api/b2b/info",
+    "/api/build-info",
+    "/metrics",
+    "/api/observability/status",
+    "/api/privacy/status",
+    "/api/regulatory/compliance",
+    "/api/services/status",
+    "/api/feed/engine/status",
+    "/health/ready",
+    "/api/due-diligence/status",
+    "/api/security/status",
+    "/api/options/overview",
+    "/api/arbitrage/catalog",
+    "/api/sentiment/overview",
+    "/api/onchain/overview",
+    "/api/macro/overview",
+    "/api/b2b/ws/info",
+    "/api/auth/me",
+    "/oracle/BTCUSDT/quick",
+    "/api/oracle/audit-chain",
+    "/api/market/overview",
+    "/openapi.json",
+    "/api/alerts/telegram/test",
+    "/api/auth/logout"
+  ],
+  "http_404": [
+    "/profile",
+    "/reset-password",
+    "/verify-email",
+    "/docs/public",
+    "/contact",
+    "/complaints",
+    "/faq",
+    "/how-it-works",
+    "/about",
+    "/status",
+    "/changelog",
+    "/feedback",
+    "/legal",
+    "/refund",
+    "/cookies",
+    "/compliance",
+    "/data-room",
+    "/capabilities",
+    "/discipline-mirror",
+    "/kill-rate",
+    "/contradiction-replay",
+    "/proof-arena",
+    "/b2b/committee-one-pager",
+    "/since-you-left",
+    "/anti-hype",
+    "/corpus-passport",
+    "/miss-feed",
+    "/changed-mind",
+    "/coverage-honesty",
+    "/priority-chain",
+    "/zero-tolerance",
+    "/emotion-tax",
+    "/allocator-receipt",
+    "/transfer-intent",
+    "/silence-index",
+    "/alert-passport",
+    "/visibility-cost",
+    "/validity-decay",
+    "/desk-duel",
+    "/trust-debt",
+    "/unique-ten",
+    "/institutional",
+    "/model-card",
+    "/d5-honesty",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/favicon.ico",
+    "/app",
+    "/register",
+    "/settings/security",
+    "/public/accuracy-ledger",
+    "/errors",
+    "/my/discipline-mirror",
+    "/plan",
+    "/admin/plan",
+    "/admin/roadmap",
+    "/api/plan/audit",
+    "/api/roadmap/audit",
+    "/api/status",
+    "/api/faq",
+    "/api/changelog",
+    "/api/site-services",
+    "/api/i18n/locales",
+    "/api/i18n/catalog",
+    "/api/product/capability-inventory",
+    "/api/product/l2-remainder",
+    "/api/product/unpaid-closure",
+    "/api/trial/persona-readiness",
+    "/api/billing/unpaid-upgrade",
+    "/api/pricing",
+    "/api/auth/oauth/status",
+    "/api/trust-os",
+    "/api/lenses",
+    "/api/audience/entry",
+    "/api/docs/public-openapi.json",
+    "/api/docs/public-manifest",
+    "/api/public/d5-honesty",
+    "/api/public/changed-mind",
+    "/api/wow/surfaces",
+    "/api/public/f1-f10-closure",
+    "/api/trust-pulse",
+    "/api/trust-pulse/manifest",
+    "/api/scale/readiness",
+    "/api/viral/readiness",
+    "/api/product/public-readiness",
+    "/health/viral",
+    "/api/alerts/inbox",
+    "/api/locked-predictions",
+    "/api/auth/identity",
+    "/api/oracle/persona-clarity/demo",
+    "/api/oracle/provenance-score",
+    "/api/mev/sandwich-report",
+    "/api/intent/router",
+    "/api/acceptance/60s",
+    "/api/discipline-mirror",
+    "/api/auth/oauth/google/start"
+  ],
+  "http_5xx": [
+    {
+      "path": "/oracle/accuracy",
+      "status": 500
+    },
+    {
+      "path": "/api/telegram/free/status",
+      "status": 500
+    },
+    {
+      "path": "/api/universe/status",
+      "status": 500
+    },
+    {
+      "path": "/api/launch/readiness",
+      "status": 500
+    },
+    {
+      "path": "/api/gtm/status",
+      "status": 500
+    },
+    {
+      "path": "/api/database/health",
+      "status": 500
+    },
+    {
+      "path": "/api/ingestion/status",
+      "status": 500
+    },
+    {
+      "path": "/oracle/BTCUSDT",
+      "status": 500
+    },
+    {
+      "path": "/oracle/BTCUSDT/explain",
+      "status": 500
+    },
+    {
+      "path": "/api/oracle/accuracy/public",
+      "status": 500
+    },
+    {
+      "path": "/api/market/sectors",
+      "status": 500
+    },
+    {
+      "path": "/create-checkout-session",
+      "status": 503
+    },
+    {
+      "path": "/create-checkout-session",
+      "status": 503
+    },
+    {
+      "path": "/api/billing/checkout",
+      "status": 503
+    }
+  ],
+  "catalog": [
+    {
+      "path": "/",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 139,
+      "content_type": "text/html",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 AI Crypto Intelligence Platform",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/landing",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "text/html",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 AI Crypto Intelligence Platform",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/dashboard",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 125,
+      "content_type": "text/html",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Intelligence Dashboard",
+      "has_form": false,
+      "has_login": true,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/login",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "text/html",
+      "bytes": 6879,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Login",
+      "has_form": true,
+      "has_login": true,
+      "has_register": true,
+      "bucket": "html"
+    },
+    {
+      "path": "/profile",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/reset-password",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/verify-email",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/success",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 123,
+      "content_type": "text/html",
+      "bytes": 3040,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Subscription Active",
+      "has_form": false,
+      "has_login": true,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/cancel",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "text/html",
+      "bytes": 210,
+      "location": null,
+      "set_cookie": false,
+      "html_title": null,
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/docs",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "text/html",
+      "bytes": 1008,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK - Swagger UI",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/docs/public",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/contact",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/complaints",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/faq",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/how-it-works",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/about",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/changelog",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/feedback",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/legal",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 127,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/terms",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 126,
+      "content_type": "text/html",
+      "bytes": 3034,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Terms of Service",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/privacy",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 132,
+      "content_type": "text/html",
+      "bytes": 2884,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Privacy Policy",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/disclaimer",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 126,
+      "content_type": "text/html",
+      "bytes": 2867,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Risk Disclaimer",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/refund",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/cookies",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/compliance",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 135,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/data-room",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/capabilities",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/platform",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 127,
+      "content_type": "text/html",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Platform Hub",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/b2b",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 126,
+      "content_type": "text/html",
+      "bytes": 10703,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK B2B \u2014 Institutional Data Feed",
+      "has_form": false,
+      "has_login": false,
+      "has_register": true,
+      "bucket": "html"
+    },
+    {
+      "path": "/oracle-accuracy",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 128,
+      "content_type": "text/html",
+      "bytes": 10857,
+      "location": null,
+      "set_cookie": false,
+      "html_title": "BLACKDARK \u2014 Oracle Accuracy Live",
+      "has_form": false,
+      "has_login": false,
+      "has_register": false,
+      "bucket": "html"
+    },
+    {
+      "path": "/discipline-mirror",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/kill-rate",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/contradiction-replay",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 257,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/proof-arena",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/b2b/committee-one-pager",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/since-you-left",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/anti-hype",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/corpus-passport",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/miss-feed",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 131,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/changed-mind",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 127,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/coverage-honesty",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/priority-chain",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/zero-tolerance",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/emotion-tax",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/allocator-receipt",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/transfer-intent",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/silence-index",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/alert-passport",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/visibility-cost",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/validity-decay",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/desk-duel",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/trust-debt",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 129,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/unique-ten",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/institutional",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/model-card",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/d5-honesty",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 128,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/robots.txt",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/sitemap.xml",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/manifest.json",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "application/manifest+json",
+      "bytes": 673,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "background_color",
+        "categories",
+        "description",
+        "dir",
+        "display",
+        "icons",
+        "lang",
+        "name",
+        "orientation",
+        "short_name",
+        "start_url",
+        "theme_color"
+      ],
+      "safe_json": {
+        "name": "BLACKDARK Intelligence",
+        "short_name": "BLACKDARK",
+        "description": "AI crypto intelligence \u2014 Oracle, arbitrage, whale CVVD, portfolio AI",
+        "start_url": "/dashboard",
+        "display": "standalone",
+        "background_color": "#0a0a0f",
+        "theme_color": "#22d3ee",
+        "orientation": "portrait-primary",
+        "icons": {
+          "len": 2,
+          "sample_type": "dict"
+        },
+        "categories": {
+          "len": 2,
+          "sample_type": "str"
+        },
+        "lang": "en",
+        "dir": "ltr"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/sw.js",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 122,
+      "content_type": "application/javascript",
+      "bytes": 1597,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "const CACHE = 'blackdark-v3';\nconst STATIC_ASSETS = ['/static/manifest.json', '/static/icon-192.png', '/static/icon-512.",
+      "bucket": "html"
+    },
+    {
+      "path": "/favicon.ico",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "html"
+    },
+    {
+      "path": "/app",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/register",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/settings/security",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/public/accuracy-ledger",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/errors",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/my/discipline-mirror",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "redirect"
+    },
+    {
+      "path": "/oracle/accuracy",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 151,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "redirect"
+    },
+    {
+      "path": "/plan",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 124,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/admin/launch",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 71,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Admin authentication required (X-Admin-Key or admin email)"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/admin/plan",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 126,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/admin/roadmap",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/api/plan/audit",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 129,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/api/roadmap/audit",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "admin_gate"
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 131,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "probes",
+        "service",
+        "status",
+        "ui_language",
+        "version"
+      ],
+      "safe_json": {
+        "status": "ok",
+        "service": "BLACKDARK",
+        "version": "1.0.0",
+        "ui_language": "en",
+        "probes": {
+          "keys": [
+            "live",
+            "ready"
+          ]
+        }
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/health/live",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 54,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "probe",
+        "status",
+        "ts"
+      ],
+      "safe_json": {
+        "status": "ok",
+        "probe": "live",
+        "ts": 1786754305.3470848
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 125,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/faq",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/changelog",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/site-services",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/i18n/locales",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/i18n/catalog",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 128,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/product/capability-inventory",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/product/l2-remainder",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/product/unpaid-closure",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/trial/persona-readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/billing/unpaid-upgrade",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/billing/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 76,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "authenticated",
+        "billing_configured",
+        "billing_provider"
+      ],
+      "safe_json": {
+        "authenticated": false,
+        "billing_configured": false,
+        "billing_provider": "none"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/pricing",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/auth/oauth/status",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 131,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/alerts/telegram/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 112,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "bot_token_set",
+        "configured",
+        "default_chat_set",
+        "interval_seconds",
+        "monitor_enabled"
+      ],
+      "safe_json": {
+        "configured": false,
+        "bot_token_set": {
+          "set": true,
+          "type": "bool"
+        },
+        "default_chat_set": false,
+        "monitor_enabled": true,
+        "interval_seconds": 90
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/telegram/free/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 143,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/b2b/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 601,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "authenticated_endpoint",
+        "demo_endpoint",
+        "demo_key",
+        "events",
+        "feed_version",
+        "header",
+        "methodology",
+        "one_pager_url",
+        "pricing_usd_monthly",
+        "product",
+        "websocket_auth",
+        "websocket_enabled",
+        "websocket_endpoint",
+        "websocket_info_endpoint",
+        "websocket_latency_target_ms"
+      ],
+      "safe_json": {
+        "product": "BLACKDARK Institutional Manipulation Feed",
+        "feed_version": "1.0.0",
+        "demo_key": {
+          "set": true,
+          "len": 13,
+          "prefix": "cont"
+        },
+        "demo_endpoint": "/api/b2b/demo",
+        "authenticated_endpoint": "/api/b2b/feed",
+        "header": "X-API-Key",
+        "websocket_endpoint": "/ws/b2b/feed",
+        "websocket_auth": "api_key query parameter",
+        "websocket_info_endpoint": "/api/b2b/ws/info",
+        "websocket_enabled": true,
+        "websocket_latency_target_ms": 500,
+        "pricing_usd_monthly": 199,
+        "one_pager_url": "/b2b",
+        "methodology": {
+          "keys": [
+            "cvvd",
+            "sii"
+          ]
+        },
+        "events": {
+          "len": 5,
+          "sample_type": "str"
+        }
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/trust-os",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/lenses",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/audience/entry",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/docs/public-openapi.json",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/docs/public-manifest",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/build-info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 460,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "git_branch",
+        "git_commit",
+        "git_message",
+        "price_feed_ws_only",
+        "price_probe",
+        "release",
+        "service",
+        "ui_language"
+      ],
+      "safe_json": {
+        "ui_language": "en",
+        "release": "2026-07-27-launch-phase-v8",
+        "git_commit": "5927056e45656985929ae7f3d5c58f665ca1767e",
+        "git_branch": "main",
+        "git_message": "Apply ARC launch recommendations: production guard, web mode, HA replicas.\n\nExtract GTM/Telegram routes to routers, add architecture DD API, and Railway checklist.\n\nCo-authored-by:\u2026",
+        "service": "blackdark",
+        "price_feed_ws_only": false,
+        "price_probe": "/api/diagnostics/price/BTC"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/universe/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 152,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/launch/readiness",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 132,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/gtm/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 136,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/public/d5-honesty",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/public/changed-mind",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/wow/surfaces",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/public/f1-f10-closure",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/metrics",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 127,
+      "content_type": "text/plain",
+      "bytes": 587,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "# HELP blackdark_up BLACKDARK process up\n# TYPE blackdark_up gauge\nblackdark_up 1\n# TYPE blackdark_arbitrage_scans_total",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/observability/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 129,
+      "content_type": "application/json",
+      "bytes": 217,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "counters",
+        "metrics_endpoint",
+        "sentry_configured"
+      ],
+      "safe_json": {
+        "sentry_configured": false,
+        "metrics_endpoint": "/metrics",
+        "counters": {
+          "keys": [
+            "arbitrage_scans_total",
+            "auth_logins_total",
+            "behavior_events_total",
+            "errors_total",
+            "http_requests_total",
+            "oracle_queries_total"
+          ]
+        }
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/privacy/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 307,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "consent_documented_in",
+        "data_room",
+        "dsr_erase_api",
+        "dsr_export_api",
+        "implementation",
+        "note",
+        "ready_for_dd"
+      ],
+      "safe_json": {
+        "dsr_export_api": "/api/privacy/dsr/export",
+        "dsr_erase_api": "/api/privacy/dsr/erase",
+        "consent_documented_in": "legal_content.py /privacy",
+        "data_room": "docs/DATA_ROOM.md",
+        "implementation": "gdpr_service.py",
+        "ready_for_dd": true,
+        "note": "Legal review and DPIA still required before EU user-base transfer in M&A."
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/regulatory/compliance",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 125,
+      "content_type": "application/json",
+      "bytes": 737,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "classification",
+        "disclaimer",
+        "enabled",
+        "policy",
+        "prohibited_public_phrases",
+        "public_verdicts"
+      ],
+      "safe_json": {
+        "enabled": true,
+        "classification": "informational_analytics_only",
+        "public_verdicts": {
+          "keys": [
+            "bearish",
+            "bullish",
+            "elevated_risk",
+            "neutral"
+          ]
+        },
+        "prohibited_public_phrases": {
+          "len": 5,
+          "sample_type": "str"
+        },
+        "disclaimer": "Informational analytics only \u2014 not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee f\u2026",
+        "policy": "Oracle outputs are analytics labels, not investment recommendations. Users must acknowledge Terms/Disclaimer. Live execution uses separate user-controlled API keys and risk gates."
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/services/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 2183,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "architecture",
+        "deployment",
+        "flags",
+        "infra",
+        "scale_ready",
+        "service_bus",
+        "service_mode",
+        "service_mode_runtime",
+        "tasks",
+        "valid_modes"
+      ],
+      "safe_json": {
+        "service_mode": "web",
+        "architecture": "microservices",
+        "valid_modes": {
+          "len": 5,
+          "sample_type": "str"
+        },
+        "tasks": {
+          "len": 0,
+          "sample_type": "empty"
+        },
+        "flags": {
+          "keys": []
+        },
+        "service_bus": {
+          "keys": [
+            "enabled",
+            "published_total",
+            "received_total",
+            "redis_configured",
+            "redis_connected",
+            "subscribers"
+          ]
+        },
+        "scale_ready": false,
+        "infra": {
+          "keys": [
+            "apache_kafka",
+            "haascloud_deploy",
+            "hashicorp_vault",
+            "microservices",
+            "postgresql",
+            "rl_policy",
+            "zk_public_proof"
+          ]
+        },
+        "service_mode_runtime": "web",
+        "deployment": {
+          "keys": [
+            "docker_compose",
+            "launcher",
+            "scale_hint"
+          ]
+        }
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/trust-pulse",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/trust-pulse/manifest",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/scale/readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/viral/readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/database/health",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 148,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/feed/engine/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 1420,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "architecture",
+        "hot_tier_archived",
+        "hot_tier_throttled",
+        "kafka_bus",
+        "kafka_ticks_published",
+        "live_book",
+        "policy",
+        "redis_cache",
+        "redis_ticks_written",
+        "stream_processor",
+        "ticks_total",
+        "websocket_hub"
+      ],
+      "safe_json": {
+        "architecture": "hybrid",
+        "policy": {
+          "keys": [
+            "multiplexed_websockets",
+            "rest_price_ingestion",
+            "ws_venues"
+          ]
+        },
+        "ticks_total": 0,
+        "kafka_ticks_published": 0,
+        "redis_ticks_written": 0,
+        "hot_tier_archived": 0,
+        "hot_tier_throttled": 0,
+        "stream_processor": {
+          "keys": [
+            "alerts_published",
+            "opportunities_published",
+            "recent_opportunities",
+            "recent_spreads",
+            "running",
+            "spreads_detected",
+            "ticks_processed",
+            "topics"
+          ]
+        },
+        "websocket_hub": {
+          "keys": [
+            "enabled",
+            "exchanges",
+            "live_book",
+            "messages_total",
+            "running"
+          ]
+        },
+        "live_book": {
+          "keys": [
+            "enabled",
+            "exchanges",
+            "freshness_ms",
+            "max_age_ms",
+            "stalest_ms",
+            "symbol_count",
+            "updates_total"
+          ]
+        },
+        "redis_cache": {
+          "keys": [
+            "cluster_mode",
+            "cluster_nodes",
+            "connected",
+            "enabled",
+            "exchanges",
+            "local_symbols",
+            "redis_configured",
+            "strict_mode",
+            "ttl_sec"
+          ]
+        },
+        "kafka_bus": {
+          "keys": [
+            "kafka_brokers",
+            "kafka_configured",
+            "kafka_producer_ok",
+            "kafka_topics",
+            "local_bus_enabled",
+            "messages_buffered_local",
+            "note",
+            "primary",
+            "redis_url_configured"
+          ]
+        }
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/api/ingestion/status",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 230,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "json"
+    },
+    {
+      "path": "/api/product/public-readiness",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "json"
+    },
+    {
+      "path": "/health/ready",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 116,
+      "content_type": "application/json",
+      "bytes": 322,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "database_engine",
+        "postgres_pool",
+        "probe",
+        "service_bus",
+        "status"
+      ],
+      "safe_json": {
+        "status": "ok",
+        "probe": "ready",
+        "database_engine": "postgresql",
+        "postgres_pool": {
+          "keys": [
+            "active",
+            "max_size",
+            "min_size",
+            "size"
+          ]
+        },
+        "service_bus": {
+          "keys": [
+            "enabled",
+            "published_total",
+            "received_total",
+            "redis_configured",
+            "redis_connected",
+            "subscribers"
+          ]
+        }
+      },
+      "bucket": "health_json"
+    },
+    {
+      "path": "/health/viral",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "health_json"
+    },
+    {
+      "path": "/api/alerts/inbox",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/locked-predictions",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/due-diligence/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 186,
+      "content_type": "application/json",
+      "bytes": 2162,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "buyer_script",
+        "checks",
+        "coverage",
+        "ha",
+        "latency",
+        "status",
+        "uptime"
+      ],
+      "safe_json": {
+        "status": "partial",
+        "checks": {
+          "keys": [
+            "ha_architecture_ready",
+            "latency_p99_le_50ms",
+            "profit_fee_coverage_ge_90",
+            "uptime_probes_sufficient",
+            "uptime_sla_99_99"
+          ]
+        },
+        "uptime": {
+          "keys": [
+            "allowed_downtime_minutes",
+            "architecture",
+            "estimated_downtime_minutes",
+            "external_monitoring",
+            "log_path",
+            "meets_sla",
+            "probes_fail",
+            "probes_ok",
+            "probes_total",
+            "sla_target_percent",
+            "uptime_percent",
+            "window_hours"
+          ]
+        },
+        "ha": {
+          "keys": [
+            "components",
+            "data_dir",
+            "docker_available",
+            "docker_compose_ha",
+            "high_availability_ready",
+            "nginx_config",
+            "railway_replicas"
+          ]
+        },
+        "latency": {
+          "keys": [
+            "books",
+            "disclaimer",
+            "endpoint",
+            "fast_scan_endpoint",
+            "last_scan",
+            "max_ms",
+            "mean_ms",
+            "meets_target_p95",
+            "meets_target_p99",
+            "min_ms",
+            "p50_ms",
+            "p95_ms",
+            "p99_ms",
+            "path",
+            "runs",
+            "target_ms"
+          ]
+        },
+        "coverage": {
+          "keys": [
+            "coverage_percent",
+            "gate_percent",
+            "modules",
+            "passed",
+            "stderr_tail",
+            "summary_tail"
+          ]
+        },
+        "buyer_script": "python scripts/due_diligence_verify.py"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/security/status",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 129,
+      "content_type": "application/json",
+      "bytes": 782,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "admin_emails_configured",
+        "admin_endpoints",
+        "dependency_scanning",
+        "docs",
+        "execution_endpoints",
+        "model_weights",
+        "model_weights_key_configured",
+        "panic_button",
+        "password_hashing",
+        "rate_limiting",
+        "risk_freeze",
+        "session_tokens",
+        "telegram_webhook",
+        "user_api_keys",
+        "user_risk_tolerance",
+        "vault_configured"
+      ],
+      "safe_json": {
+        "password_hashing": {
+          "set": true,
+          "len": 31,
+          "prefix": "PBKD"
+        },
+        "session_tokens": {
+          "set": true,
+          "len": 33,
+          "prefix": "hash"
+        },
+        "user_api_keys": {
+          "set": true,
+          "len": 45,
+          "prefix": "Fern"
+        },
+        "model_weights": "Fernet + HMAC integrity (admin-gated API)",
+        "execution_endpoints": "whale_tier_required",
+        "panic_button": "cancel_all_orders + stop loop + risk freeze",
+        "risk_freeze": "persistent (SQLite, survives restart)",
+        "user_risk_tolerance": "per-user ceiling (slippage, score, daily loss)",
+        "admin_endpoints": "X-Admin-Key or admin email",
+        "rate_limiting": "login 10 attempts / 5 min",
+        "telegram_webhook": "secret token verified",
+        "dependency_scanning": "pip-audit in CI (.github/workflows/security.yml)",
+        "vault_configured": true,
+        "model_weights_key_configured": {
+          "set": true,
+          "type": "bool"
+        },
+        "admin_emails_configured": true,
+        "docs": "/SECURITY.md"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/execution/status",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 36,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Authentication required"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/risk/status",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 36,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Authentication required"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/options/overview",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 522,
+      "content_type": "application/json",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "{\"provider\":\"deribit\",\"assets\":{\"BTC\":{\"success\":true,\"exchange\":\"deribit\",\"currency\":\"BTC\",\"count\":818,\"instruments\":[{\"instrument\":\"BTC-18AUG26-60500-C\",\"mark",
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/arbitrage/catalog",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 130,
+      "content_type": "application/json",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "{\"total_types\":77,\"counts_by_status\":{\"live\":10,\"proxy\":28,\"planned\":39},\"categories\":[\"cross_exchange\",\"defi\",\"derivatives\",\"etf\",\"event\",\"liquidity\",\"microstr",
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/sentiment/overview",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 183,
+      "content_type": "application/json",
+      "bytes": 581,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "assets",
+        "data_source",
+        "timestamp"
+      ],
+      "safe_json": {
+        "assets": {
+          "len": 5,
+          "sample_type": "dict"
+        },
+        "data_source": "Rolling Compound Sentiment Index",
+        "timestamp": "2026-08-15T00:38:32.630538+00:00"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/onchain/overview",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 138,
+      "content_type": "application/json",
+      "bytes": 725,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "assets",
+        "data_source",
+        "timestamp"
+      ],
+      "safe_json": {
+        "assets": {
+          "len": 5,
+          "sample_type": "dict"
+        },
+        "data_source": "On-Chain Exchange Flow Tracker",
+        "timestamp": "2026-08-15T00:38:32.769337+00:00"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/macro/overview",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 230,
+      "content_type": "application/json",
+      "bytes": 295,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "data_source",
+        "macro",
+        "timestamp"
+      ],
+      "safe_json": {
+        "macro": {
+          "keys": [
+            "changes_1d_pct",
+            "macro_regime_proxy",
+            "sources"
+          ]
+        },
+        "data_source": "Oracle Data Hub \u2014 Yahoo Finance extended",
+        "timestamp": "2026-08-15T00:38:32.998017+00:00"
+      },
+      "bucket": "gated_json"
+    },
+    {
+      "path": "/api/b2b/ws/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 116,
+      "content_type": "application/json",
+      "bytes": 333,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "auth",
+        "connected_clients",
+        "demo_clients",
+        "enabled",
+        "endpoint",
+        "event_cooldown_sec",
+        "events",
+        "feed_version",
+        "heartbeat_sec",
+        "latency_target_ms",
+        "running"
+      ],
+      "safe_json": {
+        "endpoint": "/ws/b2b/feed",
+        "auth": {
+          "keys": [
+            "demo_key",
+            "query"
+          ]
+        },
+        "feed_version": "1.0.0",
+        "enabled": true,
+        "running": true,
+        "connected_clients": 0,
+        "demo_clients": 0,
+        "heartbeat_sec": 15,
+        "event_cooldown_sec": 3.0,
+        "latency_target_ms": 500,
+        "events": {
+          "len": 5,
+          "sample_type": "str"
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/b2b/feed",
+      "method": "GET",
+      "status": 422,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 96,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "len": 1,
+          "sample_type": "dict"
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 278,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "authenticated",
+        "tier"
+      ],
+      "safe_json": {
+        "authenticated": false,
+        "tier": {
+          "keys": [
+            "features",
+            "label",
+            "tier"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/auth/identity",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/oracle/BTCUSDT",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 147,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/oracle/BTCUSDT/quick",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 127,
+      "content_type": "application/json",
+      "bytes": 777,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "action",
+        "action_line",
+        "change_24h",
+        "compliance_engine",
+        "disclaimer",
+        "engine",
+        "is_investment_advice",
+        "latency_ms",
+        "latency_target_ms",
+        "meets_latency_target",
+        "opportunity_score",
+        "price",
+        "regulatory_classification",
+        "sentiment",
+        "symbol",
+        "verdict"
+      ],
+      "safe_json": {
+        "symbol": "BTC",
+        "price": 50005.0,
+        "change_24h": 0.0,
+        "verdict": "ELEVATED_RISK",
+        "opportunity_score": 45,
+        "action": "Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+        "action_line": "Analytics summary: Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+        "sentiment": "Neutral",
+        "latency_ms": 0.1,
+        "engine": "quick_rules_v1",
+        "latency_target_ms": 100,
+        "meets_latency_target": true,
+        "regulatory_classification": "informational_analytics_only",
+        "is_investment_advice": false,
+        "disclaimer": "Informational analytics only \u2014 not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee f\u2026",
+        "compliance_engine": "regulatory_compliance_guard_v1"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/oracle/BTCUSDT/explain",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 595,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/oracle/accuracy/public",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 141,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/oracle/audit-chain",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 247,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "integrity",
+        "note",
+        "recent_hit_rate_percent",
+        "recent_records",
+        "target_accuracy_band",
+        "total_records"
+      ],
+      "safe_json": {
+        "integrity": {
+          "keys": [
+            "message",
+            "records",
+            "valid"
+          ]
+        },
+        "total_records": 0,
+        "recent_hit_rate_percent": 0.0,
+        "recent_records": {
+          "len": 0,
+          "sample_type": "empty"
+        },
+        "target_accuracy_band": "65-70%",
+        "note": "Chain is append-only SHA-256 linked \u2014 tamper-evident for due diligence."
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/oracle/persona-clarity/demo",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 130,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/oracle/provenance-score",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 135,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/market/overview",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 144,
+      "content_type": "application/json",
+      "bytes": 183,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "assets",
+        "data_source",
+        "market_status",
+        "sectors",
+        "timestamp",
+        "top_gainers",
+        "top_losers",
+        "tracked_count"
+      ],
+      "safe_json": {
+        "assets": {
+          "len": 0,
+          "sample_type": "empty"
+        },
+        "sectors": {
+          "keys": []
+        },
+        "tracked_count": 25,
+        "top_gainers": {
+          "len": 0,
+          "sample_type": "empty"
+        },
+        "top_losers": {
+          "len": 0,
+          "sample_type": "empty"
+        },
+        "market_status": "active",
+        "data_source": "Binance Live API",
+        "timestamp": "2026-08-15T00:38:35.013063+00:00"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/market/sectors",
+      "method": "GET",
+      "status": 500,
+      "elapsed_ms": 697,
+      "content_type": "text/plain",
+      "bytes": 21,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "Internal Server Error",
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/arbitrage/opportunities",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 199,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "keys": [
+            "current_tier",
+            "error",
+            "feature",
+            "message",
+            "upgrade_url"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/arbitrage/scan",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Method Not Allowed"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/simulate/history",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 202,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "keys": [
+            "current_tier",
+            "error",
+            "feature",
+            "message",
+            "upgrade_url"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/journal",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 47,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Login required for Trading Journal"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/reports/weekly",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 202,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "keys": [
+            "current_tier",
+            "error",
+            "feature",
+            "message",
+            "upgrade_url"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/reports/daily",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 202,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "keys": [
+            "current_tier",
+            "error",
+            "feature",
+            "message",
+            "upgrade_url"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/research/lab",
+      "method": "GET",
+      "status": 403,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 202,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "keys": [
+            "current_tier",
+            "error",
+            "feature",
+            "message",
+            "upgrade_url"
+          ]
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/chat",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Method Not Allowed"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/whale/scan",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Method Not Allowed"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/voice/command",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Method Not Allowed"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/mev/sandwich-report",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/intent/router",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/acceptance/60s",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/discipline-mirror",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/graphql",
+      "method": "GET",
+      "status": 422,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 93,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "len": 1,
+          "sample_type": "dict"
+        }
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/openapi.json",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 132,
+      "content_type": "application/json",
+      "bytes": 12000,
+      "location": null,
+      "set_cookie": false,
+      "body_snippet": "{\"openapi\":\"3.1.0\",\"info\":{\"title\":\"BLACKDARK\",\"version\":\"1.0.0\"},\"paths\":{\"/api/platform/keys/status\":{\"get\":{\"tags\":[\"platform\"],\"summary\":\"Platform Keys Stat",
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/promo/redeem",
+      "method": "GET",
+      "status": 405,
+      "elapsed_ms": 117,
+      "content_type": "application/json",
+      "bytes": 31,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Method Not Allowed"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/create-checkout-session",
+      "method": "GET",
+      "status": 503,
+      "elapsed_ms": 119,
+      "content_type": "application/json",
+      "bytes": 35,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Billing not configured"
+      },
+      "bucket": "extra_feature"
+    },
+    {
+      "path": "/api/alerts/telegram/test",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 155,
+      "content_type": "application/json",
+      "bytes": 96,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "configured",
+        "message",
+        "success"
+      ],
+      "safe_json": {
+        "success": false,
+        "configured": false,
+        "message": "Failed \u2014 check TELEGRAM_BOT_TOKEN and chat_id"
+      },
+      "bucket": "ops_fail_closed"
+    },
+    {
+      "path": "/api/auth/oauth/google/start",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      },
+      "bucket": "ops_fail_closed"
+    },
+    {
+      "path": "/create-checkout-session",
+      "method": "POST",
+      "status": 503,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 35,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Billing not configured"
+      },
+      "bucket": "ops_fail_closed"
+    },
+    {
+      "path": "/api/billing/checkout",
+      "method": "POST",
+      "status": 503,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 35,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Billing not configured"
+      },
+      "bucket": "ops_fail_closed"
+    },
+    {
+      "path": "/api/execution/order",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 123,
+      "content_type": "application/json",
+      "bytes": 36,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Authentication required"
+      },
+      "bucket": "ops_fail_closed"
+    },
+    {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 121,
+      "content_type": "application/json",
+      "bytes": 16,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "success"
+      ],
+      "safe_json": {
+        "success": true
+      },
+      "bucket": "ops_fail_closed"
+    }
+  ],
+  "auth_journey": {
+    "email_hash": "29f7a8d7f0f539e6",
+    "register": {
+      "path": "/api/auth/register",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 341,
+      "content_type": "application/json",
+      "bytes": 291,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "expires_at",
+        "token",
+        "trial",
+        "user"
+      ],
+      "safe_json": {
+        "token": {
+          "set": true,
+          "len": 64,
+          "prefix": "H2ma"
+        },
+        "expires_at": "2026-09-14T00:38:38.972566+00:00",
+        "trial": {
+          "keys": [
+            "active",
+            "days",
+            "ends_at"
+          ]
+        },
+        "user": {
+          "keys": [
+            "email",
+            "id",
+            "name",
+            "tier"
+          ]
+        }
+      }
+    },
+    "login": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 110,
+      "content_type": "application/json",
+      "bytes": 38,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Invalid email or password"
+      }
+    },
+    "me_after_login": {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 103,
+      "content_type": "application/json",
+      "bytes": 278,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "authenticated",
+        "tier"
+      ],
+      "safe_json": {
+        "authenticated": false,
+        "tier": {
+          "keys": [
+            "features",
+            "label",
+            "tier"
+          ]
+        }
+      }
+    },
+    "dashboard_after_login": {
+      "status": 200,
+      "html_title": "BLACKDARK \u2014 Intelligence Dashboard"
+    },
+    "inbox_after_login": {
+      "path": "/api/alerts/inbox",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 111,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      }
+    },
+    "logout": {
+      "path": "/api/auth/logout",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 104,
+      "content_type": "application/json",
+      "bytes": 16,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "success"
+      ],
+      "safe_json": {
+        "success": true
+      }
+    },
+    "me_after_logout": {
+      "path": "/api/auth/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 101,
+      "content_type": "application/json",
+      "bytes": 278,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "authenticated",
+        "tier"
+      ],
+      "safe_json": {
+        "authenticated": false,
+        "tier": {
+          "keys": [
+            "features",
+            "label",
+            "tier"
+          ]
+        }
+      }
+    },
+    "cookie_names": [],
+    "bad_login": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 401,
+      "elapsed_ms": 129,
+      "content_type": "application/json",
+      "bytes": 38,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Invalid email or password"
+      }
+    },
+    "empty_login": {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 422,
+      "elapsed_ms": 122,
+      "content_type": "application/json",
+      "bytes": 167,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": {
+          "len": 2,
+          "sample_type": "dict"
+        }
+      }
+    },
+    "password_printed": false
+  },
+  "ws": {
+    "http_upgrade_probe": {
+      "path": "/ws/b2b/feed",
+      "method": "GET",
+      "status": 404,
+      "elapsed_ms": 120,
+      "content_type": "application/json",
+      "bytes": 22,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "detail"
+      ],
+      "safe_json": {
+        "detail": "Not Found"
+      }
+    },
+    "info": {
+      "path": "/api/b2b/ws/info",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 118,
+      "content_type": "application/json",
+      "bytes": 333,
+      "location": null,
+      "set_cookie": false,
+      "json_type": "dict",
+      "json_keys": [
+        "auth",
+        "connected_clients",
+        "demo_clients",
+        "enabled",
+        "endpoint",
+        "event_cooldown_sec",
+        "events",
+        "feed_version",
+        "heartbeat_sec",
+        "latency_target_ms",
+        "running"
+      ],
+      "safe_json": {
+        "endpoint": "/ws/b2b/feed",
+        "auth": {
+          "keys": [
+            "demo_key",
+            "query"
+          ]
+        },
+        "feed_version": "1.0.0",
+        "enabled": true,
+        "running": true,
+        "connected_clients": 0,
+        "demo_clients": 0,
+        "heartbeat_sec": 15,
+        "event_cooldown_sec": 3.0,
+        "latency_target_ms": 500,
+        "events": {
+          "len": 5,
+          "sample_type": "str"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "opened": true,
+  "messages": [
+    {
+      "type": "connected",
+      "keys": [
+        "channel",
+        "demo_mode",
+        "feed_version",
+        "latency_target_ms",
+        "timestamp",
+        "type"
+      ]
+    },
+    {
+      "type": "snapshot",
+      "keys": [
+        "feed_version",
+        "record_count",
+        "records",
+        "signature",
+        "timestamp",
+        "type"
+      ],
+      "record_count": 0,
+      "records_len": 0,
+      "signature_set": true
+    },
+    {
+      "type": "pong",
+      "keys": [
+        "timestamp",
+        "type"
+      ]
+    },
+    {
+      "type": "heartbeat",
+      "keys": [
+        "clients",
+        "feed_version",
+        "status",
+        "timestamp",
+        "type"
+      ],
+      "status": "live",
+      "clients": 1
+    },
+    {
+      "type": "pong",
+      "keys": [
+        "timestamp",
+        "type"
+      ]
+    },
+    {
+      "type": "pong",
+      "keys": [
+        "timestamp",
+        "type"
+      ]
+    }
+  ],
+  "live_arb_or_oracle": false,
+  "error": null,
+  "generated_at": "2026-08-15T00:41:09.824899+00:00"
+}
