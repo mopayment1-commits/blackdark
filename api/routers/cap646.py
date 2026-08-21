@@ -100,6 +100,35 @@ async def cap646_hub_context() -> dict[str, Any]:
     return hub_context()
 
 
+@router.get("/closure/978")
+async def cap978_closure() -> dict[str, Any]:
+    from cap978.closure import institutional_closure_978
+
+    return await institutional_closure_978()
+
+
+@router.get("/978/{capability_id}")
+async def cap978_execute(
+    capability_id: int,
+    symbol: str = Query("BTC"),
+    user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
+) -> dict[str, Any]:
+    if capability_id < 647 or capability_id > 978:
+        raise HTTPException(status_code=404, detail="capability_id_out_of_978_extension_range")
+    from cap978.verify import execute_extension
+
+    return await execute_extension(capability_id, user=user, params={"symbol": symbol, "tier": (user or {}).get("tier") or "pro"})
+
+
+@router.get("/978/catalog")
+async def cap978_catalog(limit: int = Query(978, ge=1, le=978)) -> dict[str, Any]:
+    from cap978.catalog import load_catalog
+
+    rows = load_catalog()[:limit]
+    return {"count": len(rows), "items": rows}
+
+
+
 @router.get("/closure/status")
 async def cap646_closure_status(sample: bool = Query(True)) -> dict[str, Any]:
     if sample:

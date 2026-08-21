@@ -78,6 +78,9 @@ async def _call_entrypoint(fn: Any, *, params: dict[str, Any], binding: BackendB
         )
     if style == "limit":
         return await fn(limit=int(params.get("limit") or 20))
+    if style == "coin_id":
+        coin = str(params.get("coin_id") or "bitcoin")
+        return fn(coin) if not inspect.iscoroutinefunction(fn) else await fn(coin)
     if style == "message":
         text = str(params.get("message") or params.get("text") or "status")
         return await fn(text)

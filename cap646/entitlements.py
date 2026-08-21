@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from cap646.catalog import catalog_by_id, is_external
+from cap646.catalog import catalog_by_id as catalog646_by_id, is_external as is_external646
 
 # capability_id -> minimum consumer tier
 _TIER_REQUIREMENTS: dict[int, str] = {
@@ -48,14 +48,33 @@ class EntitlementEngine:
         user: dict[str, Any] | None = None,
         org_id: str | None = None,
     ) -> dict[str, Any]:
-        if is_external(capability_id):
+        if is_external646(capability_id):
             return {
                 "allowed": False,
                 "reason": "external_blocked",
                 "capability_id": capability_id,
             }
+        if capability_id >= 647:
+            try:
+                from cap978.catalog import is_external as is_external978
 
-        row = catalog_by_id().get(capability_id, {})
+                if is_external978(capability_id):
+                    return {
+                        "allowed": False,
+                        "reason": "external_blocked",
+                        "capability_id": capability_id,
+                    }
+            except Exception:
+                pass
+
+        row = catalog646_by_id().get(capability_id) or {}
+        if capability_id >= 647 and not row:
+            try:
+                from cap978.catalog import catalog_by_id as catalog978_by_id
+
+                row = catalog978_by_id().get(capability_id, {})
+            except Exception:
+                row = {}
         min_tier = _TIER_REQUIREMENTS.get(capability_id, "free")
         tier = _user_tier(user)
 
