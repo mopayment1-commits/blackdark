@@ -19,9 +19,21 @@
 ```bash
 PYTHONPATH=/workspace pytest tests/cap646/ -q
 PYTHONPATH=/workspace python3 scripts/run_institutional_evidence_room.py
+PYTHONPATH=/workspace python3 scripts/verify_institutional_closure.py --ci
+PYTHONPATH=/workspace python3 scripts/verify_institutional_closure.py --full
 curl /api/cap646/closure/978
 curl /api/cap646/evidence-room
+curl /api/cap646/institutional-gate
+curl /api/cap646/commercial-launch
 ```
+
+## Institutional gate
+
+- Baseline tag: `cap978-closure-v1`
+- Gate module: `cap978/institutional_gate.py`
+- CI sample gate: `scripts/verify_institutional_closure.py --ci`
+- Full baseline lock: `scripts/verify_institutional_closure.py --full`
+- Commercial checklist: `docs/cap978/COMMERCIAL_LAUNCH_CHECKLIST.json`
 
 ## EXTERNAL only (human/vendor — not internal code closure)
 

@@ -117,6 +117,20 @@ async def cap978_closure() -> dict[str, Any]:
     return await institutional_closure_978()
 
 
+@router.get("/institutional-gate")
+async def cap978_institutional_gate(sample: bool = Query(False)) -> dict[str, Any]:
+    from cap978.institutional_gate import run_institutional_gate
+
+    return await run_institutional_gate(sample=sample, check_artifacts=True, include_commercial=True)
+
+
+@router.get("/commercial-launch")
+async def cap978_commercial_launch() -> dict[str, Any]:
+    from cap978.institutional_gate import commercial_launch_checklist
+
+    return commercial_launch_checklist()
+
+
 @router.get("/evidence-room")
 async def cap978_evidence_room(full: bool = Query(False)) -> dict[str, Any]:
     from cap978.evidence_room import build_evidence_room_snapshot

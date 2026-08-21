@@ -106,6 +106,14 @@ jobs:
         # (fresh CI runners have no seeded SQLite tables / uptime history).
         run: python scripts/technical_due_diligence_report.py --no-probe --smoke
 
+      - name: CAP978 institutional gate (sample)
+        env:
+          SERVICE_BUS_LOCAL: "true"
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          python scripts/verify_institutional_closure.py --ci
+          python -m pytest tests/cap646/test_institutional_gate.py -q --tb=short -k "not test_institutional_gate_full"
+
       - name: Docker build smoke
         run: docker build -t blackdark-ci:test .
 
