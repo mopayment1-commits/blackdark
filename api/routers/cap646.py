@@ -117,6 +117,13 @@ async def cap978_closure() -> dict[str, Any]:
     return await institutional_closure_978()
 
 
+@router.get("/soft-launch/closure")
+async def cap978_soft_launch_closure(e2e: bool = Query(False)) -> dict[str, Any]:
+    from cap978.soft_launch_closure import run_soft_launch_closure
+
+    return await run_soft_launch_closure(include_platform_e2e=e2e)
+
+
 @router.get("/institutional-gate")
 async def cap978_institutional_gate(sample: bool = Query(False)) -> dict[str, Any]:
     from cap978.institutional_gate import run_institutional_gate

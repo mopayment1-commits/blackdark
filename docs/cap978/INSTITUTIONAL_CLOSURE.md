@@ -34,6 +34,7 @@ curl /api/cap646/commercial-launch
 - CI sample gate: `scripts/verify_institutional_closure.py --ci`
 - Full baseline lock: `scripts/verify_institutional_closure.py --full`
 - Commercial checklist: `docs/cap978/COMMERCIAL_LAUNCH_CHECKLIST.json`
+- Soft launch closure: `docs/cap978/SOFT_LAUNCH_CLOSURE.md` + `scripts/run_soft_launch_closure.py`
 
 ## EXTERNAL only (human/vendor — not internal code closure)
 

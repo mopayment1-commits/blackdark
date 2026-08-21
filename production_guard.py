@@ -144,6 +144,12 @@ def _redis_configured() -> bool:
     return bool((getattr(config, "REDIS_URL", "") or "").strip()) or env_configured("REDIS_URL")
 
 
+def _telegram_active() -> bool:
+    if _env_truthy("LAUNCH_SKIP_TELEGRAM"):
+        return False
+    return env_configured("TELEGRAM_BOT_TOKEN")
+
+
 def _collect_guard_context() -> dict[str, Any]:
     from billing_service import billing_configured
     from postgres_backend import use_postgres
@@ -173,7 +179,7 @@ def _collect_guard_context() -> dict[str, Any]:
         "uptime_probe": _env_truthy("UPTIME_SELF_PROBE_ENABLED", "true"),
         "lemon": lemon,
         "stripe": stripe,
-        "telegram": env_configured("TELEGRAM_BOT_TOKEN"),
+        "telegram": _telegram_active(),
         "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
         "whale_checkout_ok": lemon_whale or stripe_price_whale or (stripe and not lemon),
         "secrets_ok": secrets_ok,
@@ -350,7 +356,7 @@ def _production_guard_state() -> dict[str, Any]:
         "stripe": stripe,
         "lemon_whale": env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE"),
         "stripe_price_whale": env_configured("STRIPE_PRICE_WHALE"),
-        "telegram": env_configured("TELEGRAM_BOT_TOKEN"),
+        "telegram": _telegram_active(),
         "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
         "lemon_webhook": lemon_webhook,
         "stripe_webhook": stripe_webhook,

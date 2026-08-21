@@ -111,8 +111,10 @@ jobs:
           SERVICE_BUS_LOCAL: "true"
           PYTHONPATH: ${{ github.workspace }}
         run: |
+          python scripts/bootstrap_free_human_ops.py --admin-email ci@blackdark.local
           python scripts/verify_institutional_closure.py --ci
-          python -m pytest tests/cap646/test_institutional_gate.py -q --tb=short -k "not test_institutional_gate_full"
+          python scripts/run_soft_launch_closure.py
+          python -m pytest tests/cap646/test_institutional_gate.py tests/cap646/test_soft_launch_closure.py -q --tb=short -k "not test_institutional_gate_full"
 
       - name: Docker build smoke
         run: docker build -t blackdark-ci:test .
