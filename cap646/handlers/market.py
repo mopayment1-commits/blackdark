@@ -34,9 +34,10 @@ async def handle_market_capability(
         return ai_compliance_footer(payload)
 
     if capability_id in {267, 483, 508, 509, 510, 537, 538}:
-        from live_book_hub import get_top_of_book, hub_stats
+        from cap646.fallbacks import resolve_order_book
+        from live_book_hub import hub_stats
 
-        book = get_top_of_book(f"{symbol}USDT")
+        book = await resolve_order_book(symbol)
         depth_level = {508: "L1", 509: "L2", 510: "L3"}.get(capability_id, "standard")
         payload = attach_oracle_freshness(
             {
@@ -70,22 +71,36 @@ async def handle_market_capability(
         )
 
     if capability_id == 356:
-        from bd_platform.free_market_data import binance_futures_snapshot
-        from perp_dex_fetcher import fetch_perp_dex_market
+        from cap646.fallbacks import resolve_dex_volume_snapshot
 
-        cex = await binance_futures_snapshot(symbol)
-        dex = await fetch_perp_dex_market(symbol)
+        snap = await resolve_dex_volume_snapshot(symbol)
         return ai_compliance_footer(
-            {"capability_id": 356, "surface": "dex_volume", "cex": cex, "dex": dex, "success": bool(cex or dex)}
+            {
+                "capability_id": 356,
+                "surface": "dex_volume",
+                "cex": snap["cex"],
+                "dex": snap["dex"],
+                "dex_quotes": snap["dex_quotes"],
+                "success": snap["success"],
+            }
         )
 
     if capability_id == 507:
-        from market_context import fetch_binance_klines
+        from cap646.fallbacks import resolve_ohlcv_closes
 
-        closes = await fetch_binance_klines(f"{symbol}USDT", interval=str(params.get("interval") or "1h"), limit=100)
+        interval = str(params.get("interval") or "1h")
+        closes, source = await resolve_ohlcv_closes(symbol, interval=interval, limit=100)
         ohlcv = [{"close": c} for c in closes] if closes else []
         return ai_compliance_footer(
-            {"capability_id": 507, "surface": "ohlcv", "symbol": symbol, "bars": len(ohlcv), "ohlcv": ohlcv[-10:], "success": bool(ohlcv)}
+            {
+                "capability_id": 507,
+                "surface": "ohlcv",
+                "symbol": symbol,
+                "bars": len(ohlcv),
+                "ohlcv": ohlcv[-10:],
+                "source": source,
+                "success": bool(ohlcv),
+            }
         )
 
     if capability_id in {630, 500}:

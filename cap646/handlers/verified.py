@@ -25,9 +25,10 @@ async def handle_verified_capability(
         )
 
     if capability_id == 50:
-        from live_book_hub import get_top_of_book, hub_stats
+        from cap646.fallbacks import resolve_order_book
+        from live_book_hub import hub_stats
 
-        book = get_top_of_book(f"{symbol}USDT")
+        book = await resolve_order_book(symbol)
         return ai_compliance_footer(
             {"capability_id": 50, "surface": "order_book_intelligence", "book": book, "hub_stats": hub_stats(), "success": bool(book)}
         )
@@ -63,7 +64,7 @@ async def handle_verified_capability(
     if capability_id == 638:
         from oracle_track_record import public_track_record
 
-        record = public_track_record(limit=5)
+        record = public_track_record()
         return ai_compliance_footer({"capability_id": 638, "surface": "claims_prediction_verification", "ledger": record, "success": True})
 
     if capability_id == 639:
@@ -83,7 +84,7 @@ async def handle_verified_capability(
     if capability_id == 640:
         from oracle_track_record import public_track_record
 
-        ledger = public_track_record(limit=20)
+        ledger = public_track_record()
         return ai_compliance_footer({"capability_id": 640, "surface": "public_accuracy_ledger", "ledger": ledger, "success": True})
 
     if capability_id == 641:

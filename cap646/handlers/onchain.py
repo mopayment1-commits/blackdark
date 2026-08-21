@@ -29,10 +29,18 @@ async def handle_onchain_capability(capability_id: int, *, params: dict[str, Any
         return ai_compliance_footer({"capability_id": 354, "surface": "tvl_intelligence", "data": data, "success": bool(data)})
 
     if capability_id == 615:
-        from gas_oracle import get_swap_gas_usd
+        from cap646.fallbacks import resolve_gas_usd
 
-        gas = await get_swap_gas_usd("ethereum")
-        return ai_compliance_footer({"capability_id": 615, "surface": "gas_cost_predictor", "gas_usd": gas, "success": gas is not None})
+        gas_row = await resolve_gas_usd(str(params.get("chain") or "ethereum"))
+        return ai_compliance_footer(
+            {
+                "capability_id": 615,
+                "surface": "gas_cost_predictor",
+                "gas_usd": gas_row.get("gas_usd"),
+                "gas_source": gas_row.get("source"),
+                "success": bool(gas_row.get("success")),
+            }
+        )
 
     if capability_id == 581:
         from bd_platform.onchain_hub import debank_wallet
