@@ -10,8 +10,10 @@ from pydantic import BaseModel, Field
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from cap646.catalog import catalog_by_id, matrix_by_id
 from cap646.closure import final_institutional_verification, get_closure_status, verify_capability
+from cap646.dod import verify_dod, verify_wave
 from cap646.institutional_gateway import gateway_audit_log, gateway_execute
 from cap646.runtime import execute_capability
+from cap646.waves import WAVE_A, WAVE_B, WAVE_C, WAVE_D
 from security_auth import optional_user_from_request
 
 router = APIRouter(prefix="/api/cap646", tags=["cap646"], responses=COMMON_ERROR_RESPONSES)
@@ -20,6 +22,24 @@ router = APIRouter(prefix="/api/cap646", tags=["cap646"], responses=COMMON_ERROR
 class ExecuteBody(BaseModel):
     params: dict[str, Any] = Field(default_factory=dict)
     org_id: str | None = None
+
+
+@router.get("/wave/{wave_id}/ids")
+async def cap646_wave_ids(wave_id: str) -> dict[str, Any]:
+    mapping = {"A": WAVE_A, "B": WAVE_B, "C": WAVE_C, "D": WAVE_D}
+    ids = mapping.get(wave_id.upper())
+    if not ids:
+        raise HTTPException(status_code=404, detail="unknown_wave")
+    return {"wave": wave_id.upper(), "ids": list(ids)}
+
+
+@router.get("/wave/{wave_id}/dod")
+async def cap646_wave_dod(wave_id: str) -> dict[str, Any]:
+    mapping = {"A": WAVE_A, "B": WAVE_B, "C": WAVE_C, "D": WAVE_D}
+    ids = mapping.get(wave_id.upper())
+    if not ids:
+        raise HTTPException(status_code=404, detail="unknown_wave")
+    return await verify_wave(ids)
 
 
 @router.get("/catalog")
@@ -57,11 +77,12 @@ async def cap646_matrix_row(capability_id: int) -> dict[str, Any]:
 @router.get("/{capability_id}")
 async def cap646_get(
     capability_id: int,
+    symbol: str = Query("BTC"),
     user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
 ) -> dict[str, Any]:
     if capability_id < 1 or capability_id > 646:
         raise HTTPException(status_code=404, detail="capability_id_out_of_range")
-    return await execute_capability(capability_id, user=user, params={"symbol": "BTC"})
+    return await execute_capability(capability_id, user=user, params={"symbol": symbol, "tier": (user or {}).get("tier") or "pro"})
 
 
 @router.post("/{capability_id}/execute")

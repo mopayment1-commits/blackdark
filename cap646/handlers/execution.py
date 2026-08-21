@@ -34,7 +34,7 @@ async def handle_execution_capability(capability_id: int, *, params: dict[str, A
     if capability_id in {610, 612}:
         from arbitrage_service import scan_arbitrage_opportunities
 
-        scan = await scan_arbitrage_opportunities(asset=symbol, limit=5)
+        scan = await scan_arbitrage_opportunities(quote_amount=1000.0, profitable_only=False)
         return ai_compliance_footer(
             {
                 "capability_id": capability_id,

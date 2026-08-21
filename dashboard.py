@@ -1628,6 +1628,11 @@ async def institutional_hub_page(request: Request):
     return templates.TemplateResponse(request, "institutional.html", _footer_ctx())
 
 
+@app.get("/cap646", response_class=HTMLResponse)
+async def cap646_hub_page(request: Request):
+    return templates.TemplateResponse(request, "cap646_hub.html", _footer_ctx())
+
+
 @app.get("/model-card", response_class=HTMLResponse)
 async def model_card_page(request: Request):
     return templates.TemplateResponse(request, "model_card.html", _footer_ctx())

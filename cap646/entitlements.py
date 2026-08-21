@@ -17,7 +17,6 @@ _TIER_REQUIREMENTS: dict[int, str] = {
     161: "whale",
     47: "pro",
     48: "pro",
-    103: "pro",
 }
 
 # capability_id -> org permission key
@@ -90,14 +89,12 @@ class EntitlementEngine:
             from auth_service import feature_allowed
 
             feature_key = _capability_feature_key(capability_id)
-            if feature_key and user:
-                email = str(user.get("email") or "")
-                if email and not feature_allowed(email, feature_key):
-                    return {
-                        "allowed": False,
-                        "reason": "feature_not_allowed",
-                        "feature": feature_key,
-                    }
+            if feature_key and user and not feature_allowed(user, feature_key):
+                return {
+                    "allowed": False,
+                    "reason": "feature_not_allowed",
+                    "feature": feature_key,
+                }
         except Exception:
             pass
 

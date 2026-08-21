@@ -72,7 +72,14 @@ async def handle_institutional_capability(
         from scale_readiness import scale_readiness_report
 
         report = scale_readiness_report()
-        return ai_compliance_footer({"capability_id": 644, "surface": "capacity_load_evidence", "report": report, "success": True})
+        return ai_compliance_footer(
+            {
+                "capability_id": 644,
+                "surface": "capacity_load_evidence",
+                "report": report,
+                "success": True,
+            }
+        )
 
     if capability_id == 645:
         from security_posture import security_posture_report

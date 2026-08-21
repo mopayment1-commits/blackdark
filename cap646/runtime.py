@@ -17,9 +17,12 @@ from cap646.handlers.execution import handle_execution_capability
 from cap646.handlers.institutional import handle_institutional_capability
 from cap646.handlers.market import handle_market_capability
 from cap646.handlers.onchain import handle_onchain_capability
+from cap646.handlers.platform import handle_platform_capability
 from cap646.handlers.verified import handle_verified_capability
+from cap646.waves import WAVE_D
 
 VERIFIED_IDS = frozenset({49, 50, 62, 63, 632, 638, 639, 640, 641})
+WAVE_D_SET = set(WAVE_D)
 
 
 def _route_handler(track: str, name: str, capability_id: int):
@@ -50,7 +53,9 @@ def _route_handler(track: str, name: str, capability_id: int):
         return handle_alerts_capability
     if track == "T17" and capability_id in {638, 639, 640, 641, 642}:
         return handle_ai_capability
-    return handle_institutional_capability
+    if capability_id in WAVE_D_SET:
+        return handle_platform_capability
+    return handle_platform_capability
 
 
 async def execute_capability(
