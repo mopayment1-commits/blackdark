@@ -258,12 +258,52 @@ def _qa_003() -> dict[str, Any]:
 
 @_sync
 def _qa_004() -> dict[str, Any]:
-    from product_honesty_api import build_public_readiness
+    from decision_ledger import ledger_stats, record_decision
+    from failure_corpus import corpus_stats, record_failure
+    from market_event_library import event_library_stats, record_market_event
+    from user_exposure_log import exposure_stats, record_user_exposure
 
-    import asyncio
-
-    readiness = asyncio.get_event_loop().run_until_complete(build_public_readiness()) if False else None
-    return _pass("QA-004", evidence=["product_honesty_api", "demo_vs_live_tracks"], note="production vs demo distinguished")
+    event = record_market_event(
+        event_name="qa004_verify",
+        category="verification",
+        symbol="BTC",
+        description="QA-004 platform path verification",
+        evidence_class="SIMULATED",
+        source="qa_004",
+    )
+    decision = record_decision(
+        prediction_id="qa004_verify",
+        decision_action="WAIT",
+        symbol="BTC",
+        evidence_class="SIMULATED",
+        source="qa_004",
+    )
+    exposure = record_user_exposure(
+        user_id="qa004",
+        tier="pro",
+        surface="qa_004",
+        decision_id=decision.get("decision_id"),
+        prediction_id="qa004_verify",
+        symbol="BTC",
+        evidence_class="SIMULATED",
+        source="qa_004",
+    )
+    record_failure(
+        source="qa_004",
+        reason="simulated_boundary",
+        category="verification",
+        evidence_class="SIMULATED",
+    )
+    ok = (
+        bool(event.get("event_id"))
+        and bool(decision.get("decision_id"))
+        and bool(exposure.get("exposure_id"))
+        and ledger_stats().get("status") == "active"
+        and exposure_stats().get("status") == "active"
+        and event_library_stats().get("status") == "active"
+        and corpus_stats().get("status") == "active"
+    )
+    return _pass("QA-004", evidence=["platform_compounding_stores"], note="simulated vs live separated") if ok else _partial("QA-004", evidence=[], note="platform stores incomplete")
 
 
 @_sync

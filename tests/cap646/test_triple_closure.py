@@ -71,6 +71,46 @@ async def test_triple_closure_sample(tmp_path, monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_platform_compounding_e2e(tmp_path, monkeypatch):
+    import config
+    import database
+
+    monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "cap646.db"))
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+    await database.init_db()
+
+    from platform_chain_e2e import run_platform_compounding_e2e
+
+    e2e = await run_platform_compounding_e2e(symbol="BTC")
+    assert e2e["verdict"] == "VERIFIED_COMPLETE"
+    assert e2e["internal_closure"] is True
+    evidence = e2e["acceptance_evidence"]
+    assert evidence.get("prediction_id")
+    assert evidence.get("decision_id")
+    assert evidence.get("exposure_id")
+    assert evidence.get("certificate_hash")
+
+
+@pytest.mark.asyncio
+async def test_platform_stores(tmp_path, monkeypatch):
+    import config
+
+    monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "stores.db"))
+
+    from decision_ledger import ledger_stats, record_decision
+    from market_event_library import event_library_stats, record_market_event
+    from user_exposure_log import exposure_stats, record_user_exposure
+
+    event = record_market_event(event_name="test", category="test", symbol="BTC", description="t")
+    decision = record_decision(prediction_id="p1", decision_action="WAIT", symbol="BTC", evidence_class="SIMULATED")
+    exposure = record_user_exposure(user_id="u1", tier="pro", surface="test", decision_id=decision["decision_id"], prediction_id="p1")
+    assert event["event_id"] and decision["decision_id"] and exposure["exposure_id"]
+    assert ledger_stats()["status"] == "active"
+    assert exposure_stats()["status"] == "active"
+    assert event_library_stats()["status"] == "active"
+
+
+@pytest.mark.asyncio
 async def test_user_surface_routes():
     from cap646.ui_pages import user_surface_for
 

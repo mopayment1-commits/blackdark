@@ -73,6 +73,13 @@ async def cap646_platform_chain(symbol: str = Query("BTC")) -> dict[str, Any]:
     return await verify_data_platform_chain(symbol=symbol)
 
 
+@router.get("/platform-chain/e2e")
+async def cap646_platform_chain_e2e(symbol: str = Query("BTC")) -> dict[str, Any]:
+    from platform_chain_e2e import run_platform_compounding_e2e
+
+    return await run_platform_compounding_e2e(symbol=symbol)
+
+
 @router.get("/functional/{capability_id}")
 async def cap646_functional(capability_id: int) -> dict[str, Any]:
     if capability_id < 1 or capability_id > 646:

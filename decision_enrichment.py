@@ -243,12 +243,75 @@ def _constitution_block() -> dict[str, Any]:
     }
 
 
+def _record_platform_compounding(
+    out: dict[str, Any],
+    asset: str,
+    verdict: str,
+    *,
+    user_id: str | None = None,
+    tier: str | None = None,
+    surface: str = "oracle",
+) -> None:
+    try:
+        from cap646.evidence_class import infer_evidence_class
+        from decision_certificate import build_decision_certificate
+        from decision_ledger import link_exposure, record_decision
+        from user_exposure_log import record_user_exposure
+
+        prediction_id = str(
+            out.get("prediction_id")
+            or (out.get("signal_registry") or {}).get("signal_id")
+            or f"oracle_{asset.lower()}"
+        )
+        evidence_class = infer_evidence_class(source=str(out.get("source") or "oracle"))
+        cert = build_decision_certificate(
+            {
+                **out,
+                "symbol": asset,
+                "prediction_id": prediction_id,
+                "decision_action": out.get("decision_action") or verdict,
+                "tier": tier or out.get("tier") or "pro",
+            }
+        )
+        decision = record_decision(
+            prediction_id=prediction_id,
+            decision_action=str(out.get("decision_action") or verdict),
+            symbol=asset,
+            certificate_hash=cert.get("certificate_hash"),
+            evidence_class=evidence_class,
+            source="oracle_enrichment",
+            meta={"surface": surface},
+        )
+        exposure = record_user_exposure(
+            user_id=user_id or "anonymous",
+            tier=str(tier or out.get("tier") or "free"),
+            surface=surface,
+            decision_id=decision.get("decision_id"),
+            prediction_id=prediction_id,
+            symbol=asset,
+            evidence_class=evidence_class,
+            source="oracle_enrichment",
+        )
+        if decision.get("decision_id") and exposure.get("exposure_id"):
+            link_exposure(str(decision["decision_id"]), str(exposure["exposure_id"]))
+        out["platform_compounding"] = {
+            "decision_id": decision.get("decision_id"),
+            "exposure_id": exposure.get("exposure_id"),
+            "certificate_hash": cert.get("certificate_hash"),
+        }
+    except Exception:
+        logger.debug("platform compounding record failed", exc_info=True)
+
+
 def enrich_oracle_decision(
     payload: dict[str, Any],
     *,
     ux_mode: str = "beginner",
     lang: str = "en",
     register_signal: bool = True,
+    user_id: str | None = None,
+    tier: str | None = None,
+    surface: str = "oracle",
 ) -> dict[str, Any]:
     """Mutate/return oracle payload with constitution differentiators."""
     out = dict(payload)
@@ -265,6 +328,8 @@ def enrich_oracle_decision(
 
     if register_signal:
         _register_signal(out, asset, verdict, net_profit)
+
+    _record_platform_compounding(out, asset, verdict, user_id=user_id, tier=tier, surface=surface)
 
     out = _apply_ux_mode(out, ux_mode, lang)
     out["constitution"] = _constitution_block()
