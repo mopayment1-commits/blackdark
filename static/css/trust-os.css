@@ -360,3 +360,30 @@ body.anti-hype-on .pricing-card.popular .badge {
 body.anti-hype-on {
   --bd-accent: #34d399;
 }
+
+/* ——— RTL locales (ar, he, ur, fa) ——— */
+html[dir="rtl"] body {
+  direction: rtl;
+  text-align: right;
+}
+html[dir="rtl"] .nav-inner,
+html[dir="rtl"] .nav-links,
+html[dir="rtl"] .bd-top-utility,
+html[dir="rtl"] .hero,
+html[dir="rtl"] .intent-grid,
+html[dir="rtl"] .pricing-grid,
+html[dir="rtl"] .footer-inner {
+  direction: rtl;
+}
+html[dir="rtl"] .nav-links a {
+  margin-left: 0;
+  margin-right: 0.85rem;
+}
+html[dir="rtl"] .bd-lang-wrap {
+  flex-direction: row-reverse;
+}
+html[dir="rtl"] .btn-upgrade,
+html[dir="rtl"] .tier {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}

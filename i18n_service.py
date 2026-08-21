@@ -1,14 +1,15 @@
 """
-BLACKDARK — Public UI i18n (15 locales).
+BLACKDARK — Public UI i18n (25 locales).
 
-English is the default and source of truth. Missing keys fall back to English.
-Arabic uses RTL (dir=rtl).
+English is the default and source of truth. Locale catalogs live in locales/*.json.
+RTL: Arabic, Hebrew, Urdu, Persian/Farsi.
 """
 
 from __future__ import annotations
 
 import json
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 # Sonar S1192: duplicated string literals
@@ -20,20 +21,30 @@ STR_TRY_ORACLE_FREE = 'Try Oracle Free'
 # code -> metadata
 LOCALES: dict[str, dict[str, str]] = {
     "en": {"code": "en", "name": "English", "native": "English", "dir": "ltr", "group": "core"},
-    "zh-CN": {"code": "zh-CN", "name": "Chinese (Simplified)", "native": "简体中文", "dir": "ltr", "group": "core"},
-    "hi": {"code": "hi", "name": "Hindi", "native": "हिन्दी", "dir": "ltr", "group": "core"},
-    "ja": {"code": "ja", "name": "Japanese", "native": "日本語", "dir": "ltr", "group": "core"},
-    "ko": {"code": "ko", "name": "Korean", "native": "한국어", "dir": "ltr", "group": "core"},
-    "ru": {"code": "ru", "name": "Russian", "native": "Русский", "dir": "ltr", "group": "core"},
-    "pt": {"code": "pt", "name": "Portuguese", "native": "Português", "dir": "ltr", "group": "core"},
     "es": {"code": "es", "name": "Spanish", "native": "Español", "dir": "ltr", "group": "core"},
+    "ar": {"code": "ar", "name": "Arabic", "native": "العربية", "dir": "rtl", "group": "core"},
+    "pt": {"code": "pt", "name": "Portuguese (Brazilian)", "native": "Português (Brasil)", "dir": "ltr", "group": "core"},
     "fr": {"code": "fr", "name": "French", "native": "Français", "dir": "ltr", "group": "core"},
     "de": {"code": "de", "name": "German", "native": "Deutsch", "dir": "ltr", "group": "core"},
-    "ar": {"code": "ar", "name": "Arabic", "native": "العربية", "dir": "rtl", "group": "edge"},
+    "zh-CN": {"code": "zh-CN", "name": "Chinese (Simplified)", "native": "简体中文", "dir": "ltr", "group": "core"},
+    "zh-TW": {"code": "zh-TW", "name": "Chinese (Traditional)", "native": "繁體中文", "dir": "ltr", "group": "core"},
+    "ja": {"code": "ja", "name": "Japanese", "native": "日本語", "dir": "ltr", "group": "core"},
+    "ko": {"code": "ko", "name": "Korean", "native": "한국어", "dir": "ltr", "group": "core"},
+    "hi": {"code": "hi", "name": "Hindi", "native": "हिन्दी", "dir": "ltr", "group": "core"},
     "tr": {"code": "tr", "name": "Turkish", "native": "Türkçe", "dir": "ltr", "group": "edge"},
-    "vi": {"code": "vi", "name": "Vietnamese", "native": "Tiếng Việt", "dir": "ltr", "group": "edge"},
+    "ru": {"code": "ru", "name": "Russian", "native": "Русский", "dir": "ltr", "group": "edge"},
     "id": {"code": "id", "name": "Indonesian", "native": "Bahasa Indonesia", "dir": "ltr", "group": "edge"},
+    "vi": {"code": "vi", "name": "Vietnamese", "native": "Tiếng Việt", "dir": "ltr", "group": "edge"},
     "th": {"code": "th", "name": "Thai", "native": "ไทย", "dir": "ltr", "group": "edge"},
+    "fil": {"code": "fil", "name": "Filipino", "native": "Filipino", "dir": "ltr", "group": "edge"},
+    "it": {"code": "it", "name": "Italian", "native": "Italiano", "dir": "ltr", "group": "edge"},
+    "bn": {"code": "bn", "name": "Bengali", "native": "বাংলা", "dir": "ltr", "group": "edge"},
+    "ur": {"code": "ur", "name": "Urdu", "native": "اردو", "dir": "rtl", "group": "edge"},
+    "fa": {"code": "fa", "name": "Persian / Farsi", "native": "فارسی", "dir": "rtl", "group": "edge"},
+    "ms": {"code": "ms", "name": "Malay", "native": "Bahasa Melayu", "dir": "ltr", "group": "edge"},
+    "pl": {"code": "pl", "name": "Polish", "native": "Polski", "dir": "ltr", "group": "edge"},
+    "nl": {"code": "nl", "name": "Dutch", "native": "Nederlands", "dir": "ltr", "group": "edge"},
+    "he": {"code": "he", "name": "Hebrew", "native": "עברית", "dir": "rtl", "group": "edge"},
 }
 
 DEFAULT_LANG = "en"
@@ -42,12 +53,29 @@ _ALIASES = {
     "zh-cn": "zh-CN",
     "zh_cn": "zh-CN",
     "zh-hans": "zh-CN",
+    "zh-tw": "zh-TW",
+    "zh_tw": "zh-TW",
+    "zh-hant": "zh-TW",
     "pt-br": "pt",
     "pt_br": "pt",
     "pt-pt": "pt",
     "en-us": "en",
     "en-gb": "en",
     "ara": "ar",
+    "heb": "he",
+    "iw": "he",
+    "fa-ir": "fa",
+    "pes": "fa",
+    "fil-ph": "fil",
+    "tl": "fil",
+    "tagalog": "fil",
+    "ms-my": "ms",
+    "ind": "id",
+    "urd": "ur",
+    "ben": "bn",
+    "ita": "it",
+    "nld": "nl",
+    "pol": "pl",
 }
 
 
@@ -321,6 +349,66 @@ EN: dict[str, str] = {
     "auth.or_email": "or email",
     "auth.create": "Create account",
     "auth.accept_terms": "I accept the Terms, Privacy, and Risk Disclaimer. Not financial advice.",
+    # Dashboard / landing runtime UI (client-side via BD_I18N)
+    "meta.title.dashboard_room": "BLACKDARK — Trust OS Decision Room",
+    "ui.score": "Score",
+    "ui.confidence": "Confidence",
+    "ui.mode": "Mode",
+    "ui.lang_label": "Lang",
+    "ui.analyzing": "Analyzing…",
+    "ui.could_not_analyze": "Could not analyze {symbol}",
+    "ui.scenarios": "Scenarios (sketch)",
+    "ui.why_top3": "Why (Top 3) — under five seconds",
+    "ui.veto": "Contradiction Veto",
+    "ui.do_not_touch": "WAIT / Do Not Touch",
+    "ui.abstain": "Abstain",
+    "ui.decision_certificate": "Decision Certificate",
+    "ui.switch_pro": "Switch to Pro",
+    "ui.proof": "Proof",
+    "ui.public_accuracy": "Public accuracy",
+    "ui.discipline_mirror": "Open private Discipline Mirror",
+    "ui.upgrade_pro": "Upgrade to Pro",
+    "ui.trust_pulse_live": "Trust Pulse · one live decision you can verify",
+    "ui.truth": "Truth",
+    "ui.half_life": "Half-Life",
+    "ui.regime": "Regime",
+    "ui.signal": "Signal",
+    "ui.evidence_drawer": "Evidence drawer · Certificate + scenarios",
+    "ui.copy": "Copy",
+    "ui.share_x": "Share X",
+    "ui.share_tg": "Share TG",
+    "ui.teaser": "Teaser",
+    "ui.unavailable": "Unavailable",
+    "ui.loading_daily": "Loading daily report…",
+    "ui.daily_unavailable": "Daily report unavailable",
+    "ui.loading_value": "Loading value…",
+    "ui.value_unavailable": "Value digest unavailable",
+    "ui.logout": "Logout",
+    "ui.upgrade": "Upgrade",
+    "ui.start_trial": "Start 7-Day Trial",
+    "ui.you": "You",
+    "ui.ai": "AI",
+    "ui.chat_unavailable": "Chat unavailable right now — try again or use Get Decision.",
+    "ui.no_reply": "No reply",
+    "ui.operate_required": "Operate+ required",
+    "ui.stale": "Stale — not live",
+    "ui.live": "Live",
+    "ui.freshness_unknown": "Freshness unknown",
+    "ui.reconnecting": "Reconnecting…",
+    "ui.live_stream": "Live stream on",
+    "ui.trust_pulse_unavailable": "Trust Pulse unavailable — use Get Decision below.",
+    "ui.one_clear_decision": "One clear decision — research only.",
+    "ui.why_under5": "Why (under 5 seconds)",
+    "ui.verified_ledger": "Verified on Ledger",
+    "ui.proof_copied": "Proof text copied",
+    "ui.no_factors": "No factor breakdown on this response",
+    "ui.oracle_unavailable": "Oracle unavailable — try BTC or ETH.",
+    "ui.discipline_saved": "Saved privately — only you can see your Discipline Mirror.",
+    "ui.discipline_fail": "Could not save answer.",
+    "ui.quota_exceeded": "Daily quota exceeded — upgrade",
+    "ui.asset": "Asset",
+    "ui.oi": "OI",
+    "ui.funding": "Funding",
 }
 
 
@@ -402,28 +490,44 @@ def _fill_from_map(mapping: dict[str, str]) -> dict[str, str]:
     return out
 
 
-def _build_all() -> dict[str, dict[str, str]]:
-    """Assemble all locale catalogs. Non-EN locales use curated overlays + EN fallback."""
-    # Import heavy overlays lazily from sibling module if present; else embed compact set.
+def _locales_dir() -> Path:
+    return Path(__file__).resolve().parent / "locales"
+
+
+def _load_json_catalog(code: str) -> dict[str, str] | None:
+    path = _locales_dir() / f"{code}.json"
+    if not path.is_file():
+        return None
     try:
-        from i18n_locales import LOCALE_OVERLAYS  # type: ignore
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            return {str(k): str(v) for k, v in data.items()}
     except Exception:
-        LOCALE_OVERLAYS = {}
+        return None
+    return None
+
+
+def _build_all() -> dict[str, dict[str, str]]:
+    """Assemble locale catalogs from locales/*.json with EN fallback for missing keys."""
     catalogs: dict[str, dict[str, str]] = {"en": dict(EN)}
-    # Seed zh-CN from inline
-    catalogs["zh-CN"] = _fill_from_map(_TRANSLATIONS["zh-CN"])
-    for code, overlay in LOCALE_OVERLAYS.items():
+    for code in LOCALES:
         if code == "en":
             continue
-        base = dict(catalogs.get(code, EN))
-        base.update(overlay)
-        # ensure all EN keys exist
-        for k, v in EN.items():
-            base.setdefault(k, v)
+        loaded = _load_json_catalog(code)
+        if loaded:
+            cat = dict(EN)
+            cat.update(loaded)
+            catalogs[code] = cat
+            continue
+        # Dev fallback before locale JSON is generated
+        try:
+            from i18n_locales import LOCALE_OVERLAYS  # type: ignore
+        except Exception:
+            LOCALE_OVERLAYS = {}
+        base = dict(EN)
+        base.update(_TRANSLATIONS.get(code, {}))
+        base.update(LOCALE_OVERLAYS.get(code, {}))
         catalogs[code] = base
-    # Ensure every supported locale exists (fallback EN)
-    for code in LOCALES:
-        catalogs.setdefault(code, dict(EN))
     return catalogs
 
 
@@ -523,5 +627,5 @@ def i18n_manifest() -> dict[str, Any]:
         "locales": list_locales(),
         "count": len(LOCALES),
         "rtl": [c for c, m in LOCALES.items() if m["dir"] == "rtl"],
-        "note": "English is source of truth; missing keys fall back to English.",
+        "note": "25 locales; catalogs in locales/*.json; RTL for ar, he, ur, fa.",
     }

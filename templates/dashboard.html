@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#22d3ee">
-    <title>BLACKDARK — Trust OS Decision Room</title>
+    <title>{{ t('meta.title.dashboard_room') }}</title>
     <link rel="stylesheet" href="/static/css/trust-os.css">
     <script defer src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js" integrity="sha384-OK7vELvjHdhUFi31JYioPIcRHTROLdcDa6ZsNWgvgLaKj+9JqhU0Ad8g4wz3CXjA" crossorigin="anonymous"></script>
     <style>
@@ -228,7 +228,7 @@
             <button class="btn" data-bd-call="askOracle" id="askBtn">Get Decision</button>
         </div>
         <div id="oracle" class="hide-in-room" style="height:0;overflow:hidden" aria-hidden="true"></div>
-        <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">Analyzing…</div></section>
+        <section class="oracle-box hide-in-room" id="oracleBox"><div id="oracleContent" class="loading">{{ t('oracle.analyzing') }}</div></section>
 
         <section id="since-you-left" class="hide-in-room" data-evidence>
             <h2>Since You Left — Top 3</h2>
@@ -402,6 +402,15 @@
                 .replaceAll("'", '&#39;');
         }
         function esc(s) { return escapeHtml(s); }
+
+        function currentLang() {
+            return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
+        }
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (i18n && typeof i18n.t === 'function') return i18n.t(key, vars || {});
+            return key;
+        }
 
         function openFullProof() {
             scrollToId('decide');
@@ -782,10 +791,13 @@
 
         function applyLang() {
             const root = document.getElementById('htmlRoot');
-            root.lang = 'en';
-            root.dir = 'ltr';
-            document.getElementById('heroSub').textContent = 'Trust Pulse · one live decision you can verify';
-            document.getElementById('askBtn').textContent = 'Get Decision';
+            const dir = document.documentElement.getAttribute('dir') || 'ltr';
+            root.lang = currentLang();
+            root.dir = dir;
+            const heroSub = document.getElementById('heroSub');
+            const askBtn = document.getElementById('askBtn');
+            if (heroSub) heroSub.textContent = i18nT('ui.trust_pulse_live');
+            if (askBtn) askBtn.textContent = i18nT('oracle.get_decision');
         }
 
 
@@ -901,10 +913,10 @@
                     <span class="${changeClass(d.change_24h)}">${changePrefix(d.change_24h)}${fmt(d.change_24h||0,2)}%</span></div>
                 <div class="narrative">${esc(sentence)}</div>
                 <div class="metrics">
-                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>Score</span></div>
-                    <div class="metric"><strong>${esc(conf)}</strong><span>Confidence</span></div>
-                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>Mode</span></div>
-                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>Lang</span></div>
+                    <div class="metric"><strong>${esc(d.opportunity_score)}</strong><span>${esc(i18nT('ui.score'))}</span></div>
+                    <div class="metric"><strong>${esc(conf)}</strong><span>${esc(i18nT('ui.confidence'))}</span></div>
+                    <div class="metric"><strong>${esc(d.ux_mode || mode)}</strong><span>${esc(i18nT('ui.mode'))}</span></div>
+                    <div class="metric"><strong>${esc(d.lang || lang)}</strong><span>${esc(i18nT('ui.lang_label'))}</span></div>
                 </div>
                 ${proBlock}
                 ${buildVetoBlock(mode, d.dimension_conflict || {})}
@@ -920,13 +932,13 @@
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
             const mode = document.getElementById('uxMode').value;
-            const lang = 'en';
+            const lang = currentLang();
             if (!sym) return;
             box.classList.add('show');
             box.classList.remove('proof-pulse');
             box.dataset.reflow = String(box.offsetWidth);
             box.classList.add('proof-pulse');
-            el.innerHTML = '<div class="loading">Analyzing…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
                 const res = await fetch(url, { headers: authHeaders() });
@@ -936,7 +948,7 @@
                 console.debug(error);
                 const empty = document.createElement('div');
                 empty.className = 'empty';
-                empty.textContent = 'Could not analyze ' + sym;
+                empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
                 el.replaceChildren(empty);
             }
         }
@@ -1399,7 +1411,7 @@
         async function analyzePortfolio() {
             const el = document.getElementById('portfolioResult');
             if (!portfolioAssets.length) { el.innerHTML = '<div class="empty">Add at least one holding</div>'; return; }
-            el.innerHTML = '<div class="loading">Analyzing…</div>';
+            el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
                 const res = await fetch('/portfolio/analyze', {
                     method: 'POST',

@@ -39,9 +39,9 @@ def normalize_ux_mode(value: str | None) -> UxMode:
 
 
 def normalize_lang(value: str | None) -> str:
-    """English-only public site — always normalize to en for UI payloads."""
-    _ = value
-    return "en"
+    from i18n_service import normalize_lang as _i18n_lang
+
+    return _i18n_lang(value)
 
 
 def _beginner_payload(out: dict[str, Any], persona: dict[str, Any], personas: dict[str, Any]) -> dict[str, Any]:

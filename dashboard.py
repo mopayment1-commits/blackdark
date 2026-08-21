@@ -1515,132 +1515,132 @@ async def dashboard_page(request: Request):
 @app.get("/discipline-mirror", response_class=HTMLResponse)
 async def discipline_mirror_page(request: Request):
     """Private Discipline Mirror UI — never public ledger."""
-    return templates.TemplateResponse(request, "discipline.html", _footer_ctx())
+    return render_page(request, "discipline.html", _footer_ctx())
 
 
 @app.get("/kill-rate", response_class=HTMLResponse)
 async def kill_rate_page(request: Request):
-    return templates.TemplateResponse(request, "kill_rate.html", _footer_ctx())
+    return render_page(request, "kill_rate.html", _footer_ctx())
 
 
 @app.get("/contradiction-replay", response_class=HTMLResponse)
 async def contradiction_replay_page(request: Request):
-    return templates.TemplateResponse(request, "contradiction_replay.html", _footer_ctx())
+    return render_page(request, "contradiction_replay.html", _footer_ctx())
 
 
 @app.get("/proof-arena", response_class=HTMLResponse)
 async def proof_arena_page(request: Request):
-    return templates.TemplateResponse(request, "proof_arena.html", _footer_ctx())
+    return render_page(request, "proof_arena.html", _footer_ctx())
 
 
 @app.get("/b2b/committee-one-pager", response_class=HTMLResponse)
 async def committee_one_pager_page(request: Request):
-    return templates.TemplateResponse(request, "committee_one_pager.html", _footer_ctx())
+    return render_page(request, "committee_one_pager.html", _footer_ctx())
 
 
 @app.get("/since-you-left", response_class=HTMLResponse)
 async def since_you_left_page(request: Request):
-    return templates.TemplateResponse(request, "since_you_left.html", _footer_ctx())
+    return render_page(request, "since_you_left.html", _footer_ctx())
 
 
 @app.get("/anti-hype", response_class=HTMLResponse)
 async def anti_hype_page(request: Request):
-    return templates.TemplateResponse(request, "anti_hype.html", _footer_ctx())
+    return render_page(request, "anti_hype.html", _footer_ctx())
 
 
 @app.get("/corpus-passport", response_class=HTMLResponse)
 async def corpus_passport_page(request: Request):
-    return templates.TemplateResponse(request, "corpus_passport.html", _footer_ctx())
+    return render_page(request, "corpus_passport.html", _footer_ctx())
 
 
 @app.get("/miss-feed", response_class=HTMLResponse)
 async def miss_feed_page(request: Request):
-    return templates.TemplateResponse(request, "miss_feed.html", _footer_ctx())
+    return render_page(request, "miss_feed.html", _footer_ctx())
 
 
 @app.get("/coverage-honesty", response_class=HTMLResponse)
 async def coverage_honesty_page(request: Request):
-    return templates.TemplateResponse(request, "coverage_honesty.html", _footer_ctx())
+    return render_page(request, "coverage_honesty.html", _footer_ctx())
 
 
 @app.get("/priority-chain", response_class=HTMLResponse)
 async def priority_chain_page(request: Request):
-    return templates.TemplateResponse(request, "priority_chain.html", _footer_ctx())
+    return render_page(request, "priority_chain.html", _footer_ctx())
 
 
 @app.get("/zero-tolerance", response_class=HTMLResponse)
 async def zero_tolerance_page(request: Request):
-    return templates.TemplateResponse(request, "zero_tolerance.html", _footer_ctx())
+    return render_page(request, "zero_tolerance.html", _footer_ctx())
 
 
 @app.get("/emotion-tax", response_class=HTMLResponse)
 async def emotion_tax_page(request: Request):
-    return templates.TemplateResponse(request, "emotion_tax.html", _footer_ctx())
+    return render_page(request, "emotion_tax.html", _footer_ctx())
 
 
 @app.get("/allocator-receipt", response_class=HTMLResponse)
 async def allocator_receipt_page(request: Request):
-    return templates.TemplateResponse(request, "allocator_receipt.html", _footer_ctx())
+    return render_page(request, "allocator_receipt.html", _footer_ctx())
 
 
 @app.get("/transfer-intent", response_class=HTMLResponse)
 async def transfer_intent_page(request: Request):
-    return templates.TemplateResponse(request, "transfer_intent.html", _footer_ctx())
+    return render_page(request, "transfer_intent.html", _footer_ctx())
 
 
 @app.get("/silence-index", response_class=HTMLResponse)
 async def silence_index_page(request: Request):
-    return templates.TemplateResponse(request, "silence_index.html", _footer_ctx())
+    return render_page(request, "silence_index.html", _footer_ctx())
 
 
 @app.get("/alert-passport", response_class=HTMLResponse)
 async def alert_passport_page(request: Request):
-    return templates.TemplateResponse(request, "alert_passport.html", _footer_ctx())
+    return render_page(request, "alert_passport.html", _footer_ctx())
 
 
 @app.get("/visibility-cost", response_class=HTMLResponse)
 async def visibility_cost_page(request: Request):
-    return templates.TemplateResponse(request, "visibility_cost.html", _footer_ctx())
+    return render_page(request, "visibility_cost.html", _footer_ctx())
 
 
 @app.get("/validity-decay", response_class=HTMLResponse)
 async def validity_decay_page(request: Request):
-    return templates.TemplateResponse(request, "validity_decay.html", _footer_ctx())
+    return render_page(request, "validity_decay.html", _footer_ctx())
 
 
 @app.get("/desk-duel", response_class=HTMLResponse)
 async def desk_duel_page(request: Request):
-    return templates.TemplateResponse(request, "desk_duel.html", _footer_ctx())
+    return render_page(request, "desk_duel.html", _footer_ctx())
 
 
 @app.get("/trust-debt", response_class=HTMLResponse)
 async def trust_debt_page(request: Request):
-    return templates.TemplateResponse(request, "trust_debt.html", _footer_ctx())
+    return render_page(request, "trust_debt.html", _footer_ctx())
 
 
 @app.get("/unique-ten", response_class=HTMLResponse)
 async def unique_ten_page(request: Request):
-    return templates.TemplateResponse(request, "unique_ten.html", _footer_ctx())
+    return render_page(request, "unique_ten.html", _footer_ctx())
 
 
 @app.get("/institutional", response_class=HTMLResponse)
 async def institutional_hub_page(request: Request):
-    return templates.TemplateResponse(request, "institutional.html", _footer_ctx())
+    return render_page(request, "institutional.html", _footer_ctx())
 
 
 @app.get("/cap646", response_class=HTMLResponse)
 async def cap646_hub_page(request: Request):
-    return templates.TemplateResponse(request, "cap646_hub.html", _footer_ctx())
+    return render_page(request, "cap646_hub.html", _footer_ctx())
 
 
 @app.get("/model-card", response_class=HTMLResponse)
 async def model_card_page(request: Request):
-    return templates.TemplateResponse(request, "model_card.html", _footer_ctx())
+    return render_page(request, "model_card.html", _footer_ctx())
 
 
 @app.get("/d5-honesty", response_class=HTMLResponse)
 async def d5_honesty_page(request: Request):
-    return templates.TemplateResponse(request, "d5_honesty.html", _footer_ctx())
+    return render_page(request, "d5_honesty.html", _footer_ctx())
 
 
 @app.get("/api/public/d5-honesty")
@@ -1678,7 +1678,7 @@ async def public_developer_docs_page(request: Request):
     """Limited public developer docs (evidence/read APIs) — not full execution surface."""
     from public_api_docs import public_docs_manifest
 
-    return templates.TemplateResponse(
+    return render_page(
         request,
         "docs_public.html",
         {"title": "Developer Docs", "manifest": public_docs_manifest(), **_footer_ctx()},
@@ -1834,7 +1834,7 @@ async def admin_launch_checklist_api(_admin: dict = Depends(require_admin_dev)):
 
 @app.get("/platform", response_class=HTMLResponse)
 async def platform_hub_page(request: Request):
-    return templates.TemplateResponse(request, "platform.html", _footer_ctx())
+    return render_page(request, "platform.html", _footer_ctx())
 
 
 @app.get("/capabilities", response_class=HTMLResponse)
@@ -4446,7 +4446,7 @@ async def app_alias_redirect():
 
 @app.get("/success", response_class=HTMLResponse)
 async def checkout_success(request: Request):
-    return templates.TemplateResponse(request, "success.html", _footer_ctx())
+    return render_page(request, "success.html", _footer_ctx())
 
 
 @app.get("/cancel", response_class=HTMLResponse)
