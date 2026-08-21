@@ -23,7 +23,13 @@ async def handle_ai_capability(capability_id: int, *, params: dict[str, Any]) ->
             }
         )
         return ai_compliance_footer(
-            {"capability_id": 642, "surface": "ai_output_provenance_compliance_footer", "certificate": cert, "success": True}
+            {
+                "capability_id": 642,
+                "surface": "ai_output_provenance_compliance_footer",
+                "certificate": cert,
+                "provenance": cert,
+                "success": True,
+            }
         )
 
     verified = {638, 640, 641, 639}

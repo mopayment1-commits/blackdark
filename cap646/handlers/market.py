@@ -107,6 +107,28 @@ async def handle_market_capability(
         fn = freshness_assurance_report if capability_id == 630 else normalization_report
         return await fn(symbol=symbol)
 
+    # Depth / liquidity / order-book market capabilities
+    from cap646.catalog import catalog_by_id
+
+    cap_name = catalog_by_id().get(capability_id, {}).get("capability", "").lower()
+    if any(k in cap_name for k in ("order book", "depth", "liquidity")):
+        from cap646.fallbacks import resolve_order_book
+        from live_book_hub import hub_stats
+
+        book = await resolve_order_book(symbol)
+        payload = attach_oracle_freshness(
+            {
+                "capability_id": capability_id,
+                "surface": "order_book_depth",
+                "book": book,
+                "liquidity": book,
+                "hub_stats": hub_stats(),
+                "success": bool(book),
+            }
+        )
+        ok, payload = reject_if_stale(payload)
+        return ai_compliance_footer(payload)
+
     # Generic market handler
     from market_context import probe_price_sources
 

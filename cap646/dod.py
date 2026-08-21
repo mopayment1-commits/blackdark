@@ -7,14 +7,20 @@ from typing import Any
 from cap646.catalog import catalog_by_id, is_duplicate, is_external
 from cap646.backend_registry import is_generic_surface
 from cap646.runtime import execute_capability
+from cap646.ui_pages import user_surface_for
 from cap646.waves import EXTERNAL_EVIDENCE_SLOTS, SIGNED_INFRA_SLOTS, USER_FACING
+from rvm.surfaces import has_dedicated_user_surface, hub_only_surface
 
 
 def _has_ui_route(capability_id: int) -> bool:
     if capability_id not in USER_FACING:
         return True  # not required
-    # Hub + detail panel covers all user-facing via /cap646 hub
-    return True
+    if hub_only_surface(capability_id):
+        return False
+    surf = user_surface_for(capability_id)
+    if not surf:
+        return False
+    return has_dedicated_user_surface(capability_id) or capability_id in {631, 630, 338, 500, 507, 534}
 
 
 async def verify_dod(

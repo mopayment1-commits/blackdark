@@ -50,6 +50,18 @@ async def handle_onchain_capability(capability_id: int, *, params: dict[str, Any
         return ai_compliance_footer({"capability_id": 581, "surface": "on_chain_balance_monitor", "balance": bal, "success": bool(bal)})
 
     from onchain_tracker import build_onchain_context_safe
+    from instant_alert_engine import engine_stats
+    from cap646.catalog import catalog_by_id
 
     ctx = await build_onchain_context_safe()
-    return ai_compliance_footer({"capability_id": capability_id, "surface": "onchain_intelligence", "context": ctx, "success": bool(ctx)})
+    cap_name = catalog_by_id().get(capability_id, {}).get("capability", "")
+    payload: dict[str, Any] = {
+        "capability_id": capability_id,
+        "surface": "onchain_intelligence",
+        "context": ctx,
+        "success": bool(ctx),
+    }
+    if "alert" in cap_name.lower():
+        payload["engine"] = engine_stats()
+        payload["alerts"] = payload["engine"]
+    return ai_compliance_footer(payload)

@@ -716,6 +716,13 @@ except Exception:
     logger.exception("CAP646 router unavailable")
 
 try:
+    from api.routers.rvm import router as rvm_router
+
+    app.include_router(rvm_router)
+except Exception:
+    logger.exception("RVM router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")

@@ -40,6 +40,8 @@ def _route_handler(track: str, name: str, capability_id: int):
     if track in {"T06", "T07", "T08"} and any(k in nl for k in ("arbitrage", "execution", "risk", "spread", "hedge", "trading")):
         return handle_execution_capability
     if track == "T09" or any(k in nl for k in ("on-chain", "on chain", "wallet", "whale", "transaction", "tvl", "gas")):
+        if "alert" in nl:
+            return handle_alerts_capability
         return handle_onchain_capability
     if track == "T13" or "alert" in nl:
         return handle_alerts_capability

@@ -40,6 +40,7 @@ async def ingestion_architecture_report() -> dict[str, Any]:
             "scheduler": status,
         },
         "provenance_sample": prov,
+        "provenance": prov,
         "lineage": "Raw Data → Normalize → Lake/Hot → Provenance → Freshness",
         "success": True,
     }

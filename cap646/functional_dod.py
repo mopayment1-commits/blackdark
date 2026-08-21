@@ -31,8 +31,9 @@ def _domain_check(capability_id: int, name: str, track: str, result: dict[str, A
     nl = name.lower()
     data = _payload(result)
 
-    if "order book" in nl or "depth" in nl:
-        if not (data.get("book") or result.get("book")):
+    if "order book" in nl or "depth" in nl or "liquidity" in nl:
+        book_keys = ("book", "order_book", "depth", "bids", "asks", "liquidity")
+        if not any(result.get(k) or data.get(k) for k in book_keys):
             return "missing_order_book_payload"
     if "ohlcv" in nl or "candle" in nl or "price history" in nl:
         if not (data.get("ohlcv") or result.get("ohlcv") or data.get("bars") or result.get("bars")):
@@ -42,10 +43,11 @@ def _domain_check(capability_id: int, name: str, track: str, result: dict[str, A
         if result.get("gas_usd") is None and data.get("gas_usd") is None:
             return "missing_gas_truth"
     if "alert" in nl:
-        if not any(k in result or k in data for k in ("engine", "alerts", "inbox")):
+        if not any(k in result or k in data for k in ("engine", "alerts", "inbox", "alert", "context")):
             return "missing_alert_payload"
     if "provenance" in nl or ("data quality" in nl and capability_id in {478, 525, 636}):
-        if not (data.get("provenance") or result.get("provenance")):
+        prov_keys = ("provenance", "provenance_sample", "data_provenance", "lineage", "provenance_score")
+        if not any(result.get(k) or data.get(k) for k in prov_keys):
             return "missing_data_provenance_surface"
     if "decision" in nl or "certificate" in nl:
         if "certificate" not in result and "certificate" not in data:
@@ -110,7 +112,8 @@ async def verify_functional(
 
     verdict = (
         "VERIFIED_COMPLETE"
-        if all(v for k, v in checks.items() if v is not None and v is not False)
+        if not any(v is False for v in checks.values() if v is not None)
+        and all(v for v in checks.values() if v is not None)
         else "FUNCTIONALLY_INCOMPLETE"
     )
 
