@@ -12,16 +12,31 @@ except ImportError:  # pragma: no cover
 
 
 class BlackdarkClient:
-    """Semver-stable SDK surface for institutional integrators."""
+    """Semver-stable SDK surface for institutional integrators.
 
-    def __init__(self, base_url: str = "http://127.0.0.1:8080", *, token: str | None = None, timeout: float = 20.0):
+    Prefer ``api_key`` (Decision API v1). Session ``token`` remains for
+    Trust OS product routes and is not a commercial API credential.
+    """
+
+    def __init__(
+        self,
+        base_url: str = "http://127.0.0.1:8080",
+        *,
+        token: str | None = None,
+        api_key: str | None = None,
+        timeout: float = 20.0,
+    ):
         self.base_url = base_url.rstrip("/") + "/"
         self.token = token
+        self.api_key = api_key
         self.timeout = timeout
 
     def _headers(self) -> dict[str, str]:
-        h = {"Accept": "application/json", "User-Agent": "blackdark-sdk/1.0.0"}
-        if self.token:
+        h = {"Accept": "application/json", "User-Agent": "blackdark-sdk/1.1.0"}
+        if self.api_key:
+            h["X-API-Key"] = self.api_key
+            h["Authorization"] = f"Bearer {self.api_key}"
+        elif self.token:
             h["Authorization"] = f"Bearer {self.token}"
         return h
 
@@ -30,6 +45,14 @@ class BlackdarkClient:
             raise RuntimeError("httpx required for blackdark SDK")
         url = urljoin(self.base_url, path.lstrip("/"))
         r = httpx.get(url, params=params, headers=self._headers(), timeout=self.timeout)
+        r.raise_for_status()
+        return r.json()
+
+    def _post(self, path: str, json: dict[str, Any] | None = None) -> dict[str, Any]:
+        if httpx is None:
+            raise RuntimeError("httpx required for blackdark SDK")
+        url = urljoin(self.base_url, path.lstrip("/"))
+        r = httpx.post(url, json=json or {}, headers=self._headers(), timeout=self.timeout)
         r.raise_for_status()
         return r.json()
 
@@ -47,3 +70,34 @@ class BlackdarkClient:
 
     def kill_rate(self) -> dict[str, Any]:
         return self._get("/api/public/kill-rate")
+
+    def oracle(self, symbol: str = "BTC") -> dict[str, Any]:
+        return self._get(f"/api/v1/oracle/{symbol}")
+
+    def decision_certificate(self, symbol: str = "BTC") -> dict[str, Any]:
+        return self._post(f"/api/v1/oracle/{symbol}/certificate")
+
+    def accuracy(self) -> dict[str, Any]:
+        return self._get("/api/v1/accuracy")
+
+    def feed(self, limit: int | None = None) -> dict[str, Any]:
+        params = {"limit": limit} if limit is not None else None
+        return self._get("/api/v1/feed", params)
+
+    def me(self) -> dict[str, Any]:
+        return self._get("/api/v1/me")
+
+    def audit(self, limit: int = 50, *, mine: bool = False) -> dict[str, Any]:
+        params: dict[str, Any] = {"limit": limit}
+        if mine:
+            params["mine"] = True
+        return self._get("/api/v1/audit", params)
+
+    def usage(self, days: int = 31) -> dict[str, Any]:
+        return self._get("/api/v1/usage", {"days": days})
+
+    def register_webhook(self, url: str, events: list[str] | None = None) -> dict[str, Any]:
+        body: dict[str, Any] = {"url": url}
+        if events is not None:
+            body["events"] = events
+        return self._post("/api/v1/webhooks", body)
