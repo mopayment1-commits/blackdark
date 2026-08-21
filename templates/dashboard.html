@@ -931,6 +931,7 @@
             const sym = document.getElementById('symbol').value.trim().toUpperCase();
             const box = document.getElementById('oracleBox');
             const el = document.getElementById('oracleContent');
+            const askBtn = document.getElementById('askBtn');
             const mode = document.getElementById('uxMode').value;
             const lang = currentLang();
             if (!sym) return;
@@ -938,6 +939,10 @@
             box.classList.remove('proof-pulse');
             box.dataset.reflow = String(box.offsetWidth);
             box.classList.add('proof-pulse');
+            if (askBtn) {
+                askBtn.disabled = true;
+                askBtn.textContent = i18nT('oracle.analyzing');
+            }
             el.innerHTML = '<div class="loading">' + esc(i18nT('oracle.analyzing')) + '</div>';
             try {
                 const url = '/oracle/' + encodeURIComponent(sym) + '?ux_mode=' + encodeURIComponent(mode) + '&lang=' + encodeURIComponent(lang);
@@ -950,6 +955,11 @@
                 empty.className = 'empty';
                 empty.textContent = i18nT('ui.could_not_analyze', { symbol: sym });
                 el.replaceChildren(empty);
+            } finally {
+                if (askBtn) {
+                    askBtn.disabled = false;
+                    askBtn.textContent = i18nT('oracle.get_decision');
+                }
             }
         }
 
