@@ -709,6 +709,13 @@ except Exception:
     logger.exception("Institutional router unavailable")
 
 try:
+    from api.routers.cap646 import router as cap646_router
+
+    app.include_router(cap646_router)
+except Exception:
+    logger.exception("CAP646 router unavailable")
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")
