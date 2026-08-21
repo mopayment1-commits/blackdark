@@ -23,17 +23,21 @@ async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
         from market_context import fetch_binance_market_overview_pack
 
         pack = await fetch_binance_market_overview_pack(limit=min(limit, 50))
-        coins = [
-            {
-                "rank": i,
-                "symbol": row.get("symbol"),
-                "name": row.get("symbol"),
-                "price_usd": row.get("price"),
-                "change_24h_pct": row.get("change_24h"),
-                "volume_24h_usd": row.get("volume_24h"),
-            }
-            for i, row in enumerate(pack or [], start=1)
-        ]
+        coins = []
+        for i, row in enumerate(pack or [], start=1):
+            if isinstance(row, dict):
+                coins.append(
+                    {
+                        "rank": i,
+                        "symbol": row.get("symbol"),
+                        "name": row.get("symbol"),
+                        "price_usd": row.get("price"),
+                        "change_24h_pct": row.get("change_24h"),
+                        "volume_24h_usd": row.get("volume_24h"),
+                    }
+                )
+            elif isinstance(row, str):
+                coins.append({"rank": i, "symbol": row.upper(), "name": row})
         return {
             "style": "binance_fallback",
             "timestamp": datetime.now(UTC).isoformat(),

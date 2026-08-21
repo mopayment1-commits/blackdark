@@ -479,3 +479,20 @@ async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
     }:
         return await _handle_lemon_inactive(ctx)
     return {"handled": False, "type": event_name, "provider": "lemon_squeezy"}
+
+
+def billing_status() -> dict[str, Any]:
+    """Institutional billing readiness surface for capability bindings."""
+    from institutional_commerce import commerce_status
+
+    commerce = commerce_status()
+    return {
+        "provider": billing_provider(),
+        "configured": billing_configured(),
+        "stripe_configured": stripe_configured(),
+        "tiers": list(STRIPE_TIERS.keys()),
+        "currencies": ["usd", "eur", "gbp"],
+        "multi_currency_ready": True,
+        "commerce": commerce,
+        "success": True,
+    }

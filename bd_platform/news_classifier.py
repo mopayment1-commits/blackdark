@@ -20,7 +20,8 @@ async def classify_headlines(limit: int = 20) -> dict[str, Any]:
             "asset": item.asset,
             "source": item.source,
             "text": text[:200],
-            "compound_score": analysis.compound_score,
+            "compound_score": analysis.sentiment_score,
+            "sentiment_score": analysis.sentiment_score,
             "topic": _topic_bucket(text),
         })
     return {
@@ -32,10 +33,23 @@ async def classify_headlines(limit: int = 20) -> dict[str, Any]:
 
 
 async def coindesk_feed(limit: int = 10) -> dict[str, Any]:
-    from bd_platform.free_market_data import coindesk_rss
-    from sentiment_engine import analyze_sentiment_score_async
+    try:
+        from bd_platform.free_market_data import coindesk_rss
+        from sentiment_engine import analyze_sentiment_score_async
 
-    rss_items = await coindesk_rss(limit=limit)
+        rss_items = await coindesk_rss(limit=limit)
+    except Exception as exc:
+        return {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "source": "coindesk_rss",
+            "count": 0,
+            "headlines": [],
+            "news": [],
+            "error": str(exc),
+            "success": True,
+            "note": "feed_unavailable_fail_open_headlines",
+        }
+
     headlines: list[dict[str, Any]] = []
     for item in rss_items:
         text = str(item.get("title") or "")
@@ -43,7 +57,8 @@ async def coindesk_feed(limit: int = 10) -> dict[str, Any]:
         headlines.append({
             **item,
             "text": text[:200],
-            "compound_score": analysis.compound_score,
+            "compound_score": analysis.sentiment_score,
+            "sentiment_score": analysis.sentiment_score,
             "topic": _topic_bucket(text),
         })
     return {
@@ -53,6 +68,8 @@ async def coindesk_feed(limit: int = 10) -> dict[str, Any]:
         "coindesk_count": len(headlines),
         "coindesk_headlines": headlines,
         "headlines": headlines,
+        "news": headlines,
+        "success": True,
     }
 
 

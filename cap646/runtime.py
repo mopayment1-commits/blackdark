@@ -125,4 +125,6 @@ async def execute_capability(
     if "backend_module" not in result:
         result["backend_module"] = getattr(handler, "__module__", "cap646.handlers")
         result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")
-    return ai_compliance_footer(result)
+    from cap646.domain_enrichment import enrich_capability_result
+
+    return await enrich_capability_result(target_id, ai_compliance_footer(result), params=params)

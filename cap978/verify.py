@@ -86,7 +86,9 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
             "result": result,
         }
     )
-    return ai_compliance_footer(payload)
+    from cap646.domain_enrichment import enrich_capability_result
+
+    return await enrich_capability_result(capability_id, ai_compliance_footer(payload), params=params)
 
 
 async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | None = None) -> dict[str, Any]:

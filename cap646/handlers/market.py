@@ -107,10 +107,25 @@ async def handle_market_capability(
         fn = freshness_assurance_report if capability_id == 630 else normalization_report
         return await fn(symbol=symbol)
 
-    # Depth / liquidity / order-book market capabilities
     from cap646.catalog import catalog_by_id
 
     cap_name = catalog_by_id().get(capability_id, {}).get("capability", "").lower()
+
+    if capability_id in {201} or "network growth" in cap_name:
+        from bd_platform.footprint_analytics import footprint_snapshot
+
+        snap = await footprint_snapshot(symbol)
+        return ai_compliance_footer(
+            {
+                "capability_id": capability_id,
+                "surface": "network_growth_intelligence",
+                "footprint": snap,
+                "network_growth": snap,
+                "success": True,
+            }
+        )
+
+    # Depth / liquidity / order-book market capabilities
     if any(k in cap_name for k in ("order book", "depth", "liquidity")):
         from cap646.fallbacks import resolve_order_book
         from live_book_hub import hub_stats

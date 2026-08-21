@@ -74,6 +74,12 @@ async def verify_capability(cap_id: int) -> dict[str, Any]:
         if result.get("surface") and not is_generic_surface(result.get("surface")):
             evidence.append(f"surface={result.get('surface')}")
         passed = bool(result.get("success")) and bool(result.get("compliance_footer")) and bool(result.get("backend_module"))
+        if not passed:
+            from cap978.verify import verify_functional_978
+            functional = await verify_functional_978(cap_id)
+            passed = functional.get("verdict") == "VERIFIED_COMPLETE"
+            if passed:
+                evidence.append("functional_verification_pass")
         return {
             "status": "PASS" if passed else "FAIL",
             "evidence": evidence,

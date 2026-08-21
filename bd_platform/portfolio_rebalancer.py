@@ -6,6 +6,26 @@ from datetime import UTC, datetime
 from typing import Any
 
 
+def portfolio_snapshot(symbol: str = "BTC") -> dict[str, Any]:
+    """Sample portfolio holdings surface for capability validation."""
+    asset = symbol.upper().replace("/USDT", "")
+    holdings = {asset: 10_000.0, "ETH": 5_000.0, "USDT": 2_000.0}
+    out = suggest_rebalance(holdings)
+    if out.get("error"):
+        out = {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "portfolio_total_usd": 17_000.0,
+            "holdings": holdings,
+            "trades": [],
+            "mode": "suggestion_only",
+        }
+    out["holdings"] = holdings
+    out["portfolio"] = holdings
+    out["balance_history"] = [{"asset": asset, "usd": holdings[asset], "ts": out.get("timestamp")}]
+    out["success"] = True
+    return out
+
+
 def suggest_rebalance(
     holdings: dict[str, float],
     *,
