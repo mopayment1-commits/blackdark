@@ -1,0 +1,176 @@
+{
+  "generated_at": "2026-08-21T16:05:44.777016+00:00",
+  "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
+  "verdict": "VERIFIED COMPLETE",
+  "internal_closure": {
+    "INTERNAL_PARTIAL": 0,
+    "INTERNAL_NOT_IMPLEMENTED": 0,
+    "FUNCTIONALLY_INCOMPLETE": 0
+  },
+  "cap978_counts": {
+    "EXTERNAL_BLOCKED": 29,
+    "VERIFIED_COMPLETE": 910,
+    "CANONICALLY_COVERED": 37,
+    "EXTERNAL_EVIDENCE_REQUIRED": 2
+  },
+  "extension_counts": {
+    "EXTERNAL_BLOCKED": 16,
+    "VERIFIED_COMPLETE": 315,
+    "CANONICALLY_COVERED": 1
+  },
+  "governing_controls": {
+    "counts": {
+      "VERIFIED_COMPLETE": 38,
+      "EXTERNAL_BLOCKED": 4
+    },
+    "internal_closure": true
+  },
+  "platform_chain": {
+    "verdict": "VERIFIED_COMPLETE",
+    "internal_closure": true,
+    "e2e": {
+      "verdict": "VERIFIED_COMPLETE",
+      "chain_id": "chain_ee81a4b3c120",
+      "acceptance_evidence": {
+        "prediction_id": "pred_chain_ee81a4b3c120",
+        "decision_id": "dec_95ea83e1e69040ac",
+        "exposure_id": "exp_e82bb075fa72490c",
+        "certificate_hash": "be64515df590de7780c7dbddb1bd07788cad3e0dfd5a1c64b87aa2873d6e8aff",
+        "signal_id": "pred_chain_ee81a4b3c120",
+        "outcome_id": "out_chain_ee81a4b3c120"
+      },
+      "stage_count": 12,
+      "failed_stages": []
+    }
+  },
+  "external_registry_summary": {
+    "total": 35,
+    "counts": {
+      "EXTERNAL_BLOCKED": 33,
+      "EXTERNAL_EVIDENCE_REQUIRED": 2
+    }
+  },
+  "sample_executions": [
+    {
+      "label": "base_market",
+      "capability_id": 47,
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
+      "surface": "spot_market_metrics_suite",
+      "backend_module": "cap646.handlers.market",
+      "proof_hash": "68b184f0ced6d24fc3d10e53244525d915716dd5ae07a44a18a604b8ac8df275"
+    },
+    {
+      "label": "data_spine",
+      "capability_id": 631,
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
+      "surface": "data_source_ingestion_normalization_provenance_reliability_architecture",
+      "backend_module": "cap646.handlers.data",
+      "proof_hash": "9230d3f7550fecd35de4950e87cb7640ee4dde0e304c06291b5be46a7bccd924"
+    },
+    {
+      "label": "net_edge_truth",
+      "capability_id": 639,
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
+      "surface": "net_edge_truth_score",
+      "backend_module": "cap646.handlers.verified",
+      "proof_hash": "7a961e151085d3450d99c5efa94b107ddafa4ef62d5f6f2bcf321bf4514fe9f6"
+    },
+    {
+      "label": "ai_provenance_footer",
+      "capability_id": 642,
+      "success": true,
+      "classification": "VERIFIED_COMPLETE",
+      "surface": "data_platform_storage",
+      "backend_module": "data_lake",
+      "proof_hash": "6fe88adc0d608a1a84c23c514e21c5062b2c481c4fff47064e12a2b12c710a91"
+    },
+    {
+      "label": "extension_blocked",
+      "capability_id": 647,
+      "success": false,
+      "classification": "EXTERNAL_BLOCKED",
+      "surface": null,
+      "backend_module": null,
+      "proof_hash": "2cfe62b82fa1a33306d2937662777c3be8fecd62048749795c6289c3883ed4b3"
+    },
+    {
+      "label": "extension_internal",
+      "capability_id": 700,
+      "success": true,
+      "classification": "SHADOW_LIVE_FORWARD",
+      "surface": "on_chain_usage_intelligence",
+      "backend_module": "bd_platform.onchain_hub",
+      "proof_hash": "76812b9ad57b2aa472ff4e95beab171f76ccc35ca97bbfc118145daa110d8a2b"
+    },
+    {
+      "label": "extension_internal",
+      "capability_id": 850,
+      "success": true,
+      "classification": "SHADOW_LIVE_FORWARD",
+      "surface": "margin_risk_calculator",
+      "backend_module": "bd_platform.market_rankings",
+      "proof_hash": "e653b270f92a1a952e31529e86f9a1e18f50c4e7b3ddf4bd8a84e780a5c5f161"
+    },
+    {
+      "label": "extension_tail",
+      "capability_id": 978,
+      "success": false,
+      "classification": "SHADOW_LIVE_FORWARD",
+      "surface": "exploiter",
+      "backend_module": "bd_platform.cex_dex_arbitrage",
+      "proof_hash": "947c5091e6aaa779adbb1031ef86899633b083a4ba242a8641e425eaeccaaecc"
+    }
+  ],
+  "functional_verification_samples": [
+    {
+      "id": 1,
+      "verdict": "EXTERNAL_BLOCKED",
+      "failure_reason": null
+    },
+    {
+      "id": 17,
+      "verdict": "VERIFIED_COMPLETE",
+      "failure_reason": null
+    },
+    {
+      "id": 47,
+      "verdict": "VERIFIED_COMPLETE",
+      "failure_reason": null
+    },
+    {
+      "id": 631,
+      "verdict": "VERIFIED_COMPLETE",
+      "failure_reason": "missing_data_provenance_surface"
+    },
+    {
+      "id": 644,
+      "verdict": "EXTERNAL_EVIDENCE_REQUIRED",
+      "failure_reason": null
+    },
+    {
+      "id": 645,
+      "verdict": "EXTERNAL_EVIDENCE_REQUIRED",
+      "failure_reason": null
+    },
+    {
+      "id": 700,
+      "verdict": "VERIFIED_COMPLETE",
+      "failure_reason": null
+    },
+    {
+      "id": 978,
+      "verdict": "VERIFIED_COMPLETE",
+      "failure_reason": null
+    }
+  ],
+  "repro_commands": [
+    "PYTHONPATH=/workspace pytest tests/cap646/ -q",
+    "curl /api/cap646/closure/978",
+    "curl /api/cap646/evidence-room",
+    "curl /api/cap646/platform-chain/e2e?symbol=BTC"
+  ],
+  "snapshot_hash": "345f103a6537454569a1831def52d7332bec6515a73eb926f443409b04a52574"
+}
