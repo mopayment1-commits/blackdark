@@ -1,0 +1,4903 @@
+{
+  "generated_by": "cap646.generate_module_map",
+  "wave": "D",
+  "count": 544,
+  "rows": [
+    {
+      "id": 6,
+      "capability": "Smart Money Token Screener",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "smart_money_token_screener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 7,
+      "capability": "Holder Distribution Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "holder_distribution_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 8,
+      "capability": "Top Holders Concentration Analysis",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "top_holders_concentration_analysis",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 9,
+      "capability": "Distribution Score",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "distribution_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 11,
+      "capability": "Wallet Historical Performance & Win Rate",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "wallet_historical_performance_win_rate",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 12,
+      "capability": "Wallet Entry / Exit Analysis",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "wallet_entry_exit_analysis",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 13,
+      "capability": "Wallet Counterparty & Relationship Analysis",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "wallet_counterparty_relationship_analysis",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 14,
+      "capability": "Entity-Aware Wallet Intelligence",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "entity_aware_wallet_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 15,
+      "capability": "Exchange Flow Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_flow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 16,
+      "capability": "Candle / Price-Move Investigator",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "candle_price_move_investigator",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 18,
+      "capability": "Custom Wallet Labels",
+      "track": "T16",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "custom_wallet_labels",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 19,
+      "capability": "Wallet & Token Watchlists",
+      "track": "T16",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "wallet_token_watchlists",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 20,
+      "capability": "Multi-Chain Portfolio Intelligence",
+      "track": "T09",
+      "backend_module": "bd_platform.portfolio_rebalancer",
+      "backend_entrypoint": "suggest_rebalance",
+      "surface": "multi_chain_portfolio_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 22,
+      "capability": "Instant Wallet Due Diligence",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "instant_wallet_due_diligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 23,
+      "capability": "Instant Token Due Diligence",
+      "track": "T17",
+      "backend_module": "due_diligence_bundle",
+      "backend_entrypoint": "build_full_due_diligence_bundle",
+      "surface": "instant_token_due_diligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 24,
+      "capability": "AI Research Agent Grounded in Platform Data",
+      "track": "T12",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "ai_research_agent_grounded_in_platform_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 25,
+      "capability": "Signal \u2192 Explanation Workflow",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "signal_explanation_workflow",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 26,
+      "capability": "Price-Move Explanation",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "price_move_explanation",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 27,
+      "capability": "Smart Money Historical Trend Analysis",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "smart_money_historical_trend_analysis",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 28,
+      "capability": "Smart Money Conviction Engine",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "smart_money_conviction_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 29,
+      "capability": "Cross-Market Decision Intelligence Engine",
+      "track": "T09",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_market_decision_intelligence_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 31,
+      "capability": "Cross-Signal Confirmation",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_signal_confirmation",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 32,
+      "capability": "Contradiction Detection",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "contradiction_detection",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 33,
+      "capability": "Smart Money Actionability Score",
+      "track": "T08",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "smart_money_actionability_score",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 34,
+      "capability": "Beginner Decision Mode",
+      "track": "T01",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "beginner_decision_mode",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 35,
+      "capability": "Market Compass / Market Regime Engine",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "market_compass_market_regime_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 36,
+      "capability": "On-Chain Metrics Library",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "on_chain_metrics_library",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 37,
+      "capability": "Entity-Adjusted Metrics",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "entity_adjusted_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 40,
+      "capability": "MVRV / MVRV Z-Score Suite",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "lookintobitcoin_macro",
+      "surface": "mvrv_mvrv_z_score_suite",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 41,
+      "capability": "SOPR / Profitability Intelligence",
+      "track": "T08",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "lookintobitcoin_macro",
+      "surface": "sopr_profitability_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 42,
+      "capability": "Holder Cohort Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "holder_cohort_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 43,
+      "capability": "Supply Dynamics Intelligence",
+      "track": "T13",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "supply_dynamics_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 44,
+      "capability": "Exchange Balance & Netflow Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_balance_netflow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 46,
+      "capability": "Digital Asset Treasury Company Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "digital_asset_treasury_company_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 49,
+      "capability": "Options Intelligence Suite",
+      "track": "T08",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_intelligence_suite",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 50,
+      "capability": "Order Book Intelligence",
+      "track": "T04",
+      "backend_module": "live_book_hub",
+      "backend_entrypoint": "hub_stats",
+      "surface": "order_book_intelligence",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 51,
+      "capability": "Macro & Traditional Finance Integration",
+      "track": "T04",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "lookintobitcoin_macro",
+      "surface": "macro_traditional_finance_integration",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 52,
+      "capability": "Cross-Asset Return Breadth",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "cross_asset_return_breadth",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 53,
+      "capability": "BTC-to-Macro Coupling",
+      "track": "T12",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "lookintobitcoin_macro",
+      "surface": "btc_to_macro_coupling",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 54,
+      "capability": "Global Liquidity Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "global_liquidity_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 55,
+      "capability": "NVT Fair-Value Model",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "nvt_fair_value_model",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 56,
+      "capability": "Token Screener",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "token_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 57,
+      "capability": "Profitability Map",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "profitability_map",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 58,
+      "capability": "Custom No-Code Charting / Workbench",
+      "track": "T15",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "custom_no_code_charting_workbench",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 59,
+      "capability": "Personalized Research Dashboards",
+      "track": "T16",
+      "backend_module": "org_tenant",
+      "backend_entrypoint": "org_isolation_status",
+      "surface": "personalized_research_dashboards",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 61,
+      "capability": "Point-in-Time Immutable Metrics",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "point_in_time_immutable_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 62,
+      "capability": "Institutional Backtesting Data Layer",
+      "track": "T15",
+      "backend_module": "ml.market_replay_bootstrap",
+      "backend_entrypoint": "bootstrap_market_replay_dataset",
+      "surface": "institutional_backtesting_data_layer",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 63,
+      "capability": "Data Quality & Provenance Layer",
+      "track": "T17",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "data_quality_provenance_layer",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 65,
+      "capability": "Research Intelligence Portal",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "research_intelligence_portal",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 66,
+      "capability": "Market Regime Written Read",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "market_regime_written_read",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 67,
+      "capability": "API / CLI / Excel / MCP Data Access",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "api_cli_excel_mcp_data_access",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 68,
+      "capability": "Bulk Data & Institutional Delivery",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "bulk_data_institutional_delivery",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 70,
+      "capability": "Exchange Reserve Intelligence",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "exchange_reserve_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 71,
+      "capability": "Exchange Inflow / Outflow / Netflow",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_inflow_outflow_netflow",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 72,
+      "capability": "Exchange Whale Ratio",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "exchange_whale_ratio",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 73,
+      "capability": "Exchange Address & Transaction Activity",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_address_transaction_activity",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 74,
+      "capability": "Exchange-to-Exchange Flow Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "exchange_to_exchange_flow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 75,
+      "capability": "Exchange Internal-Flow Filter",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_internal_flow_filter",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 76,
+      "capability": "Stablecoin Exchange Reserve",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_exchange_reserve",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 77,
+      "capability": "Stablecoin Exchange Flow Intelligence",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_exchange_flow_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 78,
+      "capability": "Stablecoin Supply Ratio Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_supply_ratio_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 79,
+      "capability": "Miner Flow Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "miner_flow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 80,
+      "capability": "Miners' Position Index (MPI)",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "miners_position_index_mpi",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 81,
+      "capability": "Whale Accumulation / Distribution Intelligence",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_accumulation_distribution_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 82,
+      "capability": "Coinbase Premium Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "coinbase_premium_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 83,
+      "capability": "Korea Premium Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "korea_premium_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 84,
+      "capability": "Fund / ETF Data Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "fund_etf_data_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 87,
+      "capability": "Estimated Leverage Ratio",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "estimated_leverage_ratio",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 89,
+      "capability": "Taker Buy / Sell Pressure",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "taker_buy_sell_pressure",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 90,
+      "capability": "Derivatives Market Sentiment Composite",
+      "track": "T04",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "derivatives_market_sentiment_composite",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 91,
+      "capability": "Inter-Entity Flow Intelligence",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "inter_entity_flow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 92,
+      "capability": "Address Labels & Cohorts",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "address_labels_cohorts",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 93,
+      "capability": "Custom No-Code Analytics / Web3 Analytics",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "custom_no_code_analytics_web3_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 94,
+      "capability": "Native SQL / Advanced Query Workspace",
+      "track": "T16",
+      "backend_module": "org_tenant",
+      "backend_entrypoint": "org_isolation_status",
+      "surface": "native_sql_advanced_query_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 95,
+      "capability": "Pro Chart & Multi-Metric Workbench",
+      "track": "T17",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "pro_chart_multi_metric_workbench",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 96,
+      "capability": "Personal Dashboards",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "personal_dashboards",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 97,
+      "capability": "Custom Metric Alerts",
+      "track": "T16",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "custom_metric_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 98,
+      "capability": "Whale Movement Alerts",
+      "track": "T13",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_movement_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 99,
+      "capability": "QuickTake / Analyst Insight Feed",
+      "track": "T09",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "quicktake_analyst_insight_feed",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 100,
+      "capability": "Research Reports",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "research_reports",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 101,
+      "capability": "AI Data Analyst / Ask AI",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "ai_data_analyst_ask_ai",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 102,
+      "capability": "AI-Generated Reporting",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "ai_generated_reporting",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 104,
+      "capability": "High-Resolution / Block-Level Data Delivery",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "high_resolution_block_level_data_delivery",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 105,
+      "capability": "Historical Full-Data Layer",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "historical_full_data_layer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 108,
+      "capability": "Institutional Data & API Delivery",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "institutional_data_api_delivery",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 109,
+      "capability": "White-Label Research & Reporting",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "white_label_research_reporting",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 111,
+      "capability": "Exchange Flow Actionability Score",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_flow_actionability_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 112,
+      "capability": "Flow-to-Price Explanation Engine",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "flow_to_price_explanation_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 113,
+      "capability": "Asset Intelligence Profiles",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "asset_intelligence_profiles",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 114,
+      "capability": "Asset Classification & Taxonomy",
+      "track": "T09",
+      "backend_module": "due_diligence_bundle",
+      "backend_entrypoint": "build_full_due_diligence_bundle",
+      "surface": "asset_classification_taxonomy",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 115,
+      "capability": "Asset Screener",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "asset_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 116,
+      "capability": "Market Pair Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "market_pair_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 117,
+      "capability": "Real Volume / Quality-Adjusted Volume",
+      "track": "T04",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "real_volume_quality_adjusted_volume",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 118,
+      "capability": "VWAP Price Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "vwap_price_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 119,
+      "capability": "Market Cap & FDV Intelligence",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "market_cap_fdv_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 120,
+      "capability": "Supply Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "supply_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 121,
+      "capability": "ROI & ATH Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "roi_ath_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 122,
+      "capability": "Volatility Intelligence",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "volatility_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 123,
+      "capability": "Sharpe Ratio Intelligence",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "sharpe_ratio_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 127,
+      "capability": "Multi-Factor Market Overview",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "multi_factor_market_overview",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 128,
+      "capability": "Momentum Intelligence",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "momentum_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 129,
+      "capability": "Sentiment Intelligence",
+      "track": "T04",
+      "backend_module": "sentiment_gate",
+      "backend_entrypoint": "fetch_asset_sentiment",
+      "surface": "sentiment_intelligence",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 130,
+      "capability": "Mindshare Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "mindshare_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 131,
+      "capability": "Narrative & Sector Intelligence",
+      "track": "T04",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "narrative_sector_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 132,
+      "capability": "Mindshare Gainers / Losers",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "mindshare_gainers_losers",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 133,
+      "capability": "Curated Crypto News Intelligence",
+      "track": "T13",
+      "backend_module": "bd_platform.news_classifier",
+      "backend_entrypoint": "coindesk_feed",
+      "surface": "curated_crypto_news_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 134,
+      "capability": "AI News Summaries",
+      "track": "T17",
+      "backend_module": "bd_platform.news_classifier",
+      "backend_entrypoint": "coindesk_feed",
+      "surface": "ai_news_summaries",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 135,
+      "capability": "Real-Time Industry Event Monitoring",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "real_time_industry_event_monitoring",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 136,
+      "capability": "Agentic Monitoring Views",
+      "track": "T02",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "agentic_monitoring_views",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 137,
+      "capability": "Custom Watchlists",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "custom_watchlists",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 138,
+      "capability": "Token Unlock Calendar",
+      "track": "T16",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "token_unlock_calendar",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 139,
+      "capability": "Vesting Schedule Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "vesting_schedule_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 140,
+      "capability": "Token Allocation Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.portfolio_rebalancer",
+      "backend_entrypoint": "suggest_rebalance",
+      "surface": "token_allocation_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 141,
+      "capability": "Unlock Impact Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "unlock_impact_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 142,
+      "capability": "Fundraising Rounds Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "fundraising_rounds_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 143,
+      "capability": "Investor Intelligence",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "investor_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 144,
+      "capability": "Fund & Fund-Manager Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "fund_fund_manager_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 145,
+      "capability": "M&A Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "m_a_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 146,
+      "capability": "Capital Flow & Funding Trend Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "capital_flow_funding_trend_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 147,
+      "capability": "Comparable Funding & Valuation Analysis",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "comparable_funding_valuation_analysis",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 148,
+      "capability": "Due Diligence Report Engine",
+      "track": "T17",
+      "backend_module": "due_diligence_bundle",
+      "backend_entrypoint": "build_full_due_diligence_bundle",
+      "surface": "due_diligence_report_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 149,
+      "capability": "Automated Risk Scoring from Diligence",
+      "track": "T02",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "automated_risk_scoring_from_diligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 150,
+      "capability": "Protocol KPI Intelligence",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "protocol_kpi_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 151,
+      "capability": "Quarterly Protocol Performance Reports",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "quarterly_protocol_performance_reports",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 152,
+      "capability": "Governance & Proposal Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "governance_proposal_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 153,
+      "capability": "Project Monitoring Coverage Registry",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "project_monitoring_coverage_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 154,
+      "capability": "AI Crypto Copilot",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "ai_crypto_copilot",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 155,
+      "capability": "AI Deep Research",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "ai_deep_research",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 156,
+      "capability": "Crypto Knowledge Graph",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "crypto_knowledge_graph",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 157,
+      "capability": "Research Library",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "research_library",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 158,
+      "capability": "Institutional Research Feed",
+      "track": "T02",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "institutional_research_feed",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 160,
+      "capability": "Pay-Per-Request Data Access",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "pay_per_request_data_access",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 162,
+      "capability": "Evidence & Provenance Layer",
+      "track": "T15",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "evidence_provenance_layer",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 163,
+      "capability": "Cross-Domain Research-to-Decision Intelligence",
+      "track": "T17",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_domain_research_to_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 164,
+      "capability": "Token Unlock Actionability Score",
+      "track": "T17",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "token_unlock_actionability_score",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 165,
+      "capability": "Fundraising Momentum Score",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "fundraising_momentum_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 166,
+      "capability": "Research Confidence Score",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "research_confidence_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 167,
+      "capability": "Social Volume Intelligence",
+      "track": "T04",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_volume_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 168,
+      "capability": "Social Dominance Intelligence",
+      "track": "T04",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_dominance_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 169,
+      "capability": "Unique Social Volume",
+      "track": "T04",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "unique_social_volume",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 170,
+      "capability": "Trending Words",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "trending_words",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 171,
+      "capability": "Trending Coins",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "trending_coins",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 172,
+      "capability": "Historical Crypto Trends",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "historical_crypto_trends",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 173,
+      "capability": "Key Narratives Intelligence",
+      "track": "T04",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "key_narratives_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 174,
+      "capability": "Alpha Narratives Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "alpha_narratives_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 175,
+      "capability": "Social Sentiment Intelligence",
+      "track": "T12",
+      "backend_module": "sentiment_gate",
+      "backend_entrypoint": "fetch_asset_sentiment",
+      "surface": "social_sentiment_intelligence",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 176,
+      "capability": "Weighted Social Sentiment",
+      "track": "T12",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "weighted_social_sentiment",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 177,
+      "capability": "Social Sentiment Balance",
+      "track": "T02",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_sentiment_balance",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 178,
+      "capability": "Social Source Breakdown",
+      "track": "T12",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_source_breakdown",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 179,
+      "capability": "Development Activity Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "development_activity_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 180,
+      "capability": "Development Activity Contributors",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "development_activity_contributors",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 181,
+      "capability": "Ecosystem Development Dashboard",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "ecosystem_development_dashboard",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 182,
+      "capability": "Developer Activity Change Detection",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "developer_activity_change_detection",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 183,
+      "capability": "Whale Transaction Intelligence",
+      "track": "T15",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_transaction_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 184,
+      "capability": "Whale & Shark Holder Cohorts",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_shark_holder_cohorts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 185,
+      "capability": "Top Holders Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "top_holders_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 186,
+      "capability": "Historical Wallet Balance Tool",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "historical_wallet_balance_tool",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 187,
+      "capability": "Exchange Inflow Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_inflow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 188,
+      "capability": "Exchange Outflow Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_outflow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 189,
+      "capability": "Exchange Netflow Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "exchange_netflow_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 190,
+      "capability": "Exchange Supply / Balance Intelligence",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "exchange_supply_balance_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 191,
+      "capability": "Exchange User Activity",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_user_activity",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 192,
+      "capability": "Network Activity Intelligence",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "network_activity_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 193,
+      "capability": "Transaction Volume Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "transaction_volume_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 194,
+      "capability": "NVT Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "nvt_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 195,
+      "capability": "MVRV Intelligence",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "lookintobitcoin_macro",
+      "surface": "mvrv_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 197,
+      "capability": "Daily Active Addresses",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "daily_active_addresses",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 198,
+      "capability": "Age Consumed / Dormancy Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "age_consumed_dormancy_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 199,
+      "capability": "Mean Dollar Invested Age",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "mean_dollar_invested_age",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 200,
+      "capability": "Token Circulation Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "token_circulation_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 201,
+      "capability": "Network Growth Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "network_growth_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 202,
+      "capability": "Supply Distribution Intelligence",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "supply_distribution_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 203,
+      "capability": "DEX Trading Intelligence",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "dex_trading_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 204,
+      "capability": "DeFi Protocol Activity Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_protocol_activity_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 207,
+      "capability": "Price / Volume / Market Metrics",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "price_volume_market_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 208,
+      "capability": "Metric Correlation Workbench",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "metric_correlation_workbench",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 209,
+      "capability": "Custom Chart Builder",
+      "track": "T04",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "custom_chart_builder",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 210,
+      "capability": "Custom Dashboards / Layouts",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "custom_dashboards_layouts",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 211,
+      "capability": "Screener",
+      "track": "T16",
+      "backend_module": "org_tenant",
+      "backend_entrypoint": "org_isolation_status",
+      "surface": "screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 213,
+      "capability": "Anomaly Detection Alerts",
+      "track": "T09",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "anomaly_detection_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 215,
+      "capability": "Community Explorer",
+      "track": "T16",
+      "backend_module": "org_tenant",
+      "backend_entrypoint": "org_isolation_status",
+      "surface": "community_explorer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 216,
+      "capability": "Research & Market Insights",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "research_market_insights",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 217,
+      "capability": "SanAPI-Style Data Access",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "sanapi_style_data_access",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 218,
+      "capability": "Google Sheets Integration",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "google_sheets_integration",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 219,
+      "capability": "Metric Availability Registry",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "metric_availability_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 220,
+      "capability": "Data Stabilization & Mutability Metadata",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "data_stabilization_mutability_metadata",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 223,
+      "capability": "Social-to-On-Chain Confirmation Engine",
+      "track": "T10",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_to_on_chain_confirmation_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 224,
+      "capability": "Narrative Actionability Score",
+      "track": "T09",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "narrative_actionability_score",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 225,
+      "capability": "Development-to-Market Divergence Detector",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "development_to_market_divergence_detector",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 227,
+      "capability": "Unified Trading Intelligence Workspace",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "unified_trading_intelligence_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 229,
+      "capability": "Cross-Exchange Funding Arbitrage Scanner",
+      "track": "T15",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "cross_exchange_funding_arbitrage_scanner",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 230,
+      "capability": "Spot-Perp Arbitrage Scanner",
+      "track": "T05",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "spot_perp_arbitrage_scanner",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 231,
+      "capability": "Futures Basis & Term Structure",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "futures_basis_term_structure",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 234,
+      "capability": "CVD Intelligence",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "cvd_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 236,
+      "capability": "DEX Screener",
+      "track": "T05",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "dex_screener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 237,
+      "capability": "Token Risk Scoring",
+      "track": "T08",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "token_risk_scoring",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 238,
+      "capability": "Pump & Dump Detection",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "pump_dump_detection",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 239,
+      "capability": "Narrative Tracking",
+      "track": "T09",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "narrative_tracking",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 240,
+      "capability": "Sector Rotation Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "sector_rotation_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 242,
+      "capability": "Price Prediction / Multi-Signal Forecast",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "price_prediction_multi_signal_forecast",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 243,
+      "capability": "Correlation Matrix",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "correlation_matrix",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 244,
+      "capability": "New Listings Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "new_listings_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 246,
+      "capability": "Coverage Metadata Registry",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "coverage_metadata_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 247,
+      "capability": "Public REST API",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "public_rest_api",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 248,
+      "capability": "MCP Server for AI Agents",
+      "track": "T02",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "mcp_server_for_ai_agents",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 249,
+      "capability": "CLI Access",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "cli_access",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 250,
+      "capability": "OpenAPI / SDK Generation",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "openapi_sdk_generation",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 253,
+      "capability": "Liquidation Map / Levels",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_map_levels",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 254,
+      "capability": "Real-Time Liquidation Events",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "real_time_liquidation_events",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 258,
+      "capability": "Top Trader Positioning",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "top_trader_positioning",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 259,
+      "capability": "Futures Basis Intelligence",
+      "track": "T03",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "futures_basis_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 261,
+      "capability": "Futures CVD / Taker Flow",
+      "track": "T17",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "futures_cvd_taker_flow",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 262,
+      "capability": "Options Open Interest",
+      "track": "T01",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "options_open_interest",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 264,
+      "capability": "Options IV / Skew",
+      "track": "T04",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_iv_skew",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 265,
+      "capability": "Max Pain / Gamma Context",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "max_pain_gamma_context",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 266,
+      "capability": "Spot Market Intelligence",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "spot_market_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 268,
+      "capability": "Historical Derivatives Data",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "historical_derivatives_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 269,
+      "capability": "Exchange Comparison",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "exchange_comparison",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 270,
+      "capability": "Liquidation Cascade Proximity",
+      "track": "T04",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_cascade_proximity",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 271,
+      "capability": "Leverage Pressure Score",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "leverage_pressure_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 273,
+      "capability": "Multi-Model Liquidation Comparison",
+      "track": "T03",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "multi_model_liquidation_comparison",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 274,
+      "capability": "Derivatives Alerts",
+      "track": "T05",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "derivatives_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 276,
+      "capability": "Entity Resolution Engine",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "entity_resolution_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 277,
+      "capability": "Address Labeling System",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "address_labeling_system",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 278,
+      "capability": "Entity Profiles",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "entity_profiles",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 280,
+      "capability": "Portfolio Holdings",
+      "track": "T01",
+      "backend_module": "bd_platform.portfolio_rebalancer",
+      "backend_entrypoint": "suggest_rebalance",
+      "surface": "portfolio_holdings",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 281,
+      "capability": "Balance History",
+      "track": "T07",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "balance_history",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 282,
+      "capability": "Entity PnL",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "entity_pnl",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 283,
+      "capability": "Exchange Usage Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "exchange_usage_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 284,
+      "capability": "Top Counterparties",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "top_counterparties",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 285,
+      "capability": "Visualizer / Network Graph",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "visualizer_network_graph",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 286,
+      "capability": "Automated Trace / Path Finding",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "automated_trace_path_finding",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 287,
+      "capability": "Cross-Chain Trace",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "cross_chain_trace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 288,
+      "capability": "Token Top Holders",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "token_top_holders",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 289,
+      "capability": "Token Exchange Flows",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "token_exchange_flows",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 290,
+      "capability": "Token Transaction Explorer",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "token_transaction_explorer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 291,
+      "capability": "Custom Dashboards",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "custom_dashboards",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 292,
+      "capability": "Custom Alerts",
+      "track": "T16",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "custom_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 293,
+      "capability": "Private Labels",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "private_labels",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 294,
+      "capability": "Archive / Historical Portfolio Snapshot",
+      "track": "T16",
+      "backend_module": "bd_platform.portfolio_rebalancer",
+      "backend_entrypoint": "suggest_rebalance",
+      "surface": "archive_historical_portfolio_snapshot",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 295,
+      "capability": "AI Market Insights",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "ai_market_insights",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 296,
+      "capability": "Whale Movement Intelligence",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_movement_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 297,
+      "capability": "Fraud / Suspicious Activity Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "fraud_suspicious_activity_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 298,
+      "capability": "API On-Chain Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "api_on_chain_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 299,
+      "capability": "Cross-Entity Decision Intelligence",
+      "track": "T02",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_entity_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 300,
+      "capability": "Advanced Multi-Asset Charting",
+      "track": "T09",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "advanced_multi_asset_charting",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 301,
+      "capability": "Multi-Chart Layouts",
+      "track": "T01",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "multi_chart_layouts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 302,
+      "capability": "Technical Indicator Library",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "technical_indicator_library",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 303,
+      "capability": "Custom Indicator Scripting",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "custom_indicator_scripting",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 304,
+      "capability": "Strategy Backtesting",
+      "track": "T15",
+      "backend_module": "ml.market_replay_bootstrap",
+      "backend_entrypoint": "bootstrap_market_replay_dataset",
+      "surface": "strategy_backtesting",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 305,
+      "capability": "Market Screener",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "market_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 306,
+      "capability": "Pine-Style Screener",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "pine_style_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 309,
+      "capability": "Economic Calendar",
+      "track": "T16",
+      "backend_module": "org_tenant",
+      "backend_entrypoint": "org_isolation_status",
+      "surface": "economic_calendar",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 310,
+      "capability": "Crypto Calendar / Events",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "crypto_calendar_events",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 311,
+      "capability": "News Integration",
+      "track": "T17",
+      "backend_module": "bd_platform.news_classifier",
+      "backend_entrypoint": "coindesk_feed",
+      "surface": "news_integration",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 312,
+      "capability": "Heatmaps",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "heatmaps",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 313,
+      "capability": "Technical Ratings",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "technical_ratings",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 314,
+      "capability": "Drawing Tools",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "drawing_tools",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 315,
+      "capability": "Replay Mode",
+      "track": "T11",
+      "backend_module": "ml.market_replay_bootstrap",
+      "backend_entrypoint": "bootstrap_market_replay_dataset",
+      "surface": "replay_mode",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 316,
+      "capability": "Idea/Chart Sharing",
+      "track": "T01",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "idea_chart_sharing",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 317,
+      "capability": "Community Scripts",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "community_scripts",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 318,
+      "capability": "Broker Comparison",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "broker_comparison",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 319,
+      "capability": "Paper Trading / Simulation",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "paper_trading_simulation",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 320,
+      "capability": "Cross-Market Workspace",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "cross_market_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 321,
+      "capability": "Custom Intelligence Screener",
+      "track": "T18",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_capability_inventory",
+      "surface": "custom_intelligence_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 322,
+      "capability": "Decision-First Mode",
+      "track": "T09",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "decision_first_mode",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 323,
+      "capability": "Institutional L1/L2 Market Data",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "institutional_l1_l2_market_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 324,
+      "capability": "Reference Data Registry",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "reference_data_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 325,
+      "capability": "Spot & Derivatives Coverage",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "spot_derivatives_coverage",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 326,
+      "capability": "DeFi Market Data",
+      "track": "T05",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_market_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 327,
+      "capability": "Market Depth & Liquidity Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "market_depth_liquidity_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 328,
+      "capability": "Fair Market Value Pricing",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "fair_market_value_pricing",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 329,
+      "capability": "Best Execution Pricing",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "best_execution_pricing",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 333,
+      "capability": "Indices",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "indices",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 334,
+      "capability": "Risk Analytics",
+      "track": "T17",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "risk_analytics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 335,
+      "capability": "Derivatives Listing Analytics",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "derivatives_listing_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 336,
+      "capability": "Market Surveillance",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "market_surveillance",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 339,
+      "capability": "Data Provenance & Audit",
+      "track": "T15",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "data_provenance_audit",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 340,
+      "capability": "Real-Time REST/gRPC Streaming",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "real_time_rest_grpc_streaming",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 341,
+      "capability": "Historical Data Archive",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "historical_data_archive",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 342,
+      "capability": "Venue Quality Ranking",
+      "track": "T17",
+      "backend_module": "bd_platform.market_rankings",
+      "backend_entrypoint": "market_rankings",
+      "surface": "venue_quality_ranking",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 343,
+      "capability": "Execution Quality Analytics",
+      "track": "T02",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "execution_quality_analytics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 344,
+      "capability": "Institutional SLA Monitoring",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "institutional_sla_monitoring",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 345,
+      "capability": "Cross-Market Institutional Decision Layer",
+      "track": "T15",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_market_institutional_decision_layer",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 346,
+      "capability": "Standardized Financial Metrics",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "standardized_financial_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 347,
+      "capability": "Fees Intelligence",
+      "track": "T17",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "fees_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 348,
+      "capability": "Revenue Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "revenue_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 349,
+      "capability": "Token Incentives",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "token_incentives",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 350,
+      "capability": "Earnings / Economic Profit Proxy",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "earnings_economic_profit_proxy",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 351,
+      "capability": "Active Users",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "active_users",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 352,
+      "capability": "Core Developers",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "core_developers",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 353,
+      "capability": "Code Commits",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "code_commits",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 355,
+      "capability": "Borrowed / Loans Outstanding",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "borrowed_loans_outstanding",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 357,
+      "capability": "Stablecoin Supply",
+      "track": "T04",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_supply",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 358,
+      "capability": "Valuation Multiples",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "valuation_multiples",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 359,
+      "capability": "Growth Metrics",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "growth_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 360,
+      "capability": "Margins / Take Rate",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "margins_take_rate",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 361,
+      "capability": "Project Comparables",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "project_comparables",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 362,
+      "capability": "Sector Comparables",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "sector_comparables",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 363,
+      "capability": "Tokenized Asset Coverage",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "tokenized_asset_coverage",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 364,
+      "capability": "Fundamental Screener",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "fundamental_screener",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 365,
+      "capability": "Financial Statement View",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "financial_statement_view",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 366,
+      "capability": "Data Methodology Registry",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "data_methodology_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 367,
+      "capability": "Source Data Provenance",
+      "track": "T10",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "source_data_provenance",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 368,
+      "capability": "API / Data Export",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "api_data_export",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 369,
+      "capability": "Cross-Fundamental Decision Intelligence",
+      "track": "T17",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_fundamental_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 370,
+      "capability": "SQL On-Chain Query Workspace",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "sql_on_chain_query_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 371,
+      "capability": "Curated Data Models",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "curated_data_models",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 372,
+      "capability": "Decoded Smart Contract Tables",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "decoded_smart_contract_tables",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 373,
+      "capability": "Cross-Chain Data Warehouse",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "cross_chain_data_warehouse",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 374,
+      "capability": "Visualization Builder",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "visualization_builder",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 375,
+      "capability": "Dashboard Builder",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "dashboard_builder",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 376,
+      "capability": "Public Dashboard Sharing",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "public_dashboard_sharing",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 377,
+      "capability": "Community Discovery",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "community_discovery",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 378,
+      "capability": "Query Forking",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "query_forking",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 379,
+      "capability": "Data API",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "data_api",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 380,
+      "capability": "Real-Time Feed",
+      "track": "T02",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "real_time_feed",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 381,
+      "capability": "Datashare",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "datashare",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 382,
+      "capability": "dbt Connector",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "dbt_connector",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 383,
+      "capability": "BI Connectors",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "bi_connectors",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 384,
+      "capability": "MCP for AI Agents",
+      "track": "T02",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "mcp_for_ai_agents",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 385,
+      "capability": "Prompt-to-SQL Agent",
+      "track": "T02",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "prompt_to_sql_agent",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 386,
+      "capability": "Dashboard-from-Prompt",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "dashboard_from_prompt",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 387,
+      "capability": "Scheduled Queries",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "scheduled_queries",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 388,
+      "capability": "Alerts from Query Results",
+      "track": "T14",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "alerts_from_query_results",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 389,
+      "capability": "Data Lineage",
+      "track": "T13",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "data_lineage",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 390,
+      "capability": "Query Performance Governance",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "query_performance_governance",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 391,
+      "capability": "White-Label Embedded Analytics",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "white_label_embedded_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 392,
+      "capability": "Cross-Domain Decision Layer",
+      "track": "T16",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_domain_decision_layer",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 394,
+      "capability": "Chain TVL Comparison",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "chain_tvl_comparison",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 395,
+      "capability": "Protocol Directory",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "protocol_directory",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 396,
+      "capability": "Fees & Revenue",
+      "track": "T10",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "fees_revenue",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 398,
+      "capability": "Perps Volume",
+      "track": "T04",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "perps_volume",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 400,
+      "capability": "Stablecoins Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoins_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 401,
+      "capability": "Bridges Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "bridges_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 402,
+      "capability": "Yields Screener",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "yields_screener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 403,
+      "capability": "Yield History",
+      "track": "T10",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "yield_history",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 404,
+      "capability": "Borrowing Rates",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "borrowing_rates",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 405,
+      "capability": "Liquid Staking Intelligence",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "liquid_staking_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 406,
+      "capability": "RWA Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "rwa_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 407,
+      "capability": "Raises / Funding Rounds",
+      "track": "T17",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "raises_funding_rounds",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 408,
+      "capability": "Investor Profiles",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "investor_profiles",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 409,
+      "capability": "Unlocks",
+      "track": "T09",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "unlocks",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 410,
+      "capability": "Treasury Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "treasury_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 411,
+      "capability": "Airdrop / Incentive Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "airdrop_incentive_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 412,
+      "capability": "Capital Formation Radar",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "capital_formation_radar",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 413,
+      "capability": "DeFi Opportunity Screener",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_opportunity_screener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 414,
+      "capability": "DeFi Risk Passport",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_risk_passport",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 415,
+      "capability": "API Aggregation Layer",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "api_aggregation_layer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 416,
+      "capability": "Cross-DeFi Decision Intelligence",
+      "track": "T15",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "cross_defi_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 417,
+      "capability": "Cross-Chain Fundamentals",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "cross_chain_fundamentals",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 418,
+      "capability": "Protocol Fundamentals",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "protocol_fundamentals",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 419,
+      "capability": "Stablecoin Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 420,
+      "capability": "Stablecoin Activity Breakdown",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_activity_breakdown",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 421,
+      "capability": "Developer Activity",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "developer_activity",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 422,
+      "capability": "Sector/Ecosystem Comparables",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "sector_ecosystem_comparables",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 423,
+      "capability": "Equities + Crypto Research",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "equities_crypto_research",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 424,
+      "capability": "Consensus Estimates",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "consensus_estimates",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 425,
+      "capability": "AI Analyst",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "ai_analyst",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 426,
+      "capability": "Thesis Research Workspace",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "thesis_research_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 427,
+      "capability": "Comparable Company / Protocol Analysis",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "comparable_company_protocol_analysis",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 428,
+      "capability": "Excel / Sheets Integration",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "excel_sheets_integration",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 430,
+      "capability": "Research Templates",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "research_templates",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 431,
+      "capability": "Dashboards",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "dashboards",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 432,
+      "capability": "Stablecoin Payment Intelligence",
+      "track": "T14",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_payment_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 433,
+      "capability": "On-Chain Usage Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "on_chain_usage_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 434,
+      "capability": "Revenue / Fees / Economic Activity",
+      "track": "T09",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "revenue_fees_economic_activity",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 435,
+      "capability": "Cross-Market Research Copilot",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "cross_market_research_copilot",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 436,
+      "capability": "Investment Thesis Scoring",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "investment_thesis_scoring",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 437,
+      "capability": "DeFi Risk Radar",
+      "track": "T08",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_risk_radar",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 438,
+      "capability": "Lending Market Risk",
+      "track": "T10",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "lending_market_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 439,
+      "capability": "Collateral Risk",
+      "track": "T10",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "collateral_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 440,
+      "capability": "Liquidation Risk",
+      "track": "T08",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 441,
+      "capability": "Oracle Risk",
+      "track": "T05",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "oracle_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 442,
+      "capability": "Liquidity Risk",
+      "track": "T08",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "liquidity_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 443,
+      "capability": "Protocol Exploit Intelligence",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "protocol_exploit_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 444,
+      "capability": "Stablecoin Risk Intelligence",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_risk_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 445,
+      "capability": "DeFi Strategy Risk",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "defi_strategy_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 446,
+      "capability": "Real-Time Risk Alerts",
+      "track": "T17",
+      "backend_module": "instant_alert_engine",
+      "backend_entrypoint": "engine_stats",
+      "surface": "real_time_risk_alerts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 447,
+      "capability": "DAO Treasury Risk",
+      "track": "T08",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "dao_treasury_risk",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 448,
+      "capability": "Institutional Risk API",
+      "track": "T09",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "institutional_risk_api",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 449,
+      "capability": "Curated On-Chain Dashboards",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "curated_on_chain_dashboards",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 450,
+      "capability": "Narrative-Driven Research",
+      "track": "T09",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "narrative_driven_research",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 451,
+      "capability": "Protocol Dominance",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "protocol_dominance",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 452,
+      "capability": "Aave Multi-Chain Analytics",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "aave_multi_chain_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 453,
+      "capability": "Risk Curation",
+      "track": "T10",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "risk_curation",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 454,
+      "capability": "Capital Protection Controls",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "capital_protection_controls",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 455,
+      "capability": "Stress Testing",
+      "track": "T06",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "stress_testing",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 456,
+      "capability": "Cross-Protocol Contagion",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "cross_protocol_contagion",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 457,
+      "capability": "Protocol Risk Passport",
+      "track": "T10",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "protocol_risk_passport",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 458,
+      "capability": "Risk-to-Decision Intelligence",
+      "track": "T10",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "risk_to_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 459,
+      "capability": "Network Data Pro Metrics",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "network_data_pro_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 460,
+      "capability": "Atlas Blockchain Search",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "atlas_blockchain_search",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 461,
+      "capability": "Address/Balance Search",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "address_balance_search",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 463,
+      "capability": "Block Search",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "block_search",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 464,
+      "capability": "Balance Updates",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "balance_updates",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 465,
+      "capability": "Stablecoin Network Metrics",
+      "track": "T01",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "stablecoin_network_metrics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 466,
+      "capability": "Market Data Feed",
+      "track": "T09",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "market_data_feed",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 467,
+      "capability": "Market Data Pro",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "market_data_pro",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 469,
+      "capability": "Indexes",
+      "track": "T17",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "indexes",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 470,
+      "capability": "Realized Metrics",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "realized_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 471,
+      "capability": "Supply Metrics",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "supply_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 472,
+      "capability": "Mining/Validator Metrics",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "mining_validator_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 473,
+      "capability": "Fee Metrics",
+      "track": "T02",
+      "backend_module": "cap646.fallbacks",
+      "backend_entrypoint": "resolve_gas_usd",
+      "surface": "fee_metrics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 474,
+      "capability": "Activity Metrics",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "activity_metrics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 475,
+      "capability": "Custom Metric Workbench",
+      "track": "T14",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "custom_metric_workbench",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 476,
+      "capability": "Community Charts/API",
+      "track": "T15",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "community_charts_api",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 477,
+      "capability": "Market + Network Join",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "market_network_join",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 479,
+      "capability": "Historical Research Dataset",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "historical_research_dataset",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 480,
+      "capability": "Institutional APIs",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "institutional_apis",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 481,
+      "capability": "Cross-Network Decision Intelligence",
+      "track": "T15",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_network_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 482,
+      "capability": "Institutional Trade Data",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "institutional_trade_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 484,
+      "capability": "OHLCV Data",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "ohlcv_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 485,
+      "capability": "Derivatives Data",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "derivatives_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 486,
+      "capability": "Open Interest Data",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "open_interest_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 487,
+      "capability": "Funding Rate Data",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "funding_rate_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 488,
+      "capability": "Index Data",
+      "track": "T05",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "index_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 489,
+      "capability": "Reference Pricing",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "reference_pricing",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 490,
+      "capability": "Exchange Metadata",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "exchange_metadata",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 491,
+      "capability": "Asset Metadata",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "asset_metadata",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 492,
+      "capability": "Historical Market Archive",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "historical_market_archive",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 493,
+      "capability": "Real-Time Streams",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "real_time_streams",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 494,
+      "capability": "Market Aggregates",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "market_aggregates",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 495,
+      "capability": "Liquidity Analytics",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "liquidity_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 496,
+      "capability": "Volatility Analytics",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "volatility_analytics",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 497,
+      "capability": "Market Cap / Supply",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "market_cap_supply",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 498,
+      "capability": "ETF / ETP Data",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "etf_etp_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 499,
+      "capability": "API Coverage Registry",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "api_coverage_registry",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 501,
+      "capability": "Institutional Delivery",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "institutional_delivery",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 502,
+      "capability": "Benchmark Administration Metadata",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "benchmark_administration_metadata",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 503,
+      "capability": "Cross-Market Data Intelligence",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "cross_market_data_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 504,
+      "capability": "Unified Exchange Connector Layer",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "unified_exchange_connector_layer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 505,
+      "capability": "Tick Trade Data",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "tick_trade_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 506,
+      "capability": "Quote Data",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "quote_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 511,
+      "capability": "Options Market Data",
+      "track": "T04",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_market_data",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 512,
+      "capability": "Funding / OI / Liquidation Metrics",
+      "track": "T04",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "funding_oi_liquidation_metrics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 513,
+      "capability": "Asset & Symbol Metadata",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "asset_symbol_metadata",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 514,
+      "capability": "Historical Flat Files",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "historical_flat_files",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 515,
+      "capability": "REST API",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "rest_api",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 516,
+      "capability": "WebSocket Streaming",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "websocket_streaming",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 517,
+      "capability": "FIX Connectivity",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "fix_connectivity",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 518,
+      "capability": "MCP for AI",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "mcp_for_ai",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 519,
+      "capability": "Exchange Rates / VWAP",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "exchange_rates_vwap",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 520,
+      "capability": "Indexes",
+      "track": "T06",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "indexes",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 521,
+      "capability": "Volatility Index",
+      "track": "T08",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "volatility_index",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 522,
+      "capability": "EMS Integration Boundary",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "ems_integration_boundary",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 523,
+      "capability": "Data Health / SLA Monitoring",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "data_health_sla_monitoring",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 524,
+      "capability": "Symbol Mapping Engine",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "symbol_mapping_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 526,
+      "capability": "AI Market Data Grounding Layer",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "ai_market_data_grounding_layer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 528,
+      "capability": "Liquidation Levels",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_levels",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 529,
+      "capability": "Liquidation Cascade Model",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_cascade_model",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 530,
+      "capability": "Global Liquidation Metrics",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "global_liquidation_metrics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 531,
+      "capability": "Open Interest",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "open_interest",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 532,
+      "capability": "Funding Rates",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "funding_rates",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 533,
+      "capability": "Order Flow Intelligence",
+      "track": "T05",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "order_flow_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 535,
+      "capability": "Whale vs Retail Flow",
+      "track": "T09",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_vs_retail_flow",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 536,
+      "capability": "Slippage Intelligence",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "slippage_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 539,
+      "capability": "Liquidity Zones",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "liquidity_zones",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 540,
+      "capability": "Bot Activity Detection",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "bot_activity_detection",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 541,
+      "capability": "Market Positioning",
+      "track": "T11",
+      "backend_module": "bd_platform.footprint_analytics",
+      "backend_entrypoint": "footprint_snapshot",
+      "surface": "market_positioning",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 542,
+      "capability": "Liquidation Pressure Score",
+      "track": "T05",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_pressure_score",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 543,
+      "capability": "Orderflow Anomaly Detection",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "orderflow_anomaly_detection",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 544,
+      "capability": "API Indicator Platform",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "api_indicator_platform",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 545,
+      "capability": "Trader Cohort Intelligence",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "trader_cohort_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 546,
+      "capability": "Cross-Derivatives Decision Intelligence",
+      "track": "T09",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_derivatives_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 547,
+      "capability": "High-Resolution Multi-Pane Charts",
+      "track": "T05",
+      "backend_module": "bd_platform.tradingview_bridge",
+      "backend_entrypoint": "chart_config",
+      "surface": "high_resolution_multi_pane_charts",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 548,
+      "capability": "Derivatives Dashboard",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "derivatives_dashboard",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 552,
+      "capability": "Futures Volume",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "futures_volume",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 553,
+      "capability": "Basis Intelligence",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "basis_intelligence",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 554,
+      "capability": "Spot Market Data",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "spot_market_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 555,
+      "capability": "Options Analytics",
+      "track": "T05",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_analytics",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 556,
+      "capability": "Options IV Surface",
+      "track": "T04",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_iv_surface",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 557,
+      "capability": "Options Skew",
+      "track": "T01",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_skew",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 558,
+      "capability": "Options Term Structure",
+      "track": "T08",
+      "backend_module": "options_fetcher",
+      "backend_entrypoint": "fetch_options_overview",
+      "surface": "options_term_structure",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 559,
+      "capability": "TradFi Context",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "tradfi_context",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 560,
+      "capability": "Multi-Indicator Workspace",
+      "track": "T18",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_capability_inventory",
+      "surface": "multi_indicator_workspace",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 561,
+      "capability": "Real-Time Prices",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "real_time_prices",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 562,
+      "capability": "Historical Data",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "historical_data",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 563,
+      "capability": "API Data Access",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "api_data_access",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 564,
+      "capability": "News Context",
+      "track": "T15",
+      "backend_module": "bd_platform.news_classifier",
+      "backend_entrypoint": "coindesk_feed",
+      "surface": "news_context",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 565,
+      "capability": "Cross-Asset Correlation",
+      "track": "T03",
+      "backend_module": "data_provenance_score",
+      "backend_entrypoint": "compute_data_provenance_score",
+      "surface": "cross_asset_correlation",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 566,
+      "capability": "Derivatives Regime Engine",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "derivatives_regime_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 567,
+      "capability": "Cross-Market Decision Intelligence",
+      "track": "T05",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "cross_market_decision_intelligence",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 570,
+      "capability": "High_Availability_Architecture",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "high_availability_architecture",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 571,
+      "capability": "Infrastructure_Uptime_Shield",
+      "track": "T01",
+      "backend_module": "scale_readiness",
+      "backend_entrypoint": "scale_readiness_report",
+      "surface": "infrastructure_uptime_shield",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 572,
+      "capability": "Institutional_Data_Architecture",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "institutional_data_architecture",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 573,
+      "capability": "Flexible_Connector_Microservice",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "flexible_connector_microservice",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 575,
+      "capability": "API_Data_Pipe",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "api_data_pipe",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 576,
+      "capability": "Developer_SDK",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "developer_sdk",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 577,
+      "capability": "Pro_Developer_Sandbox",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "pro_developer_sandbox",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 578,
+      "capability": "Unified_Portfolio_Dashboard",
+      "track": "T15",
+      "backend_module": "bd_platform.portfolio_rebalancer",
+      "backend_entrypoint": "suggest_rebalance",
+      "surface": "unified_portfolio_dashboard",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 579,
+      "capability": "Global_Asset_Tracker",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "global_asset_tracker",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 580,
+      "capability": "Multi_Account_Sync",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "multi_account_sync",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 582,
+      "capability": "Profitability_Analyzer",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "profitability_analyzer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 583,
+      "capability": "Margin_Risk_Calculator",
+      "track": "T17",
+      "backend_module": "risk_manager",
+      "backend_entrypoint": "risk_status",
+      "surface": "margin_risk_calculator",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 585,
+      "capability": "Volatility_Scoring_System",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "volatility_scoring_system",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 586,
+      "capability": "Volatility_Surface_Analyzer",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "volatility_surface_analyzer",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 587,
+      "capability": "Delta_Neutral_Calculator",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "delta_neutral_calculator",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 588,
+      "capability": "High_Precision_Backtesting",
+      "track": "T02",
+      "backend_module": "ml.market_replay_bootstrap",
+      "backend_entrypoint": "bootstrap_market_replay_dataset",
+      "surface": "high_precision_backtesting",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 589,
+      "capability": "Strategy_Vetting_Algorithm",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "strategy_vetting_algorithm",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 590,
+      "capability": "AI_Quant_Rating_Engine",
+      "track": "T08",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "ai_quant_rating_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 593,
+      "capability": "Social_Hype_Analyzer",
+      "track": "T09",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "social_hype_analyzer",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 594,
+      "capability": "Narrative_Alert_System",
+      "track": "T04",
+      "backend_module": "bd_platform.whale_story",
+      "backend_entrypoint": "whale_narrative",
+      "surface": "narrative_alert_system",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 595,
+      "capability": "AI_Digest_Generator",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "ai_digest_generator",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 596,
+      "capability": "AI_Agent_Consultant",
+      "track": "T09",
+      "backend_module": "bd_platform.telegram_agent",
+      "backend_entrypoint": "handle_agent_message",
+      "surface": "ai_agent_consultant",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 597,
+      "capability": "Natural_Language_Interpreter",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "natural_language_interpreter",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 598,
+      "capability": "Wallet_Shadowing",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "wallet_shadowing",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 599,
+      "capability": "Entity_Tagging_System",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "entity_tagging_system",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 600,
+      "capability": "Whale_Clustering_Engine",
+      "track": "T17",
+      "backend_module": "whale_tracker",
+      "backend_entrypoint": "get_latest_whale_alerts",
+      "surface": "whale_clustering_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 601,
+      "capability": "Visual_Transaction_Graph",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "visual_transaction_graph",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 602,
+      "capability": "Developer_Wallet_Tracker",
+      "track": "T09",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "debank_wallet",
+      "surface": "developer_wallet_tracker",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 603,
+      "capability": "Miner_Flow_Monitor",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "miner_flow_monitor",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 604,
+      "capability": "Token_Unlock_Forecaster",
+      "track": "T09",
+      "backend_module": "bd_platform.token_unlocks",
+      "backend_entrypoint": "unlock_calendar",
+      "surface": "token_unlock_forecaster",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 605,
+      "capability": "Governance_Sentiment_Monitor",
+      "track": "T09",
+      "backend_module": "sentiment_engine",
+      "backend_entrypoint": "build_sentiment_context_safe",
+      "surface": "governance_sentiment_monitor",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 606,
+      "capability": "Dev_Health_Score",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "dev_health_score",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 607,
+      "capability": "Financial_Health_Scoring",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "financial_health_scoring",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 608,
+      "capability": "Custom_Ratio_Engine",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "custom_ratio_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 609,
+      "capability": "Funding_Rate_Listener",
+      "track": "T10",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "funding_rate_listener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 611,
+      "capability": "Funding_Rate_Heatmap_Engine",
+      "track": "T05",
+      "backend_module": "bd_platform.derivatives_hub",
+      "backend_entrypoint": "derivatives_overview",
+      "surface": "funding_rate_heatmap_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 613,
+      "capability": "Liquidation_Screener",
+      "track": "T06",
+      "backend_module": "bd_platform.liquidation_radar",
+      "backend_entrypoint": "liquidation_radar",
+      "surface": "liquidation_screener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 614,
+      "capability": "DEX_Liquidity_Listener",
+      "track": "T05",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "dexscreener_pairs",
+      "surface": "dex_liquidity_listener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 616,
+      "capability": "Yield_Delta_Listener",
+      "track": "T04",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "yield_delta_listener",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 617,
+      "capability": "Yield_Arbitrage_Engine",
+      "track": "T09",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "yield_arbitrage_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 618,
+      "capability": "Yield_Optimization_Module",
+      "track": "T10",
+      "backend_module": "bd_platform.onchain_hub",
+      "backend_entrypoint": "defillama_raises",
+      "surface": "yield_optimization_module",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 619,
+      "capability": "Trend_Metric_Collector",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "trend_metric_collector",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 620,
+      "capability": "MTF_Core_Logic",
+      "track": "T04",
+      "backend_module": "market_context",
+      "backend_entrypoint": "probe_price_sources",
+      "surface": "mtf_core_logic",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 621,
+      "capability": "Pattern_Recognition_Engine",
+      "track": "T12",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "pattern_recognition_engine",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 622,
+      "capability": "Prediction_Trend_Analyzer",
+      "track": "T17",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "prediction_trend_analyzer",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 623,
+      "capability": "Execution_Latency_Monitor",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "execution_latency_monitor",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 624,
+      "capability": "Low_Latency_Execution_Node",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "low_latency_execution_node",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 625,
+      "capability": "Rust_Execution_Module",
+      "track": "T02",
+      "backend_module": "security_posture",
+      "backend_entrypoint": "security_posture_report",
+      "surface": "rust_execution_module",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 626,
+      "capability": "Institutional_Dashboard",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "institutional_dashboard",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 627,
+      "capability": "Custom_Institutional_Data_Terminal",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "custom_institutional_data_terminal",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 628,
+      "capability": "Viral_Intelligence_Distribution_Loop",
+      "track": "T15",
+      "backend_module": "product_honesty_api",
+      "backend_entrypoint": "build_public_readiness",
+      "surface": "viral_intelligence_distribution_loop",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 632,
+      "capability": "Multi-Tier Data Storage",
+      "track": "T03",
+      "backend_module": "hot_storage",
+      "backend_entrypoint": "get_hot_storage_stats",
+      "surface": "multi_tier_data_storage",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 633,
+      "capability": "Cross-Chain Liquidity Flow",
+      "track": "T09",
+      "backend_module": "onchain_tracker",
+      "backend_entrypoint": "build_onchain_context_safe",
+      "surface": "cross_chain_liquidity_flow",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 634,
+      "capability": "Liquidity/Full-Fill Feasibility",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "liquidity_full_fill_feasibility",
+      "binding_source": "track_default"
+    },
+    {
+      "id": 635,
+      "capability": "Unified Arbitrage Opportunity Engine",
+      "track": "T06",
+      "backend_module": "arbitrage_service",
+      "backend_entrypoint": "scan_arbitrage_opportunities",
+      "surface": "unified_arbitrage_opportunity_engine",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 637,
+      "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+      "track": "T11",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "scenario_engine_probabilistic_scenarios_not_deterministic_prediction",
+      "binding_source": "capability_keyword"
+    },
+    {
+      "id": 638,
+      "capability": "Claims/Prediction Verification Engine",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "claims_prediction_verification_engine",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 639,
+      "capability": "Net-Edge Truth Score",
+      "track": "T06",
+      "backend_module": "net_edge_truth",
+      "backend_entrypoint": "compute_net_edge_truth",
+      "surface": "net_edge_truth_score",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 640,
+      "capability": "Public Accuracy Ledger",
+      "track": "T17",
+      "backend_module": "oracle_track_record",
+      "backend_entrypoint": "public_track_record",
+      "surface": "public_accuracy_ledger",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 641,
+      "capability": "Decision Certificate + Institutional DD Export",
+      "track": "T17",
+      "backend_module": "decision_certificate",
+      "backend_entrypoint": "build_decision_certificate",
+      "surface": "decision_certificate_institutional_dd_export",
+      "binding_source": "gap_matrix_component"
+    },
+    {
+      "id": 643,
+      "capability": "End-to-End Decision Traceability",
+      "track": "T17",
+      "backend_module": "trust_pulse",
+      "backend_entrypoint": "build_trust_pulse",
+      "surface": "end_to_end_decision_traceability",
+      "binding_source": "capability_keyword"
+    }
+  ]
+}

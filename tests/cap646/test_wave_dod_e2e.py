@@ -81,7 +81,7 @@ async def test_wave_api_ids():
 
 
 @pytest.mark.asyncio
-async def test_wave_d_sample_execute(tmp_path, monkeypatch):
+async def test_registry_binding_not_generic(tmp_path, monkeypatch):
     import config
     import database
 
@@ -89,10 +89,31 @@ async def test_wave_d_sample_execute(tmp_path, monkeypatch):
     monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
     await database.init_db()
 
-    from cap646.runtime import execute_capability
+    from cap646.backend_executor import execute_binding
+    from cap646.backend_registry import is_generic_surface
 
-    sample = WAVE_D[:5]
+    for cid in (100, 200, 300, 400):
+        result = await execute_binding(cid, params={"symbol": "BTC", "tier": "pro"})
+        assert result.get("success") is True, f"ID{cid} failed"
+        assert result.get("backend_module")
+        assert not is_generic_surface(result.get("surface"))
+        assert result.get("surface") != "platform_codepath"
+
+
+@pytest.mark.asyncio
+async def test_wave_d_registry_sample_dod(tmp_path, monkeypatch):
+    import config
+    import database
+
+    monkeypatch.setattr(config, "DB_PATH", str(tmp_path / "cap646.db"))
+    monkeypatch.setenv("SERVICE_BUS_LOCAL", "true")
+    await database.init_db()
+
+    from cap646.dod import verify_dod
+    from cap646.waves import WAVE_D
+
+    sample = WAVE_D[::50][:10]
     for cid in sample:
-        result = await execute_capability(cid, skip_entitlement=True, params={"symbol": "BTC", "tier": "pro"})
-        assert result.get("compliance_footer"), f"ID{cid} missing footer"
-        assert result.get("success") is True, f"ID{cid} failed: {result.get('error')}"
+        report = await verify_dod(cid)
+        assert report["verdict"] == "VERIFIED_COMPLETE", f"ID{cid}: {report}"
+

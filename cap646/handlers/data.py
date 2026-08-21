@@ -54,5 +54,15 @@ async def handle_data_capability(capability_id: int, *, params: dict[str, Any]) 
 
     lake = await lake_status()
     prov = compute_data_provenance_score(symbol=symbol.replace("/USDT", ""))
-    payload = attach_provenance({"capability_id": capability_id, "lake": lake, "success": bool(lake)})
+    payload = attach_provenance(
+        {
+            "capability_id": capability_id,
+            "surface": "data_platform_storage",
+            "backend_module": "data_lake",
+            "backend_entrypoint": "lake_status",
+            "binding_source": "data_handler_default",
+            "lake": lake,
+            "success": bool(lake),
+        }
+    )
     return ai_compliance_footer(payload)

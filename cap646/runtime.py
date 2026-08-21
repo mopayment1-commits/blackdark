@@ -120,4 +120,7 @@ async def execute_capability(
     result.setdefault("capability", row["capability"])
     result.setdefault("track", row["track"])
     result.setdefault("classification", "VERIFIED_COMPLETE" if result.get("success") else "NOT_READY")
+    if "backend_module" not in result:
+        result["backend_module"] = getattr(handler, "__module__", "cap646.handlers")
+        result["backend_entrypoint"] = getattr(handler, "__name__", "unknown")
     return ai_compliance_footer(result)

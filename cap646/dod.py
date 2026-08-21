@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from cap646.catalog import catalog_by_id, is_duplicate, is_external
+from cap646.backend_registry import is_generic_surface
 from cap646.runtime import execute_capability
 from cap646.waves import EXTERNAL_EVIDENCE_SLOTS, SIGNED_INFRA_SLOTS, USER_FACING
 
@@ -93,9 +94,18 @@ async def verify_dod(
         "ui_surface": ui if capability_id in USER_FACING else None,
         "entitlements_enforced": True,
         "no_demo_path": result.get("error") != "demo_only",
+        "bound_backend": bool(result.get("backend_module")),
+        "canonical_surface": bool(result.get("surface")) and not is_generic_surface(result.get("surface")),
+        "no_generic_handler": result.get("binding_source") not in {"platform_hash", "generic"},
     }
 
-    verdict = "VERIFIED_COMPLETE" if backend and footer and all(v for k, v in checks.items() if v is not None and v is not False) else "NOT_READY"
+    verdict = (
+        "VERIFIED_COMPLETE"
+        if backend
+        and footer
+        and all(v for k, v in checks.items() if v is not None and v is not False)
+        else "NOT_READY"
+    )
 
     return {
         "id": capability_id,

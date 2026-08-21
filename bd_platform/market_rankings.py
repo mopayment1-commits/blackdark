@@ -14,10 +14,33 @@ async def market_rankings(*, limit: int = 100) -> dict[str, Any]:
     url = "https://api.coingecko.com/api/v3/coins/markets"
     params = {"vs_currency": "usd", "order": "market_cap_desc", "per_page": min(limit, 250), "page": 1, "sparkline": "true"}
     timeout = aiohttp.ClientTimeout(total=15)
-    async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
-        if resp.status != 200:
-            return {"available": False, "coins": []}
-        rows = await resp.json()
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session, session.get(url, params=params) as resp:
+            if resp.status != 200:
+                raise RuntimeError(f"coingecko_status_{resp.status}")
+            rows = await resp.json()
+    except Exception:
+        from market_context import fetch_binance_market_overview_pack
+
+        pack = await fetch_binance_market_overview_pack(limit=min(limit, 50))
+        coins = [
+            {
+                "rank": i,
+                "symbol": row.get("symbol"),
+                "name": row.get("symbol"),
+                "price_usd": row.get("price"),
+                "change_24h_pct": row.get("change_24h"),
+                "volume_24h_usd": row.get("volume_24h"),
+            }
+            for i, row in enumerate(pack or [], start=1)
+        ]
+        return {
+            "style": "binance_fallback",
+            "timestamp": datetime.now(UTC).isoformat(),
+            "count": len(coins),
+            "coins": coins,
+            "available": bool(coins),
+        }
 
     coins = []
     for i, row in enumerate(rows, start=1):
