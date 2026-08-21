@@ -30,6 +30,32 @@ def test_grid_bot_create():
     assert list_grids()["count"] >= 1
 
 
+def test_grid_api_requires_price_bounds():
+    """Route validates bounds before create_grid (no KeyError → 500)."""
+    import asyncio
+    from fastapi import HTTPException
+    from platform_api import grid_create
+
+    async def _run():
+        with pytest.raises(HTTPException) as missing:
+            await grid_create(body={"asset": "BTC"}, _user={"email": "t@example.com"})
+        assert missing.value.status_code == 422
+        with pytest.raises(HTTPException) as bad_order:
+            await grid_create(
+                body={"asset": "BTC", "lower_price": 70000, "upper_price": 50000},
+                _user={"email": "t@example.com"},
+            )
+        assert bad_order.value.status_code == 422
+        out = await grid_create(
+            body={"asset": "BTC", "lower_price": 50000, "upper_price": 70000, "grids": 5},
+            _user={"email": "t@example.com"},
+        )
+        assert out["asset"] == "BTC"
+        assert out["lower_price"] == 50000.0
+
+    asyncio.run(_run())
+
+
 def test_ifttt_rules_crud():
     from bd_platform.ifttt_rules import create_rule, list_rules
 
