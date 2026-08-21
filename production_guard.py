@@ -34,12 +34,15 @@ CHECK_ID_CATALOG: tuple[str, ...] = (
     "redis_shared_bus",
     "viral_multi_instance",
     "viral_soft_launch_unset",
+    "institutional_soft_launch_unset",
+    "enterprise_sso_demo_off",
     "sentry_observability",
     "uptime_self_probe",
     "telegram_bot",
     "telegram_webhook_secret",
     "price_feed_railway",
     "soft_launch_mode",
+    "institutional_launch_mode",
 )
 
 _INSECURE_DEFAULTS = (
@@ -91,31 +94,6 @@ def _service_mode() -> str:
 
 
 
-def _env_truthy(name: str, default: str = "") -> bool:
-    return os.getenv(name, default).lower() in {"1", "true", "yes"}
-
-
-def _parallelism_snapshot() -> dict[str, Any]:
-    try:
-        from viral_capacity import effective_parallelism
-
-        return effective_parallelism()
-    except Exception:
-        return {
-            "workers": int(os.getenv("WEB_CONCURRENCY", os.getenv("UVICORN_WORKERS", "1")) or 1),
-            "replicas": int(os.getenv("WEB_REPLICAS", "1") or 1),
-            "parallelism": 1,
-        }
-
-
-def _billing_webhook_ok(lemon: bool, stripe: bool) -> bool:
-    if lemon:
-        return env_configured("LEMON_SQUEEZY_WEBHOOK_SECRET")
-    if stripe:
-        return env_configured("STRIPE_WEBHOOK_SECRET")
-    return True
-
-
 def _secret_hygiene() -> tuple[bool, bool, bool]:
     """Presence + insecure-default checks without retaining clear-text secrets."""
     secrets_ok = env_configured("SECRETS_MASTER_KEY") or env_configured("SECRETS_VAULT_KEY")
@@ -144,136 +122,8 @@ def _redis_configured() -> bool:
     return bool((getattr(config, "REDIS_URL", "") or "").strip()) or env_configured("REDIS_URL")
 
 
-def _collect_guard_context() -> dict[str, Any]:
-    from billing_service import billing_configured
-    from postgres_backend import use_postgres
-
-    pg = use_postgres()
-    soft_launch = _env_truthy("SOFT_LAUNCH")
-    lemon = env_configured("LEMON_SQUEEZY_CHECKOUT_PRO")
-    stripe = env_configured("STRIPE_SECRET_KEY")
-    lemon_whale = env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE")
-    stripe_price_whale = env_configured("STRIPE_PRICE_WHALE")
-    expose_demo = _env_truthy("EXPOSE_B2B_DEMO_KEY")
-    live_exec = _env_truthy("LIVE_EXECUTION_ALLOW_API")
-    strict_prod = is_production() and not soft_launch
-    viral_mode = _env_truthy("VIRAL_MODE", "true")
-    viral_ha = strict_prod and viral_mode
-    parallel = _parallelism_snapshot()
-    redis_ok = _redis_configured()
-    secrets_ok, session_pepper_ok, prod_secrets_hygiene = _secret_hygiene()
-    return {
-        "pg": pg,
-        "mode": _service_mode(),
-        "soft_launch": soft_launch,
-        # Never retain connection-string material in guard state.
-        "redis_configured": redis_ok,
-        "billing": billing_configured(),
-        "sentry": env_configured("SENTRY_DSN"),
-        "uptime_probe": _env_truthy("UPTIME_SELF_PROBE_ENABLED", "true"),
-        "lemon": lemon,
-        "stripe": stripe,
-        "telegram": env_configured("TELEGRAM_BOT_TOKEN"),
-        "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
-        "whale_checkout_ok": lemon_whale or stripe_price_whale or (stripe and not lemon),
-        "secrets_ok": secrets_ok,
-        "session_pepper_ok": session_pepper_ok,
-        "admin_ok": env_configured("ADMIN_API_KEY") or env_configured("ADMIN_EMAILS"),
-        "demo_disabled": _demo_key_disabled(),
-        "expose_demo": expose_demo,
-        "soft_launch_safe": (not soft_launch) or (not live_exec and not expose_demo),
-        "billing_webhook_ok": _billing_webhook_ok(lemon, stripe),
-        "strict_prod": strict_prod,
-        "viral_mode": viral_mode,
-        "viral_ha": viral_ha,
-        "parallel": parallel,
-        "redis_shared_ok": redis_ok and not getattr(config, "SERVICE_BUS_LOCAL", True),
-        "multi_instance_ok": int(parallel.get("parallelism") or 1) >= 2,
-        "sqlite_forbidden_ok": pg if strict_prod else (pg or soft_launch or not is_production()),
-        "prod_secrets_hygiene": prod_secrets_hygiene,
-    }
-
-
-
-def _admin_mfa_ok() -> bool:
-    admin_mfa = __import__("admin_mfa", fromlist=["mfa_policy_enabled", "system_admin_totp_configured"])
-    return (not admin_mfa.mfa_policy_enabled()) or admin_mfa.system_admin_totp_configured()
-
-
-def _build_guard_checks(ctx: dict[str, Any]) -> list[dict[str, Any]]:
-    soft_launch = ctx["soft_launch"]
-    strict_prod = ctx["strict_prod"]
-    viral_ha = ctx["viral_ha"]
-    expose_demo = ctx["expose_demo"]
-    telegram = ctx["telegram"]
-    return [
-        _check("postgres_database", ctx["pg"] or soft_launch, required=True,
-               hint="Set Postgres DATABASE_URL=postgresql://... (or SOFT_LAUNCH=true for free SQLite demo)"),
-        _check("sqlite_forbidden_in_strict_production", ctx["sqlite_forbidden_ok"], required=strict_prod,
-               hint="Strict production forbids SQLite. Set DATABASE_URL=postgresql://... and unset SOFT_LAUNCH before any institutional pitch."),
-        _check("at_rest_encryption_posture", ctx["secrets_ok"], required=True,
-               hint="Set SECRETS_MASTER_KEY or SECRETS_VAULT_KEY for Fernet at-rest encryption of user API keys / sensitive vault material (engineering posture ≠ ISO 27001 cert)"),
-        _check("service_mode_web", ctx["mode"] == "web", required=True,
-               hint="Set SERVICE_MODE=web on Railway (lighter Oracle-only process)"),
-        _check("billing_checkout", ctx["billing"] or soft_launch, required=True,
-               hint="Set LEMON_SQUEEZY_CHECKOUT_PRO or Stripe live keys (or SOFT_LAUNCH=true)"),
-        _check("billing_entitlement_webhook", ctx["billing_webhook_ok"] or soft_launch, required=True,
-               hint="Set LEMON_SQUEEZY_WEBHOOK_SECRET (POST /webhook/lemon) or STRIPE_WEBHOOK_SECRET (POST /webhook) — or SOFT_LAUNCH=true"),
-        _check("billing_whale_checkout_usd", ctx["whale_checkout_ok"] or soft_launch, required=False,
-               hint="Set LEMON_SQUEEZY_CHECKOUT_WHALE or STRIPE_PRICE_WHALE before promoting Decision Desk ($49 USD)"),
-        _check("billing_currency_usd", True, required=False,
-               hint="Self-serve Trust OS SKUs are USD-only (see docs/PAYMENTS_USD_SECURITY.md)"),
-        _check("secrets_master_key", ctx["secrets_ok"], required=True,
-               hint="Set SECRETS_MASTER_KEY or SECRETS_VAULT_KEY (no insecure default in prod)"),
-        _check("session_token_pepper", ctx["session_pepper_ok"], required=True,
-               hint="Set SESSION_TOKEN_PEPPER to a long random secret"),
-        _check("no_insecure_prod_secret_defaults", ctx["prod_secrets_hygiene"], required=is_production(),
-               hint="Replace known-insecure SECRETS_MASTER_KEY / SESSION_TOKEN_PEPPER dev defaults before any production deploy (including Soft Launch)"),
-        _check("admin_auth_configured", ctx["admin_ok"], required=True,
-               hint="Set ADMIN_API_KEY and/or ADMIN_EMAILS"),
-        _check("b2b_demo_key_disabled", ctx["demo_disabled"] if strict_prod else True, required=False,
-               hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in production"),
-        _check("demo_key_not_publicly_exposed", (not expose_demo) if strict_prod else (not expose_demo or soft_launch),
-               required=strict_prod, hint="Set EXPOSE_B2B_DEMO_KEY=false in strict production (never leak demo keys)"),
-        _check("soft_launch_no_live_money", ctx["soft_launch_safe"], required=is_production(),
-               hint="Soft Launch forbids LIVE_EXECUTION_ALLOW_API and EXPOSE_B2B_DEMO_KEY"),
-        _check("admin_mfa_configured", _admin_mfa_ok(), required=strict_prod,
-               hint="Set ADMIN_TOTP_SECRET (+ ADMIN_MFA_REQUIRED=true) for privileged admin MFA"),
-        _check("expose_demo_key_off", not expose_demo, required=strict_prod,
-               hint="EXPOSE_B2B_DEMO_KEY must be false in strict production"),
-        _check("redis_shared_bus", ctx["redis_shared_ok"], required=viral_ha,
-               hint="Add Railway/Upstash Redis -> REDIS_URL + SERVICE_BUS_LOCAL=false (required for VIRAL_MODE HA)"),
-        _check("viral_multi_instance", ctx["multi_instance_ok"] if viral_ha else True, required=viral_ha,
-               hint="Set WEB_CONCURRENCY≥2 and/or WEB_REPLICAS≥2 (or Railway numReplicas≥2). run_service.py honors WEB_CONCURRENCY via uvicorn --workers."),
-        _check("viral_soft_launch_unset", (not soft_launch) if viral_ha else True, required=viral_ha,
-               hint="Unset SOFT_LAUNCH for viral/HA production (Soft Launch SQLite is demo-only)"),
-        _check("sentry_observability", ctx["sentry"], required=False,
-               hint="Set SENTRY_DSN for production error tracking"),
-        _check("uptime_self_probe", ctx["uptime_probe"], required=False,
-               hint="UPTIME_SELF_PROBE_ENABLED=true (default) + UptimeRobot external"),
-        _check("telegram_bot", telegram, required=False,
-               hint="Set TELEGRAM_BOT_TOKEN + webhook for GTM growth loop"),
-        _check("telegram_webhook_secret", (not telegram) or ctx["telegram_secret"], required=bool(telegram),
-               hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set"),
-        _check("price_feed_railway", not getattr(config, "PRICE_FEED_WS_ONLY", True), required=False,
-               hint="PRICE_FEED_WS_ONLY=false on Railway cloud"),
-        _check("soft_launch_mode", soft_launch, required=False,
-               hint="SOFT_LAUNCH=true enables free SQLite demo without Postgres/billing webhooks"),
-        _check(
-            "identity_debug_tokens_off",
-            (os.getenv("IDENTITY_DEBUG_TOKENS", "").lower() not in {"1", "true", "yes"}) if is_production() else True,
-            required=is_production(),
-            hint="Unset IDENTITY_DEBUG_TOKENS in production (runtime hard-off exists; env must stay false for hygiene)",
-        ),
-    ]
-
-
-def _billing_provider_name(lemon: bool, stripe: bool) -> str:
-    if lemon:
-        return "lemon_squeezy"
-    if stripe:
-        return "stripe"
-    return "none"
+def _env_flag(name: str, default: str = "") -> bool:
+    return os.getenv(name, default).lower() in {"1", "true", "yes"}
 
 
 def _env_flag(name: str, default: str = "") -> bool:
@@ -322,6 +172,9 @@ def _production_guard_state() -> dict[str, Any]:
     pg = use_postgres()
     production = is_production()
     soft_launch = _env_flag("SOFT_LAUNCH")
+    institutional = _env_flag("INSTITUTIONAL_LAUNCH") or _env_flag("BD_INSTITUTIONAL_LAUNCH")
+    if institutional:
+        soft_launch = False
     redis_ok = _redis_configured()
     lemon = env_configured("LEMON_SQUEEZY_CHECKOUT_PRO")
     stripe = env_configured("STRIPE_SECRET_KEY")
@@ -334,11 +187,14 @@ def _production_guard_state() -> dict[str, Any]:
     parallel = _effective_parallelism()
     lemon_webhook = env_configured("LEMON_SQUEEZY_WEBHOOK_SECRET")
     stripe_webhook = env_configured("STRIPE_WEBHOOK_SECRET")
+    sso_demo = os.getenv("ENTERPRISE_SSO_DEMO", "false").lower() in {"1", "true", "yes"}
     return {
         "pg": pg,
         "mode": _service_mode(),
         "production": production,
         "soft_launch": soft_launch,
+        "institutional": institutional,
+        "sso_demo": sso_demo,
         "strict_prod": strict_prod,
         "viral_mode": viral_mode,
         "viral_ha": viral_ha,
@@ -458,6 +314,7 @@ def _security_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _demo_and_viral_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
+    institutional = bool(s.get("institutional"))
     return [
         _check("b2b_demo_key_disabled", s["demo_disabled"] if s["strict_prod"] else True, required=False, hint="Unset BLACKDARK_B2B_DEMO_KEY or set to disabled in production"),
         _check("demo_key_not_publicly_exposed", not s["expose_demo"] if s["strict_prod"] else (not s["expose_demo"] or s["soft_launch"]), required=s["strict_prod"], hint="Set EXPOSE_B2B_DEMO_KEY=false in strict production (never leak demo keys)"),
@@ -474,6 +331,18 @@ def _demo_and_viral_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
             ),
         ),
         _check("viral_soft_launch_unset", not s["soft_launch"] if s["viral_ha"] else True, required=s["viral_ha"], hint="Unset SOFT_LAUNCH for viral/HA production (Soft Launch SQLite is demo-only)"),
+        _check(
+            "institutional_soft_launch_unset",
+            (not s["soft_launch"]) if institutional else True,
+            required=institutional,
+            hint="INSTITUTIONAL_LAUNCH forbids SOFT_LAUNCH — demo SQLite/billing waivers are not institutional production",
+        ),
+        _check(
+            "enterprise_sso_demo_off",
+            (not s.get("sso_demo", False)) if (s["strict_prod"] or institutional) else True,
+            required=(s["strict_prod"] or institutional),
+            hint="Unset ENTERPRISE_SSO_DEMO (default false). Demo SSO must not be enabled for institutional production.",
+        ),
     ]
 
 
@@ -485,6 +354,12 @@ def _observability_growth_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
         _check("telegram_webhook_secret", (not s["telegram"]) or s["telegram_secret"], required=bool(s["telegram"]), hint="Set TELEGRAM_WEBHOOK_SECRET when TELEGRAM_BOT_TOKEN is set"),
         _check("price_feed_railway", not getattr(config, "PRICE_FEED_WS_ONLY", True), required=False, hint="PRICE_FEED_WS_ONLY=false on Railway cloud"),
         _check("soft_launch_mode", s["soft_launch"], required=False, hint="SOFT_LAUNCH=true enables free SQLite demo without Postgres/billing webhooks"),
+        _check(
+            "institutional_launch_mode",
+            bool(s.get("institutional")),
+            required=False,
+            hint="Set INSTITUTIONAL_LAUNCH=true for acquisition/commercial production posture (forces Soft Launch off)",
+        ),
     ]
 
 
@@ -516,6 +391,7 @@ def _production_guard_report(s: dict[str, Any], checks: list[dict[str, Any]]) ->
     return {
         "production": s["production"],
         "soft_launch": s["soft_launch"],
+        "institutional_launch": bool(s.get("institutional")),
         "strict_production": s["strict_prod"],
         "viral_mode": s["viral_mode"],
         "viral_ha_enforced": s["viral_ha"],
@@ -530,11 +406,14 @@ def _production_guard_report(s: dict[str, Any], checks: list[dict[str, Any]]) ->
         "acquisition_honesty": {
             "sqlite_ok_for_pitch": bool(s["pg"]),
             "soft_launch_is_not_ha": s["soft_launch"],
+            "soft_launch_is_not_institutional": True,
             "iso_certificates_claimed": False,
+            "enterprise_sso_demo_default_off": True,
             "note": (
                 "PostgreSQL required for institutional pitch. Soft Launch SQLite is demo-only. "
                 "Fernet vault = engineering posture, not an ISO 27001 certificate. "
-                "Viral HA requires Postgres + Redis + multi-instance + SOFT_LAUNCH unset."
+                "Viral HA requires Postgres + Redis + multi-instance + SOFT_LAUNCH unset. "
+                "INSTITUTIONAL_LAUNCH=true forces Soft Launch off and requires SSO demo off."
             ),
         },
         "railway_replicas_hint": "Set numReplicas=2 in railway.json + WEB_CONCURRENCY≥2 + WEB_REPLICAS=2",
