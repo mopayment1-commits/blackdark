@@ -355,11 +355,24 @@ async def grid_create(
 ):
     from bd_platform.grid_bot import create_grid
 
+    if body.get("lower_price") is None or body.get("upper_price") is None:
+        raise HTTPException(
+            status_code=422,
+            detail="lower_price and upper_price are required for paper grid bots",
+        )
+    try:
+        lower = float(body["lower_price"])
+        upper = float(body["upper_price"])
+    except (TypeError, ValueError) as exc:
+        raise HTTPException(status_code=422, detail="lower_price/upper_price must be numeric") from exc
+    if lower <= 0 or upper <= lower:
+        raise HTTPException(status_code=422, detail="require 0 < lower_price < upper_price")
+
     return create_grid(
         asset=str(body.get("asset") or "BTC"),
-        lower_price=float(body["lower_price"]),
-        upper_price=float(body["upper_price"]),
-        grids=int(body.get("grids") or 10),
+        lower_price=lower,
+        upper_price=upper,
+        grids=int(body.get("grids") or body.get("grid_count") or 10),
         quote_usd=float(body.get("quote_usd") or 1000),
     )
 
