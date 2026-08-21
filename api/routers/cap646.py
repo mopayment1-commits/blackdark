@@ -11,8 +11,13 @@ from api.openapi_responses import COMMON_ERROR_RESPONSES
 from cap646.catalog import catalog_by_id, matrix_by_id
 from cap646.closure import final_institutional_verification, get_closure_status, verify_capability
 from cap646.dod import verify_dod, verify_wave
+from cap646.functional_dod import verify_functional
 from cap646.institutional_gateway import gateway_audit_log, gateway_execute
+from cap646.institutional_controls import verify_all_controls
+from cap646.platform_chain import verify_data_platform_chain
 from cap646.runtime import execute_capability
+from cap646.triple_closure import triple_institutional_closure
+from cap646.ui_pages import hub_context, user_surface_for
 from cap646.waves import WAVE_A, WAVE_B, WAVE_C, WAVE_D
 from security_auth import optional_user_from_request
 
@@ -46,6 +51,46 @@ async def cap646_wave_dod(wave_id: str) -> dict[str, Any]:
 async def cap646_catalog(limit: int = Query(646, ge=1, le=646)) -> dict[str, Any]:
     rows = list(catalog_by_id().values())[:limit]
     return {"count": len(rows), "items": rows}
+
+
+@router.get("/closure/triple")
+async def cap646_triple_closure(sample: bool = Query(False)) -> dict[str, Any]:
+    if sample:
+        from cap646.waves import WAVE_A, WAVE_B, WAVE_C
+
+        sample_ids = list(WAVE_A) + list(WAVE_B) + list(WAVE_C) + list(WAVE_D[:20])
+        return await triple_institutional_closure(sample_cap_ids=sample_ids)
+    return await triple_institutional_closure()
+
+
+@router.get("/controls")
+async def cap646_controls() -> dict[str, Any]:
+    return await verify_all_controls()
+
+
+@router.get("/platform-chain")
+async def cap646_platform_chain(symbol: str = Query("BTC")) -> dict[str, Any]:
+    return await verify_data_platform_chain(symbol=symbol)
+
+
+@router.get("/functional/{capability_id}")
+async def cap646_functional(capability_id: int) -> dict[str, Any]:
+    if capability_id < 1 or capability_id > 646:
+        raise HTTPException(status_code=404, detail="capability_id_out_of_range")
+    return await verify_functional(capability_id)
+
+
+@router.get("/user-surface/{capability_id}")
+async def cap646_user_surface(capability_id: int) -> dict[str, Any]:
+    surface = user_surface_for(capability_id)
+    if not surface:
+        raise HTTPException(status_code=404, detail="not_user_facing")
+    return {"capability_id": capability_id, **surface}
+
+
+@router.get("/hub/context")
+async def cap646_hub_context() -> dict[str, Any]:
+    return hub_context()
 
 
 @router.get("/closure/status")

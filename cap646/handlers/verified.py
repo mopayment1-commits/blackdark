@@ -75,8 +75,14 @@ async def handle_verified_capability(
                 "symbol": f"{symbol}/USDT",
                 "buy_exchange": "binance",
                 "sell_exchange": "okx",
-                "expected_edge_bps": 25.0,
-                "notional_usdt": 1000.0,
+                "net_profit_usdt": 2.5,
+                "quote_amount": 1000.0,
+                "total_slippage_bps": 3,
+                "withdrawal_fee_usdt": 0.05,
+                "trading_fees_usdt": 0.2,
+                "quote_age_ms": 120,
+                "estimated_recipients": 2,
+                "flywheel_net_after_crowd_usd": 2.1,
             }
         )
         return ai_compliance_footer({"capability_id": 639, "surface": "net_edge_truth_score", "sample": sample, "success": True})

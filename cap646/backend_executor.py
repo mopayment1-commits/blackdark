@@ -126,31 +126,6 @@ async def execute_binding(capability_id: int, *, params: dict[str, Any] | None =
         result = await _call_entrypoint(fn, params=params, binding=binding)
         ok = _success_from_result(result)
     except Exception as exc:
-        failover_note = str(exc)
-        try:
-            binding = resolve_binding(capability_id)
-            if binding.module != "product_honesty_api":
-                from product_honesty_api import build_public_readiness
-
-                result = await build_public_readiness()
-                ok = bool(result)
-                payload = {
-                    "capability_id": capability_id,
-                    "capability": row["capability"],
-                    "track": row["track"],
-                    "surface": binding.surface,
-                    "backend_module": binding.module,
-                    "backend_entrypoint": binding.entrypoint,
-                    "binding_source": binding.source,
-                    "failover_module": "product_honesty_api",
-                    "failover_entrypoint": "build_public_readiness",
-                    "failover_note": failover_note,
-                    "readiness": result,
-                    "success": ok,
-                }
-                return ai_compliance_footer(payload)
-        except Exception:
-            pass
         prov = compute_data_provenance_score(symbol=symbol)
         payload = attach_provenance(
             {
@@ -162,7 +137,8 @@ async def execute_binding(capability_id: int, *, params: dict[str, Any] | None =
                 "backend_entrypoint": binding.entrypoint,
                 "binding_source": binding.source,
                 "success": False,
-                "error": failover_note,
+                "error": "backend_execution_failed",
+                "primary_error": str(exc),
             }
         )
         return ai_compliance_footer(payload)

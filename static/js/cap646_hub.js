@@ -17,7 +17,10 @@
   const detailState = document.getElementById("detailState");
   const detailOut = document.getElementById("detailOut");
   const execBtn = document.getElementById("execBtn");
+  const openUiBtn = document.getElementById("openUiBtn");
+  const userSurfaceEl = document.getElementById("userSurface");
   const waveDod = document.getElementById("waveDod");
+  let hubContext = { user_facing: {} };
 
   function setListState(msg, cls) {
     listState.textContent = msg;
@@ -55,8 +58,12 @@
   async function loadCatalog() {
     setListState("Loading catalog…");
     try {
-      const r = await fetch("/api/cap646/catalog?limit=646");
-      const d = await r.json();
+      const [catRes, ctxRes] = await Promise.all([
+        fetch("/api/cap646/catalog?limit=646"),
+        fetch("/api/cap646/hub/context"),
+      ]);
+      const d = await catRes.json();
+      hubContext = await ctxRes.json();
       catalog = d.items || [];
       setListState("");
       renderTabs();
@@ -94,11 +101,30 @@
     });
   }
 
+  function renderUserSurface(id) {
+    const surf = hubContext.user_facing[String(id)];
+    if (!surf) {
+      userSurfaceEl.hidden = true;
+      openUiBtn.hidden = true;
+      return;
+    }
+    userSurfaceEl.hidden = false;
+    userSurfaceEl.innerHTML =
+      `User surface: <code>${esc(surf.label || "")}</code> · API <code>${esc(surf.api_path || "")}</code>`;
+    if (surf.ui_path) {
+      openUiBtn.hidden = false;
+      openUiBtn.href = surf.ui_path;
+    } else {
+      openUiBtn.hidden = true;
+    }
+  }
+
   function selectCapability(id, row) {
     selectedId = id;
     detailTitle.textContent = `#${id} — ${row.capability || ""}`;
     setDetailState("Ready to execute with backend entitlements + evidence footer.");
     execBtn.disabled = false;
+    renderUserSurface(id);
     renderList();
   }
 
