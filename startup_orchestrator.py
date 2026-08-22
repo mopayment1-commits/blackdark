@@ -370,6 +370,46 @@ def _start_cloud_sync(state: RuntimeState) -> None:
     logger.info("Cloud sync scheduler started (CLOUD_SYNC_ENABLED=true).")
 
 
+async def _bigquery_export_bootstrap() -> None:
+    if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
+        return
+    if not _env_flag("BIGQUERY_AUTO_EXPORT_ON_START", "true"):
+        return
+    try:
+        from bigquery_export import (
+            bigquery_configured,
+            bigquery_live_ready,
+            export_ingestion_snapshots_to_bigquery,
+        )
+
+        if not bigquery_configured() or bigquery_live_ready():
+            return
+        wait_sec = int(os.getenv("BIGQUERY_BOOTSTRAP_DELAY_SEC", "90"))
+        if wait_sec > 0:
+            await asyncio.sleep(wait_sec)
+        evidence = await export_ingestion_snapshots_to_bigquery(operator="startup_bootstrap")
+        logger.info(
+            "BigQuery bootstrap export complete | export_id=%s rows=%s table=%s",
+            evidence.get("export_id"),
+            evidence.get("rows_verified"),
+            evidence.get("table_fqn"),
+        )
+    except RuntimeError as exc:
+        if str(exc) == "no_ingestion_snapshots_to_export":
+            logger.warning("BigQuery bootstrap skipped — no ingestion snapshots yet")
+        else:
+            logger.warning("BigQuery bootstrap export deferred: %s", exc)
+    except Exception:
+        logger.exception("BigQuery bootstrap export failed")
+
+
+def _start_bigquery_export_bootstrap(state: RuntimeState) -> None:
+    if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
+        return
+    state.extras["bigquery_export_task"] = asyncio.create_task(_bigquery_export_bootstrap())
+    logger.info("BigQuery export bootstrap scheduled (CAP-658).")
+
+
 async def _start_uptime_probe(state: RuntimeState) -> None:
     await asyncio.sleep(0)
     try:
@@ -391,6 +431,7 @@ async def run_background_startup(state: RuntimeState) -> None:
     await _start_fee_and_gas()
     await _start_storage_tier()
     _start_ingestion(state)
+    _start_bigquery_export_bootstrap(state)
     _start_forecast_audit(state)
     await _start_ml_flywheel(state)
     _start_glass_box(state)
