@@ -148,11 +148,12 @@ async def create_org_pg(
     owner_email: str,
     require_mfa: bool = True,
     slug: str | None = None,
+    org_id: str | None = None,
 ) -> dict[str, Any]:
     from database import get_connection
 
     await ensure_org_tables()
-    org_id = f"org_{uuid4().hex[:12]}"
+    org_id = (org_id or "").strip() or f"org_{uuid4().hex[:12]}"
     clean_slug = (slug or name).strip().lower().replace(" ", "-")[:48]
     org = {
         "org_id": org_id,

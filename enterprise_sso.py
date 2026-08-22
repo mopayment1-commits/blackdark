@@ -175,21 +175,50 @@ def _resolve_org_id(org_id: str | None) -> str:
     return oid
 
 
-def _ensure_org_exists(org_id: str) -> None:
+def _use_pg_orgs() -> bool:
+    try:
+        from postgres_backend import use_postgres
+
+        return use_postgres()
+    except Exception:
+        return False
+
+
+async def _get_org_async(org_id: str) -> dict[str, Any] | None:
+    if _use_pg_orgs():
+        from org_tenant_store import get_org_pg
+
+        return await get_org_pg(org_id)
     from org_tenant import get_org
 
-    if get_org(org_id):
-        return
+    return get_org(org_id)
+
+
+async def _ensure_org_exists_async(org_id: str) -> str:
+    org = await _get_org_async(org_id)
+    if org:
+        return org_id
     owner = (os.getenv("ENTERPRISE_SSO_BOOTSTRAP_OWNER_EMAIL", "") or "").strip().lower()
-    name = (os.getenv("ENTERPRISE_SSO_BOOTSTRAP_ORG_NAME", "") or "Enterprise SSO").strip()
+    name = (os.getenv("ENTERPRISE_SSO_BOOTSTRAP_ORG_NAME", "") or "BLACKDARK Enterprise").strip()
     if not owner:
         raise ValueError("org_not_found")
+    default_oid = (os.getenv("ENTERPRISE_SSO_DEFAULT_ORG_ID", "") or "").strip()
+    stable_id = org_id if default_oid and org_id == default_oid else None
+    if _use_pg_orgs():
+        from org_tenant_store import create_org_pg
+
+        created = await create_org_pg(
+            name=name,
+            owner_email=owner,
+            require_mfa=False,
+            slug=org_id,
+            org_id=stable_id,
+        )
+        return str(created["org_id"])
     from org_tenant import create_org
 
     created = create_org(name=name, owner_email=owner, require_mfa=False, slug=org_id)
-    if created["org_id"] != org_id:
-        # slug may differ; accept created id for bootstrap flows
-        return
+    return str(created["org_id"])
 
 
 def _load() -> dict[str, Any]:
@@ -281,7 +310,7 @@ async def build_sso_authorize_url_async(
     email_hint: str = "",
 ) -> dict[str, Any]:
     oid = _resolve_org_id(org_id)
-    _ensure_org_exists(oid)
+    oid = await _ensure_org_exists_async(oid)
     provider = get_provider(oid)
     cfg = _resolve_oidc_config(oid)
     if not (cfg.get("issuer") and cfg.get("client_id")):
@@ -409,12 +438,18 @@ async def complete_sso_login_async(
         subject = profile["subject"]
         mode = "live"
 
-    from org_tenant import add_member, get_org, member_of
-
-    if not get_org(org_id):
+    if not await _get_org_async(org_id):
         raise ValueError("org_not_found")
-    if not member_of(org_id, email):
-        add_member(org_id, email, role="analyst")
+    if _use_pg_orgs():
+        from org_tenant_store import add_member_pg, member_of_pg
+
+        if not await member_of_pg(org_id, email):
+            await add_member_pg(org_id, email, role="analyst")
+    else:
+        from org_tenant import add_member, member_of
+
+        if not member_of(org_id, email):
+            add_member(org_id, email, role="analyst")
 
     from auth_service import create_session
     from database import create_oauth_user, fetch_user_by_email, link_user_oauth
