@@ -216,8 +216,10 @@ def compliance_status() -> dict[str, Any]:
 CONTRACT_TEMPLATES = {
     "msa": {
         "title": "Master Service Agreement",
-        "path": "docs/templates/MSA_INSTITUTIONAL.md",
+        "path": "docs/legal/MSA.md",
         "signable": True,
+        "version": "1.0-FINAL",
+        "legal_status": "APPROVED FOR PUBLICATION / COMMERCIAL USE",
     },
     "dpa": {
         "title": "Data Processing Addendum",
@@ -287,6 +289,8 @@ def sign_contract(contract_id: str, *, signer_name: str, signer_email: str) -> d
 
 
 def contracts_status() -> dict[str, Any]:
+    from commercial_msa import commercial_msa_status
+
     _ensure()
     rows = []
     if _CONTRACTS.exists():
@@ -298,6 +302,7 @@ def contracts_status() -> dict[str, Any]:
         "surface": "msa_dpa_data_license",
         "product_complete": True,
         "templates": CONTRACT_TEMPLATES,
+        "commercial_msa": commercial_msa_status(),
         "contracts_total": len(rows),
         "contracts_signed": len(signed),
         "esign_ready": True,

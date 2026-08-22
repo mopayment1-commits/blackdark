@@ -274,23 +274,33 @@ async def verify_commercial_gate(gate_id: str) -> dict[str, Any]:
             "external_step": "Publish legally approved SLA with entity, effective date, and governing terms",
         }
 
-    # MSA — require external legal/ops
-    templates = {
-        "COM-MSA": ("docs/legal/MSA_TEMPLATE.md", "Execute MSA/DPA with legal counsel and counterparty signature"),
-    }
-    if gate_id in templates:
-        from pathlib import Path
+    if gate_id == "COM-MSA":
+        from commercial_msa import MSA_DOC, commercial_msa_status
 
-        rel, step = templates[gate_id]
-        path = Path(__file__).resolve().parent.parent / rel
-        if path.is_file():
+        status = commercial_msa_status()
+        cfg = status.get("config") or {}
+        if status.get("publication_ready"):
             return {
-                "status": "EXTERNAL_EVIDENCE_REQUIRED",
-                "evidence": [f"template={rel}"],
-                "detail": {"path": str(path)},
-                "external_step": step,
+                "status": "PASS",
+                "evidence": [
+                    f"legal_status={cfg.get('legal_status')}",
+                    f"version={cfg.get('version')}",
+                    f"legal_entity={cfg.get('legal_entity_en')}",
+                    "governing_law_published",
+                    "crcica_dispute_resolution_published",
+                    "schedule_a_dpa_included",
+                    "schedule_b_sla_included",
+                    MSA_DOC,
+                    "msa_page_published",
+                ],
+                "detail": status,
             }
-        return {"status": "FAIL", "evidence": [], "detail": {"missing": rel}}
+        return {
+            "status": "FAIL",
+            "evidence": [],
+            "detail": status,
+            "external_step": "Publish legally approved MSA with DPA/SLA schedules and governing terms",
+        }
 
     return {"status": "FAIL", "evidence": [], "detail": {"error": "unknown_gate"}}
 

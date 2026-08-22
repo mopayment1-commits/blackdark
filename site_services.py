@@ -275,6 +275,7 @@ def legal_hub_manifest() -> dict[str, Any]:
             {"id": "disclaimer", "label": "Risk Disclaimer", "href": "/disclaimer"},
             {"id": "refund", "label": "Refund Policy", "href": "/refund"},
             {"id": "sla", "label": "Service Level Agreement", "href": "/sla"},
+            {"id": "msa", "label": "Master Service Agreement", "href": "/msa"},
             {"id": "compliance", "label": "Anti-Hype Compliance", "href": "/compliance"},
             {"id": "complaints", "label": "Complaints", "href": "/complaints"},
         ],

@@ -3418,6 +3418,11 @@ async def sla_page(request: Request):
     return _legal_page(request, "sla")
 
 
+@app.get("/msa", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
+async def msa_page(request: Request):
+    return _legal_page(request, "msa")
+
+
 @app.get("/cookies", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def cookies_page(request: Request):
     return _legal_page(request, "cookies")

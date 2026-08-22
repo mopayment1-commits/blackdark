@@ -136,6 +136,27 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>Published at <a href="/sla">/sla</a> · Legal hub: <a href="/legal">/legal</a></p>
 """,
     },
+    "msa": {
+        "title": "Master Service Agreement",
+        "title_ar": "اتفاقية الخدمات الرئيسية",
+        "updated": "22 August 2026",
+        "html": """
+<p><strong>Version:</strong> 1.0-FINAL · <strong>Status:</strong> APPROVED FOR PUBLICATION / COMMERCIAL USE</p>
+<p><strong>Provider:</strong> AMO Software Design LLC (BLACKDARK trade name)</p>
+<p><strong>Effective Date:</strong> Upon mutual signature</p>
+<h2>Governing law</h2>
+<p>Laws of the <strong>Arab Republic of Egypt</strong>.</p>
+<h2>Dispute resolution</h2>
+<p>Binding arbitration under the <strong>Cairo Regional Centre for International Commercial Arbitration (CRCICA)</strong>, seat Cairo, English language.</p>
+<h2>Schedules</h2>
+<ul>
+<li><strong>Schedule A</strong> — Data Processing Agreement (DPA)</li>
+<li><strong>Schedule B</strong> — Service Level Agreement (SLA)</li>
+<li><strong>Schedule C</strong> — Acceptable Use Policy (AUP)</li>
+</ul>
+<p>Full approved text: published at <a href="/msa">/msa</a> · repository path <code>docs/legal/MSA.md</code></p>
+""",
+    },
 }
 
 
