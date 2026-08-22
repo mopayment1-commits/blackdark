@@ -1,0 +1,28 @@
+{
+  "capacity_id": "cap_47a65b4c29",
+  "environment": "production",
+  "workers": 2,
+  "postgres": true,
+  "redis": true,
+  "requests": 80,
+  "p50_ms": 131.3,
+  "p95_ms": 143.4,
+  "p99_ms": 167.5,
+  "error_rate": 0.0,
+  "operator": "cloud-agent-cap644-closure",
+  "notes": "SIGNED: CAP-644 production load on https://blackdark-production.up.railway.app; parallelism=2 (2x1); viral_production_approved=true",
+  "published_at": "2026-08-22T17:06:09.549527+00:00",
+  "sla_targets": {
+    "availability_monthly": 0.995,
+    "api_p95_ms": 800,
+    "oracle_p95_ms": 2500,
+    "error_budget_burn_alert": 0.5,
+    "support_response_hours": {
+      "p0": 1,
+      "p1": 4,
+      "p2": 24
+    }
+  },
+  "ha_claim_eligible": true,
+  "signature": "c6bfe236a12ca78d5cd6c0edf971e10820ae9a765a58c5f44b251f445dbda9bf"
+}

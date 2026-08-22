@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T12:58:32.283059+00:00",
+  "generated_at": "2026-08-22T17:06:09.521049+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -39091,36 +39091,82 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "backend_execute_success"
+        "production_multi_worker_parallelism_ge_2",
+        "production_postgres_redis_ha_codepath",
+        "signed_multi_worker_load_test_production",
+        "viral_production_approved",
+        "commit=074af70edc42"
       ],
       "runtime_evidence": [
-        "internal_load_runner_ready"
+        "production_multi_worker_parallelism_ge_2",
+        "production_postgres_redis_ha_codepath",
+        "signed_multi_worker_load_test_production",
+        "viral_production_approved",
+        "commit=074af70edc42"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 644,
         "capability": "Capacity / Load Evidence",
-        "status": "EXTERNAL_EVIDENCE_REQUIRED",
-        "verdict": "EXTERNAL_EVIDENCE_REQUIRED",
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
         "checks": {
           "backend": true,
-          "signed_load_evidence": false,
-          "note": "Signed multi-worker load run required for full VERIFIED"
-        }
+          "signed_load_evidence": true,
+          "multi_worker": true,
+          "note": "SIGNED multi-worker load on https://blackdark-production.up.railway.app; parallelism=2 (2 workers × 1 replicas); Postgres+Redis; viral_production_approved=true."
+        },
+        "signed_load_evidence": {
+          "present": true,
+          "artifact": "docs/evidence/signed_load_production_cap644.json",
+          "capacity_id": "cap_47a65b4c29",
+          "signature": "c6bfe236a12ca78d5cd6c0edf971e10820ae9a765a58c5f44b251f445dbda9bf"
+        },
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "production_url": "https://blackdark-production.up.railway.app"
       },
       "validation_detail": {
+        "id": 644,
+        "capability": "Capacity / Load Evidence",
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "checks": {
+          "backend": true,
+          "signed_load_evidence": true,
+          "multi_worker": true,
+          "note": "SIGNED multi-worker load on https://blackdark-production.up.railway.app; parallelism=2 (2 workers × 1 replicas); Postgres+Redis; viral_production_approved=true."
+        },
+        "signed_load_evidence": {
+          "present": true,
+          "artifact": "docs/evidence/signed_load_production_cap644.json",
+          "capacity_id": "cap_47a65b4c29",
+          "signature": "c6bfe236a12ca78d5cd6c0edf971e10820ae9a765a58c5f44b251f445dbda9bf"
+        },
+        "parallelism": {
+          "workers": 2,
+          "replicas": 1,
+          "parallelism": 2
+        },
+        "production_url": "https://blackdark-production.up.railway.app",
         "capability_id": 644,
         "surface": "capacity_load_evidence",
         "report": {
           "product": "BLACKDARK",
-          "ha_ready_codepath": false,
-          "soft_launch": true,
-          "database": "sqlite",
-          "login_rate_limit_backend": "memory",
+          "ha_ready_codepath": true,
+          "soft_launch": false,
+          "database": "postgresql",
+          "login_rate_limit_backend": "redis",
           "postgres_pool": {
-            "active": false
+            "active": true,
+            "min_size": 4,
+            "max_size": 20,
+            "size": 11
           },
           "parallelism": {
             "workers": 2,
@@ -39140,33 +39186,36 @@
           "checks": [
             {
               "id": "postgres",
-              "ok": false,
+              "ok": true,
               "required_for_ha": true,
-              "detail": "sqlite"
+              "detail": "postgresql"
             },
             {
               "id": "postgres_pool",
-              "ok": false,
+              "ok": true,
               "required_for_ha": true,
               "detail": {
-                "active": false
+                "active": true,
+                "min_size": 4,
+                "max_size": 20,
+                "size": 11
               }
             },
             {
               "id": "redis_shared",
-              "ok": false,
+              "ok": true,
               "required_for_ha": true,
-              "detail": "missing"
+              "detail": "REDIS_URL set and SERVICE_BUS_LOCAL=false"
             },
             {
               "id": "login_rate_limit_shared",
-              "ok": false,
+              "ok": true,
               "required_for_ha": true,
-              "detail": "memory"
+              "detail": "redis"
             },
             {
               "id": "multi_worker",
-              "ok": false,
+              "ok": true,
               "required_for_ha": true,
               "detail": {
                 "workers": 2,
@@ -39178,7 +39227,7 @@
               "id": "soft_launch_honesty",
               "ok": true,
               "required_for_ha": false,
-              "detail": "SOFT_LAUNCH demo is not HA"
+              "detail": "strict/non-soft"
             }
           ],
           "capacity_claim": {
@@ -39209,35 +39258,12 @@
             "hpa": "deploy/k8s/workers-hpa.yaml"
           }
         },
-        "success": true,
-        "evidence_class": "SHADOW_LIVE_FORWARD",
-        "evidence_metadata": {
-          "class": "SHADOW_LIVE_FORWARD",
-          "source": null,
-          "attached_at": "2026-08-22T00:27:33.399642+00:00",
-          "promotion_policy": "replay_and_simulation_never_become_production_metrics"
-        },
-        "compliance_footer": {
-          "evidence_class": "SHADOW_LIVE_FORWARD",
-          "provenance_score": null,
-          "provenance_band": null,
-          "freshness_state": null,
-          "sources": null,
-          "confidence": null,
-          "unknown_is_not_zero": true,
-          "stale_rejected": false,
-          "legal": "Decision evidence only. Not financial advice. Evidence class=SHADOW_LIVE_FORWARD. Stale/untrusted inputs must not pass as success."
-        },
-        "capability": "Capacity / Load Evidence",
-        "track": "T01",
-        "classification": "VERIFIED_COMPLETE",
-        "backend_module": "cap646.handlers.institutional",
-        "backend_entrypoint": "handle_institutional_capability"
+        "success": true
       },
-      "external_step": "Run signed multi-worker capacity/load test under production topology (ID644)",
+      "external_step": "",
       "gap_matrix_status": "PARTIALLY_IMPLEMENTED",
       "reconciled": false,
-      "notes": "gap_matrix=PARTIALLY_IMPLEMENTED vs rvm=EXTERNAL_EVIDENCE_REQUIRED"
+      "notes": "2026-08-22T17:06:09.521049+00:00"
     },
     {
       "id": "CAP-645",
@@ -62038,7 +62064,6 @@
     }
   ],
   "p0_external_remaining": [
-    "CAP-644",
     "CAP-645",
     "SEC-008",
     "REL-002",

@@ -165,6 +165,27 @@ python scripts/load_test_1m_simulation.py
 | Notes | **Signed multi-worker HA row for DEC-0407.** Does **not** claim 1k–10k concurrent global production capacity without multi-replica staging (`WEB_REPLICAS≥2`) + real PSP credentials. |
 | Operator | cloud-agent pre-merge blocker closure |
 
+
+### 2026-08-22T17:06:09.521049Z — SIGNED: production multi-worker HA load @ Railway (CAP-644 closure)
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-22T17:06:09.521049Z |
+| Commit / tip | `074af70edc42` |
+| Environment | **production** — `https://blackdark-production.up.railway.app` (Railway `blackdark`) |
+| Workers / replicas | **2 × 1** (`parallelism=2`) |
+| Postgres | yes (`postgresql`) |
+| Redis | yes (`login_rate_limit_backend=redis`) |
+| HA / viral gates | `ha_ready_codepath=True`, `viral_production_approved=True` |
+| Script | `scripts/load_test_concurrent.py --workers 15 --requests 80 --require-viral-approved` |
+| Concurrency | 15 client threads; 80 requests/endpoint |
+| Latency (live) | p50/p95/p99=131.3/143.4/167.5ms |
+| Error rate | **0.0000** (hard errors on scored endpoints) |
+| Signed capacity id | `cap_47a65b4c29` |
+| Signature | `c6bfe236a12ca78d…` |
+| Notes | **SIGNED: CAP-644 production topology.** Multi-worker (`parallelism≥2`) with Postgres+Redis. Does not claim 1k–10k global capacity without `WEB_REPLICAS≥2` staging. |
+| Operator | cloud-agent CAP-644 closure |
+
 ## Status
 
 - [x] Local Soft Launch buyer-DD probe recorded (honest, non-HA)  

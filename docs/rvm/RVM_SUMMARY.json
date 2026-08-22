@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-22T12:58:32.283059+00:00",
+  "generated_at": "2026-08-22T17:06:09.521049+00:00",
   "governing_baseline_version": "blackdark-rvm-v1",
   "total_requirements": 1044,
-  "pass_count": 1009,
+  "pass_count": 1010,
   "fail_count": 0,
-  "external_count": 35,
+  "external_count": 34,
   "by_kind": {
     "capability": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 31,
-      "PASS": 947
+      "EXTERNAL_EVIDENCE_REQUIRED": 30,
+      "PASS": 948
     },
     "control": {
       "PASS": 38,
@@ -30,7 +30,6 @@
   "institutional_ready": true,
   "conflicts_reconciled": 588,
   "p0_external_remaining": [
-    "CAP-644",
     "CAP-645",
     "SEC-008",
     "REL-002",

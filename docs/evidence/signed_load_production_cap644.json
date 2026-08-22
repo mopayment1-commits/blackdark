@@ -1,0 +1,50 @@
+{
+  "capacity_id": "cap_47a65b4c29",
+  "environment": "production",
+  "workers": 2,
+  "postgres": true,
+  "redis": true,
+  "requests": 80,
+  "p50_ms": 131.3,
+  "p95_ms": 143.4,
+  "p99_ms": 167.5,
+  "error_rate": 0.0,
+  "operator": "cloud-agent-cap644-closure",
+  "notes": "SIGNED: CAP-644 production load on https://blackdark-production.up.railway.app; parallelism=2 (2x1); viral_production_approved=true",
+  "published_at": "2026-08-22T17:06:09.549527+00:00",
+  "sla_targets": {
+    "availability_monthly": 0.995,
+    "api_p95_ms": 800,
+    "oracle_p95_ms": 2500,
+    "error_budget_burn_alert": 0.5,
+    "support_response_hours": {
+      "p0": 1,
+      "p1": 4,
+      "p2": 24
+    }
+  },
+  "ha_claim_eligible": true,
+  "signature": "c6bfe236a12ca78d5cd6c0edf971e10820ae9a765a58c5f44b251f445dbda9bf",
+  "gate": "CAP-644",
+  "production_url": "https://blackdark-production.up.railway.app",
+  "parallelism": {
+    "workers": 2,
+    "replicas": 1,
+    "parallelism": 2
+  },
+  "load_test": {
+    "script": "scripts/load_test_concurrent.py",
+    "workers": 15,
+    "requests_per_endpoint": 80,
+    "exit_code": 0,
+    "metrics": {
+      "p50_ms": 131.3,
+      "p95_ms": 143.4,
+      "p99_ms": 167.5,
+      "error_rate": 0.0,
+      "requests": 80
+    },
+    "output_excerpt": "Viral readiness: approved=True codepath=True redis=redis parallelism={'workers': 2, 'replicas': 1, 'parallelism': 2}\nConcurrent load | base=https://blackdark-production.up.railway.app workers=15 requests/endpoint=80 strict_2xx=False\n\n  live: p50=131.3ms p95=143.4ms max=167.5ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  ready: p50=123.6ms p95=155.4ms max=161.5ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  viral_health: p50=178.8ms p95=205.7ms max=239.3ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  trust_os: p50=224.5ms p95=299.0ms max=336.4ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  scale_readiness: p50=222.7ms p95=286.8ms max=287.5ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  viral_readiness: p50=363.1ms p95=477.8ms max=544.2ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  oracle_quick: p50=247.0ms p95=895.5ms max=1266.0ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n  arb_scan: p50=208.5ms p95=241.1ms max=242.3ms ok=0 controlled=0 errors=80/80 ok_rate=0.0 capacity_ok_rate=0.0\n  compliance_html: p50=193.2ms p95=253.8ms max=276.7ms ok=80 controlled=0 errors=0/80 ok_rate=1.0 capacity_ok_rate=1.0\n\nNOTE: Passing this harness does NOT equal signed HA proof. Append Postgres+Redis multi-worker results to docs/LOAD_TEST_RUN_LOG.md. 429/503 count as controlled degradation unless --strict-2xx."
+  },
+  "verified_at": "2026-08-22T17:06:09.521049+00:00"
+}
