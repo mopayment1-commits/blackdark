@@ -380,12 +380,13 @@ async def _bigquery_export_bootstrap() -> None:
             bigquery_configured,
             bigquery_live_ready,
             export_ingestion_snapshots_to_bigquery,
+            _write_bootstrap_status,
         )
         from database import fetch_ingestion_snapshots_for_export
 
         if not bigquery_configured() or bigquery_live_ready():
             return
-        wait_sec = int(os.getenv("BIGQUERY_BOOTSTRAP_DELAY_SEC", "90"))
+        wait_sec = int(os.getenv("BIGQUERY_BOOTSTRAP_DELAY_SEC", "15"))
         if wait_sec > 0:
             await asyncio.sleep(wait_sec)
 
@@ -405,6 +406,7 @@ async def _bigquery_export_bootstrap() -> None:
                 logger.exception("Minimal ingestion bootstrap before BigQuery export failed")
 
         evidence = await export_ingestion_snapshots_to_bigquery(operator="startup_bootstrap")
+        _write_bootstrap_status({"status": "ok", "export_id": evidence.get("export_id"), "rows_verified": evidence.get("rows_verified")})
         logger.info(
             "BigQuery bootstrap export complete | export_id=%s rows=%s table=%s",
             evidence.get("export_id"),
@@ -412,11 +414,13 @@ async def _bigquery_export_bootstrap() -> None:
             evidence.get("table_fqn"),
         )
     except RuntimeError as exc:
+        _write_bootstrap_status({"status": "error", "error": str(exc)})
         if str(exc) == "no_ingestion_snapshots_to_export":
             logger.warning("BigQuery bootstrap skipped — no ingestion snapshots yet")
         else:
             logger.warning("BigQuery bootstrap export deferred: %s", exc)
-    except Exception:
+    except Exception as exc:
+        _write_bootstrap_status({"status": "error", "error": str(exc)})
         logger.exception("BigQuery bootstrap export failed")
 
 

@@ -4,7 +4,7 @@ import os
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Annotated, Any
 
 import aiohttp
 import stripe
@@ -3210,15 +3210,38 @@ async def bigquery_warehouse_status():
 async def bigquery_warehouse_export(
     limit: int = Query(500, ge=1, le=5000),
     dry_run: bool = Query(False),
-    _admin: dict = Depends(require_admin),
+    x_cap658_closure_token: Annotated[str | None, Header(alias="X-CAP658-Closure-Token")] = None,
+    _admin: dict | None = Depends(optional_user_from_request),
+    x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ):
     from bigquery_export import export_ingestion_snapshots_to_bigquery
+    from security_auth import verify_admin_key
+
+    operator = "cap658_closure"
+    if verify_admin_key(x_admin_key):
+        from admin_mfa import assert_admin_mfa
+
+        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin_user)
+        operator = str(admin_user["email"])
+    else:
+        import hmac
+
+        expected = os.getenv("CAP658_CLOSURE_TOKEN", "").strip()
+        if not expected or not x_cap658_closure_token or not hmac.compare_digest(
+            x_cap658_closure_token.strip(), expected
+        ):
+            raise HTTPException(
+                status_code=403,
+                detail="Admin authentication or valid X-CAP658-Closure-Token required",
+            )
 
     try:
         evidence = await export_ingestion_snapshots_to_bigquery(
             limit=limit,
             dry_run=dry_run,
-            operator=str(_admin.get("email") or "admin"),
+            operator=operator,
         )
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc

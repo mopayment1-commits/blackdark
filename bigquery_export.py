@@ -25,6 +25,7 @@ logger = logging.getLogger("BLACKDARK.BigQueryExport")
 _LOCK = threading.Lock()
 _EVIDENCE_DIR = project_data_dir() / "institutional_assurance"
 _EVIDENCE_PATH = _EVIDENCE_DIR / "bigquery_export_evidence.json"
+_BOOTSTRAP_STATUS_PATH = _EVIDENCE_DIR / "bigquery_bootstrap_status.json"
 
 _TABLE_SCHEMA = [
     {"name": "export_id", "field_type": "STRING", "mode": "REQUIRED"},
@@ -135,6 +136,25 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
     except Exception:
         logger.debug("BigQuery evidence lookup failed", exc_info=True)
         return None
+
+
+def get_bootstrap_status() -> dict[str, Any] | None:
+    if not _BOOTSTRAP_STATUS_PATH.is_file():
+        return None
+    try:
+        row = json.loads(_BOOTSTRAP_STATUS_PATH.read_text(encoding="utf-8"))
+        return row if isinstance(row, dict) else None
+    except json.JSONDecodeError:
+        return None
+
+
+def _write_bootstrap_status(row: dict[str, Any]) -> None:
+    _EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    payload = {**row, "updated_at": _utcnow()}
+    ensure_under(_BOOTSTRAP_STATUS_PATH, project_data_dir()).write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _write_export_evidence(row: dict[str, Any]) -> dict[str, Any]:
@@ -337,6 +357,7 @@ async def warehouse_analytics_status() -> dict[str, Any]:
         },
         "lake": lake,
         "last_export": evidence,
+        "bootstrap_status": get_bootstrap_status(),
         "export_ready": ready,
         "api": {
             "status": "/api/warehouse/bigquery/status",

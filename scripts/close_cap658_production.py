@@ -48,7 +48,12 @@ def _fetch_json(url: str, *, method: str = "GET", headers: dict | None = None, r
 
 def verify_production() -> dict:
     admin_key = os.getenv("ADMIN_API_KEY", "").strip()
-    headers = {"X-Admin-Key": admin_key} if admin_key else {}
+    closure_token = os.getenv("CAP658_CLOSURE_TOKEN", "").strip()
+    headers: dict[str, str] = {}
+    if admin_key:
+        headers["X-Admin-Key"] = admin_key
+    if closure_token:
+        headers["X-CAP658-Closure-Token"] = closure_token
 
     status = _fetch_json(f"{PROD}/api/warehouse/bigquery/status")
     bq = status.get("bigquery") or {}
@@ -56,7 +61,7 @@ def verify_production() -> dict:
         raise SystemExit(f"bigquery_not_configured_on_production: {bq}")
 
     if not status.get("export_ready"):
-        if admin_key:
+        if admin_key or closure_token:
             try:
                 _fetch_json(
                     f"{PROD}/api/warehouse/bigquery/export?limit=500",
