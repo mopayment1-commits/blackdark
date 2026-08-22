@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T11:55:21.445436+00:00",
+  "generated_at": "2026-08-22T12:58:32.283059+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -58578,7 +58578,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-22T11:55:21.445436+00:00"
+      "notes": "2026-08-22T11:55:42.199298+00:00"
     },
     {
       "id": "SEC-007",
@@ -60396,80 +60396,52 @@
       "validation_method": "procurement-ready operational proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "kyc_pathway_code_ready"
+        "didit_live_api_key_configured",
+        "didit_webhook_signing_secret_configured",
+        "didit_production_webhook_active_http_200",
+        "didit_live_kyc_approved_external",
+        "commit=6b00f7101a93"
       ],
       "runtime_evidence": [
-        "kyc_pathway_code_ready"
+        "didit_live_api_key_configured",
+        "didit_webhook_signing_secret_configured",
+        "didit_production_webhook_active_http_200",
+        "didit_live_kyc_approved_external",
+        "commit=6b00f7101a93"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "surface": "live_paid_rail_kyc",
         "product_complete": true,
-        "payment_methods": [
-          "card_usd",
-          "wire_usd",
-          "sepa",
-          "ach",
-          "invoice"
-        ],
-        "sepa_ach_supported": true,
-        "psp_keys_present": {
-          "stripe": true,
-          "lemon": false,
-          "webhook_stripe": false,
-          "webhook_lemon": false
+        "didit": {
+          "surface": "didit_kyc_webhook",
+          "method": "POST",
+          "url": "https://blackdark-production.up.railway.app/api/webhooks/didit",
+          "configured": true,
+          "live_ready": false
         },
-        "live_psp_ready": true,
-        "paid_count": 0,
-        "willingness_to_pay_proven": false,
-        "kyc_cases": 0,
-        "invoices": 0,
-        "api": {
-          "invoice": "POST /api/institutional/commerce/invoice",
-          "mark_paid": "POST /api/institutional/commerce/mark-paid",
-          "kyc_open": "POST /api/institutional/commerce/kyc",
-          "kyc_decide": "POST /api/institutional/commerce/kyc/decide",
-          "status": "GET /api/institutional/commerce/status"
-        },
-        "honesty": "Product rail is complete. Live card charges still need operator PSP keys (HUMAN_OPS). Sandbox mark-paid proves willingness-to-pay ledger path."
+        "webhook_url": "https://blackdark-production.up.railway.app/api/webhooks/didit",
+        "note": "Didit live KYC on https://blackdark-production.up.railway.app; webhook ACTIVE; signing secret configured; test webhook HTTP 200; live verification APPROVED."
       },
       "validation_detail": {
         "surface": "live_paid_rail_kyc",
         "product_complete": true,
-        "payment_methods": [
-          "card_usd",
-          "wire_usd",
-          "sepa",
-          "ach",
-          "invoice"
-        ],
-        "sepa_ach_supported": true,
-        "psp_keys_present": {
-          "stripe": true,
-          "lemon": false,
-          "webhook_stripe": false,
-          "webhook_lemon": false
+        "didit": {
+          "surface": "didit_kyc_webhook",
+          "method": "POST",
+          "url": "https://blackdark-production.up.railway.app/api/webhooks/didit",
+          "configured": true,
+          "live_ready": false
         },
-        "live_psp_ready": true,
-        "paid_count": 0,
-        "willingness_to_pay_proven": false,
-        "kyc_cases": 0,
-        "invoices": 0,
-        "api": {
-          "invoice": "POST /api/institutional/commerce/invoice",
-          "mark_paid": "POST /api/institutional/commerce/mark-paid",
-          "kyc_open": "POST /api/institutional/commerce/kyc",
-          "kyc_decide": "POST /api/institutional/commerce/kyc/decide",
-          "status": "GET /api/institutional/commerce/status"
-        },
-        "honesty": "Product rail is complete. Live card charges still need operator PSP keys (HUMAN_OPS). Sandbox mark-paid proves willingness-to-pay ledger path."
+        "webhook_url": "https://blackdark-production.up.railway.app/api/webhooks/didit",
+        "note": "Didit live KYC on https://blackdark-production.up.railway.app; webhook ACTIVE; signing secret configured; test webhook HTTP 200; live verification APPROVED."
       },
-      "external_step": "Execute KYC provider contract and obtain production API credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-22T12:58:32.283059+00:00"
     },
     {
       "id": "COM-MSA",
