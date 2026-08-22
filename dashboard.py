@@ -709,6 +709,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.didit_webhook import router as didit_webhook_router
+
+    app.include_router(didit_webhook_router)
+except Exception:
+    logger.exception("Didit webhook router unavailable")
+
+try:
     from api.routers.institutional import router as institutional_router
     from api.routers.institutional import sso_router as institutional_sso_router
 

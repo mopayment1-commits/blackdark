@@ -220,9 +220,29 @@ async def verify_commercial_gate(gate_id: str) -> dict[str, Any]:
         return {"status": "FAIL", "evidence": [], "detail": ready}
 
     if gate_id == "COM-KYC":
+        from didit_kyc import didit_api_configured, didit_live_ready, webhook_url
         from institutional_commerce import commerce_status
 
         ready = commerce_status()
+        if didit_live_ready() or (
+            didit_api_configured() and ready.get("didit_kyc_approved", 0) > 0
+        ):
+            return {
+                "status": "PASS",
+                "evidence": [
+                    "didit_live_configured",
+                    f"webhook={webhook_url()}",
+                    f"didit_kyc_approved={ready.get('didit_kyc_approved', 0)}",
+                ],
+                "detail": ready,
+            }
+        if didit_api_configured():
+            return {
+                "status": "EXTERNAL_EVIDENCE_REQUIRED",
+                "evidence": ["didit_api_key_present"],
+                "detail": ready,
+                "external_step": "Set DIDIT_WORKFLOW_ID and DIDIT_WEBHOOK_SECRET on Railway; register webhook URL in Didit console",
+            }
         if ready.get("product_complete"):
             return {
                 "status": "EXTERNAL_EVIDENCE_REQUIRED",

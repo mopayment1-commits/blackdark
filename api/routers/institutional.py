@@ -433,6 +433,35 @@ async def commerce_kyc(body: KycOpen, _admin: dict = Depends(require_admin)) -> 
     )
 
 
+@router.post("/commerce/kyc/didit/session", responses=COMMON_ERROR_RESPONSES)
+async def commerce_kyc_didit_session(body: KycOpen, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from didit_kyc import create_verification_session
+    from institutional_commerce import find_kyc_case, open_kyc_case
+
+    case = open_kyc_case(
+        email=body.email,
+        legal_name=body.legal_name,
+        country=body.country,
+        org_id=body.org_id,
+        provider="didit",
+        status="pending_review",
+    )
+    try:
+        session = await create_verification_session(
+            email=body.email,
+            legal_name=body.legal_name,
+            country=body.country,
+            case_id=case["case_id"],
+            org_id=body.org_id,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(502, detail=f"didit_session_failed: {exc}") from exc
+    stored = find_kyc_case(case["case_id"]) or case
+    return {"case": stored, "didit": session}
+
+
 @router.post("/commerce/kyc/decide", responses=COMMON_ERROR_RESPONSES)
 async def commerce_kyc_decide(body: KycDecide, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
     from institutional_commerce import decide_kyc

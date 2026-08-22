@@ -158,6 +158,10 @@ def open_kyc_case(
     country: str,
     org_id: str | None = None,
     risk_tier: str = "standard",
+    provider: str = "internal",
+    session_id: str = "",
+    provider_status: str = "",
+    status: str = "pending_review",
 ) -> dict[str, Any]:
     row = {
         "case_id": f"kyc_{uuid4().hex[:12]}",
@@ -166,13 +170,57 @@ def open_kyc_case(
         "country": country.strip().upper()[:2],
         "org_id": org_id,
         "risk_tier": risk_tier,
-        "status": "pending_review",
+        "status": status,
         "aml_screening": "queued",
+        "provider": provider,
+        "session_id": session_id,
+        "provider_status": provider_status,
         "created_at": _utcnow(),
         "policy": "docs/PAYMENTS_USD_SECURITY.md",
     }
     _append(_KYC, row)
     return row
+
+
+def apply_didit_kyc_update(
+    *,
+    case_id: str,
+    session_id: str,
+    provider_status: str,
+    decision: str,
+    event_id: str = "",
+    environment: str = "live",
+) -> dict[str, Any] | None:
+    cases = _read(_KYC)
+    target = None
+    for c in cases:
+        if c.get("case_id") == case_id:
+            c["status"] = decision
+            c["provider"] = "didit"
+            c["session_id"] = session_id or c.get("session_id")
+            c["provider_status"] = provider_status
+            c["aml_screening"] = "cleared" if decision == "approved" else (
+                "flagged" if decision == "rejected" else "queued"
+            )
+            c["decided_at"] = _utcnow()
+            c["didit_event_id"] = event_id
+            c["didit_environment"] = environment
+            target = c
+            break
+    if not target:
+        return None
+    ensure_under(_KYC, _DATA_BASE).write_text(  # NOSONAR pythonsecurity:S2083
+        "".join(json.dumps(c, ensure_ascii=False) + "\n" for c in cases),
+        encoding="utf-8",
+    )
+    return target
+
+
+def find_kyc_case(case_id: str) -> dict[str, Any] | None:
+    for c in _read(_KYC):
+        if c.get("case_id") == case_id:
+            return c
+    return None
 
 
 def decide_kyc(case_id: str, *, decision: str, notes: str = "") -> dict[str, Any]:
@@ -200,6 +248,15 @@ def decide_kyc(case_id: str, *, decision: str, notes: str = "") -> dict[str, Any
 def commerce_status() -> dict[str, Any]:
     keys = psp_keys_present()
     paid = paid_count()
+    kyc_rows = _read(_KYC)
+    didit_cases = [c for c in kyc_rows if c.get("provider") == "didit"]
+    approved_didit = [c for c in didit_cases if c.get("status") == "approved"]
+    try:
+        from didit_kyc import didit_status
+
+        didit = didit_status()
+    except Exception:
+        didit = {"configured": False, "live_ready": False, "webhook_url": "/api/webhooks/didit"}
     return {
         "surface": "live_paid_rail_kyc",
         "product_complete": True,
@@ -209,14 +266,19 @@ def commerce_status() -> dict[str, Any]:
         "live_psp_ready": any(keys.values()),
         "paid_count": paid,
         "willingness_to_pay_proven": paid > 0,
-        "kyc_cases": len(_read(_KYC)),
+        "kyc_cases": len(kyc_rows),
+        "didit_kyc_cases": len(didit_cases),
+        "didit_kyc_approved": len(approved_didit),
+        "didit": didit,
         "invoices": len(_read(_INVOICES)),
         "api": {
             "invoice": "POST /api/institutional/commerce/invoice",
             "mark_paid": "POST /api/institutional/commerce/mark-paid",
             "kyc_open": "POST /api/institutional/commerce/kyc",
             "kyc_decide": "POST /api/institutional/commerce/kyc/decide",
+            "kyc_didit_session": "POST /api/institutional/commerce/kyc/didit/session",
             "status": "GET /api/institutional/commerce/status",
+            "didit_webhook": "POST /api/webhooks/didit",
         },
         "honesty": (
             "Product rail is complete. Live card charges still need operator PSP keys "
