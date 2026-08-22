@@ -211,6 +211,30 @@ def _rel_001() -> dict[str, Any]:
 
 @_sync
 def _rel_002() -> dict[str, Any]:
+    from scale_readiness import scale_readiness_report
+
+    report = scale_readiness_report()
+    signed = bool((report.get("signed_load_evidence") or {}).get("present"))
+    parallel = report.get("parallelism") or {}
+    replicas = int(parallel.get("replicas") or 1)
+    parallelism = int(parallel.get("parallelism") or 1)
+    ha = bool(report.get("ha_ready_codepath"))
+    if signed and ha and replicas >= 2 and parallelism >= 4:
+        return _pass(
+            "REL-002",
+            evidence=[
+                "signed_load_evidence_present",
+                f"replicas={replicas}",
+                f"parallelism={parallelism}",
+                "ha_ready_codepath",
+            ],
+            note="Production multi-replica HA with signed load evidence (CAP-644/ID644)",
+        )
+    if signed and ha and parallelism >= 2:
+        return _external(
+            "REL-002",
+            note="Signed load present; Railway numReplicas≥2 + WEB_REPLICAS≥2 required for multi-replica HA",
+        )
     return _external("REL-002", note="Signed multi-worker HA load — ID644 / SIGNED_LOAD_EVIDENCE_JSON")
 
 

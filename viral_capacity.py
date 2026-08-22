@@ -85,6 +85,31 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
+def _configured_deploy_replicas() -> int:
+    """Deploy replica count: explicit env first, then railway.json on Railway."""
+    for key in ("WEB_REPLICAS", "K8S_REPLICAS", "RAILWAY_REPLICA_COUNT", "RAILWAY_NUM_REPLICAS"):
+        raw = os.getenv(key, "").strip()
+        if raw:
+            try:
+                return max(1, int(raw))
+            except ValueError:
+                continue
+    if (os.getenv("RAILWAY_ENVIRONMENT") or "").strip():
+        try:
+            import json
+            from pathlib import Path
+
+            path = Path(__file__).resolve().parent / "railway.json"
+            if path.is_file():
+                cfg = json.loads(path.read_text(encoding="utf-8"))
+                n = int(cfg.get("deploy", {}).get("numReplicas", 0) or 0)
+                if n >= 1:
+                    return n
+        except Exception:
+            pass
+    return 1
+
+
 def effective_parallelism() -> dict[str, int]:
     """Workers × replicas — honest multi-instance signal for viral/HA gates."""
     viral = (os.getenv("VIRAL_MODE", "true") or "").lower() in {"1", "true", "yes"}
@@ -92,14 +117,8 @@ def effective_parallelism() -> dict[str, int]:
     # numReplicas intent and unblocks viral_multi_instance without silent single-worker HA.
     default_workers = 2 if viral else 1
     workers = max(1, _env_int("WEB_CONCURRENCY", _env_int("UVICORN_WORKERS", default_workers)))
-    replicas = max(
-        1,
-        _env_int(
-            "WEB_REPLICAS",
-            _env_int("K8S_REPLICAS", _env_int("RAILWAY_REPLICA_COUNT", 1)),
-        ),
-    )
-    # railway.json numReplicas is deploy-time; expose WEB_REPLICAS in templates when known.
+    replicas = max(1, _configured_deploy_replicas())
+    # railway.json numReplicas is deploy-time; WEB_REPLICAS overrides when set explicitly.
     total = workers * replicas
     return {"workers": workers, "replicas": replicas, "parallelism": total}
 

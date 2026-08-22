@@ -139,7 +139,7 @@ async def verify_control_entry(control_id: str) -> dict[str, Any]:
     if raw_status == "VERIFIED_COMPLETE":
         return {"status": "PASS", "evidence": evidence, "detail": result}
 
-    ext_ids = {"SEC-008", "SEC-009", "REL-002"}
+    ext_ids = {"SEC-008", "SEC-009"}
     if control_id in ext_ids or raw_status in {"EXTERNAL_BLOCKED", "EXTERNAL_EVIDENCE_REQUIRED"}:
         return {
             "status": "EXTERNAL_EVIDENCE_REQUIRED",

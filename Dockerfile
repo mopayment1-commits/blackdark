@@ -34,6 +34,7 @@ COPY data/operational_manifest.json data/
 COPY data/institutional_assurance/signed_capacity.json data/institutional_assurance/
 COPY docs/LOAD_TEST_RUN_LOG.md docs/
 COPY docs/evidence/signed_load_production_cap644.json docs/evidence/
+COPY railway.json ./
 # Bake trained model artifacts when present (ignore if empty in some CI contexts)
 COPY data/models/ data/models/
 COPY BUILD.txt ./
