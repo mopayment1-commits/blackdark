@@ -381,12 +381,25 @@ async def _bigquery_export_bootstrap() -> None:
             bigquery_live_ready,
             export_ingestion_snapshots_to_bigquery,
         )
+        from database import fetch_ingestion_snapshots_for_export
 
         if not bigquery_configured() or bigquery_live_ready():
             return
         wait_sec = int(os.getenv("BIGQUERY_BOOTSTRAP_DELAY_SEC", "90"))
         if wait_sec > 0:
             await asyncio.sleep(wait_sec)
+
+        snapshots = await fetch_ingestion_snapshots_for_export(limit=1)
+        if not snapshots:
+            try:
+                from ingestion_scheduler import run_initial_bootstrap
+
+                logger.info("BigQuery bootstrap — running ingestion bootstrap for lake rows")
+                await run_initial_bootstrap()
+                await asyncio.sleep(int(os.getenv("BIGQUERY_POST_INGESTION_DELAY_SEC", "15")))
+            except Exception:
+                logger.exception("Ingestion bootstrap before BigQuery export failed")
+
         evidence = await export_ingestion_snapshots_to_bigquery(operator="startup_bootstrap")
         logger.info(
             "BigQuery bootstrap export complete | export_id=%s rows=%s table=%s",

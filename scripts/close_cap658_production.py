@@ -56,17 +56,25 @@ def verify_production() -> dict:
         raise SystemExit(f"bigquery_not_configured_on_production: {bq}")
 
     if not status.get("export_ready"):
-        if not admin_key:
-            raise SystemExit(
-                "production_bigquery_not_ready: set ADMIN_API_KEY to trigger export, "
-                "or run export manually then re-run closure"
-            )
-        _fetch_json(
-            f"{PROD}/api/warehouse/bigquery/export?limit=500",
-            method="POST",
-            headers=headers,
-        )
-        status = _fetch_json(f"{PROD}/api/warehouse/bigquery/status")
+        if admin_key:
+            try:
+                _fetch_json(
+                    f"{PROD}/api/warehouse/bigquery/export?limit=500",
+                    method="POST",
+                    headers=headers,
+                )
+                status = _fetch_json(f"{PROD}/api/warehouse/bigquery/status")
+            except RuntimeError as exc:
+                if not str(exc).startswith("http_403"):
+                    raise
+
+        if not status.get("export_ready"):
+            import time
+
+            deadline = time.time() + int(os.getenv("CAP658_EXPORT_WAIT_SEC", "720"))
+            while time.time() < deadline and not status.get("export_ready"):
+                time.sleep(15)
+                status = _fetch_json(f"{PROD}/api/warehouse/bigquery/status")
 
     if not status.get("export_ready"):
         raise SystemExit(f"production_bigquery_export_not_verified: {status}")
