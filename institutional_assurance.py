@@ -127,10 +127,21 @@ def verify_signed_capacity(row: dict[str, Any] | None = None) -> bool:
 
 
 def sla_document() -> dict[str, Any]:
+    from commercial_sla import commercial_sla_status
+
+    publication = commercial_sla_status()
+    cfg = publication.get("config") or {}
     return {
         "surface": "contractual_sla",
         "product_complete": True,
         "version": "1.0",
+        "legal_status": cfg.get("legal_status"),
+        "effective_date": cfg.get("effective_date"),
+        "legal_entity_en": cfg.get("legal_entity_en"),
+        "legal_entity_ar": cfg.get("legal_entity_ar"),
+        "governing_law": cfg.get("governing_law"),
+        "dispute_resolution": cfg.get("dispute_resolution"),
+        "publication_ready": publication.get("publication_ready"),
         "targets": {
             "availability_monthly": 0.995,
             "api_p95_ms": 800,
@@ -138,7 +149,8 @@ def sla_document() -> dict[str, Any]:
             "error_budget_burn_alert": 0.5,
             "support_response_hours": {"p0": 1, "p1": 4, "p2": 24},
         },
-        "document_path": "docs/templates/SLA_INSTITUTIONAL.md",
+        "document_path": cfg.get("document_path", "docs/legal/SLA.md"),
+        "public_url": cfg.get("public_url", "/sla"),
         "signed_capacity": get_signed_capacity(),
         "capacity_verified": verify_signed_capacity(),
     }

@@ -3413,6 +3413,11 @@ async def refund_page(request: Request):
     return _legal_page(request, "refund")
 
 
+@app.get("/sla", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
+async def sla_page(request: Request):
+    return _legal_page(request, "sla")
+
+
 @app.get("/cookies", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def cookies_page(request: Request):
     return _legal_page(request, "cookies")

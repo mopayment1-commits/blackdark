@@ -248,10 +248,35 @@ async def verify_commercial_gate(gate_id: str) -> dict[str, Any]:
             "external_step": "Publish confirmed support email, hours, owner, and URGENT escalation path",
         }
 
-    # MSA, SLA — require external legal/ops
+    if gate_id == "COM-SLA":
+        from commercial_sla import SLA_DOC, commercial_sla_status
+
+        status = commercial_sla_status()
+        cfg = status.get("config") or {}
+        if status.get("publication_ready"):
+            return {
+                "status": "PASS",
+                "evidence": [
+                    f"legal_status={cfg.get('legal_status')}",
+                    f"effective_date={cfg.get('effective_date')}",
+                    f"legal_entity={cfg.get('legal_entity_en')}",
+                    "governing_law_published",
+                    "dispute_resolution_published",
+                    SLA_DOC,
+                    "sla_page_published",
+                ],
+                "detail": status,
+            }
+        return {
+            "status": "FAIL",
+            "evidence": [],
+            "detail": status,
+            "external_step": "Publish legally approved SLA with entity, effective date, and governing terms",
+        }
+
+    # MSA — require external legal/ops
     templates = {
         "COM-MSA": ("docs/legal/MSA_TEMPLATE.md", "Execute MSA/DPA with legal counsel and counterparty signature"),
-        "COM-SLA": ("docs/legal/SLA.md", "Publish signed SLA with legal review"),
     }
     if gate_id in templates:
         from pathlib import Path

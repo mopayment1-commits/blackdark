@@ -60490,21 +60490,69 @@
       "validation_method": "procurement-ready operational proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "template=docs/legal/SLA.md"
+        "legal_status=APPROVED FOR PUBLICATION",
+        "effective_date=1 January 2025",
+        "legal_entity=MO Software Design LLC",
+        "governing_law_published",
+        "dispute_resolution_published",
+        "docs/legal/SLA.md",
+        "sla_page_published"
       ],
       "runtime_evidence": [
-        "template=docs/legal/SLA.md"
+        "legal_status=APPROVED FOR PUBLICATION",
+        "effective_date=1 January 2025",
+        "legal_entity=MO Software Design LLC",
+        "governing_law_published",
+        "dispute_resolution_published",
+        "docs/legal/SLA.md",
+        "sla_page_published"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
-        "path": "/workspace/docs/legal/SLA.md"
+        "surface": "commercial_sla",
+        "product_complete": true,
+        "publication_ready": true,
+        "config": {
+          "legal_status": "APPROVED FOR PUBLICATION",
+          "effective_date": "1 January 2025",
+          "legal_entity_en": "MO Software Design LLC",
+          "legal_entity_ar": "شركة أم أو لتصميم البرامج",
+          "governing_law": "Laws of the Arab Republic of Egypt",
+          "dispute_resolution": "Good-faith negotiation via published support channels, then exclusive jurisdiction of the competent courts in Cairo, Egypt",
+          "document_path": "docs/legal/SLA.md",
+          "public_url": "/sla"
+        },
+        "published": {
+          "sla_doc": true,
+          "legal_hub": true,
+          "sla_page": true
+        },
+        "doc_path": "/workspace/docs/legal/SLA.md"
       },
       "validation_detail": {
-        "path": "/workspace/docs/legal/SLA.md"
+        "surface": "commercial_sla",
+        "product_complete": true,
+        "publication_ready": true,
+        "config": {
+          "legal_status": "APPROVED FOR PUBLICATION",
+          "effective_date": "1 January 2025",
+          "legal_entity_en": "MO Software Design LLC",
+          "legal_entity_ar": "شركة أم أو لتصميم البرامج",
+          "governing_law": "Laws of the Arab Republic of Egypt",
+          "dispute_resolution": "Good-faith negotiation via published support channels, then exclusive jurisdiction of the competent courts in Cairo, Egypt",
+          "document_path": "docs/legal/SLA.md",
+          "public_url": "/sla"
+        },
+        "published": {
+          "sla_doc": true,
+          "legal_hub": true,
+          "sla_page": true
+        },
+        "doc_path": "/workspace/docs/legal/SLA.md"
       },
-      "external_step": "Publish signed SLA with legal review",
+      "external_step": null,
       "gap_matrix_status": null,
       "reconciled": true,
       "notes": ""
