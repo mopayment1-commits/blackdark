@@ -386,6 +386,9 @@ async def _bigquery_export_bootstrap() -> None:
 
         if not bigquery_configured() or bigquery_live_ready():
             return
+        from bigquery_export import _write_bootstrap_status
+
+        _write_bootstrap_status({"status": "running"})
         wait_sec = int(os.getenv("BIGQUERY_BOOTSTRAP_DELAY_SEC", "15"))
         if wait_sec > 0:
             await asyncio.sleep(wait_sec)
@@ -425,10 +428,8 @@ async def _bigquery_export_bootstrap() -> None:
 
 
 def _start_bigquery_export_bootstrap(state: RuntimeState) -> None:
-    if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
-        return
-    state.extras["bigquery_export_task"] = asyncio.create_task(_bigquery_export_bootstrap())
-    logger.info("BigQuery export bootstrap scheduled (CAP-658).")
+    """Legacy hook retained for tests; export now runs awaited in run_background_startup."""
+    _ = state
 
 
 async def _start_uptime_probe(state: RuntimeState) -> None:
@@ -452,7 +453,6 @@ async def run_background_startup(state: RuntimeState) -> None:
     await _start_fee_and_gas()
     await _start_storage_tier()
     _start_ingestion(state)
-    _start_bigquery_export_bootstrap(state)
     _start_forecast_audit(state)
     await _start_ml_flywheel(state)
     _start_glass_box(state)
@@ -463,7 +463,22 @@ async def run_background_startup(state: RuntimeState) -> None:
     _start_cloud_sync(state)
     await _start_uptime_probe(state)
     _start_billing_sweeper(state)
+    await _maybe_run_bigquery_export_bootstrap()
     logger.info("BLACKDARK background startup complete.")
+
+
+async def _maybe_run_bigquery_export_bootstrap() -> None:
+    if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
+        return
+    if not _env_flag("BIGQUERY_AUTO_EXPORT_ON_START", "true"):
+        return
+    try:
+        from bigquery_export import bigquery_configured, bigquery_live_ready
+
+        if bigquery_configured() and not bigquery_live_ready():
+            await _bigquery_export_bootstrap()
+    except Exception:
+        logger.exception("CAP-658 awaited BigQuery bootstrap export failed")
 
 
 def _start_billing_sweeper(state: RuntimeState) -> None:
