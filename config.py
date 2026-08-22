@@ -639,6 +639,18 @@ AWS_S3_DEEP_ARCHIVE_TRANSITION_DAYS = int(
     os.getenv("AWS_S3_DEEP_ARCHIVE_TRANSITION_DAYS", "365")
 )
 
+# ── BigQuery warehouse export (CAP-658) ───────────────────────────────────────
+BIGQUERY_EXPORT_ENABLED = os.getenv("BIGQUERY_EXPORT_ENABLED", "true").lower() in {
+    "1",
+    "true",
+    "yes",
+}
+BIGQUERY_PROJECT_ID = os.getenv("BIGQUERY_PROJECT_ID", os.getenv("GCP_PROJECT_ID", ""))
+BIGQUERY_DATASET = os.getenv("BIGQUERY_DATASET", "blackdark")
+BIGQUERY_TABLE = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots")
+BIGQUERY_LOCATION = os.getenv("BIGQUERY_LOCATION", "US")
+BIGQUERY_EXPORT_BATCH_SIZE = int(os.getenv("BIGQUERY_EXPORT_BATCH_SIZE", "500"))
+
 # ── Multi-Tier Storage Orchestration ─────────────────────────────────────────
 STORAGE_TIER_AUTO = os.getenv("STORAGE_TIER_AUTO", "true").lower() in {"1", "true", "yes"}
 STORAGE_TIER_MAINTENANCE_INTERVAL_HOURS = int(

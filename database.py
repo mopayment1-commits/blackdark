@@ -4187,6 +4187,38 @@ async def fetch_latest_ingestion_by_category(
     return results
 
 
+async def fetch_ingestion_snapshots_for_export(*, limit: int = 500) -> list[dict[str, Any]]:
+    async with get_connection() as db:
+        rows = await (
+            await db.execute(
+                """
+                SELECT id, source_id, category, payload_json, fetched_at, status
+                FROM ingestion_snapshots
+                ORDER BY fetched_at DESC
+                LIMIT ?
+                """,
+                (int(limit),),
+            )
+        ).fetchall()
+    results: list[dict[str, Any]] = []
+    for row in rows:
+        try:
+            payload = json.loads(row[3])
+        except json.JSONDecodeError:
+            payload = {}
+        results.append(
+            {
+                "id": int(row[0]),
+                "source_id": row[1],
+                "category": row[2],
+                "payload": payload,
+                "fetched_at": row[4],
+                "status": row[5],
+            }
+        )
+    return results
+
+
 async def fetch_ingestion_health_summary() -> list[dict[str, Any]]:
     async with get_connection() as db:
         rows = await (

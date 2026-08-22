@@ -27,7 +27,6 @@ EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset(
         648,  # Datashare — institutional datashare connector
         649,  # dbt Connector — external dbt Cloud/project
         652,  # BI Connectors — Tableau/Looker external
-        658,  # Snowflake/BigQuery warehouse export — external infra
         672,  # Chainalysis integration — paid vendor
         673,  # Elliptic integration — paid vendor
         674,  # TRM Labs integration — paid vendor
@@ -68,6 +67,13 @@ def is_extension(capability_id: int) -> bool:
 
 
 def is_external(capability_id: int) -> bool:
+    if capability_id == 658:
+        try:
+            from bigquery_export import bigquery_live_ready
+
+            return not bigquery_live_ready()
+        except Exception:
+            return True
     if capability_id in EXTENSION_EXTERNAL_IDS:
         return True
     if capability_id <= 646:

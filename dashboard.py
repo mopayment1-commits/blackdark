@@ -3199,6 +3199,32 @@ async def _ingestion_status_body():
     return status
 
 
+@app.get("/api/warehouse/bigquery/status")
+async def bigquery_warehouse_status():
+    from bigquery_export import warehouse_analytics_status
+
+    return await warehouse_analytics_status()
+
+
+@app.post("/api/warehouse/bigquery/export")
+async def bigquery_warehouse_export(
+    limit: int = Query(500, ge=1, le=5000),
+    dry_run: bool = Query(False),
+    _admin: dict = Depends(require_admin),
+):
+    from bigquery_export import export_ingestion_snapshots_to_bigquery
+
+    try:
+        evidence = await export_ingestion_snapshots_to_bigquery(
+            limit=limit,
+            dry_run=dry_run,
+            operator=str(_admin.get("email") or "admin"),
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    return {"status": "ok", "evidence": evidence}
+
+
 @app.get("/api/ingestion/run")
 async def ingestion_run_once(_admin: dict = Depends(require_admin)):
     """Manual one-shot ingest (bootstrap all categories)."""

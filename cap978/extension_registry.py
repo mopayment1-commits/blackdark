@@ -10,6 +10,10 @@ from typing import Any
 from cap646.backend_registry import BackendBinding, _KEYWORD_RULES, _TRACK_DEFAULTS, _slug
 from cap978.catalog import catalog_by_id
 
+_EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
+    658: ("bigquery_export", "warehouse_analytics_status", "none"),
+}
+
 _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("real-time feed", "websocket", "stream"), ("b2b_websocket_hub", "get_b2b_ws_hub", "hub")),
     (("datashare", "warehouse", "snowflake", "bigquery"), ("data_lake", "lake_status", "none")),
@@ -80,6 +84,10 @@ def resolve_extension_binding(capability_id: int) -> BackendBinding:
     name = row["capability"]
     track = row.get("track", "T19")
     surface = _slug(name)
+    explicit = _EXTENSION_ID_BINDINGS.get(capability_id)
+    if explicit:
+        mod, ep, ps = explicit
+        return BackendBinding(capability_id, mod, ep, surface, ps, "extension_id")
     kw = _keyword_binding(name)
     if kw:
         mod, ep, ps = kw

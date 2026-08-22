@@ -1,0 +1,291 @@
+"""
+BLACKDARK — BigQuery warehouse export (CAP-658 / White-Label Embedded Analytics).
+
+Exports live ingestion_snapshots from the operational data lake (Postgres/SQLite)
+into a configured BigQuery dataset for institutional embedded analytics.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import logging
+import os
+import threading
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+from uuid import uuid4
+
+import config
+from path_safety import ensure_under, project_data_dir
+
+logger = logging.getLogger("BLACKDARK.BigQueryExport")
+
+_LOCK = threading.Lock()
+_EVIDENCE_DIR = project_data_dir() / "institutional_assurance"
+_EVIDENCE_PATH = _EVIDENCE_DIR / "bigquery_export_evidence.json"
+
+_TABLE_SCHEMA = [
+    {"name": "export_id", "field_type": "STRING", "mode": "REQUIRED"},
+    {"name": "snapshot_id", "field_type": "INT64", "mode": "NULLABLE"},
+    {"name": "source_id", "field_type": "STRING", "mode": "REQUIRED"},
+    {"name": "category", "field_type": "STRING", "mode": "REQUIRED"},
+    {"name": "payload_json", "field_type": "STRING", "mode": "REQUIRED"},
+    {"name": "fetched_at", "field_type": "TIMESTAMP", "mode": "REQUIRED"},
+    {"name": "status", "field_type": "STRING", "mode": "REQUIRED"},
+    {"name": "exported_at", "field_type": "TIMESTAMP", "mode": "REQUIRED"},
+    {"name": "product", "field_type": "STRING", "mode": "REQUIRED"},
+]
+
+
+def _utcnow() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+def bigquery_config() -> dict[str, Any]:
+    project = (
+        os.getenv("BIGQUERY_PROJECT_ID", "").strip()
+        or os.getenv("GCP_PROJECT_ID", "").strip()
+        or os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
+    )
+    dataset = os.getenv("BIGQUERY_DATASET", "blackdark").strip() or "blackdark"
+    table = os.getenv("BIGQUERY_TABLE", "ingestion_snapshots").strip() or "ingestion_snapshots"
+    location = os.getenv("BIGQUERY_LOCATION", "US").strip() or "US"
+    creds_file = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
+    creds_json = bool(os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip())
+    enabled = os.getenv("BIGQUERY_EXPORT_ENABLED", "true").lower() in {"1", "true", "yes"}
+    return {
+        "enabled": enabled,
+        "project_id": project or None,
+        "dataset_id": dataset,
+        "table_id": table,
+        "location": location,
+        "table_fqn": f"{project}.{dataset}.{table}" if project else None,
+        "credentials_file": bool(creds_file),
+        "credentials_json": creds_json,
+        "credentials_configured": bool(creds_file or creds_json),
+    }
+
+
+def bigquery_configured() -> bool:
+    cfg = bigquery_config()
+    return bool(cfg["enabled"] and cfg["project_id"] and cfg["credentials_configured"])
+
+
+def get_export_evidence() -> dict[str, Any] | None:
+    if not _EVIDENCE_PATH.is_file():
+        return None
+    try:
+        row = json.loads(_EVIDENCE_PATH.read_text(encoding="utf-8"))
+        return row if isinstance(row, dict) else None
+    except json.JSONDecodeError:
+        return None
+
+
+def _write_export_evidence(row: dict[str, Any]) -> dict[str, Any]:
+    _EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    ensure_under(_EVIDENCE_PATH, project_data_dir()).write_text(
+        json.dumps(row, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    return row
+
+
+def _manifest_sha256(rows: list[dict[str, Any]]) -> str:
+    body = json.dumps(rows, sort_keys=True, separators=(",", ":"), default=str).encode()
+    return hashlib.sha256(body).hexdigest()
+
+
+def _parse_ts(value: str) -> str:
+    raw = (value or "").strip()
+    if not raw:
+        return datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        if raw.endswith("Z"):
+            raw = raw[:-1] + "+00:00"
+        dt = datetime.fromisoformat(raw)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=UTC)
+        return dt.astimezone(UTC).strftime("%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        return datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S")
+
+
+def _build_client():
+    from google.cloud import bigquery
+    from google.oauth2 import service_account
+
+    cfg = bigquery_config()
+    project = cfg["project_id"]
+    if not project:
+        raise RuntimeError("bigquery_project_missing")
+
+    creds_json = os.getenv("BIGQUERY_CREDENTIALS_JSON", "").strip()
+    if creds_json:
+        info = json.loads(creds_json)
+        creds = service_account.Credentials.from_service_account_info(info)
+        return bigquery.Client(project=project, credentials=creds, location=cfg["location"])
+
+    creds_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS", "").strip()
+    if creds_path and Path(creds_path).is_file():
+        creds = service_account.Credentials.from_service_account_file(creds_path)
+        return bigquery.Client(project=project, credentials=creds, location=cfg["location"])
+
+    return bigquery.Client(project=project, location=cfg["location"])
+
+
+def _ensure_table(client: Any) -> str:
+    from google.cloud import bigquery
+
+    cfg = bigquery_config()
+    table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
+    schema = [bigquery.SchemaField(**field) for field in _TABLE_SCHEMA]
+    table = bigquery.Table(table_ref, schema=schema)
+    try:
+        client.get_table(table_ref)
+    except Exception:
+        client.create_table(table, exists_ok=True)
+    return table_ref
+
+
+def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
+    from google.cloud import bigquery
+
+    query = f"""
+        SELECT COUNT(1) AS row_count
+        FROM `{table_ref}`
+        WHERE export_id = @export_id
+    """
+    job_config = bigquery.QueryJobConfig(
+        query_parameters=[bigquery.ScalarQueryParameter("export_id", "STRING", export_id)]
+    )
+    result = list(client.query(query, job_config=job_config).result())
+    if not result:
+        return 0
+    row = result[0]
+    try:
+        return int(row["row_count"])
+    except (TypeError, KeyError):
+        return int(row[0])
+
+
+async def export_ingestion_snapshots_to_bigquery(
+    *,
+    limit: int | None = None,
+    dry_run: bool = False,
+    operator: str = "system",
+) -> dict[str, Any]:
+    """Export live lake rows to BigQuery and return machine-verifiable evidence."""
+    if not bigquery_configured():
+        raise RuntimeError("bigquery_not_configured")
+
+    from database import fetch_ingestion_snapshots_for_export
+
+    max_rows = int(limit or os.getenv("BIGQUERY_EXPORT_BATCH_SIZE", "500"))
+    snapshots = await fetch_ingestion_snapshots_for_export(limit=max_rows)
+    export_id = f"exp_{uuid4().hex[:12]}"
+    exported_at = _utcnow()
+    export_rows = [
+        {
+            "export_id": export_id,
+            "snapshot_id": int(row.get("id") or 0) or None,
+            "source_id": str(row.get("source_id") or ""),
+            "category": str(row.get("category") or ""),
+            "payload_json": json.dumps(row.get("payload") or {}, separators=(",", ":"), default=str),
+            "fetched_at": _parse_ts(str(row.get("fetched_at") or "")),
+            "status": str(row.get("status") or "ok"),
+            "exported_at": _parse_ts(exported_at),
+            "product": "BLACKDARK",
+        }
+        for row in snapshots
+    ]
+    manifest_sha256 = _manifest_sha256(export_rows)
+    cfg = bigquery_config()
+
+    if dry_run:
+        return {
+            "dry_run": True,
+            "export_id": export_id,
+            "rows_prepared": len(export_rows),
+            "manifest_sha256": manifest_sha256,
+            "destination": cfg["table_fqn"],
+        }
+
+    if not export_rows:
+        raise RuntimeError("no_ingestion_snapshots_to_export")
+
+    with _LOCK:
+        client = _build_client()
+        table_ref = _ensure_table(client)
+        errors = client.insert_rows_json(table_ref, export_rows)
+        if errors:
+            raise RuntimeError(f"bigquery_insert_errors: {errors[:3]}")
+        verified = _verify_export_rows(client, table_ref=table_ref, export_id=export_id)
+        if verified != len(export_rows):
+            raise RuntimeError(f"bigquery_verification_mismatch: sent={len(export_rows)} verified={verified}")
+
+        evidence = {
+            "export_id": export_id,
+            "exported_at": exported_at,
+            "operator": operator,
+            "project_id": cfg["project_id"],
+            "dataset_id": cfg["dataset_id"],
+            "table_id": cfg["table_id"],
+            "table_fqn": table_ref,
+            "rows_sent": len(export_rows),
+            "rows_verified": verified,
+            "manifest_sha256": manifest_sha256,
+            "verification_query": (
+                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+            ),
+            "product": "BLACKDARK",
+            "surface": "white_label_embedded_analytics",
+            "gate": "CAP-658",
+        }
+        _write_export_evidence(evidence)
+        logger.info(
+            "BigQuery export complete | export_id=%s rows=%s table=%s",
+            export_id,
+            verified,
+            table_ref,
+        )
+        return evidence
+
+
+def bigquery_live_ready() -> bool:
+    """True when BigQuery is configured and the last export verified in BigQuery."""
+    if not bigquery_configured():
+        return False
+    evidence = get_export_evidence()
+    if not evidence:
+        return False
+    return int(evidence.get("rows_verified") or 0) > 0 and bool(evidence.get("table_fqn"))
+
+
+async def warehouse_analytics_status() -> dict[str, Any]:
+    """CAP-658 status surface — local lake + BigQuery export readiness."""
+    from data_lake import lake_status
+
+    lake = await lake_status()
+    cfg = bigquery_config()
+    evidence = get_export_evidence()
+    ready = bigquery_live_ready()
+    return {
+        "surface": "white_label_embedded_analytics",
+        "product": "BLACKDARK",
+        "product_complete": True,
+        "gate": "CAP-658",
+        "bigquery": {
+            **cfg,
+            "configured": bigquery_configured(),
+            "live_ready": ready,
+        },
+        "lake": lake,
+        "last_export": evidence,
+        "export_ready": ready,
+        "api": {
+            "status": "/api/warehouse/bigquery/status",
+            "export": "/api/warehouse/bigquery/export",
+        },
+    }
