@@ -74,12 +74,66 @@ def bigquery_configured() -> bool:
 
 
 def get_export_evidence() -> dict[str, Any] | None:
-    if not _EVIDENCE_PATH.is_file():
+    if _EVIDENCE_PATH.is_file():
+        try:
+            row = json.loads(_EVIDENCE_PATH.read_text(encoding="utf-8"))
+            if isinstance(row, dict):
+                return row
+        except json.JSONDecodeError:
+            pass
+    return _fetch_latest_export_evidence_from_bigquery()
+
+
+def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
+    """Read latest verified export from BigQuery (multi-replica safe)."""
+    if not bigquery_configured():
         return None
     try:
-        row = json.loads(_EVIDENCE_PATH.read_text(encoding="utf-8"))
-        return row if isinstance(row, dict) else None
-    except json.JSONDecodeError:
+        cfg = bigquery_config()
+        client = _build_client()
+        table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
+        query = f"""
+            SELECT
+                export_id,
+                COUNT(1) AS rows_verified,
+                MAX(exported_at) AS exported_at
+            FROM `{table_ref}`
+            GROUP BY export_id
+            ORDER BY exported_at DESC
+            LIMIT 1
+        """
+        rows = list(client.query(query).result())
+        if not rows:
+            return None
+        row = rows[0]
+        export_id = str(row["export_id"])
+        rows_verified = int(row["rows_verified"])
+        if rows_verified <= 0:
+            return None
+        exported_at = row["exported_at"]
+        exported_at_iso = (
+            exported_at.isoformat() if hasattr(exported_at, "isoformat") else str(exported_at)
+        )
+        return {
+            "export_id": export_id,
+            "exported_at": exported_at_iso,
+            "operator": "bigquery_query",
+            "project_id": cfg["project_id"],
+            "dataset_id": cfg["dataset_id"],
+            "table_id": cfg["table_id"],
+            "table_fqn": table_ref,
+            "rows_sent": rows_verified,
+            "rows_verified": rows_verified,
+            "verification_query": (
+                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+            ),
+            "product": "BLACKDARK",
+            "surface": "white_label_embedded_analytics",
+            "gate": "CAP-658",
+            "evidence_source": "bigquery_live_query",
+        }
+    except Exception:
+        logger.debug("BigQuery evidence lookup failed", exc_info=True)
         return None
 
 

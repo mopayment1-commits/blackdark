@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -65,6 +66,30 @@ async def test_bigquery_export_writes_verified_evidence(monkeypatch, tmp_path, b
     assert evidence["gate"] == "CAP-658"
     assert get_export_evidence()["export_id"] == evidence["export_id"]
     assert bigquery_live_ready() is True
+
+
+def test_export_evidence_falls_back_to_bigquery(monkeypatch, bigquery_env):
+    from bigquery_export import get_export_evidence
+
+    mock_row = {
+        "export_id": "exp_live123",
+        "rows_verified": 4,
+        "exported_at": datetime.now(UTC),
+    }
+
+    class _Row:
+        def __getitem__(self, key):
+            return mock_row[key]
+
+    mock_client = MagicMock()
+    mock_client.query.return_value.result.return_value = [_Row()]
+
+    with patch("bigquery_export._build_client", return_value=mock_client):
+        evidence = get_export_evidence()
+
+    assert evidence["export_id"] == "exp_live123"
+    assert evidence["rows_verified"] == 4
+    assert evidence["evidence_source"] == "bigquery_live_query"
 
 
 @pytest.mark.asyncio

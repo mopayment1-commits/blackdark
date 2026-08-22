@@ -392,13 +392,17 @@ async def _bigquery_export_bootstrap() -> None:
         snapshots = await fetch_ingestion_snapshots_for_export(limit=1)
         if not snapshots:
             try:
-                from ingestion_scheduler import run_initial_bootstrap
+                import aiohttp
 
-                logger.info("BigQuery bootstrap — running ingestion bootstrap for lake rows")
-                await run_initial_bootstrap()
-                await asyncio.sleep(int(os.getenv("BIGQUERY_POST_INGESTION_DELAY_SEC", "15")))
+                from ingestion_fetchers import ingest_category
+
+                logger.info("BigQuery bootstrap — running minimal prices ingest for lake rows")
+                timeout = aiohttp.ClientTimeout(total=config.INGESTION_FETCH_TIMEOUT_SECONDS)
+                async with aiohttp.ClientSession(timeout=timeout) as session:
+                    await ingest_category(session, "prices")  # type: ignore[arg-type]
+                await asyncio.sleep(int(os.getenv("BIGQUERY_POST_INGESTION_DELAY_SEC", "10")))
             except Exception:
-                logger.exception("Ingestion bootstrap before BigQuery export failed")
+                logger.exception("Minimal ingestion bootstrap before BigQuery export failed")
 
         evidence = await export_ingestion_snapshots_to_bigquery(operator="startup_bootstrap")
         logger.info(
