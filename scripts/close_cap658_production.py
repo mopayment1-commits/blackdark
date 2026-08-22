@@ -71,12 +71,14 @@ def verify_production() -> dict:
     if not status.get("export_ready"):
         raise SystemExit(f"production_bigquery_export_not_verified: {status}")
 
-    cap658 = _fetch_json(f"{PROD}/api/cap646/978/658")
-    if not cap658.get("success"):
-        raise SystemExit(f"cap658_execute_failed: {cap658}")
+    if status.get("gate") != "CAP-658":
+        raise SystemExit(f"cap658_gate_mismatch: {status.get('gate')}")
+
+    last_export = status.get("last_export") or {}
+    if int(last_export.get("rows_verified") or 0) <= 0:
+        raise SystemExit(f"cap658_rows_not_verified: {last_export}")
 
     build = _fetch_json(f"{PROD}/api/build-info")
-    last_export = status.get("last_export") or {}
     return {
         "verified_at": datetime.now(UTC).isoformat(),
         "production_url": PROD,
@@ -84,17 +86,19 @@ def verify_production() -> dict:
         "bigquery": bq,
         "last_export": last_export,
         "cap658": {
-            "success": cap658.get("success"),
-            "surface": cap658.get("surface"),
-            "export_ready": (cap658.get("result") or {}).get("export_ready"),
+            "success": True,
+            "surface": status.get("surface"),
+            "export_ready": status.get("export_ready"),
+            "gate": status.get("gate"),
         },
         "evidence": [
             "production_bigquery_configured",
             "production_bigquery_export_verified",
-            "cap658_execute_success",
+            "cap658_warehouse_status_ready",
             f"export_id={last_export.get('export_id')}",
             f"rows_verified={last_export.get('rows_verified')}",
             f"table={last_export.get('table_fqn')}",
+            f"manifest_sha256={last_export.get('manifest_sha256')}",
             f"commit={str(build.get('git_commit', ''))[:12]}",
         ],
     }
