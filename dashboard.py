@@ -710,7 +710,9 @@ except ImportError:
 
 try:
     from api.routers.institutional import router as institutional_router
+    from api.routers.institutional import sso_router as institutional_sso_router
 
+    app.include_router(institutional_sso_router)
     app.include_router(institutional_router)
 except Exception:
     logger.exception("Institutional router unavailable")

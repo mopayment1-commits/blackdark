@@ -141,8 +141,14 @@ def _sec_006() -> dict[str, Any]:
     from enterprise_sso import sso_status
 
     st = sso_status()
-    configured = bool(st.get("configured") or st.get("saml_ready") or st.get("oidc_ready"))
-    return _pass("SEC-006", evidence=["enterprise_sso"]) if configured else _external("SEC-006", note="SSO IdP configuration external")
+    configured = bool(st.get("configured") or st.get("oidc_ready") or st.get("saml_ready"))
+    if configured and not st.get("demo_mode"):
+        return _pass(
+            "SEC-006",
+            evidence=["enterprise_sso", f"idp={st.get('idp')}", "oidc_live"],
+            note=str(st.get("callback_url") or ""),
+        )
+    return _external("SEC-006", note="SSO IdP configuration external — set ENTERPRISE_OIDC_* on production")
 
 
 @_sync

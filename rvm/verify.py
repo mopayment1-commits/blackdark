@@ -136,7 +136,10 @@ async def verify_control_entry(control_id: str) -> dict[str, Any]:
     else:
         evidence = [str(evidence)]
 
-    ext_ids = {"SEC-006", "SEC-008", "SEC-009", "REL-002"}
+    if raw_status == "VERIFIED_COMPLETE":
+        return {"status": "PASS", "evidence": evidence, "detail": result}
+
+    ext_ids = {"SEC-008", "SEC-009", "REL-002"}
     if control_id in ext_ids or raw_status in {"EXTERNAL_BLOCKED", "EXTERNAL_EVIDENCE_REQUIRED"}:
         return {
             "status": "EXTERNAL_EVIDENCE_REQUIRED",
@@ -144,8 +147,13 @@ async def verify_control_entry(control_id: str) -> dict[str, Any]:
             "detail": result,
             "external_step": result.get("note", "external attestation required"),
         }
-    if raw_status == "VERIFIED_COMPLETE":
-        return {"status": "PASS", "evidence": evidence, "detail": result}
+    if control_id == "SEC-006":
+        return {
+            "status": "EXTERNAL_EVIDENCE_REQUIRED",
+            "evidence": evidence,
+            "detail": result,
+            "external_step": result.get("note", "Configure production IdP and complete end-to-end SSO login flow"),
+        }
     return {"status": "FAIL", "evidence": evidence, "detail": result}
 
 
