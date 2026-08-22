@@ -204,8 +204,20 @@
             <p>Product support, suggestions, and partnership inquiries — never send card numbers or passwords.</p>
             <ul class="channel-list">
                 <li><strong style="color:var(--fg)">Support:</strong>
-                    <a href="mailto:{{ contact.support_email if contact else 'support@blackdark.app' }}">{{ contact.support_email if contact else 'support@blackdark.app' }}</a>
+                    <a href="mailto:{{ contact.support_email if contact else 'mopayment1@gmail.com' }}">{{ contact.support_email if contact else 'mopayment1@gmail.com' }}</a>
                 </li>
+                {% if contact and contact.support_owner %}
+                <li><strong style="color:var(--fg)">Support owner:</strong> {{ contact.support_owner }}</li>
+                {% endif %}
+                {% if contact and contact.support_hours %}
+                <li><strong style="color:var(--fg)">Support hours:</strong> {{ contact.support_hours }}</li>
+                {% endif %}
+                {% if contact and contact.urgent_escalation %}
+                <li><strong style="color:var(--fg)">Urgent escalation:</strong>
+                    Email <a href="mailto:{{ contact.urgent_escalation.address }}?subject={{ contact.urgent_escalation.subject_prefix }}%20">{{ contact.urgent_escalation.address }}</a>
+                    with subject prefix <code>{{ contact.urgent_escalation.subject_prefix }}</code>
+                </li>
+                {% endif %}
                 <li><strong style="color:var(--fg)">Sales / Room:</strong>
                     <a href="mailto:{{ contact.sales_email if contact else 'sales@blackdark.io' }}">{{ contact.sales_email if contact else 'sales@blackdark.io' }}</a>
                 </li>

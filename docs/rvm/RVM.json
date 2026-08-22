@@ -60519,21 +60519,65 @@
       "validation_method": "procurement-ready operational proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "template=docs/support/SUPPORT_TIERS.md"
+        "support_email=mopayment1@gmail.com",
+        "support_hours=10:00 AM – 10:00 PM Cairo Time, daily",
+        "urgent_escalation_published",
+        "docs/support/SUPPORT_TIERS.md",
+        "contact_page_published"
       ],
       "runtime_evidence": [
-        "template=docs/support/SUPPORT_TIERS.md"
+        "support_email=mopayment1@gmail.com",
+        "support_hours=10:00 AM – 10:00 PM Cairo Time, daily",
+        "urgent_escalation_published",
+        "docs/support/SUPPORT_TIERS.md",
+        "contact_page_published"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
-        "path": "/workspace/docs/support/SUPPORT_TIERS.md"
+        "surface": "commercial_support",
+        "product_complete": true,
+        "operational_ready": true,
+        "config": {
+          "support_email": "mopayment1@gmail.com",
+          "support_owner": "Project owner/operator",
+          "support_hours": "10:00 AM – 10:00 PM Cairo Time, daily",
+          "urgent_escalation": {
+            "channel": "email",
+            "address": "mopayment1@gmail.com",
+            "subject_prefix": "URGENT",
+            "instructions": "Email mopayment1@gmail.com with subject line starting with URGENT"
+          }
+        },
+        "published": {
+          "support_tiers_doc": true,
+          "contact_page": true
+        },
+        "doc_path": "/workspace/docs/support/SUPPORT_TIERS.md"
       },
       "validation_detail": {
-        "path": "/workspace/docs/support/SUPPORT_TIERS.md"
+        "surface": "commercial_support",
+        "product_complete": true,
+        "operational_ready": true,
+        "config": {
+          "support_email": "mopayment1@gmail.com",
+          "support_owner": "Project owner/operator",
+          "support_hours": "10:00 AM – 10:00 PM Cairo Time, daily",
+          "urgent_escalation": {
+            "channel": "email",
+            "address": "mopayment1@gmail.com",
+            "subject_prefix": "URGENT",
+            "instructions": "Email mopayment1@gmail.com with subject line starting with URGENT"
+          }
+        },
+        "published": {
+          "support_tiers_doc": true,
+          "contact_page": true
+        },
+        "doc_path": "/workspace/docs/support/SUPPORT_TIERS.md"
       },
-      "external_step": "Staff support team and publish escalation contacts",
+      "external_step": null,
       "gap_matrix_status": null,
       "reconciled": true,
       "notes": ""

@@ -522,11 +522,14 @@ def open_support_ticket(
 
 
 def support_status() -> dict[str, Any]:
+    from commercial_support import commercial_support_status
+
     return {
         "surface": "support_tiers",
         "product_complete": True,
         "tiers": SUPPORT_TIERS,
         "api": "POST /api/institutional/support/tickets",
+        "commercial": commercial_support_status(),
     }
 
 

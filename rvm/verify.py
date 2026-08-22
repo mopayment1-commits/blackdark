@@ -224,11 +224,34 @@ async def verify_commercial_gate(gate_id: str) -> dict[str, Any]:
             }
         return {"status": "FAIL", "evidence": [], "detail": ready}
 
-    # MSA, SLA, SUPPORT — require external legal/ops
+    if gate_id == "COM-SUPPORT":
+        from commercial_support import SUPPORT_TIERS_DOC, commercial_support_status
+
+        status = commercial_support_status()
+        cfg = status.get("config") or {}
+        if status.get("operational_ready"):
+            return {
+                "status": "PASS",
+                "evidence": [
+                    f"support_email={cfg.get('support_email')}",
+                    f"support_hours={cfg.get('support_hours')}",
+                    "urgent_escalation_published",
+                    SUPPORT_TIERS_DOC,
+                    "contact_page_published",
+                ],
+                "detail": status,
+            }
+        return {
+            "status": "FAIL",
+            "evidence": [],
+            "detail": status,
+            "external_step": "Publish confirmed support email, hours, owner, and URGENT escalation path",
+        }
+
+    # MSA, SLA — require external legal/ops
     templates = {
         "COM-MSA": ("docs/legal/MSA_TEMPLATE.md", "Execute MSA/DPA with legal counsel and counterparty signature"),
         "COM-SLA": ("docs/legal/SLA.md", "Publish signed SLA with legal review"),
-        "COM-SUPPORT": ("docs/support/SUPPORT_TIERS.md", "Staff support team and publish escalation contacts"),
     }
     if gate_id in templates:
         from pathlib import Path
