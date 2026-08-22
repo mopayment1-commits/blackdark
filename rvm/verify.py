@@ -268,16 +268,64 @@ async def verify_institutional_gate(gate_id: str) -> dict[str, Any]:
     if gate_id == "INS-TENANT":
         from org_tenant import org_isolation_status
 
-        status = org_isolation_status()
-        internal = status.get("cross_tenant_denied_by_default", False) and status.get("product_complete", False)
-        if internal:
+        try:
+            from postgres_backend import pool_stats, use_postgres
+        except Exception:
+            use_postgres = lambda: False  # type: ignore[assignment,misc]
+            pool_stats = lambda: {"active": False}  # type: ignore[assignment,misc]
+
+        if not use_postgres():
+            status = org_isolation_status()
             return {
                 "status": "EXTERNAL_EVIDENCE_REQUIRED",
-                "evidence": ["org_isolation_contract_v1", f"org_count={status.get('org_count')}"],
-                "detail": status,
-                "external_step": "Provision production Postgres cluster and migrate org_tenant store",
+                "evidence": [],
+                "detail": {**status, "postgres_active": False},
+                "external_step": "Set DATABASE_URL=postgresql://... (Neon production) and run scripts/provision_ins_tenant_postgres.py",
             }
-        return {"status": "FAIL", "evidence": [], "detail": status}
+
+        try:
+            from database import init_db
+            from org_tenant_store import (
+                migrate_json_orgs_if_needed,
+                org_isolation_status_pg,
+                verify_postgres_tenant_smoke,
+            )
+
+            await init_db()
+            await migrate_json_orgs_if_needed()
+            smoke = await verify_postgres_tenant_smoke()
+            status = await org_isolation_status_pg()
+            pool = pool_stats()
+            ready = (
+                status.get("cross_tenant_denied_by_default")
+                and status.get("product_complete")
+                and status.get("storage_engine") == "postgresql"
+                and smoke.get("smoke_pass")
+                and (pool.get("active") or status.get("postgres_active"))
+            )
+            if ready:
+                evidence = [
+                    "postgresql_production_path",
+                    f"org_count={status.get('org_count')}",
+                    f"pool_size={pool.get('size')}",
+                    "cross_tenant_smoke_pass",
+                ]
+                return {
+                    "status": "PASS",
+                    "evidence": evidence,
+                    "detail": {"status": status, "smoke": smoke, "pool": pool},
+                }
+            return {
+                "status": "FAIL",
+                "evidence": [],
+                "detail": {"status": status, "smoke": smoke, "pool": pool},
+            }
+        except Exception as exc:
+            return {
+                "status": "FAIL",
+                "evidence": [],
+                "detail": {"error": type(exc).__name__, "message": str(exc)[:240]},
+            }
 
     if gate_id == "INS-DATAROOM":
         from pathlib import Path

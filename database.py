@@ -791,6 +791,9 @@ async def _apply_migrations(db: Any) -> None:
         """
     )
     await _ensure_billing_subscription_tables(db)
+    from org_tenant_store import ensure_org_tables
+
+    await ensure_org_tables(db)
     await db.execute(
         """
         CREATE TABLE IF NOT EXISTS institutional_inquiries (

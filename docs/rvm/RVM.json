@@ -60600,49 +60600,93 @@
       "validation_method": "institutional buyer operational acceptance",
       "required_evidence": [],
       "implementation_evidence": [
-        "org_isolation_contract_v1",
-        "org_count=0"
+        "postgresql_production_path",
+        "org_count=12",
+        "pool_size=4",
+        "cross_tenant_smoke_pass"
       ],
       "runtime_evidence": [
-        "org_isolation_contract_v1",
-        "org_count=0"
+        "postgresql_production_path",
+        "org_count=13",
+        "pool_size=4",
+        "cross_tenant_smoke_pass"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
-        "surface": "multi_tenant_org_isolation",
-        "product_complete": true,
-        "org_count": 0,
-        "membership_count": 0,
-        "roles": [
-          "admin",
-          "compliance",
-          "pm",
-          "analyst",
-          "viewer"
-        ],
-        "isolation_contract": "org_id_scoped_v1",
-        "cross_tenant_denied_by_default": true,
-        "storage": "/workspace/data/orgs"
+        "status": {
+          "surface": "multi_tenant_org_isolation",
+          "product_complete": true,
+          "org_count": 12,
+          "membership_count": 23,
+          "roles": [
+            "admin",
+            "compliance",
+            "pm",
+            "analyst",
+            "viewer"
+          ],
+          "isolation_contract": "org_id_scoped_v1",
+          "cross_tenant_denied_by_default": true,
+          "storage_engine": "postgresql",
+          "postgres_active": true,
+          "postgres_pool": {
+            "active": true,
+            "min_size": 4,
+            "max_size": 20,
+            "size": 4
+          }
+        },
+        "smoke": {
+          "org_id": "org_4719f45bc9c4",
+          "cross_tenant_denied": true,
+          "smoke_pass": true
+        },
+        "pool": {
+          "active": true,
+          "min_size": 4,
+          "max_size": 20,
+          "size": 4
+        }
       },
       "validation_detail": {
-        "surface": "multi_tenant_org_isolation",
-        "product_complete": true,
-        "org_count": 0,
-        "membership_count": 0,
-        "roles": [
-          "admin",
-          "compliance",
-          "pm",
-          "analyst",
-          "viewer"
-        ],
-        "isolation_contract": "org_id_scoped_v1",
-        "cross_tenant_denied_by_default": true,
-        "storage": "/workspace/data/orgs"
+        "status": {
+          "surface": "multi_tenant_org_isolation",
+          "product_complete": true,
+          "org_count": 13,
+          "membership_count": 25,
+          "roles": [
+            "admin",
+            "compliance",
+            "pm",
+            "analyst",
+            "viewer"
+          ],
+          "isolation_contract": "org_id_scoped_v1",
+          "cross_tenant_denied_by_default": true,
+          "storage_engine": "postgresql",
+          "postgres_active": true,
+          "postgres_pool": {
+            "active": true,
+            "min_size": 4,
+            "max_size": 20,
+            "size": 4
+          }
+        },
+        "smoke": {
+          "org_id": "org_b804701e4c2a",
+          "cross_tenant_denied": true,
+          "smoke_pass": true
+        },
+        "pool": {
+          "active": true,
+          "min_size": 4,
+          "max_size": 20,
+          "size": 4
+        }
       },
-      "external_step": "Provision production Postgres cluster and migrate org_tenant store",
+      "external_step": null,
       "gap_matrix_status": null,
       "reconciled": true,
       "notes": ""
