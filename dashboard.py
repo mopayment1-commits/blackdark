@@ -3211,7 +3211,6 @@ async def bigquery_warehouse_export(
     limit: int = Query(500, ge=1, le=5000),
     dry_run: bool = Query(False),
     x_cap658_closure_token: Annotated[str | None, Header(alias="X-CAP658-Closure-Token")] = None,
-    _admin: dict | None = Depends(optional_user_from_request),
     x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
     x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
 ):
