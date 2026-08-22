@@ -373,8 +373,6 @@ def _start_cloud_sync(state: RuntimeState) -> None:
 async def _bigquery_export_bootstrap() -> None:
     if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
         return
-    if not _env_flag("BIGQUERY_AUTO_EXPORT_ON_START", "true"):
-        return
     try:
         from bigquery_export import (
             bigquery_configured,
@@ -453,6 +451,7 @@ async def run_background_startup(state: RuntimeState) -> None:
     await _start_fee_and_gas()
     await _start_storage_tier()
     _start_ingestion(state)
+    await _maybe_run_bigquery_export_bootstrap()
     _start_forecast_audit(state)
     await _start_ml_flywheel(state)
     _start_glass_box(state)
@@ -463,14 +462,11 @@ async def run_background_startup(state: RuntimeState) -> None:
     _start_cloud_sync(state)
     await _start_uptime_probe(state)
     _start_billing_sweeper(state)
-    await _maybe_run_bigquery_export_bootstrap()
     logger.info("BLACKDARK background startup complete.")
 
 
 async def _maybe_run_bigquery_export_bootstrap() -> None:
     if not _env_flag("BIGQUERY_EXPORT_ENABLED", "true"):
-        return
-    if not _env_flag("BIGQUERY_AUTO_EXPORT_ON_START", "true"):
         return
     try:
         from bigquery_export import bigquery_configured, bigquery_live_ready
