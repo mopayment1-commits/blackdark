@@ -83,6 +83,13 @@ async def billing_status(user: dict | None = Depends(optional_user)):
         }
 
 
+@router.get("/readiness")
+async def billing_readiness():
+    from billing.ops_readiness import billing_ops_readiness
+
+    return billing_ops_readiness()
+
+
 @router.get("/payments")
 async def billing_payments_architecture():
     """USD payment architecture + security posture (no secrets)."""

@@ -80,8 +80,8 @@ class SsoCallback(BaseModel):
 
 class InvoiceCreate(BaseModel):
     email: str
-    amount_usd: float = 49.0
-    plan: str = "decision_desk"
+    amount_usd: float = 999.0
+    plan: str = "institutional"
     method: str = "invoice"
     org_id: str | None = None
 
@@ -342,10 +342,22 @@ async def commerce_invoice(body: InvoiceCreate, _admin: dict = Depends(require_a
 
 @router.post("/commerce/mark-paid", responses=COMMON_ERROR_RESPONSES)
 async def commerce_mark_paid(body: MarkPaid, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
-    from institutional_commerce import mark_invoice_paid
+    from institutional_commerce import get_invoice, mark_invoice_paid
+    from billing.institutional_activation import activate_institutional_from_invoice
 
     try:
-        return mark_invoice_paid(body.invoice_id, source=body.source, external_ref=body.external_ref)
+        paid = mark_invoice_paid(body.invoice_id, source=body.source, external_ref=body.external_ref)
+        inv = get_invoice(body.invoice_id)
+        activation = await activate_institutional_from_invoice(
+            email=str(paid["email"]),
+            invoice_id=body.invoice_id,
+            amount_usd=float(inv.get("amount_usd") or paid.get("amount_usd") or 999),
+            plan=str(inv.get("plan") or "institutional"),
+            org_id=inv.get("org_id"),
+            source=body.source,
+            external_ref=body.external_ref,
+        )
+        return {"paid": paid, "activation": activation}
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
 

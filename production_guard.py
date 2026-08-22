@@ -159,7 +159,8 @@ def _collect_guard_context() -> dict[str, Any]:
     lemon = env_configured("LEMON_SQUEEZY_CHECKOUT_PRO")
     stripe = env_configured("STRIPE_SECRET_KEY")
     lemon_whale = env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE")
-    stripe_price_whale = env_configured("STRIPE_PRICE_WHALE")
+    stripe_price_elite = env_configured("STRIPE_PRICE_ELITE") or env_configured("STRIPE_PRICE_WHALE")
+    stripe_price_quant = env_configured("STRIPE_PRICE_QUANT")
     expose_demo = _env_truthy("EXPOSE_B2B_DEMO_KEY")
     live_exec = _env_truthy("LIVE_EXECUTION_ALLOW_API")
     strict_prod = is_production() and not soft_launch
@@ -181,7 +182,7 @@ def _collect_guard_context() -> dict[str, Any]:
         "stripe": stripe,
         "telegram": _telegram_active(),
         "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
-        "whale_checkout_ok": lemon_whale or stripe_price_whale or (stripe and not lemon),
+        "whale_checkout_ok": lemon_whale or stripe_price_elite or stripe_price_quant or (stripe and not lemon),
         "secrets_ok": secrets_ok,
         "session_pepper_ok": session_pepper_ok,
         "admin_ok": env_configured("ADMIN_API_KEY") or env_configured("ADMIN_EMAILS"),
@@ -355,7 +356,8 @@ def _production_guard_state() -> dict[str, Any]:
         "lemon": lemon,
         "stripe": stripe,
         "lemon_whale": env_configured("LEMON_SQUEEZY_CHECKOUT_WHALE"),
-        "stripe_price_whale": env_configured("STRIPE_PRICE_WHALE"),
+        "stripe_price_elite": env_configured("STRIPE_PRICE_ELITE") or env_configured("STRIPE_PRICE_WHALE"),
+        "stripe_price_quant": env_configured("STRIPE_PRICE_QUANT"),
         "telegram": _telegram_active(),
         "telegram_secret": env_configured("TELEGRAM_WEBHOOK_SECRET"),
         "lemon_webhook": lemon_webhook,
@@ -404,7 +406,12 @@ def _base_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _billing_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
-    whale_checkout_ok = s["lemon_whale"] or s["stripe_price_whale"] or (s["stripe"] and not s["lemon"])
+    elite_checkout_ok = (
+        s.get("lemon_whale")
+        or s.get("stripe_price_elite")
+        or s.get("stripe_price_quant")
+        or (s["stripe"] and not s["lemon"])
+    )
     return [
         _check(
             "billing_checkout",
@@ -423,7 +430,7 @@ def _billing_guard_checks(s: dict[str, Any]) -> list[dict[str, Any]]:
         ),
         _check(
             "billing_whale_checkout_usd",
-            whale_checkout_ok or s["soft_launch"],
+            elite_checkout_ok or s["soft_launch"],
             required=False,
             hint=(
                 "Set LEMON_SQUEEZY_CHECKOUT_WHALE or STRIPE_PRICE_WHALE "

@@ -220,3 +220,46 @@ async def test_usage_meter_enforces_free_limit(billing_user):
     blocked = await check_and_increment(uid, "free", "oracle_decision")
     assert blocked["allowed"] is False
     assert blocked["reason"] == "usage_exceeded"
+
+
+@pytest.mark.asyncio
+async def test_institutional_invoice_activates_subscription(billing_user):
+    from billing.institutional_activation import activate_institutional_from_invoice
+    from billing.subscription_engine import resolve_entitlements_for_user
+    from institutional_commerce import create_invoice, mark_invoice_paid
+
+    uid = int(billing_user["id"])
+    email = billing_user["email"]
+    inv = create_invoice(email=email, amount_usd=999.0, plan="institutional", method="wire_usd")
+    mark_invoice_paid(inv["invoice_id"], source="sandbox_test")
+
+    result = await activate_institutional_from_invoice(
+        email=email,
+        invoice_id=inv["invoice_id"],
+        amount_usd=999.0,
+        plan="institutional",
+        source="sandbox_test",
+    )
+    assert result["duplicate"] is False
+    assert result["subscription"]["plan"] == "institutional"
+    ent = await resolve_entitlements_for_user(uid)
+    assert ent["effective_plan"] == "institutional"
+    assert ent["entitlement_allowed"] is True
+
+    dup = await activate_institutional_from_invoice(
+        email=email,
+        invoice_id=inv["invoice_id"],
+        amount_usd=999.0,
+        source="sandbox_test",
+    )
+    assert dup["duplicate"] is True
+
+
+@pytest.mark.asyncio
+async def test_billing_ops_readiness():
+    from billing.ops_readiness import billing_ops_readiness
+
+    r = billing_ops_readiness()
+    assert r["self_serve_plans"] == ["pro", "elite", "quant"]
+    assert "stripe_url" in r["webhooks"]
+    assert r["checks"]["institutional_commerce_wired"] is True
