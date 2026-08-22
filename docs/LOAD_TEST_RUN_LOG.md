@@ -186,6 +186,21 @@ python scripts/load_test_1m_simulation.py
 | Notes | **SIGNED: CAP-644 production topology.** Multi-worker (`parallelism≥2`) with Postgres+Redis. Does not claim 1k–10k global capacity without `WEB_REPLICAS≥2` staging. |
 | Operator | cloud-agent CAP-644 closure |
 
+
+### 2026-08-22T21:08:05.200043Z — SIGNED: REL-002 production multi-replica HA @ Railway
+
+| Field | Value |
+|-------|--------|
+| Date (UTC) | 2026-08-22T21:08:05.200043Z |
+| Control | **REL-002** — Signed multi-worker HA load evidence |
+| Environment | **production** — `https://blackdark-production.up.railway.app` |
+| Railway replicas | **2** (`numReplicas` + `railway.json`) |
+| Workers / parallelism | **2 × 2 = 4** |
+| Signed load (CAP-644) | `present=true` |
+| HA codepath | `ha_ready_codepath=true` |
+| Notes | **SIGNED: REL-002 closure.** Multi-replica production topology with signed CAP-644 load evidence. |
+| Operator | cloud-agent REL-002 closure |
+
 ## Status
 
 - [x] Local Soft Launch buyer-DD probe recorded (honest, non-HA)  
