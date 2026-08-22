@@ -17,6 +17,14 @@ def _signed_load_evidence_present() -> bool:
     path = os.getenv("SIGNED_LOAD_EVIDENCE_JSON", "").strip()
     if path and os.path.isfile(path):
         return True
+    try:
+        from institutional_assurance import get_signed_capacity, verify_signed_capacity
+
+        cap = get_signed_capacity()
+        if cap and verify_signed_capacity(cap) and str(cap.get("environment", "")).lower() == "production":
+            return True
+    except Exception:
+        pass
     log = os.path.join(os.path.dirname(__file__), "docs", "LOAD_TEST_RUN_LOG.md")
     if os.path.isfile(log):
         try:
