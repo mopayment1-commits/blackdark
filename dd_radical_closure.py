@@ -68,7 +68,7 @@ def build_report1_weaknesses_closure() -> dict[str, Any]:
         _item("M8_sample_risk", True, PATH_D5_HONESTY, "synthetic disclosed", "1", "medium"),
         _item("M9_promo_codes", True, PATH_API_INSTITUTIONAL_DD_CLOSURE, "env-overridable codes", "1", "medium"),
         _item("M10_brand_coverage", True, "/api/public/brand-coverage-closure", "radical closure shipped", "1", "medium"),
-        _item("M11_i18n", True, "/api/i18n/locales", "15 locales path", "1", "medium"),
+        _item("M11_i18n", True, "/api/i18n/locales", "25 locales path", "1", "medium"),
         _item("L1_org_mfa", True, "/api/institutional/mfa-policy/check", "org enforced MFA", "1", "low"),
         _item("L2_sepa_ach", True, PATH_API_INSTITUTIONAL_COMMERCE_STATUS, "sepa+ach methods", "1", "low"),
         _item("L3_maintainability", True, "/api/routers/institutional.py", "institutional router split", "1", "low"),

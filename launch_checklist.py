@@ -69,9 +69,9 @@ def _run_pytest_quick() -> tuple[bool, str]:
         from persona_clarity import build_persona_clarity
         from ux_mode import apply_ux_mode, normalize_ux_mode
 
-        if TIER_FEATURES["whale"]["b2b_api"] is not True:
-            raise RuntimeError("whale_b2b_api")
-        if TIER_FEATURES["whale"]["evidence_pack"] is not True:
+        if TIER_FEATURES["elite"]["b2b_api"] is not True:
+            raise RuntimeError("elite_b2b_api")
+        if TIER_FEATURES["elite"]["evidence_pack"] is not True:
             raise RuntimeError("whale_evidence_pack")
         if normalize_ux_mode("pro") != "pro":
             raise RuntimeError("ux_mode_normalize")

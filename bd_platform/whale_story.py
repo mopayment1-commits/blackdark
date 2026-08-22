@@ -6,20 +6,24 @@ from datetime import UTC, datetime
 from typing import Any
 
 
-async def whale_narrative(limit: int = 5) -> dict[str, Any]:
+async def whale_narrative(symbol: str = "BTC", *, limit: int = 5) -> dict[str, Any]:
     """Whale stories with Signal vs Noise classification (Section Z #3)."""
+    try:
+        lim = int(limit)
+    except (TypeError, ValueError):
+        lim = 5
     try:
         from whale_signal_classifier import enrich_whale_narratives
 
-        return await enrich_whale_narratives(limit=limit)
+        return await enrich_whale_narratives(limit=lim)
     except Exception:
         from whale_tracker import get_latest_sector_flows, get_latest_whale_alerts
 
-        alerts = await get_latest_whale_alerts(limit=limit)
-        flows = await get_latest_sector_flows(limit=limit)
+        alerts = await get_latest_whale_alerts(limit=lim)
+        flows = await get_latest_sector_flows(limit=lim)
         stories: list[str] = []
 
-        for alert in alerts[:limit]:
+        for alert in alerts[:lim]:
             asset = alert.get("asset") or alert.get("symbol") or "?"
             usd = float(alert.get("amount_usd") or alert.get("value_usd") or 0)
             direction = alert.get("direction") or alert.get("flow_type") or "movement"

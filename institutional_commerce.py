@@ -77,7 +77,7 @@ def create_invoice(
     *,
     email: str,
     amount_usd: float,
-    plan: str = "decision_desk",
+    plan: str = "institutional",
     method: str = "invoice",
     org_id: str | None = None,
     currency: str = "USD",
@@ -98,6 +98,13 @@ def create_invoice(
     }
     _append(_INVOICES, row)
     return row
+
+
+def get_invoice(invoice_id: str) -> dict[str, Any] | None:
+    for inv in _read(_INVOICES):
+        if inv.get("invoice_id") == invoice_id:
+            return inv
+    return None
 
 
 def mark_invoice_paid(

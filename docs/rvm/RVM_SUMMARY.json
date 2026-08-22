@@ -1,0 +1,40 @@
+{
+  "generated_at": "2026-08-22T09:39:01.543986+00:00",
+  "governing_baseline_version": "blackdark-rvm-v1",
+  "total_requirements": 1044,
+  "pass_count": 1007,
+  "fail_count": 0,
+  "external_count": 37,
+  "by_kind": {
+    "capability": {
+      "EXTERNAL_EVIDENCE_REQUIRED": 31,
+      "PASS": 947
+    },
+    "control": {
+      "PASS": 38,
+      "EXTERNAL_EVIDENCE_REQUIRED": 4
+    },
+    "platform": {
+      "PASS": 12
+    },
+    "commercial": {
+      "EXTERNAL_EVIDENCE_REQUIRED": 2,
+      "PASS": 4
+    },
+    "institutional": {
+      "PASS": 6
+    }
+  },
+  "platform_verdict": "INTERNALLY COMPLETE \u2014 EXTERNAL EVIDENCE PENDING",
+  "commercial_ready": false,
+  "institutional_ready": true,
+  "conflicts_reconciled": 588,
+  "p0_external_remaining": [
+    "CAP-644",
+    "CAP-645",
+    "SEC-006",
+    "SEC-008",
+    "REL-002",
+    "COM-P0-EXT"
+  ]
+}

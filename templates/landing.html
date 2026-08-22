@@ -1063,6 +1063,15 @@
     <script>
         const { escapeHtml, esc, safeUrl } = window.BDDomSafe;
 
+        function currentLang() {
+            return (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
+        }
+        function i18nT(key, vars) {
+            const i18n = window.BD_I18N;
+            if (i18n && typeof i18n.t === 'function') return i18n.t(key, vars || {});
+            return key;
+        }
+
 function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,'0')).join('').slice(0,len||8);}
 
         window.lastOracleResult = null;
@@ -1357,7 +1366,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
         async function consultOracle() {
             const symbol = document.getElementById('symbolInput').value.toUpperCase();
             const mode = document.getElementById('landingUxMode').value || 'beginner';
-            const lang = 'en';
+            const lang = (window.BD_I18N && window.BD_I18N.lang) || document.documentElement.lang || 'en';
             const resultDiv = document.getElementById('oracleResult');
             const symbolEl = document.getElementById('resultSymbol');
             const scoreEl = document.getElementById('resultScore');
@@ -1369,7 +1378,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
             resultDiv.classList.add('active');
             localStorage.setItem('bd_ux_mode', mode);
             localStorage.setItem('bd_lang', lang);
-            oracleEl.textContent = 'Getting your decision…';
+            oracleEl.textContent = i18nT('oracle.loading');
             proMeta.style.display = 'none';
             upgradeEl.style.display = 'none';
             const t0 = performance.now();
@@ -1378,14 +1387,14 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 const { response, data } = await fetchOraclePayload(symbol, mode, lang);
                 const latencyMs = Math.round(performance.now() - t0);
                 if (!data) {
-                    oracleEl.textContent = 'Could not get a decision right now. Try again.';
+                    oracleEl.textContent = i18nT('oracle.error');
                     verdictEl.textContent = 'WAIT';
                     verdictEl.className = 'result-verdict verdict-wait';
                     return;
                 }
                 if (!response.ok) {
                     const detail = data.detail || {};
-                    const msg = detail.message || 'Daily quota exceeded — upgrade';
+                    const msg = detail.message || i18nT('ui.quota_exceeded');
                     oracleEl.textContent = msg;
                     if (detail.upgrade_url || detail.error === 'quota_exceeded') {
                         upgradeEl.style.display = 'block';
@@ -1410,7 +1419,7 @@ function _secureRandomId(len){const a=new Uint8Array(Math.max(4,len||8));crypto.
                 wireDisciplineMirror(document.getElementById('landingDiscipline'), data, symbol, followAction);
                 paintLandingCompliance(data);
                 updateShareLinks(data);
-            } catch (error) { console.debug(error); oracleEl.textContent = 'Oracle unavailable — try BTC or ETH.'; }
+            } catch (error) { console.debug(error); oracleEl.textContent = i18nT('ui.oracle_unavailable'); }
         }
 
         async function applyAudience() {

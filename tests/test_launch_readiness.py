@@ -58,8 +58,9 @@ def test_beginner_ux_hides_pro_internals():
 def test_whale_tier_has_b2b_and_evidence():
     from auth_service import TIER_FEATURES
 
+    assert TIER_FEATURES["elite"]["b2b_api"] is True
+    assert TIER_FEATURES["elite"]["evidence_pack"] is True
     assert TIER_FEATURES["whale"]["b2b_api"] is True
-    assert TIER_FEATURES["whale"]["evidence_pack"] is True
     assert TIER_FEATURES["free"]["b2b_api"] is False
 
 

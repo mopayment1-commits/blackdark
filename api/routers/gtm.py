@@ -109,6 +109,7 @@ async def _launch_readiness_body():
         "ninety_day_targets": gtm.get("ninety_day_targets"),
         "blockers": list(gtm.get("blockers") or []) + list(guard.get("required_failures") or []),
         "dd_technical_report": "/api/due-diligence/technical",
+        "soft_launch_closure": "/api/cap646/soft-launch/closure",
         "code_launch_ready": constitution_modules and checklist.get("blocked_count", 99) <= 2,
         "next_steps": [
             "python scripts/finalize_launch.py",

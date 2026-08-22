@@ -127,10 +127,21 @@ def verify_signed_capacity(row: dict[str, Any] | None = None) -> bool:
 
 
 def sla_document() -> dict[str, Any]:
+    from commercial_sla import commercial_sla_status
+
+    publication = commercial_sla_status()
+    cfg = publication.get("config") or {}
     return {
         "surface": "contractual_sla",
         "product_complete": True,
         "version": "1.0",
+        "legal_status": cfg.get("legal_status"),
+        "effective_date": cfg.get("effective_date"),
+        "legal_entity_en": cfg.get("legal_entity_en"),
+        "legal_entity_ar": cfg.get("legal_entity_ar"),
+        "governing_law": cfg.get("governing_law"),
+        "dispute_resolution": cfg.get("dispute_resolution"),
+        "publication_ready": publication.get("publication_ready"),
         "targets": {
             "availability_monthly": 0.995,
             "api_p95_ms": 800,
@@ -138,7 +149,8 @@ def sla_document() -> dict[str, Any]:
             "error_budget_burn_alert": 0.5,
             "support_response_hours": {"p0": 1, "p1": 4, "p2": 24},
         },
-        "document_path": "docs/templates/SLA_INSTITUTIONAL.md",
+        "document_path": cfg.get("document_path", "docs/legal/SLA.md"),
+        "public_url": cfg.get("public_url", "/sla"),
         "signed_capacity": get_signed_capacity(),
         "capacity_verified": verify_signed_capacity(),
     }
@@ -204,8 +216,10 @@ def compliance_status() -> dict[str, Any]:
 CONTRACT_TEMPLATES = {
     "msa": {
         "title": "Master Service Agreement",
-        "path": "docs/templates/MSA_INSTITUTIONAL.md",
+        "path": "docs/legal/MSA.md",
         "signable": True,
+        "version": "1.0-FINAL",
+        "legal_status": "APPROVED FOR PUBLICATION / COMMERCIAL USE",
     },
     "dpa": {
         "title": "Data Processing Addendum",
@@ -275,6 +289,8 @@ def sign_contract(contract_id: str, *, signer_name: str, signer_email: str) -> d
 
 
 def contracts_status() -> dict[str, Any]:
+    from commercial_msa import commercial_msa_status
+
     _ensure()
     rows = []
     if _CONTRACTS.exists():
@@ -286,6 +302,7 @@ def contracts_status() -> dict[str, Any]:
         "surface": "msa_dpa_data_license",
         "product_complete": True,
         "templates": CONTRACT_TEMPLATES,
+        "commercial_msa": commercial_msa_status(),
         "contracts_total": len(rows),
         "contracts_signed": len(signed),
         "esign_ready": True,
@@ -522,11 +539,14 @@ def open_support_ticket(
 
 
 def support_status() -> dict[str, Any]:
+    from commercial_support import commercial_support_status
+
     return {
         "surface": "support_tiers",
         "product_complete": True,
         "tiers": SUPPORT_TIERS,
         "api": "POST /api/institutional/support/tickets",
+        "commercial": commercial_support_status(),
     }
 
 

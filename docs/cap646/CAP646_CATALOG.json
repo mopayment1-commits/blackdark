@@ -1,0 +1,4524 @@
+[
+  {
+    "id": 1,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Leaderboard",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 2,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet Profiler",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 3,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet Profiler for Token",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 4,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Tracking",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 5,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Accumulation / Distribution Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 6,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Token Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 7,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Holder Distribution Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 8,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Top Holders Concentration Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 9,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Distribution Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 10,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet PnL Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 11,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet Historical Performance & Win Rate",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 12,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet Entry / Exit Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 13,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet Counterparty & Relationship Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 14,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Entity-Aware Wallet Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 15,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 16,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Candle / Price-Move Investigator",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 17,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Smart Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 18,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Custom Wallet Labels",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 19,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Wallet & Token Watchlists",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 20,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Multi-Chain Portfolio Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 21,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Transaction Decoder",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 22,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Instant Wallet Due Diligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 23,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Instant Token Due Diligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 24,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "AI Research Agent Grounded in Platform Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 25,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Signal → Explanation Workflow",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 26,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Price-Move Explanation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 27,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Historical Trend Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 28,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Money Conviction Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 29,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cross-Market Decision Intelligence Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 30,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Evidence & Confidence Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 31,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Cross-Signal Confirmation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 32,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Contradiction Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 33,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Smart Money Actionability Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 34,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Beginner Decision Mode",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 35,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Market Compass / Market Regime Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 36,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "On-Chain Metrics Library",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 37,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Entity-Adjusted Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 38,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cost Basis Distribution",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 39,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Realized Cap & Realized Price Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 40,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "MVRV / MVRV Z-Score Suite",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 41,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "SOPR / Profitability Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 42,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Holder Cohort Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 43,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Supply Dynamics Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 44,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Balance & Netflow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 45,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "ETF Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 46,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Digital Asset Treasury Company Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 47,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Spot Market Metrics Suite",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 48,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Intelligence Suite",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 49,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Options Intelligence Suite",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 50,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Order Book Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 51,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Macro & Traditional Finance Integration",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 52,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Cross-Asset Return Breadth",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 53,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "BTC-to-Macro Coupling",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 54,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Global Liquidity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 55,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "NVT Fair-Value Model",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 56,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Token Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 57,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Profitability Map",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 58,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Custom No-Code Charting / Workbench",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 59,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Personalized Research Dashboards",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 60,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Metric-Based Smart Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 61,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Point-in-Time Immutable Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 62,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Institutional Backtesting Data Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 63,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Data Quality & Provenance Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 64,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Metric Methodology Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 65,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Research Intelligence Portal",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 66,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Market Regime Written Read",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 67,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "API / CLI / Excel / MCP Data Access",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 68,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Bulk Data & Institutional Delivery",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 69,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cross-Domain Decision Intelligence Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 70,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Exchange Reserve Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 71,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Inflow / Outflow / Netflow",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 72,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Whale Ratio",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 73,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Address & Transaction Activity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 74,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Exchange-to-Exchange Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 75,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Internal-Flow Filter",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 76,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Stablecoin Exchange Reserve",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 77,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Stablecoin Exchange Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 78,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Stablecoin Supply Ratio Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 79,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Miner Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 80,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Miners' Position Index (MPI)",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 81,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Whale Accumulation / Distribution Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 82,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Coinbase Premium Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 83,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Korea Premium Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 84,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Fund / ETF Data Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 85,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Futures Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 86,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 87,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Estimated Leverage Ratio",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 88,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 89,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Taker Buy / Sell Pressure",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 90,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Derivatives Market Sentiment Composite",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 91,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Inter-Entity Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 92,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Address Labels & Cohorts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 93,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Custom No-Code Analytics / Web3 Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 94,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Native SQL / Advanced Query Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 95,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Pro Chart & Multi-Metric Workbench",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 96,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Personal Dashboards",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 97,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Custom Metric Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 98,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Whale Movement Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 99,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "QuickTake / Analyst Insight Feed",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 100,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Research Reports",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 101,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "AI Data Analyst / Ask AI",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 102,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "AI-Generated Reporting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 103,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "API Data Platform",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 104,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "High-Resolution / Block-Level Data Delivery",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 105,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Historical Full-Data Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 106,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Data Quality & Provenance Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 107,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Metric Methodology Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 108,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Institutional Data & API Delivery",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 109,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "White-Label Research & Reporting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 110,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Cross-Domain Decision Intelligence Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 111,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Flow Actionability Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 112,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Flow-to-Price Explanation Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 113,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Asset Intelligence Profiles",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 114,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Asset Classification & Taxonomy",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 115,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Asset Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 116,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Market Pair Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 117,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Real Volume / Quality-Adjusted Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 118,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "VWAP Price Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 119,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Market Cap & FDV Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 120,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Supply Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 121,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "ROI & ATH Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 122,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Volatility Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 123,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Sharpe Ratio Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 124,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Futures Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 125,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 126,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Volume Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 127,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Multi-Factor Market Overview",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 128,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Momentum Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 129,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Sentiment Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 130,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Mindshare Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 131,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Narrative & Sector Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 132,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Mindshare Gainers / Losers",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 133,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Curated Crypto News Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 134,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "AI News Summaries",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 135,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Real-Time Industry Event Monitoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 136,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Agentic Monitoring Views",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 137,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Custom Watchlists",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 138,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Token Unlock Calendar",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 139,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Vesting Schedule Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 140,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Token Allocation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 141,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Unlock Impact Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 142,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Fundraising Rounds Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 143,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Investor Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 144,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Fund & Fund-Manager Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 145,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "M&A Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 146,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Capital Flow & Funding Trend Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 147,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Comparable Funding & Valuation Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 148,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Due Diligence Report Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 149,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Automated Risk Scoring from Diligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 150,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Protocol KPI Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 151,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Quarterly Protocol Performance Reports",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 152,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Governance & Proposal Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 153,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Project Monitoring Coverage Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 154,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "AI Crypto Copilot",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 155,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "AI Deep Research",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 156,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Crypto Knowledge Graph",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 157,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Research Library",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 158,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Institutional Research Feed",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 159,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "API Data Platform",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 160,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Pay-Per-Request Data Access",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 161,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Institutional Data Delivery & Entitlements",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 162,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Evidence & Provenance Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 163,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Cross-Domain Research-to-Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 164,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Token Unlock Actionability Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 165,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Fundraising Momentum Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 166,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Research Confidence Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 167,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Social Volume Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 168,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Social Dominance Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 169,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Unique Social Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 170,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Trending Words",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 171,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Trending Coins",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 172,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Historical Crypto Trends",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 173,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Key Narratives Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 174,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Alpha Narratives Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 175,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Social Sentiment Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 176,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Weighted Social Sentiment",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 177,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Social Sentiment Balance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 178,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Social Source Breakdown",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 179,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Development Activity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 180,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Development Activity Contributors",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 181,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Ecosystem Development Dashboard",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 182,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Developer Activity Change Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 183,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Whale Transaction Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 184,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Whale & Shark Holder Cohorts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 185,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Top Holders Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 186,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Historical Wallet Balance Tool",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 187,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Inflow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 188,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Outflow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 189,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Exchange Netflow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 190,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Exchange Supply / Balance Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 191,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange User Activity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 192,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Network Activity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 193,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Transaction Volume Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 194,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "NVT Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 195,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "MVRV Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 196,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Realized Cap / Realized Value Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 197,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Daily Active Addresses",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 198,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Age Consumed / Dormancy Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 199,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Mean Dollar Invested Age",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 200,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Token Circulation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 201,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Network Growth Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 202,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Supply Distribution Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 203,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "DEX Trading Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 204,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "DeFi Protocol Activity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 205,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 206,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 207,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Price / Volume / Market Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 208,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Metric Correlation Workbench",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 209,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Custom Chart Builder",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 210,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Custom Dashboards / Layouts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 211,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 212,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Smart Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 213,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Anomaly Detection Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 214,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Watchlists",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 215,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Community Explorer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 216,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Research & Market Insights",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 217,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "SanAPI-Style Data Access",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 218,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Google Sheets Integration",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 219,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Metric Availability Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 220,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Data Stabilization & Mutability Metadata",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 221,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Data Quality & Provenance Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 222,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Metric Methodology Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 223,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Social-to-On-Chain Confirmation Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 224,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Narrative Actionability Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 225,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Development-to-Market Divergence Detector",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 226,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cross-Domain Decision Intelligence Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 227,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Unified Trading Intelligence Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 228,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 229,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Cross-Exchange Funding Arbitrage Scanner",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 230,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Spot-Perp Arbitrage Scanner",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 231,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Basis & Term Structure",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 232,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 233,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 234,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "CVD Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 235,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Long/Short Ratio Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 236,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "DEX Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 237,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Token Risk Scoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 238,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Pump & Dump Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 239,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Narrative Tracking",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 240,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Sector Rotation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 241,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Sentiment Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 242,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Price Prediction / Multi-Signal Forecast",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 243,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Correlation Matrix",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 244,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "New Listings Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 245,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Market Health & Freshness",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 246,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Coverage Metadata Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 247,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Public REST API",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 248,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "MCP Server for AI Agents",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 249,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "CLI Access",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 250,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "OpenAPI / SDK Generation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 251,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Cross-Domain Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 252,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Heatmap",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 253,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Map / Levels",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 254,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Real-Time Liquidation Events",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 255,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 256,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 257,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Long/Short Ratio Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 258,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Top Trader Positioning",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 259,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Futures Basis Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 260,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Volume Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 261,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Futures CVD / Taker Flow",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 262,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Options Open Interest",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 263,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Options Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 264,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Options IV / Skew",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 265,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Max Pain / Gamma Context",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 266,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Spot Market Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 267,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Order Book / Market Depth",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 268,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Historical Derivatives Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 269,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Exchange Comparison",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 270,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Liquidation Cascade Proximity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 271,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Leverage Pressure Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 272,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "API Data Platform",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 273,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Multi-Model Liquidation Comparison",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 274,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Derivatives Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 275,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Cross-Domain Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 276,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Entity Resolution Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 277,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Address Labeling System",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 278,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Entity Profiles",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 279,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Transaction Search",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 280,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Portfolio Holdings",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 281,
+    "track": "T07",
+    "track_name": "Portfolio, Allocation & Treasury",
+    "capability": "Balance History",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 282,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Entity PnL",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 283,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Exchange Usage Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 284,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Top Counterparties",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 285,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Visualizer / Network Graph",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 286,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Automated Trace / Path Finding",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 287,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Cross-Chain Trace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 288,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Token Top Holders",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 289,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Token Exchange Flows",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 290,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Token Transaction Explorer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 291,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Custom Dashboards",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 292,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Custom Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 293,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Private Labels",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 294,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Archive / Historical Portfolio Snapshot",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 295,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "AI Market Insights",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 296,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Whale Movement Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 297,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Fraud / Suspicious Activity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 298,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "API On-Chain Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 299,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Cross-Entity Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 300,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Advanced Multi-Asset Charting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 301,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Multi-Chart Layouts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 302,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Technical Indicator Library",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 303,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Custom Indicator Scripting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 304,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Strategy Backtesting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 305,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Market Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 306,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Pine-Style Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 307,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Smart Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 308,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Watchlists",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 309,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Economic Calendar",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 310,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Crypto Calendar / Events",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 311,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "News Integration",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 312,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Heatmaps",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 313,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Technical Ratings",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 314,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Drawing Tools",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 315,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Replay Mode",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 316,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Idea/Chart Sharing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 317,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Community Scripts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 318,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Broker Comparison",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 319,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Paper Trading / Simulation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 320,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Cross-Market Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 321,
+    "track": "T18",
+    "track_name": "Unmapped PDF Extension Track",
+    "capability": "Custom Intelligence Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 322,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Decision-First Mode",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 323,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Institutional L1/L2 Market Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 324,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Reference Data Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 325,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Spot & Derivatives Coverage",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 326,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "DeFi Market Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 327,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Market Depth & Liquidity Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 328,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Fair Market Value Pricing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 329,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Best Execution Pricing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 330,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Reference Rates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 331,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "ETF Reference Rates / iNAV",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 332,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Commodity / TradFi Reference Rates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 333,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Indices",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 334,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Risk Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 335,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Derivatives Listing Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 336,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Market Surveillance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 337,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "AML/CFT On-Chain Monitoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 338,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Data Quality Pipeline",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 339,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Data Provenance & Audit",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 340,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Real-Time REST/gRPC Streaming",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 341,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Historical Data Archive",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 342,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Venue Quality Ranking",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 343,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Execution Quality Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 344,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Institutional SLA Monitoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 345,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Cross-Market Institutional Decision Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 346,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Standardized Financial Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 347,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Fees Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 348,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Revenue Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 349,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Token Incentives",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 350,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Earnings / Economic Profit Proxy",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 351,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Active Users",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 352,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Core Developers",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 353,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Code Commits",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 354,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "TVL Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 355,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Borrowed / Loans Outstanding",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 356,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "DEX Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 357,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Stablecoin Supply",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 358,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Valuation Multiples",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 359,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Growth Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 360,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Margins / Take Rate",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 361,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Project Comparables",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 362,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Sector Comparables",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 363,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Tokenized Asset Coverage",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 364,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Fundamental Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 365,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Financial Statement View",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 366,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Data Methodology Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 367,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Source Data Provenance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 368,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "API / Data Export",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 369,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Cross-Fundamental Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 370,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "SQL On-Chain Query Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 371,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Curated Data Models",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 372,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Decoded Smart Contract Tables",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 373,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Cross-Chain Data Warehouse",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 374,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Visualization Builder",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 375,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Dashboard Builder",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 376,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Public Dashboard Sharing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 377,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Community Discovery",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 378,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Query Forking",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 379,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Data API",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 380,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Real-Time Feed",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 381,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Datashare",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 382,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "dbt Connector",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 383,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "BI Connectors",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 384,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "MCP for AI Agents",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 385,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Prompt-to-SQL Agent",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 386,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Dashboard-from-Prompt",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 387,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Scheduled Queries",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 388,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Alerts from Query Results",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 389,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Data Lineage",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 390,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Query Performance Governance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 391,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "White-Label Embedded Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 392,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "Cross-Domain Decision Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 393,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "TVL Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 394,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Chain TVL Comparison",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 395,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Protocol Directory",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 396,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Fees & Revenue",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 397,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "DEX Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 398,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Perps Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 399,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Options Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 400,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Stablecoins Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 401,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Bridges Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 402,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Yields Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 403,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Yield History",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 404,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Borrowing Rates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 405,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Liquid Staking Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 406,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "RWA Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 407,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Raises / Funding Rounds",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 408,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Investor Profiles",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 409,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Unlocks",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 410,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Treasury Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 411,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Airdrop / Incentive Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 412,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Capital Formation Radar",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 413,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "DeFi Opportunity Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 414,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "DeFi Risk Passport",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 415,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "API Aggregation Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 416,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Cross-DeFi Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 417,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Cross-Chain Fundamentals",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 418,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Protocol Fundamentals",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 419,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Stablecoin Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 420,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Stablecoin Activity Breakdown",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 421,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Developer Activity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 422,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Sector/Ecosystem Comparables",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 423,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Equities + Crypto Research",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 424,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Consensus Estimates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 425,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "AI Analyst",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 426,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Thesis Research Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 427,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Comparable Company / Protocol Analysis",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 428,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Excel / Sheets Integration",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 429,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "API Data Platform",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 430,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Research Templates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 431,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Dashboards",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 432,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Stablecoin Payment Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 433,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "On-Chain Usage Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 434,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Revenue / Fees / Economic Activity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 435,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Cross-Market Research Copilot",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 436,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Investment Thesis Scoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 437,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "DeFi Risk Radar",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 438,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Lending Market Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 439,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Collateral Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 440,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Liquidation Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 441,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Oracle Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 442,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Liquidity Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 443,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Protocol Exploit Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 444,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Stablecoin Risk Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 445,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "DeFi Strategy Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 446,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Real-Time Risk Alerts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 447,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "DAO Treasury Risk",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 448,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Institutional Risk API",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 449,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Curated On-Chain Dashboards",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 450,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Narrative-Driven Research",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 451,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Protocol Dominance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 452,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Aave Multi-Chain Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 453,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Risk Curation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 454,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Capital Protection Controls",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 455,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Stress Testing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 456,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Cross-Protocol Contagion",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 457,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Protocol Risk Passport",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 458,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Risk-to-Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 459,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Network Data Pro Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 460,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Atlas Blockchain Search",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 461,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Address/Balance Search",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 462,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Transaction Search",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 463,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Block Search",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 464,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Balance Updates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 465,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Stablecoin Network Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 466,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Market Data Feed",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 467,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Market Data Pro",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 468,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Reference Rates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 469,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Indexes",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 470,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Realized Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 471,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Supply Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 472,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Mining/Validator Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 473,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Fee Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 474,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Activity Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 475,
+    "track": "T14",
+    "track_name": "UX, Dashboards, Visualization & Beginner Experience",
+    "capability": "Custom Metric Workbench",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 476,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Community Charts/API",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 477,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Market + Network Join",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 478,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Data Quality Methodologies",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 479,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Historical Research Dataset",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 480,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Institutional APIs",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 481,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Cross-Network Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 482,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Institutional Trade Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 483,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Order Book Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 484,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "OHLCV Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 485,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Derivatives Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 486,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Open Interest Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 487,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rate Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 488,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Index Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 489,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Reference Pricing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 490,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Exchange Metadata",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 491,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Asset Metadata",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 492,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Historical Market Archive",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 493,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Real-Time Streams",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 494,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Market Aggregates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 495,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Liquidity Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 496,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Volatility Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 497,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Market Cap / Supply",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 498,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "ETF / ETP Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 499,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "API Coverage Registry",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 500,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Data Quality & Normalization",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 501,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Institutional Delivery",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 502,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Benchmark Administration Metadata",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 503,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Cross-Market Data Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 504,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Unified Exchange Connector Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 505,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Tick Trade Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 506,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Quote Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 507,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "OHLCV",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 508,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "L1 Order Book",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 509,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "L2 Order Book",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 510,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "L3 Order Book",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 511,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Options Market Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 512,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Funding / OI / Liquidation Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 513,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Asset & Symbol Metadata",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 514,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Historical Flat Files",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 515,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "REST API",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 516,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "WebSocket Streaming",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 517,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "FIX Connectivity",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 518,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "MCP for AI",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 519,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Exchange Rates / VWAP",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 520,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Indexes",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 521,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Volatility Index",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 522,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "EMS Integration Boundary",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 523,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Data Health / SLA Monitoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 524,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Symbol Mapping Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 525,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Cross-Venue Data Quality Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 526,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "AI Market Data Grounding Layer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 527,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Liquidation Heatmap",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 528,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Levels",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 529,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Cascade Model",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 530,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Global Liquidation Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 531,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Open Interest",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 532,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rates",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 533,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Order Flow Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 534,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Bucketed CVD",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 535,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Whale vs Retail Flow",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 536,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Slippage Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 537,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Global Order Book Metrics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 538,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Order Book Imbalance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 539,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Liquidity Zones",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 540,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Bot Activity Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 541,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Market Positioning",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 542,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Pressure Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 543,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Orderflow Anomaly Detection",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 544,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "API Indicator Platform",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 545,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Trader Cohort Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 546,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cross-Derivatives Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 547,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "High-Resolution Multi-Pane Charts",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 548,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Derivatives Dashboard",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 549,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding Rate Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 550,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Open Interest Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 551,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Liquidation Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 552,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Futures Volume",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 553,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Basis Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 554,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Spot Market Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 555,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Options Analytics",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 556,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Options IV Surface",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 557,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Options Skew",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 558,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Options Term Structure",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 559,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "TradFi Context",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 560,
+    "track": "T18",
+    "track_name": "Unmapped PDF Extension Track",
+    "capability": "Multi-Indicator Workspace",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 561,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Real-Time Prices",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 562,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Historical Data",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 563,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "API Data Access",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 564,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "News Context",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 565,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Cross-Asset Correlation",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 566,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Derivatives Regime Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 567,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Cross-Market Decision Intelligence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 568,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Security_First_Architecture",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 569,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "API_Security_Encryption",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 570,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "High_Availability_Architecture",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 571,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Infrastructure_Uptime_Shield",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 572,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Institutional_Data_Architecture",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 573,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Flexible_Connector_Microservice",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 574,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Institutional_API_Gateway",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 575,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "API_Data_Pipe",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 576,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Developer_SDK",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 577,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Pro_Developer_Sandbox",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 578,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Unified_Portfolio_Dashboard",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 579,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Global_Asset_Tracker",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 580,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Multi_Account_Sync",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 581,
+    "track": "T16",
+    "track_name": "Billing, Subscription, Tenant & Business Operations",
+    "capability": "On_Chain_Balance_Monitor",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 582,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Profitability_Analyzer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 583,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Margin_Risk_Calculator",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 584,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Risk_Management_Shield",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 585,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Volatility_Scoring_System",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 586,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "Volatility_Surface_Analyzer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 587,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Delta_Neutral_Calculator",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 588,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "High_Precision_Backtesting",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 589,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Strategy_Vetting_Algorithm",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 590,
+    "track": "T08",
+    "track_name": "Risk, Hedging & Stress Analytics",
+    "capability": "AI_Quant_Rating_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 591,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Sentiment_Analysis_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 592,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Social_Sentiment_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 593,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Social_Hype_Analyzer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 594,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Narrative_Alert_System",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 595,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "AI_Digest_Generator",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 596,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "AI_Agent_Consultant",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 597,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Natural_Language_Interpreter",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 598,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Wallet_Shadowing",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 599,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Entity_Tagging_System",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 600,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Whale_Clustering_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 601,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Visual_Transaction_Graph",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 602,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Developer_Wallet_Tracker",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 603,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Miner_Flow_Monitor",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 604,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Token_Unlock_Forecaster",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 605,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Governance_Sentiment_Monitor",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 606,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Dev_Health_Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 607,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Financial_Health_Scoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 608,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Custom_Ratio_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 609,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Funding_Rate_Listener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 610,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding_Arbitrage_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 611,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Funding_Rate_Heatmap_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 612,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "Spread_Calculation_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 613,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Liquidation_Screener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 614,
+    "track": "T05",
+    "track_name": "Derivatives, Funding & Liquidations",
+    "capability": "DEX_Liquidity_Listener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 615,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Gas_Cost_Predictor",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 616,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "Yield_Delta_Listener",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 617,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Yield_Arbitrage_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 618,
+    "track": "T10",
+    "track_name": "DeFi, Yield, Stablecoins & Token Economics",
+    "capability": "Yield_Optimization_Module",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 619,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Trend_Metric_Collector",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 620,
+    "track": "T04",
+    "track_name": "Market Data, Pricing & Liquidity",
+    "capability": "MTF_Core_Logic",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 621,
+    "track": "T12",
+    "track_name": "AI, Sentiment, News & Decision Intelligence",
+    "capability": "Pattern_Recognition_Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 622,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Prediction_Trend_Analyzer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 623,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Execution_Latency_Monitor",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 624,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Low_Latency_Execution_Node",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 625,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Rust_Execution_Module",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 626,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Institutional_Dashboard",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 627,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Custom_Institutional_Data_Terminal",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 628,
+    "track": "T15",
+    "track_name": "Institutional, B2B, API & Developer Platform",
+    "capability": "Viral_Intelligence_Distribution_Loop",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 629,
+    "track": "T13",
+    "track_name": "Alerts, Automation & User Workflows",
+    "capability": "Real-Time Wallet Alerts",
+    "name_source": "pdf_index_p32_T13_user_addition+pdf_p162_acceptance_row"
+  },
+  {
+    "id": 630,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Real_Time_Data_Freshness_Update_Assurance",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 631,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Data_Source_Ingestion_Normalization_Provenance_Reliability_Architecture",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 632,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Multi-Tier Data Storage",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 633,
+    "track": "T09",
+    "track_name": "On-Chain, Wallet, Whale & Entity Intelligence",
+    "capability": "Cross-Chain Liquidity Flow",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 634,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Liquidity/Full-Fill Feasibility",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 635,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Unified Arbitrage Opportunity Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 636,
+    "track": "T03",
+    "track_name": "Data Platform, Quality & Connectors",
+    "capability": "Market/Data Drift Monitoring",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 637,
+    "track": "T11",
+    "track_name": "Technical, Quant & Predictive Analytics",
+    "capability": "Scenario Engine (probabilistic scenarios, not deterministic prediction)",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 638,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Claims/Prediction Verification Engine",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 639,
+    "track": "T06",
+    "track_name": "Arbitrage, Execution & Trading Systems",
+    "capability": "Net-Edge Truth Score",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 640,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Public Accuracy Ledger",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 641,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "Decision Certificate + Institutional DD Export",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 642,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "AI Output Provenance / Compliance Footer",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 643,
+    "track": "T17",
+    "track_name": "Reporting, Audit, Tax & Governance",
+    "capability": "End-to-End Decision Traceability",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 644,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Capacity / Load Evidence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 645,
+    "track": "T02",
+    "track_name": "Security, Privacy, Identity & Compliance",
+    "capability": "Security Verification Evidence",
+    "name_source": "pdf_detail_p34_66"
+  },
+  {
+    "id": 646,
+    "track": "T01",
+    "track_name": "Foundation, Architecture & Reliability",
+    "capability": "Chaos / Failure-Injection Resilience Testing",
+    "name_source": "pdf_detail_p34_66"
+  }
+]

@@ -149,6 +149,11 @@ async def graphql_context(request: Request) -> GraphContext:
     return ctx
 
 
+def graphql_health() -> dict[str, Any]:
+    """Module-level health probe for institutional capability bindings."""
+    return {"status": "ok", "endpoint": "/graphql", "transport": "http"}
+
+
 def create_graphql_router() -> GraphQLRouter:
     # Disable legacy graphql-ws (auth bypass class of vulns); transport-ws only when supported.
     kwargs: dict[str, Any] = {

@@ -53,20 +53,30 @@ def brand_social() -> list[dict[str, str]]:
 
 
 def contact_channels() -> dict[str, Any]:
-    support = _env("SUPPORT_EMAIL", "support@blackdark.app")
-    complaints = _env("COMPLAINTS_EMAIL", "complaints@blackdark.app")
+    from commercial_support import commercial_support_config
+
+    cfg = commercial_support_config()
+    support = cfg["support_email"]
+    urgent = cfg["urgent_escalation"]
+    complaints = _env("COMPLAINTS_EMAIL", support)
     sales = _env("SALES_EMAIL", "sales@blackdark.io")
     wa = _env("WHATSAPP_BUSINESS_E164", "")  # e.g. 15551234567
     phone_inst = _env("INSTITUTIONAL_PHONE", "")  # Room only — optional
     wa_url = f"https://wa.me/{wa}" if wa else ""
     return {
         "support_email": support,
+        "support_owner": cfg["support_owner"],
+        "support_hours": cfg["support_hours"],
+        "urgent_escalation": urgent,
         "complaints_email": complaints,
         "sales_email": sales,
         "whatsapp_business_e164": wa or None,
         "whatsapp_url": wa_url or None,
         "institutional_phone": phone_inst or None,
-        "sla_note": "Retail support target: 24–48h on business days. Institutional: per contract.",
+        "sla_note": (
+            f"Support hours: {cfg['support_hours']}. "
+            f"Urgent: email {support} with subject prefix {urgent['subject_prefix']}."
+        ),
         "never_ask": ["card_number", "cvv", "full_password_in_email"],
         "feedback_path": "/feedback",
     }
@@ -264,6 +274,8 @@ def legal_hub_manifest() -> dict[str, Any]:
             {"id": "cookies", "label": "Cookies", "href": "/cookies"},
             {"id": "disclaimer", "label": "Risk Disclaimer", "href": "/disclaimer"},
             {"id": "refund", "label": "Refund Policy", "href": "/refund"},
+            {"id": "sla", "label": "Service Level Agreement", "href": "/sla"},
+            {"id": "msa", "label": "Master Service Agreement", "href": "/msa"},
             {"id": "compliance", "label": "Anti-Hype Compliance", "href": "/compliance"},
             {"id": "complaints", "label": "Complaints", "href": "/complaints"},
         ],

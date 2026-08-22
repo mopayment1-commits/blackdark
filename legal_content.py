@@ -112,6 +112,51 @@ LEGAL_PAGES: dict[str, dict[str, str]] = {
 <p>Questions about cookies or storage: <a href="/contact">Contact</a> · Legal hub: <a href="/legal">/legal</a>.</p>
 """,
     },
+    "sla": {
+        "title": "Service Level Agreement",
+        "title_ar": "اتفاقية مستوى الخدمة",
+        "updated": "1 January 2025",
+        "html": """
+<p><strong>Legal status:</strong> APPROVED FOR PUBLICATION · <strong>Effective:</strong> 1 January 2025</p>
+<p>This SLA is issued by <strong>شركة أم أو لتصميم البرامج (MO Software Design LLC)</strong> for the BLACKDARK platform.</p>
+<h2>1. Scope</h2>
+<p>Applies to paid Pro, Elite, Quant, and institutional tiers that reference this SLA. Free/demo access is best-effort unless agreed in writing.</p>
+<h2>2. Availability targets</h2>
+<ul>
+<li><strong>Pro:</strong> 99.5% monthly uptime</li>
+<li><strong>Elite / Quant:</strong> 99.7% monthly uptime</li>
+<li><strong>Institutional:</strong> 99.9% monthly uptime (contractual; signed HA evidence required)</li>
+</ul>
+<h2>3. Support response</h2>
+<p>P1 platform-down: 4h (Pro), 2h (Elite/Quant), 1h (Institutional). Support: <a href="mailto:mopayment1@gmail.com">mopayment1@gmail.com</a>, 10:00 AM – 10:00 PM Cairo Time daily. Urgent: subject prefix <code>URGENT</code>.</p>
+<h2>4. Governing law</h2>
+<p>This SLA is governed by the <strong>Laws of the Arab Republic of Egypt</strong>.</p>
+<h2>5. Dispute resolution</h2>
+<p>Good-faith negotiation via published support channels within 30 days; then exclusive jurisdiction of the competent courts in <strong>Cairo, Egypt</strong>.</p>
+<p>Published at <a href="/sla">/sla</a> · Legal hub: <a href="/legal">/legal</a></p>
+""",
+    },
+    "msa": {
+        "title": "Master Service Agreement",
+        "title_ar": "اتفاقية الخدمات الرئيسية",
+        "updated": "22 August 2026",
+        "html": """
+<p><strong>Version:</strong> 1.0-FINAL · <strong>Status:</strong> APPROVED FOR PUBLICATION / COMMERCIAL USE</p>
+<p><strong>Provider:</strong> AMO Software Design LLC (BLACKDARK trade name)</p>
+<p><strong>Effective Date:</strong> Upon mutual signature</p>
+<h2>Governing law</h2>
+<p>Laws of the <strong>Arab Republic of Egypt</strong>.</p>
+<h2>Dispute resolution</h2>
+<p>Binding arbitration under the <strong>Cairo Regional Centre for International Commercial Arbitration (CRCICA)</strong>, seat Cairo, English language.</p>
+<h2>Schedules</h2>
+<ul>
+<li><strong>Schedule A</strong> — Data Processing Agreement (DPA)</li>
+<li><strong>Schedule B</strong> — Service Level Agreement (SLA)</li>
+<li><strong>Schedule C</strong> — Acceptable Use Policy (AUP)</li>
+</ul>
+<p>Full approved text: published at <a href="/msa">/msa</a> · repository path <code>docs/legal/MSA.md</code></p>
+""",
+    },
 }
 
 

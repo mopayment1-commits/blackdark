@@ -13,6 +13,39 @@ from typing import Any
 import config
 
 
+def _signed_load_evidence_present() -> bool:
+    path = os.getenv("SIGNED_LOAD_EVIDENCE_JSON", "").strip()
+    if path and os.path.isfile(path):
+        return True
+    log = os.path.join(os.path.dirname(__file__), "docs", "LOAD_TEST_RUN_LOG.md")
+    if os.path.isfile(log):
+        try:
+            text = open(log, encoding="utf-8").read()
+            return "SIGNED:" in text or "signed_load_evidence" in text.lower()
+        except OSError:
+            return False
+    return False
+
+
+def _signed_load_evidence_payload() -> dict[str, Any]:
+    present = _signed_load_evidence_present()
+    path = os.getenv("SIGNED_LOAD_EVIDENCE_JSON", "").strip()
+    payload: dict[str, Any] = {
+        "present": present,
+        "deposit_slot": not present,
+        "env_key": "SIGNED_LOAD_EVIDENCE_JSON",
+        "log_path": "docs/LOAD_TEST_RUN_LOG.md",
+    }
+    if present and path and os.path.isfile(path):
+        try:
+            import json
+
+            payload["artifact"] = json.loads(open(path, encoding="utf-8").read())
+        except Exception as exc:
+            payload["artifact_error"] = str(exc)
+    return payload
+
+
 def scale_readiness_report() -> dict[str, Any]:
     from postgres_backend import pool_stats, use_postgres
     from security_auth import login_rate_limit_backend
@@ -86,13 +119,14 @@ def scale_readiness_report() -> dict[str, Any]:
         "checks": checks,
         "capacity_claim": {
             "code_enables_high_concurrency": True,
-            "proven_high_concurrency_signed": False,
+            "proven_high_concurrency_signed": _signed_load_evidence_present(),
             "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
             "note": (
                 "Do not claim production HA concurrent capacity until a signed "
                 "Postgres+Redis multi-worker row is recorded in LOAD_TEST_RUN_LOG.md."
             ),
         },
+        "signed_load_evidence": _signed_load_evidence_payload(),
         "viral": {
             "readiness_api": "/api/viral/readiness",
             "playbook": "docs/VIRAL_LAUNCH_CAPACITY.md",

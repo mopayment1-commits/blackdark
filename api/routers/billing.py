@@ -37,6 +37,7 @@ router = APIRouter(prefix="/api/billing", tags=["billing"], responses=COMMON_ERR
 
 @router.get("/status")
 async def billing_status(user: dict | None = Depends(optional_user)):
+    from billing.subscription_engine import resolve_entitlements_for_user
     from billing_service import (
         billing_configured,
         billing_provider,
@@ -51,7 +52,7 @@ async def billing_status(user: dict | None = Depends(optional_user)):
             "currency": BILLING_CURRENCY_DISPLAY,
             "billing_configured": billing_configured(),
             "billing_provider": provider,
-            "stripe_configured": billing_configured(),  # backward-compatible UI flag
+            "stripe_configured": billing_configured(),
             "stores_card_numbers": False,
             "pci_target": SECURITY_POSTURE["pci_target"],
             "lemon_portal_configured": bool(lemon_squeezy_portal_url()),
@@ -59,13 +60,15 @@ async def billing_status(user: dict | None = Depends(optional_user)):
         if not user:
             return {"authenticated": False, **base}
         sub = await fetch_active_subscription_for_email(user["email"])
+        entitlements = await resolve_entitlements_for_user(int(user["id"]))
         customer_id = await fetch_user_stripe_customer_id(user["email"])
         return {
             "authenticated": True,
             **base,
             "stripe_customer_id": customer_id,
             "subscription": sub,
-            "tier": user.get("tier"),
+            "entitlements": entitlements,
+            "tier": entitlements.get("effective_plan") or user.get("tier"),
             "has_billing_portal": bool(customer_id) or bool(lemon_squeezy_portal_url()),
         }
     except Exception:
@@ -78,6 +81,13 @@ async def billing_status(user: dict | None = Depends(optional_user)):
             "stores_card_numbers": False,
             "error": "billing_status_unavailable",
         }
+
+
+@router.get("/readiness")
+async def billing_readiness():
+    from billing.ops_readiness import billing_ops_readiness
+
+    return billing_ops_readiness()
 
 
 @router.get("/payments")
@@ -109,10 +119,13 @@ async def billing_checkout(
     from payments_usd import SELF_SERVE_SKUS
 
     tier = str(data.get("tier") or "pro").lower().strip()
+    from billing.plan_registry import normalize_plan
+
+    tier = normalize_plan(tier)
     if tier not in SELF_SERVE_SKUS:
         raise HTTPException(
             status_code=400,
-            detail="Invalid tier. Self-serve USD SKUs: pro, whale. Institutional is Talk to us.",
+            detail="Invalid tier. Self-serve USD SKUs: pro, elite, quant. Institutional is Talk to us.",
         )
 
     ls_url = lemon_squeezy_checkout_url(tier)
@@ -225,3 +238,43 @@ async def lemon_webhook(request: Request):
         raise HTTPException(status_code=400, detail="Invalid webhook body")
     result = await handle_lemon_webhook_event(event)
     return {"received": True, "currency": "USD", **result}
+
+
+@router.get("/subscription")
+async def billing_subscription(user: dict | None = Depends(optional_user)):
+    from billing.subscription_engine import resolve_entitlements_for_user
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    return await resolve_entitlements_for_user(int(user["id"]))
+
+
+@router.post("/cancel")
+async def billing_cancel_auto_renew(user: dict | None = Depends(optional_user)):
+    from billing.subscription_engine import schedule_cancel_at_period_end
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    try:
+        sub = await schedule_cancel_at_period_end(int(user["id"]), actor=f"user:{user['id']}")
+        return {"ok": True, "subscription": sub, "message": "Auto-renewal cancelled at period end."}
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@router.post("/downgrade")
+async def billing_schedule_downgrade(
+    data: dict = Body(default={}),
+    user: dict | None = Depends(optional_user),
+):
+    from billing.subscription_engine import schedule_downgrade
+    from billing.plan_registry import normalize_plan
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Login required")
+    target = normalize_plan(str(data.get("plan") or data.get("tier") or ""))
+    try:
+        sub = await schedule_downgrade(int(user["id"]), target, actor=f"user:{user['id']}")
+        return {"ok": True, "subscription": sub, "message": "Downgrade scheduled for period end."}
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc

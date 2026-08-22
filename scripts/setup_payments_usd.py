@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""USD payments readiness checklist — Lemon + Stripe (no secrets printed)."""
+"""USD payments readiness checklist — official FREE/PRO/ELITE/QUANT tiers."""
 
 from __future__ import annotations
 
@@ -11,62 +11,31 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 
-def _set(name: str) -> bool:
-    return bool(os.getenv(name, "").strip())
-
-
 def main() -> int:
+    from billing.ops_readiness import billing_ops_readiness
+
+    readiness = billing_ops_readiness()
     print("=" * 60)
     print("BLACKDARK — USD Payments Setup")
     print("=" * 60)
-    # Print only constants / SET|MISSING flags — never getenv secret values.
-    print("\nCurrency: USD")
-    if _set("LEMON_SQUEEZY_CHECKOUT_PRO"):
-        provider = "lemon"
-    elif _set("STRIPE_SECRET_KEY"):
-        provider = "stripe"
-    else:
-        provider = "unset"
-    print(f"Active provider: {provider}")
-    print("PCI target: SAQ_A")
-    print("Stores PAN: false")
+    print("\nCurrency: USD | PCI: SAQ_A | Stores PAN: false")
+    print("\n--- Official self-serve SKUs ---")
+    for tier, row in readiness["skus"].items():
+        print(f"  {row['display']:8} ${row['price_usd']:.2f}/mo  trial={row['trial_days']}d")
 
-    print("\n--- Self-serve SKUs ---")
-    print("  Decision Pro: $29/mo USD (tier=pro)")
-    print("  Decision Desk: $49/mo USD (tier=whale)")
-
-    checks = [
-        ("LEMON_SQUEEZY_CHECKOUT_PRO", _set("LEMON_SQUEEZY_CHECKOUT_PRO"), "Decision Pro $29 checkout URL"),
-        ("LEMON_SQUEEZY_CHECKOUT_WHALE", _set("LEMON_SQUEEZY_CHECKOUT_WHALE"), "Decision Desk $49 checkout URL"),
-        ("LEMON_SQUEEZY_WEBHOOK_SECRET", _set("LEMON_SQUEEZY_WEBHOOK_SECRET"), "POST /webhook/lemon"),
-        ("LEMON_SQUEEZY_CUSTOMER_PORTAL_URL", _set("LEMON_SQUEEZY_CUSTOMER_PORTAL_URL"), "optional portal"),
-        ("STRIPE_SECRET_KEY", _set("STRIPE_SECRET_KEY"), "optional if Lemon complete"),
-        ("STRIPE_WEBHOOK_SECRET", _set("STRIPE_WEBHOOK_SECRET"), "POST /webhook"),
-        ("STRIPE_PRICE_PRO", _set("STRIPE_PRICE_PRO"), "USD price id $29"),
-        ("STRIPE_PRICE_WHALE", _set("STRIPE_PRICE_WHALE"), "USD price id $49"),
-        ("APP_BASE_URL", _set("APP_BASE_URL"), "public HTTPS origin"),
-    ]
     print("\n--- Environment ---")
-    for key, ok, hint in checks:
-        print(f"  [{'SET' if ok else 'MISSING'}] {key} — {hint}")
+    for key, ok in readiness["env"].items():
+        print(f"  [{'SET' if ok else 'MISSING'}] {key}")
 
-    ready = (_set("LEMON_SQUEEZY_CHECKOUT_PRO") and _set("LEMON_SQUEEZY_WEBHOOK_SECRET")) or (
-        _set("STRIPE_SECRET_KEY") and _set("STRIPE_WEBHOOK_SECRET")
-    )
-    whale = _set("LEMON_SQUEEZY_CHECKOUT_WHALE") or _set("STRIPE_PRICE_WHALE") or _set("STRIPE_SECRET_KEY")
-    print("\n--- Readiness ---")
-    print(f"  Launch (Pro path + webhook): {'READY' if ready else 'BLOCKED'}")
-    print(f"  Decision Desk checkout: {'READY' if whale else 'MISSING — set Lemon Whale or Stripe price'}")
-    print("\n--- Bank payout ---")
-    print("  Complete PSP KYC and attach your USD bank account in Lemon/Stripe dashboard.")
-    print("  Customers never send card data to BLACKDARK servers.")
-    print("\n--- Verify ---")
-    print("  GET  /api/billing/payments")
-    print("  GET  /api/billing/refund-policy")
-    print("  POST /api/billing/checkout  {\"tier\":\"pro\"}")
-    print("  Docs: docs/PAYMENTS_USD_SECURITY.md")
+    print("\n--- Webhooks ---")
+    print(f"  Stripe: {readiness['webhooks']['stripe_url']}")
+    print(f"  Lemon:  {readiness['webhooks']['lemon_url']}")
+
+    print(f"\n--- Launch ready: {readiness['launch_ready']} ---")
+    print("  Run: python3 scripts/setup_billing_production.py")
+    print("  API: GET /api/billing/readiness")
     print("=" * 60)
-    return 0 if ready else 1
+    return 0 if readiness["launch_ready"] else 1
 
 
 if __name__ == "__main__":

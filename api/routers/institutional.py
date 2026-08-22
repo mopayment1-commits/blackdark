@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import os
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query
+from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
@@ -35,6 +37,28 @@ router = APIRouter(
     responses=COMMON_ERROR_RESPONSES,
     dependencies=[Depends(require_institutional_principal)],
 )
+
+# Public OAuth/OIDC browser flow — Auth0 redirects here without prior session.
+sso_router = APIRouter(
+    prefix="/api/institutional",
+    tags=["institutional-sso"],
+    responses=COMMON_ERROR_RESPONSES,
+)
+
+
+def _sso_session_redirect(result: dict[str, Any]) -> RedirectResponse | JSONResponse:
+    from security_middleware import attach_session_cookie
+
+    token = result.get("token")
+    base = (os.getenv("APP_BASE_URL") or "").strip().rstrip("/")
+    if base and token:
+        resp = RedirectResponse(url=f"{base}/dashboard?sso=1", status_code=302)
+        attach_session_cookie(resp, str(token))
+        return resp
+    resp = JSONResponse(result)
+    if token:
+        attach_session_cookie(resp, str(token))
+    return resp
 
 
 class OrgCreate(BaseModel):
@@ -73,15 +97,15 @@ class SsoConfigure(BaseModel):
 
 class SsoCallback(BaseModel):
     state: str
-    code: str = "demo_sso_ok"
+    code: str = ""
     email: str = ""
     subject: str = ""
 
 
 class InvoiceCreate(BaseModel):
     email: str
-    amount_usd: float = 49.0
-    plan: str = "decision_desk"
+    amount_usd: float = 999.0
+    plan: str = "institutional"
     method: str = "invoice"
     org_id: str | None = None
 
@@ -291,33 +315,68 @@ async def sso_configure(body: SsoConfigure, _admin: dict = Depends(require_admin
         raise HTTPException(400, str(exc)) from exc
 
 
-@router.get("/sso/authorize")
+@sso_router.get("/sso/authorize", responses=COMMON_ERROR_RESPONSES)
 async def sso_authorize(
-    org_id: str,
-    redirect_uri: str = "http://127.0.0.1:8080/api/institutional/sso/callback",
+    org_id: str | None = None,
+    redirect_uri: str | None = None,
     email_hint: str = "",
-) -> dict[str, Any]:
-    from enterprise_sso import build_sso_authorize_url
+):
+    from enterprise_sso import _default_callback_uri, build_sso_authorize_url_async
 
-    return build_sso_authorize_url(org_id, redirect_uri=redirect_uri, email_hint=email_hint)
+    try:
+        cb = (redirect_uri or _default_callback_uri()).strip()
+        result = await build_sso_authorize_url_async(
+            org_id or "",
+            redirect_uri=cb,
+            email_hint=email_hint,
+        )
+    except ValueError as exc:
+        raise HTTPException(400, detail=str(exc)) from exc
+    if not result.get("ready"):
+        raise HTTPException(400, detail=result)
+    return RedirectResponse(url=str(result["authorize_url"]), status_code=302)
 
 
-@router.post("/sso/callback", responses=COMMON_ERROR_RESPONSES)
-async def sso_callback(body: SsoCallback) -> dict[str, Any]:
+@sso_router.get("/sso/callback", responses=COMMON_ERROR_RESPONSES)
+async def sso_callback_get(
+    code: str | None = Query(None),
+    state: str | None = Query(None),
+    error: str | None = Query(None),
+):
+    if error:
+        raise HTTPException(status_code=400, detail=f"OAuth error: {error}")
+    if not code or not state:
+        raise HTTPException(status_code=400, detail="Missing OAuth code or state")
     from enterprise_sso import complete_sso_login_async
 
     try:
-        return await complete_sso_login_async(
+        result = await complete_sso_login_async(state=state, code=code)
+    except ValueError as exc:
+        raise HTTPException(400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(502, detail=f"SSO provider failure: {exc}") from exc
+    return _sso_session_redirect(result)
+
+
+@sso_router.post("/sso/callback", responses=COMMON_ERROR_RESPONSES)
+async def sso_callback_post(body: SsoCallback):
+    from enterprise_sso import complete_sso_login_async
+
+    try:
+        result = await complete_sso_login_async(
             state=body.state,
             code=body.code,
             email=body.email,
             subject=body.subject,
         )
     except ValueError as exc:
-        raise HTTPException(400, str(exc)) from exc
+        raise HTTPException(400, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(502, detail=f"SSO provider failure: {exc}") from exc
+    return _sso_session_redirect(result)
 
 
-@router.get("/sso/status")
+@sso_router.get("/sso/status")
 async def sso_status_api(org_id: str | None = None) -> dict[str, Any]:
     from enterprise_sso import sso_status
 
@@ -342,10 +401,22 @@ async def commerce_invoice(body: InvoiceCreate, _admin: dict = Depends(require_a
 
 @router.post("/commerce/mark-paid", responses=COMMON_ERROR_RESPONSES)
 async def commerce_mark_paid(body: MarkPaid, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
-    from institutional_commerce import mark_invoice_paid
+    from institutional_commerce import get_invoice, mark_invoice_paid
+    from billing.institutional_activation import activate_institutional_from_invoice
 
     try:
-        return mark_invoice_paid(body.invoice_id, source=body.source, external_ref=body.external_ref)
+        paid = mark_invoice_paid(body.invoice_id, source=body.source, external_ref=body.external_ref)
+        inv = get_invoice(body.invoice_id)
+        activation = await activate_institutional_from_invoice(
+            email=str(paid["email"]),
+            invoice_id=body.invoice_id,
+            amount_usd=float(inv.get("amount_usd") or paid.get("amount_usd") or 999),
+            plan=str(inv.get("plan") or "institutional"),
+            org_id=inv.get("org_id"),
+            source=body.source,
+            external_ref=body.external_ref,
+        )
+        return {"paid": paid, "activation": activation}
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
 

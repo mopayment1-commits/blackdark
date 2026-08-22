@@ -33,24 +33,34 @@ def test_top_utility_has_lang_login_signup_pricing():
     assert "bd-top-utility" in util
 
 
-def test_lang_switcher_lists_fifteen_locales():
+def test_lang_switcher_lists_twenty_five_locales():
     sw = (ROOT / "templates/partials/lang_switcher.html").read_text(encoding="utf-8")
     for code in (
         "en",
-        "zh-CN",
-        "hi",
-        "ja",
-        "ko",
-        "ru",
-        "pt",
         "es",
+        "ar",
+        "pt",
         "fr",
         "de",
-        "ar",
+        "zh-CN",
+        "zh-TW",
+        "ja",
+        "ko",
+        "hi",
         "tr",
-        "vi",
+        "ru",
         "id",
+        "vi",
         "th",
+        "fil",
+        "it",
+        "bn",
+        "ur",
+        "fa",
+        "ms",
+        "pl",
+        "nl",
+        "he",
     ):
         assert code in sw
     # Must render even without template context

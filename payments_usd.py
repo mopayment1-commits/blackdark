@@ -1,11 +1,7 @@
 """
 BLACKDARK — USD payments architecture (binding).
 
-Currency: USD only for self-serve SKUs.
-Cards / wallets: hosted by Lemon Squeezy (MoR) or Stripe — never on our servers.
-Institutional: invoice + wire (Talk to us) — not a Checkout SKU.
-
-PCI posture: SAQ A target — PAN/CVV never touch application memory or DB.
+Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL
 """
 
 from __future__ import annotations
@@ -13,32 +9,28 @@ from __future__ import annotations
 import os
 from typing import Any
 
-# Canonical settlement / display currency for Trust OS self-serve.
+from billing.plan_registry import PAID_TRIAL_DAYS, PLAN_DEFINITIONS, SELF_SERVE_PLANS, normalize_plan
+
 BILLING_CURRENCY = "usd"
 BILLING_CURRENCY_DISPLAY = "USD"
 
-SELF_SERVE_SKUS: dict[str, dict[str, Any]] = {
-    "pro": {
-        "tier": "pro",
-        "name": "Decision Pro",
-        "amount_cents": 2900,
-        "amount_usd": 29,
+SELF_SERVE_SKUS: dict[str, dict[str, Any]] = {}
+for _plan in SELF_SERVE_PLANS:
+    _def = PLAN_DEFINITIONS[_plan]
+    SELF_SERVE_SKUS[_plan] = {
+        "tier": _plan,
+        "name": _def["name"],
+        "display": _def["display"],
+        "amount_cents": _def["price_cents"],
+        "amount_usd": _def["price_usd_month"],
         "interval": "month",
-        "trial_days": int(os.getenv("PRO_TRIAL_DAYS", "7")),
-        "checkout_env": "LEMON_SQUEEZY_CHECKOUT_PRO",
-        "stripe_price_env": "STRIPE_PRICE_PRO",
-    },
-    "whale": {
-        "tier": "whale",
-        "name": "Decision Desk",
-        "amount_cents": 4900,
-        "amount_usd": 49,
-        "interval": "month",
-        "trial_days": 0,
-        "checkout_env": "LEMON_SQUEEZY_CHECKOUT_WHALE",
-        "stripe_price_env": "STRIPE_PRICE_WHALE",
-    },
-}
+        "trial_days": PAID_TRIAL_DAYS,
+        "checkout_env": f"LEMON_SQUEEZY_CHECKOUT_{_plan.upper()}",
+        "stripe_price_env": f"STRIPE_PRICE_{_plan.upper()}",
+    }
+# Legacy whale alias → elite SKU
+SELF_SERVE_SKUS["whale"] = dict(SELF_SERVE_SKUS["elite"])
+SELF_SERVE_SKUS["whale"]["tier"] = "elite"
 
 PAYMENT_METHODS_LAUNCH: list[dict[str, str]] = [
     {
@@ -105,7 +97,7 @@ REFUND_POLICY: dict[str, Any] = {
     "currency": BILLING_CURRENCY_DISPLAY,
     "self_serve": {
         "trial": (
-            "Decision Pro includes a 7-day trial when configured. "
+            f"All paid tiers include a {PAID_TRIAL_DAYS}-day trial. "
             "Cancel before trial end to avoid the first USD charge."
         ),
         "paid_month": (
@@ -127,7 +119,7 @@ REFUND_POLICY: dict[str, Any] = {
 INSTITUTIONAL_WIRE: dict[str, Any] = {
     "self_serve": False,
     "currency": BILLING_CURRENCY_DISPLAY,
-    "price_from_usd_month": 3000,
+    "price_from_usd_month": 999,
     "methods": ["commercial_invoice", "wire_transfer_usd", "ach_usd_when_available"],
     "cta": "/data-room",
     "inquiry_api": "/api/billing/institutional-inquiry",
@@ -139,10 +131,11 @@ INSTITUTIONAL_WIRE: dict[str, Any] = {
 
 def payments_architecture() -> dict[str, Any]:
     """Public-safe architecture document for operators and /api/billing/payments."""
-    from billing_service import billing_configured, billing_provider, lemon_squeezy_checkout_url, stripe_configured
+    from billing.plan_registry import lemon_checkout_env, stripe_price_env
+    from billing_service import billing_configured, billing_provider, stripe_configured
 
-    lemon_pro = bool(lemon_squeezy_checkout_url("pro"))
-    lemon_whale = bool(lemon_squeezy_checkout_url("whale"))
+    lemon_ready = {p: bool(lemon_checkout_env(p)) for p in SELF_SERVE_PLANS}
+    stripe_prices = {p: bool(stripe_price_env(p)) for p in SELF_SERVE_PLANS}
     lemon_webhook = bool(os.getenv("LEMON_SQUEEZY_WEBHOOK_SECRET", "").strip())
     stripe = stripe_configured()
     stripe_webhook = bool(os.getenv("STRIPE_WEBHOOK_SECRET", "").strip())
@@ -151,7 +144,7 @@ def payments_architecture() -> dict[str, Any]:
         "product": "BLACKDARK Trust OS",
         "currency": BILLING_CURRENCY_DISPLAY,
         "currency_code": BILLING_CURRENCY,
-        "story": "USD depth ladder — Proof Pass free; Decision Pro / Decision Desk self-serve; Institutional wire.",
+        "story": "USD depth ladder — FREE / PRO / ELITE / QUANT self-serve; INSTITUTIONAL wire.",
         "provider_preference": [
             "lemon_squeezy_merchant_of_record (launch default)",
             "stripe_billing (institutional-grade control when entity ready)",
@@ -172,23 +165,24 @@ def payments_architecture() -> dict[str, Any]:
             "operator_action": "Complete PSP KYC and attach bank payout details before campaign.",
         },
         "ops_readiness": {
-            "lemon_checkout_pro": lemon_pro,
-            "lemon_checkout_whale": lemon_whale,
+            "lemon_checkout": lemon_ready,
             "lemon_webhook_secret": lemon_webhook,
             "stripe_secret": stripe,
             "stripe_webhook_secret": stripe_webhook,
-            "stripe_price_pro": bool(os.getenv("STRIPE_PRICE_PRO", "").strip()),
-            "stripe_price_whale": bool(os.getenv("STRIPE_PRICE_WHALE", "").strip()),
-            "launch_ready": (lemon_pro and lemon_webhook) or (stripe and stripe_webhook),
-            "whale_ready": lemon_whale or bool(os.getenv("STRIPE_PRICE_WHALE", "").strip()) or stripe,
+            "stripe_prices": stripe_prices,
+            "launch_ready": (any(lemon_ready.values()) and lemon_webhook) or (stripe and stripe_webhook),
         },
         "endpoints": {
             "checkout": "/api/billing/checkout",
             "portal": "/api/billing/portal",
             "status": "/api/billing/status",
+            "subscription": "/api/billing/subscription",
+            "cancel": "/api/billing/cancel",
+            "downgrade": "/api/billing/downgrade",
             "payments": "/api/billing/payments",
             "refund_policy": "/api/billing/refund-policy",
             "institutional_inquiry": "/api/billing/institutional-inquiry",
+            "admin_metrics": "/api/admin/billing/metrics",
             "stripe_webhook": "/webhook",
             "lemon_webhook": "/webhook/lemon",
         },

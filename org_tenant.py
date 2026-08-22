@@ -86,6 +86,25 @@ def _rewrite_members(rows: list[dict[str, Any]]) -> None:
 ROLES = ("admin", "compliance", "pm", "analyst", "viewer")
 
 
+def _use_pg() -> bool:
+    try:
+        from postgres_backend import use_postgres
+
+        return use_postgres()
+    except Exception:
+        return False
+
+
+def _run_async(coro: Any) -> Any:
+    import asyncio
+
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        return asyncio.run(coro)
+    return asyncio.run_coroutine_threadsafe(coro, loop).result(timeout=120)
+
+
 def create_org(
     *,
     name: str,
@@ -93,6 +112,12 @@ def create_org(
     require_mfa: bool = True,
     slug: str | None = None,
 ) -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import create_org_pg
+
+        return _run_async(
+            create_org_pg(name=name, owner_email=owner_email, require_mfa=require_mfa, slug=slug)
+        )
     with _LOCK:
         orgs = _load_orgs()
         org_id = f"org_{uuid4().hex[:12]}"
@@ -124,10 +149,18 @@ def create_org(
 
 
 def get_org(org_id: str) -> dict[str, Any] | None:
+    if _use_pg():
+        from org_tenant_store import get_org_pg
+
+        return _run_async(get_org_pg(org_id))
     return _load_orgs().get(org_id)
 
 
 def list_orgs_for_email(email: str) -> list[dict[str, Any]]:
+    if _use_pg():
+        from org_tenant_store import list_orgs_for_email_pg
+
+        return _run_async(list_orgs_for_email_pg(email))
     email = email.strip().lower()
     org_ids = {m["org_id"] for m in _iter_members() if m.get("email") == email and m.get("status") == "active"}
     orgs = _load_orgs()
@@ -135,6 +168,10 @@ def list_orgs_for_email(email: str) -> list[dict[str, Any]]:
 
 
 def add_member(org_id: str, email: str, role: str = "analyst") -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import add_member_pg
+
+        return _run_async(add_member_pg(org_id, email, role))
     if role not in ROLES:
         raise ValueError(f"role must be one of {ROLES}")
     if not get_org(org_id):
@@ -160,6 +197,10 @@ def add_member(org_id: str, email: str, role: str = "analyst") -> dict[str, Any]
 
 
 def set_member_role(org_id: str, email: str, role: str, *, actor_email: str) -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import set_member_role_pg
+
+        return _run_async(set_member_role_pg(org_id, email, role, actor_email=actor_email))
     if role not in ROLES:
         raise ValueError(f"role must be one of {ROLES}")
     actor = member_of(org_id, actor_email)
@@ -178,6 +219,10 @@ def set_member_role(org_id: str, email: str, role: str, *, actor_email: str) -> 
 
 
 def member_of(org_id: str, email: str) -> dict[str, Any] | None:
+    if _use_pg():
+        from org_tenant_store import member_of_pg
+
+        return _run_async(member_of_pg(org_id, email))
     email = email.strip().lower()
     for r in _iter_members():
         if r.get("org_id") == org_id and r.get("email") == email and r.get("status") == "active":
@@ -186,10 +231,18 @@ def member_of(org_id: str, email: str) -> dict[str, Any] | None:
 
 
 def list_members(org_id: str) -> list[dict[str, Any]]:
+    if _use_pg():
+        from org_tenant_store import list_members_pg
+
+        return _run_async(list_members_pg(org_id))
     return [r for r in _iter_members() if r.get("org_id") == org_id and r.get("status") == "active"]
 
 
 def set_org_mfa_required(org_id: str, required: bool, *, actor_email: str) -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import set_org_mfa_required_pg
+
+        return _run_async(set_org_mfa_required_pg(org_id, required, actor_email=actor_email))
     actor = member_of(org_id, actor_email)
     if not actor or actor.get("role") != "admin":
         raise PermissionError("admin_required")
@@ -227,6 +280,10 @@ def invite_token(org_id: str) -> str:
 
 
 def org_isolation_status() -> dict[str, Any]:
+    if _use_pg():
+        from org_tenant_store import org_isolation_status_pg
+
+        return _run_async(org_isolation_status_pg())
     orgs = _load_orgs()
     members = _iter_members()
     return {

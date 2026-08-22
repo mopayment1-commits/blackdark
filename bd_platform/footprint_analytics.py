@@ -63,4 +63,5 @@ async def footprint_snapshot(asset: str = "BTC") -> dict[str, Any]:
         "order_flow_delta": round(delta, 4),
         "type": "multi_venue_footprint",
         "note": "5-level depth imbalance across CEX books",
+        "success": True,
     }

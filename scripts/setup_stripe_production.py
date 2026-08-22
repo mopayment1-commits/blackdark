@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import urllib.error
-import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -21,8 +21,6 @@ def _is_set(name: str) -> bool:
 
 
 def _stripe_get(path: str, secret: str) -> dict | None:
-    import sys
-
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     from path_safety import open_http_url
@@ -36,7 +34,6 @@ def _stripe_get(path: str, secret: str) -> dict | None:
         ) as resp:
             return json.loads(resp.read().decode())
     except urllib.error.HTTPError as exc:
-        # Never print response bodies (may include account/secret-adjacent payloads).
         print(f"  Stripe API error HTTP {exc.code}")
         return None
     except Exception:
@@ -44,84 +41,55 @@ def _stripe_get(path: str, secret: str) -> dict | None:
         return None
 
 
-def _print_checklist(keys: list[tuple[str, bool, str]]) -> int:
-    missing = 0
-    for key, ok, hint in keys:
-        if key.startswith("STRIPE_") and key != "STRIPE_PRICE_WHALE" and not ok:
-            missing += 1
-        mark = "SET" if ok else "MISSING"
-        print(f"  [{mark}] {key}")
-        if not ok and key != "STRIPE_PRICE_WHALE":
-            print(f"         -> {hint}")
-    return missing
-
-
-def _validate_stripe() -> None:
-    secret = _env("STRIPE_SECRET_KEY")
-    price_pro = _env("STRIPE_PRICE_PRO")
-    if not secret:
-        return
-    # Derive livemode WITHOUT embedding the secret variable in a print expression.
-    is_test = secret.startswith("sk_test_")
-    is_live = secret.startswith("sk_live_")
-    live_label = "yes" if is_live else "no"
-    print("\n--- Validating secret key ---")
-    if not (is_test or is_live):
-        print("  Invalid STRIPE_SECRET_KEY prefix (expected sk_live_ or sk_test_)")
-        return
-    print(f"  Livemode: {live_label}")
-    acct = _stripe_get("/account", secret)
-    if acct:
-        dash = (acct.get("settings") or {}).get("dashboard") or {}
-        name = dash.get("display_name") or acct.get("id") or "ok"
-        # Account display name / id only — never dump the full account object.
-        print(f"  Account: {name}")
-    if price_pro:
-        price = _stripe_get(f"/prices/{price_pro}", secret)
-        if price:
-            amt = (price.get("unit_amount") or 0) / 100
-            cur = str(price.get("currency") or "").upper()
-            active = bool(price.get("active"))
-            print(f"  Pro price: ${amt:.2f} {cur} active={active}")
-
-
 def main() -> int:
+    from billing.ops_readiness import billing_ops_readiness
+
     print("=" * 60)
     print("BLACKDARK — Stripe Production Setup")
     print("=" * 60)
     print(f"\nProduction URL: {PROD_URL}\n")
 
-    print("--- Railway Variables ---")
-    checklist = [
-        ("STRIPE_SECRET_KEY", _is_set("STRIPE_SECRET_KEY"), "sk_live_... from Stripe Dashboard"),
-        ("STRIPE_PRICE_PRO", _is_set("STRIPE_PRICE_PRO"), "price_... for $29/mo Decision Pro USD"),
-        ("STRIPE_PRICE_WHALE", _is_set("STRIPE_PRICE_WHALE"), "price_... for $49/mo Decision Desk USD (optional)"),
-        ("STRIPE_WEBHOOK_SECRET", _is_set("STRIPE_WEBHOOK_SECRET"), "whsec_... endpoint POST /webhook"),
-        ("STRIPE_SUCCESS_URL", _is_set("STRIPE_SUCCESS_URL"), "Redirect after payment"),
-        ("STRIPE_CANCEL_URL", _is_set("STRIPE_CANCEL_URL"), "Checkout cancel"),
-        ("APP_BASE_URL", _is_set("APP_BASE_URL"), "Must match Railway domain"),
-    ]
-    missing = _print_checklist(checklist)
+    readiness = billing_ops_readiness(base_url=PROD_URL)
+    print("--- Official prices ---")
+    for tier, row in readiness["skus"].items():
+        print(f"  {row['display']:8} ${row['price_usd']:.2f}/mo")
+
+    print("\n--- Railway Variables ---")
+    missing = 0
+    for key, ok in readiness["env"].items():
+        print(f"  [{'SET' if ok else 'MISSING'}] {key}")
+        if key.startswith("STRIPE_") and not ok and key not in {"STRIPE_SUCCESS_URL", "STRIPE_CANCEL_URL"}:
+            missing += 1
 
     print("\n--- Stripe Dashboard steps ---")
-    print("  1. Products -> create 'Decision Pro' recurring $29/mo")
-    print("  2. Copy Price ID -> STRIPE_PRICE_PRO")
-    print("  3. Developers -> Webhooks -> Add endpoint:")
-    print(f"     URL: {PROD_URL}/webhook")
-    print(
-        "     Events: checkout.session.completed, customer.subscription.*, "
-        "invoice.paid, invoice.payment_failed, charge.refunded"
-    )
-    print("  4. Copy signing secret -> STRIPE_WEBHOOK_SECRET")
-    print(f"  5. Test checkout: {PROD_URL}/create-checkout-session?tier=pro")
+    print("  1. Products -> PRO $19.99 / ELITE $49.99 / QUANT $149.99 monthly USD")
+    print("  2. Copy Price IDs -> STRIPE_PRICE_PRO / ELITE / QUANT")
+    print("     (legacy STRIPE_PRICE_WHALE aliases to ELITE)")
+    print("  3. Developers -> Webhooks -> POST", f"{PROD_URL}/webhook")
+    print("     Events: checkout.session.completed, customer.subscription.*,")
+    print("             invoice.paid, invoice.payment_failed, charge.refunded, charge.dispute.created")
+    print("  4. Or run: BILLING_CREATE_STRIPE_PRICES=true python3 scripts/setup_billing_production.py")
 
-    _validate_stripe()
+    secret = _env("STRIPE_SECRET_KEY")
+    if secret:
+        print("\n--- Validating secret key ---")
+        is_live = secret.startswith("sk_live_")
+        print(f"  Livemode: {'yes' if is_live else 'no'}")
+        acct = _stripe_get("/account", secret)
+        if acct:
+            dash = (acct.get("settings") or {}).get("dashboard") or {}
+            print(f"  Account: {dash.get('display_name') or acct.get('id') or 'ok'}")
+        for tier, env_name in (("pro", "STRIPE_PRICE_PRO"), ("elite", "STRIPE_PRICE_ELITE"), ("quant", "STRIPE_PRICE_QUANT")):
+            pid = _env(env_name) or (_env("STRIPE_PRICE_WHALE") if tier == "elite" else "")
+            if pid:
+                price = _stripe_get(f"/prices/{pid}", secret)
+                if price:
+                    amt = (price.get("unit_amount") or 0) / 100
+                    print(f"  {tier} price: ${amt:.2f} active={bool(price.get('active'))}")
 
-    print("\n--- After Railway deploy ---")
-    print("  curl", f"{PROD_URL}/api/gtm/status")
-    print("  Expect stripe.configured=true")
+    print(f"\n--- Launch ready: {readiness['launch_ready']} ---")
     print("=" * 60)
-    return 0 if missing == 0 else 1
+    return 0 if readiness["launch_ready"] else 1
 
 
 if __name__ == "__main__":

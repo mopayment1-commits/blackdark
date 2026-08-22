@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,8 @@
         <a href="/cookies" class="{{ 'active' if page == 'cookies' else '' }}">Cookies</a>
         <a href="/disclaimer" class="{{ 'active' if page == 'disclaimer' else '' }}">Disclaimer</a>
         <a href="/refund" class="{{ 'active' if page == 'refund' else '' }}">Refund</a>
+        <a href="/sla" class="{{ 'active' if page == 'sla' else '' }}">SLA</a>
+        <a href="/msa" class="{{ 'active' if page == 'msa' else '' }}">MSA</a>
     </nav>
     <main>
         <h1>{{ title }}</h1>

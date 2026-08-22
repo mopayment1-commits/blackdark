@@ -67,8 +67,16 @@ async def build_l2_remainder() -> dict[str, Any]:
 
 
 async def build_capability_inventory() -> dict[str, Any]:
-    """Capability inventory from platform registry + production guard posture."""
+    """Capability inventory from platform registry + CAP646 closure sample."""
     from bd_platform.registry import FEATURE_MATRIX
+
+    cap646_status = None
+    try:
+        from cap646.closure import final_institutional_verification
+
+        cap646_status = await final_institutional_verification(sample_only=True)
+    except Exception:
+        cap646_status = {"verdict": "NOT READY", "error": "cap646_runtime_unavailable"}
 
     try:
         from production_guard import evaluate_production_guard
@@ -104,6 +112,7 @@ async def build_capability_inventory() -> dict[str, Any]:
             "Codepath inventory ≠ every journey LIVE-MONEY-READY. "
             "See production_guard.required_failures for ops blockers."
         ),
+        "cap646_closure_sample": cap646_status,
         "api": "/api/product/capability-inventory",
     }
 
