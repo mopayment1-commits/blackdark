@@ -475,6 +475,12 @@ async def _background_boot(app: FastAPI) -> None:
     else:
         await _start_background_runtime(app)
     try:
+        from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
+
+        await _maybe_run_bigquery_export_bootstrap()
+    except Exception:
+        logger.exception("CAP-658 BigQuery bootstrap failed during web boot")
+    try:
         _check_production_guard()
     except Exception:
         logger.exception("Production guard check failed after runtime start")
