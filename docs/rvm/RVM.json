@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T00:27:55.279990+00:00",
+  "generated_at": "2026-08-22T11:55:21.445436+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -58538,27 +58538,47 @@
       "verification_method": "verify_control executable check",
       "validation_method": "institutional operational proof — not code existence alone",
       "required_evidence": [],
-      "implementation_evidence": [],
-      "runtime_evidence": [],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "implementation_evidence": [
+        "production_sso_status_configured",
+        "auth0_oidc_ready",
+        "authorize_redirects_to_auth0",
+        "commit=6ce0cb235b4f"
+      ],
+      "runtime_evidence": [
+        "production_sso_status_configured",
+        "auth0_oidc_ready",
+        "authorize_redirects_to_auth0",
+        "commit=6ce0cb235b4f"
+      ],
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": "SEC-006",
-        "status": "EXTERNAL_BLOCKED",
-        "evidence": [],
-        "note": "SSO IdP configuration external"
+        "status": "VERIFIED_COMPLETE",
+        "evidence": [
+          "production_sso_status_configured",
+          "auth0_oidc_ready",
+          "authorize_redirects_to_auth0",
+          "commit=6ce0cb235b4f"
+        ],
+        "note": "Auth0 OIDC live on https://blackdark-production.up.railway.app; authorize→Auth0; callback=https://blackdark-production.up.railway.app/api/institutional/sso/callback"
       },
       "validation_detail": {
         "id": "SEC-006",
-        "status": "EXTERNAL_BLOCKED",
-        "evidence": [],
-        "note": "SSO IdP configuration external"
+        "status": "VERIFIED_COMPLETE",
+        "evidence": [
+          "production_sso_status_configured",
+          "auth0_oidc_ready",
+          "authorize_redirects_to_auth0",
+          "commit=6ce0cb235b4f"
+        ],
+        "note": "Auth0 OIDC live on https://blackdark-production.up.railway.app; authorize→Auth0; callback=https://blackdark-production.up.railway.app/api/institutional/sso/callback"
       },
-      "external_step": "Configure production IdP (Okta/Azure AD) and complete end-to-end SSO login flow",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-22T11:55:21.445436+00:00"
     },
     {
       "id": "SEC-007",
@@ -62044,5 +62064,12 @@
       "reconciled": true,
       "notes": ""
     }
+  ],
+  "p0_external_remaining": [
+    "CAP-644",
+    "CAP-645",
+    "SEC-008",
+    "REL-002",
+    "COM-P0-EXT"
   ]
 }

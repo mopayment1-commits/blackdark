@@ -25,8 +25,22 @@ def _fetch_json(url: str) -> dict:
 def _fetch_redirect_target(url: str) -> str:
     req = urllib.request.Request(url, method="GET")
     req.add_header("User-Agent", "BLACKDARK-SEC006-CLOSURE/1.0")
-    with urllib.request.urlopen(req, timeout=30) as resp:  # nosec B310
-        return str(resp.geturl())
+    opener = urllib.request.build_opener(urllib.request.HTTPRedirectHandler())
+    # Do not follow — inspect first hop only (Auth0 authorize URL in Location).
+    class NoRedirect(urllib.request.HTTPRedirectHandler):  # type: ignore[misc]
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            return None
+
+    opener = urllib.request.build_opener(NoRedirect())
+    try:
+        opener.open(req, timeout=30)
+    except urllib.error.HTTPError as exc:
+        if exc.code in {301, 302, 303, 307, 308}:
+            location = exc.headers.get("Location") or exc.headers.get("location") or ""
+            if location:
+                return location
+        raise
+    raise SystemExit("authorize_missing_redirect")
 
 
 def verify_production() -> dict:
