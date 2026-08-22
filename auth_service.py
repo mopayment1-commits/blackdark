@@ -17,16 +17,32 @@ STR_TRUST_OS = 'Trust OS'
 
 logger = logging.getLogger("BLACKDARK.Auth")
 
-Tier = Literal["free", "pro", "whale"]
+Tier = Literal["free", "pro", "elite", "quant", "institutional", "whale"]
 
-TIER_RANK: dict[str, int] = {"free": 0, "pro": 1, "whale": 2}
+TIER_RANK: dict[str, int] = {
+    "free": 0,
+    "pro": 1,
+    "elite": 2,
+    "whale": 2,  # legacy alias
+    "quant": 3,
+    "institutional": 4,
+}
+
+
+def normalize_tier(tier: str | None) -> str:
+    from billing.plan_registry import normalize_plan
+
+    canonical = normalize_plan(tier)
+    return canonical if canonical in TIER_RANK or canonical == "institutional" else "free"
+
 
 TIER_FEATURES: dict[str, dict[str, Any]] = {
-    # Proof Pass — viral free wedge: OQS Why + shareable Decision Certificate.
-    # Conversion levers: 3/day cap, Free Proof watermark, no Portfolio AI.
     "free": {
-        "label": "Proof Pass",
+        "label": "FREE",
         "oracle_daily_limit": 3,
+        "export_monthly_limit": 0,
+        "api_monthly_limit": 0,
+        "backtest_hours_monthly": 0,
         "arbitrage": False,
         "arbitrage_catalog": False,
         "voice": False,
@@ -35,17 +51,20 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "ai_chat": False,
         "journal": True,
         "portfolio_ai": False,
-        "market_radar": True,  # light public radar; full depth is Pro
+        "market_radar": True,
         "b2b_api": False,
         "evidence_pack": False,
+        "quant_backtest": False,
         "ux_pro_default": False,
         "proof_watermark": True,
         "product_name": STR_TRUST_OS,
     },
-    # Decision Pro — daily decision habit ($29). 7-day trial stays.
     "pro": {
-        "label": "Decision Pro",
+        "label": "PRO",
         "oracle_daily_limit": None,
+        "export_monthly_limit": 50,
+        "api_monthly_limit": 0,
+        "backtest_hours_monthly": 0,
         "arbitrage": True,
         "arbitrage_catalog": True,
         "voice": False,
@@ -57,14 +76,17 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "market_radar": True,
         "b2b_api": False,
         "evidence_pack": False,
+        "quant_backtest": False,
         "ux_pro_default": True,
         "proof_watermark": False,
         "product_name": STR_TRUST_OS,
     },
-    # Decision Desk — edge + serious tools ($49).
-    "whale": {
-        "label": "Decision Desk",
+    "elite": {
+        "label": "ELITE",
         "oracle_daily_limit": None,
+        "export_monthly_limit": 200,
+        "api_monthly_limit": 10000,
+        "backtest_hours_monthly": 5,
         "arbitrage": True,
         "arbitrage_catalog": True,
         "voice": True,
@@ -76,6 +98,73 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "market_radar": True,
         "b2b_api": True,
         "evidence_pack": True,
+        "quant_backtest": False,
+        "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": STR_TRUST_OS,
+    },
+    "whale": {  # legacy alias — same as elite
+        "label": "ELITE",
+        "oracle_daily_limit": None,
+        "export_monthly_limit": 200,
+        "api_monthly_limit": 10000,
+        "backtest_hours_monthly": 5,
+        "arbitrage": True,
+        "arbitrage_catalog": True,
+        "voice": True,
+        "research_lab": True,
+        "alerts": True,
+        "ai_chat": True,
+        "journal": True,
+        "portfolio_ai": True,
+        "market_radar": True,
+        "b2b_api": True,
+        "evidence_pack": True,
+        "quant_backtest": False,
+        "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": STR_TRUST_OS,
+    },
+    "quant": {
+        "label": "QUANT",
+        "oracle_daily_limit": None,
+        "export_monthly_limit": None,
+        "api_monthly_limit": 100000,
+        "backtest_hours_monthly": 40,
+        "arbitrage": True,
+        "arbitrage_catalog": True,
+        "voice": True,
+        "research_lab": True,
+        "alerts": True,
+        "ai_chat": True,
+        "journal": True,
+        "portfolio_ai": True,
+        "market_radar": True,
+        "b2b_api": True,
+        "evidence_pack": True,
+        "quant_backtest": True,
+        "ux_pro_default": True,
+        "proof_watermark": False,
+        "product_name": STR_TRUST_OS,
+    },
+    "institutional": {
+        "label": "INSTITUTIONAL",
+        "oracle_daily_limit": None,
+        "export_monthly_limit": None,
+        "api_monthly_limit": None,
+        "backtest_hours_monthly": None,
+        "arbitrage": True,
+        "arbitrage_catalog": True,
+        "voice": True,
+        "research_lab": True,
+        "alerts": True,
+        "ai_chat": True,
+        "journal": True,
+        "portfolio_ai": True,
+        "market_radar": True,
+        "b2b_api": True,
+        "evidence_pack": True,
+        "quant_backtest": True,
         "ux_pro_default": True,
         "proof_watermark": False,
         "product_name": STR_TRUST_OS,
@@ -126,17 +215,24 @@ def normalize_email(email: str) -> str:
 
 
 def tier_meets(required: Tier, actual: Tier) -> bool:
-    return TIER_RANK.get(actual, 0) >= TIER_RANK.get(required, 0)
+    actual_n = normalize_tier(actual)
+    required_n = normalize_tier(required)
+    return TIER_RANK.get(actual_n, 0) >= TIER_RANK.get(required_n, 0)
 
 
-async def resolve_user_tier(email: str) -> Tier:
-    from database import fetch_active_subscription_for_email
+async def resolve_user_tier(email: str) -> str:
+    from database import fetch_user_by_email
+    from billing.subscription_engine import resolve_entitlements_for_user
+    from billing.subscription_store import ensure_subscription_account
 
-    sub = await fetch_active_subscription_for_email(email)
-    if sub:
-        tier = str(sub.get("tier") or "pro").lower()
-        if tier in TIER_RANK:
-            return tier  # type: ignore[return-value]
+    user = await fetch_user_by_email(email.strip().lower())
+    if not user:
+        return "free"
+    uid = int(user["id"])
+    await ensure_subscription_account(uid, email)
+    ent = await resolve_entitlements_for_user(uid)
+    if ent.get("entitlement_allowed"):
+        return normalize_tier(str(ent.get("effective_plan") or "free"))
     return "free"
 
 
@@ -149,7 +245,8 @@ async def register_user(
     accepted_terms: bool = False,
     plan: str = "free",
 ) -> dict[str, Any]:
-    from database import create_user, fetch_user_by_email, fetch_user_by_username, insert_pro_trial
+    from database import create_user, fetch_user_by_email, fetch_user_by_username
+    from billing.subscription_engine import start_paid_trial
     from identity_service import (
         send_verification_email,
         validate_display_name,
@@ -180,12 +277,21 @@ async def register_user(
         await update_user_profile_fields(user_id, {"username": handle})
 
     trial_payload: dict[str, Any] | None = None
-    if next_step.get("start_pro_trial"):
-        trial = await insert_pro_trial(email)
+    if next_step.get("start_paid_trial") and selected_plan != "free":
+        trial = await start_paid_trial(user_id, email, selected_plan)
         trial_payload = {
             "active": True,
-            "ends_at": trial["trial_ends_at"],
-            "days": trial["days"],
+            "ends_at": trial.get("trial_ends_at") or trial.get("current_period_end"),
+            "days": next_step.get("trial_days"),
+            "plan": selected_plan,
+        }
+    elif next_step.get("start_pro_trial"):
+        trial = await start_paid_trial(user_id, email, "pro")
+        trial_payload = {
+            "active": True,
+            "ends_at": trial.get("trial_ends_at"),
+            "days": trial.get("trial_ends_at"),
+            "plan": "pro",
         }
 
     session = await create_session(user_id)
@@ -444,21 +550,23 @@ async def check_oracle_quota(user: dict[str, Any] | None) -> tuple[bool, str]:
 
 
 def feature_allowed(user: dict[str, Any] | None, feature: str) -> bool:
-    tier: Tier = (user or {}).get("tier") or "free"
-    return bool(TIER_FEATURES.get(tier, TIER_FEATURES["free"]).get(feature))
+    tier = normalize_tier((user or {}).get("tier") or "free")
+    features = TIER_FEATURES.get(tier) or TIER_FEATURES.get(normalize_tier(tier)) or TIER_FEATURES["free"]
+    return bool(features.get(feature))
 
 
 def tier_payload(user: dict[str, Any] | None, subscription: dict[str, Any] | None = None) -> dict[str, Any]:
-    tier: Tier = (user or {}).get("tier") or "free"
+    tier = normalize_tier((user or {}).get("tier") or "free")
+    features = TIER_FEATURES.get(tier) or TIER_FEATURES["free"]
     payload = {
         "tier": tier,
-        "label": TIER_FEATURES[tier]["label"],
-        "features": TIER_FEATURES[tier],
+        "label": features["label"],
+        "features": features,
     }
-    if subscription and subscription.get("status") == "trial":
+    if subscription and subscription.get("status") in {"trial", "trialing"}:
         payload["trial"] = True
         payload["trial_ends_at"] = subscription.get("trial_ends_at")
-        payload["label"] = f"{TIER_FEATURES[tier]['label']} (Trial)"
+        payload["label"] = f"{features['label']} (Trial)"
     return payload
 
 

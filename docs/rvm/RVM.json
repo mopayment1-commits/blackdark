@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T23:43:00.326079+00:00",
+  "generated_at": "2026-08-22T00:27:55.279990+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -63,7 +63,7 @@
     "adopted_reference": "docs/governing/INSTITUTIONAL_GOVERNING_REFERENCE.md"
   },
   "summary": {
-    "generated_at": "2026-08-21T23:43:00.326079+00:00",
+    "generated_at": "2026-08-22T00:27:55.279990+00:00",
     "governing_baseline_version": "blackdark-rvm-v1",
     "total_requirements": 1044,
     "pass_count": 1003,
@@ -39214,7 +39214,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-08-21T23:42:32.123384+00:00",
+          "attached_at": "2026-08-22T00:27:33.399642+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -39440,7 +39440,7 @@
         "evidence_metadata": {
           "class": "SHADOW_LIVE_FORWARD",
           "source": null,
-          "attached_at": "2026-08-21T23:42:32.140279+00:00",
+          "attached_at": "2026-08-22T00:27:33.402043+00:00",
           "promotion_policy": "replay_and_simulation_never_become_production_metrics"
         },
         "compliance_footer": {
@@ -58305,10 +58305,10 @@
       "validation_method": "institutional operational proof — not code existence alone",
       "required_evidence": [],
       "implementation_evidence": [
-        "tests=108"
+        "tests=110"
       ],
       "runtime_evidence": [
-        "tests=108"
+        "tests=110"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -58317,7 +58317,7 @@
         "id": "QUA-001",
         "status": "VERIFIED_COMPLETE",
         "evidence": [
-          "tests=108"
+          "tests=110"
         ],
         "note": "automated test suite present"
       },
@@ -58325,7 +58325,7 @@
         "id": "QUA-001",
         "status": "VERIFIED_COMPLETE",
         "evidence": [
-          "tests=108"
+          "tests=110"
         ],
         "note": "automated test suite present"
       },
@@ -59305,7 +59305,7 @@
         "evidence": [
           "signal_registry"
         ],
-        "note": "live"
+        "note": "partial"
       },
       "validation_detail": {
         "id": "AI-004",
@@ -59313,7 +59313,7 @@
         "evidence": [
           "signal_registry"
         ],
-        "note": "live"
+        "note": "partial"
       },
       "external_step": null,
       "gap_matrix_status": null,
@@ -59383,7 +59383,7 @@
         "evidence": [
           "fee_matrix"
         ],
-        "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'balancer': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
+        "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinmena': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
       },
       "validation_detail": {
         "id": "FIN-001",
@@ -59391,7 +59391,7 @@
         "evidence": [
           "fee_matrix"
         ],
-        "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'balancer': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
+        "note": "{'exchanges': 100, 'last_refresh': 0.0, 'refresh_interval_sec': 3600, 'sample': {'binance': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'okx': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'bybit': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinbase': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kraken': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'kucoin': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'gateio': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}, 'coinmena': {'taker': 0.001, 'maker': 0.0002, 'source': 'default'}}}"
       },
       "external_step": null,
       "gap_matrix_status": null,
@@ -59724,12 +59724,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_3d2b76b3345c",
+        "chain_id=chain_8cbdd71695ad",
         "stage=raw_data",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_3d2b76b3345c",
+        "chain_id=chain_8cbdd71695ad",
         "stage=raw_data",
         "ok=True",
         "downstream_artifact_present"
@@ -59778,12 +59778,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_618d5e18691c",
+        "chain_id=chain_7a6e5c863651",
         "stage=derived_data",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_618d5e18691c",
+        "chain_id=chain_7a6e5c863651",
         "stage=derived_data",
         "ok=True",
         "downstream_artifact_present"
@@ -59820,12 +59820,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_731aac40e138",
+        "chain_id=chain_765091cd6357",
         "stage=entity_event",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_731aac40e138",
+        "chain_id=chain_765091cd6357",
         "stage=entity_event",
         "ok=True",
         "downstream_artifact_present"
@@ -59836,14 +59836,14 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "event_id": "evt_d7f27342a5454c27"
+          "event_id": "evt_04b0e15aa06f4eb6"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
       "validation_detail": {
         "stage": {
           "ok": true,
-          "event_id": "evt_d7f27342a5454c27"
+          "event_id": "evt_04b0e15aa06f4eb6"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -59862,12 +59862,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_c57035ae74ec",
+        "chain_id=chain_8cded24e9e12",
         "stage=feature",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_c57035ae74ec",
+        "chain_id=chain_8cded24e9e12",
         "stage=feature",
         "ok=True",
         "downstream_artifact_present"
@@ -59906,12 +59906,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_8e22ab440abf",
+        "chain_id=chain_521b1bd078e6",
         "stage=signal",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_8e22ab440abf",
+        "chain_id=chain_521b1bd078e6",
         "stage=signal",
         "ok=True",
         "downstream_artifact_present"
@@ -59922,14 +59922,14 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "signal_id": "pred_chain_8e22ab440abf"
+          "signal_id": "pred_chain_521b1bd078e6"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
       "validation_detail": {
         "stage": {
           "ok": true,
-          "signal_id": "pred_chain_8e22ab440abf"
+          "signal_id": "pred_chain_521b1bd078e6"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -59948,12 +59948,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_b43c3592d265",
+        "chain_id=chain_ad6b53e59a92",
         "stage=prediction_decision",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_b43c3592d265",
+        "chain_id=chain_ad6b53e59a92",
         "stage=prediction_decision",
         "ok=True",
         "downstream_artifact_present"
@@ -59964,14 +59964,14 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "decision_id": "dec_c96e979fc49243d5"
+          "decision_id": "dec_4162ed02deaa4a06"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
       "validation_detail": {
         "stage": {
           "ok": true,
-          "decision_id": "dec_c96e979fc49243d5"
+          "decision_id": "dec_4162ed02deaa4a06"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -59990,12 +59990,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_c80e08946163",
+        "chain_id=chain_e8eafeb90d3d",
         "stage=confidence",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_c80e08946163",
+        "chain_id=chain_e8eafeb90d3d",
         "stage=confidence",
         "ok=True",
         "downstream_artifact_present"
@@ -60034,12 +60034,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_d65599e87203",
+        "chain_id=chain_1b4b2d791e33",
         "stage=user_exposure",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_d65599e87203",
+        "chain_id=chain_1b4b2d791e33",
         "stage=user_exposure",
         "ok=True",
         "downstream_artifact_present"
@@ -60050,14 +60050,14 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "exposure_id": "exp_ff0e08c810dd48dd"
+          "exposure_id": "exp_bf6befef4d474d2b"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
       "validation_detail": {
         "stage": {
           "ok": true,
-          "exposure_id": "exp_ff0e08c810dd48dd"
+          "exposure_id": "exp_bf6befef4d474d2b"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -60076,12 +60076,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_b45b93d2137c",
+        "chain_id=chain_ab7256af9c2a",
         "stage=outcome",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_b45b93d2137c",
+        "chain_id=chain_ab7256af9c2a",
         "stage=outcome",
         "ok=True",
         "downstream_artifact_present"
@@ -60092,7 +60092,7 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "outcome_id": "out_chain_b45b93d2137c",
+          "outcome_id": "out_chain_ab7256af9c2a",
           "ledger_total": null
         },
         "chain_verdict": "VERIFIED_COMPLETE"
@@ -60100,7 +60100,7 @@
       "validation_detail": {
         "stage": {
           "ok": true,
-          "outcome_id": "out_chain_b45b93d2137c",
+          "outcome_id": "out_chain_ab7256af9c2a",
           "ledger_total": null
         },
         "chain_verdict": "VERIFIED_COMPLETE"
@@ -60120,12 +60120,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_61bd5fe25cbb",
+        "chain_id=chain_dac2eedd2397",
         "stage=evidence_error",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_61bd5fe25cbb",
+        "chain_id=chain_dac2eedd2397",
         "stage=evidence_error",
         "ok=True",
         "downstream_artifact_present"
@@ -60137,7 +60137,7 @@
         "stage": {
           "ok": true,
           "evidence_pack_sections": 11,
-          "failure_id": "fail_c8b389cb31e84f52"
+          "failure_id": "fail_457bb8ade05842fd"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -60145,7 +60145,7 @@
         "stage": {
           "ok": true,
           "evidence_pack_sections": 11,
-          "failure_id": "fail_c8b389cb31e84f52"
+          "failure_id": "fail_457bb8ade05842fd"
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -60164,12 +60164,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_3bd6b2a64610",
+        "chain_id=chain_c877611d3135",
         "stage=learning",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_3bd6b2a64610",
+        "chain_id=chain_c877611d3135",
         "stage=learning",
         "ok=True",
         "downstream_artifact_present"
@@ -60180,14 +60180,14 @@
       "verification_detail": {
         "stage": {
           "ok": true,
-          "total_events": 175
+          "total_events": 213
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
       "validation_detail": {
         "stage": {
           "ok": true,
-          "total_events": 175
+          "total_events": 213
         },
         "chain_verdict": "VERIFIED_COMPLETE"
       },
@@ -60206,12 +60206,12 @@
       "validation_method": "compounding chain produces traceable downstream artifacts",
       "required_evidence": [],
       "implementation_evidence": [
-        "chain_id=chain_cf3cc3e60bdd",
+        "chain_id=chain_5f8c0582518e",
         "stage=model_version",
         "ok=True"
       ],
       "runtime_evidence": [
-        "chain_id=chain_cf3cc3e60bdd",
+        "chain_id=chain_5f8c0582518e",
         "stage=model_version",
         "ok=True",
         "downstream_artifact_present"

@@ -533,6 +533,115 @@ async def _ensure_subscription_columns(db: Any) -> None:
     )
 
 
+async def _ensure_billing_subscription_tables(db: Any) -> None:
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS subscription_accounts (
+            id                       INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id                  INTEGER NOT NULL UNIQUE,
+            email                    TEXT    NOT NULL,
+            plan                     TEXT    NOT NULL DEFAULT 'free',
+            subscription_status      TEXT    NOT NULL DEFAULT 'active',
+            payment_status           TEXT    NOT NULL DEFAULT 'none',
+            start_date               TEXT,
+            current_period_start     TEXT,
+            current_period_end       TEXT,
+            renewal_date             TEXT,
+            cancel_at_period_end     INTEGER NOT NULL DEFAULT 0,
+            auto_renew_consent_at    TEXT,
+            auto_renew_enabled       INTEGER NOT NULL DEFAULT 0,
+            provider                 TEXT,
+            provider_subscription_id TEXT,
+            provider_customer_id     TEXT,
+            pending_plan             TEXT,
+            entitlements_version     INTEGER NOT NULL DEFAULT 1,
+            grace_period_end         TEXT,
+            trial_ends_at            TEXT,
+            created_at               TEXT    NOT NULL,
+            updated_at               TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        "CREATE INDEX IF NOT EXISTS idx_sub_accounts_email ON subscription_accounts (email)"
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_sub_accounts_provider_sub
+            ON subscription_accounts (provider_subscription_id)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_sub_accounts_period_end
+            ON subscription_accounts (current_period_end)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_payment_events (
+            id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id             INTEGER,
+            email               TEXT    NOT NULL,
+            provider            TEXT    NOT NULL,
+            provider_event_id   TEXT    NOT NULL,
+            provider_invoice_id TEXT,
+            event_type          TEXT    NOT NULL,
+            amount_cents        INTEGER,
+            currency            TEXT    NOT NULL DEFAULT 'usd',
+            status              TEXT    NOT NULL,
+            plan                TEXT,
+            idempotency_key     TEXT    NOT NULL UNIQUE,
+            raw_event_type      TEXT,
+            created_at          TEXT    NOT NULL
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS billing_audit_ledger (
+            id                       INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp                TEXT    NOT NULL,
+            actor                    TEXT    NOT NULL,
+            action                   TEXT    NOT NULL,
+            user_id                  INTEGER,
+            email                    TEXT,
+            old_plan                 TEXT,
+            new_plan                 TEXT,
+            old_status               TEXT,
+            new_status               TEXT,
+            amount_cents             INTEGER,
+            currency                 TEXT,
+            payment_event_id         INTEGER,
+            provider_subscription_id TEXT,
+            reason                   TEXT,
+            entitlements_version     INTEGER,
+            metadata_json            TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_billing_audit_user
+            ON billing_audit_ledger (user_id, timestamp DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS usage_meters (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id         INTEGER NOT NULL,
+            capability_key  TEXT    NOT NULL,
+            period_key      TEXT    NOT NULL,
+            count           INTEGER NOT NULL DEFAULT 0,
+            limit_value     INTEGER,
+            updated_at      TEXT    NOT NULL,
+            UNIQUE(user_id, capability_key, period_key)
+        )
+        """
+    )
+
+
 async def _ensure_user_profile_columns(db: Any) -> None:
     await _ensure_missing_columns(
         db,
@@ -681,6 +790,7 @@ async def _apply_migrations(db: Any) -> None:
             ON billing_webhook_events (received_at)
         """
     )
+    await _ensure_billing_subscription_tables(db)
     await db.execute(
         """
         CREATE TABLE IF NOT EXISTS institutional_inquiries (
@@ -3278,6 +3388,47 @@ async def fetch_platform_user_stats() -> dict[str, Any]:
 
 async def fetch_active_subscription_for_email(email: str) -> dict[str, Any] | None:
     try:
+        from billing.subscription_engine import effective_plan, entitlement_allowed
+        from billing.subscription_store import ensure_subscription_account, get_by_email
+
+        email = email.strip().lower()
+        user = await fetch_user_by_email(email)
+        if user:
+            sub_acc = await ensure_subscription_account(int(user["id"]), email)
+            if entitlement_allowed(sub_acc) and effective_plan(sub_acc) != "free":
+                plan = effective_plan(sub_acc)
+                return {
+                    "id": sub_acc["id"],
+                    "email": email,
+                    "tier": plan,
+                    "plan": plan,
+                    "status": sub_acc["subscription_status"],
+                    "subscription_status": sub_acc["subscription_status"],
+                    "payment_status": sub_acc["payment_status"],
+                    "current_period_start": sub_acc.get("current_period_start"),
+                    "current_period_end": sub_acc.get("current_period_end"),
+                    "renewal_date": sub_acc.get("renewal_date"),
+                    "cancel_at_period_end": sub_acc.get("cancel_at_period_end"),
+                    "auto_renew_enabled": sub_acc.get("auto_renew_enabled"),
+                    "trial_ends_at": sub_acc.get("trial_ends_at"),
+                    "entitlements_version": sub_acc.get("entitlements_version"),
+                    "provider": sub_acc.get("provider"),
+                    "stripe_sub_id": sub_acc.get("provider_subscription_id"),
+                    "grace_period_end": sub_acc.get("grace_period_end"),
+                }
+            sub_acc_only = await get_by_email(email)
+            if sub_acc_only and sub_acc_only.get("subscription_status") == "trialing":
+                plan = effective_plan(sub_acc_only)
+                return {
+                    "id": sub_acc_only["id"],
+                    "email": email,
+                    "tier": plan,
+                    "plan": plan,
+                    "status": "trial",
+                    "subscription_status": "trialing",
+                    "trial_ends_at": sub_acc_only.get("trial_ends_at"),
+                }
+
         import config
 
         now_dt = datetime.now(UTC)

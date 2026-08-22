@@ -34,30 +34,17 @@ def test_lemon_webhook_signature_and_handler(monkeypatch):
 async def test_lemon_webhook_activates_subscription(monkeypatch):
     from billing_service import handle_lemon_webhook_event
 
-    calls: list[tuple] = []
+    calls: list[dict] = []
 
-    async def _activate(email, tier, sub_id, **kwargs):
-        calls.append((email, tier, sub_id))
-        return 1
+    async def _activate_checkout(**kwargs):
+        calls.append(kwargs)
+        return {"duplicate": False, "handled": True}
 
     async def _claim(*_args, **_kwargs):
         return True
 
-    monkeypatch.setattr(
-        "database.activate_paid_subscription",
-        _activate,
-        raising=False,
-    )
-    monkeypatch.setattr(
-        "database.claim_billing_webhook_event",
-        _claim,
-        raising=False,
-    )
-    # Patch where handler imports from
-    import database
-
-    monkeypatch.setattr(database, "activate_paid_subscription", _activate)
-    monkeypatch.setattr(database, "claim_billing_webhook_event", _claim)
+    monkeypatch.setattr("billing.webhook_processor.activate_checkout", _activate_checkout)
+    monkeypatch.setattr("database.claim_billing_webhook_event", _claim)
 
     event = {
         "meta": {"event_name": "subscription_created", "webhook_id": "wh_test_unique_activate"},
@@ -73,9 +60,9 @@ async def test_lemon_webhook_activates_subscription(monkeypatch):
     result = await handle_lemon_webhook_event(event)
     assert result["handled"] is True
     assert calls
-    assert calls[0][0] == "buyer@example.com"
-    assert calls[0][1] == "pro"
-    assert calls[0][2].startswith("lemon_")
+    assert calls[0]["email"] == "buyer@example.com"
+    assert calls[0]["plan"] == "pro"
+    assert str(calls[0]["provider_subscription_id"]).startswith("lemon_")
 
 
 def test_session_plaintext_fallback_gated():

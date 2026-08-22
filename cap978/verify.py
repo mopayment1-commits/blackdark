@@ -43,8 +43,8 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
         delegated["canonical_id"] = canon
         return delegated
 
-    user = user or {"email": "cap978-test@blackdark.local", "tier": "whale"}
-    gate = entitlement_engine.check(capability_id, user=user, org_id=params.get("org_id"))
+    user = user or {"email": "cap978-test@blackdark.local", "tier": "elite"}
+    gate = await entitlement_engine.check(capability_id, user=user, org_id=params.get("org_id"))
     if not gate.get("allowed"):
         return ai_compliance_footer({"success": False, "capability_id": capability_id, "entitlement": gate, "error": gate.get("reason", "entitlement_denied")})
 
@@ -108,7 +108,7 @@ async def verify_functional_978(capability_id: int, *, user: dict[str, Any] | No
 
     result = await execute_extension(
         capability_id,
-        user=user or {"email": "cap978-test@blackdark.local", "tier": "whale"},
+        user=user or {"email": "cap978-test@blackdark.local", "tier": "elite"},
         params={"symbol": "BTC", "tier": "whale", "coin_id": "bitcoin", "address": "0x0000000000000000000000000000000000000001"},
     )
 

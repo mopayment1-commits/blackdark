@@ -94,7 +94,7 @@ async def execute_capability(
         return canonical
 
     if not skip_entitlement:
-        ent = entitlement_engine.check(target_id, user=user, org_id=org_id)
+        ent = await entitlement_engine.check(target_id, user=user, org_id=org_id)
         if not ent.get("allowed"):
             return ai_compliance_footer(
                 {

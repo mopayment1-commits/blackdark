@@ -141,7 +141,7 @@ async def enrich_capability_result(
         from institutional_commerce import commerce_status
 
         result.setdefault("billing", commerce_status())
-        result.setdefault("subscription", {"tiers": ["pro", "whale", "institutional"], "ready": True})
+        result.setdefault("subscription", {"tiers": ["pro", "elite", "quant", "institutional"], "ready": True})
 
     # Exploiter / MEV / attacker intelligence
     if any(k in name for k in ("exploiter", "attacker", "mev", "flash loan")):

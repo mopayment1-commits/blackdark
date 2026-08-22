@@ -646,6 +646,13 @@ except ImportError:
     pass
 
 try:
+    from api.routers.admin_billing import router as admin_billing_router
+
+    app.include_router(admin_billing_router)
+except ImportError:
+    pass
+
+try:
     from api.routers.arbitrage import router as arbitrage_router
 
     app.include_router(arbitrage_router)

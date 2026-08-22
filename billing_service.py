@@ -1,8 +1,7 @@
 """
 BLACKDARK — Stripe / Lemon Squeezy billing & subscription lifecycle.
 
-Self-serve: Decision Pro ($29) and Decision Desk ($49).
-Free = Proof Pass ($0). Institutional = Talk to us from $3,000 → open (not a Stripe SKU).
+Official tiers: FREE · PRO · ELITE · QUANT · INSTITUTIONAL (self-serve except institutional).
 """
 
 from __future__ import annotations
@@ -16,36 +15,46 @@ from typing import Any
 import stripe
 
 import config
+from billing.plan_registry import (
+    PAID_TRIAL_DAYS,
+    PLAN_DEFINITIONS,
+    SELF_SERVE_PLANS,
+    lemon_checkout_env,
+    normalize_plan,
+    stripe_price_env,
+)
+
 logger = logging.getLogger("BLACKDARK.Billing")
 
 STRIPE_TIERS: dict[str, dict[str, Any]] = {
-    "pro": {
-        "amount": 2900,
+    plan: {
+        "amount": PLAN_DEFINITIONS[plan]["price_cents"],
         "currency": "usd",
-        "name": "Decision Pro",
-        "sku": "decision_pro",
-    },
-    "whale": {
-        "amount": 4900,
-        "currency": "usd",
-        "name": "Decision Desk",
-        "sku": "decision_desk",
-    },
+        "name": PLAN_DEFINITIONS[plan]["name"],
+        "sku": PLAN_DEFINITIONS[plan]["sku"],
+        "display": PLAN_DEFINITIONS[plan]["display"],
+    }
+    for plan in SELF_SERVE_PLANS
 }
+# Legacy alias
+STRIPE_TIERS["whale"] = dict(STRIPE_TIERS["elite"])
 
 BILLING_CURRENCY = "usd"
 
 LEMON_SQUEEZY_ENV_KEYS = {
     "pro": "LEMON_SQUEEZY_CHECKOUT_PRO",
+    "elite": "LEMON_SQUEEZY_CHECKOUT_ELITE",
+    "quant": "LEMON_SQUEEZY_CHECKOUT_QUANT",
     "whale": "LEMON_SQUEEZY_CHECKOUT_WHALE",
 }
 
-# Optional customer portal / billing manage URL (Lemon dashboard).
 LEMON_SQUEEZY_PORTAL_ENV = "LEMON_SQUEEZY_CUSTOMER_PORTAL_URL"
 
-# Map Lemon variant/product name hints → internal tiers.
 _LEMON_TIER_HINTS = (
-    ("whale", "whale"),
+    ("quant", "quant"),
+    ("elite", "elite"),
+    ("whale", "elite"),
+    ("desk", "elite"),
     ("pro", "pro"),
 )
 
@@ -55,12 +64,14 @@ def stripe_configured() -> bool:
 
 
 def lemon_squeezy_checkout_url(tier: str) -> str | None:
-    tier = tier.lower().strip()
+    tier = normalize_plan(tier)
+    url = lemon_checkout_env(tier)
+    if url:
+        return url
     env_key = LEMON_SQUEEZY_ENV_KEYS.get(tier)
     if not env_key:
         return None
-    url = os.getenv(env_key, "").strip()
-    return url or None
+    return os.getenv(env_key, "").strip() or None
 
 
 def lemon_squeezy_portal_url() -> str | None:
@@ -81,9 +92,7 @@ def billing_provider() -> str:
 
 
 def _price_id_for_tier(tier: str) -> str | None:
-    env_key = f"STRIPE_PRICE_{tier.upper()}"
-    value = os.getenv(env_key, "").strip()
-    return value or None
+    return stripe_price_env(tier)
 
 
 def _base_urls() -> tuple[str, str]:
@@ -105,7 +114,7 @@ def create_checkout_session(
     if not stripe_configured():
         raise RuntimeError("Stripe not configured")
 
-    tier = tier.lower().strip()
+    tier = normalize_plan(tier)
     if tier not in STRIPE_TIERS:
         raise ValueError(f"Invalid tier: {tier}")
 
@@ -130,7 +139,7 @@ def create_checkout_session(
 
     # Hosted Checkout: card + wallets (Apple Pay / Google Pay when enabled on Stripe).
     # PAN/CVV never touch our servers (PCI SAQ A target).
-    trial_days = int(config.PRO_TRIAL_DAYS) if tier == "pro" and config.PRO_TRIAL_DAYS > 0 else 0
+    trial_days = PAID_TRIAL_DAYS if tier in SELF_SERVE_PLANS and PAID_TRIAL_DAYS > 0 else 0
     meta = {
         "tier": tier,
         "currency": BILLING_CURRENCY,
@@ -180,144 +189,16 @@ def create_billing_portal_session(stripe_customer_id: str) -> dict[str, Any]:
     return {"url": session.url}
 
 
-async def _claim_stripe_webhook_event(event_id: str, event_type: Any) -> dict[str, Any] | None:
-    if not event_id:
-        return None
-    from database import claim_billing_webhook_event
-
-    claimed = await claim_billing_webhook_event(
-        provider="stripe",
-        event_id=event_id,
-        event_type=str(event_type),
-    )
-    if claimed:
-        return None
-    return {"handled": True, "action": "duplicate_ignored", "event_id": event_id}
-
-
-async def _handle_stripe_checkout_completed(data_object: dict[str, Any]) -> dict[str, Any]:
-    from database import activate_paid_subscription
-
-    email = (
-        (data_object.get("customer_details") or {}).get("email")
-        or data_object.get("customer_email")
-        or ""
-    )
-    tier = (data_object.get("metadata") or {}).get("tier", "pro")
-    stripe_sub_id = data_object.get("subscription")
-    stripe_customer_id = data_object.get("customer")
-    if email and stripe_sub_id:
-        await activate_paid_subscription(
-            email,
-            tier,
-            str(stripe_sub_id),
-            stripe_customer_id=str(stripe_customer_id) if stripe_customer_id else None,
-        )
-        logger.info(
-            "Subscription activated | email=%s tier=%s currency=USD",
-            str(email).replace("\r", " ").replace("\n", " "),
-            str(tier).replace("\r", " ").replace("\n", " "),
-        )
-    return {"handled": True, "action": "checkout_completed", "currency": "USD"}
-
-
-async def _handle_stripe_subscription_updated(data_object: dict[str, Any]) -> dict[str, Any]:
-    stripe_sub_id = str(data_object.get("id") or "")
-    status = str(data_object.get("status") or "active")
-    tier = (data_object.get("metadata") or {}).get("tier", "pro")
-    if stripe_sub_id:
-        from database import upsert_subscription_by_stripe_id
-
-        await upsert_subscription_by_stripe_id(
-            stripe_sub_id,
-            tier=tier,
-            status=_map_stripe_status(status),
-        )
-    return {"handled": True, "action": "subscription_updated"}
-
-
-async def _handle_stripe_subscription_deleted(data_object: dict[str, Any]) -> dict[str, Any]:
-    from database import cancel_subscription_by_stripe_id
-
-    stripe_sub_id = str(data_object.get("id") or "")
-    if stripe_sub_id:
-        await cancel_subscription_by_stripe_id(stripe_sub_id)
-    return {"handled": True, "action": "subscription_cancelled"}
-
-
-async def _handle_stripe_payment_failed(
-    data_object: dict[str, Any],
-    event_type: Any,
-) -> dict[str, Any]:
-    stripe_sub_id = str(data_object.get("subscription") or "")
-    if stripe_sub_id:
-        from database import upsert_subscription_by_stripe_id
-
-        await upsert_subscription_by_stripe_id(stripe_sub_id, status="past_due")
-        logger.warning(
-            "Stripe dunning | sub=%s event=%s",
-            str(stripe_sub_id).replace("\r", " ").replace("\n", " "),
-            str(event_type).replace("\r", " ").replace("\n", " "),
-        )
-    return {"handled": True, "action": "payment_failed", "dunning": True}
-
-
-async def _handle_stripe_invoice_paid(data_object: dict[str, Any]) -> dict[str, Any]:
-    stripe_sub_id = str(data_object.get("subscription") or "")
-    if stripe_sub_id:
-        from database import upsert_subscription_by_stripe_id
-
-        await upsert_subscription_by_stripe_id(stripe_sub_id, status="active")
-    return {"handled": True, "action": "invoice_paid", "currency": "USD"}
-
-
-def _handle_stripe_refund_or_dispute(data_object: dict[str, Any], event_type: Any) -> dict[str, Any]:
-    # Entitlement stays until subscription cancels unless ops force-expire.
-    logger.info(
-        "Stripe refund/dispute recorded | type=%s id=%s",
-        str(event_type).replace("\r", " ").replace("\n", " "),
-        str(data_object.get("id")).replace("\r", " ").replace("\n", " "),
-    )
-    return {"handled": True, "action": "refund_or_dispute_logged", "type": event_type}
-
-
 async def handle_stripe_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
-    from database import (
-        claim_billing_webhook_event,
-    )
+    from billing.webhook_processor import process_stripe_event
 
-    event_id = str(event.get("id") or "").strip()
-    event_type = event.get("type", "")
-    if event_id:
-        claimed = await claim_billing_webhook_event(
-            provider="stripe",
-            event_id=event_id,
-            event_type=str(event_type),
-        )
-        if not claimed:
-            return {"handled": True, "action": "duplicate_ignored", "event_id": event_id}
+    return await process_stripe_event(event)
 
-    data_object = (event.get("data") or {}).get("object") or {}
 
-    if event_type == "checkout.session.completed":
-        return await _handle_stripe_checkout_completed(data_object)
+async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
+    from billing.webhook_processor import process_lemon_event
 
-    if event_type in {"customer.subscription.updated", "customer.subscription.created"}:
-        return await _handle_stripe_subscription_updated(data_object)
-
-    if event_type == "customer.subscription.deleted":
-        return await _handle_stripe_subscription_deleted(data_object)
-
-    if event_type in {"invoice.payment_failed", "invoice.payment_action_required"}:
-        return await _handle_stripe_payment_failed(data_object, event_type)
-
-    if event_type == "invoice.paid":
-        return await _handle_stripe_invoice_paid(data_object)
-
-    if event_type in {"charge.refunded", "charge.dispute.created"}:
-        return _handle_stripe_refund_or_dispute(data_object, event_type)
-
-    return {"handled": False, "type": event_type}
+    return await process_lemon_event(event)
 
 
 def _map_stripe_status(stripe_status: str) -> str:
@@ -346,9 +227,11 @@ def verify_lemon_webhook_signature(raw_body: bytes, signature_header: str | None
 
 
 def _lemon_infer_tier(attrs: dict[str, Any], meta: dict[str, Any] | None = None) -> str:
+    from billing.plan_registry import normalize_plan
+
     custom = (meta or {}).get("custom_data") or {}
     if isinstance(custom, dict):
-        hinted = str(custom.get("tier") or "").strip().lower()
+        hinted = normalize_plan(str(custom.get("tier") or ""))
         if hinted in STRIPE_TIERS:
             return hinted
     blob = " ".join(
@@ -395,90 +278,6 @@ def _lemon_event_context(event: dict[str, Any]) -> dict[str, Any]:
         "tier": _lemon_infer_tier(attrs, meta if isinstance(meta, dict) else None),
         "status": _map_lemon_status(str(attrs.get("status") or "active")),
     }
-
-
-async def _claim_lemon_webhook(ctx: dict[str, Any]) -> dict[str, Any] | None:
-    dedupe_key = str(ctx["dedupe_key"])
-    if not dedupe_key.strip(":"):
-        return None
-    from database import claim_billing_webhook_event
-
-    claimed = await claim_billing_webhook_event(
-        provider="lemon_squeezy",
-        event_id=dedupe_key[:240],
-        event_type=ctx["event_name"] or "unknown",
-    )
-    if claimed:
-        return None
-    return {
-        "handled": True,
-        "action": "duplicate_ignored",
-        "provider": "lemon_squeezy",
-        "event_id": dedupe_key[:240],
-    }
-
-
-async def _handle_lemon_activation(ctx: dict[str, Any]) -> dict[str, Any]:
-    if not (ctx["email"] and ctx["lemon_id"]):
-        return {"handled": False, "reason": "missing_email_or_id", "event": ctx["event_name"]}
-    from database import activate_paid_subscription
-
-    await activate_paid_subscription(ctx["email"], ctx["tier"], ctx["lemon_id"])
-    logger.info(
-        "Lemon subscription activated | email=%s tier=%s id=%s",
-        str(ctx["email"]).replace("\r", " ").replace("\n", " "),
-        str(ctx["tier"]).replace("\r", " ").replace("\n", " "),
-        str(ctx["lemon_id"]).replace("\r", " ").replace("\n", " "),
-    )
-    return {"handled": True, "action": "checkout_completed", "provider": "lemon_squeezy"}
-
-
-async def _handle_lemon_update(ctx: dict[str, Any]) -> dict[str, Any]:
-    if not ctx["lemon_id"]:
-        return {"handled": False, "reason": "missing_id", "event": ctx["event_name"]}
-    from database import upsert_subscription_by_stripe_id
-
-    await upsert_subscription_by_stripe_id(
-        ctx["lemon_id"],
-        tier=ctx["tier"],
-        status=ctx["status"],
-        email=ctx["email"] or None,
-    )
-    return {"handled": True, "action": "subscription_updated", "provider": "lemon_squeezy"}
-
-
-async def _handle_lemon_inactive(ctx: dict[str, Any]) -> dict[str, Any]:
-    if not ctx["lemon_id"]:
-        return {"handled": False, "reason": "missing_id", "event": ctx["event_name"]}
-    if ctx["event_name"] in {"subscription_cancelled", "subscription_expired"}:
-        from database import cancel_subscription_by_stripe_id
-
-        await cancel_subscription_by_stripe_id(ctx["lemon_id"])
-        return {"handled": True, "action": "subscription_cancelled", "provider": "lemon_squeezy"}
-    from database import upsert_subscription_by_stripe_id
-
-    await upsert_subscription_by_stripe_id(ctx["lemon_id"], status="past_due", email=ctx["email"] or None)
-    return {"handled": True, "action": "payment_failed", "provider": "lemon_squeezy"}
-
-async def handle_lemon_webhook_event(event: dict[str, Any]) -> dict[str, Any]:
-    """Activate / update / cancel entitlements from Lemon Squeezy webhooks."""
-    ctx = _lemon_event_context(event)
-    duplicate = await _claim_lemon_webhook(ctx)
-    if duplicate:
-        return duplicate
-    event_name = ctx["event_name"]
-    if event_name in {"subscription_created", "subscription_payment_success", "order_created"}:
-        return await _handle_lemon_activation(ctx)
-    if event_name in {"subscription_updated", "subscription_resumed", "subscription_unpaused"}:
-        return await _handle_lemon_update(ctx)
-    if event_name in {
-        "subscription_cancelled",
-        "subscription_expired",
-        "subscription_payment_failed",
-        "subscription_paused",
-    }:
-        return await _handle_lemon_inactive(ctx)
-    return {"handled": False, "type": event_name, "provider": "lemon_squeezy"}
 
 
 def billing_status() -> dict[str, Any]:

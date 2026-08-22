@@ -35,7 +35,7 @@ async def gateway_execute(
     org_id: str | None = None,
     params: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    ent = entitlement_engine.check(capability_id, user=user, org_id=org_id)
+    ent = await entitlement_engine.check(capability_id, user=user, org_id=org_id)
     if not ent.get("allowed"):
         _audit(
             {

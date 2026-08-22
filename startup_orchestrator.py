@@ -32,6 +32,7 @@ class RuntimeState:
     db_maintenance_task: asyncio.Task | None = None
     cloud_sync_task: asyncio.Task | None = None
     ml_flywheel_started: bool = False
+    billing_sweeper_started: bool = False
     uptime_probe_task: asyncio.Task | None = None
     glass_box_task: asyncio.Task | None = None
     extras: dict[str, Any] = field(default_factory=dict)
@@ -399,7 +400,18 @@ async def run_background_startup(state: RuntimeState) -> None:
     _start_db_maintenance(state)
     _start_cloud_sync(state)
     await _start_uptime_probe(state)
+    _start_billing_sweeper(state)
     logger.info("BLACKDARK background startup complete.")
+
+
+def _start_billing_sweeper(state: RuntimeState) -> None:
+    try:
+        from billing.sweeper import start_billing_sweeper
+
+        start_billing_sweeper()
+        state.billing_sweeper_started = True
+    except Exception:
+        logger.exception("Billing sweeper failed to start")
 
 
 async def _stop_ml_flywheel(state: RuntimeState) -> None:
