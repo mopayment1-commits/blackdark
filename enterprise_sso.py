@@ -199,11 +199,14 @@ async def _ensure_org_exists_async(org_id: str) -> str:
     if org:
         return org_id
     owner = (os.getenv("ENTERPRISE_SSO_BOOTSTRAP_OWNER_EMAIL", "") or "").strip().lower()
+    if not owner:
+        admins = [a.strip().lower() for a in (os.getenv("ADMIN_EMAILS") or "").split(",") if a.strip()]
+        owner = admins[0] if admins else ""
     name = (os.getenv("ENTERPRISE_SSO_BOOTSTRAP_ORG_NAME", "") or "BLACKDARK Enterprise").strip()
     if not owner:
         raise ValueError("org_not_found")
     default_oid = (os.getenv("ENTERPRISE_SSO_DEFAULT_ORG_ID", "") or "").strip()
-    stable_id = org_id if default_oid and org_id == default_oid else None
+    stable_id = org_id if (default_oid and org_id == default_oid) or not org_id.startswith("org_") else None
     if _use_pg_orgs():
         from org_tenant_store import create_org_pg
 
