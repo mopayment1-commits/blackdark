@@ -17,6 +17,9 @@ python-dotenv
 cryptography
 pyotp
 defusedxml
+SQLAlchemy>=2.0.0,<2.1.0
+greenlet>=3.0.0,<4.0.0
+APScheduler>=3.10.0,<4.0.0
 # ML / market (required for regime models + oracle inference)
 scikit-learn
 joblib
