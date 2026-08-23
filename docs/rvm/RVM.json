@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T02:08:25.774111+00:00",
+  "generated_at": "2026-08-23T14:31:23.481989+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -119,31 +119,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 1,
-        "scope": "base_646",
-        "capability": "Smart Money Leaderboard",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-1 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Smart Money Leaderboard.",
+        "production": {
+          "capability_id": 1,
+          "label": "CAP-1",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Smart Money Leaderboard"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 1,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-1 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Smart Money Leaderboard.",
+        "production": {
+          "capability_id": 1,
+          "label": "CAP-1",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Smart Money Leaderboard"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-2",
@@ -155,31 +194,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 2,
-        "scope": "base_646",
-        "capability": "Wallet Profiler",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-2 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet Profiler.",
+        "production": {
+          "capability_id": 2,
+          "label": "CAP-2",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet Profiler"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 2,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-2 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet Profiler.",
+        "production": {
+          "capability_id": 2,
+          "label": "CAP-2",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet Profiler"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-3",
@@ -191,31 +269,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 3,
-        "scope": "base_646",
-        "capability": "Wallet Profiler for Token",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-3 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet Profiler for Token.",
+        "production": {
+          "capability_id": 3,
+          "label": "CAP-3",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet Profiler for Token"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 3,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-3 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet Profiler for Token.",
+        "production": {
+          "capability_id": 3,
+          "label": "CAP-3",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet Profiler for Token"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-4",
@@ -227,31 +344,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 4,
-        "scope": "base_646",
-        "capability": "Smart Money Tracking",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-4 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Smart Money Tracking.",
+        "production": {
+          "capability_id": 4,
+          "label": "CAP-4",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Smart Money Tracking"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 4,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-4 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Smart Money Tracking.",
+        "production": {
+          "capability_id": 4,
+          "label": "CAP-4",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Smart Money Tracking"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-5",
@@ -578,31 +734,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 10,
-        "scope": "base_646",
-        "capability": "Wallet PnL Analysis",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-10 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet PnL Analysis.",
+        "production": {
+          "capability_id": 10,
+          "label": "CAP-10",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet PnL Analysis"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 10,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-10 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Wallet PnL Analysis.",
+        "production": {
+          "capability_id": 10,
+          "label": "CAP-10",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Wallet PnL Analysis"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-11",
@@ -1248,31 +1443,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 21,
-        "scope": "base_646",
-        "capability": "Transaction Decoder",
-        "track": "T01",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-21 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Transaction Decoder.",
+        "production": {
+          "capability_id": 21,
+          "label": "CAP-21",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Transaction Decoder"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 21,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-21 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Transaction Decoder.",
+        "production": {
+          "capability_id": 21,
+          "label": "CAP-21",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Transaction Decoder"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-22",
@@ -2254,31 +2488,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 38,
-        "scope": "base_646",
-        "capability": "Cost Basis Distribution",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-38 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Cost Basis Distribution.",
+        "production": {
+          "capability_id": 38,
+          "label": "CAP-38",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Cost Basis Distribution"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 38,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-38 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Cost Basis Distribution.",
+        "production": {
+          "capability_id": 38,
+          "label": "CAP-38",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Cost Basis Distribution"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-39",
@@ -2290,31 +2563,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 39,
-        "scope": "base_646",
-        "capability": "Realized Cap & Realized Price Intelligence",
-        "track": "T09",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-39 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Realized Cap & Realized Price Intelligence.",
+        "production": {
+          "capability_id": 39,
+          "label": "CAP-39",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Realized Cap & Realized Price Intelligence"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 39,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-39 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Realized Cap & Realized Price Intelligence.",
+        "production": {
+          "capability_id": 39,
+          "label": "CAP-39",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Realized Cap & Realized Price Intelligence"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-40",
@@ -11905,31 +12217,70 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_api_rights"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 196,
-        "scope": "base_646",
-        "capability": "Realized Cap / Realized Value Intelligence",
-        "track": "T10",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_api_rights",
-        "reason": "Paid on-chain/market data vendor — API rights + contract required",
-        "internal_action": "none — requires external contract or product downgrade label"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-196 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Realized Cap / Realized Value Intelligence.",
+        "production": {
+          "capability_id": 196,
+          "label": "CAP-196",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Realized Cap / Realized Value Intelligence"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 196,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-196 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Realized Cap / Realized Value Intelligence.",
+        "production": {
+          "capability_id": 196,
+          "label": "CAP-196",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "user_surface": null,
+            "fail_closed": true
+          },
+          "capability": "Realized Cap / Realized Value Intelligence"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-197",
@@ -39568,31 +39919,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 647,
-        "scope": "extension_647_978",
-        "capability": "Real-Time Feed",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "Low-latency institutional feed SLA — vendor contract required",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-647 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Real-Time Feed.",
+        "production": {
+          "capability_id": 647,
+          "label": "CAP-647",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Real-Time Feed"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 647,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-647 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Real-Time Feed.",
+        "production": {
+          "capability_id": 647,
+          "label": "CAP-647",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Real-Time Feed"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-648",
@@ -41054,31 +41442,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 672,
-        "scope": "extension_647_978",
-        "capability": "Liquid Staking Intelligence",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "Chainalysis API — paid compliance vendor",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-672 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Liquid Staking Intelligence.",
+        "production": {
+          "capability_id": 672,
+          "label": "CAP-672",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Liquid Staking Intelligence"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 672,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-672 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Liquid Staking Intelligence.",
+        "production": {
+          "capability_id": 672,
+          "label": "CAP-672",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Liquid Staking Intelligence"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-673",
@@ -41126,31 +41551,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 674,
-        "scope": "extension_647_978",
-        "capability": "Raises / Funding Rounds",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "TRM Labs API — paid compliance vendor",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-674 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Raises / Funding Rounds.",
+        "production": {
+          "capability_id": 674,
+          "label": "CAP-674",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Raises / Funding Rounds"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 674,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-674 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Raises / Funding Rounds.",
+        "production": {
+          "capability_id": 674,
+          "label": "CAP-674",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Raises / Funding Rounds"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-675",
@@ -41198,31 +41660,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 676,
-        "scope": "extension_647_978",
-        "capability": "Unlocks",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "Arkham full API — paid on-chain intelligence vendor",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-676 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Unlocks.",
+        "production": {
+          "capability_id": 676,
+          "label": "CAP-676",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Unlocks"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 676,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-676 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Unlocks.",
+        "production": {
+          "capability_id": 676,
+          "label": "CAP-676",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Unlocks"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-677",
@@ -42661,31 +43160,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 704,
-        "scope": "extension_647_978",
-        "capability": "DeFi Risk Radar",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "CryptoQuant full tier — paid analytics vendor",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-704 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=DeFi Risk Radar.",
+        "production": {
+          "capability_id": 704,
+          "label": "CAP-704",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "DeFi Risk Radar"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 704,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-704 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=DeFi Risk Radar.",
+        "production": {
+          "capability_id": 704,
+          "label": "CAP-704",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "DeFi Risk Radar"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-705",
@@ -42697,31 +43233,68 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_free_tier_verify_pass",
+        "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
+        "commit=local_verify"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 705,
-        "scope": "extension_647_978",
-        "capability": "Lending Market Risk",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "Glassnode full tier — paid on-chain analytics vendor",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-705 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Lending Market Risk.",
+        "production": {
+          "capability_id": 705,
+          "label": "CAP-705",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Lending Market Risk"
+        }
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 705,
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "note": "CAP-705 Free-tier live on https://blackdark-production.up.railway.app; verify=VERIFIED_COMPLETE. capability=Lending Market Risk.",
+        "production": {
+          "capability_id": 705,
+          "label": "CAP-705",
+          "verdict": "VERIFIED_COMPLETE",
+          "checks": {
+            "backend": true,
+            "compliance_footer": true,
+            "evidence_class": true,
+            "bound_backend": true,
+            "canonical_surface": true,
+            "no_failover_mask": true,
+            "domain_logic": true,
+            "fail_closed": true
+          },
+          "capability": "Lending Market Risk"
+        }
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T14:31:23.481989+00:00"
     },
     {
       "id": "CAP-706",
