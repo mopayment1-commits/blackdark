@@ -4184,6 +4184,14 @@ async def api_security_status():
     }
 
 
+@app.get("/api/security/external-review-readiness")
+async def api_external_review_readiness():
+    """Public institutional external-review readiness (engineering vs human blockers)."""
+    from pentest_attestation import external_review_readiness
+
+    return external_review_readiness()
+
+
 # User keys/risk → api/routers/user.py
 
 @app.get("/api/risk/status")

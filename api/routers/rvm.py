@@ -61,3 +61,17 @@ async def rvm_requirement(req_id: str) -> dict[str, Any]:
         if row.get("id") == req_id.upper() or row.get("id") == req_id:
             return row
     raise HTTPException(status_code=404, detail="requirement_not_found")
+
+
+@router.get("/verify/control/{control_id}")
+async def rvm_verify_control(control_id: str) -> dict[str, Any]:
+    from rvm.verify import verify_control_entry
+
+    return await verify_control_entry(control_id.upper())
+
+
+@router.get("/verify/gate/{gate_id}")
+async def rvm_verify_gate(gate_id: str) -> dict[str, Any]:
+    from rvm.verify import verify_commercial_gate
+
+    return await verify_commercial_gate(gate_id.upper())

@@ -9,6 +9,7 @@ from typing import Any
 
 
 def security_posture_report() -> dict[str, Any]:
+    from pentest_attestation import pentest_attestation_status, verify_pentest_attestation
     from security_auth import admin_emails, is_production_env, login_rate_limit_backend
 
     soft = os.getenv("SOFT_LAUNCH", "").lower() in {"1", "true", "yes"}
@@ -123,6 +124,9 @@ def security_posture_report() -> dict[str, Any]:
         },
     ]
 
+    pentest = pentest_attestation_status()
+    attested = verify_pentest_attestation()
+
     return {
         "product": "BLACKDARK",
         "surface": "security_posture",
@@ -155,10 +159,12 @@ def security_posture_report() -> dict[str, Any]:
         "checks": checks,
         "vault_configured": vault,
         "admin_emails_configured": len(admin_emails()) > 0,
+        "pentest_attestation": pentest,
         "honesty": {
             "soc2_claimed": False,
             "iso27001_claimed": False,
-            "pentest_report_in_repo": False,
+            "pentest_report_in_repo": attested,
+            "pentest_attestation_verified": attested,
             "waf_cdn_provided_by_app": False,
             "note": (
                 "This is an engineering posture summary. "
@@ -167,7 +173,7 @@ def security_posture_report() -> dict[str, Any]:
             ),
         },
         "residual_risks": [
-            "Formal third-party penetration test engagement (template: docs/templates/pentest_scope.md)",
+            *([] if attested else ["Formal third-party penetration test engagement (template: docs/templates/pentest_scope.md)"]),
             "CDN/WAF must be activated at DNS edge (checklist: docs/CDN_WAF_CHECKLIST.md)",
             "Scheduled Postgres backups must run in ops (scripts/backup_postgres.py)",
             "SOC2 / ISO27001 are organizational certifications — not granted by this codebase",
@@ -178,6 +184,9 @@ def security_posture_report() -> dict[str, Any]:
             "docs/SECURITY_HARDENING.md",
             "docs/SECURITY_MAX_CHECKLIST.md",
             "docs/CDN_WAF_CHECKLIST.md",
+            "docs/templates/pentest_scope.md",
+            "docs/templates/PENTEST_ATTESTATION_INSTITUTIONAL.md",
+            "docs/templates/EXTERNAL_INSTITUTIONAL_REVIEW_PACK.md",
         ],
         "readiness_api": "/api/security/status",
         "max_audit": "python scripts/security_max_audit.py",
