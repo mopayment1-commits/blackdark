@@ -107,11 +107,16 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
         if not rows:
             return None
         row = rows[0]
-        export_id = str(row["export_id"])
-        rows_verified = int(row["rows_verified"])
+        try:
+            export_id = str(row["export_id"])
+            rows_verified = int(row["rows_verified"])
+            exported_at = row["exported_at"]
+        except (TypeError, KeyError):
+            export_id = str(row[0])
+            rows_verified = int(row[1])
+            exported_at = row[2]
         if rows_verified <= 0:
             return None
-        exported_at = row["exported_at"]
         exported_at_iso = (
             exported_at.isoformat() if hasattr(exported_at, "isoformat") else str(exported_at)
         )
