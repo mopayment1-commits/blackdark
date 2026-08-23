@@ -10,6 +10,7 @@ import urllib.error
 import urllib.request
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 PROD = "https://blackdark-production.up.railway.app"
 ROOT = Path(__file__).resolve().parent.parent
@@ -58,23 +59,50 @@ def _fetch_json(url: str, *, retries: int = 4) -> dict:
     raise last_exc or RuntimeError(f"fetch_failed: {url}")
 
 
-def verify_production() -> dict:
-    build = _fetch_json(f"{PROD}/api/build-info")
+def verify_production(*, local: bool = False) -> dict:
     rows: list[dict] = []
-    for cap_id, cap_label in FREE_TIER_CAPS:
-        report = _fetch_json(f"{PROD}/api/cap646/verify/{cap_id}")
-        verdict = report.get("verdict")
-        if verdict != "VERIFIED_COMPLETE":
-            raise SystemExit(f"{cap_label} production verify failed: {report}")
-        rows.append(
-            {
-                "capability_id": cap_id,
-                "label": cap_label,
-                "verdict": verdict,
-                "checks": report.get("checks"),
-                "capability": report.get("capability"),
-            }
-        )
+    build: dict[str, Any] = {}
+    if local:
+        import asyncio
+
+        from cap978.unified import verify_unified
+
+        async def _local_rows() -> list[dict]:
+            out: list[dict] = []
+            user = {"email": "free-tier-closure@blackdark.local", "tier": "elite"}
+            for cap_id, cap_label in FREE_TIER_CAPS:
+                report = await verify_unified(cap_id, user=user)
+                if report.get("verdict") != "VERIFIED_COMPLETE":
+                    raise SystemExit(f"{cap_label} local verify failed: {report}")
+                out.append(
+                    {
+                        "capability_id": cap_id,
+                        "label": cap_label,
+                        "verdict": report.get("verdict"),
+                        "checks": report.get("checks"),
+                        "capability": report.get("capability"),
+                    }
+                )
+            return out
+
+        rows = asyncio.run(_local_rows())
+        build = {"git_commit": "local_verify_unified", "service": "local"}
+    else:
+        build = _fetch_json(f"{PROD}/api/build-info")
+        for cap_id, cap_label in FREE_TIER_CAPS:
+            report = _fetch_json(f"{PROD}/api/cap646/verify/{cap_id}")
+            verdict = report.get("verdict")
+            if verdict != "VERIFIED_COMPLETE":
+                raise SystemExit(f"{cap_label} production verify failed: {report}")
+            rows.append(
+                {
+                    "capability_id": cap_id,
+                    "label": cap_label,
+                    "verdict": verdict,
+                    "checks": report.get("checks"),
+                    "capability": report.get("capability"),
+                }
+            )
 
     return {
         "verified_at": datetime.now(UTC).isoformat(),
@@ -133,7 +161,8 @@ def _recompute_summary(rows: list[dict]) -> dict:
 
 
 def main() -> int:
-    evidence = verify_production()
+    local = "--local" in sys.argv or os.getenv("FREE_TIER_CLOSURE_LOCAL", "").lower() in {"1", "true", "yes"}
+    evidence = verify_production(local=local)
     print(json.dumps(evidence, indent=2))
 
     rvm = json.loads(RVM_PATH.read_text(encoding="utf-8"))
