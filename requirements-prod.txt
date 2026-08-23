@@ -23,4 +23,5 @@ joblib
 pandas
 ccxt
 pyarrow
+google-cloud-bigquery
 httpx
