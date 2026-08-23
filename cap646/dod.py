@@ -9,10 +9,9 @@ from cap646.backend_registry import is_generic_surface
 from cap646.runtime import execute_capability
 from cap646.ui_pages import user_surface_for
 from cap646.waves import EXTERNAL_EVIDENCE_SLOTS, SIGNED_INFRA_SLOTS, USER_FACING
-from rvm.surfaces import has_dedicated_user_surface, hub_only_surface
-
-
 def _has_ui_route(capability_id: int) -> bool:
+    from rvm.surfaces import has_dedicated_user_surface, hub_only_surface
+
     if capability_id not in USER_FACING:
         return True  # not required
     if hub_only_surface(capability_id):
