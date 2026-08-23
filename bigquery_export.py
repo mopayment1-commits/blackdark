@@ -215,17 +215,30 @@ def _build_client():
 
 
 def _ensure_dataset(client: Any) -> str:
+    from google.api_core.exceptions import NotFound
     from google.cloud import bigquery
 
     cfg = bigquery_config()
-    dataset_ref = f"{cfg['project_id']}.{cfg['dataset_id']}"
+    dataset_ref = bigquery.DatasetReference(cfg["project_id"], cfg["dataset_id"])
+    table_dataset = f"{cfg['project_id']}.{cfg['dataset_id']}"
     try:
         client.get_dataset(dataset_ref)
-    except Exception:
+    except NotFound:
         dataset = bigquery.Dataset(dataset_ref)
         dataset.location = cfg["location"]
-        client.create_dataset(dataset, exists_ok=True)
-    return dataset_ref
+        try:
+            client.create_dataset(dataset, exists_ok=True)
+        except Exception as exc:
+            raise RuntimeError(
+                f"bigquery_dataset_create_failed:{cfg['dataset_id']}: {exc}"
+            ) from exc
+        try:
+            client.get_dataset(dataset_ref)
+        except NotFound as exc:
+            raise RuntimeError(
+                f"bigquery_dataset_missing_after_create:{cfg['dataset_id']}"
+            ) from exc
+    return table_dataset
 
 
 def _ensure_table(client: Any) -> str:

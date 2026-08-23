@@ -475,12 +475,16 @@ async def _background_boot(app: FastAPI) -> None:
     else:
         await _start_background_runtime(app)
     try:
+        from bigquery_export import bigquery_configured, bigquery_live_ready
         from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
 
-        asyncio.create_task(
-            _maybe_run_bigquery_export_bootstrap(),
-            name="cap658-bigquery-bootstrap",
-        )
+        if bigquery_configured():
+            for attempt in range(4):
+                await _maybe_run_bigquery_export_bootstrap()
+                if bigquery_live_ready():
+                    break
+                if attempt < 3:
+                    await asyncio.sleep(min(60, 15 * (attempt + 1)))
     except Exception:
         logger.exception("CAP-658 BigQuery bootstrap scheduling failed during web boot")
     try:

@@ -4258,14 +4258,14 @@ async def fetch_ingestion_health_summary() -> list[dict[str, Any]]:
         ).fetchall()
     return [
         {
-            "source_id": row[0],
-            "category": row[1],
-            "last_ok_at": row[2],
-            "last_error_at": row[3],
-            "last_error": row[4],
-            "success_count": row[5],
-            "error_count": row[6],
-            "updated_at": row[7],
+            "source_id": _row_get(row, 0, "source_id"),
+            "category": _row_get(row, 1, "category"),
+            "last_ok_at": _row_get(row, 2, "last_ok_at"),
+            "last_error_at": _row_get(row, 3, "last_error_at"),
+            "last_error": _row_get(row, 4, "last_error"),
+            "success_count": _row_get(row, 5, "success_count"),
+            "error_count": _row_get(row, 6, "error_count"),
+            "updated_at": _row_get(row, 7, "updated_at"),
         }
         for row in rows
     ]
