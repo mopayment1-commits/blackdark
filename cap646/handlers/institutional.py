@@ -82,15 +82,19 @@ async def handle_institutional_capability(
         )
 
     if capability_id == 645:
+        from pentest_attestation import pentest_attestation_status
         from security_posture import security_posture_report
 
         report = security_posture_report() if hasattr(__import__("security_posture"), "security_posture_report") else {}
+        attestation = pentest_attestation_status()
         return ai_compliance_footer(
             {
                 "capability_id": 645,
                 "surface": "security_verification_evidence",
                 "internal": report,
+                "pentest_attestation": attestation,
                 "external_attestation_slot": "pentest/soc2_deposit_required",
+                "external_attestation_verified": attestation.get("attestation_verified", False),
                 "success": bool(report),
             }
         )

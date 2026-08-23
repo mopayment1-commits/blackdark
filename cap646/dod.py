@@ -49,8 +49,24 @@ async def verify_dod(
         }
 
     if capability_id in EXTERNAL_EVIDENCE_SLOTS:
+        from pentest_attestation import verify_pentest_attestation
+
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})
         internal_ok = bool(result.get("success")) and bool(result.get("compliance_footer"))
+        attested = verify_pentest_attestation()
+        if internal_ok and attested:
+            return {
+                "id": capability_id,
+                "capability": name,
+                "status": "VERIFIED_COMPLETE",
+                "verdict": "VERIFIED_COMPLETE",
+                "checks": {
+                    "backend": True,
+                    "external_attestation": True,
+                    "note": "Third-party pentest attestation verified",
+                },
+                "result_sample": {"success": result.get("success"), "has_footer": bool(result.get("compliance_footer"))},
+            }
         return {
             "id": capability_id,
             "capability": name,
@@ -58,7 +74,7 @@ async def verify_dod(
             "verdict": "EXTERNAL_EVIDENCE_REQUIRED",
             "checks": {
                 "backend": internal_ok,
-                "external_attestation": False,
+                "external_attestation": attested,
                 "note": "Third-party pentest/SOC2 attestation deposit required",
             },
             "result_sample": {"success": result.get("success"), "has_footer": bool(result.get("compliance_footer"))},

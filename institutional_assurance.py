@@ -592,9 +592,13 @@ def data_qa_slo() -> dict[str, Any]:
 
 
 def assurance_bundle_status() -> dict[str, Any]:
+    from pentest_attestation import external_review_readiness, pentest_attestation_status
+
     return {
         "sla": sla_document(),
         "compliance": compliance_status(),
+        "pentest": pentest_attestation_status(),
+        "external_review": external_review_readiness(),
         "contracts": contracts_status(),
         "incident_response": ir_program(),
         "waf_cdn": waf_cdn_status(),

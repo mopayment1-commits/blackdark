@@ -41,7 +41,9 @@ COPY data/institutional_assurance/signed_capacity.json data/institutional_assura
 COPY docs/LOAD_TEST_RUN_LOG.md docs/
 COPY docs/cap646/ docs/cap646/
 COPY docs/cap978/ docs/cap978/
+COPY docs/templates/ docs/templates/
 COPY docs/evidence/signed_load_production_cap644.json docs/evidence/
+COPY docs/evidence/pentest_attestation.template.json docs/evidence/
 COPY railway.json ./
 # Bake trained model artifacts when present (ignore if empty in some CI contexts)
 COPY data/models/ data/models/

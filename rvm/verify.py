@@ -191,16 +191,23 @@ async def verify_commercial_gate(gate_id: str) -> dict[str, Any]:
         (Path(__file__).resolve().parent.parent / "docs" / "cap978" / "COMMERCIAL_LAUNCH_CHECKLIST.json").read_text()
     )
     if gate_id == "COM-P0-EXT":
-        p0 = checklist.get("p0_ids", [])
-        open_p0 = [str(x) for x in p0]  # all still external
+        rvm_path = Path(__file__).resolve().parent.parent / "docs" / "rvm" / "RVM.json"
+        p0_ids = ["CAP-644", "CAP-645", "SEC-006", "SEC-008", "REL-002"]
+        open_p0: list[str] = []
+        if rvm_path.is_file():
+            rvm = json.loads(rvm_path.read_text(encoding="utf-8"))
+            rows = {r["id"]: r for r in rvm.get("requirements") or [] if r.get("id") in p0_ids}
+            open_p0 = [pid for pid in p0_ids if rows.get(pid, {}).get("final_status") != "PASS"]
+        else:
+            open_p0 = list(p0_ids)
         if open_p0:
             return {
                 "status": "EXTERNAL_EVIDENCE_REQUIRED",
                 "evidence": [f"open_p0={open_p0}"],
-                "detail": {"p0_ids": p0},
+                "detail": {"p0_ids": p0_ids, "open_p0": open_p0},
                 "external_step": "Close P0 external evidence: signed load (644), pentest (645), SSO IdP (SEC-006), pentest attestation (SEC-008), HA load (REL-002)",
             }
-        return {"status": "PASS", "evidence": ["p0_closed"], "detail": {}}
+        return {"status": "PASS", "evidence": ["p0_closed"], "detail": {"p0_ids": p0_ids}}
 
     if gate_id == "COM-BILLING":
         from institutional_commerce import commerce_status

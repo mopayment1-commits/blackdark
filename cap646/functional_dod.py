@@ -75,7 +75,14 @@ async def verify_functional(
         return {"id": capability_id, "verdict": "CANONICALLY_COVERED", "checks": {"duplicate": True}}
 
     if capability_id in EXTERNAL_EVIDENCE_SLOTS:
-        return {"id": capability_id, "verdict": "EXTERNAL_EVIDENCE_REQUIRED", "checks": {"external_attestation": True}}
+        from pentest_attestation import verify_pentest_attestation
+
+        attested = verify_pentest_attestation()
+        return {
+            "id": capability_id,
+            "verdict": "VERIFIED_COMPLETE" if attested else "EXTERNAL_EVIDENCE_REQUIRED",
+            "checks": {"external_attestation": attested},
+        }
 
     if capability_id in SIGNED_INFRA_SLOTS:
         result = await execute_capability(capability_id, skip_entitlement=True, params={"symbol": "BTC"})

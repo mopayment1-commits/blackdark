@@ -191,6 +191,28 @@ class SupportTicket(BaseModel):
     priority: str = "p2"
 
 
+class PentestDeposit(BaseModel):
+    firm_name: str
+    firm_accreditation: str
+    report_reference: str
+    test_window_start: str
+    test_window_end: str
+    scope_version: str = "1.0"
+    severity_summary: dict[str, int] = Field(default_factory=lambda: {"critical": 0, "high": 0, "medium": 0, "low": 0})
+    remediation_status: str = "remediated"
+    retest_completed: bool = True
+    issued_at: str = ""
+    valid_until: str = ""
+    signer_name: str = ""
+    signer_title: str = ""
+    report_hash_sha256: str = ""
+    environment_tested: str = "staging"
+    report_storage_uri: str = ""
+    notes: str = ""
+    operator: str = ""
+    gates: list[str] = Field(default_factory=lambda: ["CAP-645", "SEC-008"])
+
+
 @router.get("/dd-closure")
 async def dd_closure() -> dict[str, Any]:
     from dd_radical_closure import build_dd_radical_closure
@@ -669,6 +691,30 @@ async def dex_status() -> dict[str, Any]:
     from jupiter_dex_adapter import adapter_status
 
     return adapter_status()
+
+
+@router.get("/pentest/status")
+async def pentest_status_api() -> dict[str, Any]:
+    from pentest_attestation import pentest_attestation_status
+
+    return pentest_attestation_status()
+
+
+@router.post("/pentest/deposit", responses=COMMON_ERROR_RESPONSES)
+async def pentest_deposit(body: PentestDeposit, _admin: dict = Depends(require_admin)) -> dict[str, Any]:
+    from pentest_attestation import deposit_pentest_attestation
+
+    try:
+        return deposit_pentest_attestation(**body.model_dump())
+    except ValueError as exc:
+        raise HTTPException(400, str(exc)) from exc
+
+
+@router.get("/external-review/readiness")
+async def external_review_readiness_api() -> dict[str, Any]:
+    from pentest_attestation import external_review_readiness
+
+    return external_review_readiness()
 
 
 @router.get("/assurance")

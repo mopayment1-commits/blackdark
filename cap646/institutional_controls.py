@@ -161,6 +161,16 @@ def _sec_007() -> dict[str, Any]:
 
 @_sync
 def _sec_008() -> dict[str, Any]:
+    from pentest_attestation import get_pentest_attestation, pentest_attestation_status, verify_pentest_attestation
+
+    row = get_pentest_attestation()
+    if row and verify_pentest_attestation(row):
+        status = pentest_attestation_status()
+        return _pass(
+            "SEC-008",
+            evidence=status.get("evidence_tags") or ["pentest_attestation_verified"],
+            note=f"Third-party pentest attestation verified — {(row or {}).get('report_reference')}",
+        )
     return _external("SEC-008", note="Third-party pentest attestation — ID645 slot")
 
 
