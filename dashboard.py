@@ -4384,6 +4384,17 @@ async def health():
 @app.get("/api/build-info", responses=COMMON_ERROR_RESPONSES)
 async def build_info():
     """Verify which commit Railway is actually running."""
+    cap646_path = Path(__file__).resolve().parent / "cap646" / "catalog.py"
+    cap646_import_ok = False
+    cap646_import_error = None
+    try:
+        from api.routers.cap646 import router as _cap646_router  # noqa: F401
+
+        cap646_import_ok = True
+        cap646_routes = len(_cap646_router.routes)
+    except Exception as exc:
+        cap646_import_error = str(exc)
+        cap646_routes = 0
     return {
         "ui_language": "en",
         "release": "2026-07-27-launch-phase-v8",
@@ -4393,6 +4404,10 @@ async def build_info():
         "service": "blackdark",
         "price_feed_ws_only": getattr(config, "PRICE_FEED_WS_ONLY", None),
         "price_probe": "/api/diagnostics/price/BTC",
+        "cap646_catalog_exists": cap646_path.is_file(),
+        "cap646_router_import_ok": cap646_import_ok,
+        "cap646_router_routes": cap646_routes,
+        "cap646_import_error": cap646_import_error,
     }
 
 @app.post("/portfolio/analyze", responses=COMMON_ERROR_RESPONSES)
