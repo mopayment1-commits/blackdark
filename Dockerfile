@@ -29,6 +29,7 @@ COPY cap978/ cap978/
 COPY rvm/ rvm/
 COPY repos/ repos/
 COPY bd_platform/ bd_platform/
+COPY billing/ billing/
 COPY ml/ ml/
 COPY microservices/ microservices/
 COPY dbt_blackdark/ dbt_blackdark/
