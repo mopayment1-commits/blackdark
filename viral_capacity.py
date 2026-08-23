@@ -251,9 +251,19 @@ def check_rate_limit(key: str, *, limit: int, window_sec: int = 60, prefix: str 
         )
 
 
-def _path_class(path: str) -> str | None:
+def _path_class(path: str, method: str = "GET") -> str | None:
     if path.startswith(("/health", "/static")) or path == "/favicon.ico":
         return None  # never rate-limit probes/static
+    if path.startswith("/api/audit/export"):
+        return "audit_export"
+    mutating = method.upper() in {"POST", "PUT", "PATCH", "DELETE"}
+    if mutating:
+        if path.startswith(("/api/audit/", "/api/decisions", "/api/kg/", "/api/learning/")):
+            return "institutional_write"
+        if path == "/api/signals":
+            return "institutional_write"
+        if path.startswith(("/api/analytics/event", "/api/analytics/share")):
+            return "institutional_write"
     if path.startswith(("/oracle/", "/api/oracle")):
         return "oracle"
     if path.startswith(("/api/auth/login", "/api/auth/register")):
@@ -264,6 +274,10 @@ def _path_class(path: str) -> str | None:
 
 
 def _limits_for(kind: str) -> tuple[int, int]:
+    if kind == "audit_export":
+        return _env_int("VIRAL_AUDIT_EXPORT_RL_PER_MIN", 20), 60
+    if kind == "institutional_write":
+        return _env_int("VIRAL_INSTITUTIONAL_WRITE_RL_PER_MIN", 40), 60
     if kind == "oracle":
         return _env_int("VIRAL_ORACLE_RL_PER_MIN", ORACLE_RL_PER_MIN), 60
     if kind == "auth":
@@ -416,7 +430,7 @@ async def viral_protection_middleware(request: Request, call_next):
         return await call_next(request)
 
     path = request.url.path or "/"
-    kind = _path_class(path)
+    kind = _path_class(path, request.method)
     if kind is None:
         return await call_next(request)
 

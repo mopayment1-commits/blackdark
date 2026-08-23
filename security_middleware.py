@@ -246,6 +246,7 @@ def security_headers_for(request: Request) -> dict[str, str]:
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "geolocation=(), microphone=(), camera=(), payment=()",
         "Cross-Origin-Opener-Policy": "same-origin",
+        "Cross-Origin-Resource-Policy": "same-site",
         "X-XSS-Protection": "0",
         "Content-Security-Policy": csp,
     }

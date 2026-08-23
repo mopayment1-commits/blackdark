@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+import time
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
 from pathlib import Path
@@ -643,6 +644,28 @@ async def observability_metrics_middleware(request: Request, call_next):
     except Exception:
         increment_metric("errors_total")
         raise
+
+
+@app.middleware("http")
+async def wave_00_hardening_middleware(request: Request, call_next):
+    """Wave 0 — body size cap, response timing, verify cache headers."""
+    from wave_00_hardening import (
+        apply_wave_00_response_headers,
+        check_content_length,
+        record_slow_request,
+    )
+
+    blocked = check_content_length(request)
+    if blocked is not None:
+        return blocked
+
+    path = request.url.path or ""
+    started = time.perf_counter()
+    response = await call_next(request)
+    duration_ms = (time.perf_counter() - started) * 1000.0
+    apply_wave_00_response_headers(path, response, duration_ms)
+    record_slow_request(path, request.method, duration_ms)
+    return response
 
 
 @app.middleware("http")

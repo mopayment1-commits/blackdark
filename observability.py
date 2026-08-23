@@ -19,6 +19,8 @@ _metrics: dict[str, float] = {
     "auth_logins_total": 0,
     "behavior_events_total": 0,
     "errors_total": 0,
+    "slow_requests_total": 0,
+    "very_slow_requests_total": 0,
 }
 
 
