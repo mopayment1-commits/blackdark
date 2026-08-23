@@ -477,9 +477,12 @@ async def _background_boot(app: FastAPI) -> None:
     try:
         from startup_orchestrator import _maybe_run_bigquery_export_bootstrap
 
-        await _maybe_run_bigquery_export_bootstrap()
+        asyncio.create_task(
+            _maybe_run_bigquery_export_bootstrap(),
+            name="cap658-bigquery-bootstrap",
+        )
     except Exception:
-        logger.exception("CAP-658 BigQuery bootstrap failed during web boot")
+        logger.exception("CAP-658 BigQuery bootstrap scheduling failed during web boot")
     try:
         _check_production_guard()
     except Exception:
@@ -3209,7 +3212,11 @@ async def _ingestion_status_body():
 async def bigquery_warehouse_status():
     from bigquery_export import warehouse_analytics_status
 
-    return await warehouse_analytics_status()
+    try:
+        return await warehouse_analytics_status()
+    except Exception as exc:
+        logger.exception("BigQuery warehouse status failed")
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @app.post("/api/warehouse/bigquery/export")

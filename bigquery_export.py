@@ -7,11 +7,11 @@ into a configured BigQuery dataset for institutional embedded analytics.
 
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 import logging
 import os
-import threading
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -22,7 +22,7 @@ from path_safety import ensure_under, project_data_dir
 
 logger = logging.getLogger("BLACKDARK.BigQueryExport")
 
-_LOCK = threading.Lock()
+_LOCK = asyncio.Lock()
 _EVIDENCE_DIR = project_data_dir() / "institutional_assurance"
 _EVIDENCE_PATH = _EVIDENCE_DIR / "bigquery_export_evidence.json"
 _BOOTSTRAP_STATUS_PATH = _EVIDENCE_DIR / "bigquery_bootstrap_status.json"
@@ -133,7 +133,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             "gate": "CAP-658",
             "evidence_source": "bigquery_live_query",
         }
-    except Exception:
+    except Exception as exc:
         logger.debug("BigQuery evidence lookup failed", exc_info=True)
         return None
 
@@ -244,6 +244,36 @@ def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
         return int(row[0])
 
 
+def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, exported_at: str, operator: str, manifest_sha256: str) -> dict[str, Any]:
+    client = _build_client()
+    cfg = bigquery_config()
+    table_ref = _ensure_table(client)
+    errors = client.insert_rows_json(table_ref, export_rows)
+    if errors:
+        raise RuntimeError(f"bigquery_insert_errors: {errors[:3]}")
+    verified = _verify_export_rows(client, table_ref=table_ref, export_id=export_id)
+    if verified != len(export_rows):
+        raise RuntimeError(f"bigquery_verification_mismatch: sent={len(export_rows)} verified={verified}")
+    return {
+        "export_id": export_id,
+        "exported_at": exported_at,
+        "operator": operator,
+        "project_id": cfg["project_id"],
+        "dataset_id": cfg["dataset_id"],
+        "table_id": cfg["table_id"],
+        "table_fqn": table_ref,
+        "rows_sent": len(export_rows),
+        "rows_verified": verified,
+        "manifest_sha256": manifest_sha256,
+        "verification_query": (
+            f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
+        ),
+        "product": "BLACKDARK",
+        "surface": "white_label_embedded_analytics",
+        "gate": "CAP-658",
+    }
+
+
 async def export_ingestion_snapshots_to_bigquery(
     *,
     limit: int | None = None,
@@ -289,40 +319,21 @@ async def export_ingestion_snapshots_to_bigquery(
     if not export_rows:
         raise RuntimeError("no_ingestion_snapshots_to_export")
 
-    with _LOCK:
-        client = _build_client()
-        table_ref = _ensure_table(client)
-        errors = client.insert_rows_json(table_ref, export_rows)
-        if errors:
-            raise RuntimeError(f"bigquery_insert_errors: {errors[:3]}")
-        verified = _verify_export_rows(client, table_ref=table_ref, export_id=export_id)
-        if verified != len(export_rows):
-            raise RuntimeError(f"bigquery_verification_mismatch: sent={len(export_rows)} verified={verified}")
-
-        evidence = {
-            "export_id": export_id,
-            "exported_at": exported_at,
-            "operator": operator,
-            "project_id": cfg["project_id"],
-            "dataset_id": cfg["dataset_id"],
-            "table_id": cfg["table_id"],
-            "table_fqn": table_ref,
-            "rows_sent": len(export_rows),
-            "rows_verified": verified,
-            "manifest_sha256": manifest_sha256,
-            "verification_query": (
-                f"SELECT COUNT(1) FROM `{table_ref}` WHERE export_id = '{export_id}'"
-            ),
-            "product": "BLACKDARK",
-            "surface": "white_label_embedded_analytics",
-            "gate": "CAP-658",
-        }
+    async with _LOCK:
+        evidence = await asyncio.to_thread(
+            _export_rows_sync,
+            export_rows=export_rows,
+            export_id=export_id,
+            exported_at=exported_at,
+            operator=operator,
+            manifest_sha256=manifest_sha256,
+        )
         _write_export_evidence(evidence)
         logger.info(
             "BigQuery export complete | export_id=%s rows=%s table=%s",
-            export_id,
-            verified,
-            table_ref,
+            evidence.get("export_id"),
+            evidence.get("rows_verified"),
+            evidence.get("table_fqn"),
         )
         return evidence
 
