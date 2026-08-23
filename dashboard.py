@@ -644,6 +644,33 @@ async def observability_metrics_middleware(request: Request, call_next):
         raise
 
 
+@app.middleware("http")
+async def institutional_audit_middleware(request: Request, call_next):
+    """Phase 1 — persist immutable audit log for every /api/ request."""
+    path = request.url.path or ""
+    body_bytes: bytes | None = None
+    if path.startswith("/api/") and request.method in {"POST", "PUT", "PATCH"}:
+        body_bytes = await request.body()
+
+        async def receive():
+            return {"type": "http.request", "body": body_bytes, "more_body": False}
+
+        request._receive = receive  # type: ignore[attr-defined]
+
+    response = await call_next(request)
+    try:
+        from audit_registry import log_api_request
+
+        await log_api_request(
+            request=request,
+            response_status=response.status_code,
+            body_bytes=body_bytes,
+        )
+    except Exception:
+        logger.exception("institutional audit middleware failed for %s", path)
+    return response
+
+
 try:
     from platform_api import router as platform_router
 
@@ -764,6 +791,13 @@ try:
     app.include_router(rvm_router)
 except Exception:
     logger.exception("RVM router unavailable")
+
+try:
+    from api.routers.audit import router as audit_router
+
+    app.include_router(audit_router)
+except Exception:
+    logger.exception("Audit registry router unavailable")
 
 try:
     from graphql_schema import create_graphql_router

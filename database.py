@@ -416,6 +416,50 @@ CREATE INDEX IF NOT EXISTS idx_behavior_type_ts
 
 CREATE INDEX IF NOT EXISTS idx_behavior_user_ts
     ON behavior_events (user_email, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp       TEXT    NOT NULL,
+    actor           TEXT    NOT NULL,
+    action          TEXT    NOT NULL,
+    payload_hash    TEXT    NOT NULL,
+    outcome         TEXT    NOT NULL,
+    signature       TEXT    NOT NULL,
+    request_method  TEXT,
+    request_path    TEXT,
+    metadata_json   TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_audit_logs_ts
+    ON audit_logs (timestamp DESC);
+
+CREATE INDEX IF NOT EXISTS idx_audit_logs_actor
+    ON audit_logs (actor, timestamp DESC);
+
+CREATE INDEX IF NOT EXISTS idx_audit_logs_action
+    ON audit_logs (action, timestamp DESC);
+
+CREATE TABLE IF NOT EXISTS decisions (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    decision_id     TEXT    NOT NULL,
+    context         TEXT    NOT NULL,
+    prediction      TEXT    NOT NULL,
+    confidence      REAL    NOT NULL,
+    timestamp       TEXT    NOT NULL,
+    outcome         TEXT    NOT NULL DEFAULT 'pending',
+    version         INTEGER NOT NULL DEFAULT 1,
+    signature       TEXT    NOT NULL,
+    UNIQUE(decision_id, version)
+);
+
+CREATE INDEX IF NOT EXISTS idx_decisions_id
+    ON decisions (decision_id, version DESC);
+
+CREATE INDEX IF NOT EXISTS idx_decisions_ts
+    ON decisions (timestamp DESC);
+
+CREATE INDEX IF NOT EXISTS idx_decisions_outcome
+    ON decisions (outcome, timestamp DESC);
 """
 
 
@@ -1095,6 +1139,76 @@ async def _apply_migrations(db: Any) -> None:
             updated_at           TEXT    NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         )
+        """
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS audit_logs (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp       TEXT    NOT NULL,
+            actor           TEXT    NOT NULL,
+            action          TEXT    NOT NULL,
+            payload_hash    TEXT    NOT NULL,
+            outcome         TEXT    NOT NULL,
+            signature       TEXT    NOT NULL,
+            request_method  TEXT,
+            request_path    TEXT,
+            metadata_json   TEXT
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_audit_logs_ts
+            ON audit_logs (timestamp DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_audit_logs_actor
+            ON audit_logs (actor, timestamp DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_audit_logs_action
+            ON audit_logs (action, timestamp DESC)
+        """
+    )
+
+    await db.execute(
+        """
+        CREATE TABLE IF NOT EXISTS decisions (
+            id              INTEGER PRIMARY KEY AUTOINCREMENT,
+            decision_id     TEXT    NOT NULL,
+            context         TEXT    NOT NULL,
+            prediction      TEXT    NOT NULL,
+            confidence      REAL    NOT NULL,
+            timestamp       TEXT    NOT NULL,
+            outcome         TEXT    NOT NULL DEFAULT 'pending',
+            version         INTEGER NOT NULL DEFAULT 1,
+            signature       TEXT    NOT NULL,
+            UNIQUE(decision_id, version)
+        )
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decisions_id
+            ON decisions (decision_id, version DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decisions_ts
+            ON decisions (timestamp DESC)
+        """
+    )
+    await db.execute(
+        """
+        CREATE INDEX IF NOT EXISTS idx_decisions_outcome
+            ON decisions (outcome, timestamp DESC)
         """
     )
 
