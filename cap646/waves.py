@@ -42,7 +42,7 @@ USER_FACING: frozenset[int] = frozenset(
 
 INSTITUTIONAL_ONLY: frozenset[int] = frozenset({568, 569, 574, 161, 645, 644, 646, 103, 641, 638})
 
-EXTERNAL_IDS: frozenset[int] = frozenset({1, 2, 3, 4, 10, 21, 38, 39, 45, 196, 331, 332, 337})
+EXTERNAL_IDS: frozenset[int] = frozenset({45, 331, 332, 337})
 
 EXTERNAL_EVIDENCE_SLOTS: frozenset[int] = frozenset({645})
 SIGNED_INFRA_SLOTS: frozenset[int] = frozenset({644})

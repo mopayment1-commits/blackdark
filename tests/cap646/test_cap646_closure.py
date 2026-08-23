@@ -37,7 +37,7 @@ async def test_verified_capability_63():
 async def test_external_blocked():
     from cap646.runtime import execute_capability
 
-    result = await execute_capability(1, skip_entitlement=True)
+    result = await execute_capability(45, skip_entitlement=True)
     assert result["success"] is False
     assert result["classification"] == "EXTERNAL/BLOCKED"
 
