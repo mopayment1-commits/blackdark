@@ -21,6 +21,7 @@ RUN apt-get update \
 COPY requirements-prod.hashes.txt requirements.txt
 RUN pip install --no-cache-dir --default-timeout=180 --require-hashes --only-binary=:all: -r requirements.txt
 
+# CAP646/CAP978 API packages (see COPY cap646 cap978 rvm docs/cap646 docs/cap978)
 COPY *.py ./
 COPY api/ api/
 COPY cap646/ cap646/
