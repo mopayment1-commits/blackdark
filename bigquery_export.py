@@ -342,7 +342,11 @@ def bigquery_live_ready() -> bool:
     """True when BigQuery is configured and the last export verified in BigQuery."""
     if not bigquery_configured():
         return False
-    evidence = get_export_evidence()
+    try:
+        evidence = get_export_evidence()
+    except Exception:
+        logger.debug("BigQuery evidence read failed", exc_info=True)
+        return False
     if not evidence:
         return False
     return int(evidence.get("rows_verified") or 0) > 0 and bool(evidence.get("table_fqn"))
@@ -352,10 +356,24 @@ async def warehouse_analytics_status() -> dict[str, Any]:
     """CAP-658 status surface — local lake + BigQuery export readiness."""
     from data_lake import lake_status
 
-    lake = await lake_status()
     cfg = bigquery_config()
-    evidence = get_export_evidence()
-    ready = bigquery_live_ready()
+    status_error: str | None = None
+    try:
+        lake = await lake_status()
+    except Exception as exc:
+        lake = {"error": f"{type(exc).__name__}: {exc}"}
+        status_error = str(exc)
+
+    try:
+        evidence = get_export_evidence()
+        bootstrap = get_bootstrap_status()
+        ready = bigquery_live_ready()
+    except Exception as exc:
+        evidence = None
+        bootstrap = get_bootstrap_status()
+        ready = False
+        status_error = status_error or f"{type(exc).__name__}: {exc}"
+        logger.exception("BigQuery status assembly failed")
     return {
         "surface": "white_label_embedded_analytics",
         "product": "BLACKDARK",
@@ -368,8 +386,9 @@ async def warehouse_analytics_status() -> dict[str, Any]:
         },
         "lake": lake,
         "last_export": evidence,
-        "bootstrap_status": get_bootstrap_status(),
+        "bootstrap_status": bootstrap,
         "export_ready": ready,
+        "status_error": status_error,
         "api": {
             "status": "/api/warehouse/bigquery/status",
             "export": "/api/warehouse/bigquery/export",

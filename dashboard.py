@@ -3212,11 +3212,7 @@ async def _ingestion_status_body():
 async def bigquery_warehouse_status():
     from bigquery_export import warehouse_analytics_status
 
-    try:
-        return await warehouse_analytics_status()
-    except Exception as exc:
-        logger.exception("BigQuery warehouse status failed")
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    return await warehouse_analytics_status()
 
 
 @app.post("/api/warehouse/bigquery/export")
