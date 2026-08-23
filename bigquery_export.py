@@ -214,10 +214,25 @@ def _build_client():
     return bigquery.Client(project=project, location=cfg["location"])
 
 
+def _ensure_dataset(client: Any) -> str:
+    from google.cloud import bigquery
+
+    cfg = bigquery_config()
+    dataset_ref = f"{cfg['project_id']}.{cfg['dataset_id']}"
+    try:
+        client.get_dataset(dataset_ref)
+    except Exception:
+        dataset = bigquery.Dataset(dataset_ref)
+        dataset.location = cfg["location"]
+        client.create_dataset(dataset, exists_ok=True)
+    return dataset_ref
+
+
 def _ensure_table(client: Any) -> str:
     from google.cloud import bigquery
 
     cfg = bigquery_config()
+    _ensure_dataset(client)
     table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
     schema = [bigquery.SchemaField(**field) for field in _TABLE_SCHEMA]
     table = bigquery.Table(table_ref, schema=schema)
