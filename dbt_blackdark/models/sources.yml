@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: blackdark_lake
+    database: "{{ env_var('BIGQUERY_PROJECT_ID') }}"
+    schema: "{{ env_var('BIGQUERY_DATASET', 'blackdark_analytics') }}"
+    tables:
+      - name: ingestion_snapshots

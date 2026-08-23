@@ -24,4 +24,5 @@ pandas
 ccxt
 pyarrow
 google-cloud-bigquery
+dbt-bigquery==1.9.0
 httpx

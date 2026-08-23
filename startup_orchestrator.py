@@ -423,6 +423,8 @@ async def _bigquery_export_bootstrap() -> None:
     except Exception as exc:
         diag: dict[str, Any] | None = None
         try:
+            from bigquery_export import _bigquery_diagnostics, _build_client
+
             diag = _bigquery_diagnostics(_build_client())
         except Exception:
             diag = None
@@ -460,6 +462,7 @@ async def run_background_startup(state: RuntimeState) -> None:
     await _start_storage_tier()
     _start_ingestion(state)
     await _maybe_run_bigquery_export_bootstrap()
+    await _maybe_run_dbt_bootstrap()
     _start_forecast_audit(state)
     await _start_ml_flywheel(state)
     _start_glass_box(state)
@@ -471,6 +474,44 @@ async def run_background_startup(state: RuntimeState) -> None:
     await _start_uptime_probe(state)
     _start_billing_sweeper(state)
     logger.info("BLACKDARK background startup complete.")
+
+
+async def _maybe_run_dbt_bootstrap() -> None:
+    if not _env_flag("DBT_RUN_ENABLED", "true"):
+        return
+    try:
+        from bigquery_export import bigquery_live_ready
+        from dbt_connector import dbt_configured, dbt_live_ready, run_dbt_pipeline, _write_bootstrap_status
+
+        if not dbt_configured() or not bigquery_live_ready() or dbt_live_ready():
+            return
+        _write_bootstrap_status({"status": "running"})
+        wait_sec = int(os.getenv("DBT_BOOTSTRAP_DELAY_SEC", "20"))
+        if wait_sec > 0:
+            await asyncio.sleep(wait_sec)
+        evidence = await run_dbt_pipeline(operator="startup_bootstrap")
+        _write_bootstrap_status(
+            {
+                "status": "ok",
+                "run_id": evidence.get("run_id"),
+                "mart_rows_verified": evidence.get("mart_rows_verified"),
+            }
+        )
+        logger.info(
+            "dbt bootstrap complete | run_id=%s mart_rows=%s",
+            evidence.get("run_id"),
+            evidence.get("mart_rows_verified"),
+        )
+    except RuntimeError as exc:
+        from dbt_connector import _write_bootstrap_status
+
+        _write_bootstrap_status({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
+        logger.warning("dbt bootstrap deferred: %s", exc)
+    except Exception as exc:
+        from dbt_connector import _write_bootstrap_status
+
+        _write_bootstrap_status({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
+        logger.exception("CAP-649 dbt bootstrap failed")
 
 
 async def _maybe_run_bigquery_export_bootstrap() -> None:

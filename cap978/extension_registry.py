@@ -12,6 +12,7 @@ from cap978.catalog import catalog_by_id
 
 _EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
     658: ("bigquery_export", "warehouse_analytics_status", "none"),
+    649: ("dbt_connector", "dbt_connector_status", "none"),
 }
 
 _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (

@@ -25,7 +25,7 @@ EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset(
     {
         647,  # Real-Time Feed — low-latency vendor SLA
         648,  # Datashare — institutional datashare connector
-        649,  # dbt Connector — external dbt Cloud/project
+        # 649 dbt — dynamic via dbt_live_ready()
         652,  # BI Connectors — Tableau/Looker external
         672,  # Chainalysis integration — paid vendor
         673,  # Elliptic integration — paid vendor
@@ -72,6 +72,13 @@ def is_external(capability_id: int) -> bool:
             from bigquery_export import bigquery_live_ready
 
             return not bigquery_live_ready()
+        except Exception:
+            return True
+    if capability_id == 649:
+        try:
+            from dbt_connector import dbt_live_ready
+
+            return not dbt_live_ready()
         except Exception:
             return True
     if capability_id in EXTENSION_EXTERNAL_IDS:

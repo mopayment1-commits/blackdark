@@ -488,6 +488,20 @@ async def _background_boot(app: FastAPI) -> None:
     except Exception:
         logger.exception("CAP-658 BigQuery bootstrap scheduling failed during web boot")
     try:
+        from bigquery_export import bigquery_live_ready
+        from dbt_connector import dbt_configured, dbt_live_ready
+        from startup_orchestrator import _maybe_run_dbt_bootstrap
+
+        if dbt_configured() and bigquery_live_ready():
+            for attempt in range(4):
+                await _maybe_run_dbt_bootstrap()
+                if dbt_live_ready():
+                    break
+                if attempt < 3:
+                    await asyncio.sleep(min(60, 15 * (attempt + 1)))
+    except Exception:
+        logger.exception("CAP-649 dbt bootstrap scheduling failed during web boot")
+    try:
         _check_production_guard()
     except Exception:
         logger.exception("Production guard check failed after runtime start")
@@ -3255,6 +3269,48 @@ async def bigquery_warehouse_export(
             dry_run=dry_run,
             operator=operator,
         )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    return {"status": "ok", "evidence": evidence}
+
+
+@app.get("/api/warehouse/dbt/status")
+async def dbt_warehouse_status():
+    from dbt_connector import dbt_connector_status
+
+    return await dbt_connector_status()
+
+
+@app.post("/api/warehouse/dbt/run")
+async def dbt_warehouse_run(
+    x_cap649_closure_token: Annotated[str | None, Header(alias="X-CAP649-Closure-Token")] = None,
+    x_admin_key: Annotated[str | None, Header(alias="X-Admin-Key")] = None,
+    x_admin_totp: Annotated[str | None, Header(alias="X-Admin-TOTP")] = None,
+):
+    from dbt_connector import run_dbt_pipeline
+    from security_auth import verify_admin_key
+
+    operator = "cap649_closure"
+    if verify_admin_key(x_admin_key):
+        from admin_mfa import assert_admin_mfa
+
+        admin_user = {"email": "admin@system", "tier": "whale", "is_admin": True}
+        await assert_admin_mfa(x_admin_totp=x_admin_totp, user=admin_user)
+        operator = str(admin_user["email"])
+    else:
+        import hmac
+
+        expected = os.getenv("CAP649_CLOSURE_TOKEN", "").strip()
+        if not expected or not x_cap649_closure_token or not hmac.compare_digest(
+            x_cap649_closure_token.strip(), expected
+        ):
+            raise HTTPException(
+                status_code=403,
+                detail="Admin authentication or valid X-CAP649-Closure-Token required",
+            )
+
+    try:
+        evidence = await run_dbt_pipeline(operator=operator)
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
     return {"status": "ok", "evidence": evidence}
