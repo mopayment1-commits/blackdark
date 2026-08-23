@@ -38,8 +38,8 @@ def test_hub_only_not_dedicated_surface():
 async def test_rvm_sample_capabilities():
     from rvm.build import _process_requirement
 
-    # External vendor capability
-    ext = await _process_requirement(
+    # Free-tier machine closure — CAP-1 no longer vendor-blocked in runtime RVM
+    cap1 = await _process_requirement(
         {
             "id": "CAP-1",
             "kind": "capability",
@@ -48,10 +48,10 @@ async def test_rvm_sample_capabilities():
             "intended_outcome": "test",
             "verification_method": "test",
             "validation_method": "test",
-            "gap_matrix_status": "EXTERNAL/BLOCKED",
+            "gap_matrix_status": "PASS",
         }
     )
-    assert ext["final_status"] == "EXTERNAL_EVIDENCE_REQUIRED"
+    assert cap1["final_status"] == "PASS"
 
     # Control with external evidence
     sec = await _process_requirement(
