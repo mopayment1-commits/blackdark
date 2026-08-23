@@ -293,3 +293,10 @@ async def observability_alerts() -> dict[str, Any]:
     from runtime_verification import alert_status
 
     return await alert_status()
+
+
+@router.get("/api/security/wave-00")
+async def security_wave_00_status() -> dict[str, Any]:
+    from wave_00_hardening import wave_00_status
+
+    return await wave_00_status()
