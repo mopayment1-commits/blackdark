@@ -11,6 +11,7 @@ import asyncio
 import json
 import logging
 import os
+import shutil
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -31,6 +32,10 @@ _BOOTSTRAP_STATUS_PATH = _EVIDENCE_DIR / "dbt_bootstrap_status.json"
 _PROFILES_DIR = _EVIDENCE_DIR / "dbt_profiles"
 _MART_MODEL = "mart_ingestion_daily"
 _STAGING_MODEL = "stg_ingestion_snapshots"
+
+
+def _dbt_executable() -> str:
+    return shutil.which("dbt") or "dbt"
 
 
 def _utcnow() -> str:
@@ -210,9 +215,7 @@ def _run_dbt_sync(*, run_id: str, operator: str) -> dict[str, Any]:
     env["DBT_PROFILES_DIR"] = str(profiles_dir)
 
     cmd = [
-        sys.executable,
-        "-m",
-        "dbt",
+        _dbt_executable(),
         "run",
         "--project-dir",
         str(_DBT_PROJECT_DIR),
