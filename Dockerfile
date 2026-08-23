@@ -23,6 +23,9 @@ RUN pip install --no-cache-dir --default-timeout=180 --require-hashes --only-bin
 
 COPY *.py ./
 COPY api/ api/
+COPY cap646/ cap646/
+COPY cap978/ cap978/
+COPY rvm/ rvm/
 COPY repos/ repos/
 COPY bd_platform/ bd_platform/
 COPY ml/ ml/
