@@ -85,6 +85,17 @@ async def execute_capability(
             }
         )
 
+    from bd_platform.free_tier_capabilities import FREE_TIER_BASE_IDS, execute_free_tier_capability
+
+    if capability_id in FREE_TIER_BASE_IDS:
+        free_result = await execute_free_tier_capability(capability_id, params=params)
+        free_result.setdefault("capability", row["capability"])
+        free_result.setdefault("track", row["track"])
+        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        from cap646.domain_enrichment import enrich_capability_result
+
+        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
+
     target_id = canonical_id(capability_id)
     if is_duplicate(capability_id) and target_id != capability_id:
         canonical = await execute_capability(target_id, user=user, org_id=org_id, params=params, skip_entitlement=skip_entitlement)

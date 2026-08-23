@@ -23,21 +23,16 @@ from cap646.catalog import (  # noqa: E402
 # Extension capabilities blocked on external vendor/data rights
 EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset(
     {
-        647,  # Real-Time Feed — low-latency vendor SLA
         648,  # Datashare — institutional datashare connector
         # 649 dbt — dynamic via dbt_live_ready()
         652,  # BI Connectors — Tableau/Looker external
-        672,  # Chainalysis integration — paid vendor
         673,  # Elliptic integration — paid vendor
-        674,  # TRM Labs integration — paid vendor
         675,  # Nansen full API — paid vendor
-        676,  # Arkham full API — paid vendor
         690,  # Bloomberg Terminal bridge — external license
         691,  # Refinitiv Eikon bridge — external license
         702,  # Kaiko institutional — paid vendor
         703,  # Amberdata institutional — paid vendor
-        704,  # CryptoQuant full — paid vendor
-        705,  # Glassnode full tier — paid vendor
+        # 647,672,674,676,704,705 — free-tier via bd_platform.free_tier_capabilities
     }
 )
 

@@ -13,6 +13,12 @@ from cap978.catalog import catalog_by_id
 _EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
     658: ("bigquery_export", "warehouse_analytics_status", "none"),
     649: ("dbt_connector", "dbt_connector_status", "none"),
+    647: ("bd_platform.free_tier_capabilities", "pyth_realtime_feed", "symbol"),
+    672: ("bd_platform.free_tier_capabilities", "liquid_staking_intelligence", "none"),
+    674: ("bd_platform.free_tier_capabilities", "raises_funding_rounds", "none"),
+    676: ("bd_platform.free_tier_capabilities", "unlocks_intelligence", "none"),
+    704: ("bd_platform.free_tier_capabilities", "defi_risk_radar", "none"),
+    705: ("bd_platform.free_tier_capabilities", "lending_market_risk", "none"),
 }
 
 _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (

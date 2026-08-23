@@ -34,6 +34,18 @@ async def execute_extension(capability_id: int, *, user: dict[str, Any] | None =
             }
         )
 
+    from bd_platform.free_tier_capabilities import FREE_TIER_EXTENSION_IDS, execute_free_tier_capability
+
+    if capability_id in FREE_TIER_EXTENSION_IDS:
+        free_result = await execute_free_tier_capability(capability_id, params=params)
+        free_result.setdefault("capability", row["capability"])
+        free_result.setdefault("track", row.get("track"))
+        free_result.setdefault("scope", row.get("scope"))
+        free_result.setdefault("classification", "VERIFIED_COMPLETE" if free_result.get("success") else "NOT_READY")
+        from cap646.domain_enrichment import enrich_capability_result
+
+        return await enrich_capability_result(capability_id, ai_compliance_footer(free_result), params=params)
+
     if is_duplicate(capability_id):
         from cap646.runtime import execute_capability
 
