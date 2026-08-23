@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T14:31:23.481989+00:00",
+  "generated_at": "2026-08-23T14:49:29.996011+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -121,12 +121,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -182,7 +182,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-2",
@@ -196,12 +196,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -257,7 +257,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-3",
@@ -271,12 +271,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -332,7 +332,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-4",
@@ -346,12 +346,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -407,7 +407,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-5",
@@ -736,12 +736,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -797,7 +797,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-11",
@@ -1445,12 +1445,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -1506,7 +1506,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-22",
@@ -2490,12 +2490,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -2551,7 +2551,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-39",
@@ -2565,12 +2565,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -2626,7 +2626,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-40",
@@ -12219,12 +12219,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -12280,7 +12280,7 @@
       "external_step": "",
       "gap_matrix_status": "EXTERNAL/BLOCKED",
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-197",
@@ -39921,12 +39921,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -39980,7 +39980,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-648",
@@ -41444,12 +41444,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -41503,7 +41503,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-673",
@@ -41553,12 +41553,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -41612,7 +41612,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-675",
@@ -41662,12 +41662,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -41721,7 +41721,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-677",
@@ -43162,12 +43162,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -43221,7 +43221,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-705",
@@ -43235,12 +43235,12 @@
       "implementation_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "runtime_evidence": [
         "production_free_tier_verify_pass",
         "caps=CAP-1,CAP-2,CAP-3,CAP-4,CAP-10,CAP-21,CAP-38,CAP-39,CAP-196,CAP-647,CAP-672,CAP-674,CAP-676,CAP-704,CAP-705",
-        "commit=local_verify"
+        "commit=19e643b2bcf2"
       ],
       "verification_status": "PASS",
       "validation_status": "PASS",
@@ -43294,7 +43294,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T14:31:23.481989+00:00"
+      "notes": "2026-08-23T14:49:29.996011+00:00"
     },
     {
       "id": "CAP-706",
