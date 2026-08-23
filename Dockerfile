@@ -27,6 +27,7 @@ COPY repos/ repos/
 COPY bd_platform/ bd_platform/
 COPY ml/ ml/
 COPY microservices/ microservices/
+COPY dbt_blackdark/ dbt_blackdark/
 COPY templates/ templates/
 COPY static/ static/
 RUN mkdir -p data/models

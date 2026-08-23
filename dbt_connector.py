@@ -13,7 +13,6 @@ import logging
 import os
 import shutil
 import subprocess
-import sys
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
