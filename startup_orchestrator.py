@@ -421,7 +421,15 @@ async def _bigquery_export_bootstrap() -> None:
         else:
             logger.warning("BigQuery bootstrap export deferred: %s", exc)
     except Exception as exc:
-        _write_bootstrap_status({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
+        diag: dict[str, Any] | None = None
+        try:
+            diag = _bigquery_diagnostics(_build_client())
+        except Exception:
+            diag = None
+        payload: dict[str, Any] = {"status": "error", "error": f"{type(exc).__name__}: {exc}"}
+        if diag:
+            payload["diagnostics"] = diag
+        _write_bootstrap_status(payload)
         logger.exception("BigQuery bootstrap export failed")
 
 

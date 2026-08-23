@@ -214,6 +214,21 @@ def _build_client():
     return bigquery.Client(project=project, location=cfg["location"])
 
 
+def _bigquery_diagnostics(client: Any) -> dict[str, Any]:
+    cfg = bigquery_config()
+    datasets: list[str] | str
+    try:
+        datasets = [row.dataset_id for row in client.list_datasets(project=cfg["project_id"])]
+    except Exception as exc:
+        datasets = f"list_failed:{type(exc).__name__}:{exc}"
+    return {
+        "project_id": cfg["project_id"],
+        "dataset_id": cfg["dataset_id"],
+        "location": cfg["location"],
+        "datasets_found": datasets,
+    }
+
+
 def _ensure_dataset(client: Any) -> str:
     from google.api_core.exceptions import NotFound
     from google.cloud import bigquery
@@ -221,20 +236,23 @@ def _ensure_dataset(client: Any) -> str:
     cfg = bigquery_config()
     dataset_ref = bigquery.DatasetReference(cfg["project_id"], cfg["dataset_id"])
     table_dataset = f"{cfg['project_id']}.{cfg['dataset_id']}"
+    ddl = (
+        f"CREATE SCHEMA IF NOT EXISTS `{table_dataset}` "
+        f"OPTIONS(location='{cfg['location']}')"
+    )
+    try:
+        client.query(ddl, location=cfg["location"]).result()
+    except Exception as exc:
+        raise RuntimeError(
+            f"bigquery_dataset_ddl_failed:{cfg['dataset_id']}: {exc}"
+        ) from exc
     try:
         client.get_dataset(dataset_ref)
-    except NotFound:
-        ddl = (
-            f"CREATE SCHEMA IF NOT EXISTS `{table_dataset}` "
-            f"OPTIONS(location='{cfg['location']}')"
-        )
-        client.query(ddl, location=cfg["location"]).result()
-        try:
-            client.get_dataset(dataset_ref)
-        except NotFound as exc:
-            raise RuntimeError(
-                f"bigquery_dataset_missing_after_create:{cfg['dataset_id']}"
-            ) from exc
+    except NotFound as exc:
+        diag = _bigquery_diagnostics(client)
+        raise RuntimeError(
+            f"bigquery_dataset_missing_after_ddl:{cfg['dataset_id']}: {diag}"
+        ) from exc
     return table_dataset
 
 
