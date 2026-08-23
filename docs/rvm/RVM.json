@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-23T01:17:52.136731+00:00",
+  "generated_at": "2026-08-23T01:18:54.222064+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -40114,20 +40114,20 @@
         "production_bigquery_configured",
         "production_bigquery_export_verified",
         "cap658_warehouse_status_ready",
-        "export_id=exp_149bdab6993b",
+        "export_id=exp_275aacbc11d7",
         "rows_verified=7",
         "table=blackdark-505517.blackdark_analytics.ingestion_snapshots",
-        "manifest_sha256=0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+        "manifest_sha256=0ca00e936ccf38d59f0ed91657b8d22c5437189fb59b53884719d235f5603c2e",
         "commit=daaf200d2813"
       ],
       "runtime_evidence": [
         "production_bigquery_configured",
         "production_bigquery_export_verified",
         "cap658_warehouse_status_ready",
-        "export_id=exp_149bdab6993b",
+        "export_id=exp_275aacbc11d7",
         "rows_verified=7",
         "table=blackdark-505517.blackdark_analytics.ingestion_snapshots",
-        "manifest_sha256=0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+        "manifest_sha256=0ca00e936ccf38d59f0ed91657b8d22c5437189fb59b53884719d235f5603c2e",
         "commit=daaf200d2813"
       ],
       "verification_status": "PASS",
@@ -40153,8 +40153,8 @@
           "live_ready": true
         },
         "last_export": {
-          "export_id": "exp_149bdab6993b",
-          "exported_at": "2026-08-23T01:15:28.248839+00:00",
+          "export_id": "exp_275aacbc11d7",
+          "exported_at": "2026-08-23T01:15:28.265960+00:00",
           "operator": "startup_bootstrap",
           "project_id": "blackdark-505517",
           "dataset_id": "blackdark_analytics",
@@ -40163,8 +40163,8 @@
           "dataset_location": "EU",
           "rows_sent": 7,
           "rows_verified": 7,
-          "manifest_sha256": "0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
-          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_149bdab6993b'",
+          "manifest_sha256": "0ca00e936ccf38d59f0ed91657b8d22c5437189fb59b53884719d235f5603c2e",
+          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_275aacbc11d7'",
           "product": "BLACKDARK",
           "surface": "white_label_embedded_analytics",
           "gate": "CAP-658"
@@ -40191,8 +40191,8 @@
           "live_ready": true
         },
         "last_export": {
-          "export_id": "exp_149bdab6993b",
-          "exported_at": "2026-08-23T01:15:28.248839+00:00",
+          "export_id": "exp_275aacbc11d7",
+          "exported_at": "2026-08-23T01:15:28.265960+00:00",
           "operator": "startup_bootstrap",
           "project_id": "blackdark-505517",
           "dataset_id": "blackdark_analytics",
@@ -40201,8 +40201,8 @@
           "dataset_location": "EU",
           "rows_sent": 7,
           "rows_verified": 7,
-          "manifest_sha256": "0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
-          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_149bdab6993b'",
+          "manifest_sha256": "0ca00e936ccf38d59f0ed91657b8d22c5437189fb59b53884719d235f5603c2e",
+          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_275aacbc11d7'",
           "product": "BLACKDARK",
           "surface": "white_label_embedded_analytics",
           "gate": "CAP-658"
@@ -40212,7 +40212,7 @@
       "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": "2026-08-23T01:17:52.136731+00:00"
+      "notes": "2026-08-23T01:18:54.222064+00:00"
     },
     {
       "id": "CAP-659",
