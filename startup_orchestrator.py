@@ -415,13 +415,13 @@ async def _bigquery_export_bootstrap() -> None:
             evidence.get("table_fqn"),
         )
     except RuntimeError as exc:
-        _write_bootstrap_status({"status": "error", "error": str(exc)})
+        _write_bootstrap_status({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
         if str(exc) == "no_ingestion_snapshots_to_export":
             logger.warning("BigQuery bootstrap skipped — no ingestion snapshots yet")
         else:
             logger.warning("BigQuery bootstrap export deferred: %s", exc)
     except Exception as exc:
-        _write_bootstrap_status({"status": "error", "error": str(exc)})
+        _write_bootstrap_status({"status": "error", "error": f"{type(exc).__name__}: {exc}"})
         logger.exception("BigQuery bootstrap export failed")
 
 

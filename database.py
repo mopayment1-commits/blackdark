@@ -24,6 +24,30 @@ import config
 logger = logging.getLogger(__name__)
 
 
+def _row_get(row: Any, index: int, name: str) -> Any:
+    """Read a column from sqlite tuples or postgres/asyncpg mappings."""
+    if row is None:
+        return None
+    if isinstance(row, dict):
+        if name in row:
+            return row[name]
+        lowered = name.lower()
+        if lowered in row:
+            return row[lowered]
+    try:
+        return row[name]
+    except (KeyError, TypeError):
+        pass
+    try:
+        return row[index]
+    except (KeyError, IndexError, TypeError):
+        values = getattr(row, "values", None)
+        if callable(values):
+            vals = list(values())
+            return vals[index] if index < len(vals) else None
+    return None
+
+
 def _first_cell(row: Any) -> Any:
     """SQLite tuples use [0]; Postgres dict rows use the first mapped value."""
     if row is None:
@@ -4202,18 +4226,19 @@ async def fetch_ingestion_snapshots_for_export(*, limit: int = 500) -> list[dict
         ).fetchall()
     results: list[dict[str, Any]] = []
     for row in rows:
+        payload_raw = _row_get(row, 3, "payload_json")
         try:
-            payload = json.loads(row[3])
-        except json.JSONDecodeError:
+            payload = json.loads(payload_raw)
+        except (json.JSONDecodeError, TypeError):
             payload = {}
         results.append(
             {
-                "id": int(row[0]),
-                "source_id": row[1],
-                "category": row[2],
+                "id": int(_row_get(row, 0, "id") or 0),
+                "source_id": _row_get(row, 1, "source_id"),
+                "category": _row_get(row, 2, "category"),
                 "payload": payload,
-                "fetched_at": row[4],
-                "status": row[5],
+                "fetched_at": _row_get(row, 4, "fetched_at"),
+                "status": _row_get(row, 5, "status"),
             }
         )
     return results
