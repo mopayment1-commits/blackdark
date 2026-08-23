@@ -8,6 +8,47 @@ from cap646.catalog import EXTERNAL_IDS, catalog_by_id, matrix_by_id
 from cap646.runtime import VERIFIED_IDS, execute_capability
 
 
+def _status_map(final_status: str) -> str:
+    if final_status == "PASS":
+        return "VERIFIED_COMPLETE"
+    if final_status == "EXTERNAL_EVIDENCE_REQUIRED":
+        return "EXTERNAL_EVIDENCE_REQUIRED"
+    if final_status == "FAIL":
+        return "NOT_READY"
+    return final_status
+
+
+def _closure_counts_from_rvm() -> dict[str, Any] | None:
+    from rvm.run import load_rvm
+
+    data = load_rvm()
+    if not data:
+        return None
+    counts: dict[str, int] = {}
+    for row in data.get("requirements", []):
+        rid = str(row.get("id", ""))
+        if not rid.startswith("CAP-"):
+            continue
+        try:
+            cap_id = int(rid.replace("CAP-", ""))
+        except ValueError:
+            continue
+        if cap_id > 646:
+            continue
+        key = _status_map(str(row.get("final_status", "FAIL")))
+        counts[key] = counts.get(key, 0) + 1
+    total = sum(counts.values())
+    if total == 0:
+        return None
+    return {
+        "total": total,
+        "counts": counts,
+        "all_accounted": total == 646,
+        "zero_unresolved": counts.get("NOT_READY", 0) == 0,
+        "source": "rvm_snapshot",
+    }
+
+
 async def verify_capability(capability_id: int) -> dict[str, Any]:
     row = catalog_by_id()[capability_id]
     matrix = matrix_by_id()[capability_id]
@@ -46,7 +87,12 @@ async def verify_capability(capability_id: int) -> dict[str, Any]:
     }
 
 
-async def get_closure_status() -> dict[str, Any]:
+async def get_closure_status(*, full_scan: bool = False) -> dict[str, Any]:
+    if not full_scan:
+        cached = _closure_counts_from_rvm()
+        if cached:
+            return cached
+
     counts: dict[str, int] = {}
     for cid in range(1, 647):
         v = await verify_capability(cid)
@@ -57,6 +103,7 @@ async def get_closure_status() -> dict[str, Any]:
         "counts": counts,
         "all_accounted": total == 646,
         "zero_unresolved": True,
+        "source": "live_scan",
     }
 
 

@@ -127,7 +127,7 @@ def scale_readiness_report() -> dict[str, Any]:
         "checks": checks,
         "capacity_claim": {
             "code_enables_high_concurrency": True,
-            "proven_high_concurrency_signed": _signed_load_evidence_present(),
+            "proven_high_concurrency_signed": False if soft_launch else _signed_load_evidence_present(),
             "proof_path": "docs/LOAD_TEST_RUN_LOG.md",
             "note": (
                 "Do not claim production HA concurrent capacity until a signed "

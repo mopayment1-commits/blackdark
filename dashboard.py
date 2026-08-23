@@ -4184,6 +4184,14 @@ async def api_security_status():
     }
 
 
+@app.get("/api/platform/production-readiness")
+async def api_platform_production_readiness():
+    """Public end-user production readiness (excludes human-only pentest/PSP gates)."""
+    from platform_production_readiness import platform_production_readiness
+
+    return platform_production_readiness()
+
+
 @app.get("/api/security/external-review-readiness")
 async def api_external_review_readiness():
     """Public institutional external-review readiness (engineering vs human blockers)."""

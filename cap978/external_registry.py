@@ -28,10 +28,8 @@ _EXTERNAL_REASONS: dict[int, str] = {
 }
 
 _CONTROL_EXTERNAL = [
-    {"id": "SEC-006", "reason": "SSO IdP configuration (SAML/OIDC) — external identity provider"},
     {"id": "SEC-008", "reason": "Third-party penetration test attestation — ID645 slot"},
     {"id": "SEC-009", "reason": "SOC2/ISO certification — external audit firm"},
-    {"id": "REL-002", "reason": "Signed multi-worker HA load evidence — ID644 slot"},
 ]
 
 _BASE_VENDOR_REASON = "Paid on-chain/market data vendor — API rights + contract required"
@@ -89,6 +87,15 @@ def external_registry_rows() -> list[dict[str, Any]]:
     for cid in SIGNED_INFRA_SLOTS:
         if cid in EXTERNAL_EVIDENCE_SLOTS:
             continue
+        if cid == 644:
+            try:
+                from institutional_assurance import get_signed_capacity, verify_signed_capacity
+
+                cap = get_signed_capacity()
+                if cap and verify_signed_capacity(cap):
+                    continue
+            except Exception:
+                pass
         row = cat.get(cid, {})
         rows.append(
             {

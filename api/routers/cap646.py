@@ -184,10 +184,10 @@ async def cap978_catalog(limit: int = Query(978, ge=1, le=978)) -> dict[str, Any
 
 
 @router.get("/closure/status")
-async def cap646_closure_status(sample: bool = Query(True)) -> dict[str, Any]:
+async def cap646_closure_status(sample: bool = Query(True), full_scan: bool = Query(False)) -> dict[str, Any]:
     if sample:
         return await final_institutional_verification(sample_only=True)
-    return await get_closure_status()
+    return await get_closure_status(full_scan=full_scan)
 
 
 @router.get("/closure/verify/{capability_id}")

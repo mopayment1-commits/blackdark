@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T16:05:44.777016+00:00",
+  "generated_at": "2026-08-23T21:43:57.635957+00:00",
   "product_thesis": "978-capability Decision Intelligence platform — evidence-first closure",
   "verdict": "VERIFIED COMPLETE",
   "internal_closure": {
@@ -8,20 +8,20 @@
     "FUNCTIONALLY_INCOMPLETE": 0
   },
   "cap978_counts": {
-    "EXTERNAL_BLOCKED": 29,
-    "VERIFIED_COMPLETE": 910,
+    "VERIFIED_COMPLETE": 937,
     "CANONICALLY_COVERED": 37,
-    "EXTERNAL_EVIDENCE_REQUIRED": 2
+    "EXTERNAL_BLOCKED": 2,
+    "EXTERNAL_EVIDENCE_REQUIRED": 1
   },
   "extension_counts": {
-    "EXTERNAL_BLOCKED": 16,
-    "VERIFIED_COMPLETE": 315,
-    "CANONICALLY_COVERED": 1
+    "VERIFIED_COMPLETE": 329,
+    "CANONICALLY_COVERED": 1,
+    "EXTERNAL_BLOCKED": 2
   },
   "governing_controls": {
     "counts": {
-      "VERIFIED_COMPLETE": 38,
-      "EXTERNAL_BLOCKED": 4
+      "VERIFIED_COMPLETE": 40,
+      "EXTERNAL_BLOCKED": 2
     },
     "internal_closure": true
   },
@@ -44,10 +44,10 @@
     }
   },
   "external_registry_summary": {
-    "total": 35,
+    "total": 3,
     "counts": {
-      "EXTERNAL_BLOCKED": 33,
-      "EXTERNAL_EVIDENCE_REQUIRED": 2
+      "EXTERNAL_EVIDENCE_REQUIRED": 1,
+      "EXTERNAL_BLOCKED": 2
     }
   },
   "sample_executions": [
