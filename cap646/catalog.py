@@ -34,8 +34,8 @@ REPEAT_CANONICAL: dict[str, int] = {
     "DEX Volume": 356,
 }
 
-# Base IDs 1,2,3,4,10,21,38,39,196 — free-tier via bd_platform.free_tier_capabilities
-EXTERNAL_IDS: frozenset[int] = frozenset({45, 331, 332, 337})
+# All base vendor-blocked IDs now served via bd_platform.free_tier_capabilities
+EXTERNAL_IDS: frozenset[int] = frozenset()
 
 
 @lru_cache(maxsize=1)

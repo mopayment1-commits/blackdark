@@ -35,11 +35,10 @@ async def test_verified_capability_63():
 
 @pytest.mark.asyncio
 async def test_external_blocked():
-    from cap646.runtime import execute_capability
+    from cap646.functional_dod import verify_functional
 
-    result = await execute_capability(45, skip_entitlement=True)
-    assert result["success"] is False
-    assert result["classification"] == "EXTERNAL/BLOCKED"
+    report = await verify_functional(645)
+    assert report["verdict"] == "EXTERNAL_EVIDENCE_REQUIRED"
 
 
 @pytest.mark.asyncio

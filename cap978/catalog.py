@@ -20,21 +20,8 @@ from cap646.catalog import (  # noqa: E402
     matrix_by_id,
 )
 
-# Extension capabilities blocked on external vendor/data rights
-EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset(
-    {
-        648,  # Datashare — institutional datashare connector
-        # 649 dbt — dynamic via dbt_live_ready()
-        652,  # BI Connectors — Tableau/Looker external
-        673,  # Elliptic integration — paid vendor
-        675,  # Nansen full API — paid vendor
-        690,  # Bloomberg Terminal bridge — external license
-        691,  # Refinitiv Eikon bridge — external license
-        702,  # Kaiko institutional — paid vendor
-        703,  # Amberdata institutional — paid vendor
-        # 647,672,674,676,704,705 — free-tier via bd_platform.free_tier_capabilities
-    }
-)
+# Extension vendor IDs closed via free-tier surfaces (see bd_platform.free_tier_capabilities)
+EXTENSION_EXTERNAL_IDS: frozenset[int] = frozenset()
 
 # Extension duplicates of base canonical capabilities (same goal/behavior)
 EXTENSION_CANONICAL: dict[str, int] = {
