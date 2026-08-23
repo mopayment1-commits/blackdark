@@ -221,15 +221,26 @@ def _bigquery_diagnostics(client: Any) -> dict[str, Any]:
         datasets = [row.dataset_id for row in client.list_datasets(project=cfg["project_id"])]
     except Exception as exc:
         datasets = f"list_failed:{type(exc).__name__}:{exc}"
+    dataset_location: str | None = None
+    try:
+        from google.cloud import bigquery
+
+        dataset = client.get_dataset(
+            bigquery.DatasetReference(cfg["project_id"], cfg["dataset_id"])
+        )
+        dataset_location = str(getattr(dataset, "location", None) or "")
+    except Exception:
+        dataset_location = None
     return {
         "project_id": cfg["project_id"],
         "dataset_id": cfg["dataset_id"],
         "location": cfg["location"],
+        "dataset_location": dataset_location,
         "datasets_found": datasets,
     }
 
 
-def _ensure_dataset(client: Any) -> str:
+def _ensure_dataset(client: Any) -> tuple[str, str]:
     from google.api_core.exceptions import NotFound
     from google.cloud import bigquery
 
@@ -247,20 +258,21 @@ def _ensure_dataset(client: Any) -> str:
             f"bigquery_dataset_ddl_failed:{cfg['dataset_id']}: {exc}"
         ) from exc
     try:
-        client.get_dataset(dataset_ref)
+        dataset = client.get_dataset(dataset_ref)
     except NotFound as exc:
         diag = _bigquery_diagnostics(client)
         raise RuntimeError(
             f"bigquery_dataset_missing_after_ddl:{cfg['dataset_id']}: {diag}"
         ) from exc
-    return table_dataset
+    dataset_location = str(getattr(dataset, "location", None) or cfg["location"])
+    return table_dataset, dataset_location
 
 
-def _ensure_table(client: Any) -> str:
+def _ensure_table(client: Any) -> tuple[str, str]:
     from google.cloud import bigquery
 
     cfg = bigquery_config()
-    _ensure_dataset(client)
+    _, dataset_location = _ensure_dataset(client)
     table_ref = f"{cfg['project_id']}.{cfg['dataset_id']}.{cfg['table_id']}"
     schema = [bigquery.SchemaField(**field) for field in _TABLE_SCHEMA]
     table = bigquery.Table(table_ref, schema=schema)
@@ -268,10 +280,10 @@ def _ensure_table(client: Any) -> str:
         client.get_table(table_ref)
     except Exception:
         client.create_table(table, exists_ok=True)
-    return table_ref
+    return table_ref, dataset_location
 
 
-def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
+def _verify_export_rows(client: Any, *, table_ref: str, export_id: str, location: str) -> int:
     from google.cloud import bigquery
 
     query = f"""
@@ -282,7 +294,7 @@ def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
     job_config = bigquery.QueryJobConfig(
         query_parameters=[bigquery.ScalarQueryParameter("export_id", "STRING", export_id)]
     )
-    result = list(client.query(query, job_config=job_config, location=bigquery_config()["location"]).result())
+    result = list(client.query(query, job_config=job_config, location=location).result())
     if not result:
         return 0
     row = result[0]
@@ -297,7 +309,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
 
     client = _build_client()
     cfg = bigquery_config()
-    table_ref = _ensure_table(client)
+    table_ref, dataset_location = _ensure_table(client)
     job_config = bigquery.LoadJobConfig(
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
         schema=[bigquery.SchemaField(**field) for field in _TABLE_SCHEMA],
@@ -306,13 +318,15 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         export_rows,
         table_ref,
         job_config=job_config,
-        location=cfg["location"],
+        location=dataset_location,
         project=cfg["project_id"],
     )
     load_job.result()
     if load_job.errors:
         raise RuntimeError(f"bigquery_load_errors: {load_job.errors[:3]}")
-    verified = _verify_export_rows(client, table_ref=table_ref, export_id=export_id)
+    verified = _verify_export_rows(
+        client, table_ref=table_ref, export_id=export_id, location=dataset_location
+    )
     if verified != len(export_rows):
         raise RuntimeError(f"bigquery_verification_mismatch: sent={len(export_rows)} verified={verified}")
     return {
@@ -323,6 +337,7 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         "dataset_id": cfg["dataset_id"],
         "table_id": cfg["table_id"],
         "table_fqn": table_ref,
+        "dataset_location": dataset_location,
         "rows_sent": len(export_rows),
         "rows_verified": verified,
         "manifest_sha256": manifest_sha256,
