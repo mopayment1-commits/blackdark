@@ -51,7 +51,9 @@ async def test_bigquery_export_writes_verified_evidence(monkeypatch, tmp_path, b
     )
 
     mock_client = MagicMock()
-    mock_client.insert_rows_json.return_value = []
+    mock_load_job = MagicMock()
+    mock_load_job.errors = None
+    mock_client.load_table_from_json.return_value = mock_load_job
     mock_query_job = MagicMock()
     mock_query_job.result.return_value = [{"row_count": 1}]
     mock_client.query.return_value = mock_query_job

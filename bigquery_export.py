@@ -250,12 +250,19 @@ def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
 
 
 def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, exported_at: str, operator: str, manifest_sha256: str) -> dict[str, Any]:
+    from google.cloud import bigquery
+
     client = _build_client()
     cfg = bigquery_config()
     table_ref = _ensure_table(client)
-    errors = client.insert_rows_json(table_ref, export_rows)
-    if errors:
-        raise RuntimeError(f"bigquery_insert_errors: {errors[:3]}")
+    job_config = bigquery.LoadJobConfig(
+        write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+        schema=[bigquery.SchemaField(**field) for field in _TABLE_SCHEMA],
+    )
+    load_job = client.load_table_from_json(export_rows, table_ref, job_config=job_config)
+    load_job.result()
+    if load_job.errors:
+        raise RuntimeError(f"bigquery_load_errors: {load_job.errors[:3]}")
     verified = _verify_export_rows(client, table_ref=table_ref, export_id=export_id)
     if verified != len(export_rows):
         raise RuntimeError(f"bigquery_verification_mismatch: sent={len(export_rows)} verified={verified}")
