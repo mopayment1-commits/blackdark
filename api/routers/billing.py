@@ -208,6 +208,21 @@ async def institutional_inquiry(data: dict = Body(default={})):
         message=str(data.get("message") or ""),
         budget_usd=str(data.get("budget_usd") or data.get("budget") or ""),
     )
+    try:
+        from corporate_compounding import on_institutional_inquiry
+
+        await on_institutional_inquiry(
+            inquiry_id,
+            {
+                "email": email,
+                "name": data.get("name"),
+                "company": data.get("company"),
+                "message": data.get("message"),
+                "budget_usd": data.get("budget_usd") or data.get("budget"),
+            },
+        )
+    except Exception:
+        pass
     return {
         "ok": True,
         "inquiry_id": inquiry_id,

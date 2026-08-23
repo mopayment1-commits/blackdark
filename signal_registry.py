@@ -192,6 +192,12 @@ def register_signal(
                     fh.write(json.dumps(record, separators=(",", ":"), default=str) + "\n")
             except Exception:
                 logger.debug("signal registry persist failed", exc_info=True)
+    try:
+        from signal_compounding import persist_registry_signal
+
+        persist_registry_signal(record)
+    except Exception:
+        logger.debug("signal SQL sync failed", exc_info=True)
     return dict(record)
 
 

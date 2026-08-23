@@ -460,6 +460,145 @@ CREATE INDEX IF NOT EXISTS idx_decisions_ts
 
 CREATE INDEX IF NOT EXISTS idx_decisions_outcome
     ON decisions (outcome, timestamp DESC);
+
+CREATE TABLE IF NOT EXISTS kg_nodes (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    node_id         TEXT    NOT NULL UNIQUE,
+    node_type       TEXT    NOT NULL,
+    label           TEXT,
+    properties_json TEXT    NOT NULL DEFAULT '{}',
+    timestamp       TEXT    NOT NULL,
+    version         INTEGER NOT NULL DEFAULT 1,
+    signature       TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_kg_nodes_type_ts
+    ON kg_nodes (node_type, timestamp DESC);
+
+CREATE TABLE IF NOT EXISTS kg_edges (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    edge_id         TEXT    NOT NULL UNIQUE,
+    source_node_id  TEXT    NOT NULL,
+    target_node_id  TEXT    NOT NULL,
+    edge_type       TEXT    NOT NULL,
+    properties_json TEXT    NOT NULL DEFAULT '{}',
+    timestamp       TEXT    NOT NULL,
+    signature       TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_kg_edges_source
+    ON kg_edges (source_node_id, edge_type);
+
+CREATE INDEX IF NOT EXISTS idx_kg_edges_target
+    ON kg_edges (target_node_id, edge_type);
+
+CREATE TABLE IF NOT EXISTS market_signals (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    signal_id       TEXT    NOT NULL,
+    symbol          TEXT    NOT NULL,
+    signal_type     TEXT    NOT NULL,
+    value_json      TEXT    NOT NULL,
+    confidence      REAL    NOT NULL,
+    source          TEXT    NOT NULL,
+    timestamp       TEXT    NOT NULL,
+    version         INTEGER NOT NULL DEFAULT 1,
+    payload_hash    TEXT    NOT NULL,
+    signature       TEXT    NOT NULL,
+    UNIQUE(signal_id, version)
+);
+
+CREATE INDEX IF NOT EXISTS idx_market_signals_symbol_ts
+    ON market_signals (symbol, timestamp DESC);
+
+CREATE TABLE IF NOT EXISTS learning_predictions (
+    prediction_id       TEXT PRIMARY KEY,
+    symbol                TEXT    NOT NULL,
+    action                TEXT    NOT NULL,
+    confidence            REAL    NOT NULL,
+    timestamp             TEXT    NOT NULL,
+    expiry                TEXT,
+    oracle_prediction_id  INTEGER,
+    context_json          TEXT    NOT NULL DEFAULT '{}',
+    signature             TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS learning_outcomes (
+    outcome_id        TEXT PRIMARY KEY,
+    prediction_id     TEXT    NOT NULL,
+    actual_result     TEXT    NOT NULL,
+    accuracy_score    REAL,
+    verified_at       TEXT    NOT NULL,
+    counterfactual_json TEXT,
+    signature         TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_learning_outcomes_pred
+    ON learning_outcomes (prediction_id);
+
+CREATE TABLE IF NOT EXISTS counterfactual_log (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    cf_id             TEXT    NOT NULL UNIQUE,
+    prediction_id     TEXT    NOT NULL,
+    scenario          TEXT    NOT NULL,
+    alternate_action  TEXT    NOT NULL,
+    projected_outcome TEXT    NOT NULL,
+    timestamp         TEXT    NOT NULL,
+    signature         TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS trust_evidence (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    evidence_id     TEXT    NOT NULL UNIQUE,
+    evidence_type   TEXT    NOT NULL,
+    payload_json    TEXT    NOT NULL,
+    payload_hash    TEXT    NOT NULL,
+    timestamp       TEXT    NOT NULL,
+    signature       TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS proof_certificates (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    certificate_id  TEXT    NOT NULL UNIQUE,
+    subject         TEXT    NOT NULL,
+    payload_hash    TEXT    NOT NULL,
+    timestamp       TEXT    NOT NULL,
+    signature       TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS analytics_events (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_type        TEXT    NOT NULL,
+    user_id           INTEGER,
+    session_id        TEXT,
+    source            TEXT,
+    attribution_json  TEXT    NOT NULL DEFAULT '{}',
+    payload_json      TEXT    NOT NULL DEFAULT '{}',
+    created_at        TEXT    NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_events_type_ts
+    ON analytics_events (event_type, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS ip_registry (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_id          TEXT    NOT NULL UNIQUE,
+    asset_type        TEXT    NOT NULL,
+    title             TEXT    NOT NULL,
+    description       TEXT,
+    rights_json       TEXT    NOT NULL DEFAULT '{}',
+    documentation_ref TEXT,
+    created_at        TEXT    NOT NULL,
+    updated_at        TEXT    NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS corporate_dd_entries (
+    id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    entry_id        TEXT    NOT NULL UNIQUE,
+    inquiry_id      INTEGER,
+    evidence_type   TEXT    NOT NULL,
+    payload_json    TEXT    NOT NULL,
+    created_at      TEXT    NOT NULL
+);
 """
 
 
@@ -1211,6 +1350,154 @@ async def _apply_migrations(db: Any) -> None:
             ON decisions (outcome, timestamp DESC)
         """
     )
+
+    await _ensure_compounding_tables(db)
+
+
+async def _ensure_compounding_tables(db: Any) -> None:
+    """Phases 2–7 institutional compounding tables."""
+    statements = [
+        """
+        CREATE TABLE IF NOT EXISTS kg_nodes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            node_id TEXT NOT NULL UNIQUE,
+            node_type TEXT NOT NULL,
+            label TEXT,
+            properties_json TEXT NOT NULL DEFAULT '{}',
+            timestamp TEXT NOT NULL,
+            version INTEGER NOT NULL DEFAULT 1,
+            signature TEXT NOT NULL
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_kg_nodes_type_ts ON kg_nodes (node_type, timestamp DESC)",
+        """
+        CREATE TABLE IF NOT EXISTS kg_edges (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            edge_id TEXT NOT NULL UNIQUE,
+            source_node_id TEXT NOT NULL,
+            target_node_id TEXT NOT NULL,
+            edge_type TEXT NOT NULL,
+            properties_json TEXT NOT NULL DEFAULT '{}',
+            timestamp TEXT NOT NULL,
+            signature TEXT NOT NULL
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_kg_edges_source ON kg_edges (source_node_id, edge_type)",
+        "CREATE INDEX IF NOT EXISTS idx_kg_edges_target ON kg_edges (target_node_id, edge_type)",
+        """
+        CREATE TABLE IF NOT EXISTS market_signals (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            signal_id TEXT NOT NULL,
+            symbol TEXT NOT NULL,
+            signal_type TEXT NOT NULL,
+            value_json TEXT NOT NULL,
+            confidence REAL NOT NULL,
+            source TEXT NOT NULL,
+            timestamp TEXT NOT NULL,
+            version INTEGER NOT NULL DEFAULT 1,
+            payload_hash TEXT NOT NULL,
+            signature TEXT NOT NULL,
+            UNIQUE(signal_id, version)
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_market_signals_symbol_ts ON market_signals (symbol, timestamp DESC)",
+        """
+        CREATE TABLE IF NOT EXISTS learning_predictions (
+            prediction_id TEXT PRIMARY KEY,
+            symbol TEXT NOT NULL,
+            action TEXT NOT NULL,
+            confidence REAL NOT NULL,
+            timestamp TEXT NOT NULL,
+            expiry TEXT,
+            oracle_prediction_id INTEGER,
+            context_json TEXT NOT NULL DEFAULT '{}',
+            signature TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS learning_outcomes (
+            outcome_id TEXT PRIMARY KEY,
+            prediction_id TEXT NOT NULL,
+            actual_result TEXT NOT NULL,
+            accuracy_score REAL,
+            verified_at TEXT NOT NULL,
+            counterfactual_json TEXT,
+            signature TEXT NOT NULL
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_learning_outcomes_pred ON learning_outcomes (prediction_id)",
+        """
+        CREATE TABLE IF NOT EXISTS counterfactual_log (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            cf_id TEXT NOT NULL UNIQUE,
+            prediction_id TEXT NOT NULL,
+            scenario TEXT NOT NULL,
+            alternate_action TEXT NOT NULL,
+            projected_outcome TEXT NOT NULL,
+            timestamp TEXT NOT NULL,
+            signature TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS trust_evidence (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            evidence_id TEXT NOT NULL UNIQUE,
+            evidence_type TEXT NOT NULL,
+            payload_json TEXT NOT NULL,
+            payload_hash TEXT NOT NULL,
+            timestamp TEXT NOT NULL,
+            signature TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS proof_certificates (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            certificate_id TEXT NOT NULL UNIQUE,
+            subject TEXT NOT NULL,
+            payload_hash TEXT NOT NULL,
+            timestamp TEXT NOT NULL,
+            signature TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS analytics_events (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            event_type TEXT NOT NULL,
+            user_id INTEGER,
+            session_id TEXT,
+            source TEXT,
+            attribution_json TEXT NOT NULL DEFAULT '{}',
+            payload_json TEXT NOT NULL DEFAULT '{}',
+            created_at TEXT NOT NULL
+        )
+        """,
+        "CREATE INDEX IF NOT EXISTS idx_analytics_events_type_ts ON analytics_events (event_type, created_at DESC)",
+        """
+        CREATE TABLE IF NOT EXISTS ip_registry (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            asset_id TEXT NOT NULL UNIQUE,
+            asset_type TEXT NOT NULL,
+            title TEXT NOT NULL,
+            description TEXT,
+            rights_json TEXT NOT NULL DEFAULT '{}',
+            documentation_ref TEXT,
+            created_at TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        )
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS corporate_dd_entries (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            entry_id TEXT NOT NULL UNIQUE,
+            inquiry_id INTEGER,
+            evidence_type TEXT NOT NULL,
+            payload_json TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+        """,
+    ]
+    for stmt in statements:
+        await db.execute(stmt)
 
 
 def compaction_cutoff_iso(hours: int | None = None) -> str:

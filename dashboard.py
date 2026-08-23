@@ -377,8 +377,9 @@ async def _initialize_database_ready_state() -> None:
 
 def _initialize_sentry_safe() -> None:
     try:
-        from observability import init_sentry
+        from observability import configure_structured_logging, init_sentry
 
+        configure_structured_logging()
         init_sentry()
     except Exception:
         logger.exception("Sentry init failed")
@@ -666,6 +667,10 @@ async def institutional_audit_middleware(request: Request, call_next):
             response_status=response.status_code,
             body_bytes=body_bytes,
         )
+        if path.startswith("/api/"):
+            from distribution_compounding import track_api_usage
+
+            await track_api_usage(path=path)
     except Exception:
         logger.exception("institutional audit middleware failed for %s", path)
     return response
@@ -798,6 +803,13 @@ try:
     app.include_router(audit_router)
 except Exception:
     logger.exception("Audit registry router unavailable")
+
+try:
+    from api.routers.compounding import router as compounding_router
+
+    app.include_router(compounding_router)
+except Exception:
+    logger.exception("Institutional compounding router unavailable")
 
 try:
     from graphql_schema import create_graphql_router
@@ -1993,10 +2005,10 @@ async def data_room_page(request: Request):
 
 @app.get("/api/trust-os")
 async def api_trust_os():
-    """Honest acquisition framing — four value layers + overclaim denylist."""
-    from trust_os import trust_os_manifest
+    """Honest acquisition framing — four value layers + historical evidence."""
+    from trust_compounding import trust_os_enhanced
 
-    return trust_os_manifest()
+    return await trust_os_enhanced()
 
 
 @app.get("/api/scale/readiness")

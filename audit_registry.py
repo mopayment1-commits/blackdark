@@ -293,7 +293,14 @@ async def create_decision(
         request_path=f"/api/decisions/{did}",
         metadata={"decision_id": did, "version": 1},
     )
-    return _decision_row_to_api(row)
+    api_row = _decision_row_to_api(row)
+    try:
+        from knowledge_graph import ingest_decision
+
+        await ingest_decision(api_row)
+    except Exception:
+        logger.exception("KG ingest failed for decision %s", did)
+    return api_row
 
 
 async def create_decision_version(
@@ -360,7 +367,14 @@ async def create_decision_version(
         request_path=f"/api/decisions/{decision_id}",
         metadata={"decision_id": decision_id, "version": next_version},
     )
-    return _decision_row_to_api(row)
+    api_row = _decision_row_to_api(row)
+    try:
+        from knowledge_graph import ingest_decision
+
+        await ingest_decision(api_row)
+    except Exception:
+        logger.exception("KG ingest failed for decision version %s", decision_id)
+    return api_row
 
 
 async def get_decision(decision_id: str, *, version: int | None = None) -> dict[str, Any] | None:
