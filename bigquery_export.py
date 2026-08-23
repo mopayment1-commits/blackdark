@@ -103,7 +103,7 @@ def _fetch_latest_export_evidence_from_bigquery() -> dict[str, Any] | None:
             ORDER BY exported_at DESC
             LIMIT 1
         """
-        rows = list(client.query(query).result())
+        rows = list(client.query(query, location=cfg["location"]).result())
         if not rows:
             return None
         row = rows[0]
@@ -224,14 +224,11 @@ def _ensure_dataset(client: Any) -> str:
     try:
         client.get_dataset(dataset_ref)
     except NotFound:
-        dataset = bigquery.Dataset(dataset_ref)
-        dataset.location = cfg["location"]
-        try:
-            client.create_dataset(dataset, exists_ok=True)
-        except Exception as exc:
-            raise RuntimeError(
-                f"bigquery_dataset_create_failed:{cfg['dataset_id']}: {exc}"
-            ) from exc
+        ddl = (
+            f"CREATE SCHEMA IF NOT EXISTS `{table_dataset}` "
+            f"OPTIONS(location='{cfg['location']}')"
+        )
+        client.query(ddl, location=cfg["location"]).result()
         try:
             client.get_dataset(dataset_ref)
         except NotFound as exc:
@@ -267,7 +264,7 @@ def _verify_export_rows(client: Any, *, table_ref: str, export_id: str) -> int:
     job_config = bigquery.QueryJobConfig(
         query_parameters=[bigquery.ScalarQueryParameter("export_id", "STRING", export_id)]
     )
-    result = list(client.query(query, job_config=job_config).result())
+    result = list(client.query(query, job_config=job_config, location=bigquery_config()["location"]).result())
     if not result:
         return 0
     row = result[0]
@@ -287,7 +284,13 @@ def _export_rows_sync(*, export_rows: list[dict[str, Any]], export_id: str, expo
         write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
         schema=[bigquery.SchemaField(**field) for field in _TABLE_SCHEMA],
     )
-    load_job = client.load_table_from_json(export_rows, table_ref, job_config=job_config)
+    load_job = client.load_table_from_json(
+        export_rows,
+        table_ref,
+        job_config=job_config,
+        location=cfg["location"],
+        project=cfg["project_id"],
+    )
     load_job.result()
     if load_job.errors:
         raise RuntimeError(f"bigquery_load_errors: {load_job.errors[:3]}")
