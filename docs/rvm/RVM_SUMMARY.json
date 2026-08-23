@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-08-22T21:08:05.200043+00:00",
+  "generated_at": "2026-08-23T01:17:52.136731+00:00",
   "governing_baseline_version": "blackdark-rvm-v1",
   "total_requirements": 1044,
-  "pass_count": 1011,
+  "pass_count": 1012,
   "fail_count": 0,
-  "external_count": 33,
+  "external_count": 32,
   "by_kind": {
     "capability": {
-      "EXTERNAL_EVIDENCE_REQUIRED": 30,
-      "PASS": 948
+      "EXTERNAL_EVIDENCE_REQUIRED": 29,
+      "PASS": 949
     },
     "control": {
       "PASS": 39,

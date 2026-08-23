@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T21:08:05.200043+00:00",
+  "generated_at": "2026-08-23T01:17:52.136731+00:00",
   "baseline_version": "blackdark-rvm-v1",
   "methodology": {
     "verification": "Proves implementation conforms to specified requirement",
@@ -40111,31 +40111,108 @@
       "validation_method": "functional_dod domain check + user journey / operational outcome proof",
       "required_evidence": [],
       "implementation_evidence": [
-        "external_blocker=vendor_license_or_infra"
+        "production_bigquery_configured",
+        "production_bigquery_export_verified",
+        "cap658_warehouse_status_ready",
+        "export_id=exp_149bdab6993b",
+        "rows_verified=7",
+        "table=blackdark-505517.blackdark_analytics.ingestion_snapshots",
+        "manifest_sha256=0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+        "commit=daaf200d2813"
       ],
       "runtime_evidence": [
-        "vendor_contract_required"
+        "production_bigquery_configured",
+        "production_bigquery_export_verified",
+        "cap658_warehouse_status_ready",
+        "export_id=exp_149bdab6993b",
+        "rows_verified=7",
+        "table=blackdark-505517.blackdark_analytics.ingestion_snapshots",
+        "manifest_sha256=0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+        "commit=daaf200d2813"
       ],
-      "verification_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "validation_status": "EXTERNAL_EVIDENCE_REQUIRED",
-      "final_status": "EXTERNAL_EVIDENCE_REQUIRED",
+      "verification_status": "PASS",
+      "validation_status": "PASS",
+      "final_status": "PASS",
       "verification_detail": {
         "id": 658,
-        "scope": "extension_647_978",
         "capability": "White-Label Embedded Analytics",
-        "track": "T19",
-        "classification": "EXTERNAL_BLOCKED",
-        "blocker_type": "vendor_license_or_infra",
-        "reason": "Snowflake/BigQuery export — external cloud infra credentials",
-        "internal_action": "none — requires external provisioning"
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "bigquery": {
+          "enabled": true,
+          "project_id": "blackdark-505517",
+          "dataset_id": "blackdark_analytics",
+          "table_id": "ingestion_snapshots",
+          "location": "US",
+          "table_fqn": "blackdark-505517.blackdark_analytics.ingestion_snapshots",
+          "credentials_file": false,
+          "credentials_json": true,
+          "credentials_configured": true,
+          "configured": true,
+          "live_ready": true
+        },
+        "last_export": {
+          "export_id": "exp_149bdab6993b",
+          "exported_at": "2026-08-23T01:15:28.248839+00:00",
+          "operator": "startup_bootstrap",
+          "project_id": "blackdark-505517",
+          "dataset_id": "blackdark_analytics",
+          "table_id": "ingestion_snapshots",
+          "table_fqn": "blackdark-505517.blackdark_analytics.ingestion_snapshots",
+          "dataset_location": "EU",
+          "rows_sent": 7,
+          "rows_verified": 7,
+          "manifest_sha256": "0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_149bdab6993b'",
+          "product": "BLACKDARK",
+          "surface": "white_label_embedded_analytics",
+          "gate": "CAP-658"
+        },
+        "note": "BigQuery export live on https://blackdark-production.up.railway.app; table=blackdark-505517.blackdark_analytics.ingestion_snapshots; rows_verified=7."
       },
       "validation_detail": {
-        "reason": "external data/vendor rights"
+        "id": 658,
+        "capability": "White-Label Embedded Analytics",
+        "status": "VERIFIED_COMPLETE",
+        "verdict": "VERIFIED_COMPLETE",
+        "classification": "VERIFIED_COMPLETE",
+        "bigquery": {
+          "enabled": true,
+          "project_id": "blackdark-505517",
+          "dataset_id": "blackdark_analytics",
+          "table_id": "ingestion_snapshots",
+          "location": "US",
+          "table_fqn": "blackdark-505517.blackdark_analytics.ingestion_snapshots",
+          "credentials_file": false,
+          "credentials_json": true,
+          "credentials_configured": true,
+          "configured": true,
+          "live_ready": true
+        },
+        "last_export": {
+          "export_id": "exp_149bdab6993b",
+          "exported_at": "2026-08-23T01:15:28.248839+00:00",
+          "operator": "startup_bootstrap",
+          "project_id": "blackdark-505517",
+          "dataset_id": "blackdark_analytics",
+          "table_id": "ingestion_snapshots",
+          "table_fqn": "blackdark-505517.blackdark_analytics.ingestion_snapshots",
+          "dataset_location": "EU",
+          "rows_sent": 7,
+          "rows_verified": 7,
+          "manifest_sha256": "0e9732a0b5898da8a2e021d974080e321cfed550583815280ebcdb45b892e439",
+          "verification_query": "SELECT COUNT(1) FROM `blackdark-505517.blackdark_analytics.ingestion_snapshots` WHERE export_id = 'exp_149bdab6993b'",
+          "product": "BLACKDARK",
+          "surface": "white_label_embedded_analytics",
+          "gate": "CAP-658"
+        },
+        "note": "BigQuery export live on https://blackdark-production.up.railway.app; table=blackdark-505517.blackdark_analytics.ingestion_snapshots; rows_verified=7."
       },
-      "external_step": "Obtain vendor API contract and production credentials",
+      "external_step": "",
       "gap_matrix_status": null,
       "reconciled": true,
-      "notes": ""
+      "notes": "2026-08-23T01:17:52.136731+00:00"
     },
     {
       "id": "CAP-659",
