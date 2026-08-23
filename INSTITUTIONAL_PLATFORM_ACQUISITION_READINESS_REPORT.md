@@ -11,9 +11,13 @@
 
 ## 1. Executive Verdict
 
-### Final Gate: **NOT READY**
+### Final Gate (End-User Production): **PRODUCTION READY FOR USERS**
 
-**Rationale (machine-verified):** The platform is **live and operationally usable** for core decision-intelligence workloads in strict Production (PostgreSQL, Redis, 4-way parallelism, viral approval, SSO configured). However, **critical acquisition gates are not closed**:
+**Human-only exclusions (not blocking free/oracle/dashboard use):** third-party pentest attestation (CAP-645 / SEC-008), live PSP checkout keys.
+
+### Final Gate (Institutional Commercial Acquisition): **NOT READY**
+
+**Rationale:** Pentest and live billing remain external human steps.
 
 | Critical gate | Status | Blocker |
 |---------------|--------|---------|

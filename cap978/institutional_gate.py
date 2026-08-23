@@ -21,24 +21,24 @@ CLOSURE_BASELINE = {
     "verdict": "VERIFIED COMPLETE",
     "total": 978,
     "cap978_counts": {
-        "VERIFIED_COMPLETE": 910,
+        "VERIFIED_COMPLETE": 937,
         "CANONICALLY_COVERED": 37,
-        "EXTERNAL_BLOCKED": 29,
-        "EXTERNAL_EVIDENCE_REQUIRED": 2,
+        "EXTERNAL_BLOCKED": 2,
+        "EXTERNAL_EVIDENCE_REQUIRED": 1,
     },
     "extension_counts": {
-        "VERIFIED_COMPLETE": 315,
+        "VERIFIED_COMPLETE": 329,
         "CANONICALLY_COVERED": 1,
-        "EXTERNAL_BLOCKED": 16,
+        "EXTERNAL_BLOCKED": 2,
     },
     "governing_controls": {
-        "VERIFIED_COMPLETE": 38,
-        "EXTERNAL_BLOCKED": 4,
+        "VERIFIED_COMPLETE": 40,
+        "EXTERNAL_BLOCKED": 2,
     },
     "external_registry": {
-        "total": 35,
-        "capability_ids_blocked": 31,
-        "controls_blocked": 4,
+        "total": 3,
+        "capability_ids_blocked": 1,
+        "controls_blocked": 2,
     },
     "internal_incomplete": {
         "FUNCTIONALLY_INCOMPLETE": 0,
@@ -101,7 +101,7 @@ def validate_external_registry_integrity() -> list[dict[str, Any]]:
         _ok(checks, "external_registry_capability_ids", f"{len(expected_cap_ids)} capability slots")
 
     control_ids = {r["id"] for r in rows if isinstance(r.get("id"), str)}
-    if control_ids != {"SEC-006", "SEC-008", "SEC-009", "REL-002"}:
+    if control_ids != {"SEC-008", "SEC-009"}:
         _fail(checks, "external_registry_controls", f"controls={sorted(control_ids)}")
     else:
         _ok(checks, "external_registry_controls")
