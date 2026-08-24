@@ -24,6 +24,7 @@ RUN pip install --no-cache-dir --default-timeout=180 --require-hashes --only-bin
 # CAP646/CAP978 API packages (see COPY cap646 cap978 rvm docs/cap646 docs/cap978)
 COPY *.py ./
 COPY api/ api/
+COPY blackdark/ blackdark/
 COPY cap646/ cap646/
 COPY cap978/ cap978/
 COPY rvm/ rvm/
