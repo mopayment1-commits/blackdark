@@ -51,6 +51,19 @@ async def job_coingecko_market() -> None:
     await _run_with_session(lambda s: ingest_markets(s, triggered_by="job:coingecko_market"))
 
 
+async def job_kraken_ohlcv_1h() -> None:
+    """Live shadow collection via Kraken when Binance is geo-blocked."""
+    await _run_with_session(
+        lambda s: kraken_ingest_ohlcv(
+            s,
+            pair="XBTUSDT",
+            symbol="BTCUSDT",
+            interval="1h",
+            triggered_by="job:kraken_ohlcv_1h",
+        )
+    )
+
+
 async def run_bootstrap_ingest_once() -> dict[str, Any]:
     """One-shot ingest when the database has no OHLCV rows (startup bootstrap)."""
     if not _enabled() or not data_engine_available():
@@ -156,6 +169,13 @@ def start_data_engine_jobs(loop: asyncio.AbstractEventLoop | None = None) -> dic
         job_coingecko_market,
         IntervalTrigger(minutes=5),
         id="coingecko_market",
+        replace_existing=True,
+        max_instances=1,
+    )
+    _scheduler.add_job(
+        job_kraken_ohlcv_1h,
+        CronTrigger(minute=5),
+        id="kraken_ohlcv_1h",
         replace_existing=True,
         max_instances=1,
     )

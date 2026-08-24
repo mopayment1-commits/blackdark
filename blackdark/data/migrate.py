@@ -24,6 +24,12 @@ _REQUIRED_TABLES = (
     "data_provenance",
     "ingestion_errors",
     "market_snapshots",
+    "de_signal_registry",
+    "de_prediction_ledger",
+    "de_decision_ledger",
+    "de_outcome_evaluations",
+    "de_evidence_store",
+    "de_failure_misses",
 )
 
 _migrate_lock = asyncio.Lock()

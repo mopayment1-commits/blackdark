@@ -844,9 +844,11 @@ except Exception:
 try:
     from blackdark.data.api import admin_router as data_engine_admin_router
     from blackdark.data.api import router as data_engine_router
+    from blackdark.data.systems_api import systems_router
 
     app.include_router(data_engine_router)
     app.include_router(data_engine_admin_router)
+    app.include_router(systems_router)
 except Exception:
     logger.exception("Wave 01 data engine router unavailable")
 

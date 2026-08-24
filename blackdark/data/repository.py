@@ -635,3 +635,497 @@ async def data_engine_status(session: AsyncSession) -> dict[str, Any]:
         "total_records": int(total_row.get("total_records") or 0),
         "oldest_record": _iso(total_row.get("oldest_ohlcv")),
     }
+
+
+async def query_ingestion_runs(
+    session: AsyncSession,
+    *,
+    source_slug: str | None = None,
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if source_slug:
+        clauses.append("ds.slug = :source_slug")
+        params["source_slug"] = source_slug
+    where = " AND ".join(clauses)
+    result = await session.execute(
+        text(
+            f"""
+            SELECT ir.id, ds.slug AS source, ir.run_type, ir.status,
+                   ir.records_fetched, ir.records_inserted, ir.records_deduped,
+                   ir.errors_count, ir.triggered_by, ir.started_at, ir.completed_at
+            FROM ingestion_runs ir
+            JOIN data_sources ds ON ds.id = ir.source_id
+            WHERE {where}
+            ORDER BY ir.started_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        item["id"] = str(item["id"])
+        for k in ("started_at", "completed_at"):
+            if item.get(k):
+                item[k] = _iso(item[k])
+        rows.append(item)
+    return rows
+
+
+async def query_ingestion_errors(
+    session: AsyncSession,
+    *,
+    source_slug: str | None = None,
+    resolved: bool | None = None,
+    limit: int = 50,
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if source_slug:
+        clauses.append("ds.slug = :source_slug")
+        params["source_slug"] = source_slug
+    if resolved is not None:
+        clauses.append("ie.resolved = :resolved")
+        params["resolved"] = resolved
+    where = " AND ".join(clauses)
+    result = await session.execute(
+        text(
+            f"""
+            SELECT ie.id, ds.slug AS source, ie.error_type, ie.error_message,
+                   ie.endpoint, ie.retry_count, ie.resolved, ie.created_at,
+                   ie.ingestion_run_id
+            FROM ingestion_errors ie
+            LEFT JOIN data_sources ds ON ds.id = ie.source_id
+            WHERE {where}
+            ORDER BY ie.created_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        if item.get("ingestion_run_id"):
+            item["ingestion_run_id"] = str(item["ingestion_run_id"])
+        if item.get("created_at"):
+            item["created_at"] = _iso(item["created_at"])
+        rows.append(item)
+    return rows
+
+
+async def insert_market_event(session: AsyncSession, *, row: dict[str, Any]) -> int:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO market_events (
+                event_type, severity, symbol, start_time, end_time, description,
+                price_change_pct, volume_spike_multiplier, source_links, detected_by, confirmed
+            ) VALUES (
+                :event_type, :severity, :symbol, :start_time, :end_time, :description,
+                :price_change_pct, :volume_spike_multiplier, CAST(:source_links AS jsonb),
+                :detected_by, :confirmed
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "event_type": row["event_type"],
+            "severity": row["severity"],
+            "symbol": row.get("symbol"),
+            "start_time": row["start_time"],
+            "end_time": row.get("end_time"),
+            "description": row.get("description"),
+            "price_change_pct": _dec(row.get("price_change_pct")),
+            "volume_spike_multiplier": _dec(row.get("volume_spike_multiplier")),
+            "source_links": json.dumps(row.get("source_links") or []),
+            "detected_by": row.get("detected_by", "api"),
+            "confirmed": bool(row.get("confirmed", False)),
+        },
+    )
+    inserted = result.fetchone()
+    return int(inserted[0])
+
+
+async def insert_signal(
+    session: AsyncSession,
+    *,
+    signal_id: str,
+    symbol: str,
+    signal_type: str,
+    direction: str,
+    confidence: Any | None = None,
+    features_hash: str | None = None,
+    ingestion_run_id: str | None = None,
+    model_version: str | None = None,
+    provenance_hash: str | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> str:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_signal_registry (
+                signal_id, symbol, signal_type, direction, confidence,
+                features_hash, ingestion_run_id, model_version, provenance_hash, metadata
+            ) VALUES (
+                :signal_id, :symbol, :signal_type, :direction, :confidence,
+                :features_hash, :ingestion_run_id, :model_version, :provenance_hash,
+                CAST(:metadata AS jsonb)
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "signal_id": signal_id,
+            "symbol": symbol.upper(),
+            "signal_type": signal_type,
+            "direction": direction.lower(),
+            "confidence": _dec(confidence),
+            "features_hash": features_hash,
+            "ingestion_run_id": ingestion_run_id,
+            "model_version": model_version,
+            "provenance_hash": provenance_hash,
+            "metadata": json.dumps(metadata or {}),
+        },
+    )
+    return str(result.fetchone()[0])
+
+
+async def query_signals(
+    session: AsyncSession, *, symbol: str | None = None, limit: int = 50
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if symbol:
+        clauses.append("symbol = :symbol")
+        params["symbol"] = symbol.upper()
+    result = await session.execute(
+        text(
+            f"""
+            SELECT id, signal_id, symbol, signal_type, direction, confidence,
+                   features_hash, model_version, provenance_hash, created_at
+            FROM de_signal_registry
+            WHERE {" AND ".join(clauses)}
+            ORDER BY created_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        item["id"] = str(item["id"])
+        if item.get("created_at"):
+            item["created_at"] = _iso(item["created_at"])
+        rows.append(item)
+    return rows
+
+
+async def insert_prediction(
+    session: AsyncSession,
+    *,
+    prediction_id: str,
+    symbol: str,
+    sealed_payload_hash: str,
+    signal_id: str | None = None,
+    direction: str | None = None,
+    target_price: Any | None = None,
+    model_version: str | None = None,
+    unlock_at: datetime | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> str:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_prediction_ledger (
+                prediction_id, signal_id, symbol, sealed_payload_hash,
+                direction, target_price, model_version, unlock_at, metadata
+            ) VALUES (
+                :prediction_id, CAST(:signal_id AS uuid), :symbol, :sealed_payload_hash,
+                :direction, :target_price, :model_version, :unlock_at, CAST(:metadata AS jsonb)
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "prediction_id": prediction_id,
+            "signal_id": signal_id,
+            "symbol": symbol.upper(),
+            "sealed_payload_hash": sealed_payload_hash,
+            "direction": direction,
+            "target_price": _dec(target_price),
+            "model_version": model_version,
+            "unlock_at": unlock_at,
+            "metadata": json.dumps(metadata or {}),
+        },
+    )
+    return str(result.fetchone()[0])
+
+
+async def get_prediction(session: AsyncSession, prediction_id: str) -> dict[str, Any] | None:
+    result = await session.execute(
+        text("SELECT * FROM de_prediction_ledger WHERE prediction_id = :pid"),
+        {"pid": prediction_id},
+    )
+    row = result.mappings().fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    item["id"] = str(item["id"])
+    if item.get("signal_id"):
+        item["signal_id"] = str(item["signal_id"])
+    for k in ("sealed_at", "unlock_at", "created_at"):
+        if item.get(k):
+            item[k] = _iso(item[k])
+    return item
+
+
+async def insert_decision(
+    session: AsyncSession,
+    *,
+    decision_id: str,
+    prediction_id: str,
+    decision_action: str,
+    symbol: str,
+    rationale: str | None = None,
+    evidence_hash: str | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> str:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_decision_ledger (
+                decision_id, prediction_id, decision_action, symbol,
+                rationale, evidence_hash, metadata
+            ) VALUES (
+                :decision_id, :prediction_id, :decision_action, :symbol,
+                :rationale, :evidence_hash, CAST(:metadata AS jsonb)
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "decision_id": decision_id,
+            "prediction_id": prediction_id,
+            "decision_action": decision_action.lower(),
+            "symbol": symbol.upper(),
+            "rationale": rationale,
+            "evidence_hash": evidence_hash,
+            "metadata": json.dumps(metadata or {}),
+        },
+    )
+    return str(result.fetchone()[0])
+
+
+async def query_decisions(
+    session: AsyncSession, *, prediction_id: str | None = None, limit: int = 50
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if prediction_id:
+        clauses.append("prediction_id = :prediction_id")
+        params["prediction_id"] = prediction_id
+    result = await session.execute(
+        text(
+            f"""
+            SELECT id, decision_id, prediction_id, decision_action, symbol,
+                   rationale, evidence_hash, created_at
+            FROM de_decision_ledger
+            WHERE {" AND ".join(clauses)}
+            ORDER BY created_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        item["id"] = str(item["id"])
+        if item.get("created_at"):
+            item["created_at"] = _iso(item["created_at"])
+        rows.append(item)
+    return rows
+
+
+async def insert_outcome_evaluation(
+    session: AsyncSession,
+    *,
+    prediction_id: str,
+    outcome: str,
+    actual_price: Any | None = None,
+    predicted_direction: str | None = None,
+    pnl_pct: Any | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> str:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_outcome_evaluations (
+                prediction_id, outcome, actual_price, predicted_direction, pnl_pct, metadata
+            ) VALUES (
+                :prediction_id, :outcome, :actual_price, :predicted_direction, :pnl_pct,
+                CAST(:metadata AS jsonb)
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "prediction_id": prediction_id,
+            "outcome": outcome.lower(),
+            "actual_price": _dec(actual_price),
+            "predicted_direction": predicted_direction,
+            "pnl_pct": _dec(pnl_pct),
+            "metadata": json.dumps(metadata or {}),
+        },
+    )
+    return str(result.fetchone()[0])
+
+
+async def query_outcomes(
+    session: AsyncSession, *, prediction_id: str | None = None, limit: int = 50
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if prediction_id:
+        clauses.append("prediction_id = :prediction_id")
+        params["prediction_id"] = prediction_id
+    result = await session.execute(
+        text(
+            f"""
+            SELECT id, prediction_id, outcome, evaluated_at, actual_price,
+                   predicted_direction, pnl_pct
+            FROM de_outcome_evaluations
+            WHERE {" AND ".join(clauses)}
+            ORDER BY evaluated_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        item["id"] = str(item["id"])
+        if item.get("evaluated_at"):
+            item["evaluated_at"] = _iso(item["evaluated_at"])
+        rows.append(item)
+    return rows
+
+
+async def insert_evidence(
+    session: AsyncSession,
+    *,
+    evidence_id: str,
+    record_type: str,
+    payload: dict[str, Any],
+    payload_hash: str,
+    source_table: str | None = None,
+    source_record_id: str | None = None,
+) -> str:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_evidence_store (
+                evidence_id, record_type, payload_hash, payload,
+                source_table, source_record_id
+            ) VALUES (
+                :evidence_id, :record_type, :payload_hash, CAST(:payload AS jsonb),
+                :source_table, :source_record_id
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "evidence_id": evidence_id,
+            "record_type": record_type,
+            "payload_hash": payload_hash,
+            "payload": json.dumps(payload),
+            "source_table": source_table,
+            "source_record_id": source_record_id,
+        },
+    )
+    return str(result.fetchone()[0])
+
+
+async def get_evidence(session: AsyncSession, evidence_id: str) -> dict[str, Any] | None:
+    result = await session.execute(
+        text("SELECT * FROM de_evidence_store WHERE evidence_id = :eid"),
+        {"eid": evidence_id},
+    )
+    row = result.mappings().fetchone()
+    if not row:
+        return None
+    item = dict(row)
+    item["id"] = str(item["id"])
+    if item.get("created_at"):
+        item["created_at"] = _iso(item["created_at"])
+    return item
+
+
+async def insert_failure_miss(
+    session: AsyncSession,
+    *,
+    failure_type: str,
+    prediction_id: str | None = None,
+    signal_id: str | None = None,
+    symbol: str | None = None,
+    error_message: str | None = None,
+    metadata: dict[str, Any] | None = None,
+) -> int:
+    result = await session.execute(
+        text(
+            """
+            INSERT INTO de_failure_misses (
+                failure_type, prediction_id, signal_id, symbol, error_message, metadata
+            ) VALUES (
+                :failure_type, :prediction_id, :signal_id, :symbol, :error_message,
+                CAST(:metadata AS jsonb)
+            )
+            RETURNING id
+            """
+        ),
+        {
+            "failure_type": failure_type,
+            "prediction_id": prediction_id,
+            "signal_id": signal_id,
+            "symbol": symbol.upper() if symbol else None,
+            "error_message": error_message,
+            "metadata": json.dumps(metadata or {}),
+        },
+    )
+    return int(result.fetchone()[0])
+
+
+async def query_failure_misses(
+    session: AsyncSession, *, failure_type: str | None = None, limit: int = 50
+) -> list[dict[str, Any]]:
+    clauses = ["1=1"]
+    params: dict[str, Any] = {"limit": min(limit, 200)}
+    if failure_type:
+        clauses.append("failure_type = :failure_type")
+        params["failure_type"] = failure_type
+    result = await session.execute(
+        text(
+            f"""
+            SELECT id, failure_type, prediction_id, signal_id, symbol,
+                   error_message, created_at
+            FROM de_failure_misses
+            WHERE {" AND ".join(clauses)}
+            ORDER BY created_at DESC
+            LIMIT :limit
+            """
+        ),
+        params,
+    )
+    rows = []
+    for row in result.mappings().fetchall():
+        item = dict(row)
+        if item.get("created_at"):
+            item["created_at"] = _iso(item["created_at"])
+        rows.append(item)
+    return rows
