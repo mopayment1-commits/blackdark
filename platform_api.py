@@ -510,6 +510,43 @@ async def squeeze_triggers(asset: str = Query("BTC")):
     return await squeeze_trigger_coordinates(asset)
 
 
+@router.get("/intelligence-ledger/execution")
+async def intelligence_ledger_execution(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    side: str = Query("buy"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Sprint 2 — best execution path from 1inch + AMM + CEX + slippage optimizer."""
+    from bd_platform.intelligence_ledger import build_execution_intelligence
+
+    return await build_execution_intelligence(
+        asset=asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        side=side,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
+
+@router.get("/intelligence-ledger/slippage-optimize")
+async def intelligence_ledger_slippage(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Feature #5 — slippage tolerance self-optimization (vol + depth + gas)."""
+    from bd_platform.slippage_tolerance_optimizer import optimize_slippage_tolerance
+
+    return await optimize_slippage_tolerance(
+        asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
 
 @router.get("/macro/bitcoin")
 async def macro_btc():
