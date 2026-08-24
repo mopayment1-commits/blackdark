@@ -82,5 +82,12 @@ async def init_data_engine() -> dict[str, Any]:
 
 
 async def ensure_data_engine_ready() -> None:
-    if not _initialized:
-        await init_data_engine()
+    global _initialized
+    if _initialized:
+        return
+    async with _init_lock:
+        if _initialized:
+            return
+        result = await init_data_engine()
+        if not result.get("ok"):
+            raise RuntimeError(result.get("reason", "data_engine_init_failed"))

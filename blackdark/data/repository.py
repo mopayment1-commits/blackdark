@@ -436,11 +436,11 @@ async def query_funding(
             f"""
             SELECT f.funding_time, f.funding_rate, f.mark_price, f.index_price,
                    ds.slug AS source, p.id AS provenance_id
-            FROM funding_rates f
+            FROM de_funding_rates f
             LEFT JOIN data_sources ds ON ds.id = f.source_id
             LEFT JOIN LATERAL (
                 SELECT id FROM data_provenance
-                WHERE target_table = 'funding_rates' AND target_record_id = f.id
+                WHERE target_table = 'de_funding_rates' AND target_record_id = f.id
                 ORDER BY parsed_at DESC LIMIT 1
             ) p ON true
             WHERE {where}
@@ -608,7 +608,7 @@ async def data_engine_status(session: AsyncSession) -> dict[str, Any]:
             """
             SELECT
                 (SELECT COUNT(*) FROM ohlcv_data)
-              + (SELECT COUNT(*) FROM funding_rates)
+              + (SELECT COUNT(*) FROM de_funding_rates)
               + (SELECT COUNT(*) FROM open_interest)
               + (SELECT COUNT(*) FROM market_snapshots) AS total_records,
                 (SELECT MIN(open_time) FROM ohlcv_data) AS oldest_ohlcv

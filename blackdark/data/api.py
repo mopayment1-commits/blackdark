@@ -136,15 +136,19 @@ async def get_funding(
     source: str | None = None,
     _: None = Depends(_ensure_ready),
 ):
-    async with get_session() as session:
-        rows = await query_funding(
-            session,
-            symbol=symbol,
-            start_time=_parse_dt(start_time),
-            end_time=_parse_dt(end_time),
-            limit=limit,
-            source_slug=source,
-        )
+    try:
+        async with get_session() as session:
+            rows = await query_funding(
+                session,
+                symbol=symbol,
+                start_time=_parse_dt(start_time),
+                end_time=_parse_dt(end_time),
+                limit=limit,
+                source_slug=source,
+            )
+    except Exception as exc:
+        logger.exception("funding query failed")
+        raise HTTPException(status_code=503, detail=f"funding query failed: {exc}") from exc
     return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
 
 
