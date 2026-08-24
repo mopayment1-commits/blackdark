@@ -1008,3 +1008,75 @@ async def transfer_optimizer_status_route():
     from bd_platform.cross_platform_transfer_optimizer import transfer_optimizer_status
 
     return transfer_optimizer_status()
+
+
+@router.get("/transfer/widget")
+async def transfer_deposit_widget_route(
+    asset: str = Query("USDT"),
+    amount_usd: float = Query(1000.0, ge=10.0, le=10_000_000.0),
+    user_id: str | None = Query(None),
+    surface: str = Query("transfer", pattern="^(transfer|deposit|withdraw)$"),
+):
+    """#120 embedded network widget — integrated with #108 on transfer/deposit pages."""
+    from bd_platform.transfer_network_utility import transfer_deposit_widget
+
+    return await transfer_deposit_widget(asset, amount_usd=amount_usd, user_id=user_id, surface=surface)
+
+
+# ── Market Radar — #121 Large Liquidity, #114+#122 Listing Intelligence ─────
+
+
+@router.get("/market-radar/large-liquidity-events")
+async def large_liquidity_events_route(limit: int = Query(10, ge=1, le=30)):
+    """Large Liquidity Event Alert (#121) — data + analysis, not buy advice."""
+    from bd_platform.large_liquidity_event_alert import scan_large_liquidity_events
+
+    return await scan_large_liquidity_events(limit=limit)
+
+
+@router.get("/market-radar/listing-intelligence")
+async def listing_intelligence_route(limit: int = Query(20, ge=1, le=50)):
+    """Listing Intelligence Engine (#114 + #122) — deposit opened → listing → first trade."""
+    from bd_platform.listing_intelligence_engine import scan_listing_intelligence
+
+    return await scan_listing_intelligence(limit=limit)
+
+
+# ── Risk Signals — #123 Withdrawal Closure + #110 Exchange Health ────────────
+
+
+@router.get("/risk/withdrawal-closures")
+async def withdrawal_closures_route(limit: int = Query(50, ge=1, le=100)):
+    """Per-asset withdrawal closure alerts (#123) — integrated with #109/#134."""
+    from bd_platform.withdrawal_closure_alert import scan_withdrawal_closures
+
+    return scan_withdrawal_closures(limit=limit)
+
+
+@router.post("/risk/withdrawal-closures/record", responses=COMMON_ERROR_RESPONSES)
+async def withdrawal_closure_record_route(
+    body: dict[str, Any] = Body(...),
+    _admin: dict = Depends(require_admin),
+):
+    """Record a withdrawal closure event (admin/ingestion hook)."""
+    from bd_platform.withdrawal_closure_alert import record_withdrawal_closure
+
+    return record_withdrawal_closure(
+        exchange_id=str(body.get("exchange_id") or ""),
+        asset=str(body.get("asset") or ""),
+        withdrawal_score=float(body.get("withdrawal_score") or 20),
+        health_score=float(body.get("health_score") or 45),
+        badge=str(body.get("badge") or "caution"),
+        duration_minutes=float(body["duration_minutes"]) if body.get("duration_minutes") is not None else None,
+    )
+
+
+@router.get("/exchange-health/status")
+async def exchange_health_status_route(
+    exchange_id: str | None = Query(None),
+    min_alert_level: str = Query("low"),
+):
+    """Exchange Health Monitor (#110) + platform status (#134)."""
+    from bd_platform.exchange_health_monitor import exchange_health_status
+
+    return exchange_health_status(exchange_id=exchange_id, min_alert_level=min_alert_level)
