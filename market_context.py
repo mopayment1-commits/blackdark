@@ -70,10 +70,16 @@ def sector_for_asset(asset: str) -> str:
 
 
 def normalize_oracle_symbol(symbol: str) -> tuple[str, str]:
-    cleaned = symbol.upper().strip().replace("/", "").replace("-", "")
-    if cleaned.endswith("USDT"):
-        return cleaned[:-4], cleaned
-    return cleaned, f"{cleaned}USDT"
+    from blackdark.canonical.resolver import resolve_symbol
+
+    asset = resolve_symbol(symbol)
+    pair = f"{asset}USDT" if not asset.endswith("USDT") else asset
+    if "/" in symbol or symbol.upper().endswith("USDT"):
+        cleaned = symbol.upper().strip().replace("/", "").replace("-", "")
+        if cleaned.endswith("USDT"):
+            pair = cleaned
+            asset = resolve_symbol(cleaned[:-4])
+    return asset, pair
 
 
 # CoinGecko IDs for REST fallback when Binance is geo-blocked (common on cloud hosts).

@@ -306,6 +306,57 @@ async def defi_raises():
     return await defillama_raises()
 
 
+@router.get("/canonical/resolve")
+async def canonical_resolve(input: str = Query(..., min_length=1, max_length=128)):
+    """Infrastructure — resolve any symbol/alias/pair to canonical asset ID."""
+    from blackdark.canonical.resolver import resolve_asset
+
+    return resolve_asset(input).to_dict()
+
+
+@router.get("/canonical/assets")
+async def canonical_assets(limit: int = Query(105, ge=1, le=200)):
+    """Infrastructure — canonical asset reference list (stable mapping)."""
+    from blackdark.canonical.registry import all_canonical_assets, registry_stats
+
+    assets = all_canonical_assets()[:limit]
+    return {
+        "ok": True,
+        "count": len(assets),
+        "assets": [a.to_dict() for a in assets],
+        "stats": registry_stats(),
+    }
+
+
+@router.get("/canonical/layer/status")
+async def canonical_layer_status():
+    """Infrastructure — Canonical Data Layer health + bootstrap stats."""
+    from blackdark.canonical.layer import get_canonical_layer
+
+    layer = get_canonical_layer()
+    stats = await layer.bootstrap(persist=True)
+    return {**layer.status(), "bootstrap": stats}
+
+
+@router.post("/canonical/ingest")
+async def canonical_ingest(
+    source: str = Query(...),
+    dataset: str = Query(...),
+    payload: dict[str, Any] = Body(...),
+    asset_hint: str | None = Query(None),
+):
+    """Infrastructure — normalize + persist a vendor payload under canonical ID."""
+    from blackdark.canonical.layer import get_canonical_layer
+
+    layer = get_canonical_layer()
+    return await layer.ingest(
+        source=source,
+        dataset=dataset,
+        raw=payload,
+        asset_hint=asset_hint,
+    )
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

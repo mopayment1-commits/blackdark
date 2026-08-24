@@ -56,6 +56,8 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("thesis scor", "investment thesis"), ("trust_pulse", "build_trust_pulse", "symbol_tier")),
     (("risk radar", "defi risk"), ("risk_manager", "risk_status", "none")),
     (("methodology registry", "metric methodology", "data quality", "lineage", "normalization"), ("data_provenance_score", "compute_data_provenance_score", "provenance")),
+    (("asset metadata", "canonical id", "canonical asset", "stable mapping"), ("blackdark.canonical.resolver", "resolve_asset", "symbol")),
+    (("canonical data layer", "canonical data", "reference data"), ("blackdark.canonical.layer", "get_canonical_layer", "none")),
     (("api export", "data export"), ("acquirer_evidence_pack", "build_acquirer_evidence_pack", "none")),
     (("event library", "market event"), ("market_event_library", "event_library_stats", "none")),
     (("failure", "kill rate"), ("failure_corpus", "corpus_stats", "none")),
