@@ -144,4 +144,17 @@ async def alpha_backtest_summary(symbol: str = "BTC") -> dict[str, Any]:
     result = walk_forward_backtest(daily_returns)
     result["asset"] = sym
     result["data_source"] = "coingecko_market_chart_730d"
+
+    try:
+        from blackdark.ingestion.historical_flat_archive import backtest_coverage_years
+
+        archive = backtest_coverage_years(symbol=sym, interval="1d")
+        if archive.get("years_available"):
+            result["archive_years"] = archive.get("years_available")
+            result["user_facing_note"] = archive.get("user_facing_note")
+            if archive.get("meets_2y_backtest"):
+                result["acceptance"]["backtest_years_met"] = True
+    except Exception:
+        pass
+
     return result

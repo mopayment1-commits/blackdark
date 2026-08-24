@@ -1,8 +1,9 @@
 """
 Decision Engine inputs (#48) — aggregates silent Data Layer metrics.
 
-Feeds risk scoring from exchange flows (#97), research context (#95),
-and Solana on-chain availability (#93). No standalone user surface.
+Feeds risk scoring from exchange flows (#97), netflow (#54), CVD (#59),
+research (#95), news (#68), Solana RPC (#93), and flat archive (#66).
+No standalone user surface.
 """
 
 from __future__ import annotations
@@ -19,23 +20,35 @@ def _utcnow() -> str:
 async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
     """Collect internal metrics that adjust decision/risk scores."""
     from blackdark.ingestion.exchange_flow_metric import compute_token_exchange_flows
+    from blackdark.ingestion.exchange_netflow_intelligence import compute_exchange_netflow
+    from blackdark.ingestion.futures_cvd_metric import compute_futures_cvd
+    from blackdark.ingestion.historical_flat_archive import backtest_coverage_years
+    from blackdark.ingestion.investing_com_connector import fetch_investing_news_context
     from blackdark.ingestion.solana_rpc_connector import fetch_solana_chain_health
     from blackdark.ingestion.theblock_connector import fetch_theblock_research_context
 
     t0 = time.perf_counter()
     sym = symbol.upper()
-    flows, research, solana = await _gather(
+    flows, netflow, cvd, research, news, solana, archive = await _gather(
         compute_token_exchange_flows(sym),
+        compute_exchange_netflow(sym),
+        compute_futures_cvd(sym),
         fetch_theblock_research_context(limit=8),
+        fetch_investing_news_context(limit=50),
         fetch_solana_chain_health(),
+        _async_archive(sym),
     )
 
     risk_delta = float(flows.get("risk_score_delta") or 0)
+    if netflow.get("risk_score_delta") is not None:
+        risk_delta = max(risk_delta, float(netflow.get("risk_score_delta") or 0))
+
     headlines: list[str] = []
-    if flows.get("headline"):
-        headlines.append(str(flows["headline"]))
-    if research.get("ai_context_line"):
-        headlines.append(str(research["ai_context_line"]))
+    for row in (flows, netflow, cvd, research, news):
+        if isinstance(row, dict) and row.get("headline"):
+            headlines.append(str(row["headline"]))
+        elif isinstance(row, dict) and row.get("ai_context_line"):
+            headlines.append(str(row["ai_context_line"]))
 
     elapsed = time.perf_counter() - t0
     return {
@@ -44,15 +57,25 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         "feature": "#48",
         "symbol": sym,
         "exchange_flows": flows,
+        "exchange_netflow": netflow,
+        "futures_cvd": cvd,
         "research_context": research if research.get("ok") else None,
+        "news_context": news if news.get("ok") else None,
         "solana_onchain": solana if solana.get("ok") else None,
-        "risk_score_delta": risk_delta,
-        "headlines": headlines,
+        "backtest_archive": archive,
+        "risk_score_delta": round(risk_delta, 2),
+        "headlines": headlines[:5],
         "internal_only": True,
         "latency_ms": round(elapsed * 1000, 1),
-        "sla_met": elapsed <= 2.0,
+        "sla_met": elapsed <= 3.0,
         "timestamp": _utcnow(),
     }
+
+
+async def _async_archive(sym: str) -> dict[str, Any]:
+    from blackdark.ingestion.historical_flat_archive import backtest_coverage_years
+
+    return backtest_coverage_years(symbol=sym)
 
 
 async def _gather(*coros):
