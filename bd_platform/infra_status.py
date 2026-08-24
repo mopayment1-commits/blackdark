@@ -52,7 +52,28 @@ def infra_matrix() -> dict[str, Any]:
             "endpoint": "/api/platform/proof/public",
             "features": ["merkle_root", "inclusion_proof", "commitment_verify"],
         },
+        "local_etl": _etl_status_block(),
     }
+
+
+def _etl_status_block() -> dict[str, Any]:
+    try:
+        from bd_platform.influx_timeseries import timeseries_status
+
+        ts = timeseries_status()
+        return {
+            "status": "ready",
+            "module": "bd_platform.local_data_etl",
+            "feature": "#118",
+            "endpoints": [
+                "/api/platform/infra/etl/status",
+                "/api/platform/infra/etl/run",
+                "/api/platform/infra/etl/query",
+            ],
+            "influxdb": ts,
+        }
+    except ImportError:
+        return {"status": "module_missing", "feature": "#118"}
 
 
 def infra_ready_score() -> dict[str, Any]:

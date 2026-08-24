@@ -885,3 +885,126 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+# ── Feature #118 — Local ETL data foundation (infrastructure) ────────────────
+
+
+@router.get("/infra/etl/status")
+async def etl_status_route():
+    """ETL pipeline health — ops/infrastructure (#118)."""
+    from bd_platform.local_data_etl import etl_health_status
+
+    return await etl_health_status()
+
+
+@router.post("/infra/etl/run", responses=COMMON_ERROR_RESPONSES)
+async def etl_run_route(
+    body: dict[str, Any] = Body(default_factory=dict),
+    _admin: dict = Depends(require_admin),
+):
+    """Trigger one ETL cycle — admin only (#118)."""
+    from bd_platform.local_data_etl import run_etl_cycle
+
+    assets = body.get("assets")
+    if assets is not None and not isinstance(assets, list):
+        raise HTTPException(status_code=400, detail="assets must be a list of symbols")
+    return await run_etl_cycle(assets=assets)
+
+
+@router.get("/infra/etl/query")
+async def etl_query_route(
+    domain: str | None = Query(None, pattern="^(market|onchain|user)$"),
+    asset: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=500),
+):
+    """Query cleaned structured data — ≤1s SLA with Redis cache (#118)."""
+    from bd_platform.local_data_etl import query_clean_data
+
+    return await query_clean_data(domain=domain, asset=asset, limit=limit)  # type: ignore[arg-type]
+
+
+@router.get("/infra/etl/export")
+async def etl_export_route(
+    domain: str | None = Query(None, pattern="^(market|onchain|user)$"),
+    limit: int = Query(500, ge=1, le=5000),
+    _admin: dict = Depends(require_admin),
+):
+    """Export cleaned dataset to data/etl/reports/ (#118)."""
+    from bd_platform.local_data_etl import export_clean_data
+
+    return await export_clean_data(domain=domain, limit=limit)  # type: ignore[arg-type]
+
+
+# ── Features #108 + #120 + #119 — Transfer network & cross-platform optimizer ─
+
+
+@router.get("/transfer/networks")
+async def transfer_networks_route(
+    asset: str = Query("USDT"),
+    amount_usd: float = Query(1000.0, ge=10.0, le=10_000_000.0),
+    user_id: str | None = Query(None),
+):
+    """Best transfer networks ranked by speed/cost/security (#108 + #120)."""
+    from bd_platform.transfer_network_utility import rank_transfer_networks
+
+    return await rank_transfer_networks(asset, amount_usd=amount_usd, user_id=user_id)
+
+
+@router.get("/transfer/networks/status")
+async def transfer_networks_status_route():
+    from bd_platform.transfer_network_utility import transfer_network_status
+
+    return transfer_network_status()
+
+
+@router.get("/transfer/network-prefs")
+async def transfer_network_prefs_get(
+    user_id: str = Query(..., min_length=1),
+    asset: str = Query("USDT"),
+):
+    """User's saved transfer network (#120)."""
+    from bd_platform.transfer_network_utility import get_user_network_preference
+
+    pref = get_user_network_preference(user_id, asset)
+    return {"ok": True, "feature": "#120", "user_id": user_id, "asset": asset.upper(), "preference": pref}
+
+
+@router.post("/transfer/network-prefs", responses=COMMON_ERROR_RESPONSES)
+async def transfer_network_prefs_set(body: dict[str, Any] = Body(...)):
+    """Save user's preferred transfer network (#120)."""
+    from bd_platform.transfer_network_utility import set_user_network_preference
+
+    user_id = str(body.get("user_id") or "")
+    asset = str(body.get("asset") or "USDT")
+    network_id = str(body.get("network_id") or "")
+    if not user_id or not network_id:
+        raise HTTPException(status_code=400, detail="user_id and network_id required")
+    return set_user_network_preference(user_id, asset, network_id)
+
+
+@router.get("/transfer/optimizer")
+async def cross_platform_transfer_optimizer_route(
+    asset: str = Query("USDT"),
+    source_cex: str = Query("binance"),
+    dest_cex: str = Query("kraken"),
+    amount_usd: float = Query(1000.0, ge=10.0, le=10_000_000.0),
+    user_id: str | None = Query(None),
+):
+    """Cross-Platform Transfer Optimizer (#119) — fee-saving routes, not profit."""
+    from bd_platform.cross_platform_transfer_optimizer import optimize_cross_platform_transfer
+
+    return await optimize_cross_platform_transfer(
+        asset=asset,
+        source_cex=source_cex,
+        dest_cex=dest_cex,
+        amount_usd=amount_usd,
+        user_id=user_id,
+    )
+
+
+@router.get("/transfer/optimizer/status")
+async def transfer_optimizer_status_route():
+    from bd_platform.cross_platform_transfer_optimizer import transfer_optimizer_status
+
+    return transfer_optimizer_status()
