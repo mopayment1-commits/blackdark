@@ -566,6 +566,17 @@ async def fetch_single_source(
     if not _rate_limit_ok(spec.source_id, spec.interval_seconds):
         return False
 
+    from blackdark.data import circuit_breaker as cb
+
+    if cb.is_open(spec.source_id):
+        await upsert_ingestion_health(
+            spec.source_id,
+            spec.category,
+            ok=False,
+            error="circuit_open",
+        )
+        return False
+
     lock = _source_locks.setdefault(spec.source_id, asyncio.Lock())
     async with lock:
         if not _rate_limit_ok(spec.source_id, spec.interval_seconds):
@@ -592,9 +603,11 @@ async def fetch_single_source(
 
             await _record(spec, payload, ok=True)
             _mark_fetched(spec.source_id)
+            cb.record_success(spec.source_id)
             return True
         except Exception as exc:
             logger.warning("Ingestion failed | source=%s error=%s", spec.source_id, exc)
+            cb.record_failure(spec.source_id, str(exc)[:200])
             await _record(spec, {}, ok=False, error=str(exc)[:200])
             return False
 

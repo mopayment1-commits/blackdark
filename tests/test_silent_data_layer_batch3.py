@@ -90,6 +90,8 @@ def test_lending_market_reconciliation():
 
 @pytest.mark.asyncio
 async def test_lending_markets_mock():
+    from blackdark.ingestion import lending_markets_connector as lm
+
     pools = {
         "data": [
             {
@@ -105,11 +107,12 @@ async def test_lending_markets_mock():
             }
         ]
     }
-    with patch("aiohttp.ClientSession.get") as mock_get:
-        mock_resp = AsyncMock()
-        mock_resp.status = 200
-        mock_resp.json = AsyncMock(return_value=pools)
-        mock_get.return_value.__aenter__.return_value = mock_resp
+
+    async def _fake_json(*_a, **_k):
+        return {"ok": True, "data": pools, "cache_hit": False}
+
+    lm._CACHE._store.clear()
+    with patch.object(lm._CACHE, "http_get_json", _fake_json):
         out = await fetch_lending_markets(limit=5)
     assert out["ok"] is True
     assert out["market_count"] >= 1

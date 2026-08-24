@@ -81,7 +81,7 @@ async def fetch_theblock_research_context(*, limit: int = 10) -> dict[str, Any]:
     t0 = time.perf_counter()
     ttl = _CACHE.ttl("THEBLOCK_CACHE_TTL_SEC", 1800)
     key = cache_key("theblock_rss", limit)
-    resp = await _CACHE.http_get(RSS_URL, timeout_sec=2.0, cache_key=key, ttl=ttl)
+    resp = await _CACHE.http_get(RSS_URL, timeout_sec=2.0, cache_key=key, ttl=ttl, source_slug="theblock")
     if not resp.get("ok"):
         return {"ok": False, "error": resp.get("error"), "articles": []}
 

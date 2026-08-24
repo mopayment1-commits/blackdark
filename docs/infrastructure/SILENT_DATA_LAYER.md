@@ -16,6 +16,19 @@
 | #21 Binance API | `binance_connector.py` | Spot/futures market data source |
 | #25+#26 Lending Markets | `lending_markets_connector.py` | Borrows outstanding + borrow APR |
 
+## #32 Circuit Breakers (resilience pattern)
+
+- Shared per-source breaker: `blackdark/data/circuit_breaker.py`
+- Wired into `connector_cache.http_get` / `http_get_json` via `source_slug`
+- Fail-closed: circuit OPEN → stale cache only, never invented live data
+- See `docs/infrastructure/RESILIENCE_PATTERNS.md`
+
+## Release engineering SOPs (#30, #31)
+
+- Capacity evidence: `docs/sop/RELEASE_CAPACITY_EVIDENCE_SOP.md` + `scripts/release_capacity_evidence.py`
+- Chaos resilience: `docs/sop/RELEASE_CHAOS_RESILIENCE_SOP.md` + `scripts/release_chaos_gate.py`
+- Combined gate: `scripts/release_engineering_gate.py` (run every release)
+
 ## #21 Binance API
 
 - Spot 24h ticker + futures funding via `binance_connector`

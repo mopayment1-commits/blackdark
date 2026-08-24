@@ -86,9 +86,9 @@ async def fetch_investing_news_context(*, limit: int = 50) -> dict[str, Any]:
     t0 = time.perf_counter()
     ttl = _CACHE.ttl("INVESTING_COM_CACHE_TTL_SEC", 3600)
     key = cache_key("investing_rss", limit)
-    resp = await _CACHE.http_get(RSS_URL, timeout_sec=3.0, cache_key=key, ttl=ttl)
+    resp = await _CACHE.http_get(RSS_URL, timeout_sec=3.0, cache_key=key, ttl=ttl, source_slug="investing_com")
     if not resp.get("ok"):
-        resp = await _CACHE.http_get(_FALLBACK_RSS, timeout_sec=3.0, cache_key=key + ":fb", ttl=ttl)
+        resp = await _CACHE.http_get(_FALLBACK_RSS, timeout_sec=3.0, cache_key=key + ":fb", ttl=ttl, source_slug="investing_com")
     if not resp.get("ok"):
         stale = _CACHE.get_stale(key)
         if stale:

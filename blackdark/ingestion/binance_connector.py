@@ -10,14 +10,11 @@ NOT a standalone user feature. Spot/futures market data with:
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 import time
 from datetime import UTC, datetime
 from typing import Any
-
-import aiohttp
 
 from blackdark.canonical.resolver import resolve_asset
 from blackdark.ingestion.connector_cache import IngestionCache, cache_key
@@ -52,51 +49,28 @@ def _pair(symbol: str) -> str:
     return _PAIR_MAP.get(symbol.upper(), f"{symbol.upper()}USDT")
 
 
-async def _binance_get(base: str, path: str, *, params: dict[str, Any] | None = None, cache_key_str: str, ttl: int) -> dict[str, Any]:
-    cached = _CACHE.get(cache_key_str, ttl=ttl)
-    if cached is not None:
-        return {**cached, "cache_hit": True}
-
-    if _CACHE.rate_limited():
-        stale = _CACHE.get_stale(cache_key_str)
-        if stale:
-            return {**stale, "ok": True, "cache_hit": True, "stale_fallback": True, "rate_limited": True}
-        return {"ok": False, "error": "rate_limited"}
-
-    url = f"{base}{path}"
-    timeout = aiohttp.ClientTimeout(total=3.0)
-    t0 = time.perf_counter()
-    try:
-        async with aiohttp.ClientSession(timeout=timeout, headers=_headers()) as session:
-            async with session.get(url, params=params) as resp:
-                latency_ms = round((time.perf_counter() - t0) * 1000, 1)
-                if resp.status == 429:
-                    _CACHE.mark_rate_limited()
-                    stale = _CACHE.get_stale(cache_key_str)
-                    if stale:
-                        return {**stale, "ok": True, "stale_fallback": True, "rate_limited": True, "latency_ms": latency_ms}
-                    return {"ok": False, "error": "rate_limited", "latency_ms": latency_ms}
-                if resp.status != 200:
-                    stale = _CACHE.get_stale(cache_key_str)
-                    if stale:
-                        return {**stale, "ok": True, "stale_fallback": True, "http_status": resp.status, "latency_ms": latency_ms}
-                    return {"ok": False, "error": f"http_{resp.status}", "latency_ms": latency_ms}
-                data = await resp.json()
-    except (aiohttp.ClientError, TimeoutError, json.JSONDecodeError) as exc:
-        stale = _CACHE.get_stale(cache_key_str)
-        if stale:
-            return {**stale, "ok": True, "stale_fallback": True, "error": str(exc)}
-        return {"ok": False, "error": str(exc)}
-
-    result = {
-        "ok": True,
-        "data": data,
-        "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
-        "cache_hit": False,
-        "source": "binance",
-    }
-    _CACHE.set(cache_key_str, result)
-    return result
+async def _binance_get(
+    base: str,
+    path: str,
+    *,
+    params: dict[str, Any] | None = None,
+    cache_key_str: str,
+    ttl: int,
+    source_slug: str,
+) -> dict[str, Any]:
+    headers = _headers()
+    resp = await _CACHE.http_get_json(
+        f"{base}{path}",
+        params=params,
+        headers=headers,
+        timeout_sec=3.0,
+        cache_key=cache_key_str,
+        ttl=ttl,
+        source_slug=source_slug,
+    )
+    if resp.get("ok"):
+        return {**resp, "source": "binance"}
+    return resp
 
 
 async def fetch_binance_spot_ticker(symbol: str = "BTC") -> dict[str, Any]:
@@ -111,6 +85,7 @@ async def fetch_binance_spot_ticker(symbol: str = "BTC") -> dict[str, Any]:
         params={"symbol": pair},
         cache_key_str=cache_key("binance_spot", pair),
         ttl=ttl,
+        source_slug="binance_spot",
     )
     if not resp.get("ok"):
         return await _spot_fallback(sym, error=resp.get("error"))
@@ -153,6 +128,7 @@ async def fetch_binance_futures_funding(symbol: str = "BTC") -> dict[str, Any]:
         params={"symbol": pair},
         cache_key_str=cache_key("binance_futures", pair),
         ttl=ttl,
+        source_slug="binance_futures",
     )
     if not resp.get("ok"):
         return {"ok": False, "symbol": sym, "error": resp.get("error"), "data_state": "MISSING"}
@@ -184,6 +160,8 @@ async def _spot_fallback(symbol: str, *, error: str | None = None) -> dict[str, 
 
 
 def binance_connector_status() -> dict[str, Any]:
+    from blackdark.data.circuit_breaker import is_open
+
     return {
         "ok": True,
         "surface": "binance_ingestion_connector",
@@ -194,6 +172,10 @@ def binance_connector_status() -> dict[str, Any]:
         "cache_ttl_seconds": _CACHE.ttl("BINANCE_CACHE_TTL_SEC", 300),
         "api_key_configured": bool(_api_key()),
         "rate_limited": _CACHE.rate_limited(),
+        "circuit_breakers": {
+            "binance_spot": is_open("binance_spot"),
+            "binance_futures": is_open("binance_futures"),
+        },
         "fallback_chain": ["binance_api", "stale_cache", "coingecko"],
         "timestamp": _utcnow(),
     }

@@ -132,3 +132,4 @@ def test_data_layer_status_api(tmp_path, monkeypatch):
     body = r.json()
     assert "theblock" in body
     assert "solana_rpc" in body
+    assert "circuit_breakers" in body

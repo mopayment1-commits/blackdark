@@ -12,15 +12,12 @@ import time
 from datetime import UTC, datetime
 from typing import Any
 
-import aiohttp
-
 from blackdark.ingestion.connector_cache import IngestionCache, cache_key
 
 logger = logging.getLogger("BLACKDARK.LendingMarkets")
 
 YIELDS_URL = "https://yields.llama.fi/pools"
 _CACHE = IngestionCache(default_ttl_sec=3600, max_ttl_sec=86400)
-_HEADERS = {"User-Agent": "BLACKDARK/1.0", "Accept": "application/json"}
 
 _LENDING_CATEGORIES = {"lending", "cdp", "leveraged farming"}
 
@@ -110,22 +107,20 @@ async def fetch_lending_markets(*, limit: int = 40) -> dict[str, Any]:
     if cached:
         return {**cached, "cache_hit": True}
 
-    timeout = aiohttp.ClientTimeout(total=3.0)
-    try:
-        async with aiohttp.ClientSession(timeout=timeout, headers=_HEADERS) as session:
-            async with session.get(YIELDS_URL) as resp:
-                if resp.status != 200:
-                    stale = _CACHE.get_stale(key)
-                    if stale:
-                        return {**stale, "ok": True, "stale_fallback": True}
-                    return {"ok": False, "error": f"http_{resp.status}", "markets": []}
-                payload = await resp.json()
-    except (aiohttp.ClientError, TimeoutError) as exc:
+    resp = await _CACHE.http_get_json(
+        YIELDS_URL,
+        timeout_sec=3.0,
+        cache_key=key,
+        ttl=ttl,
+        source_slug="defillama_yields",
+    )
+    if not resp.get("ok"):
         stale = _CACHE.get_stale(key)
         if stale:
-            return {**stale, "ok": True, "stale_fallback": True, "error": str(exc)}
-        return {"ok": False, "error": str(exc), "markets": []}
+            return {**stale, "ok": True, "stale_fallback": True, "error": resp.get("error")}
+        return {"ok": False, "error": resp.get("error"), "markets": [], "fail_closed": resp.get("fail_closed")}
 
+    payload = resp.get("data") or {}
     pools = (payload or {}).get("data") or []
     lending_rows = [
         p

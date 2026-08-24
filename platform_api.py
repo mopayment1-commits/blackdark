@@ -423,6 +423,7 @@ async def decision_engine_inputs(asset: str = Query("ETH")):
 @router.get("/ingestion/data-layer/status")
 async def ingestion_data_layer_status():
     """Infrastructure — silent data layer connector health."""
+    from blackdark.data.circuit_breaker import snapshot as circuit_snapshot
     from blackdark.ingestion.investing_com_connector import investing_com_connector_status
     from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
     from blackdark.ingestion.binance_connector import binance_connector_status
@@ -430,6 +431,8 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.theblock_connector import theblock_connector_status
 
     return {
+        "circuit_breakers": circuit_snapshot(),
+        "resilience_pattern": "#32",
         "binance": binance_connector_status(),
         "exchange_flow_metric": {"ok": True, "feature": "#97", "role": "decision_engine_input"},
         "exchange_netflow": {"ok": True, "feature": "#54", "role": "decision_engine_input"},
