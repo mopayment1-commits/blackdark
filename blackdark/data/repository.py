@@ -28,6 +28,14 @@ DEFAULT_SOURCES = (
         "rate_limit_rps": Decimal("0.5"),
         "metadata": {"free_tier": True},
     },
+    {
+        "slug": "kraken",
+        "name": "Kraken",
+        "source_type": "exchange",
+        "base_url": "https://api.kraken.com",
+        "rate_limit_rps": Decimal("1.0"),
+        "metadata": {"public_api": True},
+    },
 )
 
 

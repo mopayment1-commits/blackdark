@@ -53,6 +53,16 @@ def test_parse_coingecko_ohlc():
     assert parsed[0]["interval"] == "30m"
 
 
+def test_parse_kraken_ohlc():
+    from blackdark.data.ingestors.kraken import parse_ohlc
+
+    rows = [[1704067200, "42000.1", "42500", "41800", "42300.5", "42200", "10.5", 100]]
+    parsed = parse_ohlc("BTCUSDT", "1h", rows)
+    assert len(parsed) == 1
+    assert parsed[0]["symbol"] == "BTCUSDT"
+    assert parsed[0]["close"] == Decimal("42300.5")
+
+
 def test_data_api_requires_postgres(tmp_path, monkeypatch):
     monkeypatch.delenv("DATABASE_URL", raising=False)
     import config
