@@ -36,7 +36,9 @@ async def apply_migrations() -> dict[str, Any]:
             if version in done:
                 continue
             sql = path.read_text(encoding="utf-8")
-            await conn.execute(text(sql))
+            for stmt in (part.strip() for part in sql.split(";")):
+                if stmt:
+                    await conn.execute(text(stmt))
             await conn.execute(
                 text("INSERT INTO data_engine_migrations (version) VALUES (:v)"),
                 {"v": version},

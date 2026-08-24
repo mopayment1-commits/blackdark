@@ -549,6 +549,13 @@ async def _shutdown_background_runtime(app: FastAPI) -> None:
 async def lifespan(app: FastAPI):
     """Yield immediately so Railway /health/live passes, then boot in background."""
     boot_task = asyncio.create_task(_background_boot(app), name="blackdark-boot")
+    try:
+        from blackdark.data.db import data_engine_available, init_data_engine
+
+        if data_engine_available():
+            await init_data_engine()
+    except Exception:
+        logger.exception("Wave 01 data engine eager init failed")
     logger.info("BLACKDARK API live — DB/services loading in background.")
     yield
     await _shutdown_lifespan_services(app, boot_task)

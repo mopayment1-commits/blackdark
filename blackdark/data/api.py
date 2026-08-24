@@ -171,8 +171,12 @@ async def get_provenance(record_id: UUID):
 @router.get("/api/v1/data/status")
 async def get_data_status():
     _require_postgres()
-    async with get_session() as session:
-        return await data_engine_status(session)
+    try:
+        async with get_session() as session:
+            return await data_engine_status(session)
+    except Exception as exc:
+        logger.exception("data status failed")
+        raise HTTPException(status_code=503, detail=f"data engine unavailable: {exc}") from exc
 
 
 @router.post("/api/v1/data/ingest", status_code=202)
