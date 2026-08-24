@@ -437,6 +437,7 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.theblock_connector import theblock_connector_status
     from blackdark.ingestion.twelvedata_connector import twelvedata_connector_status
     from bd_platform.execution_optimizer import execution_optimizer_status
+    from bd_platform.market_microstructure import market_microstructure_status
 
     return {
         "circuit_breakers": circuit_snapshot(),
@@ -458,6 +459,7 @@ async def ingestion_data_layer_status():
         "twelvedata": twelvedata_connector_status(),
         "execution_optimizer": execution_optimizer_status(),
         "flash_crash_protection": {"ok": True, "feature": "#57", "role": "circuit_breaker"},
+        "market_microstructure": market_microstructure_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
     }
@@ -700,6 +702,24 @@ async def squeeze_triggers(asset: str = Query("BTC")):
     from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
 
     return await squeeze_trigger_coordinates(asset)
+
+
+@router.get("/microstructure/analyze")
+async def market_microstructure_analyze(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100, le=10_000_000),
+):
+    """Market Microstructure Intelligence (#74) — toxicity, spoofing, liquidity health."""
+    from bd_platform.market_microstructure import analyze_market_microstructure
+
+    return await analyze_market_microstructure(asset, amount_usd=amount_usd)
+
+
+@router.get("/microstructure/status")
+async def market_microstructure_status_route():
+    from bd_platform.market_microstructure import market_microstructure_status
+
+    return market_microstructure_status()
 
 
 @router.get("/execution/optimize")

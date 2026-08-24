@@ -38,11 +38,12 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
     from bd_platform.execution_optimizer import execution_cost_for_decision_engine
     from bd_platform.flash_crash_protection import flash_protection_for_decision_engine
     from bd_platform.mvrv_realignment import mvrv_cycle_context_for_decision_engine
+    from bd_platform.market_microstructure import microstructure_for_decision_engine
 
     t0 = time.perf_counter()
     sym = symbol.upper()
     mvrv_asset = "BTC" if sym not in {"BTC", "ETH"} else sym
-    flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, solana, archive, lending, execution_cost, flash_protection, mvrv_cycle = await _gather(
+    flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, solana, archive, lending, execution_cost, flash_protection, mvrv_cycle, microstructure = await _gather(
         compute_token_exchange_flows(sym),
         compute_exchange_netflow(sym),
         compute_futures_cvd(sym),
@@ -61,6 +62,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         execution_cost_for_decision_engine(sym),
         flash_protection_for_decision_engine(sym),
         mvrv_cycle_context_for_decision_engine(mvrv_asset),
+        microstructure_for_decision_engine(sym),
     )
 
     risk_delta = float(flows.get("risk_score_delta") or 0)
@@ -72,9 +74,11 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         risk_delta = round(risk_delta + 1.5, 2)
     if mvrv_cycle.get("risk_score_delta"):
         risk_delta = round(risk_delta + float(mvrv_cycle["risk_score_delta"]), 2)
+    if microstructure.get("risk_score_delta"):
+        risk_delta = round(risk_delta + float(microstructure["risk_score_delta"]), 2)
 
     headlines: list[str] = []
-    for row in (flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, execution_cost, flash_protection, mvrv_cycle):
+    for row in (flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, execution_cost, flash_protection, mvrv_cycle, microstructure):
         if isinstance(row, dict) and row.get("headline"):
             headlines.append(str(row["headline"]))
         elif isinstance(row, dict) and row.get("ai_context_line"):
@@ -104,6 +108,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         "execution_optimizer": execution_cost if execution_cost.get("ok") else None,
         "flash_crash_protection": flash_protection if flash_protection.get("ok") else None,
         "mvrv_cycle": mvrv_cycle if mvrv_cycle.get("ok") else None,
+        "market_microstructure": microstructure if microstructure.get("ok") else None,
         "risk_score_delta": round(risk_delta, 2),
         "headlines": headlines[:5],
         "internal_only": True,
