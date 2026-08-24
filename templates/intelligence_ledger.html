@@ -53,11 +53,11 @@ th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
 </nav>
 <main>
   <h1>Intelligence Ledger <span class="badge">Sprint 2</span></h1>
-  <p class="sub">AI execution intelligence — 1inch + AMM depth + CEX reference + gas oracle, with self-optimized slippage tolerance (volatility + liquidity depth + gas costs).</p>
+  <p class="sub">Slippage Intelligence Module (#5 + #17) — self-optimized tolerance with asymmetric buy/sell cost decomposition, plus 1inch execution routing.</p>
 
   <div class="tabs">
     <button class="tab active" data-tab="execution">Execution Intelligence</button>
-    <button class="tab" data-tab="slippage">Slippage Self-Optimization</button>
+    <button class="tab" data-tab="slippage">Slippage Intelligence (#5+#17)</button>
   </div>
 
   <div id="panel-execution" class="panel active">
@@ -172,13 +172,20 @@ async function loadSlippage(){
     const d=await(await fetch(`/api/platform/intelligence-ledger/slippage-optimize?asset=${encodeURIComponent(a)}&amount_usd=${encodeURIComponent(amt)}&chain=${encodeURIComponent(chain)}`)).json();
     if(!d.ok) throw new Error(d.error||'Slippage optimization failed');
     const o=d.optimization||{};
+    const asym=d.asymmetric_slippage||{};
     document.getElementById('slipHero').textContent=d.headline||'—';
-    document.getElementById('slipFormula').textContent=o.formula||'optimal = base + vol + depth + gas';
+    document.getElementById('slipFormula').textContent=o.formula||'optimal = base + vol + depth + gas + asymmetric_adj';
     document.getElementById('slipMetrics').innerHTML=[
+      metric('Optimal',(d.optimal_slippage_bps??'—')+' bps'),
+      metric('Buy Cost',(asym.buy_slippage_bps??'—')+' bps'),
+      metric('Sell Cost',(asym.sell_slippage_bps??'—')+' bps'),
+      metric('Spread',(asym.asymmetry_spread_bps??'—')+' bps'),
+      metric('Bias',asym.directional_bias||'—'),
       metric('Base',(o.base_bps??'—')+' bps'),
       metric('Vol Adj',(o.volatility_adj_bps??'—')+' bps'),
       metric('Depth Adj',(o.liquidity_depth_adj_bps??'—')+' bps'),
       metric('Gas Adj',(o.gas_adj_bps??'—')+' bps'),
+      metric('Asym Adj',(o.asymmetric_adj_bps??'—')+' bps'),
       metric('24h Vol',(o.inputs?.volatility_24h_pct??'—')+'%'),
       metric('Liquidity',o.inputs?.liquidity_usd?('$'+Math.round(o.inputs.liquidity_usd).toLocaleString()):'—')
     ].join('');

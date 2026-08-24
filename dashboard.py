@@ -1768,6 +1768,11 @@ async def intelligence_ledger_page(request: Request):
     return render_page(request, "intelligence_ledger.html", _footer_ctx())
 
 
+@app.get("/address-intelligence", response_class=HTMLResponse)
+async def address_intelligence_page(request: Request):
+    return render_page(request, "address_intelligence.html", _footer_ctx())
+
+
 @app.get("/validity-decay", response_class=HTMLResponse)
 async def validity_decay_page(request: Request):
     return render_page(request, "validity_decay.html", _footer_ctx())

@@ -64,6 +64,12 @@ async def build_execution_intelligence(
         asset_u, amount_usd=amount_usd, chain=chain, user_tolerance_bps=user_tolerance_bps
     )
     optimal_bps = int(slippage.get("optimal_slippage_bps") or 50)
+    asymmetric = slippage.get("asymmetric_slippage") or {}
+    _buy = asymmetric.get("buy_slippage_bps")
+    _sell = asymmetric.get("sell_slippage_bps")
+    side_slippage_bps = float(
+        (_buy if side.lower() == "buy" else _sell) or optimal_bps
+    )
 
     oneinch = await fetch_oneinch_quote(
         asset=asset_u,
@@ -95,14 +101,14 @@ async def build_execution_intelligence(
                 "source": q.get("source", "1inch"),
                 "price_usd": float(q.get("price_usd") or ref_price or 0),
                 "liquidity_usd": float(q.get("liquidity_usd") or 0),
-                "slippage_bps": optimal_bps,
+                "slippage_bps": side_slippage_bps,
                 "gas_bps": gas_bps,
                 "fallback": bool(q.get("fallback")),
                 "effective_cost_bps": _effective_cost_bps(
                     venue="1inch",
                     price=float(q.get("price_usd") or ref_price or 0),
                     reference_price=cex_price or ref_price,
-                    slippage_bps=optimal_bps,
+                    slippage_bps=side_slippage_bps,
                     gas_bps=gas_bps,
                 ),
             }
@@ -128,15 +134,18 @@ async def build_execution_intelligence(
         }
     )
 
+    cex_side_bps = float(
+        (_buy if side.lower() == "buy" else _sell) or 8.0
+    )
     routes.append(
         {
             "venue": "cex_spot",
-            "source": "binance_ticker",
+            "source": "binance_depth",
             "price_usd": cex_price,
-            "slippage_bps": 8.0,
+            "slippage_bps": cex_side_bps,
             "gas_bps": 0,
-            "effective_cost_bps": 8.0,
-            "note": "CEX taker fee estimate; no on-chain gas",
+            "effective_cost_bps": cex_side_bps,
+            "note": "CEX directional slippage from order-book walk",
         }
     )
 
@@ -174,6 +183,7 @@ async def build_execution_intelligence(
         "recommended_route": best,
         "routes": routes,
         "slippage_optimization": slippage,
+        "asymmetric_slippage": asymmetric,
         "oneinch_data_source": oneinch if oneinch.get("ok") else {"ok": False, "data_state": "MISSING"},
         "alerts": alerts,
         "data_sources": ["1inch", "dexscreener", "binance", "gas_oracle"],
