@@ -849,6 +849,11 @@ try:
     app.include_router(data_engine_router)
     app.include_router(data_engine_admin_router)
     app.include_router(systems_router)
+    from api.routers.critical_defects import router as critical_defects_router
+    from api.routers.onchain_flow import router as onchain_flow_router
+
+    app.include_router(critical_defects_router)
+    app.include_router(onchain_flow_router)
 except Exception:
     logger.exception("Wave 01 data engine router unavailable")
 

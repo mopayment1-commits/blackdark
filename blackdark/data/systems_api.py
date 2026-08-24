@@ -9,7 +9,7 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from pydantic import BaseModel, Field
 
 from blackdark.data.api import WAVE_01_VERSION, _ensure_ready, _parse_dt
@@ -33,6 +33,7 @@ from blackdark.data.repository import (
     query_signals,
 )
 from blackdark.data.response_metadata import dataset_response
+from api.idempotency import idempotent_response
 from security_auth import require_admin
 
 logger = logging.getLogger("BLACKDARK.DataEngine.SystemsAPI")
@@ -135,6 +136,7 @@ async def create_market_event(
     body: MarketEventCreate,
     _: None = Depends(require_admin),
     __: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
 ):
     async with get_session() as session:
         event_id = await insert_market_event(
@@ -145,11 +147,15 @@ async def create_market_event(
                 "end_time": _parse_dt(body.end_time) if body.end_time else None,
             },
         )
-    return {"ok": True, "id": event_id, "event_type": body.event_type}
+    return idempotent_response(idempotency_key, 201, {"ok": True, "id": event_id, "event_type": body.event_type})
 
 
 @systems_router.post("/api/v1/data/signals", status_code=201)
-async def register_signal(body: SignalCreate, _: None = Depends(_ensure_ready)):
+async def register_signal(
+    body: SignalCreate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     signal_id = f"sig_{uuid4().hex[:16]}"
     features_hash = body.features_hash or hash_payload(json.dumps(body.metadata, sort_keys=True))
     async with get_session() as session:
@@ -165,7 +171,11 @@ async def register_signal(body: SignalCreate, _: None = Depends(_ensure_ready)):
             provenance_hash=features_hash,
             metadata=body.metadata,
         )
-    return {"ok": True, "signal_id": signal_id, "id": row_id, "direction": body.direction}
+    return idempotent_response(
+        idempotency_key,
+        201,
+        {"ok": True, "signal_id": signal_id, "id": row_id, "direction": body.direction},
+    )
 
 
 @systems_router.get("/api/v1/data/signals")
@@ -180,7 +190,11 @@ async def list_signals(
 
 
 @systems_router.post("/api/v1/data/predictions", status_code=201)
-async def seal_prediction(body: PredictionCreate, _: None = Depends(_ensure_ready)):
+async def seal_prediction(
+    body: PredictionCreate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     prediction_id = f"pred_{uuid4().hex[:16]}"
     payload = {
         "symbol": body.symbol.upper(),
@@ -203,12 +217,16 @@ async def seal_prediction(body: PredictionCreate, _: None = Depends(_ensure_read
             unlock_at=_parse_dt(body.unlock_at) if body.unlock_at else None,
             metadata=payload,
         )
-    return {
-        "ok": True,
-        "prediction_id": prediction_id,
-        "id": row_id,
-        "sealed_payload_hash": sealed_hash,
-    }
+    return idempotent_response(
+        idempotency_key,
+        201,
+        {
+            "ok": True,
+            "prediction_id": prediction_id,
+            "id": row_id,
+            "sealed_payload_hash": sealed_hash,
+        },
+    )
 
 
 @systems_router.get("/api/v1/data/predictions/{prediction_id}")
@@ -221,7 +239,11 @@ async def get_prediction_record(prediction_id: str, _: None = Depends(_ensure_re
 
 
 @systems_router.post("/api/v1/data/decisions", status_code=201)
-async def record_decision(body: DecisionCreate, _: None = Depends(_ensure_ready)):
+async def record_decision(
+    body: DecisionCreate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     decision_id = f"dec_{uuid4().hex[:16]}"
     evidence_hash = hash_payload(
         json.dumps(
@@ -244,7 +266,11 @@ async def record_decision(body: DecisionCreate, _: None = Depends(_ensure_ready)
             evidence_hash=evidence_hash,
             metadata=body.metadata,
         )
-    return {"ok": True, "decision_id": decision_id, "id": row_id, "decision_action": body.decision_action}
+    return idempotent_response(
+        idempotency_key,
+        201,
+        {"ok": True, "decision_id": decision_id, "id": row_id, "decision_action": body.decision_action},
+    )
 
 
 @systems_router.get("/api/v1/data/decisions")
@@ -259,7 +285,11 @@ async def list_decisions(
 
 
 @systems_router.post("/api/v1/data/outcomes/evaluate", status_code=201)
-async def evaluate_outcome(body: OutcomeEvaluate, _: None = Depends(_ensure_ready)):
+async def evaluate_outcome(
+    body: OutcomeEvaluate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     async with get_session() as session:
         row_id = await insert_outcome_evaluation(
             session,
@@ -270,7 +300,7 @@ async def evaluate_outcome(body: OutcomeEvaluate, _: None = Depends(_ensure_read
             pnl_pct=body.pnl_pct,
             metadata=body.metadata,
         )
-    return {"ok": True, "id": row_id, "outcome": body.outcome}
+    return idempotent_response(idempotency_key, 201, {"ok": True, "id": row_id, "outcome": body.outcome})
 
 
 @systems_router.get("/api/v1/data/outcomes")
@@ -285,7 +315,11 @@ async def list_outcomes(
 
 
 @systems_router.post("/api/v1/data/evidence", status_code=201)
-async def store_evidence(body: EvidenceCreate, _: None = Depends(_ensure_ready)):
+async def store_evidence(
+    body: EvidenceCreate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     evidence_id = f"ev_{uuid4().hex[:16]}"
     payload_hash = hash_payload(json.dumps(body.payload, sort_keys=True))
     async with get_session() as session:
@@ -298,7 +332,11 @@ async def store_evidence(body: EvidenceCreate, _: None = Depends(_ensure_ready))
             source_table=body.source_table,
             source_record_id=body.source_record_id,
         )
-    return {"ok": True, "evidence_id": evidence_id, "id": row_id, "payload_hash": payload_hash}
+    return idempotent_response(
+        idempotency_key,
+        201,
+        {"ok": True, "evidence_id": evidence_id, "id": row_id, "payload_hash": payload_hash},
+    )
 
 
 @systems_router.get("/api/v1/data/evidence/{evidence_id}")
@@ -311,7 +349,11 @@ async def get_evidence_record(evidence_id: str, _: None = Depends(_ensure_ready)
 
 
 @systems_router.post("/api/v1/data/failures/misses", status_code=201)
-async def record_failure_miss(body: FailureMissCreate, _: None = Depends(_ensure_ready)):
+async def record_failure_miss(
+    body: FailureMissCreate,
+    _: None = Depends(_ensure_ready),
+    idempotency_key: str | None = Header(None, alias="Idempotency-Key"),
+):
     async with get_session() as session:
         row_id = await insert_failure_miss(
             session,
@@ -322,7 +364,9 @@ async def record_failure_miss(body: FailureMissCreate, _: None = Depends(_ensure
             error_message=body.error_message,
             metadata=body.metadata,
         )
-    return {"ok": True, "id": row_id, "failure_type": body.failure_type}
+    return idempotent_response(
+        idempotency_key, 201, {"ok": True, "id": row_id, "failure_type": body.failure_type}
+    )
 
 
 @systems_router.get("/api/v1/data/failures/misses")

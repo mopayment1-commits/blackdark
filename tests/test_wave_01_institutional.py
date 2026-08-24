@@ -2,17 +2,20 @@
 
 from __future__ import annotations
 
+from datetime import UTC, datetime, timedelta
+
 from blackdark.data.response_metadata import DATA_STATE_LIVE, DATA_STATE_MISSING, dataset_response
 
 
 def test_dataset_response_live():
+    recent = (datetime.now(UTC) - timedelta(minutes=5)).isoformat()
     body = dataset_response(
         count=2,
         data=[{"x": 1}, {"x": 2}],
         dataset="ohlcv",
         symbol="BTCUSDT",
         interval="1h",
-        latest_record_at="2026-08-24T01:00:00+00:00",
+        latest_record_at=recent,
     )
     assert body["data_state"] == DATA_STATE_LIVE
     assert body["count"] == 2
@@ -34,18 +37,15 @@ def test_wave_01_institutional_status_shape():
         WAVE_01_CONTROL_SCOPE,
         wave_01_institutional_status,
     )
+    from critical_defects_closure import CRITICAL_DEFECTS
 
     assert len(WAVE_01_CONTROL_SCOPE) >= 5
-    assert "D-01" in OPEN_CRITICAL_DEFECTS
-    assert "D-15" in OPEN_CRITICAL_DEFECTS
-
-    class _FakeSession:
-        pass
+    assert OPEN_CRITICAL_DEFECTS == ()
+    assert CRITICAL_DEFECTS == ("D-01", "D-02", "D-06", "D-09", "D-13", "D-15")
 
     import asyncio
 
     async def _run():
-        # Cannot run without DB; verify module exports only
         assert callable(wave_01_institutional_status)
 
     asyncio.run(_run())

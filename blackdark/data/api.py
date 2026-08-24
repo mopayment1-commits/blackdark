@@ -15,6 +15,7 @@ from blackdark.data.db import data_engine_available, ensure_data_engine_ready, g
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv, ingest_open_interest
 from blackdark.data.ingestors.coingecko import ingest_markets
 from blackdark.data.institutional import wave_01_institutional_status
+from blackdark.data.circuit_breaker import is_open as circuit_is_open
 from blackdark.data.provenance import get_provenance_by_record
 from blackdark.data.response_metadata import dataset_response
 from blackdark.data.repository import (
@@ -116,6 +117,7 @@ async def get_ohlcv(
     source: str | None = None,
     _: None = Depends(_ensure_ready),
 ):
+    source_slug = source or "kraken"
     async with get_session() as session:
         rows = await query_ohlcv(
             session,
@@ -126,6 +128,7 @@ async def get_ohlcv(
             limit=limit,
             source_slug=source,
         )
+    upstream_unknown = not rows and circuit_is_open(source_slug)
     return dataset_response(
         count=len(rows),
         data=rows,
@@ -133,6 +136,7 @@ async def get_ohlcv(
         symbol=symbol,
         interval=interval,
         latest_record_at=rows[0]["open_time"] if rows else None,
+        upstream_unknown=upstream_unknown,
     )
 
 

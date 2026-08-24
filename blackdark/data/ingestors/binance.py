@@ -211,6 +211,12 @@ async def ingest_ohlcv(
                         endpoint=endpoint,
                     )
     status = "failed" if errors and not inserted else ("partial" if errors else "completed")
+    from blackdark.data import circuit_breaker as cb
+
+    if inserted > 0:
+        cb.record_success("binance")
+    elif errors:
+        cb.record_failure("binance", f"ohlcv errors={errors}")
     await finish_ingestion_run(
         session,
         run_id,

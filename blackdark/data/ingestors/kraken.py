@@ -282,6 +282,12 @@ async def backfill_ohlcv(
                 break
 
     run_status = "failed" if errors and not total_inserted else ("partial" if errors else "completed")
+    from blackdark.data import circuit_breaker as cb
+
+    if total_inserted > 0:
+        cb.record_success("kraken")
+    elif errors:
+        cb.record_failure("kraken", f"ohlcv errors={errors}")
     await finish_ingestion_run(
         session,
         run_id,
