@@ -179,7 +179,7 @@ def test_market_intelligence_api(tmp_path, monkeypatch):
 
     c = TestClient(app)
     assert c.get("/api/platform/onchain/mvrv-realignment").status_code == 200
-    assert c.get("/api/platform/alpha/ranking").status_code == 200
+    assert c.get("/api/platform/alpha/factor-ranking").status_code == 200
     assert c.get("/api/platform/squeeze/triggers").status_code == 200
     r = c.get("/market-intelligence")
     assert r.status_code == 200

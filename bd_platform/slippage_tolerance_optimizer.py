@@ -38,8 +38,11 @@ def _utcnow() -> str:
 
 
 async def _market_context(asset: str) -> dict[str, Any]:
-    """Volatility + liquidity from public APIs."""
-    symbol = f"{asset.upper()}USDT"
+    """Volatility + liquidity from public APIs (canonical symbol + CoinGecko primary)."""
+    from blackdark.canonical.resolver import resolve_symbol
+
+    canonical = resolve_symbol(asset)
+    symbol = f"{canonical}USDT"
     if not symbol.isalnum():
         return {}
     timeout = aiohttp.ClientTimeout(total=4)
@@ -62,27 +65,21 @@ async def _market_context(asset: str) -> dict[str, Any]:
         pass
 
     if price <= 0:
-        cg_ids = {"BTC": "bitcoin", "ETH": "ethereum", "SOL": "solana", "BNB": "binancecoin"}
-        cg_id = cg_ids.get(asset.upper())
-        if cg_id:
-            try:
-                async with aiohttp.ClientSession(timeout=timeout) as session:
-                    async with session.get(
-                        f"https://api.coingecko.com/api/v3/simple/price",
-                        params={"ids": cg_id, "vs_currencies": "usd", "include_24hr_change": "true"},
-                    ) as resp:
-                        if resp.status == 200:
-                            row = (await resp.json()).get(cg_id) or {}
-                            price = float(row.get("usd") or 0)
-                            vol_pct = abs(float(row.get("usd_24h_change") or 0))
-                            source = "coingecko"
-            except (aiohttp.ClientError, asyncio.TimeoutError, TimeoutError):
-                pass
+        try:
+            from blackdark.ingestion.coingecko_connector import fetch_coingecko_price
+
+            cg = await fetch_coingecko_price(canonical)
+            if cg.get("ok"):
+                price = float(cg.get("price_usd") or 0)
+                vol_pct = abs(float(cg.get("change_24h_pct") or 0))
+                source = "coingecko_canonical"
+        except (aiohttp.ClientError, asyncio.TimeoutError, TimeoutError, ImportError):
+            pass
 
     if liquidity_usd <= 0:
         try:
             async with aiohttp.ClientSession(timeout=timeout) as session:
-                q = f"{asset} USDC"
+                q = f"{canonical} USDC"
                 async with session.get(
                     "https://api.dexscreener.com/latest/dex/search", params={"q": q}
                 ) as resp:
@@ -102,6 +99,7 @@ async def _market_context(asset: str) -> dict[str, Any]:
             pass
 
     return {
+        "canonical_symbol": canonical,
         "volatility_24h_pct": vol_pct,
         "liquidity_usd": liquidity_usd,
         "price_usd": price,
@@ -182,7 +180,10 @@ async def optimize_slippage_tolerance(
 ) -> dict[str, Any]:
     """CAP978 Slippage Tolerance Self-Optimization entrypoint."""
     t0 = time.perf_counter()
-    asset = str(symbol or "ETH").upper().replace("/USDT", "")
+    from blackdark.canonical.resolver import resolve_asset
+
+    resolved = resolve_asset(symbol or "ETH")
+    asset = resolved.symbol or str(symbol or "ETH").upper().replace("/USDT", "")
     base_bps = float(user_tolerance_bps if user_tolerance_bps is not None else _DEFAULT_BASE_BPS)
 
     ctx = await _market_context(asset)
@@ -209,6 +210,7 @@ async def optimize_slippage_tolerance(
         "success": True,
         "surface": "slippage_tolerance_self_optimization",
         "asset": asset,
+        "canonical_id": resolved.canonical_id if resolved.found else None,
         "chain": chain,
         "amount_usd": amount_usd,
         "user_tolerance_bps": user_tolerance_bps,

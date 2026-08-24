@@ -61,8 +61,17 @@ def _api_key() -> str | None:
     return key or None
 
 
-def _token_address(symbol: str) -> str | None:
-    return TOKENS.get(symbol.upper().replace("WETH", "ETH"))
+def _token_address(symbol: str, *, chain: str = "ethereum") -> str | None:
+    """Resolve token contract via canonical resolver, with legacy fallback."""
+    from blackdark.canonical.resolver import contract_address, resolve_symbol
+
+    sym = resolve_symbol(symbol)
+    if sym == "WETH":
+        sym = "ETH"
+    addr = contract_address(sym, chain=chain)
+    if addr:
+        return addr
+    return TOKENS.get(sym)
 
 
 async def _dexscreener_oneinch_quote(
@@ -154,6 +163,10 @@ async def fetch_oneinch_quote(
     """
     t0 = time.perf_counter()
     asset_u = asset.upper()
+    from blackdark.canonical.resolver import resolve_asset
+
+    resolved = resolve_asset(asset_u)
+    canonical_id = resolved.canonical_id if resolved.found else None
     cache_key = f"{chain}:{asset_u}:{quote_asset}:{int(amount_usd)}:{slippage_bps}"
     cached = _CACHE.get(cache_key)
     if cached and time.time() - cached[0] < _cache_ttl():
@@ -195,8 +208,8 @@ async def _fetch_oneinch_quote_inner(
     cache_key: str,
     t0: float,
 ) -> dict[str, Any]:
-    src = _token_address(asset_u)
-    dst = _token_address(quote_asset.upper())
+    src = _token_address(asset_u, chain=chain)
+    dst = _token_address(quote_asset.upper(), chain=chain)
     if not src or not dst:
         return {
             "ok": False,
@@ -250,6 +263,7 @@ async def _fetch_oneinch_quote_inner(
         "success": True,
         "data_state": "LIVE",
         "asset": asset_u,
+        "canonical_id": canonical_id,
         "quote_asset": quote_asset.upper(),
         "chain": chain,
         "amount_usd": amount_usd,

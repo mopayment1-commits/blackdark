@@ -136,7 +136,7 @@ async function loadMvrv() {
 async function loadAlpha() {
   $('alphaLoading').style.display='block'; $('alphaError').style.display='none'; $('alphaResults').style.display='none';
   try {
-    const d = await (await fetch('/api/platform/alpha/ranking?limit=20')).json();
+    const d = await (await fetch('/api/platform/alpha/factor-ranking?limit=20')).json();
     $('alphaLoading').style.display='none';
     if (!d.ok) { $('alphaError').style.display='block'; $('alphaError').textContent=d.error||'Ranking unavailable'; return; }
     $('alphaResults').style.display='block';
