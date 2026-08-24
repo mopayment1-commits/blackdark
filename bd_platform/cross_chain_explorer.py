@@ -208,6 +208,12 @@ async def fetch_and_index_address(address: str, *, chains: list[str] | None = No
             rows = await fetcher(address, limit=50)
         all_rows.extend(rows)
     indexed = append_transactions(all_rows)
+    try:
+        from bd_platform.cross_chain_warehouse import ingest_transactions
+
+        ingest_transactions(all_rows, mirror_to_index=False)
+    except Exception:
+        logger.debug("warehouse ingest skipped during index refresh")
     return {"ok": True, "fetched": len(all_rows), "indexed_new": indexed}
 
 
@@ -309,6 +315,12 @@ async def unified_address_explorer(address: str, *, tx_limit: int = 25) -> dict[
 
     unified_txs.sort(key=lambda r: (-int(r.get("timestamp") or 0), str(r.get("chain") or ""), str(r.get("tx_hash") or "")))
     append_transactions(unified_txs)
+    try:
+        from bd_platform.cross_chain_warehouse import ingest_transactions
+
+        ingest_transactions(unified_txs, mirror_to_index=False)
+    except Exception:
+        logger.debug("warehouse ingest skipped during explorer fetch")
 
     elapsed = time.perf_counter() - t0
     return {

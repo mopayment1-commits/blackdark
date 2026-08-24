@@ -22,6 +22,29 @@
 | #69 KuCoin API | `kucoin_connector.py` | KuCoin-before-Binance listing intel |
 | #75 MarketWatch RSS | `marketwatch_connector.py` | Macro high-impact event flags |
 | #104 Twelve Data API | `twelvedata_connector.py` | Macro enrichment (SPX, DXY, Gold, Nasdaq, VIX) |
+| #42 Cross-Asset Correlation | `cross_asset_correlation.py` | Rolling crypto↔TradFi correlation matrix |
+| #43 Cross-Chain Warehouse | `cross_chain_warehouse.py` | Canonical multi-chain SQLite warehouse |
+| #47 Decision Graph | `decision_graph.py` | Interactive causal graph from live inputs |
+
+## #42 Cross-Asset Correlation
+
+- Rolling Pearson correlation (default 30d window) with significance metadata
+- Portfolio AI enrichment via `POST /portfolio/analyze`
+- APIs: `/api/platform/correlation/matrix`, `/correlation/view`
+- See `docs/features/CROSS_ASSET_CORRELATION.md`
+
+## #43 Cross-Chain Data Warehouse
+
+- SQLite warehouse + chain semantics registry (8+ chains)
+- Ingest from cross-chain explorer; canonical asset IDs (#29/#16)
+- APIs: `/api/platform/warehouse/cross-chain/*`
+- See `docs/features/CROSS_CHAIN_WAREHOUSE.md`
+
+## #47 Decision Graph
+
+- Causal evidence → decision → outcome graph from `#48` inputs
+- Interactive node expansion API
+- See `docs/features/DECISION_GRAPH.md`
 
 ## #104 Twelve Data (macro enrichment — Wave 1)
 

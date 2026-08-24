@@ -745,6 +745,87 @@ async def address_intelligence_block(
     return await search_block(block_number, chain=chain)
 
 
+@router.get("/correlation/matrix")
+async def correlation_matrix_route(
+    crypto: str | None = Query(None, description="Comma-separated crypto symbols"),
+    tradfi: str | None = Query(None, description="Comma-separated tradfi keys"),
+    window: int = Query(30, ge=7, le=90),
+):
+    """Cross-Asset Correlation (#42) — rolling matrix with window/significance."""
+    from bd_platform.cross_asset_correlation import compute_correlation_matrix
+
+    crypto_list = [s.strip() for s in (crypto or "").split(",") if s.strip()] or None
+    tradfi_list = [s.strip() for s in (tradfi or "").split(",") if s.strip()] or None
+    return await compute_correlation_matrix(
+        crypto_assets=crypto_list,
+        tradfi_assets=tradfi_list,
+        window=window,
+    )
+
+
+@router.get("/correlation/view")
+async def correlation_view_route(
+    asset: str = Query("BTC"),
+    window: int = Query(30, ge=7, le=90),
+):
+    """Cross-Asset Correlation (#42) — Portfolio AI / Risk Dashboard view."""
+    from bd_platform.cross_asset_correlation import correlation_view_for_asset
+
+    return await correlation_view_for_asset(asset, window=window)
+
+
+@router.get("/warehouse/cross-chain/status")
+async def cross_chain_warehouse_status():
+    """Cross-Chain Data Warehouse (#43) — infrastructure status."""
+    from bd_platform.cross_chain_warehouse import warehouse_status
+
+    return warehouse_status()
+
+
+@router.get("/warehouse/cross-chain/semantics")
+async def cross_chain_warehouse_semantics():
+    """Cross-Chain Data Warehouse (#43) — documented chain semantics."""
+    from bd_platform.cross_chain_warehouse import list_chain_semantics
+
+    return list_chain_semantics()
+
+
+@router.get("/warehouse/cross-chain/transactions")
+async def cross_chain_warehouse_transactions(
+    chain: str | None = Query(None),
+    address: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+    cursor: str | None = Query(None),
+):
+    """Cross-Chain Data Warehouse (#43) — warehouse transaction access."""
+    from bd_platform.cross_chain_warehouse import query_warehouse_transactions
+
+    return query_warehouse_transactions(chain=chain, address=address, limit=limit, cursor=cursor)
+
+
+@router.get("/decision/graph")
+async def decision_graph_route(
+    asset: str = Query("BTC"),
+    focus_node: str | None = Query(None),
+    limit: int = Query(20, ge=5, le=50),
+):
+    """Decision Graph (#47) — interactive causal graph from live data."""
+    from bd_platform.decision_graph import build_causal_decision_graph
+
+    return await build_causal_decision_graph(asset=asset, focus_node=focus_node, limit=limit)
+
+
+@router.get("/decision/graph/node")
+async def decision_graph_node_route(
+    node_id: str = Query(..., min_length=4),
+    asset: str = Query("BTC"),
+):
+    """Decision Graph (#47) — expand clicked node (interactive)."""
+    from bd_platform.decision_graph import expand_node
+
+    return await expand_node(node_id=node_id, asset=asset)
+
+
 @router.get("/cross-chain/explorer")
 async def cross_chain_explorer_route(
     address: str = Query(..., min_length=10),
