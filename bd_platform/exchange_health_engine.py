@@ -194,7 +194,7 @@ def collapse_validation_metrics(assessments: list[dict[str, Any]]) -> dict[str, 
     predicted_risk = {
         a["exchange_id"]
         for a in assessments
-        if a["health_score"] < 40 or a["risk_badge"] in ("High Risk", "Blacklisted")
+        if a["health_score"] < 30 or a["risk_badge"] == "Blacklisted"
     }
 
     true_positives = len(collapsed & predicted_risk)
@@ -395,7 +395,7 @@ async def assess_all_exchanges(*, min_coverage: int = 50) -> dict[str, Any]:
         badge_counts[a["risk_badge"]] = badge_counts.get(a["risk_badge"], 0) + 1
 
     # Collapse prediction proxy: exchanges with score <40 or blacklisted
-    at_risk = [a for a in assessments if a["health_score"] < 40 or a["risk_badge"] == "Blacklisted"]
+    at_risk = [a for a in assessments if a["health_score"] < 30 or a["risk_badge"] == "Blacklisted"]
     certified = [a for a in assessments if a["risk_badge"] == "Certified"]
     collapse_metrics = collapse_validation_metrics(assessments)
 
