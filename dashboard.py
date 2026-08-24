@@ -857,6 +857,11 @@ try:
     from blackdark.api.v1_onchain_intelligence import onchain_intel_router
 
     app.include_router(onchain_intel_router)
+    from blackdark.api.unified_public_api import blackdark_api_router
+    from blackdark.mcp.server import mcp_router
+
+    app.include_router(blackdark_api_router)
+    app.include_router(mcp_router)
 except Exception:
     logger.exception("Wave 01 data engine router unavailable")
 

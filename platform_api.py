@@ -1566,6 +1566,75 @@ async def chart_sharing_status_route():
     return chart_sharing_status()
 
 
+# ── Feature #184 — QuickTake / Analyst Insight Feed ──────────────────────────
+
+
+@router.get("/insights/feed")
+async def quicktake_feed_route(limit: int = Query(10, ge=1, le=30)):
+    """BLACKDARK Daily Brief — published insights (#184)."""
+    from bd_platform.quicktake_insight_feed import list_published_insights
+
+    return list_published_insights(limit=limit)
+
+
+@router.post("/insights/generate", responses=COMMON_ERROR_RESPONSES)
+async def quicktake_generate_route(
+    asset: str = Query("BTC"),
+    _admin: dict = Depends(require_admin),
+):
+    """Auto-generate daily brief from platform data (#184)."""
+    from bd_platform.quicktake_insight_feed import generate_daily_brief
+
+    return await generate_daily_brief(asset=asset)
+
+
+@router.post("/insights/submit", responses=COMMON_ERROR_RESPONSES)
+async def quicktake_submit_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Submit analyst insight for moderation (#184)."""
+    from bd_platform.quicktake_insight_feed import create_insight, submit_for_moderation
+
+    author = str(user.get("email") or user.get("id") or "analyst")
+    created = create_insight(
+        author=author,
+        title=str(body.get("title") or "Untitled"),
+        summary=str(body.get("summary") or ""),
+        claims=body.get("claims") or [],
+        chart_refs=body.get("chart_refs"),
+        confidence=body.get("confidence"),
+    )
+    if not created.get("ok"):
+        raise HTTPException(status_code=400, detail=created.get("detail") or created.get("error"))
+    return submit_for_moderation(insight_id=created["insight"]["id"], author=author)
+
+
+@router.post("/insights/{insight_id}/moderate", responses=COMMON_ERROR_RESPONSES)
+async def quicktake_moderate_route(
+    insight_id: str,
+    body: dict[str, Any] = Body(...),
+    admin: dict = Depends(require_admin),
+):
+    """Moderation gate — approve or reject (#184)."""
+    from bd_platform.quicktake_insight_feed import moderate_insight
+
+    return moderate_insight(
+        insight_id=insight_id,
+        action=str(body.get("action") or "approve"),
+        moderator=str(admin.get("email") or "admin"),
+        notes=str(body.get("notes") or ""),
+    )
+
+
+@router.get("/insights/status")
+async def quicktake_status_route():
+    """QuickTake feed status (#184)."""
+    from bd_platform.quicktake_insight_feed import quicktake_status
+
+    return quicktake_status()
+
+
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
 
 
