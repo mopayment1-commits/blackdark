@@ -35,7 +35,7 @@ W01="$(curl -sS -w "\n__HTTP__%{http_code}" "$PROD/api/v1/data/wave-01")"
 W01_BODY="${W01%__HTTP__*}"
 W01_CODE="${W01##*__HTTP__}"
 echo "$W01_BODY" | python3 -m json.tool 2>/dev/null || echo "$W01_BODY"
-if [[ "$W01_CODE" == "200" ]] && echo "$W01_BODY" | grep -q '"institutional_verdict": "NOT READY"'; then
+if [[ "$W01_CODE" == "200" ]] && echo "$W01_BODY" | python3 -c "import sys,json; sys.exit(0 if json.load(sys.stdin).get('institutional_verdict')=='NOT READY' else 1)"; then
   pass "5.0 wave-01 institutional surface (honest NOT READY)"
 else
   fail "5.0 wave-01 institutional surface (HTTP $W01_CODE)"
