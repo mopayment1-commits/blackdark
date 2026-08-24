@@ -9,6 +9,7 @@ from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Requ
 
 from security_auth import require_admin, require_authenticated
 
+from api.deps import optional_user
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 
 router = APIRouter(prefix="/api/platform", tags=["platform"], responses=COMMON_ERROR_RESPONSES)
@@ -593,6 +594,47 @@ async def address_intelligence_overview_route(
     from bd_platform.address_intelligence import address_intelligence_overview
 
     return await address_intelligence_overview(address, chain=chain, history_days=history_days)
+
+
+@router.get("/subscription-lifecycle/status")
+async def subscription_lifecycle_status(user: dict | None = Depends(optional_user)):
+    """Feature #9 Phase 1 — subscription lifecycle status + renewal warnings."""
+    from bd_platform.subscription_lifecycle import user_lifecycle_status
+
+    if not user:
+        return {"ok": False, "error": "authentication_required"}
+    return await user_lifecycle_status(int(user["id"]))
+
+
+@router.post("/subscription-lifecycle/upgrade")
+async def subscription_lifecycle_upgrade(
+    data: dict = Body(default={}),
+    user: dict | None = Depends(optional_user),
+):
+    """Feature #9 Phase 1 — contextual upgrade checkout path."""
+    from bd_platform.subscription_lifecycle import initiate_upgrade
+
+    if not user:
+        return {"ok": False, "error": "authentication_required"}
+    return await initiate_upgrade(int(user["id"]), target_plan=data.get("target_plan"))
+
+
+@router.get("/analytics-hub/dashboard")
+async def analytics_hub_dashboard():
+    """Feature #9 Phase 2 — visitors / users / subscribers admin dashboard."""
+    from bd_platform.analytics_integrations import analytics_dashboard
+
+    return await analytics_dashboard()
+
+
+@router.get("/analytics-hub/upgrade-recommendation")
+async def analytics_hub_upgrade_recommendation(user: dict | None = Depends(optional_user)):
+    """Feature #9 Phase 3 — AI-style smart upgrade recommendation."""
+    from bd_platform.upgrade_intelligence import recommend_upgrade
+
+    if not user:
+        return {"ok": False, "error": "authentication_required"}
+    return await recommend_upgrade(int(user["id"]))
 
 
 @router.get("/macro/bitcoin")

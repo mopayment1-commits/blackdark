@@ -103,6 +103,31 @@ async def track_referral(*, referral_code: str, referred_session: str | None = N
     )
 
 
+async def track_subscription_event(
+    *,
+    event_type: str,
+    user_id: int | None = None,
+    payload: dict[str, Any] | None = None,
+    session_id: str | None = None,
+) -> dict[str, Any]:
+    """Subscription lifecycle + upgrade funnel events (Feature #9)."""
+    row = await track_event(
+        event_type=event_type,
+        payload=payload,
+        user_id=user_id,
+        session_id=session_id,
+        source="subscription_lifecycle",
+    )
+    try:
+        from bd_platform.analytics_integrations import posthog_capture
+
+        distinct = f"user:{user_id}" if user_id else (session_id or "anonymous")
+        await posthog_capture(event=event_type, distinct_id=distinct, properties=payload or {})
+    except Exception:
+        pass
+    return row
+
+
 async def analytics_summary(*, limit: int = 100) -> dict[str, Any]:
     from database import get_connection
 

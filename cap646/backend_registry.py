@@ -156,6 +156,7 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("asymmetric slippage", "directional slippage", "buy sell slippage"), ("bd_platform.slippage_tolerance_optimizer", "compute_asymmetric_slippage_cost", "symbol")),
     (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "symbol")),
     (("address intelligence", "address search", "wallet search", "balance history", "balance updates"), ("bd_platform.address_intelligence", "address_intelligence_overview", "address")),
+    (("subscription lifecycle", "subscription analytics", "visitor count", "subscriber count", "upgrade recommendation"), ("bd_platform.analytics_integrations", "analytics_dashboard", "none")),
     (("1inch", "dex aggregator"), ("bd_platform.oneinch_connector", "fetch_oneinch_quote", "symbol")),
     (("ranking", "marketcap"), ("bd_platform.market_rankings", "market_rankings", "none")),
     (("footprint", "order flow"), ("bd_platform.footprint_analytics", "footprint_snapshot", "symbol")),

@@ -72,7 +72,55 @@ async def record_audit(
         old_plan,
         new_plan,
     )
+    await _fanout_analytics(
+        action=action,
+        user_id=user_id,
+        old_plan=old_plan,
+        new_plan=new_plan,
+        metadata=metadata,
+    )
     return row_id
+
+
+_AUDIT_EVENT_MAP: dict[str, str] = {
+    "ACTIVATE": "subscription_activated",
+    "RENEW": "subscription_renewed",
+    "RENEWAL_FAILED": "subscription_past_due",
+    "CANCEL": "subscription_canceled",
+    "EXPIRE": "subscription_expired",
+    "UPGRADE": "subscription_upgraded",
+    "DOWNGRADE": "subscription_downgrade_scheduled",
+    "REVOKE": "subscription_revoked",
+    "PAYMENT_FAILED": "subscription_past_due",
+}
+
+
+async def _fanout_analytics(
+    *,
+    action: str,
+    user_id: int | None,
+    old_plan: str | None,
+    new_plan: str | None,
+    metadata: dict[str, Any] | None,
+) -> None:
+    event_type = _AUDIT_EVENT_MAP.get(action.upper())
+    if not event_type:
+        return
+    try:
+        from distribution_compounding import track_subscription_event
+
+        await track_subscription_event(
+            event_type=event_type,
+            user_id=user_id,
+            payload={
+                "action": action,
+                "old_plan": old_plan,
+                "new_plan": new_plan,
+                **(metadata or {}),
+            },
+        )
+    except Exception:
+        pass
 
 
 async def fetch_audit_for_user(user_id: int, *, limit: int = 50) -> list[dict[str, Any]]:

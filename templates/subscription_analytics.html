@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Subscription Analytics Hub</title>
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--ok:#22d3a5;--accent:#06b6d4;--warn:#fbbf24;--bad:#f87171;--card:rgba(255,255,255,.03)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:radial-gradient(900px 500px at 10% -10%,#1a2540 0%,transparent 50%),linear-gradient(165deg,#06080d,#0c1219);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.9rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:0}
+.sub{color:var(--muted);margin:.5rem 0 1.25rem;line-height:1.5}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.55rem 1rem;border-radius:8px;cursor:pointer;font-weight:600}
+.tab.active{background:var(--accent);color:#04120e;border-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+.card{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--card);margin-bottom:1rem}
+.hero{font-size:clamp(1.2rem,3vw,1.7rem);font-weight:800;color:var(--accent);margin:.5rem 0}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin:1rem 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:.65rem;background:rgba(0,0,0,.2)}
+.metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.metric .v{font-size:1.05rem;font-weight:700;margin-top:.15rem}
+.badge{display:inline-block;font-size:.65rem;padding:.12rem .4rem;border-radius:4px;background:rgba(6,182,212,.2);color:#67e8f9;margin-left:.4rem}
+.warn{color:var(--warn)}.ok{color:var(--ok)}.bad{color:var(--bad)}
+button.primary{border:0;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-weight:800;padding:.65rem 1.1rem;border-radius:8px;cursor:pointer}
+.explain{font-size:.9rem;line-height:1.55;border-left:3px solid var(--accent);padding-left:.75rem;margin:.75rem 0}
+.loading,.error{color:var(--muted);padding:1.5rem;text-align:center}
+.error{color:var(--bad)}
+.status{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+th,td{padding:.45rem;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.7rem;text-transform:uppercase}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/platform">Platform</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</nav>
+<main>
+  <h1>Subscription Analytics Hub <span class="badge">#9</span></h1>
+  <p class="sub">Three phases — lifecycle management, analytics dashboard (PostHog-ready), and AI upgrade recommendations.</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="lifecycle">Phase 1: Lifecycle</button>
+    <button class="tab" data-tab="analytics">Phase 2: Analytics</button>
+    <button class="tab" data-tab="upgrade">Phase 3: Smart Upgrade</button>
+  </div>
+
+  <div id="panel-lifecycle" class="panel active">
+    <div class="card" id="lifecycleOut"><div class="loading">Loading subscription status…</div></div>
+    <button class="primary" id="upgradeBtn" type="button">Initiate Upgrade</button>
+  </div>
+
+  <div id="panel-analytics" class="panel">
+    <div class="card" id="analyticsOut"><div class="loading">Loading analytics dashboard…</div></div>
+  </div>
+
+  <div id="panel-upgrade" class="panel">
+    <div class="card" id="upgradeOut"><div class="loading">Loading upgrade recommendation…</div></div>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+  if(t.dataset.tab==='analytics') loadAnalytics();
+  if(t.dataset.tab==='upgrade') loadUpgrade();
+}));
+async function loadLifecycle(){
+  const el=document.getElementById('lifecycleOut');
+  try{
+    const d=await(await fetch('/api/platform/subscription-lifecycle/status')).json();
+    if(!d.ok){el.innerHTML=`<div class="error">${d.error||'Login required for lifecycle status'}</div>`;return;}
+    const warn=d.renewal_warning?'<span class="warn">Renewal warning active</span>':'<span class="ok">No renewal warning</span>';
+    el.innerHTML=`
+      <div class="hero">${(d.effective_plan||'free').toUpperCase()} · Features ${d.features_active?'active':'cut off'}</div>
+      <div class="metrics">
+        <div class="metric"><div class="k">Status</div><div class="v">${d.subscription_status||'—'}</div></div>
+        <div class="metric"><div class="k">Days Left</div><div class="v">${d.days_until_renewal??'—'}</div></div>
+        <div class="metric"><div class="k">Grace</div><div class="v">${d.acceptance?.grace_period_days??3}d</div></div>
+        <div class="metric"><div class="k">Warning</div><div class="v">${d.renewal_warning_days??5}d</div></div>
+      </div>
+      <p>${warn} · Period ends ${(d.current_period_end||'—').slice(0,10)}</p>
+      <div class="status">${d.latency_ms}ms · immediate cutoff on expiry enabled</div>`;
+  }catch(e){el.innerHTML=`<div class="error">${e.message}</div>`;}
+}
+async function loadAnalytics(){
+  const el=document.getElementById('analyticsOut');
+  try{
+    const d=await(await fetch('/api/platform/analytics-hub/dashboard')).json();
+    const c=d.counts||{};
+  const f=d.funnel||{};
+    el.innerHTML=`
+      <div class="hero">${c.visitors??0} visitors · ${c.registered_users??0} users · ${c.paid_subscribers??0} subscribers</div>
+      <div class="metrics">
+        <div class="metric"><div class="k">Landing Views</div><div class="v">${c.landing_views??0}</div></div>
+        <div class="metric"><div class="k">Dashboard Views</div><div class="v">${c.dashboard_views??0}</div></div>
+        <div class="metric"><div class="k">Trials</div><div class="v">${c.active_trials??0}</div></div>
+        <div class="metric"><div class="k">Past Due</div><div class="v">${c.past_due??0}</div></div>
+      </div>
+      <p>Funnel: ${f.visitor_to_signup_pct??0}% visitor→signup · ${f.signup_to_paid_pct??0}% signup→paid</p>
+      <p>Providers: SQLite ✓ · PostHog ${d.providers?.posthog?'✓':'(set POSTHOG_API_KEY)'}</p>
+      <div class="status">${d.latency_ms}ms · realtime</div>`;
+  }catch(e){el.innerHTML=`<div class="error">${e.message}</div>`;}
+}
+async function loadUpgrade(){
+  const el=document.getElementById('upgradeOut');
+  try{
+    const d=await(await fetch('/api/platform/analytics-hub/upgrade-recommendation')).json();
+    if(!d.ok){el.innerHTML=`<div class="error">${d.error||'Login required'}</div>`;return;}
+    el.innerHTML=`
+      <div class="hero">${d.current_plan?.toUpperCase()} → ${d.recommended_plan?.toUpperCase()} (${Math.round((d.confidence||0)*100)}% confidence)</div>
+      <div class="explain">${d.explanation||'—'}</div>
+      <ul>${(d.reasons||[]).map(r=>`<li>${r}</li>`).join('')}</ul>
+      <button class="primary" onclick="location.href='${d.checkout_href||'/create-checkout-session?tier=pro'}'">Upgrade to ${d.recommended_plan?.toUpperCase()}</button>
+      <div class="status">${d.latency_ms}ms</div>`;
+  }catch(e){el.innerHTML=`<div class="error">${e.message}</div>`;}
+}
+document.getElementById('upgradeBtn').addEventListener('click',async()=>{
+  const d=await(await fetch('/api/platform/subscription-lifecycle/upgrade',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).json();
+  if(d.checkout_href) location.href=d.checkout_href;
+});
+loadLifecycle();
+</script>
+</body>
+</html>
