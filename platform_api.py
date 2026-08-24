@@ -489,6 +489,65 @@ async def il_simulation_history(limit: int = Query(20, ge=1, le=100)):
     return {"kind": "lp_il", "simulations": [r for r in rows if r.get("kind") == "lp_il"]}
 
 
+@router.get("/onchain/mvrv-realignment")
+async def mvrv_realignment(asset: str = Query("BTC")):
+    from bd_platform.mvrv_realignment import compute_mvrv_realignment
+
+    return await compute_mvrv_realignment(asset)
+
+
+@router.get("/alpha/factor-ranking")
+async def alpha_factor_ranking(limit: int = Query(25, ge=5, le=50)):
+    from bd_platform.alpha_factor_ranking import rank_assets_by_alpha_factors
+
+    return await rank_assets_by_alpha_factors(limit=limit)
+
+
+@router.get("/squeeze/triggers")
+async def squeeze_triggers(asset: str = Query("BTC")):
+    from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
+
+    return await squeeze_trigger_coordinates(asset)
+
+
+@router.get("/intelligence-ledger/execution")
+async def intelligence_ledger_execution(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    side: str = Query("buy"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Sprint 2 — best execution path from 1inch + AMM + CEX + slippage optimizer."""
+    from bd_platform.intelligence_ledger import build_execution_intelligence
+
+    return await build_execution_intelligence(
+        asset=asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        side=side,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
+
+@router.get("/intelligence-ledger/slippage-optimize")
+async def intelligence_ledger_slippage(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    user_tolerance_bps: int | None = Query(None, ge=10, le=300),
+):
+    """Feature #5 — slippage tolerance self-optimization (vol + depth + gas)."""
+    from bd_platform.slippage_tolerance_optimizer import optimize_slippage_tolerance
+
+    return await optimize_slippage_tolerance(
+        asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        user_tolerance_bps=user_tolerance_bps,
+    )
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Intelligence Ledger (Sprint 2)</title>
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--ok:#22d3a5;--accent:#8b5cf6;--warn:#fbbf24;--bad:#f87171;--card:rgba(255,255,255,.03)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:radial-gradient(900px 500px at 10% -10%,#2a1a40 0%,transparent 50%),linear-gradient(165deg,#06080d,#0c1219);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.9rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:0}
+.sub{color:var(--muted);margin:.5rem 0 1.25rem;line-height:1.5}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.55rem 1rem;border-radius:8px;cursor:pointer;font-weight:600}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+.card{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--card);margin-bottom:1rem}
+.hero{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:var(--accent);margin:.5rem 0}
+input,button,select{font:inherit}
+input,select{background:#0b1118;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;border-radius:8px;margin-right:.5rem;margin-bottom:.35rem}
+button.primary{border:0;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:800;padding:.65rem 1.1rem;border-radius:8px;cursor:pointer}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin:1rem 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:.65rem;background:rgba(0,0,0,.2)}
+.metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.metric .v{font-size:1.05rem;font-weight:700;margin-top:.15rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:.5rem;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
+.alert{border-left:3px solid var(--warn);padding:.5rem .75rem;margin:.35rem 0;background:rgba(251,191,36,.08);font-size:.85rem;border-radius:0 6px 6px 0}
+.alert.high{border-color:var(--bad);background:rgba(248,113,113,.08)}
+.loading,.error,.empty{color:var(--muted);padding:1.5rem;text-align:center}
+.error{color:var(--bad)}
+.badge{display:inline-block;font-size:.65rem;padding:.12rem .4rem;border-radius:4px;background:rgba(139,92,246,.2);color:#c4b5fd;margin-left:.4rem}
+.status{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+.formula{font-family:ui-monospace,monospace;font-size:.8rem;color:var(--ok);background:rgba(0,0,0,.25);padding:.75rem;border-radius:8px;margin:.75rem 0}
+.best-row{background:rgba(139,92,246,.12)}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/market-intelligence">Market Intel</a>
+    <a href="/platform">Platform</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</nav>
+<main>
+  <h1>Intelligence Ledger <span class="badge">Sprint 2</span></h1>
+  <p class="sub">AI execution intelligence — 1inch + AMM depth + CEX reference + gas oracle, with self-optimized slippage tolerance (volatility + liquidity depth + gas costs).</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="execution">Execution Intelligence</button>
+    <button class="tab" data-tab="slippage">Slippage Self-Optimization</button>
+  </div>
+
+  <div id="panel-execution" class="panel active">
+    <div class="card">
+      <label>Asset <input id="execAsset" value="ETH"></label>
+      <label>Amount USD <input id="execAmount" type="number" value="10000"></label>
+      <label>Chain
+        <select id="execChain">
+          <option value="ethereum">ethereum</option>
+          <option value="arbitrum">arbitrum</option>
+          <option value="polygon">polygon</option>
+          <option value="base">base</option>
+        </select>
+      </label>
+      <button class="primary" id="execRun" type="button">Analyze Routes</button>
+      <div id="execLoading" class="loading" style="display:none">Building execution intelligence…</div>
+      <div id="execError" class="error" style="display:none"></div>
+      <div id="execResults" style="display:none">
+        <div class="hero" id="execHero">—</div>
+        <div class="metrics" id="execMetrics"></div>
+        <table>
+          <thead><tr><th>Venue</th><th>Source</th><th>Slippage</th><th>Gas</th><th>Effective Cost</th></tr></thead>
+          <tbody id="execRoutes"></tbody>
+        </table>
+        <div id="execAlerts"></div>
+        <p class="status" id="execMeta"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-slippage" class="panel">
+    <div class="card">
+      <label>Asset <input id="slipAsset" value="ETH"></label>
+      <label>Amount USD <input id="slipAmount" type="number" value="10000"></label>
+      <label>Chain
+        <select id="slipChain">
+          <option value="ethereum">ethereum</option>
+          <option value="arbitrum">arbitrum</option>
+        </select>
+      </label>
+      <button class="primary" id="slipRun" type="button">Optimize Tolerance</button>
+      <div id="slipLoading" class="loading" style="display:none">Optimizing slippage tolerance…</div>
+      <div id="slipError" class="error" style="display:none"></div>
+      <div id="slipResults" style="display:none">
+        <div class="hero" id="slipHero">—</div>
+        <div class="formula" id="slipFormula">—</div>
+        <div class="metrics" id="slipMetrics"></div>
+        <div id="slipAlerts"></div>
+        <p class="status" id="slipMeta"></p>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+}));
+
+function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`;}
+function alertsHtml(list){
+  if(!list||!list.length) return '';
+  return list.map(a=>`<div class="alert ${a.level==='high'?'high':''}">${a.message||a.code}</div>`).join('');
+}
+
+async function loadExecution(){
+  const a=document.getElementById('execAsset').value||'ETH';
+  const amt=document.getElementById('execAmount').value||10000;
+  const chain=document.getElementById('execChain').value||'ethereum';
+  document.getElementById('execLoading').style.display='block';
+  document.getElementById('execError').style.display='none';
+  document.getElementById('execResults').style.display='none';
+  try{
+    const d=await(await fetch(`/api/platform/intelligence-ledger/execution?asset=${encodeURIComponent(a)}&amount_usd=${encodeURIComponent(amt)}&chain=${encodeURIComponent(chain)}`)).json();
+    if(!d.ok) throw new Error(d.error||'Execution intelligence failed');
+    document.getElementById('execHero').textContent=d.headline||'—';
+    const best=d.recommended_route||{};
+    const one=d.oneinch_data_source||{};
+    document.getElementById('execMetrics').innerHTML=[
+      metric('Optimal Slippage',(d.slippage_optimization?.optimal_slippage_bps||'—')+' bps'),
+      metric('Best Venue',best.venue||'—'),
+      metric('1inch State',one.ok?(one.quote?.fallback?'Fallback':'Live'):'N/A'),
+      metric('Latency',(d.latency_ms||'—')+' ms')
+    ].join('');
+    const tbody=document.getElementById('execRoutes');
+    tbody.innerHTML='';
+    (d.routes||[]).forEach((r,i)=>{
+      const tr=document.createElement('tr');
+      if(i===0) tr.className='best-row';
+      tr.innerHTML=`<td>${r.venue}</td><td>${r.source||'—'}</td><td>${r.slippage_bps??'—'} bps</td><td>${r.gas_bps??0} bps</td><td>${(r.effective_cost_bps??'—')} bps</td>`;
+      tbody.appendChild(tr);
+    });
+    document.getElementById('execAlerts').innerHTML=alertsHtml(d.alerts);
+    document.getElementById('execMeta').textContent=`Sources: ${(d.data_sources||[]).join(', ')} · SLA ${d.sla_met?'met':'missed'} · ${d.timestamp||''}`;
+    document.getElementById('execResults').style.display='block';
+  }catch(e){
+    document.getElementById('execError').textContent=e.message;
+    document.getElementById('execError').style.display='block';
+  }finally{document.getElementById('execLoading').style.display='none';}
+}
+
+async function loadSlippage(){
+  const a=document.getElementById('slipAsset').value||'ETH';
+  const amt=document.getElementById('slipAmount').value||10000;
+  const chain=document.getElementById('slipChain').value||'ethereum';
+  document.getElementById('slipLoading').style.display='block';
+  document.getElementById('slipError').style.display='none';
+  document.getElementById('slipResults').style.display='none';
+  try{
+    const d=await(await fetch(`/api/platform/intelligence-ledger/slippage-optimize?asset=${encodeURIComponent(a)}&amount_usd=${encodeURIComponent(amt)}&chain=${encodeURIComponent(chain)}`)).json();
+    if(!d.ok) throw new Error(d.error||'Slippage optimization failed');
+    const o=d.optimization||{};
+    document.getElementById('slipHero').textContent=d.headline||'—';
+    document.getElementById('slipFormula').textContent=o.formula||'optimal = base + vol + depth + gas';
+    document.getElementById('slipMetrics').innerHTML=[
+      metric('Base',(o.base_bps??'—')+' bps'),
+      metric('Vol Adj',(o.volatility_adj_bps??'—')+' bps'),
+      metric('Depth Adj',(o.liquidity_depth_adj_bps??'—')+' bps'),
+      metric('Gas Adj',(o.gas_adj_bps??'—')+' bps'),
+      metric('24h Vol',(o.inputs?.volatility_24h_pct??'—')+'%'),
+      metric('Liquidity',o.inputs?.liquidity_usd?('$'+Math.round(o.inputs.liquidity_usd).toLocaleString()):'—')
+    ].join('');
+    document.getElementById('slipAlerts').innerHTML=alertsHtml(d.alerts);
+    document.getElementById('slipMeta').textContent=`SLA ${d.sla_met?'≤2s met':'missed'} · ${d.latency_ms||'—'} ms · ${d.timestamp||''}`;
+    document.getElementById('slipResults').style.display='block';
+  }catch(e){
+    document.getElementById('slipError').textContent=e.message;
+    document.getElementById('slipError').style.display='block';
+  }finally{document.getElementById('slipLoading').style.display='none';}
+}
+
+document.getElementById('execRun').addEventListener('click',loadExecution);
+document.getElementById('slipRun').addEventListener('click',loadSlippage);
+loadExecution();
+</script>
+</body>
+</html>
