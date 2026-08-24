@@ -43,7 +43,13 @@ def _require_postgres() -> None:
 
 async def _ensure_ready() -> None:
     _require_postgres()
-    await ensure_data_engine_ready()
+    try:
+        await ensure_data_engine_ready()
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.exception("data engine ensure failed")
+        raise HTTPException(status_code=503, detail=f"data engine migration failed: {exc}") from exc
 
 
 def _parse_dt(value: str | None) -> datetime | None:

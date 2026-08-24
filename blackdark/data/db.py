@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -17,6 +18,7 @@ logger = logging.getLogger("BLACKDARK.DataEngine.DB")
 _engine: Any = None
 _session_factory: async_sessionmaker[AsyncSession] | None = None
 _initialized = False
+_init_lock = asyncio.Lock()
 
 
 def _async_url() -> str:
