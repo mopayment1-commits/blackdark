@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import Annotated
 
 from fastapi import APIRouter, Depends
 
 from market_context import fetch_binance_ticker, normalize_oracle_symbol
-from security_auth import require_admin
+from security_auth import optional_user_from_request, require_admin
 
 router = APIRouter(tags=["oracle"])
 
@@ -289,6 +290,24 @@ async def api_signal_registry_backfill(_admin: dict = Depends(require_admin)):
     from signal_registry import backfill_labels_from_oracle
 
     return await backfill_labels_from_oracle(limit=5000)
+
+
+@router.get("/api/oracle/single-sentence")
+async def api_single_sentence_oracle(
+    asset: str = "BTC",
+    user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
+):
+    """Feature #125 — compliant single-sentence oracle."""
+    from bd_platform.single_sentence_financial_oracle import query_single_sentence_oracle
+
+    return await query_single_sentence_oracle(asset, user=user)
+
+
+@router.get("/api/oracle/single-sentence/status")
+async def api_single_sentence_oracle_status():
+    from bd_platform.single_sentence_financial_oracle import oracle_feature_status
+
+    return oracle_feature_status()
 
 
 @router.get("/api/oracle/persona-clarity/demo")

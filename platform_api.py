@@ -6,8 +6,9 @@ import os
 from typing import Any
 
 from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
+from typing import Annotated
 
-from security_auth import require_admin, require_authenticated
+from security_auth import optional_user_from_request, require_admin, require_authenticated
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 
@@ -1080,3 +1081,51 @@ async def exchange_health_status_route(
     from bd_platform.exchange_health_monitor import exchange_health_status
 
     return exchange_health_status(exchange_id=exchange_id, min_alert_level=min_alert_level)
+
+
+# ── Feature #125 — Single-Sentence Financial Oracle ─────────────────────────
+
+
+@router.get("/oracle/single-sentence")
+async def single_sentence_oracle_route(
+    asset: str = Query("BTC", min_length=1, max_length=20),
+    user: Annotated[dict | None, Depends(optional_user_from_request)] = None,
+):
+    """Single-Sentence Financial Oracle (#125) — Bullish/Neutral/Bearish + one reason."""
+    from bd_platform.single_sentence_financial_oracle import query_single_sentence_oracle
+
+    return await query_single_sentence_oracle(asset, user=user)
+
+
+@router.get("/oracle/single-sentence/status")
+async def single_sentence_oracle_status_route():
+    from bd_platform.single_sentence_financial_oracle import oracle_feature_status
+
+    return oracle_feature_status()
+
+
+# ── Feature #126 — Monetization Tiers Core ───────────────────────────────────
+
+
+@router.get("/billing/monetization-tiers")
+async def monetization_tiers_route(
+    variant: str | None = Query(None, pattern="^(A|B)$"),
+):
+    """3-tier commercial catalog (#126) with A/B pricing."""
+    from bd_platform.monetization_tiers_core import monetization_catalog
+
+    return monetization_catalog(variant=variant)  # type: ignore[arg-type]
+
+
+@router.get("/billing/monetization-status")
+async def monetization_status_route():
+    from bd_platform.monetization_tiers_core import monetization_status
+
+    return monetization_status()
+
+
+@router.get("/billing/entitlements")
+async def monetization_entitlements_route(tier: str = Query("free")):
+    from bd_platform.monetization_tiers_core import entitlements_for_commercial_tier
+
+    return entitlements_for_commercial_tier(tier)
