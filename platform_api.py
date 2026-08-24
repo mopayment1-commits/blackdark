@@ -1218,6 +1218,25 @@ async def confidence_engine_status_route():
     return confidence_engine_status()
 
 
+# ── Feature #151 — Market Health Dashboard ───────────────────────────────────
+
+
+@router.get("/market-health/dashboard")
+async def market_health_dashboard_route(asset: str = Query("BTC")):
+    """Market Health Dashboard (#151) — 4 pillars + #109 risk hook."""
+    from bd_platform.market_health_engine import build_market_health_dashboard
+
+    return await build_market_health_dashboard(asset)
+
+
+@router.get("/market-health/status")
+async def market_health_status_route():
+    """Market Health Engine status (#151)."""
+    from bd_platform.market_health_engine import market_health_status
+
+    return market_health_status()
+
+
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
 
 
