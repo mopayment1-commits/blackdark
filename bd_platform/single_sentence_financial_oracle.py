@@ -227,6 +227,18 @@ async def query_single_sentence_oracle(
         funding_rate_pct=funding_pct,
     )
 
+    macro_block: dict[str, Any] = {}
+    try:
+        from bd_platform.macro_context_engine import macro_context_for_oracle
+
+        macro_block = await macro_context_for_oracle(asset)
+        if macro_block.get("primary_relationship"):
+            reason_en = f"{reason_en}; Macro: {macro_block['primary_relationship']}"
+            if macro_block.get("primary_relationship_ar"):
+                reason_ar = f"{reason_ar}; ماكرو: {macro_block['primary_relationship_ar']}"
+    except Exception:
+        pass
+
     sentence = (
         f"{asset} — Analysis: {analysis} | Confidence: {confidence}% | Reason: {reason_en}"
     )
@@ -246,6 +258,7 @@ async def query_single_sentence_oracle(
         "confidence_percent": confidence,
         "reason": reason_en,
         "reason_ar": reason_ar,
+        "macro_context": macro_block,
         "sentence": sentence,
         "headline": sentence,
         "opportunity_score": score,
