@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import asyncio
 import os
 from typing import Any
 
 from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
 from typing import Annotated
 
+from api.deps import require_feature
 from security_auth import optional_user_from_request, require_admin, require_authenticated
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
@@ -1345,6 +1347,101 @@ async def api_security_encryption_status_route(_admin: dict = Depends(require_ad
     from bd_platform.api_security_encryption import security_encryption_status
 
     return security_encryption_status()
+
+
+# ── Feature #167 — CLI Access (Institution tier) ─────────────────────────────
+
+
+@router.get("/cli/status")
+async def cli_status_route(user: dict = Depends(require_feature("cli_access"))):
+    """CLI status — Institution tier REST wrapper health (#167)."""
+    import os
+
+    from blackdark.cli.main import __version__
+
+    return {
+        "ok": True,
+        "feature_id": 167,
+        "cli_version": __version__,
+        "api_url": os.getenv("BLACKDARK_API_URL", "http://127.0.0.1:8000"),
+        "tier": user.get("tier"),
+        "cli_api_parity": True,
+        "commands": [
+            "price",
+            "alert list",
+            "portfolio check",
+            "market-health",
+            "confidence",
+            "execution-quality",
+            "macro",
+            "spread",
+            "transfer",
+            "entity",
+            "tx",
+            "dd",
+            "status",
+        ],
+    }
+
+
+@router.get("/cli/portfolio-check")
+async def cli_portfolio_check_route(
+    asset: str = Query("BTC"),
+    user: dict = Depends(require_feature("cli_access")),
+):
+    """Portfolio risk check for CLI — uses market health + confidence (#167)."""
+    from bd_platform.confidence_engine import score_asset_confidence
+    from bd_platform.market_health_engine import build_market_health_dashboard
+
+    sym = asset.upper().replace("/USDT", "")
+    health, confidence = await asyncio.gather(
+        build_market_health_dashboard(sym),
+        score_asset_confidence(sym),
+    )
+    risk_hook = health.get("portfolio_risk_109") or {}
+    headline = (
+        f"Portfolio check — {sym}: market health {health.get('overall_status')} "
+        f"({health.get('overall_score')}), confidence {confidence.get('confidence_score')}. "
+        f"Risk action: {risk_hook.get('recommended_action', 'review')}."
+    )
+    return {
+        "ok": True,
+        "feature_id": 167,
+        "asset": sym,
+        "headline": headline,
+        "market_health": {
+            "status": health.get("overall_status"),
+            "score": health.get("overall_score"),
+            "reason": health.get("classification_reason"),
+        },
+        "confidence": confidence,
+        "portfolio_risk_109": risk_hook,
+        "tier": user.get("tier"),
+    }
+
+
+# ── Feature #173 — Due Diligence Report Engine (BLACKDARK Research) ───────────
+
+
+@router.get("/research/dd-report")
+async def due_diligence_report_route(
+    asset: str = Query("BTC"),
+    mode: str = Query("one_page", pattern="^(one_page|full)$"),
+    _user: dict = Depends(require_feature("due_diligence_reports")),
+):
+    """BLACKDARK Research — auto-generated DD report (#173)."""
+    from bd_platform.due_diligence_report_engine import build_due_diligence_report
+
+    report = await build_due_diligence_report(asset, mode=mode)  # type: ignore[arg-type]
+    return {"ok": True, "report": report}
+
+
+@router.get("/research/dd-report/status")
+async def due_diligence_report_status_route():
+    """DD Report Engine status (#173)."""
+    from bd_platform.due_diligence_report_engine import due_diligence_report_status
+
+    return due_diligence_report_status()
 
 
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────

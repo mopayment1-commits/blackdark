@@ -151,6 +151,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "quant_backtest": True,
         "ux_pro_default": True,
         "proof_watermark": False,
+        "cli_access": True,
+        "due_diligence_reports": True,
         "product_name": STR_TRUST_OS,
     },
     "institutional": {
@@ -173,6 +175,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
         "quant_backtest": True,
         "ux_pro_default": True,
         "proof_watermark": False,
+        "cli_access": True,
+        "due_diligence_reports": True,
         "product_name": STR_TRUST_OS,
     },
 }
