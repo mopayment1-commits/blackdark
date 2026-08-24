@@ -977,6 +977,45 @@ async def connector_layer_status_route():
     return connector_layer_status()
 
 
+# ── Feature #175 — Flexible Connector Microservice ─────────────────────────────
+
+
+@router.get("/infra/connectors/registry")
+async def connector_registry_dashboard_route(asset: str = Query("BTC")):
+    """User-visible connector registry — health, coverage, freshness (#175)."""
+    from bd_platform.flexible_connector_microservice import connector_registry_dashboard
+
+    return await connector_registry_dashboard(asset)
+
+
+@router.get("/infra/connectors/certification")
+async def connector_certification_route(asset: str = Query("BTC")):
+    """Connector health certification pass (#175)."""
+    from bd_platform.flexible_connector_microservice import run_connector_certification
+
+    return await run_connector_certification(asset)
+
+
+@router.get("/infra/connectors/failover")
+async def connector_failover_route(
+    asset: str = Query("BTC"),
+    preferred: str | None = Query(None, description="Comma-separated connector ids"),
+):
+    """Failover fetch — no synthetic success (#175)."""
+    from bd_platform.flexible_connector_microservice import fetch_with_failover
+
+    pref = [p.strip() for p in preferred.split(",") if p.strip()] if preferred else None
+    return await fetch_with_failover(asset, preferred=pref)
+
+
+@router.get("/infra/connectors/microservice/status")
+async def flexible_connector_status_route():
+    """Flexible Connector Microservice status (#175)."""
+    from bd_platform.flexible_connector_microservice import flexible_connector_status
+
+    return flexible_connector_status()
+
+
 # ── Features #108 + #120 + #119 — Transfer network & cross-platform optimizer ─
 
 
@@ -1442,6 +1481,89 @@ async def due_diligence_report_status_route():
     from bd_platform.due_diligence_report_engine import due_diligence_report_status
 
     return due_diligence_report_status()
+
+
+# ── Feature #177 — Chart / Idea Sharing (Growth Engine) ──────────────────────
+
+
+@router.post("/share/charts", responses=COMMON_ERROR_RESPONSES)
+async def create_chart_share_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Create chart/idea share draft (#177)."""
+    from bd_platform.chart_sharing_service import create_chart_share
+
+    return create_chart_share(
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        title=str(body.get("title") or "Untitled"),
+        chart_type=str(body.get("chart_type") or "idea"),
+        chart_data=body.get("chart_data") if isinstance(body.get("chart_data"), dict) else {},
+        notes=str(body.get("notes") or ""),
+        privacy=str(body.get("privacy") or "private"),  # type: ignore[arg-type]
+    )
+
+
+@router.post("/share/charts/{share_id}/publish", responses=COMMON_ERROR_RESPONSES)
+async def publish_chart_share_route(
+    share_id: str,
+    body: dict[str, Any] = Body(default_factory=dict),
+    user: dict = Depends(require_authenticated),
+):
+    """Publish immutable snapshot with privacy controls (#177)."""
+    from bd_platform.chart_sharing_service import publish_chart_share
+
+    return publish_chart_share(
+        share_id=share_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        privacy=str(body.get("privacy") or "unlisted"),  # type: ignore[arg-type]
+    )
+
+
+@router.put("/share/charts/{share_id}", responses=COMMON_ERROR_RESPONSES)
+async def update_chart_share_route(
+    share_id: str,
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Update draft — published immutable snapshot unchanged (#177)."""
+    from bd_platform.chart_sharing_service import update_chart_share
+
+    return update_chart_share(
+        share_id=share_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        title=body.get("title"),
+        chart_data=body.get("chart_data") if isinstance(body.get("chart_data"), dict) else None,
+        notes=body.get("notes"),
+        privacy=body.get("privacy"),  # type: ignore[arg-type]
+    )
+
+
+@router.get("/share/charts")
+async def list_chart_shares_route(user: dict = Depends(require_authenticated)):
+    """List user's chart shares (#177)."""
+    from bd_platform.chart_sharing_service import list_user_chart_shares
+
+    return list_user_chart_shares(str(user.get("id") or user.get("email") or "0"))
+
+
+@router.get("/share/chart/{slug}")
+async def public_chart_view_route(slug: str):
+    """Public/unlisted immutable chart snapshot (#177)."""
+    from bd_platform.chart_sharing_service import get_public_chart_view
+
+    result = get_public_chart_view(slug)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/share/status")
+async def chart_sharing_status_route():
+    """Chart sharing engine status (#177)."""
+    from bd_platform.chart_sharing_service import chart_sharing_status
+
+    return chart_sharing_status()
 
 
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
