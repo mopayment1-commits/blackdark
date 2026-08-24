@@ -14,7 +14,9 @@ from pydantic import BaseModel, Field
 from blackdark.data.db import data_engine_available, ensure_data_engine_ready, get_session
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv, ingest_open_interest
 from blackdark.data.ingestors.coingecko import ingest_markets
+from blackdark.data.institutional import wave_01_institutional_status
 from blackdark.data.provenance import get_provenance_by_record
+from blackdark.data.response_metadata import dataset_response
 from blackdark.data.repository import (
     data_engine_status,
     query_events,
@@ -124,7 +126,14 @@ async def get_ohlcv(
             limit=limit,
             source_slug=source,
         )
-    return {"symbol": symbol.upper(), "interval": interval, "count": len(rows), "data": rows}
+    return dataset_response(
+        count=len(rows),
+        data=rows,
+        dataset="ohlcv",
+        symbol=symbol,
+        interval=interval,
+        latest_record_at=rows[0]["open_time"] if rows else None,
+    )
 
 
 @router.get("/api/v1/data/funding")
@@ -149,7 +158,7 @@ async def get_funding(
     except Exception as exc:
         logger.exception("funding query failed")
         raise HTTPException(status_code=503, detail=f"funding query failed: {exc}") from exc
-    return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
+    return dataset_response(count=len(rows), data=rows, dataset="funding_rates", symbol=symbol)
 
 
 @router.get("/api/v1/data/open-interest")
@@ -170,7 +179,7 @@ async def get_open_interest(
             limit=limit,
             source_slug=source,
         )
-    return {"symbol": symbol.upper(), "count": len(rows), "data": rows}
+    return dataset_response(count=len(rows), data=rows, dataset="open_interest", symbol=symbol)
 
 
 @router.get("/api/v1/data/provenance/{record_id}")
@@ -180,6 +189,12 @@ async def get_provenance(record_id: UUID, _: None = Depends(_ensure_ready)):
     if not row:
         raise HTTPException(status_code=404, detail="provenance record not found")
     return row
+
+
+@router.get("/api/v1/data/wave-01")
+async def get_wave_01_institutional(_: None = Depends(_ensure_ready)):
+    async with get_session() as session:
+        return await wave_01_institutional_status(session)
 
 
 @router.get("/api/v1/data/status")
@@ -226,7 +241,7 @@ async def get_events(
             end_time=_parse_dt(end_time),
             limit=limit,
         )
-    return {"count": len(events), "events": events}
+    return dataset_response(count=len(events), data=events, dataset="events", extra={"events": events})
 
 
 @admin_router.post("/seed-sources")
