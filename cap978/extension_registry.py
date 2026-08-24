@@ -27,6 +27,9 @@ _EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
     703: ("bd_platform.free_tier_capabilities", "amberdata_institutional_proxy", "symbol"),
     704: ("bd_platform.free_tier_capabilities", "defi_risk_radar", "none"),
     705: ("bd_platform.free_tier_capabilities", "lending_market_risk", "none"),
+    934: ("lp_il_simulator", "il_vulnerability_score", "symbol"),
+    954: ("lp_il_simulator", "simulate_lp_live", "symbol"),
+    975: ("lp_il_simulator", "lp_front_payload", "symbol"),
 }
 
 _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
@@ -84,7 +87,7 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("vault", "secret", "key management"), ("bd_platform.vault_client", "vault_status", "none")),
     (("auto key", "api key import"), ("bd_platform.auto_keys", "auto_import_keys", "none")),
     (("roadmap audit", "feature audit"), ("bd_platform.roadmap_audit", "run_roadmap_audit", "none")),
-    (("cex-dex", "cex dex"), ("bd_platform.cex_dex_arbitrage", "scan_cex_dex_opportunities", "quote")),
+    (("impermanent loss", "liquidity pool", "lp "), ("lp_il_simulator", "simulate_lp_live", "symbol")),
     (("strategy marketplace",), ("bd_platform.strategy_marketplace", "list_strategies", "none")),
 )
 
