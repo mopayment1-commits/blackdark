@@ -388,6 +388,22 @@ async def ingestion_coingecko_sync():
     return await run_coingecko_primary_ingest()
 
 
+@router.get("/alpha/signal")
+async def alpha_engine_signal(asset: str = Query("BTC")):
+    """Alpha Engine (#13) — unified signal from all input sources."""
+    from bd_platform.alpha_engine import compute_alpha_signal
+
+    return await compute_alpha_signal(asset)
+
+
+@router.get("/alpha/ranking")
+async def alpha_engine_ranking(limit: int = Query(25, ge=5, le=50)):
+    """Alpha Engine (#13) — ranked universe using multi-source inputs."""
+    from bd_platform.alpha_engine import rank_alpha_universe
+
+    return await rank_alpha_universe(limit=limit)
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

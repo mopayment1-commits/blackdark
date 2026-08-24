@@ -323,11 +323,14 @@ async def _h_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchR
 
 
 async def _h_fear_greed(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"limit": "1"})
-    row = (data.get("data") or [{}])[0]
+    from blackdark.ingestion.alternative_me_connector import fetch_fear_greed_index
+
+    fg = await fetch_fear_greed_index()
     return {
-        "value": int(row.get("value") or 50),
-        "label": row.get("value_classification"),
+        "value": int(fg.get("value") or 50),
+        "label": fg.get("label"),
+        "alpha_score": fg.get("alpha_score"),
+        "source": "alternative_me_connector",
     }
 
 
@@ -587,10 +590,14 @@ async def ingest_category(session: aiohttp.ClientSession, category: Category) ->
 
 
 async def ingest_all_categories() -> dict[str, Any]:
+    from blackdark.ingestion.alternative_me_connector import run_alternative_me_ingest
     from blackdark.ingestion.coingecko_connector import run_coingecko_primary_ingest
 
     timeout = aiohttp.ClientTimeout(total=config.INGESTION_FETCH_TIMEOUT_SECONDS)
-    summary: dict[str, Any] = {"coingecko_primary": await run_coingecko_primary_ingest()}
+    summary: dict[str, Any] = {
+        "coingecko_primary": await run_coingecko_primary_ingest(),
+        "alternative_me": await run_alternative_me_ingest(),
+    }
     async with aiohttp.ClientSession(timeout=timeout) as session:
         for category in (
             "prices", "onchain", "defi", "news", "sentiment",
