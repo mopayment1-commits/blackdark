@@ -1193,6 +1193,39 @@ async def exchange_health_status_route(
     return exchange_health_status(exchange_id=exchange_id, min_alert_level=min_alert_level)
 
 
+@router.get("/exchange-trust/dashboard")
+async def exchange_trust_dashboard_route(
+    exchange_id: str | None = Query(None),
+):
+    """Unified Trust Layer — Exchange Quality Score (#132) + Platform Status (#134)."""
+    from bd_platform.exchange_health_monitor import exchange_trust_dashboard
+
+    return exchange_trust_dashboard(exchange_id=exchange_id)
+
+
+@router.get("/exchange-trust/quality")
+async def exchange_quality_score_route(
+    exchange_id: str | None = Query(None),
+):
+    """Exchange Quality Score (#132) — transparent methodology, A+ to D badges."""
+    from bd_platform.exchange_quality_score import score_all_exchanges, score_exchange
+
+    if exchange_id:
+        return score_exchange(exchange_id)
+    return score_all_exchanges()
+
+
+@router.get("/market-radar/order-flow")
+async def order_flow_analytics_route(
+    asset: str = Query("BTC"),
+    limit: int = Query(10, ge=1, le=30),
+):
+    """Order Flow Analytics (#135) — buy/sell walls in plain language."""
+    from bd_platform.order_flow_analytics import scan_order_flow
+
+    return await scan_order_flow(asset, limit=limit)
+
+
 # ── Feature #125 — Single-Sentence Financial Oracle ─────────────────────────
 
 

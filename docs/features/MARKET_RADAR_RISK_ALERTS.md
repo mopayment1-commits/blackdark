@@ -58,6 +58,33 @@ APIs:
 - `POST /api/platform/risk/withdrawal-closures/record` (admin)
 - `GET /api/platform/exchange-health/status`
 
+## #132 + #134 — Exchange Trust Layer
+
+Unified interface combining quality score and platform status:
+
+| Feature | Role |
+|---------|------|
+| **#132** | Exchange Quality Score — A+ to D badges, transparent methodology |
+| **#134** | Platform Status — API/withdrawal/deposit/trading + 6-month history |
+
+Badge examples:
+- 🟢 A+ — Reserves Verified
+- 🔴 D — Withdrawals Suspended 3x
+
+APIs:
+- `GET /api/platform/exchange-trust/dashboard` — unified #132 + #134
+- `GET /api/platform/exchange-trust/quality` — quality scores only
+- `GET /api/platform/exchange-health/status` — #110 + #134 platform status
+
+## #135 — Order Flow Analytics
+
+Translates order-book volume to plain language (not raw numbers):
+
+- Buy Wall at $30K (500 BTC) — strong support
+- Fake Sell Wall (spoofing detected) — cancels within seconds
+
+API: `GET /api/platform/market-radar/order-flow?asset=BTC`
+
 ## Acceptance (all)
 
 - Response ≤ 2 seconds (`sla_met`)
