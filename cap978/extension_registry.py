@@ -61,6 +61,7 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("slippage tolerance", "self-optimization", "slippage intelligence"), ("bd_platform.slippage_tolerance_optimizer", "optimize_slippage_tolerance", "symbol")),
     (("asymmetric slippage", "directional slippage", "buy sell slippage"), ("bd_platform.slippage_tolerance_optimizer", "compute_asymmetric_slippage_cost", "symbol")),
     (("intelligence ledger", "execution intelligence", "best execution"), ("bd_platform.intelligence_ledger", "build_execution_intelligence", "symbol")),
+    (("decision intelligence", "decision engine", "explainable ai"), ("bd_platform.decision_intelligence_engine", "generate_decision_signal", "symbol")),
     (("address intelligence", "address search", "wallet search", "balance history", "balance updates"), ("bd_platform.address_intelligence", "address_intelligence_overview", "address")),
     (("1inch", "dex aggregator"), ("bd_platform.oneinch_connector", "fetch_oneinch_quote", "symbol")),
     (("exchange balance", "netflow", "exchange flow"), ("onchain_tracker", "build_onchain_context_safe", "none")),
