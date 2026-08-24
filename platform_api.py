@@ -1075,10 +1075,82 @@ async def large_liquidity_events_route(limit: int = Query(10, ge=1, le=30)):
 
 @router.get("/market-radar/listing-intelligence")
 async def listing_intelligence_route(limit: int = Query(20, ge=1, le=50)):
-    """Listing Intelligence Engine (#114 + #122) — deposit opened → listing → first trade."""
+    """Listing Intelligence Engine (#114 + #122 + #129) — detect + opportunity analysis."""
     from bd_platform.listing_intelligence_engine import scan_listing_intelligence
 
     return await scan_listing_intelligence(limit=limit)
+
+
+@router.get("/market-radar/listing-opportunity")
+async def listing_opportunity_route(
+    symbol: str = Query(..., min_length=1, max_length=20),
+    exchange: str = Query("binance"),
+    liquidity_usd: float | None = Query(None, ge=0),
+    opening_price_usd: float | None = Query(None, ge=0),
+):
+    """#129 — post-listing opportunity analysis for a single symbol."""
+    from bd_platform.listing_intelligence_engine import analyze_listing_opportunity_for_symbol
+
+    return await analyze_listing_opportunity_for_symbol(
+        symbol,
+        exchange=exchange,
+        liquidity_usd=liquidity_usd,
+        opening_price_usd=opening_price_usd,
+    )
+
+
+@router.get("/market-radar/unusual-liquidity")
+async def unusual_liquidity_route(limit: int = Query(10, ge=1, le=30)):
+    """Unusual Liquidity Alert Engine (#131) — on-chain + CEX depth severity alerts."""
+    from bd_platform.unusual_liquidity_alert_engine import scan_unusual_liquidity_events
+
+    return await scan_unusual_liquidity_events(limit=limit)
+
+
+# ── Feature #130 — Fee Database (internal service) ───────────────────────────
+
+
+@router.get("/infra/fees/status")
+async def fee_database_status_route():
+    """Fee Database internal service health (#130)."""
+    from bd_platform.fee_database_service import fee_database_status
+
+    return fee_database_status()
+
+
+@router.get("/infra/fees/lookup")
+async def fee_database_lookup_route(
+    exchange_id: str = Query(..., min_length=1),
+    symbol: str = Query("BTC/USDT"),
+):
+    """Fee matrix lookup — maker/taker/withdrawal/deposit (#130)."""
+    from bd_platform.fee_database_service import lookup_fee_matrix
+
+    return lookup_fee_matrix(exchange_id, symbol=symbol)
+
+
+@router.get("/infra/fees/transaction-cost")
+async def fee_transaction_cost_route(
+    exchange_id: str = Query(..., min_length=1),
+    symbol: str = Query("BTC/USDT"),
+    notional_usd: float = Query(1000.0, ge=0),
+    side: str = Query("buy", pattern="^(buy|sell)$"),
+    use_maker: bool = Query(False),
+    include_withdrawal: bool = Query(False),
+    include_deposit: bool = Query(False),
+):
+    """Full transaction cost breakdown — fees + spread (#130)."""
+    from bd_platform.fee_database_service import calculate_transaction_cost
+
+    return await calculate_transaction_cost(
+        exchange_id,
+        symbol,
+        notional_usd,
+        side=side,
+        use_maker=use_maker,
+        include_withdrawal=include_withdrawal,
+        include_deposit=include_deposit,
+    )
 
 
 # ── Risk Signals — #123 Withdrawal Closure + #110 Exchange Health ────────────
