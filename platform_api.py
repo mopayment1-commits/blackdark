@@ -440,6 +440,7 @@ async def ingestion_data_layer_status():
     from bd_platform.market_microstructure import market_microstructure_status
     from bd_platform.network_growth_intelligence import network_growth_status
     from bd_platform.options_intelligence import options_intelligence_status
+    from bd_platform.puell_multiple import puell_multiple_status
     from blackdark.ingestion.okx_connector import okx_connector_status
 
     return {
@@ -466,6 +467,7 @@ async def ingestion_data_layer_status():
         "network_growth": network_growth_status(),
         "okx": okx_connector_status(),
         "options_intelligence": options_intelligence_status(),
+        "puell_multiple": puell_multiple_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
     }
@@ -623,6 +625,29 @@ async def mvrv_cycle_context(asset: str = Query("BTC")):
     from bd_platform.mvrv_realignment import mvrv_cycle_context_for_decision_engine
 
     return await mvrv_cycle_context_for_decision_engine(asset)
+
+
+@router.get("/onchain/puell")
+async def puell_multiple_analyze():
+    """Puell Multiple (#89) — miner profitability + zone classification."""
+    from bd_platform.puell_multiple import compute_puell_multiple
+
+    return await compute_puell_multiple()
+
+
+@router.get("/onchain/puell-cycle")
+async def puell_cycle_context():
+    """Puell Multiple (#89) — Decision Engine compact payload (≥12% weight)."""
+    from bd_platform.puell_multiple import puell_for_decision_engine
+
+    return await puell_for_decision_engine("BTC")
+
+
+@router.get("/onchain/puell/status")
+async def puell_multiple_status_route():
+    from bd_platform.puell_multiple import puell_multiple_status
+
+    return puell_multiple_status()
 
 
 @router.post("/trading-journal/trades")

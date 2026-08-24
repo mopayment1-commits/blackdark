@@ -28,6 +28,15 @@
 | #78 Network Growth | `network_growth_intelligence.py` | First-seen addresses + acceleration |
 | #80 OKX API | `okx_connector.py` | Spot + swap market data (silent) |
 | #82+#83 Options Intelligence | `options_intelligence.py` | IV surface + term structure |
+| #89 Puell Multiple | `puell_multiple.py` | Miner profitability + capitulation/euphoria zones |
+
+## #89 Puell Multiple
+
+- Formula: daily miner revenue USD / 365-day MA
+- Zones: Deep Capitulation → Deep Euphoria with buy/sell signals
+- Hash Ribbon + miner capitulation detection
+- `decision_weight: 0.12` in Decision Engine (#48)
+- See `docs/features/PUELL_MULTIPLE.md`
 
 ## #78 Network Growth Intelligence
 

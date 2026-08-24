@@ -41,6 +41,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
     from bd_platform.market_microstructure import microstructure_for_decision_engine
     from bd_platform.network_growth_intelligence import network_growth_for_decision_engine
     from bd_platform.options_intelligence import options_intelligence_for_decision_engine
+    from bd_platform.puell_multiple import puell_for_decision_engine
     from blackdark.ingestion.okx_connector import okx_for_decision_engine
 
     t0 = time.perf_counter()
@@ -48,7 +49,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
     mvrv_asset = "BTC" if sym not in {"BTC", "ETH"} else sym
     growth_asset = sym if sym in {"BTC", "ETH", "SOL", "BNB", "MATIC", "AVAX", "TRX"} else "SOL"
     options_asset = sym if sym in {"BTC", "ETH"} else "BTC"
-    flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, solana, archive, lending, execution_cost, flash_protection, mvrv_cycle, microstructure, network_growth, okx_market, options_intel = await _gather(
+    flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, solana, archive, lending, execution_cost, flash_protection, mvrv_cycle, microstructure, network_growth, okx_market, options_intel, puell = await _gather(
         compute_token_exchange_flows(sym),
         compute_exchange_netflow(sym),
         compute_futures_cvd(sym),
@@ -71,6 +72,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         network_growth_for_decision_engine(growth_asset),
         okx_for_decision_engine(sym),
         options_intelligence_for_decision_engine(options_asset),
+        puell_for_decision_engine("BTC"),
     )
 
     risk_delta = float(flows.get("risk_score_delta") or 0)
@@ -90,9 +92,11 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         risk_delta = round(risk_delta + float(okx_market["risk_score_delta"]), 2)
     if options_intel.get("risk_score_delta"):
         risk_delta = round(risk_delta + float(options_intel["risk_score_delta"]), 2)
+    if puell.get("risk_score_delta"):
+        risk_delta = round(risk_delta + float(puell["risk_score_delta"]), 2)
 
     headlines: list[str] = []
-    for row in (flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, execution_cost, flash_protection, mvrv_cycle, microstructure, network_growth, okx_market, options_intel):
+    for row in (flows, netflow, cvd, order_flow, macro, twelvedata, polygon, gateio, kucoin, marketwatch, research, news, execution_cost, flash_protection, mvrv_cycle, microstructure, network_growth, okx_market, options_intel, puell):
         if isinstance(row, dict) and row.get("headline"):
             headlines.append(str(row["headline"]))
         elif isinstance(row, dict) and row.get("ai_context_line"):
@@ -126,6 +130,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         "network_growth": network_growth if network_growth.get("ok") else None,
         "okx_market": okx_market if okx_market.get("ok") else None,
         "options_intelligence": options_intel if options_intel.get("ok") else None,
+        "puell_multiple": puell if puell.get("ok") else None,
         "risk_score_delta": round(risk_delta, 2),
         "headlines": headlines[:5],
         "internal_only": True,
