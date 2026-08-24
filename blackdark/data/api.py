@@ -243,3 +243,14 @@ async def migrate_data_engine(_: None = Depends(require_admin)):
 
     result = await init_data_engine()
     return result
+
+
+@admin_router.post("/bootstrap-ingest")
+async def bootstrap_ingest(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
+    from blackdark.data.jobs import run_bootstrap_ingest_once
+    from blackdark.data.repository import count_ohlcv_rows
+
+    async with get_session() as session:
+        if await count_ohlcv_rows(session) > 0:
+            return {"ok": True, "skipped": True, "reason": "ohlcv_data_not_empty"}
+    return await run_bootstrap_ingest_once()

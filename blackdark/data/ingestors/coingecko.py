@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from typing import Any
@@ -28,6 +29,17 @@ MARKETS_URL = (
 )
 
 INTERVAL_SECONDS = {"30m": 1800, "1h": 3600, "4h": 14400}
+
+
+def _client_headers() -> dict[str, str]:
+    headers = {
+        "User-Agent": "BLACKDARK-DataEngine/1.0 (+https://blackdark.io)",
+        "Accept": "application/json",
+    }
+    api_key = os.getenv("COINGECKO_API_KEY", "").strip()
+    if api_key:
+        headers["x-cg-demo-api-key"] = api_key
+    return headers
 
 
 def _ms_to_dt(ms: int) -> datetime:
@@ -140,7 +152,7 @@ async def ingest_ohlcv(
     )
     fetched = inserted = deduped = errors = 0
     timeout = aiohttp.ClientTimeout(total=60)
-    async with aiohttp.ClientSession(timeout=timeout) as http:
+    async with aiohttp.ClientSession(timeout=timeout, headers=_client_headers()) as http:
         try:
             async with http.get(endpoint) as resp:
                 raw = await resp.text()
@@ -227,7 +239,7 @@ async def ingest_markets(session: AsyncSession, *, triggered_by: str = "system")
     )
     fetched = inserted = deduped = errors = 0
     timeout = aiohttp.ClientTimeout(total=60)
-    async with aiohttp.ClientSession(timeout=timeout) as http:
+    async with aiohttp.ClientSession(timeout=timeout, headers=_client_headers()) as http:
         try:
             async with http.get(MARKETS_URL) as resp:
                 raw = await resp.text()

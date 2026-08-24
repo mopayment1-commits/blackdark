@@ -56,6 +56,7 @@ async def run_bootstrap_ingest_once() -> dict[str, Any]:
         return {"ok": False, "reason": "disabled_or_no_postgres"}
     logger.info("Wave 01 bootstrap ingest starting")
     try:
+        ohlcv_source = "binance"
         async with get_session() as session:
             ohlcv = await ingest_ohlcv(
                 session,
@@ -64,9 +65,9 @@ async def run_bootstrap_ingest_once() -> dict[str, Any]:
                 limit=24,
                 triggered_by="bootstrap:startup",
             )
-            ohlcv_source = "binance"
-            if int(ohlcv.get("records_inserted", 0)) == 0:
-                logger.warning("Binance OHLCV bootstrap empty — falling back to CoinGecko")
+        if int(ohlcv.get("records_inserted", 0)) == 0:
+            logger.warning("Binance OHLCV bootstrap empty — falling back to CoinGecko")
+            async with get_session() as session:
                 ohlcv = await coingecko_ingest_ohlcv(
                     session,
                     coin_id="bitcoin",
@@ -75,18 +76,26 @@ async def run_bootstrap_ingest_once() -> dict[str, Any]:
                     interval="30m",
                     triggered_by="bootstrap:startup:coingecko",
                 )
-                ohlcv_source = "coingecko"
-            funding = await ingest_funding(
-                session,
-                symbols=["BTCUSDT"],
-                triggered_by="bootstrap:startup",
-            )
+            ohlcv_source = "coingecko"
+
+        funding_inserted = 0
+        if ohlcv_source == "binance":
+            async with get_session() as session:
+                funding = await ingest_funding(
+                    session,
+                    symbols=["BTCUSDT"],
+                    triggered_by="bootstrap:startup",
+                )
+            funding_inserted = int(funding.get("records_inserted", 0))
+
+        async with get_session() as session:
             markets = await ingest_markets(session, triggered_by="bootstrap:startup")
+
         result = {
             "ok": True,
             "ohlcv_source": ohlcv_source,
             "ohlcv_inserted": int(ohlcv.get("records_inserted", 0)),
-            "funding_inserted": int(funding.get("records_inserted", 0)),
+            "funding_inserted": funding_inserted,
             "markets_inserted": int(markets.get("records_inserted", 0)),
         }
         logger.info("Wave 01 bootstrap ingest complete | %s", result)

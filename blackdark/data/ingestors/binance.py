@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
@@ -29,6 +30,13 @@ FUTURES_BASE = "https://fapi.binance.com"
 
 DEFAULT_SYMBOLS = ("BTCUSDT", "ETHUSDT", "SOLUSDT")
 DEFAULT_INTERVALS = ("1m", "1h")
+
+
+def _client_headers() -> dict[str, str]:
+    return {
+        "User-Agent": "BLACKDARK-DataEngine/1.0 (+https://blackdark.io)",
+        "Accept": "application/json",
+    }
 
 
 def _ms_to_dt(ms: int) -> datetime:
@@ -145,7 +153,7 @@ async def ingest_ohlcv(
     )
     fetched = inserted = deduped = errors = 0
     timeout = aiohttp.ClientTimeout(total=60)
-    async with aiohttp.ClientSession(timeout=timeout) as http:
+    async with aiohttp.ClientSession(timeout=timeout, headers=_client_headers()) as http:
         for symbol in symbols:
             pair = symbol.upper()
             for interval in intervals:
@@ -242,7 +250,7 @@ async def ingest_funding(
     )
     fetched = inserted = deduped = errors = 0
     timeout = aiohttp.ClientTimeout(total=60)
-    async with aiohttp.ClientSession(timeout=timeout) as http:
+    async with aiohttp.ClientSession(timeout=timeout, headers=_client_headers()) as http:
         for symbol in symbols:
             pair = symbol.upper()
             endpoint = f"{FUTURES_BASE}/fapi/v1/fundingRate?symbol={pair}&limit={min(limit, 1000)}"
@@ -325,7 +333,7 @@ async def ingest_open_interest(
     )
     fetched = inserted = deduped = errors = 0
     timeout = aiohttp.ClientTimeout(total=60)
-    async with aiohttp.ClientSession(timeout=timeout) as http:
+    async with aiohttp.ClientSession(timeout=timeout, headers=_client_headers()) as http:
         for symbol in symbols:
             pair = symbol.upper()
             endpoint = (
