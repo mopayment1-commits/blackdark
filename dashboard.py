@@ -1773,6 +1773,11 @@ async def address_intelligence_page(request: Request):
     return render_page(request, "address_intelligence.html", _footer_ctx())
 
 
+@app.get("/exchange-health", response_class=HTMLResponse)
+async def exchange_health_page(request: Request):
+    return render_page(request, "exchange_health.html", _footer_ctx())
+
+
 @app.get("/validity-decay", response_class=HTMLResponse)
 async def validity_decay_page(request: Request):
     return render_page(request, "validity_decay.html", _footer_ctx())

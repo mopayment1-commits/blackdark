@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Exchange Health & Certification</title>
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--ok:#22d3a5;--accent:#06b6d4;--warn:#fbbf24;--bad:#f87171;--card:rgba(255,255,255,.03)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:radial-gradient(900px 500px at 80% -10%,#1a1030 0%,transparent 50%),linear-gradient(165deg,#06080d,#0c1219);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.9rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:1150px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:0}
+.sub{color:var(--muted);margin:.5rem 0 1.25rem;line-height:1.5}
+.card{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--card);margin-bottom:1rem}
+.hero{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:var(--accent);margin:.5rem 0}
+input,button,select{font:inherit}
+input,select{background:#0b1118;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;border-radius:8px;margin-right:.5rem;margin-bottom:.35rem}
+button.primary{border:0;background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-weight:800;padding:.65rem 1.1rem;border-radius:8px;cursor:pointer}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin:1rem 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:.65rem;background:rgba(0,0,0,.2)}
+.metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.metric .v{font-size:1.05rem;font-weight:700;margin-top:.15rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:.5rem;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
+.badge{display:inline-block;font-size:.65rem;padding:.12rem .4rem;border-radius:4px;margin-left:.4rem}
+.badge.cert{background:rgba(34,211,165,.2);color:var(--ok)}
+.badge.caution{background:rgba(251,191,36,.2);color:var(--warn)}
+.badge.risk{background:rgba(248,113,113,.2);color:var(--bad)}
+.badge.black{background:rgba(127,29,29,.4);color:#fca5a5}
+.loading,.error,.empty{color:var(--muted);padding:1.5rem;text-align:center}
+.error{color:var(--bad)}
+.explain{font-size:.9rem;line-height:1.55;color:var(--fg);border-left:3px solid var(--accent);padding-left:.75rem;margin:.75rem 0}
+.dim-bar{height:6px;border-radius:3px;background:var(--line);margin-top:.25rem}
+.dim-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--ok))}
+.alert-row{padding:.45rem .6rem;border-radius:6px;background:rgba(248,113,113,.1);color:var(--bad);font-size:.82rem;margin:.35rem 0}
+.status{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/platform">Platform</a>
+    <a href="/market-intelligence">Market Intel</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</nav>
+<main>
+  <h1>Exchange Health & Certification <span class="badge cert">#53</span></h1>
+  <p class="sub">Institutional trust layer — Moody&rsquo;s of Crypto. Health scores, certification badges, AI explanations, and comparative rankings across 50+ venues.</p>
+
+  <div class="card">
+    <label>Exchange
+      <select id="exchangeSelect">
+        <option value="binance">Binance</option>
+        <option value="coinbase">Coinbase</option>
+        <option value="kraken">Kraken</option>
+        <option value="okx">OKX</option>
+        <option value="bybit">Bybit</option>
+        <option value="ftx">FTX (collapsed)</option>
+      </select>
+    </label>
+    <button class="primary" id="runDetail" type="button">Assess Exchange</button>
+    <button id="runRanking" type="button">Full Ranking</button>
+  </div>
+
+  <div id="detailPanel" class="card">
+    <div class="loading">Select an exchange and click Assess…</div>
+  </div>
+
+  <div id="rankingPanel" class="card" style="display:none">
+    <h2 style="margin:0 0 .5rem;font-size:1.1rem">Comparative Ranking</h2>
+    <div id="rankingHeadline" class="hero">—</div>
+    <div id="rankingTable" class="loading">Loading ranking…</div>
+  </div>
+</main>
+<script>
+function badgeClass(b){
+  if(b==='Certified') return 'cert';
+  if(b==='Caution') return 'caution';
+  if(b==='High Risk') return 'risk';
+  return 'black';
+}
+function dimBars(dims){
+  if(!dims) return '';
+  return Object.entries(dims).map(([k,v])=>`
+    <div style="margin:.35rem 0">
+      <div style="display:flex;justify-content:space-between;font-size:.75rem"><span>${k.replace(/_/g,' ')}</span><span>${v.toFixed(0)}</span></div>
+      <div class="dim-bar"><div class="dim-fill" style="width:${Math.min(100,v)}%"></div></div>
+    </div>`).join('');
+}
+async function loadDetail(){
+  const ex=document.getElementById('exchangeSelect').value;
+  const panel=document.getElementById('detailPanel');
+  panel.innerHTML='<div class="loading">Assessing '+ex+'…</div>';
+  try{
+    const d=await(await fetch(`/api/platform/exchange-health/overview?exchange_id=${encodeURIComponent(ex)}`)).json();
+  const e=d.exchange||{};
+  const alerts=(e.alerts||[]).map(a=>`<div class="alert-row">${a.message}</div>`).join('')||'<span class="status">No active alerts</span>';
+  panel.innerHTML=`
+    <div class="hero">${e.health_score??'—'}/100 <span class="badge ${badgeClass(e.risk_badge)}">${e.risk_badge||'—'}</span></div>
+    <div class="explain">${e.explanation||'—'}</div>
+    <div class="metrics">
+      <div class="metric"><div class="k">Universe Rank</div><div class="v">#${d.universe_rank??'—'} / ${d.universe_count??'—'}</div></div>
+      <div class="metric"><div class="k">PoR Status</div><div class="v">${e.features?.por_status||'—'}</div></div>
+      <div class="metric"><div class="k">Regulatory</div><div class="v">${e.features?.regulatory_tier||'—'}</div></div>
+      <div class="metric"><div class="k">Features</div><div class="v">${e.features?.count??'—'}</div></div>
+    </div>
+    <h3 style="font-size:.9rem;color:var(--muted);margin:1rem 0 .5rem">Dimension Breakdown</h3>
+    ${dimBars(e.dimensions)}
+    <h3 style="font-size:.9rem;color:var(--muted);margin:1rem 0 .5rem">Alerts</h3>
+    ${alerts}
+    <div class="status">Latency ${d.latency_ms??'—'}ms · ${d.timestamp||''}</div>`;
+  }catch(err){
+    panel.innerHTML=`<div class="error">Failed: ${err.message}</div>`;
+  }
+}
+async function loadRanking(){
+  const panel=document.getElementById('rankingPanel');
+  const table=document.getElementById('rankingTable');
+  panel.style.display='block';
+  table.innerHTML='<div class="loading">Scanning 50+ exchanges…</div>';
+  try{
+    const d=await(await fetch('/api/platform/exchange-health/ranking')).json();
+    document.getElementById('rankingHeadline').textContent=d.headline||'—';
+    const rows=(d.ranking||[]).map((r,i)=>`<tr>
+      <td>${i+1}</td><td>${r.name}</td><td>${r.health_score}</td>
+      <td><span class="badge ${badgeClass(r.risk_badge)}">${r.risk_badge}</span></td>
+      <td>${r.trust_score??'—'}</td></tr>`).join('');
+    const acc=d.acceptance||{};
+    const cv=d.collapse_validation||{};
+    table.innerHTML=`
+      <table><thead><tr><th>#</th><th>Exchange</th><th>Score</th><th>Badge</th><th>CG Trust</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+      <div class="status" style="margin-top:.75rem">
+        Coverage ${d.count} venues (≥${acc.coverage_min}) ${acc.coverage_met?'✓':'✗'} ·
+        Collapse recall ${(cv.recall*100).toFixed(0)}% ${acc.collapse_recall_met?'✓':'✗'} ·
+        FP rate ${(cv.false_positive_rate*100).toFixed(1)}% ${acc.false_positive_rate_met?'✓':'✗'} ·
+        ${d.latency_ms}ms
+      </div>`;
+  }catch(err){
+    table.innerHTML=`<div class="error">Failed: ${err.message}</div>`;
+  }
+}
+document.getElementById('runDetail').addEventListener('click',loadDetail);
+document.getElementById('runRanking').addEventListener('click',loadRanking);
+loadDetail();
+</script>
+</body>
+</html>
