@@ -486,10 +486,20 @@ def viral_health_payload() -> dict[str, Any]:
         and redis_ok
         and parallel["parallelism"] >= 2
     )
+    degraded_reasons: list[str] = []
+    if soft:
+        degraded_reasons.append("soft_launch_mode")
+    if not redis_ok:
+        degraded_reasons.append("redis_unavailable")
+    if not viral_middleware_enabled():
+        degraded_reasons.append("viral_middleware_disabled")
+    if parallel["parallelism"] < 2:
+        degraded_reasons.append("insufficient_parallelism")
     return {
         "status": "ok" if ok else "degraded",
         "probe": "viral",
         "ok": ok,
+        "degraded_reasons": degraded_reasons,
         "soft_launch": soft,
         "redis_live": redis_ok,
         "middleware": viral_middleware_enabled(),

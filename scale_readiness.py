@@ -106,9 +106,34 @@ def scale_readiness_report() -> dict[str, Any]:
         },
     ]
     ha_ready = all(c["ok"] for c in checks if c["required_for_ha"])
+    ha_posture: dict[str, Any] = {}
+    try:
+        from uptime_monitor import ha_runtime_posture
+
+        ha_posture = ha_runtime_posture()
+        checks.append(
+            {
+                "id": "failover_drill_evidence",
+                "ok": bool(ha_posture.get("failover_evidence", {}).get("failover_test_documented")),
+                "required_for_ha": False,
+                "detail": ha_posture.get("failover_evidence"),
+            }
+        )
+        checks.append(
+            {
+                "id": "rto_rpo_documented",
+                "ok": ha_posture.get("rto_rpo", {}).get("backup_drill_met") is not False,
+                "required_for_ha": False,
+                "detail": ha_posture.get("rto_rpo"),
+            }
+        )
+    except Exception:
+        pass
     return {
         "product": "BLACKDARK",
+        "feature_ha": "#65-silent",
         "ha_ready_codepath": ha_ready,
+        "ha_runtime_posture": ha_posture,
         "soft_launch": soft_launch,
         "database": "postgresql" if pg else "sqlite",
         "login_rate_limit_backend": rl_backend,

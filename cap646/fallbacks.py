@@ -52,17 +52,9 @@ async def resolve_ohlcv_closes(
     interval: str = "1h",
     limit: int = 100,
 ) -> tuple[list[float], str]:
-    from market_context import fetch_binance_klines, fetch_binance_ticker, normalize_oracle_symbol
+    from ohlcv_spine import fetch_ohlcv_closes
 
-    asset, pair = normalize_oracle_symbol(symbol)
-    closes = await fetch_binance_klines(f"{asset}USDT", interval=interval, limit=limit)
-    if closes:
-        return closes, "binance_klines"
-    ticker = await fetch_binance_ticker(pair)
-    price = float((ticker or {}).get("price") or 0)
-    if price > 0:
-        return [price] * min(limit, 20), "ticker_shadow_bar"
-    return [], "none"
+    return await fetch_ohlcv_closes(symbol, interval=interval, limit=limit)
 
 
 async def resolve_dex_volume_snapshot(symbol: str) -> dict[str, Any]:
