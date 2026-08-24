@@ -315,6 +315,16 @@ async def optimize_cross_platform_transfer(
     elapsed = time.perf_counter() - t0
     headline = _format_headline(sym, src, dst, best)
 
+    cost_pct = round(best["total_cost_usd"] / max(amount_usd, 1) * 100, 3)
+    spread_block = {
+        "feature_id": 136,
+        "gross_cost_pct": cost_pct,
+        "net_cost_usd": best["total_cost_usd"],
+        "display": f"Transfer cost: {cost_pct:.2f}% of ${amount_usd:,.0f} → net fee ${best['total_cost_usd']:.2f}",
+        "display_ar": f"تكلفة التحويل: {cost_pct:.2f}% من ${amount_usd:,.0f} → صافي الرسوم ${best['total_cost_usd']:.2f}",
+        "mode": "internal_function",
+    }
+
     alerts: list[dict[str, Any]] = []
     if best["duration_min"] > 15:
         alerts.append({"level": "info", "message": "Route exceeds 15 minutes — consider faster network if urgency matters"})
@@ -326,7 +336,7 @@ async def optimize_cross_platform_transfer(
         "feature": "#119",
         "mode": "fee_saving_optimizer",
         "surface": "cross_platform_transfer",
-        "integrated_features": ["#108", "#120"],
+        "integrated_features": ["#108", "#120", "#136"],
         "asset": sym,
         "source_cex": src,
         "dest_cex": dst,
@@ -334,6 +344,7 @@ async def optimize_cross_platform_transfer(
         "optimal_path": best,
         "headline": headline,
         "alternatives": alternatives,
+        "spread_analysis": spread_block,
         "network_ranking": {
             "best_network": network_ranking.get("best_network"),
             "recommendations_count": len(network_ranking.get("recommendations") or []),

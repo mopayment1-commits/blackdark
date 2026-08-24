@@ -1153,6 +1153,60 @@ async def fee_transaction_cost_route(
     )
 
 
+# ── Feature #136 — Price spread calculator (internal function) ─────────────────
+
+
+@router.get("/infra/spread/status")
+async def spread_calculator_status_route():
+    """Price spread calculator health (#136 internal function)."""
+    from bd_platform.price_spread_calculator import spread_calculator_status
+
+    return spread_calculator_status()
+
+
+@router.get("/infra/spread/calculate")
+async def spread_calculator_route(
+    buy_price: float = Query(..., gt=0),
+    sell_price: float = Query(..., gt=0),
+    notional_usd: float = Query(1000.0, ge=1),
+    buy_exchange: str = Query("binance"),
+    sell_exchange: str = Query("okx"),
+    symbol: str = Query("BTC/USDT"),
+    include_transfer_fees: bool = Query(True),
+):
+    """#136 — gross → net spread with fees (#130 + #113). Internal ops only."""
+    from bd_platform.price_spread_calculator import calculate_price_spread
+
+    return calculate_price_spread(
+        buy_price=buy_price,
+        sell_price=sell_price,
+        notional_usd=notional_usd,
+        buy_exchange=buy_exchange,
+        sell_exchange=sell_exchange,
+        symbol=symbol,
+        include_transfer_fees=include_transfer_fees,
+    )
+
+
+# ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
+
+
+@router.get("/macro/context")
+async def macro_context_route(asset: str = Query("BTC")):
+    """Macro Context Engine (#141 + #104) — relationship-based macro context."""
+    from bd_platform.macro_context_engine import build_macro_relationships
+
+    return await build_macro_relationships(asset)
+
+
+@router.get("/macro/context/status")
+async def macro_context_status_route():
+    """Macro Context Engine health (#141 + #104)."""
+    from bd_platform.macro_context_engine import macro_context_engine_status
+
+    return macro_context_engine_status()
+
+
 # ── Risk Signals — #123 Withdrawal Closure + #110 Exchange Health ────────────
 
 

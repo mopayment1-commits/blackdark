@@ -243,15 +243,38 @@ async def market_radar_narrative() -> dict[str, Any]:
         from bd_platform.unusual_liquidity_alert_engine import scan_unusual_liquidity_events
         from bd_platform.order_flow_analytics import enrich_market_radar as enrich_order_flow
         from bd_platform.order_flow_analytics import scan_order_flow
+        from bd_platform.macro_context_engine import build_macro_relationships
+        from bd_platform.price_spread_calculator import calculate_price_spread
 
         liquidity = await scan_large_liquidity_events(limit=5)
         listings = await scan_listing_intelligence(limit=5)
         unusual = await scan_unusual_liquidity_events(limit=5)
         order_flow = await scan_order_flow("BTC", limit=5)
+        macro_ctx = await build_macro_relationships("BTC")
+        spread_sample = calculate_price_spread(
+            buy_price=95000.0,
+            sell_price=97285.0,
+            notional_usd=1000.0,
+            buy_exchange="binance",
+            sell_exchange="okx",
+            symbol="BTC/USDT",
+        )
         payload = enrich_liq(payload, liquidity)
         payload = enrich_listing(payload, listings)
         payload = enrich_unusual(payload, unusual)
         payload = enrich_order_flow(payload, order_flow)
+        payload["macro_context"] = {
+            "enabled": macro_ctx.get("ok", False),
+            "macro_regime": macro_ctx.get("macro_regime"),
+            "relationships": macro_ctx.get("relationships", [])[:3],
+            "overall_expected_impact": macro_ctx.get("overall_expected_impact"),
+        }
+        payload["spread_analysis"] = {
+            "feature_id": 136,
+            "sample": spread_sample.get("display"),
+            "profitable": spread_sample.get("profitable"),
+            "gross_only_misleading": spread_sample.get("gross_only_misleading"),
+        }
     except Exception:
         pass
 
