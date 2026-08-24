@@ -46,7 +46,18 @@ async def process_tick(tick: dict[str, Any]) -> None:
     bid = float(tick.get("bid") or 0)
     ask = float(tick.get("ask") or 0)
     ts_ms = int(tick.get("ts_ms") or time.time() * 1000)
+    meta = tick.get("quote_meta") or {}
+    if meta.get("sane") is False:
+        return
+    if meta.get("stale") and not meta.get("executable"):
+        return
     if not symbol or bid <= 0 or ask <= 0:
+        return
+
+    from blackdark.data.quote_normalizer import validate_bid_ask_sanity
+
+    sane, _ = validate_bid_ask_sanity(bid=bid, ask=ask)
+    if not sane:
         return
 
     mid = (bid + ask) / 2.0

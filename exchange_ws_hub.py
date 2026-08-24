@@ -66,12 +66,19 @@ def _update_binance_book(payload: dict[str, Any]) -> bool:
     if not sym.endswith("USDT"):
         return False
     asset = sym.replace("USDT", "")
+    from blackdark.data.quote_normalizer import validate_bid_ask_sanity
+
+    bid = float(data.get("b") or 0)
+    ask = float(data.get("a") or 0)
+    sane, _ = validate_bid_ask_sanity(bid=bid, ask=ask)
+    if not sane:
+        return False
     update_top_of_book(
         "binance",
         f"{asset}/USDT",
-        bid=float(data.get("b") or 0),
+        bid=bid,
         bid_qty=float(data.get("B") or 0),
-        ask=float(data.get("a") or 0),
+        ask=ask,
         ask_qty=float(data.get("A") or 0),
     )
     return True
@@ -106,12 +113,19 @@ def _update_okx_book(row: dict[str, Any]) -> bool:
     asks = row.get("asks") or []
     if not bids or not asks:
         return False
+    from blackdark.data.quote_normalizer import validate_bid_ask_sanity
+
+    bid = float(bids[0][0])
+    ask = float(asks[0][0])
+    sane, _ = validate_bid_ask_sanity(bid=bid, ask=ask)
+    if not sane:
+        return False
     update_top_of_book(
         "okx",
         inst,
-        bid=float(bids[0][0]),
+        bid=bid,
         bid_qty=float(bids[0][1]),
-        ask=float(asks[0][0]),
+        ask=ask,
         ask_qty=float(asks[0][1]),
     )
     return True
@@ -165,12 +179,19 @@ def _update_bybit_book(payload: dict[str, Any]) -> bool:
     asks = data.get("a") or []
     if not bids or not asks:
         return False
+    from blackdark.data.quote_normalizer import validate_bid_ask_sanity
+
+    bid = float(bids[0][0])
+    ask = float(asks[0][0])
+    sane, _ = validate_bid_ask_sanity(bid=bid, ask=ask)
+    if not sane:
+        return False
     update_top_of_book(
         "bybit",
         symbol,
-        bid=float(bids[0][0]),
+        bid=bid,
         bid_qty=float(bids[0][1]),
-        ask=float(asks[0][0]),
+        ask=ask,
         ask_qty=float(asks[0][1]),
     )
     return True
