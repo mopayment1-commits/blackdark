@@ -353,6 +353,20 @@ async def _analyze_portfolio_holdings(assets: list) -> dict:
         "hero": "portfolio_ai",
     }
     _attach_portfolio_clarity(result, risk_level, risk_score)
+
+    try:
+        from bd_platform.portfolio_risk_management import analyze_portfolio_risk
+
+        risk_mgmt = analyze_portfolio_risk(holdings, total_value=total_value)
+        result["risk_management"] = risk_mgmt
+        result["actionable_alerts"] = risk_mgmt.get("actionable_alerts") or []
+        if risk_mgmt.get("actionable_alerts"):
+            result["recommendations"] = [
+                str(a.get("headline") or "") for a in risk_mgmt["actionable_alerts"][:3]
+            ] + recommendations
+    except Exception:
+        logger.debug("portfolio risk management enrichment skipped")
+
     return result
 
 # Set True only after init_db succeeds. Used by /health/ready.
