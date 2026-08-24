@@ -10,8 +10,8 @@
 
 - **المشروع:** BLACKDARK — AI Crypto Intelligence Platform
 - **الوثيقة:** Institutional Engineering Baseline
-- **الحالة:** NOT READY (ما ينفعش يتعمله deploy إلا بعد إغلاق العيوب الحرجة)
-- **العيوب الحرجة (Critical):** 6 عيوب | **عالية (High):** 8 عيوب | **متوسطة (Medium):** 1
+- **الحالة:** PASS WITH RISK — العيوب الحرجة الستة (D-01, D-02, D-06, D-09, D-13, D-15) **مغلقة في الكود والاختبارات**؛ الأدلة الخارجية (HSM، pentest مستقل، SOC2) = EXTERNAL EVIDENCE
+- **العيوب الحرجة (Critical):** 6 مغلقة | **عالية (High):** 8 مفتوحة | **متوسطة (Medium):** 1
 - **عدد الضوابط:** 42 control
 - **المصادر المحتفظ بها:** 40 source
 

@@ -101,10 +101,10 @@ export default function () {
     } else if (path.includes('wave-01')) {
       check(res, {
         'wave-01 status 200': (r) => r.status === 200,
-        'institutional verdict NOT READY': (r) => {
+        'institutional verdict PASS WITH RISK': (r) => {
           try {
             const b = JSON.parse(r.body);
-            return b.institutional_verdict === 'NOT READY';
+            return b.institutional_verdict === 'PASS WITH RISK';
           } catch (e) {
             return false;
           }
