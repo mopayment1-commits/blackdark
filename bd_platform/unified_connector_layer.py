@@ -24,6 +24,8 @@ import aiohttp
 logger = logging.getLogger("BLACKDARK.UnifiedConnector")
 
 _FEATURE_ID = 194
+_CONNECTOR_VERSION = "1.1.0"
+_HEARTBEAT_INTERVAL_SEC = 60
 _HTTP_TIMEOUT = aiohttp.ClientTimeout(total=6)
 
 # Registered connectors — expand toward 400+ exchange coverage
@@ -39,6 +41,14 @@ _CONNECTOR_IDS: tuple[str, ...] = (
     "mexc",
     "bitget",
 )
+
+# Primary exchange APIs vs aggregator backup/cross-reference (#138)
+_PRIMARY_CONNECTOR_IDS: tuple[str, ...] = (
+    "binance", "okx", "bybit", "kraken", "coinbase", "gateio", "kucoin", "mexc", "bitget",
+)
+_AGGREGATOR_CONNECTOR_IDS: tuple[str, ...] = ("coingecko",)
+
+_connector_heartbeats: dict[str, dict[str, Any]] = {}
 
 
 @dataclass(frozen=True)
@@ -76,6 +86,136 @@ class ConnectorFetchResult:
 
 def _utcnow() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def normalize_symbol(raw: str) -> dict[str, str]:
+    """
+    Symbol normalization — BTCUSDT (Binance) = BTC-USD (Coinbase) = BTC_USDT (internal).
+
+    Returns canonical asset + venue-specific pair formats.
+    """
+    s = raw.upper().strip().replace(" ", "")
+    compact = s.replace("-", "").replace("_", "").replace("/", "")
+    asset = compact
+    quote = "USDT"
+    for q in ("USDT", "USDC", "BUSD", "USD"):
+        if compact.endswith(q) and len(compact) > len(q):
+            asset = compact[: -len(q)]
+            quote = "USDT" if q == "USD" else q  # USD → USDT canonical for internal pair
+            break
+    return {
+        "canonical_asset": asset,
+        "internal_pair": f"{asset}_{quote}",
+        "venue_pair_binance": f"{asset}{quote}",
+        "venue_pair_coinbase": f"{asset}-{quote}",
+        "venue_pair_okx": f"{asset}-{quote}",
+        "venue_pair_kraken": f"{asset}{quote}",
+        "timestamp_tz": "UTC",
+    }
+
+
+def sanitize_user_facing_error(error: str | None) -> str:
+    """No venue-specific leakage — user sees generic source status only."""
+    if not error:
+        return "Source temporarily unavailable"
+    if error == "rate_limit_exceeded" or "rate_limit" in error.lower():
+        return "Source rate limited — retry shortly"
+    err = error.lower()
+    venue_tokens = (
+        "binance", "okx", "coinbase", "kraken", "bybit", "gateio", "kucoin",
+        "mexc", "bitget", "coingecko", "api.", "http", "timeout",
+    )
+    if any(tok in err for tok in venue_tokens):
+        return "Source temporarily unavailable"
+    if error in {"no_data", "unknown"}:
+        return "Source temporarily unavailable"
+    return "Source temporarily unavailable"
+
+
+def record_connector_heartbeat(
+    connector_id: str,
+    *,
+    ok: bool,
+    latency_ms: float = 0.0,
+    error: str | None = None,
+) -> dict[str, Any]:
+    """Record connector heartbeat — target interval 60 seconds."""
+    now = _utcnow()
+    prev = _connector_heartbeats.get(connector_id) or {}
+    row = {
+        "connector_id": connector_id,
+        "ok": ok,
+        "latency_ms": latency_ms,
+        "error": sanitize_user_facing_error(error) if error else None,
+        "last_heartbeat_at": now,
+        "heartbeat_interval_sec": _HEARTBEAT_INTERVAL_SEC,
+        "version": _CONNECTOR_VERSION,
+        "consecutive_failures": 0 if ok else int(prev.get("consecutive_failures") or 0) + 1,
+    }
+    _connector_heartbeats[connector_id] = row
+    return row
+
+
+def connector_heartbeat_snapshot() -> dict[str, Any]:
+    return {
+        "interval_sec": _HEARTBEAT_INTERVAL_SEC,
+        "version": _CONNECTOR_VERSION,
+        "connectors": dict(_connector_heartbeats),
+    }
+
+
+def cross_reference_quotes(
+    results: list[ConnectorFetchResult],
+    *,
+    tolerance_pct: float = 2.0,
+) -> dict[str, Any]:
+    """
+  #138 — Cross-validate primary exchange quotes against aggregator backup.
+
+    Primary sources: exchange APIs. Aggregators: backup + cross-reference only.
+    """
+    primary_prices: list[float] = []
+    aggregator_prices: list[float] = []
+    by_id: dict[str, float] = {}
+
+    for r in results:
+        if not r.ok or not r.quote or r.quote.price_usd <= 0:
+            continue
+        by_id[r.connector_id] = r.quote.price_usd
+        if r.connector_id in _AGGREGATOR_CONNECTOR_IDS:
+            aggregator_prices.append(r.quote.price_usd)
+        else:
+            primary_prices.append(r.quote.price_usd)
+
+    if not primary_prices:
+        return {
+            "ok": False,
+            "reason": "no_primary_sources",
+            "user_message": "Source temporarily unavailable",
+        }
+
+    primary_median = sorted(primary_prices)[len(primary_prices) // 2]
+    agg_median = (
+        sorted(aggregator_prices)[len(aggregator_prices) // 2] if aggregator_prices else None
+    )
+
+    divergence_pct = None
+    verified = True
+    if agg_median is not None and primary_median > 0:
+        divergence_pct = abs(agg_median - primary_median) / primary_median * 100
+        verified = divergence_pct <= tolerance_pct
+
+    return {
+        "ok": True,
+        "primary_median_usd": round(primary_median, 4),
+        "aggregator_median_usd": round(agg_median, 4) if agg_median else None,
+        "divergence_pct": round(divergence_pct, 4) if divergence_pct is not None else None,
+        "cross_reference_verified": verified,
+        "primary_source_count": len(primary_prices),
+        "aggregator_source_count": len(aggregator_prices),
+        "policy": "Primary exchange APIs + aggregator backup/cross-reference (#138)",
+        "prices_by_connector": {k: round(v, 4) for k, v in by_id.items()},
+    }
 
 
 def _resolve_canonical(asset: str) -> tuple[str, str | None]:
@@ -431,10 +571,25 @@ async def fetch_all_connector_quotes(asset: str) -> list[ConnectorFetchResult]:
         fetched = await asyncio.gather(*tasks, return_exceptions=True)
         for label, item in zip(labels, fetched):
             if isinstance(item, Exception):
-                results.append(ConnectorFetchResult(connector_id=label, ok=False, error=str(item)))
+                record_connector_heartbeat(label, ok=False, error=str(item))
+                results.append(
+                    ConnectorFetchResult(
+                        connector_id=label,
+                        ok=False,
+                        error=sanitize_user_facing_error(str(item)),
+                    )
+                )
             elif item is None:
-                results.append(ConnectorFetchResult(connector_id=label, ok=False, error="no_data"))
+                record_connector_heartbeat(label, ok=False, error="no_data")
+                results.append(
+                    ConnectorFetchResult(
+                        connector_id=label,
+                        ok=False,
+                        error=sanitize_user_facing_error("no_data"),
+                    )
+                )
             else:
+                record_connector_heartbeat(label, ok=True, latency_ms=item.latency_ms)
                 results.append(
                     ConnectorFetchResult(
                         connector_id=label,
@@ -452,10 +607,18 @@ def connector_layer_status() -> dict[str, Any]:
         "feature_id": _FEATURE_ID,
         "role": "unified_connector_layer",
         "user_facing": False,
+        "version": _CONNECTOR_VERSION,
         "registered_connectors": list(_CONNECTOR_IDS),
+        "primary_connectors": list(_PRIMARY_CONNECTOR_IDS),
+        "aggregator_connectors": list(_AGGREGATOR_CONNECTOR_IDS),
         "connector_count": len(_CONNECTOR_IDS),
         "schema": "CanonicalPriceQuote",
-        "feeds_features": ["#133", "#127", "#128"],
+        "symbol_normalization": "BTCUSDT=BTC-USD=BTC_USDT",
+        "timestamp_normalization": "UTC only",
+        "no_venue_leakage": True,
+        "heartbeat_interval_sec": _HEARTBEAT_INTERVAL_SEC,
+        "feeds_features": ["#133", "#127", "#128", "#137", "#138", "#175"],
+        "merged_with": "#175 Flexible Connector Microservice",
         "expansion_target_exchanges": 400,
         "timestamp": _utcnow(),
     }

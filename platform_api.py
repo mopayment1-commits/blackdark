@@ -939,6 +939,72 @@ async def etl_export_route(
     return await export_clean_data(domain=domain, limit=limit)  # type: ignore[arg-type]
 
 
+# ── Feature #137 + #138 — Financial Data Ingestion Layer ─────────────────────
+
+
+@router.get("/infra/ingestion/status")
+async def financial_ingestion_status_route():
+    """Financial Data Ingestion Layer status (#137) — internal infrastructure."""
+    from bd_platform.financial_data_ingestion_layer import ingestion_layer_status
+
+    return ingestion_layer_status()
+
+
+@router.post("/infra/ingestion/run", responses=COMMON_ERROR_RESPONSES)
+async def financial_ingestion_run_route(
+    body: dict[str, Any] = Body(default_factory=dict),
+    _admin: dict = Depends(require_admin),
+):
+    """Run ingestion cycle — collect, normalize, deduplicate, store (#137)."""
+    from bd_platform.financial_data_ingestion_layer import run_ingestion_cycle
+
+    assets = body.get("assets")
+    if assets is not None and not isinstance(assets, list):
+        raise HTTPException(status_code=400, detail="assets must be a list of symbols")
+    return await run_ingestion_cycle(assets=assets)
+
+
+@router.get("/infra/ingestion/query")
+async def financial_ingestion_query_route(
+    asset: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=500),
+):
+    """Query ingested market data — ≤1s SLA (#137)."""
+    from bd_platform.financial_data_ingestion_layer import query_ingested_data
+
+    return await query_ingested_data(asset=asset, limit=limit)
+
+
+@router.get("/infra/ingestion/freshness")
+async def financial_ingestion_freshness_route():
+    """Freshness tracker — know when data is stale (#137)."""
+    from bd_platform.financial_data_ingestion_layer import freshness_status
+
+    return freshness_status()
+
+
+@router.get("/infra/ingestion/aggregators")
+async def financial_ingestion_aggregators_route(
+    asset: str = Query("BTC"),
+):
+    """Aggregator backup/cross-reference policy (#138) — merged into ingestion layer."""
+    from bd_platform.financial_data_ingestion_layer import aggregator_cross_reference_status
+
+    return aggregator_cross_reference_status(asset=asset)
+
+
+@router.get("/infra/ingestion/export")
+async def financial_ingestion_export_route(
+    asset: str | None = Query(None),
+    limit: int = Query(200, ge=1, le=5000),
+    _admin: dict = Depends(require_admin),
+):
+    """Export ingested data for reports (#137)."""
+    from bd_platform.financial_data_ingestion_layer import export_ingested_data
+
+    return await export_ingested_data(asset=asset, limit=limit)
+
+
 # ── Features #133 + #127 + #194 — Price aggregation (invisible infrastructure) ─
 
 
