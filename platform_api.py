@@ -937,6 +937,44 @@ async def etl_export_route(
     return await export_clean_data(domain=domain, limit=limit)  # type: ignore[arg-type]
 
 
+# ── Features #133 + #127 + #194 — Price aggregation (invisible infrastructure) ─
+
+
+@router.get("/infra/prices/aggregate")
+async def price_aggregate_route(
+    asset: str = Query("BTC"),
+    use_cache: bool = Query(True),
+):
+    """Volume-weighted price aggregation with outlier filtering (#133 + #194)."""
+    from bd_platform.price_aggregation_engine import aggregate_prices
+
+    return await aggregate_prices(asset, use_cache=use_cache)
+
+
+@router.get("/infra/prices/live")
+async def price_live_refresh_route(asset: str = Query("BTC")):
+    """Invisible live price refresh — WS/Redis → REST fallback (#127)."""
+    from bd_platform.price_aggregation_engine import refresh_live_price
+
+    return await refresh_live_price(asset)
+
+
+@router.get("/infra/prices/status")
+async def price_aggregation_status_route():
+    """Price aggregation + live refresh pipeline health (#133 + #127)."""
+    from bd_platform.price_aggregation_engine import price_aggregation_status
+
+    return price_aggregation_status()
+
+
+@router.get("/infra/connectors/status")
+async def connector_layer_status_route():
+    """Unified connector layer registry (#194)."""
+    from bd_platform.unified_connector_layer import connector_layer_status
+
+    return connector_layer_status()
+
+
 # ── Features #108 + #120 + #119 — Transfer network & cross-platform optimizer ─
 
 

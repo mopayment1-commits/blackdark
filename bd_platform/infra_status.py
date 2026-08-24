@@ -53,6 +53,7 @@ def infra_matrix() -> dict[str, Any]:
             "features": ["merkle_root", "inclusion_proof", "commitment_verify"],
         },
         "local_etl": _etl_status_block(),
+        "price_aggregation": _price_aggregation_status_block(),
     }
 
 
@@ -74,6 +75,29 @@ def _etl_status_block() -> dict[str, Any]:
         }
     except ImportError:
         return {"status": "module_missing", "feature": "#118"}
+
+
+def _price_aggregation_status_block() -> dict[str, Any]:
+    try:
+        from bd_platform.price_aggregation_engine import price_aggregation_status
+
+        status = price_aggregation_status()
+        return {
+            "status": "ready",
+            "module": "bd_platform.price_aggregation_engine",
+            "features": ["#133", "#127", "#194"],
+            "user_facing": False,
+            "endpoints": [
+                "/api/platform/infra/prices/aggregate",
+                "/api/platform/infra/prices/live",
+                "/api/platform/infra/prices/status",
+                "/api/platform/infra/connectors/status",
+            ],
+            "pipeline": status.get("pipeline"),
+            "connector_count": status.get("connector_layer", {}).get("connector_count"),
+        }
+    except ImportError:
+        return {"status": "module_missing", "features": ["#133", "#127", "#194"]}
 
 
 def infra_ready_score() -> dict[str, Any]:
