@@ -654,6 +654,40 @@ async def observability_metrics_middleware(request: Request, call_next):
 
 
 @app.middleware("http")
+async def security_circuit_breaker_middleware(request: Request, call_next):
+    """Feature #190 — platform circuit breaker: 50% error rate → auto-shutdown."""
+    from bd_platform.security_circuit_breakers import (
+        evaluate_circuit_breaker,
+        record_request_outcome,
+        should_block_request,
+    )
+    from fastapi.responses import JSONResponse
+
+    path = request.url.path or ""
+    if should_block_request(path):
+        return JSONResponse(
+            status_code=503,
+            content={
+                "ok": False,
+                "error": "platform_circuit_breaker_open",
+                "feature_id": 190,
+                "message": "Platform auto-shutdown engaged — investigate and reset via admin API",
+                "status_endpoint": "/api/platform/security/circuit-breakers/status",
+            },
+        )
+
+    try:
+        response = await call_next(request)
+        record_request_outcome(success=response.status_code < 500, path=path)
+        evaluate_circuit_breaker()
+        return response
+    except Exception:
+        record_request_outcome(success=False, path=path)
+        evaluate_circuit_breaker()
+        raise
+
+
+@app.middleware("http")
 async def wave_00_hardening_middleware(request: Request, call_next):
     """Wave 0 — body size cap, response timing, verify cache headers."""
     from wave_00_hardening import (

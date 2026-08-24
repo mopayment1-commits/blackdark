@@ -360,7 +360,7 @@ def security_encryption_status() -> dict[str, Any]:
         "keys_registered": len(registry.get("keys") or {}),
         "keys_revoked": len(revoked),
         "audit_events": audit_lines,
-        "integrated_features": ["#192"],
+        "integrated_features": ["#190", "#192"],
         "policy": (
             "All API keys encrypted at rest. Per-user isolation enforced. "
             "Revoked keys denied immediately. No plaintext in logs or persistence."

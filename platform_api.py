@@ -1388,6 +1388,96 @@ async def api_security_encryption_status_route(_admin: dict = Depends(require_ad
     return security_encryption_status()
 
 
+# ── Feature #190 — Security Controls and Circuit Breakers ────────────────────
+
+
+@router.get("/security/circuit-breakers/status")
+async def security_circuit_breakers_status_route():
+    """Security circuit breaker status (#190) — 24/7 monitoring."""
+    from bd_platform.security_circuit_breakers import circuit_breaker_status
+
+    return circuit_breaker_status()
+
+
+@router.get("/security/circuit-breakers/threats")
+async def security_circuit_breakers_threats_route():
+    """Run threat pattern scan (#190) — suspicious logins, abnormal withdrawals."""
+    from bd_platform.security_circuit_breakers import scan_threat_patterns
+
+    return scan_threat_patterns()
+
+
+@router.get("/security/circuit-breakers/audit")
+async def security_circuit_breakers_audit_route(
+    limit: int = Query(50, ge=1, le=200),
+    _admin: dict = Depends(require_admin),
+):
+    """Circuit breaker audit trail (#190)."""
+    from bd_platform.security_circuit_breakers import recent_audit_events
+
+    return {
+        "ok": True,
+        "feature_id": 190,
+        "events": recent_audit_events(limit=limit),
+        "count": len(recent_audit_events(limit=limit)),
+    }
+
+
+@router.post("/security/circuit-breakers/reset", responses=COMMON_ERROR_RESPONSES)
+async def security_circuit_breakers_reset_route(
+    body: dict[str, Any] = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    """Reset platform circuit breaker after investigation (#190)."""
+    from bd_platform.security_circuit_breakers import reset_circuit_breaker
+
+    reason = str(body.get("reason") or "admin_reset")
+    return reset_circuit_breaker(reason=reason)
+
+
+@router.post("/security/circuit-breakers/evaluate", responses=COMMON_ERROR_RESPONSES)
+async def security_circuit_breakers_evaluate_route(_admin: dict = Depends(require_admin)):
+    """Force circuit breaker evaluation (#190)."""
+    from bd_platform.security_circuit_breakers import evaluate_circuit_breaker
+
+    return evaluate_circuit_breaker()
+
+
+# ── Feature #192 — Security-First Architecture ─────────────────────────────
+
+
+@router.get("/security/architecture/status")
+async def security_first_architecture_status_route():
+    """Security-First Architecture status (#192) — no secrets exposed."""
+    from bd_platform.security_first_architecture import security_first_architecture_status
+
+    return security_first_architecture_status()
+
+
+@router.get("/security/threat-model")
+async def security_threat_model_route():
+    """Threat model summary (#192)."""
+    from bd_platform.security_first_architecture import threat_model_summary
+
+    return threat_model_summary()
+
+
+@router.get("/security/architecture/controls")
+async def security_architecture_controls_route():
+    """Security controls matrix (#192)."""
+    from bd_platform.security_first_architecture import security_controls_matrix
+
+    return security_controls_matrix()
+
+
+@router.get("/security/architecture/incident-paths")
+async def security_incident_paths_route():
+    """Incident response paths (#192)."""
+    from bd_platform.security_first_architecture import incident_response_paths
+
+    return incident_response_paths()
+
+
 # ── Feature #167 — CLI Access (Institution tier) ─────────────────────────────
 
 
