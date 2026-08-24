@@ -190,36 +190,20 @@ async def _fetch_coingecko_ticker(
     *,
     session: aiohttp.ClientSession | None = None,
 ) -> dict[str, Any] | None:
-    cg_id = _COINGECKO_IDS.get(asset.upper())
-    if not cg_id:
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_price
+
+    row = await fetch_coingecko_price(asset)
+    if not row.get("ok"):
         return None
-    url = "https://api.coingecko.com/api/v3/simple/price"
-    data = await _rest_get(
-        url,
-        params={
-            "ids": cg_id,
-            "vs_currencies": "usd",
-            "include_24hr_change": "true",
-        },
-        headers=_coingecko_headers(),
-        session=session,
-    )
-    if not isinstance(data, dict):
-        return None
-    try:
-        row = data.get(cg_id) or {}
-        price = float(row.get("usd") or 0)
-        if price <= 0:
-            return None
-        return {
-            "price": price,
-            "change_24h": float(row.get("usd_24h_change") or 0),
-            "volume": 0.0,
-            "quote_volume": 0.0,
-            "source": "coingecko",
-        }
-    except (KeyError, TypeError, ValueError):
-        return None
+    return {
+        "price": float(row.get("price_usd") or 0),
+        "change_24h": float(row.get("change_24h_pct") or 0),
+        "volume": 0.0,
+        "quote_volume": 0.0,
+        "source": row.get("source") or "coingecko",
+        "canonical_id": row.get("canonical_id"),
+        "fallback": row.get("fallback"),
+    }
 
 
 async def _fetch_coinbase_ticker(

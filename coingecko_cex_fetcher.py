@@ -101,6 +101,16 @@ def _utcnow_iso() -> str:
     return datetime.now(UTC).isoformat()
 
 
+def coingecko_id_for_asset(asset: str) -> str | None:
+    """Delegate to canonical ingestion connector."""
+    try:
+        from blackdark.ingestion.coingecko_connector import coingecko_id_for
+
+        return coingecko_id_for(asset)
+    except ImportError:
+        return ASSET_TO_COINGECKO.get(asset.upper())
+
+
 def _synthetic_book(mid: float, *, depth: float = 1.0) -> tuple[list[list[float]], list[list[float]]]:
     spread = max(mid * 0.0006, 0.01)
     return (
@@ -189,7 +199,7 @@ async def fetch_coingecko_cex_market(
         raise ValueError(f"CoinGecko proxy is spot-only | exchange={exchange_id}")
 
     asset = symbol.split("/")[0].upper()
-    coin_id = ASSET_TO_COINGECKO.get(asset, asset.lower())
+    coin_id = coingecko_id_for_asset(asset) or ASSET_TO_COINGECKO.get(asset, asset.lower())
     cg_exchange = _coingecko_exchange_id(exchange_id)
 
     timeout = aiohttp.ClientTimeout(total=20)

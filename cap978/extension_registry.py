@@ -58,6 +58,8 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("methodology registry", "metric methodology", "data quality", "lineage", "normalization"), ("data_provenance_score", "compute_data_provenance_score", "provenance")),
     (("asset metadata", "canonical id", "canonical asset", "stable mapping"), ("blackdark.canonical.resolver", "resolve_asset", "symbol")),
     (("canonical data layer", "canonical data", "reference data"), ("blackdark.canonical.layer", "get_canonical_layer", "none")),
+    (("coingecko", "coin gecko"), ("blackdark.ingestion.coingecko_connector", "fetch_coingecko_price", "symbol")),
+    (("data ingestion", "primary source"), ("blackdark.ingestion.coingecko_connector", "run_coingecko_primary_ingest", "none")),
     (("api export", "data export"), ("acquirer_evidence_pack", "build_acquirer_evidence_pack", "none")),
     (("event library", "market event"), ("market_event_library", "event_library_stats", "none")),
     (("failure", "kill rate"), ("failure_corpus", "corpus_stats", "none")),

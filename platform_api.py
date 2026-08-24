@@ -357,6 +357,37 @@ async def canonical_ingest(
     )
 
 
+@router.get("/ingestion/coingecko/status")
+async def ingestion_coingecko_status():
+    """Infrastructure — CoinGecko primary ingestion connector health."""
+    from blackdark.ingestion.coingecko_connector import coingecko_connector_status
+
+    return coingecko_connector_status()
+
+
+@router.get("/ingestion/coingecko/price")
+async def ingestion_coingecko_price(asset: str = Query("BTC")):
+    """Infrastructure — normalized CoinGecko price with canonical ID + fallback."""
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_price
+
+    return await fetch_coingecko_price(asset)
+
+
+@router.get("/ingestion/coingecko/markets")
+async def ingestion_coingecko_markets(per_page: int = Query(50, ge=10, le=250)):
+    from blackdark.ingestion.coingecko_connector import fetch_coingecko_markets
+
+    return await fetch_coingecko_markets(per_page=per_page)
+
+
+@router.post("/ingestion/coingecko/sync")
+async def ingestion_coingecko_sync():
+    """Trigger primary CoinGecko ingestion pass into data lake."""
+    from blackdark.ingestion.coingecko_connector import run_coingecko_primary_ingest
+
+    return await run_coingecko_primary_ingest()
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

@@ -144,6 +144,8 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("macro", "mvrv", "sopr", "cycle"), ("bd_platform.onchain_hub", "lookintobitcoin_macro", "none")),
     (("asset metadata", "canonical id", "canonical asset"), ("blackdark.canonical.resolver", "resolve_asset", "symbol")),
     (("canonical data", "data normalization", "reference data"), ("blackdark.canonical.layer", "get_canonical_layer", "none")),
+    (("coingecko", "coin gecko"), ("blackdark.ingestion.coingecko_connector", "fetch_coingecko_price", "symbol")),
+    (("data ingestion", "ingestion layer"), ("blackdark.ingestion.coingecko_connector", "run_coingecko_primary_ingest", "none")),
     (("ranking", "marketcap"), ("bd_platform.market_rankings", "market_rankings", "none")),
     (("footprint", "order flow"), ("bd_platform.footprint_analytics", "footprint_snapshot", "symbol")),
     (("chart", "tradingview"), ("bd_platform.tradingview_bridge", "chart_config", "none")),

@@ -30,12 +30,13 @@ async def ingestion_architecture_report() -> dict[str, Any]:
         "generated_at": _utcnow(),
         "architecture": {
             "stages": [
-                {"id": "source", "modules": ["data_sources_registry.py", "binance_ws_ingest.py"]},
-                {"id": "normalize", "modules": ["ingestion_fetchers.py", "ingestion_scheduler.py"]},
+                {"id": "source", "modules": ["blackdark.ingestion.coingecko_connector", "data_sources_registry.py"]},
+                {"id": "normalize", "modules": ["blackdark.canonical.layer", "ingestion_fetchers.py"]},
                 {"id": "lake", "modules": ["data_lake.py", "hot_storage.py"]},
                 {"id": "provenance", "modules": ["data_provenance_score.py", "signal_registry.py"]},
                 {"id": "freshness", "modules": ["stale_price_guard.py", "feed_lag_scanner.py"]},
             ],
+            "primary_source": "coingecko",
             "category_intervals": dict(CATEGORY_INTERVALS),
             "scheduler": status,
         },
