@@ -854,6 +854,9 @@ try:
 
     app.include_router(critical_defects_router)
     app.include_router(onchain_flow_router)
+    from blackdark.api.v1_onchain_intelligence import onchain_intel_router
+
+    app.include_router(onchain_intel_router)
 except Exception:
     logger.exception("Wave 01 data engine router unavailable")
 

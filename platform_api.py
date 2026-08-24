@@ -1237,6 +1237,116 @@ async def market_health_status_route():
     return market_health_status()
 
 
+# ── Feature #153 — Execution Quality Score ─────────────────────────────────────
+
+
+@router.get("/infra/execution-quality/score")
+async def execution_quality_score_route(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(5000.0, ge=100.0, le=10_000_000.0),
+    side: str = Query("buy", pattern="^(buy|sell)$"),
+    chain: str = Query("ethereum"),
+):
+    """Execution Quality Score (#153) — per-venue slippage comparison."""
+    from bd_platform.execution_quality_score import compute_execution_quality_score
+
+    return await compute_execution_quality_score(
+        asset,
+        amount_usd=amount_usd,
+        side=side,  # type: ignore[arg-type]
+        chain=chain,
+    )
+
+
+@router.get("/infra/execution-quality/status")
+async def execution_quality_status_route():
+    """Execution Quality Score status (#153)."""
+    from bd_platform.execution_quality_score import execution_quality_status
+
+    return execution_quality_status()
+
+
+# ── Feature #165 — API Security Encryption ───────────────────────────────────
+
+
+@router.get("/security/keys/status")
+async def api_security_keys_status_route(
+    user: dict = Depends(require_authenticated),
+):
+    """API Security Encryption status (#165) — key metadata without secrets."""
+    from bd_platform.api_security_encryption import list_user_key_status, security_encryption_status
+
+    return {
+        "platform": security_encryption_status(),
+        "user_keys": list_user_key_status(user.get("id") or user.get("email") or "0"),
+    }
+
+
+@router.post("/security/keys/store", responses=COMMON_ERROR_RESPONSES)
+async def api_security_keys_store_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Store encrypted API secret (#165) — no plaintext persistence/logging."""
+    from bd_platform.api_security_encryption import store_user_api_secret
+
+    label = str(body.get("label") or "default")
+    secret = str(body.get("secret") or "")
+    scopes = body.get("scopes") or ["read"]
+    exchange = str(body.get("exchange") or "generic")
+    return store_user_api_secret(
+        user_id=user.get("id") or user.get("email") or "0",
+        label=label,
+        plaintext=secret,
+        scopes=scopes if isinstance(scopes, list) else ["read"],
+        exchange=exchange,
+    )
+
+
+@router.post("/security/keys/revoke", responses=COMMON_ERROR_RESPONSES)
+async def api_security_keys_revoke_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Immediate key revocation (#165)."""
+    from bd_platform.api_security_encryption import revoke_user_api_secret
+
+    key_id = str(body.get("key_id") or "")
+    if not key_id:
+        raise HTTPException(status_code=400, detail="key_id required")
+    return revoke_user_api_secret(
+        user_id=user.get("id") or user.get("email") or "0",
+        key_id=key_id,
+    )
+
+
+@router.post("/security/keys/rotate", responses=COMMON_ERROR_RESPONSES)
+async def api_security_keys_rotate_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Key rotation drill (#165)."""
+    from bd_platform.api_security_encryption import rotate_user_api_secret
+
+    key_id = str(body.get("key_id") or "")
+    new_secret = str(body.get("new_secret") or "")
+    if not key_id or not new_secret:
+        raise HTTPException(status_code=400, detail="key_id and new_secret required")
+    return rotate_user_api_secret(
+        user_id=user.get("id") or user.get("email") or "0",
+        key_id=key_id,
+        new_plaintext=new_secret,
+    )
+
+
+@router.get("/security/encryption/status")
+async def api_security_encryption_status_route(_admin: dict = Depends(require_admin)):
+    """Platform-wide API security encryption posture (#165)."""
+    from bd_platform.api_security_encryption import security_encryption_status
+
+    return security_encryption_status()
+
+
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
 
 

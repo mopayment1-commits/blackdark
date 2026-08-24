@@ -325,6 +325,19 @@ async def optimize_cross_platform_transfer(
         "mode": "internal_function",
     }
 
+    execution_quality_block: dict[str, Any] | None = None
+    try:
+        from bd_platform.execution_quality_score import execution_quality_for_transfer
+
+        execution_quality_block = await execution_quality_for_transfer(
+            asset=sym,
+            amount_usd=amount_usd,
+            source_cex=src,
+            dest_cex=dst,
+        )
+    except Exception:
+        logger.debug("execution quality hook failed", exc_info=True)
+
     alerts: list[dict[str, Any]] = []
     if best["duration_min"] > 15:
         alerts.append({"level": "info", "message": "Route exceeds 15 minutes — consider faster network if urgency matters"})
@@ -336,7 +349,7 @@ async def optimize_cross_platform_transfer(
         "feature": "#119",
         "mode": "fee_saving_optimizer",
         "surface": "cross_platform_transfer",
-        "integrated_features": ["#108", "#120", "#136"],
+        "integrated_features": ["#108", "#120", "#136", "#153"],
         "asset": sym,
         "source_cex": src,
         "dest_cex": dst,
@@ -345,6 +358,7 @@ async def optimize_cross_platform_transfer(
         "headline": headline,
         "alternatives": alternatives,
         "spread_analysis": spread_block,
+        "execution_quality": execution_quality_block,
         "network_ranking": {
             "best_network": network_ranking.get("best_network"),
             "recommendations_count": len(network_ranking.get("recommendations") or []),
