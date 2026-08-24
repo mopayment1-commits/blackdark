@@ -228,6 +228,7 @@ async def query_single_sentence_oracle(
     )
 
     macro_block: dict[str, Any] = {}
+    confidence_block: dict[str, Any] = {}
     try:
         from bd_platform.macro_context_engine import macro_context_for_oracle
 
@@ -236,6 +237,17 @@ async def query_single_sentence_oracle(
             reason_en = f"{reason_en}; Macro: {macro_block['primary_relationship']}"
             if macro_block.get("primary_relationship_ar"):
                 reason_ar = f"{reason_ar}; ماكرو: {macro_block['primary_relationship_ar']}"
+    except Exception:
+        pass
+
+    try:
+        from bd_platform.confidence_engine import compute_rule_based_confidence
+
+        confidence_block = compute_rule_based_confidence(
+            asset=asset,
+            price_data={},
+            market_data={"change_24h": change, "quote_volume": volume},
+        )
     except Exception:
         pass
 
@@ -259,6 +271,7 @@ async def query_single_sentence_oracle(
         "reason": reason_en,
         "reason_ar": reason_ar,
         "macro_context": macro_block,
+        "confidence_engine": confidence_block,
         "sentence": sentence,
         "headline": sentence,
         "opportunity_score": score,

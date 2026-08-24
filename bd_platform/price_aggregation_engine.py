@@ -32,7 +32,7 @@ _CACHE: dict[str, tuple[float, dict[str, Any]]] = {}
 _CACHE_TTL_SEC = 2.0
 _OUTLIER_THRESHOLD_PCT = 2.5  # >2.5% from median = outlier (likely API error)
 _MIN_SOURCES = 1
-_FEATURE_IDS = (133, 127, 194)
+_FEATURE_IDS = (133, 127, 194, 147)
 
 
 def _utcnow() -> str:
@@ -191,11 +191,19 @@ async def aggregate_prices(asset: str = "BTC", *, use_cache: bool = True) -> dic
         }
 
     clean, outliers = detect_outliers(quotes)
-    vwap_block = volume_weighted_average(clean)
-    metadata = _build_source_metadata(results, outliers=outliers, used=clean)
+
+    from bd_platform.data_validation_layer import validate_quotes
+
+    validation = validate_quotes(clean if clean else quotes, asset=sym, context="price_aggregation")
+    validated_quotes = validation.get("validated_quotes") or clean
+    if validation.get("flagged_count", 0) > 0:
+        outliers = outliers + validation.get("flagged_events", [])
+
+    vwap_block = volume_weighted_average(validated_quotes)
+    metadata = _build_source_metadata(results, outliers=outliers, used=validated_quotes)
 
     # Best live price: prefer WS, else VWAP
-    live_quotes = [q for q in clean if q.connector_id.startswith("ws_")]
+    live_quotes = [q for q in validated_quotes if q.connector_id.startswith("ws_")]
     if live_quotes:
         price_usd = live_quotes[0].price_usd
         price_source = live_quotes[0].source
@@ -210,7 +218,7 @@ async def aggregate_prices(asset: str = "BTC", *, use_cache: bool = True) -> dic
 
     payload: dict[str, Any] = {
         "ok": True,
-        "feature_ids": [133, 194],
+        "feature_ids": [133, 147, 194],
         "mode": "infrastructure",
         "user_facing": False,
         "asset": sym,
@@ -219,10 +227,19 @@ async def aggregate_prices(asset: str = "BTC", *, use_cache: bool = True) -> dic
         "weighting": vwap_block["weighting"],
         "price_source": price_source,
         "source_metadata": metadata,
+        "validation": {
+            "feature_id": 147,
+            "price_verified": validation.get("price_verified"),
+            "user_badge": validation.get("user_badge"),
+            "user_badge_ar": validation.get("user_badge_ar"),
+            "flagged_count": validation.get("flagged_count", 0),
+            "fallback_used": validation.get("fallback_used", False),
+        },
+        "user_badge": validation.get("user_badge"),
         "outlier_count": len(outliers),
         "accuracy_estimate": round(min(0.9999, accuracy), 4),
         "quotes_raw": len(quotes),
-        "quotes_clean": len(clean),
+        "quotes_clean": len(validated_quotes),
         "latency_ms": round(elapsed * 1000, 1),
         "sla_met": elapsed <= 2.0,
         "cache_hit": False,
@@ -287,14 +304,16 @@ def price_aggregation_status() -> dict[str, Any]:
         "features": {
             "133": "price_collection",
             "127": "live_refresh_invisible",
+            "147": "data_validation_layer",
             "194": "unified_connector_layer",
         },
         "user_facing": False,
         "outlier_threshold_pct": _OUTLIER_THRESHOLD_PCT,
+        "validation_threshold_pct": 5.0,
         "cache_ttl_sec": _CACHE_TTL_SEC,
         "snapshot_rows": snapshot_rows,
         "connector_layer": connector_layer_status(),
-        "pipeline": ["collect", "outlier_filter", "volume_weight", "source_metadata", "live_refresh"],
+        "pipeline": ["collect", "outlier_filter", "data_validation", "volume_weight", "source_metadata", "live_refresh"],
         "sla_target_ms": 2000,
         "timestamp": _utcnow(),
     }
