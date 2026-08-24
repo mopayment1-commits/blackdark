@@ -43,12 +43,30 @@ async def store_user_exchange_keys(
         encrypt_secret(api_secret.strip()),
         label=label,
     )
+
+    try:
+        from bd_platform.secrets_key_vault import create_secret
+
+        vault_key = create_secret(
+            tenant_id="default",
+            user_id=user_id,
+            name=f"{exchange.lower()}_api",
+            value=f"{api_key.strip()}:{api_secret.strip()}",
+            permission="trading",
+            secret_type="exchange_api",
+            actor=f"user:{user_id}",
+        )
+        vault_secret_id = vault_key.get("secret_id")
+    except Exception:
+        vault_secret_id = None
+
     return {
         "success": True,
         "exchange": exchange.lower(),
         "api_key_masked": mask_secret(api_key),
         "message": "API keys encrypted and stored securely.",
         "validation": validation.reason,
+        "vault_secret_id": vault_secret_id,
     }
 
 
