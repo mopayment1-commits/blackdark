@@ -151,6 +151,8 @@ _KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ...] = (
     (("data ingestion", "ingestion layer"), ("blackdark.ingestion.coingecko_connector", "run_coingecko_primary_ingest", "none")),
     (("mvrv", "realignment", "z-score"), ("bd_platform.mvrv_realignment", "compute_mvrv_realignment", "symbol")),
     (("puell", "miner", "capitulation"), ("bd_platform.puell_multiple", "compute_puell_multiple", "none")),
+    (("replay", "strategy lab", "bar replay"), ("bd_platform.strategy_lab_replay", "run_replay_batch", "asset")),
+    (("paper trading", "trade simulator", "simulator"), ("bd_platform.ai_trade_simulator", "historical_backtest", "asset")),
     (("multi-factor", "alpha rank", "alpha ranking"), ("bd_platform.alpha_factor_ranking", "rank_assets_by_alpha_factors", "none")),
     (("squeeze", "trigger", "liquidation cluster"), ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol")),
     (("slippage tolerance", "self-optimization", "slippage optimize", "slippage intelligence"), ("bd_platform.slippage_tolerance_optimizer", "optimize_slippage_tolerance", "symbol")),

@@ -650,6 +650,73 @@ async def puell_multiple_status_route():
     return puell_multiple_status()
 
 
+@router.get("/strategy-lab/replay")
+async def strategy_lab_replay(
+    asset: str = Query("BTC"),
+    interval: str = Query("1h"),
+    max_steps: int = Query(50, ge=5, le=200),
+):
+    """Strategy Lab Replay (#92) — AI-powered bar replay, no future leakage."""
+    from bd_platform.strategy_lab_replay import run_replay_batch
+
+    return await run_replay_batch(asset, interval=interval, max_steps=max_steps)
+
+
+@router.get("/strategy-lab/replay/status")
+async def strategy_lab_replay_status():
+    from bd_platform.strategy_lab_replay import replay_mode_status
+
+    return replay_mode_status()
+
+
+@router.post("/paper-trading/forward-tick")
+async def paper_trading_forward_tick(
+    user_id: str = Query(..., min_length=1),
+    asset: str = Query("BTC"),
+    manual_override: str | None = Query(None),
+):
+    """AI Trade Simulator (#94) — forward paper trading tick from #48 signals."""
+    from bd_platform.ai_trade_simulator import forward_paper_tick
+
+    return await forward_paper_tick(user_id, asset, manual_override=manual_override)
+
+
+@router.get("/paper-trading/backtest")
+async def paper_trading_backtest(
+    asset: str = Query("BTC"),
+    initial_capital: float = Query(10_000.0, ge=1000.0, le=1_000_000.0),
+    max_bars: int = Query(200, ge=50, le=500),
+):
+    """AI Trade Simulator (#94) — historical walk-forward backtest (purged data)."""
+    from bd_platform.ai_trade_simulator import historical_backtest
+
+    return await historical_backtest(asset, initial_capital=initial_capital, max_bars=max_bars)
+
+
+@router.get("/paper-trading/portfolio")
+async def paper_trading_portfolio(user_id: str = Query(..., min_length=1)):
+    from bd_platform.ai_trade_simulator import get_portfolio_dashboard
+
+    return get_portfolio_dashboard(user_id)
+
+
+@router.post("/paper-trading/reset")
+async def paper_trading_reset(
+    user_id: str = Query(..., min_length=1),
+    capital: float = Query(10_000.0, ge=1000.0, le=1_000_000.0),
+):
+    from bd_platform.ai_trade_simulator import reset_portfolio
+
+    return reset_portfolio(user_id, capital=capital)
+
+
+@router.get("/paper-trading/status")
+async def paper_trading_status():
+    from bd_platform.ai_trade_simulator import ai_trade_simulator_status
+
+    return ai_trade_simulator_status()
+
+
 @router.post("/trading-journal/trades")
 async def trading_journal_record(
     user_id: str = Query(..., min_length=1),
