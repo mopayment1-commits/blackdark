@@ -25,6 +25,31 @@
 | #42 Cross-Asset Correlation | `cross_asset_correlation.py` | Rolling crypto↔TradFi correlation matrix |
 | #43 Cross-Chain Warehouse | `cross_chain_warehouse.py` | Canonical multi-chain SQLite warehouse |
 | #47 Decision Graph | `decision_graph.py` | Interactive causal graph from live inputs |
+| #78 Network Growth | `network_growth_intelligence.py` | First-seen addresses + acceleration |
+| #80 OKX API | `okx_connector.py` | Spot + swap market data (silent) |
+| #82+#83 Options Intelligence | `options_intelligence.py` | IV surface + term structure |
+
+## #78 Network Growth Intelligence
+
+- First-seen registry: `data/network_address_first_seen.json`
+- Spam/dust policy documented in module + `docs/features/NETWORK_GROWTH_INTELLIGENCE.md`
+- Acceleration = week-over-week derivative of new address count
+- User headline: *"SOL network growth accelerated 45% this week — historically correlated with elevated price moves within 14 days"*
+- See `docs/features/NETWORK_GROWTH_INTELLIGENCE.md`
+
+## #80 OKX API (silent)
+
+- `okx_connector.py` — spot ticker + perpetual swap + funding
+- Cache `OKX_CACHE_TTL_SEC`, circuit breakers, Binance fallback
+- User sees: *"OKX futures data included in analysis"*
+- See `docs/features/OKX_API_CONNECTOR.md`
+
+## #82 + #83 Options Intelligence Module
+
+- `options_intelligence.py` — Deribit IV surface + term structure
+- Benchmark validation (ATM IV bands) + expiry exactness checks
+- Feeds `decision_engine_inputs.options_intelligence`
+- See `docs/features/OPTIONS_INTELLIGENCE.md`
 
 ## #42 Cross-Asset Correlation
 

@@ -438,6 +438,9 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.twelvedata_connector import twelvedata_connector_status
     from bd_platform.execution_optimizer import execution_optimizer_status
     from bd_platform.market_microstructure import market_microstructure_status
+    from bd_platform.network_growth_intelligence import network_growth_status
+    from bd_platform.options_intelligence import options_intelligence_status
+    from blackdark.ingestion.okx_connector import okx_connector_status
 
     return {
         "circuit_breakers": circuit_snapshot(),
@@ -460,6 +463,9 @@ async def ingestion_data_layer_status():
         "execution_optimizer": execution_optimizer_status(),
         "flash_crash_protection": {"ok": True, "feature": "#57", "role": "circuit_breaker"},
         "market_microstructure": market_microstructure_status(),
+        "network_growth": network_growth_status(),
+        "okx": okx_connector_status(),
+        "options_intelligence": options_intelligence_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
     }
@@ -720,6 +726,51 @@ async def market_microstructure_status_route():
     from bd_platform.market_microstructure import market_microstructure_status
 
     return market_microstructure_status()
+
+
+@router.get("/network-growth/analyze")
+async def network_growth_analyze(asset: str = Query("SOL")):
+    """Network Growth Intelligence (#78) — first-seen addresses + acceleration."""
+    from bd_platform.network_growth_intelligence import analyze_network_growth
+
+    return await analyze_network_growth(asset)
+
+
+@router.get("/network-growth/status")
+async def network_growth_status_route():
+    from bd_platform.network_growth_intelligence import network_growth_status
+
+    return network_growth_status()
+
+
+@router.get("/okx/ticker")
+async def okx_ticker_route(asset: str = Query("BTC")):
+    """OKX connector (#80) — spot + swap market data."""
+    from blackdark.ingestion.okx_connector import fetch_okx_market_context
+
+    return await fetch_okx_market_context(asset)
+
+
+@router.get("/okx/status")
+async def okx_status_route():
+    from blackdark.ingestion.okx_connector import okx_connector_status
+
+    return okx_connector_status()
+
+
+@router.get("/options/intelligence")
+async def options_intelligence_route(asset: str = Query("BTC")):
+    """Options Intelligence (#82 IV Surface + #83 Term Structure)."""
+    from bd_platform.options_intelligence import analyze_options_intelligence
+
+    return await analyze_options_intelligence(asset)
+
+
+@router.get("/options/status")
+async def options_intelligence_status_route():
+    from bd_platform.options_intelligence import options_intelligence_status
+
+    return options_intelligence_status()
 
 
 @router.get("/execution/optimize")

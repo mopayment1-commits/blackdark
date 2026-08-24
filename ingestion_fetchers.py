@@ -200,9 +200,18 @@ async def _h_bybit_linear(session: aiohttp.ClientSession, spec: DataSourceSpec) 
 
 
 async def _h_okx(session: aiohttp.ClientSession, spec: DataSourceSpec, inst_type: str) -> FetchResult:
-    data = await _fetch_json(session, spec.url, params={"instType": inst_type})
-    rows = _take(data.get("data") or [], 5)
-    return {"instType": inst_type, "tickers": rows}
+    from blackdark.ingestion.okx_connector import fetch_okx_market_context
+
+    symbol = "BTC" if inst_type == "SPOT" else "BTC"
+    row = await fetch_okx_market_context(symbol)
+    return {
+        "instType": inst_type,
+        "exchange": "okx",
+        "market_context": row,
+        "headline": row.get("headline"),
+        "source": "okx_connector",
+        "cache_hit": (row.get("spot") or {}).get("cache_hit"),
+    }
 
 
 async def _h_gateio(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:

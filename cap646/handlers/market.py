@@ -112,16 +112,15 @@ async def handle_market_capability(
     cap_name = catalog_by_id().get(capability_id, {}).get("capability", "").lower()
 
     if capability_id in {201} or "network growth" in cap_name:
-        from bd_platform.footprint_analytics import footprint_snapshot
+        from bd_platform.network_growth_intelligence import analyze_network_growth
 
-        snap = await footprint_snapshot(symbol)
+        snap = await analyze_network_growth(symbol)
         return ai_compliance_footer(
             {
                 "capability_id": capability_id,
                 "surface": "network_growth_intelligence",
-                "footprint": snap,
                 "network_growth": snap,
-                "success": True,
+                "success": bool(snap.get("ok")),
             }
         )
 
