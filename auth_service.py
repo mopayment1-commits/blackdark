@@ -40,6 +40,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
     "free": {
         "label": "FREE",
         "oracle_daily_limit": 3,
+        "market_radar_delay_minutes": 15,
+        "alerts_max": 3,
         "export_monthly_limit": 0,
         "api_monthly_limit": 0,
         "backtest_hours_monthly": 0,
@@ -62,6 +64,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
     "pro": {
         "label": "PRO",
         "oracle_daily_limit": None,
+        "market_radar_delay_minutes": 0,
+        "alerts_max": 10,
         "export_monthly_limit": 50,
         "api_monthly_limit": 0,
         "backtest_hours_monthly": 0,
@@ -84,6 +88,8 @@ TIER_FEATURES: dict[str, dict[str, Any]] = {
     "elite": {
         "label": "ELITE",
         "oracle_daily_limit": None,
+        "market_radar_delay_minutes": 0,
+        "alerts_max": None,
         "export_monthly_limit": 200,
         "api_monthly_limit": 10000,
         "backtest_hours_monthly": 5,
