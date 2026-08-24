@@ -28,13 +28,27 @@ async def _get_json(url: str, *, headers: dict | None = None, params: dict | Non
 
 
 async def dexscreener_pairs(query: str = "BTC") -> dict[str, Any]:
+    from blackdark.ingestion.dexscreener_connector import fetch_dex_pairs
+
+    row = await fetch_dex_pairs(query)
     q = safe_url_segment(query)
-    data = await _get_json(
-        "https://api.dexscreener.com/latest/dex/search",
-        params={"q": q},
-    )
-    pairs = (data or {}).get("pairs") or []
-    return {"source": "dexscreener", "query": q, "pairs": pairs[:25], "count": len(pairs)}
+    if not row.get("ok"):
+        data = await _get_json(
+            "https://api.dexscreener.com/latest/dex/search",
+            params={"q": q},
+        )
+        pairs = (data or {}).get("pairs") or []
+        return {"source": "dexscreener", "query": q, "pairs": pairs[:25], "count": len(pairs)}
+    return {
+        "source": row.get("source", "dexscreener"),
+        "query": q,
+        "pairs": row.get("pairs") or [],
+        "count": row.get("count", 0),
+        "liquidity_signal": row.get("liquidity_signal"),
+        "cache_hit": row.get("cache_hit"),
+        "stale_fallback": row.get("stale_fallback"),
+        "sla_met": row.get("sla_met"),
+    }
 
 
 async def geckoterminal_pairs(

@@ -128,6 +128,15 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
     except Exception:
         arkham = {"ok": False, "data_state": "MISSING"}
 
+    whale_flow: dict[str, Any] = {}
+    if chain.lower() == "ethereum" and addr.startswith("0x"):
+        try:
+            from blackdark.ingestion.etherscan_connector import fetch_whale_flow_signal
+
+            whale_flow = await fetch_whale_flow_signal(addr)
+        except Exception:
+            whale_flow = {"ok": False, "data_state": "MISSING"}
+
     total_usd = _extract_total_usd(balance if isinstance(balance, dict) else {})
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
@@ -153,7 +162,10 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "labels": labels,
         "clusters": clusters,
         "arkham_entity": arkham if arkham.get("ok") else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham"],
+        "whale_flow": whale_flow if whale_flow.get("ok") else None,
+        "whale_headline": whale_flow.get("headline") if whale_flow.get("ok") else None,
+        "sell_probability_pct": whale_flow.get("sell_probability_pct") if whale_flow.get("ok") else None,
+        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham", "onchain_tx"],
         "data_state": "LIVE" if balance.get("available") else "PARTIAL",
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
         "sla_met": (time.perf_counter() - t0) <= 2.0,
