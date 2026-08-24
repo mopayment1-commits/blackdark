@@ -21,6 +21,23 @@
 | #60 Gate.io API | `gateio_connector.py` | Early altcoin listing vs Binance |
 | #69 KuCoin API | `kucoin_connector.py` | KuCoin-before-Binance listing intel |
 | #75 MarketWatch RSS | `marketwatch_connector.py` | Macro high-impact event flags |
+| #104 Twelve Data API | `twelvedata_connector.py` | Macro enrichment (SPX, DXY, Gold, Nasdaq, VIX) |
+
+## #104 Twelve Data (macro enrichment — Wave 1)
+
+- `TWELVEDATA_API_KEY`, cache 15–30 min (`TWELVEDATA_CACHE_TTL_SEC`, default 1200)
+- NOT a standalone product — Macro Context Layer for Market Radar
+- Crypto-correlated tradfi: S&P 500, DXY, Gold, Nasdaq, VIX + BTC correlation narrative
+- Fallback: stale cache → Polygon.io SPY → Investing.com RSS
+- User headline example: *"Bitcoin down 3% while DXY up 0.5% — strong negative correlation"*
+
+## #105 User Behavioral Learning (Wave 2 — opt-in)
+
+- Module: `bd_platform/user_behavioral_learning.py`
+- Explicit opt-in required; encrypted event log (Fernet at-rest)
+- Rule-based ranking: ≥5 page visits → topic boosted in suggestions
+- APIs under `/api/platform/user/behavioral-learning/*`
+- NOT ML — honest visit-count scoring only
 
 ## #60 Gate.io (silent listing intel)
 
@@ -152,6 +169,7 @@
 |----------|---------|
 | `GET /api/platform/decision/inputs?asset=` | Internal decision metrics (#48 feeder) |
 | `GET /api/platform/ingestion/data-layer/status` | Connector health |
+| `GET /api/platform/user/behavioral-learning/ranked-topics` | Opt-in personalized topic ranking (#105) |
 
 ## Wired consumers
 

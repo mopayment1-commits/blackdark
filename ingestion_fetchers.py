@@ -513,6 +513,19 @@ async def _h_polygon_io(session: aiohttp.ClientSession, spec: DataSourceSpec) ->
     }
 
 
+async def _h_twelvedata(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.twelvedata_connector import fetch_twelvedata_macro_context
+
+    row = await fetch_twelvedata_macro_context()
+    return {
+        "quotes": row.get("quotes"),
+        "correlation_narrative": row.get("correlation_narrative"),
+        "headline": row.get("headline"),
+        "source": "twelvedata_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
 async def _h_polygonscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     from blackdark.ingestion.polygonscan_connector import fetch_polygon_onchain_health
 
@@ -576,6 +589,7 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "polygonscan": _h_polygonscan,
     "tronscan": _h_tronscan,
     "polygon_io": _h_polygon_io,
+    "twelvedata": _h_twelvedata,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,

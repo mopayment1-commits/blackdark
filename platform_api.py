@@ -435,6 +435,7 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.binance_connector import binance_connector_status
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
     from blackdark.ingestion.theblock_connector import theblock_connector_status
+    from blackdark.ingestion.twelvedata_connector import twelvedata_connector_status
 
     return {
         "circuit_breakers": circuit_snapshot(),
@@ -453,9 +454,64 @@ async def ingestion_data_layer_status():
         "polygonscan": polygonscan_connector_status(),
         "tronscan": tronscan_connector_status(),
         "theblock": theblock_connector_status(),
+        "twelvedata": twelvedata_connector_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
     }
+
+
+@router.post("/user/behavioral-learning/opt-in")
+async def behavioral_learning_opt_in(user_id: str = Query(..., min_length=1)):
+    from bd_platform.user_behavioral_learning import opt_in_behavioral_learning
+
+    return opt_in_behavioral_learning(user_id=user_id)
+
+
+@router.post("/user/behavioral-learning/opt-out")
+async def behavioral_learning_opt_out(
+    user_id: str = Query(..., min_length=1),
+    purge_events: bool = Query(False),
+):
+    from bd_platform.user_behavioral_learning import opt_out_behavioral_learning
+
+    return opt_out_behavioral_learning(user_id=user_id, purge_events=purge_events)
+
+
+@router.get("/user/behavioral-learning/status")
+async def behavioral_learning_user_status(user_id: str = Query(..., min_length=1)):
+    from bd_platform.user_behavioral_learning import behavioral_learning_status
+
+    return behavioral_learning_status(user_id=user_id)
+
+
+@router.post("/user/behavioral-learning/record")
+async def behavioral_learning_record(
+    user_id: str = Query(..., min_length=1),
+    topic: str = Query(..., min_length=1),
+    surface: str = Query("page"),
+):
+    from bd_platform.user_behavioral_learning import record_behavior_event
+
+    return record_behavior_event(user_id=user_id, topic=topic, surface=surface)
+
+
+@router.get("/user/behavioral-learning/ranked-topics")
+async def behavioral_learning_ranked(
+    user_id: str = Query(..., min_length=1),
+    candidates: str | None = Query(None, description="Comma-separated topics"),
+    limit: int = Query(10, ge=1, le=50),
+):
+    from bd_platform.user_behavioral_learning import ranked_topics_for_user
+
+    pool = [t.strip() for t in (candidates or "").split(",") if t.strip()] or None
+    return ranked_topics_for_user(user_id=user_id, candidates=pool, limit=limit)
+
+
+@router.get("/user/behavioral-learning/module-status")
+async def behavioral_learning_module_status_api():
+    from bd_platform.user_behavioral_learning import behavioral_learning_module_status
+
+    return behavioral_learning_module_status()
 
 
 @router.get("/defi/il/pools")

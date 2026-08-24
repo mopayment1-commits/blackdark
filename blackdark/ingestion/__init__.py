@@ -62,6 +62,10 @@ from blackdark.ingestion.theblock_connector import (
     fetch_theblock_research_context,
     theblock_connector_status,
 )
+from blackdark.ingestion.twelvedata_connector import (
+    fetch_twelvedata_macro_context,
+    twelvedata_connector_status,
+)
 from blackdark.ingestion.tronscan_connector import (
     fetch_tron_account,
     fetch_tron_transactions,
@@ -94,6 +98,7 @@ __all__ = [
     "fetch_polygon_onchain_health",
     "fetch_solana_chain_health",
     "fetch_theblock_research_context",
+    "fetch_twelvedata_macro_context",
     "fetch_tron_account",
     "fetch_tron_transactions",
     "gateio_connector_status",
@@ -107,5 +112,6 @@ __all__ = [
     "run_coingecko_primary_ingest",
     "solana_rpc_connector_status",
     "theblock_connector_status",
+    "twelvedata_connector_status",
     "tronscan_connector_status",
 ]
