@@ -865,6 +865,66 @@ async def options_intelligence_status_route():
     return options_intelligence_status()
 
 
+@router.get("/transfer/networks")
+async def transfer_networks_widget(
+    asset: str = Query("USDT"),
+    amount_usd: float = Query(1_000.0, ge=10.0, le=10_000_000.0),
+    user_id: str | None = Query(None),
+):
+    """#108 — Best transfer networks widget (speed + cost + security)."""
+    from bd_platform.transfer_network_utility import transfer_network_widget
+
+    return await transfer_network_widget(asset, amount_usd=amount_usd, user_id=user_id)
+
+
+@router.get("/transfer/networks/rank")
+async def transfer_networks_rank(
+    asset: str = Query("USDT"),
+    amount_usd: float = Query(1_000.0, ge=10.0, le=10_000_000.0),
+):
+    from bd_platform.transfer_network_utility import rank_transfer_networks
+
+    return await rank_transfer_networks(asset, amount_usd=amount_usd)
+
+
+@router.get("/transfer/network-used")
+async def transfer_network_used(
+    user_id: str = Query(..., min_length=1),
+    asset: str = Query("USDT"),
+):
+    """#120 — User's saved transfer network preference."""
+    from bd_platform.transfer_network_utility import get_user_network_preference
+
+    pref = get_user_network_preference(user_id, asset)
+    return {
+        "ok": True,
+        "feature": "#120",
+        "user_id": user_id,
+        "asset": asset.upper(),
+        "network_used": pref,
+        "has_preference": pref is not None,
+    }
+
+
+@router.post("/transfer/network-used")
+async def transfer_network_used_set(
+    user_id: str = Query(..., min_length=1),
+    asset: str = Query("USDT"),
+    network_id: str = Query(..., min_length=2),
+):
+    """#120 — Save user's transfer network choice."""
+    from bd_platform.transfer_network_utility import set_user_network_preference
+
+    return set_user_network_preference(user_id, asset, network_id)
+
+
+@router.get("/transfer/networks/status")
+async def transfer_networks_status():
+    from bd_platform.transfer_network_utility import transfer_network_status
+
+    return transfer_network_status()
+
+
 @router.get("/execution/optimize")
 async def execution_optimizer_route(
     asset: str = Query("ETH"),
