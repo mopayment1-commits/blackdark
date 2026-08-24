@@ -239,11 +239,15 @@ async def market_radar_narrative() -> dict[str, Any]:
         from bd_platform.large_liquidity_event_alert import scan_large_liquidity_events
         from bd_platform.listing_intelligence_engine import enrich_market_radar as enrich_listing
         from bd_platform.listing_intelligence_engine import scan_listing_intelligence
+        from bd_platform.unusual_liquidity_alert_engine import enrich_market_radar as enrich_unusual
+        from bd_platform.unusual_liquidity_alert_engine import scan_unusual_liquidity_events
 
         liquidity = await scan_large_liquidity_events(limit=5)
         listings = await scan_listing_intelligence(limit=5)
+        unusual = await scan_unusual_liquidity_events(limit=5)
         payload = enrich_liq(payload, liquidity)
         payload = enrich_listing(payload, listings)
+        payload = enrich_unusual(payload, unusual)
     except Exception:
         pass
 

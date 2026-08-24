@@ -1,10 +1,11 @@
 """
-Listing Intelligence Engine — Features #114 + #122 (Market Radar, Sprint 2).
+Listing Intelligence Engine — Features #114 + #122 + #129 (Market Radar, Sprint 2).
 
 Unified timeline for listing lifecycle:
   Deposit Opened (#122) → Listing Announced (#114) → First Trade
 
-NOT buy recommendations — event intelligence for fast traders.
+#129 — Opportunity analysis ("what now") layered on #114 detection ("when").
+NOT buy recommendations — event intelligence + risk framing only.
 """
 
 from __future__ import annotations
@@ -28,9 +29,13 @@ _CACHE_PATH = Path("data/listing_intelligence_cache.json")
 
 _DISCLAIMER = (
     "Listing Intelligence events are informational only — not buy recommendations. "
+    "Opportunity analysis (#129) describes liquidity and slippage risk — never profit promises. "
     "Deposit-open signals precede official listings and may reverse. "
     "Verify contracts and liquidity before any action."
 )
+
+_LOW_LIQUIDITY_USD = 100_000
+_MEDIUM_LIQUIDITY_USD = 500_000
 
 _CACHE_TTL_SEC = 3600
 _MAX_AGE_HOURS = 72
@@ -257,10 +262,187 @@ def _build_timelines(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "timeline": timeline_str,
                 "stages": rows,
                 "latest_headline": rows[-1].get("headline"),
+                "opportunity_analysis": rows[-1].get("opportunity_analysis"),
             }
         )
     timelines.sort(key=lambda t: t["symbol"])
     return timelines
+
+
+def analyze_listing_opportunity(
+    event: dict[str, Any],
+    *,
+    opening_price_usd: float | None = None,
+    liquidity_usd: float | None = None,
+) -> dict[str, Any]:
+    """
+    #129 — post-listing opportunity framing (what now, not when).
+
+    Example output:
+      "Listed. Opening price: $0.01. Liquidity: $50K.
+       Analysis: low liquidity — high slippage risk.
+       Recommendation: wait 24 hours for stabilization."
+    """
+    sym = str(event.get("symbol") or "").upper()
+    signal = str(event.get("signal") or "")
+    liq = float(liquidity_usd if liquidity_usd is not None else event.get("liquidity_usd") or 0)
+    price = float(
+        opening_price_usd
+        if opening_price_usd is not None
+        else event.get("opening_price_usd") or event.get("price_usd") or event.get("last_price") or 0
+    )
+
+    if signal == "deposit_opened":
+        analysis_en = "Pre-listing deposit window — trading not live; liquidity unknown"
+        analysis_ar = "نافذة إيداع قبل الإدراج — التداول غير مفعّل؛ السيولة غير معروفة"
+        recommendation_en = "Wait for official listing announcement and first-trade liquidity data"
+        recommendation_ar = "انتظر إعلان الإدراج الرسمي وبيانات السيولة عند أول صفقة"
+        risk_level = "pre_listing"
+    elif liq <= 0 and price <= 0:
+        analysis_en = "Insufficient market data — cannot assess slippage risk yet"
+        analysis_ar = "بيانات سوق غير كافية — لا يمكن تقييم مخاطر slippage بعد"
+        recommendation_en = "Wait for liquidity and price discovery before any action"
+        recommendation_ar = "انتظر اكتشاف السيولة والسعر قبل أي إجراء"
+        risk_level = "unknown"
+    elif liq < _LOW_LIQUIDITY_USD:
+        analysis_en = "Low liquidity — high slippage risk"
+        analysis_ar = "سيولة منخفضة — مخاطر slippage عالية"
+        recommendation_en = "Wait 24 hours for price stabilization"
+        recommendation_ar = "انتظر 24 ساعة للاستقرار"
+        risk_level = "high_slippage"
+    elif liq < _MEDIUM_LIQUIDITY_USD:
+        analysis_en = "Moderate liquidity — elevated slippage on larger orders"
+        analysis_ar = "سيولة متوسطة — slippage مرتفع على الأوامر الكبيرة"
+        recommendation_en = "Use small size; monitor depth for 12–24 hours"
+        recommendation_ar = "استخدم حجمًا صغيرًا؛ راقب العمق لمدة 12–24 ساعة"
+        risk_level = "moderate_slippage"
+    else:
+        analysis_en = "Adequate liquidity for small orders — volatility risk remains"
+        analysis_ar = "سيولة كافية للأوامر الصغيرة — مخاطر التقلب ما زالت قائمة"
+        recommendation_en = "Verify contract and exchange status; no profit guarantees"
+        recommendation_ar = "تحقق من العقد وحالة المنصة؛ لا ضمانات ربح"
+        risk_level = "standard"
+
+    price_str = f"${price:.4f}" if 0 < price < 1 else (f"${price:,.2f}" if price > 0 else "N/A")
+    if liq >= 1_000_000:
+        liq_str = f"${liq / 1_000_000:.1f}M"
+    elif liq > 0:
+        liq_str = f"${liq / 1_000:.0f}K"
+    else:
+        liq_str = "N/A"
+
+    headline_en = (
+        f"Listed — {sym}. Opening price: {price_str}. Liquidity: {liq_str}. "
+        f"Analysis: {analysis_en}. Recommendation: {recommendation_en}."
+    )
+    headline_ar = (
+        f"تم الإدراج — {sym}. السعر الافتتاحي: {price_str}. السيولة: {liq_str}. "
+        f"التحليل: {analysis_ar}. التوصية: {recommendation_ar}."
+    )
+
+    return {
+        "feature_id": 129,
+        "symbol": sym,
+        "signal": signal,
+        "opening_price_usd": round(price, 8) if price > 0 else None,
+        "liquidity_usd": round(liq, 2) if liq > 0 else None,
+        "analysis": analysis_en,
+        "analysis_ar": analysis_ar,
+        "recommendation": recommendation_en,
+        "recommendation_ar": recommendation_ar,
+        "risk_level": risk_level,
+        "headline": headline_en,
+        "headline_ar": headline_ar,
+        "no_profit_promises": True,
+        "mode": "opportunity_analysis",
+        "timestamp": _utcnow(),
+    }
+
+
+async def _fetch_cex_opening_price(session: aiohttp.ClientSession, symbol: str) -> float:
+    pair = f"{symbol.upper()}USDT"
+    try:
+        async with session.get(
+            "https://api.binance.com/api/v3/ticker/price",
+            params={"symbol": pair},
+        ) as resp:
+            if resp.status != 200:
+                return 0.0
+            data = await resp.json()
+        return float(data.get("price") or 0)
+    except (aiohttp.ClientError, asyncio.TimeoutError, TimeoutError, ValueError, TypeError):
+        return 0.0
+
+
+async def _enrich_events_with_opportunity(
+    session: aiohttp.ClientSession,
+    events: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Attach #129 opportunity analysis to each listing event."""
+    enriched: list[dict[str, Any]] = []
+    for event in events:
+        row = dict(event)
+        price = float(row.get("opening_price_usd") or row.get("price_usd") or 0)
+        liq = float(row.get("liquidity_usd") or 0)
+
+        if row.get("signal") == "listing_announced" and price <= 0:
+            price = await _fetch_cex_opening_price(session, str(row.get("symbol") or ""))
+            if price > 0:
+                row["opening_price_usd"] = price
+
+        if row.get("signal") == "first_trade" and liq <= 0:
+            liq = float(row.get("liquidity_usd") or 0)
+
+        opportunity = analyze_listing_opportunity(row, opening_price_usd=price or None, liquidity_usd=liq or None)
+        row["opportunity_analysis"] = opportunity
+        row["headline"] = opportunity["headline"]
+        row["headline_ar"] = opportunity["headline_ar"]
+        enriched.append(row)
+    return enriched
+
+
+async def analyze_listing_opportunity_for_symbol(
+    symbol: str,
+    *,
+    exchange: str = "binance",
+    liquidity_usd: float | None = None,
+    opening_price_usd: float | None = None,
+) -> dict[str, Any]:
+    """On-demand #129 analysis for a single symbol."""
+    t0 = time.perf_counter()
+    sym = symbol.upper().replace("/USDT", "")
+    event: dict[str, Any] = {
+        "signal": "listing_announced",
+        "feature_id": 114,
+        "exchange": exchange,
+        "symbol": sym,
+        "pair": f"{sym}/USDT",
+        "liquidity_usd": liquidity_usd,
+        "opening_price_usd": opening_price_usd,
+    }
+
+    if opening_price_usd is None or opening_price_usd <= 0:
+        timeout = aiohttp.ClientTimeout(total=6)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            fetched = await _fetch_cex_opening_price(session, sym)
+            if fetched > 0:
+                event["opening_price_usd"] = fetched
+
+    opportunity = analyze_listing_opportunity(event)
+    elapsed = time.perf_counter() - t0
+    return {
+        "ok": True,
+        "engine": "Listing Intelligence Engine",
+        "features": ["#114", "#122", "#129"],
+        "symbol": sym,
+        "exchange": exchange,
+        "opportunity_analysis": opportunity,
+        "disclaimer": _DISCLAIMER,
+        "no_profit_promises": True,
+        "latency_ms": round(elapsed * 1000, 1),
+        "sla_met": elapsed <= 2.0,
+        "timestamp": _utcnow(),
+    }
 
 
 async def scan_listing_intelligence(*, limit: int = 20) -> dict[str, Any]:
@@ -286,28 +468,30 @@ async def scan_listing_intelligence(*, limit: int = 20) -> dict[str, Any]:
             _append_alert(e)
         events.extend(dex_events)
 
-    seen: set[str] = set()
-    unique: list[dict[str, Any]] = []
-    for e in events:
-        key = f"{e.get('signal')}:{e.get('exchange')}:{e.get('symbol')}"
-        if key in seen:
-            continue
-        seen.add(key)
-        unique.append(e)
-        if len(unique) >= limit:
-            break
+        seen_pre: set[str] = set()
+        unique_pre: list[dict[str, Any]] = []
+        for e in events:
+            key = f"{e.get('signal')}:{e.get('exchange')}:{e.get('symbol')}"
+            if key in seen_pre:
+                continue
+            seen_pre.add(key)
+            unique_pre.append(e)
+            if len(unique_pre) >= limit:
+                break
+
+        unique = await _enrich_events_with_opportunity(session, unique_pre)
 
     timelines = _build_timelines(unique)
     elapsed = time.perf_counter() - t0
     out = {
         "ok": True,
         "engine": "Listing Intelligence Engine",
-        "features": ["#114", "#122"],
+        "features": ["#114", "#122", "#129"],
         "surface": "listing_intelligence",
         "event_count": len(unique),
         "events": unique,
         "timelines": timelines,
-        "timeline_template": "Deposit Opened → Listing Announced → First Trade",
+        "timeline_template": "Deposit Opened → Listing Announced → First Trade → Opportunity Analysis (#129)",
         "disclaimer": _DISCLAIMER,
         "mode": "event_only",
         "sources": ["binance_exchange_info", "dexscreener"],
@@ -327,6 +511,11 @@ def enrich_market_radar(payload: dict[str, Any], listings: dict[str, Any]) -> di
         "enabled": listings.get("ok", False),
         "event_count": listings.get("event_count", 0),
         "timelines": listings.get("timelines", [])[:5],
+        "opportunity_analyses": [
+            e.get("opportunity_analysis")
+            for e in listings.get("events", [])
+            if e.get("opportunity_analysis")
+        ][:5],
         "disclaimer": _DISCLAIMER,
     }
     return out

@@ -54,6 +54,7 @@ def infra_matrix() -> dict[str, Any]:
         },
         "local_etl": _etl_status_block(),
         "price_aggregation": _price_aggregation_status_block(),
+        "fee_database": _fee_database_status_block(),
     }
 
 
@@ -98,6 +99,27 @@ def _price_aggregation_status_block() -> dict[str, Any]:
         }
     except ImportError:
         return {"status": "module_missing", "features": ["#133", "#127", "#194"]}
+
+
+def _fee_database_status_block() -> dict[str, Any]:
+    try:
+        from bd_platform.fee_database_service import fee_database_status
+
+        status = fee_database_status()
+        return {
+            "status": "ready",
+            "module": "bd_platform.fee_database_service",
+            "feature": "#130",
+            "user_facing": False,
+            "endpoints": [
+                "/api/platform/infra/fees/status",
+                "/api/platform/infra/fees/lookup",
+                "/api/platform/infra/fees/transaction-cost",
+            ],
+            "coverage": status.get("coverage"),
+        }
+    except ImportError:
+        return {"status": "module_missing", "feature": "#130"}
 
 
 def infra_ready_score() -> dict[str, Any]:
