@@ -17,7 +17,8 @@ logger = logging.getLogger("BLACKDARK.DataEngine.DB")
 
 _engine: Any = None
 _session_factory: async_sessionmaker[AsyncSession] | None = None
-_initialized = False
+_schema_ready = False
+_bootstrapped = False
 _init_lock = asyncio.Lock()
 
 
@@ -69,25 +70,41 @@ async def get_session() -> AsyncIterator[AsyncSession]:
 
 async def init_data_engine() -> dict[str, Any]:
     """Run migrations and prepare session factory."""
-    global _initialized
+    global _schema_ready
     if not data_engine_available():
         return {"ok": False, "reason": "postgres_required"}
     from blackdark.data.migrate import apply_migrations
 
     result = await apply_migrations()
     get_session_factory()
-    _initialized = True
-    logger.info("Wave 01 data engine initialized | migrations=%s", result.get("applied"))
+    _schema_ready = True
+    logger.info("Wave 01 data engine schema ready | migrations=%s", result.get("applied"))
     return {"ok": True, **result}
 
 
 async def ensure_data_engine_ready() -> None:
-    global _initialized
-    if _initialized:
-        return
+    """Migrate schema, seed sources, and optionally bootstrap first ingest."""
+    global _bootstrapped
     async with _init_lock:
-        if _initialized:
+        if not _schema_ready:
+            result = await init_data_engine()
+            if not result.get("ok"):
+                raise RuntimeError(result.get("reason", "data_engine_init_failed"))
+        if _bootstrapped:
             return
-        result = await init_data_engine()
-        if not result.get("ok"):
-            raise RuntimeError(result.get("reason", "data_engine_init_failed"))
+        import os
+
+        from blackdark.data.repository import count_ohlcv_rows, seed_data_sources
+
+        async with get_session() as session:
+            await seed_data_sources(session)
+            needs_ingest = await count_ohlcv_rows(session) == 0
+        _bootstrapped = True
+        if needs_ingest and os.getenv("DATA_ENGINE_BOOTSTRAP_INGEST", "true").lower() in {
+            "1",
+            "true",
+            "yes",
+        }:
+            from blackdark.data.jobs import run_bootstrap_ingest_once
+
+            asyncio.create_task(run_bootstrap_ingest_once())

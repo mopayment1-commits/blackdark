@@ -62,3 +62,58 @@ def test_data_api_requires_postgres(tmp_path, monkeypatch):
     client = TestClient(app)
     resp = client.get("/api/v1/data/status")
     assert resp.status_code == 503
+
+
+@pytest.mark.asyncio
+async def test_count_ohlcv_rows():
+    from unittest.mock import AsyncMock, MagicMock
+
+    from blackdark.data.repository import count_ohlcv_rows
+
+    session = AsyncMock()
+    result = MagicMock()
+    result.mappings.return_value.fetchone.return_value = {"n": 42}
+    session.execute = AsyncMock(return_value=result)
+    assert await count_ohlcv_rows(session) == 42
+
+
+@pytest.mark.asyncio
+async def test_ensure_data_engine_ready_skips_bootstrap_when_rows_exist(monkeypatch):
+    from blackdark.data import db as db_mod
+
+    monkeypatch.setattr(db_mod, "_schema_ready", True)
+    monkeypatch.setattr(db_mod, "_bootstrapped", False)
+    monkeypatch.setenv("DATA_ENGINE_BOOTSTRAP_INGEST", "true")
+
+    seed_called = False
+    bootstrap_called = False
+
+    async def fake_seed(session):
+        nonlocal seed_called
+        seed_called = True
+        return {"seeded": 2}
+
+    async def fake_count(session):
+        return 100
+
+    async def fake_bootstrap():
+        nonlocal bootstrap_called
+        bootstrap_called = True
+
+    class _SessionCtx:
+        async def __aenter__(self):
+            return object()
+
+        async def __aexit__(self, *args):
+            return False
+
+    monkeypatch.setattr(db_mod, "get_session", lambda: _SessionCtx())
+    monkeypatch.setattr("blackdark.data.repository.seed_data_sources", fake_seed)
+    monkeypatch.setattr("blackdark.data.repository.count_ohlcv_rows", fake_count)
+    monkeypatch.setattr("blackdark.data.jobs.run_bootstrap_ingest_once", fake_bootstrap)
+
+    await db_mod.ensure_data_engine_ready()
+    assert seed_called
+    assert not bootstrap_called
+    assert db_mod._bootstrapped is True
+

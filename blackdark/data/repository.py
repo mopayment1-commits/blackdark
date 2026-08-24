@@ -76,6 +76,12 @@ async def seed_data_sources(session: AsyncSession) -> dict[str, Any]:
     return {"seeded": inserted, "sources": [s["slug"] for s in DEFAULT_SOURCES]}
 
 
+async def count_ohlcv_rows(session: AsyncSession) -> int:
+    result = await session.execute(text("SELECT COUNT(*) AS n FROM ohlcv_data"))
+    row = result.mappings().fetchone()
+    return int(row["n"]) if row else 0
+
+
 async def get_source_by_slug(session: AsyncSession, slug: str) -> dict[str, Any] | None:
     result = await session.execute(
         text("SELECT * FROM data_sources WHERE slug = :slug"),
