@@ -15,6 +15,29 @@
 | #93 Solana RPC | `solana_rpc_connector.py` | Public RPC (upgrade via `SOLANA_RPC_URL`) |
 | #21 Binance API | `binance_connector.py` | Spot/futures market data source |
 | #25+#26 Lending Markets | `lending_markets_connector.py` | Borrows outstanding + borrow APR |
+| #85 Order Flow Intelligence | `order_flow_intelligence.py` | Aggressive flow + trade-side QA |
+| #86 Polygon.io API | `polygon_io_connector.py` | Macro/equities context (SPY proxy) |
+| #87 Polygonscan API | `polygonscan_connector.py` | Polygon on-chain health |
+
+## #85 Order Flow Intelligence
+
+- Aggressive buy/sell from Binance aggTrades, bucketed by size
+- Trade-side QA: kline taker validation + aggTrades cross-check
+- Feeds `decision_engine_inputs.order_flow_intelligence`
+- User headline example: *"Order Flow: Aggressive buyers exhausted on ETH — 72% probability of reversal within 4 hours"*
+
+## #86 Polygon.io (silent macro)
+
+- `POLYGON_API_KEY` / `POLYGON_IO_API_KEY`, TTL cache, circuit breaker
+- SPY snapshot → macro risk context for crypto decisions
+- Fallback: stale cache → Investing.com RSS
+- User headline example: *"AI detected S&P 500 down 1.2% — macro risk context elevated for crypto"*
+
+## #87 Polygonscan (silent on-chain)
+
+- `POLYGONSCAN_API_KEY`, block + gas via Polygonscan API
+- Fallback: Polygon public RPC → stale cache
+- User note: *"Polygon on-chain data included in analysis"* — no API branding
 
 ## #32 Circuit Breakers (resilience pattern)
 

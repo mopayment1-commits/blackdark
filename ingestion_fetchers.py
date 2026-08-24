@@ -500,6 +500,32 @@ async def _h_coinmarketcap(session: aiohttp.ClientSession, spec: DataSourceSpec)
     return {"listings": (data.get("data") or [])[:10]}
 
 
+async def _h_polygon_io(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.polygon_io_connector import fetch_polygon_macro_context
+
+    row = await fetch_polygon_macro_context()
+    return {
+        "ticker": row.get("ticker"),
+        "change_pct": row.get("change_pct"),
+        "headline": row.get("headline"),
+        "source": "polygon_io_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
+async def _h_polygonscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.polygonscan_connector import fetch_polygon_onchain_health
+
+    row = await fetch_polygon_onchain_health()
+    return {
+        "chain": row.get("chain"),
+        "block_number": row.get("block_number"),
+        "gas_gwei": row.get("gas_gwei"),
+        "source": row.get("source"),
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
 async def _h_internal_cvvd(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     from whale_tracker import WhaleTracker
 
@@ -540,6 +566,8 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "dexscreener": _h_dexscreener,
     "theblock_rss": _h_theblock_rss,
     "investing_com_rss": _h_investing_com_rss,
+    "polygonscan": _h_polygonscan,
+    "polygon_io": _h_polygon_io,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,

@@ -426,6 +426,8 @@ async def ingestion_data_layer_status():
     from blackdark.data.circuit_breaker import snapshot as circuit_snapshot
     from blackdark.ingestion.investing_com_connector import investing_com_connector_status
     from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
+    from blackdark.ingestion.polygon_io_connector import polygon_io_connector_status
+    from blackdark.ingestion.polygonscan_connector import polygonscan_connector_status
     from blackdark.ingestion.binance_connector import binance_connector_status
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
     from blackdark.ingestion.theblock_connector import theblock_connector_status
@@ -439,6 +441,9 @@ async def ingestion_data_layer_status():
         "futures_cvd": {"ok": True, "feature": "#59", "role": "decision_engine_input"},
         "historical_flat_archive": {"ok": True, "feature": "#66", "role": "backtest_infrastructure"},
         "lending_markets": lending_markets_connector_status(),
+        "order_flow_intelligence": {"ok": True, "feature": "#85", "role": "decision_engine_input"},
+        "polygon_io": polygon_io_connector_status(),
+        "polygonscan": polygonscan_connector_status(),
         "theblock": theblock_connector_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),

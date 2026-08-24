@@ -27,9 +27,14 @@ from blackdark.ingestion.investing_com_connector import (
     fetch_investing_news_context,
     investing_com_connector_status,
 )
-from blackdark.ingestion.lending_markets_connector import (
-    fetch_lending_markets,
-    lending_markets_connector_status,
+from blackdark.ingestion.order_flow_intelligence import compute_order_flow_intelligence
+from blackdark.ingestion.polygon_io_connector import (
+    fetch_polygon_macro_context,
+    polygon_io_connector_status,
+)
+from blackdark.ingestion.polygonscan_connector import (
+    fetch_polygon_onchain_health,
+    polygonscan_connector_status,
 )
 from blackdark.ingestion.solana_rpc_connector import (
     fetch_solana_chain_health,
@@ -47,6 +52,7 @@ __all__ = [
     "coingecko_connector_status",
     "compute_exchange_netflow",
     "compute_token_exchange_flows",
+    "compute_order_flow_intelligence",
     "compute_futures_cvd",
     "fetch_binance_futures_funding",
     "fetch_binance_spot_ticker",
@@ -56,10 +62,14 @@ __all__ = [
     "fetch_fear_greed_index",
     "fetch_investing_news_context",
     "fetch_lending_markets",
+    "fetch_polygon_macro_context",
+    "fetch_polygon_onchain_health",
     "fetch_solana_chain_health",
     "fetch_theblock_research_context",
     "investing_com_connector_status",
     "lending_markets_connector_status",
+    "polygon_io_connector_status",
+    "polygonscan_connector_status",
     "run_alternative_me_ingest",
     "run_coingecko_primary_ingest",
     "solana_rpc_connector_status",
