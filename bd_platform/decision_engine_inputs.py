@@ -2,8 +2,8 @@
 Decision Engine inputs (#48) — aggregates silent Data Layer metrics.
 
 Feeds risk scoring from exchange flows (#97), netflow (#54), CVD (#59),
-order flow (#85), macro (#86), Polygon on-chain (#87), research (#95), news (#68),
-Solana RPC (#93), and flat archive (#66).
+order flow (#85), macro (#86), Polygon on-chain (#87), Gate.io (#60), KuCoin (#69),
+MarketWatch (#75), research (#95), news (#68), Solana RPC (#93), and flat archive (#66).
 No standalone user surface.
 """
 
@@ -26,6 +26,9 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
     from blackdark.ingestion.historical_flat_archive import backtest_coverage_years
     from blackdark.ingestion.investing_com_connector import fetch_investing_news_context
     from blackdark.ingestion.lending_markets_connector import fetch_lending_markets
+    from blackdark.ingestion.gateio_connector import fetch_gateio_listing_intelligence
+    from blackdark.ingestion.kucoin_connector import fetch_kucoin_listing_intelligence
+    from blackdark.ingestion.marketwatch_connector import fetch_marketwatch_macro_context
     from blackdark.ingestion.order_flow_intelligence import compute_order_flow_intelligence
     from blackdark.ingestion.polygon_io_connector import fetch_polygon_macro_context
     from blackdark.ingestion.polygonscan_connector import fetch_polygon_onchain_health
@@ -34,13 +37,16 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
 
     t0 = time.perf_counter()
     sym = symbol.upper()
-    flows, netflow, cvd, order_flow, macro, polygon, research, news, solana, archive, lending = await _gather(
+    flows, netflow, cvd, order_flow, macro, polygon, gateio, kucoin, marketwatch, research, news, solana, archive, lending = await _gather(
         compute_token_exchange_flows(sym),
         compute_exchange_netflow(sym),
         compute_futures_cvd(sym),
         compute_order_flow_intelligence(sym),
         fetch_polygon_macro_context(),
         fetch_polygon_onchain_health(),
+        fetch_gateio_listing_intelligence(),
+        fetch_kucoin_listing_intelligence(),
+        fetch_marketwatch_macro_context(),
         fetch_theblock_research_context(limit=8),
         fetch_investing_news_context(limit=50),
         fetch_solana_chain_health(),
@@ -53,7 +59,7 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         risk_delta = max(risk_delta, float(netflow.get("risk_score_delta") or 0))
 
     headlines: list[str] = []
-    for row in (flows, netflow, cvd, order_flow, macro, polygon, research, news):
+    for row in (flows, netflow, cvd, order_flow, macro, polygon, gateio, kucoin, marketwatch, research, news):
         if isinstance(row, dict) and row.get("headline"):
             headlines.append(str(row["headline"]))
         elif isinstance(row, dict) and row.get("ai_context_line"):
@@ -71,6 +77,9 @@ async def gather_decision_inputs(symbol: str = "ETH") -> dict[str, Any]:
         "order_flow_intelligence": order_flow,
         "macro_context": macro if macro.get("ok") else None,
         "polygon_onchain": polygon if polygon.get("ok") else None,
+        "gateio_listings": gateio if gateio.get("ok") else None,
+        "kucoin_listings": kucoin if kucoin.get("ok") else None,
+        "marketwatch_macro": marketwatch if marketwatch.get("ok") else None,
         "research_context": research if research.get("ok") else None,
         "news_context": news if news.get("ok") else None,
         "solana_onchain": solana if solana.get("ok") else None,

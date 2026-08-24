@@ -149,29 +149,41 @@ async def _h_coingecko_prices(session: aiohttp.ClientSession, spec: DataSourceSp
 
 
 async def _h_kucoin(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url)
-    tickers = (data.get("data") or {}).get("ticker") or []
-    tracked: list[dict[str, Any]] = []
-    wanted = {native_symbol("kucoin", f"{a}/{config.QUOTE_BASE}", "spot") for a in TRACKED_PRICE_ASSETS}
-    for row in tickers:
-        sym = str(row.get("symbol") or "")
-        if sym not in wanted:
-            continue
-        asset = sym.split("-")[0].replace("XBT", "BTC")
-        last = float(row.get("last") or 0)
-        if last <= 0:
-            continue
-        tracked.append(
-            {
-                "asset": asset,
-                "symbol": sym,
-                "price": last,
-                "change_24h_pct": float(row.get("changeRate") or 0) * 100,
-                "volume_usd": float(row.get("volValue") or 0),
-            }
-        )
-    top = sorted(tickers, key=lambda t: float(t.get("volValue") or 0), reverse=True)[:5]
-    return {"exchange": "kucoin", "tracked_quotes": tracked, "top_tickers": top}
+    from blackdark.ingestion.kucoin_connector import fetch_kucoin_listing_intelligence
+
+    row = await fetch_kucoin_listing_intelligence()
+    return {
+        "exchange": "kucoin",
+        "early_listing_candidates": row.get("early_listing_candidates") or [],
+        "headline": row.get("headline"),
+        "source": "kucoin_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
+async def _h_gateio(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.gateio_connector import fetch_gateio_listing_intelligence
+
+    row = await fetch_gateio_listing_intelligence()
+    return {
+        "exchange": "gateio",
+        "gate_only_liquid": row.get("gate_only_liquid") or [],
+        "headline": row.get("headline"),
+        "source": "gateio_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
+
+
+async def _h_marketwatch_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.marketwatch_connector import fetch_marketwatch_macro_context
+
+    row = await fetch_marketwatch_macro_context()
+    return {
+        "high_impact_count": row.get("high_impact_count"),
+        "headline": row.get("headline"),
+        "source": "marketwatch_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
 
 
 async def _h_bybit_spot(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -194,28 +206,16 @@ async def _h_okx(session: aiohttp.ClientSession, spec: DataSourceSpec, inst_type
 
 
 async def _h_gateio(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
-    data = await _fetch_json(session, spec.url)
-    wanted = set(gateio_currency_pairs())
-    tracked: list[dict[str, Any]] = []
-    for row in data or []:
-        pair = str(row.get("currency_pair") or "")
-        if pair not in wanted:
-            continue
-        asset = pair.split("_")[0]
-        last = float(row.get("last") or 0)
-        if last <= 0:
-            continue
-        tracked.append(
-            {
-                "asset": asset,
-                "symbol": pair,
-                "price": last,
-                "change_24h_pct": float(row.get("change_percentage") or 0),
-                "volume_usd": float(row.get("quote_volume") or 0),
-            }
-        )
-    rows = sorted(data or [], key=lambda r: float(r.get("quote_volume") or 0), reverse=True)[:5]
-    return {"exchange": "gateio", "tracked_quotes": tracked, "tickers": rows}
+    from blackdark.ingestion.gateio_connector import fetch_gateio_listing_intelligence
+
+    row = await fetch_gateio_listing_intelligence()
+    return {
+        "exchange": "gateio",
+        "gate_only_liquid": row.get("gate_only_liquid") or [],
+        "headline": row.get("headline"),
+        "source": "gateio_connector",
+        "cache_hit": row.get("cache_hit"),
+    }
 
 
 async def _h_coinbase(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
@@ -572,6 +572,7 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "dexscreener": _h_dexscreener,
     "theblock_rss": _h_theblock_rss,
     "investing_com_rss": _h_investing_com_rss,
+    "marketwatch_rss": _h_marketwatch_rss,
     "polygonscan": _h_polygonscan,
     "tronscan": _h_tronscan,
     "polygon_io": _h_polygon_io,

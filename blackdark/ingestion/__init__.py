@@ -31,6 +31,20 @@ from blackdark.ingestion.lending_markets_connector import (
     fetch_lending_markets,
     lending_markets_connector_status,
 )
+from blackdark.ingestion.gateio_connector import (
+    fetch_gateio_listing_intelligence,
+    fetch_gateio_spot_ticker,
+    gateio_connector_status,
+)
+from blackdark.ingestion.kucoin_connector import (
+    fetch_kucoin_listing_intelligence,
+    fetch_kucoin_spot_ticker,
+    kucoin_connector_status,
+)
+from blackdark.ingestion.marketwatch_connector import (
+    fetch_marketwatch_macro_context,
+    marketwatch_connector_status,
+)
 from blackdark.ingestion.order_flow_intelligence import compute_order_flow_intelligence
 from blackdark.ingestion.polygon_io_connector import (
     fetch_polygon_macro_context,
@@ -70,6 +84,11 @@ __all__ = [
     "fetch_entity_intelligence_input",
     "fetch_fear_greed_index",
     "fetch_investing_news_context",
+    "fetch_gateio_listing_intelligence",
+    "fetch_gateio_spot_ticker",
+    "fetch_kucoin_listing_intelligence",
+    "fetch_kucoin_spot_ticker",
+    "fetch_marketwatch_macro_context",
     "fetch_lending_markets",
     "fetch_polygon_macro_context",
     "fetch_polygon_onchain_health",
@@ -77,8 +96,11 @@ __all__ = [
     "fetch_theblock_research_context",
     "fetch_tron_account",
     "fetch_tron_transactions",
+    "gateio_connector_status",
     "investing_com_connector_status",
+    "kucoin_connector_status",
     "lending_markets_connector_status",
+    "marketwatch_connector_status",
     "polygon_io_connector_status",
     "polygonscan_connector_status",
     "run_alternative_me_ingest",

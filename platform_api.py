@@ -428,6 +428,9 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
     from blackdark.ingestion.polygon_io_connector import polygon_io_connector_status
     from blackdark.ingestion.polygonscan_connector import polygonscan_connector_status
+    from blackdark.ingestion.gateio_connector import gateio_connector_status
+    from blackdark.ingestion.kucoin_connector import kucoin_connector_status
+    from blackdark.ingestion.marketwatch_connector import marketwatch_connector_status
     from blackdark.ingestion.tronscan_connector import tronscan_connector_status
     from blackdark.ingestion.binance_connector import binance_connector_status
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
@@ -440,6 +443,9 @@ async def ingestion_data_layer_status():
         "exchange_flow_metric": {"ok": True, "feature": "#97", "role": "decision_engine_input"},
         "exchange_netflow": {"ok": True, "feature": "#54", "role": "decision_engine_input"},
         "futures_cvd": {"ok": True, "feature": "#59", "role": "decision_engine_input"},
+        "gateio": gateio_connector_status(),
+        "kucoin": kucoin_connector_status(),
+        "marketwatch": marketwatch_connector_status(),
         "historical_flat_archive": {"ok": True, "feature": "#66", "role": "backtest_infrastructure"},
         "lending_markets": lending_markets_connector_status(),
         "order_flow_intelligence": {"ok": True, "feature": "#85", "role": "decision_engine_input"},

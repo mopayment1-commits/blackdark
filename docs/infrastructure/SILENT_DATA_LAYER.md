@@ -18,6 +18,25 @@
 | #85 Order Flow Intelligence | `order_flow_intelligence.py` | Aggressive flow + trade-side QA |
 | #86 Polygon.io API | `polygon_io_connector.py` | Macro/equities context (SPY proxy) |
 | #87 Polygonscan API | `polygonscan_connector.py` | Polygon on-chain health |
+| #60 Gate.io API | `gateio_connector.py` | Early altcoin listing vs Binance |
+| #69 KuCoin API | `kucoin_connector.py` | KuCoin-before-Binance listing intel |
+| #75 MarketWatch RSS | `marketwatch_connector.py` | Macro high-impact event flags |
+
+## #60 Gate.io (silent listing intel)
+
+- Spot tickers + Gate-only USDT pairs vs Binance `exchangeInfo`
+- `exchange_listing_tracker.py` for honest first-seen timestamps
+- User headline: *"First platform to surface {SYMBOL} before Binance listing"*
+
+## #69 KuCoin (silent listing intel)
+
+- KuCoin-only pairs vs Binance with measured lead-time when both sighted
+- User headline: *"KuCoin-listed token detected — not yet on Binance"* (or hours if proven)
+
+## #75 MarketWatch RSS (silent macro)
+
+- RSS + macro keyword impact scoring, Dow Jones fallback
+- User headline: *"AI flagged 2 macro events from MarketWatch as high-impact on your portfolio"*
 
 ## #85 Order Flow Intelligence
 
