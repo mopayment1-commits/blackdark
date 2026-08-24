@@ -30,12 +30,13 @@ async def ingestion_architecture_report() -> dict[str, Any]:
         "generated_at": _utcnow(),
         "architecture": {
             "stages": [
-                {"id": "source", "modules": ["data_sources_registry.py", "binance_ws_ingest.py"]},
-                {"id": "normalize", "modules": ["ingestion_fetchers.py", "ingestion_scheduler.py"]},
+                {"id": "source", "modules": ["blackdark.ingestion.coingecko_connector", "data_sources_registry.py"]},
+                {"id": "normalize", "modules": ["blackdark.canonical.layer", "ingestion_fetchers.py"]},
                 {"id": "lake", "modules": ["data_lake.py", "hot_storage.py"]},
                 {"id": "provenance", "modules": ["data_provenance_score.py", "signal_registry.py"]},
                 {"id": "freshness", "modules": ["stale_price_guard.py", "feed_lag_scanner.py"]},
             ],
+            "primary_source": "coingecko",
             "category_intervals": dict(CATEGORY_INTERVALS),
             "scheduler": status,
         },
@@ -107,9 +108,13 @@ async def data_quality_pipeline_report() -> dict[str, Any]:
 
 async def normalization_report(*, symbol: str = "BTC") -> dict[str, Any]:
     """ID500 — normalization + cross-venue consistency."""
+    from blackdark.canonical.layer import get_canonical_layer
     from data_provenance_score import compute_data_provenance_score
     from market_context import probe_price_sources
 
+    layer = get_canonical_layer()
+    await layer.bootstrap(persist=True)
+    canonical_query = await layer.query(input=symbol, dataset="normalization")
     ctx = await probe_price_sources(symbol.upper().replace("/USDT", ""))
     prov = compute_data_provenance_score(symbol=symbol, source_categories=["prices", "derivatives"])
     payload = {
@@ -117,9 +122,10 @@ async def normalization_report(*, symbol: str = "BTC") -> dict[str, Any]:
         "surface": "data_quality_normalization",
         "generated_at": _utcnow(),
         "symbol": symbol.upper(),
+        "canonical_layer": canonical_query,
         "normalized_context": ctx,
         "provenance": prov,
-        "schema_version": "cap646_norm_v1",
+        "schema_version": "canonical_v1",
         "success": bool(ctx),
     }
     return ai_compliance_footer(payload)
