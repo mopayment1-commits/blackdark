@@ -1,4 +1,4 @@
-# On-Chain Address Intelligence Module — Features #10 + #18 + #19 + #20
+# On-Chain Address Intelligence Module — Features #10 + #18 + #19 + #20 + #23
 
 Unified module (NOT separate product surfaces):
 
@@ -8,6 +8,7 @@ Unified module (NOT separate product surfaces):
 | 18 | Fund Trace (single-chain) | `trace_funds()` | `GET /api/platform/address-intelligence/trace` |
 | 19 | Balance History Chart | `balance_history()` | `GET /api/platform/address-intelligence/history` |
 | 20 | Balance Updates (state diffs) | `balance_updates()` | `GET /api/platform/address-intelligence/updates` |
+| 23 | Block Search (explorer) | `search_block()` | `GET /api/platform/address-intelligence/block` |
 
 Unified overview: `GET /api/platform/address-intelligence/overview`
 
@@ -22,6 +23,15 @@ Point-in-time balance: `GET /api/platform/address-intelligence/balance-at?as_of=
 3. **Live fallback** (disclosed): when no historical anchor exists
 
 Reorg handling: recent blocks may be marked `finalized: false` with `reorg_risk` disclosure.
+
+## Block search (#23)
+
+`search_block()` in `address_intelligence.py` — block explorer index/query merged into this module:
+
+- `bd_platform/onchain_client.py` — `get_block_by_number()` with Etherscan + RPC fallback
+- Normalized fields: `block_number`, `hash`, `parent_hash`, `timestamp`, `tx_count`, `gas_used`
+- Reorg/finality: `finalized`, `reorg_risk`, `confirmations` on every response
+- API: `GET /api/platform/address-intelligence/block?block_number=&chain=ethereum`
 
 ## Fund trace (#18)
 
@@ -57,6 +67,7 @@ State-diff feed computed from consecutive snapshots:
 | Criterion | Target |
 |-----------|--------|
 | Point-in-time semantics | Block or snapshot anchor on all historical queries |
+| Reorg handling (#23) | `finalized` / `reorg_risk` disclosure on block queries |
 | Chain-specific correctness | `chain` + `chain_id` on all responses |
 | No fabricated trace paths | Only verified tx edges (#18) |
 | Bridge handling | Explicit labels; no cross-chain inference in MVP |

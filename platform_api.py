@@ -424,14 +424,18 @@ async def decision_engine_inputs(asset: str = Query("ETH")):
 async def ingestion_data_layer_status():
     """Infrastructure — silent data layer connector health."""
     from blackdark.ingestion.investing_com_connector import investing_com_connector_status
+    from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
+    from blackdark.ingestion.binance_connector import binance_connector_status
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
     from blackdark.ingestion.theblock_connector import theblock_connector_status
 
     return {
+        "binance": binance_connector_status(),
         "exchange_flow_metric": {"ok": True, "feature": "#97", "role": "decision_engine_input"},
         "exchange_netflow": {"ok": True, "feature": "#54", "role": "decision_engine_input"},
         "futures_cvd": {"ok": True, "feature": "#59", "role": "decision_engine_input"},
         "historical_flat_archive": {"ok": True, "feature": "#66", "role": "backtest_infrastructure"},
+        "lending_markets": lending_markets_connector_status(),
         "theblock": theblock_connector_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
@@ -656,6 +660,17 @@ async def address_intelligence_trace(
     from bd_platform.fund_trace import trace_funds
 
     return await trace_funds(address, chain=chain, max_hops=max_hops)
+
+
+@router.get("/address-intelligence/block")
+async def address_intelligence_block(
+    block_number: int = Query(..., ge=1),
+    chain: str = Query("ethereum"),
+):
+    """On-Chain Intelligence (#23) — block details with reorg handling."""
+    from bd_platform.address_intelligence import search_block
+
+    return await search_block(block_number, chain=chain)
 
 
 @router.get("/macro/bitcoin")

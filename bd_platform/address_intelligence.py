@@ -1,11 +1,13 @@
 """
-On-Chain Address Intelligence Module — Features #10 + #19 + #20 (unified).
+On-Chain Address Intelligence Module — Features #10 + #18 + #19 + #20 + #23 (unified).
 
 #10  Address Search — multi-source lookup (Tracely, DeBank, labels, Arkham)
+#18  Fund Trace — single-chain path finding
 #19  Balance History Chart — time-series snapshots with chain-specific tracking
 #20  Balance Updates — state-diff feed from consecutive snapshots
+#23  Block Search — block explorer details with reorg handling
 
-NOT three separate product surfaces — one module with three capabilities.
+NOT separate product surfaces — one unified on-chain intelligence module.
 """
 
 from __future__ import annotations
@@ -411,6 +413,53 @@ async def balance_updates(
     }
 
 
+async def search_block(
+    block_number: int,
+    *,
+    chain: str = "ethereum",
+) -> dict[str, Any]:
+    """
+    Feature #23 — block explorer details with reorg/finality disclosure.
+    """
+    t0 = time.perf_counter()
+    if block_number <= 0:
+        return {"ok": False, "error": "invalid_block_number", "block_number": block_number}
+
+    from bd_platform.onchain_client import get_block_by_number
+
+    block = await get_block_by_number(block_number, chain=chain)
+    if not block.get("ok"):
+        return {
+            "ok": False,
+            "surface": "on_chain_address_intelligence",
+            "capability": "block_search",
+            "feature": "#23",
+            "block_number": block_number,
+            "chain": chain.lower(),
+            "error": block.get("error"),
+            "data_state": "MISSING",
+            "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
+        }
+
+    return {
+        "ok": True,
+        "surface": "on_chain_address_intelligence",
+        "capability": "block_search",
+        "feature": "#23",
+        "chain": chain.lower(),
+        "chain_id": _CHAIN_IDS.get(chain.lower()),
+        "block": block,
+        "block_number": block_number,
+        "transaction_count": block.get("transaction_count"),
+        "reorg_handling": block.get("reorg_handling"),
+        "semantics": block.get("semantics"),
+        "data_state": "LIVE",
+        "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
+        "sla_met": (time.perf_counter() - t0) <= 2.0,
+        "timestamp": _utcnow(),
+    }
+
+
 async def address_intelligence_overview(
     address: str,
     *,
@@ -441,6 +490,7 @@ async def address_intelligence_overview(
             "#18_fund_trace",
             "#19_balance_history",
             "#20_balance_updates",
+            "#23_block_search",
         ],
         "address": _normalize_address(address, chain),
         "chain": chain.lower(),

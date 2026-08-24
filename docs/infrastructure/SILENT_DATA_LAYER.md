@@ -13,6 +13,29 @@
 | #95 The Block Articles | `theblock_connector.py` | Research RSS → AI context lines |
 | #68 Investing.com RSS | `investing_com_connector.py` | News RSS + high-impact scoring |
 | #93 Solana RPC | `solana_rpc_connector.py` | Public RPC (upgrade via `SOLANA_RPC_URL`) |
+| #21 Binance API | `binance_connector.py` | Spot/futures market data source |
+| #25+#26 Lending Markets | `lending_markets_connector.py` | Borrows outstanding + borrow APR |
+
+## #21 Binance API
+
+- Spot 24h ticker + futures funding via `binance_connector`
+- Optional `BINANCE_API_KEY`, TTL cache, 429 backoff
+- Fallback: stale cache → CoinGecko
+- Wired into `ingestion_fetchers` (`binance_spot`, `binance_futures`)
+
+## #23 Block Search (On-Chain Intelligence)
+
+- `search_block()` in `address_intelligence.py`
+- Etherscan proxy + public RPC fallback
+- Reorg/finality disclosure on every block response
+- API: `GET /api/platform/address-intelligence/block?block_number=`
+
+## #25 + #26 Lending (merged)
+
+- `lending_markets_connector.py` — DeFiLlama yields
+- Aggregate borrow outstanding + normalized borrow APR
+- Market mapping reconciliation per pool
+- Feeds `decision_engine_inputs.lending_markets`
 
 ## #54 Exchange netflow
 
