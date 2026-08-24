@@ -33,6 +33,7 @@ from bd_platform.unified_connector_layer import (
     _CONNECTOR_IDS,
     _HTTP_TIMEOUT,
     fetch_all_connector_quotes,
+    sanitize_user_facing_error,
 )
 
 logger = logging.getLogger("BLACKDARK.FlexibleConnector")
@@ -336,12 +337,13 @@ def _health_from_result(connector_id: str, exchange: str, result: ConnectorFetch
             synthetic_success=False,
         )
     else:
+        user_error = sanitize_user_facing_error(result.error)
         health = ConnectorHealth(
             connector_id=connector_id,
             status="down",
             emoji="🔴",
-            display=f"{exchange}: 🔴 Down ({result.error or 'failed'})",
-            last_error=result.error,
+            display=f"{exchange}: 🔴 {user_error}",
+            last_error=user_error,
             certified=False,
             schema_ok=not (result.error or "").startswith("schema_drift"),
             synthetic_success=False,
@@ -476,7 +478,7 @@ async def connector_registry_dashboard(asset: str = "BTC") -> dict[str, Any]:
             "schema": "CanonicalPriceQuote",
             "no_synthetic_success": True,
         },
-        "integrated_with": ["#194"],
+        "integrated_with": ["#137", "#138", "#194"],
         "latency_ms": cert["latency_ms"],
         "sla_met": cert["sla_met"],
         "timestamp": _utcnow(),
@@ -494,13 +496,18 @@ def flexible_connector_status() -> dict[str, Any]:
         "legacy_connector_ids": list(_CONNECTOR_IDS),
         "policies": {
             "normalization": "CanonicalPriceQuote",
+            "symbol_normalization": "BTCUSDT=BTC-USD=BTC_USDT",
+            "timestamp_normalization": "UTC",
+            "no_venue_leakage": True,
             "retries": _MAX_RETRIES,
             "rate_limit_per_min": _RATE_LIMIT_PER_MIN,
             "health_certification": True,
             "schema_drift_detection": True,
             "failover": True,
             "no_synthetic_success": True,
+            "heartbeat_interval_sec": 60,
         },
+        "integrated_features": ["#137", "#138", "#194"],
         "timestamp": _utcnow(),
     }
 
