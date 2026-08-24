@@ -1188,6 +1188,36 @@ async def spread_calculator_route(
     )
 
 
+# ── Feature #147 — Data Validation Layer (with #133) ─────────────────────────
+
+
+@router.get("/infra/validation/status")
+async def data_validation_status_route():
+    """Data Validation Layer health (#147 internal protection)."""
+    from bd_platform.data_validation_layer import validation_layer_status
+
+    return validation_layer_status()
+
+
+# ── Feature #149 — Confidence Engine (Phase 1 rule-based) ────────────────────
+
+
+@router.get("/confidence/score")
+async def confidence_score_route(asset: str = Query("BTC")):
+    """Confidence Engine Phase 1 — rule-based score 0-100 (#149)."""
+    from bd_platform.confidence_engine import score_asset_confidence
+
+    return await score_asset_confidence(asset)
+
+
+@router.get("/confidence/status")
+async def confidence_engine_status_route():
+    """Confidence Engine roadmap and phase status (#149)."""
+    from bd_platform.confidence_engine import confidence_engine_status
+
+    return confidence_engine_status()
+
+
 # ── Features #141 + #104 — Macro Context Engine ──────────────────────────────
 
 
