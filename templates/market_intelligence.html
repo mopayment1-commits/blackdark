@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — Market Intelligence</title>
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--ok:#22d3a5;--accent:#3b82f6;--warn:#fbbf24;--bad:#f87171;--card:rgba(255,255,255,.03)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:radial-gradient(900px 500px at 90% -10%,#1a2540 0%,transparent 50%),linear-gradient(165deg,#06080d,#0c1219);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.9rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:0}
+.sub{color:var(--muted);margin:.5rem 0 1.25rem}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.55rem 1rem;border-radius:8px;cursor:pointer;font-weight:600}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+.card{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--card);margin-bottom:1rem}
+.hero{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--accent);margin:.5rem 0}
+input,button,select{font:inherit}
+input,select{background:#0b1118;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;border-radius:8px;margin-right:.5rem}
+button.primary{border:0;background:linear-gradient(135deg,var(--ok),#0ea5e9);color:#04120e;font-weight:800;padding:.65rem 1.1rem;border-radius:8px;cursor:pointer}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin:1rem 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:.65rem;background:rgba(0,0,0,.2)}
+.metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.metric .v{font-size:1.05rem;font-weight:700;margin-top:.15rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:.5rem;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
+.alert{border-left:3px solid var(--warn);padding:.5rem .75rem;margin:.35rem 0;background:rgba(251,191,36,.08);font-size:.85rem;border-radius:0 6px 6px 0}
+.alert.high{border-color:var(--bad);background:rgba(248,113,113,.08)}
+.loading,.error,.empty{color:var(--muted);padding:1.5rem;text-align:center}
+.error{color:var(--bad)}
+.badge{display:inline-block;font-size:.65rem;padding:.12rem .4rem;border-radius:4px;background:rgba(34,211,165,.15);color:var(--ok);margin-left:.4rem}
+.coord{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.84rem}
+.status{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/platform">Platform</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</nav>
+<main>
+  <h1>Market Intelligence <span class="badge">LIVE</span></h1>
+  <p class="sub">MVRV Z-Score Realignment · Multi-Factor Alpha Ranking · Squeeze Trigger Coordinates</p>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="mvrv">MVRV Realignment</button>
+    <button class="tab" data-tab="alpha">Alpha Ranking</button>
+    <button class="tab" data-tab="squeeze">Squeeze Triggers</button>
+  </div>
+
+  <div id="panel-mvrv" class="panel active">
+    <div class="card">
+      <label>Asset <input id="mvrvAsset" value="BTC"></label>
+      <button class="primary" id="mvrvRun" type="button">Refresh</button>
+      <div id="mvrvLoading" class="loading" style="display:none">Loading MVRV data…</div>
+      <div id="mvrvError" class="error" style="display:none"></div>
+      <div id="mvrvResults" style="display:none">
+        <div class="hero" id="mvrvHero">—</div>
+        <div class="metrics" id="mvrvMetrics"></div>
+        <div id="mvrvAlerts"></div>
+        <p class="status" id="mvrvMeta"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-alpha" class="panel">
+    <div class="card">
+      <button class="primary" id="alphaRun" type="button">Load Alpha Rankings</button>
+      <div id="alphaLoading" class="loading" style="display:none">Ranking assets…</div>
+      <div id="alphaError" class="error" style="display:none"></div>
+      <div id="alphaResults" style="display:none">
+        <table><thead><tr><th>#</th><th>Asset</th><th>Alpha</th><th>24h</th><th>Momentum</th><th>Liquidity</th></tr></thead><tbody id="alphaTable"></tbody></table>
+        <p class="status" id="alphaMeta"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-squeeze" class="panel">
+    <div class="card">
+      <label>Asset <input id="sqAsset" value="BTC"></label>
+      <button class="primary" id="sqRun" type="button">Scan Triggers</button>
+      <div id="sqLoading" class="loading" style="display:none">Scanning futures data…</div>
+      <div id="sqError" class="error" style="display:none"></div>
+      <div id="sqResults" style="display:none">
+        <div class="hero" id="sqHero">—</div>
+        <div id="sqCoords"></div>
+        <div id="sqAlerts"></div>
+        <p class="status" id="sqMeta"></p>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  $(`panel-${t.dataset.tab}`).classList.add('active');
+});
+
+function alertsHtml(alerts) {
+  return (alerts||[]).map(a => `<div class="alert ${a.level==='high'?'high':''}">${a.message||a.detail||a.code}</div>`).join('');
+}
+
+async function loadMvrv() {
+  $('mvrvLoading').style.display='block'; $('mvrvError').style.display='none'; $('mvrvResults').style.display='none';
+  try {
+    const a = $('mvrvAsset').value.trim()||'BTC';
+    const d = await (await fetch(`/api/platform/onchain/mvrv-realignment?asset=${encodeURIComponent(a)}`)).json();
+    $('mvrvLoading').style.display='none';
+    if (!d.ok) { $('mvrvError').style.display='block'; $('mvrvError').textContent=d.error||'Data unavailable'; return; }
+    $('mvrvResults').style.display='block';
+    $('mvrvHero').textContent = `Z-Score ${d.z_score} · ${d.regime.replace(/_/g,' ')}`;
+    $('mvrvMetrics').innerHTML = `
+      <div class="metric"><div class="k">Z-Score</div><div class="v">${d.z_score}</div></div>
+      <div class="metric"><div class="k">MVRV</div><div class="v">${d.mvrv_ratio}</div></div>
+      <div class="metric"><div class="k">Signal</div><div class="v">${d.realignment_signal}</div></div>
+      <div class="metric"><div class="k">Price</div><div class="v">$${Number(d.price).toLocaleString()}</div></div>`;
+    $('mvrvAlerts').innerHTML = alertsHtml(d.alerts);
+    $('mvrvMeta').textContent = `${d.latency_ms}ms · ${d.data_state} · ${d.sources?.join(', ')}`;
+  } catch(e) { $('mvrvLoading').style.display='none'; $('mvrvError').style.display='block'; $('mvrvError').textContent='Network error'; }
+}
+
+async function loadAlpha() {
+  $('alphaLoading').style.display='block'; $('alphaError').style.display='none'; $('alphaResults').style.display='none';
+  try {
+    const d = await (await fetch('/api/platform/alpha/ranking?limit=20')).json();
+    $('alphaLoading').style.display='none';
+    if (!d.ok) { $('alphaError').style.display='block'; $('alphaError').textContent=d.error||'Ranking unavailable'; return; }
+    $('alphaResults').style.display='block';
+    $('alphaTable').innerHTML = (d.rankings||[]).map(r => `<tr>
+      <td>${r.alpha_rank}</td><td><strong>${r.symbol}</strong></td><td>${r.alpha_score}</td>
+      <td>${(r.change_24h_pct??0).toFixed(1)}%</td>
+      <td>${r.factors?.momentum?.toFixed(0)}</td><td>${r.factors?.liquidity?.toFixed(0)}</td></tr>`).join('');
+    $('alphaMeta').textContent = `${d.count} assets · ${d.latency_ms}ms · BTC bench ${d.btc_benchmark_change_24h_pct}%`;
+  } catch(e) { $('alphaLoading').style.display='none'; $('alphaError').style.display='block'; $('alphaError').textContent='Network error'; }
+}
+
+async function loadSqueeze() {
+  $('sqLoading').style.display='block'; $('sqError').style.display='none'; $('sqResults').style.display='none';
+  try {
+    const a = $('sqAsset').value.trim()||'BTC';
+    const d = await (await fetch(`/api/platform/squeeze/triggers?asset=${encodeURIComponent(a)}`)).json();
+    $('sqLoading').style.display='none';
+    if (!d.ok) { $('sqError').style.display='block'; $('sqError').textContent=d.error||'Futures data unavailable'; return; }
+    $('sqResults').style.display='block';
+    $('sqHero').textContent = d.headline||'—';
+    $('sqCoords').innerHTML = (d.coordinates||[]).slice(0,12).map(c => `<div class="coord">
+      <span>${c.squeeze_type} · ${c.side||''} ${c.leverage_tier?c.leverage_tier+'x':''}</span>
+      <span>$${Number(c.trigger_price).toLocaleString()} (${c.distance_pct}%)</span></div>`).join('');
+    $('sqAlerts').innerHTML = alertsHtml(d.alerts);
+    $('sqMeta').textContent = `Mark $${Number(d.mark_price).toLocaleString()} · OI $${(d.metrics?.open_interest_usd/1e9).toFixed(2)}B · ${d.latency_ms}ms`;
+  } catch(e) { $('sqLoading').style.display='none'; $('sqError').style.display='block'; $('sqError').textContent='Network error'; }
+}
+
+$('mvrvRun').onclick = loadMvrv;
+$('alphaRun').onclick = loadAlpha;
+$('sqRun').onclick = loadSqueeze;
+loadMvrv();
+</script>
+</body>
+</html>

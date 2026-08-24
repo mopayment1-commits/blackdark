@@ -489,6 +489,28 @@ async def il_simulation_history(limit: int = Query(20, ge=1, le=100)):
     return {"kind": "lp_il", "simulations": [r for r in rows if r.get("kind") == "lp_il"]}
 
 
+@router.get("/onchain/mvrv-realignment")
+async def mvrv_realignment(asset: str = Query("BTC")):
+    from bd_platform.mvrv_realignment import compute_mvrv_realignment
+
+    return await compute_mvrv_realignment(asset)
+
+
+@router.get("/alpha/factor-ranking")
+async def alpha_factor_ranking(limit: int = Query(25, ge=5, le=50)):
+    from bd_platform.alpha_factor_ranking import rank_assets_by_alpha_factors
+
+    return await rank_assets_by_alpha_factors(limit=limit)
+
+
+@router.get("/squeeze/triggers")
+async def squeeze_triggers(asset: str = Query("BTC")):
+    from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
+
+    return await squeeze_trigger_coordinates(asset)
+
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

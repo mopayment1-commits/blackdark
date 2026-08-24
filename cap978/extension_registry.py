@@ -28,7 +28,11 @@ _EXTENSION_ID_BINDINGS: dict[int, tuple[str, str, str]] = {
     704: ("bd_platform.free_tier_capabilities", "defi_risk_radar", "none"),
     705: ("bd_platform.free_tier_capabilities", "lending_market_risk", "none"),
     934: ("lp_il_simulator", "il_vulnerability_score", "symbol"),
+    936: ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol"),
+    942: ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol"),
+    951: ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol"),
     954: ("lp_il_simulator", "simulate_lp_live", "symbol"),
+    974: ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol"),
     975: ("lp_il_simulator", "lp_front_payload", "symbol"),
 }
 
@@ -51,6 +55,9 @@ _EXTENSION_KEYWORD_RULES: tuple[tuple[tuple[str, ...], tuple[str, str, str]], ..
     (("etf flow", "etf"), ("bd_platform.onchain_hub", "lookintobitcoin_macro", "none")),
     (("digital asset treasury", "dat company"), ("bd_platform.market_rankings", "market_rankings", "none")),
     (("sopr", "mvrv", "realized cap", "cost basis", "holder cohort", "supply dynamic"), ("bd_platform.onchain_hub", "lookintobitcoin_macro", "none")),
+    (("realignment", "z-score dynamic"), ("bd_platform.mvrv_realignment", "compute_mvrv_realignment", "symbol")),
+    (("multi-factor alpha", "alpha ranking", "alpha rank"), ("bd_platform.alpha_factor_ranking", "rank_assets_by_alpha_factors", "none")),
+    (("squeeze trigger", "predictive coordinate", "liquidation cluster"), ("bd_platform.squeeze_trigger_engine", "squeeze_trigger_coordinates", "symbol")),
     (("exchange balance", "netflow", "exchange flow"), ("onchain_tracker", "build_onchain_context_safe", "none")),
     (("entity-adjusted", "entity aware"), ("onchain_tracker", "build_onchain_context_safe", "none")),
     (("transaction decoder", "tx decoder"), ("onchain_tracker", "build_onchain_context_safe", "none")),
