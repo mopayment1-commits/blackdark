@@ -404,6 +404,91 @@ async def alpha_engine_ranking(limit: int = Query(25, ge=5, le=50)):
     return await rank_alpha_universe(limit=limit)
 
 
+@router.get("/defi/il/pools")
+async def il_pools(query: str = Query("ETH USDC"), limit: int = Query(15, ge=1, le=30)):
+    from lp_il_simulator import fetch_live_pools
+
+    return await fetch_live_pools(query, limit=limit)
+
+
+@router.get("/defi/il/live")
+async def il_live_simulator(
+    token_a: str = Query("ETH"),
+    token_b: str = Query("USDC"),
+    amount_usd: float = Query(10_000, gt=0, le=10_000_000),
+    price_change_pct: float | None = Query(None),
+    horizon_days: float = Query(30, gt=0, le=365),
+    pair_address: str | None = None,
+    persist: bool = Query(False),
+):
+    from lp_il_simulator import persist_simulation, simulate_lp_live
+
+    result = await simulate_lp_live(
+        token_a=token_a,
+        token_b=token_b,
+        amount_usd=amount_usd,
+        price_change_pct=price_change_pct,
+        horizon_days=horizon_days,
+        pair_address=pair_address,
+    )
+    if persist and result.get("ok"):
+        log_id = await persist_simulation(result)
+        result["simulation_log_id"] = log_id
+    return result
+
+
+@router.post("/defi/il/simulate")
+async def il_simulate_post(body: dict = Body(...)):
+    from lp_il_simulator import persist_simulation, simulate_lp_live, simulate_lp_position
+
+    if body.get("live", True):
+        result = await simulate_lp_live(
+            token_a=str(body.get("token_a", "ETH")),
+            token_b=str(body.get("token_b", "USDC")),
+            amount_usd=float(body.get("amount_usd", 10_000)),
+            price_change_pct=body.get("price_change_pct"),
+            horizon_days=float(body.get("horizon_days", 30)),
+            pair_address=body.get("pair_address"),
+        )
+    else:
+        result = simulate_lp_position(
+            amount_usd=float(body.get("amount_usd", 10_000)),
+            entry_price=float(body["entry_price"]),
+            exit_price=float(body["exit_price"]),
+            fee_apy_pct=float(body.get("fee_apy_pct", 0)),
+            horizon_days=float(body.get("horizon_days", 30)),
+        )
+    if body.get("persist") and result.get("ok"):
+        log_id = await persist_simulation(result if "simulation" in result else {"simulation": result})
+        result["simulation_log_id"] = log_id
+    return result
+
+
+@router.get("/defi/il/vulnerability-score")
+async def il_vulnerability(
+    symbol: str = Query("ETH-USDC"),
+    volatility_30d_pct: float | None = None,
+    liquidity_usd: float | None = None,
+    fee_apy_pct: float | None = None,
+):
+    from lp_il_simulator import il_vulnerability_score
+
+    return il_vulnerability_score(
+        symbol=symbol,
+        volatility_30d_pct=volatility_30d_pct,
+        liquidity_usd=liquidity_usd,
+        fee_apy_pct=fee_apy_pct,
+    )
+
+
+@router.get("/defi/il/history")
+async def il_simulation_history(limit: int = Query(20, ge=1, le=100)):
+    from database import fetch_simulation_logs
+
+    rows = await fetch_simulation_logs(limit=limit)
+    return {"kind": "lp_il", "simulations": [r for r in rows if r.get("kind") == "lp_il"]}
+
+
 @router.get("/macro/bitcoin")
 async def macro_btc():
     from bd_platform.onchain_hub import lookintobitcoin_macro

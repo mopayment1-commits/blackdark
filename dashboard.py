@@ -1753,6 +1753,11 @@ async def visibility_cost_page(request: Request):
     return render_page(request, "visibility_cost.html", _footer_ctx())
 
 
+@app.get("/il-simulator", response_class=HTMLResponse)
+async def il_simulator_page(request: Request):
+    return render_page(request, "il_simulator.html", _footer_ctx())
+
+
 @app.get("/validity-decay", response_class=HTMLResponse)
 async def validity_decay_page(request: Request):
     return render_page(request, "validity_decay.html", _footer_ctx())
