@@ -272,7 +272,7 @@ async def ingest_funding(
                         await record_provenance(
                             session,
                             ingestion_run_id=run_id,
-                            target_table="funding_rates",
+                            target_table="de_funding_rates",
                             target_record_id=record_id,
                             source_endpoint=endpoint,
                             raw_body=raw,

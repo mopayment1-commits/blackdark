@@ -236,7 +236,7 @@ async def insert_funding_row(
     result = await session.execute(
         text(
             """
-            INSERT INTO funding_rates (
+            INSERT INTO de_funding_rates (
                 source_id, ingestion_run_id, symbol, funding_time,
                 funding_rate, mark_price, index_price, realized_rate
             ) VALUES (

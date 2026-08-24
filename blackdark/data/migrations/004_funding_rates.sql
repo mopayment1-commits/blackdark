@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS funding_rates (
+CREATE TABLE IF NOT EXISTS de_funding_rates (
     id BIGSERIAL PRIMARY KEY,
     source_id INTEGER REFERENCES data_sources(id),
     ingestion_run_id UUID REFERENCES ingestion_runs(id),
@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS funding_rates (
     UNIQUE(source_id, symbol, funding_time)
 );
 
-CREATE INDEX IF NOT EXISTS idx_funding_symbol_time
-    ON funding_rates(symbol, funding_time DESC);
+CREATE INDEX IF NOT EXISTS idx_de_funding_symbol_time
+    ON de_funding_rates(symbol, funding_time DESC);

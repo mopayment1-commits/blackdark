@@ -18,7 +18,7 @@ _REQUIRED_TABLES = (
     "data_sources",
     "ingestion_runs",
     "ohlcv_data",
-    "funding_rates",
+    "de_funding_rates",
     "open_interest",
     "market_events",
     "data_provenance",
