@@ -1478,6 +1478,124 @@ async def security_incident_paths_route():
     return incident_response_paths()
 
 
+# ── Feature #191 — Security Verification Evidence ──────────────────────────
+
+
+@router.get("/security/verification/status")
+async def security_verification_status_route():
+    """Security verification evidence status (#191) — release gate."""
+    from bd_platform.security_verification_evidence import security_verification_status
+
+    return security_verification_status()
+
+
+@router.get("/security/verification/evidence-pack")
+async def security_verification_evidence_pack_route():
+    """Build security evidence pack (#191) — institutional review."""
+    from bd_platform.security_verification_evidence import build_evidence_pack
+
+    return build_evidence_pack()
+
+
+@router.get("/security/verification/release-gate")
+async def security_verification_release_gate_route():
+    """Release gate status (#191) — PASS/BLOCKED."""
+    from bd_platform.security_verification_evidence import release_gate_status
+
+    return release_gate_status()
+
+
+@router.post("/security/verification/run-gates", responses=COMMON_ERROR_RESPONSES)
+async def security_verification_run_gates_route(
+    body: dict[str, Any] = Body(default={}),
+    _admin: dict = Depends(require_admin),
+):
+    """Run versioned security gates (#191)."""
+    from bd_platform.security_verification_evidence import run_security_gates
+
+    include_bandit = bool(body.get("include_bandit"))
+    return run_security_gates(include_bandit=include_bandit)
+
+
+@router.post("/security/verification/suppress", responses=COMMON_ERROR_RESPONSES)
+async def security_verification_suppress_route(
+    body: dict[str, Any] = Body(...),
+    _admin: dict = Depends(require_admin),
+):
+    """Suppress finding with signed rationale (#191) — CTO signature required."""
+    from bd_platform.security_verification_evidence import suppress_finding
+
+    finding_id = str(body.get("finding_id") or "")
+    rationale = str(body.get("rationale") or "")
+    signer = str(body.get("signer") or "admin")
+    if not finding_id or not rationale:
+        raise HTTPException(status_code=400, detail="finding_id and rationale required")
+    return suppress_finding(finding_id=finding_id, rationale=rationale, signer=signer)
+
+
+@router.post("/security/verification/remediate", responses=COMMON_ERROR_RESPONSES)
+async def security_verification_remediate_route(
+    body: dict[str, Any] = Body(...),
+    _admin: dict = Depends(require_admin),
+):
+    """Verify remediation with evidence (#191)."""
+    from bd_platform.security_verification_evidence import verify_remediation
+
+    finding_id = str(body.get("finding_id") or "")
+    evidence = str(body.get("evidence") or "")
+    if not finding_id or not evidence:
+        raise HTTPException(status_code=400, detail="finding_id and evidence required")
+    return verify_remediation(finding_id=finding_id, evidence=evidence)
+
+
+# ── Feature #199 — PnL Attribution & Drift Analysis ────────────────────────
+
+
+@router.get("/analytics/pnl-attribution/status")
+async def pnl_attribution_status_route():
+    """PnL Attribution Engine status (#199)."""
+    from bd_platform.pnl_attribution_engine import pnl_attribution_status
+
+    return pnl_attribution_status()
+
+
+@router.get("/analytics/pnl-attribution/methodology")
+async def pnl_attribution_methodology_route():
+    """Versioned methodology documentation (#199)."""
+    from bd_platform.pnl_attribution_engine import methodology_documentation
+
+    return methodology_documentation()
+
+
+@router.post("/analytics/pnl-attribution/trade", responses=COMMON_ERROR_RESPONSES)
+async def pnl_attribution_trade_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Attributed PnL report for a single trade (#199)."""
+    from bd_platform.pnl_attribution_engine import attribute_trade_pnl, export_trade_csv
+
+    report = attribute_trade_pnl(body)
+    if body.get("format") == "csv":
+        return {"ok": True, "csv": export_trade_csv(report), "report": report}
+    return report
+
+
+@router.post("/analytics/pnl-attribution/portfolio", responses=COMMON_ERROR_RESPONSES)
+async def pnl_attribution_portfolio_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Portfolio-level PnL attribution with Sharpe/Sortino (#199)."""
+    from bd_platform.pnl_attribution_engine import attribute_portfolio_pnl
+
+    trades = body.get("trades") or []
+    if not isinstance(trades, list) or not trades:
+        raise HTTPException(status_code=400, detail="trades list required")
+    period = str(body.get("period") or "portfolio")
+    return attribute_portfolio_pnl(trades, period_label=period)
+
+
 # ── Feature #167 — CLI Access (Institution tier) ─────────────────────────────
 
 

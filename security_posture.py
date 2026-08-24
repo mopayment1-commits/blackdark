@@ -187,6 +187,7 @@ def security_posture_report() -> dict[str, Any]:
             "docs/security/THREAT_MODEL.md",
             "docs/security/SECURITY_FIRST_ARCHITECTURE.md",
             "docs/security/SECURITY_CIRCUIT_BREAKERS.md",
+            "docs/security/SECURITY_VERIFICATION_EVIDENCE.md",
             "docs/security/API_SECURITY_ENCRYPTION.md",
             "docs/templates/pentest_scope.md",
             "docs/templates/PENTEST_ATTESTATION_INSTITUTIONAL.md",
