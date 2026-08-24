@@ -537,7 +537,7 @@ async def intelligence_ledger_slippage(
     chain: str = Query("ethereum"),
     user_tolerance_bps: int | None = Query(None, ge=10, le=300),
 ):
-    """Feature #5 — slippage tolerance self-optimization (vol + depth + gas)."""
+    """Slippage Intelligence Module (#5 + #17) — self-optimization + asymmetric cost."""
     from bd_platform.slippage_tolerance_optimizer import optimize_slippage_tolerance
 
     return await optimize_slippage_tolerance(
@@ -546,6 +546,53 @@ async def intelligence_ledger_slippage(
         chain=chain,
         user_tolerance_bps=user_tolerance_bps,
     )
+
+
+@router.get("/address-intelligence/search")
+async def address_intelligence_search(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+):
+    """On-Chain Address Intelligence (#10) — unified address search."""
+    from bd_platform.address_intelligence import search_address
+
+    return await search_address(address, chain=chain)
+
+
+@router.get("/address-intelligence/history")
+async def address_intelligence_history(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    days: int = Query(30, ge=1, le=90),
+):
+    """On-Chain Address Intelligence (#19) — balance history chart data."""
+    from bd_platform.address_intelligence import balance_history
+
+    return await balance_history(address, chain=chain, days=days)
+
+
+@router.get("/address-intelligence/updates")
+async def address_intelligence_updates(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    limit: int = Query(20, ge=1, le=50),
+):
+    """On-Chain Address Intelligence (#20) — balance update feed (state diffs)."""
+    from bd_platform.address_intelligence import balance_updates
+
+    return await balance_updates(address, chain=chain, limit=limit)
+
+
+@router.get("/address-intelligence/overview")
+async def address_intelligence_overview_route(
+    address: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+    history_days: int = Query(30, ge=1, le=90),
+):
+    """Unified On-Chain Address Intelligence — search + history + updates."""
+    from bd_platform.address_intelligence import address_intelligence_overview
+
+    return await address_intelligence_overview(address, chain=chain, history_days=history_days)
 
 
 @router.get("/macro/bitcoin")

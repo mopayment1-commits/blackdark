@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACKDARK — On-Chain Address Intelligence</title>
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#06080d;--fg:#f0f4f8;--muted:#8b9cb3;--line:#1e2a3a;--ok:#22d3a5;--accent:#06b6d4;--warn:#fbbf24;--bad:#f87171;--card:rgba(255,255,255,.03)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:radial-gradient(900px 500px at 20% -10%,#0a2a35 0%,transparent 50%),linear-gradient(165deg,#06080d,#0c1219);min-height:100vh}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--line)}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.9rem}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--ok);text-decoration:none}
+main{max-width:1100px;margin:0 auto;padding:2rem 1.25rem 4rem}
+h1{font-family:Syne,sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);margin:0}
+.sub{color:var(--muted);margin:.5rem 0 1.25rem;line-height:1.5}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.tab{border:1px solid var(--line);background:transparent;color:var(--muted);padding:.55rem 1rem;border-radius:8px;cursor:pointer;font-weight:600}
+.tab.active{background:var(--accent);color:#04120e;border-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+.card{border:1px solid var(--line);border-radius:12px;padding:1.1rem;background:var(--card);margin-bottom:1rem}
+.hero{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:var(--accent);margin:.5rem 0}
+input,button,select{font:inherit}
+input,select{background:#0b1118;border:1px solid var(--line);color:var(--fg);padding:.55rem .7rem;border-radius:8px;margin-right:.5rem;margin-bottom:.35rem}
+input.addr{min-width:22rem;font-family:ui-monospace,monospace;font-size:.82rem}
+button.primary{border:0;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:800;padding:.65rem 1.1rem;border-radius:8px;cursor:pointer}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem;margin:1rem 0}
+.metric{border:1px solid var(--line);border-radius:8px;padding:.65rem;background:rgba(0,0,0,.2)}
+.metric .k{font-size:.7rem;color:var(--muted);text-transform:uppercase}
+.metric .v{font-size:1.05rem;font-weight:700;margin-top:.15rem}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:.5rem;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-size:.72rem;text-transform:uppercase}
+.feed-row{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--line);font-size:.84rem}
+.inflow{color:var(--ok)}.outflow{color:var(--bad)}
+.chart-wrap{height:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem;margin:1rem 0;position:relative}
+.chart-bar{position:absolute;bottom:0;background:linear-gradient(180deg,var(--accent),#1e40af);border-radius:3px 3px 0 0;min-width:4px}
+.loading,.error,.empty{color:var(--muted);padding:1.5rem;text-align:center}
+.error{color:var(--bad)}
+.badge{display:inline-block;font-size:.65rem;padding:.12rem .4rem;border-radius:4px;background:rgba(6,182,212,.2);color:#67e8f9;margin-left:.4rem}
+.status{font-size:.78rem;color:var(--muted);margin-top:.5rem}
+.label-pill{display:inline-block;font-size:.72rem;padding:.15rem .45rem;border-radius:4px;background:rgba(34,211,165,.12);color:var(--ok);margin:.15rem .2rem 0 0}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/platform">Platform</a>
+    <a href="/intelligence-ledger">Ledger</a>
+    <a href="/dashboard">Dashboard</a>
+  </div>
+</nav>
+<main>
+  <h1>On-Chain Address Intelligence <span class="badge">#10+#19+#20</span></h1>
+  <p class="sub">Unified module — address search, balance history chart, and real-time balance update feed with chain-specific tracking.</p>
+
+  <div class="card">
+    <label>Address <input class="addr" id="addrInput" value="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045" placeholder="0x… or Solana address"></label>
+    <label>Chain
+      <select id="chainSelect">
+        <option value="ethereum">ethereum</option>
+        <option value="polygon">polygon</option>
+        <option value="arbitrum">arbitrum</option>
+        <option value="base">base</option>
+        <option value="solana">solana</option>
+      </select>
+    </label>
+    <button class="primary" id="runAll" type="button">Analyze Address</button>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="search">Search (#10)</button>
+    <button class="tab" data-tab="history">History Chart (#19)</button>
+    <button class="tab" data-tab="updates">Balance Updates (#20)</button>
+  </div>
+
+  <div id="panel-search" class="panel active">
+    <div class="card">
+      <div id="searchLoading" class="loading" style="display:none">Searching address…</div>
+      <div id="searchError" class="error" style="display:none"></div>
+      <div id="searchResults" style="display:none">
+        <div class="hero" id="searchHero">—</div>
+        <div class="metrics" id="searchMetrics"></div>
+        <div id="searchLabels"></div>
+        <p class="status" id="searchMeta"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-history" class="panel">
+    <div class="card">
+      <div id="histLoading" class="loading" style="display:none">Loading balance history…</div>
+      <div id="histError" class="error" style="display:none"></div>
+      <div id="histResults" style="display:none">
+        <div class="hero" id="histHero">—</div>
+        <div class="chart-wrap" id="histChart"></div>
+        <p class="status" id="histMeta"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="panel-updates" class="panel">
+    <div class="card">
+      <div id="updLoading" class="loading" style="display:none">Fetching balance updates…</div>
+      <div id="updError" class="error" style="display:none"></div>
+      <div id="updResults" style="display:none">
+        <div class="hero" id="updHero">—</div>
+        <div id="updFeed"></div>
+        <p class="status" id="updMeta"></p>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function metric(k,v){return `<div class="metric"><div class="k">${k}</div><div class="v">${v}</div></div>`;}
+function params(){return {addr:encodeURIComponent($('addrInput').value.trim()),chain:encodeURIComponent($('chainSelect').value)};}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  $('panel-'+t.dataset.tab).classList.add('active');
+}));
+
+function renderChart(series){
+  const wrap=$('histChart'); wrap.innerHTML='';
+  if(!series||!series.length){wrap.innerHTML='<div class="empty">No history data</div>';return;}
+  const vals=series.map(p=>p.total_usd||0);
+  const max=Math.max(...vals,1);
+  const w=wrap.clientWidth||600;
+  const barW=Math.max(4,Math.floor(w/series.length)-2);
+  series.forEach((p,i)=>{
+    const h=Math.max(4,(p.total_usd/max)*160);
+    const bar=document.createElement('div');
+    bar.className='chart-bar';
+    bar.style.cssText=`left:${i*(barW+2)}px;width:${barW}px;height:${h}px;opacity:${p.proxy?0.5:1}`;
+    bar.title=`$${(p.total_usd||0).toLocaleString()} · ${p.timestamp||''}`;
+    wrap.appendChild(bar);
+  });
+}
+
+async function loadSearch(){
+  const {addr,chain}=params();
+  $('searchLoading').style.display='block';$('searchError').style.display='none';$('searchResults').style.display='none';
+  try{
+    const d=await(await fetch(`/api/platform/address-intelligence/search?address=${addr}&chain=${chain}`)).json();
+    if(!d.ok) throw new Error(d.error||'Search failed');
+    $('searchHero').textContent=d.entity_label?`${d.entity_label}`:`${d.address.slice(0,10)}…`;
+    $('searchMetrics').innerHTML=[
+      metric('Total USD',d.total_usd?`$${Math.round(d.total_usd).toLocaleString()}`:'—'),
+      metric('Chain',d.chain||'—'),
+      metric('Source',(d.balance||{}).source||'—'),
+      metric('Clusters',((d.clusters||{}).clusters||[]).length)
+    ].join('');
+    const labels=(d.labels||{}).labels||[];
+    $('searchLabels').innerHTML=labels.length?labels.map(l=>`<span class="label-pill">${l.label||'—'}</span>`).join(''):'<span class="empty">No labels</span>';
+    $('searchMeta').textContent=`${d.latency_ms}ms · ${d.data_state} · SLA ${d.sla_met?'met':'missed'}`;
+    $('searchResults').style.display='block';
+  }catch(e){$('searchError').textContent=e.message;$('searchError').style.display='block';}
+  finally{$('searchLoading').style.display='none';}
+}
+
+async function loadHistory(){
+  const {addr,chain}=params();
+  $('histLoading').style.display='block';$('histError').style.display='none';$('histResults').style.display='none';
+  try{
+    const d=await(await fetch(`/api/platform/address-intelligence/history?address=${addr}&chain=${chain}&days=30`)).json();
+    if(!d.ok) throw new Error(d.error||'History failed');
+    $('histHero').textContent=`$${Math.round(d.current_usd||0).toLocaleString()} current balance`;
+    renderChart(d.series||[]);
+    $('histMeta').textContent=`${d.point_count} points · ${d.proxy_bootstrap?'proxy bootstrap · ':''}${d.latency_ms}ms · ${d.chain}`;
+    $('histResults').style.display='block';
+  }catch(e){$('histError').textContent=e.message;$('histError').style.display='block';}
+  finally{$('histLoading').style.display='none';}
+}
+
+async function loadUpdates(){
+  const {addr,chain}=params();
+  $('updLoading').style.display='block';$('updError').style.display='none';$('updResults').style.display='none';
+  try{
+    const d=await(await fetch(`/api/platform/address-intelligence/updates?address=${addr}&chain=${chain}`)).json();
+    if(!d.ok) throw new Error(d.error||'Updates failed');
+    $('updHero').textContent=d.headline||'—';
+    const feed=(d.feed||[]).map(u=>`<div class="feed-row"><span>${u.timestamp?.slice(0,19)||'—'}</span><span class="${u.direction==='inflow'?'inflow':'outflow'}">${u.direction} $${Math.abs(u.delta_usd||0).toLocaleString()}</span><span>$${Math.round(u.current_usd||0).toLocaleString()}</span></div>`).join('');
+    $('updFeed').innerHTML=feed||'<div class="empty">No updates yet — snapshots accumulate on each poll</div>';
+    $('updMeta').textContent=`${d.feed_count} updates · ${d.latency_ms}ms · chain ${d.chain}`;
+    $('updResults').style.display='block';
+  }catch(e){$('updError').textContent=e.message;$('updError').style.display='block';}
+  finally{$('updLoading').style.display='none';}
+}
+
+async function runAll(){await Promise.all([loadSearch(),loadHistory(),loadUpdates()]);}
+$('runAll').addEventListener('click',runAll);
+runAll();
+</script>
+</body>
+</html>
