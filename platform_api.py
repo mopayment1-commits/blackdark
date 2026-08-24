@@ -609,6 +609,85 @@ async def mvrv_realignment(asset: str = Query("BTC")):
     return await compute_mvrv_realignment(asset)
 
 
+@router.get("/onchain/mvrv-cycle")
+async def mvrv_cycle_context(asset: str = Query("BTC")):
+    """MVRV Z-Score (#72) — cycle zone for Decision Engine regime filter."""
+    from bd_platform.mvrv_realignment import mvrv_cycle_context_for_decision_engine
+
+    return await mvrv_cycle_context_for_decision_engine(asset)
+
+
+@router.post("/trading-journal/trades")
+async def trading_journal_record(
+    user_id: str = Query(..., min_length=1),
+    pair: str = Query(...),
+    side: str = Query("buy"),
+    entry_price: float = Query(..., gt=0),
+    exit_price: float | None = Query(None),
+    size_usd: float = Query(..., gt=0),
+    fees_usd: float = Query(0, ge=0),
+    exchange: str = Query("manual"),
+    mood: str | None = Query(None),
+    notes: str | None = Query(None),
+    ai_signal_followed: bool | None = Query(None),
+):
+    from bd_platform.trading_journal_coach import record_trade
+
+    return record_trade(
+        user_id=user_id,
+        pair=pair,
+        side=side,
+        entry_price=entry_price,
+        exit_price=exit_price,
+        size_usd=size_usd,
+        fees_usd=fees_usd,
+        exchange=exchange,
+        mood=mood,
+        notes=notes,
+        ai_signal_followed=ai_signal_followed,
+    )
+
+
+@router.post("/trading-journal/import")
+async def trading_journal_import(
+    user_id: str = Query(..., min_length=1),
+    exchange: str = Query(...),
+    trades: list[dict[str, Any]] = Body(...),
+):
+    from bd_platform.trading_journal_coach import import_exchange_trades
+
+    return import_exchange_trades(user_id=user_id, exchange=exchange, trades=trades)
+
+
+@router.get("/trading-journal/dashboard")
+async def trading_journal_dashboard(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import journal_dashboard
+
+    return journal_dashboard(user_id)
+
+
+@router.get("/trading-journal/coach-report")
+async def trading_journal_coach_report(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import weekly_report_card
+
+    return weekly_report_card(user_id)
+
+
+@router.get("/trading-journal/mistakes")
+async def trading_journal_mistakes(user_id: str = Query(..., min_length=1)):
+    from bd_platform.trading_journal_coach import _load_trades, _user_hash, detect_mistakes
+
+    trades = _load_trades(_user_hash(user_id))
+    return {"ok": True, "feature": "#99", "mistakes": detect_mistakes(trades), "private": True}
+
+
+@router.get("/trading-journal/status")
+async def trading_journal_status():
+    from bd_platform.trading_journal_coach import trading_journal_module_status
+
+    return trading_journal_module_status()
+
+
 @router.get("/alpha/factor-ranking")
 async def alpha_factor_ranking(limit: int = Query(25, ge=5, le=50)):
     from bd_platform.alpha_factor_ranking import rank_assets_by_alpha_factors
