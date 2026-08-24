@@ -119,12 +119,54 @@ async def _fetch_funding_rate_pct(asset: str) -> float | None:
     try:
         from bd_platform.free_market_data import binance_futures_snapshot
 
-        snap = await binance_futures_snapshot(asset)
+        snap = await asyncio.wait_for(binance_futures_snapshot(asset), timeout=1.0)
         if snap.get("available"):
             return float(snap.get("funding_rate_pct") or 0)
     except Exception:
         logger.debug("funding fetch skipped for %s", asset)
     return None
+
+
+async def _lightweight_analysis(
+    asset: str,
+    *,
+    price: float,
+    change: float,
+    volume: float,
+    funding_pct: float | None,
+) -> dict[str, Any]:
+    """Fast path when full unified oracle exceeds SLA budget."""
+    from oracle_unified import compute_base_technical_score
+
+    base = int(compute_base_technical_score(volume, change))
+    if change <= -8:
+        verdict = "SELL"
+    elif change >= 5 and volume > 100_000_000:
+        verdict = "BUY"
+    elif base < 40:
+        verdict = "SELL"
+    elif base >= 65:
+        verdict = "BUY"
+    else:
+        verdict = "WAIT"
+    confidence = max(45, min(88, base))
+    reason_en, _ = _pick_single_reason(
+        asset=asset,
+        change_24h=change,
+        quote_volume=volume,
+        hub_reasons=[],
+        funding_rate_pct=funding_pct,
+    )
+    analysis = _score_to_analysis(base, verdict)
+    return {
+        "opportunity_score": base,
+        "confidence": confidence,
+        "internal_verdict": verdict,
+        "hub_reasons": [],
+        "engine": "single_sentence_fast_v1",
+        "reason_en": reason_en,
+        "analysis": analysis,
+    }
 
 
 async def query_single_sentence_oracle(
@@ -160,12 +202,20 @@ async def query_single_sentence_oracle(
     change = float(market.get("change_pct") or market.get("change") or 0) if market else 0.0
     volume = float(market.get("quote_volume") or market.get("volume") or 0) if market else 0.0
 
-    from oracle_unified import compute_unified_oracle
+    fast = await _lightweight_analysis(
+        asset, price=price, change=change, volume=volume, funding_pct=funding_pct
+    )
+    unified: dict[str, Any] = {
+        "opportunity_score": fast["opportunity_score"],
+        "confidence": fast["confidence"],
+        "internal_verdict": fast["internal_verdict"],
+        "hub_reasons": fast["hub_reasons"],
+        "engine": fast["engine"],
+    }
 
-    unified = await compute_unified_oracle(asset, price, volume, change, include_ml=False)
-    score = int(unified.get("opportunity_score") or 50)
-    confidence = int(unified.get("confidence") or 50)
-    internal_verdict = str(unified.get("internal_verdict") or unified.get("verdict") or "WAIT")
+    score = int(unified["opportunity_score"])
+    confidence = int(unified["confidence"])
+    internal_verdict = str(unified["internal_verdict"])
     analysis = _score_to_analysis(score, internal_verdict)
 
     hub_reasons = list(unified.get("hub_reasons") or [])
