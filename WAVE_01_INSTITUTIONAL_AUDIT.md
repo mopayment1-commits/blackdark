@@ -114,6 +114,14 @@ Smoke checks: OHLCV `LIVE`, funding/OI `MISSING`, `X-Wave-01` header, wave-01 ho
 | Audit API | `GET /api/v1/data/wave-01` |
 | Unit tests | `tests/test_wave_01_data_engine.py`, `tests/test_wave_01_institutional.py` |
 
+### Production verification (2026-08-24 UTC)
+
+| Gate | Result |
+|------|--------|
+| `bash scripts/wave_01_institutional_proof.sh` | **PROOF PASS** (5.0–5.8; 5.1–5.2 SKIP without ADMIN_KEY) |
+| `k6 run -e MODE=smoke` | **100% checks**, 0% http_req_failed, p(95)=177ms |
+| Platform verdict | **NOT READY** (unchanged) |
+
 ---
 
 ## 8. Auditor conclusion

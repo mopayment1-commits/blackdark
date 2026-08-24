@@ -3,7 +3,8 @@
 **Branch:** `cursor/wave-01-data-engine-e85e` (merged PR #92)  
 **Bootstrap fix:** `cursor/wave-01-bootstrap-e85e`  
 **Version:** `1.0.0`  
-**Institutional verdict:** **NOT READY** — see [`BLACKDARK_CONTEXT.md`](BLACKDARK_CONTEXT.md) (6 critical defects open)
+**Institutional audit:** [`WAVE_01_INSTITUTIONAL_AUDIT.md`](WAVE_01_INSTITUTIONAL_AUDIT.md)  
+**Proof runner:** `bash scripts/wave_01_institutional_proof.sh`
 
 ## Objective
 
