@@ -129,6 +129,17 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         arkham = {"ok": False, "data_state": "MISSING"}
 
     total_usd = _extract_total_usd(balance if isinstance(balance, dict) else {})
+    solana_onchain: dict[str, Any] | None = None
+    if chain.lower() == "solana" and len(addr) >= 32:
+        try:
+            from blackdark.ingestion.solana_rpc_connector import fetch_solana_balance
+
+            sol = await fetch_solana_balance(addr)
+            if sol.get("ok"):
+                solana_onchain = sol
+        except Exception:
+            solana_onchain = None
+
     if total_usd > 0:
         _append_snapshot(addr, chain, total_usd=total_usd, source=balance.get("source", "search"))
         try:
@@ -165,7 +176,9 @@ async def search_address(address: str, *, chain: str = "ethereum") -> dict[str, 
         "labels": labels,
         "clusters": clusters,
         "arkham_entity": arkham if arkham.get("ok") else None,
-        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham"],
+        "solana_onchain": solana_onchain,
+        "solana_data_included": bool(solana_onchain),
+        "sources": ["tracely", "debank", "zerion", "eth-labels", "arkham", "solana_rpc"],
         "data_state": "LIVE" if balance.get("available") else "PARTIAL",
         "latency_ms": round((time.perf_counter() - t0) * 1000, 1),
         "sla_met": (time.perf_counter() - t0) <= 2.0,

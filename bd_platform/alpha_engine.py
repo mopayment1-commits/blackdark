@@ -78,6 +78,18 @@ async def compute_alpha_signal(symbol: str = "BTC") -> dict[str, Any]:
     ctx = await gather_alpha_inputs(symbol)
     features = ctx["features"]
     score = _composite(features)
+
+    decision_ctx: dict[str, Any] = {}
+    try:
+        from bd_platform.decision_engine_inputs import gather_decision_inputs
+
+        decision_ctx = await gather_decision_inputs(symbol)
+        risk_delta = float(decision_ctx.get("risk_score_delta") or 0)
+        if risk_delta:
+            score = round(max(0.0, min(100.0, score - risk_delta * 2.5)), 2)
+    except Exception:
+        logger.debug("decision inputs unavailable for alpha signal")
+
     fg = ctx["sources"]["alternative_me_fear_greed"]
     entity = ctx["sources"]["arkham_entity"]
 
@@ -88,7 +100,20 @@ async def compute_alpha_signal(symbol: str = "BTC") -> dict[str, Any]:
         bias = "bearish"
 
     explanations = build_explanations(features, bias=bias, score=score)
+    for line in (decision_ctx.get("headlines") or [])[:2]:
+        explanations.append(
+            {
+                "factor": "decision_context",
+                "direction": "neutral",
+                "weight": "medium",
+                "text": line,
+            }
+        )
     confidence = round(min(95.0, 50 + abs(score - 50) * 0.9), 1)
+
+    headline = f"{ctx['symbol']} alpha {score:.0f}/100 ({bias})"
+    if decision_ctx.get("headlines"):
+        headline = str(decision_ctx["headlines"][0])
 
     return {
         "ok": True,
@@ -97,12 +122,17 @@ async def compute_alpha_signal(symbol: str = "BTC") -> dict[str, Any]:
         "alpha_score": score,
         "confidence_pct": confidence,
         "bias": bias,
-        "headline": f"{ctx['symbol']} alpha {score:.0f}/100 ({bias})",
+        "headline": headline,
         "features": features,
         "feature_count": len(features),
         "factors": ctx["factors"],
         "weights": _FEATURE_WEIGHTS,
         "explanations": explanations,
+        "decision_inputs": {
+            "risk_score_delta": decision_ctx.get("risk_score_delta"),
+            "exchange_net_flow_usd": (decision_ctx.get("exchange_flows") or {}).get("net_flow_usd"),
+            "solana_onchain_included": bool((decision_ctx.get("solana_onchain") or {}).get("ok")),
+        },
         "model": {
             "type": "weighted_ensemble_v1",
             "next": "RandomForest/XGBoost after feature stability",
@@ -115,7 +145,7 @@ async def compute_alpha_signal(symbol: str = "BTC") -> dict[str, Any]:
             "entity_source": entity.get("source"),
             "price_usd": ctx["sources"]["coingecko"].get("price_usd"),
         },
-        "input_sources": ["coingecko", "alternative.me", "arkham"],
+        "input_sources": ["coingecko", "alternative.me", "arkham", "exchange_flows", "research", "solana_rpc"],
         "mvp_metrics": {
             "sharpe_target": 0.8,
             "max_drawdown_pct_target": 25,

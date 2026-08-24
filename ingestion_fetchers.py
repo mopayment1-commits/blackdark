@@ -307,6 +307,18 @@ async def _h_defillama_yields(session: aiohttp.ClientSession, spec: DataSourceSp
     return {"pools": pools}
 
 
+async def _h_theblock_rss(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.theblock_connector import fetch_theblock_research_context
+
+    data = await fetch_theblock_research_context(limit=8)
+    return {
+        "articles": (data.get("articles") or [])[:5],
+        "ai_context_line": data.get("ai_context_line"),
+        "source": "theblock_connector",
+        "cache_hit": data.get("cache_hit"),
+    }
+
+
 async def _h_dexscreener(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     data = await _fetch_json(session, spec.url, params={"q": "BTC"})
     return {"pairs": _take(data.get("pairs") or [], 5)}
@@ -505,6 +517,7 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "defillama_protocols": _h_defillama_protocols,
     "defillama_yields": _h_defillama_yields,
     "dexscreener": _h_dexscreener,
+    "theblock_rss": _h_theblock_rss,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
     "reddit_crypto": _h_reddit,

@@ -412,6 +412,27 @@ async def alpha_engine_backtest(asset: str = Query("BTC")):
     return await alpha_backtest_summary(asset)
 
 
+@router.get("/decision/inputs")
+async def decision_engine_inputs(asset: str = Query("ETH")):
+    """Decision Engine (#48) — internal metrics from silent data layer (#97, #95, #93)."""
+    from bd_platform.decision_engine_inputs import gather_decision_inputs
+
+    return await gather_decision_inputs(asset)
+
+
+@router.get("/ingestion/data-layer/status")
+async def ingestion_data_layer_status():
+    """Infrastructure — silent data layer connector health (#93, #95, #97)."""
+    from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
+    from blackdark.ingestion.theblock_connector import theblock_connector_status
+
+    return {
+        "exchange_flow_metric": {"ok": True, "feature": "#97", "role": "decision_engine_input"},
+        "theblock": theblock_connector_status(),
+        "solana_rpc": solana_rpc_connector_status(),
+    }
+
+
 @router.get("/defi/il/pools")
 async def il_pools(query: str = Query("ETH USDC"), limit: int = Query(15, ge=1, le=30)):
     from lp_il_simulator import fetch_live_pools
