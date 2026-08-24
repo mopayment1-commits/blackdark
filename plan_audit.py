@@ -227,12 +227,22 @@ async def market_radar_narrative() -> dict[str, Any]:
     sectors = _sector_rows(sector_assets)
     bullets_en = _market_radar_bullets(sectors)
 
-    return {
+    payload = {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
         "bullets": bullets_en,
         "sectors": sectors,
         "timestamp": datetime.now(UTC).isoformat(),
     }
+
+    try:
+        from bd_platform.feed_latency_intelligence import compare_feed_latency, enrich_market_radar
+
+        feed = await compare_feed_latency("BTC")
+        payload = enrich_market_radar(payload, feed)
+    except Exception:
+        pass
+
+    return payload
 
 
 async def execution_speed_snapshot() -> dict[str, Any]:

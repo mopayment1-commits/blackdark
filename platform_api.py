@@ -208,6 +208,46 @@ async def market_rankings(limit: int = Query(100, le=250)):
     return await _fn(limit=limit)
 
 
+@router.get("/market-radar/feed-latency")
+async def market_radar_feed_latency(
+    symbol: str = Query("BTC"),
+    _user: dict = Depends(require_authenticated),
+):
+    """Data Freshness / Feed Latency (#111) — Pro tier informational Market Radar layer."""
+    from auth_service import feature_allowed
+    from bd_platform.feed_latency_intelligence import compare_feed_latency
+
+    if not feature_allowed(_user, "feed_latency"):
+        raise HTTPException(
+            status_code=403,
+            detail={
+                "error": "upgrade_required",
+                "feature": "feed_latency",
+                "tier_required": "pro",
+                "message": "Feed Latency intelligence requires Pro tier or above.",
+            },
+        )
+    return await compare_feed_latency(symbol)
+
+
+@router.get("/market-radar/feed-latency/overview")
+async def market_radar_feed_latency_overview(
+    symbols: str | None = Query(None, description="Comma-separated assets, e.g. BTC,ETH,SOL"),
+    _user: dict = Depends(require_authenticated),
+):
+    """Multi-asset Feed Latency overview (#111)."""
+    from auth_service import feature_allowed
+    from bd_platform.feed_latency_intelligence import feed_latency_overview
+
+    if not feature_allowed(_user, "feed_latency"):
+        raise HTTPException(
+            status_code=403,
+            detail={"error": "upgrade_required", "feature": "feed_latency", "tier_required": "pro"},
+        )
+    asset_list = [s.strip().upper() for s in symbols.split(",") if s.strip()] if symbols else None
+    return await feed_latency_overview(asset_list)
+
+
 @router.get("/market/coin/{coin_id}")
 async def market_coin_detail(coin_id: str):
     from bd_platform.market_rankings import coin_detail
