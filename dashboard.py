@@ -835,6 +835,23 @@ except Exception:
     logger.exception("Institutional compounding router unavailable")
 
 try:
+    from blackdark.data.api import admin_router as data_engine_admin_router
+    from blackdark.data.api import router as data_engine_router
+
+    app.include_router(data_engine_router)
+    app.include_router(data_engine_admin_router)
+except Exception:
+    logger.exception("Wave 01 data engine router unavailable")
+
+
+@app.middleware("http")
+async def wave_01_data_header_middleware(request: Request, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/api/v1/data"):
+        response.headers.setdefault("X-Wave-01", "1.0.0")
+    return response
+
+try:
     from graphql_schema import create_graphql_router
 
     app.include_router(create_graphql_router(), prefix="")

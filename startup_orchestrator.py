@@ -473,7 +473,22 @@ async def run_background_startup(state: RuntimeState) -> None:
     _start_cloud_sync(state)
     await _start_uptime_probe(state)
     _start_billing_sweeper(state)
+    await _start_data_engine(state)
     logger.info("BLACKDARK background startup complete.")
+
+
+async def _start_data_engine(state: RuntimeState) -> None:
+    if not _env_flag("DATA_ENGINE_ENABLED", "true"):
+        return
+    try:
+        from blackdark.data.jobs import bootstrap_data_engine, start_data_engine_jobs
+
+        boot = await bootstrap_data_engine()
+        if boot.get("ok"):
+            state.extras["data_engine_jobs"] = start_data_engine_jobs()
+            logger.info("Wave 01 data engine bootstrapped | %s", boot)
+    except Exception:
+        logger.exception("Wave 01 data engine startup failed")
 
 
 async def _maybe_run_dbt_bootstrap() -> None:
