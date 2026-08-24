@@ -436,6 +436,7 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
     from blackdark.ingestion.theblock_connector import theblock_connector_status
     from blackdark.ingestion.twelvedata_connector import twelvedata_connector_status
+    from bd_platform.execution_optimizer import execution_optimizer_status
 
     return {
         "circuit_breakers": circuit_snapshot(),
@@ -455,6 +456,8 @@ async def ingestion_data_layer_status():
         "tronscan": tronscan_connector_status(),
         "theblock": theblock_connector_status(),
         "twelvedata": twelvedata_connector_status(),
+        "execution_optimizer": execution_optimizer_status(),
+        "flash_crash_protection": {"ok": True, "feature": "#57", "role": "circuit_breaker"},
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
     }
@@ -618,6 +621,51 @@ async def squeeze_triggers(asset: str = Query("BTC")):
     from bd_platform.squeeze_trigger_engine import squeeze_trigger_coordinates
 
     return await squeeze_trigger_coordinates(asset)
+
+
+@router.get("/execution/optimize")
+async def execution_optimizer_route(
+    asset: str = Query("ETH"),
+    amount_usd: float = Query(10_000.0, ge=100.0, le=10_000_000.0),
+    chain: str = Query("ethereum"),
+    side: str = Query("buy"),
+    priority: str = Query("cost"),
+    cross_chain: bool = Query(False),
+):
+    """AI Execution Optimizer (#56) — true cost routing across 20+ DEX + 5 CEX."""
+    from bd_platform.execution_optimizer import optimize_execution
+
+    pri = priority if priority in {"cost", "speed", "safety"} else "cost"
+    return await optimize_execution(
+        asset=asset,
+        amount_usd=amount_usd,
+        chain=chain,
+        side=side,
+        priority=pri,  # type: ignore[arg-type]
+        cross_chain=cross_chain,
+    )
+
+
+@router.get("/execution/status")
+async def execution_optimizer_status_route():
+    from bd_platform.execution_optimizer import execution_optimizer_status
+
+    return execution_optimizer_status()
+
+
+@router.get("/flash-crash/evaluate")
+async def flash_crash_evaluate_route(asset: str = Query("BTC")):
+    """Flash-Crash Protection (#57) — anomaly detection + circuit breaker."""
+    from bd_platform.flash_crash_protection import evaluate_flash_protection
+
+    return await evaluate_flash_protection(asset)
+
+
+@router.get("/flash-crash/status")
+async def flash_crash_status_route(asset: str | None = Query(None)):
+    from bd_platform.flash_crash_protection import circuit_breaker_status
+
+    return circuit_breaker_status(asset)
 
 
 @router.get("/intelligence-ledger/execution")
