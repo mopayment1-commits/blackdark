@@ -42,6 +42,17 @@ def test_parse_funding():
     assert parsed[0]["funding_rate"] == Decimal("0.0001")
 
 
+def test_parse_coingecko_ohlc():
+    from blackdark.data.ingestors.coingecko import parse_ohlc
+
+    rows = [[1704067200000, "42000.1", "42500", "41800", "42300.5"]]
+    parsed = parse_ohlc("BTCUSDT", "30m", rows)
+    assert len(parsed) == 1
+    assert parsed[0]["symbol"] == "BTCUSDT"
+    assert parsed[0]["close"] == Decimal("42300.5")
+    assert parsed[0]["interval"] == "30m"
+
+
 def test_data_api_requires_postgres(tmp_path, monkeypatch):
     monkeypatch.delenv("DATABASE_URL", raising=False)
     import config

@@ -99,7 +99,6 @@ async def ensure_data_engine_ready() -> None:
         async with get_session() as session:
             await seed_data_sources(session)
             needs_ingest = await count_ohlcv_rows(session) == 0
-        _bootstrapped = True
         if needs_ingest and os.getenv("DATA_ENGINE_BOOTSTRAP_INGEST", "true").lower() in {
             "1",
             "true",
@@ -107,4 +106,5 @@ async def ensure_data_engine_ready() -> None:
         }:
             from blackdark.data.jobs import run_bootstrap_ingest_once
 
-            asyncio.create_task(run_bootstrap_ingest_once())
+            await run_bootstrap_ingest_once()
+        _bootstrapped = True

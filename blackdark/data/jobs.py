@@ -13,7 +13,7 @@ from apscheduler.triggers.interval import IntervalTrigger
 
 from blackdark.data.db import data_engine_available, get_session
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv
-from blackdark.data.ingestors.coingecko import ingest_markets
+from blackdark.data.ingestors.coingecko import ingest_markets, ingest_ohlcv as coingecko_ingest_ohlcv
 
 logger = logging.getLogger("BLACKDARK.DataEngine.Jobs")
 
@@ -64,6 +64,18 @@ async def run_bootstrap_ingest_once() -> dict[str, Any]:
                 limit=24,
                 triggered_by="bootstrap:startup",
             )
+            ohlcv_source = "binance"
+            if int(ohlcv.get("records_inserted", 0)) == 0:
+                logger.warning("Binance OHLCV bootstrap empty — falling back to CoinGecko")
+                ohlcv = await coingecko_ingest_ohlcv(
+                    session,
+                    coin_id="bitcoin",
+                    symbol="BTCUSDT",
+                    days=1,
+                    interval="30m",
+                    triggered_by="bootstrap:startup:coingecko",
+                )
+                ohlcv_source = "coingecko"
             funding = await ingest_funding(
                 session,
                 symbols=["BTCUSDT"],
@@ -72,6 +84,7 @@ async def run_bootstrap_ingest_once() -> dict[str, Any]:
             markets = await ingest_markets(session, triggered_by="bootstrap:startup")
         result = {
             "ok": True,
+            "ohlcv_source": ohlcv_source,
             "ohlcv_inserted": int(ohlcv.get("records_inserted", 0)),
             "funding_inserted": int(funding.get("records_inserted", 0)),
             "markets_inserted": int(markets.get("records_inserted", 0)),

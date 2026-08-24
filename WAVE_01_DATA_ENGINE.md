@@ -44,6 +44,8 @@ Set `DATABASE_URL=postgresql://...` on Railway. SQLite returns HTTP 503 on data 
 | `DATA_ENGINE_ENABLED` | `true` | Master switch |
 | `DATA_ENGINE_BOOTSTRAP_INGEST` | `true` | Seed sources + one-shot ingest when `ohlcv_data` is empty |
 
+**Note:** Binance API is geo-restricted on some hosts (including Railway US). Bootstrap falls back to CoinGecko OHLC when Binance returns zero rows. Binance scheduled jobs may remain empty until ingest runs from an allowed region or via proxy — label **EXTERNAL EVIDENCE** per `BLACKDARK_CONTEXT.md` D-09.
+
 ## Post-deploy curl proofs (5.1 → 5.8)
 
 ```bash
@@ -58,7 +60,8 @@ curl -sS -X POST "$PROD/api/v1/data/ingest" \
   -H "Content-Type: application/json" -H "X-Admin-Key: $ADMIN_KEY" \
   -d '{"source":"binance","symbols":["BTCUSDT"],"intervals":["1h"],"backfill_days":1}'
 
-# 5.3 OHLCV
+# 5.3 OHLCV (30m from CoinGecko bootstrap when Binance geo-blocked; else 1h)
+curl -sS "$PROD/api/v1/data/ohlcv?symbol=BTCUSDT&interval=30m&limit=5"
 curl -sS "$PROD/api/v1/data/ohlcv?symbol=BTCUSDT&interval=1h&limit=5"
 
 # 5.4 Funding
