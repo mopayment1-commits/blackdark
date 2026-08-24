@@ -11,7 +11,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
-from blackdark.data.db import data_engine_available, get_session
+from blackdark.data.db import data_engine_available, ensure_data_engine_ready, get_session
 from blackdark.data.ingestors.binance import ingest_funding, ingest_ohlcv, ingest_open_interest
 from blackdark.data.ingestors.coingecko import ingest_markets
 from blackdark.data.provenance import get_provenance_by_record
@@ -39,6 +39,11 @@ def _require_postgres() -> None:
             status_code=503,
             detail="Wave 01 data engine requires PostgreSQL (DATABASE_URL=postgresql://...).",
         )
+
+
+async def _ensure_ready() -> None:
+    _require_postgres()
+    await ensure_data_engine_ready()
 
 
 def _parse_dt(value: str | None) -> datetime | None:
@@ -101,8 +106,8 @@ async def get_ohlcv(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         rows = await query_ohlcv(
             session,
@@ -123,8 +128,8 @@ async def get_funding(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         rows = await query_funding(
             session,
@@ -144,8 +149,8 @@ async def get_open_interest(
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
     source: str | None = None,
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         rows = await query_open_interest(
             session,
@@ -159,8 +164,7 @@ async def get_open_interest(
 
 
 @router.get("/api/v1/data/provenance/{record_id}")
-async def get_provenance(record_id: UUID):
-    _require_postgres()
+async def get_provenance(record_id: UUID, _: None = Depends(_ensure_ready)):
     async with get_session() as session:
         row = await get_provenance_by_record(session, record_id)
     if not row:
@@ -169,8 +173,7 @@ async def get_provenance(record_id: UUID):
 
 
 @router.get("/api/v1/data/status")
-async def get_data_status():
-    _require_postgres()
+async def get_data_status(_: None = Depends(_ensure_ready)):
     try:
         async with get_session() as session:
             return await data_engine_status(session)
@@ -180,8 +183,7 @@ async def get_data_status():
 
 
 @router.post("/api/v1/data/ingest", status_code=202)
-async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin)):
-    _require_postgres()
+async def trigger_ingest(body: IngestRequest, _: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
 
     async def _bg() -> None:
         try:
@@ -202,8 +204,8 @@ async def get_events(
     start_time: str | None = None,
     end_time: str | None = None,
     limit: int = Query(100, ge=1, le=1000),
+    _: None = Depends(_ensure_ready),
 ):
-    _require_postgres()
     async with get_session() as session:
         events = await query_events(
             session,
@@ -218,8 +220,16 @@ async def get_events(
 
 
 @admin_router.post("/seed-sources")
-async def seed_sources(_: None = Depends(require_admin)):
-    _require_postgres()
+async def seed_sources(_: None = Depends(require_admin), __: None = Depends(_ensure_ready)):
     async with get_session() as session:
         result = await seed_data_sources(session)
     return {"ok": True, **result}
+
+
+@admin_router.post("/migrate-data-engine")
+async def migrate_data_engine(_: None = Depends(require_admin)):
+    _require_postgres()
+    from blackdark.data.db import init_data_engine
+
+    result = await init_data_engine()
+    return result

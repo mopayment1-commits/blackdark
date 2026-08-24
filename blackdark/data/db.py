@@ -77,3 +77,8 @@ async def init_data_engine() -> dict[str, Any]:
     _initialized = True
     logger.info("Wave 01 data engine initialized | migrations=%s", result.get("applied"))
     return {"ok": True, **result}
+
+
+async def ensure_data_engine_ready() -> None:
+    if not _initialized:
+        await init_data_engine()

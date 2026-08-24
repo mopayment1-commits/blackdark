@@ -18,6 +18,8 @@ MIGRATIONS_DIR = Path(__file__).resolve().parent / "migrations"
 async def apply_migrations() -> dict[str, Any]:
     engine = get_engine()
     applied: list[str] = []
+    skipped: list[str] = []
+
     async with engine.begin() as conn:
         await conn.execute(
             text(
@@ -29,20 +31,35 @@ async def apply_migrations() -> dict[str, Any]:
                 """
             )
         )
+
+    async with engine.connect() as conn:
         rows = await conn.execute(text("SELECT version FROM data_engine_migrations"))
         done = {r[0] for r in rows.fetchall()}
-        for path in sorted(MIGRATIONS_DIR.glob("*.sql")):
-            version = path.stem
-            if version in done:
-                continue
-            sql = path.read_text(encoding="utf-8")
-            for stmt in (part.strip() for part in sql.split(";")):
-                if stmt:
-                    await conn.execute(text(stmt))
-            await conn.execute(
-                text("INSERT INTO data_engine_migrations (version) VALUES (:v)"),
-                {"v": version},
-            )
+        await conn.commit()
+
+    for path in sorted(MIGRATIONS_DIR.glob("*.sql")):
+        version = path.stem
+        if version in done:
+            skipped.append(version)
+            continue
+        sql = path.read_text(encoding="utf-8")
+        try:
+            async with engine.begin() as conn:
+                for stmt in (part.strip() for part in sql.split(";")):
+                    if stmt:
+                        await conn.execute(text(stmt))
+                await conn.execute(
+                    text("INSERT INTO data_engine_migrations (version) VALUES (:v)"),
+                    {"v": version},
+                )
             applied.append(version)
             logger.info("Applied data engine migration %s", version)
-    return {"applied": applied, "total": len(list(MIGRATIONS_DIR.glob("*.sql")))}
+        except Exception:
+            logger.exception("Failed to apply data engine migration %s", version)
+            raise
+
+    return {
+        "applied": applied,
+        "skipped": skipped,
+        "total": len(list(MIGRATIONS_DIR.glob("*.sql"))),
+    }
