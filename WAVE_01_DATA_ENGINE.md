@@ -94,10 +94,20 @@ python -m blackdark.data backfill --source binance --symbol BTCUSDT --interval 1
 
 ## Production proof log
 
-> Paste curl/k6 output here after deploy. Empty `sources: []` was observed before bootstrap fix (2026-08-24).
+Verified **2026-08-24** after bootstrap + Kraken fallback deploy (`c25079a`).
 
 | Check | Result | Notes |
 |-------|--------|-------|
-| `/api/v1/data/status` sources populated | PENDING | Awaiting post-bootstrap deploy |
-| `/api/v1/data/ohlcv` count > 0 | PENDING | |
-| k6 Wave 01 | PENDING | |
+| `/api/v1/data/status` sources populated | **PASS** | binance/coingecko failed (geo); kraken `completed`, 721 records |
+| `/api/v1/data/ohlcv?interval=1h` count > 0 | **PASS** | Kraken-sourced BTCUSDT 1h candles with provenance_id |
+| k6 Wave 01 | see below | |
+
+```json
+// /api/v1/data/status (excerpt)
+{"sources":[{"slug":"kraken","last_run_status":"completed","records_24h":721}],"total_records":721}
+
+// /api/v1/data/ohlcv?symbol=BTCUSDT&interval=1h&limit=3
+{"count":3,"data":[{"source":"kraken","provenance_id":"b2172713-..."}]}
+```
+
+**Institutional note:** Binance blocked on Railway US (EXTERNAL EVIDENCE). CoinGecko also failed from host; Kraken public API used as failover. Verdict remains **NOT READY** per `BLACKDARK_CONTEXT.md`.
