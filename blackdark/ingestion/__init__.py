@@ -27,6 +27,10 @@ from blackdark.ingestion.investing_com_connector import (
     fetch_investing_news_context,
     investing_com_connector_status,
 )
+from blackdark.ingestion.lending_markets_connector import (
+    fetch_lending_markets,
+    lending_markets_connector_status,
+)
 from blackdark.ingestion.order_flow_intelligence import compute_order_flow_intelligence
 from blackdark.ingestion.polygon_io_connector import (
     fetch_polygon_macro_context,
@@ -43,6 +47,11 @@ from blackdark.ingestion.solana_rpc_connector import (
 from blackdark.ingestion.theblock_connector import (
     fetch_theblock_research_context,
     theblock_connector_status,
+)
+from blackdark.ingestion.tronscan_connector import (
+    fetch_tron_account,
+    fetch_tron_transactions,
+    tronscan_connector_status,
 )
 
 __all__ = [
@@ -66,6 +75,8 @@ __all__ = [
     "fetch_polygon_onchain_health",
     "fetch_solana_chain_health",
     "fetch_theblock_research_context",
+    "fetch_tron_account",
+    "fetch_tron_transactions",
     "investing_com_connector_status",
     "lending_markets_connector_status",
     "polygon_io_connector_status",
@@ -74,4 +85,5 @@ __all__ = [
     "run_coingecko_primary_ingest",
     "solana_rpc_connector_status",
     "theblock_connector_status",
+    "tronscan_connector_status",
 ]

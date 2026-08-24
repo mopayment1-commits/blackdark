@@ -428,6 +428,7 @@ async def ingestion_data_layer_status():
     from blackdark.ingestion.lending_markets_connector import lending_markets_connector_status
     from blackdark.ingestion.polygon_io_connector import polygon_io_connector_status
     from blackdark.ingestion.polygonscan_connector import polygonscan_connector_status
+    from blackdark.ingestion.tronscan_connector import tronscan_connector_status
     from blackdark.ingestion.binance_connector import binance_connector_status
     from blackdark.ingestion.solana_rpc_connector import solana_rpc_connector_status
     from blackdark.ingestion.theblock_connector import theblock_connector_status
@@ -444,6 +445,7 @@ async def ingestion_data_layer_status():
         "order_flow_intelligence": {"ok": True, "feature": "#85", "role": "decision_engine_input"},
         "polygon_io": polygon_io_connector_status(),
         "polygonscan": polygonscan_connector_status(),
+        "tronscan": tronscan_connector_status(),
         "theblock": theblock_connector_status(),
         "investing_com": investing_com_connector_status(),
         "solana_rpc": solana_rpc_connector_status(),
@@ -679,6 +681,53 @@ async def address_intelligence_block(
     from bd_platform.address_intelligence import search_block
 
     return await search_block(block_number, chain=chain)
+
+
+@router.get("/cross-chain/explorer")
+async def cross_chain_explorer_route(
+    address: str = Query(..., min_length=10),
+    tx_limit: int = Query(25, ge=5, le=100),
+):
+    """Unified Cross-Chain Explorer (#101) — one address, all chains."""
+    from bd_platform.cross_chain_explorer import unified_address_explorer
+
+    return await unified_address_explorer(address, tx_limit=tx_limit)
+
+
+@router.get("/transactions/search")
+async def transaction_search_route(
+    address: str | None = Query(None),
+    chain: str | None = Query(None),
+    start_time: int | None = Query(None, description="Unix timestamp inclusive"),
+    end_time: int | None = Query(None, description="Unix timestamp inclusive"),
+    cursor: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=100),
+    refresh: bool = Query(False),
+):
+    """Transaction Search (#101) — indexed filter/sort with cursor pagination."""
+    from bd_platform.cross_chain_explorer import search_transactions
+
+    chains = [chain] if chain else None
+    return await search_transactions(
+        address=address,
+        chains=chains,
+        start_time=start_time,
+        end_time=end_time,
+        cursor=cursor,
+        limit=limit,
+        refresh=refresh,
+    )
+
+
+@router.get("/transactions/decode")
+async def transaction_decode_route(
+    tx_hash: str = Query(..., min_length=10),
+    chain: str = Query("ethereum"),
+):
+    """Transaction Decoder (#100) — human-readable explanation, no hallucinated intent."""
+    from bd_platform.transaction_decoder import decode_transaction
+
+    return await decode_transaction(tx_hash=tx_hash, chain=chain)
 
 
 @router.get("/macro/bitcoin")

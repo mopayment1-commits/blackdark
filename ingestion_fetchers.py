@@ -526,6 +526,12 @@ async def _h_polygonscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -
     }
 
 
+async def _h_tronscan(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
+    from blackdark.ingestion.tronscan_connector import tronscan_connector_status
+
+    return tronscan_connector_status()
+
+
 async def _h_internal_cvvd(session: aiohttp.ClientSession, spec: DataSourceSpec) -> FetchResult:
     from whale_tracker import WhaleTracker
 
@@ -567,6 +573,7 @@ HANDLERS: dict[str, Callable[[aiohttp.ClientSession, DataSourceSpec], Awaitable[
     "theblock_rss": _h_theblock_rss,
     "investing_com_rss": _h_investing_com_rss,
     "polygonscan": _h_polygonscan,
+    "tronscan": _h_tronscan,
     "polygon_io": _h_polygon_io,
     "geckoterminal": _h_geckoterminal,
     "fear_greed": _h_fear_greed,
