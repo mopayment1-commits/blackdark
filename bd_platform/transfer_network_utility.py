@@ -280,6 +280,126 @@ async def rank_transfer_networks(
     }
 
 
+def _short_network_label(network_id: str) -> str:
+    return {
+        "erc20": "ERC20",
+        "trc20": "TRC20",
+        "bep20": "BEP20",
+        "arbitrum": "Arbitrum",
+        "polygon": "Polygon",
+        "solana": "Solana",
+        "optimism": "Optimism",
+        "base": "Base",
+        "avax": "Avalanche",
+        "ethereum": "Ethereum",
+        "bitcoin": "Bitcoin",
+    }.get(network_id.lower(), network_id.upper())
+
+
+def _build_widget_summary(recommendations: list[dict[str, Any]]) -> str:
+    """Compact widget line for transfer/deposit surfaces (#120)."""
+    top = sorted(recommendations, key=lambda r: r["fee_usd"])[:5]
+    parts = [f"{_short_network_label(r['network_id'])} (${r['fee_usd']:.1f} gas)" for r in top]
+    cheapest = min(recommendations, key=lambda r: r["fee_usd"])
+    cheapest_label = _short_network_label(cheapest["network_id"])
+    return f"Available networks: {', '.join(parts)}. Cheapest: {cheapest_label}."
+
+
+async def transfer_deposit_widget(
+    asset: str = "USDT",
+    *,
+    amount_usd: float = 1_000.0,
+    user_id: str | None = None,
+    surface: str = "transfer",
+) -> dict[str, Any]:
+    """
+    #120 — embedded micro-widget for transfer/deposit pages (integrated with #108).
+
+    Example: "Available networks: ERC20 ($5 gas), TRC20 ($0.5 gas), BEP20 ($0.1 gas). Cheapest: BEP20."
+    """
+    cache_key = f"widget:{asset.upper()}:{amount_usd}:{user_id or ''}:{surface}"
+    cached = _CACHE.get(cache_key)
+    if cached and time.time() - cached[0] < _CACHE_TTL:
+        return {**cached[1], "cache_hit": True}
+
+    ranking = await rank_transfer_networks(asset, amount_usd=amount_usd, user_id=user_id)
+    if not ranking.get("ok"):
+        return ranking
+
+    recs = ranking["recommendations"]
+    summary = _build_widget_summary(recs)
+    cheapest = min(recs, key=lambda r: r["fee_usd"])
+    user_saved = ranking.get("user_network")
+
+    alerts: list[dict[str, Any]] = []
+    for row in recs:
+        if row["security_tier"] == "experimental":
+            alerts.append(
+                {
+                    "level": "warning",
+                    "network_id": row["network_id"],
+                    "message": f"{row['label']} is experimental — prefer stable networks for large transfers",
+                }
+            )
+        if row["fee_usd"] > 5.0 and amount_usd < 500:
+            alerts.append(
+                {
+                    "level": "info",
+                    "network_id": row["network_id"],
+                    "message": f"{row['label']} fee high relative to transfer size",
+                }
+            )
+
+    widget = {
+        "title": f"Networks for {ranking['asset']} {surface}",
+        "summary": summary,
+        "summary_ar": (
+            f"الشبكات المتاحة: "
+            + ", ".join(
+                f"{_short_network_label(r['network_id'])} (${r['fee_usd']:.1f} gas)"
+                for r in sorted(recs, key=lambda x: x["fee_usd"])[:5]
+            )
+            + f". الأرخص: {_short_network_label(cheapest['network_id'])}."
+        ),
+        "cheapest_network": {
+            "network_id": cheapest["network_id"],
+            "label": _short_network_label(cheapest["network_id"]),
+            "fee_usd": cheapest["fee_usd"],
+        },
+        "networks": [
+            {
+                "network_id": r["network_id"],
+                "label": _short_network_label(r["network_id"]),
+                "fee_usd": r["fee_usd"],
+                "eta_minutes": r["eta_minutes"],
+                "badges": r.get("badges") or [],
+            }
+            for r in sorted(recs, key=lambda x: x["fee_usd"])
+        ],
+        "user_saved_network": user_saved,
+        "integrated_features": ["#108", "#120"],
+        "embed_surfaces": ["transfer", "deposit", "withdraw"],
+    }
+
+    result = {
+        **ranking,
+        "feature": "#120",
+        "companion": "#108",
+        "surface": f"{surface}_network_widget",
+        "mode": "widget_embedded",
+        "widget": widget,
+        "alerts": alerts[:5],
+        "reports": {
+            "summary": summary,
+            "cheapest": cheapest,
+            "fastest": max(recs, key=lambda r: r["speed_score"]),
+            "most_secure": max(recs, key=lambda r: r["security_score"]),
+        },
+    }
+    _CACHE[cache_key] = (time.time(), result)
+    return result
+
+
 def get_network_by_id(asset: str, network_id: str) -> dict[str, Any] | None:
     sym = asset.upper().replace("/USDT", "")
     for net in _TRANSFER_NETWORKS.get(sym, []):
