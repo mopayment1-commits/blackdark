@@ -227,12 +227,22 @@ async def market_radar_narrative() -> dict[str, Any]:
     sectors = _sector_rows(sector_assets)
     bullets_en = _market_radar_bullets(sectors)
 
-    return {
+    payload = {
         "summary": "Today's market: " + " · ".join(bullets_en[:5]),
         "bullets": bullets_en,
         "sectors": sectors,
         "timestamp": datetime.now(UTC).isoformat(),
     }
+
+    try:
+        from bd_platform.new_listings_alert import enrich_market_radar, scan_new_listings
+
+        listings = await scan_new_listings(limit=5)
+        payload = enrich_market_radar(payload, listings)
+    except Exception:
+        pass
+
+    return payload
 
 
 async def execution_speed_snapshot() -> dict[str, Any]:
