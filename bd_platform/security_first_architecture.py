@@ -319,7 +319,7 @@ def security_first_architecture_status() -> dict[str, Any]:
         "incident_paths": incidents,
         "posture_summary": posture_summary,
         "circuit_breaker": circuit_status,
-        "integrated_features": ["#165", "#190"],
+        "integrated_features": ["#165", "#190", "#191"],
         "secrets_exposed": False,
         "policy": (
             "Security is architectural foundation, not a feature add-on. "
