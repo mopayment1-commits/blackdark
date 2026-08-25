@@ -1124,3 +1124,193 @@ async def defi_contract_safety_status_route():
     from bd_platform.defi_safety_layer import defi_safety_status
 
     return defi_safety_status()
+
+
+# ── Features #177 + #182 — Public Content Hub ────────────────────────────────
+
+
+@router.post("/share/content", responses=COMMON_ERROR_RESPONSES)
+async def create_content_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Create chart, idea, or dashboard share draft (#177 + #182)."""
+    from bd_platform.public_content_hub import create_content
+
+    owner = str(user.get("id") or user.get("email") or "0")
+    return create_content(
+        owner_id=owner,
+        title=str(body.get("title") or "Untitled"),
+        content_type=str(body.get("content_type") or "chart"),  # type: ignore[arg-type]
+        content_data=body.get("content_data") if isinstance(body.get("content_data"), dict) else {},
+        dashboard_metadata=body.get("dashboard_metadata")
+        if isinstance(body.get("dashboard_metadata"), dict)
+        else {},
+        notes=str(body.get("notes") or ""),
+        privacy=str(body.get("privacy") or "private"),  # type: ignore[arg-type]
+    )
+
+
+@router.post("/share/content/capture-dashboard", responses=COMMON_ERROR_RESPONSES)
+async def capture_dashboard_route(
+    body: dict[str, Any] = Body(default_factory=dict),
+    user: dict = Depends(require_authenticated),
+):
+    """Capture Market Radar dashboard snapshot draft (#182)."""
+    from bd_platform.public_content_hub import capture_dashboard_snapshot
+
+    owner = str(user.get("id") or user.get("email") or "0")
+    return await capture_dashboard_snapshot(
+        owner_id=owner,
+        title=str(body.get("title") or ""),
+        asset=str(body.get("asset") or "BTC"),
+        privacy=str(body.get("privacy") or "private"),  # type: ignore[arg-type]
+    )
+
+
+@router.post("/share/content/{item_id}/publish", responses=COMMON_ERROR_RESPONSES)
+async def publish_content_route(
+    item_id: str,
+    body: dict[str, Any] = Body(default_factory=dict),
+    user: dict = Depends(require_authenticated),
+):
+    """Publish immutable versioned snapshot (#177 + #182)."""
+    from bd_platform.public_content_hub import publish_content
+
+    return publish_content(
+        item_id=item_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        privacy=str(body.get("privacy") or "unlisted"),  # type: ignore[arg-type]
+    )
+
+
+@router.put("/share/content/{item_id}", responses=COMMON_ERROR_RESPONSES)
+async def update_content_route(
+    item_id: str,
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Update owner draft — published snapshot unchanged (#177 + #182)."""
+    from bd_platform.public_content_hub import update_content_draft
+
+    return update_content_draft(
+        item_id=item_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        title=body.get("title"),
+        content_data=body.get("content_data") if isinstance(body.get("content_data"), dict) else None,
+        dashboard_metadata=body.get("dashboard_metadata")
+        if isinstance(body.get("dashboard_metadata"), dict)
+        else None,
+        notes=body.get("notes"),
+        privacy=body.get("privacy"),  # type: ignore[arg-type]
+    )
+
+
+@router.post("/share/content/{item_id}/clone", responses=COMMON_ERROR_RESPONSES)
+async def clone_content_route(
+    item_id: str,
+    user: dict = Depends(require_authenticated),
+):
+    """Clone published snapshot to a new private draft — view + clone only (#182)."""
+    from bd_platform.public_content_hub import clone_content
+
+    return clone_content(
+        item_id=item_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+    )
+
+
+@router.get("/share/content")
+async def list_content_route(user: dict = Depends(require_authenticated)):
+    """List user's shared content (#177 + #182)."""
+    from bd_platform.public_content_hub import list_user_content
+
+    return list_user_content(str(user.get("id") or user.get("email") or "0"))
+
+
+@router.get("/share/view/{slug}")
+async def public_content_view_route(slug: str):
+    """Public/unlisted immutable snapshot view (#177 + #182)."""
+    from bd_platform.public_content_hub import get_public_view
+
+    result = get_public_view(slug)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/share/status")
+async def public_content_hub_status_route():
+    from bd_platform.public_content_hub import public_content_hub_status
+
+    return public_content_hub_status()
+
+
+# ── Feature #177 — Chart / Idea Sharing (compatibility aliases) ───────────────
+
+
+@router.post("/share/charts", responses=COMMON_ERROR_RESPONSES)
+async def create_chart_share_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    from bd_platform.chart_sharing_service import create_chart_share
+
+    return create_chart_share(
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        title=str(body.get("title") or "Untitled"),
+        chart_type=str(body.get("chart_type") or "idea"),
+        chart_data=body.get("chart_data") if isinstance(body.get("chart_data"), dict) else {},
+        notes=str(body.get("notes") or ""),
+        privacy=str(body.get("privacy") or "private"),
+    )
+
+
+@router.post("/share/charts/{share_id}/publish", responses=COMMON_ERROR_RESPONSES)
+async def publish_chart_share_route(
+    share_id: str,
+    body: dict[str, Any] = Body(default_factory=dict),
+    user: dict = Depends(require_authenticated),
+):
+    from bd_platform.chart_sharing_service import publish_chart_share
+
+    return publish_chart_share(
+        share_id=share_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        privacy=str(body.get("privacy") or "unlisted"),
+    )
+
+
+@router.put("/share/charts/{share_id}", responses=COMMON_ERROR_RESPONSES)
+async def update_chart_share_route(
+    share_id: str,
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    from bd_platform.chart_sharing_service import update_chart_share
+
+    return update_chart_share(
+        share_id=share_id,
+        owner_id=str(user.get("id") or user.get("email") or "0"),
+        title=body.get("title"),
+        chart_data=body.get("chart_data") if isinstance(body.get("chart_data"), dict) else None,
+        notes=body.get("notes"),
+        privacy=body.get("privacy"),
+    )
+
+
+@router.get("/share/charts")
+async def list_chart_shares_route(user: dict = Depends(require_authenticated)):
+    from bd_platform.chart_sharing_service import list_user_chart_shares
+
+    return list_user_chart_shares(str(user.get("id") or user.get("email") or "0"))
+
+
+@router.get("/share/chart/{slug}")
+async def public_chart_view_route(slug: str):
+    from bd_platform.chart_sharing_service import get_public_chart_view
+
+    result = get_public_chart_view(slug)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
