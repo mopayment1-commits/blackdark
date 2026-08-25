@@ -2015,6 +2015,26 @@ async def dev_health_status_route():
     return dev_health_status()
 
 
+@router.get("/connectors/assets/{symbol}/dex-volume")
+async def dex_volume_asset_route(symbol: str):
+    from bd_platform.dex_volume_feed import get_dex_volume_for_asset
+
+    result = get_dex_volume_for_asset(symbol)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="dex_volume_unavailable: asset not tracked in DEX volume feed",
+        )
+    return result
+
+
+@router.get("/dex-volume/status")
+async def dex_volume_status_route():
+    from bd_platform.dex_volume_feed import dex_volume_feed_status
+
+    return dex_volume_feed_status()
+
+
 @router.get("/connectors/unified")
 async def unified_connector_view_route(probe_live: bool = Query(True)):
     from bd_platform.connector_coverage_map import build_unified_connector_view
