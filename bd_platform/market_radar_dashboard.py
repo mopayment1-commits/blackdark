@@ -45,17 +45,23 @@ async def build_market_radar_dashboard(
         analyze_asset_sentiment,
         sentiment_intelligence_status,
     )
+    from bd_platform.premium_intelligence import (
+        get_regional_premiums_dashboard,
+        premium_intelligence_status,
+    )
 
     prices_task = monitor_multi_asset_prices(assets, max_assets=min(len(assets), 10))
     macro_task = build_macro_events_calendar(limit=macro_limit)
     sentiment_task = analyze_asset_sentiment(sym)
     liquidity_task = analyze_liquidity_health(sym)
+    premiums_task = asyncio.to_thread(get_regional_premiums_dashboard, sym)
 
-    prices, macro, sentiment, liquidity = await asyncio.gather(
+    prices, macro, sentiment, liquidity, premiums = await asyncio.gather(
         prices_task,
         macro_task,
         sentiment_task,
         liquidity_task,
+        premiums_task,
         return_exceptions=True,
     )
 
@@ -72,18 +78,20 @@ async def build_market_radar_dashboard(
     macro_block = _safe(macro, {"feature_id": 140, "events": []})
     sentiment_block = _safe(sentiment, {"feature_id": 139})
     liquidity_block = _safe(liquidity, {"feature_id": 142})
+    premiums_block = _safe(premiums, {"feature_ids": [255, 233], "cards": []})
 
     sla_flags = [
         prices_block.get("sla_met", True),
         macro_block.get("sla_met", True),
         sentiment_block.get("sla_met", True),
         liquidity_block.get("sla_met", True),
+        premiums_block.get("sla_met", True),
     ]
 
     return {
         "ok": True,
         "surface": "market_radar_dashboard",
-        "feature_ids": list(_FEATURE_IDS),
+        "feature_ids": list(_FEATURE_IDS) + [255, 233],
         "focus_asset": sym,
         "headline": (
             f"Market Radar — {sym}: "
@@ -96,14 +104,18 @@ async def build_market_radar_dashboard(
         "event_stream": events,
         "liquidity_health": liquidity_block,
         "sentiment": sentiment_block,
+        "regional_premiums": premiums_block,
         "status": {
             "infrastructure": market_radar_infrastructure_status(),
             "macro": macro_events_status(),
             "events": industry_event_monitor_status(),
             "liquidity": liquidity_health_status(),
             "sentiment": sentiment_intelligence_status(),
+            "premium_intelligence": premium_intelligence_status(),
         },
-        "integrated_features": ["#125", "#133", "#137", "#139", "#140", "#142", "#149", "#155", "#186"],
+        "integrated_features": [
+            "#125", "#133", "#137", "#139", "#140", "#142", "#149", "#155", "#186", "#233", "#255",
+        ],
         "sla_met": elapsed_ms <= 2000 and all(sla_flags),
         "latency_ms": round(elapsed_ms, 1),
         "timestamp": _utcnow(),
@@ -120,6 +132,8 @@ def market_radar_dashboard_status() -> dict[str, Any]:
             "186": "industry_event_stream",
             "142": "liquidity_health_check",
             "139": "sentiment_intelligence",
+            "233": "coinbase_premium",
+            "255": "korea_premium",
         },
         "endpoint": "/api/platform/market-radar/dashboard",
         "timestamp": _utcnow(),

@@ -2480,3 +2480,34 @@ async def verifiable_ai_audit_route(
 
     return get_audit_trail(limit=limit, since_days=since_days)
 
+
+# ── Premium Intelligence Module — #255 Korea + #233 Coinbase (Sprint 2) ───────
+
+
+@router.get("/market-radar/premiums/status")
+async def premium_intelligence_status_route():
+    from bd_platform.premium_intelligence import premium_intelligence_status
+
+    return premium_intelligence_status()
+
+
+@router.get("/market-radar/premiums/dashboard")
+async def regional_premiums_dashboard_route(asset: str = Query("BTC")):
+    from bd_platform.premium_intelligence import get_regional_premiums_dashboard
+
+    return get_regional_premiums_dashboard(asset)
+
+
+@router.get("/market-radar/premiums/korea")
+async def korea_premium_route(asset: str = Query("BTC")):
+    from bd_platform.premium_intelligence import get_korea_premium
+
+    return get_korea_premium(asset)
+
+
+@router.get("/market-radar/premiums/coinbase")
+async def coinbase_premium_route(asset: str = Query("BTC")):
+    from bd_platform.premium_intelligence import get_coinbase_premium
+
+    return get_coinbase_premium(asset)
+
