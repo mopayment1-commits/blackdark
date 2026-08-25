@@ -2512,6 +2512,37 @@ async def coinbase_premium_route(asset: str = Query("BTC")):
     return get_coinbase_premium(asset)
 
 
+# ── Technical Ratings + Momentum Intelligence — #755 + #273 (Sprint 2) ──────────
+
+
+@router.get("/market-radar/technical-ratings/status")
+async def technical_ratings_status_route():
+    from bd_platform.technical_ratings import technical_ratings_status
+
+    return technical_ratings_status()
+
+
+@router.get("/market-radar/technical-ratings")
+async def technical_ratings_route(asset: str = Query("BTC")):
+    from bd_platform.technical_ratings import get_technical_composite
+
+    return get_technical_composite(asset)
+
+
+@router.get("/market-radar/momentum/status")
+async def momentum_intelligence_status_route():
+    from bd_platform.momentum_intelligence import momentum_intelligence_status
+
+    return momentum_intelligence_status()
+
+
+@router.get("/market-radar/momentum")
+async def momentum_intelligence_route(asset: str = Query("BTC")):
+    from bd_platform.momentum_intelligence import get_momentum_analysis
+
+    return get_momentum_analysis(asset)
+
+
 # ── MCP for AI — #262 AI Agent Server (Sprint 2) ─────────────────────────────
 
 
