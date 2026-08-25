@@ -1,0 +1,68 @@
+{
+  "feature_id": 249,
+  "merged_into": "market_radar",
+  "standalone": false,
+  "replaces": 227,
+  "methodology_version": "1.3",
+  "last_updated": "2026-08-25",
+  "venue_weights": {
+    "method": "30D volume-weighted",
+    "version": "1.2",
+    "weights": {
+      "Binance": 35,
+      "Coinbase": 25,
+      "Kraken": 20,
+      "OKX": 15,
+      "Bybit": 5
+    }
+  },
+  "assets": {
+    "BTC": {
+      "levels": 10,
+      "venue_depths": {
+        "Binance": {"bid_usd": 285000000, "ask_usd": 245000000},
+        "Coinbase": {"bid_usd": 198000000, "ask_usd": 172000000},
+        "Kraken": {"bid_usd": 142000000, "ask_usd": 128000000},
+        "OKX": {"bid_usd": 98000000, "ask_usd": 88000000},
+        "Bybit": {"bid_usd": 42000000, "ask_usd": 38000000}
+      },
+      "sequence_gaps": [
+        {
+          "venue": "Binance",
+          "sequence_start": 1450,
+          "sequence_end": 1452,
+          "interpolated": true
+        }
+      ]
+    },
+    "ETH": {
+      "levels": 10,
+      "venue_depths": {
+        "Binance": {"bid_usd": 125000000, "ask_usd": 108000000},
+        "Coinbase": {"bid_usd": 88000000, "ask_usd": 76000000},
+        "Kraken": {"bid_usd": 62000000, "ask_usd": 55000000},
+        "OKX": {"bid_usd": 45000000, "ask_usd": 40000000},
+        "Bybit": {"bid_usd": 18000000, "ask_usd": 16000000}
+      },
+      "sequence_gaps": []
+    },
+    "SOL": {
+      "levels": 10,
+      "venue_depths": {
+        "Binance": {"bid_usd": 28000000, "ask_usd": 24000000},
+        "Coinbase": {"bid_usd": 18000000, "ask_usd": 15500000},
+        "Kraken": {"bid_usd": 12000000, "ask_usd": 10500000},
+        "OKX": {"bid_usd": 8500000, "ask_usd": 7500000},
+        "Bybit": {"bid_usd": 4200000, "ask_usd": 3800000}
+      },
+      "sequence_gaps": [
+        {
+          "venue": "OKX",
+          "sequence_start": 892,
+          "sequence_end": 894,
+          "interpolated": true
+        }
+      ]
+    }
+  }
+}
