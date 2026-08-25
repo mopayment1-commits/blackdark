@@ -41,7 +41,7 @@ Market Radar DeFi layer with normalized TVL.
 
 ---
 
-## #709 — Yield History → Yield Sustainability Score (merged #198 + #710)
+## #709 — Yield History → Yield Sustainability Score (merged #198)
 
 | Rule | Implementation |
 |------|----------------|
@@ -50,6 +50,8 @@ Market Radar DeFi layer with normalized TVL.
 | Sustainability | `🟢 High` / `🟡 Medium` / `🔴 Critical` |
 | Outlier detection | Volatile APY flagged as red flag |
 | Time-series stability | std dev + history analysis |
+
+> #710 Yield Arbitrage and #711 Yields Screener live in **DeFi Yield Center** — see `DEFI_YIELD_CENTER.md`.
 
 ### APIs
 
