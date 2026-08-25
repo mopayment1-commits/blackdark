@@ -965,6 +965,33 @@ async def global_order_book_status_route():
     return global_order_book_status()
 
 
+# ── Order Book Feed — #256 + #257 + #258 merged (Sprint 0) ─────────────────────
+
+
+@router.get("/order-book-feed/status")
+async def order_book_feed_status_route():
+    from bd_platform.order_book_feed import order_book_feed_status
+
+    return order_book_feed_status()
+
+
+@router.get("/order-book-feed")
+async def order_book_feed_route(
+    asset: str = Query("BTC"),
+    level: str = Query("L1", description="L1 | L2 | L3"),
+    venue: str = Query("binance"),
+    tier: str = Query("pro"),
+):
+    from bd_platform.order_book_feed import get_order_book_feed
+
+    if level.upper() not in ("L1", "L2", "L3"):
+        raise HTTPException(status_code=400, detail="level must be L1, L2, or L3")
+    result = get_order_book_feed(asset, level=level.upper(), venue=venue, tier=tier)  # type: ignore[arg-type]
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/market-radar/infrastructure/status")
 async def market_radar_infrastructure_status_route():
     """Multi-exchange price monitoring infrastructure (#155)."""

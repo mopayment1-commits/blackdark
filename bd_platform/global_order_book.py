@@ -280,6 +280,20 @@ def build_global_order_book_panel(
     sequence_gaps = build_sequence_gaps(gaps, venues_active=venues_active, venues_total=venues_total)
     update_freq = _update_frequency_display(tier)
 
+    feed_source = None
+    try:
+        from bd_platform.order_book_feed import get_order_book_feed
+
+        feed_source = {
+            "module": "order_book_feed",
+            "feature_ids": [256, 257, 258],
+            "l2_feed": get_order_book_feed(sym, level="L2", venue="binance", tier=tier).get("feed"),
+            "powers_analysis": True,
+            "display": "L1/L2/L3 raw feeds power #249 aggregated analysis",
+        }
+    except Exception:
+        logger.debug("order book feed integration failed", exc_info=True)
+
     disclaimer = {
         "text": _DISCLAIMER_TEXT,
         "hideable": False,
@@ -303,6 +317,7 @@ def build_global_order_book_panel(
         "per_venue_depth": per_venue,
         "sequence_gaps": sequence_gaps,
         "update_frequency": update_freq,
+        "feed_source": feed_source,
         "methodology": build_methodology_block(seed),
         "volume_display": (
             f"Global Depth: {_format_usd(per_venue['total_usd'])} | "
@@ -347,6 +362,7 @@ def global_order_book_status() -> dict[str, Any]:
             "fee_db_arbitrage_only": True,
             "market_radar_integration": True,
             "methodology_versioned": True,
+            "fed_by_order_book_feed": True,
         },
         "timestamp": _utcnow(),
     }
