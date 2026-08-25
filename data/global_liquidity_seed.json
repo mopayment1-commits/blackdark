@@ -1,0 +1,153 @@
+{
+  "feature_id": 248,
+  "feature_label": "Global Liquidity Intelligence",
+  "standalone": false,
+  "sprint": 2,
+  "tier": "pro",
+  "module_version": "2.1",
+  "index_version": "1.2",
+  "last_revised": "2026-08-25",
+  "calculation_date": "2026-08-25",
+  "no_real_time_fabrication": true,
+  "update_frequencies": {
+    "policy_rate": "Daily",
+    "m2": "Monthly",
+    "fx": "Hourly",
+    "quarterly_aggregates": "Quarterly"
+  },
+  "lag_methodology": {
+    "fed_m2": {"label": "M2 (Fed)", "lag_days": 14, "display": "M2 (Fed): 14-day lag"},
+    "ecb_m2": {"label": "M2 (ECB)", "lag_days": 30, "display": "M2 (ECB): 30-day lag"},
+    "boj_m2": {"label": "M2 (BoJ)", "lag_days": 45, "display": "M2 (BoJ): 45-day lag"},
+    "policy_rate": {"label": "Policy Rate", "lag_days": 0, "display": "Policy Rate: same-day"},
+    "dxy": {"label": "DXY", "lag_days": 0, "display": "FX: hourly"}
+  },
+  "lag_methodology_display": "M2 (Fed): 14-day lag | M2 (ECB): 30-day lag | M2 (BoJ): 45-day lag | Policy Rate: same-day | FX: hourly",
+  "composite_weights": {
+    "fed_m2": 0.30,
+    "ecb_m2": 0.25,
+    "boj_m2": 0.20,
+    "global_policy_rate": 0.15,
+    "dxy": 0.10
+  },
+  "composite_display": "Components: Fed M2 (30%) + ECB M2 (25%) + BoJ M2 (20%) + Global Policy Rate Average (15%) + DXY (10%) | Version: 1.2 | Last Revised: 2026-08-25",
+  "sources": [
+    {"name": "Federal Reserve", "series": "M2", "url": "https://fred.stlouisfed.org/series/M2SL", "verified": true},
+    {"name": "ECB", "series": "M2", "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html", "verified": true},
+    {"name": "Bank of Japan", "series": "M2", "url": "https://www.boj.or.jp/en/statistics/money/ms/index.htm", "verified": true}
+  ],
+  "series": {
+    "fed_m2": {
+      "source": "Federal Reserve (FRED M2SL)",
+      "unit": "USD_trillion",
+      "update_frequency": "Monthly",
+      "lag_days": 14,
+      "as_of": "2026-08-11",
+      "next_release": "2026-09-01",
+      "latest_value": 21.42,
+      "latest_value_display": "Latest Available M2 (Fed): $21.42T | As of: 2026-08-11 | Next Release: 2026-09-01",
+      "yoy_pct": 2.8,
+      "revisions": [
+        {"release_date": "2026-08-01", "value": 21.38, "type": "initial_release", "label": "Initial Release"},
+        {"release_date": "2026-08-15", "value": 21.40, "delta": 0.02, "type": "revision_1", "label": "Revision 1"},
+        {"release_date": "2026-08-25", "value": 21.42, "delta": 0.02, "type": "current", "label": "Current"}
+      ],
+      "revision_display": "Value: $21.42T | Initial Release: 2026-08-01 | Revision 1: 2026-08-15 (+$0.02T) | Current: 2026-08-25",
+      "interpolated_estimate": null
+    },
+    "ecb_m2": {
+      "source": "ECB",
+      "unit": "EUR_trillion",
+      "update_frequency": "Monthly",
+      "lag_days": 30,
+      "as_of": "2026-07-31",
+      "next_release": "2026-08-28",
+      "latest_value": 16.85,
+      "latest_value_display": "Latest Available M2 (ECB): €16.85T | As of: 2026-07-31 | Next Release: 2026-08-28",
+      "yoy_pct": 3.1,
+      "revisions": [
+        {"release_date": "2026-07-15", "value": 16.82, "type": "initial_release", "label": "Initial Release"},
+        {"release_date": "2026-08-10", "value": 16.84, "delta": 0.02, "type": "revision_1", "label": "Revision 1"},
+        {"release_date": "2026-08-25", "value": 16.85, "delta": 0.01, "type": "current", "label": "Current"}
+      ],
+      "revision_display": "Value: €16.85T | Initial Release: 2026-07-15 | Revision 1: 2026-08-10 (+€0.02T) | Current: 2026-08-25"
+    },
+    "boj_m2": {
+      "source": "Bank of Japan",
+      "unit": "JPY_quadrillion",
+      "update_frequency": "Monthly",
+      "lag_days": 45,
+      "as_of": "2026-07-15",
+      "next_release": "2026-09-05",
+      "latest_value": 1.258,
+      "latest_value_display": "Latest Available M2 (BoJ): ¥1,258Q | As of: 2026-07-15 | Next Release: 2026-09-05",
+      "yoy_pct": 1.9,
+      "revisions": [
+        {"release_date": "2026-07-01", "value": 1.255, "type": "initial_release", "label": "Initial Release"},
+        {"release_date": "2026-08-20", "value": 1.258, "delta": 0.003, "type": "current", "label": "Current"}
+      ],
+      "revision_display": "Value: ¥1,258Q | Initial Release: 2026-07-01 | Current: 2026-08-20 (+¥0.003Q)"
+    },
+    "global_policy_rate": {
+      "source": "Central Bank Policy Rates",
+      "update_frequency": "Daily",
+      "lag_days": 0,
+      "as_of": "2026-08-25",
+      "latest_value": 4.35,
+      "unit": "percent",
+      "components": {"fed": 5.25, "ecb": 3.75, "boj": 0.25, "boe": 4.75},
+      "trajectory": "declining",
+      "latest_value_display": "Global Policy Rate Average: 4.35% | As of: 2026-08-25 | Update: Daily"
+    },
+    "dxy": {
+      "source": "ICE Dollar Index",
+      "update_frequency": "Hourly",
+      "lag_days": 0,
+      "as_of": "2026-08-25T14:00:00+00:00",
+      "latest_value": 103.8,
+      "unit": "index",
+      "latest_value_display": "DXY: 103.8 | As of: 2026-08-25 14:00 UTC | Update: Hourly"
+    }
+  },
+  "composite_index": {
+    "value": 105.2,
+    "base": 100.0,
+    "calculation_date": "2026-08-25",
+    "latest_input_date": "2026-08-11",
+    "latest_input_series": "Fed M2",
+    "version": "1.2",
+    "index_display": "Global Liquidity Index: 105.2 | Version: 2.1 | Calculation Date: 2026-08-25 | Latest Input Date: 2026-08-11 (Fed M2)"
+  },
+  "regime": {
+    "label": "Easing",
+    "labels": ["Tightening", "Neutral", "Easing"],
+    "m2_yoy_weighted_pct": 2.6,
+    "policy_rate_trajectory": "declining",
+    "duration_months": 8,
+    "based_on": "M2 YoY + Policy Rate trajectory",
+    "regime_display": "Regime: Easing | Based on: M2 YoY + Policy Rate trajectory | Duration: 8 months"
+  },
+  "historical_relationship": {
+    "asset": "BTC",
+    "correlation_90d_lagged": 0.58,
+    "correlation_varies_by_regime": true,
+    "period_months": 6,
+    "not_predictive": true,
+    "relationship_display": "Liquidity Regime: Easing | Historical BTC correlation (lagged 90D): +0.58 | Note: Correlation varies by regime | Not predictive"
+  },
+  "macro_context": {
+    "label": "Liquidity Expanding",
+    "display": "Macro Context: Liquidity Expanding",
+    "not_opportunity_framing": true
+  },
+  "assets": {
+    "BTC": {
+      "correlation_90d_lagged": 0.58,
+      "regime_sensitivity": "moderate"
+    },
+    "ETH": {
+      "correlation_90d_lagged": 0.52,
+      "regime_sensitivity": "moderate"
+    }
+  }
+}

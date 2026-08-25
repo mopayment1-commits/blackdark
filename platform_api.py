@@ -2567,6 +2567,37 @@ async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
     return scan_market_hype(limit=limit)
 
 
+# ── Global Liquidity Intelligence — #248 (Sprint 2, Pro/Institution) ───────────
+
+
+@router.get("/market-radar/global-liquidity/status")
+async def global_liquidity_status_route():
+    from bd_platform.global_liquidity_intelligence import global_liquidity_status
+
+    return global_liquidity_status()
+
+
+@router.get("/market-radar/global-liquidity/dashboard")
+async def global_liquidity_dashboard_route(asset: str = Query("BTC")):
+    from bd_platform.global_liquidity_intelligence import build_global_liquidity_dashboard
+
+    return build_global_liquidity_dashboard(asset)
+
+
+@router.get("/market-radar/global-liquidity/regime")
+async def global_liquidity_regime_route(asset: str = Query("BTC")):
+    from bd_platform.global_liquidity_intelligence import build_liquidity_regime
+
+    return build_liquidity_regime(asset)
+
+
+@router.get("/market-radar/global-liquidity/index")
+async def global_liquidity_index_route():
+    from bd_platform.global_liquidity_intelligence import build_liquidity_index
+
+    return build_liquidity_index()
+
+
 # ── CVD Intelligence — #232 (Sprint 2, Pro) ───────────────────────────────────
 
 
