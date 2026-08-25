@@ -15,8 +15,13 @@ Regional premium analytics merged into one dashboard — educational + analytica
 | Regime detection | `Regime: Premium (Kimchi) \| Level: +3.2% \| Historical Context: 75th percentile` |
 | No arbitrage framing | `Note: Arbitrage requires local banking + regulatory compliance` |
 | Fee DB (#130) | Mandatory fee context when profit context shown |
-| Coinbase time alignment | 1-minute bucket alignment check |
-| No causation without corroboration | Premium observed — causation not asserted |
+| Coinbase time alignment | Identical timestamp: `Coinbase: ... UTC \| Reference: Binance BTC/USDT ... UTC \| FX: N/A` |
+| Coinbase outage handling | `Coinbase API degraded \| Premium: N/A \| Last valid: ... \| Fallback: Kraken USD pair` |
+| Rolling z-score documented | `Z-Score: 1.8 \| Window: 30D \| Mean: +0.5% \| StdDev: 1.2% \| Interpretation: ...` |
+| Persistence analysis | `Premium Duration: 5 days \| Historical median: 2 days \| Regime: Persistent` |
+| Divergence alerts | `Premium ↑ + BTC Price ↓ = Bearish Divergence` — not sell signal |
+| US Demand Gauge | `US Demand Gauge: Elevated` — not "Buy BTC" |
+| No causation without corroboration | `Correlation (90D): +0.65 \| Note: Correlation ≠ Causation` |
 
 ## Unified Dashboard
 
@@ -41,7 +46,7 @@ Each region = one card. Japan/Europe planned for future sprints.
 ## Disclaimers
 
 - Korea: "Korea Premium measures price differential after FX adjustment. Regulatory restrictions may prevent arbitrage. Not investment advice."
-- Coinbase: "Coinbase Premium measures US venue price differential vs reference. Premium does not imply causation without corroborating flow data. Not investment advice."
+- Coinbase: "Coinbase Premium measures price differential between Coinbase and reference markets. It reflects US demand conditions but does not predict future prices. Not investment advice."
 
 Both `disclaimer_hideable: false`.
 

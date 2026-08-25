@@ -78,12 +78,23 @@ def isolated_seed(tmp_path, monkeypatch):
                         "reference_price_usd": 95000.0,
                         "coinbase_timestamp": price_ts,
                         "reference_timestamp": price_ts,
-                        "rolling_premium_pct": [0.14, 0.15, 0.16],
-                        "rolling_z_score": [0.6, 0.7, 0.84],
-                        "persistence_days": 3,
-                        "corroboration": {"causation_claim_allowed": False},
+                        "rolling_premium_pct": [0.14, 0.15, 0.16, 0.15, 0.16],
+                        "rolling_z_score": [0.6, 0.7, 1.8],
+                        "z_score_window_days": 30,
+                        "persistence_days": 5,
+                        "persistence_median_days": 2,
+                        "historical_correlation_90d": 0.65,
+                        "premium_change_pct_1d": 0.23,
+                        "btc_price_change_pct_1d": -0.85,
+                        "last_valid_timestamp": "2026-08-25T12:00:00+00:00",
+                        "corroboration": {
+                            "causation_claim_allowed": False,
+                            "etf_inflow_usd": 500000000,
+                            "institutional_flow_proxy": "strong",
+                        },
                     },
                 },
+                "fallback": {"venue": "kraken", "pair": "BTC/USD", "status": "up", "price_usd": 95050.0},
             },
             "regions": {
                 "us": {"feature_id": 233, "label": "US (Coinbase)", "status": "live"},
@@ -173,25 +184,79 @@ def test_mandatory_disclaimer(isolated_seed):
 def test_coinbase_time_alignment(isolated_seed):
     result = pi.get_coinbase_premium("BTC")
     assert result["time_aligned"] is True
-    assert "Aligned: Yes" in result["time_alignment_display"]
+    assert "FX: N/A (both USD)" in result["time_alignment_display"]
+    assert "Binance BTC/USDT" in result["time_alignment_display"]
     assert "Reference: Binance BTC/USDT" in result["reference_display"]
+
+
+def test_coinbase_z_score_documented(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    z = result["z_score_context"]
+    assert "Z-Score:" in z["z_score_display"]
+    assert "Window: 30D" in z["z_score_display"]
+    assert "Mean:" in z["z_score_display"]
+    assert "StdDev:" in z["z_score_display"]
+    assert "Interpretation:" in z["z_score_display"]
+
+
+def test_coinbase_persistence_analysis(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    p = result["persistence"]
+    assert "Premium Duration: 5 days" in p["persistence_display"]
+    assert "Historical median duration: 2 days" in p["persistence_display"]
+    assert p["regime"] == "Persistent"
 
 
 def test_coinbase_no_causation_without_corroboration(isolated_seed):
     result = pi.get_coinbase_premium("BTC")
     assert result["no_causation_without_corroboration"] is True
-    assert "not asserted without corroboration" in result["causation_note"].lower()
+    assert "Correlation ≠ Causation" in result["corroboration_context"]["correlation_display"]
+    assert "Historical correlation (90D)" in result["corroboration_context"]["correlation_display"]
+
+
+def test_coinbase_corroboration_context(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    ctx = result["corroboration_context"]["context_display"]
+    assert "Corroborated by" in ctx or "Correlation" in ctx
+
+
+def test_coinbase_divergence_not_sell_signal(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    div = result["divergence"]
+    assert div["divergence"] == "Bearish"
+    assert "Divergence" in div["display"]
+    assert "Sell Signal" not in div["display"]
+    assert div["not_a_signal"] is True
+
+
+def test_coinbase_us_demand_gauge(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    gauge = result["us_demand_gauge"]
+    assert gauge["display"] == "US Demand Gauge: Elevated"
+    assert gauge["not_buy_signal"] is True
+    assert "Buy BTC" not in gauge["display"]
+
+
+def test_coinbase_arbitrage_fee_db(isolated_seed):
+    result = pi.get_coinbase_premium("BTC")
+    arb = result.get("arbitrage_context")
+    if arb:
+        assert arb["fee_db_feature_id"] == 130
+        assert "Net after transfer fees" in arb["display"]
 
 
 def test_coinbase_outage_handling(isolated_seed):
     seed = json.loads(isolated_seed.read_text(encoding="utf-8"))
-    seed["coinbase"]["venue"]["status"] = "down"
+    seed["coinbase"]["venue"]["status"] = "degraded"
     isolated_seed.write_text(json.dumps(seed), encoding="utf-8")
 
     result = pi.get_coinbase_premium("BTC")
     assert result["premium_pct"] is None
-    assert "venue outage" in result["premium_display"].lower()
-    assert "Coverage reduced" in result["outage_alert"]
+    assert "Premium: N/A" in result["outage_alert"]
+    assert "Last valid" in result["outage_alert"]
+    assert "Fallback: Kraken" in result["outage_alert"]
+    assert result.get("fallback") is not None
+    assert result["stale_data_hidden"] is True
 
 
 def test_unified_regional_dashboard(isolated_seed):
