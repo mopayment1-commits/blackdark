@@ -1,0 +1,84 @@
+{
+  "feature_id": 293,
+  "replaces_feature_id": 758,
+  "standalone": false,
+  "merged_into": "#139 Sentiment Intelligence",
+  "sprint": 2,
+  "analyzer_version": "2.1",
+  "baseline_method": "Rolling Median",
+  "burst_threshold_sigma": 3,
+  "last_calibrated": "2026-08-25T00:00:00+00:00",
+  "baseline_windows": ["7D", "30D", "90D"],
+  "bot_filters": {
+    "min_account_age_days": 30,
+    "min_followers": 100,
+    "bot_score_filtered_pct": 0.0
+  },
+  "alert_precision_history": {
+    "total_alerts": 100,
+    "true_positives": 82,
+    "false_positives": 18,
+    "precision_pct": 82.0,
+    "display": "Alert History: 100 alerts | 82 True Positive | 18 False Positive | Precision: 82%"
+  },
+  "assets": {
+    "BTC": {
+      "baseline_30d_avg_mentions": 12500,
+      "baseline_7d_avg_mentions": 13200,
+      "baseline_90d_avg_mentions": 11800,
+      "current_mentions": 72000,
+      "baseline_last_updated": "2026-08-25T13:00:00+00:00",
+      "engagement_quality_score": 8.2,
+      "bot_score_filtered_pct": 34.5,
+      "sources": {
+        "twitter": {"mentions": 45000, "baseline": 8200, "pct_change": 448.8, "available": true},
+        "reddit": {"mentions": 18000, "baseline": 3800, "pct_change": 373.7, "available": true},
+        "telegram": {"mentions": 6000, "baseline": 2800, "pct_change": 114.3, "available": true},
+        "discord": {"mentions": 2000, "baseline": 900, "pct_change": 122.2, "available": true},
+        "news": {"mentions": 1000, "baseline": 800, "pct_change": 25.0, "available": true}
+      },
+      "hype_spike_detected": true,
+      "confidence_pct": 87.0
+    },
+    "ETH": {
+      "baseline_30d_avg_mentions": 8200,
+      "baseline_7d_avg_mentions": 8500,
+      "baseline_90d_avg_mentions": 7900,
+      "current_mentions": 9800,
+      "baseline_last_updated": "2026-08-25T13:00:00+00:00",
+      "engagement_quality_score": 7.1,
+      "bot_score_filtered_pct": 22.0,
+      "sources": {
+        "twitter": {"mentions": 4200, "baseline": 4000, "pct_change": 5.0, "available": true},
+        "reddit": {"mentions": 2800, "baseline": 2600, "pct_change": 7.7, "available": true},
+        "telegram": {"mentions": 1800, "baseline": 1200, "pct_change": 50.0, "available": true},
+        "discord": {"mentions": 600, "baseline": 300, "pct_change": 100.0, "available": true},
+        "news": {"mentions": 400, "baseline": 100, "pct_change": 300.0, "available": false}
+      },
+      "hype_spike_detected": false,
+      "confidence_pct": 42.0
+    },
+    "SOL": {
+      "baseline_30d_avg_mentions": 5600,
+      "baseline_7d_avg_mentions": 5800,
+      "baseline_90d_avg_mentions": 5400,
+      "current_mentions": 28000,
+      "baseline_last_updated": "2026-08-25T13:00:00+00:00",
+      "engagement_quality_score": 7.8,
+      "bot_score_filtered_pct": 41.2,
+      "sources": {
+        "twitter": {"mentions": 16000, "baseline": 3200, "pct_change": 400.0, "available": true},
+        "reddit": {"mentions": 8000, "baseline": 1500, "pct_change": 433.3, "available": true},
+        "telegram": {"mentions": 3000, "baseline": 600, "pct_change": 400.0, "available": true},
+        "discord": {"mentions": 800, "baseline": 200, "pct_change": 300.0, "available": true},
+        "news": {"mentions": 200, "baseline": 100, "pct_change": 100.0, "available": true}
+      },
+      "hype_spike_detected": true,
+      "confidence_pct": 79.0
+    }
+  },
+  "market_scan": {
+    "affected_tokens": ["BTC", "SOL"],
+    "scan_timestamp": "2026-08-25T13:15:00+00:00"
+  }
+}
