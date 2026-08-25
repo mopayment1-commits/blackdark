@@ -93,20 +93,34 @@
       "exchange": "binance",
       "pair": "BTC/USDT",
       "methodology": "VWAP 1H",
-      "time_alignment": "1-minute bucket"
+      "time_alignment": "identical timestamp (≤1s)"
+    },
+    "fallback": {
+      "venue": "kraken",
+      "pair": "BTC/USD",
+      "status": "up"
     },
     "assets": {
       "BTC": {
         "coinbase_price_usd": 95150.0,
         "reference_price_usd": 95000.0,
-        "coinbase_timestamp": "2026-08-25T13:15:00+00:00",
-        "reference_timestamp": "2026-08-25T13:15:00+00:00",
+        "coinbase_timestamp": "2026-08-25T14:00:00.000+00:00",
+        "reference_timestamp": "2026-08-25T14:00:00.000+00:00",
+        "last_valid_timestamp": "2026-08-25T12:00:00+00:00",
         "rolling_premium_pct": [0.12, 0.14, 0.15, 0.16, 0.16, 0.15, 0.16],
-        "rolling_z_score": [0.5, 0.6, 0.7, 0.8, 0.85, 0.82, 0.84],
-        "persistence_days": 3,
+        "rolling_z_score": [0.5, 0.6, 0.7, 0.8, 0.85, 0.82, 1.8],
+        "z_score_window_days": 30,
+        "z_score_mean_pct": 0.5,
+        "z_score_stddev_pct": 1.2,
+        "persistence_days": 5,
+        "persistence_median_days": 2,
+        "historical_correlation_90d": 0.65,
+        "premium_change_pct_1d": 0.23,
+        "btc_price_change_pct_1d": -0.85,
         "corroboration": {
-          "institutional_flow_proxy": "neutral",
+          "institutional_flow_proxy": "strong",
           "etf_flow_proxy": "mild_inflow",
+          "etf_inflow_usd": 500000000,
           "causation_claim_allowed": false
         }
       },
