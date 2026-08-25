@@ -2149,3 +2149,99 @@ async def onchain_realized_cap_route(asset: str = Query("BTC")):
     from bd_platform.onchain_metrics_suite import compute_realized_cap
 
     return await compute_realized_cap(asset)
+
+
+@router.get("/onchain/metrics-suite/mdia")
+async def onchain_mdia_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_suite import compute_mdia
+
+    return await compute_mdia(asset)
+
+
+# ── Portfolio Risk Analytics Suite — #723 + #724 + #746 merged ────────────────
+
+
+@router.get("/portfolio/risk-analytics/status")
+async def portfolio_risk_analytics_status_route():
+    from bd_platform.portfolio_risk_analytics import portfolio_risk_analytics_status
+
+    return portfolio_risk_analytics_status()
+
+
+@router.get("/portfolio/risk-analytics/correlation")
+async def portfolio_correlation_matrix_route(
+    symbols: str | None = Query(None, description="Comma-separated symbols"),
+):
+    from bd_platform.portfolio_risk_analytics import build_correlation_matrix
+
+    syms = [s.strip().upper() for s in symbols.split(",")] if symbols else None
+    return build_correlation_matrix(syms)
+
+
+@router.get("/portfolio/risk-analytics/breadth")
+async def portfolio_return_breadth_route(
+    symbols: str | None = Query(None, description="Comma-separated symbols"),
+):
+    from bd_platform.portfolio_risk_analytics import compute_return_breadth
+
+    syms = [s.strip().upper() for s in symbols.split(",")] if symbols else None
+    return compute_return_breadth(syms)
+
+
+@router.post("/portfolio/risk-analytics/simulate")
+async def portfolio_risk_simulate_route(
+    holdings: list[dict[str, Any]] = Body(...),
+    horizon_days: int = Query(30, ge=7, le=90),
+    iterations: int = Query(10_000, ge=1000, le=10_000),
+    user: dict = Depends(require_authenticated),
+):
+    from auth_service import feature_allowed
+    from bd_platform.portfolio_risk_analytics import run_risk_scenario_simulation
+
+    if not feature_allowed(user, "risk_scenario_simulator"):
+        raise HTTPException(status_code=403, detail="risk_scenario_simulator_requires_pro")
+    return run_risk_scenario_simulation(
+        holdings, horizon_days=horizon_days, iterations=iterations,
+    )
+
+
+@router.post("/portfolio/risk-analytics")
+async def portfolio_risk_analytics_route(
+    holdings: list[dict[str, Any]] = Body(...),
+    horizon_days: int = Query(30, ge=7, le=90),
+    user: dict = Depends(require_authenticated),
+):
+    from auth_service import feature_allowed
+    from bd_platform.portfolio_risk_analytics import get_portfolio_risk_analytics
+
+    if not feature_allowed(user, "risk_scenario_simulator"):
+        raise HTTPException(status_code=403, detail="risk_scenario_simulator_requires_pro")
+    return get_portfolio_risk_analytics(holdings, horizon_days=horizon_days)
+
+
+# ── Signal Validation Engine — #747 MTF convergence (validation layer) ─────────
+
+
+@router.get("/signal-engine/validation/status")
+async def signal_validation_status_route():
+    from bd_platform.signal_validation_engine import signal_validation_status
+
+    return signal_validation_status()
+
+
+@router.get("/signal-engine/validation/mtf")
+async def signal_mtf_validation_route(asset: str = Query("BTC")):
+    from bd_platform.signal_validation_engine import validate_mtf_convergence
+
+    return await validate_mtf_convergence(asset)
+
+
+@router.get("/signal-engine/validation")
+async def signal_validation_route(
+    asset: str = Query("BTC"),
+    opportunity_score: float | None = Query(None),
+):
+    from bd_platform.signal_validation_engine import run_signal_validation
+
+    return await run_signal_validation(asset, opportunity_score=opportunity_score)
+

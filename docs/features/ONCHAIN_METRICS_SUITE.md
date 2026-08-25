@@ -1,32 +1,37 @@
-# On-Chain Metrics Suite — #750 Realized Cap Model (merged)
+# On-Chain Metrics Suite — #745 MDIA + #750 Realized Cap (merged)
 
 **NOT standalone** — merged into On-Chain Metrics Suite (Sprint 2 — On-Chain Intelligence).
 
-Competitor reference: Glassnode Realized Cap.
+## #750 — Realized Cap Model
 
-## Institutional Rules
+Competitor reference: Glassnode Realized Cap.
 
 | Rule | Implementation |
 |------|----------------|
-| Not standalone | `standalone: false`, merged into suite |
 | True network value | Realized Cap + Realized Price + Market Cap |
 | Methodology documented | SMA200 cost-basis proxy when UTXO data unavailable |
-| Source metadata | Binance klines, CoinGecko supply |
 | Alerts | MVRV Z-Score overheated/undervalued zones |
-| SLA | Response ≤2s, accuracy ≥95%, uptime 99% targets |
 
-## Display
+## #745 — Mean Dollar Invested Age (MDIA)
 
-`Realized Cap: $990.0B | Realized Price: $50,000 | Market Cap: $1.98T`
+Competitor reference: Glassnode Mean Dollar Invested Age.
+
+| Rule | Implementation |
+|------|----------------|
+| Valuation methodology | `MDIA = Σ(coin_age_days × usd_at_last_move) / Σ(usd_at_last_move)` |
+| Time alignment | Daily snapshot at 00:00 UTC, aligned with realized_cap/mvrv/hodl_waves |
+| Chain coverage explicit | Per-asset: `utxo_native` / `account_proxy` / `supported: false` |
+| Output | MDIA trend + regime (mature/neutral/young) |
 
 ## APIs
 
 | Endpoint | Description |
 |----------|-------------|
 | `GET /api/platform/onchain/metrics-suite/status` | Suite status |
-| `GET /api/platform/onchain/metrics-suite` | Full suite (realized cap + MVRV + NUPL + alerts) |
+| `GET /api/platform/onchain/metrics-suite` | Full suite (realized cap + MDIA + MVRV + alerts) |
 | `GET /api/platform/onchain/metrics-suite/realized-cap` | Realized Cap Model (#750) |
-| `GET /api/platform/onchain/metrics-suite/methodology` | Methodology + Glassnode reference |
+| `GET /api/platform/onchain/metrics-suite/mdia` | Mean Dollar Invested Age (#745) |
+| `GET /api/platform/onchain/metrics-suite/methodology` | Methodology + competitor references |
 
 ## Related
 

@@ -16,5 +16,27 @@
     "mvrv_z_overheated": 2.0,
     "mvrv_z_undervalued": -1.0,
     "realized_cap_deviation_pct": 15.0
+  },
+  "mdia_methodology": {
+    "version": "v1.0",
+    "competitor_reference": "Glassnode Mean Dollar Invested Age",
+    "valuation_methodology": "MDIA = Σ(coin_age_days × usd_at_last_move) / Σ(usd_at_last_move)",
+    "proxy_note": "When UTXO unavailable: volume-weighted holding-period proxy from 7d/90d price structure",
+    "time_alignment": {
+      "snapshot_boundary_utc": "00:00:00",
+      "cadence": "daily",
+      "price_reference": "daily_close",
+      "aligns_with_suite_metrics": ["realized_cap", "mvrv", "hodl_waves"]
+    },
+    "chain_coverage": {
+      "BTC": {"chain": "bitcoin", "mode": "utxo_native", "supported": true, "coverage_pct": 100},
+      "ETH": {"chain": "ethereum", "mode": "account_proxy", "supported": true, "coverage_pct": 85},
+      "SOL": {"chain": "solana", "mode": "account_proxy", "supported": false, "coverage_pct": 0}
+    },
+    "baselines": {
+      "BTC": 210,
+      "ETH": 180,
+      "SOL": 120
+    }
   }
 }

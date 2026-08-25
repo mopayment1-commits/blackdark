@@ -17,7 +17,9 @@ from typing import Any
 
 logger = logging.getLogger("BLACKDARK.OnChainMetricsSuite")
 
+_FEATURE_IDS = [745, 750]
 _FEATURE_ID = 750
+_FEATURE_ID_MDIA = 745
 _MERGED_INTO = "On-Chain Metrics Suite"
 _STANDALONE = False
 _SEED_PATH = Path("data/onchain_metrics_seed.json")
@@ -84,6 +86,110 @@ def _build_alerts(
         })
 
     return alerts
+
+
+def _mdia_regime(mdia_days: float, baseline_days: float) -> str:
+    ratio = mdia_days / baseline_days if baseline_days > 0 else 1.0
+    if ratio >= 1.15:
+        return "mature"
+    if ratio <= 0.85:
+        return "young"
+    return "neutral"
+
+
+async def compute_mdia(asset: str = "BTC") -> dict[str, Any]:
+    """Mean Dollar Invested Age — merged #745, not standalone."""
+    t0 = time.perf_counter()
+    seed = _load_seed()
+    mdia_meta = seed.get("mdia_methodology") or {}
+    chain_coverage_all = mdia_meta.get("chain_coverage") or {}
+    sym = asset.upper().replace("/USDT", "")
+    chain_info = chain_coverage_all.get(sym, {})
+    supported = bool(chain_info.get("supported", False))
+
+    from bd_platform.onchain_advanced import compute_advanced_metrics
+
+    metrics = await compute_advanced_metrics(sym)
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+
+    if metrics.get("error"):
+        return {
+            "ok": False,
+            "feature_id": _FEATURE_ID_MDIA,
+            "error": metrics["error"],
+            "chain_coverage": chain_info,
+            "sla_met": elapsed_ms <= _SLA_MS,
+            "latency_ms": elapsed_ms,
+            "timestamp": _utcnow(),
+        }
+
+    if not supported:
+        return {
+            "ok": True,
+            "feature_id": _FEATURE_ID_MDIA,
+            "standalone": _STANDALONE,
+            "merged_into": _MERGED_INTO,
+            "asset": sym,
+            "model": "mean_dollar_invested_age",
+            "supported": False,
+            "chain_coverage": chain_info,
+            "valuation_methodology": mdia_meta.get("valuation_methodology"),
+            "time_alignment": mdia_meta.get("time_alignment"),
+            "disclaimer": "Chain coverage not yet supported for this asset.",
+            "sla_met": elapsed_ms <= _SLA_MS,
+            "latency_ms": elapsed_ms,
+            "timestamp": _utcnow(),
+        }
+
+    hodl = metrics.get("hodl_waves") or {}
+    price = float(metrics.get("price") or 0)
+    short_avg = float(hodl.get("short_term_7d_avg") or price)
+    long_avg = float(hodl.get("long_term_90d_avg") or price)
+    baseline_days = float((mdia_meta.get("baselines") or {}).get(sym, 180))
+
+    if price > 0 and long_avg > 0:
+        hold_ratio = min(1.5, max(0.5, short_avg / long_avg))
+        mdia_days = round(baseline_days * hold_ratio, 1)
+    else:
+        mdia_days = baseline_days
+
+    mdia_years = round(mdia_days / 365, 2)
+    regime = _mdia_regime(mdia_days, baseline_days)
+    time_alignment = mdia_meta.get("time_alignment") or {}
+
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID_MDIA,
+        "standalone": _STANDALONE,
+        "merged_into": _MERGED_INTO,
+        "asset": sym,
+        "model": "mean_dollar_invested_age",
+        "competitor_reference": mdia_meta.get("competitor_reference", "Glassnode Mean Dollar Invested Age"),
+        "mdia_days": mdia_days,
+        "mdia_years": mdia_years,
+        "mdia_trend": regime,
+        "mdia_display": f"MDIA: {mdia_days:.0f} days ({mdia_years:.1f}y) | Regime: {regime}",
+        "valuation_methodology": mdia_meta.get("valuation_methodology"),
+        "methodology_display": mdia_meta.get("valuation_methodology"),
+        "proxy_note": mdia_meta.get("proxy_note"),
+        "time_alignment": {
+            **time_alignment,
+            "snapshot_utc": _utcnow(),
+            "aligned_with_suite_metrics": time_alignment.get(
+                "aligns_with_suite_metrics",
+                ["realized_cap", "mvrv", "hodl_waves"],
+            ),
+        },
+        "chain_coverage": chain_info,
+        "chain_coverage_explicit": True,
+        "hodl_waves": hodl,
+        "regime": regime,
+        "sla_met": elapsed_ms <= _SLA_MS,
+        "latency_ms": elapsed_ms,
+        "not_a_prediction": True,
+        "disclaimer": "MDIA proxy unless Glassnode/Santiment UTXO data configured.",
+        "timestamp": _utcnow(),
+    }
 
 
 async def compute_realized_cap(asset: str = "BTC") -> dict[str, Any]:
@@ -166,6 +272,7 @@ async def get_onchain_metrics_suite(asset: str = "BTC") -> dict[str, Any]:
     from bd_platform.mvrv_realignment import compute_mvrv_realignment
 
     realized = await compute_realized_cap(sym)
+    mdia = await compute_mdia(sym)
     advanced = await compute_advanced_metrics(sym)
     realignment = await compute_mvrv_realignment(sym)
     elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
@@ -182,6 +289,7 @@ async def get_onchain_metrics_suite(asset: str = "BTC") -> dict[str, Any]:
         "sprint": 2,
         "asset": sym,
         "realized_cap": realized,
+        "mdia": mdia,
         "mvrv": advanced.get("mvrv"),
         "nupl_proxy": advanced.get("nupl_proxy"),
         "sopr_proxy": advanced.get("sopr_proxy"),
@@ -198,7 +306,9 @@ async def get_onchain_metrics_suite(asset: str = "BTC") -> dict[str, Any]:
         "latency_ms": elapsed_ms,
         "accuracy_target_pct": _ACCURACY_TARGET_PCT,
         "uptime_target_pct": _UPTIME_TARGET_PCT,
-        "integrated_metrics": ["realized_cap", "mvrv", "nupl", "sopr", "puell", "hodl_waves"],
+        "integrated_metrics": [
+            "realized_cap", "mdia", "mvrv", "nupl", "sopr", "puell", "hodl_waves",
+        ],
         "timestamp": _utcnow(),
     }
 
@@ -206,11 +316,13 @@ async def get_onchain_metrics_suite(asset: str = "BTC") -> dict[str, Any]:
 def get_methodology() -> dict[str, Any]:
     seed = _load_seed()
     methodology = seed.get("methodology") or {}
+    mdia_methodology = seed.get("mdia_methodology") or {}
     return {
         "ok": True,
-        "feature_id": _FEATURE_ID,
+        "feature_ids": _FEATURE_IDS,
         "merged_into": _MERGED_INTO,
         "methodology": methodology,
+        "mdia_methodology": mdia_methodology,
         "competitor_reference": methodology.get("competitor_reference"),
         "accuracy_target_pct": _ACCURACY_TARGET_PCT,
         "display": (
@@ -226,18 +338,23 @@ def onchain_metrics_suite_status() -> dict[str, Any]:
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "feature_ids": _FEATURE_IDS,
         "standalone": _STANDALONE,
         "merged_into": _MERGED_INTO,
         "module": "On-Chain Metrics Suite",
         "sprint": 2,
         "realized_cap_model": True,
-        "competitor_reference": "Glassnode Realized Cap",
+        "mdia_model": True,
+        "competitor_reference": "Glassnode Realized Cap / MDIA",
+        "valuation_methodology_documented": True,
+        "time_alignment_documented": True,
+        "chain_coverage_explicit": True,
         "sla_response_ms": _SLA_MS,
         "accuracy_target_pct": _ACCURACY_TARGET_PCT,
         "uptime_target_pct": _UPTIME_TARGET_PCT,
         "methodology_version": (seed.get("methodology") or {}).get("version"),
         "integrated_metrics": [
-            "realized_cap", "realized_price", "mvrv", "nupl", "sopr", "puell", "hodl_waves",
+            "realized_cap", "realized_price", "mdia", "mvrv", "nupl", "sopr", "puell", "hodl_waves",
         ],
         "related_modules": ["onchain_advanced", "mvrv_realignment"],
         "timestamp": _utcnow(),

@@ -139,6 +139,15 @@ async def generate_decision_signal(
     score = float(unified.get("score") or unified.get("opportunity_score") or 50)
     verdict = str(unified.get("verdict") or "WAIT")
 
+    # 4b. Signal validation layer (#747 MTF convergence — filter, not standalone)
+    from bd_platform.signal_validation_engine import run_signal_validation
+
+    validation = await run_signal_validation(sym, opportunity_score=score)
+    if not validation.get("signal_trusted"):
+        score = float(validation.get("adjusted_score") or score)
+        if validation.get("mtf_validation", {}).get("mtf_regime") == "divergent":
+            verdict = "WAIT" if verdict in ("BUY", "Buy Now") else verdict
+
     # 5. Walk-forward backtest (optional, cached longer)
     backtest: dict[str, Any] = {"ok": False, "skipped": True}
     if include_backtest:
@@ -230,6 +239,7 @@ async def generate_decision_signal(
             "verdict": verdict,
             "engine": unified.get("engine_id", "unified_multimodal_v1"),
         },
+        "signal_validation": validation,
         "backtest": backtest,
         "risk_adjusted": {
             "sharpe": metrics.get("sharpe"),
