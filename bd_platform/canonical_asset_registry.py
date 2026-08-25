@@ -62,15 +62,27 @@ def _enrich_asset(row: dict[str, Any]) -> dict[str, Any]:
         "merged_feature": _MERGED_INTO,
         "display": f"{row.get('symbol')} ({row.get('stable_id')}) — {lifecycle}",
     }
+    integrated: list[str] = []
     try:
         from bd_platform.market_cap_supply import get_supply_provenance
 
         supply = get_supply_provenance(str(row.get("symbol") or ""))
         if supply:
             enriched["supply_provenance"] = supply
-            enriched["integrated_features"] = ["#267"]
+            integrated.append("#267")
     except Exception:
         logger.debug("supply provenance enrich failed", exc_info=True)
+    try:
+        from bd_platform.dev_health_score import get_dev_health_for_asset
+
+        dev_health = get_dev_health_for_asset(str(row.get("symbol") or ""))
+        if dev_health:
+            enriched["dev_health"] = dev_health
+            integrated.append("#238")
+    except Exception:
+        logger.debug("dev health enrich failed", exc_info=True)
+    if integrated:
+        enriched["integrated_features"] = integrated
     return enriched
 
 
@@ -163,7 +175,8 @@ def canonical_asset_registry_status() -> dict[str, Any]:
         "lifecycle_states": sorted(lifecycles),
         "stable_ids": True,
         "lifecycle_versioning": True,
-        "integrated_with": ["connector_coverage_map", "#194", "#267"],
+        "integrated_with": ["connector_coverage_map", "#194", "#267", "#238"],
         "supply_provenance_merged": True,
+        "dev_health_merged": True,
         "timestamp": _utcnow(),
     }
