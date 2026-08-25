@@ -293,6 +293,40 @@ async def market_depth_panel_route(
     return result
 
 
+@router.get("/api/v1/data/liquidity-intelligence/status")
+async def liquidity_intelligence_status_route():
+    """#280 Liquidity Intelligence Engine — absorbs #277+#278+#279, layer not dashboard."""
+    from blackdark.data.liquidity_intelligence_engine import liquidity_intelligence_status
+
+    return liquidity_intelligence_status()
+
+
+@router.get("/api/v1/data/liquidity-intelligence/panel")
+async def liquidity_intelligence_panel_route(
+    pair: str = Query("BTC/USDT"),
+    venue: str | None = Query(None),
+):
+    """#280 Order Book Intelligence panel — depth, imbalance, warnings, UI deferred."""
+    from blackdark.data.liquidity_intelligence_engine import build_intelligence_panel
+
+    result = build_intelligence_panel(pair=pair, venue=venue)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/v1/data/liquidity-intelligence/warnings")
+async def liquidity_intelligence_warnings_route(
+    pair: str | None = Query(None),
+    severity: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#280 liquidity warnings — backend output for asset page / Screener."""
+    from blackdark.data.liquidity_intelligence_engine import list_liquidity_warnings
+
+    return list_liquidity_warnings(pair=pair, severity=severity, limit=limit)
+
+
 @router.get("/api/v1/data/market-pairs/status")
 async def get_market_pair_view_status():
     """#270 archived — frontend requirement for Market Radar Sprint 2."""
