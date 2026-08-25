@@ -2567,6 +2567,36 @@ async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
     return scan_market_hype(limit=limit)
 
 
+# ── CVD Intelligence — #232 (Sprint 2, Pro) ───────────────────────────────────
+
+
+@router.get("/market-radar/cvd/status")
+async def cvd_intelligence_status_route():
+    from bd_platform.cvd_intelligence import cvd_intelligence_status
+
+    return cvd_intelligence_status()
+
+
+@router.get("/market-radar/cvd/analysis")
+async def cvd_intelligence_analysis_route(
+    asset: str = Query("BTC"),
+    window: str = Query("1H"),
+):
+    from bd_platform.cvd_intelligence import build_cvd_analysis
+
+    return build_cvd_analysis(asset, window=window)
+
+
+@router.get("/market-radar/cvd/chart")
+async def cvd_intelligence_chart_route(
+    asset: str = Query("BTC"),
+    window: str = Query("1H"),
+):
+    from bd_platform.cvd_intelligence import build_cvd_chart
+
+    return build_cvd_chart(asset, window=window)
+
+
 # ── ETF Intelligence Module — #210 + #240 (Sprint 2, Pro) ───────────────────
 
 

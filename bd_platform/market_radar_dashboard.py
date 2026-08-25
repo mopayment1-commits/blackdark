@@ -57,11 +57,13 @@ async def build_market_radar_dashboard(
     premiums_task = asyncio.to_thread(get_regional_premiums_dashboard, sym)
     from bd_platform.signal_context_layer import build_context_panel, signal_context_layer_status
     from bd_platform.etf_intelligence import build_etf_intelligence_dashboard, etf_intelligence_status
+    from bd_platform.cvd_intelligence import build_cvd_analysis, cvd_intelligence_status
 
     context_task = build_context_panel(sym, surface="market_radar")
     etf_task = asyncio.to_thread(build_etf_intelligence_dashboard, sym)
+    cvd_task = asyncio.to_thread(build_cvd_analysis, sym)
 
-    prices, macro, sentiment, liquidity, premiums, signal_context, etf_intelligence = await asyncio.gather(
+    prices, macro, sentiment, liquidity, premiums, signal_context, etf_intelligence, cvd_intel = await asyncio.gather(
         prices_task,
         macro_task,
         sentiment_task,
@@ -69,6 +71,7 @@ async def build_market_radar_dashboard(
         premiums_task,
         context_task,
         etf_task,
+        cvd_task,
         return_exceptions=True,
     )
 
@@ -88,6 +91,7 @@ async def build_market_radar_dashboard(
     premiums_block = _safe(premiums, {"feature_ids": [255, 233], "cards": []})
     signal_context_block = _safe(signal_context, {"feature_id": 330, "three_reasons": []})
     etf_block = _safe(etf_intelligence, {"feature_ids": [210, 240], "rolling_totals": {}})
+    cvd_block = _safe(cvd_intel, {"feature_id": 232, "cvd_value_usd": 0})
 
     sla_flags = [
         prices_block.get("sla_met", True),
@@ -97,12 +101,13 @@ async def build_market_radar_dashboard(
         premiums_block.get("sla_met", True),
         signal_context_block.get("sla_met", True),
         etf_block.get("ok", True),
+        cvd_block.get("ok", True),
     ]
 
     return {
         "ok": True,
         "surface": "market_radar_dashboard",
-        "feature_ids": list(_FEATURE_IDS) + [255, 233, 330, 210, 240],
+        "feature_ids": list(_FEATURE_IDS) + [255, 233, 330, 210, 240, 232],
         "focus_asset": sym,
         "headline": (
             f"Market Radar — {sym}: "
@@ -118,6 +123,7 @@ async def build_market_radar_dashboard(
         "regional_premiums": premiums_block,
         "signal_context": signal_context_block,
         "etf_intelligence": etf_block,
+        "cvd_intelligence": cvd_block,
         "status": {
             "infrastructure": market_radar_infrastructure_status(),
             "macro": macro_events_status(),
@@ -127,10 +133,11 @@ async def build_market_radar_dashboard(
             "premium_intelligence": premium_intelligence_status(),
             "signal_context_layer": signal_context_layer_status(),
             "etf_intelligence": etf_intelligence_status(),
+            "cvd_intelligence": cvd_intelligence_status(),
         },
         "integrated_features": [
             "#125", "#133", "#137", "#139", "#140", "#142", "#149", "#155", "#186",
-            "#210", "#233", "#240", "#255", "#330",
+            "#210", "#232", "#233", "#240", "#255", "#330",
         ],
         "sla_met": elapsed_ms <= 2000 and all(sla_flags),
         "latency_ms": round(elapsed_ms, 1),
@@ -153,6 +160,7 @@ def market_radar_dashboard_status() -> dict[str, Any]:
             "330": "signal_context_layer",
             "210": "etf_intelligence",
             "240": "etf_intelligence",
+            "232": "cvd_intelligence",
         },
         "endpoint": "/api/platform/market-radar/dashboard",
         "timestamp": _utcnow(),

@@ -1,0 +1,153 @@
+{
+  "feature_id": 232,
+  "feature_label": "CVD Intelligence",
+  "standalone": false,
+  "sprint": 2,
+  "tier": "pro",
+  "methodology_version": "1.2",
+  "classification": "Taker Side",
+  "aggregation": "Volume-Weighted",
+  "last_updated": "2026-08-25",
+  "exchanges": ["binance", "coinbase", "kraken", "okx", "bybit"],
+  "classification_rules": {
+    "aggressive_buy": "market buy (taker buy)",
+    "aggressive_sell": "market sell (taker sell)"
+  },
+  "classification_audit": {
+    "accuracy_pct": 97.3,
+    "trades_tested": 12500,
+    "min_trades_required": 10000,
+    "test_date": "2026-08-25",
+    "ground_truth_source": "Exchange API taker side flags",
+    "exchanges_tested": ["binance", "coinbase", "kraken", "okx", "bybit"]
+  },
+  "classification_sample": [],
+  "historical_validation": {
+    "period_months": 6,
+    "divergences_detected": 50,
+    "true_positive": 38,
+    "false_positive": 12,
+    "precision_pct": 76.0
+  },
+  "gap_policy": "Gaps visible with dashed interpolation — never present as complete data",
+  "assets": {
+    "BTC": {
+      "venues": {
+        "binance": {
+          "status": "down",
+          "gap": true,
+          "gap_reason": "Feed outage",
+          "aggressive_buy_usd": 0,
+          "aggressive_sell_usd": 0,
+          "volume_usd": 0,
+          "weight": 0.0
+        },
+        "coinbase": {
+          "status": "up",
+          "aggressive_buy_usd": 185000000,
+          "aggressive_sell_usd": 142000000,
+          "volume_usd": 327000000,
+          "weight": 0.22
+        },
+        "kraken": {
+          "status": "up",
+          "aggressive_buy_usd": 98000000,
+          "aggressive_sell_usd": 87000000,
+          "volume_usd": 185000000,
+          "weight": 0.12
+        },
+        "okx": {
+          "status": "up",
+          "aggressive_buy_usd": 312000000,
+          "aggressive_sell_usd": 268000000,
+          "volume_usd": 580000000,
+          "weight": 0.38
+        },
+        "bybit": {
+          "status": "up",
+          "aggressive_buy_usd": 245000000,
+          "aggressive_sell_usd": 221000000,
+          "volume_usd": 466000000,
+          "weight": 0.28
+        }
+      },
+      "series": {
+        "1h": {
+          "cvd": [
+            {"ts": "2026-08-25T15:00:00+00:00", "value_usd": 12000000, "interpolated": false},
+            {"ts": "2026-08-25T16:00:00+00:00", "value_usd": 18500000, "interpolated": false},
+            {"ts": "2026-08-25T17:00:00+00:00", "value_usd": 14200000, "interpolated": true, "gap_exchange": "binance"},
+            {"ts": "2026-08-25T18:00:00+00:00", "value_usd": 9800000, "interpolated": false},
+            {"ts": "2026-08-25T19:00:00+00:00", "value_usd": 5200000, "interpolated": false},
+            {"ts": "2026-08-25T20:00:00+00:00", "value_usd": -2100000, "interpolated": false}
+          ],
+          "price": [
+            {"ts": "2026-08-25T15:00:00+00:00", "close_usd": 115800},
+            {"ts": "2026-08-25T16:00:00+00:00", "close_usd": 116100},
+            {"ts": "2026-08-25T17:00:00+00:00", "close_usd": 116350},
+            {"ts": "2026-08-25T18:00:00+00:00", "close_usd": 116500},
+            {"ts": "2026-08-25T19:00:00+00:00", "close_usd": 116700},
+            {"ts": "2026-08-25T20:00:00+00:00", "close_usd": 116850}
+          ]
+        },
+        "4h": {
+          "cvd": [
+            {"ts": "2026-08-25T08:00:00+00:00", "value_usd": 45000000, "interpolated": false},
+            {"ts": "2026-08-25T12:00:00+00:00", "value_usd": 38000000, "interpolated": false},
+            {"ts": "2026-08-25T16:00:00+00:00", "value_usd": 22000000, "interpolated": true, "gap_exchange": "binance"},
+            {"ts": "2026-08-25T20:00:00+00:00", "value_usd": -2100000, "interpolated": false}
+          ],
+          "price": [
+            {"ts": "2026-08-25T08:00:00+00:00", "close_usd": 115200},
+            {"ts": "2026-08-25T12:00:00+00:00", "close_usd": 115600},
+            {"ts": "2026-08-25T16:00:00+00:00", "close_usd": 116100},
+            {"ts": "2026-08-25T20:00:00+00:00", "close_usd": 116850}
+          ]
+        },
+        "1d": {
+          "cvd": [
+            {"ts": "2026-08-20T00:00:00+00:00", "value_usd": 180000000, "interpolated": false},
+            {"ts": "2026-08-21T00:00:00+00:00", "value_usd": 210000000, "interpolated": false},
+            {"ts": "2026-08-22T00:00:00+00:00", "value_usd": 165000000, "interpolated": false},
+            {"ts": "2026-08-23T00:00:00+00:00", "value_usd": 142000000, "interpolated": false},
+            {"ts": "2026-08-24T00:00:00+00:00", "value_usd": 98000000, "interpolated": false},
+            {"ts": "2026-08-25T00:00:00+00:00", "value_usd": -2100000, "interpolated": false}
+          ],
+          "price": [
+            {"ts": "2026-08-20T00:00:00+00:00", "close_usd": 114900},
+            {"ts": "2026-08-21T00:00:00+00:00", "close_usd": 115200},
+            {"ts": "2026-08-22T00:00:00+00:00", "close_usd": 115500},
+            {"ts": "2026-08-23T00:00:00+00:00", "close_usd": 115800},
+            {"ts": "2026-08-24T00:00:00+00:00", "close_usd": 116100},
+            {"ts": "2026-08-25T00:00:00+00:00", "close_usd": 116850}
+          ]
+        }
+      },
+      "baseline_30d_usd": 85000000
+    },
+    "ETH": {
+      "venues": {
+        "binance": {"status": "up", "aggressive_buy_usd": 85000000, "aggressive_sell_usd": 72000000, "volume_usd": 157000000, "weight": 0.30},
+        "coinbase": {"status": "up", "aggressive_buy_usd": 42000000, "aggressive_sell_usd": 38000000, "volume_usd": 80000000, "weight": 0.15},
+        "kraken": {"status": "up", "aggressive_buy_usd": 28000000, "aggressive_sell_usd": 25000000, "volume_usd": 53000000, "weight": 0.10},
+        "okx": {"status": "up", "aggressive_buy_usd": 95000000, "aggressive_sell_usd": 88000000, "volume_usd": 183000000, "weight": 0.25},
+        "bybit": {"status": "up", "aggressive_buy_usd": 68000000, "aggressive_sell_usd": 61000000, "volume_usd": 129000000, "weight": 0.20}
+      },
+      "series": {
+        "1h": {
+          "cvd": [
+            {"ts": "2026-08-25T18:00:00+00:00", "value_usd": 5200000, "interpolated": false},
+            {"ts": "2026-08-25T19:00:00+00:00", "value_usd": 4800000, "interpolated": false},
+            {"ts": "2026-08-25T20:00:00+00:00", "value_usd": 6100000, "interpolated": false}
+          ],
+          "price": [
+            {"ts": "2026-08-25T18:00:00+00:00", "close_usd": 4520},
+            {"ts": "2026-08-25T19:00:00+00:00", "close_usd": 4535},
+            {"ts": "2026-08-25T20:00:00+00:00", "close_usd": 4548}
+          ]
+        }
+      },
+      "baseline_30d_usd": 12000000
+    }
+  }
+}
