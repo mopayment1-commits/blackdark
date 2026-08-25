@@ -1,0 +1,216 @@
+[
+  {
+    "id": "an-001",
+    "analyst": "Sarah Chen",
+    "firm": "Messari",
+    "view": "bullish",
+    "confidence_pct": 72,
+    "assets": [
+      "BTC"
+    ],
+    "source": "Messari Pro",
+    "published_date": "2026-01-01",
+    "summary": "Sarah Chen (Messari) \u2014 Bullish on BTC",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-002",
+    "analyst": "Marcus Webb",
+    "firm": "Glassnode",
+    "view": "bullish",
+    "confidence_pct": 68,
+    "assets": [
+      "BTC",
+      "ETH"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-02-02",
+    "summary": "Marcus Webb (Glassnode) \u2014 Bullish on BTC, ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-003",
+    "analyst": "Elena Rossi",
+    "firm": "Kaiko",
+    "view": "neutral",
+    "confidence_pct": 55,
+    "assets": [
+      "BTC"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-03-03",
+    "summary": "Elena Rossi (Kaiko) \u2014 Neutral on BTC",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-004",
+    "analyst": "James Park",
+    "firm": "Delphi Digital",
+    "view": "bearish",
+    "confidence_pct": 61,
+    "assets": [
+      "ETH"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-04-04",
+    "summary": "James Park (Delphi Digital) \u2014 Bearish on ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-005",
+    "analyst": "Aisha Khan",
+    "firm": "Independent",
+    "view": "bullish",
+    "confidence_pct": 58,
+    "assets": [
+      "SOL"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-05-05",
+    "summary": "Aisha Khan (Independent) \u2014 Bullish on SOL",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-006",
+    "analyst": "Tom Bradley",
+    "firm": "Messari",
+    "view": "neutral",
+    "confidence_pct": 50,
+    "assets": [
+      "BTC",
+      "ETH"
+    ],
+    "source": "Messari Pro",
+    "published_date": "2026-06-06",
+    "summary": "Tom Bradley (Messari) \u2014 Neutral on BTC, ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-007",
+    "analyst": "Yuki Tanaka",
+    "firm": "Nomura",
+    "view": "bearish",
+    "confidence_pct": 65,
+    "assets": [
+      "BTC"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-07-07",
+    "summary": "Yuki Tanaka (Nomura) \u2014 Bearish on BTC",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-008",
+    "analyst": "Rachel Green",
+    "firm": "CoinMetrics",
+    "view": "bullish",
+    "confidence_pct": 70,
+    "assets": [
+      "ETH"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-08-08",
+    "summary": "Rachel Green (CoinMetrics) \u2014 Bullish on ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-009",
+    "analyst": "Omar Hassan",
+    "firm": "Manual Curation",
+    "view": "neutral",
+    "confidence_pct": 45,
+    "assets": [
+      "BNB"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-09-09",
+    "summary": "Omar Hassan (Manual Curation) \u2014 Neutral on BNB",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-010",
+    "analyst": "Lisa Morgan",
+    "firm": "Messari Pro",
+    "view": "bullish",
+    "confidence_pct": 75,
+    "assets": [
+      "BTC",
+      "SOL"
+    ],
+    "source": "Messari Pro",
+    "published_date": "2026-01-10",
+    "summary": "Lisa Morgan (Messari Pro) \u2014 Bullish on BTC, SOL",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-011",
+    "analyst": "David Kim",
+    "firm": "Independent",
+    "view": "bearish",
+    "confidence_pct": 60,
+    "assets": [
+      "SOL"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-02-11",
+    "summary": "David Kim (Independent) \u2014 Bearish on SOL",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-012",
+    "analyst": "Anna Petrova",
+    "firm": "Glassnode",
+    "view": "neutral",
+    "confidence_pct": 52,
+    "assets": [
+      "ETH"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-03-12",
+    "summary": "Anna Petrova (Glassnode) \u2014 Neutral on ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-013",
+    "analyst": "Chris Wright",
+    "firm": "Messari",
+    "view": "bullish",
+    "confidence_pct": 67,
+    "assets": [
+      "BTC"
+    ],
+    "source": "Messari Pro",
+    "published_date": "2026-04-13",
+    "summary": "Chris Wright (Messari) \u2014 Bullish on BTC",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-014",
+    "analyst": "Fatima Al-Rashid",
+    "firm": "Kaiko",
+    "view": "neutral",
+    "confidence_pct": 48,
+    "assets": [
+      "XRP"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-05-14",
+    "summary": "Fatima Al-Rashid (Kaiko) \u2014 Neutral on XRP",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  },
+  {
+    "id": "an-015",
+    "analyst": "Peter Novak",
+    "firm": "Delphi Digital",
+    "view": "bearish",
+    "confidence_pct": 63,
+    "assets": [
+      "BTC",
+      "ETH"
+    ],
+    "source": "Manual Curation",
+    "published_date": "2026-06-15",
+    "summary": "Peter Novak (Delphi Digital) \u2014 Bearish on BTC, ETH",
+    "imported_at": "2026-03-01T00:00:00+00:00"
+  }
+]

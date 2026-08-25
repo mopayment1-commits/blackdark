@@ -1494,3 +1494,81 @@ async def incentive_program_detail_route(program_id: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+# ── Feature #206 — Analyst Notes Feed (lightweight, not consensus engine) ─────
+
+
+@router.get("/analyst-notes/status")
+async def analyst_notes_status_route():
+    from bd_platform.analyst_notes_feed import analyst_notes_status
+
+    return analyst_notes_status()
+
+
+@router.get("/analyst-notes")
+async def analyst_notes_list_route(
+    asset: str | None = Query(None),
+    firm: str | None = Query(None),
+    view: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.analyst_notes_feed import list_analyst_notes
+
+    return list_analyst_notes(asset=asset, firm=firm, view=view, limit=limit)  # type: ignore[arg-type]
+
+
+@router.get("/analyst-notes/summary/{asset}")
+async def analyst_notes_summary_route(asset: str):
+    from bd_platform.analyst_notes_feed import get_asset_analyst_summary
+
+    return get_asset_analyst_summary(asset)
+
+
+@router.get("/analyst-notes/{note_id}")
+async def analyst_note_detail_route(note_id: str):
+    from bd_platform.analyst_notes_feed import get_analyst_note
+
+    result = get_analyst_note(note_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+# ── Feature #208 — Source Registry & Provenance Layer (#118 merged) ──────────
+
+
+@router.get("/provenance/status")
+async def source_registry_status_route():
+    from bd_platform.source_registry_provenance import source_registry_status
+
+    return source_registry_status()
+
+
+@router.get("/provenance/registry")
+async def source_registry_route():
+    from bd_platform.source_registry_provenance import build_source_registry
+
+    return build_source_registry()
+
+
+@router.get("/provenance/lineage/{metric}")
+async def provenance_lineage_route(metric: str, asset: str = Query("BTC")):
+    from bd_platform.source_registry_provenance import trace_metric_lineage
+
+    return trace_metric_lineage(metric, asset)
+
+
+@router.post("/provenance/reconcile")
+async def provenance_reconcile_route(body: dict[str, Any] = Body(...)):
+    from bd_platform.source_registry_provenance import reconcile_sources
+
+    readings = body.get("readings") if isinstance(body.get("readings"), list) else []
+    return reconcile_sources(readings)
+
+
+@router.post("/provenance/provider-test")
+async def provider_degradation_test_route():
+    from bd_platform.source_registry_provenance import run_provider_degradation_test
+
+    return await run_provider_degradation_test()
