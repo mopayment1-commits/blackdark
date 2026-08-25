@@ -1,0 +1,111 @@
+{
+  "feature_id": 284,
+  "standalone": false,
+  "cross_cutting": true,
+  "merged_into": "Intelligence Ledger / Evidence Confidence Framework",
+  "sprint": 2,
+  "formula_version": "1.0",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "calibration": {
+    "last_calibration": "2026-08-01",
+    "ground_truth_samples": 250,
+    "false_positive_rate_pct": 8.2,
+    "false_negative_rate_pct": 12.5,
+    "bias_detected": false,
+    "score_adjustment_applied": 0,
+    "calibrated": true
+  },
+  "assessments": {
+    "btc-halving-impact-2024": {
+      "title": "BTC halving supply impact analysis",
+      "conclusion": "Supply reduction historically correlates with reduced sell pressure within 6 months",
+      "evidence": {
+        "source_quality": 0.85,
+        "recency": 0.70,
+        "agreement": 0.75,
+        "methodology": 0.90,
+        "completeness": 0.80,
+        "resolution_method": "expert_weighted",
+        "sources": [
+          {
+            "source_id": "glassnode-research",
+            "conclusion": "supply_reduction_bullish",
+            "expert_weight": 0.9,
+            "quality_tier": "tier_1"
+          },
+          {
+            "source_id": "coinmetrics-report",
+            "conclusion": "supply_reduction_bullish",
+            "expert_weight": 0.7,
+            "quality_tier": "tier_1"
+          },
+          {
+            "source_id": "community-analysis",
+            "conclusion": "neutral",
+            "expert_weight": 0.2,
+            "quality_tier": "tier_3"
+          }
+        ]
+      }
+    },
+    "eth-etf-flows-q3": {
+      "title": "ETH ETF flow impact assessment",
+      "conclusion": "Net inflows correlate with short-term price support but evidence is mixed",
+      "evidence": {
+        "source_quality": 0.80,
+        "recency": 0.95,
+        "agreement": 0.55,
+        "methodology": 0.75,
+        "completeness": 0.70,
+        "resolution_method": "majority",
+        "sources": [
+          {
+            "source_id": "farside-investors",
+            "conclusion": "net_inflow_supportive",
+            "expert_weight": 0.8,
+            "quality_tier": "tier_1"
+          },
+          {
+            "source_id": "bloomberg-crypto",
+            "conclusion": "flow_neutral",
+            "expert_weight": 0.7,
+            "quality_tier": "tier_1"
+          },
+          {
+            "source_id": "onchain-analytics",
+            "conclusion": "net_inflow_supportive",
+            "expert_weight": 0.6,
+            "quality_tier": "tier_2"
+          }
+        ]
+      }
+    },
+    "defi-tvl-decline": {
+      "title": "DeFi TVL decline structural analysis",
+      "conclusion": "TVL decline driven by yield compression, not protocol failures",
+      "evidence": {
+        "source_quality": 0.75,
+        "recency": 0.85,
+        "agreement": 0.90,
+        "methodology": 0.80,
+        "completeness": 0.85,
+        "resolution_method": "expert_weighted",
+        "sources": [
+          {
+            "source_id": "defillama-research",
+            "conclusion": "yield_compression",
+            "expert_weight": 0.85,
+            "quality_tier": "tier_1"
+          },
+          {
+            "source_id": "token-terminal",
+            "conclusion": "yield_compression",
+            "expert_weight": 0.75,
+            "quality_tier": "tier_1"
+          }
+        ]
+      }
+    }
+  }
+}
