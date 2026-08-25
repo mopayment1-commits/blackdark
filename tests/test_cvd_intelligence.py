@@ -97,6 +97,47 @@ def test_trade_side_classification_rules():
     assert cvd.classify_trade_side(is_buyer_maker=True) == "aggressive_sell"
 
 
+def test_maker_taker_classification_rules():
+    assert cvd.classify_maker_taker_side(taker_side="buy") == "taker_buy"
+    assert cvd.classify_maker_taker_side(taker_side="sell") == "taker_sell"
+    assert cvd.classify_maker_taker_side(is_buyer_maker=False) == "taker_buy"
+    assert cvd.classify_maker_taker_side(is_buyer_maker=True) == "taker_sell"
+
+
+def test_maker_taker_net_delta():
+    result = cvd.compute_maker_taker_net_delta(100, 60, 60, 100)
+    assert result["taker_net_delta_usd"] == 40
+    assert result["maker_net_delta_usd"] == -40
+    assert "Taker Net Delta" in result["taker_net_display"]
+    assert "Maker Net Delta" in result["maker_net_display"]
+
+
+def test_cvd_components_display_264_merged():
+    components = cvd.build_cvd_components_display(venue="Binance", methodology_version="1.2")
+    assert "Aggressive/Passive (default)" in components["display"]
+    assert "Maker/Taker (alternative classification)" in components["display"]
+    assert "Venue: Binance" in components["display"]
+    assert "Method: v1.2" in components["display"]
+    assert components["no_standalone_264"] is True
+    assert components["no_separate_alerts"] is True
+
+
+def test_maker_taker_mode_in_analysis(isolated_seed):
+    analysis = cvd.build_cvd_analysis("BTC", classification_mode="maker_taker")
+    assert analysis["classification_mode"] == "maker_taker"
+    assert "Maker/Taker" in analysis["cvd_components"]["display"]
+    assert analysis["maker_taker_net_delta"]["taker_equals_aggressive"] is True
+    assert "merged_features" in analysis
+    assert analysis["merged_features"]["264"]["standalone"] is False
+
+
+def test_no_separate_alerts_264(isolated_seed):
+    analysis = cvd.build_cvd_analysis("BTC", classification_mode="maker_taker")
+    assert analysis["cvd_components"]["alert_framework"] == "cvd_divergence_context_only"
+    assert analysis["cvd_components"]["no_separate_alerts"] is True
+    assert analysis["divergence_detail"]["not_a_signal"] is True
+
+
 def test_classification_audit_min_trades():
     sample = cvd.generate_classification_sample(12500)
     audit = cvd.run_classification_audit(sample)
@@ -206,6 +247,9 @@ def test_status(isolated_seed):
     assert status["feature_id"] == 232
     assert status["standalone"] is False
     assert status["classification_audit"]["trades_tested"] >= 10000
+    assert status["acceptance_criteria"]["maker_taker_264_merged"] is True
+    assert status["acceptance_criteria"]["no_standalone_264"] is True
+    assert status["merged_features"]["264"]["standalone"] is False
 
 
 def test_api_routes(isolated_seed):
@@ -220,6 +264,9 @@ def test_api_routes(isolated_seed):
     assert analysis.status_code == 200
     body = analysis.json()
     assert "cvd_value_display" in body
+    mt = c.get("/api/platform/market-radar/cvd/analysis?asset=BTC&classification_mode=maker_taker")
+    assert mt.status_code == 200
+    assert mt.json()["classification_mode"] == "maker_taker"
     assert c.get("/api/platform/market-radar/cvd/chart?asset=BTC&window=1H").status_code == 200
 
 
@@ -228,3 +275,7 @@ def test_full_seed_exists():
     assert seed["feature_id"] == 232
     assert seed["classification_audit"]["trades_tested"] >= 10000
     assert "BTC" in seed["assets"]
+    assert seed["merged_features"]["264"]["standalone"] is False
+    coinbase = seed["assets"]["BTC"]["venues"]["coinbase"]
+    assert "maker_buy_usd" in coinbase
+    assert "taker_buy_usd" in coinbase

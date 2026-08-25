@@ -1,7 +1,34 @@
 # CVD Intelligence — #232 (Sprint 2, Pro)
 
 Cumulative Volume Delta from aggressive (taker) buy vs sell volume.
+Includes **#264 Maker/Taker Volume Net Delta** merged as alternative classification.
 Technical context layer over Market Radar — NOT buy/sell signals.
+
+## #264 Merge Decision
+
+**#264 is NOT standalone** — merged into #232 CVD Module.
+
+| Aspect | #232 CVD | #264 (merged) |
+|--------|----------|---------------|
+| Classification | Aggressive/Passive (default) | Maker/Taker (alternative) |
+| Calculation | Taker buy - Taker sell | Same net delta, different labels |
+| Alerts | Divergence context only | Same alert framework — no separate alerts |
+| Scope | Multi-venue + divergence + coverage | Subset of #232 |
+
+## Classification Modes
+
+```
+CVD Components: Aggressive/Passive (default) | Maker/Taker (alternative classification) | Venue: X | Method: v1.2
+```
+
+| Mode | Mapping |
+|------|---------|
+| Aggressive Buy | Taker Buy (market buy) |
+| Aggressive Sell | Taker Sell (market sell) |
+| Passive Buy | Maker Buy (limit order filled) |
+| Passive Sell | Maker Sell (limit order filled) |
+
+Net Delta = Buy Volume - Sell Volume classified by execution type.
 
 ## Architecture
 
@@ -37,7 +64,7 @@ Tested on 10,000+ trades against exchange API ground truth.
 | Endpoint | Description |
 |----------|-------------|
 | `GET /api/platform/market-radar/cvd/status` | Module status |
-| `GET /api/platform/market-radar/cvd/analysis` | CVD analysis panel |
+| `GET /api/platform/market-radar/cvd/analysis` | CVD analysis panel (`classification_mode=aggressive_passive\|maker_taker`) |
 | `GET /api/platform/market-radar/cvd/chart` | CVD chart with gap markers |
 
 ## Output Format
@@ -60,6 +87,8 @@ Tested on 10,000+ trades against exchange API ground truth.
 | Disclaimer non-hideable | Top + bottom |
 | Version documented | CVD Methodology v1.2 |
 | Historical validation | 6-month precision transparency |
+| #264 merged | Maker/Taker alternative classification, no standalone |
+| No separate #264 alerts | Uses CVD divergence alert framework |
 
 ## Integration
 
