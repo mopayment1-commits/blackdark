@@ -1,0 +1,37 @@
+{
+  "feature_id": 262,
+  "title": "MCP for AI",
+  "standalone": false,
+  "sprint": 2,
+  "mcp_server_version": "1.0",
+  "mcp_spec_compatible": "2025-03",
+  "trace_retention_days": 90,
+  "integrated_with": [230],
+  "no_anonymous_access": true,
+  "fail_closed": true,
+  "daily_quotas": {
+    "free": 50,
+    "pro": 5000,
+    "elite": 5000,
+    "quant": 5000,
+    "institutional": -1,
+    "enterprise": -1
+  },
+  "demo_agents": {
+    "bd_mcp_demo_free": {
+      "api_key_hash": "demo_free_key_hash",
+      "tier": "free",
+      "agent_id": "agent_demo_free"
+    },
+    "bd_mcp_demo_pro": {
+      "api_key_hash": "demo_pro_key_hash",
+      "tier": "pro",
+      "agent_id": "agent_demo_pro"
+    }
+  },
+  "demo_api_keys": {
+    "bd-demo-free-mcp-key-0001": {"tier": "free", "agent_id": "agent_demo_free"},
+    "bd-demo-pro-mcp-key-0001": {"tier": "pro", "agent_id": "agent_demo_pro"},
+    "bd-demo-enterprise-mcp-key": {"tier": "enterprise", "agent_id": "agent_demo_enterprise"}
+  }
+}
