@@ -1,0 +1,206 @@
+{
+  "feature_id": 238,
+  "feature_label": "Dev Health Module",
+  "replaces": "#722",
+  "standalone": false,
+  "merged_into": "#705 Asset Metadata",
+  "sprint": 2,
+  "methodology_version": "2.1",
+  "last_revised": "2026-08-25",
+  "weights": {
+    "activity": 0.30,
+    "contributors": 0.25,
+    "releases": 0.20,
+    "issues": 0.15,
+    "community": 0.10
+  },
+  "weights_display": "Activity: 30% | Contributors: 25% | Releases: 20% | Issues: 15% | Community: 10%",
+  "bot_detection": {
+    "method": "Commit message pattern + author email domain",
+    "patterns": ["[bot]", "dependabot", "github-actions", "renovate", "noreply@github.com"],
+    "commits_from_bots": "Excluded",
+    "forks": "Excluded",
+    "verified_contributors_only": true
+  },
+  "assets": {
+    "BTC": {
+      "project": "Bitcoin Core",
+      "repo": {
+        "url": "https://github.com/bitcoin/bitcoin",
+        "owner": "bitcoin",
+        "name": "bitcoin",
+        "is_fork": false,
+        "ownership": {
+          "verified": true,
+          "method": "GitHub API org mapping + manual check",
+          "last_verified": "2026-08-25",
+          "display": "Ownership: Verified | Method: GitHub API org mapping + manual check | Last Verified: 2026-08-25"
+        }
+      },
+      "commits": [
+        {"author": "laanwj", "email": "laanwj@gmail.com", "message": "Merge #31234: net processing refactor", "date": "2026-08-20", "is_bot": false},
+        {"author": "fanquake", "email": "fanquake@gmail.com", "message": "build: bump minimum cmake", "date": "2026-08-18", "is_bot": false},
+        {"author": "hebasto", "email": "hebasto@gmail.com", "message": "doc: update release notes", "date": "2026-08-15", "is_bot": false},
+        {"author": "github-actions[bot]", "email": "noreply@github.com", "message": "ci: auto update", "date": "2026-08-14", "is_bot": true},
+        {"author": "dependabot[bot]", "email": "noreply@github.com", "message": "Bump actions/checkout", "date": "2026-08-12", "is_bot": true},
+        {"author": "sipa", "email": "sipa@ulyssis.org", "message": "scripted diff: rename util", "date": "2026-08-10", "is_bot": false},
+        {"author": "theuni", "email": "theuni@tutanota.com", "message": "qt: fix tray icon", "date": "2026-08-05", "is_bot": false},
+        {"author": "promag", "email": "promag@protonmail.com", "message": "wallet: avoid duplicate", "date": "2026-08-01", "is_bot": false}
+      ],
+      "contributor_stats": {
+        "top_contributors": [
+          {"name": "laanwj", "commit_pct": 28.0},
+          {"name": "fanquake", "commit_pct": 22.0},
+          {"name": "hebasto", "commit_pct": 15.0}
+        ],
+        "total_verified_contributors": 12
+      },
+      "releases": [
+        {"tag": "v28.0", "date": "2026-08-10"},
+        {"tag": "v27.2", "date": "2026-06-26"},
+        {"tag": "v27.1", "date": "2026-04-15"}
+      ],
+      "issues": {
+        "open": 142,
+        "closed_30d": 38,
+        "avg_response_days": 4.2,
+        "bug_count_30d": 12,
+        "feature_count_30d": 26
+      },
+      "community": {
+        "stars": 82000,
+        "watchers": 3800,
+        "forks_excluded_from_score": true
+      },
+      "component_scores": {
+        "activity": 7.8,
+        "contributors": 6.5,
+        "releases": 8.2,
+        "issues": 7.0,
+        "community": 9.5
+      },
+      "trend": {
+        "previous_score": 8.1,
+        "previous_period": "2026-07-25",
+        "evidence": [
+          "Contributor decline (-2 active contributors)",
+          "Release delay (+15 days vs average)"
+        ]
+      }
+    },
+    "ETH": {
+      "project": "go-ethereum",
+      "repo": {
+        "url": "https://github.com/ethereum/go-ethereum",
+        "owner": "ethereum",
+        "name": "go-ethereum",
+        "is_fork": false,
+        "ownership": {
+          "verified": true,
+          "method": "GitHub API org mapping + manual check",
+          "last_verified": "2026-08-25",
+          "display": "Ownership: Verified | Method: GitHub API org mapping + manual check | Last Verified: 2026-08-25"
+        }
+      },
+      "commits": [
+        {"author": "fjl", "email": "fjl@ethereum.org", "message": "core: improve sync", "date": "2026-08-22", "is_bot": false},
+        {"author": "holiman", "email": "holiman@ethereum.org", "message": "tests: fix regression", "date": "2026-08-20", "is_bot": false},
+        {"author": "MariusVanDerWijden", "email": "m@vdwijden.net", "message": "miner: payload fix", "date": "2026-08-18", "is_bot": false},
+        {"author": "github-actions[bot]", "email": "noreply@github.com", "message": "ci: lint", "date": "2026-08-17", "is_bot": true},
+        {"author": "rjl493456442", "email": "rjl493456442@gmail.com", "message": "trie: optimization", "date": "2026-08-14", "is_bot": false}
+      ],
+      "contributor_stats": {
+        "top_contributors": [
+          {"name": "fjl", "commit_pct": 24.0},
+          {"name": "holiman", "commit_pct": 20.0},
+          {"name": "MariusVanDerWijden", "commit_pct": 18.0}
+        ],
+        "total_verified_contributors": 18
+      },
+      "releases": [
+        {"tag": "v1.14.12", "date": "2026-08-15"},
+        {"tag": "v1.14.11", "date": "2026-07-20"},
+        {"tag": "v1.14.10", "date": "2026-06-10"}
+      ],
+      "issues": {
+        "open": 210,
+        "closed_30d": 52,
+        "avg_response_days": 3.1,
+        "bug_count_30d": 18,
+        "feature_count_30d": 34
+      },
+      "community": {
+        "stars": 48000,
+        "watchers": 2200,
+        "forks_excluded_from_score": true
+      },
+      "component_scores": {
+        "activity": 8.2,
+        "contributors": 7.8,
+        "releases": 7.5,
+        "issues": 7.8,
+        "community": 8.8
+      },
+      "trend": {
+        "previous_score": 7.9,
+        "previous_period": "2026-07-25",
+        "evidence": ["Steady contributor base", "Release cadence maintained"]
+      }
+    },
+    "SOL": {
+      "project": "Solana Labs",
+      "repo": {
+        "url": "https://github.com/solana-labs/solana",
+        "owner": "solana-labs",
+        "name": "solana",
+        "is_fork": false,
+        "ownership": {
+          "verified": true,
+          "method": "GitHub API org mapping + manual check",
+          "last_verified": "2026-08-20",
+          "display": "Ownership: Verified | Method: GitHub API org mapping + manual check | Last Verified: 2026-08-20"
+        }
+      },
+      "commits": [
+        {"author": "mvines", "email": "mvines@solana.com", "message": "banking: fix edge case", "date": "2026-08-21", "is_bot": false},
+        {"author": "dependabot[bot]", "email": "noreply@github.com", "message": "Bump serde", "date": "2026-08-19", "is_bot": true}
+      ],
+      "contributor_stats": {
+        "top_contributors": [
+          {"name": "mvines", "commit_pct": 45.0},
+          {"name": "jon", "commit_pct": 12.0},
+          {"name": "carl", "commit_pct": 8.0}
+        ],
+        "total_verified_contributors": 6
+      },
+      "releases": [
+        {"tag": "v1.18.22", "date": "2026-07-28"},
+        {"tag": "v1.18.21", "date": "2026-06-15"}
+      ],
+      "issues": {
+        "open": 380,
+        "closed_30d": 22,
+        "avg_response_days": 8.5,
+        "bug_count_30d": 15,
+        "feature_count_30d": 7
+      },
+      "community": {
+        "stars": 12500,
+        "watchers": 650,
+        "forks_excluded_from_score": true
+      },
+      "component_scores": {
+        "activity": 5.5,
+        "contributors": 4.2,
+        "releases": 5.0,
+        "issues": 4.8,
+        "community": 6.5
+      },
+      "trend": {
+        "previous_score": 5.8,
+        "previous_period": "2026-07-25",
+        "evidence": ["High contributor concentration", "Slower issue response"]
+      }
+    }
+  }
+}

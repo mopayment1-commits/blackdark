@@ -1995,6 +1995,26 @@ async def canonical_asset_resolve_route(symbol: str):
     return result
 
 
+@router.get("/connectors/assets/{symbol}/dev-health")
+async def dev_health_asset_route(symbol: str):
+    from bd_platform.dev_health_score import get_dev_health_for_asset
+
+    result = get_dev_health_for_asset(symbol)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="dev_health_unavailable: ownership not verified or asset not tracked",
+        )
+    return result
+
+
+@router.get("/dev-health/status")
+async def dev_health_status_route():
+    from bd_platform.dev_health_score import dev_health_status
+
+    return dev_health_status()
+
+
 @router.get("/connectors/unified")
 async def unified_connector_view_route(probe_live: bool = Query(True)):
     from bd_platform.connector_coverage_map import build_unified_connector_view
