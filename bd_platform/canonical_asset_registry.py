@@ -54,7 +54,7 @@ def _load_store() -> dict[str, Any]:
 
 def _enrich_asset(row: dict[str, Any]) -> dict[str, Any]:
     lifecycle = str(row.get("lifecycle") or "active")
-    return {
+    enriched = {
         **row,
         "lifecycle_display": f"Lifecycle: {lifecycle} | Version: {row.get('lifecycle_version', 1)}",
         "canonical_model": True,
@@ -62,6 +62,16 @@ def _enrich_asset(row: dict[str, Any]) -> dict[str, Any]:
         "merged_feature": _MERGED_INTO,
         "display": f"{row.get('symbol')} ({row.get('stable_id')}) — {lifecycle}",
     }
+    try:
+        from bd_platform.market_cap_supply import get_supply_provenance
+
+        supply = get_supply_provenance(str(row.get("symbol") or ""))
+        if supply:
+            enriched["supply_provenance"] = supply
+            enriched["integrated_features"] = ["#267"]
+    except Exception:
+        logger.debug("supply provenance enrich failed", exc_info=True)
+    return enriched
 
 
 def list_canonical_assets(
@@ -153,6 +163,7 @@ def canonical_asset_registry_status() -> dict[str, Any]:
         "lifecycle_states": sorted(lifecycles),
         "stable_ids": True,
         "lifecycle_versioning": True,
-        "integrated_with": ["connector_coverage_map", "#194"],
+        "integrated_with": ["connector_coverage_map", "#194", "#267"],
+        "supply_provenance_merged": True,
         "timestamp": _utcnow(),
     }

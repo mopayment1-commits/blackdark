@@ -1,0 +1,128 @@
+{
+  "feature_id": 267,
+  "standalone": false,
+  "merged_into": ["#705 Asset Metadata", "#217 OHLCV Core Feed"],
+  "supply_data_version": "3.1",
+  "methodology": {
+    "market_cap_formula": "Price (VWAP 1H) × Circulating Supply",
+    "supply_update_cadence": "daily",
+    "source_verification": "on-chain cross-check required for self-reported"
+  },
+  "assets": {
+    "BTC": {
+      "supply_version": "3.1",
+      "last_verified_utc": "2026-08-25T00:00:00+00:00",
+      "next_verification_utc": "2026-08-26T00:00:00+00:00",
+      "price_methodology": "VWAP 1H",
+      "supplies": [
+        {
+          "supply_type": "circulating",
+          "amount": 19850000,
+          "source": "On-Chain Query",
+          "verified": true
+        },
+        {
+          "supply_type": "total",
+          "amount": 19850000,
+          "source": "On-Chain Query",
+          "verified": true
+        },
+        {
+          "supply_type": "max",
+          "amount": 21000000,
+          "source": "Protocol Docs",
+          "verified": true
+        }
+      ],
+      "self_reported_cross_check": null
+    },
+    "ETH": {
+      "supply_version": "3.1",
+      "last_verified_utc": "2026-08-25T00:00:00+00:00",
+      "next_verification_utc": "2026-08-26T00:00:00+00:00",
+      "price_methodology": "VWAP 1H",
+      "supplies": [
+        {
+          "supply_type": "circulating",
+          "amount": 120300000,
+          "source": "On-Chain Query",
+          "verified": true
+        },
+        {
+          "supply_type": "total",
+          "amount": 120300000,
+          "source": "On-Chain Query",
+          "verified": true
+        },
+        {
+          "supply_type": "max",
+          "amount": null,
+          "source": "Protocol Docs",
+          "verified": true,
+          "note": "No max supply cap"
+        }
+      ],
+      "self_reported_cross_check": null
+    },
+    "ARB": {
+      "supply_version": "3.1",
+      "last_verified_utc": "2026-08-25T00:00:00+00:00",
+      "next_verification_utc": "2026-08-26T00:00:00+00:00",
+      "price_methodology": "VWAP 1H",
+      "supplies": [
+        {
+          "supply_type": "circulating",
+          "amount": 987500,
+          "source": "On-Chain Query",
+          "verified": true
+        },
+        {
+          "supply_type": "total",
+          "amount": 10000000000,
+          "source": "Protocol Docs",
+          "verified": false
+        },
+        {
+          "supply_type": "max",
+          "amount": 10000000000,
+          "source": "Protocol Docs",
+          "verified": false
+        }
+      ],
+      "self_reported_cross_check": {
+        "self_reported": 1000000,
+        "on_chain_verified": 987500,
+        "variance_pct": -1.25,
+        "display": "Self-reported: 1,000,000 | On-chain verified: 987,500 | Variance: -1.25%"
+      }
+    },
+    "SOL": {
+      "supply_version": "3.1",
+      "last_verified_utc": "2026-08-25T00:00:00+00:00",
+      "next_verification_utc": "2026-08-26T00:00:00+00:00",
+      "price_methodology": "VWAP 1H",
+      "supplies": [
+        {
+          "supply_type": "circulating",
+          "amount": 475000000,
+          "source": "CoinGecko API",
+          "verified": true
+        },
+        {
+          "supply_type": "total",
+          "amount": 580000000,
+          "source": "CoinGecko API",
+          "verified": true
+        },
+        {
+          "supply_type": "max",
+          "amount": null,
+          "source": "Protocol Docs",
+          "verified": true,
+          "note": "Inflationary — no fixed max"
+        }
+      ],
+      "self_reported_cross_check": null
+    }
+  }
+}

@@ -9,6 +9,22 @@
 | Gap handling | `Missing data: Exchange X down \| Interpolated: No` |
 | Volume validation | Cross-check exchange vs on-chain proxy |
 | Batch not real-time | OHLCV = batch; real-time ticks = #212 |
+| Market cap (#267 merged) | Each candle includes `market_cap_supply` with provenance |
+
+### #267 — Market Cap / Supply (merged, NOT standalone)
+
+Supply provenance visible on every OHLCV candle close price. Also merged into #705 Canonical Asset Registry.
+
+| Rule | Implementation |
+|------|----------------|
+| Supply provenance | `circulating` / `total` / `max` each with `source` |
+| Three caps shown | Circulating MCAP, FDV, Max Supply MCAP |
+| Methodology | `Price (VWAP 1H) × Circulating Supply` |
+| Self-reported cross-check | On-chain verification with variance % |
+| Disclaimer | Non-hideable — not a valuation metric |
+| Free basic data | Not a separate paid Market Cap API |
+
+See `bd_platform/market_cap_supply.py` and `data/supply_provenance_seed.json`.
 
 ### APIs
 
