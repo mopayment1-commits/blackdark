@@ -1,0 +1,137 @@
+{
+  "feature_id": 235,
+  "merged_into": "#705 Asset Metadata",
+  "standalone": false,
+  "methodology_version": "2.1",
+  "wash_policy_version": "1.3",
+  "last_updated": "2026-08-25",
+  "last_updated_utc": "2026-08-25T19:45:00+00:00",
+  "last_block": 21234567,
+  "wash_noise_policy": {
+    "minimum_trade_usd": 500,
+    "bot_filtered": true,
+    "method": "Heuristic + address clustering v1.2"
+  },
+  "normalization": {
+    "fx_rate_method": "hourly VWAP",
+    "stablecoin_peg_adjustment": true,
+    "display": "All volumes in USD | FX rate: hourly VWAP | Stablecoin peg adjustment: Yes"
+  },
+  "assets": {
+    "ETH": {
+      "volume_24h_usd": 2840000000,
+      "trend": "up",
+      "protocols": {
+        "Uniswap v3": 1420000000,
+        "Curve": 568000000,
+        "Balancer": 284000000,
+        "PancakeSwap": 568000000
+      },
+      "chains": {
+        "Ethereum": 1988000000,
+        "Arbitrum": 426000000,
+        "Polygon": 284000000,
+        "BSC": 142000000
+      },
+      "historical": {
+        "7d_usd": 18200000000,
+        "30d_usd": 78000000000,
+        "90d_usd": 228000000000,
+        "yoy_pct": 12.4
+      }
+    },
+    "USDC": {
+      "volume_24h_usd": 1560000000,
+      "trend": "down",
+      "protocols": {
+        "Uniswap v3": 624000000,
+        "Curve": 468000000,
+        "Balancer": 156000000,
+        "PancakeSwap": 312000000
+      },
+      "chains": {
+        "Ethereum": 936000000,
+        "Arbitrum": 312000000,
+        "Polygon": 156000000,
+        "BSC": 156000000
+      },
+      "historical": {
+        "7d_usd": 10920000000,
+        "30d_usd": 46800000000,
+        "90d_usd": 140400000000,
+        "yoy_pct": -3.2
+      }
+    },
+    "UNI": {
+      "volume_24h_usd": 89000000,
+      "trend": "up",
+      "protocols": {
+        "Uniswap v3": 71200000,
+        "Curve": 8900000,
+        "Balancer": 4450000,
+        "PancakeSwap": 4450000
+      },
+      "chains": {
+        "Ethereum": 62300000,
+        "Arbitrum": 13350000,
+        "Polygon": 8900000,
+        "BSC": 4450000
+      },
+      "historical": {
+        "7d_usd": 580000000,
+        "30d_usd": 2450000000,
+        "90d_usd": 7200000000,
+        "yoy_pct": 8.7
+      },
+      "yield_context": {
+        "fees_generated_usd": 267000,
+        "lp_share_usd": 1335,
+        "farming_related": true
+      }
+    },
+    "WBTC": {
+      "volume_24h_usd": 420000000,
+      "trend": "flat",
+      "protocols": {
+        "Uniswap v3": 210000000,
+        "Curve": 126000000,
+        "Balancer": 42000000,
+        "PancakeSwap": 42000000
+      },
+      "chains": {
+        "Ethereum": 294000000,
+        "Arbitrum": 63000000,
+        "Polygon": 42000000,
+        "BSC": 21000000
+      },
+      "historical": {
+        "7d_usd": 2730000000,
+        "30d_usd": 11700000000,
+        "90d_usd": 35100000000,
+        "yoy_pct": 5.1
+      }
+    },
+    "LINK": {
+      "volume_24h_usd": 67000000,
+      "trend": "up",
+      "protocols": {
+        "Uniswap v3": 40200000,
+        "Curve": 13400000,
+        "Balancer": 6700000,
+        "PancakeSwap": 6700000
+      },
+      "chains": {
+        "Ethereum": 46900000,
+        "Arbitrum": 10050000,
+        "Polygon": 6700000,
+        "BSC": 3350000
+      },
+      "historical": {
+        "7d_usd": 435000000,
+        "30d_usd": 1860000000,
+        "90d_usd": 5580000000,
+        "yoy_pct": 15.3
+      }
+    }
+  }
+}
