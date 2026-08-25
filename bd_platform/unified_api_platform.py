@@ -72,9 +72,12 @@ def _envelope(
     asset: str | None = None,
     source: str = "blackdark",
     fetched_at: str | None = None,
+    tier: str = "free",
+    cached: bool = False,
+    endpoint: str | None = None,
 ) -> dict[str, Any]:
     """Consistent API response envelope with freshness metadata."""
-    return {
+    envelope = {
         "ok": data.get("ok", True),
         "api_version": _API_VERSION,
         "feature_id": _FEATURE_ID,
@@ -89,6 +92,19 @@ def _envelope(
         },
         "timestamp": _utcnow(),
     }
+    if endpoint:
+        try:
+            from bd_platform.b2b_sla_monitoring import build_response_headers, get_cache_policy
+
+            policy = get_cache_policy(tier)
+            envelope["metadata"]["cache_policy"] = policy
+            envelope["metadata"]["response_headers"] = build_response_headers(
+                tier, cached=cached,
+            )
+            envelope["metadata"]["update_frequency"] = policy["update_frequency_display"]
+        except Exception:
+            pass
+    return envelope
 
 
 def check_api_rate_limit(client_key: str) -> dict[str, Any] | None:
@@ -154,11 +170,14 @@ def get_tier_quota(tier: str) -> dict[str, Any]:
     }
 
 
-async def fetch_price(asset: str, *, exchange: str | None = None) -> dict[str, Any]:
+async def fetch_price(asset: str, *, exchange: str | None = None, tier: str = "free") -> dict[str, Any]:
+    from bd_platform.b2b_sla_monitoring import B2BSLAMiddleware
     from bd_platform.free_market_data import binance_futures_snapshot
 
     sym = asset.upper().replace("/USDT", "")
-    snap = await binance_futures_snapshot(sym)
+    endpoint = "/api/v1/platform/price"
+    with B2BSLAMiddleware(endpoint, tier=tier):
+        snap = await binance_futures_snapshot(sym)
     return _envelope(
         {
             "ok": bool(snap.get("mark_price")),
@@ -171,14 +190,19 @@ async def fetch_price(asset: str, *, exchange: str | None = None) -> dict[str, A
         asset=sym,
         source=snap.get("source", "binance_futures_public"),
         fetched_at=snap.get("timestamp"),
+        tier=tier,
+        endpoint=endpoint,
     )
 
 
-async def fetch_oracle(asset: str) -> dict[str, Any]:
+async def fetch_oracle(asset: str, *, tier: str = "free") -> dict[str, Any]:
+    from bd_platform.b2b_sla_monitoring import B2BSLAMiddleware
     from bd_platform.decision_intelligence_engine import generate_decision_signal
     from bd_platform.verifiable_ai_engine import enrich_oracle_envelope
 
-    signal = await generate_decision_signal(asset, include_backtest=False)
+    endpoint = "/api/v1/platform/oracle"
+    with B2BSLAMiddleware(endpoint, tier=tier):
+        signal = await generate_decision_signal(asset, include_backtest=False)
     sig = signal.get("signal") or {}
     envelope = _envelope(
         {
@@ -192,6 +216,8 @@ async def fetch_oracle(asset: str) -> dict[str, Any]:
         asset=asset.upper(),
         source="decision_intelligence_engine",
         fetched_at=signal.get("timestamp"),
+        tier=tier,
+        endpoint=endpoint,
     )
     return await enrich_oracle_envelope(envelope, asset)
 
@@ -344,6 +370,12 @@ def unified_api_status() -> dict[str, Any]:
         "idempotent_reads": True,
         "freshness_metadata": True,
         "contract_tests": "tests/test_research_sentiment_api.py",
-        "integrated_features": ["#163", "#171", "#188", "#195", "#205"],
+        "integrated_features": ["#163", "#171", "#188", "#195", "#205", "#231"],
+        "b2b_sla_monitoring": {
+            "feature_id": 231,
+            "merged_into": 219,
+            "middleware": True,
+            "enterprise_dashboard": True,
+        },
         "timestamp": _utcnow(),
     }
