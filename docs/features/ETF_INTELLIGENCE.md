@@ -42,12 +42,15 @@ Market Radar
 | `GET /api/platform/market-radar/etf-intelligence/dashboard` | Unified dashboard |
 | `GET /api/platform/market-radar/etf-intelligence/flows` | Daily flow series |
 | `GET /api/platform/market-radar/etf-intelligence/market-context` | Correlation + regime |
+| `GET /api/platform/market-radar/etf-intelligence/etp-data` | ETF/ETP market data (#210) |
 
 ## Acceptance Criteria
 
 | Criterion | Implementation |
 |-----------|----------------|
-| Official source mapping | Farside + verified URL + last verified date |
+| Official source mapping | Issuer Filing \| SEC \| Bloomberg — mandatory attribution |
+| Crypto linkage visible | BTC exposure % \| ETH % \| Other % per product |
+| AUM + flows + premium/discount | Normalized per ETP product + aggregate |
 | Timezone alignment | EST close + 1H lag documented |
 | Missing-day handling | Holiday display, no interpolation |
 | Rolling totals methodology | Sum of daily net flows documented |
@@ -62,3 +65,7 @@ Market Radar
 - `bd_platform/etf_intelligence.py` — core engine
 - `bd_platform/market_radar_dashboard.py` — `etf_intelligence` block
 - `data/etf_intelligence_seed.json` — versioned flows + prices
+
+## Disclaimer
+
+> ETP data based on issuer disclosures. NAV may differ from market price. ETF flow correlation with crypto prices is historical, not predictive. Not investment advice.
