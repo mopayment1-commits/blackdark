@@ -1,0 +1,135 @@
+{
+  "feature_id": 734,
+  "feature_label": "Exchange Intelligence Hub",
+  "standalone": false,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_revised": "2026-08-25",
+  "methodology_display": "Exchange Flow Methodology v1.0 | Cluster: v4.2 | Closure: Inflow-Outflow=Netflow | Dedupe: Enabled | Last Revised: 2026-08-25",
+  "cluster_version": "4.2",
+  "cluster_last_updated": "2026-08-25",
+  "exchange_clusters": {
+    "binance": {"address_count": 1250, "chains": ["bitcoin", "ethereum", "tron"]},
+    "coinbase": {"address_count": 890, "chains": ["bitcoin", "ethereum"]},
+    "kraken": {"address_count": 420, "chains": ["bitcoin", "ethereum"]},
+    "okx": {"address_count": 680, "chains": ["bitcoin", "ethereum", "tron"]},
+    "bybit": {"address_count": 510, "chains": ["bitcoin", "ethereum", "tron"]}
+  },
+  "integrated_modules": [
+    {"feature_id": 241, "name": "Exchange Inflow Intelligence", "key": "inflow", "status": "live"},
+    {"feature_id": 242, "name": "Exchange Outflow Intelligence", "key": "outflow", "status": "live"},
+    {"feature_id": 243, "name": "Exchange Netflow Intelligence", "key": "netflow", "status": "live"},
+    {"feature_id": 735, "name": "Exchange Quality", "key": "exchange_quality", "status": "live"},
+    {"feature_id": 736, "name": "Usage Profile", "key": "usage_profile", "status": "live"}
+  ],
+  "assets": {
+    "BTC": {
+      "inflow_usd": 850000000,
+      "outflow_usd": 920000000,
+      "netflow_usd": -70000000,
+      "baseline_30d_outflow_usd": 780000000,
+      "exchange_breakdown": {
+        "binance": {"inflow_usd": 340000000, "outflow_usd": 380000000},
+        "coinbase": {"inflow_usd": 220000000, "outflow_usd": 250000000},
+        "kraken": {"inflow_usd": 120000000, "outflow_usd": 130000000},
+        "okx": {"inflow_usd": 110000000, "outflow_usd": 100000000},
+        "bybit": {"inflow_usd": 60000000, "outflow_usd": 60000000}
+      },
+      "chain_breakdown": {
+        "bitcoin": {"btc": 12500.5},
+        "ethereum": {"btc": 820.3},
+        "tron": {"btc": 45.2}
+      },
+      "address_dedupe": {
+        "unique_addresses": 45230,
+        "internal_transfers_excluded": true
+      },
+      "outflow_chart": [
+        {"date": "2026-08-19", "outflow_usd": 780000000},
+        {"date": "2026-08-20", "outflow_usd": 810000000},
+        {"date": "2026-08-21", "outflow_usd": 795000000},
+        {"date": "2026-08-22", "outflow_usd": 830000000},
+        {"date": "2026-08-23", "outflow_usd": 850000000},
+        {"date": "2026-08-24", "outflow_usd": 880000000},
+        {"date": "2026-08-25", "outflow_usd": 920000000}
+      ],
+      "inflow_chart": [
+        {"date": "2026-08-19", "inflow_usd": 820000000},
+        {"date": "2026-08-20", "inflow_usd": 800000000},
+        {"date": "2026-08-21", "inflow_usd": 830000000},
+        {"date": "2026-08-22", "inflow_usd": 810000000},
+        {"date": "2026-08-23", "inflow_usd": 840000000},
+        {"date": "2026-08-24", "inflow_usd": 860000000},
+        {"date": "2026-08-25", "inflow_usd": 850000000}
+      ],
+      "netflow_chart": [
+        {"date": "2026-08-19", "netflow_usd": 40000000},
+        {"date": "2026-08-20", "netflow_usd": -10000000},
+        {"date": "2026-08-21", "netflow_usd": 35000000},
+        {"date": "2026-08-22", "netflow_usd": -20000000},
+        {"date": "2026-08-23", "netflow_usd": -10000000},
+        {"date": "2026-08-24", "netflow_usd": -20000000},
+        {"date": "2026-08-25", "netflow_usd": -70000000}
+      ]
+    },
+    "ETH": {
+      "inflow_usd": 420000000,
+      "outflow_usd": 385000000,
+      "netflow_usd": 35000000,
+      "baseline_30d_outflow_usd": 400000000,
+      "exchange_breakdown": {
+        "binance": {"inflow_usd": 180000000, "outflow_usd": 160000000},
+        "coinbase": {"inflow_usd": 120000000, "outflow_usd": 110000000},
+        "kraken": {"inflow_usd": 60000000, "outflow_usd": 55000000},
+        "okx": {"inflow_usd": 40000000, "outflow_usd": 35000000},
+        "bybit": {"inflow_usd": 20000000, "outflow_usd": 25000000}
+      },
+      "chain_breakdown": {
+        "ethereum": {"eth": 185000.0},
+        "bitcoin": {"eth": 1200.5}
+      },
+      "address_dedupe": {
+        "unique_addresses": 32100,
+        "internal_transfers_excluded": true
+      },
+      "outflow_chart": [
+        {"date": "2026-08-25", "outflow_usd": 385000000}
+      ],
+      "inflow_chart": [
+        {"date": "2026-08-25", "inflow_usd": 420000000}
+      ],
+      "netflow_chart": [
+        {"date": "2026-08-25", "netflow_usd": 35000000}
+      ]
+    },
+    "SOL": {
+      "inflow_usd": 95000000,
+      "outflow_usd": 110000000,
+      "netflow_usd": -15000000,
+      "baseline_30d_outflow_usd": 88000000,
+      "exchange_breakdown": {
+        "binance": {"inflow_usd": 40000000, "outflow_usd": 48000000},
+        "coinbase": {"inflow_usd": 25000000, "outflow_usd": 28000000},
+        "kraken": {"inflow_usd": 12000000, "outflow_usd": 14000000},
+        "okx": {"inflow_usd": 10000000, "outflow_usd": 12000000},
+        "bybit": {"inflow_usd": 8000000, "outflow_usd": 8000000}
+      },
+      "chain_breakdown": {
+        "solana": {"sol": 520000.0}
+      },
+      "address_dedupe": {
+        "unique_addresses": 18500,
+        "internal_transfers_excluded": true
+      },
+      "outflow_chart": [
+        {"date": "2026-08-25", "outflow_usd": 110000000}
+      ],
+      "inflow_chart": [
+        {"date": "2026-08-25", "inflow_usd": 95000000}
+      ],
+      "netflow_chart": [
+        {"date": "2026-08-25", "netflow_usd": -15000000}
+      ]
+    }
+  }
+}

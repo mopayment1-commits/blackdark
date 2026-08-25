@@ -2639,6 +2639,56 @@ async def treasury_intelligence_status_route():
     return treasury_intelligence_status()
 
 
+# ── Exchange Intelligence Hub — #734-736 + #242 Outflow (Sprint 2) ─────────────
+
+
+@router.get("/market-radar/exchange-hub/status")
+async def exchange_intelligence_hub_status_route():
+    from bd_platform.exchange_intelligence_hub import exchange_intelligence_hub_status
+
+    return exchange_intelligence_hub_status()
+
+
+@router.get("/market-radar/exchange-hub/dashboard")
+async def exchange_intelligence_hub_dashboard_route(asset: str = Query("BTC")):
+    from bd_platform.exchange_intelligence_hub import build_exchange_intelligence_hub
+
+    result = build_exchange_intelligence_hub(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "asset_not_tracked")
+    return result
+
+
+@router.get("/market-radar/exchange-hub/outflow")
+async def exchange_outflow_route(asset: str = Query("BTC")):
+    from bd_platform.exchange_outflow_intelligence import build_outflow_dashboard
+
+    result = build_outflow_dashboard(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "asset_not_tracked")
+    return result
+
+
+@router.get("/market-radar/exchange-hub/inflow")
+async def exchange_inflow_route(asset: str = Query("BTC")):
+    from bd_platform.exchange_inflow_intelligence import build_inflow_dashboard
+
+    result = build_inflow_dashboard(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "asset_not_tracked")
+    return result
+
+
+@router.get("/market-radar/exchange-hub/netflow")
+async def exchange_netflow_route(asset: str = Query("BTC")):
+    from bd_platform.exchange_netflow_intelligence import build_netflow_dashboard
+
+    result = build_netflow_dashboard(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "asset_not_tracked")
+    return result
+
+
 # ── Global Liquidity Intelligence — #248 (Sprint 2, Pro/Institution) ───────────
 
 
