@@ -1,0 +1,108 @@
+{
+  "feature_ids": [274, 275, 276],
+  "standalone": false,
+  "merged_into": "Options Intelligence Module (Wave 3)",
+  "wave": 3,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "current_phase": 1,
+  "phase_label": "Deribit only",
+  "dependency_gate": {
+    "spot_data_stable": true,
+    "perp_data_stable": true,
+    "sprint1_stable": true,
+    "stability_days_required": 30,
+    "stability_days_met": 30
+  },
+  "mapping_audit": {
+    "total_instruments": 500,
+    "mapped_correctly": 498
+  },
+  "iv_surface": {
+    "model": "black_scholes_merton",
+    "model_documented": true,
+    "risk_free_rate": 0.05,
+    "spot_price": 95000
+  },
+  "volume_summary": {
+    "total_volume_24h": 15234.5
+  },
+  "instruments": {
+    "BTC-26DEC25-100000-C": {
+      "mark_iv": 0.52,
+      "open_interest": 1250.5,
+      "exchange_oi": 1250.5,
+      "volume_24h": 89.2,
+      "time_to_expiry_years": 0.35,
+      "greeks": {
+        "delta": 0.45,
+        "gamma": 0.000012,
+        "theta": -12.5,
+        "vega": 85.2,
+        "source": "exchange"
+      }
+    },
+    "BTC-26DEC25-100000-P": {
+      "mark_iv": 0.54,
+      "open_interest": 980.3,
+      "exchange_oi": 980.3,
+      "volume_24h": 62.1,
+      "time_to_expiry_years": 0.35,
+      "greeks": {
+        "delta": -0.42,
+        "gamma": 0.000011,
+        "theta": -11.8,
+        "vega": 82.5,
+        "source": "exchange"
+      }
+    },
+    "BTC-28MAR25-90000-C": {
+      "mark_iv": 0.48,
+      "open_interest": 2100.0,
+      "exchange_oi": 2100.0,
+      "volume_24h": 145.8,
+      "time_to_expiry_years": 0.58,
+      "greeks": {
+        "source": "calculated"
+      }
+    },
+    "BTC-28MAR25-110000-P": {
+      "mark_iv": 0.51,
+      "open_interest": 1750.2,
+      "exchange_oi": 1750.2,
+      "volume_24h": 98.4,
+      "time_to_expiry_years": 0.58,
+      "greeks": {
+        "source": "calculated"
+      }
+    },
+    "ETH-27JUN25-3500-C": {
+      "mark_iv": 0.62,
+      "open_interest": 5400.0,
+      "exchange_oi": 5400.0,
+      "volume_24h": 320.5,
+      "time_to_expiry_years": 0.25,
+      "greeks": {
+        "delta": 0.52,
+        "gamma": 0.00018,
+        "theta": -8.2,
+        "vega": 42.1,
+        "source": "exchange"
+      }
+    },
+    "ETH-27JUN25-3500-P": {
+      "mark_iv": 0.64,
+      "open_interest": 4800.0,
+      "exchange_oi": 4800.0,
+      "volume_24h": 285.0,
+      "time_to_expiry_years": 0.25,
+      "greeks": {
+        "delta": -0.48,
+        "gamma": 0.00017,
+        "theta": -7.9,
+        "vega": 40.5,
+        "source": "exchange"
+      }
+    }
+  }
+}

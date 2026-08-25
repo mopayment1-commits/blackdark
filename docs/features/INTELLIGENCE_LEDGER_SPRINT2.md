@@ -9,6 +9,14 @@ Sprint 2 hub for execution intelligence. **1inch is a data source inside this le
 | 271 | Correlation & Lead-Lag Module | `bd_platform/correlation_lead_lag.py` | `GET /api/platform/intelligence-ledger/correlation` | Analyst Suite (Sprint 2) |
 | 272 | Social Signal & Mindshare | `bd_platform/mindshare_intelligence.py` | `GET /api/platform/intelligence-ledger/mindshare` | Social Signal Layer |
 
+## Wave 3 expansion (Pro/Institution)
+
+| # | Feature | Module | API | Notes |
+|---|---------|--------|-----|-------|
+| 274+#275+#276 | Options Intelligence Module | `bd_platform/options_intelligence.py` | `GET /api/platform/intelligence-ledger/options` | Merged cluster — Deribit Phase 1 |
+
+See [OPTIONS_INTELLIGENCE.md](./OPTIONS_INTELLIGENCE.md) for dependency gate, scope lock, and acceptance criteria.
+
 ## Self-optimization logic (Feature #5)
 
 Transparent formula:

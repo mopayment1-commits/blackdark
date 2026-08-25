@@ -592,6 +592,25 @@ async def mindshare_intelligence_panel_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/options/status")
+async def options_intelligence_status_route():
+    """#274+#275+#276 Options Intelligence Module — Wave 3, Deribit Phase 1."""
+    from bd_platform.options_intelligence import options_intelligence_status
+
+    return options_intelligence_status()
+
+
+@router.get("/intelligence-ledger/options")
+async def options_intelligence_panel_route(currency: str = Query("BTC")):
+    """#274 options panel with #275 data layer + #276 volume layer."""
+    from bd_platform.options_intelligence import build_options_intelligence_panel
+
+    result = build_options_intelligence_panel(currency)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),
