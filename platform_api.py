@@ -2567,6 +2567,30 @@ async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
     return scan_market_hype(limit=limit)
 
 
+# ── Signal Context Layer — #330-REV (Sprint 2, Pro) ───────────────────────────
+
+
+@router.get("/market-radar/signal-context/status")
+async def signal_context_layer_status_route():
+    from bd_platform.signal_context_layer import signal_context_layer_status
+
+    return signal_context_layer_status()
+
+
+@router.get("/market-radar/signal-context")
+async def signal_context_panel_route(asset: str = Query("BTC")):
+    from bd_platform.signal_context_layer import build_context_panel
+
+    return await build_context_panel(asset, surface="market_radar")
+
+
+@router.get("/portfolio/signal-context")
+async def portfolio_signal_context_route(asset: str = Query("BTC")):
+    from bd_platform.signal_context_layer import build_portfolio_context_panel
+
+    return await build_portfolio_context_panel(asset)
+
+
 # ── MCP for AI — #262 AI Agent Server (Sprint 2) ─────────────────────────────
 
 
