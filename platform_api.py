@@ -1762,3 +1762,90 @@ async def drift_reproducible_test_route():
     from bd_platform.drift_monitoring_engine import run_reproducible_drift_test
 
     return run_reproducible_drift_test()
+
+
+# ── Feature #214 merged — Data Catalog (Metric Availability Registry) ────────
+
+
+@router.get("/data-catalog/status")
+async def data_catalog_status_route():
+    from bd_platform.data_catalog import data_catalog_status
+
+    return data_catalog_status()
+
+
+@router.get("/data-catalog/registry")
+async def data_catalog_registry_route():
+    from bd_platform.data_catalog import build_metric_registry_from_production
+
+    return build_metric_registry_from_production()
+
+
+@router.get("/data-catalog/search")
+async def data_catalog_search_route(
+    asset: str | None = Query(None),
+    category: str | None = Query(None),
+    metric: str | None = Query(None),
+    access: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.data_catalog import search_metric_availability
+
+    return search_metric_availability(
+        asset=asset, category=category, metric=metric, access=access, limit=limit
+    )
+
+
+@router.get("/data-catalog/metrics/{metric_id}")
+async def data_catalog_metric_detail_route(metric_id: str):
+    from bd_platform.data_catalog import get_metric_detail
+
+    result = get_metric_detail(metric_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.post("/data-catalog/parity-test")
+async def data_catalog_parity_test_route():
+    from bd_platform.data_catalog import run_parity_tests
+
+    return run_parity_tests()
+
+
+# ── Feature #215 merged — Data Storage Infrastructure ──────────────────────────
+
+
+@router.get("/data-storage/status")
+async def data_storage_status_route():
+    from bd_platform.data_storage_infrastructure import data_storage_infrastructure_status
+
+    return data_storage_infrastructure_status()
+
+
+@router.get("/data-storage/tiers")
+async def data_storage_tiers_route():
+    from bd_platform.data_storage_infrastructure import get_storage_tier_status
+
+    return await get_storage_tier_status()
+
+
+@router.get("/data-storage/retention-policy")
+async def data_storage_retention_policy_route():
+    from bd_platform.data_storage_infrastructure import get_retention_policy
+
+    return get_retention_policy()
+
+
+@router.post("/data-storage/restore-test")
+async def data_storage_restore_test_route(tier: str = Query("tier1_hot")):
+    from bd_platform.data_storage_infrastructure import run_restore_test
+
+    return await run_restore_test(tier=tier)
+
+
+@router.post("/data-storage/migration-safety")
+async def data_storage_migration_safety_route():
+    from bd_platform.data_storage_infrastructure import run_migration_safety_check
+
+    return await run_migration_safety_check()
