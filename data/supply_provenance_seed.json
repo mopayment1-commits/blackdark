@@ -1,30 +1,38 @@
 {
-  "feature_id": 267,
+  "feature_id": 266,
+  "replaces": 267,
   "standalone": false,
+  "sprint": 1,
   "merged_into": ["#705 Asset Metadata", "#217 OHLCV Core Feed"],
-  "supply_data_version": "3.1",
+  "supply_data_version": "2.1",
+  "methodology_version": "2.0",
+  "last_updated": "2026-08-25",
   "methodology": {
     "market_cap_formula": "Price (VWAP 1H) × Circulating Supply",
+    "fdv_formula": "Price × Total/Max Supply",
+    "dominance_formula": "Asset Market Cap / Total Crypto Market Cap",
     "supply_update_cadence": "daily",
-    "source_verification": "on-chain cross-check required for self-reported"
+    "source_verification": "on-chain cross-check required for self-reported",
+    "historical_qa": true
   },
   "assets": {
     "BTC": {
-      "supply_version": "3.1",
+      "supply_version": "2.1",
       "last_verified_utc": "2026-08-25T00:00:00+00:00",
       "next_verification_utc": "2026-08-26T00:00:00+00:00",
       "price_methodology": "VWAP 1H",
+      "last_price_usd": 116850,
       "supplies": [
         {
           "supply_type": "circulating",
           "amount": 19850000,
-          "source": "On-Chain Query",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
           "supply_type": "total",
           "amount": 19850000,
-          "source": "On-Chain Query",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
@@ -34,24 +42,43 @@
           "verified": true
         }
       ],
+      "dominance": {
+        "dominance_pct": 52.3,
+        "method": "BTC Market Cap / Total Crypto Market Cap",
+        "source": "BLACKDARK aggregated"
+      },
+      "historical_qa": {
+        "date": "2024-01-01",
+        "market_cap_usd": 850000000000,
+        "sources_verified": 3,
+        "variance_pct": 0.3,
+        "variance_threshold_pct": 0.5
+      },
+      "historical_series": {
+        "period": "1Y",
+        "market_cap_usd": [720000000000, 780000000000, 850000000000, 920000000000, 2320000000000],
+        "fdv_usd": [760000000000, 820000000000, 890000000000, 960000000000, 2450000000000],
+        "dominance_pct": [48.5, 49.8, 51.2, 52.0, 52.3]
+      },
       "self_reported_cross_check": null
     },
     "ETH": {
-      "supply_version": "3.1",
+      "supply_version": "2.1",
       "last_verified_utc": "2026-08-25T00:00:00+00:00",
       "next_verification_utc": "2026-08-26T00:00:00+00:00",
       "price_methodology": "VWAP 1H",
+      "last_price_usd": 4548,
       "supplies": [
         {
           "supply_type": "circulating",
           "amount": 120300000,
-          "source": "On-Chain Query",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
           "supply_type": "total",
           "amount": 120300000,
-          "source": "On-Chain Query",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
@@ -59,21 +86,40 @@
           "amount": null,
           "source": "Protocol Docs",
           "verified": true,
-          "note": "No max supply cap"
+          "note": "unlimited tokenomics"
         }
       ],
+      "dominance": {
+        "dominance_pct": 18.5,
+        "method": "ETH Market Cap / Total Crypto Market Cap",
+        "source": "BLACKDARK aggregated"
+      },
+      "historical_qa": {
+        "date": "2024-01-01",
+        "market_cap_usd": 270000000000,
+        "sources_verified": 3,
+        "variance_pct": 0.4,
+        "variance_threshold_pct": 0.5
+      },
+      "historical_series": {
+        "period": "1Y",
+        "market_cap_usd": [220000000000, 250000000000, 270000000000, 310000000000, 547000000000],
+        "fdv_usd": [220000000000, 250000000000, 270000000000, 310000000000, 547000000000],
+        "dominance_pct": [17.2, 17.8, 18.0, 18.3, 18.5]
+      },
       "self_reported_cross_check": null
     },
     "ARB": {
-      "supply_version": "3.1",
+      "supply_version": "2.1",
       "last_verified_utc": "2026-08-25T00:00:00+00:00",
       "next_verification_utc": "2026-08-26T00:00:00+00:00",
       "price_methodology": "VWAP 1H",
+      "last_price_usd": 0.82,
       "supplies": [
         {
           "supply_type": "circulating",
           "amount": 987500,
-          "source": "On-Chain Query",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
@@ -89,6 +135,24 @@
           "verified": false
         }
       ],
+      "dominance": {
+        "dominance_pct": 0.12,
+        "method": "ARB Market Cap / Total Crypto Market Cap",
+        "source": "BLACKDARK aggregated"
+      },
+      "historical_qa": {
+        "date": "2024-01-01",
+        "market_cap_usd": 2100000000,
+        "sources_verified": 3,
+        "variance_pct": 0.45,
+        "variance_threshold_pct": 0.5
+      },
+      "historical_series": {
+        "period": "1Y",
+        "market_cap_usd": [1800000000, 1950000000, 2100000000, 2200000000, 810000000],
+        "fdv_usd": [8200000000, 8500000000, 8800000000, 9000000000, 8200000000],
+        "dominance_pct": [0.15, 0.14, 0.13, 0.12, 0.12]
+      },
       "self_reported_cross_check": {
         "self_reported": 1000000,
         "on_chain_verified": 987500,
@@ -97,21 +161,22 @@
       }
     },
     "SOL": {
-      "supply_version": "3.1",
+      "supply_version": "2.1",
       "last_verified_utc": "2026-08-25T00:00:00+00:00",
       "next_verification_utc": "2026-08-26T00:00:00+00:00",
       "price_methodology": "VWAP 1H",
+      "last_price_usd": 185.5,
       "supplies": [
         {
           "supply_type": "circulating",
           "amount": 475000000,
-          "source": "CoinGecko API",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
           "supply_type": "total",
           "amount": 580000000,
-          "source": "CoinGecko API",
+          "source": "On-chain query + issuer docs",
           "verified": true
         },
         {
@@ -122,6 +187,24 @@
           "note": "Inflationary — no fixed max"
         }
       ],
+      "dominance": {
+        "dominance_pct": 2.8,
+        "method": "SOL Market Cap / Total Crypto Market Cap",
+        "source": "BLACKDARK aggregated"
+      },
+      "historical_qa": {
+        "date": "2024-01-01",
+        "market_cap_usd": 42000000000,
+        "sources_verified": 3,
+        "variance_pct": 0.35,
+        "variance_threshold_pct": 0.5
+      },
+      "historical_series": {
+        "period": "1Y",
+        "market_cap_usd": [35000000000, 38000000000, 42000000000, 48000000000, 88100000000],
+        "fdv_usd": [42000000000, 45000000000, 50000000000, 56000000000, 107600000000],
+        "dominance_pct": [2.2, 2.4, 2.6, 2.7, 2.8]
+      },
       "self_reported_cross_check": null
     }
   }

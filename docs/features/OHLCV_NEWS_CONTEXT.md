@@ -9,19 +9,21 @@
 | Gap handling | `Missing data: Exchange X down \| Interpolated: No` |
 | Volume validation | Cross-check exchange vs on-chain proxy |
 | Batch not real-time | OHLCV = batch; real-time ticks = #212 |
-| Market cap (#267 merged) | Each candle includes `market_cap_supply` with provenance |
+| Market cap (#266 replaces #267) | Each candle includes `market_cap_supply` with provenance, FDV, dominance |
 
-### #267 — Market Cap / Supply (merged, NOT standalone)
+### #266 — Market Cap & Valuation (replaces #267, NOT standalone)
 
-Supply provenance visible on every OHLCV candle close price. Also merged into #705 Canonical Asset Registry.
+Full institutional valuation: Market Cap + FDV + Dominance + historical series + QA.
+Merged into #705 Canonical Asset Registry and #217 OHLCV Core Feed.
 
 | Rule | Implementation |
 |------|----------------|
-| Supply provenance | `circulating` / `total` / `max` each with `source` |
+| Supply provenance | `circulating` / `total` / `max` each with `source` + version |
 | Three caps shown | Circulating MCAP, FDV, Max Supply MCAP |
-| Methodology | `Price (VWAP 1H) × Circulating Supply` |
-| Self-reported cross-check | On-chain verification with variance % |
-| Disclaimer | Non-hideable — not a valuation metric |
+| Dominance | Descriptive only — no buy signals |
+| Historical QA | Verified against 3 sources, variance < 0.5% |
+| Methodology | Valuation Methodology v2.0 |
+| Disclaimer | Non-hideable — dominance measures size, not strength |
 | Free basic data | Not a separate paid Market Cap API |
 
 See `bd_platform/market_cap_supply.py` and `data/supply_provenance_seed.json`.

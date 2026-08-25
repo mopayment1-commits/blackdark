@@ -1995,6 +1995,27 @@ async def canonical_asset_resolve_route(symbol: str):
     return result
 
 
+@router.get("/valuation/status")
+async def market_cap_valuation_status_route():
+    from bd_platform.market_cap_supply import market_cap_valuation_status
+
+    return market_cap_valuation_status()
+
+
+@router.get("/valuation/{symbol}")
+async def market_cap_valuation_profile_route(
+    symbol: str,
+    price_usd: float | None = Query(None),
+):
+    """Market Cap & Valuation profile — #266 merged into #705, replaces #267."""
+    from bd_platform.market_cap_supply import build_valuation_profile
+
+    result = build_valuation_profile(symbol, price_usd=price_usd)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/connectors/unified")
 async def unified_connector_view_route(probe_live: bool = Query(True)):
     from bd_platform.connector_coverage_map import build_unified_connector_view

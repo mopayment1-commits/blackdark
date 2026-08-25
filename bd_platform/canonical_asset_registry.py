@@ -63,12 +63,13 @@ def _enrich_asset(row: dict[str, Any]) -> dict[str, Any]:
         "display": f"{row.get('symbol')} ({row.get('stable_id')}) — {lifecycle}",
     }
     try:
-        from bd_platform.market_cap_supply import get_supply_provenance
+        from bd_platform.market_cap_supply import build_valuation_profile
 
-        supply = get_supply_provenance(str(row.get("symbol") or ""))
-        if supply:
-            enriched["supply_provenance"] = supply
-            enriched["integrated_features"] = ["#267"]
+        valuation = build_valuation_profile(str(row.get("symbol") or ""))
+        if valuation.get("ok"):
+            enriched["market_cap_valuation"] = valuation
+            enriched["supply_provenance"] = valuation.get("supply_provenance")
+            enriched["integrated_features"] = ["#266"]
     except Exception:
         logger.debug("supply provenance enrich failed", exc_info=True)
     return enriched
@@ -163,7 +164,8 @@ def canonical_asset_registry_status() -> dict[str, Any]:
         "lifecycle_states": sorted(lifecycles),
         "stable_ids": True,
         "lifecycle_versioning": True,
-        "integrated_with": ["connector_coverage_map", "#194", "#267"],
+        "integrated_with": ["connector_coverage_map", "#194", "#266"],
         "supply_provenance_merged": True,
+        "market_cap_valuation_replaces_267": True,
         "timestamp": _utcnow(),
     }
