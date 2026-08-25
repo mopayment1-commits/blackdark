@@ -166,9 +166,18 @@ async def build_market_radar_dashboard(
 
 
 def market_radar_dashboard_status() -> dict[str, Any]:
+    from bd_platform.ai_grounding_middleware import grounding_middleware_status
+
+    grounding = grounding_middleware_status()
     return {
         "ok": True,
         "surface": "market_radar_dashboard",
+        "ai_grounding_layer": {
+            "feature_id": 230,
+            "layer": grounding.get("grounding_layer_name"),
+            "surface": "market_radar",
+            "no_model_only_facts": grounding.get("no_model_only_facts"),
+        },
         "modules": {
             "155": "price_infrastructure",
             "140": "macro_events_calendar",
