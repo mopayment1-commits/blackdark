@@ -176,10 +176,11 @@ async def fetch_price(asset: str, *, exchange: str | None = None) -> dict[str, A
 
 async def fetch_oracle(asset: str) -> dict[str, Any]:
     from bd_platform.decision_intelligence_engine import generate_decision_signal
+    from bd_platform.verifiable_ai_engine import enrich_oracle_envelope
 
     signal = await generate_decision_signal(asset, include_backtest=False)
     sig = signal.get("signal") or {}
-    return _envelope(
+    envelope = _envelope(
         {
             "ok": signal.get("ok", True),
             "metric": "oracle",
@@ -192,6 +193,7 @@ async def fetch_oracle(asset: str) -> dict[str, Any]:
         source="decision_intelligence_engine",
         fetched_at=signal.get("timestamp"),
     )
+    return await enrich_oracle_envelope(envelope, asset)
 
 
 async def fetch_sentiment(asset: str) -> dict[str, Any]:

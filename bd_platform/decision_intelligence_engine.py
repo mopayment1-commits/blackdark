@@ -264,6 +264,47 @@ async def generate_decision_signal(
         "disclaimer": "Decision intelligence — not financial advice. Gradual pipeline to institutional targets.",
     }
 
+    try:
+        from bd_platform.verifiable_ai_engine import _build_evidence_item, attach_verifiable_ai, _source_link
+
+        evidence = []
+        ts = result.get("timestamp") or _utcnow()
+        sig_data = result.get("signal") or {}
+        if sig_data.get("verdict") is not None:
+            evidence.append(
+                _build_evidence_item(
+                    fact=f"{sym} verdict {sig_data.get('verdict')} (confidence {sig_data.get('confidence')}%)",
+                    source_api="Oracle API v2.1",
+                    timestamp=ts,
+                    value={
+                        "verdict": sig_data.get("verdict"),
+                        "confidence": sig_data.get("confidence"),
+                        "score": sig_data.get("score"),
+                    },
+                    source_link=_source_link("oracle", sym),
+                )
+            )
+        price_sample = (result.get("features") or {}).get("sample") or {}
+        if price_sample.get("price"):
+            evidence.append(
+                _build_evidence_item(
+                    fact=f"{sym} price ${price_sample.get('price')}",
+                    source_api="Unified API price",
+                    timestamp=ts,
+                    value={"price_usd": price_sample.get("price")},
+                    source_link=_source_link("price", sym),
+                )
+            )
+        result = attach_verifiable_ai(
+            result,
+            evidence=evidence,
+            answer=result.get("headline"),
+            tools_called=["decision_intelligence_engine"],
+            query=f"decision_signal:{sym}",
+        )
+    except Exception:
+        logger.debug("verifiable ai enrichment failed", exc_info=True)
+
     _CACHE[cache_key] = (time.time(), result)
     return result
 
