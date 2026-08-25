@@ -1314,3 +1314,94 @@ async def public_chart_view_route(slug: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+# ── Feature #187 — BLACKDARK Research Portal ─────────────────────────────────
+
+
+@router.get("/research/status")
+async def research_portal_status_route():
+    from bd_platform.research_portal import research_portal_status
+
+    return research_portal_status()
+
+
+@router.get("/research/search")
+async def research_search_route(
+    q: str = Query("", description="Search query — supports Arabic semantic search"),
+    mode: str = Query("fulltext", description="fulltext or semantic"),
+    sector: str | None = Query(None),
+    asset: str | None = Query(None),
+    author: str | None = Query(None),
+    limit: int = Query(20, ge=1, le=100),
+):
+    from bd_platform.research_portal import search_reports
+
+    return search_reports(
+        q,
+        mode="semantic" if mode == "semantic" else "fulltext",  # type: ignore[arg-type]
+        sector=sector,
+        asset=asset,
+        author=author,
+        limit=limit,
+    )
+
+
+@router.get("/research/filters")
+async def research_filters_route():
+    from bd_platform.research_portal import list_filters
+
+    return list_filters()
+
+
+@router.get("/research/reports/{report_id}")
+async def research_report_route(
+    report_id: str,
+    version: int | None = Query(None),
+):
+    from bd_platform.research_portal import get_report
+
+    result = get_report(report_id, version=version)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.put("/research/reports/{report_id}", responses=COMMON_ERROR_RESPONSES)
+async def research_update_route(
+    report_id: str,
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Update report — archives previous version (#187)."""
+    from bd_platform.research_portal import update_report
+
+    return update_report(
+        report_id,
+        editor_id=str(user.get("id") or user.get("email") or "editor"),
+        title=body.get("title"),
+        summary=body.get("summary"),
+        body=body.get("body"),
+        tags=body.get("tags") if isinstance(body.get("tags"), list) else None,
+    )
+
+
+@router.post("/research/saved/{report_id}", responses=COMMON_ERROR_RESPONSES)
+async def research_save_route(report_id: str, user: dict = Depends(require_authenticated)):
+    from bd_platform.research_portal import save_report_for_user
+
+    return save_report_for_user(str(user.get("id") or user.get("email") or "0"), report_id)
+
+
+@router.delete("/research/saved/{report_id}", responses=COMMON_ERROR_RESPONSES)
+async def research_unsave_route(report_id: str, user: dict = Depends(require_authenticated)):
+    from bd_platform.research_portal import unsave_report_for_user
+
+    return unsave_report_for_user(str(user.get("id") or user.get("email") or "0"), report_id)
+
+
+@router.get("/research/saved")
+async def research_saved_list_route(user: dict = Depends(require_authenticated)):
+    from bd_platform.research_portal import list_saved_reports
+
+    return list_saved_reports(str(user.get("id") or user.get("email") or "0"))

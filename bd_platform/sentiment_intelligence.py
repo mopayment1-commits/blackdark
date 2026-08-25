@@ -116,6 +116,16 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
         pass
 
     elapsed = (time.perf_counter() - t0) * 1000
+
+    # #195 Unique Social Volume quality layer
+    social_volume_block: dict[str, Any] = {}
+    try:
+        from bd_platform.unique_social_volume import analyze_unique_social_volume
+
+        social_volume_block = await analyze_unique_social_volume(sym)
+    except Exception:
+        logger.debug("unique social volume unavailable for %s", sym)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -125,10 +135,15 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
         "source_count": len(sources_hit),
         "sources": sources_hit,
         "source_breakdown": source_scores,
+        "social_volume": social_volume_block,
+        "unique_social_volume": social_volume_block.get("unique_volume"),
+        "raw_social_volume": social_volume_block.get("raw_volume"),
+        "weighted_social_volume": social_volume_block.get("weighted_volume"),
+        "social_volume_display": social_volume_block.get("display"),
         "price_correlation": price_correlation,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "arabic_support": "via_rules_nlp_tuning",
-        "integrated_features": ["#149"],
+        "integrated_features": ["#149", "#195"],
         "sla_met": elapsed <= 2000,
         "latency_ms": round(elapsed, 1),
         "timestamp": _utcnow(),
@@ -163,6 +178,7 @@ def sentiment_intelligence_status() -> dict[str, Any]:
         "weighted_scoring": True,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "nlp_accuracy_target_pct": 80,
-        "integrated_features": ["#149"],
+        "integrated_features": ["#149", "#195"],
+        "unique_social_volume_layer": True,
         "timestamp": _utcnow(),
     }

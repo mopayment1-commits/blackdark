@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request
+from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query, Request
 
 from api.openapi_responses import COMMON_ERROR_RESPONSES
 from security_auth import optional_user_from_request
@@ -12,13 +12,26 @@ from security_auth import optional_user_from_request
 router = APIRouter(prefix="/api/v1/platform", tags=["unified-api"], responses=COMMON_ERROR_RESPONSES)
 
 
-def _rate_limit(request: Request) -> None:
-    from bd_platform.unified_api_platform import check_api_rate_limit
+def _client_key(request: Request, user: dict | None) -> str:
+    if user and user.get("id"):
+        return f"user:{user['id']}"
+    return f"ip:{request.client.host if request.client else 'unknown'}"
 
-    client = request.client.host if request.client else "unknown"
-    blocked = check_api_rate_limit(f"api:{client}")
+
+def _user_tier(user: dict | None) -> str:
+    return str((user or {}).get("tier") or "free")
+
+
+def _rate_limit(request: Request, user: dict | None = Depends(optional_user_from_request)) -> None:
+    from bd_platform.unified_api_platform import check_api_rate_limit, check_daily_quota
+
+    key = _client_key(request, user)
+    blocked = check_api_rate_limit(key)
     if blocked:
         raise HTTPException(status_code=429, detail=blocked)
+    daily = check_daily_quota(key, _user_tier(user))
+    if daily:
+        raise HTTPException(status_code=429, detail=daily)
 
 
 @router.get("/status")
@@ -55,11 +68,50 @@ async def unified_api_oracle_route(
 async def unified_api_sentiment_route(
     request: Request,
     asset: str = Query("BTC"),
+    _user: dict | None = Depends(optional_user_from_request),
     _rl: None = Depends(_rate_limit),
 ):
     from bd_platform.unified_api_platform import fetch_sentiment
 
     return await fetch_sentiment(asset)
+
+
+@router.get("/social-volume")
+async def unified_api_social_volume_route(
+    request: Request,
+    asset: str = Query("BTC"),
+    _user: dict | None = Depends(optional_user_from_request),
+    _rl: None = Depends(_rate_limit),
+):
+    """Unique social volume (#195) — same metric semantics as UI."""
+    from bd_platform.unified_api_platform import fetch_social_volume
+
+    return await fetch_social_volume(asset)
+
+
+@router.get("/onchain")
+async def unified_api_onchain_route(
+    request: Request,
+    asset: str = Query("BTC"),
+    _user: dict | None = Depends(optional_user_from_request),
+    _rl: None = Depends(_rate_limit),
+):
+    from bd_platform.unified_api_platform import fetch_onchain
+
+    return await fetch_onchain(asset)
+
+
+@router.get("/financial")
+async def unified_api_financial_route(
+    request: Request,
+    asset: str = Query("BTC"),
+    notional: float = Query(10000, ge=100),
+    _user: dict | None = Depends(optional_user_from_request),
+    _rl: None = Depends(_rate_limit),
+):
+    from bd_platform.unified_api_platform import fetch_financial
+
+    return await fetch_financial(asset, notional=notional)
 
 
 @router.get("/liquidity")
@@ -100,11 +152,42 @@ async def unified_api_contract_safety_route(
     request: Request,
     address: str = Query(..., min_length=42, max_length=42),
     chain: str = Query("ethereum"),
+    _user: dict | None = Depends(optional_user_from_request),
     _rl: None = Depends(_rate_limit),
 ):
     from bd_platform.unified_api_platform import fetch_contract_safety
 
     return await fetch_contract_safety(address, chain=chain)
+
+
+@router.post("/graphql")
+async def unified_api_graphql_route(
+    request: Request,
+    body: dict = Body(...),
+    user: dict | None = Depends(optional_user_from_request),
+    _rl: None = Depends(_rate_limit),
+):
+    """Optional GraphQL for Pro+ — wraps canonical REST metrics (#188)."""
+    from bd_platform.unified_api_platform import execute_graphql_query
+
+    result = await execute_graphql_query(
+        str(body.get("query") or ""),
+        variables=body.get("variables") if isinstance(body.get("variables"), dict) else {},
+        tier=_user_tier(user),
+    )
+    if not result.get("ok"):
+        code = 403 if result.get("error") == "graphql_pro_required" else 400
+        raise HTTPException(status_code=code, detail=result)
+    return result
+
+
+@router.get("/quotas")
+async def unified_api_quotas_route(
+    user: dict | None = Depends(optional_user_from_request),
+):
+    from bd_platform.unified_api_platform import get_tier_quota
+
+    return {"ok": True, **get_tier_quota(_user_tier(user))}
 
 
 # ── Spreadsheet Integration #174 + #176 ──────────────────────────────────────
