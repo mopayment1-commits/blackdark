@@ -248,6 +248,13 @@ async def community_oracle_route(
     return await fetch_community_oracle(asset)
 
 
+@router.get("/provenance/status")
+async def unified_provenance_status_route():
+    from bd_platform.source_registry_provenance import source_registry_status
+
+    return source_registry_status()
+
+
 # ── Spreadsheet Integration #174 + #176 ──────────────────────────────────────
 
 
