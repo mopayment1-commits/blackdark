@@ -1,0 +1,188 @@
+{
+  "feature_id": 259,
+  "merged_into": "market_radar",
+  "standalone": false,
+  "sprint": 2,
+  "methodology_version": "1.2",
+  "last_updated": "2026-08-25",
+  "assets": {
+    "BTC": {
+      "primary_venue": "Binance",
+      "liquidity_sufficient_for_usd": 50000,
+      "is_defi": false,
+      "replay_qa": {
+        "block_start": 18500000,
+        "block_end": 18500100,
+        "block_x": 18500050,
+        "order_size_usd": 10000,
+        "actual_slippage_pct": 0.28,
+        "replay_slippage_pct": 0.3,
+        "variance_threshold_pct": 0.05
+      },
+      "depth": {
+        "levels": 10,
+        "method": "Sum of top 10 levels per venue",
+        "venues": {
+          "Binance": 530000000,
+          "Coinbase": 370000000,
+          "Kraken": 270000000,
+          "OKX": 186000000,
+          "Bybit": 80000000
+        }
+      },
+      "spread": {
+        "spread_bps": 2.1,
+        "venue": "Binance",
+        "pair": "BTC/USDT",
+        "time_display": "2026-08-25 20:58 UTC"
+      },
+      "slippage": {
+        "method": "Order book simulation",
+        "by_size": {
+          "$10K": 0.12,
+          "$100K": 0.8,
+          "$1M": 3.5
+        }
+      },
+      "total_cost": {
+        "slippage_pct": 0.3,
+        "gas_usd": 0,
+        "notional_usd": 10000,
+        "gross_opportunity_pct": 1.2
+      }
+    },
+    "ETH": {
+      "primary_venue": "Binance",
+      "liquidity_sufficient_for_usd": 50000,
+      "is_defi": false,
+      "replay_qa": {
+        "block_start": 18500000,
+        "block_end": 18500080,
+        "block_x": 18500040,
+        "order_size_usd": 10000,
+        "actual_slippage_pct": 0.22,
+        "replay_slippage_pct": 0.24,
+        "variance_threshold_pct": 0.05
+      },
+      "depth": {
+        "levels": 10,
+        "method": "Sum of top 10 levels per venue",
+        "venues": {
+          "Binance": 233000000,
+          "Coinbase": 164000000,
+          "Kraken": 117000000,
+          "OKX": 85000000,
+          "Bybit": 34000000
+        }
+      },
+      "spread": {
+        "spread_bps": 2.8,
+        "venue": "Binance",
+        "pair": "ETH/USDT",
+        "time_display": "2026-08-25 20:58 UTC"
+      },
+      "slippage": {
+        "method": "Order book simulation",
+        "by_size": {
+          "$10K": 0.15,
+          "$100K": 0.95,
+          "$1M": 4.2
+        }
+      },
+      "total_cost": {
+        "slippage_pct": 0.35,
+        "gas_usd": 0,
+        "notional_usd": 10000,
+        "gross_opportunity_pct": 1.5
+      }
+    },
+    "SOL": {
+      "primary_venue": "Binance",
+      "liquidity_sufficient_for_usd": 25000,
+      "is_defi": false,
+      "replay_qa": {
+        "block_start": 18500000,
+        "block_end": 18500060,
+        "block_x": 18500030,
+        "order_size_usd": 10000,
+        "actual_slippage_pct": 0.35,
+        "replay_slippage_pct": 0.38,
+        "variance_threshold_pct": 0.05
+      },
+      "depth": {
+        "levels": 10,
+        "method": "Sum of top 10 levels per venue",
+        "venues": {
+          "Binance": 52000000,
+          "Coinbase": 33500000,
+          "Kraken": 22500000,
+          "OKX": 16000000,
+          "Bybit": 8000000
+        }
+      },
+      "spread": {
+        "spread_bps": 4.5,
+        "venue": "Binance",
+        "pair": "SOL/USDT",
+        "time_display": "2026-08-25 20:58 UTC"
+      },
+      "slippage": {
+        "method": "Order book simulation",
+        "by_size": {
+          "$10K": 0.28,
+          "$100K": 1.4,
+          "$1M": 6.8
+        }
+      },
+      "total_cost": {
+        "slippage_pct": 0.45,
+        "gas_usd": 0,
+        "notional_usd": 10000,
+        "gross_opportunity_pct": 2.0
+      }
+    },
+    "UNI": {
+      "primary_venue": "Uniswap V3",
+      "liquidity_sufficient_for_usd": 10000,
+      "is_defi": true,
+      "amm_slippage_pct": 0.5,
+      "replay_qa": {
+        "block_start": 18500000,
+        "block_end": 18500040,
+        "block_x": 18500020,
+        "order_size_usd": 10000,
+        "actual_slippage_pct": 0.48,
+        "replay_slippage_pct": 0.5,
+        "variance_threshold_pct": 0.05
+      },
+      "depth": {
+        "levels": 10,
+        "method": "AMM pool liquidity (not order book)",
+        "venues": {
+          "Uniswap V3": 12000000,
+          "Curve": 4500000
+        }
+      },
+      "spread": {
+        "spread_bps": 0,
+        "venue": "Uniswap V3",
+        "pair": "UNI/USDC",
+        "time_display": "2026-08-25 20:58 UTC"
+      },
+      "slippage": {
+        "method": "AMM curve simulation",
+        "by_size": {
+          "$10K": 0.5,
+          "$100K": 2.1,
+          "$1M": 8.5
+        }
+      },
+      "total_cost": {
+        "slippage_pct": 0.5,
+        "gas_usd": 12.5,
+        "notional_usd": 10000,
+        "gross_opportunity_pct": 1.8
+      }
+    }
+  }
+}
