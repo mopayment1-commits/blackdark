@@ -1,0 +1,45 @@
+{
+  "baselines": [
+    {
+      "version": "v2.1",
+      "model_id": "oracle_signal_v3",
+      "window_days": 30,
+      "updated_at": "2026-08-01",
+      "features": {
+        "btc_volatility_24h": {"mean": 2.5, "std": 0.8, "min": 0.5, "max": 6.0},
+        "eth_volatility_24h": {"mean": 3.1, "std": 1.0, "min": 0.8, "max": 8.0},
+        "funding_rate_btc": {"mean": 0.01, "std": 0.005, "min": -0.02, "max": 0.05},
+        "open_interest_change": {"mean": 0.0, "std": 0.15, "min": -0.5, "max": 0.5},
+        "social_sentiment_score": {"mean": 55.0, "std": 12.0, "min": 20.0, "max": 85.0}
+      }
+    },
+    {
+      "version": "v2.0",
+      "model_id": "oracle_signal_v3",
+      "window_days": 30,
+      "updated_at": "2026-07-01",
+      "features": {
+        "btc_volatility_24h": {"mean": 2.3, "std": 0.7, "min": 0.4, "max": 5.5},
+        "eth_volatility_24h": {"mean": 2.9, "std": 0.9, "min": 0.7, "max": 7.5},
+        "funding_rate_btc": {"mean": 0.008, "std": 0.004, "min": -0.015, "max": 0.04},
+        "open_interest_change": {"mean": 0.0, "std": 0.12, "min": -0.4, "max": 0.4},
+        "social_sentiment_score": {"mean": 52.0, "std": 11.0, "min": 18.0, "max": 80.0}
+      }
+    }
+  ],
+  "sample_current": {
+    "btc_volatility_24h": 5.8,
+    "eth_volatility_24h": 7.2,
+    "funding_rate_btc": 0.035,
+    "open_interest_change": 0.42,
+    "social_sentiment_score": 78.0
+  },
+  "sample_stale": {
+    "btc_volatility_24h": null,
+    "eth_volatility_24h": null,
+    "funding_rate_btc": null,
+    "open_interest_change": null,
+    "social_sentiment_score": null,
+    "stale_since": "2026-08-25T11:00:00+00:00"
+  }
+}
