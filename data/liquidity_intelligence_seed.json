@@ -1,0 +1,156 @@
+{
+  "feature_id": 280,
+  "absorbed_ids": [277, 278, 279, 280],
+  "standalone": false,
+  "merged_into": "Sprint 1 Core — Liquidity Intelligence Engine",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "pairs": {
+    "BTC/USDT": {
+      "binance": {
+        "book_level": "L2",
+        "levels": 10,
+        "bids": [
+          [94980.0, 12.5],
+          [94970.0, 8.2],
+          [94960.0, 15.0],
+          [94950.0, 20.1],
+          [94940.0, 18.5],
+          [94930.0, 22.0],
+          [94920.0, 16.8],
+          [94910.0, 14.2],
+          [94900.0, 19.5],
+          [94890.0, 21.0]
+        ],
+        "asks": [
+          [95020.0, 10.8],
+          [95030.0, 9.5],
+          [95040.0, 14.2],
+          [95050.0, 17.8],
+          [95060.0, 19.0],
+          [95070.0, 16.5],
+          [95080.0, 13.2],
+          [95090.0, 15.8],
+          [95100.0, 18.0],
+          [95110.0, 20.5]
+        ],
+        "slippage_sizes_usd": [10000, 100000, 1000000],
+        "freshness": {
+          "latency_ms": 42,
+          "snapshot_age_ms": 180,
+          "exchange_timestamp": "2026-08-25T23:40:00+00:00",
+          "received_timestamp": "2026-08-25T23:40:00.180+00:00"
+        },
+        "resilience": {
+          "gap_recovery_rate_pct": 98.5,
+          "depth_stability_score": 0.92,
+          "uptime_pct": 99.95
+        },
+        "trades": {
+          "buy_volume_usd": 12500000,
+          "sell_volume_usd": 9800000,
+          "book_imbalance_at_snapshot": 0.052,
+          "large_trades_count": 3,
+          "window_seconds": 60
+        }
+      },
+      "okx": {
+        "book_level": "L2",
+        "levels": 5,
+        "bids": [
+          [94975.0, 8.0],
+          [94965.0, 12.0],
+          [94955.0, 15.0],
+          [94945.0, 10.0],
+          [94935.0, 9.0]
+        ],
+        "asks": [
+          [94970.0, 7.5],
+          [94980.0, 11.0],
+          [94990.0, 13.0],
+          [95000.0, 8.5],
+          [95010.0, 10.0]
+        ],
+        "slippage_sizes_usd": [10000, 100000],
+        "freshness": {
+          "latency_ms": 85,
+          "snapshot_age_ms": 6200,
+          "exchange_timestamp": "2026-08-25T23:39:54+00:00",
+          "received_timestamp": "2026-08-25T23:40:00.200+00:00"
+        },
+        "resilience": {
+          "gap_recovery_rate_pct": 72.0,
+          "depth_stability_score": 0.65,
+          "uptime_pct": 98.5
+        },
+        "trades": {
+          "buy_volume_usd": 3200000,
+          "sell_volume_usd": 4100000,
+          "book_imbalance_at_snapshot": -0.08,
+          "large_trades_count": 1,
+          "window_seconds": 60
+        }
+      }
+    },
+    "ETH/USDT": {
+      "binance": {
+        "book_level": "L2",
+        "levels": 5,
+        "bids": [
+          [3420.0, 150.0],
+          [3419.5, 120.0],
+          [3419.0, 180.0],
+          [3418.5, 200.0],
+          [3418.0, 160.0]
+        ],
+        "asks": [
+          [3421.0, 145.0],
+          [3421.5, 130.0],
+          [3422.0, 170.0],
+          [3422.5, 195.0],
+          [3423.0, 150.0]
+        ],
+        "slippage_sizes_usd": [10000, 100000, 500000],
+        "freshness": {
+          "latency_ms": 38,
+          "snapshot_age_ms": 120,
+          "exchange_timestamp": "2026-08-25T23:40:01+00:00",
+          "received_timestamp": "2026-08-25T23:40:01.120+00:00"
+        },
+        "resilience": {
+          "gap_recovery_rate_pct": 99.0,
+          "depth_stability_score": 0.95,
+          "uptime_pct": 99.98
+        },
+        "trades": {
+          "buy_volume_usd": 4500000,
+          "sell_volume_usd": 4200000,
+          "book_imbalance_at_snapshot": 0.03,
+          "large_trades_count": 2,
+          "window_seconds": 60
+        }
+      }
+    }
+  },
+  "warnings": [
+    {
+      "type": "depth_drop",
+      "severity": "high",
+      "pair": "BTC/USDT",
+      "venue": "binance",
+      "timestamp": "2026-08-25T14:32:00+00:00",
+      "message": "Depth dropped 22% below 7d median — monitor execution",
+      "actionable": true
+    },
+    {
+      "type": "sequence_gap_unrecovered",
+      "severity": "high",
+      "pair": "ETH/USDT",
+      "venue": "okx",
+      "timestamp": "2026-08-24T18:15:00+00:00",
+      "message": "Sequence gap not recovered within 30s — book resync required",
+      "actionable": true
+    }
+  ]
+}

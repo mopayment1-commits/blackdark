@@ -79,5 +79,7 @@ Recovery: snapshot_resync | delta_replay
 ## Related
 
 - `blackdark/data/order_book_liquidity.py` — core module (#269+#277)
+- `blackdark/data/liquidity_intelligence_engine.py` — #280 intelligence layer (absorbs #277–#279)
+- `docs/features/LIQUIDITY_INTELLIGENCE_ENGINE.md` — #280 layer docs
 - `database.py` — `order_books` table (reused)
 - `#268` Instrument Master — instrument identity for pairs
