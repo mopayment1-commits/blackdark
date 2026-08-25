@@ -1405,3 +1405,55 @@ async def research_saved_list_route(user: dict = Depends(require_authenticated))
     from bd_platform.research_portal import list_saved_reports
 
     return list_saved_reports(str(user.get("id") or user.get("email") or "0"))
+
+
+# ── Features #194 + #200 — Connector Coverage Map ────────────────────────────
+
+
+@router.get("/connectors/coverage")
+async def connector_coverage_map_route():
+    """Coverage map with live parity — part of Unified Connector (#194/#200)."""
+    from bd_platform.connector_coverage_map import build_coverage_map
+
+    return await build_coverage_map()
+
+
+@router.get("/connectors/coverage/status")
+async def connector_coverage_status_route():
+    from bd_platform.connector_coverage_map import connector_coverage_status
+
+    return connector_coverage_status()
+
+
+# ── Feature #197 — Weighted Social Sentiment (Sentiment Quality Engine) ──────
+
+
+@router.get("/sentiment/quality")
+async def sentiment_quality_route(asset: str = Query("BTC")):
+    """Weighted social sentiment with explain contributors (#197)."""
+    from bd_platform.weighted_social_sentiment import analyze_weighted_social_sentiment
+
+    return await analyze_weighted_social_sentiment(asset)
+
+
+@router.get("/sentiment/quality/status")
+async def sentiment_quality_status_route():
+    from bd_platform.weighted_social_sentiment import weighted_social_sentiment_status
+
+    return weighted_social_sentiment_status()
+
+
+@router.post("/sentiment/quality/manipulation-test")
+async def sentiment_manipulation_test_route(
+    body: dict[str, Any] = Body(default_factory=dict),
+):
+    """Run manipulation resistance test (#197)."""
+    from bd_platform.weighted_social_sentiment import (
+        run_manipulation_resistance_test,
+        _default_contributors,
+    )
+
+    asset = str(body.get("asset") or "BTC")
+    bots = int(body.get("bot_count") or 100)
+    contributors = _default_contributors(asset, 0.3)
+    return run_manipulation_resistance_test(contributors, bot_count=bots)
