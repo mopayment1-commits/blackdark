@@ -1,0 +1,244 @@
+"""
+On-Chain Metrics Suite — Feature #750 Realized Cap Model merged (Sprint 2).
+
+NOT standalone — Realized Cap integrated into On-Chain Intelligence suite.
+True network value via realized cap, realized price, MVRV, and alerts.
+Competitor reference: Glassnode Realized Cap methodology.
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import time
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+logger = logging.getLogger("BLACKDARK.OnChainMetricsSuite")
+
+_FEATURE_ID = 750
+_MERGED_INTO = "On-Chain Metrics Suite"
+_STANDALONE = False
+_SEED_PATH = Path("data/onchain_metrics_seed.json")
+_SLA_MS = 2000
+_ACCURACY_TARGET_PCT = 95
+_UPTIME_TARGET_PCT = 99
+
+
+def _utcnow() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+def _load_seed() -> dict[str, Any]:
+    if not _SEED_PATH.is_file():
+        return {"methodology": {}, "supply_estimates": {}, "alert_thresholds": {}}
+    try:
+        return json.loads(_SEED_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        logger.warning("onchain metrics seed load failed: %s", exc)
+        return {"methodology": {}, "supply_estimates": {}, "alert_thresholds": {}}
+
+
+def _format_usd(value: float) -> str:
+    if value >= 1_000_000_000_000:
+        return f"${value / 1_000_000_000_000:.2f}T"
+    if value >= 1_000_000_000:
+        return f"${value / 1_000_000_000:.1f}B"
+    if value >= 1_000_000:
+        return f"${value / 1_000_000:.0f}M"
+    return f"${value:,.0f}"
+
+
+def _build_alerts(
+    asset: str,
+    mvrv_z: float,
+    mvrv_ratio: float,
+    thresholds: dict[str, Any],
+) -> list[dict[str, Any]]:
+    alerts: list[dict[str, Any]] = []
+    z_hot = float(thresholds.get("mvrv_z_overheated") or 2.0)
+    z_cold = float(thresholds.get("mvrv_z_undervalued") or -1.0)
+
+    if mvrv_z >= z_hot:
+        alerts.append({
+            "level": "high",
+            "code": "REALIZED_CAP_OVERHEATED",
+            "message": f"{asset} MVRV Z-Score {mvrv_z:.2f} — market cap exceeds realized cap significantly",
+            "display": f"Alert: Network value overheated | MVRV Z: {mvrv_z:.2f}",
+        })
+    elif mvrv_z <= z_cold:
+        alerts.append({
+            "level": "medium",
+            "code": "REALIZED_CAP_UNDERVALUED",
+            "message": f"{asset} MVRV Z-Score {mvrv_z:.2f} — true network value below market cap",
+            "display": f"Alert: Potential undervaluation | MVRV Z: {mvrv_z:.2f}",
+        })
+
+    if mvrv_ratio > 3.5:
+        alerts.append({
+            "level": "high",
+            "code": "MVRV_EXTREME",
+            "message": f"{asset} MVRV ratio {mvrv_ratio:.2f} — historically elevated",
+            "display": f"Alert: MVRV {mvrv_ratio:.2f} — extreme zone",
+        })
+
+    return alerts
+
+
+async def compute_realized_cap(asset: str = "BTC") -> dict[str, Any]:
+    """Realized Cap Model — true network value (merged #750, not standalone)."""
+    t0 = time.perf_counter()
+    seed = _load_seed()
+    methodology = seed.get("methodology") or {}
+    supply_data = (seed.get("supply_estimates") or {}).get(asset.upper(), {})
+    thresholds = seed.get("alert_thresholds") or {}
+
+    from bd_platform.onchain_advanced import compute_advanced_metrics
+
+    sym = asset.upper().replace("/USDT", "")
+    metrics = await compute_advanced_metrics(sym)
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+
+    if metrics.get("error"):
+        return {
+            "ok": False,
+            "feature_id": _FEATURE_ID,
+            "error": metrics["error"],
+            "sla_met": elapsed_ms <= _SLA_MS,
+            "latency_ms": elapsed_ms,
+            "timestamp": _utcnow(),
+        }
+
+    price = float(metrics.get("price") or 0)
+    supply = int(supply_data.get("circulating") or {"BTC": 19_800_000, "ETH": 120_000_000}.get(sym, 100_000_000))
+    mvrv_ratio = float(metrics.get("mvrv", {}).get("ratio") or 1)
+    mvrv_z = float(metrics.get("mvrv", {}).get("z_score") or 0)
+    realized_price = price / mvrv_ratio if mvrv_ratio > 0 else price
+    realized_cap = realized_price * supply
+    market_cap = price * supply
+
+    alerts = _build_alerts(sym, mvrv_z, mvrv_ratio, thresholds)
+
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "standalone": _STANDALONE,
+        "merged_into": _MERGED_INTO,
+        "asset": sym,
+        "model": "realized_cap",
+        "competitor_reference": methodology.get("competitor_reference", "Glassnode Realized Cap"),
+        "spot_price": round(price, 2),
+        "realized_price": round(realized_price, 2),
+        "realized_cap_usd": round(realized_cap, 0),
+        "market_cap_usd": round(market_cap, 0),
+        "circulating_supply": supply,
+        "mvrv_ratio": round(mvrv_ratio, 3),
+        "mvrv_z_score": round(mvrv_z, 3),
+        "true_network_value_display": (
+            f"Realized Cap: {_format_usd(realized_cap)} | "
+            f"Realized Price: ${realized_price:,.0f} | "
+            f"Market Cap: {_format_usd(market_cap)}"
+        ),
+        "methodology_display": (
+            f"Methodology {methodology.get('version', 'v1.0')}: "
+            f"{methodology.get('description', '')}"
+        ),
+        "source_line": f"Source: {', '.join(methodology.get('data_sources', ['Binance klines']))} | Supply: {supply_data.get('source', 'estimate')}",
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "sla_met": elapsed_ms <= _SLA_MS,
+        "latency_ms": elapsed_ms,
+        "accuracy_target_pct": _ACCURACY_TARGET_PCT,
+        "uptime_target_pct": _UPTIME_TARGET_PCT,
+        "not_a_prediction": True,
+        "disclaimer": "On-chain proxies unless Glassnode/Santiment API configured.",
+        "timestamp": _utcnow(),
+    }
+
+
+async def get_onchain_metrics_suite(asset: str = "BTC") -> dict[str, Any]:
+    """Full On-Chain Metrics Suite — realized cap + MVRV + NUPL + SOPR + alerts."""
+    t0 = time.perf_counter()
+    sym = asset.upper().replace("/USDT", "")
+
+    from bd_platform.onchain_advanced import compute_advanced_metrics
+    from bd_platform.mvrv_realignment import compute_mvrv_realignment
+
+    realized = await compute_realized_cap(sym)
+    advanced = await compute_advanced_metrics(sym)
+    realignment = await compute_mvrv_realignment(sym)
+    elapsed_ms = round((time.perf_counter() - t0) * 1000, 1)
+
+    all_alerts = list(realized.get("alerts") or [])
+    all_alerts.extend(realignment.get("alerts") or [])
+
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "standalone": _STANDALONE,
+        "merged_into": _MERGED_INTO,
+        "suite": "on_chain_intelligence",
+        "sprint": 2,
+        "asset": sym,
+        "realized_cap": realized,
+        "mvrv": advanced.get("mvrv"),
+        "nupl_proxy": advanced.get("nupl_proxy"),
+        "sopr_proxy": advanced.get("sopr_proxy"),
+        "puell_proxy": advanced.get("puell_proxy"),
+        "hodl_waves": advanced.get("hodl_waves"),
+        "mvrv_realignment": {
+            "signal": realignment.get("realignment_signal"),
+            "regime": realignment.get("regime"),
+            "z_score": realignment.get("z_score"),
+        },
+        "alerts": all_alerts,
+        "alert_count": len(all_alerts),
+        "sla_met": elapsed_ms <= _SLA_MS,
+        "latency_ms": elapsed_ms,
+        "accuracy_target_pct": _ACCURACY_TARGET_PCT,
+        "uptime_target_pct": _UPTIME_TARGET_PCT,
+        "integrated_metrics": ["realized_cap", "mvrv", "nupl", "sopr", "puell", "hodl_waves"],
+        "timestamp": _utcnow(),
+    }
+
+
+def get_methodology() -> dict[str, Any]:
+    seed = _load_seed()
+    methodology = seed.get("methodology") or {}
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "merged_into": _MERGED_INTO,
+        "methodology": methodology,
+        "competitor_reference": methodology.get("competitor_reference"),
+        "accuracy_target_pct": _ACCURACY_TARGET_PCT,
+        "display": (
+            f"{methodology.get('competitor_reference')}: "
+            f"{methodology.get('description')}"
+        ),
+        "timestamp": _utcnow(),
+    }
+
+
+def onchain_metrics_suite_status() -> dict[str, Any]:
+    seed = _load_seed()
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "standalone": _STANDALONE,
+        "merged_into": _MERGED_INTO,
+        "module": "On-Chain Metrics Suite",
+        "sprint": 2,
+        "realized_cap_model": True,
+        "competitor_reference": "Glassnode Realized Cap",
+        "sla_response_ms": _SLA_MS,
+        "accuracy_target_pct": _ACCURACY_TARGET_PCT,
+        "uptime_target_pct": _UPTIME_TARGET_PCT,
+        "methodology_version": (seed.get("methodology") or {}).get("version"),
+        "integrated_metrics": [
+            "realized_cap", "realized_price", "mvrv", "nupl", "sopr", "puell", "hodl_waves",
+        ],
+        "related_modules": ["onchain_advanced", "mvrv_realignment"],
+        "timestamp": _utcnow(),
+    }
