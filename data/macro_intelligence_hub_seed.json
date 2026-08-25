@@ -15,9 +15,9 @@
     {"feature_id": 240, "name": "ETF Flow Intelligence", "key": "etf_intelligence", "status": "live"},
     {"feature_id": 233, "name": "Coinbase Premium", "key": "premium_intelligence", "status": "live"},
     {"feature_id": 255, "name": "Korea Premium", "key": "premium_intelligence", "status": "live"},
-    {"feature_id": 239, "name": "Treasury Companies", "key": "treasury_companies", "status": "planned"}
+    {"feature_id": 239, "name": "Treasury Companies", "key": "treasury_companies", "status": "live"}
   ],
-  "methodology_display": "Macro Integration Methodology v1.3 | Components: 7 modules | Alignment: Release-time | Look-ahead: Prevented | Last Updated: 2026-08-25",
+  "methodology_display": "Macro Integration Methodology v1.3 | Components: 8 modules | Alignment: Release-time | Look-ahead: Prevented | Last Updated: 2026-08-25",
   "release_time_alignment": {
     "policy": "Minute-level release-time alignment — macro and crypto compared at identical timestamps",
     "example": "DXY Release: 14:00 EST | Crypto Data Used: 14:00 EST | Lag: 0"

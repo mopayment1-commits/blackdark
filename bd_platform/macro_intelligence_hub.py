@@ -349,11 +349,17 @@ def _aggregate_modules(asset: str) -> dict[str, Any]:
             "status": "live",
         }
 
-    modules["treasury_companies"] = {
-        "feature_id": 239,
-        "status": "planned",
-        "display": "Treasury Companies: Coming Soon — Sprint 3+",
-    }
+    try:
+        from bd_platform.treasury_intelligence import build_treasury_companies_card
+
+        modules["treasury_companies"] = build_treasury_companies_card(asset)
+    except Exception:
+        logger.debug("treasury intelligence module unavailable", exc_info=True)
+        modules["treasury_companies"] = {
+            "feature_id": 239,
+            "status": "unavailable",
+            "display": "Treasury Companies: Module unavailable",
+        }
 
     return modules
 
