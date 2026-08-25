@@ -1,0 +1,112 @@
+[
+  {
+    "id": "news-001",
+    "headline": "SEC approves spot Bitcoin ETF application",
+    "summary": "The Securities and Exchange Commission has approved a spot Bitcoin ETF.",
+    "source": "CoinDesk",
+    "source_url": "https://www.coindesk.com/policy/2026/08/25/sec-approves-bitcoin-etf",
+    "published_at_utc": "2026-08-25T12:10:00+00:00",
+    "assets": ["BTC"],
+    "dedupe_group": "sec-btc-etf-approval",
+    "topic": "regulation"
+  },
+  {
+    "id": "news-002",
+    "headline": "SEC approves spot Bitcoin ETF application",
+    "summary": "Regulators greenlight spot Bitcoin ETF in landmark decision.",
+    "source": "Reuters",
+    "source_url": "https://www.reuters.com/markets/sec-bitcoin-etf-2026",
+    "published_at_utc": "2026-08-25T12:12:00+00:00",
+    "assets": ["BTC"],
+    "dedupe_group": "sec-btc-etf-approval",
+    "topic": "regulation"
+  },
+  {
+    "id": "news-003",
+    "headline": "SEC approves spot Bitcoin ETF application",
+    "summary": "Spot BTC ETF receives SEC approval after years of review.",
+    "source": "Bloomberg",
+    "source_url": "https://www.bloomberg.com/news/sec-btc-etf",
+    "published_at_utc": "2026-08-25T12:15:00+00:00",
+    "assets": ["BTC"],
+    "dedupe_group": "sec-btc-etf-approval",
+    "topic": "regulation"
+  },
+  {
+    "id": "news-004",
+    "headline": "Ethereum network upgrade completes successfully",
+    "summary": "The latest Ethereum protocol upgrade has been deployed without issues.",
+    "source": "The Block",
+    "source_url": "https://www.theblock.co/post/ethereum-upgrade-2026",
+    "published_at_utc": "2026-08-25T11:45:00+00:00",
+    "assets": ["ETH"],
+    "dedupe_group": "eth-upgrade-complete",
+    "topic": "technology"
+  },
+  {
+    "id": "news-005",
+    "headline": "Fed signals potential rate cut in September",
+    "summary": "Federal Reserve officials hint at possible rate reduction.",
+    "source": "CNBC",
+    "source_url": "https://www.cnbc.com/2026/08/25/fed-rate-cut-signal",
+    "published_at_utc": "2026-08-25T11:30:00+00:00",
+    "assets": ["BTC", "ETH"],
+    "dedupe_group": "fed-rate-cut-sept",
+    "topic": "macro"
+  },
+  {
+    "id": "news-006",
+    "headline": "Fed signals potential rate cut in September",
+    "summary": "Powell suggests September rate cut remains on the table.",
+    "source": "Financial Times",
+    "source_url": "https://www.ft.com/content/fed-rate-cut-2026",
+    "published_at_utc": "2026-08-25T11:35:00+00:00",
+    "assets": ["BTC", "ETH"],
+    "dedupe_group": "fed-rate-cut-sept",
+    "topic": "macro"
+  },
+  {
+    "id": "news-007",
+    "headline": "Solana DeFi TVL reaches new all-time high",
+    "summary": "Total value locked on Solana DeFi protocols hits record levels.",
+    "source": "DeFi Llama",
+    "source_url": "https://defillama.com/news/solana-tvl-ath",
+    "published_at_utc": "2026-08-25T10:50:00+00:00",
+    "assets": ["SOL"],
+    "dedupe_group": "sol-tvl-ath",
+    "topic": "defi"
+  },
+  {
+    "id": "news-008",
+    "headline": "Major exchange reports temporary outage",
+    "summary": "Trading platform experiences brief connectivity issues.",
+    "source": "CoinTelegraph",
+    "source_url": "https://cointelegraph.com/news/exchange-outage-2026",
+    "published_at_utc": "2026-08-25T10:20:00+00:00",
+    "assets": ["BTC", "ETH"],
+    "dedupe_group": "exchange-outage",
+    "topic": "infrastructure"
+  },
+  {
+    "id": "news-009",
+    "headline": "Whale moves 5,000 BTC to cold storage",
+    "summary": "On-chain data shows large BTC transfer to cold wallet.",
+    "source": "Glassnode",
+    "source_url": "https://insights.glassnode.com/whale-btc-move",
+    "published_at_utc": "2026-08-25T09:55:00+00:00",
+    "assets": ["BTC"],
+    "dedupe_group": "whale-btc-cold-storage",
+    "topic": "onchain"
+  },
+  {
+    "id": "news-010",
+    "headline": "EU finalizes MiCA crypto regulation framework",
+    "summary": "European Union completes Markets in Crypto-Assets regulatory framework.",
+    "source": "EU Observer",
+    "source_url": "https://euobserver.com/mica-framework-2026",
+    "published_at_utc": "2026-08-25T09:30:00+00:00",
+    "assets": ["BTC", "ETH"],
+    "dedupe_group": "eu-mica-final",
+    "topic": "regulation"
+  }
+]

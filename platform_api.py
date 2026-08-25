@@ -1849,3 +1849,72 @@ async def data_storage_migration_safety_route():
     from bd_platform.data_storage_infrastructure import run_migration_safety_check
 
     return await run_migration_safety_check()
+
+
+# ── Feature #217 — OHLCV Core Feed ───────────────────────────────────────────
+
+
+@router.get("/ohlcv/status")
+async def ohlcv_core_status_route():
+    from bd_platform.ohlcv_core_feed import ohlcv_core_feed_status
+
+    return ohlcv_core_feed_status()
+
+
+@router.get("/ohlcv/candles")
+async def ohlcv_candles_list_route(
+    asset: str | None = Query(None),
+    interval: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=500),
+):
+    from bd_platform.ohlcv_core_feed import list_ohlcv_candles
+
+    return list_ohlcv_candles(asset=asset, interval=interval, limit=limit)
+
+
+@router.get("/ohlcv/candles/{candle_id}")
+async def ohlcv_candle_detail_route(candle_id: str):
+    from bd_platform.ohlcv_core_feed import get_ohlcv_candle
+
+    result = get_ohlcv_candle(candle_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+# ── Feature #216 — News Context Panel ────────────────────────────────────────
+
+
+@router.get("/news-context/status")
+async def news_context_status_route():
+    from bd_platform.news_context_panel import news_context_status
+
+    return news_context_status()
+
+
+@router.get("/news-context")
+async def news_context_list_route(
+    asset: str | None = Query(None),
+    relevance: str | None = Query(None),
+    limit: int = Query(20, ge=1, le=100),
+):
+    from bd_platform.news_context_panel import list_news_context
+
+    return list_news_context(asset=asset, relevance=relevance, limit=limit)  # type: ignore[arg-type]
+
+
+@router.get("/news-context/{card_id}")
+async def news_context_card_route(card_id: str):
+    from bd_platform.news_context_panel import get_news_card
+
+    result = get_news_card(card_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.post("/news-context/refresh")
+async def news_context_refresh_route(limit: int = Query(15, ge=1, le=50)):
+    from bd_platform.news_context_panel import refresh_news_from_feeds
+
+    return await refresh_news_from_feeds(limit=limit)
