@@ -1,0 +1,108 @@
+{
+  "methodology": {
+    "version": "v2.1",
+    "updated_at": "2026-08-01",
+    "description": "v2.1: staking tokens counted separately; borrowed tokens excluded from lending TVL",
+    "double_count_policy": "Exclude rehypothecated/borrowed tokens from protocol TVL totals",
+    "source_primary": "DeFiLlama",
+    "source_secondary": "Protocol on-chain oracles"
+  },
+  "protocols": [
+    {
+      "id": "aave-v3",
+      "name": "Aave V3",
+      "chain": "ethereum",
+      "category": "lending",
+      "tvl_usd": 12500000000,
+      "tvl_raw_usd": 14200000000,
+      "double_count_excluded_usd": 1700000000,
+      "double_count_reason": "Borrowed tokens rehypothecated — excluded",
+      "double_count_display": "Aave TVL includes borrowed tokens — we exclude them",
+      "staking_tvl_usd": 0,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/aave",
+      "methodology_version": "v2.1"
+    },
+    {
+      "id": "lido",
+      "name": "Lido",
+      "chain": "ethereum",
+      "category": "liquid_staking",
+      "tvl_usd": 28000000000,
+      "tvl_raw_usd": 28000000000,
+      "double_count_excluded_usd": 0,
+      "double_count_reason": "Staking tokens counted separately per v2.1",
+      "double_count_display": "Staking tokens counted separately — no double-count",
+      "staking_tvl_usd": 28000000000,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/lido",
+      "methodology_version": "v2.1"
+    },
+    {
+      "id": "uniswap-v3",
+      "name": "Uniswap V3",
+      "chain": "ethereum",
+      "category": "dex",
+      "tvl_usd": 4200000000,
+      "tvl_raw_usd": 4200000000,
+      "double_count_excluded_usd": 0,
+      "double_count_reason": "LP tokens not rehypothecated in other protocols",
+      "double_count_display": "No borrowed-token overlap detected",
+      "staking_tvl_usd": 0,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/uniswap-v3",
+      "methodology_version": "v2.1"
+    },
+    {
+      "id": "makerdao",
+      "name": "MakerDAO",
+      "chain": "ethereum",
+      "category": "cdp",
+      "tvl_usd": 8100000000,
+      "tvl_raw_usd": 9500000000,
+      "double_count_excluded_usd": 1400000000,
+      "double_count_reason": "CDP collateral counted once; DAI in lending excluded",
+      "double_count_display": "CDP collateral deduplicated from lending TVL",
+      "staking_tvl_usd": 0,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/makerdao",
+      "methodology_version": "v2.1"
+    },
+    {
+      "id": "curve",
+      "name": "Curve",
+      "chain": "ethereum",
+      "category": "dex",
+      "tvl_usd": 2100000000,
+      "tvl_raw_usd": 2400000000,
+      "double_count_excluded_usd": 300000000,
+      "double_count_reason": "Gauge-staked LP overlap excluded",
+      "double_count_display": "Gauge-staked LP overlap excluded",
+      "staking_tvl_usd": 0,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/curve-dex",
+      "methodology_version": "v2.1"
+    },
+    {
+      "id": "aave-arbitrum",
+      "name": "Aave V3 Arbitrum",
+      "chain": "arbitrum",
+      "category": "lending",
+      "tvl_usd": 1800000000,
+      "tvl_raw_usd": 2100000000,
+      "double_count_excluded_usd": 300000000,
+      "double_count_reason": "Borrowed tokens excluded",
+      "double_count_display": "Aave TVL includes borrowed tokens — we exclude them",
+      "staking_tvl_usd": 0,
+      "source": "DeFiLlama",
+      "source_url": "https://defillama.com/protocol/aave-v3-arbitrum",
+      "methodology_version": "v2.1"
+    }
+  ],
+  "chains": [
+    {"chain": "ethereum", "tvl_usd": 52000000000, "protocol_count": 120, "source": "DeFiLlama"},
+    {"chain": "arbitrum", "tvl_usd": 3200000000, "protocol_count": 45, "source": "DeFiLlama"},
+    {"chain": "solana", "tvl_usd": 4800000000, "protocol_count": 38, "source": "DeFiLlama"},
+    {"chain": "base", "tvl_usd": 2100000000, "protocol_count": 28, "source": "DeFiLlama"}
+  ]
+}
