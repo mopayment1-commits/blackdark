@@ -257,6 +257,42 @@ async def list_replay_tests_route(
     return list_replay_tests(passed_only=passed_only, limit=limit)
 
 
+@router.get("/api/v1/data/order-book-liquidity/sequence-gaps")
+async def list_sequence_gaps_route(
+    venue: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#277 sequence gap detection — L2/L3 order book update integrity."""
+    from blackdark.data.order_book_liquidity import list_sequence_gaps
+
+    return list_sequence_gaps(venue=venue, limit=limit)
+
+
+@router.get("/api/v1/data/order-book-liquidity/sequence-replay-tests")
+async def list_sequence_replay_tests_route(
+    passed_only: bool = Query(False),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#277 sequence replay QA — daily batch."""
+    from blackdark.data.order_book_liquidity import list_sequence_replay_tests
+
+    return list_sequence_replay_tests(passed_only=passed_only, limit=limit)
+
+
+@router.get("/api/v1/data/order-book-liquidity/market-depth")
+async def market_depth_panel_route(
+    pair: str = Query("BTC/USDT"),
+    venue: str | None = Query(None),
+):
+    """#277 market depth panel — depth/spread/imbalance/slippage, heatmap deferred."""
+    from blackdark.data.order_book_liquidity import build_market_depth_panel
+
+    result = build_market_depth_panel(pair=pair, venue=venue)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/api/v1/data/market-pairs/status")
 async def get_market_pair_view_status():
     """#270 archived — frontend requirement for Market Radar Sprint 2."""
