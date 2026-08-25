@@ -1,0 +1,204 @@
+{
+  "feature_id": 246,
+  "merged_into": "#705 Asset Metadata",
+  "standalone": false,
+  "replaces": 245,
+  "methodology_version": "1.2",
+  "venue_count": 15,
+  "last_updated": "2026-08-25",
+  "last_updated_utc": "2026-08-25T20:15:00+00:00",
+  "global_excluded_venues": ["Deribit (options-only)"],
+  "assets": {
+    "BTC": {
+      "volume_24h_usd": 42500000000,
+      "spot_volume_usd": 18200000000,
+      "price_usd": 108500,
+      "contracts_count": 392000,
+      "trend": "up",
+      "open_interest_usd": 28500000000,
+      "oi_change_pct": 3.2,
+      "funding_rate_pct": -0.0085,
+      "contracts": [
+        {
+          "symbol": "BTC-USDT-Perp",
+          "venue": "Binance",
+          "contract_size": 1,
+          "unit": "USDT-margined",
+          "notional_usd": 14875000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "BTC-USD-Perp",
+          "venue": "Bybit",
+          "contract_size": 1,
+          "unit": "Coin-margined",
+          "notional_usd": 10625000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "BTC-USDT-Perp",
+          "venue": "OKX",
+          "contract_size": 0.01,
+          "unit": "USDT-margined",
+          "notional_usd": 8500000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "BTC-USD-Quarterly",
+          "venue": "CME",
+          "contract_size": 5,
+          "unit": "USD-settled",
+          "notional_usd": 6375000000,
+          "mapping_validated": true
+        }
+      ],
+      "venues": {
+        "Binance Futures": 12750000000,
+        "Bybit": 10625000000,
+        "OKX": 8500000000,
+        "CME": 6375000000,
+        "BitMEX": 4250000000
+      },
+      "excluded_venues": ["Deribit (options-only)"],
+      "contract_types": {
+        "Perpetual": 36125000000,
+        "Quarterly": 5100000000,
+        "Monthly": 1275000000
+      },
+      "oi_context": {
+        "volume_24h_usd": 42500000000,
+        "open_interest_usd": 28500000000,
+        "oi_change_pct": 3.2,
+        "funding_rate_pct": -0.0085
+      },
+      "historical": {
+        "7d_usd": 289000000000,
+        "30d_usd": 1240000000000,
+        "trend_pct": 12.0,
+        "venue_leader": "Binance",
+        "venue_leader_pct": 35
+      },
+      "basis_context": {
+        "funding_rate_pct": -0.01,
+        "net_after_funding_7d_pct": 0.42,
+        "basis_trade_related": true
+      }
+    },
+    "ETH": {
+      "volume_24h_usd": 18600000000,
+      "spot_volume_usd": 9200000000,
+      "price_usd": 4250,
+      "contracts_count": 4380000,
+      "trend": "up",
+      "open_interest_usd": 12400000000,
+      "oi_change_pct": 1.8,
+      "funding_rate_pct": -0.0062,
+      "contracts": [
+        {
+          "symbol": "ETH-USDT-Perp",
+          "venue": "Binance",
+          "contract_size": 1,
+          "unit": "USDT-margined",
+          "notional_usd": 6510000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "ETH-USD-Perp",
+          "venue": "Bybit",
+          "contract_size": 1,
+          "unit": "Coin-margined",
+          "notional_usd": 4650000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "ETH-USDT-Perp",
+          "venue": "OKX",
+          "contract_size": 0.1,
+          "unit": "USDT-margined",
+          "notional_usd": 3720000000,
+          "mapping_validated": true
+        }
+      ],
+      "venues": {
+        "Binance Futures": 5580000000,
+        "Bybit": 4650000000,
+        "OKX": 3720000000,
+        "CME": 2790000000,
+        "BitMEX": 1860000000
+      },
+      "excluded_venues": ["Deribit (options-only)"],
+      "contract_types": {
+        "Perpetual": 15810000000,
+        "Quarterly": 2232000000,
+        "Monthly": 558000000
+      },
+      "oi_context": {
+        "volume_24h_usd": 18600000000,
+        "open_interest_usd": 12400000000,
+        "oi_change_pct": 1.8,
+        "funding_rate_pct": -0.0062
+      },
+      "historical": {
+        "7d_usd": 126500000000,
+        "30d_usd": 542000000000,
+        "trend_pct": 8.5,
+        "venue_leader": "Binance",
+        "venue_leader_pct": 30
+      }
+    },
+    "SOL": {
+      "volume_24h_usd": 4200000000,
+      "spot_volume_usd": 2100000000,
+      "price_usd": 185,
+      "contracts_count": 22700000,
+      "trend": "down",
+      "open_interest_usd": 2800000000,
+      "oi_change_pct": -2.1,
+      "funding_rate_pct": 0.0045,
+      "contracts": [
+        {
+          "symbol": "SOL-USDT-Perp",
+          "venue": "Binance",
+          "contract_size": 1,
+          "unit": "USDT-margined",
+          "notional_usd": 1470000000,
+          "mapping_validated": true
+        },
+        {
+          "symbol": "SOL-USD-Perp",
+          "venue": "Bybit",
+          "contract_size": 1,
+          "unit": "Coin-margined",
+          "notional_usd": 1050000000,
+          "mapping_validated": true
+        }
+      ],
+      "venues": {
+        "Binance Futures": 1260000000,
+        "Bybit": 1050000000,
+        "OKX": 840000000,
+        "BitMEX": 630000000,
+        "CME": 420000000
+      },
+      "excluded_venues": ["Deribit (options-only)"],
+      "contract_types": {
+        "Perpetual": 3570000000,
+        "Quarterly": 420000000,
+        "Monthly": 210000000
+      },
+      "oi_context": {
+        "volume_24h_usd": 4200000000,
+        "open_interest_usd": 2800000000,
+        "oi_change_pct": -2.1,
+        "funding_rate_pct": 0.0045
+      },
+      "historical": {
+        "7d_usd": 28500000000,
+        "30d_usd": 122000000000,
+        "trend_pct": -4.2,
+        "venue_leader": "Binance",
+        "venue_leader_pct": 30
+      }
+    }
+  }
+}
