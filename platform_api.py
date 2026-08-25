@@ -640,3 +640,38 @@ async def flow_anomaly_alerts_route(
     from bd_platform.flow_anomaly_detection import list_anomaly_alerts
 
     return list_anomaly_alerts(asset=asset, venue=venue, limit=limit)
+
+
+@router.get("/price-feed/status")
+async def price_feed_layer_status_route():
+    """#283 Price Feed Layer — Sprint 0 infrastructure, not standalone."""
+    from bd_platform.price_feed_layer import price_feed_layer_status
+
+    return price_feed_layer_status()
+
+
+@router.get("/price-feed/live")
+async def price_feed_live_route(asset: str = Query("BTC")):
+    """#283 live prices with latency/freshness on every quote."""
+    from bd_platform.price_feed_layer import get_live_prices
+
+    return get_live_prices(asset)
+
+
+@router.get("/intelligence-ledger/evidence-confidence/status")
+async def evidence_confidence_status_route():
+    """#284 Evidence Confidence Framework — cross-cutting, Sprint 2."""
+    from bd_platform.evidence_confidence import evidence_confidence_status
+
+    return evidence_confidence_status()
+
+
+@router.get("/intelligence-ledger/evidence-confidence")
+async def evidence_confidence_assessment_route(assessment_id: str = Query(...)):
+    """#284 confidence score + evidence breakdown — not profit probability."""
+    from bd_platform.evidence_confidence import build_confidence_assessment
+
+    result = build_confidence_assessment(assessment_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
