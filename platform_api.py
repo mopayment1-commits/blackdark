@@ -2567,6 +2567,37 @@ async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
     return scan_market_hype(limit=limit)
 
 
+# ── ETF Intelligence Module — #210 + #240 (Sprint 2, Pro) ───────────────────
+
+
+@router.get("/market-radar/etf-intelligence/status")
+async def etf_intelligence_status_route():
+    from bd_platform.etf_intelligence import etf_intelligence_status
+
+    return etf_intelligence_status()
+
+
+@router.get("/market-radar/etf-intelligence/dashboard")
+async def etf_intelligence_dashboard_route(asset: str = Query("BTC")):
+    from bd_platform.etf_intelligence import build_etf_intelligence_dashboard
+
+    return build_etf_intelligence_dashboard(asset)
+
+
+@router.get("/market-radar/etf-intelligence/flows")
+async def etf_intelligence_flows_route(asset: str = Query("BTC")):
+    from bd_platform.etf_intelligence import build_etf_flow_series
+
+    return build_etf_flow_series(asset)
+
+
+@router.get("/market-radar/etf-intelligence/market-context")
+async def etf_intelligence_market_context_route(asset: str = Query("BTC")):
+    from bd_platform.etf_intelligence import build_etf_market_context
+
+    return build_etf_market_context(asset)
+
+
 # ── Signal Context Layer — #330-REV (Sprint 2, Pro) ───────────────────────────
 
 
