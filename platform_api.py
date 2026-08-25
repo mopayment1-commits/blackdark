@@ -1572,3 +1572,61 @@ async def provider_degradation_test_route():
     from bd_platform.source_registry_provenance import run_provider_degradation_test
 
     return await run_provider_degradation_test()
+
+
+# ── Feature #211 — Economic Calendar (widget import + asset relevance) ───────
+
+
+@router.get("/economic-calendar/status")
+async def economic_calendar_status_route():
+    from bd_platform.economic_calendar import economic_calendar_status
+
+    return economic_calendar_status()
+
+
+@router.get("/economic-calendar/widget")
+async def economic_calendar_widget_route(
+    theme: str = Query("dark"),
+    locale: str = Query("en"),
+):
+    from bd_platform.economic_calendar import tradingview_widget_config
+
+    return tradingview_widget_config(theme=theme, locale=locale)
+
+
+@router.get("/economic-calendar")
+async def economic_calendar_list_route(
+    asset: str | None = Query(None),
+    country: str | None = Query(None),
+    category: str | None = Query(None),
+    impact: str | None = Query(None),
+    upcoming_only: bool = Query(False),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.economic_calendar import list_economic_events
+
+    return list_economic_events(
+        asset=asset,
+        country=country,
+        category=category,
+        impact=impact,  # type: ignore[arg-type]
+        upcoming_only=upcoming_only,
+        limit=limit,
+    )
+
+
+@router.get("/economic-calendar/relevance/{asset}")
+async def economic_calendar_relevance_route(asset: str):
+    from bd_platform.economic_calendar import get_asset_calendar_relevance
+
+    return get_asset_calendar_relevance(asset)
+
+
+@router.get("/economic-calendar/{event_id}")
+async def economic_calendar_detail_route(event_id: str):
+    from bd_platform.economic_calendar import get_economic_event
+
+    result = get_economic_event(event_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
