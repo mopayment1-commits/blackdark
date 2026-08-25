@@ -1,0 +1,67 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-08-25",
+  "clock_sync": {
+    "method": "NTP",
+    "ntp_servers": ["pool.ntp.org", "time.google.com"],
+    "max_drift_ms": 50,
+    "synced": true,
+    "display": "NTP-synced across all nodes | max drift: 50ms"
+  },
+  "stale_thresholds_ms": {
+    "chain:ethereum": 2000,
+    "chain:bitcoin": 5000,
+    "market:multiplex": 500,
+    "default": 1000
+  },
+  "slo_metadata": {
+    "chain:ethereum": {"expected_cadence_ms": 12000, "stale_threshold_ms": 2000},
+    "chain:bitcoin": {"expected_cadence_ms": 600000, "stale_threshold_ms": 5000},
+    "market:multiplex": {"expected_cadence_ms": 100, "stale_threshold_ms": 500}
+  },
+  "sample_feeds": [
+    {
+      "feed_id": "market:multiplex",
+      "asset": "BTC",
+      "source_timestamp_utc": "2026-08-25T14:00:00.000+00:00",
+      "received_timestamp_utc": "2026-08-25T14:00:00.250+00:00",
+      "normalized_timestamp_utc": "2026-08-25T14:00:00.280+00:00",
+      "published_timestamp_utc": "2026-08-25T14:00:00.295+00:00",
+      "latency_ms": 250,
+      "ingest_latency_ms": 30,
+      "publish_latency_ms": 15
+    },
+    {
+      "feed_id": "market:multiplex",
+      "asset": "ETH",
+      "source_timestamp_utc": "2026-08-25T14:00:00.100+00:00",
+      "received_timestamp_utc": "2026-08-25T14:00:00.320+00:00",
+      "normalized_timestamp_utc": "2026-08-25T14:00:00.350+00:00",
+      "published_timestamp_utc": "2026-08-25T14:00:00.365+00:00",
+      "latency_ms": 220,
+      "ingest_latency_ms": 30,
+      "publish_latency_ms": 15
+    },
+    {
+      "feed_id": "chain:ethereum",
+      "asset": "ETH",
+      "source_timestamp_utc": "2026-08-25T13:59:58.000+00:00",
+      "received_timestamp_utc": "2026-08-25T13:59:58.420+00:00",
+      "normalized_timestamp_utc": "2026-08-25T13:59:58.450+00:00",
+      "published_timestamp_utc": "2026-08-25T13:59:58.480+00:00",
+      "latency_ms": 420,
+      "ingest_latency_ms": 30,
+      "publish_latency_ms": 30
+    }
+  ],
+  "stale_feed_sample": {
+    "feed_id": "market:multiplex",
+    "asset": "SOL",
+    "source_timestamp_utc": "2026-08-25T13:55:00.000+00:00",
+    "received_timestamp_utc": "2026-08-25T13:55:00.200+00:00",
+    "stale_since_utc": "2026-08-25T14:00:00.000+00:00",
+    "age_ms": 300000,
+    "stale": true
+  },
+  "health_check_interval_minutes": 5
+}

@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-08-25",
+  "slos": {
+    "latency_ms": 500,
+    "gap_backfill": "auto",
+    "reconnect_ms": 3000,
+    "slo_display": "Latency: < 500ms | Gap: auto-backfill | Reconnect: < 3s"
+  },
+  "rate_limits": {
+    "max_connections_per_client": 3,
+    "max_subscriptions_per_connection": 20,
+    "messages_per_second": 50
+  },
+  "feeds": {
+    "chain:ethereum": {
+      "feed_id": "chain:ethereum",
+      "type": "block_stream",
+      "assets": ["ETH"],
+      "cadence_ms": 12000,
+      "source": "alchemy_ws"
+    },
+    "chain:bitcoin": {
+      "feed_id": "chain:bitcoin",
+      "type": "block_stream",
+      "assets": ["BTC"],
+      "cadence_ms": 600000,
+      "source": "blockstream_ws"
+    },
+    "market:multiplex": {
+      "feed_id": "market:multiplex",
+      "type": "price_stream",
+      "assets": ["BTC", "ETH", "SOL", "BNB", "XRP"],
+      "cadence_ms": 100,
+      "source": "binance_ws",
+      "multiplexed": true
+    }
+  },
+  "sample_gaps": [
+    {
+      "feed_id": "chain:ethereum",
+      "gap_start": 19200001,
+      "gap_end": 19200003,
+      "backfilled": true,
+      "backfill_blocks": [19200001, 19200002, 19200003]
+    }
+  ]
+}
