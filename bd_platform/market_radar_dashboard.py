@@ -70,6 +70,10 @@ async def build_market_radar_dashboard(
         build_global_order_book_panel,
         global_order_book_status,
     )
+    from bd_platform.liquidity_analytics import (
+        build_liquidity_analytics_panel,
+        liquidity_analytics_status,
+    )
 
     context_task = build_context_panel(sym, surface="market_radar")
     etf_task = asyncio.to_thread(build_etf_intelligence_dashboard, sym)
@@ -77,8 +81,9 @@ async def build_market_radar_dashboard(
     global_liq_task = asyncio.to_thread(build_global_liquidity_dashboard, sym)
     macro_hub_task = asyncio.to_thread(build_macro_intelligence_hub, sym, tier="pro")
     order_book_task = asyncio.to_thread(build_global_order_book_panel, sym, tier="pro")
+    liquidity_analytics_task = asyncio.to_thread(build_liquidity_analytics_panel, sym, tier="pro")
 
-    prices, macro, sentiment, liquidity, premiums, signal_context, etf_intelligence, cvd_intel, global_liquidity, macro_hub, global_order_book = await asyncio.gather(
+    prices, macro, sentiment, liquidity, premiums, signal_context, etf_intelligence, cvd_intel, global_liquidity, macro_hub, global_order_book, liquidity_analytics = await asyncio.gather(
         prices_task,
         macro_task,
         sentiment_task,
@@ -90,6 +95,7 @@ async def build_market_radar_dashboard(
         global_liq_task,
         macro_hub_task,
         order_book_task,
+        liquidity_analytics_task,
         return_exceptions=True,
     )
 
@@ -113,6 +119,7 @@ async def build_market_radar_dashboard(
     global_liq_block = _safe(global_liquidity, {"feature_id": 248, "composite_index": {}})
     macro_hub_block = _safe(macro_hub, {"feature_id": 263, "integrated_modules": []})
     order_book_block = _safe(global_order_book, {"feature_id": 249, "global_depth": {}})
+    liquidity_analytics_block = _safe(liquidity_analytics, {"feature_id": 259, "depth": {}})
 
     sla_flags = [
         prices_block.get("sla_met", True),
@@ -126,12 +133,13 @@ async def build_market_radar_dashboard(
         global_liq_block.get("ok", True),
         macro_hub_block.get("ok", True),
         order_book_block.get("ok", True),
+        liquidity_analytics_block.get("ok", True),
     ]
 
     return {
         "ok": True,
         "surface": "market_radar_dashboard",
-        "feature_ids": list(_FEATURE_IDS) + [255, 233, 330, 210, 240, 232, 248, 263, 249],
+        "feature_ids": list(_FEATURE_IDS) + [255, 233, 330, 210, 240, 232, 248, 263, 249, 259],
         "focus_asset": sym,
         "headline": (
             f"Market Radar — {sym}: "
@@ -151,6 +159,7 @@ async def build_market_radar_dashboard(
         "global_liquidity": global_liq_block,
         "macro_intelligence_hub": macro_hub_block,
         "global_order_book": order_book_block,
+        "liquidity_analytics": liquidity_analytics_block,
         "status": {
             "infrastructure": market_radar_infrastructure_status(),
             "macro": macro_events_status(),
@@ -164,10 +173,11 @@ async def build_market_radar_dashboard(
             "global_liquidity": global_liquidity_status(),
             "macro_intelligence_hub": macro_intelligence_hub_status(),
             "global_order_book": global_order_book_status(),
+            "liquidity_analytics": liquidity_analytics_status(),
         },
         "integrated_features": [
             "#125", "#133", "#137", "#139", "#140", "#142", "#149", "#155", "#186",
-            "#210", "#232", "#233", "#240", "#248", "#249", "#255", "#263", "#330",
+            "#210", "#232", "#233", "#240", "#248", "#249", "#255", "#259", "#263", "#330",
         ],
         "sla_met": elapsed_ms <= 2000 and all(sla_flags),
         "latency_ms": round(elapsed_ms, 1),
@@ -202,6 +212,7 @@ def market_radar_dashboard_status() -> dict[str, Any]:
             "232": "cvd_intelligence",
             "248": "global_liquidity_intelligence",
             "249": "global_order_book",
+            "259": "liquidity_analytics",
             "263": "macro_intelligence_hub",
         },
         "endpoint": "/api/platform/market-radar/dashboard",

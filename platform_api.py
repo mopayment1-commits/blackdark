@@ -965,6 +965,28 @@ async def global_order_book_status_route():
     return global_order_book_status()
 
 
+@router.get("/market-radar/liquidity-analytics")
+async def liquidity_analytics_route(
+    asset: str = Query("BTC"),
+    tier: str = Query("pro"),
+    order_size_usd: float = Query(10_000, ge=100),
+):
+    """Liquidity Analytics tab — #259 depth/spread/slippage with replay/QA."""
+    from bd_platform.liquidity_analytics import build_liquidity_analytics_panel
+
+    result = build_liquidity_analytics_panel(asset, tier=tier, order_size_usd=order_size_usd)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/liquidity-analytics/status")
+async def liquidity_analytics_status_route():
+    from bd_platform.liquidity_analytics import liquidity_analytics_status
+
+    return liquidity_analytics_status()
+
+
 # ── Order Book Feed — #256 + #257 + #258 merged (Sprint 0) ─────────────────────
 
 
