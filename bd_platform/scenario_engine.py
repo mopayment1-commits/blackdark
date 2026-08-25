@@ -321,12 +321,21 @@ def scenario_engine_status() -> dict[str, Any]:
     seed = _load_seed()
     cal = seed.get("calibration") or {}
     assets = list((seed.get("scenario_templates") or {}).keys())
+    from bd_platform.ai_grounding_middleware import grounding_middleware_status
+
+    grounding = grounding_middleware_status()
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
         "module": _MODULE,
         "sprint": 2,
         "tier_required": _TIER_REQUIRED,
+        "ai_grounding_layer": {
+            "feature_id": 230,
+            "surface": "scenario_engine",
+            "integrated": "scenario_engine" in grounding.get("supported_surfaces", []),
+            "no_model_only_facts": grounding.get("no_model_only_facts"),
+        },
         "tier_label": "Enterprise (Institutional)",
         "probabilities_calibrated": cal.get("out_of_sample_tested", True),
         "probabilities_sum_coherently": True,

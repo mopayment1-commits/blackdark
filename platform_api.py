@@ -2528,6 +2528,20 @@ async def verifiable_ai_audit_route(
     return get_audit_trail(limit=limit, since_days=since_days)
 
 
+@router.get("/verifiable-ai/middleware/status")
+async def ai_grounding_middleware_status_route():
+    from bd_platform.ai_grounding_middleware import grounding_middleware_status
+
+    return grounding_middleware_status()
+
+
+@router.get("/verifiable-ai/red-team")
+async def verifiable_ai_red_team_route(limit: int = Query(100, ge=1, le=200)):
+    from bd_platform.verifiable_ai_engine import run_red_team_suite
+
+    return await run_red_team_suite(limit=limit)
+
+
 # ── Premium Intelligence Module — #255 Korea + #233 Coinbase (Sprint 2) ───────
 
 

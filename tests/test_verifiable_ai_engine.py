@@ -148,12 +148,19 @@ def test_not_standalone(isolated_seed):
 
 
 def test_audit_trail_retention(isolated_seed):
-    vai.attach_verifiable_ai({"reply": "a"}, evidence=[], query="q1")
-    vai.attach_verifiable_ai({"reply": "b"}, evidence=[], query="q2")
+    vai.attach_verifiable_ai(
+        {"reply": "a"}, evidence=[], query="q1", data_returned={"oracle": {}},
+    )
+    vai.attach_verifiable_ai(
+        {"reply": "b"}, evidence=[], query="q2", tools_called=["blackdark_data_tool:oracle"],
+        data_returned={"price": {"price_usd": 100}},
+    )
     trail = vai.get_audit_trail(limit=10)
     assert trail["audit_retention_days"] == 90
     assert trail["count"] == 2
     assert trail["entries"][-1]["query"] == "q2"
+    assert "response_generated" in trail["entries"][-1]
+    assert "data_returned" in trail["entries"][-1]
 
 
 def test_system_prompt_requires_tool_grounding(isolated_seed):
@@ -218,6 +225,9 @@ def test_api_routes(isolated_seed):
     status = c.get("/api/platform/verifiable-ai/status").json()
     assert status["feature_id"] == 230
     assert c.get("/api/platform/verifiable-ai/audit").status_code == 200
+    assert c.get("/api/platform/verifiable-ai/middleware/status").status_code == 200
+    mw = c.get("/api/platform/verifiable-ai/middleware/status").json()
+    assert mw["grounding_layer_name"] == "AI Market Data Grounding Layer"
 
 
 def test_full_seed_exists():
@@ -225,3 +235,69 @@ def test_full_seed_exists():
     assert seed["feature_id"] == 230
     assert seed["standalone"] is False
     assert seed["audit_retention_days"] == 90
+    assert "Thesis Workspace" in seed["integrated_surfaces"]
+    assert seed["hallucination_target_pct"] == 0.0
+
+
+@pytest.mark.asyncio
+async def test_ground_surface_middleware(isolated_seed, mock_oracle_envelope, mock_price_envelope, monkeypatch):
+    monkeypatch.setattr(
+        "bd_platform.unified_api_platform.fetch_oracle",
+        AsyncMock(return_value=mock_oracle_envelope),
+    )
+    monkeypatch.setattr(
+        "bd_platform.unified_api_platform.fetch_price",
+        AsyncMock(return_value=mock_price_envelope),
+    )
+    monkeypatch.setattr(
+        vai,
+        "_freshness_for_asset",
+        lambda asset, feed_id="oracle": {"latency_ms": 50, "stale": False},
+    )
+
+    from bd_platform.ai_grounding_middleware import ground_surface_response
+
+    result = await ground_surface_response("market_radar", "What is BTC price?", asset="BTC")
+    assert result["ai_grounding"]["feature_id"] == 230
+    assert result["ai_grounding"]["surface"] == "market_radar"
+    assert result["no_model_only_facts"] is True
+    assert len(result["evidence"]) >= 1
+
+
+def test_middleware_status(isolated_seed):
+    from bd_platform.ai_grounding_middleware import grounding_middleware_status, SUPPORTED_SURFACES
+
+    status = grounding_middleware_status()
+    assert status["grounding_layer_name"] == "AI Market Data Grounding Layer"
+    assert "scenario_engine" in SUPPORTED_SURFACES
+    assert "thesis_workspace" in SUPPORTED_SURFACES
+    assert status["mcp_relationship"]["shared_rule"] == "No model-only market facts"
+
+
+@pytest.mark.asyncio
+async def test_red_team_suite(isolated_seed, mock_oracle_envelope, mock_price_envelope, monkeypatch):
+    monkeypatch.setattr(
+        "bd_platform.unified_api_platform.fetch_oracle",
+        AsyncMock(return_value=mock_oracle_envelope),
+    )
+    monkeypatch.setattr(
+        "bd_platform.unified_api_platform.fetch_price",
+        AsyncMock(return_value=mock_price_envelope),
+    )
+    monkeypatch.setattr(
+        vai,
+        "_freshness_for_asset",
+        lambda asset, feed_id="oracle": {"latency_ms": 50, "stale": False},
+    )
+
+    result = await vai.run_red_team_suite(limit=10)
+    assert result["ok"] is True
+    assert result["questions_run"] == 10
+    assert result["passed"] == 10
+    assert result["target_met"] is True
+
+
+def test_red_team_minimum_100_questions():
+    redteam = json.loads(Path("data/ai_grounding_redteam_seed.json").read_text(encoding="utf-8"))
+    total = len(redteam["question_templates"]) * len(redteam["assets"])
+    assert total >= 100

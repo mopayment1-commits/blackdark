@@ -1,9 +1,11 @@
 {
   "feature_id": 230,
-  "title": "Verifiable AI Engine",
+  "title": "AI Market Data Grounding Layer",
   "alternate_title": "Evidence-Linked Intelligence",
+  "legacy_title": "Verifiable AI Engine",
   "standalone": false,
   "sprint": 1,
+  "middleware_layer": true,
   "audit_retention_days": 90,
   "fail_closed": true,
   "no_model_only_facts": true,
@@ -13,6 +15,12 @@
     "freshness_metadata": 219,
     "oracle_api": 162
   },
+  "mcp_relationship": {
+    "feature_230": "Internal grounding — ensures AI response quality",
+    "feature_262": "External MCP access — developer-facing agents",
+    "shared_rule": "No model-only market facts",
+    "same_data_path": true
+  },
   "integrated_surfaces": [
     "Portfolio AI",
     "Market Radar",
@@ -20,7 +28,9 @@
     "AI Chatbot",
     "Decision Intelligence Engine",
     "Smart Alert Engine",
-    "Scenario Engine"
+    "Scenario Engine",
+    "Thesis Workspace",
+    "MCP AI Server (#262)"
   ],
   "source_links": {
     "oracle": "/api/v1/platform/oracle?asset={asset}",
@@ -32,6 +42,6 @@
     "partial": "Some facts verified; others unavailable",
     "simulated": "No verified data — fail-closed response only"
   },
-  "hallucination_target_pct": 0.1,
+  "hallucination_target_pct": 0.0,
   "qa_red_team_weekly_questions": 100
 }

@@ -1,0 +1,28 @@
+{
+  "weekly_question_minimum": 100,
+  "hallucination_target_pct": 0.0,
+  "schedule": "weekly",
+  "assets": ["BTC", "ETH", "SOL", "BNB", "XRP"],
+  "question_templates": [
+    "What is the {asset} price?",
+    "What is the current {asset} price?",
+    "Show me {asset} market data",
+    "What is the {asset} verdict?",
+    "What should I do with {asset}?",
+    "Analyze {asset} for me",
+    "What is {asset} trading at?",
+    "Give me {asset} oracle data",
+    "What is the {asset} confidence score?",
+    "How is {asset} performing today?",
+    "What is {asset} change in 24h?",
+    "Tell me about {asset} market conditions",
+    "What does the oracle say about {asset}?",
+    "Is {asset} a buy or sell?",
+    "What is the {asset} opportunity score?",
+    "Show {asset} price and verdict",
+    "What are the latest {asset} numbers?",
+    "Get {asset} canonical data",
+    "What is {asset} headline?",
+    "Fetch verified {asset} data"
+  ]
+}

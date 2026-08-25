@@ -20,6 +20,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.VerifiableAI")
 
 _FEATURE_ID = 230
+_GROUNDING_LAYER_NAME = "AI Market Data Grounding Layer"
 _ALTERNATE_TITLE = "Evidence-Linked Intelligence"
 _STANDALONE = False
 _SPRINT = 1
@@ -239,6 +240,7 @@ def attach_verifiable_ai(
     evidence: list[dict[str, Any]],
     answer: str | None = None,
     tools_called: list[str] | None = None,
+    data_returned: dict[str, Any] | None = None,
     query: str | None = None,
 ) -> dict[str, Any]:
     """Wrap any AI response with evidence, disclaimer, and confidence badge."""
@@ -258,7 +260,8 @@ def attach_verifiable_ai(
     }
     out["verifiable_ai"] = {
         "feature_id": _FEATURE_ID,
-        "title": "Verifiable AI Engine",
+        "title": _GROUNDING_LAYER_NAME,
+        "alternate_title": _ALTERNATE_TITLE,
         "system_prompt_rule": "tool_grounded_retrieval_required",
         "oracle_api_parity": True,
     }
@@ -266,8 +269,10 @@ def attach_verifiable_ai(
     _append_audit({
         "query": (query or "")[:500],
         "tools_called": tools_called or [],
+        "data_returned": data_returned,
         "evidence_count": len(evidence),
         "confidence_badge": badge,
+        "response_generated": (out["answer"] or "")[:500],
         "response_preview": (out["answer"] or "")[:300],
         "timestamp": _utcnow(),
     })
@@ -325,10 +330,12 @@ async def ground_ai_response(
         evidence=evidence,
         answer=final_answer,
         tools_called=tools_called,
+        data_returned=(tool_result or {}).get("data_returned"),
         query=text,
     )
     payload["tools_called"] = tools_called
     payload["data_returned"] = (tool_result or {}).get("data_returned")
+    payload["response_generated"] = final_answer
     return payload
 
 
@@ -408,30 +415,115 @@ def verifiable_ai_status() -> dict[str, Any]:
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
-        "title": "Verifiable AI Engine",
+        "title": _GROUNDING_LAYER_NAME,
         "alternate_title": _ALTERNATE_TITLE,
+        "legacy_title": "Verifiable AI Engine",
         "description": (
             "Every AI-generated insight is anchored to canonical market data "
             "with traceable source links. No answer without evidence."
         ),
         "standalone": _STANDALONE,
         "sprint": _SPRINT,
+        "middleware_layer": True,
         "all_tiers": seed.get("all_tiers", True),
         "fail_closed": seed.get("fail_closed", True),
         "no_model_only_facts": seed.get("no_model_only_facts", True),
         "prerequisites": seed.get("prerequisites", {"canonical_sources": 208, "freshness_metadata": 219}),
         "integrated_surfaces": seed.get("integrated_surfaces", []),
+        "mcp_relationship": seed.get("mcp_relationship", {
+            "feature_230": "Internal grounding — AI response quality",
+            "feature_262": "External MCP — developer agents",
+            "shared_rule": "No model-only market facts",
+        }),
         "acceptance_criteria": {
+            "no_model_only_market_facts": True,
+            "tool_grounded_retrieval": True,
+            "oracle_api_parity_162": True,
+            "fail_closed": True,
+            "audit_trail_90_days": True,
+            "weekly_red_teaming_100_plus": True,
+            "middleware_not_standalone": True,
             "no_response_without_source": True,
             "oracle_api_cross_reference": True,
-            "hallucination_target_pct": seed.get("hallucination_target_pct", 0.1),
+            "hallucination_target_pct": seed.get("hallucination_target_pct", 0.0),
             "source_link_clickable": True,
             "timestamp_visible": True,
             "fail_closed_fallback": True,
         },
         "system_prompt": SYSTEM_PROMPT,
         "audit_retention_days": seed.get("audit_retention_days", 90),
+        "red_team_weekly_questions": seed.get("qa_red_team_weekly_questions", 100),
         "confidence_badges": ["Verified", "Partial", "Simulated"],
+        "timestamp": _utcnow(),
+    }
+
+
+async def run_red_team_suite(*, limit: int | None = None) -> dict[str, Any]:
+    """
+    Weekly red-team verification — 100+ questions, 0% hallucination target.
+    Each question must either return evidence or fail-closed (no model-only facts).
+    """
+    redteam_path = Path("data/ai_grounding_redteam_seed.json")
+    if not redteam_path.is_file():
+        return {"ok": False, "error": "redteam_seed_missing"}
+
+    redteam = json.loads(redteam_path.read_text(encoding="utf-8"))
+    templates = redteam.get("question_templates") or []
+    assets = redteam.get("assets") or ["BTC", "ETH"]
+    minimum = int(redteam.get("weekly_question_minimum") or 100)
+
+    questions: list[dict[str, str]] = []
+    for asset in assets:
+        for tmpl in templates:
+            questions.append({"query": tmpl.format(asset=asset), "asset": asset})
+
+    if limit:
+        questions = questions[:limit]
+
+    passed = 0
+    failed = 0
+    results: list[dict[str, Any]] = []
+
+    for q in questions:
+        result = await ground_ai_response(q["query"], asset=q["asset"])
+        has_evidence = bool(result.get("evidence"))
+        fail_closed = result.get("fail_closed", False)
+        no_hallucination = has_evidence or fail_closed
+        if no_hallucination and result.get("no_model_only_facts"):
+            passed += 1
+        else:
+            failed += 1
+        results.append({
+            "query": q["query"],
+            "asset": q["asset"],
+            "passed": no_hallucination,
+            "has_evidence": has_evidence,
+            "fail_closed": fail_closed,
+        })
+
+    total = len(questions)
+    hallucination_pct = round(failed / total * 100, 2) if total else 0.0
+    target = float(redteam.get("hallucination_target_pct", 0.0))
+
+    return {
+        "ok": True,
+        "feature_id": _FEATURE_ID,
+        "grounding_layer": _GROUNDING_LAYER_NAME,
+        "questions_run": total,
+        "minimum_required": minimum,
+        "minimum_met": total >= minimum,
+        "passed": passed,
+        "failed": failed,
+        "hallucination_pct": hallucination_pct,
+        "hallucination_target_pct": target,
+        "target_met": hallucination_pct <= target,
+        "schedule": redteam.get("schedule", "weekly"),
+        "display": (
+            f"Red-team: {passed}/{total} passed | "
+            f"Hallucination: {hallucination_pct}% (target: {target}%) | "
+            f"Minimum questions: {total}/{minimum}"
+        ),
+        "sample_results": results[:5],
         "timestamp": _utcnow(),
     }
 
