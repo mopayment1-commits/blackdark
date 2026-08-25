@@ -17,7 +17,7 @@ from typing import Any
 logger = logging.getLogger("BLACKDARK.UnifiedAPI")
 
 _FEATURE_ID = 162
-_MERGED_FEATURE_IDS = (162, 163, 171, 188)
+_MERGED_FEATURE_IDS = (162, 163, 171, 188, 205)
 _API_VERSION = "v1"
 _RATE_LIMIT_PER_MIN = 60
 
@@ -55,6 +55,9 @@ _ENDPOINTS: tuple[dict[str, str], ...] = (
     {"path": "/api/v1/platform/exit-zone", "method": "GET", "metric": "exit_zone"},
     {"path": "/api/v1/platform/contract-safety", "method": "GET", "metric": "contract_safety"},
     {"path": "/api/v1/platform/graphql", "method": "POST", "metric": "graphql", "tier": "pro+"},
+    {"path": "/api/v1/platform/community/chart", "method": "GET", "metric": "community_chart", "tier": "community"},
+    {"path": "/api/v1/platform/community/oracle", "method": "GET", "metric": "community_oracle", "tier": "community"},
+    {"path": "/api/v1/platform/community/status", "method": "GET", "metric": "community_status"},
     {"path": "/api/v1/platform/status", "method": "GET", "metric": "status"},
 )
 
@@ -339,6 +342,6 @@ def unified_api_status() -> dict[str, Any]:
         "idempotent_reads": True,
         "freshness_metadata": True,
         "contract_tests": "tests/test_research_sentiment_api.py",
-        "integrated_features": ["#163", "#171", "#188", "#195"],
+        "integrated_features": ["#163", "#171", "#188", "#195", "#205"],
         "timestamp": _utcnow(),
     }

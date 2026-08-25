@@ -1,0 +1,1136 @@
+[
+  {
+    "id": "inc-001",
+    "protocol": "Uniswap",
+    "program_name": "Uniswap Liquidity Mining Incentives",
+    "chain": "ethereum",
+    "incentive_type": "liquidity_mining",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.uniswap.finance/incentives",
+    "apy_pct": 3.0,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-01-01",
+      "end": "2026-06-30",
+      "cliff_days": 14
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-002",
+    "protocol": "Aave",
+    "program_name": "Aave Lending Incentives",
+    "chain": "ethereum",
+    "incentive_type": "lending",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.aave.finance/incentives",
+    "apy_pct": 4.2,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-01-08",
+      "end": "2026-07-07",
+      "cliff_days": 15
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-003",
+    "protocol": "Compound",
+    "program_name": "Compound Lending Incentives",
+    "chain": "ethereum",
+    "incentive_type": "lending",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.compound.finance/incentives",
+    "apy_pct": 5.4,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-01-15",
+      "end": "2026-07-14",
+      "cliff_days": 16
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-004",
+    "protocol": "Curve",
+    "program_name": "Curve Liquidity Mining Incentives",
+    "chain": "ethereum",
+    "incentive_type": "liquidity_mining",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.curve.finance/incentives",
+    "apy_pct": 6.6,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-01-22",
+      "end": "2026-07-21",
+      "cliff_days": 17
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-005",
+    "protocol": "Lido",
+    "program_name": "Lido Staking Incentives",
+    "chain": "ethereum",
+    "incentive_type": "staking",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.lido.finance/incentives",
+    "apy_pct": 7.8,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-01-29",
+      "end": "2026-07-28",
+      "cliff_days": 18
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-006",
+    "protocol": "EigenLayer",
+    "program_name": "EigenLayer Restaking Incentives",
+    "chain": "ethereum",
+    "incentive_type": "restaking",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.eigenlayer.finance/incentives",
+    "apy_pct": 9.0,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-02-05",
+      "end": "2026-08-04",
+      "cliff_days": 19
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-007",
+    "protocol": "Arbitrum",
+    "program_name": "Arbitrum Ecosystem Incentives",
+    "chain": "arbitrum",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.arbitrum.finance/incentives",
+    "apy_pct": 10.2,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-02-12",
+      "end": "2026-08-11",
+      "cliff_days": 20
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-008",
+    "protocol": "Optimism",
+    "program_name": "Optimism Ecosystem Incentives",
+    "chain": "optimism",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.optimism.finance/incentives",
+    "apy_pct": 11.4,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-02-19",
+      "end": "2026-08-18",
+      "cliff_days": 21
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-009",
+    "protocol": "Polygon",
+    "program_name": "Polygon Ecosystem Incentives",
+    "chain": "polygon",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.polygon.finance/incentives",
+    "apy_pct": 12.6,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-02-26",
+      "end": "2026-08-25",
+      "cliff_days": 22
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-010",
+    "protocol": "Jupiter",
+    "program_name": "Jupiter Dex Incentives",
+    "chain": "solana",
+    "incentive_type": "dex",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.jupiter.finance/incentives",
+    "apy_pct": 13.8,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-03-05",
+      "end": "2026-09-01",
+      "cliff_days": 23
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-011",
+    "protocol": "Raydium",
+    "program_name": "Raydium Liquidity Mining Incentives",
+    "chain": "solana",
+    "incentive_type": "liquidity_mining",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.raydium.finance/incentives",
+    "apy_pct": 15.0,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-03-12",
+      "end": "2026-09-08",
+      "cliff_days": 24
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-012",
+    "protocol": "Marinade",
+    "program_name": "Marinade Staking Incentives",
+    "chain": "solana",
+    "incentive_type": "staking",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.marinade.finance/incentives",
+    "apy_pct": 16.2,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-03-19",
+      "end": "2026-09-15",
+      "cliff_days": 25
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-013",
+    "protocol": "Jito",
+    "program_name": "Jito Staking Incentives",
+    "chain": "solana",
+    "incentive_type": "staking",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.jito.finance/incentives",
+    "apy_pct": 17.4,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-03-26",
+      "end": "2026-09-22",
+      "cliff_days": 26
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-014",
+    "protocol": "Pendle",
+    "program_name": "Pendle Yield Trading Incentives",
+    "chain": "ethereum",
+    "incentive_type": "yield_trading",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.pendle.finance/incentives",
+    "apy_pct": 18.6,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-04-02",
+      "end": "2026-09-29",
+      "cliff_days": 27
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-015",
+    "protocol": "GMX",
+    "program_name": "GMX Perps Incentives",
+    "chain": "arbitrum",
+    "incentive_type": "perps",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.gmx.finance/incentives",
+    "apy_pct": 19.8,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-04-09",
+      "end": "2026-10-06",
+      "cliff_days": 28
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-016",
+    "protocol": "dYdX",
+    "program_name": "dYdX Perps Incentives",
+    "chain": "dydx",
+    "incentive_type": "perps",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.dydx.finance/incentives",
+    "apy_pct": 21.0,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-04-16",
+      "end": "2026-10-13",
+      "cliff_days": 29
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-017",
+    "protocol": "Hyperliquid",
+    "program_name": "Hyperliquid Perps Incentives",
+    "chain": "hyperliquid",
+    "incentive_type": "perps",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.hyperliquid.finance/incentives",
+    "apy_pct": 22.2,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-04-23",
+      "end": "2026-10-20",
+      "cliff_days": 30
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-018",
+    "protocol": "Spark",
+    "program_name": "Spark Lending Incentives",
+    "chain": "ethereum",
+    "incentive_type": "lending",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.spark.finance/incentives",
+    "apy_pct": 3.0,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-04-30",
+      "end": "2026-10-27",
+      "cliff_days": 31
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-019",
+    "protocol": "Morpho",
+    "program_name": "Morpho Lending Incentives",
+    "chain": "ethereum",
+    "incentive_type": "lending",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.morpho.finance/incentives",
+    "apy_pct": 4.2,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-05-07",
+      "end": "2026-11-03",
+      "cliff_days": 32
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-020",
+    "protocol": "Balancer",
+    "program_name": "Balancer Liquidity Mining Incentives",
+    "chain": "ethereum",
+    "incentive_type": "liquidity_mining",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.balancer.finance/incentives",
+    "apy_pct": 5.4,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-05-14",
+      "end": "2026-11-10",
+      "cliff_days": 33
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-021",
+    "protocol": "SushiSwap",
+    "program_name": "SushiSwap Dex Incentives",
+    "chain": "ethereum",
+    "incentive_type": "dex",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.sushiswap.finance/incentives",
+    "apy_pct": 6.6,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-05-21",
+      "end": "2026-11-17",
+      "cliff_days": 34
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-022",
+    "protocol": "1inch",
+    "program_name": "1inch Aggregator Incentives",
+    "chain": "ethereum",
+    "incentive_type": "aggregator",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.1inch.finance/incentives",
+    "apy_pct": 7.8,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-05-28",
+      "end": "2026-11-24",
+      "cliff_days": 35
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-023",
+    "protocol": "Convex",
+    "program_name": "Convex Boost Incentives",
+    "chain": "ethereum",
+    "incentive_type": "boost",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.convex.finance/incentives",
+    "apy_pct": 9.0,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-06-04",
+      "end": "2026-12-01",
+      "cliff_days": 36
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-024",
+    "protocol": "Frax",
+    "program_name": "Frax Stablecoin Incentives",
+    "chain": "ethereum",
+    "incentive_type": "stablecoin",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.frax.finance/incentives",
+    "apy_pct": 10.2,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-06-11",
+      "end": "2026-12-08",
+      "cliff_days": 37
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-025",
+    "protocol": "MakerDAO",
+    "program_name": "MakerDAO Governance Incentives",
+    "chain": "ethereum",
+    "incentive_type": "governance",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.makerdao.finance/incentives",
+    "apy_pct": 11.4,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-06-18",
+      "end": "2026-12-15",
+      "cliff_days": 38
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-026",
+    "protocol": "Synthetix",
+    "program_name": "Synthetix Synthetics Incentives",
+    "chain": "ethereum",
+    "incentive_type": "synthetics",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.synthetix.finance/incentives",
+    "apy_pct": 12.6,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-06-25",
+      "end": "2026-12-22",
+      "cliff_days": 39
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-027",
+    "protocol": "Yearn",
+    "program_name": "Yearn Vault Incentives",
+    "chain": "ethereum",
+    "incentive_type": "vault",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.yearn.finance/incentives",
+    "apy_pct": 13.8,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-07-02",
+      "end": "2026-12-29",
+      "cliff_days": 40
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-028",
+    "protocol": "Rocket Pool",
+    "program_name": "Rocket Pool Staking Incentives",
+    "chain": "ethereum",
+    "incentive_type": "staking",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.rocketpool.finance/incentives",
+    "apy_pct": 15.0,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-07-09",
+      "end": "2027-01-05",
+      "cliff_days": 41
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-029",
+    "protocol": "Stargate",
+    "program_name": "Stargate Bridge Incentives",
+    "chain": "ethereum",
+    "incentive_type": "bridge",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.stargate.finance/incentives",
+    "apy_pct": 16.2,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-07-16",
+      "end": "2027-01-12",
+      "cliff_days": 42
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-030",
+    "protocol": "Across",
+    "program_name": "Across Bridge Incentives",
+    "chain": "ethereum",
+    "incentive_type": "bridge",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.across.finance/incentives",
+    "apy_pct": 17.4,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-07-23",
+      "end": "2027-01-19",
+      "cliff_days": 43
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-031",
+    "protocol": "LayerZero",
+    "program_name": "LayerZero Airdrop Incentives",
+    "chain": "multichain",
+    "incentive_type": "airdrop",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.layerzero.finance/incentives",
+    "apy_pct": 18.6,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-07-30",
+      "end": "2027-01-26",
+      "cliff_days": 44
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-032",
+    "protocol": "zkSync",
+    "program_name": "zkSync Ecosystem Incentives",
+    "chain": "zksync",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.zksync.finance/incentives",
+    "apy_pct": 19.8,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-08-06",
+      "end": "2027-02-02",
+      "cliff_days": 45
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-033",
+    "protocol": "Starknet",
+    "program_name": "Starknet Ecosystem Incentives",
+    "chain": "starknet",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.starknet.finance/incentives",
+    "apy_pct": 21.0,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-08-13",
+      "end": "2027-02-09",
+      "cliff_days": 46
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-034",
+    "protocol": "Base",
+    "program_name": "Base Ecosystem Incentives",
+    "chain": "base",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.base.finance/incentives",
+    "apy_pct": 22.2,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-08-20",
+      "end": "2027-02-16",
+      "cliff_days": 47
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-035",
+    "protocol": "Blast",
+    "program_name": "Blast Ecosystem Incentives",
+    "chain": "blast",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.blast.finance/incentives",
+    "apy_pct": 3.0,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-08-27",
+      "end": "2027-02-23",
+      "cliff_days": 48
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-036",
+    "protocol": "Manta",
+    "program_name": "Manta Ecosystem Incentives",
+    "chain": "manta",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.manta.finance/incentives",
+    "apy_pct": 4.2,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-09-03",
+      "end": "2027-03-02",
+      "cliff_days": 49
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-037",
+    "protocol": "Celestia",
+    "program_name": "Celestia Modular Incentives",
+    "chain": "celestia",
+    "incentive_type": "modular",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.celestia.finance/incentives",
+    "apy_pct": 5.4,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-09-10",
+      "end": "2027-03-09",
+      "cliff_days": 50
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-038",
+    "protocol": "Injective",
+    "program_name": "Injective Defi Incentives",
+    "chain": "injective",
+    "incentive_type": "defi",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.injective.finance/incentives",
+    "apy_pct": 6.6,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-09-17",
+      "end": "2027-03-16",
+      "cliff_days": 51
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-039",
+    "protocol": "Sei",
+    "program_name": "Sei Defi Incentives",
+    "chain": "sei",
+    "incentive_type": "defi",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.sei.finance/incentives",
+    "apy_pct": 7.8,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-09-24",
+      "end": "2027-03-23",
+      "cliff_days": 52
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-040",
+    "protocol": "Aptos",
+    "program_name": "Aptos Ecosystem Incentives",
+    "chain": "aptos",
+    "incentive_type": "ecosystem",
+    "status": "active",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.aptos.finance/incentives",
+    "apy_pct": 9.0,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-10-01",
+      "end": "2027-03-30",
+      "cliff_days": 53
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-041",
+    "protocol": "Sui",
+    "program_name": "Sui Ecosystem Incentives",
+    "chain": "sui",
+    "incentive_type": "ecosystem",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.sui.finance/incentives",
+    "apy_pct": 10.2,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-10-08",
+      "end": "2027-04-06",
+      "cliff_days": 54
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-042",
+    "protocol": "Osmosis",
+    "program_name": "Osmosis Dex Incentives",
+    "chain": "osmosis",
+    "incentive_type": "dex",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.osmosis.finance/incentives",
+    "apy_pct": 11.4,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-10-15",
+      "end": "2027-04-13",
+      "cliff_days": 55
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-043",
+    "protocol": "Thorchain",
+    "program_name": "Thorchain Cross Chain Incentives",
+    "chain": "thorchain",
+    "incentive_type": "cross_chain",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.thorchain.finance/incentives",
+    "apy_pct": 12.6,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-10-22",
+      "end": "2027-04-20",
+      "cliff_days": 56
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-044",
+    "protocol": "Kamino",
+    "program_name": "Kamino Lending Incentives",
+    "chain": "solana",
+    "incentive_type": "lending",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.kamino.finance/incentives",
+    "apy_pct": 13.8,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-10-29",
+      "end": "2027-04-27",
+      "cliff_days": 57
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-045",
+    "protocol": "Drift",
+    "program_name": "Drift Perps Incentives",
+    "chain": "solana",
+    "incentive_type": "perps",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.drift.finance/incentives",
+    "apy_pct": 15.0,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-11-05",
+      "end": "2027-05-04",
+      "cliff_days": 58
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-046",
+    "protocol": "Vertex",
+    "program_name": "Vertex Perps Incentives",
+    "chain": "arbitrum",
+    "incentive_type": "perps",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.vertex.finance/incentives",
+    "apy_pct": 16.2,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2026-11-12",
+      "end": "2027-05-11",
+      "cliff_days": 59
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-047",
+    "protocol": "Kwenta",
+    "program_name": "Kwenta Perps Incentives",
+    "chain": "optimism",
+    "incentive_type": "perps",
+    "status": "upcoming",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.kwenta.finance/incentives",
+    "apy_pct": 17.4,
+    "risk_score": 8,
+    "timeline": {
+      "start": "2026-11-19",
+      "end": "2027-05-18",
+      "cliff_days": 60
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-048",
+    "protocol": "Velodrome",
+    "program_name": "Velodrome Dex Incentives",
+    "chain": "optimism",
+    "incentive_type": "dex",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.velodrome.finance/incentives",
+    "apy_pct": 18.6,
+    "risk_score": 9,
+    "timeline": {
+      "start": "2026-11-26",
+      "end": "2027-05-25",
+      "cliff_days": 61
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-049",
+    "protocol": "Aerodrome",
+    "program_name": "Aerodrome Dex Incentives",
+    "chain": "base",
+    "incentive_type": "dex",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.aerodrome.finance/incentives",
+    "apy_pct": 19.8,
+    "risk_score": 2,
+    "timeline": {
+      "start": "2026-12-03",
+      "end": "2027-06-01",
+      "cliff_days": 62
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-050",
+    "protocol": "Camelot",
+    "program_name": "Camelot Dex Incentives",
+    "chain": "arbitrum",
+    "incentive_type": "dex",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.camelot.finance/incentives",
+    "apy_pct": 21.0,
+    "risk_score": 3,
+    "timeline": {
+      "start": "2026-12-10",
+      "end": "2027-06-08",
+      "cliff_days": 63
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-051",
+    "protocol": "Trader Joe",
+    "program_name": "Trader Joe Dex Incentives",
+    "chain": "avalanche",
+    "incentive_type": "dex",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.traderjoe.finance/incentives",
+    "apy_pct": 22.2,
+    "risk_score": 4,
+    "timeline": {
+      "start": "2026-12-17",
+      "end": "2027-06-15",
+      "cliff_days": 64
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-052",
+    "protocol": "Benqi",
+    "program_name": "Benqi Lending Incentives",
+    "chain": "avalanche",
+    "incentive_type": "lending",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.benqi.finance/incentives",
+    "apy_pct": 3.0,
+    "risk_score": 5,
+    "timeline": {
+      "start": "2026-12-24",
+      "end": "2027-06-22",
+      "cliff_days": 65
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-053",
+    "protocol": "Radiant",
+    "program_name": "Radiant Lending Incentives",
+    "chain": "arbitrum",
+    "incentive_type": "lending",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.radiant.finance/incentives",
+    "apy_pct": 4.2,
+    "risk_score": 6,
+    "timeline": {
+      "start": "2026-12-31",
+      "end": "2027-06-29",
+      "cliff_days": 66
+    },
+    "assets": [
+      "SOL",
+      "USDC"
+    ]
+  },
+  {
+    "id": "inc-054",
+    "protocol": "Ethena",
+    "program_name": "Ethena Synthetic Incentives",
+    "chain": "ethereum",
+    "incentive_type": "synthetic",
+    "status": "ended",
+    "source": "Protocol Docs",
+    "source_url": "https://docs.ethena.finance/incentives",
+    "apy_pct": 5.4,
+    "risk_score": 7,
+    "timeline": {
+      "start": "2027-01-07",
+      "end": "2027-07-06",
+      "cliff_days": 67
+    },
+    "assets": [
+      "ETH",
+      "USDC"
+    ]
+  }
+]
