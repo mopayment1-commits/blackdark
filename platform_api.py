@@ -2543,6 +2543,30 @@ async def momentum_intelligence_route(asset: str = Query("BTC")):
     return get_momentum_analysis(asset)
 
 
+# ── Social Hype Analyzer — #293 replaces #758 (Sprint 2) ─────────────────────
+
+
+@router.get("/market-radar/sentiment/hype/status")
+async def social_hype_analyzer_status_route():
+    from bd_platform.social_hype_analyzer import social_hype_analyzer_status
+
+    return social_hype_analyzer_status()
+
+
+@router.get("/market-radar/sentiment/hype")
+async def social_hype_analyzer_route(asset: str = Query("BTC")):
+    from bd_platform.social_hype_analyzer import analyze_asset_hype
+
+    return analyze_asset_hype(asset)
+
+
+@router.get("/market-radar/sentiment/hype/scan")
+async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
+    from bd_platform.social_hype_analyzer import scan_market_hype
+
+    return scan_market_hype(limit=limit)
+
+
 # ── MCP for AI — #262 AI Agent Server (Sprint 2) ─────────────────────────────
 
 
