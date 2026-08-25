@@ -1918,3 +1918,122 @@ async def news_context_refresh_route(limit: int = Query(15, ge=1, le=50)):
     from bd_platform.news_context_panel import refresh_news_from_feeds
 
     return await refresh_news_from_feeds(limit=limit)
+
+
+# ── Feature #702 — DeFi TVL Engine (Market Radar DeFi layer) ───────────────────
+
+
+@router.get("/market-radar/defi/tvl/status")
+async def defi_tvl_status_route():
+    from bd_platform.defi_tvl_engine import defi_tvl_engine_status
+
+    return defi_tvl_engine_status()
+
+
+@router.get("/market-radar/defi/tvl/methodology")
+async def defi_tvl_methodology_route():
+    from bd_platform.defi_tvl_engine import get_methodology
+
+    return get_methodology()
+
+
+@router.get("/market-radar/defi/tvl")
+async def defi_tvl_dashboard_route(
+    chain: str | None = Query(None),
+    category: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.defi_tvl_engine import build_tvl_dashboard
+
+    return build_tvl_dashboard(chain=chain, category=category, limit=limit)
+
+
+@router.get("/market-radar/defi/tvl/{protocol_id}")
+async def defi_tvl_protocol_route(protocol_id: str):
+    from bd_platform.defi_tvl_engine import get_protocol_tvl
+
+    result = get_protocol_tvl(protocol_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+# ── Feature #705 merged — Canonical Asset Registry (#194 Unified Connector) ────
+
+
+@router.get("/connectors/assets/status")
+async def canonical_assets_status_route():
+    from bd_platform.canonical_asset_registry import canonical_asset_registry_status
+
+    return canonical_asset_registry_status()
+
+
+@router.get("/connectors/assets")
+async def canonical_assets_list_route(
+    lifecycle: str | None = Query(None),
+    chain: str | None = Query(None),
+    canonical_only: bool = Query(False),
+    limit: int = Query(100, ge=1, le=500),
+):
+    from bd_platform.canonical_asset_registry import list_canonical_assets
+
+    return list_canonical_assets(
+        lifecycle=lifecycle,  # type: ignore[arg-type]
+        chain=chain,
+        canonical_only=canonical_only,
+        limit=limit,
+    )
+
+
+@router.get("/connectors/assets/resolve/{symbol}")
+async def canonical_asset_resolve_route(symbol: str):
+    from bd_platform.canonical_asset_registry import resolve_asset
+
+    result = resolve_asset(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/connectors/unified")
+async def unified_connector_view_route(probe_live: bool = Query(True)):
+    from bd_platform.connector_coverage_map import build_unified_connector_view
+
+    return await build_unified_connector_view(probe_live=probe_live)
+
+
+# ── Feature #709 merged — Yield Sustainability Score (#198 + #710) ─────────────
+
+
+@router.get("/defi/yield-sustainability/status")
+async def yield_sustainability_status_route():
+    from bd_platform.yield_sustainability_score import yield_sustainability_status
+
+    return yield_sustainability_status()
+
+
+@router.get("/defi/yield-sustainability")
+async def yield_sustainability_list_route(
+    protocol: str | None = Query(None),
+    chain: str | None = Query(None),
+    sustainability: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.yield_sustainability_score import list_yield_pools
+
+    return list_yield_pools(
+        protocol=protocol,
+        chain=chain,
+        sustainability=sustainability,  # type: ignore[arg-type]
+        limit=limit,
+    )
+
+
+@router.get("/defi/yield-sustainability/{pool_id}")
+async def yield_sustainability_pool_route(pool_id: str):
+    from bd_platform.yield_sustainability_score import get_yield_pool
+
+    result = get_yield_pool(pool_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result

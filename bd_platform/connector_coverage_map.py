@@ -17,7 +17,7 @@ import aiohttp
 
 logger = logging.getLogger("BLACKDARK.ConnectorCoverage")
 
-_FEATURE_IDS = (194, 200)
+_FEATURE_IDS = (194, 200, 705)
 _MAP_VERSION = "1.0.0"
 _HTTP_TIMEOUT = aiohttp.ClientTimeout(total=5)
 
@@ -161,6 +161,22 @@ def connector_coverage_status() -> dict[str, Any]:
         "live_parity": True,
         "venue_catalog_count": len(_VENUE_CATALOG),
         "probe_cache_ttl_sec": _CACHE_TTL_SEC,
-        "integrated_with": ["#194 Unified Connector"],
+        "integrated_with": ["#194 Unified Connector", "#705 Canonical Asset Registry"],
+        "canonical_asset_registry": True,
         "timestamp": _utcnow(),
+    }
+
+
+async def build_unified_connector_view(*, probe_live: bool = True) -> dict[str, Any]:
+    """Unified Connector view — coverage map + canonical asset registry (#194 + #705)."""
+    from bd_platform.canonical_asset_registry import list_canonical_assets
+
+    coverage = await build_coverage_map(probe_live=probe_live)
+    assets = list_canonical_assets(canonical_only=True, limit=50)
+    return {
+        **coverage,
+        "unified_connector": True,
+        "feature_ids": list(_FEATURE_IDS),
+        "canonical_assets": assets,
+        "metadata_layer": "#705 merged — stable IDs + lifecycle versioning",
     }
