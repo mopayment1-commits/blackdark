@@ -11,7 +11,16 @@
   "exchanges": ["binance", "coinbase", "kraken", "okx", "bybit"],
   "classification_rules": {
     "aggressive_buy": "market buy (taker buy)",
-    "aggressive_sell": "market sell (taker sell)"
+    "aggressive_sell": "market sell (taker sell)",
+    "maker_buy": "passive buy (limit order filled)",
+    "maker_sell": "passive sell (limit order filled)"
+  },
+  "merged_features": {
+    "264": {
+      "name": "Maker/Taker Volume Net Delta",
+      "standalone": false,
+      "merged_into": 232
+    }
   },
   "classification_audit": {
     "accuracy_pct": 97.3,
@@ -32,6 +41,7 @@
   "gap_policy": "Gaps visible with dashed interpolation — never present as complete data",
   "assets": {
     "BTC": {
+      "primary_venue": "Multi-Venue",
       "venues": {
         "binance": {
           "status": "down",
@@ -39,6 +49,10 @@
           "gap_reason": "Feed outage",
           "aggressive_buy_usd": 0,
           "aggressive_sell_usd": 0,
+          "taker_buy_usd": 0,
+          "taker_sell_usd": 0,
+          "maker_buy_usd": 0,
+          "maker_sell_usd": 0,
           "volume_usd": 0,
           "weight": 0.0
         },
@@ -46,6 +60,10 @@
           "status": "up",
           "aggressive_buy_usd": 185000000,
           "aggressive_sell_usd": 142000000,
+          "taker_buy_usd": 185000000,
+          "taker_sell_usd": 142000000,
+          "maker_buy_usd": 142000000,
+          "maker_sell_usd": 185000000,
           "volume_usd": 327000000,
           "weight": 0.22
         },
@@ -53,6 +71,10 @@
           "status": "up",
           "aggressive_buy_usd": 98000000,
           "aggressive_sell_usd": 87000000,
+          "taker_buy_usd": 98000000,
+          "taker_sell_usd": 87000000,
+          "maker_buy_usd": 87000000,
+          "maker_sell_usd": 98000000,
           "volume_usd": 185000000,
           "weight": 0.12
         },
@@ -60,6 +82,10 @@
           "status": "up",
           "aggressive_buy_usd": 312000000,
           "aggressive_sell_usd": 268000000,
+          "taker_buy_usd": 312000000,
+          "taker_sell_usd": 268000000,
+          "maker_buy_usd": 268000000,
+          "maker_sell_usd": 312000000,
           "volume_usd": 580000000,
           "weight": 0.38
         },
@@ -67,6 +93,10 @@
           "status": "up",
           "aggressive_buy_usd": 245000000,
           "aggressive_sell_usd": 221000000,
+          "taker_buy_usd": 245000000,
+          "taker_sell_usd": 221000000,
+          "maker_buy_usd": 221000000,
+          "maker_sell_usd": 245000000,
           "volume_usd": 466000000,
           "weight": 0.28
         }

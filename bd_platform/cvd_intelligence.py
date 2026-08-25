@@ -2,6 +2,7 @@
 CVD Intelligence — Feature #232 (Sprint 2).
 
 Cumulative Volume Delta from aggressive (taker) buy vs sell volume.
+Includes #264 Maker/Taker Volume Net Delta as alternative classification view.
 Technical context layer — NOT buy/sell signals.
 """
 
@@ -18,6 +19,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.CVDIntelligence")
 
 _FEATURE_ID = 232
+_MERGED_FEATURE_ID = 264
 _STANDALONE = False
 _SPRINT = 2
 _SEED_PATH = Path("data/cvd_intelligence_seed.json")
@@ -31,6 +33,8 @@ _DISCLAIMER_TEXT = (
 
 TrendLabel = Literal["Rising", "Flat", "Falling"]
 DivergenceLabel = Literal["None", "Bullish", "Bearish"]
+ClassificationMode = Literal["aggressive_passive", "maker_taker"]
+MakerTakerSide = Literal["taker_buy", "taker_sell", "maker_buy", "maker_sell", "unknown"]
 
 
 def _utcnow() -> str:
@@ -84,6 +88,133 @@ def classify_trade_side(
             return "aggressive_sell"
 
     return "unknown"
+
+
+def classify_maker_taker_side(
+    *,
+    is_buyer_maker: bool | None = None,
+    side: str | None = None,
+    taker_side: str | None = None,
+) -> MakerTakerSide:
+    """
+    Classify trade by maker/taker execution type (#264 merged into #232).
+
+    Maker ≈ Passive (limit orders), Taker ≈ Aggressive (market orders).
+    """
+    aggressive = classify_trade_side(
+        is_buyer_maker=is_buyer_maker,
+        side=side,
+        taker_side=taker_side,
+    )
+    if aggressive == "aggressive_buy":
+        return "taker_buy"
+    if aggressive == "aggressive_sell":
+        return "taker_sell"
+
+    if is_buyer_maker is not None:
+        return "maker_buy" if is_buyer_maker else "maker_sell"
+
+    return "unknown"
+
+
+def compute_maker_taker_net_delta(
+    taker_buy_usd: float,
+    taker_sell_usd: float,
+    maker_buy_usd: float,
+    maker_sell_usd: float,
+) -> dict[str, Any]:
+    """Net delta by execution type — #264 subset of #232 CVD."""
+    taker_net = taker_buy_usd - taker_sell_usd
+    maker_net = maker_buy_usd - maker_sell_usd
+    return {
+        "taker_buy_usd": round(taker_buy_usd, 2),
+        "taker_sell_usd": round(taker_sell_usd, 2),
+        "maker_buy_usd": round(maker_buy_usd, 2),
+        "maker_sell_usd": round(maker_sell_usd, 2),
+        "taker_net_delta_usd": round(taker_net, 2),
+        "maker_net_delta_usd": round(maker_net, 2),
+        "taker_net_display": f"Taker Net Delta: {_format_million_usd(taker_net)}",
+        "maker_net_display": f"Maker Net Delta: {_format_million_usd(maker_net)}",
+        "equivalent_to_cvd": True,
+        "calculation": "Net Delta = Buy Volume - Sell Volume classified by execution type",
+    }
+
+
+def build_cvd_components_display(
+    *,
+    venue: str,
+    methodology_version: str = _METHODOLOGY_VERSION,
+    classification_mode: ClassificationMode = "aggressive_passive",
+) -> dict[str, Any]:
+    """CVD component block — #264 merged, no standalone surface."""
+    default_label = "Aggressive/Passive (default)"
+    alt_label = "Maker/Taker (alternative classification)"
+    active = default_label if classification_mode == "aggressive_passive" else alt_label
+    return {
+        "default_classification": "aggressive_passive",
+        "alternative_classification": "maker_taker",
+        "active_classification": classification_mode,
+        "venue": venue,
+        "methodology_version": methodology_version,
+        "display": (
+            f"CVD Components: {default_label} | {alt_label} | "
+            f"Venue: {venue} | Method: v{methodology_version}"
+        ),
+        "active_display": f"Active: {active} | Venue: {venue} | Method: v{methodology_version}",
+        "merged_feature_264": True,
+        "no_standalone_264": True,
+        "no_separate_alerts": True,
+        "alert_framework": "cvd_divergence_context_only",
+    }
+
+
+def aggregate_maker_taker_multi_venue(venues: dict[str, Any]) -> dict[str, Any]:
+    """Volume-weighted maker/taker aggregation across venues."""
+    seed = _load_seed()
+    exchange_list = seed.get("exchanges") or list(venues.keys())
+    active: list[dict[str, Any]] = []
+
+    for name in exchange_list:
+        v = venues.get(name) or {}
+        if v.get("status") != "up" or v.get("gap"):
+            continue
+        vol = float(v.get("volume_usd") or 0)
+        if vol <= 0:
+            continue
+        taker_buy = float(v.get("taker_buy_usd") or v.get("aggressive_buy_usd") or 0)
+        taker_sell = float(v.get("taker_sell_usd") or v.get("aggressive_sell_usd") or 0)
+        maker_buy = float(v.get("maker_buy_usd") or 0)
+        maker_sell = float(v.get("maker_sell_usd") or 0)
+        active.append({
+            "exchange": name,
+            "volume_usd": vol,
+            "taker_buy_usd": taker_buy,
+            "taker_sell_usd": taker_sell,
+            "maker_buy_usd": maker_buy,
+            "maker_sell_usd": maker_sell,
+        })
+
+    total_volume = sum(a["volume_usd"] for a in active)
+    if total_volume <= 0:
+        return compute_maker_taker_net_delta(0, 0, 0, 0) | {
+            "coverage_count": 0,
+            "aggregation": "Volume-Weighted",
+        }
+
+    def _weighted(field: str) -> float:
+        return sum(a[field] * a["volume_usd"] / total_volume for a in active)
+
+    result = compute_maker_taker_net_delta(
+        _weighted("taker_buy_usd"),
+        _weighted("taker_sell_usd"),
+        _weighted("maker_buy_usd"),
+        _weighted("maker_sell_usd"),
+    )
+    result["coverage_count"] = len(active)
+    result["aggregation"] = "Volume-Weighted"
+    result["taker_equals_aggressive"] = True
+    result["maker_equals_passive"] = True
+    return result
 
 
 def run_classification_audit(
@@ -335,7 +466,13 @@ def _build_chart_series(
     }
 
 
-def build_cvd_analysis(asset: str = "BTC", *, window: str = "1H") -> dict[str, Any]:
+def build_cvd_analysis(
+    asset: str = "BTC",
+    *,
+    window: str = "1H",
+    classification_mode: ClassificationMode = "aggressive_passive",
+    venue: str | None = None,
+) -> dict[str, Any]:
     """Build CVD analysis panel — technical context only."""
     t0 = time.perf_counter()
     seed = _load_seed()
@@ -361,7 +498,16 @@ def build_cvd_analysis(asset: str = "BTC", *, window: str = "1H") -> dict[str, A
 
     venues = asset_data.get("venues") or {}
     aggregation = aggregate_multi_venue(venues)
+    maker_taker = aggregate_maker_taker_multi_venue(venues)
     gap_info = _build_gap_handling(aggregation)
+
+    primary_venue = venue or asset_data.get("primary_venue") or "Multi-Venue"
+    methodology_version = seed.get("methodology_version", _METHODOLOGY_VERSION)
+    components = build_cvd_components_display(
+        venue=primary_venue,
+        methodology_version=methodology_version,
+        classification_mode=classification_mode,
+    )
 
     window_key = window.lower()
     series_all = asset_data.get("series") or {}
@@ -405,22 +551,38 @@ def build_cvd_analysis(asset: str = "BTC", *, window: str = "1H") -> dict[str, A
         analysis_text = "CVD negative but selling pressure easing"
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
-    methodology_version = seed.get("methodology_version", _METHODOLOGY_VERSION)
+
+    active_cvd = (
+        maker_taker["taker_net_delta_usd"]
+        if classification_mode == "maker_taker"
+        else current_cvd
+    )
 
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "merged_features": {
+            "264": {
+                "name": "Maker/Taker Volume Net Delta",
+                "standalone": False,
+                "merged_into": _FEATURE_ID,
+                "classification_mode": "maker_taker",
+            },
+        },
         "standalone": _STANDALONE,
         "surface": "cvd_intelligence",
         "asset": sym,
+        "classification_mode": classification_mode,
+        "cvd_components": components,
+        "maker_taker_net_delta": maker_taker,
         "methodology_version": methodology_version,
         "methodology_display": (
             f"CVD Methodology v{methodology_version} | Classification: {seed.get('classification', 'Taker Side')} | "
             f"Aggregation: {seed.get('aggregation', 'Volume-Weighted')} | "
             f"Last Updated: {seed.get('last_updated', 'N/A')}"
         ),
-        "cvd_value_usd": current_cvd,
-        "cvd_value_display": f"CVD Value: {_format_million_usd(current_cvd)}",
+        "cvd_value_usd": active_cvd,
+        "cvd_value_display": f"CVD Value: {_format_million_usd(active_cvd)}",
         "trend": trend,
         "trend_display": f"Trend: {trend}",
         "pct_vs_30d_baseline": pct_vs_baseline,
@@ -449,7 +611,7 @@ def build_cvd_analysis(asset: str = "BTC", *, window: str = "1H") -> dict[str, A
         "technical_context_only": True,
         "not_a_recommendation": True,
         "not_buy_sell_signal": True,
-        "allowed_language": ["CVD Analysis", "Divergence Detected", "Aggressive", "Context"],
+        "allowed_language": ["CVD Analysis", "Divergence Detected", "Aggressive", "Maker", "Taker", "Context"],
         "chart": _build_chart_series(series, window=window.upper()),
         "divergence_windows": {
             w.upper(): detect_divergence(
@@ -468,9 +630,14 @@ def build_cvd_analysis(asset: str = "BTC", *, window: str = "1H") -> dict[str, A
     }
 
 
-def build_cvd_chart(asset: str = "BTC", *, window: str = "1H") -> dict[str, Any]:
+def build_cvd_chart(
+    asset: str = "BTC",
+    *,
+    window: str = "1H",
+    classification_mode: ClassificationMode = "aggressive_passive",
+) -> dict[str, Any]:
     """CVD chart data with gap markers for dashed interpolation segments."""
-    analysis = build_cvd_analysis(asset, window=window)
+    analysis = build_cvd_analysis(asset, window=window, classification_mode=classification_mode)
     if not analysis.get("ok"):
         return analysis
     return {
@@ -493,11 +660,26 @@ def cvd_intelligence_status() -> dict[str, Any]:
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
+        "merged_features": {
+            "264": {
+                "name": "Maker/Taker Volume Net Delta",
+                "standalone": False,
+                "merged_into": _FEATURE_ID,
+            },
+        },
         "feature_label": seed.get("feature_label", "CVD Intelligence"),
         "standalone": _STANDALONE,
         "sprint": _SPRINT,
         "methodology_version": seed.get("methodology_version", _METHODOLOGY_VERSION),
         "classification": seed.get("classification", "Taker Side"),
+        "classification_modes": {
+            "default": "aggressive_passive",
+            "alternative": "maker_taker",
+            "components_display": (
+                "CVD Components: Aggressive/Passive (default) | "
+                "Maker/Taker (alternative classification) | Venue: {venue} | Method: v1.2"
+            ),
+        },
         "aggregation": seed.get("aggregation", "Volume-Weighted"),
         "exchanges": seed.get("exchanges", []),
         "tier": seed.get("tier", "pro"),
@@ -529,6 +711,9 @@ def cvd_intelligence_status() -> dict[str, Any]:
             "not_recommendation": True,
             "version_documented": True,
             "historical_validation": True,
+            "maker_taker_264_merged": True,
+            "no_standalone_264": True,
+            "no_separate_alerts_264": True,
         },
         "disclaimer": _DISCLAIMER_TEXT,
         "disclaimer_hideable": False,

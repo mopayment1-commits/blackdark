@@ -2581,20 +2581,28 @@ async def cvd_intelligence_status_route():
 async def cvd_intelligence_analysis_route(
     asset: str = Query("BTC"),
     window: str = Query("1H"),
+    classification_mode: str = Query(
+        "aggressive_passive",
+        description="aggressive_passive (default) or maker_taker (#264 merged)",
+    ),
+    venue: str | None = Query(None),
 ):
     from bd_platform.cvd_intelligence import build_cvd_analysis
 
-    return build_cvd_analysis(asset, window=window)
+    mode = "maker_taker" if classification_mode == "maker_taker" else "aggressive_passive"
+    return build_cvd_analysis(asset, window=window, classification_mode=mode, venue=venue)
 
 
 @router.get("/market-radar/cvd/chart")
 async def cvd_intelligence_chart_route(
     asset: str = Query("BTC"),
     window: str = Query("1H"),
+    classification_mode: str = Query("aggressive_passive"),
 ):
     from bd_platform.cvd_intelligence import build_cvd_chart
 
-    return build_cvd_chart(asset, window=window)
+    mode = "maker_taker" if classification_mode == "maker_taker" else "aggressive_passive"
+    return build_cvd_chart(asset, window=window, classification_mode=mode)
 
 
 # ── ETF Intelligence Module — #210 + #240 (Sprint 2, Pro) ───────────────────
