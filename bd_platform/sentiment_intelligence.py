@@ -150,6 +150,15 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
 
     explain = (quality_block.get("explain_contributors") or {}) if quality_block else {}
 
+    # #221 Positioning Intelligence — merged into Sentiment Panel (NOT copy-trade)
+    positioning_block: dict[str, Any] = {}
+    try:
+        from bd_platform.positioning_intelligence import get_top_trader_positioning
+
+        positioning_block = get_top_trader_positioning(sym)
+    except Exception:
+        logger.debug("positioning intelligence unavailable for %s", sym)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -173,7 +182,8 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
         "price_correlation": price_correlation,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "arabic_support": "via_rules_nlp_tuning",
-        "integrated_features": ["#149", "#195", "#197"],
+        "integrated_features": ["#149", "#195", "#197", "#221"],
+        "positioning_intelligence": positioning_block if positioning_block.get("ok") else None,
         "sla_met": elapsed <= 2000,
         "latency_ms": round(elapsed, 1),
         "timestamp": _utcnow(),
@@ -208,9 +218,10 @@ def sentiment_intelligence_status() -> dict[str, Any]:
         "weighted_scoring": True,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "nlp_accuracy_target_pct": 80,
-        "integrated_features": ["#149", "#195", "#197"],
+        "integrated_features": ["#149", "#195", "#197", "#221"],
         "unique_social_volume_layer": True,
         "weighted_sentiment_quality_engine": True,
+        "positioning_intelligence_layer": True,
         "weights_version": "1.0.0",
         "timestamp": _utcnow(),
     }

@@ -2388,3 +2388,65 @@ async def freshness_health_check_route():
 
     return run_freshness_health_check()
 
+
+# ── Positioning Intelligence — #221 merged into Sentiment Panel (Sprint 2) ─────
+
+
+@router.get("/market-radar/sentiment/positioning/status")
+async def positioning_intelligence_status_route():
+    from bd_platform.positioning_intelligence import positioning_intelligence_status
+
+    return positioning_intelligence_status()
+
+
+@router.get("/market-radar/sentiment/positioning")
+async def positioning_intelligence_route(asset: str = Query("BTC")):
+    from bd_platform.positioning_intelligence import get_top_trader_positioning
+
+    return get_top_trader_positioning(asset)
+
+
+@router.get("/market-radar/sentiment/positioning/divergence")
+async def positioning_divergence_route(asset: str = Query("BTC")):
+    from bd_platform.positioning_intelligence import get_positioning_divergence
+
+    return get_positioning_divergence(asset)
+
+
+# ── Data Engineering Stack — #223 dbt Connector merged (Sprint 0) ─────────────
+
+
+@router.get("/data-engineering/status")
+async def data_engineering_stack_status_route():
+    from bd_platform.data_engineering_stack import data_engineering_stack_status
+
+    return await data_engineering_stack_status()
+
+
+@router.get("/data-engineering/lineage")
+async def data_engineering_lineage_route():
+    from bd_platform.data_engineering_stack import get_model_lineage
+
+    return get_model_lineage()
+
+
+@router.get("/data-engineering/model-tests")
+async def data_engineering_model_tests_route():
+    from bd_platform.data_engineering_stack import get_model_tests
+
+    return get_model_tests()
+
+
+@router.post("/data-engineering/pipeline/run")
+async def data_engineering_pipeline_run_route(
+    _admin: dict = Depends(require_admin),
+):
+    from bd_platform.data_engineering_stack import run_data_pipeline
+
+    try:
+        return await run_data_pipeline(operator=str(_admin.get("email") or "admin"))
+    except RuntimeError as exc:
+        if "dbt_not_configured" in str(exc):
+            raise HTTPException(status_code=503, detail="dbt_not_configured") from exc
+        raise
+

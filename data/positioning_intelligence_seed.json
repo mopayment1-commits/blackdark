@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-08-25",
+  "providers": {
+    "binance": {
+      "name": "Binance Top Traders",
+      "definition": "Top 10% by volume",
+      "update_cadence": "hourly",
+      "semantics": "Long/short account ratio of top traders vs global accounts"
+    },
+    "okx": {
+      "name": "OKX Top Traders",
+      "definition": "Top 5% by PnL",
+      "update_cadence": "hourly",
+      "semantics": "Position ratio of elite traders"
+    },
+    "bybit": {
+      "name": "Bybit Top Traders",
+      "definition": "Top 10% by volume",
+      "update_cadence": "hourly",
+      "semantics": "Long/short ratio of high-volume accounts"
+    },
+    "bitget": {
+      "name": "Bitget Top Traders",
+      "definition": "Top 10% by volume",
+      "update_cadence": "hourly",
+      "semantics": "Position ratio of top traders"
+    },
+    "deribit": {
+      "name": "Deribit Options Traders",
+      "definition": "Top options flow accounts",
+      "update_cadence": "hourly",
+      "semantics": "Net positioning of large options accounts"
+    }
+  },
+  "assets": {
+    "BTC": {
+      "venues": {
+        "binance": {"top_long_ratio_pct": 68.5, "global_long_ratio_pct": 52.0, "volume_weight": 0.35},
+        "okx": {"top_long_ratio_pct": 71.0, "global_long_ratio_pct": 48.5, "volume_weight": 0.25},
+        "bybit": {"top_long_ratio_pct": 65.0, "global_long_ratio_pct": 51.0, "volume_weight": 0.20},
+        "bitget": {"top_long_ratio_pct": 70.0, "global_long_ratio_pct": 49.0, "volume_weight": 0.12},
+        "deribit": {"top_long_ratio_pct": 62.0, "global_long_ratio_pct": 55.0, "volume_weight": 0.08}
+      },
+      "retail_long_ratio_pct": 30.0
+    },
+    "ETH": {
+      "venues": {
+        "binance": {"top_long_ratio_pct": 62.0, "global_long_ratio_pct": 54.0, "volume_weight": 0.35},
+        "okx": {"top_long_ratio_pct": 64.5, "global_long_ratio_pct": 50.0, "volume_weight": 0.25},
+        "bybit": {"top_long_ratio_pct": 60.0, "global_long_ratio_pct": 53.0, "volume_weight": 0.20},
+        "bitget": {"top_long_ratio_pct": 63.0, "global_long_ratio_pct": 51.0, "volume_weight": 0.12},
+        "deribit": {"top_long_ratio_pct": 58.0, "global_long_ratio_pct": 56.0, "volume_weight": 0.08}
+      },
+      "retail_long_ratio_pct": 35.0
+    }
+  }
+}
