@@ -205,6 +205,49 @@ async def unified_api_coverage_status_route():
     return connector_coverage_status()
 
 
+# ── Feature #205 — Community Freemium Layer (merged #162) ────────────────────
+
+
+def _community_rate_limit(request: Request, user: dict | None = Depends(optional_user_from_request)) -> None:
+    from bd_platform.community_freemium_layer import check_community_daily_quota
+
+    key = _client_key(request, user)
+    blocked = check_community_daily_quota(key)
+    if blocked:
+        raise HTTPException(status_code=429, detail=blocked)
+
+
+@router.get("/community/status")
+async def community_freemium_status_route():
+    from bd_platform.community_freemium_layer import community_freemium_status
+
+    return community_freemium_status()
+
+
+@router.get("/community/chart")
+async def community_chart_route(
+    request: Request,
+    asset: str = Query("BTC"),
+    resolution: str = Query("1D"),
+    _rl: None = Depends(_community_rate_limit),
+):
+    """Community chart with watermark — same engine, freemium limits (#205)."""
+    from bd_platform.community_freemium_layer import fetch_community_chart
+
+    return await fetch_community_chart(asset, resolution=resolution)
+
+
+@router.get("/community/oracle")
+async def community_oracle_route(
+    request: Request,
+    asset: str = Query("BTC"),
+    _rl: None = Depends(_community_rate_limit),
+):
+    from bd_platform.community_freemium_layer import fetch_community_oracle
+
+    return await fetch_community_oracle(asset)
+
+
 # ── Spreadsheet Integration #174 + #176 ──────────────────────────────────────
 
 

@@ -1457,3 +1457,40 @@ async def sentiment_manipulation_test_route(
     bots = int(body.get("bot_count") or 100)
     contributors = _default_contributors(asset, 0.3)
     return run_manipulation_resistance_test(contributors, bot_count=bots)
+
+
+# ── Feature #203 — Incentive Tracker Module ──────────────────────────────────
+
+
+@router.get("/incentives/status")
+async def incentive_tracker_status_route():
+    from bd_platform.incentive_tracker import incentive_tracker_status
+
+    return incentive_tracker_status()
+
+
+@router.get("/incentives")
+async def incentive_programs_list_route(
+    status: str | None = Query(None),
+    protocol: str | None = Query(None),
+    chain: str | None = Query(None),
+    limit: int = Query(100, ge=1, le=200),
+):
+    from bd_platform.incentive_tracker import list_incentive_programs
+
+    return list_incentive_programs(
+        status=status,  # type: ignore[arg-type]
+        protocol=protocol,
+        chain=chain,
+        limit=limit,
+    )
+
+
+@router.get("/incentives/{program_id}")
+async def incentive_program_detail_route(program_id: str):
+    from bd_platform.incentive_tracker import get_incentive_program
+
+    result = get_incentive_program(program_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
