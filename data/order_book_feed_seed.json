@@ -1,0 +1,151 @@
+{
+  "feature_ids": [256, 257, 258],
+  "merged_title": "Order Book Feed",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "venue_list": ["binance", "coinbase", "kraken", "okx", "bybit"],
+  "l3_coverage": {
+    "binance": "Full L3",
+    "coinbase": "L2 only",
+    "kraken": "L2 only",
+    "okx": "Full L3",
+    "bybit": "L2 only",
+    "display": "Coverage: Binance (Full L3) | Coinbase (L2 only) | Kraken (L2 only) | Note: L3 availability varies by venue"
+  },
+  "assets": {
+    "BTC": {
+      "venues": {
+        "binance": {
+          "failover": {"primary": "Binance", "fallback": "Coinbase", "status": "Active"},
+          "sequence_qa": {
+            "sequence": 145230001,
+            "timestamp_utc": "2026-08-25T20:58:12.450Z",
+            "latency_ms": 120,
+            "gap": "None"
+          },
+          "l1": {
+            "bid_usd": 108520.50,
+            "ask_usd": 108521.00,
+            "bid_size": 2.45,
+            "ask_size": 1.82
+          },
+          "l2": {
+            "levels": 20,
+            "total_bid_usd": 285000000,
+            "total_ask_usd": 245000000,
+            "normalized_display": "Levels 1-20: Bid $285M | Ask $245M | Venue: Binance | Normalized: USD + base asset"
+          },
+          "l2_gap": {
+            "sequence_start": 145230001,
+            "sequence_end": 145230045,
+            "messages_missed": 44,
+            "reconnect": "Auto",
+            "backfill": "Last 100ms",
+            "status": "Recovered"
+          },
+          "reconnect": {
+            "disconnect_detected": true,
+            "reconnect_seconds": 2,
+            "backfill_range": "Gap range",
+            "sequence_verified": true
+          },
+          "l3": {
+            "available": true,
+            "coverage_note": "Binance: Full L3",
+            "order_tracking": {
+              "order_id": "ABC-123",
+              "queue_position": "45/200",
+              "lifecycle": "New → Partial Fill → Fill",
+              "timestamp_start": "2026-08-25T20:58:12.450Z",
+              "timestamp_end": "2026-08-25T20:58:12.480Z",
+              "integrity": "Verified",
+              "display": "Order ID: ABC-123 | Queue Position: 45/200 | Lifecycle: New → Partial Fill → Fill | Timestamp: 2026-08-25T20:58:12.450Z → 20:58:12.480Z | Integrity: Verified"
+            },
+            "events": [
+              {
+                "order_id": "ABC-123",
+                "event": "New Order",
+                "price_usd": 108520.50,
+                "size": 2.45,
+                "side": "Bid",
+                "timestamp_utc": "2026-08-25T20:58:12.450Z",
+                "display": "Event: New Order | Price: $108,520.50 | Size: 2.45 | Side: Bid | Order ID: ABC-123 | Timestamp: T1"
+              },
+              {
+                "order_id": "ABC-123",
+                "event": "Fill",
+                "price_usd": 108520.50,
+                "size": 2.45,
+                "side": "Bid",
+                "matched_with": "Order ID W",
+                "timestamp_utc": "2026-08-25T20:58:12.480Z",
+                "display": "Event: Fill | Matched with: Order ID W | Price: $108,520.50 | Size: 2.45 | Timestamp: T2"
+              }
+            ],
+            "queue_integrity": {
+              "sequence_display": "1, 2, 3, ..., N",
+              "missing": "None",
+              "reconstructed": true,
+              "integrity_verified": true
+            },
+            "retention": {
+              "hot_days": 7,
+              "warm_days": 30,
+              "cold_days": 90,
+              "display": "Enterprise: 7 days hot | 30 days warm | 90 days cold"
+            }
+          }
+        },
+        "coinbase": {
+          "failover": {"primary": "Coinbase", "fallback": "Kraken", "status": "Active"},
+          "sequence_qa": {
+            "sequence": 89234001,
+            "timestamp_utc": "2026-08-25T20:58:12.380Z",
+            "latency_ms": 145,
+            "gap": "None"
+          },
+          "l1": {
+            "bid_usd": 108518.00,
+            "ask_usd": 108522.50,
+            "bid_size": 1.20,
+            "ask_size": 0.95
+          },
+          "l2": {
+            "levels": 20,
+            "total_bid_usd": 198000000,
+            "total_ask_usd": 172000000
+          },
+          "l3": {
+            "available": false,
+            "coverage_note": "Coinbase: L2 only"
+          }
+        }
+      }
+    },
+    "ETH": {
+      "venues": {
+        "binance": {
+          "failover": {"primary": "Binance", "fallback": "Coinbase", "status": "Active"},
+          "sequence_qa": {
+            "sequence": 98234001,
+            "timestamp_utc": "2026-08-25T20:58:12.420Z",
+            "latency_ms": 110,
+            "gap": "None"
+          },
+          "l1": {
+            "bid_usd": 4250.20,
+            "ask_usd": 4250.45,
+            "bid_size": 45.0,
+            "ask_size": 38.5
+          },
+          "l2": {
+            "levels": 20,
+            "total_bid_usd": 125000000,
+            "total_ask_usd": 108000000
+          },
+          "l3": {"available": true, "coverage_note": "Binance: Full L3", "events": []}
+        }
+      }
+    }
+  }
+}
