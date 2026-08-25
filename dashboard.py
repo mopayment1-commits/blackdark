@@ -828,6 +828,13 @@ except Exception:
     logger.exception("RVM router unavailable")
 
 try:
+    from api.routers.unified_platform_api import router as unified_platform_api_router
+
+    app.include_router(unified_platform_api_router)
+except Exception:
+    logger.exception("Unified API Platform router unavailable")
+
+try:
     from api.routers.audit import router as audit_router
 
     app.include_router(audit_router)
