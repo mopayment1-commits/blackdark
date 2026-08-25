@@ -90,6 +90,15 @@ def _enrich_asset(row: dict[str, Any]) -> dict[str, Any]:
             integrated.append("#235")
     except Exception:
         logger.debug("dex volume enrich failed", exc_info=True)
+    try:
+        from bd_platform.futures_volume_intelligence import get_futures_volume_for_asset
+
+        futures_volume = get_futures_volume_for_asset(str(row.get("symbol") or ""))
+        if futures_volume:
+            enriched["futures_volume"] = futures_volume
+            integrated.append("#246")
+    except Exception:
+        logger.debug("futures volume enrich failed", exc_info=True)
     if integrated:
         enriched["integrated_features"] = integrated
     return enriched
@@ -184,9 +193,10 @@ def canonical_asset_registry_status() -> dict[str, Any]:
         "lifecycle_states": sorted(lifecycles),
         "stable_ids": True,
         "lifecycle_versioning": True,
-        "integrated_with": ["connector_coverage_map", "#194", "#267", "#238", "#235"],
+        "integrated_with": ["connector_coverage_map", "#194", "#267", "#238", "#235", "#246"],
         "supply_provenance_merged": True,
         "dev_health_merged": True,
         "dex_volume_merged": True,
+        "futures_volume_merged": True,
         "timestamp": _utcnow(),
     }

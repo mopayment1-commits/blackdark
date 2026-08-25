@@ -2035,6 +2035,33 @@ async def dex_volume_status_route():
     return dex_volume_feed_status()
 
 
+@router.get("/connectors/assets/{symbol}/futures-volume")
+async def futures_volume_asset_route(symbol: str):
+    from bd_platform.futures_volume_intelligence import get_futures_volume_for_asset
+
+    result = get_futures_volume_for_asset(symbol)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail="futures_volume_unavailable: asset not tracked in futures volume feed",
+        )
+    return result
+
+
+@router.get("/futures-volume/status")
+async def futures_volume_status_route():
+    from bd_platform.futures_volume_intelligence import futures_volume_intelligence_status
+
+    return futures_volume_intelligence_status()
+
+
+@router.get("/futures-volume/dashboard")
+async def futures_volume_dashboard_route():
+    from bd_platform.futures_volume_intelligence import get_futures_volume_dashboard
+
+    return get_futures_volume_dashboard()
+
+
 @router.get("/connectors/unified")
 async def unified_connector_view_route(probe_live: bool = Query(True)):
     from bd_platform.connector_coverage_map import build_unified_connector_view
