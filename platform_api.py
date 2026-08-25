@@ -1059,3 +1059,68 @@ async def sentiment_intelligence_status_route():
     from bd_platform.sentiment_intelligence import sentiment_intelligence_status
 
     return sentiment_intelligence_status()
+
+
+# ── Feature #156 — Exit Strategy Assistant ───────────────────────────────────
+
+
+@router.get("/oracle/exit-zone")
+async def exit_zone_route(
+    asset: str = Query("BTC"),
+    entry_price: float | None = Query(None),
+    zone_low: float | None = Query(None),
+    zone_high: float | None = Query(None),
+):
+    """Recommended Exit Zone — suggestion only, NOT mandatory sell (#156)."""
+    from bd_platform.exit_strategy_assistant import compute_recommended_exit_zone
+
+    return await compute_recommended_exit_zone(
+        asset,
+        entry_price=entry_price,
+        custom_zone_low=zone_low,
+        custom_zone_high=zone_high,
+    )
+
+
+@router.post("/oracle/exit-zone/save", responses=COMMON_ERROR_RESPONSES)
+async def exit_zone_save_route(
+    body: dict[str, Any] = Body(...),
+    user: dict = Depends(require_authenticated),
+):
+    """Save user-edited exit zone (#156)."""
+    from bd_platform.exit_strategy_assistant import save_user_exit_zone
+
+    asset = str(body.get("asset") or "BTC")
+    zone_low = float(body.get("zone_low") or 0)
+    zone_high = float(body.get("zone_high") or 0)
+    user_id = str(user.get("id") or user.get("email") or "user")
+    return save_user_exit_zone(asset, zone_low=zone_low, zone_high=zone_high, user_id=user_id)
+
+
+@router.get("/oracle/exit-zone/status")
+async def exit_zone_status_route():
+    from bd_platform.exit_strategy_assistant import exit_strategy_status
+
+    return exit_strategy_status()
+
+
+# ── Feature #160 — DeFi Safety Layer ─────────────────────────────────────────
+
+
+@router.get("/defi/contract-safety")
+async def defi_contract_safety_route(
+    address: str = Query(..., min_length=42, max_length=42),
+    chain: str = Query("ethereum"),
+    protocol: str | None = Query(None),
+):
+    """Passive smart contract risk scan — flags only, no 100% guarantee (#160)."""
+    from bd_platform.defi_safety_layer import scan_contract_risk
+
+    return await scan_contract_risk(address, chain=chain, protocol_name=protocol or "")
+
+
+@router.get("/defi/contract-safety/status")
+async def defi_contract_safety_status_route():
+    from bd_platform.defi_safety_layer import defi_safety_status
+
+    return defi_safety_status()
