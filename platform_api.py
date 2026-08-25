@@ -2436,6 +2436,63 @@ async def freshness_health_check_route():
     return run_freshness_health_check()
 
 
+# ── #231 B2B Query Latency SLA — merged into #219 Freshness Assurance ─────────
+
+
+@router.get("/freshness/b2b-sla/status")
+async def b2b_sla_status_route():
+    from bd_platform.b2b_sla_monitoring import b2b_sla_status
+
+    return b2b_sla_status()
+
+
+@router.get("/freshness/b2b-sla/dashboard")
+async def b2b_sla_dashboard_route(
+    tier: str = Query("institutional"),
+    internal: bool = Query(False),
+):
+    from bd_platform.b2b_sla_monitoring import get_b2b_sla_dashboard
+
+    return get_b2b_sla_dashboard(tier=tier, internal=internal)
+
+
+@router.get("/freshness/b2b-sla/endpoints/{endpoint_path:path}")
+async def b2b_sla_endpoint_latency_route(endpoint_path: str):
+    from bd_platform.b2b_sla_monitoring import get_endpoint_latency, get_endpoint_uptime
+
+    ep = f"/{endpoint_path}" if not endpoint_path.startswith("/") else endpoint_path
+    if not ep.startswith("/api"):
+        ep = f"/api/v1/platform/{endpoint_path.lstrip('/')}"
+    return {
+        "latency": get_endpoint_latency(ep),
+        "uptime": get_endpoint_uptime(ep),
+    }
+
+
+@router.get("/freshness/b2b-sla/rate-limit")
+async def b2b_sla_rate_limit_route(
+    client_key: str = Query("default"),
+    tier: str = Query("institutional"),
+):
+    from bd_platform.b2b_sla_monitoring import get_rate_limit_status
+
+    return get_rate_limit_status(client_key, tier)
+
+
+@router.get("/freshness/b2b-sla/fallback")
+async def b2b_sla_fallback_route():
+    from bd_platform.b2b_sla_monitoring import get_fallback_status
+
+    return get_fallback_status()
+
+
+@router.get("/freshness/b2b-sla/cache-policy")
+async def b2b_sla_cache_policy_route(tier: str = Query("free")):
+    from bd_platform.b2b_sla_monitoring import get_cache_policy
+
+    return get_cache_policy(tier)
+
+
 # ── Positioning Intelligence — #221 merged into Sentiment Panel (Sprint 2) ─────
 
 

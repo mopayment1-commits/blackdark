@@ -320,6 +320,13 @@ def run_freshness_health_check() -> dict[str, Any]:
     }
 
 
+def get_b2b_sla_tab(*, tier: str = "institutional", internal: bool = False) -> dict[str, Any]:
+    """#231 B2B SLA Monitoring tab — merged into Freshness Assurance (#219)."""
+    from bd_platform.b2b_sla_monitoring import get_b2b_sla_dashboard
+
+    return get_b2b_sla_dashboard(tier=tier, internal=internal)
+
+
 def get_freshness_dashboard() -> dict[str, Any]:
     """Live freshness/update dashboard."""
     store = _load_store()
@@ -370,6 +377,8 @@ def get_freshness_dashboard() -> dict[str, Any]:
                 "display": "Data Stale | SOL feed exceeded staleness threshold",
             })
 
+    b2b_sla_tab = get_b2b_sla_tab(tier="institutional", internal=True)
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -385,12 +394,16 @@ def get_freshness_dashboard() -> dict[str, Any]:
         "no_stale_to_zero": True,
         "transport": "websocket",
         "websocket_endpoint": "/ws/platform/stream",
+        "b2b_sla_tab": b2b_sla_tab,
+        "merged_features": {"b2b_query_latency": 231},
         "timestamp": _utcnow(),
     }
 
 
 def freshness_assurance_status() -> dict[str, Any]:
     seed = _load_seed()
+    from bd_platform.b2b_sla_monitoring import b2b_sla_status
+
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
@@ -407,5 +420,14 @@ def freshness_assurance_status() -> dict[str, Any]:
         "transport": "websocket (#222 merged)",
         "websocket_endpoint": "/ws/platform/stream",
         "related_module": "streaming_infrastructure (#218)",
+        "merged_features": {
+            "b2b_query_latency": {
+                "feature_id": 231,
+                "tab": "B2B SLA Monitoring",
+                "standalone": False,
+                "enterprise_only": True,
+            },
+        },
+        "b2b_sla": b2b_sla_status(),
         "timestamp": _utcnow(),
     }

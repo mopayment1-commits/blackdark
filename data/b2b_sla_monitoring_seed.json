@@ -1,0 +1,56 @@
+{
+  "version": "1.0",
+  "feature_id": 231,
+  "merged_into": 219,
+  "standalone": false,
+  "updated_at": "2026-08-25",
+  "default_percentiles": {
+    "p50": 200,
+    "p95": 1800,
+    "p99": 2500
+  },
+  "default_uptime": {
+    "uptime_pct": 99.2,
+    "downtime_hours_month": 5.8,
+    "sla_credit_applied": false
+  },
+  "fallback": {
+    "primary": "Oracle API v2.1",
+    "backup": "Backup Feed v1.9",
+    "status": "Active",
+    "auto_switch": true,
+    "notification_on_switch": true
+  },
+  "monitored_endpoints": [
+    "/api/v1/platform/oracle",
+    "/api/v1/platform/price",
+    "/api/v1/platform/sentiment",
+    "/api/v1/platform/social-volume",
+    "/api/v1/platform/liquidity",
+    "/api/v1/platform/onchain",
+    "/api/v1/platform/financial"
+  ],
+  "endpoints": {
+    "/api/v1/platform/oracle": {
+      "uptime_pct": 99.4,
+      "downtime_hours_month": 4.3,
+      "sla_credit_applied": false
+    },
+    "/api/v1/platform/price": {
+      "uptime_pct": 99.6,
+      "downtime_hours_month": 2.9,
+      "sla_credit_applied": false
+    },
+    "/api/v1/platform/sentiment": {
+      "uptime_pct": 99.1,
+      "downtime_hours_month": 6.5,
+      "sla_credit_applied": false
+    },
+    "/api/v1/platform/onchain": {
+      "uptime_pct": 98.8,
+      "downtime_hours_month": 8.6,
+      "sla_credit_applied": true
+    }
+  },
+  "sla_disclaimer": "SLA metrics are provided for operational transparency. Actual performance may vary based on network conditions. Not a guarantee of future performance."
+}
