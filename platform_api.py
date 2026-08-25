@@ -2140,6 +2140,33 @@ async def defi_yield_center_optimize_route(
     return optimize_yield_allocation(capital_usd=capital_usd, max_risk=max_risk)  # type: ignore[arg-type]
 
 
+# ── DeFi Slippage Mapper — #228 (Sprint 2, Intelligence) ───────────────────────
+
+
+@router.get("/market-radar/defi/slippage-mapper/status")
+async def defi_slippage_mapper_status_route():
+    from bd_platform.defi_slippage_mapper import defi_slippage_mapper_status
+
+    return defi_slippage_mapper_status()
+
+
+@router.get("/market-radar/defi/slippage-mapper/dashboard")
+async def defi_slippage_mapper_dashboard_route(asset: str = Query("ETH")):
+    from bd_platform.defi_slippage_mapper import build_defi_slippage_dashboard
+
+    return build_defi_slippage_dashboard(asset)
+
+
+@router.get("/market-radar/defi/slippage-mapper/protocol/{protocol_id}")
+async def defi_slippage_mapper_protocol_route(protocol_id: str):
+    from bd_platform.defi_slippage_mapper import get_protocol_slippage
+
+    result = get_protocol_slippage(protocol_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="protocol_not_found")
+    return result
+
+
 # ── Feature #750 merged — On-Chain Metrics Suite (Realized Cap Model) ──────────
 
 
