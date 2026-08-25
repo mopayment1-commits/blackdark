@@ -1,0 +1,504 @@
+{
+  "feature_id": 239,
+  "feature_label": "Digital Asset Treasury Company Intelligence",
+  "standalone": false,
+  "merged_into": "Macro Intelligence Hub (#263)",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_revised": "2026-08-25",
+  "reference_date": "2026-08-25",
+  "methodology_display": "Treasury Intelligence Methodology v1.0 | Filing-sourced | Stale-aware | Coverage: Top 20 DAT companies | Last Revised: 2026-08-25",
+  "staleness_threshold_days": 45,
+  "companies": {
+    "MSTR": {
+      "ticker": "MSTR",
+      "name": "MicroStrategy Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-08-15",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-15"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 226500},
+      "normalized": {
+        "btc_per_share": 0.00142,
+        "pct_of_market_cap": 72.5,
+        "cost_basis_usd": 9850000000,
+        "unrealized_pnl_pct": 145.2,
+        "treasury_value_usd": 24200000000,
+        "market_cap_usd": 33400000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.72, "beta_to_btc": 1.8, "btc_exposure_level": "High"}
+    },
+    "MARA": {
+      "ticker": "MARA",
+      "name": "Marathon Digital Holdings",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-08",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-08"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 26200},
+      "normalized": {
+        "btc_per_share": 0.000089,
+        "pct_of_market_cap": 58.3,
+        "cost_basis_usd": 890000000,
+        "unrealized_pnl_pct": 112.5,
+        "treasury_value_usd": 2800000000,
+        "market_cap_usd": 4800000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.85, "beta_to_btc": 2.1, "btc_exposure_level": "High"}
+    },
+    "COIN": {
+      "ticker": "COIN",
+      "name": "Coinbase Global Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 1A",
+        "filed_date": "2026-08-01",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-06-30",
+        "next_expected_filing": "2026-11-01"
+      },
+      "holdings": {
+        "asset": "BTC",
+        "disclosed_amount": 9800,
+        "estimated_current": 10200,
+        "estimate_confidence": "Low",
+        "estimate_method": "Heuristic"
+      },
+      "normalized": {
+        "btc_per_share": 0.000038,
+        "pct_of_market_cap": 12.4,
+        "cost_basis_usd": 420000000,
+        "unrealized_pnl_pct": 98.3,
+        "treasury_value_usd": 1050000000,
+        "market_cap_usd": 84600000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.65, "beta_to_btc": 1.5, "btc_exposure_level": "Medium"}
+    },
+    "TSLA": {
+      "ticker": "TSLA",
+      "name": "Tesla Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-07-24",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-06-30",
+        "next_expected_filing": "2026-10-24"
+      },
+      "holdings": {
+        "asset": "BTC",
+        "disclosed_amount": 9720,
+        "estimated_current": 10500,
+        "estimate_confidence": "Low",
+        "estimate_method": "Heuristic"
+      },
+      "normalized": {
+        "btc_per_share": 0.000003,
+        "pct_of_market_cap": 0.8,
+        "cost_basis_usd": 1500000000,
+        "unrealized_pnl_pct": 28.5,
+        "treasury_value_usd": 1040000000,
+        "market_cap_usd": 780000000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.18, "beta_to_btc": 0.4, "btc_exposure_level": "Low"}
+    },
+    "XYZ": {
+      "ticker": "XYZ",
+      "name": "Block Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-08-05",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-06-30",
+        "next_expected_filing": "2026-11-05"
+      },
+      "holdings": {
+        "asset": "BTC",
+        "disclosed_amount": 8584,
+        "estimated_current": 8700,
+        "estimate_confidence": "Low",
+        "estimate_method": "Heuristic"
+      },
+      "normalized": {
+        "btc_per_share": 0.000014,
+        "pct_of_market_cap": 3.2,
+        "cost_basis_usd": 220000000,
+        "unrealized_pnl_pct": 185.0,
+        "treasury_value_usd": 918000000,
+        "market_cap_usd": 28700000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.42, "beta_to_btc": 0.9, "btc_exposure_level": "Low"}
+    },
+    "GLXY": {
+      "ticker": "GLXY",
+      "name": "Galaxy Digital Holdings",
+      "filing": {
+        "source": "SEDAR+",
+        "form": "MD&A",
+        "item": "Treasury Holdings",
+        "filed_date": "2026-08-12",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-12"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 17100},
+      "normalized": {
+        "btc_per_share": 0.000048,
+        "pct_of_market_cap": 45.6,
+        "cost_basis_usd": 620000000,
+        "unrealized_pnl_pct": 128.0,
+        "treasury_value_usd": 1830000000,
+        "market_cap_usd": 4010000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.78, "beta_to_btc": 1.9, "btc_exposure_level": "High"}
+    },
+    "RIOT": {
+      "ticker": "RIOT",
+      "name": "Riot Platforms Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-10",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-10"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 17500},
+      "normalized": {
+        "btc_per_share": 0.000052,
+        "pct_of_market_cap": 52.1,
+        "cost_basis_usd": 510000000,
+        "unrealized_pnl_pct": 135.8,
+        "treasury_value_usd": 1870000000,
+        "market_cap_usd": 3590000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.82, "beta_to_btc": 2.0, "btc_exposure_level": "High"}
+    },
+    "CLSK": {
+      "ticker": "CLSK",
+      "name": "CleanSpark Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-07",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-07"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 12800},
+      "normalized": {
+        "btc_per_share": 0.000045,
+        "pct_of_market_cap": 48.7,
+        "cost_basis_usd": 380000000,
+        "unrealized_pnl_pct": 142.0,
+        "treasury_value_usd": 1370000000,
+        "market_cap_usd": 2810000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.80, "beta_to_btc": 1.95, "btc_exposure_level": "High"}
+    },
+    "HUT": {
+      "ticker": "HUT",
+      "name": "Hut 8 Corp.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-06",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-06"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 10200},
+      "normalized": {
+        "btc_per_share": 0.000088,
+        "pct_of_market_cap": 44.2,
+        "cost_basis_usd": 310000000,
+        "unrealized_pnl_pct": 118.5,
+        "treasury_value_usd": 1090000000,
+        "market_cap_usd": 2470000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.76, "beta_to_btc": 1.85, "btc_exposure_level": "High"}
+    },
+    "CORZ": {
+      "ticker": "CORZ",
+      "name": "Core Scientific Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-09",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-09"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 4200},
+      "normalized": {
+        "btc_per_share": 0.000018,
+        "pct_of_market_cap": 22.5,
+        "cost_basis_usd": 145000000,
+        "unrealized_pnl_pct": 95.0,
+        "treasury_value_usd": 449000000,
+        "market_cap_usd": 1995000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.74, "beta_to_btc": 1.7, "btc_exposure_level": "Medium"}
+    },
+    "BITF": {
+      "ticker": "BITF",
+      "name": "Bitfarms Ltd.",
+      "filing": {
+        "source": "SEDAR+",
+        "form": "MD&A",
+        "item": "Treasury",
+        "filed_date": "2026-08-04",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-04"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 3800},
+      "normalized": {
+        "btc_per_share": 0.000012,
+        "pct_of_market_cap": 38.5,
+        "cost_basis_usd": 128000000,
+        "unrealized_pnl_pct": 102.0,
+        "treasury_value_usd": 406000000,
+        "market_cap_usd": 1055000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.79, "beta_to_btc": 1.88, "btc_exposure_level": "High"}
+    },
+    "CIFR": {
+      "ticker": "CIFR",
+      "name": "Cipher Mining Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-11",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-11"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 2900},
+      "normalized": {
+        "btc_per_share": 0.000008,
+        "pct_of_market_cap": 35.2,
+        "cost_basis_usd": 98000000,
+        "unrealized_pnl_pct": 108.0,
+        "treasury_value_usd": 310000000,
+        "market_cap_usd": 881000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.81, "beta_to_btc": 1.92, "btc_exposure_level": "High"}
+    },
+    "IREN": {
+      "ticker": "IREN",
+      "name": "Iris Energy Limited",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-03",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-03"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 2100},
+      "normalized": {
+        "btc_per_share": 0.000009,
+        "pct_of_market_cap": 28.8,
+        "cost_basis_usd": 72000000,
+        "unrealized_pnl_pct": 115.0,
+        "treasury_value_usd": 224000000,
+        "market_cap_usd": 778000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.77, "beta_to_btc": 1.82, "btc_exposure_level": "High"}
+    },
+    "BTBT": {
+      "ticker": "BTBT",
+      "name": "Bit Digital Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-02",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-02"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 1850},
+      "normalized": {
+        "btc_per_share": 0.000006,
+        "pct_of_market_cap": 42.0,
+        "cost_basis_usd": 58000000,
+        "unrealized_pnl_pct": 120.0,
+        "treasury_value_usd": 198000000,
+        "market_cap_usd": 471000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.83, "beta_to_btc": 2.05, "btc_exposure_level": "High"}
+    },
+    "WULF": {
+      "ticker": "WULF",
+      "name": "TeraWulf Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 2",
+        "filed_date": "2026-08-14",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-14"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 1600},
+      "normalized": {
+        "btc_per_share": 0.000004,
+        "pct_of_market_cap": 25.5,
+        "cost_basis_usd": 48000000,
+        "unrealized_pnl_pct": 110.0,
+        "treasury_value_usd": 171000000,
+        "market_cap_usd": 671000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.75, "beta_to_btc": 1.75, "btc_exposure_level": "Medium"}
+    },
+    "HIVE": {
+      "ticker": "HIVE",
+      "name": "HIVE Digital Technologies",
+      "filing": {
+        "source": "SEDAR+",
+        "form": "MD&A",
+        "item": "Treasury",
+        "filed_date": "2026-08-13",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-13"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 2200},
+      "normalized": {
+        "btc_per_share": 0.000003,
+        "pct_of_market_cap": 32.0,
+        "cost_basis_usd": 65000000,
+        "unrealized_pnl_pct": 105.0,
+        "treasury_value_usd": 235000000,
+        "market_cap_usd": 734000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.71, "beta_to_btc": 1.65, "btc_exposure_level": "Medium"}
+    },
+    "SMLR": {
+      "ticker": "SMLR",
+      "name": "Semler Scientific Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-08-16",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-16"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 5021},
+      "normalized": {
+        "btc_per_share": 0.00072,
+        "pct_of_market_cap": 68.5,
+        "cost_basis_usd": 198000000,
+        "unrealized_pnl_pct": 155.0,
+        "treasury_value_usd": 536000000,
+        "market_cap_usd": 783000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.68, "beta_to_btc": 1.6, "btc_exposure_level": "High"}
+    },
+    "3350.T": {
+      "ticker": "3350.T",
+      "name": "Metaplanet Inc.",
+      "filing": {
+        "source": "TDnet",
+        "form": "Quarterly Report",
+        "item": "Treasury Holdings",
+        "filed_date": "2026-08-10",
+        "reporting_period": "Q2 FY2026",
+        "reporting_period_end": "2026-07-31",
+        "next_expected_filing": "2026-11-10"
+      },
+      "holdings": {"asset": "BTC", "disclosed_amount": 18113},
+      "normalized": {
+        "btc_per_share": 0.00012,
+        "pct_of_market_cap": 55.0,
+        "cost_basis_usd": 890000000,
+        "unrealized_pnl_pct": 138.0,
+        "treasury_value_usd": 1935000000,
+        "market_cap_usd": 3518000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.70, "beta_to_btc": 1.7, "btc_exposure_level": "High"}
+    },
+    "MELI": {
+      "ticker": "MELI",
+      "name": "MercadoLibre Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-08-01",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-06-30",
+        "next_expected_filing": "2026-11-01"
+      },
+      "holdings": {
+        "asset": "BTC",
+        "disclosed_amount": 412,
+        "estimated_current": 420,
+        "estimate_confidence": "Low",
+        "estimate_method": "Heuristic"
+      },
+      "normalized": {
+        "btc_per_share": 0.0000008,
+        "pct_of_market_cap": 0.3,
+        "cost_basis_usd": 18000000,
+        "unrealized_pnl_pct": 65.0,
+        "treasury_value_usd": 44000000,
+        "market_cap_usd": 98000000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.12, "beta_to_btc": 0.25, "btc_exposure_level": "Low"}
+    },
+    "HOOD": {
+      "ticker": "HOOD",
+      "name": "Robinhood Markets Inc.",
+      "filing": {
+        "source": "SEC",
+        "form": "10-Q",
+        "item": "Item 7",
+        "filed_date": "2026-08-01",
+        "reporting_period": "Q2 2026",
+        "reporting_period_end": "2026-06-30",
+        "next_expected_filing": "2026-11-01"
+      },
+      "holdings": {
+        "asset": "BTC",
+        "disclosed_amount": 6800,
+        "estimated_current": 7100,
+        "estimate_confidence": "Low",
+        "estimate_method": "Heuristic"
+      },
+      "normalized": {
+        "btc_per_share": 0.000008,
+        "pct_of_market_cap": 8.5,
+        "cost_basis_usd": 285000000,
+        "unrealized_pnl_pct": 88.0,
+        "treasury_value_usd": 728000000,
+        "market_cap_usd": 8560000000
+      },
+      "crypto_linkage": {"linked_asset": "BTC", "stock_btc_correlation_90d": 0.55, "beta_to_btc": 1.2, "btc_exposure_level": "Medium"}
+    }
+  }
+}

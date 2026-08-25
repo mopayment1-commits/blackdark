@@ -2615,6 +2615,30 @@ async def macro_intelligence_hub_coupling_route(asset: str = Query("BTC")):
     return build_macro_coupling(asset)
 
 
+@router.get("/market-radar/macro-hub/treasury-companies")
+async def macro_hub_treasury_companies_route(asset: str = Query("BTC")):
+    from bd_platform.treasury_intelligence import build_treasury_dashboard
+
+    return build_treasury_dashboard(asset)
+
+
+@router.get("/market-radar/macro-hub/treasury-companies/{ticker}")
+async def macro_hub_treasury_company_route(ticker: str):
+    from bd_platform.treasury_intelligence import get_treasury_company
+
+    result = get_treasury_company(ticker)
+    if not result:
+        raise HTTPException(status_code=404, detail="treasury_company_not_found")
+    return result
+
+
+@router.get("/market-radar/treasury-intelligence/status")
+async def treasury_intelligence_status_route():
+    from bd_platform.treasury_intelligence import treasury_intelligence_status
+
+    return treasury_intelligence_status()
+
+
 # ── Global Liquidity Intelligence — #248 (Sprint 2, Pro/Institution) ───────────
 
 
