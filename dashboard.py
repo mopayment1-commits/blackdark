@@ -3651,6 +3651,50 @@ def _legal_page(request: Request, page: str):
     )
 
 
+def _shared_content_page(request: Request, slug: str):
+    """Public view page for shared chart/idea/dashboard (#177 + #182)."""
+    import json
+
+    from bd_platform.public_content_hub import get_public_view
+
+    result = get_public_view(slug)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    snap = result.get("snapshot") or {}
+    wm = result.get("watermark") or {}
+    return templates.TemplateResponse(
+        request,
+        "shared_content.html",
+        {
+            "title": snap.get("title") or "Shared content",
+            "content_type": result.get("content_type") or snap.get("content_type") or "content",
+            "version": result.get("version") or snap.get("version") or 1,
+            "privacy": result.get("privacy") or "public",
+            "published_at": result.get("published_at") or snap.get("captured_at") or "",
+            "notes": snap.get("notes") or "",
+            "snapshot_json": json.dumps(snap, indent=2, default=str),
+            "watermark_text": wm.get("text") or "Powered by BLACKDARK",
+            "signup_url": wm.get("signup_url") or "/create-checkout-session?tier=pro",
+            **_footer_ctx(),
+        },
+    )
+
+
+@app.get("/share/content/{slug}", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
+async def shared_content_page_route(request: Request, slug: str):
+    return _shared_content_page(request, slug)
+
+
+@app.get("/share/dashboard/{slug}", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
+async def shared_dashboard_page_route(request: Request, slug: str):
+    return _shared_content_page(request, slug)
+
+
+@app.get("/share/chart/{slug}", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
+async def shared_chart_page_route(request: Request, slug: str):
+    return _shared_content_page(request, slug)
+
+
 @app.get("/terms", response_class=HTMLResponse, responses=COMMON_ERROR_RESPONSES)
 async def terms_page(request: Request):
     return _legal_page(request, "terms")
