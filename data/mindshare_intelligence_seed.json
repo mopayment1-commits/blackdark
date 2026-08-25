@@ -1,0 +1,72 @@
+{
+  "feature_id": 272,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Social Signal Layer",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "provider_config": {
+    "name": "LunarCrush",
+    "monthly_cost_cap_usd": 500,
+    "current_spend_usd": 320,
+    "paused_on_exceed": false
+  },
+  "universe": {
+    "version": "1.2",
+    "asset_count": 250,
+    "sources": ["LunarCrush API", "Twitter/X", "Reddit", "News"],
+    "provider": "LunarCrush"
+  },
+  "bot_filtering": {
+    "methodology_version": "1.1",
+    "false_positive_rate_pct": 2.1,
+    "monthly_audit_sample": 500,
+    "min_account_age_days": 30,
+    "min_followers": 100
+  },
+  "gainers_losers": {
+    "period": "7D",
+    "gainers": [
+      {"symbol": "SOL", "mindshare_change_pct": 2.4},
+      {"symbol": "ARB", "mindshare_change_pct": 1.8}
+    ],
+    "losers": [
+      {"symbol": "DOGE", "mindshare_change_pct": -1.2},
+      {"symbol": "SHIB", "mindshare_change_pct": -0.9}
+    ]
+  },
+  "assets": {
+    "BTC": {
+      "mindshare_pct": 28.5,
+      "mentions_weekly": 125000,
+      "trend": "rising",
+      "mapping_confidence_pct": 99.5,
+      "mapping_verified": true,
+      "community_submitted": false
+    },
+    "ETH": {
+      "mindshare_pct": 18.2,
+      "mentions_weekly": 89000,
+      "trend": "flat",
+      "mapping_confidence_pct": 99.2,
+      "mapping_verified": true,
+      "community_submitted": false
+    },
+    "SOL": {
+      "mindshare_pct": 4.8,
+      "mentions_weekly": 22000,
+      "trend": "rising",
+      "mapping_confidence_pct": 97.0,
+      "mapping_verified": true,
+      "community_submitted": false
+    },
+    "ALT": {
+      "mindshare_pct": 0.02,
+      "mentions_weekly": 45,
+      "trend": "flat",
+      "mapping_confidence_pct": 72.0,
+      "mapping_verified": false,
+      "community_submitted": true
+    }
+  }
+}

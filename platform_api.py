@@ -548,6 +548,50 @@ async def intelligence_ledger_slippage(
     )
 
 
+@router.get("/intelligence-ledger/correlation/status")
+async def correlation_lead_lag_status_route():
+    """#271 Correlation & Lead-Lag Module — Analyst Suite, no causation language."""
+    from bd_platform.correlation_lead_lag import correlation_lead_lag_status
+
+    return correlation_lead_lag_status()
+
+
+@router.get("/intelligence-ledger/correlation")
+async def correlation_lead_lag_analysis_route(
+    metric_a: str = Query("price"),
+    metric_b: str = Query("active_addresses"),
+    asset: str = Query("BTC"),
+    window_days: int = Query(30, description="7 | 30 | 90 | 365"),
+):
+    """#271 correlation + lead-lag panel — daily batch, no causation language."""
+    from bd_platform.correlation_lead_lag import build_correlation_analysis
+
+    key_a = f"{asset.upper()}:{metric_b}"
+    result = build_correlation_analysis(key_a, metric_b, window_days=window_days)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/mindshare/status")
+async def mindshare_intelligence_status_route():
+    """#272 Social Signal & Mindshare — provider + filtering layer."""
+    from bd_platform.mindshare_intelligence import mindshare_intelligence_status
+
+    return mindshare_intelligence_status()
+
+
+@router.get("/intelligence-ledger/mindshare")
+async def mindshare_intelligence_panel_route(asset: str = Query("BTC")):
+    """#272 mindshare panel — no raw social pipeline."""
+    from bd_platform.mindshare_intelligence import build_mindshare_panel
+
+    result = build_mindshare_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/address-intelligence/search")
 async def address_intelligence_search(
     address: str = Query(..., min_length=10),

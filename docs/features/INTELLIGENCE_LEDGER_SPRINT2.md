@@ -6,6 +6,8 @@ Sprint 2 hub for execution intelligence. **1inch is a data source inside this le
 |---|---------|--------|-----|--------|
 | 5 | Slippage Intelligence Module (#5+#17) | `bd_platform/slippage_tolerance_optimizer.py` | `GET /api/platform/intelligence-ledger/slippage-optimize` | Slippage Intelligence (#5+#17) |
 | 6 | 1inch Network (embedded) | `bd_platform/oneinch_connector.py` | via `GET /api/platform/intelligence-ledger/execution` | Execution Intelligence |
+| 271 | Correlation & Lead-Lag Module | `bd_platform/correlation_lead_lag.py` | `GET /api/platform/intelligence-ledger/correlation` | Analyst Suite (Sprint 2) |
+| 272 | Social Signal & Mindshare | `bd_platform/mindshare_intelligence.py` | `GET /api/platform/intelligence-ledger/mindshare` | Social Signal Layer |
 
 ## Self-optimization logic (Feature #5)
 

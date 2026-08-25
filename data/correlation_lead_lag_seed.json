@@ -1,0 +1,66 @@
+{
+  "feature_id": 271,
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Analyst Suite",
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "current_phase": 1,
+  "phase_label": "Price vs on-chain metrics only",
+  "dependency_gate": {
+    "data_engine_stable": true,
+    "stability_days_required": 30,
+    "stability_days_met": 30,
+    "production_grade_metrics": true
+  },
+  "analyses": {
+    "BTC:active_addresses": {
+      "correlation": {
+        "coefficient": 0.72,
+        "p_value": 0.003,
+        "window_days": 30
+      },
+      "lead_lag": {
+        "best_lag_days": 3,
+        "max_correlation": 0.68
+      },
+      "data_quality": {
+        "missing_pct": 0.05,
+        "interpolation_method": "linear",
+        "outlier_handling": "winsorize_3sigma"
+      }
+    },
+    "BTC:exchange_netflow": {
+      "correlation": {
+        "coefficient": -0.45,
+        "p_value": 0.012,
+        "window_days": 30
+      },
+      "lead_lag": {
+        "best_lag_days": -5,
+        "max_correlation": -0.52
+      },
+      "data_quality": {
+        "missing_pct": 0.08,
+        "interpolation_method": "linear",
+        "outlier_handling": "winsorize_3sigma"
+      }
+    },
+    "ETH:gas_used": {
+      "correlation": {
+        "coefficient": 0.38,
+        "p_value": 0.041,
+        "window_days": 90
+      },
+      "lead_lag": {
+        "best_lag_days": 0,
+        "max_correlation": 0.38
+      },
+      "data_quality": {
+        "missing_pct": 0.25,
+        "interpolation_method": "linear",
+        "outlier_handling": "winsorize_3sigma"
+      }
+    }
+  }
+}
