@@ -1,0 +1,115 @@
+{
+  "feature_id": 263,
+  "feature_label": "Macro Intelligence Hub",
+  "standalone": false,
+  "merged_into": "Macro Intelligence Hub (Integration Dashboard)",
+  "sprint": 2,
+  "methodology_version": "1.3",
+  "last_updated": "2026-08-25",
+  "tier_default": "pro",
+  "integrated_modules": [
+    {"feature_id": 248, "name": "Global Liquidity Intelligence", "key": "global_liquidity", "status": "live"},
+    {"feature_id": 211, "name": "Economic Calendar", "key": "economic_calendar", "status": "live"},
+    {"feature_id": 244, "name": "Fed M2 Macro Flow", "key": "fed_m2_macro_flow", "status": "live", "source_module": 248},
+    {"feature_id": 210, "name": "ETF Data", "key": "etf_intelligence", "status": "live"},
+    {"feature_id": 240, "name": "ETF Flow Intelligence", "key": "etf_intelligence", "status": "live"},
+    {"feature_id": 233, "name": "Coinbase Premium", "key": "premium_intelligence", "status": "live"},
+    {"feature_id": 255, "name": "Korea Premium", "key": "premium_intelligence", "status": "live"},
+    {"feature_id": 239, "name": "Treasury Companies", "key": "treasury_companies", "status": "planned"}
+  ],
+  "methodology_display": "Macro Integration Methodology v1.3 | Components: 7 modules | Alignment: Release-time | Look-ahead: Prevented | Last Updated: 2026-08-25",
+  "release_time_alignment": {
+    "policy": "Minute-level release-time alignment — macro and crypto compared at identical timestamps",
+    "example": "DXY Release: 14:00 EST | Crypto Data Used: 14:00 EST | Lag: 0"
+  },
+  "no_look_ahead": {
+    "policy": "Correlation calculated using data available at time T only",
+    "test_question": "If I calculate correlation on 2026-08-25, does it use macro data published on 2026-08-26?",
+    "expected_answer": "NO"
+  },
+  "tier_features": {
+    "free": ["summary_headline"],
+    "pro": ["summary_headline", "correlation_tables", "source_calendar"],
+    "enterprise": ["summary_headline", "correlation_tables", "source_calendar", "regime_analysis", "custom_macro_factors", "anomaly_detection"]
+  },
+  "source_calendar": [
+    {
+      "event": "Non-Farm Payrolls",
+      "date": "2026-09-05",
+      "time": "08:30 EST",
+      "time_utc": "2026-09-05T12:30:00+00:00",
+      "source": "BLS",
+      "expected_impact": "high",
+      "display": "Next Release: Non-Farm Payrolls | Date: 2026-09-05 | Time: 08:30 EST | Source: BLS | Expected Impact: High"
+    },
+    {
+      "event": "FOMC Interest Rate Decision",
+      "date": "2026-09-17",
+      "time": "14:00 EST",
+      "time_utc": "2026-09-17T18:00:00+00:00",
+      "source": "Federal Reserve",
+      "expected_impact": "high",
+      "display": "Next Release: FOMC Interest Rate Decision | Date: 2026-09-17 | Time: 14:00 EST | Source: Federal Reserve | Expected Impact: High"
+    },
+    {
+      "event": "US CPI (MoM)",
+      "date": "2026-09-11",
+      "time": "08:30 EST",
+      "time_utc": "2026-09-11T12:30:00+00:00",
+      "source": "BLS",
+      "expected_impact": "high",
+      "display": "Next Release: US CPI (MoM) | Date: 2026-09-11 | Time: 08:30 EST | Source: BLS | Expected Impact: High"
+    }
+  ],
+  "aligned_snapshots": {
+    "BTC": {
+      "alignment_timestamp_utc": "2026-08-25T18:00:00+00:00",
+      "alignment_timestamp_est": "2026-08-25T14:00:00 EST",
+      "dxy_release_est": "14:00 EST",
+      "crypto_data_est": "14:00 EST",
+      "lag_minutes": 0,
+      "alignment_display": "DXY Release: 14:00 EST | Crypto Data Used: 14:00 EST | Lag: 0"
+    }
+  },
+  "series": {
+    "BTC": {
+      "daily": [
+        {"date": "2026-07-27", "btc_close": 118500, "dxy": 104.2, "spx": 5450, "btc_published": "2026-07-27T23:59:00+00:00", "dxy_published": "2026-07-27T18:00:00+00:00"},
+        {"date": "2026-07-28", "btc_close": 119200, "dxy": 103.9, "spx": 5465, "btc_published": "2026-07-28T23:59:00+00:00", "dxy_published": "2026-07-28T18:00:00+00:00"},
+        {"date": "2026-07-29", "btc_close": 118800, "dxy": 104.1, "spx": 5455, "btc_published": "2026-07-29T23:59:00+00:00", "dxy_published": "2026-07-29T18:00:00+00:00"},
+        {"date": "2026-07-30", "btc_close": 117900, "dxy": 104.5, "spx": 5430, "btc_published": "2026-07-30T23:59:00+00:00", "dxy_published": "2026-07-30T18:00:00+00:00"},
+        {"date": "2026-07-31", "btc_close": 116500, "dxy": 104.8, "spx": 5410, "btc_published": "2026-07-31T23:59:00+00:00", "dxy_published": "2026-07-31T18:00:00+00:00"},
+        {"date": "2026-08-01", "btc_close": 115800, "dxy": 104.6, "spx": 5405, "btc_published": "2026-08-01T23:59:00+00:00", "dxy_published": "2026-08-01T18:00:00+00:00"},
+        {"date": "2026-08-04", "btc_close": 116200, "dxy": 104.3, "spx": 5420, "btc_published": "2026-08-04T23:59:00+00:00", "dxy_published": "2026-08-04T18:00:00+00:00"},
+        {"date": "2026-08-05", "btc_close": 116800, "dxy": 104.0, "spx": 5440, "btc_published": "2026-08-05T23:59:00+00:00", "dxy_published": "2026-08-05T18:00:00+00:00"},
+        {"date": "2026-08-06", "btc_close": 115500, "dxy": 104.4, "spx": 5415, "btc_published": "2026-08-06T23:59:00+00:00", "dxy_published": "2026-08-06T18:00:00+00:00"},
+        {"date": "2026-08-07", "btc_close": 114900, "dxy": 104.7, "spx": 5395, "btc_published": "2026-08-07T23:59:00+00:00", "dxy_published": "2026-08-07T18:00:00+00:00"},
+        {"date": "2026-08-08", "btc_close": 115300, "dxy": 104.5, "spx": 5400, "btc_published": "2026-08-08T23:59:00+00:00", "dxy_published": "2026-08-08T18:00:00+00:00"},
+        {"date": "2026-08-11", "btc_close": 116100, "dxy": 104.1, "spx": 5435, "btc_published": "2026-08-11T23:59:00+00:00", "dxy_published": "2026-08-11T18:00:00+00:00"},
+        {"date": "2026-08-12", "btc_close": 116500, "dxy": 103.8, "spx": 5450, "btc_published": "2026-08-12T23:59:00+00:00", "dxy_published": "2026-08-12T18:00:00+00:00"},
+        {"date": "2026-08-13", "btc_close": 115800, "dxy": 104.0, "spx": 5438, "btc_published": "2026-08-13T23:59:00+00:00", "dxy_published": "2026-08-13T18:00:00+00:00"},
+        {"date": "2026-08-14", "btc_close": 116200, "dxy": 103.7, "spx": 5460, "btc_published": "2026-08-14T23:59:00+00:00", "dxy_published": "2026-08-14T18:00:00+00:00"},
+        {"date": "2026-08-15", "btc_close": 116800, "dxy": 103.5, "spx": 5475, "btc_published": "2026-08-15T23:59:00+00:00", "dxy_published": "2026-08-15T18:00:00+00:00"},
+        {"date": "2026-08-18", "btc_close": 117200, "dxy": 103.3, "spx": 5485, "btc_published": "2026-08-18T23:59:00+00:00", "dxy_published": "2026-08-18T18:00:00+00:00"},
+        {"date": "2026-08-19", "btc_close": 116900, "dxy": 103.6, "spx": 5470, "btc_published": "2026-08-19T23:59:00+00:00", "dxy_published": "2026-08-19T18:00:00+00:00"},
+        {"date": "2026-08-20", "btc_close": 115600, "dxy": 103.9, "spx": 5455, "btc_published": "2026-08-20T23:59:00+00:00", "dxy_published": "2026-08-20T18:00:00+00:00"},
+        {"date": "2026-08-21", "btc_close": 115200, "dxy": 104.0, "spx": 5448, "btc_published": "2026-08-21T23:59:00+00:00", "dxy_published": "2026-08-21T18:00:00+00:00"},
+        {"date": "2026-08-22", "btc_close": 114800, "dxy": 103.6, "spx": 5460, "btc_published": "2026-08-22T23:59:00+00:00", "dxy_published": "2026-08-22T18:00:00+00:00", "anomaly": true},
+        {"date": "2026-08-25", "btc_close": 116500, "dxy": 103.8, "spx": 5480, "btc_published": "2026-08-25T18:00:00+00:00", "dxy_published": "2026-08-25T18:00:00+00:00"}
+      ],
+      "regime_history": {
+        "Tightening + Strong Dollar": {"median_btc_return_pct": -4.2, "sample_months": 18},
+        "Easing + Weak Dollar": {"median_btc_return_pct": 8.5, "sample_months": 14},
+        "Risk-On": {"median_btc_return_pct": 6.1, "sample_months": 22},
+        "Risk-Off": {"median_btc_return_pct": -5.8, "sample_months": 16}
+      },
+      "coupling": {
+        "current_regime": "BTC-DXY Decoupling",
+        "duration_days": 12,
+        "historical_median_decoupling_days": 8,
+        "unusual": true
+      }
+    }
+  },
+  "calculation_as_of": "2026-08-25"
+}

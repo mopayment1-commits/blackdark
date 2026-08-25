@@ -2567,6 +2567,34 @@ async def social_hype_market_scan_route(limit: int = Query(10, ge=1, le=50)):
     return scan_market_hype(limit=limit)
 
 
+# ── Macro Intelligence Hub — #263 (Sprint 2, Pro/Institution) ──────────────────
+
+
+@router.get("/market-radar/macro-hub/status")
+async def macro_intelligence_hub_status_route():
+    from bd_platform.macro_intelligence_hub import macro_intelligence_hub_status
+
+    return macro_intelligence_hub_status()
+
+
+@router.get("/market-radar/macro-hub/dashboard")
+async def macro_intelligence_hub_dashboard_route(
+    asset: str = Query("BTC"),
+    tier: str = Query("pro"),
+    window: str = Query("30D"),
+):
+    from bd_platform.macro_intelligence_hub import build_macro_intelligence_hub
+
+    return build_macro_intelligence_hub(asset, tier=tier, window=window)  # type: ignore[arg-type]
+
+
+@router.get("/market-radar/macro-hub/coupling")
+async def macro_intelligence_hub_coupling_route(asset: str = Query("BTC")):
+    from bd_platform.macro_intelligence_hub import build_macro_coupling
+
+    return build_macro_coupling(asset)
+
+
 # ── Global Liquidity Intelligence — #248 (Sprint 2, Pro/Institution) ───────────
 
 
