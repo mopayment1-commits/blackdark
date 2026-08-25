@@ -1630,3 +1630,70 @@ async def economic_calendar_detail_route(event_id: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+# ── Feature #212 — Block-Level Ingestion Layer ───────────────────────────────
+
+
+@router.get("/block-ingestion/status")
+async def block_ingestion_status_route():
+    from bd_platform.block_level_ingestion import block_level_ingestion_status
+
+    return block_level_ingestion_status()
+
+
+@router.get("/block-ingestion/latency-slo")
+async def block_ingestion_latency_slo_route(chain: str | None = Query(None)):
+    from bd_platform.block_level_ingestion import measure_latency_slo
+
+    return measure_latency_slo(chain=chain)
+
+
+@router.get("/block-ingestion/gaps")
+async def block_ingestion_gaps_route(chain: str | None = Query(None)):
+    from bd_platform.block_level_ingestion import get_gap_alerts
+
+    return get_gap_alerts(chain=chain)
+
+
+@router.get("/block-ingestion/feeds")
+async def block_ingestion_feeds_route(
+    chain: str | None = Query(None),
+    tier: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.block_level_ingestion import list_block_feeds
+
+    return list_block_feeds(chain=chain, tier=tier, limit=limit)  # type: ignore[arg-type]
+
+
+@router.get("/block-ingestion/bars/{chain_id}")
+async def block_ingestion_bars_route(chain_id: str, limit: int = Query(10, ge=1, le=100)):
+    from bd_platform.block_level_ingestion import aggregate_minute_bars
+
+    result = aggregate_minute_bars(chain_id, limit=limit)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/block-ingestion/blocks/{block_id}")
+async def block_ingestion_block_detail_route(block_id: str):
+    from bd_platform.block_level_ingestion import get_block
+
+    result = get_block(block_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.post("/block-ingestion/reorg")
+async def block_ingestion_reorg_route(body: dict[str, Any] = Body(...)):
+    from bd_platform.block_level_ingestion import handle_reorg
+
+    return handle_reorg(
+        str(body.get("chain_id") or ""),
+        int(body.get("block_height") or 0),
+        str(body.get("old_hash") or ""),
+        str(body.get("new_hash") or ""),
+    )

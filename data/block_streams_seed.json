@@ -1,0 +1,55 @@
+{
+  "chains": {
+    "ethereum": {
+      "chain_id": "ethereum",
+      "latest_block": 19234567,
+      "tier": "enterprise",
+      "blocks": [
+        {"height": 19234560, "hash": "0xabc001", "timestamp_utc": "2026-08-25T12:00:00+00:00", "tx_count": 142, "latency_ms": 320},
+        {"height": 19234561, "hash": "0xabc002", "timestamp_utc": "2026-08-25T12:00:12+00:00", "tx_count": 156, "latency_ms": 280},
+        {"height": 19234562, "hash": "0xabc003", "timestamp_utc": "2026-08-25T12:00:24+00:00", "tx_count": 131, "latency_ms": 410},
+        {"height": 19234564, "hash": "0xabc005", "timestamp_utc": "2026-08-25T12:00:48+00:00", "tx_count": 148, "latency_ms": 350},
+        {"height": 19234565, "hash": "0xabc006", "timestamp_utc": "2026-08-25T12:01:00+00:00", "tx_count": 162, "latency_ms": 290},
+        {"height": 19234566, "hash": "0xabc007", "timestamp_utc": "2026-08-25T12:01:12+00:00", "tx_count": 139, "latency_ms": 310},
+        {"height": 19234567, "hash": "0xabc008", "timestamp_utc": "2026-08-25T12:01:24+00:00", "tx_count": 155, "latency_ms": 275}
+      ],
+      "reorgs": [
+        {
+          "block_height": 19234563,
+          "old_hash": "0xabc004_old",
+          "new_hash": "0xabc004_new",
+          "detected_at": "2026-08-25T12:00:40+00:00",
+          "status": "resolved"
+        }
+      ]
+    },
+    "bitcoin": {
+      "chain_id": "bitcoin",
+      "latest_block": 862345,
+      "tier": "basic",
+      "blocks": [
+        {"height": 862340, "hash": "000000btc001", "timestamp_utc": "2026-08-25T11:55:00+00:00", "tx_count": 2841, "latency_ms": 2100},
+        {"height": 862341, "hash": "000000btc002", "timestamp_utc": "2026-08-25T12:05:00+00:00", "tx_count": 3102, "latency_ms": 3200},
+        {"height": 862342, "hash": "000000btc003", "timestamp_utc": "2026-08-25T12:15:00+00:00", "tx_count": 2950, "latency_ms": 2800},
+        {"height": 862343, "hash": "000000btc004", "timestamp_utc": "2026-08-25T12:25:00+00:00", "tx_count": 3011, "latency_ms": 3500},
+        {"height": 862344, "hash": "000000btc005", "timestamp_utc": "2026-08-25T12:35:00+00:00", "tx_count": 2888, "latency_ms": 4100},
+        {"height": 862345, "hash": "000000btc006", "timestamp_utc": "2026-08-25T12:45:00+00:00", "tx_count": 3201, "latency_ms": 2900}
+      ],
+      "reorgs": []
+    },
+    "solana": {
+      "chain_id": "solana",
+      "latest_block": 285432100,
+      "tier": "enterprise",
+      "blocks": [
+        {"height": 285432095, "hash": "sol001", "timestamp_utc": "2026-08-25T12:01:20+00:00", "tx_count": 1842, "latency_ms": 180},
+        {"height": 285432096, "hash": "sol002", "timestamp_utc": "2026-08-25T12:01:21+00:00", "tx_count": 1920, "latency_ms": 165},
+        {"height": 285432097, "hash": "sol003", "timestamp_utc": "2026-08-25T12:01:22+00:00", "tx_count": 1755, "latency_ms": 190},
+        {"height": 285432098, "hash": "sol004", "timestamp_utc": "2026-08-25T12:01:23+00:00", "tx_count": 2011, "latency_ms": 155},
+        {"height": 285432099, "hash": "sol005", "timestamp_utc": "2026-08-25T12:01:24+00:00", "tx_count": 1888, "latency_ms": 170},
+        {"height": 285432100, "hash": "sol006", "timestamp_utc": "2026-08-25T12:01:25+00:00", "tx_count": 1955, "latency_ms": 160}
+      ],
+      "reorgs": []
+    }
+  }
+}
