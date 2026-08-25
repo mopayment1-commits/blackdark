@@ -150,7 +150,7 @@ def _enrich_candle(row: dict[str, Any]) -> dict[str, Any]:
     agg = _aggregate_sources(row.get("sources") or {})
     vol_check = _validate_volume(agg.get("volume"), row.get("onchain_volume_proxy"))
 
-    return {
+    candle = {
         **row,
         "ohlcv": {
             "open": agg["open"],
@@ -174,6 +174,20 @@ def _enrich_candle(row: dict[str, Any]) -> dict[str, Any]:
             f"O:{agg['open']} H:{agg['high']} L:{agg['low']} C:{agg['close']} V:{agg['volume']}"
         ),
     }
+
+    try:
+        from bd_platform.market_cap_supply import build_market_cap_block
+
+        close_price = agg.get("close")
+        if close_price is not None and row.get("asset"):
+            mcap = build_market_cap_block(str(row["asset"]), float(close_price))
+            if mcap:
+                candle["market_cap_supply"] = mcap
+                candle["integrated_features"] = ["#267"]
+    except Exception:
+        logger.debug("market cap enrich failed", exc_info=True)
+
+    return candle
 
 
 def list_ohlcv_candles(
@@ -245,5 +259,7 @@ def ohlcv_core_feed_status() -> dict[str, Any]:
         "volume_validation": True,
         "batch_not_realtime": True,
         "realtime_ticks_feature": 212,
+        "integrated_with": ["#267 Market Cap / Supply"],
+        "market_cap_supply_merged": True,
         "timestamp": _utcnow(),
     }
