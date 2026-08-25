@@ -1,0 +1,127 @@
+{
+  "version": "2.1",
+  "updated_at": "2026-08-25",
+  "assumptions": [
+    "Fed funds rate unchanged through next FOMC cycle",
+    "No major exchange insolvency event",
+    "On-chain flows remain within 2σ of 90-day average",
+    "Macro correlation regime stable (DXY/SPX beta within calibrated band)"
+  ],
+  "calibration": {
+    "period": "2023-2025",
+    "brier_score": 0.182,
+    "out_of_sample_tested": true,
+    "method": "Walk-forward regime-conditional probability calibration",
+    "display": "Calibration tested on 2023-2025 data | Brier Score: 0.182"
+  },
+  "scenario_templates": {
+    "BTC": {
+      "scenarios": [
+        {
+          "id": "btc-continuation",
+          "label": "A — Continuation",
+          "base_probability_pct": 30.0,
+          "narrative": "Likely range-bound continuation with modest upside if liquidity conditions remain supportive",
+          "drivers": ["Stable funding rates", "ETF inflows sustained", "MVRV in neutral band"],
+          "invalidation_conditions": [
+            "BTC breaks below support threshold",
+            "Funding turns persistently negative > 7 days"
+          ]
+        },
+        {
+          "id": "btc-expansion",
+          "label": "B — Expansion",
+          "base_probability_pct": 45.0,
+          "narrative": "Probability favors gradual expansion if macro risk-on persists",
+          "drivers": ["Risk-on macro regime", "Declining exchange reserves", "Positive breadth"],
+          "invalidation_conditions": [
+            "BTC fails to hold above resistance on weekly close",
+            "DXY breaks above recent highs"
+          ]
+        },
+        {
+          "id": "btc-correction",
+          "label": "C — Correction",
+          "base_probability_pct": 25.0,
+          "narrative": "Elevated probability of corrective phase if leverage builds",
+          "drivers": ["Elevated open interest", "Overheated MVRV proxy", "Macro headwinds"],
+          "invalidation_conditions": [
+            "BTC breaks above all-time high with volume confirmation",
+            "Liquidations cascade without price recovery"
+          ]
+        }
+      ],
+      "price_thresholds": {
+        "support_usd": 92000,
+        "resistance_usd": 108000,
+        "ath_usd": 115000
+      },
+      "sensitivity_shocks": [
+        {
+          "shock": "Fed cuts 25bps",
+          "shifts": {"btc-continuation": -3.0, "btc-expansion": 5.0, "btc-correction": -2.0},
+          "display": "If Fed cuts 25bps → Probability shifts: A -3% | B +5% | C -2%"
+        },
+        {
+          "shock": "DXY +2%",
+          "shifts": {"btc-continuation": 2.0, "btc-expansion": -5.0, "btc-correction": 3.0},
+          "display": "If DXY +2% → Probability shifts: A +2% | B -5% | C +3%"
+        }
+      ]
+    },
+    "ETH": {
+      "scenarios": [
+        {
+          "id": "eth-consolidation",
+          "label": "A — Consolidation",
+          "base_probability_pct": 35.0,
+          "narrative": "Likely consolidation while dominance stabilizes",
+          "drivers": ["Stable gas fees", "L2 activity growth", "Staking yield steady"],
+          "invalidation_conditions": [
+            "ETH dominance drops below threshold",
+            "Network congestion spikes > 2 weeks"
+          ]
+        },
+        {
+          "id": "eth-outperformance",
+          "label": "B — Outperformance",
+          "base_probability_pct": 40.0,
+          "narrative": "Probability of ETH/BTC ratio improvement in risk-on conditions",
+          "drivers": ["Risk-on regime", "DeFi TVL growth", "Positive breadth"],
+          "invalidation_conditions": [
+            "ETH/BTC ratio breaks below recent lows",
+            "Major smart contract exploit"
+          ]
+        },
+        {
+          "id": "eth-underperformance",
+          "label": "C — Underperformance",
+          "base_probability_pct": 25.0,
+          "narrative": "Likely relative weakness if BTC dominance rises",
+          "drivers": ["BTC dominance rising", "Risk-off macro", "Weak DeFi flows"],
+          "invalidation_conditions": [
+            "ETH dominance rises above recent highs",
+            "Institutional ETH inflows accelerate"
+          ]
+        }
+      ],
+      "price_thresholds": {
+        "support_usd": 3200,
+        "resistance_usd": 4200,
+        "dominance_pct": 18.5
+      },
+      "sensitivity_shocks": [
+        {
+          "shock": "Fed cuts 25bps",
+          "shifts": {"eth-consolidation": -2.0, "eth-outperformance": 4.0, "eth-underperformance": -2.0},
+          "display": "If Fed cuts 25bps → Probability shifts: A -2% | B +4% | C -2%"
+        }
+      ]
+    }
+  },
+  "regime_adjustments": {
+    "risk_on": {"expansion_boost": 5.0, "correction_penalty": -3.0},
+    "risk_off": {"expansion_penalty": -5.0, "correction_boost": 4.0},
+    "neutral": {}
+  }
+}

@@ -2245,3 +2245,51 @@ async def signal_validation_route(
 
     return await run_signal_validation(asset, opportunity_score=opportunity_score)
 
+
+# ── Scenario Engine — #751 probabilistic scenarios (Enterprise tier) ────────────
+
+
+@router.get("/scenario-engine/status")
+async def scenario_engine_status_route():
+    from bd_platform.scenario_engine import scenario_engine_status
+
+    return scenario_engine_status()
+
+
+@router.get("/scenario-engine/calibration")
+async def scenario_engine_calibration_route():
+    from bd_platform.scenario_engine import get_calibration
+
+    return get_calibration()
+
+
+@router.get("/scenario-engine")
+async def scenario_engine_generate_route(
+    asset: str = Query("BTC"),
+    regime: str | None = Query(None),
+    user: dict = Depends(require_authenticated),
+):
+    from auth_service import feature_allowed
+    from bd_platform.scenario_engine import generate_scenarios
+
+    if not feature_allowed(user, "scenario_engine"):
+        raise HTTPException(status_code=403, detail="scenario_engine_requires_enterprise")
+    return await generate_scenarios(asset, regime=regime)
+
+
+@router.get("/scenario-engine/sensitivity")
+async def scenario_engine_sensitivity_route(
+    asset: str = Query("BTC"),
+    shock: str = Query(..., description="Sensitivity shock e.g. 'Fed cuts 25bps'"),
+    user: dict = Depends(require_authenticated),
+):
+    from auth_service import feature_allowed
+    from bd_platform.scenario_engine import run_sensitivity_analysis
+
+    if not feature_allowed(user, "scenario_engine"):
+        raise HTTPException(status_code=403, detail="scenario_engine_requires_enterprise")
+    result = run_sensitivity_analysis(asset, shock)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
