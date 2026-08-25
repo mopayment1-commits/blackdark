@@ -1,0 +1,37 @@
+{
+  "feature_id": 230,
+  "title": "Verifiable AI Engine",
+  "alternate_title": "Evidence-Linked Intelligence",
+  "standalone": false,
+  "sprint": 1,
+  "audit_retention_days": 90,
+  "fail_closed": true,
+  "no_model_only_facts": true,
+  "all_tiers": true,
+  "prerequisites": {
+    "canonical_sources": 208,
+    "freshness_metadata": 219,
+    "oracle_api": 162
+  },
+  "integrated_surfaces": [
+    "Portfolio AI",
+    "Market Radar",
+    "Oracle API",
+    "AI Chatbot",
+    "Decision Intelligence Engine",
+    "Smart Alert Engine",
+    "Scenario Engine"
+  ],
+  "source_links": {
+    "oracle": "/api/v1/platform/oracle?asset={asset}",
+    "price": "/api/v1/platform/price?asset={asset}",
+    "sentiment": "/api/v1/platform/sentiment?asset={asset}"
+  },
+  "confidence_badges": {
+    "verified": "All facts cross-referenced with canonical Oracle API",
+    "partial": "Some facts verified; others unavailable",
+    "simulated": "No verified data — fail-closed response only"
+  },
+  "hallucination_target_pct": 0.1,
+  "qa_red_team_weekly_questions": 100
+}

@@ -2450,3 +2450,33 @@ async def data_engineering_pipeline_run_route(
             raise HTTPException(status_code=503, detail="dbt_not_configured") from exc
         raise
 
+
+# ── Verifiable AI Engine — #230 Core AI Layer (Sprint 1) ─────────────────────
+
+
+@router.get("/verifiable-ai/status")
+async def verifiable_ai_status_route():
+    from bd_platform.verifiable_ai_engine import verifiable_ai_status
+
+    return verifiable_ai_status()
+
+
+@router.post("/verifiable-ai/ground")
+async def verifiable_ai_ground_route(
+    query: str = Body(..., embed=True),
+    asset: str | None = Body(None, embed=True),
+):
+    from bd_platform.verifiable_ai_engine import ground_ai_response
+
+    return await ground_ai_response(query, asset=asset)
+
+
+@router.get("/verifiable-ai/audit")
+async def verifiable_ai_audit_route(
+    limit: int = Query(50, ge=1, le=200),
+    since_days: int | None = Query(None, ge=1, le=90),
+):
+    from bd_platform.verifiable_ai_engine import get_audit_trail
+
+    return get_audit_trail(limit=limit, since_days=since_days)
+

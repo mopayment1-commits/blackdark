@@ -131,7 +131,10 @@ async def _openai_reply(message: str, context: dict[str, Any], history: list[dic
     if not api_key:
         return None
 
+    from bd_platform.verifiable_ai_engine import SYSTEM_PROMPT
+
     system = (
+        f"{SYSTEM_PROMPT} "
         "You are BLACKDARK AI Chat on Trust OS — you explain the current decision context "
         "(Oracle verdict, why factors, risk). You do NOT replace the Oracle certificate. "
         "Answer in the user's language (Arabic or English). "
@@ -179,15 +182,16 @@ async def process_chat(
     *,
     history: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Main chat handler."""
+    """Main chat handler — grounded via Verifiable AI Engine (#230)."""
+    from bd_platform.verifiable_ai_engine import ground_ai_response
+
     text = (message or "").strip()
     if not text:
-        return {
-            "reply": "Ask about any asset — e.g. What should I do with BTC?",
-            "symbol": None,
-            "source": "system",
-            "timestamp": _utcnow_iso(),
-        }
+        grounded = await ground_ai_response("", asset=None, answer=None)
+        grounded["reply"] = grounded.pop("answer")
+        grounded["symbol"] = None
+        grounded["source"] = "system"
+        return grounded
 
     symbol = _extract_symbol(text)
     context = await _gather_market_context(symbol)
@@ -198,20 +202,26 @@ async def process_chat(
     if not reply:
         reply = _rule_based_reply(text, context)
 
+    grounded = await ground_ai_response(
+        text,
+        asset=symbol,
+        answer=reply,
+        context=context,
+    )
+    grounded["reply"] = grounded.pop("answer")
+    grounded["symbol"] = symbol
+    grounded["context_summary"] = {
+        "oracle_verdict": (context.get("oracle") or {}).get("verdict"),
+        "oracle_score": (context.get("oracle") or {}).get("score"),
+        "whale_alerts": context.get("whale_alerts"),
+    }
+    grounded["source"] = source
+    grounded["timestamp"] = _utcnow_iso()
+
     from decision_certificate import compliance_footer_block
 
-    return {
-        "reply": reply,
-        "symbol": symbol,
-        "context_summary": {
-            "oracle_verdict": (context.get("oracle") or {}).get("verdict"),
-            "oracle_score": (context.get("oracle") or {}).get("score"),
-            "whale_alerts": context.get("whale_alerts"),
-        },
-        "source": source,
-        "timestamp": _utcnow_iso(),
-        "compliance_footer": compliance_footer_block(
-            surface="ai_chat",
-            trust_basis="oracle_context + public_accuracy_ledger",
-        ),
-    }
+    grounded["compliance_footer"] = compliance_footer_block(
+        surface="ai_chat",
+        trust_basis="verifiable_ai_engine + oracle_context + public_accuracy_ledger",
+    )
+    return grounded
