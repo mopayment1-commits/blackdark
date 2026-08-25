@@ -17,6 +17,7 @@ Market Radar
 
 | Endpoint | Feature | Description |
 |----------|---------|-------------|
+| `GET /api/platform/market-radar/dashboard` | All | Unified Market Radar surface |
 | `GET /api/platform/market-radar/prices/matrix` | #155 | Cross-exchange price matrix |
 | `GET /api/platform/market-radar/macro-events` | #140 | Macro calendar + impact |
 | `GET /api/platform/market-radar/events/stream` | #186 | Industry event feed |

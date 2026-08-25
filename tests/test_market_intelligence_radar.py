@@ -116,3 +116,43 @@ def test_sentiment_intelligence_status():
     status = si.sentiment_intelligence_status()
     assert status["feature_id"] == 139
     assert len(status["sources"]) >= 5
+
+
+@pytest.mark.asyncio
+async def test_market_radar_dashboard_mocked(monkeypatch):
+    from bd_platform import market_radar_dashboard as mrd
+
+    async def fake_prices(assets, **kwargs):
+        return {"ok": True, "feature_id": 155, "sla_met": True, "assets_with_data": 3, "matrix": []}
+
+    async def fake_macro(**kwargs):
+        return {"ok": True, "feature_id": 140, "sla_met": True, "high_impact_count": 1, "events": []}
+
+    async def fake_sentiment(asset):
+        return {"ok": True, "feature_id": 139, "sla_met": True, "asset": asset}
+
+    async def fake_liquidity(asset, **kwargs):
+        return {"ok": True, "feature_id": 142, "sla_met": True, "asset": asset}
+
+    monkeypatch.setattr(
+        "bd_platform.market_radar_infrastructure.monitor_multi_asset_prices",
+        fake_prices,
+    )
+    monkeypatch.setattr("bd_platform.macro_events_engine.build_macro_events_calendar", fake_macro)
+    monkeypatch.setattr("bd_platform.sentiment_intelligence.analyze_asset_sentiment", fake_sentiment)
+    monkeypatch.setattr("bd_platform.liquidity_health_check.analyze_liquidity_health", fake_liquidity)
+
+    dash = await mrd.build_market_radar_dashboard("BTC", focus_assets=["BTC", "ETH"])
+    assert dash["ok"] is True
+    assert dash["focus_asset"] == "BTC"
+    assert 155 in dash["feature_ids"]
+    assert dash["prices"]["feature_id"] == 155
+    assert dash["sla_met"] is True
+
+
+def test_market_radar_dashboard_status():
+    from bd_platform.market_radar_dashboard import market_radar_dashboard_status
+
+    status = market_radar_dashboard_status()
+    assert status["ok"] is True
+    assert "155" in status["modules"]

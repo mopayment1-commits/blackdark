@@ -1,0 +1,126 @@
+"""
+Market Radar Dashboard — unified surface for #155, #140, #186, #142, #139.
+
+Single entry point for Market Radar: price infrastructure, macro calendar,
+event stream, liquidity health, and sentiment intelligence.
+"""
+
+from __future__ import annotations
+
+import asyncio
+import logging
+import time
+from datetime import UTC, datetime
+from typing import Any
+
+logger = logging.getLogger("BLACKDARK.MarketRadarDashboard")
+
+_FEATURE_IDS = (155, 140, 186, 142, 139)
+
+
+def _utcnow() -> str:
+    return datetime.now(UTC).isoformat()
+
+
+async def build_market_radar_dashboard(
+    asset: str = "BTC",
+    *,
+    focus_assets: list[str] | None = None,
+    macro_limit: int = 10,
+    event_limit: int = 20,
+) -> dict[str, Any]:
+    """Unified Market Radar dashboard — all intelligence modules in one response."""
+    t0 = time.perf_counter()
+    sym = asset.upper().replace("/USDT", "")
+    assets = focus_assets or [sym, "ETH", "SOL"]
+
+    from bd_platform.industry_event_monitor import get_event_feed, industry_event_monitor_status
+    from bd_platform.liquidity_health_check import analyze_liquidity_health, liquidity_health_status
+    from bd_platform.macro_events_engine import build_macro_events_calendar, macro_events_status
+    from bd_platform.market_radar_infrastructure import (
+        market_radar_infrastructure_status,
+        monitor_multi_asset_prices,
+    )
+    from bd_platform.sentiment_intelligence import (
+        analyze_asset_sentiment,
+        sentiment_intelligence_status,
+    )
+
+    prices_task = monitor_multi_asset_prices(assets, max_assets=min(len(assets), 10))
+    macro_task = build_macro_events_calendar(limit=macro_limit)
+    sentiment_task = analyze_asset_sentiment(sym)
+    liquidity_task = analyze_liquidity_health(sym)
+
+    prices, macro, sentiment, liquidity = await asyncio.gather(
+        prices_task,
+        macro_task,
+        sentiment_task,
+        liquidity_task,
+        return_exceptions=True,
+    )
+
+    events = get_event_feed(limit=event_limit)
+    elapsed_ms = (time.perf_counter() - t0) * 1000
+
+    def _safe(result: Any, fallback: dict[str, Any]) -> dict[str, Any]:
+        if isinstance(result, Exception):
+            logger.debug("dashboard module failed: %s", result)
+            return {**fallback, "ok": False, "error": str(result)}
+        return result
+
+    prices_block = _safe(prices, {"feature_id": 155, "matrix": []})
+    macro_block = _safe(macro, {"feature_id": 140, "events": []})
+    sentiment_block = _safe(sentiment, {"feature_id": 139})
+    liquidity_block = _safe(liquidity, {"feature_id": 142})
+
+    sla_flags = [
+        prices_block.get("sla_met", True),
+        macro_block.get("sla_met", True),
+        sentiment_block.get("sla_met", True),
+        liquidity_block.get("sla_met", True),
+    ]
+
+    return {
+        "ok": True,
+        "surface": "market_radar_dashboard",
+        "feature_ids": list(_FEATURE_IDS),
+        "focus_asset": sym,
+        "headline": (
+            f"Market Radar — {sym}: "
+            f"{prices_block.get('assets_with_data', 0)} assets tracked | "
+            f"{macro_block.get('high_impact_count', 0)} macro events | "
+            f"{events.get('count', 0)} industry events"
+        ),
+        "prices": prices_block,
+        "macro_events": macro_block,
+        "event_stream": events,
+        "liquidity_health": liquidity_block,
+        "sentiment": sentiment_block,
+        "status": {
+            "infrastructure": market_radar_infrastructure_status(),
+            "macro": macro_events_status(),
+            "events": industry_event_monitor_status(),
+            "liquidity": liquidity_health_status(),
+            "sentiment": sentiment_intelligence_status(),
+        },
+        "integrated_features": ["#125", "#133", "#137", "#139", "#140", "#142", "#149", "#155", "#186"],
+        "sla_met": elapsed_ms <= 2000 and all(sla_flags),
+        "latency_ms": round(elapsed_ms, 1),
+        "timestamp": _utcnow(),
+    }
+
+
+def market_radar_dashboard_status() -> dict[str, Any]:
+    return {
+        "ok": True,
+        "surface": "market_radar_dashboard",
+        "modules": {
+            "155": "price_infrastructure",
+            "140": "macro_events_calendar",
+            "186": "industry_event_stream",
+            "142": "liquidity_health_check",
+            "139": "sentiment_intelligence",
+        },
+        "endpoint": "/api/platform/market-radar/dashboard",
+        "timestamp": _utcnow(),
+    }

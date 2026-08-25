@@ -925,6 +925,25 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
 # ── Feature #155 — Market Radar Infrastructure ───────────────────────────────
 
 
+@router.get("/market-radar/dashboard")
+async def market_radar_dashboard_route(
+    asset: str = Query("BTC"),
+    assets: str = Query("BTC,ETH,SOL", description="Comma-separated assets for price matrix"),
+):
+    """Unified Market Radar dashboard — #155 + #140 + #186 + #142 + #139."""
+    from bd_platform.market_radar_dashboard import build_market_radar_dashboard
+
+    asset_list = [a.strip() for a in assets.split(",") if a.strip()]
+    return await build_market_radar_dashboard(asset, focus_assets=asset_list)
+
+
+@router.get("/market-radar/dashboard/status")
+async def market_radar_dashboard_status_route():
+    from bd_platform.market_radar_dashboard import market_radar_dashboard_status
+
+    return market_radar_dashboard_status()
+
+
 @router.get("/market-radar/infrastructure/status")
 async def market_radar_infrastructure_status_route():
     """Multi-exchange price monitoring infrastructure (#155)."""
