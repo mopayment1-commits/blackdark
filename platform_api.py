@@ -2293,3 +2293,98 @@ async def scenario_engine_sensitivity_route(
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
 
+
+# ── Sprint 0 — Streaming Infrastructure (#218 + #222) ─────────────────────────
+
+
+@router.get("/streaming/status")
+async def streaming_infrastructure_status_route():
+    from bd_platform.streaming_infrastructure import streaming_infrastructure_status
+
+    return streaming_infrastructure_status()
+
+
+@router.get("/streaming/slos")
+async def streaming_slos_route():
+    from bd_platform.streaming_infrastructure import get_stream_slos
+
+    return get_stream_slos()
+
+
+@router.get("/streaming/multiplex")
+async def streaming_multiplex_route(assets: str | None = Query(None)):
+    from bd_platform.streaming_infrastructure import get_multiplex_feed_config
+
+    asset_list = [a.strip().upper() for a in assets.split(",")] if assets else None
+    return get_multiplex_feed_config(asset_list)
+
+
+@router.get("/streaming/health")
+async def streaming_health_route(_admin: dict = Depends(require_admin)):
+    from bd_platform.streaming_infrastructure import get_connection_health
+
+    return get_connection_health()
+
+
+@router.post("/streaming/backfill")
+async def streaming_backfill_route(
+    feed_id: str = Query(...),
+    gap_start: int | None = Query(None),
+    gap_end: int | None = Query(None),
+):
+    from bd_platform.streaming_infrastructure import backfill_on_reconnect
+
+    return backfill_on_reconnect(feed_id, gap_start=gap_start, gap_end=gap_end)
+
+
+# ── Sprint 0 — Freshness Assurance Layer (#219) ───────────────────────────────
+
+
+@router.get("/freshness/status")
+async def freshness_assurance_status_route():
+    from bd_platform.freshness_assurance import freshness_assurance_status
+
+    return freshness_assurance_status()
+
+
+@router.get("/freshness/clock-sync")
+async def freshness_clock_sync_route():
+    from bd_platform.freshness_assurance import get_clock_sync_status
+
+    return get_clock_sync_status()
+
+
+@router.get("/freshness/dashboard")
+async def freshness_dashboard_route():
+    from bd_platform.freshness_assurance import get_freshness_dashboard
+
+    return get_freshness_dashboard()
+
+
+@router.get("/freshness/feeds/{feed_id}")
+async def freshness_feed_route(feed_id: str, asset: str = Query("BTC")):
+    from bd_platform.freshness_assurance import get_feed_freshness
+
+    return get_feed_freshness(feed_id, asset)
+
+
+@router.get("/freshness/feeds/{feed_id}/percentiles")
+async def freshness_percentiles_route(feed_id: str, asset: str = Query("BTC")):
+    from bd_platform.freshness_assurance import get_percentile_latency
+
+    return get_percentile_latency(feed_id, asset)
+
+
+@router.get("/freshness/feeds/{feed_id}/history")
+async def freshness_history_route(feed_id: str, limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.freshness_assurance import get_freshness_history
+
+    return get_freshness_history(feed_id, limit=limit)
+
+
+@router.get("/freshness/health-check")
+async def freshness_health_check_route():
+    from bd_platform.freshness_assurance import run_freshness_health_check
+
+    return run_freshness_health_check()
+

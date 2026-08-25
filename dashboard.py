@@ -3556,6 +3556,40 @@ async def b2b_ws_info():
     }
 
 
+@app.websocket("/ws/platform/stream")
+async def platform_streaming_websocket(
+    websocket: WebSocket,
+    assets: str = Query("BTC,ETH", description="Comma-separated assets"),
+):
+    """Sprint 0 — multiplexed real-time feed (#218 + #222 transport within #219)."""
+    import json
+
+    from bd_platform.platform_streaming_hub import get_platform_streaming_hub
+
+    await websocket.accept()
+    hub = get_platform_streaming_hub()
+    asset_list = [a.strip().upper() for a in assets.split(",") if a.strip()]
+    client = None
+    try:
+        client = await hub.register(websocket, assets=asset_list)
+        while True:
+            raw = await websocket.receive_text()
+            try:
+                msg = json.loads(raw)
+            except json.JSONDecodeError:
+                msg = {"type": raw.strip().lower()}
+            await hub.handle_message(client, msg)
+    except WebSocketDisconnect:
+        pass
+    except RuntimeError as exc:
+        await websocket.close(code=1008, reason=str(exc))
+    except Exception:
+        logger.exception("Platform streaming WebSocket session error")
+    finally:
+        if client is not None:
+            await hub.unregister(client)
+
+
 @app.websocket("/ws/b2b/feed")
 async def b2b_websocket_feed(websocket: WebSocket, api_key: str = Query(..., min_length=8)):
     if not getattr(config, "B2B_WS_ENABLED", True):
