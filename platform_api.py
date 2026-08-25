@@ -920,3 +920,123 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+# ── Feature #155 — Market Radar Infrastructure ───────────────────────────────
+
+
+@router.get("/market-radar/infrastructure/status")
+async def market_radar_infrastructure_status_route():
+    """Multi-exchange price monitoring infrastructure (#155)."""
+    from bd_platform.market_radar_infrastructure import market_radar_infrastructure_status
+
+    return market_radar_infrastructure_status()
+
+
+@router.get("/market-radar/prices/matrix")
+async def market_radar_price_matrix_route(
+    assets: str = Query("BTC,ETH,SOL", description="Comma-separated assets"),
+    max_assets: int = Query(20, ge=1, le=50),
+):
+    """Cross-exchange price matrix — infrastructure behind Market Radar (#155)."""
+    from bd_platform.market_radar_infrastructure import monitor_multi_asset_prices
+
+    asset_list = [a.strip() for a in assets.split(",") if a.strip()]
+    return await monitor_multi_asset_prices(asset_list or None, max_assets=max_assets)
+
+
+# ── Feature #140 — Macro Events Calendar ─────────────────────────────────────
+
+
+@router.get("/market-radar/macro-events")
+async def macro_events_calendar_route(limit: int = Query(15, ge=1, le=50)):
+    """Macro Events Calendar with impact forecasting (#140)."""
+    from bd_platform.macro_events_engine import build_macro_events_calendar
+
+    return await build_macro_events_calendar(limit=limit)
+
+
+@router.get("/market-radar/macro-events/status")
+async def macro_events_status_route():
+    from bd_platform.macro_events_engine import macro_events_status
+
+    return macro_events_status()
+
+
+# ── Feature #186 — Industry Event Monitor ────────────────────────────────────
+
+
+@router.get("/market-radar/events/stream")
+async def industry_event_stream_route(
+    limit: int = Query(50, ge=1, le=200),
+    category: str | None = Query(None),
+):
+    """Real-time industry event stream (#186)."""
+    from bd_platform.industry_event_monitor import get_event_feed
+
+    return get_event_feed(limit=limit, category=category)
+
+
+@router.post("/market-radar/events/scan", responses=COMMON_ERROR_RESPONSES)
+async def industry_event_scan_route(_admin: dict = Depends(require_admin)):
+    """Trigger event source scan (#186)."""
+    from bd_platform.industry_event_monitor import scan_event_sources
+
+    return await scan_event_sources()
+
+
+@router.get("/market-radar/events/status")
+async def industry_event_status_route():
+    from bd_platform.industry_event_monitor import industry_event_monitor_status
+
+    return industry_event_monitor_status()
+
+
+# ── Feature #142 — Liquidity Health Check ────────────────────────────────────
+
+
+@router.get("/market-radar/liquidity-health")
+async def liquidity_health_route(
+    asset: str = Query("ETH"),
+    chain: str = Query("ethereum"),
+):
+    """Liquidity Health Check — required before token purchase (#142)."""
+    from bd_platform.liquidity_health_check import analyze_liquidity_health
+
+    return await analyze_liquidity_health(asset, chain=chain)
+
+
+@router.get("/market-radar/liquidity-health/status")
+async def liquidity_health_status_route():
+    from bd_platform.liquidity_health_check import liquidity_health_status
+
+    return liquidity_health_status()
+
+
+# ── Feature #139 — Sentiment Intelligence ────────────────────────────────────
+
+
+@router.get("/market-radar/sentiment")
+async def sentiment_intelligence_route(asset: str = Query("BTC")):
+    """Weighted multi-source sentiment (#139)."""
+    from bd_platform.sentiment_intelligence import analyze_asset_sentiment
+
+    return await analyze_asset_sentiment(asset)
+
+
+@router.get("/market-radar/sentiment/overview")
+async def sentiment_intelligence_overview_route(
+    assets: str = Query("BTC,ETH,SOL,BNB,XRP"),
+):
+    """Multi-asset sentiment overview (#139)."""
+    from bd_platform.sentiment_intelligence import sentiment_intelligence_overview
+
+    asset_list = [a.strip() for a in assets.split(",") if a.strip()]
+    return await sentiment_intelligence_overview(assets=asset_list or None)
+
+
+@router.get("/market-radar/sentiment/status")
+async def sentiment_intelligence_status_route():
+    from bd_platform.sentiment_intelligence import sentiment_intelligence_status
+
+    return sentiment_intelligence_status()
