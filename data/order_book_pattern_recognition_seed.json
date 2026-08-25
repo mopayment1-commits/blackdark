@@ -1,0 +1,78 @@
+{
+  "feature_id": 281,
+  "renamed_from": "Order Book Intelligence AI/ML",
+  "official_name": "Order Book Pattern Recognition Engine",
+  "wave": 3,
+  "current_phase": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-25",
+  "compliance": {
+    "legal_review_complete": false,
+    "rule_based_months_validated": 2,
+    "ml_augmentation_blocked": true
+  },
+  "backtest": {
+    "years": 2,
+    "start_date": "2024-08-25",
+    "end_date": "2026-08-25",
+    "pattern_count": 12,
+    "walk_forward_folds": 8,
+    "historical_metrics": {
+      "pattern_match_rate_pct": 62.3,
+      "false_positive_rate_pct": 8.1,
+      "note": "Historical only — no forward performance guarantee"
+    }
+  },
+  "patterns": {
+    "BTC": [
+      {
+        "pattern_id": "obpr-001",
+        "pattern_name": "Bid wall absorption",
+        "pattern_match_score": 0.78,
+        "confidence_level": "high",
+        "phase": "rule_based",
+        "feature_count": 24,
+        "backtest_window_years": 2,
+        "matched_period": "2026-08-20 to 2026-08-25",
+        "historical_outcome": "Depth restored within 4h in 68% of historical matches",
+        "explainability_reasons": [
+          "Bid depth increased 3.2σ above 30D baseline",
+          "Spread tightened 15% during absorption window",
+          "CVD divergence: sell volume declining while bid depth rising"
+        ]
+      },
+      {
+        "pattern_id": "obpr-002",
+        "pattern_name": "Ask-side liquidity vacuum",
+        "pattern_match_score": 0.61,
+        "confidence_level": "medium",
+        "phase": "rule_based",
+        "feature_count": 18,
+        "backtest_window_years": 2,
+        "matched_period": "2026-08-24 to 2026-08-25",
+        "historical_outcome": "Ask depth recovered within 2h in 55% of historical matches",
+        "explainability_reasons": [
+          "Ask depth dropped below IQR lower bound",
+          "Spread widened to 4.2 bps (2.1σ above mean)"
+        ]
+      }
+    ],
+    "ETH": [
+      {
+        "pattern_id": "obpr-003",
+        "pattern_name": "Symmetric depth expansion",
+        "pattern_match_score": 0.55,
+        "confidence_level": "medium",
+        "phase": "rule_based",
+        "feature_count": 15,
+        "backtest_window_years": 2,
+        "matched_period": "2026-08-23 to 2026-08-25",
+        "historical_outcome": "Both sides deepened in 72% of historical matches",
+        "explainability_reasons": [
+          "Bid and ask depth both above 30D rolling mean",
+          "Imbalance ratio within ±5% of neutral"
+        ]
+      }
+    ]
+  }
+}

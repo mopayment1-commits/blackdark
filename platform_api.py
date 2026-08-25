@@ -596,3 +596,47 @@ async def rl_policy_train(_admin: dict = Depends(require_admin)):
     ]
     trained = train_ppo_policy(samples, epochs=30)
     return {"status": policy_status(), "trained": trained}
+
+
+@router.get("/intelligence-ledger/pattern-recognition/status")
+async def pattern_recognition_status_route():
+    """#281 Order Book Pattern Recognition Engine — renamed, no financial claims."""
+    from bd_platform.order_book_pattern_recognition import pattern_recognition_status
+
+    return pattern_recognition_status()
+
+
+@router.get("/intelligence-ledger/pattern-recognition")
+async def pattern_recognition_panel_route(asset: str = Query("BTC")):
+    """#281 historical pattern match — NOT trading signals."""
+    from bd_platform.order_book_pattern_recognition import build_pattern_recognition_panel
+
+    return build_pattern_recognition_panel(asset)
+
+
+@router.get("/intelligence-ledger/flow-anomaly/status")
+async def flow_anomaly_detection_status_route():
+    """#282 Flow Anomaly Detection — rule-based, Intelligence Ledger."""
+    from bd_platform.flow_anomaly_detection import flow_anomaly_detection_status
+
+    return flow_anomaly_detection_status()
+
+
+@router.get("/intelligence-ledger/flow-anomaly")
+async def flow_anomaly_panel_route(asset: str = Query("BTC")):
+    """#282 orderflow anomaly panel with baseline controls."""
+    from bd_platform.flow_anomaly_detection import build_flow_anomaly_panel
+
+    return build_flow_anomaly_panel(asset)
+
+
+@router.get("/intelligence-ledger/flow-anomaly/alerts")
+async def flow_anomaly_alerts_route(
+    asset: str | None = Query(None),
+    venue: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#282 anomaly alerts with evidence schema."""
+    from bd_platform.flow_anomaly_detection import list_anomaly_alerts
+
+    return list_anomaly_alerts(asset=asset, venue=venue, limit=limit)
