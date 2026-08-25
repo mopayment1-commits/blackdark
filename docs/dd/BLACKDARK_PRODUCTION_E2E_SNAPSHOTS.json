@@ -1,0 +1,387 @@
+{
+  "/health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "service": "BLACKDARK",
+      "version": "1.0.0",
+      "ui_language": "en",
+      "probes": {
+        "live": "/health/live",
+        "ready": "/health/ready"
+      }
+    }
+  },
+  "/health/ready": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "probe": "ready",
+      "database_engine": "postgresql",
+      "postgres_pool": {
+        "active": true,
+        "min_size": 2,
+        "max_size": 20,
+        "size": 3
+      },
+      "service_bus": {
+        "enabled": true,
+        "redis_configured": false,
+        "redis_connected": false,
+        "published_total": 0,
+        "received_total": 0,
+        "subscribers": {
+          "blackdark.market.updated": 1,
+          "blackdark.arbitrage.hot": 1
+        }
+      }
+    }
+  },
+  "/api/build-info": {
+    "status": 200,
+    "body": {
+      "ui_language": "en",
+      "release": "2026-07-27-launch-phase-v8",
+      "git_commit": "5927056e45656985929ae7f3d5c58f665ca1767e",
+      "git_branch": "main",
+      "git_message": "Apply ARC launch recommendations: production guard, web mode, HA replicas.\n\nExtract GTM/Telegram routes to routers, add architecture DD API, and Railway checklist.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "service": "blackdark",
+      "price_feed_ws_only": false,
+      "price_probe": "/api/diagnostics/price/BTC"
+    }
+  },
+  "/api/billing/status": {
+    "status": 200,
+    "body": {
+      "authenticated": false,
+      "billing_configured": false,
+      "billing_provider": "none"
+    }
+  },
+  "/api/alerts/telegram/status": {
+    "status": 200,
+    "body": {
+      "configured": false,
+      "bot_token_set": false,
+      "default_chat_set": false,
+      "monitor_enabled": true,
+      "interval_seconds": 90
+    }
+  },
+  "/api/feed/engine/status": {
+    "status": 200,
+    "body": {
+      "architecture": "hybrid",
+      "policy": {
+        "rest_price_ingestion": "allowed_legacy",
+        "ws_venues": [
+          "binance",
+          "bybit",
+          "okx"
+        ],
+        "multiplexed_websockets": true
+      },
+      "ticks_total": 0,
+      "kafka_ticks_published": 0,
+      "redis_ticks_written": 0,
+      "hot_tier_archived": 0,
+      "hot_tier_throttled": 0,
+      "stream_processor": {
+        "running": false,
+        "ticks_processed": 0,
+        "spreads_detected": 0,
+        "opportunities_published": 0,
+        "alerts_published": 0,
+        "recent_spreads": [],
+        "recent_opportunities": [],
+        "topics": [
+          "blackdark.price.ticks",
+          "blackdark.opportunities",
+          "blackdark.alerts"
+        ]
+      },
+      "websocket_hub": {
+        "running": false,
+        "enabled": true,
+        "messages_total": 0,
+        "exchanges": [
+          "binance",
+          "okx",
+          "bybit",
+          "kraken"
+        ],
+        "live_book": {
+          "enabled": true,
+          "exchanges": [
+            "binance",
+            "bybit",
+            "okx"
+          ],
+          "symbol_count": 9,
+          "updates_total": 9,
+          "max_age_ms": 300.0,
+          "freshness_ms": 252803.7,
+          "stalest_ms": 252803.7
+        }
+      },
+      "live_book": {
+        "enabled": true,
+        "exchanges": [
+          "binance",
+          "bybit",
+          "okx"
+        ],
+        "symbol_count": 9,
+        "updates_total": 9,
+        "max_age_ms": 300.0,
+        "freshness_ms": 252803.7,
+        "stalest_ms": 252803.7
+      },
+      "redis_cache": {
+        "enabled": false,
+        "connected": false,
+        "cluster_mode": false,
+        "redis_configured": false,
+        "cluster_nodes": [],
+        "strict_mode": false,
+        "local_symbols": 0,
+        "exchanges": [],
+        "ttl_sec": 5
+      },
+      "kafka_bus": {
+        "kafka_configured": false,
+        "kafka_brokers": null,
+        "kafka_producer_ok": false,
+        "kafka_topics": [
+          "blackdark.opportunities",
+          "blackdark.executions",
+          "blackdark.alerts"
+        ],
+        "redis_url_configured": false,
+        "local_bus_enabled": true,
+        "primary": "local",
+        "messages_buffered_local": 0,
+        "note": "Set KAFKA_BROKERS=localhost:9092 (docker compose kafka service)."
+      }
+    }
+  },
+  "/api/services/status": {
+    "status": 200,
+    "body": {
+      "service_mode": "web",
+      "architecture": "microservices",
+      "valid_modes": [
+        "aggregator",
+        "all",
+        "arbitrage",
+        "ingestion",
+        "web"
+      ],
+      "tasks": [],
+      "flags": {},
+      "service_bus": {
+        "enabled": true,
+        "redis_configured": false,
+        "redis_connected": false,
+        "published_total": 0,
+        "received_total": 0,
+        "subscribers": {
+          "blackdark.market.updated": 1,
+          "blackdark.arbitrage.hot": 1
+        }
+      },
+      "scale_ready": false,
+      "infra": {
+        "microservices": {
+          "status": "ready",
+          "mode": "web",
+          "docker_compose": "docker-compose.yml",
+          "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",
+          "scale_hint": "docker compose up -d --scale arbitrage=2"
+        },
+        "postgresql": {
+          "status": "connected",
+          "engine": "postgresql",
+          "pool": {
+            "active": true,
+            "min_size": 2,
+            "max_size": 20,
+            "size": 3
+          },
+          "database_url_set": true
+        },
+        "haascloud_deploy": {
+          "status": "ready",
+          "dockerfile": "Dockerfile",
+          "railway": "railway.json",
+          "haascloud_manifest": "haascloud.json",
+          "compose_stack": "docker-compose.yml"
+        },
+        "hashicorp_vault": {
+          "hashicorp_configured": false,
+          "hashicorp_authenticated": false,
+          "vault_addr": null,
+          "kv_mount": "secret",
+          "secret_path_prefix": "blackdark",
+          "local_fernet_available": true,
+          "primary": "local_fernet",
+          "note": "Docker: vault service in docker-compose.yml \u00b7 VAULT_ADDR=http://localhost:8200"
+        },
+        "apache_kafka": {
+          "kafka_configured": false,
+          "kafka_brokers": null,
+          "kafka_producer_ok": false,
+          "kafka_topics": [
+            "blackdark.opportunities",
+            "blackdark.executions",
+            "blackdark.alerts"
+          ],
+          "redis_url_configured": false,
+          "local_bus_enabled": true,
+          "primary": "local",
+          "messages_buffered_local": 0,
+          "note": "Set KAFKA_BROKERS=localhost:9092 (docker compose kafka service)."
+        },
+        "rl_policy": {
+          "ppo_configured": false,
+          "sac_configured": false,
+          "ppo_path": "data/models/ppo_policy.json",
+          "sac_path": "data/models/sac_policy.json",
+          "active_policy": "heuristic",
+          "features": [
+            "ret_24h",
+            "volatility",
+            "obi_score",
+            "sentiment_score"
+          ]
+        },
+        "zk_public_proof": {
+          "status": "ready",
+          "module": "bd_platform.public_proof",
+          "endpoint": "/api/platform/proof/public",
+          "features": [
+            "merkle_root",
+            "inclusion_proof",
+            "commitment_verify"
+          ]
+        }
+      },
+      "service_mode_runtime": "web",
+      "deployment": {
+        "docker_compose": "docker-compose.yml",
+        "launcher": "python run_service.py <web|aggregator|arbitrage|ingestion|all>",
+        "scale_hint": "Increase replicas per worker service + REDIS_URL for 1M users path"
+      }
+    }
+  },
+  "/api/observability/status": {
+    "status": 200,
+    "body": {
+      "sentry_configured": false,
+      "metrics_endpoint": "/metrics",
+      "counters": {
+        "http_requests_total": 404.0,
+        "oracle_queries_total": 0,
+        "arbitrage_scans_total": 0,
+        "auth_logins_total": 5.0,
+        "behavior_events_total": 10.0,
+        "errors_total": 26.0
+      }
+    }
+  },
+  "/api/b2b/ws/info": {
+    "status": 200,
+    "body": {
+      "endpoint": "/ws/b2b/feed",
+      "auth": {
+        "query": "api_key",
+        "demo_key": {
+          "set": true,
+          "len": 19,
+          "prefix": "bd_"
+        }
+      },
+      "feed_version": "1.0.0",
+      "enabled": true,
+      "running": true,
+      "connected_clients": 0,
+      "demo_clients": 0,
+      "heartbeat_sec": 15,
+      "event_cooldown_sec": 3.0,
+      "latency_target_ms": 500,
+      "events": [
+        "connected",
+        "snapshot",
+        "arbitrage_opportunity",
+        "oracle_signal",
+        "heartbeat"
+      ]
+    }
+  },
+  "/api/b2b/demo": {
+    "status": 200,
+    "body": {
+      "product": "BLACKDARK Institutional Manipulation Feed",
+      "feed_version": "1.0.0",
+      "generated_at": "2026-08-15T00:42:44.656323+00:00",
+      "record_count": 0,
+      "methodology": {
+        "cvvd": "Cross-Venue Volume Discrepancy Algorithm",
+        "sii": "Sector Inflow Index (capital acceleration)"
+      },
+      "records": [],
+      "signature": "2a4f44fde0871bdf5d2e6200e06422125a6f3fe068e2af6fe39b541516412f7e",
+      "demo": true,
+      "upgrade_url": "/b2b"
+    }
+  },
+  "/oracle/BTCUSDT/quick": {
+    "status": 200,
+    "body": {
+      "symbol": "BTC",
+      "price": 50005.0,
+      "change_24h": 0.0,
+      "verdict": "ELEVATED_RISK",
+      "opportunity_score": 45,
+      "action": "Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+      "action_line": "Analytics summary: Analytics: neutral momentum \u2014 monitoring range $48,500\u2013$51,500",
+      "sentiment": "Neutral",
+      "latency_ms": 0.1,
+      "engine": "quick_rules_v1",
+      "latency_target_ms": 100,
+      "meets_latency_target": true,
+      "regulatory_classification": "informational_analytics_only",
+      "is_investment_advice": false,
+      "disclaimer": "Informational analytics only \u2014 not investment, tax, or legal advice. BLACKDARK is not a registered investment adviser or broker-dealer. Past signal performance does not guarantee future results. Do your own research (DYOR).",
+      "compliance_engine": "regulatory_compliance_guard_v1"
+    }
+  },
+  "/api/market/overview": {
+    "status": 200,
+    "body": {
+      "assets": [],
+      "sectors": {},
+      "tracked_count": 25,
+      "top_gainers": [],
+      "top_losers": [],
+      "market_status": "active",
+      "data_source": "Binance Live API",
+      "timestamp": "2026-08-15T00:42:44.876503+00:00"
+    }
+  },
+  "/api/oracle/audit-chain": {
+    "status": 200,
+    "body": {
+      "integrity": {
+        "valid": true,
+        "records": 0,
+        "message": "empty chain"
+      },
+      "total_records": 0,
+      "recent_hit_rate_percent": 0.0,
+      "recent_records": [],
+      "target_accuracy_band": "65-70%",
+      "note": "Chain is append-only SHA-256 linked \u2014 tamper-evident for due diligence."
+    }
+  }
+}
