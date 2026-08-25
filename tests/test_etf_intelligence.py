@@ -76,6 +76,103 @@ def test_official_source_mapping(isolated_seed):
     assert "farside.co.uk" in src["source_display"]
 
 
+def test_official_source_issuer_sec_bloomberg(isolated_seed):
+    seed = json.loads(isolated_seed.read_text())
+    seed["official_sources"] = {
+        "types": ["Issuer Filing", "SEC", "Bloomberg"],
+        "display": "Source: Issuer Filing | SEC | Bloomberg",
+        "last_verified": "2026-08-25",
+    }
+    seed["assets"]["BTC"]["etp_products"] = [
+        {
+            "ticker": "IBIT",
+            "name": "iShares Bitcoin Trust",
+            "issuer": "BlackRock",
+            "official_source": "Issuer Filing | SEC | Bloomberg",
+            "aum_usd": 52000000000,
+            "daily_flow_usd": 180000000,
+            "nav_usd": 38.42,
+            "market_price_usd": 38.55,
+            "crypto_linkage": {"btc_exposure_pct": 99.8, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.2},
+            "as_of": "2026-08-25",
+        },
+    ]
+    seed["assets"]["BTC"]["aggregate_crypto_linkage"] = {
+        "btc_exposure_pct": 99.5, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.5,
+    }
+    isolated_seed.write_text(json.dumps(seed), encoding="utf-8")
+
+    dash = etf.build_etf_intelligence_dashboard("BTC")
+    official = dash["official_sources"]
+    assert "Issuer Filing" in official["display"]
+    assert "SEC" in official["display"]
+    assert "Bloomberg" in official["display"]
+
+
+def test_crypto_linkage_visible(isolated_seed):
+    seed = json.loads(isolated_seed.read_text())
+    seed["official_sources"] = {"types": ["Issuer Filing", "SEC", "Bloomberg"]}
+    seed["assets"]["BTC"]["etp_products"] = [
+        {
+            "ticker": "IBIT", "name": "Test", "issuer": "BlackRock",
+            "aum_usd": 1e10, "daily_flow_usd": 1e8, "nav_usd": 38.0, "market_price_usd": 38.2,
+            "crypto_linkage": {"btc_exposure_pct": 99.8, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.2},
+        },
+    ]
+    seed["assets"]["BTC"]["aggregate_crypto_linkage"] = {
+        "btc_exposure_pct": 99.5, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.5,
+    }
+    isolated_seed.write_text(json.dumps(seed), encoding="utf-8")
+
+    etp = etf.build_etp_data("BTC")
+    assert etp["ok"] is True
+    product = etp["products"][0]
+    assert "BTC exposure:" in product["crypto_linkage"]["display"]
+    assert "ETH:" in product["crypto_linkage"]["display"]
+    assert "Other:" in product["crypto_linkage"]["display"]
+    assert "99.8%" in product["crypto_linkage"]["display"]
+
+
+def test_aum_flows_premium_normalized(isolated_seed):
+    seed = json.loads(isolated_seed.read_text())
+    seed["official_sources"] = {"types": ["Issuer Filing", "SEC", "Bloomberg"]}
+    seed["assets"]["BTC"]["etp_products"] = [
+        {
+            "ticker": "IBIT", "name": "Test", "issuer": "BlackRock",
+            "aum_usd": 52000000000, "daily_flow_usd": 180000000,
+            "nav_usd": 38.42, "market_price_usd": 38.55,
+            "crypto_linkage": {"btc_exposure_pct": 99.8, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.2},
+        },
+    ]
+    seed["assets"]["BTC"]["aggregate_crypto_linkage"] = {
+        "btc_exposure_pct": 99.5, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.5,
+    }
+    isolated_seed.write_text(json.dumps(seed), encoding="utf-8")
+
+    etp = etf.build_etp_data("BTC")
+    product = etp["products"][0]
+    assert product["aum_display"].startswith("$")
+    assert "Premium" in product["premium_discount"]["display"] or "Discount" in product["premium_discount"]["display"]
+    assert "NAV:" in product["premium_discount"]["display"]
+    assert etp["aggregate"]["total_aum_usd"] > 0
+
+
+def test_etp_disclaimer(isolated_seed):
+    etp = etf.build_etp_data("BTC")
+    assert "NAV may differ from market price" in etp["disclaimer"]
+    assert etp["disclaimer_hideable"] is False
+    dash = etf.build_etf_intelligence_dashboard("BTC")
+    assert "NAV may differ from market price" in dash["disclaimer"]["text"]
+
+
+def test_merged_210_240_no_standalone(isolated_seed):
+    etp = etf.build_etp_data("BTC")
+    assert etp["feature_id"] == 210
+    assert 240 in etp["feature_ids"]
+    assert etp["standalone"] is False
+    assert etp["merged_with"] == "#240 ETF Flow Intelligence"
+
+
 def test_timezone_alignment(isolated_seed):
     dash = etf.build_etf_intelligence_dashboard("BTC")
     tz = dash["timezone_alignment"]
@@ -179,6 +276,9 @@ def test_api_routes(isolated_seed):
     assert body["aum_flow_price_triangle"]["aum_usd"] > 0
     assert c.get("/api/platform/market-radar/etf-intelligence/flows?asset=BTC").status_code == 200
     assert c.get("/api/platform/market-radar/etf-intelligence/market-context?asset=BTC").status_code == 200
+    etp = c.get("/api/platform/market-radar/etf-intelligence/etp-data?asset=BTC")
+    assert etp.status_code == 200
+    assert etp.json()["feature_id"] == 210
 
 
 def test_full_seed_exists():
@@ -187,3 +287,6 @@ def test_full_seed_exists():
     assert seed["standalone"] is False
     assert "BTC" in seed["assets"]
     assert len(seed["sources"]) >= 1
+    assert "official_sources" in seed
+    assert "Issuer Filing" in seed["official_sources"]["display"]
+    assert len(seed["assets"]["BTC"].get("etp_products", [])) >= 4

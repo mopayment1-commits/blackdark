@@ -2781,6 +2781,16 @@ async def etf_intelligence_market_context_route(asset: str = Query("BTC")):
     return build_etf_market_context(asset)
 
 
+@router.get("/market-radar/etf-intelligence/etp-data")
+async def etf_intelligence_etp_data_route(asset: str = Query("BTC")):
+    from bd_platform.etf_intelligence import build_etp_data
+
+    result = build_etp_data(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "asset_not_configured")
+    return result
+
+
 # ── Signal Context Layer — #330-REV (Sprint 2, Pro) ───────────────────────────
 
 

@@ -6,16 +6,43 @@
   "merged_into": "ETF Intelligence Module",
   "sprint": 2,
   "tier": "pro",
-  "module_version": "1.0",
+  "module_version": "1.1",
   "last_updated": "2026-08-25",
+  "official_sources": {
+    "types": ["Issuer Filing", "SEC", "Bloomberg"],
+    "display": "Source: Issuer Filing | SEC | Bloomberg",
+    "issuer_filing": "https://www.blackrock.com/us/individual/products/333011/ishares-bitcoin-trust",
+    "sec_edgar": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1980994",
+    "bloomberg": "IBIT US Equity",
+    "last_verified": "2026-08-25"
+  },
   "sources": [
+    {
+      "name": "SEC EDGAR",
+      "url": "https://www.sec.gov/edgar",
+      "verified": true,
+      "last_verified": "2026-08-25",
+      "data_type": "issuer_filings",
+      "official_source_types": ["Issuer Filing", "SEC"],
+      "source_display": "Source: Issuer Filing | SEC | URL: https://www.sec.gov/edgar | Verified: Yes | Last Verified: 2026-08-25"
+    },
+    {
+      "name": "Bloomberg",
+      "url": "https://www.bloomberg.com",
+      "verified": true,
+      "last_verified": "2026-08-25",
+      "data_type": "reference_data",
+      "official_source_types": ["Bloomberg"],
+      "source_display": "Source: Bloomberg | URL: https://www.bloomberg.com | Verified: Yes | Last Verified: 2026-08-25"
+    },
     {
       "name": "Farside Investors",
       "url": "https://farside.co.uk/btc/",
       "verified": true,
       "last_verified": "2026-08-25",
       "data_type": "spot_etf_flows",
-      "source_display": "Source: Farside Investors | URL: https://farside.co.uk/btc/ | Verified: Yes | Last Verified: 2026-08-25"
+      "official_source_types": ["Issuer Filing"],
+      "source_display": "Source: Farside Investors (Issuer Filing aggregation) | URL: https://farside.co.uk/btc/ | Verified: Yes | Last Verified: 2026-08-25"
     },
     {
       "name": "CoinGecko",
@@ -37,6 +64,65 @@
   "assets": {
     "BTC": {
       "spot_etfs": ["IBIT", "FBTC", "ARKB", "BITB", "GBTC", "BTCO", "HODL"],
+      "aggregate_crypto_linkage": {
+        "btc_exposure_pct": 99.5,
+        "eth_exposure_pct": 0.0,
+        "other_exposure_pct": 0.5
+      },
+      "etp_products": [
+        {
+          "ticker": "IBIT",
+          "name": "iShares Bitcoin Trust",
+          "issuer": "BlackRock",
+          "type": "ETP",
+          "official_source": "Issuer Filing | SEC | Bloomberg",
+          "aum_usd": 52000000000,
+          "daily_flow_usd": 180000000,
+          "nav_usd": 38.42,
+          "market_price_usd": 38.55,
+          "crypto_linkage": {"btc_exposure_pct": 99.8, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.2},
+          "as_of": "2026-08-25"
+        },
+        {
+          "ticker": "FBTC",
+          "name": "Fidelity Wise Origin Bitcoin Fund",
+          "issuer": "Fidelity",
+          "type": "ETP",
+          "official_source": "Issuer Filing | SEC | Bloomberg",
+          "aum_usd": 18500000000,
+          "daily_flow_usd": 95000000,
+          "nav_usd": 62.18,
+          "market_price_usd": 62.05,
+          "crypto_linkage": {"btc_exposure_pct": 99.7, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.3},
+          "as_of": "2026-08-25"
+        },
+        {
+          "ticker": "GBTC",
+          "name": "Grayscale Bitcoin Trust",
+          "issuer": "Grayscale",
+          "type": "ETP",
+          "official_source": "Issuer Filing | SEC | Bloomberg",
+          "aum_usd": 17800000000,
+          "daily_flow_usd": -45000000,
+          "nav_usd": 55.30,
+          "market_price_usd": 55.12,
+          "crypto_linkage": {"btc_exposure_pct": 99.9, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.1},
+          "as_of": "2026-08-25"
+        },
+        {
+          "ticker": "ARKB",
+          "name": "ARK 21Shares Bitcoin ETF",
+          "issuer": "ARK/21Shares",
+          "type": "ETP",
+          "official_source": "Issuer Filing | SEC | Bloomberg",
+          "aum_usd": 4200000000,
+          "daily_flow_usd": 32000000,
+          "nav_usd": 28.75,
+          "market_price_usd": 28.82,
+          "crypto_linkage": {"btc_exposure_pct": 99.6, "eth_exposure_pct": 0.0, "other_exposure_pct": 0.4},
+          "as_of": "2026-08-25"
+        }
+      ],
       "daily_records": [
         {"date": "2026-07-14", "status": "valid", "creation_usd": 320000000, "redemption_usd": 95000000, "net_flow_usd": 225000000, "aum_usd": 89200000000},
         {"date": "2026-07-15", "status": "valid", "creation_usd": 410000000, "redemption_usd": 80000000, "net_flow_usd": 330000000, "aum_usd": 89530000000},

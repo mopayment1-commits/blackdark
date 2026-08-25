@@ -26,8 +26,8 @@ _SEED_PATH = Path("data/etf_intelligence_seed.json")
 _EST = ZoneInfo("America/New_York")
 
 _DISCLAIMER_TEXT = (
-    "ETF flow data based on issuer disclosures. Correlation with crypto prices is historical, "
-    "not predictive. Not investment advice."
+    "ETP data based on issuer disclosures. NAV may differ from market price. "
+    "ETF flow correlation with crypto prices is historical, not predictive. Not investment advice."
 )
 
 RegimeLabel = Literal["Inflow-Driven", "Price-Driven", "Divergent"]
@@ -80,19 +80,146 @@ def _missing_day_display(record: dict[str, Any]) -> str:
 def _build_source_mapping(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
     mapped: list[dict[str, Any]] = []
     for src in sources:
+        official = src.get("official_source_types") or []
+        official_display = " | ".join(official) if official else src.get("name", "")
         mapped.append({
             "name": src.get("name"),
             "url": src.get("url"),
             "verified": bool(src.get("verified")),
             "last_verified": src.get("last_verified"),
             "data_type": src.get("data_type"),
+            "official_source_types": official,
             "source_display": src.get("source_display") or (
-                f"Source: {src.get('name')} | URL: {src.get('url')} | "
+                f"Source: {official_display} | URL: {src.get('url')} | "
                 f"Verified: {'Yes' if src.get('verified') else 'No'} | "
                 f"Last Verified: {src.get('last_verified', 'N/A')}"
             ),
         })
     return mapped
+
+
+def _build_official_sources_block(seed: dict[str, Any]) -> dict[str, Any]:
+    """Mandatory official source attribution — Issuer Filing | SEC | Bloomberg."""
+    official = seed.get("official_sources") or {}
+    types = official.get("types", ["Issuer Filing", "SEC", "Bloomberg"])
+    return {
+        "types": types,
+        "display": official.get("display") or f"Source: {' | '.join(types)}",
+        "issuer_filing": official.get("issuer_filing"),
+        "sec_edgar": official.get("sec_edgar"),
+        "bloomberg": official.get("bloomberg"),
+        "last_verified": official.get("last_verified"),
+        "mandatory": True,
+    }
+
+
+def _build_crypto_linkage(exposure: dict[str, Any]) -> dict[str, Any]:
+    """Crypto exposure linkage — BTC / ETH / Other percentages."""
+    btc = float(exposure.get("btc_exposure_pct", 0))
+    eth = float(exposure.get("eth_exposure_pct", 0))
+    other = float(exposure.get("other_exposure_pct", 0))
+    return {
+        "btc_exposure_pct": btc,
+        "eth_exposure_pct": eth,
+        "other_exposure_pct": other,
+        "display": f"BTC exposure: {btc}% | ETH: {eth}% | Other: {other}%",
+    }
+
+
+def _build_premium_discount(nav_usd: float, market_price_usd: float) -> dict[str, Any]:
+    """Normalized premium/discount — NAV vs market price."""
+    if nav_usd <= 0:
+        return {"premium_discount_pct": None, "display": "Premium/Discount: N/A"}
+    pct = round((market_price_usd - nav_usd) / nav_usd * 100, 2)
+    label = "Premium" if pct > 0 else "Discount" if pct < 0 else "At NAV"
+    return {
+        "nav_usd": nav_usd,
+        "market_price_usd": market_price_usd,
+        "premium_discount_pct": pct,
+        "label": label,
+        "display": (
+            f"NAV: ${nav_usd:.2f} | Market: ${market_price_usd:.2f} | "
+            f"{label}: {pct:+.2f}%"
+        ),
+    }
+
+
+def _normalize_etp_product(product: dict[str, Any]) -> dict[str, Any]:
+    """Normalize single ETP/ETF product data."""
+    aum = float(product.get("aum_usd", 0))
+    flow = float(product.get("daily_flow_usd", 0))
+    nav = float(product.get("nav_usd", 0))
+    market = float(product.get("market_price_usd", 0))
+    linkage = _build_crypto_linkage(product.get("crypto_linkage") or {})
+    premium = _build_premium_discount(nav, market)
+    official = product.get("official_source") or "Issuer Filing | SEC | Bloomberg"
+
+    return {
+        "ticker": product.get("ticker"),
+        "name": product.get("name"),
+        "issuer": product.get("issuer"),
+        "type": product.get("type", "ETP"),
+        "official_source": official,
+        "official_source_display": f"Source: {official}",
+        "aum_usd": aum,
+        "aum_display": _format_usd(aum),
+        "daily_flow_usd": flow,
+        "daily_flow_display": _format_usd(flow, signed=True),
+        "nav_usd": nav,
+        "market_price_usd": market,
+        "premium_discount": premium,
+        "crypto_linkage": linkage,
+        "normalized_display": (
+            f"{product.get('ticker')}: AUM {_format_usd(aum)} | "
+            f"Flow {_format_usd(flow, signed=True)} | "
+            f"{premium['display']} | {linkage['display']}"
+        ),
+        "as_of": product.get("as_of"),
+    }
+
+
+def build_etp_data(asset: str = "BTC") -> dict[str, Any]:
+    """ETF/ETP market and reference data — Feature #210."""
+    seed = _load_seed()
+    sym = asset.upper().replace("/USDT", "")
+    asset_data = (seed.get("assets") or {}).get(sym)
+    if not asset_data:
+        return {"ok": False, "feature_ids": list(_FEATURE_IDS), "error": "asset_not_configured", "asset": sym}
+
+    products = [_normalize_etp_product(p) for p in (asset_data.get("etp_products") or [])]
+    official_sources = _build_official_sources_block(seed)
+
+    total_aum = sum(p["aum_usd"] for p in products)
+    total_flow = sum(p["daily_flow_usd"] for p in products)
+
+    return {
+        "ok": True,
+        "feature_id": 210,
+        "feature_ids": list(_FEATURE_IDS),
+        "asset": sym,
+        "official_sources": official_sources,
+        "products": products,
+        "product_count": len(products),
+        "aggregate": {
+            "total_aum_usd": total_aum,
+            "total_aum_display": _format_usd(total_aum),
+            "total_daily_flow_usd": total_flow,
+            "total_daily_flow_display": _format_usd(total_flow, signed=True),
+            "aggregate_display": (
+                f"Total AUM: {_format_usd(total_aum)} | "
+                f"Total Daily Flow: {_format_usd(total_flow, signed=True)}"
+            ),
+        },
+        "crypto_linkage_aggregate": _build_crypto_linkage(
+            asset_data.get("aggregate_crypto_linkage") or {}
+        ),
+        "merged_with": "#240 ETF Flow Intelligence",
+        "standalone": _STANDALONE,
+        "not_a_recommendation": True,
+        "disclaimer": _DISCLAIMER_TEXT,
+        "disclaimer_hideable": False,
+        "timestamp": _utcnow(),
+    }
 
 
 def _timezone_alignment_block(seed: dict[str, Any]) -> dict[str, Any]:
@@ -458,6 +585,7 @@ def build_etf_intelligence_dashboard(asset: str = "BTC") -> dict[str, Any]:
     }
 
     inflow_context = _largest_inflow_context(valid)
+    etp_data = build_etp_data(sym)
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
     return {
@@ -473,6 +601,8 @@ def build_etf_intelligence_dashboard(asset: str = "BTC") -> dict[str, Any]:
             f"ETF Intelligence v{seed.get('module_version', '1.0')} | "
             f"Methodology: Rule-Based | Last Updated: {seed.get('last_updated', 'N/A')}"
         ),
+        "official_sources": _build_official_sources_block(seed),
+        "etp_data": etp_data,
         "spot_etfs": asset_data.get("spot_etfs", []),
         "sources": _build_source_mapping(seed.get("sources") or []),
         "timezone_alignment": _timezone_alignment_block(seed),
@@ -528,6 +658,9 @@ def etf_intelligence_status() -> dict[str, Any]:
         "assets_configured": list((seed.get("assets") or {}).keys()),
         "acceptance_criteria": {
             "official_source_mapping": True,
+            "official_source_issuer_sec_bloomberg": True,
+            "crypto_linkage_visible": True,
+            "aum_flows_premium_normalized": True,
             "timezone_alignment": True,
             "missing_day_handling": True,
             "rolling_totals_methodology": True,
