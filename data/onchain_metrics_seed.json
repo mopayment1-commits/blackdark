@@ -1,0 +1,20 @@
+{
+  "methodology": {
+    "version": "v1.0",
+    "updated_at": "2026-08-01",
+    "competitor_reference": "Glassnode Realized Cap",
+    "description": "Realized Cap = sum of value when each coin last moved on-chain. Proxy uses SMA200 cost-basis when on-chain UTXO data unavailable.",
+    "accuracy_note": "Proxy methodology targets ≥95% correlation with Glassnode on BTC/ETH daily snapshots",
+    "data_sources": ["Binance klines", "CoinGecko market chart", "circulating supply estimates"]
+  },
+  "supply_estimates": {
+    "BTC": {"circulating": 19800000, "source": "CoinGecko"},
+    "ETH": {"circulating": 120000000, "source": "CoinGecko"},
+    "SOL": {"circulating": 580000000, "source": "CoinGecko"}
+  },
+  "alert_thresholds": {
+    "mvrv_z_overheated": 2.0,
+    "mvrv_z_undervalued": -1.0,
+    "realized_cap_deviation_pct": 15.0
+  }
+}

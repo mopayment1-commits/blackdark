@@ -2037,3 +2037,34 @@ async def yield_sustainability_pool_route(pool_id: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+# ── Feature #750 merged — On-Chain Metrics Suite (Realized Cap Model) ──────────
+
+
+@router.get("/onchain/metrics-suite/status")
+async def onchain_metrics_suite_status_route():
+    from bd_platform.onchain_metrics_suite import onchain_metrics_suite_status
+
+    return onchain_metrics_suite_status()
+
+
+@router.get("/onchain/metrics-suite/methodology")
+async def onchain_metrics_methodology_route():
+    from bd_platform.onchain_metrics_suite import get_methodology
+
+    return get_methodology()
+
+
+@router.get("/onchain/metrics-suite")
+async def onchain_metrics_suite_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_suite import get_onchain_metrics_suite
+
+    return await get_onchain_metrics_suite(asset)
+
+
+@router.get("/onchain/metrics-suite/realized-cap")
+async def onchain_realized_cap_route(asset: str = Query("BTC")):
+    from bd_platform.onchain_metrics_suite import compute_realized_cap
+
+    return await compute_realized_cap(asset)
