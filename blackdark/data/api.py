@@ -181,6 +181,14 @@ async def get_data_status():
             "standalone": False,
             "summary": instrument_master_status(),
         }
+        from blackdark.data.order_book_liquidity import order_book_liquidity_status
+
+        status["order_book_liquidity_269"] = {
+            "merged": True,
+            "standalone": False,
+            "dashboard_deferred": "Sprint 2",
+            "summary": order_book_liquidity_status(),
+        }
     except Exception:
         logger.debug("instrument master status enrich failed", exc_info=True)
     return status
@@ -219,6 +227,70 @@ async def get_instrument_mapping_route(instrument_id: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/api/v1/data/order-book-liquidity/status")
+async def get_order_book_liquidity_status():
+    """#269 Order Book & Liquidity Data Layer — no standalone, no UI."""
+    from blackdark.data.order_book_liquidity import order_book_liquidity_status
+
+    return order_book_liquidity_status()
+
+
+@router.get("/api/v1/data/order-book-liquidity/gaps")
+async def list_order_book_gaps_route(
+    venue: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from blackdark.data.order_book_liquidity import list_gaps
+
+    return list_gaps(venue=venue, limit=limit)
+
+
+@router.get("/api/v1/data/order-book-liquidity/replay-tests")
+async def list_replay_tests_route(
+    passed_only: bool = Query(False),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from blackdark.data.order_book_liquidity import list_replay_tests
+
+    return list_replay_tests(passed_only=passed_only, limit=limit)
+
+
+@router.get("/api/v1/data/market-pairs/status")
+async def get_market_pair_view_status():
+    """#270 archived — frontend requirement for Market Radar Sprint 2."""
+    from blackdark.data.market_pair_view import market_pair_view_status
+
+    return market_pair_view_status()
+
+
+@router.get("/api/v1/data/market-pairs")
+async def list_market_pairs_route(
+    base: str | None = Query(None),
+    venue: str | None = Query(None),
+    include_stale: bool = Query(True),
+    limit: int = Query(50, ge=1, le=200),
+):
+    """#270 pair view over #268 — no separate pipeline."""
+    from blackdark.data.market_pair_view import list_pair_views
+
+    return list_pair_views(
+        base=base,
+        venue=venue,
+        include_stale=include_stale,
+        limit=limit,
+    )
+
+
+@router.get("/api/v1/data/market-pairs/compare/{base}")
+async def compare_market_pairs_route(
+    base: str,
+    quote: str = Query("USDT"),
+):
+    from blackdark.data.market_pair_view import compare_pairs_across_venues
+
+    return compare_pairs_across_venues(base, quote=quote)
 
 
 @router.post("/api/v1/data/ingest", status_code=202)

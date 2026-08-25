@@ -1,0 +1,81 @@
+{
+  "feature_id": 269,
+  "standalone": false,
+  "archived_standalone_ticket": true,
+  "merged_into": "Wave 01 Data Engine",
+  "sprint": 1,
+  "dashboard_deferred": "Sprint 2 Intelligence Ledger",
+  "last_updated": "2026-08-25",
+  "sla": {
+    "gap_detection_latency_min": 5,
+    "replay_coverage_pairs": 100,
+    "spread_variance_bps": 1.0
+  },
+  "retention": {
+    "top_50_days": 365,
+    "other_days": 30,
+    "compression": "gzip",
+    "auto_delete": true
+  },
+  "gaps": [
+    {
+      "timestamp": "2026-08-25T14:32:00+00:00",
+      "venue": "binance",
+      "pair": "BTC/USDT",
+      "expected_depth_usd": 530000000,
+      "actual_depth_usd": 412000000,
+      "duration_seconds": 180,
+      "root_cause": "API_down",
+      "alert_threshold_pct": 10
+    },
+    {
+      "timestamp": "2026-08-25T16:05:00+00:00",
+      "venue": "okx",
+      "pair": "ETH/USDT",
+      "expected_depth_usd": 186000000,
+      "actual_depth_usd": 178000000,
+      "duration_seconds": 45,
+      "root_cause": "stale_data",
+      "alert_threshold_pct": 10
+    },
+    {
+      "timestamp": "2026-08-25T18:00:00+00:00",
+      "venue": "kraken",
+      "pair": "SOL/USD",
+      "expected_depth_usd": 52000000,
+      "actual_depth_usd": 51500000,
+      "duration_seconds": 30,
+      "root_cause": "venue_maintenance",
+      "alert_threshold_pct": 10
+    }
+  ],
+  "replay_tests": [
+    {
+      "pair": "BTC/USDT",
+      "venue": "binance",
+      "test_date": "2026-08-25",
+      "expected_spread_bps": 2.1,
+      "replayed_spread_bps": 2.08,
+      "variance_threshold_bps": 1.0,
+      "passed": true
+    },
+    {
+      "pair": "ETH/USDT",
+      "venue": "coinbase",
+      "test_date": "2026-08-25",
+      "expected_spread_bps": 2.8,
+      "replayed_spread_bps": 2.75,
+      "variance_threshold_bps": 1.0,
+      "passed": true
+    },
+    {
+      "pair": "SOL/USDT",
+      "venue": "bybit",
+      "test_date": "2026-08-24",
+      "expected_spread_bps": 4.5,
+      "replayed_spread_bps": 5.8,
+      "variance_threshold_bps": 1.0,
+      "passed": false
+    }
+  ]
+}
