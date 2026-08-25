@@ -1,0 +1,54 @@
+[
+  {
+    "id": "btc-1h-001",
+    "asset": "BTC",
+    "interval": "1h",
+    "open_time_utc": "2026-08-25T11:00:00+00:00",
+    "close_time_utc": "2026-08-25T12:00:00+00:00",
+    "sources": {
+      "binance": {"open": 112500.0, "high": 112800.0, "low": 112400.0, "close": 112650.0, "volume": 1250.5, "available": true},
+      "okx": {"open": 112510.0, "high": 112790.0, "low": 112410.0, "close": 112640.0, "volume": 980.2, "available": true},
+      "bybit": {"open": 112505.0, "high": 112795.0, "low": 112405.0, "close": 112645.0, "volume": 1100.8, "available": true}
+    },
+    "onchain_volume_proxy": 3200.0
+  },
+  {
+    "id": "btc-1h-002",
+    "asset": "BTC",
+    "interval": "1h",
+    "open_time_utc": "2026-08-25T12:00:00+00:00",
+    "close_time_utc": "2026-08-25T13:00:00+00:00",
+    "sources": {
+      "binance": {"open": 112650.0, "high": 112900.0, "low": 112600.0, "close": 112850.0, "volume": 1380.0, "available": true},
+      "okx": {"open": 112640.0, "high": 112890.0, "low": 112590.0, "close": 112840.0, "volume": 1050.0, "available": true},
+      "bybit": {"open": 112645.0, "high": 112895.0, "low": 112595.0, "close": 112845.0, "volume": 1200.0, "available": false, "gap_reason": "exchange_down"}
+    },
+    "onchain_volume_proxy": 3400.0
+  },
+  {
+    "id": "eth-1h-001",
+    "asset": "ETH",
+    "interval": "1h",
+    "open_time_utc": "2026-08-25T11:00:00+00:00",
+    "close_time_utc": "2026-08-25T12:00:00+00:00",
+    "sources": {
+      "binance": {"open": 4200.0, "high": 4250.0, "low": 4180.0, "close": 4230.0, "volume": 8500.0, "available": true},
+      "okx": {"open": 4205.0, "high": 4248.0, "low": 4182.0, "close": 4228.0, "volume": 7200.0, "available": true},
+      "bybit": {"open": 4202.0, "high": 4245.0, "low": 4181.0, "close": 4229.0, "volume": 7800.0, "available": true}
+    },
+    "onchain_volume_proxy": 22000.0
+  },
+  {
+    "id": "btc-4h-001",
+    "asset": "BTC",
+    "interval": "4h",
+    "open_time_utc": "2026-08-25T08:00:00+00:00",
+    "close_time_utc": "2026-08-25T12:00:00+00:00",
+    "sources": {
+      "binance": {"open": 112000.0, "high": 112900.0, "low": 111800.0, "close": 112650.0, "volume": 5200.0, "available": true},
+      "okx": {"open": 112010.0, "high": 112890.0, "low": 111810.0, "close": 112640.0, "volume": 4800.0, "available": true},
+      "bybit": {"open": 112005.0, "high": 112895.0, "low": 111805.0, "close": 112645.0, "volume": 5000.0, "available": true}
+    },
+    "onchain_volume_proxy": 15000.0
+  }
+]
