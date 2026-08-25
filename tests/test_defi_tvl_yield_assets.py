@@ -176,7 +176,7 @@ def test_merged_features(isolated_yield):
     status = yss.yield_sustainability_status()
     assert 709 in status["merged_features"]
     assert 198 in status["merged_features"]
-    assert 710 in status["merged_features"]
+    assert 710 not in status["merged_features"]
 
 
 def test_full_seeds_exist():

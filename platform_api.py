@@ -2002,7 +2002,7 @@ async def unified_connector_view_route(probe_live: bool = Query(True)):
     return await build_unified_connector_view(probe_live=probe_live)
 
 
-# ── Feature #709 merged — Yield Sustainability Score (#198 + #710) ─────────────
+# ── Feature #709 merged — Yield Sustainability Score (#198) ────────────────────
 
 
 @router.get("/defi/yield-sustainability/status")
@@ -2037,6 +2037,87 @@ async def yield_sustainability_pool_route(pool_id: str):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+# ── DeFi Yield Center — #709 + #710 + #711 + #198 merged (Sprint 2) ───────────
+
+
+@router.get("/defi/yield-center/status")
+async def defi_yield_center_status_route():
+    from bd_platform.defi_yield_center import defi_yield_center_status
+
+    return defi_yield_center_status()
+
+
+@router.get("/defi/yield-center/dashboard")
+async def defi_yield_center_dashboard_route():
+    from bd_platform.defi_yield_center import get_yield_center_dashboard
+
+    return await get_yield_center_dashboard()
+
+
+@router.get("/defi/yield-center/screener")
+async def defi_yield_center_screener_route(
+    chain: str | None = Query(None),
+    min_tvl_usd: float | None = Query(None),
+    max_risk: str | None = Query(None),
+    exclude_stale: bool = Query(True),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.defi_yield_center import screen_yield_pools
+
+    return screen_yield_pools(
+        chain=chain,
+        min_tvl_usd=min_tvl_usd,
+        max_risk=max_risk,  # type: ignore[arg-type]
+        exclude_stale=exclude_stale,
+        limit=limit,
+    )
+
+
+@router.get("/defi/yield-center/arbitrage")
+async def defi_yield_center_arbitrage_list_route(
+    tier: str | None = Query(None),
+    min_net_yield_pct: float | None = Query(None),
+    limit: int = Query(20, ge=1, le=100),
+):
+    from bd_platform.defi_yield_center import list_yield_arbitrage
+
+    return list_yield_arbitrage(
+        tier=tier,  # type: ignore[arg-type]
+        min_net_yield_pct=min_net_yield_pct,
+        limit=limit,
+    )
+
+
+@router.get("/defi/yield-center/arbitrage/{opp_id}")
+async def defi_yield_center_arbitrage_detail_route(opp_id: str):
+    from bd_platform.defi_yield_center import get_arbitrage_opportunity
+
+    result = get_arbitrage_opportunity(opp_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.post("/defi/yield-center/arbitrage/{opp_id}/simulate")
+async def defi_yield_center_arbitrage_simulate_route(opp_id: str):
+    from bd_platform.defi_yield_center import run_arbitrage_simulation
+
+    result = run_arbitrage_simulation(opp_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/defi/yield-center/optimize")
+async def defi_yield_center_optimize_route(
+    capital_usd: float = Query(100_000, ge=1000),
+    max_risk: str = Query("medium"),
+):
+    from bd_platform.defi_yield_center import optimize_yield_allocation
+
+    return optimize_yield_allocation(capital_usd=capital_usd, max_risk=max_risk)  # type: ignore[arg-type]
 
 
 # ── Feature #750 merged — On-Chain Metrics Suite (Realized Cap Model) ──────────

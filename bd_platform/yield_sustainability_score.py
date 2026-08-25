@@ -1,8 +1,10 @@
 """
-Yield Sustainability Score — Feature #709 merged with #198 + #710 (Sprint 2).
+Yield Sustainability Score — Feature #709 merged with #198 (Sprint 2).
 
 Yield history with time-series stability, outlier detection,
 and incentive/fee decomposition. NOT a standalone yield tracker.
+
+#710 Yield Arbitrage lives in bd_platform.defi_yield_center (DeFi Yield Center).
 """
 
 from __future__ import annotations
@@ -17,7 +19,7 @@ from typing import Any, Literal
 logger = logging.getLogger("BLACKDARK.YieldSustainability")
 
 _FEATURE_ID = 709
-_MERGED_FEATURES = [709, 198, 710]
+_MERGED_FEATURES = [709, 198]
 _SEED_PATH = Path("data/yield_history_seed.json")
 _STORE_PATH = Path("data/yield_sustainability.json")
 
