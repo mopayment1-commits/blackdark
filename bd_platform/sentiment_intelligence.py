@@ -100,6 +100,27 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
     weighted = _weighted_sentiment(source_scores)
     label = "bullish" if weighted > 0.15 else "bearish" if weighted < -0.15 else "neutral"
 
+    # #197 Sentiment Quality Engine — weighted vs raw + explain contributors
+    quality_block: dict[str, Any] = {}
+    try:
+        from bd_platform.weighted_social_sentiment import analyze_weighted_social_sentiment
+
+        extra = [
+            {
+                "source_id": s.get("source", "unknown"),
+                "score": float(s.get("score") or 0),
+                "channel_type": "news" if s.get("source") == "rss" else "nlp"
+                if s.get("source") == "rules_nlp"
+                else "social",
+            }
+            for s in source_scores
+        ]
+        quality_block = await analyze_weighted_social_sentiment(sym, nlp_compound=compound, extra_contributors=extra)
+        weighted = float(quality_block.get("weighted_sentiment_score") or weighted)
+        label = "bullish" if weighted > 0.15 else "bearish" if weighted < -0.15 else "neutral"
+    except Exception:
+        logger.debug("weighted sentiment quality layer unavailable for %s", sym)
+
     # Price correlation hint
     price_correlation = None
     try:
@@ -117,24 +138,33 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
 
     elapsed = (time.perf_counter() - t0) * 1000
 
-    # #195 Unique Social Volume quality layer
-    social_volume_block: dict[str, Any] = {}
-    try:
-        from bd_platform.unique_social_volume import analyze_unique_social_volume
+    # #195 Unique Social Volume quality layer (also inside quality_block)
+    social_volume_block: dict[str, Any] = quality_block.get("social_volume") or {}
+    if not social_volume_block:
+        try:
+            from bd_platform.unique_social_volume import analyze_unique_social_volume
 
-        social_volume_block = await analyze_unique_social_volume(sym)
-    except Exception:
-        logger.debug("unique social volume unavailable for %s", sym)
+            social_volume_block = await analyze_unique_social_volume(sym)
+        except Exception:
+            logger.debug("unique social volume unavailable for %s", sym)
+
+    explain = (quality_block.get("explain_contributors") or {}) if quality_block else {}
 
     return {
         "ok": True,
         "feature_id": _FEATURE_ID,
         "asset": sym,
         "weighted_sentiment_score": weighted,
+        "raw_sentiment_score": quality_block.get("raw_sentiment_score") if quality_block else weighted,
         "sentiment_label": label,
         "source_count": len(sources_hit),
         "sources": sources_hit,
         "source_breakdown": source_scores,
+        "sentiment_quality": quality_block,
+        "explain_contributors": explain.get("explanation"),
+        "explain_contributors_ar": explain.get("explanation_ar"),
+        "channel_mix_pct": explain.get("channel_mix_pct"),
+        "manipulation_resistance": quality_block.get("manipulation_resistance") if quality_block else None,
         "social_volume": social_volume_block,
         "unique_social_volume": social_volume_block.get("unique_volume"),
         "raw_social_volume": social_volume_block.get("raw_volume"),
@@ -143,7 +173,7 @@ async def analyze_asset_sentiment(asset: str) -> dict[str, Any]:
         "price_correlation": price_correlation,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "arabic_support": "via_rules_nlp_tuning",
-        "integrated_features": ["#149", "#195"],
+        "integrated_features": ["#149", "#195", "#197"],
         "sla_met": elapsed <= 2000,
         "latency_ms": round(elapsed, 1),
         "timestamp": _utcnow(),
@@ -178,7 +208,9 @@ def sentiment_intelligence_status() -> dict[str, Any]:
         "weighted_scoring": True,
         "refresh_interval_min": _REFRESH_INTERVAL_MIN,
         "nlp_accuracy_target_pct": 80,
-        "integrated_features": ["#149", "#195"],
+        "integrated_features": ["#149", "#195", "#197"],
         "unique_social_volume_layer": True,
+        "weighted_sentiment_quality_engine": True,
+        "weights_version": "1.0.0",
         "timestamp": _utcnow(),
     }

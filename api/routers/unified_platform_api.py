@@ -190,6 +190,21 @@ async def unified_api_quotas_route(
     return {"ok": True, **get_tier_quota(_user_tier(user))}
 
 
+@router.get("/coverage")
+async def unified_api_coverage_route():
+    """Connector coverage map with live parity (#194 + #200)."""
+    from bd_platform.connector_coverage_map import build_coverage_map
+
+    return await build_coverage_map()
+
+
+@router.get("/coverage/status")
+async def unified_api_coverage_status_route():
+    from bd_platform.connector_coverage_map import connector_coverage_status
+
+    return connector_coverage_status()
+
+
 # ── Spreadsheet Integration #174 + #176 ──────────────────────────────────────
 
 
