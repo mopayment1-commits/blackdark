@@ -944,6 +944,27 @@ async def market_radar_dashboard_status_route():
     return market_radar_dashboard_status()
 
 
+@router.get("/market-radar/order-book")
+async def global_order_book_route(
+    asset: str = Query("BTC"),
+    tier: str = Query("pro"),
+):
+    """Global Order Book tab — #249 merged into Market Radar."""
+    from bd_platform.global_order_book import build_global_order_book_panel
+
+    result = build_global_order_book_panel(asset, tier=tier)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/market-radar/order-book/status")
+async def global_order_book_status_route():
+    from bd_platform.global_order_book import global_order_book_status
+
+    return global_order_book_status()
+
+
 @router.get("/market-radar/infrastructure/status")
 async def market_radar_infrastructure_status_route():
     """Multi-exchange price monitoring infrastructure (#155)."""
