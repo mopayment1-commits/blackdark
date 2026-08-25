@@ -2062,6 +2062,34 @@ async def futures_volume_dashboard_route():
     return get_futures_volume_dashboard()
 
 
+# ── Feature #247 — Gas Cost Engine (Core Infrastructure for Fee DB #130) ───────
+
+
+@router.get("/gas-cost/status")
+async def gas_cost_engine_status_route():
+    from bd_platform.gas_cost_engine import gas_cost_engine_status
+
+    return gas_cost_engine_status()
+
+
+@router.get("/gas-cost/predict")
+async def gas_cost_predict_route(
+    chain: str = Query("ethereum"),
+    tx_type: str = Query("swap"),
+    tier: str = Query("free"),
+):
+    from bd_platform.gas_cost_engine import predict_gas_cost
+
+    return predict_gas_cost(chain, tx_type=tx_type, tier=tier)  # type: ignore[arg-type]
+
+
+@router.get("/gas-cost/monitoring")
+async def gas_cost_monitoring_route():
+    from bd_platform.gas_cost_engine import get_calibration_monitoring
+
+    return get_calibration_monitoring()
+
+
 @router.get("/connectors/unified")
 async def unified_connector_view_route(probe_live: bool = Query(True)):
     from bd_platform.connector_coverage_map import build_unified_connector_view

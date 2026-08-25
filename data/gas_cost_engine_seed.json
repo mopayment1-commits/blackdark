@@ -1,0 +1,208 @@
+{
+  "feature_id": 247,
+  "methodology_version": "2.1",
+  "last_updated": "2026-08-25",
+  "chain_models": {
+    "ethereum": {
+      "model_type": "EIP-1559 base fee + priority fee model",
+      "display": "Ethereum: EIP-1559 base fee + priority fee model"
+    },
+    "bsc": {
+      "model_type": "Fixed priority model",
+      "display": "BSC: Fixed priority model"
+    },
+    "arbitrum": {
+      "model_type": "L2-specific compression",
+      "display": "Arbitrum: L2-specific compression"
+    },
+    "polygon": {
+      "model_type": "PoS validator fee model",
+      "display": "Polygon: PoS validator fee model"
+    },
+    "optimism": {
+      "model_type": "L2-specific compression",
+      "display": "Optimism: L2-specific compression"
+    },
+    "base": {
+      "model_type": "L2-specific compression",
+      "display": "Base: L2-specific compression"
+    },
+    "avalanche": {
+      "model_type": "Subnet gas model",
+      "display": "Avalanche: Subnet gas model"
+    },
+    "solana": {
+      "model_type": "Priority fee + compute unit model",
+      "display": "Solana: Priority fee + compute unit model"
+    }
+  },
+  "chains": {
+    "ethereum": {
+      "median_cost_usd": 12.50,
+      "calibration": {
+        "actual_vs_predicted_error_pct": 8.2,
+        "last_calibrated_block": 21234500
+      },
+      "spike": {
+        "detected": false,
+        "volatility_sigma": 1.8
+      },
+      "fallback": {
+        "primary_failed": false,
+        "source": "Last 10 blocks median",
+        "median_usd": 12.50,
+        "range_low_usd": 8.20,
+        "range_high_usd": 18.40,
+        "confidence": "Medium"
+      },
+      "percentile_bands": {
+        "expected_usd": 12.50,
+        "p25_usd": 9.80,
+        "p75_usd": 15.20,
+        "p95_usd": 22.50,
+        "confidence": "Medium"
+      },
+      "tx_costs": {
+        "swap": 12.50,
+        "bridge": 28.00,
+        "nft_mint": 45.00,
+        "contract_deploy": 120.00,
+        "transfer": 3.20
+      },
+      "monitoring": {
+        "predicted_usd": 12.50,
+        "actual_usd": 13.52,
+        "variance_pct": 8.2,
+        "drift": "None",
+        "accuracy_trend": "stable"
+      },
+      "opportunity_context": {
+        "gross_yield_pct": 8.5,
+        "gas_entry_usd": 12.50,
+        "gas_exit_usd": 12.50,
+        "slippage_usd": 30.00,
+        "notional_usd": 10000
+      }
+    },
+    "bsc": {
+      "median_cost_usd": 0.35,
+      "calibration": {
+        "actual_vs_predicted_error_pct": 5.1,
+        "last_calibrated_block": 45123000
+      },
+      "spike": {
+        "detected": false,
+        "volatility_sigma": 0.9
+      },
+      "fallback": {
+        "primary_failed": false,
+        "source": "Last 10 blocks median",
+        "median_usd": 0.35,
+        "range_low_usd": 0.25,
+        "range_high_usd": 0.55,
+        "confidence": "High"
+      },
+      "percentile_bands": {
+        "expected_usd": 0.35,
+        "p25_usd": 0.28,
+        "p75_usd": 0.42,
+        "p95_usd": 0.58,
+        "confidence": "High"
+      },
+      "tx_costs": {
+        "swap": 0.35,
+        "bridge": 0.80,
+        "nft_mint": 1.20,
+        "contract_deploy": 3.50,
+        "transfer": 0.08
+      },
+      "monitoring": {
+        "predicted_usd": 0.35,
+        "actual_usd": 0.37,
+        "variance_pct": 5.1,
+        "drift": "None",
+        "accuracy_trend": "stable"
+      }
+    },
+    "arbitrum": {
+      "median_cost_usd": 0.85,
+      "calibration": {
+        "actual_vs_predicted_error_pct": 7.4,
+        "last_calibrated_block": 285000000
+      },
+      "spike": {
+        "detected": false,
+        "volatility_sigma": 1.2
+      },
+      "fallback": {
+        "primary_failed": false,
+        "source": "Last 10 blocks median",
+        "median_usd": 0.85,
+        "range_low_usd": 0.55,
+        "range_high_usd": 1.25,
+        "confidence": "Medium"
+      },
+      "percentile_bands": {
+        "expected_usd": 0.85,
+        "p25_usd": 0.65,
+        "p75_usd": 1.05,
+        "p95_usd": 1.45,
+        "confidence": "Medium"
+      },
+      "tx_costs": {
+        "swap": 0.85,
+        "bridge": 1.50,
+        "nft_mint": 2.80,
+        "contract_deploy": 8.00,
+        "transfer": 0.15
+      },
+      "monitoring": {
+        "predicted_usd": 0.85,
+        "actual_usd": 0.91,
+        "variance_pct": 7.4,
+        "drift": "None",
+        "accuracy_trend": "stable"
+      }
+    },
+    "polygon": {
+      "median_cost_usd": 0.02,
+      "calibration": {
+        "actual_vs_predicted_error_pct": 6.8,
+        "last_calibrated_block": 62000000
+      },
+      "spike": {
+        "detected": true,
+        "volatility_sigma": 3.5
+      },
+      "fallback": {
+        "primary_failed": true,
+        "source": "Last 10 blocks median",
+        "median_usd": 0.02,
+        "range_low_usd": 0.01,
+        "range_high_usd": 0.08,
+        "confidence": "Low"
+      },
+      "percentile_bands": {
+        "expected_usd": 0.02,
+        "p25_usd": 0.015,
+        "p75_usd": 0.035,
+        "p95_usd": 0.06,
+        "confidence": "Low"
+      },
+      "tx_costs": {
+        "swap": 0.02,
+        "bridge": 0.05,
+        "nft_mint": 0.08,
+        "contract_deploy": 0.25,
+        "transfer": 0.005
+      },
+      "monitoring": {
+        "predicted_usd": 0.02,
+        "actual_usd": 0.025,
+        "variance_pct": 25.0,
+        "drift": "Elevated",
+        "accuracy_trend": "degraded"
+      }
+    }
+  }
+}
