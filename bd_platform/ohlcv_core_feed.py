@@ -183,7 +183,7 @@ def _enrich_candle(row: dict[str, Any]) -> dict[str, Any]:
             mcap = build_market_cap_block(str(row["asset"]), float(close_price))
             if mcap:
                 candle["market_cap_supply"] = mcap
-                candle["integrated_features"] = ["#267"]
+                candle["integrated_features"] = ["#266"]
     except Exception:
         logger.debug("market cap enrich failed", exc_info=True)
 
