@@ -1697,3 +1697,68 @@ async def block_ingestion_reorg_route(body: dict[str, Any] = Body(...)):
         str(body.get("old_hash") or ""),
         str(body.get("new_hash") or ""),
     )
+
+
+# ── Feature #209+#213 — Drift Monitoring Engine (merged) ─────────────────────
+
+
+@router.get("/drift-monitoring/status")
+async def drift_monitoring_status_route():
+    from bd_platform.drift_monitoring_engine import drift_monitoring_status
+
+    return drift_monitoring_status()
+
+
+@router.get("/drift-monitoring/baselines")
+async def drift_baselines_list_route():
+    from bd_platform.drift_monitoring_engine import list_baselines
+
+    return list_baselines()
+
+
+@router.get("/drift-monitoring/baselines/{version}")
+async def drift_baseline_detail_route(version: str):
+    from bd_platform.drift_monitoring_engine import get_baseline
+
+    result = get_baseline(version)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/drift-monitoring/dashboard")
+async def drift_dashboard_route(model_id: str = Query("oracle_signal_v3")):
+    from bd_platform.drift_monitoring_engine import get_drift_dashboard
+
+    return get_drift_dashboard(model_id=model_id)
+
+
+@router.post("/drift-monitoring/detect")
+async def drift_detect_route(body: dict[str, Any] = Body(...)):
+    from bd_platform.drift_monitoring_engine import detect_drift
+
+    values = body.get("values") if isinstance(body.get("values"), dict) else {}
+    return detect_drift(
+        values,
+        baseline_version=body.get("baseline_version"),
+        model_id=str(body.get("model_id") or "oracle_signal_v3"),
+    )
+
+
+@router.post("/drift-monitoring/review")
+async def drift_review_route(body: dict[str, Any] = Body(...)):
+    from bd_platform.drift_monitoring_engine import review_drift_alert
+
+    return review_drift_alert(
+        str(body.get("alert_id") or ""),
+        decision=str(body.get("decision") or "pending"),  # type: ignore[arg-type]
+        reviewer=str(body.get("reviewer") or "unknown"),
+        notes=str(body.get("notes") or ""),
+    )
+
+
+@router.post("/drift-monitoring/reproducible-test")
+async def drift_reproducible_test_route():
+    from bd_platform.drift_monitoring_engine import run_reproducible_drift_test
+
+    return run_reproducible_drift_test()
