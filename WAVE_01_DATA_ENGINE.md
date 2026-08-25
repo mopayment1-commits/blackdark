@@ -19,6 +19,7 @@ Foundational data collection and provenance layer. Every data point is sourced, 
 | Backfill CLI (`python -m blackdark.data backfill ...`) | ✅ |
 | Provenance endpoint | ✅ |
 | Instrument Master (#268 merged) | ✅ Mapping schema + cost tiers |
+| Order Book Liquidity (#269 merged) | ✅ Gap detection + replay tests |
 | k6 script (`scripts/k6_wave_01_data.js`) | ✅ |
 | Unit tests | ✅ 3/3 |
 
@@ -44,6 +45,8 @@ curl -sS "https://blackdark-production.up.railway.app/api/v1/data/open-interest?
 curl -sS https://blackdark-production.up.railway.app/api/v1/data/status
 curl -sS https://blackdark-production.up.railway.app/api/v1/data/instrument-master/status
 curl -sS "https://blackdark-production.up.railway.app/api/v1/data/instrument-master/mappings?tier=hot&limit=10"
+curl -sS https://blackdark-production.up.railway.app/api/v1/data/order-book-liquidity/status
+curl -sS "https://blackdark-production.up.railway.app/api/v1/data/order-book-liquidity/gaps?limit=10"
 curl -sS "https://blackdark-production.up.railway.app/api/v1/data/events?limit=5"
 ```
 
