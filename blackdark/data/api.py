@@ -172,7 +172,53 @@ async def get_provenance(record_id: UUID):
 async def get_data_status():
     _require_postgres()
     async with get_session() as session:
-        return await data_engine_status(session)
+        status = await data_engine_status(session)
+    try:
+        from blackdark.data.instrument_master import instrument_master_status
+
+        status["instrument_master_268"] = {
+            "merged": True,
+            "standalone": False,
+            "summary": instrument_master_status(),
+        }
+    except Exception:
+        logger.debug("instrument master status enrich failed", exc_info=True)
+    return status
+
+
+@router.get("/api/v1/data/instrument-master/status")
+async def get_instrument_master_status():
+    """#268 Instrument Master merged into Wave 01 Data Engine — no standalone."""
+    from blackdark.data.instrument_master import instrument_master_status
+
+    return instrument_master_status()
+
+
+@router.get("/api/v1/data/instrument-master/mappings")
+async def list_instrument_mappings_route(
+    tier: str | None = Query(None, description="hot | warm | cold"),
+    asset_class: str | None = Query(None, description="spot | perp | option"),
+    venue_type: str | None = Query(None, description="CEX | DEX | Derivatives"),
+    limit: int = Query(50, ge=1, le=500),
+):
+    from blackdark.data.instrument_master import list_instrument_mappings
+
+    return list_instrument_mappings(
+        tier=tier,  # type: ignore[arg-type]
+        asset_class=asset_class,  # type: ignore[arg-type]
+        venue_type=venue_type,  # type: ignore[arg-type]
+        limit=limit,
+    )
+
+
+@router.get("/api/v1/data/instrument-master/mappings/{instrument_id}")
+async def get_instrument_mapping_route(instrument_id: str):
+    from blackdark.data.instrument_master import get_instrument_mapping
+
+    result = get_instrument_mapping(instrument_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
 
 
 @router.post("/api/v1/data/ingest", status_code=202)

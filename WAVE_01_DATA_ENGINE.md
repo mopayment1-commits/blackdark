@@ -18,6 +18,7 @@ Foundational data collection and provenance layer. Every data point is sourced, 
 | 3 background jobs (Binance OHLCV 1m/1h, funding, CoinGecko) | ✅ APScheduler |
 | Backfill CLI (`python -m blackdark.data backfill ...`) | ✅ |
 | Provenance endpoint | ✅ |
+| Instrument Master (#268 merged) | ✅ Mapping schema + cost tiers |
 | k6 script (`scripts/k6_wave_01_data.js`) | ✅ |
 | Unit tests | ✅ 3/3 |
 
@@ -41,6 +42,8 @@ curl -sS "https://blackdark-production.up.railway.app/api/v1/data/ohlcv?symbol=B
 curl -sS "https://blackdark-production.up.railway.app/api/v1/data/funding?symbol=BTCUSDT&limit=5"
 curl -sS "https://blackdark-production.up.railway.app/api/v1/data/open-interest?symbol=BTCUSDT&limit=5"
 curl -sS https://blackdark-production.up.railway.app/api/v1/data/status
+curl -sS https://blackdark-production.up.railway.app/api/v1/data/instrument-master/status
+curl -sS "https://blackdark-production.up.railway.app/api/v1/data/instrument-master/mappings?tier=hot&limit=10"
 curl -sS "https://blackdark-production.up.railway.app/api/v1/data/events?limit=5"
 ```
 
