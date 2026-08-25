@@ -2511,3 +2511,52 @@ async def coinbase_premium_route(asset: str = Query("BTC")):
 
     return get_coinbase_premium(asset)
 
+
+# ── MCP for AI — #262 AI Agent Server (Sprint 2) ─────────────────────────────
+
+
+@router.get("/mcp/status")
+async def mcp_ai_server_status_route():
+    from bd_platform.mcp_ai_server import mcp_ai_server_status
+
+    return mcp_ai_server_status()
+
+
+@router.get("/mcp/tools/schema")
+async def mcp_tool_schema_route():
+    from bd_platform.mcp_ai_server import get_tool_schemas
+
+    return get_tool_schemas()
+
+
+@router.post("/mcp/tools/call")
+async def mcp_tool_call_route(
+    tool_name: str = Body(..., embed=True),
+    parameters: dict[str, Any] = Body(default_factory=dict, embed=True),
+    x_api_key: str = Header(..., alias="X-API-Key"),
+    x_agent_fingerprint: str = Header(..., alias="X-Agent-Fingerprint"),
+):
+    from bd_platform.mcp_ai_server import call_mcp_tool
+
+    return await call_mcp_tool(
+        tool_name,
+        parameters,
+        api_key=x_api_key,
+        agent_fingerprint=x_agent_fingerprint,
+    )
+
+
+@router.get("/mcp/trace")
+async def mcp_tool_trace_route(
+    limit: int = Query(50, ge=1, le=200),
+    agent_id: str | None = Query(None),
+    x_api_key: str = Header(..., alias="X-API-Key"),
+    x_agent_fingerprint: str = Header(..., alias="X-Agent-Fingerprint"),
+):
+    from bd_platform.mcp_ai_server import _resolve_agent, get_tool_trace
+
+    auth = _resolve_agent(x_api_key, x_agent_fingerprint)
+    if not auth.get("ok"):
+        raise HTTPException(status_code=401, detail=auth.get("message", "authentication_required"))
+    return get_tool_trace(limit=limit, agent_id=agent_id or auth.get("agent_id"))
+
