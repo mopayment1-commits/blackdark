@@ -1792,6 +1792,61 @@ async def entity_intelligence_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/entity-layer/investor-intelligence/status")
+async def investor_intelligence_layer_status_route():
+    """#562 #563 Investor Intelligence Layer — activity + profiles."""
+    from bd_platform.investor_intelligence_layer import investor_intelligence_layer_status
+
+    return investor_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/entity-layer/investor-intelligence")
+async def investor_intelligence_panel_route(
+    investor_id: str = Query("investor_paradigm"),
+):
+    from bd_platform.investor_intelligence_layer import build_investor_intelligence_panel
+
+    result = build_investor_intelligence_panel(investor_id=investor_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/entity-layer/investor-intelligence/reconciliation-tests")
+async def investor_intelligence_reconciliation_tests_route():
+    from bd_platform.investor_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/data-layer/infrastructure/status")
+async def data_infrastructure_layer_status_route():
+    """#564 Data Infrastructure Layer — Market + Network Join (Sprint 0)."""
+    from bd_platform.data_infrastructure_layer import data_infrastructure_layer_status
+
+    return data_infrastructure_layer_status()
+
+
+@router.get("/intelligence-ledger/data-layer/infrastructure/market-network-join")
+async def market_network_join_route(
+    as_of: str | None = Query(None),
+    asset: str | None = Query(None),
+):
+    from bd_platform.data_infrastructure_layer import build_data_infrastructure_panel
+
+    result = build_data_infrastructure_panel(as_of=as_of, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/data-layer/infrastructure/reconciliation-tests")
+async def data_infrastructure_reconciliation_tests_route():
+    from bd_platform.data_infrastructure_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/infrastructure/custom-alerts/status")
 async def custom_alerts_status_route():
     """#532 Custom Alerts — backend enforced, rate limits, tx evidence."""

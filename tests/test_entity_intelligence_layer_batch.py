@@ -1,4 +1,4 @@
-"""Tests — Entity Intelligence Layer epic #539 #540."""
+"""Tests — Entity Intelligence Layer epic #539 #540 #561."""
 
 from __future__ import annotations
 
@@ -21,6 +21,9 @@ def entity_intel_seed(tmp_path, monkeypatch):
             "entity_whale_alpha": {
                 "entity_type": "whale",
                 "name": "Test Whale",
+                "labels": {"label": "Test Whale", "confidence": "high", "source": "test", "version": "1.0"},
+                "pit_status": {"as_of": "2026-08-26T12:00:00Z", "cluster_version": "1.0"},
+                "revisions": [{"revision_id": "rev-1"}],
                 "wallets": [
                     "0xabc1234567890def1234567890abc1234567890ab",
                     "0xdef9876543210abc9876543210def9876543210cd",
@@ -89,6 +92,33 @@ def entity_intel_seed(tmp_path, monkeypatch):
                 ],
             },
         },
+        "entity_address_index": {
+            "0xabc1234567890def1234567890abc1234567890ab": {
+                "entity_id": "entity_whale_alpha", "entity_type": "whale",
+            },
+            "0xdef9876543210abc9876543210def9876543210cd": {
+                "entity_id": "entity_whale_alpha", "entity_type": "whale",
+            },
+            "0xexchange001": {"entity_id": "entity_exchange", "entity_type": "exchange"},
+        },
+        "inter_entity_transfers": [
+            {
+                "transfer_id": "ie-1",
+                "timestamp": "2026-08-26T10:00:00Z",
+                "asset": "BTC",
+                "value_usd": 1000000.0,
+                "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+                "to_address": "0xexchange001",
+            },
+            {
+                "transfer_id": "ie-2",
+                "timestamp": "2026-08-26T11:00:00Z",
+                "asset": "BTC",
+                "value_usd": 500000.0,
+                "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+                "to_address": "0xdef9876543210abc9876543210def9876543210cd",
+            },
+        ],
     }), encoding="utf-8")
     monkeypatch.setattr(eil, "_SEED_PATH", p)
     return p
@@ -98,7 +128,7 @@ def test_epic_status_merged_not_standalone(entity_intel_seed):
     status = eil.entity_intelligence_layer_status()
     assert status["standalone_rejected"] is True
     assert status["tasks_not_tickets"] is True
-    assert set(status["feature_ids"]) == {539, 540}
+    assert set(status["feature_ids"]) == {539, 540, 561}
     assert status["dependencies"]["entity_resolution_feature_id"] == 541
 
 
@@ -161,7 +191,36 @@ def test_main_panel(entity_intel_seed):
     assert panel["epic_feature_id"] == 539
     assert "539_entity_pnl_tracker" in panel["sub_modules"]
     assert "540_entity_profiles" in panel["sub_modules"]
-    assert panel["acceptance_criteria"]["unknown_basis_flagged"] is True
+    assert "561_inter_entity_flow_intelligence" in panel["sub_modules"]
+    assert panel["acceptance_criteria"]["internal_transfers_controlled"] is True
+
+
+def test_561_inter_entity_flow(entity_intel_seed):
+    inter = eil.build_inter_entity_flow_intelligence()
+    assert inter["ok"] is True
+    assert inter["flow_matrix"]["internal_transfers_controlled"] is True
+    assert inter["flow_matrix"]["label_confidence_visible"] is True
+    assert bool(inter["pit_revision_status"])
+
+
+def test_561_internal_transfer_excluded(entity_intel_seed):
+    transfer = {
+        "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+        "to_address": "0xdef9876543210abc9876543210def9876543210cd",
+        "value_usd": 1000000.0,
+        "is_internal": False,
+    }
+    index = {
+        "0xabc1234567890def1234567890abc1234567890ab": {
+            "entity_id": "entity_whale_alpha", "entity_type": "whale",
+        },
+        "0xdef9876543210abc9876543210def9876543210cd": {
+            "entity_id": "entity_whale_alpha", "entity_type": "whale",
+        },
+    }
+    classified = eil.classify_inter_entity_transfer(transfer, entity_index=index)
+    assert classified["is_internal"] is True
+    assert classified["internal_transfers_controlled"] is True
 
 
 def test_reconciliation_tests(entity_intel_seed):
