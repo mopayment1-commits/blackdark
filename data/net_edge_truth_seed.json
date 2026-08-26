@@ -1,0 +1,166 @@
+{
+  "feature_id": 417,
+  "title": "Net-Edge Truth Score",
+  "legal_name": "Net-Edge Truth Score",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Sprint-2 Core",
+  "sprint": 2,
+  "priority": "critical",
+  "methodology_version": "1.0",
+  "formula_version": "2.0.0",
+  "last_updated": "2026-08-26",
+  "formula": {
+    "description": "Executable net-edge score 0-100 with fail-closed gates",
+    "weights": {
+      "residual_edge": 0.45,
+      "latency_freshness": 0.25,
+      "slippage_quality": 0.15,
+      "fee_drag_clarity": 0.15
+    },
+    "capacity_penalty": "0.15 × (100 − liquidity_score) when #415 depth present",
+    "truth_edge_usd": "residual_after_crowd − latency_buffer − network_cost",
+    "unknown_costs_policy": "worst_case_estimate_never_zero",
+    "fail_closed": ["stale_depth", "not_fillable", "negative_net_edge", "unverifiable_economics"]
+  },
+  "worst_case_costs_default": {
+    "withdrawal_fee_usdt": 2.5,
+    "trading_fees_usdt": 1.0,
+    "transfer_cost_usdt": 0.5
+  },
+  "regression_fixtures": [
+    {
+      "id": "fresh_executable_btc",
+      "input": {
+        "opportunity_id": "reg_fresh_btc",
+        "asset": "BTC",
+        "net_profit_usdt": 2.5,
+        "quote_amount": 500,
+        "total_slippage_bps": 3,
+        "withdrawal_fee_usdt": 0.05,
+        "trading_fees_usdt": 0.2,
+        "quote_age_ms": 120,
+        "estimated_recipients": 2,
+        "flywheel_net_after_crowd_usd": 2.1,
+        "volume_feasibility": {
+          "max_executable_size": 1.0,
+          "liquidity_score": 85,
+          "buy_leg": {"verdict": "full_fill", "stale": false},
+          "sell_leg": {"verdict": "full_fill", "stale": false}
+        }
+      },
+      "expect": {"pass": true, "min_truth_score": 55}
+    },
+    {
+      "id": "stale_thin_edge_reject",
+      "input": {
+        "opportunity_id": "reg_stale_thin",
+        "asset": "ETH",
+        "net_profit_usdt": 0.01,
+        "quote_amount": 1000,
+        "total_slippage_bps": 40,
+        "withdrawal_fee_usdt": 1.0,
+        "trading_fees_usdt": 0.5,
+        "quote_age_ms": 5000,
+        "estimated_recipients": 40
+      },
+      "expect": {"reject": true}
+    },
+    {
+      "id": "missing_withdrawal_fail_closed",
+      "input": {
+        "opportunity_id": "reg_missing_wd",
+        "asset": "SOL",
+        "net_profit_usdt": 5.0,
+        "quote_amount": 1000,
+        "total_slippage_bps": 2,
+        "trading_fees_usdt": 0.1,
+        "quote_age_ms": 100
+      },
+      "expect": {"reject": true, "reason": "missing_withdrawal_fee"}
+    },
+    {
+      "id": "worst_case_withdrawal_estimate",
+      "input": {
+        "opportunity_id": "reg_worst_case",
+        "asset": "AVAX",
+        "net_profit_usdt": 3.0,
+        "quote_amount": 1000,
+        "total_slippage_bps": 5,
+        "trading_fees_usdt": 0.2,
+        "quote_age_ms": 200,
+        "worst_case_costs": {
+          "withdrawal_fee_usdt": 1.5
+        }
+      },
+      "expect": {"reject": false, "cost_policy": "worst_case_estimate"}
+    },
+    {
+      "id": "not_fillable_fail_closed",
+      "input": {
+        "opportunity_id": "reg_not_fillable",
+        "asset": "UNI",
+        "net_profit_usdt": 1.5,
+        "quote_amount": 1000,
+        "total_slippage_bps": 8,
+        "withdrawal_fee_usdt": 0.3,
+        "trading_fees_usdt": 0.15,
+        "quote_age_ms": 300,
+        "volume_feasibility": {
+          "max_executable_size": 0.0,
+          "liquidity_score": 5,
+          "signal_suppressed": true,
+          "buy_leg": {"verdict": "not_fillable", "stale": true, "reason": "stale_depth_rejected"},
+          "sell_leg": {"verdict": "not_fillable", "stale": true}
+        }
+      },
+      "expect": {"reject": true, "reasons_include": ["insufficient_liquidity", "stale_depth_not_fillable"]}
+    }
+  ],
+  "portfolio_holdings": [
+    {"asset": "BTC", "weight_pct": 45, "opportunity_type": "holding"},
+    {"asset": "ETH", "weight_pct": 30, "opportunity_type": "holding"},
+    {"asset": "SOL", "weight_pct": 15, "opportunity_type": "holding"}
+  ],
+  "truth_score_history_samples": [
+    {
+      "timestamp": "2026-08-25T12:00:00+00:00",
+      "opportunity_id": "hist_btc_001",
+      "asset": "BTC",
+      "predicted_truth_score": 72.5,
+      "predicted_net_return_pct": 0.42,
+      "reject": false,
+      "outcome": "correct",
+      "outcome_recorded": true
+    },
+    {
+      "timestamp": "2026-08-25T14:30:00+00:00",
+      "opportunity_id": "hist_uni_002",
+      "asset": "UNI",
+      "predicted_truth_score": 28.0,
+      "predicted_net_return_pct": -0.15,
+      "reject": true,
+      "rejection_reasons": ["insufficient_liquidity"],
+      "outcome": "correct",
+      "outcome_recorded": true
+    },
+    {
+      "timestamp": "2026-08-26T08:00:00+00:00",
+      "opportunity_id": "hist_eth_003",
+      "asset": "ETH",
+      "predicted_truth_score": 61.0,
+      "predicted_net_return_pct": 0.18,
+      "reject": false,
+      "outcome": "incorrect",
+      "outcome_recorded": true
+    }
+  ],
+  "integrations": {
+    "unified_arbitrage_403_429": true,
+    "fill_feasibility_415": true,
+    "fill_risk_assessment_433": true,
+    "diligence_risk_460": true,
+    "portfolio_intelligence_449": true
+  },
+  "simulation_only": true,
+  "no_real_money_auto_execution": true
+}

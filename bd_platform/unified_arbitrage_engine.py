@@ -412,19 +412,13 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("fill feasibility enrichment skipped", exc_info=True)
 
-    # #417 Net-Edge Truth
+    # #417 Net-Edge Truth (Intelligence Ledger core — no invented zero costs)
     try:
-        from net_edge_truth import compute_net_edge_truth
+        from bd_platform.net_edge_truth_layer import evaluate_arbitrage_opportunity
 
-        truth_opp = {
-            **opp,
-            "net_profit_usdt": opp.get("net_edge_usdt"),
-            "total_slippage_bps": opp.get("slippage_bps"),
-            "trading_fees_usdt": opp.get("trading_fees_usdt"),
-            "withdrawal_fee_usdt": opp.get("withdrawal_fee_usdt", 0),
-            "quote_age_ms": opp.get("quote_age_ms", 500),
-        }
-        enriched["net_edge_truth"] = compute_net_edge_truth(truth_opp)
+        truth_eval = evaluate_arbitrage_opportunity(enriched, seed=None, enrich_feasibility=False)
+        enriched["net_edge_truth"] = truth_eval.get("net_edge_truth") or {}
+        enriched["net_edge_rejection_reasons"] = truth_eval.get("rejection_reasons") or []
     except Exception:
         logger.debug("net edge truth enrichment skipped", exc_info=True)
 
