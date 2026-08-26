@@ -189,6 +189,14 @@ async def get_data_status():
             "dashboard_deferred": "Sprint 2",
             "summary": order_book_liquidity_status(),
         }
+        from blackdark.data.spot_metrics_venue_quality import spot_metrics_status
+
+        status["spot_metrics_295"] = {
+            "merged": True,
+            "standalone": False,
+            "dashboard_deferred": "Sprint 2",
+            "summary": spot_metrics_status(),
+        }
     except Exception:
         logger.debug("instrument master status enrich failed", exc_info=True)
     return status
@@ -291,6 +299,33 @@ async def market_depth_panel_route(
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/api/v1/data/spot-metrics/status")
+async def spot_metrics_status_route():
+    """#295 Spot Metrics & Venue Quality Layer — #294 absorbed, no separate pipeline."""
+    from blackdark.data.spot_metrics_venue_quality import spot_metrics_status
+
+    return spot_metrics_status()
+
+
+@router.get("/api/v1/data/spot-metrics")
+async def spot_metrics_panel_route(symbol: str = Query("BTC/USDT")):
+    """#295 spot metrics panel — cross-venue aggregation, outlier/stale filtered."""
+    from blackdark.data.spot_metrics_venue_quality import build_spot_metrics_panel
+
+    result = build_spot_metrics_panel(symbol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/api/v1/data/venue-quality/rankings")
+async def venue_quality_rankings_route(limit: int = Query(50, ge=1, le=50)):
+    """#295 venue quality rankings — top 50 venues, documented quality scores."""
+    from blackdark.data.spot_metrics_venue_quality import list_venue_quality_rankings
+
+    return list_venue_quality_rankings(limit=limit)
 
 
 @router.get("/api/v1/data/liquidity-intelligence/status")
