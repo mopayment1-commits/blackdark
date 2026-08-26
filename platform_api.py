@@ -1453,9 +1453,52 @@ async def unified_arbitrage_feed_route():
 @router.get("/intelligence-ledger/unified-arbitrage/defi")
 async def defi_opportunity_scanner_route():
     """#438 DeFi Opportunity Scanner — merged into #429."""
-    from bd_platform.unified_arbitrage_engine import build_defi_panel
+    from bd_platform.defi_opportunity_scanner import build_defi_panel
 
     return build_defi_panel()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/status")
+async def defi_opportunity_scanner_status_route():
+    from bd_platform.defi_opportunity_scanner import defi_opportunity_scanner_status
+
+    return defi_opportunity_scanner_status()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/dex-screener")
+async def dex_screener_route():
+    """#465 DEX Screener — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import screen_dex_pools
+
+    return screen_dex_pools()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/lp-position-risk")
+async def lp_position_risk_route(position_id: str | None = Query(None)):
+    """#470 LP Position Risk Calculator — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import build_lp_position_risk_panel
+
+    return build_lp_position_risk_panel(position_id)
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/liquidity-risk")
+async def liquidity_risk_route(protocol: str | None = Query(None)):
+    """#473 Liquidity Risk — merged into #438."""
+    from bd_platform.defi_opportunity_scanner import (
+        analyze_all_liquidity_risks,
+        analyze_protocol_liquidity_risk,
+    )
+
+    if protocol:
+        return analyze_protocol_liquidity_risk(protocol)
+    return analyze_all_liquidity_risks()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/defi/reconciliation-tests")
+async def defi_opportunity_scanner_reconciliation_route():
+    from bd_platform.defi_opportunity_scanner import run_reconciliation_tests
+
+    return run_reconciliation_tests()
 
 
 @router.get("/intelligence-ledger/unified-arbitrage/opportunity-alerts")
