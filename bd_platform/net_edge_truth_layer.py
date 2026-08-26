@@ -143,7 +143,7 @@ def evaluate_arbitrage_opportunity(
     try:
         from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence
 
-        thesis_ctx = apply_thesis_to_confidence(opp, truth_result=result, seed=seed)
+        thesis_ctx = apply_thesis_to_confidence(opp, truth_result=result.get("net_edge_truth"))
         if thesis_ctx.get("ok"):
             result["thesis_confidence_472"] = thesis_ctx
             truth = result.get("net_edge_truth") or {}

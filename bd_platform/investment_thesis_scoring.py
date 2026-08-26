@@ -77,9 +77,15 @@ def _thesis_grade(score: float, *, seed: dict[str, Any]) -> str:
     return "F"
 
 
+def _resolve_seed(seed: dict[str, Any] | None) -> dict[str, Any]:
+    if seed is None or "assets" not in seed:
+        return _load_seed()
+    return seed
+
+
 def score_investment_thesis(asset: str, *, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     """Score one asset with fully documented rubric — no opaque score."""
-    seed = seed or _load_seed()
+    seed = _resolve_seed(seed)
     data = (seed.get("assets") or {}).get(asset.upper())
     if not data:
         return {"ok": False, "asset": asset, "error": "asset_not_found"}
@@ -141,7 +147,7 @@ def apply_thesis_to_confidence(
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """#417 integration — thesis score adjusts signal confidence."""
-    seed = seed or _load_seed()
+    seed = _resolve_seed(seed)
     asset = str(opportunity.get("asset") or "BTC").split("/")[0].upper()
     thesis = score_investment_thesis(asset, seed=seed)
 
@@ -194,7 +200,7 @@ def build_thesis_scoring_panel(
     seed: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     t0 = time.perf_counter()
-    seed = seed or _load_seed()
+    seed = _resolve_seed(seed)
     if asset:
         scores = [score_investment_thesis(asset, seed=seed)]
     else:
@@ -243,7 +249,7 @@ def investment_thesis_scoring_status() -> dict[str, Any]:
 
 
 def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
-    seed = seed or _load_seed()
+    seed = _resolve_seed(seed)
     checks: list[dict[str, Any]] = []
 
     checks.append({"id": "not_standalone", "passed": seed.get("standalone") is False, "detail": "ledger"})

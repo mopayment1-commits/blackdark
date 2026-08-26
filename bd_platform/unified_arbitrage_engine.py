@@ -904,7 +904,7 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         top_thesis = (feed["opportunities"][0].get("thesis_confidence_472") or {})
         checks.append({
             "id": "thesis_confidence_429_enrichment",
-            "passed": top_thesis.get("not_price_probability") is True or not top_thesis,
+            "passed": top_thesis.get("feature_ref") == 472,
             "detail": "472 on feed",
         })
     else:
