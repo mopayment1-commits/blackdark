@@ -1,0 +1,39 @@
+{
+  "feature_id": 515,
+  "renamed_from": "Archive / Historical Portfolio Snapshot",
+  "title": "Portfolio Intelligence Layer",
+  "standalone_rejected": true,
+  "layer": "Portfolio Layer",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "portfolios": {
+    "demo_portfolio": {
+      "name": "Demo Portfolio",
+      "latest_snapshot_timestamp": "2026-08-01T00:00:00Z",
+      "available_snapshots": [
+        "2026-07-01T00:00:00Z",
+        "2026-08-01T00:00:00Z"
+      ]
+    }
+  },
+  "snapshots": {
+    "demo_portfolio:2026-08-01T00:00:00Z": {
+      "holdings": [
+        {"asset": "BTC", "amount": 2.5, "price_usd": 65000, "value_usd": 162500, "label_as_of_snapshot": true},
+        {"asset": "ETH", "amount": 15.0, "price_usd": 3500, "value_usd": 52500, "label_as_of_snapshot": true},
+        {"asset": "SOL", "amount": 200.0, "price_usd": 150, "value_usd": 30000, "label_as_of_snapshot": true}
+      ],
+      "prices_as_of": "2026-08-01T00:00:00Z",
+      "no_current_label_leakage": true
+    },
+    "demo_portfolio:2026-07-01T00:00:00Z": {
+      "holdings": [
+        {"asset": "BTC", "amount": 2.5, "price_usd": 60000, "value_usd": 150000, "label_as_of_snapshot": true},
+        {"asset": "ETH", "amount": 15.0, "price_usd": 3200, "value_usd": 48000, "label_as_of_snapshot": true}
+      ],
+      "prices_as_of": "2026-07-01T00:00:00Z",
+      "no_current_label_leakage": true
+    }
+  }
+}
