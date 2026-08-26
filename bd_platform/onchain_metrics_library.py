@@ -12,6 +12,7 @@ Foundation for all on-chain dependent features. missing ≠ zero.
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import time
@@ -111,25 +112,97 @@ def _sanitize_metric_value(value: Any, *, available: bool = True) -> Any:
     return value
 
 
+def _merge_live_and_seed_metrics(
+    asset: str,
+    *,
+    seed: dict[str, Any],
+    live: dict[str, Any] | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Prefer live indexer values; fall back to seed per metric."""
+    sym = asset.upper()
+    seed_asset = (seed.get("assets") or {}).get(sym, {})
+    seed_metrics = seed_asset.get("metrics") or {}
+    live_metrics = (live or {}).get("metrics") or {}
+    merged: dict[str, dict[str, Any]] = {}
+
+    for metric_id in (seed.get("metric_definitions") or {}):
+        live_row = live_metrics.get(metric_id)
+        if live_row and live_row.get("available"):
+            merged[metric_id] = {
+                "value": live_row.get("value"),
+                "available": True,
+                "as_of": live_row.get("as_of"),
+                "source": live_row.get("live_source"),
+                "evidence_class": live_row.get("evidence_class", "PRODUCTION_VERIFIED"),
+                "live": True,
+            }
+            continue
+        seed_row = seed_metrics.get(metric_id)
+        if seed_row and seed_row.get("available", True) and seed_row.get("value") is not None:
+            merged[metric_id] = {
+                "value": seed_row.get("value"),
+                "available": True,
+                "as_of": seed_row.get("as_of"),
+                "source": "onchain_metrics_library_seed",
+                "evidence_class": "BACKTESTED",
+                "live": False,
+            }
+        else:
+            merged[metric_id] = {
+                "value": None,
+                "available": False,
+                "as_of": None,
+                "source": missing_value(),
+                "evidence_class": "BACKTESTED",
+                "live": False,
+            }
+    return merged
+
+
+def _run_live_fetch(asset: str) -> dict[str, Any] | None:
+    """Sync wrapper for live fetch — returns None if event loop already running."""
+    from bd_platform.onchain_live_indexer import fetch_live_onchain_metrics
+
+    try:
+        asyncio.get_running_loop()
+        return None
+    except RuntimeError:
+        try:
+            return asyncio.run(fetch_live_onchain_metrics(asset))
+        except Exception as exc:
+            logger.warning("live onchain metrics fetch failed: %s", exc)
+            return None
+
+
+async def fetch_live_metrics_async(asset: str = "BTC") -> dict[str, Any]:
+    from bd_platform.onchain_live_indexer import fetch_live_onchain_metrics
+
+    return await fetch_live_onchain_metrics(asset)
+
+
 def build_network_data_pro_api(
     asset: str = "BTC",
     *,
     seed: dict[str, Any] | None = None,
+    live: dict[str, Any] | None = None,
+    prefer_live: bool = True,
 ) -> dict[str, Any]:
     """#574 — institutional network metrics API delivery (sub-task of #577)."""
     seed = seed or _load_seed()
     sym = asset.upper()
-    asset_data = (seed.get("assets") or {}).get(sym, {})
+    if prefer_live and live is None:
+        live = _run_live_fetch(sym)
+    merged = _merge_live_and_seed_metrics(sym, seed=seed, live=live)
     defs = build_metric_definitions(seed)
 
     metrics_output: list[dict[str, Any]] = []
+    live_count = 0
     for metric_id, spec in (seed.get("metric_definitions") or {}).items():
-        raw = (asset_data.get("metrics") or {}).get(metric_id)
-        available = raw is not None and raw.get("available", True)
-        value = _sanitize_metric_value(
-            raw.get("value") if raw else None,
-            available=available,
-        )
+        raw = merged.get(metric_id, {})
+        available = raw.get("available", False)
+        if raw.get("live"):
+            live_count += 1
+        value = _sanitize_metric_value(raw.get("value"), available=available)
         metrics_output.append({
             "metric_id": metric_id,
             "name": spec.get("name", metric_id),
@@ -137,11 +210,14 @@ def build_network_data_pro_api(
             "available": available,
             "missing": not available,
             "formula_version": spec.get("formula_version", _METHODOLOGY_VERSION),
-            "source": spec.get("source"),
-            "as_of": raw.get("as_of") if raw else None,
+            "source": raw.get("source") or spec.get("source"),
+            "evidence_class": raw.get("evidence_class", "BACKTESTED"),
+            "live": raw.get("live", False),
+            "as_of": raw.get("as_of"),
             "unknown_is_not_zero": True,
         })
 
+    data_source = "live_indexer+seed_fallback" if live_count else "onchain_metrics_library_seed"
     return {
         "ok": True,
         "task_id": "574",
@@ -154,14 +230,29 @@ def build_network_data_pro_api(
         "metric_definitions": defs,
         "institutional_api": True,
         "missing_not_zero": True,
-        "display": f"Network Data Pro API — {sym}: {len(metrics_output)} metrics",
+        "live_metric_count": live_count,
+        "live_fetch_attempted": prefer_live,
+        "data_source": data_source,
+        "display": f"Network Data Pro API — {sym}: {len(metrics_output)} metrics ({live_count} live)",
     }
+
+
+async def build_network_data_pro_api_async(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    live = await fetch_live_metrics_async(asset)
+    return build_network_data_pro_api(asset, seed=seed, live=live, prefer_live=True)
 
 
 def build_metrics_library_panel(
     asset: str = "BTC",
     *,
     seed: dict[str, Any] | None = None,
+    live: dict[str, Any] | None = None,
+    prefer_live: bool = True,
 ) -> dict[str, Any]:
     """#577 main panel — canonical library + suite metrics."""
     from bd_platform.onchain_metrics_suite import build_onchain_metrics_panel
@@ -169,7 +260,7 @@ def build_metrics_library_panel(
     seed = seed or _load_seed()
     sym = asset.upper()
     suite = build_onchain_metrics_panel(sym)
-    network_api = build_network_data_pro_api(sym, seed=seed)
+    network_api = build_network_data_pro_api(sym, seed=seed, live=live, prefer_live=prefer_live)
     defs = build_metric_definitions(seed)
 
     return {
@@ -188,9 +279,22 @@ def build_metrics_library_panel(
         "formula_source_version_documented": True,
         "historical_qa_applied": True,
         "missing_not_zero": True,
+        "live_metric_count": network_api.get("live_metric_count", 0),
+        "data_source": network_api.get("data_source"),
+        "live_indexer_enabled": prefer_live,
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
     }
+
+
+async def build_metrics_library_panel_async(
+    asset: str = "BTC",
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    seed = seed or _load_seed()
+    live = await fetch_live_metrics_async(asset)
+    return build_metrics_library_panel(asset, seed=seed, live=live, prefer_live=True)
 
 
 def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -214,7 +318,7 @@ def run_historical_qa_tests(seed: dict[str, Any] | None = None) -> dict[str, Any
         })
 
     for asset in (seed.get("assets") or {}):
-        api = build_network_data_pro_api(asset, seed=seed)
+        api = build_network_data_pro_api(asset, seed=seed, prefer_live=False)
         tests.append({
             "test": f"missing_not_zero_{asset}",
             "passed": api.get("missing_not_zero") is True,
@@ -262,6 +366,12 @@ def onchain_metrics_library_status() -> dict[str, Any]:
             "historical_qa": True,
             "missing_not_zero": True,
             "canonical_definitions": True,
+            "live_indexer": True,
+        },
+        "live_indexer": {
+            "enabled": True,
+            "sources": ["mempool.space", "blockchain.info", "blockchair", "blockscout"],
+            "fallback": "onchain_metrics_library_seed",
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -271,7 +381,23 @@ def onchain_metrics_library_status() -> dict[str, Any]:
 
 def build_onchain_metrics_library_panel(asset: str = "BTC") -> dict[str, Any]:
     t0 = time.perf_counter()
-    panel = build_metrics_library_panel(asset)
+    panel = build_metrics_library_panel(asset, prefer_live=True)
+    if not panel.get("ok"):
+        return {**panel, "epic_feature_id": _EPIC_ID}
+    elapsed = round((time.perf_counter() - t0) * 1000, 1)
+    return wrap_intelligence_response({
+        **panel,
+        "title": _TITLE,
+        "layer": _LAYER,
+        "sprint": _SPRINT,
+        "latency_ms": elapsed,
+        "timestamp": _utcnow(),
+    })
+
+
+async def build_onchain_metrics_library_panel_async(asset: str = "BTC") -> dict[str, Any]:
+    t0 = time.perf_counter()
+    panel = await build_metrics_library_panel_async(asset)
     if not panel.get("ok"):
         return {**panel, "epic_feature_id": _EPIC_ID}
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
