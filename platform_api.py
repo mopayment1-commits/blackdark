@@ -1240,6 +1240,42 @@ async def market_radar_exchange_activity_route(exchange: str = Query("binance"))
     return result
 
 
+@router.get("/intelligence-ledger/market-radar/derivatives-venue-feed/status")
+async def market_radar_derivatives_venue_feed_status_route():
+    """#331 Derivatives Venue Feed — absorbed into #274 Market Data Engine. Raw display only."""
+    from bd_platform.market_data_engine import market_data_engine_status
+
+    return market_data_engine_status()
+
+
+@router.get("/intelligence-ledger/market-radar/derivatives-venue-feed")
+async def market_radar_derivatives_venue_feed_route(asset: str = Query("BTC")):
+    from bd_platform.market_data_engine import build_derivatives_venue_feed
+
+    result = build_derivatives_venue_feed(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/market-radar/funding-rate-context/status")
+async def market_radar_funding_rate_context_status_route():
+    """#333 Funding Rate Context Panel — NOT Intelligence. Market data display only."""
+    from bd_platform.market_data_engine import market_data_engine_status
+
+    return market_data_engine_status()
+
+
+@router.get("/intelligence-ledger/market-radar/funding-rate-context")
+async def market_radar_funding_rate_context_route(asset: str = Query("BTC")):
+    from bd_platform.market_data_engine import build_funding_rate_context_panel
+
+    result = build_funding_rate_context_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/entity-profiler/status")
 async def entity_profiler_status_route():
     """#736 Entity Profiler — exchange usage intelligence layer."""

@@ -1,0 +1,121 @@
+{
+  "feature_id": 274,
+  "standalone": false,
+  "merged_into": "Market Radar / Market Data Engine",
+  "sprint": 1,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "absorbed_tickets": {
+    "331": "Derivatives Venue Feed (standalone rejected)",
+    "333": "Funding Rate Context Panel (standalone rejected)"
+  },
+  "provider_semantics": {
+    "schema_version": "1.0",
+    "freshness_sla_seconds": 3600,
+    "fields": [
+      "funding_rate",
+      "open_interest_usd",
+      "liquidation_usd_24h",
+      "volume_24h_usd",
+      "funding_timestamp_utc",
+      "settlement_time_utc"
+    ],
+    "fallback_sources": {
+      "binance": "bybit",
+      "bybit": "okx",
+      "okx": "deribit"
+    }
+  },
+  "weighting": {
+    "formula": "weighted_funding = Σ(funding_rate × oi_weight) / Σ(oi_weight)",
+    "oi_weight_basis": "open_interest_usd",
+    "outlier_threshold_z": 3.0,
+    "outlier_handling": "exclude_beyond_z_threshold",
+    "settlement_sync_logic": "align_to_utc_funding_interval_boundary"
+  },
+  "venues": {
+    "BTC": {
+      "persistence": {
+        "hours_positive": 18,
+        "hours_negative": 0
+      },
+      "crowding_state": "elevated_long_funding",
+      "venue_list": [
+        {
+          "venue": "binance",
+          "asset": "BTC",
+          "funding_rate": 0.00045,
+          "open_interest_usd": 12500000000,
+          "liquidation_usd_24h": 45000000,
+          "volume_24h_usd": 42000000000,
+          "funding_timestamp_utc": "2026-08-26T10:30:00+00:00",
+          "settlement_time_utc": "2026-08-26T16:00:00+00:00",
+          "provider": "Binance API v3",
+          "fallback_provider": "Bybit API v5",
+          "fallback_active": false
+        },
+        {
+          "venue": "bybit",
+          "asset": "BTC",
+          "funding_rate": 0.00038,
+          "open_interest_usd": 8200000000,
+          "liquidation_usd_24h": 32000000,
+          "volume_24h_usd": 28000000000,
+          "funding_timestamp_utc": "2026-08-26T10:25:00+00:00",
+          "settlement_time_utc": "2026-08-26T16:00:00+00:00",
+          "provider": "Bybit API v5",
+          "fallback_provider": "OKX API v5",
+          "fallback_active": false
+        },
+        {
+          "venue": "okx",
+          "asset": "BTC",
+          "funding_rate": 0.00052,
+          "open_interest_usd": 6100000000,
+          "liquidation_usd_24h": 28000000,
+          "volume_24h_usd": 19000000000,
+          "funding_timestamp_utc": "2026-08-26T10:20:00+00:00",
+          "settlement_time_utc": "2026-08-26T16:00:00+00:00",
+          "provider": "OKX API v5",
+          "fallback_provider": "Deribit API v2",
+          "fallback_active": false
+        }
+      ]
+    },
+    "ETH": {
+      "persistence": {
+        "hours_positive": 0,
+        "hours_negative": 6
+      },
+      "crowding_state": "neutral",
+      "venue_list": [
+        {
+          "venue": "binance",
+          "asset": "ETH",
+          "funding_rate": -0.00012,
+          "open_interest_usd": 4800000000,
+          "liquidation_usd_24h": 18000000,
+          "volume_24h_usd": 15000000000,
+          "funding_timestamp_utc": "2026-08-26T10:30:00+00:00",
+          "settlement_time_utc": "2026-08-26T16:00:00+00:00",
+          "provider": "Binance API v3",
+          "fallback_provider": "Bybit API v5",
+          "fallback_active": false
+        },
+        {
+          "venue": "bybit",
+          "asset": "ETH",
+          "funding_rate": -0.00008,
+          "open_interest_usd": 3100000000,
+          "liquidation_usd_24h": 12000000,
+          "volume_24h_usd": 9800000000,
+          "funding_timestamp_utc": "2026-08-26T10:28:00+00:00",
+          "settlement_time_utc": "2026-08-26T16:00:00+00:00",
+          "provider": "Bybit API v5",
+          "fallback_provider": "OKX API v5",
+          "fallback_active": false
+        }
+      ]
+    }
+  }
+}
