@@ -1,0 +1,70 @@
+{
+  "feature_id": 474,
+  "title": "Daily Market Brief",
+  "legal_name": "Daily Market Brief",
+  "renamed_from": "Market Regime Written Read",
+  "standalone": false,
+  "merged_into": "Sprint-2 Intelligence Ledger / Market Radar",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "template_based_v1": true,
+  "no_generic_ai_prose": true,
+  "max_sections": 3,
+  "historical_validation": {
+    "lookback_days": 90,
+    "narrative_accuracy_pct": 87.5,
+    "contributors_match_calculations": true,
+    "validated": true
+  },
+  "regime": {
+    "regime_label": "risk_on_moderate",
+    "regime_score": 62,
+    "previous_regime_label": "neutral",
+    "regime_change": true,
+    "lenses": {
+      "momentum": {"score": 58, "direction": "rising"},
+      "volatility": {"score": 45, "direction": "falling"},
+      "liquidity": {"score": 72, "direction": "stable"},
+      "sentiment": {"score": 55, "direction": "rising"},
+      "derivatives": {"score": 48, "direction": "neutral"}
+    }
+  },
+  "contributors": [
+    {
+      "metric": "btc_30d_return_pct",
+      "value": 8.2,
+      "previous_value": 3.1,
+      "evidence_link": "/api/platform/intelligence-ledger/market-radar/exchange-activity?exchange=binance"
+    },
+    {
+      "metric": "fear_greed_index",
+      "value": 58,
+      "previous_value": 48,
+      "evidence_link": "/api/platform/intelligence-ledger/event-sentiment?asset=BTC"
+    },
+    {
+      "metric": "funding_rate_7d_avg",
+      "value": 0.00038,
+      "previous_value": 0.00022,
+      "evidence_link": "/api/platform/intelligence-ledger/unified-arbitrage/basis-funding?asset=BTC"
+    },
+    {
+      "metric": "exchange_netflow_btc",
+      "value": -12500,
+      "previous_value": 8200,
+      "evidence_link": "/api/platform/intelligence-ledger/onchain-layer/smart-money-flow?asset=BTC"
+    }
+  ],
+  "event_context_443": [
+    {
+      "event_id": "btc-sec-regulatory-2026-09",
+      "asset": "BTC",
+      "event_type": "regulatory",
+      "title": "US SEC crypto custody rule clarification",
+      "hours_until": 408
+    }
+  ],
+  "brief_date": "2026-08-26"
+}

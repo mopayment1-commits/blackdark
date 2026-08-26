@@ -137,7 +137,25 @@ def evaluate_arbitrage_opportunity(
         "transfer_cost_usdt": opp.get("transfer_cost_usdt"),
         "quote_age_ms": opp.get("quote_age_ms"),
     }
-    return evaluate_opportunity_truth(truth_opp, seed=seed)
+    result = evaluate_opportunity_truth(truth_opp, seed=seed)
+
+    # #472 Investment Thesis Scoring — thesis score adjusts confidence (#417 integration)
+    try:
+        from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence
+
+        thesis_ctx = apply_thesis_to_confidence(opp, truth_result=result, seed=seed)
+        if thesis_ctx.get("ok"):
+            result["thesis_confidence_472"] = thesis_ctx
+            truth = result.get("net_edge_truth") or {}
+            if truth.get("truth_score") is not None:
+                truth = dict(truth)
+                truth["thesis_adjusted_confidence"] = thesis_ctx.get("adjusted_confidence")
+                truth["thesis_grade"] = thesis_ctx.get("thesis_grade")
+                result["net_edge_truth"] = truth
+    except Exception:
+        logger.debug("thesis confidence integration skipped", exc_info=True)
+
+    return result
 
 
 def build_truth_score_panel(
@@ -404,6 +422,18 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
 
     history = build_truth_score_history_panel(seed=seed)
     checks.append({"id": "truth_score_history", "passed": history.get("total_predictions", 0) >= 1, "detail": "history"})
+
+    from bd_platform.investment_thesis_scoring import run_reconciliation_tests as thesis_tests
+    thesis = thesis_tests()
+    checks.append({"id": "investment_thesis_472", "passed": thesis.get("ok") is True, "detail": f"{thesis.get('passed')}/{thesis.get('total')}"})
+
+    opp_eval = evaluate_arbitrage_opportunity({"asset": "BTC", "opportunity_type": "cross_venue"}, seed=seed)
+    thesis_ctx = opp_eval.get("thesis_confidence_472") or {}
+    checks.append({
+        "id": "thesis_confidence_integration",
+        "passed": thesis_ctx.get("not_price_probability") is True,
+        "detail": thesis_ctx.get("thesis_grade"),
+    })
 
     passed = sum(1 for c in checks if c["passed"])
     return {"ok": passed == len(checks), "feature_id": _FEATURE_ID, "checks": checks, "passed": passed, "total": len(checks), "timestamp": _utcnow()}

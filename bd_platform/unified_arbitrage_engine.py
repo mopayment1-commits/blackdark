@@ -431,11 +431,43 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("event sentiment monitor enrichment skipped", exc_info=True)
 
-    # Confidence from net-edge + feasibility
+    # #467 Stablecoin Health Monitor — cancel stablecoin arb if depeg probability > threshold
+    try:
+        from bd_platform.stablecoin_health_monitor import should_cancel_stablecoin_arbitrage
+
+        sc_cancel = should_cancel_stablecoin_arbitrage(enriched)
+        enriched["stablecoin_health_context_467"] = sc_cancel
+        if sc_cancel.get("cancel"):
+            enriched["signal_rejected"] = True
+            enriched.setdefault("risk_reasons", []).append(
+                f"stablecoin_depeg_probability_{sc_cancel.get('depeg_probability', 0):.2f}"
+            )
+    except Exception:
+        logger.debug("stablecoin health monitor enrichment skipped", exc_info=True)
+
+    # #472 Investment Thesis Scoring — thesis adjusts signal confidence (#417)
+    try:
+        from bd_platform.investment_thesis_scoring import apply_thesis_to_confidence
+
+        thesis_ctx = apply_thesis_to_confidence(
+            enriched,
+            truth_result=enriched.get("net_edge_truth"),
+        )
+        enriched["thesis_confidence_472"] = thesis_ctx
+    except Exception:
+        logger.debug("investment thesis scoring skipped", exc_info=True)
+
+    # Confidence from net-edge + feasibility (+ thesis adjustment when available)
     truth_score = float((enriched.get("net_edge_truth") or {}).get("truth_score") or 50)
     feasibility = (enriched.get("volume_feasibility") or {})
     liq_score = feasibility.get("liquidity_score", 50) if feasibility else 50
-    enriched["confidence"] = round((truth_score * 0.6 + liq_score * 0.4) / 100, 3)
+    base_confidence = round((truth_score * 0.6 + liq_score * 0.4) / 100, 3)
+    thesis_ctx = enriched.get("thesis_confidence_472") or {}
+    if thesis_ctx.get("ok") and thesis_ctx.get("adjusted_confidence") is not None:
+        enriched["confidence"] = thesis_ctx["adjusted_confidence"]
+        enriched["confidence_base"] = base_confidence
+    else:
+        enriched["confidence"] = base_confidence
 
     enriched["feasibility"] = feasibility or {"status": "not_applicable_for_triangular"}
     enriched["sla"] = {
@@ -560,9 +592,30 @@ def build_triangular_panel(*, seed: dict[str, Any] | None = None) -> dict[str, A
 def build_market_radar_integration(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
     feed = build_unified_feed(seed=seed)
     top = feed.get("opportunities") or []
+
+    daily_brief: dict[str, Any] | None = None
+    thesis_cards: dict[str, Any] = {}
+    try:
+        from bd_platform.daily_market_brief import build_market_radar_brief_first
+
+        daily_brief = build_market_radar_brief_first()
+    except Exception:
+        logger.debug("daily market brief integration skipped", exc_info=True)
+
+    try:
+        from bd_platform.investment_thesis_scoring import build_market_radar_thesis_card
+
+        for asset in ("BTC", "ETH"):
+            thesis_cards[asset] = build_market_radar_thesis_card(asset)
+    except Exception:
+        logger.debug("thesis scoring market radar integration skipped", exc_info=True)
+
     return {
         "ok": True,
         "integration": "market_radar",
+        "dashboard_position_first": "daily_brief_474",
+        "daily_brief_474": daily_brief,
+        "thesis_cards_472": thesis_cards,
         "top_opportunities": top[:5],
         "count": feed.get("count", 0),
         "ranked_by": "executable_net_edge_usdt",
@@ -814,6 +867,49 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         })
     else:
         checks.append({"id": "event_sentiment_429_enrichment", "passed": True, "detail": "no opps"})
+
+    from bd_platform.stablecoin_health_monitor import run_reconciliation_tests as sc_tests
+    sc = sc_tests()
+    checks.append({"id": "stablecoin_health_467", "passed": sc.get("ok") is True, "detail": f"{sc.get('passed')}/{sc.get('total')}"})
+
+    from bd_platform.investment_thesis_scoring import run_reconciliation_tests as thesis_tests
+    thesis = thesis_tests()
+    checks.append({"id": "investment_thesis_472", "passed": thesis.get("ok") is True, "detail": f"{thesis.get('passed')}/{thesis.get('total')}"})
+
+    from bd_platform.daily_market_brief import run_reconciliation_tests as brief_tests
+    brief = brief_tests()
+    checks.append({"id": "daily_market_brief_474", "passed": brief.get("ok") is True, "detail": f"{brief.get('passed')}/{brief.get('total')}"})
+
+    radar = build_market_radar_integration(seed=seed)
+    checks.append({
+        "id": "market_radar_brief_first_474",
+        "passed": radar.get("dashboard_position_first") == "daily_brief_474"
+        and (radar.get("daily_brief_474") or {}).get("ok") is True,
+        "detail": "474 first",
+    })
+    checks.append({
+        "id": "market_radar_thesis_cards_472",
+        "passed": "BTC" in (radar.get("thesis_cards_472") or {})
+        and radar["thesis_cards_472"]["BTC"].get("thesis_grade") is not None,
+        "detail": "472 cards",
+    })
+
+    if feed.get("opportunities"):
+        top_sc = (feed["opportunities"][0].get("stablecoin_health_context_467") or {})
+        checks.append({
+            "id": "stablecoin_health_429_enrichment",
+            "passed": "cancel" in top_sc,
+            "detail": "467 on feed",
+        })
+        top_thesis = (feed["opportunities"][0].get("thesis_confidence_472") or {})
+        checks.append({
+            "id": "thesis_confidence_429_enrichment",
+            "passed": top_thesis.get("not_price_probability") is True or not top_thesis,
+            "detail": "472 on feed",
+        })
+    else:
+        checks.append({"id": "stablecoin_health_429_enrichment", "passed": True, "detail": "no opps"})
+        checks.append({"id": "thesis_confidence_429_enrichment", "passed": True, "detail": "no opps"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {

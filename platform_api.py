@@ -1665,6 +1665,101 @@ async def event_sentiment_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/status")
+async def stablecoin_health_monitor_status_route():
+    """#467 Stablecoin Health Monitor — Risk Layer (merged into #410)."""
+    from bd_platform.stablecoin_health_monitor import stablecoin_health_monitor_status
+
+    return stablecoin_health_monitor_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health")
+async def stablecoin_health_monitor_panel_route(symbol: str | None = Query(None)):
+    from bd_platform.stablecoin_health_monitor import analyze_stablecoin, build_stablecoin_health_panel
+
+    if symbol:
+        result = analyze_stablecoin(symbol)
+        if not result.get("ok"):
+            raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+        return result
+    return build_stablecoin_health_panel()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/alerts")
+async def stablecoin_health_alerts_route(portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.stablecoin_health_monitor import build_portfolio_stablecoin_alerts
+
+    return build_portfolio_stablecoin_alerts(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stablecoin-health/reconciliation-tests")
+async def stablecoin_health_reconciliation_route():
+    from bd_platform.stablecoin_health_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/investment-thesis/status")
+async def investment_thesis_scoring_status_route():
+    """#472 Investment Thesis Scoring — Intelligence Ledger (not price probability)."""
+    from bd_platform.investment_thesis_scoring import investment_thesis_scoring_status
+
+    return investment_thesis_scoring_status()
+
+
+@router.get("/intelligence-ledger/investment-thesis")
+async def investment_thesis_scoring_panel_route(asset: str | None = Query(None)):
+    from bd_platform.investment_thesis_scoring import build_thesis_scoring_panel
+
+    return build_thesis_scoring_panel(asset)
+
+
+@router.get("/intelligence-ledger/investment-thesis/market-radar-card")
+async def investment_thesis_market_radar_card_route(asset: str = Query("BTC")):
+    from bd_platform.investment_thesis_scoring import build_market_radar_thesis_card
+
+    result = build_market_radar_thesis_card(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/investment-thesis/reconciliation-tests")
+async def investment_thesis_reconciliation_route():
+    from bd_platform.investment_thesis_scoring import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/daily-market-brief/status")
+async def daily_market_brief_status_route():
+    """#474 Daily Market Brief — Intelligence Ledger (template-based v1)."""
+    from bd_platform.daily_market_brief import daily_market_brief_status
+
+    return daily_market_brief_status()
+
+
+@router.get("/intelligence-ledger/daily-market-brief")
+async def daily_market_brief_panel_route():
+    from bd_platform.daily_market_brief import generate_daily_brief
+
+    return generate_daily_brief()
+
+
+@router.get("/intelligence-ledger/daily-market-brief/market-radar")
+async def daily_market_brief_market_radar_route():
+    from bd_platform.daily_market_brief import build_market_radar_brief_first
+
+    return build_market_radar_brief_first()
+
+
+@router.get("/intelligence-ledger/daily-market-brief/reconciliation-tests")
+async def daily_market_brief_reconciliation_route():
+    from bd_platform.daily_market_brief import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
 async def fill_risk_assessment_status_route():
     """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""

@@ -587,6 +587,23 @@ def build_exchange_health_alerts_block(
     return build_portfolio_exchange_exposure_alerts(portfolio_id)
 
 
+def _build_stablecoin_health_block(portfolio_id: str = "demo_portfolio") -> dict[str, Any]:
+    """#467 Stablecoin Health Monitor — portfolio exposure alerts + health panel."""
+    from bd_platform.stablecoin_health_monitor import (
+        build_portfolio_stablecoin_alerts,
+        build_stablecoin_health_panel,
+    )
+
+    return {
+        "integration": "capital_protection_controls",
+        "feature_ref": 467,
+        "panel": build_stablecoin_health_panel(),
+        "portfolio_alerts": build_portfolio_stablecoin_alerts(portfolio_id),
+        "alerts_only": True,
+        "monitoring_only": True,
+    }
+
+
 def build_signal_risk_assessment(
     signal_id: str,
     *,
@@ -729,6 +746,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
         "contagion_risk_463": analyze_contagion_risk(portfolio_id=portfolio_id, seed=seed),
         "position_risk_scores": position_scores,
         "portfolio_ai_alerts": build_portfolio_ai_alerts(seed),
+        "stablecoin_health_467": _build_stablecoin_health_block(portfolio_id),
         "exchange_health_alerts": build_exchange_health_alerts_block(portfolio_id),
         "portfolio_summary": {
             "total_value_usd": portfolio.get("total_value_usd"),
@@ -745,6 +763,7 @@ def build_capital_awareness_panel(portfolio_id: str = "demo_portfolio") -> dict[
             "risk_budget": True,
             "intelligence_ledger_risk_assessment": True,
             "exchange_health_monitor_456": True,
+            "stablecoin_health_monitor_467": True,
         },
         "not_investment_advice": True,
         "disclaimer": _DISCLAIMER,
@@ -781,6 +800,7 @@ def capital_protection_controls_status() -> dict[str, Any]:
             "intelligence_ledger_risk_assessment": True,
             "breakeven_integration_404": True,
             "exchange_health_monitor_456": True,
+            "stablecoin_health_monitor_467": True,
         },
         "acceptance_criteria": {
             "no_automatic_fund_movement_without_explicit_boundary": True,
@@ -875,6 +895,22 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
         "id": "portfolio_ai_alerts",
         "passed": panel["portfolio_ai_alerts"]["alert_count"] >= 1,
         "detail": panel["portfolio_ai_alerts"].get("display"),
+    })
+
+    sc_health = panel.get("stablecoin_health_467") or {}
+    checks.append({
+        "id": "stablecoin_health_467",
+        "passed": sc_health.get("feature_ref") == 467
+        and (sc_health.get("panel") or {}).get("ok") is True,
+        "detail": "467 risk layer",
+    })
+
+    from bd_platform.stablecoin_health_monitor import run_reconciliation_tests as sc_tests
+    sc_result = sc_tests()
+    checks.append({
+        "id": "stablecoin_health_reconciliation",
+        "passed": sc_result.get("ok") is True,
+        "detail": f"{sc_result.get('passed')}/{sc_result.get('total')}",
     })
 
     passed = sum(1 for c in checks if c["passed"])
