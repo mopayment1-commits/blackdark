@@ -108,3 +108,34 @@ def test_api_routes(metrics_seed):
     assert api.status_code == 200
     assert api.json().get("task_id") == "574"
     assert c.get("/api/platform/intelligence-ledger/onchain-layer/metrics-library/historical-qa").status_code == 200
+
+
+def test_live_merge_prefers_live(metrics_seed, monkeypatch):
+    async def fake_live(asset: str = "BTC"):
+        return {
+            "ok": True,
+            "asset": asset,
+            "metrics": {
+                "active_addresses": {
+                    "value": 999999,
+                    "available": True,
+                    "as_of": "2026-08-26T12:00:00Z",
+                    "live_source": "test_indexer",
+                    "evidence_class": "PRODUCTION_VERIFIED",
+                },
+            },
+        }
+
+    monkeypatch.setattr(oml, "fetch_live_metrics_async", fake_live)
+    api = oml.build_network_data_pro_api("BTC", seed=json.loads(metrics_seed.read_text()), prefer_live=False)
+    live_api = oml.build_network_data_pro_api(
+        "BTC",
+        seed=json.loads(metrics_seed.read_text()),
+        live={"metrics": {"active_addresses": {"value": 999999, "available": True, "live_source": "test", "evidence_class": "PRODUCTION_VERIFIED"}}},
+        prefer_live=True,
+    )
+    active = next(m for m in live_api["network_metrics"] if m["metric_id"] == "active_addresses")
+    assert active["live"] is True
+    assert active["value"] == 999999
+    seed_active = next(m for m in api["network_metrics"] if m["metric_id"] == "active_addresses")
+    assert seed_active["value"] == 100

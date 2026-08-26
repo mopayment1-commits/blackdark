@@ -2061,17 +2061,25 @@ async def onchain_metrics_library_status_route():
 
 @router.get("/intelligence-ledger/onchain-layer/metrics-library")
 async def onchain_metrics_library_panel_route(asset: str = Query("BTC")):
-    from bd_platform.onchain_metrics_library import build_onchain_metrics_library_panel
+    from bd_platform.onchain_metrics_library import build_onchain_metrics_library_panel_async
 
-    return build_onchain_metrics_library_panel(asset)
+    return await build_onchain_metrics_library_panel_async(asset)
 
 
 @router.get("/intelligence-ledger/onchain-layer/metrics-library/network-api")
 async def network_data_pro_metrics_route(asset: str = Query("BTC")):
     """#574 Network Data Pro Metrics — institutional API (sub-task of #577)."""
-    from bd_platform.onchain_metrics_library import build_network_data_pro_api
+    from bd_platform.onchain_metrics_library import build_network_data_pro_api_async
 
-    return build_network_data_pro_api(asset)
+    return await build_network_data_pro_api_async(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/metrics-library/live")
+async def onchain_metrics_live_route(asset: str = Query("BTC")):
+    """Live indexer fetch — mempool.space, blockchain.info, Blockchair, Blockscout."""
+    from bd_platform.onchain_live_indexer import fetch_live_onchain_metrics
+
+    return await fetch_live_onchain_metrics(asset)
 
 
 @router.get("/intelligence-ledger/onchain-layer/metrics-library/historical-qa")

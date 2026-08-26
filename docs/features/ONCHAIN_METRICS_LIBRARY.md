@@ -15,14 +15,20 @@ Epic with sub-module tasks (not standalone tickets):
 
 **#574 is NOT a standalone ticket** — it is the API delivery layer for metrics defined in #577.
 
-## Rules
+## Live Indexer (Rule 6 — Real Data)
 
-| Rule | Implementation |
-|------|----------------|
-| Formula/source/version | `build_metric_definitions()` per metric |
-| Historical QA | `run_historical_qa_tests()` |
-| missing ≠ zero | `missing_value()` via `institutional_standards` |
-| Foundation dependency | Required before #520, #538, #559, #560, #566, #568, #584 |
+Priority order per metric:
+
+1. **Live indexer** (`onchain_live_indexer.py`) — free public APIs
+2. **Seed fallback** (`onchain_metrics_library_seed.json`) — labeled BACKTESTED
+3. **Unavailable** — `غير متوفر` (never zero)
+
+| Metric | BTC Live Source | ETH Live Source |
+|--------|-----------------|-----------------|
+| Hash rate | mempool.space / Blockchair | N/A (unavailable) |
+| Active addresses | blockchain.info | unavailable (free tier) |
+| Transaction count | Blockchair | Blockscout / Blockchair |
+| Exchange netflow | exchange_intelligence_layer (derived) | same |
 
 ## API
 
@@ -30,6 +36,7 @@ Epic with sub-module tasks (not standalone tickets):
 GET /api/platform/intelligence-ledger/onchain-layer/metrics-library/status
 GET /api/platform/intelligence-ledger/onchain-layer/metrics-library?asset=BTC
 GET /api/platform/intelligence-ledger/onchain-layer/metrics-library/network-api?asset=BTC
+GET /api/platform/intelligence-ledger/onchain-layer/metrics-library/live?asset=BTC
 GET /api/platform/intelligence-ledger/onchain-layer/metrics-library/historical-qa
 ```
 
@@ -41,3 +48,4 @@ GET /api/platform/intelligence-ledger/onchain-layer/metrics-library/historical-q
 | Historical QA | `run_historical_qa_tests()` |
 | missing ≠ zero | `_sanitize_metric_value()` |
 | Canonical definitions | Single seed source of truth |
+| Live indexer | `fetch_live_onchain_metrics()` with seed fallback |
