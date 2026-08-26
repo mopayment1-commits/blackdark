@@ -297,6 +297,18 @@ def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[
             "display": raw.get("display") or f"DeFi divergence {raw.get('asset')} net edge {econ['net_edge_bps']:.2f} bps",
         })
 
+    for opp in opportunities:
+        asset = str(opp.get("asset") or "")
+        try:
+            from bd_platform.diligence_risk_scoring import score_collateral_risk
+
+            collateral = score_collateral_risk(asset)
+            if collateral.get("ok"):
+                opp["collateral_grade_462"] = collateral.get("collateral_grade")
+                opp["collateral_breakdown_462"] = collateral.get("breakdown")
+        except Exception:
+            logger.debug("collateral grade attachment skipped for %s", asset, exc_info=True)
+
     return opportunities
 
 

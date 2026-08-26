@@ -86,15 +86,20 @@
       "name": "Max Drawdown Shock",
       "price_shock_pct": -25,
       "portfolio_loss_usd": 62500,
-      "portfolio_loss_pct": 25.0
+      "portfolio_loss_pct": 25.0,
+      "controlled_blast_radius": true,
+      "assumptions": {"price_shock_pct": -25}
     },
     "correlation_shock": {
       "scenario_id": "stress_corr",
       "name": "Correlation Shock (diversification fails)",
       "correlation_spike_to": 0.95,
+      "correlation_spike_loss_pct": 22.0,
       "diversification_benefit_lost_pct": 40,
       "portfolio_loss_usd": 45000,
-      "portfolio_loss_pct": 18.0
+      "portfolio_loss_pct": 18.0,
+      "controlled_blast_radius": true,
+      "assumptions": {"correlation_spike_to": 0.95}
     },
     "liquidity_freeze": {
       "scenario_id": "stress_liq",
@@ -102,7 +107,86 @@
       "illiquid_assets_pct": 22.0,
       "slippage_multiplier": 5.0,
       "exit_cost_usd": 18500,
-      "portfolio_impact_pct": 7.4
+      "portfolio_impact_pct": 7.4,
+      "controlled_blast_radius": true,
+      "assumptions": {"slippage_multiplier": 5.0, "illiquid_pct": 22.0}
+    },
+    "stablecoin_depeg": {
+      "scenario_id": "stress_depeg",
+      "name": "Stablecoin Depeg",
+      "depeg_asset": "USDT",
+      "depeg_pct": 3.5,
+      "stablecoin_exposure_pct": 18.0,
+      "portfolio_loss_usd": 15750,
+      "portfolio_loss_pct": 6.3,
+      "controlled_blast_radius": true,
+      "assumptions": {"depeg_pct": 3.5, "exposure_pct": 18.0}
+    },
+    "exchange_insolvency": {
+      "scenario_id": "stress_insolvency",
+      "name": "Exchange Insolvency",
+      "affected_exchange": "mid_tier_cex",
+      "custody_exposure_pct": 12.0,
+      "recovery_rate_pct": 40.0,
+      "portfolio_loss_usd": 18000,
+      "portfolio_loss_pct": 7.2,
+      "controlled_blast_radius": true,
+      "assumptions": {"recovery_rate_pct": 40.0, "custody_exposure_pct": 12.0}
+    }
+  },
+  "portfolio_stress_test": {
+    "feature_ref": 453,
+    "title": "Portfolio Stress Test",
+    "renamed_from": "AI Portfolio Stress Testing Simulator",
+    "coverage_target_pct": 80,
+    "repeatable": true,
+    "controlled_blast_radius": true,
+    "documentation_complete": true
+  },
+  "correlation_matrix": {
+    "lookback_days": 30,
+    "stress_correlation_to": 1.0,
+    "assets": ["BTC", "ETH", "UNI"],
+    "matrix_30d": {
+      "BTC_ETH": 0.82,
+      "BTC_UNI": 0.71,
+      "ETH_UNI": 0.68
+    }
+  },
+  "contagion_risk": {
+    "sector_exposure": {
+      "Layer 1": 52.0,
+      "DeFi": 14.0,
+      "Infrastructure": 12.0,
+      "Gaming": 8.0,
+      "Other": 14.0
+    },
+    "chain_exposure": {
+      "ethereum": 58.0,
+      "bitcoin": 31.0,
+      "solana": 6.0,
+      "other": 5.0
+    },
+    "stablecoin_dependency": {
+      "portfolio_pct": 18.0,
+      "primary_stable": "USDT",
+      "depeg_history_12m": 0.02
+    }
+  },
+  "cancelled_sla": {
+    "response_2_seconds": true,
+    "accuracy_95_pct": true,
+    "uptime_99_pct": true,
+    "real_time_update": true
+  },
+  "virtual_portfolios": {
+    "demo_portfolio": {
+      "portfolio_id": "demo_portfolio",
+      "label": "Demo Virtual Portfolio"
+    },
+    "conservative_portfolio": {
+      "portfolio_id": "conservative_portfolio",
+      "label": "Conservative Virtual Portfolio"
     }
   },
   "signals": {

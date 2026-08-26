@@ -1253,6 +1253,60 @@ async def capital_awareness_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/stress-test")
+async def portfolio_stress_test_route(portfolio_id: str = Query("demo_portfolio")):
+    """#453 Portfolio Stress Test — merged into #410."""
+    from bd_platform.capital_protection_controls import build_portfolio_stress_test_result
+
+    return build_portfolio_stress_test_result(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/correlation-matrix")
+async def correlation_matrix_route(portfolio_id: str = Query("demo_portfolio")):
+    """#463 Correlation matrix — 30-day rolling."""
+    from bd_platform.capital_protection_controls import build_correlation_matrix
+
+    return build_correlation_matrix(portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/capital-awareness/contagion-risk")
+async def contagion_risk_route(portfolio_id: str = Query("demo_portfolio")):
+    """#463 Contagion risk — sector/chain/stablecoin."""
+    from bd_platform.capital_protection_controls import analyze_contagion_risk
+
+    return analyze_contagion_risk(portfolio_id=portfolio_id)
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/status")
+async def smart_money_flow_status_route():
+    """#408 Smart Money Flow Tracker (absorbs #459 Dormancy)."""
+    from bd_platform.smart_money_flow_tracker import smart_money_flow_tracker_status
+
+    return smart_money_flow_tracker_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow")
+async def smart_money_flow_panel_route(asset: str | None = Query(None)):
+    from bd_platform.smart_money_flow_tracker import build_smart_money_flow_panel
+
+    return build_smart_money_flow_panel(asset)
+
+
+@router.get("/intelligence-ledger/onchain-layer/smart-money-flow/reconciliation-tests")
+async def smart_money_flow_reconciliation_route():
+    from bd_platform.smart_money_flow_tracker import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/ui/beginner-decision-mode/status")
+async def beginner_decision_mode_status_route():
+    """#461 Beginner Decision Mode — merged with #468 Decision-First."""
+    from ux_mode import beginner_decision_mode_status
+
+    return beginner_decision_mode_status()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/exchange-health/status")
 async def exchange_health_monitor_status_route():
     """#456 Exchange Health Monitor — Sprint-2 Risk Layer."""
