@@ -1522,6 +1522,52 @@ async def basis_funding_divergence_reconciliation_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/event-sentiment/status")
+async def event_sentiment_monitor_status_route():
+    """#443 Event & Sentiment Monitor — Intelligence Ledger Sprint-2."""
+    from bd_platform.event_sentiment_monitor import event_sentiment_monitor_status
+
+    return event_sentiment_monitor_status()
+
+
+@router.get("/intelligence-ledger/event-sentiment")
+async def event_sentiment_monitor_panel_route(asset: str | None = Query(None)):
+    from bd_platform.event_sentiment_monitor import build_event_sentiment_panel
+
+    return build_event_sentiment_panel(asset)
+
+
+@router.get("/intelligence-ledger/event-sentiment/calendar")
+async def event_sentiment_calendar_route(
+    event_type: str | None = Query(None),
+    asset: str | None = Query(None),
+):
+    from bd_platform.event_sentiment_monitor import build_event_calendar
+
+    return build_event_calendar(event_type=event_type, asset=asset)
+
+
+@router.get("/intelligence-ledger/event-sentiment/alerts")
+async def event_sentiment_alerts_route(hours_ahead: int = Query(72)):
+    from bd_platform.event_sentiment_monitor import build_alerts
+
+    return build_alerts(hours_ahead=hours_ahead)
+
+
+@router.get("/intelligence-ledger/event-sentiment/archive")
+async def event_sentiment_archive_route():
+    from bd_platform.event_sentiment_monitor import build_archive_panel
+
+    return build_archive_panel()
+
+
+@router.get("/intelligence-ledger/event-sentiment/reconciliation-tests")
+async def event_sentiment_reconciliation_route():
+    from bd_platform.event_sentiment_monitor import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
 async def fill_risk_assessment_status_route():
     """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""

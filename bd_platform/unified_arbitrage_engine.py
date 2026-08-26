@@ -475,6 +475,14 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         logger.debug("fill risk assessment skipped", exc_info=True)
 
+    # #443 Event & Sentiment Monitor — sentiment context + event proximity
+    try:
+        from bd_platform.event_sentiment_monitor import enrich_arbitrage_opportunity as enrich_event_sentiment
+
+        enriched["event_sentiment_context_443"] = enrich_event_sentiment(enriched)
+    except Exception:
+        logger.debug("event sentiment monitor enrichment skipped", exc_info=True)
+
     # Confidence from net-edge + feasibility
     truth_score = float((enriched.get("net_edge_truth") or {}).get("truth_score") or 50)
     feasibility = (enriched.get("volume_feasibility") or {})
@@ -858,6 +866,20 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     from bd_platform.basis_funding_divergence_monitor import run_reconciliation_tests as bfd_tests
     bfd = bfd_tests()
     checks.append({"id": "derivatives_basis_funding_440", "passed": bfd.get("ok") is True, "detail": f"{bfd.get('passed')}/{bfd.get('total')}"})
+
+    from bd_platform.event_sentiment_monitor import run_reconciliation_tests as esm_tests
+    esm = esm_tests()
+    checks.append({"id": "event_sentiment_monitor_443", "passed": esm.get("ok") is True, "detail": f"{esm.get('passed')}/{esm.get('total')}"})
+
+    if feed.get("opportunities"):
+        top_esm = (feed["opportunities"][0].get("event_sentiment_context_443") or {})
+        checks.append({
+            "id": "event_sentiment_429_enrichment",
+            "passed": "sentiment_context" in top_esm and "event_proximity" in top_esm,
+            "detail": "443 on feed",
+        })
+    else:
+        checks.append({"id": "event_sentiment_429_enrichment", "passed": True, "detail": "no opps"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
