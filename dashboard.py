@@ -1769,6 +1769,33 @@ async def cap646_hub_page(request: Request):
     return render_page(request, "cap646_hub.html", _footer_ctx())
 
 
+@app.get("/intelligence-ledger", response_class=HTMLResponse)
+async def intelligence_ledger_hub_page(request: Request):
+    """Intelligence Ledger Hub — consumer UI for all 100+ analytical modules."""
+    return render_page(request, "intelligence_ledger.html", _footer_ctx())
+
+
+@app.get("/api/intelligence-ledger/catalog")
+async def intelligence_ledger_catalog_route():
+    from bd_platform.intelligence_ledger_hub import build_catalog
+
+    return {"ok": True, "catalog": build_catalog(), "count": len(build_catalog())}
+
+
+@app.get("/api/intelligence-ledger/hub")
+async def intelligence_ledger_hub_route():
+    from bd_platform.intelligence_ledger_hub import build_hub_context
+
+    return build_hub_context()
+
+
+@app.get("/api/intelligence-ledger/launch-readiness")
+async def intelligence_ledger_launch_readiness_route():
+    from bd_platform.intelligence_ledger_hub import build_launch_readiness_report
+
+    return build_launch_readiness_report()
+
+
 @app.get("/model-card", response_class=HTMLResponse)
 async def model_card_page(request: Request):
     return render_page(request, "model_card.html", _footer_ctx())
