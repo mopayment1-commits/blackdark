@@ -1,0 +1,27 @@
+{
+  "feature_id": 728,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "dashboards": {
+    "default": {
+      "dashboard_id": "default",
+      "name": "Market Overview",
+      "owner": "user_demo",
+      "version": 3,
+      "permissions": {"user_demo": "admin", "team_viewer": "view"},
+      "building_blocks": ["charting_726", "screener_742", "breadth_724"],
+      "widgets": [
+        {"type": "chart", "source": "interactive_charting_726", "symbol": "BTC/USDT"},
+        {"type": "screener", "source": "screener_742", "filter": "top_gainers"},
+        {"type": "breadth", "source": "market_breadth_724"}
+      ],
+      "revision_history": [
+        {"version": 1, "date": "2026-07-01", "change": "Initial layout"},
+        {"version": 2, "date": "2026-07-15", "change": "Added screener widget"},
+        {"version": 3, "date": "2026-08-20", "change": "Added breadth widget"}
+      ],
+      "saved_at": "2026-08-26T00:00:00+00:00"
+    }
+  }
+}

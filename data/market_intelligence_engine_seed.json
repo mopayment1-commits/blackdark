@@ -1,0 +1,29 @@
+{
+  "feature_id": 721,
+  "sprint": 2,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "false_positive_tests": [
+    {"venue": "binance", "asset": "BTC", "false_positive_rate_pct": 8.5, "passed": true},
+    {"venue": "okx", "asset": "ETH", "false_positive_rate_pct": 12.0, "passed": true},
+    {"venue": "kraken", "asset": "SOL", "false_positive_rate_pct": 18.0, "passed": false}
+  ],
+  "assets": {
+    "BTC": {
+      "patterns": {
+        "cadence_regularity": 0.72,
+        "size_uniformity": 0.65,
+        "cancel_ratio": 0.45,
+        "round_lot_pct": 0.80
+      }
+    },
+    "ETH": {
+      "patterns": {
+        "cadence_regularity": 0.35,
+        "size_uniformity": 0.28,
+        "cancel_ratio": 0.15,
+        "round_lot_pct": 0.20
+      }
+    }
+  }
+}
