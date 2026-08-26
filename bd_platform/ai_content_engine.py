@@ -33,7 +33,14 @@ _LAYER = "Intelligence Layer"
 _SPRINT = 2
 _WAVE = 2
 _SEED_PATH = Path("data/ai_content_engine_seed.json")
+_NEWS_CONTEXT_PATH = Path("data/news_context.json")
 _METHODOLOGY_VERSION = "1.0"
+
+_ASSET_ALIASES: dict[str, tuple[str, ...]] = {
+    "BTC": ("BTC", "BITCOIN"),
+    "ETH": ("ETH", "ETHEREUM"),
+    "SOL": ("SOL", "SOLANA"),
+}
 
 _SUB_MODULES: dict[str, dict[str, Any]] = {
     "511": {
@@ -241,27 +248,64 @@ def _rank_news_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Rank by published_at descending — freshest first."""
     return sorted(
         items,
-        key=lambda i: i.get("published_at") or "",
+        key=lambda i: i.get("published_at") or i.get("published_at_utc") or "",
         reverse=True,
     )
 
 
-def build_news_panel(
-    *,
-    asset: str = "BTC",
-    limit: int = 10,
-    seed: dict[str, Any] | None = None,
-) -> dict[str, Any]:
-    """#575 News Integration — merged into AI Content Engine, not standalone."""
-    seed = seed or _load_seed()
+def _normalize_news_raw(item: dict[str, Any], *, default_asset: str) -> dict[str, Any]:
+    """Normalize news_context, seed, or live API rows to a common shape."""
+    headline = item.get("headline") or item.get("title") or ""
+    summary = item.get("summary") or item.get("body") or ""
+    published = item.get("published_at") or item.get("published_at_utc")
+    dedupe_key = (
+        item.get("dedupe_key")
+        or item.get("dedupe_group")
+        or item.get("id")
+        or headline.strip().lower()
+    )
+    tags = item.get("tags") or []
+    if item.get("topic") and item["topic"] not in tags:
+        tags = [*tags, item["topic"]]
+    assets = item.get("assets") or [item.get("asset", default_asset)]
+    return {
+        "asset": str(assets[0] if assets else default_asset).upper(),
+        "headline": headline,
+        "summary": summary,
+        "source": item.get("source"),
+        "source_url": item.get("source_url") or item.get("url"),
+        "published_at": published,
+        "tags": tags,
+        "dedupe_key": dedupe_key,
+        "entity_refs": item.get("entity_refs") or [],
+    }
+
+
+def _load_news_context_items(asset: str) -> list[dict[str, Any]]:
+    if not _NEWS_CONTEXT_PATH.is_file():
+        return []
+    try:
+        payload = json.loads(_NEWS_CONTEXT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        logger.warning("news context load failed: %s", exc)
+        return []
     sym = asset.upper()
-    raw = [
-        i for i in (seed.get("news_items") or [])
-        if i.get("asset", "BTC").upper() == sym
-    ]
+    items: list[dict[str, Any]] = []
+    for row in payload.get("articles") or []:
+        assets = [str(a).upper() for a in (row.get("assets") or [])]
+        if sym in assets:
+            items.append(_normalize_news_raw(row, default_asset=sym))
+    return items
+
+
+def _articles_from_raw(
+    raw: list[dict[str, Any]],
+    *,
+    sym: str,
+    limit: int,
+) -> tuple[list[dict[str, Any]], int]:
     deduped = _dedupe_news_items(raw)
     ranked = _rank_news_items(deduped)[:limit]
-
     articles = []
     for item in ranked:
         source_url = item.get("source_url")
@@ -277,7 +321,19 @@ def build_news_panel(
             "entity_mapping": item.get("entity_refs") or [],
             "not_investment_advice": True,
         })
+    return articles, len(raw) - len(deduped)
 
+
+def _finalize_news_panel(
+    articles: list[dict[str, Any]],
+    *,
+    sym: str,
+    deduplicated: int,
+    data_source: str,
+    evidence_class: str,
+    live_fetch_attempted: bool = False,
+) -> dict[str, Any]:
+    unavailable = not articles
     return {
         "ok": True,
         "epic_feature_ids": list(_FEATURE_IDS),
@@ -288,12 +344,158 @@ def build_news_panel(
         "asset": sym,
         "articles": articles,
         "article_count": len(articles),
-        "deduplicated": len(raw) - len(deduped),
+        "deduplicated": deduplicated,
         "source_links_preserved": all(a["source_link_preserved"] for a in articles) if articles else True,
         "no_duplicate_spam": True,
         "rule_based_ranking": True,
+        "data_source": data_source,
+        "evidence_class": evidence_class,
+        "live_fetch_attempted": live_fetch_attempted,
+        "empty_state": "غير متوفر" if unavailable else None,
+        "display": (
+            f"No news available for {sym}"
+            if unavailable
+            else f"{sym} news — {len(articles)} articles"
+        ),
         "disclaimer": "News for context only — not investment advice. Source links preserved.",
     }
+
+
+async def _fetch_live_cryptocompare_articles(asset: str, limit: int) -> list[dict[str, Any]]:
+    """Live headlines via CryptoCompare public API — real URLs, fail-closed."""
+    import aiohttp
+
+    sym = asset.upper()
+    aliases = _ASSET_ALIASES.get(sym, (sym,))
+    params: dict[str, str] = {"lang": "EN"}
+    headers: dict[str, str] = {}
+    try:
+        import config
+
+        if config.SENTIMENT_CRYPTOCOMPARE_API_KEY:
+            headers["authorization"] = f"Apikey {config.SENTIMENT_CRYPTOCOMPARE_API_KEY}"
+    except Exception:
+        pass
+
+    timeout = aiohttp.ClientTimeout(total=12)
+    try:
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            async with session.get(
+                "https://min-api.cryptocompare.com/data/v2/news/",
+                params=params,
+                headers=headers or None,
+            ) as response:
+                response.raise_for_status()
+                payload = await response.json()
+    except Exception as exc:
+        logger.warning("live news fetch failed: %s", exc)
+        return []
+
+    items: list[dict[str, Any]] = []
+    for row in payload.get("Data") or []:
+        title = str(row.get("title") or "").strip()
+        if not title:
+            continue
+        body = str(row.get("body") or "").strip()
+        categories = str(row.get("categories") or "").upper()
+        haystack = f"{title} {body} {categories}".upper()
+        if not any(alias in haystack for alias in aliases):
+            continue
+        published = row.get("published_on")
+        published_at = (
+            datetime.fromtimestamp(int(published), tz=UTC).isoformat()
+            if published
+            else None
+        )
+        items.append(_normalize_news_raw({
+            "headline": title,
+            "summary": body[:500] if body else title,
+            "source": str(row.get("source_info", {}).get("name") or row.get("source") or "cryptocompare"),
+            "source_url": row.get("url") or row.get("guid"),
+            "published_at": published_at,
+            "tags": [t.strip() for t in categories.split("|") if t.strip()],
+            "dedupe_key": str(row.get("id") or title.lower()),
+            "asset": sym,
+        }, default_asset=sym))
+        if len(items) >= limit:
+            break
+    return items
+
+
+async def build_news_panel_async(
+    *,
+    asset: str = "BTC",
+    limit: int = 10,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#575 with live API first, curated index second, seed last."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    live = await _fetch_live_cryptocompare_articles(sym, limit * 2)
+    if live:
+        articles, deduped = _articles_from_raw(live, sym=sym, limit=limit)
+        return _finalize_news_panel(
+            articles,
+            sym=sym,
+            deduplicated=deduped,
+            data_source="cryptocompare_public",
+            evidence_class="PRODUCTION_VERIFIED",
+            live_fetch_attempted=True,
+        )
+
+    context_raw = _load_news_context_items(sym)
+    if context_raw:
+        articles, deduped = _articles_from_raw(context_raw, sym=sym, limit=limit)
+        return _finalize_news_panel(
+            articles,
+            sym=sym,
+            deduplicated=deduped,
+            data_source="news_context_index",
+            evidence_class="BACKTESTED",
+            live_fetch_attempted=True,
+        )
+
+    seed_raw = [
+        _normalize_news_raw(i, default_asset=sym)
+        for i in (seed.get("news_items") or [])
+        if i.get("asset", "BTC").upper() == sym
+    ]
+    articles, deduped = _articles_from_raw(seed_raw, sym=sym, limit=limit)
+    return _finalize_news_panel(
+        articles,
+        sym=sym,
+        deduplicated=deduped,
+        data_source="ai_content_engine_seed",
+        evidence_class="BACKTESTED",
+        live_fetch_attempted=True,
+    )
+
+
+def build_news_panel(
+    *,
+    asset: str = "BTC",
+    limit: int = 10,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#575 News Integration — merged into AI Content Engine, not standalone."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    context_raw = _load_news_context_items(sym)
+    seed_raw = [
+        _normalize_news_raw(i, default_asset=sym)
+        for i in (seed.get("news_items") or [])
+        if i.get("asset", "BTC").upper() == sym
+    ]
+    raw = context_raw if context_raw else seed_raw
+    data_source = "news_context_index" if context_raw else "ai_content_engine_seed"
+    articles, deduped = _articles_from_raw(raw, sym=sym, limit=limit)
+    return _finalize_news_panel(
+        articles,
+        sym=sym,
+        deduplicated=deduped,
+        data_source=data_source,
+        evidence_class="BACKTESTED",
+    )
 
 
 def build_multi_factor_screener(

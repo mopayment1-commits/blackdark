@@ -2013,9 +2013,9 @@ async def multi_factor_screener_route(sort_by: str = Query("factor_alignment")):
 @router.get("/intelligence-ledger/intelligence-layer/ai-content/news")
 async def news_integration_route(asset: str = Query("BTC"), limit: int = Query(10, ge=1, le=50)):
     """#575 News Integration — merged into AI Content Engine, source links preserved."""
-    from bd_platform.ai_content_engine import build_news_panel
+    from bd_platform.ai_content_engine import build_news_panel_async
 
-    return build_news_panel(asset=asset, limit=limit)
+    return await build_news_panel_async(asset=asset, limit=limit)
 
 
 @router.get("/intelligence-ledger/ux-layer/natural-language/status")

@@ -95,3 +95,16 @@ def test_historical_qa_tests(metrics_seed):
 def test_build_panel_wraps_evidence(metrics_seed):
     panel = oml.build_onchain_metrics_library_panel("BTC")
     assert panel.get("evidence_metadata") or panel.get("institutional_evidence")
+
+
+def test_api_routes(metrics_seed):
+    from fastapi.testclient import TestClient
+    from dashboard import app
+
+    c = TestClient(app)
+    assert c.get("/api/platform/intelligence-ledger/onchain-layer/metrics-library/status").status_code == 200
+    assert c.get("/api/platform/intelligence-ledger/onchain-layer/metrics-library?asset=BTC").status_code == 200
+    api = c.get("/api/platform/intelligence-ledger/onchain-layer/metrics-library/network-api?asset=BTC")
+    assert api.status_code == 200
+    assert api.json().get("task_id") == "574"
+    assert c.get("/api/platform/intelligence-ledger/onchain-layer/metrics-library/historical-qa").status_code == 200

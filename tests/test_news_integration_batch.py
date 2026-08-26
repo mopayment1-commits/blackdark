@@ -11,6 +11,9 @@ from bd_platform import ai_content_engine as ace
 
 @pytest.fixture
 def news_seed(tmp_path, monkeypatch):
+    empty_context = tmp_path / "news_context.json"
+    empty_context.write_text(json.dumps({"articles": []}), encoding="utf-8")
+    monkeypatch.setattr(ace, "_NEWS_CONTEXT_PATH", empty_context)
     p = tmp_path / "ai_content_engine_seed.json"
     p.write_text(json.dumps({
         "legal_review": {"complete": True},
@@ -81,3 +84,15 @@ def test_news_merged_not_standalone(news_seed):
     assert panel["standalone_rejected"] is True
     assert panel["merged_into"] == "AI Content Engine"
     assert panel["sub_module"]["task_id"] == "575"
+
+
+def test_api_routes(news_seed):
+    from fastapi.testclient import TestClient
+    from dashboard import app
+
+    c = TestClient(app)
+    r = c.get("/api/platform/intelligence-ledger/intelligence-layer/ai-content/news?asset=BTC")
+    assert r.status_code == 200
+    body = r.json()
+    assert body.get("ok") is True
+    assert body.get("source_links_preserved") is True

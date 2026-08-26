@@ -32,3 +32,5 @@ GET /api/platform/intelligence-ledger/intelligence-layer/ai-content/news?asset=B
 | Source links preserved | `source_links_preserved` flag |
 | No duplicate spam | Dedupe by `dedupe_key` |
 | Merged not standalone | `standalone_rejected: true` |
+| Live API preferred | `build_news_panel_async()` → CryptoCompare public |
+| Curated fallback | `data/news_context.json` with source URLs |

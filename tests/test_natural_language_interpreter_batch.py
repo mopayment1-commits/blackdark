@@ -89,3 +89,25 @@ def test_reconciliation_tests(nli_seed):
 def test_build_nli_panel_wraps_evidence(nli_seed):
     panel = nli.build_nli_panel("Show market conditions", user_tier="guest")
     assert panel.get("evidence_metadata") or panel.get("institutional_evidence")
+
+
+def test_api_routes(nli_seed):
+    from fastapi.testclient import TestClient
+    from dashboard import app
+
+    c = TestClient(app)
+    assert c.get("/ask").status_code == 200
+    assert "Natural Language Interpreter" in c.get("/ask").text
+    assert c.get("/api/platform/intelligence-ledger/ux-layer/natural-language/status").status_code == 200
+    assert c.get("/api/platform/intelligence-ledger/ux-layer/natural-language/schemas").status_code == 200
+    r = c.get(
+        "/api/platform/intelligence-ledger/ux-layer/natural-language",
+        params={"query": "Show market conditions", "user_tier": "guest"},
+    )
+    assert r.status_code == 200
+    assert r.json().get("intent_type") == "analytical"
+    adv = c.get(
+        "/api/platform/intelligence-ledger/ux-layer/natural-language",
+        params={"query": "Should I buy Bitcoin?"},
+    )
+    assert adv.json().get("advisory_query_blocked") is True
