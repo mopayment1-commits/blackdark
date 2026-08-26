@@ -30,7 +30,8 @@ def test_wrap_panel_adds_evidence():
 def test_launch_readiness_honest_verdict():
     report = ilh.build_launch_readiness_report()
     assert report["verdict"] in ("VERIFIED COMPLETE", "NOT READY")
-    assert report["summary"]["user_can_use_intelligence_ledger"] is True
+    assert report["engineering_verdict"] in ("ENGINEERING_READY", "NOT_READY")
+    assert report["summary"]["engineering_ready"] is True
     assert any(c["id"] == "il_hub_ui" and c["passed"] for c in report["checks"])
 
 

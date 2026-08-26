@@ -21,17 +21,18 @@ def _empty_binance_futures_snapshot(asset: str, symbol: str) -> dict[str, Any]:
         "asset": asset.upper(),
         "symbol": symbol,
         "timestamp": _utcnow(),
-        "mark_price": 0.0,
-        "funding_rate": 0.0,
-        "funding_rate_pct": 0.0,
-        "open_interest_contracts": 0.0,
-        "open_interest_usd": 0.0,
-        "change_24h_pct": 0.0,
-        "long_short_ratio": 0.0,
-        "long_account_pct": 0.0,
-        "short_account_pct": 0.0,
-        "taker_buy_sell_ratio": 0.0,
+        "mark_price": None,
+        "funding_rate": None,
+        "funding_rate_pct": None,
+        "open_interest_contracts": None,
+        "open_interest_usd": None,
+        "change_24h_pct": None,
+        "long_short_ratio": None,
+        "long_account_pct": None,
+        "short_account_pct": None,
+        "taker_buy_sell_ratio": None,
         "available": False,
+        "unavailable_reason": "api_unreachable",
     }
 
 
@@ -45,6 +46,32 @@ async def _get_json(url: str, *, params: dict | None = None) -> Any:
         if resp.status != 200:
             return None
         return await resp.json()
+
+
+async def coingecko_simple_prices(*, ids: str = "bitcoin,ethereum") -> dict[str, Any]:
+    """CoinGecko public simple price — no API key."""
+    url = "https://api.coingecko.com/api/v3/simple/price"
+    params = {
+        "ids": ids,
+        "vs_currencies": "usd",
+        "include_24hr_change": "true",
+    }
+    data = await _get_json(url, params=params)
+    if not data:
+        return {"ok": False, "error": "coingecko_unavailable", "prices": {}}
+    prices: dict[str, Any] = {}
+    for coin_id, row in data.items():
+        if isinstance(row, dict):
+            prices[coin_id] = {
+                "usd": row.get("usd"),
+                "usd_24h_change": row.get("usd_24h_change"),
+            }
+    return {
+        "ok": True,
+        "source": "coingecko_public",
+        "prices": prices,
+        "timestamp": _utcnow(),
+    }
 
 
 async def binance_futures_snapshot(asset: str = "BTC") -> dict[str, Any]:

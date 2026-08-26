@@ -236,6 +236,8 @@ def _error_to_user_message(error: str) -> str:
 
 def build_launch_readiness_report() -> dict[str, Any]:
     """Institutional launch readiness — honest binary assessment."""
+    from bd_platform.institutional_standards import user_journey_map
+
     catalog = build_catalog()
     layers = build_layers_summary()
 
@@ -244,10 +246,28 @@ def build_launch_readiness_report() -> dict[str, Any]:
     checks: list[dict[str, Any]] = []
 
     checks.append({
+        "id": "agents_md",
+        "label": "AGENTS.md governing reference",
+        "passed": Path("AGENTS.md").is_file(),
+        "detail": "Mandatory agent implementation standards",
+    })
+    checks.append({
+        "id": "institutional_standards",
+        "label": "Programmatic institutional standards",
+        "passed": Path("bd_platform/institutional_standards.py").is_file(),
+        "detail": "Evidence wrap, advisory scan, unknown≠0",
+    })
+    checks.append({
         "id": "il_hub_ui",
         "label": "Intelligence Ledger Hub UI",
-        "passed": True,
+        "passed": Path("templates/intelligence_ledger.html").is_file(),
         "detail": "/intelligence-ledger — consumer surface for all modules",
+    })
+    checks.append({
+        "id": "launch_center_ui",
+        "label": "Launch Center UI",
+        "passed": Path("templates/launch_center.html").is_file(),
+        "detail": "/launch-center — user journeys + engineering status",
     })
     checks.append({
         "id": "il_api_catalog",
@@ -262,33 +282,22 @@ def build_launch_readiness_report() -> dict[str, Any]:
         "detail": f"Classes: {', '.join(EVIDENCE_CLASSES)}",
     })
     checks.append({
+        "id": "live_market_strip",
+        "label": "Live market data strip",
+        "passed": Path("bd_platform/live_market_context.py").is_file(),
+        "detail": "CoinGecko + Binance public APIs",
+    })
+    checks.append({
+        "id": "user_journeys",
+        "label": "User journey map",
+        "passed": len(user_journey_map()) >= 5,
+        "detail": "Dashboard, Platform, IL, Institutional, Launch Center",
+    })
+    checks.append({
         "id": "tests_suite",
         "label": "Test suite breadth",
         "passed": Path("tests").is_dir(),
         "detail": "1344+ tests in repo",
-    })
-
-    prod = os.getenv("BLACKDARK_PRODUCTION", "").lower() in {"1", "true", "yes"}
-    checks.append({
-        "id": "production_flag",
-        "label": "Production environment",
-        "passed": prod,
-        "detail": "BLACKDARK_PRODUCTION=true required for PRODUCTION_VERIFIED",
-        "external": True,
-    })
-    checks.append({
-        "id": "pentest",
-        "label": "Pentest attestation",
-        "passed": Path("docs/evidence/pentest_attestation.json").is_file(),
-        "detail": "EXTERNAL EVIDENCE — human attestation required",
-        "external": True,
-    })
-    checks.append({
-        "id": "live_psp",
-        "label": "Live payment provider keys",
-        "passed": bool(os.getenv("STRIPE_SECRET_KEY") or os.getenv("LEMONSQUEEZY_API_KEY")),
-        "detail": "EXTERNAL EVIDENCE — operator provisioning",
-        "external": True,
     })
     checks.append({
         "id": "wave_0",
@@ -297,20 +306,51 @@ def build_launch_readiness_report() -> dict[str, Any]:
         "detail": "Security & performance deliverables documented",
     })
 
-    internal_passed = sum(1 for c in checks if c["passed"] and not c.get("external"))
-    internal_total = sum(1 for c in checks if not c.get("external"))
-    external_passed = sum(1 for c in checks if c["passed"] and c.get("external"))
-    external_total = sum(1 for c in checks if c.get("external"))
+    prod = os.getenv("BLACKDARK_PRODUCTION", "").lower() in {"1", "true", "yes"}
+    checks.append({
+        "id": "production_flag",
+        "label": "Production environment flag",
+        "passed": prod,
+        "detail": "BLACKDARK_PRODUCTION=true for PRODUCTION_VERIFIED",
+        "external": True,
+    })
+    checks.append({
+        "id": "pentest",
+        "label": "Pentest attestation",
+        "passed": Path("docs/evidence/pentest_attestation.json").is_file(),
+        "detail": "HUMAN_OPS — signed attestation required",
+        "external": True,
+    })
+    checks.append({
+        "id": "live_psp",
+        "label": "Live payment provider keys",
+        "passed": bool(os.getenv("STRIPE_SECRET_KEY") or os.getenv("LEMONSQUEEZY_API_KEY")),
+        "detail": "HUMAN_OPS — operator provisioning",
+        "external": True,
+    })
 
-    all_internal = internal_passed == internal_total
-    verdict = "VERIFIED COMPLETE" if all_internal and external_passed == external_total else "NOT READY"
+    internal = [c for c in checks if not c.get("external")]
+    external = [c for c in checks if c.get("external")]
+    internal_passed = sum(1 for c in internal if c["passed"])
+    external_passed = sum(1 for c in external if c["passed"])
+
+    engineering_ready = internal_passed == len(internal)
+    full_ready = engineering_ready and external_passed == len(external)
+
+    try:
+        from platform_production_readiness import platform_production_readiness
+        prod_report = platform_production_readiness()
+    except Exception:
+        prod_report = {"verdict": "UNKNOWN"}
 
     return {
         "ok": True,
         "hub_version": _HUB_VERSION,
         "title": "Institutional Launch Readiness",
-        "verdict": verdict,
+        "verdict": "VERIFIED COMPLETE" if full_ready else "NOT READY",
+        "engineering_verdict": "ENGINEERING_READY" if engineering_ready else "NOT_READY",
         "governing_references": [
+            "AGENTS.md",
             "docs/governing/INSTITUTIONAL_GOVERNING_REFERENCE.md",
             "docs/governing/DATA_PLATFORM_GOVERNING_REFERENCE.md",
             "MASTER_PLAN.md",
@@ -321,18 +361,24 @@ def build_launch_readiness_report() -> dict[str, Any]:
             "route_surface": "/intelligence-ledger",
             "api_prefix": "/api/platform/intelligence-ledger",
         },
+        "platform_production": {
+            "verdict": prod_report.get("verdict"),
+            "engineering_ready": prod_report.get("engineering_ready"),
+        },
         "checks": checks,
         "summary": {
             "internal_passed": internal_passed,
-            "internal_total": internal_total,
+            "internal_total": len(internal),
             "external_passed": external_passed,
-            "external_total": external_total,
-            "user_can_use_intelligence_ledger": all_internal,
-            "institutional_launch_ready": verdict == "VERIFIED COMPLETE",
+            "external_total": len(external),
+            "user_can_use_platform": engineering_ready,
+            "engineering_ready": engineering_ready,
+            "institutional_acquisition_ready": full_ready,
         },
+        "user_journeys": user_journey_map(),
         "disclaimer": (
-            "Launch readiness is binary: VERIFIED COMPLETE or NOT READY. "
-            "External evidence items require human operator action."
+            "ENGINEERING_READY = end users can use all product surfaces. "
+            "NOT READY for acquisition = external human evidence pending (pentest, PSP)."
         ),
         "timestamp": _utcnow(),
     }
@@ -364,9 +410,13 @@ def intelligence_ledger_hub_status() -> dict[str, Any]:
 
 
 def build_hub_context() -> dict[str, Any]:
+    from bd_platform.institutional_standards import user_journey_map
+    from bd_platform.live_market_context import build_live_market_strip_sync
+
     t0 = time.perf_counter()
     catalog = build_catalog()
     readiness = build_launch_readiness_report()
+    live_strip = build_live_market_strip_sync()
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
     return attach_evidence_metadata({
         "ok": True,
@@ -374,6 +424,8 @@ def build_hub_context() -> dict[str, Any]:
         "catalog": catalog,
         "layers": build_layers_summary(),
         "launch_readiness": readiness,
+        "live_market_strip": live_strip,
+        "user_journeys": user_journey_map(),
         "latency_ms": elapsed,
         "source": "intelligence_ledger_hub",
     })

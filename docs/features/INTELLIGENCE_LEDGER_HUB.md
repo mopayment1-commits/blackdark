@@ -52,4 +52,13 @@ GET /api/intelligence-ledger/launch-readiness     # Institutional readiness repo
 
 ## Navigation Integration
 
-Linked from: `/dashboard`, `/platform`, `/cap646`
+Linked from: `/dashboard`, `/platform`, `/cap646`, `/launch-center`
+
+## Institutional Standards
+
+All Intelligence Ledger API responses are wrapped with evidence metadata via middleware.
+See `AGENTS.md` and `bd_platform/institutional_standards.py`.
+
+## Launch Center
+
+`/launch-center` — unified user entry with journeys, engineering readiness, live market strip.

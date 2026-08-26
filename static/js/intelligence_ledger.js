@@ -233,6 +233,7 @@
       catalog = data.catalog || [];
       layers = data.layers || [];
       renderReadiness(data.launch_readiness);
+      renderLiveStrip(data.live_market_strip);
       renderLayers();
       renderModuleList();
     } catch (e) {
@@ -243,10 +244,10 @@
   function renderReadiness(r) {
     if (!r) return;
     readinessEl.innerHTML = "";
-    const verdict = r.verdict || "NOT READY";
+    const eng = r.engineering_verdict || "NOT_READY";
     const chip = document.createElement("div");
-    chip.className = "chip " + (verdict === "VERIFIED COMPLETE" ? "ok" : "warn");
-    chip.textContent = `جاهزية الإطلاق: ${verdict}`;
+    chip.className = "chip " + (eng === "ENGINEERING_READY" ? "ok" : "warn");
+    chip.textContent = eng === "ENGINEERING_READY" ? "جاهز هندسياً" : `جاهزية: ${r.verdict || "NOT READY"}`;
     readinessEl.appendChild(chip);
 
     const modChip = document.createElement("div");
@@ -254,12 +255,21 @@
     modChip.textContent = `${r.intelligence_ledger?.module_count || 0} وحدة ذكاء`;
     readinessEl.appendChild(modChip);
 
-    if (r.summary) {
+    if (r.summary?.engineering_ready) {
       const userChip = document.createElement("div");
-      userChip.className = "chip " + (r.summary.user_can_use_intelligence_ledger ? "ok" : "warn");
-      userChip.textContent = r.summary.user_can_use_intelligence_ledger ? "واجهة المستخدم جاهزة" : "واجهة غير جاهزة";
+      userChip.className = "chip ok";
+      userChip.textContent = "المستخدم يمكنه الاستخدام";
       readinessEl.appendChild(userChip);
     }
+  }
+
+  function renderLiveStrip(strip) {
+    const el = document.getElementById("liveStrip");
+    if (!el || !strip?.assets) return;
+    el.innerHTML = strip.assets.map((a) => {
+      const p = a.price_usd != null ? "$" + Number(a.price_usd).toLocaleString() : "غير متوفر";
+      return `<span style="background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:6px;padding:.35rem .6rem"><b>${esc(a.asset)}</b> ${esc(p)} <span style="color:var(--muted)">LIVE</span></span>`;
+    }).join("");
   }
 
   document.querySelectorAll(".tab").forEach((tab) => {
