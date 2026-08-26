@@ -811,6 +811,31 @@ async def derivatives_market_state_panel_route(asset: str = Query("BTC")):
     return result
 
 
+@router.get("/intelligence-ledger/derivatives-cross-signal/status")
+async def derivatives_cross_signal_synthesis_status_route():
+    """#315 Derivatives Cross-Signal Synthesis — layer above #327."""
+    from bd_platform.derivatives_cross_signal_synthesis import derivatives_cross_signal_synthesis_status
+
+    return derivatives_cross_signal_synthesis_status()
+
+
+@router.get("/intelligence-ledger/derivatives-cross-signal")
+async def derivatives_cross_signal_synthesis_panel_route(
+    asset: str = Query("BTC"),
+    timeframe: str = Query("4h"),
+):
+    from bd_platform.derivatives_cross_signal_synthesis import build_cross_signal_synthesis_panel
+
+    if timeframe not in ("1h", "4h", "1d"):
+        raise HTTPException(status_code=400, detail="timeframe must be 1h, 4h, or 1d")
+    result = build_cross_signal_synthesis_panel(asset, timeframe=timeframe)  # type: ignore[arg-type]
+    if not result.get("ok"):
+        if result.get("error") == "insufficient_signals":
+            return result
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/taker-pressure/status")
 async def taker_pressure_status_route():
     """#296 Taker Pressure Module — CEX spot + perp, orderflow sub-feature."""
