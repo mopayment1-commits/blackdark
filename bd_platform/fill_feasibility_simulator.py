@@ -345,6 +345,15 @@ def enrich_arbitrage_opportunity(
     buy_sim = simulate_fill(symbol=symbol, venue=buy_v, side="buy", size=size, seed=seed) if buy_v else None
     sell_sim = simulate_fill(symbol=symbol, venue=sell_v, side="sell", size=size, seed=seed) if sell_v else None
 
+    from bd_platform.exchange_health_monitor import evaluate_exchange
+
+    buy_health = evaluate_exchange(buy_v) if buy_v else None
+    sell_health = evaluate_exchange(sell_v) if sell_v else None
+    health_suppressed = (
+        (buy_health or {}).get("low_health")
+        or (sell_health or {}).get("low_health")
+    )
+
     buy_fill = (buy_sim or {}).get("fillable_size") or 0.0
     sell_fill = (sell_sim or {}).get("fillable_size") or 0.0
     max_feasible = min(buy_fill, sell_fill) if buy_fill and sell_fill else 0.0
@@ -365,7 +374,10 @@ def enrich_arbitrage_opportunity(
         "buy_leg": buy_sim,
         "sell_leg": sell_sim,
         "liquidity_score": avg_score,
-        "signal_suppressed": max_feasible < size * min_ratio,
+        "signal_suppressed": max_feasible < size * min_ratio or health_suppressed,
+        "exchange_health_suppressed": health_suppressed,
+        "buy_venue_grade": (buy_health or {}).get("exchange_grade"),
+        "sell_venue_grade": (sell_health or {}).get("exchange_grade"),
         "simulation_only": True,
         "evidence_class": "BACKTESTED",
     }
