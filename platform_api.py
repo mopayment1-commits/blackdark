@@ -1205,6 +1205,87 @@ async def market_screener_saved_filters_route():
     return list_saved_filters()
 
 
+@router.get("/intelligence-ledger/asset-screener/status")
+async def asset_screener_status_route():
+    """#1008 Asset Screener & Filter Engine — Sprint 2."""
+    from bd_platform.asset_screener import asset_screener_status
+
+    return asset_screener_status()
+
+
+@router.get("/intelligence-ledger/asset-screener/presets")
+async def asset_screener_presets_route():
+    from bd_platform.asset_screener import list_presets
+
+    return list_presets()
+
+
+@router.get("/intelligence-ledger/asset-screener")
+async def asset_screener_run_route(
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    sort_by: str = Query("market_cap_usd"),
+    sort_dir: str = Query("desc"),
+    include_missing: bool = Query(False),
+    preset_id: str | None = Query(None),
+):
+    from bd_platform.asset_screener import run_asset_screener
+
+    return run_asset_screener(
+        sort_by=sort_by,
+        sort_dir=sort_dir,  # type: ignore[arg-type]
+        page=page,
+        page_size=page_size,
+        include_missing=include_missing,
+        preset_id=preset_id,
+    )
+
+
+@router.post("/intelligence-ledger/asset-screener")
+async def asset_screener_run_post_route(
+    filters: dict[str, Any] = Body(default_factory=dict),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+    sort_by: str = Query("market_cap_usd"),
+    sort_dir: str = Query("desc"),
+    include_missing: bool = Query(False),
+    preset_id: str | None = Query(None),
+):
+    """#1008 server-side filter body — all filters enforced backend."""
+    from bd_platform.asset_screener import run_asset_screener
+
+    return run_asset_screener(
+        filters=filters,
+        sort_by=sort_by,
+        sort_dir=sort_dir,  # type: ignore[arg-type]
+        page=page,
+        page_size=page_size,
+        include_missing=include_missing,
+        preset_id=preset_id,
+    )
+
+
+@router.get("/intelligence-ledger/asset-screener/export")
+async def asset_screener_export_route(
+    export_format: str = Query("json", alias="format"),
+    sort_by: str = Query("market_cap_usd"),
+    sort_dir: str = Query("desc"),
+    include_missing: bool = Query(False),
+    preset_id: str | None = Query(None),
+):
+    from bd_platform.asset_screener import export_screener_results
+
+    if export_format not in ("csv", "json"):
+        raise HTTPException(status_code=400, detail="format must be csv or json")
+    return export_screener_results(
+        sort_by=sort_by,
+        sort_dir=sort_dir,  # type: ignore[arg-type]
+        export_format=export_format,  # type: ignore[arg-type]
+        include_missing=include_missing,
+        preset_id=preset_id,
+    )
+
+
 @router.get("/intelligence-ledger/surveillance/status")
 async def surveillance_engine_status_route():
     """#743 Surveillance Engine — absorbs #721."""
