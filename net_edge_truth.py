@@ -453,6 +453,17 @@ def apply_truth_gate_to_score(score: float, truth: dict[str, Any]) -> float:
     return score
 
 
+def rank_opportunity_with_diligence_risk(
+    opportunity: dict[str, Any],
+    *,
+    truth_result: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#460+#417 — final opportunity rank with diligence risk adjustment."""
+    from bd_platform.diligence_risk_scoring import apply_risk_to_net_edge_ranking
+
+    return apply_risk_to_net_edge_ranking(opportunity, truth_result=truth_result)
+
+
 def net_edge_truth_status() -> dict[str, Any]:
     evaluated = int(_STATS["evaluated"])
     rejected = int(_STATS["rejected"])

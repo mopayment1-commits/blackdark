@@ -1309,6 +1309,78 @@ async def exchange_health_reconciliation_tests_route():
     return run_reconciliation_tests()
 
 
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/status")
+async def diligence_risk_scoring_status_route():
+    """#460 Diligence Risk Scoring — Sprint-2 Risk Layer Core."""
+    from bd_platform.diligence_risk_scoring import diligence_risk_scoring_status
+
+    return diligence_risk_scoring_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring")
+async def diligence_risk_scoring_panel_route(entity_id: str = Query("BTC")):
+    from bd_platform.diligence_risk_scoring import build_risk_scoring_panel
+
+    result = build_risk_scoring_panel(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("entity_risk", {}).get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/entity/{entity_id}")
+async def diligence_risk_entity_route(entity_id: str):
+    from bd_platform.diligence_risk_scoring import score_entity_risk
+
+    result = score_entity_risk(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/collateral/{entity_id}")
+async def collateral_risk_route(entity_id: str):
+    """#462 Collateral Risk — shared scoring engine."""
+    from bd_platform.diligence_risk_scoring import score_collateral_risk
+
+    result = score_collateral_risk(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/correlation/{entity_id}")
+async def correlation_risk_route(entity_id: str):
+    """#463 Correlation Risk — shared scoring engine."""
+    from bd_platform.diligence_risk_scoring import score_correlation_risk
+
+    result = score_correlation_risk(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/opportunity-ranking")
+async def diligence_opportunity_ranking_route():
+    """#417+#460 — Net-Edge truth adjusted by diligence risk."""
+    from bd_platform.diligence_risk_scoring import rank_opportunities
+
+    return rank_opportunities()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/risk-scoring")
+async def intelligence_ledger_risk_scoring_route():
+    from bd_platform.diligence_risk_scoring import build_intelligence_ledger_integration
+
+    return build_intelligence_ledger_integration()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/risk-scoring/reconciliation-tests")
+async def diligence_risk_scoring_reconciliation_tests_route():
+    from bd_platform.diligence_risk_scoring import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/intelligence-layer/capital-awareness/risk-assessment")
 async def intelligence_ledger_risk_assessment_route(signal_id: str = Query("sig_btc_momentum")):
     """#410 Intelligence Ledger — mandatory Risk Assessment on every signal."""
