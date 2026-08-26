@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "layer": "Entity Intelligence Layer",
-  "tasks": ["#539", "#540"],
+  "tasks": ["#539", "#540", "#561"],
   "cost_basis_rules": {
     "version": "1.0",
     "method": "fifo",
@@ -17,6 +17,24 @@
     "entity_whale_alpha": {
       "entity_type": "whale",
       "name": "Whale Alpha",
+      "labels": {
+        "label": "Whale Alpha",
+        "confidence": "high",
+        "source": "onchain_graph_clustering",
+        "version": "1.0"
+      },
+      "pit_status": {
+        "as_of": "2026-08-26T12:00:00Z",
+        "cluster_version": "1.0",
+        "no_current_label_leakage": true
+      },
+      "revisions": [
+        {
+          "revision_id": "rev-whale-001",
+          "effective_at": "2026-06-01T00:00:00Z",
+          "reason": "cluster_expansion"
+        }
+      ],
       "wallets": [
         "0xabc1234567890def1234567890abc1234567890ab",
         "0xdef9876543210abc9876543210def9876543210cd"
@@ -123,6 +141,24 @@
     "entity_binance_hot": {
       "entity_type": "exchange",
       "name": "Binance Hot Wallet Cluster",
+      "labels": {
+        "label": "Binance Hot Wallet Cluster",
+        "confidence": "verified",
+        "source": "verified_labels_registry",
+        "version": "1.0"
+      },
+      "pit_status": {
+        "as_of": "2026-08-26T12:00:00Z",
+        "cluster_version": "1.1",
+        "no_current_label_leakage": true
+      },
+      "revisions": [
+        {
+          "revision_id": "rev-binance-001",
+          "effective_at": "2026-08-20T00:00:00Z",
+          "reason": "cold_wallet_added"
+        }
+      ],
       "wallets": [
         "0x28c6c06298d514db089934071355e5743bf21d60",
         "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0"
@@ -182,6 +218,95 @@
           "counterparty_label": "External Withdrawer"
         }
       ]
+    },
+    "entity_miner_foundry": {
+      "entity_type": "miner",
+      "name": "Foundry USA",
+      "labels": {
+        "label": "Foundry USA Pool",
+        "confidence": "verified",
+        "source": "verified_labels_registry",
+        "version": "1.0"
+      },
+      "pit_status": {
+        "as_of": "2026-08-26T12:00:00Z",
+        "cluster_version": "1.0",
+        "no_current_label_leakage": true
+      },
+      "revisions": [],
+      "wallets": [
+        "0xminer_foundry_hot_001"
+      ]
+    },
+    "entity_fund_paradigm": {
+      "entity_type": "fund",
+      "name": "Paradigm Fund",
+      "labels": {
+        "label": "Paradigm",
+        "confidence": "high",
+        "source": "entity_resolution_v1",
+        "version": "1.0"
+      },
+      "pit_status": {
+        "as_of": "2026-08-26T12:00:00Z",
+        "cluster_version": "1.0",
+        "no_current_label_leakage": true
+      },
+      "revisions": [],
+      "wallets": [
+        "0xfund_paradigm_001"
+      ]
     }
-  }
+  },
+  "entity_address_index": {
+    "0xabc1234567890def1234567890abc1234567890ab": {"entity_id": "entity_whale_alpha", "entity_type": "whale"},
+    "0xdef9876543210abc9876543210def9876543210cd": {"entity_id": "entity_whale_alpha", "entity_type": "whale"},
+    "0x28c6c06298d514db089934071355e5743bf21d60": {"entity_id": "entity_binance_hot", "entity_type": "exchange"},
+    "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0": {"entity_id": "entity_binance_hot", "entity_type": "exchange"},
+    "0xminer_foundry_hot_001": {"entity_id": "entity_miner_foundry", "entity_type": "miner"},
+    "0xfund_paradigm_001": {"entity_id": "entity_fund_paradigm", "entity_type": "fund"}
+  },
+  "inter_entity_transfers": [
+    {
+      "transfer_id": "ie-001",
+      "timestamp": "2026-08-26T10:00:00Z",
+      "asset": "BTC",
+      "value_usd": 5000000.0,
+      "from_address": "0xminer_foundry_hot_001",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    },
+    {
+      "transfer_id": "ie-002",
+      "timestamp": "2026-08-26T10:30:00Z",
+      "asset": "BTC",
+      "value_usd": 3000000.0,
+      "from_address": "0xfund_paradigm_001",
+      "to_address": "0xabc1234567890def1234567890abc1234567890ab"
+    },
+    {
+      "transfer_id": "ie-003",
+      "timestamp": "2026-08-26T11:00:00Z",
+      "asset": "ETH",
+      "value_usd": 2000000.0,
+      "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    },
+    {
+      "transfer_id": "ie-004",
+      "timestamp": "2026-08-26T11:30:00Z",
+      "asset": "BTC",
+      "value_usd": 1500000.0,
+      "from_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+      "to_address": "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0",
+      "is_internal": true
+    },
+    {
+      "transfer_id": "ie-005",
+      "timestamp": "2026-08-25T14:00:00Z",
+      "asset": "BTC",
+      "value_usd": 8000000.0,
+      "from_address": "0xminer_foundry_hot_001",
+      "to_address": "0x28c6c06298d514db089934071355e5743bf21d60"
+    }
+  ]
 }
