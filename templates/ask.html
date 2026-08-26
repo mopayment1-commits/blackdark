@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="{{ lang|default('en') }}" dir="{{ dir|default('ltr') }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#22d3ee">
+<title>BLACKDARK — Ask</title>
+<link rel="stylesheet" href="/static/css/trust-os.css">
+<style>
+:root{--bg:#070a0f;--card:#0d1117;--line:#243040;--fg:#f2efe6;--muted:#8b949e;--accent:#22d3ee;--ok:#34d399;--warn:#f59e0b;--err:#f87171}
+body{margin:0;color:var(--fg);font-family:"IBM Plex Sans",system-ui,sans-serif;background:linear-gradient(165deg,#070a0f,#0d1520);min-height:100vh}
+nav{display:flex;justify-content:space-between;padding:.85rem 1.25rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:1rem;font-size:.875rem}
+main{max-width:900px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-family:Syne,sans-serif;margin:0 0 .25rem}
+.sub{color:var(--muted);margin:0 0 1.25rem;line-height:1.55;font-size:.9rem}
+.query-box{display:flex;gap:.5rem;margin-bottom:1rem}
+.query-box input{flex:1;padding:.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:.95rem}
+.query-box button{padding:.75rem 1.25rem;border-radius:10px;border:0;background:var(--accent);color:#062016;font-weight:700;cursor:pointer}
+.examples{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.examples button{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:.35rem .65rem;border-radius:999px;font-size:.75rem;cursor:pointer}
+.examples button:hover{border-color:var(--accent);color:var(--accent)}
+.result{border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--card);min-height:120px}
+.badge{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.7rem;font-weight:600;margin-bottom:.5rem}
+.badge.ok{background:rgba(52,211,153,.15);color:var(--ok)}
+.badge.warn{background:rgba(245,158,11,.12);color:var(--warn)}
+.badge.err{background:rgba(248,113,113,.12);color:var(--err)}
+.meta{font-size:.78rem;color:var(--muted);margin:.5rem 0}
+pre{background:#0a0e14;border:1px solid var(--line);border-radius:8px;padding:.75rem;overflow:auto;font-size:.72rem;max-height:400px}
+.disclaimer{font-size:.72rem;color:var(--muted);margin-top:1rem;border-top:1px solid var(--line);padding-top:.75rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">BLACKDARK</a>
+  <div>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/intelligence-ledger">Intelligence Ledger</a>
+    <a href="/launch-center">Launch Center</a>
+    <a href="/ask">Ask</a>
+  </div>
+</nav>
+<main>
+  <h1>Ask — Natural Language Interpreter</h1>
+  <p class="sub">اطرح سؤالاً تحليلياً بلغة طبيعية. لا نصيحة شراء/بيع — بيانات فقط مع أدلة.</p>
+  <div class="query-box">
+    <input id="queryInput" type="text" placeholder="What is Bitcoin's exchange flow?" />
+    <button id="askBtn" type="button">Ask</button>
+  </div>
+  <div class="examples" id="examples"></div>
+  <div class="result" id="result">
+    <span class="meta">Enter a query or pick an example.</span>
+  </div>
+  <p class="disclaimer">Feature #573 — rule-based guardrails. Advisory queries are redirected to data. Not investment advice.</p>
+</main>
+<script src="/static/js/dom_escape.js"></script>
+<script src="/static/js/ask.js"></script>
+</body>
+</html>

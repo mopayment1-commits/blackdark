@@ -1856,6 +1856,12 @@ async def launch_center_page(request: Request):
     return render_page(request, "launch_center.html", _footer_ctx())
 
 
+@app.get("/ask", response_class=HTMLResponse)
+async def natural_language_ask_page(request: Request):
+    """#573 Natural Language Interpreter — UX layer query interface."""
+    return render_page(request, "ask.html", _footer_ctx())
+
+
 @app.get("/api/institutional-standards/status")
 async def institutional_standards_status_route():
     from bd_platform.institutional_standards import institutional_standards_status

@@ -20,8 +20,8 @@ from typing import Any, Literal
 
 logger = logging.getLogger("BLACKDARK.AIContentEngine")
 
-_FEATURE_IDS = (511, 512, 513)
-_ABSORBED_IDS = (511, 512, 513)
+_FEATURE_IDS = (511, 512, 513, 575)
+_ABSORBED_IDS = (511, 512, 513, 575)
 _RENAMED_FROM = (
     "AI Market Insights",
     "AI_Digest_Generator",
@@ -57,6 +57,14 @@ _SUB_MODULES: dict[str, dict[str, Any]] = {
         "renamed_from": "AI_Quant_Rating_Engine",
         "description": "User-controlled factor screener — NOT investment rating",
         "blocked_until_legal_review": True,
+    },
+    "575": {
+        "task_id": "575",
+        "name": "news_integration",
+        "title": "News Integration",
+        "renamed_from": "News Integration",
+        "description": "Asset-linked news with dedupe/rank/tag — source links preserved",
+        "standalone_rejected": True,
     },
 }
 
@@ -216,6 +224,78 @@ def build_market_digest(
     }
 
 
+def _dedupe_news_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Deduplicate by dedupe_key or normalized headline — no duplicate spam."""
+    seen: set[str] = set()
+    unique: list[dict[str, Any]] = []
+    for item in items:
+        key = (item.get("dedupe_key") or item.get("headline") or "").strip().lower()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        unique.append(item)
+    return unique
+
+
+def _rank_news_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Rank by published_at descending — freshest first."""
+    return sorted(
+        items,
+        key=lambda i: i.get("published_at") or "",
+        reverse=True,
+    )
+
+
+def build_news_panel(
+    *,
+    asset: str = "BTC",
+    limit: int = 10,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#575 News Integration — merged into AI Content Engine, not standalone."""
+    seed = seed or _load_seed()
+    sym = asset.upper()
+    raw = [
+        i for i in (seed.get("news_items") or [])
+        if i.get("asset", "BTC").upper() == sym
+    ]
+    deduped = _dedupe_news_items(raw)
+    ranked = _rank_news_items(deduped)[:limit]
+
+    articles = []
+    for item in ranked:
+        source_url = item.get("source_url")
+        articles.append({
+            "headline": item.get("headline"),
+            "summary": item.get("summary"),
+            "source": item.get("source"),
+            "source_url": source_url,
+            "source_link_preserved": bool(source_url),
+            "published_at": item.get("published_at"),
+            "tags": item.get("tags") or [],
+            "asset": sym,
+            "entity_mapping": item.get("entity_refs") or [],
+            "not_investment_advice": True,
+        })
+
+    return {
+        "ok": True,
+        "epic_feature_ids": list(_FEATURE_IDS),
+        "sub_module": _SUB_MODULES["575"],
+        "standalone_rejected": True,
+        "task_not_ticket": True,
+        "merged_into": "AI Content Engine",
+        "asset": sym,
+        "articles": articles,
+        "article_count": len(articles),
+        "deduplicated": len(raw) - len(deduped),
+        "source_links_preserved": all(a["source_link_preserved"] for a in articles) if articles else True,
+        "no_duplicate_spam": True,
+        "rule_based_ranking": True,
+        "disclaimer": "News for context only — not investment advice. Source links preserved.",
+    }
+
+
 def build_multi_factor_screener(
     *,
     sort_by: str = "factor_alignment",
@@ -310,6 +390,7 @@ def build_ai_content_engine_panel(
     evidence = build_market_evidence_feed(asset=asset, seed=seed)
     digest = build_market_digest(digest_id=digest_id, seed=seed)
     screener = build_multi_factor_screener(sort_by=sort_by, seed=seed)
+    news = build_news_panel(asset=asset, seed=seed)
 
     elapsed = round((time.perf_counter() - t0) * 1000, 1)
 
@@ -330,9 +411,10 @@ def build_ai_content_engine_panel(
             "511_market_evidence_feed": evidence,
             "512_market_digest": digest,
             "513_multi_factor_screener": screener,
+            "575_news_integration": news,
             "tasks_not_tickets": True,
         },
-        "pipeline": "rank(#513) → evidence(#511) → digest(#512)",
+        "pipeline": "rank(#513) → evidence(#511) → digest(#512) → news(#575)",
         "every_claim_linked": True,
         "no_hallucinated_intent": True,
         "legal_review_gate": build_legal_review_gate(seed),
@@ -357,7 +439,7 @@ def ai_content_engine_status() -> dict[str, Any]:
         "sprint": _SPRINT,
         "sub_modules": _SUB_MODULES,
         "tasks_not_tickets": True,
-        "pipeline": "rank(#513) → evidence(#511) → digest(#512)",
+        "pipeline": "rank(#513) → evidence(#511) → digest(#512) → news(#575)",
         "every_claim_linked": True,
         "no_hallucinated_intent": True,
         "legal_review_gate": build_legal_review_gate(seed),
