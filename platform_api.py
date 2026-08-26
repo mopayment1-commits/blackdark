@@ -770,3 +770,77 @@ async def taker_pressure_classification_tests_route(limit: int = Query(50, ge=1,
     from bd_platform.taker_pressure import list_classification_tests
 
     return list_classification_tests(limit=limit)
+
+
+@router.get("/intelligence-ledger/token-incentives/status")
+async def token_incentives_status_route():
+    """#298 Token Incentives & Emissions — DeFi only, Wave 2."""
+    from bd_platform.token_incentives_emissions import token_incentives_status
+
+    return token_incentives_status()
+
+
+@router.get("/intelligence-ledger/token-incentives")
+async def token_incentives_panel_route(protocol: str = Query("aave")):
+    """#298 incentives chart — USD at emission timestamp."""
+    from bd_platform.token_incentives_emissions import build_token_incentives_panel
+
+    result = build_token_incentives_panel(protocol)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/token-incentives/emissions")
+async def token_incentives_emissions_route(
+    protocol: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.token_incentives_emissions import list_emissions
+
+    return list_emissions(protocol=protocol, limit=limit)
+
+
+@router.get("/intelligence-ledger/trend-metrics/status")
+async def trend_metric_collector_status_route():
+    """#299 Trend Metric Collector — point-in-time infrastructure layer."""
+    from bd_platform.trend_metric_collector import trend_metric_collector_status
+
+    return trend_metric_collector_status()
+
+
+@router.get("/intelligence-ledger/trend-metrics")
+async def trend_metric_panel_route(asset: str = Query("BTC")):
+    """#299 trend score + acceleration + timeframe breakdown."""
+    from bd_platform.trend_metric_collector import build_trend_metric_panel
+
+    result = build_trend_metric_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/trend-metrics/rankings")
+async def trend_metric_rankings_route(limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.trend_metric_collector import list_universe_rankings
+
+    return list_universe_rankings(limit=limit)
+
+
+@router.get("/intelligence-ledger/trending-assets/status")
+async def trending_assets_status_route():
+    """#300 Trending Assets — depends on #272 Community Pulse stable."""
+    from bd_platform.trending_assets import trending_assets_status
+
+    return trending_assets_status()
+
+
+@router.get("/intelligence-ledger/trending-assets")
+async def trending_assets_leaderboard_route(limit: int = Query(20, ge=1, le=100)):
+    """#300 trending coins leaderboard — deterministic rank."""
+    from bd_platform.trending_assets import build_trending_leaderboard
+
+    result = build_trending_leaderboard(limit=limit)
+    if not result.get("ok"):
+        raise HTTPException(status_code=503, detail=result.get("error") or "dependency_blocked")
+    return result
