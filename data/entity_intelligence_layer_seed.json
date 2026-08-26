@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "layer": "Entity Intelligence Layer",
+  "tasks": ["#539", "#540"],
+  "cost_basis_rules": {
+    "version": "1.0",
+    "method": "fifo",
+    "rules": [
+      "buys_establish_cost_basis_at_execution_price",
+      "sells_realize_pnl_against_fifo_lots",
+      "internal_transfers_not_sales",
+      "transfer_in_without_basis_flagged_unknown",
+      "unknown_basis_excludes_from_unrealized_pnl"
+    ]
+  },
+  "entities": {
+    "entity_whale_alpha": {
+      "entity_type": "whale",
+      "name": "Whale Alpha",
+      "wallets": [
+        "0xabc1234567890def1234567890abc1234567890ab",
+        "0xdef9876543210abc9876543210def9876543210cd"
+      ],
+      "current_prices": {
+        "BTC": 95000.0,
+        "ETH": 4200.0
+      },
+      "provenance": {
+        "source": "onchain_indexer",
+        "as_of": "2026-08-26T12:00:00Z",
+        "freshness_seconds": 300,
+        "stale_threshold_seconds": 3600
+      },
+      "balances": {
+        "total_usd": 12500000.0,
+        "BTC": 100.0,
+        "ETH": 500.0
+      },
+      "exchange_usage": [
+        {"exchange_id": "binance", "volume_usd": 5000000.0, "trade_count": 12},
+        {"exchange_id": "coinbase", "volume_usd": 2000000.0, "trade_count": 5}
+      ],
+      "events": [
+        {
+          "event_id": "e539-001",
+          "timestamp": "2026-06-01T10:00:00Z",
+          "asset": "BTC",
+          "event_type": "buy",
+          "quantity": 50.0,
+          "execution_price": 60000.0,
+          "value_usd": 3000000.0,
+          "from_address": "0xexternal_buyer_001",
+          "to_address": "0xabc1234567890def1234567890abc1234567890ab",
+          "counterparty_id": "cex_binance",
+          "counterparty_label": "Binance"
+        },
+        {
+          "event_id": "e539-002",
+          "timestamp": "2026-07-01T14:00:00Z",
+          "asset": "BTC",
+          "event_type": "buy",
+          "quantity": 30.0,
+          "execution_price": 70000.0,
+          "value_usd": 2100000.0,
+          "from_address": "0xexternal_buyer_002",
+          "to_address": "0xabc1234567890def1234567890abc1234567890ab",
+          "counterparty_id": "cex_coinbase",
+          "counterparty_label": "Coinbase"
+        },
+        {
+          "event_id": "e539-003",
+          "timestamp": "2026-07-15T09:00:00Z",
+          "asset": "BTC",
+          "event_type": "internal_transfer",
+          "quantity": 20.0,
+          "execution_price": null,
+          "value_usd": 1400000.0,
+          "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+          "to_address": "0xdef9876543210abc9876543210def9876543210cd"
+        },
+        {
+          "event_id": "e539-004",
+          "timestamp": "2026-08-01T11:00:00Z",
+          "asset": "BTC",
+          "event_type": "sell",
+          "quantity": 10.0,
+          "execution_price": 90000.0,
+          "value_usd": 900000.0,
+          "from_address": "0xabc1234567890def1234567890abc1234567890ab",
+          "to_address": "0xexternal_seller_001",
+          "counterparty_id": "cex_binance",
+          "counterparty_label": "Binance"
+        },
+        {
+          "event_id": "e539-005",
+          "timestamp": "2026-08-10T08:00:00Z",
+          "asset": "BTC",
+          "event_type": "transfer_in",
+          "quantity": 30.0,
+          "execution_price": null,
+          "cost_basis_unknown": true,
+          "value_usd": 2700000.0,
+          "from_address": "0xunknown_sender_001",
+          "to_address": "0xdef9876543210abc9876543210def9876543210cd",
+          "counterparty_id": "unknown",
+          "counterparty_label": "Unknown"
+        },
+        {
+          "event_id": "e539-006",
+          "timestamp": "2026-08-15T16:00:00Z",
+          "asset": "ETH",
+          "event_type": "buy",
+          "quantity": 500.0,
+          "execution_price": 3800.0,
+          "value_usd": 1900000.0,
+          "from_address": "0xexternal_eth_buyer",
+          "to_address": "0xabc1234567890def1234567890abc1234567890ab",
+          "counterparty_id": "dex_uniswap",
+          "counterparty_label": "Uniswap"
+        }
+      ]
+    },
+    "entity_binance_hot": {
+      "entity_type": "exchange",
+      "name": "Binance Hot Wallet Cluster",
+      "wallets": [
+        "0x28c6c06298d514db089934071355e5743bf21d60",
+        "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0"
+      ],
+      "current_prices": {
+        "ETH": 4200.0
+      },
+      "provenance": {
+        "source": "exchange_flow_indexer",
+        "as_of": "2026-08-26T12:00:00Z",
+        "freshness_seconds": 120,
+        "stale_threshold_seconds": 3600
+      },
+      "balances": {
+        "total_usd": 5500000.0,
+        "ETH": 1300.0
+      },
+      "exchange_usage": [
+        {"exchange_id": "binance", "volume_usd": 8500000.0, "trade_count": 250}
+      ],
+      "events": [
+        {
+          "event_id": "e539-b01",
+          "timestamp": "2026-08-20T10:00:00Z",
+          "asset": "ETH",
+          "event_type": "buy",
+          "quantity": 1000.0,
+          "execution_price": 4000.0,
+          "value_usd": 4000000.0,
+          "from_address": "0xexternal_inflow_001",
+          "to_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+          "counterparty_id": "external_depositor",
+          "counterparty_label": "External Depositor"
+        },
+        {
+          "event_id": "e539-b02",
+          "timestamp": "2026-08-21T11:00:00Z",
+          "asset": "ETH",
+          "event_type": "internal_transfer",
+          "quantity": 300.0,
+          "execution_price": null,
+          "value_usd": 1260000.0,
+          "from_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+          "to_address": "0x3f5ce5fbfe3e628ad0af38df2233fe8dd0a5a0a0"
+        },
+        {
+          "event_id": "e539-b03",
+          "timestamp": "2026-08-22T14:00:00Z",
+          "asset": "ETH",
+          "event_type": "sell",
+          "quantity": 200.0,
+          "execution_price": 4100.0,
+          "value_usd": 820000.0,
+          "from_address": "0x28c6c06298d514db089934071355e5743bf21d60",
+          "to_address": "0xexternal_withdrawal_001",
+          "counterparty_id": "external_withdrawer",
+          "counterparty_label": "External Withdrawer"
+        }
+      ]
+    }
+  }
+}

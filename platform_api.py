@@ -1713,6 +1713,45 @@ async def entity_resolution_engine_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/entity-intelligence/status")
+async def entity_intelligence_layer_status_route():
+    """#539 #540 Entity Intelligence Layer — PnL tracker + entity profiles."""
+    from bd_platform.entity_intelligence_layer import entity_intelligence_layer_status
+
+    return entity_intelligence_layer_status()
+
+
+@router.get("/intelligence-ledger/entity-intelligence")
+async def entity_intelligence_panel_route(
+    entity_id: str = Query("entity_whale_alpha"),
+):
+    from bd_platform.entity_intelligence_layer import build_entity_intelligence_panel
+
+    result = build_entity_intelligence_panel(entity_id=entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/entity-intelligence/pnl")
+async def entity_pnl_tracker_route(
+    entity_id: str = Query("entity_whale_alpha"),
+):
+    from bd_platform.entity_intelligence_layer import build_entity_pnl_tracker
+
+    result = build_entity_pnl_tracker(entity_id)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/entity-intelligence/reconciliation-tests")
+async def entity_intelligence_reconciliation_tests_route():
+    from bd_platform.entity_intelligence_layer import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
 @router.get("/intelligence-ledger/infrastructure/custom-alerts/status")
 async def custom_alerts_status_route():
     """#532 Custom Alerts — backend enforced, rate limits, tx evidence."""
