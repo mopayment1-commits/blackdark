@@ -1454,6 +1454,63 @@ async def exchange_flow_velocity_monitor_panel_route(
     return result
 
 
+@router.get("/intelligence-ledger/onchain-layer/bucketed-cvd/status")
+async def bucketed_cvd_status_route():
+    """#518 Bucketed CVD — on-chain metrics layer, versioned bucket definitions."""
+    from bd_platform.bucketed_cvd import bucketed_cvd_status
+
+    return bucketed_cvd_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/bucketed-cvd")
+async def bucketed_cvd_panel_route(asset: str = Query("BTC")):
+    from bd_platform.bucketed_cvd import build_bucketed_cvd_panel
+
+    result = build_bucketed_cvd_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/onchain-layer/cost-basis/status")
+async def cost_basis_distribution_status_route():
+    """#520 Cost Basis Distribution — on-chain analytics, no future leakage."""
+    from bd_platform.cost_basis_distribution import cost_basis_distribution_status
+
+    return cost_basis_distribution_status()
+
+
+@router.get("/intelligence-ledger/onchain-layer/cost-basis")
+async def cost_basis_distribution_panel_route(asset: str = Query("BTC")):
+    from bd_platform.cost_basis_distribution import build_cost_basis_panel
+
+    result = build_cost_basis_panel(asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
+@router.get("/intelligence-ledger/intelligence-layer/price-move-correlator/status")
+async def price_move_event_correlator_status_route():
+    """#519 Price-Move Event Correlator — temporal correlation, not causation."""
+    from bd_platform.price_move_event_correlator import price_move_event_correlator_status
+
+    return price_move_event_correlator_status()
+
+
+@router.get("/intelligence-ledger/intelligence-layer/price-move-correlator")
+async def price_move_event_correlator_panel_route(
+    candle_id: str = Query("btc_2026_08_26_14h"),
+    asset: str | None = Query(None),
+):
+    from bd_platform.price_move_event_correlator import build_price_move_event_correlator_panel
+
+    result = build_price_move_event_correlator_panel(candle_id=candle_id, asset=asset)
+    if not result.get("ok"):
+        raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
+    return result
+
+
 @router.get("/intelligence-ledger/intelligence-layer/market-context/status")
 async def cross_domain_market_context_status_route():
     """#524 Cross-Domain Market Context Layer — epic, absorbs #523-530."""
