@@ -1396,6 +1396,22 @@ async def unified_arbitrage_feed_route():
     return build_unified_feed()
 
 
+@router.get("/intelligence-ledger/unified-arbitrage/defi")
+async def defi_opportunity_scanner_route():
+    """#438 DeFi Opportunity Scanner — merged into #429."""
+    from bd_platform.unified_arbitrage_engine import build_defi_panel
+
+    return build_defi_panel()
+
+
+@router.get("/intelligence-ledger/unified-arbitrage/opportunity-alerts")
+async def opportunity_alert_engine_route():
+    """#434 Opportunity Worth Studying Alert Engine — merged into #429."""
+    from bd_platform.unified_arbitrage_engine import build_opportunity_alert_panel
+
+    return build_opportunity_alert_panel()
+
+
 @router.get("/intelligence-ledger/unified-arbitrage/triangular")
 async def triangular_price_divergence_route():
     """#428 Triangular Price Divergence Scanner — merged into #429."""
@@ -1421,6 +1437,50 @@ async def intelligence_ledger_unified_arbitrage_route():
 @router.get("/intelligence-ledger/unified-arbitrage/reconciliation-tests")
 async def unified_arbitrage_reconciliation_tests_route():
     from bd_platform.unified_arbitrage_engine import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/status")
+async def fill_risk_assessment_status_route():
+    """#433 Fill Risk Assessment — Intelligence Ledger Risk Layer."""
+    from bd_platform.fill_risk_assessment import fill_risk_assessment_status
+
+    return fill_risk_assessment_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment")
+async def fill_risk_assessment_panel_route(opportunity_id: str | None = Query(None)):
+    from bd_platform.fill_risk_assessment import build_fill_risk_panel
+
+    return build_fill_risk_panel(opportunity_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/fill-risk-assessment/reconciliation-tests")
+async def fill_risk_assessment_reconciliation_tests_route():
+    from bd_platform.fill_risk_assessment import run_reconciliation_tests
+
+    return run_reconciliation_tests()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/status")
+async def portfolio_intelligence_engine_status_route():
+    """#449 Portfolio Intelligence Engine — Sprint-1 existing module."""
+    from bd_platform.portfolio_intelligence_engine import portfolio_intelligence_engine_status
+
+    return portfolio_intelligence_engine_status()
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence")
+async def portfolio_intelligence_engine_panel_route(portfolio_id: str = Query("demo_portfolio")):
+    from bd_platform.portfolio_intelligence_engine import build_integrated_panel
+
+    return build_integrated_panel(portfolio_id)
+
+
+@router.get("/intelligence-ledger/portfolio-ai/portfolio-intelligence/reconciliation-tests")
+async def portfolio_intelligence_reconciliation_tests_route():
+    from bd_platform.portfolio_intelligence_engine import run_reconciliation_tests
 
     return run_reconciliation_tests()
 

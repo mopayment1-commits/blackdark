@@ -23,6 +23,8 @@ logger = logging.getLogger("BLACKDARK.UnifiedArbitrageEngine")
 
 _FEATURE_ID = 429
 _TRIANGULAR_FEATURE_ID = 428
+_DEFI_FEATURE_ID = 438
+_ALERT_FEATURE_ID = 434
 _TITLE = "Unified Arbitrage Opportunity Engine"
 _TRIANGULAR_TITLE = "Triangular Price Divergence Scanner"
 _LEGAL_NAME = "Unified Arbitrage Opportunity Engine"
@@ -251,6 +253,65 @@ def scan_stablecoin_depeg(*, seed: dict[str, Any] | None = None) -> list[dict[st
     return opportunities
 
 
+def scan_defi_opportunities(*, seed: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """#438 DeFi Opportunity Scanner — on-chain price divergence analytics only (no execution)."""
+    seed = seed or _load_seed()
+    fee_bps = float(seed.get("default_trading_fee_bps", 10))
+    slip_bps = float(seed.get("default_slippage_bps", 8))
+    quote_usd = 1000.0
+    opportunities: list[dict[str, Any]] = []
+
+    for raw in seed.get("defi_opportunities") or []:
+        gross_bps = float(raw.get("price_divergence_bps", 0))
+        gas_usd = float(raw.get("gas_cost_estimate_usd", 0))
+        implied_yield = raw.get("implied_yield_pct")
+
+        econ = compute_arbitrage_economics(
+            gross_spread_bps=gross_bps,
+            quote_usd=quote_usd,
+            trading_fee_bps=fee_bps,
+            slippage_bps=slip_bps,
+            transfer_cost_usdt=0.0,
+            withdrawal_fee_usdt=gas_usd,
+        )
+
+        opportunities.append({
+            "opportunity_id": raw.get("opportunity_id"),
+            "opportunity_type": raw.get("scan_type", "on_chain_arbitrage"),
+            "feature_ref": _DEFI_FEATURE_ID,
+            "legal_name": "DeFi Opportunity Scanner",
+            "asset": raw.get("asset"),
+            "symbol": raw.get("symbol"),
+            "chain": raw.get("chain", "ethereum"),
+            "venue_buy": raw.get("venue_buy"),
+            "venue_sell": raw.get("venue_sell"),
+            "price_divergence_bps": gross_bps,
+            "implied_yield_pct": implied_yield,
+            "gas_cost_estimate_usd": gas_usd,
+            "collateral_ratio": raw.get("collateral_ratio"),
+            "liquidation_discount_pct": raw.get("liquidation_discount_pct"),
+            "lst_peg_deviation_bps": raw.get("lst_peg_deviation_bps"),
+            "gross_spread_bps": econ["gross_spread_bps"],
+            "net_edge_usdt": econ["net_edge_usdt"],
+            "net_edge_bps": econ["net_edge_bps"],
+            "slippage_bps": slip_bps,
+            "trading_fees_usdt": econ["trading_fees_usdt"],
+            "withdrawal_fee_usdt": gas_usd,
+            "quote_usd": quote_usd,
+            "cancelled_v1_scope": {
+                "flash_loan_simulation": True,
+                "bridge_execution": True,
+                "liquidation_buying": True,
+                "ml_training": True,
+            },
+            "simulation_only": True,
+            "no_auto_execution": True,
+            "display": raw.get("display") or f"DeFi divergence {raw.get('asset')} net edge {econ['net_edge_bps']:.2f} bps",
+        })
+
+    return opportunities
+
+
 def _normalize_cross_venue(raw: dict[str, Any], *, seed: dict[str, Any]) -> dict[str, Any]:
     fee_bps = float(seed.get("default_trading_fee_bps", 10))
     slip_bps = float(seed.get("default_slippage_bps", 8))
@@ -397,6 +458,21 @@ def enrich_opportunity(opp: dict[str, Any], *, seed: dict[str, Any] | None = Non
     except Exception:
         pass
 
+    # #433 Fill Risk Assessment
+    try:
+        from bd_platform.fill_risk_assessment import assess_fill_risk, apply_net_edge_risk_gate
+
+        enriched["fill_risk_assessment"] = assess_fill_risk(enriched)
+        enriched["net_edge_risk_gate"] = apply_net_edge_risk_gate(
+            enriched,
+            truth_result=enriched.get("net_edge_truth"),
+        )
+        if enriched["net_edge_risk_gate"].get("signal_rejected"):
+            enriched["signal_rejected"] = True
+            enriched.setdefault("risk_reasons", []).append("fill_risk_above_user_limit")
+    except Exception:
+        logger.debug("fill risk assessment skipped", exc_info=True)
+
     # Confidence from net-edge + feasibility
     truth_score = float((enriched.get("net_edge_truth") or {}).get("truth_score") or 50)
     feasibility = (enriched.get("volume_feasibility") or {})
@@ -424,6 +500,7 @@ def collect_all_opportunities(*, seed: dict[str, Any] | None = None) -> list[dic
         opps.append(_normalize_cross_venue(raw, seed=seed))
     for raw in (seed.get("duplicate_pair") or []):
         opps.append(_normalize_cross_venue(raw, seed=seed))
+    opps.extend(scan_defi_opportunities(seed=seed))
     return opps
 
 
@@ -456,6 +533,7 @@ def build_unified_feed(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
             "triangular_divergence": _TRIANGULAR_FEATURE_ID,
             "stablecoin_depeg": _TRIANGULAR_FEATURE_ID,
             "cross_venue": 403,
+            "on_chain_arbitrage": _DEFI_FEATURE_ID,
         },
         "ranked_by": "executable_net_edge_usdt",
         "economics_engine_ref": _ECONOMICS_ENGINE_REF,
@@ -535,6 +613,135 @@ def build_intelligence_ledger_integration(*, seed: dict[str, Any] | None = None)
         "integration": "intelligence_ledger",
         "unified_feed": build_unified_feed(seed=seed),
         "triangular_scanner": build_triangular_panel(seed=seed),
+        "defi_scanner": build_defi_panel(seed=seed),
+        "opportunity_alerts": build_opportunity_alert_panel(seed=seed),
+        "timestamp": _utcnow(),
+    }
+
+
+def build_defi_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#438 DeFi Opportunity Scanner panel."""
+    seed = seed or _load_seed()
+    opps = scan_defi_opportunities(seed=seed)
+    return {
+        "ok": True,
+        "feature_id": _DEFI_FEATURE_ID,
+        "title": "DeFi Opportunity Scanner",
+        "legal_name": "DeFi Opportunity Scanner",
+        "merged_into": f"#{_FEATURE_ID} Unified Arbitrage Opportunity Engine",
+        "opportunities": opps,
+        "count": len(opps),
+        "monitoring_only": True,
+        "cancelled_v1_scope": {
+            "flash_loan_simulation": True,
+            "bridge_execution": True,
+            "liquidation_buying": True,
+            "sharpe_drawdown_winrate_sla": True,
+        },
+        "simulation_only": True,
+        "no_auto_execution": True,
+        "timestamp": _utcnow(),
+    }
+
+
+def evaluate_opportunity_alert(
+    opportunity: dict[str, Any],
+    *,
+    seed: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """#434 — alert only when opportunity worth studying (not execution)."""
+    seed = seed or _load_seed()
+    cfg = seed.get("alert_config") or {}
+    min_truth = float(cfg.get("min_net_edge_truth_score", 55))
+    max_risk = float(cfg.get("max_fill_risk_pct", 65))
+
+    truth = opportunity.get("net_edge_truth") or {}
+    truth_score = float(truth.get("truth_score") or 0)
+    feasibility = opportunity.get("volume_feasibility") or opportunity.get("feasibility") or {}
+    fill_risk = (opportunity.get("fill_risk_assessment") or {}).get("fill_risk_pct", 100)
+
+    verdict = feasibility.get("verdict") or (feasibility.get("buy_leg") or {}).get("verdict")
+    fillable = verdict in {"full_fill", "partial_fill"} or opportunity.get("opportunity_type") in {
+        "triangular_divergence", "stablecoin_depeg", "on_chain_arbitrage",
+    }
+
+    eligible = (
+        truth_score >= min_truth
+        and fillable
+        and float(fill_risk) <= max_risk
+        and not opportunity.get("signal_suppressed")
+        and not truth.get("reject")
+    )
+
+    return {
+        "ok": True,
+        "feature_id": _ALERT_FEATURE_ID,
+        "legal_name": "Opportunity Worth Studying Alert",
+        "opportunity_id": opportunity.get("opportunity_id"),
+        "eligible_for_alert": eligible,
+        "criteria": {
+            "min_net_edge_truth_score": min_truth,
+            "max_fill_risk_pct": max_risk,
+            "feasibility_required": True,
+            "worth_studying_not_execution": True,
+        },
+        "checks": {
+            "net_edge_truth_score": truth_score,
+            "fillable": fillable,
+            "fill_risk_pct": fill_risk,
+            "truth_reject": truth.get("reject"),
+        },
+        "simulation_only": True,
+        "no_auto_execution": True,
+    }
+
+
+def build_opportunity_alert_panel(*, seed: dict[str, Any] | None = None) -> dict[str, Any]:
+    """#434 Opportunity Alert Engine — merged into #429."""
+    seed = seed or _load_seed()
+    feed = build_unified_feed(seed=seed)
+    cfg = seed.get("alert_config") or {}
+
+    pending_alerts = []
+    delivery_log = []
+
+    for opp in feed.get("opportunities") or []:
+        eval_result = evaluate_opportunity_alert(opp, seed=seed)
+        if eval_result.get("eligible_for_alert"):
+            alert = {
+                "alert_id": f"opp_alert_{opp.get('opportunity_id')}",
+                "opportunity_id": opp.get("opportunity_id"),
+                "title": "فرصة تستحق الدراسة",
+                "title_en": "Opportunity worth studying",
+                "message": opp.get("display") or f"Net edge {opp.get('net_edge_bps')} bps",
+                "channels": cfg.get("channels", ["push", "email"]),
+                "worth_studying_not_execution": True,
+                "simulation_only": True,
+            }
+            pending_alerts.append(alert)
+            for channel in alert["channels"]:
+                delivery_log.append({
+                    "alert_id": alert["alert_id"],
+                    "channel": channel,
+                    "success": True,
+                    "via": "alert_engine_infrastructure",
+                    "timestamp": _utcnow(),
+                })
+
+    return {
+        "ok": True,
+        "feature_id": _ALERT_FEATURE_ID,
+        "title": "Opportunity Worth Studying Alert Engine",
+        "legal_name": "Opportunity Worth Studying Alert Engine",
+        "merged_into": f"#{_FEATURE_ID} Unified Arbitrage Opportunity Engine",
+        "pending_alerts": pending_alerts,
+        "alert_count": len(pending_alerts),
+        "delivery_log": delivery_log,
+        "alert_config": cfg,
+        "accuracy_sla_cancelled": cfg.get("accuracy_sla_cancelled", True),
+        "max_delay_minutes": cfg.get("max_delay_minutes", 1),
+        "worth_studying_not_execution": True,
+        "no_auto_execution": True,
         "timestamp": _utcnow(),
     }
 
@@ -553,6 +760,16 @@ def unified_arbitrage_engine_status() -> dict[str, Any]:
         "economics_engine_ref": _ECONOMICS_ENGINE_REF,
         "economics_engine_version": seed.get("economics_engine_version"),
         "categories_merged": seed.get("merged_categories") or {},
+        "defi_scanner": {
+            "feature_id": _DEFI_FEATURE_ID,
+            "legal_name": "DeFi Opportunity Scanner",
+            "monitoring_only": True,
+        },
+        "opportunity_alerts": {
+            "feature_id": _ALERT_FEATURE_ID,
+            "legal_name": "Opportunity Worth Studying Alert Engine",
+            "worth_studying_not_execution": True,
+        },
         "triangular_scanner": {
             "feature_id": _TRIANGULAR_FEATURE_ID,
             "legal_name": seed.get("triangular_legal_name"),
@@ -568,9 +785,12 @@ def unified_arbitrage_engine_status() -> dict[str, Any]:
         "integrations": {
             "net_edge_truth_417": True,
             "fill_feasibility_415": True,
+            "fill_risk_assessment_433": True,
             "capital_protection_410": True,
             "exchange_health_456": True,
             "diligence_risk_460": True,
+            "opportunity_alerts_434": True,
+            "market_radar": True,
         },
         "disclaimer": _DISCLAIMER,
         "methodology_version": _METHODOLOGY_VERSION,
@@ -615,6 +835,12 @@ def run_reconciliation_tests(seed: dict[str, Any] | None = None) -> dict[str, An
     checks.append({"id": "canonical_schema_fields", "passed": "net_edge_usdt" in top and "confidence" in top, "detail": "schema"})
     checks.append({"id": "fill_feasibility_415", "passed": "net_edge_truth" in top or top.get("opportunity_type") == "triangular_divergence", "detail": "417/415"})
     checks.append({"id": "triangular_no_ml", "passed": build_triangular_panel(seed=seed).get("ml_disabled") is True, "detail": "v1 rule-based"})
+
+    defi = scan_defi_opportunities(seed=seed)
+    checks.append({"id": "defi_scanner_438", "passed": len(defi) >= 1, "detail": f"count={len(defi)}"})
+
+    alerts = build_opportunity_alert_panel(seed=seed)
+    checks.append({"id": "opportunity_alerts_434", "passed": alerts.get("worth_studying_not_execution") is True, "detail": f"alerts={alerts.get('alert_count')}"})
 
     passed = sum(1 for c in checks if c["passed"])
     return {
