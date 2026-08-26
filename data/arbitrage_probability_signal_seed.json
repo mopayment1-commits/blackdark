@@ -1,0 +1,113 @@
+{
+  "feature_id": 422,
+  "title": "Arbitrage Probability Signal",
+  "legal_name": "Arbitrage Probability Signal",
+  "renamed_from": "Predictive Arbitrage / Early probability detection",
+  "standalone": false,
+  "merged_into": "Intelligence Ledger / Arbitrage Scanner (#403)",
+  "sprint": 2,
+  "priority": "high",
+  "methodology_version": "1.0",
+  "rule_engine_version": "1.0.0",
+  "last_updated": "2026-08-26",
+  "ml_disabled_v1": true,
+  "cancelled_sla": {
+    "accuracy_95_pct": true,
+    "uptime_99_pct": true,
+    "fixed_5_second_prediction": true
+  },
+  "acceptance": {
+    "near_real_time": true,
+    "false_positive_rate_max_backtest": 0.30,
+    "rule_based_only": true
+  },
+  "component_weights": {
+    "order_book_imbalance": 0.30,
+    "funding_rate_differential": 0.25,
+    "volume_spike": 0.25,
+    "correlation_break": 0.20
+  },
+  "confidence_thresholds": {
+    "high": 75,
+    "medium": 50,
+    "low": 25
+  },
+  "formation_time_ranges_sec": {
+    "high_probability": [5, 30],
+    "medium_probability": [30, 120],
+    "low_probability": [120, 600]
+  },
+  "market_signals": {
+    "BTC": {
+      "order_book_imbalance": 0.62,
+      "funding_rate_differential_bps": 4.5,
+      "volume_spike_zscore": 2.1,
+      "correlation_break": false,
+      "buy_venue": "okx",
+      "sell_venue": "binance",
+      "quote_usd": 1000
+    },
+    "ETH": {
+      "order_book_imbalance": 0.48,
+      "funding_rate_differential_bps": 2.2,
+      "volume_spike_zscore": 1.4,
+      "correlation_break": true,
+      "buy_venue": "binance",
+      "sell_venue": "okx",
+      "quote_usd": 1000
+    },
+    "SOL": {
+      "order_book_imbalance": 0.71,
+      "funding_rate_differential_bps": 8.0,
+      "volume_spike_zscore": 2.8,
+      "correlation_break": false,
+      "buy_venue": "okx",
+      "sell_venue": "binance",
+      "quote_usd": 500
+    }
+  },
+  "probability_backtest": {
+    "period_days": 30,
+    "total_signals": 142,
+    "validated_signals": 98,
+    "correct_predictions": 72,
+    "false_positives": 26,
+    "false_positive_rate": 0.265,
+    "accuracy_rate": 0.735,
+    "meets_fpr_target": true
+  },
+  "probability_history_samples": [
+    {
+      "signal_id": "aps_btc_001",
+      "asset": "BTC",
+      "predicted_probability_pct": 78,
+      "outcome": "formed",
+      "outcome_recorded": true,
+      "timestamp": "2026-08-25T10:00:00+00:00"
+    },
+    {
+      "signal_id": "aps_eth_002",
+      "asset": "ETH",
+      "predicted_probability_pct": 45,
+      "outcome": "false_positive",
+      "outcome_recorded": true,
+      "timestamp": "2026-08-25T14:00:00+00:00"
+    },
+    {
+      "signal_id": "aps_sol_003",
+      "asset": "SOL",
+      "predicted_probability_pct": 82,
+      "outcome": "formed",
+      "outcome_recorded": true,
+      "timestamp": "2026-08-26T08:00:00+00:00"
+    }
+  ],
+  "integrations": {
+    "arbitrage_scanner_403": true,
+    "unified_arbitrage_429": true,
+    "net_edge_truth_417": true,
+    "fill_feasibility_415": true
+  },
+  "simulation_only": true,
+  "no_real_money_auto_execution": true
+}
