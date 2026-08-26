@@ -1,0 +1,48 @@
+{
+  "feature_id": 414,
+  "title": "System Performance Monitor",
+  "legal_name": "System Performance Monitor",
+  "renamed_from": "Execution_Latency_Monitor",
+  "standalone": false,
+  "merged_into": "Sprint-0 Infrastructure / Observability Layer",
+  "priority": "low",
+  "internal_admin_only": true,
+  "methodology_version": "1.0",
+  "last_updated": "2026-08-26",
+  "clock_sync_required": true,
+  "trace_ids_required": true,
+  "no_averaged_away_tail_latency": true,
+  "systems": ["oracle_api", "data_engine", "intelligence_ledger"],
+  "slo_targets_ms": {
+    "oracle_api_p95": 3000,
+    "data_engine_p95": 2000,
+    "intelligence_ledger_p95": 2500
+  },
+  "spans": {
+    "oracle_api": [
+      {"trace_id": "trc_orc_001", "stage": "ingest", "duration_ms": 12.5, "timestamp": "2026-08-26T19:00:00.100Z"},
+      {"trace_id": "trc_orc_001", "stage": "vwap_compute", "duration_ms": 3.2, "timestamp": "2026-08-26T19:00:00.115Z"},
+      {"trace_id": "trc_orc_001", "stage": "response", "duration_ms": 1.8, "timestamp": "2026-08-26T19:00:00.120Z"},
+      {"trace_id": "trc_orc_002", "stage": "ingest", "duration_ms": 45.0, "timestamp": "2026-08-26T19:00:01.000Z"},
+      {"trace_id": "trc_orc_002", "stage": "cache_miss", "duration_ms": 120.0, "timestamp": "2026-08-26T19:00:01.050Z"},
+      {"trace_id": "trc_de_001", "stage": "seed_load", "duration_ms": 2.1, "timestamp": "2026-08-26T19:00:02.000Z"},
+      {"trace_id": "trc_de_001", "stage": "normalize", "duration_ms": 8.5, "timestamp": "2026-08-26T19:00:02.010Z"},
+      {"trace_id": "trc_il_001", "stage": "panel_build", "duration_ms": 15.3, "timestamp": "2026-08-26T19:00:03.000Z"},
+      {"trace_id": "trc_il_001", "stage": "evidence_wrap", "duration_ms": 4.2, "timestamp": "2026-08-26T19:00:03.020Z"}
+    ],
+    "data_engine": [
+      {"trace_id": "trc_de_002", "stage": "ingest", "duration_ms": 18.0, "timestamp": "2026-08-26T19:00:04.000Z"},
+      {"trace_id": "trc_de_002", "stage": "join", "duration_ms": 22.5, "timestamp": "2026-08-26T19:00:04.020Z"}
+    ],
+    "intelligence_ledger": [
+      {"trace_id": "trc_il_002", "stage": "catalog_parse", "duration_ms": 35.0, "timestamp": "2026-08-26T19:00:05.000Z"},
+      {"trace_id": "trc_il_002", "stage": "reconciliation", "duration_ms": 12.0, "timestamp": "2026-08-26T19:00:05.040Z"}
+    ]
+  },
+  "load_evidence": {
+    "last_load_test": "2026-08-25",
+    "concurrent_requests": 500,
+    "p99_under_load_ms": 890,
+    "passed": true
+  }
+}
