@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0.0",
+  "epic": "Exchange Intelligence Layer",
+  "tasks": ["#549", "#547", "#548", "#546", "#544", "#550", "#551"],
+  "exchanges": {
+    "binance": {
+      "exchange_id": "binance",
+      "entity_id": "binance",
+      "name": "Binance",
+      "labels": {
+        "label": "Binance",
+        "confidence": "high",
+        "source": "entity_resolution_v1",
+        "version": "1.0",
+        "freshness_seconds": 300
+      }
+    },
+    "coinbase": {
+      "exchange_id": "coinbase",
+      "entity_id": "coinbase",
+      "name": "Coinbase",
+      "labels": {
+        "label": "Coinbase",
+        "confidence": "high",
+        "source": "entity_resolution_v1",
+        "version": "1.0",
+        "freshness_seconds": 420
+      }
+    },
+    "okx": {
+      "exchange_id": "okx",
+      "entity_id": "okx",
+      "name": "OKX",
+      "labels": {
+        "label": "OKX",
+        "confidence": "medium",
+        "source": "entity_resolution_v1",
+        "version": "1.0",
+        "freshness_seconds": 900
+      }
+    }
+  },
+  "exchange_clusters": {
+    "binance": {
+      "exchange_id": "binance",
+      "addresses": ["0xbinance_hot_01", "0xbinance_cold_01"],
+      "cluster_confidence": "high",
+      "cluster_source": "entity_resolution_v1"
+    },
+    "coinbase": {
+      "exchange_id": "coinbase",
+      "addresses": ["0xcoinbase_hot_01", "0xcoinbase_cold_01"],
+      "cluster_confidence": "high",
+      "cluster_source": "entity_resolution_v1"
+    },
+    "okx": {
+      "exchange_id": "okx",
+      "addresses": ["0xokx_hot_01", "0xokx_cold_01"],
+      "cluster_confidence": "medium",
+      "cluster_source": "entity_resolution_v1"
+    }
+  },
+  "transfers": [
+    {
+      "transfer_id": "tx-001",
+      "tx_hash": "0xabc001",
+      "timestamp": "2026-08-26T10:00:00Z",
+      "exchange_id": "binance",
+      "asset": "BTC",
+      "direction": "inflow",
+      "value_usd": 7200000.0,
+      "from_address": "0xexternal001",
+      "to_address": "0xbinance_hot_01"
+    },
+    {
+      "transfer_id": "tx-002",
+      "tx_hash": "0xabc002",
+      "timestamp": "2026-08-26T10:05:00Z",
+      "exchange_id": "binance",
+      "asset": "BTC",
+      "direction": "inflow",
+      "value_usd": 2700000.0,
+      "from_address": "0xbinance_hot_01",
+      "to_address": "0xbinance_cold_01"
+    },
+    {
+      "transfer_id": "tx-003",
+      "tx_hash": "0xabc003",
+      "timestamp": "2026-08-26T10:10:00Z",
+      "exchange_id": "binance",
+      "asset": "BTC",
+      "direction": "outflow",
+      "value_usd": 1800000.0,
+      "from_address": "0xbinance_hot_01",
+      "to_address": "0xexternal002"
+    },
+    {
+      "transfer_id": "tx-004",
+      "tx_hash": "0xabc004",
+      "timestamp": "2026-08-26T10:15:00Z",
+      "exchange_id": "coinbase",
+      "asset": "ETH",
+      "direction": "inflow",
+      "value_usd": 15000000.0,
+      "from_address": "0xexternal003",
+      "to_address": "0xcoinbase_hot_01"
+    },
+    {
+      "transfer_id": "tx-005",
+      "tx_hash": "0xabc005",
+      "timestamp": "2026-08-26T10:20:00Z",
+      "exchange_id": "coinbase",
+      "asset": "ETH",
+      "direction": "inflow",
+      "value_usd": 3600000.0,
+      "from_address": "0xcoinbase_hot_01",
+      "to_address": "0xcoinbase_cold_01"
+    },
+    {
+      "transfer_id": "tx-006",
+      "tx_hash": "0xabc006",
+      "timestamp": "2026-08-26T10:25:00Z",
+      "exchange_id": "binance",
+      "asset": "ETH",
+      "direction": "inflow",
+      "value_usd": 2400000.0,
+      "from_address": "0xexternal004",
+      "to_address": "0xbinance_hot_01"
+    },
+    {
+      "transfer_id": "tx-007",
+      "tx_hash": "0xabc007",
+      "timestamp": "2026-08-26T10:30:00Z",
+      "exchange_id": "binance",
+      "asset": "BTC",
+      "direction": "outflow",
+      "value_usd": 600000.0,
+      "from_address": "0xbinance_hot_01",
+      "to_address": "0xokx_hot_01"
+    },
+    {
+      "transfer_id": "tx-008",
+      "tx_hash": "0xabc008",
+      "timestamp": "2026-08-26T10:35:00Z",
+      "exchange_id": "binance",
+      "asset": "USDT",
+      "direction": "inflow",
+      "value_usd": 50000000.0,
+      "from_address": "0xexternal005",
+      "to_address": "0xbinance_hot_01",
+      "label_stale": true,
+      "label_source": "community_label_v0"
+    }
+  ],
+  "balances": {
+    "binance": {
+      "total_usd": 20107200000.0,
+      "change_24h_pct": 0.05,
+      "change_7d_pct": -1.2,
+      "trend": "stable",
+      "anomalies": [],
+      "historical_revisions_controlled": true
+    },
+    "coinbase": {
+      "total_usd": 2853600000.0,
+      "change_24h_pct": 0.13,
+      "change_7d_pct": 0.8,
+      "trend": "accumulating",
+      "anomalies": [],
+      "historical_revisions_controlled": true
+    }
+  },
+  "reserves": {
+    "binance": {
+      "total_usd": 20107200000.0,
+      "change_24h_pct": 0.05,
+      "change_7d_pct": -1.2,
+      "trend": "stable",
+      "by_asset": {
+        "BTC": 14707200000.0,
+        "ETH": 5414400000.0
+      },
+      "anomaly_detected": false,
+      "freshness_seconds": 300,
+      "historical_replay_supported": true
+    },
+    "coinbase": {
+      "total_usd": 2853600000.0,
+      "change_24h_pct": 0.13,
+      "change_7d_pct": 0.8,
+      "trend": "accumulating",
+      "by_asset": {
+        "ETH": 2853600000.0
+      },
+      "anomaly_detected": false,
+      "freshness_seconds": 420,
+      "historical_replay_supported": true
+    }
+  },
+  "revisions": [
+    {
+      "revision_id": "rev-001",
+      "effective_at": "2026-08-25T00:00:00Z",
+      "reason": "cluster_relabel",
+      "affected_transfers": ["tx-008"],
+      "affected_exchanges": ["binance"],
+      "note": "binance hot wallet relabeled from community to entity_resolution"
+    },
+    {
+      "revision_id": "rev-002",
+      "effective_at": "2026-08-20T00:00:00Z",
+      "reason": "cluster_expansion",
+      "affected_exchanges": ["binance"],
+      "cluster_version": "1.1",
+      "note": "added cold wallet to binance cluster"
+    }
+  ],
+  "supply_balances": {
+    "binance": {
+      "total_balance_usd": 20107200000.0,
+      "as_of": "2026-08-26T10:35:00Z",
+      "snapshot_id": "snap-binance-20260826",
+      "methodology_version": "1.0",
+      "historical_reproducibility": true,
+      "by_asset": {
+        "BTC": {
+          "balance": 245120.0,
+          "total_supply": 19800000.0,
+          "cluster_version": "1.1"
+        },
+        "ETH": {
+          "balance": 1804800.0,
+          "total_supply": 120000000.0,
+          "cluster_version": "1.1"
+        }
+      }
+    },
+    "coinbase": {
+      "total_balance_usd": 2853600000.0,
+      "as_of": "2026-08-26T10:35:00Z",
+      "snapshot_id": "snap-coinbase-20260826",
+      "methodology_version": "1.0",
+      "historical_reproducibility": true,
+      "by_asset": {
+        "ETH": {
+          "balance": 951200.0,
+          "total_supply": 120000000.0,
+          "cluster_version": "1.0"
+        }
+      }
+    }
+  }
+}
