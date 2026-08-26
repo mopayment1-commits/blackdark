@@ -710,3 +710,36 @@ async def community_pulse_panel_route(asset: str = Query("BTC")):
     if not result.get("ok"):
         raise HTTPException(status_code=404, detail=result.get("error") or "not_found")
     return result
+
+
+@router.get("/intelligence-ledger/alert-engine/status")
+async def alert_engine_status_route():
+    """#289 Alert Engine — renamed from Smart Alerts, rule-based first."""
+    from bd_platform.alert_engine import alert_engine_status
+
+    return alert_engine_status()
+
+
+@router.get("/intelligence-ledger/alert-engine")
+async def alert_engine_panel_route():
+    """#289 rule evaluation + delivery panel."""
+    from bd_platform.alert_engine import build_alert_engine_panel
+
+    return build_alert_engine_panel()
+
+
+@router.get("/intelligence-ledger/alert-engine/rules")
+async def alert_engine_rules_route(
+    alert_type: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+):
+    from bd_platform.alert_engine import list_alert_rules
+
+    return list_alert_rules(alert_type=alert_type, limit=limit)
+
+
+@router.get("/intelligence-ledger/alert-engine/delivery-logs")
+async def alert_engine_delivery_logs_route(limit: int = Query(50, ge=1, le=200)):
+    from bd_platform.alert_engine import list_delivery_logs
+
+    return list_delivery_logs(limit=limit)
